@@ -1,17 +1,14 @@
 package com.bbd.wtyh.web.controller;
 
-import java.util.List;
-
+import com.bbd.wtyh.service.AreaService;
+import com.bbd.wtyh.web.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.bbd.wtyh.common.ResponseBean;
 import com.bbd.wtyh.domain.Area;
-import com.bbd.wtyh.service.AreaService;
-
+import java.util.List;
 
 
 /**
@@ -27,7 +24,6 @@ public class ParkController {
     private AreaService areaService;
 
 
-    
     /**
     *
     * 获取区域信息
@@ -38,7 +34,7 @@ public class ParkController {
     public ResponseBean areaList() {
 
         List<Area> data = areaService.list();
-        
+
         return ResponseBean.successResponse(data);
     }
     
@@ -56,8 +52,4 @@ public class ParkController {
         
         return ResponseBean.successResponse(data);
     }
-    
-    
-    
-    
 }
