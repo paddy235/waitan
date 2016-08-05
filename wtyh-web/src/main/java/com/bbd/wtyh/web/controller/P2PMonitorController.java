@@ -23,7 +23,6 @@ public class P2PMonitorController {
     @ResponseBody
     public ResponseBean list() {
         Map<String , Object> content = p2PMonitorService.platFormName();
-        ResponseBean result = ResponseBean.successResponse(content);
-        return result;
+        return ResponseBean.successResponse(content);
     }
 }
