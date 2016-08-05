@@ -1,11 +1,11 @@
 package com.bbd.wtyh.domain;
 
-public class BuildingDO {
+public class BuildingDO extends BaseDO {
     private Integer buildingId;
 
     private String name;
 
-    private Integer areaId;
+    private Integer parkId;
 
     public Integer getBuildingId() {
         return buildingId;
@@ -23,11 +23,11 @@ public class BuildingDO {
         this.name = name == null ? null : name.trim();
     }
 
-    public Integer getAreaId() {
-        return areaId;
+    public Integer getParkId() {
+        return parkId;
     }
 
-    public void setAreaId(Integer areaId) {
-        this.areaId = areaId;
+    public void setParkId(Integer parkId) {
+        this.parkId = parkId;
     }
 }

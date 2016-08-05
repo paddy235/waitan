@@ -1,16 +1,16 @@
 package com.bbd.wtyh.domain;
 
-public class ProductAmountDO {
-    private String fundManager;
+public class ProductAmountDO extends BaseDO {
+    private Integer companyId;
 
     private Integer productNumber;
 
-    public String getFundManager() {
-        return fundManager;
+    public Integer getCompanyId() {
+        return companyId;
     }
 
-    public void setFundManager(String fundManager) {
-        this.fundManager = fundManager == null ? null : fundManager.trim();
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
     }
 
     public Integer getProductNumber() {

@@ -1,6 +1,6 @@
 package com.bbd.wtyh.domain;
 
-public class CompanyLevelDO {
+public class CompanyLevelDO extends BaseDO {
     private Integer companyId;
 
     private Integer outLevel;

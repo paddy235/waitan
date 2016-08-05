@@ -1,6 +1,6 @@
 package com.bbd.wtyh.domain;
 
-public class QflpCompanyDO {
+public class QflpCompanyDO extends BaseDO {
     private Integer companyId;
 
     private Float scale;

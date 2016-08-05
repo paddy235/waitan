@@ -1,6 +1,6 @@
 package com.bbd.wtyh.domain;
 
-public class CapitalAmountDO {
+public class CapitalAmountDO extends BaseDO {
     private Integer investmentTypeId;
 
     private Float manageCapitalAmount;

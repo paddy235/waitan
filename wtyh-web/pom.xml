@@ -41,6 +41,25 @@
                 </resources>
             </build>
         </profile>
+        <!--测试环境-->
+        <profile>
+            <id>test</id>
+            <!-- 默认 -->
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <filters>
+                    <filter>src/main/resources/config/dev.properties</filter>
+                </filters>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
         <!--上线环境-->
         <profile>
             <id>online</id>

@@ -2,7 +2,7 @@ package com.bbd.wtyh.domain;
 
 import java.util.Date;
 
-public class CompanyDO {
+public class CompanyDO extends BaseDO {
     private Integer companyId;
 
     private String name;

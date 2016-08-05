@@ -1,6 +1,6 @@
 package com.bbd.wtyh.domain;
 
-public class PrivateFundSubtypeDO {
+public class PrivateFundSubtypeDO extends BaseDO {
     private Byte subTypeId;
 
     private String typeName;

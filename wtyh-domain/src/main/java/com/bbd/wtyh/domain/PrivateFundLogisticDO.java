@@ -1,9 +1,7 @@
 package com.bbd.wtyh.domain;
 
-public class PrivateFundLogisticDO {
+public class PrivateFundLogisticDO extends BaseDO {
     private Byte typeId;
-
-    private Byte subTypeId;
 
     private Integer amount;
 
@@ -13,14 +11,6 @@ public class PrivateFundLogisticDO {
 
     public void setTypeId(Byte typeId) {
         this.typeId = typeId;
-    }
-
-    public Byte getSubTypeId() {
-        return subTypeId;
-    }
-
-    public void setSubTypeId(Byte subTypeId) {
-        this.subTypeId = subTypeId;
     }
 
     public Integer getAmount() {

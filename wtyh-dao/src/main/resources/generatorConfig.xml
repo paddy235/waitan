@@ -8,6 +8,7 @@
 
     <!--指定特定数据库的jdbc驱动jar包的位置 -->
     <classPathEntry location="${jdbc.driverLocation}"/>
+    <classPathEntry location="D:\code\wtyh\wtyh-dao\target\classes"/>
 
     <context id="default" targetRuntime="MyBatis3">
 
@@ -44,8 +45,8 @@
             <!-- 建立的Model对象是否 不可改变  即生成的Model对象不会有 setter方法，只有构造方法 -->
             <property name="immutable" value="false"/>
 
-            <!-- 给Model添加一个父类 >
-            <property name="rootClass" value="com.foo.louis.Hello"/-->
+            <!-- 给Model添加一个父类 -->
+            <property name="rootClass" value="com.bbd.wtyh.domain.BaseDO"/>
 
             <!-- 是否对类CHAR类型的列的数据进行trim操作 -->
             <property name="trimStrings" value="true"/>
@@ -53,7 +54,7 @@
         </javaModelGenerator>
 
         <!--Mapper映射文件生成所在的目录 为每一个数据库的表生成对应的SqlMap文件 -->
-        <sqlMapGenerator targetPackage="com.bbd.wtyh.mapper" targetProject="src/main/java">
+        <sqlMapGenerator targetPackage="com.bbd.wtyh.mapper" targetProject="src/main/resources">
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
 
@@ -65,33 +66,33 @@
                 type="MIXEDMAPPER",生成基于注解的Java Model 和相应的Mapper对象
                 type="XMLMAPPER",生成SQLMap XML文件和独立的Mapper接口
         -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.bbd.wtyh.mapper" targetProject="src/main/java"/>
 
-
-        <table tableName="area" domainObjectName="AreaDO" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
-        <table tableName="building" domainObjectName="BuildingDO" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
-        <table tableName="capital_amount" domainObjectName="CapitalAmountDO" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
-        <table tableName="company" domainObjectName="CompanyDO" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
-        <table tableName="company_background" domainObjectName="CompanyBackgroundDO" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
-        <table tableName="company_building" domainObjectName="CompanyBuildingDO" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
-        <table tableName="company_color" domainObjectName="CompanyColorDO" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
-        <table tableName="company_level" domainObjectName="CompanyLevelDO" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
-        <table tableName="company_news" domainObjectName="CompanyNewsDO" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
-        <table tableName="fund_product_logistic" domainObjectName="FundProductLogisticDO" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
-        <table tableName="fund_product_type" domainObjectName="FundProductTypeDO" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
-        <table tableName="guaranteed_info" domainObjectName="GuaranteedInfoDO" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
-        <table tableName="guarantee_balance" domainObjectName="GuaranteeBalanceDO" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
-        <table tableName="investment_logistic" domainObjectName="InvestmentLogisticDO" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
-        <table tableName="investment_return_logistic" domainObjectName="InvestmentReturnLogisticDO" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
-        <table tableName="investment_type" domainObjectName="InvestmentTypeDO" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
-        <table tableName="large_loan" domainObjectName="LargeLoanDO" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
-        <table tableName="loan_balance" domainObjectName="LoanBalanceDO" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
-        <table tableName="private_fund_logistic" domainObjectName="PrivateFundLogisticDO" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
-        <table tableName="private_fund_subtype" domainObjectName="PrivateFundSubtypeDO" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
-        <table tableName="private_fund_type" domainObjectName="PrivateFundTypeDO" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
-        <table tableName="product_amount" domainObjectName="ProductAmountDO" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
-        <table tableName="qdlp_progress" domainObjectName="QdlpProgressDO" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
-        <table tableName="qflp_company" domainObjectName="QflpCompanyDO" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
-        <table tableName="related_company" domainObjectName="RelatedCompanyDO" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
+        <table tableName="area" domainObjectName="Area"  enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
+        <table tableName="building" domainObjectName="Building" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
+        <table tableName="capital_amount" domainObjectName="CapitalAmount" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
+        <table tableName="company" domainObjectName="Company" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
+        <table tableName="company_background" domainObjectName="CompanyBackground" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
+        <table tableName="company_building" domainObjectName="CompanyBuilding" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
+        <table tableName="company_color" domainObjectName="CompanyColor" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
+        <table tableName="company_level" domainObjectName="CompanyLevel" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
+        <table tableName="company_news" domainObjectName="CompanyNews" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
+        <table tableName="fund_product_logistic" domainObjectName="FundProductLogistic" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
+        <table tableName="fund_product_type" domainObjectName="FundProductType" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
+        <table tableName="guaranteed_info" domainObjectName="GuaranteedInfo" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
+        <table tableName="guarantee_balance" domainObjectName="GuaranteeBalance" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
+        <table tableName="investment_logistic" domainObjectName="InvestmentLogistic" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
+        <table tableName="investment_return_logistic" domainObjectName="InvestmentReturnLogistic" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
+        <table tableName="investment_type" domainObjectName="InvestmentType" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
+        <table tableName="large_loan" domainObjectName="LargeLoan" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
+        <table tableName="loan_balance" domainObjectName="LoanBalance" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
+        <table tableName="private_fund_logistic" domainObjectName="PrivateFundLogistic" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
+        <table tableName="private_fund_subtype" domainObjectName="PrivateFundSubtype" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
+        <table tableName="private_fund_type" domainObjectName="PrivateFundType" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
+        <table tableName="product_amount" domainObjectName="ProductAmount" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
+        <table tableName="qdlp_progress" domainObjectName="QdlpProgress" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
+        <table tableName="qflp_company" domainObjectName="QflpCompany" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
+        <table tableName="related_company" domainObjectName="RelatedCompany" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
 
 
     </context>
