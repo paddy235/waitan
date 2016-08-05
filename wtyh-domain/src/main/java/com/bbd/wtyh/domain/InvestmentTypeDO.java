@@ -1,6 +1,6 @@
 package com.bbd.wtyh.domain;
 
-public class InvestmentTypeDO {
+public class InvestmentTypeDO extends BaseDO {
     private Integer investmentTypeId;
 
     private String investmentTypeName;

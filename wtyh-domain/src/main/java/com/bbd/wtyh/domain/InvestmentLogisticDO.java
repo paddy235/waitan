@@ -1,6 +1,6 @@
 package com.bbd.wtyh.domain;
 
-public class InvestmentLogisticDO {
+public class InvestmentLogisticDO extends BaseDO {
     private Integer year;
 
     private Integer investmentAmount;

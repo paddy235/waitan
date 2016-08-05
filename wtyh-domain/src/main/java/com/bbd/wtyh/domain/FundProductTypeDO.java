@@ -1,6 +1,6 @@
 package com.bbd.wtyh.domain;
 
-public class FundProductTypeDO {
+public class FundProductTypeDO extends BaseDO {
     private Integer productTypeId;
 
     private String productTypeName;

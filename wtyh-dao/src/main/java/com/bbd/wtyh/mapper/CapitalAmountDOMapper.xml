@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bbd.wtyh.mapper.CapitalAmountDOMapper">
-  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.CapitalAmountDO">
-    <result column="investment_type_id" jdbcType="INTEGER" property="investmentTypeId" />
-    <result column="manage_capital_amount" jdbcType="REAL" property="manageCapitalAmount" />
-  </resultMap>
-</mapper>

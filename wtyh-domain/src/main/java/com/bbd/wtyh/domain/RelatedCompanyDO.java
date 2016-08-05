@@ -1,9 +1,19 @@
 package com.bbd.wtyh.domain;
 
-public class RelatedCompanyDO {
+public class RelatedCompanyDO extends BaseDO {
+    private Integer id;
+
     private Integer companyId;
 
     private Integer relatedCompanyId;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getCompanyId() {
         return companyId;

@@ -1,6 +1,8 @@
 package com.bbd.wtyh.domain;
 
-public class GuaranteeBalanceDO {
+public class GuaranteeBalanceDO extends BaseDO {
+    private Integer id;
+
     private Integer guaranteeBalance;
 
     private Integer year;
@@ -14,6 +16,14 @@ public class GuaranteeBalanceDO {
     private Integer compositeBalance;
 
     private Integer policyBalance;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getGuaranteeBalance() {
         return guaranteeBalance;

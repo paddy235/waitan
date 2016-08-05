@@ -1,6 +1,8 @@
 package com.bbd.wtyh.domain;
 
-public class LoanBalanceDO {
+public class LoanBalanceDO extends BaseDO {
+    private Integer id;
+
     private Integer year;
 
     private Integer mounth;
@@ -12,6 +14,14 @@ public class LoanBalanceDO {
     private Float agricultureBalance;
 
     private Float smallCompanyBalance;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getYear() {
         return year;

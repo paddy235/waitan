@@ -1,6 +1,6 @@
 package com.bbd.wtyh.domain;
 
-public class CompanyBuildingDO {
+public class CompanyBuildingDO extends BaseDO {
     private Integer companyId;
 
     private Integer buildingId;

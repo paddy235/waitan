@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bbd.wtyh.mapper.FundProductLogisticDOMapper">
-  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.FundProductLogisticDO">
-    <result column="product_type_id" jdbcType="INTEGER" property="productTypeId" />
-    <result column="product_number" jdbcType="INTEGER" property="productNumber" />
-  </resultMap>
-</mapper>

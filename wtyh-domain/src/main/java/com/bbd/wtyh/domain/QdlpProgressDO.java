@@ -1,6 +1,6 @@
 package com.bbd.wtyh.domain;
 
-public class QdlpProgressDO {
+public class QdlpProgressDO extends BaseDO {
     private Integer companyId;
 
     private String foreignShareholder;
