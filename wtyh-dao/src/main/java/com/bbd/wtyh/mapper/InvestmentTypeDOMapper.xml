@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.InvestmentTypeDOMapper">
+  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.InvestmentTypeDO">
+    <id column="investment_type_id" jdbcType="INTEGER" property="investmentTypeId" />
+    <result column="investment_type_name" jdbcType="VARCHAR" property="investmentTypeName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    investment_type_id, investment_type_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from investment_type
+    where investment_type_id = #{investmentTypeId,jdbcType=INTEGER}
+  </select>
+</mapper>

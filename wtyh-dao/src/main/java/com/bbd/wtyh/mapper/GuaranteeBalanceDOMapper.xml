@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.GuaranteeBalanceDOMapper">
+  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.GuaranteeBalanceDO">
+    <result column="guarantee_balance" jdbcType="INTEGER" property="guaranteeBalance" />
+    <result column="year" jdbcType="INTEGER" property="year" />
+    <result column="month" jdbcType="INTEGER" property="month" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="steel_balance" jdbcType="INTEGER" property="steelBalance" />
+    <result column="composite_balance" jdbcType="INTEGER" property="compositeBalance" />
+    <result column="policy_balance" jdbcType="INTEGER" property="policyBalance" />
+  </resultMap>
+</mapper>

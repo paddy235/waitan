@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.CompanyLevelDOMapper">
+  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.CompanyLevelDO">
+    <id column="company_id" jdbcType="INTEGER" property="companyId" />
+    <result column="out_level" jdbcType="INTEGER" property="outLevel" />
+    <result column="inner_level" jdbcType="INTEGER" property="innerLevel" />
+    <result column="live_level" jdbcType="INTEGER" property="liveLevel" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    company_id, out_level, inner_level, live_level
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from company_level
+    where company_id = #{companyId,jdbcType=INTEGER}
+  </select>
+</mapper>
