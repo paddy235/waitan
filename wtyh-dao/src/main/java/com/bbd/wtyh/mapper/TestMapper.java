@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * 
  * 用户mapper
- * @author Ian.Su
+ * @author test
  *
  */
 public interface TestMapper {
