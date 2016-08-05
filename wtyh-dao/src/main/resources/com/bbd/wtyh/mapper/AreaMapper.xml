@@ -4,8 +4,8 @@
 <mapper namespace="com.bbd.wtyh.mapper.AreaMapper">
 
 
-    <select id="list"  resultType="com.bbd.wtyh.entity.Area">
-			select * from area;
+    <select id="list"  resultType="com.bbd.wtyh.domain.Area">
+			select area_id, name from area;
 	</select>
 
 
