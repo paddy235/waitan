@@ -28,7 +28,7 @@
             <id>dev</id>
             <!-- 默认 -->
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <build>
                 <filters>
@@ -47,7 +47,7 @@
             <id>test</id>
             <!-- 默认 -->
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <build>
                 <filters>
