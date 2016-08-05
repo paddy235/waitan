@@ -363,6 +363,11 @@
             <version>2.5.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.bbd.higgs</groupId>
+            <artifactId>utils</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 
     </dependencies>
 
