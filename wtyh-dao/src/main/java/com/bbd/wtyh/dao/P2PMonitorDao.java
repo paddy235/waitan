@@ -8,5 +8,8 @@ import java.util.Map;
  * @since 2016.08.05
  */
 public interface P2PMonitorDao {
-    Map<String, Object> platFormStatus();
+    Map<String , Object> platFormStatus();
+    Map<String , Object> platFormConsensus();
+    Map<String , Object> lawsuitMsg();
+    Map<String , Object> radarScore();
 }

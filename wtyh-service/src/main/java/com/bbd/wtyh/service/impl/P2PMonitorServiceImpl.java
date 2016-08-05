@@ -20,4 +20,19 @@ public class P2PMonitorServiceImpl implements P2PMonitorService{
     public Map<String, Object> platFormStatus() {
         return p2PMonitorDao.platFormStatus();
     }
+
+    @Override
+    public Map<String, Object> platFormConsensus() {
+        return p2PMonitorDao.platFormConsensus();
+    }
+
+    @Override
+    public Map<String, Object> lawsuitMsg() {
+        return p2PMonitorDao.lawsuitMsg();
+    }
+
+    @Override
+    public Map<String, Object> radarScore() {
+        return p2PMonitorDao.radarScore();
+    }
 }
