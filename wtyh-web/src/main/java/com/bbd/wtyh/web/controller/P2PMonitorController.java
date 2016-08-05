@@ -1,5 +1,6 @@
 package com.bbd.wtyh.web.controller;
 
+import com.bbd.wtyh.web.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,13 +21,14 @@ public class P2PMonitorController {
     // 获取数据
     @RequestMapping("/baseStatus")
     @ResponseBody
-    public Map<String, String> list() {
+    public ResponseBean list() {
 
-//        List<Test> data = testService.list();
-        Map<String, String> result = new HashMap<>();
-        result.put("hello", "world");
-        result.put("hello", "world");
-        result.put("hello", "world");
+        Map<String, String> content = new HashMap<>();
+        content.put("hello", "world");
+        content.put("hello1", "wo1rld");
+        content.put("hell", "wor2ld");
+        ResponseBean result = ResponseBean.successResponse(content);
+
         return result;
     }
 }
