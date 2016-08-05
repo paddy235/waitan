@@ -22,7 +22,7 @@ public class P2PMonitorController {
     @RequestMapping("/baseStatus")
     @ResponseBody
     public ResponseBean list() {
-        Map<String , Object> content = p2PMonitorService.platFormName();
+        Map<String , Object> content = p2PMonitorService.platFormStatus();
         return ResponseBean.successResponse(content);
     }
 }

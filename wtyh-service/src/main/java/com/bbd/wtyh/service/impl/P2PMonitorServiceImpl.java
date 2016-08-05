@@ -10,14 +10,14 @@ import java.util.Map;
 /**
  * P2P平台名称信息业务层
  * @author wangchenge
- * @since 2016.8.5
+ * @since 2016.08.05
  */
 @Service("p2PMonitorService")
 public class P2PMonitorServiceImpl implements P2PMonitorService{
     @Autowired
     private P2PMonitorDao p2PMonitorDao;
     @Override
-    public Map<String, Object> platFormName() {
-        return p2PMonitorDao.platFormName();
+    public Map<String, Object> platFormStatus() {
+        return p2PMonitorDao.platFormStatus();
     }
 }

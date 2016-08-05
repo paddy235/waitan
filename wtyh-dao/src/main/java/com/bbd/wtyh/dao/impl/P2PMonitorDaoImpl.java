@@ -7,12 +7,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by wangchenge on 2016/8/5 0005.
+ * p2p检测平台dao层
+ * @author wangchenge
+ * @since 2016.08.05
  */
 @Repository("p2PMonitorDap")
 public class P2PMonitorDaoImpl implements P2PMonitorDao {
     @Override
-    public Map<String, Object> platFormName() {
+    public Map<String, Object> platFormStatus() {
         Map<String , Object> map = new HashMap<>();
         map.put("name" , "数联铭品");
         map.put("score" , "88");

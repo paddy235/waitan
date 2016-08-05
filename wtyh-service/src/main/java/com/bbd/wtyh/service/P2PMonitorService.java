@@ -8,5 +8,5 @@ import java.util.Map;
  * @since 2016.8.5
  */
 public interface P2PMonitorService {
-    Map<String , Object> platFormName();
+    Map<String , Object> platFormStatus();
 }
