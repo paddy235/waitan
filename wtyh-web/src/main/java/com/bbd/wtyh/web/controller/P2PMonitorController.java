@@ -1,5 +1,6 @@
 package com.bbd.wtyh.web.controller;
 
+import com.bbd.wtyh.service.P2PMonitorService;
 import com.bbd.wtyh.web.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,20 +16,14 @@ import java.util.Map;
 @Controller
 @RequestMapping("/P2PMonitor")
 public class P2PMonitorController {
-
-
-
+    @Autowired
+    private P2PMonitorService p2PMonitorService;
     // 获取数据
     @RequestMapping("/baseStatus")
     @ResponseBody
     public ResponseBean list() {
-
-        Map<String, String> content = new HashMap<>();
-        content.put("hello", "world");
-        content.put("hello1", "wo1rld");
-        content.put("hell", "wor2ld");
+        Map<String , Object> content = p2PMonitorService.platFormName();
         ResponseBean result = ResponseBean.successResponse(content);
-
         return result;
     }
 }
