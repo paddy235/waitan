@@ -4,6 +4,10 @@
   <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.CapitalAmountDO">
     <id column="investment_type_id" jdbcType="INTEGER" property="investmentTypeId" />
     <result column="manage_capital_amount" jdbcType="REAL" property="manageCapitalAmount" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="DATE" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="DATE" property="updateDate" />
   </resultMap>
   <sql id="Base_Column_List">
     investment_type_id, manage_capital_amount
