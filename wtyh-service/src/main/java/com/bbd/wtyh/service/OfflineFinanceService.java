@@ -12,4 +12,6 @@ public interface OfflineFinanceService {
 
     @SuppressWarnings("rawtypes")
 	List<Map> relatedGraph();
+
+    public String getRelationFromKunLun(String companyName, String level, String version);
 }
