@@ -1,4 +1,4 @@
-package com.bbd.wtyh.util;
+package com.bbd.wtyh.web;
 
 
 public class ResponseBean {

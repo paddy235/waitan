@@ -1,7 +1,7 @@
 package com.bbd.wtyh.web.controller;
 
 import com.bbd.wtyh.service.OfflineFinanceService;
-import com.bbd.wtyh.util.ResponseBean;
+import com.bbd.wtyh.web.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
