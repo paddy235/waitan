@@ -26,11 +26,13 @@ public class PageModel {
 
     private boolean hasPreviousPage = false; // 是否有前一页 
 
-    private List list; 
+    @SuppressWarnings("rawtypes")
+	private List list; 
 
     // private Iterator it; 
 
-    public PageModel(List list, int pageRecorders) { 
+    @SuppressWarnings("rawtypes")
+	public PageModel(List list, int pageRecorders) { 
         init(list, pageRecorders);// 通过对象集，记录总数划分 
     } 
     
@@ -39,7 +41,8 @@ public class PageModel {
      * @param list 
      * @param pageRecorders 
      */ 
-    public void init(List list, int pageRecorders) { 
+    @SuppressWarnings("rawtypes")
+	public void init(List list, int pageRecorders) { 
         this.pageRecorders = pageRecorders; 
         this.list = list; 
         totalRows = list.size(); 
@@ -81,7 +84,8 @@ public class PageModel {
         return str; 
     } 
 
-    public void description() { 
+    @SuppressWarnings("unused")
+	public void description() { 
 
         String description = "共有数据数:" + this.getTotalRows() + 
 
@@ -99,7 +103,8 @@ public class PageModel {
 
     } 
 
-    public List getNextPage() { 
+    @SuppressWarnings("rawtypes")
+	public List getNextPage() { 
         page = page + 1; 
 
         disposePage(); 
@@ -130,7 +135,8 @@ public class PageModel {
         } 
     } 
 
-    public List getPreviousPage() { 
+    @SuppressWarnings("rawtypes")
+	public List getPreviousPage() { 
 
         page = page - 1; 
 
@@ -154,7 +160,8 @@ public class PageModel {
      * @param page 
      * @return 
      */ 
-    public List getObjects(int page) { 
+    @SuppressWarnings("rawtypes")
+	public List getObjects(int page) { 
         if (page == 0) 
             this.setPage(1); 
         else 
@@ -176,7 +183,8 @@ public class PageModel {
         return objects; 
     } 
 
-    public List getFistPage() { 
+    @SuppressWarnings("rawtypes")
+	public List getFistPage() { 
         if (this.isNext()) { 
             return list.subList(0, pageRecorders); 
         } else { 
@@ -194,12 +202,14 @@ public class PageModel {
     } 
 
 
-    public List getList() { 
+    @SuppressWarnings("rawtypes")
+	public List getList() { 
         return list; 
     } 
 
 
-    public void setList(List list) { 
+    @SuppressWarnings("rawtypes")
+	public void setList(List list) { 
         this.list = list; 
     } 
 

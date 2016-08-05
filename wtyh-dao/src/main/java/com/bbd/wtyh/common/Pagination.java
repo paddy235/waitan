@@ -18,7 +18,8 @@ public class Pagination {
     //后页数量
     private Integer before_range_num = 4;
     //当前页数据集合
-    private List list;
+    @SuppressWarnings("rawtypes")
+	private List list;
 
     public List<Integer> getPageNumList() {
         List<Integer> pageNumList = new ArrayList<Integer>();
@@ -86,11 +87,13 @@ public class Pagination {
         return previousPageNumber;
     }
 
-    public List getList() {
+    @SuppressWarnings("rawtypes")
+	public List getList() {
         return list;
     }
 
-    public void setList(List list) {
+    @SuppressWarnings("rawtypes")
+	public void setList(List list) {
         this.list = list;
     }
 

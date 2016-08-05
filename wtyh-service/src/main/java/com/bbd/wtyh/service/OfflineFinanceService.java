@@ -1,7 +1,5 @@
 package com.bbd.wtyh.service;
 
-import com.bbd.wtyh.entity.Test;
-
 import java.util.List;
 import java.util.Map;
 
@@ -12,5 +10,6 @@ import java.util.Map;
  */
 public interface OfflineFinanceService {
 
-    List<Map> relatedGraph();
+    @SuppressWarnings("rawtypes")
+	List<Map> relatedGraph();
 }

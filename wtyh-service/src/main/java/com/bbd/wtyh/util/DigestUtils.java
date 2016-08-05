@@ -2,8 +2,6 @@ package com.bbd.wtyh.util;
 
 import org.apache.commons.codec.binary.Base64;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;

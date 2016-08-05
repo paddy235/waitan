@@ -1,8 +1,6 @@
 package com.bbd.wtyh.web.controller;
 
-import com.bbd.wtyh.entity.Test;
 import com.bbd.wtyh.service.OfflineFinanceService;
-import com.bbd.wtyh.service.TestService;
 import com.bbd.wtyh.util.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +27,8 @@ public class OfflineFinanceController {
      *
      * @return
      */
-    @RequestMapping("/relatedGraph")
+    @SuppressWarnings("rawtypes")
+	@RequestMapping("/relatedGraph")
     @ResponseBody
     public ResponseBean relatedGraph() {
         List<Map> data = offlineFinanceService.relatedGraph();

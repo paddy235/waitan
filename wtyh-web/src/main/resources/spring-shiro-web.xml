@@ -106,25 +106,6 @@
         <!--anon不需要登录 user需要登录认证-->
         <property name="filterChainDefinitions">
             <value>
-                /ui/** = anon
-                /assets/** = anon
-                /favicon** = anon
-                /mtui/** = anon
-                /logout = logout
-                /controller/** = anon
-				<!--/ = authc -->
-				/judge/judge_list = authc,urlCheck
-				/index = authc,urlCheck
-				/judge/judge_dynamic = authc,urlCheck
-				/judge/judge_compare = authc,urlCheck
-				/lawyer/lawyer_search = authc,urlCheck
-				/doc/doc_search = authc,urlCheck
-				/cause/cause_index = authc,urlCheck
-				/lawyer/figure/detail = authc,urlCheck
-                
-                /**/** = authc
-                <!--/logout = logout-->
-                <!--/** = user-->
             </value>
         </property>
     </bean>

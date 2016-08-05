@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<project
-        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <parent>
@@ -28,30 +27,11 @@
             <id>dev</id>
             <!-- 默认 -->
             <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <build>
-                <filters>
-                    <filter>src/main/resources/config/dev.properties</filter>
-                </filters>
-                <resources>
-                    <resource>
-                        <directory>src/main/resources</directory>
-                        <filtering>true</filtering>
-                    </resource>
-                </resources>
-            </build>
-        </profile>
-        <!--测试环境-->
-        <profile>
-            <id>test</id>
-            <!-- 默认 -->
-            <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <build>
                 <filters>
-                    <filter>src/main/resources/config/test.properties</filter>
+                    <filter>src/main/resources/config/dev.properties</filter>
                 </filters>
                 <resources>
                     <resource>
