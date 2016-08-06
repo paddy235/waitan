@@ -27,4 +27,25 @@
     from company
     where company_id = #{companyId,jdbcType=INTEGER}
   </select>
+  
+  
+   <select id="countByDate"  resultType="com.bbd.wtyh.domain.InBusiness">
+   		
+   		select count(*) count from company com , 
+   		  company_building cb ,building bui ,park p where 
+   			p.park_id=bui.park_id and 
+   			cb.company_id=com.company_id and 
+   			cb.building_id=bui.building_id and 
+   			p.area_id=#{areaId} 
+   			<if test="#{start}!=null" >
+   				and com.registered_date >= #{start}
+   			</if>
+   			<if test="#{end}!=null"  >
+   				  <![CDATA[ and com.registered_date < #{end} ]]>   
+   			</if>
+   			 
+   </select>
+  
+  
+  
 </mapper>
