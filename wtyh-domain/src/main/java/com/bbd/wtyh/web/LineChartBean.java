@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 柱状图返回值
+ * 折现图返回值
  * Created by yanwenyuan on 2016/8/6.
  */
-public class HistogramBean<T1, T2> {
+public class LineChartBean<T1, T2> {
     private List<T1> xAxis;
     private List<T2> series;
 
-    public HistogramBean() {
+    public LineChartBean() {
         this.xAxis = new ArrayList<>();
         this.series = new ArrayList<>();
     }
