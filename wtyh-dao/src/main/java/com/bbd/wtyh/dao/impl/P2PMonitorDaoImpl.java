@@ -76,15 +76,15 @@ public class P2PMonitorDaoImpl implements P2PMonitorDao {
     @Override
     public Map<String, String> baseInfo() {
         Map<String, String> info = new HashMap<>();
-        info.put("p2pName", "陆金所");
-        info.put("companyName", "上海陆家嘴国际金融资产交易市场股份有限公司");
-        info.put("legalPeople", "郑森");
-        info.put("capital", "83667");
-        info.put("address", "上海浦东新区陆家嘴环路1333号");
-        info.put("openedTime", "2011-11-9");
-        info.put("verifiedTime", "2011-11-9");
-        info.put("registerOffice", "上海市工商局");
-        info.put("companyCode", "79361521");
+        info.put("p2pName", "陆金所");     // 平台名称
+        info.put("companyName", "上海陆家嘴国际金融资产交易市场股份有限公司");   // 公司名称
+        info.put("legalPeople", "郑森");  // 法人代表
+        info.put("capital", "83667");   // 注册资本
+        info.put("address", "上海浦东新区陆家嘴环路1333号");    // 注册地址
+        info.put("openedTime", "2011-11-9");    // 开业时间
+        info.put("verifiedTime", "2011-11-9");  // 核准时间
+        info.put("registerOffice", "上海市工商局");   // 等级机关
+        info.put("companyCode", "79361521");    // 组织结构代码
 
         return info;
     }
@@ -92,15 +92,14 @@ public class P2PMonitorDaoImpl implements P2PMonitorDao {
     @Override
     public Map<String, String> coreDataInfo() {
         Map<String, String> info = new HashMap<>();
-        info.put("p2pName", "陆金所");
-        info.put("companyName", "上海陆家嘴国际金融资产交易市场股份有限公司");
-        info.put("legalPeople", "郑森");
-        info.put("capital", "83667");
-        info.put("address", "上海浦东新区陆家嘴环路1333号");
-        info.put("openedTime", "2011-11-9");
-        info.put("verifiedTime", "2011-11-9");
-        info.put("registerOffice", "上海市工商局");
-        info.put("companyCode", "79361521");
+        info.put("calulateDealNumber", "31.21");     // 累计成交量
+        info.put("loanOverage", "18");     // 贷款余额
+        info.put("averageInterestRate", "6.532");     // 平均利率
+        info.put("recent30DaysIncome", "952638");     // 近30日资产流入
+        info.put("waitingInvesterNumber", "21564");     // 待收投资人数
+        info.put("waitingRepaymenterNumber", "21564");     // 待还借款人数
+        info.put("maxSingleLoanNumber", "1213.65");     // 最大单户借款额
+        info.put("top10LoanNumber", "7984.36");     // 最大十户借款额
 
         return info;
     }
