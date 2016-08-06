@@ -16,4 +16,6 @@ public interface P2PMonitorDao {
     Map<String, Object> lawsuitMsg();
 
     Map<String, Object> radarScore();
+
+    Map<String,Object> baseInfo();
 }
