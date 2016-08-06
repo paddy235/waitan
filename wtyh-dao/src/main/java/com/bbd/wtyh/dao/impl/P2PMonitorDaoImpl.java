@@ -3,8 +3,7 @@ package com.bbd.wtyh.dao.impl;
 import com.bbd.wtyh.dao.P2PMonitorDao;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * p2p检测平台dao层实现类
@@ -40,15 +39,38 @@ public class P2PMonitorDaoImpl implements P2PMonitorDao {
 
     @Override
     public Map<String, Object> radarScore() {
-        Map<String, Object> score = new HashMap<>();
-        score.put("总评分", 88);
-        score.put("违约成本", 88);
-        score.put("信息披露", 88);
-        score.put("资本充足", 88);
-        score.put("运营能力", 88);
-        score.put("流动性", 88);
-        score.put("分散度", 88);
-        return score;
+        //数据来源
+        Map<String ,Object> data = new HashMap<>();
+        data.put("违约成本", 88);
+        data.put("信息披露", 88);
+        data.put("资本充足", 88);
+        data.put("运营能力", 88);
+        data.put("流动性", 88);
+        data.put("分散度", 88);
+        //数据格式化
+        Map<String , Object> result = new LinkedHashMap<>();
+        List<LinkedHashMap<String, Object>> indicator = new ArrayList<>();
+        Set<Map.Entry<String, Object>> entries = data.entrySet();
+        for (Map.Entry<String, Object> entry : entries) {
+            LinkedHashMap<String, Object> score = new LinkedHashMap<>();
+            score.put("name" , entry.getKey());
+            score.put("max" , entry.getValue());
+            indicator.add(score);
+        }
+        List<List<Integer>> series = new ArrayList<>();
+        List<Integer> serie = new ArrayList<>();
+        serie.add(5000);
+        serie.add(14000);
+        serie.add(28000);
+        serie.add(31000);
+        serie.add(42000);
+        serie.add(21000);
+        series.add(serie);
+        result.put("indicator" , indicator);
+        result.put("series" , series);
+        result.put("score" , 100);
+        result.put("code" , "1");
+        return result;
     }
 
     @Override

@@ -80,4 +80,5 @@ public class P2PMonitorController {
         Map<String, String> content = p2PMonitorService.baseInfo();
         return ResponseBean.successResponse(content);
     }
+
 }
