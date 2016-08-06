@@ -40,4 +40,6 @@ public interface P2PMonitorService {
     Map<String, String> baseInfo();
 
     Map<String, String> coreDataInfo();
+
+    Map<String,String> coreDataDealTrend();
 }

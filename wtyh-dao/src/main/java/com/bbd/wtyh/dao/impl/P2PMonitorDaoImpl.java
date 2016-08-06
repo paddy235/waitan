@@ -104,4 +104,20 @@ public class P2PMonitorDaoImpl implements P2PMonitorDao {
         return info;
     }
 
+    @Override
+    public Map<String, String> coreDataDealTrend() {
+        Map<String, String> info = new HashMap<>();
+        info.put("calulateDealNumber", "31.21");     // 累计成交量
+        info.put("loanOverage", "18");     // 贷款余额
+        info.put("loanOverage", "18");     // 贷款余额
+        info.put("averageInterestRate", "6.532");     // 平均利率
+        info.put("recent30DaysIncome", "952638");     // 近30日资产流入
+        info.put("waitingInvesterNumber", "21564");     // 待收投资人数
+        info.put("waitingRepaymenterNumber", "21564");     // 待还借款人数
+        info.put("maxSingleLoanNumber", "1213.65");     // 最大单户借款额
+        info.put("top10LoanNumber", "7984.36");     // 最大十户借款额
+
+        return info;
+    }
+
 }

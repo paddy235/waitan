@@ -92,4 +92,16 @@ public class P2PMonitorController {
         Map<String, String> content = p2PMonitorService.coreDataInfo();
         return ResponseBean.successResponse(content);
     }
+
+    /**
+     * 核心数据 - 平台成交量走势
+     *
+     * @return
+     */
+    @RequestMapping("/coreDataDealTrend")
+    @ResponseBody
+    public ResponseBean coreDataDealTrend() {
+        Map<String, String> content = p2PMonitorService.coreDataDealTrend();
+        return ResponseBean.successResponse(content);
+    }
 }

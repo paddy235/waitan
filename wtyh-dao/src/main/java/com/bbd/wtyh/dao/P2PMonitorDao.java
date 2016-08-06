@@ -20,4 +20,6 @@ public interface P2PMonitorDao {
     Map<String, String> baseInfo();
 
     Map<String,String> coreDataInfo();
+
+    Map<String,String> coreDataDealTrend();
 }
