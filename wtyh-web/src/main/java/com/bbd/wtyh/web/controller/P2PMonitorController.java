@@ -111,4 +111,40 @@ public class P2PMonitorController {
         }
         return ResponseBean.successResponse(content);
     }
+
+    /**
+     * 核心数据 - 平台利率走势
+     *
+     * @return
+     */
+    @RequestMapping("/coreDataInterestRateTrend")
+    @ResponseBody
+    public ResponseBean coreDataInterestRateTrend() {
+        // TODO
+        List<List<String>> data = p2PMonitorService.coreDataDealTrend();
+        HistogramBean<String, String> content = new HistogramBean();
+        if (data.size() != 0) {
+            content.setxAxis(data.get(0));
+            content.setseries(data.get(1));
+        }
+        return ResponseBean.successResponse(content);
+    }
+
+    /**
+     * 核心数据 - 贷款余额
+     *
+     * @return
+     */
+    @RequestMapping("/coreDataLoadOverage")
+    @ResponseBody
+    public ResponseBean coreDataLoadOverage() {
+        // TODO
+        List<List<String>> data = p2PMonitorService.coreDataDealTrend();
+        HistogramBean<String, String> content = new HistogramBean();
+        if (data.size() != 0) {
+            content.setxAxis(data.get(0));
+            content.setseries(data.get(1));
+        }
+        return ResponseBean.successResponse(content);
+    }
 }
