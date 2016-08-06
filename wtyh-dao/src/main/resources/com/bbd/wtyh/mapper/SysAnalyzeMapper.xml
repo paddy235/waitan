@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.SysAnalyzeMapper">
+
+	<select id="getSysAnalyze" resultType="com.bbd.wtyh.domain.SysAnalyzeDO">
+		select id as id,
+			create_by as createBy,
+			create_date as createDate,
+			update_by as updateBy,
+			update_date as updateDate,
+			data_count as dataCount,
+			company_count as companyCount,
+			bug_count as bugCount
+		from system_analyze limit 1;
+	</select>
+
+</mapper>

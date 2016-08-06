@@ -7,13 +7,13 @@ public class LoanBalanceDO extends BaseDO {
 
     private Integer mounth;
 
-    private Float amount;
+    private Integer amount;
 
     private Integer number;
 
-    private Float agricultureBalance;
+    private Integer agricultureBalance;
 
-    private Float smallCompanyBalance;
+    private Integer smallCompanyBalance;
 
     public Integer getId() {
         return id;
@@ -39,11 +39,11 @@ public class LoanBalanceDO extends BaseDO {
         this.mounth = mounth;
     }
 
-    public Float getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 
-    public void setAmount(Float amount) {
+    public void setAmount(Integer amount) {
         this.amount = amount;
     }
 
@@ -55,19 +55,19 @@ public class LoanBalanceDO extends BaseDO {
         this.number = number;
     }
 
-    public Float getAgricultureBalance() {
+    public Integer getAgricultureBalance() {
         return agricultureBalance;
     }
 
-    public void setAgricultureBalance(Float agricultureBalance) {
+    public void setAgricultureBalance(Integer agricultureBalance) {
         this.agricultureBalance = agricultureBalance;
     }
 
-    public Float getSmallCompanyBalance() {
+    public Integer getSmallCompanyBalance() {
         return smallCompanyBalance;
     }
 
-    public void setSmallCompanyBalance(Float smallCompanyBalance) {
+    public void setSmallCompanyBalance(Integer smallCompanyBalance) {
         this.smallCompanyBalance = smallCompanyBalance;
     }
 }

@@ -6,6 +6,11 @@ import java.util.Date;
  * Created by Marco on 2016/8/5 0005.
  */
 public class BaseDO {
+	
+	/*
+	 * 逻辑主键
+	 */
+	private Integer id;
 
     /**
      * 创建人
@@ -27,7 +32,15 @@ public class BaseDO {
     private Date updateDate;
 
 
-    public String getCreateBy() {
+    public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getCreateBy() {
         return createBy;
     }
 

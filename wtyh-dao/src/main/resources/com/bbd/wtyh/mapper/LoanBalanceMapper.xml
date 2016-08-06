@@ -5,10 +5,10 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="year" jdbcType="INTEGER" property="year" />
     <result column="mounth" jdbcType="INTEGER" property="mounth" />
-    <result column="amount" jdbcType="REAL" property="amount" />
+    <result column="amount" jdbcType="INTEGER" property="amount" />
     <result column="number" jdbcType="INTEGER" property="number" />
-    <result column="agriculture_balance" jdbcType="REAL" property="agricultureBalance" />
-    <result column="small_company_balance" jdbcType="REAL" property="smallCompanyBalance" />
+    <result column="agriculture_balance" jdbcType="INTEGER" property="agricultureBalance" />
+    <result column="small_company_balance" jdbcType="INTEGER" property="smallCompanyBalance" />
     <result column="create_by" jdbcType="VARCHAR" property="createBy" />
     <result column="create_date" jdbcType="DATE" property="createDate" />
     <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
