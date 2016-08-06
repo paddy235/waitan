@@ -70,7 +70,7 @@ public class P2PMonitorController {
     }
 
     /**
-     * 平台状态信息
+     * 基本信息
      *
      * @return
      */
@@ -78,6 +78,18 @@ public class P2PMonitorController {
     @ResponseBody
     public ResponseBean baseInfo() {
         Map<String, String> content = p2PMonitorService.baseInfo();
+        return ResponseBean.successResponse(content);
+    }
+
+    /**
+     * 核心数据 - 信息
+     *
+     * @return
+     */
+    @RequestMapping("/coreDataInfo")
+    @ResponseBody
+    public ResponseBean coreDataInfo() {
+        Map<String, String> content = p2PMonitorService.coreDataInfo();
         return ResponseBean.successResponse(content);
     }
 }

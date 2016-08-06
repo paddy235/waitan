@@ -42,4 +42,9 @@ public class P2PMonitorServiceImpl implements P2PMonitorService {
     public Map<String, String> baseInfo() {
         return p2PMonitorDao.baseInfo();
     }
+
+    @Override
+    public Map<String, String> coreDataInfo() {
+        return p2PMonitorDao.coreDataInfo();
+    }
 }

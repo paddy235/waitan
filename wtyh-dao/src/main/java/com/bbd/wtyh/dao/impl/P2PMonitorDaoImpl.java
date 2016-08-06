@@ -67,4 +67,20 @@ public class P2PMonitorDaoImpl implements P2PMonitorDao {
         return info;
     }
 
+    @Override
+    public Map<String, String> coreDataInfo() {
+        Map<String, String> info = new HashMap<>();
+        info.put("p2pName", "陆金所");
+        info.put("companyName", "上海陆家嘴国际金融资产交易市场股份有限公司");
+        info.put("legalPeople", "郑森");
+        info.put("capital", "83667");
+        info.put("address", "上海浦东新区陆家嘴环路1333号");
+        info.put("openedTime", "2011-11-9");
+        info.put("verifiedTime", "2011-11-9");
+        info.put("registerOffice", "上海市工商局");
+        info.put("companyCode", "79361521");
+
+        return info;
+    }
+
 }
