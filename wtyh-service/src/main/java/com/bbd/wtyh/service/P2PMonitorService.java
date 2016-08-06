@@ -17,6 +17,6 @@ public interface P2PMonitorService {
 
     Map<String, Object> radarScore();
 
-    Map<String,Object> baseInfo();
+    Map<String, String> baseInfo();
 
 }

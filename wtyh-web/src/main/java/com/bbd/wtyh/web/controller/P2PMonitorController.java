@@ -77,7 +77,7 @@ public class P2PMonitorController {
     @RequestMapping("/baseInfo")
     @ResponseBody
     public ResponseBean baseInfo() {
-        Map<String, Object> content = p2PMonitorService.baseInfo();
+        Map<String, String> content = p2PMonitorService.baseInfo();
         return ResponseBean.successResponse(content);
     }
 }
