@@ -145,7 +145,8 @@ public class ParkServiceImpl implements ParkService {
 		
 	}
 	
-
+	
+	
 	
 	
 
@@ -158,9 +159,64 @@ public class ParkServiceImpl implements ParkService {
 
 
 	@Override
-	public List<CompanyDO> buildingCompany(Integer buildingId) {
+	public List<CompanyDO> buildingCompany(Integer buildingId,Integer orderField,String descAsc) {
 		
-		return companyMapper.buildingCompany(buildingId);
+		return companyMapper.buildingCompany(buildingId,orderField,descAsc);
 		
 	}
+
+
+
+	
+	@Override
+	public List<CompanyTypeCountDO> buildingBusinessDistribute(Integer buildingId) {
+		
+		List<CompanyTypeCountDO> ljr = new ArrayList<>();
+		
+		countTypeByBuild(ljr , buildingId ,CompanyDO.TYPE_P2P_1,"p2p");
+		
+		countTypeByBuild(ljr , buildingId ,CompanyDO.TYPE_XD_2,"小额贷款");
+		
+		countTypeByBuild(ljr , buildingId ,CompanyDO.TYPE_RZDB_3,"融资担保");
+		
+		countTypeByBuild(ljr , buildingId ,CompanyDO.TYPE_XXLC_4,"线下理财");
+		
+		countTypeByBuild(ljr , buildingId ,CompanyDO.TYPE_SMJJ_5,"私募基金");
+		
+		countTypeByBuild(ljr , buildingId ,CompanyDO.TYPE_ZC_6,"众筹");
+		
+		List<CompanyTypeCountDO> bigType = new ArrayList<>();
+		
+		CompanyTypeCountDO ljrCount = new CompanyTypeCountDO();
+		
+		for (CompanyTypeCountDO ctc : ljr) {
+			ljrCount.setCount( ljrCount.getCount()+ctc.getCount() );
+		}
+		ljrCount.setChildren(ljr);
+		
+		bigType.add(ljrCount.setType("类金融"));
+		
+		countTypeByBuild(bigType , buildingId ,CompanyDO.TYPE_JR_7,"金融");
+		
+		countTypeByBuild(bigType , buildingId ,CompanyDO.TYPE_QT_8,"其他");
+		
+		return bigType;
+		
+	}
+	
+	private void countTypeByBuild( List<CompanyTypeCountDO> list , Integer buildingId ,Byte type,String name){
+		CompanyTypeCountDO b = companyMapper.countTypeByBuild(buildingId, CompanyDO.TYPE_P2P_1);
+		list.add(b.setType(name));
+		
+	}
+
+
+	@Override
+	public List<CompanyTypeCountDO> buildingBackground(Integer buildingId) {
+		
+	//	List<CompanyTypeCountDO> list = companyMapper.buildingBackground(buildingId,);
+		
+		return null;// list;
+	}
+
 }

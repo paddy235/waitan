@@ -14,15 +14,20 @@ public interface CompanyMapper {
     CompanyDO selectByPrimaryKey(Integer companyId);
     
    public InBusinessDO countByDate(@Param(value = "areaId") Integer areaId,
-					             @Param(value = "start")Date start,
-					             @Param(value = "end")Date end);
-   
-   
+					               @Param(value = "start")Date start,
+					               @Param(value = "end")Date end);
    
    public CompanyTypeCountDO countByType(@Param(value = "areaId") Integer areaId,
-		                               @Param(value = "type")Byte type);
+		                                 @Param(value = "type")Byte type);
    
-   
-   public List<CompanyDO> buildingCompany(Integer buildingId);
+   public List<CompanyDO> buildingCompany( @Param(value = "buildingId")Integer buildingId,
+										   @Param(value = "orderField")Integer orderField,
+										   @Param(value = "descAsc")String descAsc);
+
+   public CompanyTypeCountDO countTypeByBuild( @Param(value = "buildingId") Integer buildingId,
+									           @Param(value = "type")Byte type);
+
+   public List<CompanyTypeCountDO> buildingBackground(@Param(value = "buildingId")Integer buildingId,
+		   											  @Param(value = "background")Integer background);
    
 }

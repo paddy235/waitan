@@ -71,9 +71,29 @@ public interface ParkService {
 	/**
      * 楼宇企业列表
      * @param buildingId 楼宇id,必传
+     * @param orderField 排序字段，1：按行业，2：按注册资本,非必须，默认按行业
+     * @param descAsc    排序方式：desc:降序，asc:升序
      * @return ResponseBean  
      */
-	List<CompanyDO> buildingCompany(Integer buildingId);
+	List<CompanyDO> buildingCompany(Integer buildingId,Integer orderField,String descAsc);
+
+
+	
+	 /**
+     * 楼宇行业分布
+     * @param buildingId 楼宇id,必传
+     * @return List<CompanyTypeCountDO>  
+     */
+	List<CompanyTypeCountDO> buildingBusinessDistribute(Integer buildingId);
+
+
+	
+	 /**
+     * 企业背景情况
+     * @param buildingId 楼宇id,必传
+     * @return ResponseBean  
+     */
+	List<CompanyTypeCountDO> buildingBackground(Integer buildingId);
 	
 
 }
