@@ -15,7 +15,7 @@ public interface AreaMapper{
     
     /**
     *
-    * @return List<Area>    返回类型
+    * @return List<Area> 
     */
     List<Area> list();
 }
