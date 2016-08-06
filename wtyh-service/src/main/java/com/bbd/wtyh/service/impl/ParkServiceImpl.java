@@ -9,11 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bbd.wtyh.domain.BuildingDO;
+import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.CompanyNewsDO;
-import com.bbd.wtyh.domain.InBusiness;
+import com.bbd.wtyh.domain.CompanyTypeCountDO;
+import com.bbd.wtyh.domain.InBusinessDO;
 import com.bbd.wtyh.mapper.BuildingMapper;
 import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.mapper.CompanyNewsMapper;
+import com.bbd.wtyh.mapper.ParkMapper;
 import com.bbd.wtyh.service.ParkService;
 
 /**
@@ -34,24 +37,22 @@ public class ParkServiceImpl implements ParkService {
 	@Autowired
 	private CompanyNewsMapper newsMapper;
 	
-	/**
-	* @see com.bbd.wtyh.service.ParkService#queryBuildings(java.lang.String)
-	*/
+	@Autowired
+	private ParkMapper parkMapper;
+
 	@Override
-	public List<BuildingDO> queryBuildings(Integer parkId) {
+	public List<BuildingDO> queryBuildings(Integer areaId) {
 		
-		return buildingMapper.queryBuildings(parkId);
+		return buildingMapper.queryBuildings(areaId);
 		
 	}
 
 	
-	/**
-	* @see com.bbd.wtyh.service.ParkService#inBusiness(java.lang.Integer)
-	*/
+
 	@Override
-	public List<InBusiness> inBusiness(Integer areaId) {
+	public List<InBusinessDO> inBusiness(Integer areaId) {
 		
-		List<InBusiness> list = new ArrayList<>();
+		List<InBusinessDO> list = new ArrayList<>();
 		
 		Date now = new Date();
 		
@@ -74,12 +75,15 @@ public class ParkServiceImpl implements ParkService {
 	/**
 	* 根据时间段获取统计信息
 	*
-	* @param   
+	* @param dateRange 时间范围
+	* @param areaId 区域id
+	* @param start 时间年限起
+	* @param end 时间年限止
 	* @return InBusiness
 	*/
-	public InBusiness inBusiness(String dateRange,Integer areaId,Date start,Date end) {
+	public InBusinessDO inBusiness(String dateRange,Integer areaId,Date start,Date end) {
 		
-		InBusiness bean = companyMapper.countByDate(areaId, start, end);
+		InBusinessDO bean = companyMapper.countByDate(areaId, start, end);
 		
 		bean.setDate(dateRange);
 		 
@@ -87,10 +91,7 @@ public class ParkServiceImpl implements ParkService {
 	}
 	
 	
-	
-	/**
-	* @see com.bbd.wtyh.service.ParkService#queryParkNews(java.lang.Integer, java.lang.Integer, java.lang.Integer)
-	*/
+
 	@Override
 	public List<CompanyNewsDO> queryParkNews(Integer areaId,Integer pageSize,Integer pageNum){
 		
@@ -101,6 +102,65 @@ public class ParkServiceImpl implements ParkService {
 		return newsMapper.queryParkNews(areaId,pageNum*pageSize-pageSize,pageSize);
 		
 	}
+
+
 	
 
+	@Override
+	public List<CompanyTypeCountDO> businessDistribute(Integer areaId) {
+		
+		List<CompanyTypeCountDO> ljr = new ArrayList<>();
+		
+		countType(ljr , areaId ,CompanyDO.TYPE_P2P_1,"p2p");
+		
+		countType(ljr , areaId ,CompanyDO.TYPE_XD_2,"小额贷款");
+		
+		countType(ljr , areaId ,CompanyDO.TYPE_RZDB_3,"融资担保");
+		
+		countType(ljr , areaId ,CompanyDO.TYPE_XXLC_4,"线下理财");
+		
+		countType(ljr , areaId ,CompanyDO.TYPE_SMJJ_5,"私募基金");
+		
+		countType(ljr , areaId ,CompanyDO.TYPE_ZC_6,"众筹");
+		
+		List<CompanyTypeCountDO> bigType = new ArrayList<>();
+		
+		CompanyTypeCountDO ljrCount = new CompanyTypeCountDO();
+		
+		for (CompanyTypeCountDO ctc : ljr) {
+			ljrCount.setCount( ljrCount.getCount()+ctc.getCount() );
+		}
+		ljrCount.setChildren(ljr);
+		bigType.add(ljrCount.setType("类金融"));
+		
+		countType(bigType , areaId ,CompanyDO.TYPE_JR_7,"金融");
+		countType(bigType , areaId ,CompanyDO.TYPE_QT_8,"其他");
+		
+		return bigType;
+	}
+	
+	private void countType( List<CompanyTypeCountDO> list , Integer areaId ,Byte type,String name){
+		CompanyTypeCountDO b = companyMapper.countByType(areaId, CompanyDO.TYPE_P2P_1);
+		list.add(b.setType(name));
+		
+	}
+	
+
+	
+	
+
+	public String parkImg(Integer areaId){
+		
+		return parkMapper.parkImg(areaId);
+		
+	}
+
+
+
+	@Override
+	public List<CompanyDO> buildingCompany(Integer buildingId) {
+		
+		return companyMapper.buildingCompany(buildingId);
+		
+	}
 }

@@ -3,9 +3,9 @@
 <mapper namespace="com.bbd.wtyh.mapper.BuildingMapper">
   
   <select id="queryBuildings" parameterType="int" resultType="com.bbd.wtyh.domain.BuildingDO">
-			select building_id buildingId,name,park_id parkId,
-			       finance_company_number finComNum,finance_company_ratio ratio
-			from building where park_id=#{park_id}  ;
+			select b.building_id buildingId,b.name,b.park_id parkId,
+			       b.finance_company_number finComNum,b.finance_company_ratio ratio
+			from building b,park p where b.park_id=p.park_id and p.area_id=#{areaId};
 	</select>
   
 </mapper>

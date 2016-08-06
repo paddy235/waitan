@@ -2,7 +2,7 @@ package com.bbd.wtyh.service;
 
 import java.util.List;
 
-import com.bbd.wtyh.domain.Area;
+import com.bbd.wtyh.domain.AreaDO;
 
 /**
 * 园区相关接口
@@ -17,6 +17,6 @@ public interface AreaService {
 	* 获取所有的区域
 	* @return List<Area>
 	*/
-	public List<Area> list();
+	public List<AreaDO> areaList();
 
 }

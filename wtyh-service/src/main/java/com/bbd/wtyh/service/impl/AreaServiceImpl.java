@@ -15,7 +15,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bbd.wtyh.domain.Area;
+import com.bbd.wtyh.domain.AreaDO;
 import com.bbd.wtyh.mapper.AreaMapper;
 import com.bbd.wtyh.service.AreaService;
 
@@ -31,12 +31,9 @@ public class AreaServiceImpl implements AreaService {
 	private AreaMapper areaMapper;
 	
 	
-	/**
-	* @see com.bbd.wtyh.service.AreaService#list()
-	*/
-	public List<Area> list(){
+	public List<AreaDO> areaList(){
 		
-		return areaMapper.list();
+		return areaMapper.areaList();
 		
 	}
 }

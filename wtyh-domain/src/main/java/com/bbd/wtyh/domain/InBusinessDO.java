@@ -6,7 +6,7 @@ package com.bbd.wtyh.domain;
 * @author Ian.Su
 * @since 2016年8月5日 下午7:49:36
 */
-public class InBusiness {
+public class InBusinessDO {
 	
 	private String date; 
 	

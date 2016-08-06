@@ -8,9 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.bbd.wtyh.domain.Area;
+import com.bbd.wtyh.domain.AreaDO;
 import com.bbd.wtyh.domain.BuildingDO;
-import com.bbd.wtyh.domain.InBusiness;
+import com.bbd.wtyh.domain.InBusinessDO;
 
 import java.util.List;
 
@@ -36,11 +36,11 @@ public class ParkController {
     * 获取区域信息
     * @return ResponseBean
     */
-    @RequestMapping("/area/list")
+    @RequestMapping("/areaList")
     @ResponseBody
     public ResponseBean areaList() {
 
-        List<Area> data = areaService.list();
+        List<AreaDO> data = areaService.areaList();
 
         return ResponseBean.successResponse(data);
     }
@@ -48,14 +48,14 @@ public class ParkController {
     
     /**
     * 根据园区查询类金融企业集中度
-    * @param parkId 区域id,必传
+    * @param areaId 区域id,必传
     * @return ResponseBean  
     */
-    @RequestMapping("/company/concentration")
+    @RequestMapping("/companyConcentration")
     @ResponseBody
-    public ResponseBean oncentration(@RequestParam(required=true) Integer parkId) {
+    public ResponseBean oncentration(@RequestParam(required=true) Integer areaId) {
 
-        List<BuildingDO> data = parkService.queryBuildings(parkId);
+        List<BuildingDO> data = parkService.queryBuildings(areaId);
         
         return ResponseBean.successResponse(data);
     }
@@ -64,14 +64,14 @@ public class ParkController {
     
     /**
     * 在营时间分布
-    * @param parkId 区域id,必传
+    * @param areaId 区域id,必传
     * @return ResponseBean  
     */
-    @RequestMapping("/in/business")
+    @RequestMapping("/inBusiness")
     @ResponseBody
     public ResponseBean inBusiness(@RequestParam(required=true) Integer areaId) {
 
-        List<InBusiness> data = parkService.inBusiness(areaId);
+        List<InBusinessDO> data = parkService.inBusiness(areaId);
         
         return ResponseBean.successResponse(data);
     }
@@ -79,7 +79,7 @@ public class ParkController {
     
     /**
     * 园区舆情查询
-    * @param parkId 区域id,必传
+    * @param areaId 区域id,必传
     * @return ResponseBean  
     */
     @RequestMapping("/news")
@@ -90,5 +90,50 @@ public class ParkController {
         
         return ResponseBean.successResponse(data);
     }
+    
+    
+    /**
+     * 园区行业分布
+     * @param areaId 区域id,必传
+     * @return ResponseBean  
+     */
+     @RequestMapping("/businessDistribute")
+     @ResponseBody
+     public ResponseBean businessDistribute(@RequestParam(required=true) Integer areaId) {
+
+         Object data = parkService.businessDistribute(areaId);
+         
+         return ResponseBean.successResponse(data);
+     }
+     
+     /**
+      * 园区图片
+      * @param areaId 区域id,必传
+      * @return ResponseBean  
+      */
+      @RequestMapping("/parkImg")
+      @ResponseBody
+      public ResponseBean parkImg(@RequestParam(required=true) Integer areaId) {
+
+          Object data = parkService.parkImg(areaId);
+          
+          return ResponseBean.successResponse(data);
+      }
+    
+      
+      
+      /**
+       * 楼宇企业列表
+       * @param buildingId 楼宇id,必传
+       * @return ResponseBean  
+       */
+       @RequestMapping("/buildingCompany")
+       @ResponseBody
+       public ResponseBean buildingCompany(@RequestParam(required=true) Integer buildingId) {
+
+           Object data = parkService.buildingCompany(buildingId);
+           
+           return ResponseBean.successResponse(data);
+       }
     
 }

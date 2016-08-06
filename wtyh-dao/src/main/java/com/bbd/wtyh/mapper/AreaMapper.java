@@ -2,7 +2,7 @@ package com.bbd.wtyh.mapper;
 
 import java.util.List;
 
-import com.bbd.wtyh.domain.Area;
+import com.bbd.wtyh.domain.AreaDO;
 
 
 /**
@@ -17,5 +17,5 @@ public interface AreaMapper{
     *
     * @return List<Area> 
     */
-    List<Area> list();
+    List<AreaDO> areaList();
 }

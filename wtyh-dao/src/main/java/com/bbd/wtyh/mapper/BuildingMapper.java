@@ -8,5 +8,5 @@ public interface BuildingMapper {
 	
     BuildingDO selectByPrimaryKey(Integer buildingId);
     
-    List<BuildingDO> queryBuildings(Integer parkId);
+    List<BuildingDO> queryBuildings(Integer areaId);
 }

@@ -29,7 +29,7 @@
   </select>
   
   
-   <select id="countByDate"  resultType="com.bbd.wtyh.domain.InBusiness">
+   <select id="countByDate"  resultType="com.bbd.wtyh.domain.InBusinessDO">
    		
    		select count(*) count from company com , 
    		  company_building cb ,building bui ,park p where 
@@ -45,6 +45,29 @@
    			</if>
    			 
    </select>
+   
+  
+  
+  <select id="countByType"  resultType="com.bbd.wtyh.domain.CompanyTypeCountDO">
+   		
+   		select count(*) count from company com , 
+   		  company_building cb ,building bui ,park p where 
+   			p.park_id=bui.park_id and 
+   			cb.company_id=com.company_id and 
+   			cb.building_id=bui.building_id and 
+   			p.area_id=#{areaId} and 
+   			com.company_type=#{type}
+   			 
+   </select>
+  
+  
+   <select id="buildingCompany"  resultMap="BaseResultMap">
+   		
+   		select c.* from company c , company_building b 
+   		where b.company_id=c.company_id and b.building_id=#{buildingId}  
+     			 
+   </select>
+  
   
   
   

@@ -2,7 +2,20 @@ package com.bbd.wtyh.domain;
 
 import java.util.Date;
 
+
 public class CompanyDO extends BaseDO {
+	
+	
+	//1:P2P 2:小贷 3:融资担保 4:线下理财 5:私募基金 6:众筹 7:金融  8:其他
+	public static final byte TYPE_P2P_1  = 1;
+	public static final byte TYPE_XD_2   = 2;
+	public static final byte TYPE_RZDB_3 = 3;
+	public static final byte TYPE_XXLC_4 = 4;
+	public static final byte TYPE_SMJJ_5 = 5;
+	public static final byte TYPE_ZC_6   = 6;
+	public static final byte TYPE_JR_7   = 7;
+	public static final byte TYPE_QT_8   = 8;
+	
     private Integer companyId;
 
     private String name;
@@ -16,7 +29,7 @@ public class CompanyDO extends BaseDO {
     private Integer registeredCapital;
 
     private Date registeredDate;
-
+    
     private Byte companyType;
 
     private String products;

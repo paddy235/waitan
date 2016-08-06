@@ -16,7 +16,7 @@ package com.bbd.wtyh.domain;
 * @author Ian.Su
 * @since 2016年8月5日 上午11:58:52
 */
-public class Area {
+public class AreaDO {
 	
 	private Integer area_id;
 	private String name;
