@@ -18,4 +18,6 @@ public interface P2PMonitorDao {
     Map<String, Object> radarScore();
 
     Map<String, String> baseInfo();
+
+    Map<String,String> coreDataInfo();
 }
