@@ -67,8 +67,8 @@
                 type="XMLMAPPER",生成SQLMap XML文件和独立的Mapper接口
         -->
         <javaClientGenerator type="XMLMAPPER" targetPackage="com.bbd.wtyh.mapper" targetProject="src/main/java"/>
-
-        <table tableName="area" domainObjectName="Area"  enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
+        <table tableName="company_risk" domainObjectName="CompanyRisk" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
+        <!--table tableName="area" domainObjectName="Area"  enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
         <table tableName="building" domainObjectName="Building" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
         <table tableName="capital_amount" domainObjectName="CapitalAmount" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
         <table tableName="company" domainObjectName="Company" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
@@ -92,7 +92,7 @@
         <table tableName="product_amount" domainObjectName="ProductAmount" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
         <table tableName="qdlp_progress" domainObjectName="QdlpProgress" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
         <table tableName="qflp_company" domainObjectName="QflpCompany" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
-        <table tableName="related_company" domainObjectName="RelatedCompany" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" />
+        <table tableName="related_company" domainObjectName="RelatedCompany" enableCountByExample="false" enableSelectByExample="false" enableUpdateByPrimaryKey="false" enableDeleteByExample="false" enableDeleteByPrimaryKey="false" enableInsert="false" enableUpdateByExample="false" /-->
 
 
     </context>
