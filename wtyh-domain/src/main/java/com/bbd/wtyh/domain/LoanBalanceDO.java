@@ -5,7 +5,7 @@ public class LoanBalanceDO extends BaseDO {
 
     private Integer year;
 
-    private Integer mounth;
+    private Integer month;
 
     private Integer amount;
 
@@ -31,12 +31,12 @@ public class LoanBalanceDO extends BaseDO {
         this.year = year;
     }
 
-    public Integer getMounth() {
-        return mounth;
+    public Integer getMonth() {
+        return month;
     }
 
-    public void setMounth(Integer mounth) {
-        this.mounth = mounth;
+    public void setMonth(Integer mounth) {
+        this.month = month;
     }
 
     public Integer getAmount() {
