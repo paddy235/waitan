@@ -16,6 +16,7 @@ public class CompanyDO extends BaseDO {
 	public static final byte TYPE_JR_7   = 7;
 	public static final byte TYPE_QT_8   = 8;
 	
+	
     private Integer companyId;
 
     private String name;
@@ -32,9 +33,35 @@ public class CompanyDO extends BaseDO {
     
     private Byte companyType;
 
+    private String comTypeCN;
+    
     private String products;
 
     private Byte status;
+    
+    public String getComTypeCN(){
+    	switch (companyType) {
+		case TYPE_P2P_1:
+			return "p2p";
+		case TYPE_XD_2:
+			return "小贷";
+		case TYPE_RZDB_3:
+			return "融资担保";
+		case TYPE_XXLC_4:
+			return "线下理财";
+		case TYPE_SMJJ_5:
+			return "私募基金";
+		case TYPE_ZC_6:
+			return "众筹";
+		case TYPE_JR_7:
+			return "金融";
+		case TYPE_QT_8:
+			return "其他";
+		default:
+			return null;
+		}
+    }
+	
 
     public Integer getCompanyId() {
         return companyId;

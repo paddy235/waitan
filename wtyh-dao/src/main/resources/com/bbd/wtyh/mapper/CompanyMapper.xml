@@ -59,12 +59,54 @@
    			com.company_type=#{type}
    			 
    </select>
+   
+   
+   <select id="countTypeByBuild"  resultType="com.bbd.wtyh.domain.CompanyTypeCountDO">
+   		
+   		select count(*) count from company com , company_building cb  where    			
+   			cb.company_id=com.company_id and 
+   			cb.building_id=#{buildingId} and 
+   			com.company_type=#{type}
+   			 
+   </select>
+   
+   
+   
+   
+      
+   <select id="buildingBackground"  resultType="com.bbd.wtyh.domain.CompanyTypeCountDO">
+   		
+   		select count(*) count from company com , company_building cb , company_background cbg  where    			
+   			cb.company_id=com.company_id and 
+   			com.company_id=cbg.company_id and
+   			cb.building_id=#{buildingId} and 
+   			cbg.background=#{background}
+   			 
+   </select>
+   
+   
+   
   
   
+<!--        * @param orderField 排序字段，1：按行业，2：按注册资本,非必须，默认按行业 -->
+<!--        * @param descAsc    排序方式：desc:降序，asc:升序 -->
    <select id="buildingCompany"  resultMap="BaseResultMap">
    		
    		select c.* from company c , company_building b 
-   		where b.company_id=c.company_id and b.building_id=#{buildingId}  
+   		where b.company_id=c.company_id and b.building_id=#{buildingId} 
+   		order by
+   		<if test="orderField!=1">
+   			c.company_type
+   		</if>
+   		<if test="orderField==1">
+   			c.registered_capital
+   		</if>
+   		<if test="descAsc!='desc'">
+   			asc
+   		</if>
+   		<if test="descAsc=='desc'">
+   			desc
+   		</if>
      			 
    </select>
   
