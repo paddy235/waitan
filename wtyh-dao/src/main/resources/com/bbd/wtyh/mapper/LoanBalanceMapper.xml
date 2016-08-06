@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.LoanBalanceDO">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="year" jdbcType="INTEGER" property="year" />
-    <result column="mounth" jdbcType="INTEGER" property="mounth" />
+    <result column="month" jdbcType="INTEGER" property="month" />
     <result column="amount" jdbcType="INTEGER" property="amount" />
     <result column="number" jdbcType="INTEGER" property="number" />
     <result column="agriculture_balance" jdbcType="INTEGER" property="agricultureBalance" />
@@ -15,7 +15,7 @@
     <result column="update_date" jdbcType="DATE" property="updateDate" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, year, mounth, amount, number, agriculture_balance, small_company_balance, create_by, 
+    id, year, month, amount, number, agriculture_balance, small_company_balance, create_by,
     create_date, update_by, update_date
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
