@@ -26,9 +26,9 @@ public class P2PMonitorController {
      *
      * @return
      */
-    @RequestMapping("/baseStatus")
+    @RequestMapping("/platFormStatus")
     @ResponseBody
-    public ResponseBean baseStatus() {
+    public ResponseBean platFormStatus() {
         Map<String, Object> content = p2PMonitorService.platFormStatus();
         return ResponseBean.successResponse(content);
     }
@@ -38,9 +38,9 @@ public class P2PMonitorController {
      *
      * @return
      */
-    @RequestMapping("/baseConsensus")
+    @RequestMapping("/platFormConsensus")
     @ResponseBody
-    public ResponseBean baseConsensus() {
+    public ResponseBean platFormConsensus() {
         Map<String, Object> content = p2PMonitorService.platFormConsensus();
         return ResponseBean.successResponse(content);
     }
@@ -50,9 +50,9 @@ public class P2PMonitorController {
      *
      * @return
      */
-    @RequestMapping("/baselawsuit")
+    @RequestMapping("/lawsuitMsg")
     @ResponseBody
-    public ResponseBean baselawsuit() {
+    public ResponseBean lawsuitMsg() {
         Map<String, Object> conent = p2PMonitorService.lawsuitMsg();
         return ResponseBean.successResponse(conent);
     }
@@ -69,4 +69,15 @@ public class P2PMonitorController {
         return ResponseBean.successResponse(score);
     }
 
+    /**
+     * 平台状态信息
+     *
+     * @return
+     */
+    @RequestMapping("/baseInfo")
+    @ResponseBody
+    public ResponseBean baseInfo() {
+        Map<String, Object> content = p2PMonitorService.baseInfo();
+        return ResponseBean.successResponse(content);
+    }
 }

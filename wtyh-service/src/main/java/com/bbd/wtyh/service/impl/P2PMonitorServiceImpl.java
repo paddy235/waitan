@@ -37,4 +37,9 @@ public class P2PMonitorServiceImpl implements P2PMonitorService {
     public Map<String, Object> radarScore() {
         return p2PMonitorDao.radarScore();
     }
+
+    @Override
+    public Map<String, Object> baseInfo() {
+        return null;
+    }
 }
