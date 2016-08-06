@@ -1,5 +1,6 @@
 package com.bbd.wtyh.service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -41,5 +42,5 @@ public interface P2PMonitorService {
 
     Map<String, String> coreDataInfo();
 
-    Map<String,String> coreDataDealTrend();
+    List<List<String>> coreDataDealTrend();
 }

@@ -5,6 +5,8 @@ import com.bbd.wtyh.service.P2PMonitorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -49,7 +51,19 @@ public class P2PMonitorServiceImpl implements P2PMonitorService {
     }
 
     @Override
-    public Map<String, String> coreDataDealTrend() {
-        return p2PMonitorDao.coreDataDealTrend();
+    public List<List<String>> coreDataDealTrend() {
+        // 处理数据转换
+        Map<String, String> data = p2PMonitorDao.coreDataDealTrend();
+        List<String> years = new ArrayList<>();
+        List<String> dealNumbers = new ArrayList<>();
+        for (Map.Entry<String, String> entity : data.entrySet()) {
+            years.add(entity.getKey());
+            dealNumbers.add(entity.getValue());
+        }
+
+        List<List<String>> result = new ArrayList<>();
+        result.add(years);
+        result.add(dealNumbers);
+        return result;
     }
 }

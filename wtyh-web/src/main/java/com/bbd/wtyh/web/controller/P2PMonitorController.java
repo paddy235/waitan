@@ -1,12 +1,14 @@
 package com.bbd.wtyh.web.controller;
 
 import com.bbd.wtyh.service.P2PMonitorService;
+import com.bbd.wtyh.web.HistogramBean;
 import com.bbd.wtyh.web.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -101,7 +103,12 @@ public class P2PMonitorController {
     @RequestMapping("/coreDataDealTrend")
     @ResponseBody
     public ResponseBean coreDataDealTrend() {
-        Map<String, String> content = p2PMonitorService.coreDataDealTrend();
+        List<List<String>> data = p2PMonitorService.coreDataDealTrend();
+        HistogramBean<String, String> content = new HistogramBean();
+        if (data.size() != 0) {
+            content.setxAxis(data.get(0));
+            content.setseries(data.get(1));
+        }
         return ResponseBean.successResponse(content);
     }
 }
