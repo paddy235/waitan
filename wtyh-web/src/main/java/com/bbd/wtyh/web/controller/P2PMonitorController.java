@@ -2,6 +2,7 @@ package com.bbd.wtyh.web.controller;
 
 import com.bbd.wtyh.service.P2PMonitorService;
 import com.bbd.wtyh.web.HistogramBean;
+import com.bbd.wtyh.web.LineChartBean;
 import com.bbd.wtyh.web.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -120,9 +121,8 @@ public class P2PMonitorController {
     @RequestMapping("/coreDataInterestRateTrend")
     @ResponseBody
     public ResponseBean coreDataInterestRateTrend() {
-        // TODO
-        List<List<String>> data = p2PMonitorService.coreDataDealTrend();
-        HistogramBean<String, String> content = new HistogramBean();
+        List<List<String>> data = p2PMonitorService.coreDataInterestRateTrend();
+        LineChartBean<String, String> content = new LineChartBean();
         if (data.size() != 0) {
             content.setxAxis(data.get(0));
             content.setseries(data.get(1));
@@ -137,10 +137,9 @@ public class P2PMonitorController {
      */
     @RequestMapping("/coreDataLoadOverage")
     @ResponseBody
-    public ResponseBean coreDataLoadOverage() {
-        // TODO
-        List<List<String>> data = p2PMonitorService.coreDataDealTrend();
-        HistogramBean<String, String> content = new HistogramBean();
+    public ResponseBean coreDataLoanOverage() {
+        List<List<String>> data = p2PMonitorService.coreDataLoanOverage();
+        LineChartBean<String, String> content = new LineChartBean<>();
         if (data.size() != 0) {
             content.setxAxis(data.get(0));
             content.setseries(data.get(1));

@@ -22,4 +22,8 @@ public interface P2PMonitorDao {
     Map<String,String> coreDataInfo();
 
     Map<String,String> coreDataDealTrend();
+
+    Map<String,String> coreDataInterestRateTrend();
+
+    Map<String,String> coreDataLoanOverage();
 }

@@ -43,4 +43,8 @@ public interface P2PMonitorService {
     Map<String, String> coreDataInfo();
 
     List<List<String>> coreDataDealTrend();
+
+    List<List<String>> coreDataInterestRateTrend();
+
+    List<List<String>> coreDataLoanOverage();
 }

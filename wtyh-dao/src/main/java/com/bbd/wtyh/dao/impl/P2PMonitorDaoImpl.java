@@ -121,4 +121,38 @@ public class P2PMonitorDaoImpl implements P2PMonitorDao {
         return yearDealNumberKV;
     }
 
+    @Override
+    public Map<String, String> coreDataInterestRateTrend() {
+        Map<String, String> yearInterestRateKV = new HashMap<>();
+        yearInterestRateKV.put("2015-01", "31.21");
+        yearInterestRateKV.put("2015-02", "18");
+        yearInterestRateKV.put("2015-03", "17");
+        yearInterestRateKV.put("2015-04", "6.532");
+        yearInterestRateKV.put("2015-05", "9");
+        yearInterestRateKV.put("2015-06", "12");
+        yearInterestRateKV.put("2015-07", "36");
+        yearInterestRateKV.put("2015-08", "48");
+        yearInterestRateKV.put("2015-09", "12");
+        yearInterestRateKV.put("2015-10", "36");
+
+        return yearInterestRateKV;
+    }
+
+    @Override
+    public Map<String, String> coreDataLoanOverage() {
+        Map<String, String> yearLoanOverageKV = new HashMap<>();
+        yearLoanOverageKV.put("2015-01", "31.21");
+        yearLoanOverageKV.put("2015-02", "18");
+        yearLoanOverageKV.put("2015-03", "17");
+        yearLoanOverageKV.put("2015-04", "6.532");
+        yearLoanOverageKV.put("2015-05", "9");
+        yearLoanOverageKV.put("2015-06", "12");
+        yearLoanOverageKV.put("2015-07", "36");
+        yearLoanOverageKV.put("2015-08", "48");
+        yearLoanOverageKV.put("2015-09", "12");
+        yearLoanOverageKV.put("2015-10", "36");
+
+        return yearLoanOverageKV;
+    }
+
 }
