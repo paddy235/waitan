@@ -2,10 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bbd.wtyh.mapper.BuildingMapper">
   
-  <select id="queryBuildings" parameterType="int" resultType="com.bbd.wtyh.domain.BuildingDO">
+    <select id="queryBuildings" parameterType="int" resultType="com.bbd.wtyh.domain.BuildingDO">
 			select b.building_id buildingId,b.name,b.park_id parkId,
 			       b.finance_company_number finComNum,b.finance_company_ratio ratio
 			from building b,park p where b.park_id=p.park_id and p.area_id=#{areaId};
+	</select>
+	
+
+	<select id="buildingNews" resultType="com.bbd.wtyh.domain.CompanyNewsDO">
+			select cn.news_id id,cn.company_id companyId,cn.title,cn.content,
+			       cn.date,cn.url,cn.create_date createDate,cn.from_site fromSite
+			       
+		    from company_news cn , company_building cb 
+		    
+			where cb.company_id=cn.company_id 
+				  and   cb.building_id=#{buildingId} 
+				  
+			order by cn.create_date desc
 	</select>
   
 </mapper>

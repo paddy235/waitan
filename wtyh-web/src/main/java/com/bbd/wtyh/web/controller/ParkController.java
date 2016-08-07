@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bbd.wtyh.domain.AreaDO;
 import com.bbd.wtyh.domain.BuildingDO;
+import com.bbd.wtyh.domain.CompanyNewsDO;
 import com.bbd.wtyh.domain.CompanyTypeCountDO;
 import com.bbd.wtyh.domain.InBusinessDO;
 import com.bbd.wtyh.service.AreaService;
@@ -168,6 +169,20 @@ public class ParkController {
              
             return ResponseBean.successResponse(data);
          }
+         
+         /**
+          * 楼宇舆情
+          * @param buildingId 楼宇id,必传
+          * @return ResponseBean  
+          */
+          @RequestMapping("/buildingNews")
+          @ResponseBody
+          public ResponseBean buildingNews(@RequestParam(required=true) Integer buildingId) {
+
+          	List<CompanyNewsDO> data = parkService.buildingNews(buildingId);
+              
+             return ResponseBean.successResponse(data);
+          }
         
     
 }
