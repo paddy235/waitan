@@ -1,12 +1,9 @@
 package com.bbd.wtyh.web;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 雷达图返回值
  * @author wangchenge
- * @since 2016.08.07
  */
 public class RadarChartBean<T> {
     private T indicator;
