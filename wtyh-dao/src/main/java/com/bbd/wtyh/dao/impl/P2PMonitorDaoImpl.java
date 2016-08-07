@@ -12,7 +12,7 @@ import java.util.*;
  * @since 2016.08.05
  */
 @Repository("p2PMonitorDao")
-public class P2PMonitorDaoImpl implements P2PMonitorDao {
+    public class P2PMonitorDaoImpl implements P2PMonitorDao {
 
     @Override
     public Map<String, Object> platFormStatus() {

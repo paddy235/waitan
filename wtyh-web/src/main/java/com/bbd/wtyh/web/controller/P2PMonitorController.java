@@ -2,6 +2,7 @@ package com.bbd.wtyh.web.controller;
 
 import com.bbd.wtyh.service.P2PMonitorService;
 import com.bbd.wtyh.web.HistogramBean;
+import com.bbd.wtyh.web.RadarChartBean;
 import com.bbd.wtyh.web.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -67,8 +68,15 @@ public class P2PMonitorController {
     @RequestMapping("/radarScore")
     @ResponseBody
     public ResponseBean radarScore() {
-        Map<String, Object> score = p2PMonitorService.radarScore();
-        return ResponseBean.successResponse(score);
+        Map<String, Object> result = p2PMonitorService.radarScore();
+        RadarChartBean radarChart = new RadarChartBean<>();
+        if (result.size() != 0) {
+            radarChart.setIndicator(result.get("indicator"));
+            radarChart.setSeries(result.get("series"));
+            radarChart.setScore(result.get("score"));
+            radarChart.setCode(result.get("code"));
+        }
+        return ResponseBean.successResponse(radarChart);
     }
 
     /**
