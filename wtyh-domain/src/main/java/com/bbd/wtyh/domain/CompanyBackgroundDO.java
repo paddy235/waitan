@@ -6,6 +6,37 @@ public class CompanyBackgroundDO extends BaseDO {
     private Integer companyId;
 
     private Byte background;
+    
+    static public enum Bg {
+        
+    	//1:上市公司 2:非上市公司 3:国企 4:民营企业
+       
+    	Ssgs( (byte) 1,"上市公司"),
+    	Fssgs((byte) 2,"非上市公司"),
+    	Gq(   (byte) 3,"国企"),
+    	Myqy( (byte) 4,"民营企业");
+    	
+        public final Byte val;
+        public final String CN;
+
+        private Bg(Byte val, String CN) {
+            this.val = val;
+            this.CN = CN;
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     public Integer getId() {
         return id;

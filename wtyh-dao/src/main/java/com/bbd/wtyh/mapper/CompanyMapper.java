@@ -27,7 +27,7 @@ public interface CompanyMapper {
    public CompanyTypeCountDO countTypeByBuild( @Param(value = "buildingId") Integer buildingId,
 									           @Param(value = "type")Byte type);
 
-   public List<CompanyTypeCountDO> buildingBackground(@Param(value = "buildingId")Integer buildingId,
-		   											  @Param(value = "background")Integer background);
+   public CompanyTypeCountDO buildingBackground(@Param(value = "buildingId")Integer buildingId,
+		   									    @Param(value = "background")byte background);
    
 }

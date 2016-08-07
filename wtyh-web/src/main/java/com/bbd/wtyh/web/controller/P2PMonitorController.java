@@ -2,6 +2,7 @@ package com.bbd.wtyh.web.controller;
 
 import com.bbd.wtyh.service.P2PMonitorService;
 import com.bbd.wtyh.web.HistogramBean;
+import com.bbd.wtyh.web.LineChartBean;
 import com.bbd.wtyh.web.RadarChartBean;
 import com.bbd.wtyh.web.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;

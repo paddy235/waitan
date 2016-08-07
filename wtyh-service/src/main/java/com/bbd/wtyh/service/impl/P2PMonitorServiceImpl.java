@@ -66,4 +66,38 @@ public class P2PMonitorServiceImpl implements P2PMonitorService {
         result.add(dealNumbers);
         return result;
     }
+
+    @Override
+    public List<List<String>> coreDataInterestRateTrend() {
+        // 处理数据转换
+        Map<String, String> data = p2PMonitorDao.coreDataInterestRateTrend();
+        List<String> years = new ArrayList<>();
+        List<String> interestRates = new ArrayList<>();
+        for (Map.Entry<String, String> entity : data.entrySet()) {
+            years.add(entity.getKey());
+            interestRates.add(entity.getValue());
+        }
+
+        List<List<String>> result = new ArrayList<>();
+        result.add(years);
+        result.add(interestRates);
+        return result;
+    }
+
+    @Override
+    public List<List<String>> coreDataLoanOverage() {
+        // 处理数据转换
+        Map<String, String> data = p2PMonitorDao.coreDataLoanOverage();
+        List<String> years = new ArrayList<>();
+        List<String> loanOverages = new ArrayList<>();
+        for (Map.Entry<String, String> entity : data.entrySet()) {
+            years.add(entity.getKey());
+            loanOverages.add(entity.getValue());
+        }
+
+        List<List<String>> result = new ArrayList<>();
+        result.add(years);
+        result.add(loanOverages);
+        return result;
+    }
 }

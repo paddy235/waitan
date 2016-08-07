@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bbd.wtyh.domain.BuildingDO;
+import com.bbd.wtyh.domain.CompanyBackgroundDO;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.CompanyNewsDO;
 import com.bbd.wtyh.domain.CompanyTypeCountDO;
@@ -214,9 +215,24 @@ public class ParkServiceImpl implements ParkService {
 	@Override
 	public List<CompanyTypeCountDO> buildingBackground(Integer buildingId) {
 		
-	//	List<CompanyTypeCountDO> list = companyMapper.buildingBackground(buildingId,);
+		List<CompanyTypeCountDO> list = new ArrayList<>();
 		
-		return null;// list;
+		CompanyTypeCountDO gq = companyMapper.buildingBackground(buildingId,CompanyBackgroundDO.Bg.Gq.val);
+		gq.setType(CompanyBackgroundDO.Bg.Gq.CN);
+		list.add(gq);
+		
+		CompanyTypeCountDO myqy = companyMapper.buildingBackground(buildingId,CompanyBackgroundDO.Bg.Myqy.val);
+		myqy.setType(CompanyBackgroundDO.Bg.Myqy.CN);
+		list.add(myqy);
+		
+		return list;
+	}
+
+
+
+	@Override
+	public List<CompanyNewsDO> buildingNews(Integer buildingId) {
+		return buildingMapper.buildingNews(buildingId);
 	}
 
 }
