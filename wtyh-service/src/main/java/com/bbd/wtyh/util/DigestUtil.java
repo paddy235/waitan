@@ -9,7 +9,7 @@ import java.net.URLEncoder;
 /**
  * author: jerry
  */
-public class DigestUtils {
+public class DigestUtil {
     public final static String ENCODING = "UTF-8";
 
     public final static String DIGEST_KEY = "k5kX7H3S79RL1biHlVY3kOuIABv9Yw71ub59HRN3blqvpRel95QW9u5Cub7a19Hu";
