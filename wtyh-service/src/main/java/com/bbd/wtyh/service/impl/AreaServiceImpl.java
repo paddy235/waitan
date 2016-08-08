@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bbd.wtyh.domain.AreaDO;
+import com.bbd.wtyh.domain.NvDO;
 import com.bbd.wtyh.mapper.AreaMapper;
 import com.bbd.wtyh.service.AreaService;
 
@@ -35,5 +36,12 @@ public class AreaServiceImpl implements AreaService {
 		
 		return areaMapper.areaList();
 		
+	}
+
+
+	
+	@Override
+	public List<NvDO> hot() {
+		return areaMapper.hot();
 	}
 }

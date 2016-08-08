@@ -9,6 +9,8 @@ public class BuildingDO extends BaseDO {
 
     private Integer parkId;
     
+    private String imgUrl;
+    
     
     /**
     * @Fields finComNum : finance_company_number 类金融企业数量	
@@ -23,7 +25,18 @@ public class BuildingDO extends BaseDO {
     
     
     
+    
 
+
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
 
 
 	public Integer getFinComNum() {

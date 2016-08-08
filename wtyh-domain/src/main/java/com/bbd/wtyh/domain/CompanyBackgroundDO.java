@@ -1,6 +1,7 @@
 package com.bbd.wtyh.domain;
 
 public class CompanyBackgroundDO extends BaseDO {
+	
     private Integer id;
 
     private Integer companyId;
@@ -10,7 +11,6 @@ public class CompanyBackgroundDO extends BaseDO {
     static public enum Bg {
         
     	//1:上市公司 2:非上市公司 3:国企 4:民营企业
-       
     	Ssgs( (byte) 1,"上市公司"),
     	Fssgs((byte) 2,"非上市公司"),
     	Gq(   (byte) 3,"国企"),
@@ -22,6 +22,21 @@ public class CompanyBackgroundDO extends BaseDO {
         private Bg(Byte val, String CN) {
             this.val = val;
             this.CN = CN;
+        }
+        
+        public static Bg getBg(Byte val){
+        	switch (val) {
+    		case 1:
+    			return Bg.Ssgs;
+    		case 2:
+    			return Bg.Fssgs;
+    		case 3:
+    			return Bg.Gq;
+    		case 4:
+    			return Bg.Myqy;
+    		default:
+    			return null;
+    		}
         }
     }
     

@@ -16,6 +16,9 @@
     <result column="create_date" jdbcType="DATE" property="createDate" />
     <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
     <result column="update_date" jdbcType="DATE" property="updateDate" />
+    <result column="background" jdbcType="TINYINT" property="background" />
+    <result column="registered_type" jdbcType="VARCHAR" property="registeredType" />
+    
   </resultMap>
   <sql id="Base_Column_List">
     company_id, name, legal_person, area_id, address, registered_capital, registered_date, 
@@ -87,20 +90,27 @@
    
    
   
-  
-<!--        * @param orderField 排序字段，1：按行业，2：按注册资本,非必须，默认按行业 -->
-<!--        * @param descAsc    排序方式：desc:降序，asc:升序 -->
+
    <select id="buildingCompany"  resultMap="BaseResultMap">
    		
-   		select c.* from company c , company_building b 
-   		where b.company_id=c.company_id and b.building_id=#{buildingId} 
-   		order by
-   		<if test="orderField!=1">
-   			c.company_type
-   		</if>
-   		<if test="orderField==1">
-   			c.registered_capital
-   		</if>
+   		select c.*,cb.background from company c , 
+   		                company_building b,company_background cb
+   		
+   		where b.company_id=c.company_id 
+   		      and b.building_id=#{buildingId} 
+   		      and cb.company_id=c.company_id
+   		      and cb.background in (3,4)
+   		order by 
+   		
+   		<choose>  
+	        <when test="orderField == 2">c.registered_capital </when>  
+	        <when test="orderField == 3">cb.background        </when> 
+	        <when test="orderField == 4">c.registered_date    </when>  
+	        <when test="orderField == 5">c.registered_type    </when>  
+	        <otherwise>                  c.company_type       </otherwise> 
+        </choose>
+   		
+   		
    		<if test="descAsc!='desc'">
    			asc
    		</if>

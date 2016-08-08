@@ -3,6 +3,8 @@ package com.bbd.wtyh.service;
 import java.util.List;
 
 import com.bbd.wtyh.domain.BuildingDO;
+import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
+import com.bbd.wtyh.domain.CompanyBuildingDO;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.CompanyNewsDO;
 import com.bbd.wtyh.domain.CompanyTypeCountDO;
@@ -103,6 +105,18 @@ public interface ParkService {
      * @return List<CompanyNewsDO>  
      */
 	List<CompanyNewsDO> buildingNews(Integer buildingId);
+
+
+	
+	/**
+     * 查询楼宇已出风险企业
+     * @param buildingId 楼宇id,必传
+     * @return List<CompanyAnalysisResultDO>  
+     */
+	List<CompanyAnalysisResultDO> queryRiskByBuilding(Integer buildingId);
+
+
+
 	
 
 }
