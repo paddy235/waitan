@@ -4,8 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
-import com.bbd.wtyh.domain.dto.KunLunApiResultDto;
-import com.bbd.wtyh.domain.dto.RelationDataDto;
+import com.bbd.wtyh.domain.dto.KunLunApiResultDTO;
+import com.bbd.wtyh.domain.dto.RelationDataDTO;
 import com.bbd.wtyh.service.OfflineFinanceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,16 +40,46 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     }
 
     @Override
+    public List<Map> companyNews(String companyName) {
+        return null;
+    }
+
+    @Override
+    public List<Map> staticRiskIndex(String companyName) {
+        return null;
+    }
+
+    @Override
+    public List<Map> staticRiskList(String companyName) {
+        return null;
+    }
+
+    @Override
+    public List<Map> riskTrendGraph(Integer riskTypeId) {
+        return null;
+    }
+
+    @Override
+    public List<Map> dynamicComparisonChart(String companyName, String dateA, String dateB) {
+        return null;
+    }
+
+    @Override
+    public List<Map> companyRelatedComparisonChart(String companyName, String dateA, String dateB) {
+        return null;
+    }
+
+    @Override
     public String getRelationFromKunLun(String companyName, String level, String version) {
         logger.debug("从kunlun获取关联方数据。");
         try {
             String url = MessageFormat.format(kunlunRelationApi, level, URLEncoder.encode(companyName,"utf-8"));
-            RelationDataDto data = httpTemplate.get(url, new HttpCallback<RelationDataDto>() {
-                private KunLunApiResultDto<RelationDataDto> kunLunApiResult;
+            RelationDataDTO data = httpTemplate.get(url, new HttpCallback<RelationDataDTO>() {
+                private KunLunApiResultDTO<RelationDataDTO> kunLunApiResult;
 
                 @Override
-                public RelationDataDto parse(String result) {
-                    kunLunApiResult = JSON.parseObject(result, new TypeReference<KunLunApiResultDto<RelationDataDto>>() {});
+                public RelationDataDTO parse(String result) {
+                    kunLunApiResult = JSON.parseObject(result, new TypeReference<KunLunApiResultDTO<RelationDataDTO>>() {});
                     if(valid()){
                         return kunLunApiResult.getData();
                     }else{
