@@ -1,6 +1,6 @@
 package com.bbd.wtyh.dao.impl;
 
-import com.bbd.wtyh.dao.P2PMonitorDao;
+import com.bbd.wtyh.dao.P2PImageDao;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -12,7 +12,7 @@ import java.util.*;
  * @since 2016.08.05
  */
 @Repository("p2PMonitorDao")
-    public class P2PMonitorDaoImpl implements P2PMonitorDao {
+    public class P2PImageDaoImpl implements P2PImageDao {
 
     @Override
     public Map<String, Object> platFormStatus() {

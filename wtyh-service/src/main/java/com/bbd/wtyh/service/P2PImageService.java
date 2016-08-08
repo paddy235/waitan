@@ -9,7 +9,7 @@ import java.util.Map;
  * @author wangchenge
  * @since 2016.8.5
  */
-public interface P2PMonitorService {
+public interface P2PImageService {
     /**
      * P2P检测平台状态信息
      *
