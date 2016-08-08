@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,7 +48,18 @@ public class P2PMonitorServiceImpl implements P2PMonitorService {
 
     @Override
     public Map<String, String> coreDataInfo() {
-        return p2PMonitorDao.coreDataInfo();
+        Map<String, String> data = p2PMonitorDao.coreDataInfo();
+        Map<String, String> info = new HashMap<>();
+        info.put("累计成交量", data.get("calulateDealNumber"));
+        info.put("贷款余额", data.get("loanOverage"));     //
+        info.put("平均利率", data.get("averageInterestRate"));     //
+        info.put("近30日资产流入", data.get("recent30DaysIncome"));     // 近30日资产流入
+        info.put("待收投资人数", data.get("waitingInvesterNumber"));     // 待收投资人数
+        info.put("待还借款人数", data.get("waitingRepaymenterNumber"));     // 待还借款人数
+        info.put("最大单户借款额", data.get("maxSingleLoanNumber"));     // 最大单户借款额
+        info.put("最大十户借款额", data.get("top10LoanNumber"));     // 最大十户借款额
+
+        return info;
     }
 
     @Override
