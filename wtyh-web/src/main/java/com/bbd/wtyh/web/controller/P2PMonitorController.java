@@ -129,7 +129,6 @@ public class P2PMonitorController {
     @RequestMapping("/coreDataInterestRateTrend")
     @ResponseBody
     public ResponseBean coreDataInterestRateTrend() {
-        // TODO
         List<List<String>> data = p2PMonitorService.coreDataDealTrend();
         HistogramBean<String, String> content = new HistogramBean();
         if (data.size() != 0) {
@@ -147,7 +146,6 @@ public class P2PMonitorController {
     @RequestMapping("/coreDataLoadOverage")
     @ResponseBody
     public ResponseBean coreDataLoadOverage() {
-        // TODO
         List<List<String>> data = p2PMonitorService.coreDataDealTrend();
         HistogramBean<String, String> content = new HistogramBean();
         if (data.size() != 0) {
@@ -155,5 +153,18 @@ public class P2PMonitorController {
             content.setseries(data.get(1));
         }
         return ResponseBean.successResponse(content);
+    }
+
+    /**
+     * 关联方图谱
+     *
+     * @return
+     */
+    @RequestMapping("/relativeChart")
+    @ResponseBody
+    public ResponseBean relativeChart() {
+        // TODO
+        List<List<String>> data = p2PMonitorService.coreDataDealTrend();
+        return ResponseBean.successResponse(data);
     }
 }
