@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.RiskCompanyMapper">
+
+	<select id="getScanner" resultType="com.bbd.wtyh.domain.RiskCompanyInfoDO" parameterType="java.util.HashMap">
+		select
+			create_by as createBy,
+			create_date as createDate,
+			update_by as updateBy,
+			update_date as updateDate,
+			area as area,
+			reg_capital as regCapital,
+			company_qualification as companyQualification,
+			company_name as companyName,
+			static_risk_index as staticRiskIndex,
+			dynamic_risk_index as dynamicRiskIndex,
+			legal_rpt as legalRpt,
+			company_type as companyType,
+			review_time as reviewTime,
+			is_rise as isRise
+		from index_data
+		<where>
+			<if test="area != null and area != ''">
+				AND area=#{area}
+			</if>
+			<if test="minRegCapital != null and minRegCapital != ''">
+				AND reg_capital<![CDATA[>=]]>#{minRegCapital}
+			</if>
+			<if test="maxRegCapital != null and maxRegCapital != ''">
+				AND reg_capital<![CDATA[<=]]>#{maxRegCapital}
+			</if>
+			<if test="companyQualification != null and companyQualification != ''">
+				AND company_qualification=#{companyQualification}
+			</if>
+			<if test="minReviewTime != null and minReviewTime != ''">
+				AND review_time<![CDATA[>=]]>#{minReviewTime}
+			</if>
+			<if test="maxReviewTime != null and maxReviewTime != ''">
+				AND review_time<![CDATA[<=]]>#{maxReviewTime}
+			</if>
+		</where>
+	</select>
+
+</mapper>
