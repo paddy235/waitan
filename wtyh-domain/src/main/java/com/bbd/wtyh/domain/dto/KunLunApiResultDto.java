@@ -6,7 +6,7 @@ package com.bbd.wtyh.domain.dto;
  * Created by zhaoyuan
  * 2016/5/23.
  */
-public class KunLunApiResult<T> {
+public class KunLunApiResultDto<T> {
 
     private String status;
 
