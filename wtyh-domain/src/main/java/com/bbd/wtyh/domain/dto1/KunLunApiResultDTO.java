@@ -1,4 +1,4 @@
-package com.bbd.wtyh.domain.dto;
+package com.bbd.wtyh.domain.dto1;
 
 /**
  *
