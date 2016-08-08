@@ -1,7 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
-import com.bbd.wtyh.dao.P2PMonitorDao;
-import com.bbd.wtyh.service.P2PMonitorService;
+import com.bbd.wtyh.dao.P2PImageDao;
+import com.bbd.wtyh.service.P2PImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,38 +17,38 @@ import java.util.Map;
  * @since 2016.08.05
  */
 @Service("p2PMonitorService")
-public class P2PMonitorServiceImpl implements P2PMonitorService {
+public class P2PImageServiceImpl implements P2PImageService {
     @Autowired
-    private P2PMonitorDao p2PMonitorDao;
+    private P2PImageDao p2PImageDao;
 
     @Override
     public Map<String, Object> platFormStatus() {
-        return p2PMonitorDao.platFormStatus();
+        return p2PImageDao.platFormStatus();
     }
 
     @Override
     public Map<String, Object> platFormConsensus() {
-        return p2PMonitorDao.platFormConsensus();
+        return p2PImageDao.platFormConsensus();
     }
 
     @Override
     public Map<String, Object> lawsuitMsg() {
-        return p2PMonitorDao.lawsuitMsg();
+        return p2PImageDao.lawsuitMsg();
     }
 
     @Override
     public Map<String, Object> radarScore() {
-        return p2PMonitorDao.radarScore();
+        return p2PImageDao.radarScore();
     }
 
     @Override
     public Map<String, String> baseInfo() {
-        return p2PMonitorDao.baseInfo();
+        return p2PImageDao.baseInfo();
     }
 
     @Override
     public Map<String, String> coreDataInfo() {
-        Map<String, String> data = p2PMonitorDao.coreDataInfo();
+        Map<String, String> data = p2PImageDao.coreDataInfo();
         Map<String, String> info = new HashMap<>();
         info.put("累计成交量", data.get("calulateDealNumber"));
         info.put("贷款余额", data.get("loanOverage"));     //
@@ -65,7 +65,7 @@ public class P2PMonitorServiceImpl implements P2PMonitorService {
     @Override
     public List<List<String>> coreDataDealTrend() {
         // 处理数据转换
-        Map<String, String> data = p2PMonitorDao.coreDataDealTrend();
+        Map<String, String> data = p2PImageDao.coreDataDealTrend();
         List<String> years = new ArrayList<>();
         List<String> dealNumbers = new ArrayList<>();
         for (Map.Entry<String, String> entity : data.entrySet()) {
@@ -82,7 +82,7 @@ public class P2PMonitorServiceImpl implements P2PMonitorService {
     @Override
     public List<List<String>> coreDataInterestRateTrend() {
         // 处理数据转换
-        Map<String, String> data = p2PMonitorDao.coreDataInterestRateTrend();
+        Map<String, String> data = p2PImageDao.coreDataInterestRateTrend();
         List<String> years = new ArrayList<>();
         List<String> interestRates = new ArrayList<>();
         for (Map.Entry<String, String> entity : data.entrySet()) {
@@ -99,7 +99,7 @@ public class P2PMonitorServiceImpl implements P2PMonitorService {
     @Override
     public List<List<String>> coreDataLoanOverage() {
         // 处理数据转换
-        Map<String, String> data = p2PMonitorDao.coreDataLoanOverage();
+        Map<String, String> data = p2PImageDao.coreDataLoanOverage();
         List<String> years = new ArrayList<>();
         List<String> loanOverages = new ArrayList<>();
         for (Map.Entry<String, String> entity : data.entrySet()) {

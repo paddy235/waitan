@@ -1,10 +1,7 @@
 package com.bbd.wtyh.web.controller;
 
-import com.bbd.higgs.utils.http.HttpCallback;
-import com.bbd.higgs.utils.http.HttpTemplate;
-import com.bbd.wtyh.service.P2PMonitorService;
+import com.bbd.wtyh.service.P2PImageService;
 import com.bbd.wtyh.web.HistogramBean;
-import com.bbd.wtyh.web.LineChartBean;
 import com.bbd.wtyh.web.RadarChartBean;
 import com.bbd.wtyh.web.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +19,10 @@ import java.util.Map;
  * @since 2016.08.05
  */
 @Controller
-@RequestMapping("/P2PMonitor")
-public class P2PMonitorController {
+@RequestMapping("/P2PImage")
+public class P2PImageController {
     @Autowired
-    private P2PMonitorService p2PMonitorService;
+    private P2PImageService p2PImageService;
 
     /**
      * 平台状态信息
@@ -35,7 +32,7 @@ public class P2PMonitorController {
     @RequestMapping("/platFormStatus")
     @ResponseBody
     public ResponseBean platFormStatus() {
-        Map<String, Object> content = p2PMonitorService.platFormStatus();
+        Map<String, Object> content = p2PImageService.platFormStatus();
         return ResponseBean.successResponse(content);
     }
 
@@ -47,7 +44,7 @@ public class P2PMonitorController {
     @RequestMapping("/platFormConsensus")
     @ResponseBody
     public ResponseBean platFormConsensus() {
-        Map<String, Object> content = p2PMonitorService.platFormConsensus();
+        Map<String, Object> content = p2PImageService.platFormConsensus();
         return ResponseBean.successResponse(content);
     }
 
@@ -59,7 +56,7 @@ public class P2PMonitorController {
     @RequestMapping("/lawsuitMsg")
     @ResponseBody
     public ResponseBean lawsuitMsg() {
-        Map<String, Object> conent = p2PMonitorService.lawsuitMsg();
+        Map<String, Object> conent = p2PImageService.lawsuitMsg();
         return ResponseBean.successResponse(conent);
     }
 
@@ -71,7 +68,7 @@ public class P2PMonitorController {
     @RequestMapping("/radarScore")
     @ResponseBody
     public ResponseBean radarScore() {
-        Map<String, Object> result = p2PMonitorService.radarScore();
+        Map<String, Object> result = p2PImageService.radarScore();
         RadarChartBean radarChart = new RadarChartBean<>();
         if (result.size() != 0) {
             radarChart.setIndicator(result.get("indicator"));
@@ -90,7 +87,7 @@ public class P2PMonitorController {
     @RequestMapping("/baseInfo")
     @ResponseBody
     public ResponseBean baseInfo() {
-        Map<String, String> content = p2PMonitorService.baseInfo();
+        Map<String, String> content = p2PImageService.baseInfo();
         return ResponseBean.successResponse(content);
     }
 
@@ -102,7 +99,7 @@ public class P2PMonitorController {
     @RequestMapping("/coreDataInfo")
     @ResponseBody
     public ResponseBean coreDataInfo() {
-        Map<String, String> content = p2PMonitorService.coreDataInfo();
+        Map<String, String> content = p2PImageService.coreDataInfo();
         return ResponseBean.successResponse(content);
     }
 
@@ -114,7 +111,7 @@ public class P2PMonitorController {
     @RequestMapping("/coreDataDealTrend")
     @ResponseBody
     public ResponseBean coreDataDealTrend() {
-        List<List<String>> data = p2PMonitorService.coreDataDealTrend();
+        List<List<String>> data = p2PImageService.coreDataDealTrend();
         HistogramBean<String, String> content = new HistogramBean();
         if (data.size() != 0) {
             content.setxAxis(data.get(0));
@@ -131,7 +128,7 @@ public class P2PMonitorController {
     @RequestMapping("/coreDataInterestRateTrend")
     @ResponseBody
     public ResponseBean coreDataInterestRateTrend() {
-        List<List<String>> data = p2PMonitorService.coreDataDealTrend();
+        List<List<String>> data = p2PImageService.coreDataDealTrend();
         HistogramBean<String, String> content = new HistogramBean();
         if (data.size() != 0) {
             content.setxAxis(data.get(0));
@@ -148,7 +145,7 @@ public class P2PMonitorController {
     @RequestMapping("/coreDataLoadOverage")
     @ResponseBody
     public ResponseBean coreDataLoadOverage() {
-        List<List<String>> data = p2PMonitorService.coreDataDealTrend();
+        List<List<String>> data = p2PImageService.coreDataDealTrend();
         HistogramBean<String, String> content = new HistogramBean();
         if (data.size() != 0) {
             content.setxAxis(data.get(0));
@@ -166,7 +163,7 @@ public class P2PMonitorController {
     @ResponseBody
     public ResponseBean relativeChart() {
         // TODO
-        List<List<String>> data = p2PMonitorService.coreDataDealTrend();
+        List<List<String>> data = p2PImageService.coreDataDealTrend();
         return ResponseBean.successResponse(data);
     }
 }

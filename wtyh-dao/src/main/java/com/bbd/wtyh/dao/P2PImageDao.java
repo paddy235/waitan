@@ -8,7 +8,7 @@ import java.util.Map;
  * @author wangchenge
  * @since 2016.08.05
  */
-public interface P2PMonitorDao {
+public interface P2PImageDao {
     Map<String, Object> platFormStatus();
 
     Map<String, Object> platFormConsensus();
