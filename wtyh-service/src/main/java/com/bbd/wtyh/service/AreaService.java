@@ -3,6 +3,7 @@ package com.bbd.wtyh.service;
 import java.util.List;
 
 import com.bbd.wtyh.domain.AreaDO;
+import com.bbd.wtyh.domain.NvDO;
 
 /**
 * 园区相关接口
@@ -18,5 +19,12 @@ public interface AreaService {
 	* @return List<Area>
 	*/
 	public List<AreaDO> areaList();
+
+	
+	/**
+	* 获取区域热力图
+	* @return List<NvDO>
+	*/
+	public List<NvDO> hot();
 
 }

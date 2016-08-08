@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bbd.wtyh.domain.AreaDO;
 import com.bbd.wtyh.domain.BuildingDO;
+import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
+import com.bbd.wtyh.domain.CompanyBuildingDO;
 import com.bbd.wtyh.domain.CompanyNewsDO;
 import com.bbd.wtyh.domain.CompanyTypeCountDO;
 import com.bbd.wtyh.domain.InBusinessDO;
@@ -50,7 +52,7 @@ public class ParkController {
     
     
     /**
-    * 根据园区查询类金融企业集中度
+    * 根据园区查询类金融企业集中度  与 楼宇列表 共用接口
     * @param areaId 区域id,必传
     * @return ResponseBean  
     */
@@ -128,7 +130,12 @@ public class ParkController {
       /**
        * 楼宇企业列表
        * @param buildingId 楼宇id,必传
-       * @param orderField 排序字段，1：按行业，2：按注册资本,非必须，默认按行业
+       * @param orderField 排序字段，非必须，默认按行业，值范围[1 ,2，3，4，5]：
+       *                                              1：行业
+       *                                              2：注册资本
+       *                                              3：企业背景
+       *                                              4：注册时间
+       *                                              5：企业类型
        * @param descAsc    排序方式：desc:降序，asc:升序
        * @return ResponseBean  
        */
@@ -183,6 +190,21 @@ public class ParkController {
               
              return ResponseBean.successResponse(data);
           }
+          
+          /**
+           * 已出风险企业
+           * @param buildingId 楼宇id,必传
+           * @return ResponseBean  
+           */
+           @RequestMapping("/buildingRisk")
+           @ResponseBody
+           public ResponseBean buildingRisk(@RequestParam(required=true) Integer buildingId) {
+
+           	  List<CompanyAnalysisResultDO> data = parkService.queryRiskByBuilding(buildingId);
+               
+              return ResponseBean.successResponse(data);
+           }
+         
         
-    
+   
 }

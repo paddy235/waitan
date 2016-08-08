@@ -12,4 +12,5 @@ public interface BuildingMapper {
     List<BuildingDO> queryBuildings(Integer areaId);
 	
 	List<CompanyNewsDO> buildingNews(Integer buildingId);
+
 }

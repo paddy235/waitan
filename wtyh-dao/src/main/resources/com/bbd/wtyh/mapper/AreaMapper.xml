@@ -5,9 +5,16 @@
 
 
     <select id="areaList"  resultType="com.bbd.wtyh.domain.AreaDO">
-			select area_id, name from area;
+			select area_id, name from area where parent_id=107;
 	</select>
 
+	<select id="hot"  resultType="com.bbd.wtyh.domain.NvDO">
+			select a.name , IFNULL(b.ct,0) value 
+			from area a 
+				left join 
+			( select area_id , count(area_id) ct from company c group by c.area_id ) b 
+			on b.area_id=a.area_id where  a.parent_id=107 ;
+	</select>
 
 
 </mapper>

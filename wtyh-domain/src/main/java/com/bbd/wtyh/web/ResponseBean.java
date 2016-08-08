@@ -12,7 +12,7 @@ public class ResponseBean {
 
     /**
      * @param content 成功的内容
-     * @return
+     * @return ResponseBean
      * @author Ian.Su
      */
     public static ResponseBean successResponse(Object content) {
@@ -26,7 +26,7 @@ public class ResponseBean {
 
     /**
      * @param msg 失败的内容，比如提示语句
-     * @return
+     * @return ResponseBean
      * @author Ian.Su
      */
     public static ResponseBean errorResponse(Object msg) {

@@ -3,6 +3,7 @@ package com.bbd.wtyh.mapper;
 import java.util.List;
 
 import com.bbd.wtyh.domain.AreaDO;
+import com.bbd.wtyh.domain.NvDO;
 
 
 /**
@@ -14,8 +15,14 @@ public interface AreaMapper{
 	
     
     /**
-    *
     * @return List<Area> 
     */
     List<AreaDO> areaList();
+
+	
+	/**
+	*
+	* @return List<NvDO>
+	*/
+	List<NvDO> hot();
 }

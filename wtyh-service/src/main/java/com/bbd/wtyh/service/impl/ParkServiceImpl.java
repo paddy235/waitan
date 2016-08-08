@@ -9,12 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bbd.wtyh.domain.BuildingDO;
+import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
 import com.bbd.wtyh.domain.CompanyBackgroundDO;
+import com.bbd.wtyh.domain.CompanyBuildingDO;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.CompanyNewsDO;
 import com.bbd.wtyh.domain.CompanyTypeCountDO;
 import com.bbd.wtyh.domain.InBusinessDO;
 import com.bbd.wtyh.mapper.BuildingMapper;
+import com.bbd.wtyh.mapper.CompanyAnalysisResultMapper;
 import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.mapper.CompanyNewsMapper;
 import com.bbd.wtyh.mapper.ParkMapper;
@@ -40,6 +43,9 @@ public class ParkServiceImpl implements ParkService {
 	
 	@Autowired
 	private ParkMapper parkMapper;
+	
+	@Autowired
+	private CompanyAnalysisResultMapper carMapper;
 
 	@Override
 	public List<BuildingDO> queryBuildings(Integer areaId) {
@@ -162,7 +168,10 @@ public class ParkServiceImpl implements ParkService {
 	@Override
 	public List<CompanyDO> buildingCompany(Integer buildingId,Integer orderField,String descAsc) {
 		
-		return companyMapper.buildingCompany(buildingId,orderField,descAsc);
+		List<CompanyDO>  list = companyMapper.buildingCompany(buildingId,orderField,descAsc);
+		
+		
+		return list;
 		
 	}
 
@@ -234,5 +243,19 @@ public class ParkServiceImpl implements ParkService {
 	public List<CompanyNewsDO> buildingNews(Integer buildingId) {
 		return buildingMapper.buildingNews(buildingId);
 	}
+
+
+
+
+	@Override
+	public List<CompanyAnalysisResultDO> queryRiskByBuilding(Integer buildingId) {
+		
+		return carMapper.queryRiskByBuilding(buildingId);
+		
+	}
+
+
+
+	
 
 }

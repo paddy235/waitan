@@ -33,13 +33,34 @@ public class CompanyDO extends BaseDO {
     
     private Byte companyType;
 
-    private String comTypeCN;
+    @SuppressWarnings("unused")
+	private String comTypeCN;
     
-    private String products;
+    
+	
+	private String products;
 
     private Byte status;
     
-    public String getComTypeCN(){
+    private Byte background;
+    
+    @SuppressWarnings("unused")
+	private String backgroundCN;
+    
+    private String registeredType;
+    
+
+
+	
+	public String getBackgroundCN() {
+		return CompanyBackgroundDO.Bg.getBg(this.background).CN;
+	}
+
+
+
+
+
+	public String getComTypeCN(){
     	switch (companyType) {
 		case TYPE_P2P_1:
 			return "p2p";
@@ -61,6 +82,35 @@ public class CompanyDO extends BaseDO {
 			return null;
 		}
     }
+	
+	
+	
+	
+	
+
+	public String getRegisteredType() {
+		return registeredType;
+	}
+
+
+	public void setRegisteredType(String registeredType) {
+		this.registeredType = registeredType;
+	}
+
+
+
+	public void setComTypeCN(String comTypeCN) {
+		this.comTypeCN = comTypeCN;
+	}
+
+	public Byte getBackground() {
+		return background;
+	}
+
+
+	public void setBackground(Byte background) {
+		this.background = background;
+	}
 	
 
     public Integer getCompanyId() {
