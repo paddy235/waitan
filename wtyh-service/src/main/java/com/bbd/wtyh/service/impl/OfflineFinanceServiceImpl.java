@@ -4,8 +4,8 @@
 //import com.alibaba.fastjson.TypeReference;
 //import com.bbd.higgs.utils.http.HttpCallback;
 //import com.bbd.higgs.utils.http.HttpTemplate;
-//import com.bbd.wtyh.domain.dto.KunLunApiResult;
-//import com.bbd.wtyh.domain.dto.RelationData;
+//import com.bbd.wtyh.domain.dto.KunLunApiResultDto;
+//import com.bbd.wtyh.domain.dto.RelationDataDto;
 //import com.bbd.wtyh.service.OfflineFinanceService;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
@@ -44,12 +44,12 @@
 //        logger.debug("从kunlun获取关联方数据。");
 //        try {
 //            String url = MessageFormat.format(kunlunRelationApi, level, URLEncoder.encode(companyName,"utf-8"));
-//            RelationData data = httpTemplate.get(url, new HttpCallback<RelationData>() {
-//                private KunLunApiResult<RelationData> kunLunApiResult;
+//            RelationDataDto data = httpTemplate.get(url, new HttpCallback<RelationDataDto>() {
+//                private KunLunApiResultDto<RelationDataDto> kunLunApiResult;
 //
 //                @Override
-//                public RelationData parse(String result) {
-//                    kunLunApiResult = JSON.parseObject(result, new TypeReference<KunLunApiResult<RelationData>>() {});
+//                public RelationDataDto parse(String result) {
+//                    kunLunApiResult = JSON.parseObject(result, new TypeReference<KunLunApiResultDto<RelationDataDto>>() {});
 //                    if(valid()){
 //                        return kunLunApiResult.getData();
 //                    }else{

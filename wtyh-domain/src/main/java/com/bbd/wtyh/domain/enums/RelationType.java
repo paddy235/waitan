@@ -1,4 +1,4 @@
-package com.bbd.wtyh.domain.dto;
+package com.bbd.wtyh.domain.enums;
 
 /**
  * 关联关系类型
