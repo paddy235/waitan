@@ -1,5 +1,7 @@
 package com.bbd.wtyh.web.controller;
 
+import com.bbd.higgs.utils.http.HttpCallback;
+import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.service.P2PMonitorService;
 import com.bbd.wtyh.web.HistogramBean;
 import com.bbd.wtyh.web.LineChartBean;
