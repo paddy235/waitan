@@ -2,7 +2,7 @@ package com.bbd.wtyh.util;
 
 import org.springframework.util.StringUtils;
 
-public class TranslateUtil {
+public class TranslateUtils {
 
 	public static String decodeUnicode(String theString) {
 		if (StringUtils.isEmpty(theString)) {
