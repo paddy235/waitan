@@ -62,6 +62,13 @@ public interface OfflineFinanceService {
      */
     public List<Map> companyRelatedComparisonChart(String companyName, String dateA, String dateB);
 
+    /**
+     * 列表展示量化后的风险系数
+     * @return
+     */
+    public List<Map> riskFactor();
+
     public String getRelationFromKunLun(String companyName, String level, String version);
+
 
 }

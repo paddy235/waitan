@@ -114,4 +114,17 @@ public class OfflineFinanceController {
         return ResponseBean.successResponse(data);
     }
 
+    /**
+     * 列表展示量化后的风险系数
+     * @return
+     */
+    @RequestMapping("/riskFactor")
+    @ResponseBody
+    public ResponseBean riskFactor() {
+        List<Map> data = offlineFinanceService.riskFactor();
+        return ResponseBean.successResponse(data);
+    }
+
+
+
 }

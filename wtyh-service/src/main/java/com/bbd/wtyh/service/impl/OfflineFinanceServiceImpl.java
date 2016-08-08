@@ -70,6 +70,11 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     }
 
     @Override
+    public List<Map> riskFactor() {
+        return null;
+    }
+
+    @Override
     public String getRelationFromKunLun(String companyName, String level, String version) {
         logger.debug("从kunlun获取关联方数据。");
         try {
