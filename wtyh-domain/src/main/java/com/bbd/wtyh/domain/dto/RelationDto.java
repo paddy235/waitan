@@ -23,7 +23,7 @@ import java.util.TreeSet;
  * Created by zhaoyuan
  * 2016/5/23.
  */
-public class RelationDTO extends ArrayList<Object>{
+public class RelationDto extends ArrayList<Object>{
 
     /**
      * 转成数据平台的数据格式 需要用到的字段
