@@ -10,13 +10,13 @@ import java.util.*;
  * Created by zhaoyuan
  * 2016/5/23.
  */
-public class RelationDataDto {
+public class RelationDataDTO {
 
     private int status;
 
     private String msg;
 
-    private List<RelationDto> data;
+    private List<RelationDTO> data;
 
     /**
      * data是否已经清洗
@@ -31,11 +31,11 @@ public class RelationDataDto {
         if (isEtl) return;
 
         if (data != null) {
-            Iterator<RelationDto> iterator = data.iterator();
-            Map<String,RelationDto> uniqueRelations = new LinkedHashMap<>();
+            Iterator<RelationDTO> iterator = data.iterator();
+            Map<String,RelationDTO> uniqueRelations = new LinkedHashMap<>();
             Map<String,Integer> nodeLevelMap = new HashMap<>();
             while (iterator.hasNext()){
-                RelationDto temp = iterator.next();
+                RelationDTO temp = iterator.next();
                 if(nodeLevelMap.containsKey(temp.getMainNode())){
                     nodeLevelMap.put(temp.getMainNode(),Math.min(temp.getMainNodeLevel(),nodeLevelMap.get(temp.getMainNode())));
                 }else{
@@ -45,7 +45,7 @@ public class RelationDataDto {
 
             iterator = data.iterator();
             while (iterator.hasNext()){
-                RelationDto temp = iterator.next();
+                RelationDTO temp = iterator.next();
                 if(temp.isQueryTarget()) continue;
 
                 String key = temp.getStartNode() + "->" + temp.getEndNode();
@@ -54,7 +54,7 @@ public class RelationDataDto {
                     continue;
                 }
 
-                RelationDto existRelation = uniqueRelations.get(key);
+                RelationDTO existRelation = uniqueRelations.get(key);
                 integrateRelation(existRelation,temp,nodeLevelMap);
             }
 
@@ -75,7 +75,7 @@ public class RelationDataDto {
      * @param exist
      * @param that
      */
-    private void integrateRelation(RelationDto exist, RelationDto that, Map<String,Integer> nodeLevelMap){
+    private void integrateRelation(RelationDTO exist, RelationDTO that, Map<String,Integer> nodeLevelMap){
         Integer startLevel = nodeLevelMap.get(exist.getStartNode());
         startLevel = startLevel == null ? 0 : startLevel;
         exist.setStartLevel(startLevel);
@@ -89,11 +89,11 @@ public class RelationDataDto {
     }
 
 
-    public List<RelationDto> getData() {
+    public List<RelationDTO> getData() {
         return data;
     }
 
-    public void setData(List<RelationDto> data) {
+    public void setData(List<RelationDTO> data) {
         this.data = data;
     }
 
