@@ -65,4 +65,9 @@
         <property name="suffix" value=".jsp"/>
         <property name="order" value="1"/>
     </bean>
+
+    <bean id="httpTemplate" class="com.bbd.higgs.utils.http.HttpTemplate">
+        <property name="connectTimeout" value="600000"/>
+        <property name="socketTimeout" value="600000"/>
+    </bean>
 </beans>
