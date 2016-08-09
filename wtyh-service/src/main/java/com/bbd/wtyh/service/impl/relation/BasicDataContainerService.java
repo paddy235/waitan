@@ -24,8 +24,9 @@ import java.util.Map;
 public class BasicDataContainerService extends ApiContainerService{
 	
 	private static Logger log = LoggerFactory.getLogger(BasicDataContainerService.class);
-	
-	@Value("${" + Constants.SEARCH_API_COMPANY_URL + "}")
+
+	// TODO
+//	@Value("${" + Constants.SEARCH_API_COMPANY_URL + "}")
 	private String url;
 	
 	public EnterpriseDataVO getEnterpriseData(String companyName) throws Exception{

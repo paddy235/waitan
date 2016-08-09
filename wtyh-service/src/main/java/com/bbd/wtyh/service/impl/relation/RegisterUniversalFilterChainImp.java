@@ -3,7 +3,8 @@ package com.bbd.wtyh.service.impl.relation;
 
 import com.bbd.wtyh.common.relation.APIConstants;
 import com.bbd.wtyh.common.relation.Constants;
-import com.bbd.wtyh.redis.RedisDAO;
+import com.bbd.wtyh.redis.RedisDao;
+import com.bbd.wtyh.redis.RedisDaoImpl;
 import com.bbd.wtyh.util.relation.ListUtils;
 import com.bbd.wtyh.util.relation.StringUtils;
 import com.bbd.wtyh.web.relationPara.param.RelatedParameters;
@@ -43,16 +44,18 @@ import java.util.Map;
 @Service("RegisterUniversalFilterChainImp")
 public class RegisterUniversalFilterChainImp {
 
-	@Autowired
-	private RedisDAO redisDao;
+//	TODO
+//	@Autowired
+	private RedisDao redisDao = new RedisDaoImpl();
 
 	public HttpGet httpGet;
 	
 	public HttpClient client;
 	
 	private final static int retry = 3;
-	
-	@Value("${related.party.url}")
+
+	// TODO
+//	@Value("${related.party.url}")
 	private String url;
     
     /**

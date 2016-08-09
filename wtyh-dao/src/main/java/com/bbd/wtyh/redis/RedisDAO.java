@@ -10,7 +10,7 @@ import java.util.Set;
  * @author Wen Jie
  *
  */
-public interface RedisDAO {
+public interface RedisDao {
 
 	public boolean addObject(final String key, final Object object,
 							 final Long timeout, Class<?> clazz);

@@ -2,7 +2,8 @@ package com.bbd.wtyh.service.impl.relation;
 
 import com.bbd.wtyh.common.relation.APIConstants;
 import com.bbd.wtyh.common.relation.Constants;
-import com.bbd.wtyh.redis.RedisDAO;
+import com.bbd.wtyh.redis.RedisDao;
+import com.bbd.wtyh.redis.RedisDaoImpl;
 import com.bbd.wtyh.util.relation.StringUtils;
 import com.bbd.wtyh.web.relationVO.CourtAnnouncementVO;
 import com.bbd.wtyh.web.relationVO.DishonestPersonsVO;
@@ -30,17 +31,20 @@ public class LawsuitRecordcContainerService extends ApiContainerService {
     private static final String[] SSJL_FIELDS = new String[]{"案号", "title", "type", "main", "案由", "裁判日期", "起诉方当事人", "起诉方其他相关人", "被诉方当事人", "被诉方其他相关人", "案件结果",
             "审理法院", "法院方当事人", "适用法条"};
     private static final String[] SXBZX_FIELD = new String[]{"执行法院", "案号", "发布时间", "执行依据文号"};
-    private static final String[] BZX_FIELD = new String[]{"被执行人姓名/名称", "身份证号码/组织机构代码", "执行法院", "立案时间","案号","执行标的"};
+    private static final String[] BZX_FIELD = new String[]{"被执行人姓名/名称", "身份证号码/组织机构代码", "执行法院", "立案时间", "案号", "执行标的"};
     private static final String KTGG_FIELD[] = new String[]{"案号", "案由", "当事人", "时间", "main", "city"};
     private static final String[] SSJL_FIELD = {"title", "main"};
     private static final Integer PAGE_SIZE = 50;
     private static Logger log = LoggerFactory.getLogger(LawsuitRecordcContainerService.class);
-    @Value("${" + Constants.API_SEARCH_URL + "}")
+
+//    TODO
+//    @Value("${" + Constants.API_SEARCH_URL + "}")
     private String url;
-    
-    @Resource
-    private RedisDAO redisDao;
-    
+
+    //    TODO
+//    @Resource
+    private RedisDao redisDao = new RedisDaoImpl();
+
     /**
      * API接口获得诉讼记录--分页
      *
@@ -50,7 +54,7 @@ public class LawsuitRecordcContainerService extends ApiContainerService {
      */
     public List<LawsuitRecordVO> getLawsuteDataByPage(String company, Integer pageNum) throws Exception {
         String resultJson = apiContainerServicePostByPage(url, APIConstants.COMPANYINFO_SSJL, company,
-                SSJL_FIELD, APIConstants.SEARCHTYPE_DETAIL, Constants.SSJL_DATA_VERSION,pageNum, PAGE_SIZE, SSJL_FIELDS[0], SSJL_FIELDS[1], SSJL_FIELDS[2],
+                SSJL_FIELD, APIConstants.SEARCHTYPE_DETAIL, Constants.SSJL_DATA_VERSION, pageNum, PAGE_SIZE, SSJL_FIELDS[0], SSJL_FIELDS[1], SSJL_FIELDS[2],
                 SSJL_FIELDS[3], SSJL_FIELDS[4], SSJL_FIELDS[5], SSJL_FIELDS[6], SSJL_FIELDS[7], SSJL_FIELDS[8], SSJL_FIELDS[9], SSJL_FIELDS[10], SSJL_FIELDS[11], SSJL_FIELDS[12], SSJL_FIELDS[13]);
         log.info(company + "API接口 诉讼记录返回数据为：" + resultJson);
         if (!StringUtils.isNotNullOrEmpty(resultJson)) {
@@ -150,7 +154,7 @@ public class LawsuitRecordcContainerService extends ApiContainerService {
      */
     public List<DishonestPersonsVO> getDishonestyDataByPage(String company, Integer pageNum) throws Exception {
         String resultJson = apiContainerServicePostByPage(url, APIConstants.COMPANYINFO_SXBZX, company,
-                new String[]{"被执行人姓名或名称"}, APIConstants.SEARCHTYPE_DETAIL, Constants.DATA_VERSION, pageNum,PAGE_SIZE, SXBZX_FIELD[0], SXBZX_FIELD[1], SXBZX_FIELD[2],
+                new String[]{"被执行人姓名或名称"}, APIConstants.SEARCHTYPE_DETAIL, Constants.DATA_VERSION, pageNum, PAGE_SIZE, SXBZX_FIELD[0], SXBZX_FIELD[1], SXBZX_FIELD[2],
                 SXBZX_FIELD[3]);
         log.info(company + "API接口 失信被执行人返回数据为：" + resultJson);
         if (!StringUtils.isNotNullOrEmpty(resultJson)) {
@@ -191,8 +195,8 @@ public class LawsuitRecordcContainerService extends ApiContainerService {
      */
     public List<ExecutedPersonVO> getExecutedDataByPage(String company, Integer pageNum) throws Exception {
         String resultJson = apiContainerServicePostByPage(url, APIConstants.COMPANYINFO_BZX, company,
-        		new String[]{"被执行人姓名/名称"}, APIConstants.SEARCHTYPE_DETAIL, Constants.DATA_VERSION, pageNum,PAGE_SIZE, BZX_FIELD[0], BZX_FIELD[1], BZX_FIELD[2],
-                BZX_FIELD[3],BZX_FIELD[4],BZX_FIELD[5]);
+                new String[]{"被执行人姓名/名称"}, APIConstants.SEARCHTYPE_DETAIL, Constants.DATA_VERSION, pageNum, PAGE_SIZE, BZX_FIELD[0], BZX_FIELD[1], BZX_FIELD[2],
+                BZX_FIELD[3], BZX_FIELD[4], BZX_FIELD[5]);
         log.info(company + "API接口 被执行人返回数据为：" + resultJson);
         if (!StringUtils.isNotNullOrEmpty(resultJson)) {
             throw new Exception("API 被执行人请求超时 ，返回数据为空");
@@ -211,7 +215,7 @@ public class LawsuitRecordcContainerService extends ApiContainerService {
     public List<ExecutedPersonVO> getExecutedData(String company, String companyBZXKey) throws Exception {
         String resultJson = apiContainerServicePost(url, APIConstants.COMPANYINFO_BZX, company,
                 "被执行人姓名/名称", APIConstants.SEARCHTYPE_DETAIL, Constants.SSJL_DATA_VERSION, BZX_FIELD[0], BZX_FIELD[1], BZX_FIELD[2],
-                BZX_FIELD[3],BZX_FIELD[3],BZX_FIELD[4],BZX_FIELD[5]);
+                BZX_FIELD[3], BZX_FIELD[3], BZX_FIELD[4], BZX_FIELD[5]);
         log.info(company + "API接口 被执行人返回数据为：" + resultJson);
         if (!StringUtils.isNotNullOrEmpty(resultJson)) {
             throw new Exception("API 被执行人请求超时 ，返回数据为空");
@@ -222,15 +226,14 @@ public class LawsuitRecordcContainerService extends ApiContainerService {
         return handleBZXJson(resultJson, true, companyBZXKey);
     }
 
-    
 
     /**
      * 诉讼记录---处理API返回出的多层JSON数据
      *
      * @param json
      * @param company_redis_key
-     * @param isSave 是否存储到redis， API接口请求总数的时候用
-     * @param company 是否更新数据库，NULL 不更新，API请求总数外层要更新，， 有值则更新，说明是新华08项目
+     * @param isSave            是否存储到redis， API接口请求总数的时候用
+     * @param company           是否更新数据库，NULL 不更新，API请求总数外层要更新，， 有值则更新，说明是新华08项目
      * @return
      */
     public List<LawsuitRecordVO> handleSSJLJson(String json, Boolean isSave, String company_redis_key, String company) {
@@ -311,8 +314,8 @@ public class LawsuitRecordcContainerService extends ApiContainerService {
         }
         return executedPersonVOList;
     }
-    
-    
+
+
     /**
      * 开庭公告---处理API返回出的多层JSON数据
      *

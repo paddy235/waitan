@@ -26,7 +26,7 @@ import java.util.Map;
 public class RelationController {
 	
 	@Autowired
-	private RegisterUniversalFilterChainImp regImp;
+	private RegisterUniversalFilterChainImp registerUniversalFilterChainImp;
 	@Autowired
 	private RelationService relationService;
 	@Autowired
@@ -41,7 +41,7 @@ public class RelationController {
 			if (StringUtils.isNullOrEmpty(dataVersion)) {
 				dataVersion = (String) request.getSession().getAttribute("defaultVersion");
 			}
-			return regImp.queryRelation(companyName, dataVersion);
+			return registerUniversalFilterChainImp.queryRelation(companyName, dataVersion);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -67,7 +67,7 @@ public class RelationController {
 			dataVersion = (String) request.getSession().getAttribute("defaultVersion");
 		}
 		AjaxVO ajax = new AjaxVO();
-		Map<String, List> map = regImp.queryRelation(origCompanyName, dataVersion);
+		Map<String, List> map = registerUniversalFilterChainImp.queryRelation(origCompanyName, dataVersion);
 		if (null != map) {
 			CompanyDataStatisticsVO routeList = searchAPIandRelatedPartyService.relatedPartyStatistics(origCompanyName, tarCompanyName, map.get("lineList"));
 			if (null != routeList) {
