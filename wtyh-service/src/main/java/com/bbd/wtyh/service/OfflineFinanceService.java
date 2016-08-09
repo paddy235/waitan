@@ -1,12 +1,15 @@
 package com.bbd.wtyh.service;
 
+import com.bbd.wtyh.domain.vo.StatisticsVO;
+
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
 /**
  * 线下理财接口层
  * @author zhouxuan
- * @since 2016.08.05
+ * @since  2016.08.05
  */
 public interface OfflineFinanceService {
     /**
@@ -14,7 +17,7 @@ public interface OfflineFinanceService {
      * @return
      */
     @SuppressWarnings("rawtypes")
-    public List<Map> relatedGraph();
+    public Map<String,List> queryRelation(String companyName, String dataVersion) throws Exception;
 
     /**
      * 公司舆情
@@ -39,10 +42,12 @@ public interface OfflineFinanceService {
 
     /**
      * 风险指数趋势变化图
-     * @param riskTypeId
+     * @param companyName
+     * @param tabIndex
+     * @param areaCode
      * @return
      */
-    public List<Map> riskTrendGraph(Integer riskTypeId);
+    public List<StatisticsVO> queryStatistics(String companyName, String tabIndex, String areaCode) throws ParseException;
 
     /**
      * 动态指数时间轴对比图
@@ -67,8 +72,5 @@ public interface OfflineFinanceService {
      * @return
      */
     public List<Map> riskFactor();
-
-    public String getRelationFromKunLun(String companyName, String level, String version);
-
 
 }
