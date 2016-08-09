@@ -16,7 +16,7 @@ import java.util.Map;
  * @author wangchenge
  * @since 2016.08.05
  */
-@Service("p2PMonitorService")
+@Service("p2PImageService")
 public class P2PImageServiceImpl implements P2PImageService {
     @Autowired
     private P2PImageDao p2PImageDao;

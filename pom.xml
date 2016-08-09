@@ -248,7 +248,7 @@
         </dependency>
         <!-- if you use velocity view in springmvc -->
         <dependency>
-            <groupId>org.apache.velocity</groupId>
+                <groupId>org.apache.velocity</groupId>
             <artifactId>velocity</artifactId>
             <version>1.7</version>
         </dependency>

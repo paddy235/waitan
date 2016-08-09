@@ -25,4 +25,13 @@
     from guarantee_balance
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="listByYear" resultMap="BaseResultMap">
+    select
+    year,sum(amount) amount,sum(number) number,sum(steel_balance) steel_balance,
+    sum(composite_balance) composite_balance,sum(policy_balance) policy_balance
+    from guarantee_balance
+    group by year
+
+  </select>
 </mapper>

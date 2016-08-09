@@ -1,24 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bbd.wtyh.mapper.CompanyLevelMapper">
-  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.CompanyLevelDO">
-    <id column="company_id" jdbcType="INTEGER" property="companyId" />
-    <result column="out_level" jdbcType="INTEGER" property="outLevel" />
-    <result column="inner_level" jdbcType="INTEGER" property="innerLevel" />
-    <result column="live_level" jdbcType="INTEGER" property="liveLevel" />
-    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
-    <result column="create_date" jdbcType="DATE" property="createDate" />
-    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
-    <result column="update_date" jdbcType="DATE" property="updateDate" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.CompanyLevelDO">
+        <id column="company_id" jdbcType="INTEGER" property="companyId"/>
+        <result column="out_level" jdbcType="INTEGER" property="outLevel"/>
+        <result column="inner_level" jdbcType="INTEGER" property="innerLevel"/>
+        <result column="live_level" jdbcType="INTEGER" property="liveLevel"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="create_date" jdbcType="DATE" property="createDate"/>
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+        <result column="update_date" jdbcType="DATE" property="updateDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     company_id, out_level, inner_level, live_level, create_by, create_date, update_by, 
     update_date
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from company_level
-    where company_id = #{companyId,jdbcType=INTEGER}
-  </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from company_level
+        where company_id = #{companyId,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectCompanyLevel" resultMap="BaseResultMap">
+        select
+        company_level.company_id, company_level.out_level, company_level.inner_level, company_level.live_level
+        from company_level,company
+        where company_level.company_id = company.company_id
+        and company.company_type=#{companyType}
+        <if test="orderByField != null">
+            order by
+            <choose>
+                <when test="orderByField == 1">
+                    out_level
+                </when>
+                <when test="orderByField == 2">
+                    inner_level
+                </when>
+                <otherwise>
+                    live_level
+                </otherwise>
+            </choose>
+            <choose>
+                <when test="descAsc == 'asc'">
+                    asc
+                </when>
+                <otherwise>desc</otherwise>
+            </choose>
+
+        </if>
+    </select>
 </mapper>

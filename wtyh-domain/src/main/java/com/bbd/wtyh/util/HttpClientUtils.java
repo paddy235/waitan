@@ -1,168 +1,203 @@
 package com.bbd.wtyh.util;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.params.ClientPNames;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.util.EntityUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URI;
+import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.util.Map;
 
+/**
+ * 访问接口API数据的工具类
+ *
+ * @author wangchenge
+ * @since 2016.08.07
+ */
 public class HttpClientUtils {
-	
-	private static Logger log = LoggerFactory.getLogger(HttpClientUtils.class);  
-	
-	private final static int retry = 3;
-	
-	public static String httpGet(String strUrl) throws Exception {
-		return httpGet(strUrl,0);
-	}
-	
-	@SuppressWarnings({ "unused", "rawtypes", "unchecked" })
-	public static String httpGet(String strUrl,int num) throws Exception {
-		 HttpClient client = null;
-		 InputStream in = null;  
-		 BufferedReader reader = null;
-		 String responseBody = "";
-		 String r = "";
-		 if(num >= retry)
-	    	{
-	    		throw new Exception("请求链接无效" + strUrl);
-	    	}
-		try{  
-			URL url = new URL(strUrl);
-	    	URI urlPath = new URI(url.getProtocol(), url.getHost(), url.getPath(), url.getQuery(), null);
-			
-			client = HttpClientManager.getHttpClient();  
-		    Collection collection = new ArrayList();
-	        collection.add(new BasicHeader("Accept", "text/html, application/xhtml+xml, */*"));
-	        collection.add(new BasicHeader("Accept-Language", "zh-CN"));
-	        collection.add(new BasicHeader("User-Agent", "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; WOW64; Trident/6.0)"));
-	        collection.add(new BasicHeader("DNT", "1"));
-	        collection.add(new BasicHeader("Connection", "Keep-Alive"));
-	        client.getParams().setParameter(ClientPNames.DEFAULT_HEADERS, collection);
-			client.getParams().setParameter("http.socket.timeout",120000);
-			client.getParams().setParameter("http.connection.timeout",20000);
-			
-			client.getParams().setParameter("http.protocol.allow-circular-redirects", true);
-			HttpGet get = new HttpGet(urlPath);
-			HttpResponse response = client.execute(get);
-			System.out.println(response.getStatusLine().getStatusCode());
-			HttpEntity entity =response.getEntity();
-			if( entity != null ){ 
-                reader = new BufferedReader(new InputStreamReader(entity.getContent(), "UTF-8")); //
-                String str = reader.readLine();
-                while (str != null) {
-                    r += str;
-                    str = reader.readLine();
+
+    public static final String DEF_CHATSET = "UTF-8";
+    public static final int DEF_CONN_TIMEOUT = 30000;
+    public static final int DEF_READ_TIMEOUT = 30000;
+    public static String userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
+
+    private HttpClientUtils() throws Exception {
+        throw new Exception("Do not instantiation!");
+    }
+
+    /**
+     * 采用post方式访问API接口
+     *
+     * @param url
+     * @param params
+     * @return
+     * @throws Exception
+     */
+    public static String visitByPost(String url, String params) throws Exception {
+        System.out.println("url=" + url + "?" + params);
+        BufferedReader in = null;
+        OutputStreamWriter out = null;
+        String result = "";
+        try {
+            URL realUrl = new URL(url);
+            HttpURLConnection conn = (HttpURLConnection) realUrl.openConnection();
+            conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.setRequestMethod("POST");
+            out = new OutputStreamWriter(conn.getOutputStream());
+            out.append(params);
+            out.flush();
+            in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
+            String line;
+            while ((line = in.readLine()) != null) {
+                result += line;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception(e.getMessage(), e);
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
                 }
-				
-			 /*in = entity.getContent();
-			 BufferedReader br = new BufferedReader(new InputStreamReader(
-					 in, "UTF-8"));
-				StringBuffer resBuffer = new StringBuffer("\r\n");
-				String resTemp = null;
-				while ((resTemp = br.readLine()) != null) {
-					resBuffer.append(resTemp);
-				}
+                if (in != null) {
+                    in.close();
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                throw new Exception(ex.getMessage(), ex);
+            }
+        }
+        return result;
+    }
 
-				responseBody = resBuffer.toString();*/
+    /**
+     * 采用GET方式访问API接口数据
+     *
+     * @param url 发送请求的URL
+     * @return URL所代表远程资源的响应
+     */
+    public static String visitByGet(String url) {
+        String result = "";
+        BufferedReader in = null;
+        try {
+            String urlName = url;
+            URL realUrl = new URL(urlName);
+            URLConnection conn = realUrl.openConnection();
+            conn.setRequestProperty("contentType", "application/json");
+            conn.connect();
+            in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+            String line;
+            while ((line = in.readLine()) != null) {
+                result += "\n" + line;
+            }
+        } catch (Exception e) {
+            System.out.println("发送GET请求出现异常！" + e);
+            e.printStackTrace();
+        } finally {
+            try {
+                if (in != null) {
+                    in.close();
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return result;
+    }
 
-			} 
-		}catch (Exception e){
-			httpGet(strUrl,num+1);
-			e.printStackTrace();
-		}finally{  
-			if (in != null){  
-			try{
-				in.close ();
-				}catch (IOException e){ 
-				e.printStackTrace (); 	
-				}
-			}  
-		}
-		return responseBody;  
-	}
-	
-	public static String httpPost(String strUrl,List<NameValuePair> params) throws Exception {
-		printUrl(strUrl, params);
-		return httpPost(strUrl,params,0);
-	}
-	
-	 /**
-     * post请求
+    /**
+     * 访问接口数据
+     * @param strUrl
+     * @param params
+     * @param method
+     * @return
+     * @throws Exception
+     */
+    public static String visitData(String strUrl, Map params, String method) throws Exception {
+        HttpURLConnection conn = null;
+        BufferedReader reader = null;
+        String result = null;
+        try {
+            StringBuffer sb = new StringBuffer();
+            if (method == null || method.equals("GET")) {
+                strUrl = strUrl + "?" + urlencode(params);
+            }
+            URL url = new URL(strUrl);
+            conn = (HttpURLConnection) url.openConnection();
+            if (method == null || method.equals("GET")) {
+                conn.setRequestMethod("GET");
+            } else {
+                conn.setRequestMethod("POST");
+                conn.setDoOutput(true);
+            }
+            conn.setRequestProperty("User-agent", userAgent);
+            conn.setUseCaches(false);
+            conn.setConnectTimeout(DEF_CONN_TIMEOUT);
+            conn.setReadTimeout(DEF_READ_TIMEOUT);
+            conn.setInstanceFollowRedirects(false);
+            conn.connect();
+            if (params != null && method.equals("POST")) {
+                try {
+                    DataOutputStream out = new DataOutputStream(conn.getOutputStream());
+                    out.writeBytes(urlencode(params));
+                } catch (Exception e) {
+                    // TODO: handle exception
+                    System.out.println("发送POST请求出现异常！" + e);
+                    e.printStackTrace();
+                }
+            }
+            InputStream is = conn.getInputStream();
+            reader = new BufferedReader(new InputStreamReader(is, DEF_CHATSET));
+            String strRead = null;
+            while ((strRead = reader.readLine()) != null) {
+                sb.append(strRead);
+            }
+            result = sb.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                reader.close();
+            }
+            if (conn != null) {
+                conn.disconnect();
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 将map参数转换为字符串
+     * @param data
      * @return
      */
-    public static String httpPost(String strUrl, List<NameValuePair> params, int num) throws Exception {
-    	if(num >= retry)
-    	{
-    		throw new Exception("请求链接无效" + strUrl);
-    	}
-    	 HttpClient httpClient = null;
-         HttpPost httpPost = null;
-         String result = null;  
-         try{  
-             httpClient = HttpClientManager.getHttpClient(); 
-             httpPost = new HttpPost(strUrl);
-             //设置参数  
-             if(params.size() > 0){  
-                 UrlEncodedFormEntity entity = new UrlEncodedFormEntity(params,"utf-8");
-                 httpPost.setEntity(entity);  
-             }  
-             HttpResponse response = httpClient.execute(httpPost);
-             if(HttpStatus.SC_OK == response.getStatusLine().getStatusCode())
-             {
-            	 HttpEntity resEntity = response.getEntity();
-                 if(resEntity != null){  
-                     result = EntityUtils.toString(resEntity,"utf-8");
-                 }  
-             }else
-             {
-            	 log.error("API URL"+strUrl+"返回结果出错");
-             }
-         }catch(Exception ex){  
-        	 result = httpPost(strUrl,params,num+1);
-             ex.printStackTrace();  
-         }finally{
-        	 if (null != httpClient)
-        		 httpPost.releaseConnection();
-         } 
-         return result; 
-	    
-		
-	}
-    
-	/**
-	 * 
-	 * 打印URL链接
-	 * 
-	 * @param strUrl
-	 * @param params
-	 */
-	public static void printUrl(String strUrl, List<NameValuePair> params) {
-		String urlStr = "";
-		for (NameValuePair nameValuePair : params) {
-			urlStr += nameValuePair.getName() + "=" + nameValuePair.getValue() + "&";
-		}
-		urlStr = urlStr.substring(0, urlStr.length() - 1);
-		log.info(strUrl + "?" + urlStr);
-		System.out.println(strUrl + "?" + urlStr);
-	}
+    public static String urlencode(Map<String, Object> data) {
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry i : data.entrySet()) {
+            try {
+                sb.append(i.getKey()).append("=").append(URLEncoder.encode(i.getValue() + "", "UTF-8")).append("&");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+        return sb.toString();
+    }
 
+
+    public static void main(String[] args) {
+        String url = "http://www.lagou.com/jobs/list_java?labelWords=&fromSearch=true&suginput=";
+//        String url = "https://www.baidu.com";
+        String param = "";
+        String str = null;
+        try {
+//            str = visitByGet(url);
+            str = visitByPost(url, param);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(str);
+
+    }
 }

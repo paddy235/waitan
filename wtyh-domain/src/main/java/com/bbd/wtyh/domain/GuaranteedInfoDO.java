@@ -3,9 +3,9 @@ package com.bbd.wtyh.domain;
 public class GuaranteedInfoDO extends BaseDO {
     private Integer id;
 
-    private Integer guaranteeCompany;
+    private Integer guaranteeId;
 
-    private Integer guaranteedCompany;
+    private Integer guaranteedId;
 
     public Integer getId() {
         return id;
@@ -15,19 +15,19 @@ public class GuaranteedInfoDO extends BaseDO {
         this.id = id;
     }
 
-    public Integer getGuaranteeCompany() {
-        return guaranteeCompany;
+    public Integer getGuaranteeId() {
+        return guaranteeId;
     }
 
-    public void setGuaranteeCompany(Integer guaranteeCompany) {
-        this.guaranteeCompany = guaranteeCompany;
+    public void setGuaranteeId(Integer guaranteeId) {
+        this.guaranteeId = guaranteeId;
     }
 
-    public Integer getGuaranteedCompany() {
-        return guaranteedCompany;
+    public Integer getGuaranteedId() {
+        return guaranteedId;
     }
 
-    public void setGuaranteedCompany(Integer guaranteedCompany) {
-        this.guaranteedCompany = guaranteedCompany;
+    public void setGuaranteedId(Integer guaranteedId) {
+        this.guaranteedId = guaranteedId;
     }
 }

@@ -5,7 +5,7 @@
 
 
     <select id="areaList"  resultType="com.bbd.wtyh.domain.AreaDO">
-			select area_id, name from area where parent_id=107;
+			select area_id areaId, name from area where parent_id=107;
 	</select>
 
 	<select id="hot"  resultType="com.bbd.wtyh.domain.NvDO">

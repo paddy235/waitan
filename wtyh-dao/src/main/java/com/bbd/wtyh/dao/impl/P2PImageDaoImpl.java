@@ -11,7 +11,7 @@ import java.util.*;
  * @author wangchenge
  * @since 2016.08.05
  */
-@Repository("p2PMonitorDao")
+@Repository("p2PImageDao")
     public class P2PImageDaoImpl implements P2PImageDao {
 
     @Override
@@ -25,15 +25,18 @@ import java.util.*;
 
     @Override
     public Map<String, Object> platFormConsensus() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("platFormConsensus", "pfConsensus");
+        Map<String, Object> data = new LinkedHashMap<>();
+        data.put("舆情名称", "翼鸟贷经营模式风险重重，拖累联想控股");
+        data.put("部分内容", "凭着3.69亿元拿下“央视标王”的称号，主打三农借贷的上海同城翼鸟贷网络科技有限公司···");
+        data.put("信息来源", "中国经济网");
+        data.put("信息时间", "2016年7月22日");
         return data;
     }
 
     @Override
     public Map<String, Object> lawsuitMsg() {
         Map<String, Object> data = new HashMap<>();
-        data.put("lawsuit", 5);
+        data.put("lawsuitNum", 5);
         return data;
     }
 
