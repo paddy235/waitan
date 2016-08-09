@@ -3,8 +3,8 @@ package com.bbd.wtyh.service.impl.relation;
 
 import com.bbd.wtyh.common.relation.APIConstants;
 import com.bbd.wtyh.common.relation.Constants;
-import com.bbd.wtyh.redis.RedisDao;
-import com.bbd.wtyh.redis.RedisDaoImpl;
+import com.bbd.wtyh.redis.RedisDAO;
+import com.bbd.wtyh.redis.RedisDAOImpl;
 import com.bbd.wtyh.util.relation.ListUtils;
 import com.bbd.wtyh.util.relation.StringUtils;
 import com.bbd.wtyh.web.relationPara.param.RelatedParameters;
@@ -19,8 +19,6 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreConnectionPNames;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -46,7 +44,7 @@ public class RegisterUniversalFilterChainImp {
 
 //	TODO
 //	@Autowired
-	private RedisDao redisDao = new RedisDaoImpl();
+	private RedisDAO redisDao = new RedisDAOImpl();
 
 	public HttpGet httpGet;
 	

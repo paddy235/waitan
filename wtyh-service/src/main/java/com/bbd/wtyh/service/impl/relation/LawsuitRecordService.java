@@ -1,8 +1,8 @@
 package com.bbd.wtyh.service.impl.relation;
 
 import com.bbd.wtyh.common.relation.APIConstants;
-import com.bbd.wtyh.redis.RedisDao;
-import com.bbd.wtyh.redis.RedisDaoImpl;
+import com.bbd.wtyh.redis.RedisDAO;
+import com.bbd.wtyh.redis.RedisDAOImpl;
 import com.bbd.wtyh.service.util.SSJLReader;
 import com.bbd.wtyh.web.relationVO.CourtAnnouncementVO;
 import com.bbd.wtyh.web.relationVO.DishonestPersonsVO;
@@ -30,7 +30,7 @@ public class LawsuitRecordService {
 
 	// TODO
 //	@Resource
-	private RedisDao redisDao = new RedisDaoImpl();
+	private RedisDAO redisDao = new RedisDAOImpl();
 	@Resource
 	private LawsuitRecordcContainerService lawsuteContainerService;
 	

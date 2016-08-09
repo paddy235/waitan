@@ -2,8 +2,8 @@ package com.bbd.wtyh.service.impl.relation;
 
 import com.bbd.wtyh.common.relation.APIConstants;
 import com.bbd.wtyh.common.relation.Constants;
-import com.bbd.wtyh.redis.RedisDao;
-import com.bbd.wtyh.redis.RedisDaoImpl;
+import com.bbd.wtyh.redis.RedisDAO;
+import com.bbd.wtyh.redis.RedisDAOImpl;
 import com.bbd.wtyh.util.relation.StringUtils;
 import com.bbd.wtyh.web.relationVO.CourtAnnouncementVO;
 import com.bbd.wtyh.web.relationVO.DishonestPersonsVO;
@@ -13,10 +13,8 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +41,7 @@ public class LawsuitRecordcContainerService extends ApiContainerService {
 
     //    TODO
 //    @Resource
-    private RedisDao redisDao = new RedisDaoImpl();
+    private RedisDAO redisDao = new RedisDAOImpl();
 
     /**
      * API接口获得诉讼记录--分页
