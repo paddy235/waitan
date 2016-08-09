@@ -1,13 +1,7 @@
 package com.bbd.wtyh.redis;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.redis.connection.RedisConnection;
-import org.springframework.data.redis.core.RedisCallback;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -16,8 +10,8 @@ import java.util.Set;
  * @author Wen Jie
  *
  */
-@Repository
-public class RedisDAOImpl implements RedisDAO {
+@Repository("redisDao")
+public class RedisDaoImpl implements RedisDao {
 	@Override
 	public boolean addObject(String key, Object object, Long timeout, Class<?> clazz) {
 		return false;
