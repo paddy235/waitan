@@ -9,5 +9,9 @@ import java.util.Map;
  * @since 2016.08.09
  */
 public interface HologramQueryDao {
-    Map<String , Object> newsConsensus();
+    Map<String, Object> search();
+
+    Map<String, Object> guidance();
+
+    Map<String, Object> newsConsensus();
 }

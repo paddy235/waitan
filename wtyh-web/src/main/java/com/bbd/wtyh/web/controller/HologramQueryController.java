@@ -23,6 +23,30 @@ public class HologramQueryController {
     private HologramQueryService hologramQueryService;
 
     /**
+     * 信息查询平台搜索
+     *
+     * @return
+     */
+    @RequestMapping("/search")
+    @ResponseBody
+    public ResponseBean search() {
+        Map<String, Object> result = hologramQueryService.search();
+        return ResponseBean.successResponse(result);
+    }
+
+    /**
+     * 信息查询平台导航栏
+     *
+     * @return
+     */
+    @RequestMapping("/guidance")
+    @ResponseBody
+    public ResponseBean guidance() {
+        Map<String, Object> result = hologramQueryService.guidance();
+        return ResponseBean.successResponse(result);
+    }
+
+    /**
      * 新闻舆情
      *
      * @return

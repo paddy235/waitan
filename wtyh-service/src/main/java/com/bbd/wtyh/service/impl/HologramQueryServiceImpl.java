@@ -18,6 +18,18 @@ public class HologramQueryServiceImpl implements HologramQueryService {
     @Autowired
     private HologramQueryDao hologramQueryDao;
 
+
+    @Override
+    public Map<String, Object> search() {
+        return hologramQueryDao.search();
+    }
+
+    @Override
+    public Map<String, Object> guidance() {
+        return hologramQueryDao.guidance();
+    }
+
+
     @Override
     public Map<String, Object> newsConsensus() {
         return hologramQueryDao.newsConsensus();

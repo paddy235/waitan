@@ -10,6 +10,20 @@ import java.util.Map;
  */
 public interface HologramQueryService {
     /**
+     * 信息查询平台搜索
+     *
+     * @return
+     */
+    Map<String, Object> search();
+
+    /**
+     * 信息查询平台导航栏
+     *
+     * @return
+     */
+    Map<String, Object> guidance();
+
+    /**
      * 新闻舆情
      *
      * @return
