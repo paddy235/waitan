@@ -11,7 +11,7 @@ import java.util.Set;
  *
  */
 @Repository("redisDao")
-public class RedisDaoImpl implements RedisDao {
+public class RedisDAOImpl implements RedisDAO {
 	@Override
 	public boolean addObject(String key, Object object, Long timeout, Class<?> clazz) {
 		return false;
