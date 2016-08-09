@@ -15,7 +15,7 @@
        http://www.springframework.org/schema/aop 
        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-    <context:component-scan base-package="com.bbd.wtyh.dao"/>
+    <context:component-scan base-package="com.bbd.**.dao.**"/>
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close">
@@ -90,12 +90,12 @@
     <!-- define the SqlSessionFactory -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="mapperLocations" value="classpath*:com/bbd/wtyh/mapper/*.xml"/>
+        <property name="mapperLocations" value="classpath*:com/bbd/*/mapper/*.xml"/>
     </bean>
 
     <!-- scan for mappers and let them be autowired -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.bbd.wtyh.mapper"/>
+        <property name="basePackage" value="com.bbd.**.mapper"/>
     </bean>
 
 </beans>

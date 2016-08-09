@@ -18,15 +18,15 @@ package com.bbd.wtyh.domain;
 */
 public class AreaDO {
 	
-	private Integer area_id;
+	private Integer areaId;
 	private String name;
 	
-	public Integer getArea_id() {
-		return area_id;
+	public Integer getAreaId() {
+		return areaId;
 	}
 	
-	public void setArea_id(Integer area_id) {
-		this.area_id = area_id;
+	public void setAreaId(Integer areaId) {
+		this.areaId = areaId;
 	}
 	
 	public String getName() {
