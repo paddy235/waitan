@@ -3,7 +3,7 @@ package com.bbd.wtyh.service.util;
 
 import com.bbd.wtyh.service.impl.relation.LawsuitRecordService;
 import com.bbd.wtyh.service.impl.relation.LawsuitRecordcContainerService;
-import com.bbd.wtyh.util.ListUtils;
+import com.bbd.wtyh.util.relation.ListUtils;
 import com.bbd.wtyh.web.relationVO.LawsuitRecordVO;
 
 import java.util.List;

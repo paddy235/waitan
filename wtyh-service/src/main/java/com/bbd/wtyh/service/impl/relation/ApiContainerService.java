@@ -1,8 +1,8 @@
 package com.bbd.wtyh.service.impl.relation;
 
 import com.bbd.wtyh.common.relation.APIConstants;
-import com.bbd.wtyh.util.HttpClientUtils;
-import com.bbd.wtyh.util.StringUtils;
+import com.bbd.wtyh.util.relation.HttpClientUtils;
+import com.bbd.wtyh.util.relation.StringUtils;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.http.NameValuePair;

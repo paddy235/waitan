@@ -1,4 +1,4 @@
-package com.bbd.wtyh.util;
+package com.bbd.wtyh.util.relation;
 
 import net.sf.json.JSONObject;
 import org.apache.commons.lang.StringUtils;

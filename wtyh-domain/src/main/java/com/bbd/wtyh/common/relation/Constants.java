@@ -1,6 +1,6 @@
 package com.bbd.wtyh.common.relation;
 
-import com.bbd.wtyh.util.Utils;
+import com.bbd.wtyh.util.relation.Utils;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.io.IOException;

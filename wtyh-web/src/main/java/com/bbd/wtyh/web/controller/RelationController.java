@@ -4,7 +4,7 @@ package com.bbd.wtyh.web.controller;
 import com.bbd.wtyh.service.impl.relation.RegisterUniversalFilterChainImp;
 import com.bbd.wtyh.service.impl.relation.RelationService;
 import com.bbd.wtyh.service.impl.relation.SearchAPIandRelatedPartyService;
-import com.bbd.wtyh.util.StringUtils;
+import com.bbd.wtyh.util.relation.StringUtils;
 import com.bbd.wtyh.web.relationVO.AjaxVO;
 import com.bbd.wtyh.web.relationVO.CompanyDataStatisticsVO;
 import org.springframework.beans.factory.annotation.Autowired;

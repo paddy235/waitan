@@ -1,4 +1,4 @@
-package com.bbd.wtyh.util;
+package com.bbd.wtyh.util.relation;
 
 import java.util.List;
 

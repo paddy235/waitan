@@ -1,7 +1,7 @@
 package com.bbd.wtyh.service.impl.relation;
 
 
-import com.bbd.wtyh.util.ListUtils;
+import com.bbd.wtyh.util.relation.ListUtils;
 import com.bbd.wtyh.web.relationVO.CompanyDataStatisticsVO;
 import com.bbd.wtyh.web.relationVO.LineVO;
 import net.sf.json.JSONObject;
