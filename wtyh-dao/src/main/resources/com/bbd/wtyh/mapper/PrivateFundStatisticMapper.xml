@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bbd.wtyh.mapper.PrivateFundLogisticMapper">
-  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.PrivateFundLogisticDO">
+<mapper namespace="com.bbd.wtyh.mapper.PrivateFundStatisticMapper">
+  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.PrivateFundStatisticDO">
     <id column="type_id" jdbcType="TINYINT" property="typeId" />
     <result column="amount" jdbcType="INTEGER" property="amount" />
     <result column="create_by" jdbcType="VARCHAR" property="createBy" />

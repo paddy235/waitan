@@ -19,9 +19,19 @@
     create_date, update_by, update_date
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from loan_balance
     where id = #{id,jdbcType=INTEGER}
+  </select>
+
+
+  <select id="listByYear" resultMap="BaseResultMap">
+    select
+    year,sum(amount) amount,sum(number) number,sum(agriculture_balance) agriculture_balance,
+    sum(small_company_balance) small_company_balance
+    from loan_balance
+    group by year
+
   </select>
 </mapper>

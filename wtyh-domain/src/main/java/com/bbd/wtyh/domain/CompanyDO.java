@@ -4,8 +4,8 @@ import java.util.Date;
 
 
 public class CompanyDO extends BaseDO {
-	
-	
+
+
 	//1:P2P 2:小贷 3:融资担保 4:线下理财 5:私募基金 6:众筹 7:金融  8:其他
 	public static final byte TYPE_P2P_1  = 1;
 	public static final byte TYPE_XD_2   = 2;
@@ -15,8 +15,8 @@ public class CompanyDO extends BaseDO {
 	public static final byte TYPE_ZC_6   = 6;
 	public static final byte TYPE_JR_7   = 7;
 	public static final byte TYPE_QT_8   = 8;
-	
-	
+
+
     private Integer companyId;
 
     private String name;
@@ -30,29 +30,34 @@ public class CompanyDO extends BaseDO {
     private Integer registeredCapital;
 
     private Date registeredDate;
-    
+
     private Byte companyType;
 
     @SuppressWarnings("unused")
 	private String comTypeCN;
-    
-    
-	
+
+
+
 	private String products;
 
     private Byte status;
-    
+
     private Byte background;
-    
+
     @SuppressWarnings("unused")
 	private String backgroundCN;
-    
+
     private String registeredType;
-    
+
+    private String businessType;
 
 
-	
+
+
 	public String getBackgroundCN() {
+	    if(null == background){
+	        return null;
+        }
 		return CompanyBackgroundDO.Bg.getBg(this.background).CN;
 	}
 
@@ -61,6 +66,9 @@ public class CompanyDO extends BaseDO {
 
 
 	public String getComTypeCN(){
+	    if(null == companyType){
+	        return null;
+        }
     	switch (companyType) {
 		case TYPE_P2P_1:
 			return "p2p";
@@ -82,11 +90,11 @@ public class CompanyDO extends BaseDO {
 			return null;
 		}
     }
-	
-	
-	
-	
-	
+
+
+
+
+
 
 	public String getRegisteredType() {
 		return registeredType;
@@ -111,7 +119,7 @@ public class CompanyDO extends BaseDO {
 	public void setBackground(Byte background) {
 		this.background = background;
 	}
-	
+
 
     public Integer getCompanyId() {
         return companyId;
@@ -191,5 +199,13 @@ public class CompanyDO extends BaseDO {
 
     public void setStatus(Byte status) {
         this.status = status;
+    }
+
+    public String getBusinessType() {
+        return businessType;
+    }
+
+    public void setBusinessType(String businessType) {
+        this.businessType = businessType;
     }
 }

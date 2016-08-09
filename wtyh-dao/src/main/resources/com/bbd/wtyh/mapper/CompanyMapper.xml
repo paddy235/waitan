@@ -1,57 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bbd.wtyh.mapper.CompanyMapper">
-  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.CompanyDO">
-    <id column="company_id" jdbcType="INTEGER" property="companyId" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="legal_person" jdbcType="VARCHAR" property="legalPerson" />
-    <result column="area_id" jdbcType="INTEGER" property="areaId" />
-    <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="registered_capital" jdbcType="INTEGER" property="registeredCapital" />
-    <result column="registered_date" jdbcType="DATE" property="registeredDate" />
-    <result column="company_type" jdbcType="TINYINT" property="companyType" />
-    <result column="products" jdbcType="VARCHAR" property="products" />
-    <result column="status" jdbcType="TINYINT" property="status" />
-    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
-    <result column="create_date" jdbcType="DATE" property="createDate" />
-    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
-    <result column="update_date" jdbcType="DATE" property="updateDate" />
-    <result column="background" jdbcType="TINYINT" property="background" />
-    <result column="registered_type" jdbcType="VARCHAR" property="registeredType" />
-    
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.CompanyDO">
+        <id column="company_id" jdbcType="INTEGER" property="companyId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="legal_person" jdbcType="VARCHAR" property="legalPerson"/>
+        <result column="area_id" jdbcType="INTEGER" property="areaId"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="registered_capital" jdbcType="INTEGER" property="registeredCapital"/>
+        <result column="registered_date" jdbcType="DATE" property="registeredDate"/>
+        <result column="company_type" jdbcType="TINYINT" property="companyType"/>
+        <result column="products" jdbcType="VARCHAR" property="products"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="create_date" jdbcType="DATE" property="createDate"/>
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+        <result column="update_date" jdbcType="DATE" property="updateDate"/>
+        <result column="background" jdbcType="TINYINT" property="background"/>
+        <result column="registered_type" jdbcType="VARCHAR" property="registeredType"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
     company_id, name, legal_person, area_id, address, registered_capital, registered_date, 
     company_type, products, status, create_by, create_date, update_by, update_date
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from company
-    where company_id = #{companyId,jdbcType=INTEGER}
-  </select>
-  
-  
-   <select id="countByDate"  resultType="com.bbd.wtyh.domain.InBusinessDO">
-   		
-   		select count(*) count from company com , 
-   		  company_building cb ,building bui ,park p where 
-   			p.park_id=bui.park_id and 
-   			cb.company_id=com.company_id and 
-   			cb.building_id=bui.building_id and 
-   			p.area_id=#{areaId} 
-   			<if test="#{start}!=null" >
-   				and com.registered_date >= #{start}
-   			</if>
-   			<if test="#{end}!=null"  >
-   				  <![CDATA[ and com.registered_date < #{end} ]]>   
-   			</if>
-   			 
-   </select>
-   
-  
-  
-  <select id="countByType"  resultType="com.bbd.wtyh.domain.CompanyTypeCountDO">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from company
+        where company_id = #{companyId,jdbcType=INTEGER}
+    </select>
+
+
+    <select id="countByDate" resultType="com.bbd.wtyh.domain.InBusinessDO">
+
+        select count(*) count from company com ,
+        company_building cb ,building bui ,park p where
+        p.park_id=bui.park_id and
+        cb.company_id=com.company_id and
+        cb.building_id=bui.building_id and
+        p.area_id=#{areaId}
+        <if test="#{start}!=null">
+            and com.registered_date >= #{start}
+        </if>
+        <if test="#{end}!=null">
+            <![CDATA[ and com.registered_date < #{end} ]]>
+        </if>
+
+    </select>
+
+
+    <select id="countByType" resultType="com.bbd.wtyh.domain.CompanyTypeCountDO">
    		
    		select count(*) count from company com , 
    		  company_building cb ,building bui ,park p where 
@@ -62,9 +61,9 @@
    			com.company_type=#{type}
    			 
    </select>
-   
-   
-   <select id="countTypeByBuild"  resultType="com.bbd.wtyh.domain.CompanyTypeCountDO">
+
+
+    <select id="countTypeByBuild" resultType="com.bbd.wtyh.domain.CompanyTypeCountDO">
    		
    		select count(*) count from company com , company_building cb  where    			
    			cb.company_id=com.company_id and 
@@ -72,12 +71,9 @@
    			com.company_type=#{type}
    			 
    </select>
-   
-   
-   
-   
-      
-   <select id="buildingBackground"  resultType="com.bbd.wtyh.domain.CompanyTypeCountDO">
+
+
+    <select id="buildingBackground" resultType="com.bbd.wtyh.domain.CompanyTypeCountDO">
    		
    		select count(*) count from company com , company_building cb , company_background cbg  where    			
    			cb.company_id=com.company_id and 
@@ -86,41 +82,61 @@
    			cbg.background=#{background}
    			 
    </select>
-   
-   
-   
-  
 
-   <select id="buildingCompany"  resultMap="BaseResultMap">
-   		
-   		select c.*,cb.background from company c , 
-   		                company_building b,company_background cb
-   		
-   		where b.company_id=c.company_id 
-   		      and b.building_id=#{buildingId} 
-   		      and cb.company_id=c.company_id
-   		      and cb.background in (3,4)
-   		order by 
-   		
-   		<choose>  
-	        <when test="orderField == 2">c.registered_capital </when>  
-	        <when test="orderField == 3">cb.background        </when> 
-	        <when test="orderField == 4">c.registered_date    </when>  
-	        <when test="orderField == 5">c.registered_type    </when>  
-	        <otherwise>                  c.company_type       </otherwise> 
+
+    <select id="buildingCompany" resultMap="BaseResultMap">
+
+        select c.*,cb.background from company c ,
+        company_building b,company_background cb
+
+        where b.company_id=c.company_id
+        and b.building_id=#{buildingId}
+        and cb.company_id=c.company_id
+        and cb.background in (3,4)
+        order by
+
+        <choose>
+            <when test="orderField == 2">c.registered_capital</when>
+            <when test="orderField == 3">cb.background</when>
+            <when test="orderField == 4">c.registered_date</when>
+            <when test="orderField == 5">c.registered_type</when>
+            <otherwise>c.company_type</otherwise>
         </choose>
-   		
-   		
-   		<if test="descAsc!='desc'">
-   			asc
-   		</if>
-   		<if test="descAsc=='desc'">
-   			desc
-   		</if>
-     			 
-   </select>
-  
-  
-  
-  
+
+
+        <if test="descAsc!='desc'">
+            asc
+        </if>
+        <if test="descAsc=='desc'">
+            desc
+        </if>
+
+    </select>
+
+    <select id="countByQuery" resultType="Integer">
+        select count(distinct(c.company_id)) from company c,company_background b
+        <where>
+            c.company_id=b.company_id
+            <if test="areaId != null">
+                and c.area_id=#{areaId}
+            </if>
+            <if test="companyType != null">
+                and c.company_type=#{companyType}
+            </if>
+            <if test="background != null">
+                and b.background=#{background}
+            </if>
+        </where>
+
+    </select>
+
+    <select id="searchCompany" resultType="Integer">
+		select
+		c.company_id
+		from company c
+		where c.company_type=#{companyType} and c.name like CONCAT('%',#{name},'%' )
+
+	</select>
+
+
 </mapper>
