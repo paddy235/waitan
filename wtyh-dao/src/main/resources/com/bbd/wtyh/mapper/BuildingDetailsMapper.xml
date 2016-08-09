@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.BuildingDetailsMapper">
+
+	<!-- 企业分析统计数量结果 -->
+    <select id="queryCompanyAnalysiResult" parameterType="int" resultType="java.util.Map">
+			SELECT
+				count(car.company_id),
+				car.analysis_result
+			FROM
+				company_analysis_result car
+			LEFT JOIN company_building cb ON car.company_id = cb.company_id
+			LEFT JOIN building b 		   ON b.building_id  = cb.building_id
+			WHERE
+				1 = 1
+			AND b.building_id = #{buildingId}
+			GROUP BY
+				car.analysis_result
+	</select>
+
+	<!-- 已曝光企业名单 -->
+	<select id="queryExposedCompanyList" parameterType="int" resultType="java.util.Map">
+		SELECT
+			c. NAME,
+			car.company_id,
+			car.analysis_result
+		FROM
+			company_analysis_result car
+		LEFT JOIN company_building cb ON car.company_id = cb.company_id
+		LEFT JOIN building b ON b.building_id = cb.building_id
+		LEFT JOIN company c ON car.company_id = c.company_id
+		WHERE
+			1 = 1
+		AND b.building_id = #{buildingId}
+		AND car.analysis_result = 1
+	</select>
+
+  
+</mapper>
