@@ -9,7 +9,7 @@ import java.util.List;
 * @author Ian.Su
 * @since 2016年8月9日 下午3:18:50
 */
-public class XAxisSeriesDO<T> {
+public class XAxisSeriesBarLineDO<T> {
 	
 	private String title;
 	
