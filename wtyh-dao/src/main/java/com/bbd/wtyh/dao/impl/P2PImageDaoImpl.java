@@ -11,7 +11,7 @@ import java.util.*;
  * @author wangchenge
  * @since 2016.08.05
  */
-@Repository("p2PMonitorDao")
+@Repository("p2PImageDao")
     public class P2PImageDaoImpl implements P2PImageDao {
 
     @Override
