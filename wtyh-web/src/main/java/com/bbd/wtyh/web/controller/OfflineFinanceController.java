@@ -1,12 +1,17 @@
 package com.bbd.wtyh.web.controller;
 
+import com.bbd.common.Constants;
+import com.bbd.wtyh.domain.vo.StatisticsVO;
 import com.bbd.wtyh.service.OfflineFinanceService;
 import com.bbd.wtyh.web.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +19,7 @@ import java.util.Map;
 /**
  * 线下理财
  * @author tracy zhou
- * @since 2016.08.05
+ * @since  2016/8/8
  */
 @Controller
 @RequestMapping("/offlineFinance")
@@ -23,18 +28,20 @@ public class OfflineFinanceController {
     @Autowired
     private OfflineFinanceService offlineFinanceService;
 
-    /**
-     * 关联方图谱
-     * @return
-     */
     @SuppressWarnings("rawtypes")
-	@RequestMapping("/relatedGraph")
-    @ResponseBody
-    public ResponseBean relatedGraph() {
-        List<Map> data = offlineFinanceService.relatedGraph();
-        Map<String, List> result = new HashMap<>();
-        result.put("hello", data);
-        return ResponseBean.successResponse(result);
+    @RequestMapping(value = "/queryDynamicPicData")
+    public @ResponseBody Map<String, List> queryDynamicPicData(HttpServletRequest request) {
+        try {
+            String companyName = request.getParameter("companyName");
+            String dataVersion = request.getParameter("dataVersion");
+            if (!StringUtils.isEmpty(dataVersion)) {
+                dataVersion = (String) request.getSession().getAttribute("defaultVersion");
+            }
+            return offlineFinanceService.queryRelation(companyName, dataVersion);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -75,15 +82,19 @@ public class OfflineFinanceController {
 
     /**
      * 风险指数趋势变化图
-     * @param riskTypeId
+     * @param request
      * @return
+     * @throws ParseException
      */
-    @RequestMapping("/riskTrendGraph")
+    @RequestMapping(value = "/queryStatistics")
     @ResponseBody
-    public ResponseBean riskTrendGraph(Integer riskTypeId) {
-        List<Map> data = offlineFinanceService.riskTrendGraph(riskTypeId);
-        return ResponseBean.successResponse(data);
+    public List<StatisticsVO> queryStatistics(HttpServletRequest request) throws ParseException {
+        String companyName = request.getParameter("companyName");
+        String tabIndex = request.getParameter("tabIndex");
+        String areaCode = (String) request.getSession().getAttribute(Constants.SESSION.AREA_CODE);
+        return offlineFinanceService.queryStatistics(companyName, tabIndex, areaCode);
     }
+
 
     /**
      * 动态指数时间轴对比图
