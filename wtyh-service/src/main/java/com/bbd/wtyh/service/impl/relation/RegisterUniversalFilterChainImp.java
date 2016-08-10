@@ -19,6 +19,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreConnectionPNames;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -42,9 +43,8 @@ import java.util.Map;
 @Service("RegisterUniversalFilterChainImp")
 public class RegisterUniversalFilterChainImp {
 
-//	TODO
-//	@Autowired
-	private RedisDAO redisDao = new RedisDAOImpl();
+	@Autowired
+	private RedisDAO redisDao;
 
 	public HttpGet httpGet;
 	

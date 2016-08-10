@@ -22,8 +22,7 @@ import java.util.Map;
 @Component("basicDataService")
 public class BasicDataService {
 	private static Logger log = LoggerFactory.getLogger(BasicDataService.class);
-	// TODO
-//	@Autowired
+	@Autowired
 	private RedisDAO redisDao = new RedisDAOImpl();
 	@Autowired
 	private BasicDataContainerService basicDataContainerService;

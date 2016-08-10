@@ -13,6 +13,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -39,9 +40,8 @@ public class LawsuitRecordcContainerService extends ApiContainerService {
 //    @Value("${" + Constants.API_SEARCH_URL + "}")
     private String url;
 
-    //    TODO
-//    @Resource
-    private RedisDAO redisDao = new RedisDAOImpl();
+    @Autowired
+    private RedisDAO redisDao;
 
     /**
      * API接口获得诉讼记录--分页
