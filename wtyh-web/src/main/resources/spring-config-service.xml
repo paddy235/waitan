@@ -10,7 +10,6 @@
      		http://www.springframework.org/schema/tx  
 			http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <context:component-scan base-package="com.bbd.**.service.**"/>
 
     <!-- 启用对事务的注解支持 -->
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
