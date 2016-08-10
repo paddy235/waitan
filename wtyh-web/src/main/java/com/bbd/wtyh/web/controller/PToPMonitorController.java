@@ -8,16 +8,19 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.bbd.wtyh.domain.NvDO;
 import com.bbd.wtyh.domain.dto.AreaIndexDTO;
 import com.bbd.wtyh.domain.dto.IndustryCompareDTO;
 import com.bbd.wtyh.domain.dto.IndustryProblemDTO;
 import com.bbd.wtyh.domain.dto.IndustryShanghaiDTO;
+import com.bbd.wtyh.domain.dto.PlatRankDataDTO;
 import com.bbd.wtyh.domain.dto.XAxisSeriesBarLineDTO;
 import com.bbd.wtyh.domain.dto.XAxisSeriesLinesDTO;
 import com.bbd.wtyh.service.AreaService;
@@ -89,40 +92,7 @@ public class PToPMonitorController {
     
     
     
-    /**
-     * 上海区域发展指数排名
-     *
-     * @return ResponseBean
-     */
-    @RequestMapping("/areaIndex")
-    @ResponseBody
-    public Object areaIndex(){
-    	
-    	return ResponseBean.successResponse(getAreaIndex());
-    	
-    }
-    
-    
-    private List<AreaIndexDTO> getAreaIndex(){
-    	
-    	List<AreaIndexDTO> list = new ArrayList<>();
-    	
-    	for (int k=0;k<20;k++) {
-    		AreaIndexDTO dto = new AreaIndexDTO();
-    		
-    		dto.setArea("四川省"+k);
-    		dto.setCompetitiveness(k*3);
-    		dto.setEcosystem(k*2);
-    		dto.setRank(k*5);
-    		dto.setRecognition(k<<3);
-    		dto.setSafety(k*9);
-    		dto.setScale(k*7);
-    		list.add(dto);
-		}
-    	
-    	return list;
-    	
-    }
+
     
     
     
@@ -306,6 +276,7 @@ public class PToPMonitorController {
      *
      * @return List<IndustryShanghaiDTO>
      */
+     @Deprecated
      private List<IndustryProblemDTO> getProblemData(){
      	
      	List<IndustryProblemDTO> list = new ArrayList<>();
@@ -335,6 +306,7 @@ public class PToPMonitorController {
     *
     * @return List<IndustryShanghaiDTO>
     */
+    @Deprecated
     private List<IndustryShanghaiDTO> getData(){
     	
     	List<IndustryShanghaiDTO> list = new ArrayList<>();
@@ -433,5 +405,83 @@ public class PToPMonitorController {
      }
      
     
+     
+     /**
+      * 上海区域发展指数排名
+      *
+      * @return ResponseBean
+      */
+     @RequestMapping("/areaIndex")
+     @ResponseBody
+     public Object areaIndex(){
+     	
+     	return ResponseBean.successResponse(getAreaIndex());
+     	
+     }
+     
+     @Deprecated
+     private List<AreaIndexDTO> getAreaIndex(){
+     	
+     	List<AreaIndexDTO> list = new ArrayList<>();
+     	
+     	for (int k=0;k<20;k++) {
+     		AreaIndexDTO dto = new AreaIndexDTO();
+     		
+     		dto.setArea("四川省"+k);
+     		dto.setCompetitiveness(k*3);
+     		dto.setEcosystem(k*2);
+     		dto.setRank(k*5);
+     		dto.setRecognition(k<<3);
+     		dto.setSafety(k*9);
+     		dto.setScale(k*7);
+     		list.add(dto);
+ 		}
+     	
+     	return list;
+     	
+     }
+     
+     
+     
+     
+     /**
+      * 上海网贷平台数据展示
+      *
+      * @return ResponseBean
+      */
+     @RequestMapping("/platRankData")
+     @ResponseBody
+     public Object platRankData(){
+     	
+     	return ResponseBean.successResponse(getPlatRankData());
+     	
+     }
+     
+     @Deprecated
+     private List<PlatRankDataDTO> getPlatRankData(){
+     	
+     	List<PlatRankDataDTO> list = new ArrayList<>();
+     	
+     	for (int k=1;k<6;k++) {
+     		PlatRankDataDTO dto = new PlatRankDataDTO();
+     		
+     		dto.setAmount(k*3);
+     		dto.setIncome_rate(k*4);
+     		dto.setLoan_period(k*5);
+     		dto.setPlat_name("平台名称"+k);
+     		dto.setRank(k);
+     		dto.setStay_still_of_total(k*9);
+     		list.add(dto);
+ 		}
+     	
+     	return list;
+     	
+     }
+     
+
+     
+     
+     
+     
 	
 }
