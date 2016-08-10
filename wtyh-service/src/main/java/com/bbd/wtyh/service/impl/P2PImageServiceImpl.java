@@ -42,7 +42,7 @@ public class P2PImageServiceImpl implements P2PImageService {
     }
 
     @Override
-    public Map<String, String> baseInfo() {
+    public Map<String, Object> baseInfo() {
         return p2PImageDao.baseInfo();
     }
 

@@ -1,5 +1,9 @@
 package com.bbd.wtyh.dao.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.bbd.higgs.utils.http.HttpCallback;
+import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.dao.P2PImageDao;
 import org.springframework.stereotype.Repository;
 
@@ -77,19 +81,36 @@ import java.util.*;
     }
 
     @Override
-    public Map<String, String> baseInfo() {
-        Map<String, String> info = new HashMap<>();
-        info.put("p2pName", "陆金所");     // 平台名称
-        info.put("companyName", "上海陆家嘴国际金融资产交易市场股份有限公司");   // 公司名称
-        info.put("legalPeople", "郑森");  // 法人代表
-        info.put("capital", "83667");   // 注册资本
-        info.put("address", "上海浦东新区陆家嘴环路1333号");    // 注册地址
-        info.put("openedTime", "2011-11-9");    // 开业时间
-        info.put("verifiedTime", "2011-11-9");  // 核准时间
-        info.put("registerOffice", "上海市工商局");   // 等级机关
-        info.put("companyCode", "79361521");    // 组织结构代码
-
-        return info;
+    public Map<String, Object> baseInfo() {
+        String url = "http://dataom.api.bbdservice.com/api/bbd_qyxx/?company=攀枝花市交通旅游客运有限责任公司&ak=0516d1c0db8d5cd1933cc2442c9f8d40";
+        final Map<String , Object> map = new LinkedHashMap<>();
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            httpTemplate.get(url, new HttpCallback<Object>() {
+                @Override
+                public boolean valid() {
+                    return false;
+                }
+                @Override
+                public Object parse(String result) {
+                    JSONObject object = JSON.parseObject(result);
+                    String results = String.valueOf(object.get("results"));
+                    JSONObject data = JSON.parseObject(results.substring(1,results .length()-1));
+                    JSONObject jbxx = JSON.parseObject(String.valueOf(data.get("jbxx")));
+                    map.put("法人代表", jbxx.get("frname"));
+                    map.put("公司名称", jbxx.get("company_name"));
+                    map.put("注册资本", jbxx.get("regcap"));
+                    map.put("注册地址", jbxx.get("address"));
+                    map.put("开业日期", jbxx.get("esdate"));
+                    map.put("核准日期", jbxx.get("approval_date"));
+                    map.put("登记机关", jbxx.get("regorg"));
+                    return map;
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return map;
     }
 
     @Override

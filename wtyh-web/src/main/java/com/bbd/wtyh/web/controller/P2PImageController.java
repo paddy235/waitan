@@ -87,7 +87,7 @@ public class P2PImageController {
     @RequestMapping("/baseInfo")
     @ResponseBody
     public ResponseBean baseInfo() {
-        Map<String, String> content = p2PImageService.baseInfo();
+        Map<String, Object> content = p2PImageService.baseInfo();
         return ResponseBean.successResponse(content);
     }
 
