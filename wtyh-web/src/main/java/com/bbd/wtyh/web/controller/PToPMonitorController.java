@@ -4,17 +4,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.bbd.wtyh.domain.NvDO;
+import com.bbd.wtyh.domain.dto.AreaIndexDTO;
+import com.bbd.wtyh.domain.dto.IndustryCompareDTO;
 import com.bbd.wtyh.domain.dto.IndustryProblemDTO;
 import com.bbd.wtyh.domain.dto.IndustryShanghaiDTO;
 import com.bbd.wtyh.domain.dto.XAxisSeriesBarLineDTO;
@@ -53,7 +54,7 @@ public class PToPMonitorController {
     
     
     /**
-     * 平台状态信息
+     * 1：公司分布地图，成交量和综合利率，问题平台比例，行业人气，网贷数据对比 综合接口
      *
      * @return ResponseBean
      */
@@ -61,9 +62,11 @@ public class PToPMonitorController {
     @ResponseBody
     public Object integrated(){
     	
-    	Map<String,Object> map = new HashMap<>();
+    	Map<String,Object> map = new LinkedHashMap<>();
     	
     	List<IndustryShanghaiDTO> list = getData();
+    	
+    	map.put("hotMap",hotMap(list));
     	
     	map.put("newly", newlyPlat(list) );
     	
@@ -75,6 +78,9 @@ public class PToPMonitorController {
     	
     	map.put("popularity",popularity(list));
     	
+    	map.put("compare",compare(getCompareData()));
+    	
+    	
     	return ResponseBean.successResponse(map);
     }
     
@@ -82,6 +88,129 @@ public class PToPMonitorController {
     
     
     
+    
+    /**
+     * 上海区域发展指数排名
+     *
+     * @return ResponseBean
+     */
+    @RequestMapping("/areaIndex")
+    @ResponseBody
+    public Object areaIndex(){
+    	
+    	return ResponseBean.successResponse(getAreaIndex());
+    	
+    }
+    
+    
+    private List<AreaIndexDTO> getAreaIndex(){
+    	
+    	List<AreaIndexDTO> list = new ArrayList<>();
+    	
+    	for (int k=0;k<20;k++) {
+    		AreaIndexDTO dto = new AreaIndexDTO();
+    		
+    		dto.setArea("四川省"+k);
+    		dto.setCompetitiveness(k*3);
+    		dto.setEcosystem(k*2);
+    		dto.setRank(k*5);
+    		dto.setRecognition(k<<3);
+    		dto.setSafety(k*9);
+    		dto.setScale(k*7);
+    		list.add(dto);
+		}
+    	
+    	return list;
+    	
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /**
+     * 热力图
+     *
+     * @return XAxisSeriesLinesDO<Integer>
+     */
+    public Map<String, Object> hotMap(List<IndustryShanghaiDTO> list){
+    	
+    	HashMap<String,Object> map = new HashMap<>();
+    	map.put("code", 1);
+    	map.put("title", "热力图");
+    	IndustryShanghaiDTO maxDto = list.get(0);
+    	for (IndustryShanghaiDTO dto : list) {
+			if(maxDto.getDate().compareTo(dto.getDate()) > 0){
+				maxDto = dto;
+			}
+		}
+    	
+    	List<Map<String, Object>> data = new ArrayList<>();
+    	for (Map.Entry<String, Object> entry: maxDto.getArea_num().entrySet()) {
+    		Map<String, Object> areaNum = new HashMap<>();
+    		areaNum.put("name", entry.getKey());
+    		areaNum.put("value", entry.getValue());
+			data.add(areaNum);
+		}
+    	map.put("data", data);
+    	return map;
+    }
+    
+    
+    
+    
+    
+    /**
+    * 网贷数据对比(上海VS全国)
+    *
+    * @param   
+    * @return XAxisSeriesLinesDTO<Double>
+    */
+    private XAxisSeriesLinesDTO<Double> compare(List<IndustryCompareDTO> list){
+    	@SuppressWarnings("unchecked")
+		XAxisSeriesLinesDTO<Double> data = new XAxisSeriesLinesDTO<Double>(
+								    			new ArrayList<Double>(),
+								    			new ArrayList<Double>());
+    	data.setTitle("网贷数据对比(上海VS全国)");
+    	if(CollectionUtils.isEmpty(list) ){
+    		return data;
+    	}
+    	
+    	data.setxAxis(Arrays.asList("贷款余额","成交量"));
+    	for (IndustryCompareDTO dto : list) {
+			if("全国".equals(dto.getArea())){
+				data.getSeries()[0].add(0, dto.getBalance_loans());
+				data.getSeries()[1].add(0, dto.getAmount());
+			}else{
+				data.getSeries()[0].add(dto.getBalance_loans());
+				data.getSeries()[1].add(dto.getAmount());
+			}
+		}
+    	
+    	
+    	return data;
+    }
+    
+    
+    private List<IndustryCompareDTO> getCompareData(){
+    	
+    	IndustryCompareDTO dto = new IndustryCompareDTO();
+    	dto.setArea("上海");
+    	dto.setAmount(1);
+    	dto.setBalance_loans(10);
+    	
+    	IndustryCompareDTO dto2 = new IndustryCompareDTO();
+    	dto2.setArea("全国");
+    	dto2.setAmount(2);
+    	dto2.setBalance_loans(20);
+    	
+    	return Arrays.asList(dto,dto2);
+    	
+    }
     
     
     
@@ -219,6 +348,11 @@ public class PToPMonitorController {
         		dto.setInvest_num(1);
         		dto.setNew_plat_num(1+m);
         		dto.setTotal_plat_num_sh(2+m);
+        		
+        		dto.setArea_num(new HashMap<String,Object>());
+        		dto.getArea_num().put("浦东区", 3);
+        		dto.getArea_num().put("黄埔区", 1);
+        		
         		list.add(dto);
     		}
 		}
