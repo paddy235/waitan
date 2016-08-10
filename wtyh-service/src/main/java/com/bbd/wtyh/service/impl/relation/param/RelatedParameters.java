@@ -1,4 +1,4 @@
-package com.bbd.param;
+package com.bbd.wtyh.service.impl.relation.param;
 
 public class RelatedParameters {
 	private String company;

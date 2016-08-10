@@ -1,4 +1,4 @@
-package com.bbd.common;
+package com.bbd.wtyh.service.impl.relation.common;
 
 import org.springframework.web.context.WebApplicationContext;
 

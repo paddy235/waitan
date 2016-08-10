@@ -1,4 +1,4 @@
-package com.bbd.exception;
+package com.bbd.wtyh.service.impl.relation.exception;
 
 public class BbdException extends RuntimeException {
 	
