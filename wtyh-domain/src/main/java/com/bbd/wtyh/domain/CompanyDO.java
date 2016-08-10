@@ -1,5 +1,7 @@
 package com.bbd.wtyh.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 
@@ -29,6 +31,7 @@ public class CompanyDO extends BaseDO {
 
     private Integer registeredCapital;
 
+    @DateTimeFormat(pattern = "yyyy/MM/dd")
     private Date registeredDate;
 
     private Byte companyType;

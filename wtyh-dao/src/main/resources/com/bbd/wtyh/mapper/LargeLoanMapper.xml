@@ -35,10 +35,10 @@
             order by
             <choose>
                 <when test="orderByField==1">
-                    l.name
+                    b.name
                 </when>
                 <when test="orderByField==2">
-                    b.name
+                    l.name
                 </when>
                 <when test="orderByField==3">
                     b.business_type
