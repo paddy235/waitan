@@ -11,6 +11,8 @@ public class QdlpProgressDO extends BaseDO {
 
     private Byte progress;
 
+    private String architecture;
+
     public Integer getCompanyId() {
         return companyId;
     }
@@ -49,5 +51,13 @@ public class QdlpProgressDO extends BaseDO {
 
     public void setProgress(Byte progress) {
         this.progress = progress;
+    }
+
+    public String getArchitecture() {
+        return architecture;
+    }
+
+    public void setArchitecture(String architecture) {
+        this.architecture = architecture;
     }
 }

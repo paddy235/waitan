@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bbd.wtyh.mapper.FundProductStatisticMapper">
-  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.FundProductStatisticDO">
-    <id column="product_type_id" jdbcType="INTEGER" property="productTypeId" />
-    <result column="product_number" jdbcType="INTEGER" property="productNumber" />
-    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
-    <result column="create_date" jdbcType="DATE" property="createDate" />
-    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
-    <result column="update_date" jdbcType="DATE" property="updateDate" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.FundProductStatisticDO">
+        <id column="product_type_id" jdbcType="INTEGER" property="productTypeId"/>
+        <result column="product_number" jdbcType="INTEGER" property="productNumber"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="create_date" jdbcType="DATE" property="createDate"/>
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+        <result column="update_date" jdbcType="DATE" property="updateDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     product_type_id, product_number, create_by, create_date, update_by, update_date
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from fund_product_logistic
-    where product_type_id = #{productTypeId,jdbcType=INTEGER}
-  </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from fund_product_logistic
+        where product_type_id = #{productTypeId,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from fund_product_logistic
+    </select>
 </mapper>

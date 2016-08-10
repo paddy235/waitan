@@ -1,6 +1,6 @@
 package com.bbd.wtyh.service;
 
-import com.bbd.wtyh.domain.QdlpProgressDO;
+import com.bbd.wtyh.domain.*;
 
 import java.util.List;
 
@@ -10,5 +10,24 @@ import java.util.List;
 public interface PrivateFundService {
 
     List<QdlpProgressDO> qdlpProgressList();
+
+    List<QflpCompanyDO> qflpCompanyList();
+
+    List<PrivateFundStatisticDO> typeStatisticList();
+
+    PrivateFundTypeDO getTypeById(Integer privateFundTypeId);
+
+    FundProductTypeDO getProductTypeById(Integer productTypeId);
+
+    List<FundProductStatisticDO> productTypeStatisticList();
+
+    List<ProductAmountDO> topProductNumber(Integer numbers);
+
+
+    List<CapitalAmountDO> capitalAmount();
+
+    List<InvestmentReturnStatisticDO> investmentReturn();
+
+    List<InvestmentReturnStatisticDO> investmentAmount();
 
 }

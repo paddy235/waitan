@@ -1,16 +1,16 @@
 package com.bbd.wtyh.domain;
 
 public class CapitalAmountDO extends BaseDO {
-    private Integer investmentTypeId;
+    private Integer typeId;
 
     private Float manageCapitalAmount;
 
-    public Integer getInvestmentTypeId() {
-        return investmentTypeId;
+    public Integer getTypeId() {
+        return typeId;
     }
 
-    public void setInvestmentTypeId(Integer investmentTypeId) {
-        this.investmentTypeId = investmentTypeId;
+    public void setTypeId(Integer typeId) {
+        this.typeId = typeId;
     }
 
     public Float getManageCapitalAmount() {

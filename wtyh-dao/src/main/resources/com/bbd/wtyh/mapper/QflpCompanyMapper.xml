@@ -20,4 +20,11 @@
     from qflp_company
     where company_id = #{companyId,jdbcType=INTEGER}
   </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from qflp_company
+  </select>
+
 </mapper>
