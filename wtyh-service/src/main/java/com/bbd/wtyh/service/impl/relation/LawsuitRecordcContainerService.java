@@ -14,6 +14,7 @@ import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -36,8 +37,7 @@ public class LawsuitRecordcContainerService extends ApiContainerService {
     private static final Integer PAGE_SIZE = 50;
     private static Logger log = LoggerFactory.getLogger(LawsuitRecordcContainerService.class);
 
-//    TODO
-//    @Value("${" + Constants.API_SEARCH_URL + "}")
+    @Value("${" + Constants.API_SEARCH_URL + "}")
     private String url;
 
     @Autowired

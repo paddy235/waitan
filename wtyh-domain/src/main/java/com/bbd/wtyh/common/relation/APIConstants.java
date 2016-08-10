@@ -14,7 +14,7 @@ public class APIConstants {
 	//动态关联方     套系层次
 	public static final int show_relation_A = 2;
 	//动态关联方     套系层次
-	public static final int show_relation_E = 3;
+//	public static final int show_relation_E = 3;
 	//动态关联方     接口请求编码
 	public static final String show_charset = "UTF-8";
 	//基本资料_工商注册资料 suffix key 

@@ -20,6 +20,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreConnectionPNames;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -52,36 +53,35 @@ public class RegisterUniversalFilterChainImp {
 	
 	private final static int retry = 3;
 
-	// TODO
-//	@Value("${related.party.url}")
+	@Value("${related.party.url}")
 	private String url;
     
-    /**
-	 * @author  David 
-	 * YED套系数据来源 并且 excel下载
-	 * @param company
-	 * @return
-	 */
-	@SuppressWarnings({ "unchecked", "deprecation" })
-	public List<List<Object>> HierarchicalFuzzySearchDataJTTP(String company,String dataVersion) throws Exception
-	{
-	        //变为list后的数据
-			List<List<Object>> list = new ArrayList<List<Object>>();
-			JSONArray CombinationDataAll = null;
-			String jstr = redisDao.getString(company+ APIConstants.redis_relation_LinksDataJTTP + dataVersion);
-            if(!StringUtils.isNullOrEmpty(jstr)){
-            	CombinationDataAll = JSONArray.fromObject(jstr);
-            	list = JSONArray.toList(CombinationDataAll);	
-            }else{
-        	   jstr = this.getAPIDynamicRelatedPartUploadJTTP(company,APIConstants.show_relation_E,dataVersion);
-        	   if (StringUtils.isNotNullOrEmpty(jstr)) {
-        		   CombinationDataAll = JSONArray.fromObject(jstr);
-               	   list = JSONArray.toList(CombinationDataAll);   
-        	   }
-         } 
-         return list;
-		
-	}
+//    /**
+//	 * @author  David
+//	 * YED套系数据来源 并且 excel下载
+//	 * @param company
+//	 * @return
+//	 */
+//	@SuppressWarnings({ "unchecked", "deprecation" })
+//	public List<List<Object>> HierarchicalFuzzySearchDataJTTP(String company,String dataVersion) throws Exception
+//	{
+//	        //变为list后的数据
+//			List<List<Object>> list = new ArrayList<List<Object>>();
+//			JSONArray CombinationDataAll = null;
+//			String jstr = redisDao.getString(company+ APIConstants.redis_relation_LinksDataJTTP + dataVersion);
+//            if(!StringUtils.isNullOrEmpty(jstr)){
+//            	CombinationDataAll = JSONArray.fromObject(jstr);
+//            	list = JSONArray.toList(CombinationDataAll);
+//            }else{
+//        	   jstr = this.getAPIDynamicRelatedPartUploadJTTP(company,APIConstants.show_relation_E,dataVersion);
+//        	   if (StringUtils.isNotNullOrEmpty(jstr)) {
+//        		   CombinationDataAll = JSONArray.fromObject(jstr);
+//               	   list = JSONArray.toList(CombinationDataAll);
+//        	   }
+//         }
+//         return list;
+//
+//	}
 	
 	private static final Map<String, String> DATA_MAP = new HashMap<String, String>();
 	static {
@@ -106,7 +106,6 @@ public class RegisterUniversalFilterChainImp {
         //目标公司原始数据
 		String data = null;
 		if (StringUtils.isNotNullOrEmpty(companyName)) {
-			// TODO 代码模拟的数据
 			if ("冠群驰骋投资管理（北京）有限公司".equals(companyName) || "金易融（北京）网络科技有限公司".equals(companyName)) {
 				data = DATA_MAP.get(companyName + "_" + dataVersion);
 				if (StringUtils.isNullOrEmpty(data)) {
@@ -149,8 +148,7 @@ public class RegisterUniversalFilterChainImp {
 		String query = null;
 		StringBuilder sb = new StringBuilder();
 		try{
-			// TODO Auto-generated method stub
-			
+
 			java.lang.reflect.Field[] field = relatedParameters.getClass().getDeclaredFields();
 			for (int j = 0; j < field.length; j++) {  
 				String name = field[j].getName();    //获取属性的名字
@@ -251,12 +249,12 @@ public class RegisterUniversalFilterChainImp {
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public Map<String, List> queryRelation(String companyName, String dataVersion) throws Exception {
+	public Map<String, List> queryRelation(String companyName, String dataVersion, Integer degree) throws Exception {
 		List<List<String>> list = null;
 		JSONArray jsonArr = null;
 		String json = redisDao.getString(companyName + APIConstants.redis_relation_LinksDataJTTP + dataVersion);
 		if (StringUtils.isNullOrEmpty(json)) {
-			json = this.getAPIDynamicRelatedPartUploadJTTP(companyName, APIConstants.show_relation_E, dataVersion);
+			json = this.getAPIDynamicRelatedPartUploadJTTP(companyName, degree, dataVersion);
 		}
 		if (StringUtils.isNullOrEmpty(json)) {
 			json="[]"; // 没有查询到数据的情况

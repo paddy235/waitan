@@ -38,10 +38,11 @@ public class RelationController {
 		try {
 			String companyName = request.getParameter("companyName");
 			String dataVersion = request.getParameter("dataVersion");
+			Integer degree = Integer.valueOf(request.getParameter("degree"));
 			if (StringUtils.isNullOrEmpty(dataVersion)) {
 				dataVersion = (String) request.getSession().getAttribute("defaultVersion");
 			}
-			return registerUniversalFilterChainImp.queryRelation(companyName, dataVersion);
+			return registerUniversalFilterChainImp.queryRelation(companyName, dataVersion, degree);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -63,11 +64,12 @@ public class RelationController {
 		String origCompanyName = request.getParameter("origCompanyName");
 		String dataVersion = request.getParameter("dataVersion");
 		String tarCompanyName = request.getParameter("tarCompanyName");
+		Integer degree = Integer.valueOf(request.getParameter("degree"));
 		if (StringUtils.isNullOrEmpty(dataVersion)) {
 			dataVersion = (String) request.getSession().getAttribute("defaultVersion");
 		}
 		AjaxVO ajax = new AjaxVO();
-		Map<String, List> map = registerUniversalFilterChainImp.queryRelation(origCompanyName, dataVersion);
+		Map<String, List> map = registerUniversalFilterChainImp.queryRelation(origCompanyName, dataVersion, degree);
 		if (null != map) {
 			CompanyDataStatisticsVO routeList = searchAPIandRelatedPartyService.relatedPartyStatistics(origCompanyName, tarCompanyName, map.get("lineList"));
 			if (null != routeList) {

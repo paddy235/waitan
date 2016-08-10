@@ -20,33 +20,33 @@ public class RelationService {
 	private RegisterUniversalFilterChainImp regImp;
 	private String [] relationTitle = { "序号", "投资方", "被投资方", "职务", "投资方关联维度", "被投资方关联维度" };
 	
-	/**
-	 * 创建Workbook
-	 * 
-	 * @param companyName
-	 * @param dataVersion
-	 * @return
-	 * @throws Exception
-	 */
-	public Workbook createRelationExcel(String companyName, String dataVersion) throws Exception {
-		XSSFWorkbook wb = new XSSFWorkbook();
-		try {
-			CellStyle cs = this.setHeadStyle(wb);
-			XSSFSheet sheet = wb.createSheet(companyName);
-			/* 设置列宽 */
-			sheet.setColumnWidth(0, 2000);
-			sheet.setColumnWidth(1, 8000);
-			sheet.setColumnWidth(2, 8000);
-			sheet.setColumnWidth(3, 8000);
-			sheet.setColumnWidth(4, 5000);
-			sheet.setColumnWidth(5, 5000);
-			this.writeTableHeader(sheet, cs);			
-			this.writeRelationExcel(wb, sheet, companyName, dataVersion);
-		    return wb;
-		} catch (Exception e) {
-			throw new Exception(e.getMessage(), e);
-		} 
-	}
+//	/**
+//	 * 创建Workbook
+//	 *
+//	 * @param companyName
+//	 * @param dataVersion
+//	 * @return
+//	 * @throws Exception
+//	 */
+//	public Workbook createRelationExcel(String companyName, String dataVersion) throws Exception {
+//		XSSFWorkbook wb = new XSSFWorkbook();
+//		try {
+//			CellStyle cs = this.setHeadStyle(wb);
+//			XSSFSheet sheet = wb.createSheet(companyName);
+//			/* 设置列宽 */
+//			sheet.setColumnWidth(0, 2000);
+//			sheet.setColumnWidth(1, 8000);
+//			sheet.setColumnWidth(2, 8000);
+//			sheet.setColumnWidth(3, 8000);
+//			sheet.setColumnWidth(4, 5000);
+//			sheet.setColumnWidth(5, 5000);
+//			this.writeTableHeader(sheet, cs);
+//			this.writeRelationExcel(wb, sheet, companyName, dataVersion);
+//		    return wb;
+//		} catch (Exception e) {
+//			throw new Exception(e.getMessage(), e);
+//		}
+//	}
 	
 	/**
 	 * 设置Excel表头样式
@@ -88,47 +88,47 @@ public class RelationService {
 		}
 	}
 	
-	/**
-	 * 填充Excel内容
-	 * @throws Exception 
-	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private void writeRelationExcel(Workbook wb, XSSFSheet sheet, String companyName, String dataVersion) throws Exception {
-		Map<String, List> map = regImp.queryRelation(companyName, dataVersion);
-		List<LineVO> list = map.get("lineList");
-		if (ListUtils.isNotEmpty(list)) {
-			CellStyle cs = wb.createCellStyle();
-			cs.setAlignment(CellStyle.ALIGN_RIGHT);
-			for (int i = 0; i < list.size(); i++) {
-				LineVO vo = list.get(i);
-				XSSFRow row = sheet.createRow(i + 1);
-				for (int j = 0; j < relationTitle.length; j++) {
-					XSSFCell cell = row.createCell(j);
-					switch (j) {
-					case 0:
-						cell.setCellValue(i + 1);
-						break;
-					case 1:
-						cell.setCellValue(vo.getOrig());
-						break;
-					case 2:
-						cell.setCellValue(vo.getTarget());
-						break;
-					case 3:
-						cell.setCellValue(vo.getType());
-						break;
-					case 4:
-						cell.setCellValue(vo.getOrigLevel());
-						break;
-					case 5:
-						cell.setCellValue(vo.getTarLevel());
-						break;
-					default:
-						break;
-					}
-				}
-			}
-		}
-	}
+//	/**
+//	 * 填充Excel内容
+//	 * @throws Exception
+//	 */
+//	@SuppressWarnings({ "rawtypes", "unchecked" })
+//	private void writeRelationExcel(Workbook wb, XSSFSheet sheet, String companyName, String dataVersion) throws Exception {
+//		Map<String, List> map = regImp.queryRelation(companyName, dataVersion);
+//		List<LineVO> list = map.get("lineList");
+//		if (ListUtils.isNotEmpty(list)) {
+//			CellStyle cs = wb.createCellStyle();
+//			cs.setAlignment(CellStyle.ALIGN_RIGHT);
+//			for (int i = 0; i < list.size(); i++) {
+//				LineVO vo = list.get(i);
+//				XSSFRow row = sheet.createRow(i + 1);
+//				for (int j = 0; j < relationTitle.length; j++) {
+//					XSSFCell cell = row.createCell(j);
+//					switch (j) {
+//					case 0:
+//						cell.setCellValue(i + 1);
+//						break;
+//					case 1:
+//						cell.setCellValue(vo.getOrig());
+//						break;
+//					case 2:
+//						cell.setCellValue(vo.getTarget());
+//						break;
+//					case 3:
+//						cell.setCellValue(vo.getType());
+//						break;
+//					case 4:
+//						cell.setCellValue(vo.getOrigLevel());
+//						break;
+//					case 5:
+//						cell.setCellValue(vo.getTarLevel());
+//						break;
+//					default:
+//						break;
+//					}
+//				}
+//			}
+//		}
+//	}
 
 }

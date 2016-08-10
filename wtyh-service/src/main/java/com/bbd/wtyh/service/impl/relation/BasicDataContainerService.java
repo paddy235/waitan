@@ -25,8 +25,7 @@ public class BasicDataContainerService extends ApiContainerService{
 	
 	private static Logger log = LoggerFactory.getLogger(BasicDataContainerService.class);
 
-	// TODO
-//	@Value("${" + Constants.SEARCH_API_COMPANY_URL + "}")
+	@Value("${" + Constants.SEARCH_API_COMPANY_URL + "}")
 	private String url;
 	
 	public EnterpriseDataVO getEnterpriseData(String companyName) throws Exception{

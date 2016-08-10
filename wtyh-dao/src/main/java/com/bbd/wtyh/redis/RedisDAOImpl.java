@@ -224,7 +224,6 @@ public class RedisDAOImpl implements RedisDAO {
 //						return new String(result, Constants.CHARACTER_CODE);
 //					}
 //				} catch (UnsupportedEncodingException e) {
-//					// TODO Auto-generated catch block
 //					e.printStackTrace();
 //				}
 //				return null;
