@@ -27,6 +27,11 @@ public class OfflineFinanceController {
     @Autowired
     private OfflineFinanceService offlineFinanceService;
 
+    /**
+     * 关联图谱
+     * @param request
+     * @return
+     */
     @SuppressWarnings("rawtypes")
     @RequestMapping(value = "/queryDynamicPicData")
     public @ResponseBody Map<String, List> queryDynamicPicData(HttpServletRequest request) {
