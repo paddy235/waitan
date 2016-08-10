@@ -7,7 +7,6 @@ public class RelatedParameters {
 	
 	public RelatedParameters() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public String getCompany() {
 		return company;
