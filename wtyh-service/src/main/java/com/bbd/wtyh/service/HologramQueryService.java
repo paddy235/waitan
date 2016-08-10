@@ -24,9 +24,44 @@ public interface HologramQueryService {
     Map<String, Object> guidance();
 
     /**
+     * 企业概要信息
+     *
+     * @return
+     */
+    Map<String, Object> outlineMsg();
+
+    /**
      * 新闻舆情
      *
      * @return
      */
     Map<String, Object> newsConsensus();
+
+    /**
+     * 企业信息详情-工商信息
+     *
+     * @return
+     */
+    Map<String, Object> businessInfo();
+
+    /**
+     * 企业信息详情-股东高管
+     *
+     * @return
+     */
+    Map<String, Object> shareholdersSenior();
+
+    /**
+     * 企业信息详情-诉讼记录
+     *
+     * @return
+     */
+    Map<String, Object> lawsuitRecord();
+
+    /**
+     * 企业信息详情-招聘信息
+     *
+     * @return
+     */
+    Map<String, Object> recruitMsg();
 }

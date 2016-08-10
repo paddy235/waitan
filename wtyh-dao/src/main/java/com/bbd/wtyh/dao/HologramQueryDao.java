@@ -13,5 +13,15 @@ public interface HologramQueryDao {
 
     Map<String, Object> guidance();
 
+    Map<String, Object> outlineMsg();
+
     Map<String, Object> newsConsensus();
+
+    Map<String, Object> businessInfo();
+
+    Map<String, Object> shareholdersSenior();
+
+    Map<String, Object> lawsuitRecord();
+
+    Map<String, Object> recruitMsg();
 }

@@ -29,9 +29,35 @@ public class HologramQueryServiceImpl implements HologramQueryService {
         return hologramQueryDao.guidance();
     }
 
+    @Override
+    public Map<String, Object> outlineMsg() {
+        return hologramQueryDao.outlineMsg();
+    }
 
     @Override
     public Map<String, Object> newsConsensus() {
         return hologramQueryDao.newsConsensus();
     }
+
+    @Override
+    public Map<String, Object> businessInfo() {
+        return hologramQueryDao.businessInfo();
+    }
+
+    @Override
+    public Map<String, Object> shareholdersSenior() {
+        return hologramQueryDao.shareholdersSenior();
+    }
+
+    @Override
+    public Map<String, Object> lawsuitRecord() {
+        return hologramQueryDao.lawsuitRecord();
+    }
+
+    @Override
+    public Map<String, Object> recruitMsg() {
+        return hologramQueryDao.recruitMsg();
+    }
+
+
 }

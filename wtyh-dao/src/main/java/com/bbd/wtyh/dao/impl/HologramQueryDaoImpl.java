@@ -1,6 +1,7 @@
 package com.bbd.wtyh.dao.impl;
 
 import com.bbd.wtyh.dao.HologramQueryDao;
+import org.omg.CORBA.DATA_CONVERSION;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -50,6 +51,20 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
         return data;
     }
 
+    /**
+     * 企业概要信息
+     *
+     * @return
+     */
+    @Override
+    public Map<String, Object> outlineMsg() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("企业名称", "上海明成投资有限公司");
+        data.put("法定代表人", "蒋宁");
+        data.put("注册资本", "50000人民币");
+        data.put("注册地址", "上海市长岭北路1号国际会展中心···");
+        return data;
+    }
 
     /**
      * 公司新闻舆情
@@ -66,4 +81,69 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
         data.put("更新日期", "2016年6月27日");
         return data;
     }
+
+    /**
+     * 企业信息详情-工商信息
+     *
+     * @return
+     */
+    @Override
+    public Map<String, Object> businessInfo() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("法定代表人", "王伟");
+        data.put("注册资本", "王伟");
+        data.put("状态", "王伟");
+        data.put("注册时间", "王伟");
+        data.put("行业", "王伟");
+        data.put("工商注册号", "王伟");
+        data.put("企业类型", "王伟");
+        data.put("组织机构代码", "王伟");
+        data.put("营业期限", "王伟");
+        data.put("登记机关", "王伟");
+        data.put("核准日期", "王伟");
+        data.put("统一信用代码", "王伟");
+        data.put("经营范围", "王伟");
+        return data;
+    }
+
+    /**
+     * 企业信息详情-股东高管
+     *
+     * @return
+     */
+    @Override
+    public Map<String, Object> shareholdersSenior() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("股东", "王伟");
+        data.put("股东类型", "建工单");
+        data.put("国务院", "王伟");
+        data.put("机关法人", "王伟");
+        data.put("股东", "王伟");
+        return data;
+    }
+
+    /**
+     * 企业信息详情-诉讼记录
+     *
+     * @return
+     */
+    @Override
+    public Map<String, Object> lawsuitRecord() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("诉讼信息", "");
+        return data;
+    }
+
+    /**
+     * 企业信息详情-招聘信息
+     *
+     * @return
+     */
+    public Map<String, Object> recruitMsg() {
+        Map<String, Object> data = new HashMap<>();
+        data.put("招聘信息", "招聘嘻嘻");
+        return data;
+    }
+
+
 }
