@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.FinanceLeaseMapper">
+
+
+    <select id="queryExchangeCompanyCategory" resultType="java.util.Map">
+			SELECT
+				`status`,
+				COUNT(company_id) as number
+			FROM
+				exchange_company
+			GROUP BY
+				`status`
+	</select>
+
+	<select id="queryExchangeCompanyArea"  resultType="com.bbd.wtyh.domain.vo.ExchangeCompanyAreaVO">
+			SELECT
+				a.`name` as name,
+				COUNT(c.company_id) as count
+			FROM
+				exchange_company ec
+			LEFT JOIN company c ON ec.company_id = c.company_id
+			LEFT JOIN area a ON c.area_id = a.area_id
+			WHERE
+				1 = 1
+			AND c.area_id > 0
+			GROUP BY
+				a.area_id
+	</select>
+
+	<select id="queryExchangeCompanyByStatus" parameterType="java.lang.Integer" resultType="com.bbd.wtyh.domain.vo.ExchangeCompanyVO">
+		SELECT
+			c.`name` as name,
+			ec.approve_department as approveDepartment ,
+			ec.supervise_department superviseDepartment,
+			c.legal_person legalPerson
+		FROM
+			exchange_company ec
+		LEFT JOIN company c ON ec.company_id = c.company_id
+		WHERE
+			ec.`status` = 4
+	</select>
+
+	<select id="queryExchangeCompanyListByAreaId" parameterType="java.util.Map" resultType="com.bbd.wtyh.domain.CompanyDO">
+		SELECT
+			c.`name`,
+			c.address,
+			c.registered_capital as registeredCapital,
+			c.registered_date as registeredDate
+		FROM
+			exchange_company ec
+		LEFT JOIN company c ON ec.company_id = c.company_id
+		LEFT JOIN area a ON c.area_id = a.area_id
+		WHERE
+			a.area_id = #{areaId}
+		<if test="orderName == 'registeredCapital'">
+			ORDER BY
+			c.registered_capital
+		</if>
+		<if test="orderName == 'registeredDate'">
+			ORDER BY
+			c.registered_date
+		</if>
+		<if test="orderType == 'desc'">
+			DESC
+		</if>
+		<if test="orderType == 'asc'">
+			ASC
+		</if>
+
+	</select>
+
+</mapper>
