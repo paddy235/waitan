@@ -96,6 +96,7 @@ public class GuaranteeController {
             guaranteeBalanceDTO.setPolicyBalance(balanceDO.getPolicyBalance());
             guaranteeBalanceDTO.setNumber(balanceDO.getNumber());
             guaranteeBalanceDTO.setCompanyAmount(amount);
+            result.add(guaranteeBalanceDTO);
         }
         return ResponseBean.successResponse(result);
     }

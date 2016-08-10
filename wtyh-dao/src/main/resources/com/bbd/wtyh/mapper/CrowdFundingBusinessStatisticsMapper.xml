@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.CrowdFundingBusinessStatisticsMapper">
+  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.CrowdFundingBusinessStatisticsDO">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="year" jdbcType="INTEGER" property="year" />
+    <result column="month" jdbcType="INTEGER" property="month" />
+    <result column="public_welfare_type" jdbcType="INTEGER" property="publicWelfareType" />
+    <result column="synthesizing_type" jdbcType="INTEGER" property="synthesizingType" />
+    <result column="equity_type" jdbcType="INTEGER" property="equityType" />
+    <result column="profit_type" jdbcType="INTEGER" property="profitType" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="DATE" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="DATE" property="updateDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, year, month, public_welfare_type, synthesizing_type, equity_type, profit_type, 
+    create_by, create_date, update_by, update_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from crowd_funding_business_statistics
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+</mapper>

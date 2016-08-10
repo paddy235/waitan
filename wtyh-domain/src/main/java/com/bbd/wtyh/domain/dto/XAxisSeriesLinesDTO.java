@@ -19,7 +19,7 @@ public class XAxisSeriesLinesDTO<T> {
 	
 	private int code = 1;
 	
-	public XAxisSeriesLinesDTO(List<T> ... series){
+	public XAxisSeriesLinesDTO(@SuppressWarnings("unchecked") List<T> ... series){
 		this.series = series;
 	}
 	

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.CommercialFactoringStatisticMapper">
+  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.CommercialFactoringStatisticDO">
+    <id column="year" jdbcType="INTEGER" property="year" />
+    <result column="balance" jdbcType="INTEGER" property="balance" />
+    <result column="total_amout" jdbcType="INTEGER" property="totalAmout" />
+    <result column="company_number" jdbcType="INTEGER" property="companyNumber" />
+    <result column="register_capital" jdbcType="INTEGER" property="registerCapital" />
+    <result column="domestic" jdbcType="INTEGER" property="domestic" />
+    <result column="international" jdbcType="INTEGER" property="international" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="DATE" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="DATE" property="updateDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    year, balance, total_amout, company_number, register_capital, domestic, international, 
+    create_by, create_date, update_by, update_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from commercial_factoring_statistic
+    where year = #{year,jdbcType=INTEGER}
+  </select>
+</mapper>

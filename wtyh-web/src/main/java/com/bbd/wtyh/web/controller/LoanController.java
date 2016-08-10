@@ -94,6 +94,7 @@ public class LoanController {
             loanBalanceDTO.setSmallCompanyBalance(balanceDO.getSmallCompanyBalance());
             loanBalanceDTO.setNumber(balanceDO.getNumber());
             loanBalanceDTO.setCompanyAmount(amount);
+            result.add(loanBalanceDTO);
         }
         return ResponseBean.successResponse(result);
     }

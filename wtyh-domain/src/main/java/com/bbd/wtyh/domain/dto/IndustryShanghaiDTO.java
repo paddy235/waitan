@@ -1,5 +1,7 @@
 package com.bbd.wtyh.domain.dto;
 
+import java.util.Map;
+
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -42,6 +44,11 @@ public class IndustryShanghaiDTO {
 	private int invest_num;
 	
 	
+	/**
+	 * 上海P2P月投资人数
+	 * */
+	private Map<String, Object> area_num;
+	
 	
 	private String year;
 	
@@ -54,7 +61,20 @@ public class IndustryShanghaiDTO {
 	
 	
 
+
+	public Map<String, Object> getArea_num() {
+		return area_num;
+	}
+
+
 	
+	public void setArea_num(Map<String, Object> area_num) {
+		this.area_num = area_num;
+	}
+
+
+
+
 	public String getYear() {
 		return year;
 	}

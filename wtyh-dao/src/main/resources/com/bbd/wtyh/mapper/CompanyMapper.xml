@@ -114,9 +114,9 @@
     </select>
 
     <select id="countByQuery" resultType="Integer">
-        select count(distinct(c.company_id)) from company c,company_background b
+        select count(distinct(c.company_id)) from company c left join company_background b
+        on  c.company_id=b.company_id
         <where>
-            c.company_id=b.company_id
             <if test="areaId != null">
                 and c.area_id=#{areaId}
             </if>
@@ -134,7 +134,15 @@
 		select
 		c.company_id
 		from company c
-		where c.company_type=#{companyType} and c.name like CONCAT('%',#{name},'%' )
+		<where>
+            <if test="companyType != null">
+                c.company_type=#{companyType}
+            </if>
+            <if test="name != null">
+                and c.name like CONCAT('%',#{name},'%' )
+            </if>
+
+        </where>
 
 	</select>
 

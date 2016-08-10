@@ -38,7 +38,7 @@ public interface P2PImageService {
      */
     Map<String, Object> radarScore();
     
-    Map<String, String> baseInfo();
+    Map<String, Object> baseInfo();
 
     Map<String, String> coreDataInfo();
 

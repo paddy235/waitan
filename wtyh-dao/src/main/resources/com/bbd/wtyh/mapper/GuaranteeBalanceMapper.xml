@@ -28,7 +28,7 @@
 
   <select id="listByYear" resultMap="BaseResultMap">
     select
-    year,sum(amount) amount,sum(number) number,sum(steel_balance) steel_balance,
+    year,sum(guarantee_balance) guarantee_balance,sum(number) number,sum(steel_balance) steel_balance,
     sum(composite_balance) composite_balance,sum(policy_balance) policy_balance
     from guarantee_balance
     group by year
