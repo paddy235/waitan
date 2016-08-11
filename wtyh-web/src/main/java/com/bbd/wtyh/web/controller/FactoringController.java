@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bbd.wtyh.domain.CommercialFactoringStatisticDO;
 import com.bbd.wtyh.domain.CompanyAndRiskDO;
-import com.bbd.wtyh.domain.dto.XAxisSeriesBarLineDTO;
-import com.bbd.wtyh.domain.dto.XAxisSeriesLinesDTO;
 import com.bbd.wtyh.service.FactoringService;
 import com.bbd.wtyh.web.HistogramBean;
 import com.bbd.wtyh.web.LineChartBean;
 import com.bbd.wtyh.web.ResponseBean;
+import com.bbd.wtyh.web.XAxisSeriesBarLineBean;
+import com.bbd.wtyh.web.XAxisSeriesLinesBean;
 
 /**
 * 商业保理
@@ -67,7 +67,7 @@ public class FactoringController {
 		
 		List<CommercialFactoringStatisticDO> facList = facSer.companyCountByYear();
 
-		XAxisSeriesBarLineDTO<Integer,Integer> dto = new XAxisSeriesBarLineDTO<>();
+		XAxisSeriesBarLineBean<Integer,Integer> dto = new XAxisSeriesBarLineBean<>();
 		
 		for (CommercialFactoringStatisticDO bean : facList) {
 			dto.getxAxis().add(bean.getYear());
@@ -95,7 +95,7 @@ public class FactoringController {
 		List<CommercialFactoringStatisticDO> facList = facSer.companyCountByYear();
 		
 		@SuppressWarnings("unchecked")
-		XAxisSeriesLinesDTO<Integer,Integer> dto = new XAxisSeriesLinesDTO<>(
+		XAxisSeriesLinesBean<Integer,Integer> dto = new XAxisSeriesLinesBean<>(
 													new ArrayList<Integer>(),
 													new ArrayList<Integer>());
 		
