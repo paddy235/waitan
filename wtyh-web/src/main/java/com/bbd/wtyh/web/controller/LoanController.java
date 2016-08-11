@@ -39,12 +39,12 @@ public class LoanController {
 
 
     /**
-     * 查询公司数量
+     * 分区域统计数据
      *
      * @return
      */
-    @RequestMapping("hotArea")
-    public ResponseBean hotArea() {
+    @RequestMapping("areaStatistic")
+    public ResponseBean areaStatistic() {
         List<AreaDO> areaList = areaService.areaList();
         List<HotAreaDTO> result = Lists.newArrayList();
         for (AreaDO areaDO : areaList) {
@@ -78,7 +78,10 @@ public class LoanController {
         return ResponseBean.successResponse(companyLevelService.getCompanyLevel((int) CompanyDO.TYPE_XD_2, orderByField, descAsc));
     }
 
-
+    /**
+     * 贷款余额统计信息
+     * @return
+     */
     @RequestMapping("balance")
     public ResponseBean balance() {
         CompanyQuery query = new CompanyQuery();
@@ -100,6 +103,10 @@ public class LoanController {
     }
 
 
+    /**
+     * 股东行业风险列表
+     * @return
+     */
     @RequestMapping("shareholderRisk")
     public ResponseBean shareholderRisk() {
         List<ShareholderRiskDTO> list = shareholderRiskService.listShareholderRisk((int) CompanyDO.TYPE_XD_2);
@@ -107,6 +114,11 @@ public class LoanController {
     }
 
 
+    /**
+     * 股东行业风险详情列表
+     * @param companyId
+     * @return
+     */
     @RequestMapping("shareholderRiskDetail")
     public ResponseBean shareholderRiskDetail(Integer companyId) {
         if (null == companyId || companyId <= 0) {
@@ -122,6 +134,13 @@ public class LoanController {
     }
 
 
+    /**
+     * 大额贷款信息列表
+     * @param pagination
+     * @param orderByField
+     * @param descAsc
+     * @return
+     */
     @RequestMapping("largeLoanList")
     public ResponseBean largeLoanList(Pagination pagination, Integer orderByField, String descAsc) {
         return ResponseBean.successResponse(loanService.listLargeLoan(pagination, orderByField, descAsc));

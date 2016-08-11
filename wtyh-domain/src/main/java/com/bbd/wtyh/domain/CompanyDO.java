@@ -32,6 +32,8 @@ public class CompanyDO extends BaseDO {
 
     private Integer registeredCapital;
 
+    private Integer registeredCapitalType;
+
     @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date registeredDate;
 
@@ -39,10 +41,6 @@ public class CompanyDO extends BaseDO {
 
     @SuppressWarnings("unused")
 	private String comTypeCN;
-
-
-
-	private String products;
 
     private Byte status;
 
@@ -189,12 +187,12 @@ public class CompanyDO extends BaseDO {
         this.companyType = companyType;
     }
 
-    public String getProducts() {
-        return products;
+    public Integer getRegisteredCapitalType() {
+        return registeredCapitalType;
     }
 
-    public void setProducts(String products) {
-        this.products = products == null ? null : products.trim();
+    public void setRegisteredCapitalType(Integer registeredCapitalType) {
+        this.registeredCapitalType = registeredCapitalType;
     }
 
     public Byte getStatus() {
