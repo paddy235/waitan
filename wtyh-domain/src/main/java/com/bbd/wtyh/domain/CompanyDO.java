@@ -7,9 +7,7 @@ import java.util.Date;
 
 
 public class CompanyDO extends BaseDO {
-
-
-	//1:P2P 2:小贷 3:融资担保 4:线下理财 5:私募基金 6:众筹 7:金融  8:其他
+    //公司类型 1:P2P 2:小贷 3:融资担保 4:线下理财 5:私募基金 6:众筹 7:金融 8:其他 9:交易所 10:商业保理 11.预付卡 12.典当 13融资租赁
 	public static final byte TYPE_P2P_1  = 1;
 	public static final byte TYPE_XD_2   = 2;
 	public static final byte TYPE_RZDB_3 = 3;
@@ -18,6 +16,11 @@ public class CompanyDO extends BaseDO {
 	public static final byte TYPE_ZC_6   = 6;
 	public static final byte TYPE_JR_7   = 7;
 	public static final byte TYPE_QT_8   = 8;
+    public static final byte TYPE_JYS_9   = 9;
+    public static final byte TYPE_SYBL_10  = 10;
+    public static final byte TYPE_YFK_11   = 11;
+    public static final byte TYPE_DD_12    = 12;
+    public static final byte TYPE_RZZL_13  = 13;
 
 
     private Integer companyId;
@@ -88,15 +91,20 @@ public class CompanyDO extends BaseDO {
 			return "金融";
 		case TYPE_QT_8:
 			return "其他";
+        case TYPE_JYS_9:
+            return "交易所";
+        case TYPE_SYBL_10:
+            return "商业保理";
+        case TYPE_YFK_11:
+            return "预付卡";
+        case TYPE_DD_12:
+            return "典当";
+        case TYPE_RZZL_13:
+            return "融资租赁";
 		default:
 			return null;
 		}
     }
-
-
-
-
-
 
 	public String getRegisteredType() {
 		return registeredType;
