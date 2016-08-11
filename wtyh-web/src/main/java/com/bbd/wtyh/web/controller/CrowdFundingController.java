@@ -3,7 +3,6 @@ package com.bbd.wtyh.web.controller;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bbd.wtyh.domain.CrowdFundingBusinessStatisticsDO;
+import com.bbd.wtyh.domain.CrowdFundingCompanyDO;
 import com.bbd.wtyh.domain.CrowdFundingStatisticsDO;
 import com.bbd.wtyh.service.CrowdFundingService;
 import com.bbd.wtyh.web.HistogramBean;
@@ -118,16 +118,15 @@ public class CrowdFundingController {
 	
 	
 	
-	@RequestMapping("/companyInfo")
+	@RequestMapping("/allCompanys")
 	@ResponseBody
-	public ResponseBean companyInfo(){
+	public ResponseBean allCompanys(){
 		
-		HistogramBean<String, Float> hb = new HistogramBean<>();
+	
+		List<CrowdFundingCompanyDO> list = crowdFundingSer.allCompanys();
 		
-		//List<CrowdFundingStatisticsDO> list = crowdFundingSer.companyInfo();
 		
-		
-		return ResponseBean.successResponse(hb);
+		return ResponseBean.successResponse(list);
 	}
 	
 }

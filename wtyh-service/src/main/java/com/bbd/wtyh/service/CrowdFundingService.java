@@ -3,6 +3,7 @@ package com.bbd.wtyh.service;
 import java.util.List;
 
 import com.bbd.wtyh.domain.CrowdFundingBusinessStatisticsDO;
+import com.bbd.wtyh.domain.CrowdFundingCompanyDO;
 import com.bbd.wtyh.domain.CrowdFundingStatisticsDO;
 
 /**
@@ -16,5 +17,8 @@ public interface CrowdFundingService {
 
 	
 	public List<CrowdFundingStatisticsDO> lastMonthType();
+
+	
+	public List<CrowdFundingCompanyDO> allCompanys();
 	
 }

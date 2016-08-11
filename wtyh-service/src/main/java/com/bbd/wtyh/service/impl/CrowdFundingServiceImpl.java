@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bbd.wtyh.domain.CrowdFundingBusinessStatisticsDO;
+import com.bbd.wtyh.domain.CrowdFundingCompanyDO;
 import com.bbd.wtyh.domain.CrowdFundingStatisticsDO;
 import com.bbd.wtyh.mapper.CrowdFundingBusinessStatisticsMapper;
+import com.bbd.wtyh.mapper.CrowdFundingCompanyMapper;
 import com.bbd.wtyh.mapper.CrowdFundingStatisticsMapper;
 import com.bbd.wtyh.service.CrowdFundingService;
 
@@ -25,6 +27,10 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
 	
 	@Autowired
 	private CrowdFundingStatisticsMapper cfsMapper;
+	
+	@Autowired
+	private CrowdFundingCompanyMapper cfcMapper;
+	
 
 	@Override
 	public CrowdFundingBusinessStatisticsDO lastMonthData() {
@@ -34,6 +40,13 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
 	@Override
 	public List<CrowdFundingStatisticsDO> lastMonthType() {
 		return cfsMapper.lastMonthType();
+	}
+
+	
+
+	@Override
+	public List<CrowdFundingCompanyDO> allCompanys() {
+		return cfcMapper.allCompanys();
 	}
 
 }
