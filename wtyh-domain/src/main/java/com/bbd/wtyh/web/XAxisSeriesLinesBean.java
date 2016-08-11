@@ -1,4 +1,4 @@
-package com.bbd.wtyh.domain.dto;
+package com.bbd.wtyh.web;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
 * @author Ian.Su
 * @since 2016年8月9日 下午3:18:50
 */
-public class XAxisSeriesLinesDTO<T,TX> {
+public class XAxisSeriesLinesBean<T,TX> {
 	
 	private String title;
 	
@@ -19,7 +19,7 @@ public class XAxisSeriesLinesDTO<T,TX> {
 	
 	private int code = 1;
 	
-	public XAxisSeriesLinesDTO(@SuppressWarnings("unchecked") List<T> ... series){
+	public XAxisSeriesLinesBean(@SuppressWarnings("unchecked") List<T> ... series){
 		this.series = series;
 	}
 	
