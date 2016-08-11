@@ -23,4 +23,16 @@
     from crowd_funding_statistics
     where year = #{year,jdbcType=INTEGER}
   </select>
+  
+  
+  <select id="lastMonthType"   resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from crowd_funding_statistics
+    order by year,month desc
+    limit 3
+  </select>
+  
+  
+  
 </mapper>

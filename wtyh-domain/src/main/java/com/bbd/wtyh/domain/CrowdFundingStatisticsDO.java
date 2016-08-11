@@ -1,6 +1,7 @@
 package com.bbd.wtyh.domain;
 
 public class CrowdFundingStatisticsDO extends BaseDO {
+	
     private Integer year;
 
     private Float peopleNumber;
@@ -12,8 +13,43 @@ public class CrowdFundingStatisticsDO extends BaseDO {
     private Integer type;
 
     private Integer month;
+    
+    private String typeCN;
+    
+    
+    
+    
+    
+    //	1:奖励众筹 2:非公开股权融资 3:公益众筹
+	public String getTypeCN() {
+		
+		if(type == null){
+			return "";
+		}
+		
+		switch (type) {
+		case 1:
+			typeCN = "奖励众筹";
+			break;
+		case 2:
+			typeCN = "非公开股权融资";
+			break;
+			
+		case 3:
+			typeCN = "公益众筹";
+			break;
+		}
+		
+		return typeCN;
+	}
 
-    public Integer getYear() {
+	
+	
+	public void setTypeCN(String typeCN) {
+		this.typeCN = typeCN;
+	}
+
+	public Integer getYear() {
         return year;
     }
 

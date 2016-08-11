@@ -17,7 +17,7 @@ public interface P2PImageDao {
 
     Map<String, Object> radarScore();
 
-    Map<String, Object> baseInfo();
+    Map<String, Object> baseInfo(String companyName, String akId);
 
     Map<String,String> coreDataInfo();
 

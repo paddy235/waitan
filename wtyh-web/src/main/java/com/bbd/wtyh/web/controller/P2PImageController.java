@@ -7,6 +7,7 @@ import com.bbd.wtyh.web.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -86,8 +87,10 @@ public class P2PImageController {
      */
     @RequestMapping("/baseInfo")
     @ResponseBody
-    public ResponseBean baseInfo() {
-        Map<String, Object> content = p2PImageService.baseInfo();
+    public ResponseBean baseInfo(@RequestParam(required = true) String companyName, String akId) {
+//        String companyName = "攀枝花市交通旅游客运有限责任公司";
+//        String akId = "0516d1c0db8d5cd1933cc2442c9f8d40";
+        Map<String, Object> content = p2PImageService.baseInfo(companyName, akId);
         return ResponseBean.successResponse(content);
     }
 
