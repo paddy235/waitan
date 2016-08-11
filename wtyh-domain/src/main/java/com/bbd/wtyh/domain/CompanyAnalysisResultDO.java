@@ -12,9 +12,12 @@ public class CompanyAnalysisResultDO extends BaseDO {
     @SuppressWarnings("unused")
 	private String anaResCN;
     
-    
-    public String getAnaResCN(){
-    	switch (analysisResult) {
+ 
+    public static String anaResCN(Byte result) {
+    	if(result == null){
+    		return "";
+    	}
+    	switch (result) {
 		case 1:
 			return "已曝光";
 		case 2:
@@ -25,9 +28,14 @@ public class CompanyAnalysisResultDO extends BaseDO {
 			return "正常";
 		}
     }
+    
+    
+    
+    
+    public String getAnaResCN(){
+    	return anaResCN(this.analysisResult);
+    }
 
-
-	
 	public String getName() {
 		return name;
 	}

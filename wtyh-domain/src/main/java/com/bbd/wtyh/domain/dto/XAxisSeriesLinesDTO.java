@@ -9,11 +9,11 @@ import java.util.List;
 * @author Ian.Su
 * @since 2016年8月9日 下午3:18:50
 */
-public class XAxisSeriesLinesDTO<T> {
+public class XAxisSeriesLinesDTO<T,TX> {
 	
 	private String title;
 	
-	private List<String> xAxis = new ArrayList<>();
+	private List<TX> xAxis = new ArrayList<>();
 	
 	private List<T> [] series = null;
 	
@@ -46,7 +46,7 @@ public class XAxisSeriesLinesDTO<T> {
 
 
 
-	public List<String> getxAxis() {
+	public List<TX> getxAxis() {
 		return xAxis;
 	}
 	
@@ -66,7 +66,7 @@ public class XAxisSeriesLinesDTO<T> {
 
 
 
-	public void setxAxis(List<String> xAxis) {
+	public void setxAxis(List<TX> xAxis) {
 		this.xAxis = xAxis;
 	}
 
