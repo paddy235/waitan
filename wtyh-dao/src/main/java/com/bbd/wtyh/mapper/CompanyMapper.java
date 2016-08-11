@@ -16,6 +16,8 @@ public interface CompanyMapper {
 
     int countByQuery(CompanyQuery query);
 
+    List<CompanyDO> queryCompany(CompanyQuery query);
+
     public InBusinessDO countByDate(@Param(value = "areaId") Integer areaId,
                                     @Param(value = "start") Date start,
                                     @Param(value = "end") Date end);
@@ -33,5 +35,7 @@ public interface CompanyMapper {
     public CompanyTypeCountDO buildingBackground(@Param(value = "buildingId") Integer buildingId,
                                                  @Param(value = "background") byte background);
 
-    List<Integer> searchCompany(@Param("companyType") Integer companyType, @Param("name") String keyword);
+    List<CompanyDO> searchCompany(@Param("companyType") Integer companyType, @Param("name") String keyword, @Param("size") Integer size);
+
+
 }

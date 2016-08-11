@@ -130,9 +130,9 @@
 
     </select>
 
-    <select id="searchCompany" resultType="Integer">
+    <select id="searchCompany" resultMap="BaseResultMap">
 		select
-		c.company_id
+		company_id,name
 		from company c
 		<where>
             <if test="companyType != null">
@@ -143,8 +143,19 @@
             </if>
 
         </where>
+        limit 0,#{size}
 
 	</select>
+
+
+    <select id="queryCompany" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from company
+        <where>
+            <if test="companyType != null">
+                and company_type=#{companyType}
+            </if>
+        </where>
+    </select>
 
 
 </mapper>
