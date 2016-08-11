@@ -3,6 +3,7 @@ package com.bbd.wtyh.web.controller;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,10 +56,9 @@ public class CrowdFundingController {
 	}
 	
 	
-	@RequestMapping("/newly")
+	@RequestMapping("/newlyProject")
 	@ResponseBody
-	public ResponseBean newly(){
-		
+	public ResponseBean newlyProject(){
 		
 		HistogramBean<String, Integer> hb = new HistogramBean<>();
 		
@@ -67,10 +67,64 @@ public class CrowdFundingController {
 		if(list == null){
 			return ResponseBean.successResponse(hb);
 		}
-		
+		hb.setTitle(list.get(0).getMonth()+"月上海各类众筹平台新增项目数");
 		for (CrowdFundingStatisticsDO bean : list) {
-			bean.getType();
+			hb.getxAxis().add(bean.getTypeCN());
+			hb.getseries().add(bean.getProjectNumber());
 		}
+		return ResponseBean.successResponse(hb);
+	}
+	
+	
+	
+	@RequestMapping("/newlyPeople")
+	@ResponseBody
+	public ResponseBean newlyPeople(){
+		
+		HistogramBean<String, Float> hb = new HistogramBean<>();
+		
+		List<CrowdFundingStatisticsDO> list = crowdFundingSer.lastMonthType();
+		
+		if(list == null){
+			return ResponseBean.successResponse(hb);
+		}
+		hb.setTitle(list.get(0).getMonth()+"月上海各类众筹平台新增项目投资人次");
+		for (CrowdFundingStatisticsDO bean : list) {
+			hb.getxAxis().add(bean.getTypeCN());
+			hb.getseries().add(bean.getPeopleNumber());
+		}
+		return ResponseBean.successResponse(hb);
+	}
+	
+	
+	@RequestMapping("/newlyAmount")
+	@ResponseBody
+	public ResponseBean newlyAmount(){
+		
+		HistogramBean<String, Float> hb = new HistogramBean<>();
+		
+		List<CrowdFundingStatisticsDO> list = crowdFundingSer.lastMonthType();
+		
+		if(list == null){
+			return ResponseBean.successResponse(hb);
+		}
+		hb.setTitle(list.get(0).getMonth()+"月上海各类众筹平台新增项目数的成功筹资金额");
+		for (CrowdFundingStatisticsDO bean : list) {
+			hb.getxAxis().add(bean.getTypeCN());
+			hb.getseries().add(bean.getAmount());
+		}
+		return ResponseBean.successResponse(hb);
+	}
+	
+	
+	
+	@RequestMapping("/companyInfo")
+	@ResponseBody
+	public ResponseBean companyInfo(){
+		
+		HistogramBean<String, Float> hb = new HistogramBean<>();
+		
+		//List<CrowdFundingStatisticsDO> list = crowdFundingSer.companyInfo();
 		
 		
 		return ResponseBean.successResponse(hb);

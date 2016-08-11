@@ -10,13 +10,25 @@ import java.util.List;
 public class HistogramBean<T1, T2> {
     private List<T1> xAxis;
     private List<T2> series;
+    
+    private String title;
 
     public HistogramBean() {
         this.xAxis = new ArrayList<>();
         this.series = new ArrayList<>();
     }
+    
+	
+	public String getTitle() {
+		return title;
+	}
+	
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public List<T1> getxAxis() {
+
+	public List<T1> getxAxis() {
         return xAxis;
     }
 

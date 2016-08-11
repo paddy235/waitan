@@ -20,7 +20,7 @@ public class CrowdFundingStatisticsDO extends BaseDO {
     
     
     
-	
+    //	1:奖励众筹 2:非公开股权融资 3:公益众筹
 	public String getTypeCN() {
 		
 		if(type == null){
@@ -29,14 +29,14 @@ public class CrowdFundingStatisticsDO extends BaseDO {
 		
 		switch (type) {
 		case 1:
-			typeCN = "";
+			typeCN = "奖励众筹";
 			break;
 		case 2:
-			typeCN = "";
+			typeCN = "非公开股权融资";
 			break;
 			
 		case 3:
-			typeCN = "";
+			typeCN = "公益众筹";
 			break;
 		}
 		
