@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Created by Marco on 2016/8/8 0008.
+ * Created by Marco on 2016/8/8.
  */
 @Service
 public class CompanyServiceImpl implements CompanyService {
@@ -35,16 +35,12 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public List<CompanyDO> searchCompany(Integer companyType, String keyword) {
-        List<Integer> companyIds = companyMapper.searchCompany(companyType, keyword);
-        List<CompanyDO> companyList = Lists.newArrayList();
-        for (Integer companyId : companyIds) {
-            CompanyDO companyDO = new CompanyDO();
-            companyDO.setCompanyId(companyId);
-            companyDO.setName(getNameById(companyId));
-            companyList.add(companyDO);
-        }
-        return companyList;
+    public List<CompanyDO> searchCompany(Integer companyType, String keyword, Integer size) {
+        return companyMapper.searchCompany(companyType, keyword, size);
+    }
 
+    @Override
+    public List<CompanyDO> queryCompany(CompanyQuery query) {
+        return companyMapper.queryCompany(query);
     }
 }
