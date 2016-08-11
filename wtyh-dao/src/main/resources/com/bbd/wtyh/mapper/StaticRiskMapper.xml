@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.StaticRiskMapper">
+	<sql id="staticRiskContent">
+		company_name as companyName,
+		data_version as dataVersion,
+		risk_date as riskDate,
+		static_risk_index as stcRiskIndex,
+		max_company_num as maxComNum,
+		average_person_num as avgPerNum,
+		one_level_person as oneLvlPer,
+		real_control_risk as realConRisk,
+		child_compnay_control_person_num as cldComConPerNum,
+		child_child_control_num as cldCtlNum,
+		core_child_company as coreCldCom,
+		company_expand_risk as comExpRisk,
+		control_child_company_num as ctlCldComNum,
+		one_company_num as oneComNum,
+		control_company as conCom,
+		relation_in_risk as relInRisk,
+		three_person_num as thrPerNum,
+		two_company_num as twoComNum,
+		core_two_company as coreTwoCom,
+		illegal_financing_risk as illFinRisk,
+		six_month_new_company_num as sixMonNewComNum,
+		to_year_new_comapny_num as toYearNewComNum,
+		six_month_new_company as sixMonNewCom,
+		relation_company_sum as relCompanySum,
+		short_risk as shortRisk,
+		investment as investment,
+		advisory as advisory,
+		trade as trade,
+		lease as lease,
+		factoring as factoring,
+		company_list as companyList,
+		illegal_money_financing_risk as illMoneyFinRisk,
+		undergraduate_num as underNum,
+		uper_undergraduate_num as upperUnderNum,
+		follow_undergraduate_num as flwUnderNum,
+		recruitment_sum as rectSum,
+		top5_recruitment_sum as top5RecSum,
+		person_structure_risk as perStructRisk,
+		area as areaCode
+	</sql>
+
+	<select id="queryLastStaticRisk" resultType="com.bbd.wtyh.domain.dto.StaticRiskDTO" parameterType="java.util.HashMap">
+		select
+		<include refid="staticRiskContent"></include>
+		from static_risk_data
+		where company_name=#{companyName} and area=#{areaCode} and risk_date like concat(#{riskDateStr}, '%');
+	</select>
+
+</mapper>

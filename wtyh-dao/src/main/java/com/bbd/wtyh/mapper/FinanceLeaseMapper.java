@@ -1,6 +1,7 @@
 package com.bbd.wtyh.mapper;
 
 import com.bbd.wtyh.domain.CompanyDO;
+import com.bbd.wtyh.domain.FinanceLeaseStatisticDO;
 import com.bbd.wtyh.domain.vo.ExchangeCompanyAreaVO;
 import com.bbd.wtyh.domain.vo.ExchangeCompanyVO;
 
@@ -9,11 +10,6 @@ import java.util.Map;
 
 public interface FinanceLeaseMapper {
 
-    public List<Map> queryExchangeCompanyCategory();
+    public List<FinanceLeaseStatisticDO> queryFinanceLeaseStatisticDO(Integer year);
 
-    public List<ExchangeCompanyAreaVO> queryExchangeCompanyArea();
-
-    public List<ExchangeCompanyVO> queryExchangeCompanyByStatus(Integer status);
-
-    public List<CompanyDO> queryExchangeCompanyListByAreaId(Map map);
 }

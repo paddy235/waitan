@@ -2,8 +2,7 @@ package com.bbd.wtyh.service.impl.relation;
 
 import com.bbd.wtyh.common.relation.APIConstants;
 import com.bbd.wtyh.redis.RedisDAO;
-import com.bbd.wtyh.redis.RedisDAOImpl;
-import com.bbd.wtyh.service.util.SSJLReader;
+import com.bbd.wtyh.util.SSJLReader;
 import com.bbd.wtyh.web.relationVO.CourtAnnouncementVO;
 import com.bbd.wtyh.web.relationVO.DishonestPersonsVO;
 import com.bbd.wtyh.web.relationVO.ExecutedPersonVO;

@@ -23,4 +23,12 @@ public class DateUtils {
         c.add(Calendar.MONTH, count);
         return df.format(c.getTime());
     }
+
+    public static String getLastMonth(Date date) {
+        DateFormat df = new SimpleDateFormat("yyyy-MM");
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(Calendar.MONTH, -1);
+        return df.format(c.getTime());
+    }
 }
