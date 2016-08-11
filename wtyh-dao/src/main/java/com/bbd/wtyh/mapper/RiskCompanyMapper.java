@@ -8,5 +8,7 @@ import com.bbd.wtyh.domain.RiskCompanyInfoDO;
 public interface RiskCompanyMapper {
 	
 	List<RiskCompanyInfoDO> getScanner(Map<String, Object> params);
+	
+	int getScannerCount(Map<String, Object> params);
 
 }
