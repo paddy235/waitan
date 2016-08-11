@@ -5,6 +5,7 @@ import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.FinanceLeaseStatisticDO;
 import com.bbd.wtyh.domain.vo.ExchangeCompanyAreaVO;
 import com.bbd.wtyh.domain.vo.ExchangeCompanyVO;
+import com.bbd.wtyh.domain.vo.FinanceLeaseVO;
 import com.bbd.wtyh.service.ExchangeCompanyService;
 import com.bbd.wtyh.service.FinanceLeaseService;
 import com.bbd.wtyh.web.ResponseBean;
@@ -32,7 +33,7 @@ public class FinanceLeaseController {
     private FinanceLeaseService financeLeaseService;
 
     /**
-     * 自贸区融资租赁企业占比对比
+     * 上海市自贸区融资租赁企业占比对比
      * @return
      */
     @RequestMapping("/leaseCompanyCategory")
@@ -43,18 +44,18 @@ public class FinanceLeaseController {
     }
 
     /**
-     * 自贸区融资租赁企业余额和资产总额
+     * 上海市融资租赁企业余额和资产总额
      * @return
      */
     @RequestMapping("/leaseCompanyAmount")
     @ResponseBody
     public ResponseBean leaseCompanyAmount() {
-        List<FinanceLeaseStatisticDO> list = financeLeaseService.leaseCompanyAmount();
-        return ResponseBean.successResponse(list);
+        Map map = financeLeaseService.leaseCompanyAmount();
+        return ResponseBean.successResponse(map);
     }
 
     /**
-     * 自贸区融资租赁企业业务发生额和不良率
+     * 业务发生额和不良率
      * @return
      */
     @RequestMapping("/leaseCompanyBadRatioAndAmount")
@@ -62,6 +63,17 @@ public class FinanceLeaseController {
     public ResponseBean leaseCompanyBadRatioAndAmount() {
         Map map = financeLeaseService.leaseCompanyBadRatioAndAmount();
         return ResponseBean.successResponse(map);
+    }
+
+    /**
+     * 上海市融资租赁企业目录
+     * @return
+     */
+    @RequestMapping("/leaseCompanyList")
+    @ResponseBody
+    public ResponseBean leaseCompanyList(Integer areaId, Integer analysisResult, Integer riskA, Integer riskB, Integer riskC, Integer riskD) {
+       List<FinanceLeaseVO> list = financeLeaseService.leaseCompanyList(areaId, analysisResult, riskA, riskB, riskC, riskD);
+        return ResponseBean.successResponse(list);
     }
 
 

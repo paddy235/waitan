@@ -5,6 +5,7 @@ import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.FinanceLeaseStatisticDO;
 import com.bbd.wtyh.domain.vo.ExchangeCompanyAreaVO;
 import com.bbd.wtyh.domain.vo.ExchangeCompanyVO;
+import com.bbd.wtyh.domain.vo.FinanceLeaseVO;
 import com.bbd.wtyh.mapper.ExchangeCompanyMapper;
 import com.bbd.wtyh.mapper.FinanceLeaseMapper;
 import com.bbd.wtyh.service.ExchangeCompanyService;
@@ -42,21 +43,40 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
         Integer companyNumber = 0;
         if (!CollectionUtils.isEmpty(list)) {
             FinanceLeaseStatisticDO financeLeaseStatisticDO = list.get(0);
-            financeLeaseStatisticDO.getInAreaNumber();
-            financeLeaseStatisticDO.getOutAreaNumber();
-            financeLeaseStatisticDO.getCompanyNumber();
+            inAreaNumber = financeLeaseStatisticDO.getInAreaNumber();
+            outAreaNumber = financeLeaseStatisticDO.getOutAreaNumber();
+            companyNumber = financeLeaseStatisticDO.getCompanyNumber();
         }
         double inRate  = CalculateUtils.divide(inAreaNumber, companyNumber, 2);
         double outRate = CalculateUtils.divide(outAreaNumber, companyNumber, 2);
-        Map<String, Double> map = new HashedMap();
-        map.put("inRate", inRate);
-        map.put("outRate", outRate);
+        Map<String, String> map = new HashedMap();
+        map.put("inAreaNumber", inAreaNumber.toString());
+        map.put("outAreaNumber", outAreaNumber.toString());
+        map.put("inRate", String.valueOf(inRate));
+        map.put("outRate", String.valueOf(outRate));
         return map;
     }
 
     @Override
-    public List<FinanceLeaseStatisticDO> leaseCompanyAmount() {
-        return null;
+    public Map leaseCompanyAmount() {
+        List<FinanceLeaseStatisticDO> list = financeLeaseMapper.queryFinanceLeaseStatisticDO(null);
+        Map content = new HashedMap();
+        List seriesList  = new ArrayList();
+        List list1 = new ArrayList();
+        List list2 = new ArrayList();
+        List xAxis = new ArrayList();
+        if (!CollectionUtils.isEmpty(list)) {
+            for (FinanceLeaseStatisticDO financeLeaseStatisticDO : list) {
+                list1.add(financeLeaseStatisticDO.getTotalAmout());
+                list2.add(financeLeaseStatisticDO.getBalance());
+                xAxis.add(financeLeaseStatisticDO.getYear());
+            }
+        }
+        seriesList.add(list1);
+        seriesList.add(list2);
+        content.put("xAxis", xAxis);
+        content.put("series", seriesList);
+        return content;
     }
 
     @Override
@@ -79,5 +99,26 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
         content.put("xAxis", xAxis);
         content.put("series", series);
         return content;
+    }
+
+    @Override
+    public List<FinanceLeaseVO> leaseCompanyList(Integer areaId, Integer analysisResult, Integer riskA, Integer riskB, Integer riskC, Integer riskD) {
+        Map map = new HashedMap();
+        map.put("areaId", areaId);
+        map.put("analysisResult", analysisResult);
+        map.put("riskA", riskA);
+        map.put("riskB", riskB);
+        map.put("riskC", riskC);
+        map.put("riskD", riskD);
+        List<FinanceLeaseVO> list = financeLeaseMapper.queryLeaseCompanyList(map);
+        if (!CollectionUtils.isEmpty(list)) {
+            for (FinanceLeaseVO financeLeaseVO : list) {
+                financeLeaseVO.setRiskA(riskA);
+                financeLeaseVO.setRiskB(riskB);
+                financeLeaseVO.setRiskC(riskC);
+                financeLeaseVO.setRiskD(riskD);
+            }
+        }
+        return list;
     }
 }
