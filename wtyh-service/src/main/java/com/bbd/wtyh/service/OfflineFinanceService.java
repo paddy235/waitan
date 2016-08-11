@@ -1,5 +1,6 @@
 package com.bbd.wtyh.service;
 
+import com.bbd.wtyh.domain.vo.StaticRiskVO;
 import com.bbd.wtyh.domain.vo.StatisticsVO;
 
 import java.text.ParseException;
@@ -73,4 +74,7 @@ public interface OfflineFinanceService {
      */
     public List<Map> riskFactor();
 
+    public StaticRiskVO queryCurrentStaticRisk(String companyName, String currentDate, String areaCode);
+
+    public String createYED(String companyName, String month) throws Exception;
 }

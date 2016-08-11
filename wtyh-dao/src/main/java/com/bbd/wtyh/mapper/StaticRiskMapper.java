@@ -3,6 +3,7 @@ package com.bbd.wtyh.mapper;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.CompanyTypeCountDO;
 import com.bbd.wtyh.domain.InBusinessDO;
+import com.bbd.wtyh.domain.dto.StaticRiskDTO;
 import com.bbd.wtyh.domain.query.CompanyQuery;
 import com.bbd.wtyh.domain.vo.StatisticsVO;
 import org.apache.ibatis.annotations.Param;
@@ -45,4 +46,5 @@ public interface StaticRiskMapper {
 
     public StatisticsVO queryComStsRCJG(Map<String, Object> params);
 
+    public StaticRiskDTO queryLastStaticRisk(Map<String, Object> params);
 }

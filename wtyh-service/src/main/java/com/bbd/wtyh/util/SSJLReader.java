@@ -1,4 +1,4 @@
-package com.bbd.wtyh.service.util;
+package com.bbd.wtyh.util;
 
 
 import com.bbd.wtyh.service.impl.relation.LawsuitRecordService;

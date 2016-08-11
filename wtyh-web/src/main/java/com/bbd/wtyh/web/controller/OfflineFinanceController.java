@@ -1,5 +1,6 @@
 package com.bbd.wtyh.web.controller;
 
+import com.bbd.wtyh.domain.vo.StaticRiskVO;
 import com.bbd.wtyh.service.impl.relation.common.Constants;
 import com.bbd.wtyh.domain.vo.StatisticsVO;
 import com.bbd.wtyh.service.OfflineFinanceService;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
@@ -99,20 +102,54 @@ public class OfflineFinanceController {
         return offlineFinanceService.queryStatistics(companyName, tabIndex, areaCode);
     }
 
+    /**
+     *
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/queryRiskData")
+    @ResponseBody
+    public ResponseBean queryRiskData(HttpServletRequest request) {
+        String companyName = request.getParameter("companyName");
+        String currentDate = request.getParameter("currentDate");
+        String areaCode = (String) request.getSession().getAttribute(Constants.SESSION.AREA_CODE);
+        StaticRiskVO vo = offlineFinanceService.queryCurrentStaticRisk(companyName, currentDate, areaCode);
+        return ResponseBean.successResponse(vo);
+    }
 
     /**
      * 动态指数时间轴对比图
-     * @param companyName
-     * @param dateA
-     * @param dateB
+     * @param request
+     * @param response
      * @return
+     * @throws Exception
      */
-    @RequestMapping("/dynamicComparisonChart")
+    @RequestMapping(value = "showYEDData")
     @ResponseBody
-    public ResponseBean dynamicComparisonChart(String companyName, String dateA, String dateB) {
-        List<Map> data = offlineFinanceService.dynamicComparisonChart(companyName, dateA, dateB);
-        return ResponseBean.successResponse(data);
+    public ResponseBean showYEDData(HttpServletRequest request,HttpServletResponse response) throws Exception
+    {
+        String companyName = request.getParameter("companyName");
+        if(org.apache.commons.lang.StringUtils.isEmpty(companyName))
+        {
+            throw new Exception("公司名传入为空");
+        }
+        String month = request.getParameter("month");
+        String filePath;
+        try {
+            filePath = offlineFinanceService.createYED(companyName,month);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+        String targetPath = "";
+        if(new File(filePath).exists())
+        {
+            targetPath = Constants.mappingPath+File.separator+Constants.attDir+File.separator+new File(filePath).getName();
+        }
+        return ResponseBean.successResponse(targetPath);
     }
+
+
 
     /**
      * 企业关联方特征指数对比
