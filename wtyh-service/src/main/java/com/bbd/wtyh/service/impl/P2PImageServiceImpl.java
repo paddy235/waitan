@@ -42,8 +42,8 @@ public class P2PImageServiceImpl implements P2PImageService {
     }
 
     @Override
-    public Map<String, Object> baseInfo() {
-        return p2PImageDao.baseInfo();
+    public Map<String, Object> baseInfo(String companyName, String akId) {
+        return p2PImageDao.baseInfo(companyName, akId);
     }
 
     @Override

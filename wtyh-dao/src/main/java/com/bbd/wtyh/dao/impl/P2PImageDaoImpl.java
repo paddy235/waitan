@@ -16,7 +16,7 @@ import java.util.*;
  * @since 2016.08.05
  */
 @Repository("p2PImageDao")
-    public class P2PImageDaoImpl implements P2PImageDao {
+public class P2PImageDaoImpl implements P2PImageDao {
 
     @Override
     public Map<String, Object> platFormStatus() {
@@ -47,7 +47,7 @@ import java.util.*;
     @Override
     public Map<String, Object> radarScore() {
         //数据来源
-        Map<String ,Object> data = new HashMap<>();
+        Map<String, Object> data = new HashMap<>();
         data.put("违约成本", 88);
         data.put("信息披露", 88);
         data.put("资本充足", 88);
@@ -55,13 +55,13 @@ import java.util.*;
         data.put("流动性", 88);
         data.put("分散度", 88);
         //数据格式化
-        Map<String , Object> result = new LinkedHashMap<>();
+        Map<String, Object> result = new LinkedHashMap<>();
         List<LinkedHashMap<String, Object>> indicator = new ArrayList<>();
         Set<Map.Entry<String, Object>> entries = data.entrySet();
         for (Map.Entry<String, Object> entry : entries) {
             LinkedHashMap<String, Object> score = new LinkedHashMap<>();
-            score.put("name" , entry.getKey());
-            score.put("max" , entry.getValue());
+            score.put("name", entry.getKey());
+            score.put("max", entry.getValue());
             indicator.add(score);
         }
         List<List<Integer>> series = new ArrayList<>();
@@ -73,17 +73,17 @@ import java.util.*;
         serie.add(42000);
         serie.add(21000);
         series.add(serie);
-        result.put("indicator" , indicator);
-        result.put("series" , series);
-        result.put("score" , 100);
-        result.put("code" , "1");
+        result.put("indicator", indicator);
+        result.put("series", series);
+        result.put("score", 100);
+        result.put("code", "1");
         return result;
     }
 
     @Override
-    public Map<String, Object> baseInfo() {
-        String url = "http://dataom.api.bbdservice.com/api/bbd_qyxx/?company=攀枝花市交通旅游客运有限责任公司&ak=0516d1c0db8d5cd1933cc2442c9f8d40";
-        final Map<String , Object> map = new LinkedHashMap<>();
+    public Map<String, Object> baseInfo(String companyName, String akId) {
+        String url = String.format("http://dataom.api.bbdservice.com/api/bbd_qyxx/?company=%s&ak=%s", companyName, akId);
+        final Map<String, Object> map = new LinkedHashMap<>();
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             httpTemplate.get(url, new HttpCallback<Object>() {
@@ -95,7 +95,7 @@ import java.util.*;
                 public Object parse(String result) {
                     JSONObject object = JSON.parseObject(result);
                     String results = String.valueOf(object.get("results"));
-                    JSONObject data = JSON.parseObject(results.substring(1,results .length()-1));
+                    JSONObject data = JSON.parseObject(results.substring(1, results.length() - 1));
                     JSONObject jbxx = JSON.parseObject(String.valueOf(data.get("jbxx")));
                     map.put("法人代表", jbxx.get("frname"));
                     map.put("公司名称", jbxx.get("company_name"));
