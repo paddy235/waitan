@@ -33,37 +33,37 @@
 		WHERE
 			1 = 1
 		AND c.company_type = 9
-		<if test="#{areaId  > 0}">
+		<if test="areaId  > 0">
 			AND c.area_id = #{areaId}
 		</if>
-		<if test="#{areaId == null}">
+		<if test="areaId == null">
 			AND c.area_id = 2133
 		</if>
-		<if test="#{riskA == 1}">
+		<if test="riskA == 1">
 			AND flr.risk_status = 1
 		</if>
-		<if test="#{riskA == 0}">
+		<if test="riskA == 0">
 			AND flr.risk_status != 1
 		</if>
-		<if test="#{riskB == 1}">
+		<if test="riskB == 1">
 			OR flr.risk_status = 2
 		</if>
-		<if test="#{riskB == 0}">
+		<if test="riskB == 0">
 			AND flr.risk_status != 2
 		</if>
-		<if test="#{riskC == 1}">
+		<if test="riskC == 1">
 			OR flr.risk_status = 3
 		</if>
-		<if test="#{riskC == 0}">
+		<if test="riskC == 0">
 			AND flr.risk_status != 3
 		</if>
-		<if test="#{riskD == 1}">
+		<if test="riskD == 1">
 			OR flr.risk_status = 4
 		</if>
-		<if test="#{riskD == 0}">
+		<if test="riskD == 0">
 			AND flr.risk_status != 4
 		</if>
-		<if test="#{analysisResult  > 0}">
+		<if test="analysisResult  > 0">
 			and car.analysis_result=#{analysisResult}
 		</if>
 

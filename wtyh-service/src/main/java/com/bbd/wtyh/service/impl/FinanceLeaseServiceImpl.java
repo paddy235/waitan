@@ -36,6 +36,23 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
     private FinanceLeaseMapper financeLeaseMapper;
 
     @Override
+    public Map leaseCompanyNumber() {
+        List<FinanceLeaseStatisticDO> list = financeLeaseMapper.queryFinanceLeaseStatisticDO(null);
+        List xAxis = new ArrayList();
+        List series = new ArrayList();
+        if (!CollectionUtils.isEmpty(list)) {
+            for (FinanceLeaseStatisticDO financeLeaseStatisticDO : list) {
+                xAxis.add(financeLeaseStatisticDO.getYear());
+                series.add(financeLeaseStatisticDO.getCompanyNumber());
+            }
+        }
+        Map map = new HashedMap();
+        map.put("xAxis", xAxis);
+        map.put("series", series);
+        return map;
+    }
+
+    @Override
     public Map leaseCompanyCategory(Integer year) {
         List<FinanceLeaseStatisticDO> list = financeLeaseMapper.queryFinanceLeaseStatisticDO(year);
         Integer inAreaNumber  = 0;
@@ -104,6 +121,10 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
     @Override
     public List<FinanceLeaseVO> leaseCompanyList(Integer areaId, Integer analysisResult, Integer riskA, Integer riskB, Integer riskC, Integer riskD) {
         Map map = new HashedMap();
+        riskA = riskA == null ? 2 : riskA;
+        riskB = riskB == null ? 2 : riskB;
+        riskC = riskC == null ? 2 : riskC;
+        riskD = riskD == null ? 2 : riskD;
         map.put("areaId", areaId);
         map.put("analysisResult", analysisResult);
         map.put("riskA", riskA);

@@ -33,6 +33,17 @@ public class FinanceLeaseController {
     private FinanceLeaseService financeLeaseService;
 
     /**
+     * 上海市融资租赁企业数
+     * @return
+     */
+    @RequestMapping("/leaseCompanyNumber")
+    @ResponseBody
+    public ResponseBean leaseCompanyNumber() {
+        Map data = financeLeaseService.leaseCompanyNumber();
+        return ResponseBean.successResponse(data);
+    }
+
+    /**
      * 上海市自贸区融资租赁企业占比对比
      * @return
      */

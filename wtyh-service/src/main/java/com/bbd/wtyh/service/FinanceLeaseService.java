@@ -16,6 +16,8 @@ import java.util.Map;
  */
 public interface FinanceLeaseService {
 
+    public Map leaseCompanyNumber();
+
     public Map leaseCompanyCategory(Integer year);
 
     public Map leaseCompanyAmount();
@@ -23,4 +25,5 @@ public interface FinanceLeaseService {
     public Map leaseCompanyBadRatioAndAmount();
 
     public List<FinanceLeaseVO> leaseCompanyList(Integer areaId, Integer analysisResult, Integer riskA, Integer riskB, Integer riskC, Integer riskD);
+
 }
