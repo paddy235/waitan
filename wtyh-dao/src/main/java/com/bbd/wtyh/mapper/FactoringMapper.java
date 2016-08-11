@@ -3,6 +3,7 @@ package com.bbd.wtyh.mapper;
 import java.util.List;
 
 import com.bbd.wtyh.domain.CommercialFactoringStatisticDO;
+import com.bbd.wtyh.domain.CompanyAndRiskDO;
 
 /**
 * 
@@ -11,4 +12,6 @@ import com.bbd.wtyh.domain.CommercialFactoringStatisticDO;
 */
 public interface FactoringMapper {
 	public List<CommercialFactoringStatisticDO> companyCountByYear();
+	
+	public List<CompanyAndRiskDO> queryFactoringCompanys();
 }

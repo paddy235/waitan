@@ -23,6 +23,7 @@ public class CompanySearchController {
     private CompanySearchAPIService comSearApiSer;
 
     @RequestMapping("searchCompany")
+    @ResponseBody
     public ResponseBean searchCompany(Integer companyType, String keyword) {
         List<CompanyDO> list = companyService.searchCompany(companyType, keyword);
         return ResponseBean.successResponse(list);

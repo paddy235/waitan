@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.FactoringMapper">
+
+
+    <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.CommercialFactoringStatisticDO">
+        <id column="year" jdbcType="INTEGER" property="year"/>
+        
+        <result column="balance" jdbcType="INTEGER" property="balance"/>
+        <result column="total_amout" jdbcType="INTEGER" property="totalAmout"/>
+        <result column="company_number" jdbcType="INTEGER" property="companyNumber"/>
+        <result column="register_capital" jdbcType="INTEGER" property="registerCapital"/>
+        <result column="domestic" jdbcType="INTEGER" property="domestic"/>
+  		<result column="international" jdbcType="INTEGER" property="international"/>
+        
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="create_date" jdbcType="DATE" property="createDate"/>
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+        <result column="update_date" jdbcType="DATE" property="updateDate"/>
+
+    </resultMap>
+    
+    
+    <select id="companyCountByYear" resultMap="BaseResultMap" >
+    	select * from commercial_factoring_statistic order by year asc ;
+    </select>
+    
+    
+    <select id="queryFactoringCompanys"  resultType="com.bbd.wtyh.domain.CompanyAndRiskDO" >
+    	select c.company_id id,c.address,c.`name` companyName ,
+    	       car.analysis_result analysisResult,
+    	       c.record_number recordNumber   
+		from company c LEFT JOIN company_analysis_result car 
+		     on c.company_id=car.company_id 
+		where c.company_type=11;
+    </select>
+    
+    
+    
+   
+</mapper>

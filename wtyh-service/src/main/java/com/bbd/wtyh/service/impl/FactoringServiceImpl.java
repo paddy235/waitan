@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bbd.wtyh.domain.CommercialFactoringStatisticDO;
+import com.bbd.wtyh.domain.CompanyAndRiskDO;
 import com.bbd.wtyh.mapper.FactoringMapper;
 import com.bbd.wtyh.service.FactoringService;
 
@@ -24,6 +25,12 @@ public class FactoringServiceImpl implements FactoringService {
 	public List<CommercialFactoringStatisticDO> companyCountByYear() {
 		
 		return facMapper.companyCountByYear();
+	}
+
+
+	@Override
+	public List<CompanyAndRiskDO> queryFactoringCompanys() {
+		return facMapper.queryFactoringCompanys();
 	}
 
 }

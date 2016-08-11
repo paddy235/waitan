@@ -1,7 +1,9 @@
 package com.bbd.wtyh.service;
 
 import java.util.List;
+
 import com.bbd.wtyh.domain.CommercialFactoringStatisticDO;
+import com.bbd.wtyh.domain.CompanyAndRiskDO;
 
 /**
 * 商业保理相关接口
@@ -11,5 +13,7 @@ import com.bbd.wtyh.domain.CommercialFactoringStatisticDO;
 public interface FactoringService {
 	
 	public List<CommercialFactoringStatisticDO> companyCountByYear();
+	
+	public List<CompanyAndRiskDO> queryFactoringCompanys();
 	
 }

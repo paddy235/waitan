@@ -9,17 +9,17 @@ import java.util.List;
 * @author Ian.Su
 * @since 2016年8月9日 下午3:18:50
 */
-public class XAxisSeriesBarLineDTO<T> {
+public class XAxisSeriesBarLineDTO<T,TX> {
 	
 	private String title;
 	
-	private List<String> xAxis = new ArrayList<>();
+	private List<TX> xAxis = new ArrayList<>();
 	
 	private Series<T> series = new Series<T>();
 	
 	private int code = 1;
 
-	public List<String> getxAxis() {
+	public List<TX> getxAxis() {
 		return xAxis;
 	}
 	
@@ -39,7 +39,7 @@ public class XAxisSeriesBarLineDTO<T> {
 
 
 
-	public void setxAxis(List<String> xAxis) {
+	public void setxAxis(List<TX> xAxis) {
 		this.xAxis = xAxis;
 	}
 

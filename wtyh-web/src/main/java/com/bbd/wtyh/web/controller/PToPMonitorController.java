@@ -99,10 +99,11 @@ public class PToPMonitorController {
     
     
     
-    
-    
-    
-    /**
+
+
+
+
+	/**
      * 热力图
      *
      * @return XAxisSeriesLinesDO<Integer>
@@ -140,9 +141,9 @@ public class PToPMonitorController {
     * @param   
     * @return XAxisSeriesLinesDTO<Double>
     */
-    private XAxisSeriesLinesDTO<Double> compare(List<IndustryCompareDTO> list){
+    private XAxisSeriesLinesDTO<Double,String> compare(List<IndustryCompareDTO> list){
     	@SuppressWarnings("unchecked")
-		XAxisSeriesLinesDTO<Double> data = new XAxisSeriesLinesDTO<Double>(
+		XAxisSeriesLinesDTO<Double,String> data = new XAxisSeriesLinesDTO<Double,String>(
 								    			new ArrayList<Double>(),
 								    			new ArrayList<Double>());
     	data.setTitle("网贷数据对比(上海VS全国)");
@@ -166,6 +167,8 @@ public class PToPMonitorController {
     }
     
     
+    
+    @Deprecated
     private List<IndustryCompareDTO> getCompareData(){
     	
     	IndustryCompareDTO dto = new IndustryCompareDTO();
@@ -190,10 +193,10 @@ public class PToPMonitorController {
      *
      * @return XAxisSeriesLinesDO<Integer>
      */
-    public XAxisSeriesLinesDTO<Integer> popularity(List<IndustryShanghaiDTO> list){
+    public XAxisSeriesLinesDTO<Integer,String> popularity(List<IndustryShanghaiDTO> list){
     	
     	@SuppressWarnings("unchecked")
-		XAxisSeriesLinesDTO<Integer> data = new XAxisSeriesLinesDTO<Integer>(
+		XAxisSeriesLinesDTO<Integer,String> data = new XAxisSeriesLinesDTO<>(
 								    			new ArrayList<Integer>(),
 								    			new ArrayList<Integer>());
     	data.setTitle("行业人气");
@@ -234,9 +237,9 @@ public class PToPMonitorController {
     *
     * @return XAxisSeriesLinesDO<Integer>
     */
-    private XAxisSeriesLinesDTO<Integer> problem(List<IndustryProblemDTO> list){
+    private XAxisSeriesLinesDTO<Integer,String> problem(List<IndustryProblemDTO> list){
     	@SuppressWarnings("unchecked")
-		XAxisSeriesLinesDTO<Integer> data = new XAxisSeriesLinesDTO<Integer>(
+		XAxisSeriesLinesDTO<Integer,String> data = new XAxisSeriesLinesDTO<>(
 								    			new ArrayList<Integer>(),
 								    			new ArrayList<Integer>());
     	data.setTitle("问题平台比例");
@@ -341,8 +344,8 @@ public class PToPMonitorController {
     *
     * @return XAxisSeriesBarLineDO<Integer>
     */
-    private XAxisSeriesBarLineDTO<Integer> newlyPlat(List<IndustryShanghaiDTO> list){
-    	XAxisSeriesBarLineDTO<Integer> data = new XAxisSeriesBarLineDTO<Integer>();
+    private XAxisSeriesBarLineDTO<Integer,String> newlyPlat(List<IndustryShanghaiDTO> list){
+    	XAxisSeriesBarLineDTO<Integer,String> data = new XAxisSeriesBarLineDTO<>();
     	data.setTitle("上海新增平台发展趋势");
     	if(CollectionUtils.isEmpty(list) ){
     		return data;
@@ -380,8 +383,8 @@ public class PToPMonitorController {
      *
      * @return XAxisSeriesBarLineDO<Integer>
      */
-     private XAxisSeriesBarLineDTO<Double> bargain(List<IndustryShanghaiDTO> list){
-     	XAxisSeriesBarLineDTO<Double> data = new XAxisSeriesBarLineDTO<Double>();
+     private XAxisSeriesBarLineDTO<Double,String> bargain(List<IndustryShanghaiDTO> list){
+     	XAxisSeriesBarLineDTO<Double,String> data = new XAxisSeriesBarLineDTO<Double,String>();
      	data.setTitle("成交和综合利率");
      	if(CollectionUtils.isEmpty(list) ){
      		return data;
