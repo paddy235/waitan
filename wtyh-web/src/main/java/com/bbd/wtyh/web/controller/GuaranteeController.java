@@ -44,8 +44,8 @@ public class GuaranteeController {
      *
      * @return
      */
-    @RequestMapping("hotArea")
-    public ResponseBean hotArea() {
+    @RequestMapping("areaStatistic")
+    public ResponseBean areaStatistic() {
         List<AreaDO> areaList = areaService.areaList();
         List<HotAreaDTO> result = Lists.newArrayList();
         for (AreaDO areaDO : areaList) {
@@ -79,7 +79,10 @@ public class GuaranteeController {
         return ResponseBean.successResponse(companyLevelService.getCompanyLevel((int) CompanyDO.TYPE_RZDB_3, orderByField, descAsc));
     }
 
-
+    /**
+     * 担保余额统计
+     * @return
+     */
     @RequestMapping("balance")
     public ResponseBean balance() {
         CompanyQuery query = new CompanyQuery();
@@ -102,6 +105,10 @@ public class GuaranteeController {
     }
 
 
+    /**
+     * 股东关联风险列表
+     * @return
+     */
     @RequestMapping("shareholderRisk")
     public ResponseBean shareholderRisk() {
         List<ShareholderRiskDTO> list = shareholderRiskService.listShareholderRisk((int) CompanyDO.TYPE_XD_2);
@@ -109,6 +116,11 @@ public class GuaranteeController {
     }
 
 
+    /**
+     * 股东关联企业详情列表
+     * @param companyId
+     * @return
+     */
     @RequestMapping("shareholderRiskDetail")
     public ResponseBean shareholderRiskDetail(Integer companyId) {
         if (null == companyId || companyId <= 0) {
@@ -124,6 +136,13 @@ public class GuaranteeController {
     }
 
 
+    /**
+     * 大额(超过2000万)担保信息列表
+     * @param pagination
+     * @param orderByField
+     * @param descAsc
+     * @return
+     */
     @RequestMapping("largeGuaranteeList")
     public ResponseBean largeGuaranteeList(Pagination pagination, Integer orderByField, String descAsc) {
         return ResponseBean.successResponse(guaranteeService.listLargeGuarantee(pagination, orderByField, descAsc));

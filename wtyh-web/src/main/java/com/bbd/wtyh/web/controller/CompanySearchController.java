@@ -17,6 +17,12 @@ public class CompanySearchController {
     @Autowired
     private CompanyService companyService;
 
+    /**
+     * 根据公司名称搜索
+     * @param companyType 见CompanyDO里面的常量
+     * @param keyword 关键字
+     * @return 公司列表
+     */
     @RequestMapping("searchCompany")
     public ResponseBean searchCompany(Integer companyType, String keyword) {
         List<CompanyDO> list = companyService.searchCompany(companyType, keyword);
