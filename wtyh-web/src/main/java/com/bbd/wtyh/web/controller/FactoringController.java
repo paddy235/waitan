@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bbd.wtyh.domain.CommercialFactoringStatisticDO;
@@ -36,6 +37,7 @@ public class FactoringController {
 	* @return Object
 	*/
 	@RequestMapping("/companys")
+	@ResponseBody
 	public Object companys(){
 		
 		List<CommercialFactoringStatisticDO> facList = facSer.companyCountByYear();
@@ -60,6 +62,7 @@ public class FactoringController {
 	* @return Object
 	*/
 	@RequestMapping("/totalBalance")
+	@ResponseBody
 	public Object totalBalance(){
 		
 		List<CommercialFactoringStatisticDO> facList = facSer.companyCountByYear();
@@ -86,6 +89,7 @@ public class FactoringController {
 	* @return Object
 	*/
 	@RequestMapping("/insideOutside")
+	@ResponseBody
 	public Object insideOutside(){
 		
 		List<CommercialFactoringStatisticDO> facList = facSer.companyCountByYear();
@@ -113,6 +117,7 @@ public class FactoringController {
 	* @return Object
 	*/
 	@RequestMapping("/total")
+	@ResponseBody
 	public Object total(){
 		
 		List<CommercialFactoringStatisticDO> facList = facSer.companyCountByYear();
@@ -135,11 +140,10 @@ public class FactoringController {
 	* @return Object
 	*/
 	@RequestMapping("/queryCompanys")
+	@ResponseBody
 	public Object queryFactoringCompanys(){
 		
 		List<CompanyAndRiskDO> facList = facSer.queryFactoringCompanys();
-		
-		
 		
 		return ResponseBean.successResponse(facList);
 		

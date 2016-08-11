@@ -14,6 +14,9 @@ public class CompanyAnalysisResultDO extends BaseDO {
     
  
     public static String anaResCN(Byte result) {
+    	if(result == null){
+    		return "";
+    	}
     	switch (result) {
 		case 1:
 			return "已曝光";
