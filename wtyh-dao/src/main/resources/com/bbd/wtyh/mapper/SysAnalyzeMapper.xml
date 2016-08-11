@@ -13,5 +13,9 @@
 			bug_count as bugCount
 		from system_analyze limit 1;
 	</select>
+	
+	<update id="updateSysAnalyze" parameterType="java.util.HashMap">
+		update system_analyze set update_by='system', update_date=sysdate(), data_count=data_count+#{dataCount},bug_count=bug_count+#{bugCount}
+	</update>
 
 </mapper>
