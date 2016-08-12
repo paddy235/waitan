@@ -13,10 +13,14 @@
 			http://www.springframework.org/schema/task  
 			http://www.springframework.org/schema/task/spring-task-3.1.xsd">
 
+
+	
+
 	<!-- 启用对定时任务的注解支持 -->
 	<task:annotation-driven />
     <!-- 启用对事务的注解支持 -->
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+    
 
 
 </beans>
