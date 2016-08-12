@@ -26,4 +26,6 @@ public interface P2PImageDao {
     Map<String,String> coreDataInterestRateTrend();
 
     Map<String,String> coreDataLoanOverage();
+
+    Map<String,Object> hasOrNotCompany(String plat_name);
 }
