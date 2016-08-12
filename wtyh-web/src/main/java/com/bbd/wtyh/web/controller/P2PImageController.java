@@ -69,7 +69,9 @@ public class P2PImageController {
     @RequestMapping("/radarScore")
     @ResponseBody
     public ResponseBean radarScore() {
-        Map<String, Object> result = p2PImageService.radarScore();
+        String dataType = "";
+        String plat_name = "";
+        Map<String, Object> result = p2PImageService.radarScore(dataType, plat_name);
         RadarChartBean radarChart = new RadarChartBean<>();
         if (result.size() != 0) {
             radarChart.setIndicator(result.get("indicator"));
@@ -87,10 +89,12 @@ public class P2PImageController {
      */
     @RequestMapping("/baseInfo")
     @ResponseBody
-    public ResponseBean baseInfo(@RequestParam(required = true) String companyName, String akId) {
+    public ResponseBean baseInfo(@RequestParam(required = true) String companyName, String akId , String platName) {
 //        String companyName = "攀枝花市交通旅游客运有限责任公司";
 //        String akId = "0516d1c0db8d5cd1933cc2442c9f8d40";
-        Map<String, Object> content = p2PImageService.baseInfo(companyName, akId);
+//        String platName = "陆金所";
+        //明天来修改，添加平台名称，和企业名称
+        Map<String, Object> content = p2PImageService.baseInfo(companyName, akId , platName);
         return ResponseBean.successResponse(content);
     }
 

@@ -37,13 +37,13 @@ public class P2PImageServiceImpl implements P2PImageService {
     }
 
     @Override
-    public Map<String, Object> radarScore() {
-        return p2PImageDao.radarScore();
+    public Map<String, Object> radarScore(String dataType, String plat_name) {
+        return p2PImageDao.radarScore(dataType, plat_name);
     }
 
     @Override
-    public Map<String, Object> baseInfo(String companyName, String akId) {
-        return p2PImageDao.baseInfo(companyName, akId);
+    public Map<String, Object> baseInfo(String companyName, String akId , String platName) {
+        return p2PImageDao.baseInfo(companyName, akId , platName);
     }
 
     @Override

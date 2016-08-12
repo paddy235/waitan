@@ -45,33 +45,50 @@ public class P2PImageDaoImpl implements P2PImageDao {
     }
 
     @Override
-    public Map<String, Object> radarScore() {
-        //数据来源
-        Map<String, Object> data = new HashMap<>();
-        data.put("违约成本", 88);
-        data.put("信息披露", 88);
-        data.put("资本充足", 88);
-        data.put("运营能力", 88);
-        data.put("流动性", 88);
-        data.put("分散度", 88);
+    public Map<String, Object> radarScore(String dataType, String plat_name) {
+        String url = "http://localhost:8080/financial_services/radarScore";
+        HttpTemplate httpTemplate = new HttpTemplate();
+        final Map<String, Object> source = new LinkedHashMap<>();
+        try {
+            httpTemplate.get(url, new HttpCallback<Object>() {
+                @Override
+                public boolean valid() {
+                    return false;
+                }
+                @Override
+                public Object parse(String result) {
+                    JSONObject object = JSON.parseObject(result);
+                    source.put("运营能力",object.get("operation"));
+                    source.put("违约成本",object.get("penalty_cost"));
+                    source.put("分散度",object.get("dispersion"));
+                    source.put("资本充足",object.get("capital"));
+                    source.put("流动性",object.get("fluidity"));
+                    source.put("信息披露",object.get("info_disclosure"));
+                    source.put("平台名",object.get("plat_name"));
+                    return source;
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         //数据格式化
         Map<String, Object> result = new LinkedHashMap<>();
         List<LinkedHashMap<String, Object>> indicator = new ArrayList<>();
-        Set<Map.Entry<String, Object>> entries = data.entrySet();
+        Set<Map.Entry<String, Object>> entries = source.entrySet();
         for (Map.Entry<String, Object> entry : entries) {
             LinkedHashMap<String, Object> score = new LinkedHashMap<>();
             score.put("name", entry.getKey());
             score.put("max", entry.getValue());
             indicator.add(score);
         }
-        List<List<Integer>> series = new ArrayList<>();
-        List<Integer> serie = new ArrayList<>();
-        serie.add(5000);
-        serie.add(14000);
-        serie.add(28000);
-        serie.add(31000);
-        serie.add(42000);
-        serie.add(21000);
+        List<List<Object>> series = new ArrayList<>();
+        List<Object> serie = new ArrayList<>();
+        serie.add(source.get("违约成本"));
+        serie.add(source.get("信息披露"));
+        serie.add(source.get("资本充足"));
+        serie.add(source.get("运营能力"));
+        serie.add(source.get("流动性"));
+        serie.add(source.get("分散度"));
         series.add(serie);
         result.put("indicator", indicator);
         result.put("series", series);
@@ -81,12 +98,24 @@ public class P2PImageDaoImpl implements P2PImageDao {
     }
 
     @Override
-    public Map<String, Object> baseInfo(String companyName, String akId) {
-        String url = String.format("http://dataom.api.bbdservice.com/api/bbd_qyxx/?company=%s&ak=%s", companyName, akId);
+    public Map<String, Object> baseInfo(String companyName, String akId , String platName) {
+        String platFormName = "http://localhost:8080/financial_services/platFormName";//网贷之家
+        String cn = String.format("http://dataom.api.bbdservice.com/api/bbd_qyxx/?company=%s&ak=%s", companyName, akId);//数据平台
         final Map<String, Object> map = new LinkedHashMap<>();
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
-            httpTemplate.get(url, new HttpCallback<Object>() {
+            httpTemplate.get(platFormName, new HttpCallback<Object>() {
+                @Override
+                public boolean valid() {
+                    return false;
+                }
+                @Override
+                public Object parse(String result) {
+                    JSONObject object = JSON.parseObject(result);
+                    return null;
+                }
+            });
+            httpTemplate.get(cn, new HttpCallback<Object>() {
                 @Override
                 public boolean valid() {
                     return false;
