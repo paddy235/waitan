@@ -166,8 +166,6 @@ public class RegisterUniversalFilterChainImp {
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     public Map<String, List> queryRelation(String companyName, String dataVersion, Integer degree) throws Exception {
-        List<List<String>> list = null;
-        JSONArray jsonArr = null;
         String json = redisDAO.getString(companyName + APIConstants.redis_relation_LinksDataJTTP + dataVersion);
         if (StringUtils.isNullOrEmpty(json)) {
             json = this.getAPIDynamicRelatedPartUploadJTTP(companyName, degree, dataVersion);
@@ -175,8 +173,8 @@ public class RegisterUniversalFilterChainImp {
         if (StringUtils.isNullOrEmpty(json)) {
             json = "[]"; // 没有查询到数据的情况
         }
-        jsonArr = JSONArray.fromObject(json);
-        list = JSONArray.toList(jsonArr, new String(), new JsonConfig());
+        JSONArray jsonArr = JSONArray.fromObject(json);
+        List<List<String>> list = JSONArray.toList(jsonArr, new String(), new JsonConfig());
         Map<String, List> map = this.getRelationData(list);
         return map;
     }
