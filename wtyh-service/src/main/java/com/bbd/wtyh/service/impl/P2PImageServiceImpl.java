@@ -53,9 +53,9 @@ public class P2PImageServiceImpl implements P2PImageService {
     }
 
     @Override
-    public List<List<String>> coreDataDealTrend() {
+    public List<List<String>> coreDataDealTrend(String platName) {
         // 处理数据转换
-        Map<String, String> data = p2PImageDao.coreDataDealTrend();
+        Map<String, String> data = p2PImageDao.coreDataDealTrend(platName);
         List<String> years = new ArrayList<>();
         List<String> dealNumbers = new ArrayList<>();
         for (Map.Entry<String, String> entity : data.entrySet()) {

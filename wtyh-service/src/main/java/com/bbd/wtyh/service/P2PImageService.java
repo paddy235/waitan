@@ -44,7 +44,7 @@ public interface P2PImageService {
 
     Map<String, Object> coreDataInfo(String platName);
 
-    List<List<String>> coreDataDealTrend();
+    List<List<String>> coreDataDealTrend(String platNmae);
 
     List<List<String>> coreDataInterestRateTrend();
 

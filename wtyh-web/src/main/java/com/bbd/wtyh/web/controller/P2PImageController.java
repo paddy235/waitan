@@ -137,8 +137,8 @@ public class P2PImageController {
      */
     @RequestMapping("/coreDataDealTrend")
     @ResponseBody
-    public ResponseBean coreDataDealTrend() {
-        List<List<String>> data = p2PImageService.coreDataDealTrend();
+    public ResponseBean coreDataDealTrend(@RequestParam(required = true) String platName) {
+        List<List<String>> data = p2PImageService.coreDataDealTrend(platName);
         HistogramBean<String, String> content = new HistogramBean();
         if (data.size() != 0) {
             content.setxAxis(data.get(0));
@@ -190,7 +190,8 @@ public class P2PImageController {
     @ResponseBody
     public ResponseBean relativeChart() {
         // TODO
-        List<List<String>> data = p2PImageService.coreDataDealTrend();
-        return ResponseBean.successResponse(data);
+//        List<List<String>> data = p2PImageService.coreDataDealTrend();
+//        return ResponseBean.successResponse(data);
+        return null;
     }
 }

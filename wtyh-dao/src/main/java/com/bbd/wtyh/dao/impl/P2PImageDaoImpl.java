@@ -5,6 +5,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.dao.P2PImageDao;
+import com.bbd.wtyh.domain.wangDaiAPI.SearchCompany;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -58,7 +60,6 @@ public class P2PImageDaoImpl implements P2PImageDao {
                 public boolean valid() {
                     return false;
                 }
-
                 @Override
                 public Object parse(String result) {
                     JSONObject object = JSON.parseObject(result);
@@ -113,15 +114,14 @@ public class P2PImageDaoImpl implements P2PImageDao {
                 public boolean valid() {
                     return false;
                 }
-
                 @Override
                 public Object parse(String result) {
                     System.out.println(result);
-                    String str = result.substring(1, result.length() - 1);
+                    String str = result.substring(1,result.length()-1);
                     //乱码问题没有解决
                     JSONObject object = JSON.parseObject(str);
-                    map.put("平台名称", object.get("plat_name"));
-                    map.put("公司名称", object.get("company_name"));
+                    map.put("平台名称",object.get("plat_name"));
+                    map.put("公司名称",object.get("company_name"));
                     return map;
                 }
             });
@@ -185,20 +185,28 @@ public class P2PImageDaoImpl implements P2PImageDao {
     }
 
     @Override
-    public Map<String, String> coreDataDealTrend() {
-        Map<String, String> yearDealNumberKV = new HashMap<>();
-        yearDealNumberKV.put("2015-01", "31.21");
-        yearDealNumberKV.put("2015-02", "18");
-        yearDealNumberKV.put("2015-03", "17");
-        yearDealNumberKV.put("2015-04", "6.532");
-        yearDealNumberKV.put("2015-05", "9");
-        yearDealNumberKV.put("2015-06", "12");
-        yearDealNumberKV.put("2015-07", "36");
-        yearDealNumberKV.put("2015-08", "48");
-        yearDealNumberKV.put("2015-09", "12");
-        yearDealNumberKV.put("2015-10", "36");
-
-        return yearDealNumberKV;
+    public Map<String, String> coreDataDealTrend(String platName) {
+        String coreDataDealURL = String.format("http://localhost:8080/financial_services?dataType=plat_data&plat_name=%s", platName);
+        Map<String, Object> data = new HashMap<>();
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            httpTemplate.get(coreDataDealURL, new HttpCallback<Object>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+                @Override
+                public Object parse(String result) {
+                    System.out.println(result);
+                    JSONObject jsonObject = JSON.parseObject(result);
+                    System.out.println(jsonObject.get("plat_data_six_month"));
+                    return null;
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
