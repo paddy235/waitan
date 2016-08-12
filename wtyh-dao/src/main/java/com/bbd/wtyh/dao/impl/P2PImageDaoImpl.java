@@ -238,10 +238,10 @@ public class P2PImageDaoImpl implements P2PImageDao {
 
     @Override
     public SearchCompany hasOrNotCompany(String plat_name) {
-        String api = url + "/dataType=plat_list" + "/" + plat_name;
+        String api = url + "?dataType=plat_list" + "&plat_name=" + plat_name;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
-            return httpTemplate.get(url, new HttpCallback<SearchCompany>() {
+            return httpTemplate.get(api, new HttpCallback<SearchCompany>() {
                 @Override
                 public boolean valid() {
                     return true;
