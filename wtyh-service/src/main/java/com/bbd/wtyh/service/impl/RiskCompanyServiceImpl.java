@@ -21,4 +21,9 @@ public class RiskCompanyServiceImpl implements RiskCompanyService {
 		return riskCompanyMapper.getScanner(params);
 	}
 
+	@Override
+	public int getScannerCount(Map<String, Object> params) {
+		return riskCompanyMapper.getScannerCount(params);
+	}
+
 }

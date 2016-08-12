@@ -1,19 +1,50 @@
 package com.bbd.wtyh.domain;
 
 public class CrowdFundingCompanyDO extends BaseDO {
+	
     private Integer companyId;
+	private String companyName;//公司名称
+	private String address;//营业地址
+	private String areaName;//注册地
+	private String websiteUrl;//网址
+	private String platformName;//平台名称
+	private String fundingBusinessType;//业务类型;
+	private Integer successNumber;//成功项目数
+	private Float fundedAmout;//已筹基金	
+    
 
-    private String platformName;
+	
+	
+	public String getCompanyName() {
+		return companyName;
+	}
 
-    private String websiteUrl;
+	
+	
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
 
-    private String fundingBusinessType;
+	public String getAddress() {
+		return address;
+	}
 
-    private Integer successNumber;
+		
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
-    private Float fundedAmout;
+	
+	public String getAreaName() {
+		return areaName;
+	}
 
-    public Integer getCompanyId() {
+
+	public void setAreaName(String areaName) {
+		this.areaName = areaName;
+	}
+
+	public Integer getCompanyId() {
         return companyId;
     }
 
