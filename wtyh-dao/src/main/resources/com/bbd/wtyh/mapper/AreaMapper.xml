@@ -5,7 +5,7 @@
 
 
     <select id="areaList"  resultType="com.bbd.wtyh.domain.AreaDO">
-			select area_id areaId, name from area where parent_id=107;
+			select area_id areaId, name from park;
 	</select>
 
 	<select id="hot"  resultType="com.bbd.wtyh.domain.NvDO">
@@ -13,7 +13,8 @@
 			from area a 
 				left join 
 			( select area_id , count(area_id) ct from company c group by c.area_id ) b 
-			on b.area_id=a.area_id where  a.parent_id=107 ;
+			on b.area_id=a.area_id where  a.parent_id in 
+			( select area_id from area where level=2 and name='上海市' ) ;
 	</select>
 
 
