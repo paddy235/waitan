@@ -1,5 +1,6 @@
 package com.bbd.wtyh.web.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -8,13 +9,14 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.bbd.wtyh.domain.NvDO;
 import com.bbd.wtyh.domain.dto.AreaIndexDTO;
 import com.bbd.wtyh.domain.dto.IndustryCompareDTO;
@@ -22,9 +24,12 @@ import com.bbd.wtyh.domain.dto.IndustryProblemDTO;
 import com.bbd.wtyh.domain.dto.IndustryShanghaiDTO;
 import com.bbd.wtyh.domain.dto.PlatRankDataDTO;
 import com.bbd.wtyh.service.AreaService;
+import com.bbd.wtyh.util.relation.HttpClientUtils;
 import com.bbd.wtyh.web.ResponseBean;
 import com.bbd.wtyh.web.XAxisSeriesBarLineBean;
 import com.bbd.wtyh.web.XAxisSeriesLinesBean;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 /**
 * P2P行业监测平台
@@ -35,8 +40,15 @@ import com.bbd.wtyh.web.XAxisSeriesLinesBean;
 @RequestMapping("/PToPMonitor")
 public class PToPMonitorController {
 	
+	Logger log = LoggerFactory.getLogger(getClass());
+	
 	@Autowired
 	private AreaService areaService;
+	
+	
+	@Value("${financial.services.url}")
+	private String finSerUrl;
+	
 	
 	 /**
      * 平台状态信息
@@ -60,10 +72,11 @@ public class PToPMonitorController {
      * 1：公司分布地图，成交量和综合利率，问题平台比例，行业人气，网贷数据对比 综合接口
      *
      * @return ResponseBean
+     * @throws Exception 
      */
     @RequestMapping("/integrated")
     @ResponseBody
-    public Object integrated(){
+    public Object integrated() throws Exception{
     	
     	Map<String,Object> map = new LinkedHashMap<>();
     	
@@ -168,20 +181,16 @@ public class PToPMonitorController {
     
     
     
-    @Deprecated
-    private List<IndustryCompareDTO> getCompareData(){
+    private List<IndustryCompareDTO> getCompareData() throws Exception{
     	
-    	IndustryCompareDTO dto = new IndustryCompareDTO();
-    	dto.setArea("上海");
-    	dto.setAmount(1);
-    	dto.setBalance_loans(10);
-    	
-    	IndustryCompareDTO dto2 = new IndustryCompareDTO();
-    	dto2.setArea("全国");
-    	dto2.setAmount(2);
-    	dto2.setBalance_loans(20);
-    	
-    	return Arrays.asList(dto,dto2);
+    	List<IndustryCompareDTO> list;
+   	 
+    	String json = HttpClientUtils.httpGet(this.finSerUrl+"?dataType=industry_compare");
+     	log.info(json);
+     	Gson gson = new Gson();
+     	list = gson.fromJson(json, new TypeToken<List<IndustryCompareDTO>>(){}.getType());
+     	
+     	return list;
     	
     }
     
@@ -278,27 +287,19 @@ public class PToPMonitorController {
      * 获取数据
      *
      * @return List<IndustryShanghaiDTO>
+     * @throws Exception 
      */
-     @Deprecated
-     private List<IndustryProblemDTO> getProblemData(){
+     private List<IndustryProblemDTO> getProblemData() throws Exception{
      	
-     	List<IndustryProblemDTO> list = new ArrayList<>();
-     	for (int year = 2014; year < 2016; year++) {
-     		for (int m=1;m<13;m+=2) {
-     			IndustryProblemDTO shDto = new IndustryProblemDTO();
-     			shDto.setDate(year+"-"+(m<10?"0":"")+m);
-     			shDto.setArea("上海");
-     			shDto.setProblem_plat_number(m*2);
-         		list.add(shDto);
-         		
-         		IndustryProblemDTO dto = new IndustryProblemDTO();
-         		dto.setDate(year+"-"+(m<10?"0":"")+m);
-         		dto.setArea("全国");
-         		dto.setProblem_plat_number(m*3);
-         		list.add(dto);
-     		}
- 		}
+     	List<IndustryProblemDTO> list;
+    	 
+    	String json = HttpClientUtils.httpGet(this.finSerUrl+"?dataType=industry_problem");
+     	log.info(json);
+     	Gson gson = new Gson();
+     	list = gson.fromJson(json, new TypeToken<List<IndustryProblemDTO>>(){}.getType());
+     	
      	return list;
+    	 
      }
      
      
@@ -308,29 +309,15 @@ public class PToPMonitorController {
     * 获取数据
     *
     * @return List<IndustryShanghaiDTO>
+     * @throws Exception 
     */
-    @Deprecated
-    private List<IndustryShanghaiDTO> getData(){
+    private List<IndustryShanghaiDTO> getData() throws Exception{
     	
-    	List<IndustryShanghaiDTO> list = new ArrayList<>();
-    	for (int year = 2014; year < 2016; year++) {
-    		for (int m=1;m<13;m+=2) {
-        		IndustryShanghaiDTO dto = new IndustryShanghaiDTO();
-        		dto.setDate(year+"-"+(m<10?"0":"")+m);
-        		dto.setAmount(m*2);
-        		dto.setBorrowed_num(1+m);
-        		dto.setInterest_rate(m*2.3);
-        		dto.setInvest_num(1);
-        		dto.setNew_plat_num(1+m);
-        		dto.setTotal_plat_num_sh(2+m);
-        		
-        		dto.setArea_num(new HashMap<String,Object>());
-        		dto.getArea_num().put("浦东区", 3);
-        		dto.getArea_num().put("黄埔区", 1);
-        		
-        		list.add(dto);
-    		}
-		}
+    	String json = HttpClientUtils.httpGet(this.finSerUrl+"?dataType=industry_shanghai");
+    	log.info(json);
+    	Gson gson = new Gson();
+    	List<IndustryShanghaiDTO> list  = gson.fromJson(json, new TypeToken<List<IndustryShanghaiDTO>>(){}.getType());
+    	
     	return list;
     }
     
@@ -413,32 +400,25 @@ public class PToPMonitorController {
       * 上海区域发展指数排名
       *
       * @return ResponseBean
+     * @throws Exception 
       */
      @RequestMapping("/areaIndex")
      @ResponseBody
-     public Object areaIndex(){
+     public Object areaIndex() throws Exception{
      	
      	return ResponseBean.successResponse(getAreaIndex());
      	
      }
      
-     @Deprecated
-     private List<AreaIndexDTO> getAreaIndex(){
+     private List<AreaIndexDTO> getAreaIndex() throws Exception{
      	
-     	List<AreaIndexDTO> list = new ArrayList<>();
+     	List<AreaIndexDTO> list;
      	
-     	for (int k=0;k<20;k++) {
-     		AreaIndexDTO dto = new AreaIndexDTO();
-     		
-     		dto.setArea("四川省"+k);
-     		dto.setCompetitiveness(k*3);
-     		dto.setEcosystem(k*2);
-     		dto.setRank(k*5);
-     		dto.setRecognition(k<<3);
-     		dto.setSafety(k*9);
-     		dto.setScale(k*7);
-     		list.add(dto);
- 		}
+   	 
+    	String json = HttpClientUtils.httpGet(this.finSerUrl+"?dataType=area_index");
+     	log.info(json);
+     	Gson gson = new Gson();
+     	list = gson.fromJson(json, new TypeToken<List<IndustryProblemDTO>>(){}.getType());
      	
      	return list;
      	
@@ -451,31 +431,33 @@ public class PToPMonitorController {
       * 上海网贷平台数据展示
       *
       * @return ResponseBean
+     * @throws Exception 
       */
      @RequestMapping("/platRankData")
      @ResponseBody
-     public Object platRankData(){
+     public Object platRankData() throws Exception{
+    	 
+    	 List<PlatRankDataDTO> list = getPlatRankData();
+    	 
+    	 for (PlatRankDataDTO dto : list) {
+    		double total = dto.getStay_still_of_total();
+    		total = new BigDecimal("0"+total).divide(new BigDecimal("10000"), 2, BigDecimal.ROUND_HALF_UP).doubleValue();
+    		dto.setStay_still_of_total(total);
+		 }
      	
-     	return ResponseBean.successResponse(getPlatRankData());
+     	 return ResponseBean.successResponse( list );
      	
      }
      
-     @Deprecated
-     private List<PlatRankDataDTO> getPlatRankData(){
+
+     
+     private List<PlatRankDataDTO> getPlatRankData() throws Exception{
      	
-     	List<PlatRankDataDTO> list = new ArrayList<>();
-     	
-     	for (int k=1;k<6;k++) {
-     		PlatRankDataDTO dto = new PlatRankDataDTO();
-     		
-     		dto.setAmount(k*3);
-     		dto.setIncome_rate(k*4);
-     		dto.setLoan_period(k*5);
-     		dto.setPlat_name("平台名称"+k);
-     		dto.setRank(k);
-     		dto.setStay_still_of_total(k*9);
-     		list.add(dto);
- 		}
+     	List<PlatRankDataDTO> list ;
+     	String json = HttpClientUtils.httpGet(this.finSerUrl+"?dataType=plat_rank_data");
+     	log.info(json);
+     	Gson gson = new Gson();
+     	list = gson.fromJson(json, new TypeToken<List<IndustryProblemDTO>>(){}.getType());
      	
      	return list;
      	

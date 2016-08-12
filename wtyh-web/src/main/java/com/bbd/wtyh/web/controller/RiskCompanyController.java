@@ -1,6 +1,7 @@
 package com.bbd.wtyh.web.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bbd.wtyh.common.Pagination;
+import com.bbd.wtyh.service.CompanyService;
 import com.bbd.wtyh.service.RiskCompanyService;
 import com.bbd.wtyh.web.ResponseBean;
 
@@ -18,6 +21,8 @@ public class RiskCompanyController {
 
 	@Autowired
 	private RiskCompanyService riskCompanyService;
+	@Autowired
+	private CompanyService companyService;
 
 	@RequestMapping(value = "/getScanner")
 	@ResponseBody
@@ -54,6 +59,19 @@ public class RiskCompanyController {
 		map.put("maxReviewTime", maxReviewTime);
 		map.put("sortType", sortType);
 		return map;
+	}
+	
+	@RequestMapping(value = "/doSearch")
+	@ResponseBody
+	public ResponseBean doSearch(@RequestParam(required = false) String keyword) {
+		int count = companyService.searchCompanyNameCount(keyword);
+		Pagination pagination = new Pagination();
+		pagination.setCount(count);
+		Map<String, Object> params = new HashMap<>();
+		params.put("keyword", keyword);
+		params.put("pagination", pagination);
+		List<String> nameList = companyService.searchCompanyName(params);
+		return ResponseBean.successResponse(nameList);
 	}
 
 }
