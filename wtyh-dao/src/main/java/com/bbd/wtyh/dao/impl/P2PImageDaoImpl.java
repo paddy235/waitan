@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.dao.P2PImageDao;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -55,7 +56,6 @@ public class P2PImageDaoImpl implements P2PImageDao {
                 public boolean valid() {
                     return false;
                 }
-
                 @Override
                 public Object parse(String result) {
                     JSONObject object = JSON.parseObject(result);
@@ -150,32 +150,34 @@ public class P2PImageDaoImpl implements P2PImageDao {
     }
 
     @Override
-    public Map<String, String> coreDataInfo(String dataType) {
-        String url = String.format("http://localhost:8080/financial_services?dataType=%s&plat_name=1121",dataType);
+    public Map<String, Object> coreDataInfo(String platName) {
+        String url = String.format("http://localhost:8080/financial_services?dataType=plat_data&plat_name=%s", platName);
+        final Map<String, Object> data = new HashMap<>();
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             httpTemplate.get(url, new HttpCallback<Object>() {
                 @Override
                 public boolean valid() {
-                    return false;
+                    return true;
                 }
                 @Override
                 public Object parse(String result) {
-                    System.out.println(result);
                     JSONObject jsonObject = JSON.parseObject(result);
-                    System.out.println(jsonObject.get("plat_name"));
-                    System.out.println(jsonObject.get("plat_score"));
-                    System.out.println(jsonObject.get("other_sum_amount"));
-                    System.out.println(jsonObject.get("bor_num_stay_stil"));
-                    System.out.println(jsonObject.get("inserest_rate"));
-                    return null;
+                    data.put("累计成交量",jsonObject.get("amount_total"));
+                    data.put("借款余额",jsonObject.get("money_stock"));
+                    data.put("平均利率",jsonObject.get("interest_rate"));
+                    data.put("近30日资金净流入",jsonObject.get("30_day_net_inflow"));
+                    data.put("待收投资人数",jsonObject.get("bid_num_stay_stil"));
+                    data.put("待还借款人数",jsonObject.get("bor_num_stay_stil"));
+                    data.put("最大单户借款额",jsonObject.get("top1_sum_amount"));
+                    data.put("最大十户借款额",jsonObject.get("top10_sum_amount"));
+                    return data;
                 }
             });
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return null;
+        return data;
     }
 
     @Override

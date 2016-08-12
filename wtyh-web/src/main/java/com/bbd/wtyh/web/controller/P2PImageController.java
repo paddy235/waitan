@@ -105,8 +105,8 @@ public class P2PImageController {
      */
     @RequestMapping("/coreDataInfo")
     @ResponseBody
-    public ResponseBean coreDataInfo(@RequestParam(required = true) String dataType) {
-        Map<String, String> content = p2PImageService.coreDataInfo(dataType);
+    public ResponseBean coreDataInfo(@RequestParam(required = true) String platName) {
+        Map<String, Object> content = p2PImageService.coreDataInfo(platName);
         return ResponseBean.successResponse(content);
     }
 

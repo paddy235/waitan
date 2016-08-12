@@ -19,7 +19,7 @@ public interface P2PImageDao {
 
     Map<String, Object> baseInfo(String companyName, String akId , String platName);
 
-    Map<String,String> coreDataInfo(String dataType);
+    Map<String,Object> coreDataInfo(String platName);
 
     Map<String,String> coreDataDealTrend();
 

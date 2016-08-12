@@ -47,8 +47,8 @@ public class P2PImageServiceImpl implements P2PImageService {
     }
 
     @Override
-    public Map<String, String> coreDataInfo(String dataType) {
-        Map<String, String> data = p2PImageDao.coreDataInfo(dataType);
+    public Map<String, Object> coreDataInfo(String platName) {
+        Map<String, Object> data = p2PImageDao.coreDataInfo(platName);
         return data;
     }
 
