@@ -1,17 +1,9 @@
 package com.bbd.wtyh.web.controller.mockServer;
 
-import com.bbd.wtyh.service.P2PImageService;
-import com.bbd.wtyh.web.HistogramBean;
-import com.bbd.wtyh.web.RadarChartBean;
-import com.bbd.wtyh.web.ResponseBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * p2p行业检测平台控制层
@@ -29,9 +21,11 @@ public class MockSerserController {
      * @param dataType
      * @return
      */
+    @RequestMapping("")
+    @ResponseBody
     public String coreData(@RequestParam(required = true) String dataType, @RequestParam(required = true) String plat_name) {
         // 核心数据及集中度
-        if ("plat_data" == dataType) {
+        if (dataType.equals("plat_data")) {
             return "{\"plat_name\":\"来财街\"," +
                     "\"plat_score\":73.2," +
                     "\"other_sum_amount\":0," +
@@ -51,7 +45,7 @@ public class MockSerserController {
                     "\"30_day_net_inflow\":6565.6," +
                     "\"top1_sum_amount\":0," +
                     "\"amount_taotal\":23154.0985}";
-        } else if ("plat_list" == dataType) {
+        } else if (dataType.equals("plat_list")) {
             // 搜索 - 平台名称和公司名称
             return "[{" +
                     "\"plat_name\":\"来财街\"，" +
@@ -59,7 +53,7 @@ public class MockSerserController {
                     "{" +
                     "\"plat_name\":\"91投\"，" +
                     "\"company_name\":\"上海浙鑫金融有限服务有限公司\"},]";
-        } else if ("leida" == dataType) {
+        } else if (dataType.equals("leida")) {
             return "{\"plat_name\":\"今日劫财\"," +
                     "\"penalty_cost\":67.25," +
                     "\"info_disclosure\":69.77," +
