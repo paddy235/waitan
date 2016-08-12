@@ -169,7 +169,7 @@ public class RegisterUniversalFilterChainImp {
      */
     @Deprecated
     @SuppressWarnings({ "unchecked", "deprecation" })
-    public List<List<String>> HierarchicalFuzzySearchDataJTTP(String companyName, String dataVersion, Integer degree) throws Exception
+    public List<List<Object>> HierarchicalFuzzySearchDataJTTP(String companyName, String dataVersion, Integer degree) throws Exception
     {
         String json = redisDAO.getString(companyName + APIConstants.redis_relation_LinksDataJTTP + dataVersion);
         if (StringUtils.isNullOrEmpty(json)) {
@@ -179,7 +179,7 @@ public class RegisterUniversalFilterChainImp {
             json = "[]"; // 没有查询到数据的情况
         }
         JSONArray jsonArr = JSONArray.fromObject(json);
-        List<List<String>> list = JSONArray.toList(jsonArr, new String(), new JsonConfig());
+        List<List<Object>> list = JSONArray.toList(jsonArr, new String(), new JsonConfig());
         return list;
 
     }
