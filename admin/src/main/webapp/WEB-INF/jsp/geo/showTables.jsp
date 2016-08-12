@@ -17,11 +17,11 @@
 <body>
 <center>	
 
-	<table class="easyui-datagrid" title="系统数据表" style="width:700px"
+	<table class="easyui-datagrid" title="系统数据表" style="width:740px"
 		   data-options="rownumbers:true,singleSelect:true,url:'${ctx}/data/tables',method:'get'">
 		<thead>
 			<tr>
-				<th data-options="field:'table_name',width:200,align:'center',halign:'center',formatter:showDetail">表名</th>
+				<th data-options="field:'table_name',width:300,align:'center',halign:'center',formatter:showDetail">表名</th>
 				<th data-options="field:'table_comment',width:300,align:'center',halign:'center'">表备注</th>
 				<th data-options="field:'table_rows',width:100,align:'center',halign:'center'">记录数</th>
 			</tr>
