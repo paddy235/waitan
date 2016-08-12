@@ -158,11 +158,11 @@
     </select>
 
 	<select id="searchCompanyName" resultType="java.lang.String" parameterType="java.util.HashMap">
-		select name from company where name like concat('%',#{keyword},'%') limit #{pagination.begin}, #{pagination.pageSize};
+		select name from company where name like concat('%',#{keyword},'%') limit #{pagination.begin}, #{pagination.pageSize}
     </select>
     
     <select id="searchCompanyNameCount" resultType="int" parameterType="java.lang.String">
-		select count(1) from company where name like concat('%',#{keyword},'%') limit 200
+		select count(1) from company where name like concat('%',#{keyword},'%')
     </select>
 
 </mapper>
