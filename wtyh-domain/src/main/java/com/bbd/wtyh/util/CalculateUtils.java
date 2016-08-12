@@ -31,4 +31,19 @@ public class CalculateUtils {
     public static String format(double rate) {
         return String.format("%.3f", rate);
     }
+
+    /**
+     * 类型BigDecimal转化为String，并保留相应小数位
+     *
+     * @param b
+     * @param dec
+     * @return
+     */
+    public static String bigDecimal2Str(BigDecimal b, int dec) {
+        if (null != b && dec > -1) {
+            return b.divide(BigDecimal.ONE, dec, BigDecimal.ROUND_HALF_UP).toString();
+        }
+        return null;
+    }
+
 }

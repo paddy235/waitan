@@ -51,4 +51,34 @@
 		where company_name=#{companyName} and area=#{areaCode} and risk_date like concat(#{riskDateStr}, '%');
 	</select>
 
+	<select id="queryIndStatistics" resultType="com.bbd.wtyh.domain.vo.StatisticsVO" parameterType="java.util.HashMap">
+		select
+		'静态风险指数' as riskName,
+		avg(static_risk_index) as avgRiskIndex,
+		<include refid="ind_statistics"></include>
+	</select>
+
+	<sql id="ind_statistics">
+		DATE_FORMAT(risk_date,'%Y-%m') as date
+		from
+		static_risk_data
+		where
+		area=#{areaCode}
+		group by date;
+	</sql>
+
+	<select id="queryComStatistics" resultType="com.bbd.wtyh.domain.vo.StatisticsVO" parameterType="java.util.HashMap">
+		select
+		static_risk_index as riskIndex
+		<include refid="com_statistics"></include>
+	</select>
+
+	<sql id="com_statistics">
+		from
+		static_risk_data
+		where
+		company_name=#{companyName} and
+		area=#{areaCode} and
+		risk_date like concat(#{date}, '%');
+	</sql>
 </mapper>

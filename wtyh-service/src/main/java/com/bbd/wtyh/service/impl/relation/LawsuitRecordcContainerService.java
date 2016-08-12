@@ -1,9 +1,8 @@
 package com.bbd.wtyh.service.impl.relation;
 
+import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.common.relation.APIConstants;
-import com.bbd.wtyh.common.relation.Constants;
 import com.bbd.wtyh.redis.RedisDAO;
-import com.bbd.wtyh.redis.RedisDAOImpl;
 import com.bbd.wtyh.util.relation.StringUtils;
 import com.bbd.wtyh.web.relationVO.CourtAnnouncementVO;
 import com.bbd.wtyh.web.relationVO.DishonestPersonsVO;
@@ -245,7 +244,7 @@ public class LawsuitRecordcContainerService extends ApiContainerService {
 
         // 封装结果成Map并返回给Controller层，并存入redis
         if (isSave) {
-            redisDao.addString(company_redis_key, jsonArray.toString(), Constants.cacheDays);
+            redisDao.addString(company_redis_key, jsonArray.toString(), Constants.cacheDay);
         }
         if (jsonArray.size() > 0) {
             // 诉讼记录VO
@@ -276,7 +275,7 @@ public class LawsuitRecordcContainerService extends ApiContainerService {
         JSONArray jsonArray = JSONArray.fromObject(jsonValue.get("rdata"));
         // 封装结果成Map并返回给Controller层，并存入redis
         if (isSave)
-            redisDao.addString(companySXBZXKey, jsonArray.toString(), Constants.cacheDays);
+            redisDao.addString(companySXBZXKey, jsonArray.toString(), Constants.cacheDay);
         // 诉讼记录VO
         List<DishonestPersonsVO> dishonestPersonsList = new ArrayList<DishonestPersonsVO>();
         for (Object object : jsonArray) {
@@ -303,7 +302,7 @@ public class LawsuitRecordcContainerService extends ApiContainerService {
         JSONArray jsonArray = JSONArray.fromObject(jsonValue.get("rdata"));
         // 封装结果成Map并返回给Controller层，并存入redis
         if (isSave)
-            redisDao.addString(companyBZXKey, jsonArray.toString(), Constants.cacheDays);
+            redisDao.addString(companyBZXKey, jsonArray.toString(), Constants.cacheDay);
         // 被执行人VO
         List<ExecutedPersonVO> executedPersonVOList = new ArrayList<ExecutedPersonVO>();
         for (Object object : jsonArray) {
@@ -332,7 +331,7 @@ public class LawsuitRecordcContainerService extends ApiContainerService {
         JSONArray jsonArray = JSONArray.fromObject(jsonValue.get("rdata"));
         // 封装结果成Map并返回给Controller层，并存入redis
         if (isSave)
-            redisDao.addString(companyKTGGkey, jsonArray.toString(), Constants.cacheDays);
+            redisDao.addString(companyKTGGkey, jsonArray.toString(), Constants.cacheDay);
         // 诉讼记录VO
         List<CourtAnnouncementVO> courtAnnouncementList = new ArrayList<CourtAnnouncementVO>();
         for (Object object : jsonArray) {

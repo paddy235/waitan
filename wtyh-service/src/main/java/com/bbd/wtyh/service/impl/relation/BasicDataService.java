@@ -1,9 +1,8 @@
 package com.bbd.wtyh.service.impl.relation;
 
+import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.common.relation.APIConstants;
-import com.bbd.wtyh.common.relation.Constants;
 import com.bbd.wtyh.redis.RedisDAO;
-import com.bbd.wtyh.redis.RedisDAOImpl;
 import com.bbd.wtyh.web.relationVO.*;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -23,7 +22,7 @@ import java.util.Map;
 public class BasicDataService {
 	private static Logger log = LoggerFactory.getLogger(BasicDataService.class);
 	@Autowired
-	private RedisDAO redisDao = new RedisDAOImpl();
+	private RedisDAO redisDAO;
 	@Autowired
 	private BasicDataContainerService basicDataContainerService;
 	@Autowired
@@ -53,7 +52,7 @@ public class BasicDataService {
 	public EnterpriseDataVO get_gszczl_Data(String companyName)
 	{
 		String gszczl_key = companyName+ APIConstants.redis_bd_gszczl;
-		String gszczl_value = redisDao.getString(gszczl_key);
+		String gszczl_value = redisDAO.getString(gszczl_key);
 		EnterpriseDataVO enterpriseData = new EnterpriseDataVO() ;
 		if(gszczl_value!=null)
 		{
@@ -66,7 +65,7 @@ public class BasicDataService {
 				if(enterpriseData!=null)
 				{
 					String value = JSONObject.fromObject(enterpriseData).toString();
-					redisDao.addString(gszczl_key, value, Constants.cacheDays);
+					redisDAO.addString(gszczl_key, value, Constants.cacheDay);
 				}
 			} catch (Exception e) {
 				log.error(e.getMessage());
@@ -84,7 +83,7 @@ public class BasicDataService {
 		//股东信息
 		List<ShareholderDataVO> shareholderDatas = new ArrayList<ShareholderDataVO>();
 		String gdxx_key = companyName +APIConstants.redis_bd_gdxx;
-		String gdxx_value = redisDao.getString(gdxx_key);
+		String gdxx_value = redisDAO.getString(gdxx_key);
 		if(gdxx_value!=null)
 		{
 			JSONArray jsonArray = JSONArray.fromObject(gdxx_value);
@@ -96,7 +95,7 @@ public class BasicDataService {
 				if(shareholderDatas!=null)
 				{
 					String value = JSONArray.fromObject(shareholderDatas).toString();
-					redisDao.addString(gdxx_key, value, Constants.cacheDays);
+					redisDAO.addString(gdxx_key, value, Constants.cacheDay);
 				}
 			} catch (Exception e) {
 				log.error(e.getMessage());
@@ -112,7 +111,7 @@ public class BasicDataService {
 	{
 		Map<String, List<ManagementInfoVO>> map = new HashMap<String, List<ManagementInfoVO>> ();
 		String glcqk_key = companyName+APIConstants.redis_bd_glcqk;
-		String glcqk_value = redisDao.getString(glcqk_key);
+		String glcqk_value = redisDAO.getString(glcqk_key);
 		if(glcqk_value!=null)
 		{
 			JSONArray jsonArray = JSONArray.fromObject(glcqk_value);
@@ -125,7 +124,7 @@ public class BasicDataService {
 				if(baxxResult!=null)
 				{
 					map = basicDataContainerService.handleBaxxResultJson(baxxResult);
-					redisDao.addString(glcqk_key, baxxResult.toString(), Constants.cacheDays);
+					redisDAO.addString(glcqk_key, baxxResult.toString(), Constants.cacheDay);
 				}
 			} catch (Exception e) {
 				log.error(e.getMessage());
@@ -141,7 +140,7 @@ public class BasicDataService {
 	{
 
 		String cds_key = companyName+APIConstants.redis_cds;
-		String cds_value = redisDao.getString(cds_key);
+		String cds_value = redisDAO.getString(cds_key);
 		if(cds_value!=null)
 		{
 			return cds_value;
@@ -169,7 +168,7 @@ public class BasicDataService {
 			companyDataStatistics.setNaturalPersonShareholders(naturalPersonShareholders +"");
 			companyDataStatistics.setLegalPersonShareholders(legalPersonShareholders+"");
 			String cdsJson = JSONObject.fromObject(companyDataStatistics).toString();
-			redisDao.addString(cds_key, cdsJson, Constants.cacheDays);
+			redisDAO.addString(cds_key, cdsJson, Constants.cacheDay);
 			return cdsJson;
 		}
 
