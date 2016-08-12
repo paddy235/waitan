@@ -1,5 +1,6 @@
 package com.bbd.wtyh.web.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -455,8 +456,16 @@ public class PToPMonitorController {
      @RequestMapping("/platRankData")
      @ResponseBody
      public Object platRankData(){
+    	 
+    	 List<PlatRankDataDTO> list = getPlatRankData();
+    	 
+    	 for (PlatRankDataDTO dto : list) {
+    		double total = dto.getStay_still_of_total();
+    		total = new BigDecimal("0"+total).divide(new BigDecimal("10000"), 2, BigDecimal.ROUND_HALF_UP).doubleValue();
+    		dto.setStay_still_of_total(total);
+		 }
      	
-     	return ResponseBean.successResponse(getPlatRankData());
+     	 return ResponseBean.successResponse( list );
      	
      }
      

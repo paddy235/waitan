@@ -19,7 +19,7 @@ public class PlatRankDataDTO {
 	private double loan_period;
 	
 	private double stay_still_of_total;
-	
+
 	
 	public int getRank() {
 		return rank;
