@@ -1,5 +1,6 @@
 package com.bbd.wtyh.web.controller;
 
+import com.bbd.wtyh.domain.wangdaiAPI.SearchCompany;
 import com.bbd.wtyh.service.P2PImageService;
 import com.bbd.wtyh.web.HistogramBean;
 import com.bbd.wtyh.web.RadarChartBean;
@@ -91,7 +92,7 @@ public class P2PImageController {
     @RequestMapping("/hasOrNotCompany")
     @ResponseBody
     public ResponseBean hasOrNotCompany(@RequestParam(required = true) String plat_name) {
-        Map<String, Object> content = p2PImageService.hasOrNotCompany(plat_name);
+        SearchCompany content = p2PImageService.hasOrNotCompany(plat_name);
         return ResponseBean.successResponse(content);
     }
 

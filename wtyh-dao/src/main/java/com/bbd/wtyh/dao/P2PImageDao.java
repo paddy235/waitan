@@ -1,5 +1,7 @@
 package com.bbd.wtyh.dao;
 
+import com.bbd.wtyh.domain.wangdaiAPI.SearchCompany;
+
 import java.util.Map;
 
 /**
@@ -27,5 +29,5 @@ public interface P2PImageDao {
 
     Map<String,String> coreDataLoanOverage();
 
-    Map<String,Object> hasOrNotCompany(String plat_name);
+    SearchCompany hasOrNotCompany(String plat_name);
 }

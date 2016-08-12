@@ -1,12 +1,12 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.dao.P2PImageDao;
+import com.bbd.wtyh.domain.wangdaiAPI.SearchCompany;
 import com.bbd.wtyh.service.P2PImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -104,7 +104,7 @@ public class P2PImageServiceImpl implements P2PImageService {
     }
 
     @Override
-    public Map<String, Object> hasOrNotCompany(String plat_name) {
+    public SearchCompany hasOrNotCompany(String plat_name) {
         return p2PImageDao.hasOrNotCompany(plat_name);
     }
 }
