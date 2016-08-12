@@ -9,7 +9,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.bbd.wtyh.service.impl.relation.common.Constants;
 import com.bbd.wtyh.service.CompanySearchAPIService;
 import com.bbd.wtyh.util.relation.HttpClientUtils;
 

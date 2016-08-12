@@ -45,33 +45,51 @@ public class P2PImageDaoImpl implements P2PImageDao {
     }
 
     @Override
-    public Map<String, Object> radarScore() {
-        //数据来源
-        Map<String, Object> data = new HashMap<>();
-        data.put("违约成本", 88);
-        data.put("信息披露", 88);
-        data.put("资本充足", 88);
-        data.put("运营能力", 88);
-        data.put("流动性", 88);
-        data.put("分散度", 88);
+    public Map<String, Object> radarScore(String dataType, String plat_name) {
+        String url = "http://localhost:8080/financial_services?dataType=leida&plat_name=1121";
+        HttpTemplate httpTemplate = new HttpTemplate();
+        final Map<String, Object> source = new LinkedHashMap<>();
+        try {
+            httpTemplate.get(url, new HttpCallback<Object>() {
+                @Override
+                public boolean valid() {
+                    return false;
+                }
+
+                @Override
+                public Object parse(String result) {
+                    JSONObject object = JSON.parseObject(result);
+                    source.put("运营能力", object.get("operation"));
+                    source.put("违约成本", object.get("penalty_cost"));
+                    source.put("分散度", object.get("dispersion"));
+                    source.put("资本充足", object.get("capital"));
+                    source.put("流动性", object.get("fluidity"));
+                    source.put("信息披露", object.get("info_disclosure"));
+//                    source.put("平台名",object.get("plat_name"));
+                    return source;
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         //数据格式化
         Map<String, Object> result = new LinkedHashMap<>();
         List<LinkedHashMap<String, Object>> indicator = new ArrayList<>();
-        Set<Map.Entry<String, Object>> entries = data.entrySet();
+        Set<Map.Entry<String, Object>> entries = source.entrySet();
         for (Map.Entry<String, Object> entry : entries) {
             LinkedHashMap<String, Object> score = new LinkedHashMap<>();
             score.put("name", entry.getKey());
             score.put("max", entry.getValue());
             indicator.add(score);
         }
-        List<List<Integer>> series = new ArrayList<>();
-        List<Integer> serie = new ArrayList<>();
-        serie.add(5000);
-        serie.add(14000);
-        serie.add(28000);
-        serie.add(31000);
-        serie.add(42000);
-        serie.add(21000);
+        List<List<Object>> series = new ArrayList<>();
+        List<Object> serie = new ArrayList<>();
+        serie.add(source.get("违约成本"));
+        serie.add(source.get("信息披露"));
+        serie.add(source.get("资本充足"));
+        serie.add(source.get("运营能力"));
+        serie.add(source.get("流动性"));
+        serie.add(source.get("分散度"));
         series.add(serie);
         result.put("indicator", indicator);
         result.put("series", series);
@@ -81,16 +99,34 @@ public class P2PImageDaoImpl implements P2PImageDao {
     }
 
     @Override
-    public Map<String, Object> baseInfo(String companyName, String akId) {
-        String url = String.format("http://dataom.api.bbdservice.com/api/bbd_qyxx/?company=%s&ak=%s", companyName, akId);
+    public Map<String, Object> baseInfo(String companyName, String akId, String platName) {
+        String platFormName = String.format("http://localhost:8080/financial_services?dataType=%s&plat_name=1121", platName);//网贷之家
+        String cn = String.format("http://dataom.api.bbdservice.com/api/bbd_qyxx/?company=%s&ak=%s", companyName, akId);//数据平台
         final Map<String, Object> map = new LinkedHashMap<>();
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
-            httpTemplate.get(url, new HttpCallback<Object>() {
+            httpTemplate.get(platFormName, new HttpCallback<Object>() {
                 @Override
                 public boolean valid() {
                     return false;
                 }
+                @Override
+                public Object parse(String result) {
+                    System.out.println(result);
+                    String str = result.substring(1,result.length()-1);
+                    //乱码问题没有解决
+                    JSONObject object = JSON.parseObject(str);
+                    map.put("平台名称",object.get("plat_name"));
+                    map.put("公司名称",object.get("company_name"));
+                    return map;
+                }
+            });
+            httpTemplate.get(cn, new HttpCallback<Object>() {
+                @Override
+                public boolean valid() {
+                    return false;
+                }
+
                 @Override
                 public Object parse(String result) {
                     JSONObject object = JSON.parseObject(result);
@@ -98,7 +134,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
                     JSONObject data = JSON.parseObject(results.substring(1, results.length() - 1));
                     JSONObject jbxx = JSON.parseObject(String.valueOf(data.get("jbxx")));
                     map.put("法人代表", jbxx.get("frname"));
-                    map.put("公司名称", jbxx.get("company_name"));
+//                    map.put("公司名称", jbxx.get("company_name"));
                     map.put("注册资本", jbxx.get("regcap"));
                     map.put("注册地址", jbxx.get("address"));
                     map.put("开业日期", jbxx.get("esdate"));
@@ -114,18 +150,32 @@ public class P2PImageDaoImpl implements P2PImageDao {
     }
 
     @Override
-    public Map<String, String> coreDataInfo() {
-        Map<String, String> info = new HashMap<>();
-        info.put("calulateDealNumber", "31.21");     // 累计成交量
-        info.put("loanOverage", "18");     // 贷款余额
-        info.put("averageInterestRate", "6.532");     // 平均利率
-        info.put("recent30DaysIncome", "952638");     // 近30日资产流入
-        info.put("waitingInvesterNumber", "21564");     // 待收投资人数
-        info.put("waitingRepaymenterNumber", "21564");     // 待还借款人数
-        info.put("maxSingleLoanNumber", "1213.65");     // 最大单户借款额
-        info.put("top10LoanNumber", "7984.36");     // 最大十户借款额
+    public Map<String, String> coreDataInfo(String dataType) {
+        String url = String.format("http://localhost:8080/financial_services?dataType=%s&plat_name=1121",dataType);
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            httpTemplate.get(url, new HttpCallback<Object>() {
+                @Override
+                public boolean valid() {
+                    return false;
+                }
+                @Override
+                public Object parse(String result) {
+                    System.out.println(result);
+                    JSONObject jsonObject = JSON.parseObject(result);
+                    System.out.println(jsonObject.get("plat_name"));
+                    System.out.println(jsonObject.get("plat_score"));
+                    System.out.println(jsonObject.get("other_sum_amount"));
+                    System.out.println(jsonObject.get("bor_num_stay_stil"));
+                    System.out.println(jsonObject.get("inserest_rate"));
+                    return null;
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        return info;
+        return null;
     }
 
     @Override

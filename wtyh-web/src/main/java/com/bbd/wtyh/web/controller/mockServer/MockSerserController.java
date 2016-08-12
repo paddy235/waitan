@@ -15,6 +15,8 @@ import com.bbd.wtyh.domain.dto.IndustryCompareDTO;
 import com.bbd.wtyh.domain.dto.IndustryProblemDTO;
 import com.bbd.wtyh.domain.dto.IndustryShanghaiDTO;
 import com.bbd.wtyh.domain.dto.PlatRankDataDTO;
+import java.io.UnsupportedEncodingException;
+import java.util.Map;
 
 /**
  * p2p行业检测平台控制层
@@ -57,12 +59,26 @@ public class MockSerserController {
                     "\"amount_taotal\":23154.0985}";
         } else if (dataType.equals("plat_list")) {
             // 搜索 - 平台名称和公司名称
-            return "[{" +
-                    "\"plat_name\":\"来财街\"，" +
-                    "\"company_name\":\"阿里路亚上海投资有限公司\"}," +
+//            List<Map<String, String>> list = new ArrayList<>();
+//            Map<String , String> data = new HashMap<String, String>();
+//            data.put("plat_name","来财街");
+//            data.put("company_name","阿里路亚上海投资有限公司");
+//            list.add(data);
+            /*
+            ," +
                     "{" +
                     "\"plat_name\":\"91投\"，" +
-                    "\"company_name\":\"上海浙鑫金融有限服务有限公司\"},]";
+                    ""company_name":"上海浙鑫金融有限服务有限公司"}
+             */
+            String str = "[{" +
+                    "\"plat_name\":\"来财街\"，" +
+                    "\"company_name\":\"阿里路亚上海投资有限公司\"}]";
+            try {
+                str = new String(str.getBytes("UTF-8"),"GBK");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            return str;
         } else if (dataType.equals("leida")) {
             return "{\"plat_name\":\"今日劫财\"," +
                     "\"penalty_cost\":67.25," +
