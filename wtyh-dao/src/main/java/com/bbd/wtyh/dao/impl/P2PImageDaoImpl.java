@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.dao.P2PImageDao;
+import com.bbd.wtyh.domain.wangDaiAPI.PlatData;
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompany;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -185,27 +186,25 @@ public class P2PImageDaoImpl implements P2PImageDao {
     }
 
     @Override
-    public Map<String, Object> coreDataDealTrend(String platName) {
+    public PlatData coreDataDealTrend(String platName) {
         String coreDataDealURL = String.format("http://localhost:8080/financial_services?dataType=plat_data&plat_name=%s", platName);
         final Map<String, Object> data = new HashMap<>();
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
-            httpTemplate.get(coreDataDealURL, new HttpCallback<Object>() {
+           return httpTemplate.get(coreDataDealURL, new HttpCallback<PlatData>() {
                 @Override
                 public boolean valid() {
                     return true;
                 }
                 @Override
-                public Object parse(String result) {
-                    JSONObject jsonObject = JSON.parseObject(result);
-                    data.put("平台每日详细数据", jsonObject.get("plat_data_six_month"));
-                    return data;
+                public PlatData parse(String result) {
+                    return JSON.parseObject(result, PlatData.class);
                 }
             });
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return data;
     }
 
     @Override

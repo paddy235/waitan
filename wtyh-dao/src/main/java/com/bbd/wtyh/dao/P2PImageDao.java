@@ -1,5 +1,6 @@
 package com.bbd.wtyh.dao;
 
+import com.bbd.wtyh.domain.wangDaiAPI.PlatData;
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompany;
 
 import java.util.Map;
@@ -23,7 +24,7 @@ public interface P2PImageDao {
 
     Map<String,Object> coreDataInfo(String platName);
 
-    Map<String, Object> coreDataDealTrend(String platName);
+    PlatData coreDataDealTrend(String platName);
 
     Map<String,String> coreDataInterestRateTrend();
 

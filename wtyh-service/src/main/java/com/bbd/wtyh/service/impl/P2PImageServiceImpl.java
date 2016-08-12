@@ -3,6 +3,7 @@ package com.bbd.wtyh.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bbd.wtyh.dao.P2PImageDao;
+import com.bbd.wtyh.domain.wangDaiAPI.PlatData;
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompany;
 import com.bbd.wtyh.service.P2PImageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,16 +58,18 @@ public class P2PImageServiceImpl implements P2PImageService {
 
     @Override
     public List<List<String>> coreDataDealTrend(String platName) {
+        // TODO: 获取数据中的，最近的 15条
+        PlatData data = p2PImageDao.coreDataDealTrend(platName);
+        List<PlatData.PlatDataSixMonth> platDataSixMonth = data.getPlat_data_six_month();
+        List<String> days = new ArrayList<>();
+        List<String> amounts = new ArrayList<>();
+        for (PlatData.PlatDataSixMonth pdsm : platDataSixMonth) {
+            days.add(pdsm.getDate());
+            amounts.add(String.valueOf(pdsm.getDay_amount()));
+        }
         List<List<String>> result = new ArrayList<>();
-        Map<String, Object> data = p2PImageDao.coreDataDealTrend(platName);
-        String str = String.valueOf(data.get("平台每日详细数据"));
-        JSONObject jsonObject = JSON.parseObject(str.substring(1, str.length()-1));
-        List<String> year = new ArrayList<>();
-        year.add(String.valueOf(jsonObject.get("date")));
-        List<String> dealNumbers = new ArrayList<>();
-        dealNumbers.add(String.valueOf(jsonObject.get("day_amount")));
-        result.add(year);
-        result.add(dealNumbers);
+        result.add(days);
+        result.add(amounts);
         return result;
     }
 

@@ -137,8 +137,8 @@ public class P2PImageController {
      */
     @RequestMapping("/coreDataDealTrend")
     @ResponseBody
-    public ResponseBean coreDataDealTrend(@RequestParam(required = true) String platName) {
-        List<List<String>> data = p2PImageService.coreDataDealTrend(platName);
+    public ResponseBean coreDataDealTrend(@RequestParam(required = true) String plat_name) {
+        List<List<String>> data = p2PImageService.coreDataDealTrend(plat_name);
         HistogramBean<String, String> content = new HistogramBean();
         if (data.size() != 0) {
             content.setxAxis(data.get(0));
