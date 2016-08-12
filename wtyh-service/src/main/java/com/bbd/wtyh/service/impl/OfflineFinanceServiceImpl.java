@@ -49,7 +49,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     @Resource
     private RelationCompanyService relationCompanyService;
     @Resource
-    private RegisterUniversalFilterChainService registerUniversalFilterChainImp;
+    private RegisterUniversalFilterChainService registerUniversalFilterChainService;
     @Resource
     private BuildFileService buildFileService;
     @Resource
@@ -94,7 +94,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 
     @Override
     public List<StatisticsVO> queryStatistics(String companyName, String tabIndex, String areaCode) throws ParseException {
-        List<StatisticsVO> avgList = null;
+        List<StatisticsVO> avgList = new ArrayList<>();
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("companyName", companyName);
         params.put("areaCode", areaCode);
@@ -391,7 +391,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 
     public String createOriginYED(String companyName,String attDirectory,String month) throws Exception
     {
-        List<List<Object>> data =  registerUniversalFilterChainImp.HierarchicalFuzzySearchDataJTTP(companyName,month);
+        List<List<Object>> data =  registerUniversalFilterChainService.HierarchicalFuzzySearchDataJTTP(companyName,month);
         if(data.size()==0)
         {
             throw new BbdException(companyName + "：对不起，您搜索的公司关联方数据正在分析更新中，暂时无法提供信息，请稍后再试。",true);
@@ -416,7 +416,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     @SuppressWarnings("rawtypes")
     private Map<String, List> getRelationData(List<List<String>> list) {
         Map<String, List> map = new HashMap<String, List>();
-        if (CollectionUtils.isEmpty(list)) {
+        if (!CollectionUtils.isEmpty(list)) {
             map.put("pointList", this.getPointList(list));
             map.put("lineList", this.getLineList(list));
         }

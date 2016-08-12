@@ -1,7 +1,7 @@
 package com.bbd.wtyh.web.controller;
 
+import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.vo.StaticRiskVO;
-import com.bbd.wtyh.service.impl.relation.common.Constants;
 import com.bbd.wtyh.domain.vo.StatisticsVO;
 import com.bbd.wtyh.service.OfflineFinanceService;
 import com.bbd.wtyh.web.ResponseBean;
@@ -41,14 +41,73 @@ public class OfflineFinanceController {
         try {
             String companyName = request.getParameter("companyName");
             String dataVersion = request.getParameter("dataVersion");
-            if (!StringUtils.isEmpty(dataVersion)) {
-                dataVersion = (String) request.getSession().getAttribute("defaultVersion");
-            }
             return offlineFinanceService.queryRelation(companyName, dataVersion);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * 风险指数趋势变化图
+     * @param request
+     * @return
+     * @throws ParseException
+     */
+    @RequestMapping(value = "/queryStatistics")
+    @ResponseBody
+    public List<StatisticsVO> queryStatistics(HttpServletRequest request) throws ParseException {
+        String companyName = request.getParameter("companyName");
+        String tabIndex = request.getParameter("tabIndex");
+        String areaCode = request.getParameter("areaCode");
+        return offlineFinanceService.queryStatistics(companyName, tabIndex, areaCode);
+    }
+
+    /**
+     * 静态风险指数列表
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/queryRiskData")
+    @ResponseBody
+    public ResponseBean queryRiskData(HttpServletRequest request) {
+        String companyName = request.getParameter("companyName");
+        String currentDate = request.getParameter("currentDate");
+        String areaCode = request.getParameter("areaCode");
+        StaticRiskVO vo = offlineFinanceService.queryCurrentStaticRisk(companyName, currentDate, areaCode);
+        return ResponseBean.successResponse(vo);
+    }
+
+    /**
+     * 动态指数时间轴对比图
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "showYEDData")
+    @ResponseBody
+    public ResponseBean showYEDData(HttpServletRequest request,HttpServletResponse response) throws Exception
+    {
+        String companyName = request.getParameter("companyName");
+        if(StringUtils.isEmpty(companyName))
+        {
+            throw new Exception("公司名传入为空");
+        }
+        String month = request.getParameter("month");
+        String filePath;
+        try {
+            filePath = offlineFinanceService.createYED(companyName,month);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+        String targetPath = "";
+        if(new File(filePath).exists())
+        {
+            targetPath = Constants.mappingPath+File.separator+Constants.attDir+File.separator+new File(filePath).getName();
+        }
+        return ResponseBean.successResponse(targetPath);
     }
 
     /**
@@ -87,67 +146,11 @@ public class OfflineFinanceController {
         return ResponseBean.successResponse(data);
     }
 
-    /**
-     * 风险指数趋势变化图
-     * @param request
-     * @return
-     * @throws ParseException
-     */
-    @RequestMapping(value = "/queryStatistics")
-    @ResponseBody
-    public List<StatisticsVO> queryStatistics(HttpServletRequest request) throws ParseException {
-        String companyName = request.getParameter("companyName");
-        String tabIndex = request.getParameter("tabIndex");
-        String areaCode = (String) request.getSession().getAttribute(Constants.SESSION.AREA_CODE);
-        return offlineFinanceService.queryStatistics(companyName, tabIndex, areaCode);
-    }
 
-    /**
-     *
-     * @param request
-     * @return
-     */
-    @RequestMapping(value = "/queryRiskData")
-    @ResponseBody
-    public ResponseBean queryRiskData(HttpServletRequest request) {
-        String companyName = request.getParameter("companyName");
-        String currentDate = request.getParameter("currentDate");
-        String areaCode = (String) request.getSession().getAttribute(Constants.SESSION.AREA_CODE);
-        StaticRiskVO vo = offlineFinanceService.queryCurrentStaticRisk(companyName, currentDate, areaCode);
-        return ResponseBean.successResponse(vo);
-    }
 
-    /**
-     * 动态指数时间轴对比图
-     * @param request
-     * @param response
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping(value = "showYEDData")
-    @ResponseBody
-    public ResponseBean showYEDData(HttpServletRequest request,HttpServletResponse response) throws Exception
-    {
-        String companyName = request.getParameter("companyName");
-        if(org.apache.commons.lang.StringUtils.isEmpty(companyName))
-        {
-            throw new Exception("公司名传入为空");
-        }
-        String month = request.getParameter("month");
-        String filePath;
-        try {
-            filePath = offlineFinanceService.createYED(companyName,month);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
-        }
-        String targetPath = "";
-        if(new File(filePath).exists())
-        {
-            targetPath = Constants.mappingPath+File.separator+Constants.attDir+File.separator+new File(filePath).getName();
-        }
-        return ResponseBean.successResponse(targetPath);
-    }
+
+
+
 
 
 
