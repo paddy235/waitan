@@ -4,10 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.dao.HologramQueryDao;
-import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDO;
-import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
-import com.bbd.wtyh.domain.bbdAPI.CourtAnnouncementDO;
-import com.bbd.wtyh.domain.bbdAPI.JudgeDocDO;
+import com.bbd.wtyh.domain.bbdAPI.*;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -26,7 +23,7 @@ import java.util.Map;
 public class HologramQueryDaoImpl implements HologramQueryDao {
 
     @Value("${api.baidu.news.url}")
-    private String baiduYuQing;     // 百度舆情
+    private String baiduYuQingURL;     // 百度舆情
 
     @Value("${api.baidu.news.ak}")
     private String baiduYuqingAK;
@@ -37,13 +34,20 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     @Value("${api.court.announcement.ak}")
     private String courtAnnouncementAK;
 
+    @Value("${api.court.debtor.url}")
+    private String debtorURL;    // 裁判文书
+
+    @Value("${api.court.debtor.ak}")
+    private String debtorAK;
+
     @Value("${api.court.judgeDoc.url}")
-    private String judgeDoc;    // 裁判文书
+    private String judgeDocURL;    // 裁判文书
 
     @Value("${api.court.judgeDoc.ak}")
     private String judgeDocAK;
+
     @Value("${api.bbd_qyxx.url}")
-    private String bbdQyxxURL;
+    private String bbdQyxxURL;      // 企业信息
 
     @Value("${api.bbd_qyxx.ak}")
     private String bbdQyxxAK;
@@ -96,6 +100,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
                 public boolean valid() {
                     return true;
                 }
+
                 @Override
                 public BaseDataDO parse(String result) {
                     Gson gson = new Gson();
@@ -115,7 +120,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      */
     @Override
     public BaiDuYuQingDO newsConsensus(String company) {
-        String api = baiduYuQing + "?company=" + company + "&ak=" + baiduYuqingAK;
+        String api = baiduYuQingURL + "?company=" + company + "&ak=" + baiduYuqingAK;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(api, new HttpCallback<BaiDuYuQingDO>() {
@@ -150,6 +155,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
                 public boolean valid() {
                     return true;
                 }
+
                 @Override
                 public BaseDataDO parse(String result) {
                     Gson gson = new Gson();
@@ -181,8 +187,8 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     /**
      * 企业信息详情-诉讼记录
      *
-     * @return
      * @param company
+     * @return
      */
     @Override
     public CourtAnnouncementDO openCourtAnnouncement(String company) {
@@ -219,7 +225,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
 
     @Override
     public JudgeDocDO judgeDoc(String company) {
-        String api = judgeDoc + "?company=" + company + "&ak=" + judgeDocAK;
+        String api = judgeDocURL + "?company=" + company + "&ak=" + judgeDocAK;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(api, new HttpCallback<JudgeDocDO>() {
@@ -231,6 +237,28 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
                 @Override
                 public JudgeDocDO parse(String result) {
                     return JSON.parseObject(result, JudgeDocDO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public DebtorDO debtor(String company) {
+        String api = debtorURL + "?company=" + company + "&ak=" + debtorAK;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(api, new HttpCallback<DebtorDO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public DebtorDO parse(String result) {
+                    return JSON.parseObject(result, DebtorDO.class);
                 }
             });
         } catch (Exception e) {
