@@ -87,7 +87,7 @@ public class P2PImageServiceImpl implements P2PImageService {
     }
 
     @Override
-    public List<List<String>> coreDataLoanOverage() {
+    public List<List<String>> coreDataLoadOverage() {
         // 处理数据转换
         Map<String, String> data = p2PImageDao.coreDataLoanOverage();
         List<String> years = new ArrayList<>();

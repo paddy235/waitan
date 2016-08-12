@@ -155,7 +155,7 @@ public class P2PImageController {
     @RequestMapping("/coreDataInterestRateTrend")
     @ResponseBody
     public ResponseBean coreDataInterestRateTrend() {
-        List<List<String>> data = p2PImageService.coreDataDealTrend();
+        List<List<String>> data = p2PImageService.coreDataInterestRateTrend();
         HistogramBean<String, String> content = new HistogramBean();
         if (data.size() != 0) {
             content.setxAxis(data.get(0));
@@ -172,7 +172,7 @@ public class P2PImageController {
     @RequestMapping("/coreDataLoadOverage")
     @ResponseBody
     public ResponseBean coreDataLoadOverage() {
-        List<List<String>> data = p2PImageService.coreDataDealTrend();
+        List<List<String>> data = p2PImageService.coreDataLoadOverage();
         HistogramBean<String, String> content = new HistogramBean();
         if (data.size() != 0) {
             content.setxAxis(data.get(0));
