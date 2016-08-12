@@ -19,7 +19,7 @@ import java.util.List;
 * @since  2016.8.12
 */
 @RestController
-@RequestMapping("/factoring")
+@RequestMapping("/companyNews")
 public class CompanyNewsController {
 	
 	@Autowired
@@ -27,8 +27,8 @@ public class CompanyNewsController {
 
 	@RequestMapping("/getCompanyNews")
 	@ResponseBody
-	public ResponseBean getCompanyNews() {
-		List list = companyNewsService.getCompanyNews();
+	public ResponseBean getCompanyNews(String company) {
+		List list = companyNewsService.getCompanyNews(company);
 		return ResponseBean.successResponse(list);
 	}
 }
