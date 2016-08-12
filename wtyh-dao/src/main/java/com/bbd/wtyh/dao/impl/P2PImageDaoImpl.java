@@ -229,4 +229,9 @@ public class P2PImageDaoImpl implements P2PImageDao {
         return yearLoanOverageKV;
     }
 
+    @Override
+    public Map<String, Object> hasOrNotCompany(String plat_name) {
+        return null;
+    }
+
 }

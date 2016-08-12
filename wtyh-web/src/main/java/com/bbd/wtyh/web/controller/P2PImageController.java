@@ -82,6 +82,20 @@ public class P2PImageController {
         return ResponseBean.successResponse(radarChart);
     }
 
+
+    /**
+     * 测试是否有”搜索公司“
+     *
+     * @return
+     */
+    @RequestMapping("/hasOrNotCompany")
+    @ResponseBody
+    public ResponseBean hasOrNotCompany(@RequestParam(required = true) String plat_name) {
+        Map<String, Object> content = p2PImageService.hasOrNotCompany(plat_name);
+        return ResponseBean.successResponse(content);
+    }
+
+
     /**
      * 基本信息
      *

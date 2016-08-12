@@ -1,22 +1,16 @@
 package com.bbd.wtyh.web.controller.mockServer;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-
+import com.bbd.wtyh.domain.dto.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bbd.wtyh.domain.dto.AreaIndexDTO;
-import com.bbd.wtyh.domain.dto.IndustryCompareDTO;
-import com.bbd.wtyh.domain.dto.IndustryProblemDTO;
-import com.bbd.wtyh.domain.dto.IndustryShanghaiDTO;
-import com.bbd.wtyh.domain.dto.PlatRankDataDTO;
 import java.io.UnsupportedEncodingException;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * p2p行业检测平台控制层
