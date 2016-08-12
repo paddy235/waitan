@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ import com.bbd.wtyh.domain.dto.IndustryProblemDTO;
 import com.bbd.wtyh.domain.dto.IndustryShanghaiDTO;
 import com.bbd.wtyh.domain.dto.PlatRankDataDTO;
 import com.bbd.wtyh.service.AreaService;
+import com.bbd.wtyh.service.PToPMonitorService;
 import com.bbd.wtyh.util.relation.HttpClientUtils;
 import com.bbd.wtyh.web.ResponseBean;
 import com.bbd.wtyh.web.XAxisSeriesBarLineBean;
@@ -45,9 +47,11 @@ public class PToPMonitorController {
 	@Autowired
 	private AreaService areaService;
 	
+	@Autowired
+	private PToPMonitorService pToPMonitorService;
 	
-	@Value("${financial.services.url}")
-	private String finSerUrl;
+	
+	
 	
 	
 	 /**
@@ -80,7 +84,7 @@ public class PToPMonitorController {
     	
     	Map<String,Object> map = new LinkedHashMap<>();
     	
-    	List<IndustryShanghaiDTO> list = getData();
+    	List<IndustryShanghaiDTO> list = pToPMonitorService.getData();
     	
     	map.put("hotMap",hotMap(list));
     	
@@ -88,13 +92,13 @@ public class PToPMonitorController {
     	
     	map.put("bargain", bargain(list));
     	
-    	List<IndustryProblemDTO> problemData = getProblemData();
+    	List<IndustryProblemDTO> problemData = pToPMonitorService.getProblemData();
     	
     	map.put("problem",problem(problemData));
     	
     	map.put("popularity",popularity(list));
     	
-    	map.put("compare",compare(getCompareData()));
+    	map.put("compare",compare(pToPMonitorService.getCompareData()));
     	
     	
     	return ResponseBean.successResponse(map);
@@ -180,20 +184,7 @@ public class PToPMonitorController {
     }
     
     
-    
-    private List<IndustryCompareDTO> getCompareData() throws Exception{
-    	
-    	List<IndustryCompareDTO> list;
-   	 
-    	String json = HttpClientUtils.httpGet(this.finSerUrl+"?dataType=industry_compare");
-     	log.info(json);
-     	Gson gson = new Gson();
-     	list = gson.fromJson(json, new TypeToken<List<IndustryCompareDTO>>(){}.getType());
-     	
-     	return list;
-    	
-    }
-    
+  
     
     
     
@@ -283,45 +274,10 @@ public class PToPMonitorController {
     
     
     
-    /**
-     * 获取数据
-     *
-     * @return List<IndustryShanghaiDTO>
-     * @throws Exception 
-     */
-     private List<IndustryProblemDTO> getProblemData() throws Exception{
-     	
-     	List<IndustryProblemDTO> list;
-    	 
-    	String json = HttpClientUtils.httpGet(this.finSerUrl+"?dataType=industry_problem");
-     	log.info(json);
-     	Gson gson = new Gson();
-     	list = gson.fromJson(json, new TypeToken<List<IndustryProblemDTO>>(){}.getType());
-     	
-     	return list;
-    	 
-     }
-     
-     
+   
     
     
-    /**
-    * 获取数据
-    *
-    * @return List<IndustryShanghaiDTO>
-     * @throws Exception 
-    */
-    private List<IndustryShanghaiDTO> getData() throws Exception{
-    	
-    	String json = HttpClientUtils.httpGet(this.finSerUrl+"?dataType=industry_shanghai");
-    	log.info(json);
-    	Gson gson = new Gson();
-    	List<IndustryShanghaiDTO> list  = gson.fromJson(json, new TypeToken<List<IndustryShanghaiDTO>>(){}.getType());
-    	
-    	return list;
-    }
-    
-    
+
     
     
     
@@ -406,24 +362,11 @@ public class PToPMonitorController {
      @ResponseBody
      public Object areaIndex() throws Exception{
      	
-     	return ResponseBean.successResponse(getAreaIndex());
+     	return ResponseBean.successResponse(pToPMonitorService.getAreaIndex());
      	
      }
      
-     private List<AreaIndexDTO> getAreaIndex() throws Exception{
-     	
-     	List<AreaIndexDTO> list;
-     	
-   	 
-    	String json = HttpClientUtils.httpGet(this.finSerUrl+"?dataType=area_index");
-     	log.info(json);
-     	Gson gson = new Gson();
-     	list = gson.fromJson(json, new TypeToken<List<IndustryProblemDTO>>(){}.getType());
-     	
-     	return list;
-     	
-     }
-     
+
      
      
      
@@ -437,7 +380,7 @@ public class PToPMonitorController {
      @ResponseBody
      public Object platRankData() throws Exception{
     	 
-    	 List<PlatRankDataDTO> list = getPlatRankData();
+    	 List<PlatRankDataDTO> list = pToPMonitorService.getPlatRankData();
     	 
     	 for (PlatRankDataDTO dto : list) {
     		double total = dto.getStay_still_of_total();
@@ -451,18 +394,7 @@ public class PToPMonitorController {
      
 
      
-     private List<PlatRankDataDTO> getPlatRankData() throws Exception{
-     	
-     	List<PlatRankDataDTO> list ;
-     	String json = HttpClientUtils.httpGet(this.finSerUrl+"?dataType=plat_rank_data");
-     	log.info(json);
-     	Gson gson = new Gson();
-     	list = gson.fromJson(json, new TypeToken<List<IndustryProblemDTO>>(){}.getType());
-     	
-     	return list;
-     	
-     }
-     
+    
 
      
      
