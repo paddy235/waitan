@@ -8,6 +8,7 @@ package com.bbd.wtyh.domain.dto;
 */
 public class PlatRankDataDTO {
 	
+	
 	private int rank;
 	
 	private String plat_name;

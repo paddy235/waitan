@@ -9,6 +9,7 @@ package com.bbd.wtyh.domain.dto;
 public class IndustryProblemDTO {
 
 	/**
+	 * 
 	 * 月份，格式：2016-07
 	 * */
 	private String date;

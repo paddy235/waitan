@@ -1,33 +1,22 @@
 package com.bbd.wtyh.web.controller.mockServer;
 
-<<<<<<< Updated upstream
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-=======
-import org.springframework.data.redis.hash.HashMapper;
->>>>>>> Stashed changes
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-<<<<<<< Updated upstream
 import com.bbd.wtyh.domain.dto.AreaIndexDTO;
 import com.bbd.wtyh.domain.dto.IndustryCompareDTO;
 import com.bbd.wtyh.domain.dto.IndustryProblemDTO;
 import com.bbd.wtyh.domain.dto.IndustryShanghaiDTO;
 import com.bbd.wtyh.domain.dto.PlatRankDataDTO;
-=======
-import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
->>>>>>> Stashed changes
 
 /**
  * p2p行业检测平台控制层
