@@ -102,4 +102,9 @@ public class P2PImageServiceImpl implements P2PImageService {
         result.add(loanOverages);
         return result;
     }
+
+    @Override
+    public Map<String, Object> hasOrNotCompany(String plat_name) {
+        return p2PImageDao.hasOrNotCompany(plat_name);
+    }
 }
