@@ -1,23 +1,25 @@
 package com.bbd.wtyh.service.impl;
 
-import com.bbd.wtyh.common.Constants;
-import com.bbd.wtyh.domain.dto.StaticRiskDTO;
-import com.bbd.wtyh.domain.vo.StaticRiskVO;
-import com.bbd.wtyh.redis.RedisDAO;
-import com.bbd.wtyh.service.BuildFileService;
-import com.bbd.wtyh.service.RegisterUniversalFilterChainService;
-import com.bbd.wtyh.service.RelationCompanyService;
-import com.bbd.wtyh.service.impl.relation.common.APIConstants;
-import com.bbd.wtyh.service.impl.relation.exception.BbdException;
 import com.bbd.higgs.utils.ListUtil;
 import com.bbd.higgs.utils.http.HttpTemplate;
+import com.bbd.wtyh.common.Constants;
+import com.bbd.wtyh.domain.dto.StaticRiskDTO;
 import com.bbd.wtyh.domain.vo.LineVO;
 import com.bbd.wtyh.domain.vo.PointVO;
+import com.bbd.wtyh.domain.vo.StaticRiskVO;
 import com.bbd.wtyh.domain.vo.StatisticsVO;
 import com.bbd.wtyh.mapper.StaticRiskMapper;
+import com.bbd.wtyh.redis.RedisDAO;
+import com.bbd.wtyh.service.BuildFileService;
 import com.bbd.wtyh.service.OfflineFinanceService;
+import com.bbd.wtyh.service.RelationCompanyService;
+import com.bbd.wtyh.service.impl.relation.RegisterUniversalFilterChainImp;
+import com.bbd.wtyh.service.impl.relation.common.APIConstants;
+import com.bbd.wtyh.service.impl.relation.exception.BbdException;
 import com.bbd.wtyh.util.CalculateUtils;
 import com.bbd.wtyh.util.DateUtils;
+import net.sf.json.JSONArray;
+import net.sf.json.JsonConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -25,15 +27,12 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
-import java.io.*;
+import java.io.File;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
-import net.sf.json.JSONArray;
-import net.sf.json.JsonConfig;
 /**
  * 线下理财接口实现层
  * @author zhouxuan
@@ -49,7 +48,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     @Resource
     private RelationCompanyService relationCompanyService;
     @Resource
-    private RegisterUniversalFilterChainService registerUniversalFilterChainService;
+    private RegisterUniversalFilterChainImp registerUniversalFilterChainImp;
     @Resource
     private BuildFileService buildFileService;
     @Resource
@@ -391,7 +390,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 
     public String createOriginYED(String companyName,String attDirectory,String month) throws Exception
     {
-        List<List<Object>> data =  registerUniversalFilterChainService.HierarchicalFuzzySearchDataJTTP(companyName,month);
+        List<List<Object>> data =  registerUniversalFilterChainImp.HierarchicalFuzzySearchDataJTTP(companyName,month,3);
         if(data.size()==0)
         {
             throw new BbdException(companyName + "：对不起，您搜索的公司关联方数据正在分析更新中，暂时无法提供信息，请稍后再试。",true);

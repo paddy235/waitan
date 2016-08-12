@@ -14,13 +14,12 @@ import com.bbd.wtyh.web.relationVO.PointVO;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.*;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,7 +34,7 @@ import java.util.Map;
  *         dataDeWeight				数据去重
  *         dataHierarchy    		数据分层次
  */
-@Service("RegisterUniversalFilterChainImp")
+@Service("registerUniversalFilterChainImp")
 public class RegisterUniversalFilterChainImp {
 
     @Autowired
@@ -164,6 +163,28 @@ public class RegisterUniversalFilterChainImp {
         });
     }
 
+    // TODO - 暂存方法，后续可能会替换掉
+    /**
+     * 查询关联图谱
+     */
+    @Deprecated
+    @SuppressWarnings({ "unchecked", "deprecation" })
+    public List<List<Object>> HierarchicalFuzzySearchDataJTTP(String companyName, String dataVersion, Integer degree) throws Exception
+    {
+        String json = redisDAO.getString(companyName + APIConstants.redis_relation_LinksDataJTTP + dataVersion);
+        if (StringUtils.isNullOrEmpty(json)) {
+            json = this.getAPIDynamicRelatedPartUploadJTTP(companyName, degree, dataVersion);
+        }
+        if (StringUtils.isNullOrEmpty(json)) {
+            json = "[]"; // 没有查询到数据的情况
+        }
+        JSONArray jsonArr = JSONArray.fromObject(json);
+        List<List<Object>> list = JSONArray.toList(jsonArr, new String(), new JsonConfig());
+        return list;
+
+    }
+
+
     @SuppressWarnings({"unchecked", "rawtypes"})
     public Map<String, List> queryRelation(String companyName, String dataVersion, Integer degree) throws Exception {
         String json = redisDAO.getString(companyName + APIConstants.redis_relation_LinksDataJTTP + dataVersion);
@@ -258,5 +279,7 @@ public class RegisterUniversalFilterChainImp {
         }
         return pointList;
     }
+
+
 
 }
