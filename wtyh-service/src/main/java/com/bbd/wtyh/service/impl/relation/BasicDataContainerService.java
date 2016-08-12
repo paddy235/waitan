@@ -1,7 +1,7 @@
 package com.bbd.wtyh.service.impl.relation;
 
+import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.common.relation.APIConstants;
-import com.bbd.wtyh.common.relation.Constants;
 import com.bbd.wtyh.util.relation.StringUtils;
 import com.bbd.wtyh.web.relationVO.EnterpriseDataVO;
 import com.bbd.wtyh.web.relationVO.ManagementInfoVO;

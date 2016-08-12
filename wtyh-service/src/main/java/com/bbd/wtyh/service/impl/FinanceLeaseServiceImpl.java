@@ -1,14 +1,9 @@
 package com.bbd.wtyh.service.impl;
 
 
-import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.FinanceLeaseStatisticDO;
-import com.bbd.wtyh.domain.vo.ExchangeCompanyAreaVO;
-import com.bbd.wtyh.domain.vo.ExchangeCompanyVO;
 import com.bbd.wtyh.domain.vo.FinanceLeaseVO;
-import com.bbd.wtyh.mapper.ExchangeCompanyMapper;
 import com.bbd.wtyh.mapper.FinanceLeaseMapper;
-import com.bbd.wtyh.service.ExchangeCompanyService;
 import com.bbd.wtyh.service.FinanceLeaseService;
 import com.bbd.wtyh.util.CalculateUtils;
 import org.apache.commons.collections.map.HashedMap;
@@ -19,7 +14,6 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
