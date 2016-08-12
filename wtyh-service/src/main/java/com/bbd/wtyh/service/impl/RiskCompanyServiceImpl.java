@@ -24,7 +24,7 @@ public class RiskCompanyServiceImpl implements RiskCompanyService {
 		int result = realCount / SCANNER_COUNT;
 		List<RiskCompanyInfoDO> list = riskCompanyMapper.getScanner(params);
 		List<RiskCompanyInfoDO> scannerList = new ArrayList<>();
-		if (result >= 1 && null != list && list.size() >= 1) {
+		if (result >= 2 && null != list && list.size() >= 1) {
 			for (int i = 0; i < list.size(); i++) {
 				if (i % result == 0) {
 					scannerList.add(list.get(i));
