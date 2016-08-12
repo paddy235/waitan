@@ -1,5 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.bbd.wtyh.dao.P2PImageDao;
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompany;
 import com.bbd.wtyh.service.P2PImageService;
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,17 +57,15 @@ public class P2PImageServiceImpl implements P2PImageService {
 
     @Override
     public List<List<String>> coreDataDealTrend(String platName) {
-        // 处理数据转换
-        Map<String, String> data = p2PImageDao.coreDataDealTrend(platName);
-        List<String> years = new ArrayList<>();
-        List<String> dealNumbers = new ArrayList<>();
-        for (Map.Entry<String, String> entity : data.entrySet()) {
-            years.add(entity.getKey());
-            dealNumbers.add(entity.getValue());
-        }
-
         List<List<String>> result = new ArrayList<>();
-        result.add(years);
+        Map<String, Object> data = p2PImageDao.coreDataDealTrend(platName);
+        String str = String.valueOf(data.get("平台每日详细数据"));
+        JSONObject jsonObject = JSON.parseObject(str.substring(1, str.length()-1));
+        List<String> year = new ArrayList<>();
+        year.add(String.valueOf(jsonObject.get("date")));
+        List<String> dealNumbers = new ArrayList<>();
+        dealNumbers.add(String.valueOf(jsonObject.get("day_amount")));
+        result.add(year);
         result.add(dealNumbers);
         return result;
     }

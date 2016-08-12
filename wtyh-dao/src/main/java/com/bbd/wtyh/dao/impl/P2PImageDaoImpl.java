@@ -185,9 +185,9 @@ public class P2PImageDaoImpl implements P2PImageDao {
     }
 
     @Override
-    public Map<String, String> coreDataDealTrend(String platName) {
+    public Map<String, Object> coreDataDealTrend(String platName) {
         String coreDataDealURL = String.format("http://localhost:8080/financial_services?dataType=plat_data&plat_name=%s", platName);
-        Map<String, Object> data = new HashMap<>();
+        final Map<String, Object> data = new HashMap<>();
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             httpTemplate.get(coreDataDealURL, new HttpCallback<Object>() {
@@ -197,16 +197,15 @@ public class P2PImageDaoImpl implements P2PImageDao {
                 }
                 @Override
                 public Object parse(String result) {
-                    System.out.println(result);
                     JSONObject jsonObject = JSON.parseObject(result);
-                    System.out.println(jsonObject.get("plat_data_six_month"));
-                    return null;
+                    data.put("平台每日详细数据", jsonObject.get("plat_data_six_month"));
+                    return data;
                 }
             });
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return data;
     }
 
     @Override

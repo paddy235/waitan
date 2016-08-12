@@ -23,7 +23,7 @@ public interface P2PImageDao {
 
     Map<String,Object> coreDataInfo(String platName);
 
-    Map<String,String> coreDataDealTrend(String platName);
+    Map<String, Object> coreDataDealTrend(String platName);
 
     Map<String,String> coreDataInterestRateTrend();
 
