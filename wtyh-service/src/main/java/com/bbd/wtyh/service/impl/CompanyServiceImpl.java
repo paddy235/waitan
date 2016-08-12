@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Marco on 2016/8/8.
@@ -43,4 +44,14 @@ public class CompanyServiceImpl implements CompanyService {
     public List<CompanyDO> queryCompany(CompanyQuery query) {
         return companyMapper.queryCompany(query);
     }
+
+	@Override
+	public List<String> searchCompanyName(Map<String, Object> params) {
+		return companyMapper.searchCompanyName(params);
+	}
+
+	@Override
+	public int searchCompanyNameCount(String keyword) {
+		return companyMapper.searchCompanyNameCount(keyword);
+	}
 }
