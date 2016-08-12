@@ -12,5 +12,5 @@ import java.util.List;
 */
 public interface CompanyNewsService {
 
-	public List getCompanyNews();
+	public List getCompanyNews(String company);
 }
