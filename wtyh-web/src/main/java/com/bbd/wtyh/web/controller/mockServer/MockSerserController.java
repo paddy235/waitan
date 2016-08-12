@@ -1,20 +1,33 @@
 package com.bbd.wtyh.web.controller.mockServer;
 
+<<<<<<< Updated upstream
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+=======
+import org.springframework.data.redis.hash.HashMapper;
+>>>>>>> Stashed changes
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+<<<<<<< Updated upstream
 import com.bbd.wtyh.domain.dto.AreaIndexDTO;
 import com.bbd.wtyh.domain.dto.IndustryCompareDTO;
 import com.bbd.wtyh.domain.dto.IndustryProblemDTO;
 import com.bbd.wtyh.domain.dto.IndustryShanghaiDTO;
 import com.bbd.wtyh.domain.dto.PlatRankDataDTO;
+=======
+import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+>>>>>>> Stashed changes
 
 /**
  * p2p行业检测平台控制层
@@ -57,12 +70,26 @@ public class MockSerserController {
                     "\"amount_taotal\":23154.0985}";
         } else if (dataType.equals("plat_list")) {
             // 搜索 - 平台名称和公司名称
-            return "[{" +
-                    "\"plat_name\":\"来财街\"，" +
-                    "\"company_name\":\"阿里路亚上海投资有限公司\"}," +
+//            List<Map<String, String>> list = new ArrayList<>();
+//            Map<String , String> data = new HashMap<String, String>();
+//            data.put("plat_name","来财街");
+//            data.put("company_name","阿里路亚上海投资有限公司");
+//            list.add(data);
+            /*
+            ," +
                     "{" +
                     "\"plat_name\":\"91投\"，" +
-                    "\"company_name\":\"上海浙鑫金融有限服务有限公司\"},]";
+                    ""company_name":"上海浙鑫金融有限服务有限公司"}
+             */
+            String str = "[{" +
+                    "\"plat_name\":\"来财街\"，" +
+                    "\"company_name\":\"阿里路亚上海投资有限公司\"}]";
+            try {
+                str = new String(str.getBytes("UTF-8"),"GBK");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            return str;
         } else if (dataType.equals("leida")) {
             return "{\"plat_name\":\"今日劫财\"," +
                     "\"penalty_cost\":67.25," +

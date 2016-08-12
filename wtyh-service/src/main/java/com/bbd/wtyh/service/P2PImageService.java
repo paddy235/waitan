@@ -40,7 +40,7 @@ public interface P2PImageService {
     
     Map<String, Object> baseInfo(String companyName, String akId , String platName);
 
-    Map<String, String> coreDataInfo();
+    Map<String, String> coreDataInfo(String dataType);
 
     List<List<String>> coreDataDealTrend();
 

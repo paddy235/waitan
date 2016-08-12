@@ -47,19 +47,9 @@ public class P2PImageServiceImpl implements P2PImageService {
     }
 
     @Override
-    public Map<String, String> coreDataInfo() {
-        Map<String, String> data = p2PImageDao.coreDataInfo();
-        Map<String, String> info = new HashMap<>();
-        info.put("累计成交量", data.get("calulateDealNumber"));
-        info.put("贷款余额", data.get("loanOverage"));     //
-        info.put("平均利率", data.get("averageInterestRate"));     //
-        info.put("近30日资产流入", data.get("recent30DaysIncome"));     // 近30日资产流入
-        info.put("待收投资人数", data.get("waitingInvesterNumber"));     // 待收投资人数
-        info.put("待还借款人数", data.get("waitingRepaymenterNumber"));     // 待还借款人数
-        info.put("最大单户借款额", data.get("maxSingleLoanNumber"));     // 最大单户借款额
-        info.put("最大十户借款额", data.get("top10LoanNumber"));     // 最大十户借款额
-
-        return info;
+    public Map<String, String> coreDataInfo(String dataType) {
+        Map<String, String> data = p2PImageDao.coreDataInfo(dataType);
+        return data;
     }
 
     @Override
