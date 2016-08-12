@@ -25,15 +25,6 @@ public class P2PImageDaoImpl implements P2PImageDao {
     private String url;
 
     @Override
-    public Map<String, Object> platFormStatus() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("name", "数联铭品");
-        data.put("score", "88");
-        data.put("status", "正常营业");
-        return data;
-    }
-
-    @Override
     public Map<String, Object> platFormConsensus() {
         Map<String, Object> data = new LinkedHashMap<>();
         data.put("舆情名称", "翼鸟贷经营模式风险重重，拖累联想控股");
@@ -44,9 +35,28 @@ public class P2PImageDaoImpl implements P2PImageDao {
     }
 
     @Override
-    public Map<String, Object> lawsuitMsg() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("lawsuitNum", 5);
+    public Map<String, Object> lawsuitMsg(String company) {
+        String URL = String.format("http://dataom.api.bbdservice.com/api/bbd_ktgg/?company=%s&ak=ee372b938ef17a245f6b781beec4499e", company);
+        HttpTemplate httpTemplate = new HttpTemplate();
+        final Map<String, Object> data = new HashMap<>();
+        try {
+            httpTemplate.get(URL, new HttpCallback<Object>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public Object parse(String s) {
+                    JSONObject jsonObject = JSON.parseObject(s);
+                    data.put("total", jsonObject.get("total"));
+                    System.out.println(data);
+                    return data;
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return data;
     }
 
@@ -61,6 +71,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
                 public boolean valid() {
                     return false;
                 }
+
                 @Override
                 public Object parse(String result) {
                     JSONObject object = JSON.parseObject(result);
@@ -115,14 +126,15 @@ public class P2PImageDaoImpl implements P2PImageDao {
                 public boolean valid() {
                     return false;
                 }
+
                 @Override
                 public Object parse(String result) {
                     System.out.println(result);
-                    String str = result.substring(1,result.length()-1);
+                    String str = result.substring(1, result.length() - 1);
                     //乱码问题没有解决
                     JSONObject object = JSON.parseObject(str);
-                    map.put("平台名称",object.get("plat_name"));
-                    map.put("公司名称",object.get("company_name"));
+                    map.put("平台名称", object.get("plat_name"));
+                    map.put("公司名称", object.get("company_name"));
                     return map;
                 }
             });
@@ -165,17 +177,18 @@ public class P2PImageDaoImpl implements P2PImageDao {
                 public boolean valid() {
                     return true;
                 }
+
                 @Override
                 public Object parse(String result) {
                     JSONObject jsonObject = JSON.parseObject(result);
-                    data.put("累计成交量",jsonObject.get("amount_total"));
-                    data.put("借款余额",jsonObject.get("money_stock"));
-                    data.put("平均利率",jsonObject.get("interest_rate"));
-                    data.put("近30日资金净流入",jsonObject.get("30_day_net_inflow"));
-                    data.put("待收投资人数",jsonObject.get("bid_num_stay_stil"));
-                    data.put("待还借款人数",jsonObject.get("bor_num_stay_stil"));
-                    data.put("最大单户借款额",jsonObject.get("top1_sum_amount"));
-                    data.put("最大十户借款额",jsonObject.get("top10_sum_amount"));
+                    data.put("累计成交量", jsonObject.get("amount_total"));
+                    data.put("借款余额", jsonObject.get("money_stock"));
+                    data.put("平均利率", jsonObject.get("interest_rate"));
+                    data.put("近30日资金净流入", jsonObject.get("30_day_net_inflow"));
+                    data.put("待收投资人数", jsonObject.get("bid_num_stay_stil"));
+                    data.put("待还借款人数", jsonObject.get("bor_num_stay_stil"));
+                    data.put("最大单户借款额", jsonObject.get("top1_sum_amount"));
+                    data.put("最大十户借款额", jsonObject.get("top10_sum_amount"));
                     return data;
                 }
             });
@@ -191,11 +204,12 @@ public class P2PImageDaoImpl implements P2PImageDao {
         final Map<String, Object> data = new HashMap<>();
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
-           return httpTemplate.get(coreDataDealURL, new HttpCallback<PlatData>() {
+            return httpTemplate.get(coreDataDealURL, new HttpCallback<PlatData>() {
                 @Override
                 public boolean valid() {
                     return true;
                 }
+
                 @Override
                 public PlatData parse(String result) {
                     return JSON.parseObject(result, PlatData.class);

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,8 +24,13 @@ public class P2PImageServiceImpl implements P2PImageService {
     private P2PImageDao p2PImageDao;
 
     @Override
-    public Map<String, Object> platFormStatus() {
-        return p2PImageDao.platFormStatus();
+    public Map<String, Object> platFormStatus(String platName) {
+        PlatData pn = p2PImageDao.getPlatData(platName);
+        Map<String, Object> result = new HashMap<>();
+        result.put("评分",pn.getPlat_score());
+        result.put("平台名称",pn.getPlat_name());
+        result.put("营业状态",pn.getPlat_status());
+        return result;
     }
 
     @Override
@@ -33,8 +39,8 @@ public class P2PImageServiceImpl implements P2PImageService {
     }
 
     @Override
-    public Map<String, Object> lawsuitMsg() {
-        return p2PImageDao.lawsuitMsg();
+    public Map<String, Object> lawsuitMsg(String company) {
+        return p2PImageDao.lawsuitMsg(company);
     }
 
     @Override
