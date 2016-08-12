@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.dao.P2PImageDao;
-import com.bbd.wtyh.domain.wangDaiAPI.SearchCompany1;
+import com.bbd.wtyh.domain.wangDaiAPI.SearchCompany;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -237,19 +237,19 @@ public class P2PImageDaoImpl implements P2PImageDao {
     }
 
     @Override
-    public SearchCompany1 hasOrNotCompany(String plat_name) {
+    public SearchCompany hasOrNotCompany(String plat_name) {
         String api = url + "/dataType=plat_list" + "/" + plat_name;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
-            return httpTemplate.get(url, new HttpCallback<SearchCompany1>() {
+            return httpTemplate.get(url, new HttpCallback<SearchCompany>() {
                 @Override
                 public boolean valid() {
                     return true;
                 }
 
                 @Override
-                public SearchCompany1 parse(String result) {
-                    return JSON.parseObject(result, SearchCompany1.class);
+                public SearchCompany parse(String result) {
+                    return JSON.parseObject(result, SearchCompany.class);
                 }
             });
         } catch (Exception e) {
