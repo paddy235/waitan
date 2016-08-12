@@ -63,15 +63,21 @@ public class RiskCompanyController {
 	
 	@RequestMapping(value = "/doSearch")
 	@ResponseBody
-	public ResponseBean doSearch(@RequestParam(required = false) String keyword) {
+	public ResponseBean doSearch(@RequestParam(required = false) String keyword, @RequestParam int pageNo) {
 		int count = companyService.searchCompanyNameCount(keyword);
 		Pagination pagination = new Pagination();
-		pagination.setCount(count);
+		pagination.setCount(count >= 201 ? 200 : count); // 搜索结果最多保留200条数据
+		if (pageNo >= 21) {
+			pagination.setList(null);
+			return ResponseBean.successResponse(pagination);
+		}
+		pagination.setPageNumber(pageNo);
 		Map<String, Object> params = new HashMap<>();
 		params.put("keyword", keyword);
 		params.put("pagination", pagination);
 		List<String> nameList = companyService.searchCompanyName(params);
-		return ResponseBean.successResponse(nameList);
+		pagination.setList(nameList);
+		return ResponseBean.successResponse(pagination);
 	}
 
 }
