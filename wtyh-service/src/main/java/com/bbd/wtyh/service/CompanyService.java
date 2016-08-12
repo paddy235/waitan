@@ -4,6 +4,7 @@ import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.query.CompanyQuery;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Marco on 2016/8/8.
@@ -20,5 +21,8 @@ public interface CompanyService {
 
     List<CompanyDO> queryCompany(CompanyQuery query);
 
+    List<String> searchCompanyName(Map<String, Object> params);
+    
+    int searchCompanyNameCount(String keyword);
 
 }

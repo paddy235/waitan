@@ -2,6 +2,7 @@ package com.bbd.wtyh.mapper;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.bbd.wtyh.domain.query.CompanyQuery;
 import org.apache.ibatis.annotations.Param;
@@ -37,5 +38,8 @@ public interface CompanyMapper {
 
     List<CompanyDO> searchCompany(@Param("companyType") Integer companyType, @Param("name") String keyword, @Param("size") Integer size);
 
-
+    List<String> searchCompanyName(Map<String, Object> params);
+    
+    int searchCompanyNameCount(String keyword);
+    
 }
