@@ -8,5 +8,7 @@ import com.bbd.wtyh.domain.RiskCompanyInfoDO;
 public interface RiskCompanyService {
 	
 	List<RiskCompanyInfoDO> getScanner(Map<String, Object> params);
-
+	
+	List<RiskCompanyInfoDO> getTop(Map<String, Object> params);
+	
 }
