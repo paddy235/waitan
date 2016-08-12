@@ -24,23 +24,26 @@
 			</if>
 		</where>
 	</sql>
+	<sql id="indexDataContent">
+		create_by as createBy,
+		create_date as createDate,
+		update_by as updateBy,
+		update_date as updateDate,
+		area as area,
+		reg_capital as regCapital,
+		company_qualification as companyQualification,
+		company_name as companyName,
+		static_risk_index as staticRiskIndex,
+		dynamic_risk_index as dynamicRiskIndex,
+		legal_rpt as legalRpt,
+		company_type as companyType,
+		review_time as reviewTime,
+		is_rise as isRise
+	</sql>
 
 	<select id="getScanner" resultType="com.bbd.wtyh.domain.RiskCompanyInfoDO" parameterType="java.util.HashMap">
 		select
-			create_by as createBy,
-			create_date as createDate,
-			update_by as updateBy,
-			update_date as updateDate,
-			area as area,
-			reg_capital as regCapital,
-			company_qualification as companyQualification,
-			company_name as companyName,
-			static_risk_index as staticRiskIndex,
-			dynamic_risk_index as dynamicRiskIndex,
-			legal_rpt as legalRpt,
-			company_type as companyType,
-			review_time as reviewTime,
-			is_rise as isRise
+			<include refid="indexDataContent"></include>
 		from index_data
 		<include refid="indexDataCondition"></include>
 		order by static_risk_index asc
@@ -49,6 +52,23 @@
 	<select id="getScannerCount" parameterType="java.util.HashMap" resultType="int">
 		select count(1) from index_data
 		<include refid="indexDataCondition"></include>
+	</select>
+	
+	<select id="getTop" parameterType="java.util.HashMap" resultType="com.bbd.wtyh.domain.RiskCompanyInfoDO">
+		select
+			<include refid="indexDataContent"></include>
+		from index_data
+		<include refid="indexDataCondition"></include>
+		order by static_risk_index 
+		<choose>
+			<when test="sortType == '0'.toString()">
+				asc
+			</when>
+			<otherwise>
+				desc
+			</otherwise>
+		</choose>
+		limit 200
 	</select>
 
 </mapper>
