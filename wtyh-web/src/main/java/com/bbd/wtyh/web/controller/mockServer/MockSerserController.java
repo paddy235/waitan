@@ -64,9 +64,9 @@ public class MockSerserController {
                     "\"plat_name\":\"91投\"，" +
                     ""company_name":"上海浙鑫金融有限服务有限公司"}
              */
-            String str = "[{" +
+            String str = "{" +
                     "\"plat_name\":\"来财街\"，" +
-                    "\"company_name\":\"阿里路亚上海投资有限公司\"}]";
+                    "\"company_name\":\"阿里路亚上海投资有限公司\"}";
             try {
                 str = new String(str.getBytes("UTF-8"),"GBK");
             } catch (UnsupportedEncodingException e) {

@@ -1,5 +1,7 @@
 package com.bbd.wtyh.service;
 
+import com.bbd.wtyh.domain.wangdaiAPI.SearchCompany;
+
 import java.util.List;
 import java.util.Map;
 
@@ -48,5 +50,5 @@ public interface P2PImageService {
 
     List<List<String>> coreDataLoanOverage();
 
-    Map<String,Object> hasOrNotCompany(String plat_name);
+    SearchCompany hasOrNotCompany(String plat_name);
 }
