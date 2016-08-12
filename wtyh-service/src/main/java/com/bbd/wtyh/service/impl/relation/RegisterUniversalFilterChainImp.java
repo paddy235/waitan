@@ -34,7 +34,7 @@ import java.util.Map;
  *         dataDeWeight				数据去重
  *         dataHierarchy    		数据分层次
  */
-@Service("RegisterUniversalFilterChainImp")
+@Service("registerUniversalFilterChainImp")
 public class RegisterUniversalFilterChainImp {
 
     @Autowired
