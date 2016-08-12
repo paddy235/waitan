@@ -24,11 +24,11 @@ public interface P2PImageDao {
 
     Map<String,Object> coreDataInfo(String platName);
 
-    PlatData coreDataDealTrend(String platName);
+    PlatData getPlatData(String platName);
 
-    Map<String,String> coreDataInterestRateTrend();
-
-    Map<String,String> coreDataLoanOverage();
+//    Map<String,String> coreDataInterestRateTrend();
+//
+//    Map<String,String> coreDataLoanOverage();
 
     SearchCompany hasOrNotCompany(String plat_name);
 }

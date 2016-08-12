@@ -46,9 +46,9 @@ public interface P2PImageService {
 
     List<List<String>> coreDataDealTrend(String platNmae);
 
-    List<List<String>> coreDataInterestRateTrend();
+    List<List<String>> coreDataInterestRateTrend(String plat_name);
 
-    List<List<String>> coreDataLoadOverage();
+    List<List<String>> coreDataLoadOverage(String plat_name);
 
     SearchCompany hasOrNotCompany(String plat_name);
 }

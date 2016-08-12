@@ -169,6 +169,7 @@ public class PlatData {
     }
 
     public List<PlatDataSixMonth> getPlat_data_six_month() {
+        // TODO: 获取数据中的，最近的 15条
         return plat_data_six_month;
     }
 
