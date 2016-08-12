@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.UserHistoryMapper">
+ 
+	<insert id="save" parameterType="com.bbd.wtyh.domain.UserHistoryDO" >
+
+		insert into user_history (create_by  , create_date,update_by , update_date,user_id  ,  url , keyword  ,operate_date,   ip,ori_url  , user_agent ,is_login)
+		                  values (#{createBy}, now(),     #{updateBy}, now()      ,#{userId},#{url},#{keyword},now(),       #{ip},#{oriUrl},#{userAgent},#{isLogin}   );
+	</insert>
+
+</mapper>
