@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.dao.P2PImageDao;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -18,6 +17,9 @@ import java.util.*;
  */
 @Repository("p2PImageDao")
 public class P2PImageDaoImpl implements P2PImageDao {
+
+    @Value("${api.finnacial.url}")
+    private String url;
 
     @Override
     public Map<String, Object> platFormStatus() {
@@ -56,6 +58,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
                 public boolean valid() {
                     return false;
                 }
+
                 @Override
                 public Object parse(String result) {
                     JSONObject object = JSON.parseObject(result);
@@ -110,14 +113,15 @@ public class P2PImageDaoImpl implements P2PImageDao {
                 public boolean valid() {
                     return false;
                 }
+
                 @Override
                 public Object parse(String result) {
                     System.out.println(result);
-                    String str = result.substring(1,result.length()-1);
+                    String str = result.substring(1, result.length() - 1);
                     //乱码问题没有解决
                     JSONObject object = JSON.parseObject(str);
-                    map.put("平台名称",object.get("plat_name"));
-                    map.put("公司名称",object.get("company_name"));
+                    map.put("平台名称", object.get("plat_name"));
+                    map.put("公司名称", object.get("company_name"));
                     return map;
                 }
             });
@@ -232,8 +236,25 @@ public class P2PImageDaoImpl implements P2PImageDao {
     }
 
     @Override
-    public Map<String, Object> hasOrNotCompany(String plat_name) {
-        return null;
+    public SearchCompany hasOrNotCompany(String plat_name) {
+        String api = url + "?dataType=plat_list" + "&plat_name=" + plat_name;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(api, new HttpCallback<SearchCompany>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public SearchCompany parse(String result) {
+                    return JSON.parseObject(result, SearchCompany.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

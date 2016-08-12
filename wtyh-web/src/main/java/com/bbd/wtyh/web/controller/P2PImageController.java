@@ -1,6 +1,8 @@
 package com.bbd.wtyh.web.controller;
 
+import com.bbd.wtyh.domain.wangDaiAPI.SearchCompany;
 import com.bbd.wtyh.service.P2PImageService;
+import com.bbd.wtyh.util.relation.StringUtils;
 import com.bbd.wtyh.web.HistogramBean;
 import com.bbd.wtyh.web.RadarChartBean;
 import com.bbd.wtyh.web.ResponseBean;
@@ -91,8 +93,12 @@ public class P2PImageController {
     @RequestMapping("/hasOrNotCompany")
     @ResponseBody
     public ResponseBean hasOrNotCompany(@RequestParam(required = true) String plat_name) {
-        Map<String, Object> content = p2PImageService.hasOrNotCompany(plat_name);
-        return ResponseBean.successResponse(content);
+        SearchCompany content = p2PImageService.hasOrNotCompany(plat_name);
+        if (StringUtils.isNotNullOrEmpty(content.getCompany_name())) {
+            return ResponseBean.errorResponse(content);
+        } else {
+            return ResponseBean.successResponse(content);
+        }
     }
 
 
@@ -149,7 +155,7 @@ public class P2PImageController {
     @RequestMapping("/coreDataInterestRateTrend")
     @ResponseBody
     public ResponseBean coreDataInterestRateTrend() {
-        List<List<String>> data = p2PImageService.coreDataDealTrend();
+        List<List<String>> data = p2PImageService.coreDataInterestRateTrend();
         HistogramBean<String, String> content = new HistogramBean();
         if (data.size() != 0) {
             content.setxAxis(data.get(0));
@@ -166,7 +172,7 @@ public class P2PImageController {
     @RequestMapping("/coreDataLoadOverage")
     @ResponseBody
     public ResponseBean coreDataLoadOverage() {
-        List<List<String>> data = p2PImageService.coreDataDealTrend();
+        List<List<String>> data = p2PImageService.coreDataLoadOverage();
         HistogramBean<String, String> content = new HistogramBean();
         if (data.size() != 0) {
             content.setxAxis(data.get(0));
