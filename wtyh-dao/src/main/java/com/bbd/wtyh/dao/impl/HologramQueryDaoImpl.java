@@ -7,6 +7,7 @@ import com.bbd.wtyh.dao.HologramQueryDao;
 import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.CourtAnnouncementDO;
+import com.bbd.wtyh.domain.bbdAPI.JudgeDocDO;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -36,6 +37,11 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     @Value("${api.court.announcement.ak}")
     private String courtAnnouncementAK;
 
+    @Value("${api.court.judgeDoc.url}")
+    private String judgeDoc;    // 裁判文书
+
+    @Value("${api.court.judgeDoc.ak}")
+    private String judgeDocAK;
     /**
      * 信息查询平台搜索
      *
@@ -202,5 +208,25 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
         return data;
     }
 
+    @Override
+    public JudgeDocDO judgeDoc(String company) {
+        String api = judgeDoc + "?company=" + company + "&ak=" + judgeDocAK;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(api, new HttpCallback<JudgeDocDO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
 
+                @Override
+                public JudgeDocDO parse(String result) {
+                    return JSON.parseObject(result, JudgeDocDO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

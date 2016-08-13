@@ -4,11 +4,13 @@ import com.bbd.wtyh.dao.HologramQueryDao;
 import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.CourtAnnouncementDO;
+import com.bbd.wtyh.domain.bbdAPI.JudgeDocDO;
 import com.bbd.wtyh.service.HologramQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -62,13 +64,20 @@ public class HologramQueryServiceImpl implements HologramQueryService {
     }
 
     @Override
-    public CourtAnnouncementDO openCourtAnnouncement(String company) {
-        return hologramQueryDao.openCourtAnnouncement(company);
+    public List<CourtAnnouncementDO.Results> openCourtAnnouncement(String company) {
+        CourtAnnouncementDO courtAnnouncementDO = hologramQueryDao.openCourtAnnouncement(company);
+        return courtAnnouncementDO.getResults();
     }
 
     @Override
     public Map<String, Object> recruitMsg() {
         return hologramQueryDao.recruitMsg();
+    }
+
+    @Override
+    public List<JudgeDocDO.Results> judgeDoc(String company) {
+        JudgeDocDO courtAnnouncementDO = hologramQueryDao.judgeDoc(company);
+        return courtAnnouncementDO.getResults();
     }
 
 

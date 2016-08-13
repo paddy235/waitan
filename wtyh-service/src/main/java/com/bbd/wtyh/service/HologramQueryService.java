@@ -2,7 +2,9 @@ package com.bbd.wtyh.service;
 
 import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDO;
 import com.bbd.wtyh.domain.bbdAPI.CourtAnnouncementDO;
+import com.bbd.wtyh.domain.bbdAPI.JudgeDocDO;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -61,7 +63,7 @@ public interface HologramQueryService {
      * @return
      * @param company
      */
-    CourtAnnouncementDO openCourtAnnouncement(String company);
+    List<CourtAnnouncementDO.Results> openCourtAnnouncement(String company);
 
     /**
      * 企业信息详情-招聘信息
@@ -69,4 +71,6 @@ public interface HologramQueryService {
      * @return
      */
     Map<String, Object> recruitMsg();
+
+    List<JudgeDocDO.Results> judgeDoc(String company);
 }
