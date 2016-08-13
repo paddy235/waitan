@@ -2,21 +2,20 @@ package com.bbd.wtyh.web.controller;
 
 import com.bbd.wtyh.common.Pagination;
 import com.bbd.wtyh.domain.*;
-import com.bbd.wtyh.domain.dto.GuaranteeBalanceDTO;
-import com.bbd.wtyh.domain.dto.HotAreaDTO;
-import com.bbd.wtyh.domain.dto.LoanBalanceDTO;
-import com.bbd.wtyh.domain.dto.ShareholderRiskDTO;
+import com.bbd.wtyh.domain.dto.*;
 import com.bbd.wtyh.domain.query.CompanyQuery;
 import com.bbd.wtyh.service.*;
 import com.bbd.wtyh.web.ResponseBean;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 融资担保
@@ -81,6 +80,7 @@ public class GuaranteeController {
 
     /**
      * 担保余额统计
+     *
      * @return
      */
     @RequestMapping("balance")
@@ -107,17 +107,19 @@ public class GuaranteeController {
 
     /**
      * 股东关联风险列表
+     *
      * @return
      */
     @RequestMapping("shareholderRisk")
     public ResponseBean shareholderRisk() {
-        List<ShareholderRiskDTO> list = shareholderRiskService.listShareholderRisk((int) CompanyDO.TYPE_XD_2);
+        List<ShareholderRiskDTO> list = shareholderRiskService.listShareholderRisk((int) CompanyDO.TYPE_RZDB_3);
         return ResponseBean.successResponse(list);
     }
 
 
     /**
      * 股东关联企业详情列表
+     *
      * @param companyId
      * @return
      */
@@ -126,18 +128,13 @@ public class GuaranteeController {
         if (null == companyId || companyId <= 0) {
             return ResponseBean.errorResponse("companyId must be not null");
         }
-        List<RelatedCompanyDO> relatedCompanyList = shareholderRiskService.getRelatedCompany(companyId);
-        Multimap<Integer, String> result = ArrayListMultimap.create();
-        for (RelatedCompanyDO relatedCompanyDO : relatedCompanyList) {
-            CompanyDO companyDO = companyService.getCompanyById(relatedCompanyDO.getRelatedCompanyId());
-            result.put((int) companyDO.getCompanyType(), companyDO.getName());
-        }
-        return ResponseBean.successResponse(result.asMap());
+        return ResponseBean.successResponse(shareholderRiskService.getRelatedCompany(companyId).asMap());
     }
 
 
     /**
      * 大额(超过2000万)担保信息列表
+     *
      * @param pagination
      * @param orderByField
      * @param descAsc
@@ -145,7 +142,33 @@ public class GuaranteeController {
      */
     @RequestMapping("largeGuaranteeList")
     public ResponseBean largeGuaranteeList(Pagination pagination, Integer orderByField, String descAsc) {
-        return ResponseBean.successResponse(guaranteeService.listLargeGuarantee(pagination, orderByField, descAsc));
+        List<GuaranteedInfoDO> list = guaranteeService.listLargeGuarantee(pagination, orderByField, descAsc);
+        int count = guaranteeService.countLargeGuarantee();
+        pagination.setCount(count);
+        List<LargeGuaranteeDTO> result = Lists.newArrayList();
+
+        for (GuaranteedInfoDO infoDO : list) {
+            LargeGuaranteeDTO dto = new LargeGuaranteeDTO();
+            dto.setGuaranteeId(infoDO.getGuaranteeId());
+            dto.setGuaranteedId(infoDO.getGuaranteedId());
+            dto.setGuaranteeName(companyService.getNameById(infoDO.getGuaranteeId()));
+            CompanyDO guaranteedCompany = companyService.getCompanyById(infoDO.getGuaranteedId());
+
+            dto.setGuaranteedName(guaranteedCompany.getName());
+            dto.setGuaranteedBusinessType(guaranteedCompany.getBusinessType());
+            if (guaranteedCompany.getRegisteredCapital() != null && guaranteedCompany.getRegisteredCapitalType() != null) {
+                dto.setGuaranteedRegisteredCapital(guaranteedCompany.getRegisteredCapital() + guaranteedCompany.getRegisteredCapitalType() == 1 ? "万元" : "万美元");
+            } else {
+                dto.setGuaranteedRegisteredCapital("无");
+            }
+            result.add(dto);
+
+        }
+        Map<String, Object> map = Maps.newHashMap();
+        map.put("list", result);
+        map.put("pagination", pagination);
+        return ResponseBean.successResponse(map);
+
     }
 
 

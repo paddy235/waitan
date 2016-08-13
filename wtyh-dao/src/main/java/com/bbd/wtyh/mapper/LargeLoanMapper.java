@@ -10,5 +10,7 @@ import java.util.List;
 public interface LargeLoanMapper {
     LargeLoanDO selectByPrimaryKey(Integer id);
 
-    List<LargeLoanDTO> listLargeLoan(@Param("pagination") Pagination pagination, @Param("orderByField") Integer orderByField, @Param("descAsc") String descAsc);
+    List<LargeLoanDO> listLargeLoan(@Param("pagination") Pagination pagination, @Param("orderByField") Integer orderByField, @Param("descAsc") String descAsc);
+
+    int countLargeLoan();
 }

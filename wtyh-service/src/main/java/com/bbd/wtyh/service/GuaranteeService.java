@@ -2,9 +2,7 @@ package com.bbd.wtyh.service;
 
 import com.bbd.wtyh.common.Pagination;
 import com.bbd.wtyh.domain.GuaranteeBalanceDO;
-import com.bbd.wtyh.domain.LoanBalanceDO;
-import com.bbd.wtyh.domain.dto.LargeGuaranteeDTO;
-import com.bbd.wtyh.domain.dto.LargeLoanDTO;
+import com.bbd.wtyh.domain.GuaranteedInfoDO;
 
 import java.util.List;
 
@@ -15,6 +13,7 @@ public interface GuaranteeService {
 
     List<GuaranteeBalanceDO> getGuaranteeBalance();
 
-    List<LargeGuaranteeDTO> listLargeGuarantee(Pagination pagination, Integer orderByField, String descAsc);
+    List<GuaranteedInfoDO> listLargeGuarantee(Pagination pagination, Integer orderByField, String descAsc);
 
+    int countLargeGuarantee();
 }

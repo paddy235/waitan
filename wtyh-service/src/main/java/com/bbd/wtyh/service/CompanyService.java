@@ -17,6 +17,8 @@ public interface CompanyService {
 
     CompanyDO getCompanyById(Integer companyId);
 
+    CompanyDO getCompanyByName(String companyName);
+
     List<CompanyDO> searchCompany(Integer companyType, String keyword, Integer size);
 
     List<CompanyDO> queryCompany(CompanyQuery query);
