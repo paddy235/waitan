@@ -1,9 +1,9 @@
 package com.bbd.wtyh.dao;
 
 
-import com.bbd.wtyh.domain.bbdAPI1.BaiDuYuQingDO;
-import com.bbd.wtyh.domain.bbdAPI1.BaseDataDO;
-import com.bbd.wtyh.domain.bbdAPI1.CourtAnnouncementDO;
+import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDO;
+import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
+import com.bbd.wtyh.domain.bbdAPI.CourtAnnouncementDO;
 
 import java.util.Map;
 

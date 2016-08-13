@@ -1,7 +1,7 @@
 package com.bbd.wtyh.web.controller;
 
-import com.bbd.wtyh.domain.bbdAPI1.BaiDuYuQingDO;
-import com.bbd.wtyh.domain.bbdAPI1.CourtAnnouncementDO;
+import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDO;
+import com.bbd.wtyh.domain.bbdAPI.CourtAnnouncementDO;
 import com.bbd.wtyh.service.HologramQueryService;
 import com.bbd.wtyh.web.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
