@@ -2,11 +2,12 @@ package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.dao.HologramQueryDao;
 import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDo;
-import com.bbd.wtyh.domain.bbdAPI.BaseData;
+import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.service.HologramQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -33,16 +34,15 @@ public class HologramQueryServiceImpl implements HologramQueryService {
 
     @Override
     public Map<String, Object> outlineMsg(String companyName) {
-        BaseData baseData = hologramQueryDao.outlineMsg(companyName);
-        System.out.println("");
-//        Map<String, Object> data = new HashMap<>();
-//        for (BaseData.Jbxx result : baseData.getResults()) {
-//            data.put("企业名称",result.getCompany_name());
-//            data.put("法定代表人",result.getFrname());
-//            data.put("注册资本",result.getRegcap());
-//            data.put("注册地址",result.getAddress());
-//        }
-        return null;
+        BaseDataDO baseDataDO = hologramQueryDao.outlineMsg(companyName);
+        Map<String, Object> data = new HashMap<>();
+        for (BaseDataDO.Results result : baseDataDO.getResults()) {
+            data.put("公司名称",result.getJbxx().getCompany_name());
+            data.put("法定代表人",result.getJbxx().getFrname());
+            data.put("注册资本",result.getJbxx().getRegcap());
+            data.put("注册地址",result.getJbxx().getAddress());
+        }
+        return data;
     }
 
     @Override

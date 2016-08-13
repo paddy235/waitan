@@ -46,7 +46,7 @@ public class P2PImageServiceImpl implements P2PImageService {
 
     @Override
     public Map<String, Object> radarScore(String platName) {
-        PlatData platData = p2PImageDao.getPlatData(platName);
+        PlatDataDO platData = p2PImageDao.getPlatData(platName);
         Map<String, Object> data = p2PImageDao.radarScore(platName);
         data.put("sumScore",platData.getPlat_score());
         return data;
