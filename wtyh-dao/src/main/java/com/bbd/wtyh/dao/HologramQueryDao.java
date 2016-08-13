@@ -23,7 +23,7 @@ public interface HologramQueryDao {
 
     BaiDuYuQingDO newsConsensus(String company);
 
-    Map<String, Object> businessInfo();
+    BaseDataDO businessInfo(String companyName);
 
     Map<String, Object> shareholdersSenior();
 

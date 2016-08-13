@@ -42,6 +42,12 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
 
     @Value("${api.court.judgeDoc.ak}")
     private String judgeDocAK;
+    @Value("${api.bbd_qyxx.url}")
+    private String bbdQyxxURL;
+
+    @Value("${api.bbd_qyxx.ak}")
+    private String bbdQyxxAK;
+
     /**
      * 信息查询平台搜索
      *
@@ -82,7 +88,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      */
     @Override
     public BaseDataDO outlineMsg(String companyName) {
-        String coreDataDealURL = String.format("http://dataom.api.bbdservice.com/api/bbd_qyxx/?company=攀枝花市交通旅游客运有限责任公司&ak=0516d1c0db8d5cd1933cc2442c9f8d40");
+        String coreDataDealURL = bbdQyxxURL + "?company=" + companyName + "&ak=" + bbdQyxxAK;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(coreDataDealURL, new HttpCallback<BaseDataDO>() {
@@ -135,22 +141,25 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      * @return
      */
     @Override
-    public Map<String, Object> businessInfo() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("法定代表人", "王伟");
-        data.put("注册资本", "王伟");
-        data.put("状态", "王伟");
-        data.put("注册时间", "王伟");
-        data.put("行业", "王伟");
-        data.put("工商注册号", "王伟");
-        data.put("企业类型", "王伟");
-        data.put("组织机构代码", "王伟");
-        data.put("营业期限", "王伟");
-        data.put("登记机关", "王伟");
-        data.put("核准日期", "王伟");
-        data.put("统一信用代码", "王伟");
-        data.put("经营范围", "王伟");
-        return data;
+    public BaseDataDO businessInfo(String companyName) {
+        String coreDataDealURL = bbdQyxxURL + "?company=" + companyName + "&ak=" + bbdQyxxAK;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(coreDataDealURL, new HttpCallback<BaseDataDO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+                @Override
+                public BaseDataDO parse(String result) {
+                    Gson gson = new Gson();
+                    return gson.fromJson(result, BaseDataDO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**

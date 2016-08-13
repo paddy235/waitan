@@ -5,6 +5,7 @@ import com.bbd.wtyh.domain.bbdAPI.CourtAnnouncementDO;
 import com.bbd.wtyh.domain.bbdAPI.JudgeDocDO;
 import com.bbd.wtyh.service.HologramQueryService;
 import com.bbd.wtyh.web.ResponseBean;
+import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -82,8 +83,8 @@ public class HologramQueryController {
      */
     @RequestMapping("/businessInfo")
     @ResponseBody
-    public ResponseBean businessInfo() {
-        Map<String, Object> result = hologramQueryService.businessInfo();
+    public ResponseBean businessInfo(@RequestParam(required = true) String companyName) {
+        Map<String, Object> result = hologramQueryService.businessInfo(companyName);
         return ResponseBean.successResponse(result);
     }
 
