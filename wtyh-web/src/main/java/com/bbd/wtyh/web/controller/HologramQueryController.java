@@ -1,10 +1,12 @@
 package com.bbd.wtyh.web.controller;
 
+import com.bbd.wtyh.domain.bbdAPI.BaseData;
 import com.bbd.wtyh.service.HologramQueryService;
 import com.bbd.wtyh.web.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
@@ -53,8 +55,8 @@ public class HologramQueryController {
      */
     @RequestMapping("/outlineMsg")
     @ResponseBody
-    public ResponseBean outlineMsg() {
-        Map<String, Object> result = hologramQueryService.outlineMsg();
+    public ResponseBean outlineMsg(@RequestParam(required = true) String companyName) {
+        Map<String, Object> result = hologramQueryService.outlineMsg(companyName);
         return ResponseBean.successResponse(result);
     }
 

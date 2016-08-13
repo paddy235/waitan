@@ -1,5 +1,7 @@
 package com.bbd.wtyh.service;
 
+import com.bbd.wtyh.domain.bbdAPI.BaseData;
+
 import java.util.Map;
 
 /**
@@ -28,7 +30,7 @@ public interface HologramQueryService {
      *
      * @return
      */
-    Map<String, Object> outlineMsg();
+    Map<String, Object> outlineMsg(String companyName);
 
     /**
      * 新闻舆情

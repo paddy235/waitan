@@ -1,5 +1,8 @@
 package com.bbd.wtyh.dao;
 
+import com.bbd.wtyh.domain.bbdAPI.BaseData;
+import com.bbd.wtyh.domain.wangDaiAPI.PlatData;
+
 import java.util.Map;
 
 /**
@@ -13,7 +16,7 @@ public interface HologramQueryDao {
 
     Map<String, Object> guidance();
 
-    Map<String, Object> outlineMsg();
+    BaseData outlineMsg(String platName);
 
     Map<String, Object> newsConsensus();
 

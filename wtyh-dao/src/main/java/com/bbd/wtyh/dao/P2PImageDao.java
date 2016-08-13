@@ -16,7 +16,7 @@ public interface P2PImageDao {
 
     Map<String, Object> lawsuitMsg(String company);
 
-    Map<String, Object> radarScore(String dataType, String plat_name);
+    Map<String, Object> radarScore(String plat_name);
 
     Map<String, Object> baseInfo(String companyName, String akId, String platName);
 
