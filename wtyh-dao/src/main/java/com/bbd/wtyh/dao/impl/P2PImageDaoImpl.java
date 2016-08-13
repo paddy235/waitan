@@ -7,7 +7,7 @@ import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.dao.P2PImageDao;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompanyDO;
-import com.bbd.wtyh.domain.wangDaiAPI.YuQing;
+import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -26,19 +26,19 @@ public class P2PImageDaoImpl implements P2PImageDao {
     private String url;
 
     @Override
-    public YuQing platformConsensus(String platName) {
+    public YuQingDO platformConsensus(String platName) {
         String yuqingURL = url + "?dataType=yuqing" + "&plat_name=" + platName;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
-            return httpTemplate.get(yuqingURL, new HttpCallback<YuQing>() {
+            return httpTemplate.get(yuqingURL, new HttpCallback<YuQingDO>() {
                 @Override
                 public boolean valid() {
                     return true;
                 }
 
                 @Override
-                public YuQing parse(String result) {
-                    return JSON.parseObject(result, YuQing.class);
+                public YuQingDO parse(String result) {
+                    return JSON.parseObject(result, YuQingDO.class);
                 }
             });
         } catch (Exception e) {

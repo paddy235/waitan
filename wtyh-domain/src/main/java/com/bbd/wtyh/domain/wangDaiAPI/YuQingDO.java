@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by YanWenyuan on 2016/8/13.
  */
-public class YuQing {
+public class YuQingDO {
     private String plat_name;
     private String score;
     private List<Warning> warning;

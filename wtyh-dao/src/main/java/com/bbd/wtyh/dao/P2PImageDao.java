@@ -2,7 +2,7 @@ package com.bbd.wtyh.dao;
 
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompanyDO;
-import com.bbd.wtyh.domain.wangDaiAPI.YuQing;
+import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
 
 import java.util.Map;
 
@@ -18,7 +18,7 @@ public interface P2PImageDao {
      * @return 舆情信息
      * @param platName
      */
-    YuQing platformConsensus(String platName);
+    YuQingDO platformConsensus(String platName);
 
     Map<String, Object> lawsuitMsg(String company);
 
