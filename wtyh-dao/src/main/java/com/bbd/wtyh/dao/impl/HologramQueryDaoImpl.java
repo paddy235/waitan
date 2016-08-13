@@ -5,7 +5,7 @@ import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.dao.HologramQueryDao;
 import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDo;
-import com.bbd.wtyh.domain.bbdAPI.BaseData;
+import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -68,22 +68,19 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      * @return
      */
     @Override
-    public BaseData outlineMsg(String companyName) {
+    public BaseDataDO outlineMsg(String companyName) {
         String coreDataDealURL = String.format("http://dataom.api.bbdservice.com/api/bbd_qyxx/?company=攀枝花市交通旅游客运有限责任公司&ak=0516d1c0db8d5cd1933cc2442c9f8d40");
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
-            return httpTemplate.get(coreDataDealURL, new HttpCallback<BaseData>() {
+            return httpTemplate.get(coreDataDealURL, new HttpCallback<BaseDataDO>() {
                 @Override
                 public boolean valid() {
                     return true;
                 }
                 @Override
-                public BaseData parse(String result) {
-
+                public BaseDataDO parse(String result) {
                     Gson gson = new Gson();
-                    BaseData d = gson.fromJson(result, BaseData.class);
-
-                    return d;
+                    return gson.fromJson(result, BaseDataDO.class);
                 }
             });
         } catch (Exception e) {

@@ -1,79 +1,24 @@
 package com.bbd.wtyh.domain.bbdAPI;
 
-import org.apache.poi.ss.formula.functions.T;
-
 import java.util.*;
 
 /**
  * Created by wangchenge on 2016/8/13 0013.
  */
-public class BaseData {
+public class BaseDataDO {
     private String msg;
     private String err_code;
     private Integer rsize;
     private String total;
     private List<Results> results;
 
-    public List<Results> getResults() {
-        return results;
-    }
-
-    public void setResults(List<Results> results) {
-        this.results = results;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public String getErr_code() {
-        return err_code;
-    }
-
-    public void setErr_code(String err_code) {
-        this.err_code = err_code;
-    }
-
-    public Integer getRsize() {
-        return rsize;
-    }
-
-    public void setRsize(Integer rsize) {
-        this.rsize = rsize;
-    }
-
-    public String getTotal() {
-        return total;
-    }
-
-    public void setTotal(String total) {
-        this.total = total;
-    }
-
-    public class Results {
+    public static class Results {
         private Jbxx jbxx;
         private List<Bgxx> bgxx;
         private List<Baxx> baxx;
         private List<Gdxx> gdxx;
 
-        public List<Gdxx> getGdxx() {
-            return gdxx;
-        }
-
-        public void setGdxx(List<Gdxx> gdxx) {
-            this.gdxx = gdxx;
-        }
-
-        public List<Bgxx> getBgxx() {
-            return bgxx;
-        }
-
-        public void setBgxx(List<Bgxx> bgxx) {
-            this.bgxx = bgxx;
+        public Results() {
         }
 
         public Jbxx getJbxx() {
@@ -84,6 +29,14 @@ public class BaseData {
             this.jbxx = jbxx;
         }
 
+        public List<Bgxx> getBgxx() {
+            return bgxx;
+        }
+
+        public void setBgxx(List<Bgxx> bgxx) {
+            this.bgxx = bgxx;
+        }
+
         public List<Baxx> getBaxx() {
             return baxx;
         }
@@ -91,8 +44,16 @@ public class BaseData {
         public void setBaxx(List<Baxx> baxx) {
             this.baxx = baxx;
         }
+
+        public List<Gdxx> getGdxx() {
+            return gdxx;
+        }
+
+        public void setGdxx(List<Gdxx> gdxx) {
+            this.gdxx = gdxx;
+        }
     }
-    public class Bgxx {
+    public static class Bgxx {
         private String change_items;
         private String content_before_change;
         private String content_after_change;
@@ -134,7 +95,7 @@ public class BaseData {
         }
     }
 
-    public class Baxx {
+    public static class Baxx {
         private String company_name;
         private String no;
         private String name;
@@ -185,7 +146,7 @@ public class BaseData {
         }
     }
 
-    public class Gdxx {
+    public static class Gdxx {
         private String no;
         private String shareholder_name;
         private String shareholder_type;
@@ -236,7 +197,7 @@ public class BaseData {
         }
     }
 
-    public class Jbxx {
+    public static class Jbxx {
         private String credit_code;
         private String _id;
         private String regno_or_creditcode;
@@ -503,7 +464,47 @@ public class BaseData {
         }
     }
 
-    public BaseData() {
+
+    public BaseDataDO() {
     }
 
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public String getErr_code() {
+        return err_code;
+    }
+
+    public void setErr_code(String err_code) {
+        this.err_code = err_code;
+    }
+
+    public Integer getRsize() {
+        return rsize;
+    }
+
+    public void setRsize(Integer rsize) {
+        this.rsize = rsize;
+    }
+
+    public String getTotal() {
+        return total;
+    }
+
+    public void setTotal(String total) {
+        this.total = total;
+    }
+
+    public List<Results> getResults() {
+        return results;
+    }
+
+    public void setResults(List<Results> results) {
+        this.results = results;
+    }
 }
