@@ -12,14 +12,14 @@ public class BaseData {
     private String err_code;
     private Integer rsize;
     private String total;
-    private List<Results> resultses;
+    private List<Results> results;
 
-    public List<Results> getResultses() {
-        return resultses;
+    public List<Results> getResults() {
+        return results;
     }
 
-    public void setResultses(List<Results> resultses) {
-        this.resultses = resultses;
+    public void setResults(List<Results> results) {
+        this.results = results;
     }
 
     public String getMsg() {

@@ -35,12 +35,8 @@ public class HologramQueryServiceImpl implements HologramQueryService {
     public Map<String, Object> outlineMsg(String companyName) {
         BaseData baseData = hologramQueryDao.outlineMsg(companyName);
         System.out.println("");
-//        System.out.println(baseData.getRsize());
-//        System.out.println(baseData.getTotal());
-//        System.out.println(baseData.getMsg());
 //        Map<String, Object> data = new HashMap<>();
 //        for (BaseData.Jbxx result : baseData.getResults()) {
-//            System.out.println("123:"+result.getCompany_name());
 //            data.put("企业名称",result.getCompany_name());
 //            data.put("法定代表人",result.getFrname());
 //            data.put("注册资本",result.getRegcap());

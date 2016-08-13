@@ -5,8 +5,8 @@ import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.dao.HologramQueryDao;
 import com.bbd.wtyh.domain.bbdAPI.BaseData;
-import com.bbd.wtyh.domain.wangDaiAPI.PlatData;
-import org.omg.CORBA.DATA_CONVERSION;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -73,7 +73,11 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
                 }
                 @Override
                 public BaseData parse(String result) {
-                    return JSON.parseObject(result, BaseData.class);
+
+                    Gson gson = new Gson();
+                    BaseData d = gson.fromJson(result, BaseData.class);
+
+                    return d;
                 }
             });
         } catch (Exception e) {
