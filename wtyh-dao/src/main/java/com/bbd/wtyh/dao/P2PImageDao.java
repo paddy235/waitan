@@ -1,7 +1,7 @@
 package com.bbd.wtyh.dao;
 
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
-import com.bbd.wtyh.domain.wangDaiAPI.SearchCompany;
+import com.bbd.wtyh.domain.wangDaiAPI.SearchCompanyDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQing;
 
 import java.util.Map;
@@ -40,5 +40,5 @@ public interface P2PImageDao {
      * @param plat_name
      * @return
      */
-    SearchCompany hasOrNotCompany(String plat_name);
+    SearchCompanyDO hasOrNotCompany(String plat_name);
 }

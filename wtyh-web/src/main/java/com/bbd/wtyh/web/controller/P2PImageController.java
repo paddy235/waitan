@@ -1,6 +1,6 @@
 package com.bbd.wtyh.web.controller;
 
-import com.bbd.wtyh.domain.wangDaiAPI.SearchCompany;
+import com.bbd.wtyh.domain.wangDaiAPI.SearchCompanyDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQing;
 import com.bbd.wtyh.service.P2PImageService;
 import com.bbd.wtyh.util.relation.StringUtils;
@@ -95,7 +95,7 @@ public class P2PImageController {
     @RequestMapping("/hasOrNotCompany")
     @ResponseBody
     public ResponseBean hasOrNotCompany(@RequestParam(required = true) String plat_name) {
-        SearchCompany content = p2PImageService.hasOrNotCompany(plat_name);
+        SearchCompanyDO content = p2PImageService.hasOrNotCompany(plat_name);
         if (StringUtils.isNotNullOrEmpty(content.getCompany_name())) {
             return ResponseBean.errorResponse(content);
         } else {

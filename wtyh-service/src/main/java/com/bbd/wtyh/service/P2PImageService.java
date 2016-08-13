@@ -1,6 +1,6 @@
 package com.bbd.wtyh.service;
 
-import com.bbd.wtyh.domain.wangDaiAPI.SearchCompany;
+import com.bbd.wtyh.domain.wangDaiAPI.SearchCompanyDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQing;
 
 import java.util.List;
@@ -52,5 +52,5 @@ public interface P2PImageService {
 
     List<List<String>> coreDataLoadOverage(String plat_name);
 
-    SearchCompany hasOrNotCompany(String plat_name);
+    SearchCompanyDO hasOrNotCompany(String plat_name);
 }

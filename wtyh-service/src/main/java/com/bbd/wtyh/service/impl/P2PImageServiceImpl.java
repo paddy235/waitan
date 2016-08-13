@@ -2,7 +2,7 @@ package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.dao.P2PImageDao;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
-import com.bbd.wtyh.domain.wangDaiAPI.SearchCompany;
+import com.bbd.wtyh.domain.wangDaiAPI.SearchCompanyDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQing;
 import com.bbd.wtyh.service.P2PImageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,7 +114,7 @@ public class P2PImageServiceImpl implements P2PImageService {
     }
 
     @Override
-    public SearchCompany hasOrNotCompany(String plat_name) {
+    public SearchCompanyDO hasOrNotCompany(String plat_name) {
         return p2PImageDao.hasOrNotCompany(plat_name);
     }
 }
