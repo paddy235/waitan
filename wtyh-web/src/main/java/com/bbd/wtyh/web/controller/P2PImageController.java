@@ -1,6 +1,7 @@
 package com.bbd.wtyh.web.controller;
 
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompany;
+import com.bbd.wtyh.domain.wangDaiAPI.YuQing;
 import com.bbd.wtyh.service.P2PImageService;
 import com.bbd.wtyh.util.relation.StringUtils;
 import com.bbd.wtyh.web.HistogramBean;
@@ -46,8 +47,8 @@ public class P2PImageController {
      */
     @RequestMapping("/platFormConsensus")
     @ResponseBody
-    public ResponseBean platFormConsensus() {
-        Map<String, Object> content = p2PImageService.platFormConsensus();
+    public ResponseBean platformConsensus(@RequestParam(required = true, value = "plat_name") String platName) {
+        YuQing content = p2PImageService.platformConsensus(platName);
         return ResponseBean.successResponse(content);
     }
 

@@ -2,6 +2,7 @@ package com.bbd.wtyh.dao;
 
 import com.bbd.wtyh.domain.wangDaiAPI.PlatData;
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompany;
+import com.bbd.wtyh.domain.wangDaiAPI.YuQing;
 
 import java.util.Map;
 
@@ -12,7 +13,12 @@ import java.util.Map;
  * @since 2016.08.05
  */
 public interface P2PImageDao {
-    Map<String, Object> platFormConsensus();
+    /**
+     * 舆情信息
+     * @return 舆情信息
+     * @param platName
+     */
+    YuQing platformConsensus(String platName);
 
     Map<String, Object> lawsuitMsg(String company);
 
@@ -22,11 +28,17 @@ public interface P2PImageDao {
 
     Map<String, Object> coreDataInfo(String platName);
 
+    /**
+     * 获取 p2p平台核心数据
+     * @param platName  核心数据
+     * @return
+     */
     PlatData getPlatData(String platName);
 
-//    Map<String,String> coreDataInterestRateTrend();
-//
-//    Map<String,String> coreDataLoanOverage();
-
+    /**
+     * 监测是否有要查询的公司
+     * @param plat_name
+     * @return
+     */
     SearchCompany hasOrNotCompany(String plat_name);
 }

@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service;
 
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompany;
+import com.bbd.wtyh.domain.wangDaiAPI.YuQing;
 
 import java.util.List;
 import java.util.Map;
@@ -23,8 +24,9 @@ public interface P2PImageService {
      * 舆情信息
      *
      * @return
+     * @param platName
      */
-    Map<String, Object> platFormConsensus();
+    YuQing platformConsensus(String platName);
 
     /**
      * 诉讼信息

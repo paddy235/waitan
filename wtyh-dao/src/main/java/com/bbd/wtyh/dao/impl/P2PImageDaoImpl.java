@@ -7,6 +7,7 @@ import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.dao.P2PImageDao;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatData;
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompany;
+import com.bbd.wtyh.domain.wangDaiAPI.YuQing;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -25,13 +26,25 @@ public class P2PImageDaoImpl implements P2PImageDao {
     private String url;
 
     @Override
-    public Map<String, Object> platFormConsensus() {
-        Map<String, Object> data = new LinkedHashMap<>();
-        data.put("舆情名称", "翼鸟贷经营模式风险重重，拖累联想控股");
-        data.put("部分内容", "凭着3.69亿元拿下“央视标王”的称号，主打三农借贷的上海同城翼鸟贷网络科技有限公司···");
-        data.put("信息来源", "中国经济网");
-        data.put("信息时间", "2016年7月22日");
-        return data;
+    public YuQing platformConsensus(String platName) {
+        String yuqingURL = url + "?dataType=yuqing" + "&plat_name=" + platName;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(yuqingURL, new HttpCallback<YuQing>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public YuQing parse(String result) {
+                    return JSON.parseObject(result, YuQing.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
@@ -200,11 +213,10 @@ public class P2PImageDaoImpl implements P2PImageDao {
 
     @Override
     public PlatData getPlatData(String platName) {
-        String coreDataDealURL = String.format("http://localhost:8080/financial_services?dataType=plat_data&plat_name=%s", platName);
-        final Map<String, Object> data = new HashMap<>();
+        String platDataURL = url + "?dataType=plat_data" + "&plat_name=" + platName;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
-            return httpTemplate.get(coreDataDealURL, new HttpCallback<PlatData>() {
+            return httpTemplate.get(platDataURL, new HttpCallback<PlatData>() {
                 @Override
                 public boolean valid() {
                     return true;
@@ -221,42 +233,9 @@ public class P2PImageDaoImpl implements P2PImageDao {
         }
     }
 
-//    @Override
-//    public Map<String, String> coreDataInterestRateTrend() {
-//        Map<String, String> yearInterestRateKV = new HashMap<>();
-//        yearInterestRateKV.put("2015-01", "31.21");
-//        yearInterestRateKV.put("2015-02", "18");
-//        yearInterestRateKV.put("2015-03", "17");
-//        yearInterestRateKV.put("2015-04", "6.532");
-//        yearInterestRateKV.put("2015-05", "9");
-//        yearInterestRateKV.put("2015-06", "12");
-//        yearInterestRateKV.put("2015-07", "36");
-//        yearInterestRateKV.put("2015-08", "48");
-//        yearInterestRateKV.put("2015-09", "12");
-//        yearInterestRateKV.put("2015-10", "36");
-//
-//        return yearInterestRateKV;
-//    }
-//
-//    @Override
-//    public Map<String, String> coreDataLoanOverage() {
-//        Map<String, String> yearLoanOverageKV = new HashMap<>();
-//        yearLoanOverageKV.put("2015-01", "31.21");
-//        yearLoanOverageKV.put("2015-02", "18");
-//        yearLoanOverageKV.put("2015-03", "17");
-//        yearLoanOverageKV.put("2015-04", "6.532");
-//        yearLoanOverageKV.put("2015-05", "9");
-//        yearLoanOverageKV.put("2015-06", "12");
-//        yearLoanOverageKV.put("2015-07", "36");
-//        yearLoanOverageKV.put("2015-08", "48");
-//        yearLoanOverageKV.put("2015-09", "12");
-//        yearLoanOverageKV.put("2015-10", "36");
-//
-//        return yearLoanOverageKV;
-//    }
-
     @Override
     public SearchCompany hasOrNotCompany(String plat_name) {
+
         String api = url + "?dataType=plat_list" + "&plat_name=" + plat_name;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {

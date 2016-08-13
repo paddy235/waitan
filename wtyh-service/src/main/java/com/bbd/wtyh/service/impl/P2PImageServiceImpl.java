@@ -3,6 +3,7 @@ package com.bbd.wtyh.service.impl;
 import com.bbd.wtyh.dao.P2PImageDao;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatData;
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompany;
+import com.bbd.wtyh.domain.wangDaiAPI.YuQing;
 import com.bbd.wtyh.service.P2PImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,8 +35,8 @@ public class P2PImageServiceImpl implements P2PImageService {
     }
 
     @Override
-    public Map<String, Object> platFormConsensus() {
-        return p2PImageDao.platFormConsensus();
+    public YuQing platformConsensus(String platName) {
+        return p2PImageDao.platformConsensus(platName);
     }
 
     @Override
