@@ -38,6 +38,7 @@ public class Constants {
 
 	public static final class SESSION {
 		public static final String loginName = "loginName";
+		public static final String loginUserId = "loginUserId";
 		public static final String loginNameCn = "loginNameCn";
 		public static final String userType = "userType";
 		public static final String email = "email";

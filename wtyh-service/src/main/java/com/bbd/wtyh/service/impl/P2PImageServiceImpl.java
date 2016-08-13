@@ -1,8 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.bbd.wtyh.dao.P2PImageDao;
+import com.bbd.wtyh.domain.wangDaiAPI.PlatData;
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompany;
 import com.bbd.wtyh.service.P2PImageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +24,13 @@ public class P2PImageServiceImpl implements P2PImageService {
     private P2PImageDao p2PImageDao;
 
     @Override
-    public Map<String, Object> platFormStatus() {
-        return p2PImageDao.platFormStatus();
+    public Map<String, Object> platFormStatus(String platName) {
+        PlatData pn = p2PImageDao.getPlatData(platName);
+        Map<String, Object> result = new HashMap<>();
+        result.put("评分",pn.getPlat_score());
+        result.put("平台名称",pn.getPlat_name());
+        result.put("营业状态",pn.getPlat_status());
+        return result;
     }
 
     @Override
@@ -35,8 +39,8 @@ public class P2PImageServiceImpl implements P2PImageService {
     }
 
     @Override
-    public Map<String, Object> lawsuitMsg() {
-        return p2PImageDao.lawsuitMsg();
+    public Map<String, Object> lawsuitMsg(String company) {
+        return p2PImageDao.lawsuitMsg(company);
     }
 
     @Override
@@ -57,49 +61,53 @@ public class P2PImageServiceImpl implements P2PImageService {
 
     @Override
     public List<List<String>> coreDataDealTrend(String platName) {
+        PlatData data = p2PImageDao.getPlatData(platName);
+        List<PlatData.PlatDataSixMonth> platDataSixMonth = data.getPlat_data_six_month();
+        List<String> days = new ArrayList<>();
+        List<String> amounts = new ArrayList<>();
+        for (PlatData.PlatDataSixMonth pdsm : platDataSixMonth) {
+            days.add(pdsm.getDate());
+            amounts.add(String.valueOf(pdsm.getDay_amount()));
+        }
+        
         List<List<String>> result = new ArrayList<>();
-        Map<String, Object> data = p2PImageDao.coreDataDealTrend(platName);
-        String str = String.valueOf(data.get("平台每日详细数据"));
-        JSONObject jsonObject = JSON.parseObject(str.substring(1, str.length()-1));
-        List<String> year = new ArrayList<>();
-        year.add(String.valueOf(jsonObject.get("date")));
-        List<String> dealNumbers = new ArrayList<>();
-        dealNumbers.add(String.valueOf(jsonObject.get("day_amount")));
-        result.add(year);
-        result.add(dealNumbers);
+        result.add(days);
+        result.add(amounts);
         return result;
     }
 
     @Override
-    public List<List<String>> coreDataInterestRateTrend() {
+    public List<List<String>> coreDataInterestRateTrend(String plat_name) {
         // 处理数据转换
-        Map<String, String> data = p2PImageDao.coreDataInterestRateTrend();
-        List<String> years = new ArrayList<>();
+        PlatData data = p2PImageDao.getPlatData(plat_name);
+        List<PlatData.PlatDataSixMonth> platDataSixMonth = data.getPlat_data_six_month();
+        List<String> days = new ArrayList<>();
         List<String> interestRates = new ArrayList<>();
-        for (Map.Entry<String, String> entity : data.entrySet()) {
-            years.add(entity.getKey());
-            interestRates.add(entity.getValue());
+        for (PlatData.PlatDataSixMonth pdsm : platDataSixMonth) {
+            days.add(pdsm.getDate());
+            interestRates.add(String.valueOf(pdsm.getDay_interest_rate()));
         }
 
         List<List<String>> result = new ArrayList<>();
-        result.add(years);
+        result.add(days);
         result.add(interestRates);
         return result;
     }
 
     @Override
-    public List<List<String>> coreDataLoadOverage() {
+    public List<List<String>> coreDataLoadOverage(String plat_name) {
         // 处理数据转换
-        Map<String, String> data = p2PImageDao.coreDataLoanOverage();
-        List<String> years = new ArrayList<>();
+        PlatData data = p2PImageDao.getPlatData(plat_name);
+        List<PlatData.PlatDataSixMonth> platDataSixMonth = data.getPlat_data_six_month();
+        List<String> days = new ArrayList<>();
         List<String> loanOverages = new ArrayList<>();
-        for (Map.Entry<String, String> entity : data.entrySet()) {
-            years.add(entity.getKey());
-            loanOverages.add(entity.getValue());
+        for (PlatData.PlatDataSixMonth pdsm : platDataSixMonth) {
+            days.add(pdsm.getDate());
+            loanOverages.add(String.valueOf(pdsm.getDay_money_stock()));
         }
 
         List<List<String>> result = new ArrayList<>();
-        result.add(years);
+        result.add(days);
         result.add(loanOverages);
         return result;
     }

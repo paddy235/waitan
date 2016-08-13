@@ -1,5 +1,6 @@
 package com.bbd.wtyh.dao;
 
+import com.bbd.wtyh.domain.wangDaiAPI.PlatData;
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompany;
 
 import java.util.Map;
@@ -11,23 +12,21 @@ import java.util.Map;
  * @since 2016.08.05
  */
 public interface P2PImageDao {
-    Map<String, Object> platFormStatus();
-
     Map<String, Object> platFormConsensus();
 
-    Map<String, Object> lawsuitMsg();
+    Map<String, Object> lawsuitMsg(String company);
 
     Map<String, Object> radarScore(String dataType, String plat_name);
 
-    Map<String, Object> baseInfo(String companyName, String akId , String platName);
+    Map<String, Object> baseInfo(String companyName, String akId, String platName);
 
-    Map<String,Object> coreDataInfo(String platName);
+    Map<String, Object> coreDataInfo(String platName);
 
-    Map<String, Object> coreDataDealTrend(String platName);
+    PlatData getPlatData(String platName);
 
-    Map<String,String> coreDataInterestRateTrend();
-
-    Map<String,String> coreDataLoanOverage();
+//    Map<String,String> coreDataInterestRateTrend();
+//
+//    Map<String,String> coreDataLoanOverage();
 
     SearchCompany hasOrNotCompany(String plat_name);
 }

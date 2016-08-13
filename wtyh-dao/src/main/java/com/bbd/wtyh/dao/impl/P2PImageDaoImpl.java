@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.dao.P2PImageDao;
+import com.bbd.wtyh.domain.wangDaiAPI.PlatData;
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompany;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -24,15 +25,6 @@ public class P2PImageDaoImpl implements P2PImageDao {
     private String url;
 
     @Override
-    public Map<String, Object> platFormStatus() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("name", "数联铭品");
-        data.put("score", "88");
-        data.put("status", "正常营业");
-        return data;
-    }
-
-    @Override
     public Map<String, Object> platFormConsensus() {
         Map<String, Object> data = new LinkedHashMap<>();
         data.put("舆情名称", "翼鸟贷经营模式风险重重，拖累联想控股");
@@ -43,9 +35,28 @@ public class P2PImageDaoImpl implements P2PImageDao {
     }
 
     @Override
-    public Map<String, Object> lawsuitMsg() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("lawsuitNum", 5);
+    public Map<String, Object> lawsuitMsg(String company) {
+        String URL = String.format("http://dataom.api.bbdservice.com/api/bbd_ktgg/?company=%s&ak=ee372b938ef17a245f6b781beec4499e", company);
+        HttpTemplate httpTemplate = new HttpTemplate();
+        final Map<String, Object> data = new HashMap<>();
+        try {
+            httpTemplate.get(URL, new HttpCallback<Object>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public Object parse(String s) {
+                    JSONObject jsonObject = JSON.parseObject(s);
+                    data.put("total", jsonObject.get("total"));
+                    System.out.println(data);
+                    return data;
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return data;
     }
 
@@ -60,6 +71,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
                 public boolean valid() {
                     return false;
                 }
+
                 @Override
                 public Object parse(String result) {
                     JSONObject object = JSON.parseObject(result);
@@ -114,14 +126,15 @@ public class P2PImageDaoImpl implements P2PImageDao {
                 public boolean valid() {
                     return false;
                 }
+
                 @Override
                 public Object parse(String result) {
                     System.out.println(result);
-                    String str = result.substring(1,result.length()-1);
+                    String str = result.substring(1, result.length() - 1);
                     //乱码问题没有解决
                     JSONObject object = JSON.parseObject(str);
-                    map.put("平台名称",object.get("plat_name"));
-                    map.put("公司名称",object.get("company_name"));
+                    map.put("平台名称", object.get("plat_name"));
+                    map.put("公司名称", object.get("company_name"));
                     return map;
                 }
             });
@@ -164,17 +177,18 @@ public class P2PImageDaoImpl implements P2PImageDao {
                 public boolean valid() {
                     return true;
                 }
+
                 @Override
                 public Object parse(String result) {
                     JSONObject jsonObject = JSON.parseObject(result);
-                    data.put("累计成交量",jsonObject.get("amount_total"));
-                    data.put("借款余额",jsonObject.get("money_stock"));
-                    data.put("平均利率",jsonObject.get("interest_rate"));
-                    data.put("近30日资金净流入",jsonObject.get("30_day_net_inflow"));
-                    data.put("待收投资人数",jsonObject.get("bid_num_stay_stil"));
-                    data.put("待还借款人数",jsonObject.get("bor_num_stay_stil"));
-                    data.put("最大单户借款额",jsonObject.get("top1_sum_amount"));
-                    data.put("最大十户借款额",jsonObject.get("top10_sum_amount"));
+                    data.put("累计成交量", jsonObject.get("amount_total"));
+                    data.put("借款余额", jsonObject.get("money_stock"));
+                    data.put("平均利率", jsonObject.get("interest_rate"));
+                    data.put("近30日资金净流入", jsonObject.get("30_day_net_inflow"));
+                    data.put("待收投资人数", jsonObject.get("bid_num_stay_stil"));
+                    data.put("待还借款人数", jsonObject.get("bor_num_stay_stil"));
+                    data.put("最大单户借款额", jsonObject.get("top1_sum_amount"));
+                    data.put("最大十户借款额", jsonObject.get("top10_sum_amount"));
                     return data;
                 }
             });
@@ -185,62 +199,61 @@ public class P2PImageDaoImpl implements P2PImageDao {
     }
 
     @Override
-    public Map<String, Object> coreDataDealTrend(String platName) {
+    public PlatData getPlatData(String platName) {
         String coreDataDealURL = String.format("http://localhost:8080/financial_services?dataType=plat_data&plat_name=%s", platName);
         final Map<String, Object> data = new HashMap<>();
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
-            httpTemplate.get(coreDataDealURL, new HttpCallback<Object>() {
+            return httpTemplate.get(coreDataDealURL, new HttpCallback<PlatData>() {
                 @Override
                 public boolean valid() {
                     return true;
                 }
+
                 @Override
-                public Object parse(String result) {
-                    JSONObject jsonObject = JSON.parseObject(result);
-                    data.put("平台每日详细数据", jsonObject.get("plat_data_six_month"));
-                    return data;
+                public PlatData parse(String result) {
+                    return JSON.parseObject(result, PlatData.class);
                 }
             });
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return data;
     }
 
-    @Override
-    public Map<String, String> coreDataInterestRateTrend() {
-        Map<String, String> yearInterestRateKV = new HashMap<>();
-        yearInterestRateKV.put("2015-01", "31.21");
-        yearInterestRateKV.put("2015-02", "18");
-        yearInterestRateKV.put("2015-03", "17");
-        yearInterestRateKV.put("2015-04", "6.532");
-        yearInterestRateKV.put("2015-05", "9");
-        yearInterestRateKV.put("2015-06", "12");
-        yearInterestRateKV.put("2015-07", "36");
-        yearInterestRateKV.put("2015-08", "48");
-        yearInterestRateKV.put("2015-09", "12");
-        yearInterestRateKV.put("2015-10", "36");
-
-        return yearInterestRateKV;
-    }
-
-    @Override
-    public Map<String, String> coreDataLoanOverage() {
-        Map<String, String> yearLoanOverageKV = new HashMap<>();
-        yearLoanOverageKV.put("2015-01", "31.21");
-        yearLoanOverageKV.put("2015-02", "18");
-        yearLoanOverageKV.put("2015-03", "17");
-        yearLoanOverageKV.put("2015-04", "6.532");
-        yearLoanOverageKV.put("2015-05", "9");
-        yearLoanOverageKV.put("2015-06", "12");
-        yearLoanOverageKV.put("2015-07", "36");
-        yearLoanOverageKV.put("2015-08", "48");
-        yearLoanOverageKV.put("2015-09", "12");
-        yearLoanOverageKV.put("2015-10", "36");
-
-        return yearLoanOverageKV;
-    }
+//    @Override
+//    public Map<String, String> coreDataInterestRateTrend() {
+//        Map<String, String> yearInterestRateKV = new HashMap<>();
+//        yearInterestRateKV.put("2015-01", "31.21");
+//        yearInterestRateKV.put("2015-02", "18");
+//        yearInterestRateKV.put("2015-03", "17");
+//        yearInterestRateKV.put("2015-04", "6.532");
+//        yearInterestRateKV.put("2015-05", "9");
+//        yearInterestRateKV.put("2015-06", "12");
+//        yearInterestRateKV.put("2015-07", "36");
+//        yearInterestRateKV.put("2015-08", "48");
+//        yearInterestRateKV.put("2015-09", "12");
+//        yearInterestRateKV.put("2015-10", "36");
+//
+//        return yearInterestRateKV;
+//    }
+//
+//    @Override
+//    public Map<String, String> coreDataLoanOverage() {
+//        Map<String, String> yearLoanOverageKV = new HashMap<>();
+//        yearLoanOverageKV.put("2015-01", "31.21");
+//        yearLoanOverageKV.put("2015-02", "18");
+//        yearLoanOverageKV.put("2015-03", "17");
+//        yearLoanOverageKV.put("2015-04", "6.532");
+//        yearLoanOverageKV.put("2015-05", "9");
+//        yearLoanOverageKV.put("2015-06", "12");
+//        yearLoanOverageKV.put("2015-07", "36");
+//        yearLoanOverageKV.put("2015-08", "48");
+//        yearLoanOverageKV.put("2015-09", "12");
+//        yearLoanOverageKV.put("2015-10", "36");
+//
+//        return yearLoanOverageKV;
+//    }
 
     @Override
     public SearchCompany hasOrNotCompany(String plat_name) {

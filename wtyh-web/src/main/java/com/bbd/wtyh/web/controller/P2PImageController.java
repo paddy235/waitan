@@ -34,8 +34,8 @@ public class P2PImageController {
      */
     @RequestMapping("/platFormStatus")
     @ResponseBody
-    public ResponseBean platFormStatus() {
-        Map<String, Object> content = p2PImageService.platFormStatus();
+    public ResponseBean platFormStatus(@RequestParam(required = true) String platName) {
+        Map<String, Object> content = p2PImageService.platFormStatus(platName);
         return ResponseBean.successResponse(content);
     }
 
@@ -58,8 +58,9 @@ public class P2PImageController {
      */
     @RequestMapping("/lawsuitMsg")
     @ResponseBody
-    public ResponseBean lawsuitMsg() {
-        Map<String, Object> conent = p2PImageService.lawsuitMsg();
+    public ResponseBean lawsuitMsg(@RequestParam(required = true) String company) {
+        //TODO 公司名称乱码
+        Map<String, Object> conent = p2PImageService.lawsuitMsg(company);
         return ResponseBean.successResponse(conent);
     }
 
@@ -110,6 +111,7 @@ public class P2PImageController {
     @RequestMapping("/baseInfo")
     @ResponseBody
     public ResponseBean baseInfo(@RequestParam(required = true) String companyName, String akId , String platName) {
+        // TODO: code review
 //        String companyName = "攀枝花市交通旅游客运有限责任公司";
 //        String akId = "0516d1c0db8d5cd1933cc2442c9f8d40";
 //        String platName = "陆金所";
@@ -137,8 +139,8 @@ public class P2PImageController {
      */
     @RequestMapping("/coreDataDealTrend")
     @ResponseBody
-    public ResponseBean coreDataDealTrend(@RequestParam(required = true) String platName) {
-        List<List<String>> data = p2PImageService.coreDataDealTrend(platName);
+    public ResponseBean coreDataDealTrend(@RequestParam(required = true) String plat_name) {
+        List<List<String>> data = p2PImageService.coreDataDealTrend(plat_name);
         HistogramBean<String, String> content = new HistogramBean();
         if (data.size() != 0) {
             content.setxAxis(data.get(0));
@@ -154,8 +156,8 @@ public class P2PImageController {
      */
     @RequestMapping("/coreDataInterestRateTrend")
     @ResponseBody
-    public ResponseBean coreDataInterestRateTrend() {
-        List<List<String>> data = p2PImageService.coreDataInterestRateTrend();
+    public ResponseBean coreDataInterestRateTrend(@RequestParam(required = true) String plat_name) {
+        List<List<String>> data = p2PImageService.coreDataInterestRateTrend(plat_name);
         HistogramBean<String, String> content = new HistogramBean();
         if (data.size() != 0) {
             content.setxAxis(data.get(0));
@@ -171,8 +173,8 @@ public class P2PImageController {
      */
     @RequestMapping("/coreDataLoadOverage")
     @ResponseBody
-    public ResponseBean coreDataLoadOverage() {
-        List<List<String>> data = p2PImageService.coreDataLoadOverage();
+    public ResponseBean coreDataLoadOverage(@RequestParam(required = true) String plat_name) {
+        List<List<String>> data = p2PImageService.coreDataLoadOverage(plat_name);
         HistogramBean<String, String> content = new HistogramBean();
         if (data.size() != 0) {
             content.setxAxis(data.get(0));
