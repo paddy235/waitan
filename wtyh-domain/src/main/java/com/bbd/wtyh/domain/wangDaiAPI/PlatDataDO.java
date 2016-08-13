@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by YanWenyuan on 2016/8/12.
  */
-public class PlatData {
+public class PlatDataDO {
     private String plat_name;   // 平台名称
     private double plat_score;  // 平台评分
     private String plat_status; // 平台营业状态

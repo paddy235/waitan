@@ -1,6 +1,6 @@
 package com.bbd.wtyh.dao;
 
-import com.bbd.wtyh.domain.wangDaiAPI.PlatData;
+import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompany;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQing;
 
@@ -33,7 +33,7 @@ public interface P2PImageDao {
      * @param platName  核心数据
      * @return
      */
-    PlatData getPlatData(String platName);
+    PlatDataDO getPlatData(String platName);
 
     /**
      * 监测是否有要查询的公司

@@ -1,7 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.dao.P2PImageDao;
-import com.bbd.wtyh.domain.wangDaiAPI.PlatData;
+import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompany;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQing;
 import com.bbd.wtyh.service.P2PImageService;
@@ -26,7 +26,7 @@ public class P2PImageServiceImpl implements P2PImageService {
 
     @Override
     public Map<String, Object> platFormStatus(String platName) {
-        PlatData pn = p2PImageDao.getPlatData(platName);
+        PlatDataDO pn = p2PImageDao.getPlatData(platName);
         Map<String, Object> result = new HashMap<>();
         result.put("评分",pn.getPlat_score());
         result.put("平台名称",pn.getPlat_name());
@@ -62,11 +62,11 @@ public class P2PImageServiceImpl implements P2PImageService {
 
     @Override
     public List<List<String>> coreDataDealTrend(String platName) {
-        PlatData data = p2PImageDao.getPlatData(platName);
-        List<PlatData.PlatDataSixMonth> platDataSixMonth = data.getPlat_data_six_month();
+        PlatDataDO data = p2PImageDao.getPlatData(platName);
+        List<PlatDataDO.PlatDataSixMonth> platDataSixMonth = data.getPlat_data_six_month();
         List<String> days = new ArrayList<>();
         List<String> amounts = new ArrayList<>();
-        for (PlatData.PlatDataSixMonth pdsm : platDataSixMonth) {
+        for (PlatDataDO.PlatDataSixMonth pdsm : platDataSixMonth) {
             days.add(pdsm.getDate());
             amounts.add(String.valueOf(pdsm.getDay_amount()));
         }
@@ -80,11 +80,11 @@ public class P2PImageServiceImpl implements P2PImageService {
     @Override
     public List<List<String>> coreDataInterestRateTrend(String plat_name) {
         // 处理数据转换
-        PlatData data = p2PImageDao.getPlatData(plat_name);
-        List<PlatData.PlatDataSixMonth> platDataSixMonth = data.getPlat_data_six_month();
+        PlatDataDO data = p2PImageDao.getPlatData(plat_name);
+        List<PlatDataDO.PlatDataSixMonth> platDataSixMonth = data.getPlat_data_six_month();
         List<String> days = new ArrayList<>();
         List<String> interestRates = new ArrayList<>();
-        for (PlatData.PlatDataSixMonth pdsm : platDataSixMonth) {
+        for (PlatDataDO.PlatDataSixMonth pdsm : platDataSixMonth) {
             days.add(pdsm.getDate());
             interestRates.add(String.valueOf(pdsm.getDay_interest_rate()));
         }
@@ -98,11 +98,11 @@ public class P2PImageServiceImpl implements P2PImageService {
     @Override
     public List<List<String>> coreDataLoadOverage(String plat_name) {
         // 处理数据转换
-        PlatData data = p2PImageDao.getPlatData(plat_name);
-        List<PlatData.PlatDataSixMonth> platDataSixMonth = data.getPlat_data_six_month();
+        PlatDataDO data = p2PImageDao.getPlatData(plat_name);
+        List<PlatDataDO.PlatDataSixMonth> platDataSixMonth = data.getPlat_data_six_month();
         List<String> days = new ArrayList<>();
         List<String> loanOverages = new ArrayList<>();
-        for (PlatData.PlatDataSixMonth pdsm : platDataSixMonth) {
+        for (PlatDataDO.PlatDataSixMonth pdsm : platDataSixMonth) {
             days.add(pdsm.getDate());
             loanOverages.add(String.valueOf(pdsm.getDay_money_stock()));
         }

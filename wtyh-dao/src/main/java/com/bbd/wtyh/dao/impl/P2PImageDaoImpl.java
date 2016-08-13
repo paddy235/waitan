@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.dao.P2PImageDao;
-import com.bbd.wtyh.domain.wangDaiAPI.PlatData;
+import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompany;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQing;
 import org.springframework.beans.factory.annotation.Value;
@@ -212,19 +212,19 @@ public class P2PImageDaoImpl implements P2PImageDao {
     }
 
     @Override
-    public PlatData getPlatData(String platName) {
+    public PlatDataDO getPlatData(String platName) {
         String platDataURL = url + "?dataType=plat_data" + "&plat_name=" + platName;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
-            return httpTemplate.get(platDataURL, new HttpCallback<PlatData>() {
+            return httpTemplate.get(platDataURL, new HttpCallback<PlatDataDO>() {
                 @Override
                 public boolean valid() {
                     return true;
                 }
 
                 @Override
-                public PlatData parse(String result) {
-                    return JSON.parseObject(result, PlatData.class);
+                public PlatDataDO parse(String result) {
+                    return JSON.parseObject(result, PlatDataDO.class);
                 }
             });
         } catch (Exception e) {
