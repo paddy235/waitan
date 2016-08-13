@@ -2,24 +2,24 @@ package com.bbd.wtyh.web.controller;
 
 import com.bbd.wtyh.common.Pagination;
 import com.bbd.wtyh.domain.*;
-import com.bbd.wtyh.domain.dto.HotAreaDTO;
-import com.bbd.wtyh.domain.dto.LoanBalanceDTO;
-import com.bbd.wtyh.domain.dto.ShareholderRiskDTO;
+import com.bbd.wtyh.domain.dto.*;
 import com.bbd.wtyh.domain.query.CompanyQuery;
 import com.bbd.wtyh.service.*;
 import com.bbd.wtyh.web.ResponseBean;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 小额贷款
- *
+ * <p>
  * Created by Marco on 2016/8/8.
  */
 @RestController
@@ -80,6 +80,7 @@ public class LoanController {
 
     /**
      * 贷款余额统计信息
+     *
      * @return
      */
     @RequestMapping("balance")
@@ -105,6 +106,7 @@ public class LoanController {
 
     /**
      * 股东行业风险列表
+     *
      * @return
      */
     @RequestMapping("shareholderRisk")
@@ -116,6 +118,7 @@ public class LoanController {
 
     /**
      * 股东行业风险详情列表
+     *
      * @param companyId
      * @return
      */
@@ -124,18 +127,13 @@ public class LoanController {
         if (null == companyId || companyId <= 0) {
             return ResponseBean.errorResponse("companyId must be not null");
         }
-        List<RelatedCompanyDO> relatedCompanyList = shareholderRiskService.getRelatedCompany(companyId);
-        Multimap<Integer, String> result = ArrayListMultimap.create();
-        for (RelatedCompanyDO relatedCompanyDO : relatedCompanyList) {
-            CompanyDO companyDO = companyService.getCompanyById(relatedCompanyDO.getRelatedCompanyId());
-            result.put((int) companyDO.getCompanyType(), companyDO.getName());
-        }
-        return ResponseBean.successResponse(result.asMap());
+        return ResponseBean.successResponse(shareholderRiskService.getRelatedCompany(companyId).asMap());
     }
 
 
     /**
      * 大额贷款信息列表
+     *
      * @param pagination
      * @param orderByField
      * @param descAsc
@@ -143,7 +141,32 @@ public class LoanController {
      */
     @RequestMapping("largeLoanList")
     public ResponseBean largeLoanList(Pagination pagination, Integer orderByField, String descAsc) {
-        return ResponseBean.successResponse(loanService.listLargeLoan(pagination, orderByField, descAsc));
+        List<LargeLoanDO> list = loanService.listLargeLoan(pagination, orderByField, descAsc);
+        int count = loanService.countLargeLoan();
+        pagination.setCount(count);
+        List<LargeLoanDTO> result = Lists.newArrayList();
+
+        for (LargeLoanDO largeLoanDO : list) {
+            LargeLoanDTO dto = new LargeLoanDTO();
+            dto.setLenderId(largeLoanDO.getLenderId());
+            dto.setBorrowerId(largeLoanDO.getBorrowerId());
+            dto.setLenderName(companyService.getNameById(largeLoanDO.getLenderId()));
+            CompanyDO borrowerCompany = companyService.getCompanyById(largeLoanDO.getBorrowerId());
+
+            dto.setBorrowerName(borrowerCompany.getName());
+            dto.setBorrowerBusinessType(borrowerCompany.getBusinessType());
+            if (borrowerCompany.getRegisteredCapital() != null && borrowerCompany.getRegisteredCapitalType() != null) {
+                dto.setBorrowerRegisteredCapital(borrowerCompany.getRegisteredCapital() + borrowerCompany.getRegisteredCapitalType() == 1 ? "万元" : "万美元");
+            } else {
+                dto.setBorrowerRegisteredCapital("无");
+            }
+            result.add(dto);
+
+        }
+        Map<String, Object> map = Maps.newHashMap();
+        map.put("list", result);
+        map.put("pagination", pagination);
+        return ResponseBean.successResponse(map);
     }
 
 

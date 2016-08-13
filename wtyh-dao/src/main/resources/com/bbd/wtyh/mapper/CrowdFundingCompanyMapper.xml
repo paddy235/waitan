@@ -32,7 +32,7 @@
             cfc.success_number successNumber, cfc.funded_amout fundedAmout,
             cfc.create_by createBy,cfc.create_date createDate,
             cfc.update_by updateBy,cfc.update_date updateDate,
-            a.name areaName,c.name companyName,c.address
+            a.name areaName,c.name companyName,cfc.operation_address address
     from crowd_funding_company cfc
          left join company c on cfc.company_id = c.company_id
          left join area a on a.area_id=c.area_id

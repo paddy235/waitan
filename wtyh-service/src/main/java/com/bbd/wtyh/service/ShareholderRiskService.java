@@ -2,6 +2,7 @@ package com.bbd.wtyh.service;
 
 import com.bbd.wtyh.domain.RelatedCompanyDO;
 import com.bbd.wtyh.domain.dto.ShareholderRiskDTO;
+import com.google.common.collect.Multimap;
 
 import java.util.List;
 
@@ -14,5 +15,5 @@ public interface ShareholderRiskService {
     List<ShareholderRiskDTO> listShareholderRisk(Integer companyType);
 
 
-    List<RelatedCompanyDO> getRelatedCompany(Integer companyId);
+    Multimap<Integer,String> getRelatedCompany(Integer companyId);
 }

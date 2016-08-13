@@ -2,6 +2,7 @@ package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.common.Pagination;
 import com.bbd.wtyh.domain.GuaranteeBalanceDO;
+import com.bbd.wtyh.domain.GuaranteedInfoDO;
 import com.bbd.wtyh.domain.LoanBalanceDO;
 import com.bbd.wtyh.domain.dto.LargeGuaranteeDTO;
 import com.bbd.wtyh.domain.dto.LargeLoanDTO;
@@ -33,7 +34,13 @@ public class GuaranteeServiceImpl implements GuaranteeService {
     }
 
     @Override
-    public List<LargeGuaranteeDTO> listLargeGuarantee(Pagination pagination, Integer orderByField, String descAsc) {
-        return guaranteedInfoMapper.listLargeGuarantee(pagination, orderByField, descAsc);
+    public List<GuaranteedInfoDO> listLargeGuarantee(Pagination pagination, Integer orderByField, String descAsc) {
+        List<GuaranteedInfoDO> largeGuaranteeDTOs = guaranteedInfoMapper.listLargeGuarantee(pagination, orderByField, descAsc);
+        return largeGuaranteeDTOs;
+    }
+
+    @Override
+    public int countLargeGuarantee() {
+        return guaranteedInfoMapper.countLargeGuarantee();
     }
 }

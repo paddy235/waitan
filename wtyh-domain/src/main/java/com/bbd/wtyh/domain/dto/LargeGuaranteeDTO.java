@@ -10,7 +10,7 @@ public class LargeGuaranteeDTO {
     private String guaranteeName;
     private String guaranteedName;
     private String guaranteedBusinessType;
-    private Integer guaranteedRegisteredCapital;
+    private String guaranteedRegisteredCapital;
 
     public Integer getGuaranteeId() {
         return guaranteeId;
@@ -52,11 +52,11 @@ public class LargeGuaranteeDTO {
         this.guaranteedBusinessType = guaranteedBusinessType;
     }
 
-    public Integer getGuaranteedRegisteredCapital() {
+    public String getGuaranteedRegisteredCapital() {
         return guaranteedRegisteredCapital;
     }
 
-    public void setGuaranteedRegisteredCapital(Integer guaranteedRegisteredCapital) {
+    public void setGuaranteedRegisteredCapital(String guaranteedRegisteredCapital) {
         this.guaranteedRegisteredCapital = guaranteedRegisteredCapital;
     }
 }

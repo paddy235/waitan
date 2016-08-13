@@ -11,10 +11,6 @@
         <result column="update_date" jdbcType="DATE" property="updateDate"/>
     </resultMap>
 
-    <resultMap id="LargeLoanDTO" type="com.bbd.wtyh.domain.dto.LargeLoanDTO">
-        <result column="borrower_id" jdbcType="INTEGER" property="borrowerId"/>
-        <result column="lender_id" jdbcType="INTEGER" property="lenderId"/>
-    </resultMap>
 
     <sql id="Base_Column_List">
     id, borrower_id, lender_id, create_by, create_date, update_by, update_date
@@ -27,9 +23,12 @@
     </select>
 
 
-    <select id="listLargeLoan" resultMap="LargeLoanDTO">
-        select lender_id,borrower_id,l.name lenderName,b.name borrowerName,b.business_type
-        borrowerBusinessType,b.registered_capital borrowerRegistedCapital from large_loan,company l,company b
+    <select id="countLargeLoan" resultType="Integer">
+        select count(1) from large_loan
+    </select>
+
+    <select id="listLargeLoan" resultMap="BaseResultMap">
+        select lender_id,borrower_id from large_loan,company l,company b
         where large_loan.borrower_id=b.company_id and large_loan.lender_id=l.company_id
         <if test="orderByField != null">
             order by

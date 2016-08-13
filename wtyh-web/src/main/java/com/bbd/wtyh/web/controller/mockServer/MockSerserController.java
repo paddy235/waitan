@@ -52,6 +52,15 @@ public class MockSerserController {
                         "{date: \"2016-08-11\", day_interest_rate: \"5.8\", day_amount: \"400\", day_money_stock: \"123\"}" +
                     "]}";
 
+        } else if (dataType.equals("yuqing")) {
+            return "{plat_name: \"投融范\", " +
+                    "score: \"10\", " +
+                    "warning: [" +
+                        "{info:\"上海p2p投融范发逾期公告 承诺9个月内兑付\"}," +
+                        "{info:\"投融范一个推子布局的诈骗平台推子兼职诈骗，人人得而诛之\"}," +
+                        "{info:\"投融范项目逾期，回款无望\"}" +
+                    "]}";
+
         } else if (dataType.equals("plat_list")) {
             return "{plat_name: \"来财街\", company_name: \"上海什么什么投资公司\", logo_url: \"http://logo.url.com\"}";
 

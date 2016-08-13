@@ -165,4 +165,9 @@
 		select count(1) from company where name like concat('%',#{keyword},'%')
     </select>
 
+    <select id="selectByName" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>from company
+        where name=#{companyName} limit 0,1
+    </select>
+
 </mapper>

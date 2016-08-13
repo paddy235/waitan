@@ -41,5 +41,6 @@ public interface CompanyMapper {
     List<String> searchCompanyName(Map<String, Object> params);
     
     int searchCompanyNameCount(String keyword);
-    
+
+    CompanyDO selectByName(String companyName);
 }

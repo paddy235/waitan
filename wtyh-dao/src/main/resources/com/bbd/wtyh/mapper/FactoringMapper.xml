@@ -28,13 +28,36 @@
     
     <select id="queryFactoringCompanys"  resultType="com.bbd.wtyh.domain.CompanyAndRiskDO" >
     	select c.company_id id,c.address,c.`name` companyName ,
-    	       car.analysis_result analysisResult,
+    	       if(cfe.`foreign`,'外资','内资')  isForeign ,
     	       c.record_number recordNumber   
-		from company c LEFT JOIN company_analysis_result car 
-		     on c.company_id=car.company_id 
-		where c.company_type=11;
+		from company c LEFT JOIN commercial_factoring_extra cfe 
+		     on c.company_id=cfe.company_id 
+		where c.company_type=10;
     </select>
     
+    
+    
+    <select id="distribute" resultType="map" >
+    	select IF(`foreign`,'外资企业','内资企业')  name , count(1) value from commercial_factoring_extra group by `foreign`    ;
+    </select>
+    
+    <select id="geogDistribute" resultType="map" >
+    	select     a.`name` name , count(1) value 
+    	from       company c , area a 
+    	where      c.company_type=10 and a.area_id=c.area_id 
+    	group by   a.name;
+    </select>
+    
+    
+     <select id="countCapitalBySeason" resultType="com.bbd.wtyh.domain.CompanyCountDO" >
+    	select season name,SUM(registered_capital) sum ,count(1) count  from 
+	    	(
+				select CONCAT(YEAR(c.registered_date),'Q',quarter( c.registered_date )) season , 
+				       c.registered_capital  
+				from company c where c.company_type=10
+			) b 
+		GROUP BY b.season ORDER BY season 
+    </select>
     
     
    

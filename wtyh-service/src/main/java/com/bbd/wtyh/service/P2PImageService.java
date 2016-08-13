@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service;
 
-import com.bbd.wtyh.domain.wangDaiAPI.SearchCompany;
+import com.bbd.wtyh.domain.wangDaiAPI.SearchCompanyDO;
+import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
 
 import java.util.List;
 import java.util.Map;
@@ -23,8 +24,9 @@ public interface P2PImageService {
      * 舆情信息
      *
      * @return
+     * @param platName
      */
-    Map<String, Object> platFormConsensus();
+    YuQingDO platformConsensus(String platName);
 
     /**
      * 诉讼信息
@@ -50,5 +52,5 @@ public interface P2PImageService {
 
     List<List<String>> coreDataLoadOverage(String plat_name);
 
-    SearchCompany hasOrNotCompany(String plat_name);
+    SearchCompanyDO hasOrNotCompany(String plat_name);
 }

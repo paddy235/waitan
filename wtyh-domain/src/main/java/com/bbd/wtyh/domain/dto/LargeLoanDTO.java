@@ -10,7 +10,7 @@ public class LargeLoanDTO {
     private String borrowerName;
     private String lenderName;
     private String borrowerBusinessType;
-    private Integer borrowerRegisteredCapital;
+    private String borrowerRegisteredCapital;
 
     public Integer getLenderId() {
         return lenderId;
@@ -52,11 +52,11 @@ public class LargeLoanDTO {
         this.borrowerBusinessType = borrowerBusinessType;
     }
 
-    public Integer getBorrowerRegisteredCapital() {
+    public String getBorrowerRegisteredCapital() {
         return borrowerRegisteredCapital;
     }
 
-    public void setBorrowerRegisteredCapital(Integer borrowerRegisteredCapital) {
+    public void setBorrowerRegisteredCapital(String borrowerRegisteredCapital) {
         this.borrowerRegisteredCapital = borrowerRegisteredCapital;
     }
 }

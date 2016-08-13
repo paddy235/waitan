@@ -3,7 +3,7 @@ package com.bbd.wtyh.domain.wangDaiAPI;
 /**
  * Created by YanWenyuan on 2016/8/12.
  */
-public class SearchCompany {
+public class SearchCompanyDO {
     private String plat_name;
     private String company_name;
     private String logo_url;
