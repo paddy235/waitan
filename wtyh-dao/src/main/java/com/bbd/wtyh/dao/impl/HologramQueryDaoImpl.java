@@ -24,10 +24,10 @@ import java.util.Map;
 public class HologramQueryDaoImpl implements HologramQueryDao {
 
     @Value("${api.baidu.news.url}")
-    private String url;
+    private String baiduYuQing;
 
     @Value("${api.baidu.news.ak}")
-    private String ak;
+    private String baiduYuqingAK;
 
     /**
      * 信息查询平台搜索
@@ -99,7 +99,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      */
     @Override
     public BaiDuYuQingDo newsConsensus(String company) {
-        String api = url + "?company=" + company + "&ak=" + ak;
+        String api = baiduYuQing + "?company=" + company + "&ak=" + baiduYuqingAK;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(api, new HttpCallback<BaiDuYuQingDo>() {
@@ -166,9 +166,25 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      */
     @Override
     public Map<String, Object> lawsuitRecord() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("诉讼信息", "");
-        return data;
+//        String api = baiduYuQing + "?company=" + company + "&ak=" + ak;
+//        HttpTemplate httpTemplate = new HttpTemplate();
+//        try {
+//            return httpTemplate.get(api, new HttpCallback<BaiDuYuQingDo>() {
+//                @Override
+//                public boolean valid() {
+//                    return true;
+//                }
+//
+//                @Override
+//                public BaiDuYuQingDo parse(String result) {
+//                    return JSON.parseObject(result, BaiDuYuQingDo.class);
+//                }
+//            });
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+        return null;
     }
 
     /**
