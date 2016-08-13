@@ -11,7 +11,7 @@
         <module>wtyh-service</module>
         <module>wtyh-dao</module>
         <module>wtyh-domain</module>
-        <module>admin</module>
+        <module>wtyh-admin</module>
     </modules>
 
     <properties>
