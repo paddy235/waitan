@@ -72,15 +72,13 @@ public class P2PImageController {
      */
     @RequestMapping("/radarScore")
     @ResponseBody
-    public ResponseBean radarScore() {
-        String dataType = "";
-        String plat_name = "";
-        Map<String, Object> result = p2PImageService.radarScore(dataType, plat_name);
+    public ResponseBean radarScore(@RequestParam(required = true)String platName) {
+        Map<String, Object> result = p2PImageService.radarScore(platName);
         RadarChartBean radarChart = new RadarChartBean<>();
         if (result.size() != 0) {
             radarChart.setIndicator(result.get("indicator"));
             radarChart.setSeries(result.get("series"));
-            radarChart.setScore(result.get("score"));
+            radarChart.setScore(result.get("sumScore"));
             radarChart.setCode(result.get("code"));
         }
         return ResponseBean.successResponse(radarChart);

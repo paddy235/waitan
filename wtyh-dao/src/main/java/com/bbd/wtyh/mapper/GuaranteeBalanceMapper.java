@@ -8,4 +8,5 @@ public interface GuaranteeBalanceMapper {
     GuaranteeBalanceDO selectByPrimaryKey(Integer id);
 
     List<GuaranteeBalanceDO> listByYear();
+
 }

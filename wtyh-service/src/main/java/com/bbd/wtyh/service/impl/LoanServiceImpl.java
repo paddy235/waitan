@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.common.Pagination;
+import com.bbd.wtyh.domain.LargeLoanDO;
 import com.bbd.wtyh.domain.LoanBalanceDO;
 import com.bbd.wtyh.domain.dto.LargeLoanDTO;
 import com.bbd.wtyh.mapper.LargeLoanMapper;
@@ -27,8 +28,13 @@ public class LoanServiceImpl implements LoanService {
     }
 
     @Override
-    public List<LargeLoanDTO> listLargeLoan(Pagination pagination, Integer orderByField, String descAsc) {
+    public List<LargeLoanDO> listLargeLoan(Pagination pagination, Integer orderByField, String descAsc) {
         return largeLoanMapper.listLargeLoan(pagination,orderByField,descAsc);
+    }
+
+    @Override
+    public int countLargeLoan() {
+        return largeLoanMapper.countLargeLoan();
     }
 
 

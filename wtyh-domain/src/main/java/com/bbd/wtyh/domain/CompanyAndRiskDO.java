@@ -14,6 +14,8 @@ public class CompanyAndRiskDO {
 	
 	private Byte analysisResult;
 	
+	private String isForeign;
+	
 	private String recordNumber;
 	
 	private String address;
@@ -22,6 +24,18 @@ public class CompanyAndRiskDO {
 
 	
 	
+
+	
+	public String getIsForeign() {
+		return isForeign;
+	}
+
+
+	
+	public void setIsForeign(String isForeign) {
+		this.isForeign = isForeign;
+	}
+
 	public String getAddress() {
 		return address;
 	}

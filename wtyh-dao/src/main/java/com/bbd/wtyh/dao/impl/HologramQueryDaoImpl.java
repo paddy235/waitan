@@ -1,7 +1,12 @@
 package com.bbd.wtyh.dao.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.bbd.higgs.utils.http.HttpCallback;
+import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.dao.HologramQueryDao;
-import org.omg.CORBA.DATA_CONVERSION;
+import com.bbd.wtyh.domain.bbdAPI.BaseData;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -57,13 +62,28 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      * @return
      */
     @Override
-    public Map<String, Object> outlineMsg() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("企业名称", "上海明成投资有限公司");
-        data.put("法定代表人", "蒋宁");
-        data.put("注册资本", "50000人民币");
-        data.put("注册地址", "上海市长岭北路1号国际会展中心···");
-        return data;
+    public BaseData outlineMsg(String companyName) {
+        String coreDataDealURL = String.format("http://dataom.api.bbdservice.com/api/bbd_qyxx/?company=攀枝花市交通旅游客运有限责任公司&ak=0516d1c0db8d5cd1933cc2442c9f8d40");
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(coreDataDealURL, new HttpCallback<BaseData>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+                @Override
+                public BaseData parse(String result) {
+
+                    Gson gson = new Gson();
+                    BaseData d = gson.fromJson(result, BaseData.class);
+
+                    return d;
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
