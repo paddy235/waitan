@@ -1,7 +1,7 @@
 package com.bbd.wtyh.service;
 
-import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDO;
-import com.bbd.wtyh.domain.bbdAPI.CourtAnnouncementDO;
+import com.bbd.wtyh.domain.bbdAPI1.BaiDuYuQingDO;
+import com.bbd.wtyh.domain.bbdAPI1.CourtAnnouncementDO;
 
 import java.util.Map;
 
