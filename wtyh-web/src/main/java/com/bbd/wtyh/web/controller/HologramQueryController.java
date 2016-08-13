@@ -1,5 +1,6 @@
 package com.bbd.wtyh.web.controller;
 
+import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDo;
 import com.bbd.wtyh.domain.bbdAPI.BaseData;
 import com.bbd.wtyh.service.HologramQueryService;
 import com.bbd.wtyh.web.ResponseBean;
@@ -67,8 +68,8 @@ public class HologramQueryController {
      */
     @RequestMapping("/newsConsensus")
     @ResponseBody
-    public ResponseBean newsConsensus() {
-        Map<String, Object> result = hologramQueryService.newsConsensus();
+    public ResponseBean newsConsensus(@RequestParam(required = true) String company) {
+        BaiDuYuQingDo result = hologramQueryService.newsConsensus(company);
         return ResponseBean.successResponse(result);
     }
 

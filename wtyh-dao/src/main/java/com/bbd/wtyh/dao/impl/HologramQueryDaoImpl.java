@@ -4,9 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.dao.HologramQueryDao;
+import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDo;
 import com.bbd.wtyh.domain.bbdAPI.BaseData;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -22,6 +23,11 @@ import java.util.Map;
 @Repository("hologramQueryDao")
 public class HologramQueryDaoImpl implements HologramQueryDao {
 
+    @Value("${api.baidu.news.url}")
+    private String url;
+
+    @Value("${api.baidu.news.ak}")
+    private String ak;
 
     /**
      * 信息查询平台搜索
@@ -92,14 +98,25 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      * @return
      */
     @Override
-    public Map<String, Object> newsConsensus() {
-        Map<String, Object> data = new LinkedHashMap<>();
-        data.put("舆情信息序号", "1");
-        data.put("标题", "发展融资租担保行业打造高效监管体系");
-        data.put("缩略内容", "昨日下午，发展融资租担保行业打造高效监管体系···");
-        data.put("信息来源网站", "光明网");
-        data.put("更新日期", "2016年6月27日");
-        return data;
+    public BaiDuYuQingDo newsConsensus(String company) {
+        String api = url + "?company=" + company + "&ak=" + ak;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(api, new HttpCallback<BaiDuYuQingDo>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public BaiDuYuQingDo parse(String result) {
+                    return JSON.parseObject(result, BaiDuYuQingDo.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**

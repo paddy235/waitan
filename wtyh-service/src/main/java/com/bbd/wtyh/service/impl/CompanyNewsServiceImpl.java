@@ -43,7 +43,7 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
     @Value("${api.baidu.news.url}")
     private String url;
 
-    @Value("${api.baidu.news.access.token}")
+    @Value("${api.baidu.news.ak}")
     private String ak;
 
     public HttpGet httpGet;

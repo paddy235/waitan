@@ -1,12 +1,12 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.dao.HologramQueryDao;
+import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDo;
 import com.bbd.wtyh.domain.bbdAPI.BaseData;
 import com.bbd.wtyh.service.HologramQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -46,8 +46,8 @@ public class HologramQueryServiceImpl implements HologramQueryService {
     }
 
     @Override
-    public Map<String, Object> newsConsensus() {
-        return hologramQueryDao.newsConsensus();
+    public BaiDuYuQingDo newsConsensus(String company) {
+        return hologramQueryDao.newsConsensus(company);
     }
 
     @Override

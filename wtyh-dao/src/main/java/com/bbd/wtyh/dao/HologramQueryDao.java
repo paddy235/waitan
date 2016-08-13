@@ -1,7 +1,7 @@
 package com.bbd.wtyh.dao;
 
+import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDo;
 import com.bbd.wtyh.domain.bbdAPI.BaseData;
-import com.bbd.wtyh.domain.wangDaiAPI.PlatData;
 
 import java.util.Map;
 
@@ -18,7 +18,7 @@ public interface HologramQueryDao {
 
     BaseData outlineMsg(String platName);
 
-    Map<String, Object> newsConsensus();
+    BaiDuYuQingDo newsConsensus(String company);
 
     Map<String, Object> businessInfo();
 

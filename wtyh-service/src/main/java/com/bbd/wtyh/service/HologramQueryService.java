@@ -1,6 +1,6 @@
 package com.bbd.wtyh.service;
 
-import com.bbd.wtyh.domain.bbdAPI.BaseData;
+import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDo;
 
 import java.util.Map;
 
@@ -36,8 +36,9 @@ public interface HologramQueryService {
      * 新闻舆情
      *
      * @return
+     * @param company
      */
-    Map<String, Object> newsConsensus();
+    BaiDuYuQingDo newsConsensus(String company);
 
     /**
      * 企业信息详情-工商信息
