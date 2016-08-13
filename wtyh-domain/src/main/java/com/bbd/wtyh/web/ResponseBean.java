@@ -19,7 +19,11 @@ public class ResponseBean {
         ResponseBean responseBean = new ResponseBean();
         responseBean.success = true;
         responseBean.msg = "";
-        responseBean.content = content;
+        if (content == null) {
+            responseBean.content = "";
+        } else {
+            responseBean.content = content;
+        }
         return responseBean;
     }
 
