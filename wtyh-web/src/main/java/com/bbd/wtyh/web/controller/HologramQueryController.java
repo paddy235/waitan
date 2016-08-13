@@ -1,6 +1,7 @@
 package com.bbd.wtyh.web.controller;
 
-import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDo;
+import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDO;
+import com.bbd.wtyh.domain.bbdAPI.CourtAnnouncementDO;
 import com.bbd.wtyh.service.HologramQueryService;
 import com.bbd.wtyh.web.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +69,7 @@ public class HologramQueryController {
     @RequestMapping("/newsConsensus")
     @ResponseBody
     public ResponseBean newsConsensus(@RequestParam(required = true) String company) {
-        BaiDuYuQingDo result = hologramQueryService.newsConsensus(company);
+        BaiDuYuQingDO result = hologramQueryService.newsConsensus(company);
         return ResponseBean.successResponse(result);
     }
 
@@ -97,14 +98,14 @@ public class HologramQueryController {
     }
 
     /**
-     * 企业信息详情-诉讼记录
+     * 企业信息详情-诉讼记录 - 开庭公告
      *
      * @return
      */
-    @RequestMapping("/lawsuitRecord")
+    @RequestMapping("/openCourtAnnouncement")
     @ResponseBody
-    public ResponseBean lawsuitRecord() {
-        Map<String, Object> result = hologramQueryService.lawsuitRecord();
+    public ResponseBean openCourtAnnouncement(@RequestParam(required = true) String company) {
+        CourtAnnouncementDO result = hologramQueryService.openCourtAnnouncement(company);
         return ResponseBean.successResponse(result);
     }
 

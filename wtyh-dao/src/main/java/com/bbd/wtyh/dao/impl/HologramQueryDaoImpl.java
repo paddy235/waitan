@@ -4,8 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.dao.HologramQueryDao;
-import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDo;
+import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
+import com.bbd.wtyh.domain.bbdAPI.CourtAnnouncementDO;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -24,10 +25,16 @@ import java.util.Map;
 public class HologramQueryDaoImpl implements HologramQueryDao {
 
     @Value("${api.baidu.news.url}")
-    private String baiduYuQing;
+    private String baiduYuQing;     // 百度舆情
 
     @Value("${api.baidu.news.ak}")
     private String baiduYuqingAK;
+
+    @Value("${api.court.announcement.url}")
+    private String courtAnnouncementURL;    // 开庭公告
+
+    @Value("${api.court.announcement.ak}")
+    private String courtAnnouncementAK;
 
     /**
      * 信息查询平台搜索
@@ -95,19 +102,19 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      * @return
      */
     @Override
-    public BaiDuYuQingDo newsConsensus(String company) {
+    public BaiDuYuQingDO newsConsensus(String company) {
         String api = baiduYuQing + "?company=" + company + "&ak=" + baiduYuqingAK;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
-            return httpTemplate.get(api, new HttpCallback<BaiDuYuQingDo>() {
+            return httpTemplate.get(api, new HttpCallback<BaiDuYuQingDO>() {
                 @Override
                 public boolean valid() {
                     return true;
                 }
 
                 @Override
-                public BaiDuYuQingDo parse(String result) {
-                    return JSON.parseObject(result, BaiDuYuQingDo.class);
+                public BaiDuYuQingDO parse(String result) {
+                    return JSON.parseObject(result, BaiDuYuQingDO.class);
                 }
             });
         } catch (Exception e) {
@@ -160,28 +167,28 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      * 企业信息详情-诉讼记录
      *
      * @return
+     * @param company
      */
     @Override
-    public Map<String, Object> lawsuitRecord() {
-//        String api = baiduYuQing + "?company=" + company + "&ak=" + ak;
-//        HttpTemplate httpTemplate = new HttpTemplate();
-//        try {
-//            return httpTemplate.get(api, new HttpCallback<BaiDuYuQingDo>() {
-//                @Override
-//                public boolean valid() {
-//                    return true;
-//                }
-//
-//                @Override
-//                public BaiDuYuQingDo parse(String result) {
-//                    return JSON.parseObject(result, BaiDuYuQingDo.class);
-//                }
-//            });
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-        return null;
+    public CourtAnnouncementDO openCourtAnnouncement(String company) {
+        String api = courtAnnouncementURL + "?company=" + company + "&ak=" + courtAnnouncementAK;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(api, new HttpCallback<CourtAnnouncementDO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public CourtAnnouncementDO parse(String result) {
+                    return JSON.parseObject(result, CourtAnnouncementDO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
