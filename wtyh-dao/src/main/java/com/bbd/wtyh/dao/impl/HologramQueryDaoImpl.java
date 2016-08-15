@@ -28,14 +28,14 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     @Value("${api.baidu.news.ak}")
     private String baiduYuqingAK;
 
-    @Value("${api.court.announcement.url}")
-    private String courtAnnouncementURL;    // 开庭公告
+    @Value("${api.court.openCourtAnnouncement.url}")
+    private String openCourtAnnouncementURL;    // 开庭公告
 
-    @Value("${api.court.announcement.ak}")
-    private String courtAnnouncementAK;
+    @Value("${api.court.openCourtAnnouncement.ak}")
+    private String openCourtAnnouncementAK;
 
     @Value("${api.court.debtor.url}")
-    private String debtorURL;    // 裁判文书
+    private String debtorURL;    // 被执行人
 
     @Value("${api.court.debtor.ak}")
     private String debtorAK;
@@ -45,6 +45,18 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
 
     @Value("${api.court.judgeDoc.ak}")
     private String judgeDocAK;
+
+    @Value("${api.court.courtAnnouncement.url}")
+    private String courtAnnouncementURL;    //  法院公告
+
+    @Value("${api.court.courtAnnouncement.ak}")
+    private String courtAnnouncementAK;
+
+    @Value("${api.court.courtAnnouncement.url}")
+    private String noCreditDebtorURL;    // 失信被执行人
+
+    @Value("${api.court.noCreditDebtor.ak}")
+    private String noCreditDebtorAK;
 
     @Value("${api.bbd_qyxx.url}")
     private String bbdQyxxURL;      // 企业信息
@@ -192,7 +204,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      */
     @Override
     public CourtAnnouncementDO openCourtAnnouncement(String company) {
-        String api = courtAnnouncementURL + "?company=" + company + "&ak=" + courtAnnouncementAK;
+        String api = openCourtAnnouncementURL + "?company=" + company + "&ak=" + openCourtAnnouncementAK;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(api, new HttpCallback<CourtAnnouncementDO>() {
@@ -259,6 +271,50 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
                 @Override
                 public DebtorDO parse(String result) {
                     return JSON.parseObject(result, DebtorDO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public NoCreditDebtorDO noCreditDebtor(String company) {
+        String api = noCreditDebtorURL + "?company=" + company + "&ak=" + noCreditDebtorAK;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(api, new HttpCallback<NoCreditDebtorDO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public NoCreditDebtorDO parse(String result) {
+                    return JSON.parseObject(result, NoCreditDebtorDO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public CourtAnnouncementDO courtAnnouncement(String company) {
+        String api = courtAnnouncementURL + "?company=" + company + "&ak=" + courtAnnouncementAK;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(api, new HttpCallback<CourtAnnouncementDO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public CourtAnnouncementDO parse(String result) {
+                    return JSON.parseObject(result, CourtAnnouncementDO.class);
                 }
             });
         } catch (Exception e) {

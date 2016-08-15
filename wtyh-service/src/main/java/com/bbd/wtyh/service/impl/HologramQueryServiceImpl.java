@@ -99,5 +99,15 @@ public class HologramQueryServiceImpl implements HologramQueryService {
         return hologramQueryDao.debtor(company);
     }
 
+    @Override
+    public NoCreditDebtorDO noCreditDebtor(String company) {
+        return hologramQueryDao.noCreditDebtor(company);
+    }
+
+    @Override
+    public CourtAnnouncementDO courtAnnouncement(String company) {
+        return hologramQueryDao.courtAnnouncement(company);
+    }
+
 
 }

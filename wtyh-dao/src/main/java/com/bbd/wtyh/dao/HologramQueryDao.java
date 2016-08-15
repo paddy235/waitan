@@ -31,4 +31,8 @@ public interface HologramQueryDao {
     JudgeDocDO judgeDoc(String company);
 
     DebtorDO debtor(String company);
+
+    NoCreditDebtorDO noCreditDebtor(String company);
+
+    CourtAnnouncementDO courtAnnouncement(String company);
 }
