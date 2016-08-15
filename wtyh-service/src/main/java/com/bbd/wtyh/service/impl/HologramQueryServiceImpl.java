@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.dao.HologramQueryDao;
+import com.bbd.wtyh.domain.bbdAPI.*;
 import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.CourtAnnouncementDO;
@@ -104,13 +105,35 @@ public class HologramQueryServiceImpl implements HologramQueryService {
     }
 
     @Override
-    public CourtAnnouncementDO openCourtAnnouncement(String company) {
-        return hologramQueryDao.openCourtAnnouncement(company);
+    public List<CourtAnnouncementDO.Results> openCourtAnnouncement(String company) {
+        CourtAnnouncementDO courtAnnouncementDO = hologramQueryDao.openCourtAnnouncement(company);
+        return courtAnnouncementDO.getResults();
     }
 
     @Override
     public Map<String, Object> recruitMsg() {
         return hologramQueryDao.recruitMsg();
+    }
+
+    @Override
+    public List<JudgeDocDO.Results> judgeDoc(String company) {
+        JudgeDocDO courtAnnouncementDO = hologramQueryDao.judgeDoc(company);
+        return courtAnnouncementDO.getResults();
+    }
+
+    @Override
+    public DebtorDO debtor(String company) {
+        return hologramQueryDao.debtor(company);
+    }
+
+    @Override
+    public NoCreditDebtorDO noCreditDebtor(String company) {
+        return hologramQueryDao.noCreditDebtor(company);
+    }
+
+    @Override
+    public CourtAnnouncementDO courtAnnouncement(String company) {
+        return hologramQueryDao.courtAnnouncement(company);
     }
 
 

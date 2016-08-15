@@ -33,7 +33,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>springmvc</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>*.do</url-pattern>
     </servlet-mapping>
     
     
@@ -82,10 +82,10 @@
     
     <error-page>
         <error-code>404</error-code>
-        <location>/WEB-INF/jsp/common/404.jsp</location>
+        <location>/index.html</location>
     </error-page>
 
-    <!--<welcome-file-list>-->
-        <!--<welcome-file>/test/listData</welcome-file>-->
-    <!--</welcome-file-list>-->
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
 </web-app>

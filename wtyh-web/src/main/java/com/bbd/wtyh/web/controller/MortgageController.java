@@ -31,13 +31,13 @@ public class MortgageController {
      *
      * @return
      */
-    @RequestMapping("statisticList")
+    @RequestMapping("statisticList.do")
     public ResponseBean statisticList() {
         return ResponseBean.successResponse(mortgageService.getMortgageStatisticList());
     }
 
 
-    @RequestMapping("companyList")
+    @RequestMapping("companyList.do")
     public ResponseBean companyList() {
         CompanyQuery query = new CompanyQuery();
         query.setCompanyType((int) CompanyDO.TYPE_DD_12);

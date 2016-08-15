@@ -24,7 +24,7 @@ public class CompanySearchController {
     @Autowired
     private CompanySearchAPIService comSearApiSer;
 
-    @RequestMapping("searchCompany")
+    @RequestMapping("searchCompany.do")
     @ResponseBody
     public ResponseBean searchCompany(Integer companyType, String keyword, Integer size) {
         if (null == size || size <= 0) {

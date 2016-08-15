@@ -43,7 +43,7 @@ import java.util.Set;
 public class YEDUtils {
 	//YED静态变量定义
 	public static final class RELATION_CONSTANTS {
-		public static final Color Color_background = Color.decode("#FFFFFF");//图片背景色
+		public static final Color Color_background = Color.decode("#2B323C");//图片背景色
 		public static final Color Color_Destion_Company = Color.decode("#FF0000");//目标公司颜色
 		public static final Color Color_Child_Company = Color.decode("#FFD700");//子公司颜色
 		public static final Color Color_1 = Color.decode("#0031B0");//一度关联颜色
@@ -132,7 +132,10 @@ public class YEDUtils {
 		nodeRealizer.setSize(pixelNum, pixelNum);
 		nodeRealizer.setFillColor(color);
 		nodeRealizer.setLineColor(Color.WHITE);
-		nodeRealizer.setLabelText(nodeText);
+		NodeLabel nodeLabel = new NodeLabel();
+		nodeLabel.setTextColor(Color.decode("#CCCCCC"));
+		nodeLabel.setText(nodeText);
+		nodeRealizer.setLabel(nodeLabel);
 		return nodeRealizer;
 	}
 	/**

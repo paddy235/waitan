@@ -4,9 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.dao.HologramQueryDao;
-import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDO;
-import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
-import com.bbd.wtyh.domain.bbdAPI.CourtAnnouncementDO;
+import com.bbd.wtyh.domain.bbdAPI.*;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -25,19 +23,43 @@ import java.util.Map;
 public class HologramQueryDaoImpl implements HologramQueryDao {
 
     @Value("${api.baidu.news.url}")
-    private String baiduYuQing;     // 百度舆情
+    private String baiduYuQingURL;     // 百度舆情
 
     @Value("${api.baidu.news.ak}")
     private String baiduYuqingAK;
 
-    @Value("${api.court.announcement.url}")
-    private String courtAnnouncementURL;    // 开庭公告
+    @Value("${api.court.openCourtAnnouncement.url}")
+    private String openCourtAnnouncementURL;    // 开庭公告
 
-    @Value("${api.court.announcement.ak}")
+    @Value("${api.court.openCourtAnnouncement.ak}")
+    private String openCourtAnnouncementAK;
+
+    @Value("${api.court.debtor.url}")
+    private String debtorURL;    // 被执行人
+
+    @Value("${api.court.debtor.ak}")
+    private String debtorAK;
+
+    @Value("${api.court.judgeDoc.url}")
+    private String judgeDocURL;    // 裁判文书
+
+    @Value("${api.court.judgeDoc.ak}")
+    private String judgeDocAK;
+
+    @Value("${api.court.courtAnnouncement.url}")
+    private String courtAnnouncementURL;    //  法院公告
+
+    @Value("${api.court.courtAnnouncement.ak}")
     private String courtAnnouncementAK;
 
+    @Value("${api.court.courtAnnouncement.url}")
+    private String noCreditDebtorURL;    // 失信被执行人
+
+    @Value("${api.court.noCreditDebtor.ak}")
+    private String noCreditDebtorAK;
+
     @Value("${api.bbd_qyxx.url}")
-    private String bbdQyxxURL;
+    private String bbdQyxxURL;      // 企业信息
 
     @Value("${api.bbd_qyxx.ak}")
     private String bbdQyxxAK;
@@ -90,6 +112,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
                 public boolean valid() {
                     return true;
                 }
+
                 @Override
                 public BaseDataDO parse(String result) {
                     Gson gson = new Gson();
@@ -109,7 +132,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      */
     @Override
     public BaiDuYuQingDO newsConsensus(String company) {
-        String api = baiduYuQing + "?company=" + company + "&ak=" + baiduYuqingAK;
+        String api = baiduYuQingURL + "?company=" + company + "&ak=" + baiduYuqingAK;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(api, new HttpCallback<BaiDuYuQingDO>() {
@@ -144,6 +167,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
                 public boolean valid() {
                     return true;
                 }
+
                 @Override
                 public BaseDataDO parse(String result) {
                     Gson gson = new Gson();
@@ -186,12 +210,12 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     /**
      * 企业信息详情-诉讼记录
      *
-     * @return
      * @param company
+     * @return
      */
     @Override
     public CourtAnnouncementDO openCourtAnnouncement(String company) {
-        String api = courtAnnouncementURL + "?company=" + company + "&ak=" + courtAnnouncementAK;
+        String api = openCourtAnnouncementURL + "?company=" + company + "&ak=" + openCourtAnnouncementAK;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(api, new HttpCallback<CourtAnnouncementDO>() {
@@ -222,5 +246,91 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
         return data;
     }
 
+    @Override
+    public JudgeDocDO judgeDoc(String company) {
+        String api = judgeDocURL + "?company=" + company + "&ak=" + judgeDocAK;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(api, new HttpCallback<JudgeDocDO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
 
+                @Override
+                public JudgeDocDO parse(String result) {
+                    return JSON.parseObject(result, JudgeDocDO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public DebtorDO debtor(String company) {
+        String api = debtorURL + "?company=" + company + "&ak=" + debtorAK;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(api, new HttpCallback<DebtorDO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public DebtorDO parse(String result) {
+                    return JSON.parseObject(result, DebtorDO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public NoCreditDebtorDO noCreditDebtor(String company) {
+        String api = noCreditDebtorURL + "?company=" + company + "&ak=" + noCreditDebtorAK;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(api, new HttpCallback<NoCreditDebtorDO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public NoCreditDebtorDO parse(String result) {
+                    return JSON.parseObject(result, NoCreditDebtorDO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public CourtAnnouncementDO courtAnnouncement(String company) {
+        String api = courtAnnouncementURL + "?company=" + company + "&ak=" + courtAnnouncementAK;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(api, new HttpCallback<CourtAnnouncementDO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public CourtAnnouncementDO parse(String result) {
+                    return JSON.parseObject(result, CourtAnnouncementDO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

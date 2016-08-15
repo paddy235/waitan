@@ -1,0 +1,32 @@
+{
+    "success": true,
+    "content": [
+        {
+            "createBy": null,
+            "createDate": null,
+            "updateBy": null,
+            "updateDate": null,
+            "newsId": 1,
+            "companyId": 1,
+            "title": "公司破产",
+            "content": "上海某公司资金流动困难,面临破产",
+            "fromSite": "百度",
+            "date": 1470412800000,
+            "url": "http://www.baidu.com"
+        },
+        {
+            "createBy": null,
+            "createDate": null,
+            "updateBy": null,
+            "updateDate": null,
+            "newsId": 2,
+            "companyId": 1,
+            "title": "公司破产",
+            "content": "上海某公司资金流动困难,面临破产",
+            "fromSite": "google",
+            "date": 1470240000000,
+            "url": "http://www.baidu.com"
+        }
+    ],
+    "msg": ""
+}

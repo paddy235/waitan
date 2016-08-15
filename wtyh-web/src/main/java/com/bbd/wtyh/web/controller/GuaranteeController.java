@@ -43,7 +43,7 @@ public class GuaranteeController {
      *
      * @return
      */
-    @RequestMapping("areaStatistic")
+    @RequestMapping("areaStatistic.do")
     public ResponseBean areaStatistic() {
         List<AreaDO> areaList = areaService.areaList();
         List<HotAreaDTO> result = Lists.newArrayList();
@@ -73,7 +73,7 @@ public class GuaranteeController {
      * @param descAsc      desc/asc
      * @return
      */
-    @RequestMapping("companyLevel")
+    @RequestMapping("companyLevel.do")
     public ResponseBean companyLevel(Integer orderByField, String descAsc) {
         return ResponseBean.successResponse(companyLevelService.getCompanyLevel((int) CompanyDO.TYPE_RZDB_3, orderByField, descAsc));
     }
@@ -83,7 +83,7 @@ public class GuaranteeController {
      *
      * @return
      */
-    @RequestMapping("balance")
+    @RequestMapping("balance.do")
     public ResponseBean balance() {
         CompanyQuery query = new CompanyQuery();
         query.setCompanyType((int) CompanyDO.TYPE_RZDB_3);
@@ -110,7 +110,7 @@ public class GuaranteeController {
      *
      * @return
      */
-    @RequestMapping("shareholderRisk")
+    @RequestMapping("shareholderRisk.do")
     public ResponseBean shareholderRisk() {
         List<ShareholderRiskDTO> list = shareholderRiskService.listShareholderRisk((int) CompanyDO.TYPE_RZDB_3);
         return ResponseBean.successResponse(list);
@@ -123,7 +123,7 @@ public class GuaranteeController {
      * @param companyId
      * @return
      */
-    @RequestMapping("shareholderRiskDetail")
+    @RequestMapping("shareholderRiskDetail.do")
     public ResponseBean shareholderRiskDetail(Integer companyId) {
         if (null == companyId || companyId <= 0) {
             return ResponseBean.errorResponse("companyId must be not null");
@@ -140,7 +140,7 @@ public class GuaranteeController {
      * @param descAsc
      * @return
      */
-    @RequestMapping("largeGuaranteeList")
+    @RequestMapping("largeGuaranteeList.do")
     public ResponseBean largeGuaranteeList(Pagination pagination, Integer orderByField, String descAsc) {
         List<GuaranteedInfoDO> list = guaranteeService.listLargeGuarantee(pagination, orderByField, descAsc);
         int count = guaranteeService.countLargeGuarantee();
