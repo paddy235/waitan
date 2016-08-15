@@ -44,25 +44,55 @@ $(function(){
                         $(ed.target).focus();
                     }
                     
-                    $(ed.target).on("blur",function(){
-                    	
+                    $(ed.target).closest("td").find("input:eq(1)").blur(function(){
                     	var updateField = $(this).closest("td[field]").attr("field");
                     	var tr = $(this).closest("tr[datagrid-row-index]");
                     	var idTd = tr.find("td[field]:eq(0)");
                     	var idField = idTd.attr("field");
                     	var idValue = idTd.text();
                     	
+                    	var value = $(this).val();
+                    	                    	
                     	$.post("${ctx}/data/updateTableData",
                     			{idField:idField,
 	                    		 tableName:'${param.tableName}',
 	                    		 updateField:updateField,
 	                    		 idValue:idValue,
-	                    		 value:this.value},
+	                    		 value:value},
                     			 function(){
-	                    			$(".pagination-load").trigger('click');
+	                    			// $(".pagination-load").trigger('click');
                     		     });
                     	
                     });
+                    
+//                     $(ed.target).closest("td").on("mouseout",function(){  
+               			
+//                     	var updateField = $(this).closest("td[field]").attr("field");
+//                     	var tr = $(this).closest("tr[datagrid-row-index]");
+//                     	var idTd = tr.find("td[field]:eq(0)");
+//                     	var idField = idTd.attr("field");
+//                     	var idValue = idTd.text();
+                    	
+//                     	var value = $(this).text();
+//                     	if(value == ""){
+//                     		value = $(this).find("input:eq(1)").val();
+//                     	}
+                    	
+//                     	if(value == $(this).find("input:eq(0)").val()){
+//                     		return;
+//                     	}
+                    	
+//                     	$.post("${ctx}/data/updateTableData",
+//                     			{idField:idField,
+// 	                    		 tableName:'${param.tableName}',
+// 	                    		 updateField:updateField,
+// 	                    		 idValue:idValue,
+// 	                    		 value:value},
+//                     			 function(){
+// 	                    			// $(".pagination-load").trigger('click');
+//                     		     });
+                    	
+//                     });
                 }
 				for(var i=0; i<fields.length; i++){
 					var col = $(this).datagrid('getColumnOption', fields[i]);
