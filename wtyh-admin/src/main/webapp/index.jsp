@@ -37,6 +37,9 @@
 					return $(this).form('enableValidation').form('validate');
 				},
 				success:function(data){
+					
+					data = JSON.parse(data);
+					
 					if(data.success){
 						window.location.href="${ctx}/"+data.content;
 					}else{

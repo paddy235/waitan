@@ -1,5 +1,6 @@
 package com.bbd.wtyh.mapper;
 
+import java.util.List;
 
 /**
 * 
@@ -8,6 +9,6 @@ package com.bbd.wtyh.mapper;
 */
 public interface UserMapper {
 	
-	public String getpassword();
+	public List<String> getPassword(String loginName);
 	
 }
