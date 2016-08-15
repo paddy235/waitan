@@ -162,14 +162,25 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      * @return
      */
     @Override
-    public Map<String, Object> shareholdersSenior() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("股东", "王伟");
-        data.put("股东类型", "建工单");
-        data.put("国务院", "王伟");
-        data.put("机关法人", "王伟");
-        data.put("股东", "王伟");
-        return data;
+    public BaseDataDO shareholdersSenior(String companyName) {
+        String coreDataDealURL = bbdQyxxURL + "?company=" + companyName + "&ak=" + bbdQyxxAK;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(coreDataDealURL, new HttpCallback<BaseDataDO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+                @Override
+                public BaseDataDO parse(String result) {
+                    Gson gson = new Gson();
+                    return gson.fromJson(result, BaseDataDO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**

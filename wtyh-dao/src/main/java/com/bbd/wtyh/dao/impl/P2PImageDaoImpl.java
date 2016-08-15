@@ -5,9 +5,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.dao.P2PImageDao;
+import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompanyDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -24,6 +27,12 @@ public class P2PImageDaoImpl implements P2PImageDao {
 
     @Value("${api.finnacial.url}")
     private String url;
+
+    @Value("${api.bbd_qyxx.url}")
+    private String bbdQyxxURL;
+
+    @Value("${api.bbd_qyxx.ak}")
+    private String bbdQyxxAK;
 
     @Override
     public YuQingDO platformConsensus(String platName) {
@@ -126,56 +135,50 @@ public class P2PImageDaoImpl implements P2PImageDao {
         return result;
     }
 
-    @Override
-    public Map<String, Object> baseInfo(String companyName, String akId, String platName) {
-        String platFormName = String.format("http://localhost:8080/financial_services?dataType=%s&plat_name=1121", platName);//网贷之家
-        String cn = String.format("http://dataom.api.bbdservice.com/api/bbd_qyxx/?company=%s&ak=%s", companyName, akId);//数据平台
-        final Map<String, Object> map = new LinkedHashMap<>();
+    public Map<String, Object> baseInfoWangDaiApi(String dataType,String platName){
+        String platFormName = "http://localhost:8080/financial_services?dataType=plat_list&plat_name=123456";
+        final Map<String, Object> data = new HashMap<>();
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             httpTemplate.get(platFormName, new HttpCallback<Object>() {
                 @Override
                 public boolean valid() {
-                    return false;
+                    return true;
                 }
-
                 @Override
                 public Object parse(String result) {
-                    System.out.println(result);
-                    String str = result.substring(1, result.length() - 1);
-                    //乱码问题没有解决
-                    JSONObject object = JSON.parseObject(str);
-                    map.put("平台名称", object.get("plat_name"));
-                    map.put("公司名称", object.get("company_name"));
-                    return map;
-                }
-            });
-            httpTemplate.get(cn, new HttpCallback<Object>() {
-                @Override
-                public boolean valid() {
-                    return false;
-                }
-
-                @Override
-                public Object parse(String result) {
-                    JSONObject object = JSON.parseObject(result);
-                    String results = String.valueOf(object.get("results"));
-                    JSONObject data = JSON.parseObject(results.substring(1, results.length() - 1));
-                    JSONObject jbxx = JSON.parseObject(String.valueOf(data.get("jbxx")));
-                    map.put("法人代表", jbxx.get("frname"));
-//                    map.put("公司名称", jbxx.get("company_name"));
-                    map.put("注册资本", jbxx.get("regcap"));
-                    map.put("注册地址", jbxx.get("address"));
-                    map.put("开业日期", jbxx.get("esdate"));
-                    map.put("核准日期", jbxx.get("approval_date"));
-                    map.put("登记机关", jbxx.get("regorg"));
-                    return map;
+                    JSONObject jsonObject = JSON.parseObject(result);
+                    data.put("平台名称", jsonObject.get("plat_name"));
+                    data.put("公司名称", jsonObject.get("company_name"));
+                    return data;
                 }
             });
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return map;
+        return data;
+    }
+    @Override
+    public BaseDataDO baseInfoBBDData(String companyName) {
+        String baseURL = bbdQyxxURL + "?companyName=" + companyName + "&ak=" + bbdQyxxAK;
+        final Map<String, Object> map = new LinkedHashMap<>();
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(baseURL, new HttpCallback<BaseDataDO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+                @Override
+                public BaseDataDO parse(String result) {
+                    Gson gson = new Gson();
+                    return gson.fromJson(result, BaseDataDO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override

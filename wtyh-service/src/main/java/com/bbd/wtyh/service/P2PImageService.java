@@ -42,7 +42,7 @@ public interface P2PImageService {
      */
     Map<String, Object> radarScore(String plat_name);
     
-    Map<String, Object> baseInfo(String companyName, String akId , String platName);
+    Map<String, Object> baseInfo(String companyName, String dataType, String platName);
 
     Map<String, Object> coreDataInfo(String platName);
 

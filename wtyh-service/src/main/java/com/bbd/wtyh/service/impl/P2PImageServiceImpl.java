@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.dao.P2PImageDao;
+import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompanyDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
@@ -53,8 +54,19 @@ public class P2PImageServiceImpl implements P2PImageService {
     }
 
     @Override
-    public Map<String, Object> baseInfo(String companyName, String akId , String platName) {
-        return p2PImageDao.baseInfo(companyName, akId , platName);
+    public Map<String, Object> baseInfo(String companyName, String dataType, String platName) {
+        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName);
+        Map<String, Object> data = p2PImageDao.baseInfoWangDaiApi(dataType, platName);
+        for (BaseDataDO.Results result : baseDataDO.getResults()) {
+            data.put("法人代表", result.getJbxx().getFrname());
+            data.put("注册资本", result.getJbxx().getRegcap());
+            data.put("注册地址", result.getJbxx().getAddress());
+            data.put("开业日期", result.getJbxx().getEsdate());
+            data.put("核准日期", result.getJbxx().getApproval_date());
+            data.put("登记机关", result.getJbxx().getRegorg());
+//            data.put("组织机构代码", result.getJbxx().getFrname());
+        }
+        return data;
     }
 
     @Override
