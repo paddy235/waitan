@@ -5,10 +5,10 @@ package com.bbd.wtyh.domain.enums;
  * @author tracy zhou.
  */
 public enum CompanyAnalysisResult {
-    RISK("已出风险", 1, "黑"),
     IMPORT_FOCUS("重点关注", 2, "红"),
     COMMON_FOCUS("一般关注", 3, "黄"),
-    NORMAL("正常", 4, "绿");
+    NORMAL("正常", 4, "绿"),
+    RISK("已出风险", 1, "黑");
 
     // 成员变量
     private String color;
