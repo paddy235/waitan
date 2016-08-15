@@ -43,7 +43,7 @@ public class LoanController {
      *
      * @return
      */
-    @RequestMapping("areaStatistic")
+    @RequestMapping("areaStatistic.do")
     public ResponseBean areaStatistic() {
         List<AreaDO> areaList = areaService.areaList();
         List<HotAreaDTO> result = Lists.newArrayList();
@@ -73,7 +73,7 @@ public class LoanController {
      * @param descAsc      desc/asc
      * @return
      */
-    @RequestMapping("companyLevel")
+    @RequestMapping("companyLevel.do")
     public ResponseBean companyLevel(Integer orderByField, String descAsc) {
         return ResponseBean.successResponse(companyLevelService.getCompanyLevel((int) CompanyDO.TYPE_XD_2, orderByField, descAsc));
     }
@@ -83,7 +83,7 @@ public class LoanController {
      *
      * @return
      */
-    @RequestMapping("balance")
+    @RequestMapping("balance.do")
     public ResponseBean balance() {
         CompanyQuery query = new CompanyQuery();
         query.setCompanyType((int) CompanyDO.TYPE_XD_2);
@@ -109,7 +109,7 @@ public class LoanController {
      *
      * @return
      */
-    @RequestMapping("shareholderRisk")
+    @RequestMapping("shareholderRisk.do")
     public ResponseBean shareholderRisk() {
         List<ShareholderRiskDTO> list = shareholderRiskService.listShareholderRisk((int) CompanyDO.TYPE_XD_2);
         return ResponseBean.successResponse(list);
@@ -122,7 +122,7 @@ public class LoanController {
      * @param companyId
      * @return
      */
-    @RequestMapping("shareholderRiskDetail")
+    @RequestMapping("shareholderRiskDetail.do")
     public ResponseBean shareholderRiskDetail(Integer companyId) {
         if (null == companyId || companyId <= 0) {
             return ResponseBean.errorResponse("companyId must be not null");
@@ -139,7 +139,7 @@ public class LoanController {
      * @param descAsc
      * @return
      */
-    @RequestMapping("largeLoanList")
+    @RequestMapping("largeLoanList.do")
     public ResponseBean largeLoanList(Pagination pagination, Integer orderByField, String descAsc) {
         List<LargeLoanDO> list = loanService.listLargeLoan(pagination, orderByField, descAsc);
         int count = loanService.countLargeLoan();

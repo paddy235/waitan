@@ -34,7 +34,7 @@ public class PrivateFundController {
     private CompanyService companyService;
 
 
-    @RequestMapping("qdlpProgressList")
+    @RequestMapping("qdlpProgressList.do")
     public ResponseBean qdlpProgressList() {
         List<QdlpProgressDO> progressDOList = privateFundService.qdlpProgressList();
         List<QdlpProgressDTO> dtoList = Lists.newArrayList();
@@ -65,7 +65,7 @@ public class PrivateFundController {
     }
 
 
-    @RequestMapping("qflpInfoList")
+    @RequestMapping("qflpInfoList.do")
     public ResponseBean qflpInfoList() {
         List<QflpCompanyDO> companyDOList = privateFundService.qflpCompanyList();
         List<QflpCompanyDTO> result = Lists.newArrayList();
@@ -81,7 +81,7 @@ public class PrivateFundController {
     }
 
 
-    @RequestMapping("typeStatistic")
+    @RequestMapping("typeStatistic.do")
     public ResponseBean typeStatistic() {
         List<PrivateFundStatisticDO> statisticList = privateFundService.typeStatisticList();
         Map<Integer, PrivateFundTypeStatisticDTO> typeId2DTO = Maps.newHashMap();
@@ -106,7 +106,7 @@ public class PrivateFundController {
     }
 
 
-    @RequestMapping("productTypeStatistic")
+    @RequestMapping("productTypeStatistic.do")
     public ResponseBean productTypeStatistic() {
         List<FundProductStatisticDO> productTypeStaticticList = privateFundService.productTypeStatisticList();
         List<PrivateFundProductTypeStatisticDTO> result = Lists.newArrayList();
@@ -120,7 +120,7 @@ public class PrivateFundController {
     }
 
 
-    @RequestMapping("topProductNumber")
+    @RequestMapping("topProductNumber.do")
     public ResponseBean topProductNumber(Integer numbers) {
         if (null == numbers || numbers <= 0) {
             numbers = 10;
@@ -138,7 +138,7 @@ public class PrivateFundController {
     }
 
 
-    @RequestMapping("capitalAmount")
+    @RequestMapping("capitalAmount.do")
     public ResponseBean capitalAmount() {
         List<CapitalAmountDO> capitalAmountList = privateFundService.capitalAmount();
         List<Map<String, Object>> result = Lists.newArrayList();
@@ -155,7 +155,7 @@ public class PrivateFundController {
 
     }
 
-    @RequestMapping("investmentReturn")
+    @RequestMapping("investmentReturn.do")
     public ResponseBean investmentReturn() {
         List<InvestmentReturnStatisticDO> statisticList = privateFundService.investmentReturn();
         return ResponseBean.successResponse(statisticList);
@@ -163,7 +163,7 @@ public class PrivateFundController {
     }
 
 
-    @RequestMapping("investmentAmount")
+    @RequestMapping("investmentAmount.do")
     public ResponseBean investmentAmount() {
         List<InvestmentReturnStatisticDO> list = privateFundService.investmentAmount();
         return ResponseBean.successResponse(list);
