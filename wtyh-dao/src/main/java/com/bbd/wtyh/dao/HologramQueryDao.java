@@ -1,10 +1,7 @@
 package com.bbd.wtyh.dao;
 
 
-import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDO;
-import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
-import com.bbd.wtyh.domain.bbdAPI.CourtAnnouncementDO;
-import com.bbd.wtyh.domain.bbdAPI.JudgeDocDO;
+import com.bbd.wtyh.domain.bbdAPI.*;
 
 import java.util.Map;
 
@@ -32,4 +29,6 @@ public interface HologramQueryDao {
     Map<String, Object> recruitMsg();
 
     JudgeDocDO judgeDoc(String company);
+
+    DebtorDO debtor(String company);
 }
