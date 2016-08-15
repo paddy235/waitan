@@ -69,7 +69,7 @@ public class RiskCompanyController {
 		pagination.setCount(count >= 201 ? 200 : count); // 搜索结果最多保留200条数据
 		if (pageNo >= 21) {
 			pagination.setList(null);
-			return ResponseBean.successResponse(pagination);
+			return ResponseBean.errorResponse("错误的分页请求参数！");
 		}
 		pagination.setPageNumber(pageNo);
 		Map<String, Object> params = new HashMap<>();

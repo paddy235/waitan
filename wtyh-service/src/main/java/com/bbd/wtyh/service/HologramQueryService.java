@@ -1,8 +1,6 @@
 package com.bbd.wtyh.service;
 
-import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDO;
-import com.bbd.wtyh.domain.bbdAPI.CourtAnnouncementDO;
-import com.bbd.wtyh.domain.bbdAPI.JudgeDocDO;
+import com.bbd.wtyh.domain.bbdAPI.*;
 
 import java.util.List;
 import java.util.Map;
@@ -72,5 +70,32 @@ public interface HologramQueryService {
      */
     Map<String, Object> recruitMsg();
 
+    /**
+     * 企业信息详情-诉讼记录 - 裁判文书
+     * @param company
+     * @return
+     */
     List<JudgeDocDO.Results> judgeDoc(String company);
+
+    /**
+     * 企业信息详情-诉讼记录 - 被执行人
+     * @param company
+     * @return
+     */
+    DebtorDO debtor(String company);
+
+    /**
+     * 企业信息详情-诉讼记录 - 失信被执行人
+     * @param company
+     * @return
+     */
+    NoCreditDebtorDO noCreditDebtor(String company);
+
+    /**
+     * 企业信息详情-诉讼记录 - 失信被执行人
+     *
+     * @param company
+     * @return
+     */
+    CourtAnnouncementDO courtAnnouncement(String company);
 }

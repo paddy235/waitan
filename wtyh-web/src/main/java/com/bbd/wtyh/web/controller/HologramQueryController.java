@@ -1,11 +1,8 @@
 package com.bbd.wtyh.web.controller;
 
-import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDO;
-import com.bbd.wtyh.domain.bbdAPI.CourtAnnouncementDO;
-import com.bbd.wtyh.domain.bbdAPI.JudgeDocDO;
+import com.bbd.wtyh.domain.bbdAPI.*;
 import com.bbd.wtyh.service.HologramQueryService;
 import com.bbd.wtyh.web.ResponseBean;
-import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -123,6 +120,45 @@ public class HologramQueryController {
         List<JudgeDocDO.Results> result = hologramQueryService.judgeDoc(company);
         return ResponseBean.successResponse(result);
     }
+
+    /**
+     * 企业信息详情-诉讼记录 - 被执行人
+     *
+     * @return
+     */
+    @RequestMapping("/debtor")
+    @ResponseBody
+    public ResponseBean debtor(@RequestParam(required = true) String company) {
+        DebtorDO result = hologramQueryService.debtor(company);
+        return ResponseBean.successResponse(result);
+    }
+
+    /**
+     * 企业信息详情-诉讼记录 - 失信被执行人
+     *
+     * @return
+     */
+    @RequestMapping("/noCreditDebtor")
+    @ResponseBody
+    public ResponseBean noCreditDebtor(@RequestParam(required = true) String company) {
+        NoCreditDebtorDO result = hologramQueryService.noCreditDebtor(company);
+        return ResponseBean.successResponse(result);
+    }
+
+    /**
+     * 企业信息详情-诉讼记录 - 法院公告
+     *
+     * @return
+     */
+    @RequestMapping("/courtAnnouncement")
+    @ResponseBody
+    public ResponseBean courtAnnouncement(@RequestParam(required = true) String company) {
+        CourtAnnouncementDO result = hologramQueryService.courtAnnouncement(company);
+        return ResponseBean.successResponse(result);
+    }
+
+
+
 
     /**
      * 企业信息详情-招聘信息
