@@ -3,10 +3,13 @@ package com.bbd.wtyh.mapper;
 import java.util.List;
 
 import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
+import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
 
 public interface CompanyAnalysisResultMapper {
 	
     CompanyAnalysisResultDO selectByPrimaryKey(Integer companyId);
     
     List<CompanyAnalysisResultDO> queryRiskByBuilding(Integer buildingId);
+
+    List<CompanyAnalysisResult> getSpectrumAnalysis(int type);
 }
