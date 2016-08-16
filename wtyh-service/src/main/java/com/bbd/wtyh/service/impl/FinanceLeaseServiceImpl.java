@@ -1,7 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
 
-import com.bbd.wtyh.domain.FinanceLeaseStatisticDO;
+import com.bbd.wtyh.domain.vo.FinanceLeaseStatisticVO;
 import com.bbd.wtyh.domain.vo.FinanceLeaseVO;
 import com.bbd.wtyh.mapper.FinanceLeaseMapper;
 import com.bbd.wtyh.service.FinanceLeaseService;
@@ -14,6 +14,7 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,34 +31,71 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
     private FinanceLeaseMapper financeLeaseMapper;
 
     @Override
-    public Map leaseCompanyNumber() {
-        List<FinanceLeaseStatisticDO> list = financeLeaseMapper.queryFinanceLeaseStatisticDO(null);
+    public Map leaseCompanyStatistic() {
+        List<FinanceLeaseStatisticVO> list = financeLeaseMapper.queryFinanceLeaseStatistic(null);
         List xAxis = new ArrayList();
         List series = new ArrayList();
+        List barList = new ArrayList();
+        List lineList = new ArrayList();
         if (!CollectionUtils.isEmpty(list)) {
-            for (FinanceLeaseStatisticDO financeLeaseStatisticDO : list) {
-                xAxis.add(financeLeaseStatisticDO.getYear());
-                series.add(financeLeaseStatisticDO.getCompanyNumber());
+            Map<Integer, Integer> yearCompanyNumberMap = new LinkedHashMap<>();
+            Map<Integer, List> yearCapitalMap = new LinkedHashMap<>();
+
+
+            for (FinanceLeaseStatisticVO financeLeaseStatisticVO : list) {
+                List yearCapitalList = new ArrayList();
+                Integer year = financeLeaseStatisticVO.getYear();
+                if (yearCompanyNumberMap.get(year) != null) {
+                    Integer tempCompanyNumber = yearCompanyNumberMap.get(year) == null ? 0 : Integer.parseInt(yearCompanyNumberMap.get(year).toString());
+                    tempCompanyNumber += financeLeaseStatisticVO.getCompanyNumber();
+                    yearCompanyNumberMap.put(year,tempCompanyNumber);
+                } else {
+                    yearCompanyNumberMap.put(year,financeLeaseStatisticVO.getCompanyNumber());
+                }
+                Integer registeredCapital = financeLeaseStatisticVO.getRegisteredCapital();
+                if (yearCapitalMap.get(year) != null) {
+                    yearCapitalMap.get(year).add(registeredCapital);
+                } else {
+                    yearCapitalList.add(registeredCapital);
+                    yearCapitalMap.put(year,yearCapitalList);
+                }
+            }
+
+            for (Integer key : yearCompanyNumberMap.keySet()) {
+                xAxis.add(key);
+                lineList.add(yearCompanyNumberMap.get(key));
+            }
+
+            for (Integer key : yearCapitalMap.keySet()) {
+                barList.add(yearCapitalMap.get(key));
             }
         }
-        Map map = new HashedMap();
-        map.put("xAxis", xAxis);
-        map.put("series", series);
-        return map;
+
+        Map seriesMap = new HashedMap();
+        Map contentMap = new HashedMap();
+        seriesMap.put("bar",barList);
+        seriesMap.put("line",lineList);
+        contentMap.put("xAxis",xAxis);
+        contentMap.put("series",seriesMap);
+        return contentMap;
     }
 
     @Override
     public Map leaseCompanyCategory(Integer year) {
-        List<FinanceLeaseStatisticDO> list = financeLeaseMapper.queryFinanceLeaseStatisticDO(year);
+        List<Map> list = financeLeaseMapper.queryFinanceLeaseCompanyCategory(year);
         Integer inAreaNumber  = 0;
         Integer outAreaNumber = 0;
         Integer companyNumber = 0;
         if (!CollectionUtils.isEmpty(list)) {
-            FinanceLeaseStatisticDO financeLeaseStatisticDO = list.get(0);
-            inAreaNumber = financeLeaseStatisticDO.getInAreaNumber();
-            outAreaNumber = financeLeaseStatisticDO.getOutAreaNumber();
-            companyNumber = financeLeaseStatisticDO.getCompanyNumber();
+            for (Map map : list) {
+                if (map.get("freeTradeZone") == true) {
+                    inAreaNumber = Integer.parseInt(map.get("companyNumber").toString());
+                } else {
+                    outAreaNumber = Integer.parseInt(map.get("companyNumber").toString());
+                }
+            }
         }
+        companyNumber = inAreaNumber + outAreaNumber;
         double inRate  = CalculateUtils.divide(inAreaNumber, companyNumber, 2);
         double outRate = CalculateUtils.divide(outAreaNumber, companyNumber, 2);
         Map<String, String> map = new HashedMap();
@@ -66,50 +104,6 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
         map.put("inRate", String.valueOf(inRate));
         map.put("outRate", String.valueOf(outRate));
         return map;
-    }
-
-    @Override
-    public Map leaseCompanyAmount() {
-        List<FinanceLeaseStatisticDO> list = financeLeaseMapper.queryFinanceLeaseStatisticDO(null);
-        Map content = new HashedMap();
-        List seriesList  = new ArrayList();
-        List list1 = new ArrayList();
-        List list2 = new ArrayList();
-        List xAxis = new ArrayList();
-        if (!CollectionUtils.isEmpty(list)) {
-            for (FinanceLeaseStatisticDO financeLeaseStatisticDO : list) {
-                list1.add(financeLeaseStatisticDO.getTotalAmout());
-                list2.add(financeLeaseStatisticDO.getBalance());
-                xAxis.add(financeLeaseStatisticDO.getYear());
-            }
-        }
-        seriesList.add(list1);
-        seriesList.add(list2);
-        content.put("xAxis", xAxis);
-        content.put("series", seriesList);
-        return content;
-    }
-
-    @Override
-    public Map leaseCompanyBadRatioAndAmount() {
-        List<FinanceLeaseStatisticDO> list = financeLeaseMapper.queryFinanceLeaseStatisticDO(null);
-        Map content = new HashedMap();
-        Map series = new HashedMap();
-        List bar = new ArrayList();
-        List line = new ArrayList();
-        List xAxis = new ArrayList();
-        if (!CollectionUtils.isEmpty(list)) {
-            for (FinanceLeaseStatisticDO financeLeaseStatisticDO : list) {
-                bar.add(financeLeaseStatisticDO.getBadAmout());
-                line.add(financeLeaseStatisticDO.getBadRatio());
-                xAxis.add(financeLeaseStatisticDO.getYear());
-            }
-        }
-        series.put("bar",bar);
-        series.put("line",line);
-        content.put("xAxis", xAxis);
-        content.put("series", series);
-        return content;
     }
 
     @Override
