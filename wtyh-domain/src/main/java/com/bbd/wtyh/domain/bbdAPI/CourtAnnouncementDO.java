@@ -12,23 +12,50 @@ public class CourtAnnouncementDO {
     private List<Results> results;
 
     public class Results {
-        private String main;
-        private String trial_date;
+        private String notice_people;
+        private String notice_time;
+        private String notice_type;
+        private String litigant;
+        private String notice_content;
 
-        public String getMain() {
-            return main;
+        public String getNotice_people() {
+            return notice_people;
         }
 
-        public void setMain(String main) {
-            this.main = main;
+        public void setNotice_people(String notice_people) {
+            this.notice_people = notice_people;
         }
 
-        public String getTrial_date() {
-            return trial_date;
+        public String getNotice_time() {
+            return notice_time;
         }
 
-        public void setTrial_date(String trial_date) {
-            this.trial_date = trial_date;
+        public void setNotice_time(String notice_time) {
+            this.notice_time = notice_time;
+        }
+
+        public String getNotice_type() {
+            return notice_type;
+        }
+
+        public void setNotice_type(String notice_type) {
+            this.notice_type = notice_type;
+        }
+
+        public String getLitigant() {
+            return litigant;
+        }
+
+        public void setLitigant(String litigant) {
+            this.litigant = litigant;
+        }
+
+        public String getNotice_content() {
+            return notice_content;
+        }
+
+        public void setNotice_content(String notice_content) {
+            this.notice_content = notice_content;
         }
     }
 

@@ -27,4 +27,9 @@ public interface AreaService {
 	*/
 	public List<NvDO> hot();
 
+
+	List<AreaDO> selectByParentId(Integer parentId);
+
+	AreaDO selectByNameAndLevel(String name,Integer level);
+
 }

@@ -106,6 +106,8 @@
         <!--anon不需要登录 user需要登录认证-->
         <property name="filterChainDefinitions">
             <value>
+            	/js/** = anon
+                /**/** = authc
             </value>
         </property>
     </bean>

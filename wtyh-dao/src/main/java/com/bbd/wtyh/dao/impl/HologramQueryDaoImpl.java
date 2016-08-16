@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -22,20 +21,26 @@ import java.util.Map;
 @Repository("hologramQueryDao")
 public class HologramQueryDaoImpl implements HologramQueryDao {
 
+    @Value("${api.court.searchCompany.url}")
+    private String searchCompanyURL;     // 搜索
+
+    @Value("${api.court.searchCompany.ak}")
+    private String searchCompanyAK;
+
     @Value("${api.baidu.news.url}")
     private String baiduYuQingURL;     // 百度舆情
 
     @Value("${api.baidu.news.ak}")
     private String baiduYuqingAK;
 
-    @Value("${api.court.announcement.url}")
-    private String courtAnnouncementURL;    // 开庭公告
+    @Value("${api.court.openCourtAnnouncement.url}")
+    private String openCourtAnnouncementURL;    // 开庭公告
 
-    @Value("${api.court.announcement.ak}")
-    private String courtAnnouncementAK;
+    @Value("${api.court.openCourtAnnouncement.ak}")
+    private String openCourtAnnouncementAK;
 
     @Value("${api.court.debtor.url}")
-    private String debtorURL;    // 裁判文书
+    private String debtorURL;    // 被执行人
 
     @Value("${api.court.debtor.ak}")
     private String debtorAK;
@@ -46,11 +51,29 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     @Value("${api.court.judgeDoc.ak}")
     private String judgeDocAK;
 
+    @Value("${api.court.courtAnnouncement.url}")
+    private String courtAnnouncementURL;    //  法院公告
+
+    @Value("${api.court.courtAnnouncement.ak}")
+    private String courtAnnouncementAK;
+
+    @Value("${api.court.courtAnnouncement.url}")
+    private String noCreditDebtorURL;    // 失信被执行人
+
+    @Value("${api.court.noCreditDebtor.ak}")
+    private String noCreditDebtorAK;
+
     @Value("${api.bbd_qyxx.url}")
     private String bbdQyxxURL;      // 企业信息
 
     @Value("${api.bbd_qyxx.ak}")
     private String bbdQyxxAK;
+
+    @Value("${api.bbdlogo.url}")
+    private String bbdLogoURL;
+
+    @Value("${api.bbdlog.ak}")
+    private String bbdLogoAK;
 
     /**
      * 信息查询平台搜索
@@ -58,31 +81,25 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      * @return
      */
     @Override
-    public Map<String, Object> search() {
-        Map<String, Object> data = new LinkedHashMap<>();
-        data.put("含注册号", "876156451231xxx");
-        data.put("类型", "有限责任公司");
-        data.put("法定代表人", "黄光裕");
-        data.put("注册资本", "4万元");
-        data.put("成立日期", "2016年08月09日");
-        data.put("注册地址", "上海市浦东新区···");
-        data.put("企业总数", "101");
-        data.put("页数", "101");
-        data.put("每页几条", "10");
-        return data;
-    }
+    public SearchComanyDO search(String company) {
+        String api = searchCompanyURL + "?query=" + company + "&type=company&ak=" + searchCompanyAK;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate .get(api, new HttpCallback<SearchComanyDO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
 
-    /**
-     * 信息查询平台导航栏
-     *
-     * @return
-     */
-    @Override
-    public Map<String, Object> guidance() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("企业名称", "上海明城投资有限公司");
-        data.put("登记状态", "存续");
-        return data;
+                @Override
+                public SearchComanyDO parse(String result) {
+                    return JSON.parseObject(result, SearchComanyDO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
@@ -105,6 +122,32 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
                 public BaseDataDO parse(String result) {
                     Gson gson = new Gson();
                     return gson.fromJson(result, BaseDataDO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 企业logo信息
+     *
+     */
+    public BBDLogoDO bbdLogo(String company) {
+        String coreDataDealURL = bbdLogoURL+"?company="+company+"&ak="+bbdLogoAK;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(coreDataDealURL, new HttpCallback<BBDLogoDO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public BBDLogoDO parse(String result) {
+                    Gson gson = new Gson();
+                    return gson.fromJson(result, BBDLogoDO.class);
                 }
             });
         } catch (Exception e) {
@@ -169,19 +212,56 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     }
 
     /**
+     * 基本信息--组织机构代码api
+     *
+     */
+    public ZuZhiJiGoudmDO baseInfoZuZhiJiGou(String companyName) {
+//        String url = zuZhiJiGouURL+"?company="+companyName+"&ak="+zuZhiJiGouURL;
+        String URL = "http://dataom.api.bbdservice.com/api/bbd_zuzhijigoudm/?company=%E6%94%80%E6%9E%9D%E8%8A%B1%E5%B8%82%E4%BA%A4%E9%80%9A%E6%97%85%E6%B8%B8%E5%AE%A2%E8%BF%90%E6%9C%89%E9%99%90%E8%B4%A3%E4%BB%BB%E5%85%AC%E5%8F%B8&ak=605f60df40668579e939515fef710d2b";
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(URL, new HttpCallback<ZuZhiJiGoudmDO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+                @Override
+                public ZuZhiJiGoudmDO parse(String result) {
+                    Gson gson = new Gson();
+                    return gson.fromJson(result, ZuZhiJiGoudmDO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
      * 企业信息详情-股东高管
      *
      * @return
      */
     @Override
-    public Map<String, Object> shareholdersSenior() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("股东", "王伟");
-        data.put("股东类型", "建工单");
-        data.put("国务院", "王伟");
-        data.put("机关法人", "王伟");
-        data.put("股东", "王伟");
-        return data;
+    public BaseDataDO shareholdersSenior(String companyName) {
+        String coreDataDealURL = bbdQyxxURL + "?company=" + companyName + "&ak=" + bbdQyxxAK;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(coreDataDealURL, new HttpCallback<BaseDataDO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+                @Override
+                public BaseDataDO parse(String result) {
+                    Gson gson = new Gson();
+                    return gson.fromJson(result, BaseDataDO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
@@ -192,7 +272,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      */
     @Override
     public CourtAnnouncementDO openCourtAnnouncement(String company) {
-        String api = courtAnnouncementURL + "?company=" + company + "&ak=" + courtAnnouncementAK;
+        String api = openCourtAnnouncementURL + "?company=" + company + "&ak=" + openCourtAnnouncementAK;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(api, new HttpCallback<CourtAnnouncementDO>() {
@@ -259,6 +339,50 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
                 @Override
                 public DebtorDO parse(String result) {
                     return JSON.parseObject(result, DebtorDO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public NoCreditDebtorDO noCreditDebtor(String company) {
+        String api = noCreditDebtorURL + "?company=" + company + "&ak=" + noCreditDebtorAK;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(api, new HttpCallback<NoCreditDebtorDO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public NoCreditDebtorDO parse(String result) {
+                    return JSON.parseObject(result, NoCreditDebtorDO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public CourtAnnouncementDO courtAnnouncement(String company) {
+        String api = courtAnnouncementURL + "?company=" + company + "&ak=" + courtAnnouncementAK;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(api, new HttpCallback<CourtAnnouncementDO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public CourtAnnouncementDO parse(String result) {
+                    return JSON.parseObject(result, CourtAnnouncementDO.class);
                 }
             });
         } catch (Exception e) {

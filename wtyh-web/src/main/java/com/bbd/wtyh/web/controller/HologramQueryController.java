@@ -1,9 +1,6 @@
 package com.bbd.wtyh.web.controller;
 
-import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDO;
-import com.bbd.wtyh.domain.bbdAPI.CourtAnnouncementDO;
-import com.bbd.wtyh.domain.bbdAPI.DebtorDO;
-import com.bbd.wtyh.domain.bbdAPI.JudgeDocDO;
+import com.bbd.wtyh.domain.bbdAPI.*;
 import com.bbd.wtyh.service.HologramQueryService;
 import com.bbd.wtyh.web.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +32,8 @@ public class HologramQueryController {
      */
     @RequestMapping("/search")
     @ResponseBody
-    public ResponseBean search() {
-        Map<String, Object> result = hologramQueryService.search();
+    public ResponseBean search(@RequestParam(required = true) String companyName) {
+        SearchComanyDO result = hologramQueryService.search(companyName);
         return ResponseBean.successResponse(result);
     }
 
@@ -47,8 +44,8 @@ public class HologramQueryController {
      */
     @RequestMapping("/guidance")
     @ResponseBody
-    public ResponseBean guidance() {
-        Map<String, Object> result = hologramQueryService.guidance();
+    public ResponseBean guidance(String company) {
+        Map<String, Object> result = hologramQueryService.guidance(company);
         return ResponseBean.successResponse(result);
     }
 
@@ -59,8 +56,8 @@ public class HologramQueryController {
      */
     @RequestMapping("/outlineMsg")
     @ResponseBody
-    public ResponseBean outlineMsg(@RequestParam(required = true) String companyName) {
-        Map<String, Object> result = hologramQueryService.outlineMsg(companyName);
+    public ResponseBean outlineMsg(@RequestParam(required = true) String company) {
+        Map<String, Object> result = hologramQueryService.outlineMsg(company);
         return ResponseBean.successResponse(result);
     }
 
@@ -83,8 +80,8 @@ public class HologramQueryController {
      */
     @RequestMapping("/businessInfo")
     @ResponseBody
-    public ResponseBean businessInfo(@RequestParam(required = true) String companyName) {
-        Map<String, Object> result = hologramQueryService.businessInfo(companyName);
+    public ResponseBean businessInfo(@RequestParam(required = true) String company) {
+        Map<String, Object> result = hologramQueryService.businessInfo(company);
         return ResponseBean.successResponse(result);
     }
 
@@ -95,8 +92,8 @@ public class HologramQueryController {
      */
     @RequestMapping("/shareholdersSenior")
     @ResponseBody
-    public ResponseBean shareholdersSenior() {
-        Map<String, Object> result = hologramQueryService.shareholdersSenior();
+    public ResponseBean shareholdersSenior(@RequestParam(required = true) String company) {
+        Map<String, Map<String, Object>> result = hologramQueryService.shareholdersSenior(company);
         return ResponseBean.successResponse(result);
     }
 
@@ -135,6 +132,33 @@ public class HologramQueryController {
         DebtorDO result = hologramQueryService.debtor(company);
         return ResponseBean.successResponse(result);
     }
+
+    /**
+     * 企业信息详情-诉讼记录 - 失信被执行人
+     *
+     * @return
+     */
+    @RequestMapping("/noCreditDebtor")
+    @ResponseBody
+    public ResponseBean noCreditDebtor(@RequestParam(required = true) String company) {
+        NoCreditDebtorDO result = hologramQueryService.noCreditDebtor(company);
+        return ResponseBean.successResponse(result);
+    }
+
+    /**
+     * 企业信息详情-诉讼记录 - 法院公告
+     *
+     * @return
+     */
+    @RequestMapping("/courtAnnouncement")
+    @ResponseBody
+    public ResponseBean courtAnnouncement(@RequestParam(required = true) String company) {
+        CourtAnnouncementDO result = hologramQueryService.courtAnnouncement(company);
+        return ResponseBean.successResponse(result);
+    }
+
+
+
 
     /**
      * 企业信息详情-招聘信息

@@ -382,6 +382,10 @@ public class PToPMonitorController {
     	 
     	 List<PlatRankDataDTO> list = pToPMonitorService.getPlatRankData();
     	 
+    	 if(CollectionUtils.isEmpty(list)){
+    		 return ResponseBean.successResponse( new ArrayList<>() );
+    	 }
+    	 
     	 for (PlatRankDataDTO dto : list) {
     		double total = dto.getStay_still_of_total();
     		total = new BigDecimal("0"+total).divide(new BigDecimal("10000"), 2, BigDecimal.ROUND_HALF_UP).doubleValue();
