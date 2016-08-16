@@ -87,15 +87,14 @@ public class DataController {
 	 */
 	@RequestMapping("/getTableData")
 	@ResponseBody
-	public Object getTableData(@RequestParam String tableName,Integer page,Integer rows) {
+	public Object getTableData(@RequestParam String tableName,Integer page,Integer rows,
+			String value,String mode,String field) {
 		
 		Map<String,Object> map = new HashMap<>();
 		
+		List<Map<String,Object>> list = dataService.getTableData(tableName,value,mode,field, page, rows);
 		
-
-		List<Map<String,Object>> list = dataService.getTableData(tableName, page, rows);
-		
-		int total = dataService.countTableData(tableName);
+		int total = dataService.countTableData(tableName,value,mode,field);
 		
 		map.put("total", total);
 		

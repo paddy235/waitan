@@ -3,6 +3,7 @@ package com.bbd.data.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,19 +38,22 @@ public class DataServiceImpl implements DataService {
 
 
 	@Override
-	public List<Map<String, Object>> getTableData(String tableName, Integer page, Integer rows) {
+	public List<Map<String, Object>> getTableData(String tableName,String value,String mode,String field, Integer page, Integer rows) {
 		page = (page == null || page < 1 ? 1 : page);
 		rows = (rows == null ? 15 : rows);
-		return tableDataMapper.getTableData(tableName,page*rows-rows,rows);
+		if("like".equals(mode)){
+			value = "%"+StringUtils.trimToEmpty(value)+"%";
+		}
+		return tableDataMapper.getTableData(tableName, value, mode, field,page*rows-rows,rows);
 	}
 
 
 
 	
 	@Override
-	public int countTableData(String tableName) {
+	public int countTableData(String tableName,String value,String mode,String field) {
 		
-		return tableDataMapper.countTableData(tableName);
+		return tableDataMapper.countTableData(tableName, value, mode, field);
 	}
 
 
