@@ -44,4 +44,14 @@ public class AreaServiceImpl implements AreaService {
 	public List<NvDO> hot() {
 		return areaMapper.hot();
 	}
+
+	@Override
+	public List<AreaDO> selectByParentId(Integer parentId) {
+		return areaMapper.selectByParentId(parentId);
+	}
+
+	@Override
+	public AreaDO selectByNameAndLevel(String name, Integer level) {
+		return areaMapper.selectByNameAndLevel(name, level);
+	}
 }

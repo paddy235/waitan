@@ -119,10 +119,10 @@ public class MockSerserController {
 
         List<AreaIndexDTO> list = new ArrayList<>();
 
-        for (int k = 0; k < 20; k++) {
+        for (int k = 0; k < 3; k++) {
             AreaIndexDTO dto = new AreaIndexDTO();
 
-            dto.setArea("四川省" + k);
+            dto.setArea(k==0?"浦东新区":(k==1?"虹口区":"黄浦区"));
             dto.setCompetitiveness(k * 3);
             dto.setEcosystem(k * 2);
             dto.setRank(k * 5);

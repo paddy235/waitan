@@ -1,6 +1,8 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.dao.P2PImageDao;
+import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
+import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompanyDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
@@ -53,8 +55,25 @@ public class P2PImageServiceImpl implements P2PImageService {
     }
 
     @Override
-    public Map<String, Object> baseInfo(String companyName, String akId , String platName) {
-        return p2PImageDao.baseInfo(companyName, akId , platName);
+    public Map<String, Object> baseInfo(String companyName, String platName) {
+        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName);
+        Map<String, Object> map = new HashMap<>();
+        for (BaseDataDO.Results result : baseDataDO.getResults()) {
+            map.put("法人代表", result.getJbxx().getFrname());
+            map.put("注册资本", result.getJbxx().getRegcap());
+            map.put("注册地址", result.getJbxx().getAddress());
+            map.put("开业日期", result.getJbxx().getEsdate());
+            map.put("核准日期", result.getJbxx().getApproval_date());
+            map.put("登记机关", result.getJbxx().getRegorg());
+        }
+        ZuZhiJiGoudmDO zuZhiJiGoudmDO = p2PImageDao.baseInfoZuZhiJiGou(companyName);
+        for (ZuZhiJiGoudmDO.Result result : zuZhiJiGoudmDO.getResults()) {
+            map.put("组织机构代码", result.getJgdm());
+        }
+        Map<String, Object> data = p2PImageDao.baseInfoWangDaiApi(platName);
+        map.put("平台名称", data.get("平台名称"));
+        map.put("公司名称", data.get("公司名称"));
+        return map;
     }
 
     @Override

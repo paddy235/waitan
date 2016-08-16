@@ -1,5 +1,7 @@
 package com.bbd.wtyh.dao;
 
+import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
+import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompanyDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
@@ -24,7 +26,11 @@ public interface P2PImageDao {
 
     Map<String, Object> radarScore(String plat_name);
 
-    Map<String, Object> baseInfo(String companyName, String akId, String platName);
+    Map<String, Object> baseInfoWangDaiApi(String platName);
+
+    BaseDataDO baseInfoBBDData(String companyName);
+
+    ZuZhiJiGoudmDO baseInfoZuZhiJiGou(String companyName);
 
     Map<String, Object> coreDataInfo(String platName);
 

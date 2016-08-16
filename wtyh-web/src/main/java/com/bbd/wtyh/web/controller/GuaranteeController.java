@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +37,7 @@ public class GuaranteeController {
     private GuaranteeService guaranteeService;
     @Autowired
     private ShareholderRiskService shareholderRiskService;
-
+    private AreaDO shanghaiCity;
 
     /**
      * 查询公司数量
@@ -45,7 +46,7 @@ public class GuaranteeController {
      */
     @RequestMapping("areaStatistic.do")
     public ResponseBean areaStatistic() {
-        List<AreaDO> areaList = areaService.areaList();
+        List<AreaDO> areaList = areaService.selectByParentId(shanghaiCity.getAreaId());
         List<HotAreaDTO> result = Lists.newArrayList();
         for (AreaDO areaDO : areaList) {
             CompanyQuery query = new CompanyQuery();
@@ -171,5 +172,10 @@ public class GuaranteeController {
 
     }
 
+
+    @PostConstruct
+    public void init(){
+        shanghaiCity   = areaService.selectByNameAndLevel("上海市",AreaDO.LEVEL_CITY);
+    }
 
 }

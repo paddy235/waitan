@@ -56,8 +56,8 @@ public class HologramQueryController {
      */
     @RequestMapping("/outlineMsg")
     @ResponseBody
-    public ResponseBean outlineMsg(@RequestParam(required = true) String companyName) {
-        Map<String, Object> result = hologramQueryService.outlineMsg(companyName);
+    public ResponseBean outlineMsg(@RequestParam(required = true) String company) {
+        Map<String, Object> result = hologramQueryService.outlineMsg(company);
         return ResponseBean.successResponse(result);
     }
 
@@ -92,8 +92,8 @@ public class HologramQueryController {
      */
     @RequestMapping("/shareholdersSenior")
     @ResponseBody
-    public ResponseBean shareholdersSenior() {
-        Map<String, Object> result = hologramQueryService.shareholdersSenior();
+    public ResponseBean shareholdersSenior(@RequestParam(required = true) String companyName) {
+        Map<String, Map<String, Object>> result = hologramQueryService.shareholdersSenior(companyName);
         return ResponseBean.successResponse(result);
     }
 
