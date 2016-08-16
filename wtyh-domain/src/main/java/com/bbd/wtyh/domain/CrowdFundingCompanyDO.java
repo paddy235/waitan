@@ -12,10 +12,36 @@ public class CrowdFundingCompanyDO extends BaseDO {
 	private Integer successNumber;//成功项目数
 	private Float fundedAmout;//已筹基金	
     
+	
+	private String fundingBusinessTypeCN;//业务类型;
 
 	
 	
+	public String getFundingBusinessTypeCN() {
+		
+		if("1".equals(fundingBusinessType)){
+			fundingBusinessTypeCN = "公益型"; 
+		}else if("2".equals(fundingBusinessType)){
+			fundingBusinessTypeCN = "综合型"; 
+		}else if("3".equals(fundingBusinessType)){
+			fundingBusinessTypeCN = "权益型"; 
+		}else if("4".equals(fundingBusinessType)){
+			fundingBusinessTypeCN = "股权型"; 
+		}
+		
+		return fundingBusinessTypeCN;
+	}
+
+
+
+
 	
+	public void setFundingBusinessTypeCN(String fundingBusinessTypeCN) {
+		this.fundingBusinessTypeCN = fundingBusinessTypeCN;
+	}
+
+
+
 	public String getCompanyName() {
 		return companyName;
 	}
