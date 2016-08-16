@@ -53,7 +53,7 @@ $(function(){
                     	
                     	var value = $(this).val();
                     	                    	
-                    	$.post("${ctx}/data/updateTableData",
+                    	$.post("${ctx}/data/updateTableData.do",
                     			{idField:idField,
 	                    		 tableName:'${param.tableName}',
 	                    		 updateField:updateField,
@@ -64,35 +64,7 @@ $(function(){
                     		     });
                     	
                     });
-                    
-//                     $(ed.target).closest("td").on("mouseout",function(){  
-               			
-//                     	var updateField = $(this).closest("td[field]").attr("field");
-//                     	var tr = $(this).closest("tr[datagrid-row-index]");
-//                     	var idTd = tr.find("td[field]:eq(0)");
-//                     	var idField = idTd.attr("field");
-//                     	var idValue = idTd.text();
-                    	
-//                     	var value = $(this).text();
-//                     	if(value == ""){
-//                     		value = $(this).find("input:eq(1)").val();
-//                     	}
-                    	
-//                     	if(value == $(this).find("input:eq(0)").val()){
-//                     		return;
-//                     	}
-                    	
-//                     	$.post("${ctx}/data/updateTableData",
-//                     			{idField:idField,
-// 	                    		 tableName:'${param.tableName}',
-// 	                    		 updateField:updateField,
-// 	                    		 idValue:idValue,
-// 	                    		 value:value},
-//                     			 function(){
-// 	                    			// $(".pagination-load").trigger('click');
-//                     		     });
-                    	
-//                     });
+
                 }
 				for(var i=0; i<fields.length; i++){
 					var col = $(this).datagrid('getColumnOption', fields[i]);
@@ -144,10 +116,31 @@ $(function(){
 
 </head>
 <body>
+
+	<form action="${ctx}/data/showTables.do" method="post">
+	<input type="submit" value="<-返回" />
+	</form>
 <center>	
 
+
+	<form action="${ctx}/data/goTableData.do" method="post">
+	<input type='hidden' name="tableName" value="${param.tableName}" />
+	<select name="field">
+		<c:forEach items="${columns}" var="col" >
+			<option value="${col.colName}"  ${param.field==col.colName?"selected":""} >${col.colName}[${col.colComment}]</option>
+		</c:forEach>
+	</select>
+	
+	<select name="mode">
+		<option value="like">模糊匹配</option>
+		<option value="eq" ${param.mode=="eq"?"selected":"" } >等于</option>
+	</select>
+	<input name="value" value="${param.value}" />
+	<input type="submit" value="查询" />
+	</form>
+	<br/>
 	<table id="dg" class="easyui-datagrid" title="${param.tableName}" 
-		   data-options="pageSize:30,rownumbers:true,pagination:true,singleSelect:true,url:'${ctx}/data/getTableData?tableName=${param.tableName}',method:'get'">
+		   data-options="pageSize:30,rownumbers:true,pagination:true,singleSelect:true,url:'${ctx}/data/getTableData.do?tableName=${param.tableName}&field=${param.field}&value=${param.value}&mode=${param.mode=="like"?"like":"eq"}',method:'post'">
 		<thead>
 			<tr>
 			

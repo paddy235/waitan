@@ -22,6 +22,23 @@
     </context:component-scan>
 
     <context:annotation-config/>
+    
+    
+    <mvc:annotation-driven />
+	<mvc:resources location="/image/" mapping="/image/**"/> 
+	<mvc:resources location="/css/" mapping="/css/**"/> 
+	<mvc:resources location="/js/" mapping="/js/**"/>
+    
+     <mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<ref bean="loginInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<bean id="loginInterceptor" class="com.bbd.sys.service.LoginInterceptor"></bean>
+    
+    
 
     <bean id="httpTemplate" class="com.bbd.higgs.utils.http.HttpTemplate">
         <property name="connectTimeout" value="600000"/>

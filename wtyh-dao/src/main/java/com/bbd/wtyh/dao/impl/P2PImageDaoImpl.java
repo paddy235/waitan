@@ -109,7 +109,6 @@ public class P2PImageDaoImpl implements P2PImageDao {
                     source.put("资本充足", object.get("capital"));
                     source.put("流动性", object.get("fluidity"));
                     source.put("信息披露", object.get("info_disclosure"));
-//                    source.put("平台名",object.get("plat_name"));
                     return source;
                 }
             });

@@ -14,8 +14,6 @@ import java.util.Map;
 public interface HologramQueryDao {
     SearchComanyDO search(String company);
 
-    Map<String, Object> guidance();
-
     BaseDataDO outlineMsg(String platName);
 
     BBDLogoDO bbdLogo(String company);
@@ -23,6 +21,8 @@ public interface HologramQueryDao {
     BaiDuYuQingDO newsConsensus(String company);
 
     BaseDataDO businessInfo(String companyName);
+
+    ZuZhiJiGoudmDO baseInfoZuZhiJiGou(String companyName);
 
     BaseDataDO shareholdersSenior(String companyName);
 

@@ -24,7 +24,7 @@ public interface HologramQueryService {
      *
      * @return
      */
-    Map<String, Object> guidance();
+    Map<String, Object> guidance(String company);
 
     /**
      * 企业概要信息

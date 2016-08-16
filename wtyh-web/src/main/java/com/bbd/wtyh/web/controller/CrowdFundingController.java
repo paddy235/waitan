@@ -1,5 +1,6 @@
 package com.bbd.wtyh.web.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -64,7 +66,7 @@ public class CrowdFundingController {
 		
 		List<CrowdFundingStatisticsDO> list = crowdFundingSer.lastMonthType();
 		
-		if(list == null){
+		if(CollectionUtils.isEmpty(list)){
 			return ResponseBean.successResponse(hb);
 		}
 		hb.setTitle(list.get(0).getMonth()+"月上海各类众筹平台新增项目数");
@@ -85,7 +87,7 @@ public class CrowdFundingController {
 		
 		List<CrowdFundingStatisticsDO> list = crowdFundingSer.lastMonthType();
 		
-		if(list == null){
+		if(CollectionUtils.isEmpty(list)){
 			return ResponseBean.successResponse(hb);
 		}
 		hb.setTitle(list.get(0).getMonth()+"月上海各类众筹平台新增项目投资人次");
@@ -105,7 +107,7 @@ public class CrowdFundingController {
 		
 		List<CrowdFundingStatisticsDO> list = crowdFundingSer.lastMonthType();
 		
-		if(list == null){
+		if(CollectionUtils.isEmpty(list)){
 			return ResponseBean.successResponse(hb);
 		}
 		hb.setTitle(list.get(0).getMonth()+"月上海各类众筹平台新增项目数的成功筹资金额");
@@ -126,7 +128,7 @@ public class CrowdFundingController {
 		List<CrowdFundingCompanyDO> list = crowdFundingSer.allCompanys();
 		
 		
-		return ResponseBean.successResponse(list);
+		return ResponseBean.successResponse(list==null?new ArrayList<>():list);
 	}
 	
 }
