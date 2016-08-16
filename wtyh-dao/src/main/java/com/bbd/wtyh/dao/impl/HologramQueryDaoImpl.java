@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -21,6 +20,12 @@ import java.util.Map;
  */
 @Repository("hologramQueryDao")
 public class HologramQueryDaoImpl implements HologramQueryDao {
+
+    @Value("${api.court.searchCompany.url}")
+    private String searchCompanyURL;     // 搜索
+
+    @Value("${api.court.searchCompany.ak}")
+    private String searchCompanyAK;
 
     @Value("${api.baidu.news.url}")
     private String baiduYuQingURL;     // 百度舆情
@@ -76,18 +81,25 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      * @return
      */
     @Override
-    public Map<String, Object> search() {
-        Map<String, Object> data = new LinkedHashMap<>();
-        data.put("含注册号", "876156451231xxx");
-        data.put("类型", "有限责任公司");
-        data.put("法定代表人", "黄光裕");
-        data.put("注册资本", "4万元");
-        data.put("成立日期", "2016年08月09日");
-        data.put("注册地址", "上海市浦东新区···");
-        data.put("企业总数", "101");
-        data.put("页数", "101");
-        data.put("每页几条", "10");
-        return data;
+    public SearchComanyDO search(String company) {
+        String api = searchCompanyURL + "?query=" + company + "&type=company&ak=" + searchCompanyAK;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate .get(api, new HttpCallback<SearchComanyDO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public SearchComanyDO parse(String result) {
+                    return JSON.parseObject(result, SearchComanyDO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**

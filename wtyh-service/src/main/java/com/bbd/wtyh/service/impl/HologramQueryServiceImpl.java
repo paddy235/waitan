@@ -10,7 +10,6 @@ import com.bbd.wtyh.service.HologramQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,8 +27,8 @@ public class HologramQueryServiceImpl implements HologramQueryService {
 
 
     @Override
-    public Map<String, Object> search() {
-        return hologramQueryDao.search();
+    public SearchComanyDO search(String company) {
+        return hologramQueryDao.search(company);
     }
 
     @Override

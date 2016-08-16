@@ -32,8 +32,8 @@ public class HologramQueryController {
      */
     @RequestMapping("/search")
     @ResponseBody
-    public ResponseBean search() {
-        Map<String, Object> result = hologramQueryService.search();
+    public ResponseBean search(@RequestParam(required = true) String companyName) {
+        SearchComanyDO result = hologramQueryService.search(companyName);
         return ResponseBean.successResponse(result);
     }
 
