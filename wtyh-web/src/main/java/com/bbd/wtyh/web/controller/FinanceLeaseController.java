@@ -57,29 +57,6 @@ public class FinanceLeaseController {
         return ResponseBean.successResponse(list);
     }
 
-    /**
-     * 上海市融资租赁企业余额和资产总额
-     * @return
-     */
-    @RequestMapping("/leaseCompanyAmount")
-    @ResponseBody
-    public ResponseBean leaseCompanyAmount() {
-        Map map = financeLeaseService.leaseCompanyAmount();
-        return ResponseBean.successResponse(map);
-    }
-
-    /**
-     * 业务发生额和不良率
-     * @return
-     */
-    @RequestMapping("/leaseCompanyBadRatioAndAmount")
-    @ResponseBody
-    public ResponseBean leaseCompanyBadRatioAndAmount() {
-        Map map = financeLeaseService.leaseCompanyBadRatioAndAmount();
-        return ResponseBean.successResponse(map);
-    }
-
-
 
 
 }
