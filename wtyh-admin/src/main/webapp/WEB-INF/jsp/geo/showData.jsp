@@ -151,7 +151,7 @@ $(function(){
 				</c:forEach>
 			
 				<c:forEach items="${columns}" var="col" >
-					<c:if test="${col.colKey!='PK'}">
+					<c:if test="${col.colKey!='PK' && col.colName!='create_by' && col.colName!='create_date' && col.colName!='update_by' && col.colName!='update_date' }">
 					<c:choose>
 						<c:when test="${col.dataType=='int'}">
 							<th data-options="field:'${col.colName}',width:200,align:'center',halign:'center',editor:{type:'numberbox',max:10,precision:0}">
