@@ -9,7 +9,7 @@
 
 <script>
 	function showDetail(val,row){
-		return "<a href='${ctx}/data/goTableData?tableName="+val+"' style='text-decoration:none;' >"+val+"</a>";
+		return "<a href='${ctx}/data/goTableData.do?tableName="+val+"' style='text-decoration:none;' >"+val+"</a>";
 	}
 </script>
 
@@ -18,7 +18,7 @@
 <center>	
 
 	<table class="easyui-datagrid" title="系统数据表" style="width:740px"
-		   data-options="rownumbers:true,singleSelect:true,url:'${ctx}/data/tables',method:'get'">
+		   data-options="rownumbers:true,singleSelect:true,url:'${ctx}/data/tables.do',method:'get'">
 		<thead>
 			<tr>
 				<th data-options="field:'table_name',width:300,align:'center',halign:'center',formatter:showDetail">表名</th>
