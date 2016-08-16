@@ -28,12 +28,12 @@ public interface TableDataMapper {
 
 	
 
-	int countTableData(@Param(value="tableName") String tableName,
+	int countTableData( @Param(value="tableName") String tableName,
 						@Param(value="value") String value,
 						@Param(value="mode") String mode,
 						@Param(value="field") String field);
 
-	void updateTableData(@Param(value="tableName") String tableName, 
+	void updateTableData(   @Param(value="tableName") String tableName, 
 							@Param(value="idField") String idField, 
 							@Param(value="updateField") String updateField, 
 							@Param(value="idValue") Integer idValue ,

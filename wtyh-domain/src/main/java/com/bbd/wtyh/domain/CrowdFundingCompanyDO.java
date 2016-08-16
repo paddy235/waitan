@@ -15,6 +15,7 @@ public class CrowdFundingCompanyDO extends BaseDO {
 
 	
 	
+	
 	public String getCompanyName() {
 		return companyName;
 	}
