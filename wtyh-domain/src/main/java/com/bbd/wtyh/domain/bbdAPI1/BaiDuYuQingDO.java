@@ -1,4 +1,4 @@
-package com.bbd.wtyh.domain.bbdAPI;
+package com.bbd.wtyh.domain.bbdAPI1;
 
 /**
  * Created by YanWenyuan on 2016/8/13.

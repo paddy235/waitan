@@ -1,7 +1,7 @@
 package com.bbd.wtyh.dao;
 
-import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
-import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
+import com.bbd.wtyh.domain.bbdAPI1.BaseDataDO;
+import com.bbd.wtyh.domain.bbdAPI1.ZuZhiJiGoudmDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompanyDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;

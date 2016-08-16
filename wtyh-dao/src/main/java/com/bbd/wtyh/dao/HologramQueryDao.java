@@ -1,7 +1,7 @@
 package com.bbd.wtyh.dao;
 
 
-import com.bbd.wtyh.domain.bbdAPI.*;
+import com.bbd.wtyh.domain.bbdAPI1.*;
 
 import java.util.Map;
 
