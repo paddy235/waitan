@@ -38,14 +38,18 @@ public class HologramQueryServiceImpl implements HologramQueryService {
     }
 
     @Override
-    public Map<String, Object> outlineMsg(String companyName) {
-        BaseDataDO baseDataDO = hologramQueryDao.outlineMsg(companyName);
+    public Map<String, Object> outlineMsg(String company) {
+        BaseDataDO baseDataDO = hologramQueryDao.outlineMsg(company);
         Map<String, Object> data = new HashMap<>();
         for (BaseDataDO.Results result : baseDataDO.getResults()) {
             data.put("公司名称",result.getJbxx().getCompany_name());
             data.put("法定代表人",result.getJbxx().getFrname());
             data.put("注册资本",result.getJbxx().getRegcap());
             data.put("注册地址",result.getJbxx().getAddress());
+        }
+        BBDLogoDO bbdLogoDO = hologramQueryDao.bbdLogo(company);
+        for (BBDLogoDO.Result result : bbdLogoDO.getResults()) {
+            data.put("公司logo", result.getCompany_logo());
         }
         return data;
     }

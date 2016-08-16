@@ -108,8 +108,8 @@ public class P2PImageController {
      */
     @RequestMapping("/baseInfo")
     @ResponseBody
-    public ResponseBean baseInfo(@RequestParam(required = true) String companyName, String dataType, String platName) {
-        Map<String, Object> content = p2PImageService.baseInfo(companyName, dataType, platName);
+    public ResponseBean baseInfo(@RequestParam(required = true) String company, String platName) {
+        Map<String, Object> content = p2PImageService.baseInfo(company, platName);
         return ResponseBean.successResponse(content);
     }
 

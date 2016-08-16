@@ -6,6 +6,7 @@ import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.dao.P2PImageDao;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
+import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompanyDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
@@ -33,6 +34,12 @@ public class P2PImageDaoImpl implements P2PImageDao {
 
     @Value("${api.bbd_qyxx.ak}")
     private String bbdQyxxAK;
+
+    @Value("${api.bbdZuzhiJiGoudm.url}")
+    private String zuZhiJiGouURL;
+
+    @Value("${api.bbdZuzhiJiGoudm.ak}")
+    private String zuZhiJiGouAK;
 
     @Override
     public YuQingDO platformConsensus(String platName) {
@@ -135,8 +142,12 @@ public class P2PImageDaoImpl implements P2PImageDao {
         return result;
     }
 
-    public Map<String, Object> baseInfoWangDaiApi(String dataType,String platName){
-        String platFormName = "http://localhost:8080/financial_services?dataType=plat_list&plat_name=123456";
+    /**
+     * 基本信息--网贷接口数据
+     * 暂时数据乱码，可后期网贷提供后处理
+     */
+    public Map<String, Object> baseInfoWangDaiApi(String platName){
+        String platFormName = "http://localhost:8080/financial_services.do?dataType=plat_list&plat_name="+platName;
         final Map<String, Object> data = new HashMap<>();
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
@@ -158,9 +169,14 @@ public class P2PImageDaoImpl implements P2PImageDao {
         }
         return data;
     }
+
+    /**
+     * 基本信息--BBD数据平台接口
+     *
+     */
     @Override
     public BaseDataDO baseInfoBBDData(String companyName) {
-        String baseURL = bbdQyxxURL + "?companyName=" + companyName + "&ak=" + bbdQyxxAK;
+        String baseURL = bbdQyxxURL + "?company=" + companyName + "&ak=" + bbdQyxxAK;
         final Map<String, Object> map = new LinkedHashMap<>();
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
@@ -173,6 +189,33 @@ public class P2PImageDaoImpl implements P2PImageDao {
                 public BaseDataDO parse(String result) {
                     Gson gson = new Gson();
                     return gson.fromJson(result, BaseDataDO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 基本信息--组织机构代码api
+     *
+     */
+    public ZuZhiJiGoudmDO baseInfoZuZhiJiGou(String companyName) {
+//        String url = zuZhiJiGouURL+"?company="+companyName+"&ak="+zuZhiJiGouURL;
+        String URL = "http://dataom.api.bbdservice.com/api/bbd_zuzhijigoudm/?company=%E6%94%80%E6%9E%9D%E8%8A%B1%E5%B8%82%E4%BA%A4%E9%80%9A%E6%97%85%E6%B8%B8%E5%AE%A2%E8%BF%90%E6%9C%89%E9%99%90%E8%B4%A3%E4%BB%BB%E5%85%AC%E5%8F%B8&ak=605f60df40668579e939515fef710d2b";
+        final Map<String, Object> map = new LinkedHashMap<>();
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(URL, new HttpCallback<ZuZhiJiGoudmDO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+                @Override
+                public ZuZhiJiGoudmDO parse(String result) {
+                    Gson gson = new Gson();
+                    return gson.fromJson(result, ZuZhiJiGoudmDO.class);
                 }
             });
         } catch (Exception e) {

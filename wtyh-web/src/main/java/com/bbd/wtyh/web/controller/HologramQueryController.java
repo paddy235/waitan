@@ -56,8 +56,8 @@ public class HologramQueryController {
      */
     @RequestMapping("/outlineMsg")
     @ResponseBody
-    public ResponseBean outlineMsg(@RequestParam(required = true) String companyName) {
-        Map<String, Object> result = hologramQueryService.outlineMsg(companyName);
+    public ResponseBean outlineMsg(@RequestParam(required = true) String company) {
+        Map<String, Object> result = hologramQueryService.outlineMsg(company);
         return ResponseBean.successResponse(result);
     }
 

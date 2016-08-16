@@ -18,6 +18,8 @@ public interface HologramQueryDao {
 
     BaseDataDO outlineMsg(String platName);
 
+    BBDLogoDO bbdLogo(String company);
+
     BaiDuYuQingDO newsConsensus(String company);
 
     BaseDataDO businessInfo(String companyName);

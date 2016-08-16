@@ -64,6 +64,12 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     @Value("${api.bbd_qyxx.ak}")
     private String bbdQyxxAK;
 
+    @Value("${api.bbdlogo.url}")
+    private String bbdLogoURL;
+
+    @Value("${api.bbdlog.ak}")
+    private String bbdLogoAK;
+
     /**
      * 信息查询平台搜索
      *
@@ -117,6 +123,32 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
                 public BaseDataDO parse(String result) {
                     Gson gson = new Gson();
                     return gson.fromJson(result, BaseDataDO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 企业logo信息
+     *
+     */
+    public BBDLogoDO bbdLogo(String company) {
+        String coreDataDealURL = bbdLogoURL+"?company="+company+"&ak="+bbdLogoAK;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(coreDataDealURL, new HttpCallback<BBDLogoDO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public BBDLogoDO parse(String result) {
+                    Gson gson = new Gson();
+                    return gson.fromJson(result, BBDLogoDO.class);
                 }
             });
         } catch (Exception e) {
