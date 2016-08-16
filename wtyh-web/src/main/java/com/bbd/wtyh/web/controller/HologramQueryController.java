@@ -44,8 +44,8 @@ public class HologramQueryController {
      */
     @RequestMapping("/guidance")
     @ResponseBody
-    public ResponseBean guidance() {
-        Map<String, Object> result = hologramQueryService.guidance();
+    public ResponseBean guidance(String company) {
+        Map<String, Object> result = hologramQueryService.guidance(company);
         return ResponseBean.successResponse(result);
     }
 
@@ -80,8 +80,8 @@ public class HologramQueryController {
      */
     @RequestMapping("/businessInfo")
     @ResponseBody
-    public ResponseBean businessInfo(@RequestParam(required = true) String companyName) {
-        Map<String, Object> result = hologramQueryService.businessInfo(companyName);
+    public ResponseBean businessInfo(@RequestParam(required = true) String company) {
+        Map<String, Object> result = hologramQueryService.businessInfo(company);
         return ResponseBean.successResponse(result);
     }
 
@@ -92,8 +92,8 @@ public class HologramQueryController {
      */
     @RequestMapping("/shareholdersSenior")
     @ResponseBody
-    public ResponseBean shareholdersSenior(@RequestParam(required = true) String companyName) {
-        Map<String, Map<String, Object>> result = hologramQueryService.shareholdersSenior(companyName);
+    public ResponseBean shareholdersSenior(@RequestParam(required = true) String company) {
+        Map<String, Map<String, Object>> result = hologramQueryService.shareholdersSenior(company);
         return ResponseBean.successResponse(result);
     }
 

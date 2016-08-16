@@ -91,19 +91,6 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     }
 
     /**
-     * 信息查询平台导航栏
-     *
-     * @return
-     */
-    @Override
-    public Map<String, Object> guidance() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("企业名称", "上海明城投资有限公司");
-        data.put("登记状态", "存续");
-        return data;
-    }
-
-    /**
      * 企业概要信息
      *
      * @return
@@ -204,6 +191,32 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
                 public BaseDataDO parse(String result) {
                     Gson gson = new Gson();
                     return gson.fromJson(result, BaseDataDO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 基本信息--组织机构代码api
+     *
+     */
+    public ZuZhiJiGoudmDO baseInfoZuZhiJiGou(String companyName) {
+//        String url = zuZhiJiGouURL+"?company="+companyName+"&ak="+zuZhiJiGouURL;
+        String URL = "http://dataom.api.bbdservice.com/api/bbd_zuzhijigoudm/?company=%E6%94%80%E6%9E%9D%E8%8A%B1%E5%B8%82%E4%BA%A4%E9%80%9A%E6%97%85%E6%B8%B8%E5%AE%A2%E8%BF%90%E6%9C%89%E9%99%90%E8%B4%A3%E4%BB%BB%E5%85%AC%E5%8F%B8&ak=605f60df40668579e939515fef710d2b";
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(URL, new HttpCallback<ZuZhiJiGoudmDO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+                @Override
+                public ZuZhiJiGoudmDO parse(String result) {
+                    Gson gson = new Gson();
+                    return gson.fromJson(result, ZuZhiJiGoudmDO.class);
                 }
             });
         } catch (Exception e) {

@@ -33,8 +33,14 @@ public class HologramQueryServiceImpl implements HologramQueryService {
     }
 
     @Override
-    public Map<String, Object> guidance() {
-        return hologramQueryDao.guidance();
+    public Map<String, Object> guidance(String company) {
+        Map<String, Object> data = new HashMap<>();
+        BaseDataDO baseDataDO = hologramQueryDao.businessInfo(company);
+        for (BaseDataDO.Results result : baseDataDO.getResults()) {
+            data.put("企业名称", result.getJbxx().getCompany_name());
+            data.put("登记状态", result.getJbxx().getEnterprise_status());
+        }
+        return data;
     }
 
     @Override
@@ -63,6 +69,10 @@ public class HologramQueryServiceImpl implements HologramQueryService {
     public Map<String, Object> businessInfo(String companyName) {
         BaseDataDO baseDataDO = hologramQueryDao.businessInfo(companyName);
         Map<String, Object> data = new HashMap<>();
+        ZuZhiJiGoudmDO zuZhiJiGoudmDO = hologramQueryDao.baseInfoZuZhiJiGou(companyName);
+        for (ZuZhiJiGoudmDO.Result result : zuZhiJiGoudmDO.getResults()) {
+            data.put("组织机构代码", result.getJgdm());
+        }
         for (BaseDataDO.Results result : baseDataDO.getResults()) {
             data.put("法定代表人",result.getJbxx().getFrname());
             data.put("注册资本",result.getJbxx().getRegcap());
@@ -70,7 +80,6 @@ public class HologramQueryServiceImpl implements HologramQueryService {
             data.put("注册时间",result.getJbxx().getEsdate());
             data.put("工商注册号",result.getJbxx().getRegno());
             data.put("企业类型",result.getJbxx().getCompany_type());
-            data.put("组织机构代码","fskfjdksfjklsdjfk123");//// TODO: 2016/8/13 0013 查找字典表
             data.put("营业期限",result.getJbxx().getOperating_period());
             data.put("登记机关",result.getJbxx().getRegorg());
             data.put("核准日期",result.getJbxx().getApproval_date());
