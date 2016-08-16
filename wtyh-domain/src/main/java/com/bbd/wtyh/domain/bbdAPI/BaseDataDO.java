@@ -1,4 +1,4 @@
-package com.bbd.wtyh.domain.bbdAPI1;
+package com.bbd.wtyh.domain.bbdAPI;
 
 import java.util.*;
 

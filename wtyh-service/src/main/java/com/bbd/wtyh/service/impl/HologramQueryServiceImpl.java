@@ -1,11 +1,11 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.dao.HologramQueryDao;
-import com.bbd.wtyh.domain.bbdAPI1.*;
-import com.bbd.wtyh.domain.bbdAPI1.BaiDuYuQingDO;
-import com.bbd.wtyh.domain.bbdAPI1.BaseDataDO;
-import com.bbd.wtyh.domain.bbdAPI1.CourtAnnouncementDO;
-import com.bbd.wtyh.domain.bbdAPI1.IndustryCodeDO;
+import com.bbd.wtyh.domain.bbdAPI.*;
+import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDO;
+import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
+import com.bbd.wtyh.domain.bbdAPI.CourtAnnouncementDO;
+import com.bbd.wtyh.domain.bbdAPI.IndustryCodeDO;
 import com.bbd.wtyh.service.HologramQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

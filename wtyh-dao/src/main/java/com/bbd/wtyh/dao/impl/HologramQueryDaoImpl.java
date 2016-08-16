@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.dao.HologramQueryDao;
-import com.bbd.wtyh.domain.bbdAPI1.*;
+import com.bbd.wtyh.domain.bbdAPI.*;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;

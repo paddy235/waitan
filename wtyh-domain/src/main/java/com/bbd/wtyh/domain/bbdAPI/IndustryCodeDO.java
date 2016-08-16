@@ -1,4 +1,4 @@
-package com.bbd.wtyh.domain.bbdAPI1;
+package com.bbd.wtyh.domain.bbdAPI;
 
 /**
  * 企业全息信息查询--企业工商信息--行业枚举

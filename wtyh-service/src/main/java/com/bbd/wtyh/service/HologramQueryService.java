@@ -1,6 +1,6 @@
 package com.bbd.wtyh.service;
 
-import com.bbd.wtyh.domain.bbdAPI1.*;
+import com.bbd.wtyh.domain.bbdAPI.*;
 
 import java.util.List;
 import java.util.Map;
