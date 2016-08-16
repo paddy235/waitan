@@ -17,6 +17,12 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
     @Autowired
     private CompanyAnalysisResultMapper companyAnalysisResultMapper;
 
+
+    @Override
+    public List<CompanyAnalysisResult> spectrumAnalysis() {
+        return companyAnalysisResultMapper.getSpectrumAnalysisAll();
+    }
+
     @Override
     public List<CompanyAnalysisResult> spectrumAnalysisEmphasis() {
         return companyAnalysisResultMapper.getSpectrumAnalysis(CompanyAnalysisResult.IMPORT_FOCUS.getType());
@@ -63,4 +69,5 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
 //        return realTimeMonitorDao.shMap();
         return null;
     }
+
 }
