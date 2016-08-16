@@ -6,6 +6,7 @@ import com.bbd.wtyh.service.RealTimeMonitorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +22,16 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
     @Override
     public List<CompanyAnalysisResult> spectrumAnalysis() {
         return companyAnalysisResultMapper.getSpectrumAnalysisAll();
+    }
+
+    @Override
+    public List<List> spectrumAnalysis4groups() {
+        List<List> groups4 = new ArrayList<>();
+        groups4.add(spectrumAnalysisEmphasis());
+        groups4.add(spectrumAnalysisUsual());
+        groups4.add(spectrumAnalysisNormal());
+        groups4.add(spectrumAnalysisAlready());
+        return groups4;
     }
 
     @Override

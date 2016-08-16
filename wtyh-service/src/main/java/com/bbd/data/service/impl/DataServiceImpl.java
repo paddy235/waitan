@@ -52,7 +52,9 @@ public class DataServiceImpl implements DataService {
 	
 	@Override
 	public int countTableData(String tableName,String value,String mode,String field) {
-		
+		if("like".equals(mode)){
+			value = "%"+StringUtils.trimToEmpty(value)+"%";
+		}
 		return tableDataMapper.countTableData(tableName, value, mode, field);
 	}
 
