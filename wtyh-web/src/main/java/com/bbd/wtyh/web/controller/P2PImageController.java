@@ -60,7 +60,6 @@ public class P2PImageController {
     @RequestMapping("/lawsuitMsg")
     @ResponseBody
     public ResponseBean lawsuitMsg(@RequestParam(required = true) String company) {
-        //TODO 公司名称乱码
         Map<String, Object> conent = p2PImageService.lawsuitMsg(company);
         return ResponseBean.successResponse(conent);
     }

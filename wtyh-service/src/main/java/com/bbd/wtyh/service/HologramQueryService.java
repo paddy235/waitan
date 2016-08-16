@@ -17,7 +17,7 @@ public interface HologramQueryService {
      *
      * @return
      */
-    Map<String, Object> search();
+    SearchComanyDO search(String company);
 
     /**
      * 信息查询平台导航栏

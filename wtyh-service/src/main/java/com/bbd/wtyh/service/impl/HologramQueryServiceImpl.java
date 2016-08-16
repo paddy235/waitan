@@ -23,8 +23,8 @@ public class HologramQueryServiceImpl implements HologramQueryService {
 
 
     @Override
-    public Map<String, Object> search() {
-        return hologramQueryDao.search();
+    public SearchComanyDO search(String company) {
+        return hologramQueryDao.search(company);
     }
 
     @Override

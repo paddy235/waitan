@@ -12,7 +12,7 @@ import java.util.Map;
  * @since 2016.08.09
  */
 public interface HologramQueryDao {
-    Map<String, Object> search();
+    SearchComanyDO search(String company);
 
     Map<String, Object> guidance();
 
