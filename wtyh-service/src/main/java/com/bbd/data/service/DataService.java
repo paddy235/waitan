@@ -41,7 +41,7 @@ public interface DataService {
 	* @param rows 每页行数
 	* @return List<Map<String,Object>>
 	*/
-	List<Map<String, Object>> getTableData(String tableName, Integer page, Integer rows);
+	List<Map<String, Object>> getTableData(String tableName,String value,String mode,String field, Integer page, Integer rows);
 
 
 
@@ -52,7 +52,7 @@ public interface DataService {
 	* @param  tableName 表名
 	* @return int
 	*/
-	int countTableData(String tableName);
+	int countTableData(String tableName,String value,String mode,String field);
 
 
 

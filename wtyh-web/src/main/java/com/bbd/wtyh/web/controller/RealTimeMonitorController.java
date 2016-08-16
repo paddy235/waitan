@@ -24,6 +24,18 @@ public class RealTimeMonitorController {
     private RealTimeMonitorService realTimeMonitorService;
 
     /**
+     * 光谱分析 - 只做标识，前端区分
+     *
+     * @return
+     */
+    @RequestMapping("/spectrumAnalysis")
+    @ResponseBody
+    public ResponseBean spectrumAnalysis() {
+        List<CompanyAnalysisResult> content = realTimeMonitorService.spectrumAnalysis();
+        return ResponseBean.successResponse(content);
+    }
+
+    /**
      * 光谱分析 - 重点关注
      *
      * @return

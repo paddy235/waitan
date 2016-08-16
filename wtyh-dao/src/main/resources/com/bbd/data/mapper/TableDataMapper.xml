@@ -18,11 +18,36 @@
 	</select>
 	
 	<select id="getTableData"  resultType="map">
-		 select * from ${tableName} limit #{start},#{rows};
+		 select * from ${tableName} 
+		 
+		 <if test="value!=''">
+		 	where ${field} 
+		 	<if test="mode=='like'" >
+		 		<![CDATA[ like #{value} ]]>  
+		 	</if>
+		 	<if test="mode!='like'" >
+		 		<![CDATA[ =#{value} ]]>  
+		 	</if>
+		 </if>
+		 
+		 
+		 limit #{start},#{rows};
 	</select>
 	
 	<select id="countTableData"  resultType="int">
-		 select count(*) from ${tableName} ;
+		 select count(*) from ${tableName} 
+		 
+		 <if test="value!=''">
+		 	where ${field} 
+		 	<if test="mode=='like'" >
+		 		<![CDATA[ like #{value} ]]>  
+		 	</if>
+		 	<if test="mode!='like'" >
+		 		<![CDATA[ =#{value} ]]>  
+		 	</if>
+		 </if>
+		 
+		 ;
 	</select>
 	
 	

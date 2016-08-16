@@ -1,8 +1,6 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.domain.CompanyDO;
-import com.bbd.wtyh.domain.RelatedCompanyDO;
-import com.bbd.wtyh.domain.RelatedCompanyStatisticDO;
 import com.bbd.wtyh.domain.dto.ShareholderRiskDTO;
 import com.bbd.wtyh.domain.query.CompanyQuery;
 import com.bbd.wtyh.mapper.RelatedCompanyMapper;
@@ -10,7 +8,10 @@ import com.bbd.wtyh.service.CompanyService;
 import com.bbd.wtyh.service.ShareholderRiskService;
 import com.bbd.wtyh.service.impl.relation.RegisterUniversalFilterChainImp;
 import com.bbd.wtyh.web.relationVO.PointVO;
-import com.google.common.collect.*;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Sets;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,7 +34,7 @@ public class ShareholderRiskServiceImpl implements ShareholderRiskService {
     private RegisterUniversalFilterChainImp relatedCompanyService;
     @Value("${related.party.dataVersion}")
     private String dataVersion;
-    private Set<Integer> relatedCompanyTypes = Sets.newHashSet();
+    private Set<Integer> relatedCompanyTypes = Sets.newHashSet((int) CompanyDO.TYPE_P2P_1, (int) CompanyDO.TYPE_XXLC_4, (int) CompanyDO.TYPE_SMJJ_5);
 
 
     @Override
