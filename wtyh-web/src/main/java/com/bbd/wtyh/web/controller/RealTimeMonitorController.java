@@ -36,18 +36,6 @@ public class RealTimeMonitorController {
     }
 
     /**
-     * 光谱分析 - 分4组帮助前端区分
-     *
-     * @return
-     */
-    @RequestMapping("/spectrumAnalysis4groups")
-    @ResponseBody
-    public ResponseBean spectrumAnalysis4groups() {
-        List<List> content = realTimeMonitorService.spectrumAnalysis4groups();
-        return ResponseBean.successResponse(content);
-    }
-
-    /**
      * 光谱分析 - 重点关注
      *
      * @return
