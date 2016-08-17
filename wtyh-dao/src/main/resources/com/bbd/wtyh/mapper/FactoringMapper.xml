@@ -38,7 +38,7 @@
     
     
     <select id="distribute" resultType="map" >
-    	select IF(`foreign`,'外资企业','内资企业')  name , count(1) value from commercial_factoring_extra group by `foreign`    ;
+    	select IF(foreign_owned,'外资企业','内资企业')  name , count(1) value from commercial_factoring_extra group by foreign_owned   ;
     </select>
     
     <select id="geogDistribute" resultType="map" >
