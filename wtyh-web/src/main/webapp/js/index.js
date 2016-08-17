@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "fad6722a2089122dfafd"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "cc7c2cbb4709af7ae61c"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -87666,7 +87666,7 @@
 	        'div',
 	        { className: 'realtime-bottom' },
 	        _react2.default.createElement(_bottomLeft2.default, null),
-	        _react2.default.createElement(_bottomRight2.default, null)
+	        _react2.default.createElement(_bottomRight2.default, this.props)
 	      )
 	    );
 	  }
@@ -87679,7 +87679,10 @@
 	    realTimeTableRequest: state.RealTimeTable.request, //RealTimeTable注册在reduce里面的index。拿到处理后的两个返回值。
 
 	    realTimeNineResult: state.RealTimeNine.result,
-	    realTimeNineRequest: state.RealTimeNine.request //RealTimeNine注册在reduce里面的index。拿到处理后的两个返回值。
+	    realTimeNineRequest: state.RealTimeNine.request, //RealTimeNine注册在reduce里面的index。拿到处理后的两个返回值。
+
+	    realTimeNewsResult: state.RealTimeNews.result,
+	    realTimeNewsRequest: state.RealTimeNews.request //RealTimeNews注册在reduce里面的index。拿到处理后的两个返回值。
 	  };
 	}
 
@@ -89567,12 +89570,37 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var Immutable = __webpack_require__(777);
+
+	var data;
 	var BottomRight = _react2.default.createClass({
 	  displayName: 'BottomRight',
 	  getInitialState: function getInitialState() {
 	    return {};
 	  },
-	  componentDidMount: function componentDidMount() {},
+	  componentDidMount: function componentDidMount() {
+	    var getRealTimeNews = this.props.getRealTimeNews; // 取到props里面的getRealTimeTable方法。也可以说是请求action
+
+	    var jsonData = {}; //ajax传递给后台的data键值对
+	    getRealTimeNews(jsonData);
+	  },
+
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var _this = this;
+	    var isEqual = Immutable.is(nextProps.realTimeNewsRequest, this.props.realTimeNewsResult); //判断数据是否变化
+	    if (!isEqual) {
+	      var realTimeNewsRequest = nextProps.realTimeNewsRequest;
+	      var realTimeNewsResult = nextProps.realTimeNewsResult;
+
+	      if (realTimeNewsRequest == true) {
+	        if (realTimeNewsRequest == true) {
+	          alert("ssss");
+	        } else {
+	          alert(404);
+	        }
+	      }
+	    }
+	  },
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
@@ -89915,6 +89943,10 @@
 
 	var _realtimeNineReducer2 = _interopRequireDefault(_realtimeNineReducer);
 
+	var _realtimeNewsReducer = __webpack_require__(1303);
+
+	var _realtimeNewsReducer2 = _interopRequireDefault(_realtimeNewsReducer);
+
 	var _selectval = __webpack_require__(1302);
 
 	var _selectval2 = _interopRequireDefault(_selectval);
@@ -89924,35 +89956,40 @@
 	//import ImgFinance from './parkMonitor/buildDetail/ImgFinance'
 	/*众筹监测 end*/
 
-	//列表
+	/*=================================众筹监测=================================*/
 
-	//6月上海各类众筹平台新增项目数
+	/*实时监测 begin*/
+	//左侧表格
+
+	//6月上海各类众筹平台新增项目数的成功筹资金额
+
+	//6月上海各类众筹平台新增项目的投资人次
+
+	//私募股权基本情况
+
+	//私募基金分类
+
+
+	/*====================================p2p画像平台============================*/
 
 	/*====================================私募基金===============================*/
+	//QDLP试点企业最新进展
 
-	/*=================================众筹监测=================================*/
-	//业务类型
+	//动态图谱
 
-	//私募证券基本情况
+	//诉讼信息
 
-	//QFLP试点企业最新进展
-
-	//评分雷达图
-
-	//平台舆情
-
-	//公司基本信息
-
-	//p2p图表
-
+	//核心数据
 
 	/*====================================P2P平台监测============================*/
-	//上海区域发展指数排名
+
+	/*====================================p2p画像平台============================*/
+	//基本信息
+
+	//网贷平台数据展示
 
 
-	/*行业监测模块*/
-
-	//小额贷款
+	//融资担保
 	var rootReducer = (0, _redux.combineReducers)({
 	  /*行业监测模块*/
 	  //P2P平台监测
@@ -90007,6 +90044,7 @@
 	  //实时监测
 	  RealTimeTable: _realtimeTableRuducer2.default,
 	  RealTimeNine: _realtimeNineReducer2.default,
+	  RealTimeNews: _realtimeNewsReducer2.default,
 
 	  routing: _reactRouterRedux.routerReducer //整合路由
 	});
@@ -90014,40 +90052,35 @@
 
 	//园区
 
-	/*=================================众筹监测=================================*/
+	//列表
 
-	/*实时监测 begin*/
-	//左侧表格
-
-	//6月上海各类众筹平台新增项目数的成功筹资金额
-
-	//6月上海各类众筹平台新增项目的投资人次
-
-	//私募股权基本情况
-
-	//私募基金分类
-
-
-	/*====================================p2p画像平台============================*/
+	//6月上海各类众筹平台新增项目数
 
 	/*====================================私募基金===============================*/
-	//QDLP试点企业最新进展
 
-	//动态图谱
+	/*=================================众筹监测=================================*/
+	//业务类型
 
-	//诉讼信息
+	//私募证券基本情况
 
-	//核心数据
+	//QFLP试点企业最新进展
+
+	//评分雷达图
+
+	//平台舆情
+
+	//公司基本信息
+
+	//p2p图表
+
 
 	/*====================================P2P平台监测============================*/
-
-	/*====================================p2p画像平台============================*/
-	//基本信息
-
-	//网贷平台数据展示
+	//上海区域发展指数排名
 
 
-	//融资担保
+	/*行业监测模块*/
+
+	//小额贷款
 
 	exports.default = rootReducer;
 
@@ -99660,6 +99693,7 @@
 	});
 	exports.getRealTimeTable = getRealTimeTable;
 	exports.getRealTimeNine = getRealTimeNine;
+	exports.getRealTimeNews = getRealTimeNews;
 	/*
 	  实时监测左侧表格action
 	*/
@@ -99735,6 +99769,47 @@
 	      },
 	      error: function error(result) {
 	        return dispatch(RealTimeNineFail(result));
+	      }
+	    });
+	  };
+	}
+
+	/*
+	  实时监测右下角的舆情模块
+	*/
+	var REALTIME_NEWS_SUCCESS = exports.REALTIME_NEWS_SUCCESS = 'REALTIME_NEWS_SUCCESS';
+	var REALTIME_NEWS_FAIL = exports.REALTIME_NEWS_FAIL = 'REALTIME_NEWS_FAIL';
+
+	function RealTimeNewsSuccess(result) {
+	  //请求成功调用方法 保存成功的数据
+	  return {
+	    type: REALTIME_NEWS_SUCCESS,
+	    result: result
+	  };
+	}
+	function RealTimeNewsFail(result) {
+	  //请求失败调用方法  保存了失败的数据
+	  return {
+	    type: REALTIME_NEWS_FAIL,
+	    result: result
+	  };
+	}
+
+	//最开始触发redux流程的导火线。
+	function getRealTimeNews(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "/realTimeMonitorController/businessChartShow.do", //"/data/industryMonitor/smallLoan/index/companyGrade.json",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        console.log("九个图的此次请求成功");
+	        return dispatch(RealTimeNewsSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(RealTimeNewsFail(result));
 	      }
 	    });
 	  };
@@ -100443,6 +100518,57 @@
 	}
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "selectval.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1303 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = realTimeNine;
+
+	var _RealTimeAction = __webpack_require__(1291);
+
+	//这个函数就是处理，action里面成功和失败的2个返回函数。
+	//当ajax请求成功了，就可以调用这个两个返回函数进行操作。
+
+	function realTimeNine() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? { //这个名字无所谓，最后都是用index里面对外暴露的名字。
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _RealTimeAction.REALTIME_NEWS_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _RealTimeAction.REALTIME_NEWS_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
+
+	//（默认的2个值，根据判断action返回的两个值）
+	// 这个reducer就是从action里面抽离出来的数据的状态机
+
+	// request、result
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "realtimeNewsReducer.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ }
