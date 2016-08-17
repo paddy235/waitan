@@ -1,5 +1,6 @@
 package com.bbd.wtyh.web.controller;
 
+import com.bbd.wtyh.domain.CapitalAmountDO;
 import com.bbd.wtyh.domain.CommercialFactoringStatisticDO;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.LoanBalanceDO;
@@ -8,11 +9,13 @@ import com.bbd.wtyh.domain.dto.LoanBalanceDTO;
 import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
 import com.bbd.wtyh.domain.query.CompanyQuery;
 import com.bbd.wtyh.service.*;
+import com.bbd.wtyh.util.CalculateUtils;
 import com.bbd.wtyh.web.HistogramBean;
 import com.bbd.wtyh.web.ResponseBean;
 import com.bbd.wtyh.web.XAxisSeriesBarLineBean;
 import com.bbd.wtyh.web.XAxisSeriesLinesBean;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -55,7 +59,13 @@ public class RealTimeMonitorController {
     private FinanceLeaseController financeLeaseController;
     @Autowired
     private ExchangeCompanyController exchangeCompanyController;
+    @Autowired
+    private PrivateFundService privateFundService;
+    @Autowired
+    private ExchangeCompanyService exchangeCompanyService;
 
+
+    // TODO:光谱分析做错了！！
     /**
      * 光谱分析 - 只做标识，前端区分
      *
@@ -150,8 +160,32 @@ public class RealTimeMonitorController {
     public ResponseBean businessChartShow() {
         //小贷
         ResponseBean loanResponseBean = loanController.balance();
+        List<LoanBalanceDTO> loanBalanceResult = (List<LoanBalanceDTO>)loanResponseBean.getContent();
+
+
+        @SuppressWarnings("unchecked")
+        XAxisSeriesLinesBean<String,String> loanDTO = new XAxisSeriesLinesBean<>(
+                new ArrayList<String>(),
+                new ArrayList<String>());
+
+        for (LoanBalanceDTO loanBalanceDTO : loanBalanceResult) {
+            loanDTO.getxAxis().add(loanBalanceDTO.getYear().toString());
+            loanDTO.getSeries()[0].add(loanBalanceDTO.getAmount().toString());
+            loanDTO.getSeries()[1].add(String.valueOf(CalculateUtils.divide(loanBalanceDTO.getAmount(), loanBalanceDTO.getCompanyAmount(), 2)));
+        }
+
         //私募
-        ResponseBean privateFundResponseBean = privateFundController.capitalAmount();
+        List<CapitalAmountDO> capitalAmountList = privateFundService.capitalAmount();
+        @SuppressWarnings("unchecked")
+        XAxisSeriesLinesBean<String,String> privateDTO = new XAxisSeriesLinesBean<>(
+                new ArrayList<String>(),
+                new ArrayList<String>());
+
+        for (CapitalAmountDO capitalAmountDO : capitalAmountList) {
+            privateDTO.getxAxis().add(privateFundService.getTypeById(capitalAmountDO.getTypeId()).getTypeName());
+            privateDTO.getSeries()[0].add(capitalAmountDO.getManagedCapitalAmount().toString());
+            privateDTO.getSeries()[1].add(capitalAmountDO.getPublishCompanyNumber().toString());
+        }
         //p2p
         XAxisSeriesBarLineBean<Integer,String> pToPMonitorResponseBean = new XAxisSeriesBarLineBean<>();
         try {
@@ -163,36 +197,43 @@ public class RealTimeMonitorController {
         //融资租赁
         ResponseBean financeLeaseResponseBean = financeLeaseController.leaseCompanyStatistic();
         //交易场所分类
-        ResponseBean exchangeCompanyResponseBean = exchangeCompanyController.exchangeCompanyCategory();
+        List<Map> exchangeCompanyData = exchangeCompanyService.exchangeCompanyCategory();
+        HistogramBean<String,String> exchangeCompanyBean = new HistogramBean<>();
+
+        for (Map map : exchangeCompanyData) {
+            exchangeCompanyBean.getxAxis().add(map.keySet().iterator().next().toString());
+            exchangeCompanyBean.getseries().add(map.values().iterator().next().toString());
+        }
         //众筹平台
         ResponseBean crowdFundingResponseBean = crowdFundingController.newlyProject();
         //典当
         ResponseBean mortgageResponseBean = mortgageController.statisticList();
         //商业保理
-        List<CommercialFactoringStatisticDO> facList = factoringService.companyCountByYear();
-        @SuppressWarnings("unchecked")
-        XAxisSeriesLinesBean<Integer,Integer> dto = new XAxisSeriesLinesBean<>(
-                new ArrayList<Integer>(),
-                new ArrayList<Integer>());
-
-        if (!CollectionUtils.isEmpty(facList)) {
-            for (CommercialFactoringStatisticDO bean : facList) {
-                dto.getxAxis().add(bean.getYear());
-                dto.getSeries()[0].add(bean.getCompanyNumber());
-                dto.getSeries()[1].add(bean.getTotalAmout());
-            }
-        }
+//        List<CommercialFactoringStatisticDO> facList = factoringService.companyCountByYear();
+//        @SuppressWarnings("unchecked")
+//        XAxisSeriesLinesBean<Integer,Integer> dto = new XAxisSeriesLinesBean<>(
+//                new ArrayList<Integer>(),
+//                new ArrayList<Integer>());
+//
+//        if (!CollectionUtils.isEmpty(facList)) {
+//            for (CommercialFactoringStatisticDO bean : facList) {
+//                dto.getxAxis().add(bean.getYear());
+//                dto.getSeries()[0].add(bean.getCompanyNumber());
+//                dto.getSeries()[1].add(bean.getTotalAmout());
+//            }
+//        }
         //预付卡
         ResponseBean prepaidCompanyResponseBean = prepaidCompanyController.amount();
-        Map result = new HashedMap();
-        result.put("loan", loanResponseBean.getContent());
-        result.put("private", privateFundResponseBean.getContent());
+        Map result = new LinkedHashMap();
+        result.put("loan", loanDTO);
+        result.put("private", privateDTO);
         result.put("p2p", pToPMonitorResponseBean);
         result.put("finance", financeLeaseResponseBean.getContent());
-        result.put("exchange", exchangeCompanyResponseBean.getContent());
+        result.put("exchange", exchangeCompanyBean);
         result.put("crowd", crowdFundingResponseBean.getContent());
         result.put("mortgage", mortgageResponseBean.getContent());
-        result.put("factoring", dto);
+//        result.put("factoring", dto);
+        result.put("factoring", "");
         result.put("prepaid", prepaidCompanyResponseBean.getContent());
         return ResponseBean.successResponse(result);
     }
