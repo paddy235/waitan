@@ -169,19 +169,19 @@ public class RealTimeMonitorController {
         //典当
         ResponseBean mortgageResponseBean = mortgageController.statisticList();
         //商业保理
-        List<CommercialFactoringStatisticDO> facList = factoringService.companyCountByYear();
-        @SuppressWarnings("unchecked")
-        XAxisSeriesLinesBean<Integer,Integer> dto = new XAxisSeriesLinesBean<>(
-                new ArrayList<Integer>(),
-                new ArrayList<Integer>());
-
-        if (!CollectionUtils.isEmpty(facList)) {
-            for (CommercialFactoringStatisticDO bean : facList) {
-                dto.getxAxis().add(bean.getYear());
-                dto.getSeries()[0].add(bean.getCompanyNumber());
-                dto.getSeries()[1].add(bean.getTotalAmout());
-            }
-        }
+//        List<CommercialFactoringStatisticDO> facList = factoringService.companyCountByYear();
+//        @SuppressWarnings("unchecked")
+//        XAxisSeriesLinesBean<Integer,Integer> dto = new XAxisSeriesLinesBean<>(
+//                new ArrayList<Integer>(),
+//                new ArrayList<Integer>());
+//
+//        if (!CollectionUtils.isEmpty(facList)) {
+//            for (CommercialFactoringStatisticDO bean : facList) {
+//                dto.getxAxis().add(bean.getYear());
+//                dto.getSeries()[0].add(bean.getCompanyNumber());
+//                dto.getSeries()[1].add(bean.getTotalAmout());
+//            }
+//        }
         //预付卡
         ResponseBean prepaidCompanyResponseBean = prepaidCompanyController.amount();
         Map result = new HashedMap();
@@ -192,7 +192,8 @@ public class RealTimeMonitorController {
         result.put("exchange", exchangeCompanyResponseBean.getContent());
         result.put("crowd", crowdFundingResponseBean.getContent());
         result.put("mortgage", mortgageResponseBean.getContent());
-        result.put("factoring", dto);
+//        result.put("factoring", dto);
+        result.put("factoring", "");
         result.put("prepaid", prepaidCompanyResponseBean.getContent());
         return ResponseBean.successResponse(result);
     }
