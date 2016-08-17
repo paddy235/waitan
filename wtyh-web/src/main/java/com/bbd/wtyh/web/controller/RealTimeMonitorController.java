@@ -1,9 +1,6 @@
 package com.bbd.wtyh.web.controller;
 
-import com.bbd.wtyh.domain.CapitalAmountDO;
-import com.bbd.wtyh.domain.CommercialFactoringStatisticDO;
-import com.bbd.wtyh.domain.CompanyDO;
-import com.bbd.wtyh.domain.LoanBalanceDO;
+import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.dto.IndustryShanghaiDTO;
 import com.bbd.wtyh.domain.dto.LoanBalanceDTO;
 import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
@@ -63,6 +60,8 @@ public class RealTimeMonitorController {
     private PrivateFundService privateFundService;
     @Autowired
     private ExchangeCompanyService exchangeCompanyService;
+    @Autowired
+    private MortgageService mortgageService;
 
 
     // TODO:光谱分析做错了！！
@@ -208,6 +207,18 @@ public class RealTimeMonitorController {
         ResponseBean crowdFundingResponseBean = crowdFundingController.newlyProject();
         //典当
         ResponseBean mortgageResponseBean = mortgageController.statisticList();
+        List<MortgageStatisticDO> mortgageList = mortgageService.getMortgageStatisticList();
+        @SuppressWarnings("unchecked")
+        XAxisSeriesLinesBean<String,String> mortgageDTO = new XAxisSeriesLinesBean<>(
+                new ArrayList<String>(),
+                new ArrayList<String>());
+        if (!CollectionUtils.isEmpty(mortgageList)) {
+            for (MortgageStatisticDO mortgageStatisticDO : mortgageList) {
+                mortgageDTO.getxAxis().add(mortgageStatisticDO.getYear().toString());
+                mortgageDTO.getSeries()[0].add(mortgageStatisticDO.getNumber().toString());
+                mortgageDTO.getSeries()[1].add(mortgageStatisticDO.getTotalAmout().toString());
+            }
+        }
         //商业保理
 //        List<CommercialFactoringStatisticDO> facList = factoringService.companyCountByYear();
 //        @SuppressWarnings("unchecked")
@@ -231,7 +242,7 @@ public class RealTimeMonitorController {
         result.put("finance", financeLeaseResponseBean.getContent());
         result.put("exchange", exchangeCompanyBean);
         result.put("crowd", crowdFundingResponseBean.getContent());
-        result.put("mortgage", mortgageResponseBean.getContent());
+        result.put("mortgage", mortgageDTO);
 //        result.put("factoring", dto);
         result.put("factoring", "");
         result.put("prepaid", prepaidCompanyResponseBean.getContent());
