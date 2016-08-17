@@ -78,7 +78,7 @@ public class ShareholderRiskServiceImpl implements ShareholderRiskService {
                             break;
                     }
                 }
-                if (p2p <= 0 || offlineFinance <= 0 || privateFund <= 0) {
+                if (p2p <= 0 && offlineFinance <= 0 && privateFund <= 0) {
                     continue;
                 }
                 dto.setP2p(p2p);
