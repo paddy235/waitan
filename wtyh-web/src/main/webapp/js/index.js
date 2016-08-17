@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "571d82ad3804cbfd9078"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "fad6722a2089122dfafd"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -88896,8 +88896,28 @@
 	                        "symbolSize": 10,
 	                        "itemStyle": {},
 	                        "series": {
-	                            "bar": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]],
-	                            "line": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
+	                            //后台暂时没得数据，莫法传
+	                            "bar": [[
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200)
+	                            ]],
+	                            "line": [[
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200)
+
+	                            ]]
 	                        }
 	                    };
 	                    paramNine = {
@@ -88919,12 +88939,25 @@
 	                        "symbolSize": 10,
 	                        "labelShow": true,
 	                        "series": {
-	                            "bar": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
+	                            "bar": [[
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200)
+	                            ]]
 	                        }
 	                    };
 	                } else {
-	                    alert(404);
-	                }
+	                        alert(404);
+	                    }
 	            }
 	        }
 	    },
