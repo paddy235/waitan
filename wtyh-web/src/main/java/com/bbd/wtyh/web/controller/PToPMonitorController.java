@@ -124,6 +124,11 @@ public class PToPMonitorController {
     	HashMap<String,Object> map = new HashMap<>();
     	map.put("code", 1);
     	map.put("title", "热力图");
+    	if(CollectionUtils.isEmpty(list)){
+    		map.put("data", new ArrayList<>());
+        	return map;
+    	}
+    	
     	IndustryShanghaiDTO maxDto = list.get(0);
     	for (IndustryShanghaiDTO dto : list) {
 			if(maxDto.getDate().compareTo(dto.getDate()) > 0){
