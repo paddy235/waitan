@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "9458abf2a319deb27904"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "571d82ad3804cbfd9078"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -53984,9 +53984,7 @@
 	                    color: "#fff",
 	                    fontFamily: "microsoft yahei",
 	                    fontWeight: "normal"
-
-	                },
-	                top: "8%"
+	                }
 	            },
 	            legend: {
 	                data: [],
@@ -54007,7 +54005,7 @@
 	                }
 	            },
 	            grid: {
-	                top: param.gridTop || '15%',
+	                top: param.gridTop || '10%',
 	                left: '5%',
 	                bottom: '5%',
 	                right: '5%',
@@ -54044,8 +54042,9 @@
 	                }
 	            },
 	            yAxis: {
-	                type: 'category',
+	                type: param.yType || 'category',
 	                name: param.yAxisName == undefined ? "" : param.yAxisName,
+	                boundaryGap: ["10%", "10%"],
 	                nameTextStyle: {
 	                    color: "#7f868e"
 	                },
@@ -88714,17 +88713,33 @@
 	                if (realTimeNineRequest == true) {
 	                    //这里可以开始渲染数据
 	                    nineDate = realTimeNineResult; //赋值给全局变量
-	                    console.log(nineDate, "NINE");
+
+	                    //paramOneData-fixed == 1
+	                    var paramOneData = [];
+	                    nineDate.content.loan.series[0].map(function (item, index) {
+	                        var xx = [index, item];
+	                        paramOneData.push(xx);
+	                    });
+	                    nineDate.content.loan.series[1].map(function (item, index) {
+	                        paramOneData[index].push(item);
+	                    });
+	                    //paramOneData-fixed-end
+
+	                    //paramTwoData-fixed
+
+	                    //paramTwoData-fixed-end
 	                    paramOne = {
 	                        id: 'realTimeRightOne', //必传
 	                        height: '100%', //必传 带上单位
 	                        title: '小额贷款之贷款余额',
 	                        forMaterTitle: "贷款余额",
 	                        forMaterTip: '平均贷款余额',
+	                        gridTop: "20%",
+	                        yType: "value",
 	                        legend: [],
-	                        xAxis: ['2010', '2011', '2012', '2013', '2014', '2015', '2016'],
-	                        yAxis: ['20', '40', '60', '80', '100', '120', '140'],
-	                        data: [[0, 0, 300000], [1, 1, 1000000], [2, 2, 200000], [3, 3, 50], [4, 4, 60], [5, 5, 10], [6, 6, 80]],
+	                        xAxis: nineDate.content.loan.xAxis,
+	                        yAxis: [],
+	                        data: paramOneData,
 	                        series: [[{
 	                            color: '#e14340'
 	                        }]]
@@ -88741,12 +88756,12 @@
 	                        "gridBottom": "0%",
 	                        "gridRight": "0%",
 	                        "barName": ["管理资本金额", "私募机构数量"],
-	                        "xAxis": ["2012", "2013", "2014", "2015"],
+	                        "xAxis": nineDate.content.private.xAxis,
 	                        "yAxisName": ["亿元", "个数"],
 	                        "barWidth": 20,
 	                        "symbolSize": 10,
 	                        "series": {
-	                            "bar": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)], [Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
+	                            "bar": nineDate.content.private.series
 	                        }
 	                    };
 	                    paramThree = {
@@ -88764,13 +88779,13 @@
 	                        "gridRight": "0%",
 	                        "gridBottom": "0%",
 	                        "yFlag": "",
-	                        "xAxis": ["2012-Q1", "2014-Q2", "2014-Q3", "2014-Q4", "2015-Q1", "2015-Q2", "2015-Q3", "2015-Q4", "2016-Q1"],
+	                        "xAxis": nineDate.content.p2p.xAxis,
 	                        "yAxisName": ["家数", ""],
 	                        "barWidth": 20,
 	                        "symbolSize": 10,
 	                        "series": {
-	                            "bar": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]],
-	                            "line": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
+	                            "bar": [nineDate.content.p2p.series.bar],
+	                            "line": [nineDate.content.p2p.series.line]
 	                        }
 	                    };
 	                    paramFour = {
@@ -88790,13 +88805,13 @@
 	                        "gridRight": "0%",
 	                        "gridBottom": "0%",
 	                        "yFlag": "",
-	                        "xAxis": ["2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015"],
+	                        "xAxis": nineDate.content.finance.xAxis,
 	                        "yAxisName": ["亿人民币", "亿美元"],
 	                        "barWidth": 10,
 	                        "symbolSize": 10,
 	                        "series": {
-	                            "bar": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)], [Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]],
-	                            "line": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
+	                            "bar": nineDate.content.finance.series.bar,
+	                            "line": [nineDate.content.finance.series.line]
 	                        }
 	                    };
 	                    paramFive = {
@@ -88814,14 +88829,14 @@
 	                        "labelShow": true,
 	                        "barName": ["新增项目数"],
 	                        "lablePosition": "right",
-	                        "yAxis": ["奖励众筹", "非公开股权融资", "公益众筹"],
+	                        "yAxis": nineDate.content.exchange.xAxis,
 	                        "Ytype": "category",
 	                        "Xtype": "value",
 	                        "yAxisName": ["新增项目数", ""],
 	                        "barWidth": 20,
 	                        "symbolSize": 10,
 	                        "series": {
-	                            "bar": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
+	                            "bar": [nineDate.content.exchange.series]
 	                        }
 	                    };
 	                    paramSix = {
@@ -88838,12 +88853,12 @@
 	                        "gridRight": "0%",
 	                        "labelShow": true,
 	                        "barName": ["新增项目数"],
-	                        "xAxis": ["奖励众筹", "非公开股权融资", "公益众筹"],
+	                        "xAxis": nineDate.content.crowd.xAxis,
 	                        "yAxisName": ["新增项目数", ""],
 	                        "barWidth": 20,
 	                        "symbolSize": 10,
 	                        "series": {
-	                            "bar": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
+	                            "bar": [nineDate.content.crowd.series]
 	                        }
 	                    };
 	                    paramSeven = {
@@ -99677,7 +99692,7 @@
 	  return function (dispatch) {
 	    console.log(json);
 	    $.ajax({
-	      url: "/loan/balance.do", //"/data/industryMonitor/smallLoan/index/companyGrade.json",
+	      url: "/realTimeMonitorController/businessChartShow.do", //"/data/industryMonitor/smallLoan/index/companyGrade.json",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
