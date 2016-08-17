@@ -12,26 +12,20 @@ import java.util.TreeMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.bbd.wtyh.domain.NvDO;
-import com.bbd.wtyh.domain.dto.AreaIndexDTO;
 import com.bbd.wtyh.domain.dto.IndustryCompareDTO;
 import com.bbd.wtyh.domain.dto.IndustryProblemDTO;
 import com.bbd.wtyh.domain.dto.IndustryShanghaiDTO;
 import com.bbd.wtyh.domain.dto.PlatRankDataDTO;
 import com.bbd.wtyh.service.AreaService;
 import com.bbd.wtyh.service.PToPMonitorService;
-import com.bbd.wtyh.util.relation.HttpClientUtils;
 import com.bbd.wtyh.web.ResponseBean;
 import com.bbd.wtyh.web.XAxisSeriesBarLineBean;
 import com.bbd.wtyh.web.XAxisSeriesLinesBean;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 /**
 * P2P行业监测平台
