@@ -10,6 +10,6 @@ public interface RelatedCompanyMapper {
 
     List<RelatedCompanyDO> selectByCompanyId(Integer companyId);
 
-    List<RelatedCompanyStatisticDO> logisticRelatedCompany(Integer companyType);
+    List<RelatedCompanyStatisticDO> statisticRelatedCompany(Integer companyType);
 
 }

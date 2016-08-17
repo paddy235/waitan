@@ -1,10 +1,8 @@
 package com.bbd.wtyh.service.impl;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.http.NameValuePair;
@@ -12,18 +10,15 @@ import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import com.bbd.wtyh.domain.BuildingDO;
 import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
 import com.bbd.wtyh.domain.CompanyBackgroundDO;
 import com.bbd.wtyh.domain.CompanyDO;
-import com.bbd.wtyh.domain.CompanyNewsDO;
 import com.bbd.wtyh.domain.CompanyTypeCountDO;
 import com.bbd.wtyh.domain.InBusinessDO;
 import com.bbd.wtyh.mapper.BuildingMapper;
 import com.bbd.wtyh.mapper.CompanyAnalysisResultMapper;
 import com.bbd.wtyh.mapper.CompanyMapper;
-import com.bbd.wtyh.mapper.CompanyNewsMapper;
 import com.bbd.wtyh.mapper.ParkMapper;
 import com.bbd.wtyh.service.ParkService;
 import com.bbd.wtyh.util.relation.HttpClientUtils;
@@ -41,9 +36,14 @@ public class ParkServiceImpl implements ParkService {
 	@Value("${api.baidu.batch.news.url}")
 	private String batchNewsUrl;
 	
-	private int ktype=0;
-	private String start="2013-12-10";
-	private String ak="d4a767064ead4130418d3a4ab962b958";
+	@Value("${api.baidu.batch.news.ktype}")
+	private int ktype;
+	
+	@Value("${api.baidu.batch.news.start}")
+	private String start;
+	
+	@Value("${api.baidu.batch.news.ak}")
+	private String ak;
 	
 	@Autowired
 	private BuildingMapper buildingMapper;
@@ -118,10 +118,12 @@ public class ParkServiceImpl implements ParkService {
 			return null;
 		}
 		List<NameValuePair> list = new ArrayList<>();
-		list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1)+",贵阳市城市建设投资有限责任公司,贵州詹阳动力重工有限公司"  ));
+		list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1)   ));
 		list.add(new BasicNameValuePair("ktype", ""+ktype));
 		list.add(new BasicNameValuePair("start", start));
 		list.add(new BasicNameValuePair("ak",ak));
+		
+	
 		try {
 			return HttpClientUtils.httpPost(batchNewsUrl, list );
 		} catch (Exception e) {
@@ -142,7 +144,7 @@ public class ParkServiceImpl implements ParkService {
 			return null;
 		}
 		List<NameValuePair> list = new ArrayList<>();
-		list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1)+",贵阳市城市建设投资有限责任公司,贵州詹阳动力重工有限公司"  ));
+		list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1) ));
 		list.add(new BasicNameValuePair("ktype", ""+ktype));
 		list.add(new BasicNameValuePair("start", start));
 		list.add(new BasicNameValuePair("ak",ak));

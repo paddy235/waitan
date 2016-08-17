@@ -15,14 +15,14 @@
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from investment_logistic
+        from investment_statistic
         where year = #{year,jdbcType=INTEGER}
     </select>
 
     <select id="selectAll" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from investment_logistic
+        from investment_statistic
     </select>
 
 </mapper>

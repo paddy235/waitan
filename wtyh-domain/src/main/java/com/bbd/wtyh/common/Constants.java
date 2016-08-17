@@ -19,6 +19,7 @@ public class Constants {
 	public static final String REDIS_KEY_DQZL_RISK = "RK_DQZLR";
 	public static final String REDIS_KEY_FFRZWG_RISK = "RK_FFRZWGR";
 	public static final String REDIS_KEY_RCJG_RISK = "RK_RCJGR";
+	public static final String characterCode = "utf-8";
 	/**
 	 * 线下理财关联数据使用 start
 	 */
@@ -46,6 +47,7 @@ public class Constants {
 		public static final String cpuCode = "cpuCode";// cpu编码
 		public static final String mainBoardCode = "mainBoardCode";// 主板编码
 		public static final String AREA_CODE = "areaCode"; // 地区编码
+		public static final String showLoginName = "showLoginName";  //前台用户名
 	}
 
 	/**

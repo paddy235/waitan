@@ -3,7 +3,9 @@ package com.bbd.wtyh.domain;
 public class CapitalAmountDO extends BaseDO {
     private Integer typeId;
 
-    private Float manageCapitalAmount;
+    private Float managedCapitalAmount;
+
+    private Integer publishCompanyNumber;
 
     public Integer getTypeId() {
         return typeId;
@@ -13,11 +15,19 @@ public class CapitalAmountDO extends BaseDO {
         this.typeId = typeId;
     }
 
-    public Float getManageCapitalAmount() {
-        return manageCapitalAmount;
+    public Float getManagedCapitalAmount() {
+        return managedCapitalAmount;
     }
 
-    public void setManageCapitalAmount(Float manageCapitalAmount) {
-        this.manageCapitalAmount = manageCapitalAmount;
+    public void setManagedCapitalAmount(Float managedCapitalAmount) {
+        this.managedCapitalAmount = managedCapitalAmount;
+    }
+
+    public Integer getPublishCompanyNumber() {
+        return publishCompanyNumber;
+    }
+
+    public void setPublishCompanyNumber(Integer publishCompanyNumber) {
+        this.publishCompanyNumber = publishCompanyNumber;
     }
 }
