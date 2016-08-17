@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.dao.P2PImageDao;
+import com.bbd.wtyh.domain.bbdAPI.BBDLogoDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
@@ -27,12 +28,16 @@ public class P2PImageServiceImpl implements P2PImageService {
     private P2PImageDao p2PImageDao;
 
     @Override
-    public Map<String, Object> platFormStatus(String platName) {
+    public Map<String, Object> platFormStatus(String platName , String company) {
         PlatDataDO pn = p2PImageDao.getPlatData(platName);
+        BBDLogoDO bbdLogoDO = p2PImageDao.bbdLogo(company);
         Map<String, Object> result = new HashMap<>();
         result.put("评分",pn.getPlat_score());
         result.put("平台名称",pn.getPlat_name());
         result.put("营业状态",pn.getPlat_status());
+        for (BBDLogoDO.Result data : bbdLogoDO.getResults()) {
+            result.put("评分", data.getCompany_logo());
+        }
         return result;
     }
 
