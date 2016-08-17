@@ -41,9 +41,14 @@ public class ParkServiceImpl implements ParkService {
 	@Value("${api.baidu.batch.news.url}")
 	private String batchNewsUrl;
 	
-	private int ktype=0;
-	private String start="2013-12-10";
-	private String ak="d4a767064ead4130418d3a4ab962b958";
+	@Value("${api.baidu.batch.news.ktype}")
+	private int ktype;
+	
+	@Value("${api.baidu.batch.news.start}")
+	private String start;
+	
+	@Value("${api.baidu.batch.news.ak}")
+	private String ak;
 	
 	@Autowired
 	private BuildingMapper buildingMapper;
@@ -122,6 +127,12 @@ public class ParkServiceImpl implements ParkService {
 		list.add(new BasicNameValuePair("ktype", ""+ktype));
 		list.add(new BasicNameValuePair("start", start));
 		list.add(new BasicNameValuePair("ak",ak));
+		
+		
+
+		
+		batchNewsUrl+="?ktype=0&start=2013-12-10&ak=d4a767064ead4130418d3a4ab962b958";
+		
 		try {
 			return HttpClientUtils.httpPost(batchNewsUrl, list );
 		} catch (Exception e) {
