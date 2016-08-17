@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "76ee74a0dcd344ff1964"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "72ed90e66b02425d36a4"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -48119,7 +48119,7 @@
 
 	var _reactRedux = __webpack_require__(317);
 
-	var _selectvalAction = __webpack_require__(717);
+	var _selectvalAction = __webpack_require__(1293);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -48364,7 +48364,7 @@
 	//module.exports = Menu;
 	exports.default = (0, _reactRedux.connect)(function (state) {
 	  return {
-	    val: state.selectVal.val
+	    val: state.selectval.val
 	  };
 	}, { selectval: _selectvalAction.selectval })(Menu);
 
@@ -51911,31 +51911,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 717 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.selectval = selectval;
-	/*园区*/
-	var SELECT_NAME = exports.SELECT_NAME = 'SELECT_NAME';
-
-	function selectval(data) {
-	  return {
-	    type: SELECT_NAME,
-	    data: data
-	  };
-	}
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "selectvalAction.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
+/* 717 */,
 /* 718 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -58914,7 +58890,6 @@
 	        }
 	    },
 	    dataFomat: function dataFomat(data) {
-	        console.log(data, '担保责任余额');
 	        var content = data.content;
 	        var guaraDutyBalaData = { //担保责任余额
 	            xAxis: [],
@@ -58946,7 +58921,7 @@
 	        for (var j = 0; j < 5; j++) {
 	            guaraDutyBalaData.yAxis.push(eachYAxis * j);
 	        }
-
+	        console.log(GuaraEachAverData, '笔均折线图');
 	        this.setState({ guaraDutyBalaData: guaraDutyBalaData, GuaraEachAverData: GuaraEachAverData });
 	    },
 	    render: function render() {
@@ -64926,12 +64901,15 @@
 	    },
 	    componentDidMount: function componentDidMount() {},
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var isEqual = Immutable.is(nextProps.eachAverageData, this.props.eachAverageData);
-	        if (!isEqual) {
-	            var eachAverageData = nextProps.eachAverageData;
+	        var eachAverageData = nextProps.eachAverageData;
 
-	            this.dataFomat(eachAverageData);
-	        }
+	        this.dataFomat(eachAverageData);
+	        // var isEqual=Immutable.is(nextProps.eachAverageData, this.props.eachAverageData);
+	        //     console.log(nextProps,isEqual,'打印看看2222222222222')
+	        //     if(!isEqual){
+	        //      const {eachAverageData}=nextProps
+	        //      this.dataFomat(eachAverageData)
+	        //   }
 	    },
 	    dataFomat: function dataFomat(data) {
 	        var option = {
@@ -64948,8 +64926,8 @@
 	            grid: { top: '10%', left: '5%', right: '5%', bottom: '5%', containLabel: true },
 	            yAxisName: "",
 	            legend: ["贷款总余额/总笔数"],
-	            xAxis: data.xAxis,
-	            series: [data.series]
+	            xAxis: ['2013', '2014', '2015', '2016', '2017', '2018'], //data.xAxis,
+	            series: [[0, 1, 2, 3, 4]] //[data.series]
 	        };
 	        this.setState({ option: option });
 	    },
@@ -65743,6 +65721,10 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
 	__webpack_require__(788);
 
 	var _react = __webpack_require__(138);
@@ -65793,66 +65775,136 @@
 
 	var _EquityR2 = _interopRequireDefault(_EquityR);
 
+	var _PrivateFundIndexAction = __webpack_require__(1294);
+
+	var PrivateFundIndexCreaters = _interopRequireWildcard(_PrivateFundIndexAction);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	//私募股权基本情况
-
-	//私募基金首页
-	//私募股权基本情况
-	//字私募基金分类
-	//试点企业性质
-	var PrivateFundIndex = _react2.default.createClass({
-	  displayName: 'PrivateFundIndex',
-
-	  mixins: [_setHeight2.default],
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'privateFund-index', style: this.state.style },
-	      _react2.default.createElement(_IndustrySearch2.default, { label: '私募基金监测', placeholder: '请输入企业名称关键字' }),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'content' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'privateF-t clearfix' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'top-l mod radius4 clearfix' },
-	            _react2.default.createElement(_CompanyProgress2.default, null),
-	            _react2.default.createElement(_CompanyQuality2.default, null)
-	          ),
-	          _react2.default.createElement(_QDLPQuality2.default, null)
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'privateF-m clearfix' },
-	          _react2.default.createElement(_FundClass2.default, null),
-	          _react2.default.createElement(_FundCase2.default, null)
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'privateF-b mod radius4' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'list-header' },
-	            '私募股权基本情况'
-	          ),
-	          _react2.default.createElement(_EquityL2.default, null),
-	          _react2.default.createElement(_EquityM2.default, null),
-	          _react2.default.createElement(_EquityR2.default, null)
-	        )
-	      )
-	    );
-	  }
-	}); //私募股权基本情况
 	//私募证券基本情况
 
 	//QDLP试点企业最新进展
 
 	//QDLP试点企业最新进展
 
-	module.exports = PrivateFundIndex;
+	var Immutable = __webpack_require__(777);
+	//私募基金首页
+	//私募股权基本情况
+	//私募股权基本情况
+	//字私募基金分类
+	//试点企业性质
+	var PrivateFundIndex = _react2.default.createClass({
+	    displayName: 'PrivateFundIndex',
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            listData: [],
+	            architectureMap: {}
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        var getCompanyProgressRequest = this.props.getCompanyProgressRequest;
+
+	        var jsonData = {};
+	        getCompanyProgressRequest(jsonData);
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var isEqual = Immutable.is(nextProps.companyProgressRequest, this.props.companyProgressResult);
+	        if (!isEqual) {
+	            var companyProgressRequest = nextProps.companyProgressRequest;
+	            var companyProgressResult = nextProps.companyProgressResult;
+
+	            if (companyProgressRequest == true) {
+	                if (companyProgressResult.success) {
+	                    this.setState({ listData: companyProgressResult.content.list }, function () {});
+	                    this.setState({ architectureMap: companyProgressResult.content.architectureMap }, function () {});
+	                } else {
+	                    //错误后提示
+	                }
+	            }
+	        }
+	    },
+	    mixins: [_setHeight2.default],
+	    render: function render() {
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'privateFund-index', style: this.state.style },
+	            _react2.default.createElement(_IndustrySearch2.default, { label: '私募基金监测', placeholder: '请输入企业名称关键字' }),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'content' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'privateF-t clearfix' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'top-l mod radius4 clearfix' },
+	                        _react2.default.createElement(_CompanyProgress2.default, { companyProgressData: this.state.listData }),
+	                        _react2.default.createElement(_CompanyQuality2.default, { companyQuality: this.state.architectureMap })
+	                    ),
+	                    _react2.default.createElement(_QDLPQuality2.default, this.props)
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'privateF-m clearfix' },
+	                    _react2.default.createElement(_FundClass2.default, this.props),
+	                    _react2.default.createElement(_FundCase2.default, this.props)
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'privateF-b mod radius4' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'list-header' },
+	                        '私募股权基本情况'
+	                    ),
+	                    _react2.default.createElement(_EquityL2.default, null),
+	                    _react2.default.createElement(_EquityM2.default, null),
+	                    _react2.default.createElement(_EquityR2.default, null)
+	                )
+	            )
+	        );
+	    }
+	});
+	// module.exports = PrivateFundIndex;
+
+	//将 request  result 绑定到props的request result
+	function mapStateToProps(state) {
+	    return {
+	        companyProgressRequest: state.CompanyProgress.request,
+	        companyProgressResult: state.CompanyProgress.result,
+
+	        QDLPQualityRequest: state.QDLPQuality.request,
+	        QDLPQualityResult: state.QDLPQuality.result,
+
+	        fundClassRequest: state.FundClass.request,
+	        fundClassResult: state.FundClass.result,
+
+	        fundCaseRequest: state.FundCase.request,
+	        fundCaseResult: state.FundCase.result,
+
+	        equityLRequest: state.EquityL.request,
+	        equityLResult: state.EquityL.result,
+
+	        equityMRequest: state.EquityM.request,
+	        equityMResult: state.EquityM.result,
+
+	        equityRRequest: state.EquityR.request,
+	        equityRResult: state.EquityR.result
+
+	    };
+	}
+
+	//将action的所有方法绑定到props上
+	function mapDispatchToProps(dispatch) {
+	    return (0, _redux.bindActionCreators)(PrivateFundIndexCreaters, dispatch);
+	}
+
+	//通过react-redux提供的connect方法将我们需要的state中的数据和actions中的方法绑定到props上
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(PrivateFundIndex);
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "index.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
@@ -65917,8 +65969,27 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var Immutable = __webpack_require__(777);
 	var CompanyProgress = _react2.default.createClass({
 		displayName: 'CompanyProgress',
+
+		getInitialState: function getInitialState() {
+			return {
+				list: []
+			};
+		},
+		componentDidMount: function componentDidMount() {},
+		componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+			var isEqual = Immutable.is(nextProps.companyProgressData, this.props.companyProgressData);
+			if (!isEqual) {
+				var companyProgressData = nextProps.companyProgressData;
+
+				for (var i = 0; i < companyProgressData.length; i++) {
+					companyProgressData.shareholders = companyProgressData[i].shareholders.join("、");
+				}
+				this.setState({ list: companyProgressData });
+			}
+		},
 		render: function render() {
 			return _react2.default.createElement(
 				'div',
@@ -65983,336 +66054,90 @@
 							_react2.default.createElement(
 								'tbody',
 								null,
-								_react2.default.createElement(
-									'tr',
-									{ className: 'odd' },
-									_react2.default.createElement(
-										'td',
-										{ width: '10%', className: 'talign-center' },
-										'1'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '25%' },
-										_react2.default.createElement(
-											'span',
-											{ className: 'word-limit-5', 'data-tip': '上海闸北德润小额贷款股份有限公司' },
-											'上海闸北德润小额贷款股份有限公司'
-										)
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'奥氏资笨'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'0.4亿'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '25%' },
-										'已完成境外投资'
-									)
-								),
-								_react2.default.createElement(
-									'tr',
-									{ className: 'even' },
-									_react2.default.createElement(
-										'td',
-										{ width: '10%', className: 'talign-center' },
-										'2'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '25%' },
-										_react2.default.createElement(
-											'span',
-											{ className: 'word-limit-5', 'data-tip': '上海闸北德润小额贷款股份有限公司' },
-											'上海闸北德润小额贷款股份有限公司'
-										)
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'奥氏资笨'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'0.4亿'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '25%' },
-										'已完成境外投资'
-									)
-								),
-								_react2.default.createElement(
-									'tr',
-									{ className: 'odd' },
-									_react2.default.createElement(
-										'td',
-										{ width: '10%', className: 'talign-center' },
-										'3'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '25%' },
-										_react2.default.createElement(
-											'span',
-											{ className: 'word-limit-5', 'data-tip': '上海闸北德润小额贷款股份有限公司' },
-											'上海闸北德润小额贷款股份有限公司'
-										)
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'奥氏资笨'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'0.4亿'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '25%' },
-										'已完成境外投资'
-									)
-								),
-								_react2.default.createElement(
-									'tr',
-									{ className: 'even' },
-									_react2.default.createElement(
-										'td',
-										{ width: '10%', className: 'talign-center' },
-										'4'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '25%' },
-										_react2.default.createElement(
-											'span',
-											{ className: 'word-limit-5', 'data-tip': '上海闸北德润小额贷款股份有限公司' },
-											'上海闸北德润小额贷款股份有限公司'
-										)
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'奥氏资笨'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'0.4亿'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '25%' },
-										'已完成境外投资'
-									)
-								),
-								_react2.default.createElement(
-									'tr',
-									{ className: 'odd' },
-									_react2.default.createElement(
-										'td',
-										{ width: '10%', className: 'talign-center' },
-										'5'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '25%' },
-										_react2.default.createElement(
-											'span',
-											{ className: 'word-limit-5', 'data-tip': '上海闸北德润小额贷款股份有限公司' },
-											'上海闸北德润小额贷款股份有限公司'
-										)
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'奥氏资笨'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'0.4亿'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '25%' },
-										'已完成境外投资'
-									)
-								),
-								_react2.default.createElement(
-									'tr',
-									{ className: 'even' },
-									_react2.default.createElement(
-										'td',
-										{ width: '10%', className: 'talign-center' },
-										'6'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '25%' },
-										_react2.default.createElement(
-											'span',
-											{ className: 'word-limit-5', 'data-tip': '上海闸北德润小额贷款股份有限公司' },
-											'上海闸北德润小额贷款股份有限公司'
-										)
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'奥氏资笨'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'0.4亿'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '25%' },
-										'已完成境外投资'
-									)
-								),
-								_react2.default.createElement(
-									'tr',
-									{ className: 'odd' },
-									_react2.default.createElement(
-										'td',
-										{ width: '10%', className: 'talign-center' },
-										'7'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '25%' },
-										_react2.default.createElement(
-											'span',
-											{ className: 'word-limit-5', 'data-tip': '上海闸北德润小额贷款股份有限公司' },
-											'上海闸北德润小额贷款股份有限公司'
-										)
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'奥氏资笨'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'0.4亿'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '25%' },
-										'已完成境外投资'
-									)
-								),
-								_react2.default.createElement(
-									'tr',
-									{ className: 'even' },
-									_react2.default.createElement(
-										'td',
-										{ width: '10%', className: 'talign-center' },
-										'8'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '25%' },
-										_react2.default.createElement(
-											'span',
-											{ className: 'word-limit-5', 'data-tip': '上海闸北德润小额贷款股份有限公司' },
-											'上海闸北德润小额贷款股份有限公司'
-										)
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'奥氏资笨'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'0.4亿'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '25%' },
-										'已完成境外投资'
-									)
-								),
-								_react2.default.createElement(
-									'tr',
-									{ className: 'odd' },
-									_react2.default.createElement(
-										'td',
-										{ width: '10%', className: 'talign-center' },
-										'9'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '25%' },
-										_react2.default.createElement(
-											'span',
-											{ className: 'word-limit-5', 'data-tip': '上海闸北德润小额贷款股份有限公司' },
-											'上海闸北德润小额贷款股份有限公司'
-										)
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'奥氏资笨'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'0.4亿'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '25%' },
-										'已完成境外投资'
-									)
-								),
-								_react2.default.createElement(
-									'tr',
-									{ className: 'even' },
-									_react2.default.createElement(
-										'td',
-										{ width: '10%', className: 'talign-center' },
-										'10'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '25%' },
-										_react2.default.createElement(
-											'span',
-											{ className: 'word-limit-5', 'data-tip': '上海闸北德润小额贷款股份有限公司' },
-											'上海闸北德润小额贷款股份有限公司'
-										)
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'奥氏资笨'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'0.4亿'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '25%' },
-										'已完成境外投资'
-									)
-								)
+								this.state.list.map(function (item, index) {
+									{
+										var num = index + 1;
+										if (index % 2) {
+											return _react2.default.createElement(
+												'tr',
+												{ className: 'even' },
+												_react2.default.createElement(
+													'td',
+													{ width: '10%', className: 'talign-center' },
+													num
+												),
+												_react2.default.createElement(
+													'td',
+													{ width: '25%' },
+													_react2.default.createElement(
+														'span',
+														{ className: 'word-limit-5', 'data-tip': item.companyName },
+														item.companyName
+													)
+												),
+												_react2.default.createElement(
+													'td',
+													{ width: '20%' },
+													_react2.default.createElement(
+														'span',
+														{ className: 'word-limit-5', 'data-tip': item.shareholders },
+														item.shareholders
+													)
+												),
+												_react2.default.createElement(
+													'td',
+													{ width: '20%' },
+													item.quatas,
+													'亿'
+												),
+												_react2.default.createElement(
+													'td',
+													{ width: '25%' },
+													item.progress
+												)
+											);
+										} else {
+											return _react2.default.createElement(
+												'tr',
+												{ className: 'odd' },
+												_react2.default.createElement(
+													'td',
+													{ width: '10%', className: 'talign-center' },
+													num
+												),
+												_react2.default.createElement(
+													'td',
+													{ width: '25%' },
+													_react2.default.createElement(
+														'span',
+														{ className: 'word-limit-5', 'data-tip': item.companyName },
+														item.companyName
+													)
+												),
+												_react2.default.createElement(
+													'td',
+													{ width: '20%' },
+													_react2.default.createElement(
+														'span',
+														{ className: 'word-limit-5', 'data-tip': item.shareholders },
+														item.shareholders
+													)
+												),
+												_react2.default.createElement(
+													'td',
+													{ width: '20%' },
+													item.quatas,
+													'亿'
+												),
+												_react2.default.createElement(
+													'td',
+													{ width: '25%' },
+													item.progress
+												)
+											);
+										}
+									}
+								})
 							)
 						)
 					)
@@ -66361,7 +66186,7 @@
 
 
 	// module
-	exports.push([module.id, ".privateFund-index .middle-l .content,\r\n.privateFund-index .middle-r .content {\r\n\theight: 570px;\r\n}\r\n\r\n.privateFund-index .middle-l .content .content-l {\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index .middle-l .content .content-r {\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index .middle-r .content .content-l {\r\n\twidth: 40%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index  .middle-r .content .content-r {\r\n\twidth: 60%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark {\r\n\tmargin-top: 50px;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark table {\r\n\theight: 100px;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark table {\r\n\twidth: 100%;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark tbody {\r\n\tbackground: #3a4352;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark .padding-l20 {\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark .word-limit-5 {\r\n\r\n\t/*width: 200px;*/\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark tbody tr {\r\n\tborder-bottom: 1px #555c6c solid;\r\n\ttext-align: left;\r\n}\r\n\r\n.privateFund-index .top-left-l .mod-content,\r\n.privateFund-index .top-r .mod-content {\r\n\tpadding: 10px 15px 50px 15px;\r\n}\r\n\r\n.privateFund-index .top-left-l .table-content,\r\n.privateFund-index .top-r .table-content {\r\n\theight: 460px;\r\n}\r\n\r\n.privateFund-index .top-left-l .table-content table,\r\n.privateFund-index .top-r .table-content table {\r\n\theight: 100%\r\n}\r\n\r\n.privateFund-index .top-left-l  thead th,\r\n.privateFund-index .top-r  thead th {\r\n\ttext-align: left;\r\n\theight: 40px;\r\n\tpadding: 0px !important;\r\n}\r\n\r\n.privateFund-index .top-left-l tbody td,\r\n.privateFund-index .top-r tbody td {\r\n\ttext-align: left;\r\n\tpadding: 0px !important;\r\n}\r\n\r\n.privateFund-index .top-left-l .mt-table th {\r\n\tpadding: 0px;\r\n}\r\n\r\n.padding-l20 {\r\n\tpadding-left: 20px !important;\r\n}", ""]);
+	exports.push([module.id, ".privateFund-index .middle-l .content,\r\n.privateFund-index .middle-r .content {\r\n\theight: 570px;\r\n}\r\n\r\n.privateFund-index .middle-l .content .content-l {\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index .middle-l .content .content-r {\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index .middle-r .content .content-l {\r\n\twidth: 40%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index  .middle-r .content .content-r {\r\n\twidth: 60%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark {\r\n\tmargin-top: 50px;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark table {\r\n\theight: 100px;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark table {\r\n\twidth: 100%;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark tbody {\r\n\tbackground: #3a4352;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark .padding-l20 {\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark .word-limit-5 {\r\n\r\n\t/*width: 200px;*/\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark tbody tr {\r\n\tborder-bottom: 1px #555c6c solid;\r\n\ttext-align: left;\r\n}\r\n\r\n.privateFund-index .top-left-l .mod-content,\r\n.privateFund-index .top-r .mod-content {\r\n\tpadding: 10px 15px 50px 15px;\r\n}\r\n\r\n.privateFund-index .top-left-l .table-content,\r\n.privateFund-index .top-r .table-content {\r\n\theight: 460px;\r\n\toverflow: auto;\r\n}\r\n\r\n.privateFund-index .top-left-l .table-content table,\r\n.privateFund-index .top-r .table-content table {\r\n\r\n\t/*height: 100%*/\r\n}\r\n\r\n.privateFund-index .top-left-l  thead th,\r\n.privateFund-index .top-r  thead th {\r\n\ttext-align: left;\r\n\theight: 40px;\r\n\tpadding: 0px !important;\r\n}\r\n\r\n.privateFund-index .top-left-l tbody td,\r\n.privateFund-index .top-r tbody td {\r\n\ttext-align: left;\r\n\tpadding: 10px 0px !important;\r\n}\r\n\r\n.privateFund-index .top-left-l .mt-table th {\r\n\tpadding: 0px;\r\n}\r\n\r\n.padding-l20 {\r\n\tpadding-left: 20px !important;\r\n}", ""]);
 
 	// exports
 
@@ -66390,126 +66215,140 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var Immutable = __webpack_require__(777);
 	var CompanyQuality = _react2.default.createClass({
-		displayName: 'CompanyQuality',
+	  displayName: 'CompanyQuality',
 
-		setPieParm: function setPieParm() {
-			var param = {
-				id: 'small-loan-company-chart', //必传
-				color: ['#efd79b', '#e24340'],
-				height: '300px', //必传 带上单位
-				title: '',
-				legendData: ['外商独资企业', '合资企业'],
-				legendBottom: "0",
-				data: [{ value: 335, name: '外商独资企业' }, { value: 310, name: '合资企业' }]
-			};
-			return param;
-		},
-		render: function render() {
-			return _react2.default.createElement(
-				'div',
-				{ className: ' top-left-r' },
-				_react2.default.createElement(
-					'div',
-					{ className: 'list-header' },
-					'试点企业性质'
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'content' },
-					_react2.default.createElement(_PieChart2.default, { param: this.setPieParm() }),
-					_react2.default.createElement(
-						'div',
-						{ className: 'pic-remark' },
-						_react2.default.createElement(
-							'table',
-							{ className: 'mt-table mt-table-center wtyh-table' },
-							_react2.default.createElement(
-								'thead',
-								null,
-								_react2.default.createElement(
-									'tr',
-									null,
-									_react2.default.createElement(
-										'th',
-										{ style: { width: "40%" }, className: 'padding-l20' },
-										'类型'
-									),
-									_react2.default.createElement(
-										'th',
-										{ style: { width: "20%" } },
-										'数量'
-									),
-									_react2.default.createElement(
-										'th',
-										{ style: { width: "40%" } },
-										'机构名称'
-									)
-								)
-							),
-							_react2.default.createElement(
-								'tbody',
-								null,
-								_react2.default.createElement(
-									'tr',
-									null,
-									_react2.default.createElement(
-										'td',
-										{ className: 'padding-l20' },
-										_react2.default.createElement(
-											'span',
-											{ className: 'word-limit-5', title: '外商独资企业' },
-											'外商独资企业'
-										)
-									),
-									_react2.default.createElement(
-										'td',
-										null,
-										'12'
-									),
-									_react2.default.createElement(
-										'td',
-										null,
-										_react2.default.createElement(
-											'span',
-											{ className: 'word-limit-5', title: '上海闸北德润小额贷款股份有限公司' },
-											'上海闸北德润小额贷款股份有限公司'
-										)
-									)
-								),
-								_react2.default.createElement(
-									'tr',
-									null,
-									_react2.default.createElement(
-										'td',
-										{ className: 'padding-l20' },
-										_react2.default.createElement(
-											'span',
-											{ className: 'word-limit-5', title: '合资企业' },
-											'合资企业'
-										)
-									),
-									_react2.default.createElement(
-										'td',
-										null,
-										'4'
-									),
-									_react2.default.createElement(
-										'td',
-										null,
-										_react2.default.createElement(
-											'span',
-											{ className: 'word-limit-5', title: '广发钧策、上投摩根' },
-											'广发钧策、上投摩根'
-										)
-									)
-								)
-							)
-						)
-					)
-				)
-			);
-		}
+	  getInitialState: function getInitialState() {
+	    return {
+	      pieData: null,
+	      listData: []
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {},
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var isEqual = Immutable.is(nextProps.companyQuality, this.props.companyQuality);
+	    if (!isEqual) {
+	      var companyQuality = nextProps.companyQuality;
+	      //列表数据格式化
+
+	      var _listData = [],
+	          _legendData = [],
+	          pieData = [];
+
+	      for (var item in companyQuality) {
+	        var items = {
+	          type: item,
+	          totleNum: companyQuality[item].length,
+	          companyList: companyQuality[item].join("、")
+	        };
+
+	        var _setPieData = {
+	          value: companyQuality[item].length,
+	          name: item
+	        };
+
+	        _listData.push(items);
+	        _legendData.push(item);
+	        pieData.push(_setPieData);
+	      }
+
+	      var _setParm = {
+	        id: 'small-loan-company-chart', //必传
+	        color: ['#efd79b', '#e24340'],
+	        height: '300px', //必传 带上单位
+	        title: '',
+	        legendBottom: "0",
+	        legendData: _legendData,
+	        data: pieData
+	      };
+	      this.setState({ listData: _listData });
+	      this.setState({ pieData: _setParm });
+	    }
+	  },
+	  render: function render() {
+	    var chartBox = "";
+	    if (this.state.pieData) {
+	      console.log("测试");
+	      chartBox = _react2.default.createElement(_PieChart2.default, { param: this.state.pieData });
+	    }
+	    return _react2.default.createElement(
+	      'div',
+	      { className: ' top-left-r' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'list-header' },
+	        '试点企业性质'
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'content' },
+	        chartBox,
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'pic-remark' },
+	          _react2.default.createElement(
+	            'table',
+	            { className: 'mt-table mt-table-center wtyh-table' },
+	            _react2.default.createElement(
+	              'thead',
+	              null,
+	              _react2.default.createElement(
+	                'tr',
+	                null,
+	                _react2.default.createElement(
+	                  'th',
+	                  { style: { width: "40%" }, className: 'padding-l20' },
+	                  '类型'
+	                ),
+	                _react2.default.createElement(
+	                  'th',
+	                  { style: { width: "20%" } },
+	                  '数量'
+	                ),
+	                _react2.default.createElement(
+	                  'th',
+	                  { style: { width: "40%" } },
+	                  '机构名称'
+	                )
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'tbody',
+	              null,
+	              this.state.listData.map(function (item, index) {
+	                {
+	                  return _react2.default.createElement(
+	                    'tr',
+	                    null,
+	                    _react2.default.createElement(
+	                      'td',
+	                      { className: 'padding-l20' },
+	                      item.type
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      item.totleNum
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      _react2.default.createElement(
+	                        'span',
+	                        { className: 'word-limit-5', 'data-tip': item.companyList },
+	                        item.companyList
+	                      )
+	                    )
+	                  );
+	                }
+	              })
+	            )
+	          )
+	        )
+	      )
+	    );
+	  }
 	});
 
 	module.exports = CompanyQuality;
@@ -66537,409 +66376,184 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var Immutable = __webpack_require__(777);
 	var QDLPQuality = _react2.default.createClass({
-		displayName: 'QDLPQuality',
-		render: function render() {
-			return _react2.default.createElement(
-				'div',
-				{ className: 'mod top-r radius4' },
-				_react2.default.createElement(
-					'div',
-					{ className: 'list-header' },
-					'QFLP试点企业最新进展'
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'mod-content' },
-					_react2.default.createElement(
-						'div',
-						{ className: 'table-title' },
-						_react2.default.createElement(
-							'table',
-							{ className: 'mt-table mt-table-center wtyh-table' },
-							_react2.default.createElement(
-								'thead',
-								null,
-								_react2.default.createElement(
-									'tr',
-									null,
-									_react2.default.createElement(
-										'th',
-										{ width: '10%', className: 'talign-center' },
-										'序号'
-									),
-									_react2.default.createElement(
-										'th',
-										{ width: '30%' },
-										'试点企业名称'
-									),
-									_react2.default.createElement(
-										'th',
-										{ width: '20%' },
-										'总规模($)',
-										_react2.default.createElement('i', { className: 'iconfont icon-desc' })
-									),
-									_react2.default.createElement(
-										'th',
-										{ width: '20%' },
-										'美元部分($)',
-										_react2.default.createElement('i', { className: 'iconfont icon-desc' })
-									),
-									_react2.default.createElement(
-										'th',
-										{ width: '20%' },
-										'投资合计(￥)',
-										_react2.default.createElement('i', { className: 'iconfont icon-desc' })
-									)
-								)
-							)
-						)
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'table-content' },
-						_react2.default.createElement(
-							'table',
-							{ className: 'mt-table mt-table-center table-border-b wtyh-table' },
-							_react2.default.createElement(
-								'tbody',
-								null,
-								_react2.default.createElement(
-									'tr',
-									{ className: 'odd' },
-									_react2.default.createElement(
-										'td',
-										{ width: '10%', className: 'talign-center' },
-										'1'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '30%' },
-										_react2.default.createElement(
-											'span',
-											{ className: 'word-limit-5', 'data-tip': '上海闸北德润小额贷款股份有限公司' },
-											'上海闸北德润小额贷款股份有限公司'
-										)
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '10%' },
-										'88.8亿'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'28'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'1222'
-									)
-								),
-								_react2.default.createElement(
-									'tr',
-									{ className: 'even' },
-									_react2.default.createElement(
-										'td',
-										{ width: '10%', className: 'talign-center' },
-										'2'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '30%' },
-										_react2.default.createElement(
-											'span',
-											{ className: 'word-limit-5', 'data-tip': '上海闸北德润小额贷款股份有限公司' },
-											'上海闸北德润小额贷款股份有限公司'
-										)
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'88.8亿'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'28'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'1222'
-									)
-								),
-								_react2.default.createElement(
-									'tr',
-									{ className: 'odd' },
-									_react2.default.createElement(
-										'td',
-										{ width: '10%', className: 'talign-center' },
-										'3'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '30%' },
-										_react2.default.createElement(
-											'span',
-											{ className: 'word-limit-5', 'data-tip': '上海闸北德润小额贷款股份有限公司' },
-											'上海闸北德润小额贷款股份有限公司'
-										)
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'88.8亿'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'28'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'1222'
-									)
-								),
-								_react2.default.createElement(
-									'tr',
-									{ className: 'even' },
-									_react2.default.createElement(
-										'td',
-										{ width: '10%', className: 'talign-center' },
-										'4'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '30%' },
-										_react2.default.createElement(
-											'span',
-											{ className: 'word-limit-5', 'data-tip': '上海闸北德润小额贷款股份有限公司' },
-											'上海闸北德润小额贷款股份有限公司'
-										)
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'88.8亿'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'28'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'1222'
-									)
-								),
-								_react2.default.createElement(
-									'tr',
-									{ className: 'odd' },
-									_react2.default.createElement(
-										'td',
-										{ width: '10%', className: 'talign-center' },
-										'5'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '30%' },
-										_react2.default.createElement(
-											'span',
-											{ className: 'word-limit-5', 'data-tip': '上海闸北德润小额贷款股份有限公司' },
-											'上海闸北德润小额贷款股份有限公司'
-										)
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'88.8亿'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'28'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'1222'
-									)
-								),
-								_react2.default.createElement(
-									'tr',
-									{ className: 'even' },
-									_react2.default.createElement(
-										'td',
-										{ width: '10%', className: 'talign-center' },
-										'6'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '30%' },
-										_react2.default.createElement(
-											'span',
-											{ className: 'word-limit-5', 'data-tip': '上海闸北德润小额贷款股份有限公司' },
-											'上海闸北德润小额贷款股份有限公司'
-										)
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'88.8亿'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'28'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'1222'
-									)
-								),
-								_react2.default.createElement(
-									'tr',
-									{ className: 'odd' },
-									_react2.default.createElement(
-										'td',
-										{ width: '10%', className: 'talign-center' },
-										'7'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '30%' },
-										_react2.default.createElement(
-											'span',
-											{ className: 'word-limit-5', 'data-tip': '上海闸北德润小额贷款股份有限公司' },
-											'上海闸北德润小额贷款股份有限公司'
-										)
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'88.8亿'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'28'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'1222'
-									)
-								),
-								_react2.default.createElement(
-									'tr',
-									{ className: 'even' },
-									_react2.default.createElement(
-										'td',
-										{ width: '10%', className: 'talign-center' },
-										'8'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '30%' },
-										_react2.default.createElement(
-											'span',
-											{ className: 'word-limit-5', 'data-tip': '上海闸北德润小额贷款股份有限公司' },
-											'上海闸北德润小额贷款股份有限公司'
-										)
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'88.8亿'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'28'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'1222'
-									)
-								),
-								_react2.default.createElement(
-									'tr',
-									{ className: 'odd' },
-									_react2.default.createElement(
-										'td',
-										{ width: '10%', className: 'talign-center' },
-										'9'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '30%' },
-										_react2.default.createElement(
-											'span',
-											{ className: 'word-limit-5', 'data-tip': '上海闸北德润小额贷款股份有限公司' },
-											'上海闸北德润小额贷款股份有限公司'
-										)
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'88.8亿'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'28'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'1222'
-									)
-								),
-								_react2.default.createElement(
-									'tr',
-									{ className: 'even' },
-									_react2.default.createElement(
-										'td',
-										{ width: '10%', className: 'talign-center' },
-										'10'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '30%' },
-										_react2.default.createElement(
-											'span',
-											{ className: 'word-limit-5', 'data-tip': '上海闸北德润小额贷款股份有限公司' },
-											'上海闸北德润小额贷款股份有限公司'
-										)
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'88.8亿'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'28'
-									),
-									_react2.default.createElement(
-										'td',
-										{ width: '20%' },
-										'1222'
-									)
-								)
-							)
-						)
-					)
-				)
-			);
-		}
+	    displayName: 'QDLPQuality',
+
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            listData: []
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        var getQDLPQualityRequest = this.props.getQDLPQualityRequest;
+
+	        var jsonData = {};
+	        getQDLPQualityRequest(jsonData);
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var isEqual = Immutable.is(nextProps.QDLPQualityRequest, this.props.QDLPQualityResult);
+	        if (!isEqual) {
+	            var QDLPQualityRequest = nextProps.QDLPQualityRequest;
+	            var QDLPQualityResult = nextProps.QDLPQualityResult;
+
+	            if (QDLPQualityRequest == true) {
+	                if (QDLPQualityResult.success) {
+	                    this.setState({ listData: QDLPQualityResult.content });
+	                } else {
+	                    //错误后提示
+	                }
+	            }
+	        }
+	    },
+	    render: function render() {
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'mod top-r radius4' },
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'list-header' },
+	                'QFLP试点企业最新进展'
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'mod-content' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'table-title' },
+	                    _react2.default.createElement(
+	                        'table',
+	                        { className: 'mt-table mt-table-center wtyh-table' },
+	                        _react2.default.createElement(
+	                            'thead',
+	                            null,
+	                            _react2.default.createElement(
+	                                'tr',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'th',
+	                                    { width: '10%', className: 'talign-center' },
+	                                    '序号'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'th',
+	                                    { width: '30%' },
+	                                    '试点企业名称'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'th',
+	                                    { width: '20%' },
+	                                    '总规模($)',
+	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
+	                                ),
+	                                _react2.default.createElement(
+	                                    'th',
+	                                    { width: '20%' },
+	                                    '美元部分($)',
+	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
+	                                ),
+	                                _react2.default.createElement(
+	                                    'th',
+	                                    { width: '20%' },
+	                                    '投资合计(￥)',
+	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
+	                                )
+	                            )
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'table-content' },
+	                    _react2.default.createElement(
+	                        'table',
+	                        { className: 'mt-table mt-table-center table-border-b wtyh-table' },
+	                        _react2.default.createElement(
+	                            'tbody',
+	                            null,
+	                            this.state.listData.map(function (item, index) {
+	                                {
+	                                    var num = index + 1;
+	                                    if (index % 2) {
+	                                        return _react2.default.createElement(
+	                                            'tr',
+	                                            { className: 'even' },
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '10%', className: 'talign-center' },
+	                                                num
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '30%' },
+	                                                _react2.default.createElement(
+	                                                    'span',
+	                                                    { className: 'word-limit-5', 'data-tip': item.companyName },
+	                                                    item.companyName
+	                                                )
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '20%' },
+	                                                item.total,
+	                                                '亿'
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '20%' },
+	                                                item.dollarPart
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '20%' },
+	                                                item.rmbTotal
+	                                            )
+	                                        );
+	                                    } else {
+	                                        return _react2.default.createElement(
+	                                            'tr',
+	                                            { className: 'odd' },
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '10%', className: 'talign-center' },
+	                                                num
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '30%' },
+	                                                _react2.default.createElement(
+	                                                    'span',
+	                                                    { className: 'word-limit-5', 'data-tip': item.companyName },
+	                                                    item.companyName
+	                                                )
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '20%' },
+	                                                item.total,
+	                                                '亿'
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '20%' },
+	                                                item.dollarPart
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '20%' },
+	                                                item.rmbTotal
+	                                            )
+	                                        );
+	                                    }
+	                                }
+	                            })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
 	});
 
 	module.exports = QDLPQuality;
@@ -66971,83 +66585,143 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var Immutable = __webpack_require__(777);
 	var FundClass = _react2.default.createClass({
-	  displayName: 'FundClass',
+	    displayName: 'FundClass',
 
-	  setParm: function setParm() {
-	    var option = {
-	      "color": ["#deab61", "#e14340", "#91c7ae", "#efd79b"],
-	      "title": "私募基金总分类",
-	      "xtitle": "",
-	      "titleLeft": "18%",
-	      "titleTop": "60%",
-	      "legend": ["股权投资基金", "证券投资基金"],
-	      "legendShow": true,
-	      "legendOrient": "horizontal",
-	      "legendLeft": "20%",
-	      "legendTop": "65%",
-	      "seriesName": "基金类型",
-	      "radius": "60%",
-	      "lable": { normal: { show: false },
-	        emphasis: { show: false }
-	      },
-	      "center": ['50%', '35%'],
-	      "series": [{ value: 200, name: '股权投资基金' }, { value: 500, name: '证券投资基金', selected: true }]
-	    };
-	    return option;
-	  },
-	  setRoseParm: function setRoseParm() {
-	    var option = {
-	      "color": ["#deab61", "#e14340", "#91c7ae", "#efd79b"],
-	      "title": "私募股权基金细分",
-	      "xtitle": "",
-	      "titleLeft": "19%",
-	      "titleTop": "60%",
-	      "legend": ["VC", "FOFS", "券商直投", "券商直投", "战略投资机构", "天使投资机构", "其他", "PE"],
-	      "legendShow": true,
-	      "roseType": "radius", //是否玫瑰型
-	      "radius": [20, 110],
-	      "legendOrient": "horizontal",
-	      "legendLeft": "20%",
-	      "legendTop": "65%",
-	      "seriesName": "基金类型",
-	      "lable": { normal: { show: false },
-	        emphasis: { show: false }
-	      },
-	      "center": ['50%', '35%'],
-	      "series": [{ value: Math.round(Math.random() * 200), name: 'VC' }, { value: Math.round(Math.random() * 200), name: 'FOFS' }, { value: Math.round(Math.random() * 200), name: '券商直投' }, { value: Math.round(Math.random() * 200), name: '战略投资机构' }, { value: Math.round(Math.random() * 200), name: '天使投资机构' }, { value: Math.round(Math.random() * 200), name: '其他' }, { value: Math.round(Math.random() * 200), name: 'PE' }]
-	    };
-	    return option;
-	  },
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'mod middle-l radius4' },
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'list-header' },
-	        '私募基金分类'
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'content' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'content-l' },
-	          _react2.default.createElement(_BasePie2.default, {
-	            option: this.setParm(),
-	            style: { height: '550px', width: '100%' } })
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'content-r' },
-	          _react2.default.createElement(_BasePie2.default, {
-	            option: this.setRoseParm(),
-	            style: { height: '550px', width: '100%' } })
-	        )
-	      )
-	    );
-	  }
+	    getInitialState: function getInitialState() {
+	        return {
+	            pieLeft: null,
+	            pieRight: null
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        var getFundClassRequest = this.props.getFundClassRequest;
+
+	        var jsonData = {};
+	        getFundClassRequest(jsonData);
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var isEqual = Immutable.is(nextProps.fundClassRequest, this.props.fundClassResult);
+	        if (!isEqual) {
+	            var fundClassRequest = nextProps.fundClassRequest;
+	            var fundClassResult = nextProps.fundClassResult;
+
+	            if (fundClassRequest == true) {
+	                if (fundClassResult.success) {
+	                    var _setPieLegend = [],
+	                        _setPieData = [],
+	                        _setRosePieLegend = [],
+	                        _setRosePieData = [];
+	                    for (var i = 0; i < fundClassResult.content.length; i++) {
+	                        var items = {};
+	                        _setPieLegend.push(fundClassResult.content[i].typeName);
+	                        if (fundClassResult.content[i].typeName == "股权投资基金") {
+	                            for (var j = 0; j < fundClassResult.content[i].children.length; j++) {
+	                                _setRosePieLegend.push(fundClassResult.content[i].children[j].typeName);
+	                                var itemsChild = {
+	                                    value: fundClassResult.content[i].children[j].amount,
+	                                    name: fundClassResult.content[i].children[j].typeName
+	                                };
+	                                _setRosePieData.push(itemsChild);
+	                            }
+
+	                            items = {
+	                                value: fundClassResult.content[i].amount,
+	                                name: fundClassResult.content[i].typeName,
+	                                selected: true
+	                            };
+	                        } else {
+	                            items = {
+	                                value: fundClassResult.content[i].amount,
+	                                name: fundClassResult.content[i].typeName
+	                            };
+	                        }
+
+	                        _setPieData.push(items);
+	                    }
+	                    var _setPieLeft = {
+	                        "color": ["#e14340", "#deab61"],
+	                        "title": "私募基金总分类",
+	                        "xtitle": "",
+	                        "titleLeft": "18%",
+	                        "titleTop": "60%",
+	                        "legend": _setPieLegend,
+	                        "legendShow": true,
+	                        "legendOrient": "horizontal",
+	                        "legendLeft": "20%",
+	                        "legendTop": "65%",
+	                        "seriesName": "基金类型",
+	                        "radius": "60%",
+	                        "lable": { normal: { show: false },
+	                            emphasis: { show: false }
+	                        },
+	                        "center": ['50%', '35%'],
+	                        "series": _setPieData
+	                    };
+
+	                    var _setPieRight = {
+	                        "color": ["#ff9b93", "#d58469", "#8bcaad", "#6b9f88", "#dfab62", "#c09f9a", "f7cf8a"],
+	                        "title": "私募股权基金细分",
+	                        "xtitle": "",
+	                        "titleLeft": "19%",
+	                        "titleTop": "60%",
+	                        "legend": _setRosePieLegend,
+	                        "legendShow": true,
+	                        "roseType": "radius", //是否玫瑰型
+	                        "radius": [20, 110],
+	                        "legendOrient": "horizontal",
+	                        "legendLeft": "20%",
+	                        "legendTop": "65%",
+	                        "seriesName": "基金类型",
+	                        "lable": { normal: { show: false },
+	                            emphasis: { show: false }
+	                        },
+	                        "center": ['50%', '35%'],
+	                        "series": _setRosePieData
+	                    };
+
+	                    this.setState({ pieLeft: _setPieLeft });
+	                    this.setState({ pieRight: _setPieRight });
+	                } else {
+	                    //错误后提示
+	                }
+	            }
+	        }
+	    },
+	    render: function render() {
+	        var pieLeftBox = "",
+	            pieRightBox = "";
+	        if (this.state.pieLeft) {
+	            pieLeftBox = _react2.default.createElement(_BasePie2.default, { option: this.state.pieLeft, style: { height: '550px', width: '100%' } });
+	        }
+	        if (this.state.pieRight) {
+	            pieRightBox = _react2.default.createElement(_BasePie2.default, { option: this.state.pieRight, style: { height: '550px', width: '100%' } });
+	        }
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'mod middle-l radius4' },
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'list-header' },
+	                '私募基金分类'
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'content' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'content-l' },
+	                    pieLeftBox
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'content-r' },
+	                    pieRightBox
+	                )
+	            )
+	        );
+	    }
 	});
 
 	module.exports = FundClass;
@@ -71518,8 +71192,7 @@
 		componentDidMount: function componentDidMount() {
 			var getbaseMsgRequest = this.props.getbaseMsgRequest;
 
-			var jsonData = {};
-			getbaseMsgRequest(jsonData);
+			getbaseMsgRequest({ "platName": "" });
 		},
 		componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 			var isEqual = Immutable.is(nextProps.baseMsgRequest, this.props.baseMsgResult);
@@ -71528,12 +71201,11 @@
 				var baseMsgResult = nextProps.baseMsgResult;
 
 				if (baseMsgRequest == true) {
-
 					if (baseMsgResult.success) {
 						var _setParm = [{
 							address: "上海浦东新区陆家嘴环路1333号",
 							legalPeople: "郑森",
-							platformName: "陆金所",
+							platName: "陆金所",
 							registerOffice: "上海市工商局",
 							companyName: "上海陆家嘴国际金融资产交易市场股份有限公司",
 							verifiedTime: "2011-11-9",
@@ -71573,6 +71245,22 @@
 								return _react2.default.createElement(
 									'tbody',
 									null,
+									_react2.default.createElement(
+										'tr',
+										null,
+										_react2.default.createElement(
+											'td',
+											null,
+											'平台名称'
+										),
+										_react2.default.createElement(
+											'td',
+											null,
+											item.platName
+										),
+										_react2.default.createElement('td', null),
+										_react2.default.createElement('td', null)
+									),
 									_react2.default.createElement(
 										'tr',
 										null,
@@ -71841,95 +71529,6 @@
 	var CoreData = _react2.default.createClass({
 		displayName: 'CoreData',
 
-		// setParm:function(){
-		// 	const option ={
-		//         title:"平台交易量走势",
-		//         titleX:"center",
-		//         color:["#e14340"],
-		//         titleShow:true,
-		//         barWidth:15,
-		//         yAxisName:"万元",
-		//         yFlag:"",//y轴单位
-		//            gridBottom:'0',
-		//            gridTop:'15%',
-		//         legend:["成交量"],
-		//         legendShow:false,
-		//         xAxis:[
-		//         		'2016-08-01',
-		//         		'2016-08-02',
-		//         		'2016-08-03',
-		//         		'2016-08-04',
-		//         		'2016-08-05',
-		//         		'2016-08-06',
-		//         		'2016-08-07',
-		//         		'2016-08-08',
-		//         		'2016-08-09',
-		//         		'2016-08-10',
-		//         		'2016-08-11',
-		//         		'2016-08-12',
-		//         		'2016-08-13',
-		//         		'2016-08-14',
-		//         		'2016-08-15',
-		//         	],
-		//         series:[
-		//             [
-		//             	Math.round(Math.random() * 1000),
-		//             	Math.round(Math.random() * 1000),
-		//             	Math.round(Math.random() * 1000),
-		//             	Math.round(Math.random() * 1000),
-		//             	Math.round(Math.random() * 1000),
-		//              	Math.round(Math.random() * 1000),
-		//              	Math.round(Math.random() * 1000),
-		//              	Math.round(Math.random() * 1000),
-		//              	Math.round(Math.random() * 1000),
-		//              	Math.round(Math.random() * 1000),
-		//              	Math.round(Math.random() * 1000),
-		// 				Math.round(Math.random() * 1000),
-		// 				Math.round(Math.random() * 1000),
-		// 				Math.round(Math.random() * 1000),
-		// 				Math.round(Math.random() * 1000)
-		//             ]
-		//         ]
-		//     };
-		//         return option;
-		// },
-		setLineLParm: function setLineLParm() {
-			var option = {
-				color: ["#00b7ee", "#f8b551"],
-				title: "平台利率走势",
-				titleShow: true,
-				titleX: "center",
-				boxId: "chartMap",
-				symbolSize: 5,
-				legendIsShow: false,
-				yFlag: "%",
-				yAxisName: "",
-				legendRight: "30",
-				legend: ["利率"],
-				xAxis: ['2016-08-01', '2016-08-02', '2016-08-03', '2016-08-04', '2016-08-05', '2016-08-06', '2016-08-07', '2016-08-08', '2016-08-09', '2016-08-10', '2016-08-11', '2016-08-12', '2016-08-13', '2016-08-14', '2016-08-15'],
-				series: [[Math.round(Math.random() * 20), Math.round(Math.random() * 20), Math.round(Math.random() * 20), Math.round(Math.random() * 20), Math.round(Math.random() * 20), Math.round(Math.random() * 20), Math.round(Math.random() * 20), Math.round(Math.random() * 20), Math.round(Math.random() * 20), Math.round(Math.random() * 20), Math.round(Math.random() * 20), Math.round(Math.random() * 20), Math.round(Math.random() * 20), Math.round(Math.random() * 20), Math.round(Math.random() * 20)]]
-			};
-			return option;
-		},
-
-		setLineRParm: function setLineRParm() {
-			var option = {
-				color: ["#00b7ee", "#f8b551"],
-				title: "贷款余额",
-				titleShow: true,
-				titleX: "center",
-				boxId: "chartMap",
-				symbolSize: 5,
-				legendIsShow: false,
-				yFlag: "",
-				yAxisName: "金额(亿元)",
-				legendRight: "30",
-				legend: ["投资人", "借款人"],
-				xAxis: ['2016-08-01', '2016-08-02', '2016-08-03', '2016-08-04', '2016-08-05', '2016-08-06', '2016-08-07', '2016-08-08', '2016-08-09', '2016-08-10', '2016-08-11', '2016-08-12', '2016-08-13', '2016-08-14', '2016-08-15'],
-				series: [[Math.round(Math.random() * 20), Math.round(Math.random() * 20), Math.round(Math.random() * 20), Math.round(Math.random() * 20), Math.round(Math.random() * 20), Math.round(Math.random() * 20), Math.round(Math.random() * 20), Math.round(Math.random() * 20), Math.round(Math.random() * 20), Math.round(Math.random() * 20), Math.round(Math.random() * 20), Math.round(Math.random() * 20), Math.round(Math.random() * 20), Math.round(Math.random() * 20), Math.round(Math.random() * 20)]]
-			};
-			return option;
-		},
 
 		getInitialState: function getInitialState() {
 			return {
@@ -71944,10 +71543,12 @@
 			var getcoreDataRequest = _props.getcoreDataRequest;
 			var getCoreBarDataRequest = _props.getCoreBarDataRequest;
 			var getCoreTrendDataRequest = _props.getCoreTrendDataRequest;
+			var getCoreBalanceDataRequest = _props.getCoreBalanceDataRequest;
 
 			getcoreDataRequest({ "platName": "" });
-			getCoreBarDataRequest({ "plat_name": "" });
-			getCoreTrendDataRequest({ "plat_name": "" });
+			getCoreBarDataRequest({ "platName": "" });
+			getCoreTrendDataRequest({ "platName": "" });
+			getCoreBalanceDataRequest({ "platName": "" });
 		},
 		componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 			var isEqual = Immutable.is(nextProps.coreDataRequest, this.props.coreDataResult);
@@ -71957,7 +71558,25 @@
 
 				if (coreDataRequest == true) {
 					if (coreDataResult.success) {
-						var _setParm = [{ name: "待还借款人数", value: "21564" }, { name: "最大单户借款额", value: "1213.65" }, { name: "最大十户借款额", value: "7984.36" }, { name: "近30日资产流入", value: "18" }, { name: "贷款余额", value: "21564" }, { name: "累计成交量", value: "31.21" }, { name: "平均利率", value: "6.532" }];
+						coreDataResult.content = {
+							"待还借款人数": "21564",
+							"最大单户借款额": "1213.65",
+							"最大十户借款额": "7984.36",
+							"近30日资产流入": "952638",
+							"贷款余额": "18",
+							"待收投资人数": "21564",
+							"累计成交量": "31.21",
+							"平均利率": "6.532"
+						};
+
+						var _setParm = [];
+						for (var item in coreDataResult.content) {
+							var items = {
+								name: item,
+								value: coreDataResult.content[item]
+							};
+							_setParm.push(items);
+						}
 						this.setState({ listData: _setParm });
 					} else {
 						//错误后提示
@@ -72022,15 +71641,48 @@
 					}
 				}
 			}
+
+			var isEqualTrend = Immutable.is(nextProps.coreBalanceRequest, this.props.coreBalanceResult);
+			if (!isEqualBar) {
+				var coreBalanceRequest = nextProps.coreBalanceRequest;
+				var coreBalanceResult = nextProps.coreBalanceResult;
+
+				if (coreBalanceRequest == true) {
+					if (coreBalanceResult.success) {
+						var option = {
+							color: ["#00b7ee", "#f8b551"],
+							title: "贷款余额",
+							titleShow: true,
+							titleX: "center",
+							boxId: "chartMap",
+							symbolSize: 5,
+							legendIsShow: false,
+							yFlag: "",
+							yAxisName: "金额(亿元)",
+							legendRight: "30",
+							legend: ["投资人", "借款人"],
+							xAxis: coreBalanceResult.content.xAxis,
+							series: [coreBalanceResult.content.series]
+						};
+						this.setState({ coreBalanceData: option });
+					} else {
+						//错误后提示
+					}
+				}
+			}
 		},
 		render: function render() {
 			var chartBoxBar = "",
-			    chartBoxTrend = "";
+			    chartBoxTrend = "",
+			    chartBalance = "";
 			if (this.state.coreBarData) {
 				chartBoxBar = _react2.default.createElement(_BarChart2.default, { option: this.state.coreBarData, style: { height: '270px', width: '100%' } });
 			}
 			if (this.state.coreTrendData) {
 				chartBoxTrend = _react2.default.createElement(_LineChart2.default, { option: this.state.coreTrendData, style: { height: '320px', width: '100%' } });
+			}
+			if (this.state.coreBalanceData) {
+				chartBalance = _react2.default.createElement(_LineChart2.default, { option: this.state.coreBalanceData, style: { height: '320px', width: '100%' } });
 			}
 			return _react2.default.createElement(
 				'div',
@@ -72116,9 +71768,7 @@
 						_react2.default.createElement(
 							'div',
 							{ className: 'bottom-line-right' },
-							_react2.default.createElement(_LineChart2.default, {
-								option: this.setLineRParm(),
-								style: { height: '320px', width: '100%' } })
+							chartBalance
 						)
 					)
 				)
@@ -72636,6 +72286,25 @@
 	    },
 	    componentDidMount: function componentDidMount() {
 	        seajs.use("/relativeGraph/assets/script/main/guanliantu.js");
+	        var getrankPicRequest = this.props.getrankPicRequest;
+
+	        var jsonData = {};
+	        getrankPicRequest(jsonData);
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var isEqual = Immutable.is(nextProps.rankPicRequest, this.props.rankPicResult);
+	        if (!isEqual) {
+	            var rankPicRequest = nextProps.rankPicRequest;
+	            var rankPicResult = nextProps.rankPicResult;
+
+	            if (rankPicRequest == true) {
+	                if (rankPicResult.success) {
+	                    console.log("===================================图谱数据测试成功~！============================");
+	                } else {
+	                    //错误后提示
+	                }
+	            }
+	        }
 	    },
 	    handleChange: function handleChange(e) {
 	        var searchVal = e.target.value;
@@ -73762,7 +73431,7 @@
 	  return function (dispatch) {
 	    console.log(json);
 	    $.ajax({
-	      url: "/P2PImage/coreDataDealTrend.do",
+	      url: "/P2PImage/coreDataInterestRateTrend.do",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
@@ -73799,7 +73468,7 @@
 	  return function (dispatch) {
 	    console.log(json);
 	    $.ajax({
-	      url: "/data/industryMonitor/p2p/index/devTrend.json",
+	      url: "/P2PImage/coreDataLoadOverage.do",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
@@ -74065,7 +73734,6 @@
 
 	            if (ListRequest == true) {
 	                if (ListResult.success) {
-	                    console.log(ListResult, "redux测试成功=================ListRequest");
 	                    this.setState({ listData: ListResult }, function () {});
 	                } else {
 	                    //错误后提示
@@ -74892,7 +74560,7 @@
 	    if (!isEqual) {
 	      var platFormBaseData = nextProps.platFormBaseData;
 
-	      this.setState({ option: platFormBaseData.content });
+	      this.setState({ option: platFormBaseData });
 	    }
 	  },
 	  render: function render() {
@@ -75281,7 +74949,7 @@
 	  return function (dispatch) {
 	    console.log(json);
 	    $.ajax({
-	      url: "/data/industryMonitor/p2p/index/devTrend.json",
+	      url: "/dcrowdFunding/allCompanys.do",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
@@ -81030,7 +80698,7 @@
 	//module.exports = Consensu;
 	exports.default = (0, _reactRedux.connect)(function (state) {
 	  return {
-	    val: state.selectVal.val
+	    val: state.selectval.val
 	  };
 	})(Consensu);
 
@@ -81167,7 +80835,7 @@
 	//module.exports = Finance;
 	exports.default = (0, _reactRedux.connect)(function (state) {
 	    return {
-	        val: state.selectVal.val
+	        val: state.selectval.val
 	    };
 	})(Finance);
 
@@ -81235,7 +80903,6 @@
 	                orient: 'vertical',
 	                x: '80%',
 	                y: "80%",
-	                orient: 'vertical',
 	                textStyle: {
 	                    color: "#dddddd"
 	                },
@@ -81307,7 +80974,7 @@
 	//module.exports = Park;
 	exports.default = (0, _reactRedux.connect)(function (state) {
 	    return {
-	        val: state.selectVal.val
+	        val: state.selectval.val
 	    };
 	})(Park);
 
@@ -81427,7 +81094,7 @@
 	//module.exports = TheCamp;
 	exports.default = (0, _reactRedux.connect)(function (state) {
 	    return {
-	        val: state.selectVal.val
+	        val: state.selectval.val
 	    };
 	})(TheCamp);
 
@@ -89022,10 +88689,13 @@
 	var Immutable = __webpack_require__(777);
 
 	var nineDate = "";
+	var paramOne, paramTwo, paramThree, paramFour, paramFive, paramsix, paramSeven, paramEight, paramNine;
 	var TopRight = _react2.default.createClass({
 	    displayName: 'TopRight',
 	    getInitialState: function getInitialState() {
-	        return {};
+	        return {
+	            // paramOneBox:<ScatterChart param={paramOne}/>
+	        };
 	    },
 	    componentDidMount: function componentDidMount() {
 	        var getRealTimeNine = this.props.getRealTimeNine; // 取到props里面的getRealTimeTable方法。也可以说是请求action
@@ -89045,7 +88715,21 @@
 	                if (realTimeNineRequest == true) {
 	                    //这里可以开始渲染数据
 	                    nineDate = realTimeNineResult; //赋值给全局变量
-	                    alert();
+	                    console.log(nineDate, "NINE");
+	                    paramOne = {
+	                        id: 'realTimeRightOne', //必传
+	                        height: '100%', //必传 带上单位
+	                        title: nineDate.content[0].amount,
+	                        forMaterTitle: "贷款余额",
+	                        forMaterTip: '平均贷款余额',
+	                        legend: [],
+	                        xAxis: ['2010', '2011', '2012', '2013', '2014', '2015', '2016'],
+	                        yAxis: ['20', '40', '60', '80', '100', '120', '140'],
+	                        data: [[0, 0, 300000], [1, 1, 1000000], [2, 2, 200000], [3, 3, 50], [4, 4, 60], [5, 5, 10], [6, 6, 80]],
+	                        series: [[{
+	                            color: '#e14340'
+	                        }]]
+	                    };
 	                } else {
 	                    alert(404);
 	                }
@@ -89248,13 +88932,17 @@
 	        return [paramOne, paramTwo, paramThree, paramFour, paramFive, paramSix, paramSeven, paramEight, paramNine];
 	    },
 	    render: function render() {
+	        var paramOneBox, paramTwoBox, paramThreeBox, paramFourBox, paramFiveBox, paramsixBox, paramSevenBox, paramEightBox, paramNineBox;
+	        if (!!paramOne) {
+	            paramOneBox = _react2.default.createElement(_ScatterChart2.default, { param: paramOne });
+	        }
 	        return _react2.default.createElement(
 	            'div',
 	            { className: 'realtime-top-right' },
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'item' },
-	                _react2.default.createElement(_ScatterChart2.default, { param: this.setParam()[0] })
+	                paramOneBox
 	            ),
 	            _react2.default.createElement(
 	                'div',
@@ -89787,13 +89475,33 @@
 
 	var _ScoreLeida2 = _interopRequireDefault(_ScoreLeida);
 
-	var _realtimeTableRuducer = __webpack_require__(978);
+	var _CompanyProgress = __webpack_require__(1295);
 
-	var _realtimeTableRuducer2 = _interopRequireDefault(_realtimeTableRuducer);
+	var _CompanyProgress2 = _interopRequireDefault(_CompanyProgress);
 
-	var _realtimeNineReducer = __webpack_require__(1292);
+	var _QDLPQuality = __webpack_require__(1296);
 
-	var _realtimeNineReducer2 = _interopRequireDefault(_realtimeNineReducer);
+	var _QDLPQuality2 = _interopRequireDefault(_QDLPQuality);
+
+	var _FundClass = __webpack_require__(1297);
+
+	var _FundClass2 = _interopRequireDefault(_FundClass);
+
+	var _FundCase = __webpack_require__(1298);
+
+	var _FundCase2 = _interopRequireDefault(_FundCase);
+
+	var _EquityL = __webpack_require__(1299);
+
+	var _EquityL2 = _interopRequireDefault(_EquityL);
+
+	var _EquityM = __webpack_require__(1300);
+
+	var _EquityM2 = _interopRequireDefault(_EquityM);
+
+	var _EquityR = __webpack_require__(1301);
+
+	var _EquityR2 = _interopRequireDefault(_EquityR);
 
 	var _BusinessTypes = __webpack_require__(979);
 
@@ -89815,13 +89523,35 @@
 
 	var _List2 = _interopRequireDefault(_List);
 
+	var _realtimeTableRuducer = __webpack_require__(978);
+
+	var _realtimeTableRuducer2 = _interopRequireDefault(_realtimeTableRuducer);
+
+	var _realtimeNineReducer = __webpack_require__(1292);
+
+	var _realtimeNineReducer2 = _interopRequireDefault(_realtimeNineReducer);
+
+	var _selectval = __webpack_require__(1302);
+
+	var _selectval2 = _interopRequireDefault(_selectval);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	//import ImgFinance from './parkMonitor/buildDetail/ImgFinance'
 	/*众筹监测 end*/
 
-	//6月上海各类众筹平台新增项目数的成功筹资金额
+	//列表
 
-	//6月上海各类众筹平台新增项目的投资人次
+	//6月上海各类众筹平台新增项目数
+
+	/*====================================私募基金===============================*/
+
+	/*=================================众筹监测=================================*/
+	//业务类型
+
+	//私募证券基本情况
+
+	//QFLP试点企业最新进展
 
 	//评分雷达图
 
@@ -89831,9 +89561,8 @@
 
 	//p2p图表
 
-	/*p2p平台首页 begin*/
-	//P2P平台监测
 
+	/*====================================P2P平台监测============================*/
 	//上海区域发展指数排名
 
 
@@ -89864,12 +89593,25 @@
 	  RaiseMount: _RaiseMount2.default,
 	  List: _List2.default,
 
+	  //私募基金
+	  CompanyProgress: _CompanyProgress2.default,
+	  QDLPQuality: _QDLPQuality2.default,
+	  FundClass: _FundClass2.default,
+	  FundCase: _FundCase2.default,
+	  EquityL: _EquityL2.default,
+	  EquityM: _EquityM2.default,
+	  EquityR: _EquityR2.default,
+
 	  //小额贷款
 	  SmallLoanMap: _SmallLoanMap2.default,
 	  CompanyGrade: _CompanyGrade2.default,
 	  LoanBalance: _LoanBalance2.default,
 	  IndustryRisk: _IndustryRisk2.default,
 	  LargeLoan: _LargeLoan2.default,
+
+	  //园区
+	  selectval: _selectval2.default,
+	  //ImgFinance,
 
 	  //融资担保
 	  FinGuaMap: _FinGuaMap2.default,
@@ -89884,20 +89626,28 @@
 
 	  routing: _reactRouterRedux.routerReducer //整合路由
 	});
-	//列表
-
-	//6月上海各类众筹平台新增项目数
-
 	/*实时监测 end*/
 
-	/*众筹监测 begin*/
-	//业务类型
+	//园区
 
-
-	/*p2p画像平台 end*/
+	/*=================================众筹监测=================================*/
 
 	/*实时监测 begin*/
 	//左侧表格
+
+	//6月上海各类众筹平台新增项目数的成功筹资金额
+
+	//6月上海各类众筹平台新增项目的投资人次
+
+	//私募股权基本情况
+
+	//私募基金分类
+
+
+	/*====================================p2p画像平台============================*/
+
+	/*====================================私募基金===============================*/
+	//QDLP试点企业最新进展
 
 	//动态图谱
 
@@ -89905,9 +89655,9 @@
 
 	//核心数据
 
-	/*p2p平台首页 end*/
+	/*====================================P2P平台监测============================*/
 
-	/*p2p画像平台 begin*/
+	/*====================================p2p画像平台============================*/
 	//基本信息
 
 	//网贷平台数据展示
@@ -99276,13 +99026,13 @@
 		var action = arguments[1];
 
 		switch (action.type) {
-			case _FinanceGuaraIndexAction.GUARADUTY_BALANCE_SUCCESS:
+			case _FinanceGuaraIndexAction.FINGUA_DUTY_SUCCESS:
 				//请求成功！
 				return Object.assign({}, state, {
 					request: true,
 					result: action.result
 				});
-			case _FinanceGuaraIndexAction.GUARADUTY_BALANCE_FAIL:
+			case _FinanceGuaraIndexAction.FINGUA_DUTY_FAIL:
 				//请求失败！
 				return Object.assign({}, state, {
 					request: true,
@@ -99591,7 +99341,7 @@
 	  return function (dispatch) {
 	    console.log(json);
 	    $.ajax({
-	      url: "/realTimeMonitorController/spectrumAnalysis4groups.do", //"/data/industryMonitor/smallLoan/index/companyGrade.json",
+	      url: "/loan/balance.do", //"/data/industryMonitor/smallLoan/index/companyGrade.json",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
@@ -99658,6 +99408,657 @@
 	// request、result
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "realtimeNineReducer.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1293 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.selectval = selectval;
+	/*园区*/
+	var SELECT_NAME = exports.SELECT_NAME = 'SELECT_NAME';
+
+	function selectval(data) {
+	  return {
+	    type: SELECT_NAME,
+	    data: data
+	  };
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "selectvalAction.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1294 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getCompanyProgressRequest = getCompanyProgressRequest;
+	exports.getQDLPQualityRequest = getQDLPQualityRequest;
+	exports.getFundClassRequest = getFundClassRequest;
+	exports.getFundCaseRequest = getFundCaseRequest;
+	exports.getEquityLRequest = getEquityLRequest;
+	exports.getEquityMRequest = getEquityMRequest;
+	exports.getEquityRRequest = getEquityRRequest;
+	/*
+	 私募基金
+	*/
+
+	/*QDLP试点企业最新进展begin*/
+	var COMPANYPROGRESS_REQUEST_SUCCESS = exports.COMPANYPROGRESS_REQUEST_SUCCESS = 'COMPANYPROGRESS_REQUEST_SUCCESS';
+	var COMPANYPROGRESS_REQUEST_FAIL = exports.COMPANYPROGRESS_REQUEST_FAIL = 'COMPANYPROGRESS_REQUEST_FAIL';
+
+	function companyProgressRequestSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: COMPANYPROGRESS_REQUEST_SUCCESS,
+	    result: result
+	  };
+	}
+	function companyProgressRequestFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: COMPANYPROGRESS_REQUEST_FAIL,
+	    result: result
+	  };
+	}
+
+	function getCompanyProgressRequest(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "/privateFund/qdlpProgressList.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(companyProgressRequestSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(companyProgressRequestFail(result));
+	      }
+	    });
+	  };
+	}
+	/*QDLP试点企业最新进展end*/
+
+	/*QFLP试点企业最新进展begin*/
+	var QDLPQUALITY_REQUEST_SUCCESS = exports.QDLPQUALITY_REQUEST_SUCCESS = 'QDLPQUALITY_REQUEST_SUCCESS';
+	var QDLPQUALITY_REQUEST_FAIL = exports.QDLPQUALITY_REQUEST_FAIL = 'QDLPQUALITY_REQUEST_FAIL';
+
+	function QDLPQualityRequestSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: QDLPQUALITY_REQUEST_SUCCESS,
+	    result: result
+	  };
+	}
+	function QDLPQualityRequestFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: QDLPQUALITY_REQUEST_FAIL,
+	    result: result
+	  };
+	}
+
+	function getQDLPQualityRequest(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "/privateFund/qflpInfoList.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(QDLPQualityRequestSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(QDLPQualityRequestFail(result));
+	      }
+	    });
+	  };
+	}
+	/*QQFLP试点企业最新进展end*/
+
+	/*私募基金分类*/
+	var FUNDCLASS_REQUEST_SUCCESS = exports.FUNDCLASS_REQUEST_SUCCESS = 'FUNDCLASS_REQUEST_SUCCESS';
+	var FUNDCLASS_REQUEST_FAIL = exports.FUNDCLASS_REQUEST_FAIL = 'FUNDCLASS_REQUEST_FAIL';
+
+	function fundClassRequestSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: FUNDCLASS_REQUEST_SUCCESS,
+	    result: result
+	  };
+	}
+	function fundClassRequestFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: FUNDCLASS_REQUEST_FAIL,
+	    result: result
+	  };
+	}
+
+	function getFundClassRequest(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "/privateFund/typeStatistic.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(fundClassRequestSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(fundClassRequestFail(result));
+	      }
+	    });
+	  };
+	}
+	/*私募基金分类*/
+
+	/*私募证券基本情况*/
+	var FUNDCASE_REQUEST_SUCCESS = exports.FUNDCASE_REQUEST_SUCCESS = 'FUNDCASE_REQUEST_SUCCESS';
+	var FUNDCASE_REQUEST_FAIL = exports.FUNDCASE_REQUEST_FAIL = 'FUNDCASE__REQUEST_FAIL';
+
+	function fundCaseRequestSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: FUNDCASE_REQUEST_SUCCESS,
+	    result: result
+	  };
+	}
+	function fundCaseRequestFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: FUNDCASE_REQUEST_FAIL,
+	    result: result
+	  };
+	}
+
+	function getFundCaseRequest(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "/privateFund/typeStatistic.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(fundCaseRequestSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(fundCaseRequestFail(result));
+	      }
+	    });
+	  };
+	}
+	/*私募证券基本情况*/
+
+	/*私募股权基本情况*/
+	var EQUITYL_REQUEST_SUCCESS = exports.EQUITYL_REQUEST_SUCCESS = 'EQUITYL_REQUEST_SUCCESS';
+	var EQUITYL_REQUEST_FAIL = exports.EQUITYL_REQUEST_FAIL = 'EQUITYL_REQUEST_FAIL';
+
+	function equityLRequestSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: EQUITYL_REQUEST_SUCCESS,
+	    result: result
+	  };
+	}
+	function equityLRequestFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: EQUITYL_REQUEST_FAIL,
+	    result: result
+	  };
+	}
+
+	function getEquityLRequest(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "/data/industryMonitor/p2p/index/indexChart.json",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(equityLRequestSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(equityLRequestFail(result));
+	      }
+	    });
+	  };
+	}
+
+	var EQUITYM_REQUEST_SUCCESS = exports.EQUITYM_REQUEST_SUCCESS = 'EQUITYM_REQUEST_SUCCESS';
+	var EQUITYM_REQUEST_FAIL = exports.EQUITYM_REQUEST_FAIL = 'EQUITYM_REQUEST_FAIL';
+
+	function equityMRequestSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: EQUITYM_REQUEST_SUCCESS,
+	    result: result
+	  };
+	}
+	function equityMRequestFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: EQUITYM_REQUEST_FAIL,
+	    result: result
+	  };
+	}
+
+	function getEquityMRequest(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "/data/industryMonitor/p2p/index/indexChart.json",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(equityMRequestSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(equityMRequestFail(result));
+	      }
+	    });
+	  };
+	}
+
+	var EQUITYR_REQUEST_SUCCESS = exports.EQUITYR_REQUEST_SUCCESS = 'EQUITYR_REQUEST_SUCCESS';
+	var EQUITYR_REQUEST_FAIL = exports.EQUITYR_REQUEST_FAIL = 'EQUITYR_REQUEST_FAIL';
+
+	function equityRRequestSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: EQUITYR_REQUEST_SUCCESS,
+	    result: result
+	  };
+	}
+	function equityRRequestFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: EQUITYR_REQUEST_FAIL,
+	    result: result
+	  };
+	}
+
+	function getEquityRRequest(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "/data/industryMonitor/p2p/index/indexChart.json",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(equityRRequestSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(equityRRequestFail(result));
+	      }
+	    });
+	  };
+	}
+	/*私募股权基本情况*/
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "PrivateFundIndexAction.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1295 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = CompanyProgress;
+
+	var _PrivateFundIndexAction = __webpack_require__(1294);
+
+	function CompanyProgress() {
+	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
+	        request: false,
+	        result: {}
+	    } : arguments[0];
+	    var action = arguments[1];
+
+	    switch (action.type) {
+	        case _PrivateFundIndexAction.COMPANYPROGRESS_REQUEST_SUCCESS:
+	            //请求成功！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        case _PrivateFundIndexAction.COMPANYPROGRESS_REQUEST_FAIL:
+	            //请求失败！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        default:
+	            return state;
+	    }
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "CompanyProgress.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1296 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = QDLPQuality;
+
+	var _PrivateFundIndexAction = __webpack_require__(1294);
+
+	function QDLPQuality() {
+	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
+	        request: false,
+	        result: {}
+	    } : arguments[0];
+	    var action = arguments[1];
+
+	    switch (action.type) {
+	        case _PrivateFundIndexAction.QDLPQUALITY_REQUEST_SUCCESS:
+	            //请求成功！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        case _PrivateFundIndexAction.QDLPQUALITY_REQUEST_FAIL:
+	            //请求失败！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        default:
+	            return state;
+	    }
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "QDLPQuality.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1297 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = FundClass;
+
+	var _PrivateFundIndexAction = __webpack_require__(1294);
+
+	function FundClass() {
+	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
+	        request: false,
+	        result: {}
+	    } : arguments[0];
+	    var action = arguments[1];
+
+	    switch (action.type) {
+	        case _PrivateFundIndexAction.FUNDCLASS_REQUEST_SUCCESS:
+	            //请求成功！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        case _PrivateFundIndexAction.FUNDCLASS_REQUEST_FAIL:
+	            //请求失败！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        default:
+	            return state;
+	    }
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "FundClass.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1298 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = FundCase;
+
+	var _PrivateFundIndexAction = __webpack_require__(1294);
+
+	function FundCase() {
+	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
+	        request: false,
+	        result: {}
+	    } : arguments[0];
+	    var action = arguments[1];
+
+	    switch (action.type) {
+	        case _PrivateFundIndexAction.FUNDCASE_REQUEST_SUCCESS:
+	            //请求成功！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        case _PrivateFundIndexAction.FUNDCASE_REQUEST_FAIL:
+	            //请求失败！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        default:
+	            return state;
+	    }
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "FundCase.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1299 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = EquityL;
+
+	var _PrivateFundIndexAction = __webpack_require__(1294);
+
+	function EquityL() {
+	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
+	        request: false,
+	        result: {}
+	    } : arguments[0];
+	    var action = arguments[1];
+
+	    switch (action.type) {
+	        case _PrivateFundIndexAction.EQUITYL_REQUEST_SUCCESS:
+	            //请求成功！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        case _PrivateFundIndexAction.EQUITYL_REQUEST_FAIL:
+	            //请求失败！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        default:
+	            return state;
+	    }
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "EquityL.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1300 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = EquityM;
+
+	var _PrivateFundIndexAction = __webpack_require__(1294);
+
+	function EquityM() {
+	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
+	        request: false,
+	        result: {}
+	    } : arguments[0];
+	    var action = arguments[1];
+
+	    switch (action.type) {
+	        case _PrivateFundIndexAction.EQUITYM_REQUEST_SUCCESS:
+	            //请求成功！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        case _PrivateFundIndexAction.EQUITYM_REQUEST_FAIL:
+	            //请求失败！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        default:
+	            return state;
+	    }
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "EquityM.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1301 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = EquityR;
+
+	var _PrivateFundIndexAction = __webpack_require__(1294);
+
+	function EquityR() {
+	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
+	        request: false,
+	        result: {}
+	    } : arguments[0];
+	    var action = arguments[1];
+
+	    switch (action.type) {
+	        case _PrivateFundIndexAction.EQUITYR_REQUEST_SUCCESS:
+	            //请求成功！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        case _PrivateFundIndexAction.EQUITYR_REQUEST_FAIL:
+	            //请求失败！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        default:
+	            return state;
+	    }
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "EquityR.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1302 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = todo;
+
+	var _selectvalAction = __webpack_require__(1293);
+
+	//初始化数据
+	var initialState = {
+		val: 1122 //下拉列表
+	};
+
+	function todo() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _selectvalAction.SELECT_NAME:
+				return {
+					val: action.data.val
+				};
+
+			default:
+				return state;
+		}
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "selectval.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ }
