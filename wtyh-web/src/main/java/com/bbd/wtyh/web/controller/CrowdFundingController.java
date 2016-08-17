@@ -12,16 +12,17 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bbd.wtyh.domain.CrowdFundingBusinessStatisticsDO;
 import com.bbd.wtyh.domain.CrowdFundingCompanyDO;
 import com.bbd.wtyh.domain.CrowdFundingStatisticsDO;
+import com.bbd.wtyh.domain.NvDO;
 import com.bbd.wtyh.service.CrowdFundingService;
 import com.bbd.wtyh.web.HistogramBean;
 import com.bbd.wtyh.web.PieChartBean;
 import com.bbd.wtyh.web.ResponseBean;
 
+
 /**
-* 
+* 众筹监测
 * @author Ian.Su
 * @since 2016年8月11日 下午3:32:26
 */
@@ -34,6 +35,13 @@ public class CrowdFundingController {
 	private CrowdFundingService crowdFundingSer;
 	
 	
+	
+	/**
+	* 业务类型分布
+	*
+	* @param   
+	* @return ResponseBean
+	*/
 	@RequestMapping("/distribute")
 	@ResponseBody
 	public ResponseBean distribute(){
@@ -41,23 +49,33 @@ public class CrowdFundingController {
 		
 		PieChartBean<String, NameValuePair> p = new PieChartBean<>();
 		
-		CrowdFundingBusinessStatisticsDO cfbs = crowdFundingSer.lastMonthData();
+		List<NvDO> cfbs = crowdFundingSer.lastMonthData();
 		
-		if(cfbs == null){
+		if(CollectionUtils.isEmpty(cfbs)){
 			return ResponseBean.successResponse(p);
 		}
 		
 		
-		p.setLegend(Arrays.asList("公益型","综合型","权益型","股权型"));
-		p.getSeries().add(new BasicNameValuePair("公益型", ""+(cfbs.getPublicWelfareType()==null?0:cfbs.getPublicWelfareType())));
-		p.getSeries().add(new BasicNameValuePair("综合型", ""+(cfbs.getSynthesizingType()==null?0:cfbs.getSynthesizingType())));
-		p.getSeries().add(new BasicNameValuePair("权益型", ""+(cfbs.getEquityType()==null?0:cfbs.getEquityType())));
-		p.getSeries().add(new BasicNameValuePair("股权型", ""+(cfbs.getProfitType()==null?0:cfbs.getProfitType())));
+		for (NvDO nvDO : cfbs) {
+			String name = nvDO.getName();
+			name = "1".equals(nvDO.getName())?"公益型":"2".equals(name)?"综合型":"3".equals(name)?"权益型":"股权型";
+			p.getLegend().add(name);
+			p.getSeries().add(new BasicNameValuePair(name , ""+nvDO.getValue()  ));
+			
+		}
+		
 		
 		return ResponseBean.successResponse(p);
 	}
 	
 	
+	
+	/**
+	* 上海各类众筹平台新增项目数
+	*
+	* @param   
+	* @return ResponseBean
+	*/
 	@RequestMapping("/newlyProject")
 	@ResponseBody
 	public ResponseBean newlyProject(){
@@ -79,6 +97,12 @@ public class CrowdFundingController {
 	
 	
 	
+	/**
+	* 上海各类众筹平台新增项目投资人次
+	*
+	* @param   
+	* @return ResponseBean
+	*/
 	@RequestMapping("/newlyPeople")
 	@ResponseBody
 	public ResponseBean newlyPeople(){
@@ -99,6 +123,13 @@ public class CrowdFundingController {
 	}
 	
 	
+	
+	/**
+	* 上海各类众筹平台新增项目数的成功筹资金额
+	*
+	* @param   
+	* @return ResponseBean
+	*/
 	@RequestMapping("/newlyAmount")
 	@ResponseBody
 	public ResponseBean newlyAmount(){
@@ -120,6 +151,13 @@ public class CrowdFundingController {
 	
 	
 	
+	
+	/**
+	* 平台基本情况，平台运营情况
+	*
+	* @param   
+	* @return ResponseBean
+	*/
 	@RequestMapping("/allCompanys")
 	@ResponseBody
 	public ResponseBean allCompanys(){

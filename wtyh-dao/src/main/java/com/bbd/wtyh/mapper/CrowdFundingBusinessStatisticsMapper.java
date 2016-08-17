@@ -1,9 +1,10 @@
 package com.bbd.wtyh.mapper;
 
-import com.bbd.wtyh.domain.CrowdFundingBusinessStatisticsDO;
+import java.util.List;
+
+import com.bbd.wtyh.domain.NvDO;
 
 public interface CrowdFundingBusinessStatisticsMapper {
-    CrowdFundingBusinessStatisticsDO selectByPrimaryKey(Integer id);
     
-    CrowdFundingBusinessStatisticsDO lastMonthData();
+    List<NvDO> lastMonthData();
 }
