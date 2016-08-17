@@ -32,9 +32,7 @@
 		</mvc:interceptor>
 	</mvc:interceptors>
 
-	<bean id="userAccessInterceptor"
-		class="com.bbd.sys.service.UserAccessApiInterceptor">
-	</bean>
+	<bean id="userAccessInterceptor" class="com.bbd.sys.service.UserAccessApiInterceptor"></bean>
 
     <bean id="httpTemplate" class="com.bbd.higgs.utils.http.HttpTemplate">
         <property name="connectTimeout" value="600000"/>

@@ -146,7 +146,8 @@ public class PrivateFundController {
         for (CapitalAmountDO capitalAmountDO : capitalAmountList) {
             Map<String, Object> map = Maps.newHashMap();
             map.put("typeName", privateFundService.getTypeById(capitalAmountDO.getTypeId()).getTypeName());
-            map.put("amount", capitalAmountDO.getManageCapitalAmount());
+            map.put("managedCapitalAmount", capitalAmountDO.getManagedCapitalAmount());
+            map.put("publishCompanyNumber", capitalAmountDO.getPublishCompanyNumber());
             result.add(map);
         }
 

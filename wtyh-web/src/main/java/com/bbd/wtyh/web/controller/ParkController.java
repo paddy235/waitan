@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bbd.wtyh.domain.AreaDO;
 import com.bbd.wtyh.domain.BuildingDO;
 import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
-import com.bbd.wtyh.domain.CompanyBuildingDO;
 import com.bbd.wtyh.domain.CompanyNewsDO;
 import com.bbd.wtyh.domain.CompanyTypeCountDO;
 import com.bbd.wtyh.domain.InBusinessDO;
 import com.bbd.wtyh.service.AreaService;
+import com.bbd.wtyh.service.CompanyNewsService;
 import com.bbd.wtyh.service.ParkService;
 import com.bbd.wtyh.web.ResponseBean;
 
@@ -34,6 +34,8 @@ public class ParkController {
     
     @Autowired
     private ParkService parkService;
+    
+
 
 
     /**
@@ -186,7 +188,7 @@ public class ParkController {
           @ResponseBody
           public ResponseBean buildingNews(@RequestParam(required=true) Integer buildingId) {
 
-          	List<CompanyNewsDO> data = parkService.buildingNews(buildingId);
+          	 String data = parkService.buildingNews(buildingId);
               
              return ResponseBean.successResponse(data);
           }

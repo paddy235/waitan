@@ -2,9 +2,9 @@ package com.bbd.wtyh.service;
 
 import java.util.List;
 
-import com.bbd.wtyh.domain.CrowdFundingBusinessStatisticsDO;
 import com.bbd.wtyh.domain.CrowdFundingCompanyDO;
 import com.bbd.wtyh.domain.CrowdFundingStatisticsDO;
+import com.bbd.wtyh.domain.NvDO;
 
 /**
 * 众筹企业相关接口
@@ -13,7 +13,7 @@ import com.bbd.wtyh.domain.CrowdFundingStatisticsDO;
 */
 public interface CrowdFundingService {
 	
-	public CrowdFundingBusinessStatisticsDO lastMonthData();
+	public List<NvDO> lastMonthData();
 
 	
 	public List<CrowdFundingStatisticsDO> lastMonthType();

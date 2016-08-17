@@ -20,14 +20,20 @@ public interface TableDataMapper {
 	List<ColumnDO> queryColumn(String tableName);
 
 	List<Map<String, Object>> getTableData( @Param(value="tableName") String tableName,
+											@Param(value="value") String value,
+											@Param(value="mode") String mode,
+											@Param(value="field") String field,
 											@Param(value="start") Integer start, 
 											@Param(value="rows") Integer rows);
 
 	
 
-	int countTableData(@Param(value="tableName") String tableName);
+	int countTableData( @Param(value="tableName") String tableName,
+						@Param(value="value") String value,
+						@Param(value="mode") String mode,
+						@Param(value="field") String field);
 
-	void updateTableData(@Param(value="tableName") String tableName, 
+	void updateTableData(   @Param(value="tableName") String tableName, 
 							@Param(value="idField") String idField, 
 							@Param(value="updateField") String updateField, 
 							@Param(value="idValue") Integer idValue ,

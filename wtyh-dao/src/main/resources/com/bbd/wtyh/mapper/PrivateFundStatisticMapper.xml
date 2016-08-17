@@ -15,7 +15,7 @@
     <select id="selectByPrimaryKey" parameterType="java.lang.Byte" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from private_fund_logistic
+        from private_fund_statistic
         where type_id = #{typeId,jdbcType=TINYINT}
     </select>
 
@@ -23,6 +23,6 @@
     <select id="selectAll" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from private_fund_logistic
+        from private_fund_statistic
     </select>
 </mapper>

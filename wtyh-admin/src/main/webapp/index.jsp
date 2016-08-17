@@ -14,19 +14,18 @@
 <br/><br/>
 	<h2>用户登录</h2>
 	<div style="margin:20px 0;"></div>
-	<div class="easyui-panel" title="New Topic" style="width:100%;max-width:400px;padding:30px 60px;">
-		<form id="ff" class="easyui-form" method="post" data-options="novalidate:true" action="${ctx}/login" >
+	<div class="easyui-panel" title="&nbsp;" style="width:100%;max-width:400px;padding:30px 60px;">
+		<form id="ff" class="easyui-form" method="post" data-options="novalidate:true" action="${ctx}/login.do" >
 			<div style="margin-bottom:20px">
-				<input class="easyui-textbox" name="name" style="width:100%" data-options="label:'Name:',required:true">
+				<input class="easyui-textbox" name="name" style="width:100%" data-options="label:'用户名:',required:true">
 			</div>
 			
 			<div style="margin-bottom:20px">
-				<input class="easyui-textbox" type="password"  name="password" style="width:100%" data-options="label:'Subject:',required:true">
+				<input class="easyui-textbox" type="password"  name="password" style="width:100%" data-options="label:'密 &nbsp;&nbsp;&nbsp;码:',required:true">
 			</div>
 		</form>
 		<div style="text-align:center;padding:5px 0">
-			<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width:80px">Submit</a>
-			<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()" style="width:80px">Clear</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width:80px">立即登录</a>
 			
 		</div>
 	</div>

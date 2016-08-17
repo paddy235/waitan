@@ -1,5 +1,7 @@
 package com.bbd.bgo.web.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.service.UserService;
 import com.bbd.wtyh.web.ResponseBean;
 
@@ -25,7 +28,7 @@ public class LoginController {
 
 	@RequestMapping("/login")
 	@ResponseBody
-	public Object login(@RequestParam String name,@RequestParam String password){
+	public Object login(@RequestParam String name,@RequestParam String password,HttpServletRequest request){
 		//数据库的密码是bbd123456
 		String pwd = userSer.getPassword(name);
 		if( StringUtils.isEmpty(pwd) ){
@@ -38,7 +41,9 @@ public class LoginController {
 			return ResponseBean.errorResponse("false");
 		}
 		
-		return ResponseBean.successResponse("data/showTables");
+		request.getSession().setAttribute(Constants.SESSION.loginName, name);
+		
+		return ResponseBean.successResponse("data/showTables.do");
 		
 	}
 	

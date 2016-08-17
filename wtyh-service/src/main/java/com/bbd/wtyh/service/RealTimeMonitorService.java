@@ -20,4 +20,6 @@ public interface RealTimeMonitorService {
     Map<String, Object> ChinaMap();
 
     Map<String, Object> shMap();
+
+    List<CompanyAnalysisResult> spectrumAnalysis();
 }

@@ -27,7 +27,7 @@ public class MockSerserController {
      * @param dataType
      * @return
      */
-    @RequestMapping("/financial_services")
+    @RequestMapping(value = "/financial_services", produces = "text/html;charset=UTF-8")
     @ResponseBody
     public Object coreData(@RequestParam(required = true) String dataType, String plat_name) {
         // 核心数据及集中度
@@ -62,7 +62,7 @@ public class MockSerserController {
                     "]}";
 
         } else if (dataType.equals("plat_list")) {
-            return "{plat_name: \"来财街\", company_name: \"上海什么什么投资公司\", logo_url: \"http://logo.url.com\"}";
+            return "{plat_name: \"测试数据\", company_name: \"攀枝花市交通旅游客运有限责任公司\", logo_url: \"http://logo.url.com\"}";
 
         } else if (dataType.equals("leida")) {
             return "{\"plat_name\":\"今日劫财\"," +
