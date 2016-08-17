@@ -281,7 +281,7 @@ public class PToPMonitorController {
     *
     * @return XAxisSeriesBarLineDO<Integer>
     */
-    private XAxisSeriesBarLineBean<Integer,String> newlyPlat(List<IndustryShanghaiDTO> list){
+    public XAxisSeriesBarLineBean<Integer,String> newlyPlat(List<IndustryShanghaiDTO> list){
     	XAxisSeriesBarLineBean<Integer,String> data = new XAxisSeriesBarLineBean<>();
     	data.setTitle("上海新增平台发展趋势");
     	if(CollectionUtils.isEmpty(list) ){
