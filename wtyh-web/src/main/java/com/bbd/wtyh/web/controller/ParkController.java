@@ -35,8 +35,7 @@ public class ParkController {
     @Autowired
     private ParkService parkService;
     
-    @Autowired
-    private CompanyNewsService newsService;
+
 
 
     /**
@@ -95,8 +94,6 @@ public class ParkController {
     public ResponseBean news(@RequestParam(required=true) Integer areaId) {
 
         Object data = parkService.queryParkNews(areaId,2,1);
-        
-        // newsService.getCompanyNews();
         
         return ResponseBean.successResponse(data);
     }
@@ -191,7 +188,7 @@ public class ParkController {
           @ResponseBody
           public ResponseBean buildingNews(@RequestParam(required=true) Integer buildingId) {
 
-          	List<CompanyNewsDO> data = parkService.buildingNews(buildingId);
+          	 String data = parkService.buildingNews(buildingId);
               
              return ResponseBean.successResponse(data);
           }

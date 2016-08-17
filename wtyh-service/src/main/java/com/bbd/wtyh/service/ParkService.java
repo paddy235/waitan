@@ -54,9 +54,9 @@ public interface ParkService {
 	* @param pageSize 每页数量
 	* @param pageNum 页码
 	* @author Ian.Su   
-	* @return List<CompanyNewsDO>
+	* @return String
 	*/
-	List<CompanyNewsDO> queryParkNews(Integer areaId,Integer pageSize,Integer pageNum);
+	String queryParkNews(Integer areaId,Integer pageSize,Integer pageNum);
 
 
 	
@@ -102,9 +102,9 @@ public interface ParkService {
 	 /**
      * 楼宇舆情
      * @param buildingId 楼宇id,必传
-     * @return List<CompanyNewsDO>  
+     * @return String  
      */
-	List<CompanyNewsDO> buildingNews(Integer buildingId);
+	String buildingNews(Integer buildingId);
 
 
 	
