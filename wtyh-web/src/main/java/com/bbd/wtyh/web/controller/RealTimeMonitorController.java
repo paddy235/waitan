@@ -9,6 +9,7 @@ import com.bbd.wtyh.domain.dto.LoanBalanceDTO;
 import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
 import com.bbd.wtyh.domain.query.CompanyQuery;
 import com.bbd.wtyh.service.*;
+import com.bbd.wtyh.util.CalculateUtils;
 import com.bbd.wtyh.web.HistogramBean;
 import com.bbd.wtyh.web.ResponseBean;
 import com.bbd.wtyh.web.XAxisSeriesBarLineBean;
@@ -159,6 +160,20 @@ public class RealTimeMonitorController {
     public ResponseBean businessChartShow() {
         //小贷
         ResponseBean loanResponseBean = loanController.balance();
+        List<LoanBalanceDTO> loanBalanceResult = (List<LoanBalanceDTO>)loanResponseBean.getContent();
+
+
+        @SuppressWarnings("unchecked")
+        XAxisSeriesLinesBean<String,String> loanDTO = new XAxisSeriesLinesBean<>(
+                new ArrayList<String>(),
+                new ArrayList<String>());
+
+        for (LoanBalanceDTO loanBalanceDTO : loanBalanceResult) {
+            loanDTO.getxAxis().add(loanBalanceDTO.getYear().toString());
+            loanDTO.getSeries()[0].add(loanBalanceDTO.getAmount().toString());
+            loanDTO.getSeries()[1].add(String.valueOf(CalculateUtils.divide(loanBalanceDTO.getAmount(), loanBalanceDTO.getCompanyAmount(), 2)));
+        }
+
         //私募
         List<CapitalAmountDO> capitalAmountList = privateFundService.capitalAmount();
         @SuppressWarnings("unchecked")
@@ -210,7 +225,7 @@ public class RealTimeMonitorController {
         //预付卡
         ResponseBean prepaidCompanyResponseBean = prepaidCompanyController.amount();
         Map result = new LinkedHashMap();
-        result.put("loan", loanResponseBean.getContent());
+        result.put("loan", loanDTO);
         result.put("private", privateDTO);
         result.put("p2p", pToPMonitorResponseBean);
         result.put("finance", financeLeaseResponseBean.getContent());
