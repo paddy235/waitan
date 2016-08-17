@@ -123,16 +123,12 @@ public class ParkServiceImpl implements ParkService {
 			return null;
 		}
 		List<NameValuePair> list = new ArrayList<>();
-		list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1)+",贵阳市城市建设投资有限责任公司,贵州詹阳动力重工有限公司"  ));
+		list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1)   ));
 		list.add(new BasicNameValuePair("ktype", ""+ktype));
 		list.add(new BasicNameValuePair("start", start));
 		list.add(new BasicNameValuePair("ak",ak));
 		
-		
-
-		
-		batchNewsUrl+="?ktype=0&start=2013-12-10&ak=d4a767064ead4130418d3a4ab962b958";
-		
+	
 		try {
 			return HttpClientUtils.httpPost(batchNewsUrl, list );
 		} catch (Exception e) {
@@ -153,7 +149,7 @@ public class ParkServiceImpl implements ParkService {
 			return null;
 		}
 		List<NameValuePair> list = new ArrayList<>();
-		list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1)+",贵阳市城市建设投资有限责任公司,贵州詹阳动力重工有限公司"  ));
+		list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1) ));
 		list.add(new BasicNameValuePair("ktype", ""+ktype));
 		list.add(new BasicNameValuePair("start", start));
 		list.add(new BasicNameValuePair("ak",ak));
