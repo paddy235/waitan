@@ -32,4 +32,9 @@
         from company_analysis_result, company
         where company.company_id = company_analysis_result.company_id
     </select>
+
+    <!--&lt;!&ndash; 全国地图 &ndash;&gt;-->
+    <!--<select id="getChinaMap" resultMap="com.bbd.wtyh.domain.RelatedCompanyStatisticDO">-->
+        <!--select area_name, related_company from related_company_statistic;-->
+    <!--</select>-->
 </mapper>
