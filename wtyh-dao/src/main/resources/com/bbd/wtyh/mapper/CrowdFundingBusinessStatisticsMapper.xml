@@ -25,11 +25,11 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   
-  <select id="lastMonthData" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from crowd_funding_business_statistics
-    order by year,month desc limit 1;
+  <select id="lastMonthData" resultType="com.bbd.wtyh.domain.NvDO">
+    select funding_business_type name , count(1) value
+    from crowd_funding_company c 
+    where funding_business_type is not null
+    group by c.funding_business_type  ;
   </select>
   
 </mapper>
