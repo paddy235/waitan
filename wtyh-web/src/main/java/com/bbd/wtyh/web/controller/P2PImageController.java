@@ -47,7 +47,7 @@ public class P2PImageController {
      */
     @RequestMapping("/platFormConsensus")
     @ResponseBody
-    public ResponseBean platformConsensus(@RequestParam(required = true, value = "plat_name") String platName) {
+    public ResponseBean platformConsensus(@RequestParam(required = true) String platName) {
         YuQingDO content = p2PImageService.platformConsensus(platName);
         return ResponseBean.successResponse(content);
     }

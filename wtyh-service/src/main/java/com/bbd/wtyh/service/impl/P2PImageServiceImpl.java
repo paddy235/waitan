@@ -30,9 +30,9 @@ public class P2PImageServiceImpl implements P2PImageService {
     public Map<String, Object> platFormStatus(String platName) {
         PlatDataDO pn = p2PImageDao.getPlatData(platName);
         Map<String, Object> result = new HashMap<>();
-        result.put("评分",pn.getPlat_score());
-        result.put("平台名称",pn.getPlat_name());
-        result.put("营业状态",pn.getPlat_status());
+        result.put("score",pn.getPlat_score()); // 评分
+        result.put("platname",pn.getPlat_name()); // 平台名称
+        result.put("status",pn.getPlat_status()); // 营业状态
         return result;
     }
 
