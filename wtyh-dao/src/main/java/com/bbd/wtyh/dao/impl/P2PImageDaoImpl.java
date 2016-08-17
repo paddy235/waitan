@@ -228,7 +228,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
      *
      */
     public BBDLogoDO bbdLogo(String company) {
-        String coreDataDealURL = "http://dataom.api.bbdservice.com/api/bbd_ent_logo/?company=湖北金福泰贸易有限公司&ak=c541b0bdda84c4b8953682d43c9ef840";
+        String coreDataDealURL = "http://dataom.api.bbdservice.com/api/bbd_ent_logo/?company="+company+"&ak=c541b0bdda84c4b8953682d43c9ef840";
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(coreDataDealURL, new HttpCallback<BBDLogoDO>() {

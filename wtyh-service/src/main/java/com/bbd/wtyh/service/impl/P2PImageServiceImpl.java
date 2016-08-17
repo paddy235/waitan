@@ -36,7 +36,7 @@ public class P2PImageServiceImpl implements P2PImageService {
         result.put("平台名称",pn.getPlat_name());
         result.put("营业状态",pn.getPlat_status());
         for (BBDLogoDO.Result data : bbdLogoDO.getResults()) {
-            result.put("评分", data.getCompany_logo());
+            result.put("logo", data.getCompany_logo());
         }
         return result;
     }
