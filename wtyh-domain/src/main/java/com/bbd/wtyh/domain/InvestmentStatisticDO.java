@@ -5,6 +5,16 @@ public class InvestmentStatisticDO extends BaseDO {
 
     private Integer investmentAmount;
 
+    private Integer publishNumber;
+
+    public Integer getPublishNumber() {
+        return publishNumber;
+    }
+
+    public void setPublishNumber(Integer publishNumber) {
+        this.publishNumber = publishNumber;
+    }
+
     public Integer getYear() {
         return year;
     }
