@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "72ed90e66b02425d36a4"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "9458abf2a319deb27904"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -88688,14 +88688,13 @@
 
 	var Immutable = __webpack_require__(777);
 
-	var nineDate = "";
-	var paramOne, paramTwo, paramThree, paramFour, paramFive, paramsix, paramSeven, paramEight, paramNine;
+	var nineDate = ""; //ajax返回回来的所有数据；
+	var paramOne, paramTwo, paramThree, paramFour, paramFive, paramSix, paramSeven, paramEight, paramNine; //每一个小模块的数据，初始状态为空，render判断为空的话就不渲染。
+
 	var TopRight = _react2.default.createClass({
 	    displayName: 'TopRight',
 	    getInitialState: function getInitialState() {
-	        return {
-	            // paramOneBox:<ScatterChart param={paramOne}/>
-	        };
+	        return {};
 	    },
 	    componentDidMount: function componentDidMount() {
 	        var getRealTimeNine = this.props.getRealTimeNine; // 取到props里面的getRealTimeTable方法。也可以说是请求action
@@ -88719,7 +88718,7 @@
 	                    paramOne = {
 	                        id: 'realTimeRightOne', //必传
 	                        height: '100%', //必传 带上单位
-	                        title: nineDate.content[0].amount,
+	                        title: '小额贷款之贷款余额',
 	                        forMaterTitle: "贷款余额",
 	                        forMaterTip: '平均贷款余额',
 	                        legend: [],
@@ -88730,211 +88729,548 @@
 	                            color: '#e14340'
 	                        }]]
 	                    };
+	                    paramTwo = {
+	                        "title": "私募基金",
+	                        "color": ["#f5b94b", "#01b6ed"],
+	                        "titleShow": "show",
+	                        "titleX": "left",
+	                        "legend": ["管理资本金额", "私募机构数量"],
+	                        "legendShow": true,
+	                        "legendLeft": "center",
+	                        "legendTop": "20",
+	                        "gridBottom": "0%",
+	                        "gridRight": "0%",
+	                        "barName": ["管理资本金额", "私募机构数量"],
+	                        "xAxis": ["2012", "2013", "2014", "2015"],
+	                        "yAxisName": ["亿元", "个数"],
+	                        "barWidth": 20,
+	                        "symbolSize": 10,
+	                        "series": {
+	                            "bar": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)], [Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
+	                        }
+	                    };
+	                    paramThree = {
+	                        "titleShow": true,
+	                        "title": "P2P平台",
+	                        "color": ["#12b5b0", "#e24441"],
+	                        "legend": ["上海新增", "上海累计"],
+	                        "legendShow": true,
+	                        "legendLeft": "center",
+	                        "legendTop": "20",
+	                        "barName": ["上海新增"],
+	                        "lineName": ["上海累计"],
+	                        "YnameLocation": "end",
+	                        "gridLeft": "5%",
+	                        "gridRight": "0%",
+	                        "gridBottom": "0%",
+	                        "yFlag": "",
+	                        "xAxis": ["2012-Q1", "2014-Q2", "2014-Q3", "2014-Q4", "2015-Q1", "2015-Q2", "2015-Q3", "2015-Q4", "2016-Q1"],
+	                        "yAxisName": ["家数", ""],
+	                        "barWidth": 20,
+	                        "symbolSize": 10,
+	                        "series": {
+	                            "bar": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]],
+	                            "line": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
+	                        }
+	                    };
+	                    paramFour = {
+	                        "titleShow": true,
+	                        "title": "融资租赁",
+	                        "color": ["#12b5b0", "#e24441", "rgb(230,162,74)"],
+	                        "legend": ["注册资本($)", "注册资本(¥)", "企业数量"],
+	                        "legendShow": true,
+	                        "legendLeft": "center",
+	                        "legendTop": "20",
+	                        "legendWidth": 600,
+	                        "barName": ["注册资本($)", "注册资本(¥)"],
+	                        "lineName": ["企业数量"],
+	                        "YnameRoutate": 0,
+	                        "YnameLocation": "end",
+	                        "gridLeft": "5%",
+	                        "gridRight": "0%",
+	                        "gridBottom": "0%",
+	                        "yFlag": "",
+	                        "xAxis": ["2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015"],
+	                        "yAxisName": ["亿人民币", "亿美元"],
+	                        "barWidth": 10,
+	                        "symbolSize": 10,
+	                        "series": {
+	                            "bar": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)], [Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]],
+	                            "line": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
+	                        }
+	                    };
+	                    paramFive = {
+	                        "title": "众筹平台",
+	                        "color": ["#f93330"],
+	                        "titleShow": "show",
+	                        "titleX": "left",
+	                        "legend": ["新增项目数"],
+	                        "legendShow": false,
+	                        "legendLeft": "center",
+	                        "axisLabelR": false,
+	                        "legendTop": "20",
+	                        "gridBottom": "0%",
+	                        "gridRight": "0%",
+	                        "labelShow": true,
+	                        "barName": ["新增项目数"],
+	                        "lablePosition": "right",
+	                        "yAxis": ["奖励众筹", "非公开股权融资", "公益众筹"],
+	                        "Ytype": "category",
+	                        "Xtype": "value",
+	                        "yAxisName": ["新增项目数", ""],
+	                        "barWidth": 20,
+	                        "symbolSize": 10,
+	                        "series": {
+	                            "bar": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
+	                        }
+	                    };
+	                    paramSix = {
+	                        "title": "众筹平台",
+	                        "color": ["#f93330"],
+	                        "titleShow": "show",
+	                        "titleX": "left",
+	                        "legend": ["新增项目数"],
+	                        "legendShow": false,
+	                        "legendLeft": "center",
+	                        "axisLabelR": false,
+	                        "legendTop": "20",
+	                        "gridBottom": "0%",
+	                        "gridRight": "0%",
+	                        "labelShow": true,
+	                        "barName": ["新增项目数"],
+	                        "xAxis": ["奖励众筹", "非公开股权融资", "公益众筹"],
+	                        "yAxisName": ["新增项目数", ""],
+	                        "barWidth": 20,
+	                        "symbolSize": 10,
+	                        "series": {
+	                            "bar": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
+	                        }
+	                    };
+	                    paramSeven = {
+	                        id: 'realTimeRightTwo', //必传
+	                        height: '100%', //必传 带上单位
+	                        title: '典当总额及业务笔数',
+	                        gridTop: "20%",
+	                        legend: [],
+	                        xAxis: ['2009', '2010', '2011', '2012', '2013'],
+	                        yAxis: ['100000', '200000', '300000', '400000', '500000'],
+	                        data: [[0, 0, 30], [1, 1, 10], [2, 2, 20], [3, 3, 50], [4, 4, 60]],
+	                        series: [[{
+	                            color: '#e14340'
+	                        }]]
+	                    };
+	                    paramEight = {
+	                        "titleShow": true,
+	                        "title": "商业保理",
+	                        "color": ["rgb(249,51,48)", "rgb(246,215,147)"],
+	                        "legend": ["商业保理业务总额", "融资余额"],
+	                        "legendShow": true,
+	                        "legendLeft": "center",
+	                        "legendTop": "20",
+	                        "barName": ["商业保理业务总额"],
+	                        "lineName": ["融资余额"],
+	                        "YnameLocation": "end",
+	                        "YnameGap": 5,
+	                        "gridLeft": "5%",
+	                        "gridRight": "0%",
+	                        "gridBottom": "0%",
+	                        "Ytype": "value",
+	                        "xAxis": ["2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012"],
+	                        "yAxisName": ["亿元", "个数"],
+	                        "barWidth": 20,
+	                        "symbolSize": 10,
+	                        "itemStyle": {},
+	                        "series": {
+	                            "bar": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]],
+	                            "line": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
+	                        }
+	                    };
+	                    paramNine = {
+	                        "title": "预付卡之备案企业预付金额总额",
+	                        "color": ["#12b5b0", "#01b6ed"],
+	                        "titleShow": "show",
+	                        "titleX": "left",
+	                        "legend": ["管理资本金额"],
+	                        "legendShow": false,
+	                        "legendLeft": "center",
+	                        "legendTop": "20",
+	                        "gridBottom": "0%",
+	                        "gridRight": "0%",
+	                        "axisLabelR": false,
+	                        "barName": ["管理资本金额"],
+	                        "xAxis": ["2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016"],
+	                        "yAxisName": ["亿元", ""],
+	                        "barWidth": 20,
+	                        "symbolSize": 10,
+	                        "labelShow": true,
+	                        "series": {
+	                            "bar": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
+	                        }
+	                    };
 	                } else {
 	                    alert(404);
 	                }
 	            }
 	        }
 	    },
-	    setParam: function setParam() {
-	        var paramOne = {
-	            id: 'realTimeRightOne', //必传
-	            height: '100%', //必传 带上单位
-	            title: '小额贷款之贷款余额',
-	            forMaterTitle: "贷款余额",
-	            forMaterTip: '平均贷款余额',
-	            legend: [],
-	            xAxis: ['2010', '2011', '2012', '2013', '2014', '2015', '2016'],
-	            yAxis: ['20', '40', '60', '80', '100', '120', '140'],
-	            data: [[0, 0, 300000], [1, 1, 1000000], [2, 2, 200000], [3, 3, 50], [4, 4, 60], [5, 5, 10], [6, 6, 80]],
-	            series: [[{
-	                color: '#e14340'
-	            }]]
-	        };
-	        var paramTwo = {
-	            "title": "私募基金",
-	            "color": ["#f5b94b", "#01b6ed"],
-	            "titleShow": "show",
-	            "titleX": "left",
-	            "legend": ["管理资本金额", "私募机构数量"],
-	            "legendShow": true,
-	            "legendLeft": "center",
-	            "legendTop": "20",
-	            "gridBottom": "0%",
-	            "gridRight": "0%",
-	            "barName": ["管理资本金额", "私募机构数量"],
-	            "xAxis": ["2012", "2013", "2014", "2015"],
-	            "yAxisName": ["亿元", "个数"],
-	            "barWidth": 20,
-	            "symbolSize": 10,
-	            "series": {
-	                "bar": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)], [Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
-	            }
-	        };
-	        var paramThree = {
-	            "titleShow": true,
-	            "title": "P2P平台",
-	            "color": ["#12b5b0", "#e24441"],
-	            "legend": ["上海新增", "上海累计"],
-	            "legendShow": true,
-	            "legendLeft": "center",
-	            "legendTop": "20",
-	            "barName": ["上海新增"],
-	            "lineName": ["上海累计"],
-	            "YnameLocation": "end",
-	            "gridLeft": "5%",
-	            "gridRight": "0%",
-	            "gridBottom": "0%",
-	            "yFlag": "",
-	            "xAxis": ["2012-Q1", "2014-Q2", "2014-Q3", "2014-Q4", "2015-Q1", "2015-Q2", "2015-Q3", "2015-Q4", "2016-Q1"],
-	            "yAxisName": ["家数", ""],
-	            "barWidth": 20,
-	            "symbolSize": 10,
-	            "series": {
-	                "bar": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]],
-	                "line": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
-	            }
-	        };
-	        var paramFour = {
-	            "titleShow": true,
-	            "title": "融资租赁",
-	            "color": ["#12b5b0", "#e24441", "rgb(230,162,74)"],
-	            "legend": ["注册资本($)", "注册资本(¥)", "企业数量"],
-	            "legendShow": true,
-	            "legendLeft": "center",
-	            "legendTop": "20",
-	            "legendWidth": 600,
-	            "barName": ["注册资本($)", "注册资本(¥)"],
-	            "lineName": ["企业数量"],
-	            "YnameRoutate": 0,
-	            "YnameLocation": "end",
-	            "gridLeft": "5%",
-	            "gridRight": "0%",
-	            "gridBottom": "0%",
-	            "yFlag": "",
-	            "xAxis": ["2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015"],
-	            "yAxisName": ["亿人民币", "亿美元"],
-	            "barWidth": 10,
-	            "symbolSize": 10,
-	            "series": {
-	                "bar": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)], [Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]],
-	                "line": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
-	            }
-	        };
-	        var paramFive = {
-	            "title": "众筹平台",
-	            "color": ["#f93330"],
-	            "titleShow": "show",
-	            "titleX": "left",
-	            "legend": ["新增项目数"],
-	            "legendShow": false,
-	            "legendLeft": "center",
-	            "axisLabelR": false,
-	            "legendTop": "20",
-	            "gridBottom": "0%",
-	            "gridRight": "0%",
-	            "labelShow": true,
-	            "barName": ["新增项目数"],
-	            "lablePosition": "right",
-	            "yAxis": ["奖励众筹", "非公开股权融资", "公益众筹"],
-	            "Ytype": "category",
-	            "Xtype": "value",
-	            "yAxisName": ["新增项目数", ""],
-	            "barWidth": 20,
-	            "symbolSize": 10,
-	            "series": {
-	                "bar": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
-	            }
-	        };
-	        var paramSix = {
-	            "title": "众筹平台",
-	            "color": ["#f93330"],
-	            "titleShow": "show",
-	            "titleX": "left",
-	            "legend": ["新增项目数"],
-	            "legendShow": false,
-	            "legendLeft": "center",
-	            "axisLabelR": false,
-	            "legendTop": "20",
-	            "gridBottom": "0%",
-	            "gridRight": "0%",
-	            "labelShow": true,
-	            "barName": ["新增项目数"],
-	            "xAxis": ["奖励众筹", "非公开股权融资", "公益众筹"],
-	            "yAxisName": ["新增项目数", ""],
-	            "barWidth": 20,
-	            "symbolSize": 10,
-	            "series": {
-	                "bar": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
-	            }
-	        };
-	        var paramSeven = {
-	            id: 'realTimeRightTwo', //必传
-	            height: '100%', //必传 带上单位
-	            title: '典当总额及业务笔数',
-	            gridTop: "20%",
-	            legend: [],
-	            xAxis: ['2009', '2010', '2011', '2012', '2013'],
-	            yAxis: ['100000', '200000', '300000', '400000', '500000'],
-	            data: [[0, 0, 30], [1, 1, 10], [2, 2, 20], [3, 3, 50], [4, 4, 60]],
-	            series: [[{
-	                color: '#e14340'
-	            }]]
-	        };
-	        var paramEight = {
-	            "titleShow": true,
-	            "title": "商业保理",
-	            "color": ["rgb(249,51,48)", "rgb(246,215,147)"],
-	            "legend": ["商业保理业务总额", "融资余额"],
-	            "legendShow": true,
-	            "legendLeft": "center",
-	            "legendTop": "20",
-	            "barName": ["商业保理业务总额"],
-	            "lineName": ["融资余额"],
-	            "YnameLocation": "end",
-	            "YnameGap": 5,
-	            "gridLeft": "5%",
-	            "gridRight": "0%",
-	            "gridBottom": "0%",
-	            "Ytype": "value",
-	            "xAxis": ["2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012"],
-	            "yAxisName": ["亿元", "个数"],
-	            "barWidth": 20,
-	            "symbolSize": 10,
-	            "itemStyle": {},
-	            "series": {
-	                "bar": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]],
-	                "line": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
-	            }
-	        };
-	        var paramNine = {
-	            "title": "预付卡之备案企业预付金额总额",
-	            "color": ["#12b5b0", "#01b6ed"],
-	            "titleShow": "show",
-	            "titleX": "left",
-	            "legend": ["管理资本金额"],
-	            "legendShow": false,
-	            "legendLeft": "center",
-	            "legendTop": "20",
-	            "gridBottom": "0%",
-	            "gridRight": "0%",
-	            "axisLabelR": false,
-	            "barName": ["管理资本金额"],
-	            "xAxis": ["2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016"],
-	            "yAxisName": ["亿元", ""],
-	            "barWidth": 20,
-	            "symbolSize": 10,
-	            "labelShow": true,
-	            "series": {
-	                "bar": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
-	            }
-	        };
-	        return [paramOne, paramTwo, paramThree, paramFour, paramFive, paramSix, paramSeven, paramEight, paramNine];
-	    },
+	    // setParam:function(){
+	    //         var paramOne={
+	    //             id:'realTimeRightOne',//必传
+	    //             height:'100%',//必传 带上单位
+	    //             title:'小额贷款之贷款余额',
+	    //             forMaterTitle:"贷款余额",
+	    //             forMaterTip:'平均贷款余额',
+	    //             legend: [],
+	    //             xAxis:['2010', '2011', '2012','2013', '2014', '2015', '2016'],
+	    //             yAxis: ['20', '40', '60', '80', '100', '120', '140'],
+	    //             data: [[0,0,300000],[1,1,1000000],[2,2,200000],[3,3,50],[4,4,60],[5,5,10],[6,6,80]],
+	    //             series:[
+	    //                     [{
+	    //                       color:'#e14340'
+	    //                     }]
+	    //                   ]
+	    //         }
+	    //         var paramTwo={
+	    //             "title":"私募基金",
+	    //             "color":["#f5b94b", "#01b6ed"],
+	    //             "titleShow":"show",
+	    //             "titleX":"left",
+	    //             "legend": ["管理资本金额", "私募机构数量"],
+	    //             "legendShow":true,
+	    //             "legendLeft":"center",
+	    //             "legendTop":"20",
+	    //             "gridBottom":"0%",
+	    //             "gridRight":"0%",
+	    //             "barName":["管理资本金额","私募机构数量"],
+	    //             "xAxis": ["2012", "2013", "2014", "2015"],
+	    //             "yAxisName": ["亿元", "个数"],
+	    //             "barWidth":20,
+	    //             "symbolSize":10,
+	    //              "series": {
+	    //                 "bar": [
+	    //                     [
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200)
+	    //                     ],
+	    //                     [
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200)
+	    //                     ]
+	    //                 ]
+	    //             }
+	    //         };
+	    //         var paramThree={
+	    //             "titleShow":true,
+	    //             "title":"P2P平台",
+	    //             "color":["#12b5b0", "#e24441"],
+	    //             "legend": ["上海新增", "上海累计"],
+	    //             "legendShow":true,
+	    //             "legendLeft":"center",
+	    //             "legendTop":"20",
+	    //             "barName":["上海新增"],
+	    //             "lineName":["上海累计"],
+	    //             "YnameLocation":"end",
+	    //             "gridLeft":"5%",
+	    //             "gridRight":"0%",
+	    //             "gridBottom":"0%",
+	    //             "yFlag":"",
+	    //             "xAxis": ["2012-Q1", "2014-Q2", "2014-Q3", "2014-Q4", "2015-Q1","2015-Q2", "2015-Q3", "2015-Q4", "2016-Q1"],
+	    //             "yAxisName": ["家数", ""],
+	    //             "barWidth":20,
+	    //             "symbolSize":10,
+	    //             "series": {
+	    //                 "bar": [
+	    //                     [
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200)
+	    //                     ]
+	    //                 ],
+	    //                 "line": [
+	    //                         [
+	    //                             Math.round(Math.random() * 200),
+	    //                             Math.round(Math.random() * 200),
+	    //                             Math.round(Math.random() * 200),
+	    //                             Math.round(Math.random() * 200),
+	    //                             Math.round(Math.random() * 200),
+	    //                             Math.round(Math.random() * 200),
+	    //                             Math.round(Math.random() * 200),
+	    //                             Math.round(Math.random() * 200),
+	    //                             Math.round(Math.random() * 200)
+
+	    //                         ]
+	    //                     ]
+	    //             }
+	    //         };
+	    //         var paramFour={
+	    //             "titleShow":true,
+	    //             "title":"融资租赁",
+	    //             "color":["#12b5b0", "#e24441","rgb(230,162,74)"],
+	    //             "legend": ["注册资本($)","注册资本(¥)","企业数量",],
+	    //             "legendShow":true,
+	    //             "legendLeft":"center",
+	    //             "legendTop":"20",
+	    //             "legendWidth":600,
+	    //             "barName":["注册资本($)","注册资本(¥)"],
+	    //             "lineName":["企业数量"],
+	    //             "YnameRoutate":0,
+	    //             "YnameLocation":"end",
+	    //             "gridLeft":"5%",
+	    //             "gridRight":"0%",
+	    //             "gridBottom":"0%",
+	    //             "yFlag":"",
+	    //             "xAxis": ["2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015"],
+	    //             "yAxisName": ["亿人民币", "亿美元"],
+	    //             "barWidth":10,
+	    //             "symbolSize":10,
+	    //             "series": {
+	    //                 "bar": [
+	    //                     [
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200)
+	    //                     ],
+	    //                     [
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200)
+	    //                     ]
+	    //                 ],
+	    //                 "line": [
+	    //                     [
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200)
+	    //                     ]
+	    //                     ]
+	    //             }
+	    //         };
+	    //         var paramFive={
+	    //             "title":"众筹平台",
+	    //             "color":["#f93330"],
+	    //             "titleShow":"show",
+	    //             "titleX":"left",
+	    //             "legend": ["新增项目数"],
+	    //             "legendShow":false,
+	    //             "legendLeft":"center",
+	    //             "axisLabelR":false,
+	    //             "legendTop":"20",
+	    //             "gridBottom":"0%",
+	    //             "gridRight":"0%",
+	    //             "labelShow":true,
+	    //             "barName":["新增项目数"],
+	    //             "lablePosition":"right",
+	    //             "yAxis": ["奖励众筹", "非公开股权融资", "公益众筹"],
+	    //             "Ytype":"category",
+	    //             "Xtype":"value",
+	    //             "yAxisName": ["新增项目数", ""],
+	    //             "barWidth":20,
+	    //             "symbolSize":10,
+	    //              "series": {
+	    //                 "bar": [
+	    //                     [
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200)
+	    //                     ]
+	    //                 ]
+	    //             }
+	    //         };
+	    //         var paramSix={
+	    //             "title":"众筹平台",
+	    //             "color":["#f93330"],
+	    //             "titleShow":"show",
+	    //             "titleX":"left",
+	    //             "legend": ["新增项目数"],
+	    //             "legendShow":false,
+	    //             "legendLeft":"center",
+	    //             "axisLabelR":false,
+	    //             "legendTop":"20",
+	    //             "gridBottom":"0%",
+	    //             "gridRight":"0%",
+	    //             "labelShow":true,
+	    //             "barName":["新增项目数"],
+	    //             "xAxis": ["奖励众筹", "非公开股权融资", "公益众筹"],
+	    //             "yAxisName": ["新增项目数", ""],
+	    //             "barWidth":20,
+	    //             "symbolSize":10,
+	    //              "series": {
+	    //                 "bar": [
+	    //                     [
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200)
+	    //                     ]
+	    //                 ]
+	    //             }
+	    //         };
+	    //         var paramSeven={
+	    //             id:'realTimeRightTwo',//必传
+	    //             height:'100%',//必传 带上单位
+	    //             title:'典当总额及业务笔数',
+	    //             gridTop:"20%",
+	    //             legend: [],
+	    //             xAxis:['2009','2010','2011','2012','2013'],
+	    //             yAxis: ['100000', '200000', '300000', '400000', '500000'],
+	    //             data: [[0,0,30],[1,1,10],[2,2,20],[3,3,50],[4,4,60]],
+	    //             series:[
+	    //                     [{
+	    //                       color:'#e14340'
+	    //                     }]
+	    //                   ]
+	    //         };
+	    //         var paramEight={
+	    //             "titleShow":true,
+	    //             "title":"商业保理",
+	    //             "color":["rgb(249,51,48)", "rgb(246,215,147)"],
+	    //             "legend": ["商业保理业务总额", "融资余额"],
+	    //             "legendShow":true,
+	    //             "legendLeft":"center",
+	    //             "legendTop":"20",
+	    //             "barName":["商业保理业务总额"],
+	    //             "lineName":["融资余额"],
+	    //             "YnameLocation":"end",
+	    //             "YnameGap":5,
+	    //             "gridLeft":"5%",
+	    //             "gridRight":"0%",
+	    //             "gridBottom":"0%",
+	    //             "Ytype":"value",
+	    //             "xAxis": ["2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012"],
+	    //             "yAxisName": ["亿元", "个数"],
+	    //             "barWidth":20,
+	    //             "symbolSize":10,
+	    //             "itemStyle":{
+
+	    //             },
+	    //             "series": {
+	    //                 "bar": [
+	    //                     [
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200)
+	    //                     ]
+	    //                 ],
+	    //                 "line": [
+	    //                         [
+	    //                             Math.round(Math.random() * 200),
+	    //                             Math.round(Math.random() * 200),
+	    //                             Math.round(Math.random() * 200),
+	    //                             Math.round(Math.random() * 200),
+	    //                             Math.round(Math.random() * 200),
+	    //                             Math.round(Math.random() * 200),
+	    //                             Math.round(Math.random() * 200),
+	    //                             Math.round(Math.random() * 200)
+
+	    //                         ]
+	    //                     ]
+	    //             }
+	    //         };
+	    //         var paramNine={
+	    //             "title":"预付卡之备案企业预付金额总额",
+	    //             "color":["#12b5b0", "#01b6ed"],
+	    //             "titleShow":"show",
+	    //             "titleX":"left",
+	    //             "legend": ["管理资本金额"],
+	    //             "legendShow":false,
+	    //             "legendLeft":"center",
+	    //             "legendTop":"20",
+	    //             "gridBottom":"0%",
+	    //             "gridRight":"0%",
+	    //             "axisLabelR":false,
+	    //             "barName":["管理资本金额"],
+	    //             "xAxis": ["2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015","2016"],
+	    //             "yAxisName": ["亿元", ""],
+	    //             "barWidth":20,
+	    //             "symbolSize":10,
+	    //             "labelShow":true,
+	    //              "series": {
+	    //                 "bar": [
+	    //                     [
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200)
+	    //                     ]
+	    //                 ]
+	    //             }
+	    //         };
+	    //         return [paramOne,paramTwo,paramThree,paramFour,paramFive,paramSix,paramSeven,paramEight,paramNine];
+	    // },
 	    render: function render() {
-	        var paramOneBox, paramTwoBox, paramThreeBox, paramFourBox, paramFiveBox, paramsixBox, paramSevenBox, paramEightBox, paramNineBox;
+	        var paramOneBox, paramTwoBox, paramThreeBox, paramFourBox, paramFiveBox, paramSixBox, paramSevenBox, paramEightBox, paramNineBox;
 	        if (!!paramOne) {
-	            paramOneBox = _react2.default.createElement(_ScatterChart2.default, { param: paramOne });
+	            paramOneBox = _react2.default.createElement(_ScatterChart2.default, { param: paramOne, style: { height: '100%', width: '100%' } });
+	        }
+	        if (!!paramTwo) {
+	            paramTwoBox = _react2.default.createElement(_LineBarChart2.default, { param: paramTwo, style: { height: '100%', width: '100%' } });
+	        }
+	        if (!!paramThree) {
+	            paramThreeBox = _react2.default.createElement(_LineBarChart2.default, { param: paramThree, style: { height: '100%', width: '100%' } });
+	        }
+	        if (!!paramFour) {
+	            paramFourBox = _react2.default.createElement(_LineBarChart2.default, { param: paramFour, style: { height: '100%', width: '100%' } });
+	        }
+	        if (!!paramFive) {
+	            paramFiveBox = _react2.default.createElement(_LineBarChart2.default, { param: paramFive, style: { height: '100%', width: '100%' } });
+	        }
+	        if (!!paramSix) {
+	            paramSixBox = _react2.default.createElement(_LineBarChart2.default, { param: paramSix, style: { height: '100%', width: '100%' } });
+	        }
+	        if (!!paramSeven) {
+	            paramSevenBox = _react2.default.createElement(_ScatterChart2.default, { param: paramSeven, style: { height: '100%', width: '100%' } });
+	        }
+	        if (!!paramEight) {
+	            paramEightBox = _react2.default.createElement(_LineBarChart2.default, { param: paramEight, style: { height: '100%', width: '100%' } });
+	        }
+	        if (!!paramNine) {
+	            paramNineBox = _react2.default.createElement(_LineBarChart2.default, { param: paramNine, style: { height: '100%', width: '100%' } });
 	        }
 	        return _react2.default.createElement(
 	            'div',
@@ -88947,42 +89283,42 @@
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'item' },
-	                _react2.default.createElement(_LineBarChart2.default, { param: this.setParam()[1], style: { height: '100%', width: '100%' } })
+	                paramTwoBox
 	            ),
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'item' },
-	                _react2.default.createElement(_LineBarChart2.default, { param: this.setParam()[2], style: { height: '100%', width: '100%' } })
+	                paramThreeBox
 	            ),
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'item' },
-	                _react2.default.createElement(_LineBarChart2.default, { param: this.setParam()[3], style: { height: '100%', width: '100%' } })
+	                paramFourBox
 	            ),
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'item' },
-	                _react2.default.createElement(_LineBarChart2.default, { param: this.setParam()[4], style: { height: '100%', width: '100%' } })
+	                paramFiveBox
 	            ),
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'item' },
-	                _react2.default.createElement(_LineBarChart2.default, { param: this.setParam()[5], style: { height: '100%', width: '100%' } })
+	                paramSixBox
 	            ),
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'item' },
-	                _react2.default.createElement(_ScatterChart2.default, { param: this.setParam()[6], style: { height: '100%', width: '100%' } })
+	                paramSevenBox
 	            ),
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'item' },
-	                _react2.default.createElement(_LineBarChart2.default, { param: this.setParam()[7], style: { height: '100%', width: '100%' } })
+	                paramEightBox
 	            ),
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'item' },
-	                _react2.default.createElement(_LineBarChart2.default, { param: this.setParam()[8], style: { height: '100%', width: '100%' } })
+	                paramNineBox
 	            )
 	        );
 	    }
