@@ -24,7 +24,7 @@ import java.util.Map;
  * @since  2016/8/10
  */
 @Controller
-@RequestMapping("/exchangeCompany")
+@RequestMapping("/exchangeCompany/")
 public class ExchangeCompanyController {
 
     @Autowired
@@ -34,7 +34,7 @@ public class ExchangeCompanyController {
      * 交易场所清理整顿分类统计
      * @return
      */
-    @RequestMapping("/exchangeCompanyCategory")
+    @RequestMapping("exchangeCompanyCategory.do")
     @ResponseBody
     public ResponseBean exchangeCompanyCategory() {
         List<Map> data = exchangeCompanyService.exchangeCompanyCategory();
@@ -45,7 +45,7 @@ public class ExchangeCompanyController {
      * 交易场所地域分布
      * @return
      */
-    @RequestMapping("/exchangeCompanyArea")
+    @RequestMapping("exchangeCompanyArea.do")
     @ResponseBody
     public ResponseBean exchangeCompanyArea() {
         List<ExchangeCompanyAreaVO> data = exchangeCompanyService.exchangeCompanyArea();
@@ -71,7 +71,7 @@ public class ExchangeCompanyController {
      * @see
      * @return
      */
-    @RequestMapping("/exchangeCompanyByStatus")
+    @RequestMapping("exchangeCompanyByStatus.do")
     @ResponseBody
     public ResponseBean exchangeCompanyByStatus(Integer status) {
         List<ExchangeCompanyVO> data = exchangeCompanyService.exchangeCompanyByStatus(status);
@@ -83,7 +83,7 @@ public class ExchangeCompanyController {
      * @param areaId
      * @return
      */
-    @RequestMapping("/exchangeCompanyListByAreaId")
+    @RequestMapping("exchangeCompanyListByAreaId.do")
     @ResponseBody
     public ResponseBean exchangeCompanyListByAreaId(Integer areaId, String orderName, String orderType) {
         List<CompanyDO> data = exchangeCompanyService.exchangeCompanyListByAreaId(areaId, orderName, orderType);

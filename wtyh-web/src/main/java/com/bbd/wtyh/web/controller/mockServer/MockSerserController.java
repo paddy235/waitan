@@ -27,7 +27,7 @@ public class MockSerserController {
      * @param dataType
      * @return
      */
-    @RequestMapping("/financial_services")
+    @RequestMapping(value = "/financial_services", produces = "text/html;charset=UTF-8")
     @ResponseBody
     public Object coreData(@RequestParam(required = true) String dataType, String plat_name) {
         // 核心数据及集中度
@@ -62,7 +62,82 @@ public class MockSerserController {
                     "]}";
 
         } else if (dataType.equals("plat_list")) {
-            return "{plat_name: \"来财街\", company_name: \"上海什么什么投资公司\", logo_url: \"http://logo.url.com\"}";
+            return "{plat_name: \"测试数据\", company_name: \"攀枝花市交通旅游客运有限责任公司\", logo_url: \"http://logo.url.com\"}";
+
+        } else if (dataType.equals("leida")) {
+            return "{\"plat_name\":\"今日劫财\"," +
+                    "\"penalty_cost\":67.25," +
+                    "\"info_disclosure\":69.77," +
+                    "\"capital\":76.67," +
+                    "\"operation\":73.23," +
+                    "\"fluidity\":53.33," +
+                    "\"dispersion\":71.73}";
+
+        } else if ("industry_shanghai".equalsIgnoreCase(dataType)) {
+            return getIndustry_shanghai();
+
+        } else if ("industry_problem".equalsIgnoreCase(dataType)) {
+            return getProblemData();
+
+        } else if ("industry_compare".equalsIgnoreCase(dataType)) {
+            return getCompareData();
+
+        } else if ("area_index".equalsIgnoreCase(dataType)) {
+            return getAreaIndex();
+
+        } else if ("plat_rank_data".equalsIgnoreCase(dataType)) {
+            return getPlatRankData();
+
+        } else {
+            return "Not right RequestParam.";
+        }
+    }
+
+    
+    
+    
+    /**
+     * 核心数据及集中度
+     *
+     * @param dataType
+     * @return
+     */
+    @RequestMapping(value = "/financial_services2")
+    @ResponseBody
+    public Object coreData2(@RequestParam(required = true) String dataType, String plat_name) {
+        // 核心数据及集中度
+        if (dataType.equals("plat_data")) {
+            return "{\"plat_name\":\"来财街\"," +
+                    "\"plat_score\":73.2," +
+                    "\"other_sum_amount\":0," +
+                    "\"bor_num_stay_stil\":1," +
+                    "\"inserest_rate\":12.58," +
+                    "\"money_stock\":8430.91," +
+                    "\"top10_num_amount\":0," +
+                    "\"bid_num_stay_stil\":6205," +
+                    "\"company_name\":\"阿丽亚路上海投资发展有限公司\"," +
+                    "\"plat_status\":\"正常\"," +
+                    "\"30_day_net_inflow\":6565.6," +
+                    "\"top1_sum_amount\":0," +
+                    "\"amount_taotal\":23154.0985," +
+                    "\"plat_data_six_month\": [" +
+                        "{date: \"2016-08-08\", day_interest_rate: \"5.6\", day_amount: \"100\", day_money_stock: \"578\"}, " +
+                        "{date: \"2016-08-09\", day_interest_rate: \"6.6\", day_amount: \"300\", day_money_stock: \"666\"}, " +
+                        "{date: \"2016-08-10\", day_interest_rate: \"5.7\", day_amount: \"200\", day_money_stock: \"333\"}, " +
+                        "{date: \"2016-08-11\", day_interest_rate: \"5.8\", day_amount: \"400\", day_money_stock: \"123\"}" +
+                    "]}";
+
+        } else if (dataType.equals("yuqing")) {
+            return "{plat_name: \"投融范\", " +
+                    "score: \"10\", " +
+                    "warning: [" +
+                        "{info:\"上海p2p投融范发逾期公告 承诺9个月内兑付\"}," +
+                        "{info:\"投融范一个推子布局的诈骗平台推子兼职诈骗，人人得而诛之\"}," +
+                        "{info:\"投融范项目逾期，回款无望\"}" +
+                    "]}";
+
+        } else if (dataType.equals("plat_list")) {
+            return "{plat_name: \"测试数据\", company_name: \"攀枝花市交通旅游客运有限责任公司\", logo_url: \"http://logo.url.com\"}";
 
         } else if (dataType.equals("leida")) {
             return "{\"plat_name\":\"今日劫财\"," +

@@ -3,14 +3,15 @@
 <mapper namespace="com.bbd.wtyh.mapper.CapitalAmountMapper">
     <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.CapitalAmountDO">
         <id column="type_id" jdbcType="INTEGER" property="typeId"/>
-        <result column="manage_capital_amount" jdbcType="REAL" property="manageCapitalAmount"/>
+        <result column="managed_capital_amount" jdbcType="REAL" property="managedCapitalAmount"/>
+        <result column="publish_company_number" javaType="Integer" property="publishCompanyNumber" />
         <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
         <result column="create_date" jdbcType="DATE" property="createDate"/>
         <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
         <result column="update_date" jdbcType="DATE" property="updateDate"/>
     </resultMap>
     <sql id="Base_Column_List">
-    type_id, manage_capital_amount
+    type_id, managed_capital_amount, publish_company_number
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select

@@ -2,14 +2,18 @@ package com.bbd.wtyh.service.impl;
 
 
 import com.bbd.wtyh.domain.CompanyDO;
+import com.bbd.wtyh.domain.enums.ExchangeCompanyStatus;
 import com.bbd.wtyh.domain.vo.ExchangeCompanyAreaVO;
 import com.bbd.wtyh.domain.vo.ExchangeCompanyVO;
 import com.bbd.wtyh.mapper.ExchangeCompanyMapper;
 import com.bbd.wtyh.service.ExchangeCompanyService;
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.poi.ss.formula.functions.T;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
 import javax.annotation.Resource;
 import java.util.*;
 
@@ -29,7 +33,15 @@ public class ExchangeCompanyServiceImpl implements ExchangeCompanyService {
     @Override
     public List<Map> exchangeCompanyCategory() {
         List<Map> list = exchangeCompanyMapper.queryExchangeCompanyCategory();
-        return list;
+        List<Map> resultList = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(list)) {
+            for (Map map : list) {
+                Map result = new HashedMap();
+                result.put(ExchangeCompanyStatus.getName((int)map.get("status")), map.get("number"));
+                resultList.add(result);
+            }
+        }
+        return resultList;
     }
 
     @Override

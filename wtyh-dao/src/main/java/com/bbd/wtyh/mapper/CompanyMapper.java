@@ -43,4 +43,7 @@ public interface CompanyMapper {
     int searchCompanyNameCount(String keyword);
 
     CompanyDO selectByName(String companyName);
+    
+    String queryCompanyNames(@Param("areaId") Integer areaId,
+    		                 @Param("buildingId") Integer buildingId);
 }

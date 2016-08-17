@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bbd.wtyh.domain.CrowdFundingBusinessStatisticsDO;
 import com.bbd.wtyh.domain.CrowdFundingCompanyDO;
 import com.bbd.wtyh.domain.CrowdFundingStatisticsDO;
+import com.bbd.wtyh.domain.NvDO;
 import com.bbd.wtyh.mapper.CrowdFundingBusinessStatisticsMapper;
 import com.bbd.wtyh.mapper.CrowdFundingCompanyMapper;
 import com.bbd.wtyh.mapper.CrowdFundingStatisticsMapper;
@@ -33,7 +33,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
 	
 
 	@Override
-	public CrowdFundingBusinessStatisticsDO lastMonthData() {
+	public List<NvDO> lastMonthData() {
 		return cfbsMapper.lastMonthData();
 	}
 

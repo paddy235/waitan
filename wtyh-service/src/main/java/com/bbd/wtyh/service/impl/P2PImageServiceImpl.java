@@ -30,9 +30,9 @@ public class P2PImageServiceImpl implements P2PImageService {
     public Map<String, Object> platFormStatus(String platName) {
         PlatDataDO pn = p2PImageDao.getPlatData(platName);
         Map<String, Object> result = new HashMap<>();
-        result.put("评分",pn.getPlat_score());
-        result.put("平台名称",pn.getPlat_name());
-        result.put("营业状态",pn.getPlat_status());
+        result.put("score",pn.getPlat_score()); // 评分
+        result.put("platname",pn.getPlat_name()); // 平台名称
+        result.put("status",pn.getPlat_status()); // 营业状态
         return result;
     }
 
@@ -55,24 +55,27 @@ public class P2PImageServiceImpl implements P2PImageService {
     }
 
     @Override
-    public Map<String, Object> baseInfo(String companyName, String platName) {
-        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName);
-        Map<String, Object> map = new HashMap<>();
-        for (BaseDataDO.Results result : baseDataDO.getResults()) {
-            map.put("法人代表", result.getJbxx().getFrname());
-            map.put("注册资本", result.getJbxx().getRegcap());
-            map.put("注册地址", result.getJbxx().getAddress());
-            map.put("开业日期", result.getJbxx().getEsdate());
-            map.put("核准日期", result.getJbxx().getApproval_date());
-            map.put("登记机关", result.getJbxx().getRegorg());
-        }
-        ZuZhiJiGoudmDO zuZhiJiGoudmDO = p2PImageDao.baseInfoZuZhiJiGou(companyName);
-        for (ZuZhiJiGoudmDO.Result result : zuZhiJiGoudmDO.getResults()) {
-            map.put("组织机构代码", result.getJgdm());
-        }
+    public Map<String, Object> baseInfo(String platName) {
         Map<String, Object> data = p2PImageDao.baseInfoWangDaiApi(platName);
-        map.put("平台名称", data.get("平台名称"));
-        map.put("公司名称", data.get("公司名称"));
+        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(String.valueOf(data.get("公司名称")));
+        ZuZhiJiGoudmDO zuZhiJiGoudmDO = p2PImageDao.baseInfoZuZhiJiGou(String.valueOf(data.get("公司名称")));
+
+        Map<String, Object> map = new HashMap<>();
+        // TODO 接口可能有问题
+        for (BaseDataDO.Results result : baseDataDO.getResults()) {
+            map.put("legalPeople", result.getJbxx().getFrname());
+            map.put("capital", result.getJbxx().getRegcap());
+            map.put("address", result.getJbxx().getAddress());
+            map.put("openedTime", result.getJbxx().getEsdate());
+            map.put("verifiedTime", result.getJbxx().getApproval_date());
+            map.put("registerOffice", result.getJbxx().getRegorg());
+        }
+        for (ZuZhiJiGoudmDO.Result result : zuZhiJiGoudmDO.getResults()) {
+            map.put("companyCode", result.getJgdm());
+        }
+        map.put("platName", data.get("平台名称"));
+        map.put("companyName", data.get("公司名称"));
+
         return map;
     }
 
