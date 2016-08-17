@@ -55,9 +55,13 @@ public class P2PImageServiceImpl implements P2PImageService {
     }
 
     @Override
-    public Map<String, Object> baseInfo(String companyName, String platName) {
-        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName);
+    public Map<String, Object> baseInfo(String platName) {
+        Map<String, Object> data = p2PImageDao.baseInfoWangDaiApi(platName);
+        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(String.valueOf(data.get("公司名称")));
+        ZuZhiJiGoudmDO zuZhiJiGoudmDO = p2PImageDao.baseInfoZuZhiJiGou(String.valueOf(data.get("公司名称")));
+
         Map<String, Object> map = new HashMap<>();
+        // TODO 接口可能有问题
         for (BaseDataDO.Results result : baseDataDO.getResults()) {
             map.put("法人代表", result.getJbxx().getFrname());
             map.put("注册资本", result.getJbxx().getRegcap());
@@ -66,13 +70,12 @@ public class P2PImageServiceImpl implements P2PImageService {
             map.put("核准日期", result.getJbxx().getApproval_date());
             map.put("登记机关", result.getJbxx().getRegorg());
         }
-        ZuZhiJiGoudmDO zuZhiJiGoudmDO = p2PImageDao.baseInfoZuZhiJiGou(companyName);
         for (ZuZhiJiGoudmDO.Result result : zuZhiJiGoudmDO.getResults()) {
             map.put("组织机构代码", result.getJgdm());
         }
-        Map<String, Object> data = p2PImageDao.baseInfoWangDaiApi(platName);
         map.put("平台名称", data.get("平台名称"));
         map.put("公司名称", data.get("公司名称"));
+
         return map;
     }
 

@@ -21,7 +21,7 @@
 
     <select id="getSpectrumAnalysis" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>, company.registered_capital, company.registered_capital_type
+        <include refid="Base_Column_List"/>
         from company_analysis_result, company
         where analysis_result = #{type,jdbcType=INTEGER} AND company.company_id = company_analysis_result.company_id
     </select>
