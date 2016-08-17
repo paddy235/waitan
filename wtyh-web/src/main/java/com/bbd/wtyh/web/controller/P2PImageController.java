@@ -91,8 +91,8 @@ public class P2PImageController {
      */
     @RequestMapping("/hasOrNotCompany")
     @ResponseBody
-    public ResponseBean hasOrNotCompany(@RequestParam(required = true) String plat_name) {
-        SearchCompanyDO content = p2PImageService.hasOrNotCompany(plat_name);
+    public ResponseBean hasOrNotCompany(@RequestParam(required = true) String platName) {
+        SearchCompanyDO content = p2PImageService.hasOrNotCompany(platName);
         if (StringUtils.isNotNullOrEmpty(content.getCompany_name())) {
             return ResponseBean.errorResponse(content);
         } else {
@@ -132,8 +132,8 @@ public class P2PImageController {
      */
     @RequestMapping("/coreDataDealTrend")
     @ResponseBody
-    public ResponseBean coreDataDealTrend(@RequestParam(required = true) String plat_name) {
-        List<List<String>> data = p2PImageService.coreDataDealTrend(plat_name);
+    public ResponseBean coreDataDealTrend(@RequestParam(required = true) String platName) {
+        List<List<String>> data = p2PImageService.coreDataDealTrend(platName);
         HistogramBean<String, String> content = new HistogramBean();
         if (data.size() != 0) {
             content.setxAxis(data.get(0));
@@ -149,8 +149,8 @@ public class P2PImageController {
      */
     @RequestMapping("/coreDataInterestRateTrend")
     @ResponseBody
-    public ResponseBean coreDataInterestRateTrend(@RequestParam(required = true) String plat_name) {
-        List<List<String>> data = p2PImageService.coreDataInterestRateTrend(plat_name);
+    public ResponseBean coreDataInterestRateTrend(@RequestParam(required = true) String platName) {
+        List<List<String>> data = p2PImageService.coreDataInterestRateTrend(platName);
         HistogramBean<String, String> content = new HistogramBean();
         if (data.size() != 0) {
             content.setxAxis(data.get(0));
@@ -166,8 +166,8 @@ public class P2PImageController {
      */
     @RequestMapping("/coreDataLoadOverage")
     @ResponseBody
-    public ResponseBean coreDataLoadOverage(@RequestParam(required = true) String plat_name) {
-        List<List<String>> data = p2PImageService.coreDataLoadOverage(plat_name);
+    public ResponseBean coreDataLoadOverage(@RequestParam(required = true) String platName) {
+        List<List<String>> data = p2PImageService.coreDataLoadOverage(platName);
         HistogramBean<String, String> content = new HistogramBean();
         if (data.size() != 0) {
             content.setxAxis(data.get(0));
