@@ -12,4 +12,6 @@ public interface CompanyNewsMapper {
     List<CompanyNewsDO> queryParkNews(@Param(value="areaId") Integer areaId,
 							    		@Param(value="start") Integer start,
 							    		@Param(value="pageSize") Integer pageSize);
+    
+    
 }

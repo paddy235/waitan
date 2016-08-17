@@ -170,4 +170,20 @@
         where name=#{companyName} limit 0,1
     </select>
 
+
+
+	<select id="queryCompanyNames" resultType="string">
+        select Group_concat(c.`name`) 
+        from company c , company_building cb , building b ,park p
+        where c.company_id=cb.company_id 
+              and b.building_id=cb.building_id 
+              and p.park_id=b.park_id 
+              <if test="areaId!=null">
+              	and p.area_id=#{areaId}
+              </if>
+              <if test="buildingId!=null">
+              	and b.building_id=#{buildingId}
+              </if>
+    </select>
+
 </mapper>
