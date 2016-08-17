@@ -1,10 +1,8 @@
 package com.bbd.wtyh.service.impl;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.http.NameValuePair;
@@ -12,18 +10,15 @@ import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import com.bbd.wtyh.domain.BuildingDO;
 import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
 import com.bbd.wtyh.domain.CompanyBackgroundDO;
 import com.bbd.wtyh.domain.CompanyDO;
-import com.bbd.wtyh.domain.CompanyNewsDO;
 import com.bbd.wtyh.domain.CompanyTypeCountDO;
 import com.bbd.wtyh.domain.InBusinessDO;
 import com.bbd.wtyh.mapper.BuildingMapper;
 import com.bbd.wtyh.mapper.CompanyAnalysisResultMapper;
 import com.bbd.wtyh.mapper.CompanyMapper;
-import com.bbd.wtyh.mapper.CompanyNewsMapper;
 import com.bbd.wtyh.mapper.ParkMapper;
 import com.bbd.wtyh.service.ParkService;
 import com.bbd.wtyh.util.relation.HttpClientUtils;
