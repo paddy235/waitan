@@ -63,18 +63,18 @@ public class P2PImageServiceImpl implements P2PImageService {
         Map<String, Object> map = new HashMap<>();
         // TODO 接口可能有问题
         for (BaseDataDO.Results result : baseDataDO.getResults()) {
-            map.put("法人代表", result.getJbxx().getFrname());
-            map.put("注册资本", result.getJbxx().getRegcap());
-            map.put("注册地址", result.getJbxx().getAddress());
-            map.put("开业日期", result.getJbxx().getEsdate());
-            map.put("核准日期", result.getJbxx().getApproval_date());
-            map.put("登记机关", result.getJbxx().getRegorg());
+            map.put("legalPeople", result.getJbxx().getFrname());
+            map.put("capital", result.getJbxx().getRegcap());
+            map.put("address", result.getJbxx().getAddress());
+            map.put("openedTime", result.getJbxx().getEsdate());
+            map.put("verifiedTime", result.getJbxx().getApproval_date());
+            map.put("registerOffice", result.getJbxx().getRegorg());
         }
         for (ZuZhiJiGoudmDO.Result result : zuZhiJiGoudmDO.getResults()) {
-            map.put("组织机构代码", result.getJgdm());
+            map.put("companyCode", result.getJgdm());
         }
-        map.put("平台名称", data.get("平台名称"));
-        map.put("公司名称", data.get("公司名称"));
+        map.put("platName", data.get("平台名称"));
+        map.put("companyName", data.get("公司名称"));
 
         return map;
     }
