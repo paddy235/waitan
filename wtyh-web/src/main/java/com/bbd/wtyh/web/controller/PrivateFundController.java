@@ -141,18 +141,13 @@ public class PrivateFundController {
     @RequestMapping("capitalAmount.do")
     public ResponseBean capitalAmount() {
         List<CapitalAmountDO> capitalAmountList = privateFundService.capitalAmount();
-        List<PrivateFundStatisticDO> statisticList = privateFundService.typeStatisticList();
         List<Map<String, Object>> result = Lists.newArrayList();
 
         for (CapitalAmountDO capitalAmountDO : capitalAmountList) {
             Map<String, Object> map = Maps.newHashMap();
             map.put("typeName", privateFundService.getTypeById(capitalAmountDO.getTypeId()).getTypeName());
-            map.put("managedCapitalAmount", capitalAmountDO.getManageCapitalAmount());
-            for (PrivateFundStatisticDO statisticDO : statisticList) {
-                if (statisticDO.getTypeId().intValue() == capitalAmountDO.getTypeId().intValue()) {
-                    map.put("companyNumber", statisticDO.getAmount());
-                }
-            }
+            map.put("managedCapitalAmount", capitalAmountDO.getManagedCapitalAmount());
+            map.put("publishCompanyNumber", capitalAmountDO.getPublishCompanyNumber());
             result.add(map);
         }
 
