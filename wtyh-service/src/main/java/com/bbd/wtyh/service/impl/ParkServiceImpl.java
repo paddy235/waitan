@@ -1,17 +1,21 @@
 package com.bbd.wtyh.service.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.bbd.wtyh.domain.BuildingDO;
 import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
 import com.bbd.wtyh.domain.CompanyBackgroundDO;
-import com.bbd.wtyh.domain.CompanyBuildingDO;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.CompanyNewsDO;
 import com.bbd.wtyh.domain.CompanyTypeCountDO;
@@ -22,6 +26,7 @@ import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.mapper.CompanyNewsMapper;
 import com.bbd.wtyh.mapper.ParkMapper;
 import com.bbd.wtyh.service.ParkService;
+import com.bbd.wtyh.util.relation.HttpClientUtils;
 
 /**
 * 
@@ -32,14 +37,20 @@ import com.bbd.wtyh.service.ParkService;
 public class ParkServiceImpl implements ParkService {
 
 	
+	
+	@Value("${api.baidu.batch.news.url}")
+	private String batchNewsUrl;
+	
+	private int ktype=0;
+	private String start="2013-12-10";
+	private String ak="d4a767064ead4130418d3a4ab962b958";
+	
 	@Autowired
 	private BuildingMapper buildingMapper;
 	
 	@Autowired
 	private CompanyMapper companyMapper;
 	
-	@Autowired
-	private CompanyNewsMapper newsMapper;
 	
 	@Autowired
 	private ParkMapper parkMapper;
@@ -100,17 +111,52 @@ public class ParkServiceImpl implements ParkService {
 	
 
 	@Override
-	public List<CompanyNewsDO> queryParkNews(Integer areaId,Integer pageSize,Integer pageNum){
+	public String queryParkNews(Integer areaId,Integer pageSize,Integer pageNum){
 		
-		pageSize = (pageSize==null?10:pageSize);  
+		String names = companyMapper.queryCompanyNames(areaId,null);
+		if(StringUtils.isEmpty(names)){
+			return null;
+		}
+		List<NameValuePair> list = new ArrayList<>();
+		list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1)+",贵阳市城市建设投资有限责任公司,贵州詹阳动力重工有限公司"  ));
+		list.add(new BasicNameValuePair("ktype", ""+ktype));
+		list.add(new BasicNameValuePair("start", start));
+		list.add(new BasicNameValuePair("ak",ak));
+		try {
+			return HttpClientUtils.httpPost(batchNewsUrl, list );
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-		pageNum = (pageNum==null?1:pageNum);  
-		
-		return newsMapper.queryParkNews(areaId,pageNum*pageSize-pageSize,pageSize);
+		return null;
 		
 	}
 
 
+
+	@Override
+	public String buildingNews(Integer buildingId) {
+		
+		String names = companyMapper.queryCompanyNames(null,buildingId);
+		if(StringUtils.isEmpty(names)){
+			return null;
+		}
+		List<NameValuePair> list = new ArrayList<>();
+		list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1)+",贵阳市城市建设投资有限责任公司,贵州詹阳动力重工有限公司"  ));
+		list.add(new BasicNameValuePair("ktype", ""+ktype));
+		list.add(new BasicNameValuePair("start", start));
+		list.add(new BasicNameValuePair("ak",ak));
+		try {
+			return HttpClientUtils.httpPost(batchNewsUrl, list );
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+		
+	}
+	
+	
 	
 
 	@Override
@@ -239,10 +285,6 @@ public class ParkServiceImpl implements ParkService {
 
 
 
-	@Override
-	public List<CompanyNewsDO> buildingNews(Integer buildingId) {
-		return buildingMapper.buildingNews(buildingId);
-	}
 
 
 
