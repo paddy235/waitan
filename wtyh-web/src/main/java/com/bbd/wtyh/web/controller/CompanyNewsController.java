@@ -1,16 +1,11 @@
 package com.bbd.wtyh.web.controller;
 
-import com.bbd.wtyh.domain.CommercialFactoringStatisticDO;
-import com.bbd.wtyh.domain.CompanyAndRiskDO;
 import com.bbd.wtyh.service.CompanyNewsService;
-import com.bbd.wtyh.service.FactoringService;
 import com.bbd.wtyh.web.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**

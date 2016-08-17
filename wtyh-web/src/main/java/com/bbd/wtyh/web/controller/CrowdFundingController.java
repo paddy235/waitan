@@ -1,9 +1,7 @@
 package com.bbd.wtyh.web.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.bbd.wtyh.domain.CrowdFundingCompanyDO;
 import com.bbd.wtyh.domain.CrowdFundingStatisticsDO;
 import com.bbd.wtyh.domain.NvDO;
