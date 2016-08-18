@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "21e7c28bd3e60287d8bf"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "a5678b845b59c53f1f43"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -49034,7 +49034,7 @@
 	    this.getMenuParkSelectList();
 	  },
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    var isEqual = Immutable.is(nextProps.menuParkSelectListRequest, this.props.menuParkSelectListResult); //判断数据是否变化
+	    var isEqual = Immutable.is(nextProps.menuParkSelectListResult, this.props.menuParkSelectListResult); //判断数据是否变化
 	    if (!isEqual) {
 	      var menuParkSelectListRequest = nextProps.menuParkSelectListRequest;
 	      var menuParkSelectListResult = nextProps.menuParkSelectListResult;
@@ -53058,7 +53058,7 @@
 	    "徐汇区": [121.442885, 31.194911],
 	    "长宁区": [121.430868, 31.426536],
 	    "静安区": [121.453978, 31.234087],
-	    "普陀区": [121.703529, 31.455102],
+	    "普陀区": [121.403, 31.2551],
 	    "虹口区": [121.511735, 31.270146],
 	    "杨浦区": [121.532291, 31.465779],
 	    "闵行区": [121.388372, 31.118512],
@@ -54828,9 +54828,7 @@
 	                    color: "#fff",
 	                    fontFamily: "microsoft yahei",
 	                    fontWeight: "normal"
-
-	                },
-	                top: "8%"
+	                }
 	            },
 	            legend: {
 	                data: [],
@@ -54851,7 +54849,7 @@
 	                }
 	            },
 	            grid: {
-	                top: param.gridTop || '15%',
+	                top: param.gridTop || '10%',
 	                left: '5%',
 	                bottom: '5%',
 	                right: '5%',
@@ -54888,8 +54886,9 @@
 	                }
 	            },
 	            yAxis: {
-	                type: 'category',
+	                type: param.yType || 'category',
 	                name: param.yAxisName == undefined ? "" : param.yAxisName,
+	                boundaryGap: ["10%", "10%"],
 	                nameTextStyle: {
 	                    color: "#7f868e"
 	                },
@@ -76231,7 +76230,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 
 	__webpack_require__(846);
@@ -76280,62 +76279,138 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	//众筹监测
 	//典当总收入
 
 	//注册资本总额
-	var PawnMonitoring = _react2.default.createClass({
-	  displayName: 'PawnMonitoring',
-
-	  mixins: [_setHeight2.default],
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'pawnMonitoring-index', style: this.state.style },
-	      _react2.default.createElement(_IndustrySearch2.default, { label: '典当行业监测', placeHolder: '请输入平台全称' }),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'content clearfix' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'pawnM-top clearfix' },
-	          _react2.default.createElement(_CompanyNum2.default, null),
-	          _react2.default.createElement(_CapitalAmount2.default, null)
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'pawnM-Middle clearfix' },
-	          _react2.default.createElement(_BusinessNum2.default, null),
-	          _react2.default.createElement(_Income2.default, null)
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'pawnM-bottom' },
-	          _react2.default.createElement(_CompanyDirectory2.default, null)
-	        )
-	      )
-	    );
-	  }
-	});
-	// module.exports = PawnMonitoring;
-	//将 request  result 绑定到props的request result 
+	var Immutable = __webpack_require__(766);
+	//众筹监测
 	//上海市企业典当目录
 	//业务笔数
 	//典当法人企业数
+	var PawnMonitoring = _react2.default.createClass({
+	    displayName: 'PawnMonitoring',
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            listData: []
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        var getChartAllRequest = this.props.getChartAllRequest;
+
+	        var jsonData = {};
+	        getChartAllRequest(jsonData);
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var isEqual = Immutable.is(nextProps.chartAllRequest, this.props.chartAllResult);
+	        if (!isEqual) {
+	            var chartAllRequest = nextProps.chartAllRequest;
+	            var chartAllResult = nextProps.chartAllResult;
+
+	            if (chartAllRequest == true) {
+	                if (chartAllResult.success) {
+	                    chartAllResult.content = [{
+	                        "year": 2010,
+	                        "companyNumber": 168,
+	                        "balance": 380332,
+	                        "registerCapital": 317887,
+	                        "totalIncome": 84011,
+	                        "totalAmout": 3415907,
+	                        "number": 392403
+	                    }, {
+	                        "year": 2011,
+	                        "companyNumber": 201,
+	                        "balance": 582566,
+	                        "registerCapital": 407177,
+	                        "totalIncome": 119299,
+	                        "totalAmout": 4824630,
+	                        "number": 419406
+	                    }, {
+	                        "year": 2012,
+	                        "companyNumber": 229,
+	                        "balance": 612405,
+	                        "registerCapital": 484026,
+	                        "totalIncome": 131086,
+	                        "totalAmout": 5445362,
+	                        "number": 430209
+	                    }, {
+	                        "year": 2013,
+	                        "companyNumber": 251,
+	                        "balance": 631418,
+	                        "registerCapital": 568606,
+	                        "totalIncome": 111398,
+	                        "totalAmout": 4885683,
+	                        "number": 393148
+	                    }, {
+	                        "year": 2014,
+	                        "companyNumber": 259,
+	                        "balance": 632408,
+	                        "registerCapital": 619326,
+	                        "totalIncome": 98922,
+	                        "totalAmout": 4493427,
+	                        "number": 375364
+	                    }, {
+	                        "year": 2015,
+	                        "companyNumber": 256,
+	                        "balance": 645711,
+	                        "registerCapital": 637096,
+	                        "totalIncome": 103078,
+	                        "totalAmout": 4664405,
+	                        "number": 351148
+	                    }];
+	                    this.setState({ listData: indexChartResult.content });
+	                } else {
+	                    //错误后提示
+	                }
+	            }
+	        }
+	    },
+	    mixins: [_setHeight2.default],
+	    render: function render() {
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'pawnMonitoring-index', style: this.state.style },
+	            _react2.default.createElement(_IndustrySearch2.default, { label: '典当行业监测', placeHolder: '请输入平台全称' }),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'content clearfix' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'pawnM-top clearfix' },
+	                    _react2.default.createElement(_CompanyNum2.default, null),
+	                    _react2.default.createElement(_CapitalAmount2.default, null)
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'pawnM-Middle clearfix' },
+	                    _react2.default.createElement(_BusinessNum2.default, null),
+	                    _react2.default.createElement(_Income2.default, null)
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'pawnM-bottom' },
+	                    _react2.default.createElement(_CompanyDirectory2.default, null)
+	                )
+	            )
+	        );
+	    }
+	});
+	// module.exports = PawnMonitoring;
+	//将 request  result 绑定到props的request result 
 	function mapStateToProps(state) {
-	  return {
-	    chartAllRequest: state.ChartAll.request,
-	    chartAllResult: state.ChartAll.result,
+	    return {
+	        chartAllRequest: state.PawnMChartAll.request,
+	        chartAllResult: state.PawnMChartAll.result,
 
-	    CompanyDirRequest: state.CompanyDirectory.request,
-	    CompanyDirResult: state.CompanyDirectory.result
+	        companyDirRequest: state.CompanyDirectory.request,
+	        companyDirResult: state.CompanyDirectory.result
 
-	  };
+	    };
 	}
 
 	//将action的所有方法绑定到props上
 	function mapDispatchToProps(dispatch) {
-	  return (0, _redux.bindActionCreators)(PawnMonitoringActionCreaters, dispatch);
+	    return (0, _redux.bindActionCreators)(PawnMonitoringActionCreaters, dispatch);
 	}
 
 	//通过react-redux提供的connect方法将我们需要的state中的数据和actions中的方法绑定到props上
@@ -79938,7 +80013,7 @@
 	  mixins: [_setHeight2.default],
 	  getInitialState: function getInitialState() {
 	    return {
-	      CompanyNumData: []
+	      CompanyNumData: null
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
@@ -79985,7 +80060,7 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'pawnM-bottom' },
-	          _react2.default.createElement(_CompanyDirectory2.default, null)
+	          _react2.default.createElement(_CompanyDirectory2.default, this.props)
 	        )
 	      )
 	    );
@@ -80004,7 +80079,10 @@
 	    BusinessNumChartResult: state.businessnumChart.result,
 	    //商业保理地域分布
 	    balanceRequest: state.balanceChart.request,
-	    balanceResult: state.balanceChart.result
+	    balanceResult: state.balanceChart.result,
+	    //商业保理企业名单
+	    CompanyDirectoryRequest: state.CompanyDirectoryChart.request,
+	    CompanyDirectoryResult: state.CompanyDirectoryChart.result
 	  };
 	}
 
@@ -80562,8 +80640,66 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var Immutable = __webpack_require__(766);
+	var innerdata = [];
+	var outerdata = [];
 	var CompanyDirectory = _react2.default.createClass({
 	    displayName: 'CompanyDirectory',
+	    getInitialState: function getInitialState() {
+	        return {
+	            CompanyDirectoryData: [],
+	            selected: 1,
+	            selectedData: []
+	        };
+	    },
+
+	    componentDidMount: function componentDidMount() {
+	        var getCompanyDirectoryRequest = this.props.getCompanyDirectoryRequest;
+
+	        var jsonData = {};
+	        getCompanyDirectoryRequest(jsonData);
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var isEqual = Immutable.is(nextProps.CompanyDirectoryRequest, this.props.CompanyDirectoryResult);
+	        if (!isEqual) {
+	            var CompanyDirectoryRequest = nextProps.CompanyDirectoryRequest;
+	            var CompanyDirectoryResult = nextProps.CompanyDirectoryResult;
+
+	            if (CompanyDirectoryRequest == true) {
+	                if (CompanyDirectoryResult.success) {
+	                    for (var i = 0; i < CompanyDirectoryResult.content.length; i++) {
+	                        if (CompanyDirectoryResult.content[i].isForeign == "内资") innerdata.push(CompanyDirectoryResult.content[i]);else outerdata.push(CompanyDirectoryResult.content[i]);
+	                    }
+	                    this.setState({
+	                        CompanyDirectoryData: CompanyDirectoryResult.content,
+	                        selectedData: CompanyDirectoryResult.content
+	                    });
+	                } else {
+	                    //错误后提示
+	                }
+	            }
+	        }
+	    },
+	    quarterChoice: function quarterChoice(value) {
+	        var CompanyDirectoryDatas = this.state.CompanyDirectoryData;
+	        switch (value) {
+	            case 2:
+	                this.setState({
+	                    selectedData: innerdata
+	                });
+	                break;
+	            case 3:
+	                this.setState({
+	                    selectedData: outerdata
+	                });
+	                break;
+	            default:
+	                this.setState({
+	                    selectedData: CompanyDirectoryDatas
+	                });
+	                break;
+	        }
+	    },
 	    render: function render() {
 	        var selectQuarter = {
 	            width: '75px',
@@ -80573,8 +80709,7 @@
 	            id: 'selectType',
 	            data: [{ value: '1', label: '全部' }, { value: '2', label: '内资' }, { value: '3', label: '外资' }],
 	            onChange: function (value, label) {
-	                console.info(value, label);
-	                // this.quarterChoice(label);
+	                this.quarterChoice(value);
 	            }.bind(this)
 	        };
 	        return _react2.default.createElement(
@@ -80595,7 +80730,9 @@
 	                    _react2.default.createElement(
 	                        'em',
 	                        { className: 'orange' },
-	                        ' 250 '
+	                        ' ',
+	                        this.state.selectedData.length,
+	                        ' '
 	                    ),
 	                    '家企业'
 	                )
@@ -80655,416 +80792,93 @@
 	                        _react2.default.createElement(
 	                            'tbody',
 	                            null,
-	                            _react2.default.createElement(
-	                                'tr',
-	                                { className: 'odd' },
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '10%', className: 'talign-center' },
-	                                    '1'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '25%' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'word-limit-5', title: '' },
-	                                        '创富融资租赁(上海)有限公司'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '20%' },
-	                                    '内资'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '30%' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'word-limit-5', title: '' },
-	                                        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '15%' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'word-limit-5', title: '' },
-	                                        '1000万元'
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                { className: 'even' },
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '10%', className: 'talign-center' },
-	                                    '2'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '25%' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'word-limit-5', title: '' },
-	                                        '创富融资租赁(上海)有限公司'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '20%' },
-	                                    '内资'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '30%' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'word-limit-5', title: '' },
-	                                        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '15%' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'word-limit-5', title: '' },
-	                                        '1000万元'
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                { className: 'odd' },
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '10%', className: 'talign-center' },
-	                                    '3'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '25%' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'word-limit-5', title: '' },
-	                                        '创富融资租赁(上海)有限公司'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '20%' },
-	                                    '内资'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '30%' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'word-limit-5', title: '' },
-	                                        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '15%' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'word-limit-5', title: '' },
-	                                        '1000万元'
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                { className: 'even' },
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '10%', className: 'talign-center' },
-	                                    '4'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '25%' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'word-limit-5', title: '' },
-	                                        '创富融资租赁(上海)有限公司'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '20%' },
-	                                    '内资'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '30%' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'word-limit-5', title: '' },
-	                                        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '15%' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'word-limit-5', title: '' },
-	                                        '1000万元'
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                { className: 'odd' },
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '10%', className: 'talign-center' },
-	                                    '5'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '25%' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'word-limit-5', title: '' },
-	                                        '创富融资租赁(上海)有限公司'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '20%' },
-	                                    '内资'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '30%' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'word-limit-5', title: '' },
-	                                        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '15%' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'word-limit-5', title: '' },
-	                                        '1000万元'
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                { className: 'even' },
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '10%', className: 'talign-center' },
-	                                    '6'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '25%' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'word-limit-5', title: '' },
-	                                        '创富融资租赁(上海)有限公司'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '20%' },
-	                                    '内资'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '30%' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'word-limit-5', title: '' },
-	                                        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '15%' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'word-limit-5', title: '' },
-	                                        '1000万元'
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                { className: 'odd' },
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '10%', className: 'talign-center' },
-	                                    '7'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '25%' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'word-limit-5', title: '' },
-	                                        '创富融资租赁(上海)有限公司'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '20%' },
-	                                    '内资'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '30%' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'word-limit-5', title: '' },
-	                                        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '15%' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'word-limit-5', title: '' },
-	                                        '1000万元'
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                { className: 'even' },
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '10%', className: 'talign-center' },
-	                                    '8'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '25%' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'word-limit-5', title: '' },
-	                                        '创富融资租赁(上海)有限公司'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '20%' },
-	                                    '内资'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '30%' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'word-limit-5', title: '' },
-	                                        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '15%' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'word-limit-5', title: '' },
-	                                        '1000万元'
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                { className: 'odd' },
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '10%', className: 'talign-center' },
-	                                    '9'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '25%' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'word-limit-5', title: '' },
-	                                        '创富融资租赁(上海)有限公司'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '20%' },
-	                                    '内资'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '30%' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'word-limit-5', title: '' },
-	                                        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '15%' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'word-limit-5', title: '' },
-	                                        '1000万元'
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                { className: 'even' },
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '10%', className: 'talign-center' },
-	                                    '10'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '25%' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'word-limit-5', title: '' },
-	                                        '创富融资租赁(上海)有限公司'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '20%' },
-	                                    '内资'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '30%' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'word-limit-5', title: '' },
-	                                        'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    { width: '15%' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'word-limit-5', title: '' },
-	                                        '1000万元'
-	                                    )
-	                                )
-	                            )
+	                            this.state.selectedData.map(function (item, index) {
+	                                if (index % 2) {
+	                                    return _react2.default.createElement(
+	                                        'tr',
+	                                        { key: index, className: 'even' },
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '10%', className: 'talign-center' },
+	                                            index + 1
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '25%' },
+	                                            _react2.default.createElement(
+	                                                'span',
+	                                                { className: 'word-limit-5', title: '' },
+	                                                item.companyName
+	                                            )
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '20%' },
+	                                            item.isForeign
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '30%' },
+	                                            _react2.default.createElement(
+	                                                'span',
+	                                                { className: 'word-limit-5', title: '' },
+	                                                item.address
+	                                            )
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '15%' },
+	                                            _react2.default.createElement(
+	                                                'span',
+	                                                { className: 'word-limit-5', title: '' },
+	                                                item.recordNumber
+	                                            )
+	                                        )
+	                                    );
+	                                } else {
+	                                    return _react2.default.createElement(
+	                                        'tr',
+	                                        { key: index, className: 'odd' },
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '10%', className: 'talign-center' },
+	                                            index + 1
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '25%' },
+	                                            _react2.default.createElement(
+	                                                'span',
+	                                                { className: 'word-limit-5', title: '' },
+	                                                item.companyName
+	                                            )
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '20%' },
+	                                            item.isForeign
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '30%' },
+	                                            _react2.default.createElement(
+	                                                'span',
+	                                                { className: 'word-limit-5', title: '' },
+	                                                item.address
+	                                            )
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '15%' },
+	                                            _react2.default.createElement(
+	                                                'span',
+	                                                { className: 'word-limit-5', title: '' },
+	                                                item.recordNumber
+	                                            )
+	                                        )
+	                                    );
+	                                }
+	                            })
 	                        )
 	                    )
 	                )
@@ -82109,7 +81923,7 @@
 
 
 	// module
-	exports.push([module.id, "/*@parkMonitor jifei  图片\r\n---------------------------------------------------------*/\r\n.Imgs{\r\n\twidth: 100%;\r\n\theight: 770px;\r\n    background: url(\"/images/Bg.png\") no-repeat;\r\n    background-size: 100% 770px;\r\n}\r\n/*@parkMonitor 舆情\r\n---------------------------------------------------------*/\r\n.Consensu{\r\n\twidth: 100%;\r\n\theight: 320px;\r\n\tmargin-top: 10px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n.Consensu h3{\r\n\tpadding: 15px 20px;\r\n\tcolor: #ddd;\r\n}\r\n.Consensu .box{\r\n\twidth: 99%;\r\n    height: 240px;\r\n    //overflow: auto;\r\n    padding: 0px 0 0 10px;\r\n    margin-top: 15px;\r\n}\r\n.Consensu .box .list{\r\n\twidth: 98%;\r\n\theight: 115px;\r\n\tborder-bottom: 1px solid #484f59;\t\r\n\tbackground: #1b1f28;\r\n}\r\n.Consensu .box .list:nth-child(even){\r\n\tmargin-top: 10px;\r\n\tmargin-bottom: 10px;\r\n}\r\n.Consensu .box .list ul{\r\n\twidth: 100%;\r\n\theight: 105px;\r\n}\r\n.Consensu .box .list li{\r\n    height: 33px;\r\n    line-height: 50px;\r\n    text-indent: 30px;\r\n    font-size: 14px;\r\n}\r\n.Consensu .box .list li:nth-child(1){\r\n\tfont-size: 14px;\r\n\tcolor: #e34f4b;\r\n\tcursor: pointer;\r\n}\r\n.Consensu .box .list li:nth-child(1) .liLeft{\r\n\tmargin-left: 20px;\r\n}\r\n.Consensu .box .list li:nth-child(2){\r\n\tfont-size: 14px;\r\n    cursor: pointer;\r\n    width: 89%;\r\n    overflow: hidden;\r\n    white-space: nowrap;\r\n    text-overflow: ellipsis;\r\n}\r\n.Consensu .box .list li:nth-child(1) a{\r\n\tcolor: #e34f4b;\r\n}\r\n.Consensu .box .list li:nth-child(3) .liRight{\r\n\tfloat: right;\r\n\tpadding-right: 20px;\r\n\tfont-size: 14px;\r\n\tcolor: #8b8f98;\r\n}\r\n.Consensu .box .list li:nth-child(3) .spanLeft{\r\n\tmargin-right: 20px;\r\n}\r\n/*@parkMonitor 类金融企业集中度\r\n---------------------------------------------------------*/\r\n.Finance{\r\n\twidth: 100%;\r\n\theight: 380px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n.Finance h3{\r\n\tpadding: 15px 20px;\r\n\tcolor: #ddd;\r\n}\r\n.Finance .box{\r\n\twidth: 95%;\r\n    height: 255px;\r\n    //border: 1px solid red;\r\n    margin: 40px auto;\r\n}\r\n.Finance .box .item{\r\n\twidth: 95%;\r\n    height: 254px;\r\n    margin: 0 auto;\r\n    overflow: auto; \r\n}\r\n.Finance .box .item ul li{\r\n\twidth: 30%;\r\n    height: 255px;\r\n    //border: 1px solid red;\r\n    display: inline-block;\r\n    text-align: center;\r\n    vertical-align: middle;\r\n    line-height: 77px;\r\n    margin-left: 10px;\r\n}\r\n.Finance .box .item ul li img{\r\n\tcursor: pointer;\r\n}\r\n.Finance .box .item ul li .color{\r\n\tcolor: #9198a2;\r\n}\r\n.Finance .box .item ul li .digit{\r\n\tfont-size: 20px;\r\n\tpadding-right: 10px;\r\n}\r\n.Finance .box .item ul li .solid{\r\n\twidth: 1px;\r\n\theight: 50px;\r\n\tborder: 1px solid #4a515b;\r\n\tvertical-align: top;\r\n}\r\n.Finance .box .item ul li .Yellow{\r\n\tcolor: #e44446;\r\n\tfont-size: 20px;\r\n\tpadding-left: 10px;\r\n}\r\n\r\n/*@parkMonitor 园区行业分布\r\n---------------------------------------------------------*/\r\n.Park{\r\n\twidth: 100%;\r\n\theight: 380px;\r\n\tmargin-top: 10px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n/*@parkMonitor 在营时间分布\r\n---------------------------------------------------------*/\r\n.TheCamp{\r\n\twidth: 100%;\r\n\theight: 320px;\r\n\tmargin-top: 10px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n   ", ""]);
+	exports.push([module.id, "/*@parkMonitor jifei  图片\r\n---------------------------------------------------------*/\r\n.Imgs{\r\n\twidth: 100%;\r\n\theight: 770px;\r\n    background: url(\"/images/Bg.png\") no-repeat;\r\n    background-size: 100% 770px;\r\n}\r\n/*@parkMonitor 舆情\r\n---------------------------------------------------------*/\r\n.Consensu{\r\n\twidth: 100%;\r\n\theight: 320px;\r\n\tmargin-top: 10px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n.Consensu h3{\r\n\tpadding: 15px 20px;\r\n\tcolor: #ddd;\r\n}\r\n.Consensu .box{\r\n\twidth: 99%;\r\n    height: 240px;\r\n    //overflow: auto;\r\n    padding: 0px 0 0 10px;\r\n    margin-top: 15px;\r\n}\r\n.Consensu .box .list{\r\n\twidth: 98%;\r\n\theight: 115px;\r\n\tborder-bottom: 1px solid #484f59;\t\r\n\tbackground: #1b1f28;\r\n}\r\n.Consensu .box .list:nth-child(even){\r\n\tmargin-top: 10px;\r\n\tmargin-bottom: 10px;\r\n}\r\n.Consensu .box .list ul{\r\n\twidth: 100%;\r\n\theight: 105px;\r\n}\r\n.Consensu .box .list li{\r\n    height: 33px;\r\n    line-height: 50px;\r\n    text-indent: 30px;\r\n    font-size: 14px;\r\n}\r\n.Consensu .box .list li:nth-child(1){\r\n\tfont-size: 14px;\r\n\tcolor: #e34f4b;\r\n\tcursor: pointer;\r\n}\r\n.Consensu .box .list li:nth-child(1) .liLeft{\r\n\tmargin-left: 20px;\r\n}\r\n.Consensu .box .list li:nth-child(2){\r\n\tfont-size: 14px;\r\n    cursor: pointer;\r\n    width: 89%;\r\n    overflow: hidden;\r\n    white-space: nowrap;\r\n    text-overflow: ellipsis;\r\n}\r\n.Consensu .box .list li:nth-child(1) a{\r\n\tcolor: #e34f4b;\r\n}\r\n.Consensu .box .list li:nth-child(3) .liRight{\r\n\tfloat: right;\r\n\tpadding-right: 20px;\r\n\tfont-size: 14px;\r\n\tcolor: #8b8f98;\r\n}\r\n.Consensu .box .list li:nth-child(3) .spanLeft{\r\n\tmargin-right: 20px;\r\n}\r\n/*@parkMonitor 类金融企业集中度\r\n---------------------------------------------------------*/\r\n.Finance{\r\n\twidth: 100%;\r\n\theight: 380px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n.Finance h3{\r\n\tpadding: 15px 20px;\r\n\tcolor: #ddd;\r\n}\r\n.Finance .box{\r\n\twidth: 95%;\r\n    height: 255px;\r\n    //border: 1px solid red;\r\n    margin: 40px auto;\r\n}\r\n.Finance .box .item{\r\n\twidth: 95%;\r\n    height: 254px;\r\n    margin: 0 auto;\r\n    overflow: auto; \r\n}\r\n.Finance .box .item ul li{\r\n\twidth: 30%;\r\n    display: inline-block;\r\n    text-align: center;\r\n    vertical-align: middle;\r\n    margin-left: 10px;\r\n}\r\n.Finance .box .item ul li img{\r\n\tcursor: pointer;\r\n}\r\n.Finance .box .item ul li a span{\r\n\tdisplay: block;\r\n\tcolor: #898f98;\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n}\r\n.Finance .box .item ul li .num-ratio {\r\n\tmargin-top: 10px;\r\n}\r\n.Finance .box .item ul li .num-ratio .num{\r\n\tfont-size: 24px;\r\n\tcolor: #ffffff;\r\n\tdisplay: inline-block;\r\n\tpadding: 0px 10px;\r\n}\r\n.Finance .box .item ul li .num-ratio .ratio{\r\n\tfont-size: 24px;\r\n\tcolor: #e14340;\r\n\tdisplay: inline-block;\r\n\tpadding: 0px 10px;\r\n\tborder-left: solid 1px #48505a;\r\n}\r\n\r\n\r\n\r\n/*@parkMonitor 园区行业分布\r\n---------------------------------------------------------*/\r\n.Park{\r\n\twidth: 100%;\r\n\theight: 380px;\r\n\tmargin-top: 10px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n/*@parkMonitor 在营时间分布\r\n---------------------------------------------------------*/\r\n.TheCamp{\r\n\twidth: 100%;\r\n\theight: 320px;\r\n\tmargin-top: 10px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n   ", ""]);
 
 	// exports
 
@@ -82291,6 +82105,7 @@
 	    },
 	    componentDidMount: function componentDidMount() {},
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+
 	        var isSelectValEqual = Immutable.is(nextProps.menuParkSelectVal, this.props.menuParkSelectVal);
 	        if (!isSelectValEqual) {
 	            var menuParkSelectVal = nextProps.menuParkSelectVal;
@@ -82299,7 +82114,8 @@
 	            this.getParkFinance(jsonData);
 	        }
 
-	        var isEqual = Immutable.is(nextProps.parkFinanceRequest, this.props.parkFinanceResult); //判断数据是否变化
+	        var isEqual = Immutable.is(nextProps.parkFinanceResult, this.props.parkFinanceResult); //判断数据是否变化
+	        console.log(isEqual, 'xuyao isEqual');
 	        if (!isEqual) {
 	            var parkFinanceRequest = nextProps.parkFinanceRequest;
 	            var parkFinanceResult = nextProps.parkFinanceResult;
@@ -82322,28 +82138,6 @@
 
 	        getParkFinance(menuParkSelectVal);
 	    },
-	    // //ajax请求
-	    // ajaxFinance(val){
-	    //     $.ajax({
-	    //         url: 'park/companyConcentration.do',
-	    //         type: 'get',
-	    //         dataType: 'json',
-	    //         data: {areaId: val},
-	    //         success:function(res){
-	    //         console.log(res)
-	    //         this.setState({
-	    //            item:res.content
-	    //         })   
-	    //         }.bind(this)
-	    //     });
-	    // },
-	    // componentDidMount(){
-	    //     this.ajaxFinance();              
-	    // },
-	    // componentWillReceiveProps(nextProps) {
-	    //     this.ajaxFinance();
-	    // },
-
 	    //获取大厦的名称
 	    ImgbtnAdd: function ImgbtnAdd(e) {
 	        var imgId = $(e.target).attr("data-img");
@@ -82361,8 +82155,7 @@
 	                _react2.default.createElement(
 	                    'h3',
 	                    null,
-	                    '类金融企业集中度',
-	                    this.props.val
+	                    '类金融企业集中度'
 	                )
 	            ),
 	            _react2.default.createElement(
@@ -82378,29 +82171,33 @@
 	                            'ul',
 	                            null,
 	                            this.state.item.map(function (elem, index) {
+	                                console.log(elem.name, index, 111111111111111);
 	                                return _react2.default.createElement(
 	                                    'li',
 	                                    { key: index },
 	                                    _react2.default.createElement(
 	                                        _reactRouter.Link,
 	                                        { to: { pathname: HOME_PATH + "/buildDetail" } },
-	                                        _react2.default.createElement('img', { onClick: this.ImgbtnAdd, 'data-img': elem.buildingId, src: "../images/lou" + (index + 1) + ".png" })
+	                                        _react2.default.createElement('img', { onClick: this.ImgbtnAdd, 'data-img': elem.buildingId, src: "../images/lou" + (index + 1) + ".png" }),
+	                                        _react2.default.createElement(
+	                                            'span',
+	                                            { 'data-name': elem.name, className: 'name' },
+	                                            elem.name
+	                                        )
 	                                    ),
 	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { 'data-name': elem.name, className: 'color' },
-	                                        elem.name
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'digit' },
-	                                        elem.finComNum
-	                                    ),
-	                                    _react2.default.createElement('span', { className: 'solid' }),
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'Yellow' },
-	                                        elem.finComRatio
+	                                        'div',
+	                                        { className: 'num-ratio' },
+	                                        _react2.default.createElement(
+	                                            'span',
+	                                            { className: 'num' },
+	                                            elem.finComNum
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'span',
+	                                            { className: 'ratio' },
+	                                            elem.finComRatio
+	                                        )
 	                                    )
 	                                );
 	                            }.bind(this))
@@ -88730,9 +88527,9 @@
 
 	var _bottomRight2 = _interopRequireDefault(_bottomRight);
 
-	var _RealTimeTableAction = __webpack_require__(948);
+	var _RealTimeAction = __webpack_require__(1312);
 
-	var RealTimeTableCreaTers = _interopRequireWildcard(_RealTimeTableAction);
+	var RealTimeCreaTers = _interopRequireWildcard(_RealTimeAction);
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -88760,7 +88557,6 @@
 	    });
 	  },
 	  getRange: function getRange(range) {
-	    alert();
 	    this.setState({
 	      indexRange: range
 	    });
@@ -88775,13 +88571,13 @@
 	        { className: 'realtime-top' },
 	        _react2.default.createElement(_topLeft2.default, _extends({ getRange: this.getRange }, this.props)),
 	        _react2.default.createElement(_topMiddle2.default, _extends({ pushRange: this.state.indexRange }, this.props)),
-	        _react2.default.createElement(_topRight2.default, null)
+	        _react2.default.createElement(_topRight2.default, this.props)
 	      ),
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'realtime-bottom' },
 	        _react2.default.createElement(_bottomLeft2.default, null),
-	        _react2.default.createElement(_bottomRight2.default, null)
+	        _react2.default.createElement(_bottomRight2.default, this.props)
 	      )
 	    );
 	  }
@@ -88791,13 +88587,19 @@
 	function mapStateToProps(state) {
 	  return {
 	    realTimeTableResult: state.RealTimeTable.result,
-	    realTimeTableRequest: state.RealTimeTable.request //RealTimeTable注册在reduce里面的index。拿到处理后的两个返回值。
+	    realTimeTableRequest: state.RealTimeTable.request, //RealTimeTable注册在reduce里面的index。拿到处理后的两个返回值。
+
+	    realTimeNineResult: state.RealTimeNine.result,
+	    realTimeNineRequest: state.RealTimeNine.request, //RealTimeNine注册在reduce里面的index。拿到处理后的两个返回值。
+
+	    realTimeNewsResult: state.RealTimeNews.result,
+	    realTimeNewsRequest: state.RealTimeNews.request //RealTimeNews注册在reduce里面的index。拿到处理后的两个返回值。
 	  };
 	}
 
 	//将action的所有方法绑定到props上
 	function mapDispatchToProps(dispatch) {
-	  return (0, _redux.bindActionCreators)(RealTimeTableCreaTers, dispatch);
+	  return (0, _redux.bindActionCreators)(RealTimeCreaTers, dispatch);
 	}
 
 	//通过react-redux提供的connect方法将我们需要的state中的数据和actions中的方法绑定到props上
@@ -88894,10 +88696,8 @@
 
 	      if (realTimeTableRequest == true) {
 	        if (realTimeTableRequest == true) {
-	          console.log(realTimeTableResult, "云哥返回的数据");
 	          //这里可以开始渲染数据
 	          tableDate = realTimeTableResult; //赋值给全局变量
-	          console.log(tableDate.content[0], "云哥的测试");
 	          _this.setState({
 	            table: _react2.default.createElement(
 	              'div',
@@ -89676,7 +89476,7 @@
 	        };
 	        var range = this.props.pushRange;
 	        //这一块传值的时候，name是后台传的，value这个系数也是后台传过来。ps：也可以直接传递convertData处理过后的数组
-	        if (range != null) {
+	        if (range != null && chartShanghai != undefined) {
 	            if (range == 1) {
 	                chartShanghai.setOption({
 	                    series: [{
@@ -89799,256 +89599,688 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var Immutable = __webpack_require__(766);
+
+	var nineDate = ""; //ajax返回回来的所有数据；
+	var paramOne, paramTwo, paramThree, paramFour, paramFive, paramSix, paramSeven, paramEight, paramNine; //每一个小模块的数据，初始状态为空，render判断为空的话就不渲染。
+
 	var TopRight = _react2.default.createClass({
 	    displayName: 'TopRight',
 	    getInitialState: function getInitialState() {
 	        return {};
 	    },
-	    componentDidMount: function componentDidMount() {},
+	    componentDidMount: function componentDidMount() {
+	        var getRealTimeNine = this.props.getRealTimeNine; // 取到props里面的getRealTimeTable方法。也可以说是请求action
 
-	    setParam: function setParam() {
-	        var paramOne = {
-	            id: 'realTimeRightOne', //必传
-	            height: '100%', //必传 带上单位
-	            title: '小额贷款之贷款余额',
-	            forMaterTitle: "贷款余额",
-	            forMaterTip: '平均贷款余额',
-	            legend: [],
-	            xAxis: ['2010', '2011', '2012', '2013', '2014', '2015', '2016'],
-	            yAxis: ['20', '40', '60', '80', '100', '120', '140'],
-	            data: [[0, 0, 30], [1, 1, 10], [2, 2, 20], [3, 3, 50], [4, 4, 60], [5, 5, 10], [6, 6, 80]],
-	            series: [[{
-	                color: '#e14340'
-	            }]]
-	        };
-	        var paramTwo = {
-	            "title": "私募基金",
-	            "color": ["#f5b94b", "#01b6ed"],
-	            "titleShow": "show",
-	            "titleX": "left",
-	            "legend": ["管理资本金额", "私募机构数量"],
-	            "legendShow": true,
-	            "legendLeft": "center",
-	            "legendTop": "20",
-	            "gridBottom": "0%",
-	            "gridRight": "0%",
-	            "barName": ["管理资本金额", "私募机构数量"],
-	            "xAxis": ["2012", "2013", "2014", "2015"],
-	            "yAxisName": ["亿元", "个数"],
-	            "barWidth": 20,
-	            "symbolSize": 10,
-	            "series": {
-	                "bar": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)], [Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
-	            }
-	        };
-	        var paramThree = {
-	            "titleShow": true,
-	            "title": "P2P平台",
-	            "color": ["#12b5b0", "#e24441"],
-	            "legend": ["上海新增", "上海累计"],
-	            "legendShow": true,
-	            "legendLeft": "center",
-	            "legendTop": "20",
-	            "barName": ["上海新增"],
-	            "lineName": ["上海累计"],
-	            "YnameLocation": "end",
-	            "gridLeft": "5%",
-	            "gridRight": "0%",
-	            "gridBottom": "0%",
-	            "yFlag": "",
-	            "xAxis": ["2012-Q1", "2014-Q2", "2014-Q3", "2014-Q4", "2015-Q1", "2015-Q2", "2015-Q3", "2015-Q4", "2016-Q1"],
-	            "yAxisName": ["家数", ""],
-	            "barWidth": 20,
-	            "symbolSize": 10,
-	            "series": {
-	                "bar": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]],
-	                "line": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
-	            }
-	        };
-	        var paramFour = {
-	            "titleShow": true,
-	            "title": "融资租赁",
-	            "color": ["#12b5b0", "#e24441", "rgb(230,162,74)"],
-	            "legend": ["注册资本($)", "注册资本(¥)", "企业数量"],
-	            "legendShow": true,
-	            "legendLeft": "center",
-	            "legendTop": "20",
-	            "legendWidth": 600,
-	            "barName": ["注册资本($)", "注册资本(¥)"],
-	            "lineName": ["企业数量"],
-	            "YnameRoutate": 0,
-	            "YnameLocation": "end",
-	            "gridLeft": "5%",
-	            "gridRight": "0%",
-	            "gridBottom": "0%",
-	            "yFlag": "",
-	            "xAxis": ["2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015"],
-	            "yAxisName": ["亿人民币", "亿美元"],
-	            "barWidth": 10,
-	            "symbolSize": 10,
-	            "series": {
-	                "bar": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)], [Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]],
-	                "line": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
-	            }
-	        };
-	        var paramFive = {
-	            "title": "众筹平台",
-	            "color": ["#f93330"],
-	            "titleShow": "show",
-	            "titleX": "left",
-	            "legend": ["新增项目数"],
-	            "legendShow": false,
-	            "legendLeft": "center",
-	            "axisLabelR": false,
-	            "legendTop": "20",
-	            "gridBottom": "0%",
-	            "gridRight": "0%",
-	            "labelShow": true,
-	            "barName": ["新增项目数"],
-	            "lablePosition": "right",
-	            "yAxis": ["奖励众筹", "非公开股权融资", "公益众筹"],
-	            "Ytype": "category",
-	            "Xtype": "value",
-	            "yAxisName": ["新增项目数", ""],
-	            "barWidth": 20,
-	            "symbolSize": 10,
-	            "series": {
-	                "bar": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
-	            }
-	        };
-	        var paramSix = {
-	            "title": "众筹平台",
-	            "color": ["#f93330"],
-	            "titleShow": "show",
-	            "titleX": "left",
-	            "legend": ["新增项目数"],
-	            "legendShow": false,
-	            "legendLeft": "center",
-	            "axisLabelR": false,
-	            "legendTop": "20",
-	            "gridBottom": "0%",
-	            "gridRight": "0%",
-	            "labelShow": true,
-	            "barName": ["新增项目数"],
-	            "xAxis": ["奖励众筹", "非公开股权融资", "公益众筹"],
-	            "yAxisName": ["新增项目数", ""],
-	            "barWidth": 20,
-	            "symbolSize": 10,
-	            "series": {
-	                "bar": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
-	            }
-	        };
-	        var paramSeven = {
-	            id: 'realTimeRightTwo', //必传
-	            height: '100%', //必传 带上单位
-	            title: '典当总额及业务笔数',
-	            gridTop: "20%",
-	            legend: [],
-	            xAxis: ['2009', '2010', '2011', '2012', '2013'],
-	            yAxis: ['100000', '200000', '300000', '400000', '500000'],
-	            data: [[0, 0, 30], [1, 1, 10], [2, 2, 20], [3, 3, 50], [4, 4, 60]],
-	            series: [[{
-	                color: '#e14340'
-	            }]]
-	        };
-	        var paramEight = {
-	            "titleShow": true,
-	            "title": "商业保理",
-	            "color": ["rgb(249,51,48)", "rgb(246,215,147)"],
-	            "legend": ["商业保理业务总额", "融资余额"],
-	            "legendShow": true,
-	            "legendLeft": "center",
-	            "legendTop": "20",
-	            "barName": ["商业保理业务总额"],
-	            "lineName": ["融资余额"],
-	            "YnameLocation": "end",
-	            "YnameGap": 5,
-	            "gridLeft": "5%",
-	            "gridRight": "0%",
-	            "gridBottom": "0%",
-	            "Ytype": "value",
-	            "xAxis": ["2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012"],
-	            "yAxisName": ["亿元", "个数"],
-	            "barWidth": 20,
-	            "symbolSize": 10,
-	            "itemStyle": {},
-	            "series": {
-	                "bar": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]],
-	                "line": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
-	            }
-	        };
-	        var paramNine = {
-	            "title": "预付卡之备案企业预付金额总额",
-	            "color": ["#12b5b0", "#01b6ed"],
-	            "titleShow": "show",
-	            "titleX": "left",
-	            "legend": ["管理资本金额"],
-	            "legendShow": false,
-	            "legendLeft": "center",
-	            "legendTop": "20",
-	            "gridBottom": "0%",
-	            "gridRight": "0%",
-	            "axisLabelR": false,
-	            "barName": ["管理资本金额"],
-	            "xAxis": ["2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016"],
-	            "yAxisName": ["亿元", ""],
-	            "barWidth": 20,
-	            "symbolSize": 10,
-	            "labelShow": true,
-	            "series": {
-	                "bar": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
-	            }
-	        };
-	        return [paramOne, paramTwo, paramThree, paramFour, paramFive, paramSix, paramSeven, paramEight, paramNine];
+	        var jsonData = {}; //ajax传递给后台的data键值对
+	        getRealTimeNine(jsonData);
 	    },
+
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var _this = this;
+	        var isEqual = Immutable.is(nextProps.realTimeNineRequest, this.props.realTimeNineResult); //判断数据是否变化
+	        if (!isEqual) {
+	            var realTimeNineRequest = nextProps.realTimeNineRequest;
+	            var realTimeNineResult = nextProps.realTimeNineResult;
+
+	            if (realTimeNineRequest == true) {
+	                if (realTimeNineRequest == true) {
+	                    //这里可以开始渲染数据
+	                    nineDate = realTimeNineResult; //赋值给全局变量
+
+	                    //paramOneData-fixed == 1
+	                    var paramOneData = [];
+	                    nineDate.content.loan.series[0].map(function (item, index) {
+	                        var xx = [index, item];
+	                        paramOneData.push(xx);
+	                    });
+	                    nineDate.content.loan.series[1].map(function (item, index) {
+	                        paramOneData[index].push(item);
+	                    });
+	                    //paramOneData-fixed-end
+
+	                    //paramTwoData-fixed
+
+	                    //paramTwoData-fixed-end
+	                    paramOne = {
+	                        id: 'realTimeRightOne', //必传
+	                        height: '100%', //必传 带上单位
+	                        title: '小额贷款之贷款余额',
+	                        forMaterTitle: "贷款余额",
+	                        forMaterTip: '平均贷款余额',
+	                        gridTop: "20%",
+	                        yType: "value",
+	                        legend: [],
+	                        xAxis: nineDate.content.loan.xAxis,
+	                        yAxis: [],
+	                        data: paramOneData,
+	                        series: [[{
+	                            color: '#e14340'
+	                        }]]
+	                    };
+	                    paramTwo = {
+	                        "title": "私募基金",
+	                        "color": ["#f5b94b", "#01b6ed"],
+	                        "titleShow": "show",
+	                        "titleX": "left",
+	                        "legend": ["管理资本金额", "私募机构数量"],
+	                        "legendShow": true,
+	                        "legendLeft": "center",
+	                        "legendTop": "20",
+	                        "gridBottom": "0%",
+	                        "gridRight": "0%",
+	                        "barName": ["管理资本金额", "私募机构数量"],
+	                        "xAxis": nineDate.content.private.xAxis,
+	                        "yAxisName": ["亿元", "个数"],
+	                        "barWidth": 20,
+	                        "symbolSize": 10,
+	                        "series": {
+	                            "bar": nineDate.content.private.series
+	                        }
+	                    };
+	                    paramThree = {
+	                        "titleShow": true,
+	                        "title": "P2P平台",
+	                        "color": ["#12b5b0", "#e24441"],
+	                        "legend": ["上海新增", "上海累计"],
+	                        "legendShow": true,
+	                        "legendLeft": "center",
+	                        "legendTop": "20",
+	                        "barName": ["上海新增"],
+	                        "lineName": ["上海累计"],
+	                        "YnameLocation": "end",
+	                        "gridLeft": "5%",
+	                        "gridRight": "0%",
+	                        "gridBottom": "0%",
+	                        "yFlag": "",
+	                        "xAxis": nineDate.content.p2p.xAxis,
+	                        "yAxisName": ["家数", ""],
+	                        "barWidth": 20,
+	                        "symbolSize": 10,
+	                        "series": {
+	                            "bar": [nineDate.content.p2p.series.bar],
+	                            "line": [nineDate.content.p2p.series.line]
+	                        }
+	                    };
+	                    paramFour = {
+	                        "titleShow": true,
+	                        "title": "融资租赁",
+	                        "color": ["#12b5b0", "#e24441", "rgb(230,162,74)"],
+	                        "legend": ["注册资本($)", "注册资本(¥)", "企业数量"],
+	                        "legendShow": true,
+	                        "legendLeft": "center",
+	                        "legendTop": "20",
+	                        "legendWidth": 600,
+	                        "barName": ["注册资本($)", "注册资本(¥)"],
+	                        "lineName": ["企业数量"],
+	                        "YnameRoutate": 0,
+	                        "YnameLocation": "end",
+	                        "gridLeft": "5%",
+	                        "gridRight": "0%",
+	                        "gridBottom": "0%",
+	                        "yFlag": "",
+	                        "xAxis": nineDate.content.finance.xAxis,
+	                        "yAxisName": ["亿人民币", "亿美元"],
+	                        "barWidth": 10,
+	                        "symbolSize": 10,
+	                        "series": {
+	                            "bar": nineDate.content.finance.series.bar,
+	                            "line": [nineDate.content.finance.series.line]
+	                        }
+	                    };
+	                    paramFive = {
+	                        "title": "众筹平台",
+	                        "color": ["#f93330"],
+	                        "titleShow": "show",
+	                        "titleX": "left",
+	                        "legend": ["新增项目数"],
+	                        "legendShow": false,
+	                        "legendLeft": "center",
+	                        "axisLabelR": false,
+	                        "legendTop": "20",
+	                        "gridBottom": "0%",
+	                        "gridRight": "0%",
+	                        "labelShow": true,
+	                        "barName": ["新增项目数"],
+	                        "lablePosition": "right",
+	                        "yAxis": nineDate.content.exchange.xAxis,
+	                        "Ytype": "category",
+	                        "Xtype": "value",
+	                        "yAxisName": ["新增项目数", ""],
+	                        "barWidth": 20,
+	                        "symbolSize": 10,
+	                        "series": {
+	                            "bar": [nineDate.content.exchange.series]
+	                        }
+	                    };
+	                    paramSix = {
+	                        "title": "众筹平台",
+	                        "color": ["#f93330"],
+	                        "titleShow": "show",
+	                        "titleX": "left",
+	                        "legend": ["新增项目数"],
+	                        "legendShow": false,
+	                        "legendLeft": "center",
+	                        "axisLabelR": false,
+	                        "legendTop": "20",
+	                        "gridBottom": "0%",
+	                        "gridRight": "0%",
+	                        "labelShow": true,
+	                        "barName": ["新增项目数"],
+	                        "xAxis": nineDate.content.crowd.xAxis,
+	                        "yAxisName": ["新增项目数", ""],
+	                        "barWidth": 20,
+	                        "symbolSize": 10,
+	                        "series": {
+	                            "bar": [nineDate.content.crowd.series]
+	                        }
+	                    };
+	                    paramSeven = {
+	                        id: 'realTimeRightTwo', //必传
+	                        height: '100%', //必传 带上单位
+	                        title: '典当总额及业务笔数',
+	                        gridTop: "20%",
+	                        legend: [],
+	                        xAxis: ['2009', '2010', '2011', '2012', '2013'],
+	                        yAxis: ['100000', '200000', '300000', '400000', '500000'],
+	                        data: [[0, 0, 30], [1, 1, 10], [2, 2, 20], [3, 3, 50], [4, 4, 60]],
+	                        series: [[{
+	                            color: '#e14340'
+	                        }]]
+	                    };
+	                    paramEight = {
+	                        "titleShow": true,
+	                        "title": "商业保理",
+	                        "color": ["rgb(249,51,48)", "rgb(246,215,147)"],
+	                        "legend": ["商业保理业务总额", "融资余额"],
+	                        "legendShow": true,
+	                        "legendLeft": "center",
+	                        "legendTop": "20",
+	                        "barName": ["商业保理业务总额"],
+	                        "lineName": ["融资余额"],
+	                        "YnameLocation": "end",
+	                        "YnameGap": 5,
+	                        "gridLeft": "5%",
+	                        "gridRight": "0%",
+	                        "gridBottom": "0%",
+	                        "Ytype": "value",
+	                        "xAxis": ["2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012"],
+	                        "yAxisName": ["亿元", "个数"],
+	                        "barWidth": 20,
+	                        "symbolSize": 10,
+	                        "itemStyle": {},
+	                        "series": {
+	                            //后台暂时没得数据，莫法传
+	                            "bar": [[
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200)
+	                            ]],
+	                            "line": [[
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200)
+
+	                            ]]
+	                        }
+	                    };
+	                    paramNine = {
+	                        "title": "预付卡之备案企业预付金额总额",
+	                        "color": ["#12b5b0", "#01b6ed"],
+	                        "titleShow": "show",
+	                        "titleX": "left",
+	                        "legend": ["管理资本金额"],
+	                        "legendShow": false,
+	                        "legendLeft": "center",
+	                        "legendTop": "20",
+	                        "gridBottom": "0%",
+	                        "gridRight": "0%",
+	                        "axisLabelR": false,
+	                        "barName": ["管理资本金额"],
+	                        "xAxis": ["2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016"],
+	                        "yAxisName": ["亿元", ""],
+	                        "barWidth": 20,
+	                        "symbolSize": 10,
+	                        "labelShow": true,
+	                        "series": {
+	                            "bar": [[
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200),
+	                                // Math.round(Math.random() * 200)
+	                            ]]
+	                        }
+	                    };
+	                } else {
+	                    alert(404);
+	                }
+	            }
+	        }
+	    },
+	    // setParam:function(){
+	    //         var paramOne={
+	    //             id:'realTimeRightOne',//必传
+	    //             height:'100%',//必传 带上单位
+	    //             title:'小额贷款之贷款余额',
+	    //             forMaterTitle:"贷款余额",
+	    //             forMaterTip:'平均贷款余额',
+	    //             legend: [],
+	    //             xAxis:['2010', '2011', '2012','2013', '2014', '2015', '2016'],
+	    //             yAxis: ['20', '40', '60', '80', '100', '120', '140'],
+	    //             data: [[0,0,300000],[1,1,1000000],[2,2,200000],[3,3,50],[4,4,60],[5,5,10],[6,6,80]],
+	    //             series:[
+	    //                     [{
+	    //                       color:'#e14340'
+	    //                     }]
+	    //                   ]
+	    //         }
+	    //         var paramTwo={
+	    //             "title":"私募基金",
+	    //             "color":["#f5b94b", "#01b6ed"],
+	    //             "titleShow":"show",
+	    //             "titleX":"left",
+	    //             "legend": ["管理资本金额", "私募机构数量"],
+	    //             "legendShow":true,
+	    //             "legendLeft":"center",
+	    //             "legendTop":"20",
+	    //             "gridBottom":"0%",
+	    //             "gridRight":"0%",
+	    //             "barName":["管理资本金额","私募机构数量"],
+	    //             "xAxis": ["2012", "2013", "2014", "2015"],
+	    //             "yAxisName": ["亿元", "个数"],
+	    //             "barWidth":20,
+	    //             "symbolSize":10,
+	    //              "series": {
+	    //                 "bar": [
+	    //                     [
+	    //                         Math.round(Math.random() * 200), 
+	    //                         Math.round(Math.random() * 200), 
+	    //                         Math.round(Math.random() * 200), 
+	    //                         Math.round(Math.random() * 200)
+	    //                     ],
+	    //                     [
+	    //                         Math.round(Math.random() * 200), 
+	    //                         Math.round(Math.random() * 200), 
+	    //                         Math.round(Math.random() * 200), 
+	    //                         Math.round(Math.random() * 200)
+	    //                     ]
+	    //                 ]
+	    //             }
+	    //         };
+	    //         var paramThree={
+	    //             "titleShow":true,
+	    //             "title":"P2P平台",
+	    //             "color":["#12b5b0", "#e24441"],
+	    //             "legend": ["上海新增", "上海累计"],
+	    //             "legendShow":true,
+	    //             "legendLeft":"center",
+	    //             "legendTop":"20",
+	    //             "barName":["上海新增"],
+	    //             "lineName":["上海累计"],
+	    //             "YnameLocation":"end",
+	    //             "gridLeft":"5%",
+	    //             "gridRight":"0%",
+	    //             "gridBottom":"0%",
+	    //             "yFlag":"",
+	    //             "xAxis": ["2012-Q1", "2014-Q2", "2014-Q3", "2014-Q4", "2015-Q1","2015-Q2", "2015-Q3", "2015-Q4", "2016-Q1"],
+	    //             "yAxisName": ["家数", ""],
+	    //             "barWidth":20,
+	    //             "symbolSize":10,
+	    //             "series": {
+	    //                 "bar": [
+	    //                     [
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200)
+	    //                     ]
+	    //                 ],
+	    //                 "line": [
+	    //                         [
+	    //                             Math.round(Math.random() * 200),
+	    //                             Math.round(Math.random() * 200),
+	    //                             Math.round(Math.random() * 200),
+	    //                             Math.round(Math.random() * 200),
+	    //                             Math.round(Math.random() * 200),
+	    //                             Math.round(Math.random() * 200),
+	    //                             Math.round(Math.random() * 200),
+	    //                             Math.round(Math.random() * 200),
+	    //                             Math.round(Math.random() * 200)
+
+	    //                         ]
+	    //                     ]
+	    //             }
+	    //         };
+	    //         var paramFour={
+	    //             "titleShow":true,
+	    //             "title":"融资租赁",
+	    //             "color":["#12b5b0", "#e24441","rgb(230,162,74)"],
+	    //             "legend": ["注册资本($)","注册资本(¥)","企业数量",],
+	    //             "legendShow":true,
+	    //             "legendLeft":"center",
+	    //             "legendTop":"20",
+	    //             "legendWidth":600,
+	    //             "barName":["注册资本($)","注册资本(¥)"],
+	    //             "lineName":["企业数量"],
+	    //             "YnameRoutate":0,
+	    //             "YnameLocation":"end",
+	    //             "gridLeft":"5%",
+	    //             "gridRight":"0%",
+	    //             "gridBottom":"0%",
+	    //             "yFlag":"",
+	    //             "xAxis": ["2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015"],
+	    //             "yAxisName": ["亿人民币", "亿美元"],
+	    //             "barWidth":10,
+	    //             "symbolSize":10,
+	    //             "series": {
+	    //                 "bar": [
+	    //                     [
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200)
+	    //                     ],
+	    //                     [
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200)
+	    //                     ]
+	    //                 ],
+	    //                 "line": [
+	    //                     [
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200)
+	    //                     ]
+	    //                     ]
+	    //             }
+	    //         };
+	    //         var paramFive={
+	    //             "title":"众筹平台",
+	    //             "color":["#f93330"],
+	    //             "titleShow":"show",
+	    //             "titleX":"left",
+	    //             "legend": ["新增项目数"],
+	    //             "legendShow":false,
+	    //             "legendLeft":"center",
+	    //             "axisLabelR":false,
+	    //             "legendTop":"20",
+	    //             "gridBottom":"0%",
+	    //             "gridRight":"0%",
+	    //             "labelShow":true,
+	    //             "barName":["新增项目数"],
+	    //             "lablePosition":"right",
+	    //             "yAxis": ["奖励众筹", "非公开股权融资", "公益众筹"],
+	    //             "Ytype":"category",
+	    //             "Xtype":"value",
+	    //             "yAxisName": ["新增项目数", ""],
+	    //             "barWidth":20,
+	    //             "symbolSize":10,
+	    //              "series": {
+	    //                 "bar": [
+	    //                     [
+	    //                         Math.round(Math.random() * 200), 
+	    //                         Math.round(Math.random() * 200), 
+	    //                         Math.round(Math.random() * 200)
+	    //                     ]
+	    //                 ]
+	    //             }
+	    //         };
+	    //         var paramSix={
+	    //             "title":"众筹平台",
+	    //             "color":["#f93330"],
+	    //             "titleShow":"show",
+	    //             "titleX":"left",
+	    //             "legend": ["新增项目数"],
+	    //             "legendShow":false,
+	    //             "legendLeft":"center",
+	    //             "axisLabelR":false,
+	    //             "legendTop":"20",
+	    //             "gridBottom":"0%",
+	    //             "gridRight":"0%",
+	    //             "labelShow":true,
+	    //             "barName":["新增项目数"],
+	    //             "xAxis": ["奖励众筹", "非公开股权融资", "公益众筹"],
+	    //             "yAxisName": ["新增项目数", ""],
+	    //             "barWidth":20,
+	    //             "symbolSize":10,
+	    //              "series": {
+	    //                 "bar": [
+	    //                     [
+	    //                         Math.round(Math.random() * 200), 
+	    //                         Math.round(Math.random() * 200), 
+	    //                         Math.round(Math.random() * 200)
+	    //                     ]
+	    //                 ]
+	    //             }
+	    //         };
+	    //         var paramSeven={
+	    //             id:'realTimeRightTwo',//必传
+	    //             height:'100%',//必传 带上单位
+	    //             title:'典当总额及业务笔数',
+	    //             gridTop:"20%",
+	    //             legend: [],
+	    //             xAxis:['2009','2010','2011','2012','2013'],
+	    //             yAxis: ['100000', '200000', '300000', '400000', '500000'],
+	    //             data: [[0,0,30],[1,1,10],[2,2,20],[3,3,50],[4,4,60]],
+	    //             series:[
+	    //                     [{
+	    //                       color:'#e14340'
+	    //                     }]
+	    //                   ]
+	    //         };
+	    //         var paramEight={
+	    //             "titleShow":true,
+	    //             "title":"商业保理",
+	    //             "color":["rgb(249,51,48)", "rgb(246,215,147)"],
+	    //             "legend": ["商业保理业务总额", "融资余额"],
+	    //             "legendShow":true,
+	    //             "legendLeft":"center",
+	    //             "legendTop":"20",
+	    //             "barName":["商业保理业务总额"],
+	    //             "lineName":["融资余额"],
+	    //             "YnameLocation":"end",
+	    //             "YnameGap":5,
+	    //             "gridLeft":"5%",
+	    //             "gridRight":"0%",
+	    //             "gridBottom":"0%",
+	    //             "Ytype":"value",
+	    //             "xAxis": ["2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012"],
+	    //             "yAxisName": ["亿元", "个数"],
+	    //             "barWidth":20,
+	    //             "symbolSize":10,
+	    //             "itemStyle":{
+
+	    //             },
+	    //             "series": {
+	    //                 "bar": [
+	    //                     [
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200)
+	    //                     ]
+	    //                 ],
+	    //                 "line": [
+	    //                         [
+	    //                             Math.round(Math.random() * 200),
+	    //                             Math.round(Math.random() * 200),
+	    //                             Math.round(Math.random() * 200),
+	    //                             Math.round(Math.random() * 200),
+	    //                             Math.round(Math.random() * 200),
+	    //                             Math.round(Math.random() * 200),
+	    //                             Math.round(Math.random() * 200),
+	    //                             Math.round(Math.random() * 200)
+
+	    //                         ]
+	    //                     ]
+	    //             }
+	    //         };
+	    //         var paramNine={
+	    //             "title":"预付卡之备案企业预付金额总额",
+	    //             "color":["#12b5b0", "#01b6ed"],
+	    //             "titleShow":"show",
+	    //             "titleX":"left",
+	    //             "legend": ["管理资本金额"],
+	    //             "legendShow":false,
+	    //             "legendLeft":"center",
+	    //             "legendTop":"20",
+	    //             "gridBottom":"0%",
+	    //             "gridRight":"0%",
+	    //             "axisLabelR":false,
+	    //             "barName":["管理资本金额"],
+	    //             "xAxis": ["2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015","2016"],
+	    //             "yAxisName": ["亿元", ""],
+	    //             "barWidth":20,
+	    //             "symbolSize":10, 
+	    //             "labelShow":true,
+	    //              "series": {
+	    //                 "bar": [
+	    //                     [
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200),
+	    //                         Math.round(Math.random() * 200)
+	    //                     ]
+	    //                 ]
+	    //             }
+	    //         };
+	    //         return [paramOne,paramTwo,paramThree,paramFour,paramFive,paramSix,paramSeven,paramEight,paramNine];
+	    // },
 	    render: function render() {
+	        var paramOneBox, paramTwoBox, paramThreeBox, paramFourBox, paramFiveBox, paramSixBox, paramSevenBox, paramEightBox, paramNineBox;
+	        if (!!paramOne) {
+	            paramOneBox = _react2.default.createElement(_ScatterChart2.default, { param: paramOne, style: { height: '100%', width: '100%' } });
+	        }
+	        if (!!paramTwo) {
+	            paramTwoBox = _react2.default.createElement(_LineBarChart2.default, { param: paramTwo, style: { height: '100%', width: '100%' } });
+	        }
+	        if (!!paramThree) {
+	            paramThreeBox = _react2.default.createElement(_LineBarChart2.default, { param: paramThree, style: { height: '100%', width: '100%' } });
+	        }
+	        if (!!paramFour) {
+	            paramFourBox = _react2.default.createElement(_LineBarChart2.default, { param: paramFour, style: { height: '100%', width: '100%' } });
+	        }
+	        if (!!paramFive) {
+	            paramFiveBox = _react2.default.createElement(_LineBarChart2.default, { param: paramFive, style: { height: '100%', width: '100%' } });
+	        }
+	        if (!!paramSix) {
+	            paramSixBox = _react2.default.createElement(_LineBarChart2.default, { param: paramSix, style: { height: '100%', width: '100%' } });
+	        }
+	        if (!!paramSeven) {
+	            paramSevenBox = _react2.default.createElement(_ScatterChart2.default, { param: paramSeven, style: { height: '100%', width: '100%' } });
+	        }
+	        if (!!paramEight) {
+	            paramEightBox = _react2.default.createElement(_LineBarChart2.default, { param: paramEight, style: { height: '100%', width: '100%' } });
+	        }
+	        if (!!paramNine) {
+	            paramNineBox = _react2.default.createElement(_LineBarChart2.default, { param: paramNine, style: { height: '100%', width: '100%' } });
+	        }
 	        return _react2.default.createElement(
 	            'div',
 	            { className: 'realtime-top-right' },
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'item' },
-	                _react2.default.createElement(_ScatterChart2.default, { param: this.setParam()[0] })
+	                paramOneBox
 	            ),
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'item' },
-	                _react2.default.createElement(_LineBarChart2.default, { param: this.setParam()[1], style: { height: '100%', width: '100%' } })
+	                paramTwoBox
 	            ),
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'item' },
-	                _react2.default.createElement(_LineBarChart2.default, { param: this.setParam()[2], style: { height: '100%', width: '100%' } })
+	                paramThreeBox
 	            ),
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'item' },
-	                _react2.default.createElement(_LineBarChart2.default, { param: this.setParam()[3], style: { height: '100%', width: '100%' } })
+	                paramFourBox
 	            ),
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'item' },
-	                _react2.default.createElement(_LineBarChart2.default, { param: this.setParam()[4], style: { height: '100%', width: '100%' } })
+	                paramFiveBox
 	            ),
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'item' },
-	                _react2.default.createElement(_LineBarChart2.default, { param: this.setParam()[5], style: { height: '100%', width: '100%' } })
+	                paramSixBox
 	            ),
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'item' },
-	                _react2.default.createElement(_ScatterChart2.default, { param: this.setParam()[6], style: { height: '100%', width: '100%' } })
+	                paramSevenBox
 	            ),
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'item' },
-	                _react2.default.createElement(_LineBarChart2.default, { param: this.setParam()[7], style: { height: '100%', width: '100%' } })
+	                paramEightBox
 	            ),
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'item' },
-	                _react2.default.createElement(_LineBarChart2.default, { param: this.setParam()[8], style: { height: '100%', width: '100%' } })
+	                paramNineBox
 	            )
 	        );
 	    }
@@ -90249,12 +90481,37 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var Immutable = __webpack_require__(766);
+
+	var data;
 	var BottomRight = _react2.default.createClass({
 	  displayName: 'BottomRight',
 	  getInitialState: function getInitialState() {
 	    return {};
 	  },
-	  componentDidMount: function componentDidMount() {},
+	  componentDidMount: function componentDidMount() {
+	    var getRealTimeNews = this.props.getRealTimeNews; // 取到props里面的getRealTimeTable方法。也可以说是请求action
+
+	    var jsonData = {}; //ajax传递给后台的data键值对
+	    getRealTimeNews(jsonData);
+	  },
+
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var _this = this;
+	    var isEqual = Immutable.is(nextProps.realTimeNewsRequest, this.props.realTimeNewsResult); //判断数据是否变化
+	    if (!isEqual) {
+	      var realTimeNewsRequest = nextProps.realTimeNewsRequest;
+	      var realTimeNewsResult = nextProps.realTimeNewsResult;
+
+	      if (realTimeNewsRequest == true) {
+	        if (realTimeNewsRequest == true) {
+	          alert("ssss");
+	        } else {
+	          alert(404);
+	        }
+	      }
+	    }
+	  },
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
@@ -90371,62 +90628,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 948 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.getRealTimeTable = getRealTimeTable;
-	/*
-	  实时监测左侧表格action
-	*/
-	var REALTIME_TABLE_SUCCESS = exports.REALTIME_TABLE_SUCCESS = 'REALTIME_TABLE_SUCCESS';
-	var REALTIME_TABLE_FAIL = exports.REALTIME_TABLE_FAIL = 'REALTIME_TABLE_FAIL';
-
-	function RealTimeTableSuccess(result) {
-	  //请求成功调用方法
-	  return {
-	    type: REALTIME_TABLE_SUCCESS,
-	    result: result
-	  };
-	}
-	function RealTimeTableFail(result) {
-	  //请求失败调用方法
-	  return {
-	    type: REALTIME_TABLE_FAIL,
-	    result: result
-	  };
-	}
-
-	function getRealTimeTable(json) {
-	  return function (dispatch) {
-	    console.log(json);
-	    $.ajax({
-	      url: "/realTimeMonitorController/spectrumAnalysis4groups.do", //"/data/industryMonitor/smallLoan/index/companyGrade.json",
-	      dataType: "json",
-	      data: json,
-	      type: "GET",
-	      success: function success(result) {
-	        console.log("陈胜云的此次请求成功");
-	        return dispatch(RealTimeTableSuccess(result));
-	      },
-	      error: function error(result) {
-	        return dispatch(RealTimeTableFail(result));
-	      }
-	    });
-	  };
-	}
-	/*企业评级end*/
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "RealTimeTableAction.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
+/* 948 */,
 /* 949 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -90685,6 +90887,14 @@
 
 	var _realtimeTableRuducer2 = _interopRequireDefault(_realtimeTableRuducer);
 
+	var _realtimeNineReducer = __webpack_require__(1313);
+
+	var _realtimeNineReducer2 = _interopRequireDefault(_realtimeNineReducer);
+
+	var _realtimeNewsReducer = __webpack_require__(1314);
+
+	var _realtimeNewsReducer2 = _interopRequireDefault(_realtimeNewsReducer);
+
 	var _MenuParkSelectVal = __webpack_require__(1290);
 
 	var _MenuParkSelectVal2 = _interopRequireDefault(_MenuParkSelectVal);
@@ -90721,55 +90931,68 @@
 
 	var _balanceChart2 = _interopRequireDefault(_balanceChart);
 
+	var _CompanyDirectoryChart = __webpack_require__(1315);
+
+	var _CompanyDirectoryChart2 = _interopRequireDefault(_CompanyDirectoryChart);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	/*商业保理监测 end*/
 
-	//企业占比对比
+	/*众筹监测 end*/
 
-	//企业目录列表
+	/*商业保理监测 begin*/
 
-	/*实时监测 begin*/
-	//左侧表格
 
-	//取得合规意见或经过会商的交易场所详情列表
+	//园区首页
+
+	/*实时监测 end*/
+
+	//园区
+
+	/*=================================交易场所监测=================================*/
+
+	/*=================================融资租赁=================================*/
+	//典当法人企业数
 
 	//交易场所清理整顿分类
 
-	//上海市典当企业目录
+	/*=================================典当行业监测=================================*/
 
-	//列表
-
-	//6月上海各类众筹平台新增项目数
-
-	/*====================================私募基金===============================*/
+	/*=================================交易场所监测=================================*/
+	//黄浦区交易场所列表
 
 	/*=================================众筹监测=================================*/
-	//业务类型
 
-	//私募基金分类
+	/*=================================典当行业监测=================================*/
+	//所有图标
 
+	//6月上海各类众筹平台新增项目数的成功筹资金额
 
-	/*====================================p2p画像平台============================*/
+	//6月上海各类众筹平台新增项目的投资人次
 
-	/*====================================私募基金===============================*/
-	//QDLP试点企业最新进展
+	//私募股权基本情况
 
-	//动态图谱
+	//私募证券基本情况
 
-	//诉讼信息
+	//QFLP试点企业最新进展
 
-	//核心数据
+	//评分雷达图
+
+	//平台舆情
+
+	//公司基本信息
+
+	//p2p图表
+
 
 	/*====================================P2P平台监测============================*/
-
-	/*====================================p2p画像平台============================*/
-	//基本信息
-
-	//网贷平台数据展示
+	//上海区域发展指数排名
 
 
-	//融资担保
+	/*行业监测模块*/
+
+	//小额贷款
 	var rootReducer = (0, _redux.combineReducers)({
 	  /*行业监测模块*/
 	  //P2P平台监测
@@ -90839,72 +91062,65 @@
 
 	  //实时监测
 	  RealTimeTable: _realtimeTableRuducer2.default,
+	  RealTimeNine: _realtimeNineReducer2.default,
+	  RealTimeNews: _realtimeNewsReducer2.default,
 
 	  //商业保理监测
 	  ChartAll: _ChartAll4.default,
 	  businessnumChart: _businessnumChart2.default,
 	  balanceChart: _balanceChart2.default,
+	  CompanyDirectoryChart: _CompanyDirectoryChart2.default,
 
 	  //融资租赁
 	  Lease: _Lease2.default,
 
 	  routing: _reactRouterRedux.routerReducer //整合路由 
 	});
+	//企业占比对比
 
-	/*众筹监测 end*/
+	//企业目录列表
 
-	/*商业保理监测 begin*/
+	/*实时监测 begin*/
+	//左侧表格
 
-
-	//园区首页
-
-	/*实时监测 end*/
-
-	//园区
-
-	/*=================================交易场所监测=================================*/
-
-	/*=================================融资租赁=================================*/
-	//典当法人企业数
+	//取得合规意见或经过会商的交易场所详情列表
 
 	//交易场所清理整顿分类
 
-	/*=================================典当行业监测=================================*/
+	//上海市典当企业目录
 
-	/*=================================交易场所监测=================================*/
-	//黄浦区交易场所列表
+	//列表
+
+	//6月上海各类众筹平台新增项目数
+
+	/*====================================私募基金===============================*/
 
 	/*=================================众筹监测=================================*/
+	//业务类型
 
-	/*=================================典当行业监测=================================*/
-	//所有图标
+	//私募基金分类
 
-	//6月上海各类众筹平台新增项目数的成功筹资金额
 
-	//6月上海各类众筹平台新增项目的投资人次
+	/*====================================p2p画像平台============================*/
 
-	//私募股权基本情况
+	/*====================================私募基金===============================*/
+	//QDLP试点企业最新进展
 
-	//私募证券基本情况
+	//动态图谱
 
-	//QFLP试点企业最新进展
+	//诉讼信息
 
-	//评分雷达图
-
-	//平台舆情
-
-	//公司基本信息
-
-	//p2p图表
-
+	//核心数据
 
 	/*====================================P2P平台监测============================*/
-	//上海区域发展指数排名
+
+	/*====================================p2p画像平台============================*/
+	//基本信息
+
+	//网贷平台数据展示
 
 
-	/*行业监测模块*/
-
-	//小额贷款
+	//融资担保
 	exports.default = rootReducer;
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "index.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
@@ -91922,11 +92138,10 @@
 	});
 	exports.default = realTimeTable;
 
-	var _RealTimeTableAction = __webpack_require__(948);
+	var _RealTimeAction = __webpack_require__(1312);
 
 	//这个函数就是处理，action里面成功和失败的2个返回函数。
 	//当ajax请求成功了，就可以调用这个两个返回函数进行操作。
-	console.log(_RealTimeTableAction.REALTIME_TABLE_SUCCESS);
 	function realTimeTable() {
 		var state = arguments.length <= 0 || arguments[0] === undefined ? { //这个名字无所谓，最后都是用index里面对外暴露的名字。
 			request: false,
@@ -91935,13 +92150,13 @@
 		var action = arguments[1];
 
 		switch (action.type) {
-			case _RealTimeTableAction.REALTIME_TABLE_SUCCESS:
+			case _RealTimeAction.REALTIME_TABLE_SUCCESS:
 				//请求成功！
 				return Object.assign({}, state, {
 					request: true,
 					result: action.result
 				});
-			case _RealTimeTableAction.REALTIME_TABLE_FAIL:
+			case _RealTimeAction.REALTIME_TABLE_FAIL:
 				//请求失败！
 				return Object.assign({}, state, {
 					request: true,
@@ -101737,6 +101952,7 @@
 	exports.getCompanynumRequest = getCompanynumRequest;
 	exports.getBusinessnumRequest = getBusinessnumRequest;
 	exports.getBalanceRequest = getBalanceRequest;
+	exports.getCompanyDirectoryRequest = getCompanyDirectoryRequest;
 	/*
 	 商业保理平台监测
 	*/
@@ -101853,6 +102069,44 @@
 	}
 	/*商业保理地域分布图表end */
 
+	/* 商业保理企业名单begin */
+	var COMMERCIAL_COMPANYDIRECTORY_SUCCESS = exports.COMMERCIAL_COMPANYDIRECTORY_SUCCESS = 'COMMERCIAL_COMPANYDIRECTORY_SUCCESS';
+	var COMMERCIAL_COMPANYDIRECTORY_FAIL = exports.COMMERCIAL_COMPANYDIRECTORY_FAIL = 'COMMERCIAL_COMPANYDIRECTORY_FAIL';
+
+	function CompanyDirectoryRequestSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: COMMERCIAL_COMPANYDIRECTORY_SUCCESS,
+	    result: result
+	  };
+	}
+	function CompanyDirectoryRequestFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: COMMERCIAL_COMPANYDIRECTORY_FAIL,
+	    result: result
+	  };
+	}
+
+	function getCompanyDirectoryRequest(json) {
+	  console.info("hjhjhjhjhjhjhj", json);
+	  return function (dispatch) {
+	    $.ajax({
+	      url: "/factoring/queryCompanys.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(CompanyDirectoryRequestSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(CompanyDirectoryRequestFail(result));
+	      }
+	    });
+	  };
+	}
+	/*商业保理企业名单end */
+
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "commercialSecretIndexAction.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
@@ -101867,11 +102121,11 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.default = PawnMChartAll;
+	exports.default = ChartAll;
 
 	var _PawnMonitoringAction = __webpack_require__(1298);
 
-	function PawnMChartAll() {
+	function ChartAll() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
 	        request: false,
 	        result: {}
@@ -102342,6 +102596,293 @@
 	}
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "balanceChart.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1312 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getRealTimeTable = getRealTimeTable;
+	exports.getRealTimeNine = getRealTimeNine;
+	exports.getRealTimeNews = getRealTimeNews;
+	/*
+	  实时监测左侧表格action
+	*/
+	var REALTIME_TABLE_SUCCESS = exports.REALTIME_TABLE_SUCCESS = 'REALTIME_TABLE_SUCCESS';
+	var REALTIME_TABLE_FAIL = exports.REALTIME_TABLE_FAIL = 'REALTIME_TABLE_FAIL';
+
+	function RealTimeTableSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: REALTIME_TABLE_SUCCESS,
+	    result: result
+	  };
+	}
+	function RealTimeTableFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: REALTIME_TABLE_FAIL,
+	    result: result
+	  };
+	}
+
+	function getRealTimeTable(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "/realTimeMonitorController/spectrumAnalysis4groups.do", //"/data/industryMonitor/smallLoan/index/companyGrade.json",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(RealTimeTableSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(RealTimeTableFail(result));
+	      }
+	    });
+	  };
+	}
+
+	/*
+	  实时监测右侧的9个图的action（接口合并成了一个）
+	*/
+	var REALTIME_NINE_SUCCESS = exports.REALTIME_NINE_SUCCESS = 'REALTIME_NINE_SUCCESS';
+	var REALTIME_NINE_FAIL = exports.REALTIME_NINE_FAIL = 'REALTIME_NINE_FAIL';
+
+	function RealTimeNineSuccess(result) {
+	  //请求成功调用方法 保存成功的数据
+	  return {
+	    type: REALTIME_NINE_SUCCESS,
+	    result: result
+	  };
+	}
+	function RealTimeNineFail(result) {
+	  //请求失败调用方法  保存了失败的数据
+	  return {
+	    type: REALTIME_NINE_FAIL,
+	    result: result
+	  };
+	}
+
+	//最开始触发redux流程的导火线。
+	function getRealTimeNine(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "/realTimeMonitorController/businessChartShow.do", //"/data/industryMonitor/smallLoan/index/companyGrade.json",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        console.log("九个图的此次请求成功");
+	        return dispatch(RealTimeNineSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(RealTimeNineFail(result));
+	      }
+	    });
+	  };
+	}
+
+	/*
+	  实时监测右下角的舆情模块
+	*/
+	var REALTIME_NEWS_SUCCESS = exports.REALTIME_NEWS_SUCCESS = 'REALTIME_NEWS_SUCCESS';
+	var REALTIME_NEWS_FAIL = exports.REALTIME_NEWS_FAIL = 'REALTIME_NEWS_FAIL';
+
+	function RealTimeNewsSuccess(result) {
+	  //请求成功调用方法 保存成功的数据
+	  return {
+	    type: REALTIME_NEWS_SUCCESS,
+	    result: result
+	  };
+	}
+	function RealTimeNewsFail(result) {
+	  //请求失败调用方法  保存了失败的数据
+	  return {
+	    type: REALTIME_NEWS_FAIL,
+	    result: result
+	  };
+	}
+
+	//最开始触发redux流程的导火线。
+	function getRealTimeNews(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "/realTimeMonitorController/businessChartShow.do", //"/data/industryMonitor/smallLoan/index/companyGrade.json",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        console.log("九个图的此次请求成功");
+	        return dispatch(RealTimeNewsSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(RealTimeNewsFail(result));
+	      }
+	    });
+	  };
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "RealTimeAction.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1313 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = realTimeNine;
+
+	var _RealTimeAction = __webpack_require__(1312);
+
+	//这个函数就是处理，action里面成功和失败的2个返回函数。
+	//当ajax请求成功了，就可以调用这个两个返回函数进行操作。
+
+
+	function realTimeNine() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? { //这个名字无所谓，最后都是用index里面对外暴露的名字。
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _RealTimeAction.REALTIME_NINE_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _RealTimeAction.REALTIME_NINE_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
+
+	//（默认的2个值，根据判断action返回的两个值）
+	// 这个reducer就是从action里面抽离出来的数据的状态机
+
+
+	// request、result
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "realtimeNineReducer.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1314 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = realTimeNine;
+
+	var _RealTimeAction = __webpack_require__(1312);
+
+	//这个函数就是处理，action里面成功和失败的2个返回函数。
+	//当ajax请求成功了，就可以调用这个两个返回函数进行操作。
+
+
+	function realTimeNine() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? { //这个名字无所谓，最后都是用index里面对外暴露的名字。
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _RealTimeAction.REALTIME_NEWS_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _RealTimeAction.REALTIME_NEWS_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
+
+	//（默认的2个值，根据判断action返回的两个值）
+	// 这个reducer就是从action里面抽离出来的数据的状态机
+
+
+	// request、result
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "realtimeNewsReducer.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1315 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = CompanyDirectoryChart;
+
+	var _commercialSecretIndexAction = __webpack_require__(1300);
+
+	function CompanyDirectoryChart() {
+	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
+	        request: false,
+	        result: {}
+	    } : arguments[0];
+	    var action = arguments[1];
+
+	    switch (action.type) {
+	        case _commercialSecretIndexAction.COMMERCIAL_COMPANYDIRECTORY_SUCCESS:
+	            //请求成功！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        case _commercialSecretIndexAction.COMMERCIAL_COMPANYDIRECTORY_FAIL:
+	            //请求失败！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        default:
+	            return state;
+	    }
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "CompanyDirectoryChart.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ }
