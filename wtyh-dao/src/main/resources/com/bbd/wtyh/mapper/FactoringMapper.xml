@@ -50,10 +50,10 @@
     
     
      <select id="countCapitalBySeason" resultType="com.bbd.wtyh.domain.CompanyCountDO" >
-    	select season name,SUM(registered_capital) sum ,count(1) count  from 
+    	select season name,SUM(registered_capital * ctype ) sum ,count(1) count  from
 	    	(
 				select CONCAT(YEAR(c.registered_date),'Q',quarter( c.registered_date )) season , 
-				       c.registered_capital  
+				       c.registered_capital , if( c.registered_capital_type=2 ,6.3,1 ) ctype
 				from company c where c.company_type=10
 			) b 
 		GROUP BY b.season ORDER BY season 
