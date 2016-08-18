@@ -3,9 +3,9 @@ package com.bbd.wtyh.domain;
 /**
  * Created by Marco on 2016/8/8.
  */
-public class RelatedCompanyStatisticDO {
+public class RelatedCompanyStatisticDO extends BaseDO{
     private String areaName;
-    private int relatedCompany;
+    private Integer relatedCompany;
 
     public RelatedCompanyStatisticDO() {
     }
@@ -18,11 +18,11 @@ public class RelatedCompanyStatisticDO {
         this.areaName = areaName;
     }
 
-    public int getRelatedCompany() {
+    public Integer getRelatedCompany() {
         return relatedCompany;
     }
 
-    public void setRelatedCompany(int relatedCompany) {
+    public void setRelatedCompany(Integer relatedCompany) {
         this.relatedCompany = relatedCompany;
     }
 }

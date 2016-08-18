@@ -8,6 +8,7 @@ import com.bbd.wtyh.service.RealTimeMonitorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
     @Autowired
     private CompanyAnalysisResultMapper companyAnalysisResultMapper;
 
+    @Autowired
     private RelatedCompanyStatisticMapper relatedCompanyStatisticMapper;
 
 
@@ -51,15 +53,21 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
     @Override
     public Map<String, Object> ChinaMap() {
         List<RelatedCompanyStatisticDO> list =  relatedCompanyStatisticMapper.getChinaMap();
-        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
+        List<Object> resultList = new ArrayList<>();
         for (RelatedCompanyStatisticDO re : list) {
-            System.out.println(re.getAreaName());
-            System.out.println(re.getRelatedCompany());
+            List<Map<String, Object>> result = new ArrayList<>();
+            Map<String, Object> data1 = new HashMap<>();
+            Map<String, Object> data2 = new HashMap<>();
+            data1.put("name", re.getAreaName());
+            data1.put("value", re.getRelatedCompany());
+            data2.put("name", "上海");
+            result.add(data1);
+            result.add(data2);
+            resultList.add(result);
         }
-
-//        data.put("areaName", relatedCompanyStatisticDO.getArea_name());
-//        data.put("", relatedCompanyStatisticDO.getRelated_company());
-        return data;
+        map.put("SHData", resultList);
+        return map;
     }
 
     @Override

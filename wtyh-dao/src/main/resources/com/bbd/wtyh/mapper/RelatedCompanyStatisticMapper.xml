@@ -2,12 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bbd.wtyh.mapper.RelatedCompanyStatisticMapper">
     <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.RelatedCompanyStatisticDO">
-        <result column="area_name" property="areaName"/>
-        <result column="related_company" property="relatedCompany"/>
+        <id column="id" javaType="java.lang.Integer" property="id"/>
+        <result column="area_name" javaType="java.lang.String" property="areaName"/>
+        <result column="related_company" javaType="java.lang.Integer" property="relatedCompany"/>
+        <result column="create_by"  javaType="java.lang.String" property="createBy"/>
+        <result column="create_date" javaType="java.util.Date" property="createDate"/>
+        <result column="update_by" javaType="java.lang.String" property="updateBy"/>
+        <result column="update_date" javaType="java.util.Date" property="updateDate"/>
     </resultMap>
-    <!--全国地图 -->
     <select id="getChinaMap" resultMap="BaseResultMap">
-      select area_name, related_company from related_company_statistic;
+      select
+      area_name, related_company
+      from related_company_statistic
     </select>
-
 </mapper>
