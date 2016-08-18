@@ -1,5 +1,6 @@
 package com.bbd.wtyh.dao;
 
+import com.bbd.wtyh.domain.bbdAPI.BBDLogoDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
@@ -17,8 +18,9 @@ import java.util.Map;
 public interface P2PImageDao {
     /**
      * 舆情信息
-     * @return 舆情信息
+     *
      * @param platName
+     * @return 舆情信息
      */
     YuQingDO platformConsensus(String platName);
 
@@ -36,15 +38,24 @@ public interface P2PImageDao {
 
     /**
      * 获取 p2p平台核心数据
-     * @param platName  核心数据
+     *
+     * @param platName 核心数据
      * @return
      */
     PlatDataDO getPlatData(String platName);
 
     /**
      * 监测是否有要查询的公司
+     *
      * @param plat_name
      * @return
      */
     SearchCompanyDO hasOrNotCompany(String plat_name);
+
+    /**
+     * 企业logo
+     * @param company
+     * @return
+     */
+    BBDLogoDO bbdLogo(String company);
 }
