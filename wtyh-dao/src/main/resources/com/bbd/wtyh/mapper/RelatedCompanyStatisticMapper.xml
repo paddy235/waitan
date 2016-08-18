@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.RelatedCompanyStatisticMapper">
+    <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.RelatedCompanyStatisticDO">
+        <result column="area_name" property="areaName"/>
+        <result column="related_company" property="relatedCompany"/>
+    </resultMap>
+    <!--全国地图 -->
+    <select id="getChinaMap" resultMap="BaseResultMap">
+      select area_name, related_company from related_company_statistic;
+    </select>
+
+</mapper>
