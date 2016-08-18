@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "cc081e06c0e49218224f"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "4d422dbdb1d7db2fc718"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -87765,7 +87765,10 @@
 	    realTimeNineRequest: state.RealTimeNine.request, //RealTimeNine注册在reduce里面的index。拿到处理后的两个返回值。
 
 	    realTimeNewsResult: state.RealTimeNews.result,
-	    realTimeNewsRequest: state.RealTimeNews.request //RealTimeNews注册在reduce里面的index。拿到处理后的两个返回值。
+	    realTimeNewsRequest: state.RealTimeNews.request, //RealTimeNews注册在reduce里面的index。拿到处理后的两个返回值。
+
+	    realTimeMapResult: state.RealTimeMap.result,
+	    realTimeMapRequest: state.RealTimeMap.request //RealTimeMap注册在reduce里面的index。拿到处理后的两个返回值。
 	  };
 	}
 
@@ -88081,7 +88084,13 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var Immutable = __webpack_require__(777);
+
+	//抽离出来的地图实例
 	var chartChina, chartShanghai;
+	//用来保存ajax返回的数据
+	var ajaxData;
+	//上海的经纬度
 	var SHposition = {
 	    "黄浦区": [127.291193, 31.237373],
 	    "浦东新区": [121.550543, 31.227391],
@@ -88624,14 +88633,33 @@
 	            $(".realtime-top-middle .info,.realtime-top-middle .return,.realtime-top-middle .bar").hide();
 	        });
 	    },
-	    componentDidMount: function componentDidMount() {
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	        var _this = this;
-	        this.mapChina(); // 默认是中国地图，点击的时候，释放实例，初始化另一个实例
+	        var isEqual = Immutable.is(nextProps.realTimeMapRequest, this.props.realTimeMapResult); //判断数据是否变化
+	        if (!isEqual) {
+	            var realTimeMapRequest = nextProps.realTimeMapRequest;
+	            var realTimeMapResult = nextProps.realTimeMapResult;
+
+	            if (realTimeMapRequest == true) {
+	                if (realTimeMapRequest == true) {
+	                    ajaxData = realTimeMapResult;
+	                    _this.mapChina();
+	                } else {
+	                    alert(404);
+	                }
+	            }
+	        }
+	    },
+	    componentDidMount: function componentDidMount() {
+	        var getRealTimeMap = this.props.getRealTimeMap; // 取到props里面的getRealTimeTable方法。也可以说是请求action
+
+	        var jsonData = {}; //ajax传递给后台的data键值对
+	        getRealTimeMap(jsonData);
+
 	        $(window).resize(function (event) {
 	            // _this.state.mapeType == "china"?this.mapChina():this.mapShanghai();
 	        }.bind(this));
 	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {},
 	    componentDidUpdate: function componentDidUpdate(nextProps, nextState) {
 	        var convertData = function convertData(data) {
 	            var res = [];
@@ -88901,6 +88929,8 @@
 	                        "color": ["#f93330"],
 	                        "titleShow": "show",
 	                        "titleX": "left",
+	                        "forMaterTitle": "贷款余额",
+	                        "forMaterTip": '平均贷款余额',
 	                        "legend": ["新增项目数"],
 	                        "legendShow": false,
 	                        "legendLeft": "center",
@@ -88911,8 +88941,8 @@
 	                        "labelShow": true,
 	                        "barName": ["新增项目数"],
 	                        "lablePosition": "right",
-	                        "yAxis": nineDate.content.exchange.xAxis,
-	                        "Ytype": "category",
+	                        "yAxis": nineDate.content.exchange.xAxis /*["奖励众筹", "非公开股权融资", "公益s众筹", "公益2q众筹", "公益众d筹"]*/
+	                        , "Ytype": "category",
 	                        "Xtype": "value",
 	                        "yAxisName": ["新增项目数", ""],
 	                        "barWidth": 20,
@@ -88952,12 +88982,12 @@
 	                    nineDate.content.mortgage.series[1].map(function (item, index) {
 	                        paramSevenData[index].push(item);
 	                    });
-	                    alert(paramSevenData);
 	                    //paramSevenData-fixed-end
 	                    paramSeven = {
 	                        id: 'realTimeRightTwo', //必传
 	                        height: '100%', //必传 带上单位
 	                        title: '典当总额及业务笔数',
+	                        yType: "value",
 	                        gridTop: "20%",
 	                        legend: [],
 	                        xAxis: nineDate.content.mortgage.xAxis,
@@ -89054,336 +89084,6 @@
 	            }
 	        }
 	    },
-	    // setParam:function(){
-	    //         var paramOne={
-	    //             id:'realTimeRightOne',//必传
-	    //             height:'100%',//必传 带上单位
-	    //             title:'小额贷款之贷款余额',
-	    //             forMaterTitle:"贷款余额",
-	    //             forMaterTip:'平均贷款余额',
-	    //             legend: [],
-	    //             xAxis:['2010', '2011', '2012','2013', '2014', '2015', '2016'],
-	    //             yAxis: ['20', '40', '60', '80', '100', '120', '140'],
-	    //             data: [[0,0,300000],[1,1,1000000],[2,2,200000],[3,3,50],[4,4,60],[5,5,10],[6,6,80]],
-	    //             series:[
-	    //                     [{
-	    //                       color:'#e14340'
-	    //                     }]
-	    //                   ]
-	    //         }
-	    //         var paramTwo={
-	    //             "title":"私募基金",
-	    //             "color":["#f5b94b", "#01b6ed"],
-	    //             "titleShow":"show",
-	    //             "titleX":"left",
-	    //             "legend": ["管理资本金额", "私募机构数量"],
-	    //             "legendShow":true,
-	    //             "legendLeft":"center",
-	    //             "legendTop":"20",
-	    //             "gridBottom":"0%",
-	    //             "gridRight":"0%",
-	    //             "barName":["管理资本金额","私募机构数量"],
-	    //             "xAxis": ["2012", "2013", "2014", "2015"],
-	    //             "yAxisName": ["亿元", "个数"],
-	    //             "barWidth":20,
-	    //             "symbolSize":10,
-	    //              "series": {
-	    //                 "bar": [
-	    //                     [
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200)
-	    //                     ],
-	    //                     [
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200)
-	    //                     ]
-	    //                 ]
-	    //             }
-	    //         };
-	    //         var paramThree={
-	    //             "titleShow":true,
-	    //             "title":"P2P平台",
-	    //             "color":["#12b5b0", "#e24441"],
-	    //             "legend": ["上海新增", "上海累计"],
-	    //             "legendShow":true,
-	    //             "legendLeft":"center",
-	    //             "legendTop":"20",
-	    //             "barName":["上海新增"],
-	    //             "lineName":["上海累计"],
-	    //             "YnameLocation":"end",
-	    //             "gridLeft":"5%",
-	    //             "gridRight":"0%",
-	    //             "gridBottom":"0%",
-	    //             "yFlag":"",
-	    //             "xAxis": ["2012-Q1", "2014-Q2", "2014-Q3", "2014-Q4", "2015-Q1","2015-Q2", "2015-Q3", "2015-Q4", "2016-Q1"],
-	    //             "yAxisName": ["家数", ""],
-	    //             "barWidth":20,
-	    //             "symbolSize":10,
-	    //             "series": {
-	    //                 "bar": [
-	    //                     [
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200)
-	    //                     ]
-	    //                 ],
-	    //                 "line": [
-	    //                         [
-	    //                             Math.round(Math.random() * 200),
-	    //                             Math.round(Math.random() * 200),
-	    //                             Math.round(Math.random() * 200),
-	    //                             Math.round(Math.random() * 200),
-	    //                             Math.round(Math.random() * 200),
-	    //                             Math.round(Math.random() * 200),
-	    //                             Math.round(Math.random() * 200),
-	    //                             Math.round(Math.random() * 200),
-	    //                             Math.round(Math.random() * 200)
-
-	    //                         ]
-	    //                     ]
-	    //             }
-	    //         };
-	    //         var paramFour={
-	    //             "titleShow":true,
-	    //             "title":"融资租赁",
-	    //             "color":["#12b5b0", "#e24441","rgb(230,162,74)"],
-	    //             "legend": ["注册资本($)","注册资本(¥)","企业数量",],
-	    //             "legendShow":true,
-	    //             "legendLeft":"center",
-	    //             "legendTop":"20",
-	    //             "legendWidth":600,
-	    //             "barName":["注册资本($)","注册资本(¥)"],
-	    //             "lineName":["企业数量"],
-	    //             "YnameRoutate":0,
-	    //             "YnameLocation":"end",
-	    //             "gridLeft":"5%",
-	    //             "gridRight":"0%",
-	    //             "gridBottom":"0%",
-	    //             "yFlag":"",
-	    //             "xAxis": ["2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015"],
-	    //             "yAxisName": ["亿人民币", "亿美元"],
-	    //             "barWidth":10,
-	    //             "symbolSize":10,
-	    //             "series": {
-	    //                 "bar": [
-	    //                     [
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200)
-	    //                     ],
-	    //                     [
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200)
-	    //                     ]
-	    //                 ],
-	    //                 "line": [
-	    //                     [
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200)
-	    //                     ]
-	    //                     ]
-	    //             }
-	    //         };
-	    //         var paramFive={
-	    //             "title":"众筹平台",
-	    //             "color":["#f93330"],
-	    //             "titleShow":"show",
-	    //             "titleX":"left",
-	    //             "legend": ["新增项目数"],
-	    //             "legendShow":false,
-	    //             "legendLeft":"center",
-	    //             "axisLabelR":false,
-	    //             "legendTop":"20",
-	    //             "gridBottom":"0%",
-	    //             "gridRight":"0%",
-	    //             "labelShow":true,
-	    //             "barName":["新增项目数"],
-	    //             "lablePosition":"right",
-	    //             "yAxis": ["奖励众筹", "非公开股权融资", "公益众筹"],
-	    //             "Ytype":"category",
-	    //             "Xtype":"value",
-	    //             "yAxisName": ["新增项目数", ""],
-	    //             "barWidth":20,
-	    //             "symbolSize":10,
-	    //              "series": {
-	    //                 "bar": [
-	    //                     [
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200)
-	    //                     ]
-	    //                 ]
-	    //             }
-	    //         };
-	    //         var paramSix={
-	    //             "title":"众筹平台",
-	    //             "color":["#f93330"],
-	    //             "titleShow":"show",
-	    //             "titleX":"left",
-	    //             "legend": ["新增项目数"],
-	    //             "legendShow":false,
-	    //             "legendLeft":"center",
-	    //             "axisLabelR":false,
-	    //             "legendTop":"20",
-	    //             "gridBottom":"0%",
-	    //             "gridRight":"0%",
-	    //             "labelShow":true,
-	    //             "barName":["新增项目数"],
-	    //             "xAxis": ["奖励众筹", "非公开股权融资", "公益众筹"],
-	    //             "yAxisName": ["新增项目数", ""],
-	    //             "barWidth":20,
-	    //             "symbolSize":10,
-	    //              "series": {
-	    //                 "bar": [
-	    //                     [
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200)
-	    //                     ]
-	    //                 ]
-	    //             }
-	    //         };
-	    //         var paramSeven={
-	    //             id:'realTimeRightTwo',//必传
-	    //             height:'100%',//必传 带上单位
-	    //             title:'典当总额及业务笔数',
-	    //             gridTop:"20%",
-	    //             legend: [],
-	    //             xAxis:['2009','2010','2011','2012','2013'],
-	    //             yAxis: ['100000', '200000', '300000', '400000', '500000'],
-	    //             data: [[0,0,30],[1,1,10],[2,2,20],[3,3,50],[4,4,60]],
-	    //             series:[
-	    //                     [{
-	    //                       color:'#e14340'
-	    //                     }]
-	    //                   ]
-	    //         };
-	    //         var paramEight={
-	    //             "titleShow":true,
-	    //             "title":"商业保理",
-	    //             "color":["rgb(249,51,48)", "rgb(246,215,147)"],
-	    //             "legend": ["商业保理业务总额", "融资余额"],
-	    //             "legendShow":true,
-	    //             "legendLeft":"center",
-	    //             "legendTop":"20",
-	    //             "barName":["商业保理业务总额"],
-	    //             "lineName":["融资余额"],
-	    //             "YnameLocation":"end",
-	    //             "YnameGap":5,
-	    //             "gridLeft":"5%",
-	    //             "gridRight":"0%",
-	    //             "gridBottom":"0%",
-	    //             "Ytype":"value",
-	    //             "xAxis": ["2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012"],
-	    //             "yAxisName": ["亿元", "个数"],
-	    //             "barWidth":20,
-	    //             "symbolSize":10,
-	    //             "itemStyle":{
-
-	    //             },
-	    //             "series": {
-	    //                 "bar": [
-	    //                     [
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200)
-	    //                     ]
-	    //                 ],
-	    //                 "line": [
-	    //                         [
-	    //                             Math.round(Math.random() * 200),
-	    //                             Math.round(Math.random() * 200),
-	    //                             Math.round(Math.random() * 200),
-	    //                             Math.round(Math.random() * 200),
-	    //                             Math.round(Math.random() * 200),
-	    //                             Math.round(Math.random() * 200),
-	    //                             Math.round(Math.random() * 200),
-	    //                             Math.round(Math.random() * 200)
-
-	    //                         ]
-	    //                     ]
-	    //             }
-	    //         };
-	    //         var paramNine={
-	    //             "title":"预付卡之备案企业预付金额总额",
-	    //             "color":["#12b5b0", "#01b6ed"],
-	    //             "titleShow":"show",
-	    //             "titleX":"left",
-	    //             "legend": ["管理资本金额"],
-	    //             "legendShow":false,
-	    //             "legendLeft":"center",
-	    //             "legendTop":"20",
-	    //             "gridBottom":"0%",
-	    //             "gridRight":"0%",
-	    //             "axisLabelR":false,
-	    //             "barName":["管理资本金额"],
-	    //             "xAxis": ["2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015","2016"],
-	    //             "yAxisName": ["亿元", ""],
-	    //             "barWidth":20,
-	    //             "symbolSize":10,
-	    //             "labelShow":true,
-	    //              "series": {
-	    //                 "bar": [
-	    //                     [
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200),
-	    //                         Math.round(Math.random() * 200)
-	    //                     ]
-	    //                 ]
-	    //             }
-	    //         };
-	    //         return [paramOne,paramTwo,paramThree,paramFour,paramFive,paramSix,paramSeven,paramEight,paramNine];
-	    // },
 	    render: function render() {
 	        var paramOneBox, paramTwoBox, paramThreeBox, paramFourBox, paramFiveBox, paramSixBox, paramSevenBox, paramEightBox, paramNineBox;
 	        if (!!paramOne) {
@@ -90019,6 +89719,10 @@
 
 	var _realtimeNewsReducer2 = _interopRequireDefault(_realtimeNewsReducer);
 
+	var _realtimeMapReducer = __webpack_require__(1329);
+
+	var _realtimeMapReducer2 = _interopRequireDefault(_realtimeMapReducer);
+
 	var _MenuParkSelectVal = __webpack_require__(1318);
 
 	var _MenuParkSelectVal2 = _interopRequireDefault(_MenuParkSelectVal);
@@ -90059,51 +89763,49 @@
 
 	/*商业保理监测 end*/
 
-	//企业占比对比
+	/*=================================交易场所监测=================================*/
 
-	//企业目录列表
-
-	/*实时监测 begin*/
-	//左侧表格
-
-	//取得合规意见或经过会商的交易场所详情列表
+	/*=================================融资租赁=================================*/
+	//典当法人企业数
 
 	//交易场所清理整顿分类
 
-	//上海市典当企业目录
+	/*=================================典当行业监测=================================*/
 
-	//列表
-
-	//6月上海各类众筹平台新增项目数
-
-	/*====================================私募基金===============================*/
+	/*=================================交易场所监测=================================*/
+	//黄浦区交易场所列表
 
 	/*=================================众筹监测=================================*/
-	//业务类型
 
-	//私募基金分类
+	/*=================================典当行业监测=================================*/
+	//所有图标
 
+	//6月上海各类众筹平台新增项目数的成功筹资金额
 
-	/*====================================p2p画像平台============================*/
+	//6月上海各类众筹平台新增项目的投资人次
 
-	/*====================================私募基金===============================*/
-	//QDLP试点企业最新进展
+	//私募股权基本情况
 
-	//动态图谱
+	//私募证券基本情况
 
-	//诉讼信息
+	//QFLP试点企业最新进展
 
-	//核心数据
+	//评分雷达图
+
+	//平台舆情
+
+	//公司基本信息
+
+	//p2p图表
+
 
 	/*====================================P2P平台监测============================*/
-
-	/*====================================p2p画像平台============================*/
-	//基本信息
-
-	//网贷平台数据展示
+	//上海区域发展指数排名
 
 
-	//融资担保
+	/*行业监测模块*/
+
+	//小额贷款
 	var rootReducer = (0, _redux.combineReducers)({
 	  /*行业监测模块*/
 	  //P2P平台监测
@@ -90175,6 +89877,7 @@
 	  RealTimeTable: _realtimeTableRuducer2.default,
 	  RealTimeNine: _realtimeNineReducer2.default,
 	  RealTimeNews: _realtimeNewsReducer2.default,
+	  RealTimeMap: _realtimeMapReducer2.default,
 
 	  //商业保理监测
 	  ChartAll: _ChartAll4.default,
@@ -90198,49 +89901,50 @@
 
 	//园区
 
-	/*=================================交易场所监测=================================*/
+	//企业占比对比
 
-	/*=================================融资租赁=================================*/
-	//典当法人企业数
+	//企业目录列表
+
+	/*实时监测 begin*/
+
+	//取得合规意见或经过会商的交易场所详情列表
 
 	//交易场所清理整顿分类
 
-	/*=================================典当行业监测=================================*/
+	//上海市典当企业目录
 
-	/*=================================交易场所监测=================================*/
-	//黄浦区交易场所列表
+	//列表
+
+	//6月上海各类众筹平台新增项目数
+
+	/*====================================私募基金===============================*/
 
 	/*=================================众筹监测=================================*/
+	//业务类型
 
-	/*=================================典当行业监测=================================*/
-	//所有图标
+	//私募基金分类
 
-	//6月上海各类众筹平台新增项目数的成功筹资金额
 
-	//6月上海各类众筹平台新增项目的投资人次
+	/*====================================p2p画像平台============================*/
 
-	//私募股权基本情况
+	/*====================================私募基金===============================*/
+	//QDLP试点企业最新进展
 
-	//私募证券基本情况
+	//动态图谱
 
-	//QFLP试点企业最新进展
+	//诉讼信息
 
-	//评分雷达图
-
-	//平台舆情
-
-	//公司基本信息
-
-	//p2p图表
-
+	//核心数据
 
 	/*====================================P2P平台监测============================*/
-	//上海区域发展指数排名
+
+	/*====================================p2p画像平台============================*/
+	//基本信息
+
+	//网贷平台数据展示
 
 
-	/*行业监测模块*/
-
-	//小额贷款
+	//融资担保
 
 	exports.default = rootReducer;
 
@@ -99854,6 +99558,7 @@
 	exports.getRealTimeTable = getRealTimeTable;
 	exports.getRealTimeNine = getRealTimeNine;
 	exports.getRealTimeNews = getRealTimeNews;
+	exports.getRealTimeMap = getRealTimeMap;
 	/*
 	  实时监测左侧表格action
 	*/
@@ -99968,6 +99673,46 @@
 	      },
 	      error: function error(result) {
 	        return dispatch(RealTimeNewsFail(result));
+	      }
+	    });
+	  };
+	}
+
+	/*
+	  实时监测右下角的舆情模块
+	*/
+	var REALTIME_MAP_SUCCESS = exports.REALTIME_MAP_SUCCESS = 'REALTIME_MAP_SUCCESS';
+	var REALTIME_MAP_FAIL = exports.REALTIME_MAP_FAIL = 'REALTIME_MAP_FAIL';
+
+	function RealTimeMapSuccess(result) {
+	  //请求成功调用方法 保存成功的数据
+	  return {
+	    type: REALTIME_MAP_SUCCESS,
+	    result: result
+	  };
+	}
+	function RealTimeMapFail(result) {
+	  //请求失败调用方法  保存了失败的数据
+	  return {
+	    type: REALTIME_MAP_FAIL,
+	    result: result
+	  };
+	}
+
+	//最开始触发redux流程的导火线。
+	function getRealTimeMap(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "/companyNews/getCompanyNews.do", //"/data/industryMonitor/smallLoan/index/companyGrade.json",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(RealTimeMapSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(RealTimeMapFail(result));
 	      }
 	    });
 	  };
@@ -102172,6 +101917,57 @@
 
 	// exports
 
+
+/***/ },
+/* 1329 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = realTimeMap;
+
+	var _RealTimeAction = __webpack_require__(1291);
+
+	//这个函数就是处理，action里面成功和失败的2个返回函数。
+	//当ajax请求成功了，就可以调用这个两个返回函数进行操作。
+
+	function realTimeMap() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? { //这个名字无所谓，最后都是用index里面对外暴露的名字。
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _RealTimeAction.REALTIME_MAP_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _RealTimeAction.REALTIME_MAP_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
+
+	//（默认的2个值，根据判断action返回的两个值）
+	// 这个reducer就是从action里面抽离出来的数据的状态机
+
+	// request、result
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "realtimeMapReducer.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ }
 /******/ ]);
