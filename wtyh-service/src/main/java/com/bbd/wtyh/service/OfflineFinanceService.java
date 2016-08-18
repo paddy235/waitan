@@ -18,7 +18,7 @@ public interface OfflineFinanceService {
      * @return
      */
     @SuppressWarnings("rawtypes")
-    public Map<String,List> queryRelation(String companyName, String dataVersion) throws Exception;
+    public Map<String,List> queryRelation(String companyName, String dataVersion, String degreesLevel) throws Exception;
 
     /**
      * 公司舆情
