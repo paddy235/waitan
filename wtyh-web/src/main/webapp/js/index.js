@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "891b7c0aa2d97c26de5c"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "21e7c28bd3e60287d8bf"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -49055,6 +49055,7 @@
 	    for (var i = 0; i < len; i++) {
 	      selectArr.push({ value: content[i].areaId, label: content[i].name });
 	    }
+	    this.getMenuParkSelectVal(selectArr[0].value, selectArr[0].name);
 	    this.setState({ selectDataArr: selectArr, value: selectArr[0].value });
 	  },
 	  getMenuParkSelectList: function getMenuParkSelectList(data) {
@@ -72489,17 +72490,7 @@
 
 				if (baseMsgRequest == true) {
 					if (baseMsgResult.success) {
-						var _setParm = [{
-							address: "上海浦东新区陆家嘴环路1333号",
-							legalPeople: "郑森",
-							platName: "陆金所",
-							registerOffice: "上海市工商局",
-							companyName: "上海陆家嘴国际金融资产交易市场股份有限公司",
-							verifiedTime: "2011-11-9",
-							capital: "83667",
-							companyCode: "79361521",
-							openedTime: "2011-11-9"
-						}];
+						var _setParm = [baseMsgResult.content];
 						this.setState({ listData: _setParm });
 					} else {
 						//错误后提示
@@ -72711,7 +72702,7 @@
 
 
 	// module
-	exports.push([module.id, ".p2p-portrait {\r\n}\r\n\r\n.p2p-portrait .portrait-left {\r\n\twidth: 45%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right {\r\n\twidth: 54.5%;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom {\r\n\twidth: 100%;\r\n\tmargin-top: 0.5%\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t {\r\n\twidth: 100%;\r\n\theight: 180px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m {\r\n\twidth: 100%;\r\n\theight: 275px;\r\n\tmargin: 1.5% 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-b {\r\n\twidth: 100%;\r\n\theight: 815px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t {\r\n\twidth: 100%;\r\n\theight: 464px\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b {\r\n\twidth: 100%;\r\n\theight: 815px;\r\n\tmargin-top: 1.4%;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l {\r\n\twidth: 24%;\r\n\theight: 255px;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-r {\r\n\twidth: 75.5%;\r\n\theight: 255px;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tdisplay: table;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul li {\r\n\tdisplay: table-cell;\r\n\tvertical-align: middle;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul span {\r\n\tdisplay: block;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul .score {\r\n\tfont-size: 50px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul .score-title {\r\n\tfont-size: 18px;\r\n\tcolor: #fff\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul .state {\r\n\tfont-size: 24px;\r\n\tcolor: #fff\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .wtyh-table {\r\n\theight: 180px;\r\n\tcolor: #dddddd\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .wtyh-table td {\r\n\tcolor: #dddddd;\r\n\tpadding-left: 20px !important;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .wtyh-table td .word-limit-5 {\r\n\twidth: 200px\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .list-items {\r\n\tpadding: 10px 10px 0px 10px\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content {\r\n\tpadding: 65px 43px 20px 43px\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul {\r\n\tdisplay: table;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n\tpadding-bottom: 20px;\r\n\ttext-align: center;\r\n\tborder-bottom: 1px #00b8ee solid;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul:before {\r\n\tcontent: \"\";\r\n\theight: 50%;\r\n\twidth: 1px;\r\n\tbackground: #00b8ee;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n\tleft: 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul:after {\r\n\tcontent: \"\";\r\n\theight: 50%;\r\n\twidth: 1px;\r\n\tbackground: #00b8ee;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n\tright: 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul li {\r\n\tdisplay: table-cell;\r\n\twidth: 33.3%;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .icon-susong {\r\n\tdisplay: inline-block;\r\n\tfont-size: 60px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .ssong-title {\r\n\tfont-size: 18px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .ssong-num {\r\n\tfont-size: 50px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .content {\r\n\tmargin: 20px;\r\n\theight: 170px;\r\n\tbackground: #212831;\r\n\toverflow: auto;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .serial-num {\r\n\twidth: 25px;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\ttext-align: center;\r\n\tbackground: #1a2029;\r\n\tcolor: #fff;\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item a {\r\n\tcolor: #e14340\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item {\r\n\tcolor: #d9d9d9;\r\n\tpadding: 11px 30px 11px 30px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item table {\r\n\twidth: 100%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .item-mark {\r\n\ttext-indent: 30px;\r\n\tpadding: 10px 0px\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item  .td2-l {\r\n\twidth: 5%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item  .td2-r {\r\n\twidth: 95%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .soure,\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .time {\r\n\tcolor: #999999\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .time {\r\n\tdisplay: inline-block;\r\n\tmargin-left: 20px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .content {\r\n\tpadding: 15px  50px 0px 50px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t ul {\r\n\tdisplay: table;\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t ul li {\r\n\tdisplay: table-cell;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-l {\r\n\twidth: 15%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-c {\r\n\twidth: 53%;\r\n\tmargin-right: 2%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r {\r\n\twidth: 30%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-l .socre-title {\r\n\tfont-size: 30px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-l .score {\r\n\tfont-size: 52px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r table {\r\n\r\n\t/*text-align: center;*/\r\n\twidth: 100%;\r\n\theight: 380px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r p {\r\n\tfont-size: 32px;\r\n\tcolor: #fdba45\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t  .leida-c-pic {\r\n\theight: 382px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r span {\r\n\tfont-size: 16px;\r\n\tcolor: #dddddd\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .content {\r\n\tpadding: 40px 30px;\r\n\theight: 760px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top {\r\n\theight: 50%;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top table {\r\n\twidth: 100%;\r\n\theight: 90%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-bottom .bottom-line-left {\r\n\twidth: 50%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-bottom .bottom-line-right {\r\n\twidth: 50%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top table  td {\r\n\twidth: 50%;\r\n\tcolor: #dddddd;\r\n\tpadding-left: 30px !important;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top .top-list {\r\n\theight: 100%;\r\n\twidth: 40%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top .top-bar {\r\n\theight: 100%;\r\n\twidth: 55%;\r\n\tfloat: right;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-bottom {\r\n\theight: 50%\r\n}\r\n\r\n.p2p-portrait .relation-legend table {\r\n\twidth: 100%\r\n}\r\n\r\n.p2p-portrait .relation-modal {\r\n\tdisplay: none;\r\n}\r\n\r\n.p2p-portrait .linefin-rel-graph .mod-content .relation-graph-box {\r\n\theight: 640px;\r\n\toverflow: hidden;\r\n}\r\n\r\n.p2p-portrait  .linefin-rel-graph {\r\n\theight: 815px\r\n}\r\n\r\n.p2p-portrait .relation-legend table tr td {\r\n\twidth: 19.8%;\r\n}\r\n\r\n.p2p-portrait .relation-legend {\r\n\tmargin: 25px 10px 15px 10px;\r\n\twidth: auto;\r\n}\r\n\r\n.p2p-portrait  .relation-legend table tr .square,\r\n.p2p-portrait   .relation-legend table tr .round {\r\n\tmargin-right: 5px;\r\n}\r\n\r\n.p2p-portrait  .relation-legend table tr .square {\r\n\twidth: 10px;\r\n\theight: 10px;\r\n}\r\n\r\n.p2p-portrait   .relation-legend table tr .round {\r\n\twidth: 10px;\r\n\theight: 10px;\r\n}", ""]);
+	exports.push([module.id, ".p2p-portrait {\r\n}\r\n\r\n.p2p-portrait .portrait-left {\r\n\twidth: 45%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right {\r\n\twidth: 54.5%;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom {\r\n\twidth: 100%;\r\n\tmargin-top: 0.5%\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t {\r\n\twidth: 100%;\r\n\theight: 180px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m {\r\n\twidth: 100%;\r\n\theight: 275px;\r\n\tmargin: 1.5% 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-b {\r\n\twidth: 100%;\r\n\theight: 815px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t {\r\n\twidth: 100%;\r\n\theight: 464px\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b {\r\n\twidth: 100%;\r\n\theight: 815px;\r\n\tmargin-top: 1.4%;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l {\r\n\twidth: 24%;\r\n\theight: 255px;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-r {\r\n\twidth: 75.5%;\r\n\theight: 255px;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tdisplay: table;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul li {\r\n\tdisplay: table-cell;\r\n\tvertical-align: middle;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul span {\r\n\tdisplay: block;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul .score {\r\n\tfont-size: 50px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul .score-title {\r\n\tfont-size: 18px;\r\n\tcolor: #fff\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul .state {\r\n\tfont-size: 24px;\r\n\tcolor: #fff\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .wtyh-table {\r\n\theight: 180px;\r\n\tcolor: #dddddd\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .wtyh-table td {\r\n\tcolor: #dddddd;\r\n\tpadding-left: 20px !important;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .wtyh-table td .word-limit-5 {\r\n\twidth: 200px\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .list-items {\r\n\tpadding: 10px 10px 0px 10px\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content {\r\n\tpadding: 65px 43px 20px 43px\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul {\r\n\tdisplay: table;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n\tpadding-bottom: 20px;\r\n\ttext-align: center;\r\n\tborder-bottom: 1px #00b8ee solid;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul:before {\r\n\tcontent: \"\";\r\n\theight: 50%;\r\n\twidth: 1px;\r\n\tbackground: #00b8ee;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n\tleft: 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul:after {\r\n\tcontent: \"\";\r\n\theight: 50%;\r\n\twidth: 1px;\r\n\tbackground: #00b8ee;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n\tright: 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul li {\r\n\tdisplay: table-cell;\r\n\twidth: 33.3%;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .icon-susong {\r\n\tdisplay: inline-block;\r\n\tfont-size: 60px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .ssong-title {\r\n\tfont-size: 18px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .ssong-num {\r\n\tfont-size: 50px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .content {\r\n\tmargin: 20px;\r\n\theight: 170px;\r\n\tbackground: #212831;\r\n\toverflow: auto;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .serial-num {\r\n\twidth: 25px;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\ttext-align: center;\r\n\tbackground: #1a2029;\r\n\tcolor: #fff;\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item a {\r\n\tcolor: #e14340\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item {\r\n\tcolor: #d9d9d9;\r\n\tpadding: 11px 30px 11px 30px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item table {\r\n\twidth: 100%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .item-mark {\r\n\ttext-indent: 30px;\r\n\tpadding: 10px 0px\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item  .td2-l {\r\n\twidth: 5%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item  .td2-r {\r\n\twidth: 95%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .soure,\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .time {\r\n\tcolor: #999999\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .time {\r\n\tdisplay: inline-block;\r\n\tmargin-left: 20px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .content {\r\n\tpadding: 15px  50px 0px 50px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t ul.content-ul {\r\n\tdisplay: table;\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t ul.content-ul>li {\r\n\tdisplay: table-cell;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-l {\r\n\twidth: 15%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-c {\r\n\twidth: 53%;\r\n\tmargin-right: 2%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r {\r\n\twidth: 30%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-l .socre-title {\r\n\tfont-size: 30px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-l .score {\r\n\tfont-size: 52px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r table {\r\n\r\n\t/*text-align: center;*/\r\n\twidth: 100%;\r\n\theight: 380px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r  .score-leida-r-ul li {\r\n\twidth: 48%;\r\n\tfloat: left;\r\n\tpadding: 15px 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r p {\r\n\tfont-size: 32px;\r\n\tcolor: #fdba45\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t  .leida-c-pic {\r\n\theight: 382px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r span {\r\n\tfont-size: 16px;\r\n\tcolor: #dddddd\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .content {\r\n\tpadding: 40px 30px;\r\n\theight: 760px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top {\r\n\theight: 50%;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top table {\r\n\twidth: 100%;\r\n\theight: 90%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-bottom .bottom-line-left {\r\n\twidth: 50%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-bottom .bottom-line-right {\r\n\twidth: 50%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top table  td {\r\n\twidth: 50%;\r\n\tcolor: #dddddd;\r\n\tpadding-left: 30px !important;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top .top-list {\r\n\theight: 100%;\r\n\twidth: 40%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top .top-bar {\r\n\theight: 100%;\r\n\twidth: 55%;\r\n\tfloat: right;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-bottom {\r\n\theight: 50%\r\n}\r\n\r\n.p2p-portrait .relation-legend table {\r\n\twidth: 100%\r\n}\r\n\r\n.p2p-portrait .relation-modal {\r\n\tdisplay: none;\r\n}\r\n\r\n.p2p-portrait .linefin-rel-graph .mod-content .relation-graph-box {\r\n\theight: 640px;\r\n\toverflow: hidden;\r\n}\r\n\r\n.p2p-portrait  .linefin-rel-graph {\r\n\theight: 815px\r\n}\r\n\r\n.p2p-portrait .relation-legend table tr td {\r\n\twidth: 19.8%;\r\n}\r\n\r\n.p2p-portrait .relation-legend {\r\n\tmargin: 25px 10px 15px 10px;\r\n\twidth: auto;\r\n}\r\n\r\n.p2p-portrait  .relation-legend table tr .square,\r\n.p2p-portrait   .relation-legend table tr .round {\r\n\tmargin-right: 5px;\r\n}\r\n\r\n.p2p-portrait  .relation-legend table tr .square {\r\n\twidth: 10px;\r\n\theight: 10px;\r\n}\r\n\r\n.p2p-portrait   .relation-legend table tr .round {\r\n\twidth: 10px;\r\n\theight: 10px;\r\n}", ""]);
 
 	// exports
 
@@ -72739,42 +72730,75 @@
 	var Immutable = __webpack_require__(766);
 	var CompanyMsg = _react2.default.createClass({
 		displayName: 'CompanyMsg',
+
+		getInitialState: function getInitialState() {
+			return {
+				listData: []
+			};
+		},
+		componentDidMount: function componentDidMount() {
+			var getcompanyMsgRequest = this.props.getcompanyMsgRequest;
+
+			getcompanyMsgRequest({ "platName": "" });
+		},
+		componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+			var isEqual = Immutable.is(nextProps.companyMsgRequest, this.props.companyMsgResult);
+			if (!isEqual) {
+				var companyMsgRequest = nextProps.companyMsgRequest;
+				var companyMsgResult = nextProps.companyMsgResult;
+
+				if (companyMsgRequest == true) {
+					if (companyMsgResult.success) {
+						var _setParm = [companyMsgResult.content];
+						console.log(_setParm, "===================================_setParm");
+						this.setState({ listData: _setParm });
+					} else {
+						//错误后提示
+					}
+				}
+			}
+		},
 		render: function render() {
 			return _react2.default.createElement(
 				'div',
 				{ className: 'left-t radius4 mod' },
-				_react2.default.createElement(
-					'ul',
-					null,
-					_react2.default.createElement(
-						'li',
-						null,
-						_react2.default.createElement('img', { src: '/images/no-logo.png' })
-					),
-					_react2.default.createElement(
-						'li',
-						null,
-						_react2.default.createElement(
-							'span',
-							{ className: 'score orange' },
-							'88'
-						),
-						_react2.default.createElement(
-							'span',
-							{ className: 'score-title' },
-							'评分'
-						)
-					),
-					_react2.default.createElement(
-						'li',
-						null,
-						_react2.default.createElement(
-							'span',
-							{ className: 'state' },
-							'正常营业'
-						)
-					)
-				)
+				this.state.listData.map(function (item, index) {
+					{
+
+						return _react2.default.createElement(
+							'ul',
+							null,
+							_react2.default.createElement(
+								'li',
+								null,
+								_react2.default.createElement('img', { src: '/images/no-logo.png' })
+							),
+							_react2.default.createElement(
+								'li',
+								null,
+								_react2.default.createElement(
+									'span',
+									{ className: 'score orange' },
+									item.score
+								),
+								_react2.default.createElement(
+									'span',
+									{ className: 'score-title' },
+									'评分'
+								)
+							),
+							_react2.default.createElement(
+								'li',
+								null,
+								_react2.default.createElement(
+									'span',
+									{ className: 'state' },
+									item.status
+								)
+							)
+						);
+					}
+				})
 			);
 		}
 	});
@@ -73295,6 +73319,37 @@
 	var Immutable = __webpack_require__(766);
 	var Litigation = _react2.default.createClass({
 		displayName: 'Litigation',
+
+		getInitialState: function getInitialState() {
+			return {
+				listData: []
+			};
+		},
+		componentDidMount: function componentDidMount() {
+			var getlitigationRequest = this.props.getlitigationRequest;
+
+			getlitigationRequest({ "company": "" });
+		},
+		componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+			var isEqual = Immutable.is(nextProps.litigationRequest, this.props.litigationResult);
+			if (!isEqual) {
+				var litigationRequest = nextProps.litigationRequest;
+				var litigationResult = nextProps.litigationResult;
+
+				if (litigationRequest == true) {
+					if (litigationResult.success) {
+						litigationResult.content = {
+							"lawsuitNum": 12
+						};
+						var _setParm = [litigationResult.content];
+
+						this.setState({ listData: _setParm });
+					} else {
+						//错误后提示
+					}
+				}
+			}
+		},
 		render: function render() {
 			return _react2.default.createElement(
 				'div',
@@ -73328,19 +73383,24 @@
 								'诉讼信息'
 							)
 						),
-						_react2.default.createElement(
-							'li',
-							null,
-							_react2.default.createElement(
-								'span',
-								{ className: 'ssong-num' },
-								_react2.default.createElement(
-									_reactRouter.Link,
-									{ to: { pathname: '/SearchResultDetail', query: { formpage: 'Portrait' } }, className: 'orange' },
-									'5'
-								)
-							)
-						)
+						this.state.listData.map(function (item, index) {
+							{
+
+								return _react2.default.createElement(
+									'li',
+									null,
+									_react2.default.createElement(
+										'span',
+										{ className: 'ssong-num' },
+										_react2.default.createElement(
+											_reactRouter.Link,
+											{ to: { pathname: '/SearchResultDetail', query: { formpage: 'Portrait' } }, className: 'orange' },
+											item.lawsuitNum
+										)
+									)
+								);
+							}
+						})
 					)
 				)
 			);
@@ -73373,8 +73433,46 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Immutable = __webpack_require__(766);
+
 	var PublicOpinion = _react2.default.createClass({
 		displayName: 'PublicOpinion',
+
+		getInitialState: function getInitialState() {
+			return {
+				listData: []
+			};
+		},
+		componentDidMount: function componentDidMount() {
+			var getpublicOpinionRequest = this.props.getpublicOpinionRequest;
+
+			getpublicOpinionRequest({ "platName": "" });
+		},
+		componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+			var isEqual = Immutable.is(nextProps.publicOpinionRequest, this.props.publicOpinionResult);
+			if (!isEqual) {
+				var publicOpinionRequest = nextProps.publicOpinionRequest;
+				var publicOpinionResult = nextProps.publicOpinionResult;
+
+				if (publicOpinionRequest == true) {
+					if (publicOpinionResult.success) {
+
+						var _setData = [];
+						for (var item in publicOpinionResult.content.warning) {
+							var items = {
+								"info": publicOpinionResult.content.warning[item].info,
+								"name": publicOpinionResult.content.plat_name
+							};
+							_setData.push(items);
+						}
+
+						console.log(_setData, "================publicOpinionResult==");
+						this.setState({ listData: _setData });
+					} else {
+						//错误后提示
+					}
+				}
+			}
+		},
 		render: function render() {
 			return _react2.default.createElement(
 				'div',
@@ -73391,147 +73489,58 @@
 				_react2.default.createElement(
 					'div',
 					{ className: 'content' },
-					_react2.default.createElement(
-						'div',
-						{ className: 'list-item' },
-						_react2.default.createElement(
-							'table',
-							null,
-							_react2.default.createElement(
-								'tbody',
-								null,
+					this.state.listData.map(function (item, index) {
+						{
+							var num = index + 1;
+							return _react2.default.createElement(
+								'div',
+								{ className: 'list-item' },
 								_react2.default.createElement(
-									'tr',
+									'table',
 									null,
 									_react2.default.createElement(
-										'td',
-										{ rowSpan: '3', className: 'v-aglign-t td2-l' },
-										_react2.default.createElement(
-											'span',
-											{ className: 'serial-num' },
-											'1'
-										)
-									),
-									_react2.default.createElement(
-										'td',
-										{ className: 'td2-r' },
-										_react2.default.createElement(
-											'a',
-											{ href: 'javascript:void(null)' },
-											'投融范'
-										)
-									)
-								),
-								_react2.default.createElement(
-									'tr',
-									null,
-									_react2.default.createElement(
-										'td',
+										'tbody',
 										null,
 										_react2.default.createElement(
-											'p',
-											{ className: 'item-mark' },
-											'上海P2P投融范发逾期公告 承若九个月类兑付'
+											'tr',
+											null,
+											_react2.default.createElement(
+												'td',
+												{ rowSpan: '3', className: 'v-aglign-t td2-l' },
+												_react2.default.createElement(
+													'span',
+													{ className: 'serial-num' },
+													num
+												)
+											),
+											_react2.default.createElement(
+												'td',
+												{ className: 'td2-r' },
+												_react2.default.createElement(
+													'a',
+													{ href: 'javascript:void(null)' },
+													item.name
+												)
+											)
+										),
+										_react2.default.createElement(
+											'tr',
+											null,
+											_react2.default.createElement(
+												'td',
+												null,
+												_react2.default.createElement(
+													'p',
+													{ className: 'item-mark' },
+													item.info
+												)
+											)
 										)
 									)
 								)
-							)
-						)
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'list-item' },
-						_react2.default.createElement(
-							'table',
-							null,
-							_react2.default.createElement(
-								'tbody',
-								null,
-								_react2.default.createElement(
-									'tr',
-									null,
-									_react2.default.createElement(
-										'td',
-										{ rowSpan: '3', className: 'v-aglign-t td2-l' },
-										_react2.default.createElement(
-											'span',
-											{ className: 'serial-num' },
-											'2'
-										)
-									),
-									_react2.default.createElement(
-										'td',
-										{ className: 'td2-r' },
-										_react2.default.createElement(
-											'a',
-											{ href: 'javascript:void(null)' },
-											'投融范'
-										)
-									)
-								),
-								_react2.default.createElement(
-									'tr',
-									null,
-									_react2.default.createElement(
-										'td',
-										null,
-										_react2.default.createElement(
-											'p',
-											{ className: 'item-mark' },
-											'投融范一个推子布局的诈骗平台“华仔”推子兼职诈骗，人人得而诛之！'
-										)
-									)
-								)
-							)
-						)
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'list-item' },
-						_react2.default.createElement(
-							'table',
-							null,
-							_react2.default.createElement(
-								'tbody',
-								null,
-								_react2.default.createElement(
-									'tr',
-									null,
-									_react2.default.createElement(
-										'td',
-										{ rowSpan: '3', className: 'v-aglign-t td2-l' },
-										_react2.default.createElement(
-											'span',
-											{ className: 'serial-num' },
-											'3'
-										)
-									),
-									_react2.default.createElement(
-										'td',
-										{ className: 'td2-r' },
-										_react2.default.createElement(
-											'a',
-											{ href: 'javascript:void(null)' },
-											'投融范'
-										)
-									)
-								),
-								_react2.default.createElement(
-									'tr',
-									null,
-									_react2.default.createElement(
-										'td',
-										null,
-										_react2.default.createElement(
-											'p',
-											{ className: 'item-mark' },
-											'投融范项目逾期，回款无望'
-										)
-									)
-								)
-							)
-						)
-					)
+							);
+						}
+					})
 				)
 			);
 		}
@@ -74233,7 +74242,55 @@
 			};
 			return option;
 		},
+		getInitialState: function getInitialState() {
+			return {
+				listData: [],
+				leidaData: null
+			};
+		},
+		componentDidMount: function componentDidMount() {
+			var getscoreLeidaRequest = this.props.getscoreLeidaRequest;
+
+			getscoreLeidaRequest({ "platName": "" });
+		},
+		componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+			var isEqual = Immutable.is(nextProps.scoreLeidaRequest, this.props.scoreLeidaResult);
+			if (!isEqual) {
+				var scoreLeidaRequest = nextProps.scoreLeidaRequest;
+				var scoreLeidaResult = nextProps.scoreLeidaResult;
+
+				if (scoreLeidaRequest == true) {
+					if (scoreLeidaResult.success) {
+						var socreNum = $(this.refs.scoreNum).html(scoreLeidaResult.content.score);
+						var _setindicator = [];
+						for (var item in scoreLeidaResult.content.indicator) {
+							var items = {
+								"name": "运营能力",
+								"max": scoreLeidaResult.content.indicator[item].max + 30
+							};
+							_setindicator.push(items);
+						}
+						var chartOption = {
+							"color": ["#00b8ee"],
+							"legend": ["评分"],
+							"legendShow": false,
+							"series": scoreLeidaResult.content.series,
+							"radarRadius": 110,
+							"indicator": _setindicator
+						};
+						this.setState({ listData: scoreLeidaResult.content.indicator });
+						this.setState({ leidaData: chartOption });
+					} else {
+						//错误后提示
+					}
+				}
+			}
+		},
 		render: function render() {
+			var chartBoxBar = "";
+			if (this.state.leidaData) {
+				chartBoxBar = _react2.default.createElement(_RadarChart2.default, { option: this.state.leidaData, style: { height: '380px', width: '100%' } });
+			}
 			return _react2.default.createElement(
 				'div',
 				{ className: 'right-t radius4 mod' },
@@ -74251,7 +74308,7 @@
 					{ className: 'content' },
 					_react2.default.createElement(
 						'ul',
-						null,
+						{ className: 'content-ul' },
 						_react2.default.createElement(
 							'li',
 							{ className: 'score-leida-l' },
@@ -74260,11 +74317,7 @@
 								{ className: 'orange socre-title' },
 								'评分：'
 							),
-							_react2.default.createElement(
-								'p',
-								{ className: 'orange score' },
-								'88'
-							)
+							_react2.default.createElement('p', { className: 'orange score', ref: 'scoreNum' })
 						),
 						_react2.default.createElement(
 							'li',
@@ -74272,117 +74325,34 @@
 							_react2.default.createElement(
 								'div',
 								{ className: 'leida-c-pic' },
-								_react2.default.createElement(_RadarChart2.default, {
-									option: this.setParm(),
-									style: { height: '380px', width: '100%' } })
+								chartBoxBar
 							)
 						),
 						_react2.default.createElement(
 							'li',
 							{ className: 'score-leida-r' },
 							_react2.default.createElement(
-								'table',
-								null,
-								_react2.default.createElement(
-									'tbody',
-									null,
-									_react2.default.createElement(
-										'tr',
-										null,
-										_react2.default.createElement(
-											'td',
+								'ul',
+								{ className: 'score-leida-r-ul' },
+								this.state.listData.map(function (item, index) {
+									{
+
+										return _react2.default.createElement(
+											'li',
 											null,
 											_react2.default.createElement(
 												'p',
 												null,
-												'99.36'
+												item.max
 											),
 											_react2.default.createElement(
 												'span',
 												null,
-												'违约成本'
+												item.name
 											)
-										),
-										_react2.default.createElement(
-											'td',
-											null,
-											_react2.default.createElement(
-												'p',
-												null,
-												'99.36'
-											),
-											_react2.default.createElement(
-												'span',
-												null,
-												'信息披露'
-											)
-										)
-									),
-									_react2.default.createElement(
-										'tr',
-										null,
-										_react2.default.createElement(
-											'td',
-											null,
-											_react2.default.createElement(
-												'p',
-												null,
-												'10.23'
-											),
-											_react2.default.createElement(
-												'span',
-												null,
-												'资本充足'
-											)
-										),
-										_react2.default.createElement(
-											'td',
-											null,
-											_react2.default.createElement(
-												'p',
-												null,
-												'99.36'
-											),
-											_react2.default.createElement(
-												'span',
-												null,
-												'运营能力'
-											)
-										)
-									),
-									_react2.default.createElement(
-										'tr',
-										null,
-										_react2.default.createElement(
-											'td',
-											null,
-											_react2.default.createElement(
-												'p',
-												null,
-												'99.36'
-											),
-											_react2.default.createElement(
-												'span',
-												null,
-												'流动性'
-											)
-										),
-										_react2.default.createElement(
-											'td',
-											null,
-											_react2.default.createElement(
-												'p',
-												null,
-												'99.36'
-											),
-											_react2.default.createElement(
-												'span',
-												null,
-												'分散度'
-											)
-										)
-									)
-								)
+										);
+									}
+								})
 							)
 						)
 					)
@@ -74606,7 +74576,7 @@
 	  return function (dispatch) {
 	    console.log(json);
 	    $.ajax({
-	      url: "/data/industryMonitor/p2p/index/devTrend.json",
+	      url: "/P2PImage/platFormStatus.do", ///P2PImage/platFormStatus.do
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
@@ -74778,14 +74748,14 @@
 	function litigationRequestSuccess(result) {
 	  //请求成功调用方法
 	  return {
-	    type: BASEMSG_REQUEST_SUCCESS,
+	    type: LITIGATION_REQUEST_SUCCESS,
 	    result: result
 	  };
 	}
 	function litigationRequestFail(result) {
 	  //请求失败调用方法
 	  return {
-	    type: BASEMSG_REQUEST_FAIL,
+	    type: LITIGATION_REQUEST_FAIL,
 	    result: result
 	  };
 	}
@@ -74794,7 +74764,7 @@
 	  return function (dispatch) {
 	    console.log(json);
 	    $.ajax({
-	      url: "/data/industryMonitor/p2p/index/devTrend.json",
+	      url: "/P2PImage/lawsuitMsg.do",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
@@ -74832,7 +74802,7 @@
 	  return function (dispatch) {
 	    console.log(json);
 	    $.ajax({
-	      url: "/data/industryMonitor/p2p/index/devTrend.json",
+	      url: "/P2PImage/platFormConsensus.do",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
@@ -74908,7 +74878,7 @@
 	  return function (dispatch) {
 	    console.log(json);
 	    $.ajax({
-	      url: "/data/industryMonitor/p2p/index/devTrend.json",
+	      url: "/P2PImage/radarScore.do",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
@@ -76260,6 +76230,10 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
 	__webpack_require__(846);
 
 	var _react = __webpack_require__(138);
@@ -76298,14 +76272,18 @@
 
 	var _CompanyDirectory2 = _interopRequireDefault(_CompanyDirectory);
 
+	var _PawnMonitoringAction = __webpack_require__(1298);
+
+	var PawnMonitoringActionCreaters = _interopRequireWildcard(_PawnMonitoringAction);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	//上海市企业典当目录
-
-
 	//众筹监测
-	//业务笔数
-	//典当法人企业数
+	//典当总收入
+
+	//注册资本总额
 	var PawnMonitoring = _react2.default.createClass({
 	  displayName: 'PawnMonitoring',
 
@@ -76338,11 +76316,30 @@
 	      )
 	    );
 	  }
-	}); //典当总收入
+	});
+	// module.exports = PawnMonitoring;
+	//将 request  result 绑定到props的request result 
+	//上海市企业典当目录
+	//业务笔数
+	//典当法人企业数
+	function mapStateToProps(state) {
+	  return {
+	    chartAllRequest: state.ChartAll.request,
+	    chartAllResult: state.ChartAll.result,
 
-	//注册资本总额
+	    CompanyDirRequest: state.CompanyDirectory.request,
+	    CompanyDirResult: state.CompanyDirectory.result
 
-	module.exports = PawnMonitoring;
+	  };
+	}
+
+	//将action的所有方法绑定到props上
+	function mapDispatchToProps(dispatch) {
+	  return (0, _redux.bindActionCreators)(PawnMonitoringActionCreaters, dispatch);
+	}
+
+	//通过react-redux提供的connect方法将我们需要的state中的数据和actions中的方法绑定到props上
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(PawnMonitoring);
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Index.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
@@ -76616,7 +76613,7 @@
 	      formatter: "BusinessNum",
 	      xAxis: ['2010', '2011', '2012', '2013', '2014', '2015', '2016'],
 	      yAxis: ['20', '40', '60', '80', '100', '120', '140'],
-	      data: [[0, 0, 50, 100, "200亿元"], [1, 1, 100, 1000, "300亿元"], [2, 2, 150, 300, "400亿元"], [3, 3, 160, "400亿元"], [4, 4, 170, "500亿元"], [5, 5, 180, "600亿元"], [6, 6, 100, "700亿元"]],
+	      data: [[0, 0, 10000000, 100, "200亿元"], [1, 1, 20000000, 1000, "300亿元"], [2, 2, 150, 300, "400亿元"], [3, 3, 160, "400亿元"], [4, 4, 170, "500亿元"], [5, 5, 180, "600亿元"], [6, 6, 100, "700亿元"]],
 	      series: [[{
 	        color: '#e14340'
 	      }]]
@@ -76686,7 +76683,7 @@
 	      gridTop: '15%',
 	      gridLeft: '5%',
 	      gridRight: '5%',
-	      legend: [""],
+	      legend: ["平台交易量走势"],
 	      xAxis: ['2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016'],
 	      series: [[Math.round(Math.random() * 1000), Math.round(Math.random() * 1000), Math.round(Math.random() * 1000), Math.round(Math.random() * 1000), Math.round(Math.random() * 1000), Math.round(Math.random() * 1000), Math.round(Math.random() * 1000), Math.round(Math.random() * 1000), Math.round(Math.random() * 1000), Math.round(Math.random() * 1000)]]
 	    };
@@ -77203,6 +77200,10 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
 	__webpack_require__(856);
 
 	var _react = __webpack_require__(138);
@@ -77237,11 +77238,16 @@
 
 	var _DetailList2 = _interopRequireDefault(_DetailList);
 
+	var _TradingPlacesAction = __webpack_require__(1299);
+
+	var TradingPlacesCreaters = _interopRequireWildcard(_TradingPlacesAction);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	//取得合规意见或经过商的交易场所详情列表
-
-	//交易场所清理整顿分类
+	//黄浦区交易场所列表
+	//交易场所区域分布
 	var TradingPlaces = _react2.default.createClass({
 	  displayName: 'TradingPlaces',
 
@@ -77269,10 +77275,35 @@
 	      )
 	    );
 	  }
-	}); //黄浦区交易场所列表
-	//交易场所区域分布
+	});
+	// module.exports = TradingPlaces;
+	//将 request  result 绑定到props的request result 
+	//取得合规意见或经过商的交易场所详情列表
+	//交易场所清理整顿分类
+	function mapStateToProps(state) {
+	  return {
+	    HPQListRequest: state.HPQList.request,
+	    HPQListResult: state.HPQList.result,
 
-	module.exports = TradingPlaces;
+	    regionalDisRequest: state.RegionalDis.request,
+	    regionalDisResult: state.RegionalDis.result,
+
+	    classificationRequest: state.Classification.request,
+	    classificationResult: state.Classification.result,
+
+	    detailListRequest: state.DetailList.request,
+	    detailListResult: state.DetailList.result
+
+	  };
+	}
+
+	//将action的所有方法绑定到props上
+	function mapDispatchToProps(dispatch) {
+	  return (0, _redux.bindActionCreators)(TradingPlacesCreaters, dispatch);
+	}
+
+	//通过react-redux提供的connect方法将我们需要的state中的数据和actions中的方法绑定到props上
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(TradingPlaces);
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Index.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
@@ -78624,10 +78655,24 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var Immutable = __webpack_require__(766);
 	//上海市典当法人企业数
 	var Lease = _react2.default.createClass({
 	    displayName: 'Lease',
 
+	    getInitialState: function getInitialState() {
+	        return {
+	            paramLease: null
+	        };
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var isEqual = Immutable.is(nextProps.loanBalanceData, this.props.loanBalanceData);
+	        if (!isEqual) {
+	            var loanBalanceData = nextProps.loanBalanceData;
+
+	            this.dataFomat(loanBalanceData);
+	        }
+	    },
 	    setParm: function setParm() {
 	        var paramLease = {
 	            "titleShow": true,
@@ -78656,6 +78701,7 @@
 	        };
 	        return paramLease;
 	    },
+
 	    render: function render() {
 	        return _react2.default.createElement(
 	            'div',
@@ -79827,6 +79873,10 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
 	__webpack_require__(876);
 
 	var _react = __webpack_require__(138);
@@ -79836,6 +79886,10 @@
 	var _redux = __webpack_require__(312);
 
 	var _reactRedux = __webpack_require__(326);
+
+	var _commercialSecretIndexAction = __webpack_require__(1300);
+
+	var CommercialSecretIndexActionCreaters = _interopRequireWildcard(_commercialSecretIndexAction);
 
 	var _setHeight = __webpack_require__(710);
 
@@ -79865,36 +79919,68 @@
 
 	var _CompanyDirectory2 = _interopRequireDefault(_CompanyDirectory);
 
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	//商业保理企业名单
 
-	//商业保理
 	//国内商业保理和国际商业保理业务额
 	//在沪商业保理企业数量
+	var Immutable = __webpack_require__(766);
+	//商业保理
+	//全市商业保理业务总额及融资余额
+	//全市商业保理企业资产总额(注册资本)
+
 	var CommercialSecret = _react2.default.createClass({
 	  displayName: 'CommercialSecret',
 
 	  mixins: [_setHeight2.default],
+	  getInitialState: function getInitialState() {
+	    return {
+	      CompanyNumData: []
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {
+	    var getCompanynumRequest = this.props.getCompanynumRequest;
+
+	    var jsonData = {};
+	    getCompanynumRequest(jsonData);
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var isEqual = Immutable.is(nextProps.CompanyNumChartRequest, this.props.CompanyNumChartResult);
+	    if (!isEqual) {
+	      var CompanyNumChartRequest = nextProps.CompanyNumChartRequest;
+	      var CompanyNumChartResult = nextProps.CompanyNumChartResult;
+
+	      if (CompanyNumChartRequest == true) {
+	        if (CompanyNumChartResult.success) {
+	          this.setState({ CompanyNumData: CompanyNumChartResult.content });
+	        } else {
+	          //错误后提示
+	        }
+	      }
+	    }
+	  },
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'commercialS-index', style: this.state.style },
-	      _react2.default.createElement(_IndustrySearch2.default, { label: '商业保理监测', placeHolder: '请输入企业名称检索' }),
+	      _react2.default.createElement(_IndustrySearch2.default, { label: '商业保理监测555', placeHolder: '请输入企业名称检索' }),
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'content clearfix' },
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'pawnM-top clearfix' },
-	          _react2.default.createElement(_CompanyNum2.default, null),
-	          _react2.default.createElement(_CompanyAmount2.default, null)
+	          _react2.default.createElement(_CompanyNum2.default, { CompanyNumData: this.state.CompanyNumData }),
+	          _react2.default.createElement(_CompanyAmount2.default, { CompanyAmountData: this.state.CompanyNumData })
 	        ),
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'pawnM-Middle clearfix' },
-	          _react2.default.createElement(_BusinessNum2.default, null),
-	          _react2.default.createElement(_Balance2.default, null)
+	          _react2.default.createElement(_BusinessNum2.default, this.props),
+	          _react2.default.createElement(_Balance2.default, this.props)
 	        ),
 	        _react2.default.createElement(
 	          'div',
@@ -79904,10 +79990,31 @@
 	      )
 	    );
 	  }
-	}); //全市商业保理业务总额及融资余额
-	//全市商业保理企业资产总额(注册资本)
+	});
+	// module.exports = CommercialSecret;
 
-	module.exports = CommercialSecret;
+	//将 request  result 绑定到props的request result 
+	function CommercialSecretStateToProps(state) {
+	  return {
+
+	    CompanyNumChartRequest: state.ChartAll.request,
+	    CompanyNumChartResult: state.ChartAll.result,
+	    //企业类型分布
+	    BusinessNumChartRequest: state.businessnumChart.request,
+	    BusinessNumChartResult: state.businessnumChart.result,
+	    //商业保理地域分布
+	    balanceRequest: state.balanceChart.request,
+	    balanceResult: state.balanceChart.result
+	  };
+	}
+
+	//将action的所有方法绑定到props上
+	function CommercialSecretDispatchToProps(dispatch) {
+	  return (0, _redux.bindActionCreators)(CommercialSecretIndexActionCreaters, dispatch);
+	}
+
+	//通过react-redux提供的connect方法将我们需要的state中的数据和actions中的方法绑定到props上
+	exports.default = (0, _reactRedux.connect)(CommercialSecretStateToProps, CommercialSecretDispatchToProps)(CommercialSecret);
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Index.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
@@ -79976,11 +80083,17 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var Immutable = __webpack_require__(766);
 	var CompanyNum = _react2.default.createClass({
 	    displayName: 'CompanyNum',
+	    getInitialState: function getInitialState() {
+	        return {
+	            CompanyNumoption: null
+	        };
+	    },
 
-	    setLineLParm: function setLineLParm() {
-	        var option = {
+	    setLineLParm: function setLineLParm(data) {
+	        var options = {
 	            color: ["#e24441"],
 	            title: "",
 	            titleShow: false,
@@ -80003,12 +80116,27 @@
 	            yAxisName: "个数",
 	            legendRight: "30",
 	            legend: ["企业数量"],
-	            xAxis: ['2005', '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014'],
-	            series: [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
+	            xAxis: data.line.xAxis,
+	            series: [data.line.series]
 	        };
-	        return option;
+	        this.setState({ CompanyNumoption: options });
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var isEqual = Immutable.is(nextProps.CompanyNumData, this.props.CompanyNumData);
+	        if (!isEqual) {
+	            var CompanyNumData = nextProps.CompanyNumData;
+
+	            console.info("000000000000000000000" + CompanyNumData.line.xAxis + "11111111111111" + CompanyNumData.line.series);
+	            this.setLineLParm(CompanyNumData);
+	        }
 	    },
 	    render: function render() {
+	        var CompanyNumBox = "";
+	        if (this.state.CompanyNumoption) {
+	            CompanyNumBox = _react2.default.createElement(_LineChart2.default, {
+	                option: this.state.CompanyNumoption,
+	                style: { height: '465px', width: '100%' } });
+	        }
 	        return _react2.default.createElement(
 	            'div',
 	            { className: 'mod top-left radius4' },
@@ -80021,9 +80149,7 @@
 	                    '在沪商业保理企业数量'
 	                )
 	            ),
-	            _react2.default.createElement(_LineChart2.default, {
-	                option: this.setLineLParm(),
-	                style: { height: '465px', width: '100%' } })
+	            CompanyNumBox
 	        );
 	    }
 	});
@@ -80097,11 +80223,17 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var Immutable = __webpack_require__(766);
 	var CompanyAmount = _react2.default.createClass({
 		displayName: 'CompanyAmount',
+		getInitialState: function getInitialState() {
+			return {
+				CompanyAmountoption: null
+			};
+		},
 
-		setParm: function setParm() {
-			var option = {
+		setParm: function setParm(data) {
+			var options = {
 				title: "平台交易量走势",
 				titleX: "center",
 				color: ["#efd79b"],
@@ -80127,12 +80259,26 @@
 					}
 				},
 				legend: ["企业资产总额"],
-				xAxis: ['2005', '2006', '2007', '2008', '2009', '2010', '2011'],
-				series: [[320, 200, 230, 350, 600, 530, 444]]
+				xAxis: data.histogram.xAxis,
+				series: [data.histogram.series]
 			};
-			return option;
+			this.setState({ CompanyAmountoption: options });
+		},
+		componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+			var isEqual = Immutable.is(nextProps.CompanyAmountData, this.props.CompanyAmountData);
+			if (!isEqual) {
+				var CompanyAmountData = nextProps.CompanyAmountData;
+
+				this.setParm(CompanyAmountData);
+			}
 		},
 		render: function render() {
+			var CompanyAmountBox = "";
+			if (this.state.CompanyAmountoption) {
+				CompanyAmountBox = _react2.default.createElement(_BarChart2.default, {
+					option: this.state.CompanyAmountoption,
+					style: { height: '465px', width: '100%', margin: '0px auto' } });
+			}
 			return _react2.default.createElement(
 				'div',
 				{ className: 'mod top-right radius4' },
@@ -80145,9 +80291,7 @@
 						'全市商业保理企业注册资本总额'
 					)
 				),
-				_react2.default.createElement(_BarChart2.default, {
-					option: this.setParm(),
-					style: { height: '465px', width: '100%', margin: '0px auto' } })
+				CompanyAmountBox
 			);
 		}
 	});
@@ -80181,58 +80325,96 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var Immutable = __webpack_require__(766);
 	var BusinessNum = _react2.default.createClass({
-	  displayName: 'BusinessNum',
+	    displayName: 'BusinessNum',
+	    getInitialState: function getInitialState() {
+	        return {
+	            BusinessNumoption: null
+	        };
+	    },
 
-	  setParm: function setParm() {
-	    var option = {
-	      "color": ["#deab61", "#e14340", "#91c7ae", "#efd79b"],
-	      "title": "",
-	      "xtitle": "",
-	      "titleLeft": "0",
-	      "legend": ["内资企业", "外资企业"],
-	      "legendShow": true,
-	      "legendOrient": "horizontal",
-	      "legendLeft": "center",
-	      "legendTop": "78%",
-	      "seriesName": "基金类型",
-	      "radius": "60%",
-	      "lable": { normal: {
-	          show: true,
-	          position: 'inside',
-	          formatter: '{d}%',
-	          textStyle: {
-	            color: "#fff",
-	            fontSize: 12,
-	            fontWeight: "normal",
-	            fontFamily: 'Microsoft Yahei'
-	          }
-	        },
-	        emphasis: { show: false }
-	      },
-	      "center": ['50%', '40%'],
-	      "series": [{ value: 94.5, name: '内资企业' }, { value: 54, name: '外资企业' }]
-	    };
-	    return option;
-	  },
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'mod middle-left radius4' },
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'mod-title' },
-	        _react2.default.createElement(
-	          'h3',
-	          null,
-	          '企业类型分布'
-	        )
-	      ),
-	      _react2.default.createElement(_BasePie2.default, {
-	        option: this.setParm(),
-	        style: { height: '465px', width: '100%' } })
-	    );
-	  }
+	    setParm: function setParm(data) {
+	        var series = [];
+	        for (var i = 0; i < data.legend.length; i++) {
+	            series.push({ value: data.series[i], name: data.legend[i] });
+	        }
+	        var options = {
+	            "color": ["#deab61", "#e14340", "#91c7ae", "#efd79b"],
+	            "title": "",
+	            "xtitle": "",
+	            "titleLeft": "0",
+	            "legend": data.legend,
+	            "legendShow": true,
+	            "legendOrient": "horizontal",
+	            "legendLeft": "center",
+	            "legendTop": "78%",
+	            "seriesName": "基金类型",
+	            "radius": "60%",
+	            "lable": { normal: {
+	                    show: true,
+	                    position: 'inside',
+	                    formatter: '{d}%',
+	                    textStyle: {
+	                        color: "#fff",
+	                        fontSize: 12,
+	                        fontWeight: "normal",
+	                        fontFamily: 'Microsoft Yahei'
+	                    }
+	                },
+	                emphasis: { show: false }
+	            },
+	            "center": ['50%', '40%'],
+	            "series": series
+	        };
+	        this.setState({
+	            BusinessNumoption: options
+	        });
+	    },
+	    componentDidMount: function componentDidMount() {
+	        var getBusinessnumRequest = this.props.getBusinessnumRequest;
+
+	        var jsonData = {};
+	        getBusinessnumRequest(jsonData);
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var isEqual = Immutable.is(nextProps.BusinessNumChartRequest, this.props.BusinessNumChartResult);
+	        if (!isEqual) {
+	            var BusinessNumChartRequest = nextProps.BusinessNumChartRequest;
+	            var BusinessNumChartResult = nextProps.BusinessNumChartResult;
+
+	            if (BusinessNumChartRequest == true) {
+	                if (BusinessNumChartResult.success == true) {
+	                    this.setParm(BusinessNumChartResult.content);
+	                } else {
+	                    console.log(404);
+	                }
+	            }
+	        }
+	    },
+
+	    render: function render() {
+	        var BusinessNumBox = "";
+	        if (this.state.BusinessNumoption) {
+	            BusinessNumBox = _react2.default.createElement(_BasePie2.default, {
+	                option: this.state.BusinessNumoption,
+	                style: { height: '465px', width: '100%' } });
+	        }
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'mod middle-left radius4' },
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'mod-title' },
+	                _react2.default.createElement(
+	                    'h3',
+	                    null,
+	                    '企业类型分布'
+	                )
+	            ),
+	            BusinessNumBox
+	        );
+	    }
 	});
 
 	module.exports = BusinessNum;
@@ -80264,61 +80446,93 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var Immutable = __webpack_require__(766);
 	var Balance = _react2.default.createClass({
-	  displayName: 'Balance',
+	    displayName: 'Balance',
+	    getInitialState: function getInitialState() {
+	        return {
+	            Balanceoption: null
+	        };
+	    },
 
-	  setBarParm: function setBarParm() {
-	    var option = {
-	      color: ["#e14340"],
-	      titleName: "",
-	      titleShow: false,
-	      barWidth: 25,
-	      legendRight: "20",
-	      xAxisLine: true,
-	      xAxisLabel: true,
-	      gradient: ['rgb(251, 99, 96)', 'rgb(193, 42, 39)'],
-	      legend: [""],
-	      label: {
-	        normal: {
-	          show: true,
-	          position: 'right',
-	          textStyle: {
-	            color: "#fff",
-	            fontSize: 12,
-	            fontWeight: "normal",
-	            fontFamily: 'Microsoft Yahei'
-	          }
+	    setBarParm: function setBarParm(data) {
+	        var options = {
+	            color: ["#e14340"],
+	            titleName: "",
+	            titleShow: false,
+	            barWidth: 25,
+	            legendRight: "20",
+	            xAxisLine: true,
+	            xAxisLabel: true,
+	            gradient: ['rgb(251, 99, 96)', 'rgb(193, 42, 39)'],
+	            legend: [""],
+	            label: {
+	                normal: {
+	                    show: true,
+	                    position: 'right',
+	                    textStyle: {
+	                        color: "#fff",
+	                        fontSize: 12,
+	                        fontWeight: "normal",
+	                        fontFamily: 'Microsoft Yahei'
+	                    }
+	                }
+	            },
+	            gridLeft: '5%',
+	            gridRight: '5%',
+	            gridTop: '5%',
+	            gridBottom: '10%',
+	            yAxis: data.xAxis,
+	            series: [data.series]
+
+	        };
+	        this.setState({
+	            Balanceoption: options
+	        });
+	    },
+	    componentDidMount: function componentDidMount() {
+	        var getBalanceRequest = this.props.getBalanceRequest;
+
+	        var jsonData = {};
+	        getBalanceRequest(jsonData);
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var isEqual = Immutable.is(nextProps.balanceRequest, this.props.balanceResult);
+	        if (!isEqual) {
+	            var balanceRequest = nextProps.balanceRequest;
+	            var balanceResult = nextProps.balanceResult;
+
+	            if (balanceRequest == true) {
+	                if (balanceResult.success == true) {
+	                    this.setBarParm(balanceResult.content);
+	                } else {
+	                    console.log(404);
+	                }
+	            }
 	        }
-	      },
-	      gridLeft: '5%',
-	      gridRight: '5%',
-	      gridTop: '5%',
-	      gridBottom: '10%',
-	      yAxis: ["嘉定区", "浦东区", "青浦区", "黄浦区"],
-	      series: [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
-
-	    };
-	    return option;
-	  },
-
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'mod middle-right radius4' },
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'mod-title' },
-	        _react2.default.createElement(
-	          'h3',
-	          null,
-	          '商业保理地域分布'
-	        )
-	      ),
-	      _react2.default.createElement(_HorizontalBarChart2.default, {
-	        option: this.setBarParm(),
-	        style: { height: '460px', width: '100%' } })
-	    );
-	  }
+	    },
+	    render: function render() {
+	        var BalanceChart = "";
+	        if (this.state.Balanceoption) {
+	            BalanceChart = _react2.default.createElement(_HorizontalBarChart2.default, {
+	                option: this.state.Balanceoption,
+	                style: { height: '460px', width: '100%' } });
+	        }
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'mod middle-right radius4' },
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'mod-title' },
+	                _react2.default.createElement(
+	                    'h3',
+	                    null,
+	                    '商业保理地域分布'
+	                )
+	            ),
+	            BalanceChart
+	        );
+	    }
 	});
 
 	module.exports = Balance;
@@ -80359,7 +80573,8 @@
 	            id: 'selectType',
 	            data: [{ value: '1', label: '全部' }, { value: '2', label: '内资' }, { value: '3', label: '外资' }],
 	            onChange: function (value, label) {
-	                this.quarterChoice(label);
+	                console.info(value, label);
+	                // this.quarterChoice(label);
 	            }.bind(this)
 	        };
 	        return _react2.default.createElement(
@@ -81677,7 +81892,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 
 	__webpack_require__(894);
@@ -81727,42 +81942,57 @@
 
 	//园区监测
 	var ParkMonitorIndex = _react2.default.createClass({
-	  displayName: 'ParkMonitorIndex',
+	    displayName: 'ParkMonitorIndex',
 
-	  mixins: [_setHeight2.default],
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'park-index' },
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'left' },
-	        _react2.default.createElement(_Imgs2.default, this.props),
-	        _react2.default.createElement(_Consensu2.default, this.props)
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'right' },
-	        _react2.default.createElement(_Finance2.default, this.props),
-	        _react2.default.createElement(_Park2.default, this.props),
-	        _react2.default.createElement(_TheCamp2.default, this.props)
-	      )
-	    );
-	  }
+	    mixins: [_setHeight2.default],
+	    render: function render() {
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'park-index' },
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'left' },
+	                _react2.default.createElement(_Imgs2.default, this.props),
+	                _react2.default.createElement(_Consensu2.default, this.props)
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'right' },
+	                _react2.default.createElement(_Finance2.default, this.props),
+	                _react2.default.createElement(_Park2.default, this.props),
+	                _react2.default.createElement(_TheCamp2.default, this.props)
+	            )
+	        );
+	    }
 	});
 	//module.exports = ParkMonitorIndex;
 	//将 request  result 绑定到props的request result 
 	function mapStateToProps(state) {
-	  return {
-	    //获取下拉列表的值
-	    menuParkSelectValRequest: state.MenuParkSelectVal.request,
-	    menuParkSelectValResult: state.MenuParkSelectVal.result
-	  };
+	    return {
+	        //获取下拉列表的值
+	        menuParkSelectVal: state.MenuParkSelectVal.data,
+
+	        //在营时间分布
+	        parkCampRequest: state.ParkCamp.request,
+	        parkCampResult: state.ParkCamp.result,
+
+	        //类金融企业集中度
+	        parkFinanceRequest: state.ParkFinance.request,
+	        parkFinanceResult: state.ParkFinance.result,
+
+	        //园区行业分布
+	        parkIndustryRequest: state.ParkIndustry.request,
+	        parkIndustryResult: state.ParkIndustry.result,
+
+	        //舆情
+	        parkNewsRequest: state.ParkNews.request,
+	        parkNewsResult: state.ParkNews.result
+	    };
 	}
 
 	//将action的所有方法绑定到props上
 	function mapDispatchToProps(dispatch) {
-	  return (0, _redux.bindActionCreators)(ParkMonitorIndexActionCreaters, dispatch);
+	    return (0, _redux.bindActionCreators)(ParkMonitorIndexActionCreaters, dispatch);
 	}
 
 	//通过react-redux提供的connect方法将我们需要的state中的数据和actions中的方法绑定到props上
@@ -81904,109 +82134,117 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var Immutable = __webpack_require__(766);
+
 	//舆情
 	var Consensu = _react2.default.createClass({
-	  displayName: 'Consensu',
+	    displayName: 'Consensu',
 
-	  getInitialState: function getInitialState() {
-	    return {
-	      consensu: []
-	    };
-	  },
-	  componentDidMount: function componentDidMount() {
-	    this.getParkNews();
-	  },
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    var isEqual = Immutable.is(nextProps.menuParkSelectValRequest, this.props.menuParkSelectValResult); //判断数据是否变化
-	    if (!isEqual) {
-	      var menuParkSelectValRequest = nextProps.menuParkSelectValRequest;
-	      var menuParkSelectValResult = nextProps.menuParkSelectValResult;
+	    getInitialState: function getInitialState() {
+	        return {
+	            consensu: []
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {},
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var isSelectValEqual = Immutable.is(nextProps.menuParkSelectVal, this.props.menuParkSelectVal);
+	        if (!isSelectValEqual) {
+	            var menuParkSelectVal = nextProps.menuParkSelectVal;
 
-	      if (menuParkSelectValRequest == true) {
-	        if (menuParkSelectValResult.success == true) {
-	          this.dataFomat(menuParkSelectValResult);
-	        } else {
-	          console.log(404);
+	            var jsonData = { areaId: menuParkSelectVal.areaId };
+	            this.getParkNews(jsonData);
 	        }
-	      }
-	    }
-	  },
-	  dataFomat: function dataFomat(data) {
-	    var content = data.content;
-	    this.setState({ consensu: content });
-	  },
-	  getParkNews: function getParkNews(jsonData) {
-	    var getParkNews = this.props.getParkNews;
 
-	    getParkNews(jsonData);
-	  },
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'Consensu mod' },
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'mod-title' },
-	        _react2.default.createElement(
-	          'h3',
-	          null,
-	          '舆情',
-	          this.props.val
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'mod-content' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'box' },
-	          this.state.consensu.map(function (elem, index) {
-	            return _react2.default.createElement(
-	              'div',
-	              { className: 'list', key: index },
-	              _react2.default.createElement(
-	                'ul',
-	                null,
+	        var isEqual = Immutable.is(nextProps.parkNewsRequest, this.props.parkNewsResult); //判断数据是否变化
+	        if (!isEqual) {
+	            var parkNewsRequest = nextProps.parkNewsRequest;
+	            var parkNewsResult = nextProps.parkNewsResult;
+
+	            if (parkNewsRequest == true) {
+	                if (parkNewsResult.success == true) {
+	                    this.dataFomat(parkNewsResult);
+	                } else {
+	                    console.log(404);
+	                }
+	            }
+	        }
+	    },
+	    dataFomat: function dataFomat(data) {
+	        var content = data.content;
+	        this.setState({ consensu: content });
+	    },
+	    getParkNews: function getParkNews(menuParkSelectVal) {
+	        var getParkNews = this.props.getParkNews;
+
+	        getParkNews(menuParkSelectVal);
+	    },
+	    render: function render() {
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'Consensu mod' },
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'mod-title' },
 	                _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  _react2.default.createElement(
-	                    'a',
-	                    { href: elem.url },
-	                    index + 1,
-	                    _react2.default.createElement(
-	                      'span',
-	                      { className: 'liLeft' },
-	                      elem.title
-	                    )
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  elem.content
-	                ),
-	                _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  _react2.default.createElement(
-	                    'span',
-	                    { className: 'liRight' },
-	                    _react2.default.createElement(
-	                      'span',
-	                      { className: 'spanLeft' },
-	                      elem.fromSite
-	                    ),
-	                    elem.date
-	                  )
+	                    'h3',
+	                    null,
+	                    '舆情',
+	                    this.props.val
 	                )
-	              )
-	            );
-	          })
-	        )
-	      )
-	    );
-	  }
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'mod-content' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'box' },
+	                    this.state.consensu.map(function (elem, index) {
+	                        return _react2.default.createElement(
+	                            'div',
+	                            { className: 'list', key: index },
+	                            _react2.default.createElement(
+	                                'ul',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'li',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        'a',
+	                                        { href: elem.url },
+	                                        index + 1,
+	                                        _react2.default.createElement(
+	                                            'span',
+	                                            { className: 'liLeft' },
+	                                            elem.title
+	                                        )
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'li',
+	                                    null,
+	                                    elem.content
+	                                ),
+	                                _react2.default.createElement(
+	                                    'li',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        'span',
+	                                        { className: 'liRight' },
+	                                        _react2.default.createElement(
+	                                            'span',
+	                                            { className: 'spanLeft' },
+	                                            elem.fromSite
+	                                        ),
+	                                        elem.date
+	                                    )
+	                                )
+	                            )
+	                        );
+	                    })
+	                )
+	            )
+	        );
+	    }
 	});
 	module.exports = Consensu;
 	// export default connect(
@@ -82040,37 +82278,71 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var Immutable = __webpack_require__(766);
+
 	//类金融企业集中度
 	var Finance = _react2.default.createClass({
 	    displayName: 'Finance',
+
 	    getInitialState: function getInitialState() {
 	        return {
 	            item: []
 	        };
 	    },
-
-	    //ajax请求
-	    ajaxFinance: function ajaxFinance(val) {
-	        $.ajax({
-	            url: 'park/companyConcentration.do',
-	            type: 'get',
-	            dataType: 'json',
-	            data: { areaId: val },
-	            success: function (res) {
-	                console.log(res);
-	                this.setState({
-	                    item: res.content
-	                });
-	            }.bind(this)
-	        });
-	    },
-	    componentDidMount: function componentDidMount() {
-	        this.ajaxFinance();
-	    },
+	    componentDidMount: function componentDidMount() {},
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        this.ajaxFinance();
-	    },
+	        var isSelectValEqual = Immutable.is(nextProps.menuParkSelectVal, this.props.menuParkSelectVal);
+	        if (!isSelectValEqual) {
+	            var menuParkSelectVal = nextProps.menuParkSelectVal;
 
+	            var jsonData = { areaId: menuParkSelectVal.areaId };
+	            this.getParkFinance(jsonData);
+	        }
+
+	        var isEqual = Immutable.is(nextProps.parkFinanceRequest, this.props.parkFinanceResult); //判断数据是否变化
+	        if (!isEqual) {
+	            var parkFinanceRequest = nextProps.parkFinanceRequest;
+	            var parkFinanceResult = nextProps.parkFinanceResult;
+
+	            if (parkFinanceRequest == true) {
+	                if (parkFinanceResult.success == true) {
+	                    this.dataFomat(parkFinanceResult);
+	                } else {
+	                    console.log(404);
+	                }
+	            }
+	        }
+	    },
+	    dataFomat: function dataFomat(data) {
+	        var content = data.content;
+	        this.setState({ item: content });
+	    },
+	    getParkFinance: function getParkFinance(menuParkSelectVal) {
+	        var getParkFinance = this.props.getParkFinance;
+
+	        getParkFinance(menuParkSelectVal);
+	    },
+	    // //ajax请求
+	    // ajaxFinance(val){
+	    //     $.ajax({
+	    //         url: 'park/companyConcentration.do',
+	    //         type: 'get',
+	    //         dataType: 'json',
+	    //         data: {areaId: val},
+	    //         success:function(res){
+	    //         console.log(res)
+	    //         this.setState({
+	    //            item:res.content
+	    //         })   
+	    //         }.bind(this)
+	    //     });
+	    // },
+	    // componentDidMount(){
+	    //     this.ajaxFinance();              
+	    // },
+	    // componentWillReceiveProps(nextProps) {
+	    //     this.ajaxFinance();
+	    // },
 
 	    //获取大厦的名称
 	    ImgbtnAdd: function ImgbtnAdd(e) {
@@ -82114,13 +82386,11 @@
 	                                        { to: { pathname: HOME_PATH + "/buildDetail" } },
 	                                        _react2.default.createElement('img', { onClick: this.ImgbtnAdd, 'data-img': elem.buildingId, src: "../images/lou" + (index + 1) + ".png" })
 	                                    ),
-	                                    _react2.default.createElement('br', null),
 	                                    _react2.default.createElement(
 	                                        'span',
 	                                        { 'data-name': elem.name, className: 'color' },
 	                                        elem.name
 	                                    ),
-	                                    _react2.default.createElement('br', null),
 	                                    _react2.default.createElement(
 	                                        'span',
 	                                        { className: 'digit' },
@@ -82171,16 +82441,60 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var Immutable = __webpack_require__(766);
+
 	var myChart;
 	var option;
 	//园区行业分布
 	var Park = _react2.default.createClass({
 	    displayName: 'Park',
+
 	    getInitialState: function getInitialState() {
 	        return {
 	            Park: [],
 	            ParkEnd: []
 	        };
+	    },
+	    componentDidMount: function componentDidMount() {},
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var isSelectValEqual = Immutable.is(nextProps.menuParkSelectVal, this.props.menuParkSelectVal);
+	        if (!isSelectValEqual) {
+	            var menuParkSelectVal = nextProps.menuParkSelectVal;
+
+	            var jsonData = { areaId: menuParkSelectVal.areaId };
+	            this.getParkIndustry(jsonData);
+	        }
+
+	        var isEqual = Immutable.is(nextProps.parkIndustryRequest, this.props.parkIndustryResult); //判断数据是否变化
+	        if (!isEqual) {
+	            var parkIndustryRequest = nextProps.parkIndustryRequest;
+	            var parkIndustryResult = nextProps.parkIndustryResult;
+
+	            if (parkIndustryRequest == true) {
+	                if (parkIndustryResult.success == true) {
+	                    this.dataFomat(parkIndustryResult);
+	                } else {
+	                    console.log(404);
+	                }
+	            }
+	        }
+	    },
+	    dataFomat: function dataFomat(data) {
+	        var content = data.content;
+	        var ParkBox = [];
+	        var ParkContent = [];
+	        for (var i = 0; i < content.length; i++) {
+	            ParkBox.push({ value: content[i].count, name: content[i].type });
+	        };
+	        for (var j = 0; j < content[0].children.length; j++) {
+	            ParkContent.push({ value: content[0].children[j].count, name: content[0].children[j].type });
+	        };
+	        this.initMap(ParkBox, ParkContent);
+	    },
+	    getParkIndustry: function getParkIndustry(menuParkSelectVal) {
+	        var getParkIndustry = this.props.getParkIndustry;
+
+	        getParkIndustry(menuParkSelectVal);
 	    },
 	    initMap: function initMap(ParkBox, ParkEnd) {
 	        myChart = echarts.init(document.getElementById("myChart"));
@@ -82239,37 +82553,40 @@
 	        myChart.setOption(option);
 	        myChart.resize();
 	    },
-	    ajaxPark: function ajaxPark() {
-	        $.ajax({
-	            url: 'park/businessDistribute.do',
-	            type: 'get',
-	            dataType: 'json',
-	            data: { areaId: "" },
-	            success: function (res) {
-	                if (res.success) {
-	                    var ParkBox = [];
-	                    var ParkContent = [];
-	                    for (var i = 0; i < res.content.length; i++) {
-	                        ParkBox.push({ value: res.content[i].count, name: res.content[i].type });
-	                    };
-	                    for (var j = 0; j < res.content[0].children.length; j++) {
-	                        ParkContent.push({ value: res.content[0].children[j].count, name: res.content[0].children[j].type });
-	                    };
-	                }
-	                this.initMap(ParkBox, ParkContent);
-	            }.bind(this)
-	        });
-	    },
-	    componentDidMount: function componentDidMount() {
-	        this.ajaxPark();
 
-	        $(window).resize(function (event) {
-	            this.initMap();
-	        }.bind(this));
-	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        this.ajaxPark();
-	    },
+	    // ajaxPark(){
+	    //     $.ajax({
+	    //         url: 'park/businessDistribute.do',
+	    //         type: 'get',
+	    //         dataType: 'json',
+	    //         data: {areaId: ""},
+	    //         success:function(res){
+	    //             if(res.success){
+	    //                 var ParkBox = [];
+	    //                 var ParkContent = [];
+	    //                 for(var i=0; i< res.content.length; i++){
+	    //                     ParkBox.push({value:res.content[i].count,name:res.content[i].type});
+	    //                 };
+	    //                 for(var j=0; j< res.content[0].children.length; j++){
+	    //                     ParkContent.push({value:res.content[0].children[j].count,name:res.content[0].children[j].type}) 
+	    //                 };
+	    //             }
+	    //           this.initMap(ParkBox,ParkContent)
+	    //         }.bind(this)
+	    //     })
+	    // },
+
+	    // componentDidMount() {    
+	    //   this.ajaxPark();
+
+	    //     $(window).resize(function(event) {
+	    //       this.initMap();
+	    //     }.bind(this));
+	    // },
+
+	    // componentWillReceiveProps(nextProps) {
+	    //     this.ajaxPark();
+	    // },
 
 
 	    render: function render() {
@@ -82310,15 +82627,54 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var Immutable = __webpack_require__(766);
+
 	//在营时间分布
 	var TheCamp = _react2.default.createClass({
 	    displayName: 'TheCamp',
+
 	    getInitialState: function getInitialState() {
 	        return {
 	            TheCamp: []
 	        };
 	    },
+	    componentDidMount: function componentDidMount() {},
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var isSelectValEqual = Immutable.is(nextProps.menuParkSelectVal, this.props.menuParkSelectVal);
+	        if (!isSelectValEqual) {
+	            var menuParkSelectVal = nextProps.menuParkSelectVal;
 
+	            var jsonData = { areaId: menuParkSelectVal.areaId };
+	            this.getParkCamp(jsonData);
+	        }
+
+	        var isEqual = Immutable.is(nextProps.parkFinanceRequest, this.props.parkFinanceResult); //判断数据是否变化
+	        if (!isEqual) {
+	            var parkFinanceRequest = nextProps.parkFinanceRequest;
+	            var parkFinanceResult = nextProps.parkFinanceResult;
+
+	            if (parkFinanceRequest == true) {
+	                if (parkFinanceResult.success == true) {
+	                    this.dataFomat(parkFinanceResult);
+	                } else {
+	                    console.log(404);
+	                }
+	            }
+	        }
+	    },
+	    dataFomat: function dataFomat(data) {
+	        var content = data.content;
+	        var TheCampBox = [];
+	        for (var i = 0; i < content.length; i++) {
+	            TheCampBox.push(content[i].count);
+	        }
+	        this.setState({ TheCamp: TheCampBox });
+	    },
+	    getParkCamp: function getParkCamp(menuParkSelectVal) {
+	        var getParkCamp = this.props.getParkCamp;
+
+	        getParkCamp(menuParkSelectVal);
+	    },
 	    setBarParm: function setBarParm() {
 	        var option = {
 	            color: ["#e14340"],
@@ -82344,33 +82700,32 @@
 	    },
 
 	    //ajax请求
-	    ajaxTheCamp: function ajaxTheCamp(val) {
-	        $.ajax({
-	            url: 'park/inBusiness.do',
-	            type: 'get',
-	            dataType: 'json',
-	            data: { areaId: val },
-	            success: function (res) {
-	                console.log(res);
-	                if (res.success) {
-	                    var TheCampBox = [];
-	                    for (var i = 0; i < res.content.length; i++) {
-	                        TheCampBox.push(res.content[i].count);
-	                    }
-	                    this.setState({
-	                        TheCamp: TheCampBox
-	                    });
-	                }
-	            }.bind(this)
-	        });
-	    },
-	    componentDidMount: function componentDidMount() {
-	        this.ajaxTheCamp(this.props.val);
-	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        this.ajaxTheCamp();
-	    },
-
+	    // ajaxTheCamp(val){
+	    //    $.ajax({
+	    //         url: 'park/inBusiness.do',
+	    //         type: 'get',
+	    //         dataType: 'json',
+	    //         data: {areaId: val},
+	    //         success:function(res){
+	    //             console.log(res)
+	    //             if(res.success){
+	    //                     var TheCampBox = [];
+	    //                     for(var i=0 ; i< res.content.length ; i++){
+	    //                     TheCampBox.push(res.content[i].count)
+	    //                 }  
+	    //                 this.setState({
+	    //                     TheCamp:TheCampBox
+	    //             })  
+	    //         }
+	    //         }.bind(this)
+	    //     }); 
+	    // },    
+	    // componentDidMount(){
+	    //     this.ajaxTheCamp(this.props.val);     
+	    // },
+	    // componentWillReceiveProps(nextProps){
+	    //     this.ajaxTheCamp();
+	    // },
 
 	    render: function render() {
 	        return _react2.default.createElement(
@@ -90298,6 +90653,34 @@
 
 	var _List2 = _interopRequireDefault(_List);
 
+	var _ChartAll = __webpack_require__(1301);
+
+	var _ChartAll2 = _interopRequireDefault(_ChartAll);
+
+	var _CompanyDirectory = __webpack_require__(1302);
+
+	var _CompanyDirectory2 = _interopRequireDefault(_CompanyDirectory);
+
+	var _HPQList = __webpack_require__(1303);
+
+	var _HPQList2 = _interopRequireDefault(_HPQList);
+
+	var _RegionalDis = __webpack_require__(1304);
+
+	var _RegionalDis2 = _interopRequireDefault(_RegionalDis);
+
+	var _Classification = __webpack_require__(1305);
+
+	var _Classification2 = _interopRequireDefault(_Classification);
+
+	var _DetailList = __webpack_require__(1306);
+
+	var _DetailList2 = _interopRequireDefault(_DetailList);
+
+	var _Lease = __webpack_require__(1307);
+
+	var _Lease2 = _interopRequireDefault(_Lease);
+
 	var _realtimeTableRuducer = __webpack_require__(975);
 
 	var _realtimeTableRuducer2 = _interopRequireDefault(_realtimeTableRuducer);
@@ -90310,13 +90693,50 @@
 
 	var _MenuParkSelectList2 = _interopRequireDefault(_MenuParkSelectList);
 
+	var _ParkCamp = __webpack_require__(1294);
+
+	var _ParkCamp2 = _interopRequireDefault(_ParkCamp);
+
+	var _ParkFinance = __webpack_require__(1295);
+
+	var _ParkFinance2 = _interopRequireDefault(_ParkFinance);
+
+	var _ParkIndustry = __webpack_require__(1296);
+
+	var _ParkIndustry2 = _interopRequireDefault(_ParkIndustry);
+
+	var _ParkNews = __webpack_require__(1297);
+
+	var _ParkNews2 = _interopRequireDefault(_ParkNews);
+
+	var _ChartAll3 = __webpack_require__(1309);
+
+	var _ChartAll4 = _interopRequireDefault(_ChartAll3);
+
+	var _businessnumChart = __webpack_require__(1310);
+
+	var _businessnumChart2 = _interopRequireDefault(_businessnumChart);
+
+	var _balanceChart = __webpack_require__(1311);
+
+	var _balanceChart2 = _interopRequireDefault(_balanceChart);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	/*众筹监测 end*/
+	/*商业保理监测 end*/
 
-	/*实时监测 end*/
+	//企业占比对比
 
-	//园区
+	//企业目录列表
+
+	/*实时监测 begin*/
+	//左侧表格
+
+	//取得合规意见或经过会商的交易场所详情列表
+
+	//交易场所清理整顿分类
+
+	//上海市典当企业目录
 
 	//列表
 
@@ -90374,6 +90794,10 @@
 	  RaiseMount: _RaiseMount2.default,
 	  List: _List2.default,
 
+	  //典当行业监测
+	  PawnMChartAll: _ChartAll2.default,
+	  CompanyDirectory: _CompanyDirectory2.default,
+
 	  //私募基金
 	  CompanyProgress: _CompanyProgress2.default,
 	  QDLPQuality: _QDLPQuality2.default,
@@ -90382,6 +90806,12 @@
 	  EquityL: _EquityL2.default,
 	  EquityM: _EquityM2.default,
 	  EquityR: _EquityR2.default,
+
+	  //交易场所监测
+	  HPQList: _HPQList2.default,
+	  RegionalDis: _RegionalDis2.default,
+	  Classification: _Classification2.default,
+	  DetailList: _DetailList2.default,
 
 	  //小额贷款
 	  SmallLoanMap: _SmallLoanMap2.default,
@@ -90394,6 +90824,12 @@
 	  MenuParkSelectVal: _MenuParkSelectVal2.default,
 	  MenuParkSelectList: _MenuParkSelectList2.default,
 
+	  //园区首页
+	  ParkCamp: _ParkCamp2.default,
+	  ParkFinance: _ParkFinance2.default,
+	  ParkIndustry: _ParkIndustry2.default,
+	  ParkNews: _ParkNews2.default,
+
 	  //融资担保
 	  FinGuaMap: _FinGuaMap2.default,
 	  FinGuaCompanyGrade: _FinGuaCompanyGrade2.default,
@@ -90404,12 +90840,44 @@
 	  //实时监测
 	  RealTimeTable: _realtimeTableRuducer2.default,
 
+	  //商业保理监测
+	  ChartAll: _ChartAll4.default,
+	  businessnumChart: _businessnumChart2.default,
+	  balanceChart: _balanceChart2.default,
+
+	  //融资租赁
+	  Lease: _Lease2.default,
+
 	  routing: _reactRouterRedux.routerReducer //整合路由 
 	});
+
+	/*众筹监测 end*/
+
+	/*商业保理监测 begin*/
+
+
+	//园区首页
+
+	/*实时监测 end*/
+
+	//园区
+
+	/*=================================交易场所监测=================================*/
+
+	/*=================================融资租赁=================================*/
+	//典当法人企业数
+
+	//交易场所清理整顿分类
+
+	/*=================================典当行业监测=================================*/
+
+	/*=================================交易场所监测=================================*/
+	//黄浦区交易场所列表
+
 	/*=================================众筹监测=================================*/
 
-	/*实时监测 begin*/
-	//左侧表格
+	/*=================================典当行业监测=================================*/
+	//所有图标
 
 	//6月上海各类众筹平台新增项目数的成功筹资金额
 
@@ -100484,7 +100952,6 @@
 
 	function getMenuParkSelectList(json) {
 	  return function (dispatch) {
-	    console.log(json);
 	    $.ajax({
 	      url: "/park/areaList.do",
 	      dataType: "json",
@@ -100505,6 +100972,7 @@
 	var SELECT_NAME = exports.SELECT_NAME = 'SELECT_NAME';
 
 	function getMenuParkSelectVal(data) {
+	  console.log(data, 333333333334444444444);
 	  return {
 	    type: SELECT_NAME,
 	    data: data
@@ -100532,7 +101000,7 @@
 
 	//初始化数据
 	var initialState = {
-		val: "" //下拉列表
+		data: "" //下拉列表
 	};
 
 	function menuParkSelectVal() {
@@ -100542,7 +101010,7 @@
 		switch (action.type) {
 			case _MenuParkAction.SELECT_NAME:
 				return {
-					val: action.data.val
+					data: action.data
 				};
 			default:
 				return state;
@@ -100652,6 +101120,8 @@
 	});
 	exports.getParkNews = getParkNews;
 	exports.getParkFinance = getParkFinance;
+	exports.getParkIndustry = getParkIndustry;
+	exports.getParkCamp = getParkCamp;
 	/*
 	  园区监测首页模块action
 	*/
@@ -100730,7 +101200,1148 @@
 	}
 	/*类金融企业集中度 end*/
 
+	/*园区行业分布begin*/
+	var PARK_INDUSTRY_SUCCESS = exports.PARK_INDUSTRY_SUCCESS = 'PARK_INDUSTRY_SUCCESS';
+	var PARK_INDUSTRY_FAIL = exports.PARK_INDUSTRY_FAIL = 'PARK_INDUSTRY_FAIL';
+
+	function parkIndustrySuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: PARK_FINANCE_SUCCESS,
+	    result: result
+	  };
+	}
+	function parkIndustryFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: PARK_FINANCE_FAIL,
+	    result: result
+	  };
+	}
+
+	function getParkIndustry(json) {
+	  return function (dispatch) {
+	    $.ajax({
+	      url: "/park/businessDistribute.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(parkIndustrySuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(parkIndustryFail(result));
+	      }
+	    });
+	  };
+	}
+	/*园区行业分布 end*/
+
+	/*在营时间分布begin*/
+	var PARK_CAMP_SUCCESS = exports.PARK_CAMP_SUCCESS = 'PARK_CAMP_SUCCESS';
+	var PARK_CAMP_FAIL = exports.PARK_CAMP_FAIL = 'PARK_CAMP_FAIL';
+
+	function parkCampSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: PARK_CAMP_SUCCESS,
+	    result: result
+	  };
+	}
+	function parkCampFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: PARK_CAMP_FAIL,
+	    result: result
+	  };
+	}
+
+	function getParkCamp(json) {
+	  return function (dispatch) {
+	    $.ajax({
+	      url: "/park/inBusiness.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(parkCampSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(parkCampFail(result));
+	      }
+	    });
+	  };
+	}
+	/*在营时间分布 end*/
+
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "ParkMonitorIndexAction.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1294 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = parkCamp;
+
+	var _ParkMonitorIndexAction = __webpack_require__(1293);
+
+	//在营时间分布
+	function parkCamp() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _ParkMonitorIndexAction.PARK_CAMP_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _ParkMonitorIndexAction.PARK_CAMP_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "ParkCamp.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1295 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = parkFinance;
+
+	var _ParkMonitorIndexAction = __webpack_require__(1293);
+
+	//类金融企业集中度
+	function parkFinance() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _ParkMonitorIndexAction.PARK_FINANCE_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _ParkMonitorIndexAction.PARK_FINANCE_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "ParkFinance.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1296 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = parkIndustry;
+
+	var _ParkMonitorIndexAction = __webpack_require__(1293);
+
+	//园区行业分布
+	function parkIndustry() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _ParkMonitorIndexAction.PARK_INDUSTRY_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _ParkMonitorIndexAction.PARK_INDUSTRY_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "ParkIndustry.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1297 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = parkNews;
+
+	var _ParkMonitorIndexAction = __webpack_require__(1293);
+
+	//舆情
+	function parkNews() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _ParkMonitorIndexAction.PARK_NEWS_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _ParkMonitorIndexAction.PARK_NEWS_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "ParkNews.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1298 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getChartAllRequest = getChartAllRequest;
+	exports.getAreaRankRequest = getAreaRankRequest;
+	/*
+	 典当行业监测
+	*/
+
+	/*chart所有图表begin*/
+	var CHARTALL_REQUEST_SUCCESS = exports.CHARTALL_REQUEST_SUCCESS = 'CHARTALL_REQUEST_SUCCESS';
+	var CHARTALL_REQUEST_FAIL = exports.CHARTALL_REQUEST_FAIL = 'CHARTALL_REQUEST_FAIL';
+
+	function chartAllRequestSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: CHARTALL_REQUEST_SUCCESS,
+	    result: result
+	  };
+	}
+	function chartAllRequestFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: CHARTALL_REQUEST_FAIL,
+	    result: result
+	  };
+	}
+
+	function getChartAllRequest(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "/data/industryMonitor/p2p/index/indexChart.json", ///mortgage/statisticList.do
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(chartAllRequestSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(chartAllRequestFail(result));
+	      }
+	    });
+	  };
+	}
+	/*chart所有图表end*/
+
+	/*  上海市典当企业目录*/
+	var COMPANYDIR_REQUEST_SUCCESS = exports.COMPANYDIR_REQUEST_SUCCESS = 'COMPANYDIR_REQUEST_SUCCESS';
+	var COMPANYDIR_REQUEST_FAIL = exports.COMPANYDIR_REQUEST_FAIL = 'COMPANYDIR_REQUEST_FAIL';
+
+	function companyDirRequestSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: COMPANYDIR_REQUEST_SUCCESS,
+	    result: result
+	  };
+	}
+	function companyDirRequestFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: COMPANYDIR_REQUEST_FAIL,
+	    result: result
+	  };
+	}
+
+	function getAreaRankRequest(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "/data/industryMonitor/p2p/index/indexChart.json", ///mortgage/companyList.do
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(companyDirRequestSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(companyDirRequestFail(result));
+	      }
+	    });
+	  };
+	}
+	/*上海市典当企业目录*/
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "PawnMonitoringAction.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1299 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getClassificationAllRequest = getClassificationAllRequest;
+	exports.getDetailListRequest = getDetailListRequest;
+	exports.getHPQListRequest = getHPQListRequest;
+	exports.getRegionalDisRequest = getRegionalDisRequest;
+	/*
+	 典当行业监测
+	*/
+
+	/*交易场所区域分布*/
+	var CLASSIFICATION_REQUEST_SUCCESS = exports.CLASSIFICATION_REQUEST_SUCCESS = 'CLASSIFICATION_REQUEST_SUCCESS';
+	var CLASSIFICATION_REQUEST_FAIL = exports.CLASSIFICATION_REQUEST_FAIL = 'CHARTALL_REQUEST_FAIL';
+
+	function classificationRequestSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: CLASSIFICATION_REQUEST_SUCCESS,
+	    result: result
+	  };
+	}
+	function classificationRequestFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: CLASSIFICATION_REQUEST_FAIL,
+	    result: result
+	  };
+	}
+
+	function getClassificationAllRequest(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "/data/industryMonitor/p2p/index/indexChart.json", ///mortgage/statisticList.do
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(classificationRequestSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(classificationRequestFail(result));
+	      }
+	    });
+	  };
+	}
+	/*交易场所区域分布*/
+
+	/*交易场所清理整顿分类*/
+	var DETAILLIST_REQUEST_SUCCESS = exports.DETAILLIST_REQUEST_SUCCESS = 'DETAILLIST_REQUEST_SUCCESS';
+	var DETAILLIST_REQUEST_FAIL = exports.DETAILLIST_REQUEST_FAIL = 'DETAILLIST_REQUEST_FAIL';
+
+	function detailListRequestSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: DETAILLIST_REQUEST_SUCCESS,
+	    result: result
+	  };
+	}
+	function detailListRequestFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: DETAILLIST_REQUEST_FAIL,
+	    result: result
+	  };
+	}
+
+	function getDetailListRequest(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "/data/industryMonitor/p2p/index/indexChart.json", ///mortgage/companyList.do
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(detailListRequestSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(detailListRequestFail(result));
+	      }
+	    });
+	  };
+	}
+	/*交易场所清理整顿分类*/
+
+	/*黄浦区交易场所列表*/
+	var HPQLIST_REQUEST_SUCCESS = exports.HPQLIST_REQUEST_SUCCESS = 'HPQLIST_REQUEST_SUCCESS';
+	var HPQLIST_REQUEST_FAIL = exports.HPQLIST_REQUEST_FAIL = 'HPQLIST_REQUEST_FAIL';
+
+	function HPQListRequestSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: HPQLIST_REQUEST_SUCCESS,
+	    result: result
+	  };
+	}
+	function HPQListRequestFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: HPQLIST_REQUEST_FAIL,
+	    result: result
+	  };
+	}
+
+	function getHPQListRequest(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "/data/industryMonitor/p2p/index/indexChart.json", ///mortgage/companyList.do
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(HPQListRequestSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(HPQListRequestFail(result));
+	      }
+	    });
+	  };
+	}
+	/*黄浦区交易场所列表*/
+
+	/*取得合规意见或经过会商的交易场所详情列表*/
+	var REGIONlDIS_REQUEST_SUCCESS = exports.REGIONlDIS_REQUEST_SUCCESS = 'REGIONlDIS_REQUEST_SUCCESS';
+	var REGIONlDIS_REQUEST_FAIL = exports.REGIONlDIS_REQUEST_FAIL = 'REGIONlDIS_REQUEST_FAIL';
+
+	function regionalDisRequestSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: REGIONlDIS_REQUEST_SUCCESS,
+	    result: result
+	  };
+	}
+	function regionalDisRequestFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: REGIONlDIS_REQUEST_FAIL,
+	    result: result
+	  };
+	}
+
+	function getRegionalDisRequest(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "/data/industryMonitor/p2p/index/indexChart.json", ///mortgage/companyList.do
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(regionalDisRequestSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(regionalDisRequestFail(result));
+	      }
+	    });
+	  };
+	}
+	/*取得合规意见或经过会商的交易场所详情列表*/
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "TradingPlacesAction.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1300 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getCompanynumRequest = getCompanynumRequest;
+	exports.getBusinessnumRequest = getBusinessnumRequest;
+	exports.getBalanceRequest = getBalanceRequest;
+	/*
+	 商业保理平台监测
+	*/
+
+	/*在沪商业保理企业数量图表begin*/
+	var COMMERCIAL_COMPANYNUM_SUCCESS = exports.COMMERCIAL_COMPANYNUM_SUCCESS = 'COMMERCIAL_COMPANYNUM_SUCCESS';
+	var COMMERCIAL_COMPANYNUM_FAIL = exports.COMMERCIAL_COMPANYNUM_FAIL = 'COMMERCIAL_COMPANYNUM_FAIL';
+
+	function companynumRequestSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: COMMERCIAL_COMPANYNUM_SUCCESS,
+	    result: result
+	  };
+	}
+	function companynumRequestFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: COMMERCIAL_COMPANYNUM_FAIL,
+	    result: result
+	  };
+	}
+
+	function getCompanynumRequest(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "/factoring/countCapitalBySeason.do", //"/data/industryMonitor/p2p/index/indexChart.json",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(companynumRequestSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(companynumRequestFail(result));
+	      }
+	    });
+	  };
+	}
+	/*在沪商业保理企业数量图表end*/
+
+	/*  企业类型分布图表begin*/
+	var COMMERCIAL_BUSINESSNUM_SUCCESS = exports.COMMERCIAL_BUSINESSNUM_SUCCESS = 'COMMERCIAL_BUSINESSNUM_SUCCESS';
+	var COMMERCIAL_BUSINESSNUM_FAIL = exports.COMMERCIAL_BUSINESSNUM_FAIL = 'COMMERCIAL_BUSINESSNUM_FAIL';
+
+	function businessnumRequestSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: COMMERCIAL_BUSINESSNUM_SUCCESS,
+	    result: result
+	  };
+	}
+	function businessnumRequestFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: COMMERCIAL_BUSINESSNUM_FAIL,
+	    result: result
+	  };
+	}
+
+	function getBusinessnumRequest(json) {
+	  return function (dispatch) {
+	    $.ajax({
+	      url: "/factoring/distribute.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(businessnumRequestSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(businessnumRequestFail(result));
+	      }
+	    });
+	  };
+	}
+	/* 企业类型分布图表end */
+
+	/* 商业保理地域分布图表begin */
+	var COMMERCIAL_BALANCE_SUCCESS = exports.COMMERCIAL_BALANCE_SUCCESS = 'COMMERCIAL_BALANCE_SUCCESS';
+	var COMMERCIAL_BALANCE_FAIL = exports.COMMERCIAL_BALANCE_FAIL = 'COMMERCIAL_BALANCE_FAIL';
+
+	function balanceRequestSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: COMMERCIAL_BALANCE_SUCCESS,
+	    result: result
+	  };
+	}
+	function balanceRequestFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: COMMERCIAL_BALANCE_FAIL,
+	    result: result
+	  };
+	}
+
+	function getBalanceRequest(json) {
+	  return function (dispatch) {
+	    $.ajax({
+	      url: "/factoring/geogDistribute.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(balanceRequestSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(balanceRequestFail(result));
+	      }
+	    });
+	  };
+	}
+	/*商业保理地域分布图表end */
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "commercialSecretIndexAction.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1301 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = PawnMChartAll;
+
+	var _PawnMonitoringAction = __webpack_require__(1298);
+
+	function PawnMChartAll() {
+	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
+	        request: false,
+	        result: {}
+	    } : arguments[0];
+	    var action = arguments[1];
+
+	    switch (action.type) {
+	        case _PawnMonitoringAction.CHARTALL_REQUEST_SUCCESS:
+	            //请求成功！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        case _PawnMonitoringAction.CHARTALL_REQUEST_FAIL:
+	            //请求失败！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        default:
+	            return state;
+	    }
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "ChartAll.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1302 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = CompanyDirectory;
+
+	var _PawnMonitoringAction = __webpack_require__(1298);
+
+	function CompanyDirectory() {
+	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
+	        request: false,
+	        result: {}
+	    } : arguments[0];
+	    var action = arguments[1];
+
+	    switch (action.type) {
+	        case _PawnMonitoringAction.COMPANYDIR_REQUEST_SUCCESS:
+	            //请求成功！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        case _PawnMonitoringAction.COMPANYDIR_REQUEST_FAIL:
+	            //请求失败！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        default:
+	            return state;
+	    }
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "CompanyDirectory.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1303 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = HPQList;
+
+	var _TradingPlacesAction = __webpack_require__(1299);
+
+	function HPQList() {
+	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
+	        request: false,
+	        result: {}
+	    } : arguments[0];
+	    var action = arguments[1];
+
+	    switch (action.type) {
+	        case _TradingPlacesAction.HPQLIST_REQUEST_SUCCESS:
+	            //请求成功！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        case _TradingPlacesAction.HPQLIST_REQUEST_FAIL:
+	            //请求失败！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        default:
+	            return state;
+	    }
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "HPQList.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1304 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = RegionalDis;
+
+	var _TradingPlacesAction = __webpack_require__(1299);
+
+	function RegionalDis() {
+	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
+	        request: false,
+	        result: {}
+	    } : arguments[0];
+	    var action = arguments[1];
+
+	    switch (action.type) {
+	        case _TradingPlacesAction.REGIONlDIS_REQUEST_SUCCESS:
+	            //请求成功！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        case _TradingPlacesAction.REGIONlDIS_REQUEST_FAIL:
+	            //请求失败！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        default:
+	            return state;
+	    }
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "RegionalDis.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1305 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = Classification;
+
+	var _TradingPlacesAction = __webpack_require__(1299);
+
+	function Classification() {
+	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
+	        request: false,
+	        result: {}
+	    } : arguments[0];
+	    var action = arguments[1];
+
+	    switch (action.type) {
+	        case _TradingPlacesAction.CLASSIFICATION_REQUEST_SUCCESS:
+	            //请求成功！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        case _TradingPlacesAction.CLASSIFICATION_REQUEST_FAIL:
+	            //请求失败！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        default:
+	            return state;
+	    }
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Classification.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1306 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = DetailList;
+
+	var _TradingPlacesAction = __webpack_require__(1299);
+
+	function DetailList() {
+	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
+	        request: false,
+	        result: {}
+	    } : arguments[0];
+	    var action = arguments[1];
+
+	    switch (action.type) {
+	        case _TradingPlacesAction.DETAILLIST_REQUEST_SUCCESS:
+	            //请求成功！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        case _TradingPlacesAction.DETAILLIST_REQUEST_FAIL:
+	            //请求失败！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        default:
+	            return state;
+	    }
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "DetailList.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1307 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = companyLease;
+
+	var _financeLeaseAction = __webpack_require__(1308);
+
+	//企业评级
+	function companyLease() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _financeLeaseAction.COMPANY_LEASE_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _financeLeaseAction.COMPANY_LEASE_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Lease.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1308 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getLease = getLease;
+	/*
+	  融资租赁action
+	*/
+
+	/*典当法人企业数begin*/
+	var COMPANY_LEASE_SUCCESS = exports.COMPANY_LEASE_SUCCESS = 'COMPANY_LEASE_SUCCESS';
+	var COMPANY_LEASE_FAIL = exports.COMPANY_LEASE_FAIL = 'COMPANY_LEASE_FAIL';
+
+	function companyLeaseSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: COMPANY_LEASE_SUCCESS,
+	    result: result
+	  };
+	}
+	function companyLeaseFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: COMPANY_LEASE_FAIL,
+	    result: result
+	  };
+	}
+
+	function getLease(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "financeLease/leaseCompanyStatistic.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(companyLeaseSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(companyLeaseFail(result));
+	      }
+	    });
+	  };
+	}
+	/*典当法人企业数end*/
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "financeLeaseAction.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1309 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = ChartAll;
+
+	var _commercialSecretIndexAction = __webpack_require__(1300);
+
+	function ChartAll() {
+	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
+	        request: false,
+	        result: {}
+	    } : arguments[0];
+	    var action = arguments[1];
+
+	    switch (action.type) {
+	        case _commercialSecretIndexAction.COMMERCIAL_COMPANYNUM_SUCCESS:
+	            //请求成功！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        case _commercialSecretIndexAction.COMMERCIAL_COMPANYNUM_FAIL:
+	            //请求失败！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        default:
+	            return state;
+	    }
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "ChartAll.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1310 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = businessnumChart;
+
+	var _commercialSecretIndexAction = __webpack_require__(1300);
+
+	function businessnumChart() {
+	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
+	        request: false,
+	        result: {}
+	    } : arguments[0];
+	    var action = arguments[1];
+
+	    switch (action.type) {
+	        case _commercialSecretIndexAction.COMMERCIAL_BUSINESSNUM_SUCCESS:
+	            //请求成功！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        case _commercialSecretIndexAction.COMMERCIAL_BUSINESSNUM_FAIL:
+	            //请求失败！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        default:
+	            return state;
+	    }
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "businessnumChart.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1311 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = balanceChart;
+
+	var _commercialSecretIndexAction = __webpack_require__(1300);
+
+	function balanceChart() {
+	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
+	        request: false,
+	        result: {}
+	    } : arguments[0];
+	    var action = arguments[1];
+
+	    switch (action.type) {
+	        case _commercialSecretIndexAction.COMMERCIAL_BALANCE_SUCCESS:
+	            //请求成功！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        case _commercialSecretIndexAction.COMMERCIAL_BALANCE_FAIL:
+	            //请求失败！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        default:
+	            return state;
+	    }
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "balanceChart.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ }

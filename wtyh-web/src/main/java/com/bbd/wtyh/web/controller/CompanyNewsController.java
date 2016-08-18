@@ -20,9 +20,10 @@ public class CompanyNewsController {
 	@Autowired
 	private CompanyNewsService companyNewsService;
 
-	@RequestMapping("/getCompanyNews")
+	@RequestMapping("getCompanyNews.do")
 	@ResponseBody
-	public ResponseBean getCompanyNews(String company) {
+	public ResponseBean getCompanyNews() {
+		String company = "贵阳市城市建设投资有限责任公司";
 		List list = companyNewsService.getCompanyNews(company);
 		return ResponseBean.successResponse(list);
 	}
