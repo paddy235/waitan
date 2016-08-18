@@ -17,6 +17,8 @@
 			AND registered_date IS NOT NULL
 		GROUP BY
 			registered_capital_type,
+			year
+		ORDER BY
 			year;
 	</select>
 
@@ -50,46 +52,7 @@
 		WHERE
 			1 = 1
 		AND c.company_type = 13
-		<if test="areaId  > 0">
-			AND c.area_id = #{areaId}
-		</if>
-		<if test="areaId == null">
-			AND c.area_id = (
-				SELECT
-					area_id
-				FROM
-					area
-				WHERE
-					`name` = '黄浦区'
-			)
-		</if>
-		<if test="riskA == 1">
-			AND (flr.risk_type = 1 AND flr.risk_status = 1)
-		</if>
-		<if test="riskA == 0">
-			AND (flr.risk_type = 1 AND flr.risk_status = 0)
-		</if>
-		<if test="riskB == 1">
-			OR (flr.risk_type = 2 AND flr.risk_status = 1)
-		</if>
-		<if test="riskB == 0">
-			OR (flr.risk_type = 2 AND flr.risk_status = 0)
-		</if>
-		<if test="riskC == 1">
-			OR (flr.risk_type = 3 AND flr.risk_status = 1)
-		</if>
-		<if test="riskC == 0">
-			OR (flr.risk_type = 3 AND flr.risk_status = 0)
-		</if>
-		<if test="riskD == 1">
-			OR (flr.risk_type = 4 AND flr.risk_status = 1)
-		</if>
-		<if test="riskD == 0">
-			OR (flr.risk_type = 4 AND flr.risk_status = 0)
-		</if>
-		<if test="analysisResult != null ">
-			OR (flr.risk_type = 1 AND flr.risk_status = 1)
-		</if>
+
 	</select>
 
 </mapper>
