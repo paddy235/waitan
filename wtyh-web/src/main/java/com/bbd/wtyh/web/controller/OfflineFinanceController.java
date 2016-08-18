@@ -41,7 +41,8 @@ public class OfflineFinanceController {
         try {
             String companyName = request.getParameter("companyName");
             String dataVersion = request.getParameter("dataVersion");
-            return offlineFinanceService.queryRelation(companyName, dataVersion);
+            String degreesLevel = request.getParameter("degreesLevel");
+            return offlineFinanceService.queryRelation(companyName, dataVersion, degreesLevel);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -145,14 +146,6 @@ public class OfflineFinanceController {
         List<Map> data = offlineFinanceService.staticRiskList(companyName);
         return ResponseBean.successResponse(data);
     }
-
-
-
-
-
-
-
-
 
     /**
      * 企业关联方特征指数对比
