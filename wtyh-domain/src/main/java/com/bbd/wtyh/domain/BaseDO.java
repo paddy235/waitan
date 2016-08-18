@@ -1,11 +1,13 @@
 package com.bbd.wtyh.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by Marco on 2016/8/5 0005.
  */
-public class BaseDO {
+@SuppressWarnings("serial")
+public class BaseDO implements Serializable {
 	
 	/*
 	 * 逻辑主键

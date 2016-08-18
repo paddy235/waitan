@@ -63,7 +63,6 @@ public class FactoringController {
 	/**
 	* 全市商业保理业务总额及融资余额
 	*
-	* @param   
 	* @return Object
 	*/
 	@RequestMapping("/totalBalance")
@@ -89,8 +88,6 @@ public class FactoringController {
 
 	/**
 	* 国内商业保理和国际商业保理业务额
-	*
-	* @param   
 	* @return Object
 	*/
 	@RequestMapping("/insideOutside")
@@ -118,7 +115,6 @@ public class FactoringController {
 	/**
 	* 全市商业保理资产总额
 	*
-	* @param   
 	* @return Object
 	*/
 	@RequestMapping("/total")
