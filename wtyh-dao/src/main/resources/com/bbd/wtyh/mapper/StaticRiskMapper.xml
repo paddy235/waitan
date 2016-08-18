@@ -82,20 +82,42 @@
 		risk_date like concat(#{date}, '%');
 	</sql>
 
+    <!--始终获取 最新版本的 数据, 不知道使用子查询WHERE替换JION会不会有效率提升-->
     <select id="getSpectrumAnalysis" resultType="com.bbd.wtyh.domain.vo.StaticRiskSpectrumVO">
-        select
-			company_name as name,
-			risk_date as riskDate,
-			static_risk_index as stcRiskIndex
-        from static_risk_data
-        where 1=1
-        <if test="low != null">
-            and #{low} &lt;= static_risk_index
-        </if>
-        <if test="upper != null">
-            and #{upper} &gt; static_risk_index
-        </if>
+        SELECT
+            t1.company_name AS NAME,
+            t1.risk_date AS riskDate,
+            t1.static_risk_index AS stcRiskIndex,
+            t1.registered_capital
+        FROM (
+                SELECT
+                    company_name,
+                    risk_date,
+                    static_risk_index,
+                    registered_capital
+                FROM
+                  static_risk_data
+                LEFT JOIN company ON static_risk_data.company_name = company.`name`
+                WHERE
+                    1 = 1
+                    <if test="low != null">
+                        and #{low} &lt;= static_risk_index
+                    </if>
+                    <if test="upper != null">
+                        and static_risk_index &lt; #{upper}
+                    </if>
+            ) t1
+        RIGHT JOIN (
+            SELECT
+              risk_date
+            FROM
+              static_risk_data
+            ORDER BY
+              risk_date DESC
+            LIMIT 0, 1
+        ) t2
+        ON t1.risk_date = t2.risk_date
         ORDER BY static_risk_index DESC
-        LIMIT 0, 300;
+        LIMIT 0, 200
     </select>
 </mapper>
