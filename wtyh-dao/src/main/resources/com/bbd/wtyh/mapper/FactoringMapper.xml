@@ -28,7 +28,7 @@
     
     <select id="queryFactoringCompanys"  resultType="com.bbd.wtyh.domain.CompanyAndRiskDO" >
     	select c.company_id id,c.address,c.`name` companyName ,
-    	       if(cfe.`foreign`,'外资','内资')  isForeign ,
+    	       if(cfe.foreign_owned,'外资','内资')  isForeign ,
     	       c.record_number recordNumber   
 		from company c LEFT JOIN commercial_factoring_extra cfe 
 		     on c.company_id=cfe.company_id 
