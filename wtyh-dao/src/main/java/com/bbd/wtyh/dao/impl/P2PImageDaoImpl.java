@@ -90,7 +90,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
 
     @Override
     public Map<String, Object> radarScore(String platName) {
-        String url = String.format("http://localhost:8080/financial_services?dataType=leida&plat_name=%s", platName);
+        String url = String.format("http://localhost:8080/financial_services.do?dataType=leida&plat_name=%s", platName);
         HttpTemplate httpTemplate = new HttpTemplate();
         final Map<String, Object> source = new LinkedHashMap<>();
         try {
@@ -250,7 +250,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
 
     @Override
     public Map<String, Object> coreDataInfo(String platName) {
-        String url = String.format("http://localhost:8080/financial_services?dataType=plat_data&plat_name=%s", platName);
+        String url = String.format("http://localhost:8080/financial_services.do?dataType=plat_data&plat_name=%s", platName);
         final Map<String, Object> data = new HashMap<>();
         HttpTemplate httpTemplate = new HttpTemplate();
         try {

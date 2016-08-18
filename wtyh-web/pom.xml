@@ -8,17 +8,11 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
+
+
+
     <artifactId>wtyh-web</artifactId>
     <packaging>war</packaging>
-
-    <build>
-        <resources>
-            <resource>
-                <directory>src/main/resources/</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-    </build>
 
     <!-- 打包配置信息 -->
     <profiles>
@@ -37,6 +31,9 @@
                     <resource>
                         <directory>src/main/resources</directory>
                         <filtering>true</filtering>
+                        <excludes>
+                            <exclude>config/online.properties</exclude>
+                        </excludes>
                     </resource>
                 </resources>
             </build>
@@ -56,6 +53,9 @@
                     <resource>
                         <directory>src/main/resources</directory>
                         <filtering>true</filtering>
+                        <excludes>
+                            <exclude>config/dev.properties</exclude>
+                        </excludes>
                     </resource>
                 </resources>
             </build>

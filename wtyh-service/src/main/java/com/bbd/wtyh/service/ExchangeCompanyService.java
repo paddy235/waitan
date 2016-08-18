@@ -39,8 +39,10 @@ public interface ExchangeCompanyService {
 
     /**
      * 按地区查询交易所列表
-     * @param areaId
+     * @param areaName
+     * @param orderName
+     * @param orderType
      * @return
      */
-    public List<CompanyDO> exchangeCompanyListByAreaId(Integer areaId, String orderName, String orderType);
+    public List<CompanyDO> exchangeCompanyListByAreaId(String areaName, String orderName, String orderType);
 }

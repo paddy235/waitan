@@ -23,7 +23,7 @@ public interface CompanyService {
 
     List<CompanyDO> queryCompany(CompanyQuery query);
 
-    List<String> searchCompanyName(Map<String, Object> params);
+    List<CompanyDO> searchCompanyName(Map<String, Object> params);
     
     int searchCompanyNameCount(String keyword);
 

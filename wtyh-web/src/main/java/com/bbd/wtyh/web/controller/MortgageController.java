@@ -52,6 +52,7 @@ public class MortgageController {
             dto.setRegisteredCapital(companyDO.getRegisteredCapital());
             dto.setRegisteredCapitalType(companyDO.getRegisteredCapitalType());
             dto.setAddress(companyDO.getAddress());
+            dto.setRegisteredTime(companyDO.getRegisteredDate());
             result.add(dto);
         }
         return ResponseBean.successResponse(result);

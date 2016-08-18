@@ -1,5 +1,9 @@
 package com.bbd.wtyh.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
+
 /**
  * Created by Marco on 2016/8/11.
  */
@@ -16,6 +20,9 @@ public class MortgageCompanyDTO {
     private Integer registeredCapital;
 
     private Integer registeredCapitalType;
+
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    private Date registeredTime;
 
 
     public Integer getCompanyId() {
@@ -64,5 +71,13 @@ public class MortgageCompanyDTO {
 
     public void setRegisteredCapitalType(Integer registeredCapitalType) {
         this.registeredCapitalType = registeredCapitalType;
+    }
+
+    public Date getRegisteredTime() {
+        return registeredTime;
+    }
+
+    public void setRegisteredTime(Date registeredTime) {
+        this.registeredTime = registeredTime;
     }
 }

@@ -11,4 +11,6 @@ public interface RiskCompanyService {
 	
 	List<RiskCompanyInfoDO> getTop(Map<String, Object> params);
 	
+	int getTopCount(Map<String, Object> params);
+	
 }

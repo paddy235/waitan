@@ -68,7 +68,14 @@
 				desc
 			</otherwise>
 		</choose>
-		limit 200
+		limit #{pagination.begin}, #{pagination.pageSize}
+	</select>
+	
+	<select id="getTopCount" parameterType="java.util.HashMap" resultType="int">
+		select
+			count(1)
+		from index_data
+		<include refid="indexDataCondition"></include>
 	</select>
 
 </mapper>

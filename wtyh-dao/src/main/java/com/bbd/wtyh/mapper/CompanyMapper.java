@@ -38,7 +38,7 @@ public interface CompanyMapper {
 
     List<CompanyDO> searchCompany(@Param("companyType") Integer companyType, @Param("name") String keyword, @Param("size") Integer size);
 
-    List<String> searchCompanyName(Map<String, Object> params);
+    List<CompanyDO> searchCompanyName(Map<String, Object> params);
     
     int searchCompanyNameCount(String keyword);
 
