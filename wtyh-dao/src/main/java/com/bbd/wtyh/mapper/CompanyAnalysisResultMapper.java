@@ -8,6 +8,7 @@ import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
 
 public interface CompanyAnalysisResultMapper {
 
+    @Deprecated
     List<CompanyAnalysisResult> getSpectrumAnalysisAll();
 
     CompanyAnalysisResultDO selectByPrimaryKey(Integer companyId);

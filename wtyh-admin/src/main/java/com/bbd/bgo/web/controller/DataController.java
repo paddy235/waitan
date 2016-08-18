@@ -32,17 +32,6 @@ public class DataController {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 	/**
 	 * 跳转到显示表的页面

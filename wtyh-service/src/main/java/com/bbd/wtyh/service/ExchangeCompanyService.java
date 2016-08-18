@@ -35,7 +35,7 @@ public interface ExchangeCompanyService {
      * @param status
      * @return
      */
-    public List<ExchangeCompanyVO> exchangeCompanyByStatus(Integer status);
+    public List<ExchangeCompanyVO> exchangeCompanyByStatus(String statusName);
 
     /**
      * 按地区查询交易所列表
