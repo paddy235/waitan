@@ -77,4 +77,6 @@ public interface OfflineFinanceService {
     public StaticRiskVO queryCurrentStaticRisk(String companyName, String currentDate, String areaCode);
 
     public String createYED(String companyName, String month) throws Exception;
+
+    Map companyInfo(String companyName);
 }
