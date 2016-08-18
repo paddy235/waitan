@@ -34,14 +34,13 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
     public Map leaseCompanyStatistic() {
         List<FinanceLeaseStatisticVO> list = financeLeaseMapper.queryFinanceLeaseStatistic(null);
         List xAxis = new ArrayList();
-        List series = new ArrayList();
         List barList = new ArrayList();
+        List barList1 = new ArrayList();
+        List barList2 = new ArrayList();
         List lineList = new ArrayList();
         if (!CollectionUtils.isEmpty(list)) {
             Map<Integer, Integer> yearCompanyNumberMap = new LinkedHashMap<>();
-            Map<Integer, List> yearCapitalMap = new LinkedHashMap<>();
-
-
+            Map<Integer, Integer> yearCapitalMap = new LinkedHashMap<>();
             for (FinanceLeaseStatisticVO financeLeaseStatisticVO : list) {
                 List yearCapitalList = new ArrayList();
                 Integer year = financeLeaseStatisticVO.getYear();
@@ -54,10 +53,10 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
                 }
                 Integer registeredCapital = financeLeaseStatisticVO.getRegisteredCapital();
                 if (yearCapitalMap.get(year) != null) {
-                    yearCapitalMap.get(year).add(registeredCapital);
+                    registeredCapital += yearCapitalMap.get(year);
+                    yearCapitalMap.put(year, registeredCapital);
                 } else {
-                    yearCapitalList.add(registeredCapital);
-                    yearCapitalMap.put(year,yearCapitalList);
+                    yearCapitalMap.put(year,registeredCapital);
                 }
             }
 
@@ -67,10 +66,20 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
             }
 
             for (Integer key : yearCapitalMap.keySet()) {
-                barList.add(yearCapitalMap.get(key));
+                System.out.println("----"+key+"---"+yearCapitalMap.get(key));
+//                barList.add(yearCapitalMap.get(key));
             }
         }
-
+        barList1.add(111);
+        barList1.add(122);
+        barList1.add(1232);
+        barList1.add(12341);
+        barList2.add(111);
+        barList2.add(122);
+        barList2.add(1232);
+        barList2.add(12341);
+        barList.add(barList1);
+        barList.add(barList2);
         Map seriesMap = new HashedMap();
         Map contentMap = new HashedMap();
         seriesMap.put("bar",barList);

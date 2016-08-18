@@ -3,34 +3,26 @@ package com.bbd.wtyh.domain;
 /**
  * Created by Marco on 2016/8/8.
  */
-public class RelatedCompanyStatisticDO {
+public class RelatedCompanyStatisticDO extends BaseDO{
+    private String areaName;
+    private Integer relatedCompany;
 
-    private Integer companyId;
-    private Integer companyType;
-    private Integer amount;
-
-
-    public Integer getCompanyId() {
-        return companyId;
+    public RelatedCompanyStatisticDO() {
     }
 
-    public void setCompanyId(Integer companyId) {
-        this.companyId = companyId;
+    public String getAreaName() {
+        return areaName;
     }
 
-    public Integer getCompanyType() {
-        return companyType;
+    public void setAreaName(String areaName) {
+        this.areaName = areaName;
     }
 
-    public void setCompanyType(Integer companyType) {
-        this.companyType = companyType;
+    public Integer getRelatedCompany() {
+        return relatedCompany;
     }
 
-    public Integer getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Integer amount) {
-        this.amount = amount;
+    public void setRelatedCompany(Integer relatedCompany) {
+        this.relatedCompany = relatedCompany;
     }
 }

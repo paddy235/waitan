@@ -17,6 +17,8 @@ public class RiskCompanyInfoDO extends BaseDO {
 	private Integer reviewTime; // 续存时间
 	private String isRise; // 风险指数是否上升（1：上升；0：持平；-1：下降）
 	private Date regDate; // 注册时间
+	
+	private String regDateStr;
 
 	public String getArea() {
 		return area;
@@ -110,6 +112,14 @@ public class RiskCompanyInfoDO extends BaseDO {
 
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
+	}
+
+	public String getRegDateStr() {
+		return regDateStr;
+	}
+
+	public void setRegDateStr(String regDateStr) {
+		this.regDateStr = regDateStr;
 	}
 
 }

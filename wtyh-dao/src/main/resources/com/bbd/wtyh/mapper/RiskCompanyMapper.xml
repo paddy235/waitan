@@ -39,7 +39,8 @@
 		company_type as companyType,
 		review_time as reviewTime,
 		is_rise as isRise,
-		reg_date as regDate
+		reg_date as regDate,
+		DATE_FORMAT(reg_date,'%Y-%m-%d') as regDateStr
 	</sql>
 
 	<select id="getScanner" resultType="com.bbd.wtyh.domain.RiskCompanyInfoDO" parameterType="java.util.HashMap">

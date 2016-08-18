@@ -67,14 +67,14 @@ public class ExchangeCompanyController {
     /**
      * 查询不同状态的交易场所列表
      * 取得合规意见或经过会商的交易场所详细列表
-     * @param status
+     * @param statusName
      * @see
      * @return
      */
     @RequestMapping("exchangeCompanyByStatus.do")
     @ResponseBody
-    public ResponseBean exchangeCompanyByStatus(Integer status) {
-        List<ExchangeCompanyVO> data = exchangeCompanyService.exchangeCompanyByStatus(status);
+    public ResponseBean exchangeCompanyByStatus(String statusName) {
+        List<ExchangeCompanyVO> data = exchangeCompanyService.exchangeCompanyByStatus(statusName);
         return ResponseBean.successResponse(data);
     }
 
