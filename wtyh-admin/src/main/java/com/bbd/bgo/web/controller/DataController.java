@@ -51,7 +51,8 @@ public class DataController {
 	 */
 	@RequestMapping("/showTables")
 	public String showTables() {
-		
+		System.out.print("a1");
+		System.out.print("a2");
 		return "geo/showTables";
 	}
 	
