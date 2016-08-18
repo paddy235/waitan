@@ -4,7 +4,6 @@ import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.query.CompanyQuery;
 import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.service.CompanyService;
-import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,7 +50,7 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
 	@Override
-	public List<String> searchCompanyName(Map<String, Object> params) {
+	public List<CompanyDO> searchCompanyName(Map<String, Object> params) {
 		return companyMapper.searchCompanyName(params);
 	}
 

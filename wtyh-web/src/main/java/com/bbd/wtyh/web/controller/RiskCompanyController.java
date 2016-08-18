@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bbd.wtyh.common.Pagination;
+import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.RiskCompanyInfoDO;
 import com.bbd.wtyh.service.CompanyService;
 import com.bbd.wtyh.service.RiskCompanyService;
@@ -91,7 +92,7 @@ public class RiskCompanyController {
 		Map<String, Object> params = new HashMap<>();
 		params.put("keyword", keyword);
 		params.put("pagination", pagination);
-		List<String> nameList = companyService.searchCompanyName(params);
+		List<CompanyDO> nameList = companyService.searchCompanyName(params);
 		pagination.setList(nameList);
 		return ResponseBean.successResponse(pagination);
 	}
