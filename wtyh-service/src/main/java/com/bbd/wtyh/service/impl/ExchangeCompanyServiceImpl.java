@@ -57,9 +57,9 @@ public class ExchangeCompanyServiceImpl implements ExchangeCompanyService {
     }
 
     @Override
-    public List<CompanyDO> exchangeCompanyListByAreaId(Integer areaId, String orderName, String orderType) {
+    public List<CompanyDO> exchangeCompanyListByAreaId(String areaName, String orderName, String orderType) {
         Map map = new HashMap();
-        map.put("areaId", areaId);
+        map.put("areaName", areaName);
         map.put("orderName", orderName);
         map.put("orderType", orderType);
         List<CompanyDO> list = exchangeCompanyMapper.queryExchangeCompanyListByAreaId(map);
