@@ -88,6 +88,9 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
         Integer companyNumber = 0;
         if (!CollectionUtils.isEmpty(list)) {
             for (Map map : list) {
+                if (map.get("freeTradeZone") == null) {
+                    continue;
+                }
                 if ((Boolean)map.get("freeTradeZone") == true) {
                     inAreaNumber = Integer.parseInt(map.get("companyNumber").toString());
                 } else {
