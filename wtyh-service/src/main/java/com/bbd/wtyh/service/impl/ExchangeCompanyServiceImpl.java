@@ -37,7 +37,22 @@ public class ExchangeCompanyServiceImpl implements ExchangeCompanyService {
         if (!CollectionUtils.isEmpty(list)) {
             for (Map map : list) {
                 Map result = new HashedMap();
-                result.put(ExchangeCompanyStatus.getName((int)map.get("status")), map.get("number"));
+                int status = (int)map.get("status");
+                String statusName = "";
+                if (status == 1) {
+                    statusName = "市政府批复设立";
+                } else if (status == 2) {
+                    statusName = "自行设立";
+                } else if (status == 3) {
+                    statusName = "主管单位批设但未经会商";
+                } else if (status == 4) {
+                    statusName = "取得合规意见或经过会商";
+                } else if (status == 5) {
+                    statusName = "通过验收";
+                } else {
+                    //do nothing;
+                }
+                result.put(statusName, map.get("number"));
                 resultList.add(result);
             }
         }
@@ -57,9 +72,9 @@ public class ExchangeCompanyServiceImpl implements ExchangeCompanyService {
     }
 
     @Override
-    public List<CompanyDO> exchangeCompanyListByAreaId(Integer areaId, String orderName, String orderType) {
+    public List<CompanyDO> exchangeCompanyListByAreaId(String areaName, String orderName, String orderType) {
         Map map = new HashMap();
-        map.put("areaId", areaId);
+        map.put("areaName", areaName);
         map.put("orderName", orderName);
         map.put("orderType", orderType);
         List<CompanyDO> list = exchangeCompanyMapper.queryExchangeCompanyListByAreaId(map);

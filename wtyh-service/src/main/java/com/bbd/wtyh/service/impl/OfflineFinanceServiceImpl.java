@@ -60,12 +60,16 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
-    public Map<String, List> queryRelation(String companyName, String dataVersion) throws Exception  {
+    public Map<String, List> queryRelation(String companyName, String dataVersion, String degreesLevel) throws Exception  {
         List<List<String>> list = null;
         JSONArray jsonArr = null;
         String json = redisDAO.getString(companyName + APIConstants.redis_relation_LinksDataJTTP + dataVersion);
         if (StringUtils.isEmpty(json)) {
-            json = relationCompanyService.getAPIDynamicRelatedPartUploadJTTP(companyName, APIConstants.show_relation_E, dataVersion);
+            if (StringUtils.isEmpty(degreesLevel)) {
+                json = relationCompanyService.getAPIDynamicRelatedPartUploadJTTP(companyName, APIConstants.show_relation_E, dataVersion);
+            } else {
+                json = relationCompanyService.getAPIDynamicRelatedPartUploadJTTP(companyName, Integer.parseInt(degreesLevel), dataVersion);
+            }
         }
         if (StringUtils.isEmpty(json)) {
             json="[]"; // 没有查询到数据的情况

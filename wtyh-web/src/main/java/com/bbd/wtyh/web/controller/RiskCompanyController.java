@@ -1,8 +1,11 @@
 package com.bbd.wtyh.web.controller;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,9 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bbd.higgs.utils.ListUtil;
 import com.bbd.wtyh.common.Pagination;
+import com.bbd.wtyh.domain.CompanyDO;
+import com.bbd.wtyh.domain.RiskCompanyInfoDO;
 import com.bbd.wtyh.service.CompanyService;
 import com.bbd.wtyh.service.RiskCompanyService;
+import com.bbd.wtyh.util.relation.StringUtils;
 import com.bbd.wtyh.web.ResponseBean;
 
 @Controller
@@ -32,7 +39,7 @@ public class RiskCompanyController {
 			@RequestParam(required = false) String minReviewTime,
 			@RequestParam(required = false) String maxReviewTime) {
 		Map<String, Object> params = this.fillMap(area, minRegCapital, maxRegCapital, companyQualification,
-				minReviewTime, maxReviewTime, null);
+				minReviewTime, maxReviewTime);
 		return ResponseBean.successResponse(riskCompanyService.getScanner(params));
 	}
 
@@ -42,32 +49,47 @@ public class RiskCompanyController {
 			@RequestParam(required = false) String minRegCapital, @RequestParam(required = false) String maxRegCapital,
 			@RequestParam(required = false) String companyQualification,
 			@RequestParam(required = false) String minReviewTime, @RequestParam(required = false) String maxReviewTime,
-			@RequestParam(defaultValue = "0") String sortType) {
+			@RequestParam(defaultValue = "0") String sortType, @RequestParam int pageNo) {
 		Map<String, Object> params = this.fillMap(area, minRegCapital, maxRegCapital, companyQualification,
-				minReviewTime, maxReviewTime, sortType);
-		return ResponseBean.successResponse(riskCompanyService.getTop(params));
+				minReviewTime, maxReviewTime);
+		params.put("sortType", sortType); // 排序方式
+		int count = riskCompanyService.getTopCount(params);
+		Pagination pagination = new Pagination();
+		pagination.setCount(count >= 201 ? 200 : count); // 搜索结果最多保留200条数据
+		if (pageNo >= 21 || pageNo <= -1) {
+			pagination.setList(null);
+			return ResponseBean.errorResponse("错误的分页请求参数！");
+		}
+		pagination.setPageNumber(pageNo);
+		params.put("pagination", pagination);
+		List<RiskCompanyInfoDO> list = riskCompanyService.getTop(params);
+		pagination.setList(list);
+		return ResponseBean.successResponse(pagination);
 	}
 
 	private Map<String, Object> fillMap(String area, String minRegCapital, String maxRegCapital,
-			String companyQualification, String minReviewTime, String maxReviewTime, String sortType) {
+			String companyQualification, String minReviewTime, String maxReviewTime) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("area", area);
 		map.put("minRegCapital", minRegCapital);
 		map.put("maxRegCapital", maxRegCapital);
-		map.put("companyQualification", companyQualification);
+		if ("0".equals(companyQualification)) 
+			map.put("companyQualification", "1|0");
+		else 
+			map.put("companyQualification", "0|1");
 		map.put("minReviewTime", minReviewTime);
 		map.put("maxReviewTime", maxReviewTime);
-		map.put("sortType", sortType);
 		return map;
 	}
-	
+
 	@RequestMapping(value = "/doSearch")
 	@ResponseBody
 	public ResponseBean doSearch(@RequestParam(required = false) String keyword, @RequestParam int pageNo) {
+		keyword = this.strFilter(keyword);
 		int count = companyService.searchCompanyNameCount(keyword);
 		Pagination pagination = new Pagination();
 		pagination.setCount(count >= 201 ? 200 : count); // 搜索结果最多保留200条数据
-		if (pageNo >= 21) {
+		if (pageNo >= 21 || pageNo <= -1) {
 			pagination.setList(null);
 			return ResponseBean.errorResponse("错误的分页请求参数！");
 		}
@@ -75,9 +97,30 @@ public class RiskCompanyController {
 		Map<String, Object> params = new HashMap<>();
 		params.put("keyword", keyword);
 		params.put("pagination", pagination);
-		List<String> nameList = companyService.searchCompanyName(params);
-		pagination.setList(nameList);
+		List<CompanyDO> list = companyService.searchCompanyName(params);
+		if (ListUtil.isNotEmpty(list)) {
+			for (CompanyDO companyDO : list) {
+				BigDecimal staticRisk = riskCompanyService.getLastStaticRiskByCompanyName(companyDO.getName());
+				companyDO.setStaticRisk(staticRisk);
+			}
+		}
+		pagination.setList(list);
 		return ResponseBean.successResponse(pagination);
+	}
+	
+	/**
+	 * 特殊字符过滤
+	 *
+	 * @param s
+	 * @return
+	 */
+	private String strFilter(String s) {
+		if (StringUtils.isNotNullOrEmpty(s)) {
+			Pattern p = Pattern.compile("[`~!@#$%^&*+=|{}':;',//[//].<>/?~！@#￥%……&*——+|{}【】‘；：”“’。，、？]");
+			Matcher m = p.matcher(s);
+			return m.replaceAll("").trim();
+		}
+		return s;
 	}
 
 }

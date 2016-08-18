@@ -80,13 +80,13 @@ public class ExchangeCompanyController {
 
     /**
      * 按地区查询交易所列表
-     * @param areaId
+     * @param areaName
      * @return
      */
     @RequestMapping("exchangeCompanyListByAreaId.do")
     @ResponseBody
-    public ResponseBean exchangeCompanyListByAreaId(Integer areaId, String orderName, String orderType) {
-        List<CompanyDO> data = exchangeCompanyService.exchangeCompanyListByAreaId(areaId, orderName, orderType);
+    public ResponseBean exchangeCompanyListByAreaId(String areaName, String orderName, String orderType) {
+        List<CompanyDO> data = exchangeCompanyService.exchangeCompanyListByAreaId(areaName, orderName, orderType);
         return ResponseBean.successResponse(data);
     }
 

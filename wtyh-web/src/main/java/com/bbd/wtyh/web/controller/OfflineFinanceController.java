@@ -24,7 +24,7 @@ import java.util.Map;
  * @since  2016/8/8
  */
 @Controller
-@RequestMapping("/offlineFinance")
+@RequestMapping("/offlineFinance/")
 public class OfflineFinanceController {
 
     @Autowired
@@ -36,12 +36,13 @@ public class OfflineFinanceController {
      * @return
      */
     @SuppressWarnings("rawtypes")
-    @RequestMapping(value = "/queryDynamicPicData")
+    @RequestMapping(value = "queryDynamicPicData.do")
     public @ResponseBody Map<String, List> queryDynamicPicData(HttpServletRequest request) {
         try {
             String companyName = request.getParameter("companyName");
             String dataVersion = request.getParameter("dataVersion");
-            return offlineFinanceService.queryRelation(companyName, dataVersion);
+            String degreesLevel = request.getParameter("degreesLevel");
+            return offlineFinanceService.queryRelation(companyName, dataVersion, degreesLevel);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -54,7 +55,7 @@ public class OfflineFinanceController {
      * @return
      * @throws ParseException
      */
-    @RequestMapping(value = "/queryStatistics")
+    @RequestMapping(value = "queryStatistics.do")
     @ResponseBody
     public List<StatisticsVO> queryStatistics(HttpServletRequest request) throws ParseException {
         String companyName = request.getParameter("companyName");
@@ -68,7 +69,7 @@ public class OfflineFinanceController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/queryRiskData")
+    @RequestMapping(value = "queryRiskData.do")
     @ResponseBody
     public ResponseBean queryRiskData(HttpServletRequest request) {
         String companyName = request.getParameter("companyName");
@@ -85,7 +86,7 @@ public class OfflineFinanceController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "showYEDData")
+    @RequestMapping(value = "showYEDData.do")
     @ResponseBody
     public ResponseBean showYEDData(HttpServletRequest request,HttpServletResponse response) throws Exception
     {
@@ -115,7 +116,7 @@ public class OfflineFinanceController {
      * @return
      */
     @SuppressWarnings("companyNews")
-    @RequestMapping("/companyNews")
+    @RequestMapping("companyNews.do")
     @ResponseBody
     public ResponseBean companyNews(String companyName) {
         List<Map> data = offlineFinanceService.companyNews(companyName);
@@ -127,7 +128,7 @@ public class OfflineFinanceController {
      * @param companyName
      * @return
      */
-    @RequestMapping("/staticRiskIndex")
+    @RequestMapping("staticRiskIndex.do")
     @ResponseBody
     public ResponseBean staticRiskIndex(String companyName) {
         List<Map> data = offlineFinanceService.staticRiskIndex(companyName);
@@ -139,20 +140,12 @@ public class OfflineFinanceController {
      * @param companyName
      * @return
      */
-    @RequestMapping("/staticRiskList")
+    @RequestMapping("staticRiskList.do")
     @ResponseBody
     public ResponseBean staticRiskList(String companyName) {
         List<Map> data = offlineFinanceService.staticRiskList(companyName);
         return ResponseBean.successResponse(data);
     }
-
-
-
-
-
-
-
-
 
     /**
      * 企业关联方特征指数对比
@@ -162,7 +155,7 @@ public class OfflineFinanceController {
      * @param typeId 对比内容
      * @return
      */
-    @RequestMapping("/companyRelatedComparisonChart")
+    @RequestMapping("companyRelatedComparisonChart.do")
     @ResponseBody
     public ResponseBean companyRelatedComparisonChart(String companyName, String dateA, String dateB, Integer typeId) {
         List<Map> data = offlineFinanceService.companyRelatedComparisonChart(companyName, dateA, dateB);
@@ -173,7 +166,7 @@ public class OfflineFinanceController {
      * 列表展示量化后的风险系数
      * @return
      */
-    @RequestMapping("/riskFactor")
+    @RequestMapping("riskFactor.do")
     @ResponseBody
     public ResponseBean riskFactor() {
         List<Map> data = offlineFinanceService.riskFactor();
