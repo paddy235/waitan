@@ -16,5 +16,4 @@ public interface CompanyAnalysisResultMapper {
 
     List<CompanyAnalysisResult> getSpectrumAnalysis(int type);
 
-    List<RelatedCompanyStatisticDO> getChinaMap();
 }
