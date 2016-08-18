@@ -173,6 +173,16 @@ public class OfflineFinanceController {
         return ResponseBean.successResponse(data);
     }
 
-
+    /**
+     * 公司标签
+     * @return
+     */
+    @SuppressWarnings("companyInfo")
+    @RequestMapping("companyInfo.do")
+    @ResponseBody
+    public ResponseBean companyInfo(String companyName) {
+        Map data = offlineFinanceService.companyInfo(companyName);
+        return ResponseBean.successResponse(data);
+    }
 
 }
