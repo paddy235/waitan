@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "4d422dbdb1d7db2fc718"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "12ab45d7da2829fae9ce"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -87768,7 +87768,10 @@
 	    realTimeNewsRequest: state.RealTimeNews.request, //RealTimeNews注册在reduce里面的index。拿到处理后的两个返回值。
 
 	    realTimeMapResult: state.RealTimeMap.result,
-	    realTimeMapRequest: state.RealTimeMap.request //RealTimeMap注册在reduce里面的index。拿到处理后的两个返回值。
+	    realTimeMapRequest: state.RealTimeMap.request, //RealTimeMap注册在reduce里面的index。拿到处理后的两个返回值。
+
+	    realTimeMapShResult: state.RealTimeMapSh.result,
+	    realTimeMapShRequest: state.RealTimeMapSh.request //RealTimeMap注册在reduce里面的index。拿到处理后的两个返回值。
 	  };
 	}
 
@@ -88089,7 +88092,7 @@
 	//抽离出来的地图实例
 	var chartChina, chartShanghai;
 	//用来保存ajax返回的数据
-	var ajaxData;
+	var ajaxDataChina;
 	//上海的经纬度
 	var SHposition = {
 	    "黄浦区": [127.291193, 31.237373],
@@ -88230,7 +88233,42 @@
 	            '长治': [112.8625, 36.4746],
 	            '阳泉': [113.4778, 38.0951],
 	            '青岛': [120.4651, 36.3373],
-	            '韶关': [113.7964, 24.7028]
+	            '韶关': [113.7964, 24.7028],
+	            '北京': [116.28, 39.54],
+	            '上海': [121.29, 31.14],
+	            '天津': [117.11, 39.09],
+	            '重庆': [106.32, 29.32],
+	            '哈尔滨': [126.41, 45.45],
+	            '长春': [125.19, 43.52],
+	            '沈阳': [123.24, 41.5],
+	            '呼和浩特': [111.48, 40.49],
+	            '石家庄': [114.28, 38.02],
+	            '太原': [112.34, 37.52],
+	            '济南': [117, 36.38],
+	            '郑州': [113.42, 34.48],
+	            '西安': [108.54, 34.16],
+	            '兰州': [103.49, 36.03],
+	            '银川': [106.16, 38.2],
+	            '西宁': [101.45, 36.38],
+	            '乌鲁木齐': [87.36, 43.48],
+	            '合肥': [117.18, 31.51],
+	            '南京': [118.5, 32.02],
+	            '杭州': [120.09, 30.14],
+	            '长沙': [113, 28.11],
+	            '南昌': [115.52, 28.41],
+	            '武汉': [114.21, 30.37],
+	            '成都': [104.05, 30.39],
+	            '贵阳': [106.42, 26.35],
+	            '福州': [119.18, 26.05],
+	            '台北': [121.31, 25.03],
+	            '广州': [113.15, 23.08],
+	            '海口': [110.2, 20.02],
+	            '南宁': [108.2, 22.48],
+	            '昆明': [102.41, 25],
+	            '拉萨': [90.08, 29.39],
+	            '香港': [114.1, 22.18],
+	            '澳门': [113.35, 22.14],
+	            '台北': [121.31, 25.03]
 	        };
 	        var convertData = function convertData(data) {
 	            var res = [];
@@ -88249,7 +88287,31 @@
 	            return res;
 	        };
 	        var res = [];
-	        var SHData = [[{ name: '包头', value: 95 }, { name: '上海' }], [{ name: '昆明', value: 90 }, { name: '上海' }], [{ name: '广州', value: 80 }, { name: '上海' }], [{ name: '郑州', value: 70 }, { name: '上海' }], [{ name: '长春', value: 60 }, { name: '上海' }], [{ name: '重庆', value: 50 }, { name: '上海' }], [{ name: '长沙', value: 40 }, { name: '上海' }], [{ name: '北京', value: 30 }, { name: '上海' }], [{ name: '丹东', value: 20 }, { name: '上海' }], [{ name: '大连', value: 10 }, { name: '上海' }]];
+	        // var SHData = [
+	        //   [{name:'包头',value:95},{name:'上海'}],
+	        //   [{name:'昆明',value:90},{name:'上海'}],
+	        //   [{name:'广州',value:80},{name:'上海'}],
+	        //   [{name:'郑州',value:70},{name:'上海'}],
+	        //   [{name:'长春',value:60},{name:'上海'}],
+	        //   [{name:'重庆',value:50},{name:'上海'}],
+	        //   [{name:'长沙',value:40},{name:'上海'}],
+	        //   [{name:'北京',value:30},{name:'上海'}],
+	        //   [{name:'丹东',value:20},{name:'上海'}],
+	        //   [{name:'大连',value:10},{name:'上海'}]
+	        // ];
+	        var SHData = [[{
+	            "name": "大连",
+	            "value": 204433
+	        }, {
+	            "name": "上海"
+	        }], [{
+	            "name": "重庆",
+	            "value": 1594
+	        }, {
+	            "name": "上海"
+	        }]];
+	        // var SHData = ajaxDataChina.content.SHData;
+
 	        var color = ['#facd89', '#ffa022', '#46bee9'];
 	        chartChina = echarts.init(document.getElementById("demo"));
 	        var option = {
@@ -88342,7 +88404,7 @@
 	                    }
 	                },
 	                symbolSize: function symbolSize(val) {
-	                    return val[2] / 8;
+	                    return 8;
 	                },
 	                itemStyle: {
 	                    normal: {
@@ -88642,19 +88704,35 @@
 
 	            if (realTimeMapRequest == true) {
 	                if (realTimeMapRequest == true) {
-	                    ajaxData = realTimeMapResult;
+	                    ajaxDataChina = realTimeMapResult;
+	                    // console.log(ajaxDataChina.content.SHData,"fuck u")
 	                    _this.mapChina();
 	                } else {
 	                    alert(404);
 	                }
 	            }
 	        }
+
+	        var isEqualSh = Immutable.is(nextProps.realTimeMapShRequest, this.props.realTimeMapShResult); //判断数据是否变化
+	        if (!isEqualSh) {
+	            var realTimeMapShRequest = nextProps.realTimeMapShRequest;
+	            var realTimeMapShResult = nextProps.realTimeMapShResult;
+
+	            if (realTimeMapShRequest == true) {
+	                if (realTimeMapShRequest == true) {} else {
+	                    alert(404);
+	                }
+	            }
+	        }
 	    },
 	    componentDidMount: function componentDidMount() {
-	        var getRealTimeMap = this.props.getRealTimeMap; // 取到props里面的getRealTimeTable方法。也可以说是请求action
+	        var _props = this.props;
+	        var getRealTimeMap = _props.getRealTimeMap;
+	        var getRealTimeMapSh = _props.getRealTimeMapSh; // 取到props里面的getRealTimeTable方法。也可以说是请求action
 
 	        var jsonData = {}; //ajax传递给后台的data键值对
 	        getRealTimeMap(jsonData);
+	        getRealTimeMapSh(jsonData);
 
 	        $(window).resize(function (event) {
 	            // _this.state.mapeType == "china"?this.mapChina():this.mapShanghai();
@@ -89723,6 +89801,10 @@
 
 	var _realtimeMapReducer2 = _interopRequireDefault(_realtimeMapReducer);
 
+	var _realtimeMapShReducer = __webpack_require__(1330);
+
+	var _realtimeMapShReducer2 = _interopRequireDefault(_realtimeMapShReducer);
+
 	var _MenuParkSelectVal = __webpack_require__(1318);
 
 	var _MenuParkSelectVal2 = _interopRequireDefault(_MenuParkSelectVal);
@@ -89763,49 +89845,50 @@
 
 	/*商业保理监测 end*/
 
-	/*=================================交易场所监测=================================*/
+	//企业占比对比
 
-	/*=================================融资租赁=================================*/
-	//典当法人企业数
+	//企业目录列表
+
+	/*实时监测 begin*/
+
+	//取得合规意见或经过会商的交易场所详情列表
 
 	//交易场所清理整顿分类
 
-	/*=================================典当行业监测=================================*/
+	//上海市典当企业目录
 
-	/*=================================交易场所监测=================================*/
-	//黄浦区交易场所列表
+	//列表
+
+	//6月上海各类众筹平台新增项目数
+
+	/*====================================私募基金===============================*/
 
 	/*=================================众筹监测=================================*/
+	//业务类型
 
-	/*=================================典当行业监测=================================*/
-	//所有图标
+	//私募基金分类
 
-	//6月上海各类众筹平台新增项目数的成功筹资金额
 
-	//6月上海各类众筹平台新增项目的投资人次
+	/*====================================p2p画像平台============================*/
 
-	//私募股权基本情况
+	/*====================================私募基金===============================*/
+	//QDLP试点企业最新进展
 
-	//私募证券基本情况
+	//动态图谱
 
-	//QFLP试点企业最新进展
+	//诉讼信息
 
-	//评分雷达图
-
-	//平台舆情
-
-	//公司基本信息
-
-	//p2p图表
-
+	//核心数据
 
 	/*====================================P2P平台监测============================*/
-	//上海区域发展指数排名
+
+	/*====================================p2p画像平台============================*/
+	//基本信息
+
+	//网贷平台数据展示
 
 
-	/*行业监测模块*/
-
-	//小额贷款
+	//融资担保
 	var rootReducer = (0, _redux.combineReducers)({
 	  /*行业监测模块*/
 	  //P2P平台监测
@@ -89878,6 +89961,7 @@
 	  RealTimeNine: _realtimeNineReducer2.default,
 	  RealTimeNews: _realtimeNewsReducer2.default,
 	  RealTimeMap: _realtimeMapReducer2.default,
+	  RealTimeMapSh: _realtimeMapShReducer2.default,
 
 	  //商业保理监测
 	  ChartAll: _ChartAll4.default,
@@ -89901,50 +89985,49 @@
 
 	//园区
 
-	//企业占比对比
+	/*=================================交易场所监测=================================*/
 
-	//企业目录列表
-
-	/*实时监测 begin*/
-
-	//取得合规意见或经过会商的交易场所详情列表
+	/*=================================融资租赁=================================*/
+	//典当法人企业数
 
 	//交易场所清理整顿分类
 
-	//上海市典当企业目录
+	/*=================================典当行业监测=================================*/
 
-	//列表
-
-	//6月上海各类众筹平台新增项目数
-
-	/*====================================私募基金===============================*/
+	/*=================================交易场所监测=================================*/
+	//黄浦区交易场所列表
 
 	/*=================================众筹监测=================================*/
-	//业务类型
 
-	//私募基金分类
+	/*=================================典当行业监测=================================*/
+	//所有图标
 
+	//6月上海各类众筹平台新增项目数的成功筹资金额
 
-	/*====================================p2p画像平台============================*/
+	//6月上海各类众筹平台新增项目的投资人次
 
-	/*====================================私募基金===============================*/
-	//QDLP试点企业最新进展
+	//私募股权基本情况
 
-	//动态图谱
+	//私募证券基本情况
 
-	//诉讼信息
+	//QFLP试点企业最新进展
 
-	//核心数据
+	//评分雷达图
+
+	//平台舆情
+
+	//公司基本信息
+
+	//p2p图表
+
 
 	/*====================================P2P平台监测============================*/
-
-	/*====================================p2p画像平台============================*/
-	//基本信息
-
-	//网贷平台数据展示
+	//上海区域发展指数排名
 
 
-	//融资担保
+	/*行业监测模块*/
+
+	//小额贷款
 
 	exports.default = rootReducer;
 
@@ -99559,6 +99642,7 @@
 	exports.getRealTimeNine = getRealTimeNine;
 	exports.getRealTimeNews = getRealTimeNews;
 	exports.getRealTimeMap = getRealTimeMap;
+	exports.getRealTimeMapSh = getRealTimeMapSh;
 	/*
 	  实时监测左侧表格action
 	*/
@@ -99584,7 +99668,7 @@
 	  return function (dispatch) {
 	    console.log(json);
 	    $.ajax({
-	      url: "/realTimeMonitorController/spectrumAnalysis4groups.do", //"/data/industryMonitor/smallLoan/index/companyGrade.json",
+	      url: "/realTimeMonitor/spectrumAnalysis4groups.do", //"/data/industryMonitor/smallLoan/index/companyGrade.json",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
@@ -99624,7 +99708,7 @@
 	  return function (dispatch) {
 	    console.log(json);
 	    $.ajax({
-	      url: "/realTimeMonitorController/businessChartShow.do", //"/data/industryMonitor/smallLoan/index/companyGrade.json",
+	      url: "/realTimeMonitor/businessChartShow.do", //"/data/industryMonitor/smallLoan/index/companyGrade.json",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
@@ -99679,7 +99763,7 @@
 	}
 
 	/*
-	  实时监测右下角的舆情模块
+	  中国地图
 	*/
 	var REALTIME_MAP_SUCCESS = exports.REALTIME_MAP_SUCCESS = 'REALTIME_MAP_SUCCESS';
 	var REALTIME_MAP_FAIL = exports.REALTIME_MAP_FAIL = 'REALTIME_MAP_FAIL';
@@ -99704,7 +99788,7 @@
 	  return function (dispatch) {
 	    console.log(json);
 	    $.ajax({
-	      url: "/companyNews/getCompanyNews.do", //"/data/industryMonitor/smallLoan/index/companyGrade.json",
+	      url: "/realTimeMonitor/ChinaMap.do", //"/data/industryMonitor/smallLoan/index/companyGrade.json",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
@@ -99713,6 +99797,47 @@
 	      },
 	      error: function error(result) {
 	        return dispatch(RealTimeMapFail(result));
+	      }
+	    });
+	  };
+	}
+
+	/*
+	  上海地图
+	*/
+	var REALTIME_MAPsh_SUCCESS = exports.REALTIME_MAPsh_SUCCESS = 'REALTIME_MAPsh_SUCCESS';
+	var REALTIME_MAPsh_FAIL = exports.REALTIME_MAPsh_FAIL = 'REALTIME_MAPsh_FAIL';
+
+	function RealTimeMapShSuccess(result) {
+	  //请求成功调用方法 保存成功的数据
+	  return {
+	    type: REALTIME_MAPsh_SUCCESS,
+	    result: result
+	  };
+	}
+	function RealTimeMapShFail(result) {
+	  //请求失败调用方法  保存了失败的数据
+	  return {
+	    type: REALTIME_MAPsh_FAIL,
+	    result: result
+	  };
+	}
+
+	//最开始触发redux流程的导火线。
+	function getRealTimeMapSh(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "/companyNews/getCompanyNews.do", //"/data/industryMonitor/smallLoan/index/companyGrade.json",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        alert("上海sss");
+	        return dispatch(RealTimeMapShSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(RealTimeMapShFail(result));
 	      }
 	    });
 	  };
@@ -101967,6 +102092,57 @@
 	// request、result
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "realtimeMapReducer.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1330 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = realTimeMapSh;
+
+	var _RealTimeAction = __webpack_require__(1291);
+
+	//这个函数就是处理，action里面成功和失败的2个返回函数。
+	//当ajax请求成功了，就可以调用这个两个返回函数进行操作。
+
+	function realTimeMapSh() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? { //这个名字无所谓，最后都是用index里面对外暴露的名字。
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _RealTimeAction.REALTIME_MAPsh_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _RealTimeAction.REALTIME_MAPsh_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
+
+	//（默认的2个值，根据判断action返回的两个值）
+	// 这个reducer就是从action里面抽离出来的数据的状态机
+
+	// request、result
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "realtimeMapShReducer.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ }
