@@ -3,6 +3,8 @@ package com.bbd.wtyh.web.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import com.bbd.wtyh.common.Pagination;
 import com.bbd.wtyh.domain.RiskCompanyInfoDO;
 import com.bbd.wtyh.service.CompanyService;
 import com.bbd.wtyh.service.RiskCompanyService;
+import com.bbd.wtyh.util.relation.StringUtils;
 import com.bbd.wtyh.web.ResponseBean;
 
 @Controller
@@ -76,6 +79,7 @@ public class RiskCompanyController {
 	@RequestMapping(value = "/doSearch")
 	@ResponseBody
 	public ResponseBean doSearch(@RequestParam(required = false) String keyword, @RequestParam int pageNo) {
+		keyword = this.strFilter(keyword);
 		int count = companyService.searchCompanyNameCount(keyword);
 		Pagination pagination = new Pagination();
 		pagination.setCount(count >= 201 ? 200 : count); // 搜索结果最多保留200条数据
@@ -90,6 +94,21 @@ public class RiskCompanyController {
 		List<String> nameList = companyService.searchCompanyName(params);
 		pagination.setList(nameList);
 		return ResponseBean.successResponse(pagination);
+	}
+	
+	/**
+	 * 特殊字符过滤
+	 *
+	 * @param s
+	 * @return
+	 */
+	private String strFilter(String s) {
+		if (StringUtils.isNotNullOrEmpty(s)) {
+			Pattern p = Pattern.compile("[`~!@#$%^&*+=|{}':;',//[//].<>/?~！@#￥%……&*——+|{}【】‘；：”“’。，、？]");
+			Matcher m = p.matcher(s);
+			return m.replaceAll("").trim();
+		}
+		return s;
 	}
 
 }
