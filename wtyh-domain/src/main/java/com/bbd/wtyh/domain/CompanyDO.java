@@ -1,11 +1,11 @@
 package com.bbd.wtyh.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
-
+@SuppressWarnings("serial")
 public class CompanyDO extends BaseDO {
     //公司类型 1:P2P 2:小贷 3:融资担保 4:线下理财 5:私募基金 6:众筹 7:金融 8:其他 9:交易所 10:商业保理 11.预付卡 12.典当 13融资租赁
 	public static final byte TYPE_P2P_1  = 1;
@@ -56,8 +56,7 @@ public class CompanyDO extends BaseDO {
 
     private String businessType;
 
-
-
+    private BigDecimal staticRisk;
 
 	public String getBackgroundCN() {
 	    if(null == background){
@@ -218,4 +217,23 @@ public class CompanyDO extends BaseDO {
     public void setBusinessType(String businessType) {
         this.businessType = businessType;
     }
+
+
+
+
+
+	public BigDecimal getStaticRisk() {
+		if (null != staticRisk) {
+			return staticRisk.divide(BigDecimal.ONE, 1, BigDecimal.ROUND_HALF_UP);
+		}
+		return staticRisk;
+	}
+
+
+
+
+
+	public void setStaticRisk(BigDecimal staticRisk) {
+		this.staticRisk = staticRisk;
+	}
 }
