@@ -64,13 +64,6 @@ public interface HologramQueryService {
     List<CourtAnnouncementDO.Results> openCourtAnnouncement(String company);
 
     /**
-     * 企业信息详情-招聘信息
-     *
-     * @return
-     */
-    Map<String, Object> recruitMsg();
-
-    /**
      * 企业信息详情-诉讼记录 - 裁判文书
      * @param company
      * @return
@@ -98,4 +91,17 @@ public interface HologramQueryService {
      * @return
      */
     CourtAnnouncementDO courtAnnouncement(String company);
+
+
+    /**
+     * 企业信息详情-诉讼记录 - 招聘人数指数
+     *
+     * @return
+     * @param company
+     */
+    RecruitPeopleNumberDO recruitPeopleNumber(String company);
+
+    RecruitPeopleDistributeDO recruitPeopleDistribute(String company);
+
+    RecruitPeopleSalaryDO recruitPeopleSalary(String company);
 }

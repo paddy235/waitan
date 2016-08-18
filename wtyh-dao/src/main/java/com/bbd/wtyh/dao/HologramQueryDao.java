@@ -3,8 +3,6 @@ package com.bbd.wtyh.dao;
 
 import com.bbd.wtyh.domain.bbdAPI.*;
 
-import java.util.Map;
-
 /**
  * 企业全息信息查询平台dao层
  *
@@ -28,8 +26,6 @@ public interface HologramQueryDao {
 
     CourtAnnouncementDO openCourtAnnouncement(String company);
 
-    Map<String, Object> recruitMsg();
-
     JudgeDocDO judgeDoc(String company);
 
     DebtorDO debtor(String company);
@@ -37,4 +33,10 @@ public interface HologramQueryDao {
     NoCreditDebtorDO noCreditDebtor(String company);
 
     CourtAnnouncementDO courtAnnouncement(String company);
+
+    RecruitPeopleNumberDO recruitPeopleNumber(String company);
+
+    RecruitPeopleDistributeDO recruitPeopleDistribute(String company);
+
+    RecruitPeopleSalaryDO recruitPeopleSalary(String company);
 }

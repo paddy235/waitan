@@ -1,43 +1,86 @@
 package com.bbd.wtyh.domain.bbdAPI;
 
+import java.util.List;
+
 /**
  * Created by YanWenyuan on 2016/8/13.
  */
 public class BaiDuYuQingDO {
-    private String news_title;
-    private String news_site;
-    private String pubdate;
-    private String content; // TODO 新闻内容
+    // TODO
+    private String msg;
+    private Integer rsize;
+    private String total;
+    private List<Results> results;
 
-    public String getNews_title() {
-        return news_title;
+    public class  Results {
+
+        private String news_title;
+        private String news_site;
+        private String pubdate;
+        private String content; // TODO 新闻内容
+
+        public String getNews_title() {
+            return news_title;
+        }
+
+        public void setNews_title(String news_title) {
+            this.news_title = news_title;
+        }
+
+        public String getNews_site() {
+            return news_site;
+        }
+
+        public void setNews_site(String news_site) {
+            this.news_site = news_site;
+        }
+
+        public String getPubdate() {
+            return pubdate;
+        }
+
+        public void setPubdate(String pubdate) {
+            this.pubdate = pubdate;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
     }
 
-    public void setNews_title(String news_title) {
-        this.news_title = news_title;
+    public String getMsg() {
+        return msg;
     }
 
-    public String getNews_site() {
-        return news_site;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
-    public void setNews_site(String news_site) {
-        this.news_site = news_site;
+    public Integer getRsize() {
+        return rsize;
     }
 
-    public String getPubdate() {
-        return pubdate;
+    public void setRsize(Integer rsize) {
+        this.rsize = rsize;
     }
 
-    public void setPubdate(String pubdate) {
-        this.pubdate = pubdate;
+    public String getTotal() {
+        return total;
     }
 
-    public String getContent() {
-        return content;
+    public void setTotal(String total) {
+        this.total = total;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public List<Results> getResults() {
+        return results;
+    }
+
+    public void setResults(List<Results> results) {
+        this.results = results;
     }
 }
