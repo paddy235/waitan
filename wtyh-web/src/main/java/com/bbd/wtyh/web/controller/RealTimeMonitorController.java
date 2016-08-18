@@ -150,7 +150,7 @@ public class RealTimeMonitorController {
     }
 
     /**
-     * 上海地图
+     * 行业监测
      *
      * @return
      */
