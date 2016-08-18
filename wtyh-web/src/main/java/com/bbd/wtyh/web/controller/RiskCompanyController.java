@@ -74,9 +74,9 @@ public class RiskCompanyController {
 		map.put("minRegCapital", minRegCapital);
 		map.put("maxRegCapital", maxRegCapital);
 		if ("0".equals(companyQualification)) 
-			map.put("companyQualification", "1|0");
-		else 
 			map.put("companyQualification", "0|1");
+		else if ("1".equals(companyQualification))
+			map.put("companyQualification", "1|0");
 		map.put("minReviewTime", minReviewTime);
 		map.put("maxReviewTime", maxReviewTime);
 		return map;
