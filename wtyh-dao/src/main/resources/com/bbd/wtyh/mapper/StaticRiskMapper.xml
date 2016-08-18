@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bbd.wtyh.mapper.StaticRiskMapper">
-	<sql id="staticRiskContent">
+    <sql id="staticRiskContent">
 		company_name as companyName,
 		data_version as dataVersion,
 		risk_date as riskDate,
@@ -44,21 +44,22 @@
 		area as areaCode
 	</sql>
 
-	<select id="queryLastStaticRisk" resultType="com.bbd.wtyh.domain.dto.StaticRiskDTO" parameterType="java.util.HashMap">
-		select
-		<include refid="staticRiskContent"></include>
-		from static_risk_data
-		where company_name=#{companyName} and area=#{areaCode} and risk_date like concat(#{riskDateStr}, '%');
-	</select>
+    <select id="queryLastStaticRisk" resultType="com.bbd.wtyh.domain.dto.StaticRiskDTO"
+            parameterType="java.util.HashMap">
+        select
+        <include refid="staticRiskContent"></include>
+        from static_risk_data
+        where company_name=#{companyName} and area=#{areaCode} and risk_date like concat(#{riskDateStr}, '%');
+    </select>
 
-	<select id="queryIndStatistics" resultType="com.bbd.wtyh.domain.vo.StatisticsVO" parameterType="java.util.HashMap">
-		select
-		'静态风险指数' as riskName,
-		avg(static_risk_index) as avgRiskIndex,
-		<include refid="ind_statistics"></include>
-	</select>
+    <select id="queryIndStatistics" resultType="com.bbd.wtyh.domain.vo.StatisticsVO" parameterType="java.util.HashMap">
+        select
+        '静态风险指数' as riskName,
+        avg(static_risk_index) as avgRiskIndex,
+        <include refid="ind_statistics"></include>
+    </select>
 
-	<sql id="ind_statistics">
+    <sql id="ind_statistics">
 		DATE_FORMAT(risk_date,'%Y-%m') as date
 		from
 		static_risk_data
@@ -67,13 +68,12 @@
 		group by date;
 	</sql>
 
-	<select id="queryComStatistics" resultType="com.bbd.wtyh.domain.vo.StatisticsVO" parameterType="java.util.HashMap">
-		select
-		static_risk_index as riskIndex
-		<include refid="com_statistics"></include>
-	</select>
-
-	<sql id="com_statistics">
+    <select id="queryComStatistics" resultType="com.bbd.wtyh.domain.vo.StatisticsVO" parameterType="java.util.HashMap">
+        select
+        static_risk_index as riskIndex
+        <include refid="com_statistics"></include>
+    </select>
+    <sql id="com_statistics">
 		from
 		static_risk_data
 		where
@@ -81,4 +81,21 @@
 		area=#{areaCode} and
 		risk_date like concat(#{date}, '%');
 	</sql>
+
+    <select id="getSpectrumAnalysis" resultType="com.bbd.wtyh.domain.vo.StaticRiskSpectrumVO">
+        select
+			company_name as name,
+			risk_date as riskDate,
+			static_risk_index as stcRiskIndex
+        from static_risk_data
+        where 1=1
+        <if test="low != null">
+            and #{low} &lt;= static_risk_index
+        </if>
+        <if test="upper != null">
+            and #{upper} &gt; static_risk_index
+        </if>
+        ORDER BY static_risk_index DESC
+        LIMIT 0, 300;
+    </select>
 </mapper>

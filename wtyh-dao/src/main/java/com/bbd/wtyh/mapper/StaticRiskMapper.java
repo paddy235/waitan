@@ -47,4 +47,6 @@ public interface StaticRiskMapper {
     public StatisticsVO queryComStsRCJG(Map<String, Object> params);
 
     public StaticRiskDTO queryLastStaticRisk(Map<String, Object> params);
+
+    List<StaticRiskDTO> getSpectrumAnalysis(@Param("low")Integer low, @Param("upper")Integer upper);
 }

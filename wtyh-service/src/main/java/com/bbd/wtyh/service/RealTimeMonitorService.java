@@ -21,5 +21,5 @@ public interface RealTimeMonitorService {
 
     Map<String, Object> shMap();
 
-    List<CompanyAnalysisResult> spectrumAnalysis();
+    List<List> spectrumAnalysis();
 }

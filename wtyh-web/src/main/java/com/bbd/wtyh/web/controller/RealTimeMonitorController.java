@@ -4,16 +4,12 @@ import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.dto.IndustryShanghaiDTO;
 import com.bbd.wtyh.domain.dto.LoanBalanceDTO;
 import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
-import com.bbd.wtyh.domain.query.CompanyQuery;
 import com.bbd.wtyh.service.*;
 import com.bbd.wtyh.util.CalculateUtils;
 import com.bbd.wtyh.web.HistogramBean;
 import com.bbd.wtyh.web.ResponseBean;
 import com.bbd.wtyh.web.XAxisSeriesBarLineBean;
 import com.bbd.wtyh.web.XAxisSeriesLinesBean;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
@@ -32,7 +28,7 @@ import java.util.Map;
  * @since 2016.08.13
  */
 @Controller
-@RequestMapping("/realTimeMonitorController")
+@RequestMapping("/realTimeMonitor")
 public class RealTimeMonitorController {
     @Autowired
     private RealTimeMonitorService realTimeMonitorService;
@@ -63,8 +59,6 @@ public class RealTimeMonitorController {
     @Autowired
     private MortgageService mortgageService;
 
-
-    // TODO:光谱分析做错了！！
     /**
      * 光谱分析 - 只做标识，前端区分
      *
@@ -73,7 +67,7 @@ public class RealTimeMonitorController {
     @RequestMapping("/spectrumAnalysis")
     @ResponseBody
     public ResponseBean spectrumAnalysis() {
-        List<CompanyAnalysisResult> content = realTimeMonitorService.spectrumAnalysis();
+        List<List> content = realTimeMonitorService.spectrumAnalysis();
         return ResponseBean.successResponse(content);
     }
 
