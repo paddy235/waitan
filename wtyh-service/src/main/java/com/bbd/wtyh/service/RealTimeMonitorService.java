@@ -17,7 +17,7 @@ public interface RealTimeMonitorService {
 
     List<CompanyAnalysisResult> spectrumAnalysisAlready();
 
-    Map<String, Object> ChinaMap();
+    Map<String, Object>  ChinaMap();
 
     Map<String, Object> shMap();
 

@@ -32,17 +32,6 @@ public class DataController {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 	/**
 	 * 跳转到显示表的页面
@@ -51,7 +40,6 @@ public class DataController {
 	 */
 	@RequestMapping("/showTables")
 	public String showTables() {
-		
 		return "geo/showTables";
 	}
 	

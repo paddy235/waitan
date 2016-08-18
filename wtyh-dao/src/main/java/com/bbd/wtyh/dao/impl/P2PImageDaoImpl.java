@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.dao.P2PImageDao;
+import com.bbd.wtyh.domain.bbdAPI.BBDLogoDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
@@ -78,7 +79,6 @@ public class P2PImageDaoImpl implements P2PImageDao {
                 public Object parse(String s) {
                     JSONObject jsonObject = JSON.parseObject(s);
                     data.put("total", jsonObject.get("total"));
-                    System.out.println(data);
                     return data;
                 }
             });
@@ -214,6 +214,32 @@ public class P2PImageDaoImpl implements P2PImageDao {
                 public ZuZhiJiGoudmDO parse(String result) {
                     Gson gson = new Gson();
                     return gson.fromJson(result, ZuZhiJiGoudmDO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 企业logo信息
+     *
+     */
+    public BBDLogoDO bbdLogo(String company) {
+        String coreDataDealURL = "http://dataom.api.bbdservice.com/api/bbd_ent_logo/?company="+company+"&ak=c541b0bdda84c4b8953682d43c9ef840";
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(coreDataDealURL, new HttpCallback<BBDLogoDO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public BBDLogoDO parse(String result) {
+                    Gson gson = new Gson();
+                    return gson.fromJson(result, BBDLogoDO.class);
                 }
             });
         } catch (Exception e) {

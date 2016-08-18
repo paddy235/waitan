@@ -1,5 +1,6 @@
 package com.bbd.wtyh.web.controller;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bbd.higgs.utils.ListUtil;
 import com.bbd.wtyh.common.Pagination;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.RiskCompanyInfoDO;
@@ -28,6 +30,11 @@ public class RiskCompanyController {
 	private RiskCompanyService riskCompanyService;
 	@Autowired
 	private CompanyService companyService;
+	private static final String BG_GQ_MARK = "0"; // 0：国企背景
+	private static final String BG_SS_MARK = "1"; // 1：上市公司背景
+	private static final int MAX_COUNT = 201; // 最大查询返回数据量
+	private static final int MAX_PAGE_NO = 21; // 最大分页页数
+	private static final String SPE_STR = "[`~!@#$%^&*+=|{}':;',//[//].<>/?~！@#￥%……&*——+|{}【】‘；：”“’。，、？]";
 
 	@RequestMapping(value = "/getScanner")
 	@ResponseBody
@@ -53,8 +60,8 @@ public class RiskCompanyController {
 		params.put("sortType", sortType); // 排序方式
 		int count = riskCompanyService.getTopCount(params);
 		Pagination pagination = new Pagination();
-		pagination.setCount(count >= 201 ? 200 : count); // 搜索结果最多保留200条数据
-		if (pageNo >= 21 || pageNo <= -1) {
+		pagination.setCount(count >= MAX_COUNT ? MAX_COUNT - 1 : count); // 搜索结果最多保留200条数据
+		if (pageNo >= MAX_PAGE_NO || pageNo <= -1) {
 			pagination.setList(null);
 			return ResponseBean.errorResponse("错误的分页请求参数！");
 		}
@@ -71,7 +78,10 @@ public class RiskCompanyController {
 		map.put("area", area);
 		map.put("minRegCapital", minRegCapital);
 		map.put("maxRegCapital", maxRegCapital);
-		map.put("companyQualification", companyQualification);
+		if (BG_GQ_MARK.equals(companyQualification)) 
+			map.put("companyQualification", "0|1");
+		else if (BG_SS_MARK.equals(companyQualification))
+			map.put("companyQualification", "1|0");
 		map.put("minReviewTime", minReviewTime);
 		map.put("maxReviewTime", maxReviewTime);
 		return map;
@@ -83,8 +93,8 @@ public class RiskCompanyController {
 		keyword = this.strFilter(keyword);
 		int count = companyService.searchCompanyNameCount(keyword);
 		Pagination pagination = new Pagination();
-		pagination.setCount(count >= 201 ? 200 : count); // 搜索结果最多保留200条数据
-		if (pageNo >= 21 || pageNo <= -1) {
+		pagination.setCount(count >= MAX_COUNT ? MAX_COUNT - 1 : count); // 搜索结果最多保留200条数据
+		if (pageNo >= MAX_PAGE_NO || pageNo <= -1) {
 			pagination.setList(null);
 			return ResponseBean.errorResponse("错误的分页请求参数！");
 		}
@@ -92,8 +102,14 @@ public class RiskCompanyController {
 		Map<String, Object> params = new HashMap<>();
 		params.put("keyword", keyword);
 		params.put("pagination", pagination);
-		List<CompanyDO> nameList = companyService.searchCompanyName(params);
-		pagination.setList(nameList);
+		List<CompanyDO> list = companyService.searchCompanyName(params);
+		if (ListUtil.isNotEmpty(list)) {
+			for (CompanyDO companyDO : list) {
+				BigDecimal staticRisk = riskCompanyService.getLastStaticRiskByCompanyName(companyDO.getName());
+				companyDO.setStaticRisk(staticRisk);
+			}
+		}
+		pagination.setList(list);
 		return ResponseBean.successResponse(pagination);
 	}
 	
@@ -105,7 +121,7 @@ public class RiskCompanyController {
 	 */
 	private String strFilter(String s) {
 		if (StringUtils.isNotNullOrEmpty(s)) {
-			Pattern p = Pattern.compile("[`~!@#$%^&*+=|{}':;',//[//].<>/?~！@#￥%……&*——+|{}【】‘；：”“’。，、？]");
+			Pattern p = Pattern.compile(SPE_STR);
 			Matcher m = p.matcher(s);
 			return m.replaceAll("").trim();
 		}

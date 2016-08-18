@@ -1,5 +1,6 @@
 package com.bbd.wtyh.service.impl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -36,10 +37,11 @@ public class RiskCompanyServiceImpl implements RiskCompanyService {
 			scannerList = new ArrayList<>();
 			if (result >= 2 && null != list && list.size() >= 1) {
 				for (int i = 0; i < list.size(); i++) {
+					RiskCompanyInfoDO riskCompanyInfoDO = list.get(i);
 					if (i % result == 0) {
-						scannerList.add(list.get(i));
+						scannerList.add(riskCompanyInfoDO);
 					} else if (i == list.size() - 1) {
-						scannerList.add(list.get(i));
+						scannerList.add(riskCompanyInfoDO);
 					} else {}
 				}
 			} else {
@@ -58,6 +60,11 @@ public class RiskCompanyServiceImpl implements RiskCompanyService {
 	@Override
 	public int getTopCount(Map<String, Object> params) {
 		return riskCompanyMapper.getTopCount(params);
+	}
+
+	@Override
+	public BigDecimal getLastStaticRiskByCompanyName(String companyName) {
+		return riskCompanyMapper.getLastStaticRiskByCompanyName(companyName);
 	}
 
 }

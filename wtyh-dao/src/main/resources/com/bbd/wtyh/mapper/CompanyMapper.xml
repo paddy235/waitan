@@ -158,11 +158,18 @@
     </select>
 
 	<select id="searchCompanyName" resultType="java.lang.String" resultMap="BaseResultMap">
-		select <include refid="Base_Column_List"/> from company where company_type=4 and name like concat('%',#{keyword},'%') limit #{pagination.begin}, #{pagination.pageSize}
+		select <include refid="Base_Column_List"/> from company where company_type=4 
+		<if test="keyword != null and keyword != ''">
+			and name like concat('%',#{keyword},'%')
+		</if>
+		limit #{pagination.begin}, #{pagination.pageSize}
     </select>
     
     <select id="searchCompanyNameCount" resultType="int" parameterType="java.lang.String">
-		select count(1) from company where company_type=4 and name like concat('%',#{keyword},'%')
+		select count(1) from company where company_type=4
+		<if test="keyword != null and keyword != ''">
+			and name like concat('%',#{keyword},'%')
+		</if>
     </select>
 
     <select id="selectByName" resultMap="BaseResultMap">
