@@ -29,6 +29,20 @@ public class DataController {
 	
 	@Autowired
 	private DataService dataService;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	/**
 	 * 跳转到显示表的页面
