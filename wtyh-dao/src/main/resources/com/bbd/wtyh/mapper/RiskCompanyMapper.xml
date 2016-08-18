@@ -38,7 +38,9 @@
 		legal_rpt as legalRpt,
 		company_type as companyType,
 		review_time as reviewTime,
-		is_rise as isRise
+		is_rise as isRise,
+		reg_date as regDate,
+		DATE_FORMAT(reg_date,'%Y-%m-%d') as regDateStr
 	</sql>
 
 	<select id="getScanner" resultType="com.bbd.wtyh.domain.RiskCompanyInfoDO" parameterType="java.util.HashMap">
@@ -76,6 +78,10 @@
 			count(1)
 		from index_data
 		<include refid="indexDataCondition"></include>
+	</select>
+	
+	<select id="getLastStaticRiskByCompanyName" parameterType="string" resultType="java.math.BigDecimal">
+		select static_risk_index from static_risk_data where company_name=#{companyName} ORDER BY data_version DESC limit 1
 	</select>
 
 </mapper>
