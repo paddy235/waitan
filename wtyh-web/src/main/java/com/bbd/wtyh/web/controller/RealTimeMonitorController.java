@@ -32,7 +32,7 @@ import java.util.Map;
  * @since 2016.08.13
  */
 @Controller
-@RequestMapping("/realTimeMonitorController")
+@RequestMapping("/realTimeMonitor")
 public class RealTimeMonitorController {
     @Autowired
     private RealTimeMonitorService realTimeMonitorService;
