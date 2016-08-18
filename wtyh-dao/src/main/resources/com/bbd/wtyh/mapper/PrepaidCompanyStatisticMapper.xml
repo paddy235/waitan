@@ -23,9 +23,13 @@
   </select>
   
    <select id="prepaidAll" resultMap="BaseResultMap">
-	    select 
-	    <include refid="Base_Column_List" />
-	    from prepaid_company_statistic
+	    select pcs.year, c.prepaid_company_number, pcs.amount, c.register_capital, pcs.create_by, pcs.create_date, pcs.update_by,
+                pcs.update_date
+	    from prepaid_company_statistic pcs , (
+	        select y ,count(1) prepaid_company_number ,sum(ctype*rc) register_capital from
+            (select year(cp.registered_date) y , if(cp.registered_capital_type=2,6.3,1) ctype ,cp.registered_capital rc from company cp where cp.company_type=11) c
+            GROUP BY y
+	    ) c where c.y=pcs.year
 	    order by year asc
    </select>
   
