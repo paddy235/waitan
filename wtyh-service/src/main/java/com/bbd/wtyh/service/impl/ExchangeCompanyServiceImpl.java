@@ -66,7 +66,21 @@ public class ExchangeCompanyServiceImpl implements ExchangeCompanyService {
     }
 
     @Override
-    public List<ExchangeCompanyVO> exchangeCompanyByStatus(Integer status) {
+    public List<ExchangeCompanyVO> exchangeCompanyByStatus(String statusName) {
+        Integer status = 1;
+        if ("市政府批复设立".equals(statusName)) {
+            status = 1;
+        } else if ("自行设立".equals(statusName)) {
+            status = 2;
+        } else if ("主管单位批设但未经会商".equals(statusName)) {
+            status = 3;
+        } else if ("取得合规意见或经过会商".equals(statusName)) {
+            status = 4;
+        } else if ("通过验收".equals(statusName)) {
+            status = 5;
+        } else {
+            //do nothing
+        }
         List<ExchangeCompanyVO> list = exchangeCompanyMapper.queryExchangeCompanyByStatus(status);
         return list;
     }
