@@ -1,7 +1,9 @@
 package com.bbd.wtyh.domain;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
+@SuppressWarnings("serial")
 public class RiskCompanyInfoDO extends BaseDO {
 
 	private String area; // 区域
@@ -14,6 +16,7 @@ public class RiskCompanyInfoDO extends BaseDO {
 	private String companyType; // 公司类型
 	private Integer reviewTime; // 续存时间
 	private String isRise; // 风险指数是否上升（1：上升；0：持平；-1：下降）
+	private Date regDate; // 注册时间
 
 	public String getArea() {
 		return area;
@@ -48,6 +51,9 @@ public class RiskCompanyInfoDO extends BaseDO {
 	}
 
 	public BigDecimal getStaticRiskIndex() {
+		if (null != staticRiskIndex) {
+			return staticRiskIndex.divide(BigDecimal.ONE, 1, BigDecimal.ROUND_HALF_UP);
+		}
 		return staticRiskIndex;
 	}
 
@@ -56,6 +62,9 @@ public class RiskCompanyInfoDO extends BaseDO {
 	}
 
 	public BigDecimal getDynamicRiskIndex() {
+		if (null != dynamicRiskIndex) {
+			return dynamicRiskIndex.divide(BigDecimal.ONE, 1, BigDecimal.ROUND_HALF_UP);
+		}
 		return dynamicRiskIndex;
 	}
 
@@ -93,6 +102,14 @@ public class RiskCompanyInfoDO extends BaseDO {
 
 	public void setIsRise(String isRise) {
 		this.isRise = isRise;
+	}
+
+	public Date getRegDate() {
+		return regDate;
+	}
+
+	public void setRegDate(Date regDate) {
+		this.regDate = regDate;
 	}
 
 }

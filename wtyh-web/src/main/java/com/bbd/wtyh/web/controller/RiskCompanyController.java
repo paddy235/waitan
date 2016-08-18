@@ -1,5 +1,6 @@
 package com.bbd.wtyh.web.controller;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bbd.higgs.utils.ListUtil;
 import com.bbd.wtyh.common.Pagination;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.RiskCompanyInfoDO;
@@ -92,8 +94,14 @@ public class RiskCompanyController {
 		Map<String, Object> params = new HashMap<>();
 		params.put("keyword", keyword);
 		params.put("pagination", pagination);
-		List<CompanyDO> nameList = companyService.searchCompanyName(params);
-		pagination.setList(nameList);
+		List<CompanyDO> list = companyService.searchCompanyName(params);
+		if (ListUtil.isNotEmpty(list)) {
+			for (CompanyDO companyDO : list) {
+				BigDecimal staticRisk = riskCompanyService.getLastStaticRiskByCompanyName(companyDO.getName());
+				companyDO.setStaticRisk(staticRisk);
+			}
+		}
+		pagination.setList(list);
 		return ResponseBean.successResponse(pagination);
 	}
 	
