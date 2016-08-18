@@ -32,7 +32,7 @@ public interface ExchangeCompanyService {
     /**
      * 查询不同状态的交易场所列表
      * 取得合规意见或经过会商的交易场所详细列表
-     * @param status
+     * @param statusName
      * @return
      */
     public List<ExchangeCompanyVO> exchangeCompanyByStatus(String statusName);

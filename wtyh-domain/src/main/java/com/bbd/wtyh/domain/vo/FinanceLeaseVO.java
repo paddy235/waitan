@@ -1,5 +1,8 @@
 package com.bbd.wtyh.domain.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.beans.Transient;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
@@ -8,10 +11,30 @@ public class FinanceLeaseVO implements Serializable {
 	private String company;// 公司或自然人名称
 	private String address;//
 	private String status;//
+	@JsonIgnore
+	private Integer riskType;//
+	@JsonIgnore
+	private Integer riskStatus;
 	private Integer riskA;//
 	private Integer riskB;//
 	private Integer riskC;//
 	private Integer riskD;//
+
+	public Integer getRiskType() {
+		return riskType;
+	}
+
+	public void setRiskType(Integer riskType) {
+		this.riskType = riskType;
+	}
+
+	public Integer getRiskStatus() {
+		return riskStatus;
+	}
+
+	public void setRiskStatus(Integer riskStatus) {
+		this.riskStatus = riskStatus;
+	}
 
 	public Integer getRiskA() {
 		return riskA;

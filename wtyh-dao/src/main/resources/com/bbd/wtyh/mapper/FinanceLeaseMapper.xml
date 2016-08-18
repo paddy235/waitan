@@ -38,15 +38,18 @@
 
 	<select id="queryLeaseCompanyList" parameterType="java.util.Map" resultType="com.bbd.wtyh.domain.vo.FinanceLeaseVO">
 		SELECT
+			flr.risk_type as riskType,
+			flr.risk_status as riskStatus,
+			car.analysis_result as status,
 			c.`name` AS company,
 			c.address AS address
 		FROM
-			company c
-		LEFT JOIN finance_lease_risk flr ON c.company_id = flr.company_id
+			finance_lease_risk flr
+		LEFT JOIN company c ON c.company_id = flr.company_id
 		LEFT JOIN company_analysis_result car ON c.company_id = car.company_id
 		WHERE
 			1 = 1
-		AND c.company_type = 9
+		AND c.company_type = 13
 		<if test="areaId  > 0">
 			AND c.area_id = #{areaId}
 		</if>
@@ -57,37 +60,36 @@
 				FROM
 					area
 				WHERE
-					`name` = '黄埔区'
+					`name` = '黄浦区'
 			)
 		</if>
 		<if test="riskA == 1">
-			AND flr.risk_status = 1
+			AND (flr.risk_type = 1 AND flr.risk_status = 1)
 		</if>
 		<if test="riskA == 0">
-			AND flr.risk_status != 1
+			AND (flr.risk_type = 1 AND flr.risk_status = 0)
 		</if>
 		<if test="riskB == 1">
-			OR flr.risk_status = 2
+			OR (flr.risk_type = 2 AND flr.risk_status = 1)
 		</if>
 		<if test="riskB == 0">
-			AND flr.risk_status != 2
+			OR (flr.risk_type = 2 AND flr.risk_status = 0)
 		</if>
 		<if test="riskC == 1">
-			OR flr.risk_status = 3
+			OR (flr.risk_type = 3 AND flr.risk_status = 1)
 		</if>
 		<if test="riskC == 0">
-			AND flr.risk_status != 3
+			OR (flr.risk_type = 3 AND flr.risk_status = 0)
 		</if>
 		<if test="riskD == 1">
-			OR flr.risk_status = 4
+			OR (flr.risk_type = 4 AND flr.risk_status = 1)
 		</if>
 		<if test="riskD == 0">
-			AND flr.risk_status != 4
+			OR (flr.risk_type = 4 AND flr.risk_status = 0)
 		</if>
-		<if test="analysisResult  > 0">
-			and car.analysis_result=#{analysisResult}
+		<if test="analysisResult != null ">
+			OR (flr.risk_type = 1 AND flr.risk_status = 1)
 		</if>
-
 	</select>
 
 </mapper>
