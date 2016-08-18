@@ -82,7 +82,7 @@
 		risk_date like concat(#{date}, '%');
 	</sql>
 
-    <!--始终获取 最新版本的 数据-->
+    <!--始终获取 最新版本的 数据, 不知道使用子查询WHERE替换JION会不会有效率提升-->
     <select id="getSpectrumAnalysis" resultType="com.bbd.wtyh.domain.vo.StaticRiskSpectrumVO">
         SELECT
             t1.company_name AS NAME,
