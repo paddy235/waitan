@@ -7,16 +7,14 @@ import com.bbd.wtyh.mapper.FinanceLeaseMapper;
 import com.bbd.wtyh.service.FinanceLeaseService;
 import com.bbd.wtyh.util.CalculateUtils;
 import org.apache.commons.collections.map.HashedMap;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 融资租赁接口实现层
@@ -121,25 +119,57 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
     @Override
     public List<FinanceLeaseVO> leaseCompanyList(Integer areaId, Integer analysisResult, Integer riskA, Integer riskB, Integer riskC, Integer riskD) {
         Map map = new HashedMap();
-        riskA = riskA == null ? 2 : riskA;
-        riskB = riskB == null ? 2 : riskB;
-        riskC = riskC == null ? 2 : riskC;
-        riskD = riskD == null ? 2 : riskD;
         map.put("areaId", areaId);
         map.put("analysisResult", analysisResult);
         map.put("riskA", riskA);
         map.put("riskB", riskB);
         map.put("riskC", riskC);
         map.put("riskD", riskD);
+        Map<String, FinanceLeaseVO> resultMap = new HashMap();
+        List<FinanceLeaseVO> resultList = new ArrayList<>();
         List<FinanceLeaseVO> list = financeLeaseMapper.queryLeaseCompanyList(map);
         if (!CollectionUtils.isEmpty(list)) {
             for (FinanceLeaseVO financeLeaseVO : list) {
-                financeLeaseVO.setRiskA(riskA);
-                financeLeaseVO.setRiskB(riskB);
-                financeLeaseVO.setRiskC(riskC);
-                financeLeaseVO.setRiskD(riskD);
+                String companyName = financeLeaseVO.getCompany();
+                if (resultMap.get(companyName) == null) {
+                    FinanceLeaseVO vo = new FinanceLeaseVO();
+                    vo.setCompany(financeLeaseVO.getCompany());
+                    vo.setAddress(financeLeaseVO.getAddress());
+                    resultMap.put(companyName, vo);
+                } else {
+                    Integer riskType = financeLeaseVO.getRiskType();
+                    Integer riskStatus = financeLeaseVO.getRiskStatus();
+                    String status = financeLeaseVO.getStatus();
+                    if (riskType != null && riskType == 1) {
+                        resultMap.get(companyName).setRiskA(riskStatus);
+                    } else if (riskType != null && riskType == 2) {
+                        resultMap.get(companyName).setRiskB(riskStatus);
+                    } else if (riskType != null && riskType == 3) {
+                        resultMap.get(companyName).setRiskC(riskStatus);
+                    } else if (riskType != null && riskType == 4) {
+                        resultMap.get(companyName).setRiskD(riskStatus);
+                    } else if (!StringUtils.isEmpty(status)) {
+                        int statusInt = Integer.parseInt(status);
+                        String statusString = "";
+                        if (statusInt == 4) {
+                            statusString = "正常";
+                        } else if (statusInt == 3) {
+                            statusString = "潜在";
+                        } else if (statusInt == 2) {
+                            statusString = "高危";
+                        } else {
+                            //do nothing
+                        }
+                        resultMap.get(companyName).setStatus(statusString);
+                    }
+                }
             }
         }
-        return list;
+        if (resultMap != null) {
+            for (String key : resultMap.keySet()) {
+                resultList.add(resultMap.get(key));
+            }
+        }
+        return resultList;
     }
 }
