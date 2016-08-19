@@ -121,9 +121,9 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
     }
 
     @Override
-    public List<FinanceLeaseVO> leaseCompanyList(String areaId, Integer analysisResult, Integer riskA, Integer riskB, Integer riskC, Integer riskD) {
+    public List<FinanceLeaseVO> leaseCompanyList(String areaName, Integer analysisResult, Integer riskA, Integer riskB, Integer riskC, Integer riskD) {
         Map map = new HashedMap();
-        map.put("areaId", areaId);
+        map.put("areaName", areaName);
         map.put("analysisResult", analysisResult);
         map.put("riskA", riskA);
         map.put("riskB", riskB);

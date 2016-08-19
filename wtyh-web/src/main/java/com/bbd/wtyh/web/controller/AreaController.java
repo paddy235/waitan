@@ -1,16 +1,13 @@
 package com.bbd.wtyh.web.controller;
 
 import com.bbd.wtyh.domain.AreaDO;
-import com.bbd.wtyh.domain.SysAnalyzeDO;
 import com.bbd.wtyh.service.AreaService;
-import com.bbd.wtyh.service.SysAnalyzeService;
 import com.bbd.wtyh.web.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import sun.text.resources.CollationData_en;
 
 import java.util.LinkedHashSet;
 import java.util.List;
