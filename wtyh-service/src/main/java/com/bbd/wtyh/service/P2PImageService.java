@@ -33,7 +33,7 @@ public interface P2PImageService {
      *
      * @return
      */
-    Map<String, Object> lawsuitMsg(String companys);
+    Map<String, Object> lawsuitMsg(String platName);
 
     /**
      * 雷达评分
