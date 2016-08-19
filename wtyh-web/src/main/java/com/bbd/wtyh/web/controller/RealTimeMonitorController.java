@@ -228,7 +228,7 @@ public class RealTimeMonitorController {
 //            }
 //        }
         //预付卡
-//        ResponseBean prepaidCompanyResponseBean = prepaidCompanyController.amount();
+        ResponseBean prepaidCompanyResponseBean = prepaidCompanyController.amount();
         Map result = new LinkedHashMap();
         result.put("loan", loanDTO);
         result.put("private", privateDTO);
@@ -239,8 +239,7 @@ public class RealTimeMonitorController {
         result.put("mortgage", mortgageDTO);
 //        result.put("factoring", dto);
         result.put("factoring", "");
-//        result.put("prepaid", prepaidCompanyResponseBean.getContent());
-        result.put("prepaid", "");
+        result.put("prepaid", prepaidCompanyResponseBean.getContent());
         return ResponseBean.successResponse(result);
     }
 

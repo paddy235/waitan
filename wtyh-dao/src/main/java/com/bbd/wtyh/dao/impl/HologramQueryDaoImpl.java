@@ -69,6 +69,24 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     @Value("${api.bbd_qyxx.ak}")
     private String bbdQyxxAK;
 
+    @Value("${api.recruitPeopleNumber.url}")
+    private String recruitPeopleNumberURL;      // 招聘人数指数
+
+    @Value("${api.recruitPeopleNumber.ak}")
+    private String recruitPeopleNumberAK;
+
+    @Value("${api.recruitPeopleDistribute.url}")
+    private String recruitPeopleDistributeURL;      // 招聘人员分布
+
+    @Value("${api.recruitPeopleDistribute.ak}")
+    private String recruitPeopleDistributeAK;
+
+    @Value("${api.recruitPeopleSalary.url}")
+    private String recruitPeopleSalaryURL;      // 薪酬分布
+
+    @Value("${api.recruitPeopleSalary.ak}")
+    private String recruitPeopleSalaryAK;
+
     @Value("${api.bbdlogo.url}")
     private String bbdLogoURL;
 
@@ -383,6 +401,72 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
                 @Override
                 public CourtAnnouncementDO parse(String result) {
                     return JSON.parseObject(result, CourtAnnouncementDO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public RecruitPeopleNumberDO recruitPeopleNumber(String company) {
+        String api = recruitPeopleNumberURL + "&company=" + company + "&access_token=" + recruitPeopleNumberAK;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(api, new HttpCallback<RecruitPeopleNumberDO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public RecruitPeopleNumberDO parse(String result) {
+                    return JSON.parseObject(result, RecruitPeopleNumberDO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public RecruitPeopleDistributeDO recruitPeopleDistribute(String company) {
+        String api = recruitPeopleDistributeURL + "&company=" + company + "&access_token=" + recruitPeopleDistributeAK;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(api, new HttpCallback<RecruitPeopleDistributeDO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public RecruitPeopleDistributeDO parse(String result) {
+                    return JSON.parseObject(result, RecruitPeopleDistributeDO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public RecruitPeopleSalaryDO recruitPeopleSalary(String company) {
+        String api = recruitPeopleSalaryURL + "&company=" + company + "&access_token=" + recruitPeopleSalaryAK;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(api, new HttpCallback<RecruitPeopleSalaryDO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public RecruitPeopleSalaryDO parse(String result) {
+                    return JSON.parseObject(result, RecruitPeopleSalaryDO.class);
                 }
             });
         } catch (Exception e) {

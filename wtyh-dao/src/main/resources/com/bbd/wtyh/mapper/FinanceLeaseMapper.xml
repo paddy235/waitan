@@ -4,7 +4,7 @@
 <mapper namespace="com.bbd.wtyh.mapper.FinanceLeaseMapper">
 
 
-    <select id="queryFinanceLeaseStatistic" parameterType="java.lang.Integer" resultType="com.bbd.wtyh.domain.vo.FinanceLeaseStatisticVO">
+    <select id="queryFinanceLeaseStatistic" parameterType="java.util.Map" resultType="com.bbd.wtyh.domain.vo.FinanceLeaseStatisticVO">
 		SELECT
 			registered_capital_type as registeredCapitalType,
 			sum(registered_capital) as registeredCapital,
@@ -15,9 +15,17 @@
 		WHERE
 			registered_capital = 13
 			AND registered_date IS NOT NULL
+			<if test="year > 0">
+				AND YEAR (registered_date) = #{year}
+			</if>
+			<if test="registeredCapitalType > 0">
+				AND registered_capital_type = #{registeredCapitalType}
+			</if>
 		GROUP BY
 			registered_capital_type,
-			year;
+			year
+		ORDER BY
+			year asc;
 	</select>
 
 	<select id="queryFinanceLeaseCompanyCategory" parameterType="java.lang.Integer" resultType="java.util.Map">
@@ -38,56 +46,23 @@
 
 	<select id="queryLeaseCompanyList" parameterType="java.util.Map" resultType="com.bbd.wtyh.domain.vo.FinanceLeaseVO">
 		SELECT
+			flr.risk_type as riskType,
+			flr.risk_status as riskStatus,
 			c.`name` AS company,
 			c.address AS address
 		FROM
-			company c
-		LEFT JOIN finance_lease_risk flr ON c.company_id = flr.company_id
-		LEFT JOIN company_analysis_result car ON c.company_id = car.company_id
+			finance_lease_risk flr
+		LEFT JOIN company c ON c.company_id = flr.company_id
+		LEFT JOIN area a ON c.area_id = a.area_id
 		WHERE
 			1 = 1
-		AND c.company_type = 9
-		<if test="areaId  > 0">
-			AND c.area_id = #{areaId}
+		AND c.company_type = 13
+		<if test="areaId != null and areaId != ''">
+			AND a.name = #{areaId}
 		</if>
-		<if test="areaId == null">
-			AND c.area_id = (
-				SELECT
-					area_id
-				FROM
-					area
-				WHERE
-					`name` = '黄埔区'
-			)
+		<if test="areaId == null or areaId == ''">
+			AND a.name = '黄浦区'
 		</if>
-		<if test="riskA == 1">
-			AND flr.risk_status = 1
-		</if>
-		<if test="riskA == 0">
-			AND flr.risk_status != 1
-		</if>
-		<if test="riskB == 1">
-			OR flr.risk_status = 2
-		</if>
-		<if test="riskB == 0">
-			AND flr.risk_status != 2
-		</if>
-		<if test="riskC == 1">
-			OR flr.risk_status = 3
-		</if>
-		<if test="riskC == 0">
-			AND flr.risk_status != 3
-		</if>
-		<if test="riskD == 1">
-			OR flr.risk_status = 4
-		</if>
-		<if test="riskD == 0">
-			AND flr.risk_status != 4
-		</if>
-		<if test="analysisResult  > 0">
-			and car.analysis_result=#{analysisResult}
-		</if>
-
 	</select>
 
 </mapper>

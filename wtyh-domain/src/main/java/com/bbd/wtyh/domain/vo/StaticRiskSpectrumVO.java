@@ -8,6 +8,15 @@ public class StaticRiskSpectrumVO {
 	private String name; // 公司名称
 	private Date riskDate; // 风险时间
 	private BigDecimal stcRiskIndex; // 静态风险指数
+	private String registered_capital;
+
+	public String getRegistered_capital() {
+		return registered_capital;
+	}
+
+	public void setRegistered_capital(String registered_capital) {
+		this.registered_capital = registered_capital;
+	}
 
 	public String getName() {
 		return name;

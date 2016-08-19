@@ -7,16 +7,15 @@ import com.bbd.wtyh.mapper.FinanceLeaseMapper;
 import com.bbd.wtyh.service.FinanceLeaseService;
 import com.bbd.wtyh.util.CalculateUtils;
 import org.apache.commons.collections.map.HashedMap;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.formula.functions.T;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 融资租赁接口实现层
@@ -39,45 +38,47 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
         List barList2 = new ArrayList();
         List lineList = new ArrayList();
         if (!CollectionUtils.isEmpty(list)) {
+
+            Set<Integer> yearSet = new LinkedHashSet<>();
             Map<Integer, Integer> yearCompanyNumberMap = new LinkedHashMap<>();
-            Map<Integer, Integer> yearCapitalMap = new LinkedHashMap<>();
             for (FinanceLeaseStatisticVO financeLeaseStatisticVO : list) {
-                List yearCapitalList = new ArrayList();
                 Integer year = financeLeaseStatisticVO.getYear();
+                yearSet.add(year);
+
                 if (yearCompanyNumberMap.get(year) != null) {
                     Integer tempCompanyNumber = yearCompanyNumberMap.get(year) == null ? 0 : Integer.parseInt(yearCompanyNumberMap.get(year).toString());
                     tempCompanyNumber += financeLeaseStatisticVO.getCompanyNumber();
-                    yearCompanyNumberMap.put(year,tempCompanyNumber);
+                    yearCompanyNumberMap.put(year, tempCompanyNumber);
                 } else {
-                    yearCompanyNumberMap.put(year,financeLeaseStatisticVO.getCompanyNumber());
-                }
-                Integer registeredCapital = financeLeaseStatisticVO.getRegisteredCapital();
-                if (yearCapitalMap.get(year) != null) {
-                    registeredCapital += yearCapitalMap.get(year);
-                    yearCapitalMap.put(year, registeredCapital);
-                } else {
-                    yearCapitalMap.put(year,registeredCapital);
+                    yearCompanyNumberMap.put(year, financeLeaseStatisticVO.getCompanyNumber());
                 }
             }
-
+            Map paramMap = new HashedMap();
+            for (Integer year : yearSet) {
+                for (int j=1; j<3; j++) {
+                    paramMap.put("year", year);
+                    paramMap.put("registeredCapitalType", j);
+                    List<FinanceLeaseStatisticVO> tempList = financeLeaseMapper.queryFinanceLeaseStatistic(paramMap);
+                    if (j == 1) {
+                        if (CollectionUtils.isEmpty(tempList)) {
+                            barList1.add(0);
+                        } else {
+                            barList1.add(tempList.get(0).getRegisteredCapital());
+                        }
+                    } else {
+                        if (CollectionUtils.isEmpty(tempList)) {
+                            barList2.add(0);
+                        } else {
+                            barList2.add(tempList.get(0).getRegisteredCapital());
+                        }
+                    }
+                }
+            }
             for (Integer key : yearCompanyNumberMap.keySet()) {
                 xAxis.add(key);
                 lineList.add(yearCompanyNumberMap.get(key));
             }
-
-            for (Integer key : yearCapitalMap.keySet()) {
-                System.out.println("----"+key+"---"+yearCapitalMap.get(key));
-//                barList.add(yearCapitalMap.get(key));
-            }
         }
-        barList1.add(111);
-        barList1.add(122);
-        barList1.add(1232);
-        barList1.add(12341);
-        barList2.add(111);
-        barList2.add(122);
-        barList2.add(1232);
-        barList2.add(12341);
         barList.add(barList1);
         barList.add(barList2);
         Map seriesMap = new HashedMap();
@@ -88,6 +89,7 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
         contentMap.put("series",seriesMap);
         return contentMap;
     }
+
 
     @Override
     public Map leaseCompanyCategory(Integer year) {
@@ -119,27 +121,73 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
     }
 
     @Override
-    public List<FinanceLeaseVO> leaseCompanyList(Integer areaId, Integer analysisResult, Integer riskA, Integer riskB, Integer riskC, Integer riskD) {
+    public List<FinanceLeaseVO> leaseCompanyList(String areaId, Integer analysisResult, Integer riskA, Integer riskB, Integer riskC, Integer riskD) {
         Map map = new HashedMap();
-        riskA = riskA == null ? 2 : riskA;
-        riskB = riskB == null ? 2 : riskB;
-        riskC = riskC == null ? 2 : riskC;
-        riskD = riskD == null ? 2 : riskD;
         map.put("areaId", areaId);
         map.put("analysisResult", analysisResult);
         map.put("riskA", riskA);
         map.put("riskB", riskB);
         map.put("riskC", riskC);
         map.put("riskD", riskD);
+        Map<String, FinanceLeaseVO> resultMap = new HashMap();
+        List<FinanceLeaseVO> resultList = new ArrayList<>();
         List<FinanceLeaseVO> list = financeLeaseMapper.queryLeaseCompanyList(map);
         if (!CollectionUtils.isEmpty(list)) {
             for (FinanceLeaseVO financeLeaseVO : list) {
-                financeLeaseVO.setRiskA(riskA);
-                financeLeaseVO.setRiskB(riskB);
-                financeLeaseVO.setRiskC(riskC);
-                financeLeaseVO.setRiskD(riskD);
+                String companyName = financeLeaseVO.getCompany();
+                Integer riskType   = financeLeaseVO.getRiskType();
+                Integer riskStatus = financeLeaseVO.getRiskStatus();
+                String riskStatusString = "";
+                if (riskStatus == 1) {
+                    riskStatusString = "是";
+                } else if (riskStatus == 0) {
+                    riskStatusString = "否";
+                }
+                if (resultMap.get(companyName) == null) {
+                    FinanceLeaseVO vo = new FinanceLeaseVO();
+                    vo.setCompany(financeLeaseVO.getCompany());
+                    vo.setAddress(financeLeaseVO.getAddress());
+                    vo.setStatus("正常");
+                    if (riskStatus == 1) {
+                        vo.setStatus("潜在");
+                    }
+                    if (riskType != null && riskType == 1) {
+                        vo.setRiskA(riskStatusString);
+                    } else if (riskType != null && riskType == 2) {
+                        vo.setRiskB(riskStatusString);
+                    } else if (riskType != null && riskType == 3) {
+                        vo.setRiskC(riskStatusString);
+                    } else if (riskType != null && riskType == 4) {
+                        vo.setRiskD(riskStatusString);
+                    } else {
+                        //do nothing
+                    }
+                    resultMap.put(companyName, vo);
+                } else {
+
+                    if (riskStatus == 1) {
+                        resultMap.get(companyName).setStatus("潜在");
+                    }
+
+                    if (riskType != null && riskType == 1) {
+                        resultMap.get(companyName).setRiskA(riskStatusString);
+                    } else if (riskType != null && riskType == 2) {
+                        resultMap.get(companyName).setRiskB(riskStatusString);
+                    } else if (riskType != null && riskType == 3) {
+                        resultMap.get(companyName).setRiskC(riskStatusString);
+                    } else if (riskType != null && riskType == 4) {
+                        resultMap.get(companyName).setRiskD(riskStatusString);
+                    } else {
+                        //do nothing
+                    }
+                }
             }
         }
-        return list;
+        if (resultMap != null) {
+            for (String key : resultMap.keySet()) {
+                resultList.add(resultMap.get(key));
+            }
+        }
+        return resultList;
     }
 }

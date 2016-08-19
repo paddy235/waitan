@@ -19,7 +19,7 @@ import java.util.Map;
  * @since 2016.08.09
  */
 @Controller
-@RequestMapping("/Hologram")
+@RequestMapping("/hologram")
 public class HologramQueryController {
 
     @Autowired
@@ -32,8 +32,8 @@ public class HologramQueryController {
      */
     @RequestMapping("/search")
     @ResponseBody
-    public ResponseBean search(@RequestParam(required = true) String companyName) {
-        SearchComanyDO result = hologramQueryService.search(companyName);
+    public ResponseBean search(@RequestParam(required = true) String company) {
+        SearchComanyDO result = hologramQueryService.search(company);
         return ResponseBean.successResponse(result);
     }
 
@@ -161,14 +161,38 @@ public class HologramQueryController {
 
 
     /**
-     * 企业信息详情-招聘信息
+     * 企业信息详情-招聘信息 - 招聘人数指数
      *
      * @return
      */
-    @RequestMapping("/recruitMsg")
+    @RequestMapping("/recruitPeopleNumber")
     @ResponseBody
-    public ResponseBean recruitMsg() {
-        Map<String, Object> result = hologramQueryService.recruitMsg();
+    public ResponseBean recruitPeopleNumber(@RequestParam(required = true) String company) {
+        RecruitPeopleNumberDO result = hologramQueryService.recruitPeopleNumber(company);
+        return ResponseBean.successResponse(result);
+    }
+
+    /**
+     * 企业信息详情-招聘信息 - 招聘人员分布
+     *
+     * @return
+     */
+    @RequestMapping("/recruitPeopleDistribute")
+    @ResponseBody
+    public ResponseBean recruitPeopleDistribute(@RequestParam(required = true) String company) {
+        RecruitPeopleDistributeDO result = hologramQueryService.recruitPeopleDistribute(company);
+        return ResponseBean.successResponse(result);
+    }
+
+    /**
+     * 企业信息详情-招聘信息 - 薪酬分布
+     *
+     * @return
+     */
+    @RequestMapping("/recruitPeopleSalary")
+    @ResponseBody
+    public ResponseBean recruitPeopleSalary(@RequestParam(required = true) String company) {
+        RecruitPeopleSalaryDO result = hologramQueryService.recruitPeopleSalary(company);
         return ResponseBean.successResponse(result);
     }
 

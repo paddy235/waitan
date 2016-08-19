@@ -22,6 +22,7 @@ public class RiskCompanyServiceImpl implements RiskCompanyService {
 	@Autowired
 	private RedisDAO redisDAO;
 	private static final String SCANNER_PREFIX_KEY = "scanner_";
+	private static final String SEARCH_UNDERLINE_PREFIX_KEY = "search_underline_";
 
 	@Override
 	@SuppressWarnings("unchecked")
@@ -64,7 +65,14 @@ public class RiskCompanyServiceImpl implements RiskCompanyService {
 
 	@Override
 	public BigDecimal getLastStaticRiskByCompanyName(String companyName) {
-		return riskCompanyMapper.getLastStaticRiskByCompanyName(companyName);
+		String key = SEARCH_UNDERLINE_PREFIX_KEY + companyName;
+		BigDecimal staticRisk = (BigDecimal) redisDAO.getObject(key);
+		if (null == staticRisk) {
+			staticRisk = riskCompanyMapper.getLastStaticRiskByCompanyName(companyName);
+			if (null != staticRisk)
+				redisDAO.addObject(key, staticRisk, 604800l, BigDecimal.class);
+		}
+		return staticRisk;
 	}
 
 }

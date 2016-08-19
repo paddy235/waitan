@@ -52,7 +52,7 @@ public class FinanceLeaseController {
      */
     @RequestMapping("leaseCompanyList.do")
     @ResponseBody
-    public ResponseBean leaseCompanyList(Integer areaId, Integer analysisResult, Integer riskA, Integer riskB, Integer riskC, Integer riskD) {
+    public ResponseBean leaseCompanyList(String areaId, Integer analysisResult, Integer riskA, Integer riskB, Integer riskC, Integer riskD) {
         List<FinanceLeaseVO> list = financeLeaseService.leaseCompanyList(areaId, analysisResult, riskA, riskB, riskC, riskD);
         return ResponseBean.successResponse(list);
     }

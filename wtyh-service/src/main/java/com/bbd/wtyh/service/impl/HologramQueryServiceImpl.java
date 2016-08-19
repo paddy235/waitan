@@ -25,7 +25,6 @@ public class HologramQueryServiceImpl implements HologramQueryService {
     @Autowired
     private HologramQueryDao hologramQueryDao;
 
-
     @Override
     public SearchComanyDO search(String company) {
         return hologramQueryDao.search(company);
@@ -123,11 +122,6 @@ public class HologramQueryServiceImpl implements HologramQueryService {
     }
 
     @Override
-    public Map<String, Object> recruitMsg() {
-        return hologramQueryDao.recruitMsg();
-    }
-
-    @Override
     public List<JudgeDocDO.Results> judgeDoc(String company) {
         JudgeDocDO courtAnnouncementDO = hologramQueryDao.judgeDoc(company);
         return courtAnnouncementDO.getResults();
@@ -146,6 +140,21 @@ public class HologramQueryServiceImpl implements HologramQueryService {
     @Override
     public CourtAnnouncementDO courtAnnouncement(String company) {
         return hologramQueryDao.courtAnnouncement(company);
+    }
+
+    @Override
+    public RecruitPeopleNumberDO recruitPeopleNumber(String company) {
+        return hologramQueryDao.recruitPeopleNumber(company);
+    }
+
+    @Override
+    public RecruitPeopleDistributeDO recruitPeopleDistribute(String company) {
+        return hologramQueryDao.recruitPeopleDistribute(company);
+    }
+
+    @Override
+    public RecruitPeopleSalaryDO recruitPeopleSalary(String company) {
+        return hologramQueryDao.recruitPeopleSalary(company);
     }
 
 
