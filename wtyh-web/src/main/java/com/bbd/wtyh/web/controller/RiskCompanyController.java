@@ -125,7 +125,7 @@ public class RiskCompanyController {
 			Matcher m = p.matcher(s);
 			return m.replaceAll("").trim();
 		}
-		return s;
+		return null;
 	}
 
 }
