@@ -8,72 +8,23 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class FinanceLeaseVO implements Serializable {
 
-	private String company;// 公司或自然人名称
+	private String companyName;// 公司或自然人名称
 	private String address;//
 	private String status;//
-	@JsonIgnore
-	private Integer riskType;//
-	@JsonIgnore
 	private Integer riskStatus;
-	private String riskA;//
-	private String riskB;//
-	private String riskC;//
-	private String riskD;//
+	private Integer riskStatusA;//
+	private Integer riskStatusB;//
+	private Integer riskStatusC;//
+	private Integer riskStatusD;//
 
-	public Integer getRiskType() {
-		return riskType;
+
+
+	public String getCompanyName() {
+		return companyName;
 	}
 
-	public void setRiskType(Integer riskType) {
-		this.riskType = riskType;
-	}
-
-	public Integer getRiskStatus() {
-		return riskStatus;
-	}
-
-	public void setRiskStatus(Integer riskStatus) {
-		this.riskStatus = riskStatus;
-	}
-
-	public String getRiskA() {
-		return riskA;
-	}
-
-	public void setRiskA(String riskA) {
-		this.riskA = riskA;
-	}
-
-	public String getRiskB() {
-		return riskB;
-	}
-
-	public void setRiskB(String riskB) {
-		this.riskB = riskB;
-	}
-
-	public String getRiskC() {
-		return riskC;
-	}
-
-	public void setRiskC(String riskC) {
-		this.riskC = riskC;
-	}
-
-	public String getRiskD() {
-		return riskD;
-	}
-
-	public void setRiskD(String riskD) {
-		this.riskD = riskD;
-	}
-
-	public String getCompany() {
-		return company;
-	}
-
-	public void setCompany(String company) {
-		this.company = company;
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
 	}
 
 	public String getAddress() {
@@ -90,5 +41,45 @@ public class FinanceLeaseVO implements Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public Integer getRiskStatus() {
+		return riskStatus;
+	}
+
+	public void setRiskStatus(Integer riskStatus) {
+		this.riskStatus = riskStatus;
+	}
+
+	public Integer getRiskStatusA() {
+		return riskStatusA;
+	}
+
+	public void setRiskStatusA(Integer riskStatusA) {
+		this.riskStatusA = riskStatusA;
+	}
+
+	public Integer getRiskStatusB() {
+		return riskStatusB;
+	}
+
+	public void setRiskStatusB(Integer riskStatusB) {
+		this.riskStatusB = riskStatusB;
+	}
+
+	public Integer getRiskStatusC() {
+		return riskStatusC;
+	}
+
+	public void setRiskStatusC(Integer riskStatusC) {
+		this.riskStatusC = riskStatusC;
+	}
+
+	public Integer getRiskStatusD() {
+		return riskStatusD;
+	}
+
+	public void setRiskStatusD(Integer riskStatusD) {
+		this.riskStatusD = riskStatusD;
 	}
 }
