@@ -8,7 +8,7 @@ import java.util.Map;
 
 public interface FinanceLeaseMapper {
 
-    public List<FinanceLeaseStatisticVO> queryFinanceLeaseStatistic(Integer year);
+    public List<FinanceLeaseStatisticVO> queryFinanceLeaseStatistic(Map map);
 
     public List<Map> queryFinanceLeaseCompanyCategory(Integer year);
 

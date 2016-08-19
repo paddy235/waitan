@@ -77,9 +77,9 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
                     backgroudString = "上市公司";
                 } else if (map.get("background") == 2) {
                     backgroudString = "非上市公司";
-                } else if (map.get("background") == 2) {
+                } else if (map.get("background") == 3) {
                     backgroudString = "国企";
-                } else if (map.get("background") == 2) {
+                } else if (map.get("background") == 4) {
                     backgroudString = "民营企业";
                 } else {
                     //do nothing

@@ -4,7 +4,7 @@
 <mapper namespace="com.bbd.wtyh.mapper.FinanceLeaseMapper">
 
 
-    <select id="queryFinanceLeaseStatistic" parameterType="java.lang.Integer" resultType="com.bbd.wtyh.domain.vo.FinanceLeaseStatisticVO">
+    <select id="queryFinanceLeaseStatistic" parameterType="java.util.Map" resultType="com.bbd.wtyh.domain.vo.FinanceLeaseStatisticVO">
 		SELECT
 			registered_capital_type as registeredCapitalType,
 			sum(registered_capital) as registeredCapital,
@@ -15,11 +15,17 @@
 		WHERE
 			registered_capital = 13
 			AND registered_date IS NOT NULL
+			<if test="year > 0">
+				AND YEAR (registered_date) = #{year}
+			</if>
+			<if test="registeredCapitalType > 0">
+				AND registered_capital_type = #{registeredCapitalType}
+			</if>
 		GROUP BY
 			registered_capital_type,
 			year
 		ORDER BY
-			year;
+			year asc;
 	</select>
 
 	<select id="queryFinanceLeaseCompanyCategory" parameterType="java.lang.Integer" resultType="java.util.Map">
@@ -42,17 +48,21 @@
 		SELECT
 			flr.risk_type as riskType,
 			flr.risk_status as riskStatus,
-			car.analysis_result as status,
 			c.`name` AS company,
 			c.address AS address
 		FROM
 			finance_lease_risk flr
 		LEFT JOIN company c ON c.company_id = flr.company_id
-		LEFT JOIN company_analysis_result car ON c.company_id = car.company_id
+		LEFT JOIN area a ON c.area_id = a.area_id
 		WHERE
 			1 = 1
 		AND c.company_type = 13
-
+		<if test="areaId != null and areaId != ''">
+			AND a.name = #{areaId}
+		</if>
+		<if test="areaId == null or areaId == ''">
+			AND a.name = '黄浦区'
+		</if>
 	</select>
 
 </mapper>
