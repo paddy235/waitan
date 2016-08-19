@@ -49,7 +49,11 @@
         select
         <include refid="staticRiskContent"></include>
         from static_risk_data
-        where company_name=#{companyName} and area=#{areaCode} and risk_date like concat(#{riskDateStr}, '%');
+        where company_name=#{companyName}
+        <if test="areaCode != null and areaCode != ''">
+            and area=#{areaCode}
+        </if>
+        and risk_date like concat(#{riskDateStr}, '%');
     </select>
 
     <select id="queryIndStatistics" resultType="com.bbd.wtyh.domain.vo.StatisticsVO" parameterType="java.util.HashMap">
@@ -64,7 +68,11 @@
 		from
 		static_risk_data
 		where
-		area=#{areaCode}
+		  1=1
+        <if test="areaCode != null and areaCode != ''">
+            and area=#{areaCode}
+        </if>
+
 		group by date;
 	</sql>
     <select id="queryComStsRCJG" resultType="com.bbd.wtyh.domain.vo.StatisticsVO" parameterType="java.util.HashMap">
@@ -153,8 +161,11 @@
 		from
 		static_risk_data
 		where
-		company_name=#{companyName} and
-		area=#{areaCode} and
+		company_name=#{companyName}
+        <if test="areaCode != null and areaCode != ''">
+            and area=#{areaCode}
+        </if>
+	     and
 		risk_date like concat(#{date}, '%');
 	</sql>
 
@@ -204,7 +215,9 @@
           relation_data
         where
             company_name=#{companyName}
+        <if test="areaCode != null and areaCode != ''">
             and area=#{areaCode}
+        </if>
         group by date
         order by date DESC;
     </select>
