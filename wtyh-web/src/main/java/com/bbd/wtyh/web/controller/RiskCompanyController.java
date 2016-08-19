@@ -78,7 +78,7 @@ public class RiskCompanyController {
 		map.put("area", area);
 		map.put("minRegCapital", StringUtils.isNotNullOrEmpty(minRegCapital) ? new BigDecimal(minRegCapital) : null);
 		map.put("maxRegCapital", StringUtils.isNotNullOrEmpty(maxRegCapital) ? new BigDecimal(maxRegCapital) : null);
-		if (BG_GQ_MARK.equals(companyQualification)) 
+		if (BG_GQ_MARK.equals(companyQualification))
 			map.put("companyQualification", "0|1");
 		else if (BG_SS_MARK.equals(companyQualification))
 			map.put("companyQualification", "1|0");
@@ -112,7 +112,7 @@ public class RiskCompanyController {
 		pagination.setList(list);
 		return ResponseBean.successResponse(pagination);
 	}
-	
+
 	/**
 	 * 特殊字符过滤
 	 *
