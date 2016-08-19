@@ -12,6 +12,7 @@ import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.mapper.StaticRiskMapper;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.BuildFileService;
+import com.bbd.wtyh.service.CompanyNewsService;
 import com.bbd.wtyh.service.OfflineFinanceService;
 import com.bbd.wtyh.service.RelationCompanyService;
 import com.bbd.wtyh.service.impl.relation.RegisterUniversalFilterChainImp;
@@ -56,6 +57,8 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     private BuildFileService buildFileService;
     @Resource
     private RedisDAO redisDAO;
+    @Autowired
+    private CompanyNewsService companyNewsService;
     @Autowired
     private CompanyMapper companyMapper;
     @Value("${share.path}")
@@ -119,7 +122,8 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 
     @Override
     public List<Map> companyNews(String companyName) {
-        return null;
+        List list = companyNewsService.getCompanyNews(companyName);
+        return list;
     }
 
     @Override

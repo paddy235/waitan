@@ -46,23 +46,50 @@
 
 	<select id="queryLeaseCompanyList" parameterType="java.util.Map" resultType="com.bbd.wtyh.domain.vo.FinanceLeaseVO">
 		SELECT
-			flr.risk_type as riskType,
-			flr.risk_status as riskStatus,
-			c.`name` AS company,
-			c.address AS address
+			company.company_id,
+			a.risk_status AS riskStatusA,
+			b.risk_status AS riskStatusB,
+			c.risk_status AS riskStatusC,
+			d.risk_status AS riskStatusD,
+			company.`name` AS companyName,
+			company.address AS address
 		FROM
-			finance_lease_risk flr
-		LEFT JOIN company c ON c.company_id = flr.company_id
-		LEFT JOIN area a ON c.area_id = a.area_id
-		WHERE
-			1 = 1
-		AND c.company_type = 13
+			company,
+			area,
+			finance_lease_risk a,
+			finance_lease_risk b,
+			finance_lease_risk c,
+			finance_lease_risk d
+		<where>
+			company.area_id = area.area_id
+			AND company.company_id = a.company_id
+			AND company.company_id = b.company_id
+			AND company.company_id = c.company_id
+			AND company.company_id = d.company_id
+			AND a.risk_type = 1
+			AND b.risk_type = 2
+			AND c.risk_type = 3
+			AND d.risk_type = 4
+			AND company.company_type = 13
 		<if test="areaName != null and areaName != ''">
 			AND a.name = #{areaName}
 		</if>
 		<if test="areaName == null or areaName == ''">
 			AND a.name = '黄浦区'
 		</if>
+		<if test="riskA != null">
+			AND a.risk_status = #{riskA}
+		</if>
+		<if test="riskB != null">
+			AND b.risk_status = #{riskB}
+		</if>
+		<if test="riskC != null">
+			AND c.risk_status = #{riskC}
+		</if>
+		<if test="riskD != null">
+			AND d.risk_status = #{riskD}
+		</if>
+	  </where>
 	</select>
 
 </mapper>
