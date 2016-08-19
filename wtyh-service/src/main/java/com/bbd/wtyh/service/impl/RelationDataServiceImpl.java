@@ -500,7 +500,10 @@ public class RelationDataServiceImpl implements RelationDataService {
         SimpleDateFormat dateformat=new SimpleDateFormat("yyyyMMdd");
         Date date = null;
         try {
-            date = dateformat.parse(dataVersionString);
+            if (!StringUtils.isEmpty(dataVersionString)) {
+                date = dateformat.parse(dataVersionString);
+            }
+
         } catch (ParseException e) {
             e.printStackTrace();
         }

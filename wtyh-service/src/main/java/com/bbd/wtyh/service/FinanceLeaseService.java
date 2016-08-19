@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service;
 
 import com.bbd.wtyh.domain.vo.FinanceLeaseVO;
+import com.bbd.wtyh.domain.vo.FinanceLeasecCompanyVO;
 
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,6 @@ public interface FinanceLeaseService {
 
     public Map leaseCompanyCategory(Integer year);
 
-    public List<FinanceLeaseVO> leaseCompanyList(String areaName, Integer analysisResult, Integer riskA, Integer riskB, Integer riskC, Integer riskD);
+    public List<FinanceLeasecCompanyVO> leaseCompanyList(String areaName, Integer analysisResult, Integer riskA, Integer riskB, Integer riskC, Integer riskD);
 
 }
