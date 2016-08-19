@@ -57,7 +57,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     @Value("${api.court.courtAnnouncement.ak}")
     private String courtAnnouncementAK;
 
-    @Value("${api.court.courtAnnouncement.url}")
+    @Value("${api.court.noCreditDebtor.url}")
     private String noCreditDebtorURL;    // 失信被执行人
 
     @Value("${api.court.noCreditDebtor.ak}")
