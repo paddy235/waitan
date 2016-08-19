@@ -16,6 +16,6 @@ public interface FinanceLeaseService {
 
     public Map leaseCompanyCategory(Integer year);
 
-    public List<FinanceLeaseVO> leaseCompanyList(String areaId, Integer analysisResult, Integer riskA, Integer riskB, Integer riskC, Integer riskD);
+    public List<FinanceLeaseVO> leaseCompanyList(String areaName, Integer analysisResult, Integer riskA, Integer riskB, Integer riskC, Integer riskD);
 
 }

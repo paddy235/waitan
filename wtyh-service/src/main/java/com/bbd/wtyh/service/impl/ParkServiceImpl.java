@@ -298,8 +298,10 @@ public class ParkServiceImpl implements ParkService {
 
 	@Override
 	public List<CompanyAnalysisResultDO> queryRiskByBuilding(Integer buildingId) {
-		
-		return carMapper.queryRiskByBuilding(buildingId);
+
+		List<CompanyAnalysisResultDO> list = carMapper.queryRiskByBuilding(buildingId);
+
+		return list;
 		
 	}
 

@@ -1,9 +1,7 @@
 package com.bbd.wtyh.web.controller;
 
 import com.bbd.wtyh.domain.AreaDO;
-import com.bbd.wtyh.domain.SysAnalyzeDO;
 import com.bbd.wtyh.service.AreaService;
-import com.bbd.wtyh.service.SysAnalyzeService;
 import com.bbd.wtyh.web.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
