@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import sun.text.resources.CollationData_en;
 
 import java.util.LinkedHashSet;
 import java.util.List;
