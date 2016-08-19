@@ -18,7 +18,7 @@ public interface P2PImageService {
      *
      * @return
      */
-    Map<String, Object> platFormStatus(String platName, String company);
+    Map<String, Object> platFormStatus(String platName);
 
     /**
      * 舆情信息

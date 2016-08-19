@@ -72,10 +72,10 @@
 			AND d.risk_type = 4
 			AND company.company_type = 13
 		<if test="areaName != null and areaName != ''">
-			AND a.name = #{areaName}
+			AND area.name = #{areaName}
 		</if>
 		<if test="areaName == null or areaName == ''">
-			AND a.name = '黄浦区'
+			AND area.name = '黄浦区'
 		</if>
 		<if test="riskA != null">
 			AND a.risk_status = #{riskA}
