@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -74,16 +75,20 @@ public class ParkServiceImpl implements ParkService {
 		
 		Date now = new Date();
 		
-		Date year10 = DateUtils.setYears(now, 10);
-		Date year5 = DateUtils.setYears(now, 5);
-		Date year3 = DateUtils.setYears(now, 3);
-		Date year1 = DateUtils.setYears(now, 1);
-		
-		list.add(inBusiness("10年以上",areaId, null    ,year10));
-		list.add(inBusiness("5-10年" ,areaId, year10  ,year5));
-		list.add(inBusiness("3-5年",areaId,   year5   ,year3));
-		list.add(inBusiness("1-3年",areaId,   year3   ,year1));
-		list.add(inBusiness("1年以下",areaId,  year1   ,now));
+		Date year10 = DateUtils.addYears(now, -10);
+		Date year5 = DateUtils.addYears(now, -5);
+		Date year3 = DateUtils.addYears(now, -3);
+		Date year1 = DateUtils.addYears(now, -1);
+
+		list.add(inBusiness("10年以上",areaId, null    , DateFormatUtils.format(year10,"yyyy-MM-dd")));
+		list.add(inBusiness("5-10年" ,areaId,  DateFormatUtils.format(year10,"yyyy-MM-dd")  ,
+				                               DateFormatUtils.format(year5,"yyyy-MM-dd")));
+		list.add(inBusiness("3-5年",areaId,    DateFormatUtils.format(year5,"yyyy-MM-dd")   ,
+				                               DateFormatUtils.format(year3,"yyyy-MM-dd")));
+		list.add(inBusiness("1-3年",areaId,    DateFormatUtils.format(year3,"yyyy-MM-dd")   ,
+				                               DateFormatUtils.format(year1,"yyyy-MM-dd")));
+		list.add(inBusiness("1年以下",areaId,   DateFormatUtils.format(year1,"yyyy-MM-dd")    ,
+				                               DateFormatUtils.format(now,"yyyy-MM-dd")));
 		
 		return list;
 	}
@@ -99,7 +104,7 @@ public class ParkServiceImpl implements ParkService {
 	* @param end 时间年限止
 	* @return InBusiness
 	*/
-	public InBusinessDO inBusiness(String dateRange,Integer areaId,Date start,Date end) {
+	public InBusinessDO inBusiness(String dateRange,Integer areaId,String start,String end) {
 		
 		InBusinessDO bean = companyMapper.countByDate(areaId, start, end);
 		
