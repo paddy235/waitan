@@ -59,8 +59,8 @@ public class P2PImageController {
      */
     @RequestMapping("/lawsuitMsg")
     @ResponseBody
-    public ResponseBean lawsuitMsg(@RequestParam(required = true) String company) {
-        Map<String, Object> conent = p2PImageService.lawsuitMsg(company);
+    public ResponseBean lawsuitMsg(@RequestParam(required = true) String platName) {
+        Map<String, Object> conent = p2PImageService.lawsuitMsg(platName);
         return ResponseBean.successResponse(conent);
     }
 
