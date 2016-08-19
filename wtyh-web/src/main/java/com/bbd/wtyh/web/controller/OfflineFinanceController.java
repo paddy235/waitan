@@ -250,6 +250,18 @@ public class OfflineFinanceController {
     }
 
     /**
+     * 数据版本
+     * @return
+     */
+    @SuppressWarnings("queryDateVersion")
+    @RequestMapping("queryDateVersion.do")
+    @ResponseBody
+    public ResponseBean queryDateVersion(String companyName, String areaCode) {
+        List dataVersionList =  relationDataService.queryDateVersion(companyName,areaCode);
+        return ResponseBean.successResponse(dataVersionList);
+    }
+
+    /**
      *
      * @param dataVersionString
      * @return
@@ -267,4 +279,6 @@ public class OfflineFinanceController {
         String month = dateformat1.format(date);
         return month;
     }
+
+
 }
