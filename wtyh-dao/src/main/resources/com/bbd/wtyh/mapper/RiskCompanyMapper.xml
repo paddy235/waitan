@@ -79,9 +79,5 @@
 		from index_data
 		<include refid="indexDataCondition"></include>
 	</select>
-	
-	<select id="getLastStaticRiskByCompanyName" parameterType="string" resultType="java.math.BigDecimal">
-		select static_risk_index from static_risk_data where company_name=#{companyName} ORDER BY data_version DESC limit 1
-	</select>
 
 </mapper>

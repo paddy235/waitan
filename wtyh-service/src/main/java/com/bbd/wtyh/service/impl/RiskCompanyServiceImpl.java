@@ -1,6 +1,5 @@
 package com.bbd.wtyh.service.impl;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +25,6 @@ public class RiskCompanyServiceImpl implements RiskCompanyService {
 	private RedisDAO redisDAO;
 	private static final String SCANNER_PREFIX_KEY = "scanner_";
 	private static final String TOP_PREFIX_KEY = "top_";
-	private static final String SEARCH_UNDERLINE_PREFIX_KEY = "search_underline_";
 
 	@Override
 	@SuppressWarnings("unchecked")
@@ -77,18 +75,6 @@ public class RiskCompanyServiceImpl implements RiskCompanyService {
 	@Override
 	public int getTopCount(Map<String, Object> params) {
 		return riskCompanyMapper.getTopCount(params);
-	}
-
-	@Override
-	public BigDecimal getLastStaticRiskByCompanyName(String companyName) {
-		String key = SEARCH_UNDERLINE_PREFIX_KEY + companyName;
-		BigDecimal staticRisk = (BigDecimal) redisDAO.getObject(key);
-		if (null == staticRisk) {
-			staticRisk = riskCompanyMapper.getLastStaticRiskByCompanyName(companyName);
-			if (null != staticRisk)
-				redisDAO.addObject(key, staticRisk, Constants.REDIS_7, BigDecimal.class); // 保留7天
-		}
-		return staticRisk;
 	}
 
 }
