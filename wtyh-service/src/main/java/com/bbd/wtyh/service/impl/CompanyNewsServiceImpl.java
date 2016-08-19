@@ -54,7 +54,7 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
     @Value("${api.baidu.news.url}")
     private String url;
 
-    @Value("${api.baidu.news.ak}")
+    @Value("${api.baidu.batch.news.ak}")
     private String ak;
 
     @Value("${api.baidu.batch.news.ktype}")
