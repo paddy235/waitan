@@ -63,6 +63,10 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     private CompanyMapper companyMapper;
     @Value("${share.path}")
     private String shareDir;
+
+    @Value("${mapping.path}")
+    private String mappingPath;
+
     private static final String RISE = "1";
     private static final String FALL = "-1";
     private final String file_type_1 = "yed";
@@ -429,8 +433,13 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
                 }
             }
         }
+        String targetPath = "";
+        if(new File(filePath).exists())
+        {
+            targetPath = mappingPath+File.separator+Constants.attDir+File.separator+new File(filePath).getName();
+        }
 
-        return filePath;
+        return targetPath;
     }
 
 

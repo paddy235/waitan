@@ -23,8 +23,8 @@ public class CompanyNewsController {
 	@RequestMapping("getCompanyNews.do")
 	@ResponseBody
 	public ResponseBean getCompanyNews() {
-		String companyName = "贵阳市城市建设投资有限责任公司";
-		List list = companyNewsService.getCompanyNews(companyName);
-		return ResponseBean.successResponse(list);
+
+		String companyNewsJsonData = companyNewsService.getCompanyNews();
+		return ResponseBean.successResponse(companyNewsJsonData);
 	}
 }
