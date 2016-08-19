@@ -26,7 +26,7 @@
 			area_list as areaList,
 			area_company_num as areaCompanyNum
 		from dynamic_risk_data
-		where company_name=#{companyName} and data_version=#{dataVersion} and area_code=#{areaCode};
+		where company_name=#{companyName} and data_version=#{dataVersion} and area = #{areaCode};
 	</select>
 	
 </mapper>

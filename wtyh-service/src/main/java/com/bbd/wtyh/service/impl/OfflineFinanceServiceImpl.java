@@ -64,7 +64,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 
     @Override
     public Map companyInfo(String companyName) {
-        List<Map> list = companyMapper.companyInfo(companyName);
+        List<Map<Integer, String>> list = companyMapper.companyInfo(companyName);
         Map result = new HashMap();
         List backgroud = new ArrayList();
         if (!CollectionUtils.isEmpty(list)) {

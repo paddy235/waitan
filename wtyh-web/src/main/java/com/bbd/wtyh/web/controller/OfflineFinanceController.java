@@ -5,6 +5,7 @@ import com.bbd.wtyh.domain.vo.*;
 import com.bbd.wtyh.service.OfflineFinanceService;
 import com.bbd.wtyh.service.RelationDataService;
 import com.bbd.wtyh.web.ResponseBean;
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,7 +38,6 @@ public class OfflineFinanceController {
     @Autowired
     private RelationDataService relationDataService;
 
-    private final String DynamicRiskData = "detail/risk";
     /**
      * 关联图谱
      * @param request
@@ -126,12 +126,12 @@ public class OfflineFinanceController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "dynamicRiskData")
-    public ModelAndView dynamicRiskData(HttpServletRequest request, HttpServletResponse response) throws Exception
+    @RequestMapping(value = "dynamicRiskData.do")
+    @ResponseBody
+    public ResponseBean dynamicRiskData(HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        ModelAndView view = new ModelAndView(DynamicRiskData);
         String companyName = request.getParameter("companyName");
-        String areaCode = (String) request.getSession().getAttribute("defaultAreaCode");//request.getSession().getAttribute(Constants.SESSION.AREA_CODE).toString();
+        String areaCode = request.getParameter("areaCode");
         String keyword = request.getParameter("kw");
         if(org.apache.commons.lang.StringUtils.isEmpty(companyName))
         {
@@ -164,16 +164,17 @@ public class OfflineFinanceController {
         RelationDataVO vo = relationDataService.compareRelationData(companyName,areaCode, currentMonth, compareMonth);
         //比较两个月动态风险指标结果
         DynamicRiskVO riskvo = relationDataService.compareDynamicRisk(companyName,areaCode, currentMonth, compareMonth);
-        view.addObject("companyName",companyName);
-        view.addObject("relationData",vo);
-        view.addObject("monthList", monthList);
-        view.addObject("currentMonth", currentMonth);
-        view.addObject("compareMonth", compareMonth);
-        view.addObject("current", getMonth(vo.getCurrentMonth()));
-        view.addObject("compare", getMonth(vo.getCompareMonth()));
-        view.addObject("dynamicRisk",riskvo);
-        view.addObject("keyword", keyword);
-        return view;
+        Map result = new HashedMap();
+        result.put("companyName",companyName);
+        result.put("relationData",vo);
+        result.put("monthList", monthList);
+        result.put("currentMonth", currentMonth);
+        result.put("compareMonth", compareMonth);
+        result.put("current", getMonth(vo.getCurrentMonth()));
+        result.put("compare", getMonth(vo.getCompareMonth()));
+        result.put("dynamicRisk",riskvo);
+        result.put("keyword", keyword);
+        return ResponseBean.successResponse(result);
     }
 
     /**

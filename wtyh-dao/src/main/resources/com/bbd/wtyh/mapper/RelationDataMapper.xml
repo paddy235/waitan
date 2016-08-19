@@ -24,7 +24,7 @@
 			three_company_num as threeCompanyNum,
 			three_company_detail as threeCompanyDetail
 		from relation_data
-		where company_name=#{companyName} and data_version=#{dataVersion} and area_code =#{areaCode};
+		where company_name=#{companyName} and data_version=#{dataVersion} and area =#{areaCode};
 	</select>
     <select id="queryRelation" resultType="com.bbd.wtyh.domain.vo.SearchResultVO" parameterType="java.util.HashMap">
 		select 
@@ -37,6 +37,6 @@
 		<foreach item="cn" collection="companyList" open="(" separator="," close=")">
 			#{cn}
 		</foreach>
-		 and data_version=#{dataVersion} and area_code=#{areaCode};
+		 and data_version=#{dataVersion} and area=#{areaCode};
 	</select>
 </mapper>

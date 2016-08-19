@@ -128,7 +128,7 @@
           relation_data
         where
             company_name=#{companyName}
-            and area_code=#{areaCode}
+            and area=#{areaCode}
         group by date
         order by date DESC;
     </select>
