@@ -270,8 +270,8 @@ public class MockSerserController {
                 dto.setTotal_plat_num_sh(2 + m);
 
                 dto.setArea_num(new HashMap<String, Object>());
-                dto.getArea_num().put("浦东区", 3);
-                dto.getArea_num().put("黄埔区", 1);
+                dto.getArea_num().put("浦东新区", 3);
+                dto.getArea_num().put("黄浦区", 1);
 
                 list.add(dto);
             }
