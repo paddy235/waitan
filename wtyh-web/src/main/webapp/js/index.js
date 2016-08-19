@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "9142f5c15a3123159eb7"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "7561db93a201a907ba58"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -85925,7 +85925,10 @@
 			CompanyInfoNewsRequest: state.CompanyInfoNews.request,
 
 			CompanyInfoAResult: state.CompanyInfoA.result,
-			CompanyInfoARequest: state.CompanyInfoA.request
+			CompanyInfoARequest: state.CompanyInfoA.request,
+
+			CompanyInfoBResult: state.CompanyInfoB.result,
+			CompanyInfoBRequest: state.CompanyInfoB.request
 
 		};
 	}
@@ -86786,7 +86789,6 @@
 	      if (CompanyInfoNewsRequest == true) {
 	        data = CompanyInfoNewsResult.content.results;
 	        console.log(data, "companyInfoNEWS");
-	        debugger;
 	        _this.setState({
 	          itemAll: data.map(function (item, index) {
 	            return _react2.default.createElement(
@@ -87051,7 +87053,6 @@
 	      var CompanyInfoARequest = nextProps.CompanyInfoARequest;
 	      var CompanyInfoAResult = nextProps.CompanyInfoAResult;
 
-	      debugger;
 	      if (CompanyInfoARequest == true) {
 	        data = CompanyInfoAResult.content;
 	        console.log(data, "companyInfoNEWS");
@@ -87290,7 +87291,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	/**
-	 * �ɶ��߹�
+	 * 股东高管
 	 */
 
 	var Immutable = __webpack_require__(718);
@@ -87300,7 +87301,11 @@
 		displayName: 'ShareholderExe',
 		getInitialState: function getInitialState() {
 			return {
-				pageNum: 1
+				pageNum: 1,
+				shareholderName: "",
+				shareholderType: "",
+				managerName: "",
+				managerType: ""
 			};
 		},
 		switchPage: function switchPage(param, ev) {
@@ -87319,44 +87324,35 @@
 				pageNum: _pageNum
 			});
 		},
+		componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+			var _this = this;
+			var isEqual = Immutable.is(nextProps.CompanyInfoBRequest, this.props.CompanyInfoBResult); //判断数据是否变化
+			if (!isEqual) {
+				var CompanyInfoBRequest = nextProps.CompanyInfoBRequest;
+				var CompanyInfoBResult = nextProps.CompanyInfoBResult;
 
-		// componentWillReceiveProps(nextProps) {
-		//   var _this = this;
-		//   var isEqual=Immutable.is(nextProps.CompanyInfoARequest, this.props.CompanyInfoAResult)//�ж������Ƿ��仯
-		//   if(!isEqual){
-		//    const {CompanyInfoARequest,CompanyInfoAResult}=nextProps;
-		//    debugger;
-		//       if(CompanyInfoARequest==true){
-		//           data = CompanyInfoAResult.content;
-		//           console.log(data,"companyInfoNEWS");
-		//           _this.setState({
-		// 	      	  person:data.����������,
-		// 	          money:data.ע���ʱ�,
-		// 	          state:data.״̬,
-		// 	          buildTime:data.ע��ʱ��,
-		// 	          type:data.��ҵ,
-		// 	          num:data.����ע����,
-		// 	          companyType:data.��ҵ����,
-		// 	          buildNum:data.��֯��������,
-		// 	          until:data.Ӫҵ����,
-		// 	          whoPass:data.�Ǽǻ���,
-		// 	          passTime:data.��׼����,
-		// 	          creditNum:data.ͳһ���ô���,
-		// 	          businessScope:data.��Ӫ��Χ
-		//           })
-		//       }else{
-		//           // alert(404)
-		//       }
-		// }
+				if (CompanyInfoBRequest == true) {
+					data = CompanyInfoBResult.content;
+					console.log(data, "我草你");
+					_this.setState({
+						shareholderName: data.gdxx.shareholder_name,
+						shareholderType: data.gdxx.shareholder_type,
+						managerName: data.bgxx.name,
+						managerType: data.bgxx.position
+					});
+				} else {
+					// alert(404)
+				}
+			}
+		},
+		componentDidMount: function componentDidMount() {
+			var getCompanyInfoB = this.props.getCompanyInfoB;
 
-		// },
-		// componentDidMount() {
-		// 	const {getCompanyInfoA}=this.props;
-		// 	var jsonData={
-		// 		company:"��֦���н�ͨ���ο����������ι�˾"
-		// 	};
-		// 	getCompanyInfoA(jsonData);
-		// },
+			var jsonData = {
+				company: "攀枝花市交通旅游客运有限责任公司"
+			};
+			getCompanyInfoB(jsonData);
+		},
 		render: function render() {
 			return _react2.default.createElement(
 				'div',
@@ -87367,12 +87363,12 @@
 					_react2.default.createElement(
 						'div',
 						{ className: 'title-item title-active', onClick: this.switchPage.bind(this, 'share-info') },
-						'�ɶ���Ϣ'
+						'股东信息'
 					),
 					_react2.default.createElement(
 						'div',
 						{ className: 'title-item', onClick: this.switchPage.bind(this, 'exe-info') },
-						'�߹���Ϣ'
+						'高管信息'
 					)
 				),
 				this.state.pageNum == 1 ? _react2.default.createElement(
@@ -87384,12 +87380,12 @@
 						_react2.default.createElement(
 							'div',
 							null,
-							'�ɶ�'
+							'股东'
 						),
 						_react2.default.createElement(
 							'div',
 							null,
-							'�ɶ�����'
+							'股东类型'
 						)
 					),
 					_react2.default.createElement(
@@ -87398,14 +87394,13 @@
 						_react2.default.createElement(
 							'div',
 							null,
-							'����Ժ'
+							this.state.shareholderName
 						),
 						_react2.default.createElement(
 							'div',
 							null,
-							'���ط���'
-						),
-						'//ajax'
+							this.state.shareholderType
+						)
 					)
 				) : _react2.default.createElement(
 					'div',
@@ -87416,12 +87411,12 @@
 						_react2.default.createElement(
 							'div',
 							null,
-							'����'
+							'姓名'
 						),
 						_react2.default.createElement(
 							'div',
 							null,
-							'ְ��'
+							'职务'
 						)
 					),
 					_react2.default.createElement(
@@ -87430,14 +87425,13 @@
 						_react2.default.createElement(
 							'div',
 							null,
-							'ϰ����'
+							this.state.managerName
 						),
 						_react2.default.createElement(
 							'div',
 							null,
-							'���ط���'
-						),
-						'//ajax'
+							this.state.managerType
+						)
 					)
 				)
 			);
@@ -90862,6 +90856,10 @@
 
 	var _companyInfoARuducer2 = _interopRequireDefault(_companyInfoARuducer);
 
+	var _companyInfoBRuducer = __webpack_require__(1348);
+
+	var _companyInfoBRuducer2 = _interopRequireDefault(_companyInfoBRuducer);
+
 	var _SmallLoanMap = __webpack_require__(975);
 
 	var _SmallLoanMap2 = _interopRequireDefault(_SmallLoanMap);
@@ -91209,15 +91207,13 @@
 
 
 	//融资担保
-
-
-	/*企业全息查询*/
 	var rootReducer = (0, _redux.combineReducers)({
 
 	  /*企业全息*/
 	  CompanyInfoTit: _companyInfoTitRuducer2.default,
 	  CompanyInfoNews: _companyInfoNewsRuducer2.default,
 	  CompanyInfoA: _companyInfoARuducer2.default,
+	  CompanyInfoB: _companyInfoBRuducer2.default,
 
 	  /*行业监测模块*/
 	  //P2P平台监测
@@ -91373,6 +91369,9 @@
 	/*行业监测模块*/
 
 	//小额贷款
+
+
+	/*企业全息查询*/
 
 	exports.default = rootReducer;
 
@@ -102643,6 +102642,7 @@
 	exports.getCompanyInfoTit = getCompanyInfoTit;
 	exports.getCompanyInfoNews = getCompanyInfoNews;
 	exports.getCompanyInfoA = getCompanyInfoA;
+	exports.getCompanyInfoB = getCompanyInfoB;
 	/*
 	  企业全息查询action
 	*/
@@ -102723,7 +102723,7 @@
 	  };
 	}
 
-	//舆情
+	//表格A
 	var COMPANYINFO_A_SUCCESS = exports.COMPANYINFO_A_SUCCESS = 'COMPANYINFO_A_SUCCESS';
 	var COMPANYINFO_A_FAIL = exports.COMPANYINFO_A_FAIL = 'COMPANYINFO_A_FAIL';
 
@@ -102756,6 +102756,43 @@
 	      },
 	      error: function error(result) {
 	        return dispatch(companyInfoAFail(result));
+	      }
+	    });
+	  };
+	}
+
+	//表格B
+	var COMPANYINFO_B_SUCCESS = exports.COMPANYINFO_B_SUCCESS = 'COMPANYINFO_B_SUCCESS';
+	var COMPANYINFO_B_FAIL = exports.COMPANYINFO_B_FAIL = 'COMPANYINFO_B_FAIL';
+
+	function companyInfoBSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: COMPANYINFO_B_SUCCESS,
+	    result: result
+	  };
+	}
+
+	function companyInfoBFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: COMPANYINFO_B_FAIL,
+	    result: result
+	  };
+	}
+
+	function getCompanyInfoB(json) {
+	  return function (dispatch) {
+	    $.ajax({
+	      url: " /hologram/shareholdersSenior.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(companyInfoBSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(companyInfoFail(result));
 	      }
 	    });
 	  };
@@ -102854,6 +102891,52 @@
 	}
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "companyInfoARuducer.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1348 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = getCompanyInfoA;
+
+	var _InfoSearchAction = __webpack_require__(1345);
+
+	//这个函数就是处理，action里面成功和失败的2个返回函数。
+	//当ajax请求成功了，就可以调用这个两个返回函数进行操作。
+
+	function getCompanyInfoA() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? { //这个名字无所谓，最后都是用index里面对外暴露的名字。
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _InfoSearchAction.COMPANYINFO_B_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _InfoSearchAction.COMPANYINFO_B_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "companyInfoBRuducer.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ }
