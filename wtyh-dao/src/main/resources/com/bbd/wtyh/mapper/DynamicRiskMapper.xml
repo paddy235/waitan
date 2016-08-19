@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.bbd.wtyh.mapper.DynamicRiskMapper">
+
+	<select id="queryDynamicRisk" resultType="com.bbd.wtyh.domain.vo.DynamicRiskIndexVO" parameterType="java.util.HashMap">
+		select 
+			company_name as companyName,
+			data_version as dataVersion,
+			risk_date as riskDate,
+			bbd_time_risk_index as bbdTimeRiskIndex,
+			person_num as personNum,
+			company_num as companyNum,
+			sum_num as sumNum,
+			core_person_list as corePerList,
+			control_num as controlNum,
+			agree_action_num as agreeActNum,
+			agree_action_proportion as agreeActProp,
+			agree_company_detail as agreeComDet,
+			one_two_comapny_num as oneTwoCompanyNum,
+			one_two_company_proportion as oneTwoCompanyProp,
+			three_person_num as threePersonNum,
+			three_person_proportion as threePersonProp,
+			type_sum_num as typeSumNum,
+			type_sum_proportion as typeSumProp,
+			company_detail as companyDetail,
+			area_list as areaList,
+			area_company_num as areaCompanyNum
+		from dynamic_risk_data
+		where company_name=#{companyName} and data_version=#{dataVersion} and area_code=#{areaCode};
+	</select>
+	
+</mapper>

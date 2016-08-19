@@ -15,10 +15,10 @@ public class FinanceLeaseVO implements Serializable {
 	private Integer riskType;//
 	@JsonIgnore
 	private Integer riskStatus;
-	private Integer riskA;//
-	private Integer riskB;//
-	private Integer riskC;//
-	private Integer riskD;//
+	private String riskA;//
+	private String riskB;//
+	private String riskC;//
+	private String riskD;//
 
 	public Integer getRiskType() {
 		return riskType;
@@ -36,35 +36,35 @@ public class FinanceLeaseVO implements Serializable {
 		this.riskStatus = riskStatus;
 	}
 
-	public Integer getRiskA() {
+	public String getRiskA() {
 		return riskA;
 	}
 
-	public void setRiskA(Integer riskA) {
+	public void setRiskA(String riskA) {
 		this.riskA = riskA;
 	}
 
-	public Integer getRiskB() {
+	public String getRiskB() {
 		return riskB;
 	}
 
-	public void setRiskB(Integer riskB) {
+	public void setRiskB(String riskB) {
 		this.riskB = riskB;
 	}
 
-	public Integer getRiskC() {
+	public String getRiskC() {
 		return riskC;
 	}
 
-	public void setRiskC(Integer riskC) {
+	public void setRiskC(String riskC) {
 		this.riskC = riskC;
 	}
 
-	public Integer getRiskD() {
+	public String getRiskD() {
 		return riskD;
 	}
 
-	public void setRiskD(Integer riskD) {
+	public void setRiskD(String riskD) {
 		this.riskD = riskD;
 	}
 

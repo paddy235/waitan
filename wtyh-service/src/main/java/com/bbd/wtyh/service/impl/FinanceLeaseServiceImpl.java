@@ -137,6 +137,12 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
                 String companyName = financeLeaseVO.getCompany();
                 Integer riskType   = financeLeaseVO.getRiskType();
                 Integer riskStatus = financeLeaseVO.getRiskStatus();
+                String riskStatusString = "";
+                if (riskStatus == 1) {
+                    riskStatusString = "是";
+                } else if (riskStatus == 0) {
+                    riskStatusString = "否";
+                }
                 if (resultMap.get(companyName) == null) {
                     FinanceLeaseVO vo = new FinanceLeaseVO();
                     vo.setCompany(financeLeaseVO.getCompany());
@@ -146,15 +152,15 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
                         vo.setStatus("潜在");
                     }
                     if (riskType != null && riskType == 1) {
-                        vo.setRiskA(riskStatus);
+                        vo.setRiskA(riskStatusString);
                     } else if (riskType != null && riskType == 2) {
-                        vo.setRiskB(riskStatus);
+                        vo.setRiskB(riskStatusString);
                     } else if (riskType != null && riskType == 3) {
-                        vo.setRiskC(riskStatus);
+                        vo.setRiskC(riskStatusString);
                     } else if (riskType != null && riskType == 4) {
-                        vo.setRiskD(riskStatus);
+                        vo.setRiskD(riskStatusString);
                     } else {
-
+                        //do nothing
                     }
                     resultMap.put(companyName, vo);
                 } else {
@@ -164,15 +170,15 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
                     }
 
                     if (riskType != null && riskType == 1) {
-                        resultMap.get(companyName).setRiskA(riskStatus);
+                        resultMap.get(companyName).setRiskA(riskStatusString);
                     } else if (riskType != null && riskType == 2) {
-                        resultMap.get(companyName).setRiskB(riskStatus);
+                        resultMap.get(companyName).setRiskB(riskStatusString);
                     } else if (riskType != null && riskType == 3) {
-                        resultMap.get(companyName).setRiskC(riskStatus);
+                        resultMap.get(companyName).setRiskC(riskStatusString);
                     } else if (riskType != null && riskType == 4) {
-                        resultMap.get(companyName).setRiskD(riskStatus);
+                        resultMap.get(companyName).setRiskD(riskStatusString);
                     } else {
-
+                        //do nothing
                     }
                 }
             }

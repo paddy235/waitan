@@ -50,6 +50,9 @@ public class Constants {
 		public static final String showLoginName = "showLoginName";  //前台用户名
 	}
 
+	//占比变为百分比
+	public static float INT100 = 100;
+	public static int INT10000 = 10000;
 	/**
 	 * 线下理财关联数据使用 end
 	 */

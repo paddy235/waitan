@@ -70,16 +70,17 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
         if (!CollectionUtils.isEmpty(list)) {
             String backgroudString = "";
             for (Map map : list) {
+                int back = (int)map.get("background");
                 if (map.get("name") != null) {
                     continue;
                 }
-                if (map.get("background") == 1) {
+                if (back == 1) {
                     backgroudString = "上市公司";
-                } else if (map.get("background") == 2) {
+                } else if (back == 2) {
                     backgroudString = "非上市公司";
-                } else if (map.get("background") == 3) {
+                } else if (back == 3) {
                     backgroudString = "国企";
-                } else if (map.get("background") == 4) {
+                } else if (back == 4) {
                     backgroudString = "民营企业";
                 } else {
                     //do nothing
