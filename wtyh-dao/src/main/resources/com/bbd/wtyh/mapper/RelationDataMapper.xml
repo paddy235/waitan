@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.bbd.wtyh.mapper.RelationDataMapper">
+
+	<select id="getRelationData" resultType="com.bbd.wtyh.domain.vo.RelationDataIndexVO" parameterType="java.util.HashMap">
+		select 
+			company_name as companyName,
+			data_version as dataVersion,
+			risk_date as riskDate,
+			relation_person_num as relationPersonNum,
+			company_person_num as companyPersonNum,
+			child_company_num as childCompanyNum,
+			child_company_detail as childCompanyDetail,
+			one_person_num as onePersonNum,
+			one_person_detail as onePersonDetail,
+			one_company_num as oneCompanyNum,
+			one_company_detail as oneCompanyDetail,
+			two_person_num as twoPersonNum,
+			two_person_detail as twoPersonDetail,
+			two_company_num as twoCompanyNum,
+			two_company_detail as twoCompanyDetail,
+			three_person_num as threePersonNum,
+			three_person_detail as threePersonDetail,
+			three_company_num as threeCompanyNum,
+			three_company_detail as threeCompanyDetail
+		from relation_data
+		where company_name=#{companyName} and data_version=#{dataVersion} and area_code =#{areaCode};
+	</select>
+    <select id="queryRelation" resultType="com.bbd.wtyh.domain.vo.SearchResultVO" parameterType="java.util.HashMap">
+		select 
+			company_name as companyName,
+			one_person_num + one_company_num as rel1,
+			two_person_num + two_company_num as rel2,
+			one_person_num + one_company_num + two_person_num + two_company_num + three_person_num + three_company_num + 1 as relSum
+		from relation_data
+		where company_name in 
+		<foreach item="cn" collection="companyList" open="(" separator="," close=")">
+			#{cn}
+		</foreach>
+		 and data_version=#{dataVersion} and area_code=#{areaCode};
+	</select>
+</mapper>
