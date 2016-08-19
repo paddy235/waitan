@@ -1,38 +1,82 @@
 package com.bbd.wtyh.domain;
 
 public class CompanyAnalysisResultDO extends BaseDO {
-    
+
+	private String name;
+
 	private Integer companyId;
 
+	private String longitude;
+
+	private String latitude;
+
     private Byte analysisResult;
-    
-    private String name;
 
 	private int registered_capital;
 
 	private int registered_capital_type;
 
+	private String exposureDate;
+
+	private String staticRiskIndex;
+
+
 	// 颜色 1:已曝光(黑) 2:高危(红) 3:关注(黄) 4:正常(绿)
     @SuppressWarnings("unused")
 	private String anaResCN;
-    
- 
-    public static String anaResCN(Byte result) {
+
+	public static final int EXPOSURE = 1;
+	public static final int HIGH = 2;
+	public static final int FOCUS = 3;
+	public static final int NORMAL = 4;
+
+	public static String anaResCN(Byte result) {
     	if(result == null){
     		return "";
     	}
     	switch (result) {
-		case 1:
+		case EXPOSURE:
 			return "已曝光";
-		case 2:
+		case HIGH:
 			return "高危";
-		case 3:
+		case FOCUS:
 			return "关注";
 		default:
 			return "正常";
 		}
     }
 
+	public String getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+
+	public String getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+
+	public String getStaticRiskIndex() {
+		return staticRiskIndex;
+	}
+
+	public void setStaticRiskIndex(String staticRiskIndex) {
+		this.staticRiskIndex = staticRiskIndex;
+	}
+
+	public String getExposureDate() {
+		return exposureDate;
+	}
+
+	public void setExposureDate(String exposureDate) {
+		this.exposureDate = exposureDate;
+	}
 
 	public int getRegistered_capital() {
 		return registered_capital;
