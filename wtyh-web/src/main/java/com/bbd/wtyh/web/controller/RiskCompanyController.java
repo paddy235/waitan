@@ -76,14 +76,14 @@ public class RiskCompanyController {
 			String companyQualification, String minReviewTime, String maxReviewTime) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("area", area);
-		map.put("minRegCapital", minRegCapital);
-		map.put("maxRegCapital", maxRegCapital);
+		map.put("minRegCapital", new BigDecimal(minRegCapital));
+		map.put("maxRegCapital", new BigDecimal(maxRegCapital));
 		if (BG_GQ_MARK.equals(companyQualification)) 
 			map.put("companyQualification", "0|1");
 		else if (BG_SS_MARK.equals(companyQualification))
 			map.put("companyQualification", "1|0");
-		map.put("minReviewTime", minReviewTime);
-		map.put("maxReviewTime", maxReviewTime);
+		map.put("minReviewTime", new BigDecimal(minReviewTime));
+		map.put("maxReviewTime", new BigDecimal(maxReviewTime));
 		return map;
 	}
 
