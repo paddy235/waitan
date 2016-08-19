@@ -264,7 +264,7 @@ public class OfflineFinanceController {
             for (String string : dataVersionList) {
                 if (!StringUtils.isEmpty(string)) {
                     StringBuilder sb = new StringBuilder();
-                    sb.append(string.substring(0, 4)).append("-").append(string.substring(5, 7));
+                    sb.append(string.substring(0, 4)).append("-").append(string.substring(4, 6));
                     result.add(sb.toString());
                 }
             }
