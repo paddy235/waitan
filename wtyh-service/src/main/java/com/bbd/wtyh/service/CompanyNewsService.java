@@ -12,5 +12,17 @@ import java.util.List;
 */
 public interface CompanyNewsService {
 
+	/**
+	 * 获取某个公司的舆情
+	 * @param company
+	 * @return
+     */
 	public List getCompanyNews(String company);
+
+	/**
+	 * 获取所有的公司的舆情
+	 * @return
+     */
+	public String getCompanyNews();
+
 }
