@@ -36,6 +36,12 @@ public class Constants {
 	public static final String API_SEARCH_URL = "api.search.baseinfo.url";
 	// 系统自带的方法，所有人都有此功能
 	public static Map<String, String> SystemActionMethod = new HashMap<String, String>();
+	
+	// redis缓存时间
+	public static final long REDIS_10 = 864000l; // 10天
+	public static final long REDIS_7 = 604800l; // 7天
+	public static final long REDIS_5 = 432000l; // 5天
+	public static final long REDIS_3 = 259200l; // 3天
 
 	public static final class SESSION {
 		public static final String loginName = "loginName";
