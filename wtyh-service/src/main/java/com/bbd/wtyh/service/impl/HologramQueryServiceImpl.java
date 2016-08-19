@@ -26,8 +26,8 @@ public class HologramQueryServiceImpl implements HologramQueryService {
     private HologramQueryDao hologramQueryDao;
 
     @Override
-    public SearchComanyDO search(String company) {
-        return hologramQueryDao.search(company);
+    public SearchComanyDO search(String company, int page_no, int page_size) {
+        return hologramQueryDao.search(company, page_no, page_size);
     }
 
     @Override

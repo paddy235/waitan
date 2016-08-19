@@ -17,7 +17,7 @@ public interface HologramQueryService {
      *
      * @return
      */
-    SearchComanyDO search(String company);
+    SearchComanyDO search(String company, int page_no, int page_size);
 
     /**
      * 信息查询平台导航栏
