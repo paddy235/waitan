@@ -99,11 +99,11 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      * @return
      */
     @Override
-    public SearchComanyDO search(String company) {
-        String api = searchCompanyURL + "?query=" + company + "&type=company&ak=" + searchCompanyAK;
+    public SearchComanyDO search(String company, int page_no, int page_size) {
+        String api = searchCompanyURL + "?query=" + company + "&type=company&ak=" + searchCompanyAK + "&page_no=" + page_no + "&page_size=" + page_size;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
-            return httpTemplate .get(api, new HttpCallback<SearchComanyDO>() {
+            return httpTemplate.get(api, new HttpCallback<SearchComanyDO>() {
                 @Override
                 public boolean valid() {
                     return true;
@@ -150,10 +150,9 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
 
     /**
      * 企业logo信息
-     *
      */
     public BBDLogoDO bbdLogo(String company) {
-        String coreDataDealURL = bbdLogoURL+"?company="+company+"&ak="+bbdLogoAK;
+        String coreDataDealURL = bbdLogoURL + "?company=" + company + "&ak=" + bbdLogoAK;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(coreDataDealURL, new HttpCallback<BBDLogoDO>() {
@@ -231,7 +230,6 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
 
     /**
      * 基本信息--组织机构代码api
-     *
      */
     public ZuZhiJiGoudmDO baseInfoZuZhiJiGou(String companyName) {
 //        String url = zuZhiJiGouURL+"?company="+companyName+"&ak="+zuZhiJiGouURL;
@@ -243,6 +241,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
                 public boolean valid() {
                     return true;
                 }
+
                 @Override
                 public ZuZhiJiGoudmDO parse(String result) {
                     Gson gson = new Gson();
@@ -270,6 +269,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
                 public boolean valid() {
                     return true;
                 }
+
                 @Override
                 public BaseDataDO parse(String result) {
                     Gson gson = new Gson();

@@ -10,7 +10,7 @@ import com.bbd.wtyh.domain.bbdAPI.*;
  * @since 2016.08.09
  */
 public interface HologramQueryDao {
-    SearchComanyDO search(String company);
+    SearchComanyDO search(String company, int page_no, int page_size);
 
     BaseDataDO outlineMsg(String platName);
 

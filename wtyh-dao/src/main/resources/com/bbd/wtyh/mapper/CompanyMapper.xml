@@ -176,9 +176,17 @@
     </select>
 
 	<select id="searchCompanyName" resultType="java.lang.String" resultMap="BaseResultMap">
-		select <include refid="Base_Column_List"/> from company where company_type=4 
+		select
+			c.`name` as name, 
+			c.legal_person as legalPerson, 
+			c.address as address, 
+			c.registered_capital as registeredCapital, 
+			c.registered_date as registeredDate, 
+			c.registered_type as registeredType, 
+			i.static_risk_index as staticRisk
+		from company c, index_data i where c.`name`=i.company_name and c.company_type=4 
 		<if test="keyword != null and keyword != ''">
-			and name like concat('%',#{keyword},'%')
+			and c.`name` like concat('%',#{keyword},'%')
 		</if>
 		limit #{pagination.begin}, #{pagination.pageSize}
     </select>
