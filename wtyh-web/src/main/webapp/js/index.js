@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "54f57414c5c7d2de6226"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b3b9be7e39e8b38406c7"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -59850,7 +59850,7 @@
 	            _react2.default.createElement(
 	              'dd',
 	              null,
-	              propObj.adddress
+	              propObj.address
 	            )
 	          )
 	        )
@@ -59981,7 +59981,7 @@
 	          'div',
 	          { className: 'left' },
 	          _react2.default.createElement(_LineFinanceRelationGraph2.default, this.props),
-	          _react2.default.createElement(_LineFinanceCoCompose2.default, null)
+	          _react2.default.createElement(_LineFinanceCoCompose2.default, this.props)
 	        ),
 	        _react2.default.createElement(
 	          'div',
@@ -60856,13 +60856,32 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var Immutable = __webpack_require__(718);
 	//公司舆情
 	var LineFinanceCoCompose = _react2.default.createClass({
 	    displayName: 'LineFinanceCoCompose',
 
 	    getInitialState: function getInitialState() {
-	        return {};
+	        return {
+	            listData: []
+	        };
 	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var companyNewsIsEqual = Immutable.is(nextProps.companyNewsRequest, this.props.companyNewsRequest);
+	        if (!companyNewsIsEqual) {
+	            var dataList = eval("(" + nextProps.companyNewsResult.content + ")");
+	            this.setState({
+	                listData: dataList.results
+	            });
+	        }
+	    },
+	    componentWillMount: function componentWillMount() {
+	        //请求公司舆情
+	        var companyNews = this.props.companyNews;
+
+	        companyNews({ companyName: '贵阳市城市建设投资有限责任公司' });
+	    },
+
 	    render: function render() {
 	        return _react2.default.createElement(
 	            'div',
@@ -60885,232 +60904,49 @@
 	                    _react2.default.createElement(
 	                        'ul',
 	                        null,
-	                        _react2.default.createElement(
-	                            'li',
-	                            null,
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'list-box' },
+	                        this.state.listData.map(function (item, index) {
+	                            return _react2.default.createElement(
+	                                'li',
+	                                { key: index },
 	                                _react2.default.createElement(
-	                                    'h4',
-	                                    { className: 'title' },
+	                                    'div',
+	                                    { className: 'list-box' },
 	                                    _react2.default.createElement(
-	                                        'a',
-	                                        { href: 'https://www.baidu.com' },
+	                                        'h4',
+	                                        { className: 'title' },
 	                                        _react2.default.createElement(
-	                                            'em',
-	                                            null,
-	                                            '1'
+	                                            'a',
+	                                            { href: item.bbd_source },
+	                                            _react2.default.createElement(
+	                                                'em',
+	                                                null,
+	                                                index + 1
+	                                            ),
+	                                            item.news_title
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'p',
+	                                        { className: 'abstract' },
+	                                        item.search_key
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'div',
+	                                        { className: 'source' },
+	                                        _react2.default.createElement(
+	                                            'span',
+	                                            { className: 'name' },
+	                                            item.news_site
 	                                        ),
-	                                        '发展融资担保行业打造高效监管体系'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    { className: 'abstract' },
-	                                    '昨日下午,市政协重点提案办理工作座谈会举行,围绕市工商联提出的“关于加强我市融资性担保行业发展的建议”的提案,展开办理协商、沟通交流。该提案是今年市政协主席'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'source' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'name' },
-	                                        '光明网'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'date' },
-	                                        '2016年6月27日'
+	                                        _react2.default.createElement(
+	                                            'span',
+	                                            { className: 'date' },
+	                                            item.pubdate
+	                                        )
 	                                    )
 	                                )
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'li',
-	                            null,
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'list-box' },
-	                                _react2.default.createElement(
-	                                    'h4',
-	                                    { className: 'title' },
-	                                    _react2.default.createElement(
-	                                        'em',
-	                                        null,
-	                                        '1'
-	                                    ),
-	                                    '发展融资担保行业打造高效监管体系'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    { className: 'abstract' },
-	                                    '昨日下午,市政协重点提案办理工作座谈会举行,围绕市工商联提出的“关于加强我市融资性担保行业发展的建议”的提案,展开办理协商、沟通交流。该提案是今年市政协主席'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'source' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'name' },
-	                                        '光明网'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'date' },
-	                                        '2016年6月27日'
-	                                    )
-	                                )
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'li',
-	                            null,
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'list-box' },
-	                                _react2.default.createElement(
-	                                    'h4',
-	                                    { className: 'title' },
-	                                    _react2.default.createElement(
-	                                        'em',
-	                                        null,
-	                                        '1'
-	                                    ),
-	                                    '发展融资担保行业打造高效监管体系'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    { className: 'abstract' },
-	                                    '昨日下午,市政协重点提案办理工作座谈会举行,围绕市工商联提出的“关于加强我市融资性担保行业发展的建议”的提案,展开办理协商、沟通交流。该提案是今年市政协主席'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'source' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'name' },
-	                                        '光明网'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'date' },
-	                                        '2016年6月27日'
-	                                    )
-	                                )
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'li',
-	                            null,
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'list-box' },
-	                                _react2.default.createElement(
-	                                    'h4',
-	                                    { className: 'title' },
-	                                    _react2.default.createElement(
-	                                        'em',
-	                                        null,
-	                                        '1'
-	                                    ),
-	                                    '发展融资担保行业打造高效监管体系'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    { className: 'abstract' },
-	                                    '昨日下午,市政协重点提案办理工作座谈会举行,围绕市工商联提出的“关于加强我市融资性担保行业发展的建议”的提案,展开办理协商、沟通交流。该提案是今年市政协主席'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'source' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'name' },
-	                                        '光明网'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'date' },
-	                                        '2016年6月27日'
-	                                    )
-	                                )
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'li',
-	                            null,
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'list-box' },
-	                                _react2.default.createElement(
-	                                    'h4',
-	                                    { className: 'title' },
-	                                    _react2.default.createElement(
-	                                        'em',
-	                                        null,
-	                                        '1'
-	                                    ),
-	                                    '发展融资担保行业打造高效监管体系'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    { className: 'abstract' },
-	                                    '昨日下午,市政协重点提案办理工作座谈会举行,围绕市工商联提出的“关于加强我市融资性担保行业发展的建议”的提案,展开办理协商、沟通交流。该提案是今年市政协主席'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'source' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'name' },
-	                                        '光明网'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'date' },
-	                                        '2016年6月27日'
-	                                    )
-	                                )
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'li',
-	                            null,
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'list-box' },
-	                                _react2.default.createElement(
-	                                    'h4',
-	                                    { className: 'title' },
-	                                    _react2.default.createElement(
-	                                        'em',
-	                                        null,
-	                                        '1'
-	                                    ),
-	                                    '发展融资担保行业打造高效监管体系'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    { className: 'abstract' },
-	                                    '昨日下午,市政协重点提案办理工作座谈会举行,围绕市工商联提出的“关于加强我市融资性担保行业发展的建议”的提案,展开办理协商、沟通交流。该提案是今年市政协主席'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'source' },
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'name' },
-	                                        '光明网'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        { className: 'date' },
-	                                        '2016年6月27日'
-	                                    )
-	                                )
-	                            )
-	                        )
+	                            );
+	                        })
 	                    )
 	                )
 	            )
@@ -61272,15 +61108,11 @@
 	        return option;
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var isEqual = Immutable.is(nextProps.riskDataRequest, this.props.riskDataRequest);
+	        var isEqual = Immutable.is(nextProps.riskDataResult, this.props.riskDataResult);
 	        if (!isEqual) {
 	            this.setState({
 	                riskList: nextProps.riskDataResult.content
 	            });
-	        }
-	        var companyNewsIsEqual = Immutable.is(nextProps.companyNewsRequest, this.props.companyNewsRequest);
-	        if (!companyNewsIsEqual) {
-	            debugger;
 	        }
 	    },
 	    handleData: function handleData(param) {
@@ -61307,10 +61139,7 @@
 
 	        var dataObj = Object.assign(_param, { currentDate: '2016-05-30', areaCode: "长宁区" });
 	        queryRiskData(dataObj);
-	        //请求公司舆情
-	        var companyNews = this.props.companyNews;
 
-	        companyNews(_param);
 	        //请求右面折线图
 	        for (var i = 0; i < 8; i++) {
 	            this.staticRiskIndex(i);
@@ -61338,6 +61167,10 @@
 	            data: [{ value: 1, label: '2015-01' }, { value: 2, label: '2015-02' }, { value: 3, label: '2015-03' }, { value: 4, label: '2015-04' }],
 	            onChange: function onChange(value) {
 	                console.log('当前值为：', value);
+	                var queryRiskData = this.props.queryRiskData;
+
+	                var dataObj = Object.assign(_param, { currentDate: value, areaCode: "长宁区" });
+	                queryRiskData(dataObj);
 	            }
 	        };
 	        var itemTable = this.state.riskList || '';
