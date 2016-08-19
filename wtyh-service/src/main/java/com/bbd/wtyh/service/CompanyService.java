@@ -21,10 +21,10 @@ public interface CompanyService {
 
     List<CompanyDO> searchCompany(Integer companyType, String keyword, Integer size);
 
-    List<CompanyDO> queryCompany(CompanyQuery query);
+    List<CompanyDO> queryCompanyByType(Integer companyType, Integer orderByField, String descAsc);
 
     List<CompanyDO> searchCompanyName(Map<String, Object> params);
-    
+
     int searchCompanyNameCount(String keyword);
 
 }

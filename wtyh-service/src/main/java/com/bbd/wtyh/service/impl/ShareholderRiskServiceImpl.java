@@ -39,9 +39,7 @@ public class ShareholderRiskServiceImpl implements ShareholderRiskService {
 
     @Override
     public List<ShareholderRiskDTO> listShareholderRisk(Integer companyType) {
-        CompanyQuery query = new CompanyQuery();
-        query.setCompanyType(companyType);
-        List<CompanyDO> companyList = companyService.queryCompany(query);
+        List<CompanyDO> companyList = companyService.queryCompanyByType(companyType, null, null);
         List<ShareholderRiskDTO> dtoList = Lists.newArrayList();
         for (CompanyDO companyDO : companyList) {
             try {

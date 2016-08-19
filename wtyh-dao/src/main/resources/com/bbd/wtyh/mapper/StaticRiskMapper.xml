@@ -67,7 +67,83 @@
 		area=#{areaCode}
 		group by date;
 	</sql>
-
+    <select id="queryComStsRCJG" resultType="com.bbd.wtyh.domain.vo.StatisticsVO" parameterType="java.util.HashMap">
+        select
+        person_structure_risk as riskIndex
+        <include refid="com_statistics"></include>
+    </select>
+    <select id="queryIndStsRCJG" resultType="com.bbd.wtyh.domain.vo.StatisticsVO" parameterType="java.util.HashMap">
+        select
+        '人才结构风险' as riskName,
+        avg(person_structure_risk) as avgRiskIndex,
+        <include refid="ind_statistics"></include>
+    </select>
+    <select id="queryComStsFFRZWG" resultType="com.bbd.wtyh.domain.vo.StatisticsVO" parameterType="java.util.HashMap">
+        select
+        illegal_money_financing_risk as riskIndex
+        <include refid="com_statistics"></include>
+    </select>
+    <select id="queryIndStsFFRZWG" resultType="com.bbd.wtyh.domain.vo.StatisticsVO" parameterType="java.util.HashMap">
+        select
+        '非法融资违规风险' as riskName,
+        avg(illegal_money_financing_risk) as avgRiskIndex,
+        <include refid="ind_statistics"></include>
+    </select>
+    <select id="queryComStsDQZL" resultType="com.bbd.wtyh.domain.vo.StatisticsVO" parameterType="java.util.HashMap">
+        select
+        short_risk as riskIndex
+        <include refid="com_statistics"></include>
+    </select>
+    <select id="queryIndStsDQZL" resultType="com.bbd.wtyh.domain.vo.StatisticsVO" parameterType="java.util.HashMap">
+        select
+        '短期逐利风险' as riskName,
+        avg(short_risk) as avgRiskIndex,
+        <include refid="ind_statistics"></include>
+    </select>
+    <select id="queryComStsFFRZYS" resultType="com.bbd.wtyh.domain.vo.StatisticsVO" parameterType="java.util.HashMap">
+        select
+        illegal_financing_risk as riskIndex
+        <include refid="com_statistics"></include>
+    </select>
+    <select id="queryIndStsFFRZYS" resultType="com.bbd.wtyh.domain.vo.StatisticsVO" parameterType="java.util.HashMap">
+        select
+        '非法融资衍生风险' as riskName,
+        avg(illegal_financing_risk) as avgRiskIndex,
+        <include refid="ind_statistics"></include>
+    </select>
+    <select id="queryComStsZXJJH" resultType="com.bbd.wtyh.domain.vo.StatisticsVO" parameterType="java.util.HashMap">
+        select
+        relation_in_risk as riskIndex
+        <include refid="com_statistics"></include>
+    </select>
+    <select id="queryIndStsZXJJH" resultType="com.bbd.wtyh.domain.vo.StatisticsVO" parameterType="java.util.HashMap">
+        select
+        '中心积聚化风险' as riskName,
+        avg(relation_in_risk) as avgRiskIndex,
+        <include refid="ind_statistics"></include>
+    </select>
+    <select id="queryComStsGSKZLJ" resultType="com.bbd.wtyh.domain.vo.StatisticsVO" parameterType="java.util.HashMap">
+        select
+        company_expand_risk as riskIndex
+        <include refid="com_statistics"></include>
+    </select>
+    <select id="queryIndStsGSKZLJ" resultType="com.bbd.wtyh.domain.vo.StatisticsVO" parameterType="java.util.HashMap">
+        select
+        '公司扩张路径风险' as riskName,
+        avg(company_expand_risk) as avgRiskIndex,
+        <include refid="ind_statistics"></include>
+    </select>
+    <select id="queryComStsSJKZR" resultType="com.bbd.wtyh.domain.vo.StatisticsVO" parameterType="java.util.HashMap">
+        select
+        real_control_risk as riskIndex
+        <include refid="com_statistics"></include>
+    </select>
+    <select id="queryIndStsSJKZR" resultType="com.bbd.wtyh.domain.vo.StatisticsVO" parameterType="java.util.HashMap">
+        select
+        '实际控制人风险' as riskName,
+        avg(real_control_risk) as avgRiskIndex,
+        <include refid="ind_statistics"></include>
+    </select>
     <select id="queryComStatistics" resultType="com.bbd.wtyh.domain.vo.StatisticsVO" parameterType="java.util.HashMap">
         select
         static_risk_index as riskIndex

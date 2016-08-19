@@ -24,6 +24,7 @@ import net.sf.json.JsonConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -57,7 +58,8 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     private RedisDAO redisDAO;
     @Autowired
     private CompanyMapper companyMapper;
-
+    @Value("${share.path}")
+    private String shareDir;
     private static final String RISE = "1";
     private static final String FALL = "-1";
     private final String file_type_1 = "yed";
@@ -380,7 +382,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     @Override
     public String createYED(String companyName, String month) throws Exception{
         String filePath = "";
-        String attDirectory = Constants.shareDir+File.separator+Constants.attDir;
+        String attDirectory = shareDir+File.separator+Constants.attDir;
         String redis_key = assembleRedisKey(companyName,file_type_1,month);
         String redis_value = redisDAO.getString(redis_key);
         boolean flag = true;

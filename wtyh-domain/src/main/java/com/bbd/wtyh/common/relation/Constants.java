@@ -31,7 +31,7 @@ public class Constants {
 	public static final String REDIS_SCATTER_SUFFIX = "scatter";
 	public static final String EXCEL_SUFFIX = ".xlsx";
 	public static final String REG_EX = "[`~!@#$%^&*+=|{}':;',//[//].<>/?~！@#￥%……&*——+|{}【】‘；：”“’。，、？]";
-	
+	public static String shareDir;//分享附件文件夹
 
 
 	//2016年1月5日  占比变为百分比 
@@ -70,7 +70,7 @@ public class Constants {
 			systemIn = Constants.class.getClassLoader().getResource("config/system.properties").openStream();
 			systemProp.load(systemIn);
 
-
+			shareDir = systemProp.getProperty("share.path", "").trim();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

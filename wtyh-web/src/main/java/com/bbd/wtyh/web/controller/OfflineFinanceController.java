@@ -8,6 +8,7 @@ import com.bbd.wtyh.web.ResponseBean;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +38,9 @@ public class OfflineFinanceController {
     private OfflineFinanceService offlineFinanceService;
     @Autowired
     private RelationDataService relationDataService;
+
+    @Value("${mapping.path}")
+    private String mappingPath;
 
     /**
      * 关联图谱
@@ -114,7 +118,7 @@ public class OfflineFinanceController {
         String targetPath = "";
         if(new File(filePath).exists())
         {
-            targetPath = Constants.mappingPath+File.separator+Constants.attDir+File.separator+new File(filePath).getName();
+            targetPath = mappingPath+File.separator+Constants.attDir+File.separator+new File(filePath).getName();
         }
         return ResponseBean.successResponse(targetPath);
     }

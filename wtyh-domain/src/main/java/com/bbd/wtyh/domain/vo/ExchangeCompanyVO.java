@@ -1,5 +1,7 @@
 package com.bbd.wtyh.domain.vo;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
@@ -34,7 +36,11 @@ public class ExchangeCompanyVO implements Serializable {
 	}
 
 	public void setApproveDepartment(String approveDepartment) {
-		this.approveDepartment = approveDepartment;
+		if (StringUtils.isEmpty(approveDepartment)) {
+			this.approveDepartment = null;
+		} else {
+			this.approveDepartment = approveDepartment;
+		}
 	}
 
 	public String getName() {
