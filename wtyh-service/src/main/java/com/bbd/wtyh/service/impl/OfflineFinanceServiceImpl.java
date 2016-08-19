@@ -8,6 +8,7 @@ import com.bbd.wtyh.domain.vo.LineVO;
 import com.bbd.wtyh.domain.vo.PointVO;
 import com.bbd.wtyh.domain.vo.StaticRiskVO;
 import com.bbd.wtyh.domain.vo.StatisticsVO;
+import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.mapper.StaticRiskMapper;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.BuildFileService;
@@ -22,6 +23,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JsonConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -53,10 +55,43 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     private BuildFileService buildFileService;
     @Resource
     private RedisDAO redisDAO;
+    @Autowired
+    private CompanyMapper companyMapper;
 
     private static final String RISE = "1";
     private static final String FALL = "-1";
     private final String file_type_1 = "yed";
+
+    @Override
+    public Map companyInfo(String companyName) {
+        List<Map> list = companyMapper.companyInfo(companyName);
+        Map result = new HashMap();
+        List backgroud = new ArrayList();
+        if (!CollectionUtils.isEmpty(list)) {
+            String backgroudString = "";
+            for (Map map : list) {
+                int back = (int)map.get("background");
+                if (map.get("name") != null) {
+                    continue;
+                }
+                if (back == 1) {
+                    backgroudString = "上市公司";
+                } else if (back == 2) {
+                    backgroudString = "非上市公司";
+                } else if (back == 3) {
+                    backgroudString = "国企";
+                } else if (back == 4) {
+                    backgroudString = "民营企业";
+                } else {
+                    //do nothing
+                }
+                backgroud.add(backgroudString);
+            }
+        }
+        result.put("companyName", companyName);
+        result.put("backgroud", backgroud);
+        return result;
+    }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
@@ -391,6 +426,8 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 
         return filePath;
     }
+
+
 
     public String createOriginYED(String companyName,String attDirectory,String month) throws Exception
     {

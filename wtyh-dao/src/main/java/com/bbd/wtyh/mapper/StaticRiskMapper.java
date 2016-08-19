@@ -49,4 +49,6 @@ public interface StaticRiskMapper {
     public StaticRiskDTO queryLastStaticRisk(Map<String, Object> params);
 
     List<StaticRiskDTO> getSpectrumAnalysis(@Param("low")Integer low, @Param("upper")Integer upper);
+
+    public List<String> queryDateVersion(Map<String, Object> params);
 }

@@ -46,4 +46,6 @@ public interface CompanyMapper {
     
     String queryCompanyNames(@Param("areaId") Integer areaId,
     		                 @Param("buildingId") Integer buildingId);
+
+    List<Map> companyInfo(String companyName);
 }

@@ -1,20 +1,25 @@
 package com.bbd.wtyh.web.controller;
 
 import com.bbd.wtyh.common.Constants;
-import com.bbd.wtyh.domain.vo.StaticRiskVO;
-import com.bbd.wtyh.domain.vo.StatisticsVO;
+import com.bbd.wtyh.domain.vo.*;
 import com.bbd.wtyh.service.OfflineFinanceService;
+import com.bbd.wtyh.service.RelationDataService;
 import com.bbd.wtyh.web.ResponseBean;
+import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +34,10 @@ public class OfflineFinanceController {
 
     @Autowired
     private OfflineFinanceService offlineFinanceService;
+    @Autowired
+    private RelationDataService relationDataService;
 
+    private final String DynamicRiskData = "detail/risk";
     /**
      * 关联图谱
      * @param request
@@ -112,6 +120,63 @@ public class OfflineFinanceController {
     }
 
     /**
+     * 企业关联方特征指数对比
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "dynamicRiskData")
+    public ModelAndView dynamicRiskData(HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+        ModelAndView view = new ModelAndView(DynamicRiskData);
+        String companyName = request.getParameter("companyName");
+        String areaCode = (String) request.getSession().getAttribute("defaultAreaCode");//request.getSession().getAttribute(Constants.SESSION.AREA_CODE).toString();
+        String keyword = request.getParameter("kw");
+        if(org.apache.commons.lang.StringUtils.isEmpty(companyName))
+        {
+            throw new Exception("公司名传入为空");
+        }
+        String currentMonth = request.getParameter("currentMonth");
+        String compareMonth = request.getParameter("compareMonth");
+        List<String> dataVersionList = null;
+        dataVersionList =  relationDataService.queryDateVersion(companyName,areaCode);
+        List<MonthVO> monthList = new ArrayList<MonthVO>();
+        if(!StringUtils.isEmpty(currentMonth) && !StringUtils.isEmpty(compareMonth)){
+            if(dataVersionList.size()>1){
+                currentMonth = dataVersionList.get(0);
+                compareMonth = dataVersionList.get(1);
+            }else if(dataVersionList.size()==1){
+                currentMonth = dataVersionList.get(0);
+                compareMonth = dataVersionList.get(0);
+            }else if(dataVersionList.size()<1){
+                throw new Exception("对不起，该公司数据不完整");
+            }
+        }
+        for(int i = 0;i<dataVersionList.size();i++)
+        {
+            MonthVO m = new MonthVO();
+            m.setKey(getMonth(dataVersionList.get(i)));
+            m.setValue(dataVersionList.get(i));
+            monthList.add(m);
+        }
+        //比较两个月份的关联方数据
+        RelationDataVO vo = relationDataService.compareRelationData(companyName,areaCode, currentMonth, compareMonth);
+        //比较两个月动态风险指标结果
+        DynamicRiskVO riskvo = relationDataService.compareDynamicRisk(companyName,areaCode, currentMonth, compareMonth);
+        view.addObject("companyName",companyName);
+        view.addObject("relationData",vo);
+        view.addObject("monthList", monthList);
+        view.addObject("currentMonth", currentMonth);
+        view.addObject("compareMonth", compareMonth);
+        view.addObject("current", getMonth(vo.getCurrentMonth()));
+        view.addObject("compare", getMonth(vo.getCompareMonth()));
+        view.addObject("dynamicRisk",riskvo);
+        view.addObject("keyword", keyword);
+        return view;
+    }
+
+    /**
      * 公司舆情
      * @return
      */
@@ -173,6 +238,34 @@ public class OfflineFinanceController {
         return ResponseBean.successResponse(data);
     }
 
+    /**
+     * 公司标签
+     * @return
+     */
+    @SuppressWarnings("companyInfo")
+    @RequestMapping("companyInfo.do")
+    @ResponseBody
+    public ResponseBean companyInfo(String companyName) {
+        Map data = offlineFinanceService.companyInfo(companyName);
+        return ResponseBean.successResponse(data);
+    }
 
-
+    /**
+     *
+     * @param dataVersionString
+     * @return
+     */
+    public String getMonth(String dataVersionString)
+    {
+        SimpleDateFormat dateformat=new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat dateformat1=new SimpleDateFormat("yyyy-MM");
+        Date date = null;
+        try {
+            date = dateformat.parse(dataVersionString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String month = dateformat1.format(date);
+        return month;
+    }
 }

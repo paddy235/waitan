@@ -120,4 +120,17 @@
         ORDER BY static_risk_index DESC
         LIMIT 0, 200
     </select>
+
+    <select id="queryDateVersion" resultType="java.lang.String" parameterType="java.util.HashMap">
+        select
+          data_version as date
+        from
+          relation_data
+        where
+            company_name=#{companyName}
+            and area_code=#{areaCode}
+        group by date
+        order by date DESC;
+    </select>
+
 </mapper>
