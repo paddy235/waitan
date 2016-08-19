@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "12ab45d7da2829fae9ce"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "65c2cb5d8e08c0e0c217"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -52294,8 +52294,8 @@
 	                },
 	                lineStyle: {
 	                    normal: {
-	                        color: "rgb(8,181,237)",
-	                        width: 2,
+	                        color: "green",
+	                        width: 3,
 	                        curveness: 0.2
 	                    }
 	                },
@@ -52313,7 +52313,7 @@
 	                },
 	                lineStyle: {
 	                    normal: {
-	                        color: "rgb(8,181,237)",
+	                        color: "red",
 	                        width: 1,
 	                        opacity: 0.4,
 	                        curveness: 0.2
@@ -52322,7 +52322,7 @@
 	                data: convertData(SHData)
 	            }, { //圆点
 	                name: "",
-	                type: 'scatter',
+	                type: 'effectScatter',
 	                coordinateSystem: 'geo',
 	                zlevel: 3,
 	                rippleEffect: {
@@ -52336,11 +52336,11 @@
 	                    }
 	                },
 	                symbolSize: function symbolSize(val) {
-	                    return val[2] / 8 + 10;
+	                    return val[2] / 8 + 5;
 	                },
 	                itemStyle: {
 	                    normal: {
-	                        color: "rgb(8,200,237)"
+	                        color: "#ddb926"
 	                    }
 	                },
 	                data: SHData.map(function (dataItem) {
@@ -88234,6 +88234,7 @@
 	            '阳泉': [113.4778, 38.0951],
 	            '青岛': [120.4651, 36.3373],
 	            '韶关': [113.7964, 24.7028],
+	            //省会
 	            '北京': [116.28, 39.54],
 	            '上海': [121.29, 31.14],
 	            '天津': [117.11, 39.09],
@@ -88268,7 +88269,43 @@
 	            '拉萨': [90.08, 29.39],
 	            '香港': [114.1, 22.18],
 	            '澳门': [113.35, 22.14],
-	            '台北': [121.31, 25.03]
+	            '台北': [121.31, 25.03],
+	            //省名
+	            '北京': [116.28, 39.54],
+	            '上海': [121.29, 31.14],
+	            '天津': [117.11, 39.09],
+	            '重庆': [106.32, 29.32],
+	            '黑龙江': [126.41, 45.45],
+	            '吉林': [125.19, 43.52],
+	            '辽宁': [123.24, 41.5],
+	            '内蒙古': [111.48, 40.49],
+	            '河北': [114.28, 38.02],
+	            '山西': [112.34, 37.52],
+	            '山东': [117, 36.38],
+	            '河南': [113.42, 34.48],
+	            '陕西': [108.54, 34.16],
+	            '甘肃': [103.49, 36.03],
+	            '宁夏': [106.16, 38.2],
+	            '青海': [101.45, 36.38],
+	            '新疆': [87.36, 43.48],
+	            '安徽': [117.18, 31.51],
+	            '江苏': [118.5, 32.02],
+	            '浙江': [120.09, 30.14],
+	            '湖南': [113, 28.11],
+	            '江西': [115.52, 28.41],
+	            '湖北': [114.21, 30.37],
+	            '四川': [104.05, 30.39],
+	            '贵州': [106.42, 26.35],
+	            '福建': [119.18, 26.05],
+	            '台湾': [121.31, 25.03],
+	            '广东': [113.15, 23.08],
+	            '海南': [110.2, 20.02],
+	            '广西': [108.2, 22.48],
+	            '云南': [102.41, 25],
+	            '西藏': [90.08, 29.39],
+	            '香港': [114.1, 22.18],
+	            '澳门': [113.35, 22.14]
+
 	        };
 	        var convertData = function convertData(data) {
 	            var res = [];
@@ -88299,18 +88336,27 @@
 	        //   [{name:'丹东',value:20},{name:'上海'}],
 	        //   [{name:'大连',value:10},{name:'上海'}]
 	        // ];
-	        var SHData = [[{
-	            "name": "大连",
-	            "value": 204433
-	        }, {
-	            "name": "上海"
-	        }], [{
-	            "name": "重庆",
-	            "value": 1594
-	        }, {
-	            "name": "上海"
-	        }]];
-	        // var SHData = ajaxDataChina.content.SHData;
+	        // var SHData =  [
+	        //         [
+	        //             {
+	        //                 "name": "大连",
+	        //                 "value": 204433
+	        //             },
+	        //             {
+	        //                 "name": "上海"
+	        //             }
+	        //         ],
+	        //         [
+	        //             {
+	        //                 "name": "重庆",
+	        //                 "value": 1594
+	        //             },
+	        //             {
+	        //                 "name": "上海"
+	        //             }
+	        //         ]
+	        //     ]
+	        var SHData = ajaxDataChina.content.SHData;
 
 	        var color = ['#facd89', '#ffa022', '#46bee9'];
 	        chartChina = echarts.init(document.getElementById("demo"));
