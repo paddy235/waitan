@@ -39,13 +39,15 @@ public interface CompanyMapper {
     List<CompanyDO> searchCompany(@Param("companyType") Integer companyType, @Param("name") String keyword, @Param("size") Integer size);
 
     List<CompanyDO> searchCompanyName(Map<String, Object> params);
-    
+
     int searchCompanyNameCount(String keyword);
 
     CompanyDO selectByName(String companyName);
-    
+
     String queryCompanyNames(@Param("areaId") Integer areaId,
-    		                 @Param("buildingId") Integer buildingId);
+                             @Param("buildingId") Integer buildingId);
 
     List<Map<Integer, String>> companyInfo(String companyName);
+
+    List<CompanyDO> queryCompanyByType(@Param("companyType") Integer companyType, @Param("orderByField") Integer orderByField, @Param("descAsc") String descAsc);
 }

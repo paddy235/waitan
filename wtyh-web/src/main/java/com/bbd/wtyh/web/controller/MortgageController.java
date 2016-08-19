@@ -7,10 +7,14 @@ import com.bbd.wtyh.service.CompanyService;
 import com.bbd.wtyh.service.MortgageService;
 import com.bbd.wtyh.web.ResponseBean;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Ordering;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -38,10 +42,8 @@ public class MortgageController {
 
 
     @RequestMapping("companyList.do")
-    public ResponseBean companyList() {
-        CompanyQuery query = new CompanyQuery();
-        query.setCompanyType((int) CompanyDO.TYPE_DD_12);
-        List<CompanyDO> companyDOList = companyService.queryCompany(query);
+    public ResponseBean companyList(Integer orderByField, final String descAsc) {
+        List<CompanyDO> companyDOList = companyService.queryCompanyByType((int) CompanyDO.TYPE_DD_12, orderByField, descAsc);
         List<MortgageCompanyDTO> result = Lists.newArrayList();
 
         for (CompanyDO companyDO : companyDOList) {
@@ -55,6 +57,7 @@ public class MortgageController {
             dto.setRegisteredTime(companyDO.getRegisteredDate());
             result.add(dto);
         }
+
         return ResponseBean.successResponse(result);
     }
 
