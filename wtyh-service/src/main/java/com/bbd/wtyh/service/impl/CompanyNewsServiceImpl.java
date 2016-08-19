@@ -78,29 +78,21 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
     }
 
     @Override
-    public List getCompanyNews(String company) {
-        HttpTemplate httpTemplate = new HttpTemplate();
-
-        String Assemble_url = dataAddressCombination(url, company);
+    public String getCompanyNews(String company) {
         try {
-            return  httpTemplate.get(Assemble_url, new HttpCallback<List>() {
-                @Override
-                public boolean valid() {
-                    return false;
+            if(!StringUtils.isEmpty(company)){
+                List<NameValuePair> list = new ArrayList<>();
+                list.add(new BasicNameValuePair("keys", company));
+                list.add(new BasicNameValuePair("ktype", ""+ktype));
+                list.add(new BasicNameValuePair("start", start));
+                list.add(new BasicNameValuePair("ak",ak));
+                try {
+                    String data = HttpClientUtils.httpPost(batchNewsUrl, list);
+                    return data;
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-
-                @Override
-                public List parse(String result) {
-                    JSONObject object = JSON.parseObject(result);
-                    System.out.println("--object--------" + object);
-                    String results = String.valueOf(object.get("results"));
-                    System.out.println("--results--------" + results);
-                    List<CompanyNewsVO> list = new ArrayList();
-                    list = JSON.parseArray(results, CompanyNewsVO.class);
-                    System.out.println("-----" + list.size());
-                    return list;
-                }
-            });
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

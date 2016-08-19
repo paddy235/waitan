@@ -183,7 +183,7 @@ public class OfflineFinanceController {
     @RequestMapping("companyNews.do")
     @ResponseBody
     public ResponseBean companyNews(String companyName) {
-        List<Map> data = offlineFinanceService.companyNews(companyName);
+        String data = offlineFinanceService.companyNews(companyName);
         return ResponseBean.successResponse(data);
     }
 
