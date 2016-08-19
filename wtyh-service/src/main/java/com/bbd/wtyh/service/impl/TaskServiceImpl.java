@@ -14,7 +14,7 @@ import com.bbd.wtyh.service.TaskService;
 @Service
 public class TaskServiceImpl implements TaskService {
 	
-	private static int baseNo = 30;
+	private static int baseNo = 3000;
 	@Autowired
 	private SysAnalyzeMapper sysAnalyzeMapper;
 	
@@ -23,8 +23,8 @@ public class TaskServiceImpl implements TaskService {
 	public void updateSysAnalyze() {
 		Map<String, Object> params = new HashMap<>();
 		Random random = new Random();
-		params.put("dataCount", baseNo + random.nextInt(9));
-		params.put("bugCount", baseNo + random.nextInt(9));
+		params.put("dataCount", baseNo + random.nextInt(1000));
+		params.put("bugCount", baseNo + random.nextInt(1000));
 		
 		sysAnalyzeMapper.updateSysAnalyze(params);
 	}
