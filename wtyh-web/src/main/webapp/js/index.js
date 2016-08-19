@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "8182edd4ad3f7f3b5d7b"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "c0fcd6d85b1f8b414eb4"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -83417,6 +83417,10 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
 	__webpack_require__(902);
 
 	var _react = __webpack_require__(138);
@@ -83427,6 +83431,10 @@
 
 	var _reactRedux = __webpack_require__(326);
 
+	var _BuildDetailAction = __webpack_require__(1336);
+
+	var BuildDetailActionCreaters = _interopRequireWildcard(_BuildDetailAction);
+
 	var _setHeight = __webpack_require__(710);
 
 	var _setHeight2 = _interopRequireDefault(_setHeight);
@@ -83435,23 +83443,29 @@
 
 	var _Img2 = _interopRequireDefault(_Img);
 
-	var _Enterprise = __webpack_require__(916);
+	var _BuildCompanyList = __webpack_require__(1332);
 
-	var _Enterprise2 = _interopRequireDefault(_Enterprise);
+	var _BuildCompanyList2 = _interopRequireDefault(_BuildCompanyList);
 
-	var _Industry = __webpack_require__(917);
+	var _BuildIndDistri = __webpack_require__(1333);
 
-	var _Industry2 = _interopRequireDefault(_Industry);
+	var _BuildIndDistri2 = _interopRequireDefault(_BuildIndDistri);
 
-	var _Context = __webpack_require__(918);
+	var _CompanyBg = __webpack_require__(1334);
 
-	var _Context2 = _interopRequireDefault(_Context);
+	var _CompanyBg2 = _interopRequireDefault(_CompanyBg);
 
 	var _Footer = __webpack_require__(919);
 
 	var _Footer2 = _interopRequireDefault(_Footer);
 
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Immutable = __webpack_require__(706);
+
+	//子模块引入
 
 	//楼宇详情
 	var ParkDuildDetail = _react2.default.createClass({
@@ -83470,18 +83484,41 @@
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'parkRight' },
-	        _react2.default.createElement(_Enterprise2.default, null),
-	        _react2.default.createElement(_Industry2.default, null),
-	        _react2.default.createElement(_Context2.default, null)
+	        _react2.default.createElement(_BuildCompanyList2.default, this.props),
+	        _react2.default.createElement(_BuildIndDistri2.default, this.props),
+	        _react2.default.createElement(_CompanyBg2.default, this.props)
 	      ),
 	      _react2.default.createElement(_Footer2.default, null)
 	    );
 	  }
 	});
+	//module.exports = ParkDuildDetail;
 
-	//子模块引入
+	//将 request  result 绑定到props的request result 
+	function mapStateToProps(state) {
+	  return {
 
-	module.exports = ParkDuildDetail;
+	    //楼宇企业列表
+	    buildCompanyListRequest: state.BuildCompanyList.request,
+	    buildCompanyListResult: state.BuildCompanyList.result,
+
+	    //楼宇行业分布
+	    buildIndDistriRequest: state.DuildIndDistri.request,
+	    buildIndDistriResult: state.DuildIndDistri.result,
+
+	    //企业背景情况
+	    companyBgRequest: state.CompanyBg.request,
+	    companyBgResult: state.CompanyBg.result
+	  };
+	}
+
+	//将action的所有方法绑定到props上
+	function mapDispatchToProps(dispatch) {
+	  return (0, _redux.bindActionCreators)(BuildDetailActionCreaters, dispatch);
+	}
+
+	//通过react-redux提供的connect方法将我们需要的state中的数据和actions中的方法绑定到props上
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ParkDuildDetail);
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "buildDetail.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
@@ -84166,418 +84203,9 @@
 
 
 /***/ },
-/* 916 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	__webpack_require__(914);
-
-	var _react = __webpack_require__(138);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _redux = __webpack_require__(312);
-
-	var _reactRedux = __webpack_require__(326);
-
-	var _reactRouter = __webpack_require__(243);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	//楼宇企业列表
-	var Enterprise = _react2.default.createClass({
-	    displayName: 'Enterprise',
-	    getInitialState: function getInitialState() {
-	        return {
-	            Enterprise: []
-	        };
-	    },
-
-	    //ajax请求数据
-	    componentDidMount: function componentDidMount() {
-	        $.ajax({
-	            url: 'park/buildingCompany.do',
-	            type: 'get',
-	            dataType: 'json',
-	            //data: {areaId: val},
-	            success: function (res) {
-	                //console.log("取val=",val,"的值");
-	                //console.log(res)
-	                this.setState({
-	                    Enterprise: res.content
-	                });
-	            }.bind(this)
-	        });
-	    },
-
-
-	    render: function render() {
-	        return _react2.default.createElement(
-	            'div',
-	            { className: 'Enterprise mod' },
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'mod-title' },
-	                _react2.default.createElement(
-	                    'h3',
-	                    null,
-	                    '楼宇企业列表'
-	                ),
-	                _react2.default.createElement(
-	                    'span',
-	                    { className: 'right' },
-	                    '1122家'
-	                )
-	            ),
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'items' },
-	                _react2.default.createElement(
-	                    'table',
-	                    { className: 'wtyh-table table-border-b' },
-	                    _react2.default.createElement(
-	                        'thead',
-	                        null,
-	                        _react2.default.createElement(
-	                            'tr',
-	                            null,
-	                            _react2.default.createElement(
-	                                'th',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    null,
-	                                    '公司名'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'th',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    null,
-	                                    '企业背景'
-	                                ),
-	                                _react2.default.createElement('i', { className: 'iconfont icon-desc' })
-	                            ),
-	                            _react2.default.createElement(
-	                                'th',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    null,
-	                                    '行业'
-	                                ),
-	                                _react2.default.createElement('i', { className: 'iconfont icon-desc' })
-	                            ),
-	                            _react2.default.createElement(
-	                                'th',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    null,
-	                                    '注册资本'
-	                                ),
-	                                _react2.default.createElement('i', { className: 'iconfont icon-desc' })
-	                            ),
-	                            _react2.default.createElement(
-	                                'th',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    null,
-	                                    '注册时间'
-	                                ),
-	                                _react2.default.createElement('i', { className: 'iconfont icon-desc' })
-	                            ),
-	                            _react2.default.createElement(
-	                                'th',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    null,
-	                                    '企业类型'
-	                                ),
-	                                _react2.default.createElement('i', { className: 'iconfont icon-desc' })
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'tbody',
-	                        null,
-	                        this.state.Enterprise.map(function (elem, index) {
-	                            return _react2.default.createElement(
-	                                'tr',
-	                                { key: index },
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        _reactRouter.Link,
-	                                        { to: { pathname: HOME_PATH + "/SearchResultDetail" } },
-	                                        _react2.default.createElement(
-	                                            'span',
-	                                            null,
-	                                            elem.name
-	                                        )
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        null,
-	                                        elem.backgroundCN
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        null,
-	                                        elem.comTypeCN
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        null,
-	                                        elem.registeredCapital
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        null,
-	                                        elem.registeredDate
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        'span',
-	                                        null,
-	                                        elem.registeredType
-	                                    )
-	                                )
-	                            );
-	                        })
-	                    )
-	                )
-	            )
-	        );
-	    }
-	});
-	module.exports = Enterprise;
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Enterprise.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
-/* 917 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	__webpack_require__(914);
-
-	var _react = __webpack_require__(138);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _redux = __webpack_require__(312);
-
-	var _reactRedux = __webpack_require__(326);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var myChart;
-	var option;
-	//楼宇行业分布
-	var Industry = _react2.default.createClass({
-	    displayName: 'Industry',
-	    getInitialState: function getInitialState() {
-	        return {
-	            Industry: [],
-	            IndustryEnd: []
-	        };
-	    },
-	    initMap: function initMap(IndustryBox, IndustryEnd) {
-	        var myChart = echarts.init(document.getElementById("Industry"));
-	        var option = {
-	            backgroundColor: '#2b323c',
-	            color: ['#c33533', '#61a0a9', '#54656f', '#6e6f71', '#2f4553', '#c09f9a', '#dfab62'],
-	            title: {
-	                text: "楼宇行业分布",
-	                x: "left",
-	                y: "top",
-	                top: "5px",
-	                left: "5px",
-	                textStyle: {
-	                    fontSize: 16,
-	                    fontWeight: "normal",
-	                    color: '#fff',
-	                    fontFamily: "microsoft yahei"
-	                }
-	            },
-	            tooltip: {
-	                trigger: 'item',
-	                formatter: "{a} <br/>{b}{c}"
-	            },
-	            legend: {
-	                orient: 'vertical',
-	                x: '80%',
-	                y: "70%",
-	                orient: 'vertical',
-	                textStyle: {
-	                    color: "#dddddd"
-	                },
-	                data: ['金融', '类金融', '其他']
-	            },
-	            series: [{
-	                name: '访问来源',
-	                type: 'pie',
-	                selectedMode: 'single',
-	                center: ['45%', 200],
-	                radius: [0, '30%'],
-	                label: {
-	                    normal: {
-	                        show: false
-	                    }
-	                },
-	                labelLine: {
-	                    normal: {
-	                        show: false
-	                    }
-	                },
-	                data: IndustryBox
-	            }, {
-	                name: '',
-	                type: 'pie',
-	                center: ['45%', 200],
-	                radius: ['40%', '60%'],
-	                data: IndustryEnd
-	            }]
-	        };
-	        myChart.setOption(option);
-	        myChart.resize();
-	    },
-	    ajaxIndustry: function ajaxIndustry(val) {
-	        $.ajax({
-	            url: 'park/buildingBusinessDistribute.do',
-	            type: 'get',
-	            dataType: 'json',
-	            data: { areaId: val },
-	            success: function (res) {
-	                if (res.success) {
-	                    var IndustryBox = [];
-	                    var IndustryContent = [];
-	                    for (var i = 0; i < res.content.length; i++) {
-	                        IndustryBox.push({ value: res.content[i].count, name: res.content[i].type });
-	                    };
-	                    for (var j = 0; j < res.content[0].children.length; j++) {
-	                        IndustryContent.push({ value: res.content[0].children[j].count, name: res.content[0].children[j].type });
-	                    };
-	                }
-	                this.initMap(IndustryBox, IndustryContent);
-	            }.bind(this)
-	        });
-	    },
-	    componentDidMount: function componentDidMount() {
-	        this.ajaxIndustry(this.props.val);
-	        this.initMap();
-
-	        $(window).resize(function (event) {
-	            this.initMap();
-	        }.bind(this));
-	    },
-
-	    render: function render() {
-	        return _react2.default.createElement('div', { className: 'Industry', id: 'Industry' });
-	    }
-	});
-	module.exports = Industry;
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Industry.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
-/* 918 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	__webpack_require__(914);
-
-	var _react = __webpack_require__(138);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _redux = __webpack_require__(312);
-
-	var _reactRedux = __webpack_require__(326);
-
-	var _PieChart = __webpack_require__(771);
-
-	var _PieChart2 = _interopRequireDefault(_PieChart);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	//企业背景情况
-	var Context = _react2.default.createClass({
-	  displayName: 'Context',
-
-	  setPieParm: function setPieParm() {
-	    var param = {
-	      id: 'small-loan-company-chart', //必传
-	      color: ['#efd79b', '#e24340'],
-	      legendOrient: "",
-	      legendRight: "7%",
-	      legendBottom: "10%",
-	      height: '350px', //必传 带上单位
-	      title: '',
-	      legendData: ['国企', '名企'],
-	      data: [{ value: 135, name: '国企' }, { value: 310, name: '名企' }]
-	    };
-	    return param;
-	  },
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'Context mod', id: 'Context' },
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'mod-title' },
-	        _react2.default.createElement(
-	          'h3',
-	          null,
-	          '企业背景情况'
-	        )
-	      ),
-	      _react2.default.createElement(_PieChart2.default, { param: this.setPieParm() })
-	    );
-	  }
-	});
-	module.exports = Context;
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Context.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
+/* 916 */,
+/* 917 */,
+/* 918 */,
 /* 919 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -91843,6 +91471,18 @@
 
 	var _ParkNews2 = _interopRequireDefault(_ParkNews);
 
+	var _BuildCompanyList = __webpack_require__(1335);
+
+	var _BuildCompanyList2 = _interopRequireDefault(_BuildCompanyList);
+
+	var _BuildIndDistri = __webpack_require__(1337);
+
+	var _BuildIndDistri2 = _interopRequireDefault(_BuildIndDistri);
+
+	var _CompanyBg = __webpack_require__(1338);
+
+	var _CompanyBg2 = _interopRequireDefault(_CompanyBg);
+
 	var _ChartAll3 = __webpack_require__(1022);
 
 	var _ChartAll4 = _interopRequireDefault(_ChartAll3);
@@ -91909,51 +91549,55 @@
 
 	/*商业保理监测 begin*/
 
+	//企业占比对比
 
-	//园区首页
+	//企业目录列表
 
-	/*实时监测 end*/
+	/*实时监测 begin*/
 
-	//园区
+	/*=================================交易场所监测=================================*/
 
-	//取得合规意见或经过会商的交易场所详情列表
+	/*=================================融资租赁=================================*/
+	//典当法人企业数
 
 	//交易场所清理整顿分类
 
-	//上海市典当企业目录
+	/*=================================典当行业监测=================================*/
 
-	//列表
-
-	//6月上海各类众筹平台新增项目数
-
-	/*====================================私募基金===============================*/
+	/*=================================交易场所监测=================================*/
+	//黄浦区交易场所列表
 
 	/*=================================众筹监测=================================*/
-	//业务类型
 
-	//私募基金分类
+	/*=================================典当行业监测=================================*/
+	//所有图标
 
+	//6月上海各类众筹平台新增项目数的成功筹资金额
 
-	/*====================================p2p画像平台============================*/
+	//6月上海各类众筹平台新增项目的投资人次
 
-	/*====================================私募基金===============================*/
-	//QDLP试点企业最新进展
+	//私募股权基本情况
 
-	//动态图谱
+	//私募证券基本情况
 
-	//诉讼信息
+	//QFLP试点企业最新进展
 
-	//核心数据
+	//评分雷达图
+
+	//平台舆情
+
+	//公司基本信息
+
+	//p2p图表
+
 
 	/*====================================P2P平台监测============================*/
-
-	/*====================================p2p画像平台============================*/
-	//基本信息
-
-	//网贷平台数据展示
+	//上海区域发展指数排名
 
 
-	//融资担保
+	/*行业监测模块*/
+
+	//小额贷款
 	var rootReducer = (0, _redux.combineReducers)({
 	  /*行业监测模块*/
 	  //P2P平台监测
@@ -92016,6 +91660,11 @@
 	  ParkIndustry: _ParkIndustry2.default,
 	  ParkNews: _ParkNews2.default,
 
+	  //园区详情
+	  BuildCompanyList: _BuildCompanyList2.default,
+	  BuildIndDistri: _BuildIndDistri2.default,
+	  CompanyBg: _CompanyBg2.default,
+
 	  //融资担保
 	  FinGuaMap: _FinGuaMap2.default,
 	  FinGuaCompanyGrade: _FinGuaCompanyGrade2.default,
@@ -92058,55 +91707,54 @@
 
 	  routing: _reactRouterRedux.routerReducer //整合路由 
 	});
-	//企业占比对比
 
-	//企业目录列表
+	//楼宇详情页
 
-	/*实时监测 begin*/
 
-	/*=================================交易场所监测=================================*/
+	//园区首页
 
-	/*=================================融资租赁=================================*/
-	//典当法人企业数
+	/*实时监测 end*/
+
+	//园区
+
+	//取得合规意见或经过会商的交易场所详情列表
 
 	//交易场所清理整顿分类
 
-	/*=================================典当行业监测=================================*/
+	//上海市典当企业目录
 
-	/*=================================交易场所监测=================================*/
-	//黄浦区交易场所列表
+	//列表
+
+	//6月上海各类众筹平台新增项目数
+
+	/*====================================私募基金===============================*/
 
 	/*=================================众筹监测=================================*/
+	//业务类型
 
-	/*=================================典当行业监测=================================*/
-	//所有图标
+	//私募基金分类
 
-	//6月上海各类众筹平台新增项目数的成功筹资金额
 
-	//6月上海各类众筹平台新增项目的投资人次
+	/*====================================p2p画像平台============================*/
 
-	//私募股权基本情况
+	/*====================================私募基金===============================*/
+	//QDLP试点企业最新进展
 
-	//私募证券基本情况
+	//动态图谱
 
-	//QFLP试点企业最新进展
+	//诉讼信息
 
-	//评分雷达图
-
-	//平台舆情
-
-	//公司基本信息
-
-	//p2p图表
-
+	//核心数据
 
 	/*====================================P2P平台监测============================*/
-	//上海区域发展指数排名
+
+	/*====================================p2p画像平台============================*/
+	//基本信息
+
+	//网贷平台数据展示
 
 
-	/*行业监测模块*/
-
-	//小额贷款
+	//融资担保
 	exports.default = rootReducer;
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "index.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
@@ -103318,6 +102966,735 @@
 	    return String(it).replace(regExp, replacer);
 	  };
 	};
+
+/***/ },
+/* 1332 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	__webpack_require__(914);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _redux = __webpack_require__(312);
+
+	var _reactRedux = __webpack_require__(326);
+
+	var _reactRouter = __webpack_require__(243);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	//楼宇企业列表
+	var BuildCompanyList = _react2.default.createClass({
+	    displayName: 'BuildCompanyList',
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            Enterprise: []
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        var json = { buildingId: 1 };
+	        this.getBuildCompanyList(json);
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var isEqual = Immutable.is(nextProps.buildCompanyListRequest, this.props.buildCompanyListResult); //判断数据是否变化
+	        if (!isEqual) {
+	            var buildCompanyListRequest = nextProps.buildCompanyListRequest;
+	            var buildCompanyListResult = nextProps.buildCompanyListResult;
+
+	            if (buildCompanyListRequest == true) {
+	                if (buildCompanyListResult.success == true) {
+	                    this.dataFomat(buildCompanyListResult);
+	                } else {
+	                    console.log(404);
+	                }
+	            }
+	        }
+	    },
+	    dataFomat: function dataFomat(data) {
+	        var content = data.content;
+	        this.setState({ Enterprise: content });
+	    },
+	    getBuildCompanyList: function getBuildCompanyList(json) {
+	        var getBuildCompanyList = this.props.getBuildCompanyList;
+
+	        getBuildCompanyList(json);
+	    },
+	    render: function render() {
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'Enterprise mod' },
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'mod-title' },
+	                _react2.default.createElement(
+	                    'h3',
+	                    null,
+	                    '楼宇企业列表'
+	                ),
+	                _react2.default.createElement(
+	                    'span',
+	                    { className: 'right' },
+	                    '1122家'
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'items' },
+	                _react2.default.createElement(
+	                    'table',
+	                    { className: 'wtyh-table table-border-b' },
+	                    _react2.default.createElement(
+	                        'thead',
+	                        null,
+	                        _react2.default.createElement(
+	                            'tr',
+	                            null,
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'span',
+	                                    null,
+	                                    '公司名'
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'span',
+	                                    null,
+	                                    '企业背景'
+	                                ),
+	                                _react2.default.createElement('i', { className: 'iconfont icon-desc' })
+	                            ),
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'span',
+	                                    null,
+	                                    '行业'
+	                                ),
+	                                _react2.default.createElement('i', { className: 'iconfont icon-desc' })
+	                            ),
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'span',
+	                                    null,
+	                                    '注册资本'
+	                                ),
+	                                _react2.default.createElement('i', { className: 'iconfont icon-desc' })
+	                            ),
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'span',
+	                                    null,
+	                                    '注册时间'
+	                                ),
+	                                _react2.default.createElement('i', { className: 'iconfont icon-desc' })
+	                            ),
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'span',
+	                                    null,
+	                                    '企业类型'
+	                                ),
+	                                _react2.default.createElement('i', { className: 'iconfont icon-desc' })
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'tbody',
+	                        null,
+	                        this.state.Enterprise.map(function (elem, index) {
+	                            return _react2.default.createElement(
+	                                'tr',
+	                                { key: index },
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        _reactRouter.Link,
+	                                        { to: { pathname: HOME_PATH + "/SearchResultDetail" } },
+	                                        _react2.default.createElement(
+	                                            'span',
+	                                            null,
+	                                            elem.name
+	                                        )
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        'span',
+	                                        null,
+	                                        elem.backgroundCN
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        'span',
+	                                        null,
+	                                        elem.comTypeCN
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        'span',
+	                                        null,
+	                                        elem.registeredCapital
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        'span',
+	                                        null,
+	                                        elem.registeredDate
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'td',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        'span',
+	                                        null,
+	                                        elem.registeredType
+	                                    )
+	                                )
+	                            );
+	                        })
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+	module.exports = BuildCompanyList;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "BuildCompanyList.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1333 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	__webpack_require__(914);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _redux = __webpack_require__(312);
+
+	var _reactRedux = __webpack_require__(326);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var myChart;
+	var option;
+	//楼宇行业分布
+	var BuildIndDistri = _react2.default.createClass({
+	    displayName: 'BuildIndDistri',
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            Industry: [],
+	            IndustryEnd: []
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        var json = { buildingId: 1 };
+	        this.getBuildIndDistri(json);
+
+	        $(window).resize(function (event) {
+	            this.initMap();
+	        }.bind(this));
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var isSelectValEqual = Immutable.is(nextProps.menuParkSelectVal, this.props.menuParkSelectVal);
+	        if (!isSelectValEqual) {
+	            var menuParkSelectVal = nextProps.menuParkSelectVal;
+
+	            var jsonData = { areaId: menuParkSelectVal.areaId };
+	            this.getParkIndustry(jsonData);
+	        }
+
+	        var isEqual = Immutable.is(nextProps.parkIndustryRequest, this.props.parkIndustryResult); //判断数据是否变化
+	        if (!isEqual) {
+	            var parkIndustryRequest = nextProps.parkIndustryRequest;
+	            var parkIndustryResult = nextProps.parkIndustryResult;
+
+	            if (parkIndustryRequest == true) {
+	                if (parkIndustryResult.success == true) {
+	                    console.log(parkIndustryResult, '园区行业分布111');
+	                    this.dataFomat(parkIndustryResult);
+	                } else {
+	                    console.log(404);
+	                }
+	            }
+	        }
+	    },
+	    dataFomat: function dataFomat(data) {
+	        var content = data.content;
+	        var IndustryBox = [];
+	        var IndustryContent = [];
+	        for (var i = 0; i < content.length; i++) {
+	            IndustryBox.push({ value: content[i].count, name: content[i].type });
+	        };
+	        for (var j = 0; j < content[0].children.length; j++) {
+	            IndustryContent.push({ value: content[0].children[j].count, name: content[0].children[j].type });
+	        };
+	        this.initMap(IndustryBox, IndustryContent);
+	    },
+	    getBuildIndDistri: function getBuildIndDistri(json) {
+	        var getBuildIndDistri = this.props.getBuildIndDistri;
+
+	        getBuildIndDistri(json);
+	    },
+	    initMap: function initMap(IndustryBox, IndustryEnd) {
+	        var myChart = echarts.init(document.getElementById("Industry"));
+	        var option = {
+	            backgroundColor: '#2b323c',
+	            color: ['#c33533', '#61a0a9', '#54656f', '#6e6f71', '#2f4553', '#c09f9a', '#dfab62'],
+	            title: {
+	                text: "楼宇行业分布",
+	                x: "left",
+	                y: "top",
+	                top: "5px",
+	                left: "5px",
+	                textStyle: {
+	                    fontSize: 16,
+	                    fontWeight: "normal",
+	                    color: '#fff',
+	                    fontFamily: "microsoft yahei"
+	                }
+	            },
+	            tooltip: {
+	                trigger: 'item',
+	                formatter: "{a} <br/>{b}{c}"
+	            },
+	            legend: {
+	                orient: 'vertical',
+	                x: '80%',
+	                y: "70%",
+	                orient: 'vertical',
+	                textStyle: {
+	                    color: "#dddddd"
+	                },
+	                data: ['金融', '类金融', '其他']
+	            },
+	            series: [{
+	                name: '访问来源',
+	                type: 'pie',
+	                selectedMode: 'single',
+	                center: ['45%', 200],
+	                radius: [0, '30%'],
+	                label: {
+	                    normal: {
+	                        show: false
+	                    }
+	                },
+	                labelLine: {
+	                    normal: {
+	                        show: false
+	                    }
+	                },
+	                data: IndustryBox
+	            }, {
+	                name: '',
+	                type: 'pie',
+	                center: ['45%', 200],
+	                radius: ['40%', '60%'],
+	                data: IndustryEnd
+	            }]
+	        };
+	        myChart.setOption(option);
+	        myChart.resize();
+	    },
+
+	    // ajaxIndustry(val){
+	    //     $.ajax({
+	    //         url: 'park/buildingBusinessDistribute.do',
+	    //         type: 'get',
+	    //         dataType: 'json',
+	    //         data: {areaId: val},
+	    //         success:function(res){
+	    //             if(res.success){
+	    //                 var IndustryBox = [];
+	    //                 var IndustryContent = [];
+	    //                 for(var i=0; i< res.content.length; i++){
+	    //                     IndustryBox.push({value:res.content[i].count,name:res.content[i].type});
+	    //                 };
+	    //                 for(var j=0; j< res.content[0].children.length; j++){
+	    //                     IndustryContent.push({value:res.content[0].children[j].count,name:res.content[0].children[j].type}) 
+	    //                 };
+	    //             }
+	    //           this.initMap(IndustryBox,IndustryContent)
+	    //         }.bind(this)
+	    //     })
+	    // },
+
+	    render: function render() {
+	        return _react2.default.createElement('div', { className: 'Industry', id: 'Industry' });
+	    }
+	});
+	module.exports = BuildIndDistri;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "BuildIndDistri.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1334 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	__webpack_require__(914);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _redux = __webpack_require__(312);
+
+	var _reactRedux = __webpack_require__(326);
+
+	var _PieChart = __webpack_require__(771);
+
+	var _PieChart2 = _interopRequireDefault(_PieChart);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	//企业背景情况
+	var CompanyBg = _react2.default.createClass({
+	  displayName: 'CompanyBg',
+
+	  setPieParm: function setPieParm() {
+	    var param = {
+	      id: 'small-loan-company-chart', //必传
+	      color: ['#efd79b', '#e24340'],
+	      legendOrient: "",
+	      legendRight: "7%",
+	      legendBottom: "10%",
+	      height: '350px', //必传 带上单位
+	      title: '',
+	      legendData: ['国企', '名企'],
+	      data: [{ value: 135, name: '国企' }, { value: 310, name: '名企' }]
+	    };
+	    return param;
+	  },
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'Context mod', id: 'Context' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'mod-title' },
+	        _react2.default.createElement(
+	          'h3',
+	          null,
+	          '企业背景情况'
+	        )
+	      ),
+	      _react2.default.createElement(_PieChart2.default, { param: this.setPieParm() })
+	    );
+	  }
+	});
+	module.exports = CompanyBg;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "CompanyBg.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1335 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = buildCompanyList;
+
+	var _BuildDetailAction = __webpack_require__(1336);
+
+	//楼宇企业列表
+	function buildCompanyList() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _BuildDetailAction.BUILDCOMPANY_LIST_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _BuildDetailAction.BUILDCOMPANY_LIST_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "BuildCompanyList.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1336 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getBuildCompanyList = getBuildCompanyList;
+	exports.getBuildIndDistri = getBuildIndDistri;
+	exports.getCompanyBg = getCompanyBg;
+	/*
+	  园区监测详情模块action
+	*/
+
+	/*楼宇企业列表begin*/
+	var BUILDCOMPANY_LIST_SUCCESS = exports.BUILDCOMPANY_LIST_SUCCESS = 'BUILDCOMPANY_LIST_SUCCESS';
+	var BUILDCOMPANY_LIST_FAIL = exports.BUILDCOMPANY_LIST_FAIL = 'BUILDCOMPANY_LIST_FAIL';
+
+	function buildCompanyListSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: BUILDCOMPANY_LIST_SUCCESS,
+	    result: result
+	  };
+	}
+	function buildCompanyListFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: BUILDCOMPANY_LIST_FAIL,
+	    result: result
+	  };
+	}
+
+	function getBuildCompanyList(json) {
+	  return function (dispatch) {
+	    $.ajax({
+	      url: "/park/buildingCompany.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(buildCompanyListSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(buildCompanyListFail(result));
+	      }
+	    });
+	  };
+	}
+	/*楼宇企业列表end*/
+
+	/*楼宇行业分布begin*/
+	var BUILDIND_DISTRI_SUCCESS = exports.BUILDIND_DISTRI_SUCCESS = 'BUILDIND_DISTRI_SUCCESS';
+	var BUILDIND_DISTRI_FAIL = exports.BUILDIND_DISTRI_FAIL = 'BUILDIND_DISTRI_FAIL';
+
+	function buildIndDistriSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: BUILDIND_DISTRI_SUCCESS,
+	    result: result
+	  };
+	}
+	function buildIndDistriFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: BUILDIND_DISTRI_FAIL,
+	    result: result
+	  };
+	}
+
+	function getBuildIndDistri(json) {
+	  return function (dispatch) {
+	    $.ajax({
+	      url: "/park/buildingBusinessDistribute.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(buildIndDistriSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(buildIndDistriFail(result));
+	      }
+	    });
+	  };
+	}
+	/*楼宇行业分布end*/
+
+	/*企业背景情况begin*/
+	var COMPANY_BG_SUCCESS = exports.COMPANY_BG_SUCCESS = 'COMPANY_BG_SUCCESS';
+	var COMPANY_BG_FAIL = exports.COMPANY_BG_FAIL = 'COMPANY_BG_FAIL';
+
+	function companyBgSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: COMPANY_BG_SUCCESS,
+	    result: result
+	  };
+	}
+	function companyBgFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: COMPANY_BG_FAIL,
+	    result: result
+	  };
+	}
+
+	function getCompanyBg(json) {
+	  return function (dispatch) {
+	    $.ajax({
+	      url: "/park/buildingBackground.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(companyBgSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(companyBgFail(result));
+	      }
+	    });
+	  };
+	}
+	/*企业背景情况end*/
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "BuildDetailAction.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1337 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = buildCompanyList;
+
+	var _BuildDetailAction = __webpack_require__(1336);
+
+	//楼宇企业列表
+	function buildCompanyList() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _BuildDetailAction.BUILDIND_DISTRI_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _BuildDetailAction.BUILDIND_DISTRI_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "BuildIndDistri.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1338 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = buildCompanyList;
+
+	var _BuildDetailAction = __webpack_require__(1336);
+
+	//楼宇企业列表
+	function buildCompanyList() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _BuildDetailAction.COMPANY_BG_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _BuildDetailAction.COMPANY_BG_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "CompanyBg.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ }
 /******/ ]);
