@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "be62d35a78110ea91476"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "8182edd4ad3f7f3b5d7b"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -82638,14 +82638,14 @@
 	function parkIndustrySuccess(result) {
 	  //请求成功调用方法
 	  return {
-	    type: PARK_FINANCE_SUCCESS,
+	    type: PARK_INDUSTRY_SUCCESS,
 	    result: result
 	  };
 	}
 	function parkIndustryFail(result) {
 	  //请求失败调用方法
 	  return {
-	    type: PARK_FINANCE_FAIL,
+	    type: PARK_INDUSTRY_FAIL,
 	    result: result
 	  };
 	}
@@ -82975,6 +82975,7 @@
 
 	            if (parkFinanceRequest == true) {
 	                if (parkFinanceResult.success == true) {
+	                    console.log(parkFinanceResult, '类金融企业集中度11111');
 	                    this.dataFomat(parkFinanceResult);
 	                } else {
 	                    console.log(404);
@@ -83024,14 +83025,15 @@
 	                            'ul',
 	                            null,
 	                            this.state.item.map(function (elem, index) {
-	                                console.log(elem.name, index, 111111111111111);
+	                                var idex = index % 3;
+	                                console.log(idex, index, 222222222222);
 	                                return _react2.default.createElement(
 	                                    'li',
 	                                    { key: index },
 	                                    _react2.default.createElement(
 	                                        _reactRouter.Link,
 	                                        { to: { pathname: HOME_PATH + "/buildDetail" } },
-	                                        _react2.default.createElement('img', { onClick: this.ImgbtnAdd, 'data-img': elem.buildingId, src: "../images/lou" + (index + 1) + ".png" }),
+	                                        _react2.default.createElement('img', { onClick: this.ImgbtnAdd, 'data-img': elem.buildingId, src: "../images/lou" + (idex + 1) + ".png" }),
 	                                        _react2.default.createElement(
 	                                            'span',
 	                                            { 'data-name': elem.name, className: 'name' },
@@ -83122,6 +83124,7 @@
 
 	            if (parkIndustryRequest == true) {
 	                if (parkIndustryResult.success == true) {
+	                    console.log(parkIndustryResult, '园区行业分布111');
 	                    this.dataFomat(parkIndustryResult);
 	                } else {
 	                    console.log(404);

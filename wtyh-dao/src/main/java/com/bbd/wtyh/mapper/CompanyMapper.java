@@ -20,8 +20,8 @@ public interface CompanyMapper {
     List<CompanyDO> queryCompany(CompanyQuery query);
 
     public InBusinessDO countByDate(@Param(value = "areaId") Integer areaId,
-                                    @Param(value = "start") Date start,
-                                    @Param(value = "end") Date end);
+                                    @Param(value = "start") String start,
+                                    @Param(value = "end") String end);
 
     public CompanyTypeCountDO countByType(@Param(value = "areaId") Integer areaId,
                                           @Param(value = "type") Byte type);
