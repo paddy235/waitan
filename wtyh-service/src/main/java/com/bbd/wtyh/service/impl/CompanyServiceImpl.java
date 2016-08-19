@@ -45,17 +45,17 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public List<CompanyDO> queryCompany(CompanyQuery query) {
-        return companyMapper.queryCompany(query);
+    public List<CompanyDO> queryCompanyByType(Integer companyType, Integer orderByField, String descAsc) {
+        return companyMapper.queryCompanyByType(companyType, orderByField, descAsc);
     }
 
-	@Override
-	public List<CompanyDO> searchCompanyName(Map<String, Object> params) {
-		return companyMapper.searchCompanyName(params);
-	}
+    @Override
+    public List<CompanyDO> searchCompanyName(Map<String, Object> params) {
+        return companyMapper.searchCompanyName(params);
+    }
 
-	@Override
-	public int searchCompanyNameCount(String keyword) {
-		return companyMapper.searchCompanyNameCount(keyword);
-	}
+    @Override
+    public int searchCompanyNameCount(String keyword) {
+        return companyMapper.searchCompanyNameCount(keyword);
+    }
 }

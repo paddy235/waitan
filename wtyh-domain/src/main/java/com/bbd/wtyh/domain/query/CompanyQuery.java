@@ -35,4 +35,5 @@ public class CompanyQuery implements Serializable {
     public void setBackground(Integer background) {
         this.background = background;
     }
+
 }
