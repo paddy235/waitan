@@ -57,10 +57,10 @@
 		WHERE
 			1 = 1
 		AND c.company_type = 13
-		<if test="areaId != null and areaId != ''">
-			AND a.name = #{areaId}
+		<if test="areaName != null and areaName != ''">
+			AND a.name = #{areaName}
 		</if>
-		<if test="areaId == null or areaId == ''">
+		<if test="areaName == null or areaName == ''">
 			AND a.name = '黄浦区'
 		</if>
 	</select>
