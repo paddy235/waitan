@@ -28,9 +28,9 @@ public class P2PImageServiceImpl implements P2PImageService {
     private P2PImageDao p2PImageDao;
 
     @Override
-    public Map<String, Object> platFormStatus(String platName , String company) {
+    public Map<String, Object> platFormStatus(String platName) {
         PlatDataDO pn = p2PImageDao.getPlatData(platName);
-        BBDLogoDO bbdLogoDO = p2PImageDao.bbdLogo(company);
+        BBDLogoDO bbdLogoDO = p2PImageDao.bbdLogo(pn.getCompany_name());
         Map<String, Object> result = new HashMap<>();
         for (BBDLogoDO.Result data : bbdLogoDO.getResults()) {
             result.put("logo", data.getCompany_logo());
@@ -47,8 +47,9 @@ public class P2PImageServiceImpl implements P2PImageService {
     }
 
     @Override
-    public Map<String, Object> lawsuitMsg(String company) {
-        return p2PImageDao.lawsuitMsg(company);
+    public Map<String, Object> lawsuitMsg(String platName) {
+        PlatDataDO pn = p2PImageDao.getPlatData(platName);
+        return p2PImageDao.lawsuitMsg(pn.getCompany_name());
     }
 
     @Override

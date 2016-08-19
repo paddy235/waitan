@@ -35,8 +35,8 @@ public class P2PImageController {
      */
     @RequestMapping("/platFormStatus")
     @ResponseBody
-    public ResponseBean platFormStatus(@RequestParam(required = true) String platName, String company) {
-        Map<String, Object> content = p2PImageService.platFormStatus(platName, company);
+    public ResponseBean platFormStatus(@RequestParam(required = true) String platName) {
+        Map<String, Object> content = p2PImageService.platFormStatus(platName);
         return ResponseBean.successResponse(content);
     }
 
@@ -59,8 +59,8 @@ public class P2PImageController {
      */
     @RequestMapping("/lawsuitMsg")
     @ResponseBody
-    public ResponseBean lawsuitMsg(@RequestParam(required = true) String company) {
-        Map<String, Object> conent = p2PImageService.lawsuitMsg(company);
+    public ResponseBean lawsuitMsg(@RequestParam(required = true) String platName) {
+        Map<String, Object> conent = p2PImageService.lawsuitMsg(platName);
         return ResponseBean.successResponse(conent);
     }
 

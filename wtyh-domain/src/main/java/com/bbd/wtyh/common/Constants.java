@@ -19,6 +19,7 @@ public class Constants {
 	public static final String REDIS_KEY_DQZL_RISK = "RK_DQZLR";
 	public static final String REDIS_KEY_FFRZWG_RISK = "RK_FFRZWGR";
 	public static final String REDIS_KEY_RCJG_RISK = "RK_RCJGR";
+	public static final String REDIS_KEY_NEWS_DATA = "YQ_NEWS";
 	public static final String characterCode = "utf-8";
 	/**
 	 * 线下理财关联数据使用 start
