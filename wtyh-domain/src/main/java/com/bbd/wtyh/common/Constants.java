@@ -32,7 +32,7 @@ public class Constants {
 	public static String SSJL_DATA_VERSION = ""; // 诉讼记录API版本号
 	public static String shareDir;//分享附件文件夹
 	public static String mappingPath;//附件文件夹映射到服务器的目录
-	public static String attDir = "att";//a
+	public static String attDir = "att";//
 	public static final String API_SEARCH_URL = "api.search.baseinfo.url";
 	// 系统自带的方法，所有人都有此功能
 	public static Map<String, String> SystemActionMethod = new HashMap<String, String>();
