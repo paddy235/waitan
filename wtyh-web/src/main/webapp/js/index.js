@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "b97c47ee271696b71283"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "9142f5c15a3123159eb7"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -86907,10 +86907,10 @@
 	 * 底部表格
 	 */
 
+
 	var CompanyDetail = _react2.default.createClass({
 		displayName: 'CompanyDetail',
 		GetQueryString: function GetQueryString(paraName) {
-
 			var sUrl = window.location.href;
 			var sReg = "(?:\\?|&){1}" + paraName + "=([^&]*)";
 			var re = new RegExp(sReg, "gi");
@@ -86987,7 +86987,7 @@
 				_react2.default.createElement(
 					'div',
 					{ className: 'bussiness-content' },
-					this.state.pageNum == 1 ? _react2.default.createElement(_BusinessInfo2.default, this.props) : this.state.pageNum == 2 ? _react2.default.createElement(_ShareholderExe2.default, null) : this.state.pageNum == 3 ? _react2.default.createElement(_ControlRecord2.default, null) : _react2.default.createElement(_RecruitingInfo2.default, null)
+					this.state.pageNum == 1 ? _react2.default.createElement(_BusinessInfo2.default, this.props) : this.state.pageNum == 2 ? _react2.default.createElement(_ShareholderExe2.default, this.props) : this.state.pageNum == 3 ? _react2.default.createElement(_ControlRecord2.default, null) : _react2.default.createElement(_RecruitingInfo2.default, null)
 				)
 			);
 		}
@@ -87051,23 +87051,24 @@
 	      var CompanyInfoARequest = nextProps.CompanyInfoARequest;
 	      var CompanyInfoAResult = nextProps.CompanyInfoAResult;
 
+	      debugger;
 	      if (CompanyInfoARequest == true) {
 	        data = CompanyInfoAResult.content;
 	        console.log(data, "companyInfoNEWS");
 	        _this.setState({
-	          person: data.content.法定代表人,
-	          money: data.content.注册资本,
-	          state: data.content.状态,
-	          buildTime: data.content.注册时间,
-	          type: data.content.行业,
-	          num: data.content.工商注册号,
-	          companyType: data.content.企业类型,
-	          buildNum: data.content.组织机构代码,
-	          until: data.content.营业期限,
-	          whoPass: data.content.登记机关,
-	          passTime: data.content.核准日期,
-	          creditNum: data.content.统一信用代码,
-	          businessScope: data.content.经营范围
+	          person: data.法定代表人,
+	          money: data.注册资本,
+	          state: data.状态,
+	          buildTime: data.注册时间,
+	          type: data.行业,
+	          num: data.工商注册号,
+	          companyType: data.企业类型,
+	          buildNum: data.组织机构代码,
+	          until: data.营业期限,
+	          whoPass: data.登记机关,
+	          passTime: data.核准日期,
+	          creditNum: data.统一信用代码,
+	          businessScope: data.经营范围
 	        });
 	      } else {
 	        // alert(404)
@@ -87289,9 +87290,12 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	/**
-	 * 股东高管
+	 * �ɶ��߹�
 	 */
 
+	var Immutable = __webpack_require__(718);
+
+	var data = "";
 	var ShareholderExe = _react2.default.createClass({
 		displayName: 'ShareholderExe',
 		getInitialState: function getInitialState() {
@@ -87315,6 +87319,44 @@
 				pageNum: _pageNum
 			});
 		},
+
+		// componentWillReceiveProps(nextProps) {
+		//   var _this = this;
+		//   var isEqual=Immutable.is(nextProps.CompanyInfoARequest, this.props.CompanyInfoAResult)//�ж������Ƿ��仯
+		//   if(!isEqual){
+		//    const {CompanyInfoARequest,CompanyInfoAResult}=nextProps;
+		//    debugger;
+		//       if(CompanyInfoARequest==true){
+		//           data = CompanyInfoAResult.content;
+		//           console.log(data,"companyInfoNEWS");
+		//           _this.setState({
+		// 	      	  person:data.����������,
+		// 	          money:data.ע���ʱ�,
+		// 	          state:data.״̬,
+		// 	          buildTime:data.ע��ʱ��,
+		// 	          type:data.��ҵ,
+		// 	          num:data.����ע����,
+		// 	          companyType:data.��ҵ����,
+		// 	          buildNum:data.��֯��������,
+		// 	          until:data.Ӫҵ����,
+		// 	          whoPass:data.�Ǽǻ���,
+		// 	          passTime:data.��׼����,
+		// 	          creditNum:data.ͳһ���ô���,
+		// 	          businessScope:data.��Ӫ��Χ
+		//           })
+		//       }else{
+		//           // alert(404)
+		//       }
+		// }
+
+		// },
+		// componentDidMount() {
+		// 	const {getCompanyInfoA}=this.props;
+		// 	var jsonData={
+		// 		company:"��֦���н�ͨ���ο����������ι�˾"
+		// 	};
+		// 	getCompanyInfoA(jsonData);
+		// },
 		render: function render() {
 			return _react2.default.createElement(
 				'div',
@@ -87325,12 +87367,12 @@
 					_react2.default.createElement(
 						'div',
 						{ className: 'title-item title-active', onClick: this.switchPage.bind(this, 'share-info') },
-						'股东信息'
+						'�ɶ���Ϣ'
 					),
 					_react2.default.createElement(
 						'div',
 						{ className: 'title-item', onClick: this.switchPage.bind(this, 'exe-info') },
-						'高管信息'
+						'�߹���Ϣ'
 					)
 				),
 				this.state.pageNum == 1 ? _react2.default.createElement(
@@ -87342,12 +87384,12 @@
 						_react2.default.createElement(
 							'div',
 							null,
-							'股东'
+							'�ɶ�'
 						),
 						_react2.default.createElement(
 							'div',
 							null,
-							'股东类型'
+							'�ɶ�����'
 						)
 					),
 					_react2.default.createElement(
@@ -87356,13 +87398,14 @@
 						_react2.default.createElement(
 							'div',
 							null,
-							'国务院'
+							'����Ժ'
 						),
 						_react2.default.createElement(
 							'div',
 							null,
-							'相关法人'
-						)
+							'���ط���'
+						),
+						'//ajax'
 					)
 				) : _react2.default.createElement(
 					'div',
@@ -87373,12 +87416,12 @@
 						_react2.default.createElement(
 							'div',
 							null,
-							'姓名'
+							'����'
 						),
 						_react2.default.createElement(
 							'div',
 							null,
-							'职务'
+							'ְ��'
 						)
 					),
 					_react2.default.createElement(
@@ -87387,13 +87430,14 @@
 						_react2.default.createElement(
 							'div',
 							null,
-							'习大大'
+							'ϰ����'
 						),
 						_react2.default.createElement(
 							'div',
 							null,
-							'相关法人'
-						)
+							'���ط���'
+						),
+						'//ajax'
 					)
 				)
 			);
