@@ -148,13 +148,31 @@
 	</select>
 
 
-    <select id="queryCompany" resultMap="BaseResultMap">
+    <select id="queryCompanyByType" resultMap="BaseResultMap">
         select <include refid="Base_Column_List"/> from company
         <where>
             <if test="companyType != null">
                 and company_type=#{companyType}
             </if>
         </where>
+        <if test="orderByField != null">
+            order by
+            <choose>
+                <when test="orderByField==1">
+                    registered_capital_type,registered_capital
+                </when>
+                <when test="orderByField==2">
+                    registered_date
+                </when>
+            </choose>
+
+            <choose>
+                <when test="descAsc=='desc'">
+                    desc
+                </when>
+                <otherwise>asc</otherwise>
+            </choose>
+        </if>
     </select>
 
 	<select id="searchCompanyName" resultType="java.lang.String" resultMap="BaseResultMap">
