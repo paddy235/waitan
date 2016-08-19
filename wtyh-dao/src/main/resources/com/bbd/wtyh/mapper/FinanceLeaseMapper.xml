@@ -28,7 +28,7 @@
 			year asc;
 	</select>
 
-	<select id="queryFinanceLeaseCompanyCategory" parameterType="java.lang.Integer" resultType="java.util.Map">
+	<select id="queryFinanceLeaseCompanyCategory" resultType="java.util.Map">
 		SELECT
 			fle.free_trade_zone as freeTradeZone,
 			COUNT(c.company_id) as companyNumber
@@ -38,7 +38,7 @@
 		WHERE
 			c.company_type = 13
 		<if test="year > 0">
-			AND YEAR (registered_date) = #{year}
+			AND YEAR(registered_date) = #{year}
 		</if>
 		GROUP BY
 			fle.free_trade_zone;
