@@ -1,6 +1,7 @@
 package com.bbd.wtyh.mapper;
 
 import com.bbd.wtyh.domain.CompanyDO;
+import com.bbd.wtyh.domain.RelationDataDO;
 import com.bbd.wtyh.domain.vo.ExchangeCompanyAreaVO;
 import com.bbd.wtyh.domain.vo.ExchangeCompanyVO;
 import com.bbd.wtyh.domain.vo.RelationDataIndexVO;
@@ -12,5 +13,5 @@ public interface RelationDataMapper {
 
     public RelationDataIndexVO getRelationData(Map<String, Object> params);
 
-
+    public void save(RelationDataDO relationDataDO);
 }

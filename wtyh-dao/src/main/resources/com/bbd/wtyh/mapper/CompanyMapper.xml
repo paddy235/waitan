@@ -9,6 +9,7 @@
         <result column="address" jdbcType="VARCHAR" property="address"/>
         <result column="registered_capital" jdbcType="INTEGER" property="registeredCapital"/>
         <result column="registered_capital_type" jdbcType="INTEGER" property="registeredCapitalType"/>
+        <result column="business_type" jdbcType="INTEGER" property="businessType"/>
         <result column="registered_date" jdbcType="DATE" property="registeredDate"/>
         <result column="company_type" jdbcType="TINYINT" property="companyType"/>
         <result column="status" jdbcType="TINYINT" property="status"/>
@@ -16,12 +17,11 @@
         <result column="create_date" jdbcType="DATE" property="createDate"/>
         <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
         <result column="update_date" jdbcType="DATE" property="updateDate"/>
-        <result column="background" jdbcType="TINYINT" property="background"/>
         <result column="registered_type" jdbcType="VARCHAR" property="registeredType"/>
 
     </resultMap>
     <sql id="Base_Column_List">
-    company_id, name, legal_person, area_id, address, registered_capital, registered_capital_type, registered_date,
+    company_id, name, legal_person, area_id, address, registered_capital, registered_capital_type,business_type, registered_date,
     company_type, status, create_by, create_date, update_by, update_date
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
