@@ -1,9 +1,11 @@
 package com.bbd.wtyh.domain.dto;
 
+import java.io.Serializable;
+
 /**
  * Created by Marco on 2016/8/8.
  */
-public class ShareholderRiskDTO {
+public class ShareholderRiskDTO implements Serializable{
 
     private Integer companyId;
     private String companyName;

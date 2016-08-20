@@ -1,5 +1,6 @@
 package com.bbd.wtyh.service.impl;
 
+import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
 import com.bbd.wtyh.domain.RelatedCompanyStatisticDO;
 import com.bbd.wtyh.domain.dto.StaticRiskDTO;
 import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
@@ -10,7 +11,6 @@ import com.bbd.wtyh.service.RealTimeMonitorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -73,7 +73,7 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
 
     @Override
     public Map<String, Object> ChinaMap() {
-        List<RelatedCompanyStatisticDO> list =  relatedCompanyStatisticMapper.getChinaMap();
+        List<RelatedCompanyStatisticDO> list = relatedCompanyStatisticMapper.getChinaMap();
         Map<String, Object> map = new HashMap<>();
         List<Object> resultList = new ArrayList<>();
         for (RelatedCompanyStatisticDO re : list) {
@@ -92,9 +92,20 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
     }
 
     @Override
-    public Map<String, Object> shMap() {
-//        return realTimeMonitorDao.shMap();
-        return null;
+    public List<List<CompanyAnalysisResultDO>> shMap() {
+        // 公司名、经纬度、风险类型、静态风险值、暴露风险时间
+        final String dateVersion = staticRiskMapper.maxDataVersion();
+        List<CompanyAnalysisResultDO> exposures = companyAnalysisResultMapper.shMap(CompanyAnalysisResultDO.EXPOSURE, dateVersion);
+        List<CompanyAnalysisResultDO> highs = companyAnalysisResultMapper.shMap(CompanyAnalysisResultDO.HIGH, dateVersion);
+        List<CompanyAnalysisResultDO> focuses = companyAnalysisResultMapper.shMap(CompanyAnalysisResultDO.FOCUS, dateVersion);
+        List<CompanyAnalysisResultDO> normals = companyAnalysisResultMapper.shMap(CompanyAnalysisResultDO.NORMAL, dateVersion);
+
+        List<List<CompanyAnalysisResultDO>> rst = new ArrayList<>();
+        rst.add(exposures);
+        rst.add(highs);
+        rst.add(focuses);
+        rst.add(normals);
+        return rst;
     }
 
 }

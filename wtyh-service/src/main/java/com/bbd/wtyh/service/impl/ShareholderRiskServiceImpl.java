@@ -1,9 +1,10 @@
 package com.bbd.wtyh.service.impl;
 
+import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.dto.ShareholderRiskDTO;
-import com.bbd.wtyh.domain.query.CompanyQuery;
 import com.bbd.wtyh.mapper.RelatedCompanyMapper;
+import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.CompanyService;
 import com.bbd.wtyh.service.ShareholderRiskService;
 import com.bbd.wtyh.service.impl.relation.RegisterUniversalFilterChainImp;
@@ -15,6 +16,7 @@ import com.google.common.collect.Sets;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,12 +28,15 @@ import java.util.Set;
  */
 @Service
 public class ShareholderRiskServiceImpl implements ShareholderRiskService {
+    private static final String SHAREHOLDER_RISK_CACHE_PRIFIX = "ShareholderRisk-";
     @Autowired
     private RelatedCompanyMapper relatedCompanyMapper;
     @Autowired
     private CompanyService companyService;
     @Autowired
     private RegisterUniversalFilterChainImp relatedCompanyService;
+    @Autowired
+    private RedisDAO redisDAO;
     @Value("${related.party.dataVersion}")
     private String dataVersion;
     private Set<Integer> relatedCompanyTypes = Sets.newHashSet((int) CompanyDO.TYPE_P2P_1, (int) CompanyDO.TYPE_XXLC_4, (int) CompanyDO.TYPE_SMJJ_5);
@@ -39,6 +44,23 @@ public class ShareholderRiskServiceImpl implements ShareholderRiskService {
 
     @Override
     public List<ShareholderRiskDTO> listShareholderRisk(Integer companyType) {
+        List<ShareholderRiskDTO> riskList = (List<ShareholderRiskDTO>) redisDAO.getObject(SHAREHOLDER_RISK_CACHE_PRIFIX + companyType);
+        if (null == riskList) {
+            riskList = innerListShareholderRisk(companyType);
+            redisDAO.addObject(SHAREHOLDER_RISK_CACHE_PRIFIX + companyType, riskList, Constants.REDIS_10, riskList.getClass());
+        }
+        return riskList;
+    }
+
+    @Scheduled(cron = "0 0 3 * * *")
+    public void warmupShareholderRiskCache() {
+        List<ShareholderRiskDTO> riskList = innerListShareholderRisk((int) CompanyDO.TYPE_XD_2);
+        redisDAO.addObject(SHAREHOLDER_RISK_CACHE_PRIFIX + (int) CompanyDO.TYPE_XD_2, riskList, Constants.REDIS_10, riskList.getClass());
+        riskList = innerListShareholderRisk((int) CompanyDO.TYPE_RZDB_3);
+        redisDAO.addObject(SHAREHOLDER_RISK_CACHE_PRIFIX + (int) CompanyDO.TYPE_RZDB_3, riskList, Constants.REDIS_10, riskList.getClass());
+    }
+
+    private List<ShareholderRiskDTO> innerListShareholderRisk(Integer companyType) {
         List<CompanyDO> companyList = companyService.queryCompanyByType(companyType, null, null);
         List<ShareholderRiskDTO> dtoList = Lists.newArrayList();
         for (CompanyDO companyDO : companyList) {

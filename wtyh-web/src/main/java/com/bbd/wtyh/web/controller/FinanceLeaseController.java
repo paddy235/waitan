@@ -2,6 +2,7 @@ package com.bbd.wtyh.web.controller;
 
 
 import com.bbd.wtyh.domain.vo.FinanceLeaseVO;
+import com.bbd.wtyh.domain.vo.FinanceLeasecCompanyVO;
 import com.bbd.wtyh.service.FinanceLeaseService;
 import com.bbd.wtyh.web.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,8 +53,8 @@ public class FinanceLeaseController {
      */
     @RequestMapping("leaseCompanyList.do")
     @ResponseBody
-    public ResponseBean leaseCompanyList(String areaId, Integer analysisResult, Integer riskA, Integer riskB, Integer riskC, Integer riskD) {
-        List<FinanceLeaseVO> list = financeLeaseService.leaseCompanyList(areaId, analysisResult, riskA, riskB, riskC, riskD);
+    public ResponseBean leaseCompanyList(String areaName, Integer analysisResult, Integer riskA, Integer riskB, Integer riskC, Integer riskD) {
+        List<FinanceLeasecCompanyVO> list = financeLeaseService.leaseCompanyList(areaName, analysisResult, riskA, riskB, riskC, riskD);
         return ResponseBean.successResponse(list);
     }
 

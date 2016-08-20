@@ -39,8 +39,6 @@ public class OfflineFinanceController {
     @Autowired
     private RelationDataService relationDataService;
 
-    @Value("${mapping.path}")
-    private String mappingPath;
 
     /**
      * 关联图谱
@@ -108,18 +106,14 @@ public class OfflineFinanceController {
             throw new Exception("公司名传入为空");
         }
         String month = request.getParameter("month");
-        String filePath;
+        String targetPath;
         try {
-            filePath = offlineFinanceService.createYED(companyName,month);
+            targetPath = offlineFinanceService.createYED(companyName,month);
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
         }
-        String targetPath = "";
-        if(new File(filePath).exists())
-        {
-            targetPath = mappingPath+File.separator+Constants.attDir+File.separator+new File(filePath).getName();
-        }
+
         return ResponseBean.successResponse(targetPath);
     }
 
@@ -189,7 +183,7 @@ public class OfflineFinanceController {
     @RequestMapping("companyNews.do")
     @ResponseBody
     public ResponseBean companyNews(String companyName) {
-        List<Map> data = offlineFinanceService.companyNews(companyName);
+        String data = offlineFinanceService.companyNews(companyName);
         return ResponseBean.successResponse(data);
     }
 
@@ -256,6 +250,18 @@ public class OfflineFinanceController {
     }
 
     /**
+     * 数据版本
+     * @return
+     */
+    @SuppressWarnings("queryDateVersion")
+    @RequestMapping("queryDateVersion.do")
+    @ResponseBody
+    public ResponseBean queryDateVersion(String companyName, String areaCode) {
+        List dataVersionList =  relationDataService.queryDateVersion(companyName,areaCode);
+        return ResponseBean.successResponse(dataVersionList);
+    }
+
+    /**
      *
      * @param dataVersionString
      * @return
@@ -273,4 +279,6 @@ public class OfflineFinanceController {
         String month = dateformat1.format(date);
         return month;
     }
+
+
 }
