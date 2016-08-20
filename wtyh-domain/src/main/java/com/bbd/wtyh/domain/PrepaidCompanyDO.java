@@ -71,7 +71,12 @@ public class PrepaidCompanyDO {
 
 	public String getAnalysisResultCN() {
 		
-		analysisResultCN = CompanyAnalysisResultDO.anaResCN(this.analysisResult);
+		analysisResultCN = "正常";
+		if(this.analysisResult!=null && this.analysisResult==3){
+			analysisResultCN = "潜在";
+		}else if(this.analysisResult!=null && this.analysisResult==2){
+			analysisResultCN = "已发生";
+		}
 		
 		return analysisResultCN;
 	}
