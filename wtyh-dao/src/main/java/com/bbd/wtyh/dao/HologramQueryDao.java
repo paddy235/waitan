@@ -24,7 +24,7 @@ public interface HologramQueryDao {
 
     BaseDataDO shareholdersSenior(String companyName);
 
-    CourtAnnouncementDO openCourtAnnouncement(String company);
+    OpenCourtAnnouncementDO openCourtAnnouncement(String company);
 
     JudgeDocDO judgeDoc(String company);
 

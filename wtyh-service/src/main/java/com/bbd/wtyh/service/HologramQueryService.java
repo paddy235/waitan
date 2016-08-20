@@ -61,7 +61,7 @@ public interface HologramQueryService {
      * @return
      * @param company
      */
-    List<CourtAnnouncementDO.Results> openCourtAnnouncement(String company);
+    List<OpenCourtAnnouncementDO.Results> openCourtAnnouncement(String company);
 
     /**
      * 企业信息详情-诉讼记录 - 裁判文书
