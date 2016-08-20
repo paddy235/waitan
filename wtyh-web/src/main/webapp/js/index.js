@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "900736e70d3e7614e0dd"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "1158dcd90bff4e8cc662"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -33434,6 +33434,7 @@
 	                                    _react2.default.createElement(
 	                                                'div',
 	                                                null,
+	                                                _react2.default.createElement(_DevTools2.default, null),
 	                                                _react2.default.createElement(
 	                                                            _reactRouter.Router,
 	                                                            null,
@@ -34817,7 +34818,9 @@
 	exports.default = (0, _reduxDevtools.createDevTools)(_react2.default.createElement(
 	  _reduxDevtoolsDockMonitor2.default,
 	  { toggleVisibilityKey: 'ctrl-h',
-	    changePositionKey: 'ctrl-q' },
+	    changePositionKey: 'ctrl-q',
+	    defaultIsVisible: false
+	  },
 	  _react2.default.createElement(_reduxDevtoolsLogMonitor2.default, null)
 	));
 
@@ -85389,6 +85392,10 @@
 			CompanyInfoBResult: state.CompanyInfoB.result,
 			CompanyInfoBRequest: state.CompanyInfoB.request
 
+			//诉讼记录5个ajax
+
+			//三个echarts图的ajax
+
 		};
 	}
 
@@ -85399,6 +85406,26 @@
 
 	//通过react-redux提供的connect方法将我们需要的state中的数据和actions中的方法绑定到props上
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SearchResultDetail);
+
+	// (function(){
+	// 	switch(self.state.pageNum){
+	// 		case 1:
+	// 			return (<Announcement {...this.props}></Announcement>)
+	// 		break;
+	// 		case 2:
+	// 			return (<RefereeDocuments ...{this.props}></RefereeDocuments>)
+	// 		break;
+	// 		case 3:
+	// 			return (<Executor {...this.props}></Executor>)
+	// 		break;
+	// 		case 4:
+	// 			return (<BrokenPromises {...this.props}></BrokenPromises>)
+	// 		break;
+	// 		case 5:
+	// 			return (<CourtAnnouncement {...this.props}></CourtAnnouncement>)
+	// 		break;
+	// 	}
+	// })()
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "SearchResultDetail.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
@@ -86390,7 +86417,6 @@
 			}
 		},
 		switchPage: function switchPage(param, ev) {
-			console.log("ashima");
 			$(".label-name").removeClass('name-active');
 			$(ev.target).addClass('name-active');
 			var _pageNum;
@@ -86448,7 +86474,7 @@
 				_react2.default.createElement(
 					'div',
 					{ className: 'bussiness-content' },
-					this.state.pageNum == 1 ? _react2.default.createElement(_BusinessInfo2.default, this.props) : this.state.pageNum == 2 ? _react2.default.createElement(_ShareholderExe2.default, this.props) : this.state.pageNum == 3 ? _react2.default.createElement(_ControlRecord2.default, null) : _react2.default.createElement(_RecruitingInfo2.default, null)
+					this.state.pageNum == 1 ? _react2.default.createElement(_BusinessInfo2.default, this.props) : this.state.pageNum == 2 ? _react2.default.createElement(_ShareholderExe2.default, this.props) : this.state.pageNum == 3 ? _react2.default.createElement(_ControlRecord2.default, this.props) : _react2.default.createElement(_RecruitingInfo2.default, this.props)
 				)
 			);
 		}
@@ -87010,19 +87036,19 @@
 				function () {
 					switch (self.state.pageNum) {
 						case 1:
-							return _react2.default.createElement(_Announcement2.default, null);
+							return _react2.default.createElement(_Announcement2.default, this.props);
 							break;
 						case 2:
-							return _react2.default.createElement(_RefereeDocuments2.default, null);
+							return _react2.default.createElement(_RefereeDocuments2.default, this.props);
 							break;
 						case 3:
-							return _react2.default.createElement(_Executor2.default, null);
+							return _react2.default.createElement(_Executor2.default, this.props);
 							break;
 						case 4:
-							return _react2.default.createElement(_BrokenPromises2.default, null);
+							return _react2.default.createElement(_BrokenPromises2.default, this.props);
 							break;
 						case 5:
-							return _react2.default.createElement(_CourtAnnouncement2.default, null);
+							return _react2.default.createElement(_CourtAnnouncement2.default, this.props);
 							break;
 					}
 				}()
@@ -88047,6 +88073,11 @@
 	exports.getCompanyInfoNews = getCompanyInfoNews;
 	exports.getCompanyInfoA = getCompanyInfoA;
 	exports.getCompanyInfoB = getCompanyInfoB;
+	exports.getCompanyInfoC1 = getCompanyInfoC1;
+	exports.getCompanyInfoC2 = getCompanyInfoC2;
+	exports.getCompanyInfoC3 = getCompanyInfoC3;
+	exports.getCompanyInfoC4 = getCompanyInfoC4;
+	exports.getCompanyInfoC5 = getCompanyInfoC5;
 	/*
 	  企业全息查询action
 	*/
@@ -88202,6 +88233,193 @@
 	  };
 	}
 
+	/*===============================诉讼记录================================*/
+
+	//开庭公告
+	var COMPANYINFO_C1_SUCCESS = exports.COMPANYINFO_C1_SUCCESS = 'COMPANYINFO_C1_SUCCESS';
+	var COMPANYINFO_C1_FAIL = exports.COMPANYINFO_C1_FAIL = 'COMPANYINFO_C1_FAIL';
+
+	function companyInfoC1Success(result) {
+	  //请求成功调用方法
+	  return {
+	    type: COMPANYINFO_C1_SUCCESS,
+	    result: result
+	  };
+	}
+
+	function companyInfoC1Fail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: COMPANYINFO_C1_FAIL,
+	    result: result
+	  };
+	}
+
+	function getCompanyInfoC1(json) {
+	  return function (dispatch) {
+	    $.ajax({
+	      url: " /hologram/shareholdersSenior.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(companyInfoC1Success(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(companyInfoC1Fail(result));
+	      }
+	    });
+	  };
+	}
+
+	//裁判文书
+	var COMPANYINFO_C2_SUCCESS = exports.COMPANYINFO_C2_SUCCESS = 'COMPANYINFO_C2_SUCCESS';
+	var COMPANYINFO_C2_FAIL = exports.COMPANYINFO_C2_FAIL = 'COMPANYINFO_C2_FAIL';
+
+	function companyInfoC2Success(result) {
+	  //请求成功调用方法
+	  return {
+	    type: COMPANYINFO_C2_SUCCESS,
+	    result: result
+	  };
+	}
+
+	function companyInfoC2Fail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: COMPANYINFO_C2_FAIL,
+	    result: result
+	  };
+	}
+
+	function getCompanyInfoC2(json) {
+	  return function (dispatch) {
+	    $.ajax({
+	      url: " /hologram/shareholdersSenior.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(companyInfoC2Success(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(companyInfoC2Fail(result));
+	      }
+	    });
+	  };
+	}
+
+	//被执行人
+	var COMPANYINFO_C3_SUCCESS = exports.COMPANYINFO_C3_SUCCESS = 'COMPANYINFO_C3_SUCCESS';
+	var COMPANYINFO_C3_FAIL = exports.COMPANYINFO_C3_FAIL = 'COMPANYINFO_C3_FAIL';
+
+	function companyInfoC3Success(result) {
+	  //请求成功调用方法
+	  return {
+	    type: COMPANYINFO_C3_SUCCESS,
+	    result: result
+	  };
+	}
+
+	function companyInfoC3Fail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: COMPANYINFO_C3_FAIL,
+	    result: result
+	  };
+	}
+
+	function getCompanyInfoC3(json) {
+	  return function (dispatch) {
+	    $.ajax({
+	      url: " /hologram/shareholdersSenior.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(companyInfoC3Success(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(companyInfoC3Fail(result));
+	      }
+	    });
+	  };
+	}
+
+	//失信执行人
+	var COMPANYINFO_C4_SUCCESS = exports.COMPANYINFO_C4_SUCCESS = 'COMPANYINFO_C4_SUCCESS';
+	var COMPANYINFO_C4_FAIL = exports.COMPANYINFO_C4_FAIL = 'COMPANYINFO_C4_FAIL';
+
+	function companyInfoC4Success(result) {
+	  //请求成功调用方法
+	  return {
+	    type: COMPANYINFO_C4_SUCCESS,
+	    result: result
+	  };
+	}
+
+	function companyInfoC4Fail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: COMPANYINFO_C4_FAIL,
+	    result: result
+	  };
+	}
+
+	function getCompanyInfoC4(json) {
+	  return function (dispatch) {
+	    $.ajax({
+	      url: " /hologram/shareholdersSenior.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(companyInfoC4Success(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(companyInfoC4Fail(result));
+	      }
+	    });
+	  };
+	}
+
+	//法院公告
+	var COMPANYINFO_C5_SUCCESS = exports.COMPANYINFO_C5_SUCCESS = 'COMPANYINFO_C5_SUCCESS';
+	var COMPANYINFO_C5_FAIL = exports.COMPANYINFO_C5_FAIL = 'COMPANYINFO_C5_FAIL';
+
+	function companyInfoC5Success(result) {
+	  //请求成功调用方法
+	  return {
+	    type: COMPANYINFO_C5_SUCCESS,
+	    result: result
+	  };
+	}
+
+	function companyInfoC5Fail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: COMPANYINFO_C5_FAIL,
+	    result: result
+	  };
+	}
+
+	function getCompanyInfoC5(json) {
+	  return function (dispatch) {
+	    $.ajax({
+	      url: " /hologram/shareholdersSenior.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(companyInfoC5Success(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(companyInfoC5Fail(result));
+	      }
+	    });
+	  };
+	}
+
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "InfoSearchAction.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
@@ -88214,7 +88432,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -88267,75 +88485,78 @@
 
 	//实时监测首页s
 	var RealtimeMonitorIndex = _react2.default.createClass({
-	  displayName: 'RealtimeMonitorIndex',
-	  getInitialState: function getInitialState() {
-	    return {
-	      windowHeight: null,
-	      indexRange: null
-	    };
-	  },
-	  componentDidMount: function componentDidMount() {
-	    $(window).resize(function (event) {
-	      this.setState({
-	        windowHeight: $(window).height()
-	      });
-	    }.bind(this));
-	  },
-	  componentWillMount: function componentWillMount() {
-	    this.setState({
-	      windowHeight: $(window).height()
-	    });
-	  },
-	  getRange: function getRange(range) {
-	    this.setState({
-	      indexRange: range
-	    });
-	  },
+	    displayName: 'RealtimeMonitorIndex',
+	    getInitialState: function getInitialState() {
+	        return {
+	            windowHeight: null,
+	            indexRange: null
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        $(window).resize(function (event) {
+	            this.setState({
+	                windowHeight: $(window).height()
+	            });
+	        }.bind(this));
+	    },
+	    componentWillMount: function componentWillMount() {
+	        this.setState({
+	            windowHeight: $(window).height()
+	        });
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        console.log(">>>>>>>>>>>>>>>>", nextProps.realTimeNewsResult);
+	    },
+	    getRange: function getRange(range) {
+	        this.setState({
+	            indexRange: range
+	        });
+	    },
 
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'realtime-index wrap', style: { "height": this.state.windowHeight - 60 } },
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'realtime-top' },
-	        _react2.default.createElement(_topLeft2.default, _extends({ getRange: this.getRange }, this.props)),
-	        _react2.default.createElement(_topMiddle2.default, _extends({ pushRange: this.state.indexRange }, this.props)),
-	        _react2.default.createElement(_topRight2.default, this.props)
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'realtime-bottom' },
-	        _react2.default.createElement(_bottomLeft2.default, null),
-	        _react2.default.createElement(_bottomRight2.default, this.props)
-	      )
-	    );
-	  }
+	    render: function render() {
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'realtime-index wrap', style: { "height": this.state.windowHeight - 60 } },
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'realtime-top' },
+	                _react2.default.createElement(_topLeft2.default, _extends({ getRange: this.getRange }, this.props)),
+	                _react2.default.createElement(_topMiddle2.default, _extends({ pushRange: this.state.indexRange }, this.props)),
+	                _react2.default.createElement(_topRight2.default, this.props)
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'realtime-bottom' },
+	                _react2.default.createElement(_bottomLeft2.default, null),
+	                _react2.default.createElement(_bottomRight2.default, this.props)
+	            )
+	        );
+	    }
 	});
 
 	//将 request  result 绑定到props的request result
 	function mapStateToProps(state) {
-	  return {
-	    realTimeTableResult: state.RealTimeTable.result,
-	    realTimeTableRequest: state.RealTimeTable.request, //RealTimeTable注册在reduce里面的index。拿到处理后的两个返回值。
+	    return {
+	        realTimeTableResult: state.RealTimeTable.result,
+	        realTimeTableRequest: state.RealTimeTable.request, //RealTimeTable注册在reduce里面的index。拿到处理后的两个返回值。
 
-	    realTimeNineResult: state.RealTimeNine.result,
-	    realTimeNineRequest: state.RealTimeNine.request, //RealTimeNine注册在reduce里面的index。拿到处理后的两个返回值。
+	        realTimeNineResult: state.RealTimeNine.result,
+	        realTimeNineRequest: state.RealTimeNine.request, //RealTimeNine注册在reduce里面的index。拿到处理后的两个返回值。
 
-	    realTimeNewsResult: state.RealTimeNews.result,
-	    realTimeNewsRequest: state.RealTimeNews.request, //RealTimeNews注册在reduce里面的index。拿到处理后的两个返回值。
+	        realTimeNewsResult: state.RealTimeNews.result,
+	        realTimeNewsRequest: state.RealTimeNews.request, //RealTimeNews注册在reduce里面的index。拿到处理后的两个返回值。
 
-	    realTimeMapResult: state.RealTimeMap.result,
-	    realTimeMapRequest: state.RealTimeMap.request, //RealTimeMap注册在reduce里面的index。拿到处理后的两个返回值。
+	        realTimeMapResult: state.RealTimeMap.result,
+	        realTimeMapRequest: state.RealTimeMap.request, //RealTimeMap注册在reduce里面的index。拿到处理后的两个返回值。
 
-	    realTimeMapShResult: state.RealTimeMapSh.result,
-	    realTimeMapShRequest: state.RealTimeMapSh.request //RealTimeMap注册在reduce里面的index。拿到处理后的两个返回值。
-	  };
+	        realTimeMapShResult: state.RealTimeMapSh.result,
+	        realTimeMapShRequest: state.RealTimeMapSh.request //RealTimeMap注册在reduce里面的index。拿到处理后的两个返回值。
+	    };
 	}
 
 	//将action的所有方法绑定到props上
 	function mapDispatchToProps(dispatch) {
-	  return (0, _redux.bindActionCreators)(RealTimeCreaTers, dispatch);
+	    return (0, _redux.bindActionCreators)(RealTimeCreaTers, dispatch);
 	}
 
 	//通过react-redux提供的connect方法将我们需要的state中的数据和actions中的方法绑定到props上
@@ -89095,22 +89316,26 @@
 	                    var range = v.value[2];
 	                    var typeP = null;
 	                    var typeLabel = null;
+	                    /*这个就是hover点的ajax方法。
+	                    var name  = v.name; 
+	                    var numORdate = SHhoverDot.name;*/
+
 	                    switch (range) {
 
 	                        case 4:
-	                            typeP = "曝光日期<span> 43 </span>";typeLabel = "<label class='testLable black'>已出风险</label>";
+	                            typeP = "曝光日期<span> " + num + " </span>";typeLabel = "<label class='testLable black'>已出风险</label>";
 	                            break;
 
 	                        case 3:
-	                            typeP = "风险值1<span> 43 </span>";typeLabel = "<label class='testLable yellow'>一般关注</label>";
+	                            typeP = "风险值<span> " + num + " </span>";typeLabel = "<label class='testLable yellow'>一般关注</label>";
 	                            break;
 
 	                        case 2:
-	                            typeP = "风险值1<span> 43 </span>";typeLabel = "<label class='testLable yellow'>一般关注</label>";
+	                            typeP = "风险值<span> " + num + " </span>";typeLabel = "<label class='testLable yellow'>一般关注</label>";
 	                            break;
 
 	                        case 1:
-	                            typeP = "风险值1<span> 43 </span>";typeLabel = "<label class='testLable red'>重点关注</label>";
+	                            typeP = "风险值<span> " + num + " </span>";typeLabel = "<label class='testLable red'>重点关注</label>";
 	                            break;
 
 	                    };
@@ -89118,6 +89343,33 @@
 	                            <h4>" + v.name + "</h4>" + typeLabel + "\
 	                            <p class='testP'>" + typeP + "</p>\
 	                     </div>";
+	                    // 以下是区域的hoverAjax
+	                    /*                     var SHhoverArea = {
+	                                                      "浦东新区":{    
+	                                                                  num:123,
+	                                                                  companyName:["公司A"，“公司B”]
+	                                                      },
+	                                                      "金山区":{    
+	                                                                  num:123,
+	                                                                  companyName:["公司A"，“公司B”]
+	                                                      }
+	                    
+	                                          }
+	                                        var html = ""
+	                                        SHhoverArea.name.companyName.each(function(item,index){
+	                                            html+= "<span>"+item+"</span>"
+	                                        })
+	                                        //判断对象的个数（SHhoverArea）
+	                                        function countProperties (obj) {
+	                                            var count = 0;
+	                                            for (var property in obj) {
+	                                                if (Object.prototype.hasOwnProperty.call(obj, property)) {
+	                                                    count++;
+	                                                }
+	                                            }
+	                                            return count;
+	                                        }*/
+
 	                    var mapTootip = "<div class='testTo'>\
 	                                  <h4 class='tableH4'>" + v.name + "</h4>\
 	                                  <table>\
@@ -89316,14 +89568,17 @@
 	                }
 	            }
 	        }
-
+	        debugger;
 	        var isEqualSh = Immutable.is(nextProps.realTimeMapShRequest, this.props.realTimeMapShResult); //判断数据是否变化
 	        if (!isEqualSh) {
 	            var realTimeMapShRequest = nextProps.realTimeMapShRequest;
 	            var realTimeMapShResult = nextProps.realTimeMapShResult;
 
+	            debugger;
 	            if (realTimeMapShRequest == true) {
-	                if (realTimeMapShRequest == true) {} else {
+	                if (realTimeMapShRequest == true) {
+	                    console.log(realTimeMapShResult, "}}}}}}}}}}}}}}}}}}");
+	                } else {
 	                    alert(404);
 	                }
 	            }
@@ -90054,6 +90309,49 @@
 	      list: null
 	    };
 	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var _this = this;
+	    if (nextProps.realTimeNewsRequest) {
+	      var data = JSON.parse(nextProps.realTimeNewsResult.content);
+	      _this.setState({
+	        list: data.results.map(function (item, index) {
+	          return _react2.default.createElement(
+	            'li',
+	            { key: index, className: 'animated zoomIn', style: { 'WebkitAnimationDelay': index * 0.1 + 's' } },
+	            _react2.default.createElement(
+	              'h4',
+	              null,
+	              _react2.default.createElement(
+	                'a',
+	                { href: 'http://wwww.baidu.com' },
+	                item.search_key
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              item.news_title
+	            ),
+	            _react2.default.createElement(
+	              'span',
+	              null,
+	              _react2.default.createElement(
+	                'p',
+	                null,
+	                item.news_site
+	              ),
+	              '  ',
+	              _react2.default.createElement(
+	                'p',
+	                null,
+	                item.pubdate
+	              )
+	            )
+	          );
+	        })
+	      });
+	    }
+	  },
 	  componentDidMount: function componentDidMount() {
 	    var getRealTimeNews = this.props.getRealTimeNews; // 取到props里面的getRealTimeTable方法。也可以说是请求action
 
@@ -90061,59 +90359,43 @@
 	    getRealTimeNews(jsonData);
 	  },
 
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    var _this = this;
-	    var isEqual = Immutable.is(nextProps.realTimeNewsRequest, this.props.realTimeNewsResult); //判断数据是否变化
-	    if (!isEqual) {
-	      var realTimeNewsRequest = nextProps.realTimeNewsRequest;
-	      var realTimeNewsResult = nextProps.realTimeNewsResult;
-
-	      if (realTimeNewsRequest == true) {
-	        if (realTimeNewsRequest == true) {
-	          var data = realTimeNewsResult;
-	          _this.setState({
-	            list: realTimeNewsResult.content.map(function (item, index) {
-	              return _react2.default.createElement(
-	                'li',
-	                { key: index, className: 'animated zoomIn', style: { 'WebkitAnimationDelay': index * 0.1 + 's' } },
-	                _react2.default.createElement(
-	                  'h4',
-	                  null,
-	                  _react2.default.createElement(
-	                    'a',
-	                    { href: 'http://wwww.baidu.com' },
-	                    item.searchKey
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  'p',
-	                  null,
-	                  item.newsTitle
-	                ),
-	                _react2.default.createElement(
-	                  'span',
-	                  null,
-	                  _react2.default.createElement(
-	                    'p',
-	                    null,
-	                    item.newsSite
-	                  ),
-	                  '  ',
-	                  _react2.default.createElement(
-	                    'p',
-	                    null,
-	                    item.pubDate
-	                  )
-	                )
-	              );
-	            })
-	          });
-	        } else {
-	          alert(404);
-	        }
-	      }
-	    }
-	  },
+	  /*  componentWillReceiveProps: function(nextProps) {
+	      console.log(nextProps.realTimeNewsResult)
+	      console.log(this.props.realTimeNewsResult)
+	      var _this = this;
+	      var isEqual=Immutable.is(nextProps.realTimeNewsRequest, this.props.realTimeNewsResult)//判断数据是否变化
+	              if(!isEqual){
+	               const {realTimeNewsRequest,realTimeNewsResult}=nextProps;
+	               if(realTimeNewsRequest==true){
+	                  if(realTimeNewsRequest==true){ 
+	                    console.log(realTimeNewsResult,"top")
+	                      return;var data=JSON.parse(realTimeNewsResult);
+	                      console.log(data,"fixfixfix")
+	                      // _this.setState({
+	                      //   list:(
+	                      //         realTimeNewsResult.content.map(function(item,index){
+	                      //           return (
+	                      //                 <li key={index} className="animated zoomIn" style={{'WebkitAnimationDelay':index*0.1+'s'}}>
+	                      //                   <h4>
+	                      //                     <a href="http://wwww.baidu.com">{item.searchKey}</a>
+	                      //                   </h4>
+	                      //                   <p>
+	                      //                     {item.newsTitle}
+	                      //                   </p>
+	                      //                   <span>
+	                      //                     <p>{item.newsSite}</p>  <p>{item.pubDate}</p>
+	                      //                   </span>
+	                      //                 </li>
+	                      //             )
+	                      //         })
+	                      //         )
+	                      // })
+	                  }else{
+	                      alert(404)
+	                  }
+	              }
+	            }
+	    },*/
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
@@ -90379,7 +90661,7 @@
 	  return function (dispatch) {
 	    console.log(json);
 	    $.ajax({
-	      url: "/companyNews/getCompanyNews.do", //"/data/industryMonitor/smallLoan/index/companyGrade.json",
+	      url: "/realTimeMonitor/shMap.do", //"/data/industryMonitor/smallLoan/index/companyGrade.json",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
@@ -95097,7 +95379,9 @@
 	exports.default = (0, _reduxDevtools.createDevTools)(_react2.default.createElement(
 	  _reduxDevtoolsDockMonitor2.default,
 	  { toggleVisibilityKey: 'ctrl-h',
-	    changePositionKey: 'ctrl-q' },
+	    changePositionKey: 'ctrl-q',
+	    defaultIsVisible: false
+	  },
 	  _react2.default.createElement(_reduxDevtoolsLogMonitor2.default, null)
 	));
 
