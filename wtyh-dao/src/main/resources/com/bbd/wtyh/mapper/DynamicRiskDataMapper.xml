@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.DynamicRiskDataMapper">
+  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.DynamicRiskDataDO">
+    <id column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <id column="data_version" jdbcType="VARCHAR" property="dataVersion" />
+    <id column="area" jdbcType="VARCHAR" property="area" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="DATE" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="DATE" property="updateDate" />
+    <result column="risk_date" jdbcType="DATE" property="riskDate" />
+    <result column="bbd_time_risk_index" jdbcType="REAL" property="bbdTimeRiskIndex" />
+    <result column="person_num" jdbcType="REAL" property="personNum" />
+    <result column="company_num" jdbcType="REAL" property="companyNum" />
+    <result column="sum_num" jdbcType="REAL" property="sumNum" />
+    <result column="agree_action_num" jdbcType="REAL" property="agreeActionNum" />
+    <result column="agree_action_proportion" jdbcType="REAL" property="agreeActionProportion" />
+    <result column="one_two_comapny_num" jdbcType="REAL" property="oneTwoComapnyNum" />
+    <result column="one_two_company_proportion" jdbcType="REAL" property="oneTwoCompanyProportion" />
+    <result column="three_person_num" jdbcType="INTEGER" property="threePersonNum" />
+    <result column="three_person_proportion" jdbcType="REAL" property="threePersonProportion" />
+    <result column="type_sum_num" jdbcType="INTEGER" property="typeSumNum" />
+    <result column="type_sum_proportion" jdbcType="REAL" property="typeSumProportion" />
+    <result column="area_list" jdbcType="VARCHAR" property="areaList" />
+    <result column="area_company_num" jdbcType="VARCHAR" property="areaCompanyNum" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.bbd.wtyh.domain.DynamicRiskDataWithBLOBs">
+    <result column="core_person_list" jdbcType="LONGVARCHAR" property="corePersonList" />
+    <result column="control_num" jdbcType="LONGVARCHAR" property="controlNum" />
+    <result column="agree_company_detail" jdbcType="LONGVARCHAR" property="agreeCompanyDetail" />
+    <result column="company_detail" jdbcType="LONGVARCHAR" property="companyDetail" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    company_name, data_version, area, create_by, create_date, update_by, update_date, 
+    risk_date, bbd_time_risk_index, person_num, company_num, sum_num, agree_action_num, 
+    agree_action_proportion, one_two_comapny_num, one_two_company_proportion, three_person_num, 
+    three_person_proportion, type_sum_num, type_sum_proportion, area_list, area_company_num
+  </sql>
+  <sql id="Blob_Column_List">
+    core_person_list, control_num, agree_company_detail, company_detail
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.bbd.wtyh.domain.DynamicRiskDataKey" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dynamic_risk_data
+    where company_name = #{companyName,jdbcType=VARCHAR}
+      and data_version = #{dataVersion,jdbcType=VARCHAR}
+      and area = #{area,jdbcType=VARCHAR}
+  </select>
+  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.DynamicRiskDataDO">
+    <id column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <id column="data_version" jdbcType="VARCHAR" property="dataVersion" />
+    <id column="area" jdbcType="VARCHAR" property="area" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="DATE" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="DATE" property="updateDate" />
+    <result column="risk_date" jdbcType="DATE" property="riskDate" />
+    <result column="bbd_time_risk_index" jdbcType="REAL" property="bbdTimeRiskIndex" />
+    <result column="person_num" jdbcType="REAL" property="personNum" />
+    <result column="company_num" jdbcType="REAL" property="companyNum" />
+    <result column="sum_num" jdbcType="REAL" property="sumNum" />
+    <result column="agree_action_num" jdbcType="REAL" property="agreeActionNum" />
+    <result column="agree_action_proportion" jdbcType="REAL" property="agreeActionProportion" />
+    <result column="one_two_comapny_num" jdbcType="REAL" property="oneTwoComapnyNum" />
+    <result column="one_two_company_proportion" jdbcType="REAL" property="oneTwoCompanyProportion" />
+    <result column="three_person_num" jdbcType="INTEGER" property="threePersonNum" />
+    <result column="three_person_proportion" jdbcType="REAL" property="threePersonProportion" />
+    <result column="type_sum_num" jdbcType="INTEGER" property="typeSumNum" />
+    <result column="type_sum_proportion" jdbcType="REAL" property="typeSumProportion" />
+    <result column="area_list" jdbcType="VARCHAR" property="areaList" />
+    <result column="area_company_num" jdbcType="VARCHAR" property="areaCompanyNum" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.bbd.wtyh.domain.DynamicRiskDataWithBLOBs">
+    <result column="core_person_list" jdbcType="LONGVARCHAR" property="corePersonList" />
+    <result column="control_num" jdbcType="LONGVARCHAR" property="controlNum" />
+    <result column="agree_company_detail" jdbcType="LONGVARCHAR" property="agreeCompanyDetail" />
+    <result column="company_detail" jdbcType="LONGVARCHAR" property="companyDetail" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    company_name, data_version, area, create_by, create_date, update_by, update_date, 
+    risk_date, bbd_time_risk_index, person_num, company_num, sum_num, agree_action_num, 
+    agree_action_proportion, one_two_comapny_num, one_two_company_proportion, three_person_num, 
+    three_person_proportion, type_sum_num, type_sum_proportion, area_list, area_company_num
+  </sql>
+  <sql id="Blob_Column_List">
+    core_person_list, control_num, agree_company_detail, company_detail
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.bbd.wtyh.domain.DynamicRiskDataKey" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dynamic_risk_data
+    where company_name = #{companyName,jdbcType=VARCHAR}
+      and data_version = #{dataVersion,jdbcType=VARCHAR}
+      and area = #{area,jdbcType=VARCHAR}
+  </select>
+  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.DynamicRiskDataDO">
+    <id column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <id column="data_version" jdbcType="VARCHAR" property="dataVersion" />
+    <id column="area" jdbcType="VARCHAR" property="area" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="DATE" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="DATE" property="updateDate" />
+    <result column="risk_date" jdbcType="DATE" property="riskDate" />
+    <result column="bbd_time_risk_index" jdbcType="REAL" property="bbdTimeRiskIndex" />
+    <result column="person_num" jdbcType="REAL" property="personNum" />
+    <result column="company_num" jdbcType="REAL" property="companyNum" />
+    <result column="sum_num" jdbcType="REAL" property="sumNum" />
+    <result column="agree_action_num" jdbcType="REAL" property="agreeActionNum" />
+    <result column="agree_action_proportion" jdbcType="REAL" property="agreeActionProportion" />
+    <result column="one_two_comapny_num" jdbcType="REAL" property="oneTwoComapnyNum" />
+    <result column="one_two_company_proportion" jdbcType="REAL" property="oneTwoCompanyProportion" />
+    <result column="three_person_num" jdbcType="INTEGER" property="threePersonNum" />
+    <result column="three_person_proportion" jdbcType="REAL" property="threePersonProportion" />
+    <result column="type_sum_num" jdbcType="INTEGER" property="typeSumNum" />
+    <result column="type_sum_proportion" jdbcType="REAL" property="typeSumProportion" />
+    <result column="area_list" jdbcType="VARCHAR" property="areaList" />
+    <result column="area_company_num" jdbcType="VARCHAR" property="areaCompanyNum" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.bbd.wtyh.domain.DynamicRiskDataWithBLOBs">
+    <result column="core_person_list" jdbcType="LONGVARCHAR" property="corePersonList" />
+    <result column="control_num" jdbcType="LONGVARCHAR" property="controlNum" />
+    <result column="agree_company_detail" jdbcType="LONGVARCHAR" property="agreeCompanyDetail" />
+    <result column="company_detail" jdbcType="LONGVARCHAR" property="companyDetail" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    company_name, data_version, area, create_by, create_date, update_by, update_date, 
+    risk_date, bbd_time_risk_index, person_num, company_num, sum_num, agree_action_num, 
+    agree_action_proportion, one_two_comapny_num, one_two_company_proportion, three_person_num, 
+    three_person_proportion, type_sum_num, type_sum_proportion, area_list, area_company_num
+  </sql>
+  <sql id="Blob_Column_List">
+    core_person_list, control_num, agree_company_detail, company_detail
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.bbd.wtyh.domain.DynamicRiskDataKey" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dynamic_risk_data
+    where company_name = #{companyName,jdbcType=VARCHAR}
+      and data_version = #{dataVersion,jdbcType=VARCHAR}
+      and area = #{area,jdbcType=VARCHAR}
+  </select>
+  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.DynamicRiskDataDO">
+    <id column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <id column="data_version" jdbcType="VARCHAR" property="dataVersion" />
+    <id column="area" jdbcType="VARCHAR" property="area" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="DATE" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="DATE" property="updateDate" />
+    <result column="risk_date" jdbcType="DATE" property="riskDate" />
+    <result column="bbd_time_risk_index" jdbcType="REAL" property="bbdTimeRiskIndex" />
+    <result column="person_num" jdbcType="REAL" property="personNum" />
+    <result column="company_num" jdbcType="REAL" property="companyNum" />
+    <result column="sum_num" jdbcType="REAL" property="sumNum" />
+    <result column="agree_action_num" jdbcType="REAL" property="agreeActionNum" />
+    <result column="agree_action_proportion" jdbcType="REAL" property="agreeActionProportion" />
+    <result column="one_two_comapny_num" jdbcType="REAL" property="oneTwoComapnyNum" />
+    <result column="one_two_company_proportion" jdbcType="REAL" property="oneTwoCompanyProportion" />
+    <result column="three_person_num" jdbcType="INTEGER" property="threePersonNum" />
+    <result column="three_person_proportion" jdbcType="REAL" property="threePersonProportion" />
+    <result column="type_sum_num" jdbcType="INTEGER" property="typeSumNum" />
+    <result column="type_sum_proportion" jdbcType="REAL" property="typeSumProportion" />
+    <result column="area_list" jdbcType="VARCHAR" property="areaList" />
+    <result column="area_company_num" jdbcType="VARCHAR" property="areaCompanyNum" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.bbd.wtyh.domain.DynamicRiskDataWithBLOBs">
+    <result column="core_person_list" jdbcType="LONGVARCHAR" property="corePersonList" />
+    <result column="control_num" jdbcType="LONGVARCHAR" property="controlNum" />
+    <result column="agree_company_detail" jdbcType="LONGVARCHAR" property="agreeCompanyDetail" />
+    <result column="company_detail" jdbcType="LONGVARCHAR" property="companyDetail" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    company_name, data_version, area, create_by, create_date, update_by, update_date, 
+    risk_date, bbd_time_risk_index, person_num, company_num, sum_num, agree_action_num, 
+    agree_action_proportion, one_two_comapny_num, one_two_company_proportion, three_person_num, 
+    three_person_proportion, type_sum_num, type_sum_proportion, area_list, area_company_num
+  </sql>
+  <sql id="Blob_Column_List">
+    core_person_list, control_num, agree_company_detail, company_detail
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.bbd.wtyh.domain.DynamicRiskDataKey" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dynamic_risk_data
+    where company_name = #{companyName,jdbcType=VARCHAR}
+      and data_version = #{dataVersion,jdbcType=VARCHAR}
+      and area = #{area,jdbcType=VARCHAR}
+  </select>
+</mapper>

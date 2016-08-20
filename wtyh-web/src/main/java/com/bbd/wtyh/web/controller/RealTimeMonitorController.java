@@ -149,7 +149,7 @@ public class RealTimeMonitorController {
 
                 Map<String, String> eSHsereis = new HashMap<>();
                 eSHsereis.put("name", companyAnalysisResultDO.getName());
-                eSHsereis.put("value", companyAnalysisResultDO.getStaticRiskIndex());
+                eSHsereis.put("value", String.valueOf(companyAnalysisResultDO.getAnalysisResult()));
                 sHsereis.add(eSHsereis);
 
                 if (companyAnalysisResultDO.getAnalysisResult() == CompanyAnalysisResultDO.EXPOSURE) {
@@ -160,10 +160,14 @@ public class RealTimeMonitorController {
             }
         }
 
+        Map<String, Map> sHhoverArea = realTimeMonitorService.shArea();
+
         Map<String, Object> rst = new HashMap<>();
         rst.put("SHposition", sHposition);
         rst.put("SHsereis", sHsereis);
         rst.put("SHhoverDot", sHhoverDot);
+        rst.put("SHhoverArea", sHhoverArea);
+
         return ResponseBean.successResponse(rst);
     }
 

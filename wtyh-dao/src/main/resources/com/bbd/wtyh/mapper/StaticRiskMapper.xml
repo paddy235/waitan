@@ -229,4 +229,7 @@
 			static_risk_data
     </select>
 
+    <insert id="save" parameterType="com.bbd.wtyh.domain.StaticRiskDataDO" >
+        INSERT INTO `static_risk_data` VALUES ('system', '2016-08-08', '赵运枫', '2016-08-08', 'None', '上海三硕投资管理有限公司', '20160307', '2016-03-07', '21.1111', '1', '0.5', '张强|王佳妮', '10', '0', '0', '无', '0', '0', '0', '无', '0', '0', '0', '无', '50', '0', '0', '无', '1', '0', '1', '0', '0', '0', '0', '上海三硕投资管理有限公司', '100', '30', '0', '0', '0', '0', '无', '0', null, '0');
+    </insert>
 </mapper>
