@@ -122,63 +122,92 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
     }
 
     @Override
-    public List<FinanceLeasecCompanyVO> leaseCompanyList(String areaName, Integer analysisResult, Integer riskA, Integer riskB, Integer riskC, Integer riskD) {
-        Map map = new HashedMap();
-        map.put("areaName", areaName);
-        map.put("analysisResult", analysisResult);
-        map.put("riskA", riskA);
-        map.put("riskB", riskB);
-        map.put("riskC", riskC);
-        map.put("riskD", riskD);
+    public Set<FinanceLeasecCompanyVO> leaseCompanyList(String areaName, Integer analysisResult, Integer riskA, Integer riskB, Integer riskC, Integer riskD) {
+        Map paramsMap = new HashedMap();
 
-        List<FinanceLeasecCompanyVO> resultList = new ArrayList<>();
-        List<FinanceLeaseVO> list = financeLeaseMapper.queryLeaseCompanyList(map);
-        if (!CollectionUtils.isEmpty(list)) {
-            for (FinanceLeaseVO financeLeaseVO : list) {
-                FinanceLeasecCompanyVO financeLeasecCompanyVO = new FinanceLeasecCompanyVO();
+        paramsMap.put("areaName", areaName);
 
+        Set<FinanceLeasecCompanyVO> tempSet = new LinkedHashSet<>();
+        Set<FinanceLeaseVO> set = financeLeaseMapper.queryLeaseCompanyList(paramsMap);
+        Map<String, FinanceLeasecCompanyVO> resultMap = new HashedMap();
+
+        if (!CollectionUtils.isEmpty(set)) {
+            for (FinanceLeaseVO financeLeaseVO : set) {
                 String companyName = financeLeaseVO.getCompanyName();
-
-                Integer riskStatusA   = financeLeaseVO.getRiskStatusA();
-                Integer riskStatusB   = financeLeaseVO.getRiskStatusB();
-                Integer riskStatusC   = financeLeaseVO.getRiskStatusC();
-                Integer riskStatusD   = financeLeaseVO.getRiskStatusD();
-                financeLeasecCompanyVO.setCompanyName(companyName);
-                if (riskStatusA == 1) {
-                    financeLeasecCompanyVO.setRiskStatusA("是");
-                } else if (riskStatusA == 0) {
-                    financeLeasecCompanyVO.setRiskStatusA("否");
+                String address = financeLeaseVO.getAddress();
+                Integer riskType = financeLeaseVO.getRiskType();
+                Integer riskStatus = financeLeaseVO.getRiskStatus();
+                String riskStatusString = null;
+                if (riskStatus != null && riskStatus == 1) {
+                    riskStatusString = "是";
                 }
-
-                if (riskStatusB == 1) {
-                    financeLeasecCompanyVO.setRiskStatusB("是");
-                } else if (riskStatusB == 0) {
-                    financeLeasecCompanyVO.setRiskStatusB("否");
-                }
-
-                if (riskStatusC == 1) {
-                    financeLeasecCompanyVO.setRiskStatusC("是");
-                } else if (riskStatusC == 0) {
-                    financeLeasecCompanyVO.setRiskStatusC("否");
-                }
-
-                if (riskStatusD == 1) {
-                    financeLeasecCompanyVO.setRiskStatusD("是");
-                } else if (riskStatusD == 0) {
-                    financeLeasecCompanyVO.setRiskStatusD("否");
-                }
-
-                if (riskStatusD == 0 && riskStatusC == 0 && riskStatusB == 0 && riskStatusA == 0) {
+                if (resultMap.get(companyName) == null) {
+                    FinanceLeasecCompanyVO financeLeasecCompanyVO = new FinanceLeasecCompanyVO();
+                    financeLeasecCompanyVO.setCompanyName(companyName);
+                    financeLeasecCompanyVO.setAddress(address);
                     financeLeasecCompanyVO.setRiskStatus("正常");
+                    if (riskStatus != null && riskStatus == 1) {
+                        financeLeasecCompanyVO.setRiskStatus("潜在");
+                    }
+                    if (riskType != null && riskType == 1) {
+                        financeLeasecCompanyVO.setRiskStatusA(riskStatusString);
+                    } else if (riskType != null && riskType == 2) {
+                        financeLeasecCompanyVO.setRiskStatusB(riskStatusString);
+                    } else if (riskType != null && riskType == 3) {
+                        financeLeasecCompanyVO.setRiskStatusC(riskStatusString);
+                    } else if (riskType != null && riskType == 4) {
+                        financeLeasecCompanyVO.setRiskStatusD(riskStatusString);
+                    } else {
+                        //do nothing
+                    }
+                    resultMap.put(companyName, financeLeasecCompanyVO);
                 } else {
-                    financeLeasecCompanyVO.setRiskStatus("潜在");
+                    if (riskStatus == 1) {
+                        resultMap.get(companyName).setRiskStatus("潜在");
+                    }
+                    if (riskType != null && riskType == 1) {
+                        resultMap.get(companyName).setRiskStatusA(riskStatusString);
+                    } else if (riskType != null && riskType == 2) {
+                        resultMap.get(companyName).setRiskStatusB(riskStatusString);
+                    } else if (riskType != null && riskType == 3) {
+                        resultMap.get(companyName).setRiskStatusC(riskStatusString);
+                    } else if (riskType != null && riskType == 4) {
+                        resultMap.get(companyName).setRiskStatusD(riskStatusString);
+                    } else {
+                        //do nothing
+                    }
                 }
-                resultList.add(financeLeasecCompanyVO);
+            }
+        }
+        Set<FinanceLeasecCompanyVO> resultList = new HashSet<>();
+        if (resultMap != null) {
+            for (String key : resultMap.keySet()) {
+                tempSet.add(resultMap.get(key));
+            }
+        }
+        if (!CollectionUtils.isEmpty(tempSet)) {
+
+            for (FinanceLeasecCompanyVO financeLeasecCompanyVO : tempSet) {
+                String riskStatus = financeLeasecCompanyVO.getRiskStatus();
+                String riskStatusA = financeLeasecCompanyVO.getRiskStatusA();
+                String riskStatusB = financeLeasecCompanyVO.getRiskStatusB();
+                String riskStatusC = financeLeasecCompanyVO.getRiskStatusC();
+                String riskStatusD = financeLeasecCompanyVO.getRiskStatusD();
+
+                if (analysisResult == 0 && "正常".equals(riskStatus)) {
+                    resultList.add(financeLeasecCompanyVO);
+                } else if (analysisResult == 1 && "潜在".equals(riskStatus)){
+                    resultList.add(financeLeasecCompanyVO);
+                }
             }
 
         }
 
-
         return resultList;
+    }
+
+    @Override
+    public List<String> getYears() {
+        return financeLeaseMapper.getYears();
     }
 }

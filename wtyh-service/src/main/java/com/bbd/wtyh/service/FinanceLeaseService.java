@@ -5,6 +5,7 @@ import com.bbd.wtyh.domain.vo.FinanceLeasecCompanyVO;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 融资租赁接口层
@@ -17,6 +18,7 @@ public interface FinanceLeaseService {
 
     public Map leaseCompanyCategory(Integer year);
 
-    public List<FinanceLeasecCompanyVO> leaseCompanyList(String areaName, Integer analysisResult, Integer riskA, Integer riskB, Integer riskC, Integer riskD);
+    public Set<FinanceLeasecCompanyVO> leaseCompanyList(String areaName, Integer analysisResult, Integer riskA, Integer riskB, Integer riskC, Integer riskD);
 
+    List<String> getYears();
 }

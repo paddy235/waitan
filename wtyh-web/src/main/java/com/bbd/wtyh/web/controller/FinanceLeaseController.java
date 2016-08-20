@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 融资租赁
@@ -54,10 +55,19 @@ public class FinanceLeaseController {
     @RequestMapping("leaseCompanyList.do")
     @ResponseBody
     public ResponseBean leaseCompanyList(String areaName, Integer analysisResult, Integer riskA, Integer riskB, Integer riskC, Integer riskD) {
-        List<FinanceLeasecCompanyVO> list = financeLeaseService.leaseCompanyList(areaName, analysisResult, riskA, riskB, riskC, riskD);
+        Set<FinanceLeasecCompanyVO> list = financeLeaseService.leaseCompanyList(areaName, analysisResult, riskA, riskB, riskC, riskD);
         return ResponseBean.successResponse(list);
     }
 
-
+    /**
+     * 获取年的记录
+     * @return
+     */
+    @RequestMapping("getYears.do")
+    @ResponseBody
+    public ResponseBean getYears() {
+        List<String> list = financeLeaseService.getYears();
+        return ResponseBean.successResponse(list);
+    }
 
 }

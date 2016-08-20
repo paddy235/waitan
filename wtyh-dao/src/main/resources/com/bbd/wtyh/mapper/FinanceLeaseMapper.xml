@@ -44,7 +44,41 @@
 			fle.free_trade_zone;
 	</select>
 
+	<select id="getYears" resultType="java.lang.String">
+		SELECT DISTINCT
+			YEAR(registered_date) AS year
+		FROM
+			company
+		WHERE
+			company_type = 13
+			and registered_date is not null
+		ORDER BY
+		YEAR ASC
+	</select>
+
 	<select id="queryLeaseCompanyList" parameterType="java.util.Map" resultType="com.bbd.wtyh.domain.vo.FinanceLeaseVO">
+		SELECT
+			c.`name` as companyName,
+			c.address as address,
+			f.risk_type as riskType,
+			f.risk_status as riskStatus
+		FROM
+			company c
+		LEFT JOIN finance_lease_risk f ON f.company_id = c.company_id
+		LEFT JOIN area a ON a.area_id = c.area_id
+		<where>
+			AND c.company_type = 13
+		<if test="areaName != null and areaName != ''">
+			AND a.name = #{areaName}
+		</if>
+		<if test="areaName == null or areaName == ''">
+			AND a.name = '黄浦区'
+		</if>
+		</where>
+	</select>
+
+
+	<select id="queryLeaseCompanyList2" parameterType="java.util.Map" resultType="com.bbd.wtyh.domain.vo.FinanceLeaseVO">
 		SELECT
 			company.company_id,
 			a.risk_status AS riskStatusA,
