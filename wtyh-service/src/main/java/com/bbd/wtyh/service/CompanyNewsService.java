@@ -17,7 +17,7 @@ public interface CompanyNewsService {
 	 * @param company
 	 * @return
      */
-	public List getCompanyNews(String company);
+	public String getCompanyNews(String company);
 
 	/**
 	 * 获取所有的公司的舆情

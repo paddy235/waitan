@@ -222,4 +222,11 @@
         order by date DESC;
     </select>
 
+    <select id="maxDataVersion" resultType="java.lang.String">
+        SELECT
+			MAX(data_version)
+		FROM
+			static_risk_data
+    </select>
+
 </mapper>

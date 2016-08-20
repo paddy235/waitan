@@ -25,7 +25,7 @@ public interface OfflineFinanceService {
      * @param companyName
      * @return
      */
-    public List<Map> companyNews(String companyName);
+    public String companyNews(String companyName);
 
     /**
      * 静态风险指数构成
