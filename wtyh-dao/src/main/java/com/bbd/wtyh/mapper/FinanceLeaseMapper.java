@@ -14,7 +14,7 @@ public interface FinanceLeaseMapper {
 
     public List<Map> queryFinanceLeaseCompanyCategory(@Param("year") Integer year);
 
-    public Set<FinanceLeaseVO> queryLeaseCompanyList(Map map);
+    public List<FinanceLeaseVO> queryLeaseCompanyList(Map map);
 
     List<String> getYears();
 }

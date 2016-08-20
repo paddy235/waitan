@@ -122,13 +122,13 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
     }
 
     @Override
-    public Set<FinanceLeasecCompanyVO> leaseCompanyList(String areaName, Integer analysisResult, Integer riskA, Integer riskB, Integer riskC, Integer riskD) {
+    public List<FinanceLeasecCompanyVO> leaseCompanyList(String areaName, Integer analysisResult, Integer riskA, Integer riskB, Integer riskC, Integer riskD) {
         Map paramsMap = new HashedMap();
 
         paramsMap.put("areaName", areaName);
 
-        Set<FinanceLeasecCompanyVO> tempSet = new LinkedHashSet<>();
-        Set<FinanceLeaseVO> set = financeLeaseMapper.queryLeaseCompanyList(paramsMap);
+        List<FinanceLeasecCompanyVO> tempList = new ArrayList<>();
+        List<FinanceLeaseVO> set = financeLeaseMapper.queryLeaseCompanyList(paramsMap);
         Map<String, FinanceLeasecCompanyVO> resultMap = new HashedMap();
 
         if (!CollectionUtils.isEmpty(set)) {
@@ -179,20 +179,16 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
                 }
             }
         }
-        Set<FinanceLeasecCompanyVO> resultList = new HashSet<>();
+        List<FinanceLeasecCompanyVO> resultList = new ArrayList<>();
         if (resultMap != null) {
             for (String key : resultMap.keySet()) {
-                tempSet.add(resultMap.get(key));
+                tempList.add(resultMap.get(key));
             }
         }
-        if (!CollectionUtils.isEmpty(tempSet)) {
+        if (!CollectionUtils.isEmpty(tempList)) {
 
-            for (FinanceLeasecCompanyVO financeLeasecCompanyVO : tempSet) {
+            for (FinanceLeasecCompanyVO financeLeasecCompanyVO : tempList) {
                 String riskStatus = financeLeasecCompanyVO.getRiskStatus();
-                String riskStatusA = financeLeasecCompanyVO.getRiskStatusA();
-                String riskStatusB = financeLeasecCompanyVO.getRiskStatusB();
-                String riskStatusC = financeLeasecCompanyVO.getRiskStatusC();
-                String riskStatusD = financeLeasecCompanyVO.getRiskStatusD();
 
                 if (analysisResult == 0 && "正常".equals(riskStatus)) {
                     resultList.add(financeLeasecCompanyVO);
@@ -200,7 +196,30 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
                     resultList.add(financeLeasecCompanyVO);
                 }
             }
+            if (analysisResult == 1) {
+                List<FinanceLeasecCompanyVO> resultListRisk = new ArrayList();
+                for (FinanceLeasecCompanyVO financeLeasecCompanyVO : resultList) {
+                    String riskStatusA = financeLeasecCompanyVO.getRiskStatusA();
+                    String riskStatusB = financeLeasecCompanyVO.getRiskStatusB();
+                    String riskStatusC = financeLeasecCompanyVO.getRiskStatusC();
+                    String riskStatusD = financeLeasecCompanyVO.getRiskStatusD();
 
+                    if(riskA != null && riskA == 1 && !"是".equals(riskStatusA)) {
+                        continue;
+                    }
+                    if(riskB != null && riskB == 1 && !"是".equals(riskStatusB)) {
+                        continue;
+                    }
+                    if(riskC != null && riskC == 1 && !"是".equals(riskStatusC)) {
+                        continue;
+                    }
+                    if(riskD != null && riskD == 1 && !"是".equals(riskStatusD)) {
+                        continue;
+                    }
+                    resultListRisk.add(financeLeasecCompanyVO);
+                }
+                return resultListRisk;
+            }
         }
 
         return resultList;
