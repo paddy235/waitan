@@ -125,9 +125,9 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     }
 
     @Override
-    public List<Map> companyNews(String companyName) {
-        List list = companyNewsService.getCompanyNews(companyName);
-        return list;
+    public String companyNews(String companyName) {
+        String string = companyNewsService.getCompanyNews(companyName);
+        return string;
     }
 
     @Override

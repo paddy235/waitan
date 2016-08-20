@@ -3,6 +3,7 @@ package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.domain.vo.FinanceLeaseStatisticVO;
 import com.bbd.wtyh.domain.vo.FinanceLeaseVO;
+import com.bbd.wtyh.domain.vo.FinanceLeasecCompanyVO;
 import com.bbd.wtyh.mapper.FinanceLeaseMapper;
 import com.bbd.wtyh.service.FinanceLeaseService;
 import com.bbd.wtyh.util.CalculateUtils;
@@ -121,7 +122,7 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
     }
 
     @Override
-    public List<FinanceLeaseVO> leaseCompanyList(String areaName, Integer analysisResult, Integer riskA, Integer riskB, Integer riskC, Integer riskD) {
+    public List<FinanceLeasecCompanyVO> leaseCompanyList(String areaName, Integer analysisResult, Integer riskA, Integer riskB, Integer riskC, Integer riskD) {
         Map map = new HashedMap();
         map.put("areaName", areaName);
         map.put("analysisResult", analysisResult);
@@ -129,65 +130,55 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
         map.put("riskB", riskB);
         map.put("riskC", riskC);
         map.put("riskD", riskD);
-        Map<String, FinanceLeaseVO> resultMap = new HashMap();
-        List<FinanceLeaseVO> resultList = new ArrayList<>();
+
+        List<FinanceLeasecCompanyVO> resultList = new ArrayList<>();
         List<FinanceLeaseVO> list = financeLeaseMapper.queryLeaseCompanyList(map);
         if (!CollectionUtils.isEmpty(list)) {
             for (FinanceLeaseVO financeLeaseVO : list) {
-                String companyName = financeLeaseVO.getCompany();
-                Integer riskType   = financeLeaseVO.getRiskType();
-                Integer riskStatus = financeLeaseVO.getRiskStatus();
-                String riskStatusString = "";
-                if (riskStatus == 1) {
-                    riskStatusString = "是";
-                } else if (riskStatus == 0) {
-                    riskStatusString = "否";
+                FinanceLeasecCompanyVO financeLeasecCompanyVO = new FinanceLeasecCompanyVO();
+
+                String companyName = financeLeaseVO.getCompanyName();
+
+                Integer riskStatusA   = financeLeaseVO.getRiskStatusA();
+                Integer riskStatusB   = financeLeaseVO.getRiskStatusB();
+                Integer riskStatusC   = financeLeaseVO.getRiskStatusC();
+                Integer riskStatusD   = financeLeaseVO.getRiskStatusD();
+                financeLeasecCompanyVO.setCompanyName(companyName);
+                if (riskStatusA == 1) {
+                    financeLeasecCompanyVO.setRiskStatusA("是");
+                } else if (riskStatusA == 0) {
+                    financeLeasecCompanyVO.setRiskStatusA("否");
                 }
-                if (resultMap.get(companyName) == null) {
-                    FinanceLeaseVO vo = new FinanceLeaseVO();
-                    vo.setCompany(financeLeaseVO.getCompany());
-                    vo.setAddress(financeLeaseVO.getAddress());
-                    vo.setStatus("正常");
-                    if (riskStatus == 1) {
-                        vo.setStatus("潜在");
-                    }
-                    if (riskType != null && riskType == 1) {
-                        vo.setRiskA(riskStatusString);
-                    } else if (riskType != null && riskType == 2) {
-                        vo.setRiskB(riskStatusString);
-                    } else if (riskType != null && riskType == 3) {
-                        vo.setRiskC(riskStatusString);
-                    } else if (riskType != null && riskType == 4) {
-                        vo.setRiskD(riskStatusString);
-                    } else {
-                        //do nothing
-                    }
-                    resultMap.put(companyName, vo);
+
+                if (riskStatusB == 1) {
+                    financeLeasecCompanyVO.setRiskStatusB("是");
+                } else if (riskStatusB == 0) {
+                    financeLeasecCompanyVO.setRiskStatusB("否");
+                }
+
+                if (riskStatusC == 1) {
+                    financeLeasecCompanyVO.setRiskStatusC("是");
+                } else if (riskStatusC == 0) {
+                    financeLeasecCompanyVO.setRiskStatusC("否");
+                }
+
+                if (riskStatusD == 1) {
+                    financeLeasecCompanyVO.setRiskStatusD("是");
+                } else if (riskStatusD == 0) {
+                    financeLeasecCompanyVO.setRiskStatusD("否");
+                }
+
+                if (riskStatusD == 0 && riskStatusC == 0 && riskStatusB == 0 && riskStatusA == 0) {
+                    financeLeasecCompanyVO.setRiskStatus("正常");
                 } else {
-
-                    if (riskStatus == 1) {
-                        resultMap.get(companyName).setStatus("潜在");
-                    }
-
-                    if (riskType != null && riskType == 1) {
-                        resultMap.get(companyName).setRiskA(riskStatusString);
-                    } else if (riskType != null && riskType == 2) {
-                        resultMap.get(companyName).setRiskB(riskStatusString);
-                    } else if (riskType != null && riskType == 3) {
-                        resultMap.get(companyName).setRiskC(riskStatusString);
-                    } else if (riskType != null && riskType == 4) {
-                        resultMap.get(companyName).setRiskD(riskStatusString);
-                    } else {
-                        //do nothing
-                    }
+                    financeLeasecCompanyVO.setRiskStatus("潜在");
                 }
+                resultList.add(financeLeasecCompanyVO);
             }
+
         }
-        if (resultMap != null) {
-            for (String key : resultMap.keySet()) {
-                resultList.add(resultMap.get(key));
-            }
-        }
+
+
         return resultList;
     }
 }

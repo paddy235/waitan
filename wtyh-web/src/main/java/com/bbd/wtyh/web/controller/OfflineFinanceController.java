@@ -10,6 +10,7 @@ import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -183,7 +184,7 @@ public class OfflineFinanceController {
     @RequestMapping("companyNews.do")
     @ResponseBody
     public ResponseBean companyNews(String companyName) {
-        List<Map> data = offlineFinanceService.companyNews(companyName);
+        String data = offlineFinanceService.companyNews(companyName);
         return ResponseBean.successResponse(data);
     }
 
@@ -250,6 +251,28 @@ public class OfflineFinanceController {
     }
 
     /**
+     * 数据版本
+     * @return
+     */
+    @SuppressWarnings("queryDateVersion")
+    @RequestMapping("queryDateVersion.do")
+    @ResponseBody
+    public ResponseBean queryDateVersion(String companyName, String areaCode) {
+        List<String> dataVersionList =  relationDataService.queryDateVersion(companyName,areaCode);
+        List<String> result = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(dataVersionList)) {
+            for (String string : dataVersionList) {
+                if (!StringUtils.isEmpty(string)) {
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(string.substring(0, 4)).append("-").append(string.substring(4, 6));
+                    result.add(sb.toString());
+                }
+            }
+        }
+        return ResponseBean.successResponse(result);
+    }
+
+    /**
      *
      * @param dataVersionString
      * @return
@@ -267,4 +290,6 @@ public class OfflineFinanceController {
         String month = dateformat1.format(date);
         return month;
     }
+
+
 }

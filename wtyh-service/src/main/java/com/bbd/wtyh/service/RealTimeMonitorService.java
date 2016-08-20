@@ -1,5 +1,6 @@
 package com.bbd.wtyh.service;
 
+import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
 import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
 
 import java.util.List;
@@ -19,7 +20,9 @@ public interface RealTimeMonitorService {
 
     Map<String, Object>  ChinaMap();
 
-    Map<String, Object> shMap();
+    List<List<CompanyAnalysisResultDO>> shMap();
 
     List<List> spectrumAnalysis();
+
+    Map<String, Map> shArea();
 }

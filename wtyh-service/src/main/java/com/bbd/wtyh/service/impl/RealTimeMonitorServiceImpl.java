@@ -1,16 +1,16 @@
 package com.bbd.wtyh.service.impl;
 
+import com.bbd.wtyh.domain.BuildingNumberInAreaDO;
+import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
+import com.bbd.wtyh.domain.CompanyGroupByAreaDO;
 import com.bbd.wtyh.domain.RelatedCompanyStatisticDO;
 import com.bbd.wtyh.domain.dto.StaticRiskDTO;
 import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
-import com.bbd.wtyh.mapper.CompanyAnalysisResultMapper;
-import com.bbd.wtyh.mapper.RelatedCompanyStatisticMapper;
-import com.bbd.wtyh.mapper.StaticRiskMapper;
+import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.service.RealTimeMonitorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +29,9 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
 
     @Autowired
     private StaticRiskMapper staticRiskMapper;
+
+    @Autowired
+    private BuildingMapper buildingMapper;
 
 
     private final Integer MAX = null;
@@ -73,7 +76,7 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
 
     @Override
     public Map<String, Object> ChinaMap() {
-        List<RelatedCompanyStatisticDO> list =  relatedCompanyStatisticMapper.getChinaMap();
+        List<RelatedCompanyStatisticDO> list = relatedCompanyStatisticMapper.getChinaMap();
         Map<String, Object> map = new HashMap<>();
         List<Object> resultList = new ArrayList<>();
         for (RelatedCompanyStatisticDO re : list) {
@@ -92,9 +95,50 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
     }
 
     @Override
-    public Map<String, Object> shMap() {
-//        return realTimeMonitorDao.shMap();
-        return null;
+    public List<List<CompanyAnalysisResultDO>> shMap() {
+        // 公司名、经纬度、风险类型、静态风险值、暴露风险时间
+        final String dateVersion = staticRiskMapper.maxDataVersion();
+        List<CompanyAnalysisResultDO> exposures = companyAnalysisResultMapper.shMap(CompanyAnalysisResultDO.EXPOSURE, dateVersion);
+        List<CompanyAnalysisResultDO> highs = companyAnalysisResultMapper.shMap(CompanyAnalysisResultDO.HIGH, dateVersion);
+        List<CompanyAnalysisResultDO> focuses = companyAnalysisResultMapper.shMap(CompanyAnalysisResultDO.FOCUS, dateVersion);
+        List<CompanyAnalysisResultDO> normals = companyAnalysisResultMapper.shMap(CompanyAnalysisResultDO.NORMAL, dateVersion);
+
+        List<List<CompanyAnalysisResultDO>> rst = new ArrayList<>();
+        rst.add(exposures);
+        rst.add(highs);
+        rst.add(focuses);
+        rst.add(normals);
+        return rst;
     }
+
+
+    @Override
+    public Map<String, Map> shArea() {
+        List<BuildingNumberInAreaDO> buildingNumberInArea = buildingMapper.countByArea();
+        List<CompanyGroupByAreaDO> companyGroupByArea = buildingMapper.companyGroupByArea();
+
+        Map<String, List> companyGroupByAreaMap = new HashMap<>();
+        for (CompanyGroupByAreaDO e : companyGroupByArea) {
+            if (companyGroupByAreaMap.containsKey(e.getArea())) {
+                companyGroupByAreaMap.get(e.getArea()).add(e.getCompanyName());
+            } else {
+                List<String> companys = new ArrayList<>();
+                companys.add(e.getCompanyName());
+                companyGroupByAreaMap.put(e.getArea(), companys);
+            }
+        }
+        Map<String, Map> rst = new HashMap<>();
+        for (BuildingNumberInAreaDO buildingNumberInAreaDO : buildingNumberInArea) {
+            Map<String, String> num = new HashMap<>();
+            num.put("num", buildingNumberInAreaDO.getCount());
+            rst.put(buildingNumberInAreaDO.getName(), num);
+
+            Map<String, List> companyName = new HashMap<>();
+            companyName.put("companyName", companyGroupByAreaMap.get(buildingNumberInAreaDO.getName()));
+            rst.put(buildingNumberInAreaDO.getName(), companyName);
+        }
+        return rst;
+    }
+
 
 }
