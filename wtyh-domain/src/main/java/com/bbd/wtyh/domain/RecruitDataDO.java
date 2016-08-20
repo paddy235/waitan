@@ -1,11 +1,12 @@
 package com.bbd.wtyh.domain;
 
-public class DynamicRiskDataKey extends BaseDO {
+public class RecruitDataDO extends BaseDO {
+
+    private String recruitDetail;
+
     private String companyName;
 
     private String dataVersion;
-
-    private String area;
 
     public String getCompanyName() {
         return companyName;
@@ -23,11 +24,11 @@ public class DynamicRiskDataKey extends BaseDO {
         this.dataVersion = dataVersion == null ? null : dataVersion.trim();
     }
 
-    public String getArea() {
-        return area;
+    public String getRecruitDetail() {
+        return recruitDetail;
     }
 
-    public void setArea(String area) {
-        this.area = area == null ? null : area.trim();
+    public void setRecruitDetail(String recruitDetail) {
+        this.recruitDetail = recruitDetail == null ? null : recruitDetail.trim();
     }
 }

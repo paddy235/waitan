@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bbd.wtyh.mapper.IndexDataMapper">
-  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.IndexData">
+  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.IndexDataDO">
     <id column="company_name" jdbcType="VARCHAR" property="companyName" />
     <id column="area" jdbcType="VARCHAR" property="area" />
     <result column="create_by" jdbcType="VARCHAR" property="createBy" />
@@ -30,7 +30,7 @@
     where company_name = #{companyName,jdbcType=VARCHAR}
       and area = #{area,jdbcType=VARCHAR}
   </select>
-  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.IndexData">
+  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.IndexDataDO">
     <id column="company_name" jdbcType="VARCHAR" property="companyName" />
     <id column="area" jdbcType="VARCHAR" property="area" />
     <result column="create_by" jdbcType="VARCHAR" property="createBy" />
@@ -59,7 +59,7 @@
     where company_name = #{companyName,jdbcType=VARCHAR}
       and area = #{area,jdbcType=VARCHAR}
   </select>
-  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.IndexData">
+  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.IndexDataDO">
     <id column="company_name" jdbcType="VARCHAR" property="companyName" />
     <id column="area" jdbcType="VARCHAR" property="area" />
     <result column="create_by" jdbcType="VARCHAR" property="createBy" />
@@ -88,7 +88,7 @@
     where company_name = #{companyName,jdbcType=VARCHAR}
       and area = #{area,jdbcType=VARCHAR}
   </select>
-  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.IndexData">
+  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.IndexDataDO">
     <id column="company_name" jdbcType="VARCHAR" property="companyName" />
     <id column="area" jdbcType="VARCHAR" property="area" />
     <result column="create_by" jdbcType="VARCHAR" property="createBy" />

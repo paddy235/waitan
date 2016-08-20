@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bbd.wtyh.mapper.DynamicRiskDataMapper">
-  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.DynamicRiskData">
+  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.DynamicRiskDataDO">
     <id column="company_name" jdbcType="VARCHAR" property="companyName" />
     <id column="data_version" jdbcType="VARCHAR" property="dataVersion" />
     <id column="area" jdbcType="VARCHAR" property="area" />
@@ -50,7 +50,7 @@
       and data_version = #{dataVersion,jdbcType=VARCHAR}
       and area = #{area,jdbcType=VARCHAR}
   </select>
-  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.DynamicRiskData">
+  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.DynamicRiskDataDO">
     <id column="company_name" jdbcType="VARCHAR" property="companyName" />
     <id column="data_version" jdbcType="VARCHAR" property="dataVersion" />
     <id column="area" jdbcType="VARCHAR" property="area" />
@@ -99,7 +99,7 @@
       and data_version = #{dataVersion,jdbcType=VARCHAR}
       and area = #{area,jdbcType=VARCHAR}
   </select>
-  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.DynamicRiskData">
+  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.DynamicRiskDataDO">
     <id column="company_name" jdbcType="VARCHAR" property="companyName" />
     <id column="data_version" jdbcType="VARCHAR" property="dataVersion" />
     <id column="area" jdbcType="VARCHAR" property="area" />
@@ -148,7 +148,7 @@
       and data_version = #{dataVersion,jdbcType=VARCHAR}
       and area = #{area,jdbcType=VARCHAR}
   </select>
-  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.DynamicRiskData">
+  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.DynamicRiskDataDO">
     <id column="company_name" jdbcType="VARCHAR" property="companyName" />
     <id column="data_version" jdbcType="VARCHAR" property="dataVersion" />
     <id column="area" jdbcType="VARCHAR" property="area" />

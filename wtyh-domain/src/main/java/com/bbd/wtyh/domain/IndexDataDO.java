@@ -2,7 +2,7 @@ package com.bbd.wtyh.domain;
 
 import java.util.Date;
 
-public class IndexData extends IndexDataKey {
+public class IndexDataDO extends BaseDO {
     private String regCapital;
 
     private String companyQualification;
@@ -20,6 +20,26 @@ public class IndexData extends IndexDataKey {
     private String reviewTime;
 
     private Integer isRise;
+
+    private String companyName;
+
+    private String area;
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName == null ? null : companyName.trim();
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area == null ? null : area.trim();
+    }
 
     public String getRegCapital() {
         return regCapital;

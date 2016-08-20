@@ -2,7 +2,7 @@ package com.bbd.wtyh.domain;
 
 import java.util.Date;
 
-public class DynamicRiskData extends DynamicRiskDataKey {
+public class DynamicRiskDataDO extends BaseDO {
     private Date riskDate;
 
     private Float bbdTimeRiskIndex;
@@ -32,6 +32,75 @@ public class DynamicRiskData extends DynamicRiskDataKey {
     private String areaList;
 
     private String areaCompanyNum;
+
+    private String companyName;
+
+    private String dataVersion;
+
+    private String area;
+
+    private String corePersonList;
+
+    private String controlNum;
+
+    private String agreeCompanyDetail;
+
+    private String companyDetail;
+
+    public String getCorePersonList() {
+        return corePersonList;
+    }
+
+    public void setCorePersonList(String corePersonList) {
+        this.corePersonList = corePersonList == null ? null : corePersonList.trim();
+    }
+
+    public String getControlNum() {
+        return controlNum;
+    }
+
+    public void setControlNum(String controlNum) {
+        this.controlNum = controlNum == null ? null : controlNum.trim();
+    }
+
+    public String getAgreeCompanyDetail() {
+        return agreeCompanyDetail;
+    }
+
+    public void setAgreeCompanyDetail(String agreeCompanyDetail) {
+        this.agreeCompanyDetail = agreeCompanyDetail == null ? null : agreeCompanyDetail.trim();
+    }
+
+    public String getCompanyDetail() {
+        return companyDetail;
+    }
+
+    public void setCompanyDetail(String companyDetail) {
+        this.companyDetail = companyDetail == null ? null : companyDetail.trim();
+    }
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName == null ? null : companyName.trim();
+    }
+
+    public String getDataVersion() {
+        return dataVersion;
+    }
+
+    public void setDataVersion(String dataVersion) {
+        this.dataVersion = dataVersion == null ? null : dataVersion.trim();
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area == null ? null : area.trim();
+    }
 
     public Date getRiskDate() {
         return riskDate;
