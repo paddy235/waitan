@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "13d975a9bb043d6d0cee"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "0d1b65a069f2f8037aac"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -86831,7 +86831,6 @@
 
 				if (CompanyInfoBRequest == true) {
 					data = CompanyInfoBResult.content;
-					console.log(data, "我草你");
 					_this.setState({
 						shareholderName: data.gdxx.shareholder_name,
 						shareholderType: data.gdxx.shareholder_type,
@@ -87013,6 +87012,7 @@
 			});
 		},
 		render: function render() {
+			console.log(this.props, "props_ControlRecord");
 			var self = this;
 			return _react2.default.createElement(
 				'div',
@@ -87049,19 +87049,19 @@
 				function () {
 					switch (self.state.pageNum) {
 						case 1:
-							return _react2.default.createElement(_Announcement2.default, this.props);
+							return _react2.default.createElement(_Announcement2.default, self.props);
 							break;
 						case 2:
-							return _react2.default.createElement(_RefereeDocuments2.default, this.props);
+							return _react2.default.createElement(_RefereeDocuments2.default, self.props);
 							break;
 						case 3:
-							return _react2.default.createElement(_Executor2.default, this.props);
+							return _react2.default.createElement(_Executor2.default, self.props);
 							break;
 						case 4:
-							return _react2.default.createElement(_BrokenPromises2.default, this.props);
+							return _react2.default.createElement(_BrokenPromises2.default, self.props);
 							break;
 						case 5:
-							return _react2.default.createElement(_CourtAnnouncement2.default, this.props);
+							return _react2.default.createElement(_CourtAnnouncement2.default, self.props);
 							break;
 					}
 				}()
@@ -87085,7 +87085,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
 
 	__webpack_require__(947);
@@ -87100,101 +87100,101 @@
 	 * 诉讼记录>开庭公告
 	 */
 
+	var Immutable = __webpack_require__(718);
+	var data = "1";
 	var Announcement = _react2.default.createClass({
-		displayName: 'Announcement',
-		render: function render() {
-			return _react2.default.createElement(
-				'div',
-				{ className: 'content announcement' },
-				_react2.default.createElement(
-					'div',
-					{ className: 'content-title' },
-					_react2.default.createElement(
-						'div',
-						null,
-						'案号'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'公告人ss'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'公告内容'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'公告类型'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'公告时间'
-					)
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'content-content clear-fix' },
-					_react2.default.createElement(
-						'div',
-						null,
-						'1'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'成都市金牛区人民法院'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'申请人潘文财依据北京市第二中级人民法院作出的民事判决，向北京市通州区人民法院申请执行，要被执行人中扶建设有限责任公司北京路通同泰建筑分公司（以下简称路通同泰建筑分公司）给付货款、违约金、迟延履行期间的债务利息，共计115万余元。执行法院通过相关查询、现场勘查，发现路通同泰建筑分公司没有能力履行全部债务。'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'相关法人'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'2016年6月7日'
-					)
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'content-content clear-fix' },
-					_react2.default.createElement(
-						'div',
-						null,
-						'2'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'成都市金牛区人民法院'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'申请人潘文财依据北京市第二中级人民法院作出的民事判决，向北京市通州区人民法院申请执行，要被执行人中扶建设有限责任公司北京路通同泰建筑分公司（以下简称路通同泰建筑分公司）给付货款、违约金、迟延履行期间的债务利息，共计115万余元。执行法院通过相关查询、现场勘查，发现路通同泰建筑分公司没有能力履行全部债务。'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'相关法人'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'2016年6月7日'
-					)
-				)
-			);
-		}
+	  displayName: 'Announcement',
+	  getInitialState: function getInitialState() {
+	    return {
+	      content: null
+	    };
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var _this = this;
+	    if (nextProps.CompanyInfoC1Request) {
+	      var data = nextProps.CompanyInfoC1Result;
+	      console.log(data, "诉讼记录A");
+	      this.setState({
+	        content: data.content.map(function (itme, index) {
+	          return _react2.default.createElement(
+	            'div',
+	            { className: 'content-content clear-fix', key: index },
+	            _react2.default.createElement(
+	              'div',
+	              null,
+	              '1'
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              null,
+	              '成都市金牛区人民法院'
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              null,
+	              '申请人潘文财依据北京市第二中级人民法院作出的民事判决，向北京市通州区人民法院申请执行，要被执行人中扶建设有限责任公司北京路通同泰建筑分公司（以下简称路通同泰建筑分公司）给付货款、违约金、迟延履行期间的债务利息，共计115万余元。执行法院通过相关查询、现场勘查，发现路通同泰建筑分公司没有能力履行全部债务。'
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              null,
+	              '相关法人'
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              null,
+	              '2016年6月7日'
+	            )
+	          );
+	        })
+
+	      });
+	    }
+	  },
+	  componentDidMount: function componentDidMount() {
+	    var getCompanyInfoC1 = this.props.getCompanyInfoC1; // 取到props里面的getRealTimeTable方法。也可以说是请求action
+
+	    var jsonData = {
+	      company: "汕头市金通汽车运输有限公司"
+	    }; //ajax传递给后台的data键值对
+	    getCompanyInfoC1(jsonData);
+	  },
+	  render: function render() {
+	    console.log(this.props, "props_Announcement");
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'content announcement' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'content-title' },
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          '案号'
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          '公告人ss'
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          '公告内容'
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          '公告类型'
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          '公告时间'
+	        )
+	      ),
+	      this.state.content
+	    );
+	  }
 	});
 	exports.default = Announcement;
 
@@ -87210,7 +87210,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
 
 	__webpack_require__(947);
@@ -87225,131 +87225,120 @@
 	 * 诉讼记录>裁判文书
 	 */
 
+	var Immutable = __webpack_require__(718);
+	var data = "1";
 	var RefereeDocuments = _react2.default.createClass({
-		displayName: 'RefereeDocuments',
-		render: function render() {
-			return _react2.default.createElement(
-				'div',
-				{ className: 'content referee-documents' },
-				_react2.default.createElement(
-					'div',
-					{ className: 'content-title' },
-					_react2.default.createElement(
-						'div',
-						null,
-						'案号'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'案件标题'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'案由'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'案件类型'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'审判时间'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'当事人类型'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'案件结果'
-					)
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'content-content clear-fix' },
-					_react2.default.createElement(
-						'div',
-						null,
-						'1'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'冯阳火与黄志金、中国平安财产保险股份有限公司藤县支公司机动车交通事故责任纠纷二审民事判决书'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'机动车交通事故责任纠纷'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'民事二审案件'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'2015年12月15日'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'被告'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'上诉人 败诉'
-					)
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'content-content clear-fix' },
-					_react2.default.createElement(
-						'div',
-						null,
-						'2'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'冯阳火与黄志金、中国平安财产保险股份有限公司藤县支公司机动车交通事故责任纠纷二审民事判决书'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'机动车交通事故责任纠纷'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'民事二审案件'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'2015年12月15日'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'被告'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'上诉人 败诉'
-					)
-				)
-			);
-		}
+	  displayName: 'RefereeDocuments',
+	  getInitialState: function getInitialState() {
+	    return {
+	      content: null
+	    };
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var _this = this;
+	    if (nextProps.CompanyInfoC2Request) {
+	      var data = nextProps.CompanyInfoC2Result;
+	      console.log(data, "诉讼记录B");
+	      this.setState({
+	        content: data.content.map(function (itme, index) {
+	          return _react2.default.createElement(
+	            'div',
+	            { className: 'content-content clear-fix', key: index },
+	            _react2.default.createElement(
+	              'div',
+	              null,
+	              '1'
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              null,
+	              '冯阳1火与黄志金、中国平安财产保险股份有限公'
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              null,
+	              '机动车交通事故'
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              null,
+	              '民事二审案件'
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              null,
+	              '2015年12月15日'
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              null,
+	              '被告'
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              null,
+	              '上诉人 败诉'
+	            )
+	          );
+	        })
+
+	      });
+	    }
+	  },
+	  componentDidMount: function componentDidMount() {
+	    var getCompanyInfoC2 = this.props.getCompanyInfoC2; // 取到props里面的getRealTimeTable方法。也可以说是请求action
+
+	    var jsonData = {
+	      company: "汕头市金通汽车运输有限公司"
+	    }; //ajax传递给后台的data键值对
+	    getCompanyInfoC2(jsonData);
+	  },
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'content referee-documents' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'content-title' },
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          '案号'
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          '案件标题'
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          '案由'
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          '案件类型'
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          '审判时间'
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          '当事人类型'
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          '案件结果'
+	        )
+	      ),
+	      this.state.content
+	    );
+	  }
 	});
 	exports.default = RefereeDocuments;
 
@@ -87380,8 +87369,70 @@
 	 * 诉讼记录>被执行人
 	 */
 
+
+	var Immutable = __webpack_require__(718);
+	var data = "1";
 	var Executor = _react2.default.createClass({
 		displayName: 'Executor',
+		getInitialState: function getInitialState() {
+			return {
+				content: null
+			};
+		},
+		componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+			var _this = this;
+			if (nextProps.CompanyInfoC3Request) {
+				var data = nextProps.CompanyInfoC3Result;
+				console.log(data, "诉讼记录C");
+				this.setState({
+					content: data.content.results.map(function (itme, index) {
+						return _react2.default.createElement(
+							'div',
+							{ className: 'content-content clear-fix' },
+							_react2.default.createElement(
+								'div',
+								null,
+								'中国平安财产保险股份有限公司阳泉中心支公司'
+							),
+							_react2.default.createElement(
+								'div',
+								null,
+								'41052119801****2519'
+							),
+							_react2.default.createElement(
+								'div',
+								null,
+								'山西省阳曲县人民法院'
+							),
+							_react2.default.createElement(
+								'div',
+								null,
+								'2015年12月15日'
+							),
+							_react2.default.createElement(
+								'div',
+								null,
+								'(2016)阳法晋0122执字第00104号'
+							),
+							_react2.default.createElement(
+								'div',
+								null,
+								'20000'
+							)
+						);
+					})
+
+				});
+			}
+		},
+		componentDidMount: function componentDidMount() {
+			var getCompanyInfoC3 = this.props.getCompanyInfoC3; // 取到props里面的getRealTimeTable方法。也可以说是请求action
+
+			var jsonData = {
+				company: "汕头市金通汽车运输有限公司"
+			}; //ajax传递给后台的data键值对
+			getCompanyInfoC3(jsonData);
+		},
 		render: function render() {
 			return _react2.default.createElement(
 				'div',
@@ -87420,74 +87471,7 @@
 						'执行标的'
 					)
 				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'content-content clear-fix' },
-					_react2.default.createElement(
-						'div',
-						null,
-						'中国平安财产保险股份有限公司阳泉中心支公司'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'41052119801****2519'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'山西省阳曲县人民法院'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'2015年12月15日'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'(2016)阳法晋0122执字第00104号'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'20000'
-					)
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'content-content clear-fix' },
-					_react2.default.createElement(
-						'div',
-						null,
-						'中国平安财产保险股份有限公司阳泉中心支公司'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'41052119801****2519'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'山西省阳曲县人民法院'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'2015年12月15日'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'(2016)阳法晋0122执字第00104号'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'20000'
-					)
-				)
+				this.state.content
 			);
 		}
 	});
@@ -87520,8 +87504,60 @@
 	 * 诉讼记录>失信被执行人
 	 */
 
+
+	var Immutable = __webpack_require__(718);
+	var data = "1";
 	var BrokenPromises = _react2.default.createClass({
 		displayName: 'BrokenPromises',
+		getInitialState: function getInitialState() {
+			return {
+				content: null
+			};
+		},
+		componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+			var _this = this;
+			if (nextProps.CompanyInfoC4Request) {
+				var data = nextProps.CompanyInfoC4Result;
+				console.log(data, "诉讼记录D");
+				this.setState({
+					content: data.content.results.map(function (itme, index) {
+						return _react2.default.createElement(
+							'div',
+							{ className: 'content-content clear-fix' },
+							_react2.default.createElement(
+								'div',
+								null,
+								'(2015)长法执字第01462号'
+							),
+							_react2.default.createElement(
+								'div',
+								null,
+								'新乡市长垣县法院'
+							),
+							_react2.default.createElement(
+								'div',
+								null,
+								'2015长民初字第1304号民事判决书'
+							),
+							_react2.default.createElement(
+								'div',
+								null,
+								' 2016年01月21日'
+							)
+						);
+					})
+
+				});
+			}
+		},
+		componentDidMount: function componentDidMount() {
+			var getCompanyInfoC4 = this.props.getCompanyInfoC4; // 取到props里面的getRealTimeTable方法。也可以说是请求action
+
+			var jsonData = {
+				company: "中国石油化工股份有限公司"
+			}; //ajax传递给后台的data键值对
+			getCompanyInfoC4(jsonData);
+		},
 		render: function render() {
 			return _react2.default.createElement(
 				'div',
@@ -87550,54 +87586,7 @@
 						'发布时间'
 					)
 				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'content-content clear-fix' },
-					_react2.default.createElement(
-						'div',
-						null,
-						'(2015)长法执字第01462号'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'新乡市长垣县法院'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'2015长民初字第1304号民事判决书'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						' 2016年01月21日'
-					)
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'content-content clear-fix' },
-					_react2.default.createElement(
-						'div',
-						null,
-						'(2015)长法执字第01462号'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'新乡市长垣县法院'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'2015长民初字第1304号民事判决书'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						' 2016年01月21日'
-					)
-				)
+				this.state.content
 			);
 		}
 	});
@@ -87630,8 +87619,60 @@
 	 * 诉讼记录>法院公告
 	 */
 
+
+	var Immutable = __webpack_require__(718);
+	var data = "1";
 	var CourtAnnouncement = _react2.default.createClass({
 		displayName: 'CourtAnnouncement',
+		getInitialState: function getInitialState() {
+			return {
+				content: null
+			};
+		},
+		componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+			var _this = this;
+			if (nextProps.CompanyInfoC5Request) {
+				var data = nextProps.CompanyInfoC5Result;
+				console.log(data, "诉讼记录E");
+				this.setState({
+					content: data.content.results.map(function (itme, index) {
+						return _react2.default.createElement(
+							'div',
+							{ className: 'content-content clear-fix' },
+							_react2.default.createElement(
+								'div',
+								null,
+								'郴州市北湖区人民法院'
+							),
+							_react2.default.createElement(
+								'div',
+								null,
+								'邓珉、邓光泉：上诉人中国平安财产保险股份有限公司郴州中心支公司就（2015）郴北民二初字第723号民事判决书提起上诉。现依法向你公告送达上诉状副本。自公告之日起经过60日即视为送达。提出答辩状的期限为公告期满后15日内。逾期将依法审理。'
+							),
+							_react2.default.createElement(
+								'div',
+								null,
+								'起诉状、上诉状副本'
+							),
+							_react2.default.createElement(
+								'div',
+								null,
+								' 2016年01月21日'
+							)
+						);
+					})
+
+				});
+			}
+		},
+		componentDidMount: function componentDidMount() {
+			var getCompanyInfoC5 = this.props.getCompanyInfoC5; // 取到props里面的getRealTimeTable方法。也可以说是请求action
+
+			var jsonData = {
+				company: "中国石油化工股份有限公司"
+			}; //ajax传递给后台的data键值对
+			getCompanyInfoC5(jsonData);
+		},
 		render: function render() {
 			return _react2.default.createElement(
 				'div',
@@ -87660,54 +87701,7 @@
 						'公告时间'
 					)
 				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'content-content clear-fix' },
-					_react2.default.createElement(
-						'div',
-						null,
-						'郴州市北湖区人民法院'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'邓珉、邓光泉：上诉人中国平安财产保险股份有限公司郴州中心支公司就（2015）郴北民二初字第723号民事判决书提起上诉。现依法向你公告送达上诉状副本。自公告之日起经过60日即视为送达。提出答辩状的期限为公告期满后15日内。逾期将依法审理。'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'起诉状、上诉状副本'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						' 2016年01月21日'
-					)
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'content-content clear-fix' },
-					_react2.default.createElement(
-						'div',
-						null,
-						'郴州市北湖区人民法院'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'邓珉、邓光泉：上诉人中国平安财产保险股份有限公司郴州中心支公司就（2015）郴北民二初字第723号民事判决书提起上诉。现依法向你公告送达上诉状副本。自公告之日起经过60日即视为送达。提出答辩状的期限为公告期满后15日内。逾期将依法审理。'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						'起诉状、上诉状副本'
-					),
-					_react2.default.createElement(
-						'div',
-						null,
-						' 2016年01月21日'
-					)
-				)
+				this.state.content
 			);
 		}
 	});
@@ -88271,7 +88265,7 @@
 	function getCompanyInfoC1(json) {
 	  return function (dispatch) {
 	    $.ajax({
-	      url: " /hologram/shareholdersSenior.do",
+	      url: "/hologram/openCourtAnnouncement.do",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
@@ -88308,7 +88302,7 @@
 	function getCompanyInfoC2(json) {
 	  return function (dispatch) {
 	    $.ajax({
-	      url: " /hologram/shareholdersSenior.do",
+	      url: "/hologram/judgeDoc.do",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
@@ -88341,11 +88335,10 @@
 	    result: result
 	  };
 	}
-
 	function getCompanyInfoC3(json) {
 	  return function (dispatch) {
 	    $.ajax({
-	      url: " /hologram/shareholdersSenior.do",
+	      url: " /hologram/debtor.do",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
@@ -88378,11 +88371,10 @@
 	    result: result
 	  };
 	}
-
 	function getCompanyInfoC4(json) {
 	  return function (dispatch) {
 	    $.ajax({
-	      url: " /hologram/shareholdersSenior.do",
+	      url: " /hologram/noCreditDebtor.do",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
@@ -88419,7 +88411,7 @@
 	function getCompanyInfoC5(json) {
 	  return function (dispatch) {
 	    $.ajax({
-	      url: " /hologram/shareholdersSenior.do",
+	      url: "/hologram/courtAnnouncement.do",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
@@ -90514,7 +90506,7 @@
 	  return function (dispatch) {
 	    console.log(json);
 	    $.ajax({
-	      url: "/realTimeMonitor/spectrumAnalysis4groups.do", //"/data/industryMonitor/smallLoan/index/companyGrade.json",
+	      url: "/realTimeMonitor/spectrumAnalysis.do", //"/data/industryMonitor/smallLoan/index/companyGrade.json",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
