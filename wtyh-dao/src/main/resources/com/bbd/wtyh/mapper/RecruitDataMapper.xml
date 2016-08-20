@@ -8,101 +8,19 @@
     <result column="create_date" jdbcType="DATE" property="createDate" />
     <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
     <result column="update_date" jdbcType="DATE" property="updateDate" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.bbd.wtyh.domain.RecruitDataDO">
     <result column="recruit_detail" jdbcType="LONGVARCHAR" property="recruitDetail" />
   </resultMap>
+
   <sql id="Base_Column_List">
-    company_name, data_version, create_by, create_date, update_by, update_date
+    company_name, data_version, create_by, create_date, update_by, update_date,recruit_detail
   </sql>
-  <sql id="Blob_Column_List">
-    recruit_detail
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="com.bbd.wtyh.domain.RecruitDataKey" resultMap="ResultMapWithBLOBs">
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from recruit_data
     where company_name = #{companyName,jdbcType=VARCHAR}
       and data_version = #{dataVersion,jdbcType=VARCHAR}
   </select>
-  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.RecruitDataDO">
-    <id column="company_name" jdbcType="VARCHAR" property="companyName" />
-    <id column="data_version" jdbcType="VARCHAR" property="dataVersion" />
-    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
-    <result column="create_date" jdbcType="DATE" property="createDate" />
-    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
-    <result column="update_date" jdbcType="DATE" property="updateDate" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.bbd.wtyh.domain.RecruitDataDO">
-    <result column="recruit_detail" jdbcType="LONGVARCHAR" property="recruitDetail" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    company_name, data_version, create_by, create_date, update_by, update_date
-  </sql>
-  <sql id="Blob_Column_List">
-    recruit_detail
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="com.bbd.wtyh.domain.RecruitDataKey" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from recruit_data
-    where company_name = #{companyName,jdbcType=VARCHAR}
-      and data_version = #{dataVersion,jdbcType=VARCHAR}
-  </select>
-  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.RecruitDataDO">
-    <id column="company_name" jdbcType="VARCHAR" property="companyName" />
-    <id column="data_version" jdbcType="VARCHAR" property="dataVersion" />
-    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
-    <result column="create_date" jdbcType="DATE" property="createDate" />
-    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
-    <result column="update_date" jdbcType="DATE" property="updateDate" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.bbd.wtyh.domain.RecruitDataDO">
-    <result column="recruit_detail" jdbcType="LONGVARCHAR" property="recruitDetail" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    company_name, data_version, create_by, create_date, update_by, update_date
-  </sql>
-  <sql id="Blob_Column_List">
-    recruit_detail
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="com.bbd.wtyh.domain.RecruitDataKey" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from recruit_data
-    where company_name = #{companyName,jdbcType=VARCHAR}
-      and data_version = #{dataVersion,jdbcType=VARCHAR}
-  </select>
-  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.RecruitDataDO">
-    <id column="company_name" jdbcType="VARCHAR" property="companyName" />
-    <id column="data_version" jdbcType="VARCHAR" property="dataVersion" />
-    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
-    <result column="create_date" jdbcType="DATE" property="createDate" />
-    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
-    <result column="update_date" jdbcType="DATE" property="updateDate" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.bbd.wtyh.domain.RecruitDataDO">
-    <result column="recruit_detail" jdbcType="LONGVARCHAR" property="recruitDetail" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    company_name, data_version, create_by, create_date, update_by, update_date
-  </sql>
-  <sql id="Blob_Column_List">
-    recruit_detail
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="com.bbd.wtyh.domain.RecruitDataKey" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from recruit_data
-    where company_name = #{companyName,jdbcType=VARCHAR}
-      and data_version = #{dataVersion,jdbcType=VARCHAR}
-  </select>
+
 </mapper>
