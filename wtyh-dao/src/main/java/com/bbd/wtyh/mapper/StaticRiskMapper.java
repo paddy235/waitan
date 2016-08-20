@@ -3,6 +3,7 @@ package com.bbd.wtyh.mapper;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.CompanyTypeCountDO;
 import com.bbd.wtyh.domain.InBusinessDO;
+import com.bbd.wtyh.domain.StaticRiskDataDO;
 import com.bbd.wtyh.domain.dto.StaticRiskDTO;
 import com.bbd.wtyh.domain.query.CompanyQuery;
 import com.bbd.wtyh.domain.vo.StatisticsVO;
@@ -53,4 +54,6 @@ public interface StaticRiskMapper {
     public List<String> queryDateVersion(Map<String, Object> params);
 
     String maxDataVersion();
+
+    void save(StaticRiskDataDO staticRiskDataDO);
 }
