@@ -31,7 +31,7 @@ public class SyncDataController {
 
         String string = syncDataService.receiveData(syncData);
 
-        return ResponseBean.successResponse("");
+        return ResponseBean.successResponse(string);
     }
 
 }

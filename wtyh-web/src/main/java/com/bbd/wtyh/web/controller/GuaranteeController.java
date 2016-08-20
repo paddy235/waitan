@@ -158,7 +158,7 @@ public class GuaranteeController {
             dto.setGuaranteedName(guaranteedCompany.getName());
             dto.setGuaranteedBusinessType(guaranteedCompany.getBusinessType());
             if (guaranteedCompany.getRegisteredCapital() != null && guaranteedCompany.getRegisteredCapitalType() != null) {
-                dto.setGuaranteedRegisteredCapital(guaranteedCompany.getRegisteredCapital() + guaranteedCompany.getRegisteredCapitalType() == 1 ? "万元" : "万美元");
+                dto.setGuaranteedRegisteredCapital(guaranteedCompany.getRegisteredCapital() + (guaranteedCompany.getRegisteredCapitalType() == 1 ? "万元" : "万美元"));
             } else {
                 dto.setGuaranteedRegisteredCapital("无");
             }
@@ -174,8 +174,8 @@ public class GuaranteeController {
 
 
     @PostConstruct
-    public void init(){
-        shanghaiCity   = areaService.selectByNameAndLevel("上海市",AreaDO.LEVEL_CITY);
+    public void init() {
+        shanghaiCity = areaService.selectByNameAndLevel("上海市", AreaDO.LEVEL_CITY);
     }
 
 }

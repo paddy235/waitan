@@ -2,10 +2,9 @@ package com.bbd.wtyh.service.impl;
 
 import com.alibaba.fastjson.JSON;
 
-import com.bbd.wtyh.domain.StaticRiskDataDO;
-import com.bbd.wtyh.domain.SyncDataInformationDO;
+import com.bbd.wtyh.domain.*;
 
-import com.bbd.wtyh.mapper.StaticRiskMapper;
+import com.bbd.wtyh.mapper.*;
 
 import com.bbd.wtyh.service.SyncDataService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +24,15 @@ import java.util.List;
 public class SyncDataServiceImpl implements SyncDataService {
 	@Autowired
 	private StaticRiskMapper staticRiskMapper;
+	@Autowired
+	private DynamicRiskMapper dynamicRiskMapper;
+	@Autowired
+	private RecruitDataMapper recruitDataMapper;
+	@Autowired
+	private IndexDataMapper indexDataMapper;
+	@Autowired
+	private RelationDataMapper relationDataMapper;
+
 
 	@Override
 	public String receiveData(String syncData) {
@@ -41,12 +49,24 @@ public class SyncDataServiceImpl implements SyncDataService {
 							staticRiskMapper.save(staticRiskDataDO);
 							break;
 						case 2:
+							DynamicRiskDataDO dynamicRiskDataDO = new DynamicRiskDataDO();
+							dynamicRiskDataDO = JSON.parseObject(content, DynamicRiskDataDO.class);
+							dynamicRiskMapper.save(dynamicRiskDataDO);
 							break;
 						case 3:
+							RecruitDataDO recruitDataDO = new RecruitDataDO();
+							recruitDataDO = JSON.parseObject(content, RecruitDataDO.class);
+							recruitDataMapper.save(recruitDataDO);
 							break;
 						case 4:
+							IndexDataDO indexDataDO = new IndexDataDO();
+							indexDataDO = JSON.parseObject(content, IndexDataDO.class);
+							indexDataMapper.save(indexDataDO);
 							break;
 						case 5:
+							RelationDataDO relationDataDO = new RelationDataDO();
+							relationDataDO = JSON.parseObject(content, RelationDataDO.class);
+							relationDataMapper.save(relationDataDO);
 							break;
 					}
 				}

@@ -159,7 +159,7 @@ public class LoanController {
             dto.setBorrowerName(borrowerCompany.getName());
             dto.setBorrowerBusinessType(borrowerCompany.getBusinessType());
             if (borrowerCompany.getRegisteredCapital() != null && borrowerCompany.getRegisteredCapitalType() != null) {
-                dto.setBorrowerRegisteredCapital(borrowerCompany.getRegisteredCapital() + borrowerCompany.getRegisteredCapitalType() == 1 ? "万元" : "万美元");
+                dto.setBorrowerRegisteredCapital(borrowerCompany.getRegisteredCapital() + (borrowerCompany.getRegisteredCapitalType() == 1 ? "万元" : "万美元"));
             } else {
                 dto.setBorrowerRegisteredCapital("无");
             }
