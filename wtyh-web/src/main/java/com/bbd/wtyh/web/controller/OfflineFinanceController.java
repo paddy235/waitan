@@ -28,8 +28,9 @@ import java.util.Map;
 
 /**
  * 线下理财
+ *
  * @author tracy zhou
- * @since  2016/8/8
+ * @since 2016/8/8
  */
 @Controller
 @RequestMapping("/offlineFinance/")
@@ -43,12 +44,15 @@ public class OfflineFinanceController {
 
     /**
      * 关联图谱
+     *
      * @param request
      * @return
      */
     @SuppressWarnings("rawtypes")
     @RequestMapping(value = "queryDynamicPicData.do")
-    public @ResponseBody Map<String, List> queryDynamicPicData(HttpServletRequest request) {
+    public
+    @ResponseBody
+    Map<String, List> queryDynamicPicData(HttpServletRequest request) {
         try {
             String companyName = request.getParameter("companyName");
             String dataVersion = request.getParameter("dataVersion");
@@ -62,6 +66,7 @@ public class OfflineFinanceController {
 
     /**
      * 风险指数趋势变化图
+     *
      * @param request
      * @return
      * @throws ParseException
@@ -77,6 +82,7 @@ public class OfflineFinanceController {
 
     /**
      * 静态风险指数列表
+     *
      * @param request
      * @return
      */
@@ -92,34 +98,34 @@ public class OfflineFinanceController {
 
     /**
      * 动态指数时间轴对比图
-     * @param request
+     *
+     * @param companyName
+     * @param month
      * @param response
      * @return
      * @throws Exception
      */
     @RequestMapping(value = "showYEDData.do")
     @ResponseBody
-    public ResponseBean showYEDData(HttpServletRequest request,HttpServletResponse response) throws Exception
-    {
-        String companyName = request.getParameter("companyName");
-        if(StringUtils.isEmpty(companyName))
-        {
-            throw new Exception("公司名传入为空");
+    public ResponseBean showYEDData(String companyName, String month, HttpServletResponse response) throws Exception {
+        if (StringUtils.isEmpty(companyName)) {
+            return ResponseBean.errorResponse("companyName参数为空");
         }
-        String month = request.getParameter("month");
-        String targetPath;
+        if (StringUtils.isEmpty(month)) {
+            return ResponseBean.errorResponse("month参数为空");
+        }
+        month = month.replace("-", "");
         try {
-            targetPath = offlineFinanceService.createYED(companyName,month);
+            return ResponseBean.successResponse(offlineFinanceService.createYED(companyName, month));
         } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
+            return ResponseBean.errorResponse(e.getMessage());
         }
 
-        return ResponseBean.successResponse(targetPath);
     }
 
     /**
      * 企业关联方特征指数对比
+     *
      * @param request
      * @param response
      * @return
@@ -127,57 +133,55 @@ public class OfflineFinanceController {
      */
     @RequestMapping(value = "dynamicRiskData.do")
     @ResponseBody
-    public ResponseBean dynamicRiskData(HttpServletRequest request, HttpServletResponse response) throws Exception
-    {
+    public ResponseBean dynamicRiskData(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String companyName = request.getParameter("companyName");
         String areaCode = request.getParameter("areaCode");
         String keyword = request.getParameter("kw");
-        if(org.apache.commons.lang.StringUtils.isEmpty(companyName))
-        {
+        if (org.apache.commons.lang.StringUtils.isEmpty(companyName)) {
             throw new Exception("公司名传入为空");
         }
         String currentMonth = request.getParameter("currentMonth");
         String compareMonth = request.getParameter("compareMonth");
         List<String> dataVersionList = null;
-        dataVersionList =  relationDataService.queryDateVersion(companyName,areaCode);
+        dataVersionList = relationDataService.queryDateVersion(companyName, areaCode);
         List<MonthVO> monthList = new ArrayList<MonthVO>();
-        if(!StringUtils.isEmpty(currentMonth) && !StringUtils.isEmpty(compareMonth)){
-            if(dataVersionList.size()>1){
+        if (!StringUtils.isEmpty(currentMonth) && !StringUtils.isEmpty(compareMonth)) {
+            if (dataVersionList.size() > 1) {
                 currentMonth = dataVersionList.get(0);
                 compareMonth = dataVersionList.get(1);
-            }else if(dataVersionList.size()==1){
+            } else if (dataVersionList.size() == 1) {
                 currentMonth = dataVersionList.get(0);
                 compareMonth = dataVersionList.get(0);
-            }else if(dataVersionList.size()<1){
+            } else if (dataVersionList.size() < 1) {
                 throw new Exception("对不起，该公司数据不完整");
             }
         }
-        for(int i = 0;i<dataVersionList.size();i++)
-        {
+        for (int i = 0; i < dataVersionList.size(); i++) {
             MonthVO m = new MonthVO();
             m.setKey(getMonth(dataVersionList.get(i)));
             m.setValue(dataVersionList.get(i));
             monthList.add(m);
         }
         //比较两个月份的关联方数据
-        RelationDataVO vo = relationDataService.compareRelationData(companyName,areaCode, currentMonth, compareMonth);
+        RelationDataVO vo = relationDataService.compareRelationData(companyName, areaCode, currentMonth, compareMonth);
         //比较两个月动态风险指标结果
-        DynamicRiskVO riskvo = relationDataService.compareDynamicRisk(companyName,areaCode, currentMonth, compareMonth);
+        DynamicRiskVO riskvo = relationDataService.compareDynamicRisk(companyName, areaCode, currentMonth, compareMonth);
         Map result = new HashedMap();
-        result.put("companyName",companyName);
-        result.put("relationData",vo);
+        result.put("companyName", companyName);
+        result.put("relationData", vo);
         result.put("monthList", monthList);
         result.put("currentMonth", currentMonth);
         result.put("compareMonth", compareMonth);
         result.put("current", getMonth(vo.getCurrentMonth()));
         result.put("compare", getMonth(vo.getCompareMonth()));
-        result.put("dynamicRisk",riskvo);
+        result.put("dynamicRisk", riskvo);
         result.put("keyword", keyword);
         return ResponseBean.successResponse(result);
     }
 
     /**
      * 公司舆情
+     *
      * @return
      */
     @SuppressWarnings("companyNews")
@@ -190,6 +194,7 @@ public class OfflineFinanceController {
 
     /**
      * 静态风险指数构成
+     *
      * @param companyName
      * @return
      */
@@ -202,6 +207,7 @@ public class OfflineFinanceController {
 
     /**
      * 静态风险指数列表
+     *
      * @param companyName
      * @return
      */
@@ -214,10 +220,11 @@ public class OfflineFinanceController {
 
     /**
      * 企业关联方特征指数对比
+     *
      * @param companyName 企业名称
-     * @param dateA 对比时间
-     * @param dateB 对比时间
-     * @param typeId 对比内容
+     * @param dateA       对比时间
+     * @param dateB       对比时间
+     * @param typeId      对比内容
      * @return
      */
     @RequestMapping("companyRelatedComparisonChart.do")
@@ -229,6 +236,7 @@ public class OfflineFinanceController {
 
     /**
      * 列表展示量化后的风险系数
+     *
      * @return
      */
     @RequestMapping("riskFactor.do")
@@ -240,6 +248,7 @@ public class OfflineFinanceController {
 
     /**
      * 公司标签
+     *
      * @return
      */
     @SuppressWarnings("companyInfo")
@@ -252,13 +261,14 @@ public class OfflineFinanceController {
 
     /**
      * 数据版本
+     *
      * @return
      */
     @SuppressWarnings("queryDateVersion")
     @RequestMapping("queryDateVersion.do")
     @ResponseBody
     public ResponseBean queryDateVersion(String companyName, String areaCode) {
-        List<String> dataVersionList =  relationDataService.queryDateVersion(companyName,areaCode);
+        List<String> dataVersionList = relationDataService.queryDateVersion(companyName, areaCode);
         List<String> result = new ArrayList<>();
         if (!CollectionUtils.isEmpty(dataVersionList)) {
             for (String string : dataVersionList) {
@@ -273,14 +283,12 @@ public class OfflineFinanceController {
     }
 
     /**
-     *
      * @param dataVersionString
      * @return
      */
-    public String getMonth(String dataVersionString)
-    {
-        SimpleDateFormat dateformat=new SimpleDateFormat("yyyyMMdd");
-        SimpleDateFormat dateformat1=new SimpleDateFormat("yyyy-MM");
+    public String getMonth(String dataVersionString) {
+        SimpleDateFormat dateformat = new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat dateformat1 = new SimpleDateFormat("yyyy-MM");
         Date date = null;
         try {
             date = dateformat.parse(dataVersionString);
