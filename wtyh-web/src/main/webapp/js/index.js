@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "1158dcd90bff4e8cc662"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "13d975a9bb043d6d0cee"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -85390,10 +85390,23 @@
 			CompanyInfoARequest: state.CompanyInfoA.request,
 
 			CompanyInfoBResult: state.CompanyInfoB.result,
-			CompanyInfoBRequest: state.CompanyInfoB.request
+			CompanyInfoBRequest: state.CompanyInfoB.request,
 
 			//诉讼记录5个ajax
+			CompanyInfoC1Result: state.CompanyInfoC1.result,
+			CompanyInfoC1Request: state.CompanyInfoC1.request,
 
+			CompanyInfoC2Result: state.CompanyInfoC2.result,
+			CompanyInfoC2Request: state.CompanyInfoC2.request,
+
+			CompanyInfoC3Result: state.CompanyInfoC3.result,
+			CompanyInfoC3Request: state.CompanyInfoC3.request,
+
+			CompanyInfoC4Result: state.CompanyInfoC4.result,
+			CompanyInfoC4Request: state.CompanyInfoC4.request,
+
+			CompanyInfoC5Result: state.CompanyInfoC5.result,
+			CompanyInfoC5Request: state.CompanyInfoC5.request
 			//三个echarts图的ajax
 
 		};
@@ -90772,6 +90785,26 @@
 
 	var _companyInfoBRuducer2 = _interopRequireDefault(_companyInfoBRuducer);
 
+	var _companyInfoC1Ruducer = __webpack_require__(1367);
+
+	var _companyInfoC1Ruducer2 = _interopRequireDefault(_companyInfoC1Ruducer);
+
+	var _companyInfoC2Ruducer = __webpack_require__(1368);
+
+	var _companyInfoC2Ruducer2 = _interopRequireDefault(_companyInfoC2Ruducer);
+
+	var _companyInfoC3Ruducer = __webpack_require__(1369);
+
+	var _companyInfoC3Ruducer2 = _interopRequireDefault(_companyInfoC3Ruducer);
+
+	var _companyInfoC4Ruducer = __webpack_require__(1370);
+
+	var _companyInfoC4Ruducer2 = _interopRequireDefault(_companyInfoC4Ruducer);
+
+	var _companyInfoC5Ruducer = __webpack_require__(1371);
+
+	var _companyInfoC5Ruducer2 = _interopRequireDefault(_companyInfoC5Ruducer);
+
 	var _Common = __webpack_require__(983);
 
 	var _Common2 = _interopRequireDefault(_Common);
@@ -91175,6 +91208,11 @@
 	//上海区域发展指数排名
 
 	//小额贷款
+
+	//诉讼记录的五个接口
+
+
+	/*企业全息查询*/
 	var rootReducer = (0, _redux.combineReducers)({
 
 	  /*企业全息*/
@@ -91182,6 +91220,11 @@
 	  CompanyInfoNews: _companyInfoNewsRuducer2.default,
 	  CompanyInfoA: _companyInfoARuducer2.default,
 	  CompanyInfoB: _companyInfoBRuducer2.default,
+	  CompanyInfoC1: _companyInfoC1Ruducer2.default,
+	  CompanyInfoC2: _companyInfoC2Ruducer2.default,
+	  CompanyInfoC3: _companyInfoC3Ruducer2.default,
+	  CompanyInfoC4: _companyInfoC4Ruducer2.default,
+	  CompanyInfoC5: _companyInfoC5Ruducer2.default,
 
 	  /*搜索部分*/
 	  Common: _Common2.default,
@@ -91376,9 +91419,6 @@
 
 	/*行业监测模块*/
 	/* 公共搜索 */
-
-
-	/*企业全息查询*/
 
 	exports.default = rootReducer;
 
@@ -103468,6 +103508,236 @@
 	    return String(it).replace(regExp, replacer);
 	  };
 	};
+
+/***/ },
+/* 1367 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = getCompanyInfoC1;
+
+	var _InfoSearchAction = __webpack_require__(964);
+
+	//这个函数就是处理，action里面成功和失败的2个返回函数。
+	//当ajax请求成功了，就可以调用这个两个返回函数进行操作。
+
+	function getCompanyInfoC1() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? { //这个名字无所谓，最后都是用index里面对外暴露的名字。
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _InfoSearchAction.COMPANYINFO_C1_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _InfoSearchAction.COMPANYINFO_C1_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "companyInfoC1Ruducer.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1368 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = getCompanyInfoC2;
+
+	var _InfoSearchAction = __webpack_require__(964);
+
+	//这个函数就是处理，action里面成功和失败的2个返回函数。
+	//当ajax请求成功了，就可以调用这个两个返回函数进行操作。
+
+	function getCompanyInfoC2() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? { //这个名字无所谓，最后都是用index里面对外暴露的名字。
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _InfoSearchAction.COMPANYINFO_C2_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _InfoSearchAction.COMPANYINFO_C2_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "companyInfoC2Ruducer.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1369 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = getCompanyInfoC3;
+
+	var _InfoSearchAction = __webpack_require__(964);
+
+	//这个函数就是处理，action里面成功和失败的2个返回函数。
+	//当ajax请求成功了，就可以调用这个两个返回函数进行操作。
+
+	function getCompanyInfoC3() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? { //这个名字无所谓，最后都是用index里面对外暴露的名字。
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _InfoSearchAction.COMPANYINFO_C3_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _InfoSearchAction.COMPANYINFO_C3_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "companyInfoC3Ruducer.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1370 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = getCompanyInfoC4;
+
+	var _InfoSearchAction = __webpack_require__(964);
+
+	//这个函数就是处理，action里面成功和失败的2个返回函数。
+	//当ajax请求成功了，就可以调用这个两个返回函数进行操作。
+
+	function getCompanyInfoC4() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? { //这个名字无所谓，最后都是用index里面对外暴露的名字。
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _InfoSearchAction.COMPANYINFO_C4_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _InfoSearchAction.COMPANYINFO_C4_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "companyInfoC4Ruducer.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1371 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = getCompanyInfoC5;
+
+	var _InfoSearchAction = __webpack_require__(964);
+
+	//这个函数就是处理，action里面成功和失败的2个返回函数。
+	//当ajax请求成功了，就可以调用这个两个返回函数进行操作。
+
+	function getCompanyInfoC5() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? { //这个名字无所谓，最后都是用index里面对外暴露的名字。
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _InfoSearchAction.COMPANYINFO_C5_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _InfoSearchAction.COMPANYINFO_C5_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "companyInfoC5Ruducer.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ }
 /******/ ]);
