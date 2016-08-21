@@ -82,7 +82,7 @@ public class OfflineFinanceController {
 
     /**
      * 静态风险指数列表
-     *
+     * currentDate 2016-04-07
      * @param request
      * @return
      */
@@ -145,7 +145,7 @@ public class OfflineFinanceController {
         List<String> dataVersionList = null;
         dataVersionList = relationDataService.queryDateVersion(companyName, areaCode);
         List<MonthVO> monthList = new ArrayList<MonthVO>();
-        if (!StringUtils.isEmpty(currentMonth) && !StringUtils.isEmpty(compareMonth)) {
+        if (StringUtils.isEmpty(currentMonth) && StringUtils.isEmpty(compareMonth)) {
             if (dataVersionList.size() > 1) {
                 currentMonth = dataVersionList.get(0);
                 compareMonth = dataVersionList.get(1);
