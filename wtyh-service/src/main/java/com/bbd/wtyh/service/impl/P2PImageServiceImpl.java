@@ -1,11 +1,11 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.dao.P2PImageDao;
+import com.bbd.wtyh.domain.PlatformNameInformationDO;
 import com.bbd.wtyh.domain.bbdAPI.BBDLogoDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
-import com.bbd.wtyh.domain.wangDaiAPI.SearchCompanyDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
 import com.bbd.wtyh.service.P2PImageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -145,7 +145,7 @@ public class P2PImageServiceImpl implements P2PImageService {
     }
 
     @Override
-    public SearchCompanyDO hasOrNotCompany(String plat_name) {
-        return p2PImageDao.hasOrNotCompany(plat_name);
+    public PlatformNameInformationDO hasOrNotCompany(String platName) {
+        return p2PImageDao.hasOrNotCompany(platName);
     }
 }

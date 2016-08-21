@@ -1,5 +1,6 @@
 package com.bbd.wtyh.web.controller;
 
+import com.bbd.wtyh.domain.PlatformNameInformationDO;
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompanyDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
 import com.bbd.wtyh.service.P2PImageService;
@@ -37,8 +38,8 @@ public class P2PImageController {
     @RequestMapping("/hasOrNotCompany")
     @ResponseBody
     public ResponseBean hasOrNotCompany(@RequestParam(required = true) String platName) {
-        SearchCompanyDO content = p2PImageService.hasOrNotCompany(platName);
-        if (StringUtils.isNotNullOrEmpty(content.getCompany_name())) {
+        PlatformNameInformationDO content = p2PImageService.hasOrNotCompany(platName);
+        if (content == null) {
             return ResponseBean.errorResponse(content);
         } else {
             return ResponseBean.successResponse(content);
