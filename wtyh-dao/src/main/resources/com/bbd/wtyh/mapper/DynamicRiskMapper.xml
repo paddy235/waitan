@@ -26,7 +26,10 @@
 			area_list as areaList,
 			area_company_num as areaCompanyNum
 		from dynamic_risk_data
-		where company_name=#{companyName} and data_version=#{dataVersion} and area = #{areaCode};
+		where company_name=#{companyName} and data_version=#{dataVersion}
+		<if test="areaCode != null and areaCode != ''">
+			and area=#{areaCode};
+		</if>
 	</select>
 	
 </mapper>

@@ -33,4 +33,12 @@ public interface RelationDataService {
      */
 	public List<String> queryDateVersion(String companyName, String areaCode);
 
+	/**
+	 *
+	 * @param companyName
+	 * @param areaCode
+	 * @return
+	 */
+	public String queryDateVersionByMonth(String companyName, String areaCode);
+
 }
