@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "5ee9e79ccd55eb8368e7"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "2b06b3f6a9449b6b8c65"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -87996,26 +87996,11 @@
 	        var _this = this;
 	        if (nextProps.CompanyInfoD2Request) {
 	            data = nextProps.CompanyInfoD2Result.content.rdata;
-	            series = [{
-	                "name": "制造业",
-	                "value": 18
-	            }, {
-	                "name": "信息传输软件",
-	                "value": 15
-	            }, {
-	                "name": "信息技术服务业",
-	                "value": 23
-	            }, {
-	                "name": "商务服务业",
-	                "value": 28
-	            }, {
-	                "name": "其他",
-	                "value": 16
-	            }];
-
+	            series = data;
 	            series.map(function (item, index) {
 	                legend.push(item.name);
 	            });
+	            console.log(legend, "legend");
 	            this.setState({
 	                chart: _react2.default.createElement(_BasePie2.default, { option: this.setParm(), style: { height: '100%', width: '100%' } })
 	            });
