@@ -56,4 +56,8 @@ public interface StaticRiskMapper {
     String maxDataVersion();
 
     void save(StaticRiskDataDO staticRiskDataDO);
+
+    String queryDateVersionByMonth(Map<String, Object> params);
+
+    StaticRiskDataDO queryOne();
 }

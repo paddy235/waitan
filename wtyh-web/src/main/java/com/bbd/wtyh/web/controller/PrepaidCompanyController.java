@@ -63,7 +63,7 @@ public class PrepaidCompanyController {
 	
 	
 	/**
-	* 备案企业预付金额总额
+	* 备案企业行业类型，备案企业信息公告 综合接口
 	*
 	* @return ResponseBean
 	*/
