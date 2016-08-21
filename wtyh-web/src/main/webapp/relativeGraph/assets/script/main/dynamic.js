@@ -85,7 +85,7 @@ define(function(require, exports, module) {
 		//文字显示位置
 		this.textPosition = 'bottom';
 		//文字颜色
-		this.textColor = '#000000';
+		this.textColor = '#d9d9d9';
 		//中心点宽度
 		this.width = 40;
 		//中心点高度
@@ -452,7 +452,7 @@ define(function(require, exports, module) {
 					color: color,
 					text: text,
 					textPosition: "bottom",
-					textColor: "#000000"
+					textColor: "#d9d9d9"
 				},
 				hoverable: false,
 				zlevel: zlevel,
@@ -472,7 +472,7 @@ define(function(require, exports, module) {
 					color: color,
 					text: text,
 					textPosition: "bottom",
-					textColor: "#000000"
+					textColor: "#d9d9d9"
 				},
 				hoverable: false,
 				zlevel: zlevel,
@@ -579,11 +579,11 @@ define(function(require, exports, module) {
 					width: 30,
 					height: 20,
 					color: '#3CB371',
-					strokeColor: '#FFFFFF',
+					strokeColor: '#d9d9d9',
 					lineWidth: 0,
 					text: text,
 					textFont: "normal 12px Microsoft Yahei",
-					textColor: '#FFFFFF',
+					textColor: '#d9d9d9',
 					textPosition: 'inside',
 					textAlign: 'center',
 					textBaseline: 'middle'
@@ -595,11 +595,11 @@ define(function(require, exports, module) {
 					width: 30,
 					height: 20,
 					color: '#3CB371',
-					strokeColor: '#FFFFFF',
+					strokeColor: '#d9d9d9',
 					lineWidth: 0,
 					text: text,
 					textFont: "normal 12px Microsoft Yahei",
-					textColor: '#FFFFFF',
+					textColor: '#d9d9d9',
 					textPosition: 'inside',
 					textAlign: 'center',
 					textBaseline: 'middle'
@@ -636,11 +636,11 @@ define(function(require, exports, module) {
 							width: 30,
 							height: 20,
 							color: '#3CB371',
-							strokeColor: '#FFFFFF',
+							strokeColor: '#d9d9d9',
 							lineWidth: 0,
 							text: '详情',
 							textFont: "normal 12px Microsoft Yahei",
-							textColor: '#FFFFFF',
+							textColor: '#d9d9d9',
 							textPosition: 'inside',
 							textAlign: 'center',
 							textBaseline: 'middle',
@@ -652,11 +652,11 @@ define(function(require, exports, module) {
 							width: 30,
 							height: 20,
 							color: '#3CB371',
-							strokeColor: '#FFFFFF',
+							strokeColor: '#d9d9d9',
 							lineWidth: 0,
 							text: '详情',
 							textFont: "normal 12px Microsoft Yahei",
-							textColor: '#FFFFFF',
+							textColor: '#d9d9d9',
 							textPosition: 'inside',
 							textAlign: 'center',
 							textBaseline: 'middle',
@@ -712,7 +712,7 @@ define(function(require, exports, module) {
 			node.zr_shape.style.opacity = opacity_show;
 		}
 		if (!word_show_flag) {
-			node.zr_shape.style.textColor = "#000000";
+			node.zr_shape.style.textColor = "#d9d9d9";
 		}
 		//
 		var in_relations = node.ins;
@@ -737,7 +737,7 @@ define(function(require, exports, module) {
 			}
 			// 判断是否文字被隐藏了
 			if (!word_show_flag) {
-				zr_shape.style.textColor = "#000000";
+				zr_shape.style.textColor = "#d9d9d9";
 			}
 		}
 		//console.log("zr_shape:",zr_shape);
@@ -1157,7 +1157,7 @@ define(function(require, exports, module) {
 			//显示处理
 			word_show_flag = true;
 			for (var i in zr_nodes) {
-				zr_nodes[i].style.textColor = '#000000';
+				zr_nodes[i].style.textColor = '#d9d9d9';
 			}
 		}
 		zr.painter.refresh(null, true);
