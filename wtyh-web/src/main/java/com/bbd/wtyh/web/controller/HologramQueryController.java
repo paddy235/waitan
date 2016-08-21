@@ -69,7 +69,7 @@ public class HologramQueryController {
     @RequestMapping("/newsConsensus")
     @ResponseBody
     public ResponseBean newsConsensus(@RequestParam(required = true) String company) {
-        BaiDuYuQingDO result = hologramQueryService.newsConsensus(company);
+        Map<String, Object> result = hologramQueryService.newsConsensus(company);
         return ResponseBean.successResponse(result);
     }
 

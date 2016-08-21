@@ -33,6 +33,8 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
     @Autowired
     private BuildingMapper buildingMapper;
 
+    @Autowired
+    private RealTimeMonitorDao realTimeMonitorDao;
 
     private final Integer MAX = null;
     private final Integer EMPHASIS = 70;
@@ -138,6 +140,16 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
             rst.put(buildingNumberInAreaDO.getName(), companyName);
         }
         return rst;
+    }
+
+    /**
+     * 上海地图--左上角监测，下面滚动条
+     * @return
+     */
+    @Override
+    public Map<String, Object> shMapMonitor() {
+        Map<String, Object> data = realTimeMonitorDao.shMapMonitor();
+        return data;
     }
 
 
