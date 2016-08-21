@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "c862e9a6335cb81d30fd"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "3f628505821fec4cd007"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -57986,7 +57986,7 @@
 
 
 	// module
-	exports.push([module.id, "/*@All暂时放在这里，全局公用的css\r\n---------------------------------------------------------*/\r\n\r\n/*@homeOne   jifei\r\n---------------------------------------------------------*/\r\n.HomeOne {\r\n\twidth: 800px;\r\n\theight: 130px;\r\n\tmargin: 10px auto;\r\n\t// border: 1px solid red;\r\n\tmargin-bottom: 10px;\r\n}\r\n.HomeOne .HomeOne-tite {\r\n\twidth: 100%;\r\n\theight: 55px;\r\n\t// border: 1px solid red;\r\n\tmargin-top: 60px;\r\n}\r\n.HomeOne .HomeOne-tite h1 {\r\n\ttext-align: center;\r\n\tcolor: #fff;\r\n}\r\n.HomeOne .HomeOne-tite h1 span {\r\n\tmargin-left: 5px;\r\n}\r\n.HomeOne .HomeOne-tite .icon-qiyejibenxinxichaxun {\r\n\tcolor: #6093e6;\r\n\tfont-size: 55px;\r\n\tposition: relative;\r\n\ttop: 5px;\r\n}\r\n.HomeOne .HomeOne-inp {\r\n\twidth: 100%;\r\n\theight: 50px;\r\n\t// border: 1px solid red;\r\n\tmargin-top: 24px;\r\n}\r\n.HomeOne .HomeOne-inp input {\r\n\twidth: 89%;\r\n\theight: 50px;\r\n\tbackground: #fff;\r\n\tborder: none;\r\n\toutline: none;\r\n\tcolor: #666666;\r\n\tpadding-left: 20px;\r\n\ttransition: 0.6s;\r\n}\r\n.HomeOne .HomeOne-inp input:focus {\r\n\tbox-shadow: inset 0px 1px 6px rgba(19, 18, 18, 0.4);\r\n}\r\n.HomeOne .HomeOne-inp .jump {\r\n\twidth: 10%;\r\n\theight: 50px;\r\n\tbackground: #5f93e7;\r\n\tfloat: right;\r\n}\r\n.HomeOne .HomeOne-inp .jump .search {\r\n\tcolor: #fff;\r\n\tfont-size: 30px;\r\n\tposition: relative;\r\n\ttop: 10px;\r\n\tleft: 25px;\r\n}\r\n\r\n/*@homeTwo\r\n---------------------------------------------------------*/\r\n.HomeTwo {\r\n\twidth: 90%;\r\n\theight: 620px;\r\n\tmargin: 0px auto;\r\n\tmargin-bottom: 0px\r\n}\r\n.middleLeft, .middleCenter, .middleRight {\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n.middleLeft {\r\n\twidth: 22%;\r\n}\r\n.middleLeft .list {\r\n\twidth: 100%;\r\n\theight: 120px;\r\n\tborder-radius: 5px;\r\n\tposition: relative;\r\n\tbox-shadow: 0 2px 5px #080b12;\r\n\tline-height: 120px;\r\n\ttext-align: center;\r\n\tborder: 3px solid #00b7ee;\r\n\tcursor: pointer;\r\n\tmargin-top: 130px;\r\n\t-webkit-transition: all .5s;\r\n\tposition: relative;\r\n}\r\n.middleLeft .list:hover {\r\n\tbackground: #153e50\r\n}\r\n.middleLeft .list:focus {\r\n\tbox-shadow: 0 5px 5px #080b12;\r\n}\r\n.middleLeft .top {\r\n\tmargin-top: 0;\r\n}\r\n.middleLeft .list h2 {\r\n\tcolor: #dddddd;\r\n}\r\n.middleLeft .list h2:hover {\r\n\tcolor: #fff;\r\n}\r\n.middleLeft .list h2 img {\r\n\tposition: absolute;\r\n\tleft: 6%;\r\n\ttop: 30px;\r\n}\r\n.middleLeft .list h2 span {\r\n\tmargin-left: 50px;\r\n}\r\n.middleLeft .list .size {\r\n\tfont-size: 55px;\r\n\tcolor: #2c7dff;\r\n\tposition: relative;\r\n\ttop: 10px;\r\n}\r\n.middleLeft .list .d {\r\n\tposition: relative;\r\n\tleft: -35px;\r\n}\r\n.middleLeft .list:hover .size {\r\n\tcolor: #fff;\r\n}\r\n\r\n/*csy center*/\r\n.middleCenter {\r\n\twidth: 56%;\r\n}\r\n.middleCenter #homeMap {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tposition: relative;\r\n}\r\n.middleRight {\r\n\twidth: 22%;\r\n}\r\n\r\n/*@homeThree\r\n---------------------------------------------------------*/\r\n.HomeThree {\r\n\twidth: 50.4%;\r\n\theight: 100px;\r\n\tmargin: 0 auto;\r\n}\r\n.HomeThree ul li {\r\n\twidth: 33%;\r\n\theight: 130px;\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\t/* padding-top: 35px; */\r\n\tposition: relative;\r\n}\r\n.HomeThree ul li  em {\r\n\tcolor: #dddddd;\r\n\tfont-size: 14px;\r\n}\r\n.HomeThree ul li  .yellow {\r\n\tcolor: #f59800;\r\n\tfont-size: 12px;\r\n\tmargin-left: 5px;\r\n}\r\n.HomeThree .mt-number-animate {\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tfont-size: 25px;\r\n\tfont-family: \"microsoft yahei\";\r\n\tfont-weight: normal;\r\n\toverflow: hidden;\r\n}\r\n.HomeThree .mt-number-animate-dot {\r\n\tline-height: 26px;\r\n\tcolor: #5f91e6;\r\n\tfloat: left;\r\n}\r\n.HomeThree .icon-arrowdown:before {\r\n\tposition: relative;\r\n\tright: -120px;\r\n\ttop: 18px;\r\n\tcolor: #f39800;\r\n\tfont-size: 12px;\r\n}\r\n.HomeThree ul li p:nth-child(even) {\r\n\tfont-size: 14px;\r\n\tcolor: #dddddd;\r\n\tmargin-top: 10px;\r\n\tmargin-left: 85px\r\n}\r\n.HomeThree .mt-number-animate-span {\r\n\tcolor: #5f91e6;\r\n\tfont-size: 30px;\r\n}\r\n.HomeThree  .mt-number-animate .mt-number-animate-dom {\r\n\twidth: 18px;\r\n\tfloat: left;\r\n}\r\n.HomeThree  .mt-number-animate {\r\n\tmargin-left: 80px\r\n}\r\n.HomeTwo .one-tip {\r\n\twidth: 160px;\r\n\theight: auto;\r\n\tposition: absolute;\r\n\ttop: -3px;\r\n\tright: -169px;\r\n\tpadding: 5px 15px;\r\n\tbackground: #fff;\r\n\tcolor: #444;\r\n\tfont-size: 14px;\r\n\tline-height: 1;\r\n\tborder-radius: 5px;\r\n\tdisplay: none\r\n}\r\n.HomeTwo .one-tip li {\r\n\twidth: 100%;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n}\r\n.HomeTwo .one-tip li:hover {\r\n\tbackground: #5f93e7 !important\r\n}\r\n.middleLeft {\r\n\tposition: relative;\r\n\tz-index: 999;\r\n\tpadding-top: 100px\r\n}", ""]);
+	exports.push([module.id, "/*@All暂时放在这里，全局公用的css\r\n---------------------------------------------------------*/\r\n\r\n/*@homeOne   jifei\r\n---------------------------------------------------------*/\r\n.HomeOne {\r\n\twidth: 800px;\r\n\theight: 130px;\r\n\tmargin: 10px auto;\r\n\t// border: 1px solid red;\r\n\tmargin-bottom: 10px;\r\n}\r\n.HomeOne .HomeOne-tite {\r\n\twidth: 100%;\r\n\theight: 55px;\r\n\t// border: 1px solid red;\r\n\tmargin-top: 60px;\r\n}\r\n.HomeOne .HomeOne-tite h1 {\r\n\ttext-align: center;\r\n\tcolor: #fff;\r\n}\r\n.HomeOne .HomeOne-tite h1 span {\r\n\tmargin-left: 5px;\r\n}\r\n.HomeOne .HomeOne-tite .icon-qiyejibenxinxichaxun {\r\n\tcolor: #6093e6;\r\n\tfont-size: 55px;\r\n\tposition: relative;\r\n\ttop: 5px;\r\n}\r\n.HomeOne .HomeOne-inp {\r\n\twidth: 100%;\r\n\theight: 50px;\r\n\t// border: 1px solid red;\r\n\tmargin-top: 24px;\r\n}\r\n.HomeOne .HomeOne-inp input {\r\n\twidth: 89%;\r\n\theight: 50px;\r\n\tbackground: #fff;\r\n\tborder: none;\r\n\toutline: none;\r\n\tcolor: #666666;\r\n\tpadding-left: 20px;\r\n\ttransition: 0.6s;\r\n}\r\n.HomeOne .HomeOne-inp input:focus {\r\n\tbox-shadow: inset 0px 1px 6px rgba(19, 18, 18, 0.4);\r\n}\r\n.HomeOne .HomeOne-inp .jump {\r\n\twidth: 10%;\r\n\theight: 50px;\r\n\tbackground: #5f93e7;\r\n\tfloat: right;\r\n}\r\n.HomeOne .HomeOne-inp .jump .search {\r\n\tcolor: #fff;\r\n\tfont-size: 30px;\r\n\tposition: relative;\r\n\ttop: 10px;\r\n\tleft: 25px;\r\n}\r\n\r\n/*@homeTwo\r\n---------------------------------------------------------*/\r\n.HomeTwo {\r\n\twidth: 90%;\r\n\theight: 620px;\r\n\tmargin: 0px auto;\r\n\tmargin-bottom: 0px\r\n}\r\n.middleLeft, .middleCenter, .middleRight {\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n.middleLeft {\r\n\twidth: 22%;\r\n}\r\n.middleLeft .list {\r\n\twidth: 100%;\r\n\theight: 120px;\r\n\tborder-radius: 5px;\r\n\tposition: relative;\r\n\tbox-shadow: 0 2px 5px #080b12;\r\n\tline-height: 120px;\r\n\ttext-align: center;\r\n\tborder: 3px solid #00b7ee;\r\n\tcursor: pointer;\r\n\tmargin-top: 130px;\r\n\t-webkit-transition: all .5s;\r\n\tposition: relative;\r\n}\r\n.middleLeft .list:hover {\r\n\tbackground: #153e50\r\n}\r\n.middleLeft .list:focus {\r\n\tbox-shadow: 0 5px 5px #080b12;\r\n}\r\n.middleLeft .top {\r\n\tmargin-top: 0;\r\n}\r\n.middleLeft .list h2 {\r\n\tcolor: #dddddd;\r\n}\r\n.middleLeft .list h2:hover {\r\n\tcolor: #fff;\r\n}\r\n.middleLeft .list h2 img {\r\n\tposition: absolute;\r\n\tleft: 6%;\r\n\ttop: 30px;\r\n}\r\n.middleLeft .list h2 span {\r\n\tmargin-left: 50px;\r\n}\r\n.middleLeft .list .size {\r\n\tfont-size: 55px;\r\n\tcolor: #2c7dff;\r\n\tposition: relative;\r\n\ttop: 10px;\r\n}\r\n.middleLeft .list .d {\r\n\tposition: relative;\r\n\tleft: -35px;\r\n}\r\n.middleLeft .list:hover .size {\r\n\tcolor: #fff;\r\n}\r\n\r\n/*csy center*/\r\n.middleCenter {\r\n\twidth: 56%;\r\n}\r\n.middleCenter #homeMap {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tposition: relative;\r\n}\r\n.middleRight {\r\n\twidth: 22%;\r\n}\r\n\r\n/*@homeThree\r\n---------------------------------------------------------*/\r\n.HomeThree {\r\n\twidth: 50.4%;\r\n\theight: 219px;\r\n\tmargin: 0 auto;\r\n}\r\n.HomeThree ul li {\r\n\twidth: 33%;\r\n\theight: 130px;\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\t/* padding-top: 35px; */\r\n\tposition: relative;\r\n}\r\n.HomeThree ul li  em {\r\n\tcolor: #dddddd;\r\n\tfont-size: 14px;\r\n}\r\n.HomeThree ul li  .yellow {\r\n\tcolor: #f59800;\r\n\tfont-size: 12px;\r\n\tmargin-left: 5px;\r\n}\r\n.HomeThree .mt-number-animate {\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tfont-size: 25px;\r\n\tfont-family: \"microsoft yahei\";\r\n\tfont-weight: normal;\r\n\toverflow: hidden;\r\n}\r\n.HomeThree .mt-number-animate-dot {\r\n\tline-height: 26px;\r\n\tcolor: #5f91e6;\r\n\tfloat: left;\r\n}\r\n.HomeThree .icon-arrowdown:before {\r\n\tposition: relative;\r\n\tright: -140px;\r\n\ttop: 18px;\r\n\tcolor: #f39800;\r\n\tfont-size: 12px;\r\n}\r\n.HomeThree ul li p:nth-child(even) {\r\n\tfont-size: 14px;\r\n\tcolor: #dddddd;\r\n\tmargin-top: 10px;\r\n\tmargin-left: 85px\r\n}\r\n.HomeThree .mt-number-animate-span {\r\n\tcolor: #5f91e6;\r\n\tfont-size: 30px;\r\n}\r\n.HomeThree  .mt-number-animate .mt-number-animate-dom {\r\n\twidth: 18px;\r\n\tfloat: left;\r\n}\r\n.HomeThree  .mt-number-animate {\r\n\tmargin-left: 80px\r\n}\r\n.HomeTwo .one-tip {\r\n\twidth: 160px;\r\n\theight: auto;\r\n\tposition: absolute;\r\n\ttop: -3px;\r\n\tright: -169px;\r\n\tpadding: 5px 15px;\r\n\tbackground: #fff;\r\n\tcolor: #444;\r\n\tfont-size: 14px;\r\n\tline-height: 1;\r\n\tborder-radius: 5px;\r\n\tdisplay: none\r\n}\r\n.HomeTwo .one-tip li {\r\n\twidth: 100%;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n}\r\n.HomeTwo .one-tip li:hover {\r\n\tbackground: #5f93e7 !important\r\n}\r\n.middleLeft {\r\n\tposition: relative;\r\n\tz-index: 999;\r\n\tpadding-top: 100px\r\n}", ""]);
 
 	// exports
 
@@ -58184,7 +58184,7 @@
 	            _react2.default.createElement(
 	              'span',
 	              null,
-	              '上海市新型金融业态监测分析平台.'
+	              '上海市新型金融业态监测分析平台'
 	            )
 	          )
 	        )
@@ -58555,15 +58555,6 @@
 	                            null,
 	                            _react2.default.createElement(
 	                                _reactRouter.Link,
-	                                { className: 'links', activeClassName: 'active', to: { pathname: HOME_PATH + "/financeLease" } },
-	                                '融资租赁'
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'li',
-	                            null,
-	                            _react2.default.createElement(
-	                                _reactRouter.Link,
 	                                { className: 'links', activeClassName: 'active', to: { pathname: HOME_PATH + "/PawnMonitoring" } },
 	                                '典当'
 	                            )
@@ -58573,8 +58564,8 @@
 	                            null,
 	                            _react2.default.createElement(
 	                                _reactRouter.Link,
-	                                { className: 'links', activeClassName: 'active', to: { pathname: HOME_PATH + "/P2P" } },
-	                                '单用途预付卡'
+	                                { className: 'links', activeClassName: 'active', to: { pathname: HOME_PATH + "/financeLease" } },
+	                                '融资租赁'
 	                            )
 	                        ),
 	                        _react2.default.createElement(
@@ -58582,8 +58573,17 @@
 	                            null,
 	                            _react2.default.createElement(
 	                                _reactRouter.Link,
-	                                { className: 'links', activeClassName: 'active', to: { pathname: HOME_PATH + "/P2P" } },
-	                                '补位'
+	                                { className: 'links', activeClassName: 'active', to: { pathname: HOME_PATH + "/commercialSecret" } },
+	                                '商业保理'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'li',
+	                            null,
+	                            _react2.default.createElement(
+	                                _reactRouter.Link,
+	                                { className: 'links', activeClassName: 'active', to: { pathname: HOME_PATH + "/prepaidCard" } },
+	                                '预付卡'
 	                            )
 	                        )
 	                    )
@@ -73634,39 +73634,74 @@
 
 	    mixins: [_setHeight2.default],
 	    getInitialState: function getInitialState() {
-	        var _selectVal = this.props.location.query.platName == undefined ? "" : this.props.location.query.platName;
 	        return {
-	            companyVal: _selectVal
+	            getCompany: "",
+	            companyName: ""
 	        };
 	    },
-	    componentDidMount: function componentDidMount() {},
+	    componentDidMount: function componentDidMount() {
+	        var _selectVal = this.props.location.query.platName == undefined ? "" : this.props.location.query.platName;
+	        this.setState({ getCompany: _selectVal }, function () {
+	            $.ajax({
+	                url: "/P2PImage/hasOrNotCompany.do",
+	                dataType: "json",
+	                data: {
+	                    platName: this.state.getCompany
+	                },
+	                type: "GET",
+	                success: function (result) {
+	                    if (result.success) {
+	                        this.setState({ companyName: result.content.name });
+	                    }
+	                }.bind(this)
+	            });
+	        });
+	    },
 	    handleFunction: function handleFunction(searchVal) {
-	        this.setState({ companyVal: searchVal }, function () {
-	            var _props = this.props;
-	            var getbaseMsgRequest = _props.getbaseMsgRequest;
-	            var getcompanyMsgRequest = _props.getcompanyMsgRequest;
-	            var getcoreDataRequest = _props.getcoreDataRequest;
-	            var getCoreBarDataRequest = _props.getCoreBarDataRequest;
-	            var getCoreTrendDataRequest = _props.getCoreTrendDataRequest;
-	            var getCoreBalanceDataRequest = _props.getCoreBalanceDataRequest;
-	            var getlitigationRequest = _props.getlitigationRequest;
-	            var getpublicOpinionRequest = _props.getpublicOpinionRequest;
-	            var getrankPicRequest = _props.getrankPicRequest;
-	            var getscoreLeidaRequest = _props.getscoreLeidaRequest;
+	        $.ajax({
+	            url: "/P2PImage/hasOrNotCompany.do",
+	            dataType: "json",
+	            data: {
+	                platName: searchVal
+	            },
+	            type: "GET",
+	            success: function (result) {
+	                if (result.success) {
+	                    this.setState({ companyVal: searchVal, companyName: result.content.name }, function () {
+	                        var _props = this.props;
+	                        var getbaseMsgRequest = _props.getbaseMsgRequest;
+	                        var getcompanyMsgRequest = _props.getcompanyMsgRequest;
+	                        var getcoreDataRequest = _props.getcoreDataRequest;
+	                        var getCoreBarDataRequest = _props.getCoreBarDataRequest;
+	                        var getCoreTrendDataRequest = _props.getCoreTrendDataRequest;
+	                        var getCoreBalanceDataRequest = _props.getCoreBalanceDataRequest;
+	                        var getlitigationRequest = _props.getlitigationRequest;
+	                        var getpublicOpinionRequest = _props.getpublicOpinionRequest;
+	                        var getrankPicRequest = _props.getrankPicRequest;
+	                        var getscoreLeidaRequest = _props.getscoreLeidaRequest;
 
 
-	            getbaseMsgRequest({ "platName": this.state.companyVal });
-	            getcompanyMsgRequest({ "platName": this.state.companyVal });
-	            getcoreDataRequest({ "platName": this.state.companyVal });
-	            getCoreBarDataRequest({ "platName": this.state.companyVal });
-	            getCoreTrendDataRequest({ "platName": this.state.companyVal });
-	            getCoreBalanceDataRequest({ "platName": this.state.companyVal });
+	                        getbaseMsgRequest({ "platName": this.state.companyVal });
+	                        getcompanyMsgRequest({ "platName": this.state.companyVal });
+	                        getcoreDataRequest({ "platName": this.state.companyVal });
+	                        getCoreBarDataRequest({ "platName": this.state.companyVal });
+	                        getCoreTrendDataRequest({ "platName": this.state.companyVal });
+	                        getCoreBalanceDataRequest({ "platName": this.state.companyVal });
 
-	            getlitigationRequest({ "platName": this.state.companyVal });
-	            getpublicOpinionRequest({ "platName": this.state.companyVal });
+	                        getlitigationRequest({ "platName": this.state.companyVal });
+	                        getpublicOpinionRequest({ "platName": this.state.companyVal });
 
-	            getrankPicRequest({ "platName": this.state.companyVal });
-	            getscoreLeidaRequest({ "platName": this.state.companyVal });
+	                        getrankPicRequest({
+	                            "platName": this.state.companyVal,
+	                            "companyName": result.content.name,
+	                            "dataVersion": "20160530",
+	                            "degree": 3
+	                        });
+
+	                        getscoreLeidaRequest({ "platName": this.state.companyVal });
+	                    });
+	                }
+	            }.bind(this)
 	        });
 	    },
 	    render: function render() {
@@ -74907,10 +74942,9 @@
 	            "dataVersion": "20160530",
 	            "degree": 3
 	        });
-	        // require('/relativeGraph/assets/script/dynamic.js').reDrawCanvas();
-
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        // console.log(nextProps,"nextProps================================")
 	        var isEqual = Immutable.is(nextProps.rankPicRequest, this.props.rankPicResult);
 	        if (!isEqual) {
 	            (function () {
@@ -74918,8 +74952,6 @@
 	                var rankPicResult = nextProps.rankPicResult;
 
 	                if (rankPicRequest == true) {
-	                    // if (rankPicResult.success) {
-	                    console.log("我曹关联图=======================");
 	                    seajs.use("/relativeGraph/assets/script/main/dynamic.js", function (main) {
 	                        var pointList = rankPicResult.pointList;
 	                        if (pointList == null || pointList == "" || pointList == "undefined") {
@@ -76562,197 +76594,195 @@
 
 	var Immutable = __webpack_require__(706);
 	var PlatformRun = _react2.default.createClass({
-	    displayName: 'PlatformRun',
+	  displayName: 'PlatformRun',
 
-	    getInitialState: function getInitialState() {
-	        return {
-	            option: [],
-	            orderType: "desc", //默认降序
-	            orderField: "" //需要排序的字段
-	        };
-	    },
-	    componentDidMount: function componentDidMount() {
-	        $('#platformRun-scroll').perfectScrollbar();
-	    },
-	    componentDidUpdate: function componentDidUpdate() {
-	        $('#platformRun-scroll').perfectScrollbar('update');
-	    },
-	    handleClick: function handleClick(field) {
-	        var _dom = $(this.refs[field]),
-	            _domAttr = _dom.attr("data-order"),
-	            _domIco = _dom.find("em"),
-	            _domIcoIs = _dom.find("em").hasClass('icon-desc');
-	        _domIcoIs == true ? _domIco.removeClass('icon-desc').addClass('icon-asc') : _domIco.removeClass('icon-asc').addClass('icon-desc');
-	        _domAttr == "desc" ? _dom.attr("data-order", "asc") : _dom.attr("data-order", "desc");
-	        this.setState({ orderType: _dom.attr("data-order"), orderField: field }, function () {
-	            var _basedata = BOSS.sort(this.state.option, field, this.state.orderType);
-	            this.setState({ option: _basedata });
-	        });
-	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	  getInitialState: function getInitialState() {
+	    return {
+	      option: [],
+	      orderType: "desc", //默认降序
+	      orderField: "" //需要排序的字段
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {
+	    $('#platformRun-scroll').perfectScrollbar();
+	  },
+	  componentDidUpdate: function componentDidUpdate() {
+	    $('#platformRun-scroll').perfectScrollbar('update');
+	  },
+	  handleClick: function handleClick(field) {
+	    var _dom = $(this.refs[field]),
+	        _domAttr = _dom.attr("data-order"),
+	        _domIco = _dom.find("em"),
+	        _domIcoIs = _dom.find("em").hasClass('icon-desc');
+	    _domIcoIs == true ? _domIco.removeClass('icon-desc').addClass('icon-asc') : _domIco.removeClass('icon-asc').addClass('icon-desc');
+	    _domAttr == "desc" ? _dom.attr("data-order", "asc") : _dom.attr("data-order", "desc");
+	    this.setState({ orderType: _dom.attr("data-order"), orderField: field }, function () {
+	      var _basedata = BOSS.sort(this.state.option, field, this.state.orderType);
+	      this.setState({ option: _basedata });
+	    });
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 
-	        var isEqual = Immutable.is(nextProps.platFormRunBaseData, this.props.platFormRunBaseData);
-	        if (!isEqual) {
-	            var platFormRunBaseData = nextProps.platFormRunBaseData;
+	    var isEqual = Immutable.is(nextProps.platFormRunBaseData, this.props.platFormRunBaseData);
+	    if (!isEqual) {
+	      var platFormRunBaseData = nextProps.platFormRunBaseData;
 
-	            this.setState({ option: platFormRunBaseData.content });
-	        }
-	    },
-	    render: function render() {
-	        return _react2.default.createElement(
-	            'div',
-	            { className: 'mod right-bottom radius4' },
+	      this.setState({ option: platFormRunBaseData.content });
+	    }
+	  },
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'mod right-bottom radius4' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'mod-title' },
+	        _react2.default.createElement(
+	          'h3',
+	          null,
+	          '平台运营情况'
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'mod-content' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'table-title' },
+	          _react2.default.createElement(
+	            'table',
+	            { className: 'mt-table mt-table-center wtyh-table' },
 	            _react2.default.createElement(
-	                'div',
-	                { className: 'mod-title' },
+	              'thead',
+	              null,
+	              _react2.default.createElement(
+	                'tr',
+	                null,
 	                _react2.default.createElement(
-	                    'h3',
-	                    null,
-	                    '平台运营情况'
-	                )
-	            ),
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'mod-content' },
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'table-title' },
-	                    _react2.default.createElement(
-	                        'table',
-	                        { className: 'mt-table mt-table-center wtyh-table' },
-	                        _react2.default.createElement(
-	                            'thead',
-	                            null,
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'th',
-	                                    { width: '15%', className: 'talign-center' },
-	                                    '众筹平台'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'th',
-	                                    { width: '25%' },
-	                                    '公司名称'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'th',
-	                                    { width: '15%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'fundingBusinessTypeCN', onClick: this.handleClick.bind(this, "fundingBusinessTypeCN") },
-	                                    '业务类型',
-	                                    _react2.default.createElement('em', { className: 'iconfont icon-desc' })
-	                                ),
-	                                _react2.default.createElement(
-	                                    'th',
-	                                    { width: '20%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'successNumber', onClick: this.handleClick.bind(this, "successNumber") },
-	                                    '成功项目数',
-	                                    _react2.default.createElement('em', { className: 'iconfont icon-desc' })
-	                                ),
-	                                _react2.default.createElement(
-	                                    'th',
-	                                    { width: '25%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'fundedAmout', onClick: this.handleClick.bind(this, "fundedAmout") },
-	                                    '已筹基金(万元)',
-	                                    _react2.default.createElement('em', { className: 'iconfont icon-desc' })
-	                                )
-	                            )
-	                        )
-	                    )
+	                  'th',
+	                  { width: '15%', className: 'talign-center' },
+	                  '众筹平台'
 	                ),
 	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'table-content', id: 'platformRun-scroll' },
-	                    _react2.default.createElement(
-	                        'table',
-	                        { className: 'mt-table mt-table-center wtyh-table' },
-	                        _react2.default.createElement(
-	                            'tbody',
-	                            null,
-	                            this.state.option.map(function (item, index) {
-	                                {
-	                                    if (!item.successNumber) {
-	                                        item.successNumber = "/";
-	                                    }
-	                                    if (!item.fundedAmout) {
-	                                        item.fundedAmout = "/";
-	                                    }
-	                                    if (index % 2) {
-
-	                                        return _react2.default.createElement(
-	                                            'tr',
-	                                            { className: 'even' },
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '15%', className: 'talign-center' },
-	                                                item.platformName
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '25%' },
-	                                                _react2.default.createElement(
-	                                                    _reactRouter.Link,
-	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'platformRun', company: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName },
-	                                                    item.companyName
-	                                                )
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '15%' },
-	                                                item.fundingBusinessTypeCN
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '20%' },
-	                                                item.successNumber
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '25%' },
-	                                                item.fundedAmout
-	                                            )
-	                                        );
-	                                    } else {
-	                                        return _react2.default.createElement(
-	                                            'tr',
-	                                            { className: 'odd' },
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '15%', className: 'talign-center' },
-	                                                item.platformName
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '25%' },
-	                                                _react2.default.createElement(
-	                                                    _reactRouter.Link,
-	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'platformRun', company: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName },
-	                                                    item.companyName
-	                                                )
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '15%' },
-	                                                item.fundingBusinessTypeCN
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '20%' },
-	                                                item.successNumber
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '25%' },
-	                                                item.fundedAmout
-	                                            )
-	                                        );
-	                                    }
-	                                }
-	                            })
-	                        )
-	                    )
+	                  'th',
+	                  { width: '25%' },
+	                  '公司名称'
+	                ),
+	                _react2.default.createElement(
+	                  'th',
+	                  { width: '15%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'fundingBusinessTypeCN', onClick: this.handleClick.bind(this, "fundingBusinessTypeCN") },
+	                  '业务类型',
+	                  _react2.default.createElement('em', { className: 'iconfont icon-desc' })
+	                ),
+	                _react2.default.createElement(
+	                  'th',
+	                  { width: '20%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'successNumber', onClick: this.handleClick.bind(this, "successNumber") },
+	                  '成功项目数',
+	                  _react2.default.createElement('em', { className: 'iconfont icon-desc' })
+	                ),
+	                _react2.default.createElement(
+	                  'th',
+	                  { width: '25%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'fundedAmout', onClick: this.handleClick.bind(this, "fundedAmout") },
+	                  '已筹基金(万元)',
+	                  _react2.default.createElement('em', { className: 'iconfont icon-desc' })
 	                )
+	              )
 	            )
-	        );
-	    }
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'table-content', id: 'platformRun-scroll' },
+	          _react2.default.createElement(
+	            'table',
+	            { className: 'mt-table mt-table-center wtyh-table' },
+	            _react2.default.createElement(
+	              'tbody',
+	              null,
+	              this.state.option.map(function (item, index) {
+	                {
+
+	                  var _successNumber = item.successNumber == undefined ? "/" : item.successNumber;
+	                  var _fundedAmout = item.fundedAmout == undefined ? "/" : item.fundedAmout;
+	                  var _fundingBusinessTypeCN = item.fundingBusinessTypeCN = undefined ? "/" : item.fundingBusinessTypeCN;
+	                  if (index % 2) {
+
+	                    return _react2.default.createElement(
+	                      'tr',
+	                      { className: 'even' },
+	                      _react2.default.createElement(
+	                        'td',
+	                        { width: '15%', className: 'talign-center' },
+	                        item.platformName
+	                      ),
+	                      _react2.default.createElement(
+	                        'td',
+	                        { width: '25%' },
+	                        _react2.default.createElement(
+	                          _reactRouter.Link,
+	                          { to: { pathname: '/SearchResultDetail', query: { formpage: 'platformRun', company: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName },
+	                          item.companyName
+	                        )
+	                      ),
+	                      _react2.default.createElement(
+	                        'td',
+	                        { width: '15%' },
+	                        _fundingBusinessTypeCN
+	                      ),
+	                      _react2.default.createElement(
+	                        'td',
+	                        { width: '20%' },
+	                        _successNumber
+	                      ),
+	                      _react2.default.createElement(
+	                        'td',
+	                        { width: '25%' },
+	                        _fundedAmout
+	                      )
+	                    );
+	                  } else {
+	                    return _react2.default.createElement(
+	                      'tr',
+	                      { className: 'odd' },
+	                      _react2.default.createElement(
+	                        'td',
+	                        { width: '15%', className: 'talign-center' },
+	                        item.platformName
+	                      ),
+	                      _react2.default.createElement(
+	                        'td',
+	                        { width: '25%' },
+	                        _react2.default.createElement(
+	                          _reactRouter.Link,
+	                          { to: { pathname: '/SearchResultDetail', query: { formpage: 'platformRun', company: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName },
+	                          item.companyName
+	                        )
+	                      ),
+	                      _react2.default.createElement(
+	                        'td',
+	                        { width: '15%' },
+	                        _fundingBusinessTypeCN
+	                      ),
+	                      _react2.default.createElement(
+	                        'td',
+	                        { width: '20%' },
+	                        _successNumber
+	                      ),
+	                      _react2.default.createElement(
+	                        'td',
+	                        { width: '25%' },
+	                        _fundedAmout
+	                      )
+	                    );
+	                  }
+	                }
+	              })
+	            )
+	          )
+	        )
+	      )
+	    );
+	  }
 	});
 
 	module.exports = PlatformRun;
@@ -77337,6 +77367,7 @@
 	                        _totalAmout.push(chartAllResult.content[item].totalAmout);
 	                        _number.push(chartAllResult.content[item].number);
 	                    }
+
 	                    var _setLineData = {
 	                        "xAxisData": _xAxisData,
 	                        "data": _companyNumber
@@ -77349,8 +77380,10 @@
 
 	                    var _scatterData = {
 	                        "xAxisData": _xAxisData,
-	                        "yAxisData": _number,
-	                        "data": _totalAmout
+	                        "yAxisData": _totalAmout.sort(function (a, b) {
+	                            return a - b;
+	                        }),
+	                        "data": _number
 	                    };
 
 	                    var _barData = {
@@ -81421,7 +81454,7 @@
 
 
 	// module
-	exports.push([module.id, ".commercialS-index .right-bottom tbody td,\r\n.commercialS-index .right-bottom thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content {\r\n\theight: 560px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content .mt-table,\r\n.commercialS-index .right-bottom .table-title  .mt-table {\r\n\tmargin: 0px;\r\n}\r\n\r\n.commercialS-index .right-bottom  .mod-content {\r\n\tpadding: 10px 20px 20px 20px;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table {\r\n\r\n\t/*height: 100%*/\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table  td {\r\n\tpadding: 16px 0px;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-title th {\r\n\theight: 50px\r\n}\r\n\r\n.commercialS-index .right-bottom  .mod-title .totle-num {\r\n\tfont-size: 14px;\r\n\tcolor: #fff;\r\n\tfloat: right;\r\n\tdisplay: inline-block;\r\n\tmargin: 15px 20px 0px 0px;\r\n}\r\n\r\n.mt-select.company-dire {\r\n\tbackground: #393a48;\r\n\tborder: 1px #393a48 solid;\r\n\tmargin-left: 5px;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n}\r\n\r\n.mt-select.company-dire .mt-select-title {\r\n\theight: 25px;\r\n}\r\n\r\n.mt-select.company-dire .mt-select-box {\r\n\tbackground: #1f1f27;\r\n\tborder: 1px #1f1f27 solid\r\n}", ""]);
+	exports.push([module.id, ".commercialS-index .right-bottom tbody td,\r\n.commercialS-index .right-bottom thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content {\r\n\theight: 560px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content .mt-table,\r\n.commercialS-index .right-bottom .table-title  .mt-table {\r\n\tmargin: 0px;\r\n}\r\n\r\n.commercialS-index .right-bottom  .mod-content {\r\n\tpadding: 10px 20px 20px 20px;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table {\r\n\r\n\t/*height: 100%*/\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table  td {\r\n\tpadding: 16px 0px;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-title th {\r\n\theight: 50px\r\n}\r\n\r\n.commercialS-index .right-bottom  .mod-title .totle-num {\r\n\tfont-size: 14px;\r\n\tcolor: #fff;\r\n\tfloat: right;\r\n\tdisplay: inline-block;\r\n\tmargin: 15px 20px 0px 0px;\r\n}\r\n\r\n.mt-select.company-dire {\r\n\tbackground: #393a48;\r\n\tborder: 1px #393a48 solid;\r\n\tmargin-left: 5px;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n}\r\n\r\n.mt-select.company-dire .mt-select-title {\r\n\theight: 25px;\r\n}\r\n\r\n.mt-select.company-dire .mt-select-box {\r\n\tbackground: #1f1f27;\r\n\tborder: 1px #1f1f27 solid\r\n}\r\n.modLong .long{\r\n\twidth: 250px;\r\n}", ""]);
 
 	// exports
 
@@ -81883,7 +81916,7 @@
 	        };
 	        return _react2.default.createElement(
 	            'div',
-	            { className: 'mod right-bottom radius4' },
+	            { className: 'mod right-bottom radius4 modLong' },
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'mod-title' },
@@ -81976,7 +82009,7 @@
 	                                            { width: '25%' },
 	                                            _react2.default.createElement(
 	                                                'span',
-	                                                { className: 'word-limit-5', title: '' },
+	                                                { className: 'word-limit-5 long', title: '' },
 	                                                item.companyName
 	                                            )
 	                                        ),
@@ -81990,7 +82023,7 @@
 	                                            { width: '30%' },
 	                                            _react2.default.createElement(
 	                                                'span',
-	                                                { className: 'word-limit-5', title: '' },
+	                                                { className: 'word-limit-5 long', title: '' },
 	                                                item.address
 	                                            )
 	                                        ),
@@ -82018,7 +82051,7 @@
 	                                            { width: '25%' },
 	                                            _react2.default.createElement(
 	                                                'span',
-	                                                { className: 'word-limit-5', title: '' },
+	                                                { className: 'word-limit-5 long', title: '' },
 	                                                item.companyName
 	                                            )
 	                                        ),
@@ -82032,7 +82065,7 @@
 	                                            { width: '30%' },
 	                                            _react2.default.createElement(
 	                                                'span',
-	                                                { className: 'word-limit-5', title: '' },
+	                                                { className: 'word-limit-5 long', title: '' },
 	                                                item.address
 	                                            )
 	                                        ),
@@ -84834,7 +84867,7 @@
 
 
 	// module
-	exports.push([module.id, "/*@parkMonitor jifei  图片\r\n---------------------------------------------------------*/\r\n.Img{\r\n\twidth: 100%;\r\n\theight: 948px;\r\n\t/*background: url(\"/images/floor.png\") no-repeat;*/\r\n\tbackground-size: 100% 948px;\r\n}\r\n.Img .carousel{\r\n\twidth: 180px;\r\n\theight: 30px;\r\n\tbackground: #e2f1fc;\r\n\tborder-radius: 3px;\r\n\tposition: relative;\r\n    top: 10px;\r\n    left: 10px;\r\n}\r\n.Img .carousel i{\r\n\tdisplay: block;\r\n\tline-height: 30px;\r\n\tmargin-left: 3px;\r\n\tcolor: #1a2029;\r\n\tfont-size: 18px;\r\n\tcursor: pointer;\r\n}\r\n.Img .carousel i.left{\r\n\tfloat: left;\r\n}\r\n.Img .carousel i.right{\r\n\tfloat: right;\r\n}\r\n.Img .carousel .list-box{\r\n\twidth: 136px;\r\n\tfloat: left;\r\n\toverflow: hidden;\r\n}\r\n.Img .carousel ul{\r\n\tfloat: left;\r\n\twidth: 100%;\r\n\toverflow: hidden;\r\n}\r\n.Img .carousel ul li{\r\n\tline-height: 30px;\r\n\tfloat: left;\r\n\twidth: 100%;\r\n\tcolor: #1a2029;\r\n\ttext-align: center;\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n}\r\n.Img  .tabs{\r\n\twidth: 30%;\r\n    height: 150px;\r\n    float: right;\r\n    margin-right: 20px;\r\n    margin-top: -10px;\r\n}\r\n.Img  .tabs table{\r\n\twidth: 100%;\r\n\tborder-radius: 3px;\r\n\toverflow: hidden;\r\n}\r\n.Img  .tabs table tr th{\r\n\theight: 30px;\r\n\ttext-align: center;\r\n\twidth: 50%;\r\n\tbackground: #e14340;\r\n\tcolor: #fff;\r\n}\r\n.Img  .tabs table tr td{\r\n\tcursor: pointer;\r\n\twidth: 50%;\r\n\theight: 35px;\r\n\ttext-align: center;\r\n\tbackground: #5383a1;\r\n\tborder-bottom: 1px solid #75c5f1;\r\n\tcolor: #fff;\r\n}\r\n.Img  .tabs table tbody tr.active td{\r\n\tbackground: rgba(183,223,248,0.5);\r\n}\r\n.Img  .tabs table tr td .Red{\r\n\tcolor: #e14340;\r\n\tfont-size: 18px;\r\n}\r\n.Img  .tabs table tr td .Yellow{\r\n\tcolor: #f39800;\r\n\tfont-size: 18px;\r\n}\r\n.Img  .tabs table tr td .Green{\r\n\tcolor: #32b16c;\r\n\tfont-size: 18px;\r\n}\r\n.Img  .tabs table tr td .Black{\r\n\tcolor: #000000;\r\n\tfont-size: 18px;\r\n}\r\n\r\n\r\n.Img .onTabs{\r\n\twidth: 43.6%;\r\n    height: 280px;\r\n    border-radius: 3px;   \r\n    position: absolute;\r\n    left: 3%;\r\n    top: 17%;\r\n}\r\n.Img .onTabs .tableLeft{\r\n\twidth: 85%;\r\n\theight: 274px;\r\n\tbackground: rgba(100, 131, 152, 0.5) none repeat scroll 0 0;\r\n\tfloat: left;\r\n}\r\n.Img .onTabs .solidRight{\r\n\twidth: 15%;\r\n    border: 1px solid #ffffff;\r\n    position: absolute;\r\n    right: 0;\r\n    top: 46.8%;\r\n}\r\n.Img .onTabs .mod-title{\r\n\tborder-bottom: 1px solid #495b69;\r\n}\r\n.Img .onTabs .mod-title .Black{\r\n\tfloat: right;\r\n    margin: 10px;\r\n    font-size: 18px;\r\n    color: #000000;\r\n}\r\n.Img .onTabs .box{\r\n\twidth: 100%;\r\n\theight: 234px;\r\n\toverflow: auto;\r\n\toverflow-x:hidden; \r\n}\r\n.Img .onTabs .box table {\r\n\twidth: 93%;\r\n    margin: 0 10px;\r\n}\r\n.Img .onTabs .box table  tr td{\r\n\theight: 33px;\r\n\twidth: 95%;\r\n\twhite-space: nowrap;\r\n}\r\n.Img .onTabs .box table  tr td span{\r\n\tfloat: left;\r\n\tpadding-right: 10px;\r\n}\r\n.Img .yuan{\r\n\tposition: absolute;\r\n    right: 52%;\r\n    top: 29.7%;\r\n}\r\n/*@parkMonitor jifei  楼宇企业列表\r\n---------------------------------------------------------*/\r\n.Enterprise{\r\n\twidth: 100%;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\theight: 560px;\r\n}\r\n.Enterprise .right{\r\n\tcolor: #e14340;\r\n\tfloat: right;\r\n\tfont-size: 16px;\r\n\tpadding: 10px 33px;\r\n}\r\n.Enterprise .mod-content{\r\n    width: 100%;\r\n    margin: 10px auto;\r\n}\r\n.Enterprise .mod-content .table-content{\r\n\theight: 470px;\r\n    overflow: auto;\r\n}\r\n.Enterprise .mod-content .wtyh-table{\r\n\twidth: 96%;\r\n    margin: 0 auto;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th{\r\n\theight: 40px;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(1){\r\n\twidth: 30%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(2){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(3){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(4){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(5){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(6){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th .icon-desc{\r\n    font-size: 20px;\r\n    float: left;\r\n    margin-top: -4px;\r\n    cursor: pointer;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th span{\r\n\tfloat: left;\r\n\tpadding-left: 10%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr td{\r\n\theight: 40px;\r\n\tfont-size: 12px;\r\n\tborder-bottom: 1px solid #444951;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr:nth-child(even){\r\n\tbackground: #222932;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr td span{\r\n\tfloat: left;\r\n\tpadding-left: 10%;\r\n\tcolor: #fff;\r\n\tcursor: pointer;\r\n}\r\n/*@parkMonitor jifei  楼宇行业分布\r\n---------------------------------------------------------*/\r\n.Industry{\r\n\twidth: 49.5%;\r\n\theight: 398px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\tmargin-top: 10px;\r\n\tfloat: left;\r\n}\r\n/*@parkMonitor jifei  企业背景情况\r\n---------------------------------------------------------*/\r\n.Context{\r\n\twidth: 49.5%;\r\n\theight: 398px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\tmargin-top: 10px;\r\n\tfloat: right;\r\n}\r\n/*@parkMonitor jifei  舆情更新\r\n---------------------------------------------------------*/\r\n.Footer{\r\n\twidth: 100%;\r\n\theight: 60px;\r\n\tposition: fixed;\r\n    bottom: 0;\r\n    left: 0;\r\n    background: rgba(43, 50, 60, 0.9) none repeat scroll 0 0;\r\n    box-shadow: 2px 2px 10px #000;\r\n}\r\n.Footer .box{\r\n\twidth: 95%;\r\n\theight: 40px;\r\n\tmargin: 10px auto;\r\n\tposition: relative;\r\n}\r\n.Footer .boxLeft{\r\n\twidth: 10%;\r\n\theight: 40px;\r\n\tborder-right: 1px solid #8a9199;\r\n\tline-height: 40px;\r\n\tfloat: left;\r\n}\r\n.Footer .boxLeft .icon-news{\r\n\tfont-size: 35px;\r\n\tcolor: #e14340;\r\n}\r\n.Footer .boxLeft .size{\r\n\tfont-size: 18px;\r\n    vertical-align: super;\r\n    padding-left: 25%;\r\n}\r\n.Footer .boxRight{\r\n\twidth: 85%;\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n\tfloat: right;\r\n\t/* background: #666 */\r\n}\r\n.Footer .boxRight ul li{\r\n\tfloat: left;\r\n}\r\n.Footer .boxRight ul li:nth-child(1){\r\n\twidth: 20%;\r\n    font-size: 16px;\r\n    color: #e14340;\r\n    overflow: hidden;\r\n    text-overflow: ellipsis;\r\n    white-space: nowrap;\r\n    display: inline-block;\r\n}\r\n.Footer .boxRight ul li:nth-child(1) em{\r\n\tpadding-left: 5%;\r\n}\r\n.Footer .boxRight ul li:nth-child(2){\r\n\twidth: 60%;\r\n\tfont-size: 14px;\r\n    overflow: hidden;\r\n    text-overflow: ellipsis;\r\n    white-space: nowrap;\r\n    display: inline-block;\r\n}\r\n.Footer .boxRight ul li:nth-child(2) .liTop{\r\n\tpadding-left: 8%;\r\n}\r\n.Footer .boxRight ul li:nth-child(3){\r\n\twidth: 20%;\r\n\tfont-size: 12px;\r\n}\r\n.Footer .boxRight ul li:nth-child(3) em{\r\n\tpadding-left: 5%;\r\n}\r\n.Footer .boxRight ul li:nth-child(3) .liRight{\r\n\tpadding-left: 18%;\r\n}\r\n.boxRight{\r\noverflow: hidden;\r\nposition: relative;\r\n}\r\n.boxRight ul{\r\n\t/* background: red; */\r\n\twidth: 100%;height: 40px;\r\n}\r\n\r\n.boxRightScroll {\r\n\twidth: 100%;\r\n\theight: auto;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n}", ""]);
+	exports.push([module.id, "/*@parkMonitor jifei  图片\r\n---------------------------------------------------------*/\r\n.Img{\r\n\twidth: 100%;\r\n\theight: 948px;\r\n\t/*background: url(\"/images/floor.png\") no-repeat;*/\r\n\tbackground-size: 100% 948px;\r\n}\r\n.Img .carousel{\r\n\twidth: 180px;\r\n\theight: 30px;\r\n\tbackground: #e2f1fc;\r\n\tborder-radius: 3px;\r\n\tposition: relative;\r\n    top: 10px;\r\n    left: 10px;\r\n}\r\n.Img .carousel i{\r\n\tdisplay: block;\r\n\tline-height: 30px;\r\n\tmargin-left: 3px;\r\n\tcolor: #1a2029;\r\n\tfont-size: 18px;\r\n\tcursor: pointer;\r\n}\r\n.Img .carousel i.left{\r\n\tfloat: left;\r\n}\r\n.Img .carousel i.right{\r\n\tfloat: right;\r\n}\r\n.Img .carousel .list-box{\r\n\twidth: 136px;\r\n\tfloat: left;\r\n\toverflow: hidden;\r\n}\r\n.Img .carousel ul{\r\n\tfloat: left;\r\n\twidth: 100%;\r\n\toverflow: hidden;\r\n}\r\n.Img .carousel ul li{\r\n\tline-height: 30px;\r\n\tfloat: left;\r\n\twidth: 100%;\r\n\tcolor: #1a2029;\r\n\ttext-align: center;\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n}\r\n.Img  .tabs{\r\n\twidth: 30%;\r\n    height: 150px;\r\n    float: right;\r\n    margin-right: 20px;\r\n    margin-top: -10px;\r\n}\r\n.Img  .tabs table{\r\n\twidth: 100%;\r\n\tborder-radius: 3px;\r\n\toverflow: hidden;\r\n}\r\n.Img  .tabs table tr th{\r\n\theight: 30px;\r\n\ttext-align: center;\r\n\twidth: 50%;\r\n\tbackground: #e14340;\r\n\tcolor: #fff;\r\n}\r\n.Img  .tabs table tr td{\r\n\tcursor: pointer;\r\n\twidth: 50%;\r\n\theight: 35px;\r\n\ttext-align: center;\r\n\tbackground: #5383a1;\r\n\tborder-bottom: 1px solid #75c5f1;\r\n\tcolor: #fff;\r\n}\r\n.Img  .tabs table tbody tr.active td{\r\n\tbackground: rgba(183,223,248,0.5);\r\n}\r\n.Img  .tabs table tr td .Red{\r\n\tcolor: #e14340;\r\n\tfont-size: 18px;\r\n}\r\n.Img  .tabs table tr td .Yellow{\r\n\tcolor: #f39800;\r\n\tfont-size: 18px;\r\n}\r\n.Img  .tabs table tr td .Green{\r\n\tcolor: #32b16c;\r\n\tfont-size: 18px;\r\n}\r\n.Img  .tabs table tr td .Black{\r\n\tcolor: #000000;\r\n\tfont-size: 18px;\r\n}\r\n\r\n\r\n.Img .onTabs{\r\n\twidth: 43.6%;\r\n    height: 280px;\r\n    border-radius: 3px;   \r\n    position: absolute;\r\n    left: 3%;\r\n    top: 17%;\r\n}\r\n.Img .onTabs .tableLeft{\r\n\twidth: 85%;\r\n\theight: 274px;\r\n\tbackground: rgba(100, 131, 152, 0.5) none repeat scroll 0 0;\r\n\tfloat: left;\r\n}\r\n.Img .onTabs .solidRight{\r\n\twidth: 15%;\r\n    border: 1px solid #ffffff;\r\n    position: absolute;\r\n    right: 0;\r\n    top: 46.8%;\r\n}\r\n.Img .onTabs .mod-title{\r\n\tborder-bottom: 1px solid #495b69;\r\n}\r\n.Img .onTabs .mod-title .Black{\r\n\tfloat: right;\r\n    margin: 10px;\r\n    font-size: 18px;\r\n    color: #000000;\r\n}\r\n.Img .onTabs .box{\r\n\twidth: 100%;\r\n\theight: 234px;\r\n\toverflow: auto;\r\n\toverflow-x:hidden; \r\n}\r\n.Img .onTabs .box table {\r\n\twidth: 93%;\r\n    margin: 0 10px;\r\n}\r\n.Img .onTabs .box table  tr td{\r\n\theight: 33px;\r\n\twidth: 95%;\r\n\twhite-space: nowrap;\r\n}\r\n.Img .onTabs .box table  tr td span{\r\n\tfloat: left;\r\n\tpadding-right: 10px;\r\n}\r\n.Img .yuan{\r\n\tposition: absolute;\r\n    right: 52%;\r\n    top: 29.7%;\r\n}\r\n/*@parkMonitor jifei  楼宇企业列表\r\n---------------------------------------------------------*/\r\n.Enterprise{\r\n\twidth: 100%;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\theight: 560px;\r\n}\r\n.Enterprise .right{\r\n\tcolor: #e14340;\r\n\tfloat: right;\r\n\tfont-size: 16px;\r\n\tpadding: 10px 33px;\r\n}\r\n.Enterprise .mod-content{\r\n    width: 100%;\r\n    margin: 10px auto;\r\n}\r\n.Enterprise .mod-content .table-content{\r\n\theight: 470px;\r\n    overflow: auto;\r\n}\r\n.Enterprise .mod-content .wtyh-table{\r\n\twidth: 96%;\r\n    margin: 0 auto;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th{\r\n\theight: 40px;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(1){\r\n\twidth: 30%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(2){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(3){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(4){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(5){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(6){\r\n\twidth: 12%;\r\n}\r\n\r\n.Enterprise .mod-content .wtyh-table tr th .icon-desc{\r\n    font-size: 20px;\r\n    float: left;\r\n    margin-top: -4px;\r\n    cursor: pointer;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th .spanA{\r\n\tfloat: left;\r\n\tpadding-left: 10%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th .left{\r\n\tfloat: left;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr td{\r\n\theight: 40px;\r\n\tfont-size: 12px;\r\n\tborder-bottom: 1px solid #444951;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr:nth-child(even){\r\n\tbackground: #222932;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr td span{\r\n\tfloat: left;\r\n\tpadding-left: 10%;\r\n\tcolor: #fff;\r\n\tcursor: pointer;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr td:nth-child(1){\r\n\twidth: 30%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr td:nth-child(2){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr td:nth-child(3){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr td:nth-child(4){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr td:nth-child(5){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr td:nth-child(6){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr td:nth-child(6) span{\r\n    overflow: hidden;\r\n    text-overflow: ellipsis;\r\n    white-space: nowrap;\r\n    display: inline-block;\r\n    width: 130px;\r\n}\r\n/*@parkMonitor jifei  楼宇行业分布\r\n---------------------------------------------------------*/\r\n.Industry{\r\n\twidth: 49.5%;\r\n\theight: 398px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\tmargin-top: 10px;\r\n\tfloat: left;\r\n}\r\n/*@parkMonitor jifei  企业背景情况\r\n---------------------------------------------------------*/\r\n.Context{\r\n\twidth: 49.5%;\r\n\theight: 398px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\tmargin-top: 10px;\r\n\tfloat: right;\r\n}\r\n/*@parkMonitor jifei  舆情更新\r\n---------------------------------------------------------*/\r\n.Footer{\r\n\twidth: 100%;\r\n\theight: 60px;\r\n\tposition: fixed;\r\n    bottom: 0;\r\n    left: 0;\r\n    background: rgba(43, 50, 60, 0.9) none repeat scroll 0 0;\r\n    box-shadow: 2px 2px 10px #000;\r\n}\r\n.Footer .box{\r\n\twidth: 95%;\r\n\theight: 40px;\r\n\tmargin: 10px auto;\r\n\tposition: relative;\r\n}\r\n.Footer .boxLeft{\r\n\twidth: 10%;\r\n\theight: 40px;\r\n\tborder-right: 1px solid #8a9199;\r\n\tline-height: 40px;\r\n\tfloat: left;\r\n}\r\n.Footer .boxLeft .icon-news{\r\n\tfont-size: 35px;\r\n\tcolor: #e14340;\r\n}\r\n.Footer .boxLeft .size{\r\n\tfont-size: 18px;\r\n    vertical-align: super;\r\n    padding-left: 25%;\r\n}\r\n.Footer .boxRight{\r\n\twidth: 85%;\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n\tfloat: right;\r\n\t/* background: #666 */\r\n}\r\n.Footer .boxRight ul li{\r\n\tfloat: left;\r\n}\r\n.Footer .boxRight ul li:nth-child(1){\r\n\twidth: 20%;\r\n    font-size: 16px;\r\n    color: #e14340;\r\n    overflow: hidden;\r\n    text-overflow: ellipsis;\r\n    white-space: nowrap;\r\n    display: inline-block;\r\n}\r\n.Footer .boxRight ul li:nth-child(1) em{\r\n\tpadding-left: 5%;\r\n}\r\n.Footer .boxRight ul li:nth-child(2){\r\n\twidth: 60%;\r\n\tfont-size: 14px;\r\n    overflow: hidden;\r\n    text-overflow: ellipsis;\r\n    white-space: nowrap;\r\n    display: inline-block;\r\n}\r\n.Footer .boxRight ul li:nth-child(2) .liTop{\r\n\tpadding-left: 8%;\r\n}\r\n.Footer .boxRight ul li:nth-child(3){\r\n\twidth: 20%;\r\n\tfont-size: 12px;\r\n}\r\n.Footer .boxRight ul li:nth-child(3) em{\r\n\tpadding-left: 5%;\r\n}\r\n.Footer .boxRight ul li:nth-child(3) .liRight{\r\n\tpadding-left: 18%;\r\n}\r\n.boxRight{\r\noverflow: hidden;\r\nposition: relative;\r\n}\r\n.boxRight ul{\r\n\t/* background: red; */\r\n\twidth: 100%;height: 40px;\r\n}\r\n\r\n.boxRightScroll {\r\n\twidth: 100%;\r\n\theight: auto;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n}", ""]);
 
 	// exports
 
@@ -84937,7 +84970,7 @@
 	                                    null,
 	                                    _react2.default.createElement(
 	                                        'span',
-	                                        null,
+	                                        { className: 'spanA' },
 	                                        '公司名'
 	                                    )
 	                                ),
@@ -84946,7 +84979,7 @@
 	                                    null,
 	                                    _react2.default.createElement(
 	                                        'span',
-	                                        null,
+	                                        { className: 'spanB left' },
 	                                        '企业背景'
 	                                    ),
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
@@ -84956,7 +84989,7 @@
 	                                    null,
 	                                    _react2.default.createElement(
 	                                        'span',
-	                                        null,
+	                                        { className: 'spanC left' },
 	                                        '行业'
 	                                    ),
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
@@ -84966,7 +84999,7 @@
 	                                    null,
 	                                    _react2.default.createElement(
 	                                        'span',
-	                                        null,
+	                                        { className: 'spanD left' },
 	                                        '注册资本'
 	                                    ),
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
@@ -84976,7 +85009,7 @@
 	                                    null,
 	                                    _react2.default.createElement(
 	                                        'span',
-	                                        null,
+	                                        { className: 'spanE left' },
 	                                        '注册时间'
 	                                    ),
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
@@ -84986,7 +85019,7 @@
 	                                    null,
 	                                    _react2.default.createElement(
 	                                        'span',
-	                                        null,
+	                                        { className: 'spanF left' },
 	                                        '企业类型'
 	                                    ),
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
@@ -85000,7 +85033,7 @@
 	                    { className: 'table-content' },
 	                    _react2.default.createElement(
 	                        'table',
-	                        { className: 'wtyh-table table-border-b' },
+	                        { className: 'wtyh-table table-border-b mod-left' },
 	                        _react2.default.createElement(
 	                            'tbody',
 	                            null,
@@ -86002,17 +86035,20 @@
 	                _react2.default.createElement(
 	                  'li',
 	                  null,
-	                  '注册资本：500亿'
+	                  '注册资本：',
+	                  ele.regcap
 	                ),
 	                _react2.default.createElement(
 	                  'li',
 	                  null,
-	                  '成立日期：2015年06月21日'
+	                  '成立日期：',
+	                  ele.esdate
 	                ),
 	                _react2.default.createElement(
 	                  'li',
 	                  null,
-	                  '注册地址：上海浦东上海浦东上海浦东上海浦东上海浦东上海浦东上海浦东'
+	                  '注册地址：',
+	                  ele.address
 	                )
 	              )
 	            );
