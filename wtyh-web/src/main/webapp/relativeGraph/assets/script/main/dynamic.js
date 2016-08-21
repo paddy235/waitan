@@ -506,7 +506,7 @@ define(function(require, exports, module) {
 				xEnd: end.x,
 				yEnd: end.y,
 				lineWidth: 1,
-				strokeColor: "#52c2e7",
+				strokeColor: "#00bced",
 				opacity: opacity_arrow,
 			},
 			scale: [1, 1, 0, 0],

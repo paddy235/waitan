@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2772701e9d2f39a359bc"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "28149a2648f62ee2fa7b"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -63501,11 +63501,14 @@
 	    dynamicRiskDateRequest: state.DynamicRiskDate.request,
 	    dynamicRiskDateResult: state.DynamicRiskDate.result,
 
-	    //获取对比图
-	    dynamicRiskImgRequest: state.DynamicRiskImg.request,
-	    dynamicRiskImgResult: state.DynamicRiskImg.result,
+	    //获取对比图 左侧
+	    dynamicRiskLeftImgRequest: state.DynamicRiskLeftImg.request,
+	    dynamicRiskLeftImgResult: state.DynamicRiskLeftImg.result,
 
-	    //获取对比图
+	    //获取对比图 右侧
+	    dynamicRiskRightImgRequest: state.DynamicRiskRightImg.request,
+	    dynamicRiskRightImgResult: state.DynamicRiskRightImg.result,
+
 	    dynamicRiskIndexCmpRequest: state.DynamicRiskIndexCmp.request,
 	    dynamicRiskIndexCmpResult: state.DynamicRiskIndexCmp.result,
 
@@ -63538,9 +63541,13 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _EachTimeAxis = __webpack_require__(754);
+	var _EachTimeAxisLeft = __webpack_require__(1379);
 
-	var _EachTimeAxis2 = _interopRequireDefault(_EachTimeAxis);
+	var _EachTimeAxisLeft2 = _interopRequireDefault(_EachTimeAxisLeft);
+
+	var _EachTimeAxisRight = __webpack_require__(1380);
+
+	var _EachTimeAxisRight2 = _interopRequireDefault(_EachTimeAxisRight);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -63559,7 +63566,7 @@
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
-	    var companyName = "上海北湖投资管理有限公司";
+	    var companyName = "《国际金融报》社有限公司";
 	    var jsonData = { companyName: companyName };
 	    this.setState({ companyName: companyName });
 	    this.getRelativeDate(jsonData);
@@ -63630,12 +63637,12 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'cmp-l' },
-	            _react2.default.createElement(_EachTimeAxis2.default, _extends({ flag: 'left', borderLeft: 'false' }, this.props, { date: this.state.date, nowDate: this.state.dateLeft, companyName: this.state.companyName }))
+	            _react2.default.createElement(_EachTimeAxisLeft2.default, _extends({ borderLeft: 'false' }, this.props, { date: this.state.date, nowDate: this.state.dateLeft, companyName: this.state.companyName }))
 	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'cmp-r' },
-	            _react2.default.createElement(_EachTimeAxis2.default, _extends({ flag: 'right', borderLeft: 'true' }, this.props, { date: this.state.date, nowDate: this.state.dateRight, companyName: this.state.companyName }))
+	            _react2.default.createElement(_EachTimeAxisRight2.default, _extends({ borderLeft: 'true' }, this.props, { date: this.state.date, nowDate: this.state.dateRight, companyName: this.state.companyName }))
 	          )
 	        )
 	      )
@@ -63688,151 +63695,7 @@
 
 
 /***/ },
-/* 754 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	__webpack_require__(755);
-
-	var _react = __webpack_require__(138);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _index = __webpack_require__(680);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var Immutable = __webpack_require__(706);
-	//每个时间轴
-	var EachTimeAxis = _react2.default.createClass({
-	  displayName: 'EachTimeAxis',
-
-	  getInitialState: function getInitialState() {
-	    return {
-	      wNo: 25,
-	      scale: 100
-	    };
-	  },
-	  componentDidMount: function componentDidMount() {},
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    var isEqual = Immutable.is(nextProps.nowDate, this.props.nowDate); //判断数据是否变化
-	    if (!isEqual) {
-	      var companyName = nextProps.companyName;
-	      var nowDate = nextProps.nowDate;
-	      var json = { companyName: companyName, month: nowDate };
-	      this.getRelativeImg(json);
-	    }
-	  },
-	  getRelativeImg: function getRelativeImg(jsonData) {
-	    //获取图片
-	    var getDynamicRiskImg = this.props.getDynamicRiskImg;
-
-	    getDynamicRiskImg(jsonData);
-	  },
-
-	  minClick: function minClick(e) {
-	    //缩小图片
-	    var wNo = this.state.wNo;
-	    if (wNo > 25) {
-	      wNo = wNo - 25;
-	    }
-	    var scale = wNo / 250 * 1000;
-	    this.setState({ wNo: wNo, scale: scale });
-	  },
-	  addClick: function addClick(e) {
-	    //放大图片
-	    var wNo = this.state.wNo;
-	    if (wNo < 200) {
-	      wNo = wNo + 25;
-	    }
-	    var scale = wNo / 250 * 1000;
-	    this.setState({ wNo: wNo, scale: scale });
-	  },
-	  render: function render() {
-	    var select = null;
-	    var flag = this.props.flag;
-	    var nowVal = null;
-
-	    if (this.props.date.length > 0) {
-	      var d = this.props.date[0];
-	      if (flag == "left") {
-	        //判断是左侧图还是右侧图  设置不同的时间
-	        nowVal = this.props.date[0].value;
-	      } else {
-	        nowVal = this.props.date[1].value;
-	      }
-	      var selectProp = {
-	        width: '85px',
-	        className: 'index-selected',
-	        value: nowVal,
-	        placeholder: '时间选择',
-	        name: 'testselect',
-	        id: 'indexSelected',
-	        data: this.props.date,
-	        onChange: function (value, date) {
-	          var json = { companyName: this.props.companyName, month: date };
-	          this.getRelativeImg(json);
-	        }.bind(this)
-	      };
-	      select = _react2.default.createElement(_index.Selected, selectProp);
-	    }
-
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'linefin-each-timeaxis mod' },
-	      _react2.default.createElement(
-	        'div',
-	        { className: this.props.borderLeft == 'true' ? 'mod-title bl' : 'mod-title' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'date' },
-	          _react2.default.createElement(
-	            'label',
-	            null,
-	            '时间选项'
-	          ),
-	          select
-	        ),
-	        _react2.default.createElement('i', { className: 'iconfont icon-zoomout' }),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'scale' },
-	          _react2.default.createElement('i', { className: 'min iconfont icon-jian', onClick: this.minClick }),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'scale-bar' },
-	            _react2.default.createElement('span', { className: 's-bar', ref: 'sBar', style: { width: this.state.wNo + 'px' } }),
-	            _react2.default.createElement(
-	              'em',
-	              { ref: 'sBarNo', style: { left: this.state.wNo + 10 + 'px' } },
-	              this.state.scale,
-	              '%'
-	            )
-	          ),
-	          _react2.default.createElement('i', { className: 'add iconfont icon-jia', onClick: this.addClick })
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: this.props.borderLeft ? 'mod-content bl' : 'mod-content' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'con-box' },
-	          _react2.default.createElement('img', { src: this.props.cmpUrl, alt: '时间轴对比图' })
-	        )
-	      )
-	    );
-	  }
-	});
-	module.exports = EachTimeAxis;
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "EachTimeAxis.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
+/* 754 */,
 /* 755 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -63867,7 +63730,7 @@
 
 
 	// module
-	exports.push([module.id, "/*单个时间轴 begin*/\r\n.linefin-each-timeaxis .mod-title{\r\n\theight: 45px;\r\n\tline-height: 45px;\r\n\tbackground-color: #1a2029 !important;\r\n\tpadding: 0 10px;\r\n\tmargin-top: 10px;\r\n}\r\n.linefin-each-timeaxis .mod-title.bl{\r\n\tborder-left: solid 1px #000000;\r\n}\r\n.linefin-each-timeaxis .mod-title .date{\r\n\tfloat: left;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .label{\r\n\tfont-size: 14px;\r\n\tcolor: #ffffff;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select{\r\n\tbackground-color: #ffffff;\r\n\tborder-radius: 5px;\r\n\tpadding-left: 5px;\r\n\tpadding-right: 0px;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select .mt-select-title{\r\n\tcolor: #1a1a1a;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select i{\r\n\tfont-size: 24px;\r\n\ttop: 0px;\r\n\tcolor:#1a1a1a;\r\n\tright:0px;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select-box{\r\n\tcolor: #1a1a1a;\r\n}\r\n/*缩放条*/\r\n.scale{\r\n\tfloat: right;\r\n\tmargin-top: 10px;\r\n\twidth: 298px;\r\n\theight: 24px;\r\n\tbackground-color: #0d1013;\r\n}\r\n.scale .min,.scale .add{\r\n\tborder:solid 1px #dddddd;\r\n\tdisplay: inline-block;\r\n\twidth: 24px;\r\n\theight: 24px;\r\n\ttext-align: center;\r\n\tline-height: 20px;\r\n\tcursor: pointer;\r\n\tcolor: #00b7ee;\r\n}\r\n.scale .min{\r\n\tfloat: left;\r\n}\r\n.scale .add{\r\n\tfloat: right;\r\n}\r\n\r\n.scale .scale-bar{\r\n\tdisplay: inline-block;\r\n\twidth: 250px;\r\n\theight: 24px;\r\n\tfloat: left;\r\n\tposition: relative;\r\n}\r\n.scale .scale-bar .s-bar{\r\n\tdisplay:block;\r\n\twidth: 60%;\r\n\theight: 24px;\r\n\tbackground: #1e5799; /* Old browsers */\r\n\tbackground: -moz-linear-gradient(left,  #1e5799 0%, #00b7e7 0%, #207cca 100%, #7db9e8 100%); /* FF3.6-15 */\r\n\tbackground: -webkit-linear-gradient(left,  #1e5799 0%,#00b7e7 0%,#207cca 100%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */\r\n\tbackground: linear-gradient(to right,  #1e5799 0%,#00b7e7 0%,#207cca 100%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */\r\n\tfilter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=1 ); /* IE6-9 */\r\n}\r\n.scale .scale-bar em{\r\n\tcolor: #999999;\r\n\tfont-size: 14px;\r\n\theight: 24px;\r\n\tposition: absolute;\r\n\tleft: 60%;\r\n\ttop: 3px;\r\n\tline-height: normal;\r\n}\r\n.linefin-each-timeaxis .mod-title .icon-zoomout{\r\n\tfloat: right;\r\n\tmargin-left: 10px;\r\n\tmargin-top: 13px;\r\n\tcolor: #00b7ee;\r\n}\r\n\r\n/*内容 begin*/\r\n.linefin-each-timeaxis .mod-content.bl{\r\n\tborder-left:solid 1px #282e37;\r\n}\r\n\r\n.linefin-each-timeaxis .mod-content .con-box{\r\n\twidth: 95%;\r\n\theight: 620px;\r\n\tmargin: 0 auto;\r\n\tmargin-top: 100px;\r\n}\r\n/*内容 end*/\r\n/*单个时间轴 end*/", ""]);
+	exports.push([module.id, "/*单个时间轴 begin*/\r\n.linefin-each-timeaxis .mod-title{\r\n\theight: 45px;\r\n\tline-height: 45px;\r\n\tbackground-color: #1a2029 !important;\r\n\tpadding: 0 10px;\r\n\tmargin-top: 10px;\r\n}\r\n.linefin-each-timeaxis .mod-title.bl{\r\n\tborder-left: solid 1px #000000;\r\n}\r\n.linefin-each-timeaxis .mod-title .date{\r\n\tfloat: left;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .label{\r\n\tfont-size: 14px;\r\n\tcolor: #ffffff;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select{\r\n\tbackground-color: #ffffff;\r\n\tborder-radius: 5px;\r\n\tpadding-left: 5px;\r\n\tpadding-right: 0px;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select .mt-select-title{\r\n\tcolor: #1a1a1a;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select i{\r\n\tfont-size: 24px;\r\n\ttop: 0px;\r\n\tcolor:#1a1a1a;\r\n\tright:0px;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select-box{\r\n\tcolor: #1a1a1a;\r\n}\r\n/*缩放条*/\r\n.scale{\r\n\tfloat: right;\r\n\tmargin-top: 10px;\r\n\twidth: 298px;\r\n\theight: 24px;\r\n\tbackground-color: #0d1013;\r\n}\r\n.scale .min,.scale .add{\r\n\tborder:solid 1px #dddddd;\r\n\tdisplay: inline-block;\r\n\twidth: 24px;\r\n\theight: 24px;\r\n\ttext-align: center;\r\n\tline-height: 20px;\r\n\tcursor: pointer;\r\n\tcolor: #00b7ee;\r\n}\r\n.scale .min{\r\n\tfloat: left;\r\n}\r\n.scale .add{\r\n\tfloat: right;\r\n}\r\n\r\n.scale .scale-bar{\r\n\tdisplay: inline-block;\r\n\twidth: 250px;\r\n\theight: 24px;\r\n\tfloat: left;\r\n\tposition: relative;\r\n}\r\n.scale .scale-bar .s-bar{\r\n\tdisplay:block;\r\n\twidth: 60%;\r\n\theight: 24px;\r\n\tbackground: #1e5799; /* Old browsers */\r\n\tbackground: -moz-linear-gradient(left,  #1e5799 0%, #00b7e7 0%, #207cca 100%, #7db9e8 100%); /* FF3.6-15 */\r\n\tbackground: -webkit-linear-gradient(left,  #1e5799 0%,#00b7e7 0%,#207cca 100%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */\r\n\tbackground: linear-gradient(to right,  #1e5799 0%,#00b7e7 0%,#207cca 100%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */\r\n\tfilter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=1 ); /* IE6-9 */\r\n}\r\n.scale .scale-bar em{\r\n\tcolor: #999999;\r\n\tfont-size: 14px;\r\n\theight: 24px;\r\n\tposition: absolute;\r\n\tleft: 60%;\r\n\ttop: 3px;\r\n\tline-height: normal;\r\n}\r\n.linefin-each-timeaxis .mod-title .icon-zoomout{\r\n\tfloat: right;\r\n\tmargin-left: 10px;\r\n\tmargin-top: 13px;\r\n\tcolor: #00b7ee;\r\n}\r\n\r\n/*内容 begin*/\r\n.linefin-each-timeaxis .mod-content.bl{\r\n\tborder-left:solid 1px #282e37;\r\n}\r\n\r\n.linefin-each-timeaxis .mod-content .con-box{\r\n\twidth: 95%;\r\n\theight: 620px;\r\n\tmargin: 0 auto;\r\n\tmargin-top: 100px;\r\n\ttext-align: center;\r\n\tvertical-align: middle;\r\n}\r\n.linefin-each-timeaxis .mod-content .con-box img{\r\n\twidth: 80%;\r\n}\r\n/*内容 end*/\r\n/*单个时间轴 end*/", ""]);
 
 	// exports
 
@@ -63885,10 +63748,6 @@
 	var _react = __webpack_require__(138);
 
 	var _react2 = _interopRequireDefault(_react);
-
-	var _EachTimeAxis = __webpack_require__(754);
-
-	var _EachTimeAxis2 = _interopRequireDefault(_EachTimeAxis);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -65066,10 +64925,6 @@
 	var _react = __webpack_require__(138);
 
 	var _react2 = _interopRequireDefault(_react);
-
-	var _EachTimeAxis = __webpack_require__(754);
-
-	var _EachTimeAxis2 = _interopRequireDefault(_EachTimeAxis);
 
 	var _RiskTab = __webpack_require__(759);
 
@@ -66421,9 +66276,10 @@
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
-	exports.getDynamicRiskImg = getDynamicRiskImg;
+	exports.getDynamicRiskLeftImg = getDynamicRiskLeftImg;
+	exports.getDynamicRiskRightImg = getDynamicRiskRightImg;
 	exports.getDynamicRiskIndexCmp = getDynamicRiskIndexCmp;
 	exports.getDynamicRiskCompanyTag = getDynamicRiskCompanyTag;
 	exports.getDynamicRiskDate = getDynamicRiskDate;
@@ -66432,41 +66288,78 @@
 	* */
 
 	/*
-	* 获取图片
+	* 获取图片 左侧
 	* */
-	var DYNAMIC_RISK_IMG_SUCCESS = exports.DYNAMIC_RISK_IMG_SUCCESS = "DYNAMIC_RISK_IMG_SUCCESS";
-	var DYNAMIC_RISK_IMG_FAIL = exports.DYNAMIC_RISK_IMG_FAIL = "DYNAMIC_RISK_IMG_FAIL";
+	var DYNAMIC_RISK_LEFTIMG_SUCCESS = exports.DYNAMIC_RISK_LEFTIMG_SUCCESS = "DYNAMIC_RISK_LEFTIMG_SUCCESS";
+	var DYNAMIC_RISK_LEFTIMG_FAIL = exports.DYNAMIC_RISK_LEFTIMG_FAIL = "DYNAMIC_RISK_LEFTIMG_FAIL";
 
-	function dynamicRiskImgSuccess(result) {
-	  return {
-	    type: DYNAMIC_RISK_IMG_SUCCESS,
-	    result: result
-	  };
+	function dynamicRiskLeftImgSuccess(result) {
+		return {
+			type: DYNAMIC_RISK_LEFTIMG_SUCCESS,
+			result: result
+		};
 	}
-	function dynamicRiskImgFail(result) {
-	  return {
-	    type: DYNAMIC_RISK_IMG_FAIL,
-	    result: result
-	  };
+	function dynamicRiskLeftImgFail(result) {
+		return {
+			type: DYNAMIC_RISK_LEFTIMG_FAIL,
+			result: result
+		};
 	}
 
-	function getDynamicRiskImg() {
-	  var json = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
+	function getDynamicRiskLeftImg() {
+		var json = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
 
-	  return function (dispatch) {
-	    $.ajax({
-	      type: 'GET',
-	      url: '/offlineFinance/showYEDData.do',
-	      dataType: 'json',
-	      data: json,
-	      success: function success(result) {
-	        return dispatch(dynamicRiskImgSuccess(result.content));
-	      },
-	      error: function error(result) {
-	        return dispatch(dynamicRiskImgFail(result.content));
-	      }
-	    });
-	  };
+		return function (dispatch) {
+			$.ajax({
+				type: 'GET',
+				url: '/offlineFinance/showYEDData.do',
+				dataType: 'json',
+				data: json,
+				success: function success(result) {
+					return dispatch(dynamicRiskLeftImgSuccess(result));
+				},
+				error: function error(result) {
+					return dispatch(dynamicRiskLeftImgFail(result));
+				}
+			});
+		};
+	};
+	/*
+	* 获取图片 右侧
+	* */
+	var DYNAMIC_RISK_RIGHTIMG_SUCCESS = exports.DYNAMIC_RISK_RIGHTIMG_SUCCESS = "DYNAMIC_RISK_RIGHTIMG_SUCCESS";
+	var DYNAMIC_RISK_RIGHTIMG_FAIL = exports.DYNAMIC_RISK_RIGHTIMG_FAIL = "DYNAMIC_RISK_RIGHTIMG_FAIL";
+
+	function dynamicRiskRightImgSuccess(result) {
+		return {
+			type: DYNAMIC_RISK_RIGHTIMG_SUCCESS,
+			result: result
+		};
+	}
+	function dynamicRiskRightImgFail(result) {
+		return {
+			type: DYNAMIC_RISK_RIGHTIMG_FAIL,
+			result: result
+		};
+	}
+
+	function getDynamicRiskRightImg() {
+		var json = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
+
+		return function (dispatch) {
+			$.ajax({
+				type: 'GET',
+				url: '/offlineFinance/showYEDData.do',
+				dataType: 'json',
+				data: json,
+				success: function success(result) {
+					return dispatch(dynamicRiskRightImgSuccess(result));
+				},
+				error: function error(result) {
+					return dispatch(dynamicRiskRightImgFail(result));
+				}
+			});
+		};
 	};
 
 	/*
@@ -66476,35 +66369,35 @@
 	var DYNAMIC_RISK_INDEX_CMP_FAIL = exports.DYNAMIC_RISK_INDEX_CMP_FAIL = "DYNAMIC_RISK_INDEX_CMP_FAIL";
 
 	function dynamicRiskIndexCmpSuccess(result) {
-	  return {
-	    type: DYNAMIC_RISK_INDEX_CMP_SUCCESS,
-	    result: result
-	  };
+		return {
+			type: DYNAMIC_RISK_INDEX_CMP_SUCCESS,
+			result: result
+		};
 	}
 	function dynamicRiskIndexCmpFail(result) {
-	  return {
-	    type: constDYNAMIC_RISK_INDEX_CMP_FAIL,
-	    result: result
-	  };
+		return {
+			type: constDYNAMIC_RISK_INDEX_CMP_FAIL,
+			result: result
+		};
 	}
 
 	function getDynamicRiskIndexCmp() {
-	  var json = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
+		var json = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
 
-	  return function (dispatch) {
-	    $.ajax({
-	      type: 'GET',
-	      url: '/offlineFinance/dynamicRiskData.do',
-	      dataType: 'json',
-	      data: json,
-	      success: function success(result) {
-	        return dispatch(dynamicRiskIndexCmpSuccess(result));
-	      },
-	      error: function error(result) {
-	        return dispatch(dynamicRiskIndexCmpFail(result));
-	      }
-	    });
-	  };
+		return function (dispatch) {
+			$.ajax({
+				type: 'GET',
+				url: '/offlineFinance/dynamicRiskData.do',
+				dataType: 'json',
+				data: json,
+				success: function success(result) {
+					return dispatch(dynamicRiskIndexCmpSuccess(result));
+				},
+				error: function error(result) {
+					return dispatch(dynamicRiskIndexCmpFail(result));
+				}
+			});
+		};
 	}
 
 	/*
@@ -66514,35 +66407,35 @@
 	var DYNAMIC_RISK_COMPANY_TAG_FAIL = exports.DYNAMIC_RISK_COMPANY_TAG_FAIL = "DYNAMIC_RISK_COMPANY_TAG_FAIL";
 
 	function getDynamicRiskCompanyTagsSuccess(result) {
-	  return {
-	    type: DYNAMIC_RISK_COMPANY_TAG_SUCCESS,
-	    result: result
-	  };
+		return {
+			type: DYNAMIC_RISK_COMPANY_TAG_SUCCESS,
+			result: result
+		};
 	}
 	function getDynamicRiskCompanyTagsFail(result) {
-	  return {
-	    type: DYNAMIC_RISK_COMPANY_TAG_FAIL,
-	    result: result
-	  };
+		return {
+			type: DYNAMIC_RISK_COMPANY_TAG_FAIL,
+			result: result
+		};
 	}
 
 	function getDynamicRiskCompanyTag() {
-	  var json = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
+		var json = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
 
-	  return function (dispatch) {
-	    $.ajax({
-	      type: 'GET',
-	      url: '/offlineFinance/companyInfo.do',
-	      dataType: 'json',
-	      data: json,
-	      success: function success(result) {
-	        return dispatch(getDynamicRiskCompanyTagsSuccess(result));
-	      },
-	      error: function error(result) {
-	        return dispatch(getDynamicRiskCompanyTagsFail(result));
-	      }
-	    });
-	  };
+		return function (dispatch) {
+			$.ajax({
+				type: 'GET',
+				url: '/offlineFinance/companyInfo.do',
+				dataType: 'json',
+				data: json,
+				success: function success(result) {
+					return dispatch(getDynamicRiskCompanyTagsSuccess(result));
+				},
+				error: function error(result) {
+					return dispatch(getDynamicRiskCompanyTagsFail(result));
+				}
+			});
+		};
 	}
 
 	/*
@@ -66552,33 +66445,33 @@
 	var DYNAMIC_RISK_DATE_FAIL = exports.DYNAMIC_RISK_DATE_FAIL = "DYNAMIC_RISK_DATE_FAIL";
 
 	function getDynamicRiskDateSuccess(result) {
-	  return {
-	    type: DYNAMIC_RISK_DATE_SUCCESS,
-	    result: result
-	  };
+		return {
+			type: DYNAMIC_RISK_DATE_SUCCESS,
+			result: result
+		};
 	}
 	function getDynamicRiskDateFail(result) {
-	  return {
-	    type: DYNAMIC_RISK_DATE_FAIL,
-	    result: result
-	  };
+		return {
+			type: DYNAMIC_RISK_DATE_FAIL,
+			result: result
+		};
 	}
 
 	function getDynamicRiskDate(json) {
-	  return function (dispatch) {
-	    $.ajax({
-	      type: 'GET',
-	      url: '/offlineFinance/queryDateVersion.do',
-	      dataType: 'json',
-	      data: json,
-	      success: function success(result) {
-	        return dispatch(getDynamicRiskDateSuccess(result));
-	      },
-	      error: function error(result) {
-	        return dispatch(getDynamicRiskDateFail(result));
-	      }
-	    });
-	  };
+		return function (dispatch) {
+			$.ajax({
+				type: 'GET',
+				url: '/offlineFinance/queryDateVersion.do',
+				dataType: 'json',
+				data: json,
+				success: function success(result) {
+					return dispatch(getDynamicRiskDateSuccess(result));
+				},
+				error: function error(result) {
+					return dispatch(getDynamicRiskDateFail(result));
+				}
+			});
+		};
 	}
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "LineFinanceDynamicRiskAction.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
@@ -78470,8 +78363,8 @@
 
 	                    var _scatterData = {
 	                        "xAxisData": _xAxisData,
-	                        "yAxisData": _totalAmout,
-	                        "data": _number
+	                        "yAxisData": _number,
+	                        "data": _totalAmout
 	                    };
 
 	                    var _barData = {
@@ -93123,9 +93016,13 @@
 
 	var _DynamicRiskDate2 = _interopRequireDefault(_DynamicRiskDate);
 
-	var _DynamicRiskImg = __webpack_require__(1073);
+	var _DynamicRiskLeftImg = __webpack_require__(1381);
 
-	var _DynamicRiskImg2 = _interopRequireDefault(_DynamicRiskImg);
+	var _DynamicRiskLeftImg2 = _interopRequireDefault(_DynamicRiskLeftImg);
+
+	var _DynamicRiskRightImg = __webpack_require__(1382);
+
+	var _DynamicRiskRightImg2 = _interopRequireDefault(_DynamicRiskRightImg);
 
 	var _DynamicRiskIndexCmp = __webpack_require__(1074);
 
@@ -93165,59 +93062,71 @@
 	/*预付卡 begin*/
 
 
-	//楼宇详情页
+	//动态风险模块 begein
 
-	//企业占比对比
+	/*商业保理监测 end*/
 
-	//企业目录列表
+	/*线下理财监测 start*/
+	//线下理财首页
 
-	/*实时监测 begin*/
 
-	/*=================================交易场所监测=================================*/
+	/*众筹监测 end*/
 
-	/*=================================融资租赁=================================*/
-	//典当法人企业数
+	/*商业保理监测 begin*/
+
+
+	//园区首页
+
+	/*实时监测 end*/
+
+	//园区
+
+	//取得合规意见或经过会商的交易场所详情列表
 
 	//交易场所清理整顿分类
 
-	/*=================================典当行业监测=================================*/
+	//上海市典当企业目录
 
-	/*=================================交易场所监测=================================*/
-	//黄浦区交易场所列表
+	//列表
+
+	//6月上海各类众筹平台新增项目数
+
+	/*====================================私募基金===============================*/
 
 	/*=================================众筹监测=================================*/
+	//业务类型
 
-	/*=================================典当行业监测=================================*/
-	//所有图标
+	//私募基金分类
 
-	//6月上海各类众筹平台新增项目数的成功筹资金额
 
-	//6月上海各类众筹平台新增项目的投资人次
+	/*====================================p2p画像平台============================*/
 
-	//私募股权基本情况
+	/*====================================私募基金===============================*/
+	//QDLP试点企业最新进展
 
-	//私募证券基本情况
+	//动态图谱
 
-	//QFLP试点企业最新进展
+	//诉讼信息
 
-	//评分雷达图
-
-	//平台舆情
-
-	//公司基本信息
-
-	//p2p图表
-
+	//核心数据
 
 	/*====================================P2P平台监测============================*/
-	//上海区域发展指数排名
 
-	//小额贷款
+	/*====================================p2p画像平台============================*/
+	//基本信息
 
-	//三个echarts图的接口
+	//网贷平台数据展示
+
+
+	//融资担保
 
 
 	/*企业全息查询*/
+
+	/*行业监测模块*/
+	/* 公共搜索 */
+
+	//诉讼记录的五个接口
 	var rootReducer = (0, _redux.combineReducers)({
 
 	  /*企业全息*/
@@ -93357,7 +93266,8 @@
 	  //动态风险
 	  DynamicRiskCompanyTag: _DynamicRiskCompanyTag2.default,
 	  DynamicRiskDate: _DynamicRiskDate2.default,
-	  DynamicRiskImg: _DynamicRiskImg2.default,
+	  DynamicRiskLeftImg: _DynamicRiskLeftImg2.default,
+	  DynamicRiskRightImg: _DynamicRiskRightImg2.default,
 	  DynamicRiskIndexCmp: _DynamicRiskIndexCmp2.default,
 	  //头部搜索传值
 	  RiskSearch: _RiskSearch2.default,
@@ -93378,71 +93288,59 @@
 	//头部搜索值传递
 
 
-	//动态风险模块 begein
+	//楼宇详情页
 
-	/*商业保理监测 end*/
+	//企业占比对比
 
-	/*线下理财监测 start*/
-	//线下理财首页
+	//企业目录列表
 
+	/*实时监测 begin*/
 
-	/*众筹监测 end*/
+	/*=================================交易场所监测=================================*/
 
-	/*商业保理监测 begin*/
-
-
-	//园区首页
-
-	/*实时监测 end*/
-
-	//园区
-
-	//取得合规意见或经过会商的交易场所详情列表
+	/*=================================融资租赁=================================*/
+	//典当法人企业数
 
 	//交易场所清理整顿分类
 
-	//上海市典当企业目录
+	/*=================================典当行业监测=================================*/
 
-	//列表
-
-	//6月上海各类众筹平台新增项目数
-
-	/*====================================私募基金===============================*/
+	/*=================================交易场所监测=================================*/
+	//黄浦区交易场所列表
 
 	/*=================================众筹监测=================================*/
-	//业务类型
 
-	//私募基金分类
+	/*=================================典当行业监测=================================*/
+	//所有图标
 
+	//6月上海各类众筹平台新增项目数的成功筹资金额
 
-	/*====================================p2p画像平台============================*/
+	//6月上海各类众筹平台新增项目的投资人次
 
-	/*====================================私募基金===============================*/
-	//QDLP试点企业最新进展
+	//私募股权基本情况
 
-	//动态图谱
+	//私募证券基本情况
 
-	//诉讼信息
+	//QFLP试点企业最新进展
 
-	//核心数据
+	//评分雷达图
+
+	//平台舆情
+
+	//公司基本信息
+
+	//p2p图表
+
 
 	/*====================================P2P平台监测============================*/
+	//上海区域发展指数排名
 
-	/*====================================p2p画像平台============================*/
-	//基本信息
+	//小额贷款
 
-	//网贷平台数据展示
-
-
-	//融资担保
+	//三个echarts图的接口
 
 
 	/*企业全息查询*/
-
-	/*行业监测模块*/
-	/* 公共搜索 */
-
-	//诉讼记录的五个接口
 	exports.default = rootReducer;
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "index.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
@@ -97817,51 +97715,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 1073 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.default = dynamicRiskImg;
-
-	var _LineFinanceDynamicRiskAction = __webpack_require__(769);
-
-	function dynamicRiskImg() {
-		var state = arguments.length <= 0 || arguments[0] === undefined ? {
-			request: false,
-			result: {}
-		} : arguments[0];
-		var action = arguments[1];
-
-		switch (action.type) {
-			case _LineFinanceDynamicRiskAction.DYNAMIC_RISK_IMG_SUCCESS:
-				return Object.assign({}, state, {
-					request: true,
-					result: action.result
-				});
-			case _LineFinanceDynamicRiskAction.DYNAMIC_RISK_IMG_FAIL:
-				return Object.assign({}, state, {
-					request: true,
-					result: action.result
-				});
-			default:
-				return state;
-		}
-	} /*
-	  * 动态风险获取时间 reducer
-	  * */
-	//获取图片
-	;
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "DynamicRiskImg.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
+/* 1073 */,
 /* 1074 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -106277,6 +106131,417 @@
 	}
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "companyPic.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1379 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	__webpack_require__(755);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _index = __webpack_require__(680);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Immutable = __webpack_require__(706);
+	//每个时间轴
+	var EachTimeAxisLeft = _react2.default.createClass({
+	  displayName: 'EachTimeAxisLeft',
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      wNo: 25,
+	      scale: 100,
+	      imgUrlLeft: ''
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {},
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var isEqual = Immutable.is(nextProps.nowDate, this.props.nowDate); //判断数据是否变化
+	    if (!isEqual) {
+	      var companyName = nextProps.companyName;
+	      var nowDate = nextProps.nowDate;
+	      var json = { companyName: companyName, month: nowDate };
+	      this.getRelativeImg(json);
+	    }
+	    var isImgEqual = Immutable.is(nextProps.dynamicRiskLeftImgResult, this.props.dynamicRiskLeftImgResult);
+	    if (!isImgEqual) {
+	      var dynamicRiskLeftImgRequest = nextProps.dynamicRiskLeftImgRequest;
+	      var dynamicRiskLeftImgResult = nextProps.dynamicRiskLeftImgResult;
+
+	      if (dynamicRiskLeftImgRequest == true) {
+	        if (dynamicRiskLeftImgResult.success == true) {
+	          this.dataFomat(dynamicRiskLeftImgResult);
+	        } else {
+	          //错误后提示
+	        }
+	      }
+	    }
+	  },
+	  getRelativeImg: function getRelativeImg(jsonData) {
+	    //获取图片
+	    var getDynamicRiskLeftImg = this.props.getDynamicRiskLeftImg;
+
+	    getDynamicRiskLeftImg(jsonData);
+	  },
+	  dataFomat: function dataFomat(data) {
+	    var imgUrl = data.content;
+	    console.log(imgUrl, 'imgUrl');
+	    this.setState({ imgUrlLeft: imgUrl });
+	  },
+	  minClick: function minClick(e) {
+	    //缩小图片
+	    var wNo = this.state.wNo;
+	    if (wNo > 25) {
+	      wNo = wNo - 25;
+	    }
+	    var scale = wNo / 250 * 1000;
+	    this.setState({ wNo: wNo, scale: scale });
+	  },
+	  addClick: function addClick(e) {
+	    //放大图片
+	    var wNo = this.state.wNo;
+	    if (wNo < 200) {
+	      wNo = wNo + 25;
+	    }
+	    var scale = wNo / 250 * 1000;
+	    this.setState({ wNo: wNo, scale: scale });
+	  },
+	  render: function render() {
+	    var select = null;
+	    var flag = this.props.flag;
+	    var nowVal = null;
+
+	    if (this.props.date.length > 0) {
+	      var d = this.props.date[0];
+	      nowVal = this.props.date[0].value;
+	      var selectProp = {
+	        width: '85px',
+	        className: 'index-selected',
+	        value: nowVal,
+	        placeholder: '时间选择',
+	        name: 'testselect',
+	        id: 'indexSelected',
+	        data: this.props.date,
+	        onChange: function (value, date) {
+	          var json = { companyName: this.props.companyName, month: date };
+	          this.getRelativeImg(json);
+	        }.bind(this)
+	      };
+	      select = _react2.default.createElement(_index.Selected, selectProp);
+	    }
+
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'linefin-each-timeaxis mod' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: this.props.borderLeft == 'true' ? 'mod-title bl' : 'mod-title' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'date' },
+	          _react2.default.createElement(
+	            'label',
+	            null,
+	            '时间选项'
+	          ),
+	          select
+	        ),
+	        _react2.default.createElement('i', { className: 'iconfont icon-zoomout' }),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'scale' },
+	          _react2.default.createElement('i', { className: 'min iconfont icon-jian', onClick: this.minClick }),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'scale-bar' },
+	            _react2.default.createElement('span', { className: 's-bar', ref: 'sBar', style: { width: this.state.wNo + 'px' } }),
+	            _react2.default.createElement(
+	              'em',
+	              { ref: 'sBarNo', style: { left: this.state.wNo + 10 + 'px' } },
+	              this.state.scale,
+	              '%'
+	            )
+	          ),
+	          _react2.default.createElement('i', { className: 'add iconfont icon-jia', onClick: this.addClick })
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: this.props.borderLeft ? 'mod-content bl' : 'mod-content' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'con-box' },
+	          _react2.default.createElement('img', { src: this.state.imgUrlLeft, alt: '时间轴对比图' })
+	        )
+	      )
+	    );
+	  }
+	});
+	module.exports = EachTimeAxisLeft;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "EachTimeAxisLeft.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1380 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	__webpack_require__(755);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _index = __webpack_require__(680);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Immutable = __webpack_require__(706);
+	//每个时间轴
+	var EachTimeAxisRight = _react2.default.createClass({
+	  displayName: 'EachTimeAxisRight',
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      wNo: 25,
+	      scale: 100,
+	      imgUrlRight: ''
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {},
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var isEqual = Immutable.is(nextProps.nowDate, this.props.nowDate); //判断数据是否变化
+
+	    if (!isEqual) {
+	      var companyName = nextProps.companyName;
+	      var nowDate = nextProps.nowDate;
+	      var json = { companyName: companyName, month: nowDate };
+	      this.getRelativeImg(json);
+	    }
+
+	    var isImgEqual = Immutable.is(nextProps.dynamicRiskRightImgResult, this.props.dynamicRiskRightImgResult);
+	    if (!isImgEqual) {
+	      var dynamicRiskRightImgRequest = nextProps.dynamicRiskRightImgRequest;
+	      var dynamicRiskRightImgResult = nextProps.dynamicRiskRightImgResult;
+
+	      if (dynamicRiskRightImgRequest == true) {
+	        if (dynamicRiskRightImgResult.success == true) {
+	          this.dataFomat(dynamicRiskRightImgResult);
+	        } else {
+	          //错误后提示
+	        }
+	      }
+	    }
+	  },
+	  getRelativeImg: function getRelativeImg(jsonData) {
+	    //获取图片
+	    var getDynamicRiskRightImg = this.props.getDynamicRiskRightImg;
+
+	    getDynamicRiskRightImg(jsonData);
+	  },
+	  dataFomat: function dataFomat(data) {
+	    var imgUrl = data.content;
+	    console.log(imgUrl, 'imgUrl');
+	    this.setState({ imgUrlRight: imgUrl });
+	  },
+	  minClick: function minClick(e) {
+	    //缩小图片
+	    var wNo = this.state.wNo;
+	    if (wNo > 25) {
+	      wNo = wNo - 25;
+	    }
+	    var scale = wNo / 250 * 1000;
+	    this.setState({ wNo: wNo, scale: scale });
+	  },
+	  addClick: function addClick(e) {
+	    //放大图片
+	    var wNo = this.state.wNo;
+	    if (wNo < 200) {
+	      wNo = wNo + 25;
+	    }
+	    var scale = wNo / 250 * 1000;
+	    this.setState({ wNo: wNo, scale: scale });
+	  },
+	  render: function render() {
+	    var select = null;
+	    var flag = this.props.flag;
+	    var nowVal = null;
+
+	    if (this.props.date.length > 0) {
+	      var d = this.props.date[0];
+	      nowVal = this.props.date[1].value;
+	      var selectProp = {
+	        width: '85px',
+	        className: 'index-selected',
+	        value: nowVal,
+	        placeholder: '时间选择',
+	        name: 'testselect',
+	        id: 'indexSelected',
+	        data: this.props.date,
+	        onChange: function (value, date) {
+	          var _this = this;
+	          this.setState({ flag: flag }, function () {
+	            var json = { companyName: _this.props.companyName, month: date };
+	            _this.getRelativeImg(json);
+	          });
+	        }.bind(this)
+	      };
+	      select = _react2.default.createElement(_index.Selected, selectProp);
+	    }
+
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'linefin-each-timeaxis mod' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: this.props.borderLeft == 'true' ? 'mod-title bl' : 'mod-title' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'date' },
+	          _react2.default.createElement(
+	            'label',
+	            null,
+	            '时间选项'
+	          ),
+	          select
+	        ),
+	        _react2.default.createElement('i', { className: 'iconfont icon-zoomout' }),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'scale' },
+	          _react2.default.createElement('i', { className: 'min iconfont icon-jian', onClick: this.minClick }),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'scale-bar' },
+	            _react2.default.createElement('span', { className: 's-bar', ref: 'sBar', style: { width: this.state.wNo + 'px' } }),
+	            _react2.default.createElement(
+	              'em',
+	              { ref: 'sBarNo', style: { left: this.state.wNo + 10 + 'px' } },
+	              this.state.scale,
+	              '%'
+	            )
+	          ),
+	          _react2.default.createElement('i', { className: 'add iconfont icon-jia', onClick: this.addClick })
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: this.props.borderLeft ? 'mod-content bl' : 'mod-content' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'con-box' },
+	          _react2.default.createElement('img', { src: this.state.imgUrlRight, alt: '时间轴对比图' })
+	        )
+	      )
+	    );
+	  }
+	});
+	module.exports = EachTimeAxisRight;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "EachTimeAxisRight.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1381 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = dynamicRiskLeftImg;
+
+	var _LineFinanceDynamicRiskAction = __webpack_require__(769);
+
+	function dynamicRiskLeftImg() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _LineFinanceDynamicRiskAction.DYNAMIC_RISK_LEFTIMG_SUCCESS:
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _LineFinanceDynamicRiskAction.DYNAMIC_RISK_LEFTIMG_FAIL:
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	} /*
+	  * 动态风险获取时间 reducer
+	  * */
+	//获取图片
+	;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "DynamicRiskLeftImg.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1382 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = dynamicRiskRightImg;
+
+	var _LineFinanceDynamicRiskAction = __webpack_require__(769);
+
+	function dynamicRiskRightImg() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _LineFinanceDynamicRiskAction.DYNAMIC_RISK_RIGHTIMG_SUCCESS:
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _LineFinanceDynamicRiskAction.DYNAMIC_RISK_RIGHTIMG_FAIL:
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	} /*
+	  * 动态风险获取时间 reducer
+	  * */
+	//获取图片
+	;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "DynamicRiskRightImg.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ }
