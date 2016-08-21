@@ -4,9 +4,11 @@
 <mapper namespace="com.bbd.wtyh.mapper.PlatformNameInformationMapper">
 
     <select id="hasOrNotCompany" resultType="com.bbd.wtyh.domain.PlatformNameInformationDO">
-			select company_id AS companyId, platform_name AS platformName
+			select company_id AS companyId, platform_name AS platformName, company.name
 			from platform_name_information
-			where platform_name = #{plat_name};
+			left join company
+			on company.company_id = platform_name_information.company_id
+			where platform_name_information.platform_name = #{plat_name};
 	</select>
 
 </mapper>
