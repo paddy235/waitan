@@ -63,8 +63,6 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
     @Value("${api.baidu.batch.news.url}")
     private String batchNewsUrl;
 
-    @Value("${api.baidu.batch.news.start}")
-    private String start;
     /**
      * @param url        地址
      * @param company    公司名称
@@ -84,7 +82,7 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
                 List<NameValuePair> list = new ArrayList<>();
                 list.add(new BasicNameValuePair("keys", company));
                 list.add(new BasicNameValuePair("ktype", ""+ktype));
-                list.add(new BasicNameValuePair("start", start));
+                list.add(new BasicNameValuePair("pageSize", "100"));
                 list.add(new BasicNameValuePair("ak",ak));
                 try {
                     String data = HttpClientUtils.httpPost(batchNewsUrl, list);
@@ -111,7 +109,7 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
             List<NameValuePair> list = new ArrayList<>();
             list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1) +",贵阳市城市建设投资有限责任公司,贵州詹阳动力重工有限公司"   ));
             list.add(new BasicNameValuePair("ktype", ""+ktype));
-            list.add(new BasicNameValuePair("start", start));
+            list.add(new BasicNameValuePair("pageSize", "100"));
             list.add(new BasicNameValuePair("ak",ak));
             try {
                 String data = HttpClientUtils.httpPost(batchNewsUrl, list);
@@ -133,7 +131,7 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
             List<NameValuePair> list = new ArrayList<>();
             list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1) +",贵阳市城市建设投资有限责任公司,贵州詹阳动力重工有限公司"   ));
             list.add(new BasicNameValuePair("ktype", ""+ktype));
-            list.add(new BasicNameValuePair("start", start));
+            list.add(new BasicNameValuePair("pageSize", "100"));
             list.add(new BasicNameValuePair("ak",ak));
             try {
                 String data = HttpClientUtils.httpPost(batchNewsUrl, list);

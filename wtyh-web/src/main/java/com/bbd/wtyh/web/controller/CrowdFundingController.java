@@ -118,6 +118,8 @@ public class CrowdFundingController {
 			hb.getxAxis().add(bean.getTypeCN());
 			hb.getseries().add(bean.getPeopleNumber());
 		}
+
+
 		return ResponseBean.successResponse(hb);
 	}
 	
@@ -126,14 +128,13 @@ public class CrowdFundingController {
 	/**
 	* 上海各类众筹平台新增项目数的成功筹资金额
 	*
-	* @param   
 	* @return ResponseBean
 	*/
 	@RequestMapping("/newlyAmount")
 	@ResponseBody
 	public ResponseBean newlyAmount(){
 		
-		HistogramBean<String, Double> hb = new HistogramBean<>();
+		HistogramBean<String, Float> hb = new HistogramBean<>();
 		
 		List<CrowdFundingStatisticsDO> list = crowdFundingSer.lastMonthType();
 		
@@ -143,7 +144,7 @@ public class CrowdFundingController {
 		hb.setTitle(list.get(0).getMonth()+"月上海各类众筹平台新增项目数的成功筹资金额");
 		for (CrowdFundingStatisticsDO bean : list) {
 			hb.getxAxis().add(bean.getTypeCN());
-			hb.getseries().add(CalculateUtils.divide(bean.getAmount(),10000,2));
+			hb.getseries().add(bean.getAmount());
 		}
 		return ResponseBean.successResponse(hb);
 	}
