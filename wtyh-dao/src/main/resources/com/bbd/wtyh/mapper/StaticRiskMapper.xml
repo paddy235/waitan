@@ -222,6 +222,16 @@
         order by date DESC;
     </select>
 
+    <select id="queryDateVersionByMonth" resultType="java.lang.String" parameterType="java.util.HashMap">
+        SELECT
+          data_version AS date
+        FROM
+          relation_data
+        WHERE
+          company_name = #{companyName}
+          AND data_version LIKE CONCAT('%',#{dataVersionString},'%' )
+    </select>
+
     <select id="maxDataVersion" resultType="java.lang.String">
         SELECT
 			MAX(data_version)

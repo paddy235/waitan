@@ -493,7 +493,13 @@ public class RelationDataServiceImpl implements RelationDataService {
         params.put("areaCode", areaCode);
         return staticRiskMapper.queryDateVersion(params);
     }
-
+    @Override
+    public String queryDateVersionByMonth(String companyName, String dataVersionString) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("companyName", companyName);
+        params.put("dataVersionString", dataVersionString);
+        return staticRiskMapper.queryDateVersionByMonth(params);
+    }
 
     public Date getMonthDate(String dataVersionString)
     {
