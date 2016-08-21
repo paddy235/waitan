@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "23a04cec42ac3449c595"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "46fc74a6431ed7c6dc4d"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -47563,7 +47563,7 @@
 
 
 	// module
-	exports.push([module.id, "* {\r\n\tmargin: 0px;\r\n\tpadding: 0px;\r\n}\r\n\r\nul,\r\nli {\r\n\tlist-style: none;\r\n}\r\n\r\na {\r\n\ttext-decoration: none;\r\n}\r\n\r\nhtml {\r\n\t-webkit-text-size-adjust: none;\r\n}\r\n\r\nbody {\r\n\tbackground-color: #1a2029;\r\n\tcolor: #ffffff;\r\n\tfont-family: 'Microsoft Yahei';\r\n}\r\n\r\n.clear:after {\r\n\tcontent: \".\";\r\n\theight: 0;\r\n\tvisibility: hidden;\r\n\tdisplay: block;\r\n\tclear: both;\r\n}\r\n\r\n/*头部导航 header begin*/\r\n.header {\r\n\twidth: 100%;\r\n\theight: 60px;\r\n\tbackground-color: #383e47;\r\n\toverflow: hidden;\r\n}\r\n\r\n.header .logo {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\tline-height: 60px;\r\n\tcolor: #ffffff;\r\n\tfont-size: 20px;\r\n}\r\n\r\n.header .logo .img {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\twidth: 90px;\r\n\theight: 60px;\r\n\tbackground: url(/images/logo.png);\r\n}\r\n\r\n.header .right {\r\n\tfloat: right;\r\n\tmargin-top: 20px;\r\n\tmargin-right: 30px;\r\n}\r\n\r\n.header .right .name {\r\n\tfont-size: 16px;\r\n\tcolor: #ffffff;\r\n\tmargin-right: 30px;\r\n\tcursor: pointer;\r\n}\r\n\r\n.list-header {\r\n\tfont-size: 18px;\r\n\tcolor: #fff;\r\n\tpadding: 14px;\t/*text-indent: 30px;*/\r\n}\r\n\r\n.wrap {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tposition: relative;\r\n\tz-index: 500;\r\n\toverflow: hidden;\r\n\tbackground: #1f253d;\r\n\tbackground-size: cover;\r\n}\r\n\r\n.header .right .name span {\r\n\tmargin-left: 10px;\r\n\tmargin-right: 8px;\r\n\tfont-weight: bold;\r\n}\r\n\r\n.header .right .quit {\r\n\tfont-size: 16px;\r\n\tcolor: #e24643;\r\n}\r\n\r\n/*头部导航 header end*/\r\n.radius4 {\r\n\tborder-radius: 5px;\r\n}\r\n\r\n/*主题页导航  begin*/\r\n.menu {\r\n\twidth: 100%;\r\n\theight: 50px;\r\n\tbackground-color: #2b323c;\r\n}\r\n\r\n.menu ul.nav {\r\n\theight: 50px;\r\n\tfloat: left;\r\n}\r\n\r\n.menu ul.nav  li {\r\n\tfloat: left;\r\n\tposition: relative;\r\n}\r\n\r\n.menu ul.nav  li a {\r\n\tcolor: #ffffff;\r\n\tpadding: 0px 30px;\r\n\tline-height: 50px;\r\n}\r\n\r\n.menu ul.nav li a.active:after {\r\n\tcontent: \"\";\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\tbottom: 0px;\r\n\twidth: 100%;\r\n\theight: 0.2rem;\r\n\tbackground: #e14340;\r\n\tz-index: 0;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav {\r\n\twidth: 96px;\r\n\theight: auto;\r\n\tbackground-color: #545e6d;\r\n\tposition: absolute;\r\n\tleft: 50%;\r\n\ttop: 40px;\r\n\tmargin-left: -50px;\r\n\tz-index: 10;\r\n\tdisplay: none;\r\n}\r\n\r\n.menu ul.nav  li ul.hide {\r\n\tdisplay: none;\r\n}\r\n\r\n.menu ul.nav  li ul.show {\r\n\tdisplay: block;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li {\r\n\twidth: 100%;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\ttext-align: center;\r\n\tfloat: none;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li a {\r\n\tdisplay: block;\r\n\twidth: 100%;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\ttext-align: center;\r\n\tpadding: 0 0;\r\n\tfont-size: 14px;\r\n\tcolor: #b7b7b7;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li a.active:after {\r\n\tdisplay: none;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li a:hover {\r\n\tbackground-color: #42b8e2;\r\n\tcolor: #ffffff;\r\n}\r\n\r\n.menu .right-park {\r\n\tfloat: right;\r\n\tmargin-top: 12px;\r\n\tmargin-right: 30px;\r\n}\r\n\r\n.menu .right-park .mt-select {\r\n\tmargin-right: 10px;\r\n}\r\n\r\n.menu .right-park .mt-select-title {\r\n\tbackground-color: #ffffff;\r\n\tcolor: #333333;\r\n}\r\n\r\n.menu .right-park .mt-select-box {\r\n\tcolor: #333333;\r\n}\r\n\r\n.menu .right-park a {\r\n\tbackground-color: #e14340;\r\n\tcolor: #ffffff;\r\n\tpadding: 4px 10px;\r\n\tborder-radius: 5px;\r\n}\r\n\r\n/*主题页导航  end*/\r\n\r\n/*控制边距的类*/\r\n.content-space-10 {\r\n\tmargin: 10px;\r\n}\r\n\r\n.content-space-top-0 {\r\n\tmargin: 0px 10px 10px 10px;\r\n}\r\n\r\n.mod-space-l {\r\n\tmargin-left: 0.5%;\r\n}\r\n\r\n.mod-space-t {\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.mod-space-dl {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n.mod-space-dt {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n/*模块公用样式 begin*/\r\n.mod {\r\n\theight: 100%;\r\n\tbackground-color: #2b323c;\r\n}\r\n\r\n.mod .mod-title h3 {\r\n\tdisplay: inline-block;\r\n\tvertical-align: middle;\r\n\tfont-weight: normal;\r\n\tfont-style: normal;\r\n\tfont-size: 16px;\r\n\tcolor: #ffffff;\r\n\tmargin-left: 10px;\r\n\tpadding: 8px 0;\r\n}\r\n\r\n.mod .mod-title .mod-title-right {\r\n\tfloat: right;\r\n}\r\n\r\n/*模块标题上的下拉选择框 begind*/\r\n.mod .mod-title .mod-title-right .mt-select {\r\n\tcolor: #e5e5e5;\r\n\tbackground-color: #1a2029;\r\n\tborder: none;\r\n\tpadding-left: 5px;\r\n\tpadding-right: 5px;\r\n}\r\n\r\n.mod .mod-title .mod-title-right .mt-select-box {\r\n\tbackground-color: #1a2029;\r\n\tborder: none;\r\n}\r\n\r\n/*模块标题上的下拉选择框 end*/\r\n.mt-select {\r\n\tborder: none !important;\r\n}\r\n\r\n/*模块公用样式 end*/\r\n*:focus {\r\n\toutline: none;\r\n}\r\n\r\n/*表格公用样式*/\r\n.wtyh-table thead th {\r\n\tborder-bottom: none;\r\n\tbackground-color: #1a2029;\r\n\tcolor: #dddddd;\r\n\tfont-size: 14px;\r\n\tfont-weight: normal;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.wtyh-table thead tr {\r\n\tborder-top-left-radius: 5px;\r\n\tborder-top-right-radius: 5px;\r\n}\r\n\r\n.wtyh-table tbody td {\r\n\tborder-bottom: none;\r\n\tcolor: #ffffff;\r\n\tfont-size: 14px;\r\n}\r\n\r\n.wtyh-table tbody tr.odd td {\r\n\tbackground: #2b323c;\r\n}\r\n\r\n.wtyh-table tbody tr.odd-line td {\r\n\tbackground: #36404d;\r\n\tborder-right: 1px #2b323c solid;\r\n}\r\n\r\n.wtyh-table tbody tr.odd-blackbg-line td {\r\n\tbackground: #222932;\r\n\tborder-right: 1px #2b323c solid;\r\n}\r\n\r\n.wtyh-table tbody tr.even td {\r\n\tbackground-color: #1a2029;\r\n}\r\n\r\n.talign-left {\r\n\ttext-align: left !important;\r\n}\r\n\r\n.wtyh-table.table-border-b  tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.talign-right {\r\n\ttext-align: right !important;\r\n}\r\n\r\n.talign-center {\r\n\ttext-align: center !important;\r\n}\r\n\r\n.header-gray {\r\n\theight: 50px;\r\n\tline-height: 50px;\r\n\tbackground: #394351;\r\n\tborder-top-left-radius: 5px;\r\n\tborder-top-right-radius: 5px;\r\n}\r\n\r\n.skublue {\r\n\tcolor: #00b8ee\r\n}\r\n\r\n.orange {\r\n\tcolor: #e14340\r\n}\r\n\r\n/*限制字数五个字*/\r\n.word-limit-5 {\r\n\toverflow: hidden; /*自动隐藏文字*/\r\n\ttext-overflow: ellipsis;/*文字隐藏后添加省略号*/\r\n\twhite-space: nowrap;/*强制不换行*/\r\n\tdisplay: inline-block;\r\n\twidth: 80px;\r\n}\r\n\r\n/*分页样式覆盖*/\r\n.mt-pagelist {\r\n\tmargin-top: 10px !important;\r\n}\r\n\r\n.mt-pagelist ul {\r\n\theight: 30px;\r\n}\r\n\r\n.mt-pagelist .mt-select,\r\n.mt-pagelist .mt-pagelist-first,\r\n.mt-pagelist .mt-pagelist-end,\r\n.mt-pagelist .mt-pagelist-runprev,\r\n.mt-pagelist .mt-pagelist-runnext {\r\n\tdisplay: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-prev,\r\n.mt-pagelist .mt-pagelist-next,\r\n.mt-pagelist .mt-pagelist-btn,\r\n.mt-pagelist .mt-pagelist-end,\r\n.mt-pagelist .mt-pagelist-first {\r\n\tbackground-color: #1a2029 !important;\r\n\tcolor: #ffffff !important;\r\n\tborder: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-input .mt-input {\r\n\tbackground-color: #1a2029 !important;\r\n\tcolor: #ffffff !important;\r\n\tborder: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li {\r\n\tbackground-color: #1a2029 !important;\r\n\tcolor: #ffffff !important;\r\n\tborder: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li a {\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n\tline-height: 26px !important;\r\n\tborder-radius: 2px !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li a:hover {\r\n\tbackground-color: #e14340 !important;\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li.on a {\r\n\tbackground-color: #e14340 !important;\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-btn:hover,\r\n.mt-pagelist .mt-pagelist-prev:hover,\r\n.mt-pagelist .mt-pagelist-next:hover {\r\n\tbackground-color: #e14340 !important;\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n}\r\n\r\n/*搜索框*/\r\n.mt-input .mt-iconbtn,\r\n.mt-input-block .mt-iconbtn a {\r\n\tcursor: pointer !important;\r\n}\r\n\r\n/*颜色*/\r\n.c-red {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*联想词*/\r\n.ac_results {\r\n\tpadding: 0;\r\n\toverflow: auto;\r\n\tz-index: 99999;\r\n\tmax-height: 200px;\r\n\tbackground: rgba(17, 38, 67, 0.9);\r\n\tborder-bottom-left-radius: 4px;\r\n\tborder-bottom-right-radius: 4px;\r\n}\r\n\r\n.ac_results ul {\r\n\twidth: 100%;\r\n\tlist-style: none;\r\n\tpadding: 0;\r\n\tmargin: 0;\r\n}\r\n\r\n.ac_results ul li:last-child {\r\n\tborder-bottom-left-radius: 4px;\r\n\tborder-bottom-right-radius: 4px;\r\n}\r\n\r\n.ac_results li {\r\n\tpadding: 5px 10px;\r\n\tdisplay: block;\r\n\tfont-size: 14px;\r\n\toverflow: hidden;\r\n}\r\n\r\n.ac_results .group-item {\r\n\tcursor: pointer;\r\n}\r\n\r\n.ac_results ul .group-item:hover {\r\n\tbackground: #063a5f;\r\n}\r\n\r\n.ac_results .group {\r\n\tcolor: #666;\r\n}\r\n\r\n.ac_results i {\r\n\tfont-size: 12px;\r\n\tcolor: #999;\r\n\tpadding-left: 1em;\r\n}\r\n\r\n.ac_results .strong {\r\n\tcolor: #13b7fe;\r\n}\r\n\r\n.ac-results ul li.group:hover {\r\n\tcursor: default;\r\n\tbackground-color: #172837;\r\n\tcolor: #666;\r\n}", ""]);
+	exports.push([module.id, "* {\r\n\tmargin: 0px;\r\n\tpadding: 0px;\r\n}\r\n\r\nul,\r\nli {\r\n\tlist-style: none;\r\n}\r\n\r\na {\r\n\ttext-decoration: none;\r\n}\r\n\r\nhtml {\r\n\t-webkit-text-size-adjust: none;\r\n}\r\n\r\nbody {\r\n\tbackground-color: #1a2029;\r\n\tcolor: #ffffff;\r\n\tfont-family: 'Microsoft Yahei';\r\n}\r\n\r\n.clear:after {\r\n\tcontent: \".\";\r\n\theight: 0;\r\n\tvisibility: hidden;\r\n\tdisplay: block;\r\n\tclear: both;\r\n}\r\n\r\n.cur-pointer {\r\n\tcursor: pointer;\r\n}\r\n\r\n/*头部导航 header begin*/\r\n.header {\r\n\twidth: 100%;\r\n\theight: 60px;\r\n\tbackground-color: #383e47;\r\n\toverflow: hidden;\r\n}\r\n\r\n.header .logo {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\tline-height: 60px;\r\n\tcolor: #ffffff;\r\n\tfont-size: 20px;\r\n}\r\n\r\n.header .logo .img {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\twidth: 90px;\r\n\theight: 60px;\r\n\tbackground: url(/images/logo.png);\r\n}\r\n\r\n.header .right {\r\n\tfloat: right;\r\n\tmargin-top: 20px;\r\n\tmargin-right: 30px;\r\n}\r\n\r\n.header .right .name {\r\n\tfont-size: 16px;\r\n\tcolor: #ffffff;\r\n\tmargin-right: 30px;\r\n\tcursor: pointer;\r\n}\r\n\r\n.list-header {\r\n\tfont-size: 18px;\r\n\tcolor: #fff;\r\n\tpadding: 14px;\t/*text-indent: 30px;*/\r\n}\r\n\r\n.wrap {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tposition: relative;\r\n\tz-index: 500;\r\n\toverflow: hidden;\r\n\tbackground: #1f253d;\r\n\tbackground-size: cover;\r\n}\r\n\r\n.header .right .name span {\r\n\tmargin-left: 10px;\r\n\tmargin-right: 8px;\r\n\tfont-weight: bold;\r\n}\r\n\r\n.header .right .quit {\r\n\tfont-size: 16px;\r\n\tcolor: #e24643;\r\n}\r\n\r\n/*头部导航 header end*/\r\n.radius4 {\r\n\tborder-radius: 5px;\r\n}\r\n\r\n/*主题页导航  begin*/\r\n.menu {\r\n\twidth: 100%;\r\n\theight: 50px;\r\n\tbackground-color: #2b323c;\r\n}\r\n\r\n.menu ul.nav {\r\n\theight: 50px;\r\n\tfloat: left;\r\n}\r\n\r\n.menu ul.nav  li {\r\n\tfloat: left;\r\n\tposition: relative;\r\n}\r\n\r\n.menu ul.nav  li a {\r\n\tcolor: #ffffff;\r\n\tpadding: 0px 30px;\r\n\tline-height: 50px;\r\n}\r\n\r\n.menu ul.nav li a.active:after {\r\n\tcontent: \"\";\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\tbottom: 0px;\r\n\twidth: 100%;\r\n\theight: 0.2rem;\r\n\tbackground: #e14340;\r\n\tz-index: 0;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav {\r\n\twidth: 96px;\r\n\theight: auto;\r\n\tbackground-color: #545e6d;\r\n\tposition: absolute;\r\n\tleft: 50%;\r\n\ttop: 40px;\r\n\tmargin-left: -50px;\r\n\tz-index: 10;\r\n\tdisplay: none;\r\n}\r\n\r\n.menu ul.nav  li ul.hide {\r\n\tdisplay: none;\r\n}\r\n\r\n.menu ul.nav  li ul.show {\r\n\tdisplay: block;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li {\r\n\twidth: 100%;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\ttext-align: center;\r\n\tfloat: none;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li a {\r\n\tdisplay: block;\r\n\twidth: 100%;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\ttext-align: center;\r\n\tpadding: 0 0;\r\n\tfont-size: 14px;\r\n\tcolor: #b7b7b7;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li a.active:after {\r\n\tdisplay: none;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li a:hover {\r\n\tbackground-color: #42b8e2;\r\n\tcolor: #ffffff;\r\n}\r\n\r\n.menu .right-park {\r\n\tfloat: right;\r\n\tmargin-top: 12px;\r\n\tmargin-right: 30px;\r\n}\r\n\r\n.menu .right-park .mt-select {\r\n\tmargin-right: 10px;\r\n}\r\n\r\n.menu .right-park .mt-select-title {\r\n\tbackground-color: #ffffff;\r\n\tcolor: #333333;\r\n}\r\n\r\n.menu .right-park .mt-select-box {\r\n\tcolor: #333333;\r\n}\r\n\r\n.menu .right-park a {\r\n\tbackground-color: #e14340;\r\n\tcolor: #ffffff;\r\n\tpadding: 4px 10px;\r\n\tborder-radius: 5px;\r\n}\r\n\r\n/*主题页导航  end*/\r\n\r\n/*控制边距的类*/\r\n.content-space-10 {\r\n\tmargin: 10px;\r\n}\r\n\r\n.content-space-top-0 {\r\n\tmargin: 0px 10px 10px 10px;\r\n}\r\n\r\n.mod-space-l {\r\n\tmargin-left: 0.5%;\r\n}\r\n\r\n.mod-space-t {\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.mod-space-dl {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n.mod-space-dt {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n/*模块公用样式 begin*/\r\n.mod {\r\n\theight: 100%;\r\n\tbackground-color: #2b323c;\r\n}\r\n\r\n.mod .mod-title h3 {\r\n\tdisplay: inline-block;\r\n\tvertical-align: middle;\r\n\tfont-weight: normal;\r\n\tfont-style: normal;\r\n\tfont-size: 16px;\r\n\tcolor: #ffffff;\r\n\tmargin-left: 10px;\r\n\tpadding: 8px 0;\r\n}\r\n\r\n.mod .mod-title .mod-title-right {\r\n\tfloat: right;\r\n}\r\n\r\n/*模块标题上的下拉选择框 begind*/\r\n.mod .mod-title .mod-title-right .mt-select {\r\n\tcolor: #e5e5e5;\r\n\tbackground-color: #1a2029;\r\n\tborder: none;\r\n\tpadding-left: 5px;\r\n\tpadding-right: 5px;\r\n}\r\n\r\n.mod .mod-title .mod-title-right .mt-select-box {\r\n\tbackground-color: #1a2029;\r\n\tborder: none;\r\n}\r\n\r\n/*模块标题上的下拉选择框 end*/\r\n.mt-select {\r\n\tborder: none !important;\r\n}\r\n\r\n/*模块公用样式 end*/\r\n*:focus {\r\n\toutline: none;\r\n}\r\n\r\n/*表格公用样式*/\r\ntable {\r\n\tborder-collapse: separate;\r\n}\r\n\r\n.wtyh-table thead th {\r\n\tborder-bottom: none;\r\n\tbackground-color: #1a2029;\r\n\tcolor: #dddddd;\r\n\tfont-size: 14px;\r\n\tfont-weight: normal;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.wtyh-table thead tr {\r\n\tborder-top-left-radius: 5px;\r\n\tborder-top-right-radius: 5px;\r\n}\r\n\r\n.wtyh-table tbody td {\r\n\tborder-bottom: none;\r\n\tcolor: #ffffff;\r\n\tfont-size: 14px;\r\n}\r\n\r\n.wtyh-table tbody tr.odd td {\r\n\tbackground: #2b323c;\r\n}\r\n\r\n.wtyh-table tbody tr.odd-line td {\r\n\tbackground: #36404d;\r\n\tborder-right: 1px #2b323c solid;\r\n}\r\n\r\n.wtyh-table tbody tr.odd-blackbg-line td {\r\n\tbackground: #222932;\r\n\tborder-right: 1px #2b323c solid;\r\n}\r\n\r\n.wtyh-table tbody tr.even td {\r\n\tbackground-color: #1a2029;\r\n}\r\n\r\n.talign-left {\r\n\ttext-align: left !important;\r\n}\r\n\r\n.wtyh-table.table-border-b  tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.talign-right {\r\n\ttext-align: right !important;\r\n}\r\n\r\n.talign-center {\r\n\ttext-align: center !important;\r\n}\r\n\r\n.header-gray {\r\n\theight: 50px;\r\n\tline-height: 50px;\r\n\tbackground: #394351;\r\n\tborder-top-left-radius: 5px;\r\n\tborder-top-right-radius: 5px;\r\n}\r\n\r\n.skublue {\r\n\tcolor: #00b8ee\r\n}\r\n\r\n.orange {\r\n\tcolor: #e14340\r\n}\r\n\r\n/*限制字数五个字*/\r\n.word-limit-5 {\r\n\toverflow: hidden; /*自动隐藏文字*/\r\n\ttext-overflow: ellipsis;/*文字隐藏后添加省略号*/\r\n\twhite-space: nowrap;/*强制不换行*/\r\n\tdisplay: inline-block;\r\n\twidth: 80px;\r\n}\r\n\r\n/*分页样式覆盖*/\r\n.mt-pagelist {\r\n\tmargin-top: 10px !important;\r\n}\r\n\r\n.mt-pagelist ul {\r\n\theight: 30px;\r\n}\r\n\r\n.mt-pagelist .mt-select,\r\n.mt-pagelist .mt-pagelist-first,\r\n.mt-pagelist .mt-pagelist-end,\r\n.mt-pagelist .mt-pagelist-runprev,\r\n.mt-pagelist .mt-pagelist-runnext {\r\n\tdisplay: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-prev,\r\n.mt-pagelist .mt-pagelist-next,\r\n.mt-pagelist .mt-pagelist-btn,\r\n.mt-pagelist .mt-pagelist-end,\r\n.mt-pagelist .mt-pagelist-first {\r\n\tbackground-color: #1a2029 !important;\r\n\tcolor: #ffffff !important;\r\n\tborder: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-input .mt-input {\r\n\tbackground-color: #1a2029 !important;\r\n\tcolor: #ffffff !important;\r\n\tborder: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li {\r\n\tbackground-color: #1a2029 !important;\r\n\tcolor: #ffffff !important;\r\n\tborder: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li a {\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n\tline-height: 26px !important;\r\n\tborder-radius: 2px !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li a:hover {\r\n\tbackground-color: #e14340 !important;\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li.on a {\r\n\tbackground-color: #e14340 !important;\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-btn:hover,\r\n.mt-pagelist .mt-pagelist-prev:hover,\r\n.mt-pagelist .mt-pagelist-next:hover {\r\n\tbackground-color: #e14340 !important;\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n}\r\n\r\n/*搜索框*/\r\n.mt-input .mt-iconbtn,\r\n.mt-input-block .mt-iconbtn a {\r\n\tcursor: pointer !important;\r\n}\r\n\r\n/*颜色*/\r\n.c-red {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*联想词*/\r\n.ac_results {\r\n\tpadding: 0;\r\n\toverflow: auto;\r\n\tz-index: 99999;\r\n\tmax-height: 200px;\r\n\tbackground: rgba(17, 38, 67, 0.9);\r\n\tborder-bottom-left-radius: 4px;\r\n\tborder-bottom-right-radius: 4px;\r\n}\r\n\r\n.ac_results ul {\r\n\twidth: 100%;\r\n\tlist-style: none;\r\n\tpadding: 0;\r\n\tmargin: 0;\r\n}\r\n\r\n.ac_results ul li:last-child {\r\n\tborder-bottom-left-radius: 4px;\r\n\tborder-bottom-right-radius: 4px;\r\n}\r\n\r\n.ac_results li {\r\n\tpadding: 5px 10px;\r\n\tdisplay: block;\r\n\tfont-size: 14px;\r\n\toverflow: hidden;\r\n}\r\n\r\n.ac_results .group-item {\r\n\tcursor: pointer;\r\n}\r\n\r\n.ac_results ul .group-item:hover {\r\n\tbackground: #063a5f;\r\n}\r\n\r\n.ac_results .group {\r\n\tcolor: #666;\r\n}\r\n\r\n.ac_results i {\r\n\tfont-size: 12px;\r\n\tcolor: #999;\r\n\tpadding-left: 1em;\r\n}\r\n\r\n.ac_results .strong {\r\n\tcolor: #13b7fe;\r\n}\r\n\r\n.ac-results ul li.group:hover {\r\n\tcursor: default;\r\n\tbackground-color: #172837;\r\n\tcolor: #666;\r\n}\r\n\r\n.iconfont.icon-desc {\r\n\tcursor: pointer;\r\n}", ""]);
 
 	// exports
 
@@ -48760,7 +48760,7 @@
 
 
 	// module
-	exports.push([module.id, "/*格式化，UI*/\r\n/* ---------------CSS 格式化------------------------ */\r\n\r\n*:not(input,textarea) {margin: 0; padding: 0; outline: 0; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-box-sizing: border-box; -webkit-touch-callout: inherit; -webkit-user-select: auto; outline: none; }\r\nhtml {height: 100%; font-size: 100%; -webkit-text-size-adjust: 100%; }\r\nbody {margin: 0; padding: 0; width: 100%; height: 100%; font-family:\"Microsoft YaHei\"; -webkit-touch-callout: inherit ; -webkit-user-select: auto ; font-size: 14px; position: relative; word-break: break-all; float: left; }\r\ni, em {font-style: normal; } \r\na {-webkit-tap-highlight-color: rgba(0, 0, 0, 0.35); text-decoration: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); color: #4a89dc; }\r\nimg {-ms-interpolation-mode: bicubic; vertical-align: middle; border: none; }\r\ntable {border-collapse: collapse; border-spacing: 0; }\r\nth, td, caption {vertical-align: middle; }\r\ntextarea {resize: none; }\r\ninput, button, select, textarea {outline: none; border-radius: 0; font-family: inherit; font-size: inherit; }\r\nbutton {border: none; cursor: pointer; } \r\np, ul, ol, li {list-style: none; margin: 0; padding: 0; }\r\naddress, caption, cite, code, dfn, em, th, var {font-weight: normal; font-style: normal; }\r\nstrong {font-weight: bold; }\r\nh1, h2, h3, h4, h5, h6 {font-weight: normal; margin: 0; padding: 0; }\r\nlabel {padding-right: 10px; }\r\n\r\n.iconfont {padding: 0; margin: 0; line-height: normal;}\r\n \r\n/*清除浮动*/\r\n.clear {clear: both; display: block; font-size: 0; height: 0; line-height: 0; width: 100%; }\r\n.clearfix:after {content: \"\"; display: block; height: 0; clear: both; visibility: hidden; }\r\n/**\r\n * Fix the flawed CSS box model - Yes, IE6's box model is better\r\n * Browser support: IE8+\r\n * via: http://paulirish.com/2012/box-sizing-border-box-ftw/\r\n */\r\n*, *:before, *:after {-moz-box-sizing: border-box; box-sizing: border-box; }\r\n/* normalize.css v3.0.2 | git.io/normalize */\r\n/* Set <html> and <body> to inherit the height of the viewport */\r\nhtml, body {min-height: 100%; }\r\n/**\r\n * 1. Prevent iOS text size adjust after orientation change, without disabling\r\n *    user zoom.\r\n *    https://developer.mozilla.org/en-US/docs/Web/CSS/text-size-adjust\r\n */\r\nhtml {-ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; }\r\nh1 {font-size: 1.5em; } \r\nh2 {font-size: 1.25em; }\r\n\r\ninput[type=text][disabled],\r\ninput[type=password][disabled] {background: #f3f3f3!important; color: #ccc!important; }\r\ninput[type=text][disabled] + .mt-iconbtn,\r\ninput[type=password][disabled] + .mt-iconbtn {color: #ccc!important; z-index: 11; }\r\n\r\n/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/\r\n::-webkit-scrollbar {width: 8px; height: 8px; background-color: #F5F5F5; }\r\n/*定义滚动条轨道 内阴影+圆角*/\r\n::-webkit-scrollbar-track {-webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.1); border-radius: 10px; background-color: #F5F5F5; }\r\n/*定义滑块 内阴影+圆角*/\r\n::-webkit-scrollbar-thumb {border-radius: 10px; background-color: #ccc; }\r\n\r\n.html-body-overflow {overflow-x:hidden; overflow-y:hidden; }\r\n\r\n/*框架需要加入的 ID*/\r\n#MTUI_MODAL,#MTUI_POPUP,#MTUI_LOADING,#MTUI_POPOVER{position: absolute; top: 0; left: 0; height: 0; width: 0; z-index: 20000;}\r\n#MTUI_POPOVER{z-index: auto; width: 100%;}\r\n#MTUI_BG {position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.3); z-index: 9999; display: none; }\r\n\r\n/*馒头UI grid 24多栏栅格 (A*n)-i=W i=4 n=24 A=4 */\r\n.mt-g {position: relative; }\r\n.mt-g:after {content: \"\"; display: block; clear: both; height: 0; visibility: hidden; }\r\n.mt-g .mt-g-1 {float: left; margin-left: 0; position: relative; padding: 20px; }\r\n.mt-g .mt-g-1:first-child {margin-left: 0; }\r\n.mt-g .mt-g-1{ width: 8.33333%; }\r\n.mt-g .mt-g-offset-1,\r\n.mt-g .mt-g-offset-1:first-child {margin-left: 8.33333%; }\r\n.mt-g .mt-g-2 {float: left; margin-left: 0; position: relative; padding: 20px; }\r\n.mt-g .mt-g-2:first-child {margin-left: 0; }\r\n.mt-g .mt-g-2{ width: 16.66666%; }\r\n.mt-g .mt-g-offset-2,\r\n.mt-g .mt-g-offset-2:first-child {margin-left: 16.66666%; }\r\n.mt-g .mt-g-3 {float: left; margin-left: 0; position: relative; padding: 20px; }\r\n.mt-g .mt-g-3:first-child {margin-left: 0; }\r\n.mt-g .mt-g-3{ width: 24.99999%; }\r\n.mt-g .mt-g-offset-3,\r\n.mt-g .mt-g-offset-3:first-child {margin-left: 24.99999%; }\r\n.mt-g .mt-g-4 {float: left; margin-left: 0; position: relative; padding: 20px; }\r\n.mt-g .mt-g-4:first-child {margin-left: 0; } \r\n.mt-g .mt-g-4{ width: 33.33332%; }\r\n.mt-g .mt-g-offset-4,\r\n.mt-g .mt-g-offset-4:first-child {margin-left: 33.33332%; }\r\n.mt-g .mt-g-5 {float: left; margin-left: 0; position: relative; padding: 20px; }\r\n.mt-g .mt-g-5:first-child {margin-left: 0; }\r\n.mt-g .mt-g-5{ width: 41.66665%; }\r\n.mt-g .mt-g-offset-5,\r\n.mt-g .mt-g-offset-5:first-child {margin-left: 41.66665%; }\r\n.mt-g .mt-g-6 {float: left; margin-left: 0; position: relative; padding: 20px; }\r\n.mt-g .mt-g-6:first-child {margin-left: 0; }\r\n.mt-g .mt-g-6{ width: 49.99998%; }\r\n.mt-g .mt-g-offset-6,\r\n.mt-g .mt-g-offset-6:first-child {margin-left: 49.99998%; }\r\n.mt-g .mt-g-7 {float: left; margin-left: 0; position: relative; padding: 20px; }\r\n.mt-g .mt-g-7:first-child {margin-left: 0; }\r\n.mt-g .mt-g-7{ width: 58.33331%; }\r\n.mt-g .mt-g-offset-7,\r\n.mt-g .mt-g-offset-7:first-child {margin-left: 58.33331%; }\r\n.mt-g .mt-g-8 {float: left; margin-left: 0; position: relative; padding: 20px; }\r\n.mt-g .mt-g-8:first-child {margin-left: 0; }\r\n.mt-g .mt-g-8{ width: 66.66664%; }\r\n.mt-g .mt-g-offset-8,\r\n.mt-g .mt-g-offset-8:first-child {margin-left: 66.66664%; }\r\n.mt-g .mt-g-9 {float: left; margin-left: 0; position: relative; padding: 20px; }\r\n.mt-g .mt-g-9:first-child {margin-left: 0; }\r\n.mt-g .mt-g-9{ width: 74.99997%; }\r\n.mt-g .mt-g-offset-9,\r\n.mt-g .mt-g-offset-9:first-child {margin-left: 74.99997%; }\r\n.mt-g .mt-g-10 {float: left; margin-left: 0; position: relative; padding: 20px; }\r\n.mt-g .mt-g-10:first-child {margin-left: 0; }\r\n.mt-g .mt-g-10{ width: 83.3333%; }\r\n.mt-g .mt-g-offset-10,\r\n.mt-g .mt-g-offset-10:first-child {margin-left: 83.3333%; }\r\n.mt-g .mt-g-11 {float: left; margin-left: 0; position: relative; padding: 20px; }\r\n.mt-g .mt-g-11:first-child {margin-left: 0; }\r\n.mt-g .mt-g-11{ width: 91.66663%; }\r\n.mt-g .mt-g-offset-11,\r\n.mt-g .mt-g-offset-11:first-child {margin-left: 91.66663%; }\r\n.mt-g .mt-g-12 {float: left; margin-left: 0; position: relative; padding: 20px; }\r\n.mt-g .mt-g-12:first-child {margin-left: 0; }\r\n.mt-g .mt-g-12{ width: 99.99996%; }\r\n.mt-g .mt-g-offset-12,\r\n.mt-g .mt-g-offset-12:first-child {margin-left: 99.99996%; }\r\n\r\n/*居中*/\r\n.mt-g-center {text-align: center; }\r\n.mt-g-center .mt-g-1,\r\n.mt-g-center .mt-g-2,\r\n.mt-g-center .mt-g-3,\r\n.mt-g-center .mt-g-4,\r\n.mt-g-center .mt-g-5,\r\n.mt-g-center .mt-g-6,\r\n.mt-g-center .mt-g-7,\r\n.mt-g-center .mt-g-8,\r\n.mt-g-center .mt-g-9,\r\n.mt-g-center .mt-g-10,\r\n.mt-g-center .mt-g-11,\r\n.mt-g-center .mt-g-12 {float: none; display: inline-block; text-align: left; }\r\n\r\n/*馒头UI 插件样式 */\r\n.mt-padding {padding: 20px; }\r\n.mt-margin {margin: 20px; }\r\n\r\n/*404*/\r\n.mt-404 {height: 400px; width: 500px; position: absolute; left: 50%; top: 50%; text-align: center; color: #fff; margin: -200px 0 0 -250px; }\r\n.mt-404 h1 {font-size: 25px; font-weight: bolder; }\r\n\r\n/*表格头部*/\r\n.mt-form-header {height: 50px; position: fixed; top: 50px; left: 90px; right: 0; background: #fff; z-index: 999; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding-left: 15px; padding-top: 10px; }\r\n.mt-form-header-block {height: 50px; padding-top: 10px; }\r\n\r\n/*x分栏*/\r\n.mt-content-2x,\r\n.mt-content-1x {padding: 20px; }\r\n.mt-content-2x:after,\r\n.mt-content-1x:after {content: \"\"; display: block; height: 0; clear: both; visibility: hidden; }\r\n.mt-content-2x .mt-content-x,\r\n.mt-content-1x .mt-content-x {padding: 20px; width: 49%; margin-left: 2%; background: #fff; float: left; }\r\n.mt-content-2x .mt-content-x:first-child,\r\n.mt-content-1x .mt-content-x:first-child {margin-left: 0; }\r\n.mt-content-1x {padding: 10px 20px 20px 20px; background: #fff; margin: 20px; }\r\n\r\n/*面包屑导航*/\r\n.mt-breadcrumb {padding: 20px; font-size: 14px; }\r\n.mt-breadcrumb ul, \r\n.mt-breadcrumb li {display: inline-block; }\r\n.mt-breadcrumb ul a,\r\n.mt-breadcrumb li a {color: #666; }\r\n.mt-breadcrumb ul {margin-left: 10px; }\r\n.mt-breadcrumb li a:before {content: \"/\"; color: #999; margin: 0 8px; display: inline-block; }\r\n.mt-breadcrumb li:first-child a:before {display: none; }\r\n\r\n/*主要内容区域*/\r\n.mt-main-content {margin: 50px 0 0 90px; }\r\n.mt-main-content:before {content: \"\"; display: block; height: 1px; }\r\n\r\n/*内容区域*/\r\n.mt-page-content {margin: 10px 20px; background: #fff; padding-bottom: 50px; }\r\n\r\n/*表单*/\r\n.mt-input,\r\n.mt-input-block {display: inline-block; position: relative; background: #fff; border-radius: 2px; vertical-align: middle; }\r\n.mt-input input[type=text],\r\n.mt-input-block input[type=text],\r\n.mt-input input[type=password],\r\n.mt-input-block input[type=password] {height: 28px; padding: 0 10px; font-size: 14px; border-radius: 2px; border: 1px solid #e4eaec; transition: 0.6s; display: inline-block; position: relative; z-index: 10; background: none; width: 100%; }\r\n.mt-input input[type=text]:focus,\r\n.mt-input-block input[type=text]:focus,\r\n.mt-input input[type=password]:focus,\r\n.mt-input-block input[type=password]:focus {border: 1px solid #62a8ea; }\r\n.mt-input input[type=text].mt-round,\r\n.mt-input-block input[type=text].mt-round,\r\n.mt-input input[type=password].mt-round,\r\n.mt-input-block input[type=password].mt-round {border-radius: 1000px; }\r\n.mt-input .mt-iconbtn,\r\n.mt-input-block .mt-iconbtn {display: inline-block; position: absolute; height: 24px; right: 2px; top: 50%; margin-top: -12px; line-height: 26px; width: 28px; text-align: center; color: #999; overflow: hidden; z-index: 11; }\r\n.mt-input .mt-iconbtn:hover,\r\n.mt-input-block .mt-iconbtn:hover {color: #62a8ea; cursor: default; }\r\n.mt-input-block {display: block; }\r\n.mt-input-block input[type=text],\r\n.mt-input-block input[type=password] {display: block; width: 100%; }\r\n.mt-icon-input input[type=text],\r\n.mt-icon-input input[type=password] {padding-right: 28px; }\r\n.mt-icon-inputr input[type=text],\r\n.mt-icon-inputr input[type=password] {padding-left: 28px; }\r\n.mt-icon-inputr .mt-iconbtn {left: 2px; }\r\n.mt-icon-inputr .mt-iconbtn:hover{cursor: pointer;}\r\n\r\n/*表单之 mt-textarea*/\r\n.mt-textarea {display: inline-block; position: relative; background: #fff; border-radius: 2px; vertical-align: middle; }\r\n.mt-textarea textarea {padding: 6px 13px; font-size: 14px; border-radius: 2px; border: 1px solid #e4eaec; transition: 0.6s; }\r\n.mt-textarea textarea:focus {border: 1px solid #62a8ea; }\r\n\r\n/*表单之 checkbox*/\r\n.mt-checkbox {display: inline-block; vertical-align: middle; position: relative; cursor: pointer; color: #666; }\r\n.mt-checkbox .icon-checkbox {vertical-align: middle; display: inline-block; width: 16px; height: 16px; background: #fff; border: 1px solid #62a8ea; border-radius: 2px; color: #fff; overflow: hidden; margin-right: 5px; font-size: 12px; }\r\n.mt-checkbox .icon-checkbox:before {transition: 0.3s; transform: scale(0); }\r\n.mt-checkbox input[type=checkbox] {width: 0; height: 0; position: absolute; opacity: 0; }\r\n.mt-checkbox input[type=checkbox][disabled] + i {border: 1px solid #ccc; background: #f3f3f3; color: #f3f3f3; cursor: default; }\r\n.mt-checkbox input[type=checkbox][disabled] + i + span {color: #ccc; cursor: default; }\r\n.mt-checkbox-active .icon-checkbox {color: #62a8ea; }\r\n.mt-checkbox-active .icon-checkbox:before {transform: scale(1); }\r\n.mt-checkbox-active input[type=checkbox][disabled] + i {border: 1px solid #ccc; background: #fff; color: #ccc; }\r\n\r\n/*表单之 radio*/\r\n.mt-radio {display: inline-block; vertical-align: middle; position: relative; cursor: pointer; }\r\n.mt-radio-group{display: inline-block; }\r\n.mt-radio .icon-radio {vertical-align: middle; display: inline-block; width: 18px; height: 18px; background: #fff; border: 1px solid #62a8ea; border-radius: 50%; color: #fff; overflow: hidden; margin-right: 5px; font-size: 12px; line-height: 18px; text-align: center; }\r\n.mt-radio .icon-radio:before {transition: 0.3s; transform: scale(0); }\r\n.mt-radio input[type=radio] {width: 0; height: 0; position: absolute; opacity: 0; }\r\n.mt-radio input[type=radio][disabled] + i {border: 1px solid #ccc; background: #f3f3f3; color: #f3f3f3; cursor: default; }\r\n.mt-radio input[type=radio][disabled] + i + span {color: #ccc; cursor: default; }\r\n.mt-radio-active .icon-radio {color: #62a8ea; }\r\n.mt-radio-active .icon-radio:before {transform: scale(1); }\r\n.mt-radio-active input[type=radio][disabled] + i {border: 1px solid #ccc; color: #ccc; }\r\n\r\n/*表单之 select*/\r\n.mt-select {display: inline-block; position: relative; cursor: pointer; height: 28px; line-height: 28px; padding: 0 13px; padding-right: 30px; font-size: 14px; border-radius: 2px; border: 1px solid #e4eaec; background-color: #fff; vertical-align: middle; z-index: 10; }\r\n.mt-select .mt-select-title {height: 28px; line-height: 26px; overflow: hidden; }\r\n.mt-select .mt-select-title .placeholder{color: #b7c1cf; }\r\n.mt-select .iconfont {position: absolute; right: 5px; top: 5px; color: #c4c4c4; }\r\n.mt-select .icon-xia:before {content: \"\\E602\"; }\r\n.mt-select .mt-select-box {position: absolute; left: -1px; right: -1px; top: 100%; background: #fff; padding: 5px; border: 1px solid #e4eaec; box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05); overflow: auto; max-height: 260px; display: none; }\r\n.mt-select .mt-select-box .option {position: relative; padding: 0 4px; transition: 0.3s; height: 28px; overflow: hidden; }\r\n.mt-select .mt-select-box .option:hover {background: #62a8ea; color: #fff; }\r\n.mt-select .mt-select-box .mt-select-add {position: relative; }\r\n.mt-select .mt-select-box .mt-select-add .mt-add-select-val {text-indent: 5px; width: 100%; border: 1px solid #e4eaec; transition: 0.6s; }\r\n.mt-select .mt-select-box .mt-select-add .mt-add-select-val:focus {border: 1px solid #62a8ea; }\r\n.mt-select .mt-select-box .mt-select-add .mt-add-select-btn {position: absolute; color: #fff; background: #62a8ea; right: 0; top: 4px; height: 20px; width: 20px; line-height: 17px; text-align: center; transition: 0.3s; }\r\n.mt-select .mt-select-box .mt-select-add .mt-add-select-btn:hover {background: #4a89dc; }\r\n.mt-selected .icon-xia:before {content: \"\\E601\"; }\r\n.mt-select-disabled {background-color: #f3f3f3; color: #ccc; cursor: default; }\r\n.mt-select-disabled .icon-xia {color: #ccc; }\r\n\r\n/*表单之 日历*/\r\n.mt-date input[type=text] {width: 120px; }\r\n\r\n/*表单之 滑动杆*/\r\n.mt-slider {display: block; height: 8px; background: #e4eaec; border-radius: 100px; margin-right: 100px; position: relative; }\r\n.mt-slider .mt-slider-val {position: absolute; right: -80px; top: -6px; border: 1px solid #e4eaec; width: 60px; height: 20px; padding: 2px 5px; border-radius: 2px; font-size: 12px; transition: 0.3s; text-align: center; }\r\n.mt-slider .mt-slider-val:focus {border: 1px solid #62a8ea; }\r\n.mt-slider .mt-slider-btn {width: 16px; height: 16px; border-radius: 100px; position: absolute; background: #62a8ea; top: -4px; right: -10px; cursor: pointer; z-index: 100; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5); }\r\n.mt-slider .mt-slider-bar {position: absolute; height: 100%; width: 0; border-radius: 100px; background: #62a8ea; top: 0; left: 0; }\r\n.mt-slider-red .mt-slider-btn {background: #FB4E47; }\r\n.mt-slider-red .mt-slider-bar {background: #FB4E47; }\r\n.mt-slider-green .mt-slider-btn {background: #5EB95E; }\r\n.mt-slider-green .mt-slider-bar {background: #5EB95E; }\r\n\r\n/*表单之进度条*/\r\n@-webkit-keyframes slider-bar-stripes {\r\n  from {background-position: 36px 0; }\r\n  to {background-position: 0 0; }\r\n}\r\n@keyframes slider-bar-stripes {\r\n  from {background-position: 36px 0; }\r\n  to {background-position: 0 0; }\r\n}\r\n\r\n/* slider bar */\r\n.mt-slider-active {display: block; height: 8px; background: #e4eaec; border-radius: 100px; }\r\n.mt-slider-active-bar {float: left; width: 0; height: 100%; font-size: 1.2rem; line-height: 2rem; border-radius: 100px; color: #fff; text-align: center; background-color: #0e90d2; box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15); transition: 10px .6s ease; background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent); background-size: 36px 36px; -webkit-animation: slider-bar-stripes 2s linear infinite; animation: slider-bar-stripes 2s linear infinite; }\r\n.mt-slider-active-green .mt-slider-active-bar {background-color: #5EB95E; }\r\n.mt-slider-active-red .mt-slider-active-bar {background-color: #FB4E47; }\r\n\r\n/*表单之 switch选择*/\r\n.mt-switch {display: inline-block; vertical-align: middle; width: 60px; height: 30px; line-height: 26px; border-radius: 100px; background: #f3f3f3; border: 1px solid #DBDFE8; box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.05); position: relative; cursor: pointer; text-align: center; transition: 0.3s; }\r\n.mt-switch .mt-switch-btn {transition: 0.4s;transform:translateX(0); display: inline-block; position: absolute; left: 1px; top: 1px; background: #fff; width: 26px; height: 26px; z-index: 100; overflow: hidden; border-radius: 100px; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.6); text-indent: 0;}\r\n.mt-switch .mt-switch-info { transition:0.5s; transform:scale(1.05); font-size: 12px; display: block; height: 100%; background: #5EB95E; border-radius: 100px; position: relative; -moz-user-select: none; -khtml-user-select: none; user-select: none; }\r\n.mt-switch-off .mt-switch-info{background: #fff; transform:scale(0);}\r\n.mt-switch-off .mt-switch-btn {background: #fff; transform:translateX(31px);}\r\n.mt-switch[disabled] {background: #ccc; }\r\n.mt-switch[disabled] .mt-switch-btn {background: #ddd; }\r\n.mt-switch[disabled] .mt-switch-info {background: #ccc; }\r\n/*\r\n.mt-switch-btn:after{ display: inline-block; content: \"\"; position: absolute; width: 6px; height: 10px; top: 50%; left: 50%; margin: -5px 0 0 -3px; border-right: 1px solid #ccc; border-left: 1px solid #ccc;}\r\n*/\r\n\r\n/*按钮*/\r\n.mt-btn-grey,\r\n.mt-btn-red,\r\n.mt-btn-yellow,\r\n.mt-btn-green,\r\n.mt-btn-blue,\r\n.mt-btn-round-grey,\r\n.mt-btn-round-red,\r\n.mt-btn-round-yellow,\r\n.mt-btn-round-green,\r\n.mt-btn-round-blue {text-align: center; cursor: pointer; display: inline-block; padding: 5px 16px; background: #e6e6e6; color: #fff; transition: 0.3s; border-radius: 2px; vertical-align: middle; }\r\n.mt-btn-grey:active,\r\n.mt-btn-red:active,\r\n.mt-btn-yellow:active,\r\n.mt-btn-green:active,\r\n.mt-btn-blue:active,\r\n.mt-btn-round-grey:active,\r\n.mt-btn-round-red:active,\r\n.mt-btn-round-yellow:active,\r\n.mt-btn-round-green:active,\r\n.mt-btn-round-blue:active {box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3); }\r\n.mt-btn-round-grey,\r\n.mt-btn-round-red,\r\n.mt-btn-round-yellow,\r\n.mt-btn-round-green,\r\n.mt-btn-round-blue {border-radius: 100px; }\r\n.mt-btn-grey,\r\n.mt-btn-round-grey {color: #666; }\r\n.mt-btn-grey:hover,\r\n.mt-btn-round-grey:hover {background: #d4d4d4; }\r\n.mt-btn-red,\r\n.mt-btn-round-red {background: #FB4E47; }\r\n.mt-btn-red:hover,\r\n.mt-btn-round-red:hover {background: #ec4a44; }\r\n.mt-btn-yellow,\r\n.mt-btn-round-yellow {background: #ff9f22; }\r\n.mt-btn-yellow:hover,\r\n.mt-btn-round-yellow:hover {background: #F37B1D; }\r\n.mt-btn-blue,\r\n.mt-btn-round-blue {background: #0e90d2; }\r\n.mt-btn-blue:hover,\r\n.mt-btn-round-blue:hover {background: #0d86c4; }\r\n.mt-btn-green,\r\n.mt-btn-round-green {background: #5EB95E; }\r\n.mt-btn-green:hover,\r\n.mt-btn-round-green:hover {background: #57ac57; }\r\n.mt-btn-block {display: block; }\r\n\r\n/*字体按钮*/\r\n.mt-text-fs12 {font-size: 12px; }\r\n.mt-text-fs14 {font-size: 14px; }\r\n.mt-text-fs16 {font-size: 16px; }\r\n.mt-text-fs18 {font-size: 18px; }\r\n.mt-btn-text-grey {color: #ccc; }\r\n.mt-btn-text-grey:hover {color: #999; }\r\n.mt-btn-text-red {color: #FB4E47; }\r\n.mt-btn-text-red:hover {color: #ec4a44; }\r\n.mt-btn-text-yellow {color: #ff9f22; }\r\n.mt-btn-text-yellow:hover {color: #F37B1D; }\r\n.mt-btn-text-blue {color: #0e90d2; }\r\n.mt-btn-text-blue:hover {color: #0d86c4; }\r\n.mt-btn-text-green {color: #5EB95E; }\r\n.mt-btn-text-green:hover {color: #57ac57; }\r\n\r\n/*按钮点击后触发的效果*/\r\n.ink-reaction {position: relative; overflow: hidden; }\r\n.ink-reaction .ink {position: absolute; width: 200px; height: 200px; margin-left: -100px; margin-top: -100px; background-color: rgba(255, 255, 255, 0.3); border-radius: 50%; z-index: 1; pointer-events: none; opacity: 0; -webkit-animation: ripple-animation 1.5s; animation: ripple-animation 1.5s; }\r\n.ink-reaction .ink.inverse {background-color: rgba(12, 12, 12, 0.5); }\r\n@-webkit-keyframes ripple-animation {\r\n  from {-webkit-transform: scale(0); transform: scale(0); opacity: 1; }\r\n  to {-webkit-transform: scale(1, 1); transform: scale(1, 1); opacity: 0; }\r\n}\r\n@keyframes ripple-animation {\r\n  from {-webkit-transform: scale(0); transform: scale(0); opacity: 1; }\r\n  to {-webkit-transform: scale(1, 1); transform: scale(1, 1); opacity: 0; }\r\n}\r\n\r\n/*按钮尺寸*/\r\n.mt-btn-xl {padding: 10px 20px; font-size: 18px; }\r\n.mt-btn-xl .iconfont {font-size: 18px; }\r\n.mt-btn-lg {padding: 8px 16px; font-size: 16px; }\r\n.mt-btn-lg .iconfont {font-size: 16px; }\r\n.mt-btn-sm {padding: 5px 8px; font-size: 12px; } \r\n.mt-btn-sm .iconfont {font-size: 12px; } \r\n.mt-btn-xs {padding: 2px 6px; font-size: 12px; }\r\n.mt-btn-xs .iconfont {font-size: 12px; }\r\n\r\n/*table 样式*/\r\n.mt-table {width: 100%; margin: 10px 0; }\r\n.mt-table th {text-align: left; padding: 10px 8px; border-bottom: 2px solid #E8EAEA; color: #666; font-weight: bolder; }\r\n.mt-table td {padding: 10px 8px; border-bottom: 1px solid #E8EAEA; font-size: 14px; color: #333; }\r\n.mt-table-border {border-top: 1px solid #E8EAEA; border-left: 1px solid #E8EAEA; border-right: 1px solid #E8EAEA; }\r\n.mt-table-bordered {border-top: 1px solid #E8EAEA; border-left: 1px solid #E8EAEA; border-right: 1px solid #E8EAEA; }\r\n.mt-table-bordered td,\r\n.mt-table-bordered th {border-left: 1px solid #E8EAEA; }\r\n.mt-table-striped tr:nth-child(even) {background: #f9f9f9; }\r\n.mt-table-center {text-align: center; }\r\n.mt-table-center th {text-align: center; }\r\n.mt-table-hover tr + tr:hover {background: #e6e6e6; }\r\n\r\n/*折叠面板*/\r\n.mt-panel-group {border-top: 1px solid #ddd; }\r\n.mt-panel-group .mt-panel-header,\r\n.mt-panel-group .mt-panel-header-one {background: #f5f5f5; border: 1px solid #ddd; border-top: 0; padding: 5px 10px; cursor: pointer; }\r\n.mt-panel-group .mt-panel-content {background: #fff; border: 1px solid #ddd; border-top: 0; padding: 5px 10px; display: none; }\r\n.mt-panel-group .mt-panel-active .mt-panel-content,\r\n.mt-panel-group .mt-panel-active .mt-panel-header-one {display: block; }\r\n\r\n/*下拉列表*/\r\n.mt-dropdown {display: inline-block; position: relative; }\r\n.mt-dropdown .mt-dropdown-content {padding: 10px; background: #fff; border: 1px solid #E8EAEA; border-radius: 2px; min-width: 160px; position: absolute; top: 100%; box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05); -webkit-animation-duration: 0.5s; animation-duration: 0.5s; z-index: 100; display: none; }\r\n.mt-dropdown .mt-dropdown-content li {padding: 5px 0; font-size: 14px; color: #999; }\r\n.mt-dropdown-active .mt-dropdown-content {display: block; }\r\n.mt-dropdown-active .mt-dropdown-toggle .icon-xia:before,\r\n.mt-dropdown-active .mt-dropdown-toggle-hover .icon-xia:before {content: \"\\E601\"; }\r\n\r\n/*模态弹窗*/\r\n.mt-modal-dialog {box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); position: fixed; background: #fff; display: none; -webkit-animation-name: bounceInDown; animation-name: bounceInDown; -webkit-animation-duration: 1s; animation-duration: 1s; -webkit-animation-fill-mode: both; animation-fill-mode: both; z-index: 10000; }\r\n.mt-modal-dialog .mt-modal-close {position: absolute; top: 10px; right: 10px; color: #333; transition: 0.3s; z-index: 100; }\r\n.mt-modal-dialog .mt-modal-close:hover {transform: rotate(180deg); } \r\n.mt-modal-dialog .mt-dialog-title {height: 40px; line-height: 40px; text-align: center; color: #fff; background: #4a89dc; position: relative; }\r\n.mt-modal-dialog .mt-dialog-title .mt-modal-close {top: 0; color: #fff; }\r\n.mt-modal-dialog .mt-dialog-content {padding: 10px; }\r\n\r\n/*popup*/\r\n.mt-popup {position: fixed; background: #fff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); text-align: center; -webkit-animation-name: bounceInDown; animation-name: bounceInDown; -webkit-animation-duration: 1s; animation-duration: 1s; -webkit-animation-fill-mode: both; animation-fill-mode: both; z-index: 1000; }\r\n.mt-popup .mt-btn-grey, .mt-popup .mt-btn-blue {margin: 0 10px 20px 10px; }\r\n.mt-popup .mt-popup-h1 {height: 35px; line-height: 35px; font-size: 16px; color: #fff; text-align: center; background: #0e90d2; }\r\n.mt-popup .mt-popup-h2 {color: #333; font-size: 14px; text-align: center; padding: 10px 0; }\r\n.mt-popup .mt-popup-content {margin: 10px; }\r\n.mt-popup .mt-popup-str {color: #333333; padding: 10px 0; font-size: 14px; }\r\n.mt-popup .mt-popup-ico {display: inline-block; width: 30px; height: 30px; }\r\n.mt-popup .mt-popup-btn-close {position: absolute; top: 5px; right: 10px; color: #fff; transition:0.3s; }\r\n.mt-popup .mt-popup-btn-close:hover {top: 7px; transform: rotate(180deg); }\r\n.mt-popup .mt-popup-btn-close .iconfont {font-size: 12px; }\r\n\r\n/*插件之 mt-tabs*/\r\n.mt-tabs {position: relative; }\r\n.mt-tabs .mt-tabs-header {position: relative; bottom: -1px; z-index: 100;}\r\n.mt-tabs .mt-tabs-header li {float: left; padding: 5px 20px; }\r\n.mt-tabs .mt-tabs-header li a {color: #999; }\r\n.mt-tabs .mt-tabs-header .mt-tabs-active {border: 1px solid #e4eaec; border-bottom: none; background: #fff; }\r\n.mt-tabs .mt-tabs-header .mt-tabs-active a {color: #333; }\r\n.mt-tabs .mt-tabs-header:after {content: \"\"; display: block; height: 0; clear: both; visibility: hidden; }\r\n.mt-tabs .mt-tabs-content {border: 1px solid #e4eaec; position: relative; overflow: hidden; background: #fff; }\r\n.mt-tabs .mt-tabs-content:after {content: \"\" ; display: block; height: 0; clear: both; visibility: hidden; }\r\n.mt-tabs .mt-tabs-wrap {position: relative; left: 0; top: 0; }\r\n.mt-tabs .mt-tabs-wrap:after {content: \"\"; display: block; height: 0; clear: both; visibility: hidden; }\r\n.mt-tabs .mt-tabs-item { float: left; width: 100%; z-index:100; display: none; position: absolute; top: 0; left: 0; }\r\n.mt-tabs .mt-tabs-content .mt-tabs-active { display: block; z-index:101; position: relative; }\r\n\r\n/*mt-tabs 无动画*/\r\n.mt-tabs .mt-tabs-animate .mt-tabs-item{transition:transform 0.5s; display: block; transform: translateX(-100%);}\r\n.mt-tabs .mt-tabs-animate .mt-tabs-active{ display: block; transform: translateX(0);}\r\n.mt-tabs .mt-tabs-animate .mt-tabs-active~.mt-tabs-item{transform: translateX(100%);}\r\n\r\n/*插件之图片预加载*/\r\n[data-mt-imgload] {background-image: url(" + __webpack_require__(695) + "); background-repeat: no-repeat; background-position: center; }\r\n\r\n/*插件之mt-tips*/\r\n.mt-tips {position: absolute; background: rgba(0, 0, 0, 0.5); border-radius: 2px; padding: 5px; color: #fff; font-size: 14px; z-index: 10000; }\r\n\r\n/*插件之分页*/\r\n.mt-pagelist {width: 100%; margin-top: 40px; margin-bottom: 40px; vertical-align: center; }\r\n.mt-pagelist .mt-pagelist-left {line-height: 28px; float: left; }\r\n.mt-pagelist .mt-pagelist-left .mt-select {width: 100px; }\r\n.mt-pagelist .mt-pagelist-left .mt-select-title {width: 60px; }\r\n.mt-pagelist .mt-pagelist-content {display: inline-block; max-width: 280px; vertical-align: middle; height: 28px; overflow: hidden; position: relative; }\r\n.mt-pagelist .mt-pagelist-right {float: right; }\r\n.mt-pagelist .mt-pagelist-page {height: 28px; display: inline-block; position: relative; left: 0; margin-top: 1px; transition:transform 0.5s;}\r\n.mt-pagelist .mt-pagelist-page li {float: left; margin: 0 5px; background: #fff; }\r\n.mt-pagelist .mt-pagelist-page li a {display: inline-block; border: 1px solid #dddddd; border-radius: 2px; font-size: 14px; width: 30px; height: 26px; line-height: 24px; color: #333; text-align: center; transition: 0.3s; }\r\n.mt-pagelist .mt-pagelist-page li a:hover {color: #fff; background-color: #0393dc; border: 1px solid #0393dc; }\r\n.mt-pagelist .mt-pagelist-page .on a {color: #fff; background-color: #0393dc; cursor: default; border: 1px solid #0393dc; }\r\n.mt-pagelist .mt-pagelist-input {margin: 0 12px; }\r\n.mt-pagelist .mt-pagelist-input .mt-input {border: 1px solid #dddddd; height: 26px; width: 40px; margin: 0 2px; text-align: center; background: #fff; }\r\n.mt-pagelist .mt-pagelist-prev,\r\n.mt-pagelist .mt-pagelist-next,\r\n.mt-pagelist .mt-pagelist-btn,\r\n.mt-pagelist .mt-pagelist-end,\r\n.mt-pagelist .mt-pagelist-first {border: 1px solid #dddddd; border-radius: 2px; font-size: 14px; color: #333; padding: 4px 10px; background: #fff; vertical-align: middle; }\r\n.mt-pagelist .mt-pagelist-prev:hover,\r\n.mt-pagelist .mt-pagelist-next:hover,\r\n.mt-pagelist .mt-pagelist-btn:hover,\r\n.mt-pagelist .mt-pagelist-end:hover,\r\n.mt-pagelist .mt-pagelist-first:hover {color: #fff; background-color: #0393dc; border: 1px solid #0393dc; }\r\n.mt-pagelist .mt-pagelist-runprev,\r\n.mt-pagelist .mt-pagelist-runnext {border: 1px solid #fff; padding: 4px; }\r\n\r\n/*日历组件*/\r\n.mt-date-main{ border:1px solid #EAEAEA; width: 240px; height: 250px; overflow: hidden; background: #fff; display: none; position: absolute; z-index: 9999; box-shadow: 0 2px 4px rgba(150, 162, 186, 0.5);}\r\n.mt-date-title{ height: 30px; line-height: 25px; background: #fff; color: #333; text-align: center;} \r\n.mt-date-title .mt-btn-blue{ background: #fff; color: #333;} \r\n.mt-date-title a{ margin: 0 5px; padding: 2px 5px;line-height: normal; font-size: 16px;}\r\n.mt-date-title .mt-date-nowday,\r\n.mt-date-title .mt-date-clear{ position: absolute; top: 8px; font-size: 12px; z-index: 20;}\r\n.mt-date-title .mt-date-nowday{ left: 0; top: 5px;}\r\n.mt-date-title .mt-date-clear{ right: 0; top: 5px;}\r\n.mt-date-month,.mt-date-year{ display: none;}\r\n.mt-date-ym,\r\n.mt-date-y,\r\n.mt-date-m{ display: inline-block; width: 100px; position: relative; top: 0px;}\r\n.mt-date-week{ height: 25px; line-height: 25px; text-align: center; font-weight: bolder;}\r\n.mt-date-week li{ display: inline-block; width:14.28%;}\r\n.mt-date-warp{ height: 240px; width: 900px; background: #ccc;}\r\n.mt-date-item{ height: 100%; width: 240px; float: left;}\r\n.mt-date-day li{ float: left; text-align: center; width: 14.28%; height: 32px; line-height: 32px;}\r\n.mt-date-day li a{ color: #666; display: inline-block; width: 100%; height: 100%; transition:0.3s;}\r\n.mt-date-day li a:hover{ background: #ccc;}\r\n.mt-date-day li .mt-date-prevday,\r\n.mt-date-day li .mt-date-nextday{ color: #ccc;} \r\n.mt-date-day li .mt-date-selected{background: #e9e9e9; color:#000;}\r\n.mt-date-years,\r\n.mt-date-months{ width: 100%; height: 220px; position: absolute; bottom: 0; z-index: 100; background: #fff; transition:0.3s;}\r\n.mt-date-months li{line-height: 64px; font-size: 14px; cursor: pointer; float: left; border-radius: 0; background: #fff; color: #333; width: 25%; height: 25%; text-align: center; }\r\n.mt-date-months li:hover{ color: #000; background: #e9e9e9;}\r\n.mt-date-months .mt-active{ color: #000; background: #e9e9e9;}\r\n.mt-date-years li{ cursor: pointer; float: left; background: #fff; line-height: normal; color: #333; width: 49px; height: 28px; margin:4px 5px;}\r\n.mt-date-years .mt-active{ color: #000; background: #e9e9e9;}\r\n.mt-date-years li:hover{ color: #000; background: #ccc;}\r\n.mt-date-main .mt-btn-blue{ box-shadow: none;}\r\n.mt-dates{border:1px solid #EAEAEA; overflow: hidden; position: absolute; display: none; box-shadow: 0 2px 4px rgba(150, 162, 186, 0.5); width: 490px; height: 290px; background: #fff; z-index: 9999;}\r\n.mt-dates .mt-date-main{box-shadow:none; display: block; border:none; background: none;}\r\n.mt-dates .mt-date-main+.mt-date-main{ left: 250px;}\r\n.mt-dates:before{ content: \"\"; display: inline-block; position: absolute; left: 245px; top: 0px; height: 250px; background: #e6e6e6; width: 1px; }\r\n.mt-dates .mt-dates-text{ position: absolute;}\r\n.mt-dates-bottom{ position: absolute; bottom: 0; z-index: 10000; left: 0; width: 100%; border-top: 1px solid #e6e6e6; height: 40px; text-align: right;}\r\n.mt-dates-bottom a{ display: inline-block; margin-right: 10px!important; background: #F3F3F3; color: #333; border:1px solid #EAEAEA; margin-top: 5px; padding: 5px 15px;}\r\n.mt-dates .yesdate{}\r\n.mt-dates .cleardate{}\r\n/*\r\n.mt-dates-start .mt-dates-down,\r\n.mt-dates-end .mt-dates-up{ background: #e4e4e4;}\r\n*/\r\n/*二级菜单*/\r\n.mt-treemenu{ display: inline-block;}\r\n.mt-treemenu-box{ padding-left: 20px;}\r\n.mt-treemenu-title{ position: relative; cursor: pointer;}\r\n.mt-treemenu-title .iconfont{ transition:0.3s; position: absolute; left: -15px; top: 3px; font-size: 12px;}\r\n.mt-treemenu .mt-treemenu-box .mt-treemenu-box{ display: none;} \r\n.mt-treemenu-active .iconfont{ /*content: \"\\e60e\";*/ transform:rotate(90deg); -webkit-transform:rotate(90deg);}\r\n\r\n/*more tips*/\r\n.mt-more {height: 20px; display: inline-block; position: relative; vertical-align: middle; margin-left: 5px; }\r\n.mt-more .iconfont {color: #999; cursor: pointer; }\r\n.mt-more .mt-more-content {font-size: 14px; position: absolute; min-width: 120px; max-width: 300px; top: 30px; left: -60px; background: #fff; border: 1px solid #ddd; box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05); padding: 10px; border-radius: 4px; display: none; color: #999; }\r\n.mt-more .mt-more-content:before {content: \"\"; display: inline-block; border: 10px solid transparent; border-bottom: 10px solid #ddd; position: absolute; top: -20px; left: 60px; }\r\n.mt-more:hover {z-index: 10000; }\r\n.mt-more:hover .mt-more-content {display: block; }\r\n\r\n/* popover 提示*/\r\n.mt-popover{ position: absolute; background: #333; color: #fff; max-width: 300px; padding: 10px;}\r\n.mt-popover .mt-arrow{ display: inline-block; position: absolute; width: 0; height: 0; border:8px solid transparent;}\r\n.mt-popover-top .mt-arrow{ bottom: -15px; left: 50%; margin-left: -8px; border-top:8px solid #333; }\r\n.mt-popover-left .mt-arrow{ top: 50%; right: -15px; margin-top: -8px; border-left:8px solid #333; }\r\n.mt-popover-down .mt-arrow{ left: 50%; top: -15px; margin-left: -8px; border-bottom:8px solid #333; }\r\n.mt-popover-right .mt-arrow{ top: 50%; left: -15px; margin-top: -8px; border-right:8px solid #333; }\r\n\r\n/* loading... */\r\n.mt-loading {pointer-events: none; }\r\n.mt-loading .mt-bar {background: #29d; position: fixed; top: 0; left: 0; width: 100%; height: 2px; transform: translate3d(-100%, 0px, 0px); transition: all 200ms ease;}\r\n.mt-loading .mt-spinner {display: block; position: fixed; top: 8px; right: 8px;} \r\n.mt-loading .mt-spinner-icon {width: 18px; height: 18px; box-sizing: border-box; border: solid 2px transparent; border-top-color: #29d; border-left-color: #29d; border-radius: 50%;\r\n  -webkit-animation: rotateInfinite 400ms linear infinite;\r\n          animation: rotateInfinite 400ms linear infinite;\r\n}\r\n\r\n/*占位loading*/\r\n.mt-loading-box{ position: relative;  height: 100px;}\r\n.mt-loading-cricle{ display: inline-block; text-align: center; line-height: 130px; width: 60px; height: 60px; margin: -40px 0 0 -30px; position: absolute; left: 50%; top: 50%; opacity: 0.2;}\r\n.mt-loading-cricle:before, \r\n.mt-loading-cricle:after{content: \"\"; position: absolute; top: 50%; left: 50%; display: inline-block; border-radius: 1000px; border:3px solid #000; }\r\n.mt-loading-cricle:before{-webkit-animation: rotateInfinite 500ms linear infinite; width: 40px; height: 40px; margin: -20px 0 0 -20px; border-top-color:transparent; border-bottom-color:transparent;}\r\n.mt-loading-cricle:after{-webkit-animation: rotateInfiniteN 400ms linear infinite;width: 20px; height: 20px;  margin:-10px 0 0 -10px; border-left-color:transparent; border-right-color:transparent;}\r\n\r\n/*循环旋转*/ \r\n@-webkit-keyframes rotateInfinite {\r\n  0%   { -webkit-transform: rotate(0deg); }\r\n  100% { -webkit-transform: rotate(360deg); }\r\n}\r\n@-webkit-keyframes rotateInfiniteN {\r\n  0%   { -webkit-transform: rotate(360deg); }\r\n  100% { -webkit-transform: rotate(0deg); }\r\n}\r\n\r\n.mt-input-error input{ border-color:#FF6262!important;}\r\n.mt-validate-error{ position: absolute; top: 50%; margin-top: -10px; padding: 2px 5px; background: #FF6262;  color: #fff; border-radius: 3px; left: 100%; margin-left: 5px; word-break:keep-all; white-space:nowrap; font-size: 12px;}\r\n.mt-validate-error:after{ content: \"\"; display: inline-block; width: 0; height: 0; border:5px solid transparent; border-right:5px solid #FF6262; position: absolute; left: -10px; top: 50%; margin-top: -4.5px;}\r\n\r\n/*文件上传*/\r\n.mt-upload{ position: relative; cursor: pointer; overflow: hidden; display: inline-block;}\r\n.mt-upload input[type=file]{ position: absolute; height: 100%; width: 100%; top:0; left: 0; opacity: 0; cursor: pointer; z-index: 200;}\r\n.mt-upload-progress{ position: absolute; height: 100%; width: 0; left: 0; top: 0; background: #ccc; transition:1s;}\r\n.mt-upload-text{ position: relative; z-index: 100;}", ""]);
+	exports.push([module.id, "/*格式化，UI*/\r\n\r\n/* ---------------CSS 格式化------------------------ */\r\n\r\n*:not(input, textarea) {\r\n\tmargin: 0;\r\n\tpadding: 0;\r\n\toutline: 0;\r\n\t-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\r\n\t-webkit-box-sizing: border-box;\r\n\t-webkit-touch-callout: inherit;\r\n\t-webkit-user-select: auto;\r\n\toutline: none;\r\n}\r\n\r\nhtml {\r\n\theight: 100%;\r\n\tfont-size: 100%;\r\n\t-webkit-text-size-adjust: 100%;\r\n}\r\n\r\nbody {\r\n\tmargin: 0;\r\n\tpadding: 0;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tfont-family: \"Microsoft YaHei\";\r\n\t-webkit-touch-callout: inherit;\r\n\t-webkit-user-select: auto;\r\n\tfont-size: 14px;\r\n\tposition: relative;\r\n\tword-break: break-all;\r\n\tfloat: left;\r\n}\r\n\r\ni,\r\nem {\r\n\tfont-style: normal;\r\n}\r\n\r\na {\r\n\t-webkit-tap-highlight-color: rgba(0, 0, 0, 0.35);\r\n\ttext-decoration: none;\r\n\t-webkit-tap-highlight-color: rgba(0, 0, 0, 0);\r\n\tcolor: #4a89dc;\r\n}\r\n\r\nimg {\r\n\t-ms-interpolation-mode: bicubic;\r\n\tvertical-align: middle;\r\n\tborder: none;\r\n}\r\n\r\ntable {\r\n\tborder-collapse: collapse;\r\n\tborder-spacing: 0;\r\n}\r\n\r\nth,\r\ntd,\r\ncaption {\r\n\tvertical-align: middle;\r\n}\r\n\r\ntextarea {\r\n\tresize: none;\r\n}\r\n\r\ninput,\r\nbutton,\r\nselect,\r\ntextarea {\r\n\toutline: none;\r\n\tborder-radius: 0;\r\n\tfont-family: inherit;\r\n\tfont-size: inherit;\r\n}\r\n\r\nbutton {\r\n\tborder: none;\r\n\tcursor: pointer;\r\n}\r\n\r\np,\r\nul,\r\nol,\r\nli {\r\n\tlist-style: none;\r\n\tmargin: 0;\r\n\tpadding: 0;\r\n}\r\n\r\naddress,\r\ncaption,\r\ncite,\r\ncode,\r\ndfn,\r\nem,\r\nth,\r\nvar {\r\n\tfont-weight: normal;\r\n\tfont-style: normal;\r\n}\r\n\r\nstrong {\r\n\tfont-weight: bold;\r\n}\r\n\r\nh1,\r\nh2,\r\nh3,\r\nh4,\r\nh5,\r\nh6 {\r\n\tfont-weight: normal;\r\n\tmargin: 0;\r\n\tpadding: 0;\r\n}\r\n\r\nlabel {\r\n\tpadding-right: 10px;\r\n}\r\n\r\n.iconfont {\r\n\tpadding: 0;\r\n\tmargin: 0;\r\n\tline-height: normal;\r\n}\r\n\r\n/*清除浮动*/\r\n.clear {\r\n\tclear: both;\r\n\tdisplay: block;\r\n\tfont-size: 0;\r\n\theight: 0;\r\n\tline-height: 0;\r\n\twidth: 100%;\r\n}\r\n\r\n.clearfix:after {\r\n\tcontent: \"\";\r\n\tdisplay: block;\r\n\theight: 0;\r\n\tclear: both;\r\n\tvisibility: hidden;\r\n}\r\n\r\n/**\r\n * Fix the flawed CSS box model - Yes, IE6's box model is better\r\n * Browser support: IE8+\r\n * via: http://paulirish.com/2012/box-sizing-border-box-ftw/\r\n */\r\n*,\r\n*:before,\r\n*:after {\r\n\t-moz-box-sizing: border-box;\r\n\tbox-sizing: border-box;\r\n}\r\n\r\n/* normalize.css v3.0.2 | git.io/normalize */\r\n\r\n/* Set <html> and <body> to inherit the height of the viewport */\r\nhtml,\r\nbody {\r\n\tmin-height: 100%;\r\n}\r\n\r\n/**\r\n * 1. Prevent iOS text size adjust after orientation change, without disabling\r\n *    user zoom.\r\n *    https://developer.mozilla.org/en-US/docs/Web/CSS/text-size-adjust\r\n */\r\nhtml {\r\n\t-ms-text-size-adjust: 100%;\r\n\t-webkit-text-size-adjust: 100%;\r\n}\r\n\r\nh1 {\r\n\tfont-size: 1.5em;\r\n}\r\n\r\nh2 {\r\n\tfont-size: 1.25em;\r\n}\r\n\r\ninput[type=text][disabled],\r\ninput[type=password][disabled] {\r\n\tbackground: #f3f3f3 !important;\r\n\tcolor: #ccc !important;\r\n}\r\n\r\ninput[type=text][disabled] + .mt-iconbtn,\r\ninput[type=password][disabled] + .mt-iconbtn {\r\n\tcolor: #ccc !important;\r\n\tz-index: 11;\r\n}\r\n\r\n/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/\r\n::-webkit-scrollbar {\r\n\twidth: 8px;\r\n\theight: 8px;\r\n\tbackground-color: #F5F5F5;\r\n}\r\n\r\n/*定义滚动条轨道 内阴影+圆角*/\r\n::-webkit-scrollbar-track {\r\n\t-webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.1);\r\n\tborder-radius: 10px;\r\n\tbackground-color: #F5F5F5;\r\n}\r\n\r\n/*定义滑块 内阴影+圆角*/\r\n::-webkit-scrollbar-thumb {\r\n\tborder-radius: 10px;\r\n\tbackground-color: #ccc;\r\n}\r\n\r\n.html-body-overflow {\r\n\toverflow-x: hidden;\r\n\toverflow-y: hidden;\r\n}\r\n\r\n/*框架需要加入的 ID*/\r\n#MTUI_MODAL,\r\n#MTUI_POPUP,\r\n#MTUI_LOADING,\r\n#MTUI_POPOVER {\r\n\tposition: absolute;\r\n\ttop: 0;\r\n\tleft: 0;\r\n\theight: 0;\r\n\twidth: 0;\r\n\tz-index: 20000;\r\n}\r\n\r\n#MTUI_POPOVER {\r\n\tz-index: auto;\r\n\twidth: 100%;\r\n}\r\n\r\n#MTUI_BG {\r\n\tposition: fixed;\r\n\ttop: 0;\r\n\tleft: 0;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tbackground: rgba(0, 0, 0, 0.3);\r\n\tz-index: 9999;\r\n\tdisplay: none;\r\n}\r\n\r\n/*馒头UI grid 24多栏栅格 (A*n)-i=W i=4 n=24 A=4 */\r\n.mt-g {\r\n\tposition: relative;\r\n}\r\n\r\n.mt-g:after {\r\n\tcontent: \"\";\r\n\tdisplay: block;\r\n\tclear: both;\r\n\theight: 0;\r\n\tvisibility: hidden;\r\n}\r\n\r\n.mt-g .mt-g-1 {\r\n\tfloat: left;\r\n\tmargin-left: 0;\r\n\tposition: relative;\r\n\tpadding: 20px;\r\n}\r\n\r\n.mt-g .mt-g-1:first-child {\r\n\tmargin-left: 0;\r\n}\r\n\r\n.mt-g .mt-g-1 {\r\n\twidth: 8.33333%;\r\n}\r\n\r\n.mt-g .mt-g-offset-1,\r\n.mt-g .mt-g-offset-1:first-child {\r\n\tmargin-left: 8.33333%;\r\n}\r\n\r\n.mt-g .mt-g-2 {\r\n\tfloat: left;\r\n\tmargin-left: 0;\r\n\tposition: relative;\r\n\tpadding: 20px;\r\n}\r\n\r\n.mt-g .mt-g-2:first-child {\r\n\tmargin-left: 0;\r\n}\r\n\r\n.mt-g .mt-g-2 {\r\n\twidth: 16.66666%;\r\n}\r\n\r\n.mt-g .mt-g-offset-2,\r\n.mt-g .mt-g-offset-2:first-child {\r\n\tmargin-left: 16.66666%;\r\n}\r\n\r\n.mt-g .mt-g-3 {\r\n\tfloat: left;\r\n\tmargin-left: 0;\r\n\tposition: relative;\r\n\tpadding: 20px;\r\n}\r\n\r\n.mt-g .mt-g-3:first-child {\r\n\tmargin-left: 0;\r\n}\r\n\r\n.mt-g .mt-g-3 {\r\n\twidth: 24.99999%;\r\n}\r\n\r\n.mt-g .mt-g-offset-3,\r\n.mt-g .mt-g-offset-3:first-child {\r\n\tmargin-left: 24.99999%;\r\n}\r\n\r\n.mt-g .mt-g-4 {\r\n\tfloat: left;\r\n\tmargin-left: 0;\r\n\tposition: relative;\r\n\tpadding: 20px;\r\n}\r\n\r\n.mt-g .mt-g-4:first-child {\r\n\tmargin-left: 0;\r\n}\r\n\r\n.mt-g .mt-g-4 {\r\n\twidth: 33.33332%;\r\n}\r\n\r\n.mt-g .mt-g-offset-4,\r\n.mt-g .mt-g-offset-4:first-child {\r\n\tmargin-left: 33.33332%;\r\n}\r\n\r\n.mt-g .mt-g-5 {\r\n\tfloat: left;\r\n\tmargin-left: 0;\r\n\tposition: relative;\r\n\tpadding: 20px;\r\n}\r\n\r\n.mt-g .mt-g-5:first-child {\r\n\tmargin-left: 0;\r\n}\r\n\r\n.mt-g .mt-g-5 {\r\n\twidth: 41.66665%;\r\n}\r\n\r\n.mt-g .mt-g-offset-5,\r\n.mt-g .mt-g-offset-5:first-child {\r\n\tmargin-left: 41.66665%;\r\n}\r\n\r\n.mt-g .mt-g-6 {\r\n\tfloat: left;\r\n\tmargin-left: 0;\r\n\tposition: relative;\r\n\tpadding: 20px;\r\n}\r\n\r\n.mt-g .mt-g-6:first-child {\r\n\tmargin-left: 0;\r\n}\r\n\r\n.mt-g .mt-g-6 {\r\n\twidth: 49.99998%;\r\n}\r\n\r\n.mt-g .mt-g-offset-6,\r\n.mt-g .mt-g-offset-6:first-child {\r\n\tmargin-left: 49.99998%;\r\n}\r\n\r\n.mt-g .mt-g-7 {\r\n\tfloat: left;\r\n\tmargin-left: 0;\r\n\tposition: relative;\r\n\tpadding: 20px;\r\n}\r\n\r\n.mt-g .mt-g-7:first-child {\r\n\tmargin-left: 0;\r\n}\r\n\r\n.mt-g .mt-g-7 {\r\n\twidth: 58.33331%;\r\n}\r\n\r\n.mt-g .mt-g-offset-7,\r\n.mt-g .mt-g-offset-7:first-child {\r\n\tmargin-left: 58.33331%;\r\n}\r\n\r\n.mt-g .mt-g-8 {\r\n\tfloat: left;\r\n\tmargin-left: 0;\r\n\tposition: relative;\r\n\tpadding: 20px;\r\n}\r\n\r\n.mt-g .mt-g-8:first-child {\r\n\tmargin-left: 0;\r\n}\r\n\r\n.mt-g .mt-g-8 {\r\n\twidth: 66.66664%;\r\n}\r\n\r\n.mt-g .mt-g-offset-8,\r\n.mt-g .mt-g-offset-8:first-child {\r\n\tmargin-left: 66.66664%;\r\n}\r\n\r\n.mt-g .mt-g-9 {\r\n\tfloat: left;\r\n\tmargin-left: 0;\r\n\tposition: relative;\r\n\tpadding: 20px;\r\n}\r\n\r\n.mt-g .mt-g-9:first-child {\r\n\tmargin-left: 0;\r\n}\r\n\r\n.mt-g .mt-g-9 {\r\n\twidth: 74.99997%;\r\n}\r\n\r\n.mt-g .mt-g-offset-9,\r\n.mt-g .mt-g-offset-9:first-child {\r\n\tmargin-left: 74.99997%;\r\n}\r\n\r\n.mt-g .mt-g-10 {\r\n\tfloat: left;\r\n\tmargin-left: 0;\r\n\tposition: relative;\r\n\tpadding: 20px;\r\n}\r\n\r\n.mt-g .mt-g-10:first-child {\r\n\tmargin-left: 0;\r\n}\r\n\r\n.mt-g .mt-g-10 {\r\n\twidth: 83.3333%;\r\n}\r\n\r\n.mt-g .mt-g-offset-10,\r\n.mt-g .mt-g-offset-10:first-child {\r\n\tmargin-left: 83.3333%;\r\n}\r\n\r\n.mt-g .mt-g-11 {\r\n\tfloat: left;\r\n\tmargin-left: 0;\r\n\tposition: relative;\r\n\tpadding: 20px;\r\n}\r\n\r\n.mt-g .mt-g-11:first-child {\r\n\tmargin-left: 0;\r\n}\r\n\r\n.mt-g .mt-g-11 {\r\n\twidth: 91.66663%;\r\n}\r\n\r\n.mt-g .mt-g-offset-11,\r\n.mt-g .mt-g-offset-11:first-child {\r\n\tmargin-left: 91.66663%;\r\n}\r\n\r\n.mt-g .mt-g-12 {\r\n\tfloat: left;\r\n\tmargin-left: 0;\r\n\tposition: relative;\r\n\tpadding: 20px;\r\n}\r\n\r\n.mt-g .mt-g-12:first-child {\r\n\tmargin-left: 0;\r\n}\r\n\r\n.mt-g .mt-g-12 {\r\n\twidth: 99.99996%;\r\n}\r\n\r\n.mt-g .mt-g-offset-12,\r\n.mt-g .mt-g-offset-12:first-child {\r\n\tmargin-left: 99.99996%;\r\n}\r\n\r\n/*居中*/\r\n.mt-g-center {\r\n\ttext-align: center;\r\n}\r\n\r\n.mt-g-center .mt-g-1,\r\n.mt-g-center .mt-g-2,\r\n.mt-g-center .mt-g-3,\r\n.mt-g-center .mt-g-4,\r\n.mt-g-center .mt-g-5,\r\n.mt-g-center .mt-g-6,\r\n.mt-g-center .mt-g-7,\r\n.mt-g-center .mt-g-8,\r\n.mt-g-center .mt-g-9,\r\n.mt-g-center .mt-g-10,\r\n.mt-g-center .mt-g-11,\r\n.mt-g-center .mt-g-12 {\r\n\tfloat: none;\r\n\tdisplay: inline-block;\r\n\ttext-align: left;\r\n}\r\n\r\n/*馒头UI 插件样式 */\r\n.mt-padding {\r\n\tpadding: 20px;\r\n}\r\n\r\n.mt-margin {\r\n\tmargin: 20px;\r\n}\r\n\r\n/*404*/\r\n.mt-404 {\r\n\theight: 400px;\r\n\twidth: 500px;\r\n\tposition: absolute;\r\n\tleft: 50%;\r\n\ttop: 50%;\r\n\ttext-align: center;\r\n\tcolor: #fff;\r\n\tmargin: -200px 0 0 -250px;\r\n}\r\n\r\n.mt-404 h1 {\r\n\tfont-size: 25px;\r\n\tfont-weight: bolder;\r\n}\r\n\r\n/*表格头部*/\r\n.mt-form-header {\r\n\theight: 50px;\r\n\tposition: fixed;\r\n\ttop: 50px;\r\n\tleft: 90px;\r\n\tright: 0;\r\n\tbackground: #fff;\r\n\tz-index: 999;\r\n\tborder-top: 1px solid #ddd;\r\n\tborder-bottom: 1px solid #ddd;\r\n\tpadding-left: 15px;\r\n\tpadding-top: 10px;\r\n}\r\n\r\n.mt-form-header-block {\r\n\theight: 50px;\r\n\tpadding-top: 10px;\r\n}\r\n\r\n/*x分栏*/\r\n.mt-content-2x,\r\n.mt-content-1x {\r\n\tpadding: 20px;\r\n}\r\n\r\n.mt-content-2x:after,\r\n.mt-content-1x:after {\r\n\tcontent: \"\";\r\n\tdisplay: block;\r\n\theight: 0;\r\n\tclear: both;\r\n\tvisibility: hidden;\r\n}\r\n\r\n.mt-content-2x .mt-content-x,\r\n.mt-content-1x .mt-content-x {\r\n\tpadding: 20px;\r\n\twidth: 49%;\r\n\tmargin-left: 2%;\r\n\tbackground: #fff;\r\n\tfloat: left;\r\n}\r\n\r\n.mt-content-2x .mt-content-x:first-child,\r\n.mt-content-1x .mt-content-x:first-child {\r\n\tmargin-left: 0;\r\n}\r\n\r\n.mt-content-1x {\r\n\tpadding: 10px 20px 20px 20px;\r\n\tbackground: #fff;\r\n\tmargin: 20px;\r\n}\r\n\r\n/*面包屑导航*/\r\n.mt-breadcrumb {\r\n\tpadding: 20px;\r\n\tfont-size: 14px;\r\n}\r\n\r\n.mt-breadcrumb ul,\r\n.mt-breadcrumb li {\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.mt-breadcrumb ul a,\r\n.mt-breadcrumb li a {\r\n\tcolor: #666;\r\n}\r\n\r\n.mt-breadcrumb ul {\r\n\tmargin-left: 10px;\r\n}\r\n\r\n.mt-breadcrumb li a:before {\r\n\tcontent: \"/\";\r\n\tcolor: #999;\r\n\tmargin: 0 8px;\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.mt-breadcrumb li:first-child a:before {\r\n\tdisplay: none;\r\n}\r\n\r\n/*主要内容区域*/\r\n.mt-main-content {\r\n\tmargin: 50px 0 0 90px;\r\n}\r\n\r\n.mt-main-content:before {\r\n\tcontent: \"\";\r\n\tdisplay: block;\r\n\theight: 1px;\r\n}\r\n\r\n/*内容区域*/\r\n.mt-page-content {\r\n\tmargin: 10px 20px;\r\n\tbackground: #fff;\r\n\tpadding-bottom: 50px;\r\n}\r\n\r\n/*表单*/\r\n.mt-input,\r\n.mt-input-block {\r\n\tdisplay: inline-block;\r\n\tposition: relative;\r\n\tbackground: #fff;\r\n\tborder-radius: 2px;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.mt-input input[type=text],\r\n.mt-input-block input[type=text],\r\n.mt-input input[type=password],\r\n.mt-input-block input[type=password] {\r\n\theight: 28px;\r\n\tpadding: 0 10px;\r\n\tfont-size: 14px;\r\n\tborder-radius: 2px;\r\n\tborder: 1px solid #e4eaec;\r\n\ttransition: 0.6s;\r\n\tdisplay: inline-block;\r\n\tposition: relative;\r\n\tz-index: 10;\r\n\tbackground: none;\r\n\twidth: 100%;\r\n}\r\n\r\n.mt-input input[type=text]:focus,\r\n.mt-input-block input[type=text]:focus,\r\n.mt-input input[type=password]:focus,\r\n.mt-input-block input[type=password]:focus {\r\n\tborder: 1px solid #62a8ea;\r\n}\r\n\r\n.mt-input input[type=text].mt-round,\r\n.mt-input-block input[type=text].mt-round,\r\n.mt-input input[type=password].mt-round,\r\n.mt-input-block input[type=password].mt-round {\r\n\tborder-radius: 1000px;\r\n}\r\n\r\n.mt-input .mt-iconbtn,\r\n.mt-input-block .mt-iconbtn {\r\n\tdisplay: inline-block;\r\n\tposition: absolute;\r\n\theight: 24px;\r\n\tright: 2px;\r\n\ttop: 50%;\r\n\tmargin-top: -12px;\r\n\tline-height: 26px;\r\n\twidth: 28px;\r\n\ttext-align: center;\r\n\tcolor: #999;\r\n\toverflow: hidden;\r\n\tz-index: 11;\r\n}\r\n\r\n.mt-input .mt-iconbtn:hover,\r\n.mt-input-block .mt-iconbtn:hover {\r\n\tcolor: #62a8ea;\r\n\tcursor: default;\r\n}\r\n\r\n.mt-input-block {\r\n\tdisplay: block;\r\n}\r\n\r\n.mt-input-block input[type=text],\r\n.mt-input-block input[type=password] {\r\n\tdisplay: block;\r\n\twidth: 100%;\r\n}\r\n\r\n.mt-icon-input input[type=text],\r\n.mt-icon-input input[type=password] {\r\n\tpadding-right: 28px;\r\n}\r\n\r\n.mt-icon-inputr input[type=text],\r\n.mt-icon-inputr input[type=password] {\r\n\tpadding-left: 28px;\r\n}\r\n\r\n.mt-icon-inputr .mt-iconbtn {\r\n\tleft: 2px;\r\n}\r\n\r\n.mt-icon-inputr .mt-iconbtn:hover {\r\n\tcursor: pointer;\r\n}\r\n\r\n/*表单之 mt-textarea*/\r\n.mt-textarea {\r\n\tdisplay: inline-block;\r\n\tposition: relative;\r\n\tbackground: #fff;\r\n\tborder-radius: 2px;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.mt-textarea textarea {\r\n\tpadding: 6px 13px;\r\n\tfont-size: 14px;\r\n\tborder-radius: 2px;\r\n\tborder: 1px solid #e4eaec;\r\n\ttransition: 0.6s;\r\n}\r\n\r\n.mt-textarea textarea:focus {\r\n\tborder: 1px solid #62a8ea;\r\n}\r\n\r\n/*表单之 checkbox*/\r\n.mt-checkbox {\r\n\tdisplay: inline-block;\r\n\tvertical-align: middle;\r\n\tposition: relative;\r\n\tcursor: pointer;\r\n\tcolor: #666;\r\n}\r\n\r\n.mt-checkbox .icon-checkbox {\r\n\tvertical-align: middle;\r\n\tdisplay: inline-block;\r\n\twidth: 16px;\r\n\theight: 16px;\r\n\tbackground: #fff;\r\n\tborder: 1px solid #62a8ea;\r\n\tborder-radius: 2px;\r\n\tcolor: #fff;\r\n\toverflow: hidden;\r\n\tmargin-right: 5px;\r\n\tfont-size: 12px;\r\n}\r\n\r\n.mt-checkbox .icon-checkbox:before {\r\n\ttransition: 0.3s;\r\n\ttransform: scale(0);\r\n}\r\n\r\n.mt-checkbox input[type=checkbox] {\r\n\twidth: 0;\r\n\theight: 0;\r\n\tposition: absolute;\r\n\topacity: 0;\r\n}\r\n\r\n.mt-checkbox input[type=checkbox][disabled] + i {\r\n\tborder: 1px solid #ccc;\r\n\tbackground: #f3f3f3;\r\n\tcolor: #f3f3f3;\r\n\tcursor: default;\r\n}\r\n\r\n.mt-checkbox input[type=checkbox][disabled] + i + span {\r\n\tcolor: #ccc;\r\n\tcursor: default;\r\n}\r\n\r\n.mt-checkbox-active .icon-checkbox {\r\n\tcolor: #62a8ea;\r\n}\r\n\r\n.mt-checkbox-active .icon-checkbox:before {\r\n\ttransform: scale(1);\r\n}\r\n\r\n.mt-checkbox-active input[type=checkbox][disabled] + i {\r\n\tborder: 1px solid #ccc;\r\n\tbackground: #fff;\r\n\tcolor: #ccc;\r\n}\r\n\r\n/*表单之 radio*/\r\n.mt-radio {\r\n\tdisplay: inline-block;\r\n\tvertical-align: middle;\r\n\tposition: relative;\r\n\tcursor: pointer;\r\n}\r\n\r\n.mt-radio-group {\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.mt-radio .icon-radio {\r\n\tvertical-align: middle;\r\n\tdisplay: inline-block;\r\n\twidth: 18px;\r\n\theight: 18px;\r\n\tbackground: #fff;\r\n\tborder: 1px solid #62a8ea;\r\n\tborder-radius: 50%;\r\n\tcolor: #fff;\r\n\toverflow: hidden;\r\n\tmargin-right: 5px;\r\n\tfont-size: 12px;\r\n\tline-height: 18px;\r\n\ttext-align: center;\r\n}\r\n\r\n.mt-radio .icon-radio:before {\r\n\ttransition: 0.3s;\r\n\ttransform: scale(0);\r\n}\r\n\r\n.mt-radio input[type=radio] {\r\n\twidth: 0;\r\n\theight: 0;\r\n\tposition: absolute;\r\n\topacity: 0;\r\n}\r\n\r\n.mt-radio input[type=radio][disabled] + i {\r\n\tborder: 1px solid #ccc;\r\n\tbackground: #f3f3f3;\r\n\tcolor: #f3f3f3;\r\n\tcursor: default;\r\n}\r\n\r\n.mt-radio input[type=radio][disabled] + i + span {\r\n\tcolor: #ccc;\r\n\tcursor: default;\r\n}\r\n\r\n.mt-radio-active .icon-radio {\r\n\tcolor: #62a8ea;\r\n}\r\n\r\n.mt-radio-active .icon-radio:before {\r\n\ttransform: scale(1);\r\n}\r\n\r\n.mt-radio-active input[type=radio][disabled] + i {\r\n\tborder: 1px solid #ccc;\r\n\tcolor: #ccc;\r\n}\r\n\r\n/*表单之 select*/\r\n.mt-select {\r\n\tdisplay: inline-block;\r\n\tposition: relative;\r\n\tcursor: pointer;\r\n\theight: 28px;\r\n\tline-height: 28px;\r\n\tpadding: 0 13px;\r\n\tpadding-right: 30px;\r\n\tfont-size: 14px;\r\n\tborder-radius: 2px;\r\n\tborder: 1px solid #e4eaec;\r\n\tbackground-color: #fff;\r\n\tvertical-align: middle;\r\n\tz-index: 10;\r\n}\r\n\r\n.mt-select .mt-select-title {\r\n\theight: 28px;\r\n\tline-height: 26px;\r\n\toverflow: hidden;\r\n}\r\n\r\n.mt-select .mt-select-title .placeholder {\r\n\tcolor: #b7c1cf;\r\n}\r\n\r\n.mt-select .iconfont {\r\n\tposition: absolute;\r\n\tright: 5px;\r\n\ttop: 5px;\r\n\tcolor: #c4c4c4;\r\n}\r\n\r\n.mt-select .icon-xia:before {\r\n\tcontent: \"\\E602\";\r\n}\r\n\r\n.mt-select .mt-select-box {\r\n\tposition: absolute;\r\n\tleft: -1px;\r\n\tright: -1px;\r\n\ttop: 100%;\r\n\tbackground: #fff;\r\n\tpadding: 5px;\r\n\tborder: 1px solid #e4eaec;\r\n\tbox-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);\r\n\toverflow: auto;\r\n\tmax-height: 260px;\r\n\tdisplay: none;\r\n}\r\n\r\n.mt-select .mt-select-box .option {\r\n\tposition: relative;\r\n\tpadding: 0 4px;\r\n\ttransition: 0.3s;\r\n\theight: 28px;\r\n\toverflow: hidden;\r\n}\r\n\r\n.mt-select .mt-select-box .option:hover {\r\n\tbackground: #62a8ea;\r\n\tcolor: #fff;\r\n}\r\n\r\n.mt-select .mt-select-box .mt-select-add {\r\n\tposition: relative;\r\n}\r\n\r\n.mt-select .mt-select-box .mt-select-add .mt-add-select-val {\r\n\ttext-indent: 5px;\r\n\twidth: 100%;\r\n\tborder: 1px solid #e4eaec;\r\n\ttransition: 0.6s;\r\n}\r\n\r\n.mt-select .mt-select-box .mt-select-add .mt-add-select-val:focus {\r\n\tborder: 1px solid #62a8ea;\r\n}\r\n\r\n.mt-select .mt-select-box .mt-select-add .mt-add-select-btn {\r\n\tposition: absolute;\r\n\tcolor: #fff;\r\n\tbackground: #62a8ea;\r\n\tright: 0;\r\n\ttop: 4px;\r\n\theight: 20px;\r\n\twidth: 20px;\r\n\tline-height: 17px;\r\n\ttext-align: center;\r\n\ttransition: 0.3s;\r\n}\r\n\r\n.mt-select .mt-select-box .mt-select-add .mt-add-select-btn:hover {\r\n\tbackground: #4a89dc;\r\n}\r\n\r\n.mt-selected .icon-xia:before {\r\n\tcontent: \"\\E601\";\r\n}\r\n\r\n.mt-select-disabled {\r\n\tbackground-color: #f3f3f3;\r\n\tcolor: #ccc;\r\n\tcursor: default;\r\n}\r\n\r\n.mt-select-disabled .icon-xia {\r\n\tcolor: #ccc;\r\n}\r\n\r\n/*表单之 日历*/\r\n.mt-date input[type=text] {\r\n\twidth: 120px;\r\n}\r\n\r\n/*表单之 滑动杆*/\r\n.mt-slider {\r\n\tdisplay: block;\r\n\theight: 8px;\r\n\tbackground: #e4eaec;\r\n\tborder-radius: 100px;\r\n\tmargin-right: 100px;\r\n\tposition: relative;\r\n}\r\n\r\n.mt-slider .mt-slider-val {\r\n\tposition: absolute;\r\n\tright: -80px;\r\n\ttop: -6px;\r\n\tborder: 1px solid #e4eaec;\r\n\twidth: 60px;\r\n\theight: 20px;\r\n\tpadding: 2px 5px;\r\n\tborder-radius: 2px;\r\n\tfont-size: 12px;\r\n\ttransition: 0.3s;\r\n\ttext-align: center;\r\n}\r\n\r\n.mt-slider .mt-slider-val:focus {\r\n\tborder: 1px solid #62a8ea;\r\n}\r\n\r\n.mt-slider .mt-slider-btn {\r\n\twidth: 16px;\r\n\theight: 16px;\r\n\tborder-radius: 100px;\r\n\tposition: absolute;\r\n\tbackground: #62a8ea;\r\n\ttop: -4px;\r\n\tright: -10px;\r\n\tcursor: pointer;\r\n\tz-index: 100;\r\n\tbox-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);\r\n}\r\n\r\n.mt-slider .mt-slider-bar {\r\n\tposition: absolute;\r\n\theight: 100%;\r\n\twidth: 0;\r\n\tborder-radius: 100px;\r\n\tbackground: #62a8ea;\r\n\ttop: 0;\r\n\tleft: 0;\r\n}\r\n\r\n.mt-slider-red .mt-slider-btn {\r\n\tbackground: #FB4E47;\r\n}\r\n\r\n.mt-slider-red .mt-slider-bar {\r\n\tbackground: #FB4E47;\r\n}\r\n\r\n.mt-slider-green .mt-slider-btn {\r\n\tbackground: #5EB95E;\r\n}\r\n\r\n.mt-slider-green .mt-slider-bar {\r\n\tbackground: #5EB95E;\r\n}\r\n\r\n/*表单之进度条*/\r\n@-webkit-keyframes slider-bar-stripes {\r\n\tfrom {\r\n\t\tbackground-position: 36px 0;\r\n\t}\r\n\r\n\tto {\r\n\t\tbackground-position: 0 0;\r\n\t}\r\n\r\n}\r\n\r\n@keyframes slider-bar-stripes {\r\n\tfrom {\r\n\t\tbackground-position: 36px 0;\r\n\t}\r\n\r\n\tto {\r\n\t\tbackground-position: 0 0;\r\n\t}\r\n\r\n}\r\n\r\n/* slider bar */\r\n.mt-slider-active {\r\n\tdisplay: block;\r\n\theight: 8px;\r\n\tbackground: #e4eaec;\r\n\tborder-radius: 100px;\r\n}\r\n\r\n.mt-slider-active-bar {\r\n\tfloat: left;\r\n\twidth: 0;\r\n\theight: 100%;\r\n\tfont-size: 1.2rem;\r\n\tline-height: 2rem;\r\n\tborder-radius: 100px;\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tbackground-color: #0e90d2;\r\n\tbox-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);\r\n\ttransition: 10px .6s ease;\r\n\tbackground-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);\r\n\tbackground-size: 36px 36px;\r\n\t-webkit-animation: slider-bar-stripes 2s linear infinite;\r\n\tanimation: slider-bar-stripes 2s linear infinite;\r\n}\r\n\r\n.mt-slider-active-green .mt-slider-active-bar {\r\n\tbackground-color: #5EB95E;\r\n}\r\n\r\n.mt-slider-active-red .mt-slider-active-bar {\r\n\tbackground-color: #FB4E47;\r\n}\r\n\r\n/*表单之 switch选择*/\r\n.mt-switch {\r\n\tdisplay: inline-block;\r\n\tvertical-align: middle;\r\n\twidth: 60px;\r\n\theight: 30px;\r\n\tline-height: 26px;\r\n\tborder-radius: 100px;\r\n\tbackground: #f3f3f3;\r\n\tborder: 1px solid #DBDFE8;\r\n\tbox-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.05);\r\n\tposition: relative;\r\n\tcursor: pointer;\r\n\ttext-align: center;\r\n\ttransition: 0.3s;\r\n}\r\n\r\n.mt-switch .mt-switch-btn {\r\n\ttransition: 0.4s;\r\n\ttransform: translateX(0);\r\n\tdisplay: inline-block;\r\n\tposition: absolute;\r\n\tleft: 1px;\r\n\ttop: 1px;\r\n\tbackground: #fff;\r\n\twidth: 26px;\r\n\theight: 26px;\r\n\tz-index: 100;\r\n\toverflow: hidden;\r\n\tborder-radius: 100px;\r\n\tbox-shadow: 0 1px 1px rgba(0, 0, 0, 0.6);\r\n\ttext-indent: 0;\r\n}\r\n\r\n.mt-switch .mt-switch-info {\r\n\ttransition: 0.5s;\r\n\ttransform: scale(1.05);\r\n\tfont-size: 12px;\r\n\tdisplay: block;\r\n\theight: 100%;\r\n\tbackground: #5EB95E;\r\n\tborder-radius: 100px;\r\n\tposition: relative;\r\n\t-moz-user-select: none;\r\n\t-khtml-user-select: none;\r\n\tuser-select: none;\r\n}\r\n\r\n.mt-switch-off .mt-switch-info {\r\n\tbackground: #fff;\r\n\ttransform: scale(0);\r\n}\r\n\r\n.mt-switch-off .mt-switch-btn {\r\n\tbackground: #fff;\r\n\ttransform: translateX(31px);\r\n}\r\n\r\n.mt-switch[disabled] {\r\n\tbackground: #ccc;\r\n}\r\n\r\n.mt-switch[disabled] .mt-switch-btn {\r\n\tbackground: #ddd;\r\n}\r\n\r\n.mt-switch[disabled] .mt-switch-info {\r\n\tbackground: #ccc;\r\n}\r\n\r\n/*\r\n.mt-switch-btn:after{ display: inline-block; content: \"\"; position: absolute; width: 6px; height: 10px; top: 50%; left: 50%; margin: -5px 0 0 -3px; border-right: 1px solid #ccc; border-left: 1px solid #ccc;}\r\n*/\r\n\r\n/*按钮*/\r\n.mt-btn-grey,\r\n.mt-btn-red,\r\n.mt-btn-yellow,\r\n.mt-btn-green,\r\n.mt-btn-blue,\r\n.mt-btn-round-grey,\r\n.mt-btn-round-red,\r\n.mt-btn-round-yellow,\r\n.mt-btn-round-green,\r\n.mt-btn-round-blue {\r\n\ttext-align: center;\r\n\tcursor: pointer;\r\n\tdisplay: inline-block;\r\n\tpadding: 5px 16px;\r\n\tbackground: #e6e6e6;\r\n\tcolor: #fff;\r\n\ttransition: 0.3s;\r\n\tborder-radius: 2px;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.mt-btn-grey:active,\r\n.mt-btn-red:active,\r\n.mt-btn-yellow:active,\r\n.mt-btn-green:active,\r\n.mt-btn-blue:active,\r\n.mt-btn-round-grey:active,\r\n.mt-btn-round-red:active,\r\n.mt-btn-round-yellow:active,\r\n.mt-btn-round-green:active,\r\n.mt-btn-round-blue:active {\r\n\tbox-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);\r\n}\r\n\r\n.mt-btn-round-grey,\r\n.mt-btn-round-red,\r\n.mt-btn-round-yellow,\r\n.mt-btn-round-green,\r\n.mt-btn-round-blue {\r\n\tborder-radius: 100px;\r\n}\r\n\r\n.mt-btn-grey,\r\n.mt-btn-round-grey {\r\n\tcolor: #666;\r\n}\r\n\r\n.mt-btn-grey:hover,\r\n.mt-btn-round-grey:hover {\r\n\tbackground: #d4d4d4;\r\n}\r\n\r\n.mt-btn-red,\r\n.mt-btn-round-red {\r\n\tbackground: #FB4E47;\r\n}\r\n\r\n.mt-btn-red:hover,\r\n.mt-btn-round-red:hover {\r\n\tbackground: #ec4a44;\r\n}\r\n\r\n.mt-btn-yellow,\r\n.mt-btn-round-yellow {\r\n\tbackground: #ff9f22;\r\n}\r\n\r\n.mt-btn-yellow:hover,\r\n.mt-btn-round-yellow:hover {\r\n\tbackground: #F37B1D;\r\n}\r\n\r\n.mt-btn-blue,\r\n.mt-btn-round-blue {\r\n\tbackground: #0e90d2;\r\n}\r\n\r\n.mt-btn-blue:hover,\r\n.mt-btn-round-blue:hover {\r\n\tbackground: #0d86c4;\r\n}\r\n\r\n.mt-btn-green,\r\n.mt-btn-round-green {\r\n\tbackground: #5EB95E;\r\n}\r\n\r\n.mt-btn-green:hover,\r\n.mt-btn-round-green:hover {\r\n\tbackground: #57ac57;\r\n}\r\n\r\n.mt-btn-block {\r\n\tdisplay: block;\r\n}\r\n\r\n/*字体按钮*/\r\n.mt-text-fs12 {\r\n\tfont-size: 12px;\r\n}\r\n\r\n.mt-text-fs14 {\r\n\tfont-size: 14px;\r\n}\r\n\r\n.mt-text-fs16 {\r\n\tfont-size: 16px;\r\n}\r\n\r\n.mt-text-fs18 {\r\n\tfont-size: 18px;\r\n}\r\n\r\n.mt-btn-text-grey {\r\n\tcolor: #ccc;\r\n}\r\n\r\n.mt-btn-text-grey:hover {\r\n\tcolor: #999;\r\n}\r\n\r\n.mt-btn-text-red {\r\n\tcolor: #FB4E47;\r\n}\r\n\r\n.mt-btn-text-red:hover {\r\n\tcolor: #ec4a44;\r\n}\r\n\r\n.mt-btn-text-yellow {\r\n\tcolor: #ff9f22;\r\n}\r\n\r\n.mt-btn-text-yellow:hover {\r\n\tcolor: #F37B1D;\r\n}\r\n\r\n.mt-btn-text-blue {\r\n\tcolor: #0e90d2;\r\n}\r\n\r\n.mt-btn-text-blue:hover {\r\n\tcolor: #0d86c4;\r\n}\r\n\r\n.mt-btn-text-green {\r\n\tcolor: #5EB95E;\r\n}\r\n\r\n.mt-btn-text-green:hover {\r\n\tcolor: #57ac57;\r\n}\r\n\r\n/*按钮点击后触发的效果*/\r\n.ink-reaction {\r\n\tposition: relative;\r\n\toverflow: hidden;\r\n}\r\n\r\n.ink-reaction .ink {\r\n\tposition: absolute;\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tmargin-left: -100px;\r\n\tmargin-top: -100px;\r\n\tbackground-color: rgba(255, 255, 255, 0.3);\r\n\tborder-radius: 50%;\r\n\tz-index: 1;\r\n\tpointer-events: none;\r\n\topacity: 0;\r\n\t-webkit-animation: ripple-animation 1.5s;\r\n\tanimation: ripple-animation 1.5s;\r\n}\r\n\r\n.ink-reaction .ink.inverse {\r\n\tbackground-color: rgba(12, 12, 12, 0.5);\r\n}\r\n\r\n@-webkit-keyframes ripple-animation {\r\n\tfrom {\r\n\t\t-webkit-transform: scale(0);\r\n\t\ttransform: scale(0);\r\n\t\topacity: 1;\r\n\t}\r\n\r\n\tto {\r\n\t\t-webkit-transform: scale(1, 1);\r\n\t\ttransform: scale(1, 1);\r\n\t\topacity: 0;\r\n\t}\r\n\r\n}\r\n\r\n@keyframes ripple-animation {\r\n\tfrom {\r\n\t\t-webkit-transform: scale(0);\r\n\t\ttransform: scale(0);\r\n\t\topacity: 1;\r\n\t}\r\n\r\n\tto {\r\n\t\t-webkit-transform: scale(1, 1);\r\n\t\ttransform: scale(1, 1);\r\n\t\topacity: 0;\r\n\t}\r\n\r\n}\r\n\r\n/*按钮尺寸*/\r\n.mt-btn-xl {\r\n\tpadding: 10px 20px;\r\n\tfont-size: 18px;\r\n}\r\n\r\n.mt-btn-xl .iconfont {\r\n\tfont-size: 18px;\r\n}\r\n\r\n.mt-btn-lg {\r\n\tpadding: 8px 16px;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.mt-btn-lg .iconfont {\r\n\tfont-size: 16px;\r\n}\r\n\r\n.mt-btn-sm {\r\n\tpadding: 5px 8px;\r\n\tfont-size: 12px;\r\n}\r\n\r\n.mt-btn-sm .iconfont {\r\n\tfont-size: 12px;\r\n}\r\n\r\n.mt-btn-xs {\r\n\tpadding: 2px 6px;\r\n\tfont-size: 12px;\r\n}\r\n\r\n.mt-btn-xs .iconfont {\r\n\tfont-size: 12px;\r\n}\r\n\r\n/*table 样式*/\r\n.mt-table {\r\n\twidth: 100%;\r\n\tmargin: 10px 0;\r\n}\r\n\r\n.mt-table th {\r\n\ttext-align: left;\r\n\tpadding: 10px 8px;\r\n\tborder-bottom: 2px solid #E8EAEA;\r\n\tcolor: #666;\r\n\tfont-weight: bolder;\r\n}\r\n\r\n.mt-table td {\r\n\tpadding: 10px 8px;\r\n\tborder-bottom: 1px solid #E8EAEA;\r\n\tfont-size: 14px;\r\n\tcolor: #333;\r\n}\r\n\r\n.mt-table-border {\r\n\tborder-top: 1px solid #E8EAEA;\r\n\tborder-left: 1px solid #E8EAEA;\r\n\tborder-right: 1px solid #E8EAEA;\r\n}\r\n\r\n.mt-table-bordered {\r\n\tborder-top: 1px solid #E8EAEA;\r\n\tborder-left: 1px solid #E8EAEA;\r\n\tborder-right: 1px solid #E8EAEA;\r\n}\r\n\r\n.mt-table-bordered td,\r\n.mt-table-bordered th {\r\n\tborder-left: 1px solid #E8EAEA;\r\n}\r\n\r\n.mt-table-striped tr:nth-child(even) {\r\n\tbackground: #f9f9f9;\r\n}\r\n\r\n.mt-table-center {\r\n\ttext-align: center;\r\n}\r\n\r\n.mt-table-center th {\r\n\ttext-align: center;\r\n}\r\n\r\n.mt-table-hover tr + tr:hover {\r\n\tbackground: #e6e6e6;\r\n}\r\n\r\n/*折叠面板*/\r\n.mt-panel-group {\r\n\tborder-top: 1px solid #ddd;\r\n}\r\n\r\n.mt-panel-group .mt-panel-header,\r\n.mt-panel-group .mt-panel-header-one {\r\n\tbackground: #f5f5f5;\r\n\tborder: 1px solid #ddd;\r\n\tborder-top: 0;\r\n\tpadding: 5px 10px;\r\n\tcursor: pointer;\r\n}\r\n\r\n.mt-panel-group .mt-panel-content {\r\n\tbackground: #fff;\r\n\tborder: 1px solid #ddd;\r\n\tborder-top: 0;\r\n\tpadding: 5px 10px;\r\n\tdisplay: none;\r\n}\r\n\r\n.mt-panel-group .mt-panel-active .mt-panel-content,\r\n.mt-panel-group .mt-panel-active .mt-panel-header-one {\r\n\tdisplay: block;\r\n}\r\n\r\n/*下拉列表*/\r\n.mt-dropdown {\r\n\tdisplay: inline-block;\r\n\tposition: relative;\r\n}\r\n\r\n.mt-dropdown .mt-dropdown-content {\r\n\tpadding: 10px;\r\n\tbackground: #fff;\r\n\tborder: 1px solid #E8EAEA;\r\n\tborder-radius: 2px;\r\n\tmin-width: 160px;\r\n\tposition: absolute;\r\n\ttop: 100%;\r\n\tbox-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);\r\n\t-webkit-animation-duration: 0.5s;\r\n\tanimation-duration: 0.5s;\r\n\tz-index: 100;\r\n\tdisplay: none;\r\n}\r\n\r\n.mt-dropdown .mt-dropdown-content li {\r\n\tpadding: 5px 0;\r\n\tfont-size: 14px;\r\n\tcolor: #999;\r\n}\r\n\r\n.mt-dropdown-active .mt-dropdown-content {\r\n\tdisplay: block;\r\n}\r\n\r\n.mt-dropdown-active .mt-dropdown-toggle .icon-xia:before,\r\n.mt-dropdown-active .mt-dropdown-toggle-hover .icon-xia:before {\r\n\tcontent: \"\\E601\";\r\n}\r\n\r\n/*模态弹窗*/\r\n.mt-modal-dialog {\r\n\tbox-shadow: 0 0 10px rgba(0, 0, 0, 0.5);\r\n\tposition: fixed;\r\n\tbackground: #fff;\r\n\tdisplay: none;\r\n\t-webkit-animation-name: bounceInDown;\r\n\tanimation-name: bounceInDown;\r\n\t-webkit-animation-duration: 1s;\r\n\tanimation-duration: 1s;\r\n\t-webkit-animation-fill-mode: both;\r\n\tanimation-fill-mode: both;\r\n\tz-index: 10000;\r\n}\r\n\r\n.mt-modal-dialog .mt-modal-close {\r\n\tposition: absolute;\r\n\ttop: 10px;\r\n\tright: 10px;\r\n\tcolor: #333;\r\n\ttransition: 0.3s;\r\n\tz-index: 100;\r\n}\r\n\r\n.mt-modal-dialog .mt-modal-close:hover {\r\n\ttransform: rotate(180deg);\r\n}\r\n\r\n.mt-modal-dialog .mt-dialog-title {\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n\ttext-align: center;\r\n\tcolor: #fff;\r\n\tbackground: #4a89dc;\r\n\tposition: relative;\r\n}\r\n\r\n.mt-modal-dialog .mt-dialog-title .mt-modal-close {\r\n\ttop: 0;\r\n\tcolor: #fff;\r\n}\r\n\r\n.mt-modal-dialog .mt-dialog-content {\r\n\tpadding: 10px;\r\n}\r\n\r\n/*popup*/\r\n.mt-popup {\r\n\tposition: fixed;\r\n\tbackground: #fff;\r\n\tbox-shadow: 0 0 10px rgba(0, 0, 0, 0.3);\r\n\ttext-align: center;\r\n\t-webkit-animation-name: bounceInDown;\r\n\tanimation-name: bounceInDown;\r\n\t-webkit-animation-duration: 1s;\r\n\tanimation-duration: 1s;\r\n\t-webkit-animation-fill-mode: both;\r\n\tanimation-fill-mode: both;\r\n\tz-index: 1000;\r\n}\r\n\r\n.mt-popup .mt-btn-grey,\r\n.mt-popup .mt-btn-blue {\r\n\tmargin: 0 10px 20px 10px;\r\n}\r\n\r\n.mt-popup .mt-popup-h1 {\r\n\theight: 35px;\r\n\tline-height: 35px;\r\n\tfont-size: 16px;\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tbackground: #0e90d2;\r\n}\r\n\r\n.mt-popup .mt-popup-h2 {\r\n\tcolor: #333;\r\n\tfont-size: 14px;\r\n\ttext-align: center;\r\n\tpadding: 10px 0;\r\n}\r\n\r\n.mt-popup .mt-popup-content {\r\n\tmargin: 10px;\r\n}\r\n\r\n.mt-popup .mt-popup-str {\r\n\tcolor: #333333;\r\n\tpadding: 10px 0;\r\n\tfont-size: 14px;\r\n}\r\n\r\n.mt-popup .mt-popup-ico {\r\n\tdisplay: inline-block;\r\n\twidth: 30px;\r\n\theight: 30px;\r\n}\r\n\r\n.mt-popup .mt-popup-btn-close {\r\n\tposition: absolute;\r\n\ttop: 5px;\r\n\tright: 10px;\r\n\tcolor: #fff;\r\n\ttransition: 0.3s;\r\n}\r\n\r\n.mt-popup .mt-popup-btn-close:hover {\r\n\ttop: 7px;\r\n\ttransform: rotate(180deg);\r\n}\r\n\r\n.mt-popup .mt-popup-btn-close .iconfont {\r\n\tfont-size: 12px;\r\n}\r\n\r\n/*插件之 mt-tabs*/\r\n.mt-tabs {\r\n\tposition: relative;\r\n}\r\n\r\n.mt-tabs .mt-tabs-header {\r\n\tposition: relative;\r\n\tbottom: -1px;\r\n\tz-index: 100;\r\n}\r\n\r\n.mt-tabs .mt-tabs-header li {\r\n\tfloat: left;\r\n\tpadding: 5px 20px;\r\n}\r\n\r\n.mt-tabs .mt-tabs-header li a {\r\n\tcolor: #999;\r\n}\r\n\r\n.mt-tabs .mt-tabs-header .mt-tabs-active {\r\n\tborder: 1px solid #e4eaec;\r\n\tborder-bottom: none;\r\n\tbackground: #fff;\r\n}\r\n\r\n.mt-tabs .mt-tabs-header .mt-tabs-active a {\r\n\tcolor: #333;\r\n}\r\n\r\n.mt-tabs .mt-tabs-header:after {\r\n\tcontent: \"\";\r\n\tdisplay: block;\r\n\theight: 0;\r\n\tclear: both;\r\n\tvisibility: hidden;\r\n}\r\n\r\n.mt-tabs .mt-tabs-content {\r\n\tborder: 1px solid #e4eaec;\r\n\tposition: relative;\r\n\toverflow: hidden;\r\n\tbackground: #fff;\r\n}\r\n\r\n.mt-tabs .mt-tabs-content:after {\r\n\tcontent: \"\";\r\n\tdisplay: block;\r\n\theight: 0;\r\n\tclear: both;\r\n\tvisibility: hidden;\r\n}\r\n\r\n.mt-tabs .mt-tabs-wrap {\r\n\tposition: relative;\r\n\tleft: 0;\r\n\ttop: 0;\r\n}\r\n\r\n.mt-tabs .mt-tabs-wrap:after {\r\n\tcontent: \"\";\r\n\tdisplay: block;\r\n\theight: 0;\r\n\tclear: both;\r\n\tvisibility: hidden;\r\n}\r\n\r\n.mt-tabs .mt-tabs-item {\r\n\tfloat: left;\r\n\twidth: 100%;\r\n\tz-index: 100;\r\n\tdisplay: none;\r\n\tposition: absolute;\r\n\ttop: 0;\r\n\tleft: 0;\r\n}\r\n\r\n.mt-tabs .mt-tabs-content .mt-tabs-active {\r\n\tdisplay: block;\r\n\tz-index: 101;\r\n\tposition: relative;\r\n}\r\n\r\n/*mt-tabs 无动画*/\r\n.mt-tabs .mt-tabs-animate .mt-tabs-item {\r\n\ttransition: transform 0.5s;\r\n\tdisplay: block;\r\n\ttransform: translateX(-100%);\r\n}\r\n\r\n.mt-tabs .mt-tabs-animate .mt-tabs-active {\r\n\tdisplay: block;\r\n\ttransform: translateX(0);\r\n}\r\n\r\n.mt-tabs .mt-tabs-animate .mt-tabs-active~.mt-tabs-item {\r\n\ttransform: translateX(100%);\r\n}\r\n\r\n/*插件之图片预加载*/\r\n[data-mt-imgload] {\r\n\tbackground-image: url(" + __webpack_require__(695) + ");\r\n\tbackground-repeat: no-repeat;\r\n\tbackground-position: center;\r\n}\r\n\r\n/*插件之mt-tips*/\r\n.mt-tips {\r\n\tposition: absolute;\r\n\tbackground: rgba(0, 0, 0, 0.5);\r\n\tborder-radius: 2px;\r\n\tpadding: 5px;\r\n\tcolor: #fff;\r\n\tfont-size: 14px;\r\n\tz-index: 10000;\r\n}\r\n\r\n/*插件之分页*/\r\n.mt-pagelist {\r\n\twidth: 100%;\r\n\tmargin-top: 40px;\r\n\tmargin-bottom: 40px;\r\n\tvertical-align: center;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-left {\r\n\tline-height: 28px;\r\n\tfloat: left;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-left .mt-select {\r\n\twidth: 100px;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-left .mt-select-title {\r\n\twidth: 60px;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-content {\r\n\tdisplay: inline-block;\r\n\tmax-width: 280px;\r\n\tvertical-align: middle;\r\n\theight: 28px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-right {\r\n\tfloat: right;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page {\r\n\theight: 28px;\r\n\tdisplay: inline-block;\r\n\tposition: relative;\r\n\tleft: 0;\r\n\tmargin-top: 1px;\r\n\ttransition: transform 0.5s;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li {\r\n\tfloat: left;\r\n\tmargin: 0 5px;\r\n\tbackground: #fff;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li a {\r\n\tdisplay: inline-block;\r\n\tborder: 1px solid #dddddd;\r\n\tborder-radius: 2px;\r\n\tfont-size: 14px;\r\n\twidth: 30px;\r\n\theight: 26px;\r\n\tline-height: 24px;\r\n\tcolor: #333;\r\n\ttext-align: center;\r\n\ttransition: 0.3s;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li a:hover {\r\n\tcolor: #fff;\r\n\tbackground-color: #0393dc;\r\n\tborder: 1px solid #0393dc;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page .on a {\r\n\tcolor: #fff;\r\n\tbackground-color: #0393dc;\r\n\tcursor: default;\r\n\tborder: 1px solid #0393dc;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-input {\r\n\tmargin: 0 12px;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-input .mt-input {\r\n\tborder: 1px solid #dddddd;\r\n\theight: 26px;\r\n\twidth: 40px;\r\n\tmargin: 0 2px;\r\n\ttext-align: center;\r\n\tbackground: #fff;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-prev,\r\n.mt-pagelist .mt-pagelist-next,\r\n.mt-pagelist .mt-pagelist-btn,\r\n.mt-pagelist .mt-pagelist-end,\r\n.mt-pagelist .mt-pagelist-first {\r\n\tborder: 1px solid #dddddd;\r\n\tborder-radius: 2px;\r\n\tfont-size: 14px;\r\n\tcolor: #333;\r\n\tpadding: 4px 10px;\r\n\tbackground: #fff;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-prev:hover,\r\n.mt-pagelist .mt-pagelist-next:hover,\r\n.mt-pagelist .mt-pagelist-btn:hover,\r\n.mt-pagelist .mt-pagelist-end:hover,\r\n.mt-pagelist .mt-pagelist-first:hover {\r\n\tcolor: #fff;\r\n\tbackground-color: #0393dc;\r\n\tborder: 1px solid #0393dc;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-runprev,\r\n.mt-pagelist .mt-pagelist-runnext {\r\n\tborder: 1px solid #fff;\r\n\tpadding: 4px;\r\n}\r\n\r\n/*日历组件*/\r\n.mt-date-main {\r\n\tborder: 1px solid #EAEAEA;\r\n\twidth: 240px;\r\n\theight: 250px;\r\n\toverflow: hidden;\r\n\tbackground: #fff;\r\n\tdisplay: none;\r\n\tposition: absolute;\r\n\tz-index: 9999;\r\n\tbox-shadow: 0 2px 4px rgba(150, 162, 186, 0.5);\r\n}\r\n\r\n.mt-date-title {\r\n\theight: 30px;\r\n\tline-height: 25px;\r\n\tbackground: #fff;\r\n\tcolor: #333;\r\n\ttext-align: center;\r\n}\r\n\r\n.mt-date-title .mt-btn-blue {\r\n\tbackground: #fff;\r\n\tcolor: #333;\r\n}\r\n\r\n.mt-date-title a {\r\n\tmargin: 0 5px;\r\n\tpadding: 2px 5px;\r\n\tline-height: normal;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.mt-date-title .mt-date-nowday,\r\n.mt-date-title .mt-date-clear {\r\n\tposition: absolute;\r\n\ttop: 8px;\r\n\tfont-size: 12px;\r\n\tz-index: 20;\r\n}\r\n\r\n.mt-date-title .mt-date-nowday {\r\n\tleft: 0;\r\n\ttop: 5px;\r\n}\r\n\r\n.mt-date-title .mt-date-clear {\r\n\tright: 0;\r\n\ttop: 5px;\r\n}\r\n\r\n.mt-date-month,\r\n.mt-date-year {\r\n\tdisplay: none;\r\n}\r\n\r\n.mt-date-ym,\r\n.mt-date-y,\r\n.mt-date-m {\r\n\tdisplay: inline-block;\r\n\twidth: 100px;\r\n\tposition: relative;\r\n\ttop: 0px;\r\n}\r\n\r\n.mt-date-week {\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\ttext-align: center;\r\n\tfont-weight: bolder;\r\n}\r\n\r\n.mt-date-week li {\r\n\tdisplay: inline-block;\r\n\twidth: 14.28%;\r\n}\r\n\r\n.mt-date-warp {\r\n\theight: 240px;\r\n\twidth: 900px;\r\n\tbackground: #ccc;\r\n}\r\n\r\n.mt-date-item {\r\n\theight: 100%;\r\n\twidth: 240px;\r\n\tfloat: left;\r\n}\r\n\r\n.mt-date-day li {\r\n\tfloat: left;\r\n\ttext-align: center;\r\n\twidth: 14.28%;\r\n\theight: 32px;\r\n\tline-height: 32px;\r\n}\r\n\r\n.mt-date-day li a {\r\n\tcolor: #666;\r\n\tdisplay: inline-block;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\ttransition: 0.3s;\r\n}\r\n\r\n.mt-date-day li a:hover {\r\n\tbackground: #ccc;\r\n}\r\n\r\n.mt-date-day li .mt-date-prevday,\r\n.mt-date-day li .mt-date-nextday {\r\n\tcolor: #ccc;\r\n}\r\n\r\n.mt-date-day li .mt-date-selected {\r\n\tbackground: #e9e9e9;\r\n\tcolor: #000;\r\n}\r\n\r\n.mt-date-years,\r\n.mt-date-months {\r\n\twidth: 100%;\r\n\theight: 220px;\r\n\tposition: absolute;\r\n\tbottom: 0;\r\n\tz-index: 100;\r\n\tbackground: #fff;\r\n\ttransition: 0.3s;\r\n}\r\n\r\n.mt-date-months li {\r\n\tline-height: 64px;\r\n\tfont-size: 14px;\r\n\tcursor: pointer;\r\n\tfloat: left;\r\n\tborder-radius: 0;\r\n\tbackground: #fff;\r\n\tcolor: #333;\r\n\twidth: 25%;\r\n\theight: 25%;\r\n\ttext-align: center;\r\n}\r\n\r\n.mt-date-months li:hover {\r\n\tcolor: #000;\r\n\tbackground: #e9e9e9;\r\n}\r\n\r\n.mt-date-months .mt-active {\r\n\tcolor: #000;\r\n\tbackground: #e9e9e9;\r\n}\r\n\r\n.mt-date-years li {\r\n\tcursor: pointer;\r\n\tfloat: left;\r\n\tbackground: #fff;\r\n\tline-height: normal;\r\n\tcolor: #333;\r\n\twidth: 49px;\r\n\theight: 28px;\r\n\tmargin: 4px 5px;\r\n}\r\n\r\n.mt-date-years .mt-active {\r\n\tcolor: #000;\r\n\tbackground: #e9e9e9;\r\n}\r\n\r\n.mt-date-years li:hover {\r\n\tcolor: #000;\r\n\tbackground: #ccc;\r\n}\r\n\r\n.mt-date-main .mt-btn-blue {\r\n\tbox-shadow: none;\r\n}\r\n\r\n.mt-dates {\r\n\tborder: 1px solid #EAEAEA;\r\n\toverflow: hidden;\r\n\tposition: absolute;\r\n\tdisplay: none;\r\n\tbox-shadow: 0 2px 4px rgba(150, 162, 186, 0.5);\r\n\twidth: 490px;\r\n\theight: 290px;\r\n\tbackground: #fff;\r\n\tz-index: 9999;\r\n}\r\n\r\n.mt-dates .mt-date-main {\r\n\tbox-shadow: none;\r\n\tdisplay: block;\r\n\tborder: none;\r\n\tbackground: none;\r\n}\r\n\r\n.mt-dates .mt-date-main+.mt-date-main {\r\n\tleft: 250px;\r\n}\r\n\r\n.mt-dates:before {\r\n\tcontent: \"\";\r\n\tdisplay: inline-block;\r\n\tposition: absolute;\r\n\tleft: 245px;\r\n\ttop: 0px;\r\n\theight: 250px;\r\n\tbackground: #e6e6e6;\r\n\twidth: 1px;\r\n}\r\n\r\n.mt-dates .mt-dates-text {\r\n\tposition: absolute;\r\n}\r\n\r\n.mt-dates-bottom {\r\n\tposition: absolute;\r\n\tbottom: 0;\r\n\tz-index: 10000;\r\n\tleft: 0;\r\n\twidth: 100%;\r\n\tborder-top: 1px solid #e6e6e6;\r\n\theight: 40px;\r\n\ttext-align: right;\r\n}\r\n\r\n.mt-dates-bottom a {\r\n\tdisplay: inline-block;\r\n\tmargin-right: 10px !important;\r\n\tbackground: #F3F3F3;\r\n\tcolor: #333;\r\n\tborder: 1px solid #EAEAEA;\r\n\tmargin-top: 5px;\r\n\tpadding: 5px 15px;\r\n}\r\n\r\n.mt-dates .yesdate {\r\n}\r\n\r\n.mt-dates .cleardate {\r\n}\r\n\r\n/*\r\n.mt-dates-start .mt-dates-down,\r\n.mt-dates-end .mt-dates-up{ background: #e4e4e4;}\r\n*/\r\n\r\n/*二级菜单*/\r\n.mt-treemenu {\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.mt-treemenu-box {\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.mt-treemenu-title {\r\n\tposition: relative;\r\n\tcursor: pointer;\r\n}\r\n\r\n.mt-treemenu-title .iconfont {\r\n\ttransition: 0.3s;\r\n\tposition: absolute;\r\n\tleft: -15px;\r\n\ttop: 3px;\r\n\tfont-size: 12px;\r\n}\r\n\r\n.mt-treemenu .mt-treemenu-box .mt-treemenu-box {\r\n\tdisplay: none;\r\n}\r\n\r\n.mt-treemenu-active .iconfont {\r\n\r\n\t/*content: \"\\e60e\";*/ transform: rotate(90deg);\r\n\t-webkit-transform: rotate(90deg);\r\n}\r\n\r\n/*more tips*/\r\n.mt-more {\r\n\theight: 20px;\r\n\tdisplay: inline-block;\r\n\tposition: relative;\r\n\tvertical-align: middle;\r\n\tmargin-left: 5px;\r\n}\r\n\r\n.mt-more .iconfont {\r\n\tcolor: #999;\r\n\tcursor: pointer;\r\n}\r\n\r\n.mt-more .mt-more-content {\r\n\tfont-size: 14px;\r\n\tposition: absolute;\r\n\tmin-width: 120px;\r\n\tmax-width: 300px;\r\n\ttop: 30px;\r\n\tleft: -60px;\r\n\tbackground: #fff;\r\n\tborder: 1px solid #ddd;\r\n\tbox-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);\r\n\tpadding: 10px;\r\n\tborder-radius: 4px;\r\n\tdisplay: none;\r\n\tcolor: #999;\r\n}\r\n\r\n.mt-more .mt-more-content:before {\r\n\tcontent: \"\";\r\n\tdisplay: inline-block;\r\n\tborder: 10px solid transparent;\r\n\tborder-bottom: 10px solid #ddd;\r\n\tposition: absolute;\r\n\ttop: -20px;\r\n\tleft: 60px;\r\n}\r\n\r\n.mt-more:hover {\r\n\tz-index: 10000;\r\n}\r\n\r\n.mt-more:hover .mt-more-content {\r\n\tdisplay: block;\r\n}\r\n\r\n/* popover 提示*/\r\n.mt-popover {\r\n\tposition: absolute;\r\n\tbackground: #333;\r\n\tcolor: #fff;\r\n\tmax-width: 300px;\r\n\tpadding: 10px;\r\n}\r\n\r\n.mt-popover .mt-arrow {\r\n\tdisplay: inline-block;\r\n\tposition: absolute;\r\n\twidth: 0;\r\n\theight: 0;\r\n\tborder: 8px solid transparent;\r\n}\r\n\r\n.mt-popover-top .mt-arrow {\r\n\tbottom: -15px;\r\n\tleft: 50%;\r\n\tmargin-left: -8px;\r\n\tborder-top: 8px solid #333;\r\n}\r\n\r\n.mt-popover-left .mt-arrow {\r\n\ttop: 50%;\r\n\tright: -15px;\r\n\tmargin-top: -8px;\r\n\tborder-left: 8px solid #333;\r\n}\r\n\r\n.mt-popover-down .mt-arrow {\r\n\tleft: 50%;\r\n\ttop: -15px;\r\n\tmargin-left: -8px;\r\n\tborder-bottom: 8px solid #333;\r\n}\r\n\r\n.mt-popover-right .mt-arrow {\r\n\ttop: 50%;\r\n\tleft: -15px;\r\n\tmargin-top: -8px;\r\n\tborder-right: 8px solid #333;\r\n}\r\n\r\n/* loading... */\r\n.mt-loading {\r\n\tpointer-events: none;\r\n}\r\n\r\n.mt-loading .mt-bar {\r\n\tbackground: #29d;\r\n\tposition: fixed;\r\n\ttop: 0;\r\n\tleft: 0;\r\n\twidth: 100%;\r\n\theight: 2px;\r\n\ttransform: translate3d(-100%, 0px, 0px);\r\n\ttransition: all 200ms ease;\r\n}\r\n\r\n.mt-loading .mt-spinner {\r\n\tdisplay: block;\r\n\tposition: fixed;\r\n\ttop: 8px;\r\n\tright: 8px;\r\n}\r\n\r\n.mt-loading .mt-spinner-icon {\r\n\twidth: 18px;\r\n\theight: 18px;\r\n\tbox-sizing: border-box;\r\n\tborder: solid 2px transparent;\r\n\tborder-top-color: #29d;\r\n\tborder-left-color: #29d;\r\n\tborder-radius: 50%;\r\n\t-webkit-animation: rotateInfinite 400ms linear infinite;\r\n\tanimation: rotateInfinite 400ms linear infinite;\r\n}\r\n\r\n/*占位loading*/\r\n.mt-loading-box {\r\n\tposition: relative;\r\n\theight: 100px;\r\n}\r\n\r\n.mt-loading-cricle {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\tline-height: 130px;\r\n\twidth: 60px;\r\n\theight: 60px;\r\n\tmargin: -40px 0 0 -30px;\r\n\tposition: absolute;\r\n\tleft: 50%;\r\n\ttop: 50%;\r\n\topacity: 0.2;\r\n}\r\n\r\n.mt-loading-cricle:before,\r\n.mt-loading-cricle:after {\r\n\tcontent: \"\";\r\n\tposition: absolute;\r\n\ttop: 50%;\r\n\tleft: 50%;\r\n\tdisplay: inline-block;\r\n\tborder-radius: 1000px;\r\n\tborder: 3px solid #000;\r\n}\r\n\r\n.mt-loading-cricle:before {\r\n\t-webkit-animation: rotateInfinite 500ms linear infinite;\r\n\twidth: 40px;\r\n\theight: 40px;\r\n\tmargin: -20px 0 0 -20px;\r\n\tborder-top-color: transparent;\r\n\tborder-bottom-color: transparent;\r\n}\r\n\r\n.mt-loading-cricle:after {\r\n\t-webkit-animation: rotateInfiniteN 400ms linear infinite;\r\n\twidth: 20px;\r\n\theight: 20px;\r\n\tmargin: -10px 0 0 -10px;\r\n\tborder-left-color: transparent;\r\n\tborder-right-color: transparent;\r\n}\r\n\r\n/*循环旋转*/\r\n@-webkit-keyframes rotateInfinite {\r\n\t0% {\r\n\t\t-webkit-transform: rotate(0deg);\r\n\t}\r\n\r\n\t100% {\r\n\t\t-webkit-transform: rotate(360deg);\r\n\t}\r\n\r\n}\r\n\r\n@-webkit-keyframes rotateInfiniteN {\r\n\t0% {\r\n\t\t-webkit-transform: rotate(360deg);\r\n\t}\r\n\r\n\t100% {\r\n\t\t-webkit-transform: rotate(0deg);\r\n\t}\r\n\r\n}\r\n\r\n.mt-input-error input {\r\n\tborder-color: #FF6262 !important;\r\n}\r\n\r\n.mt-validate-error {\r\n\tposition: absolute;\r\n\ttop: 50%;\r\n\tmargin-top: -10px;\r\n\tpadding: 2px 5px;\r\n\tbackground: #FF6262;\r\n\tcolor: #fff;\r\n\tborder-radius: 3px;\r\n\tleft: 100%;\r\n\tmargin-left: 5px;\r\n\tword-break: keep-all;\r\n\twhite-space: nowrap;\r\n\tfont-size: 12px;\r\n}\r\n\r\n.mt-validate-error:after {\r\n\tcontent: \"\";\r\n\tdisplay: inline-block;\r\n\twidth: 0;\r\n\theight: 0;\r\n\tborder: 5px solid transparent;\r\n\tborder-right: 5px solid #FF6262;\r\n\tposition: absolute;\r\n\tleft: -10px;\r\n\ttop: 50%;\r\n\tmargin-top: -4.5px;\r\n}\r\n\r\n/*文件上传*/\r\n.mt-upload {\r\n\tposition: relative;\r\n\tcursor: pointer;\r\n\toverflow: hidden;\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.mt-upload input[type=file] {\r\n\tposition: absolute;\r\n\theight: 100%;\r\n\twidth: 100%;\r\n\ttop: 0;\r\n\tleft: 0;\r\n\topacity: 0;\r\n\tcursor: pointer;\r\n\tz-index: 200;\r\n}\r\n\r\n.mt-upload-progress {\r\n\tposition: absolute;\r\n\theight: 100%;\r\n\twidth: 0;\r\n\tleft: 0;\r\n\ttop: 0;\r\n\tbackground: #ccc;\r\n\ttransition: 1s;\r\n}\r\n\r\n.mt-upload-text {\r\n\tposition: relative;\r\n\tz-index: 100;\r\n}", ""]);
 
 	// exports
 
@@ -59490,11 +59490,11 @@
 	                type: 'scatter',
 	                symbolSize: function symbolSize(val) {
 	                    if (val[2] < 10000) {
-	                        return val[2] / 1000;
+	                        return val[2] / 500;
 	                    } else if (10000 < val[2] && val[2] < 100000) {
-	                        return val[2] / 10000;
+	                        return val[2] / 5000;
 	                    } else {
-	                        return val[2] / 200000;
+	                        return val[2] / 10000;
 	                    }
 	                },
 	                data: param.data,
@@ -59694,7 +59694,9 @@
 	  handleChange: function handleChange(e) {
 	    var searchVal = $(e.target).parent().prev().val();
 	    this.setState({ searchVal: searchVal });
-	    this.props.searchFun(searchVal);
+	    if (this.props.searchFun) {
+	      this.props.searchFun(searchVal);
+	    }
 	  },
 	  render: function render() {
 	    return _react2.default.createElement(
@@ -60049,6 +60051,10 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
 	__webpack_require__(751);
 
 	var _react = __webpack_require__(138);
@@ -60061,78 +60067,131 @@
 
 	var _IndustrySearch2 = _interopRequireDefault(_IndustrySearch);
 
+	var _redux = __webpack_require__(306);
+
+	var _reactRedux = __webpack_require__(317);
+
+	var _LineFinRiskSearchHeaderAction = __webpack_require__(1375);
+
+	var RiskSearchActionCreaters = _interopRequireWildcard(_LineFinRiskSearchHeaderAction);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var Immutable = __webpack_require__(718);
 	//风险顶部公用头部
 	var RiskSearchHeader = _react2.default.createClass({
-	    displayName: 'RiskSearchHeader',
+	  displayName: 'RiskSearchHeader',
 
-	    //重新载入搜索结果的页面
-	    goNewPage: function goNewPage() {},
+	  getInitialState: function getInitialState() {
+	    return {
+	      companyTag: []
+	    };
+	  },
+	  componentWillMount: function componentWillMount() {},
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var isEqual = Immutable.is(nextProps.dynamicRiskCompanyTagResult, this.props.dynamicRiskCompanyTagResult); //判断数据是否变化
+	    if (!isEqual) {
+	      var dynamicRiskCompanyTagRequest = nextProps.dynamicRiskCompanyTagRequest;
+	      var dynamicRiskCompanyTagResult = nextProps.dynamicRiskCompanyTagResult;
 
-	    render: function render() {
-
-	        //企业标签className
-	        var classNameSet = ["bg-blue", "bg-yellow", "bg-red"];
-
-	        return _react2.default.createElement(
-	            'div',
-	            { className: 'risk-search-header' },
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'search-box' },
-	                _react2.default.createElement(_IndustrySearch2.default, { companyType: '4', searchFun: this.goNewPage, label: '线下理财监测', className: 'small-loan-search', placeholder: '请输入企业名称检索' })
-	            ),
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'search-bar' },
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'left' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'company-name' },
-	                        this.props.companyName
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'company-info' },
-	                        this.props.companyTags.map(function (item, index) {
-	                            return _react2.default.createElement(
-	                                'span',
-	                                { className: classNameSet[index], key: 'span-' + index },
-	                                item
-	                            );
-	                        })
-	                    ),
-	                    _react2.default.createElement(
-	                        'a',
-	                        { href: 'javascript:;', className: 'export-report' },
-	                        _react2.default.createElement('i', { className: 'iconfont icon-export' }),
-	                        '导出报告'
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'right' },
-	                    _react2.default.createElement(
-	                        _reactRouter.Link,
-	                        { activeClassName: 'active', to: '/lineFinanceStaticRisk' },
-	                        _react2.default.createElement('i', { className: 'iconfont icon-bar' }),
-	                        '静态风险指数'
-	                    ),
-	                    _react2.default.createElement(
-	                        _reactRouter.Link,
-	                        { activeClassName: 'active', to: '/lineFinanceDynamicRisk' },
-	                        _react2.default.createElement('i', { className: 'iconfont icon-history' }),
-	                        '风险时序差异对比'
-	                    )
-	                )
-	            )
-	        );
+	      if (dynamicRiskCompanyTagRequest == true) {
+	        if (dynamicRiskCompanyTagResult.success == true) {
+	          this.dataFomat(dynamicRiskCompanyTagResult);
+	        } else {
+	          console.log(404);
+	        }
+	      }
 	    }
+	  },
+	  getRiskSearchVal: function getRiskSearchVal(data) {
+	    var _props = this.props;
+	    var getRiskSearchVal = _props.getRiskSearchVal;
+	    var getDynamicRiskCompanyTag = _props.getDynamicRiskCompanyTag;
+
+	    getRiskSearchVal(data);
+	    var json = { companyName: data };
+	    getDynamicRiskCompanyTag(json);
+	  },
+	  dataFomat: function dataFomat(data) {
+	    console.log(data, '公司标签');
+	  },
+	  //重新载入搜索结果的页面
+	  searchKey: function searchKey(data) {
+	    this.getRiskSearchVal(data);
+	  },
+	  render: function render() {
+	    //企业标签className
+	    var classNameSet = ["bg-blue", "bg-yellow", "bg-red"];
+
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'risk-search-header' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'search-box' },
+	        _react2.default.createElement(_IndustrySearch2.default, { companyType: '4', searchFun: this.searchKey, label: '线下理财监测', className: 'small-loan-search', placeholder: '请输入企业名称检索' })
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'search-bar' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'left' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'company-name' },
+	            this.props.companyName
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'company-info' },
+	            this.state.companyTag.map(function (item, index) {
+	              return _react2.default.createElement(
+	                'span',
+	                { className: classNameSet[index], key: 'span-' + index },
+	                item
+	              );
+	            })
+	          ),
+	          _react2.default.createElement(
+	            'a',
+	            { href: 'javascript:;', className: 'export-report' },
+	            _react2.default.createElement('i', { className: 'iconfont icon-export' }),
+	            '导出报告'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'right' },
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { activeClassName: 'active', to: '/lineFinanceStaticRisk' },
+	            _react2.default.createElement('i', { className: 'iconfont icon-bar' }),
+	            '静态风险指数'
+	          ),
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { activeClassName: 'active', to: '/lineFinanceDynamicRisk' },
+	            _react2.default.createElement('i', { className: 'iconfont icon-history' }),
+	            '风险时序差异对比'
+	          )
+	        )
+	      )
+	    );
+	  }
 	});
-	module.exports = RiskSearchHeader;
+	//module.exports = RiskSearchHeader;
+
+	function mapStateToProps(state) {
+	  return {};
+	}
+	function mapDispatchToProps(dispatch) {
+	  return (0, _redux.bindActionCreators)(RiskSearchActionCreaters, dispatch);
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(RiskSearchHeader);
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "RiskSearchHeader.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
@@ -62040,7 +62099,11 @@
 	      },
 	      tooltip: {
 	        trigger: 'item',
-	        formatter: "{a} <br/>{b} : {c} ({d}%)"
+	        backgroundColor: 'rgba(0,0,0,0.7)',
+	        padding: [10, 10, 10, 10],
+	        formatter: function formatter(v) {
+	          return v.name + "<br/>" + v.seriesName + " :&nbsp;<span style='color:#00b7f0'>" + v.value + "(" + v.percent + "%)" + "</span>";
+	        }
 	      },
 	      legend: {
 	        show: parm.legendShow,
@@ -62210,6 +62273,16 @@
 	            },
 	            tooltip: {
 	                trigger: 'axis',
+	                backgroundColor: 'rgba(0,0,0,0.7)',
+	                padding: [10, 10, 10, 10],
+	                formatter: function formatter(v) {
+	                    var info = v[0].name + "<br/>";
+	                    for (var i = 0; i < v.length; i++) {
+	                        var _spanCorlor = '<span style=color:' + parm.color[i] + '>' + v[i].value + '</span><br/>';
+	                        info += v[i].seriesName + " :&nbsp;" + _spanCorlor;
+	                    }
+	                    return info;
+	                },
 	                axisPointer: {
 	                    type: 'none'
 	                }
@@ -62613,7 +62686,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
 
 	__webpack_require__(728);
@@ -62650,140 +62723,116 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var Immutable = __webpack_require__(718);
 	//动态风险时序差异对比
 	var LineFinanceDynamicRisk = _react2.default.createClass({
-		displayName: 'LineFinanceDynamicRisk',
-		getInitialState: function getInitialState() {
-			return {
-				companyName: this.props.location.query.companyName || '一进（上海）投资管理有限公司',
-				compareMonth: "2016-04",
-				currentMonth: "2016-05"
-			};
-		},
-		getDynamicRiskData: function getDynamicRiskData() {
-			var _props = this.props;
-			var getDynamicRiskCurDateCmpData = _props.getDynamicRiskCurDateCmpData;
-			var getDynamicRiskCompanyRelationsIndex = _props.getDynamicRiskCompanyRelationsIndex;
-			var getDynamicRiskCompanyTags = _props.getDynamicRiskCompanyTags;
+	  displayName: 'LineFinanceDynamicRisk',
 
-			//1.时间轴对比图 当前时间
+	  getInitialState: function getInitialState() {
+	    return {
+	      companyName: this.props.location.query.companyName || '《国际金融报》社有限公司',
+	      compareMonth: "2016-08",
+	      currentMonth: "2016-07",
+	      indexCmpData: {}
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {
+	    //2.企业关联方特征指数
+	    var json = {
+	      areaCode: "上海市",
+	      companyName: this.state.companyName,
+	      currentMonth: this.state.currentMonth,
+	      compareMonth: this.state.compareMonth
+	    };
+	    this.getDynamicRiskData(json);
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    console.log(nextProps);
+	    var isEqual = Immutable.is(nextProps.dynamicRiskIndexCmpResult, this.props.dynamicRiskIndexCmpResult); //判断数据是否变化
+	    if (!isEqual) {
+	      var dynamicRiskIndexCmpRequest = nextProps.dynamicRiskIndexCmpRequest;
+	      var dynamicRiskIndexCmpResult = nextProps.dynamicRiskIndexCmpResult;
 
-			getDynamicRiskCurDateCmpData({
-				companyName: this.state.companyName,
-				month: "20160407" //this.state.compareMonth
-			});
-			// 对比时间
-			getDynamicRiskCurDateCmpData({
-				companyName: this.state.companyName,
-				month: "20160407" //this.state.compareMonth
-			});
+	      console.log(dynamicRiskIndexCmpResult, 'dynamicRiskIndexCmpResult');
+	      if (dynamicRiskIndexCmpRequest == true) {
+	        if (dynamicRiskIndexCmpResult.success == true) {
+	          this.dataFomat(dynamicRiskIndexCmpResult);
+	        } else {
+	          console.log(404);
+	        }
+	      }
+	    }
+	  },
+	  dataFomat: function dataFomat(data) {
+	    console.log(data, 99999);
+	    var content = data.content;
+	    this.setState({ indexCmpData: content });
+	  },
+	  getDynamicRiskData: function getDynamicRiskData(data) {
+	    var getDynamicRiskIndexCmp = this.props.getDynamicRiskIndexCmp;
 
-			//2.企业关联方特征指数
-			getDynamicRiskCompanyRelationsIndex({
-				areaCode: "上海市",
-				companyName: this.state.companyName,
-				currentMonth: this.state.currentMonth,
-				compareMonth: this.state.compareMonth
-			});
+	    getDynamicRiskIndexCmp(data);
+	  },
+	  render: function render() {
 
-			//3.企业标签
-			getDynamicRiskCompanyTags({
-				companyName: this.state.companyName
-			});
-		},
-
-
-		render: function render() {
-			var _props$dynamicRiskDat = this.props.dynamicRiskData;
-			var _props$dynamicRiskDat2 = _props$dynamicRiskDat.curDateCmpData;
-			var curDateCmpData = _props$dynamicRiskDat2 === undefined ? [] : _props$dynamicRiskDat2;
-			var _props$dynamicRiskDat3 = _props$dynamicRiskDat.companyTags;
-			var companyTags = _props$dynamicRiskDat3 === undefined ? { content: {
-					backgroud: []
-				}
-			} : _props$dynamicRiskDat3;
-			var _props$dynamicRiskDat4 = _props$dynamicRiskDat.companyRelationsIndex;
-			var companyRelationsIndex = _props$dynamicRiskDat4 === undefined ? { content: {
-					dynamicRisk: {},
-					relationData: {
-						decreaseRelationPerson: [],
-						addRelationPerson: [],
-						addThreeCompany: [],
-						decreaseThreeCompany: [],
-						addThreePerson: [],
-						decreaseThreePerson: [],
-						addTwoCompany: [],
-						decreaseTwoCompany: [],
-						addTwoPerson: [],
-						decreaseTwoPerson: [],
-						addOneCompany: [],
-						decreaseOneCompany: [],
-						addOnePerson: [],
-						decreaseOnePerson: [],
-						addChildCompany: [],
-						decreaseChildCompany: [],
-						addAgreeComDet: [],
-						decreaseAgreeComDet: [],
-						addCompanyPerson: [],
-						decreaseCompanyPerson: []
-					}
-				} } : _props$dynamicRiskDat4;
-
-
-			return _react2.default.createElement(
-				'div',
-				{ className: 'linefin-dynamic-risk ' },
-				_react2.default.createElement(_RiskSearchHeader2.default, { companyTags: companyTags.content.backgroud, companyName: companyRelationsIndex.content.companyName }),
-				_react2.default.createElement(
-					'div',
-					{ className: 'dynamic-risk-box content-space-10' },
-					_react2.default.createElement(
-						'div',
-						{ className: 'top' },
-						_react2.default.createElement(
-							'div',
-							{ className: 'left' },
-							_react2.default.createElement(_TimeAxisCompare2.default, { cmpUrls: curDateCmpData, dateYearMonths: [companyRelationsIndex.content.compare, companyRelationsIndex.content.current] })
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'right' },
-							_react2.default.createElement(_IndexCompare2.default, { content: companyRelationsIndex.content })
-						)
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'bottom mod-space-t' },
-						_react2.default.createElement(_IndexList2.default, { content: companyRelationsIndex.content })
-					)
-				)
-			);
-		},
-
-		componentDidMount: function componentDidMount() {
-			this.getDynamicRiskData();
-		},
-
-		//	获取当前和上一个月的年月
-		getCurAndPrevYM: function getCurAndPrevYM(date) {
-			var curDate = new Date();
-			var year = curDate.getFullYear();
-			var month = curDate.getMonth() + 1;
-
-			month = month < 10 ? '0' + month : month;
-
-			//得到上月时间
-			return "" + year + month;
-		}
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'linefin-dynamic-risk' },
+	      _react2.default.createElement(_RiskSearchHeader2.default, this.props),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'dynamic-risk-box content-space-10' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'top' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'left' },
+	            _react2.default.createElement(_TimeAxisCompare2.default, this.props)
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'right' },
+	            _react2.default.createElement(_IndexCompare2.default, { indexCmpData: this.state.indexCmpData })
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'bottom mod-space-t' },
+	          _react2.default.createElement(_IndexList2.default, { indexCmpData: this.state.indexCmpData })
+	        )
+	      )
+	    );
+	  }
 	});
 
 	function mapStateToProps(state) {
-		return {
-			dynamicRiskData: state.dynamicRiskData
-		};
+	  console.log(state.DynamicRiskIndexCmp, 'DynamicRiskIndexCmp');
+	  return {
+	    //dynamicRiskData: state.dynamicRiskData,
+
+	    //获取公司标签
+	    dynamicRiskCompanyTagRequest: state.DynamicRiskCompanyTag.request,
+	    dynamicRiskCompanyTagResult: state.DynamicRiskCompanyTag.result,
+
+	    //获取对比图的日期
+	    dynamicRiskDateRequest: state.DynamicRiskDate.request,
+	    dynamicRiskDateResult: state.DynamicRiskDate.result,
+
+	    //获取对比图
+	    dynamicRiskImgRequest: state.DynamicRiskImg.request,
+	    dynamicRiskImgResult: state.DynamicRiskImg.result,
+
+	    //获取对比图
+	    dynamicRiskIndexCmpRequest: state.DynamicRiskIndexCmp.request,
+	    dynamicRiskIndexCmpResult: state.DynamicRiskIndexCmp.result,
+
+	    //获取下拉列表的值
+	    riskSearch: state.RiskSearch.data
+	  };
 	}
 	function mapDispatchToProps(dispatch) {
-		return (0, _redux.bindActionCreators)(LineFinanceDynamicRiskActionCreators, dispatch);
+	  return (0, _redux.bindActionCreators)(LineFinanceDynamicRiskActionCreators, dispatch);
 	}
 
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(LineFinanceDynamicRisk);
@@ -62799,6 +62848,8 @@
 
 	'use strict';
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	__webpack_require__(763);
 
 	var _react = __webpack_require__(138);
@@ -62811,47 +62862,103 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	//事件轴对比
+	var Immutable = __webpack_require__(718);
+	//时间轴对比
 	var TimeAxisCompare = _react2.default.createClass({
-	    displayName: 'TimeAxisCompare',
+	  displayName: 'TimeAxisCompare',
 
-	    getInitialState: function getInitialState() {
-	        return {};
-	    },
-	    render: function render() {
+	  getInitialState: function getInitialState() {
+	    return {
+	      companyName: "",
+	      month: "",
+	      date: [],
+	      dateLeft: "", //左侧日期
+	      dateRight: "" //右侧日期
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {
+	    var companyName = "上海北湖投资管理有限公司";
+	    var jsonData = { companyName: companyName };
+	    this.setState({ companyName: companyName });
+	    this.getRelativeDate(jsonData);
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    //获取公司名称 通过名称获取日期
+	    var isSearchValEqual = Immutable.is(nextProps.riskSearch, this.props.riskSearch);
+	    if (!isSearchValEqual) {
+	      var riskSearch = nextProps.riskSearch;
 
-	        return _react2.default.createElement(
-	            'div',
-	            { className: 'linefin-timeaxis-cmp mod' },
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'mod-title' },
-	                _react2.default.createElement(
-	                    'h3',
-	                    null,
-	                    '时间轴对比'
-	                )
-	            ),
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'mod-content' },
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'cmp-box' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'cmp-l' },
-	                        _react2.default.createElement(_EachTimeAxis2.default, { borderLeft: 'false', cmpUrl: this.props.cmpUrls[0], dateYearMonth: this.props.dateYearMonths[0] })
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'cmp-r' },
-	                        _react2.default.createElement(_EachTimeAxis2.default, { borderLeft: 'true', cmpUrl: this.props.cmpUrls[1], dateYearMonth: this.props.dateYearMonths[1] })
-	                    )
-	                )
-	            )
-	        );
+	      var jsonData = { companyName: riskSearch };
+	      this.setState({ companyName: riskSearch });
+	      this.getRelativeDate(jsonData);
 	    }
+
+	    // 获取返回的日期
+	    var isEqual = Immutable.is(nextProps.dynamicRiskDateResult, this.props.dynamicRiskDateResult); //判断数据是否变化
+	    if (!isEqual) {
+	      var dynamicRiskDateRequest = nextProps.dynamicRiskDateRequest;
+	      var dynamicRiskDateResult = nextProps.dynamicRiskDateResult;
+
+	      if (dynamicRiskDateRequest == true) {
+	        if (dynamicRiskDateResult.success == true) {
+	          this.dataDateFomat(dynamicRiskDateResult);
+	        } else {
+	          //错误后提示
+	        }
+	      }
+	    }
+	  },
+	  dataDateFomat: function dataDateFomat(data) {
+	    var content = data.content;
+	    var len = content.length;
+	    var dateArr = [];
+	    for (var i = 0; i < len; i++) {
+	      dateArr.push({ value: i + 1, label: content[i] });
+	    }
+	    //把第一个时间赋值给第一个图 第二个时间赋值给第二个图
+	    this.setState({ date: dateArr, dateLeft: content[0], dateRight: content[1] }, function () {
+	      console.log(this.state.dateLeft, this.state.dateRight, 99999999);
+	    });
+	  },
+	  getRelativeDate: function getRelativeDate(jsonData) {
+	    //获取日期
+	    var getDynamicRiskDate = this.props.getDynamicRiskDate;
+
+	    getDynamicRiskDate(jsonData);
+	  },
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'linefin-timeaxis-cmp mod' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'mod-title' },
+	        _react2.default.createElement(
+	          'h3',
+	          null,
+	          '时间轴对比'
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'mod-content' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'cmp-box' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'cmp-l' },
+	            _react2.default.createElement(_EachTimeAxis2.default, _extends({ flag: 'left', borderLeft: 'false' }, this.props, { date: this.state.date, nowDate: this.state.dateLeft, companyName: this.state.companyName }))
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'cmp-r' },
+	            _react2.default.createElement(_EachTimeAxis2.default, _extends({ flag: 'right', borderLeft: 'true' }, this.props, { date: this.state.date, nowDate: this.state.dateRight, companyName: this.state.companyName }))
+	          )
+	        )
+	      )
+	    );
+	  }
 	});
 	module.exports = TimeAxisCompare;
 
@@ -62893,7 +63000,7 @@
 
 
 	// module
-	exports.push([module.id, "/*时间轴对比模块 begin*/\r\n.linefin-timeaxis-cmp .mod-content{\r\n\theight: 880px;\r\n}\r\n.linefin-timeaxis-cmp .mod-content .cmp-box{\r\n    overflow: hidden;\r\n    margin: 5px;\r\n}\r\n.linefin-timeaxis-cmp .mod-content .cmp-box .cmp-l{\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n.linefin-timeaxis-cmp .mod-content .cmp-box .cmp-r{\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n/*时间轴对比模块 end*/\r\n\r\n/*企业关联方特征指数对比 begin*/\r\n.linefin-index-cmp{\r\n\tbackground-color: #2b323c;\r\n}\r\n\r\n.linefin-index-cmp .mod-content{\r\n\tpadding: 10px;\r\n}\r\n.linefin-index-cmp .mod-content .con-box{\r\n\r\n}\r\n.linefin-index-cmp .mod-content .d-cmp{\r\n\tpadding-left:20px;\r\n\theight: 40px;\r\n\twidth: 100%;\r\n\tbackground-color: #1a2029;\r\n\tmargin-bottom: 1px;\r\n\tborder-radius: 5px;\r\n\toverflow: hidden;\r\n}\r\n.linefin-index-cmp .mod-content .d-cmp .date{\r\n\tdisplay: inline-block;\r\n\tbackground-color: #ffffff;\r\n\tcolor: #888888;\r\n\tfont-size: 14px;\r\n\tpadding: 2px 5px;\r\n\tborder-radius: 2px;\r\n\tmargin-top: 9px;\r\n}\r\n.linefin-index-cmp .mod-content .d-cmp .icon-duibi{\r\n\tmargin-left:10px;\r\n\tmargin-right: 10px;\r\n}\r\n.linefin-index-cmp .item-box .item {\r\n\tborder-radius: 5px;\r\n\toverflow: hidden;\r\n}\r\n.linefin-index-cmp .item-box .item .item-head{\r\n\tbackground-color: #1a2029;\r\n\tborder-bottom: solid 1px #2b323c;\r\n\theight: 40px;\r\n\tcursor: pointer;\r\n}\r\n.linefin-index-cmp .item-box  .item-head span{\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\tfont-size: 14px;\r\n\theight: 20px;\r\n\tline-height: 20px;\r\n\tmargin-top: 10px;\r\n}\r\n.linefin-index-cmp .item-box  .item-head span.name{\r\n\tcolor: #e5e5e5;\r\n\twidth: 40%;\r\n\tpadding-left: 20px;\r\n\tfont-size: 14px;\r\n}\r\n.linefin-index-cmp .item-box  .item-head span.num-o{\r\n\twidth: 20%;\r\n}\r\n.linefin-index-cmp .item-box .item .item-head span.num-t{\r\n\twidth: 40%;\r\n}\r\n.linefin-index-cmp .item-box  .item-head span.num-o,\r\n.linefin-index-cmp .item-box  .item-head span.num-t{\r\n\ttext-align: right;\r\n}\r\n.linefin-index-cmp .item-box  .item-head span.num-o em{\r\n\ttext-align: right;\r\n\tfont-size: 14px;\r\n\tcolor: #00b7ee;\r\n}\r\n.linefin-index-cmp .item-box  .item-head span.num-t em{\r\n\tcolor: #e14340;\r\n}\r\n.linefin-index-cmp .item-box .item .item-head span.num-t i{\r\n\tfloat: right;\r\n\tmargin-right: 10px;\r\n\tmargin-top: 3px;\r\n\tfont-size: 12px;\r\n\tmargin-left: 10px;\r\n}\r\n.linefin-index-cmp .item-box .item .item-table{\r\n\twidth: 100%;\r\n\tbackground-color: #36404d;\r\n\theight: 225px;\r\n\toverflow: auto;\r\n}\r\n.linefin-index-cmp .item-box .item .item-table table{\r\n\twidth: 100%;\r\n}\r\n.linefin-index-cmp .item-box .item .item-table table td{\r\n\tborder-bottom:solid 1px #2b323c;\r\n\tpadding: 10px 0;\r\n}\r\n.linefin-index-cmp .item-box .item .item-table table td.t-left{\r\n\tborder-right:solid 2px #2b323c;\r\n\ttext-align: center;\r\n}\r\n.linefin-index-cmp .item-box .item .item-table table td.t-left span{\r\n\tdisplay: inline-block;\r\n\twidth: 14px;\r\n}\r\n.linefin-index-cmp .item-box .item .item-table table td.t-right{\r\n\tpadding-left: 10%;\r\n}\r\n.linefin-index-cmp .item-box .item .item-table table td i{\r\n\tmargin-left: 10px;\r\n}\r\n.linefin-index-cmp .item-box .item .item-table table td i.icon-xiangshang{\r\n\tcolor: #e14340;\r\n}\r\n.linefin-index-cmp .item-box .item .item-table table td i.icon-arrowupx{\r\n\tcolor: #00b8ee;\r\n}\r\n.linefin-index-cmp .item-box .item.active .item-head span.name{\r\n\tborder-color: #d0d8df;\r\n}\r\n.linefin-index-cmp .item-box .item .item-con{\r\n\tdisplay: none;\r\n}\r\n.linefin-index-cmp .item-box .item.active .item-con{\r\n\tdisplay: block;\r\n}\r\n/*企业关联方特征指数对比 end*/\r\n\r\n/*动态风险指数列表 begin*/\r\n.linefin-index-list{\r\n\tbackground-color: #2b323c;\r\n}\r\n.linefin-index-list .con-box{\r\n\tmargin: 35px 20px 40px 20px;\r\n}\r\n.linefin-index-list .con-box .con-title{\r\n\tbackground-color: #e14340;\r\n\toverflow: hidden;\r\n\twidth: 415px;\r\n\theight: 50px;\r\n\tborder-radius: 5px;\r\n\tline-height: 50px;\r\n\tfont-size: 18px;\r\n\tmargin-bottom: 20px;\r\n}\r\n.linefin-index-list .con-box .con-title .name{\r\n\tmargin-left: 35px;\r\n}\r\n.linefin-index-list .con-box .con-title .name i{\r\n\tmargin-right: 30px;\r\n\tfont-size: 22px;\r\n}\r\n.linefin-index-list .con-box .con-title .num{\r\n\tborder-left: solid 1px #eeeeee;\r\n\tmargin-left: 40px;\r\n\tpadding-left: 40px;\r\n}\r\n.index-list-tab .mt-tabs-header{\r\n\tbackground-color: #1a212b;\r\n}\r\n.index-list-tab .mt-tabs-header li{\r\n\twidth: 12.5%;\r\n\tborder-left: solid 1px #1e222b;\r\n\tpadding: 5px 10px;\r\n\ttext-align: center;\r\n}\r\n.index-list-tab .mt-tabs-header li a{\r\n\tdisplay: inline-block;\r\n}\r\n.index-list-tab .mt-tabs-header li.mt-tabs-active{\r\n\tbackground-color: #37414d;\r\n\tborder:none;\r\n}\r\n.index-list-tab .mt-tabs-header li span{\r\n\tpadding: 2px 10px;\r\n    display: block;\r\n    float: left;\r\n    text-align: center;\r\n}\r\n.index-list-tab .mt-tabs-header li span.name{\r\n\tcolor: #ffffff;\r\n\twidth: 90px;\r\n}\r\n.index-list-tab .mt-tabs-header li span.num{\r\n\tcolor:#e14340;\r\n\tborder-left: solid 1px #8a8c9b;\r\n\tmargin-top: 10px;\r\n}\r\n.index-list-tab .mt-tabs-content{\r\n\tbackground-color: #37414d !important;\r\n\tborder:none;\r\n}\r\n/*动态风险指数列表 end*/", ""]);
+	exports.push([module.id, "/*时间轴对比模块 begin*/\r\n.linefin-timeaxis-cmp .mod-content{\r\n\theight: 880px;\r\n}\r\n.linefin-timeaxis-cmp .mod-content .cmp-box{\r\n    overflow: hidden;\r\n    margin: 5px;\r\n}\r\n.linefin-timeaxis-cmp .mod-content .cmp-box .cmp-l{\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n.linefin-timeaxis-cmp .mod-content .cmp-box .cmp-r{\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n/*时间轴对比模块 end*/\r\n\r\n/*企业关联方特征指数对比 begin*/\r\n.linefin-index-cmp{\r\n\tbackground-color: #2b323c;\r\n}\r\n\r\n.linefin-index-cmp .mod-content{\r\n\tpadding: 10px;\r\n}\r\n.linefin-index-cmp .mod-content .con-box{\r\n\r\n}\r\n.linefin-index-cmp .mod-content .d-cmp{\r\n\tpadding-left:20px;\r\n\theight: 40px;\r\n\twidth: 100%;\r\n\tbackground-color: #1a2029;\r\n\tmargin-bottom: 1px;\r\n\tborder-radius: 5px;\r\n\toverflow: hidden;\r\n}\r\n.linefin-index-cmp .mod-content .d-cmp .date{\r\n\tdisplay: inline-block;\r\n\tbackground-color: #ffffff;\r\n\tcolor: #888888;\r\n\tfont-size: 14px;\r\n\tpadding: 2px 5px;\r\n\tborder-radius: 2px;\r\n\tmargin-top: 9px;\r\n}\r\n.linefin-index-cmp .mod-content .d-cmp .icon-duibi{\r\n\tmargin-left:10px;\r\n\tmargin-right: 10px;\r\n}\r\n.linefin-index-cmp .item-box .item {\r\n\tborder-radius: 5px;\r\n\toverflow: hidden;\r\n}\r\n.linefin-index-cmp .item-box .item .item-head{\r\n\tbackground-color: #1a2029;\r\n\tborder-bottom: solid 1px #2b323c;\r\n\theight: 40px;\r\n\tcursor: pointer;\r\n}\r\n.linefin-index-cmp .item-box  .item-head span{\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\tfont-size: 14px;\r\n\theight: 20px;\r\n\tline-height: 20px;\r\n\tmargin-top: 10px;\r\n}\r\n.linefin-index-cmp .item-box  .item-head span.name{\r\n\tcolor: #e5e5e5;\r\n\twidth: 40%;\r\n\tpadding-left: 20px;\r\n\tfont-size: 14px;\r\n}\r\n.linefin-index-cmp .item-box  .item-head span.num-o{\r\n\twidth: 20%;\r\n}\r\n.linefin-index-cmp .item-box .item .item-head span.num-t{\r\n\twidth: 40%;\r\n}\r\n.linefin-index-cmp .item-box  .item-head span.num-o,\r\n.linefin-index-cmp .item-box  .item-head span.num-t{\r\n\ttext-align: right;\r\n}\r\n.linefin-index-cmp .item-box  .item-head span.num-o em{\r\n\ttext-align: right;\r\n\tfont-size: 14px;\r\n\tcolor: #00b7ee;\r\n}\r\n.linefin-index-cmp .item-box  .item-head span.num-t em{\r\n\tcolor: #e14340;\r\n}\r\n.linefin-index-cmp .item-box .item .item-head span.num-t i{\r\n\tfloat: right;\r\n\tmargin-right: 10px;\r\n\tmargin-top: 3px;\r\n\tfont-size: 12px;\r\n\tmargin-left: 10px;\r\n}\r\n.linefin-index-cmp .item-box .item .item-table{\r\n\twidth: 100%;\r\n\tbackground-color: #36404d;\r\n\theight: 225px;\r\n\toverflow: auto;\r\n}\r\n.linefin-index-cmp .item-box .item .item-table table{\r\n\twidth: 100%;\r\n}\r\n.linefin-index-cmp .item-box .item .item-table table td{\r\n\tborder-bottom:solid 1px #2b323c;\r\n\tpadding: 10px 0;\r\n}\r\n.linefin-index-cmp .item-box .item .item-table table td.t-left{\r\n\tborder-right:solid 2px #2b323c;\r\n\ttext-align: center;\r\n}\r\n.linefin-index-cmp .item-box .item .item-table table td.t-left span{\r\n\tdisplay: inline-block;\r\n\twidth: 14px;\r\n}\r\n.linefin-index-cmp .item-box .item .item-table table td.t-right{\r\n\tpadding-left: 10%;\r\n}\r\n.linefin-index-cmp .item-box .item .item-table table td.t-right span{\r\n\tdisplay: inline-block;\r\n\tpadding: 5px;\r\n}\r\n.linefin-index-cmp .item-box .item .item-table table td i{\r\n\tmargin-left: 10px;\r\n}\r\n.linefin-index-cmp .item-box .item .item-table table td i.icon-xiangshang{\r\n\tcolor: #e14340;\r\n}\r\n.linefin-index-cmp .item-box .item .item-table table td i.icon-arrowupx{\r\n\tcolor: #00b8ee;\r\n}\r\n.linefin-index-cmp .item-box .item.active .item-head span.name{\r\n\tborder-color: #d0d8df;\r\n}\r\n.linefin-index-cmp .item-box .item .item-con{\r\n\tdisplay: none;\r\n}\r\n.linefin-index-cmp .item-box .item.active .item-con{\r\n\tdisplay: block;\r\n}\r\n/*企业关联方特征指数对比 end*/\r\n\r\n/*动态风险指数列表 begin*/\r\n.linefin-index-list{\r\n\tbackground-color: #2b323c;\r\n}\r\n.linefin-index-list .con-box{\r\n\tmargin: 35px 20px 40px 20px;\r\n}\r\n.linefin-index-list .con-box .con-title{\r\n\tbackground-color: #e14340;\r\n\toverflow: hidden;\r\n\twidth: 415px;\r\n\theight: 50px;\r\n\tborder-radius: 5px;\r\n\tline-height: 50px;\r\n\tfont-size: 18px;\r\n\tmargin-bottom: 20px;\r\n}\r\n.linefin-index-list .con-box .con-title .name{\r\n\tmargin-left: 35px;\r\n}\r\n.linefin-index-list .con-box .con-title .name i{\r\n\tmargin-right: 30px;\r\n\tfont-size: 22px;\r\n}\r\n.linefin-index-list .con-box .con-title .num{\r\n\tborder-left: solid 1px #eeeeee;\r\n\tmargin-left: 40px;\r\n\tpadding-left: 40px;\r\n}\r\n.index-list-tab .mt-tabs-header{\r\n\tbackground-color: #1a212b;\r\n}\r\n.index-list-tab .mt-tabs-header li{\r\n\twidth: 12.5%;\r\n\tborder-left: solid 1px #1e222b;\r\n\tpadding: 5px 10px;\r\n\ttext-align: center;\r\n}\r\n.index-list-tab .mt-tabs-header li a{\r\n\tdisplay: inline-block;\r\n}\r\n.index-list-tab .mt-tabs-header li.mt-tabs-active{\r\n\tbackground-color: #37414d;\r\n\tborder:none;\r\n}\r\n.index-list-tab .mt-tabs-header li span{\r\n\tpadding: 2px 10px;\r\n    display: block;\r\n    float: left;\r\n    text-align: center;\r\n}\r\n.index-list-tab .mt-tabs-header li span.name{\r\n\tcolor: #ffffff;\r\n\twidth: 90px;\r\n}\r\n.index-list-tab .mt-tabs-header li span.num{\r\n\tcolor:#e14340;\r\n\tborder-left: solid 1px #8a8c9b;\r\n\tmargin-top: 10px;\r\n}\r\n.index-list-tab .mt-tabs-content{\r\n\tbackground-color: #37414d !important;\r\n\tborder:none;\r\n}\r\n/*动态风险指数列表 end*/", ""]);
 
 	// exports
 
@@ -62916,6 +63023,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var Immutable = __webpack_require__(718);
 	//每个时间轴
 	var EachTimeAxis = _react2.default.createClass({
 	  displayName: 'EachTimeAxis',
@@ -62926,7 +63034,25 @@
 	      scale: 100
 	    };
 	  },
+	  componentDidMount: function componentDidMount() {},
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var isEqual = Immutable.is(nextProps.nowDate, this.props.nowDate); //判断数据是否变化
+	    if (!isEqual) {
+	      var companyName = nextProps.companyName;
+	      var nowDate = nextProps.nowDate;
+	      var json = { companyName: companyName, month: nowDate };
+	      this.getRelativeImg(json);
+	    }
+	  },
+	  getRelativeImg: function getRelativeImg(jsonData) {
+	    //获取图片
+	    var getDynamicRiskImg = this.props.getDynamicRiskImg;
+
+	    getDynamicRiskImg(jsonData);
+	  },
+
 	  minClick: function minClick(e) {
+	    //缩小图片
 	    var wNo = this.state.wNo;
 	    if (wNo > 25) {
 	      wNo = wNo - 25;
@@ -62935,6 +63061,7 @@
 	    this.setState({ wNo: wNo, scale: scale });
 	  },
 	  addClick: function addClick(e) {
+	    //放大图片
 	    var wNo = this.state.wNo;
 	    if (wNo < 200) {
 	      wNo = wNo + 25;
@@ -62943,18 +63070,33 @@
 	    this.setState({ wNo: wNo, scale: scale });
 	  },
 	  render: function render() {
-	    var selectProp = {
-	      width: '85px',
-	      className: 'index-selected',
-	      value: 2,
-	      placeholder: '时间选择',
-	      name: 'testselect',
-	      id: 'indexSelected',
-	      data: [{ value: 1, label: this.props.dateYearMonth }, { value: 2, label: '2014-01' }, { value: 3, label: '2014-01' }],
-	      onChange: function onChange(value) {
-	        console.log('当前值为：', value);
+	    var select = null;
+	    var flag = this.props.flag;
+	    var nowVal = null;
+
+	    if (this.props.date.length > 0) {
+	      var d = this.props.date[0];
+	      if (flag == "left") {
+	        //判断是左侧图还是右侧图  设置不同的时间
+	        nowVal = this.props.date[0].value;
+	      } else {
+	        nowVal = this.props.date[1].value;
 	      }
-	    };
+	      var selectProp = {
+	        width: '85px',
+	        className: 'index-selected',
+	        value: nowVal,
+	        placeholder: '时间选择',
+	        name: 'testselect',
+	        id: 'indexSelected',
+	        data: this.props.date,
+	        onChange: function (value, date) {
+	          var json = { companyName: this.props.companyName, month: date };
+	          this.getRelativeImg(json);
+	        }.bind(this)
+	      };
+	      select = _react2.default.createElement(_index.Selected, selectProp);
+	    }
 
 	    return _react2.default.createElement(
 	      'div',
@@ -62970,7 +63112,7 @@
 	            null,
 	            '时间选项'
 	          ),
-	          _react2.default.createElement(_index.Selected, selectProp)
+	          select
 	        ),
 	        _react2.default.createElement('i', { className: 'iconfont icon-zoomout' }),
 	        _react2.default.createElement(
@@ -63068,13 +63210,87 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var Immutable = __webpack_require__(718);
 	//企业关联方特征指数对比
 	var LineFinanceIndexCompare = _react2.default.createClass({
 	    displayName: 'LineFinanceIndexCompare',
 
 	    getInitialState: function getInitialState() {
-	        return {};
+	        return {
+	            //关联自然人
+	            decreaseRelationPerson: [],
+	            addRelationPerson: [],
+	            //关联法人
+	            addCompanyPerson: [],
+	            decreaseCompanyPerson: [],
+	            //利益一致行动法人
+	            addAgreeComDet: [],
+	            decreaseAgreeComDet: [],
+	            //子公司
+	            addChildCompany: [],
+	            decreaseChildCompany: [],
+	            //一度自然人
+	            addOnePerson: [],
+	            decreaseOnePerson: [],
+	            //一度法人
+	            addOneCompany: [],
+	            decreaseOneCompany: [],
+	            //二度自然人
+	            addTwoPerson: [],
+	            decreaseTwoPerson: [],
+	            //二度法人
+	            addTwoCompany: [],
+	            decreaseTwoCompany: [],
+	            //三度自然人
+	            addThreePerson: [],
+	            decreaseThreePerson: [],
+	            //三度法人
+	            addThreeCompany: [],
+	            decreaseThreeCompany: []
+	        };
 	    },
+	    componentDidMount: function componentDidMount() {},
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        console.log(nextProps, 'nextProps');
+	        var isEqual = Immutable.is(nextProps.indexCmpData, this.props.indexCmpData); //判断数据是否变化
+	        if (!isEqual) {
+	            var relationData = nextProps.indexCmpData.relationData;
+	            console.log(relationData, relationData.decreaseRelationPerson, '指数对比');
+	            this.setState({
+	                //关联自然人
+	                decreaseRelationPerson: relationData.decreaseRelationPerson,
+	                addRelationPerson: relationData.addRelationPerson,
+	                //关联法人
+	                addCompanyPerson: relationData.addCompanyPerson,
+	                decreaseCompanyPerson: relationData.decreaseCompanyPerson,
+	                //利益一致行动法人
+	                addAgreeComDet: relationData.addAgreeComDet,
+	                decreaseAgreeComDet: relationData.decreaseAgreeComDet,
+	                //子公司
+	                addChildCompany: relationData.addChildCompany,
+	                decreaseChildCompany: relationData.decreaseChildCompany,
+	                //一度自然人
+	                addOnePerson: relationData.addOnePerson,
+	                decreaseOnePerson: relationData.decreaseOnePerson,
+	                //一度法人
+	                addOneCompany: relationData.addOneCompany,
+	                decreaseOneCompany: relationData.decreaseOneCompany,
+	                //二度自然人
+	                addTwoPerson: relationData.addTwoPerson,
+	                decreaseTwoPerson: relationData.decreaseTwoPerson,
+	                //二度法人
+	                addTwoCompany: relationData.addTwoCompany,
+	                decreaseTwoCompany: relationData.decreaseTwoCompany,
+	                //三度自然人
+	                addThreePerson: relationData.addThreePerson,
+	                decreaseThreePerson: relationData.decreaseThreePerson,
+	                //三度法人
+	                addThreeCompany: relationData.addThreeCompany,
+	                decreaseThreeCompany: relationData.decreaseThreeCompany
+	            });
+	        }
+	    },
+
 	    itemClick: function itemClick(e) {
 	        var $this = $(e.target).parents('.item-head');
 	        var $itemCon = $this.siblings('.item-con');
@@ -63092,10 +63308,10 @@
 	        }
 	    },
 	    render: function render() {
-	        var _props$content = this.props.content;
-	        var current = _props$content.current;
-	        var compare = _props$content.compare;
-	        var relationData = _props$content.relationData;
+	        var _props$indexCmpData = this.props.indexCmpData;
+	        var current = _props$indexCmpData.current;
+	        var compare = _props$indexCmpData.compare;
+	        var relationData = _props$indexCmpData.relationData;
 
 
 	        return _react2.default.createElement(
@@ -63148,20 +63364,12 @@
 	                                _react2.default.createElement(
 	                                    'span',
 	                                    { className: 'num-o' },
-	                                    _react2.default.createElement(
-	                                        'em',
-	                                        null,
-	                                        relationData.crtRelationPersonNum
-	                                    )
+	                                    _react2.default.createElement('em', null)
 	                                ),
 	                                _react2.default.createElement(
 	                                    'span',
 	                                    { className: 'num-t' },
-	                                    _react2.default.createElement(
-	                                        'em',
-	                                        null,
-	                                        relationData.cpeRelationPersonNum
-	                                    ),
+	                                    _react2.default.createElement('em', null),
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-xdown' })
 	                                )
 	                            ),
@@ -63203,9 +63411,9 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '80%', className: 't-right' },
-	                                                    relationData.decreaseRelationPerson.map(function (item, index) {
+	                                                    this.state.decreaseRelationPerson.map(function (item, index) {
 	                                                        return _react2.default.createElement(
-	                                                            'br',
+	                                                            'span',
 	                                                            null,
 	                                                            item
 	                                                        );
@@ -63229,9 +63437,9 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '80%', className: 't-right' },
-	                                                    relationData.addRelationPerson.map(function (item, index) {
+	                                                    this.state.addRelationPerson.map(function (item, index) {
 	                                                        return _react2.default.createElement(
-	                                                            'br',
+	                                                            'span',
 	                                                            null,
 	                                                            item
 	                                                        );
@@ -63257,20 +63465,12 @@
 	                                _react2.default.createElement(
 	                                    'span',
 	                                    { className: 'num-o' },
-	                                    _react2.default.createElement(
-	                                        'em',
-	                                        null,
-	                                        relationData.crtCompanyPersonNum
-	                                    )
+	                                    _react2.default.createElement('em', null)
 	                                ),
 	                                _react2.default.createElement(
 	                                    'span',
 	                                    { className: 'num-t' },
-	                                    _react2.default.createElement(
-	                                        'em',
-	                                        null,
-	                                        relationData.cpeCompanyPersonNum
-	                                    ),
+	                                    _react2.default.createElement('em', null),
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-xdown' })
 	                                )
 	                            ),
@@ -63312,9 +63512,9 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '80%', className: 't-right' },
-	                                                    relationData.decreaseCompanyPerson.map(function (item, index) {
+	                                                    this.state.decreaseCompanyPerson.map(function (item, index) {
 	                                                        return _react2.default.createElement(
-	                                                            'br',
+	                                                            'span',
 	                                                            null,
 	                                                            item
 	                                                        );
@@ -63338,9 +63538,9 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '80%', className: 't-right' },
-	                                                    relationData.addCompanyPerson.map(function (item, index) {
+	                                                    this.state.addCompanyPerson.map(function (item, index) {
 	                                                        return _react2.default.createElement(
-	                                                            'br',
+	                                                            'span',
 	                                                            null,
 	                                                            item
 	                                                        );
@@ -63366,20 +63566,12 @@
 	                                _react2.default.createElement(
 	                                    'span',
 	                                    { className: 'num-o' },
-	                                    _react2.default.createElement(
-	                                        'em',
-	                                        null,
-	                                        relationData.crtAgreeActNum
-	                                    )
+	                                    _react2.default.createElement('em', null)
 	                                ),
 	                                _react2.default.createElement(
 	                                    'span',
 	                                    { className: 'num-t' },
-	                                    _react2.default.createElement(
-	                                        'em',
-	                                        null,
-	                                        relationData.cpeAgreeActNum
-	                                    ),
+	                                    _react2.default.createElement('em', null),
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-xdown' })
 	                                )
 	                            ),
@@ -63421,9 +63613,9 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '80%', className: 't-right' },
-	                                                    relationData.decreaseAgreeComDet.map(function (item, index) {
+	                                                    this.state.decreaseAgreeComDet.map(function (item, index) {
 	                                                        return _react2.default.createElement(
-	                                                            'br',
+	                                                            'span',
 	                                                            null,
 	                                                            item
 	                                                        );
@@ -63447,9 +63639,9 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '80%', className: 't-right' },
-	                                                    relationData.addAgreeComDet.map(function (item, index) {
+	                                                    this.state.addAgreeComDet.map(function (item, index) {
 	                                                        return _react2.default.createElement(
-	                                                            'br',
+	                                                            'span',
 	                                                            null,
 	                                                            item
 	                                                        );
@@ -63475,20 +63667,12 @@
 	                                _react2.default.createElement(
 	                                    'span',
 	                                    { className: 'num-o' },
-	                                    _react2.default.createElement(
-	                                        'em',
-	                                        null,
-	                                        relationData.crtChildCompanyNum
-	                                    )
+	                                    _react2.default.createElement('em', null)
 	                                ),
 	                                _react2.default.createElement(
 	                                    'span',
 	                                    { className: 'num-t' },
-	                                    _react2.default.createElement(
-	                                        'em',
-	                                        null,
-	                                        relationData.cpeChildCompanyNum
-	                                    ),
+	                                    _react2.default.createElement('em', null),
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-xdown' })
 	                                )
 	                            ),
@@ -63530,9 +63714,9 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '80%', className: 't-right' },
-	                                                    relationData.decreaseChildCompany.map(function (item, index) {
+	                                                    this.state.decreaseChildCompany.map(function (item, index) {
 	                                                        return _react2.default.createElement(
-	                                                            'br',
+	                                                            'span',
 	                                                            null,
 	                                                            item
 	                                                        );
@@ -63556,9 +63740,9 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '80%', className: 't-right' },
-	                                                    relationData.addChildCompany.map(function (item, index) {
+	                                                    this.state.addChildCompany.map(function (item, index) {
 	                                                        return _react2.default.createElement(
-	                                                            'br',
+	                                                            'span',
 	                                                            null,
 	                                                            item
 	                                                        );
@@ -63584,20 +63768,12 @@
 	                                _react2.default.createElement(
 	                                    'span',
 	                                    { className: 'num-o' },
-	                                    _react2.default.createElement(
-	                                        'em',
-	                                        null,
-	                                        relationData.crtOnePersonNum
-	                                    )
+	                                    _react2.default.createElement('em', null)
 	                                ),
 	                                _react2.default.createElement(
 	                                    'span',
 	                                    { className: 'num-t' },
-	                                    _react2.default.createElement(
-	                                        'em',
-	                                        null,
-	                                        relationData.cpeOnePersonNum
-	                                    ),
+	                                    _react2.default.createElement('em', null),
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-xdown' })
 	                                )
 	                            ),
@@ -63639,9 +63815,9 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '80%', className: 't-right' },
-	                                                    relationData.decreaseOnePerson.map(function (item, index) {
+	                                                    this.state.decreaseOnePerson.map(function (item, index) {
 	                                                        return _react2.default.createElement(
-	                                                            'br',
+	                                                            'span',
 	                                                            null,
 	                                                            item
 	                                                        );
@@ -63665,9 +63841,9 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '80%', className: 't-right' },
-	                                                    relationData.addOnePerson.map(function (item, index) {
+	                                                    this.state.addOnePerson.map(function (item, index) {
 	                                                        return _react2.default.createElement(
-	                                                            'br',
+	                                                            'span',
 	                                                            null,
 	                                                            item
 	                                                        );
@@ -63693,20 +63869,12 @@
 	                                _react2.default.createElement(
 	                                    'span',
 	                                    { className: 'num-o' },
-	                                    _react2.default.createElement(
-	                                        'em',
-	                                        null,
-	                                        relationData.crtOneCompanyNum
-	                                    )
+	                                    _react2.default.createElement('em', null)
 	                                ),
 	                                _react2.default.createElement(
 	                                    'span',
 	                                    { className: 'num-t' },
-	                                    _react2.default.createElement(
-	                                        'em',
-	                                        null,
-	                                        relationData.cpeOneCompanyNum
-	                                    ),
+	                                    _react2.default.createElement('em', null),
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-xdown' })
 	                                )
 	                            ),
@@ -63748,9 +63916,9 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '80%', className: 't-right' },
-	                                                    relationData.decreaseOneCompany.map(function (item, index) {
+	                                                    this.state.decreaseOneCompany.map(function (item, index) {
 	                                                        return _react2.default.createElement(
-	                                                            'br',
+	                                                            'span',
 	                                                            null,
 	                                                            item
 	                                                        );
@@ -63774,9 +63942,9 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '80%', className: 't-right' },
-	                                                    relationData.addOneCompany.map(function (item, index) {
+	                                                    this.state.addOneCompany.map(function (item, index) {
 	                                                        return _react2.default.createElement(
-	                                                            'br',
+	                                                            'span',
 	                                                            null,
 	                                                            item
 	                                                        );
@@ -63802,20 +63970,12 @@
 	                                _react2.default.createElement(
 	                                    'span',
 	                                    { className: 'num-o' },
-	                                    _react2.default.createElement(
-	                                        'em',
-	                                        null,
-	                                        relationData.crtTwoPersonNum
-	                                    )
+	                                    _react2.default.createElement('em', null)
 	                                ),
 	                                _react2.default.createElement(
 	                                    'span',
 	                                    { className: 'num-t' },
-	                                    _react2.default.createElement(
-	                                        'em',
-	                                        null,
-	                                        relationData.cpeTwoPersonNum
-	                                    ),
+	                                    _react2.default.createElement('em', null),
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-xdown' })
 	                                )
 	                            ),
@@ -63857,9 +64017,9 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '80%', className: 't-right' },
-	                                                    relationData.decreaseTwoPerson.map(function (item, index) {
+	                                                    this.state.decreaseTwoPerson.map(function (item, index) {
 	                                                        return _react2.default.createElement(
-	                                                            'br',
+	                                                            'span',
 	                                                            null,
 	                                                            item
 	                                                        );
@@ -63883,9 +64043,9 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '80%', className: 't-right' },
-	                                                    relationData.addTwoPerson.map(function (item, index) {
+	                                                    this.state.addTwoPerson.map(function (item, index) {
 	                                                        return _react2.default.createElement(
-	                                                            'br',
+	                                                            'span',
 	                                                            null,
 	                                                            item
 	                                                        );
@@ -63911,20 +64071,12 @@
 	                                _react2.default.createElement(
 	                                    'span',
 	                                    { className: 'num-o' },
-	                                    _react2.default.createElement(
-	                                        'em',
-	                                        null,
-	                                        relationData.crtTwoCompanyNum
-	                                    )
+	                                    _react2.default.createElement('em', null)
 	                                ),
 	                                _react2.default.createElement(
 	                                    'span',
 	                                    { className: 'num-t' },
-	                                    _react2.default.createElement(
-	                                        'em',
-	                                        null,
-	                                        relationData.cpeTwoCompanyNum
-	                                    ),
+	                                    _react2.default.createElement('em', null),
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-xdown' })
 	                                )
 	                            ),
@@ -63966,9 +64118,9 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '80%', className: 't-right' },
-	                                                    relationData.decreaseTwoCompany.map(function (item, index) {
+	                                                    this.state.decreaseTwoCompany.map(function (item, index) {
 	                                                        return _react2.default.createElement(
-	                                                            'br',
+	                                                            'span',
 	                                                            null,
 	                                                            item
 	                                                        );
@@ -63992,9 +64144,9 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '80%', className: 't-right' },
-	                                                    relationData.addTwoCompany.map(function (item, index) {
+	                                                    this.state.addTwoCompany.map(function (item, index) {
 	                                                        return _react2.default.createElement(
-	                                                            'br',
+	                                                            'span',
 	                                                            null,
 	                                                            item
 	                                                        );
@@ -64020,20 +64172,12 @@
 	                                _react2.default.createElement(
 	                                    'span',
 	                                    { className: 'num-o' },
-	                                    _react2.default.createElement(
-	                                        'em',
-	                                        null,
-	                                        relationData.crtThreePersonNum
-	                                    )
+	                                    _react2.default.createElement('em', null)
 	                                ),
 	                                _react2.default.createElement(
 	                                    'span',
 	                                    { className: 'num-t' },
-	                                    _react2.default.createElement(
-	                                        'em',
-	                                        null,
-	                                        relationData.cpeThreePersonNum
-	                                    ),
+	                                    _react2.default.createElement('em', null),
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-xdown' })
 	                                )
 	                            ),
@@ -64075,9 +64219,9 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '80%', className: 't-right' },
-	                                                    relationData.decreaseThreePerson.map(function (item, index) {
+	                                                    this.state.decreaseThreePerson.map(function (item, index) {
 	                                                        return _react2.default.createElement(
-	                                                            'br',
+	                                                            'span',
 	                                                            null,
 	                                                            item
 	                                                        );
@@ -64101,9 +64245,9 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '80%', className: 't-right' },
-	                                                    relationData.addThreePerson.map(function (item, index) {
+	                                                    this.state.addThreePerson.map(function (item, index) {
 	                                                        return _react2.default.createElement(
-	                                                            'br',
+	                                                            'span',
 	                                                            null,
 	                                                            item
 	                                                        );
@@ -64129,20 +64273,12 @@
 	                                _react2.default.createElement(
 	                                    'span',
 	                                    { className: 'num-o' },
-	                                    _react2.default.createElement(
-	                                        'em',
-	                                        null,
-	                                        relationData.crtThreeCompanyNum
-	                                    )
+	                                    _react2.default.createElement('em', null)
 	                                ),
 	                                _react2.default.createElement(
 	                                    'span',
 	                                    { className: 'num-t' },
-	                                    _react2.default.createElement(
-	                                        'em',
-	                                        null,
-	                                        relationData.cpeThreeCompanyNum
-	                                    ),
+	                                    _react2.default.createElement('em', null),
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-xdown' })
 	                                )
 	                            ),
@@ -64184,9 +64320,9 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '80%', className: 't-right' },
-	                                                    relationData.decreaseThreeCompany.map(function (item, index) {
+	                                                    this.state.decreaseThreeCompany.map(function (item, index) {
 	                                                        return _react2.default.createElement(
-	                                                            'br',
+	                                                            'span',
 	                                                            null,
 	                                                            item
 	                                                        );
@@ -64210,9 +64346,9 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '80%', className: 't-right' },
-	                                                    relationData.addThreeCompany.map(function (item, index) {
+	                                                    this.state.addThreeCompany.map(function (item, index) {
 	                                                        return _react2.default.createElement(
-	                                                            'br',
+	                                                            'span',
 	                                                            null,
 	                                                            item
 	                                                        );
@@ -64257,18 +64393,54 @@
 
 	var _RiskTab2 = _interopRequireDefault(_RiskTab);
 
-	var _IndexListTable = __webpack_require__(771);
+	var _IndexListTableOne = __webpack_require__(1382);
 
-	var _IndexListTable2 = _interopRequireDefault(_IndexListTable);
+	var _IndexListTableOne2 = _interopRequireDefault(_IndexListTableOne);
+
+	var _IndexListTableTwo = __webpack_require__(1383);
+
+	var _IndexListTableTwo2 = _interopRequireDefault(_IndexListTableTwo);
+
+	var _IndexListTableThree = __webpack_require__(1384);
+
+	var _IndexListTableThree2 = _interopRequireDefault(_IndexListTableThree);
+
+	var _IndexListTableFour = __webpack_require__(1385);
+
+	var _IndexListTableFour2 = _interopRequireDefault(_IndexListTableFour);
+
+	var _IndexListTableFive = __webpack_require__(1386);
+
+	var _IndexListTableFive2 = _interopRequireDefault(_IndexListTableFive);
+
+	var _IndexListTableSix = __webpack_require__(1387);
+
+	var _IndexListTableSix2 = _interopRequireDefault(_IndexListTableSix);
+
+	var _IndexListTableSeven = __webpack_require__(1388);
+
+	var _IndexListTableSeven2 = _interopRequireDefault(_IndexListTableSeven);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Immutable = __webpack_require__(718);
 
 	//动态风险指数列表
 	var LineFinanceIndexList = _react2.default.createClass({
 	    displayName: 'LineFinanceIndexList',
 
 	    getInitialState: function getInitialState() {
-	        return {};
+	        return {
+	            indexCmpData: {}
+	        };
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        console.log(nextProps, 'nextProps');
+	        var isEqual = Immutable.is(nextProps.indexCmpData, this.props.indexCmpData); //判断数据是否变化
+	        if (!isEqual) {
+	            var indexCmpData = nextProps.indexCmpData;
+	            this.setState({ indexCmpData: indexCmpData });
+	        }
 	    },
 	    itemClick: function itemClick(e) {
 	        var $this = $(e.target).parents('.item-head');
@@ -64296,147 +64468,7 @@
 	                console.log("当前选择的title为：", title);
 	            }
 	        };
-
-	        var content = this.props.content;
-	        var dynamicRisk = content.dynamicRisk;
-	        var current = content.current;
-	        var compare = content.compare;
-
-	        var tableHeadField1 = [{
-	            colspan: 1,
-	            text: "风险类型"
-	        }, {
-	            colspan: 1,
-	            text: "特征指标"
-	        }, {
-	            colspan: 1,
-	            text: current
-	        }, {
-	            colspan: 1,
-	            text: compare
-	        }];
-	        var tableHeadField2 = [{
-	            colspan: 1,
-	            text: "风险类型"
-	        }, {
-	            colspan: 1,
-	            text: "特征指标"
-	        }, {
-	            colspan: 3,
-	            text: current
-	        }, {
-	            colspan: 3,
-	            text: compare
-	        }];
-	        var tableHeadField3 = [{
-	            colspan: 1,
-	            text: "风险类型"
-	        }, {
-	            colspan: 1,
-	            text: ""
-	        }, {
-	            colspan: 2,
-	            text: current
-	        }, {
-	            colspan: 2,
-	            text: compare
-	        }];
-
-	        /*
-	        * 处理跨区域舞弊风险 数据
-	        * */
-	        var curAreaList = dynamicRisk.curAreaList || [];
-	        var curAreaCompanyNum = dynamicRisk.curAreaCompanyNum;
-	        var cprAreaList = dynamicRisk.cprAreaList;
-	        var cprAreaCompanyNum = dynamicRisk.cprAreaCompanyNum;
-	        var acrossAreaRiskRow1 = [1];
-	        var acrossAreaRiskRow2 = [2];
-	        var acrossAreaRiskRow3 = [3];
-	        var acrossAreaRiskRow4 = [4];
-
-	        for (var i = 0, len = curAreaList.length; i < len; i++) {
-
-	            switch (i) {
-	                case 0:
-	                    acrossAreaRiskRow1 = acrossAreaRiskRow1.concat(curAreaList[i], curAreaCompanyNum[i], cprAreaList[i], cprAreaCompanyNum[i]);
-	                    break;
-	                case 1:
-	                    acrossAreaRiskRow2 = acrossAreaRiskRow2.concat(curAreaList[i], curAreaCompanyNum[i], cprAreaList[i], cprAreaCompanyNum[i]);
-	                    break;
-	                case 2:
-	                    acrossAreaRiskRow3 = acrossAreaRiskRow3.concat(curAreaList[i], curAreaCompanyNum[i], cprAreaList[i], cprAreaCompanyNum[i]);
-	                    break;
-	                case 3:
-	                    acrossAreaRiskRow4 = acrossAreaRiskRow4.concat(curAreaList[i], curAreaCompanyNum[i], cprAreaList[i], cprAreaCompanyNum[i]);
-	                    break;
-	            }
-	        }
-
-	        var _tableBodyData1$table = {
-	            tableBodyData1: [{
-	                "rowspan": 3,
-	                data: ["稳态运营风险", "自然人节点数", dynamicRisk.curPersonNum, dynamicRisk.cprPersonNum]
-	            }, {
-	                data: ["企业法人节点数", dynamicRisk.curCompanyNum, dynamicRisk.cprCompanyNum]
-	            }, {
-	                data: ["总结点数", dynamicRisk.curSumNum, dynamicRisk.cprSumNum]
-	            }],
-	            tableBodyData2: [{
-	                rowspan: 2,
-	                data: ["核心资本运作风险", "核心自然人"].concat(dynamicRisk.curCorePersonList, dynamicRisk.cprCorePersonList)
-	            }, {
-	                data: ["控制节点数"].concat(dynamicRisk.curControlNum, dynamicRisk.cprControlNum)
-	            }],
-	            tableBodyData3: [{
-	                rowspan: 3,
-	                data: ["可持续性风险", "利益一致行动法人数量", dynamicRisk.curAgreeActNum, dynamicRisk.cprAgreeActNum]
-	            }, {
-	                data: ["利益一致行动法人占比", dynamicRisk.curAgreeActProp + "%", dynamicRisk.cprAgreeActProp + "%"]
-	            }, {
-	                data: ["利益一致行动法人明细"].concat(dynamicRisk.curAgreeComDet, dynamicRisk.cprAgreeComDet)
-	            }],
-	            tableBodyData4: [{
-	                rowspan: 2,
-	                data: ["泡沫化风险", "一度、二度关联法人数量", dynamicRisk.curOneTwoComapnyNum, dynamicRisk.cprOneTwoComapnyNum]
-	            }, {
-	                data: ["一度、二度关联法人占比", dynamicRisk.curOneTwoCompanyProp + "%", dynamicRisk.cprOneTwoCompanyProp + "%"]
-	            }],
-	            tableBodyData5: [{
-	                rowspan: 2,
-	                data: ["传销风险", "三度关联自然人数量", dynamicRisk.curThreePersonNum, dynamicRisk.cprThreePersonNum]
-	            }, {
-	                data: ["三度关联自然人占比", dynamicRisk.curThreePersonProp + "%", dynamicRisk.cprThreePersonProp + "%"]
-	            }],
-	            tableBodyData6: [{
-	                rowspan: 3,
-	                data: ["非法集资违规风险", "投资类，咨询类，贸易类，租赁类，保理类公司数量", dynamicRisk.curTypeSumNum, dynamicRisk.cprTypeSumNum]
-	            }, {
-	                data: ["投资类，咨询类，贸易类，租赁类，保理类公司占比", dynamicRisk.curTypeSumProp + "%", dynamicRisk.cprTypeSumProp + "%"]
-	            }, {
-	                data: ["公司明细", dynamicRisk.curCompanyDetail, dynamicRisk.cprCompanyDetail]
-	            }],
-	            tableBodyData7: [{
-	                rowspan: 5,
-	                data: ["跨区域舞弊风险", "地域积聚化排名", "地域", "法人数量", "地域", "法人数量"]
-	            }, {
-	                data: acrossAreaRiskRow1
-	            }, {
-	                data: acrossAreaRiskRow2
-	            }, {
-	                data: acrossAreaRiskRow3
-	            }, {
-	                data: acrossAreaRiskRow4
-	            }]
-	        };
-	        var tableBodyData1 = _tableBodyData1$table.tableBodyData1;
-	        var tableBodyData2 = _tableBodyData1$table.tableBodyData2;
-	        var tableBodyData3 = _tableBodyData1$table.tableBodyData3;
-	        var tableBodyData4 = _tableBodyData1$table.tableBodyData4;
-	        var tableBodyData5 = _tableBodyData1$table.tableBodyData5;
-	        var tableBodyData6 = _tableBodyData1$table.tableBodyData6;
-	        var tableBodyData7 = _tableBodyData1$table.tableBodyData7;
-
-
+	        var dynamicRisk = this.state.indexCmpData ? this.state.indexCmpData.dynamicRisk : null;
 	        return _react2.default.createElement(
 	            'div',
 	            { className: 'linefin-index-list mod' },
@@ -64467,7 +64499,7 @@
 	                        _react2.default.createElement(
 	                            'span',
 	                            { className: 'num' },
-	                            dynamicRisk.bbdTimeRiskIndex
+	                            dynamicRisk ? dynamicRisk.bbdTimeRiskIndex : 0
 	                        )
 	                    ),
 	                    _react2.default.createElement(
@@ -64475,38 +64507,38 @@
 	                        tabsData,
 	                        _react2.default.createElement(
 	                            'div',
-	                            { title: '稳态运营风险', num: dynamicRisk.steadyOperationRisk, className: 'mytabs mytas-c1' },
-	                            _react2.default.createElement(_IndexListTable2.default, { tableHeadField: tableHeadField1, tableBodyData: tableBodyData1 })
+	                            { title: '稳态运营风险', num: dynamicRisk ? dynamicRisk.steadyOperationRisk : 0, className: 'mytabs mytas-c1' },
+	                            _react2.default.createElement(_IndexListTableOne2.default, { indexCmpData: this.state.indexCmpData })
 	                        ),
 	                        _react2.default.createElement(
 	                            'div',
-	                            { title: '核心资本运作风险', num: dynamicRisk.coreCapitalOperationRisk, className: 'mytabs mytas-c2' },
-	                            _react2.default.createElement(_IndexListTable2.default, { tableHeadField: tableHeadField2, tableBodyData: tableBodyData2 })
+	                            { title: '核心资本运作风险', num: dynamicRisk ? dynamicRisk.coreCapitalOperationRisk : 0, className: 'mytabs mytas-c2' },
+	                            _react2.default.createElement(_IndexListTableTwo2.default, { indexCmpData: this.state.indexCmpData })
 	                        ),
 	                        _react2.default.createElement(
 	                            'div',
-	                            { title: '可持续性风险指数', num: dynamicRisk.sustainableRisk, className: 'mytabs mytas-c2' },
-	                            _react2.default.createElement(_IndexListTable2.default, { tableHeadField: tableHeadField1, tableBodyData: tableBodyData3 })
+	                            { title: '可持续性风险指数', num: dynamicRisk ? dynamicRisk.sustainableRisk : 0, className: 'mytabs mytas-c2' },
+	                            _react2.default.createElement(_IndexListTableThree2.default, { indexCmpData: this.state.indexCmpData })
 	                        ),
 	                        _react2.default.createElement(
 	                            'div',
-	                            { title: '泡沫化风险指数', num: dynamicRisk.foamRisk, className: 'mytabs mytas-c2' },
-	                            _react2.default.createElement(_IndexListTable2.default, { tableHeadField: tableHeadField1, tableBodyData: tableBodyData4 })
+	                            { title: '泡沫化风险指数', num: dynamicRisk ? dynamicRisk.foamRisk : 0, className: 'mytabs mytas-c2' },
+	                            _react2.default.createElement(_IndexListTableFour2.default, { indexCmpData: this.state.indexCmpData })
 	                        ),
 	                        _react2.default.createElement(
 	                            'div',
-	                            { title: '传销风险指数', num: dynamicRisk.pyramidSellingRisk, className: 'mytabs mytas-c2' },
-	                            _react2.default.createElement(_IndexListTable2.default, { tableHeadField: tableHeadField1, tableBodyData: tableBodyData5 })
+	                            { title: '传销风险指数', num: dynamicRisk ? dynamicRisk.pyramidSellingRisk : 0, className: 'mytabs mytas-c2' },
+	                            _react2.default.createElement(_IndexListTableFive2.default, { indexCmpData: this.state.indexCmpData })
 	                        ),
 	                        _react2.default.createElement(
 	                            'div',
-	                            { title: '非法集资违规风险', num: dynamicRisk.illegalFundRaisingRisk, className: 'mytabs mytas-c2' },
-	                            _react2.default.createElement(_IndexListTable2.default, { tableHeadField: tableHeadField1, tableBodyData: tableBodyData6 })
+	                            { title: '非法集资违规风险', num: dynamicRisk ? dynamicRisk.illegalFundRaisingRisk : 0, className: 'mytabs mytas-c2' },
+	                            _react2.default.createElement(_IndexListTableSix2.default, { indexCmpData: this.state.indexCmpData })
 	                        ),
 	                        _react2.default.createElement(
 	                            'div',
-	                            { title: '跨区域舞弊风险', num: dynamicRisk.steadyStateOperationRisk, className: 'mytabs mytas-c2' },
-	                            _react2.default.createElement(_IndexListTable2.default, { tableHeadField: tableHeadField3, tableBodyData: tableBodyData7 })
+	                            { title: '跨区域舞弊风险', num: dynamicRisk ? dynamicRisk.steadyStateOperationRisk : 0, className: 'mytabs mytas-c2' },
+	                            _react2.default.createElement(_IndexListTableSeven2.default, { indexCmpData: this.state.indexCmpData })
 	                        )
 	                    )
 	                )
@@ -64636,104 +64668,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 771 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-
-	__webpack_require__(772);
-
-	var _react = __webpack_require__(138);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	//指数列表table
-	var IndexListTable = _react2.default.createClass({
-	    displayName: 'IndexListTable',
-
-	    getInitialState: function getInitialState() {
-	        return {};
-	    },
-	    render: function render() {
-	        var _props = this.props;
-	        var tableHeadField = _props.tableHeadField;
-	        var tableBodyData = _props.tableBodyData;
-
-	        return _react2.default.createElement(
-	            'div',
-	            { className: 'index-list-table' },
-	            _react2.default.createElement(
-	                'table',
-	                { className: 'mt-table mt-table-center wtyh-table' },
-	                _react2.default.createElement(
-	                    'tbody',
-	                    null,
-	                    _react2.default.createElement(
-	                        'tr',
-	                        null,
-	                        tableHeadField.map(function (item, index) {
-	                            var width = "";
-	                            switch (index) {
-	                                case 0:
-	                                    width = "10%";break;
-	                                case 1:
-	                                    width = "20%";break;
-	                                default:
-	                                    width = "30%";break;
-
-	                            }
-	                            return _react2.default.createElement(
-	                                'td',
-	                                { width: width, key: 'td-' + index, colSpan: item.colspan },
-	                                item.text
-	                            );
-	                        })
-	                    ),
-	                    tableBodyData.map(function (item, index) {
-	                        return _react2.default.createElement(
-	                            'tr',
-	                            { key: 'tr-' + index },
-	                            item.data.map(function (item2, index) {
-
-	                                if (index == 0 && item.rowspan) {
-	                                    return _react2.default.createElement(
-	                                        'td',
-	                                        { rowSpan: item.rowspan, key: 'td-' + index },
-	                                        item2
-	                                    );
-	                                }
-
-	                                return _react2.default.createElement(
-	                                    'td',
-	                                    { key: 'td-' + index },
-	                                    (typeof item2 === 'undefined' ? 'undefined' : _typeof(item2)) == "object" ? item2.map(function (item3, index) {
-	                                        return _react2.default.createElement(
-	                                            'span',
-	                                            { style: { display: "block" }, key: 'span' + index },
-	                                            item3
-	                                        );
-	                                    }) : item2
-	                                );
-	                            })
-	                        );
-	                    })
-	                )
-	            )
-	        );
-	    }
-	});
-	module.exports = IndexListTable;
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "IndexListTable.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
+/* 771 */,
 /* 772 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -64782,90 +64717,90 @@
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
-	exports.getDynamicRiskCurDateCmpData = getDynamicRiskCurDateCmpData;
-	exports.getDynamicRiskCompanyRelationsIndex = getDynamicRiskCompanyRelationsIndex;
-	exports.getDynamicRiskCompanyTags = getDynamicRiskCompanyTags;
+	exports.getDynamicRiskImg = getDynamicRiskImg;
+	exports.getDynamicRiskIndexCmp = getDynamicRiskIndexCmp;
+	exports.getDynamicRiskCompanyTag = getDynamicRiskCompanyTag;
+	exports.getDynamicRiskDate = getDynamicRiskDate;
 	/*
 	* 动态风险模块 action
 	* */
 
 	/*
-	* 时间轴对比图之当前年月
+	* 获取图片
 	* */
-	var DYNAMIC_RISK_CURDATE_CMP_DATA_SUCCESS = exports.DYNAMIC_RISK_CURDATE_CMP_DATA_SUCCESS = "DYNAMIC_RISK_CURDATE_CMP_DATA_SUCCESS";
-	var DYNAMIC_RISK_CURDATE_CMP_DATA_FAIL = exports.DYNAMIC_RISK_CURDATE_CMP_DATA_FAIL = "DYNAMIC_RISK_CURDATE_CMP_DATA_FAIL";
+	var DYNAMIC_RISK_IMG_SUCCESS = exports.DYNAMIC_RISK_IMG_SUCCESS = "DYNAMIC_RISK_IMG_SUCCESS";
+	var DYNAMIC_RISK_IMG_FAIL = exports.DYNAMIC_RISK_IMG_FAIL = "DYNAMIC_RISK_IMG_FAIL";
 
-	function getDynamicRiskCurDateCmpDataSuccess(result) {
-		return {
-			type: DYNAMIC_RISK_CURDATE_CMP_DATA_SUCCESS,
-			result: result
-		};
+	function dynamicRiskImgSuccess(result) {
+	  return {
+	    type: DYNAMIC_RISK_IMG_SUCCESS,
+	    result: result
+	  };
 	}
-	function getDynamicRiskCurDateCmpDataFail(result) {
-		return {
-			type: DYNAMIC_RISK_CURDATE_CMP_DATA_FAIL,
-			result: result
-		};
+	function dynamicRiskImgFail(result) {
+	  return {
+	    type: DYNAMIC_RISK_IMG_FAIL,
+	    result: result
+	  };
 	}
 
-	function getDynamicRiskCurDateCmpData() {
-		var json = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
+	function getDynamicRiskImg() {
+	  var json = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
 
-		return function (dispatch) {
-			$.ajax({
-				type: 'GET',
-				url: '/offlineFinance/showYEDData.do',
-				dataType: 'json',
-				data: json,
-				success: function success(result) {
-					//返回错误信息？！
-					return dispatch(getDynamicRiskCurDateCmpDataSuccess(result.content));
-				},
-				error: function error(result) {
-					return dispatch(getDynamicRiskCurDateCmpDataFail(result.content));
-				}
-			});
-		};
+	  return function (dispatch) {
+	    $.ajax({
+	      type: 'GET',
+	      url: '/offlineFinance/showYEDData.do',
+	      dataType: 'json',
+	      data: json,
+	      success: function success(result) {
+	        return dispatch(dynamicRiskImgSuccess(result.content));
+	      },
+	      error: function error(result) {
+	        return dispatch(dynamicRiskImgFail(result.content));
+	      }
+	    });
+	  };
 	};
 
 	/*
-	* 企业关联方特征分指数对比
+	* 企业关联方特征指数对比
 	* */
-	var DYNAMIC_RISK_COMPANY_RELATETIONS_INDEX_SUCCESS = exports.DYNAMIC_RISK_COMPANY_RELATETIONS_INDEX_SUCCESS = "DYNAMIC_RISK_COMPANY_RELATETIONS_INDEX_SUCCESS";
-	var DYNAMIC_RISK_COMPANY_RELATETIONS_INDEX_FAIL = exports.DYNAMIC_RISK_COMPANY_RELATETIONS_INDEX_FAIL = "DYNAMIC_RISK_COMPANY_RELATETIONS_INDEX_FAIL";
+	var DYNAMIC_RISK_INDEX_CMP_SUCCESS = exports.DYNAMIC_RISK_INDEX_CMP_SUCCESS = "DYNAMIC_RISK_INDEX_CMP_SUCCESS";
+	var DYNAMIC_RISK_INDEX_CMP_FAIL = exports.DYNAMIC_RISK_INDEX_CMP_FAIL = "DYNAMIC_RISK_INDEX_CMP_FAIL";
 
-	function getDynamicRiskCompanyRelationsIndexSuccess(result) {
-		return {
-			type: DYNAMIC_RISK_COMPANY_RELATETIONS_INDEX_SUCCESS,
-			result: result
-		};
+	function dynamicRiskIndexCmpSuccess(result) {
+	  return {
+	    type: DYNAMIC_RISK_INDEX_CMP_SUCCESS,
+	    result: result
+	  };
 	}
-	function getDynamicRiskCompanyRelationsIndexFail(result) {
-		return {
-			type: DYNAMIC_RISK_COMPANY_RELATETIONS_INDEX_FAIL,
-			result: result
-		};
+	function dynamicRiskIndexCmpFail(result) {
+	  return {
+	    type: constDYNAMIC_RISK_INDEX_CMP_FAIL,
+	    result: result
+	  };
 	}
 
-	function getDynamicRiskCompanyRelationsIndex() {
-		var json = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
+	function getDynamicRiskIndexCmp() {
+	  var json = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
 
-		return function (dispatch) {
-			$.ajax({
-				type: 'GET',
-				url: '/offlineFinance/dynamicRiskData.do',
-				dataType: 'json',
-				data: json,
-				success: function success(result) {
-					return dispatch(getDynamicRiskCompanyRelationsIndexSuccess(result));
-				},
-				error: function error(result) {
-					return dispatch(getDynamicRiskCompanyRelationsIndexFail(result));
-				}
-			});
-		};
+	  return function (dispatch) {
+	    $.ajax({
+	      type: 'GET',
+	      url: '/offlineFinance/dynamicRiskData.do',
+	      dataType: 'json',
+	      data: json,
+	      success: function success(result) {
+	        return dispatch(dynamicRiskIndexCmpSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(dynamicRiskIndexCmpFail(result));
+	      }
+	    });
+	  };
 	}
 
 	/*
@@ -64875,35 +64810,71 @@
 	var DYNAMIC_RISK_COMPANY_TAG_FAIL = exports.DYNAMIC_RISK_COMPANY_TAG_FAIL = "DYNAMIC_RISK_COMPANY_TAG_FAIL";
 
 	function getDynamicRiskCompanyTagsSuccess(result) {
-		return {
-			type: DYNAMIC_RISK_COMPANY_TAG_SUCCESS,
-			result: result
-		};
+	  return {
+	    type: DYNAMIC_RISK_COMPANY_TAG_SUCCESS,
+	    result: result
+	  };
 	}
 	function getDynamicRiskCompanyTagsFail(result) {
-		return {
-			type: DYNAMIC_RISK_COMPANY_TAG_FAIL,
-			result: result
-		};
+	  return {
+	    type: DYNAMIC_RISK_COMPANY_TAG_FAIL,
+	    result: result
+	  };
 	}
 
-	function getDynamicRiskCompanyTags() {
-		var json = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
+	function getDynamicRiskCompanyTag() {
+	  var json = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
 
-		return function (dispatch) {
-			$.ajax({
-				type: 'GET',
-				url: '/offlineFinance/companyInfo.do',
-				dataType: 'json',
-				data: json,
-				success: function success(result) {
-					return dispatch(getDynamicRiskCompanyTagsSuccess(result));
-				},
-				error: function error(result) {
-					return dispatch(getDynamicRiskCompanyTagsFail(result));
-				}
-			});
-		};
+	  return function (dispatch) {
+	    $.ajax({
+	      type: 'GET',
+	      url: '/offlineFinance/companyInfo.do',
+	      dataType: 'json',
+	      data: json,
+	      success: function success(result) {
+	        return dispatch(getDynamicRiskCompanyTagsSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(getDynamicRiskCompanyTagsFail(result));
+	      }
+	    });
+	  };
+	}
+
+	/*
+	* 获取对比时间
+	* */
+	var DYNAMIC_RISK_DATE_SUCCESS = exports.DYNAMIC_RISK_DATE_SUCCESS = "DYNAMIC_RISK_DATE_SUCCESS";
+	var DYNAMIC_RISK_DATE_FAIL = exports.DYNAMIC_RISK_DATE_FAIL = "DYNAMIC_RISK_DATE_FAIL";
+
+	function getDynamicRiskDateSuccess(result) {
+	  return {
+	    type: DYNAMIC_RISK_DATE_SUCCESS,
+	    result: result
+	  };
+	}
+	function getDynamicRiskDateFail(result) {
+	  return {
+	    type: DYNAMIC_RISK_DATE_FAIL,
+	    result: result
+	  };
+	}
+
+	function getDynamicRiskDate(json) {
+	  return function (dispatch) {
+	    $.ajax({
+	      type: 'GET',
+	      url: '/offlineFinance/queryDateVersion.do',
+	      dataType: 'json',
+	      data: json,
+	      success: function success(result) {
+	        return dispatch(getDynamicRiskDateSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(getDynamicRiskDateFail(result));
+	      }
+	    });
+	  };
 	}
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "LineFinanceDynamicRiskAction.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
@@ -65074,7 +65045,6 @@
 	        balanceDistrData.push({ "name": "政策性", "value": policyBalance });
 	        balanceDistrData.push({ "name": "综合型", "value": compositeBalance });
 	        balanceDistrData.push({ "name": "钢贸类", "value": steelBalance });
-	        console.log(guaraEachAverData, "许尧测试");
 
 	        this.setState({ guaraDutyBalaData: guaraDutyBalaData, guaraEachAverData: guaraEachAverData, balanceDistrData: balanceDistrData });
 	    },
@@ -65459,6 +65429,10 @@
 	        var descAsc = this.state.descAsc;
 	        var jsonData = { orderByField: orderByField, descAsc: descAsc };
 	        this.getCompanyGrade(jsonData);
+	        $('#financeGuara-scroll').perfectScrollbar();
+	    },
+	    componentDidUpdate: function componentDidUpdate() {
+	        $('#financeGuara-scroll').perfectScrollbar('update');
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	        var isEqual = Immutable.is(nextProps.FinGuaCompanyGradeRequest, this.props.FinGuaCompanyGradeResult); //判断数据是否变化
@@ -65474,15 +65448,6 @@
 	                }
 	            }
 	        }
-	    },
-	    dataFomat: function dataFomat(data) {
-	        var content = data.content;
-	        this.setState({ companyGradeList: content });
-	    },
-	    getCompanyGrade: function getCompanyGrade(jsonData) {
-	        var getFinGuaCompanyGrade = this.props.getFinGuaCompanyGrade; // 取到props里面的getFinGuaCompanyGrade方法。也可以说是请求action
-
-	        getFinGuaCompanyGrade(jsonData);
 	    },
 	    orderByField: function orderByField(parm, e) {
 	        console.log(parm, e);
@@ -65504,6 +65469,16 @@
 	        var jsonData = { orderByField: orderByField, descAsc: descAsc };
 	        this.getCompanyGrade(jsonData);
 	    },
+	    dataFomat: function dataFomat(data) {
+	        var content = data.content;
+	        this.setState({ companyGradeList: content });
+	    },
+	    getCompanyGrade: function getCompanyGrade(jsonData) {
+	        var getFinGuaCompanyGrade = this.props.getFinGuaCompanyGrade; // 取到props里面的getFinGuaCompanyGrade方法。也可以说是请求action
+
+	        getFinGuaCompanyGrade(jsonData);
+	    },
+
 	    render: function render() {
 	        return _react2.default.createElement(
 	            'div',
@@ -65539,19 +65514,19 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '25%' },
+	                                    { width: '25%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 1) },
 	                                    '外部评级',
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '25%' },
+	                                    { width: '25%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 2) },
 	                                    '内部评级',
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '25%' },
+	                                    { width: '25%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 3) },
 	                                    '现场检查',
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                                )
@@ -65561,7 +65536,7 @@
 	                ),
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'table-content' },
+	                    { className: 'table-content', id: 'financeGuara-scroll' },
 	                    _react2.default.createElement(
 	                        'table',
 	                        { className: 'mt-table mt-table-center wtyh-table' },
@@ -65569,36 +65544,10 @@
 	                            'tbody',
 	                            null,
 	                            this.state.companyGradeList.map(function (elem, index) {
+	                                var _innerLevel = elem.innerLevel == undefined ? "/" : elem.innerLevel;
+	                                var _outLevel = elem.outLevel == undefined ? "/" : elem.outLevel;
+	                                var _liveLevel = elem.liveLevel == undefined ? "/" : elem.liveLevel;
 	                                if (index % 2) {
-	                                    return _react2.default.createElement(
-	                                        'tr',
-	                                        { className: 'odd' },
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            { width: '25%', className: 'talign-left' },
-	                                            _react2.default.createElement(
-	                                                'span',
-	                                                { className: 'word-limit-5', 'data-tip': elem.companyName },
-	                                                elem.companyName
-	                                            )
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            { width: '25%' },
-	                                            elem.innerLevel
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            { width: '25%' },
-	                                            elem.outLevel
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            { width: '25%' },
-	                                            elem.liveLevel
-	                                        )
-	                                    );
-	                                }{
 	                                    return _react2.default.createElement(
 	                                        'tr',
 	                                        { className: 'even' },
@@ -65614,17 +65563,46 @@
 	                                        _react2.default.createElement(
 	                                            'td',
 	                                            { width: '25%' },
-	                                            elem.innerLevel
+	                                            _innerLevel
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
 	                                            { width: '25%' },
-	                                            elem.outLevel
+	                                            _outLevel
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
 	                                            { width: '25%' },
-	                                            elem.liveLevel
+	                                            _liveLevel
+	                                        )
+	                                    );
+	                                }{
+	                                    return _react2.default.createElement(
+	                                        'tr',
+	                                        { className: 'odd' },
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '25%', className: 'talign-left' },
+	                                            _react2.default.createElement(
+	                                                'span',
+	                                                { className: 'word-limit-5', 'data-tip': elem.companyName },
+	                                                elem.companyName
+	                                            )
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '25%' },
+	                                            _innerLevel
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '25%' },
+	                                            _outLevel
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '25%' },
+	                                            _liveLevel
 	                                        )
 	                                    );
 	                                }
@@ -65676,7 +65654,7 @@
 
 
 	// module
-	exports.push([module.id, ".finance-guara-index .mt-table{\r\n\tmargin: 0px !important;\r\n}\r\n/*企业评级*/\r\n.finance-guara-index .company-grade .mod-content .table-content{\r\n\theight: 530px;\r\n\toverflow: auto;\r\n}\r\n/*担保责任余额结构分布*/\r\n.finance-guara-index .balance-distribute{\r\n\theight: 49.5%;\r\n}\r\n.finance-guara-index .balance-distribute .chart-box{\r\n\theight: 272px;\r\n}\r\n/*担保笔均折线图*/\r\n.finance-guara-index .each-average{\r\n\theight: 49.5%;\r\n\tmargin-top: 2%;\r\n}\r\n.finance-guara-index .each-average .chart-box{\r\n\theight: 272px;\r\n}\r\n\r\n/*地图模块*/\r\n.finance-guara-index .finance-guara-map .map-chart-box{\r\n\theight: 610px;\r\n\tposition: relative;\r\n}\r\n.finance-guara-index .mod-content{\r\n\tposition: relative;\r\n}\r\n.finance-guara-index .finance-guara-map .company-chart-box{\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n.finance-guara-index .finance-guara-map .visual-text{\r\n\tposition: absolute;\r\n\tbottom: 26%;\r\n\tright: 3%;\r\n\tz-index: 1000;\r\n\twidth: 14px;\r\n}\r\n\r\n/*贷款余额占比*/\r\n.finance-guara-index .loan-balance .chart-box{\r\n\theight: 300px;\r\n}\r\n\r\n/*股东行业风险*/\r\n.finance-guara-index .industry-risk .mod-content .table-content{\r\n\theight: 240px;\r\n\toverflow: auto;\r\n}\r\n.finance-guara-index .industry-risk .mod-content .table-content table td a{\r\n\tcolor:#e14340;\r\n}\r\n/*大额借款人信息列表*/\r\n\r\n/*股东风险更多*/\r\n.finance-guara-index .industry-risk-more{\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: fixed;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n.finance-guara-index .industry-risk-more .title{\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n.finance-guara-index .industry-risk-more .title span{\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n.finance-guara-index .industry-risk-more .title i{\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n.finance-guara-index .industry-risk-more .content{\r\n\tpadding: 8px 10px;\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\toverflow: auto;\r\n}\r\n.finance-guara-index .industry-risk-more .content ul{\r\n\tdisplay: inline-block;;\r\n\twidth: 33.33%;\r\n}\r\n.finance-guara-index .industry-risk-more .content ul li{\r\n\tpadding: 15px 5px;\r\n\tfont-size: 14px;\r\n}", ""]);
+	exports.push([module.id, ".finance-guara-index .mt-table {\r\n\tmargin: 0px !important;\r\n}\r\n\r\n/*企业评级*/\r\n.finance-guara-index .company-grade .mod-content .table-content {\r\n\theight: 530px;\r\n\toverflow: auto;\r\n}\r\n\r\n/*担保责任余额结构分布*/\r\n.finance-guara-index .balance-distribute {\r\n\theight: 49.5%;\r\n}\r\n\r\n.finance-guara-index .balance-distribute .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*担保笔均折线图*/\r\n.finance-guara-index .each-average {\r\n\theight: 49.5%;\r\n\tmargin-top: 2%;\r\n}\r\n\r\n.finance-guara-index .each-average .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*地图模块*/\r\n.finance-guara-index .finance-guara-map .map-chart-box {\r\n\theight: 610px;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .finance-guara-map .company-chart-box {\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.finance-guara-index .finance-guara-map .visual-text {\r\n\tposition: absolute;\r\n\tbottom: 26%;\r\n\tright: 3%;\r\n\tz-index: 1000;\r\n\twidth: 14px;\r\n}\r\n\r\n/*贷款余额占比*/\r\n.finance-guara-index .loan-balance .chart-box {\r\n\theight: 300px;\r\n}\r\n\r\n/*股东行业风险*/\r\n.finance-guara-index .industry-risk .mod-content .table-content {\r\n\theight: 240px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk .mod-content .table-content table td a {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*大额借款人信息列表*/\r\n\r\n/*股东风险更多*/\r\n.finance-guara-index .industry-risk-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: fixed;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content {\r\n\tpadding: 8px 10px;\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content ul {\r\n\tdisplay: inline-block;\r\n\twidth: 33.33%;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content ul li {\r\n\tpadding: 15px 5px;\r\n\tfont-size: 14px;\r\n}", ""]);
 
 	// exports
 
@@ -66118,7 +66096,11 @@
 	            color: param.color,
 	            tooltip: {
 	                trigger: 'item',
-	                formatter: "{a} <br/>{b}: {c} ({d}%)"
+	                backgroundColor: 'rgba(0,0,0,0.7)',
+	                padding: [10, 10, 10, 10],
+	                formatter: function formatter(v) {
+	                    return v.name + " :&nbsp;<span style='color:#00b7f0'>" + v.value + "(" + v.percent + "%)" + "</span>";
+	                }
 	            },
 	            grid: param.grid == undefined ? { top: '15%', left: '5%', right: '5%', bottom: '5%', containLabel: true } : param.grid,
 	            legend: {
@@ -66563,7 +66545,9 @@
 
 	    getInitialState: function getInitialState() {
 	        return {
-	            industryRiskList: []
+	            industryRiskList: [],
+	            orderType: "desc", //默认降序
+	            orderField: "" //需要排序的字段
 	        };
 	    },
 	    componentDidMount: function componentDidMount() {
@@ -66571,6 +66555,22 @@
 
 	        var jsonData = {};
 	        getFinGuaIndustryRisk(jsonData);
+	        $('#finGuaRisk-scroll').perfectScrollbar();
+	    },
+	    componentDidUpdate: function componentDidUpdate() {
+	        $('#finGuaRisk-scroll').perfectScrollbar('update');
+	    },
+	    handleClick: function handleClick(field) {
+	        var _dom = $(this.refs[field]),
+	            _domIco = _dom.find("i"),
+	            _domAttr = _dom.attr("data-order"),
+	            _domIcoIs = _dom.find("i").hasClass('icon-desc');
+	        _domIcoIs == true ? _domIco.removeClass('icon-desc').addClass('icon-asc') : _domIco.removeClass('icon-asc').addClass('icon-desc');
+	        _domAttr == "desc" ? _dom.attr("data-order", "asc") : _dom.attr("data-order", "desc");
+	        this.setState({ orderType: _dom.attr("data-order"), orderField: field }, function () {
+	            var _basedata = BOSS.sort(this.state.industryRiskList, field, this.state.orderType);
+	            this.setState({ industryRiskList: _basedata });
+	        });
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	        var isEqual = Immutable.is(nextProps.finGuaIndustryRiskRequest, this.props.finGuaIndustryRiskResult);
@@ -66638,25 +66638,25 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '20%' },
+	                                    { width: '20%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'p2p', onClick: this.handleClick.bind(this, "p2p") },
 	                                    'P2P关联',
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '25%' },
+	                                    { width: '25%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'privateFund', onClick: this.handleClick.bind(this, "privateFund") },
 	                                    '私募基金关联',
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '22%' },
+	                                    { width: '22%', className: 'cur-pointer', 'data-order': this.state.offlineFinance, ref: 'offlineFinance', onClick: this.handleClick.bind(this, "offlineFinance") },
 	                                    '线下理财关联',
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '13%' },
+	                                    { width: '13%', className: 'cur-pointer' },
 	                                    '更多'
 	                                )
 	                            )
@@ -66665,7 +66665,7 @@
 	                ),
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'table-content' },
+	                    { className: 'table-content', id: 'finGuaRisk-scroll' },
 	                    _react2.default.createElement(
 	                        'table',
 	                        { className: 'mt-table mt-table-center wtyh-table' },
@@ -66674,44 +66674,6 @@
 	                            null,
 	                            this.state.industryRiskList.map(function (elem, index) {
 	                                if (index % 2) {
-	                                    return _react2.default.createElement(
-	                                        'tr',
-	                                        { className: 'odd' },
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            { width: '20%', className: 'talign-left' },
-	                                            _react2.default.createElement(
-	                                                'span',
-	                                                { className: 'word-limit-5', 'data-tip': elem.companyName },
-	                                                elem.companyName
-	                                            )
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            { width: '20%' },
-	                                            elem.p2p
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            { width: '20%' },
-	                                            elem.privateFund
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            { width: '20%' },
-	                                            elem.offlineFinance
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            { width: '20%' },
-	                                            _react2.default.createElement(
-	                                                'a',
-	                                                { href: 'javascript:;', onClick: this.handleMore },
-	                                                '更多'
-	                                            )
-	                                        )
-	                                    );
-	                                }{
 	                                    return _react2.default.createElement(
 	                                        'tr',
 	                                        { className: 'even' },
@@ -66731,17 +66693,55 @@
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '20%' },
+	                                            { width: '25%' },
 	                                            elem.privateFund
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '20%' },
+	                                            { width: '22%' },
 	                                            elem.offlineFinance
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
+	                                            { width: '13%' },
+	                                            _react2.default.createElement(
+	                                                'a',
+	                                                { href: 'javascript:;', onClick: this.handleMore },
+	                                                '更多'
+	                                            )
+	                                        )
+	                                    );
+	                                }{
+	                                    return _react2.default.createElement(
+	                                        'tr',
+	                                        { className: 'odd' },
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '20%', className: 'talign-left' },
+	                                            _react2.default.createElement(
+	                                                'span',
+	                                                { className: 'word-limit-5', 'data-tip': elem.companyName },
+	                                                elem.companyName
+	                                            )
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'td',
 	                                            { width: '20%' },
+	                                            elem.p2p
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '25%' },
+	                                            elem.privateFund
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '22%' },
+	                                            elem.offlineFinance
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '13%' },
 	                                            _react2.default.createElement(
 	                                                'a',
 	                                                { href: 'javascript:;', onClick: this.handleMore },
@@ -66939,204 +66939,212 @@
 
 	//大额被担保人信息列表
 	var LargeGuara = _react2.default.createClass({
-	    displayName: 'LargeGuara',
+	  displayName: 'LargeGuara',
 
-	    getInitialState: function getInitialState() {
-	        return {
-	            count: 0,
-	            largeGuaraList: [],
-	            orderByField: 1,
-	            nowpage: 1
-	        };
-	    },
-	    componentDidMount: function componentDidMount() {
-	        var jsonData = { pageSize: 4 };
-	        this.getLargeGuara(jsonData);
-	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var isEqual = Immutable.is(nextProps.largeGuaraRequest, this.props.largeGuaraResult);
-	        if (!isEqual) {
-	            var largeGuaraRequest = nextProps.largeGuaraRequest;
-	            var largeGuaraResult = nextProps.largeGuaraResult;
+	  getInitialState: function getInitialState() {
+	    return {
+	      count: 0,
+	      largeGuaraList: [],
+	      orderByField: 1,
+	      nowpage: 1
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {
+	    var jsonData = { pageSize: 4 };
+	    this.getLargeGuara(jsonData);
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var isEqual = Immutable.is(nextProps.largeGuaraRequest, this.props.largeGuaraResult);
+	    if (!isEqual) {
+	      var largeGuaraRequest = nextProps.largeGuaraRequest;
+	      var largeGuaraResult = nextProps.largeGuaraResult;
 
-	            if (largeGuaraRequest == true) {
-	                if (largeGuaraResult.success == true) {
-	                    this.dataFomat(largeGuaraResult);
-	                } else {
-	                    //错误后提示
-	                }
-	            }
-	        }
-	    },
-	    dataFomat: function dataFomat(data) {
-	        var content = data.content.list;
-	        var count = data.content.pagination.count;
-	        this.setState({ count: count, largeGuaraList: content });
-	    },
-	    getLargeGuara: function getLargeGuara(jsonData) {
-	        var getLargeGuara = this.props.getLargeGuara;
-
-	        getLargeGuara(jsonData);
-	    },
-	    //分页回调 
-	    setCallBack: function setCallBack(nowpage, eachPageCount) {
-	        this.setState({ nowpage: nowpage });
-	        var orderByField = this.state.orderByField;
-	        var descAsc = this.state.descAsc;
-
-	        var jsonData = { orderByField: orderByField, descAsc: descAsc, pageSize: 4, pageNumber: nowpage };
-	        this.getLargeGuara(jsonData);
-	    },
-	    orderByField: function orderByField(parm, e) {
-	        console.log(parm, e);
-	        var $this = $(e.target).parent('th');
-	        var $i = $this.find('i');
-	        var isDesc = $i.hasClass('icon-desc');
-	        var descAsc = "";
-	        if (isDesc == true) {
-	            $i.removeClass('icon-desc').addClass('icon-asc');
-	            descAsc = "asc";
+	      if (largeGuaraRequest == true) {
+	        if (largeGuaraResult.success == true) {
+	          this.dataFomat(largeGuaraResult);
 	        } else {
-	            $i.removeClass('icon-asc').addClass('icon-desc');
-	            descAsc = "desc";
+	          //错误后提示
 	        }
-
-	        this.setState({ orderByField: parm, descAsc: descAsc });
-	        var nowpage = this.state.nowpage;
-
-	        var orderByField = parm;
-	        var jsonData = { orderByField: orderByField, descAsc: descAsc, pageSize: 4, pageNumber: nowpage };
-	        this.getLargeGuara(jsonData);
-	    },
-	    render: function render() {
-	        return _react2.default.createElement(
-	            'div',
-	            { className: 'large-loan mod' },
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'mod-title' },
-	                _react2.default.createElement(
-	                    'h3',
-	                    null,
-	                    '大额借款人信息列表'
-	                )
-	            ),
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'mod-content' },
-	                _react2.default.createElement(
-	                    'table',
-	                    { className: 'mt-table mt-table-center wtyh-table' },
-	                    _react2.default.createElement(
-	                        'thead',
-	                        null,
-	                        _react2.default.createElement(
-	                            'tr',
-	                            null,
-	                            _react2.default.createElement(
-	                                'th',
-	                                { width: '20%', className: 'talign-left', onClick: this.orderByField.bind(this, 1) },
-	                                '担保公司',
-	                                _react2.default.createElement('i', { className: 'iconfont icon-desc' })
-	                            ),
-	                            _react2.default.createElement(
-	                                'th',
-	                                { width: '25%', onClick: this.orderByField.bind(this, 2) },
-	                                '被担保公司',
-	                                _react2.default.createElement('i', { className: 'iconfont icon-desc' })
-	                            ),
-	                            _react2.default.createElement(
-	                                'th',
-	                                { width: '30%', onClick: this.orderByField.bind(this, 3) },
-	                                '被担保公司行业',
-	                                _react2.default.createElement('i', { className: 'iconfont icon-desc' })
-	                            ),
-	                            _react2.default.createElement(
-	                                'th',
-	                                { width: '25%', onClick: this.orderByField.bind(this, 4) },
-	                                '注册资本',
-	                                _react2.default.createElement('i', { className: 'iconfont icon-desc' })
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'tbody',
-	                        null,
-	                        this.state.largeGuaraList.map(function (elem, index) {
-	                            if (index % 2) {
-	                                return _react2.default.createElement(
-	                                    'tr',
-	                                    { className: 'odd' },
-	                                    _react2.default.createElement(
-	                                        'td',
-	                                        { className: 'talign-left' },
-	                                        _react2.default.createElement(
-	                                            'span',
-	                                            { className: 'word-limit-5', 'data-tip': elem.borrowerName },
-	                                            elem.guaranteeName
-	                                        )
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'td',
-	                                        null,
-	                                        _react2.default.createElement(
-	                                            'span',
-	                                            { className: 'word-limit-5', 'data-tip': elem.lenderName },
-	                                            elem.guaranteedName
-	                                        )
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'td',
-	                                        null,
-	                                        elem.guaranteedBusinessType
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'td',
-	                                        null,
-	                                        elem.guaranteedRegisteredCapital
-	                                    )
-	                                );
-	                            }{
-	                                return _react2.default.createElement(
-	                                    'tr',
-	                                    { className: 'even' },
-	                                    _react2.default.createElement(
-	                                        'td',
-	                                        { className: 'talign-left' },
-	                                        _react2.default.createElement(
-	                                            'span',
-	                                            { className: 'word-limit-5', 'data-tip': elem.borrowerName },
-	                                            elem.guaranteeName
-	                                        )
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'td',
-	                                        null,
-	                                        _react2.default.createElement(
-	                                            'span',
-	                                            { className: 'word-limit-5', 'data-tip': elem.lenderName },
-	                                            elem.guaranteedName
-	                                        )
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'td',
-	                                        null,
-	                                        elem.guaranteedBusinessType
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'td',
-	                                        null,
-	                                        elem.guaranteedRegisteredCapital
-	                                    )
-	                                );
-	                            }
-	                        }.bind(this))
-	                    )
-	                ),
-	                _react2.default.createElement(_index.PageList, { id: 'large-loan-page', count: this.state.count, showPage: '3', callback: this.setCallBack })
-	            )
-	        );
+	      }
 	    }
+	  },
+	  dataFomat: function dataFomat(data) {
+	    var content = data.content.list;
+	    var count = data.content.pagination.count;
+	    this.setState({ count: count, largeGuaraList: content });
+	  },
+	  getLargeGuara: function getLargeGuara(jsonData) {
+	    var getLargeGuara = this.props.getLargeGuara;
+
+	    getLargeGuara(jsonData);
+	  },
+	  //分页回调 
+	  setCallBack: function setCallBack(nowpage, eachPageCount) {
+	    this.setState({ nowpage: nowpage });
+	    var orderByField = this.state.orderByField;
+	    var descAsc = this.state.descAsc;
+
+	    var jsonData = { orderByField: orderByField, descAsc: descAsc, pageSize: 4, pageNumber: nowpage };
+	    this.getLargeGuara(jsonData);
+	  },
+	  orderByField: function orderByField(parm, e) {
+	    console.log(parm, e);
+	    var $this = $(e.target).parent('th');
+	    var $i = $this.find('i');
+	    var isDesc = $i.hasClass('icon-desc');
+	    var descAsc = "";
+	    if (isDesc == true) {
+	      $i.removeClass('icon-desc').addClass('icon-asc');
+	      descAsc = "asc";
+	    } else {
+	      $i.removeClass('icon-asc').addClass('icon-desc');
+	      descAsc = "desc";
+	    }
+
+	    this.setState({ orderByField: parm, descAsc: descAsc });
+	    var nowpage = this.state.nowpage;
+
+	    var orderByField = parm;
+	    var jsonData = { orderByField: orderByField, descAsc: descAsc, pageSize: 4, pageNumber: nowpage };
+	    this.getLargeGuara(jsonData);
+	  },
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'large-loan mod' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'mod-title' },
+	        _react2.default.createElement(
+	          'h3',
+	          null,
+	          '大额借款人信息列表'
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'mod-content' },
+	        _react2.default.createElement(
+	          'table',
+	          { className: 'mt-table mt-table-center wtyh-table' },
+	          _react2.default.createElement(
+	            'thead',
+	            null,
+	            _react2.default.createElement(
+	              'tr',
+	              null,
+	              _react2.default.createElement(
+	                'th',
+	                { width: '20%', className: 'talign-left cur-pointer', onClick: this.orderByField.bind(this, 1) },
+	                '担保公司',
+	                _react2.default.createElement('i', { className: 'iconfont icon-desc' })
+	              ),
+	              _react2.default.createElement(
+	                'th',
+	                { width: '25%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 2) },
+	                '被担保公司',
+	                _react2.default.createElement('i', { className: 'iconfont icon-desc' })
+	              ),
+	              _react2.default.createElement(
+	                'th',
+	                { width: '30%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 3) },
+	                '被担保公司行业',
+	                _react2.default.createElement('i', { className: 'iconfont icon-desc' })
+	              ),
+	              _react2.default.createElement(
+	                'th',
+	                { width: '25%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 4) },
+	                '注册资本',
+	                _react2.default.createElement('i', { className: 'iconfont icon-desc' })
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'tbody',
+	            null,
+	            this.state.largeGuaraList.map(function (elem, index) {
+	              if (index % 2) {
+	                return _react2.default.createElement(
+	                  'tr',
+	                  { className: 'even' },
+	                  _react2.default.createElement(
+	                    'td',
+	                    { className: 'talign-left' },
+	                    _react2.default.createElement(
+	                      'span',
+	                      { className: 'word-limit-5', 'data-tip': elem.guaranteeName, title: elem.guaranteeName },
+	                      elem.guaranteeName
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      'span',
+	                      { className: 'word-limit-5', 'data-tip': elem.guaranteedName, title: elem.guaranteedName },
+	                      elem.guaranteedName
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      'span',
+	                      { className: 'word-limit-5', 'data-tip': elem.guaranteedBusinessType, title: elem.guaranteedBusinessType },
+	                      elem.guaranteedBusinessType
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    elem.guaranteedRegisteredCapital
+	                  )
+	                );
+	              }{
+	                return _react2.default.createElement(
+	                  'tr',
+	                  { className: 'odd' },
+	                  _react2.default.createElement(
+	                    'td',
+	                    { className: 'talign-left' },
+	                    _react2.default.createElement(
+	                      'span',
+	                      { className: 'word-limit-5', 'data-tip': elem.guaranteeName, title: elem.guaranteeName },
+	                      elem.guaranteeName
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      'span',
+	                      { className: 'word-limit-5', 'data-tip': elem.guaranteedName, title: elem.guaranteedName },
+	                      elem.guaranteedName
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      'span',
+	                      { className: 'word-limit-5', 'data-tip': elem.guaranteedBusinessType, title: elem.guaranteedBusinessType },
+	                      elem.guaranteedBusinessType
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    elem.guaranteedRegisteredCapital
+	                  )
+	                );
+	              }
+	            }.bind(this))
+	          )
+	        ),
+	        _react2.default.createElement(_index.PageList, { id: 'large-loan-page', count: this.state.count, showPage: '3', callback: this.setCallBack })
+	      )
+	    );
+	  }
 	});
 	module.exports = LargeGuara;
 
@@ -67257,12 +67265,16 @@
 	            }
 	        }
 	    },
+	    handleFunction: function handleFunction(searchVal) {
+	        console.log(searchVal, "================搜索词语============================");
+	        this.props.history.push('/SearchResultDetail?platName=' + searchVal);
+	    },
 	    mixins: [_setHeight2.default],
 	    render: function render() {
 	        return _react2.default.createElement(
 	            'div',
 	            { className: 'privateFund-index', style: this.state.style },
-	            _react2.default.createElement(_IndustrySearch2.default, { label: '私募基金监测', placeholder: '请输入企业名称关键字' }),
+	            _react2.default.createElement(_IndustrySearch2.default, { label: '私募基金监测', searchFun: this.handleFunction, companyType: '5', placeholder: '请输入企业名称检索' }),
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'content' },
@@ -67408,10 +67420,26 @@
 
 					getInitialState: function getInitialState() {
 									return {
-													list: []
+													list: [],
+													orderType: "desc", //默认降序
+													orderField: "" //需要排序的字段
 									};
 					},
-					componentDidMount: function componentDidMount() {},
+					componentDidMount: function componentDidMount() {
+									$('#companyProgress-scroll').perfectScrollbar();
+					},
+					handleClick: function handleClick(field) {
+									var _dom = $(this.refs[field]),
+									    _domAttr = _dom.attr("data-order"),
+									    _domIco = _dom.find("em"),
+									    _domIcoIs = _dom.find("em").hasClass('icon-desc');
+									_domIcoIs == true ? _domIco.removeClass('icon-desc').addClass('icon-asc') : _domIco.removeClass('icon-asc').addClass('icon-desc');
+									_domAttr == "desc" ? _dom.attr("data-order", "asc") : _dom.attr("data-order", "desc");
+									this.setState({ orderType: _dom.attr("data-order"), orderField: field }, function () {
+													var _basedata = BOSS.sort(this.state.list, field, this.state.orderType);
+													this.setState({ list: _basedata });
+									});
+					},
 					componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 									var isEqual = Immutable.is(nextProps.companyProgressData, this.props.companyProgressData);
 									if (!isEqual) {
@@ -67422,6 +67450,9 @@
 													}
 													this.setState({ list: companyProgressData });
 									}
+					},
+					componentDidUpdate: function componentDidUpdate() {
+									$('#companyProgress-scroll').perfectScrollbar('update');
 					},
 					render: function render() {
 									return _react2.default.createElement(
@@ -67464,15 +67495,15 @@
 																																	),
 																																	_react2.default.createElement(
 																																					'th',
-																																					{ width: '20%' },
+																																					{ width: '20%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'quatas', onClick: this.handleClick.bind(this, "quatas") },
 																																					'获批额度($)',
-																																					_react2.default.createElement('i', { className: 'iconfont icon-desc' })
+																																					_react2.default.createElement('em', { className: 'iconfont icon-desc' })
 																																	),
 																																	_react2.default.createElement(
 																																					'th',
-																																					{ width: '25%' },
+																																					{ width: '25%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'progress', onClick: this.handleClick.bind(this, "progress") },
 																																					'近期进展',
-																																					_react2.default.createElement('i', { className: 'iconfont icon-desc' })
+																																					_react2.default.createElement('em', { className: 'iconfont icon-desc' })
 																																	)
 																													)
 																									)
@@ -67480,7 +67511,7 @@
 																	),
 																	_react2.default.createElement(
 																					'div',
-																					{ className: 'table-content' },
+																					{ className: 'table-content', id: 'companyProgress-scroll' },
 																					_react2.default.createElement(
 																									'table',
 																									{ className: 'mt-table mt-table-center table-border-b wtyh-table' },
@@ -67504,7 +67535,7 @@
 																																																	{ width: '25%' },
 																																																	_react2.default.createElement(
 																																																					_reactRouter.Link,
-																																																					{ to: { pathname: '/SearchResultDetail', query: { formpage: 'CompanyProgress', company: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName },
+																																																					{ to: { pathname: '/SearchResultDetail', query: { formpage: 'CompanyProgress', company: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName, title: item.companyName },
 																																																					item.companyName
 																																																	)
 																																													),
@@ -67513,7 +67544,7 @@
 																																																	{ width: '20%' },
 																																																	_react2.default.createElement(
 																																																					'span',
-																																																					{ className: 'word-limit-5', 'data-tip': item.shareholders },
+																																																					{ className: 'word-limit-5', 'data-tip': item.shareholders, title: item.shareholders },
 																																																					item.shareholders
 																																																	)
 																																													),
@@ -67543,7 +67574,7 @@
 																																																	{ width: '25%' },
 																																																	_react2.default.createElement(
 																																																					_reactRouter.Link,
-																																																					{ to: { pathname: '/SearchResultDetail', query: { formpage: 'CompanyProgress', company: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName },
+																																																					{ to: { pathname: '/SearchResultDetail', query: { formpage: 'CompanyProgress', company: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName, title: item.companyName },
 																																																					item.companyName
 																																																	)
 																																													),
@@ -67552,7 +67583,7 @@
 																																																	{ width: '20%' },
 																																																	_react2.default.createElement(
 																																																					'span',
-																																																					{ className: 'word-limit-5', 'data-tip': item.shareholders },
+																																																					{ className: 'word-limit-5', 'data-tip': item.shareholders, title: item.shareholders },
 																																																					item.shareholders
 																																																	)
 																																													),
@@ -67619,7 +67650,7 @@
 
 
 	// module
-	exports.push([module.id, ".privateFund-index .middle-l .content,\r\n.privateFund-index .middle-r .content {\r\n\theight: 570px;\r\n}\r\n\r\n.privateFund-index .middle-l .content .content-l {\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index .middle-l .content .content-r {\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index .middle-r .content .content-l {\r\n\twidth: 40%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index  .middle-r .content .content-r {\r\n\twidth: 60%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark {\r\n\tmargin-top: 50px;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark table {\r\n\theight: 100px;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark table {\r\n\twidth: 100%;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark tbody {\r\n\tbackground: #3a4352;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark .padding-l20 {\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark .word-limit-5 {\r\n\r\n\t/*width: 200px;*/\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark tbody tr {\r\n\tborder-bottom: 1px #555c6c solid;\r\n\ttext-align: left;\r\n}\r\n\r\n.privateFund-index .top-left-l .mod-content,\r\n.privateFund-index .top-r .mod-content {\r\n\tpadding: 10px 15px 50px 15px;\r\n}\r\n\r\n.privateFund-index .top-left-l .table-content,\r\n.privateFund-index .top-r .table-content {\r\n\theight: 460px;\r\n\toverflow: auto;\r\n}\r\n\r\n.privateFund-index .top-left-l .table-content table,\r\n.privateFund-index .top-r .table-content table {\r\n\r\n\t/*height: 100%*/\r\n}\r\n\r\n.privateFund-index .top-left-l  thead th,\r\n.privateFund-index .top-r  thead th {\r\n\ttext-align: left;\r\n\theight: 40px;\r\n\tpadding: 0px !important;\r\n}\r\n\r\n.privateFund-index .top-left-l tbody td,\r\n.privateFund-index .top-r tbody td {\r\n\ttext-align: left;\r\n\tpadding: 10px 0px !important;\r\n}\r\n\r\n.privateFund-index .top-left-l .mt-table th {\r\n\tpadding: 0px;\r\n}\r\n\r\n.padding-l20 {\r\n\tpadding-left: 20px !important;\r\n}", ""]);
+	exports.push([module.id, ".privateFund-index .middle-l .content,\r\n.privateFund-index .middle-r .content {\r\n\theight: 570px;\r\n}\r\n\r\n.privateFund-index .middle-l .content .content-l {\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index .middle-l .content .content-r {\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index .middle-r .content .content-l {\r\n\twidth: 40%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index  .middle-r .content .content-r {\r\n\twidth: 60%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark {\r\n\tmargin-top: 50px;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark table {\r\n\theight: 100px;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark table {\r\n\twidth: 100%;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark tbody {\r\n\tbackground: #3a4352;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark .padding-l20 {\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark .word-limit-5 {\r\n\r\n\t/*width: 200px;*/\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark tbody tr {\r\n\tborder-bottom: 1px #555c6c solid;\r\n\ttext-align: left;\r\n}\r\n\r\n.privateFund-index .top-left-l .mod-content,\r\n.privateFund-index .top-r .mod-content {\r\n\tpadding: 10px 15px 50px 15px;\r\n}\r\n\r\n.privateFund-index .top-left-l .table-content,\r\n.privateFund-index .top-r .table-content {\r\n\theight: 460px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.privateFund-index .top-left-l .table-content table,\r\n.privateFund-index .top-r .table-content table {\r\n\r\n\t/*height: 100%*/\r\n}\r\n\r\n.privateFund-index .top-left-l  thead th,\r\n.privateFund-index .top-r  thead th {\r\n\ttext-align: left;\r\n\theight: 40px;\r\n\tpadding: 0px !important;\r\n}\r\n\r\n.privateFund-index .top-left-l tbody td,\r\n.privateFund-index .top-r tbody td {\r\n\ttext-align: left;\r\n\tpadding: 10px 0px !important;\r\n}\r\n\r\n.privateFund-index .top-left-l .mt-table th {\r\n\tpadding: 0px;\r\n}\r\n\r\n.padding-l20 {\r\n\tpadding-left: 20px !important;\r\n}", ""]);
 
 	// exports
 
@@ -67702,7 +67733,6 @@
 	    render: function render() {
 	        var chartBox = "";
 	        if (this.state.pieData) {
-	            console.log("测试");
 	            chartBox = _react2.default.createElement(_PieChart2.default, { param: this.state.pieData });
 	        }
 	        return _react2.default.createElement(
@@ -67769,7 +67799,7 @@
 	                                            null,
 	                                            _react2.default.createElement(
 	                                                'span',
-	                                                { className: 'word-limit-5', 'data-tip': item.companyList },
+	                                                { className: 'word-limit-5', 'data-tip': item.companyList, title: item.companyList },
 	                                                item.companyList
 	                                            )
 	                                        )
@@ -67815,7 +67845,9 @@
 
 	    getInitialState: function getInitialState() {
 	        return {
-	            listData: []
+	            listData: [],
+	            orderType: "desc", //默认降序
+	            orderField: "" //需要排序的字段
 	        };
 	    },
 	    componentDidMount: function componentDidMount() {
@@ -67823,6 +67855,19 @@
 
 	        var jsonData = {};
 	        getQDLPQualityRequest(jsonData);
+	        $('#qdlpQuality-scroll').perfectScrollbar();
+	    },
+	    handleClick: function handleClick(field) {
+	        var _dom = $(this.refs[field]),
+	            _domAttr = _dom.attr("data-order"),
+	            _domIco = _dom.find("em"),
+	            _domIcoIs = _dom.find("em").hasClass('icon-desc');
+	        _domIcoIs == true ? _domIco.removeClass('icon-desc').addClass('icon-asc') : _domIco.removeClass('icon-asc').addClass('icon-desc');
+	        _domAttr == "desc" ? _dom.attr("data-order", "asc") : _dom.attr("data-order", "desc");
+	        this.setState({ orderType: _dom.attr("data-order"), orderField: field }, function () {
+	            var _basedata = BOSS.sort(this.state.listData, field, this.state.orderType);
+	            this.setState({ listData: _basedata });
+	        });
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	        var isEqual = Immutable.is(nextProps.QDLPQualityRequest, this.props.QDLPQualityResult);
@@ -67838,6 +67883,9 @@
 	                }
 	            }
 	        }
+	    },
+	    componentDidUpdate: function componentDidUpdate() {
+	        $('#qdlpQuality-scroll').perfectScrollbar('update');
 	    },
 	    render: function render() {
 	        return _react2.default.createElement(
@@ -67875,21 +67923,21 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '20%' },
+	                                    { width: '20%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'total', onClick: this.handleClick.bind(this, "total") },
 	                                    '总规模($)',
-	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
+	                                    _react2.default.createElement('em', { className: 'iconfont icon-desc' })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '20%' },
+	                                    { width: '20%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'dollarPart', onClick: this.handleClick.bind(this, "dollarPart") },
 	                                    '美元部分($)',
-	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
+	                                    _react2.default.createElement('em', { className: 'iconfont icon-desc' })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '20%' },
+	                                    { width: '20%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'rmbTotal', onClick: this.handleClick.bind(this, "rmbTotal") },
 	                                    '投资合计(￥)',
-	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
+	                                    _react2.default.createElement('em', { className: 'iconfont icon-desc' })
 	                                )
 	                            )
 	                        )
@@ -67897,7 +67945,7 @@
 	                ),
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'table-content' },
+	                    { className: 'table-content', id: 'qdlpQuality-scroll' },
 	                    _react2.default.createElement(
 	                        'table',
 	                        { className: 'mt-table mt-table-center table-border-b wtyh-table' },
@@ -67921,7 +67969,7 @@
 	                                                { width: '30%' },
 	                                                _react2.default.createElement(
 	                                                    _reactRouter.Link,
-	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'QDLPQuality', company: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName },
+	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'QDLPQuality', company: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName, title: item.companyName },
 	                                                    item.companyName
 	                                                )
 	                                            ),
@@ -67956,7 +68004,7 @@
 	                                                { width: '30%' },
 	                                                _react2.default.createElement(
 	                                                    _reactRouter.Link,
-	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'QDLPQuality', company: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName },
+	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'QDLPQuality', company: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName, title: item.companyName },
 	                                                    item.companyName
 	                                                )
 	                                            ),
@@ -68443,11 +68491,13 @@
 	                }
 	            },
 	            tooltip: {
-	                backgroundColor: '#222',
-	                borderColor: '#222',
+	                backgroundColor: 'rgba(0,0,0,0.7)',
+	                padding: [10, 10, 10, 10],
 	                borderWidth: 1,
 	                trigger: 'item',
-	                formatter: "{b}: {c}"
+	                formatter: function formatter(v) {
+	                    return v.name + " :&nbsp;<span style='color:" + parm.color[0] + "'>" + Number(v.value).toFixed(2) + "</span>";
+	                }
 	            },
 	            xAxis: {
 
@@ -68753,12 +68803,14 @@
 	                trigger: 'axis',
 	                backgroundColor: 'rgba(0,0,0,0.7)',
 	                padding: [10, 10, 10, 10],
-	                // formatter: function (v) {
-	                //     var v1 = "<span style='color: #00b8ee'>" + v[0].value + "</span>";
-	                //     var v2 = "<span style='color: #f7b650'>" + v[1].value + "</span>";
-	                //     return v[0].name + "<br/>" + v[0].seriesName + "：" + v1 + "<br/>" + v[1].seriesName + "：" + v2;
-	                //     return v[0].name + "<br/>" + v[0].seriesName + "£º" + v1 + "<br/>" + v[1].seriesName + "£º" + v2;
-	                // },
+	                formatter: function formatter(v) {
+	                    var info = v[0].name + "<br/>";
+	                    for (var i = 0; i < v.length; i++) {
+	                        var _spanCorlor = '<span style=color:' + parm.color[i] + '>' + v[i].value + '</span><br/>';
+	                        info += v[i].seriesName + " :&nbsp;" + _spanCorlor;
+	                    }
+	                    return info;
+	                },
 	                axisPointer: {
 	                    type: 'none'
 	                }
@@ -68811,7 +68863,7 @@
 	            yAxis: [{
 	                type: parm.Ytype || 'value',
 	                data: parm.yAxis || [],
-	                // name: !!parm.yAxisName?parm.yAxisName[0] : "",
+	                name: parm.yAxisName == undefined ? "" : parm.yAxisName[0],
 	                nameTextStyle: {
 	                    color: "#7f868e"
 	                },
@@ -68843,7 +68895,7 @@
 	                }
 	            }, {
 	                type: parm.Ytype || 'value',
-	                // name: !!parm.yAxisName?parm.yAxisName[1] : "",
+	                name: parm.yAxisName == undefined ? "" : parm.yAxisName[1],
 	                nameTextStyle: {
 	                    color: "#7f868e"
 	                },
@@ -70024,6 +70076,10 @@
 	        var descAsc = this.state.descAsc;
 	        var jsonData = { orderByField: orderByField, descAsc: descAsc };
 	        this.getCompanyGrade(jsonData);
+	        $('#companyGrade-scroll').perfectScrollbar();
+	    },
+	    componentDidUpdate: function componentDidUpdate() {
+	        $('#companyGrade-scroll').perfectScrollbar('update');
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	        var isEqual = Immutable.is(nextProps.companyGradeRequest, this.props.companyGradeResult); //判断数据是否变化
@@ -70104,19 +70160,19 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '25%', onClick: this.orderByField.bind(this, 1) },
+	                                    { width: '25%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 1) },
 	                                    '外部评级',
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '25%', onClick: this.orderByField.bind(this, 2) },
+	                                    { width: '25%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 2) },
 	                                    '内部评级',
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '25%', onClick: this.orderByField.bind(this, 3) },
+	                                    { width: '25%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 3) },
 	                                    '现场检查',
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                                )
@@ -70126,7 +70182,7 @@
 	                ),
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'table-content' },
+	                    { className: 'table-content', id: 'companyGrade-scroll' },
 	                    _react2.default.createElement(
 	                        'table',
 	                        { className: 'mt-table mt-table-center wtyh-table' },
@@ -70134,6 +70190,9 @@
 	                            'tbody',
 	                            null,
 	                            this.state.companyGradeList.map(function (elem, index) {
+	                                var _innerLevel = elem.innerLevel == undefined ? "/" : elem.innerLevel;
+	                                var _outLevel = elem.outLevel == undefined ? "/" : elem.outLevel;
+	                                var _liveLevel = elem.liveLevel == undefined ? "/" : elem.liveLevel;
 	                                if (index % 2) {
 	                                    return _react2.default.createElement(
 	                                        'tr',
@@ -70150,17 +70209,17 @@
 	                                        _react2.default.createElement(
 	                                            'td',
 	                                            { width: '25%' },
-	                                            'B'
+	                                            _innerLevel
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
 	                                            { width: '25%' },
-	                                            'B'
+	                                            _outLevel
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
 	                                            { width: '25%' },
-	                                            'B'
+	                                            _liveLevel
 	                                        )
 	                                    );
 	                                }{
@@ -70179,17 +70238,17 @@
 	                                        _react2.default.createElement(
 	                                            'td',
 	                                            { width: '25%' },
-	                                            'B'
+	                                            _innerLevel
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
 	                                            { width: '25%' },
-	                                            'B'
+	                                            _outLevel
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
 	                                            { width: '25%' },
-	                                            'B'
+	                                            _liveLevel
 	                                        )
 	                                    );
 	                                }
@@ -70241,7 +70300,7 @@
 
 
 	// module
-	exports.push([module.id, ".small-loan-index .mt-table{\r\n\tmargin: 0px !important;\r\n}\r\n/*企业评级*/\r\n.small-loan-index .company-grade .mod-content .table-content{\r\n\theight: 530px;\r\n\toverflow: auto;\r\n}\r\n/*余额占比*/\r\n.small-loan-index .balance-radio{\r\n\theight: 49.5%;\r\n}\r\n.small-loan-index .balance-radio .chart-box{\r\n\theight: 272px;\r\n}\r\n/*贷款笔均折线图*/\r\n.small-loan-index .each-average{\r\n\theight: 49.5%;\r\n\tmargin-top: 2%;\r\n}\r\n.small-loan-index .each-average .chart-box{\r\n\theight: 272px;\r\n}\r\n/*地图模块*/\r\n.small-loan-index .small-loan-map .map-chart-box{\r\n\theight: 610px;\r\n\tposition: relative;\r\n}\r\n.small-loan-index .mod-content{\r\n\tposition: relative;\r\n}\r\n.small-loan-index .small-loan-map .company-chart-box{\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n.small-loan-index .small-loan-map .visual-text{\r\n\tposition: absolute;\r\n\tbottom: 26%;\r\n\tright: 3%;\r\n\tz-index: 1000;\r\n\twidth: 14px;\r\n}\r\n\r\n/*贷款余额占比*/\r\n.small-loan-index .loan-balance .chart-box{\r\n\theight: 300px;\r\n}\r\n\r\n/*股东行业风险*/\r\n.small-loan-index .industry-risk .mod-content .table-content{\r\n\theight: 240px;\r\n\toverflow: auto;\r\n}\r\n.small-loan-index .industry-risk .mod-content .table-content table td a{\r\n\tcolor:#e14340;\r\n}\r\n/*大额借款人信息列表*/\r\n\r\n/*股东风险更多*/\r\n.small-loan-index .industry-risk-more{\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: fixed;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n.small-loan-index .industry-risk-more .title{\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n.small-loan-index .industry-risk-more .title span{\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n.small-loan-index .industry-risk-more .title i{\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n.small-loan-index .industry-risk-more .content{\r\n\tpadding: 8px 10px;\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\toverflow: auto;\r\n}\r\n.small-loan-index .industry-risk-more .content ul{\r\n\tdisplay: inline-block;;\r\n\twidth: 33.33%;\r\n}\r\n.small-loan-index .industry-risk-more .content ul li{\r\n\tpadding: 15px 5px;\r\n\tfont-size: 14px;\r\n}", ""]);
+	exports.push([module.id, ".small-loan-index .mt-table {\r\n\tmargin: 0px !important;\r\n}\r\n\r\n/*企业评级*/\r\n.small-loan-index .company-grade .mod-content .table-content {\r\n\theight: 530px;\r\n\toverflow: auto;\r\n}\r\n\r\n/*余额占比*/\r\n.small-loan-index .balance-radio {\r\n\theight: 49.5%;\r\n}\r\n\r\n.small-loan-index .balance-radio .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*贷款笔均折线图*/\r\n.small-loan-index .each-average {\r\n\theight: 49.5%;\r\n\tmargin-top: 2%;\r\n}\r\n\r\n.small-loan-index .each-average .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*地图模块*/\r\n.small-loan-index .small-loan-map .map-chart-box {\r\n\theight: 610px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .small-loan-map .company-chart-box {\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.small-loan-index .small-loan-map .visual-text {\r\n\tposition: absolute;\r\n\tbottom: 26%;\r\n\tright: 3%;\r\n\tz-index: 1000;\r\n\twidth: 14px;\r\n}\r\n\r\n/*贷款余额占比*/\r\n.small-loan-index .loan-balance .chart-box {\r\n\theight: 300px;\r\n}\r\n\r\n/*股东行业风险*/\r\n.small-loan-index .industry-risk .mod-content .table-content {\r\n\theight: 240px;\r\n\toverflow: auto;\r\n}\r\n\r\n.small-loan-index .industry-risk .mod-content .table-content table td a {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*大额借款人信息列表*/\r\n\r\n/*股东风险更多*/\r\n.small-loan-index .industry-risk-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: fixed;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content {\r\n\tpadding: 8px 10px;\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul {\r\n\tdisplay: inline-block;\r\n\twidth: 33.33%;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul li {\r\n\tpadding: 15px 5px;\r\n\tfont-size: 14px;\r\n}", ""]);
 
 	// exports
 
@@ -70471,6 +70530,8 @@
 	                },
 	                tooltip: {
 	                    show: true,
+	                    backgroundColor: 'rgba(0,0,0,0.7)',
+	                    padding: [10, 10, 10, 10],
 	                    formatter: "{a} <br/>{b} : {c} ({d}%)"
 	                },
 	                calculable: true,
@@ -70945,7 +71006,9 @@
 
 	    getInitialState: function getInitialState() {
 	        return {
-	            industryRiskList: []
+	            industryRiskList: [],
+	            orderType: "desc", //默认降序
+	            orderField: "" //需要排序的字段
 	        };
 	    },
 
@@ -70954,6 +71017,10 @@
 
 	        var jsonData = {};
 	        getIndustryRisk(jsonData);
+	        $('#industryRisk-scroll').perfectScrollbar();
+	    },
+	    componentDidUpdate: function componentDidUpdate() {
+	        $('#industryRisk-scroll').perfectScrollbar('update');
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	        var isEqual = Immutable.is(nextProps.industryRiskRequest, this.props.industryRiskResult);
@@ -70974,7 +71041,18 @@
 	        var content = data.content;
 	        this.setState({ industryRiskList: content });
 	    },
-	    orderByField: function orderByField(parm, e) {},
+	    handleClick: function handleClick(field) {
+	        var _dom = $(this.refs[field]),
+	            _domIco = _dom.find("i"),
+	            _domAttr = _dom.attr("data-order"),
+	            _domIcoIs = _dom.find("i").hasClass('icon-desc');
+	        _domIcoIs == true ? _domIco.removeClass('icon-desc').addClass('icon-asc') : _domIco.removeClass('icon-asc').addClass('icon-desc');
+	        _domAttr == "desc" ? _dom.attr("data-order", "asc") : _dom.attr("data-order", "desc");
+	        this.setState({ orderType: _dom.attr("data-order"), orderField: field }, function () {
+	            var _basedata = BOSS.sort(this.state.industryRiskList, field, this.state.orderType);
+	            this.setState({ industryRiskList: _basedata });
+	        });
+	    },
 	    handleMore: function handleMore(e) {
 	        console.log(e);
 	        var left = e.screenX - 500;
@@ -71021,19 +71099,19 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '20%', onClick: this.orderByField.bind(this, 1) },
+	                                    { width: '20%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'p2p', onClick: this.handleClick.bind(this, "p2p") },
 	                                    'P2P关联',
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '25%', onClick: this.orderByField.bind(this, 2) },
+	                                    { width: '25%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'privateFund', onClick: this.handleClick.bind(this, "privateFund") },
 	                                    '私募基金关联',
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '22%', onClick: this.orderByField.bind(this, 3) },
+	                                    { width: '22%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'offlineFinance', onClick: this.handleClick.bind(this, "offlineFinance") },
 	                                    '线下理财关联',
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                                ),
@@ -71048,7 +71126,7 @@
 	                ),
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'table-content' },
+	                    { className: 'table-content', id: 'industryRisk-scroll' },
 	                    _react2.default.createElement(
 	                        'table',
 	                        { className: 'mt-table mt-table-center wtyh-table' },
@@ -71065,7 +71143,7 @@
 	                                            { width: '20%', className: 'talign-left' },
 	                                            _react2.default.createElement(
 	                                                'span',
-	                                                { className: 'word-limit-5', 'data-tip': elem.companyName },
+	                                                { className: 'word-limit-5', 'data-tip': elem.companyName, title: elem.companyName },
 	                                                elem.companyName
 	                                            )
 	                                        ),
@@ -71076,17 +71154,17 @@
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '20%' },
+	                                            { width: '25%' },
 	                                            elem.privateFund
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '20%' },
+	                                            { width: '22%' },
 	                                            elem.offlineFinance
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '20%' },
+	                                            { width: '13%' },
 	                                            _react2.default.createElement(
 	                                                'a',
 	                                                { href: 'javascript:;', onClick: this.handleMore },
@@ -71103,7 +71181,7 @@
 	                                            { width: '20%', className: 'talign-left' },
 	                                            _react2.default.createElement(
 	                                                'span',
-	                                                { className: 'word-limit-5', 'data-tip': elem.companyName },
+	                                                { className: 'word-limit-5', 'data-tip': elem.companyName, title: elem.companyName },
 	                                                elem.companyName
 	                                            )
 	                                        ),
@@ -71114,17 +71192,17 @@
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '20%' },
+	                                            { width: '25%' },
 	                                            elem.privateFund
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '20%' },
+	                                            { width: '22%' },
 	                                            elem.offlineFinance
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '20%' },
+	                                            { width: '13%' },
 	                                            _react2.default.createElement(
 	                                                'a',
 	                                                { href: 'javascript:;', onClick: this.handleMore },
@@ -71416,25 +71494,25 @@
 	              null,
 	              _react2.default.createElement(
 	                'th',
-	                { width: '20%', className: 'talign-left', onClick: this.orderByField.bind(this, 1) },
+	                { width: '20%', className: 'talign-left cur-pointer', onClick: this.orderByField.bind(this, 1) },
 	                '借款公司',
 	                _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	              ),
 	              _react2.default.createElement(
 	                'th',
-	                { width: '25%', onClick: this.orderByField.bind(this, 2) },
+	                { width: '25%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 2) },
 	                '贷款公司',
 	                _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	              ),
 	              _react2.default.createElement(
 	                'th',
-	                { width: '30%', onClick: this.orderByField.bind(this, 3) },
+	                { width: '30%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 3) },
 	                '借款公司行业',
 	                _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	              ),
 	              _react2.default.createElement(
 	                'th',
-	                { width: '25%', onClick: this.orderByField.bind(this, 4) },
+	                { width: '25%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 4) },
 	                '注册资本',
 	                _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	              )
@@ -72008,7 +72086,7 @@
 
 
 	// module
-	exports.push([module.id, "/*content banner*/\r\n\r\n/*index top*/\r\n.p2p-index .p2p-index-top .top-l {\r\n\twidth: 28%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-index-top .top-l .top-l-t {\r\n\twidth: 100%;\r\n\theight: 300px;\r\n}\r\n\r\n.p2p-index-top .top-l  .top-l-b {\r\n\tmargin-top: 2%;\r\n\theight: 340px;\r\n}\r\n\r\n.p2p-index .p2p-index-top .top-c {\r\n\twidth: 38.5%;\r\n\tfloat: left;\r\n\theight: 649px;\r\n\tmargin: 0px 0.5%;\r\n}\r\n\r\n.p2p-index .p2p-index-top .top-r {\r\n\twidth: 32.5%;\r\n\theight: 649px;\r\n\tfloat: left;\r\n}\r\n\r\n/*index bom*/\r\n.p2p-index .p2p-index-bom {\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l {\r\n\twidth: 67%;\r\n\tfloat: left;\r\n\theight: 490px;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-t {\r\n\theight: 255px;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-t .bom-l-t-l {\r\n\twidth: 42%;\t/*height: 100%;*/\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-t .bom-l-t-r {\r\n\twidth: 57.5%;\t/*height: 100%;*/\r\n\tfloat: left;\r\n\tmargin-left: 0.5%\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-b {\r\n\theight: 230px;\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-r {\r\n\twidth: 32.5%;\r\n\tmargin-left: 0.5%;\r\n\theight: 490px;\r\n\tfloat: left;\r\n}\r\n\r\n/*AareaRanking banner -css*/\r\n.p2p-index .list-header {\r\n\tfont-size: 18px;\r\n\tcolor: #fff;\r\n\tpadding: 14px;\r\n\ttext-indent: 30px;\r\n}\r\n\r\n.p2p-index .list-items {\r\n\tpadding: 0px 10px 30px 10px;\r\n}\r\n\r\n.p2p-index .table-8 th,\r\n.p2p-index .table-8 td {\r\n\twidth: 12.5%;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-index .table-8 th {\r\n\theight: 60px;\r\n}\r\n\r\n.p2p-index .table-6 th {\r\n\theight: 88px;\r\n}\r\n\r\n.p2p-index .table-8 {\r\n\r\n\t/*height: 550px;*/\r\n}\r\n\r\n.p2p-index .table-6 th,\r\n.p2p-index .table-6 td {\r\n\twidth: 13.5%;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-index .table-6 .diff-width {\r\n\twidth: 20%;\r\n}\r\n\r\n.p2p-index .table-6 {\r\n\theight: 400px;\r\n}\r\n\r\n.p2p-index .table-8.title {\r\n\tdisplay: block;\r\n\twidth: 100%\r\n}\r\n\r\n/*gray-theme-table for table -css*/\r\n.p2p-table {\r\n\twidth: 100%;\t/*height: 100%;*/\r\n\tcolor: #dddddd;\r\n}\r\n\r\n.p2p-table .icon-desc {\r\n\tcolor: #fff;\r\n\tfont-size: 24px;\r\n\tcursor: pointer;\t/*display: inline-block;*/\r\n}", ""]);
+	exports.push([module.id, "/*content banner*/\r\n\r\n/*index top*/\r\n.p2p-index .p2p-index-top .top-l {\r\n\twidth: 28%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-index-top .top-l .top-l-t {\r\n\twidth: 100%;\r\n\theight: 300px;\r\n}\r\n\r\n.p2p-index-top .top-l  .top-l-b {\r\n\tmargin-top: 2%;\r\n\theight: 340px;\r\n}\r\n\r\n.p2p-index .p2p-index-top .top-c {\r\n\twidth: 38.5%;\r\n\tfloat: left;\r\n\theight: 649px;\r\n\tmargin: 0px 0.5%;\r\n}\r\n\r\n.p2p-index .p2p-index-top .top-r {\r\n\twidth: 32.5%;\r\n\theight: 649px;\r\n\tfloat: left;\r\n}\r\n\r\n/*index bom*/\r\n.p2p-index .p2p-index-bom {\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l {\r\n\twidth: 67%;\r\n\tfloat: left;\r\n\theight: 490px;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-t {\r\n\theight: 255px;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-t .bom-l-t-l {\r\n\twidth: 42%;\t/*height: 100%;*/\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-t .bom-l-t-r {\r\n\twidth: 57.5%;\t/*height: 100%;*/\r\n\tfloat: left;\r\n\tmargin-left: 0.5%\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-b {\r\n\theight: 230px;\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-r {\r\n\twidth: 32.5%;\r\n\tmargin-left: 0.5%;\r\n\theight: 490px;\r\n\tfloat: left;\r\n}\r\n\r\n/*AareaRanking banner -css*/\r\n.p2p-index .list-header {\r\n\tfont-size: 18px;\r\n\tcolor: #fff;\r\n\tpadding: 14px;\r\n\ttext-indent: 30px;\r\n}\r\n\r\n.p2p-index .list-items {\r\n\tpadding: 0px 10px 30px 10px;\r\n}\r\n\r\n.p2p-index .table-8 th,\r\n.p2p-index .table-8 td {\r\n\twidth: 12.5%;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-index .table-8 th {\r\n\theight: 60px;\r\n}\r\n\r\n.p2p-index .table-6 th {\r\n\theight: 88px;\r\n}\r\n\r\n.p2p-index .table-8 {\r\n\r\n\t/*height: 550px;*/\r\n}\r\n\r\n.p2p-index .table-6 th,\r\n.p2p-index .table-6 td {\r\n\twidth: 13.5%;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-index .table-6 .diff-width {\r\n\twidth: 20%;\r\n}\r\n\r\n.p2p-index .table-6 {\r\n\theight: 400px;\r\n}\r\n\r\n.p2p-index .table-8.title {\r\n\tdisplay: block;\r\n\twidth: 100%\r\n}\r\n\r\n/*gray-theme-table for table -css*/\r\n.p2p-table {\r\n\twidth: 100%;\t/*height: 100%;*/\r\n\tcolor: #dddddd;\r\n}", ""]);
 
 	// exports
 
@@ -72059,9 +72137,9 @@
 	                "lineName": ["综合利率"],
 	                "legendShow": true,
 	                "legendRight": "30",
-	                "yFlag": "亿元",
+	                "yFlag": "",
 	                "y2Flag": "%",
-	                "yAxisName": ["成交量(亿元)", "综合利率"],
+	                "yAxisName": ["亿元", "综合利率"],
 	                "barWidth": 20,
 	                "symbolSize": 5,
 	                "xAxis": volumeData.bargain.xAxis,
@@ -72193,7 +72271,9 @@
 
 	    getInitialState: function getInitialState() {
 	        return {
-	            listData: []
+	            listData: [],
+	            orderType: "desc", //默认降序
+	            orderField: "" //需要排序的字段
 	        };
 	    },
 	    componentDidMount: function componentDidMount() {
@@ -72202,6 +72282,18 @@
 	        var jsonData = {};
 	        getAreaRankRequest(jsonData);
 	    },
+	    handleClick: function handleClick(field) {
+	        var _dom = $(this.refs[field]),
+	            _domAttr = _dom.attr("data-order"),
+	            _domIco = _dom.find("em"),
+	            _domIcoIs = _dom.find("em").hasClass('icon-desc');
+	        _domIcoIs == true ? _domIco.removeClass('icon-desc').addClass('icon-asc') : _domIco.removeClass('icon-asc').addClass('icon-desc');
+	        _domAttr == "desc" ? _dom.attr("data-order", "asc") : _dom.attr("data-order", "desc");
+	        this.setState({ orderType: _dom.attr("data-order"), orderField: field }, function () {
+	            var _basedata = BOSS.sort(this.state.listData, field, this.state.orderType);
+	            this.setState({ listData: _basedata });
+	        });
+	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	        var isEqual = Immutable.is(nextProps.areaRankingRequest, this.props.areaRankingResult);
 	        if (!isEqual) {
@@ -72209,7 +72301,6 @@
 	            var areaRankingResult = nextProps.areaRankingResult;
 
 	            if (areaRankingRequest == true) {
-	                console.log("redux测试成功=================areaRankingRequest");
 	                if (areaRankingResult.success) {
 	                    this.setState({ listData: areaRankingResult.content });
 	                } else {
@@ -72250,101 +72341,48 @@
 	                            ),
 	                            _react2.default.createElement(
 	                                'th',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    { className: 'title' },
-	                                    '生态环境'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    { className: 'nume' },
-	                                    _react2.default.createElement('em', { className: 'iconfont icon-desc' })
-	                                )
+	                                { className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'ecosystem', onClick: this.handleClick.bind(this, "ecosystem") },
+	                                '生态环境',
+	                                _react2.default.createElement('em', { className: 'iconfont icon-desc' })
 	                            ),
 	                            _react2.default.createElement(
 	                                'th',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    { className: 'title' },
-	                                    '规模'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    { className: 'nume' },
-	                                    _react2.default.createElement('em', { className: 'iconfont icon-desc' })
-	                                )
+	                                { className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'scale', onClick: this.handleClick.bind(this, "scale") },
+	                                '规模',
+	                                _react2.default.createElement('em', { className: 'iconfont icon-desc' })
 	                            ),
 	                            _react2.default.createElement(
 	                                'th',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    { className: 'title' },
-	                                    '人气'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    { className: 'nume' },
-	                                    _react2.default.createElement('em', { className: 'iconfont icon-desc' })
-	                                )
+	                                { className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'popularity', onClick: this.handleClick.bind(this, "popularity") },
+	                                '人气',
+	                                _react2.default.createElement('em', { className: 'iconfont icon-desc' }),
+	                                ' '
 	                            ),
 	                            _react2.default.createElement(
 	                                'th',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    { className: 'title' },
-	                                    '安全'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    { className: 'nume' },
-	                                    _react2.default.createElement('em', { className: 'iconfont icon-desc' })
-	                                )
+	                                { className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'safety', onClick: this.handleClick.bind(this, "safety") },
+	                                '安全',
+	                                _react2.default.createElement('em', { className: 'iconfont icon-desc' }),
+	                                ' '
 	                            ),
 	                            _react2.default.createElement(
 	                                'th',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    { className: 'title' },
-	                                    '资本认可'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    { className: 'nume' },
-	                                    _react2.default.createElement('em', { className: 'iconfont icon-desc' })
-	                                )
+	                                { className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'recognition', onClick: this.handleClick.bind(this, "recognition") },
+	                                '资本认可',
+	                                _react2.default.createElement('em', { className: 'iconfont icon-desc' })
 	                            ),
 	                            _react2.default.createElement(
 	                                'th',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    { className: 'title' },
-	                                    '综合竞争'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    { className: 'nume' },
-	                                    _react2.default.createElement('em', { className: 'iconfont icon-desc' })
-	                                )
+	                                { className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'competitiveness', onClick: this.handleClick.bind(this, "competitiveness") },
+	                                '综合竞争',
+	                                _react2.default.createElement('em', { className: 'iconfont icon-desc' })
 	                            ),
 	                            _react2.default.createElement(
 	                                'th',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    { className: 'title' },
-	                                    '上半年排名'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    { className: 'nume' },
-	                                    _react2.default.createElement('em', { className: 'iconfont icon-desc' })
-	                                )
+	                                { className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'rank', onClick: this.handleClick.bind(this, "rank") },
+	                                '排名',
+	                                _react2.default.createElement('em', { className: 'iconfont icon-desc' }),
+	                                ' '
 	                            )
 	                        )
 	                    ),
@@ -72766,7 +72804,6 @@
 	            var netCreditResult = nextProps.netCreditResult;
 
 	            if (netCreditRequest == true) {
-	                // console.log("redux测试成功=================netCreditRequest")
 	                if (netCreditResult.success) {
 	                    this.setState({ listData: netCreditResult.content });
 	                } else {
@@ -72803,8 +72840,7 @@
 	                            _react2.default.createElement(
 	                                'th',
 	                                null,
-	                                '排名',
-	                                _react2.default.createElement('em', { className: 'iconfont icon-desc' })
+	                                '排名'
 	                            ),
 	                            _react2.default.createElement(
 	                                'th',
@@ -72814,26 +72850,22 @@
 	                            _react2.default.createElement(
 	                                'th',
 	                                { className: 'diff-width' },
-	                                '成交量',
-	                                _react2.default.createElement('em', { className: 'iconfont icon-desc' })
+	                                '成交量'
 	                            ),
 	                            _react2.default.createElement(
 	                                'th',
 	                                null,
-	                                '平均利率',
-	                                _react2.default.createElement('em', { className: 'iconfont icon-desc' })
+	                                '平均利率'
 	                            ),
 	                            _react2.default.createElement(
 	                                'th',
 	                                { className: 'diff-width' },
-	                                '平均借款期限',
-	                                _react2.default.createElement('em', { className: 'iconfont icon-desc' })
+	                                '平均借款期限'
 	                            ),
 	                            _react2.default.createElement(
 	                                'th',
 	                                { className: 'diff-width' },
-	                                '累计待还金额',
-	                                _react2.default.createElement('em', { className: 'iconfont icon-desc' })
+	                                '累计待还金额'
 	                            )
 	                        )
 	                    ),
@@ -73398,7 +73430,7 @@
 
 
 	// module
-	exports.push([module.id, ".p2p-portrait {\r\n}\r\n\r\n.p2p-portrait .portrait-left {\r\n\twidth: 45%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right {\r\n\twidth: 54.5%;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom {\r\n\twidth: 100%;\r\n\tmargin-top: 0.5%\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t {\r\n\twidth: 100%;\r\n\theight: 180px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m {\r\n\twidth: 100%;\r\n\theight: 275px;\r\n\tmargin: 1.5% 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-b {\r\n\twidth: 100%;\r\n\theight: 815px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t {\r\n\twidth: 100%;\r\n\theight: 464px\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b {\r\n\twidth: 100%;\r\n\theight: 815px;\r\n\tmargin-top: 1.4%;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l {\r\n\twidth: 24%;\r\n\theight: 255px;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-r {\r\n\twidth: 75.5%;\r\n\theight: 255px;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tdisplay: table;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul li {\r\n\tdisplay: table-cell;\r\n\tvertical-align: middle;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul span {\r\n\tdisplay: block;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul .score {\r\n\tfont-size: 50px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul .score-title {\r\n\tfont-size: 18px;\r\n\tcolor: #fff\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul .state {\r\n\tfont-size: 24px;\r\n\tcolor: #fff\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .wtyh-table {\r\n\theight: 180px;\r\n\tcolor: #dddddd\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .wtyh-table td {\r\n\tcolor: #dddddd;\r\n\tpadding-left: 20px !important;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .wtyh-table td .word-limit-5 {\r\n\twidth: 200px\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .list-items {\r\n\tpadding: 10px 10px 0px 10px\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content {\r\n\tpadding: 65px 43px 20px 43px\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul {\r\n\tdisplay: table;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n\tpadding-bottom: 20px;\r\n\ttext-align: center;\r\n\tborder-bottom: 1px #00b8ee solid;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul:before {\r\n\tcontent: \"\";\r\n\theight: 50%;\r\n\twidth: 1px;\r\n\tbackground: #00b8ee;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n\tleft: 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul:after {\r\n\tcontent: \"\";\r\n\theight: 50%;\r\n\twidth: 1px;\r\n\tbackground: #00b8ee;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n\tright: 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul li {\r\n\tdisplay: table-cell;\r\n\twidth: 33.3%;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .icon-susong {\r\n\tdisplay: inline-block;\r\n\tfont-size: 60px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .ssong-title {\r\n\tfont-size: 18px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .ssong-num {\r\n\tfont-size: 50px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .content {\r\n\tmargin: 20px;\r\n\theight: 170px;\r\n\tbackground: #212831;\r\n\toverflow: auto;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .serial-num {\r\n\twidth: 25px;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\ttext-align: center;\r\n\tbackground: #1a2029;\r\n\tcolor: #fff;\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item a {\r\n\tcolor: #e14340\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item {\r\n\tcolor: #d9d9d9;\r\n\tpadding: 11px 30px 11px 30px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item table {\r\n\twidth: 100%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .item-mark {\r\n\ttext-indent: 30px;\r\n\tpadding: 10px 0px\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item  .td2-l {\r\n\twidth: 5%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item  .td2-r {\r\n\twidth: 95%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .soure,\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .time {\r\n\tcolor: #999999\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .time {\r\n\tdisplay: inline-block;\r\n\tmargin-left: 20px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .content {\r\n\tpadding: 15px  50px 0px 50px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t ul.content-ul {\r\n\tdisplay: table;\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t ul.content-ul>li {\r\n\tdisplay: table-cell;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-l {\r\n\twidth: 15%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-c {\r\n\twidth: 53%;\r\n\tmargin-right: 2%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r {\r\n\twidth: 30%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-l .socre-title {\r\n\tfont-size: 30px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-l .score {\r\n\tfont-size: 52px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r table {\r\n\r\n\t/*text-align: center;*/\r\n\twidth: 100%;\r\n\theight: 380px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r  .score-leida-r-ul li {\r\n\twidth: 48%;\r\n\tfloat: left;\r\n\tpadding: 15px 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r p {\r\n\tfont-size: 32px;\r\n\tcolor: #fdba45\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t  .leida-c-pic {\r\n\theight: 382px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r span {\r\n\tfont-size: 16px;\r\n\tcolor: #dddddd\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .content {\r\n\tpadding: 40px 30px;\r\n\theight: 760px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top {\r\n\theight: 50%;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top table {\r\n\twidth: 100%;\r\n\theight: 90%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-bottom .bottom-line-left {\r\n\twidth: 50%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-bottom .bottom-line-right {\r\n\twidth: 50%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top table  td {\r\n\twidth: 50%;\r\n\tcolor: #dddddd;\r\n\tpadding-left: 30px !important;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top .top-list {\r\n\theight: 100%;\r\n\twidth: 40%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top .top-bar {\r\n\theight: 100%;\r\n\twidth: 55%;\r\n\tfloat: right;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-bottom {\r\n\theight: 50%\r\n}\r\n\r\n.p2p-portrait .relation-legend table {\r\n\twidth: 100%\r\n}\r\n\r\n.p2p-portrait .relation-modal {\r\n\tdisplay: none;\r\n}\r\n\r\n.p2p-portrait .linefin-rel-graph .mod-content .relation-graph-box {\r\n\theight: 640px;\r\n\toverflow: hidden;\r\n}\r\n\r\n.p2p-portrait  .linefin-rel-graph {\r\n\theight: 815px\r\n}\r\n\r\n.p2p-portrait .relation-legend table tr td {\r\n\twidth: 19.8%;\r\n}\r\n\r\n.p2p-portrait .relation-legend {\r\n\tmargin: 25px 10px 15px 10px;\r\n\twidth: auto;\r\n}\r\n\r\n.p2p-portrait  .relation-legend table tr .square,\r\n.p2p-portrait   .relation-legend table tr .round {\r\n\tmargin-right: 5px;\r\n}\r\n\r\n.p2p-portrait  .relation-legend table tr .square {\r\n\twidth: 10px;\r\n\theight: 10px;\r\n}\r\n\r\n.p2p-portrait   .relation-legend table tr .round {\r\n\twidth: 10px;\r\n\theight: 10px;\r\n}", ""]);
+	exports.push([module.id, ".p2p-portrait {\r\n}\r\n\r\n.p2p-portrait .portrait-left {\r\n\twidth: 45%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right {\r\n\twidth: 54.5%;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom {\r\n\twidth: 100%;\r\n\tmargin-top: 0.5%\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t {\r\n\twidth: 100%;\r\n\theight: 180px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m {\r\n\twidth: 100%;\r\n\theight: 275px;\r\n\tmargin: 1.5% 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-b {\r\n\twidth: 100%;\r\n\theight: 815px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t {\r\n\twidth: 100%;\r\n\theight: 464px\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b {\r\n\twidth: 100%;\r\n\theight: 815px;\r\n\tmargin-top: 1.4%;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l {\r\n\twidth: 24%;\r\n\theight: 255px;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-r {\r\n\twidth: 75.5%;\r\n\theight: 255px;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%;\r\n}\r\n\r\n.p2p-portrait  .compangMsg-log {\r\n\twidth: 90px;\r\n\theight: 90px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tdisplay: table;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul li {\r\n\tdisplay: table-cell;\r\n\tvertical-align: middle;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul span {\r\n\tdisplay: block;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul .score {\r\n\tfont-size: 50px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul .score-title {\r\n\tfont-size: 18px;\r\n\tcolor: #fff\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul .state {\r\n\tfont-size: 24px;\r\n\tcolor: #fff\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .wtyh-table {\r\n\theight: 180px;\r\n\tcolor: #dddddd\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .wtyh-table td {\r\n\tcolor: #dddddd;\r\n\tpadding-left: 20px !important;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .wtyh-table td .word-limit-5 {\r\n\twidth: 200px\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .list-items {\r\n\tpadding: 10px 10px 0px 10px\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content {\r\n\tpadding: 65px 43px 20px 43px\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul {\r\n\tdisplay: table;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n\tpadding-bottom: 20px;\r\n\ttext-align: center;\r\n\tborder-bottom: 1px #00b8ee solid;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul:before {\r\n\tcontent: \"\";\r\n\theight: 50%;\r\n\twidth: 1px;\r\n\tbackground: #00b8ee;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n\tleft: 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul:after {\r\n\tcontent: \"\";\r\n\theight: 50%;\r\n\twidth: 1px;\r\n\tbackground: #00b8ee;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n\tright: 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul li {\r\n\tdisplay: table-cell;\r\n\twidth: 33.3%;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .icon-susong {\r\n\tdisplay: inline-block;\r\n\tfont-size: 60px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .ssong-title {\r\n\tfont-size: 18px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .ssong-num {\r\n\tfont-size: 50px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .content {\r\n\tmargin: 20px;\r\n\theight: 170px;\r\n\tbackground: #212831;\r\n\toverflow: auto;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .serial-num {\r\n\twidth: 25px;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\ttext-align: center;\r\n\tbackground: #1a2029;\r\n\tcolor: #fff;\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item a {\r\n\tcolor: #e14340\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item {\r\n\tcolor: #d9d9d9;\r\n\tpadding: 11px 30px 11px 30px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item table {\r\n\twidth: 100%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .item-mark {\r\n\ttext-indent: 30px;\r\n\tpadding: 10px 0px\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item  .td2-l {\r\n\twidth: 5%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item  .td2-r {\r\n\twidth: 95%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .soure,\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .time {\r\n\tcolor: #999999\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .time {\r\n\tdisplay: inline-block;\r\n\tmargin-left: 20px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .content {\r\n\tpadding: 15px  50px 0px 50px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t ul.content-ul {\r\n\tdisplay: table;\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t ul.content-ul>li {\r\n\tdisplay: table-cell;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-l {\r\n\twidth: 15%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-c {\r\n\twidth: 53%;\r\n\tmargin-right: 2%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r {\r\n\twidth: 30%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-l .socre-title {\r\n\tfont-size: 30px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-l .score {\r\n\tfont-size: 52px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r table {\r\n\r\n\t/*text-align: center;*/\r\n\twidth: 100%;\r\n\theight: 380px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r  .score-leida-r-ul li {\r\n\twidth: 48%;\r\n\tfloat: left;\r\n\tpadding: 15px 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r p {\r\n\tfont-size: 32px;\r\n\tcolor: #fdba45\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t  .leida-c-pic {\r\n\theight: 382px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r span {\r\n\tfont-size: 16px;\r\n\tcolor: #dddddd\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .content {\r\n\tpadding: 40px 30px;\r\n\theight: 760px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top {\r\n\theight: 50%;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top table {\r\n\twidth: 100%;\r\n\theight: 90%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-bottom .bottom-line-left {\r\n\twidth: 50%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-bottom .bottom-line-right {\r\n\twidth: 50%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top table  td {\r\n\twidth: 50%;\r\n\tcolor: #dddddd;\r\n\tpadding-left: 30px !important;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top .top-list {\r\n\theight: 100%;\r\n\twidth: 40%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top .top-bar {\r\n\theight: 100%;\r\n\twidth: 55%;\r\n\tfloat: right;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-bottom {\r\n\theight: 50%\r\n}\r\n\r\n.p2p-portrait .relation-legend table {\r\n\twidth: 100%\r\n}\r\n\r\n.p2p-portrait .relation-modal {\r\n\tdisplay: none;\r\n}\r\n\r\n.p2p-portrait .linefin-rel-graph .mod-content .relation-graph-box {\r\n\theight: 640px;\r\n\toverflow: hidden;\r\n}\r\n\r\n.p2p-portrait  .linefin-rel-graph {\r\n\theight: 815px\r\n}\r\n\r\n.p2p-portrait .relation-legend table tr td {\r\n\twidth: 19.8%;\r\n}\r\n\r\n.p2p-portrait .relation-legend {\r\n\tmargin: 25px 10px 15px 10px;\r\n\twidth: auto;\r\n}\r\n\r\n.p2p-portrait  .relation-legend table tr .square,\r\n.p2p-portrait   .relation-legend table tr .round {\r\n\tmargin-right: 5px;\r\n}\r\n\r\n.p2p-portrait  .relation-legend table tr .square {\r\n\twidth: 10px;\r\n\theight: 10px;\r\n}\r\n\r\n.p2p-portrait   .relation-legend table tr .round {\r\n\twidth: 10px;\r\n\theight: 10px;\r\n}\r\n\r\n.p2p-portrait .pic_rank {\r\n\tposition: absolute;\r\n\tz-index: 9999;\r\n\tright: 10px;\r\n\ttop: 74px;\r\n}\r\n\r\n.p2p-portrait .pic_rank span {\r\n\tcolor: #e14340;\r\n\tdisplay: inline-block;\r\n\twidth: 25px;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tbackground: #000;\r\n\tborder: 1px #3b424c solid;\r\n\tmargin-left: 10px;\r\n\tcursor: pointer;\r\n\ttext-align: center;\r\n}", ""]);
 
 	// exports
 
@@ -73425,79 +73457,82 @@
 
 	var Immutable = __webpack_require__(718);
 	var CompanyMsg = _react2.default.createClass({
-	    displayName: 'CompanyMsg',
+	  displayName: 'CompanyMsg',
 
-	    getInitialState: function getInitialState() {
-	        var _selectVal = this.props.location.query.platName == undefined ? "" : this.props.location.query.platName;
-	        return {
-	            companyVal: _selectVal,
-	            listData: []
-	        };
-	    },
-	    componentDidMount: function componentDidMount() {
-	        var getcompanyMsgRequest = this.props.getcompanyMsgRequest;
+	  getInitialState: function getInitialState() {
+	    var _selectVal = this.props.location.query.platName == undefined ? "" : this.props.location.query.platName;
+	    return {
+	      companyVal: _selectVal,
+	      listData: []
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {
+	    var getcompanyMsgRequest = this.props.getcompanyMsgRequest;
 
-	        getcompanyMsgRequest({ "platName": this.state.companyVal });
-	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var isEqual = Immutable.is(nextProps.companyMsgRequest, this.props.companyMsgResult);
-	        if (!isEqual) {
-	            var companyMsgRequest = nextProps.companyMsgRequest;
-	            var companyMsgResult = nextProps.companyMsgResult;
+	    getcompanyMsgRequest({ "platName": this.state.companyVal });
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var isEqual = Immutable.is(nextProps.companyMsgRequest, this.props.companyMsgResult);
+	    if (!isEqual) {
+	      var companyMsgRequest = nextProps.companyMsgRequest;
+	      var companyMsgResult = nextProps.companyMsgResult;
 
-	            if (companyMsgRequest == true) {
-	                if (companyMsgResult.success) {
-	                    var _setParm = [companyMsgResult.content];
-	                    this.setState({ listData: _setParm });
-	                } else {
-	                    //错误后提示
-	                }
-	            }
+	      if (companyMsgRequest == true) {
+	        if (companyMsgResult.success) {
+	          var _setParm = [companyMsgResult.content];
+	          this.setState({ listData: _setParm });
+	        } else {
+	          //错误后提示
 	        }
-	    },
-	    render: function render() {
-	        return _react2.default.createElement(
-	            'div',
-	            { className: 'left-t radius4 mod' },
-	            this.state.listData.map(function (item, index) {
-	                {
-
-	                    return _react2.default.createElement(
-	                        'ul',
-	                        null,
-	                        _react2.default.createElement(
-	                            'li',
-	                            null,
-	                            _react2.default.createElement('img', { src: '/images/no-logo.png' })
-	                        ),
-	                        _react2.default.createElement(
-	                            'li',
-	                            null,
-	                            _react2.default.createElement(
-	                                'span',
-	                                { className: 'score orange' },
-	                                item.score
-	                            ),
-	                            _react2.default.createElement(
-	                                'span',
-	                                { className: 'score-title' },
-	                                '评分'
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'li',
-	                            null,
-	                            _react2.default.createElement(
-	                                'span',
-	                                { className: 'state' },
-	                                item.status
-	                            )
-	                        )
-	                    );
-	                }
-	            })
-	        );
+	      }
 	    }
+	  },
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'left-t radius4 mod' },
+	      this.state.listData.map(function (item, index) {
+	        {
+	          var _logo = "/images/no-logo.png";
+	          if (item.logo) {
+	            _logo = item.logo;
+	          }
+	          return _react2.default.createElement(
+	            'ul',
+	            null,
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              _react2.default.createElement('img', { className: 'compangMsg-log', src: _logo })
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              _react2.default.createElement(
+	                'span',
+	                { className: 'score orange' },
+	                item.score
+	              ),
+	              _react2.default.createElement(
+	                'span',
+	                { className: 'score-title' },
+	                '评分'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              _react2.default.createElement(
+	                'span',
+	                { className: 'state' },
+	                item.status
+	              )
+	            )
+	          );
+	        }
+	      })
+	    );
+	  }
 	});
 
 	module.exports = CompanyMsg;
@@ -73600,7 +73635,7 @@
 	                        yFlag: "", //y轴单位
 	                        gridBottom: '0',
 	                        gridTop: '15%',
-	                        legend: ["成交量"],
+	                        legend: ["交易量"],
 	                        legendShow: false,
 	                        xAxis: coreBarResult.content.xAxis,
 	                        series: [coreBarResult.content.series]
@@ -73620,16 +73655,16 @@
 	            if (coreTrendRequest == true) {
 	                if (coreTrendResult.success) {
 	                    var option = {
-	                        title: "平台交易量走势",
+	                        title: "平台利率走势",
 	                        titleX: "center",
 	                        color: ["#e14340"],
 	                        titleShow: true,
-	                        barWidth: 15,
-	                        yAxisName: "万元",
-	                        yFlag: "", //y轴单位
+	                        symbolSize: 5,
+	                        yAxisName: "",
+	                        yFlag: "%", //y轴单位
 	                        gridBottom: '0',
 	                        gridTop: '15%',
-	                        legend: ["成交量"],
+	                        legend: ["利率"],
 	                        legendShow: false,
 	                        xAxis: coreTrendResult.content.xAxis,
 	                        series: [coreTrendResult.content.series]
@@ -73659,7 +73694,7 @@
 	                        yFlag: "",
 	                        yAxisName: "金额(亿元)",
 	                        legendRight: "30",
-	                        legend: ["投资人", "借款人"],
+	                        legend: ["贷款余额"],
 	                        xAxis: coreBalanceResult.content.xAxis,
 	                        series: [coreBalanceResult.content.series]
 	                    };
@@ -73852,12 +73887,13 @@
 	            color: parm.color,
 	            tooltip: {
 	                trigger: 'axis',
-	                formatter: function formatter(data) {
-	                    // if(parm.formatter=="raise"){//
-	                    return data[0].name + ' ：&nbsp' + data[0].value;
-	                    // }else{
-	                    //   // return data.value[2] + ' commits in ' + ' of ' + param.xAxis[data.value[1]];
-	                    // }
+	                formatter: function formatter(v) {
+	                    var info = "";
+	                    for (var i = 0; i < v.length; i++) {
+	                        var _spanCorlor = '<span style=color:' + parm.color[i] + '>' + v[i].value + '</span><br/>';
+	                        info += v[i].name + " :&nbsp;" + _spanCorlor;
+	                    }
+	                    return info;
 	                },
 	                axisPointer: { // 坐标轴指示器，坐标轴触发有效
 	                    type: 'none' // 默认为直线，可选为：'line' | 'shadow'
@@ -74323,6 +74359,12 @@
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'mod-content' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'pic_rank' },
+	                    _react2.default.createElement('span', { className: 'add iconfont icon-jia' }),
+	                    _react2.default.createElement('span', { className: 'sub iconfont icon-jian' })
+	                ),
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'relation-legend' },
@@ -74952,7 +74994,7 @@
 						var _setindicator = [];
 						for (var item in scoreLeidaResult.content.indicator) {
 							var items = {
-								"name": "运营能力",
+								"name": scoreLeidaResult.content.indicator[item].name,
 								"max": scoreLeidaResult.content.indicator[item].max + 30
 							};
 							_setindicator.push(items);
@@ -75685,12 +75727,16 @@
 	            }
 	        }
 	    },
+	    handleFunction: function handleFunction(searchVal) {
+	        console.log(searchVal, "================搜索词语============================");
+	        this.props.history.push('/SearchResultDetail?platName=' + searchVal);
+	    },
 	    mixins: [_setHeight2.default],
 	    render: function render() {
 	        return _react2.default.createElement(
 	            'div',
 	            { className: 'raise-index', style: this.state.style },
-	            _react2.default.createElement(_IndustrySearch2.default, { label: '众筹监测', placeHolder: '请输入平台全称' }),
+	            _react2.default.createElement(_IndustrySearch2.default, { label: '众筹监测', searchFun: this.handleFunction, companyType: '6', placeholder: '请输入企业名称检索' }),
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'content clearfix' },
@@ -75925,7 +75971,7 @@
 
 
 	// module
-	exports.push([module.id, ".raise-index .left-top {\r\n\theight: 500px;\r\n}\r\n\r\n.raise-index .left-middle,\r\n.raise-index .right-middle {\r\n\tmargin: 1% 0px;\r\n\theight: 570px\r\n}\r\n\r\n.raise-index .right-top {\r\n\theight: 500px\r\n}\r\n\r\n.raise-index .left-bottom .mod-content,\r\n.raise-index .right-bottom .mod-content {\r\n\theight: 700px;\r\n\tpadding: 30px 20px 50px 20px;\r\n}\r\n\r\n.raise-index .left-bottom .mod-content .table-content,\r\n.raise-index .right-bottom .mod-content .table-content {\r\n\theight: 570px;\r\n\toverflow: auto;\r\n}\r\n\r\n.raise-index .left-bottom .mod-content table,\r\n.raise-index .right-bottom .mod-content table {\r\n\r\n\t/*height: 100%;*/\r\n}\r\n\r\n.raise-index .left-bottom  .mt-table,\r\n.raise-index .right-bottom  .mt-table {\r\n\tmargin: 0px;\r\n}\r\n\r\n.raise-index .left-bottom .wtyh-table thead th,\r\n.raise-index .right-bottom .wtyh-table thead th {\r\n\r\n\t/*\ttext-align: left !important;*/\r\n\tpadding: 16px 8px;\r\n}\r\n\r\n.raise-index .left-bottom .mt-table-center th,\r\n.raise-index .right-bottom .mt-table-center th {\r\n\ttext-align: left\r\n}\r\n\r\n.raise-index .left-bottom .wtyh-table tbody td,\r\n.raise-index .right-bottom .wtyh-table tbody td {\r\n\ttext-align: left;\r\n\tpadding: 16px 8px;\r\n}\r\n\r\n.raise-index .left-bottom .wtyh-table tbody tr,\r\n.raise-index .right-bottom .wtyh-table tbody tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}", ""]);
+	exports.push([module.id, ".raise-index .left-top {\r\n\theight: 500px;\r\n}\r\n\r\n.raise-index .left-middle,\r\n.raise-index .right-middle {\r\n\tmargin: 1% 0px;\r\n\theight: 570px\r\n}\r\n\r\n.raise-index .right-top {\r\n\theight: 500px\r\n}\r\n\r\n.raise-index .left-bottom .mod-content,\r\n.raise-index .right-bottom .mod-content {\r\n\theight: 700px;\r\n\tpadding: 30px 20px 50px 20px;\r\n}\r\n\r\n.raise-index .left-bottom .mod-content .table-content,\r\n.raise-index .right-bottom .mod-content .table-content {\r\n\theight: 570px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.raise-index .left-bottom .mod-content table,\r\n.raise-index .right-bottom .mod-content table {\r\n\r\n\t/*height: 100%;*/\r\n}\r\n\r\n.raise-index .left-bottom  .mt-table,\r\n.raise-index .right-bottom  .mt-table {\r\n\tmargin: 0px;\r\n}\r\n\r\n.raise-index .left-bottom .wtyh-table thead th,\r\n.raise-index .right-bottom .wtyh-table thead th {\r\n\r\n\t/*\ttext-align: left !important;*/\r\n\tpadding: 16px 8px;\r\n}\r\n\r\n.raise-index .left-bottom .mt-table-center th,\r\n.raise-index .right-bottom .mt-table-center th {\r\n\ttext-align: left\r\n}\r\n\r\n.raise-index .left-bottom .wtyh-table tbody td,\r\n.raise-index .right-bottom .wtyh-table tbody td {\r\n\ttext-align: left;\r\n\tpadding: 16px 8px;\r\n}\r\n\r\n.raise-index .left-bottom .wtyh-table tbody tr,\r\n.raise-index .right-bottom .wtyh-table tbody tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}", ""]);
 
 	// exports
 
@@ -76286,10 +76332,29 @@
 
 	    getInitialState: function getInitialState() {
 	        return {
-	            option: []
+	            option: [],
+	            orderType: "desc", //默认降序
+	            orderField: "" //需要排序的字段
 	        };
 	    },
-	    componentDidMount: function componentDidMount() {},
+	    componentDidMount: function componentDidMount() {
+	        $('#platformRun-scroll').perfectScrollbar();
+	    },
+	    componentDidUpdate: function componentDidUpdate() {
+	        $('#platformRun-scroll').perfectScrollbar('update');
+	    },
+	    handleClick: function handleClick(field) {
+	        var _dom = $(this.refs[field]),
+	            _domAttr = _dom.attr("data-order"),
+	            _domIco = _dom.find("em"),
+	            _domIcoIs = _dom.find("em").hasClass('icon-desc');
+	        _domIcoIs == true ? _domIco.removeClass('icon-desc').addClass('icon-asc') : _domIco.removeClass('icon-asc').addClass('icon-desc');
+	        _domAttr == "desc" ? _dom.attr("data-order", "asc") : _dom.attr("data-order", "desc");
+	        this.setState({ orderType: _dom.attr("data-order"), orderField: field }, function () {
+	            var _basedata = BOSS.sort(this.state.option, field, this.state.orderType);
+	            this.setState({ option: _basedata });
+	        });
+	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 
 	        var isEqual = Immutable.is(nextProps.platFormRunBaseData, this.props.platFormRunBaseData);
@@ -76339,21 +76404,21 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '15%' },
+	                                    { width: '15%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'fundingBusinessTypeCN', onClick: this.handleClick.bind(this, "fundingBusinessTypeCN") },
 	                                    '业务类型',
-	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
+	                                    _react2.default.createElement('em', { className: 'iconfont icon-desc' })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '20%' },
+	                                    { width: '20%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'successNumber', onClick: this.handleClick.bind(this, "successNumber") },
 	                                    '成功项目数',
-	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
+	                                    _react2.default.createElement('em', { className: 'iconfont icon-desc' })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '25%' },
+	                                    { width: '25%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'fundedAmout', onClick: this.handleClick.bind(this, "fundedAmout") },
 	                                    '已筹基金(万元)',
-	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
+	                                    _react2.default.createElement('em', { className: 'iconfont icon-desc' })
 	                                )
 	                            )
 	                        )
@@ -76361,7 +76426,7 @@
 	                ),
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'table-content' },
+	                    { className: 'table-content', id: 'platformRun-scroll' },
 	                    _react2.default.createElement(
 	                        'table',
 	                        { className: 'mt-table mt-table-center wtyh-table' },
@@ -76370,9 +76435,6 @@
 	                            null,
 	                            this.state.option.map(function (item, index) {
 	                                {
-	                                    if (item.fundingBusinessTypeCN == "0") {
-	                                        item.fundingBusinessTypeCN = "权益型";
-	                                    }
 	                                    if (!item.successNumber) {
 	                                        item.successNumber = "/";
 	                                    }
@@ -76490,10 +76552,17 @@
 
 	    getInitialState: function getInitialState() {
 	        return {
-	            option: []
+	            option: [],
+	            orderType: "desc", //默认降序
+	            orderField: "" //需要排序的字段
 	        };
 	    },
-	    componentDidMount: function componentDidMount() {},
+	    componentDidMount: function componentDidMount() {
+	        $('#platformBase-scroll').perfectScrollbar();
+	    },
+	    componentDidUpdate: function componentDidUpdate() {
+	        $('#platformBase-scroll').perfectScrollbar('update');
+	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	        var isEqual = Immutable.is(nextProps.platFormBaseData, this.props.platFormBaseData);
 	        if (!isEqual) {
@@ -76501,6 +76570,18 @@
 
 	            this.setState({ option: platFormBaseData.content });
 	        }
+	    },
+	    handleClick: function handleClick(field) {
+	        var _dom = $(this.refs[field]),
+	            _domAttr = _dom.attr("data-order"),
+	            _domIco = _dom.find("em"),
+	            _domIcoIs = _dom.find("em").hasClass('icon-desc');
+	        _domIcoIs == true ? _domIco.removeClass('icon-desc').addClass('icon-asc') : _domIco.removeClass('icon-asc').addClass('icon-desc');
+	        _domAttr == "desc" ? _dom.attr("data-order", "asc") : _dom.attr("data-order", "desc");
+	        this.setState({ orderType: _dom.attr("data-order"), orderField: field }, function () {
+	            var _basedata = BOSS.sort(this.state.option, field, this.state.orderType);
+	            this.setState({ option: _basedata });
+	        });
 	    },
 	    render: function render() {
 	        return _react2.default.createElement(
@@ -76547,9 +76628,9 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '15%' },
+	                                    { width: '15%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'areaName', onClick: this.handleClick.bind(this, "areaName") },
 	                                    '注册地',
-	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
+	                                    _react2.default.createElement('em', { className: 'iconfont icon-desc' })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
@@ -76567,7 +76648,7 @@
 	                ),
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'table-content' },
+	                    { className: 'table-content', id: 'platformBase-scroll' },
 	                    _react2.default.createElement(
 	                        'table',
 	                        { className: 'mt-table mt-table-center wtyh-table' },
@@ -76601,7 +76682,7 @@
 	                                                { width: '30%', className: 'talign-left' },
 	                                                _react2.default.createElement(
 	                                                    _reactRouter.Link,
-	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'platformBase', company: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName },
+	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'platformBase', company: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName, title: item.companyName },
 	                                                    item.companyName
 	                                                )
 	                                            ),
@@ -76615,7 +76696,7 @@
 	                                                { width: '20%' },
 	                                                _react2.default.createElement(
 	                                                    'span',
-	                                                    { className: 'word-limit-5', 'data-tip': _address },
+	                                                    { className: 'word-limit-5', 'data-tip': _address, title: _address },
 	                                                    _address
 	                                                )
 	                                            ),
@@ -76648,7 +76729,7 @@
 	                                                { width: '30%', className: 'talign-left' },
 	                                                _react2.default.createElement(
 	                                                    _reactRouter.Link,
-	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'platformBase', company: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName },
+	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'platformBase', company: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName, title: item.companyName },
 	                                                    item.companyName
 	                                                )
 	                                            ),
@@ -76662,7 +76743,7 @@
 	                                                { width: '20%' },
 	                                                _react2.default.createElement(
 	                                                    'span',
-	                                                    { className: 'word-limit-5', 'data-tip': _address },
+	                                                    { className: 'word-limit-5', 'data-tip': _address, title: _address },
 	                                                    _address
 	                                                )
 	                                            ),
@@ -77063,7 +77144,7 @@
 	        return _react2.default.createElement(
 	            'div',
 	            { className: 'pawnMonitoring-index', style: this.state.style },
-	            _react2.default.createElement(_IndustrySearch2.default, { label: '典当行业监测', searchFun: this.handleFunction, companyType: '12', placeholder: '请输入企业名称关键字' }),
+	            _react2.default.createElement(_IndustrySearch2.default, { label: '典当行业监测', searchFun: this.handleFunction, companyType: '12', placeholder: '请输入企业名称检索' }),
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'content clearfix' },
@@ -77282,7 +77363,7 @@
 
 
 	// module
-	exports.push([module.id, ".pawnMonitoring-index .right-bottom tbody td,\r\n.pawnMonitoring-index .right-bottom thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.pawnMonitoring-index .right-bottom .table-content {\r\n\theight: 500px;\r\n\toverflow: auto;\r\n}\r\n\r\n.pawnMonitoring-index .right-bottom  .mod-content {\r\n\tpadding: 10px 20px 20px 20px;\r\n}\r\n\r\n.pawnMonitoring-index .mt-table {\r\n\tmargin: 0px;\r\n}\r\n\r\n.pawnMonitoring-index .right-bottom .table-content  table {\r\n\r\n\t/*height: 100%;*/\r\n\tmargin: 0px;\r\n}\r\n\r\n.pawnMonitoring-index .right-bottom .table-content  table td {\r\n\tpadding: 15px 10px;\r\n}\r\n\r\n.pawnMonitoring-index .right-bottom .table-content  table tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.pawnMonitoring-index .right-bottom .table-title th {\r\n\theight: 50px\r\n}\r\n\r\n.pawnMonitoring-index .right-bottom  .mod-title .totle-num {\r\n\tfont-size: 14px;\r\n\tcolor: #fff;\r\n\tfloat: right;\r\n\tdisplay: inline-block;\r\n\tmargin: 15px 20px 0px 0px;\r\n}\r\n\r\n.mt-select.company-dire {\r\n\tbackground: #393a48;\r\n\tborder: 1px #393a48 solid;\r\n\tmargin-left: 5px;\r\n}", ""]);
+	exports.push([module.id, ".pawnMonitoring-index .right-bottom tbody td,\r\n.pawnMonitoring-index .right-bottom thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.pawnMonitoring-index .right-bottom .table-content {\r\n\theight: 500px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.pawnMonitoring-index .right-bottom  .mod-content {\r\n\tpadding: 10px 20px 20px 20px;\r\n}\r\n\r\n.pawnMonitoring-index .mt-table {\r\n\tmargin: 0px;\r\n}\r\n\r\n.pawnMonitoring-index .right-bottom .table-content  table {\r\n\r\n\t/*height: 100%;*/\r\n\tmargin: 0px;\r\n}\r\n\r\n.pawnMonitoring-index .right-bottom .table-content  table td {\r\n\tpadding: 15px 10px;\r\n}\r\n\r\n.pawnMonitoring-index .right-bottom .table-content  table tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.pawnMonitoring-index .right-bottom .table-title th {\r\n\theight: 50px\r\n}\r\n\r\n.pawnMonitoring-index .right-bottom  .mod-title .totle-num {\r\n\tfont-size: 14px;\r\n\tcolor: #fff;\r\n\tfloat: right;\r\n\tdisplay: inline-block;\r\n\tmargin: 15px 20px 0px 0px;\r\n}\r\n\r\n.mt-select.company-dire {\r\n\tbackground: #393a48;\r\n\tborder: 1px #393a48 solid;\r\n\tmargin-left: 5px;\r\n}", ""]);
 
 	// exports
 
@@ -77332,7 +77413,7 @@
 					titleX: "center",
 					color: ["#e14340", "#12b5b0"],
 					barWidth: 20,
-					yAxisName: "单位(亿元)",
+					yAxisName: "亿元",
 					yFlag: "", //y轴单位
 					splitLineShow: false,
 					gridBottom: '5%',
@@ -77510,7 +77591,7 @@
 	                titleX: "center",
 	                color: ["#12b5b0"],
 	                barWidth: 20,
-	                yAxisName: "单位：亿元",
+	                yAxisName: "亿元",
 	                yFlag: "", //y轴单位
 	                splitLineShow: false,
 	                gridBottom: '5%',
@@ -77518,6 +77599,7 @@
 	                gridLeft: '5%',
 	                gridRight: '5%',
 	                legend: ["平台交易量走势"],
+	                legendShow: false,
 	                xAxis: Data.xAxisData,
 	                series: [Data.data]
 	            };
@@ -77594,16 +77676,14 @@
 	        };
 	        getcompanyDirRequest(jsonData);
 	    },
-	    handleClick: function handleClick(name, type) {
-	        var _dom = $(this.refs[name]);
-	        var _domAttr = _dom.attr("data-order");
-	        if (_domAttr == "desc") {
-	            _dom.attr("data-order", "asc");
-	        } else {
-	            _dom.attr("data-order", "desc");
-	        }
-	        var _getAttr = _dom.attr("data-order");
-	        this.setState({ orderName: type }, function () {
+	    handleClick: function handleClick(field, type) {
+	        var _dom = $(this.refs[field]),
+	            _domAttr = _dom.attr("data-order"),
+	            _domIco = _dom.find("em"),
+	            _domIcoIs = _dom.find("em").hasClass('icon-desc');
+	        _domIcoIs == true ? _domIco.removeClass('icon-desc').addClass('icon-asc') : _domIco.removeClass('icon-asc').addClass('icon-desc');
+	        _domAttr == "desc" ? _dom.attr("data-order", "asc") : _dom.attr("data-order", "desc");
+	        this.setState({ orderName: type, orderZB: _dom.attr("data-order") }, function () {
 	            this.countyChange(this.state.orderZB, this.state.orderName);
 	        });
 	    },
@@ -77611,6 +77691,10 @@
 	        this.setState({ orderName: "" });
 	        this.setState({ orderZB: "desc" });
 	        this.countyChange(this.state.orderZB, this.state.orderName);
+	        $('#companyDirectory-scroll').perfectScrollbar();
+	    },
+	    componentDidUpdate: function componentDidUpdate() {
+	        $('#companyDirectory-scroll').perfectScrollbar('update');
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	        var isEqual = Immutable.is(nextProps.companyDirRequest, this.props.companyDirResult);
@@ -77689,15 +77773,15 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '10%' },
+	                                    { width: '10%', className: 'cur-pointer', 'data-order': this.state.orderZB, ref: 'registeredCapital', onClick: this.handleClick.bind(this, "registeredCapital", "1") },
 	                                    '注册资本',
-	                                    _react2.default.createElement('i', { 'data-order': this.state.orderZB, ref: 'registeredCapital', onClick: this.handleClick.bind(this, "registeredCapital", "1"), className: 'iconfont icon-desc' })
+	                                    _react2.default.createElement('em', { className: 'iconfont icon-desc' })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '15%' },
+	                                    { width: '15%', className: 'cur-pointer', 'data-order': this.state.orderZB, ref: 'registeredDate', onClick: this.handleClick.bind(this, "registeredDate", "2") },
 	                                    '注册时间',
-	                                    _react2.default.createElement('i', { 'data-order': this.state.orderZB, ref: 'registeredDate', onClick: this.handleClick.bind(this, "registeredDate", "2"), className: 'iconfont icon-desc' })
+	                                    _react2.default.createElement('em', { className: 'iconfont icon-desc' })
 	                                )
 	                            )
 	                        )
@@ -77705,7 +77789,7 @@
 	                ),
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'table-content' },
+	                    { className: 'table-content', id: 'companyDirectory-scroll' },
 	                    _react2.default.createElement(
 	                        'table',
 	                        { className: 'mt-table mt-table-center wtyh-table' },
@@ -77715,6 +77799,10 @@
 	                            this.state.listData.map(function (item, index) {
 	                                {
 	                                    var num = index + 1;
+	                                    var _legalPerson = item.legalPerson == null ? "/" : item.legalPerson;
+	                                    var _address = item.address == null ? "/" : item.address;
+	                                    var _registeredCapital = item.registeredCapital == null ? "/" : item.registeredCapital;
+	                                    var _registeredTime = item.registeredTime == null ? "/" : item.registeredTime;
 	                                    var _danwei = item.registeredCapitalType == 1 ? "人民币" : "美元";
 	                                    if (index % 2) {
 	                                        return _react2.default.createElement(
@@ -77733,23 +77821,23 @@
 	                                            _react2.default.createElement(
 	                                                'td',
 	                                                { width: '10%' },
-	                                                item.legalPerson
+	                                                _legalPerson
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
 	                                                { width: '30%' },
-	                                                item.address
+	                                                _address
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
 	                                                { width: '10%' },
-	                                                item.registeredCapital,
+	                                                _registeredCapital,
 	                                                _danwei
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
 	                                                { width: '15%' },
-	                                                item.registeredTime
+	                                                _registeredTime
 	                                            )
 	                                        );
 	                                    } else {
@@ -77769,23 +77857,23 @@
 	                                            _react2.default.createElement(
 	                                                'td',
 	                                                { width: '10%' },
-	                                                item.legalPerson
+	                                                _legalPerson
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
 	                                                { width: '30%' },
-	                                                item.address
+	                                                _address
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
 	                                                { width: '10%' },
-	                                                item.registeredCapital,
+	                                                _registeredCapital,
 	                                                _danwei
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
 	                                                { width: '15%' },
-	                                                item.registeredTime
+	                                                _registeredTime
 	                                            )
 	                                        );
 	                                    }
@@ -77961,11 +78049,15 @@
 	    displayName: 'TradingPlaces',
 
 	    mixins: [_setHeight2.default],
+	    handleFunction: function handleFunction(searchVal) {
+	        console.log(searchVal, "================搜索词语============================");
+	        this.props.history.push('/SearchResultDetail?platName=' + searchVal);
+	    },
 	    render: function render() {
 	        return _react2.default.createElement(
 	            'div',
-	            { className: 'tradingPlaces-index', style: this.state.style },
-	            _react2.default.createElement(_IndustrySearch2.default, { label: '交易场所监测', placeHolder: '请输入平台全称' }),
+	            { className: 'tradingPlaces-index', searchFun: this.handleFunction, companyType: '9', style: this.state.style },
+	            _react2.default.createElement(_IndustrySearch2.default, { label: '交易场所监测', placeholder: '请输入企业名称检索' }),
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'content clearfix' },
@@ -78220,7 +78312,7 @@
 
 
 	// module
-	exports.push([module.id, ".tradingPlaces-index .left-bottom .mod-content,\r\n.tradingPlaces-index .right-bottom .mod-content {\r\n\tpadding: 20px 20px 0px 20px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom,\r\n.tradingPlaces-index .right-bottom {\r\n\tpadding: 0px 0px 50px 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mod-content .table-title th,\r\n.tradingPlaces-index .right-bottom .mod-content .table-title th {\r\n\theight: 50px;\r\n\tpadding: 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .table-content,\r\n.tradingPlaces-index .right-bottom .table-content {\r\n\theight: 540px;\r\n\toverflow: auto;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .table-content .word-limit-5,\r\n.tradingPlaces-index .right-bottom .table-content .word-limit-5 {\r\n\twidth: 100px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mt-table,\r\n.tradingPlaces-index .right-bottom  .mt-table {\r\n\tmargin: 0px 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .table-content table td,\r\n.tradingPlaces-index .right-bottom .table-content table td {\r\n\r\n\t/*height: 100%;*/\r\n\tpadding: 15px 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mt-table-center th,\r\n.tradingPlaces-index .right-bottom .mt-table-center th {\r\n\ttext-align: left;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mt-table td,\r\n.tradingPlaces-index .right-bottom .mt-table td {\r\n\ttext-align: left;\r\n}", ""]);
+	exports.push([module.id, ".tradingPlaces-index .left-bottom .mod-content,\r\n.tradingPlaces-index .right-bottom .mod-content {\r\n\tpadding: 20px 20px 0px 20px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom,\r\n.tradingPlaces-index .right-bottom {\r\n\tpadding: 0px 0px 50px 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mod-content .table-title th,\r\n.tradingPlaces-index .right-bottom .mod-content .table-title th {\r\n\theight: 50px;\r\n\tpadding: 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .table-content,\r\n.tradingPlaces-index .right-bottom .table-content {\r\n\theight: 540px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .table-content .word-limit-5,\r\n.tradingPlaces-index .right-bottom .table-content .word-limit-5 {\r\n\twidth: 100px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mt-table,\r\n.tradingPlaces-index .right-bottom  .mt-table {\r\n\tmargin: 0px 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .table-content table td,\r\n.tradingPlaces-index .right-bottom .table-content table td {\r\n\r\n\t/*height: 100%;*/\r\n\tpadding: 15px 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mt-table-center th,\r\n.tradingPlaces-index .right-bottom .mt-table-center th {\r\n\ttext-align: left;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mt-table td,\r\n.tradingPlaces-index .right-bottom .mt-table td {\r\n\ttext-align: left;\r\n}", ""]);
 
 	// exports
 
@@ -78401,18 +78493,21 @@
 	        this.setState({ areaName: "" });
 	        this.setState({ orderZB: "DESC" });
 	        this.countyChange(this.state.areaName, "", this.state.orderZB);
+	        $('#hpqList-scroll').perfectScrollbar();
 	    },
-	    handleClick: function handleClick(name) {
-	        var _dom = $(this.refs[name]);
-	        var _domAttr = _dom.attr("data-order");
-	        if (_domAttr == "DESC") {
-	            _dom.attr("data-order", "ASC");
-	        } else {
-	            _dom.attr("data-order", "DESC");
-	        }
-	        var _getAttr = _dom.attr("data-order");
-	        this.setState({ orderName: name });
-	        this.countyChange(this.state.areaName, name, _getAttr);
+	    componentDidUpdate: function componentDidUpdate() {
+	        $('#hpqList-scroll').perfectScrollbar('update');
+	    },
+	    handleClick: function handleClick(field) {
+	        var _dom = $(this.refs[field]),
+	            _domAttr = _dom.attr("data-order"),
+	            _domIco = _dom.find("em"),
+	            _domIcoIs = _dom.find("em").hasClass('icon-desc');
+	        _domIcoIs == true ? _domIco.removeClass('icon-desc').addClass('icon-asc') : _domIco.removeClass('icon-asc').addClass('icon-desc');
+	        _domAttr == "desc" ? _dom.attr("data-order", "asc") : _dom.attr("data-order", "desc");
+	        this.setState({ orderName: field, orderZB: _dom.attr("data-order") }, function () {
+	            this.countyChange(this.state.areaName, field, this.state.orderZB);
+	        });
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	        var isEqualCounty = Immutable.is(nextProps.pieCounty.areaName, this.props.pieCounty.areaName);
@@ -78481,15 +78576,15 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '20%' },
+	                                    { width: '20%', className: 'cur-pointer', 'data-order': this.state.orderZB, ref: 'registeredCapital', onClick: this.handleClick.bind(this, "registeredCapital") },
 	                                    '注册资本',
-	                                    _react2.default.createElement('i', { 'data-order': this.state.orderZB, ref: 'registeredCapital', onClick: this.handleClick.bind(this, "registeredCapital"), className: 'iconfont icon-desc' })
+	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '20%' },
+	                                    { width: '20%', className: 'cur-pointer', 'data-order': this.state.orderZB, ref: 'registeredDate', onClick: this.handleClick.bind(this, "registeredDate") },
 	                                    '注册时间',
-	                                    _react2.default.createElement('i', { 'data-order': this.state.orderZB, ref: 'registeredDate', onClick: this.handleClick.bind(this, "registeredDate"), className: 'iconfont icon-desc' })
+	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                                )
 	                            )
 	                        )
@@ -78497,7 +78592,7 @@
 	                ),
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'table-content' },
+	                    { className: 'table-content', id: 'hpqList-scroll' },
 	                    _react2.default.createElement(
 	                        'table',
 	                        { className: 'mt-table mt-table-center wtyh-table table-border-b' },
@@ -78524,7 +78619,7 @@
 	                                                { width: '25%' },
 	                                                _react2.default.createElement(
 	                                                    _reactRouter.Link,
-	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'HPQList', company: item.name } }, className: 'word-limit-5', 'data-tip': item.name },
+	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'HPQList', company: item.name } }, className: 'word-limit-5', 'data-tip': item.name, title: item.name },
 	                                                    item.name
 	                                                )
 	                                            ),
@@ -78533,7 +78628,7 @@
 	                                                { width: '25%' },
 	                                                _react2.default.createElement(
 	                                                    'span',
-	                                                    { className: 'word-limit-5', 'data-tip': _address },
+	                                                    { className: 'word-limit-5', 'data-tip': _address, title: _address },
 	                                                    _address
 	                                                )
 	                                            ),
@@ -78562,7 +78657,7 @@
 	                                                { width: '25%' },
 	                                                _react2.default.createElement(
 	                                                    _reactRouter.Link,
-	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'HPQList', company: item.name } }, className: 'word-limit-5', 'data-tip': item.name },
+	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'HPQList', company: item.name } }, className: 'word-limit-5', 'data-tip': item.name, title: item.name },
 	                                                    item.name
 	                                                )
 	                                            ),
@@ -78571,7 +78666,7 @@
 	                                                { width: '25%' },
 	                                                _react2.default.createElement(
 	                                                    'span',
-	                                                    { className: 'word-limit-5', 'data-tip': _address },
+	                                                    { className: 'word-limit-5', 'data-tip': _address, title: _address },
 	                                                    _address
 	                                                )
 	                                            ),
@@ -78643,6 +78738,10 @@
 	    componentDidMount: function componentDidMount() {
 	        this.setState({ statusName: "" });
 	        this.countyChange(this.statusName);
+	        $('#detailList-scroll').perfectScrollbar();
+	    },
+	    componentDidUpdate: function componentDidUpdate() {
+	        $('#detailList-scroll').perfectScrollbar('update');
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 
@@ -78726,7 +78825,7 @@
 	                ),
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'table-content' },
+	                    { className: 'table-content', id: 'detailList-scroll' },
 	                    _react2.default.createElement(
 	                        'table',
 	                        { className: 'mt-table mt-table-center wtyh-table table-border-b' },
@@ -78753,7 +78852,7 @@
 	                                                { width: '25%' },
 	                                                _react2.default.createElement(
 	                                                    _reactRouter.Link,
-	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'DetailList', company: item.name } }, className: 'word-limit-5', 'data-tip': item.name },
+	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'DetailList', company: item.name } }, className: 'word-limit-5', 'data-tip': item.name, title: item.name },
 	                                                    item.name
 	                                                )
 	                                            ),
@@ -78767,7 +78866,7 @@
 	                                                { width: '20%' },
 	                                                _react2.default.createElement(
 	                                                    'span',
-	                                                    { className: 'word-limit-5', 'data-tip': _superviseDepartment },
+	                                                    { className: 'word-limit-5', 'data-tip': _superviseDepartment, title: _superviseDepartment },
 	                                                    _superviseDepartment
 	                                                )
 	                                            ),
@@ -78791,7 +78890,7 @@
 	                                                { width: '25%' },
 	                                                _react2.default.createElement(
 	                                                    _reactRouter.Link,
-	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'DetailList', company: item.name } }, className: 'word-limit-5', 'data-tip': item.name },
+	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'DetailList', company: item.name } }, className: 'word-limit-5', 'data-tip': item.name, title: item.name },
 	                                                    item.name
 	                                                )
 	                                            ),
@@ -78805,7 +78904,7 @@
 	                                                { width: '20%' },
 	                                                _react2.default.createElement(
 	                                                    'span',
-	                                                    { className: 'word-limit-5', 'data-tip': _superviseDepartment },
+	                                                    { className: 'word-limit-5', title: _superviseDepartment, 'data-tip': _superviseDepartment },
 	                                                    _superviseDepartment
 	                                                )
 	                                            ),
@@ -79154,7 +79253,13 @@
 	    ContrastRightNumChartResult: state.ContrastRight.result,
 	    //列表
 	    ContrastCatalogNumChartRequest: state.Catalog.request,
-	    ContrastCatalogNumChartResult: state.Catalog.result
+	    ContrastCatalogNumChartResult: state.Catalog.result,
+	    //下拉框
+	    CatalogSelectNumChartRequest: state.CatalogSelect.request,
+	    CatalogSelectNumChartResult: state.CatalogSelect.result,
+	    //饼图时间选择下拉框
+	    TimeSelectNumChartRequest: state.TimeSelect.request,
+	    TimeSelectNumChartResult: state.TimeSelect.result
 	  };
 	}
 
@@ -79224,6 +79329,8 @@
 	exports.getContrastLeftnumRequest = getContrastLeftnumRequest;
 	exports.getContrastRightnumRequest = getContrastRightnumRequest;
 	exports.getContrastCatalognumRequest = getContrastCatalognumRequest;
+	exports.getSelectRequest = getSelectRequest;
+	exports.getTimeSelectRequest = getTimeSelectRequest;
 	/*
 	  融资租赁action
 	*/
@@ -79380,6 +79487,82 @@
 	}
 	/*列表end*/
 
+	/*下拉框begin*/
+	var COMPANY_SELECT_SUCCESS = exports.COMPANY_SELECT_SUCCESS = 'COMPANY_SELECT_SUCCESS';
+	var COMPANY_SELECT_FAIL = exports.COMPANY_SELECT_FAIL = 'COMPANY_SELECT_FAIL';
+
+	function CatalogSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: COMPANY_SELECT_SUCCESS,
+	    result: result
+	  };
+	}
+	function CatalogFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: COMPANY_SELECT_FAIL,
+	    result: result
+	  };
+	}
+
+	function getSelectRequest(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "area/getAreaByParentId.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(CatalogSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(CatalogFail(result));
+	      }
+	    });
+	  };
+	}
+	/*下拉框end*/
+
+	/*饼图下拉框begin*/
+	var COMPANY_TIMESELECT_SUCCESS = exports.COMPANY_TIMESELECT_SUCCESS = 'COMPANY_TIMESELECT_SUCCESS';
+	var COMPANY_TIMESELECT_FAIL = exports.COMPANY_TIMESELECT_FAIL = 'COMPANY_TIMESELECT_FAIL';
+
+	function timeSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: COMPANY_TIMESELECT_SUCCESS,
+	    result: result
+	  };
+	}
+	function timeFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: COMPANY_TIMESELECT_FAIL,
+	    result: result
+	  };
+	}
+
+	function getTimeSelectRequest(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "financeLease/getYears.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(timeSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(timeFail(result));
+	      }
+	    });
+	  };
+	}
+	/*饼图下拉框end*/
+
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "financeLeaseAction.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
@@ -79481,7 +79664,7 @@
 	                _react2.default.createElement(
 	                    'h3',
 	                    null,
-	                    '上海市典当法人企业数'
+	                    '上海市融资租赁企业数及注册资本总额'
 	                )
 	            ),
 	            LeaseAmountBox
@@ -79528,7 +79711,7 @@
 
 
 	// module
-	exports.push([module.id, "/*@parkMonitor jifei  上海市融资租聘企业数\r\n---------------------------------------------------------*/\r\n.Lease{\r\n\twidth: 100%;\r\n\theight: 495px;\r\n    background: #2b323c;\r\n    border-radius: 3px;\r\n}\r\n/*@parkMonitor jifei  上海市融资租聘企业年末余额及资产总额\r\n---------------------------------------------------------*/\r\n.Balance{\r\n\twidth: 100%;\r\n\theight: 495px;\r\n\tmargin-top: 10px;\r\n    background: #2b323c;\r\n    border-radius: 3px;\r\n    display: none;\r\n}\r\n/*@parkMonitor jifei  上海市自贸区融资租聘企业占比对比\r\n---------------------------------------------------------*/\r\n.ContrastLeft{\r\n\twidth: 50%;\r\n\theight: 495px;\r\n\tbackground: #2b323c;\r\n\tfloat: left; \r\n\tposition: relative;\r\n\tborder-radius: 3px 0px 0px 3px;\r\n}\r\n.ContrastLeft .select{\r\n\tposition: absolute;\r\n    top: 23%;\r\n    left: 40%;\r\n}\r\n.ContrastRight .select{\r\n\tposition: absolute;\r\n    left: 45%;\r\n}\r\n.ContrastLeft .select .mt-select{\r\n\tborder: none;\r\n\tbackground: #959aa0;\r\n}\r\n.ContrastLeft .select .mt-select .iconfont{\r\n\tcolor: #fff;\r\n}\r\n.ContrastLeft .select .mt-select .mt-select-box{\r\n\tborder: none;\r\n\tbackground: rgba(43, 50, 60, 0.9) none repeat scroll 0 0;\r\n\tborder-radius: 3px;\r\n}\r\n.ContrastRight{\r\n\twidth: 50%;\r\n\theight: 495px;\r\n\tbackground: #2b323c;\r\n\tfloat: right;\r\n\tborder-radius:  0px 3px 3px 0px ;\r\n}\r\n/*@parkMonitor jifei  业务发生额及不良率\r\n---------------------------------------------------------*/\r\n.Unhealthy{\r\n    width: 100%;\r\n\theight: 495px;\r\n\tmargin-top: 10px;\r\n    background: #2b323c;\r\n    border-radius: 3px;\r\n    float: left;\r\n    display: none;\r\n}\r\n/*@parkMonitor jifei  上海市融资租赁企业目录\r\n---------------------------------------------------------*/\r\n.Catalog .right{\r\n\tfloat: right;\r\n\tpadding: 10px 10px;\r\n}\r\n.Catalog .right .mt-select{\r\n\tbackground: #565a63;\r\n\tborder: none;\r\n\tz-index: 100;\r\n}\r\n.Catalog .right .mt-select .mt-select-box{\r\n\tborder: none;\r\n\tleft: 0;\r\n\tright: 0;\r\n\tborder-radius: 2px;\r\n}\r\n.Catalog .right .mt-select .mt-select-box{\r\n\tbackground: #565a63;\r\n}\r\n.Catalog .right em{\r\n\tcolor: #979b9e;\r\n\tmargin-right: 10px;\r\n}\r\n.Catalog .tabs{\r\n\twidth: 99%;\r\n\theight: auto;\r\n\tmargin: 10px auto;\r\n}\r\n.Catalog .total{\r\n\tvertical-align: sub;\r\n\tpadding-left: 5%;\r\n}\r\n.Catalog .total em{\r\n\tcolor: #f83c33;\r\n}\r\n.Catalog .tabs table{\r\n\twidth: 100%;\r\n}\r\n.width1{width: 5%;height: 80px;}\r\n.width2{width: 15%;}\r\n.width3{width: 15%;}\r\n.width4{width: 8%;border-right: 1px solid #4b5058;}\r\n.width5{width: 67%;height: 40px;}\r\n.width6{width: 10%;}\r\n.Catalog .tabs table tr th .mt-select{\r\n\tborder: none;\r\n    background: none;\r\n    margin-top: 5px;\r\n    padding: 0;\r\n    font-size: 12px;\r\n}\r\n.Catalog .tabs table tr th .leftD{\r\n\tfloat: left;\r\n\tpadding-left: 25%;\r\n}\r\n.Catalog .tabs table tr th .mt-select .mt-select-title{\r\n\tcolor: #999ca1;\r\n\twidth: 40px;\r\n}\r\n.Catalog .tabs table tr th .mt-select .iconfont{\r\n\tright: 6px;\r\n}\r\n.Catalog .tabs table tr th .mt-select .mt-select-box{\r\n\tborder: none;\r\n\tbackground: rgba(43, 50, 60, 0.5) none repeat scroll 0 0;\r\n\tborder-radius: 3px;\r\n}\r\n.Catalog .tabs .box{\r\n\theight: 800px;\r\n\t//overflow: auto;\r\n}\r\n.Catalog .tabs table tr td{\r\n\ttext-align: center;\r\n\theight: 80px;\r\n\tfont-size: 12px;\r\n}\r\n.Catalog .tabs table tr td .leftD{\r\n\tfloat: left;\r\n\tpadding-left: 25%;\r\n\tcolor: #fff;\r\n\tcursor: pointer;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(1){\r\n    width: 6%;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(2){\r\n    width: 18%;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(3){\r\n    width: 18%;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(4){\r\n    width: 10%;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(5){\r\n    width: 12%;\r\n} \r\n.Catalog .tabs .box table tr td:nth-child(6){\r\n    width: 12%;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(7){\r\n    width: 12%;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(8){\r\n    width: 12%;\r\n}\r\n.Catalog .tabs .box table tr:nth-child(even) td{\r\n\tbackground: #222931;\r\n}\r\n.Catalog .tabs .box table tr td .Green{\r\n\tcolor: #38ff8f;\r\n}\r\n.Catalog .tabs .box table tr td .Yellow{\r\n\tcolor: #fa9705;\r\n}", ""]);
+	exports.push([module.id, "/*@parkMonitor jifei  上海市融资租聘企业数\r\n---------------------------------------------------------*/\r\n.Lease{\r\n\twidth: 100%;\r\n\theight: 495px;\r\n    background: #2b323c;\r\n    border-radius: 3px;\r\n}\r\n/*@parkMonitor jifei  上海市融资租聘企业年末余额及资产总额\r\n---------------------------------------------------------*/\r\n.Balance{\r\n\twidth: 100%;\r\n\theight: 495px;\r\n\tmargin-top: 10px;\r\n    background: #2b323c;\r\n    border-radius: 3px;\r\n    display: none;\r\n}\r\n/*@parkMonitor jifei  上海市自贸区融资租聘企业占比对比\r\n---------------------------------------------------------*/\r\n.ContrastLeft{\r\n\twidth: 50%;\r\n\theight: 495px;\r\n\tbackground: #2b323c;\r\n\tfloat: left; \r\n\tposition: relative;\r\n\tborder-radius: 3px 0px 0px 3px;\r\n}\r\n.ContrastLeft .select{\r\n\tposition: absolute;\r\n    top: 23%;\r\n    left: 40%;\r\n}\r\n.ContrastRight .select{\r\n\tposition: absolute;\r\n    left: 45%;\r\n}\r\n.ContrastLeft .select .mt-select{\r\n\tborder: none;\r\n\tbackground: #959aa0;\r\n}\r\n.ContrastLeft .select .mt-select .iconfont{\r\n\tcolor: #fff;\r\n}\r\n.ContrastLeft .select .mt-select .mt-select-box{\r\n\tborder: none;\r\n\tbackground: rgba(43, 50, 60, 0.9) none repeat scroll 0 0;\r\n\tborder-radius: 3px;\r\n}\r\n.ContrastRight{\r\n\twidth: 50%;\r\n\theight: 495px;\r\n\tbackground: #2b323c;\r\n\tfloat: right;\r\n\tborder-radius:  0px 3px 3px 0px ;\r\n}\r\n/*@parkMonitor jifei  业务发生额及不良率\r\n---------------------------------------------------------*/\r\n.Unhealthy{\r\n    width: 100%;\r\n\theight: 495px;\r\n\tmargin-top: 10px;\r\n    background: #2b323c;\r\n    border-radius: 3px;\r\n    float: left;\r\n    display: none;\r\n}\r\n/*@parkMonitor jifei  上海市融资租赁企业目录\r\n---------------------------------------------------------*/\r\n.Catalog .right{\r\n\tfloat: right;\r\n\tpadding: 10px 10px;\r\n}\r\n.Catalog .right .mt-select{\r\n\tbackground: #565a63;\r\n\tborder: none;\r\n\tz-index: 100;\r\n}\r\n.Catalog .right .mt-select .mt-select-box{\r\n\tborder: none;\r\n\tleft: 0;\r\n\tright: 0;\r\n\tborder-radius: 2px;\r\n}\r\n.Catalog .right .mt-select .mt-select-box{\r\n\tbackground: #565a63;\r\n}\r\n.Catalog .right em{\r\n\tcolor: #979b9e;\r\n\tmargin-right: 10px;\r\n}\r\n.Catalog .tabs{\r\n\twidth: 99%;\r\n\theight: auto;\r\n\tmargin: 10px auto;\r\n}\r\n.Catalog .total{\r\n\tvertical-align: sub;\r\n\tpadding-left: 5%;\r\n}\r\n.Catalog .total em{\r\n\tcolor: #f83c33;\r\n}\r\n.Catalog .tabs table{\r\n\twidth: 100%;\r\n}\r\n.width1{width: 5%;height: 80px;}\r\n.width2{width: 15%;}\r\n.width3{width: 15%;}\r\n.width4{width: 8%;border-right: 1px solid #4b5058;}\r\n.width5{width: 67%;height: 40px;}\r\n.width6{width: 10%;}\r\n.Catalog .tabs table tr th .mt-select{\r\n\tborder: none;\r\n    background: none;\r\n    margin-top: 5px;\r\n    padding: 0;\r\n    font-size: 12px;\r\n}\r\n.Catalog .tabs table tr th .leftD{\r\n\tfloat: left;\r\n\tpadding-left: 25%;\r\n}\r\n.Catalog .tabs table tr th .mt-select .mt-select-title{\r\n\tcolor: #999ca1;\r\n\twidth: 40px;\r\n}\r\n.Catalog .tabs table tr th .mt-select .iconfont{\r\n\tright: 6px;\r\n}\r\n.Catalog .tabs table tr th .mt-select .mt-select-box{\r\n\tborder: none;\r\n\tbackground: rgba(43, 50, 60, 0.5) none repeat scroll 0 0;\r\n\tborder-radius: 3px;\r\n}\r\n.Catalog .tabs .box{\r\n\theight: 800px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n.Catalog .tabs table tr td{\r\n\ttext-align: center;\r\n\theight: 80px;\r\n\tfont-size: 12px;\r\n}\r\n.Catalog .tabs table tr td .leftD{\r\n\tfloat: left;\r\n\tpadding-left: 23%;\r\n\tcolor: #fff;\r\n\tcursor: pointer;\r\n\toverflow: hidden;\r\n    text-overflow: ellipsis;\r\n    white-space: nowrap;\r\n    display: inline-block;\r\n    width: 250px;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(1){\r\n    width: 6%;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(2){\r\n    width: 18%;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(3){\r\n    width: 18%;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(4){\r\n    width: 10%;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(5){\r\n    width: 12%;\r\n} \r\n.Catalog .tabs .box table tr td:nth-child(6){\r\n    width: 12%;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(7){\r\n    width: 12%;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(8){\r\n    width: 12%;\r\n}\r\n.Catalog .tabs .box table tr:nth-child(even) td{\r\n\tbackground: #222931;\r\n}\r\n.Catalog .tabs .box table tr td .Green{\r\n\tcolor: #38ff8f;\r\n}\r\n.Catalog .tabs .box table tr td .Yellow{\r\n\tcolor: #fa9705;\r\n}\r\n.FinanceLeaseTop .mt-select .mt-select-title .placeholder{\r\n\tcolor: #dddddd;\r\n}\r\n.ContrastLeft .mt-select .mt-select-title .placeholder{\r\n\tcolor: #fff;\r\n}\r\n.ContrastRight .mt-select .mt-select-title .placeholder{\r\n\tcolor: #fff;\r\n}", ""]);
 
 	// exports
 
@@ -79629,112 +79812,147 @@
 	//上海市自贸区融资租赁企业占比对比
 	var Immutable = __webpack_require__(718);
 	var ContrastLeft = _react2.default.createClass({
-	  displayName: 'ContrastLeft',
+	    displayName: 'ContrastLeft',
 
-	  getInitialState: function getInitialState() {
-	    return {
-	      paramContrastLeft: null
-	    };
-	  },
-	  componentDidMount: function componentDidMount() {
-	    var getContrastLeftnumRequest = this.props.getContrastLeftnumRequest;
+	    getInitialState: function getInitialState() {
+	        return {
+	            paramContrastLeft: null,
+	            TimeSelect: []
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        var getContrastLeftnumRequest = this.props.getContrastLeftnumRequest;
 
-	    var jsonData = { 'year': 2013 };
-	    getContrastLeftnumRequest(jsonData);
-	  },
+	        var jsonData = { 'year': 2016 };
+	        getContrastLeftnumRequest(jsonData);
 
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    var isEqual = Immutable.is(nextProps.ContrastLeftNumChartRequest, this.props.ContrastLeftNumChartResult);
-	    if (!isEqual) {
-	      var ContrastLeftNumChartRequest = nextProps.ContrastLeftNumChartRequest;
-	      var ContrastLeftNumChartResult = nextProps.ContrastLeftNumChartResult;
+	        var getTimeSelectRequest = this.props.getTimeSelectRequest;
 
-	      if (ContrastLeftNumChartRequest == true) {
-	        if (ContrastLeftNumChartResult.success) {
-	          var optionThe = {
-	            "color": ["#facd89", "#e14340"],
-	            //"title":"私募基金总分类",
-	            "xtitle": "",
-	            "titleLeft": "19%",
-	            "titleTop": "60%",
-	            //"legend": ["自贸区", "非自贸区"],
-	            "legendShow": true,
-	            // "roseType":"radius",//是否玫瑰型
-	            "radius": [80, 110],
-	            "legendOrient": "horizontal",
-	            "legendLeft": "20%",
-	            "legendTop": "65%",
-	            "seriesName": "",
-	            "lable": { normal: { show: true },
-	              emphasis: { show: false }
-	            },
-	            "center": ['50%', '46%'],
-	            "series": [{
-	              value: ContrastLeftNumChartResult.content.inAreaNumber,
-	              name: '自贸区'
-	            }, {
-	              value: ContrastLeftNumChartResult.content.outAreaNumber,
-	              name: '非自贸区'
-	            }]
-	          };
-	          this.setState({ paramContrastLeft: optionThe });
-	        } else {
-	          //错误后提示
+	        var jsonData = {};
+	        getTimeSelectRequest(jsonData);
+	    },
+
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var isEqual = Immutable.is(nextProps.ContrastLeftNumChartRequest, this.props.ContrastLeftNumChartResult);
+	        if (!isEqual) {
+	            var ContrastLeftNumChartRequest = nextProps.ContrastLeftNumChartRequest;
+	            var ContrastLeftNumChartResult = nextProps.ContrastLeftNumChartResult;
+
+	            if (ContrastLeftNumChartRequest == true) {
+	                if (ContrastLeftNumChartResult.success) {
+	                    var optionThe = {
+	                        "color": ["#facd89", "#e14340"],
+	                        //"title":"私募基金总分类",
+	                        "xtitle": "",
+	                        "titleLeft": "19%",
+	                        "titleTop": "60%",
+	                        //"legend": ["自贸区", "非自贸区"],
+	                        "legendShow": true,
+	                        // "roseType":"radius",//是否玫瑰型
+	                        "radius": [80, 110],
+	                        "legendOrient": "horizontal",
+	                        "legendLeft": "20%",
+	                        "legendTop": "65%",
+	                        "seriesName": "",
+	                        "lable": { normal: { show: true },
+	                            emphasis: { show: false }
+	                        },
+	                        "center": ['50%', '46%'],
+	                        "series": [{
+	                            value: ContrastLeftNumChartResult.content.inAreaNumber,
+	                            name: '自贸区'
+	                        }, {
+	                            value: ContrastLeftNumChartResult.content.outAreaNumber,
+	                            name: '非自贸区'
+	                        }]
+	                    };
+	                    this.setState({ paramContrastLeft: optionThe });
+	                } else {
+	                    //错误后提示
+	                }
+	            }
 	        }
-	      }
+
+	        //下拉框
+	        var isEqual = Immutable.is(nextProps.TimeSelectNumChartRequest, this.props.TimeSelectNumChartResult);
+	        if (!isEqual) {
+	            var TimeSelectNumChartRequest = nextProps.TimeSelectNumChartRequest;
+	            var TimeSelectNumChartResult = nextProps.TimeSelectNumChartResult;
+
+	            if (TimeSelectNumChartRequest == true) {
+	                if (TimeSelectNumChartResult.success) {
+	                    // $(this.refs.totleCount).html(ContrastCatalogNumChartResult.content.length)
+	                    //this.dataFomat({CatalogCentent:ContrastCatalogNumChartResult}) 
+	                    this.dataCatalogSelect(TimeSelectNumChartResult);
+	                } else {
+	                    //错误后提示
+	                }
+	            }
+	        }
+	    },
+
+	    //下拉框
+	    dataCatalogSelect: function dataCatalogSelect(data) {
+	        var content = data.content;
+	        //console.log("jifei++++++++++",data.content)
+	        var selectVar = [];
+	        for (var j = 0; j < content.length; j++) {
+	            selectVar.push({ value: j, label: content[j] });
+	        }
+	        //console.info("123456789",selectVar)
+	        this.setState({ TimeSelect: selectVar });
+	    },
+
+	    selectValue: function selectValue(data) {
+	        var yearData = { 'year': data };
+	        var getContrastLeftnumRequest = this.props.getContrastLeftnumRequest;
+
+	        getContrastLeftnumRequest(yearData);
+	    },
+
+	    render: function render() {
+	        //下拉选择         
+	        var selectProp = {
+	            width: '95px',
+	            className: 'index-selected',
+	            value: this.state.selectVar,
+	            placeholder: '2016',
+	            name: 'testselect',
+	            id: 'indexSelected',
+	            data: this.state.TimeSelect,
+	            onChange: function (value, label) {
+	                // console.log('当前值为：', value);
+	                this.selectValue(label);
+	            }.bind(this)
+	        };
+
+	        var ContrastLeftAmountBox = "";
+	        if (this.state.paramContrastLeft) {
+	            ContrastLeftAmountBox = _react2.default.createElement(_BasePie2.default, {
+	                option: this.state.paramContrastLeft,
+	                style: { height: '550px', width: '100%', margin: '0px auto' } });
+	        }
+
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'ContrastLeft mod' },
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'mod-title' },
+	                _react2.default.createElement(
+	                    'h3',
+	                    null,
+	                    '上海市自贸区融资租赁企业占比对比'
+	                )
+	            ),
+	            ContrastLeftAmountBox,
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'select' },
+	                _react2.default.createElement(_index.Selected, selectProp)
+	            )
+	        );
 	    }
-	  },
-
-	  selectValue: function selectValue(data) {
-	    var yearData = { 'year': data };
-	    var getContrastLeftnumRequest = this.props.getContrastLeftnumRequest;
-
-	    getContrastLeftnumRequest(yearData);
-	  },
-
-	  render: function render() {
-	    //下拉选择         
-	    var selectProp = {
-	      width: '95px',
-	      className: 'index-selected',
-	      value: 2013,
-	      placeholder: '高级选项',
-	      name: 'testselect',
-	      id: 'indexSelected',
-	      data: [{ value: 2013, label: '2013年' }, { value: 2014, label: '2014年' }, { value: 2015, label: '2015年' }, { value: 2016, label: '2016年' }, { value: 2017, label: '2017年' }, { value: 2018, label: '2018年' }],
-	      onChange: function (value) {
-	        // console.log('当前值为：', value);
-	        this.selectValue(value);
-	      }.bind(this)
-	    };
-
-	    var ContrastLeftAmountBox = "";
-	    if (this.state.paramContrastLeft) {
-	      ContrastLeftAmountBox = _react2.default.createElement(_BasePie2.default, {
-	        option: this.state.paramContrastLeft,
-	        style: { height: '550px', width: '100%', margin: '0px auto' } });
-	    }
-
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'ContrastLeft mod' },
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'mod-title' },
-	        _react2.default.createElement(
-	          'h3',
-	          null,
-	          '上海市自贸区融资租赁企业占比对比'
-	        )
-	      ),
-	      ContrastLeftAmountBox,
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'select' },
-	        _react2.default.createElement(_index.Selected, selectProp)
-	      )
-	    );
-	  }
 	});
 	module.exports = ContrastLeft;
 
@@ -79774,14 +79992,20 @@
 
 	    getInitialState: function getInitialState() {
 	        return {
-	            paramContrastRight: null
+	            paramContrastRight: null,
+	            TimeSelectVal: []
 	        };
 	    },
 	    componentDidMount: function componentDidMount() {
 	        var getContrastRightnumRequest = this.props.getContrastRightnumRequest;
 
-	        var jsonData = { 'year': 2015 };
+	        var jsonData = { 'year': 2016 };
 	        getContrastRightnumRequest(jsonData);
+
+	        var getTimeSelectRequest = this.props.getTimeSelectRequest;
+
+	        var jsonData = {};
+	        getTimeSelectRequest(jsonData);
 	    },
 
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
@@ -79818,8 +80042,35 @@
 	                }
 	            }
 	        }
+	        //下拉框
+	        var isEqual = Immutable.is(nextProps.TimeSelectNumChartRequest, this.props.TimeSelectNumChartResult);
+	        if (!isEqual) {
+	            var TimeSelectNumChartRequest = nextProps.TimeSelectNumChartRequest;
+	            var TimeSelectNumChartResult = nextProps.TimeSelectNumChartResult;
+
+	            if (TimeSelectNumChartRequest == true) {
+	                if (TimeSelectNumChartResult.success) {
+	                    // $(this.refs.totleCount).html(ContrastCatalogNumChartResult.content.length)
+	                    //this.dataFomat({CatalogCentent:ContrastCatalogNumChartResult}) 
+	                    this.dataCatalogSelect(TimeSelectNumChartResult);
+	                } else {
+	                    //错误后提示
+	                }
+	            }
+	        }
 	    },
 
+	    //下拉框
+	    dataCatalogSelect: function dataCatalogSelect(data) {
+	        var content = data.content;
+	        //console.log("jifei++++++++++",data.content)
+	        var selectVar = [];
+	        for (var j = 0; j < content.length; j++) {
+	            selectVar.push({ value: j, label: content[j] });
+	        }
+	        //console.info("qqqqqqqqqqqqqqqqqqqqqq",selectVar)
+	        this.setState({ TimeSelectVal: selectVar });
+	    },
 	    selectValue: function selectValue(data) {
 	        var yearData = { 'year': data };
 	        var getContrastRightnumRequest = this.props.getContrastRightnumRequest;
@@ -79832,14 +80083,14 @@
 	        var selectProp = {
 	            width: '95px',
 	            className: 'index-selected',
-	            value: 2015,
-	            placeholder: '高级选项',
+	            value: this.state.selectVar,
+	            placeholder: '2016',
 	            name: 'testselect',
 	            id: 'indexSelected',
-	            data: [{ value: 2013, label: '2013年' }, { value: 2014, label: '2014年' }, { value: 2015, label: '2015年' }, { value: 2016, label: '2016年' }, { value: 2017, label: '2017年' }, { value: 2018, label: '2018年' }],
-	            onChange: function (value) {
+	            data: this.state.TimeSelectVal,
+	            onChange: function (value, label) {
 	                //console.log('当前值为：', value);           
-	                this.selectValue(value);
+	                this.selectValue(label);
 	            }.bind(this)
 	        };
 
@@ -79978,20 +80229,46 @@
 	        return {
 	            CatalogCentent: [],
 	            CompanyDirectoryData: [],
-	            selected: 1,
-	            CatalogDirectoryData: []
+	            CatalogDirectoryData: [],
+	            CatalogSelect: [],
+	            CatalogAdd: []
 	        };
 	    },
-
+	    //初始
 	    componentDidMount: function componentDidMount() {
 	        var getContrastCatalognumRequest = this.props.getContrastCatalognumRequest;
 
-	        var jsonData = { 'areaId': '黄浦区' };
+	        var jsonData = { 'areaName': '黄浦区' };
 	        getContrastCatalognumRequest(jsonData);
-	    },
 
+	        var getSelectRequest = this.props.getSelectRequest;
+
+	        var jsonData = { 'areaId': 104 };
+	        getSelectRequest(jsonData);
+
+	        $("#platformBase-scroll").perfectScrollbar();
+	    },
+	    componentDidUpdate: function componentDidUpdate() {
+	        $("#platformBase-scroll").perfectScrollbar('update');
+	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        console.log("222222222纪非", nextProps);
+	        //下拉框
+	        var isEqual = Immutable.is(nextProps.CatalogSelectNumChartRequest, this.props.CatalogSelectNumChartResult);
+	        if (!isEqual) {
+	            var CatalogSelectNumChartRequest = nextProps.CatalogSelectNumChartRequest;
+	            var CatalogSelectNumChartResult = nextProps.CatalogSelectNumChartResult;
+
+	            if (CatalogSelectNumChartRequest == true) {
+	                if (CatalogSelectNumChartResult.success) {
+	                    // $(this.refs.totleCount).html(ContrastCatalogNumChartResult.content.length)
+	                    //this.dataFomat({CatalogCentent:ContrastCatalogNumChartResult}) 
+	                    this.dataCatalogSelect(CatalogSelectNumChartResult);
+	                } else {
+	                    //错误后提示
+	                }
+	            }
+	        }
+	        //列表
 	        var isEqual = Immutable.is(nextProps.ContrastCatalogNumChartRequest, this.props.ContrastCatalogNumChartResult);
 	        if (!isEqual) {
 	            var ContrastCatalogNumChartRequest = nextProps.ContrastCatalogNumChartRequest;
@@ -80001,8 +80278,6 @@
 	                if (ContrastCatalogNumChartResult.success) {
 	                    // $(this.refs.totleCount).html(ContrastCatalogNumChartResult.content.length)
 	                    //this.dataFomat({CatalogCentent:ContrastCatalogNumChartResult})
-	                    this.dataFomat(ContrastCatalogNumChartResult);
-	                    //风险状态
 	                    for (var i = 0; i < ContrastCatalogNumChartResult.content.length; i++) {
 	                        if (ContrastCatalogNumChartResult.content[i].riskStatus == "正常") innerdata.push(ContrastCatalogNumChartResult.content[i]);else outerdata.push(ContrastCatalogNumChartResult.content[i]);
 	                    }
@@ -80010,49 +80285,69 @@
 	                        CompanyDirectoryData: ContrastCatalogNumChartResult.content,
 	                        CatalogCentent: ContrastCatalogNumChartResult.content
 	                    });
-	                    //失联
+
 	                    for (var i = 0; i < ContrastCatalogNumChartResult.content.length; i++) {
-	                        if (ContrastCatalogNumChartResult.content[i].riskStatusA == "是") innerdata.push(ContrastCatalogNumChartResult.content[i]);else outerdata.push(ContrastCatalogNumChartResult.content[i]);
+	                        if (ContrastCatalogNumChartResult.content[i].riskStatusA == "是") outerdata.push(ContrastCatalogNumChartResult.content[i]);
 	                    }
 	                    this.setState({
-	                        CatalogDirectoryData: ContrastCatalogNumChartResult.content,
+	                        CompanyDirectoryData: ContrastCatalogNumChartResult.content,
 	                        CatalogCentent: ContrastCatalogNumChartResult.content
 	                    });
-	                    //未参加自查
+
 	                    for (var i = 0; i < ContrastCatalogNumChartResult.content.length; i++) {
-	                        if (ContrastCatalogNumChartResult.content[i].riskStatusB == "是") innerdata.push(ContrastCatalogNumChartResult.content[i]);else outerdata.push(ContrastCatalogNumChartResult.content[i]);
+	                        if (ContrastCatalogNumChartResult.content[i].riskStatusB == "是") outerdata.push(ContrastCatalogNumChartResult.content[i]);
 	                    }
 	                    this.setState({
-	                        CatalogDirectoryData: ContrastCatalogNumChartResult.content,
+	                        CompanyDirectoryData: ContrastCatalogNumChartResult.content,
 	                        CatalogCentent: ContrastCatalogNumChartResult.content
 	                    });
-	                    //一年以上零认缴
+
 	                    for (var i = 0; i < ContrastCatalogNumChartResult.content.length; i++) {
-	                        if (ContrastCatalogNumChartResult.content[i].riskStatusC == "是") innerdata.push(ContrastCatalogNumChartResult.content[i]);else outerdata.push(ContrastCatalogNumChartResult.content[i]);
+	                        if (ContrastCatalogNumChartResult.content[i].riskStatusC == "是") outerdata.push(ContrastCatalogNumChartResult.content[i]);
 	                    }
 	                    this.setState({
-	                        CatalogDirectoryData: ContrastCatalogNumChartResult.content,
+	                        CompanyDirectoryData: ContrastCatalogNumChartResult.content,
 	                        CatalogCentent: ContrastCatalogNumChartResult.content
 	                    });
-	                    //一年以上未经营
+
 	                    for (var i = 0; i < ContrastCatalogNumChartResult.content.length; i++) {
-	                        if (ContrastCatalogNumChartResult.content[i].riskStatusD == "是") innerdata.push(ContrastCatalogNumChartResult.content[i]);else outerdata.push(ContrastCatalogNumChartResult.content[i]);
+	                        if (ContrastCatalogNumChartResult.content[i].riskStatusD == "是") outerdata.push(ContrastCatalogNumChartResult.content[i]);
 	                    }
 	                    this.setState({
-	                        CatalogDirectoryData: ContrastCatalogNumChartResult.content,
+	                        CompanyDirectoryData: ContrastCatalogNumChartResult.content,
 	                        CatalogCentent: ContrastCatalogNumChartResult.content
 	                    });
+	                    // this.dataFomat(ContrastCatalogNumChartResult);
 	                } else {
-	                    //错误后提示
-	                }
+	                        //错误后提示
+	                    }
 	            }
 	        }
 	    },
+	    //列表
 	    dataFomat: function dataFomat(data) {
 	        var content = data.content;
 	        this.setState({ CatalogCentent: content });
 	    },
+	    //下拉框
+	    dataCatalogSelect: function dataCatalogSelect(data) {
+	        var content = data.content;
+	        var selectVar = [];
+	        for (var j = 0; j < content.length; j++) {
+	            selectVar.push({ value: j, label: content[j] });
+	        }
+	        //console.info("qqqqqqqqqqqqqqqqqqqqqq",selectVar)
+	        this.setState({ CatalogSelect: selectVar });
+	    },
 
+	    //地区
+	    selectDataVal: function selectDataVal(data) {
+	        var areaNameData = { 'areaName': data };
+	        var getContrastCatalognumRequest = this.props.getContrastCatalognumRequest;
+
+	        getContrastCatalognumRequest(areaNameData);
+	    },
+	    //风险状态判断
 	    quarterChoice: function quarterChoice(value) {
 	        var CompanyDirectoryDatas = this.state.CompanyDirectoryData;
 	        switch (value) {
@@ -80075,16 +80370,9 @@
 	                break;
 	        }
 	    },
-
 	    CatalogChoice: function CatalogChoice(value) {
-	        var CatalogDirectoryDatas = this.state.CatalogDirectoryData;
+	        var CatalogAdds = this.state.CatalogAdd;
 	        switch (value) {
-	            case 1:
-	                //全部
-	                this.setState({
-	                    CatalogCentent: innerdata
-	                });
-	                break;
 	            case 2:
 	                //是
 	                this.setState({
@@ -80093,43 +80381,36 @@
 	                break;
 	            default:
 	                this.setState({
-	                    CatalogCentent: CatalogDirectoryDatas
+	                    CatalogCentent: CatalogAdds
 	                });
 	                break;
 	        }
 	    },
-
-	    //地区
-	    selectDataVal: function selectDataVal(data) {
-	        var areaNameData = { 'areaId': data };
-	        var getContrastCatalognumRequest = this.props.getContrastCatalognumRequest;
-
-	        getContrastCatalognumRequest(areaNameData);
-	    },
 	    render: function render() {
-	        //下拉选择表头         
+	        //下拉选择列表头         
 	        var selectProp = {
 	            width: '110px',
 	            className: 'index-selected',
-	            value: '1',
-	            placeholder: '高级选项',
+	            value: 1,
+	            placeholder: '黄浦区',
 	            name: 'testselect',
 	            id: 'indexSelected',
-	            data: [{ value: '1', label: '黄浦区' }],
-	            onChange: function (value) {
-	                this.selectDataVal(value);
+	            data: this.state.CatalogSelect,
+	            onChange: function (value, label) {
+	                this.selectDataVal(label);
 	            }.bind(this)
 	        };
 	        //下拉选择风险状态
 	        var selectPropL = {
 	            width: '55px',
 	            className: 'index-selected',
-	            value: "1",
+	            value: 1,
 	            placeholder: '高级选项',
 	            name: 'testselect',
 	            id: 'indexSelected',
-	            data: [{ value: '1', label: '全部' }, { value: '2', label: '正常' }, { value: '3', label: '潜在' }],
+	            data: [{ value: 1, label: '全部' }, { value: 2, label: '正常' }, { value: 3, label: '潜在' }],
 	            onChange: function (value, label) {
+	                //console.log('当前值为：', value);         
 	                this.quarterChoice(value);
 	            }.bind(this)
 	        };
@@ -80141,8 +80422,9 @@
 	            placeholder: '高级选项',
 	            name: 'testselect',
 	            id: 'indexSelected',
-	            data: [{ value: '1', label: '全部' }, { value: '2', label: '是' }],
+	            data: [{ value: 1, label: '全部' }, { value: 2, label: '是' }],
 	            onChange: function (value, label) {
+	                console.log('当前值为：', value);
 	                this.CatalogChoice(value);
 	            }.bind(this)
 	        };
@@ -80258,7 +80540,7 @@
 	                ),
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'box' },
+	                    { className: 'box', id: 'platformBase-scroll' },
 	                    _react2.default.createElement(
 	                        'table',
 	                        { className: 'wtyh-table table-border-b' },
@@ -80267,7 +80549,11 @@
 	                            null,
 	                            this.state.CatalogCentent.map(function (item, index) {
 	                                var Green = '';
-	                                item.status == "正常" ? Green = 'Green' : Green = 'Yellow';
+	                                item.riskStatus == "正常" ? Green = 'Green' : Green = 'Yellow';
+	                                var riskStatusA = item.riskStatusA == null ? "—" : item.riskStatusA;
+	                                var riskStatusB = item.riskStatusB == null ? "—" : item.riskStatusB;
+	                                var riskStatusC = item.riskStatusC == null ? "—" : item.riskStatusC;
+	                                var riskStatusD = item.riskStatusD == null ? "—" : item.riskStatusD;
 	                                if (index % 2) {
 	                                    return _react2.default.createElement(
 	                                        'tr',
@@ -80311,22 +80597,22 @@
 	                                        _react2.default.createElement(
 	                                            'td',
 	                                            null,
-	                                            item.riskStatusA
+	                                            riskStatusA
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
 	                                            null,
-	                                            item.riskStatusB
+	                                            riskStatusB
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
 	                                            null,
-	                                            item.riskStatusC
+	                                            riskStatusC
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
 	                                            null,
-	                                            item.riskStatusD
+	                                            riskStatusD
 	                                        )
 	                                    );
 	                                } else {
@@ -80365,29 +80651,29 @@
 	                                            null,
 	                                            _react2.default.createElement(
 	                                                'span',
-	                                                { className: 'Yellow' },
+	                                                { className: Green },
 	                                                item.riskStatus
 	                                            )
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
 	                                            null,
-	                                            item.riskStatusA
+	                                            riskStatusA
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
 	                                            null,
-	                                            item.riskStatusB
+	                                            riskStatusB
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
 	                                            null,
-	                                            item.riskStatusC
+	                                            riskStatusC
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
 	                                            null,
-	                                            item.riskStatusD
+	                                            riskStatusD
 	                                        )
 	                                    );
 	                                }
@@ -80906,7 +81192,7 @@
 
 
 	// module
-	exports.push([module.id, ".commercialS-index .right-bottom tbody td,\r\n.commercialS-index .right-bottom thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content {\r\n\theight: 560px;\r\n\toverflow: auto;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content .mt-table,\r\n.commercialS-index .right-bottom .table-title  .mt-table {\r\n\tmargin: 0px;\r\n}\r\n\r\n.commercialS-index .right-bottom  .mod-content {\r\n\tpadding: 10px 20px 20px 20px;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table {\r\n\r\n\t/*height: 100%*/\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table  td {\r\n\tpadding: 16px 0px;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-title th {\r\n\theight: 50px\r\n}\r\n\r\n.commercialS-index .right-bottom  .mod-title .totle-num {\r\n\tfont-size: 14px;\r\n\tcolor: #fff;\r\n\tfloat: right;\r\n\tdisplay: inline-block;\r\n\tmargin: 15px 20px 0px 0px;\r\n}\r\n\r\n.mt-select.company-dire {\r\n\tbackground: #393a48;\r\n\tborder: 1px #393a48 solid;\r\n\tmargin-left: 5px;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n}\r\n\r\n.mt-select.company-dire .mt-select-title {\r\n\theight: 25px;\r\n}\r\n\r\n.mt-select.company-dire .mt-select-box {\r\n\tbackground: #1f1f27;\r\n\tborder: 1px #1f1f27 solid\r\n}", ""]);
+	exports.push([module.id, ".commercialS-index .right-bottom tbody td,\r\n.commercialS-index .right-bottom thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content {\r\n\theight: 560px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content .mt-table,\r\n.commercialS-index .right-bottom .table-title  .mt-table {\r\n\tmargin: 0px;\r\n}\r\n\r\n.commercialS-index .right-bottom  .mod-content {\r\n\tpadding: 10px 20px 20px 20px;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table {\r\n\r\n\t/*height: 100%*/\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table  td {\r\n\tpadding: 16px 0px;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-title th {\r\n\theight: 50px\r\n}\r\n\r\n.commercialS-index .right-bottom  .mod-title .totle-num {\r\n\tfont-size: 14px;\r\n\tcolor: #fff;\r\n\tfloat: right;\r\n\tdisplay: inline-block;\r\n\tmargin: 15px 20px 0px 0px;\r\n}\r\n\r\n.mt-select.company-dire {\r\n\tbackground: #393a48;\r\n\tborder: 1px #393a48 solid;\r\n\tmargin-left: 5px;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n}\r\n\r\n.mt-select.company-dire .mt-select-title {\r\n\theight: 25px;\r\n}\r\n\r\n.mt-select.company-dire .mt-select-box {\r\n\tbackground: #1f1f27;\r\n\tborder: 1px #1f1f27 solid\r\n}", ""]);
 
 	// exports
 
@@ -81282,15 +81568,34 @@
 	        return {
 	            CompanyDirectoryData: [],
 	            selected: 1,
-	            selectedData: []
+	            selectedData: [],
+	            orderType: "desc", //默认降序
+	            orderField: "" //需要排序的字段
 	        };
 	    },
 
+	    //排序
+	    handleClick: function handleClick(field) {
+	        var _dom = $(this.refs[field]);
+	        var _domAttr = _dom.attr("data-order");
+	        _domAttr == "desc" ? _dom.attr("data-order", "asc") : _dom.attr("data-order", "desc");
+	        var _getAttr = _dom.attr("data-order");
+	        this.setState({ orderType: _getAttr, orderField: field }, function () {
+	            var _basedata = BOSS.sort(this.state.selectedData, field, this.state.orderType);
+	            this.setState({ selectedData: _basedata });
+	        });
+	    },
 	    componentDidMount: function componentDidMount() {
 	        var getCompanyDirectoryRequest = this.props.getCompanyDirectoryRequest;
 
 	        var jsonData = {};
 	        getCompanyDirectoryRequest(jsonData);
+	        //滚动条
+	        $("#platformBase-scroll").perfectScrollbar();
+	    },
+	    //滚动条
+	    componentDidUpdate: function componentDidUpdate() {
+	        $("#platformBase-scroll").perfectScrollbar('update');
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	        var isEqual = Immutable.is(nextProps.CompanyDirectoryRequest, this.props.CompanyDirectoryResult);
@@ -81412,7 +81717,7 @@
 	                                    'th',
 	                                    { width: '15%' },
 	                                    '注册资本',
-	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
+	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc', 'data-order': this.state.orderType, ref: 'recordNumber', onClick: this.handleClick.bind(this, "recordNumber") })
 	                                )
 	                            )
 	                        )
@@ -81420,7 +81725,7 @@
 	                ),
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'table-content' },
+	                    { className: 'table-content', id: 'platformBase-scroll' },
 	                    _react2.default.createElement(
 	                        'table',
 	                        { className: 'mt-table mt-table-center wtyh-table' },
@@ -81948,7 +82253,7 @@
 
 
 	// module
-	exports.push([module.id, ".prepaidC-index .right-bottom tbody td,\r\n.prepaidC-index .right-bottom thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.prepaidC-index  .mt-table {\r\n\tmargin: 0px;\r\n}\r\n\r\n.prepaidC-index .right-bottom .table-content {\r\n\theight: 500px;\r\n\toverflow: auto;\r\n}\r\n\r\n.prepaidC-index .right-bottom  .mod-content {\r\n\tpadding: 10px 20px 20px 20px;\r\n}\r\n\r\n/*.prepaidC-index .right-bottom .table-content  table {\r\n\theight: 100%\r\n}*/\r\n.prepaidC-index .right-bottom .table-content  table tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.prepaidC-index .right-bottom .table-title th {\r\n\theight: 50px\r\n}\r\n\r\n.prepaidC-index .right-bottom .table-content  .mt-table td {\r\n\tpadding: 15px 8px;\r\n}\r\n\r\n.prepaidC-index .right-bottom  .mod-title .totle-num {\r\n\tfont-size: 14px;\r\n\tcolor: #fff;\r\n\tfloat: right;\r\n\tdisplay: inline-block;\r\n\tmargin: 15px 20px 0px 0px;\r\n}\r\n\r\n.mt-select .company-dire {\r\n\tbackground: #393a48;\r\n\tborder: 1px #393a48 solid;\r\n\tmargin-left: 5px;\r\n}\r\n\r\n.statu-orange {\r\n\tcolor: #bb3f41\r\n}\r\n\r\n.statu-yellow {\r\n\tcolor: #feac00\r\n}\r\n\r\n.statu-green {\r\n\tcolor: #33da82\r\n}\r\n\r\n.prepaidC-index .BZ-num {\r\n\tfloat: right;\r\n\tmargin: 10px 20px 0px 0px;\r\n}\r\n\r\n.prepaidC-index .BZ-num .orange {\r\n\tfont-size: 16px;\r\n}", ""]);
+	exports.push([module.id, ".prepaidC-index .right-bottom tbody td,\r\n.prepaidC-index .right-bottom thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.prepaidC-index  .mt-table {\r\n\tmargin: 0px;\r\n}\r\n\r\n.prepaidC-index .right-bottom .table-content {\r\n\theight: 500px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.prepaidC-index .right-bottom  .mod-content {\r\n\tpadding: 10px 20px 20px 20px;\r\n}\r\n\r\n/*.prepaidC-index .right-bottom .table-content  table {\r\n\theight: 100%\r\n}*/\r\n.prepaidC-index .right-bottom .table-content  table tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.prepaidC-index .right-bottom .table-title th {\r\n\theight: 50px\r\n}\r\n\r\n.prepaidC-index .right-bottom .table-content  .mt-table td {\r\n\tpadding: 15px 8px;\r\n}\r\n\r\n.prepaidC-index .right-bottom  .mod-title .totle-num {\r\n\tfont-size: 14px;\r\n\tcolor: #fff;\r\n\tfloat: right;\r\n\tdisplay: inline-block;\r\n\tmargin: 15px 20px 0px 0px;\r\n}\r\n\r\n.mt-select .company-dire {\r\n\tbackground: #393a48;\r\n\tborder: 1px #393a48 solid;\r\n\tmargin-left: 5px;\r\n}\r\n\r\n.statu-orange {\r\n\tcolor: #bb3f41\r\n}\r\n\r\n.statu-yellow {\r\n\tcolor: #feac00\r\n}\r\n\r\n.statu-green {\r\n\tcolor: #33da82\r\n}\r\n\r\n.prepaidC-index .BZ-num {\r\n\tfloat: right;\r\n\tmargin: 10px 20px 0px 0px;\r\n}\r\n\r\n.prepaidC-index .BZ-num .orange {\r\n\tfont-size: 16px;\r\n}", ""]);
 
 	// exports
 
@@ -82151,6 +82456,14 @@
 	                break;
 	        }
 	    },
+	    componentDidMount: function componentDidMount() {
+	        //滚动条
+	        $("#platformBase-scroll").perfectScrollbar();
+	    },
+	    //滚动条
+	    componentDidUpdate: function componentDidUpdate() {
+	        $("#platformBase-scroll").perfectScrollbar('update');
+	    },
 	    render: function render() {
 	        var selectQuarter = {
 	            width: '75px',
@@ -82235,7 +82548,7 @@
 	                ),
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'table-content' },
+	                    { className: 'table-content', id: 'platformBase-scroll' },
 	                    _react2.default.createElement(
 	                        'table',
 	                        { className: 'mt-table mt-table-center wtyh-table' },
@@ -82430,7 +82743,10 @@
 
 	        //舆情
 	        parkNewsRequest: state.ParkNews.request,
-	        parkNewsResult: state.ParkNews.result
+	        parkNewsResult: state.ParkNews.result,
+	        //园区图片
+	        parkImgRequest: state.ParkImg.request,
+	        parkImgResult: state.ParkImg.result
 	    };
 	}
 
@@ -82500,6 +82816,7 @@
 	exports.getParkFinance = getParkFinance;
 	exports.getParkIndustry = getParkIndustry;
 	exports.getParkCamp = getParkCamp;
+	exports.getParkImg = getParkImg;
 	/*
 	  园区监测首页模块action
 	*/
@@ -82651,6 +82968,42 @@
 	  };
 	}
 	/*在营时间分布 end*/
+	/*园区图片begin*/
+	var PARK_IMG_SUCCESS = exports.PARK_IMG_SUCCESS = 'PARK_IMG_SUCCESS';
+	var PARK_IMG_FAIL = exports.PARK_IMG_FAIL = 'PARK_IMG_FAIL';
+
+	function parkImgSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: PARK_IMG_SUCCESS,
+	    result: result
+	  };
+	}
+	function parkImgFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: PARK_IMG_FAIL,
+	    result: result
+	  };
+	}
+
+	function getParkImg(json) {
+	  return function (dispatch) {
+	    $.ajax({
+	      url: "/park/parkImg.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(parkImgSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(parkImgFail(result));
+	      }
+	    });
+	  };
+	}
+	/*园区图片end*/
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "ParkMonitorIndexAction.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
@@ -82675,13 +83028,64 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var Immutable = __webpack_require__(718);
+
 	//园区监测
 	var Imgs = _react2.default.createClass({
-	  displayName: 'Imgs',
+	    displayName: 'Imgs',
 
-	  render: function render() {
-	    return _react2.default.createElement('div', { className: 'Imgs' });
-	  }
+	    getInitialState: function getInitialState() {
+	        return {
+	            areaId: "",
+	            parImg: ""
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {},
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+
+	        var isSelectValEqual = Immutable.is(nextProps.menuParkSelectVal, this.props.menuParkSelectVal);
+	        if (!isSelectValEqual) {
+	            var menuParkSelectVal = nextProps.menuParkSelectVal;
+
+	            var jsonData = { areaId: menuParkSelectVal.areaId };
+	            this.setState({ areaId: menuParkSelectVal.areaId });
+
+	            this.getParkImg(jsonData);
+	        }
+	        //园区图片
+	        var isParkEqual = Immutable.is(nextProps.parkImgResult, this.props.parkImgResult); //判断数据是否变化
+	        if (!isParkEqual) {
+	            var parkImgRequest = nextProps.parkImgRequest;
+	            var parkImgResult = nextProps.parkImgResult;
+
+	            if (parkImgRequest == true) {
+	                if (parkImgResult.success == true) {
+	                    console.log(parkImgResult, 99999999999);
+	                    this.parkImgFomat(parkImgResult);
+	                } else {
+	                    console.log(404);
+	                }
+	            }
+	        }
+	    },
+	    parkImgFomat: function parkImgFomat(data) {
+	        var imgUrl = data.content;
+	        console.log(imgUrl, 'imgUrl');
+	        $('.Imgs').css({
+	            "background": "url(" + imgUrl + ")",
+	            "background-size": "100% auto",
+	            "background-repeat": "no-repeat"
+	        });
+	    },
+	    getParkImg: function getParkImg(json) {
+	        var getParkImg = this.props.getParkImg;
+
+	        getParkImg(json);
+	    },
+
+	    render: function render() {
+	        return _react2.default.createElement('div', { className: 'Imgs' });
+	    }
 	});
 	module.exports = Imgs;
 
@@ -82723,7 +83127,7 @@
 
 
 	// module
-	exports.push([module.id, "/*@parkMonitor jifei  图片\r\n---------------------------------------------------------*/\r\n.Imgs{\r\n\twidth: 100%;\r\n\theight: 770px;\r\n    background: url(\"/images/Bg.png\") no-repeat;\r\n    background-size: 100% 770px;\r\n}\r\n/*@parkMonitor 舆情\r\n---------------------------------------------------------*/\r\n.Consensu{\r\n\twidth: 100%;\r\n\theight: 320px;\r\n\tmargin-top: 10px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n.Consensu h3{\r\n\tpadding: 15px 20px;\r\n\tcolor: #ddd;\r\n}\r\n.Consensu .box{\r\n\twidth: 99%;\r\n    height: 240px;\r\n    //overflow: auto;\r\n    padding: 0px 0 0 10px;\r\n    margin-top: 15px;\r\n}\r\n.Consensu .box .list{\r\n\twidth: 98%;\r\n\theight: 115px;\r\n\tborder-bottom: 1px solid #484f59;\t\r\n\tbackground: #1b1f28;\r\n}\r\n.Consensu .box .list:nth-child(even){\r\n\tmargin-top: 10px;\r\n\tmargin-bottom: 10px;\r\n}\r\n.Consensu .box .list ul{\r\n\twidth: 100%;\r\n\theight: 105px;\r\n}\r\n.Consensu .box .list li{\r\n    height: 33px;\r\n    line-height: 50px;\r\n    text-indent: 30px;\r\n    font-size: 14px;\r\n}\r\n.Consensu .box .list li:nth-child(1){\r\n\tfont-size: 14px;\r\n\tcolor: #e34f4b;\r\n\tcursor: pointer;\r\n}\r\n.Consensu .box .list li:nth-child(1) .liLeft{\r\n\tmargin-left: 20px;\r\n}\r\n.Consensu .box .list li:nth-child(2){\r\n\tfont-size: 14px;\r\n    cursor: pointer;\r\n    width: 89%;\r\n    overflow: hidden;\r\n    white-space: nowrap;\r\n    text-overflow: ellipsis;\r\n}\r\n.Consensu .box .list li:nth-child(1) a{\r\n\tcolor: #e34f4b;\r\n}\r\n.Consensu .box .list li:nth-child(3) .liRight{\r\n\tfloat: right;\r\n\tpadding-right: 20px;\r\n\tfont-size: 14px;\r\n\tcolor: #8b8f98;\r\n}\r\n.Consensu .box .list li:nth-child(3) .spanLeft{\r\n\tmargin-right: 20px;\r\n}\r\n/*@parkMonitor 类金融企业集中度\r\n---------------------------------------------------------*/\r\n.Finance{\r\n\twidth: 100%;\r\n\theight: 380px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n.Finance h3{\r\n\tpadding: 15px 20px;\r\n\tcolor: #ddd;\r\n}\r\n.Finance .box{\r\n\twidth: 95%;\r\n    height: 255px;\r\n    //border: 1px solid red;\r\n    margin: 40px auto;\r\n}\r\n.Finance .box .item{\r\n\twidth: 95%;\r\n    height: 254px;\r\n    margin: 0 auto;\r\n    overflow: auto; \r\n}\r\n.Finance .box .item ul li{\r\n\twidth: 30%;\r\n    display: inline-block;\r\n    text-align: center;\r\n    vertical-align: middle;\r\n    margin-left: 10px;\r\n}\r\n.Finance .box .item ul li img{\r\n\tcursor: pointer;\r\n}\r\n.Finance .box .item ul li a span{\r\n\tdisplay: block;\r\n\tcolor: #898f98;\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n}\r\n.Finance .box .item ul li .num-ratio {\r\n\tmargin-top: 10px;\r\n}\r\n.Finance .box .item ul li .num-ratio .num{\r\n\tfont-size: 24px;\r\n\tcolor: #ffffff;\r\n\tdisplay: inline-block;\r\n\tpadding: 0px 10px;\r\n}\r\n.Finance .box .item ul li .num-ratio .ratio{\r\n\tfont-size: 24px;\r\n\tcolor: #e14340;\r\n\tdisplay: inline-block;\r\n\tpadding: 0px 10px;\r\n\tborder-left: solid 1px #48505a;\r\n}\r\n\r\n\r\n\r\n/*@parkMonitor 园区行业分布\r\n---------------------------------------------------------*/\r\n.Park{\r\n\twidth: 100%;\r\n\theight: 380px;\r\n\tmargin-top: 10px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n/*@parkMonitor 在营时间分布\r\n---------------------------------------------------------*/\r\n.TheCamp{\r\n\twidth: 100%;\r\n\theight: 320px;\r\n\tmargin-top: 10px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n   ", ""]);
+	exports.push([module.id, "/*@parkMonitor jifei  图片\r\n---------------------------------------------------------*/\r\n.Imgs{\r\n\twidth: 100%;\r\n\theight: 770px;\r\n    background: url(\"/images/Bg.png\") no-repeat;\r\n    background-size: 100% 770px;\r\n}\r\n/*@parkMonitor 舆情\r\n---------------------------------------------------------*/\r\n.Consensu{\r\n\twidth: 100%;\r\n\theight: 320px;\r\n\tmargin-top: 10px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n.Consensu h3{\r\n\tpadding: 15px 20px;\r\n\tcolor: #ddd;\r\n}\r\n.Consensu .box{\r\n\twidth: 99%;\r\n    height: 240px;\r\n    overflow: auto;\r\n    padding: 0px 0 0 10px;\r\n    margin-top: 15px;\r\n}\r\n.Consensu .box .list{\r\n\twidth: 98%;\r\n\theight: 115px;\r\n\tborder-bottom: 1px solid #484f59;\t\r\n\tbackground: #1b1f28;\r\n}\r\n.Consensu .box .list:nth-child(even){\r\n\tmargin-top: 10px;\r\n\tmargin-bottom: 10px;\r\n}\r\n.Consensu .box .list ul{\r\n\twidth: 100%;\r\n\theight: 105px;\r\n}\r\n.Consensu .box .list li{\r\n    height: 33px;\r\n    line-height: 50px;\r\n    text-indent: 30px;\r\n    font-size: 14px;\r\n}\r\n.Consensu .box .list li:nth-child(1){\r\n\tfont-size: 14px;\r\n\tcolor: #e34f4b;\r\n\tcursor: pointer;\r\n}\r\n.Consensu .box .list li:nth-child(1) .liLeft{\r\n\tmargin-left: 20px;\r\n}\r\n.Consensu .box .list li:nth-child(2){\r\n\tfont-size: 14px;\r\n    cursor: pointer;\r\n    width: 89%;\r\n    overflow: hidden;\r\n    white-space: nowrap;\r\n    text-overflow: ellipsis;\r\n}\r\n.Consensu .box .list li:nth-child(1) a{\r\n\tcolor: #e34f4b;\r\n}\r\n.Consensu .box .list li:nth-child(3) .liRight{\r\n\tfloat: right;\r\n\tpadding-right: 20px;\r\n\tfont-size: 14px;\r\n\tcolor: #8b8f98;\r\n}\r\n.Consensu .box .list li:nth-child(3) .spanLeft{\r\n\tmargin-right: 20px;\r\n}\r\n/*@parkMonitor 类金融企业集中度\r\n---------------------------------------------------------*/\r\n.Finance{\r\n\twidth: 100%;\r\n\theight: 380px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n.Finance h3{\r\n\tpadding: 15px 20px;\r\n\tcolor: #ddd;\r\n}\r\n.Finance .box{\r\n\twidth: 95%;\r\n    height: 255px;\r\n    //border: 1px solid red;\r\n    margin: 40px auto;\r\n}\r\n.Finance .box .item{\r\n\twidth: 95%;\r\n    height: 254px;\r\n    margin: 0 auto;\r\n    overflow: auto; \r\n}\r\n.Finance .box .item ul li{\r\n\twidth: 30%;\r\n    display: inline-block;\r\n    text-align: center;\r\n    vertical-align: middle;\r\n    margin-left: 10px;\r\n}\r\n.Finance .box .item ul li img{\r\n\tcursor: pointer;\r\n}\r\n.Finance .box .item ul li a span{\r\n\tdisplay: block;\r\n\tcolor: #898f98;\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n}\r\n.Finance .box .item ul li .num-ratio {\r\n\tmargin-top: 10px;\r\n}\r\n.Finance .box .item ul li .num-ratio .num{\r\n\tfont-size: 24px;\r\n\tcolor: #ffffff;\r\n\tdisplay: inline-block;\r\n\tpadding: 0px 10px;\r\n}\r\n.Finance .box .item ul li .num-ratio .ratio{\r\n\tfont-size: 24px;\r\n\tcolor: #e14340;\r\n\tdisplay: inline-block;\r\n\tpadding: 0px 10px;\r\n\tborder-left: solid 1px #48505a;\r\n}\r\n\r\n\r\n\r\n/*@parkMonitor 园区行业分布\r\n---------------------------------------------------------*/\r\n.Park{\r\n\twidth: 100%;\r\n\theight: 380px;\r\n\tmargin-top: 10px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n/*@parkMonitor 在营时间分布\r\n---------------------------------------------------------*/\r\n.TheCamp{\r\n\twidth: 100%;\r\n\theight: 320px;\r\n\tmargin-top: 10px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n   ", ""]);
 
 	// exports
 
@@ -82784,8 +83188,11 @@
 	        }
 	    },
 	    dataFomat: function dataFomat(data) {
-	        var content = data.content;
-	        this.setState({ consensu: content });
+	        var contentStr = data.content;
+	        var contentJson = JSON.parse(contentStr);
+	        var results = contentJson.results;
+	        console.log(results, '结果页');
+	        this.setState({ consensu: results });
 	    },
 	    getParkNews: function getParkNews(menuParkSelectVal) {
 	        var getParkNews = this.props.getParkNews;
@@ -82824,19 +83231,19 @@
 	                                    null,
 	                                    _react2.default.createElement(
 	                                        'a',
-	                                        { href: elem.url },
+	                                        { href: elem.bbd_url },
 	                                        index + 1,
 	                                        _react2.default.createElement(
 	                                            'span',
 	                                            { className: 'liLeft' },
-	                                            elem.title
+	                                            elem.search_key
 	                                        )
 	                                    )
 	                                ),
 	                                _react2.default.createElement(
 	                                    'li',
 	                                    null,
-	                                    elem.content
+	                                    elem.news_title
 	                                ),
 	                                _react2.default.createElement(
 	                                    'li',
@@ -82849,7 +83256,7 @@
 	                                            { className: 'spanLeft' },
 	                                            elem.fromSite
 	                                        ),
-	                                        elem.date
+	                                        elem.pubdate
 	                                    )
 	                                )
 	                            )
@@ -82975,7 +83382,7 @@
 	                            'ul',
 	                            null,
 	                            this.state.item.map(function (elem, index) {
-
+	                                var buildingId = elem.buildingId;
 	                                var idex = index % 3;
 	                                console.log(idex, index, 222222222222);
 	                                return _react2.default.createElement(
@@ -82983,7 +83390,7 @@
 	                                    { key: index },
 	                                    _react2.default.createElement(
 	                                        _reactRouter.Link,
-	                                        { to: { pathname: '/buildDetail', query: { areaId: areaId } } },
+	                                        { to: { pathname: '/buildDetail', query: { areaId: areaId, buildingId: buildingId } } },
 	                                        _react2.default.createElement('img', { onClick: this.ImgbtnAdd, 'data-img': elem.buildingId, src: "../images/lou" + (idex + 1) + ".png" }),
 	                                        _react2.default.createElement(
 	                                            'span',
@@ -83470,7 +83877,10 @@
 
 	        //楼宇风险企业
 	        buildRiskRequest: state.BuildRisk.request,
-	        buildRiskResult: state.BuildRisk.result
+	        buildRiskResult: state.BuildRisk.result,
+
+	        //楼宇切换
+	        buildSwitchVal: state.BuildSwitchVal.data
 	    };
 	}
 
@@ -83502,6 +83912,7 @@
 	exports.getBuildNews = getBuildNews;
 	exports.getBuildList = getBuildList;
 	exports.getBuildRisk = getBuildRisk;
+	exports.getBuildSwitchVal = getBuildSwitchVal;
 	/*
 	  园区监测详情模块action
 	*/
@@ -83728,6 +84139,18 @@
 	}
 	/*楼宇风险企业end*/
 
+	/*楼宇切换传值 begin*/
+	var BUILD_SWITCH_VAL = exports.BUILD_SWITCH_VAL = 'BUILD_SWITCH_VAL';
+
+	function getBuildSwitchVal(data) {
+	  console.log(data, 55555555555555);
+	  return {
+	    type: BUILD_SWITCH_VAL,
+	    data: data
+	  };
+	}
+	/*楼宇切换传值 end*/
+
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "BuildDetailAction.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
@@ -83760,18 +84183,62 @@
 
 	    getInitialState: function getInitialState() {
 	        return {
+	            parkImg: "",
+	            //大厦
 	            buildList: [],
-	            buildRisk: []
+	            curBuild: "",
+	            curBuildIndex: 0,
+	            areaId: 0,
+	            buildingId: 0,
+	            buildingImg: "",
+	            //风险企业
+	            buildRisk: [],
+
+	            haveRiskCompany: [], //已出风险 黑灯
+	            focusCompany: [], //重点关注 红灯
+	            generalCompany: [], //一般关注企业 黄灯
+	            normalCompany: [], //正常企业 绿灯
+
+	            showBuildRisk: [], //存储当前风险企业的数组
+
+	            haveRiskLen: 0,
+	            focusLen: 0,
+	            generalLen: 0,
+	            normalLen: 0
 	        };
 	    },
 	    componentDidMount: function componentDidMount() {
-	        var buildingId = { buildingId: 1 };
-	        var areaId = { areaId: 1122 };
-	        this.getBuildList(areaId);
-	        this.getBuildRisk(buildingId);
-	        this.listSwitch();
+	        var areaId = this.props.location.query.areaId;
+	        var buildingId = this.props.location.query.buildingId;
+
+	        this.setState({ areaId: areaId, buildingId: buildingId });
+
+	        var buildingIdJson = { buildingId: buildingId };
+	        var areaIdJson = { areaId: areaId };
+	        this.getBuildList(areaIdJson);
+	        this.getBuildRisk(buildingIdJson);
+
+	        this.riskListSwitch();
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        //切换大厦
+	        var isSwitchValEqual = Immutable.is(nextProps.buildSwitchVal, this.props.buildSwitchVal);
+	        if (!isSwitchValEqual) {
+	            var buildSwitchVal = nextProps.buildSwitchVal;
+
+	            console.log(buildSwitchVal, 9666666666666);
+	            var areaId = this.state.areaId;
+	            var buildingId = buildSwitchVal.buildId;
+
+	            this.setState({ buildingId: buildingId });
+
+	            var buildingIdJson = { buildingId: buildingId };
+	            var areaIdJson = { areaId: areaId };
+	            this.getBuildList(areaIdJson);
+	            this.getBuildRisk(buildingIdJson);
+	        }
+
+	        //风险企业
 	        var isRiskEqual = Immutable.is(nextProps.buildRiskResult, this.props.buildRiskResult); //判断数据是否变化
 	        if (!isRiskEqual) {
 	            var buildRiskRequest = nextProps.buildRiskRequest;
@@ -83779,13 +84246,13 @@
 
 	            if (buildRiskRequest == true) {
 	                if (buildRiskResult.success == true) {
-	                    this.RiskDataFomat(buildRiskResult);
+	                    this.riskCompanyDataFomat(buildRiskResult);
 	                } else {
 	                    console.log(404);
 	                }
 	            }
 	        }
-
+	        //大厦列表
 	        var isListEqual = Immutable.is(nextProps.buildListResult, this.props.buildListResult); //判断数据是否变化
 	        if (!isListEqual) {
 	            var buildListRequest = nextProps.buildListRequest;
@@ -83793,23 +84260,80 @@
 
 	            if (buildListRequest == true) {
 	                if (buildListResult.success == true) {
-	                    this.ListDataFomat(buildListResult);
+	                    this.listDataFomat(buildListResult);
 	                } else {
 	                    console.log(404);
 	                }
 	            }
 	        }
 	    },
-	    RiskDataFomat: function RiskDataFomat(data) {
+	    riskCompanyDataFomat: function riskCompanyDataFomat(data) {
+	        //设置风险企业列表
 	        var _this = this;
 	        var content = data.content;
-	        this.setState({ buildRisk: content });
+	        this.setState({ buildRisk: content, showBuildRisk: content }, function () {
+	            _this.riskCompanyScreen(); //风险企业筛选
+	        });
 	    },
-	    ListDataFomat: function ListDataFomat(data) {
+	    riskCompanyScreen: function riskCompanyScreen() {
+	        //风险企业筛选
+	        var buildRisk = this.state.buildRisk;
+	        var len = buildRisk.length;
+
+	        var haveRiskCompany = []; //已出风险 黑灯
+	        var focusCompany = []; //重点关注 红灯
+	        var generalCompany = []; //一般关注企业 黄灯
+	        var normalCompany = []; //正常企业 绿灯
+
+	        for (var i = 0; i < len; i++) {
+	            var r = buildRisk[i];
+	            var flag = r.analysisResult;
+	            if (flag == 1) {
+	                haveRiskCompany.push(r);
+	            } else if (flag == 2) {
+	                focusCompany.push(r);
+	            } else if (flag == 3) {
+	                generalCompany.push(r);
+	            } else {
+	                normalCompany.push(r);
+	            }
+	        }
+	        this.setState({
+	            haveRiskCompany: haveRiskCompany,
+	            focusCompany: focusCompany,
+	            generalCompany: generalCompany,
+	            normalCompany: normalCompany,
+	            haveRiskLen: haveRiskCompany.length,
+	            focusLen: focusCompany.length,
+	            generalLen: generalCompany.length,
+	            normalLen: normalCompany.length
+	        });
+	    },
+	    listDataFomat: function listDataFomat(data) {
+	        //大厦
 	        var _this = this;
 	        var content = data.content;
-	        console.log(content, '55555555555555555');
-	        this.setState({ buildList: content });
+	        var curBuildId = this.state.buildingId; //取得当前buildingId
+	        var len = content.length;
+	        console.log(len, 'len222222222222');
+	        var j = 0;
+	        for (var i = 0; i < len; i++) {
+	            console.log(content[i]);
+	            var bId = content[i].buildingId;
+	            console.log(bId, curBuildId, '对比');
+	            if (bId == curBuildId) {
+	                j = i;
+	                break;
+	            }
+	        }
+	        var imgUrl = content[j].imgUrl;
+
+	        $('.Img').css({
+	            "background": "url(" + imgUrl + ")",
+	            "background-size": "100% auto",
+	            "background-repeat": "no-repeat"
+	        });
+	        this.setState({ buildList: content, curBuild: content[j], curBuildIndex: j });
 	    },
 	    getBuildRisk: function getBuildRisk(json) {
 	        var getBuildRisk = this.props.getBuildRisk;
@@ -83821,46 +84345,80 @@
 
 	        getBuildList(json);
 	    },
-	    listSwitch: function listSwitch() {
-	        $(".tabs > table").on("click", "tr", function () {
-	            $(this).addClass("trColor").siblings().removeClass("trColor");
-	            $(".tabs > table").find('td').removeClass("color");
-	            $(this).children('.r').addClass("color");
-	        });
-	        $(".show").show();
-	        $(".tabs > table").on("click", "tr", function () {
-	            var index = $(this).index();
-	            $(".tableLeft").eq(index).show().siblings(".tableLeft").hide();
+	    getBuildSwitchVal: function getBuildSwitchVal(json) {
+	        var getBuildSwitchVal = this.props.getBuildSwitchVal;
+
+	        getBuildSwitchVal(json);
+	    },
+	    riskListSwitch: function riskListSwitch() {
+	        //风险企业切换
+	        var _this = this;
+	        $('.risk-list').on('click', 'tr', function () {
+	            var $this = $(this);
+	            var tbody = $(this).parent('tbody').find('tr').removeClass('active');
+	            $this.addClass('active');
+	            var val = $this.data('val');
+	            var riskCompany = "";
+	            if (val == "haveRisk") {
+	                riskCompany = _this.state.haveRiskCompany;
+	            } else if (val == "focus") {
+	                riskCompany = _this.state.focusCompany;
+	            } else if (val == "general") {
+	                riskCompany = _this.state.generalCompany;
+	            } else {
+	                riskCompany = _this.state.normalCompany;
+	            }
+	            _this.setState({ showBuildRisk: riskCompany });
 	        });
 	    },
+	    handleBuild: function handleBuild(ele, e) {
+	        //大厦切换
+	        var len = this.state.buildList.length; //获取大厦的个数
+	        var index = this.state.curBuildIndex;
+	        if (ele == -1) {
+	            if (index > 0) {
+	                index = index - 1;
+	            }
+	        } else {
+	            if (index < len - 1) {
+	                index = index + 1;
+	            }
+	        }
+	        var curBuild = this.state.buildList[index];
+	        var curBuildId = this.state.buildList[index].buildingId;
+	        var curBuildName = this.state.buildList[index].name;
+	        var parkId = this.state.buildList[index].parkId;
+	        this.setState({ curBuildIndex: index, curBuild: curBuild });
+
+	        this.getBuildSwitchVal({ buildId: curBuildId, buildName: curBuildName, parkId: parkId });
+	    },
 	    render: function render() {
+
 	        return _react2.default.createElement(
 	            'div',
 	            { className: 'Img mod' },
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'carousel' },
-	                _react2.default.createElement('i', { className: 'iconfont icon-jianLeft left' }),
+	                _react2.default.createElement('i', { className: 'iconfont icon-jianLeft left', onClick: this.handleBuild.bind(this, -1) }),
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'list-box' },
 	                    _react2.default.createElement(
 	                        'ul',
 	                        null,
-	                        this.state.buildList.map(function (elem, index) {
-	                            return _react2.default.createElement(
-	                                'li',
-	                                null,
-	                                elem.name
-	                            );
-	                        })
+	                        _react2.default.createElement(
+	                            'li',
+	                            null,
+	                            this.state.curBuild.name
+	                        )
 	                    )
 	                ),
-	                _react2.default.createElement('i', { className: 'iconfont icon-jianRight right' })
+	                _react2.default.createElement('i', { className: 'iconfont icon-jianRight right', onClick: this.handleBuild.bind(this, 1) })
 	            ),
 	            _react2.default.createElement(
 	                'div',
-	                { className: 'tabs' },
+	                { className: 'tabs risk-list' },
 	                _react2.default.createElement(
 	                    'table',
 	                    null,
@@ -83887,7 +84445,7 @@
 	                        null,
 	                        _react2.default.createElement(
 	                            'tr',
-	                            { className: 'trColor' },
+	                            { className: '', 'data-val': 'focus' },
 	                            _react2.default.createElement(
 	                                'td',
 	                                null,
@@ -83896,12 +84454,12 @@
 	                            _react2.default.createElement(
 	                                'td',
 	                                { className: 'color r' },
-	                                '4'
+	                                this.state.focusLen
 	                            )
 	                        ),
 	                        _react2.default.createElement(
 	                            'tr',
-	                            null,
+	                            { 'data-val': 'general' },
 	                            _react2.default.createElement(
 	                                'td',
 	                                null,
@@ -83910,12 +84468,12 @@
 	                            _react2.default.createElement(
 	                                'td',
 	                                { className: 'r' },
-	                                '3'
+	                                this.state.generalLen
 	                            )
 	                        ),
 	                        _react2.default.createElement(
 	                            'tr',
-	                            null,
+	                            { 'data-val': 'normal' },
 	                            _react2.default.createElement(
 	                                'td',
 	                                null,
@@ -83924,12 +84482,12 @@
 	                            _react2.default.createElement(
 	                                'td',
 	                                { className: 'r' },
-	                                '5'
+	                                this.state.normalLen
 	                            )
 	                        ),
 	                        _react2.default.createElement(
 	                            'tr',
-	                            null,
+	                            { 'data-val': 'haveRisk' },
 	                            _react2.default.createElement(
 	                                'td',
 	                                null,
@@ -83938,7 +84496,7 @@
 	                            _react2.default.createElement(
 	                                'td',
 	                                { className: 'r' },
-	                                '0'
+	                                this.state.haveRiskLen
 	                            )
 	                        )
 	                    )
@@ -83969,7 +84527,7 @@
 	                            _react2.default.createElement(
 	                                'tbody',
 	                                null,
-	                                this.state.buildRisk.map(function (elem, index) {
+	                                this.state.showBuildRisk.map(function (elem, index) {
 	                                    return _react2.default.createElement(
 	                                        'tr',
 	                                        null,
@@ -83987,13 +84545,12 @@
 	                            )
 	                        )
 	                    )
-	                ),
-	                _react2.default.createElement('div', { className: 'solidRight' })
+	                )
 	            ),
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'yuan' },
-	                _react2.default.createElement('img', { src: '../images/yuan.png' })
+	                _react2.default.createElement('img', { src: '' })
 	            )
 	        );
 	    }
@@ -84038,7 +84595,7 @@
 
 
 	// module
-	exports.push([module.id, "/*@parkMonitor jifei  图片\r\n---------------------------------------------------------*/\r\n.Img{\r\n\twidth: 100%;\r\n\theight: 948px;\r\n\tbackground: url(\"/images/floor.png\") no-repeat;\r\n\tbackground-size: 100% 948px;\r\n}\r\n.Img .carousel{\r\n\twidth: 180px;\r\n\theight: 30px;\r\n\tbackground: #e2f1fc;\r\n\tborder-radius: 3px;\r\n\tposition: relative;\r\n    top: 10px;\r\n    left: 10px;\r\n}\r\n.Img .carousel i{\r\n\tdisplay: block;\r\n\tline-height: 30px;\r\n\tmargin-left: 3px;\r\n\tcolor: #1a2029;\r\n\tfont-size: 18px;\r\n\tcursor: pointer;\r\n}\r\n.Img .carousel i.left{\r\n\tfloat: left;\r\n}\r\n.Img .carousel i.right{\r\n\tfloat: right;\r\n}\r\n.Img .carousel .list-box{\r\n\twidth: 136px;\r\n}\r\n.Img .carousel ul{\r\n\tfloat: left;\r\n\toverflow: hidden;\r\n}\r\n.Img .carousel ul li{\r\n\tline-height: 30px;\r\n\tfloat: left;\r\n\twidth: 100%;\r\n\tcolor: #1a2029;\r\n\ttext-align: center;\r\n}\r\n.Img  .tabs{\r\n\twidth: 30%;\r\n    height: 150px;\r\n    float: right;\r\n    margin-right: 20px;\r\n    margin-top: -10px;\r\n}\r\n.Img  .tabs table{\r\n\twidth: 100%;\r\n\tborder-radius: 3px;\r\n\toverflow: hidden;\r\n}\r\n.Img  .tabs table tr th{\r\n\theight: 30px;\r\n\ttext-align: center;\r\n\twidth: 50%;\r\n\tbackground: #e14340;\r\n\tcolor: #fff;\r\n}\r\n.Img  .tabs table tr td{\r\n\tcursor: pointer;\r\n\twidth: 50%;\r\n\theight: 35px;\r\n\ttext-align: center;\r\n\tbackground: #5383a1;\r\n\tborder-bottom: 1px solid #75c5f1;\r\n\tcolor: #fff;\r\n}\r\n.Img  .tabs table tr td .Red{\r\n\tcolor: #e14340;\r\n\tfont-size: 18px;\r\n}\r\n.Img  .tabs table tr td .Yellow{\r\n\tcolor: #f39800;\r\n\tfont-size: 18px;\r\n}\r\n.Img  .tabs table tr td .Green{\r\n\tcolor: #32b16c;\r\n\tfont-size: 18px;\r\n}\r\n.Img  .tabs table tr td .Black{\r\n\tcolor: #000000;\r\n\tfont-size: 18px;\r\n}\r\n.Img  .tabs table tr td:nth-child(2){\r\n\tcolor: #fff;\r\n}\r\n.Img  .tabs table tr .color{\r\n\tcolor: #000 !important;\r\n}\r\n.Img  .tabs table .trColor td{\r\n\tbackground: #b8dff9;\r\n\tbackground: rgba(100, 131, 152, 0.5) none repeat scroll 0 0;\r\n}\r\n.Img .onTabs{\r\n\twidth: 43.6%;\r\n    height: 280px;\r\n    border-radius: 3px;   \r\n    position: absolute;\r\n    left: 3%;\r\n    top: 17%;\r\n}\r\n.Img .onTabs .tableLeft{\r\n\twidth: 85%;\r\n\theight: 274px;\r\n\tbackground: rgba(100, 131, 152, 0.5) none repeat scroll 0 0;\r\n\tfloat: left;\r\n}\r\n.Img .onTabs .solidRight{\r\n\twidth: 15%;\r\n    border: 1px solid #ffffff;\r\n    position: absolute;\r\n    right: 0;\r\n    top: 46.8%;\r\n}\r\n.Img .onTabs .mod-title{\r\n\tborder-bottom: 1px solid #495b69;\r\n}\r\n.Img .onTabs .mod-title .Black{\r\n\tfloat: right;\r\n    margin: 10px;\r\n    font-size: 18px;\r\n    color: #000000;\r\n}\r\n.Img .onTabs .box{\r\n\twidth: 100%;\r\n\theight: 234px;\r\n    overflow-y: auto;\r\n}\r\n.Img .onTabs .box table {\r\n\twidth: 93%;\r\n    margin: 0 10px;\r\n}\r\n.Img .onTabs .box table  tr td{\r\n\theight: 33px;\r\n\twidth: 95%;\r\n\twhite-space: nowrap;\r\n}\r\n.Img .onTabs .box table  tr td span{\r\n\tfloat: left;\r\n\tpadding-right: 10px;\r\n}\r\n.Img .yuan{\r\n\tposition: absolute;\r\n    right: 52%;\r\n    top: 29.7%;\r\n}\r\n.Img .onTabs .tableLeft{\r\n\tdisplay: none;\r\n}\r\n/*@parkMonitor jifei  楼宇企业列表\r\n---------------------------------------------------------*/\r\n.Enterprise{\r\n\twidth: 100%;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\theight: 560px;\r\n}\r\n.Enterprise .right{\r\n\tcolor: #e14340;\r\n\tfloat: right;\r\n\tfont-size: 16px;\r\n\tpadding: 10px 33px;\r\n}\r\n.Enterprise .mod-content{\r\n    width: 100%;\r\n    margin: 10px auto;\r\n}\r\n.Enterprise .mod-content .table-content{\r\n\theight: 470px;\r\n    overflow: auto;\r\n}\r\n.Enterprise .mod-content .wtyh-table{\r\n\twidth: 96%;\r\n    margin: 0 auto;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th{\r\n\theight: 40px;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(1){\r\n\twidth: 30%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(2){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(3){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(4){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(5){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(6){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th .icon-desc{\r\n    font-size: 20px;\r\n    float: left;\r\n    margin-top: -4px;\r\n    cursor: pointer;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th span{\r\n\tfloat: left;\r\n\tpadding-left: 10%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr td{\r\n\theight: 40px;\r\n\tfont-size: 12px;\r\n\tborder-bottom: 1px solid #444951;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr:nth-child(even){\r\n\tbackground: #222932;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr td span{\r\n\tfloat: left;\r\n\tpadding-left: 10%;\r\n\tcolor: #fff;\r\n\tcursor: pointer;\r\n}\r\n/*@parkMonitor jifei  楼宇行业分布\r\n---------------------------------------------------------*/\r\n.Industry{\r\n\twidth: 49.5%;\r\n\theight: 398px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\tmargin-top: 10px;\r\n\tfloat: left;\r\n}\r\n/*@parkMonitor jifei  企业背景情况\r\n---------------------------------------------------------*/\r\n.Context{\r\n\twidth: 49.5%;\r\n\theight: 398px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\tmargin-top: 10px;\r\n\tfloat: right;\r\n}\r\n/*@parkMonitor jifei  舆情更新\r\n---------------------------------------------------------*/\r\n.Footer{\r\n\twidth: 100%;\r\n\theight: 60px;\r\n\tposition: fixed;\r\n    bottom: 0;\r\n    left: 0;\r\n    background: rgba(43, 50, 60, 0.9) none repeat scroll 0 0;\r\n    box-shadow: 2px 2px 10px #000;\r\n}\r\n.Footer .box{\r\n\twidth: 95%;\r\n\theight: 40px;\r\n\tmargin: 10px auto;\r\n\tposition: relative;\r\n}\r\n.Footer .boxLeft{\r\n\twidth: 10%;\r\n\theight: 40px;\r\n\tborder-right: 1px solid #8a9199;\r\n\tline-height: 40px;\r\n\tfloat: left;\r\n}\r\n.Footer .boxLeft .icon-news{\r\n\tfont-size: 35px;\r\n\tcolor: #e14340;\r\n}\r\n.Footer .boxLeft .size{\r\n\tfont-size: 18px;\r\n    vertical-align: super;\r\n    padding-left: 25%;\r\n}\r\n.Footer .boxRight{\r\n\twidth: 85%;\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n\tfloat: right;\r\n\t/* background: #666 */\r\n}\r\n.Footer .boxRight ul li{\r\n\tfloat: left;\r\n}\r\n.Footer .boxRight ul li:nth-child(1){\r\n\twidth: 20%;\r\n    font-size: 16px;\r\n    color: #e14340;\r\n    overflow: hidden;\r\n    text-overflow: ellipsis;\r\n    white-space: nowrap;\r\n    display: inline-block;\r\n}\r\n.Footer .boxRight ul li:nth-child(1) em{\r\n\tpadding-left: 5%;\r\n}\r\n.Footer .boxRight ul li:nth-child(2){\r\n\twidth: 60%;\r\n\tfont-size: 14px;\r\n    overflow: hidden;\r\n    text-overflow: ellipsis;\r\n    white-space: nowrap;\r\n    display: inline-block;\r\n}\r\n.Footer .boxRight ul li:nth-child(2) .liTop{\r\n\tpadding-left: 8%;\r\n}\r\n.Footer .boxRight ul li:nth-child(3){\r\n\twidth: 20%;\r\n\tfont-size: 12px;\r\n}\r\n.Footer .boxRight ul li:nth-child(3) em{\r\n\tpadding-left: 5%;\r\n}\r\n.Footer .boxRight ul li:nth-child(3) .liRight{\r\n\tpadding-left: 18%;\r\n}\r\n.boxRight{\r\noverflow: hidden;\r\nposition: relative;\r\n}\r\n.boxRight ul{\r\n\t/* background: red; */\r\n\twidth: 100%;height: 40px;\r\n}\r\n\r\n.boxRightScroll {\r\n\twidth: 100%;\r\n\theight: auto;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n}", ""]);
+	exports.push([module.id, "/*@parkMonitor jifei  图片\r\n---------------------------------------------------------*/\r\n.Img{\r\n\twidth: 100%;\r\n\theight: 948px;\r\n\t/*background: url(\"/images/floor.png\") no-repeat;*/\r\n\tbackground-size: 100% 948px;\r\n}\r\n.Img .carousel{\r\n\twidth: 180px;\r\n\theight: 30px;\r\n\tbackground: #e2f1fc;\r\n\tborder-radius: 3px;\r\n\tposition: relative;\r\n    top: 10px;\r\n    left: 10px;\r\n}\r\n.Img .carousel i{\r\n\tdisplay: block;\r\n\tline-height: 30px;\r\n\tmargin-left: 3px;\r\n\tcolor: #1a2029;\r\n\tfont-size: 18px;\r\n\tcursor: pointer;\r\n}\r\n.Img .carousel i.left{\r\n\tfloat: left;\r\n}\r\n.Img .carousel i.right{\r\n\tfloat: right;\r\n}\r\n.Img .carousel .list-box{\r\n\twidth: 136px;\r\n\tfloat: left;\r\n\toverflow: hidden;\r\n}\r\n.Img .carousel ul{\r\n\tfloat: left;\r\n\twidth: 100%;\r\n\toverflow: hidden;\r\n}\r\n.Img .carousel ul li{\r\n\tline-height: 30px;\r\n\tfloat: left;\r\n\twidth: 100%;\r\n\tcolor: #1a2029;\r\n\ttext-align: center;\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n}\r\n.Img  .tabs{\r\n\twidth: 30%;\r\n    height: 150px;\r\n    float: right;\r\n    margin-right: 20px;\r\n    margin-top: -10px;\r\n}\r\n.Img  .tabs table{\r\n\twidth: 100%;\r\n\tborder-radius: 3px;\r\n\toverflow: hidden;\r\n}\r\n.Img  .tabs table tr th{\r\n\theight: 30px;\r\n\ttext-align: center;\r\n\twidth: 50%;\r\n\tbackground: #e14340;\r\n\tcolor: #fff;\r\n}\r\n.Img  .tabs table tr td{\r\n\tcursor: pointer;\r\n\twidth: 50%;\r\n\theight: 35px;\r\n\ttext-align: center;\r\n\tbackground: #5383a1;\r\n\tborder-bottom: 1px solid #75c5f1;\r\n\tcolor: #fff;\r\n}\r\n.Img  .tabs table tbody tr.active td{\r\n\tbackground: rgba(183,223,248,0.5);\r\n}\r\n.Img  .tabs table tr td .Red{\r\n\tcolor: #e14340;\r\n\tfont-size: 18px;\r\n}\r\n.Img  .tabs table tr td .Yellow{\r\n\tcolor: #f39800;\r\n\tfont-size: 18px;\r\n}\r\n.Img  .tabs table tr td .Green{\r\n\tcolor: #32b16c;\r\n\tfont-size: 18px;\r\n}\r\n.Img  .tabs table tr td .Black{\r\n\tcolor: #000000;\r\n\tfont-size: 18px;\r\n}\r\n\r\n\r\n.Img .onTabs{\r\n\twidth: 43.6%;\r\n    height: 280px;\r\n    border-radius: 3px;   \r\n    position: absolute;\r\n    left: 3%;\r\n    top: 17%;\r\n}\r\n.Img .onTabs .tableLeft{\r\n\twidth: 85%;\r\n\theight: 274px;\r\n\tbackground: rgba(100, 131, 152, 0.5) none repeat scroll 0 0;\r\n\tfloat: left;\r\n}\r\n.Img .onTabs .solidRight{\r\n\twidth: 15%;\r\n    border: 1px solid #ffffff;\r\n    position: absolute;\r\n    right: 0;\r\n    top: 46.8%;\r\n}\r\n.Img .onTabs .mod-title{\r\n\tborder-bottom: 1px solid #495b69;\r\n}\r\n.Img .onTabs .mod-title .Black{\r\n\tfloat: right;\r\n    margin: 10px;\r\n    font-size: 18px;\r\n    color: #000000;\r\n}\r\n.Img .onTabs .box{\r\n\twidth: 100%;\r\n\theight: 234px;\r\n\toverflow: auto;\r\n\toverflow-x:hidden; \r\n}\r\n.Img .onTabs .box table {\r\n\twidth: 93%;\r\n    margin: 0 10px;\r\n}\r\n.Img .onTabs .box table  tr td{\r\n\theight: 33px;\r\n\twidth: 95%;\r\n\twhite-space: nowrap;\r\n}\r\n.Img .onTabs .box table  tr td span{\r\n\tfloat: left;\r\n\tpadding-right: 10px;\r\n}\r\n.Img .yuan{\r\n\tposition: absolute;\r\n    right: 52%;\r\n    top: 29.7%;\r\n}\r\n/*@parkMonitor jifei  楼宇企业列表\r\n---------------------------------------------------------*/\r\n.Enterprise{\r\n\twidth: 100%;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\theight: 560px;\r\n}\r\n.Enterprise .right{\r\n\tcolor: #e14340;\r\n\tfloat: right;\r\n\tfont-size: 16px;\r\n\tpadding: 10px 33px;\r\n}\r\n.Enterprise .mod-content{\r\n    width: 100%;\r\n    margin: 10px auto;\r\n}\r\n.Enterprise .mod-content .table-content{\r\n\theight: 470px;\r\n    overflow: auto;\r\n}\r\n.Enterprise .mod-content .wtyh-table{\r\n\twidth: 96%;\r\n    margin: 0 auto;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th{\r\n\theight: 40px;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(1){\r\n\twidth: 30%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(2){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(3){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(4){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(5){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(6){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th .icon-desc{\r\n    font-size: 20px;\r\n    float: left;\r\n    margin-top: -4px;\r\n    cursor: pointer;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th span{\r\n\tfloat: left;\r\n\tpadding-left: 10%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr td{\r\n\theight: 40px;\r\n\tfont-size: 12px;\r\n\tborder-bottom: 1px solid #444951;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr:nth-child(even){\r\n\tbackground: #222932;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr td span{\r\n\tfloat: left;\r\n\tpadding-left: 10%;\r\n\tcolor: #fff;\r\n\tcursor: pointer;\r\n}\r\n/*@parkMonitor jifei  楼宇行业分布\r\n---------------------------------------------------------*/\r\n.Industry{\r\n\twidth: 49.5%;\r\n\theight: 398px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\tmargin-top: 10px;\r\n\tfloat: left;\r\n}\r\n/*@parkMonitor jifei  企业背景情况\r\n---------------------------------------------------------*/\r\n.Context{\r\n\twidth: 49.5%;\r\n\theight: 398px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\tmargin-top: 10px;\r\n\tfloat: right;\r\n}\r\n/*@parkMonitor jifei  舆情更新\r\n---------------------------------------------------------*/\r\n.Footer{\r\n\twidth: 100%;\r\n\theight: 60px;\r\n\tposition: fixed;\r\n    bottom: 0;\r\n    left: 0;\r\n    background: rgba(43, 50, 60, 0.9) none repeat scroll 0 0;\r\n    box-shadow: 2px 2px 10px #000;\r\n}\r\n.Footer .box{\r\n\twidth: 95%;\r\n\theight: 40px;\r\n\tmargin: 10px auto;\r\n\tposition: relative;\r\n}\r\n.Footer .boxLeft{\r\n\twidth: 10%;\r\n\theight: 40px;\r\n\tborder-right: 1px solid #8a9199;\r\n\tline-height: 40px;\r\n\tfloat: left;\r\n}\r\n.Footer .boxLeft .icon-news{\r\n\tfont-size: 35px;\r\n\tcolor: #e14340;\r\n}\r\n.Footer .boxLeft .size{\r\n\tfont-size: 18px;\r\n    vertical-align: super;\r\n    padding-left: 25%;\r\n}\r\n.Footer .boxRight{\r\n\twidth: 85%;\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n\tfloat: right;\r\n\t/* background: #666 */\r\n}\r\n.Footer .boxRight ul li{\r\n\tfloat: left;\r\n}\r\n.Footer .boxRight ul li:nth-child(1){\r\n\twidth: 20%;\r\n    font-size: 16px;\r\n    color: #e14340;\r\n    overflow: hidden;\r\n    text-overflow: ellipsis;\r\n    white-space: nowrap;\r\n    display: inline-block;\r\n}\r\n.Footer .boxRight ul li:nth-child(1) em{\r\n\tpadding-left: 5%;\r\n}\r\n.Footer .boxRight ul li:nth-child(2){\r\n\twidth: 60%;\r\n\tfont-size: 14px;\r\n    overflow: hidden;\r\n    text-overflow: ellipsis;\r\n    white-space: nowrap;\r\n    display: inline-block;\r\n}\r\n.Footer .boxRight ul li:nth-child(2) .liTop{\r\n\tpadding-left: 8%;\r\n}\r\n.Footer .boxRight ul li:nth-child(3){\r\n\twidth: 20%;\r\n\tfont-size: 12px;\r\n}\r\n.Footer .boxRight ul li:nth-child(3) em{\r\n\tpadding-left: 5%;\r\n}\r\n.Footer .boxRight ul li:nth-child(3) .liRight{\r\n\tpadding-left: 18%;\r\n}\r\n.boxRight{\r\noverflow: hidden;\r\nposition: relative;\r\n}\r\n.boxRight ul{\r\n\t/* background: red; */\r\n\twidth: 100%;height: 40px;\r\n}\r\n\r\n.boxRightScroll {\r\n\twidth: 100%;\r\n\theight: auto;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n}", ""]);
 
 	// exports
 
@@ -84313,18 +84870,34 @@
 	    getInitialState: function getInitialState() {
 	        return {
 	            Industry: [],
-	            IndustryEnd: []
+	            IndustryEnd: [],
+	            areaId: 0,
+	            buildingId: 0
 	        };
 	    },
 	    componentDidMount: function componentDidMount() {
-	        var json = { buildingId: 1 };
-	        this.getBuildIndDistri(json);
+	        var areaId = this.props.location.query.areaId;
+	        var buildingId = this.props.location.query.buildingId;
 
-	        $(window).resize(function (event) {
-	            this.initMap();
-	        }.bind(this));
+	        this.setState({ areaId: areaId, buildingId: buildingId });
+
+	        var json = { buildingId: buildingId };
+	        this.getBuildIndDistri(json);
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        //切换大厦
+	        var isSwitchValEqual = Immutable.is(nextProps.buildSwitchVal, this.props.buildSwitchVal);
+	        if (!isSwitchValEqual) {
+	            var buildSwitchVal = nextProps.buildSwitchVal;
+
+	            var buildingId = buildSwitchVal.buildId;
+
+	            this.setState({ buildingId: buildingId });
+
+	            var json = { buildingId: buildingId };
+	            this.getBuildIndDistri(json);
+	        }
+
 	        var isEqual = Immutable.is(nextProps.buildIndDistriResult, this.props.buildIndDistriResult); //判断数据是否变化
 	        if (!isEqual) {
 	            var buildIndDistriRequest = nextProps.buildIndDistriRequest;
@@ -84474,89 +85047,109 @@
 	var Immutable = __webpack_require__(718);
 	//企业背景情况
 	var CompanyBg = _react2.default.createClass({
-	    displayName: 'CompanyBg',
+	  displayName: 'CompanyBg',
 
-	    getInitialState: function getInitialState() {
-	        return {
-	            option: null
-	        };
-	    },
-	    componentDidMount: function componentDidMount() {
-	        var json = { buildingId: 1 };
-	        this.getCompanyBg(json);
-	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var isEqual = Immutable.is(nextProps.companyBgResult, this.props.companyBgResult); //判断数据是否变化
-	        if (!isEqual) {
-	            var companyBgRequest = nextProps.companyBgRequest;
-	            var companyBgResult = nextProps.companyBgResult;
+	  getInitialState: function getInitialState() {
+	    return {
+	      option: null,
+	      areaId: 0,
+	      buildingId: 0
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {
+	    var areaId = this.props.location.query.areaId;
+	    var buildingId = this.props.location.query.buildingId;
 
-	            if (companyBgRequest == true) {
-	                if (companyBgResult.success == true) {
-	                    this.dataFomat(companyBgResult);
-	                } else {
-	                    console.log(404);
-	                }
-	            }
-	        }
-	    },
-	    dataFomat: function dataFomat(data) {
-	        console.log(data, 'aaaaaaaaaaaaa');
-	        var param = {
-	            id: 'small-loan-company-chart', //必传
-	            color: ['#efd79b', '#e24340'],
-	            legendOrient: "",
-	            legendRight: "7%",
-	            legendBottom: "10%",
-	            height: '350px', //必传 带上单位
-	            title: '',
-	            legendData: ['国企', '名企'],
-	            data: [{ value: 135, name: '国企' }, { value: 310, name: '名企' }]
-	        };
-	        this.setState({ option: param });
-	    },
-	    getCompanyBg: function getCompanyBg(json) {
-	        var getCompanyBg = this.props.getCompanyBg;
+	    this.setState({ areaId: areaId, buildingId: buildingId });
 
-	        getCompanyBg(json);
-	    },
-	    //   setPieParm:function(){
-	    //      var param={
-	    //           id:'small-loan-company-chart',//必传
-	    //           color:['#efd79b','#e24340'],
-	    //           legendOrient:"",
-	    //           legendRight:"7%",
-	    //           legendBottom:"10%",
-	    //           height:'350px',//必传 带上单位
-	    //           title:'',
-	    //           legendData:['国企','名企'],
-	    //           data: [
-	    //                     {value:135, name:'国企'},
-	    //                     {value:310, name:'名企'}
-	    //                 ]
-	    //       }
-	    //       return param;
-	    // },
-	    render: function render() {
-	        var bbdPie = "";
-	        if (this.state.option) {
-	            bbdPie = _react2.default.createElement(_PieChart2.default, { param: this.state.option });
-	        }
-	        return _react2.default.createElement(
-	            'div',
-	            { className: 'Context mod', id: 'Context' },
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'mod-title' },
-	                _react2.default.createElement(
-	                    'h3',
-	                    null,
-	                    '企业背景情况'
-	                )
-	            ),
-	            bbdPie
-	        );
+	    var json = { buildingId: buildingId };
+	    this.getCompanyBg(json);
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    //切换大厦
+	    var isSwitchValEqual = Immutable.is(nextProps.buildSwitchVal, this.props.buildSwitchVal);
+	    if (!isSwitchValEqual) {
+	      var buildSwitchVal = nextProps.buildSwitchVal;
+
+	      var buildingId = buildSwitchVal.buildId;
+
+	      this.setState({ buildingId: buildingId });
+
+	      var json = { buildingId: buildingId };
+	      this.getCompanyBg(json);
 	    }
+
+	    var isEqual = Immutable.is(nextProps.companyBgResult, this.props.companyBgResult); //判断数据是否变化
+	    if (!isEqual) {
+	      var companyBgRequest = nextProps.companyBgRequest;
+	      var companyBgResult = nextProps.companyBgResult;
+
+	      if (companyBgRequest == true) {
+	        if (companyBgResult.success == true) {
+	          this.dataFomat(companyBgResult);
+	        } else {
+	          console.log(404);
+	        }
+	      }
+	    }
+	  },
+	  dataFomat: function dataFomat(data) {
+	    console.log(data, 'aaaaaaaaaaaaa');
+	    var param = {
+	      id: 'small-loan-company-chart', //必传
+	      color: ['#efd79b', '#e24340'],
+	      legendOrient: "",
+	      legendRight: "7%",
+	      legendBottom: "10%",
+	      height: '350px', //必传 带上单位
+	      title: '',
+	      legendData: ['国企', '名企'],
+	      data: [{ value: 135, name: '国企' }, { value: 310, name: '名企' }]
+	    };
+	    this.setState({ option: param });
+	  },
+	  getCompanyBg: function getCompanyBg(json) {
+	    var getCompanyBg = this.props.getCompanyBg;
+
+	    getCompanyBg(json);
+	  },
+	  //   setPieParm:function(){
+	  //      var param={
+	  //           id:'small-loan-company-chart',//必传
+	  //           color:['#efd79b','#e24340'],
+	  //           legendOrient:"",
+	  //           legendRight:"7%",
+	  //           legendBottom:"10%",
+	  //           height:'350px',//必传 带上单位
+	  //           title:'',
+	  //           legendData:['国企','名企'],
+	  //           data: [
+	  //                     {value:135, name:'国企'},
+	  //                     {value:310, name:'名企'}
+	  //                 ]
+	  //       }
+	  //       return param;
+	  // },
+	  render: function render() {
+	    var bbdPie = "";
+	    if (this.state.option) {
+	      bbdPie = _react2.default.createElement(_PieChart2.default, { param: this.state.option });
+	    }
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'Context mod', id: 'Context' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'mod-title' },
+	        _react2.default.createElement(
+	          'h3',
+	          null,
+	          '企业背景情况'
+	        )
+	      ),
+	      bbdPie
+	    );
+	  }
 	});
 	module.exports = CompanyBg;
 
@@ -84591,14 +85184,34 @@
 
 	  getInitialState: function getInitialState() {
 	    return {
-	      newsList: []
+	      newsList: [],
+	      buildingId: 0,
+	      areaId: 0
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
-	    var json = { buildingId: 1 };
+	    var areaId = this.props.location.query.areaId;
+	    var buildingId = this.props.location.query.buildingId;
+
+	    this.setState({ areaId: areaId, buildingId: buildingId });
+
+	    var json = { buildingId: buildingId };
 	    this.getBuildNews(json);
 	  },
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    //切换大厦
+	    var isSwitchValEqual = Immutable.is(nextProps.buildSwitchVal, this.props.buildSwitchVal);
+	    if (!isSwitchValEqual) {
+	      var buildSwitchVal = nextProps.buildSwitchVal;
+
+	      var buildingId = buildSwitchVal.buildId;
+
+	      this.setState({ buildingId: buildingId });
+
+	      var json = { buildingId: buildingId };
+	      this.getBuildNews(json);
+	    }
+
 	    var isEqual = Immutable.is(nextProps.buildNewsResult, this.props.buildNewsResult); //判断数据是否变化
 	    if (!isEqual) {
 	      var buildNewsRequest = nextProps.buildNewsRequest;
@@ -84925,7 +85538,7 @@
 
 	      var companyData = {
 	        "company": this.refs.inp.value,
-	        "page_no": 1,
+	        "page_no": 0,
 	        "page_size": 4
 	      };
 	      getSearchDataRequest(companyData);
@@ -85038,7 +85651,7 @@
 	    return {
 	      count: 0,
 	      DataList: [],
-	      nowpage: 1
+	      nowpage: 0
 	    };
 	  },
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
@@ -85068,12 +85681,13 @@
 	  },
 	  //分页回调 
 	  setCallBack: function setCallBack(nowpage, eachPageCount) {
-	    this.setState({ nowpage: nowpage });
+	    console.info("aaaaaaaaaaaaaaaaaaa", eachPageCount);
+	    this.setState({ nowpage: nowpage - 1 });
 	    var searchName = "";
 	    $("#inp").val() ? searchName = $("#inp").val() : searchName = this.props.location.query.searchInfo;
 	    var jsonData = {
 	      "company": searchName,
-	      "page_no": nowpage,
+	      "page_no": nowpage - 1,
 	      "page_size": 4
 	    };
 	    if ($("#inp").val() || this.props.location.query.searchInfo) this.getLargeLoan(jsonData);
@@ -85082,7 +85696,7 @@
 	    if (this.props.location.query.searchInfo) {
 	      var jsonData = {
 	        "company": this.props.location.query.searchInfo,
-	        "page_no": 1,
+	        "page_no": 0,
 	        "page_size": 4
 	      };
 	      this.getLargeLoan(jsonData);
@@ -85167,7 +85781,7 @@
 	            'div',
 	            { className: 'page' },
 	            textBox,
-	            _react2.default.createElement(_index.PageList, { id: 'pageList1', count: this.state.count, showPage: '7', callback: this.setCallBack })
+	            _react2.default.createElement(_index.PageList, { id: 'pageList1', count: this.state.count, showPage: '6', callback: this.setCallBack })
 	          )
 	        )
 	      );
@@ -90718,7 +91332,7 @@
 	  return function (dispatch) {
 	    console.log(json);
 	    $.ajax({
-	      url: "/realTimeMonitor/businessChartShow.do", //"/data/industryMonitor/smallLoan/index/companyGrade.json",
+	      url: "/offlineFinance/businessChartShow.do", //"/data/industryMonitor/smallLoan/index/companyGrade.json",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
@@ -91177,6 +91791,14 @@
 
 	var _Catalog2 = _interopRequireDefault(_Catalog);
 
+	var _CatalogSelect = __webpack_require__(1376);
+
+	var _CatalogSelect2 = _interopRequireDefault(_CatalogSelect);
+
+	var _TimeSelect = __webpack_require__(1377);
+
+	var _TimeSelect2 = _interopRequireDefault(_TimeSelect);
+
 	var _realtimeTableRuducer = __webpack_require__(1037);
 
 	var _realtimeTableRuducer2 = _interopRequireDefault(_realtimeTableRuducer);
@@ -91221,6 +91843,10 @@
 
 	var _ParkNews2 = _interopRequireDefault(_ParkNews);
 
+	var _ParkImg = __webpack_require__(1378);
+
+	var _ParkImg2 = _interopRequireDefault(_ParkImg);
+
 	var _BuildCompanyList = __webpack_require__(1048);
 
 	var _BuildCompanyList2 = _interopRequireDefault(_BuildCompanyList);
@@ -91245,6 +91871,10 @@
 
 	var _BuildRisk2 = _interopRequireDefault(_BuildRisk);
 
+	var _BuildSwitchVal = __webpack_require__(1379);
+
+	var _BuildSwitchVal2 = _interopRequireDefault(_BuildSwitchVal);
+
 	var _ChartAll3 = __webpack_require__(1054);
 
 	var _ChartAll4 = _interopRequireDefault(_ChartAll3);
@@ -91260,10 +91890,6 @@
 	var _CompanyDirectoryChart = __webpack_require__(1057);
 
 	var _CompanyDirectoryChart2 = _interopRequireDefault(_CompanyDirectoryChart);
-
-	var _DynamicRisk = __webpack_require__(1058);
-
-	var _DynamicRisk2 = _interopRequireDefault(_DynamicRisk);
 
 	var _LineFinanceRiskDistri = __webpack_require__(1059);
 
@@ -91305,6 +91931,26 @@
 
 	var _QueryDateVersion2 = _interopRequireDefault(_QueryDateVersion);
 
+	var _DynamicRiskCompanyTag = __webpack_require__(1389);
+
+	var _DynamicRiskCompanyTag2 = _interopRequireDefault(_DynamicRiskCompanyTag);
+
+	var _DynamicRiskDate = __webpack_require__(1380);
+
+	var _DynamicRiskDate2 = _interopRequireDefault(_DynamicRiskDate);
+
+	var _DynamicRiskImg = __webpack_require__(1390);
+
+	var _DynamicRiskImg2 = _interopRequireDefault(_DynamicRiskImg);
+
+	var _DynamicRiskIndexCmp = __webpack_require__(1391);
+
+	var _DynamicRiskIndexCmp2 = _interopRequireDefault(_DynamicRiskIndexCmp);
+
+	var _RiskSearch = __webpack_require__(1381);
+
+	var _RiskSearch2 = _interopRequireDefault(_RiskSearch);
+
 	var _industryTypeChart = __webpack_require__(1070);
 
 	var _industryTypeChart2 = _interopRequireDefault(_industryTypeChart);
@@ -91329,14 +91975,13 @@
 
 	/*首页 begin*/
 
+
 	/*线下理财监测 end*/
 
 	/*预付卡 begin*/
 
-	/*动态风险模块 end*/
 
-	/*线下理财监测 start*/
-	//线下理财首页
+	//楼宇详情页
 
 	//企业占比对比
 
@@ -91473,6 +92118,8 @@
 	  BuildList: _BuildList2.default,
 	  BuildNews: _BuildNews2.default,
 	  BuildRisk: _BuildRisk2.default,
+	  BuildSwitchVal: _BuildSwitchVal2.default,
+	  ParkImg: _ParkImg2.default,
 
 	  //融资担保
 	  FinGuaMap: _FinGuaMap2.default,
@@ -91498,14 +92145,13 @@
 	  industryTypeChart: _industryTypeChart2.default,
 	  TotleMoney: _TotleMoney2.default,
 
-	  //动态风险
-	  dynamicRiskData: _DynamicRisk2.default,
-
 	  //融资租赁
 	  Lease: _Lease2.default,
 	  ContrastLeft: _ContrastLeft2.default,
 	  ContrastRight: _ContrastRight2.default,
 	  Catalog: _Catalog2.default,
+	  CatalogSelect: _CatalogSelect2.default,
+	  TimeSelect: _TimeSelect2.default,
 
 	  //线下理财
 	  //线下理财首页
@@ -91520,6 +92166,13 @@
 	  RiskData: _RiskData2.default,
 	  CompanyNews: _CompanyNews2.default,
 	  QueryDateVersion: _QueryDateVersion2.default,
+	  //动态风险
+	  DynamicRiskCompanyTag: _DynamicRiskCompanyTag2.default,
+	  DynamicRiskDate: _DynamicRiskDate2.default,
+	  DynamicRiskImg: _DynamicRiskImg2.default,
+	  DynamicRiskIndexCmp: _DynamicRiskIndexCmp2.default,
+	  //头部搜索传值
+	  RiskSearch: _RiskSearch2.default,
 
 	  //首页
 	  homeThree: _homeThree2.default,
@@ -91533,17 +92186,21 @@
 
 	/*企业全息信息查询平台 begin*/
 
+
+	//头部搜索值传递
+
+
+	//动态风险模块 begein
+
 	/*商业保理监测 end*/
 
-	/*动态风险模块 begein*/
+	/*线下理财监测 start*/
+	//线下理财首页
 
 
 	/*众筹监测 end*/
 
 	/*商业保理监测 begin*/
-
-
-	//楼宇详情页
 
 
 	//园区首页
@@ -95073,77 +95730,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 1058 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.default = setDynamicRiskData;
-
-	var _LineFinanceDynamicRiskAction = __webpack_require__(774);
-
-	function setDynamicRiskData() {
-		var state = arguments.length <= 0 || arguments[0] === undefined ? {
-			request: false
-		} : arguments[0];
-		var action = arguments[1];
-
-
-		switch (action.type) {
-			case _LineFinanceDynamicRiskAction.DYNAMIC_RISK_CURDATE_CMP_DATA_SUCCESS:
-				return Object.assign({}, state, {
-					request: true,
-					curDateCmpData: action.result
-				});
-
-			case _LineFinanceDynamicRiskAction.DYNAMIC_RISK_CURDATE_CMP_DATA_FAIL:
-				return Object.assign({}, state, {
-					request: true,
-					curDateCmpData: action.result
-				});
-
-			case _LineFinanceDynamicRiskAction.DYNAMIC_RISK_COMPANY_RELATETIONS_INDEX_SUCCESS:
-				return Object.assign({}, state, {
-					request: true,
-					companyRelationsIndex: action.result
-				});
-
-			case _LineFinanceDynamicRiskAction.DYNAMIC_RISK_COMPANY_RELATETIONS_INDEX_FAIL:
-				return Object.assign({}, state, {
-					request: true,
-					companyRelationsIndex: action.result
-				});
-
-			case _LineFinanceDynamicRiskAction.DYNAMIC_RISK_COMPANY_TAG_SUCCESS:
-				return Object.assign({}, state, {
-					request: true,
-					companyRelationsIndex: action.result
-				});
-
-			case _LineFinanceDynamicRiskAction.DYNAMIC_RISK_COMPANY_TAG_FAIL:
-				return Object.assign({}, state, {
-					request: true,
-					companyRelationsIndex: action.result
-				});
-
-			default:
-				return state;
-		}
-	} /*
-	  * 动态风险模块 reducer
-	  * */
-
-	;
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "DynamicRisk.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
+/* 1058 */,
 /* 1059 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -104057,6 +104644,1445 @@
 	}
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "companyInfoD3Ruducer.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1375 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getRiskSearchVal = getRiskSearchVal;
+	/*
+	  线下理财监测 搜索头部
+	*/
+
+	/*搜索框的值 begin*/
+	var SEARCH_VAL = exports.SEARCH_VAL = 'SEARCH_VAL';
+
+	function getRiskSearchVal(data) {
+	  return {
+	    type: SEARCH_VAL,
+	    data: data
+	  };
+	}
+	/*搜索框的值 end*/
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "LineFinRiskSearchHeaderAction.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1376 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = CatalogSelect;
+
+	var _financeLeaseAction = __webpack_require__(885);
+
+	//企业评级
+	function CatalogSelect() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _financeLeaseAction.COMPANY_SELECT_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _financeLeaseAction.COMPANY_SELECT_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "CatalogSelect.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1377 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = TimeSelect;
+
+	var _financeLeaseAction = __webpack_require__(885);
+
+	//企业评级
+	function TimeSelect() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _financeLeaseAction.COMPANY_TIMESELECT_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _financeLeaseAction.COMPANY_TIMESELECT_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "TimeSelect.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1378 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = parkImg;
+
+	var _ParkMonitorIndexAction = __webpack_require__(917);
+
+	//楼宇企业列表
+	function parkImg() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _ParkMonitorIndexAction.PARK_IMG_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _ParkMonitorIndexAction.PARK_IMG_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "ParkImg.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1379 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = buildSwitchVal;
+
+	var _BuildDetailAction = __webpack_require__(926);
+
+	//初始化数据
+	var initialState = {
+		data: "" //楼宇切换
+	};
+
+	function buildSwitchVal() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _BuildDetailAction.BUILD_SWITCH_VAL:
+				return {
+					data: action.data
+				};
+			default:
+				return state;
+		}
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "BuildSwitchVal.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1380 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = dynamicRiskDate;
+
+	var _LineFinanceDynamicRiskAction = __webpack_require__(774);
+
+	function dynamicRiskDate() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _LineFinanceDynamicRiskAction.DYNAMIC_RISK_DATE_SUCCESS:
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _LineFinanceDynamicRiskAction.DYNAMIC_RISK_DATE_FAIL:
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	} /*
+	  * 动态风险获取时间 reducer
+	  * */
+
+	;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "DynamicRiskDate.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1381 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = menuParkSelectVal;
+
+	var _LineFinRiskSearchHeaderAction = __webpack_require__(1375);
+
+	//初始化数据
+	var initialState = {
+		data: ""
+	};
+
+	function menuParkSelectVal() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _LineFinRiskSearchHeaderAction.SEARCH_VAL:
+				return {
+					data: action.data
+				};
+			default:
+				return state;
+		}
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "RiskSearch.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1382 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	__webpack_require__(772);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Immutable = __webpack_require__(718);
+	//指数列表 第一个表格
+	var IndexListTableOne = _react2.default.createClass({
+	    displayName: 'IndexListTableOne',
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            indexCmpData: {}
+	        };
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        console.log(nextProps, 'nextProps');
+	        var isEqual = Immutable.is(nextProps.indexCmpData, this.props.indexCmpData); //判断数据是否变化
+	        if (!isEqual) {
+	            var indexCmpData = nextProps.indexCmpData;
+	            this.setState({ indexCmpData: indexCmpData });
+	        }
+	    },
+	    render: function render() {
+	        var current = this.state.indexCmpData ? this.state.indexCmpData.current : ""; //获取当前时间
+	        var compare = this.state.indexCmpData ? this.state.indexCmpData.compare : ""; //获取对比时间
+	        var dynamicRisk = this.state.indexCmpData ? this.state.indexCmpData.dynamicRisk : null;
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'index-list-table' },
+	            _react2.default.createElement(
+	                'table',
+	                { className: 'mt-table mt-table-center wtyh-table' },
+	                _react2.default.createElement(
+	                    'tbody',
+	                    null,
+	                    _react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            '风险类型'
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            '特征指标'
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            current
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            compare
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                            'td',
+	                            { rowSpan: '3' },
+	                            '稳态运营风险'
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            '自然人节点数'
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            dynamicRisk ? dynamicRisk.curPersonNum : ""
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            dynamicRisk ? dynamicRisk.cprPersonNum : ""
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            '企业法人节点数'
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            dynamicRisk ? dynamicRisk.curCompanyNum : ""
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            dynamicRisk ? dynamicRisk.cprCompanyNum : ""
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            '总节点数'
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            dynamicRisk ? dynamicRisk.curSumNum : ""
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            dynamicRisk ? dynamicRisk.cprSumNum : ""
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+	module.exports = IndexListTableOne;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "IndexListTableOne.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1383 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	__webpack_require__(772);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Immutable = __webpack_require__(718);
+	//指数列表 第三个表格
+	var IndexListTableTwo = _react2.default.createClass({
+	  displayName: 'IndexListTableTwo',
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      indexCmpData: {}
+	    };
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    console.log(nextProps, 'nextProps');
+	    var isEqual = Immutable.is(nextProps.indexCmpData, this.props.indexCmpData); //判断数据是否变化
+	    if (!isEqual) {
+	      var indexCmpData = nextProps.indexCmpData;
+	      this.setState({ indexCmpData: indexCmpData });
+	    }
+	  },
+	  render: function render() {
+	    var current = this.state.indexCmpData ? this.state.indexCmpData.current : ""; //获取当前时间
+	    var compare = this.state.indexCmpData ? this.state.indexCmpData.compare : ""; //获取对比时间
+	    var dynamicRisk = this.state.indexCmpData ? this.state.indexCmpData.dynamicRisk : null;
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'index-list-table' },
+	      _react2.default.createElement(
+	        'table',
+	        { className: 'mt-table mt-table-center wtyh-table' },
+	        _react2.default.createElement(
+	          'tbody',
+	          null,
+	          _react2.default.createElement(
+	            'tr',
+	            null,
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              '风险类型'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              '特征指标'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              { colSpan: '3' },
+	              current
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              { colSpan: '3' },
+	              compare
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'tr',
+	            null,
+	            _react2.default.createElement(
+	              'td',
+	              { rowSpan: '2' },
+	              '核心资本运作风险'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              '核心自然人'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              dynamicRisk ? dynamicRisk.curCorePersonList.map(function (elem, index) {
+	                return _react2.default.createElement(
+	                  'span',
+	                  null,
+	                  elem.ucp
+	                );
+	              }) : ""
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              dynamicRisk ? dynamicRisk.cprCorePersonList.map(function (elem, index) {
+	                return _react2.default.createElement(
+	                  'span',
+	                  null,
+	                  elem.pcp
+	                );
+	              }) : ""
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'tr',
+	            null,
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              '控制节点数'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              dynamicRisk ? dynamicRisk.curControlNum.map(function (elem, index) {
+	                return _react2.default.createElement(
+	                  'span',
+	                  null,
+	                  elem.ucn
+	                );
+	              }) : ""
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              dynamicRisk ? dynamicRisk.cprControlNum.map(function (elem, index) {
+	                return _react2.default.createElement(
+	                  'span',
+	                  null,
+	                  elem.pcn
+	                );
+	              }) : ""
+	            )
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	module.exports = IndexListTableTwo;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "IndexListTableTwo.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1384 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	__webpack_require__(772);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Immutable = __webpack_require__(718);
+	//指数列表 第三个表格
+	var IndexListTableThree = _react2.default.createClass({
+	  displayName: 'IndexListTableThree',
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      indexCmpData: {}
+	    };
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    console.log(nextProps, 'nextProps');
+	    var isEqual = Immutable.is(nextProps.indexCmpData, this.props.indexCmpData); //判断数据是否变化
+	    if (!isEqual) {
+	      var indexCmpData = nextProps.indexCmpData;
+	      this.setState({ indexCmpData: indexCmpData });
+	    }
+	  },
+	  render: function render() {
+	    var current = this.state.indexCmpData ? this.state.indexCmpData.current : ""; //获取当前时间
+	    var compare = this.state.indexCmpData ? this.state.indexCmpData.compare : ""; //获取对比时间
+	    var dynamicRisk = this.state.indexCmpData ? this.state.indexCmpData.dynamicRisk : null;
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'index-list-table' },
+	      _react2.default.createElement(
+	        'table',
+	        { className: 'mt-table mt-table-center wtyh-table' },
+	        _react2.default.createElement(
+	          'tbody',
+	          null,
+	          _react2.default.createElement(
+	            'tr',
+	            null,
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              '风险类型'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              '特征指标'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              { rowSpan: '3' },
+	              current
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              { rowSpan: '3' },
+	              compare
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'tr',
+	            null,
+	            _react2.default.createElement(
+	              'td',
+	              { rowSpan: '3' },
+	              '可持续性风险'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              '利益一致行动法人数量'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              dynamicRisk ? dynamicRisk.curAgreeActNum : ""
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              dynamicRisk ? dynamicRisk.cprAgreeActNum : ""
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'tr',
+	            null,
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              '利益一致行动法人占比'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              dynamicRisk ? dynamicRisk.curAgreeActProp : "",
+	              '%'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              dynamicRisk ? dynamicRisk.cprAgreeActProp : "",
+	              '%'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'tr',
+	            null,
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              '利益一致行动法人明细'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              dynamicRisk ? dynamicRisk.curAgreeComDet.map(function (elem, index) {
+	                return _react2.default.createElement(
+	                  'span',
+	                  null,
+	                  elem.uacd
+	                );
+	              }) : ""
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              dynamicRisk ? dynamicRisk.cprAgreeComDet.map(function (elem, index) {
+	                return _react2.default.createElement(
+	                  'span',
+	                  null,
+	                  elem.pacd
+	                );
+	              }) : ""
+	            )
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	module.exports = IndexListTableThree;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "IndexListTableThree.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1385 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	__webpack_require__(772);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Immutable = __webpack_require__(718);
+	//指数列表 第四个表格
+	var IndexListTableFour = _react2.default.createClass({
+	    displayName: 'IndexListTableFour',
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            indexCmpData: {}
+	        };
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        console.log(nextProps, 'nextProps');
+	        var isEqual = Immutable.is(nextProps.indexCmpData, this.props.indexCmpData); //判断数据是否变化
+	        if (!isEqual) {
+	            var indexCmpData = nextProps.indexCmpData;
+	            this.setState({ indexCmpData: indexCmpData });
+	        }
+	    },
+	    render: function render() {
+	        var current = this.state.indexCmpData ? this.state.indexCmpData.current : ""; //获取当前时间
+	        var compare = this.state.indexCmpData ? this.state.indexCmpData.compare : ""; //获取对比时间
+	        var dynamicRisk = this.state.indexCmpData ? this.state.indexCmpData.dynamicRisk : null;
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'index-list-table' },
+	            _react2.default.createElement(
+	                'table',
+	                { className: 'mt-table mt-table-center wtyh-table' },
+	                _react2.default.createElement(
+	                    'tbody',
+	                    null,
+	                    _react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            '风险类型'
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            '特征指标'
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            { colSpan: '3' },
+	                            current
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            { colSpan: '3' },
+	                            compare
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                            'td',
+	                            { rowSpan: '2' },
+	                            '泡沫化风险'
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            '一度、二度关联法人数量'
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            dynamicRisk ? dynamicRisk.curOneTwoComapnyNum : ""
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            dynamicRisk ? dynamicRisk.cprOneTwoComapnyNum : ""
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            '一度、二度关联法人占比'
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            dynamicRisk ? dynamicRisk.curOneTwoCompanyProp : ""
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            dynamicRisk ? dynamicRisk.cprOneTwoCompanyProp : ""
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+	module.exports = IndexListTableFour;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "IndexListTableFour.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1386 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	__webpack_require__(772);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Immutable = __webpack_require__(718);
+	//指数列表 第四个表格
+	var IndexListTableFive = _react2.default.createClass({
+	    displayName: 'IndexListTableFive',
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            indexCmpData: {}
+	        };
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        console.log(nextProps, 'nextProps');
+	        var isEqual = Immutable.is(nextProps.indexCmpData, this.props.indexCmpData); //判断数据是否变化
+	        if (!isEqual) {
+	            var indexCmpData = nextProps.indexCmpData;
+	            this.setState({ indexCmpData: indexCmpData });
+	        }
+	    },
+	    render: function render() {
+	        var current = this.state.indexCmpData ? this.state.indexCmpData.current : ""; //获取当前时间
+	        var compare = this.state.indexCmpData ? this.state.indexCmpData.compare : ""; //获取对比时间
+	        var dynamicRisk = this.state.indexCmpData ? this.state.indexCmpData.dynamicRisk : null;
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'index-list-table' },
+	            _react2.default.createElement(
+	                'table',
+	                { className: 'mt-table mt-table-center wtyh-table' },
+	                _react2.default.createElement(
+	                    'tbody',
+	                    null,
+	                    _react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            '风险类型'
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            '特征指标'
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            { colSpan: '3' },
+	                            current
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            { colSpan: '3' },
+	                            compare
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                            'td',
+	                            { rowSpan: '2' },
+	                            '传销风险'
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            '三度关联自然人数量'
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            dynamicRisk ? dynamicRisk.curThreePersonNum : ""
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            dynamicRisk ? dynamicRisk.cprThreePersonNum : ""
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'tr',
+	                        null,
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            '三度关联自然人占比'
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            dynamicRisk ? dynamicRisk.curThreePersonProp : ""
+	                        ),
+	                        _react2.default.createElement(
+	                            'td',
+	                            null,
+	                            dynamicRisk ? dynamicRisk.cprThreePersonProp : ""
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+	module.exports = IndexListTableFive;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "IndexListTableFive.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1387 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	__webpack_require__(772);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Immutable = __webpack_require__(718);
+	//指数列表 第四个表格
+	var IndexListTableSix = _react2.default.createClass({
+	  displayName: 'IndexListTableSix',
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      indexCmpData: {}
+	    };
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    console.log(nextProps, 'nextProps');
+	    var isEqual = Immutable.is(nextProps.indexCmpData, this.props.indexCmpData); //判断数据是否变化
+	    if (!isEqual) {
+	      var indexCmpData = nextProps.indexCmpData;
+	      this.setState({ indexCmpData: indexCmpData });
+	    }
+	  },
+	  render: function render() {
+	    var current = this.state.indexCmpData ? this.state.indexCmpData.current : ""; //获取当前时间
+	    var compare = this.state.indexCmpData ? this.state.indexCmpData.compare : ""; //获取对比时间
+	    var dynamicRisk = this.state.indexCmpData ? this.state.indexCmpData.dynamicRisk : null;
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'index-list-table' },
+	      _react2.default.createElement(
+	        'table',
+	        { className: 'mt-table mt-table-center wtyh-table' },
+	        _react2.default.createElement(
+	          'tbody',
+	          null,
+	          _react2.default.createElement(
+	            'tr',
+	            null,
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              '风险类型'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              '特征指标'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              current
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              compare
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'tr',
+	            null,
+	            _react2.default.createElement(
+	              'td',
+	              { rowSpan: '3' },
+	              '非法集资违规风险'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              '投资类，咨询类，贸易类，租赁类，保理类公司数量'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              dynamicRisk ? dynamicRisk.curTypeSumNum : ""
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              dynamicRisk ? dynamicRisk.cprTypeSumProp : ""
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'tr',
+	            null,
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              '公司明细'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              dynamicRisk ? dynamicRisk.curCompanyDetail.map(function (elem, index) {
+	                return _react2.default.createElement(
+	                  'span',
+	                  null,
+	                  elem.ucd
+	                );
+	              }) : ""
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              dynamicRisk ? dynamicRisk.cprCompanyDetail.map(function (elem, index) {
+	                return _react2.default.createElement(
+	                  'span',
+	                  null,
+	                  elem.pcd
+	                );
+	              }) : ""
+	            )
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	module.exports = IndexListTableSix;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "IndexListTableSix.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1388 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	__webpack_require__(772);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Immutable = __webpack_require__(718);
+	//指数列表 第四个表格
+	var IndexListTableSeven = _react2.default.createClass({
+	  displayName: 'IndexListTableSeven',
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      indexCmpData: {}
+	    };
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    console.log(nextProps, 'nextProps');
+	    var isEqual = Immutable.is(nextProps.indexCmpData, this.props.indexCmpData); //判断数据是否变化
+	    if (!isEqual) {
+	      var indexCmpData = nextProps.indexCmpData;
+	      this.setState({ indexCmpData: indexCmpData });
+	    }
+	  },
+	  render: function render() {
+	    var current = this.state.indexCmpData ? this.state.indexCmpData.current : ""; //获取当前时间
+	    var compare = this.state.indexCmpData ? this.state.indexCmpData.compare : ""; //获取对比时间
+	    var dynamicRisk = this.state.indexCmpData ? this.state.indexCmpData.dynamicRisk : null;
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'index-list-table' },
+	      _react2.default.createElement(
+	        'table',
+	        { className: 'mt-table mt-table-center wtyh-table' },
+	        _react2.default.createElement(
+	          'tbody',
+	          null,
+	          _react2.default.createElement(
+	            'tr',
+	            null,
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              '风险类型'
+	            ),
+	            _react2.default.createElement('td', null),
+	            _react2.default.createElement(
+	              'td',
+	              { colSpan: '2' },
+	              current
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              { colSpan: '2' },
+	              compare
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'tr',
+	            null,
+	            _react2.default.createElement(
+	              'td',
+	              { rowSpan: '5' },
+	              '跨区域舞弊风险'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              '地域积聚化排名'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              '地域'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              '法人数量'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              '地域'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              '法人数量'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'tr',
+	            null,
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              '1'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              { rowSpan: '4' },
+	              dynamicRisk ? dynamicRisk.curAreaList.map(function (elem, index) {
+	                return _react2.default.createElement(
+	                  'span',
+	                  null,
+	                  elem.ual
+	                );
+	              }) : ""
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              { rowSpan: '4' },
+	              dynamicRisk ? dynamicRisk.curAreaCompanyNum.map(function (elem, index) {
+	                return _react2.default.createElement(
+	                  'span',
+	                  null,
+	                  elem.ucn
+	                );
+	              }) : ""
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              { rowSpan: '4' },
+	              dynamicRisk ? dynamicRisk.cprAreaList.map(function (elem, index) {
+	                return _react2.default.createElement(
+	                  'span',
+	                  null,
+	                  elem.pal
+	                );
+	              }) : ""
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              { rowSpan: '4' },
+	              dynamicRisk ? dynamicRisk.cprAreaCompanyNum.map(function (elem, index) {
+	                return _react2.default.createElement(
+	                  'span',
+	                  null,
+	                  elem.pcn
+	                );
+	              }) : ""
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'tr',
+	            null,
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              '2'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'tr',
+	            null,
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              '3'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'tr',
+	            null,
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              '4'
+	            )
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	module.exports = IndexListTableSeven;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "IndexListTableSeven.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1389 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = dynamicRiskImg;
+
+	var _LineFinanceDynamicRiskAction = __webpack_require__(774);
+
+	function dynamicRiskImg() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _LineFinanceDynamicRiskAction.DYNAMIC_RISK_COMPANY_TAG_SUCCESS:
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _LineFinanceDynamicRiskAction.DYNAMIC_RISK_COMPANY_TAG_FAIL:
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	} /*
+	  * 动态风险获取时间 reducer
+	  * */
+	//获取图片
+	;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "DynamicRiskCompanyTag.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1390 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = dynamicRiskImg;
+
+	var _LineFinanceDynamicRiskAction = __webpack_require__(774);
+
+	function dynamicRiskImg() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _LineFinanceDynamicRiskAction.DYNAMIC_RISK_IMG_SUCCESS:
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _LineFinanceDynamicRiskAction.DYNAMIC_RISK_IMG_FAIL:
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	} /*
+	  * 动态风险获取时间 reducer
+	  * */
+	//获取图片
+	;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "DynamicRiskImg.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1391 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = dynamicRiskIndexCmp;
+
+	var _LineFinanceDynamicRiskAction = __webpack_require__(774);
+
+	function dynamicRiskIndexCmp() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _LineFinanceDynamicRiskAction.DYNAMIC_RISK_INDEX_CMP_SUCCESS:
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _LineFinanceDynamicRiskAction.DYNAMIC_RISK_INDEX_CMP_FAIL:
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	} /*
+	  * 动态风险获取时间 reducer
+	  * */
+	//获取图片
+	;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "DynamicRiskIndexCmp.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ }
