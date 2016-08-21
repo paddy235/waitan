@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.PlatformNameInformationMapper">
+
+    <select id="hasOrNotCompany" resultType="com.bbd.wtyh.domain.PlatformNameInformationDO">
+			select platform_name_information.company_id AS companyId, platform_name_information.platform_name AS platformName, company.name
+			from platform_name_information
+			left join company
+			on company.company_id = platform_name_information.company_id
+			where platform_name_information.platform_name = #{plat_name};
+	</select>
+
+</mapper>

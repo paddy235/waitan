@@ -53,7 +53,7 @@
 			company_type = 13
 			and registered_date is not null
 		ORDER BY
-		YEAR ASC
+		YEAR DESC
 	</select>
 
 	<select id="queryLeaseCompanyList" parameterType="java.util.Map" resultType="com.bbd.wtyh.domain.vo.FinanceLeaseVO">

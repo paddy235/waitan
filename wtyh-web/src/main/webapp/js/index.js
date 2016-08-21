@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "0bb1ed8beb4e50a9e750"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "c862e9a6335cb81d30fd"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -83431,6 +83431,7 @@
 	        }
 	        this.setState({ consensu: results });
 	    },
+
 	    getParkNews: function getParkNews(menuParkSelectVal) {
 	        var getParkNews = this.props.getParkNews;
 
