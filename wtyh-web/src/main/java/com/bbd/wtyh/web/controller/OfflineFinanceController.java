@@ -1,10 +1,17 @@
 package com.bbd.wtyh.web.controller;
 
 import com.bbd.wtyh.common.Constants;
+import com.bbd.wtyh.domain.CapitalAmountDO;
+import com.bbd.wtyh.domain.MortgageStatisticDO;
+import com.bbd.wtyh.domain.dto.IndustryShanghaiDTO;
+import com.bbd.wtyh.domain.dto.LoanBalanceDTO;
 import com.bbd.wtyh.domain.vo.*;
-import com.bbd.wtyh.service.OfflineFinanceService;
-import com.bbd.wtyh.service.RelationDataService;
+import com.bbd.wtyh.service.*;
+import com.bbd.wtyh.util.CalculateUtils;
+import com.bbd.wtyh.web.HistogramBean;
 import com.bbd.wtyh.web.ResponseBean;
+import com.bbd.wtyh.web.XAxisSeriesBarLineBean;
+import com.bbd.wtyh.web.XAxisSeriesLinesBean;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 线下理财
@@ -40,7 +44,28 @@ public class OfflineFinanceController {
     private OfflineFinanceService offlineFinanceService;
     @Autowired
     private RelationDataService relationDataService;
-
+    @Autowired
+    private PToPMonitorService pToPMonitorService;
+    @Autowired
+    private PToPMonitorController pToPMonitorController;
+    @Autowired
+    private LoanController loanController;
+    @Autowired
+    private MortgageController mortgageController;
+    @Autowired
+    private FactoringService factoringService;
+    @Autowired
+    private CrowdFundingController crowdFundingController;
+    @Autowired
+    private PrepaidCompanyController prepaidCompanyController;
+    @Autowired
+    private FinanceLeaseController financeLeaseController;
+    @Autowired
+    private PrivateFundService privateFundService;
+    @Autowired
+    private ExchangeCompanyService exchangeCompanyService;
+    @Autowired
+    private MortgageService mortgageService;
 
     /**
      * 关联图谱
@@ -114,7 +139,8 @@ public class OfflineFinanceController {
         if (StringUtils.isEmpty(month)) {
             return ResponseBean.errorResponse("month参数为空");
         }
-        month = month.replace("-", "");
+        month = getDataVersionString(companyName, month);
+
         try {
             return ResponseBean.successResponse(offlineFinanceService.createYED(companyName, month));
         } catch (Exception e) {
@@ -315,4 +341,103 @@ public class OfflineFinanceController {
         return dataVersion;
     }
 
+
+    /**
+     * 行业监测
+     *
+     * @return
+     */
+    @RequestMapping("businessChartShow.do")
+    @ResponseBody
+    public ResponseBean businessChartShow() {
+        //小贷
+        ResponseBean loanResponseBean = loanController.balance();
+        List<LoanBalanceDTO> loanBalanceResult = (List<LoanBalanceDTO>)loanResponseBean.getContent();
+
+        @SuppressWarnings("unchecked")
+        XAxisSeriesLinesBean<String,String> loanDTO = new XAxisSeriesLinesBean<>(
+                new ArrayList<String>(),
+                new ArrayList<String>());
+
+        for (LoanBalanceDTO loanBalanceDTO : loanBalanceResult) {
+            loanDTO.getxAxis().add(loanBalanceDTO.getYear().toString());
+            loanDTO.getSeries()[0].add(loanBalanceDTO.getAmount().toString());
+            loanDTO.getSeries()[1].add(String.valueOf(CalculateUtils.divide(loanBalanceDTO.getAmount(), loanBalanceDTO.getCompanyAmount(), 2)));
+        }
+
+        //私募
+        List<CapitalAmountDO> capitalAmountList = privateFundService.capitalAmount();
+        @SuppressWarnings("unchecked")
+        XAxisSeriesLinesBean<String,String> privateDTO = new XAxisSeriesLinesBean<>(
+                new ArrayList<String>(),
+                new ArrayList<String>());
+
+        for (CapitalAmountDO capitalAmountDO : capitalAmountList) {
+            privateDTO.getxAxis().add(privateFundService.getTypeById(capitalAmountDO.getTypeId()).getTypeName());
+            privateDTO.getSeries()[0].add(capitalAmountDO.getManagedCapitalAmount().toString());
+            privateDTO.getSeries()[1].add(capitalAmountDO.getPublishCompanyNumber().toString());
+        }
+        //p2p
+        XAxisSeriesBarLineBean<Integer,String> pToPMonitorResponseBean = new XAxisSeriesBarLineBean<>();
+        try {
+            List<IndustryShanghaiDTO> list = pToPMonitorService.getData();
+            pToPMonitorResponseBean = pToPMonitorController.newlyPlat(list);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //融资租赁
+        ResponseBean financeLeaseResponseBean = financeLeaseController.leaseCompanyStatistic();
+        //交易场所分类
+        List<Map> exchangeCompanyData = exchangeCompanyService.exchangeCompanyCategory();
+        HistogramBean<String,String> exchangeCompanyBean = new HistogramBean<>();
+
+        for (Map map : exchangeCompanyData) {
+            exchangeCompanyBean.getxAxis().add(map.keySet().iterator().next().toString());
+            exchangeCompanyBean.getseries().add(map.values().iterator().next().toString());
+        }
+        //众筹平台
+        ResponseBean crowdFundingResponseBean = crowdFundingController.newlyProject();
+        //典当
+        ResponseBean mortgageResponseBean = mortgageController.statisticList();
+        List<MortgageStatisticDO> mortgageList = mortgageService.getMortgageStatisticList();
+        @SuppressWarnings("unchecked")
+        XAxisSeriesLinesBean<String,String> mortgageDTO = new XAxisSeriesLinesBean<>(
+                new ArrayList<String>(),
+                new ArrayList<String>());
+        if (!CollectionUtils.isEmpty(mortgageList)) {
+            for (MortgageStatisticDO mortgageStatisticDO : mortgageList) {
+                mortgageDTO.getxAxis().add(mortgageStatisticDO.getYear().toString());
+                mortgageDTO.getSeries()[0].add(mortgageStatisticDO.getNumber().toString());
+                mortgageDTO.getSeries()[1].add(mortgageStatisticDO.getTotalAmout().toString());
+            }
+        }
+        //商业保理
+//        List<CommercialFactoringStatisticDO> facList = factoringService.companyCountByYear();
+        @SuppressWarnings("unchecked")
+//        XAxisSeriesLinesBean<Integer,Integer> dto = new XAxisSeriesLinesBean<>(
+//                new ArrayList<Integer>(),
+//                new ArrayList<Integer>());
+//
+//        if (!CollectionUtils.isEmpty(facList)) {
+//            for (CommercialFactoringStatisticDO bean : facList) {
+//                dto.getxAxis().add(bean.getYear());
+//                dto.getSeries()[0].add(bean.getCompanyNumber());
+//                dto.getSeries()[1].add(bean.getTotalAmout());
+//            }
+//        }
+                //预付卡
+                ResponseBean prepaidCompanyResponseBean = prepaidCompanyController.amount();
+        Map result = new LinkedHashMap();
+        result.put("loan", loanDTO);
+        result.put("private", privateDTO);
+        result.put("p2p", pToPMonitorResponseBean);
+        result.put("finance", financeLeaseResponseBean.getContent());
+        result.put("exchange", exchangeCompanyBean);
+        result.put("crowd", crowdFundingResponseBean.getContent());
+        result.put("mortgage", mortgageDTO);
+//        result.put("factoring", dto);
+        result.put("factoring", "");
+        result.put("prepaid", prepaidCompanyResponseBean.getContent());
+        return ResponseBean.successResponse(result);
+    }
 }

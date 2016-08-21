@@ -18,7 +18,7 @@ public class SyncDataInformationDO extends BaseDO {
      */
     private Integer type;//数据类型
     private String dataVersion; //数据版本
-    private String receiveDate;//推送时间
+    private Date receiveDate;//推送时间
     private Integer status;//同步状态1:已同步0:未同步
 
     @Override
@@ -55,11 +55,11 @@ public class SyncDataInformationDO extends BaseDO {
         this.dataVersion = dataVersion;
     }
 
-    public String getReceiveDate() {
+    public Date getReceiveDate() {
         return receiveDate;
     }
 
-    public void setReceiveDate(String receiveDate) {
+    public void setReceiveDate(Date receiveDate) {
         this.receiveDate = receiveDate;
     }
 
