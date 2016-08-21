@@ -193,7 +193,7 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
                     resultList.add(financeLeasecCompanyVO);
                 } else if (analysisResult == 0 && "正常".equals(riskStatus)) {
                     resultList.add(financeLeasecCompanyVO);
-                } else if (analysisResult == 1 && "潜在".equals(riskStatus)){
+                } else if (analysisResult == 1 && "潜在".equals(riskStatus)) {
                     resultList.add(financeLeasecCompanyVO);
                 }
             }
