@@ -21,8 +21,8 @@
     </resultMap>
     
     
-    <select id="companyCountByYear" resultMap="BaseResultMap" >
-    	select * from commercial_factoring_statistic order by year asc ;
+    <select id="companyCountByYear" resultType="com.bbd.wtyh.domain.CommercialFactoringStatisticDO" >
+    	SELECT cyear year , count(1) companyNumber from (select YEAR(c.registered_date) cyear from company c where c.company_type=10 ) b  group by b.cyear;
     </select>
     
     
@@ -54,7 +54,11 @@
 	    	(
 				select CONCAT(YEAR(c.registered_date),'Q',quarter( c.registered_date )) season , 
 				       c.registered_capital , if( c.registered_capital_type=2 ,6.3,1 ) ctype
-				from company c where c.company_type=10
+				from company c
+				where c.company_type=10
+				      and c.registered_date is not null
+				      and c.registered_capital is not null
+
 			) b 
 		GROUP BY b.season ORDER BY season 
     </select>
