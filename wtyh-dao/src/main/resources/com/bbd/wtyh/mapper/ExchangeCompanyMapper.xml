@@ -38,8 +38,11 @@
 		FROM
 			exchange_company ec
 		LEFT JOIN company c ON ec.company_id = c.company_id
-		WHERE
-			ec.`status` = 4
+		<where>
+			<if test="status > 0">
+				ec.`status` = #{status}
+			</if>
+		</where>
 	</select>
 
 	<select id="queryExchangeCompanyListByAreaId" parameterType="java.util.Map" resultType="com.bbd.wtyh.domain.CompanyDO">
