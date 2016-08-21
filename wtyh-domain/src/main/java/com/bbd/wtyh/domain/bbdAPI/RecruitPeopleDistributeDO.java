@@ -13,10 +13,10 @@ public class RecruitPeopleDistributeDO {
     private List<Rdata> rdata;
 
     public class Rdata {
-        @JSONField(name = "x_value")
+        @JSONField(name = "x_unit")
         private String name;
 
-        @JSONField(name = "x_unit")
+        @JSONField(name = "x_value")
         private String value;
 
         public String getName() {
