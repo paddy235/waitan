@@ -176,17 +176,4 @@ public class P2PImageController {
         return ResponseBean.successResponse(content);
     }
 
-    /**
-     * 关联方图谱
-     *
-     * @return
-     */
-    @RequestMapping("/relativeChart")
-    @ResponseBody
-    public ResponseBean relativeChart() {
-        // TODO
-//        List<List<String>> data = p2PImageService.coreDataDealTrend();
-//        return ResponseBean.successResponse(data);
-        return null;
-    }
 }
