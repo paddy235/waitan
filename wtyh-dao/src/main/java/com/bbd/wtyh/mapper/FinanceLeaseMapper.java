@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public interface FinanceLeaseMapper {
 
@@ -14,4 +15,6 @@ public interface FinanceLeaseMapper {
     public List<Map> queryFinanceLeaseCompanyCategory(@Param("year") Integer year);
 
     public List<FinanceLeaseVO> queryLeaseCompanyList(Map map);
+
+    List<String> getYears();
 }

@@ -10,13 +10,8 @@ public class FinanceLeaseVO implements Serializable {
 
 	private String companyName;// 公司或自然人名称
 	private String address;//
-	private String status;//
-	private Integer riskStatus;
-	private Integer riskStatusA;//
-	private Integer riskStatusB;//
-	private Integer riskStatusC;//
-	private Integer riskStatusD;//
-
+	private Integer riskType;
+	private Integer riskStatus;//
 
 
 	public String getCompanyName() {
@@ -35,12 +30,12 @@ public class FinanceLeaseVO implements Serializable {
 		this.address = address;
 	}
 
-	public String getStatus() {
-		return status;
+	public Integer getRiskType() {
+		return riskType;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setRiskType(Integer riskType) {
+		this.riskType = riskType;
 	}
 
 	public Integer getRiskStatus() {
@@ -49,37 +44,5 @@ public class FinanceLeaseVO implements Serializable {
 
 	public void setRiskStatus(Integer riskStatus) {
 		this.riskStatus = riskStatus;
-	}
-
-	public Integer getRiskStatusA() {
-		return riskStatusA;
-	}
-
-	public void setRiskStatusA(Integer riskStatusA) {
-		this.riskStatusA = riskStatusA;
-	}
-
-	public Integer getRiskStatusB() {
-		return riskStatusB;
-	}
-
-	public void setRiskStatusB(Integer riskStatusB) {
-		this.riskStatusB = riskStatusB;
-	}
-
-	public Integer getRiskStatusC() {
-		return riskStatusC;
-	}
-
-	public void setRiskStatusC(Integer riskStatusC) {
-		this.riskStatusC = riskStatusC;
-	}
-
-	public Integer getRiskStatusD() {
-		return riskStatusD;
-	}
-
-	public void setRiskStatusD(Integer riskStatusD) {
-		this.riskStatusD = riskStatusD;
 	}
 }

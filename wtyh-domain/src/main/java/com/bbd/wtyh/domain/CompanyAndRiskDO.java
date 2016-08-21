@@ -22,10 +22,17 @@ public class CompanyAndRiskDO {
 	
 	private String anaResultCN;
 
-	
-	
+	private Integer registeredCapital;
 
-	
+
+	public Integer getRegisteredCapital() {
+		return registeredCapital;
+	}
+
+	public void setRegisteredCapital(Integer registeredCapital) {
+		this.registeredCapital = registeredCapital;
+	}
+
 	public String getIsForeign() {
 		return isForeign;
 	}
