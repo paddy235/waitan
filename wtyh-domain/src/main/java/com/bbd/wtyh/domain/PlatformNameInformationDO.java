@@ -19,6 +19,15 @@ package com.bbd.wtyh.domain;
 public class PlatformNameInformationDO extends BaseDO{
 	private Integer companyId;
 	private String platformName;
+	private String name;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public Integer getCompanyId() {
 		return companyId;

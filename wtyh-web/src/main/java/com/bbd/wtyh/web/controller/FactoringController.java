@@ -36,10 +36,7 @@ public class FactoringController {
 	@Autowired
 	private FactoringService facSer;
 	
-	private AtomicInteger a = new AtomicInteger();
 
-
-	
 	/**
 	* 在沪商业保理企业数量
 	* @return Object
