@@ -41,6 +41,8 @@ public class P2PImageDaoImpl implements P2PImageDao {
     @Value("${api.bbdZuzhiJiGoudm.ak}")
     private String zuZhiJiGouAK;
 
+
+
     @Override
     public YuQingDO platformConsensus(String platName) {
         String yuqingURL = url + "?dataType=yuqing" + "&plat_name=" + platName;
@@ -304,6 +306,11 @@ public class P2PImageDaoImpl implements P2PImageDao {
 
     @Override
     public SearchCompanyDO hasOrNotCompany(String plat_name) {
+        return null;
+
+    }
+
+    public SearchCompanyDO hasOrNotCompanyBackup(String plat_name) {
 
         String api = url + "?dataType=plat_list" + "&plat_name=" + plat_name;
         HttpTemplate httpTemplate = new HttpTemplate();
