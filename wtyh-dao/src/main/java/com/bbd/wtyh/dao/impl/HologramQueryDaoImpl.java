@@ -289,19 +289,19 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      * @return
      */
     @Override
-    public CourtAnnouncementDO openCourtAnnouncement(String company) {
+    public OpenCourtAnnouncementDO openCourtAnnouncement(String company) {
         String api = openCourtAnnouncementURL + "?company=" + company + "&ak=" + openCourtAnnouncementAK;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
-            return httpTemplate.get(api, new HttpCallback<CourtAnnouncementDO>() {
+            return httpTemplate.get(api, new HttpCallback<OpenCourtAnnouncementDO>() {
                 @Override
                 public boolean valid() {
                     return true;
                 }
 
                 @Override
-                public CourtAnnouncementDO parse(String result) {
-                    return JSON.parseObject(result, CourtAnnouncementDO.class);
+                public OpenCourtAnnouncementDO parse(String result) {
+                    return JSON.parseObject(result, OpenCourtAnnouncementDO.class);
                 }
             });
         } catch (Exception e) {
