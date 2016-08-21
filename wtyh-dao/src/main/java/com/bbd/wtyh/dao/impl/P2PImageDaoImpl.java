@@ -5,13 +5,16 @@ import com.alibaba.fastjson.JSONObject;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.dao.P2PImageDao;
+import com.bbd.wtyh.domain.PlatformNameInformationDO;
 import com.bbd.wtyh.domain.bbdAPI.BBDLogoDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompanyDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
+import com.bbd.wtyh.mapper.PlatformNameInformationMapper;
 import com.google.gson.Gson;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -41,7 +44,8 @@ public class P2PImageDaoImpl implements P2PImageDao {
     @Value("${api.bbdZuzhiJiGoudm.ak}")
     private String zuZhiJiGouAK;
 
-
+    @Autowired
+    private PlatformNameInformationMapper platformNameInformationMapper;
 
     @Override
     public YuQingDO platformConsensus(String platName) {
@@ -305,8 +309,8 @@ public class P2PImageDaoImpl implements P2PImageDao {
     }
 
     @Override
-    public SearchCompanyDO hasOrNotCompany(String plat_name) {
-        return null;
+    public PlatformNameInformationDO hasOrNotCompany(String platName) {
+        return platformNameInformationMapper.hasOrNotCompany(platName);
 
     }
 
