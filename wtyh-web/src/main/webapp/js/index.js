@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "3f628505821fec4cd007"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "d4da74199e255e331c01"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -59591,7 +59591,7 @@
 	      _react2.default.createElement(
 	        'h4',
 	        null,
-	        '线下理财分布'
+	        '线下理财分布sss'
 	      ),
 	      _react2.default.createElement(
 	        'div',
@@ -60843,12 +60843,8 @@
 	//静态风险指数
 	var LineFinanceStaticRisk = _react2.default.createClass({
 	  displayName: 'LineFinanceStaticRisk',
-	  componentWillMount: function componentWillMount() {
-	    var queryDynamicPic = this.props.queryDynamicPic;
 
-	    queryDynamicPic({ "companyName": companyName });
-	  },
-
+	  componentWillMount: function componentWillMount() {},
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {},
 	  render: function render() {
 	    return _react2.default.createElement(
@@ -61178,7 +61174,7 @@
 	        });
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var isEqual = Immutable.is(nextProps.dynamicPicRequest, this.props.dynamicPicResult);
+	        var isEqual = Immutable.is(nextProps.dynamicPicResult, this.props.dynamicPicResult);
 	        if (!isEqual) {
 	            (function () {
 	                var dynamicPicRequest = nextProps.dynamicPicRequest;
@@ -61241,7 +61237,7 @@
 	                                };
 	                            }
 	                        }
-
+	                        console.log(dynamicPicResult, "dynamicPicResult=============================");
 	                        main.reDrawCanvas();
 	                    });
 	                }
@@ -63148,7 +63144,7 @@
 	  return function (dispatch) {
 	    console.log(json);
 	    $.ajax({
-	      url: " /offlineFinance/queryDynamicPicData.do",
+	      url: "/queryDynamicPicData.do", //"/offlineFinance/queryDynamicPicData.do",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
@@ -72879,7 +72875,7 @@
 	        });
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var isEqual = Immutable.is(nextProps.areaRankingRequest, this.props.areaRankingResult);
+	        var isEqual = Immutable.is(nextProps.areaRankingResult, this.props.areaRankingResult);
 	        if (!isEqual) {
 	            var areaRankingRequest = nextProps.areaRankingRequest;
 	            var areaRankingResult = nextProps.areaRankingResult;
@@ -73571,6 +73567,15 @@
 	    value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; //基本信息
+	//公司基本信息
+	//核心数据
+	//诉讼信息
+	//平台舆情
+	//动态图谱
+	//评分雷达图
+
+
 	__webpack_require__(812);
 
 	var _react = __webpack_require__(138);
@@ -73626,9 +73631,6 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	//p2p平台画像
-	//动态图谱
-	//诉讼信息
-	//公司基本信息
 	var P2PPortrait = _react2.default.createClass({
 	    displayName: 'P2PPortrait',
 
@@ -73719,7 +73721,7 @@
 	                    _react2.default.createElement(
 	                        'div',
 	                        { className: 'portrait-left' },
-	                        _react2.default.createElement(_companyMsg2.default, this.props),
+	                        _react2.default.createElement(_companyMsg2.default, _extends({}, this.props, { data: this.state.companyName })),
 	                        _react2.default.createElement(_baseMsg2.default, this.props),
 	                        _react2.default.createElement(_rankPic2.default, this.props)
 	                    ),
@@ -73743,10 +73745,6 @@
 	// module.exports = P2PPortrait;
 
 	//将 request  result 绑定到props的request result 
-	//评分雷达图
-	//平台舆情
-	//核心数据
-	//基本信息
 	function mapStateToProps(state) {
 	    return {
 	        baseMsgRequest: state.BaseMsg.request,
@@ -73830,7 +73828,7 @@
 	        getbaseMsgRequest({ "platName": this.state.companyVal });
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var isEqual = Immutable.is(nextProps.baseMsgRequest, this.props.baseMsgResult);
+	        var isEqual = Immutable.is(nextProps.baseMsgResult, this.props.baseMsgResult);
 	        if (!isEqual) {
 	            var baseMsgRequest = nextProps.baseMsgRequest;
 	            var baseMsgResult = nextProps.baseMsgResult;
@@ -74091,7 +74089,8 @@
 	    getcompanyMsgRequest({ "platName": this.state.companyVal });
 	  },
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    var isEqual = Immutable.is(nextProps.companyMsgRequest, this.props.companyMsgResult);
+	    console.log(nextProps, "nextProps================================");
+	    var isEqual = Immutable.is(nextProps.companyMsgResult, this.props.companyMsgResult);
 	    if (!isEqual) {
 	      var companyMsgRequest = nextProps.companyMsgRequest;
 	      var companyMsgResult = nextProps.companyMsgResult;
@@ -74215,7 +74214,7 @@
 	        getCoreBalanceDataRequest({ "platName": this.state.companyVal });
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var isEqual = Immutable.is(nextProps.coreDataRequest, this.props.coreDataResult);
+	        var isEqual = Immutable.is(nextProps.coreDataResult, this.props.coreDataResult);
 	        if (!isEqual) {
 	            var coreDataRequest = nextProps.coreDataRequest;
 	            var coreDataResult = nextProps.coreDataResult;
@@ -74683,7 +74682,7 @@
 			getlitigationRequest({ "platName": this.state.companyVal });
 		},
 		componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-			var isEqual = Immutable.is(nextProps.litigationRequest, this.props.litigationResult);
+			var isEqual = Immutable.is(nextProps.litigationResult, this.props.litigationResult);
 			if (!isEqual) {
 				var litigationRequest = nextProps.litigationRequest;
 				var litigationResult = nextProps.litigationResult;
@@ -74799,7 +74798,7 @@
 									getpublicOpinionRequest({ "platName": this.state.companyVal });
 					},
 					componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-									var isEqual = Immutable.is(nextProps.publicOpinionRequest, this.props.publicOpinionResult);
+									var isEqual = Immutable.is(nextProps.publicOpinionResult, this.props.publicOpinionResult);
 									if (!isEqual) {
 													var publicOpinionRequest = nextProps.publicOpinionRequest;
 													var publicOpinionResult = nextProps.publicOpinionResult;
@@ -74944,8 +74943,7 @@
 	        });
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        // console.log(nextProps,"nextProps================================")
-	        var isEqual = Immutable.is(nextProps.rankPicRequest, this.props.rankPicResult);
+	        var isEqual = Immutable.is(nextProps.rankPicResult, this.props.rankPicResult);
 	        if (!isEqual) {
 	            (function () {
 	                var rankPicRequest = nextProps.rankPicRequest;
@@ -75250,7 +75248,7 @@
 			getscoreLeidaRequest({ "platName": this.state.companyVal });
 		},
 		componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-			var isEqual = Immutable.is(nextProps.scoreLeidaRequest, this.props.scoreLeidaResult);
+			var isEqual = Immutable.is(nextProps.scoreLeidaResult, this.props.scoreLeidaResult);
 			if (!isEqual) {
 				var scoreLeidaRequest = nextProps.scoreLeidaRequest;
 				var scoreLeidaResult = nextProps.scoreLeidaResult;
@@ -76140,7 +76138,7 @@
 	        getbusinessRequest(jsonData);
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var isEqual = Immutable.is(nextProps.businessTypesRequest, this.props.businessTypesResult);
+	        var isEqual = Immutable.is(nextProps.businessTypesResult, this.props.businessTypesResult);
 	        if (!isEqual) {
 	            var businessTypesRequest = nextProps.businessTypesRequest;
 	            var businessTypesResult = nextProps.businessTypesResult;
@@ -76282,7 +76280,7 @@
 	        getinvestPeopleRequest(jsonData);
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var isEqual = Immutable.is(nextProps.investPeopleRequest, this.props.investPeopleResult);
+	        var isEqual = Immutable.is(nextProps.investPeopleResult, this.props.investPeopleResult);
 	        if (!isEqual) {
 	            var investPeopleRequest = nextProps.investPeopleRequest;
 	            var investPeopleResult = nextProps.investPeopleResult;
@@ -76393,7 +76391,7 @@
 	        getnewProjectRequest(jsonData);
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var isEqual = Immutable.is(nextProps.newProjectRequest, this.props.newProjectResult);
+	        var isEqual = Immutable.is(nextProps.newProjectResult, this.props.newProjectResult);
 	        if (!isEqual) {
 	            var newProjectRequest = nextProps.newProjectRequest;
 	            var newProjectResult = nextProps.newProjectResult;
@@ -76503,7 +76501,7 @@
 	        getraiseMountRunRequest(jsonData);
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var isEqual = Immutable.is(nextProps.raiseMountRunRequest, this.props.raiseMountResult);
+	        var isEqual = Immutable.is(nextProps.raiseMountResult, this.props.raiseMountResult);
 	        if (!isEqual) {
 	            var raiseMountRunRequest = nextProps.raiseMountRunRequest;
 	            var raiseMountResult = nextProps.raiseMountResult;
@@ -78463,7 +78461,7 @@
 	        setPieCounty(jsonData);
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var isEqual = Immutable.is(nextProps.regionalDisRequest, this.props.regionalDisResult);
+	        var isEqual = Immutable.is(nextProps.regionalDisResult, this.props.regionalDisResult);
 	        if (!isEqual) {
 	            var regionalDisRequest = nextProps.regionalDisRequest;
 	            var regionalDisResult = nextProps.regionalDisResult;
@@ -78627,7 +78625,7 @@
 	        setBarName(jsonData);
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var isEqual = Immutable.is(nextProps.classificationRequest, this.props.classificationResult);
+	        var isEqual = Immutable.is(nextProps.classificationResult, this.props.classificationResult);
 	        if (!isEqual) {
 	            var classificationRequest = nextProps.classificationRequest;
 	            var classificationResult = nextProps.classificationResult;
@@ -78780,7 +78778,7 @@
 	            this.countyChange(nextProps.pieCounty.areaName, "", "");
 	        }
 
-	        var isEqual = Immutable.is(nextProps.HPQListRequest, this.props.HPQListResult);
+	        var isEqual = Immutable.is(nextProps.HPQListResult, this.props.HPQListResult);
 	        if (!isEqual) {
 	            var HPQListRequest = nextProps.HPQListRequest;
 	            var HPQListResult = nextProps.HPQListResult;
@@ -79015,7 +79013,7 @@
 	            this.countyChange(nextProps.barName.statusName);
 	        }
 
-	        var isEqual = Immutable.is(nextProps.detailListRequest, this.props.detailListResult);
+	        var isEqual = Immutable.is(nextProps.detailListResult, this.props.detailListResult);
 	        if (!isEqual) {
 	            var detailListRequest = nextProps.detailListRequest;
 	            var detailListResult = nextProps.detailListResult;
@@ -83390,7 +83388,7 @@
 
 
 	// module
-	exports.push([module.id, "/*@parkMonitor jifei  图片\r\n---------------------------------------------------------*/\r\n.Imgs{\r\n\twidth: 100%;\r\n\theight: 770px;\r\n    background: url(\"/images/Bg.png\") no-repeat;\r\n    background-size: 100% 770px;\r\n}\r\n/*@parkMonitor 舆情\r\n---------------------------------------------------------*/\r\n.Consensu{\r\n\twidth: 100%;\r\n\theight: 320px;\r\n\tmargin-top: 10px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n.Consensu h3{\r\n\tpadding: 15px 20px;\r\n\tcolor: #ddd;\r\n}\r\n.Consensu .box{\r\n\twidth: 99%;\r\n    height: 240px;\r\n    overflow: auto;\r\n    padding: 0px 0 0 10px;\r\n    margin-top: 15px;\r\n}\r\n.Consensu .box .list{\r\n\twidth: 98%;\r\n\theight: 115px;\r\n\tborder-bottom: 1px solid #484f59;\t\r\n\tbackground: #1b1f28;\r\n}\r\n.Consensu .box .list:nth-child(even){\r\n\tmargin-top: 10px;\r\n\tmargin-bottom: 10px;\r\n}\r\n.Consensu .box .list ul{\r\n\twidth: 100%;\r\n\theight: 105px;\r\n}\r\n.Consensu .box .list li{\r\n    height: 33px;\r\n    line-height: 50px;\r\n    text-indent: 30px;\r\n    font-size: 14px;\r\n}\r\n.Consensu .box .list li:nth-child(1){\r\n\tfont-size: 14px;\r\n\tcolor: #e34f4b;\r\n\tcursor: pointer;\r\n}\r\n.Consensu .box .list li:nth-child(1) .liLeft{\r\n\tmargin-left: 20px;\r\n}\r\n.Consensu .box .list li:nth-child(2){\r\n\tfont-size: 14px;\r\n    cursor: pointer;\r\n    width: 89%;\r\n    overflow: hidden;\r\n    white-space: nowrap;\r\n    text-overflow: ellipsis;\r\n}\r\n.Consensu .box .list li:nth-child(1) a{\r\n\tcolor: #e34f4b;\r\n}\r\n.Consensu .box .list li:nth-child(3) .liRight{\r\n\tfloat: right;\r\n\tpadding-right: 20px;\r\n\tfont-size: 14px;\r\n\tcolor: #8b8f98;\r\n}\r\n.Consensu .box .list li:nth-child(3) .spanLeft{\r\n\tmargin-right: 20px;\r\n}\r\n/*@parkMonitor 类金融企业集中度\r\n---------------------------------------------------------*/\r\n.Finance{\r\n\twidth: 100%;\r\n\theight: 380px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n.Finance h3{\r\n\tpadding: 15px 20px;\r\n\tcolor: #ddd;\r\n}\r\n.Finance .box{\r\n\twidth: 95%;\r\n    height: 255px;\r\n    //border: 1px solid red;\r\n    margin: 40px auto;\r\n}\r\n.Finance .box .item{\r\n\twidth: 95%;\r\n    height: 254px;\r\n    margin: 0 auto;\r\n    overflow: auto; \r\n}\r\n.Finance .box .item ul li{\r\n\twidth: 30%;\r\n    display: inline-block;\r\n    text-align: center;\r\n    vertical-align: middle;\r\n    margin-left: 10px;\r\n}\r\n.Finance .box .item ul li img{\r\n\tcursor: pointer;\r\n}\r\n.Finance .box .item ul li a span{\r\n\tdisplay: block;\r\n\tcolor: #898f98;\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n}\r\n.Finance .box .item ul li .num-ratio {\r\n\tmargin-top: 10px;\r\n}\r\n.Finance .box .item ul li .num-ratio .num{\r\n\tfont-size: 24px;\r\n\tcolor: #ffffff;\r\n\tdisplay: inline-block;\r\n\tpadding: 0px 10px;\r\n}\r\n.Finance .box .item ul li .num-ratio .ratio{\r\n\tfont-size: 24px;\r\n\tcolor: #e14340;\r\n\tdisplay: inline-block;\r\n\tpadding: 0px 10px;\r\n\tborder-left: solid 1px #48505a;\r\n}\r\n\r\n\r\n\r\n/*@parkMonitor 园区行业分布\r\n---------------------------------------------------------*/\r\n.Park{\r\n\twidth: 100%;\r\n\theight: 380px;\r\n\tmargin-top: 10px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n/*@parkMonitor 在营时间分布\r\n---------------------------------------------------------*/\r\n.TheCamp{\r\n\twidth: 100%;\r\n\theight: 320px;\r\n\tmargin-top: 10px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n   ", ""]);
+	exports.push([module.id, "/*@parkMonitor jifei  图片\r\n---------------------------------------------------------*/\r\n.Imgs{\r\n\twidth: 100%;\r\n\theight: 770px;\r\n    background: url(\"/images/Bg.png\") no-repeat;\r\n    background-size: 100% 770px;\r\n}\r\n/*@parkMonitor 舆情\r\n---------------------------------------------------------*/\r\n.Consensu{\r\n\twidth: 100%;\r\n\theight: 320px;\r\n\tmargin-top: 10px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n.Consensu h3{\r\n\tpadding: 15px 20px;\r\n\tcolor: #ddd;\r\n}\r\n.Consensu .box{\r\n\twidth: 99%;\r\n    height: 240px;\r\n    overflow: auto;\r\n    padding: 0px 0 0 10px;\r\n    margin-top: 15px;\r\n}\r\n.Consensu .box .list{\r\n\twidth: 98%;\r\n\theight: 115px;\r\n\tborder-bottom: 1px solid #484f59;\t\r\n\tbackground: #1b1f28;\r\n}\r\n.Consensu .box .list:nth-child(even){\r\n\tmargin-top: 10px;\r\n\tmargin-bottom: 10px;\r\n}\r\n.Consensu .box .list ul{\r\n\twidth: 100%;\r\n\theight: 105px;\r\n}\r\n.Consensu .box .list li{\r\n    height: 33px;\r\n    line-height: 50px;\r\n    text-indent: 30px;\r\n    font-size: 14px;\r\n}\r\n.Consensu .box .list li:nth-child(1){\r\n\tfont-size: 14px;\r\n\tcolor: #e34f4b;\r\n\tcursor: pointer;\r\n}\r\n.Consensu .box .list li:nth-child(1) .liLeft{\r\n\tmargin-left: 20px;\r\n}\r\n.Consensu .box .list li:nth-child(2){\r\n\tfont-size: 14px;\r\n    cursor: pointer;\r\n    width: 89%;\r\n    overflow: hidden;\r\n    white-space: nowrap;\r\n    text-overflow: ellipsis;\r\n}\r\n.Consensu .box .list li:nth-child(1) a{\r\n\tcolor: #e34f4b;\r\n}\r\n.Consensu .box .list li:nth-child(3) .liRight{\r\n\tfloat: right;\r\n\tpadding-right: 20px;\r\n\tfont-size: 14px;\r\n\tcolor: #8b8f98;\r\n}\r\n.Consensu .box .list li:nth-child(3) .spanLeft{\r\n\tmargin-right: 20px;\r\n}\r\n/*@parkMonitor 类金融企业集中度\r\n---------------------------------------------------------*/\r\n.Finance{\r\n\twidth: 100%;\r\n\theight: 380px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n.Finance h3{\r\n\tpadding: 15px 20px;\r\n\tcolor: #ddd;\r\n}\r\n.Finance .box{\r\n\twidth: 95%;\r\n    height: 255px;\r\n    border: 1px solid #2b323c;\r\n    margin: 40px auto;\r\n}\r\n.Finance .box .item{\r\n\twidth: 95%;\r\n    height: 181px;\r\n    margin: 35px auto;\r\n    overflow: auto; \r\n}\r\n.Finance .box .item ul li{\r\n\twidth: 30%;\r\n    display: inline-block;\r\n    text-align: center;\r\n    vertical-align: middle;\r\n    margin-left: 10px;\r\n}\r\n.Finance .box .item ul li img{\r\n\tcursor: pointer;\r\n}\r\n.Finance .box .item ul li a span{\r\n\tdisplay: block;\r\n\tcolor: #898f98;\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n}\r\n.Finance .box .item ul li .num-ratio {\r\n\tmargin-top: 10px;\r\n}\r\n.Finance .box .item ul li .num-ratio .num{\r\n\tfont-size: 24px;\r\n\tcolor: #ffffff;\r\n\tdisplay: inline-block;\r\n\tpadding: 0px 10px;\r\n}\r\n.Finance .box .item ul li .num-ratio .ratio{\r\n\tfont-size: 24px;\r\n\tcolor: #e14340;\r\n\tdisplay: inline-block;\r\n\tpadding: 0px 10px;\r\n\tborder-left: solid 1px #48505a;\r\n}\r\n\r\n\r\n\r\n/*@parkMonitor 园区行业分布\r\n---------------------------------------------------------*/\r\n.Park{\r\n\twidth: 100%;\r\n\theight: 380px;\r\n\tmargin-top: 10px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n/*@parkMonitor 在营时间分布\r\n---------------------------------------------------------*/\r\n.TheCamp{\r\n\twidth: 100%;\r\n\theight: 320px;\r\n\tmargin-top: 10px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n   ", ""]);
 
 	// exports
 
@@ -84958,7 +84956,7 @@
 	                    { className: 'table-title' },
 	                    _react2.default.createElement(
 	                        'table',
-	                        { className: 'mt-table mt-table-center wtyh-table' },
+	                        { className: 'mt-table mt-table-center wtyh-table mt-mod' },
 	                        _react2.default.createElement(
 	                            'thead',
 	                            null,
@@ -85820,6 +85818,7 @@
 	  },
 	  keySearch: function keySearch(event) {
 	    if (event.which == "13") this.clickSearch();
+	    var value = $(event.target).val();
 	  },
 	  render: function render() {
 	    return _react2.default.createElement(
@@ -86318,7 +86317,7 @@
 	    };
 	}
 
-	//将action的所有方法绑定到props上
+	//将action的所有方法绑定到props上ss
 	function mapDispatchToProps(dispatch) {
 	    return (0, _redux.bindActionCreators)(InfoSearchAction, dispatch);
 	}
@@ -87797,48 +87796,15 @@
 	  displayName: 'Announcement',
 	  getInitialState: function getInitialState() {
 	    return {
-	      content: null
+	      content: []
 	    };
 	  },
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	    var _this = this;
 	    if (nextProps.CompanyInfoC1Request) {
 	      var data = nextProps.CompanyInfoC1Result;
-	      console.log(data, "诉讼记录A");
-	      this.setState({
-	        content: data.content.map(function (itme, index) {
-	          return _react2.default.createElement(
-	            'div',
-	            { className: 'content-content clear-fix', key: index },
-	            _react2.default.createElement(
-	              'div',
-	              null,
-	              '1'
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              null,
-	              '成都市金牛区人民法院'
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              null,
-	              '申请人潘文财依据北京市第二中级人民法院作出的民事判决，向北京市通州区人民法院申请执行，要被执行人中扶建设有限责任公司北京路通同泰建筑分公司（以下简称路通同泰建筑分公司）给付货款、违约金、迟延履行期间的债务利息，共计115万余元。执行法院通过相关查询、现场勘查，发现路通同泰建筑分公司没有能力履行全部债务。'
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              null,
-	              '相关法人'
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              null,
-	              '2016年6月7日'
-	            )
-	          );
-	        })
-
-	      });
+	      console.log(data.content, "诉讼记录A");
+	      this.setState({ content: data.content });
 	    }
 	  },
 	  componentDidMount: function componentDidMount() {
@@ -87850,7 +87816,7 @@
 	    getCompanyInfoC1(jsonData);
 	  },
 	  render: function render() {
-	    console.log(this.props, "props_Announcement");
+	    console.log(this.state.content, '33333333333333');
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'content announcement' },
@@ -87865,25 +87831,66 @@
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          '公告人ss'
+	          '案件内容'
 	        ),
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          '公告内容'
+	          '案由'
 	        ),
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          '公告类型'
+	          '当事人'
 	        ),
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          '公告时间'
+	          '开庭日期'
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          '省份'
 	        )
 	      ),
-	      this.state.content
+	      this.state.content.map(function (item, index) {
+	        console.log(item, index);
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'content-content clear-fix', key: index },
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            item.case_code
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            '无数据'
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            item.action_cause
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            item.litigant
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            item.trial_date
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            '无数据'
+	          )
+	        );
+	      })
 	    );
 	  }
 	});
@@ -87930,34 +87937,34 @@
 	      var data = nextProps.CompanyInfoC2Result;
 	      console.log(data, "诉讼记录B");
 	      this.setState({
-	        content: data.content.map(function (itme, index) {
+	        content: data.content.map(function (item, index) {
 	          return _react2.default.createElement(
 	            'div',
 	            { className: 'content-content clear-fix', key: index },
 	            _react2.default.createElement(
 	              'div',
 	              null,
-	              '1'
+	              item.litigant_type
 	            ),
 	            _react2.default.createElement(
 	              'div',
 	              null,
-	              '冯阳1火与黄志金、中国平安财产保险股份有限公'
+	              item.litigant_type
 	            ),
 	            _react2.default.createElement(
 	              'div',
 	              null,
-	              '机动车交通事故'
+	              item.action_cause
 	            ),
 	            _react2.default.createElement(
 	              'div',
 	              null,
-	              '民事二审案件'
+	              item.case_type
 	            ),
 	            _react2.default.createElement(
 	              'div',
 	              null,
-	              '2015年12月15日'
+	              item.sentence_date
 	            ),
 	            _react2.default.createElement(
 	              'div',
@@ -87967,7 +87974,7 @@
 	            _react2.default.createElement(
 	              'div',
 	              null,
-	              '上诉人 败诉'
+	              item.caseout_come
 	            )
 	          );
 	        })
@@ -88073,39 +88080,39 @@
 				var data = nextProps.CompanyInfoC3Result;
 				console.log(data, "诉讼记录C");
 				this.setState({
-					content: data.content.results.map(function (itme, index) {
+					content: data.content.results.map(function (item, index) {
 						return _react2.default.createElement(
 							'div',
 							{ className: 'content-content clear-fix' },
 							_react2.default.createElement(
 								'div',
 								null,
-								'中国平安财产保险股份有限公司阳泉中心支公司'
+								item.company_name
 							),
 							_react2.default.createElement(
 								'div',
 								null,
-								'41052119801****2519'
+								item.pname_id
 							),
 							_react2.default.createElement(
 								'div',
 								null,
-								'山西省阳曲县人民法院'
+								item.exec_court_name
 							),
 							_react2.default.createElement(
 								'div',
 								null,
-								'2015年12月15日'
+								item.case_create_time
 							),
 							_react2.default.createElement(
 								'div',
 								null,
-								'(2016)阳法晋0122执字第00104号'
+								item.case_code
 							),
 							_react2.default.createElement(
 								'div',
 								null,
-								'20000'
+								item.exec_subject
 							)
 						);
 					})
@@ -88205,30 +88212,31 @@
 			if (nextProps.CompanyInfoC4Request) {
 				var data = nextProps.CompanyInfoC4Result;
 				console.log(data, "诉讼记录D");
+				var nothing = "截止目前,通过中华人民共和国最高人民法院全国法院被执行人信息查询平台，未发现目标公司的失信人执行案件相关情况信息。";
 				this.setState({
-					content: data.content.results.map(function (itme, index) {
+					content: !data.content.results.length ? nothing : data.content.results.map(function (item, index) {
 						return _react2.default.createElement(
 							'div',
 							{ className: 'content-content clear-fix' },
 							_react2.default.createElement(
 								'div',
 								null,
-								'(2015)长法执字第01462号'
+								item.exe_code
 							),
 							_react2.default.createElement(
 								'div',
 								null,
-								'新乡市长垣县法院'
+								item.exec_court_name
 							),
 							_react2.default.createElement(
 								'div',
 								null,
-								'2015长民初字第1304号民事判决书'
+								item.exe_code
 							),
 							_react2.default.createElement(
 								'div',
 								null,
-								' 2016年01月21日'
+								item.case_create_time
 							)
 						);
 					})
@@ -88254,7 +88262,7 @@
 					_react2.default.createElement(
 						'div',
 						null,
-						'案号'
+						'案号1'
 					),
 					_react2.default.createElement(
 						'div',
@@ -88319,29 +88327,29 @@
 				var data = nextProps.CompanyInfoC5Result;
 				console.log(data, "诉讼记录E");
 				this.setState({
-					content: data.content.results.map(function (itme, index) {
+					content: data.content.results.map(function (item, index) {
 						return _react2.default.createElement(
 							'div',
 							{ className: 'content-content clear-fix' },
 							_react2.default.createElement(
 								'div',
 								null,
-								'郴州市北湖区人民法院'
+								item.notice_people
 							),
 							_react2.default.createElement(
 								'div',
 								null,
-								'邓珉、邓光泉：上诉人中国平安财产保险股份有限公司郴州中心支公司就（2015）郴北民二初字第723号民事判决书提起上诉。现依法向你公告送达上诉状副本。自公告之日起经过60日即视为送达。提出答辩状的期限为公告期满后15日内。逾期将依法审理。'
+								item.notice_content
 							),
 							_react2.default.createElement(
 								'div',
 								null,
-								'起诉状、上诉状副本'
+								item.notice_type
 							),
 							_react2.default.createElement(
 								'div',
 								null,
-								' 2016年01月21日'
+								item.notice_time
 							)
 						);
 					})
