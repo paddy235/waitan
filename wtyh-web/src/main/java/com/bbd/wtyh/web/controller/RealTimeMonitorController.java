@@ -1,6 +1,7 @@
 package com.bbd.wtyh.web.controller;
 
 import com.bbd.wtyh.domain.CapitalAmountDO;
+import com.bbd.wtyh.domain.CommercialFactoringStatisticDO;
 import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
 import com.bbd.wtyh.domain.MortgageStatisticDO;
 import com.bbd.wtyh.domain.dto.IndustryShanghaiDTO;
@@ -38,8 +39,6 @@ public class RealTimeMonitorController {
     @Autowired
     private LoanController loanController;
     @Autowired
-    private PrivateFundController privateFundController;
-    @Autowired
     private MortgageController mortgageController;
     @Autowired
     private FactoringService factoringService;
@@ -49,8 +48,6 @@ public class RealTimeMonitorController {
     private PrepaidCompanyController prepaidCompanyController;
     @Autowired
     private FinanceLeaseController financeLeaseController;
-    @Autowired
-    private ExchangeCompanyController exchangeCompanyController;
     @Autowired
     private PrivateFundService privateFundService;
     @Autowired
@@ -183,7 +180,6 @@ public class RealTimeMonitorController {
         ResponseBean loanResponseBean = loanController.balance();
         List<LoanBalanceDTO> loanBalanceResult = (List<LoanBalanceDTO>)loanResponseBean.getContent();
 
-
         @SuppressWarnings("unchecked")
         XAxisSeriesLinesBean<String,String> loanDTO = new XAxisSeriesLinesBean<>(
                 new ArrayList<String>(),
@@ -243,7 +239,7 @@ public class RealTimeMonitorController {
         }
         //商业保理
 //        List<CommercialFactoringStatisticDO> facList = factoringService.companyCountByYear();
-//        @SuppressWarnings("unchecked")
+        @SuppressWarnings("unchecked")
 //        XAxisSeriesLinesBean<Integer,Integer> dto = new XAxisSeriesLinesBean<>(
 //                new ArrayList<Integer>(),
 //                new ArrayList<Integer>());
