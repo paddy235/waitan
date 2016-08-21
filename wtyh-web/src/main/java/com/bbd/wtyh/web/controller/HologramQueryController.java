@@ -105,7 +105,7 @@ public class HologramQueryController {
     @RequestMapping("/openCourtAnnouncement")
     @ResponseBody
     public ResponseBean openCourtAnnouncement(@RequestParam(required = true) String company) {
-        List<CourtAnnouncementDO.Results> result = hologramQueryService.openCourtAnnouncement(company);
+        List<OpenCourtAnnouncementDO.Results> result = hologramQueryService.openCourtAnnouncement(company);
         return ResponseBean.successResponse(result);
     }
 
