@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2b06b3f6a9449b6b8c65"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "23a04cec42ac3449c595"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -88000,11 +88000,9 @@
 	            series.map(function (item, index) {
 	                legend.push(item.name);
 	            });
-	            console.log(legend, "legend");
 	            this.setState({
 	                chart: _react2.default.createElement(_BasePie2.default, { option: this.setParm(), style: { height: '100%', width: '100%' } })
 	            });
-	            console.log(data, "第2个图");
 	        }
 	    },
 	    componentDidMount: function componentDidMount() {
@@ -88068,7 +88066,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	    value: true
 	});
 
 	__webpack_require__(947);
@@ -88083,40 +88081,71 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var xData = []; /**
+	                 * 薪酬分布图
+	                 */
+
+	var series = [];
 	var PersonIndexChart = _react2.default.createClass({
-		displayName: 'PersonIndexChart',
+	    displayName: 'PersonIndexChart',
+	    getInitialState: function getInitialState() {
+	        return {
+	            chart: null
+	        };
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var _this = this;
+	        if (nextProps.CompanyInfoD3Request) {
+	            var data = nextProps.CompanyInfoD3Result.content.rdata;
+	            console.log(data, "第3个图");
+	            data.map(function (item, index) {
+	                xData.push(item.x_value);
+	                series.push(item.y_value);
+	            });
 
-		setParm: function setParm() {
-			var option = {
-				title: "薪酬分布",
-				titleX: "center",
-				titleShow: true,
-				color: ["#E24340", "#00A0EA"],
-				barWidth: 40,
-				yAxisName: "",
-				yFlag: "", //y轴单位
-				splitLineShow: true,
-				legendShow: false,
-				gridTop: "10%",
-				legend: ["企业资产总额"],
-				xAxis: ['<2k', '2k-5k', '5k-10k', '10k-20k', '20k-30k', '>30k'],
-				XTextColor: '#fff',
-				YTextColor: '#fff',
-				series: [[320, 200, 230, 350, 600, 530]]
-			};
-			return option;
-		},
-		render: function render() {
-			return _react2.default.createElement(
-				'div',
-				{ id: 'pay-distribute' },
-				_react2.default.createElement(_BarChart2.default, { option: this.setParm(), style: { height: '100%', width: '100%' } })
-			);
-		}
-	}); /**
-	     * 薪酬分布图
-	     */
+	            this.setState({
+	                chart: _react2.default.createElement(_BarChart2.default, { option: this.setParm(), style: { height: '100%', width: '100%' } })
+	            });
+	        }
+	    },
+	    componentDidMount: function componentDidMount() {
+	        var getCompanyInfoD3 = this.props.getCompanyInfoD3; // 取到props里面的getRealTimeTable方法。也可以说是请求action
 
+	        var jsonData = {
+	            company: "四川环福置地有限公司"
+	        }; //ajax传递给后台的data键值对
+	        getCompanyInfoD3(jsonData);
+	    },
+
+	    setParm: function setParm() {
+	        var option = {
+	            title: "薪酬分布",
+	            titleX: "center",
+	            titleShow: true,
+	            color: ["#E24340", "#00A0EA"],
+	            barWidth: 40,
+	            yAxisName: "",
+	            yFlag: "", //y轴单位
+	            splitLineShow: true,
+	            legendShow: false,
+	            gridTop: "10%",
+	            legend: ["企业资产总额"],
+	            xAxis: xData /*---------------ajax-----------------*/
+	            , XTextColor: '#fff',
+	            YTextColor: '#fff',
+	            series: [series /*---------------ajax-----------------*/
+	            ]
+	        };
+	        return option;
+	    },
+	    render: function render() {
+	        return _react2.default.createElement(
+	            'div',
+	            { id: 'pay-distribute' },
+	            this.state.chart
+	        );
+	    }
+	});
 	exports.default = PersonIndexChart;
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "PayIndexBar.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
@@ -88583,7 +88612,7 @@
 	function getCompanyInfoD3(json) {
 	  return function (dispatch) {
 	    $.ajax({
-	      url: "/hologram/courtAnnouncement.do",
+	      url: "/hologram/recruitPeopleSalary.do",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
@@ -88777,7 +88806,7 @@
 
 
 	// module
-	exports.push([module.id, "/*@整体布局(一级)\r\n------------------------------------------------------------------*/\r\n.realtime-index {\r\n}\r\n.realtime-index .realtime-top {\r\n\twidth: 100%;\r\n\theight: 65%;\r\n}\r\n.realtime-index .realtime-bottom {\r\n\twidth: 100%;\r\n\theight: 35%;\r\n}\r\n\r\n/*@整体布局(二级)\r\n------------------------------------------------------------------*/\r\n.realtime-index .realtime-top>div {\r\n\tfloat: left;\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tpadding: 10px;\r\n}\r\n.realtime-index .realtime-top .realtime-top-left {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-middle {\r\n\twidth: 44%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-right {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-left {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-right {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-left: 100px;\r\n\tpadding-right: 20px;\r\n}\r\n\r\n/*realtime-top-left(左边表格)  //pudong huangpu  hongkou\r\n------------------------------------------------------------------*/\r\n.realtime-top-left {\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-left  h4 {\r\n\tfont-size: 18px;\r\n\tline-height: 40px;\r\n}\r\n.realtime-top-left  .title li {\r\n\tfloat: left;\r\n\twidth: 25%;\r\n\ttext-align: center;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tborder: 1px solid;\r\n\tcursor: pointer;\r\n}\r\n.realtime-top-left  .title li:nth-child(1) {\r\n\tbackground: red\r\n}\r\n.realtime-top-left  .title li:nth-child(2) {\r\n\tbackground: #ebc900\r\n}\r\n.realtime-top-left  .title li:nth-child(3) {\r\n\tbackground: #32b16c\r\n}\r\n.realtime-top-left  .title li:nth-child(4) {\r\n\tbackground: #000\r\n}\r\n.realtime-top-left  .table-wrap {\r\n\twidth: 100%;\r\n\theight: 440px;\r\n\toverflow-x: hidden;\r\n\toverflow-y: scroll;\r\n}\r\n.realtime-top-left table {\r\n\twidth: 100%;\r\n\theight: 200px;\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-left table tr th:nth-chid(1) {\r\n\twidth: 10%;\r\n}\r\n.realtime-top-left table tr th:nth-chid(2) {\r\n\twidth: 70%;\r\n}\r\n.realtime-top-left table tr th:nth-chid(3) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left table tr td {\r\n\ttext-align: center;\r\n\theight: 40px\r\n}\r\n.realtime-top-left table tr th {\r\n\ttext-align: center;\r\n\theight: 40px\r\n}\r\n.realtime-top-left table tr td {\r\n\tborder-top: 1px solid #3c414a\r\n}\r\n.realtime-top-left table tr td:nth-chid(1) {\r\n\twidth: 10%;\r\n}\r\n.realtime-top-left table tr td:nth-chid(2) {\r\n\twidth: 70%;\r\n}\r\n.realtime-top-left table tr td:nth-chid(3) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left .color {\r\n\theight: 16px;\r\n\twidth: 60%;\r\n\tborder: 1px solid #fff;\r\n\tposition: relative;\r\n\tbottom: 10px;\r\n\ttop: 20px;\r\n\tleft: 50%;\r\n\ttransform: translateX(-50%);\r\n}\r\n.realtime-top-left .color img {\r\n\tdisplay: block;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*realtime-top-left(左边表格)\r\n------------------------------------------------------------------*/\r\n.realtime-top-right {\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-top-right .item {\r\n\twidth: 100%;\r\n\theight: 33.3%;\r\n}\r\n\r\n/*realtime-bottom-right(右下角)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-right {\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n\tpadding-left: 20px\r\n}\r\n.realtime-bottom-right>h4 {\r\n\tcolor: #fff;\r\n\tline-height: 30px;\r\n\tfont-size: 16px;\r\n}\r\n.realtime-bottom-right ul li {\r\n\theight: 134px;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-right ul li h4 {\r\n\tpadding: 15px 0px;\r\n\tfont-size: 14px;\r\n\tcolor: #e14340\r\n}\r\n.realtime-bottom-right ul li h4 a {\r\n\tcolor: #e14340 !important\r\n}\r\n.realtime-bottom-right ul li p {\r\n\tcolor: #fff;\r\n\tdisplay: inline-block;\r\n\tmargin-right: 10px;\r\n}\r\n.realtime-bottom-right ul li span {\r\n\tposition: absolute;\r\n\tright: 10px;\r\n\tbottom: 10px;\r\n\tcolor: #666\r\n}\r\n\r\n/*realtime-bottom-right(中间的大地图)\r\n------------------------------------------------------------------*/\r\n.realtime-top-middle #demo {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*上海地图的信息框*/\r\n.realtime-top-middle .info {\r\n\twidth: 200px;\r\n\theight: 90px;\r\n\tleft: 2%;\r\n\ttop: 2%;\r\n\tposition: absolute;\r\n\tz-index: 999;\r\n\tcursor: pointer;\r\n\tdisplay: none\r\n}\r\n.realtime-top-middle .info .info-left, .realtime-top-middle .info .info-right {\r\n\tfloat: left;\r\n\twidth: 50%;\r\n\theight: 100%;\r\n}\r\n.realtime-top-middle .info .info-left {\r\n\tpadding: 0px 3px 3px 0px;\r\n}\r\n.realtime-top-middle .info .info-right {\r\n\tbackground: #363e48;\r\n\tborder-radius: 3px;\r\n\tfont-size: 24px;\r\n\tcolor: #e14340;\r\n\tline-height: 90px;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-middle .info .info-left .title {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 43px;\r\n\tfont-size: 12px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 43px;\r\n\tborder-radius: 3px;\r\n}\r\n.realtime-top-middle .info .info-left .date {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 43px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 43px;\r\n\tmargin-top: 3px;\r\n\tborder-radius: 3px;\r\n}\r\n\r\n/*上海地图的返回按钮*/\r\n.realtime-top-middle .return {\r\n\tbackground: linear-gradient(to bottom, #b96f6f 5%, red 50%, #f50202 100%);\r\n\tposition: absolute;\r\n\tbottom: 10%;\r\n\tleft: 3%;\r\n\tdisplay: none;\r\n}\r\n\r\n/*地下的长条信息框*/\r\n.realtime-top-middle .bar {\r\n\twidth: 98%;\r\n\theight: 40px;\r\n\tbackground: #282f39;\r\n\ttext-align: center;\r\n\tline-height: 40px;\r\n\tposition: absolute;\r\n\tbottom: 1%;\r\n\tfont-size: 12px;\r\n\tdisplay: none\r\n}\r\n.realtime-top-middle .bar img {\r\n\twidth: 30px;\r\n\theight: 30px;\r\n\tposition: absolute;\r\n\tleft: 5%;\r\n\ttop: 5px;\r\n}\r\n.darkRed {\r\n\tcolor: #e14340;\r\n\tpadding: 0px 5px;\r\n}\r\n\r\n/*tootips实验*/\r\n.testTo {\r\n\twidth: auto;\r\n\theight: auto;\r\n\tfont-size: 12px;\r\n\tcursor: pointer;\r\n}\r\n.testTo h4 {\r\n\tdisplay: inline-block;\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo label {\r\n\tdisplay: inline-block;\r\n\twidth: 60px;\r\n\theight: 18px;\r\n\tborder: 1px solid #fff;\r\n\ttext-align: center;\r\n\tvertical-align: middle;\r\n\tmargin-left: 20px;\r\n\tcolor: #000;\r\n\ttext-align: center;\r\n\ttext-indent: 5px;\r\n\tline-height: 16px;\r\n}\r\n.testTo p {\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo p span {\r\n\tcolor: yellow\r\n}\r\n.black {\r\n\tbackground: black;\r\n\tcolor: #fff !important\r\n}\r\n.green {\r\n\tbackground: green\r\n}\r\n.yellow {\r\n\tbackground: yellow\r\n}\r\n.red {\r\n\tbackground: red\r\n}\r\n\r\n/**/\r\n.testTo .tableH4 {\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n\tcolor: #ce3431;\r\n\tfont-size: 14px;\r\n\tfont-weight: bold;\r\n}\r\n.testTo table td {\r\n\tborder: 1px solid #1a2029;\r\n\ttext-align: center;\r\n\tpadding: 5px;\r\n}\r\n.testTo .tip-scroll {\r\n\twidth: 140px;\r\n\theight: 100px;\r\n\ttext-align: center;\r\n\toverflow-y: scroll;\r\n}\r\n.testTo .tip-scroll  span {\r\n\tdisplay: block;\r\n\tpadding: 5px 0;\r\n}", ""]);
+	exports.push([module.id, "/*@整体布局(一级)\r\n------------------------------------------------------------------*/\r\n.realtime-index {\r\n}\r\n.realtime-index .realtime-top {\r\n\twidth: 100%;\r\n\theight: 65%;\r\n}\r\n.realtime-index .realtime-bottom {\r\n\twidth: 100%;\r\n\theight: 35%;\r\n}\r\n\r\n/*@整体布局(二级)\r\n------------------------------------------------------------------*/\r\n.realtime-index .realtime-top>div {\r\n\tfloat: left;\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tpadding: 10px;\r\n}\r\n.realtime-index .realtime-top .realtime-top-left {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-middle {\r\n\twidth: 44%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-right {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-left {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-right {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-left: 100px;\r\n\tpadding-right: 20px;\r\n}\r\n\r\n/*realtime-top-left(左边表格)  //pudong huangpu  hongkou\r\n------------------------------------------------------------------*/\r\n.realtime-top-left {\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-left  h4 {\r\n\tfont-size: 18px;\r\n\tline-height: 40px;\r\n}\r\n.realtime-top-left  .title li {\r\n\tfloat: left;\r\n\twidth: 25%;\r\n\ttext-align: center;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tborder: 1px solid;\r\n\tcursor: pointer;\r\n}\r\n.realtime-top-left  .title li:nth-child(1) {\r\n\tbackground: red\r\n}\r\n.realtime-top-left  .title li:nth-child(2) {\r\n\tbackground: #ebc900\r\n}\r\n.realtime-top-left  .title li:nth-child(3) {\r\n\tbackground: #32b16c\r\n}\r\n.realtime-top-left  .title li:nth-child(4) {\r\n\tbackground: #000\r\n}\r\n.realtime-top-left  .table-wrap {\r\n\twidth: 100%;\r\n\theight: 440px;\r\n\toverflow-x: hidden;\r\n\toverflow-y: scroll;\r\n}\r\n.realtime-top-left table {\r\n\twidth: 100%;\r\n\theight: 200px;\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-left table tr th:nth-chid(1) {\r\n\twidth: 10%;\r\n}\r\n.realtime-top-left table tr th:nth-chid(2) {\r\n\twidth: 70%;\r\n}\r\n.realtime-top-left table tr th:nth-chid(3) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left table tr td {\r\n\ttext-align: center;\r\n\theight: 40px\r\n}\r\n.realtime-top-left table tr th {\r\n\ttext-align: center;\r\n\theight: 40px\r\n}\r\n.realtime-top-left table tr td {\r\n\tborder-top: 1px solid #3c414a\r\n}\r\n.realtime-top-left table tr td:nth-chid(1) {\r\n\twidth: 10%;\r\n}\r\n.realtime-top-left table tr td:nth-chid(2) {\r\n\twidth: 70%;\r\n}\r\n.realtime-top-left table tr td:nth-chid(3) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left .color {\r\n\theight: 16px;\r\n\twidth: 60%;\r\n\tposition: relative;\r\n\tbottom: 10px;\r\n\ttop: 20px;\r\n\tleft: 50%;\r\n\ttransform: translateX(-50%);\r\n}\r\n.realtime-top-left .color img {\r\n\tdisplay: block;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*realtime-top-left(左边表格)\r\n------------------------------------------------------------------*/\r\n.realtime-top-right {\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-top-right .item {\r\n\twidth: 100%;\r\n\theight: 33.3%;\r\n}\r\n\r\n/*realtime-bottom-right(右下角)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-right {\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n\tpadding-left: 20px\r\n}\r\n.realtime-bottom-right>h4 {\r\n\tcolor: #fff;\r\n\tline-height: 30px;\r\n\tfont-size: 16px;\r\n}\r\n.realtime-bottom-right ul li {\r\n\theight: 134px;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-right ul li h4 {\r\n\tpadding: 15px 0px;\r\n\tfont-size: 14px;\r\n\tcolor: #e14340\r\n}\r\n.realtime-bottom-right ul li h4 a {\r\n\tcolor: #e14340 !important\r\n}\r\n.realtime-bottom-right ul li p {\r\n\tcolor: #fff;\r\n\tdisplay: inline-block;\r\n\tmargin-right: 10px;\r\n}\r\n.realtime-bottom-right ul li span {\r\n\tposition: absolute;\r\n\tright: 10px;\r\n\tbottom: 10px;\r\n\tcolor: #666\r\n}\r\n\r\n/*realtime-bottom-right(中间的大地图)\r\n------------------------------------------------------------------*/\r\n.realtime-top-middle #demo {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*上海地图的信息框*/\r\n.realtime-top-middle .info {\r\n\twidth: 200px;\r\n\theight: 90px;\r\n\tleft: 2%;\r\n\ttop: 2%;\r\n\tposition: absolute;\r\n\tz-index: 999;\r\n\tcursor: pointer;\r\n\tdisplay: none\r\n}\r\n.realtime-top-middle .info .info-left, .realtime-top-middle .info .info-right {\r\n\tfloat: left;\r\n\twidth: 50%;\r\n\theight: 100%;\r\n}\r\n.realtime-top-middle .info .info-left {\r\n\tpadding: 0px 3px 3px 0px;\r\n}\r\n.realtime-top-middle .info .info-right {\r\n\tbackground: #363e48;\r\n\tborder-radius: 3px;\r\n\tfont-size: 24px;\r\n\tcolor: #e14340;\r\n\tline-height: 90px;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-middle .info .info-left .title {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 43px;\r\n\tfont-size: 12px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 43px;\r\n\tborder-radius: 3px;\r\n}\r\n.realtime-top-middle .info .info-left .date {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 43px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 43px;\r\n\tmargin-top: 3px;\r\n\tborder-radius: 3px;\r\n}\r\n\r\n/*上海地图的返回按钮*/\r\n.realtime-top-middle .return {\r\n\tbackground: linear-gradient(to bottom, #b96f6f 5%, red 50%, #f50202 100%);\r\n\tposition: absolute;\r\n\tbottom: 10%;\r\n\tleft: 3%;\r\n\tdisplay: none;\r\n}\r\n\r\n/*地下的长条信息框*/\r\n.realtime-top-middle .bar {\r\n\twidth: 98%;\r\n\theight: 40px;\r\n\tbackground: #282f39;\r\n\ttext-align: center;\r\n\tline-height: 40px;\r\n\tposition: absolute;\r\n\tbottom: 1%;\r\n\tfont-size: 12px;\r\n\tdisplay: none\r\n}\r\n.realtime-top-middle .bar img {\r\n\twidth: 30px;\r\n\theight: 30px;\r\n\tposition: absolute;\r\n\tleft: 5%;\r\n\ttop: 5px;\r\n}\r\n.darkRed {\r\n\tcolor: #e14340;\r\n\tpadding: 0px 5px;\r\n}\r\n\r\n/*tootips实验*/\r\n.testTo {\r\n\twidth: auto;\r\n\theight: auto;\r\n\tfont-size: 12px;\r\n\tcursor: pointer;\r\n}\r\n.testTo h4 {\r\n\tdisplay: inline-block;\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo label {\r\n\tdisplay: inline-block;\r\n\twidth: 60px;\r\n\theight: 18px;\r\n\tborder: 1px solid #fff;\r\n\ttext-align: center;\r\n\tvertical-align: middle;\r\n\tmargin-left: 20px;\r\n\tcolor: #000;\r\n\ttext-align: center;\r\n\ttext-indent: 5px;\r\n\tline-height: 16px;\r\n}\r\n.testTo p {\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo p span {\r\n\tcolor: yellow\r\n}\r\n.black {\r\n\tbackground: black;\r\n\tcolor: #fff !important\r\n}\r\n.green {\r\n\tbackground: green\r\n}\r\n.yellow {\r\n\tbackground: yellow\r\n}\r\n.red {\r\n\tbackground: red\r\n}\r\n\r\n/**/\r\n.testTo .tableH4 {\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n\tcolor: #ce3431;\r\n\tfont-size: 14px;\r\n\tfont-weight: bold;\r\n}\r\n.testTo table td {\r\n\tborder: 1px solid #1a2029;\r\n\ttext-align: center;\r\n\tpadding: 5px;\r\n}\r\n.testTo .tip-scroll {\r\n\twidth: 140px;\r\n\theight: 100px;\r\n\ttext-align: center;\r\n\toverflow-y: scroll;\r\n}\r\n.testTo .tip-scroll  span {\r\n\tdisplay: block;\r\n\tpadding: 5px 0;\r\n}", ""]);
 
 	// exports
 
@@ -88967,7 +88996,7 @@
 	    }
 
 	    function getRange() {
-	      _this.props.getRange(range); //因为这个函数会触发componentWillReceiveProps。所以说如果它后执行的话，table就会还原上上面的逻辑
+	      // _this.props.getRange(range);//因为这个函数会触发componentWillReceiveProps。所以说如果它后执行的话，table就会还原上上面的逻辑
 	      setTable();
 	    }
 	    setTimeout(getRange, 0);
@@ -89047,29 +89076,12 @@
 
 	//抽离出来的地图实例
 	var chartChina, chartShanghai;
-	//用来保存ajax返回的数据
-	var ajaxDataChina;
-	//上海的经纬度
-	var SHposition = {
-	    "黄浦区": [127.291193, 31.237373],
-	    "浦东新区": [121.550543, 31.227391],
-	    "徐汇区": [121.42885, 31.594911],
-	    "长宁区": [121.430868, 31.426536],
-	    "静安区": [121.453978, 31.234087],
-	    "普陀区": [121.703529, 31.455102],
-	    "虹口区": [121.511735, 31.270146],
-	    "杨浦区": [121.532291, 31.465779],
-	    "中晋股权投资基金管理(上海)有限公司": [121.675603, 31.281911],
-	    "融宜宝积家投资管理（北京）有限公司上海分公司": [121.473185, 31.234205],
-	    "上海太宥恒资产管理有限公司": [121.598223, 31.346895],
-	    "上海炳恒财富投资管理（集团）有限公司": [121.491339, 31.404468],
-	    "上海长来资产管理有限公司": [121.483775, 31.252063],
-	    "撰谦（上海）投资咨询有限公司": ["121.456", "31.2319"],
-	    "上海腾顶金融信息服务有限公司": ["121.485", "31.2765"]
-	};
+	//用来保存ajax返回的地图数据
+	var ajaxDataChina, ajaxDataSH;
+	//存储上海的经纬度
+	var SHposition = {};
 
 	/*上海地图接口的全局变量*/
-	var geoSereis = null;
 	var TopMiddle = _react2.default.createClass({
 	    displayName: 'TopMiddle',
 	    getInitialState: function getInitialState() {
@@ -89110,7 +89122,6 @@
 	            '嘉兴': [120.9155, 30.6354],
 	            '大同': [113.7854, 39.8035],
 	            '大连': [122.2229, 39.4409],
-	            '天津': [117.4219, 39.4189],
 	            '太原': [112.3352, 37.9413],
 	            '威海': [121.9482, 37.1393],
 	            '宁波': [121.5967, 29.6466],
@@ -89195,45 +89206,7 @@
 	            '阳泉': [113.4778, 38.0951],
 	            '青岛': [120.4651, 36.3373],
 	            '韶关': [113.7964, 24.7028],
-	            //省会
-	            '北京': [116.28, 39.54],
-	            '上海': [121.29, 31.14],
-	            '天津': [117.11, 39.09],
-	            '重庆': [106.32, 29.32],
-	            '哈尔滨': [126.41, 45.45],
-	            '长春': [125.19, 43.52],
-	            '沈阳': [123.24, 41.5],
-	            '呼和浩特': [111.48, 40.49],
-	            '石家庄': [114.28, 38.02],
-	            '太原': [112.34, 37.52],
-	            '济南': [117, 36.38],
-	            '郑州': [113.42, 34.48],
-	            '西安': [108.54, 34.16],
-	            '兰州': [103.49, 36.03],
-	            '银川': [106.16, 38.2],
-	            '西宁': [101.45, 36.38],
-	            '乌鲁木齐': [87.36, 43.48],
-	            '合肥': [117.18, 31.51],
-	            '南京': [118.5, 32.02],
-	            '杭州': [120.09, 30.14],
-	            '长沙': [113, 28.11],
-	            '南昌': [115.52, 28.41],
-	            '武汉': [114.21, 30.37],
-	            '成都': [104.05, 30.39],
-	            '贵阳': [106.42, 26.35],
-	            '福州': [119.18, 26.05],
-	            '台北': [121.31, 25.03],
-	            '广州': [113.15, 23.08],
-	            '海口': [110.2, 20.02],
-	            '南宁': [108.2, 22.48],
-	            '昆明': [102.41, 25],
-	            '拉萨': [90.08, 29.39],
-	            '香港': [114.1, 22.18],
-	            '澳门': [113.35, 22.14],
-	            '台北': [121.31, 25.03],
 	            //省名
-	            '北京': [116.28, 39.54],
-	            '上海': [121.29, 31.14],
 	            '天津': [117.11, 39.09],
 	            '重庆': [106.32, 29.32],
 	            '黑龙江': [126.41, 45.45],
@@ -89263,10 +89236,7 @@
 	            '海南': [110.2, 20.02],
 	            '广西': [108.2, 22.48],
 	            '云南': [102.41, 25],
-	            '西藏': [90.08, 29.39],
-	            '香港': [114.1, 22.18],
-	            '澳门': [113.35, 22.14]
-
+	            '西藏': [90.08, 29.39]
 	        };
 	        var convertData = function convertData(data) {
 	            var res = [];
@@ -89482,40 +89452,23 @@
 	        var getRandomInScope = function getRandomInScope(min, max) {
 	            return Math.floor(min + Math.random() * (max - min));
 	        };
-	        // geoSereis =[
-	        //             {name:"黄浦区",value:1,date:222},
-	        //             {name:"浦东新区",value:2,date:222},
-	        //             {name:"徐汇区",value:3,date:222},
-	        //             {name:"长宁区",value:4,date:222},
-	        //             {name:"静安区",value:1,date:222},
-	        //             {name:"普陀区",value:getRandomInScope(1,5),date:222},
-	        //             {name:"虹口区",value:getRandomInScope(1,5),date:222},
-	        //             {name:"杨浦区",value:getRandomInScope(1,5),date:222},
-	        //             {name:"中晋股权投资基金管理(上海)有限公司",value:1,date:222},
-	        //             {name:"融宜宝积家投资管理（北京）有限公司上海分公司",value:1},
-	        //             {name:"上海太宥恒资产管理有限公司",value:1},
-	        //             {name:"上海炳恒财富投资管理（集团）有限公司",value:1},
-	        //             {name:"上海长来资产管理有限公司",value:1},
-	        //              ];
-	        var geoSereis = [{
-	            "name": "上海腾顶金融信息服务有限公司",
-	            "value": 1
-	        }, {
-	            "name": "撰谦（上海）投资咨询有限公司",
-	            "value": 1
-	        }, {
-	            "name": "上海苏浙汇投资管理咨询有限公司",
-	            "value": 4
-	        }, {
-	            "name": "上海小马过河投资管理有限公司",
-	            "value": 5
-	        }, {
-	            "name": "上海清风人家投资管理有限公司",
-	            "value": 4
-	        }, {
-	            "name": "上海大桶大投资管理咨询有限公司",
-	            "value": 4
-	        }];
+	        /* geoSereis =[
+	                    {name:"黄浦区",value:1,date:222}, 
+	                    {name:"浦东新区",value:2,date:222},
+	                    {name:"徐汇区",value:3,date:222},
+	                    {name:"长宁区",value:4,date:222},
+	                    {name:"静安区",value:1,date:222},
+	                    {name:"普陀区",value:getRandomInScope(1,5),date:222},
+	                    {name:"虹口区",value:getRandomInScope(1,5),date:222},
+	                    {name:"杨浦区",value:getRandomInScope(1,5),date:222},
+	                    {name:"中晋股权投资基金管理(上海)有限公司",value:1,date:222},
+	                    {name:"融宜宝积家投资管理（北京）有限公司上海分公司",value:1},
+	                    {name:"上海太宥恒资产管理有限公司",value:1},
+	                    {name:"上海炳恒财富投资管理（集团）有限公司",value:1},
+	                    {name:"上海长来资产管理有限公司",value:1},
+	                   ];*/
+	        var geoSereis = ajaxDataSH.SHsereis; //后台请求回来的ajax数据值~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	        SHposition = ajaxDataSH.SHposition; //后台请求回来的ajax经纬度~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	        chartShanghai = echarts.init(document.getElementById("demo"));
 	        var option = {
 	            tooltip: {
@@ -89526,94 +89479,80 @@
 	                showDelay: 300,
 	                enterable: true,
 	                formatter: function formatter(v) {
-	                    //至于scatter的不同类型的p。就最后用object[“公司名”]单独从一个ajax对象里面取了。
-	                    console.log(v);
-	                    var range = v.value[2];
-	                    var typeP = null;
-	                    var typeLabel = null;
-	                    //这个就是hover点的ajax方法。
-	                    var name = v.name;
-	                    var num = 123;
-	                    var numORdate = SHhoverDot.name;
+	                    console.log(v.name);
 
-	                    switch (range) {
+	                    function dot() {
+	                        var range = parseInt(v.data.value[2]);
+	                        var typeP = null;
+	                        var typeLabel = null;
+	                        //这个就是hover点的ajax方法。
+	                        var hoverName = v.name.toString();
+	                        var numORdate = ajaxDataSH.SHhoverDot[hoverName];
 
-	                        case 4:
-	                            typeP = "曝光日期<span> " + num + " </span>";typeLabel = "<label class='testLable black'>已出风险</label>";
-	                            break;
+	                        switch (range) {
 
-	                        case 3:
-	                            typeP = "风险值<span> " + num + " </span>";typeLabel = "<label class='testLable yellow'>一般关注</label>";
-	                            break;
+	                            case 1:
+	                                typeP = "曝光日期<span> " + numORdate + " </span>";typeLabel = "<label class='testLable black'>已出风险</label>";
+	                                break;
 
-	                        case 2:
-	                            typeP = "风险值<span> " + num + " </span>";typeLabel = "<label class='testLable yellow'>一般关注</label>";
-	                            break;
+	                            case 2:
+	                                typeP = "风险值<span> " + numORdate + " </span>";typeLabel = "<label class='testLable yellow'>一般关注</label>";
+	                                break;
 
-	                        case 1:
-	                            typeP = "风险值<span> " + num + " </span>";typeLabel = "<label class='testLable red'>重点关注</label>";
-	                            break;
+	                            case 3:
+	                                typeP = "风险值<span> " + numORdate + " </span>";typeLabel = "<label class='testLable yellow'>一般关注</label>";
+	                                break;
 
-	                    };
-	                    var scatterTootip = "<div class='testTo'>\
-	                            <h4>" + v.name + "</h4>" + typeLabel + "\
-	                            <p class='testP'>" + typeP + "</p>\
-	                     </div>";
-	                    // 以下是区域的hoverAjax
-	                    /*                     var SHhoverArea = {
-	                                                      "浦东新区":{    
-	                                                                  num:123,
-	                                                                  companyName:["公司A"，“公司B”]
-	                                                      },
-	                                                      "金山区":{    
-	                                                                  num:123,
-	                                                                  companyName:["公司A"，“公司B”]
-	                                                      }
-	                    
-	                                          }
-	                                        var html = ""
-	                                        SHhoverArea.name.companyName.each(function(item,index){
-	                                            html+= "<span>"+item+"</span>"
-	                                        })
-	                                        //判断对象的个数（SHhoverArea）
-	                                        function countProperties (obj) {
-	                                            var count = 0;
-	                                            for (var property in obj) {
-	                                                if (Object.prototype.hasOwnProperty.call(obj, property)) {
-	                                                    count++;
-	                                                }
-	                                            }
-	                                            return count;
-	                                        }*/
+	                            case 4:
+	                                typeP = "风险值<span> " + numORdate + " </span>";typeLabel = "<label class='testLable red'>重点关注</label>";
+	                                break;
 
-	                    var mapTootip = "<div class='testTo'>\
-	                                  <h4 class='tableH4'>" + v.name + "</h4>\
-	                                  <table>\
-	                                    <tbody>\
-	                                      <tr>\
-	                                        <td>检测企业数量</td>\
-	                                        <td>321</td>\
-	                                      </tr>\
-	                                      <tr>\
-	                                        <td>重点检测楼宇<br>(5)</td>\
-	                                        <td>\
-	                                          <div class='tip-scroll'>\
-	                                          <span>国家开发营养</span>\
-	                                          <span>国家开发营养</span>\
-	                                          <span>国家开发营养</span>\
-	                                          <span>国家开发营养</span>\
-	                                          <span>国家开发营养</span>\
-	                                          <span>国家开发营养</span>\
-	                                          </div>\
-	                                        </td>\
-	                                      </tr>\
-	                                    </tbody>\
-	                                  </table>\
-	                      </div>";
-	                    if (v.componentSubType == "map") {
-	                        return mapTootip;
-	                    } else if (v.componentSubType == "scatter") {
+	                        };
+	                        var scatterTootip = "<div class='testTo'>\
+	                                <h4>" + v.name + "</h4>" + typeLabel + "\
+	                                <p class='testP'>" + typeP + "</p>\
+	                         </div>";
+
 	                        return scatterTootip;
+	                    }
+
+	                    function area() {
+	                        var html = "";
+	                        var hoverName = v.name.toString();
+	                        var length = 0;
+	                        // var length = ajaxDataSH.SHhoverArea[hoverName].companyName.length;
+	                        if (ajaxDataSH.SHhoverArea[hoverName]) {
+	                            ajaxDataSH.SHhoverArea[hoverName].companyName.map(function (item, index) {
+	                                html += "<span>" + item + "</span>";
+	                                length += 1;
+	                            });
+	                        }
+	                        var mapTootip = "<div class='testTo'>\
+	                                      <h4 class='tableH4'>" + v.name + "</h4>\
+	                                      <table>\
+	                                        <tbody>\
+	                                          <tr>\
+	                                            <td>检测企业数量</td>\
+	                                            <td>" + length + "</td>\
+	                                          </tr>\
+	                                          <tr>\
+	                                            <td>重点检测楼宇<br>(5)</td>\
+	                                            <td>\
+	                                              <div class='tip-scroll'>" + html + "</div>\
+	                                            </td>\
+	                                          </tr>\
+	                                        </tbody>\
+	                                      </table>\
+	                        </div>";
+
+	                        return mapTootip;
+	                    }
+	                    // 以下是区域的hoverAjax
+
+	                    if (v.componentSubType == "map") {
+	                        return area();
+	                    } else if (v.componentSubType == "scatter") {
+	                        return dot();
 	                    }
 	                }
 	            },
@@ -89630,7 +89569,7 @@
 	                textStyle: {
 	                    color: '#fff'
 	                },
-	                pieces: [{ value: 1, label: '123（自定义特殊颜色）', color: 'red' }, { value: 2, label: '123（自定义特殊颜色）', color: 'yellow' }, { value: 3, label: '123（自定义特殊颜色）', color: 'green' }, { value: 4, label: '123（自定义特殊颜色）', color: 'black' }, { value: 1000, label: '123（自定义特殊颜色）', color: '#246e86' }, { value: 500, label: '123（自定义特殊颜色）', color: '#72b3c7' }],
+	                pieces: [{ value: 4, label: '123（自定义特殊颜色）', color: 'red' }, { value: 3, label: '123（自定义特殊颜色）', color: 'yellow' }, { value: 2, label: '123（自定义特殊颜色）', color: 'green' }, { value: 1, label: '123（自定义特殊颜色）', color: 'black' }, { value: 1000, label: '123（自定义特殊颜色）', color: '#246e86' }, { value: 500, label: '123（自定义特殊颜色）', color: '#72b3c7' }],
 	                inRange: {
 	                    color: ['red', "green"]
 	                }
@@ -89768,6 +89707,7 @@
 	        });
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+
 	        var _this = this;
 	        var isEqual = Immutable.is(nextProps.realTimeMapRequest, this.props.realTimeMapResult); //判断数据是否变化
 	        if (!isEqual) {
@@ -89778,10 +89718,9 @@
 	                if (realTimeMapRequest == true) {
 	                    ajaxDataChina = realTimeMapResult;
 	                    // console.log(ajaxDataChina.content.SHData,"fuck u")
-	                    _this.mapChina();
 	                } else {
-	                    alert(404);
-	                }
+	                        alert(404);
+	                    }
 	            }
 	        }
 
@@ -89790,9 +89729,14 @@
 	            var realTimeMapShRequest = nextProps.realTimeMapShRequest;
 	            var realTimeMapShResult = nextProps.realTimeMapShResult;
 
-	            debugger;
 	            if (realTimeMapShRequest == true) {
-	                if (realTimeMapShRequest == true) {} else {
+	                if (realTimeMapShRequest == true) {
+	                    //可以判断一下  如果echarts的实例存在的话，就不要去实例化了，这样就不会重新渲染。oh yeah。
+	                    if (!chartChina) {
+	                        _this.mapChina(); //只需要初始化一个，因为上海地图的实例化方法，已经包含在了mapChina里面了。
+	                    }
+	                    ajaxDataSH = realTimeMapShResult.content;
+	                } else {
 	                    alert(404);
 	                }
 	            }
@@ -89812,36 +89756,55 @@
 	        }.bind(this));
 	    },
 	    componentDidUpdate: function componentDidUpdate(nextProps, nextState) {
-	        var convertData = function convertData(data) {
-	            var res = [];
-	            for (var i = 0; i < data.length; i++) {
-	                var geoCoord = SHposition[data[i].name];
-	                if (geoCoord) {
-	                    res.push({
-	                        name: data[i].name,
-	                        value: geoCoord.concat(data[i].value)
-	                    });
-	                }
-	            }
-	            return res;
-	        };
-	        var range = this.props.pushRange;
-	        //这一块传值的时候，name是后台传的，value这个系数也是后台传过来。ps：也可以直接传递convertData处理过后的数组
-	        if (range != null && chartShanghai != undefined) {
-	            if (range == 1) {
-	                chartShanghai.setOption({
-	                    series: [{
-	                        data: convertData([{ name: "中晋股权投资基金管理(上海)有限公司", value: 1 }, { name: "融宜宝积家投资管理（北京）有限公司上海分公司", value: 1 }, { name: "上海太宥恒资产管理有限公司", value: 1 }, { name: "上海炳恒财富投资管理（集团）有限公司", value: 1 }, { name: "上海长来资产管理有限公司", value: 1 }])
-	                    }]
-	                });
-	            } else {
-	                chartShanghai.setOption({
-	                    series: [{
-	                        data: convertData([{ name: "黄浦区", value: this.props.pushRange }, { name: "浦东新区", value: this.props.pushRange }, { name: "徐汇区", value: this.props.pushRange, myName: "1243546" }, { name: "长宁区", value: this.props.pushRange }, { name: "静安区", value: this.props.pushRange }, { name: "普陀区", value: this.props.pushRange }, { name: "虹口区", value: this.props.pushRange }, { name: "杨浦区", value: this.props.pushRange }])
-	                    }]
-	                });
-	            }
-	        }
+	        // var convertData = function (data) {
+	        //       var res = [];
+	        //       for (var i = 0; i < data.length; i++) {
+	        //           var geoCoord = SHposition[data[i].name];
+	        //           if (geoCoord) {
+	        //               res.push({
+	        //                   name: data[i].name,
+	        //                   value: geoCoord.concat(data[i].value)
+	        //               });
+	        //           }
+	        //       }
+	        //       return res;
+	        // };
+	        // var range = this.props.pushRange;
+	        //   //这一块传值的时候，name是后台传的，value这个系数也是后台传过来。ps：也可以直接传递convertData处理过后的数组
+	        // if (range != null && chartShanghai != undefined) {
+	        //   if (range == 1) {
+	        //       chartShanghai.setOption({
+	        //             series:[
+	        //               {
+	        //                 data: convertData([
+	        //                       {name:"中晋股权投资基金管理(上海)有限公司",value:1},
+	        //                       {name:"融宜宝积家投资管理（北京）有限公司上海分公司",value:1},
+	        //                       {name:"上海太宥恒资产管理有限公司",value:1},
+	        //                       {name:"上海炳恒财富投资管理（集团）有限公司",value:1},
+	        //                       {name:"上海长来资产管理有限公司",value:1}
+	        //                      ])
+	        //               }
+	        //             ]
+	        //           })
+	        //   } else {
+	        //           chartShanghai.setOption({
+	        //             series:[
+	        //               {
+	        //                 data: convertData([
+	        //                     {name:"黄浦区",value:this.props.pushRange},
+	        //                     {name:"浦东新区",value:this.props.pushRange},
+	        //                     {name:"徐汇区",value:this.props.pushRange,myName:"1243546"},
+	        //                     {name:"长宁区",value:this.props.pushRange},
+	        //                     {name:"静安区",value:this.props.pushRange},
+	        //                     {name:"普陀区",value:this.props.pushRange},
+	        //                     {name:"虹口区",value:this.props.pushRange},
+	        //                     {name:"杨浦区",value:this.props.pushRange}
+	        //                      ])
+	        //               }
+	        //             ]
+	        //           })
+	        //   }
+	        // }
 	    },
 	    render: function render() {
 	        return _react2.default.createElement(
