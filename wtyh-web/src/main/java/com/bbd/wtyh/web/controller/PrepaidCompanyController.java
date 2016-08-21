@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.bbd.wtyh.domain.recrut.CommonData;
+import com.bbd.wtyh.util.CalculateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
@@ -43,17 +45,20 @@ public class PrepaidCompanyController {
 	@ResponseBody
 	public ResponseBean amount(){
 		
-		HistogramBean<Integer, Integer> bean = new HistogramBean<>();
+		HistogramBean<Integer, Double> bean = new HistogramBean<>();
 		
 		List<PrepaidCompanyStatisticDO> list = pcsSer.prepaidAll();
 		
 		if(CollectionUtils.isEmpty(list)){
 			return ResponseBean.successResponse(bean);
 		}
-		
+
+
+		int amount = 0;
+
 		for (PrepaidCompanyStatisticDO pcs : list) {
 			bean.getxAxis().add(pcs.getYear());
-			bean.getseries().add(pcs.getAmount());
+			bean.getseries().add(CalculateUtils.divide((amount += pcs.getAmount()),10000,2 ));
 		}
 		
 		return ResponseBean.successResponse(bean);

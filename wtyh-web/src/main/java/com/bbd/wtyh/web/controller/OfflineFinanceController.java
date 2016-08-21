@@ -77,12 +77,21 @@ public class OfflineFinanceController {
     @RequestMapping(value = "queryDynamicPicData.do")
     public
     @ResponseBody
-    Map<String, List> queryDynamicPicData(HttpServletRequest request) {
+    ResponseBean queryDynamicPicData(HttpServletRequest request) {
         try {
             String companyName = request.getParameter("companyName");
             String dataVersion = request.getParameter("dataVersion");
             String degreesLevel = request.getParameter("degreesLevel");
-            return offlineFinanceService.queryRelation(companyName, dataVersion, degreesLevel);
+            if (StringUtils.isEmpty(companyName)) {
+                ResponseBean.successResponse("companyName参数为空");
+            }
+            if (StringUtils.isEmpty(dataVersion)) {
+                List<String> dataVersionList = relationDataService.queryDateVersion(companyName, null);
+                if (!CollectionUtils.isEmpty(dataVersionList)) {
+                    dataVersion = dataVersionList.get(0);
+                }
+            }
+            return ResponseBean.successResponse(offlineFinanceService.queryRelation(companyName, dataVersion, degreesLevel));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -297,8 +306,11 @@ public class OfflineFinanceController {
     @SuppressWarnings("queryDateVersion")
     @RequestMapping("queryDateVersion.do")
     @ResponseBody
-    public ResponseBean queryDateVersion(String companyName, String areaCode) {
+    public ResponseBean queryDateVersion(String companyName, String areaCode, Integer isDeal) {
         List<String> dataVersionList = relationDataService.queryDateVersion(companyName, areaCode);
+        if (isDeal != null && isDeal == 1) {
+            return ResponseBean.successResponse(dataVersionList);
+        }
         List<String> result = new ArrayList<>();
         if (!CollectionUtils.isEmpty(dataVersionList)) {
             for (String string : dataVersionList) {
