@@ -26,7 +26,7 @@ public class SyncDataController {
     @Autowired
     private SyncDataService syncDataService;
 
-    @RequestMapping(value = "/receiveData")
+    @RequestMapping(value = "receiveData.do")
     public ResponseBean getScanner(@RequestParam(required = false) String syncData) {
 
         String string = syncDataService.receiveData(syncData);
