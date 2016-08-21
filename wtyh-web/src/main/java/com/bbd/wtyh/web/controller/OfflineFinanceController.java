@@ -142,6 +142,10 @@ public class OfflineFinanceController {
         }
         String currentMonth = request.getParameter("currentMonth");
         String compareMonth = request.getParameter("compareMonth");
+        if (!StringUtils.isEmpty(currentMonth) && !StringUtils.isEmpty(compareMonth)) {
+            currentMonth = getDataVersionString(companyName, currentMonth);
+            compareMonth = getDataVersionString(companyName, compareMonth);
+        }
         List<String> dataVersionList = null;
         dataVersionList = relationDataService.queryDateVersion(companyName, areaCode);
         List<MonthVO> monthList = new ArrayList<MonthVO>();
@@ -299,5 +303,16 @@ public class OfflineFinanceController {
         return month;
     }
 
+    /**
+     * @param dataVersionString
+     * @return
+     */
+    public String getDataVersionString(String companyName, String dataVersionString) {
+        if (!StringUtils.isEmpty(dataVersionString)) {
+            dataVersionString = dataVersionString.replace("-","");
+        }
+        String dataVersion = relationDataService.queryDateVersionByMonth(companyName, dataVersionString);
+        return dataVersion;
+    }
 
 }
