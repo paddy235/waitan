@@ -4,7 +4,7 @@
 <mapper namespace="com.bbd.wtyh.mapper.PlatformNameInformationMapper">
 
     <select id="hasOrNotCompany" resultType="com.bbd.wtyh.domain.PlatformNameInformationDO">
-			select company_id AS companyId, platform_name AS platformName, company.name
+			select platform_name_information.company_id AS companyId, platform_name_information.platform_name AS platformName, company.name
 			from platform_name_information
 			left join company
 			on company.company_id = platform_name_information.company_id
