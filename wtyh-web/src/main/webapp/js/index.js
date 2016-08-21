@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "46fc74a6431ed7c6dc4d"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "dbc792d62289ae191f30"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -57122,7 +57122,7 @@
 
 
 	// module
-	exports.push([module.id, "/*@All暂时放在这里，全局公用的css\r\n---------------------------------------------------------*/\r\n\r\n/*@homeOne   jifei\r\n---------------------------------------------------------*/\r\n.HomeOne {\r\n\twidth: 800px;\r\n\theight: 130px;\r\n\tmargin: 10px auto;\r\n\t// border: 1px solid red;\r\n\tmargin-bottom: 10px;\r\n}\r\n.HomeOne .HomeOne-tite {\r\n\twidth: 100%;\r\n\theight: 55px;\r\n\t// border: 1px solid red;\r\n\tmargin-top: 60px;\r\n}\r\n.HomeOne .HomeOne-tite h1 {\r\n\ttext-align: center;\r\n\tcolor: #fff;\r\n}\r\n.HomeOne .HomeOne-tite h1 span {\r\n\tmargin-left: 5px;\r\n}\r\n.HomeOne .HomeOne-tite .icon-qiyejibenxinxichaxun {\r\n\tcolor: #6093e6;\r\n\tfont-size: 55px;\r\n\tposition: relative;\r\n\ttop: 5px;\r\n}\r\n.HomeOne .HomeOne-inp {\r\n\twidth: 100%;\r\n\theight: 50px;\r\n\t// border: 1px solid red;\r\n\tmargin-top: 24px;\r\n}\r\n.HomeOne .HomeOne-inp input {\r\n\twidth: 89%;\r\n\theight: 50px;\r\n\tbackground: #fff;\r\n\tborder: none;\r\n\toutline: none;\r\n\tcolor: #666666;\r\n\tpadding-left: 20px;\r\n\ttransition: 0.6s;\r\n}\r\n.HomeOne .HomeOne-inp input:focus {\r\n\tbox-shadow: inset 0px 1px 6px rgba(19, 18, 18, 0.4);\r\n}\r\n.HomeOne .HomeOne-inp .jump {\r\n\twidth: 10%;\r\n\theight: 50px;\r\n\tbackground: #5f93e7;\r\n\tfloat: right;\r\n}\r\n.HomeOne .HomeOne-inp .jump .search {\r\n\tcolor: #fff;\r\n\tfont-size: 30px;\r\n\tposition: relative;\r\n\ttop: 10px;\r\n\tleft: 25px;\r\n}\r\n\r\n/*@homeTwo\r\n---------------------------------------------------------*/\r\n.HomeTwo {\r\n\twidth: 90%;\r\n\theight: 620px;\r\n\tmargin: 0px auto;\r\n\tmargin-bottom: 0px\r\n}\r\n.middleLeft, .middleCenter, .middleRight {\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n.middleLeft {\r\n\twidth: 22%;\r\n}\r\n.middleLeft .list {\r\n\twidth: 100%;\r\n\theight: 120px;\r\n\tborder-radius: 5px;\r\n\tposition: relative;\r\n\tbox-shadow: 0 2px 5px #080b12;\r\n\tline-height: 120px;\r\n\ttext-align: center;\r\n\tborder: 3px solid #00b7ee;\r\n\tcursor: pointer;\r\n\tmargin-top: 130px;\r\n\t-webkit-transition: all .5s;\r\n\tposition: relative;\r\n}\r\n.middleLeft .list:hover {\r\n\tbackground: #153e50\r\n}\r\n.middleLeft .list:focus {\r\n\tbox-shadow: 0 5px 5px #080b12;\r\n}\r\n.middleLeft .top {\r\n\tmargin-top: 0;\r\n}\r\n.middleLeft .list h2 {\r\n\tcolor: #dddddd;\r\n}\r\n.middleLeft .list h2:hover {\r\n\tcolor: #fff;\r\n}\r\n.middleLeft .list h2 img {\r\n\tposition: absolute;\r\n\tleft: 6%;\r\n\ttop: 30px;\r\n}\r\n.middleLeft .list h2 span {\r\n\tmargin-left: 50px;\r\n}\r\n.middleLeft .list .size {\r\n\tfont-size: 55px;\r\n\tcolor: #2c7dff;\r\n\tposition: relative;\r\n\ttop: 10px;\r\n}\r\n.middleLeft .list .d {\r\n\tposition: relative;\r\n\tleft: -35px;\r\n}\r\n.middleLeft .list:hover .size {\r\n\tcolor: #fff;\r\n}\r\n\r\n/*csy center*/\r\n.middleCenter {\r\n\twidth: 56%;\r\n}\r\n.middleCenter #homeMap {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tposition: relative;\r\n}\r\n.middleRight {\r\n\twidth: 22%;\r\n}\r\n\r\n/*@homeThree\r\n---------------------------------------------------------*/\r\n.HomeThree {\r\n\twidth: 50.4%;\r\n\theight: 100px;\r\n\tmargin: 0 auto;\r\n}\r\n.HomeThree ul li {\r\n\twidth: 33%;\r\n\theight: 130px;\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\t/* padding-top: 35px; */\r\n\tposition: relative;\r\n}\r\n.HomeThree ul li  em {\r\n\tcolor: #dddddd;\r\n\tfont-size: 14px;\r\n}\r\n.HomeThree ul li  .yellow {\r\n\tcolor: #f59800;\r\n\tfont-size: 12px;\r\n\tmargin-left: 5px;\r\n}\r\n.HomeThree .mt-number-animate {\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tfont-size: 25px;\r\n\tfont-family: \"microsoft yahei\";\r\n\tfont-weight: normal;\r\n\toverflow: hidden;\r\n}\r\n.HomeThree .mt-number-animate-dot {\r\n\tline-height: 26px;\r\n\tcolor: #5f91e6;\r\n\tfloat: left;\r\n}\r\n.HomeThree .icon-arrowdown:before {\r\n\tposition: relative;\r\n\tright: -120px;\r\n\ttop: 18px;\r\n\tcolor: #f39800;\r\n\tfont-size: 12px;\r\n}\r\n.HomeThree ul li p:nth-child(even) {\r\n\tfont-size: 14px;\r\n\tcolor: #dddddd;\r\n\tmargin-top: 10px;\r\n\tmargin-left: 85px\r\n}\r\n.HomeThree .mt-number-animate-span {\r\n\tcolor: #5f91e6;\r\n\tfont-size: 30px;\r\n}\r\n.HomeThree  .mt-number-animate .mt-number-animate-dom {\r\n\twidth: 18px;\r\n\tfloat: left;\r\n}\r\n.HomeThree  .mt-number-animate {\r\n\tmargin-left: 80px\r\n}\r\n.HomeTwo .one-tip {\r\n\twidth: 160px;\r\n\theight: auto;\r\n\tposition: absolute;\r\n\ttop: -3px;\r\n\tright: -169px;\r\n\tpadding: 5px 15px;\r\n\tbackground: #fff;\r\n\tcolor: #444;\r\n\tfont-size: 14px;\r\n\tline-height: 1;\r\n\tborder-radius: 5px;\r\n\tdisplay: none\r\n}\r\n.HomeTwo .one-tip li {\r\n\twidth: 100%;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n}\r\n.HomeTwo .one-tip li:hover {\r\n\tbackground: #5f93e7 !important\r\n}\r\n.middleLeft {\r\n\tposition: relative;\r\n\tz-index: 999;\r\n\tpadding-top: 100px\r\n}", ""]);
+	exports.push([module.id, "/*@All暂时放在这里，全局公用的css\r\n---------------------------------------------------------*/\r\n\r\n/*@homeOne   jifei\r\n---------------------------------------------------------*/\r\n.HomeOne {\r\n\twidth: 800px;\r\n\theight: 130px;\r\n\tmargin: 10px auto;\r\n\t// border: 1px solid red;\r\n\tmargin-bottom: 10px;\r\n}\r\n.HomeOne .HomeOne-tite {\r\n\twidth: 100%;\r\n\theight: 55px;\r\n\t// border: 1px solid red;\r\n\tmargin-top: 60px;\r\n}\r\n.HomeOne .HomeOne-tite h1 {\r\n\ttext-align: center;\r\n\tcolor: #fff;\r\n}\r\n.HomeOne .HomeOne-tite h1 span {\r\n\tmargin-left: 5px;\r\n}\r\n.HomeOne .HomeOne-tite .icon-qiyejibenxinxichaxun {\r\n\tcolor: #6093e6;\r\n\tfont-size: 55px;\r\n\tposition: relative;\r\n\ttop: 5px;\r\n}\r\n.HomeOne .HomeOne-inp {\r\n\twidth: 100%;\r\n\theight: 50px;\r\n\t// border: 1px solid red;\r\n\tmargin-top: 24px;\r\n}\r\n.HomeOne .HomeOne-inp input {\r\n\twidth: 89%;\r\n\theight: 50px;\r\n\tbackground: #fff;\r\n\tborder: none;\r\n\toutline: none;\r\n\tcolor: #666666;\r\n\tpadding-left: 20px;\r\n\ttransition: 0.6s;\r\n}\r\n.HomeOne .HomeOne-inp input:focus {\r\n\tbox-shadow: inset 0px 1px 6px rgba(19, 18, 18, 0.4);\r\n}\r\n.HomeOne .HomeOne-inp .jump {\r\n\twidth: 10%;\r\n\theight: 50px;\r\n\tbackground: #5f93e7;\r\n\tfloat: right;\r\n}\r\n.HomeOne .HomeOne-inp .jump .search {\r\n\tcolor: #fff;\r\n\tfont-size: 30px;\r\n\tposition: relative;\r\n\ttop: 10px;\r\n\tleft: 25px;\r\n}\r\n\r\n/*@homeTwo\r\n---------------------------------------------------------*/\r\n.HomeTwo {\r\n\twidth: 90%;\r\n\theight: 620px;\r\n\tmargin: 0px auto;\r\n\tmargin-bottom: 0px\r\n}\r\n.middleLeft, .middleCenter, .middleRight {\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n.middleLeft {\r\n\twidth: 22%;\r\n}\r\n.middleLeft .list {\r\n\twidth: 100%;\r\n\theight: 120px;\r\n\tborder-radius: 5px;\r\n\tposition: relative;\r\n\tbox-shadow: 0 2px 5px #080b12;\r\n\tline-height: 120px;\r\n\ttext-align: center;\r\n\tborder: 3px solid #00b7ee;\r\n\tcursor: pointer;\r\n\tmargin-top: 130px;\r\n\t-webkit-transition: all .5s;\r\n\tposition: relative;\r\n}\r\n.middleLeft .list:hover {\r\n\tbackground: #153e50\r\n}\r\n.middleLeft .list:focus {\r\n\tbox-shadow: 0 5px 5px #080b12;\r\n}\r\n.middleLeft .top {\r\n\tmargin-top: 0;\r\n}\r\n.middleLeft .list h2 {\r\n\tcolor: #dddddd;\r\n}\r\n.middleLeft .list h2:hover {\r\n\tcolor: #fff;\r\n}\r\n.middleLeft .list h2 img {\r\n\tposition: absolute;\r\n\tleft: 6%;\r\n\ttop: 30px;\r\n}\r\n.middleLeft .list h2 span {\r\n\tmargin-left: 50px;\r\n}\r\n.middleLeft .list .size {\r\n\tfont-size: 55px;\r\n\tcolor: #2c7dff;\r\n\tposition: relative;\r\n\ttop: 10px;\r\n}\r\n.middleLeft .list .d {\r\n\tposition: relative;\r\n\tleft: -35px;\r\n}\r\n.middleLeft .list:hover .size {\r\n\tcolor: #fff;\r\n}\r\n\r\n/*csy center*/\r\n.middleCenter {\r\n\twidth: 56%;\r\n}\r\n.middleCenter #homeMap {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tposition: relative;\r\n}\r\n.middleRight {\r\n\twidth: 22%;\r\n}\r\n\r\n/*@homeThree\r\n---------------------------------------------------------*/\r\n.HomeThree {\r\n\twidth: 50.4%;\r\n\theight: 219px;\r\n\tmargin: 0 auto;\r\n}\r\n.HomeThree ul li {\r\n\twidth: 33%;\r\n\theight: 130px;\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\t/* padding-top: 35px; */\r\n\tposition: relative;\r\n}\r\n.HomeThree ul li  em {\r\n\tcolor: #dddddd;\r\n\tfont-size: 14px;\r\n}\r\n.HomeThree ul li  .yellow {\r\n\tcolor: #f59800;\r\n\tfont-size: 12px;\r\n\tmargin-left: 5px;\r\n}\r\n.HomeThree .mt-number-animate {\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tfont-size: 25px;\r\n\tfont-family: \"microsoft yahei\";\r\n\tfont-weight: normal;\r\n\toverflow: hidden;\r\n}\r\n.HomeThree .mt-number-animate-dot {\r\n\tline-height: 26px;\r\n\tcolor: #5f91e6;\r\n\tfloat: left;\r\n}\r\n.HomeThree .icon-arrowdown:before {\r\n\tposition: relative;\r\n\tright: -140px;\r\n\ttop: 18px;\r\n\tcolor: #f39800;\r\n\tfont-size: 12px;\r\n}\r\n.HomeThree ul li p:nth-child(even) {\r\n\tfont-size: 14px;\r\n\tcolor: #dddddd;\r\n\tmargin-top: 10px;\r\n\tmargin-left: 85px\r\n}\r\n.HomeThree .mt-number-animate-span {\r\n\tcolor: #5f91e6;\r\n\tfont-size: 30px;\r\n}\r\n.HomeThree  .mt-number-animate .mt-number-animate-dom {\r\n\twidth: 18px;\r\n\tfloat: left;\r\n}\r\n.HomeThree  .mt-number-animate {\r\n\tmargin-left: 80px\r\n}\r\n.HomeTwo .one-tip {\r\n\twidth: 160px;\r\n\theight: auto;\r\n\tposition: absolute;\r\n\ttop: -3px;\r\n\tright: -169px;\r\n\tpadding: 5px 15px;\r\n\tbackground: #fff;\r\n\tcolor: #444;\r\n\tfont-size: 14px;\r\n\tline-height: 1;\r\n\tborder-radius: 5px;\r\n\tdisplay: none\r\n}\r\n.HomeTwo .one-tip li {\r\n\twidth: 100%;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n}\r\n.HomeTwo .one-tip li:hover {\r\n\tbackground: #5f93e7 !important\r\n}\r\n.middleLeft {\r\n\tposition: relative;\r\n\tz-index: 999;\r\n\tpadding-top: 100px\r\n}", ""]);
 
 	// exports
 
@@ -57320,7 +57320,7 @@
 	            _react2.default.createElement(
 	              'span',
 	              null,
-	              '上海市新型金融业态监测分析平台.'
+	              '上海市新型金融业态监测分析平台'
 	            )
 	          )
 	        )
@@ -57691,15 +57691,6 @@
 	                            null,
 	                            _react2.default.createElement(
 	                                _reactRouter.Link,
-	                                { className: 'links', activeClassName: 'active', to: { pathname: HOME_PATH + "/financeLease" } },
-	                                '融资租赁'
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'li',
-	                            null,
-	                            _react2.default.createElement(
-	                                _reactRouter.Link,
 	                                { className: 'links', activeClassName: 'active', to: { pathname: HOME_PATH + "/PawnMonitoring" } },
 	                                '典当'
 	                            )
@@ -57709,8 +57700,8 @@
 	                            null,
 	                            _react2.default.createElement(
 	                                _reactRouter.Link,
-	                                { className: 'links', activeClassName: 'active', to: { pathname: HOME_PATH + "/P2P" } },
-	                                '单用途预付卡'
+	                                { className: 'links', activeClassName: 'active', to: { pathname: HOME_PATH + "/financeLease" } },
+	                                '融资租赁'
 	                            )
 	                        ),
 	                        _react2.default.createElement(
@@ -57718,8 +57709,17 @@
 	                            null,
 	                            _react2.default.createElement(
 	                                _reactRouter.Link,
-	                                { className: 'links', activeClassName: 'active', to: { pathname: HOME_PATH + "/P2P" } },
-	                                '补位'
+	                                { className: 'links', activeClassName: 'active', to: { pathname: HOME_PATH + "/commercialSecret" } },
+	                                '商业保理'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'li',
+	                            null,
+	                            _react2.default.createElement(
+	                                _reactRouter.Link,
+	                                { className: 'links', activeClassName: 'active', to: { pathname: HOME_PATH + "/prepaidCard" } },
+	                                '预付卡'
 	                            )
 	                        )
 	                    )
@@ -58700,7 +58700,7 @@
 	        companyType: content[i].companyType,
 	        foundDate: content[i].regDateStr
 	      });
-	      seriesData.push([content[i].dynamicRiskIndex, content[i].staticRiskIndex]);
+	      seriesData.push([content[i].staticRiskIndex, content[i].dynamicRiskIndex]);
 	    }
 	    var option = {
 	      color: ["#a40000"],
@@ -58727,7 +58727,7 @@
 	      _react2.default.createElement(
 	        'h4',
 	        null,
-	        '线下理财分布'
+	        '线下理财分布sss'
 	      ),
 	      _react2.default.createElement(
 	        'div',
@@ -59406,11 +59406,12 @@
 	                backgroundColor: 'rgba(0,0,0,0.7)',
 	                padding: [10, 10, 10, 10],
 	                formatter: function formatter(data) {
+	                    console.log(data, '33333333333');
 	                    if (param.formatter == "BusinessNum") {
 	                        //典当总额业务笔数
 	                        return data.name + ' 年<br/> 典当总额：&nbsp ' + data.data[3] + "亿元<br/>业务笔数：&nbsp  " + data.data[2];
 	                    } else {
-	                        return data.value[2] + ' commits in ' + ' of ' + param.xAxis[data.value[1]];
+	                        return data.name + ' 年<br/> ' + param.forMaterTitle + "：" + data.data[2] + '亿元<br/>' + param.forMaterTip + "：" + data.data[2] + "亿元";
 	                    }
 	                }
 	            },
@@ -59489,12 +59490,17 @@
 	                name: '',
 	                type: 'scatter',
 	                symbolSize: function symbolSize(val) {
+	                    console.log(val[2], 'val');
 	                    if (val[2] < 10000) {
 	                        return val[2] / 500;
 	                    } else if (10000 < val[2] && val[2] < 100000) {
 	                        return val[2] / 5000;
-	                    } else {
+	                    } else if (100000 < val[2] && val[2] < 1000000) {
 	                        return val[2] / 10000;
+	                    } else if (1000000 < val[2] && val[2] < 10000000) {
+	                        return val[2] / 80000;
+	                    } else {
+	                        return val[2] / 1000000;
 	                    }
 	                },
 	                data: param.data,
@@ -60086,11 +60092,15 @@
 
 	  getInitialState: function getInitialState() {
 	    return {
-	      companyTag: []
+	      companyTag: [],
+	      companyName: ""
 	    };
 	  },
-	  componentWillMount: function componentWillMount() {},
+	  componentWillMount: function componentWillMount() {
+	    console.log(this.props, '444444444');
+	  },
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    console.log(nextProps, '3333333');
 	    var isEqual = Immutable.is(nextProps.dynamicRiskCompanyTagResult, this.props.dynamicRiskCompanyTagResult); //判断数据是否变化
 	    if (!isEqual) {
 	      var dynamicRiskCompanyTagRequest = nextProps.dynamicRiskCompanyTagRequest;
@@ -60124,7 +60134,6 @@
 	  render: function render() {
 	    //企业标签className
 	    var classNameSet = ["bg-blue", "bg-yellow", "bg-red"];
-
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'risk-search-header' },
@@ -60167,13 +60176,13 @@
 	          { className: 'right' },
 	          _react2.default.createElement(
 	            _reactRouter.Link,
-	            { activeClassName: 'active', to: '/lineFinanceStaticRisk' },
+	            { activeClassName: 'active', to: { pathname: '/lineFinanceStaticRisk', query: { companyName: this.state.companyName } } },
 	            _react2.default.createElement('i', { className: 'iconfont icon-bar' }),
 	            '静态风险指数'
 	          ),
 	          _react2.default.createElement(
 	            _reactRouter.Link,
-	            { activeClassName: 'active', to: '/lineFinanceDynamicRisk' },
+	            { activeClassName: 'active', to: { pathname: '/lineFinanceDynamicRisk', query: { companyName: this.state.companyName } } },
 	            _react2.default.createElement('i', { className: 'iconfont icon-history' }),
 	            '风险时序差异对比'
 	          )
@@ -60254,6 +60263,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var Immutable = __webpack_require__(718);
 	//风险指数关联图
 	var LineFinanceRelationGraph = _react2.default.createClass({
 	    displayName: 'LineFinanceRelationGraph',
@@ -60264,7 +60274,85 @@
 	        };
 	    },
 	    componentDidMount: function componentDidMount() {
-	        seajs.use("/relativeGraph/assets/script/main/guanliantu.js");
+	        seajs.use("/relativeGraph/assets/script/main/dynamic");
+	        var queryDynamicPic = this.props.queryDynamicPic;
+
+	        queryDynamicPic({
+	            "companyName": "宁夏思越资产投资管理有限责任公司",
+	            "dataVersion": "20160530",
+	            "degree": 3
+	        });
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var isEqual = Immutable.is(nextProps.dynamicPicRequest, this.props.dynamicPicResult);
+	        if (!isEqual) {
+	            (function () {
+	                var dynamicPicRequest = nextProps.dynamicPicRequest;
+	                var dynamicPicResult = nextProps.dynamicPicResult;
+
+	                if (dynamicPicRequest == true) {
+	                    seajs.use("/relativeGraph/assets/script/main/dynamic.js", function (main) {
+	                        var pointList = dynamicPicResult.pointList;
+	                        if (pointList == null || pointList == "" || pointList == "undefined") {
+	                            nodes = [];
+	                        } else {
+	                            nodes = [];
+	                            for (var i = 0; i < pointList.length; i++) {
+	                                var point = pointList[i];
+
+	                                var symbol = "rect";
+	                                if (point.isPerson == "1") {
+	                                    symbol = "circle";
+	                                }
+
+	                                var color = "#FF0000";
+	                                if (point.level == "1") {
+	                                    color = "#0030AF";
+	                                    if (point.isSonCom == "1") {
+	                                        color = "#FFCA00";
+	                                    }
+	                                } else if (point.level == "2") {
+	                                    color = "#36B3EB";
+	                                } else if (point.level == "3") {
+	                                    color = "#C1C1C1";
+	                                } else {}
+
+	                                nodes[i] = {
+	                                    "addflag": "false",
+	                                    "category": point.level,
+	                                    "color": color,
+	                                    "name": point.name,
+	                                    "symbol": symbol
+	                                };
+	                            }
+	                        }
+	                        var lineList = dynamicPicResult.lineList;
+	                        if (lineList == null || lineList == "" || lineList == "undefined") {
+	                            links = [];
+	                        } else {
+	                            links = [];
+	                            for (var i = 0; i < lineList.length; i++) {
+	                                var line = lineList[i];
+	                                var lineType = "line";
+	                                if (line.isFullLine == "0") {
+	                                    lineType = "dotted";
+	                                }
+	                                links[i] = {
+	                                    "addflag": "false",
+	                                    "guanlian": line.type,
+	                                    "line": lineType,
+	                                    "relatedParyName": line.relationship,
+	                                    "source": line.orig,
+	                                    "target": line.target
+	                                };
+	                            }
+	                        }
+
+	                        main.reDrawCanvas();
+	                    });
+	                }
+	            })();
+	        }
 	    },
 	    handleChange: function handleChange(e) {
 	        var searchVal = e.target.value;
@@ -60562,299 +60650,10 @@
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'relation-graph-box' },
-	                    _react2.default.createElement('input', { type: 'hidden', id: 'GLOBAL', 'data-url': '', 'data-sidenav': '3', 'data-taoxi': 'S', 'data-isopen': '1' }),
 	                    _react2.default.createElement(
 	                        'div',
-	                        { className: 'main correlation', id: 'main', style: { "height": "100%" } },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'show-company-info', id: 'show-company-info', style: { "display": "none" } },
-	                            _react2.default.createElement(
-	                                'a',
-	                                { href: 'javascript:;', className: 'close' },
-	                                _react2.default.createElement('i', { className: 'iconfont icon-icon13' })
-	                            ),
-	                            _react2.default.createElement(
-	                                'h1',
-	                                { id: 'companyName-info' },
-	                                'loading...'
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'des', id: 'companyName-des-info' },
-	                                '...'
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'correlation-tips' },
-	                            _react2.default.createElement(
-	                                'a',
-	                                { href: 'javascript:;', className: 'mtui-tips-info', 'data-info': '隐藏文字', id: 'cavHideText' },
-	                                _react2.default.createElement('img', { src: '/assets/images/k-3.jpg', alt: '' })
-	                            ),
-	                            _react2.default.createElement(
-	                                'a',
-	                                { href: 'javascript:;', className: 'mtui-tips-info', 'data-info': '放大', id: 'cavToMax' },
-	                                _react2.default.createElement('img', { src: '/assets/images/k-4.jpg', alt: '' })
-	                            ),
-	                            _react2.default.createElement(
-	                                'a',
-	                                { href: 'javascript:;', className: 'mtui-tips-info', 'data-info': '缩小', id: 'cavToMin' },
-	                                _react2.default.createElement('img', { src: '/assets/images/k-5.jpg', alt: '' })
-	                            ),
-	                            _react2.default.createElement(
-	                                'a',
-	                                { className: 'pic-tips', href: 'javascript:;' },
-	                                '图例说明 ',
-	                                _react2.default.createElement('i', { className: 'iconfont icon-xia' }),
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 't-img' },
-	                                    _react2.default.createElement(
-	                                        'ul',
-	                                        null,
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            { className: 'mtop1' },
-	                                            '当前目标'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            { className: 'mtop2' },
-	                                            '投资公司'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            { className: 'mtop2' },
-	                                            '被投资公司'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            { className: 'mtop2' },
-	                                            '股东'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            { className: 'mtop2' },
-	                                            '董监高'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            { className: 'mtop2' },
-	                                            '其他公司'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            { className: 'mtop2' },
-	                                            '其他自然人'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            { className: 'mtop3' },
-	                                            '投资关系'
-	                                        )
-	                                    ),
-	                                    _react2.default.createElement('img', { className: '', src: '/assets/images/tips.gif', alt: '' })
-	                                )
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'time-line' },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'date' },
-	                                _react2.default.createElement('ul', { className: 'dateul' })
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'canvas selectNull', id: 'canvas-box' },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'drag-box' },
-	                                _react2.default.createElement('div', { className: 'cav-main cav-hover-nodes', id: 'cav-hover-nodes' }),
-	                                ' ',
-	                                _react2.default.createElement('div', { className: 'cav-main cav-hover', id: 'cav-hover' }),
-	                                ' ',
-	                                _react2.default.createElement('div', { className: 'cav-main cav-main-hover', id: 'cav-main-hover' }),
-	                                ' ',
-	                                _react2.default.createElement('div', { className: 'cav-main cav-nodes', id: 'cav-nodes' }),
-	                                _react2.default.createElement('div', { className: 'cav-main cav-nodes-text', id: 'cav-nodes-text' }),
-	                                _react2.default.createElement('div', { className: 'cav-main cav-links-hover', id: 'cav-links-hover' }),
-	                                _react2.default.createElement('div', { className: 'cav-main cav-links', id: 'cav-links' })
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'sidebar' },
-	                            _react2.default.createElement('a', { href: 'javascript:;', className: 'sidebtn' })
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'sidebox' },
-	                            _react2.default.createElement(
-	                                'ul',
-	                                { className: 'select-nav clearfix' },
-	                                _react2.default.createElement(
-	                                    'li',
-	                                    { className: 'levels', 'data-level': '1' },
-	                                    _react2.default.createElement(
-	                                        'a',
-	                                        { href: 'javascript:;' },
-	                                        '1度'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'li',
-	                                    { className: 'levels', 'data-level': '2' },
-	                                    _react2.default.createElement(
-	                                        'a',
-	                                        { href: 'javascript:;' },
-	                                        '2度'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'li',
-	                                    { className: 'levels', 'data-level': '3' },
-	                                    _react2.default.createElement(
-	                                        'a',
-	                                        { href: 'javascript:;' },
-	                                        '3度'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'li',
-	                                    { className: 'levels', 'data-level': '4' },
-	                                    _react2.default.createElement(
-	                                        'a',
-	                                        { href: 'javascript:;' },
-	                                        '4度'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'li',
-	                                    { className: 'tz', 'data-type': 'all' },
-	                                    _react2.default.createElement(
-	                                        'a',
-	                                        { href: 'javascript:;' },
-	                                        '全部'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'li',
-	                                    { className: 'tz', 'data-type': 'shareholder', 'langs-title': '股东投资' },
-	                                    _react2.default.createElement(
-	                                        'a',
-	                                        { href: 'javascript:;' },
-	                                        '股东投资'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'li',
-	                                    { className: 'tz', 'data-type': 'direct', 'langs-title': '直接投资' },
-	                                    _react2.default.createElement(
-	                                        'a',
-	                                        { href: 'javascript:;' },
-	                                        '直接投资'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'li',
-	                                    { className: 'tz', 'data-type': 'leader', 'langs-title': '董监高' },
-	                                    _react2.default.createElement(
-	                                        'a',
-	                                        { href: 'javascript:;' },
-	                                        '董监高'
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'search-company' },
-	                                _react2.default.createElement('input', { type: 'text', className: 'name', id: 'searchCompanyLocal', placeholder: '搜索关联方列表' }),
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'index-search-content' },
-	                                    ' ...'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'all-company', id: 'allCompany' },
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'item-loading' },
-	                                    'loading...'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'all-company', id: 'gdCompany', style: { "display": "none" } },
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'item-loading' },
-	                                    'loading...'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'all-company', id: 'zjCompany', style: { "display": "none" } },
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'item-loading' },
-	                                    'loading...'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'all-company', id: 'djgCompany', style: { "display": "none" } },
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'item-loading' },
-	                                    'loading...'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'down-btn' },
-	                                _react2.default.createElement(
-	                                    'a',
-	                                    { href: 'javascript:;', className: 'mt-btn-blue down-excel' },
-	                                    '下载Excel'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'a',
-	                                    { href: 'javascript:;', className: 'mt-btn-grey reset-old' },
-	                                    '恢复默认'
-	                                )
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'loadingBox' },
-	                        _react2.default.createElement(
-	                            'p',
-	                            null,
-	                            '数据加载中...'
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'click-detail-show', id: 'click-detail-show' },
-	                        _react2.default.createElement(
-	                            'h1',
-	                            null,
-	                            '基本资料 ',
-	                            _react2.default.createElement(
-	                                'a',
-	                                { href: 'javascript:;', className: 'close' },
-	                                _react2.default.createElement('i', { className: 'iconfont icon-icon13' })
-	                            )
-	                        ),
-	                        _react2.default.createElement('div', { className: 'detail-content' })
+	                        { className: 'main correlation', id: 'dyMapMain' },
+	                        _react2.default.createElement('div', { id: 'dyMap' })
 	                    )
 	                )
 	            )
@@ -60901,7 +60700,7 @@
 
 
 	// module
-	exports.push([module.id, "/*关联图模块 begin*/\r\n.linefin-rel-graph {\r\n\theight: 1300px;\r\n}\r\n\r\n.linefin-rel-graph .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-rel-graph .mod-title h3 {\r\n}\r\n\r\n.linefin-rel-graph .mod-title .mod-title-right {\r\n\tmargin-top: 5px;\r\n}\r\n\r\n.linefin-rel-graph .mod-title-right i.icon-fullscreen {\r\n\tmargin-left: 20px;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 6px;\r\n\tfloat: right;\r\n\tcursor: pointer;\r\n}\r\n\r\n.linefin-rel-graph .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .relation-graph-box {\r\n\theight: 1200px;\r\n}\r\n\r\n/*关联图模块 end*/\r\n\r\n/*公司舆情 begin*/\r\n.linefin-cocompose {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n.linefin-cocompose .mod-title {\r\n\tbackground-color: #36404d;\r\n}\r\n.linefin-cocompose .mod-content{\r\n\theight: 550px;\r\n}\r\n.linefin-cocompose .content-box {\r\n\theight: 534px;\r\n\toverflow: auto;\r\n\tmargin: 20px 20px 0px 20px;\r\n\tbackground-color: #212831;\r\n\tpadding: 20px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box {\r\n\toverflow: hidden;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n}\r\n.linefin-cocompose .content-box .list-box h4 a{\r\n\tcolor: #ffffff;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 em {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 24px;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\tborder-radius: 2px;\r\n\tbackground-color: #1a2029;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box p {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tmargin-left: 45px;\r\n\ttext-indent: 28px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tfloat: right;\r\n\tcolor: #e14340;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source .name {\r\n\tmargin-right: 40px;\r\n}\r\n\r\n/**公司舆情 end*/\r\n\r\n/*静态风险指数构成 begin*/\r\n.linefin-index-constitute .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-index-constitute .mt-select {\r\n\tmargin-top: 5px;\r\n\tmargin-right: 5px;\r\n\tcolor: #c9c9ca;\r\n}\r\n\r\n.linefin-index-constitute .con-box {\r\n\tbackground-color: #2b323c;\r\n\tpadding: 0 20px;\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-info {\r\n\theight: 846px;\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-pie {\r\n\theight: 520px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item {\r\n\tcursor: pointer;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-head {\r\n\tbackground-color: #1a2029;\r\n\tborder-bottom: solid 1px #2b323c;\r\n\theight: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\tfont-size: 14px;\r\n\theight: 20px;\r\n\tline-height: 20px;\r\n\tmargin-top: 10px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.name {\r\n\tcolor: #e5e5e5;\r\n\twidth: 40%;\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.num {\r\n\twidth: 60%;\r\n\ttext-indent: 10%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head {\r\n\theight: 60px;\r\n\tbackground-color: #e14340;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span {\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.name {\r\n\tfont-size: 18px;\r\n\tborder-color: #ed8e8c;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.num em {\r\n\tfont-size: 36px;\r\n\tcolor: #ffffff;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-other .item-head span.num i {\r\n\tfloat: right;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 3px;\r\n\tfont-size: 14px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table {\r\n\twidth: 100%;\r\n\tbackground-color: #36404d;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table {\r\n\twidth: 100%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td {\r\n\tborder-bottom: solid 1px #2b323c;\r\n\tpadding: 10px 0;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-left {\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-right {\r\n\tpadding-left: 10%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart {\r\n\theight: 330px;\r\n\tbackground-color: #212831;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart h4 {\r\n\tbackground-color: #1a2029;\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n\tpadding: 0 20px;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart .chart-b {\r\n\theight: 290px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-head span.name {\r\n\tfont-size: 16px;\r\n\tborder-color: #d0d8df;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-con {\r\n\tdisplay: none;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-con {\r\n\tdisplay: block;\r\n}\r\n\r\n/*关联图 图例 begin*/\r\n.relation-legend {\r\n\tmargin: 25px 0 15px 10px;\r\n\twidth: 99%;\r\n\theight: 56px;\r\n}\r\n\r\n.relation-legend table {\r\n\tbackground: #1a2029;\r\n\twidth: 80%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n\r\n.relation-legend table tr {\r\n\theight: 50%;\r\n\twidth: 10%;\r\n}\r\n\r\n.relation-legend table tr td {\r\n\tpadding: 8px 0 0 14px;\r\n\tposition: relative;\r\n\twidth: 19.8%;\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.relation-legend table tr span {\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.relation-legend table tr .item-lable {\r\n\tfont-size: 12px;\r\n\tcolor: #b2b2b2;\r\n\tposition: absolute;\r\n}\r\n\r\n.relation-legend table tr img {\r\n\tmargin: -5px 20px 0 0;\r\n}\r\n\r\n.relation-legend table tr .square {\r\n\twidth: 17px;\r\n\theight: 17px;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.relation-legend table tr .round {\r\n\twidth: 17px;\r\n\theight: 17px;\r\n\tmargin-right: 20px;\r\n\tborder-radius: 100px;\r\n}\r\n\r\n.relation-legend table tr .orange {\r\n\tbackground: #f44603;\r\n}\r\n\r\n.relation-legend table tr .orange-two {\r\n\tbackground: #f98d2b;\r\n}\r\n\r\n.relation-legend table tr .blue {\r\n\tbackground: #046adb;\r\n}\r\n\r\n.relation-legend table tr .yellow {\r\n\tbackground: #ffdb03;\r\n}\r\n\r\n.relation-legend table tr .green {\r\n\tbackground: #73d528;\r\n}\r\n\r\n.relation-legend .condition {\r\n\twidth: 19.6%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n\tmargin-left: 2px;\r\n\tbackground: #212831;\r\n}\r\n\r\n.relation-legend .condition .lable {\r\n\tfont-size: 12px;\r\n\tcolor: #fff;\r\n\twidth: 100%;\r\n\theight: 50%;\r\n\tpadding-top: 8px;\r\n\tline-height: 100%;\r\n\ttext-align: center;\r\n}\r\n\r\n.relation-legend .condition .btns {\r\n\twidth: 100%;\r\n\theight: 50%;\r\n}\r\n\r\n.relation-legend .condition .btns .btn {\r\n\tbackground: #474f5c;\r\n\tfloat: left;\r\n\twidth: 32.5%;\r\n\theight: 100%;\r\n\tmargin-left: 1px;\r\n\ttext-align: center;\r\n\tpadding-top: 5px;\r\n\tcursor: pointer; \r\n}\r\n.relation-legend .condition .btns .btn.active{\r\n\tbackground-color: #00b8ee;\r\n}\r\n\r\n.relation-modal {\r\n\tposition: absolute;\r\n\tleft: 10px;\r\n\ttop: 100px;\r\n\twidth: 270px;\r\n\tpadding-bottom: 5px;\r\n\tborder-radius: 5px;\r\n\tbackground: #222931;\r\n\tz-index: 99999;\r\n\t-webkit-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n\t-moz-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n\tbox-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n}\r\n\r\n.relation-modal .company-title {\r\n\twidth: 100%;\r\n\theight: 30px;\r\n\tline-height: 30px;\r\n\tpadding-left: 5%;\r\n\tbackground: #4B5668;\r\n\tborder-top-left-radius: 5px;\r\n\tborder-top-right-radius: 5px;\r\n}\r\n\r\n.relation-modal table {\r\n\twidth: 100%;\r\n}\r\n\r\n.relation-modal table tr {\r\n\twidth: 100%;\r\n}\r\n\r\n.relation-modal table tr td {\r\n\theight: 27px;\r\n\tline-height: 27px;\r\n\tfont-size: 12px;\r\n}\r\n\r\n.relation-modal table tr td:first-child {\r\n\twidth: 60%;\r\n\tcolor: #878E96;\r\n\tpadding-left: 5%;\r\n}\r\n\r\n.relation-modal table tr td:last-child {\r\n\twidth: 40%;\r\n}\r\n\r\n.relation-modal .see-detail {\r\n\tfont-size: 12px;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\tcolor: #ffffff;\r\n\ttext-align: center;\r\n\tdisplay: block;\r\n\tborder-radius: 5px;\r\n\tbackground-color: #e14340;\r\n\tmargin-top: 10px;\r\n\tmargin-bottom: 10px;\r\n\tmargin-left: 10px;\r\n\tmargin-right: 10px;\r\n}\r\n\r\n/*关联图 图例 end*/\r\n\r\n/*关联图 侧边栏begin*/\r\n.sidebox {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation-tips {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .sidebar {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .canvas {\r\n\tmargin-right: auto !important;\r\n}\r\n\r\n.correlation .time-line {\r\n\tdisplay: none;\r\n}\r\n\r\n/*关联图 end*/\r\n\r\n/*静态风险指数构成 end*/", ""]);
+	exports.push([module.id, "/*关联图模块 begin*/\r\n.linefin-rel-graph {\r\n\theight: 1300px;\r\n}\r\n\r\n.linefin-rel-graph .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-rel-graph .mod-title h3 {\r\n}\r\n\r\n.linefin-rel-graph .mod-title .mod-title-right {\r\n\tmargin-top: 5px;\r\n\tdisplay: inline-block;\r\n\tfloat: right;\r\n}\r\n\r\n.linefin-rel-graph .mod-title-right i.icon-fullscreen {\r\n\tmargin-left: 20px;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 6px;\r\n\tfloat: right;\r\n\tcursor: pointer;\r\n}\r\n\r\n.linefin-rel-graph .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .relation-graph-box {\r\n\theight: 1200px;\r\n}\r\n\r\n/*关联图模块 end*/\r\n\r\n/*公司舆情 begin*/\r\n.linefin-cocompose {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n.linefin-cocompose .mod-title {\r\n\tbackground-color: #36404d;\r\n}\r\n\r\n.linefin-cocompose .mod-content {\r\n\theight: 550px;\r\n}\r\n\r\n.linefin-cocompose .content-box {\r\n\theight: 534px;\r\n\toverflow: auto;\r\n\tmargin: 20px 20px 0px 20px;\r\n\tbackground-color: #212831;\r\n\tpadding: 20px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box {\r\n\toverflow: hidden;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 a {\r\n\tcolor: #ffffff;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 em {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 24px;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\tborder-radius: 2px;\r\n\tbackground-color: #1a2029;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box p {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tmargin-left: 45px;\r\n\ttext-indent: 28px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tfloat: right;\r\n\tcolor: #e14340;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source .name {\r\n\tmargin-right: 40px;\r\n}\r\n\r\n/**公司舆情 end*/\r\n\r\n/*静态风险指数构成 begin*/\r\n.linefin-index-constitute .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-index-constitute .mt-select {\r\n\tmargin-top: 5px;\r\n\tmargin-right: 5px;\r\n\tcolor: #c9c9ca;\r\n}\r\n\r\n.linefin-index-constitute .con-box {\r\n\tbackground-color: #2b323c;\r\n\tpadding: 0 20px;\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-info {\r\n\theight: 846px;\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-pie {\r\n\theight: 520px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item {\r\n\tcursor: pointer;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-head {\r\n\tbackground-color: #1a2029;\r\n\tborder-bottom: solid 1px #2b323c;\r\n\theight: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\tfont-size: 14px;\r\n\theight: 20px;\r\n\tline-height: 20px;\r\n\tmargin-top: 10px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.name {\r\n\tcolor: #e5e5e5;\r\n\twidth: 40%;\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.num {\r\n\twidth: 60%;\r\n\ttext-indent: 10%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head {\r\n\theight: 60px;\r\n\tbackground-color: #e14340;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span {\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.name {\r\n\tfont-size: 18px;\r\n\tborder-color: #ed8e8c;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.num em {\r\n\tfont-size: 36px;\r\n\tcolor: #ffffff;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-other .item-head span.num i {\r\n\tfloat: right;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 3px;\r\n\tfont-size: 14px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table {\r\n\twidth: 100%;\r\n\tbackground-color: #36404d;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table {\r\n\twidth: 100%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td {\r\n\tborder-bottom: solid 1px #2b323c;\r\n\tpadding: 10px 0;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-left {\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-right {\r\n\tpadding-left: 10%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart {\r\n\theight: 330px;\r\n\tbackground-color: #212831;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart h4 {\r\n\tbackground-color: #1a2029;\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n\tpadding: 0 20px;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart .chart-b {\r\n\theight: 290px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-head span.name {\r\n\tfont-size: 16px;\r\n\tborder-color: #d0d8df;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-con {\r\n\tdisplay: none;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-con {\r\n\tdisplay: block;\r\n}\r\n\r\n/*关联图 图例 begin*/\r\n.relation-legend {\r\n\tmargin: 25px 0 15px 10px;\r\n\twidth: 99%;\r\n\theight: 56px;\r\n}\r\n\r\n.relation-legend table {\r\n\tbackground: #1a2029;\r\n\twidth: 80%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n\r\n.relation-legend table tr {\r\n\theight: 50%;\r\n\twidth: 10%;\r\n}\r\n\r\n.relation-legend table tr td {\r\n\tpadding: 8px 0 0 14px;\r\n\tposition: relative;\r\n\twidth: 19.8%;\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.relation-legend table tr span {\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.relation-legend table tr .item-lable {\r\n\tfont-size: 12px;\r\n\tcolor: #b2b2b2;\r\n\tposition: absolute;\r\n}\r\n\r\n.relation-legend table tr img {\r\n\tmargin: -5px 20px 0 0;\r\n}\r\n\r\n.relation-legend table tr .square {\r\n\twidth: 17px;\r\n\theight: 17px;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.relation-legend table tr .round {\r\n\twidth: 17px;\r\n\theight: 17px;\r\n\tmargin-right: 20px;\r\n\tborder-radius: 100px;\r\n}\r\n\r\n.relation-legend table tr .orange {\r\n\tbackground: #f44603;\r\n}\r\n\r\n.relation-legend table tr .orange-two {\r\n\tbackground: #f98d2b;\r\n}\r\n\r\n.relation-legend table tr .blue {\r\n\tbackground: #046adb;\r\n}\r\n\r\n.relation-legend table tr .yellow {\r\n\tbackground: #ffdb03;\r\n}\r\n\r\n.relation-legend table tr .green {\r\n\tbackground: #73d528;\r\n}\r\n\r\n.relation-legend .condition {\r\n\twidth: 19.6%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n\tmargin-left: 2px;\r\n\tbackground: #212831;\r\n}\r\n\r\n.relation-legend .condition .lable {\r\n\tfont-size: 12px;\r\n\tcolor: #fff;\r\n\twidth: 100%;\r\n\theight: 50%;\r\n\tpadding-top: 8px;\r\n\tline-height: 100%;\r\n\ttext-align: center;\r\n}\r\n\r\n.relation-legend .condition .btns {\r\n\twidth: 100%;\r\n\theight: 50%;\r\n}\r\n\r\n.relation-legend .condition .btns .btn {\r\n\tbackground: #474f5c;\r\n\tfloat: left;\r\n\twidth: 32.5%;\r\n\theight: 100%;\r\n\tmargin-left: 1px;\r\n\ttext-align: center;\r\n\tpadding-top: 5px;\r\n\tcursor: pointer;\r\n}\r\n\r\n.relation-legend .condition .btns .btn.active {\r\n\tbackground-color: #00b8ee;\r\n}\r\n\r\n.relation-modal {\r\n\tposition: absolute;\r\n\tleft: 10px;\r\n\ttop: 100px;\r\n\twidth: 270px;\r\n\tpadding-bottom: 5px;\r\n\tborder-radius: 5px;\r\n\tbackground: #222931;\r\n\tz-index: 99999;\r\n\t-webkit-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n\t-moz-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n\tbox-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n}\r\n\r\n.relation-modal .company-title {\r\n\twidth: 100%;\r\n\theight: 30px;\r\n\tline-height: 30px;\r\n\tpadding-left: 5%;\r\n\tbackground: #4B5668;\r\n\tborder-top-left-radius: 5px;\r\n\tborder-top-right-radius: 5px;\r\n}\r\n\r\n.relation-modal table {\r\n\twidth: 100%;\r\n}\r\n\r\n.relation-modal table tr {\r\n\twidth: 100%;\r\n}\r\n\r\n.relation-modal table tr td {\r\n\theight: 27px;\r\n\tline-height: 27px;\r\n\tfont-size: 12px;\r\n}\r\n\r\n.relation-modal table tr td:first-child {\r\n\twidth: 60%;\r\n\tcolor: #878E96;\r\n\tpadding-left: 5%;\r\n}\r\n\r\n.relation-modal table tr td:last-child {\r\n\twidth: 40%;\r\n}\r\n\r\n.relation-modal .see-detail {\r\n\tfont-size: 12px;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\tcolor: #ffffff;\r\n\ttext-align: center;\r\n\tdisplay: block;\r\n\tborder-radius: 5px;\r\n\tbackground-color: #e14340;\r\n\tmargin-top: 10px;\r\n\tmargin-bottom: 10px;\r\n\tmargin-left: 10px;\r\n\tmargin-right: 10px;\r\n}\r\n\r\n/*关联图 图例 end*/\r\n\r\n/*关联图 侧边栏begin*/\r\n.sidebox {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation-tips {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .sidebar {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .canvas {\r\n\tmargin-right: auto !important;\r\n}\r\n\r\n.correlation .time-line {\r\n\tdisplay: none;\r\n}\r\n\r\n/*关联图 end*/\r\n\r\n/*静态风险指数构成 end*/", ""]);
 
 	// exports
 
@@ -62461,10 +62260,10 @@
 	      data: json,
 	      type: "GET",
 	      success: function success(result) {
-	        return dispatch(queryDynamicSuccess(result));
+	        return dispatch(dynamicPicSuccess(result));
 	      },
 	      error: function error(result) {
-	        return dispatch(queryDynamicFail(result));
+	        return dispatch(dynamicPicFail(result));
 	      }
 	    });
 	  };
@@ -62774,11 +62573,10 @@
 	    getDynamicRiskIndexCmp(data);
 	  },
 	  render: function render() {
-
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'linefin-dynamic-risk' },
-	      _react2.default.createElement(_RiskSearchHeader2.default, this.props),
+	      _react2.default.createElement(_RiskSearchHeader2.default, null),
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'dynamic-risk-box content-space-10' },
@@ -62807,10 +62605,7 @@
 	});
 
 	function mapStateToProps(state) {
-	  console.log(state.DynamicRiskIndexCmp, 'DynamicRiskIndexCmp');
 	  return {
-	    //dynamicRiskData: state.dynamicRiskData,
-
 	    //获取公司标签
 	    dynamicRiskCompanyTagRequest: state.DynamicRiskCompanyTag.request,
 	    dynamicRiskCompanyTagResult: state.DynamicRiskCompanyTag.result,
@@ -62819,11 +62614,14 @@
 	    dynamicRiskDateRequest: state.DynamicRiskDate.request,
 	    dynamicRiskDateResult: state.DynamicRiskDate.result,
 
-	    //获取对比图
-	    dynamicRiskImgRequest: state.DynamicRiskImg.request,
-	    dynamicRiskImgResult: state.DynamicRiskImg.result,
+	    //获取对比图 左侧
+	    dynamicRiskLeftImgRequest: state.DynamicRiskLeftImg.request,
+	    dynamicRiskLeftImgResult: state.DynamicRiskLeftImg.result,
 
-	    //获取对比图
+	    //获取对比图 右侧
+	    dynamicRiskRightImgRequest: state.DynamicRiskRightImg.request,
+	    dynamicRiskRightImgResult: state.DynamicRiskRightImg.result,
+
 	    dynamicRiskIndexCmpRequest: state.DynamicRiskIndexCmp.request,
 	    dynamicRiskIndexCmpResult: state.DynamicRiskIndexCmp.result,
 
@@ -62856,9 +62654,13 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _EachTimeAxis = __webpack_require__(765);
+	var _EachTimeAxisLeft = __webpack_require__(1392);
 
-	var _EachTimeAxis2 = _interopRequireDefault(_EachTimeAxis);
+	var _EachTimeAxisLeft2 = _interopRequireDefault(_EachTimeAxisLeft);
+
+	var _EachTimeAxisRight = __webpack_require__(1393);
+
+	var _EachTimeAxisRight2 = _interopRequireDefault(_EachTimeAxisRight);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -62877,7 +62679,7 @@
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
-	    var companyName = "上海北湖投资管理有限公司";
+	    var companyName = "《国际金融报》社有限公司";
 	    var jsonData = { companyName: companyName };
 	    this.setState({ companyName: companyName });
 	    this.getRelativeDate(jsonData);
@@ -62948,12 +62750,12 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'cmp-l' },
-	            _react2.default.createElement(_EachTimeAxis2.default, _extends({ flag: 'left', borderLeft: 'false' }, this.props, { date: this.state.date, nowDate: this.state.dateLeft, companyName: this.state.companyName }))
+	            _react2.default.createElement(_EachTimeAxisLeft2.default, _extends({ borderLeft: 'false' }, this.props, { date: this.state.date, nowDate: this.state.dateLeft, companyName: this.state.companyName }))
 	          ),
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'cmp-r' },
-	            _react2.default.createElement(_EachTimeAxis2.default, _extends({ flag: 'right', borderLeft: 'true' }, this.props, { date: this.state.date, nowDate: this.state.dateRight, companyName: this.state.companyName }))
+	            _react2.default.createElement(_EachTimeAxisRight2.default, _extends({ borderLeft: 'true' }, this.props, { date: this.state.date, nowDate: this.state.dateRight, companyName: this.state.companyName }))
 	          )
 	        )
 	      )
@@ -63006,151 +62808,7 @@
 
 
 /***/ },
-/* 765 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	__webpack_require__(766);
-
-	var _react = __webpack_require__(138);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _index = __webpack_require__(692);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var Immutable = __webpack_require__(718);
-	//每个时间轴
-	var EachTimeAxis = _react2.default.createClass({
-	  displayName: 'EachTimeAxis',
-
-	  getInitialState: function getInitialState() {
-	    return {
-	      wNo: 25,
-	      scale: 100
-	    };
-	  },
-	  componentDidMount: function componentDidMount() {},
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    var isEqual = Immutable.is(nextProps.nowDate, this.props.nowDate); //判断数据是否变化
-	    if (!isEqual) {
-	      var companyName = nextProps.companyName;
-	      var nowDate = nextProps.nowDate;
-	      var json = { companyName: companyName, month: nowDate };
-	      this.getRelativeImg(json);
-	    }
-	  },
-	  getRelativeImg: function getRelativeImg(jsonData) {
-	    //获取图片
-	    var getDynamicRiskImg = this.props.getDynamicRiskImg;
-
-	    getDynamicRiskImg(jsonData);
-	  },
-
-	  minClick: function minClick(e) {
-	    //缩小图片
-	    var wNo = this.state.wNo;
-	    if (wNo > 25) {
-	      wNo = wNo - 25;
-	    }
-	    var scale = wNo / 250 * 1000;
-	    this.setState({ wNo: wNo, scale: scale });
-	  },
-	  addClick: function addClick(e) {
-	    //放大图片
-	    var wNo = this.state.wNo;
-	    if (wNo < 200) {
-	      wNo = wNo + 25;
-	    }
-	    var scale = wNo / 250 * 1000;
-	    this.setState({ wNo: wNo, scale: scale });
-	  },
-	  render: function render() {
-	    var select = null;
-	    var flag = this.props.flag;
-	    var nowVal = null;
-
-	    if (this.props.date.length > 0) {
-	      var d = this.props.date[0];
-	      if (flag == "left") {
-	        //判断是左侧图还是右侧图  设置不同的时间
-	        nowVal = this.props.date[0].value;
-	      } else {
-	        nowVal = this.props.date[1].value;
-	      }
-	      var selectProp = {
-	        width: '85px',
-	        className: 'index-selected',
-	        value: nowVal,
-	        placeholder: '时间选择',
-	        name: 'testselect',
-	        id: 'indexSelected',
-	        data: this.props.date,
-	        onChange: function (value, date) {
-	          var json = { companyName: this.props.companyName, month: date };
-	          this.getRelativeImg(json);
-	        }.bind(this)
-	      };
-	      select = _react2.default.createElement(_index.Selected, selectProp);
-	    }
-
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'linefin-each-timeaxis mod' },
-	      _react2.default.createElement(
-	        'div',
-	        { className: this.props.borderLeft == 'true' ? 'mod-title bl' : 'mod-title' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'date' },
-	          _react2.default.createElement(
-	            'label',
-	            null,
-	            '时间选项'
-	          ),
-	          select
-	        ),
-	        _react2.default.createElement('i', { className: 'iconfont icon-zoomout' }),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'scale' },
-	          _react2.default.createElement('i', { className: 'min iconfont icon-jian', onClick: this.minClick }),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'scale-bar' },
-	            _react2.default.createElement('span', { className: 's-bar', ref: 'sBar', style: { width: this.state.wNo + 'px' } }),
-	            _react2.default.createElement(
-	              'em',
-	              { ref: 'sBarNo', style: { left: this.state.wNo + 10 + 'px' } },
-	              this.state.scale,
-	              '%'
-	            )
-	          ),
-	          _react2.default.createElement('i', { className: 'add iconfont icon-jia', onClick: this.addClick })
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: this.props.borderLeft ? 'mod-content bl' : 'mod-content' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'con-box' },
-	          _react2.default.createElement('img', { src: this.props.cmpUrl, alt: '时间轴对比图' })
-	        )
-	      )
-	    );
-	  }
-	});
-	module.exports = EachTimeAxis;
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "EachTimeAxis.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
+/* 765 */,
 /* 766 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -63185,7 +62843,7 @@
 
 
 	// module
-	exports.push([module.id, "/*单个时间轴 begin*/\r\n.linefin-each-timeaxis .mod-title{\r\n\theight: 45px;\r\n\tline-height: 45px;\r\n\tbackground-color: #1a2029 !important;\r\n\tpadding: 0 10px;\r\n\tmargin-top: 10px;\r\n}\r\n.linefin-each-timeaxis .mod-title.bl{\r\n\tborder-left: solid 1px #000000;\r\n}\r\n.linefin-each-timeaxis .mod-title .date{\r\n\tfloat: left;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .label{\r\n\tfont-size: 14px;\r\n\tcolor: #ffffff;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select{\r\n\tbackground-color: #ffffff;\r\n\tborder-radius: 5px;\r\n\tpadding-left: 5px;\r\n\tpadding-right: 0px;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select .mt-select-title{\r\n\tcolor: #1a1a1a;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select i{\r\n\tfont-size: 24px;\r\n\ttop: 0px;\r\n\tcolor:#1a1a1a;\r\n\tright:0px;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select-box{\r\n\tcolor: #1a1a1a;\r\n}\r\n/*缩放条*/\r\n.scale{\r\n\tfloat: right;\r\n\tmargin-top: 10px;\r\n\twidth: 298px;\r\n\theight: 24px;\r\n\tbackground-color: #0d1013;\r\n}\r\n.scale .min,.scale .add{\r\n\tborder:solid 1px #dddddd;\r\n\tdisplay: inline-block;\r\n\twidth: 24px;\r\n\theight: 24px;\r\n\ttext-align: center;\r\n\tline-height: 20px;\r\n\tcursor: pointer;\r\n\tcolor: #00b7ee;\r\n}\r\n.scale .min{\r\n\tfloat: left;\r\n}\r\n.scale .add{\r\n\tfloat: right;\r\n}\r\n\r\n.scale .scale-bar{\r\n\tdisplay: inline-block;\r\n\twidth: 250px;\r\n\theight: 24px;\r\n\tfloat: left;\r\n\tposition: relative;\r\n}\r\n.scale .scale-bar .s-bar{\r\n\tdisplay:block;\r\n\twidth: 60%;\r\n\theight: 24px;\r\n\tbackground: #1e5799; /* Old browsers */\r\n\tbackground: -moz-linear-gradient(left,  #1e5799 0%, #00b7e7 0%, #207cca 100%, #7db9e8 100%); /* FF3.6-15 */\r\n\tbackground: -webkit-linear-gradient(left,  #1e5799 0%,#00b7e7 0%,#207cca 100%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */\r\n\tbackground: linear-gradient(to right,  #1e5799 0%,#00b7e7 0%,#207cca 100%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */\r\n\tfilter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=1 ); /* IE6-9 */\r\n}\r\n.scale .scale-bar em{\r\n\tcolor: #999999;\r\n\tfont-size: 14px;\r\n\theight: 24px;\r\n\tposition: absolute;\r\n\tleft: 60%;\r\n\ttop: 3px;\r\n\tline-height: normal;\r\n}\r\n.linefin-each-timeaxis .mod-title .icon-zoomout{\r\n\tfloat: right;\r\n\tmargin-left: 10px;\r\n\tmargin-top: 13px;\r\n\tcolor: #00b7ee;\r\n}\r\n\r\n/*内容 begin*/\r\n.linefin-each-timeaxis .mod-content.bl{\r\n\tborder-left:solid 1px #282e37;\r\n}\r\n\r\n.linefin-each-timeaxis .mod-content .con-box{\r\n\twidth: 95%;\r\n\theight: 620px;\r\n\tmargin: 0 auto;\r\n\tmargin-top: 100px;\r\n}\r\n/*内容 end*/\r\n/*单个时间轴 end*/", ""]);
+	exports.push([module.id, "/*单个时间轴 begin*/\r\n.linefin-each-timeaxis .mod-title{\r\n\theight: 45px;\r\n\tline-height: 45px;\r\n\tbackground-color: #1a2029 !important;\r\n\tpadding: 0 10px;\r\n\tmargin-top: 10px;\r\n}\r\n.linefin-each-timeaxis .mod-title.bl{\r\n\tborder-left: solid 1px #000000;\r\n}\r\n.linefin-each-timeaxis .mod-title .date{\r\n\tfloat: left;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .label{\r\n\tfont-size: 14px;\r\n\tcolor: #ffffff;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select{\r\n\tbackground-color: #ffffff;\r\n\tborder-radius: 5px;\r\n\tpadding-left: 5px;\r\n\tpadding-right: 0px;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select .mt-select-title{\r\n\tcolor: #1a1a1a;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select i{\r\n\tfont-size: 24px;\r\n\ttop: 0px;\r\n\tcolor:#1a1a1a;\r\n\tright:0px;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select-box{\r\n\tcolor: #1a1a1a;\r\n}\r\n/*缩放条*/\r\n.scale{\r\n\tfloat: right;\r\n\tmargin-top: 10px;\r\n\twidth: 298px;\r\n\theight: 24px;\r\n\tbackground-color: #0d1013;\r\n}\r\n.scale .min,.scale .add{\r\n\tborder:solid 1px #dddddd;\r\n\tdisplay: inline-block;\r\n\twidth: 24px;\r\n\theight: 24px;\r\n\ttext-align: center;\r\n\tline-height: 20px;\r\n\tcursor: pointer;\r\n\tcolor: #00b7ee;\r\n}\r\n.scale .min{\r\n\tfloat: left;\r\n}\r\n.scale .add{\r\n\tfloat: right;\r\n}\r\n\r\n.scale .scale-bar{\r\n\tdisplay: inline-block;\r\n\twidth: 250px;\r\n\theight: 24px;\r\n\tfloat: left;\r\n\tposition: relative;\r\n}\r\n.scale .scale-bar .s-bar{\r\n\tdisplay:block;\r\n\twidth: 60%;\r\n\theight: 24px;\r\n\tbackground: #1e5799; /* Old browsers */\r\n\tbackground: -moz-linear-gradient(left,  #1e5799 0%, #00b7e7 0%, #207cca 100%, #7db9e8 100%); /* FF3.6-15 */\r\n\tbackground: -webkit-linear-gradient(left,  #1e5799 0%,#00b7e7 0%,#207cca 100%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */\r\n\tbackground: linear-gradient(to right,  #1e5799 0%,#00b7e7 0%,#207cca 100%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */\r\n\tfilter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=1 ); /* IE6-9 */\r\n}\r\n.scale .scale-bar em{\r\n\tcolor: #999999;\r\n\tfont-size: 14px;\r\n\theight: 24px;\r\n\tposition: absolute;\r\n\tleft: 60%;\r\n\ttop: 3px;\r\n\tline-height: normal;\r\n}\r\n.linefin-each-timeaxis .mod-title .icon-zoomout{\r\n\tfloat: right;\r\n\tmargin-left: 10px;\r\n\tmargin-top: 13px;\r\n\tcolor: #00b7ee;\r\n}\r\n\r\n/*内容 begin*/\r\n.linefin-each-timeaxis .mod-content.bl{\r\n\tborder-left:solid 1px #282e37;\r\n}\r\n\r\n.linefin-each-timeaxis .mod-content .con-box{\r\n\twidth: 95%;\r\n\theight: 620px;\r\n\tmargin: 0 auto;\r\n\tmargin-top: 100px;\r\n\ttext-align: center;\r\n\tvertical-align: middle;\r\n}\r\n.linefin-each-timeaxis .mod-content .con-box img{\r\n\twidth: 80%;\r\n}\r\n/*内容 end*/\r\n/*单个时间轴 end*/", ""]);
 
 	// exports
 
@@ -63203,10 +62861,6 @@
 	var _react = __webpack_require__(138);
 
 	var _react2 = _interopRequireDefault(_react);
-
-	var _EachTimeAxis = __webpack_require__(765);
-
-	var _EachTimeAxis2 = _interopRequireDefault(_EachTimeAxis);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -64385,10 +64039,6 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _EachTimeAxis = __webpack_require__(765);
-
-	var _EachTimeAxis2 = _interopRequireDefault(_EachTimeAxis);
-
 	var _RiskTab = __webpack_require__(770);
 
 	var _RiskTab2 = _interopRequireDefault(_RiskTab);
@@ -64717,9 +64367,10 @@
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+		value: true
 	});
-	exports.getDynamicRiskImg = getDynamicRiskImg;
+	exports.getDynamicRiskLeftImg = getDynamicRiskLeftImg;
+	exports.getDynamicRiskRightImg = getDynamicRiskRightImg;
 	exports.getDynamicRiskIndexCmp = getDynamicRiskIndexCmp;
 	exports.getDynamicRiskCompanyTag = getDynamicRiskCompanyTag;
 	exports.getDynamicRiskDate = getDynamicRiskDate;
@@ -64728,41 +64379,78 @@
 	* */
 
 	/*
-	* 获取图片
+	* 获取图片 左侧
 	* */
-	var DYNAMIC_RISK_IMG_SUCCESS = exports.DYNAMIC_RISK_IMG_SUCCESS = "DYNAMIC_RISK_IMG_SUCCESS";
-	var DYNAMIC_RISK_IMG_FAIL = exports.DYNAMIC_RISK_IMG_FAIL = "DYNAMIC_RISK_IMG_FAIL";
+	var DYNAMIC_RISK_LEFTIMG_SUCCESS = exports.DYNAMIC_RISK_LEFTIMG_SUCCESS = "DYNAMIC_RISK_LEFTIMG_SUCCESS";
+	var DYNAMIC_RISK_LEFTIMG_FAIL = exports.DYNAMIC_RISK_LEFTIMG_FAIL = "DYNAMIC_RISK_LEFTIMG_FAIL";
 
-	function dynamicRiskImgSuccess(result) {
-	  return {
-	    type: DYNAMIC_RISK_IMG_SUCCESS,
-	    result: result
-	  };
+	function dynamicRiskLeftImgSuccess(result) {
+		return {
+			type: DYNAMIC_RISK_LEFTIMG_SUCCESS,
+			result: result
+		};
 	}
-	function dynamicRiskImgFail(result) {
-	  return {
-	    type: DYNAMIC_RISK_IMG_FAIL,
-	    result: result
-	  };
+	function dynamicRiskLeftImgFail(result) {
+		return {
+			type: DYNAMIC_RISK_LEFTIMG_FAIL,
+			result: result
+		};
 	}
 
-	function getDynamicRiskImg() {
-	  var json = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
+	function getDynamicRiskLeftImg() {
+		var json = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
 
-	  return function (dispatch) {
-	    $.ajax({
-	      type: 'GET',
-	      url: '/offlineFinance/showYEDData.do',
-	      dataType: 'json',
-	      data: json,
-	      success: function success(result) {
-	        return dispatch(dynamicRiskImgSuccess(result.content));
-	      },
-	      error: function error(result) {
-	        return dispatch(dynamicRiskImgFail(result.content));
-	      }
-	    });
-	  };
+		return function (dispatch) {
+			$.ajax({
+				type: 'GET',
+				url: '/offlineFinance/showYEDData.do',
+				dataType: 'json',
+				data: json,
+				success: function success(result) {
+					return dispatch(dynamicRiskLeftImgSuccess(result));
+				},
+				error: function error(result) {
+					return dispatch(dynamicRiskLeftImgFail(result));
+				}
+			});
+		};
+	};
+	/*
+	* 获取图片 右侧
+	* */
+	var DYNAMIC_RISK_RIGHTIMG_SUCCESS = exports.DYNAMIC_RISK_RIGHTIMG_SUCCESS = "DYNAMIC_RISK_RIGHTIMG_SUCCESS";
+	var DYNAMIC_RISK_RIGHTIMG_FAIL = exports.DYNAMIC_RISK_RIGHTIMG_FAIL = "DYNAMIC_RISK_RIGHTIMG_FAIL";
+
+	function dynamicRiskRightImgSuccess(result) {
+		return {
+			type: DYNAMIC_RISK_RIGHTIMG_SUCCESS,
+			result: result
+		};
+	}
+	function dynamicRiskRightImgFail(result) {
+		return {
+			type: DYNAMIC_RISK_RIGHTIMG_FAIL,
+			result: result
+		};
+	}
+
+	function getDynamicRiskRightImg() {
+		var json = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
+
+		return function (dispatch) {
+			$.ajax({
+				type: 'GET',
+				url: '/offlineFinance/showYEDData.do',
+				dataType: 'json',
+				data: json,
+				success: function success(result) {
+					return dispatch(dynamicRiskRightImgSuccess(result));
+				},
+				error: function error(result) {
+					return dispatch(dynamicRiskRightImgFail(result));
+				}
+			});
+		};
 	};
 
 	/*
@@ -64772,35 +64460,35 @@
 	var DYNAMIC_RISK_INDEX_CMP_FAIL = exports.DYNAMIC_RISK_INDEX_CMP_FAIL = "DYNAMIC_RISK_INDEX_CMP_FAIL";
 
 	function dynamicRiskIndexCmpSuccess(result) {
-	  return {
-	    type: DYNAMIC_RISK_INDEX_CMP_SUCCESS,
-	    result: result
-	  };
+		return {
+			type: DYNAMIC_RISK_INDEX_CMP_SUCCESS,
+			result: result
+		};
 	}
 	function dynamicRiskIndexCmpFail(result) {
-	  return {
-	    type: constDYNAMIC_RISK_INDEX_CMP_FAIL,
-	    result: result
-	  };
+		return {
+			type: constDYNAMIC_RISK_INDEX_CMP_FAIL,
+			result: result
+		};
 	}
 
 	function getDynamicRiskIndexCmp() {
-	  var json = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
+		var json = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
 
-	  return function (dispatch) {
-	    $.ajax({
-	      type: 'GET',
-	      url: '/offlineFinance/dynamicRiskData.do',
-	      dataType: 'json',
-	      data: json,
-	      success: function success(result) {
-	        return dispatch(dynamicRiskIndexCmpSuccess(result));
-	      },
-	      error: function error(result) {
-	        return dispatch(dynamicRiskIndexCmpFail(result));
-	      }
-	    });
-	  };
+		return function (dispatch) {
+			$.ajax({
+				type: 'GET',
+				url: '/offlineFinance/dynamicRiskData.do',
+				dataType: 'json',
+				data: json,
+				success: function success(result) {
+					return dispatch(dynamicRiskIndexCmpSuccess(result));
+				},
+				error: function error(result) {
+					return dispatch(dynamicRiskIndexCmpFail(result));
+				}
+			});
+		};
 	}
 
 	/*
@@ -64810,35 +64498,35 @@
 	var DYNAMIC_RISK_COMPANY_TAG_FAIL = exports.DYNAMIC_RISK_COMPANY_TAG_FAIL = "DYNAMIC_RISK_COMPANY_TAG_FAIL";
 
 	function getDynamicRiskCompanyTagsSuccess(result) {
-	  return {
-	    type: DYNAMIC_RISK_COMPANY_TAG_SUCCESS,
-	    result: result
-	  };
+		return {
+			type: DYNAMIC_RISK_COMPANY_TAG_SUCCESS,
+			result: result
+		};
 	}
 	function getDynamicRiskCompanyTagsFail(result) {
-	  return {
-	    type: DYNAMIC_RISK_COMPANY_TAG_FAIL,
-	    result: result
-	  };
+		return {
+			type: DYNAMIC_RISK_COMPANY_TAG_FAIL,
+			result: result
+		};
 	}
 
 	function getDynamicRiskCompanyTag() {
-	  var json = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
+		var json = arguments.length <= 0 || arguments[0] === undefined ? null : arguments[0];
 
-	  return function (dispatch) {
-	    $.ajax({
-	      type: 'GET',
-	      url: '/offlineFinance/companyInfo.do',
-	      dataType: 'json',
-	      data: json,
-	      success: function success(result) {
-	        return dispatch(getDynamicRiskCompanyTagsSuccess(result));
-	      },
-	      error: function error(result) {
-	        return dispatch(getDynamicRiskCompanyTagsFail(result));
-	      }
-	    });
-	  };
+		return function (dispatch) {
+			$.ajax({
+				type: 'GET',
+				url: '/offlineFinance/companyInfo.do',
+				dataType: 'json',
+				data: json,
+				success: function success(result) {
+					return dispatch(getDynamicRiskCompanyTagsSuccess(result));
+				},
+				error: function error(result) {
+					return dispatch(getDynamicRiskCompanyTagsFail(result));
+				}
+			});
+		};
 	}
 
 	/*
@@ -64848,33 +64536,33 @@
 	var DYNAMIC_RISK_DATE_FAIL = exports.DYNAMIC_RISK_DATE_FAIL = "DYNAMIC_RISK_DATE_FAIL";
 
 	function getDynamicRiskDateSuccess(result) {
-	  return {
-	    type: DYNAMIC_RISK_DATE_SUCCESS,
-	    result: result
-	  };
+		return {
+			type: DYNAMIC_RISK_DATE_SUCCESS,
+			result: result
+		};
 	}
 	function getDynamicRiskDateFail(result) {
-	  return {
-	    type: DYNAMIC_RISK_DATE_FAIL,
-	    result: result
-	  };
+		return {
+			type: DYNAMIC_RISK_DATE_FAIL,
+			result: result
+		};
 	}
 
 	function getDynamicRiskDate(json) {
-	  return function (dispatch) {
-	    $.ajax({
-	      type: 'GET',
-	      url: '/offlineFinance/queryDateVersion.do',
-	      dataType: 'json',
-	      data: json,
-	      success: function success(result) {
-	        return dispatch(getDynamicRiskDateSuccess(result));
-	      },
-	      error: function error(result) {
-	        return dispatch(getDynamicRiskDateFail(result));
-	      }
-	    });
-	  };
+		return function (dispatch) {
+			$.ajax({
+				type: 'GET',
+				url: '/offlineFinance/queryDateVersion.do',
+				dataType: 'json',
+				data: json,
+				success: function success(result) {
+					return dispatch(getDynamicRiskDateSuccess(result));
+				},
+				error: function error(result) {
+					return dispatch(getDynamicRiskDateFail(result));
+				}
+			});
+		};
 	}
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "LineFinanceDynamicRiskAction.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
@@ -70920,10 +70608,12 @@
 	    if (!isEqual) {
 	      var loanBalanceData = nextProps.loanBalanceData;
 
+
 	      this.dataFomat(loanBalanceData);
 	    }
 	  },
 	  dataFomat: function dataFomat(data) {
+	    console.log(data, 333333333333333);
 	    var option = {
 	      id: 'loan-balance-chart', //必传
 	      height: '272px', //必传 带上单位
@@ -73050,39 +72740,74 @@
 
 	    mixins: [_setHeight2.default],
 	    getInitialState: function getInitialState() {
-	        var _selectVal = this.props.location.query.platName == undefined ? "" : this.props.location.query.platName;
 	        return {
-	            companyVal: _selectVal
+	            getCompany: "",
+	            companyName: ""
 	        };
 	    },
-	    componentDidMount: function componentDidMount() {},
+	    componentDidMount: function componentDidMount() {
+	        var _selectVal = this.props.location.query.platName == undefined ? "" : this.props.location.query.platName;
+	        this.setState({ getCompany: _selectVal }, function () {
+	            $.ajax({
+	                url: "/P2PImage/hasOrNotCompany.do",
+	                dataType: "json",
+	                data: {
+	                    platName: this.state.getCompany
+	                },
+	                type: "GET",
+	                success: function (result) {
+	                    if (result.success) {
+	                        this.setState({ companyName: result.content.name });
+	                    }
+	                }.bind(this)
+	            });
+	        });
+	    },
 	    handleFunction: function handleFunction(searchVal) {
-	        this.setState({ companyVal: searchVal }, function () {
-	            var _props = this.props;
-	            var getbaseMsgRequest = _props.getbaseMsgRequest;
-	            var getcompanyMsgRequest = _props.getcompanyMsgRequest;
-	            var getcoreDataRequest = _props.getcoreDataRequest;
-	            var getCoreBarDataRequest = _props.getCoreBarDataRequest;
-	            var getCoreTrendDataRequest = _props.getCoreTrendDataRequest;
-	            var getCoreBalanceDataRequest = _props.getCoreBalanceDataRequest;
-	            var getlitigationRequest = _props.getlitigationRequest;
-	            var getpublicOpinionRequest = _props.getpublicOpinionRequest;
-	            var getrankPicRequest = _props.getrankPicRequest;
-	            var getscoreLeidaRequest = _props.getscoreLeidaRequest;
+	        $.ajax({
+	            url: "/P2PImage/hasOrNotCompany.do",
+	            dataType: "json",
+	            data: {
+	                platName: searchVal
+	            },
+	            type: "GET",
+	            success: function (result) {
+	                if (result.success) {
+	                    this.setState({ companyVal: searchVal, companyName: result.content.name }, function () {
+	                        var _props = this.props;
+	                        var getbaseMsgRequest = _props.getbaseMsgRequest;
+	                        var getcompanyMsgRequest = _props.getcompanyMsgRequest;
+	                        var getcoreDataRequest = _props.getcoreDataRequest;
+	                        var getCoreBarDataRequest = _props.getCoreBarDataRequest;
+	                        var getCoreTrendDataRequest = _props.getCoreTrendDataRequest;
+	                        var getCoreBalanceDataRequest = _props.getCoreBalanceDataRequest;
+	                        var getlitigationRequest = _props.getlitigationRequest;
+	                        var getpublicOpinionRequest = _props.getpublicOpinionRequest;
+	                        var getrankPicRequest = _props.getrankPicRequest;
+	                        var getscoreLeidaRequest = _props.getscoreLeidaRequest;
 
 
-	            getbaseMsgRequest({ "platName": this.state.companyVal });
-	            getcompanyMsgRequest({ "platName": this.state.companyVal });
-	            getcoreDataRequest({ "platName": this.state.companyVal });
-	            getCoreBarDataRequest({ "platName": this.state.companyVal });
-	            getCoreTrendDataRequest({ "platName": this.state.companyVal });
-	            getCoreBalanceDataRequest({ "platName": this.state.companyVal });
+	                        getbaseMsgRequest({ "platName": this.state.companyVal });
+	                        getcompanyMsgRequest({ "platName": this.state.companyVal });
+	                        getcoreDataRequest({ "platName": this.state.companyVal });
+	                        getCoreBarDataRequest({ "platName": this.state.companyVal });
+	                        getCoreTrendDataRequest({ "platName": this.state.companyVal });
+	                        getCoreBalanceDataRequest({ "platName": this.state.companyVal });
 
-	            getlitigationRequest({ "platName": this.state.companyVal });
-	            getpublicOpinionRequest({ "platName": this.state.companyVal });
+	                        getlitigationRequest({ "platName": this.state.companyVal });
+	                        getpublicOpinionRequest({ "platName": this.state.companyVal });
 
-	            getrankPicRequest({ "platName": this.state.companyVal });
-	            getscoreLeidaRequest({ "platName": this.state.companyVal });
+	                        getrankPicRequest({
+	                            "platName": this.state.companyVal,
+	                            "companyName": result.content.name,
+	                            "dataVersion": "20160530",
+	                            "degree": 3
+	                        });
+
+	                        getscoreLeidaRequest({ "platName": this.state.companyVal });
+	                    });
+	                }
+	            }.bind(this)
 	        });
 	    },
 	    render: function render() {
@@ -73430,7 +73155,7 @@
 
 
 	// module
-	exports.push([module.id, ".p2p-portrait {\r\n}\r\n\r\n.p2p-portrait .portrait-left {\r\n\twidth: 45%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right {\r\n\twidth: 54.5%;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom {\r\n\twidth: 100%;\r\n\tmargin-top: 0.5%\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t {\r\n\twidth: 100%;\r\n\theight: 180px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m {\r\n\twidth: 100%;\r\n\theight: 275px;\r\n\tmargin: 1.5% 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-b {\r\n\twidth: 100%;\r\n\theight: 815px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t {\r\n\twidth: 100%;\r\n\theight: 464px\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b {\r\n\twidth: 100%;\r\n\theight: 815px;\r\n\tmargin-top: 1.4%;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l {\r\n\twidth: 24%;\r\n\theight: 255px;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-r {\r\n\twidth: 75.5%;\r\n\theight: 255px;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%;\r\n}\r\n\r\n.p2p-portrait  .compangMsg-log {\r\n\twidth: 90px;\r\n\theight: 90px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tdisplay: table;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul li {\r\n\tdisplay: table-cell;\r\n\tvertical-align: middle;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul span {\r\n\tdisplay: block;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul .score {\r\n\tfont-size: 50px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul .score-title {\r\n\tfont-size: 18px;\r\n\tcolor: #fff\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul .state {\r\n\tfont-size: 24px;\r\n\tcolor: #fff\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .wtyh-table {\r\n\theight: 180px;\r\n\tcolor: #dddddd\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .wtyh-table td {\r\n\tcolor: #dddddd;\r\n\tpadding-left: 20px !important;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .wtyh-table td .word-limit-5 {\r\n\twidth: 200px\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .list-items {\r\n\tpadding: 10px 10px 0px 10px\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content {\r\n\tpadding: 65px 43px 20px 43px\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul {\r\n\tdisplay: table;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n\tpadding-bottom: 20px;\r\n\ttext-align: center;\r\n\tborder-bottom: 1px #00b8ee solid;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul:before {\r\n\tcontent: \"\";\r\n\theight: 50%;\r\n\twidth: 1px;\r\n\tbackground: #00b8ee;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n\tleft: 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul:after {\r\n\tcontent: \"\";\r\n\theight: 50%;\r\n\twidth: 1px;\r\n\tbackground: #00b8ee;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n\tright: 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul li {\r\n\tdisplay: table-cell;\r\n\twidth: 33.3%;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .icon-susong {\r\n\tdisplay: inline-block;\r\n\tfont-size: 60px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .ssong-title {\r\n\tfont-size: 18px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .ssong-num {\r\n\tfont-size: 50px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .content {\r\n\tmargin: 20px;\r\n\theight: 170px;\r\n\tbackground: #212831;\r\n\toverflow: auto;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .serial-num {\r\n\twidth: 25px;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\ttext-align: center;\r\n\tbackground: #1a2029;\r\n\tcolor: #fff;\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item a {\r\n\tcolor: #e14340\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item {\r\n\tcolor: #d9d9d9;\r\n\tpadding: 11px 30px 11px 30px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item table {\r\n\twidth: 100%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .item-mark {\r\n\ttext-indent: 30px;\r\n\tpadding: 10px 0px\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item  .td2-l {\r\n\twidth: 5%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item  .td2-r {\r\n\twidth: 95%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .soure,\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .time {\r\n\tcolor: #999999\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .time {\r\n\tdisplay: inline-block;\r\n\tmargin-left: 20px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .content {\r\n\tpadding: 15px  50px 0px 50px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t ul.content-ul {\r\n\tdisplay: table;\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t ul.content-ul>li {\r\n\tdisplay: table-cell;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-l {\r\n\twidth: 15%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-c {\r\n\twidth: 53%;\r\n\tmargin-right: 2%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r {\r\n\twidth: 30%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-l .socre-title {\r\n\tfont-size: 30px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-l .score {\r\n\tfont-size: 52px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r table {\r\n\r\n\t/*text-align: center;*/\r\n\twidth: 100%;\r\n\theight: 380px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r  .score-leida-r-ul li {\r\n\twidth: 48%;\r\n\tfloat: left;\r\n\tpadding: 15px 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r p {\r\n\tfont-size: 32px;\r\n\tcolor: #fdba45\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t  .leida-c-pic {\r\n\theight: 382px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r span {\r\n\tfont-size: 16px;\r\n\tcolor: #dddddd\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .content {\r\n\tpadding: 40px 30px;\r\n\theight: 760px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top {\r\n\theight: 50%;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top table {\r\n\twidth: 100%;\r\n\theight: 90%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-bottom .bottom-line-left {\r\n\twidth: 50%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-bottom .bottom-line-right {\r\n\twidth: 50%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top table  td {\r\n\twidth: 50%;\r\n\tcolor: #dddddd;\r\n\tpadding-left: 30px !important;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top .top-list {\r\n\theight: 100%;\r\n\twidth: 40%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top .top-bar {\r\n\theight: 100%;\r\n\twidth: 55%;\r\n\tfloat: right;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-bottom {\r\n\theight: 50%\r\n}\r\n\r\n.p2p-portrait .relation-legend table {\r\n\twidth: 100%\r\n}\r\n\r\n.p2p-portrait .relation-modal {\r\n\tdisplay: none;\r\n}\r\n\r\n.p2p-portrait .linefin-rel-graph .mod-content .relation-graph-box {\r\n\theight: 640px;\r\n\toverflow: hidden;\r\n}\r\n\r\n.p2p-portrait  .linefin-rel-graph {\r\n\theight: 815px\r\n}\r\n\r\n.p2p-portrait .relation-legend table tr td {\r\n\twidth: 19.8%;\r\n}\r\n\r\n.p2p-portrait .relation-legend {\r\n\tmargin: 25px 10px 15px 10px;\r\n\twidth: auto;\r\n}\r\n\r\n.p2p-portrait  .relation-legend table tr .square,\r\n.p2p-portrait   .relation-legend table tr .round {\r\n\tmargin-right: 5px;\r\n}\r\n\r\n.p2p-portrait  .relation-legend table tr .square {\r\n\twidth: 10px;\r\n\theight: 10px;\r\n}\r\n\r\n.p2p-portrait   .relation-legend table tr .round {\r\n\twidth: 10px;\r\n\theight: 10px;\r\n}\r\n\r\n.p2p-portrait .pic_rank {\r\n\tposition: absolute;\r\n\tz-index: 9999;\r\n\tright: 10px;\r\n\ttop: 74px;\r\n}\r\n\r\n.p2p-portrait .pic_rank span {\r\n\tcolor: #e14340;\r\n\tdisplay: inline-block;\r\n\twidth: 25px;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tbackground: #000;\r\n\tborder: 1px #3b424c solid;\r\n\tmargin-left: 10px;\r\n\tcursor: pointer;\r\n\ttext-align: center;\r\n}", ""]);
+	exports.push([module.id, ".p2p-portrait {\r\n}\r\n\r\n.p2p-portrait .portrait-left {\r\n\twidth: 45%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right {\r\n\twidth: 54.5%;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom {\r\n\twidth: 100%;\r\n\tmargin-top: 0.5%\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t {\r\n\twidth: 100%;\r\n\theight: 180px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m {\r\n\twidth: 100%;\r\n\theight: 275px;\r\n\tmargin: 1.5% 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-b {\r\n\twidth: 100%;\r\n\theight: 815px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t {\r\n\twidth: 100%;\r\n\theight: 464px\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b {\r\n\twidth: 100%;\r\n\theight: 815px;\r\n\tmargin-top: 1.4%;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l {\r\n\twidth: 24%;\r\n\theight: 255px;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-r {\r\n\twidth: 75.5%;\r\n\theight: 255px;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%;\r\n}\r\n\r\n.p2p-portrait  .compangMsg-log {\r\n\twidth: 90px;\r\n\theight: 90px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tdisplay: table;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul li {\r\n\tdisplay: table-cell;\r\n\tvertical-align: middle;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul span {\r\n\tdisplay: block;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul .score {\r\n\tfont-size: 50px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul .score-title {\r\n\tfont-size: 18px;\r\n\tcolor: #fff\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul .state {\r\n\tfont-size: 24px;\r\n\tcolor: #fff\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .wtyh-table {\r\n\theight: 180px;\r\n\tcolor: #dddddd\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .wtyh-table td {\r\n\tcolor: #dddddd;\r\n\tpadding-left: 20px !important;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .wtyh-table td .word-limit-5 {\r\n\twidth: 200px\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .list-items {\r\n\tpadding: 10px 10px 0px 10px\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content {\r\n\tpadding: 65px 43px 20px 43px\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul {\r\n\tdisplay: table;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n\tpadding-bottom: 20px;\r\n\ttext-align: center;\r\n\tborder-bottom: 1px #00b8ee solid;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul:before {\r\n\tcontent: \"\";\r\n\theight: 50%;\r\n\twidth: 1px;\r\n\tbackground: #00b8ee;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n\tleft: 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul:after {\r\n\tcontent: \"\";\r\n\theight: 50%;\r\n\twidth: 1px;\r\n\tbackground: #00b8ee;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n\tright: 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul li {\r\n\tdisplay: table-cell;\r\n\twidth: 33.3%;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .icon-susong {\r\n\tdisplay: inline-block;\r\n\tfont-size: 60px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .ssong-title {\r\n\tfont-size: 18px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .ssong-num {\r\n\tfont-size: 50px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .content {\r\n\tmargin: 20px;\r\n\theight: 170px;\r\n\tbackground: #212831;\r\n\toverflow: auto;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .serial-num {\r\n\twidth: 25px;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\ttext-align: center;\r\n\tbackground: #1a2029;\r\n\tcolor: #fff;\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item a {\r\n\tcolor: #e14340\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item {\r\n\tcolor: #d9d9d9;\r\n\tpadding: 11px 30px 11px 30px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item table {\r\n\twidth: 100%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .item-mark {\r\n\ttext-indent: 30px;\r\n\tpadding: 10px 0px\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item  .td2-l {\r\n\twidth: 5%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item  .td2-r {\r\n\twidth: 95%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .soure,\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .time {\r\n\tcolor: #999999\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .time {\r\n\tdisplay: inline-block;\r\n\tmargin-left: 20px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .content {\r\n\tpadding: 15px  50px 0px 50px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t ul.content-ul {\r\n\tdisplay: table;\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t ul.content-ul>li {\r\n\tdisplay: table-cell;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-l {\r\n\twidth: 15%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-c {\r\n\twidth: 53%;\r\n\tmargin-right: 2%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r {\r\n\twidth: 30%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-l .socre-title {\r\n\tfont-size: 30px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-l .score {\r\n\tfont-size: 52px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r table {\r\n\r\n\t/*text-align: center;*/\r\n\twidth: 100%;\r\n\theight: 380px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r  .score-leida-r-ul li {\r\n\twidth: 48%;\r\n\tfloat: left;\r\n\tpadding: 15px 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r p {\r\n\tfont-size: 32px;\r\n\tcolor: #fdba45\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t  .leida-c-pic {\r\n\theight: 382px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r span {\r\n\tfont-size: 16px;\r\n\tcolor: #dddddd\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .content {\r\n\tpadding: 40px 30px;\r\n\theight: 760px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top {\r\n\theight: 50%;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top table {\r\n\twidth: 100%;\r\n\theight: 90%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-bottom .bottom-line-left {\r\n\twidth: 50%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-bottom .bottom-line-right {\r\n\twidth: 50%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top table  td {\r\n\twidth: 50%;\r\n\tcolor: #dddddd;\r\n\tpadding-left: 30px !important;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top .top-list {\r\n\theight: 100%;\r\n\twidth: 40%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top .top-bar {\r\n\theight: 100%;\r\n\twidth: 55%;\r\n\tfloat: right;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-bottom {\r\n\theight: 50%\r\n}\r\n\r\n.p2p-portrait .relation-legend table {\r\n\twidth: 100%\r\n}\r\n\r\n.p2p-portrait .relation-modal {\r\n\tdisplay: none;\r\n}\r\n\r\n.p2p-portrait .linefin-rel-graph .mod-content .relation-graph-box {\r\n\theight: 640px;\r\n\toverflow: hidden;\r\n}\r\n\r\n.p2p-portrait  .linefin-rel-graph {\r\n\theight: 815px\r\n}\r\n\r\n.p2p-portrait .relation-legend table tr td {\r\n\twidth: 19.8%;\r\n}\r\n\r\n.p2p-portrait .relation-legend {\r\n\tmargin: 35px 10px 15px 10px;\r\n\twidth: auto;\r\n}\r\n\r\n.p2p-portrait  .relation-legend table tr .square,\r\n.p2p-portrait   .relation-legend table tr .round {\r\n\tmargin-right: 5px;\r\n}\r\n\r\n.p2p-portrait  .relation-legend table tr .square {\r\n\twidth: 10px;\r\n\theight: 10px;\r\n}\r\n\r\n.p2p-portrait   .relation-legend table tr .round {\r\n\twidth: 10px;\r\n\theight: 10px;\r\n}\r\n\r\n.p2p-portrait .pic_rank {\r\n\tposition: absolute;\r\n\tz-index: 9999;\r\n\tright: 10px;\r\n\ttop: 74px;\r\n}\r\n\r\n.p2p-portrait .pic_rank span {\r\n\tcolor: #e14340;\r\n\tdisplay: inline-block;\r\n\twidth: 25px;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tbackground: #000;\r\n\tborder: 1px #3b424c solid;\r\n\tmargin-left: 10px;\r\n\tcursor: pointer;\r\n\ttext-align: center;\r\n\tfont-weight: bold;\r\n}\r\n\r\n#dyMapMain,\r\n#dyMap {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}", ""]);
 
 	// exports
 
@@ -74314,24 +74039,86 @@
 	        };
 	    },
 	    componentDidMount: function componentDidMount() {
-	        seajs.use("/relativeGraph/assets/script/main/guanliantu.js");
+	        seajs.use("/relativeGraph/assets/script/main/dynamic");
 	        var getrankPicRequest = this.props.getrankPicRequest;
 
-	        getrankPicRequest({ "platName": this.state.companyVal });
+	        getrankPicRequest({
+	            "platName": this.state.companyVal,
+	            "companyName": "宁夏思越资产投资管理有限责任公司",
+	            "dataVersion": "20160530",
+	            "degree": 3
+	        });
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        // console.log(nextProps,"nextProps================================")
 	        var isEqual = Immutable.is(nextProps.rankPicRequest, this.props.rankPicResult);
 	        if (!isEqual) {
-	            var rankPicRequest = nextProps.rankPicRequest;
-	            var rankPicResult = nextProps.rankPicResult;
+	            (function () {
+	                var rankPicRequest = nextProps.rankPicRequest;
+	                var rankPicResult = nextProps.rankPicResult;
 
-	            if (rankPicRequest == true) {
-	                if (rankPicResult.success) {
-	                    console.log("===================================图谱数据测试成功~！============================");
-	                } else {
-	                    //错误后提示
+	                if (rankPicRequest == true) {
+	                    seajs.use("/relativeGraph/assets/script/main/dynamic.js", function (main) {
+	                        var pointList = rankPicResult.pointList;
+	                        if (pointList == null || pointList == "" || pointList == "undefined") {
+	                            nodes = [];
+	                        } else {
+	                            nodes = [];
+	                            for (var i = 0; i < pointList.length; i++) {
+	                                var point = pointList[i];
+
+	                                var symbol = "rect";
+	                                if (point.isPerson == "1") {
+	                                    symbol = "circle";
+	                                }
+
+	                                var color = "#FF0000";
+	                                if (point.level == "1") {
+	                                    color = "#0030AF";
+	                                    if (point.isSonCom == "1") {
+	                                        color = "#FFCA00";
+	                                    }
+	                                } else if (point.level == "2") {
+	                                    color = "#36B3EB";
+	                                } else if (point.level == "3") {
+	                                    color = "#C1C1C1";
+	                                } else {}
+
+	                                nodes[i] = {
+	                                    "addflag": "false",
+	                                    "category": point.level,
+	                                    "color": color,
+	                                    "name": point.name,
+	                                    "symbol": symbol
+	                                };
+	                            }
+	                        }
+	                        var lineList = rankPicResult.lineList;
+	                        if (lineList == null || lineList == "" || lineList == "undefined") {
+	                            links = [];
+	                        } else {
+	                            links = [];
+	                            for (var i = 0; i < lineList.length; i++) {
+	                                var line = lineList[i];
+	                                var lineType = "line";
+	                                if (line.isFullLine == "0") {
+	                                    lineType = "dotted";
+	                                }
+	                                links[i] = {
+	                                    "addflag": "false",
+	                                    "guanlian": line.type,
+	                                    "line": lineType,
+	                                    "relatedParyName": line.relationship,
+	                                    "source": line.orig,
+	                                    "target": line.target
+	                                };
+	                            }
+	                        }
+
+	                        main.reDrawCanvas();
+	                    });
 	                }
-	            }
+	            })();
 	        }
 	    },
 	    handleChange: function handleChange(e) {
@@ -74349,11 +74136,6 @@
 	                    'span',
 	                    { className: 'title' },
 	                    '企业关联方图谱'
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'mod-title-right search-enlarge' },
-	                    _react2.default.createElement('i', { className: 'iconfont icon-fullscreen' })
 	                )
 	            ),
 	            _react2.default.createElement(
@@ -74362,8 +74144,8 @@
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'pic_rank' },
-	                    _react2.default.createElement('span', { className: 'add iconfont icon-jia' }),
-	                    _react2.default.createElement('span', { className: 'sub iconfont icon-jian' })
+	                    _react2.default.createElement('span', { className: 'add iconfont icon-jia', id: 'btn_bigmore' }),
+	                    _react2.default.createElement('span', { className: 'sub iconfont icon-jian', id: 'btn_smaller' })
 	                ),
 	                _react2.default.createElement(
 	                    'div',
@@ -74515,420 +74297,11 @@
 	                ),
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'relation-modal' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'company-title' },
-	                        '成都中建明城投资有限公司'
-	                    ),
-	                    _react2.default.createElement(
-	                        'table',
-	                        null,
-	                        _react2.default.createElement(
-	                            'tbody',
-	                            null,
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '注册资本'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '500万'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '登记状态'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '在营开业企业'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '关联方法人节点数'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '386'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '关联方自然人节点数'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '289'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '自然人股东数'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '21'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '法人股东数'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '8'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '子股东数'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '0'
-	                                )
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'a',
-	                        { href: '', className: 'see-detail' },
-	                        '查看详情'
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'div',
 	                    { className: 'relation-graph-box' },
-	                    _react2.default.createElement('input', { type: 'hidden', id: 'GLOBAL', 'data-url': '', 'data-sidenav': '3', 'data-taoxi': 'S', 'data-isopen': '1' }),
 	                    _react2.default.createElement(
 	                        'div',
-	                        { className: 'main correlation', id: 'main', style: { "height": "100%" } },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'show-company-info', id: 'show-company-info', style: { "display": "none" } },
-	                            _react2.default.createElement(
-	                                'a',
-	                                { href: 'javascript:;', className: 'close' },
-	                                _react2.default.createElement('i', { className: 'iconfont icon-icon13' })
-	                            ),
-	                            _react2.default.createElement(
-	                                'h1',
-	                                { id: 'companyName-info' },
-	                                'loading...'
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'des', id: 'companyName-des-info' },
-	                                '...'
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'correlation-tips' },
-	                            _react2.default.createElement(
-	                                'a',
-	                                { href: 'javascript:;', className: 'mtui-tips-info', 'data-info': '隐藏文字', id: 'cavHideText' },
-	                                _react2.default.createElement('img', { src: '/assets/images/k-3.jpg', alt: '' })
-	                            ),
-	                            _react2.default.createElement(
-	                                'a',
-	                                { href: 'javascript:;', className: 'mtui-tips-info', 'data-info': '放大', id: 'cavToMax' },
-	                                _react2.default.createElement('img', { src: '/assets/images/k-4.jpg', alt: '' })
-	                            ),
-	                            _react2.default.createElement(
-	                                'a',
-	                                { href: 'javascript:;', className: 'mtui-tips-info', 'data-info': '缩小', id: 'cavToMin' },
-	                                _react2.default.createElement('img', { src: '/assets/images/k-5.jpg', alt: '' })
-	                            ),
-	                            _react2.default.createElement(
-	                                'a',
-	                                { className: 'pic-tips', href: 'javascript:;' },
-	                                '图例说明 ',
-	                                _react2.default.createElement('i', { className: 'iconfont icon-xia' }),
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 't-img' },
-	                                    _react2.default.createElement(
-	                                        'ul',
-	                                        null,
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            { className: 'mtop1' },
-	                                            '当前目标'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            { className: 'mtop2' },
-	                                            '投资公司'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            { className: 'mtop2' },
-	                                            '被投资公司'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            { className: 'mtop2' },
-	                                            '股东'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            { className: 'mtop2' },
-	                                            '董监高'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            { className: 'mtop2' },
-	                                            '其他公司'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            { className: 'mtop2' },
-	                                            '其他自然人'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            { className: 'mtop3' },
-	                                            '投资关系'
-	                                        )
-	                                    ),
-	                                    _react2.default.createElement('img', { className: '', src: '/assets/images/tips.gif', alt: '' })
-	                                )
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'time-line' },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'date' },
-	                                _react2.default.createElement('ul', { className: 'dateul' })
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'canvas selectNull', id: 'canvas-box' },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'drag-box' },
-	                                _react2.default.createElement('div', { className: 'cav-main cav-hover-nodes', id: 'cav-hover-nodes' }),
-	                                ' ',
-	                                _react2.default.createElement('div', { className: 'cav-main cav-hover', id: 'cav-hover' }),
-	                                ' ',
-	                                _react2.default.createElement('div', { className: 'cav-main cav-main-hover', id: 'cav-main-hover' }),
-	                                ' ',
-	                                _react2.default.createElement('div', { className: 'cav-main cav-nodes', id: 'cav-nodes' }),
-	                                _react2.default.createElement('div', { className: 'cav-main cav-nodes-text', id: 'cav-nodes-text' }),
-	                                _react2.default.createElement('div', { className: 'cav-main cav-links-hover', id: 'cav-links-hover' }),
-	                                _react2.default.createElement('div', { className: 'cav-main cav-links', id: 'cav-links' })
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'sidebar' },
-	                            _react2.default.createElement('a', { href: 'javascript:;', className: 'sidebtn' })
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'sidebox', style: { display: "none" } },
-	                            _react2.default.createElement(
-	                                'ul',
-	                                { className: 'select-nav clearfix' },
-	                                _react2.default.createElement(
-	                                    'li',
-	                                    { className: 'levels', 'data-level': '1' },
-	                                    _react2.default.createElement(
-	                                        'a',
-	                                        { href: 'javascript:;' },
-	                                        '1度'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'li',
-	                                    { className: 'levels', 'data-level': '2' },
-	                                    _react2.default.createElement(
-	                                        'a',
-	                                        { href: 'javascript:;' },
-	                                        '2度'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'li',
-	                                    { className: 'levels', 'data-level': '3' },
-	                                    _react2.default.createElement(
-	                                        'a',
-	                                        { href: 'javascript:;' },
-	                                        '3度'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'li',
-	                                    { className: 'levels', 'data-level': '4' },
-	                                    _react2.default.createElement(
-	                                        'a',
-	                                        { href: 'javascript:;' },
-	                                        '4度'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'li',
-	                                    { className: 'tz', 'data-type': 'all' },
-	                                    _react2.default.createElement(
-	                                        'a',
-	                                        { href: 'javascript:;' },
-	                                        '全部'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'li',
-	                                    { className: 'tz', 'data-type': 'shareholder', 'langs-title': '股东投资' },
-	                                    _react2.default.createElement(
-	                                        'a',
-	                                        { href: 'javascript:;' },
-	                                        '股东投资'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'li',
-	                                    { className: 'tz', 'data-type': 'direct', 'langs-title': '直接投资' },
-	                                    _react2.default.createElement(
-	                                        'a',
-	                                        { href: 'javascript:;' },
-	                                        '直接投资'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'li',
-	                                    { className: 'tz', 'data-type': 'leader', 'langs-title': '董监高' },
-	                                    _react2.default.createElement(
-	                                        'a',
-	                                        { href: 'javascript:;' },
-	                                        '董监高'
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'search-company' },
-	                                _react2.default.createElement('input', { type: 'text', className: 'name', id: 'searchCompanyLocal', placeholder: '搜索关联方列表' }),
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'index-search-content' },
-	                                    ' ...'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'all-company', id: 'allCompany' },
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'item-loading' },
-	                                    'loading...'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'all-company', id: 'gdCompany', style: { "display": "none" } },
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'item-loading' },
-	                                    'loading...'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'all-company', id: 'zjCompany', style: { "display": "none" } },
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'item-loading' },
-	                                    'loading...'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'all-company', id: 'djgCompany', style: { "display": "none" } },
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'item-loading' },
-	                                    'loading...'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'down-btn' },
-	                                _react2.default.createElement(
-	                                    'a',
-	                                    { href: 'javascript:;', className: 'mt-btn-blue down-excel' },
-	                                    '下载Excel'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'a',
-	                                    { href: 'javascript:;', className: 'mt-btn-grey reset-old' },
-	                                    '恢复默认'
-	                                )
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'loadingBox' },
-	                        _react2.default.createElement(
-	                            'p',
-	                            null,
-	                            '数据加载中...'
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'click-detail-show', id: 'click-detail-show' },
-	                        _react2.default.createElement(
-	                            'h1',
-	                            null,
-	                            '基本资料 ',
-	                            _react2.default.createElement(
-	                                'a',
-	                                { href: 'javascript:;', className: 'close' },
-	                                _react2.default.createElement('i', { className: 'iconfont icon-icon13' })
-	                            )
-	                        ),
-	                        _react2.default.createElement('div', { className: 'detail-content' })
+	                        { className: 'main correlation', id: 'dyMapMain' },
+	                        _react2.default.createElement('div', { id: 'dyMap' })
 	                    )
 	                )
 	            )
@@ -75569,7 +74942,7 @@
 	  return function (dispatch) {
 	    console.log(json);
 	    $.ajax({
-	      url: "/data/industryMonitor/p2p/index/devTrend.json",
+	      url: "/queryDynamicPicData.do", //"/relativeGraph/json/queryRelationship1.json",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
@@ -76328,197 +75701,195 @@
 
 	var Immutable = __webpack_require__(718);
 	var PlatformRun = _react2.default.createClass({
-	    displayName: 'PlatformRun',
+	  displayName: 'PlatformRun',
 
-	    getInitialState: function getInitialState() {
-	        return {
-	            option: [],
-	            orderType: "desc", //默认降序
-	            orderField: "" //需要排序的字段
-	        };
-	    },
-	    componentDidMount: function componentDidMount() {
-	        $('#platformRun-scroll').perfectScrollbar();
-	    },
-	    componentDidUpdate: function componentDidUpdate() {
-	        $('#platformRun-scroll').perfectScrollbar('update');
-	    },
-	    handleClick: function handleClick(field) {
-	        var _dom = $(this.refs[field]),
-	            _domAttr = _dom.attr("data-order"),
-	            _domIco = _dom.find("em"),
-	            _domIcoIs = _dom.find("em").hasClass('icon-desc');
-	        _domIcoIs == true ? _domIco.removeClass('icon-desc').addClass('icon-asc') : _domIco.removeClass('icon-asc').addClass('icon-desc');
-	        _domAttr == "desc" ? _dom.attr("data-order", "asc") : _dom.attr("data-order", "desc");
-	        this.setState({ orderType: _dom.attr("data-order"), orderField: field }, function () {
-	            var _basedata = BOSS.sort(this.state.option, field, this.state.orderType);
-	            this.setState({ option: _basedata });
-	        });
-	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	  getInitialState: function getInitialState() {
+	    return {
+	      option: [],
+	      orderType: "desc", //默认降序
+	      orderField: "" //需要排序的字段
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {
+	    $('#platformRun-scroll').perfectScrollbar();
+	  },
+	  componentDidUpdate: function componentDidUpdate() {
+	    $('#platformRun-scroll').perfectScrollbar('update');
+	  },
+	  handleClick: function handleClick(field) {
+	    var _dom = $(this.refs[field]),
+	        _domAttr = _dom.attr("data-order"),
+	        _domIco = _dom.find("em"),
+	        _domIcoIs = _dom.find("em").hasClass('icon-desc');
+	    _domIcoIs == true ? _domIco.removeClass('icon-desc').addClass('icon-asc') : _domIco.removeClass('icon-asc').addClass('icon-desc');
+	    _domAttr == "desc" ? _dom.attr("data-order", "asc") : _dom.attr("data-order", "desc");
+	    this.setState({ orderType: _dom.attr("data-order"), orderField: field }, function () {
+	      var _basedata = BOSS.sort(this.state.option, field, this.state.orderType);
+	      this.setState({ option: _basedata });
+	    });
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 
-	        var isEqual = Immutable.is(nextProps.platFormRunBaseData, this.props.platFormRunBaseData);
-	        if (!isEqual) {
-	            var platFormRunBaseData = nextProps.platFormRunBaseData;
+	    var isEqual = Immutable.is(nextProps.platFormRunBaseData, this.props.platFormRunBaseData);
+	    if (!isEqual) {
+	      var platFormRunBaseData = nextProps.platFormRunBaseData;
 
-	            this.setState({ option: platFormRunBaseData.content });
-	        }
-	    },
-	    render: function render() {
-	        return _react2.default.createElement(
-	            'div',
-	            { className: 'mod right-bottom radius4' },
+	      this.setState({ option: platFormRunBaseData.content });
+	    }
+	  },
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'mod right-bottom radius4' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'mod-title' },
+	        _react2.default.createElement(
+	          'h3',
+	          null,
+	          '平台运营情况'
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'mod-content' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'table-title' },
+	          _react2.default.createElement(
+	            'table',
+	            { className: 'mt-table mt-table-center wtyh-table' },
 	            _react2.default.createElement(
-	                'div',
-	                { className: 'mod-title' },
+	              'thead',
+	              null,
+	              _react2.default.createElement(
+	                'tr',
+	                null,
 	                _react2.default.createElement(
-	                    'h3',
-	                    null,
-	                    '平台运营情况'
-	                )
-	            ),
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'mod-content' },
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'table-title' },
-	                    _react2.default.createElement(
-	                        'table',
-	                        { className: 'mt-table mt-table-center wtyh-table' },
-	                        _react2.default.createElement(
-	                            'thead',
-	                            null,
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'th',
-	                                    { width: '15%', className: 'talign-center' },
-	                                    '众筹平台'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'th',
-	                                    { width: '25%' },
-	                                    '公司名称'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'th',
-	                                    { width: '15%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'fundingBusinessTypeCN', onClick: this.handleClick.bind(this, "fundingBusinessTypeCN") },
-	                                    '业务类型',
-	                                    _react2.default.createElement('em', { className: 'iconfont icon-desc' })
-	                                ),
-	                                _react2.default.createElement(
-	                                    'th',
-	                                    { width: '20%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'successNumber', onClick: this.handleClick.bind(this, "successNumber") },
-	                                    '成功项目数',
-	                                    _react2.default.createElement('em', { className: 'iconfont icon-desc' })
-	                                ),
-	                                _react2.default.createElement(
-	                                    'th',
-	                                    { width: '25%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'fundedAmout', onClick: this.handleClick.bind(this, "fundedAmout") },
-	                                    '已筹基金(万元)',
-	                                    _react2.default.createElement('em', { className: 'iconfont icon-desc' })
-	                                )
-	                            )
-	                        )
-	                    )
+	                  'th',
+	                  { width: '15%', className: 'talign-center' },
+	                  '众筹平台'
 	                ),
 	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'table-content', id: 'platformRun-scroll' },
-	                    _react2.default.createElement(
-	                        'table',
-	                        { className: 'mt-table mt-table-center wtyh-table' },
-	                        _react2.default.createElement(
-	                            'tbody',
-	                            null,
-	                            this.state.option.map(function (item, index) {
-	                                {
-	                                    if (!item.successNumber) {
-	                                        item.successNumber = "/";
-	                                    }
-	                                    if (!item.fundedAmout) {
-	                                        item.fundedAmout = "/";
-	                                    }
-	                                    if (index % 2) {
-
-	                                        return _react2.default.createElement(
-	                                            'tr',
-	                                            { className: 'even' },
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '15%', className: 'talign-center' },
-	                                                item.platformName
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '25%' },
-	                                                _react2.default.createElement(
-	                                                    _reactRouter.Link,
-	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'platformRun', company: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName },
-	                                                    item.companyName
-	                                                )
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '15%' },
-	                                                item.fundingBusinessTypeCN
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '20%' },
-	                                                item.successNumber
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '25%' },
-	                                                item.fundedAmout
-	                                            )
-	                                        );
-	                                    } else {
-	                                        return _react2.default.createElement(
-	                                            'tr',
-	                                            { className: 'odd' },
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '15%', className: 'talign-center' },
-	                                                item.platformName
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '25%' },
-	                                                _react2.default.createElement(
-	                                                    _reactRouter.Link,
-	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'platformRun', company: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName },
-	                                                    item.companyName
-	                                                )
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '15%' },
-	                                                item.fundingBusinessTypeCN
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '20%' },
-	                                                item.successNumber
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '25%' },
-	                                                item.fundedAmout
-	                                            )
-	                                        );
-	                                    }
-	                                }
-	                            })
-	                        )
-	                    )
+	                  'th',
+	                  { width: '25%' },
+	                  '公司名称'
+	                ),
+	                _react2.default.createElement(
+	                  'th',
+	                  { width: '15%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'fundingBusinessTypeCN', onClick: this.handleClick.bind(this, "fundingBusinessTypeCN") },
+	                  '业务类型',
+	                  _react2.default.createElement('em', { className: 'iconfont icon-desc' })
+	                ),
+	                _react2.default.createElement(
+	                  'th',
+	                  { width: '20%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'successNumber', onClick: this.handleClick.bind(this, "successNumber") },
+	                  '成功项目数',
+	                  _react2.default.createElement('em', { className: 'iconfont icon-desc' })
+	                ),
+	                _react2.default.createElement(
+	                  'th',
+	                  { width: '25%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'fundedAmout', onClick: this.handleClick.bind(this, "fundedAmout") },
+	                  '已筹基金(万元)',
+	                  _react2.default.createElement('em', { className: 'iconfont icon-desc' })
 	                )
+	              )
 	            )
-	        );
-	    }
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'table-content', id: 'platformRun-scroll' },
+	          _react2.default.createElement(
+	            'table',
+	            { className: 'mt-table mt-table-center wtyh-table' },
+	            _react2.default.createElement(
+	              'tbody',
+	              null,
+	              this.state.option.map(function (item, index) {
+	                {
+
+	                  var _successNumber = item.successNumber == undefined ? "/" : item.successNumber;
+	                  var _fundedAmout = item.fundedAmout == undefined ? "/" : item.fundedAmout;
+	                  var _fundingBusinessTypeCN = item.fundingBusinessTypeCN = undefined ? "/" : item.fundingBusinessTypeCN;
+	                  if (index % 2) {
+
+	                    return _react2.default.createElement(
+	                      'tr',
+	                      { className: 'even' },
+	                      _react2.default.createElement(
+	                        'td',
+	                        { width: '15%', className: 'talign-center' },
+	                        item.platformName
+	                      ),
+	                      _react2.default.createElement(
+	                        'td',
+	                        { width: '25%' },
+	                        _react2.default.createElement(
+	                          _reactRouter.Link,
+	                          { to: { pathname: '/SearchResultDetail', query: { formpage: 'platformRun', company: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName },
+	                          item.companyName
+	                        )
+	                      ),
+	                      _react2.default.createElement(
+	                        'td',
+	                        { width: '15%' },
+	                        _fundingBusinessTypeCN
+	                      ),
+	                      _react2.default.createElement(
+	                        'td',
+	                        { width: '20%' },
+	                        _successNumber
+	                      ),
+	                      _react2.default.createElement(
+	                        'td',
+	                        { width: '25%' },
+	                        _fundedAmout
+	                      )
+	                    );
+	                  } else {
+	                    return _react2.default.createElement(
+	                      'tr',
+	                      { className: 'odd' },
+	                      _react2.default.createElement(
+	                        'td',
+	                        { width: '15%', className: 'talign-center' },
+	                        item.platformName
+	                      ),
+	                      _react2.default.createElement(
+	                        'td',
+	                        { width: '25%' },
+	                        _react2.default.createElement(
+	                          _reactRouter.Link,
+	                          { to: { pathname: '/SearchResultDetail', query: { formpage: 'platformRun', company: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName },
+	                          item.companyName
+	                        )
+	                      ),
+	                      _react2.default.createElement(
+	                        'td',
+	                        { width: '15%' },
+	                        _fundingBusinessTypeCN
+	                      ),
+	                      _react2.default.createElement(
+	                        'td',
+	                        { width: '20%' },
+	                        _successNumber
+	                      ),
+	                      _react2.default.createElement(
+	                        'td',
+	                        { width: '25%' },
+	                        _fundedAmout
+	                      )
+	                    );
+	                  }
+	                }
+	              })
+	            )
+	          )
+	        )
+	      )
+	    );
+	  }
 	});
 
 	module.exports = PlatformRun;
@@ -77105,6 +76476,7 @@
 	                        _totalAmout.push(chartAllResult.content[item].totalAmout);
 	                        _number.push(chartAllResult.content[item].number);
 	                    }
+
 	                    var _setLineData = {
 	                        "xAxisData": _xAxisData,
 	                        "data": _companyNumber
@@ -77117,7 +76489,9 @@
 
 	                    var _scatterData = {
 	                        "xAxisData": _xAxisData,
-	                        "yAxisData": _totalAmout,
+	                        "yAxisData": _totalAmout.sort(function (a, b) {
+	                            return a - b;
+	                        }),
 	                        "data": _number
 	                    };
 
@@ -80791,7 +80165,7 @@
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'commercialS-index', style: this.state.style },
-	      _react2.default.createElement(_IndustrySearch2.default, { label: '商业保理监测', placeHolder: '请输入企业名称检索' }),
+	      _react2.default.createElement(_IndustrySearch2.default, { label: '商业保理监测', placeholder: '请输入企业名称检索' }),
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'content clearfix' },
@@ -81192,7 +80566,7 @@
 
 
 	// module
-	exports.push([module.id, ".commercialS-index .right-bottom tbody td,\r\n.commercialS-index .right-bottom thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content {\r\n\theight: 560px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content .mt-table,\r\n.commercialS-index .right-bottom .table-title  .mt-table {\r\n\tmargin: 0px;\r\n}\r\n\r\n.commercialS-index .right-bottom  .mod-content {\r\n\tpadding: 10px 20px 20px 20px;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table {\r\n\r\n\t/*height: 100%*/\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table  td {\r\n\tpadding: 16px 0px;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-title th {\r\n\theight: 50px\r\n}\r\n\r\n.commercialS-index .right-bottom  .mod-title .totle-num {\r\n\tfont-size: 14px;\r\n\tcolor: #fff;\r\n\tfloat: right;\r\n\tdisplay: inline-block;\r\n\tmargin: 15px 20px 0px 0px;\r\n}\r\n\r\n.mt-select.company-dire {\r\n\tbackground: #393a48;\r\n\tborder: 1px #393a48 solid;\r\n\tmargin-left: 5px;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n}\r\n\r\n.mt-select.company-dire .mt-select-title {\r\n\theight: 25px;\r\n}\r\n\r\n.mt-select.company-dire .mt-select-box {\r\n\tbackground: #1f1f27;\r\n\tborder: 1px #1f1f27 solid\r\n}", ""]);
+	exports.push([module.id, ".commercialS-index .right-bottom tbody td,\r\n.commercialS-index .right-bottom thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content {\r\n\theight: 560px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content .mt-table,\r\n.commercialS-index .right-bottom .table-title  .mt-table {\r\n\tmargin: 0px;\r\n}\r\n\r\n.commercialS-index .right-bottom  .mod-content {\r\n\tpadding: 10px 20px 20px 20px;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table {\r\n\r\n\t/*height: 100%*/\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table  td {\r\n\tpadding: 16px 0px;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-title th {\r\n\theight: 50px\r\n}\r\n\r\n.commercialS-index .right-bottom  .mod-title .totle-num {\r\n\tfont-size: 14px;\r\n\tcolor: #fff;\r\n\tfloat: right;\r\n\tdisplay: inline-block;\r\n\tmargin: 15px 20px 0px 0px;\r\n}\r\n\r\n.mt-select.company-dire {\r\n\tbackground: #393a48;\r\n\tborder: 1px #393a48 solid;\r\n\tmargin-left: 5px;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n}\r\n\r\n.mt-select.company-dire .mt-select-title {\r\n\theight: 25px;\r\n}\r\n\r\n.mt-select.company-dire .mt-select-box {\r\n\tbackground: #1f1f27;\r\n\tborder: 1px #1f1f27 solid\r\n}\r\n.modLong .long{\r\n\twidth: 250px;\r\n}", ""]);
 
 	// exports
 
@@ -81654,7 +81028,7 @@
 	        };
 	        return _react2.default.createElement(
 	            'div',
-	            { className: 'mod right-bottom radius4' },
+	            { className: 'mod right-bottom radius4 modLong' },
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'mod-title' },
@@ -81747,7 +81121,7 @@
 	                                            { width: '25%' },
 	                                            _react2.default.createElement(
 	                                                'span',
-	                                                { className: 'word-limit-5', title: '' },
+	                                                { className: 'word-limit-5 long', title: '' },
 	                                                item.companyName
 	                                            )
 	                                        ),
@@ -81761,7 +81135,7 @@
 	                                            { width: '30%' },
 	                                            _react2.default.createElement(
 	                                                'span',
-	                                                { className: 'word-limit-5', title: '' },
+	                                                { className: 'word-limit-5 long', title: '' },
 	                                                item.address
 	                                            )
 	                                        ),
@@ -81771,7 +81145,7 @@
 	                                            _react2.default.createElement(
 	                                                'span',
 	                                                { className: 'word-limit-5', title: '' },
-	                                                item.recordNumber
+	                                                item.registeredCapital
 	                                            )
 	                                        )
 	                                    );
@@ -81789,7 +81163,7 @@
 	                                            { width: '25%' },
 	                                            _react2.default.createElement(
 	                                                'span',
-	                                                { className: 'word-limit-5', title: '' },
+	                                                { className: 'word-limit-5 long', title: '' },
 	                                                item.companyName
 	                                            )
 	                                        ),
@@ -81803,7 +81177,7 @@
 	                                            { width: '30%' },
 	                                            _react2.default.createElement(
 	                                                'span',
-	                                                { className: 'word-limit-5', title: '' },
+	                                                { className: 'word-limit-5 long', title: '' },
 	                                                item.address
 	                                            )
 	                                        ),
@@ -81813,7 +81187,7 @@
 	                                            _react2.default.createElement(
 	                                                'span',
 	                                                { className: 'word-limit-5', title: '' },
-	                                                item.recordNumber
+	                                                item.registeredCapital
 	                                            )
 	                                        )
 	                                    );
@@ -81923,7 +81297,7 @@
 	        return _react2.default.createElement(
 	            'div',
 	            { className: 'prepaidC-index', style: this.state.style },
-	            _react2.default.createElement(_IndustrySearch2.default, { label: '单用途预付卡备案企业监测', placeHolder: '请输入企业名称检索' }),
+	            _react2.default.createElement(_IndustrySearch2.default, { label: '单用途预付卡备案企业监测', placeholder: '请输入企业名称检索' }),
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'content clearfix' },
@@ -83170,10 +82544,11 @@
 	            var menuParkSelectVal = nextProps.menuParkSelectVal;
 
 	            var jsonData = { areaId: menuParkSelectVal.areaId };
+	            console.log(jsonData, 11111111);
 	            this.getParkNews(jsonData);
 	        }
 
-	        var isEqual = Immutable.is(nextProps.parkNewsRequest, this.props.parkNewsResult); //判断数据是否变化
+	        var isEqual = Immutable.is(nextProps.parkNewsResult, this.props.parkNewsResult); //判断数据是否变化
 	        if (!isEqual) {
 	            var parkNewsRequest = nextProps.parkNewsRequest;
 	            var parkNewsResult = nextProps.parkNewsResult;
@@ -83189,11 +82564,18 @@
 	    },
 	    dataFomat: function dataFomat(data) {
 	        var contentStr = data.content;
-	        var contentJson = JSON.parse(contentStr);
-	        var results = contentJson.results;
-	        console.log(results, '结果页');
+	        console.log(contentStr, 9999);
+	        var contentJson = null;
+	        var results = null;
+	        if (contentStr) {
+	            contentJson = JSON.parse(contentStr);
+	            results = contentJson.results;
+	        } else {
+	            results = [];
+	        }
 	        this.setState({ consensu: results });
 	    },
+
 	    getParkNews: function getParkNews(menuParkSelectVal) {
 	        var getParkNews = this.props.getParkNews;
 
@@ -83209,8 +82591,7 @@
 	                _react2.default.createElement(
 	                    'h3',
 	                    null,
-	                    '舆情',
-	                    this.props.val
+	                    '舆情'
 	                )
 	            ),
 	            _react2.default.createElement(
@@ -83475,7 +82856,7 @@
 	            this.getParkIndustry(jsonData);
 	        }
 
-	        var isEqual = Immutable.is(nextProps.parkIndustryRequest, this.props.parkIndustryResult); //判断数据是否变化
+	        var isEqual = Immutable.is(nextProps.parkIndustryResult, this.props.parkIndustryResult); //判断数据是否变化
 	        if (!isEqual) {
 	            var parkIndustryRequest = nextProps.parkIndustryRequest;
 	            var parkIndustryResult = nextProps.parkIndustryResult;
@@ -83652,20 +83033,21 @@
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	        var isSelectValEqual = Immutable.is(nextProps.menuParkSelectVal, this.props.menuParkSelectVal);
 	        if (!isSelectValEqual) {
+	            console.log(33333333333333);
 	            var menuParkSelectVal = nextProps.menuParkSelectVal;
 
 	            var jsonData = { areaId: menuParkSelectVal.areaId };
 	            this.getParkCamp(jsonData);
 	        }
 
-	        var isEqual = Immutable.is(nextProps.parkFinanceRequest, this.props.parkFinanceResult); //判断数据是否变化
+	        var isEqual = Immutable.is(nextProps.parkCampResult, this.props.parkCampResult); //判断数据是否变化
 	        if (!isEqual) {
-	            var parkFinanceRequest = nextProps.parkFinanceRequest;
-	            var parkFinanceResult = nextProps.parkFinanceResult;
+	            var parkCampRequest = nextProps.parkCampRequest;
+	            var parkCampResult = nextProps.parkCampResult;
 
-	            if (parkFinanceRequest == true) {
-	                if (parkFinanceResult.success == true) {
-	                    this.dataFomat(parkFinanceResult);
+	            if (parkCampRequest == true) {
+	                if (parkCampResult.success == true) {
+	                    this.dataFomat(parkCampResult);
 	                } else {
 	                    console.log(404);
 	                }
@@ -84595,7 +83977,7 @@
 
 
 	// module
-	exports.push([module.id, "/*@parkMonitor jifei  图片\r\n---------------------------------------------------------*/\r\n.Img{\r\n\twidth: 100%;\r\n\theight: 948px;\r\n\t/*background: url(\"/images/floor.png\") no-repeat;*/\r\n\tbackground-size: 100% 948px;\r\n}\r\n.Img .carousel{\r\n\twidth: 180px;\r\n\theight: 30px;\r\n\tbackground: #e2f1fc;\r\n\tborder-radius: 3px;\r\n\tposition: relative;\r\n    top: 10px;\r\n    left: 10px;\r\n}\r\n.Img .carousel i{\r\n\tdisplay: block;\r\n\tline-height: 30px;\r\n\tmargin-left: 3px;\r\n\tcolor: #1a2029;\r\n\tfont-size: 18px;\r\n\tcursor: pointer;\r\n}\r\n.Img .carousel i.left{\r\n\tfloat: left;\r\n}\r\n.Img .carousel i.right{\r\n\tfloat: right;\r\n}\r\n.Img .carousel .list-box{\r\n\twidth: 136px;\r\n\tfloat: left;\r\n\toverflow: hidden;\r\n}\r\n.Img .carousel ul{\r\n\tfloat: left;\r\n\twidth: 100%;\r\n\toverflow: hidden;\r\n}\r\n.Img .carousel ul li{\r\n\tline-height: 30px;\r\n\tfloat: left;\r\n\twidth: 100%;\r\n\tcolor: #1a2029;\r\n\ttext-align: center;\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n}\r\n.Img  .tabs{\r\n\twidth: 30%;\r\n    height: 150px;\r\n    float: right;\r\n    margin-right: 20px;\r\n    margin-top: -10px;\r\n}\r\n.Img  .tabs table{\r\n\twidth: 100%;\r\n\tborder-radius: 3px;\r\n\toverflow: hidden;\r\n}\r\n.Img  .tabs table tr th{\r\n\theight: 30px;\r\n\ttext-align: center;\r\n\twidth: 50%;\r\n\tbackground: #e14340;\r\n\tcolor: #fff;\r\n}\r\n.Img  .tabs table tr td{\r\n\tcursor: pointer;\r\n\twidth: 50%;\r\n\theight: 35px;\r\n\ttext-align: center;\r\n\tbackground: #5383a1;\r\n\tborder-bottom: 1px solid #75c5f1;\r\n\tcolor: #fff;\r\n}\r\n.Img  .tabs table tbody tr.active td{\r\n\tbackground: rgba(183,223,248,0.5);\r\n}\r\n.Img  .tabs table tr td .Red{\r\n\tcolor: #e14340;\r\n\tfont-size: 18px;\r\n}\r\n.Img  .tabs table tr td .Yellow{\r\n\tcolor: #f39800;\r\n\tfont-size: 18px;\r\n}\r\n.Img  .tabs table tr td .Green{\r\n\tcolor: #32b16c;\r\n\tfont-size: 18px;\r\n}\r\n.Img  .tabs table tr td .Black{\r\n\tcolor: #000000;\r\n\tfont-size: 18px;\r\n}\r\n\r\n\r\n.Img .onTabs{\r\n\twidth: 43.6%;\r\n    height: 280px;\r\n    border-radius: 3px;   \r\n    position: absolute;\r\n    left: 3%;\r\n    top: 17%;\r\n}\r\n.Img .onTabs .tableLeft{\r\n\twidth: 85%;\r\n\theight: 274px;\r\n\tbackground: rgba(100, 131, 152, 0.5) none repeat scroll 0 0;\r\n\tfloat: left;\r\n}\r\n.Img .onTabs .solidRight{\r\n\twidth: 15%;\r\n    border: 1px solid #ffffff;\r\n    position: absolute;\r\n    right: 0;\r\n    top: 46.8%;\r\n}\r\n.Img .onTabs .mod-title{\r\n\tborder-bottom: 1px solid #495b69;\r\n}\r\n.Img .onTabs .mod-title .Black{\r\n\tfloat: right;\r\n    margin: 10px;\r\n    font-size: 18px;\r\n    color: #000000;\r\n}\r\n.Img .onTabs .box{\r\n\twidth: 100%;\r\n\theight: 234px;\r\n\toverflow: auto;\r\n\toverflow-x:hidden; \r\n}\r\n.Img .onTabs .box table {\r\n\twidth: 93%;\r\n    margin: 0 10px;\r\n}\r\n.Img .onTabs .box table  tr td{\r\n\theight: 33px;\r\n\twidth: 95%;\r\n\twhite-space: nowrap;\r\n}\r\n.Img .onTabs .box table  tr td span{\r\n\tfloat: left;\r\n\tpadding-right: 10px;\r\n}\r\n.Img .yuan{\r\n\tposition: absolute;\r\n    right: 52%;\r\n    top: 29.7%;\r\n}\r\n/*@parkMonitor jifei  楼宇企业列表\r\n---------------------------------------------------------*/\r\n.Enterprise{\r\n\twidth: 100%;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\theight: 560px;\r\n}\r\n.Enterprise .right{\r\n\tcolor: #e14340;\r\n\tfloat: right;\r\n\tfont-size: 16px;\r\n\tpadding: 10px 33px;\r\n}\r\n.Enterprise .mod-content{\r\n    width: 100%;\r\n    margin: 10px auto;\r\n}\r\n.Enterprise .mod-content .table-content{\r\n\theight: 470px;\r\n    overflow: auto;\r\n}\r\n.Enterprise .mod-content .wtyh-table{\r\n\twidth: 96%;\r\n    margin: 0 auto;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th{\r\n\theight: 40px;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(1){\r\n\twidth: 30%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(2){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(3){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(4){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(5){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(6){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th .icon-desc{\r\n    font-size: 20px;\r\n    float: left;\r\n    margin-top: -4px;\r\n    cursor: pointer;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th span{\r\n\tfloat: left;\r\n\tpadding-left: 10%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr td{\r\n\theight: 40px;\r\n\tfont-size: 12px;\r\n\tborder-bottom: 1px solid #444951;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr:nth-child(even){\r\n\tbackground: #222932;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr td span{\r\n\tfloat: left;\r\n\tpadding-left: 10%;\r\n\tcolor: #fff;\r\n\tcursor: pointer;\r\n}\r\n/*@parkMonitor jifei  楼宇行业分布\r\n---------------------------------------------------------*/\r\n.Industry{\r\n\twidth: 49.5%;\r\n\theight: 398px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\tmargin-top: 10px;\r\n\tfloat: left;\r\n}\r\n/*@parkMonitor jifei  企业背景情况\r\n---------------------------------------------------------*/\r\n.Context{\r\n\twidth: 49.5%;\r\n\theight: 398px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\tmargin-top: 10px;\r\n\tfloat: right;\r\n}\r\n/*@parkMonitor jifei  舆情更新\r\n---------------------------------------------------------*/\r\n.Footer{\r\n\twidth: 100%;\r\n\theight: 60px;\r\n\tposition: fixed;\r\n    bottom: 0;\r\n    left: 0;\r\n    background: rgba(43, 50, 60, 0.9) none repeat scroll 0 0;\r\n    box-shadow: 2px 2px 10px #000;\r\n}\r\n.Footer .box{\r\n\twidth: 95%;\r\n\theight: 40px;\r\n\tmargin: 10px auto;\r\n\tposition: relative;\r\n}\r\n.Footer .boxLeft{\r\n\twidth: 10%;\r\n\theight: 40px;\r\n\tborder-right: 1px solid #8a9199;\r\n\tline-height: 40px;\r\n\tfloat: left;\r\n}\r\n.Footer .boxLeft .icon-news{\r\n\tfont-size: 35px;\r\n\tcolor: #e14340;\r\n}\r\n.Footer .boxLeft .size{\r\n\tfont-size: 18px;\r\n    vertical-align: super;\r\n    padding-left: 25%;\r\n}\r\n.Footer .boxRight{\r\n\twidth: 85%;\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n\tfloat: right;\r\n\t/* background: #666 */\r\n}\r\n.Footer .boxRight ul li{\r\n\tfloat: left;\r\n}\r\n.Footer .boxRight ul li:nth-child(1){\r\n\twidth: 20%;\r\n    font-size: 16px;\r\n    color: #e14340;\r\n    overflow: hidden;\r\n    text-overflow: ellipsis;\r\n    white-space: nowrap;\r\n    display: inline-block;\r\n}\r\n.Footer .boxRight ul li:nth-child(1) em{\r\n\tpadding-left: 5%;\r\n}\r\n.Footer .boxRight ul li:nth-child(2){\r\n\twidth: 60%;\r\n\tfont-size: 14px;\r\n    overflow: hidden;\r\n    text-overflow: ellipsis;\r\n    white-space: nowrap;\r\n    display: inline-block;\r\n}\r\n.Footer .boxRight ul li:nth-child(2) .liTop{\r\n\tpadding-left: 8%;\r\n}\r\n.Footer .boxRight ul li:nth-child(3){\r\n\twidth: 20%;\r\n\tfont-size: 12px;\r\n}\r\n.Footer .boxRight ul li:nth-child(3) em{\r\n\tpadding-left: 5%;\r\n}\r\n.Footer .boxRight ul li:nth-child(3) .liRight{\r\n\tpadding-left: 18%;\r\n}\r\n.boxRight{\r\noverflow: hidden;\r\nposition: relative;\r\n}\r\n.boxRight ul{\r\n\t/* background: red; */\r\n\twidth: 100%;height: 40px;\r\n}\r\n\r\n.boxRightScroll {\r\n\twidth: 100%;\r\n\theight: auto;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n}", ""]);
+	exports.push([module.id, "/*@parkMonitor jifei  图片\r\n---------------------------------------------------------*/\r\n.Img{\r\n\twidth: 100%;\r\n\theight: 948px;\r\n\t/*background: url(\"/images/floor.png\") no-repeat;*/\r\n\tbackground-size: 100% 948px;\r\n}\r\n.Img .carousel{\r\n\twidth: 180px;\r\n\theight: 30px;\r\n\tbackground: #e2f1fc;\r\n\tborder-radius: 3px;\r\n\tposition: relative;\r\n    top: 10px;\r\n    left: 10px;\r\n}\r\n.Img .carousel i{\r\n\tdisplay: block;\r\n\tline-height: 30px;\r\n\tmargin-left: 3px;\r\n\tcolor: #1a2029;\r\n\tfont-size: 18px;\r\n\tcursor: pointer;\r\n}\r\n.Img .carousel i.left{\r\n\tfloat: left;\r\n}\r\n.Img .carousel i.right{\r\n\tfloat: right;\r\n}\r\n.Img .carousel .list-box{\r\n\twidth: 136px;\r\n\tfloat: left;\r\n\toverflow: hidden;\r\n}\r\n.Img .carousel ul{\r\n\tfloat: left;\r\n\twidth: 100%;\r\n\toverflow: hidden;\r\n}\r\n.Img .carousel ul li{\r\n\tline-height: 30px;\r\n\tfloat: left;\r\n\twidth: 100%;\r\n\tcolor: #1a2029;\r\n\ttext-align: center;\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n}\r\n.Img  .tabs{\r\n\twidth: 30%;\r\n    height: 150px;\r\n    float: right;\r\n    margin-right: 20px;\r\n    margin-top: -10px;\r\n}\r\n.Img  .tabs table{\r\n\twidth: 100%;\r\n\tborder-radius: 3px;\r\n\toverflow: hidden;\r\n}\r\n.Img  .tabs table tr th{\r\n\theight: 30px;\r\n\ttext-align: center;\r\n\twidth: 50%;\r\n\tbackground: #e14340;\r\n\tcolor: #fff;\r\n}\r\n.Img  .tabs table tr td{\r\n\tcursor: pointer;\r\n\twidth: 50%;\r\n\theight: 35px;\r\n\ttext-align: center;\r\n\tbackground: #5383a1;\r\n\tborder-bottom: 1px solid #75c5f1;\r\n\tcolor: #fff;\r\n}\r\n.Img  .tabs table tbody tr.active td{\r\n\tbackground: rgba(183,223,248,0.5);\r\n}\r\n.Img  .tabs table tr td .Red{\r\n\tcolor: #e14340;\r\n\tfont-size: 18px;\r\n}\r\n.Img  .tabs table tr td .Yellow{\r\n\tcolor: #f39800;\r\n\tfont-size: 18px;\r\n}\r\n.Img  .tabs table tr td .Green{\r\n\tcolor: #32b16c;\r\n\tfont-size: 18px;\r\n}\r\n.Img  .tabs table tr td .Black{\r\n\tcolor: #000000;\r\n\tfont-size: 18px;\r\n}\r\n\r\n\r\n.Img .onTabs{\r\n\twidth: 43.6%;\r\n    height: 280px;\r\n    border-radius: 3px;   \r\n    position: absolute;\r\n    left: 3%;\r\n    top: 17%;\r\n}\r\n.Img .onTabs .tableLeft{\r\n\twidth: 85%;\r\n\theight: 274px;\r\n\tbackground: rgba(100, 131, 152, 0.5) none repeat scroll 0 0;\r\n\tfloat: left;\r\n}\r\n.Img .onTabs .solidRight{\r\n\twidth: 15%;\r\n    border: 1px solid #ffffff;\r\n    position: absolute;\r\n    right: 0;\r\n    top: 46.8%;\r\n}\r\n.Img .onTabs .mod-title{\r\n\tborder-bottom: 1px solid #495b69;\r\n}\r\n.Img .onTabs .mod-title .Black{\r\n\tfloat: right;\r\n    margin: 10px;\r\n    font-size: 18px;\r\n    color: #000000;\r\n}\r\n.Img .onTabs .box{\r\n\twidth: 100%;\r\n\theight: 234px;\r\n\toverflow: auto;\r\n\toverflow-x:hidden; \r\n}\r\n.Img .onTabs .box table {\r\n\twidth: 93%;\r\n    margin: 0 10px;\r\n}\r\n.Img .onTabs .box table  tr td{\r\n\theight: 33px;\r\n\twidth: 95%;\r\n\twhite-space: nowrap;\r\n}\r\n.Img .onTabs .box table  tr td span{\r\n\tfloat: left;\r\n\tpadding-right: 10px;\r\n}\r\n.Img .yuan{\r\n\tposition: absolute;\r\n    right: 52%;\r\n    top: 29.7%;\r\n}\r\n/*@parkMonitor jifei  楼宇企业列表\r\n---------------------------------------------------------*/\r\n.Enterprise{\r\n\twidth: 100%;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\theight: 560px;\r\n}\r\n.Enterprise .right{\r\n\tcolor: #e14340;\r\n\tfloat: right;\r\n\tfont-size: 16px;\r\n\tpadding: 10px 33px;\r\n}\r\n.Enterprise .mod-content{\r\n    width: 100%;\r\n    margin: 10px auto;\r\n}\r\n.Enterprise .mod-content .table-content{\r\n\theight: 470px;\r\n    overflow: auto;\r\n}\r\n.Enterprise .mod-content .wtyh-table{\r\n\twidth: 96%;\r\n    margin: 0 auto;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th{\r\n\theight: 40px;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(1){\r\n\twidth: 30%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(2){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(3){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(4){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(5){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th:nth-child(6){\r\n\twidth: 12%;\r\n}\r\n\r\n.Enterprise .mod-content .wtyh-table tr th .icon-desc{\r\n    font-size: 20px;\r\n    float: left;\r\n    margin-top: -4px;\r\n    cursor: pointer;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th .spanA{\r\n\tfloat: left;\r\n\tpadding-left: 10%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr th .left{\r\n\tfloat: left;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr td{\r\n\theight: 40px;\r\n\tfont-size: 12px;\r\n\tborder-bottom: 1px solid #444951;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr:nth-child(even){\r\n\tbackground: #222932;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr td span{\r\n\tfloat: left;\r\n\tpadding-left: 10%;\r\n\tcolor: #fff;\r\n\tcursor: pointer;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr td:nth-child(1){\r\n\twidth: 30%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr td:nth-child(2){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr td:nth-child(3){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr td:nth-child(4){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr td:nth-child(5){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr td:nth-child(6){\r\n\twidth: 12%;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr td:nth-child(6) span{\r\n    overflow: hidden;\r\n    text-overflow: ellipsis;\r\n    white-space: nowrap;\r\n    display: inline-block;\r\n    width: 130px;\r\n}\r\n/*@parkMonitor jifei  楼宇行业分布\r\n---------------------------------------------------------*/\r\n.Industry{\r\n\twidth: 49.5%;\r\n\theight: 398px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\tmargin-top: 10px;\r\n\tfloat: left;\r\n}\r\n/*@parkMonitor jifei  企业背景情况\r\n---------------------------------------------------------*/\r\n.Context{\r\n\twidth: 49.5%;\r\n\theight: 398px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\tmargin-top: 10px;\r\n\tfloat: right;\r\n}\r\n/*@parkMonitor jifei  舆情更新\r\n---------------------------------------------------------*/\r\n.Footer{\r\n\twidth: 100%;\r\n\theight: 60px;\r\n\tposition: fixed;\r\n    bottom: 0;\r\n    left: 0;\r\n    background: rgba(43, 50, 60, 0.9) none repeat scroll 0 0;\r\n    box-shadow: 2px 2px 10px #000;\r\n}\r\n.Footer .box{\r\n\twidth: 95%;\r\n\theight: 40px;\r\n\tmargin: 10px auto;\r\n\tposition: relative;\r\n}\r\n.Footer .boxLeft{\r\n\twidth: 10%;\r\n\theight: 40px;\r\n\tborder-right: 1px solid #8a9199;\r\n\tline-height: 40px;\r\n\tfloat: left;\r\n}\r\n.Footer .boxLeft .icon-news{\r\n\tfont-size: 35px;\r\n\tcolor: #e14340;\r\n}\r\n.Footer .boxLeft .size{\r\n\tfont-size: 18px;\r\n    vertical-align: super;\r\n    padding-left: 25%;\r\n}\r\n.Footer .boxRight{\r\n\twidth: 85%;\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n\tfloat: right;\r\n\t/* background: #666 */\r\n}\r\n.Footer .boxRight ul li{\r\n\tfloat: left;\r\n}\r\n.Footer .boxRight ul li:nth-child(1){\r\n\twidth: 20%;\r\n    font-size: 16px;\r\n    color: #e14340;\r\n    overflow: hidden;\r\n    text-overflow: ellipsis;\r\n    white-space: nowrap;\r\n    display: inline-block;\r\n}\r\n.Footer .boxRight ul li:nth-child(1) em{\r\n\tpadding-left: 5%;\r\n}\r\n.Footer .boxRight ul li:nth-child(2){\r\n\twidth: 60%;\r\n\tfont-size: 14px;\r\n    overflow: hidden;\r\n    text-overflow: ellipsis;\r\n    white-space: nowrap;\r\n    display: inline-block;\r\n}\r\n.Footer .boxRight ul li:nth-child(2) .liTop{\r\n\tpadding-left: 8%;\r\n}\r\n.Footer .boxRight ul li:nth-child(3){\r\n\twidth: 20%;\r\n\tfont-size: 12px;\r\n}\r\n.Footer .boxRight ul li:nth-child(3) em{\r\n\tpadding-left: 5%;\r\n}\r\n.Footer .boxRight ul li:nth-child(3) .liRight{\r\n\tpadding-left: 18%;\r\n}\r\n.boxRight{\r\noverflow: hidden;\r\nposition: relative;\r\n}\r\n.boxRight ul{\r\n\t/* background: red; */\r\n\twidth: 100%;height: 40px;\r\n}\r\n\r\n.boxRightScroll {\r\n\twidth: 100%;\r\n\theight: auto;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n}", ""]);
 
 	// exports
 
@@ -84698,7 +84080,7 @@
 	                                    null,
 	                                    _react2.default.createElement(
 	                                        'span',
-	                                        null,
+	                                        { className: 'spanA' },
 	                                        '公司名'
 	                                    )
 	                                ),
@@ -84707,7 +84089,7 @@
 	                                    null,
 	                                    _react2.default.createElement(
 	                                        'span',
-	                                        null,
+	                                        { className: 'spanB left' },
 	                                        '企业背景'
 	                                    ),
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
@@ -84717,7 +84099,7 @@
 	                                    null,
 	                                    _react2.default.createElement(
 	                                        'span',
-	                                        null,
+	                                        { className: 'spanC left' },
 	                                        '行业'
 	                                    ),
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
@@ -84727,7 +84109,7 @@
 	                                    null,
 	                                    _react2.default.createElement(
 	                                        'span',
-	                                        null,
+	                                        { className: 'spanD left' },
 	                                        '注册资本'
 	                                    ),
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
@@ -84737,7 +84119,7 @@
 	                                    null,
 	                                    _react2.default.createElement(
 	                                        'span',
-	                                        null,
+	                                        { className: 'spanE left' },
 	                                        '注册时间'
 	                                    ),
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
@@ -84747,7 +84129,7 @@
 	                                    null,
 	                                    _react2.default.createElement(
 	                                        'span',
-	                                        null,
+	                                        { className: 'spanF left' },
 	                                        '企业类型'
 	                                    ),
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
@@ -84761,7 +84143,7 @@
 	                    { className: 'table-content' },
 	                    _react2.default.createElement(
 	                        'table',
-	                        { className: 'wtyh-table table-border-b' },
+	                        { className: 'wtyh-table table-border-b mod-left' },
 	                        _react2.default.createElement(
 	                            'tbody',
 	                            null,
@@ -85547,6 +84929,7 @@
 	  },
 	  keySearch: function keySearch(event) {
 	    if (event.which == "13") this.clickSearch();
+	    var value = $(event.target).val();
 	  },
 	  render: function render() {
 	    return _react2.default.createElement(
@@ -85762,17 +85145,20 @@
 	                _react2.default.createElement(
 	                  'li',
 	                  null,
-	                  '注册资本：500亿'
+	                  '注册资本：',
+	                  ele.regcap
 	                ),
 	                _react2.default.createElement(
 	                  'li',
 	                  null,
-	                  '成立日期：2015年06月21日'
+	                  '成立日期：',
+	                  ele.esdate
 	                ),
 	                _react2.default.createElement(
 	                  'li',
 	                  null,
-	                  '注册地址：上海浦东上海浦东上海浦东上海浦东上海浦东上海浦东上海浦东'
+	                  '注册地址：',
+	                  ele.address
 	                )
 	              )
 	            );
@@ -85890,7 +85276,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 
 	__webpack_require__(943);
@@ -85928,64 +85314,64 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var SearchResultDetail = _react2.default.createClass({
-	  displayName: 'SearchResultDetail',
+	    displayName: 'SearchResultDetail',
 
-	  pageScroll: function pageScroll() {
-	    $('html, body').animate({ scrollTop: 0 }, 'slow');
-	  },
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      { id: 'search-result-detail' },
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'company-name' },
-	        _react2.default.createElement(
-	          'span',
-	          null,
-	          '上海明成投资有限公司'
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'btn' },
-	          '存续'
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'right-content' },
-	          _react2.default.createElement(
+	    pageScroll: function pageScroll() {
+	        $('html, body').animate({ scrollTop: 0 }, 'slow');
+	    },
+	    render: function render() {
+	        return _react2.default.createElement(
 	            'div',
-	            { className: 'search-group' },
-	            _react2.default.createElement('input', { type: 'text', placeholder: '请输入企业名称检索' }),
+	            { id: 'search-result-detail' },
 	            _react2.default.createElement(
-	              'a',
-	              { href: '#', className: 'search' },
-	              _react2.default.createElement('i', { className: 'iconfont icon-search' })
+	                'div',
+	                { className: 'company-name' },
+	                _react2.default.createElement(
+	                    'span',
+	                    null,
+	                    '上海明成投资有限公司'
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'btn' },
+	                    '存续'
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'right-content' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'search-group' },
+	                        _react2.default.createElement('input', { type: 'text', placeholder: '请输入企业名称检索' }),
+	                        _react2.default.createElement(
+	                            'a',
+	                            { href: '#', className: 'search' },
+	                            _react2.default.createElement('i', { className: 'iconfont icon-search' })
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'back-btn' },
+	                        _react2.default.createElement('i', { className: 'iconfont icon-fanhui fanhui' }),
+	                        '返回'
+	                    )
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'company-detail clear-fix' },
+	                _react2.default.createElement(_AssociationGraph2.default, this.props),
+	                _react2.default.createElement(_CompanyInfo2.default, this.props),
+	                _react2.default.createElement(_CompanyNews2.default, this.props),
+	                _react2.default.createElement(_CompanyDetail2.default, this.props)
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'back-top', onClick: this.pageScroll },
+	                _react2.default.createElement('i', { className: 'iconfont icon-top' })
 	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'back-btn' },
-	            _react2.default.createElement('i', { className: 'iconfont icon-fanhui fanhui' }),
-	            '返回'
-	          )
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'company-detail clear-fix' },
-	        _react2.default.createElement(_AssociationGraph2.default, null),
-	        _react2.default.createElement(_CompanyInfo2.default, this.props),
-	        _react2.default.createElement(_CompanyNews2.default, this.props),
-	        _react2.default.createElement(_CompanyDetail2.default, this.props)
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'back-top', onClick: this.pageScroll },
-	        _react2.default.createElement('i', { className: 'iconfont icon-top' })
-	      )
-	    );
-	  }
+	        );
+	    }
 	});
 
 	//将 request  result 绑定到props的request result
@@ -85993,55 +85379,58 @@
 	 *Create by yq
 	 */
 	function mapStateToProps(state) {
-	  return {
-	    //title
-	    CompanyInfoTitResult: state.CompanyInfoTit.result,
-	    CompanyInfoTitRequest: state.CompanyInfoTit.request,
+	    return {
+	        //title
+	        CompanyInfoTitResult: state.CompanyInfoTit.result,
+	        CompanyInfoTitRequest: state.CompanyInfoTit.request,
 
-	    //舆情
-	    CompanyInfoNewsResult: state.CompanyInfoNews.result,
-	    CompanyInfoNewsRequest: state.CompanyInfoNews.request,
+	        //舆情
+	        CompanyInfoNewsResult: state.CompanyInfoNews.result,
+	        CompanyInfoNewsRequest: state.CompanyInfoNews.request,
 
-	    //表格A
-	    CompanyInfoAResult: state.CompanyInfoA.result,
-	    CompanyInfoARequest: state.CompanyInfoA.request,
+	        //表格A
+	        CompanyInfoAResult: state.CompanyInfoA.result,
+	        CompanyInfoARequest: state.CompanyInfoA.request,
 
-	    //表格B
-	    CompanyInfoBResult: state.CompanyInfoB.result,
-	    CompanyInfoBRequest: state.CompanyInfoB.request,
+	        CompanyPicResult: state.CompanyPic.result,
+	        CompanyPicRequest: state.CompanyPic.request,
 
-	    //诉讼记录5个ajax
-	    CompanyInfoC1Result: state.CompanyInfoC1.result,
-	    CompanyInfoC1Request: state.CompanyInfoC1.request,
+	        //表格B
+	        CompanyInfoBResult: state.CompanyInfoB.result,
+	        CompanyInfoBRequest: state.CompanyInfoB.request,
 
-	    CompanyInfoC2Result: state.CompanyInfoC2.result,
-	    CompanyInfoC2Request: state.CompanyInfoC2.request,
+	        //诉讼记录5个ajax
+	        CompanyInfoC1Result: state.CompanyInfoC1.result,
+	        CompanyInfoC1Request: state.CompanyInfoC1.request,
 
-	    CompanyInfoC3Result: state.CompanyInfoC3.result,
-	    CompanyInfoC3Request: state.CompanyInfoC3.request,
+	        CompanyInfoC2Result: state.CompanyInfoC2.result,
+	        CompanyInfoC2Request: state.CompanyInfoC2.request,
 
-	    CompanyInfoC4Result: state.CompanyInfoC4.result,
-	    CompanyInfoC4Request: state.CompanyInfoC4.request,
+	        CompanyInfoC3Result: state.CompanyInfoC3.result,
+	        CompanyInfoC3Request: state.CompanyInfoC3.request,
 
-	    CompanyInfoC5Result: state.CompanyInfoC5.result,
-	    CompanyInfoC5Request: state.CompanyInfoC5.request,
+	        CompanyInfoC4Result: state.CompanyInfoC4.result,
+	        CompanyInfoC4Request: state.CompanyInfoC4.request,
 
-	    //三个echarts图的ajax
-	    CompanyInfoD1Request: state.CompanyInfoD1.request,
-	    CompanyInfoD1Result: state.CompanyInfoD1.result,
+	        CompanyInfoC5Result: state.CompanyInfoC5.result,
+	        CompanyInfoC5Request: state.CompanyInfoC5.request,
 
-	    CompanyInfoD2Request: state.CompanyInfoD2.request,
-	    CompanyInfoD2Result: state.CompanyInfoD2.result,
+	        //三个echarts图的ajax
+	        CompanyInfoD1Request: state.CompanyInfoD1.request,
+	        CompanyInfoD1Result: state.CompanyInfoD1.result,
 
-	    CompanyInfoD3Request: state.CompanyInfoD3.request,
-	    CompanyInfoD3Result: state.CompanyInfoD3.result
+	        CompanyInfoD2Request: state.CompanyInfoD2.request,
+	        CompanyInfoD2Result: state.CompanyInfoD2.result,
 
-	  };
+	        CompanyInfoD3Request: state.CompanyInfoD3.request,
+	        CompanyInfoD3Result: state.CompanyInfoD3.result
+
+	    };
 	}
 
 	//将action的所有方法绑定到props上
 	function mapDispatchToProps(dispatch) {
-	  return (0, _redux.bindActionCreators)(InfoSearchAction, dispatch);
+	    return (0, _redux.bindActionCreators)(InfoSearchAction, dispatch);
 	}
 
 	//通过react-redux提供的connect方法将我们需要的state中的数据和actions中的方法绑定到props上
@@ -86094,6 +85483,7 @@
 	 *关联方图谱
 	 */
 
+	var Immutable = __webpack_require__(718);
 	var AssociationGraph = _react2.default.createClass({
 	    displayName: 'AssociationGraph',
 
@@ -86103,7 +85493,88 @@
 	        };
 	    },
 	    componentDidMount: function componentDidMount() {
-	        seajs.use("/relativeGraph/assets/script/main/guanliantu.js");
+	        seajs.use("/relativeGraph/assets/script/main/dynamic");
+	        var companyPicRequest = this.props.companyPicRequest;
+
+	        companyPicRequest({
+	            "platName": this.state.companyVal,
+	            "companyName": "宁夏思越资产投资管理有限责任公司",
+	            "dataVersion": "20160530",
+	            "degree": 3
+	        });
+	        // require('/relativeGraph/assets/script/dynamic.js').reDrawCanvas();
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var isEqual = Immutable.is(nextProps.CompanyPicRequest, this.props.CompanyPicResult);
+	        if (!isEqual) {
+	            (function () {
+	                var CompanyPicRequest = nextProps.CompanyPicRequest;
+	                var CompanyPicResult = nextProps.CompanyPicResult;
+
+	                if (CompanyPicRequest == true) {
+	                    // if (rankPicResult.success) {
+	                    seajs.use("/relativeGraph/assets/script/main/dynamic.js", function (main) {
+	                        var pointList = CompanyPicResult.pointList;
+	                        if (pointList == null || pointList == "" || pointList == "undefined") {
+	                            nodes = [];
+	                        } else {
+	                            nodes = [];
+	                            for (var i = 0; i < pointList.length; i++) {
+	                                var point = pointList[i];
+
+	                                var symbol = "rect";
+	                                if (point.isPerson == "1") {
+	                                    symbol = "circle";
+	                                }
+
+	                                var color = "#FF0000";
+	                                if (point.level == "1") {
+	                                    color = "#0030AF";
+	                                    if (point.isSonCom == "1") {
+	                                        color = "#FFCA00";
+	                                    }
+	                                } else if (point.level == "2") {
+	                                    color = "#36B3EB";
+	                                } else if (point.level == "3") {
+	                                    color = "#C1C1C1";
+	                                } else {}
+
+	                                nodes[i] = {
+	                                    "addflag": "false",
+	                                    "category": point.level,
+	                                    "color": color,
+	                                    "name": point.name,
+	                                    "symbol": symbol
+	                                };
+	                            }
+	                        }
+	                        var lineList = CompanyPicResult.lineList;
+	                        if (lineList == null || lineList == "" || lineList == "undefined") {
+	                            links = [];
+	                        } else {
+	                            links = [];
+	                            for (var i = 0; i < lineList.length; i++) {
+	                                var line = lineList[i];
+	                                var lineType = "line";
+	                                if (line.isFullLine == "0") {
+	                                    lineType = "dotted";
+	                                }
+	                                links[i] = {
+	                                    "addflag": "false",
+	                                    "guanlian": line.type,
+	                                    "line": lineType,
+	                                    "relatedParyName": line.relationship,
+	                                    "source": line.orig,
+	                                    "target": line.target
+	                                };
+	                            }
+	                        }
+
+	                        main.reDrawCanvas();
+	                    });
+	                }
+	            })();
+	        }
 	    },
 	    handleChange: function handleChange(e) {
 	        var searchVal = e.target.value;
@@ -86401,299 +85872,10 @@
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'relation-graph-box' },
-	                    _react2.default.createElement('input', { type: 'hidden', id: 'GLOBAL', 'data-url': '', 'data-sidenav': '3', 'data-taoxi': 'S', 'data-isopen': '1' }),
 	                    _react2.default.createElement(
 	                        'div',
-	                        { className: 'main correlation', id: 'main', style: { "height": "100%" } },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'show-company-info', id: 'show-company-info', style: { "display": "none" } },
-	                            _react2.default.createElement(
-	                                'a',
-	                                { href: 'javascript:;', className: 'close' },
-	                                _react2.default.createElement('i', { className: 'iconfont icon-icon13' })
-	                            ),
-	                            _react2.default.createElement(
-	                                'h1',
-	                                { id: 'companyName-info' },
-	                                'loading...'
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'des', id: 'companyName-des-info' },
-	                                '...'
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'correlation-tips' },
-	                            _react2.default.createElement(
-	                                'a',
-	                                { href: 'javascript:;', className: 'mtui-tips-info', 'data-info': '隐藏文字', id: 'cavHideText' },
-	                                _react2.default.createElement('img', { src: '/assets/images/k-3.jpg', alt: '' })
-	                            ),
-	                            _react2.default.createElement(
-	                                'a',
-	                                { href: 'javascript:;', className: 'mtui-tips-info', 'data-info': '放大', id: 'cavToMax' },
-	                                _react2.default.createElement('img', { src: '/assets/images/k-4.jpg', alt: '' })
-	                            ),
-	                            _react2.default.createElement(
-	                                'a',
-	                                { href: 'javascript:;', className: 'mtui-tips-info', 'data-info': '缩小', id: 'cavToMin' },
-	                                _react2.default.createElement('img', { src: '/assets/images/k-5.jpg', alt: '' })
-	                            ),
-	                            _react2.default.createElement(
-	                                'a',
-	                                { className: 'pic-tips', href: 'javascript:;' },
-	                                '图例说明 ',
-	                                _react2.default.createElement('i', { className: 'iconfont icon-xia' }),
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 't-img' },
-	                                    _react2.default.createElement(
-	                                        'ul',
-	                                        null,
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            { className: 'mtop1' },
-	                                            '当前目标'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            { className: 'mtop2' },
-	                                            '投资公司'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            { className: 'mtop2' },
-	                                            '被投资公司'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            { className: 'mtop2' },
-	                                            '股东'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            { className: 'mtop2' },
-	                                            '董监高'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            { className: 'mtop2' },
-	                                            '其他公司'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            { className: 'mtop2' },
-	                                            '其他自然人'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'li',
-	                                            { className: 'mtop3' },
-	                                            '投资关系'
-	                                        )
-	                                    ),
-	                                    _react2.default.createElement('img', { className: '', src: '/assets/images/tips.gif', alt: '' })
-	                                )
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'time-line' },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'date' },
-	                                _react2.default.createElement('ul', { className: 'dateul' })
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'canvas selectNull', id: 'canvas-box' },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'drag-box' },
-	                                _react2.default.createElement('div', { className: 'cav-main cav-hover-nodes', id: 'cav-hover-nodes' }),
-	                                ' ',
-	                                _react2.default.createElement('div', { className: 'cav-main cav-hover', id: 'cav-hover' }),
-	                                ' ',
-	                                _react2.default.createElement('div', { className: 'cav-main cav-main-hover', id: 'cav-main-hover' }),
-	                                ' ',
-	                                _react2.default.createElement('div', { className: 'cav-main cav-nodes', id: 'cav-nodes' }),
-	                                _react2.default.createElement('div', { className: 'cav-main cav-nodes-text', id: 'cav-nodes-text' }),
-	                                _react2.default.createElement('div', { className: 'cav-main cav-links-hover', id: 'cav-links-hover' }),
-	                                _react2.default.createElement('div', { className: 'cav-main cav-links', id: 'cav-links' })
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'sidebar' },
-	                            _react2.default.createElement('a', { href: 'javascript:;', className: 'sidebtn' })
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'sidebox' },
-	                            _react2.default.createElement(
-	                                'ul',
-	                                { className: 'select-nav clearfix' },
-	                                _react2.default.createElement(
-	                                    'li',
-	                                    { className: 'levels', 'data-level': '1' },
-	                                    _react2.default.createElement(
-	                                        'a',
-	                                        { href: 'javascript:;' },
-	                                        '1度'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'li',
-	                                    { className: 'levels', 'data-level': '2' },
-	                                    _react2.default.createElement(
-	                                        'a',
-	                                        { href: 'javascript:;' },
-	                                        '2度'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'li',
-	                                    { className: 'levels', 'data-level': '3' },
-	                                    _react2.default.createElement(
-	                                        'a',
-	                                        { href: 'javascript:;' },
-	                                        '3度'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'li',
-	                                    { className: 'levels', 'data-level': '4' },
-	                                    _react2.default.createElement(
-	                                        'a',
-	                                        { href: 'javascript:;' },
-	                                        '4度'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'li',
-	                                    { className: 'tz', 'data-type': 'all' },
-	                                    _react2.default.createElement(
-	                                        'a',
-	                                        { href: 'javascript:;' },
-	                                        '全部'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'li',
-	                                    { className: 'tz', 'data-type': 'shareholder', 'langs-title': '股东投资' },
-	                                    _react2.default.createElement(
-	                                        'a',
-	                                        { href: 'javascript:;' },
-	                                        '股东投资'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'li',
-	                                    { className: 'tz', 'data-type': 'direct', 'langs-title': '直接投资' },
-	                                    _react2.default.createElement(
-	                                        'a',
-	                                        { href: 'javascript:;' },
-	                                        '直接投资'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'li',
-	                                    { className: 'tz', 'data-type': 'leader', 'langs-title': '董监高' },
-	                                    _react2.default.createElement(
-	                                        'a',
-	                                        { href: 'javascript:;' },
-	                                        '董监高'
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'search-company' },
-	                                _react2.default.createElement('input', { type: 'text', className: 'name', id: 'searchCompanyLocal', placeholder: '搜索关联方列表' }),
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'index-search-content' },
-	                                    ' ...'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'all-company', id: 'allCompany' },
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'item-loading' },
-	                                    'loading...'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'all-company', id: 'gdCompany', style: { "display": "none" } },
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'item-loading' },
-	                                    'loading...'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'all-company', id: 'zjCompany', style: { "display": "none" } },
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'item-loading' },
-	                                    'loading...'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'all-company', id: 'djgCompany', style: { "display": "none" } },
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'item-loading' },
-	                                    'loading...'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'down-btn' },
-	                                _react2.default.createElement(
-	                                    'a',
-	                                    { href: 'javascript:;', className: 'mt-btn-blue down-excel' },
-	                                    '下载Excel'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'a',
-	                                    { href: 'javascript:;', className: 'mt-btn-grey reset-old' },
-	                                    '恢复默认'
-	                                )
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'loadingBox' },
-	                        _react2.default.createElement(
-	                            'p',
-	                            null,
-	                            '数据加载中...'
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'click-detail-show', id: 'click-detail-show' },
-	                        _react2.default.createElement(
-	                            'h1',
-	                            null,
-	                            '基本资料 ',
-	                            _react2.default.createElement(
-	                                'a',
-	                                { href: 'javascript:;', className: 'close' },
-	                                _react2.default.createElement('i', { className: 'iconfont icon-icon13' })
-	                            )
-	                        ),
-	                        _react2.default.createElement('div', { className: 'detail-content' })
+	                        { className: 'main correlation', id: 'dyMapMain' },
+	                        _react2.default.createElement('div', { id: 'dyMap' })
 	                    )
 	                )
 	            )
@@ -86740,7 +85922,7 @@
 
 
 	// module
-	exports.push([module.id, "#search-result-detail .relation-map {\r\n  width: 64%;\r\n  height: 100%;\r\n}\r\n#search-result-detail .relation-map .content-title {\r\n  width: 100%;\r\n  background: #383e47;\r\n  padding: 5px 10px;\r\n}\r\n#search-result-detail .relation-map .content-title span {\r\n  font-size: 20px;\r\n  color: #fff;\r\n}\r\n#search-result-detail .relation-map .content-title .btn {\r\n  width: 102px;\r\n  height: 28px;\r\n  line-height: 28px;\r\n  text-align: center;\r\n  display: inline-block;\r\n  border-radius: 3px;\r\n  background: #e14340;\r\n  font-size: 12px;\r\n  margin-left: 15px;\r\n}\r\n#search-result-detail .relation-map .content-title .right-content {\r\n  float: right;\r\n  margin-top: 7px;\r\n}\r\n#search-result-detail .relation-map .content-title .right-content input {\r\n  width: 260px;\r\n  height: 30px;\r\n  border: none;\r\n  padding-left: 15px;\r\n  border-radius: 100px;\r\n  color: #666;\r\n}\r\n#search-result-detail .relation-map .content-title .right-content .cancel {\r\n  margin-left: -25px;\r\n  color: #939aa4;\r\n}\r\n#search-result-detail .relation-map .content-title .right-content .enlarge {\r\n  margin: 0 8px 0 31px;\r\n}\r\n#search-result-detail .relation-map .company-leix {\r\n  margin: 25px 0 15px 10px;\r\n  width: 99%;\r\n  height: 56px;\r\n}\r\n#search-result-detail .relation-map .company-leix table {\r\n  background: #1a2029;\r\n  width: 80%;\r\n  height: 100%;\r\n  float: left;\r\n}\r\n#search-result-detail .relation-map .company-leix table tr {\r\n  height: 50%;\r\n  width: 10%;\r\n}\r\n#search-result-detail .relation-map .company-leix table tr td {\r\n  padding: 8px 0 0 14px;\r\n  position: relative;\r\n  width: 19.8%;\r\n  display: inline-block;\r\n}\r\n#search-result-detail .relation-map .company-leix table tr span {\r\n  display: inline-block;\r\n}\r\n#search-result-detail .relation-map .company-leix table tr .item-lable {\r\n  font-size: 12px;\r\n  color: #b2b2b2;\r\n  position: absolute;\r\n}\r\n#search-result-detail .relation-map .company-leix table tr img {\r\n  margin: -5px 20px 0 0;\r\n}\r\n#search-result-detail .relation-map .company-leix table tr .square {\r\n  width: 17px;\r\n  height: 17px;\r\n  margin-right: 20px;\r\n}\r\n#search-result-detail .relation-map .company-leix table tr .round {\r\n  width: 17px;\r\n  height: 17px;\r\n  margin-right: 20px;\r\n  border-radius: 100px;\r\n}\r\n#search-result-detail .relation-map .company-leix table tr .orange {\r\n  background: #f44603;\r\n}\r\n#search-result-detail .relation-map .company-leix table tr .orange-two {\r\n  background: #f98d2b;\r\n}\r\n#search-result-detail .relation-map .company-leix table tr .blue {\r\n  background: #046adb;\r\n}\r\n#search-result-detail .relation-map .company-leix table tr .yellow {\r\n  background: #ffdb03;\r\n}\r\n#search-result-detail .relation-map .company-leix table tr .green {\r\n  background: #73d528;\r\n}\r\n#search-result-detail .relation-map .company-leix .condition {\r\n  width: 19.6%;\r\n  height: 100%;\r\n  float: left;\r\n  margin-left: 2px;\r\n  background: #212831;\r\n}\r\n#search-result-detail .relation-map .company-leix .condition .lable {\r\n  font-size: 12px;\r\n  color: #fff;\r\n  width: 100%;\r\n  height: 50%;\r\n  padding-top: 8px;\r\n  line-height: 100%;\r\n  text-align: center;\r\n}\r\n#search-result-detail .relation-map .company-leix .condition .btns {\r\n  width: 100%;\r\n  height: 50%;\r\n}\r\n#search-result-detail .relation-map .company-leix .condition .btns .btn {\r\n  background: #00b7ee;\r\n  float: left;\r\n  width: 32.5%;\r\n  height: 100%;\r\n  margin-left: 1px;\r\n  text-align: center;\r\n  padding-top: 5px;\r\n}\r\n#search-result-detail .relation-map .square-show {\r\n  width: 100%;\r\n  height: 80%;\r\n  margin: 10px;\r\n  position: relative;\r\n}\r\n#search-result-detail .relation-map .square-show .company-profile {\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0;\r\n  width: 270px;\r\n  padding-bottom: 5px;\r\n  border-radius: 5px;\r\n  background: #222931;\r\n  -webkit-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n  -moz-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n}\r\n#search-result-detail .relation-map .square-show .company-profile .company-title {\r\n  width: 100%;\r\n  height: 30px;\r\n  line-height: 30px;\r\n  padding-left: 5%;\r\n  background: #4B5668;\r\n  border-top-left-radius: 5px;\r\n  border-top-right-radius: 5px;\r\n}\r\n#search-result-detail .relation-map .square-show .company-profile table {\r\n  width: 100%;\r\n}\r\n#search-result-detail .relation-map .square-show .company-profile table tr {\r\n  width: 100%;\r\n}\r\n#search-result-detail .relation-map .square-show .company-profile table tr td {\r\n  height: 27px;\r\n  line-height: 27px;\r\n  font-size: 12px;\r\n}\r\n#search-result-detail .relation-map .square-show .company-profile table tr td:first-child {\r\n  width: 60%;\r\n  color: #878E96;\r\n  padding-left: 5%;\r\n}\r\n#search-result-detail .relation-map .square-show .company-profile table tr td:last-child {\r\n  width: 40%;\r\n}\r\n#search-result-detail .company-info {\r\n  width: 34.5%;\r\n  height: 42%;\r\n  padding: 15px;\r\n}\r\n#search-result-detail .company-info .logo-name {\r\n  overflow: hidden;\r\n  *zoom: 1;\r\n  margin-bottom: 15px;\r\n}\r\n#search-result-detail .company-info .logo-name .logo {\r\n  float: left;\r\n  width: 90px;\r\n  height: 90px;\r\n  background: url(\"/images/no-logo.png\");\r\n}\r\n#search-result-detail .company-info .logo-name .cname {\r\n  float: left;\r\n  font-size: 18px;\r\n  margin: 2px;\r\n  padding-left: 20px;\r\n}\r\n#search-result-detail .company-info .person-info {\r\n  width: 100%;\r\n  height: 71%;\r\n  background: #1f252f;\r\n  padding: 26px 10px 0 34px;\r\n}\r\n#search-result-detail .company-info .person-info > div {\r\n  margin-bottom: 10%;\r\n}\r\n#search-result-detail .company-info .person-info i {\r\n  color: #facd89;\r\n  font-size: 14px;\r\n}\r\n#search-result-detail .company-info .person-info span {\r\n  font-size: 14px;\r\n  margin-left: 13px;\r\n}\r\n#search-result-detail .company-news {\r\n  width: 34.5%;\r\n  height: 56.7%;\r\n  padding: 15px;\r\n}\r\n#search-result-detail .company-news .news-name {\r\n  font-size: 18px;\r\n  margin-bottom: 2.6%;\r\n}\r\n#search-result-detail .company-news .news-item {\r\n  height: auto;  /* overflow-y: scroll; */\r\n}\r\n#search-result-detail .company-news .news-list-item {\r\n  padding: 1.2% 0 1.7% 1.2%;\r\n  background: #1a2029;\r\n  border-bottom: 1px solid #cccccc;\r\n  margin-bottom: 1.5%;\r\n}\r\n#search-result-detail .company-news .news-list-item .item-num {\r\n  width: 17px;\r\n  height: 17px;\r\n  text-align: center;\r\n  line-height: 17px;\r\n  border-radius: 3px;\r\n  background: #6a6a6a;\r\n  font-size: 11px;\r\n  float: left;\r\n}\r\n#search-result-detail .company-news .news-list-item .item-title {\r\n  font-size: 14px;\r\n  color: #e14340;\r\n  font-weight: bold;\r\n  float: left;\r\n  margin-left: 15px;\r\n}\r\n#search-result-detail .company-news .news-list-item .item-title a {\r\n  color: #e14340;\r\n}\r\n#search-result-detail .company-news .news-list-item .item-content {\r\n  margin-top: 17px;\r\n  text-indent: 2em;\r\n  padding: 0 25px 20px 25px;\r\n}\r\n#search-result-detail .company-news .news-list-item .right-bottom-text {\r\n  float: right;\r\n  color: #898f98;\r\n}\r\n#search-result-detail .company-news .news-list-item .right-bottom-text .website {\r\n  margin-right: 40px;\r\n}\r\n#search-result-detail .company-news .news-list-item .right-bottom-text .rel-date {\r\n  margin-right: 25px;\r\n}\r\n#search-result-detail .company-detail-inner {\r\n  width: 99%;\r\n  margin-bottom: 10px !important;\r\n  padding: 13px 20px 20px 17px;\r\n}\r\n#search-result-detail .company-detail-inner .clabel {\r\n  font-size: 18px;\r\n  margin-bottom: 23px;\r\n}\r\n#search-result-detail .company-detail-inner .label-all {\r\n  background: #333b46;\r\n}\r\n#search-result-detail .company-detail-inner .label-all .label-name {\r\n  width: 180px;\r\n  height: 40px;\r\n  line-height: 40px;\r\n  text-align: center;\r\n  background: #464f5c;\r\n  margin-right: 2px;\r\n  font-size: 14px;\r\n  float: left;\r\n  cursor: pointer;\r\n}\r\n#search-result-detail .company-detail-inner .label-all .name-active {\r\n  background: #e14340;\r\n}\r\n#search-result-detail .company-detail-inner .bussiness-content > div {\r\n  width: 100%;\r\n  margin-top: 17px;\r\n}\r\n#search-result-detail .company-detail-inner .bussiness-info table {\r\n  margin-left: 63px;\r\n  width: 90%;\r\n}\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:first-child {\r\n  font-weight: bold;\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:nth-child(2) {\r\n  width: 30%;\r\n}\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:nth-child(3) {\r\n  font-weight: bold;\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:nth-child(4) {\r\n  width: 30%;\r\n}\r\n#search-result-detail .company-detail-inner .bussiness-info table tr .bussiness-scope {\r\n  width: 85% !important;\r\n}\r\n#search-result-detail .company-detail-inner .bussiness-info td {\r\n  display: inline-block;\r\n  line-height: 36px;\r\n}\r\n#search-result-detail .company-detail-inner .shareholder-exe .shareholder-title {\r\n  width: 100%;\r\n  border-bottom: 5px solid #363C48;\r\n}\r\n#search-result-detail .company-detail-inner .shareholder-exe .title-item {\r\n  width: 180px;\r\n  height: 50px;\r\n  line-height: 50px;\r\n  position: relative;\r\n  top: 5px;\r\n  display: inline-block;\r\n  text-align: center;\r\n  margin-right: 2px;\r\n  cursor: pointer;\r\n  border-bottom: 5px solid #464f5c;\r\n}\r\n#search-result-detail .company-detail-inner .shareholder-exe .title-active {\r\n  border-bottom: 5px solid #e14340;\r\n}\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-title {\r\n  width: 100%;\r\n}\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-title > div {\r\n  width: 180px;\r\n  height: 80px;\r\n  line-height: 80px;\r\n  font-size: 14px;\r\n  font-weight: bold;\r\n  text-align: center;\r\n  display: inline-block;\r\n}\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-content {\r\n  width: 100%;\r\n}\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-content > div {\r\n  width: 180px;\r\n  height: 80px;\r\n  line-height: 80px;\r\n  font-size: 14px;\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .control-title {\r\n  width: 100%;\r\n  border-bottom: 5px solid #363C48;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .title-item {\r\n  width: 180px;\r\n  height: 50px;\r\n  line-height: 50px;\r\n  position: relative;\r\n  top: 5px;\r\n  display: inline-block;\r\n  text-align: center;\r\n  cursor: pointer;\r\n  margin-right: 2px;\r\n  border-bottom: 5px solid #464f5c;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .title-active {\r\n  border-bottom: 5px solid #e14340;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .content .content-title {\r\n  width: 100%;\r\n  height: 80px;\r\n  line-height: 80px;\r\n  font-size: 14px;\r\n  font-weight: bold;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .content .content-content {\r\n  width: 100%;\r\n  padding: 10px;\r\n  font-size: 14px;\r\n  float: left;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div:first-child {\r\n  width: 10%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div:nth-child(2) {\r\n  width: 13%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div:nth-child(3) {\r\n  width: 33%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div:nth-child(4) {\r\n  width: 13%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div:nth-child(5) {\r\n  width: 13%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n  padding: 0 1%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div:first-child {\r\n  width: 10%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div:nth-child(2) {\r\n  width: 13%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div:nth-child(3) {\r\n  width: 33%;\r\n  text-indent: 2em;\r\n  text-align: left;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div:nth-child(4) {\r\n  width: 13%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div:nth-child(5) {\r\n  width: 13%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:first-child {\r\n  width: 10%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(2) {\r\n  width: 25%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(3) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(4) {\r\n  width: 10%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(5) {\r\n  width: 10%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(6) {\r\n  width: 10%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(7) {\r\n  width: 10%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n  padding: 0 1%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:first-child {\r\n  width: 10%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(2) {\r\n  width: 25%;\r\n  text-align: left;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(3) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(4) {\r\n  width: 10%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(5) {\r\n  width: 10%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(6) {\r\n  width: 10%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(7) {\r\n  width: 10%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:first-child {\r\n  width: 25%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:nth-child(2) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:nth-child(3) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:nth-child(4) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:nth-child(5) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:nth-child(6) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n  padding: 0 1%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:first-child {\r\n  width: 25%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:nth-child(2) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:nth-child(3) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:nth-child(4) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:nth-child(5) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:nth-child(6) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-title > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-title > div:first-child {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-title > div:nth-child(2) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-title > div:nth-child(3) {\r\n  width: 20%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-title > div:nth-child(4) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n  padding: 0 1%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div:first-child {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div:nth-child(2) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div:nth-child(3) {\r\n  width: 20%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div:nth-child(4) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-title > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-title > div:first-child {\r\n  width: 13%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-title > div:nth-child(2) {\r\n  width: 40%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-title > div:nth-child(3) {\r\n  width: 13%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-title > div:nth-child(4) {\r\n  width: 13%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n  padding: 0 1%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div:first-child {\r\n  width: 13%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div:nth-child(2) {\r\n  width: 40%;\r\n  text-align: left;\r\n  text-indent: 2em;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div:nth-child(3) {\r\n  width: 13%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div:nth-child(4) {\r\n  width: 13%;\r\n}\r\n#search-result-detail .company-detail-inner .recruiting-info .recruiting-title {\r\n  width: 100%;\r\n  border-bottom: 5px solid #363C48;\r\n}\r\n#search-result-detail .company-detail-inner .recruiting-info .title-item {\r\n  width: 180px;\r\n  height: 50px;\r\n  line-height: 50px;\r\n  position: relative;\r\n  top: 5px;\r\n  display: inline-block;\r\n  text-align: center;\r\n  margin-right: 2px;\r\n  cursor: pointer;\r\n  border-bottom: 5px solid #464f5c;\r\n}\r\n#search-result-detail .company-detail-inner .recruiting-info .title-active {\r\n  border-bottom: 5px solid #e14340;\r\n}\r\n#search-result-detail .company-detail-inner .recruiting-info .show-charts {\r\n  width: 100%;\r\n  height: 390px;\r\n}\r\n#search-result-detail .company-detail-inner .recruiting-info .show-charts #person-index {\r\n  width: 50%;\r\n  height: 100%;\r\n  float: left;\r\n}\r\n#search-result-detail .company-detail-inner .recruiting-info .show-charts #pay-distribute {\r\n  width: 50%;\r\n  height: 100%;\r\n  float: left;\r\n}\r\n#search-result-detail  .relation-legend {\r\n  width: auto;\r\n  margin: 25px 10px 15px 10px;\r\n}\r\n#search-result-detail .relation-legend table tr .square {\r\n  width: 10px;\r\n  height: 10px;\r\n}\r\n#search-result-detail  .relation-legend table tr .round {\r\n  width: 10px;\r\n  height: 10px;\r\n}\r\n#search-result-detail .linefin-rel-graph .mod-content .relation-graph-box {\r\n  height: 795px;\r\n  overflow: hidden;\r\n}\r\n#search-result-detail  .linefin-rel-graph {\r\n  height: 914px\r\n}\r\n#search-result-detail  .linefin-rel-graph .mod-title {\r\n  border-top-left-radius: 5px;\r\n  border-top-right-radius: 5px;\r\n}\r\n#search-result-detail .relation-legend .condition {\r\n  margin-top: -2px;\r\n}\r\n#search-result-detail  .linefin-rel-graph .mod-title h3 {\r\n  display: inline-block;\r\n  vertical-align: middle;\r\n  font-weight: normal;\r\n  font-style: normal;\r\n  font-size: 16px;\r\n  color: #ffffff;\r\n  margin-left: 10px;\r\n  padding: 8px 0;\r\n}\r\n.company-news-scroll {\r\n  overflow-y: scroll;\r\n  overflow-x: hidden;\r\n}", ""]);
+	exports.push([module.id, "#search-result-detail .relation-map {\r\n  width: 64%;\r\n  height: 100%;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title {\r\n  width: 100%;\r\n  background: #383e47;\r\n  padding: 5px 10px;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title span {\r\n  font-size: 20px;\r\n  color: #fff;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title .btn {\r\n  width: 102px;\r\n  height: 28px;\r\n  line-height: 28px;\r\n  text-align: center;\r\n  display: inline-block;\r\n  border-radius: 3px;\r\n  background: #e14340;\r\n  font-size: 12px;\r\n  margin-left: 15px;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title .right-content {\r\n  float: right;\r\n  margin-top: 7px;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title .right-content input {\r\n  width: 260px;\r\n  height: 30px;\r\n  border: none;\r\n  padding-left: 15px;\r\n  border-radius: 100px;\r\n  color: #666;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title .right-content .cancel {\r\n  margin-left: -25px;\r\n  color: #939aa4;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title .right-content .enlarge {\r\n  margin: 0 8px 0 31px;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix {\r\n  margin: 25px 0 15px 10px;\r\n  width: 99%;\r\n  height: 56px;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table {\r\n  background: #1a2029;\r\n  width: 80%;\r\n  height: 100%;\r\n  float: left;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr {\r\n  height: 50%;\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr td {\r\n  padding: 8px 0 0 14px;\r\n  position: relative;\r\n  width: 19.8%;\r\n  display: inline-block;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr span {\r\n  display: inline-block;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .item-lable {\r\n  font-size: 12px;\r\n  color: #b2b2b2;\r\n  position: absolute;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr img {\r\n  margin: -5px 20px 0 0;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .square {\r\n  width: 17px;\r\n  height: 17px;\r\n  margin-right: 20px;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .round {\r\n  width: 17px;\r\n  height: 17px;\r\n  margin-right: 20px;\r\n  border-radius: 100px;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .orange {\r\n  background: #f44603;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .orange-two {\r\n  background: #f98d2b;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .blue {\r\n  background: #046adb;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .yellow {\r\n  background: #ffdb03;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .green {\r\n  background: #73d528;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix .condition {\r\n  width: 19.6%;\r\n  height: 100%;\r\n  float: left;\r\n  margin-left: 2px;\r\n  background: #212831;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix .condition .lable {\r\n  font-size: 12px;\r\n  color: #fff;\r\n  width: 100%;\r\n  height: 50%;\r\n  padding-top: 8px;\r\n  line-height: 100%;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix .condition .btns {\r\n  width: 100%;\r\n  height: 50%;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix .condition .btns .btn {\r\n  background: #00b7ee;\r\n  float: left;\r\n  width: 32.5%;\r\n  height: 100%;\r\n  margin-left: 1px;\r\n  text-align: center;\r\n  padding-top: 5px;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show {\r\n  width: 100%;\r\n  height: 80%;\r\n  margin: 10px;\r\n  position: relative;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile {\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0;\r\n  width: 270px;\r\n  padding-bottom: 5px;\r\n  border-radius: 5px;\r\n  background: #222931;\r\n  -webkit-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n  -moz-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile .company-title {\r\n  width: 100%;\r\n  height: 30px;\r\n  line-height: 30px;\r\n  padding-left: 5%;\r\n  background: #4B5668;\r\n  border-top-left-radius: 5px;\r\n  border-top-right-radius: 5px;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile table {\r\n  width: 100%;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile table tr {\r\n  width: 100%;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile table tr td {\r\n  height: 27px;\r\n  line-height: 27px;\r\n  font-size: 12px;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile table tr td:first-child {\r\n  width: 60%;\r\n  color: #878E96;\r\n  padding-left: 5%;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile table tr td:last-child {\r\n  width: 40%;\r\n}\r\n\r\n#search-result-detail .company-info {\r\n  width: 34.5%;\r\n  height: 42%;\r\n  padding: 15px;\r\n}\r\n\r\n#search-result-detail .company-info .logo-name {\r\n  overflow: hidden;\r\n  *zoom: 1;\r\n  margin-bottom: 15px;\r\n}\r\n\r\n#search-result-detail .company-info .logo-name .logo {\r\n  float: left;\r\n  width: 90px;\r\n  height: 90px;\r\n  background: url(\"/images/no-logo.png\");\r\n}\r\n\r\n#search-result-detail .company-info .logo-name .cname {\r\n  float: left;\r\n  font-size: 18px;\r\n  margin: 2px;\r\n  padding-left: 20px;\r\n}\r\n\r\n#search-result-detail .company-info .person-info {\r\n  width: 100%;\r\n  height: 71%;\r\n  background: #1f252f;\r\n  padding: 26px 10px 0 34px;\r\n}\r\n\r\n#search-result-detail .company-info .person-info > div {\r\n  margin-bottom: 10%;\r\n}\r\n\r\n#search-result-detail .company-info .person-info i {\r\n  color: #facd89;\r\n  font-size: 14px;\r\n}\r\n\r\n#search-result-detail .company-info .person-info span {\r\n  font-size: 14px;\r\n  margin-left: 13px;\r\n}\r\n\r\n#search-result-detail .company-news {\r\n  width: 34.5%;\r\n  height: 56.7%;\r\n  padding: 15px;\r\n}\r\n\r\n#search-result-detail .company-news .news-name {\r\n  font-size: 18px;\r\n  margin-bottom: 2.6%;\r\n}\r\n\r\n#search-result-detail .company-news .news-item {\r\n  height: auto;  /* overflow-y: scroll; */\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item {\r\n  padding: 1.2% 0 1.7% 1.2%;\r\n  background: #1a2029;\r\n  border-bottom: 1px solid #cccccc;\r\n  margin-bottom: 1.5%;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .item-num {\r\n  width: 17px;\r\n  height: 17px;\r\n  text-align: center;\r\n  line-height: 17px;\r\n  border-radius: 3px;\r\n  background: #6a6a6a;\r\n  font-size: 11px;\r\n  float: left;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .item-title {\r\n  font-size: 14px;\r\n  color: #e14340;\r\n  font-weight: bold;\r\n  float: left;\r\n  margin-left: 15px;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .item-title a {\r\n  color: #e14340;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .item-content {\r\n  margin-top: 17px;\r\n  text-indent: 2em;\r\n  padding: 0 25px 20px 25px;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .right-bottom-text {\r\n  float: right;\r\n  color: #898f98;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .right-bottom-text .website {\r\n  margin-right: 40px;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .right-bottom-text .rel-date {\r\n  margin-right: 25px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner {\r\n  width: 99%;\r\n  margin-bottom: 10px !important;\r\n  padding: 13px 20px 20px 17px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .clabel {\r\n  font-size: 18px;\r\n  margin-bottom: 23px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .label-all {\r\n  background: #333b46;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .label-all .label-name {\r\n  width: 180px;\r\n  height: 40px;\r\n  line-height: 40px;\r\n  text-align: center;\r\n  background: #464f5c;\r\n  margin-right: 2px;\r\n  font-size: 14px;\r\n  float: left;\r\n  cursor: pointer;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .label-all .name-active {\r\n  background: #e14340;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-content > div {\r\n  width: 100%;\r\n  margin-top: 17px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table {\r\n  margin-left: 63px;\r\n  width: 90%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:first-child {\r\n  font-weight: bold;\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:nth-child(2) {\r\n  width: 30%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:nth-child(3) {\r\n  font-weight: bold;\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:nth-child(4) {\r\n  width: 30%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table tr .bussiness-scope {\r\n  width: 85% !important;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info td {\r\n  display: inline-block;\r\n  line-height: 36px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .shareholder-title {\r\n  width: 100%;\r\n  border-bottom: 5px solid #363C48;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .title-item {\r\n  width: 180px;\r\n  height: 50px;\r\n  line-height: 50px;\r\n  position: relative;\r\n  top: 5px;\r\n  display: inline-block;\r\n  text-align: center;\r\n  margin-right: 2px;\r\n  cursor: pointer;\r\n  border-bottom: 5px solid #464f5c;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .title-active {\r\n  border-bottom: 5px solid #e14340;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-title {\r\n  width: 100%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-title > div {\r\n  width: 180px;\r\n  height: 80px;\r\n  line-height: 80px;\r\n  font-size: 14px;\r\n  font-weight: bold;\r\n  text-align: center;\r\n  display: inline-block;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-content {\r\n  width: 100%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-content > div {\r\n  width: 180px;\r\n  height: 80px;\r\n  line-height: 80px;\r\n  font-size: 14px;\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .control-title {\r\n  width: 100%;\r\n  border-bottom: 5px solid #363C48;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .title-item {\r\n  width: 180px;\r\n  height: 50px;\r\n  line-height: 50px;\r\n  position: relative;\r\n  top: 5px;\r\n  display: inline-block;\r\n  text-align: center;\r\n  cursor: pointer;\r\n  margin-right: 2px;\r\n  border-bottom: 5px solid #464f5c;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .title-active {\r\n  border-bottom: 5px solid #e14340;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .content .content-title {\r\n  width: 100%;\r\n  height: 80px;\r\n  line-height: 80px;\r\n  font-size: 14px;\r\n  font-weight: bold;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .content .content-content {\r\n  width: 100%;\r\n  padding: 10px;\r\n  font-size: 14px;\r\n  float: left;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div:first-child {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div:nth-child(2) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div:nth-child(3) {\r\n  width: 33%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div:nth-child(4) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div:nth-child(5) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n  padding: 0 1%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div:first-child {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div:nth-child(2) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div:nth-child(3) {\r\n  width: 33%;\r\n  text-indent: 2em;\r\n  text-align: left;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div:nth-child(4) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div:nth-child(5) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:first-child {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(2) {\r\n  width: 25%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(3) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(4) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(5) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(6) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(7) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n  padding: 0 1%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:first-child {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(2) {\r\n  width: 25%;\r\n  text-align: left;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(3) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(4) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(5) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(6) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(7) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:first-child {\r\n  width: 25%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:nth-child(2) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:nth-child(3) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:nth-child(4) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:nth-child(5) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:nth-child(6) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n  padding: 0 1%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:first-child {\r\n  width: 25%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:nth-child(2) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:nth-child(3) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:nth-child(4) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:nth-child(5) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:nth-child(6) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-title > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-title > div:first-child {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-title > div:nth-child(2) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-title > div:nth-child(3) {\r\n  width: 20%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-title > div:nth-child(4) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n  padding: 0 1%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div:first-child {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div:nth-child(2) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div:nth-child(3) {\r\n  width: 20%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div:nth-child(4) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-title > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-title > div:first-child {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-title > div:nth-child(2) {\r\n  width: 40%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-title > div:nth-child(3) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-title > div:nth-child(4) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n  padding: 0 1%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div:first-child {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div:nth-child(2) {\r\n  width: 40%;\r\n  text-align: left;\r\n  text-indent: 2em;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div:nth-child(3) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div:nth-child(4) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .recruiting-title {\r\n  width: 100%;\r\n  border-bottom: 5px solid #363C48;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .title-item {\r\n  width: 180px;\r\n  height: 50px;\r\n  line-height: 50px;\r\n  position: relative;\r\n  top: 5px;\r\n  display: inline-block;\r\n  text-align: center;\r\n  margin-right: 2px;\r\n  cursor: pointer;\r\n  border-bottom: 5px solid #464f5c;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .title-active {\r\n  border-bottom: 5px solid #e14340;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .show-charts {\r\n  width: 100%;\r\n  height: 390px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .show-charts #person-index {\r\n  width: 50%;\r\n  height: 100%;\r\n  float: left;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .show-charts #pay-distribute {\r\n  width: 50%;\r\n  height: 100%;\r\n  float: left;\r\n}\r\n\r\n#search-result-detail  .relation-legend {\r\n  width: auto;\r\n  margin: 35px 10px 15px 10px;\r\n}\r\n\r\n#search-result-detail .relation-legend table tr .square {\r\n  width: 10px;\r\n  height: 10px;\r\n}\r\n\r\n#search-result-detail  .relation-legend table tr .round {\r\n  width: 10px;\r\n  height: 10px;\r\n}\r\n\r\n#search-result-detail .linefin-rel-graph .mod-content .relation-graph-box {\r\n  height: 795px;\r\n  overflow: hidden;\r\n}\r\n\r\n#search-result-detail  .linefin-rel-graph {\r\n  height: 914px\r\n}\r\n\r\n#search-result-detail  .linefin-rel-graph .mod-title {\r\n  border-top-left-radius: 5px;\r\n  border-top-right-radius: 5px;\r\n}\r\n\r\n#search-result-detail .relation-legend .condition {\r\n  margin-top: -2px;\r\n}\r\n\r\n#search-result-detail  .linefin-rel-graph .mod-title h3 {\r\n  display: inline-block;\r\n  vertical-align: middle;\r\n  font-weight: normal;\r\n  font-style: normal;\r\n  font-size: 16px;\r\n  color: #ffffff;\r\n  margin-left: 10px;\r\n  padding: 8px 0;\r\n}\r\n\r\n.company-news-scroll {\r\n  overflow-y: scroll;\r\n  overflow-x: hidden;\r\n}", ""]);
 
 	// exports
 
@@ -87733,48 +86915,15 @@
 	  displayName: 'Announcement',
 	  getInitialState: function getInitialState() {
 	    return {
-	      content: null
+	      content: []
 	    };
 	  },
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	    var _this = this;
 	    if (nextProps.CompanyInfoC1Request) {
 	      var data = nextProps.CompanyInfoC1Result;
-	      console.log(data, "诉讼记录A");
-	      this.setState({
-	        content: data.content.map(function (itme, index) {
-	          return _react2.default.createElement(
-	            'div',
-	            { className: 'content-content clear-fix', key: index },
-	            _react2.default.createElement(
-	              'div',
-	              null,
-	              '1'
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              null,
-	              '成都市金牛区人民法院'
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              null,
-	              '申请人潘文财依据北京市第二中级人民法院作出的民事判决，向北京市通州区人民法院申请执行，要被执行人中扶建设有限责任公司北京路通同泰建筑分公司（以下简称路通同泰建筑分公司）给付货款、违约金、迟延履行期间的债务利息，共计115万余元。执行法院通过相关查询、现场勘查，发现路通同泰建筑分公司没有能力履行全部债务。'
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              null,
-	              '相关法人'
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              null,
-	              '2016年6月7日'
-	            )
-	          );
-	        })
-
-	      });
+	      console.log(data.content, "诉讼记录A");
+	      this.setState({ content: data.content });
 	    }
 	  },
 	  componentDidMount: function componentDidMount() {
@@ -87786,7 +86935,7 @@
 	    getCompanyInfoC1(jsonData);
 	  },
 	  render: function render() {
-	    console.log(this.props, "props_Announcement");
+	    console.log(this.state.content, '33333333333333');
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'content announcement' },
@@ -87801,25 +86950,66 @@
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          '公告人ss'
+	          '案件内容'
 	        ),
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          '公告内容'
+	          '案由'
 	        ),
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          '公告类型'
+	          '当事人'
 	        ),
 	        _react2.default.createElement(
 	          'div',
 	          null,
-	          '公告时间'
+	          '开庭日期'
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          '省份'
 	        )
 	      ),
-	      this.state.content
+	      this.state.content.map(function (item, index) {
+	        console.log(item, index);
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'content-content clear-fix', key: index },
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            item.case_code
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            '无数据'
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            item.action_cause
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            item.litigant
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            item.trial_date
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            '无数据'
+	          )
+	        );
+	      })
 	    );
 	  }
 	});
@@ -87867,34 +87057,34 @@
 	      var data = nextProps.CompanyInfoC2Result;
 	      console.log(data, "诉讼记录B");
 	      this.setState({
-	        content: data.content.map(function (itme, index) {
+	        content: data.content.map(function (item, index) {
 	          return _react2.default.createElement(
 	            'div',
 	            { className: 'content-content clear-fix', key: index },
 	            _react2.default.createElement(
 	              'div',
 	              null,
-	              '1'
+	              item.litigant_type
 	            ),
 	            _react2.default.createElement(
 	              'div',
 	              null,
-	              '冯阳1火与黄志金、中国平安财产保险股份有限公'
+	              item.litigant_type
 	            ),
 	            _react2.default.createElement(
 	              'div',
 	              null,
-	              '机动车交通事故'
+	              item.action_cause
 	            ),
 	            _react2.default.createElement(
 	              'div',
 	              null,
-	              '民事二审案件'
+	              item.case_type
 	            ),
 	            _react2.default.createElement(
 	              'div',
 	              null,
-	              '2015年12月15日'
+	              item.sentence_date
 	            ),
 	            _react2.default.createElement(
 	              'div',
@@ -87904,7 +87094,7 @@
 	            _react2.default.createElement(
 	              'div',
 	              null,
-	              '上诉人 败诉'
+	              item.caseout_come
 	            )
 	          );
 	        })
@@ -88012,39 +87202,39 @@
 				var data = nextProps.CompanyInfoC3Result;
 				console.log(data, "诉讼记录C");
 				this.setState({
-					content: data.content.results.map(function (itme, index) {
+					content: data.content.results.map(function (item, index) {
 						return _react2.default.createElement(
 							'div',
 							{ className: 'content-content clear-fix' },
 							_react2.default.createElement(
 								'div',
 								null,
-								'中国平安财产保险股份有限公司阳泉中心支公司'
+								item.company_name
 							),
 							_react2.default.createElement(
 								'div',
 								null,
-								'41052119801****2519'
+								item.pname_id
 							),
 							_react2.default.createElement(
 								'div',
 								null,
-								'山西省阳曲县人民法院'
+								item.exec_court_name
 							),
 							_react2.default.createElement(
 								'div',
 								null,
-								'2015年12月15日'
+								item.case_create_time
 							),
 							_react2.default.createElement(
 								'div',
 								null,
-								'(2016)阳法晋0122执字第00104号'
+								item.case_code
 							),
 							_react2.default.createElement(
 								'div',
 								null,
-								'20000'
+								item.exec_subject
 							)
 						);
 					})
@@ -88146,30 +87336,31 @@
 			if (nextProps.CompanyInfoC4Request) {
 				var data = nextProps.CompanyInfoC4Result;
 				console.log(data, "诉讼记录D");
+				var nothing = "截止目前,通过中华人民共和国最高人民法院全国法院被执行人信息查询平台，未发现目标公司的失信人执行案件相关情况信息。";
 				this.setState({
-					content: data.content.results.map(function (itme, index) {
+					content: !data.content.results.length ? nothing : data.content.results.map(function (item, index) {
 						return _react2.default.createElement(
 							'div',
 							{ className: 'content-content clear-fix' },
 							_react2.default.createElement(
 								'div',
 								null,
-								'(2015)长法执字第01462号'
+								item.exe_code
 							),
 							_react2.default.createElement(
 								'div',
 								null,
-								'新乡市长垣县法院'
+								item.exec_court_name
 							),
 							_react2.default.createElement(
 								'div',
 								null,
-								'2015长民初字第1304号民事判决书'
+								item.exe_code
 							),
 							_react2.default.createElement(
 								'div',
 								null,
-								' 2016年01月21日'
+								item.case_create_time
 							)
 						);
 					})
@@ -88195,7 +87386,7 @@
 					_react2.default.createElement(
 						'div',
 						null,
-						'案号'
+						'案号1'
 					),
 					_react2.default.createElement(
 						'div',
@@ -88262,29 +87453,29 @@
 				var data = nextProps.CompanyInfoC5Result;
 				console.log(data, "诉讼记录E");
 				this.setState({
-					content: data.content.results.map(function (itme, index) {
+					content: data.content.results.map(function (item, index) {
 						return _react2.default.createElement(
 							'div',
 							{ className: 'content-content clear-fix' },
 							_react2.default.createElement(
 								'div',
 								null,
-								'郴州市北湖区人民法院'
+								item.notice_people
 							),
 							_react2.default.createElement(
 								'div',
 								null,
-								'邓珉、邓光泉：上诉人中国平安财产保险股份有限公司郴州中心支公司就（2015）郴北民二初字第723号民事判决书提起上诉。现依法向你公告送达上诉状副本。自公告之日起经过60日即视为送达。提出答辩状的期限为公告期满后15日内。逾期将依法审理。'
+								item.notice_content
 							),
 							_react2.default.createElement(
 								'div',
 								null,
-								'起诉状、上诉状副本'
+								item.notice_type
 							),
 							_react2.default.createElement(
 								'div',
 								null,
-								' 2016年01月21日'
+								item.notice_time
 							)
 						);
 					})
@@ -88788,6 +87979,7 @@
 	exports.getCompanyInfoD1 = getCompanyInfoD1;
 	exports.getCompanyInfoD2 = getCompanyInfoD2;
 	exports.getCompanyInfoD3 = getCompanyInfoD3;
+	exports.companyPicRequest = companyPicRequest;
 	/*
 	  企业全息查询action
 	*/
@@ -89239,6 +88431,44 @@
 	    });
 	  };
 	}
+
+	/*动态图谱*/
+	var COMPANYPIC_REQUEST_SUCCESS = exports.COMPANYPIC_REQUEST_SUCCESS = 'COMPANYPIC_REQUEST_SUCCESS';
+	var COMPANYPIC_REQUEST_FAIL = exports.COMPANYPIC_REQUEST_FAIL = 'COMPANYPIC_REQUEST_FAIL';
+
+	function companyPicRequestSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: COMPANYPIC_REQUEST_SUCCESS,
+	    result: result
+	  };
+	}
+	function companyPicRequestFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: COMPANYPIC_REQUEST_FAIL,
+	    result: result
+	  };
+	}
+
+	function companyPicRequest(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "/queryDynamicPicData.do", //"/relativeGraph/json/queryRelationship1.json",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(companyPicRequestSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(companyPicRequestFail(result));
+	      }
+	    });
+	  };
+	}
+	/*动态图谱*/
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "InfoSearchAction.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
@@ -91563,6 +90793,10 @@
 
 	var _companyInfoBRuducer2 = _interopRequireDefault(_companyInfoBRuducer);
 
+	var _companyPic = __webpack_require__(1394);
+
+	var _companyPic2 = _interopRequireDefault(_companyPic);
+
 	var _companyInfoC1Ruducer = __webpack_require__(983);
 
 	var _companyInfoC1Ruducer2 = _interopRequireDefault(_companyInfoC1Ruducer);
@@ -91939,9 +91173,13 @@
 
 	var _DynamicRiskDate2 = _interopRequireDefault(_DynamicRiskDate);
 
-	var _DynamicRiskImg = __webpack_require__(1390);
+	var _DynamicRiskLeftImg = __webpack_require__(1395);
 
-	var _DynamicRiskImg2 = _interopRequireDefault(_DynamicRiskImg);
+	var _DynamicRiskLeftImg2 = _interopRequireDefault(_DynamicRiskLeftImg);
+
+	var _DynamicRiskRightImg = __webpack_require__(1396);
+
+	var _DynamicRiskRightImg2 = _interopRequireDefault(_DynamicRiskRightImg);
 
 	var _DynamicRiskIndexCmp = __webpack_require__(1391);
 
@@ -91981,56 +91219,71 @@
 	/*预付卡 begin*/
 
 
-	//楼宇详情页
+	//动态风险模块 begein
 
-	//企业占比对比
+	/*商业保理监测 end*/
 
-	//企业目录列表
+	/*线下理财监测 start*/
+	//线下理财首页
 
-	/*实时监测 begin*/
 
-	/*=================================交易场所监测=================================*/
+	/*众筹监测 end*/
 
-	/*=================================融资租赁=================================*/
-	//典当法人企业数
+	/*商业保理监测 begin*/
+
+
+	//园区首页
+
+	/*实时监测 end*/
+
+	//园区
+
+	//取得合规意见或经过会商的交易场所详情列表
 
 	//交易场所清理整顿分类
 
-	/*=================================典当行业监测=================================*/
+	//上海市典当企业目录
 
-	/*=================================交易场所监测=================================*/
-	//黄浦区交易场所列表
+	//列表
+
+	//6月上海各类众筹平台新增项目数
+
+	/*====================================私募基金===============================*/
 
 	/*=================================众筹监测=================================*/
+	//业务类型
 
-	/*=================================典当行业监测=================================*/
-	//所有图标
+	//私募基金分类
 
-	//6月上海各类众筹平台新增项目数的成功筹资金额
 
-	//6月上海各类众筹平台新增项目的投资人次
+	/*====================================p2p画像平台============================*/
 
-	//私募股权基本情况
+	/*====================================私募基金===============================*/
+	//QDLP试点企业最新进展
 
-	//私募证券基本情况
+	//动态图谱
 
-	//QFLP试点企业最新进展
+	//诉讼信息
 
-	//评分雷达图
-
-	//平台舆情
-
-	//公司基本信息
-
-	//p2p图表
-
+	//核心数据
 
 	/*====================================P2P平台监测============================*/
-	//上海区域发展指数排名
 
-	//小额贷款
+	/*====================================p2p画像平台============================*/
+	//基本信息
 
-	//三个echarts图的接口
+	//网贷平台数据展示
+
+
+	//融资担保
+
+
+	/*企业全息查询*/
+
+	/*行业监测模块*/
+	/* 公共搜索 */
+
+	//诉讼记录的五个接口
 	var rootReducer = (0, _redux.combineReducers)({
 
 	  /*企业全息*/
@@ -92046,6 +91299,7 @@
 	  CompanyInfoD1: _companyInfoD1Ruducer2.default,
 	  CompanyInfoD2: _companyInfoD2Ruducer2.default,
 	  CompanyInfoD3: _companyInfoD3Ruducer2.default,
+	  CompanyPic: _companyPic2.default,
 
 	  /*搜索部分*/
 	  Common: _Common2.default,
@@ -92169,7 +91423,8 @@
 	  //动态风险
 	  DynamicRiskCompanyTag: _DynamicRiskCompanyTag2.default,
 	  DynamicRiskDate: _DynamicRiskDate2.default,
-	  DynamicRiskImg: _DynamicRiskImg2.default,
+	  DynamicRiskLeftImg: _DynamicRiskLeftImg2.default,
+	  DynamicRiskRightImg: _DynamicRiskRightImg2.default,
 	  DynamicRiskIndexCmp: _DynamicRiskIndexCmp2.default,
 	  //头部搜索传值
 	  RiskSearch: _RiskSearch2.default,
@@ -92190,71 +91445,56 @@
 	//头部搜索值传递
 
 
-	//动态风险模块 begein
+	//楼宇详情页
 
-	/*商业保理监测 end*/
+	//企业占比对比
 
-	/*线下理财监测 start*/
-	//线下理财首页
+	//企业目录列表
 
+	/*实时监测 begin*/
 
-	/*众筹监测 end*/
+	/*=================================交易场所监测=================================*/
 
-	/*商业保理监测 begin*/
-
-
-	//园区首页
-
-	/*实时监测 end*/
-
-	//园区
-
-	//取得合规意见或经过会商的交易场所详情列表
+	/*=================================融资租赁=================================*/
+	//典当法人企业数
 
 	//交易场所清理整顿分类
 
-	//上海市典当企业目录
+	/*=================================典当行业监测=================================*/
 
-	//列表
-
-	//6月上海各类众筹平台新增项目数
-
-	/*====================================私募基金===============================*/
+	/*=================================交易场所监测=================================*/
+	//黄浦区交易场所列表
 
 	/*=================================众筹监测=================================*/
-	//业务类型
 
-	//私募基金分类
+	/*=================================典当行业监测=================================*/
+	//所有图标
 
+	//6月上海各类众筹平台新增项目数的成功筹资金额
 
-	/*====================================p2p画像平台============================*/
+	//6月上海各类众筹平台新增项目的投资人次
 
-	/*====================================私募基金===============================*/
-	//QDLP试点企业最新进展
+	//私募股权基本情况
 
-	//动态图谱
+	//私募证券基本情况
 
-	//诉讼信息
+	//QFLP试点企业最新进展
 
-	//核心数据
+	//评分雷达图
+
+	//平台舆情
+
+	//公司基本信息
+
+	//p2p图表
+
 
 	/*====================================P2P平台监测============================*/
+	//上海区域发展指数排名
 
-	/*====================================p2p画像平台============================*/
-	//基本信息
+	//小额贷款
 
-	//网贷平台数据展示
-
-
-	//融资担保
-
-
-	/*企业全息查询*/
-
-	/*行业监测模块*/
-	/* 公共搜索 */
-
-	//诉讼记录的五个接口
+	//三个echarts图的接口
 
 
 	/*企业全息查询*/
@@ -105996,51 +105236,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 1390 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.default = dynamicRiskImg;
-
-	var _LineFinanceDynamicRiskAction = __webpack_require__(774);
-
-	function dynamicRiskImg() {
-		var state = arguments.length <= 0 || arguments[0] === undefined ? {
-			request: false,
-			result: {}
-		} : arguments[0];
-		var action = arguments[1];
-
-		switch (action.type) {
-			case _LineFinanceDynamicRiskAction.DYNAMIC_RISK_IMG_SUCCESS:
-				return Object.assign({}, state, {
-					request: true,
-					result: action.result
-				});
-			case _LineFinanceDynamicRiskAction.DYNAMIC_RISK_IMG_FAIL:
-				return Object.assign({}, state, {
-					request: true,
-					result: action.result
-				});
-			default:
-				return state;
-		}
-	} /*
-	  * 动态风险获取时间 reducer
-	  * */
-	//获取图片
-	;
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "DynamicRiskImg.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
+/* 1390 */,
 /* 1391 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -106083,6 +105279,460 @@
 	;
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "DynamicRiskIndexCmp.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1392 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	__webpack_require__(766);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _index = __webpack_require__(692);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Immutable = __webpack_require__(718);
+	//每个时间轴
+	var EachTimeAxisLeft = _react2.default.createClass({
+	  displayName: 'EachTimeAxisLeft',
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      wNo: 25,
+	      scale: 100,
+	      imgUrlLeft: ''
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {},
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var isEqual = Immutable.is(nextProps.nowDate, this.props.nowDate); //判断数据是否变化
+	    if (!isEqual) {
+	      var companyName = nextProps.companyName;
+	      var nowDate = nextProps.nowDate;
+	      var json = { companyName: companyName, month: nowDate };
+	      this.getRelativeImg(json);
+	    }
+	    var isImgEqual = Immutable.is(nextProps.dynamicRiskLeftImgResult, this.props.dynamicRiskLeftImgResult);
+	    if (!isImgEqual) {
+	      var dynamicRiskLeftImgRequest = nextProps.dynamicRiskLeftImgRequest;
+	      var dynamicRiskLeftImgResult = nextProps.dynamicRiskLeftImgResult;
+
+	      if (dynamicRiskLeftImgRequest == true) {
+	        if (dynamicRiskLeftImgResult.success == true) {
+	          this.dataFomat(dynamicRiskLeftImgResult);
+	        } else {
+	          //错误后提示
+	        }
+	      }
+	    }
+	  },
+	  getRelativeImg: function getRelativeImg(jsonData) {
+	    //获取图片
+	    var getDynamicRiskLeftImg = this.props.getDynamicRiskLeftImg;
+
+	    getDynamicRiskLeftImg(jsonData);
+	  },
+	  dataFomat: function dataFomat(data) {
+	    var imgUrl = data.content;
+	    console.log(imgUrl, 'imgUrl');
+	    this.setState({ imgUrlLeft: imgUrl });
+	  },
+	  minClick: function minClick(e) {
+	    //缩小图片
+	    var wNo = this.state.wNo;
+	    if (wNo > 25) {
+	      wNo = wNo - 25;
+	    }
+	    var scale = wNo / 250 * 1000;
+	    this.setState({ wNo: wNo, scale: scale });
+	  },
+	  addClick: function addClick(e) {
+	    //放大图片
+	    var wNo = this.state.wNo;
+	    if (wNo < 200) {
+	      wNo = wNo + 25;
+	    }
+	    var scale = wNo / 250 * 1000;
+	    this.setState({ wNo: wNo, scale: scale });
+	  },
+	  render: function render() {
+	    var select = null;
+	    var flag = this.props.flag;
+	    var nowVal = null;
+
+	    if (this.props.date.length > 0) {
+	      var d = this.props.date[0];
+	      nowVal = this.props.date[0].value;
+	      var selectProp = {
+	        width: '85px',
+	        className: 'index-selected',
+	        value: nowVal,
+	        placeholder: '时间选择',
+	        name: 'testselect',
+	        id: 'indexSelected',
+	        data: this.props.date,
+	        onChange: function (value, date) {
+	          var json = { companyName: this.props.companyName, month: date };
+	          this.getRelativeImg(json);
+	        }.bind(this)
+	      };
+	      select = _react2.default.createElement(_index.Selected, selectProp);
+	    }
+
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'linefin-each-timeaxis mod' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: this.props.borderLeft == 'true' ? 'mod-title bl' : 'mod-title' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'date' },
+	          _react2.default.createElement(
+	            'label',
+	            null,
+	            '时间选项'
+	          ),
+	          select
+	        ),
+	        _react2.default.createElement('i', { className: 'iconfont icon-zoomout' }),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'scale' },
+	          _react2.default.createElement('i', { className: 'min iconfont icon-jian', onClick: this.minClick }),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'scale-bar' },
+	            _react2.default.createElement('span', { className: 's-bar', ref: 'sBar', style: { width: this.state.wNo + 'px' } }),
+	            _react2.default.createElement(
+	              'em',
+	              { ref: 'sBarNo', style: { left: this.state.wNo + 10 + 'px' } },
+	              this.state.scale,
+	              '%'
+	            )
+	          ),
+	          _react2.default.createElement('i', { className: 'add iconfont icon-jia', onClick: this.addClick })
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: this.props.borderLeft ? 'mod-content bl' : 'mod-content' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'con-box' },
+	          _react2.default.createElement('img', { src: this.state.imgUrlLeft, alt: '时间轴对比图' })
+	        )
+	      )
+	    );
+	  }
+	});
+	module.exports = EachTimeAxisLeft;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "EachTimeAxisLeft.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1393 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	__webpack_require__(766);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _index = __webpack_require__(692);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Immutable = __webpack_require__(718);
+	//每个时间轴
+	var EachTimeAxisRight = _react2.default.createClass({
+	  displayName: 'EachTimeAxisRight',
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      wNo: 25,
+	      scale: 100,
+	      imgUrlRight: ''
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {},
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var isEqual = Immutable.is(nextProps.nowDate, this.props.nowDate); //判断数据是否变化
+
+	    if (!isEqual) {
+	      var companyName = nextProps.companyName;
+	      var nowDate = nextProps.nowDate;
+	      var json = { companyName: companyName, month: nowDate };
+	      this.getRelativeImg(json);
+	    }
+
+	    var isImgEqual = Immutable.is(nextProps.dynamicRiskRightImgResult, this.props.dynamicRiskRightImgResult);
+	    if (!isImgEqual) {
+	      var dynamicRiskRightImgRequest = nextProps.dynamicRiskRightImgRequest;
+	      var dynamicRiskRightImgResult = nextProps.dynamicRiskRightImgResult;
+
+	      if (dynamicRiskRightImgRequest == true) {
+	        if (dynamicRiskRightImgResult.success == true) {
+	          this.dataFomat(dynamicRiskRightImgResult);
+	        } else {
+	          //错误后提示
+	        }
+	      }
+	    }
+	  },
+	  getRelativeImg: function getRelativeImg(jsonData) {
+	    //获取图片
+	    var getDynamicRiskRightImg = this.props.getDynamicRiskRightImg;
+
+	    getDynamicRiskRightImg(jsonData);
+	  },
+	  dataFomat: function dataFomat(data) {
+	    var imgUrl = data.content;
+	    console.log(imgUrl, 'imgUrl');
+	    this.setState({ imgUrlRight: imgUrl });
+	  },
+	  minClick: function minClick(e) {
+	    //缩小图片
+	    var wNo = this.state.wNo;
+	    if (wNo > 25) {
+	      wNo = wNo - 25;
+	    }
+	    var scale = wNo / 250 * 1000;
+	    this.setState({ wNo: wNo, scale: scale });
+	  },
+	  addClick: function addClick(e) {
+	    //放大图片
+	    var wNo = this.state.wNo;
+	    if (wNo < 200) {
+	      wNo = wNo + 25;
+	    }
+	    var scale = wNo / 250 * 1000;
+	    this.setState({ wNo: wNo, scale: scale });
+	  },
+	  render: function render() {
+	    var select = null;
+	    var flag = this.props.flag;
+	    var nowVal = null;
+
+	    if (this.props.date.length > 0) {
+	      var d = this.props.date[0];
+	      nowVal = this.props.date[1].value;
+	      var selectProp = {
+	        width: '85px',
+	        className: 'index-selected',
+	        value: nowVal,
+	        placeholder: '时间选择',
+	        name: 'testselect',
+	        id: 'indexSelected',
+	        data: this.props.date,
+	        onChange: function (value, date) {
+	          var _this = this;
+	          this.setState({ flag: flag }, function () {
+	            var json = { companyName: _this.props.companyName, month: date };
+	            _this.getRelativeImg(json);
+	          });
+	        }.bind(this)
+	      };
+	      select = _react2.default.createElement(_index.Selected, selectProp);
+	    }
+
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'linefin-each-timeaxis mod' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: this.props.borderLeft == 'true' ? 'mod-title bl' : 'mod-title' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'date' },
+	          _react2.default.createElement(
+	            'label',
+	            null,
+	            '时间选项'
+	          ),
+	          select
+	        ),
+	        _react2.default.createElement('i', { className: 'iconfont icon-zoomout' }),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'scale' },
+	          _react2.default.createElement('i', { className: 'min iconfont icon-jian', onClick: this.minClick }),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'scale-bar' },
+	            _react2.default.createElement('span', { className: 's-bar', ref: 'sBar', style: { width: this.state.wNo + 'px' } }),
+	            _react2.default.createElement(
+	              'em',
+	              { ref: 'sBarNo', style: { left: this.state.wNo + 10 + 'px' } },
+	              this.state.scale,
+	              '%'
+	            )
+	          ),
+	          _react2.default.createElement('i', { className: 'add iconfont icon-jia', onClick: this.addClick })
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: this.props.borderLeft ? 'mod-content bl' : 'mod-content' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'con-box' },
+	          _react2.default.createElement('img', { src: this.state.imgUrlRight, alt: '时间轴对比图' })
+	        )
+	      )
+	    );
+	  }
+	});
+	module.exports = EachTimeAxisRight;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "EachTimeAxisRight.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1394 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = CompanyPic;
+
+	var _InfoSearchAction = __webpack_require__(964);
+
+	function CompanyPic() {
+	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
+	        request: false,
+	        result: {}
+	    } : arguments[0];
+	    var action = arguments[1];
+
+	    switch (action.type) {
+	        case _InfoSearchAction.COMPANYPIC_REQUEST_SUCCESS:
+	            //请求成功！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        case _InfoSearchAction.COMPANYPIC_REQUEST_FAIL:
+	            //请求失败！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        default:
+	            return state;
+	    }
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "companyPic.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1395 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = dynamicRiskLeftImg;
+
+	var _LineFinanceDynamicRiskAction = __webpack_require__(774);
+
+	function dynamicRiskLeftImg() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _LineFinanceDynamicRiskAction.DYNAMIC_RISK_LEFTIMG_SUCCESS:
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _LineFinanceDynamicRiskAction.DYNAMIC_RISK_LEFTIMG_FAIL:
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	} /*
+	  * 动态风险获取时间 reducer
+	  * */
+	//获取图片
+	;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "DynamicRiskLeftImg.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1396 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = dynamicRiskRightImg;
+
+	var _LineFinanceDynamicRiskAction = __webpack_require__(774);
+
+	function dynamicRiskRightImg() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _LineFinanceDynamicRiskAction.DYNAMIC_RISK_RIGHTIMG_SUCCESS:
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _LineFinanceDynamicRiskAction.DYNAMIC_RISK_RIGHTIMG_FAIL:
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	} /*
+	  * 动态风险获取时间 reducer
+	  * */
+	//获取图片
+	;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "DynamicRiskRightImg.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ }
