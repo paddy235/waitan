@@ -65,7 +65,11 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
+<<<<<<< HEAD
 /******/ 	var hotCurrentHash = "dbc792d62289ae191f30"; // eslint-disable-line no-unused-vars
+=======
+/******/ 	var hotCurrentHash = "3f628505821fec4cd007"; // eslint-disable-line no-unused-vars
+>>>>>>> e3f6805c6d25fe39c4468b032e75b9d41907e735
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -60061,7 +60065,11 @@
 	  value: true
 	});
 
+<<<<<<< HEAD
 	__webpack_require__(751);
+=======
+	__webpack_require__(739);
+>>>>>>> e3f6805c6d25fe39c4468b032e75b9d41907e735
 
 	var _react = __webpack_require__(138);
 
@@ -60263,7 +60271,11 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+<<<<<<< HEAD
 	var Immutable = __webpack_require__(718);
+=======
+	var Immutable = __webpack_require__(706);
+>>>>>>> e3f6805c6d25fe39c4468b032e75b9d41907e735
 	//风险指数关联图
 	var LineFinanceRelationGraph = _react2.default.createClass({
 	    displayName: 'LineFinanceRelationGraph',
@@ -62654,11 +62666,19 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+<<<<<<< HEAD
 	var _EachTimeAxisLeft = __webpack_require__(1392);
 
 	var _EachTimeAxisLeft2 = _interopRequireDefault(_EachTimeAxisLeft);
 
 	var _EachTimeAxisRight = __webpack_require__(1393);
+=======
+	var _EachTimeAxisLeft = __webpack_require__(1380);
+
+	var _EachTimeAxisLeft2 = _interopRequireDefault(_EachTimeAxisLeft);
+
+	var _EachTimeAxisRight = __webpack_require__(1381);
+>>>>>>> e3f6805c6d25fe39c4468b032e75b9d41907e735
 
 	var _EachTimeAxisRight2 = _interopRequireDefault(_EachTimeAxisRight);
 
@@ -62808,8 +62828,13 @@
 
 
 /***/ },
+<<<<<<< HEAD
 /* 765 */,
 /* 766 */
+=======
+/* 754 */,
+/* 755 */
+>>>>>>> e3f6805c6d25fe39c4468b032e75b9d41907e735
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
@@ -64039,7 +64064,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+<<<<<<< HEAD
 	var _RiskTab = __webpack_require__(770);
+=======
+	var _RiskTab = __webpack_require__(759);
+>>>>>>> e3f6805c6d25fe39c4468b032e75b9d41907e735
 
 	var _RiskTab2 = _interopRequireDefault(_RiskTab);
 
@@ -85383,6 +85412,7 @@
 	        //title
 	        CompanyInfoTitResult: state.CompanyInfoTit.result,
 	        CompanyInfoTitRequest: state.CompanyInfoTit.request,
+<<<<<<< HEAD
 
 	        //舆情
 	        CompanyInfoNewsResult: state.CompanyInfoNews.result,
@@ -85425,6 +85455,50 @@
 	        CompanyInfoD3Request: state.CompanyInfoD3.request,
 	        CompanyInfoD3Result: state.CompanyInfoD3.result
 
+=======
+
+	        //舆情
+	        CompanyInfoNewsResult: state.CompanyInfoNews.result,
+	        CompanyInfoNewsRequest: state.CompanyInfoNews.request,
+
+	        //表格A
+	        CompanyInfoAResult: state.CompanyInfoA.result,
+	        CompanyInfoARequest: state.CompanyInfoA.request,
+
+	        CompanyPicResult: state.CompanyPic.result,
+	        CompanyPicRequest: state.CompanyPic.request,
+
+	        //表格B
+	        CompanyInfoBResult: state.CompanyInfoB.result,
+	        CompanyInfoBRequest: state.CompanyInfoB.request,
+
+	        //诉讼记录5个ajax
+	        CompanyInfoC1Result: state.CompanyInfoC1.result,
+	        CompanyInfoC1Request: state.CompanyInfoC1.request,
+
+	        CompanyInfoC2Result: state.CompanyInfoC2.result,
+	        CompanyInfoC2Request: state.CompanyInfoC2.request,
+
+	        CompanyInfoC3Result: state.CompanyInfoC3.result,
+	        CompanyInfoC3Request: state.CompanyInfoC3.request,
+
+	        CompanyInfoC4Result: state.CompanyInfoC4.result,
+	        CompanyInfoC4Request: state.CompanyInfoC4.request,
+
+	        CompanyInfoC5Result: state.CompanyInfoC5.result,
+	        CompanyInfoC5Request: state.CompanyInfoC5.request,
+
+	        //三个echarts图的ajax
+	        CompanyInfoD1Request: state.CompanyInfoD1.request,
+	        CompanyInfoD1Result: state.CompanyInfoD1.result,
+
+	        CompanyInfoD2Request: state.CompanyInfoD2.request,
+	        CompanyInfoD2Result: state.CompanyInfoD2.result,
+
+	        CompanyInfoD3Request: state.CompanyInfoD3.request,
+	        CompanyInfoD3Result: state.CompanyInfoD3.result
+
+>>>>>>> e3f6805c6d25fe39c4468b032e75b9d41907e735
 	    };
 	}
 
@@ -85482,8 +85556,12 @@
 	/*
 	 *关联方图谱
 	 */
+<<<<<<< HEAD
 
 	var Immutable = __webpack_require__(718);
+=======
+	var Immutable = __webpack_require__(706);
+>>>>>>> e3f6805c6d25fe39c4468b032e75b9d41907e735
 	var AssociationGraph = _react2.default.createClass({
 	    displayName: 'AssociationGraph',
 
@@ -85503,6 +85581,10 @@
 	            "degree": 3
 	        });
 	        // require('/relativeGraph/assets/script/dynamic.js').reDrawCanvas();
+<<<<<<< HEAD
+=======
+
+>>>>>>> e3f6805c6d25fe39c4468b032e75b9d41907e735
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	        var isEqual = Immutable.is(nextProps.CompanyPicRequest, this.props.CompanyPicResult);
@@ -88470,7 +88552,11 @@
 	}
 	/*动态图谱*/
 
+<<<<<<< HEAD
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "InfoSearchAction.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+=======
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "InfoSearchAction.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+>>>>>>> e3f6805c6d25fe39c4468b032e75b9d41907e735
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
@@ -90793,11 +90879,19 @@
 
 	var _companyInfoBRuducer2 = _interopRequireDefault(_companyInfoBRuducer);
 
+<<<<<<< HEAD
 	var _companyPic = __webpack_require__(1394);
 
 	var _companyPic2 = _interopRequireDefault(_companyPic);
 
 	var _companyInfoC1Ruducer = __webpack_require__(983);
+=======
+	var _companyPic = __webpack_require__(1384);
+
+	var _companyPic2 = _interopRequireDefault(_companyPic);
+
+	var _companyInfoC1Ruducer = __webpack_require__(1372);
+>>>>>>> e3f6805c6d25fe39c4468b032e75b9d41907e735
 
 	var _companyInfoC1Ruducer2 = _interopRequireDefault(_companyInfoC1Ruducer);
 
@@ -91173,11 +91267,21 @@
 
 	var _DynamicRiskDate2 = _interopRequireDefault(_DynamicRiskDate);
 
+<<<<<<< HEAD
 	var _DynamicRiskLeftImg = __webpack_require__(1395);
 
 	var _DynamicRiskLeftImg2 = _interopRequireDefault(_DynamicRiskLeftImg);
 
 	var _DynamicRiskRightImg = __webpack_require__(1396);
+=======
+	var _DynamicRiskLeftImg = __webpack_require__(1382);
+
+	var _DynamicRiskLeftImg2 = _interopRequireDefault(_DynamicRiskLeftImg);
+
+	var _DynamicRiskRightImg = __webpack_require__(1383);
+
+	var _DynamicRiskRightImg2 = _interopRequireDefault(_DynamicRiskRightImg);
+>>>>>>> e3f6805c6d25fe39c4468b032e75b9d41907e735
 
 	var _DynamicRiskRightImg2 = _interopRequireDefault(_DynamicRiskRightImg);
 
@@ -91220,6 +91324,8 @@
 
 
 	//动态风险模块 begein
+<<<<<<< HEAD
+=======
 
 	/*商业保理监测 end*/
 
@@ -91278,6 +91384,234 @@
 	//融资担保
 
 
+	/*企业全息查询*/
+
+	/*行业监测模块*/
+	/* 公共搜索 */
+
+	//诉讼记录的五个接口
+	var rootReducer = (0, _redux.combineReducers)({
+
+	  /*企业全息*/
+	  CompanyInfoTit: _companyInfoTitRuducer2.default,
+	  CompanyInfoNews: _companyInfoNewsRuducer2.default,
+	  CompanyInfoA: _companyInfoARuducer2.default,
+	  CompanyInfoB: _companyInfoBRuducer2.default,
+	  CompanyInfoC1: _companyInfoC1Ruducer2.default,
+	  CompanyInfoC2: _companyInfoC2Ruducer2.default,
+	  CompanyInfoC3: _companyInfoC3Ruducer2.default,
+	  CompanyInfoC4: _companyInfoC4Ruducer2.default,
+	  CompanyInfoC5: _companyInfoC5Ruducer2.default,
+	  CompanyInfoD1: _companyInfoD1Ruducer2.default,
+	  CompanyInfoD2: _companyInfoD2Ruducer2.default,
+	  CompanyInfoD3: _companyInfoD3Ruducer2.default,
+	  CompanyPic: _companyPic2.default,
+
+	  /*搜索部分*/
+	  Common: _Common2.default,
+	  /*行业监测模块*/
+
+	  //P2P平台监测
+
+	  AreaRanking: _AreaRanking2.default,
+	  NetCredit: _NetCredit2.default,
+	  IndexChartAll: _IndexChartAll2.default,
+
+	  //平台画像
+	  BaseMsg: _BaseMsg2.default,
+	  CompanyMsg: _CompanyMsg2.default,
+	  CoreData: _CoreData2.default, CoreBar: _CoreBar2.default, CoreTrend: _CoreTrend2.default, CoreBalance: _CoreBalance2.default,
+	  Litigation: _Litigation2.default,
+	  PublicOpinion: _PublicOpinion2.default,
+	  RankPic: _RankPic2.default,
+	  ScoreLeida: _ScoreLeida2.default,
+
+	  //众筹
+	  BusinessTypes: _BusinessTypes2.default,
+	  InvestPeople: _InvestPeople2.default,
+	  NewProject: _NewProject2.default,
+	  RaiseMount: _RaiseMount2.default,
+	  List: _List2.default,
+
+	  //典当行业监测
+	  PawnMChartAll: _ChartAll2.default,
+	  CompanyDirectory: _CompanyDirectory2.default,
+
+	  //私募基金
+	  CompanyProgress: _CompanyProgress2.default,
+	  QDLPQuality: _QDLPQuality2.default,
+	  FundClass: _FundClass2.default,
+	  FundCase: _FundCase2.default, FundCaseTop: _FundCaseTop2.default,
+	  EquityL: _EquityL2.default,
+	  EquityM: _EquityM2.default,
+	  EquityR: _EquityR2.default,
+
+	  //交易场所监测
+	  HPQList: _HPQList2.default,
+	  RegionalDis: _RegionalDis2.default,
+	  Classification: _Classification2.default,
+	  DetailList: _DetailList2.default,
+	  PieCounty: _PieCounty2.default,
+	  BarName: _BarName2.default,
+
+	  //小额贷款
+	  SmallLoanMap: _SmallLoanMap2.default,
+	  CompanyGrade: _CompanyGrade2.default,
+	  LoanBalance: _LoanBalance2.default,
+	  IndustryRisk: _IndustryRisk2.default,
+	  LargeLoan: _LargeLoan2.default,
+
+	  //园区
+	  MenuParkSelectVal: _MenuParkSelectVal2.default,
+	  MenuParkSelectList: _MenuParkSelectList2.default,
+
+	  //园区首页
+	  ParkCamp: _ParkCamp2.default,
+	  ParkFinance: _ParkFinance2.default,
+	  ParkIndustry: _ParkIndustry2.default,
+	  ParkNews: _ParkNews2.default,
+
+	  //园区详情
+	  BuildCompanyList: _BuildCompanyList2.default,
+	  BuildIndDistri: _BuildIndDistri2.default,
+	  CompanyBg: _CompanyBg2.default,
+	  BuildList: _BuildList2.default,
+	  BuildNews: _BuildNews2.default,
+	  BuildRisk: _BuildRisk2.default,
+	  BuildSwitchVal: _BuildSwitchVal2.default,
+	  ParkImg: _ParkImg2.default,
+
+	  //融资担保
+	  FinGuaMap: _FinGuaMap2.default,
+	  FinGuaCompanyGrade: _FinGuaCompanyGrade2.default,
+	  GuaraDutyBalance: _GuaraDutyBalance2.default,
+	  FinGuaIndustryRisk: _FinGuaIndustryRisk2.default,
+	  LargeGuara: _LargeGuara2.default,
+
+	  //实时监测
+	  RealTimeTable: _realtimeTableRuducer2.default,
+	  RealTimeNine: _realtimeNineReducer2.default,
+	  RealTimeNews: _realtimeNewsReducer2.default,
+	  RealTimeMap: _realtimeMapReducer2.default,
+	  RealTimeMapSh: _realtimeMapShReducer2.default,
+
+	  //商业保理监测
+	  ChartAll: _ChartAll4.default,
+	  businessnumChart: _businessnumChart2.default,
+	  balanceChart: _balanceChart2.default,
+	  CompanyDirectoryChart: _CompanyDirectoryChart2.default,
+
+	  //预付卡
+	  industryTypeChart: _industryTypeChart2.default,
+	  TotleMoney: _TotleMoney2.default,
+
+	  //融资租赁
+	  Lease: _Lease2.default,
+	  ContrastLeft: _ContrastLeft2.default,
+	  ContrastRight: _ContrastRight2.default,
+	  Catalog: _Catalog2.default,
+	  CatalogSelect: _CatalogSelect2.default,
+	  TimeSelect: _TimeSelect2.default,
+
+	  //线下理财
+	  //线下理财首页
+	  LineFinanceRiskDistri: _LineFinanceRiskDistri2.default,
+	  LineFinanceList: _LineFinanceList2.default,
+	  CheckVal: _CheckVal2.default,
+
+	  DynamicPic: _DynamicPic2.default,
+	  SearchResult: _SearchResultList2.default,
+	  StaticRisk: _StaticRisk2.default,
+	  Statistics: _Statistics2.default,
+	  RiskData: _RiskData2.default,
+	  CompanyNews: _CompanyNews2.default,
+	  QueryDateVersion: _QueryDateVersion2.default,
+	  //动态风险
+	  DynamicRiskCompanyTag: _DynamicRiskCompanyTag2.default,
+	  DynamicRiskDate: _DynamicRiskDate2.default,
+	  DynamicRiskLeftImg: _DynamicRiskLeftImg2.default,
+	  DynamicRiskRightImg: _DynamicRiskRightImg2.default,
+	  DynamicRiskIndexCmp: _DynamicRiskIndexCmp2.default,
+	  //头部搜索传值
+	  RiskSearch: _RiskSearch2.default,
+
+	  //首页
+	  homeThree: _homeThree2.default,
+
+	  //企业全息信息查询平台
+	  infoSearch: _infoSearch2.default,
+
+	  routing: _reactRouterRedux.routerReducer //整合路由 
+	});
+	/*首页 end*/
+
+	/*企业全息信息查询平台 begin*/
+
+
+	//头部搜索值传递
+
+
+	//楼宇详情页
+>>>>>>> e3f6805c6d25fe39c4468b032e75b9d41907e735
+
+	/*商业保理监测 end*/
+
+	/*线下理财监测 start*/
+	//线下理财首页
+
+
+	/*众筹监测 end*/
+
+	/*商业保理监测 begin*/
+
+
+	//园区首页
+
+	/*实时监测 end*/
+
+	//园区
+
+	//取得合规意见或经过会商的交易场所详情列表
+
+	//交易场所清理整顿分类
+
+	//上海市典当企业目录
+
+	//列表
+
+	//6月上海各类众筹平台新增项目数
+
+	/*====================================私募基金===============================*/
+
+	/*=================================众筹监测=================================*/
+	//业务类型
+
+	//私募基金分类
+
+
+	/*====================================p2p画像平台============================*/
+
+	/*====================================私募基金===============================*/
+	//QDLP试点企业最新进展
+
+	//动态图谱
+
+	//诉讼信息
+
+	//核心数据
+
+	/*====================================P2P平台监测============================*/
+
+	/*====================================p2p画像平台============================*/
+	//基本信息
+
+	//网贷平台数据展示
+
+
+	//融资担保
+
+
+<<<<<<< HEAD
 	/*企业全息查询*/
 
 	/*行业监测模块*/
@@ -91494,6 +91828,8 @@
 
 	//小额贷款
 
+=======
+>>>>>>> e3f6805c6d25fe39c4468b032e75b9d41907e735
 	//三个echarts图的接口
 
 
@@ -103961,6 +104297,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
+<<<<<<< HEAD
 /* 1377 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -104006,6 +104343,10 @@
 
 /***/ },
 /* 1378 */
+=======
+/* 1362 */,
+/* 1363 */
+>>>>>>> e3f6805c6d25fe39c4468b032e75b9d41907e735
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -105733,6 +106074,460 @@
 	;
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "DynamicRiskRightImg.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1380 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	__webpack_require__(755);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _index = __webpack_require__(680);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Immutable = __webpack_require__(706);
+	//每个时间轴
+	var EachTimeAxisLeft = _react2.default.createClass({
+	  displayName: 'EachTimeAxisLeft',
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      wNo: 25,
+	      scale: 100,
+	      imgUrlLeft: ''
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {},
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var isEqual = Immutable.is(nextProps.nowDate, this.props.nowDate); //判断数据是否变化
+	    if (!isEqual) {
+	      var companyName = nextProps.companyName;
+	      var nowDate = nextProps.nowDate;
+	      var json = { companyName: companyName, month: nowDate };
+	      this.getRelativeImg(json);
+	    }
+	    var isImgEqual = Immutable.is(nextProps.dynamicRiskLeftImgResult, this.props.dynamicRiskLeftImgResult);
+	    if (!isImgEqual) {
+	      var dynamicRiskLeftImgRequest = nextProps.dynamicRiskLeftImgRequest;
+	      var dynamicRiskLeftImgResult = nextProps.dynamicRiskLeftImgResult;
+
+	      if (dynamicRiskLeftImgRequest == true) {
+	        if (dynamicRiskLeftImgResult.success == true) {
+	          this.dataFomat(dynamicRiskLeftImgResult);
+	        } else {
+	          //错误后提示
+	        }
+	      }
+	    }
+	  },
+	  getRelativeImg: function getRelativeImg(jsonData) {
+	    //获取图片
+	    var getDynamicRiskLeftImg = this.props.getDynamicRiskLeftImg;
+
+	    getDynamicRiskLeftImg(jsonData);
+	  },
+	  dataFomat: function dataFomat(data) {
+	    var imgUrl = data.content;
+	    console.log(imgUrl, 'imgUrl');
+	    this.setState({ imgUrlLeft: imgUrl });
+	  },
+	  minClick: function minClick(e) {
+	    //缩小图片
+	    var wNo = this.state.wNo;
+	    if (wNo > 25) {
+	      wNo = wNo - 25;
+	    }
+	    var scale = wNo / 250 * 1000;
+	    this.setState({ wNo: wNo, scale: scale });
+	  },
+	  addClick: function addClick(e) {
+	    //放大图片
+	    var wNo = this.state.wNo;
+	    if (wNo < 200) {
+	      wNo = wNo + 25;
+	    }
+	    var scale = wNo / 250 * 1000;
+	    this.setState({ wNo: wNo, scale: scale });
+	  },
+	  render: function render() {
+	    var select = null;
+	    var flag = this.props.flag;
+	    var nowVal = null;
+
+	    if (this.props.date.length > 0) {
+	      var d = this.props.date[0];
+	      nowVal = this.props.date[0].value;
+	      var selectProp = {
+	        width: '85px',
+	        className: 'index-selected',
+	        value: nowVal,
+	        placeholder: '时间选择',
+	        name: 'testselect',
+	        id: 'indexSelected',
+	        data: this.props.date,
+	        onChange: function (value, date) {
+	          var json = { companyName: this.props.companyName, month: date };
+	          this.getRelativeImg(json);
+	        }.bind(this)
+	      };
+	      select = _react2.default.createElement(_index.Selected, selectProp);
+	    }
+
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'linefin-each-timeaxis mod' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: this.props.borderLeft == 'true' ? 'mod-title bl' : 'mod-title' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'date' },
+	          _react2.default.createElement(
+	            'label',
+	            null,
+	            '时间选项'
+	          ),
+	          select
+	        ),
+	        _react2.default.createElement('i', { className: 'iconfont icon-zoomout' }),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'scale' },
+	          _react2.default.createElement('i', { className: 'min iconfont icon-jian', onClick: this.minClick }),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'scale-bar' },
+	            _react2.default.createElement('span', { className: 's-bar', ref: 'sBar', style: { width: this.state.wNo + 'px' } }),
+	            _react2.default.createElement(
+	              'em',
+	              { ref: 'sBarNo', style: { left: this.state.wNo + 10 + 'px' } },
+	              this.state.scale,
+	              '%'
+	            )
+	          ),
+	          _react2.default.createElement('i', { className: 'add iconfont icon-jia', onClick: this.addClick })
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: this.props.borderLeft ? 'mod-content bl' : 'mod-content' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'con-box' },
+	          _react2.default.createElement('img', { src: this.state.imgUrlLeft, alt: '时间轴对比图' })
+	        )
+	      )
+	    );
+	  }
+	});
+	module.exports = EachTimeAxisLeft;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "EachTimeAxisLeft.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1381 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	__webpack_require__(755);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _index = __webpack_require__(680);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Immutable = __webpack_require__(706);
+	//每个时间轴
+	var EachTimeAxisRight = _react2.default.createClass({
+	  displayName: 'EachTimeAxisRight',
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      wNo: 25,
+	      scale: 100,
+	      imgUrlRight: ''
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {},
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var isEqual = Immutable.is(nextProps.nowDate, this.props.nowDate); //判断数据是否变化
+
+	    if (!isEqual) {
+	      var companyName = nextProps.companyName;
+	      var nowDate = nextProps.nowDate;
+	      var json = { companyName: companyName, month: nowDate };
+	      this.getRelativeImg(json);
+	    }
+
+	    var isImgEqual = Immutable.is(nextProps.dynamicRiskRightImgResult, this.props.dynamicRiskRightImgResult);
+	    if (!isImgEqual) {
+	      var dynamicRiskRightImgRequest = nextProps.dynamicRiskRightImgRequest;
+	      var dynamicRiskRightImgResult = nextProps.dynamicRiskRightImgResult;
+
+	      if (dynamicRiskRightImgRequest == true) {
+	        if (dynamicRiskRightImgResult.success == true) {
+	          this.dataFomat(dynamicRiskRightImgResult);
+	        } else {
+	          //错误后提示
+	        }
+	      }
+	    }
+	  },
+	  getRelativeImg: function getRelativeImg(jsonData) {
+	    //获取图片
+	    var getDynamicRiskRightImg = this.props.getDynamicRiskRightImg;
+
+	    getDynamicRiskRightImg(jsonData);
+	  },
+	  dataFomat: function dataFomat(data) {
+	    var imgUrl = data.content;
+	    console.log(imgUrl, 'imgUrl');
+	    this.setState({ imgUrlRight: imgUrl });
+	  },
+	  minClick: function minClick(e) {
+	    //缩小图片
+	    var wNo = this.state.wNo;
+	    if (wNo > 25) {
+	      wNo = wNo - 25;
+	    }
+	    var scale = wNo / 250 * 1000;
+	    this.setState({ wNo: wNo, scale: scale });
+	  },
+	  addClick: function addClick(e) {
+	    //放大图片
+	    var wNo = this.state.wNo;
+	    if (wNo < 200) {
+	      wNo = wNo + 25;
+	    }
+	    var scale = wNo / 250 * 1000;
+	    this.setState({ wNo: wNo, scale: scale });
+	  },
+	  render: function render() {
+	    var select = null;
+	    var flag = this.props.flag;
+	    var nowVal = null;
+
+	    if (this.props.date.length > 0) {
+	      var d = this.props.date[0];
+	      nowVal = this.props.date[1].value;
+	      var selectProp = {
+	        width: '85px',
+	        className: 'index-selected',
+	        value: nowVal,
+	        placeholder: '时间选择',
+	        name: 'testselect',
+	        id: 'indexSelected',
+	        data: this.props.date,
+	        onChange: function (value, date) {
+	          var _this = this;
+	          this.setState({ flag: flag }, function () {
+	            var json = { companyName: _this.props.companyName, month: date };
+	            _this.getRelativeImg(json);
+	          });
+	        }.bind(this)
+	      };
+	      select = _react2.default.createElement(_index.Selected, selectProp);
+	    }
+
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'linefin-each-timeaxis mod' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: this.props.borderLeft == 'true' ? 'mod-title bl' : 'mod-title' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'date' },
+	          _react2.default.createElement(
+	            'label',
+	            null,
+	            '时间选项'
+	          ),
+	          select
+	        ),
+	        _react2.default.createElement('i', { className: 'iconfont icon-zoomout' }),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'scale' },
+	          _react2.default.createElement('i', { className: 'min iconfont icon-jian', onClick: this.minClick }),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'scale-bar' },
+	            _react2.default.createElement('span', { className: 's-bar', ref: 'sBar', style: { width: this.state.wNo + 'px' } }),
+	            _react2.default.createElement(
+	              'em',
+	              { ref: 'sBarNo', style: { left: this.state.wNo + 10 + 'px' } },
+	              this.state.scale,
+	              '%'
+	            )
+	          ),
+	          _react2.default.createElement('i', { className: 'add iconfont icon-jia', onClick: this.addClick })
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: this.props.borderLeft ? 'mod-content bl' : 'mod-content' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'con-box' },
+	          _react2.default.createElement('img', { src: this.state.imgUrlRight, alt: '时间轴对比图' })
+	        )
+	      )
+	    );
+	  }
+	});
+	module.exports = EachTimeAxisRight;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "EachTimeAxisRight.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1382 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = dynamicRiskLeftImg;
+
+	var _LineFinanceDynamicRiskAction = __webpack_require__(763);
+
+	function dynamicRiskLeftImg() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _LineFinanceDynamicRiskAction.DYNAMIC_RISK_LEFTIMG_SUCCESS:
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _LineFinanceDynamicRiskAction.DYNAMIC_RISK_LEFTIMG_FAIL:
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	} /*
+	  * 动态风险获取时间 reducer
+	  * */
+	//获取图片
+	;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "DynamicRiskLeftImg.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1383 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = dynamicRiskRightImg;
+
+	var _LineFinanceDynamicRiskAction = __webpack_require__(763);
+
+	function dynamicRiskRightImg() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _LineFinanceDynamicRiskAction.DYNAMIC_RISK_RIGHTIMG_SUCCESS:
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _LineFinanceDynamicRiskAction.DYNAMIC_RISK_RIGHTIMG_FAIL:
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	} /*
+	  * 动态风险获取时间 reducer
+	  * */
+	//获取图片
+	;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "DynamicRiskRightImg.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1384 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = CompanyPic;
+
+	var _InfoSearchAction = __webpack_require__(953);
+
+	function CompanyPic() {
+	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
+	        request: false,
+	        result: {}
+	    } : arguments[0];
+	    var action = arguments[1];
+
+	    switch (action.type) {
+	        case _InfoSearchAction.COMPANYPIC_REQUEST_SUCCESS:
+	            //请求成功！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        case _InfoSearchAction.COMPANYPIC_REQUEST_FAIL:
+	            //请求失败！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        default:
+	            return state;
+	    }
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "companyPic.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ }

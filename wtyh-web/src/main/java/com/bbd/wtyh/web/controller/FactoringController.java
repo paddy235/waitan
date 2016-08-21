@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
@@ -35,9 +36,7 @@ public class FactoringController {
 	@Autowired
 	private FactoringService facSer;
 	
-	
-	
-	
+
 	/**
 	* 在沪商业保理企业数量
 	* @return Object
@@ -236,12 +235,9 @@ public class FactoringController {
 			return ResponseBean.successResponse(map);
 		}
 
-
 		int comNum = 0;
 		int sum = 0;
 		for (int k=0;k<list.size();k++) {
-
-
 			CompanyCountDO cdo = list.get(k);
 			comNum += cdo.getCount();
 			sum += cdo.getSum();
@@ -251,7 +247,6 @@ public class FactoringController {
 				hist.getxAxis().add(cdo.getName());
 				hist.getseries().add( WanToYi( sum ) );
 			}
-
 		}
 		
 		return ResponseBean.successResponse(map);
