@@ -46,54 +46,6 @@ public class RealTimeMonitorController {
         return ResponseBean.successResponse(content);
     }
 
-//    /**
-//     * 光谱分析 - 重点关注
-//     *
-//     * @return
-//     */
-//    @RequestMapping("/spectrumAnalysisEmphasis")
-//    @ResponseBody
-//    public ResponseBean spectrumAnalysisEmphasis() {
-//        List<CompanyAnalysisResult> content = realTimeMonitorService.spectrumAnalysisEmphasis();
-//        return ResponseBean.successResponse(content);
-//    }
-//
-//    /**
-//     * 光谱分析 - 一般关注
-//     *
-//     * @return
-//     */
-//    @RequestMapping("/spectrumAnalysisUsual")
-//    @ResponseBody
-//    public ResponseBean spectrumAnalysisUsual() {
-//        List<CompanyAnalysisResult> content = realTimeMonitorService.spectrumAnalysisUsual();
-//        return ResponseBean.successResponse(content);
-//    }
-//
-//    /**
-//     * 光谱分析 - 正常
-//     *
-//     * @return
-//     */
-//    @RequestMapping("/spectrumAnalysisNormal")
-//    @ResponseBody
-//    public ResponseBean spectrumAnalysisNormal() {
-//        List<CompanyAnalysisResult> content = realTimeMonitorService.spectrumAnalysisNormal();
-//        return ResponseBean.successResponse(content);
-//    }
-//
-//    /**
-//     * 光谱分析 - 已出风险
-//     *
-//     * @return
-//     */
-//    @RequestMapping("/spectrumAnalysisAlready")
-//    @ResponseBody
-//    public ResponseBean spectrumAnalysisAlready() {
-//        List<CompanyAnalysisResult> content = realTimeMonitorService.spectrumAnalysisAlready();
-//        return ResponseBean.successResponse(content);
-//    }
-
     /**
      * 全国地图
      *
