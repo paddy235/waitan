@@ -1,6 +1,7 @@
 package com.bbd.wtyh.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
 import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
