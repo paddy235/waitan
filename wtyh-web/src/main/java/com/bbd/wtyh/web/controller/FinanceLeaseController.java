@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 融资租赁
@@ -58,6 +59,15 @@ public class FinanceLeaseController {
         return ResponseBean.successResponse(list);
     }
 
-
+    /**
+     * 获取年的记录
+     * @return
+     */
+    @RequestMapping("getYears.do")
+    @ResponseBody
+    public ResponseBean getYears() {
+        List<String> list = financeLeaseService.getYears();
+        return ResponseBean.successResponse(list);
+    }
 
 }
