@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.bbd.wtyh.mapper.DynamicRiskMapper">
+
+	<insert id="save" parameterType="com.bbd.wtyh.domain.DynamicRiskDataDO" >
+		INSERT INTO `dynamic_risk_data` VALUES (
+		#{createBy},#{createDate},#{updateBy},#{updateDate},#{area},#{companyName},#{dataVersion},
+		#{riskDate},#{bbdTimeRiskIndex},#{personNum},#{companyNum},#{sumNum},#{corePersonList},#{controlNum},
+		#{agreeActionNum},#{agreeActionProportion},#{agreeCompanyDetail},#{oneTwoComapnyNum},
+		#{oneTwoCompanyProportion},#{threePersonNum},#{threePersonProportion},#{typeSumNum},#{typeSumProportion},
+		#{companyDetail},#{areaList},#{areaCompanyNum});
+	</insert>
+</mapper>

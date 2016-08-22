@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.bbd.wtyh.mapper.RelationDataMapper">
+
+	<insert id="save" parameterType="com.bbd.wtyh.domain.RecruitDataDO" >
+		INSERT INTO `relation_data` VALUES (
+		#{createBy},#{createDate},#{updateBy},#{updateDate},
+		#{area},#{companyName},#{dataVersion},
+		#{risk_date},#{relationPersonNum},#{companyPersonNum},
+		#{childCompanyNum},#{childCompanyDetail},#{onePersonNum},
+		#{onePersonDetail},#{oneCompanyNum},#{oneCompanyDetail},
+		#{twoPersonNum},#{twoPersonDetail},#{twoCompanyNum},
+		#{twoCompanyDetail},#{threePersonNum},#{threePersonDetail},
+		#{threeCompanyNum},#{threeCompanyDetail});
+	</insert>
+
+</mapper>
