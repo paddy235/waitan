@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "b3b9be7e39e8b38406c7"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "15a5c0bdfe390fb7be16"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -60012,7 +60012,10 @@
 	    riskDataResult: state.RiskData.result,
 	    //公司舆情
 	    companyNewsRequest: state.CompanyNews.request,
-	    companyNewsResult: state.CompanyNews.result
+	    companyNewsResult: state.CompanyNews.result,
+	    //时间列表
+	    queryDateVersionRequest: state.QueryDateVersion.request,
+	    queryDateVersionResult: state.QueryDateVersion.result
 	  };
 	}
 
@@ -60998,7 +61001,9 @@
 	            riskIndex: [],
 	            avgRiskIndex: [],
 	            itemIndex: 0,
-	            riskList: ""
+	            riskList: "",
+	            allDate: [],
+	            hrefParam: this.props.location.query
 	        };
 	    },
 	    itemClick: function itemClick(e) {
@@ -61108,10 +61113,24 @@
 	        return option;
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var _allDate = [];
 	        var isEqual = Immutable.is(nextProps.riskDataResult, this.props.riskDataResult);
+	        var queryDateVersionIsEqual = Immutable.is(nextProps.queryDateVersionRequest, this.props.queryDateVersionRequest);
 	        if (!isEqual) {
 	            this.setState({
 	                riskList: nextProps.riskDataResult.content
+	            });
+	        }
+
+	        if (!queryDateVersionIsEqual) {
+	            nextProps.queryDateVersionResult.content.map(function (item, index) {
+	                _allDate.push({
+	                    value: index + 1,
+	                    label: item
+	                });
+	            });
+	            this.setState({
+	                allDate: _allDate
 	            });
 	        }
 	    },
@@ -61133,23 +61152,25 @@
 	        });
 	    },
 	    componentWillMount: function componentWillMount() {
-	        var _param = this.props.location.query; //从搜索页面过来的参数
 	        //请求右边表格数据
 	        var queryRiskData = this.props.queryRiskData;
 
-	        var dataObj = Object.assign(_param, { currentDate: '2016-05-30', areaCode: "长宁区" });
+	        var dataObj = Object.assign(this.state.hrefParam, { currentDate: '2016-05-30', areaCode: "长宁区" });
 	        queryRiskData(dataObj);
 
+	        //请求时间列表
+	        var queryDateVersion = this.props.queryDateVersion;
+
+	        queryDateVersion({ companyName: "一半堂投资管理（上海）有限公司" });
 	        //请求右面折线图
 	        for (var i = 0; i < 8; i++) {
 	            this.staticRiskIndex(i);
 	        }
 	    },
 	    staticRiskIndex: function staticRiskIndex(tabIndex) {
-	        //请求右面折线图
-	        var _param = this.props.location.query; //从搜索页面过来的参数
+	        //请求右面折线图   
 	        var queryStatistics = this.props.queryStatistics;var self = this;
-	        var dataObj = Object.assign(_param, { tabIndex: tabIndex, areaCode: "金山区" });
+	        var dataObj = Object.assign(this.state.hrefParam, { tabIndex: tabIndex, areaCode: "金山区" });
 	        queryStatistics(dataObj);
 	        setTimeout(function () {
 	            self.handleData(tabIndex);
@@ -61157,6 +61178,7 @@
 	    },
 
 	    render: function render() {
+	        var self = this;
 	        var selectProp = {
 	            width: '85px',
 	            className: 'index-selected',
@@ -61164,12 +61186,12 @@
 	            placeholder: '高级选项',
 	            name: 'testselect',
 	            id: 'indexSelected',
-	            data: [{ value: 1, label: '2015-01' }, { value: 2, label: '2015-02' }, { value: 3, label: '2015-03' }, { value: 4, label: '2015-04' }],
+	            data: this.state.allDate,
 	            onChange: function onChange(value) {
 	                console.log('当前值为：', value);
-	                var queryRiskData = this.props.queryRiskData;
+	                var queryRiskData = self.props.queryRiskData;
 
-	                var dataObj = Object.assign(_param, { currentDate: value, areaCode: "长宁区" });
+	                var dataObj = Object.assign(self.state.hrefParam, { currentDate: value, areaCode: "长宁区" });
 	                queryRiskData(dataObj);
 	            }
 	        };
@@ -62327,6 +62349,7 @@
 	exports.queryStatistics = queryStatistics;
 	exports.queryRiskData = queryRiskData;
 	exports.companyNews = companyNews;
+	exports.queryDateVersion = queryDateVersion;
 	/*
 	  线下理财监测creat by yq
 	*/
@@ -62533,6 +62556,40 @@
 	      },
 	      error: function error(result) {
 	        return dispatch(companyNewsFail(result));
+	      }
+	    });
+	  };
+	}
+	//请求时间列表/offlineFinance/queryDateVersion.do
+	var QUERY_DATA_SUCCESS = exports.QUERY_DATA_SUCCESS = 'QUERY_DATA_SUCCESS';
+	var QUERY_DATA_FAIL = exports.QUERY_DATA_FAIL = 'QUERY_DATA_FAIL';
+	function queryDataSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: QUERY_DATA_SUCCESS,
+	    result: result
+	  };
+	}
+	function queryDataFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: QUERY_DATA_FAIL,
+	    result: result
+	  };
+	}
+	function queryDateVersion(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "/offlineFinance/queryDateVersion.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(queryDataSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(queryDataFail(result));
 	      }
 	    });
 	  };
@@ -91339,6 +91396,10 @@
 
 	var _CompanyNews2 = _interopRequireDefault(_CompanyNews);
 
+	var _QueryDateVersion = __webpack_require__(1353);
+
+	var _QueryDateVersion2 = _interopRequireDefault(_QueryDateVersion);
+
 	var _industryTypeChart = __webpack_require__(1050);
 
 	var _industryTypeChart2 = _interopRequireDefault(_industryTypeChart);
@@ -91367,52 +91428,65 @@
 
 	/*预付卡 begin*/
 
-	//企业占比对比
+	/*商业保理监测 end*/
 
-	//企业目录列表
+	/*线下理财监测 start*/
+	//线下理财首页
 
-	/*实时监测 begin*/
 
-	/*=================================交易场所监测=================================*/
+	/*众筹监测 end*/
 
-	/*=================================融资租赁=================================*/
-	//典当法人企业数
+	/*商业保理监测 begin*/
+
+
+	//园区首页
+
+	/*实时监测 end*/
+
+	//园区
+
+	//取得合规意见或经过会商的交易场所详情列表
 
 	//交易场所清理整顿分类
 
-	/*=================================典当行业监测=================================*/
+	//上海市典当企业目录
 
-	/*=================================交易场所监测=================================*/
-	//黄浦区交易场所列表
+	//列表
+
+	//6月上海各类众筹平台新增项目数
+
+	/*====================================私募基金===============================*/
 
 	/*=================================众筹监测=================================*/
+	//业务类型
 
-	/*=================================典当行业监测=================================*/
-	//所有图标
+	//私募基金分类
 
-	//6月上海各类众筹平台新增项目数的成功筹资金额
 
-	//6月上海各类众筹平台新增项目的投资人次
+	/*====================================p2p画像平台============================*/
 
-	//私募股权基本情况
+	/*====================================私募基金===============================*/
+	//QDLP试点企业最新进展
 
-	//私募证券基本情况
+	//动态图谱
 
-	//QFLP试点企业最新进展
+	//诉讼信息
 
-	//评分雷达图
-
-	//平台舆情
-
-	//公司基本信息
-
-	//p2p图表
-
+	//核心数据
 
 	/*====================================P2P平台监测============================*/
-	//上海区域发展指数排名
 
-	//小额贷款
+	/*====================================p2p画像平台============================*/
+	//基本信息
+
+	//网贷平台数据展示
+
+
+	//融资担保
+
+
+	/*行业监测模块*/
+	/* 公共搜索 */
 	var rootReducer = (0, _redux.combineReducers)({
 	  /*搜索部分*/
 	  Common: _Common2.default,
@@ -91519,6 +91593,7 @@
 	  Statistics: _Statistics2.default,
 	  RiskData: _RiskData2.default,
 	  CompanyNews: _CompanyNews2.default,
+	  QueryDateVersion: _QueryDateVersion2.default,
 
 	  //首页
 	  homeThree: _homeThree2.default,
@@ -91532,65 +91607,52 @@
 
 	/*企业全息信息查询平台 begin*/
 
-	/*商业保理监测 end*/
+	//企业占比对比
 
-	/*线下理财监测 start*/
-	//线下理财首页
+	//企业目录列表
 
+	/*实时监测 begin*/
 
-	/*众筹监测 end*/
+	/*=================================交易场所监测=================================*/
 
-	/*商业保理监测 begin*/
-
-
-	//园区首页
-
-	/*实时监测 end*/
-
-	//园区
-
-	//取得合规意见或经过会商的交易场所详情列表
+	/*=================================融资租赁=================================*/
+	//典当法人企业数
 
 	//交易场所清理整顿分类
 
-	//上海市典当企业目录
+	/*=================================典当行业监测=================================*/
 
-	//列表
-
-	//6月上海各类众筹平台新增项目数
-
-	/*====================================私募基金===============================*/
+	/*=================================交易场所监测=================================*/
+	//黄浦区交易场所列表
 
 	/*=================================众筹监测=================================*/
-	//业务类型
 
-	//私募基金分类
+	/*=================================典当行业监测=================================*/
+	//所有图标
 
+	//6月上海各类众筹平台新增项目数的成功筹资金额
 
-	/*====================================p2p画像平台============================*/
+	//6月上海各类众筹平台新增项目的投资人次
 
-	/*====================================私募基金===============================*/
-	//QDLP试点企业最新进展
+	//私募股权基本情况
 
-	//动态图谱
+	//私募证券基本情况
 
-	//诉讼信息
+	//QFLP试点企业最新进展
 
-	//核心数据
+	//评分雷达图
+
+	//平台舆情
+
+	//公司基本信息
+
+	//p2p图表
+
 
 	/*====================================P2P平台监测============================*/
+	//上海区域发展指数排名
 
-	/*====================================p2p画像平台============================*/
-	//基本信息
-
-	//网贷平台数据展示
-
-
-	//融资担保
-
-
-	/*行业监测模块*/
-	/* 公共搜索 */
+	//小额贷款
 
 	exports.default = rootReducer;
 
@@ -103111,6 +103173,50 @@
 	    return String(it).replace(regExp, replacer);
 	  };
 	};
+
+/***/ },
+/* 1352 */,
+/* 1353 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = queryDateVersion;
+
+	var _LineFinanceStaticRiskAction = __webpack_require__(760);
+
+	function queryDateVersion() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _LineFinanceStaticRiskAction.QUERY_DATA_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _LineFinanceStaticRiskAction.QUERY_DATA_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "QueryDateVersion.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ }
 /******/ ]);
