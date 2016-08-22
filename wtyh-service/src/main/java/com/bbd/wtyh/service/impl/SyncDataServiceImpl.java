@@ -38,17 +38,6 @@ public class SyncDataServiceImpl implements SyncDataService {
 
 	@Override
 	public String receiveData(String syncData) {
-		StaticRiskDataDO staticRiskDataDOTemp = staticRiskMapper.queryOne();
-		String string = JSON.toJSONString(staticRiskDataDOTemp);
-		List<SyncDataInformationDO> tempList = new ArrayList<>();
-		SyncDataInformationDO temp = new SyncDataInformationDO();
-		temp.setContent(string);
-		temp.setType(1);
-		temp.setStatus(0);
-		temp.setDataVersion("20160708");
-		temp.setReceiveDate(new Date());
-		tempList.add(temp);
-		syncData = JSON.toJSONString(tempList);
 		if (!StringUtils.isEmpty(syncData)) {
 			List<SyncDataInformationDO> list = JSON.parseArray(syncData, SyncDataInformationDO.class);
 			if (!CollectionUtils.isEmpty(list)) {
