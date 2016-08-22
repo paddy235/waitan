@@ -1,19 +1,19 @@
 /*
-调用方式：
-id:搜索框input的id
-$('#autocomplete').inputAutoComplete({
-			requestType: 'get',
-			requestUrl: '/json/document/searchAutocomplete',
-			requestData: {
-				type: $selectType.val(),
-				limit: 10
-			},
-			wrap: $('body'),
-			callback: function () {
+ 调用方式：
+ id:搜索框input的id
+ $('#autocomplete').inputAutoComplete({
+ requestType: 'get',
+ requestUrl: '/json/document/searchAutocomplete',
+ requestData: {
+ type: $selectType.val(),
+ limit: 10
+ },
+ wrap: $('body'),
+ callback: function () {
 
-			}
-		});
-*/
+ }
+ });
+ */
 
 ;
 (function($) {
@@ -37,7 +37,6 @@ $('#autocomplete').inputAutoComplete({
 		this.autoParam = $.extend({}, defaults, opt);
 		this.init();
 		this.autoWatch();
-		//this.delayRequest();
 	}
 	Autocomplete.prototype = {
 		init: function() {
@@ -60,15 +59,16 @@ $('#autocomplete').inputAutoComplete({
 			var that = this;
 			var $ele = $(this.element);
 			$ele.on('input propertychange', function() {
-				//console.log($(this));
 				var oldValue = $(this).data('oldValue');
 				var newValue = $(this).val();
+				$(this).attr({
+					company: "",
+					data_flag: "noWorld",
+				});
 				if (oldValue == newValue) {
-					//console.log('oldValue==newValue');
 					that.show();
 					return false;
 				} else {
-					//that.requestData(newValue);
 					that.delayRequest(newValue, 0);
 				}
 			})
@@ -90,20 +90,25 @@ $('#autocomplete').inputAutoComplete({
 		},
 		requestData: function(newValue) {
 			var that = this;
-			that.autoParam.requestData.keyword = newValue;
-			that.autoParam.requestData.timestamp = +new Date();
+			if (that.autoParam.requestData.form == "base") {
+				that.autoParam.requestData.keyword = newValue;
+				that.autoParam.requestData.timestamp = +new Date();
+			} else {
+				that.autoParam.requestData.platName = newValue;
+				that.autoParam.requestData.timestamp = +new Date();
+			}
+
 			$.ajax({
 				type: that.autoParam.requestType,
 				url: that.autoParam.requestUrl,
 				data: that.autoParam.requestData,
 				dataType: 'json',
 				success: function(data) {
-					//that.autoParam.delayFlag=true;
-					that.dataHandle(data.content);
+					that.dataHandle(data, that.autoParam.requestData.form);
 				}
 			});
 		},
-		dataHandle: function(data) {
+		dataHandle: function(data, type) {
 			var $wrap = this.autoParam.wrap;
 			var acClass = this.autoParam.acClass;
 			var acId = this.autoParam.acId;
@@ -111,22 +116,25 @@ $('#autocomplete').inputAutoComplete({
 			var _getBaseKey = $(this.element).val();
 
 			dataList.push('<div class=' + acClass + ' id=' + acId + ' style="display:none"><ul>');
-			// $.each(data, function(index, val) {
-			// 	if (val.group) {
-			// 		dataList.push('<li class="group" data-key=' + val.key + '>' + val.key + '</li>');
-			// 	} else {
-			// 		var _getColor = val.key.replace(_getBaseKey, '<span class="strong">' + _getBaseKey + '</span>');
-			// 		dataList.push('<li class="group-item" data-key=' + val.key + ' data-type=' + val.type + '>' + _getColor + '</li>');
-			// 	}
-			// });
-			if (data.length > 1) {
-				for (var i = 0; i < data.length; i++) {
-					var _getColor = data[i].replace(_getBaseKey, '<span class="strong">' + _getBaseKey + '</span>');
-					dataList.push('<li class="group-item" data-key=' + data[i] + ' >' + _getColor + '</li>');
-				};
+
+			if (type == "base") {
+				if (data.length > 0) {
+					for (var i = 0; i < data.length; i++) {
+						var _getColor = data[i].replace(_getBaseKey, '<span class="strong">' + _getBaseKey + '</span>');
+						dataList.push('<li class="group-item" data-key=' + data[i] + ' data-company="">' + _getColor + '</li>');
+					};
+				} else {
+					dataList.push('<li class="group" >暂无相关数据。</li>');
+				}
 			} else {
-				dataList.push('<li class="group" >暂无相关数据。</li>');
+				if (data.content) {
+					var _getColor = data.content.platformName.replace(_getBaseKey, '<span class="strong">' + _getBaseKey + '</span>');
+					dataList.push('<li class="group-item" data-key=' + data.content.platformName + ' data-company=' + data.content.name + '>' + _getColor + '</li>');
+				} else {
+					dataList.push('<li class="group" >暂无相关数据。</li>');
+				}
 			}
+
 			dataList.push('</ul></div>');
 			var dataListStr = dataList.join('');
 			$('.' + acClass).remove();
@@ -163,14 +171,19 @@ $('#autocomplete').inputAutoComplete({
 			$resultLi.each(function() {
 				$(this).on('click', function() {
 					var key = $(this).data('key');
+					var keyCompany = $(this).data('company');
 					var isgroup = $(this).hasClass('group');
-					// console.log(isgroup);
 					if (isgroup) {
+						$element.attr({
+							data_flag: "noWorld",
+							company: ""
+						});
 						return false;
 					}
-					$element.val(key);
-					// var searchType = $(this).data('type');
-					// $element.attr('searchtype', searchType);
+					$element.val(key).attr({
+						company: keyCompany,
+						data_flag: "hasWorld",
+					});
 					that.hide();
 				});
 			});
