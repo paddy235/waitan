@@ -118,6 +118,8 @@ public class CrowdFundingController {
 			hb.getxAxis().add(bean.getTypeCN());
 			hb.getseries().add(bean.getPeopleNumber());
 		}
+
+
 		return ResponseBean.successResponse(hb);
 	}
 	

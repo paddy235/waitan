@@ -12,9 +12,9 @@ package com.bbd.wtyh.domain;
 
 
 /**
-* 园区实体
-* @author Ian.Su
-* @since 2016年8月5日 上午11:58:52
+* 平台信息
+* @author
+* @since  2016.08.21
 */
 public class PlatformNameInformationDO extends BaseDO{
 	private Integer companyId;
