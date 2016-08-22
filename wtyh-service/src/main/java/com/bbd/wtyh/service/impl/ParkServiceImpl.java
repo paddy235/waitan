@@ -120,7 +120,7 @@ public class ParkServiceImpl implements ParkService {
 			return null;
 		}
 		List<NameValuePair> list = new ArrayList<>();
-		list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1)  + ",新航道（北京）管理咨询有限公司,上海煤炭交易所有限公司,上海航运交易所"  ));
+		list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1)   ));
 		list.add(new BasicNameValuePair("ktype", ""+ktype));
 		list.add(new BasicNameValuePair("page", pageNum+""));
 		list.add(new BasicNameValuePair("pageSize", pageSize+""));
@@ -147,7 +147,7 @@ public class ParkServiceImpl implements ParkService {
 			return null;
 		}
 		List<NameValuePair> list = new ArrayList<>();
-		list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1) + ",新航道（北京）管理咨询有限公司,上海煤炭交易所有限公司,上海航运交易所"   ));
+		list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1)  ));
 		list.add(new BasicNameValuePair("ktype", ""+ktype));
 		list.add(new BasicNameValuePair("pageSize", "20"));
 		list.add(new BasicNameValuePair("page", "1"));
