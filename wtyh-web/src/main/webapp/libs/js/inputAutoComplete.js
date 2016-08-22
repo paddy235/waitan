@@ -119,10 +119,14 @@ $('#autocomplete').inputAutoComplete({
 			// 		dataList.push('<li class="group-item" data-key=' + val.key + ' data-type=' + val.type + '>' + _getColor + '</li>');
 			// 	}
 			// });
-			for (var i = 0; i < data.length; i++) {
-				var _getColor = data[i].replace(_getBaseKey, '<span class="strong">' + _getBaseKey + '</span>');
-				dataList.push('<li class="group-item" data-key=' + data[i] + ' >' + _getColor + '</li>');
-			};
+			if (data.length > 1) {
+				for (var i = 0; i < data.length; i++) {
+					var _getColor = data[i].replace(_getBaseKey, '<span class="strong">' + _getBaseKey + '</span>');
+					dataList.push('<li class="group-item" data-key=' + data[i] + ' >' + _getColor + '</li>');
+				};
+			} else {
+				dataList.push('<li class="group" >暂无相关数据。</li>');
+			}
 			dataList.push('</ul></div>');
 			var dataListStr = dataList.join('');
 			$('.' + acClass).remove();
@@ -159,11 +163,11 @@ $('#autocomplete').inputAutoComplete({
 			$resultLi.each(function() {
 				$(this).on('click', function() {
 					var key = $(this).data('key');
-					// var isgroup = $(this).hasClass('group');
+					var isgroup = $(this).hasClass('group');
 					// console.log(isgroup);
-					// if (isgroup) {
-					// 	return false;
-					// }
+					if (isgroup) {
+						return false;
+					}
 					$element.val(key);
 					// var searchType = $(this).data('type');
 					// $element.attr('searchtype', searchType);
