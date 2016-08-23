@@ -29,5 +29,6 @@
         select
         <include refid="Base_Column_List"/>
         from mortgage_statistic
+        order by year desc limit 0,5
     </select>
 </mapper>

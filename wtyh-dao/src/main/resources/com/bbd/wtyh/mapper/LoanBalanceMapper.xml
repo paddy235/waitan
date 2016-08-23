@@ -26,6 +26,15 @@
   </select>
 
 
+  <select id="listByMonth" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from loan_balance
+    order by year*100+month desc
+    limit 0,12
+
+  </select>
+
   <select id="listByYear" resultMap="BaseResultMap">
     select
     year,sum(amount) amount,sum(number) number,sum(agriculture_balance) agriculture_balance,

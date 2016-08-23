@@ -35,7 +35,7 @@ public class LoanBalanceDO extends BaseDO {
         return month;
     }
 
-    public void setMonth(Integer mounth) {
+    public void setMonth(Integer month) {
         this.month = month;
     }
 
