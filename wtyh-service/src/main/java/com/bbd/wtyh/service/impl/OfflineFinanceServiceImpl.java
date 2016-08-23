@@ -131,7 +131,10 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     }
 
     @Override
-    public List<Map> staticRiskIndex(String companyName) {
+    public Map staticRiskIndex(String companyName) {
+        Map map = new HashMap();
+        map.put("capitalRisk", 50);
+        map.put("creditInfoRisk", 43);
         return null;
     }
 
