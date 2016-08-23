@@ -7,6 +7,8 @@ public class LoanBalanceDTO {
 
     private Integer year;
 
+    private Integer month;
+
     private Integer amount;
 
     private Integer number;
@@ -16,6 +18,14 @@ public class LoanBalanceDTO {
     private Integer smallCompanyBalance;
 
     private Integer companyAmount;
+
+    public Integer getMonth() {
+        return month;
+    }
+
+    public void setMonth(Integer month) {
+        this.month = month;
+    }
 
     public Integer getYear() {
         return year;

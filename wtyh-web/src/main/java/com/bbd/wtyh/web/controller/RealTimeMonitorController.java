@@ -14,6 +14,7 @@ import com.bbd.wtyh.web.HistogramBean;
 import com.bbd.wtyh.web.ResponseBean;
 import com.bbd.wtyh.web.XAxisSeriesBarLineBean;
 import com.bbd.wtyh.web.XAxisSeriesLinesBean;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
@@ -51,8 +52,17 @@ public class RealTimeMonitorController {
     @RequestMapping("/spectrumAnalysis")
     @ResponseBody
     public ResponseBean spectrumAnalysis() {
-        List<List> content = realTimeMonitorService.spectrumAnalysis();
-        return ResponseBean.successResponse(content);
+//        List<List> content = realTimeMonitorService.spectrumAnalysis();
+        final String key = "wtyh:realtimeMonitor:guangPu1";
+        List<List> list = (List<List>) redisDAO.getObject(key);
+        if (null == list || list.size() == 0) {
+            list = realTimeMonitorService.spectrumAnalysis();
+            if (null != list && list.size() >= 1) {
+                redisDAO.addSet(key, String.valueOf(list), Constants.REDIS_10);
+                //addObject(key, list, Constants.REDIS_10, List.class)
+            }
+        }
+        return ResponseBean.successResponse(list);
     }
 
     /**
