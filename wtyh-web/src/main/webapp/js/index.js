@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "21d86660dc6b3e311d57"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "f0b92dfd693b697a32f1"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -61040,9 +61040,6 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Immutable = __webpack_require__(718);
-	var _statisticsDate = [[], [], [], [], [], [], [], []],
-	    _riskIndex = [[], [], [], [], [], [], [], []],
-	    _avgRiskIndex = [[], [], [], [], [], [], [], []];
 	//静态风险指数构成
 	var LineFinanceIndexConstitute = _react2.default.createClass({
 	    displayName: 'LineFinanceIndexConstitute',
@@ -61052,7 +61049,7 @@
 	            statisticsDate: [],
 	            riskIndex: [],
 	            avgRiskIndex: [],
-	            itemIndex: 0,
+	            lineOption: "",
 	            riskList: "",
 	            allDate: [],
 	            companyName: "",
@@ -61068,19 +61065,15 @@
 	        this.queryRiskData(jsonData);
 
 	        //请求时间列表
-	        var jsonDataDate = { companyName: "一半堂投资管理（上海）有限公司" };
+	        var jsonDataDate = { companyName: companyName };
 	        this.queryDateVersion(jsonDataDate);
 
-	        //请求右面折线图
-	        for (var i = 0; i < 8; i++) {
-	            var jsonDataLine = { companyName: companyName, tabIndex: i, areaCode: "金山区" };
-	            this.staticRiskIndex(i, jsonDataLine);
-	        }
+	        //请求右面折线图      
+	        var jsonDataLine = { companyName: companyName, areaCode: "金山区" };
+	        this.staticRiskIndex(jsonDataLine);
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var _allDate = [];
 	        var isEqual = Immutable.is(nextProps.riskDataResult, this.props.riskDataResult);
-	        var queryDateVersionIsEqual = Immutable.is(nextProps.queryDateVersionRequest, this.props.queryDateVersionRequest);
 	        if (!isEqual) {
 	            //右边饼图数据
 	            this.setState({
@@ -61088,7 +61081,10 @@
 	            });
 	            this.setParm(this.state.riskList);
 	        }
+	        var _allDate = [];
+	        var queryDateVersionIsEqual = Immutable.is(nextProps.queryDateVersionRequest, this.props.queryDateVersionRequest);
 	        if (!queryDateVersionIsEqual) {
+	            //右边时间列表
 	            nextProps.queryDateVersionResult.content.map(function (item, index) {
 	                _allDate.push({
 	                    value: index + 1,
@@ -61098,6 +61094,10 @@
 	            this.setState({
 	                allDate: _allDate
 	            });
+	        }
+	        var statisticsIsEqual = Immutable.is(nextProps.statisticsRequest, this.props.statisticsRequest);
+	        if (!statisticsIsEqual) {
+	            debugger;
 	        }
 	    },
 	    queryRiskData: function queryRiskData(jsonData) {
@@ -61112,13 +61112,10 @@
 
 	        queryDateVersion(jsonData);
 	    },
-	    staticRiskIndex: function staticRiskIndex(tabIndex, jsonDataLine) {
+	    staticRiskIndex: function staticRiskIndex(jsonDataLine) {
 	        //请求右面折线图         
 	        var queryStatistics = this.props.queryStatistics;var self = this;
 	        queryStatistics(jsonDataLine);
-	        setTimeout(function () {
-	            self.handleData(tabIndex);
-	        }, 1000);
 	    },
 
 	    itemClick: function itemClick(e) {
@@ -61191,63 +61188,26 @@
 	        };
 	        this.setState({ pieOption: option });
 	    },
-	    setLineParm: function setLineParm(param) {
-	        var _optionArr = [];
-	        if (this.state.statisticsDate.length == 0 || this.state.riskIndex.length == 0 || this.state.avgRiskIndex.length == 0) {
-	            var option = {
-	                color: ["#00b7ee", "#f8b551"],
-	                bgColor: "",
-	                title: "实际控制人风险趋势",
-	                titleX: "left", //
-	                boxId: "chartMap",
-	                symbolSize: 10,
-	                legendIsShow: true,
-	                yFlag: "",
-	                yAxisName: "",
-	                legendRight: "30",
-	                legend: ["公司", "行业平均"],
-	                xAxis: [""],
-	                series: [[""], [""]]
-	            };
-	        } else {
-	            var option = {
-	                color: ["#00b7ee", "#f8b551"],
-	                bgColor: "",
-	                title: "实际控制人风险趋势",
-	                titleX: "left", //
-	                boxId: "chartMap",
-	                symbolSize: 10,
-	                legendIsShow: true,
-	                yFlag: "",
-	                yAxisName: "",
-	                legendRight: "30",
-	                legend: ["公司", "行业平均"],
-	                xAxis: this.state.statisticsDate[param],
-	                series: [this.state.riskIndex[param], this.state.avgRiskIndex[param]]
-	            };
-	        }
-	        return option;
-	    },
-
-	    handleData: function handleData(param) {
-	        //右边折线图数据
-	        var self = this;
-	        if (!this.props.statisticsRequest) {
-	            return;
-	        }
-	        this.props.statisticsResult.map(function (item, index) {
-	            _statisticsDate[self.state.itemIndex].push(item.date);
-	            _riskIndex[self.state.itemIndex].push(item.riskIndex);
-	            _avgRiskIndex[self.state.itemIndex].push(item.avgRiskIndex);
-	        });
+	    setLineParm: function setLineParm() {
+	        var option = {
+	            color: ["#00b7ee", "#f8b551"],
+	            bgColor: "",
+	            title: "实际控制人风险趋势",
+	            titleX: "left", //
+	            boxId: "chartMap",
+	            symbolSize: 10,
+	            legendIsShow: true,
+	            yFlag: "",
+	            yAxisName: "",
+	            legendRight: "30",
+	            legend: ["公司", "行业平均"],
+	            xAxis: this.state.statisticsDate,
+	            series: [this.state.riskIndex, this.state.avgRiskIndex]
+	        };
 	        this.setState({
-	            statisticsDate: _statisticsDate,
-	            riskIndex: _riskIndex,
-	            avgRiskIndex: _avgRiskIndex,
-	            itemIndex: self.state.itemIndex + 1
+	            lineOption: option
 	        });
 	    },
-
 	    render: function render() {
 	        var self = this;
 	        var selectProp = { //渲染右边时间选择        
@@ -62494,7 +62454,7 @@
 	  return function (dispatch) {
 	    console.log(json);
 	    $.ajax({
-	      url: "/offlineFinance/queryStatistics.do",
+	      url: "offlineFinance/queryStatisticsMultiple.do",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
