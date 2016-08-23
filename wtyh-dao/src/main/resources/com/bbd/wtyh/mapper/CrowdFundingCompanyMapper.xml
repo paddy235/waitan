@@ -29,7 +29,7 @@
   <select id="allCompanys"  resultType="com.bbd.wtyh.domain.CrowdFundingCompanyDO">
     select  c.company_id companyId,cfc.platform_name platformName,
             cfc.website_url websiteUrl,cfc.funding_business_type fundingBusinessType,
-            cfc.success_number successNumber, cfc.funded_amout fundedAmout,
+            IFNULL(cfc.success_number,0) successNumber, IFNULL(cfc.funded_amout,0) fundedAmout,
             cfc.create_by createBy,cfc.create_date createDate,
             cfc.update_by updateBy,cfc.update_date updateDate,
             a.name areaName,c.name companyName,cfc.operation_address address

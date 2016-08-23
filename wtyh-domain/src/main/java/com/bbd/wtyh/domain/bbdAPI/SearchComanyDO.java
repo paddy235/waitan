@@ -16,10 +16,36 @@ public class SearchComanyDO {
         private String regno;
         private String company_type;
         private String frname;
-        // TODO: 暂缺 注册资本
-        // TODO: 暂缺 成立时间
-        // TODO: 暂缺 注册地址
+        // 注册资本
+        private String regcap;
+        // 成立时间
+        private String esdate;
+        // 注册地址
+        private String address;
 
+        public String getEsdate() {
+            return esdate;
+        }
+
+        public void setEsdate(String esdate) {
+            this.esdate = esdate;
+        }
+
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
+
+        public String getRegcap() {
+            return regcap;
+        }
+
+        public void setRegcap(String regcap) {
+            this.regcap = regcap;
+        }
 
         public String getCompany_name() {
             return company_name;

@@ -1,5 +1,6 @@
 package com.bbd.wtyh.web.controller;
 
+import com.bbd.wtyh.domain.PlatformNameInformationDO;
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompanyDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
 import com.bbd.wtyh.service.P2PImageService;
@@ -27,6 +28,24 @@ import java.util.Map;
 public class P2PImageController {
     @Autowired
     private P2PImageService p2PImageService;
+
+
+    /**
+     * 测试是否有”搜索公司“
+     *
+     * @return
+     */
+    @RequestMapping("/hasOrNotCompany")
+    @ResponseBody
+    public ResponseBean hasOrNotCompany(@RequestParam(required = true) String platName) {
+        PlatformNameInformationDO content = p2PImageService.hasOrNotCompany(platName);
+        if (content == null) {
+            return ResponseBean.errorResponse(content);
+        } else {
+            return ResponseBean.successResponse(content);
+        }
+    }
+
 
     /**
      * 平台状态信息
@@ -82,24 +101,6 @@ public class P2PImageController {
         }
         return ResponseBean.successResponse(radarChart);
     }
-
-
-    /**
-     * 测试是否有”搜索公司“
-     *
-     * @return
-     */
-    @RequestMapping("/hasOrNotCompany")
-    @ResponseBody
-    public ResponseBean hasOrNotCompany(@RequestParam(required = true) String platName) {
-        SearchCompanyDO content = p2PImageService.hasOrNotCompany(platName);
-        if (StringUtils.isNotNullOrEmpty(content.getCompany_name())) {
-            return ResponseBean.errorResponse(content);
-        } else {
-            return ResponseBean.successResponse(content);
-        }
-    }
-
 
     /**
      * 基本信息
@@ -176,17 +177,4 @@ public class P2PImageController {
         return ResponseBean.successResponse(content);
     }
 
-    /**
-     * 关联方图谱
-     *
-     * @return
-     */
-    @RequestMapping("/relativeChart")
-    @ResponseBody
-    public ResponseBean relativeChart() {
-        // TODO
-//        List<List<String>> data = p2PImageService.coreDataDealTrend();
-//        return ResponseBean.successResponse(data);
-        return null;
-    }
 }

@@ -181,7 +181,7 @@ public class MockSerserController {
             dto.setLoan_period(k * 5);
             dto.setPlat_name("平台名称" + k);
             dto.setRank(k);
-            dto.setStay_still_of_total(k * 9);
+            dto.setStay_still_of_total(k * 90000);
             list.add(dto);
         }
 
@@ -264,7 +264,7 @@ public class MockSerserController {
                 dto.setDate(year + "-" + (m < 10 ? "0" : "") + m);
                 dto.setAmount(m * 2);
                 dto.setBorrowed_num(1 + m);
-                dto.setInterest_rate(m * 2.3);
+                dto.setInterest_rate(m * 2);
                 dto.setInvest_num(1);
                 dto.setNew_plat_num(1 + m);
                 dto.setTotal_plat_num_sh(2 + m);

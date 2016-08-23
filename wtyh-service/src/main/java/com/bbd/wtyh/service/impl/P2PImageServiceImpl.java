@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.dao.P2PImageDao;
+import com.bbd.wtyh.domain.PlatformNameInformationDO;
 import com.bbd.wtyh.domain.bbdAPI.BBDLogoDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
@@ -139,7 +140,7 @@ public class P2PImageServiceImpl implements P2PImageService {
     }
 
     @Override
-    public SearchCompanyDO hasOrNotCompany(String plat_name) {
-        return p2PImageDao.hasOrNotCompany(plat_name);
+    public PlatformNameInformationDO hasOrNotCompany(String platName) {
+        return p2PImageDao.hasOrNotCompany(platName);
     }
 }

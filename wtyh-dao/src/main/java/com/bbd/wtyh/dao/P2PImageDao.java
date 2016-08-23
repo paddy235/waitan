@@ -1,5 +1,6 @@
 package com.bbd.wtyh.dao;
 
+import com.bbd.wtyh.domain.PlatformNameInformationDO;
 import com.bbd.wtyh.domain.bbdAPI.BBDLogoDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
@@ -48,10 +49,10 @@ public interface P2PImageDao {
     /**
      * 监测是否有要查询的公司
      *
-     * @param plat_name
+     * @param platName
      * @return
      */
-    SearchCompanyDO hasOrNotCompany(String plat_name);
+    PlatformNameInformationDO hasOrNotCompany(String platName);
 
     /**
      * 企业logo
