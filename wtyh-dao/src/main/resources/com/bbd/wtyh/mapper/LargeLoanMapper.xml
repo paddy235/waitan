@@ -43,7 +43,7 @@
                     b.business_type
                 </when>
                 <when test="orderByField==4">
-                   b.registered_capital_type,b.registered_capital
+                   b.registered_capital_type asc , b.registered_capital
                 </when>
             </choose>
 

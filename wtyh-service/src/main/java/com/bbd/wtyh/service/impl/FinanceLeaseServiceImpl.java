@@ -46,11 +46,18 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
         int rmb = 0;
         int us = 0;
         int company = 0;
-        for (CompanyCapitalVO vo :list) {
-            bean.getxAxis().add(vo.getYear());
-            bean.getSeries().getLine().add((double)(company+=vo.getCompanyNumber()));
-            bean.getSeries().getBar()[0].add(CalculateUtils.divide(rmb+=vo.getRmb(),10000,2));
-            bean.getSeries().getBar()[1].add(CalculateUtils.divide(us+=vo.getUs(),10000,2));
+        for (int k=0;k<list.size();k++) {
+            CompanyCapitalVO vo = list.get(k);
+            us+=vo.getUs();
+            company+=vo.getCompanyNumber();
+            rmb+=vo.getRmb();
+            if(k>list.size()-6){
+                bean.getxAxis().add(vo.getYear());
+                bean.getSeries().getLine().add((double)company);
+                bean.getSeries().getBar()[0].add(CalculateUtils.divide(rmb,10000,2));
+                bean.getSeries().getBar()[1].add(CalculateUtils.divide(us,10000,2));
+            }
+
         }
 
         return bean;
