@@ -83,7 +83,7 @@ public class PrivateFundServiceImpl implements PrivateFundService {
     }
 
     @Override
-    public List<InvestmentReturnStatisticDO> investmentAmount() {
+    public List<InvestmentStatisticDO> investmentAmount() {
         return investmentStatisticMapper.selectAll();
     }
 
