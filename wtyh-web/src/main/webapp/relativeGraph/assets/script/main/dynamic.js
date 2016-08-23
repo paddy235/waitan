@@ -237,12 +237,13 @@ define(function(require, exports, module) {
 				var zr_shape = null;
 				var category = background_node.category;
 				var addflag = background_node.addflag;
+				var isGetCompany = background_nodes[i].isGetCompany;
 				// 画图（节点）
 				// 圆心
 				if (category == 0) {
 					center_coordinate = new Coordinate(width / 2, height / 2)
 						//
-					var center = create_node(symbol, center_coordinate, color, name);
+					var center = create_node(symbol, center_coordinate, color, name, isGetCompany);
 					zr.addShape(center)
 					zr_nodes.push(center)
 					zr_shape = center;
@@ -255,7 +256,7 @@ define(function(require, exports, module) {
 					}
 					var angle = (360 * i) / nodes_length
 					var coordinate = cal_coordinate(center_coordinate, category_radius, angle);
-					var shape = create_node(symbol, coordinate, color, name);
+					var shape = create_node(symbol, coordinate, color, name, isGetCompany);
 					zr.addShape(shape)
 					zr_nodes.push(shape)
 					zr_shape = shape;
@@ -282,42 +283,42 @@ define(function(require, exports, module) {
 
 	function serches() {
 
-		$(".search-key").keyup(function(e) {
-			if (e.keyCode == 40 || e.keyCode == 38 || e.keyCode == 13) return;
-			$(".search-result").show();
-			$("#static-risk-result").html("");
-			var infos = "";
-			var resultarr = [];
-			var search_key = $(".search-key").val().trim();
-			if (search_key != "") {
-				$(".select_del").show();
-				$(".select_s").hide();
-				$.each(nodes, function(item, items) {
-					if (resultarr.length >= 10) {
-						return;
-					}
-					if (items.name.indexOf(search_key) != "-1") {
-						if (items.symbol == "rect") {
-							infos += " <a href='javascript:void(null)' title=" + items.name + " data='rect' class=''>" + items.name + "</a>"
-						} else {
-							infos += " <a href='javascript:void(null)' data='people' class=''>" + items.name + "</a>"
-						}
-						var zr_shape = {
-							clicktype: "company"
-						}
-						items["zr_shape"] = zr_shape;
-						resultarr.push(items);
-					}
-				});
-				if (resultarr.length == 0) {
-					infos = "<span>无相关关联方，请重新输入</span>";
-				}
-			} else {
-				$(".select_del").hide();
-				$(".select_s").show();
-			}
-			$("#static-risk-result").html(infos);
-		})
+		// $(".search-key").keyup(function(e) {
+		// 	if (e.keyCode == 40 || e.keyCode == 38 || e.keyCode == 13) return;
+		// 	$(".search-result").show();
+		// 	$("#static-risk-result").html("");
+		// 	var infos = "";
+		// 	var resultarr = [];
+		// 	var search_key = $(".search-key").val().trim();
+		// 	if (search_key != "") {
+		// 		$(".select_del").show();
+		// 		$(".select_s").hide();
+		// 		$.each(nodes, function(item, items) {
+		// 			if (resultarr.length >= 10) {
+		// 				return;
+		// 			}
+		// 			if (items.name.indexOf(search_key) != "-1") {
+		// 				if (items.symbol == "rect") {
+		// 					infos += " <a href='javascript:void(null)' title=" + items.name + " data='rect' class=''>" + items.name + "</a>"
+		// 				} else {
+		// 					infos += " <a href='javascript:void(null)' data='people' class=''>" + items.name + "</a>"
+		// 				}
+		// 				var zr_shape = {
+		// 					clicktype: "company"
+		// 				}
+		// 				items["zr_shape"] = zr_shape;
+		// 				resultarr.push(items);
+		// 			}
+		// 		});
+		// 		if (resultarr.length == 0) {
+		// 			infos = "<span>无相关关联方，请重新输入</span>";
+		// 		}
+		// 	} else {
+		// 		$(".select_del").hide();
+		// 		$(".select_s").show();
+		// 	}
+		// 	$("#static-risk-result").html(infos);
+		// })
 
 		$("#static-risk-result").delegate("a", "click mouseover mouseout ", function(e) {
 			var type = e.type;
@@ -439,7 +440,7 @@ define(function(require, exports, module) {
 	 * @param color
 	 * @returns {*}
 	 */
-	function create_node(symbol, coordinate, color, text) {
+	function create_node(symbol, coordinate, color, text, isGetCompany) {
 		var zr_node;
 		if (symbol == "rect") {
 			zr_node = new Rectangle({
@@ -461,7 +462,8 @@ define(function(require, exports, module) {
 				onclick: node_mouse_click,
 				onmouseout: chart_recover,
 				onmouseover: node_mouse_over,
-				clicktype: 'company'
+				clicktype: 'company',
+				isCompany: isGetCompany
 			})
 		} else if (symbol == "circle") {
 			zr_node = new Circle({
@@ -481,7 +483,8 @@ define(function(require, exports, module) {
 				onclick: node_mouse_click,
 				onmouseout: chart_recover,
 				onmouseover: node_mouse_over,
-				clicktype: 'man'
+				clicktype: 'man',
+				isGetCompany: isGetCompany
 			})
 		} else {
 			if (console && console.log) {
@@ -562,150 +565,7 @@ define(function(require, exports, module) {
 		var node = main_data[node_name];
 		//先删除出现的点
 		zr.delShape('ext').delShape('detail');
-		if (zr_node_click && node.zr_shape.style != opacity_hidden && node.category != 0) {
-			//点击图谱上任意node节点 出现扩展和信息按钮
-			//当前节点的style
-			var clicked_node_style = node.zr_shape.style;
-			var text;
-			//if (checked) {
-			//	text = '隐藏'
-			//} else {
-			//	text = '扩展'
-			//}
-			node_extend = new Rectangle({
-				style: {
-					x: clicked_node_style.x + 30,
-					y: node.zr_shape.type == 'rectangle' ? clicked_node_style.y : clicked_node_style.y - 10,
-					width: 0,
-					height: 0,
-					color: '#3CB371',
-					strokeColor: '#d9d9d9',
-					lineWidth: 0,
-					text: text,
-					textFont: "normal 12px Microsoft Yahei",
-					textColor: '#d9d9d9',
-					textPosition: 'inside',
-					textAlign: 'center',
-					textBaseline: 'middle'
-				},
-				// hover时候的style，同普通的style。
-				highlightStyle: {
-					x: clicked_node_style.x + 30,
-					y: node.zr_shape.type == 'rectangle' ? clicked_node_style.y : clicked_node_style.y - 10,
-					width: 0,
-					height: 0,
-					color: '#3CB371',
-					strokeColor: '#d9d9d9',
-					lineWidth: 0,
-					text: text,
-					textFont: "normal 12px Microsoft Yahei",
-					textColor: '#d9d9d9',
-					textPosition: 'inside',
-					textAlign: 'center',
-					textBaseline: 'middle'
-				},
-				zlevel: zlevel,
-				z: 90,
-				id: 'ext',
-				hoverable: true,
-				clickable: true,
-				draggable: false,
-				company_name: node_name,
-				onclick: function() {
-					ext_node_mouse_click()
-					check_company(node_name) //隐藏，显示
-					highlight_relation(node_name)
 
-					//if (checked) {
-					//	this.style.text = "隐藏";
-					//	this.highlightStyle.text = "隐藏";
-					//} else {
-					//	this.style.text = "扩展";
-					//	this.highlightStyle.text = "扩展";
-					//}
-				}
-			});
-			//console.log("node_extend:",node.zr_shape.type);
-			zr.addShape(node_extend);
-			//判断是公司还是人 如果是公司则出现详情按钮 如果是人则没有详情按钮
-			if (node.zr_shape.type == 'rectangle') {
-				node_info = new Rectangle({
-						style: {
-							x: clicked_node_style.x + 70,
-							y: node.zr_shape.type == 'rectangle' ? clicked_node_style.y : clicked_node_style.y - 10,
-							width: 0,
-							height: 0,
-							color: '#3CB371',
-							strokeColor: '#d9d9d9',
-							lineWidth: 0,
-							text: '',
-							textFont: "normal 12px Microsoft Yahei",
-							textColor: '#d9d9d9',
-							textPosition: 'inside',
-							textAlign: 'center',
-							textBaseline: 'middle',
-						},
-						// hover时候的style，同普通的style。
-						highlightStyle: {
-							x: clicked_node_style.x + 70,
-							y: node.zr_shape.type == 'rectangle' ? clicked_node_style.y : clicked_node_style.y - 10,
-							width: 0,
-							height: 0,
-							color: '#3CB371',
-							strokeColor: '#d9d9d9',
-							lineWidth: 0,
-							text: '',
-							textFont: "normal 12px Microsoft Yahei",
-							textColor: '#d9d9d9',
-							textPosition: 'inside',
-							textAlign: 'center',
-							textBaseline: 'middle',
-						},
-						zlevel: zlevel,
-						z: 90,
-						id: 'detail',
-						hoverable: true,
-						clickable: true,
-						draggable: false,
-						onclick: function() {
-							ext_node_mouse_click()
-
-							console.log("点击详情------》");
-
-							$.ajax({
-								type: "post",
-								url: "/relativeGraph/json/queryRelationship1.json",
-								data: {
-									"companyName": node.name
-								},
-								dataType: "json",
-								success: function(data) {
-									//console.log(data);
-									if (data.success == 0) {
-										alert('该公司数据正在分析更新中!');
-									} else {
-										//$('#motaiTemp').html(basicinfo_maker(data, node.name));
-										//console.log(basicinfo_maker(data, node.name));
-										$('.tc-box').html(basicinfo_maker(data, node.name));
-										//$(".tanchuang").show();
-										$(".black-box").show();
-									}
-									//关闭弹窗
-									$(".close-tanchuang").off("click").on("click", function() {
-										$(".black-box").hide();
-									});
-								}
-							})
-
-
-						}
-
-					})
-					//console.log("node_info:",node_info);
-				zr.addShape(node_info);
-			}
-			//$('div[companyname="' + node_name + '"]').children("span").click();
-		}
 		var highlight = (node.zr_shape.style.opacity != opacity_hidden);
 		// 当前节点
 		if (highlight) {
@@ -745,46 +605,7 @@ define(function(require, exports, module) {
 		zr.painter.refresh(null, true)
 	}
 
-	/**
-	 * 基本信息列表html
-	 */
-	function basicinfo_maker(data, companyname) {
-		var rst = JSON.parse(JSON.stringify(data.obj));
-		var html = '<div id="motai" class="mo_w" style="display: block;">' + '    <div class="mo_biaoti">' + '        工商资料' + '    </div>' + '    <!-- -->' + '    <div class="mo_er">' + '        <div class="mo_fg">' + '            注册号' + '        </div>' + '        <div class="mo-kl">' + rst.basicData.enterpriseData.registId + '        </div>' + '    </div>' + '    <!---->' + '    <div class="mo_er">' + '        <div class="mo_fg">' + '            名称' + '        </div>' + '        <div class="mo-kl">' + rst.basicData.enterpriseData.name + '        </div>' + '    </div>' + '    <!---->' + '    <!---->' + '    <div class="mo_er">' + '        <div class="mo_fg">' + '            类型' + '        </div>' + '        <div class="mo-kl">' + rst.basicData.enterpriseData.type + '        </div>' + '    </div>' + '    <!---->' + '    <!---->' + '    <div class="mo_er">' + '        <div class="mo_fg">' + '            法定代表人' + '        </div>' + '        <div class="mo-kl">' + rst.basicData.enterpriseData.representative + '        </div>' + '    </div>' + '    <!---->' + '    <!---->' + '    <div class="mo_er">' + '        <div class="mo_fg">' + '            注册资本' + '        </div>' + '        <div class="mo-kl">' + rst.basicData.enterpriseData.capital + '        </div>' + '    </div>' + '    <!---->' + '    <!---->' + '    <div class="mo_er">' + '        <div class="mo_fg">' + '            成立日期' + '        </div>' + '        <div class="mo-kl">' + rst.basicData.enterpriseData.buildDate + '        </div>' + '    </div>' + '    <!---->' + '    <!---->' + '    <div class="mo_er">' + '        <div class="mo_fg">' + '            住所' + '        </div>' + '        <div class="mo-kl">' + rst.basicData.enterpriseData.position + '        </div>' + '    </div>' + '    <!---->' + '    <!---->' + '    <div class="mo_er">' + '        <div class="mo_fg">' + '            营业期限自' + '        </div>' + '        <div class="mo-kl">' + rst.basicData.enterpriseData.operatorPeriodStart + '        </div>' + '    </div>' + '    <!---->' + '    <div class="mo_er">' + '        <div class="mo_fg">' + '            营业期限至' + '        </div>' + '        <div class="mo-kl">' + rst.basicData.enterpriseData.operatorPeriodEnd + '        </div>' + '    </div>' + '    <!---->' + '    <div class="mo_er">' + '        <div class="mo_fg">' + '            经营范围' + '        </div>' + '        <div class="mo-kl">' + rst.basicData.enterpriseData.businessScope + '        </div>' + '    </div>' + '    <!---->' + '    <!---->' + '    <div class="mo_er">' + '        <div class="mo_fg">' + '            登记机关' + '        </div>' + '        <div class="mo-kl">' + rst.basicData.enterpriseData.registation + '        </div>' + '    </div>' + '    <!---->' + '    <!---->' + '    <div class="mo_er">' + '        <div class="mo_fg">' + '            核准日期' + '        </div>' + '        <div class="mo-kl">' + rst.basicData.enterpriseData.approveDate + '        </div>' + '    </div>' + '    <!---->' + '    <!---->' + '    <div class="mo_er">' + '        <div class="mo_fg">' + '            登记状态' + '        </div>' + '        <div class="mo-kl">' + rst.basicData.enterpriseData.registStatus + '        </div>' + '    </div>' + '    <div class="mo_biaoti">' + '        股东情况' + '    </div>' + '    <div class="mo_er">' + '        <div class="mo_fg_head">' + '            投资方' + '        </div>' + '        <div class="mo_tyo_head">' + '            股东类型' + '        </div>' + '    </div>';
-		for (var i = 0; rst.basicData.shareholderDatas != null && i < rst.basicData.shareholderDatas.length; i++) {
-			html += '<div class="mo_er">' + '        <div class="mo_fg_two">' + rst.basicData.shareholderDatas[i].shareholderName + '        </div>' + '        <div class="mo_tyo_two">' + rst.basicData.shareholderDatas[i].shareholderType + '        </div>' + '    </div>';
-		}
-		html += '    <div class="mo_biaoti">' + '        董事会情况' + '    </div>' + '    <div class="mo_er">' + '        <div class="mo_fg_head">' + '            姓名' + '        </div>' + '        <div class="mo_tyo_head">' + '            职务' + '        </div>' + '    </div>';
-		for (var i = 0; rst.basicData.dsvo != null && i < rst.basicData.dsvo.length; i++) {
-			html += '    <div class="mo_er">' + '        <div class="mo_fg_two">' + rst.basicData.dsvo[i].name + '        </div>' + '        <div class="mo_tyo_two">' + rst.basicData.dsvo[i].job + '        </div>' + '    </div>'
-		}
-		html += '    <div class="mo_biaoti">' + '        监事会情况' + '    </div>' + '    <div class="mo_er">' + '        <div class="mo_fg_head">' + '            姓名' + '        </div>' + '        <div class="mo_tyo_head">' + '            职务' + '        </div>' + '    </div>'
-		for (var i = 0; rst.basicData.jsvo != null && i < rst.basicData.jsvo.length; i++) {
-			html += '    <div class="mo_er">' + '        <div class="mo_fg_two">' + rst.basicData.jsvo[i].name + '        </div>' + '        <div class="mo_tyo_two">' + rst.basicData.jsvo[i].job + '        </div>' + '    </div>'
-		}
-		html += '    <div class="mo_biaoti">' + '        高级管理人员情况' + '    </div>' + '    <div class="mo_er">' + '        <div class="mo_fg_head">' + '            姓名' + '        </div>' + '        <div class="mo_tyo_head">' + '            职务' + '        </div>' + '    </div>'
-		for (var i = 0; rst.basicData.jlvo != null && i < rst.basicData.jlvo.length; i++) {
-			html += '    <div class="mo_er">' + '        <div class="mo_fg_two">' + rst.basicData.jlvo[i].name + '        </div>' + '        <div class="mo_tyo_two">' + rst.basicData.jlvo[i].job + '        </div>' + '    </div>'
-		}
-		//            html += '<div class="mo_biaoti">'
-		//                + '        诉讼记录'
-		//                + '    </div>'
-		//                + '    <div class="mo_susong">'
-		//                + '诉讼记录总共有' + rst.lawsuitCount + '条。'
-		//                + '    </div>'
-		//                + '    <p class="co_mo ">'
-		//                + '        更多信息，请点击<br>';
-		//            if (rst.buyFlag == true) {
-		//                html += '<input class="btn btn-success  btn-sm btn-buy" type="button" style="background-color: #1aa07f;border:0" value="查看报告" onclick="javascript:window.location.href=\'getBasicData.do?companyName=' + companyname + '&encryptFlag=0\'" />'
-		//            } else {
-		//                html += '<input class="btn btn-success  btn-sm btn-buy" type="button" style="background-color: #1aa07f;border:0" value="购买报告" onclick="javascript:window.location.href=\'buyReport.do?companyName=' + companyname + '\'" />'
-		//            }
-		//            html += '    </p>'
-		html += '    <div class="mo_er">' + '    </div>' + '</div>'
 
-		return html;
-
-	}
 
 	/**
 	 * 高亮路线
@@ -965,7 +786,7 @@ define(function(require, exports, module) {
 
 	//关闭弹窗
 	$(".co_xclo").on('click', function(event) {
-		$(this).closest("#connect_bn_id").hide();
+		$(this).closest("#relation-modal").hide();
 	});
 
 	/////////////////////////zr事件
@@ -988,67 +809,33 @@ define(function(require, exports, module) {
 		highlight_relation(name)
 
 		//如果点击公司，有个小弹窗
-		if (e.target.clicktype == 'company' || v == "rect") {
+		if (e.target.isCompany) {
 			$.ajax({
-				type: "post",
-				url: "relatedPartyStatistics.do",
-				data: {
-					"origCompanyName": $("#ipt_company_name").val(),
-					"tarCompanyName": name,
-					"dataVersion": $("#ipt_data_version").val()
-				},
+				type: "GET",
+				url: "/PToPMonitor/integrated.do", //查询公司接口详细信息
+				data: {},
 				dataType: "json",
 				success: function(data) {
 					data = data.obj;
-					$("#companyNameHtml").html(name);
-					var shtml = '<table width="99%" border="0">\
-                                        <tr>\
-                                            <td width="8%" height="23">&nbsp;</td>\
-                                            <td width="56%">注册资本</td>\
-                                            <td width="36%">' + (data.capital == "" ? '-' : data.capital) + '</td>\
-                                        </tr>\
-                                        <tr>\
-                                            <td height="25">&nbsp;</td>\
-                                            <td>登记状态</td>\
-                                            <td>' + (data.registation == "" ? '-' : data.registation) + '</td>\
-                                        </tr>\
-                                        <tr>\
-                                            <td height="22">&nbsp;</td>\
-                                            <td>关联方法人节点数</td>\
-                                            <td>' + (data.legalPersonNodes == "" ? '-' : data.legalPersonNodes) + '</td>\
-                                        </tr>\
-                                        <tr>\
-                                            <td height="26">&nbsp;</td>\
-                                            <td>关联方自然人节点数</td>\
-                                            <td>' + (data.naturalPersonNode == "" ? '-' : data.naturalPersonNode) + '</td>\
-                                        </tr>\
-                                        <tr>\
-                                            <td height="24">&nbsp;</td>\
-                                            <td>自然人股东数</td>\
-                                            <td>' + (data.naturalPersonShareholders == "" ? '-' : data.naturalPersonShareholders) + '</td>\
-                                        </tr>\
-                                        <tr>\
-                                            <td height="21">&nbsp;</td>\
-                                            <td>法人股东数</td>\
-                                            <td>' + (data.legalPersonShareholders == "" ? '-' : data.legalPersonShareholders) + '</td>\
-                                        </tr>\
-                                        <tr>\
-                                            <td height="16">&nbsp;</td>\
-                                            <td>子公司数</td>\
-                                            <td>' + (data.subsidiarys == "" ? '-' : data.subsidiarys) + '</td>\
-                                        </tr>\
-                                        <tr>\
-                                            <td>&nbsp;</td>\
-                                            <td>诉讼记录</td>\
-                                            <td>' + (data.litigationRecord == "" ? '-' : data.litigationRecord) + '</td>\
-                                        </tr>\
-                                    </table>';
-					$("#companyTableHtml").html(shtml);
-					$("#connect_bn_id").show();
+					// $("#companyNameHtml").html(name);
+					var shtml = '<div class="company-title">成都中建明城投资有限公司</div>\
+                      <table>\
+                        <tbody>\
+                          <tr><td>注册资本</td><td>500万</td></tr>\
+                          <tr><td>登记状态</td><td>在营开业企业</td></tr>\
+                          <tr><td>关联方法人节点数</td><td>386</td></tr>\
+                          <tr><td>关联方自然人节点数</td><td>289</td></tr>\
+                          <tr><td>自然人股东数</td><td>21</td></tr>\
+                          <tr><td>法人股东数</td><td>8</td></tr>\
+                          <tr><td>子股东数</td><td>0</td></tr>\
+                        </tbody>\
+                        <a href="" className="see-detail">查看详情</a>\
+                      </table>';
+					$("#relation-modal").html(shtml).show();
 				}
 			});
 		} else {
-			$("#connect_bn_id").hide();
+			$("#relation-modal").hide();
 		}
 
 	}
@@ -1094,7 +881,7 @@ define(function(require, exports, module) {
 
 		if (!e.target) {
 			console.log("点击空白");
-			$("#connect_bn_id").hide();
+			$("#relation-modal").hide();
 		}
 
 		//判断鼠标是否移动
@@ -1163,10 +950,8 @@ define(function(require, exports, module) {
 		zr.painter.refresh(null, true);
 	})
 
-	$('.fa.fa-download.icon_j').click(function() {
-			link_download($(this));
-		})
-		/**显示关系*/
+
+	/**显示关系*/
 	$('.ml6').click(function() {
 		show_relations($(this), true)
 	})
@@ -1220,9 +1005,6 @@ define(function(require, exports, module) {
 
 	}
 
-	function link_download(param) {
-		window.location.href = "relatedPartyAPointDownloadFile.do?companyName=" + companyName + "&nodeName=" + param.parent().attr('companyname');
-	}
 	//关系
 	function show_relations(param) {
 		if (tempClick == null) {
