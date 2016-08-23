@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "32fcf2a78616944090c2"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "a052fe43476215266b50"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -59703,14 +59703,15 @@
 	                data: seriesData
 	            }]
 	        };
-	        console.log(seriesData, 333333333333);
+
 	        this.setState({ option: option, companyInfo: companyInfo });
 	    },
 	    onChartClick: function onChartClick(e) {
 	        var companyInfo = this.state.companyInfo;
 	        var dataIndex = e.dataIndex;
-	        var companyName = companyInfo[dataIndex];
-	        this.props.history.push("/SearchResultDetail?companyName=" + companyName + "");
+	        var companyName = companyInfo[dataIndex].name;
+	        console.log(companyName, 4444);
+	        this.props.history.push("/lineFinanceStaticRisk?companyName=" + companyName + "");
 	    },
 	    render: function render() {
 	        var onEvents = {
@@ -61115,10 +61116,6 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
 	__webpack_require__(739);
 
 	var _react = __webpack_require__(138);
@@ -61135,14 +61132,9 @@
 
 	var _reactRedux = __webpack_require__(326);
 
-	var _LineFinRiskSearchHeaderAction = __webpack_require__(741);
-
-	var RiskSearchActionCreaters = _interopRequireWildcard(_LineFinRiskSearchHeaderAction);
-
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	//import * as LineFinanceDynamicRiskActionCreaters from '../../../../actions/industryMonitor/lineFinance/LineFinanceDynamicRiskAction'
 	var Immutable = __webpack_require__(706);
 	//风险顶部公用头部
 	var RiskSearchHeader = _react2.default.createClass({
@@ -61154,21 +61146,24 @@
 	      companyName: ""
 	    };
 	  },
-	  componentWillMount: function componentWillMount() {},
+	  componentWillMount: function componentWillMount() {
+	    // var companyName=this.state.companyName;
+	    // var json={companyName:companyName};
+	    // this.getRiskSearch(json);
+	  },
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    var isEqual = Immutable.is(nextProps.dynamicRiskCompanyTagResult, this.props.dynamicRiskCompanyTagResult); //判断数据是否变化
-	    if (!isEqual) {
-	      var dynamicRiskCompanyTagRequest = nextProps.dynamicRiskCompanyTagRequest;
-	      var dynamicRiskCompanyTagResult = nextProps.dynamicRiskCompanyTagResult;
 
-	      if (dynamicRiskCompanyTagRequest == true) {
-	        if (dynamicRiskCompanyTagResult.success == true) {
-	          this.dataFomat(dynamicRiskCompanyTagResult);
-	        } else {
-	          console.log(404);
-	        }
-	      }
-	    }
+	    // var isEqual=Immutable.is(nextProps.dynamicRiskCompanyTagResult, this.props.dynamicRiskCompanyTagResult)//判断数据是否变化
+	    //      if(!isEqual){
+	    //       const {dynamicRiskCompanyTagRequest,dynamicRiskCompanyTagResult}=nextProps;
+	    //       if(dynamicRiskCompanyTagRequest==true){
+	    //          if(dynamicRiskCompanyTagResult.success==true){
+	    //             this.dataFomat(dynamicRiskCompanyTagResult);
+	    //          }else{
+	    //              console.log(404)
+	    //          }
+	    //      }
+	    //    }
 	    //传入标签
 	    if (nextProps.companyInfo) {
 	      this.setState({
@@ -61176,21 +61171,21 @@
 	      });
 	    }
 	  },
-	  getRiskSearchVal: function getRiskSearchVal(data) {
-	    var _props = this.props;
-	    var getRiskSearchVal = _props.getRiskSearchVal;
-	    var getDynamicRiskCompanyTag = _props.getDynamicRiskCompanyTag;
+	  // getRiskSearch:function(data){
+	  //   // console.log(this.props,'xuyao')
+	  //    const {getDynamicRiskCompanyTag}=this.props;
+	  //   // getRiskSearchVal(data);
+	  //   // var json={companyName:data};
+	  //    getDynamicRiskCompanyTag(data);
+	  // },
+	  // dataFomat:function(data){
+	  //   console.log(data,'公司标签')
 
-	    getRiskSearchVal(data);
-	    var json = { companyName: data };
-	    getDynamicRiskCompanyTag(json);
-	  },
-	  dataFomat: function dataFomat(data) {
-	    console.log(data, '公司标签');
-	  },
+	  // },
 	  //重新载入搜索结果的页面
 	  searchKey: function searchKey(data) {
-	    this.getRiskSearchVal(data);
+	    this.props.history.push("/lineFinanceDynamicRisk?companyName=" + data);
+	    //this.getRiskSearch(data);
 	  },
 	  render: function render() {
 	    //企业标签className
@@ -61252,16 +61247,18 @@
 	    );
 	  }
 	});
-	//module.exports = RiskSearchHeader;
+	module.exports = RiskSearchHeader;
 
-	function mapStateToProps(state) {
-	  return {};
-	}
-	function mapDispatchToProps(dispatch) {
-	  return (0, _redux.bindActionCreators)(RiskSearchActionCreaters, dispatch);
-	}
+	// function mapStateToProps(state) {
+	//   return {
 
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(RiskSearchHeader);
+	//   }
+	// }
+	// function mapDispatchToProps(dispatch) {
+	//   return bindActionCreators(LineFinanceDynamicRiskActionCreaters, dispatch);
+	// }
+
+	// export default connect(mapStateToProps, mapDispatchToProps)(RiskSearchHeader)
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "RiskSearchHeader.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
@@ -61424,7 +61421,8 @@
 	                                    "category": point.level,
 	                                    "color": color,
 	                                    "name": point.name,
-	                                    "symbol": symbol
+	                                    "symbol": symbol,
+	                                    "isGetCompany": false
 	                                };
 	                            }
 	                        }
@@ -61642,7 +61640,7 @@
 	                        )
 	                    )
 	                ),
-	                _react2.default.createElement('div', { className: 'relation-modal', id: 'relation-modal' }),
+	                _react2.default.createElement('div', { id: 'relation-modal' }),
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'relation-graph-box', onClick: this.openDetail },
@@ -63553,23 +63551,27 @@
 	  getInitialState: function getInitialState() {
 	    return {
 	      areaCode: "上海市",
-	      companyName: this.props.location.query.companyName || '《国际金融报》社有限公司',
+	      companyName: "",
 	      compareMonth: "2016-08",
 	      currentMonth: "2016-07",
 	      indexCmpData: {},
 	      dateLeft: "",
-	      dateRight: ""
+	      dateRight: "",
+	      companyTag: []
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
+	    var companyName = this.props.location.query.companyName;
+	    this.setState({ companyName: companyName });
 	    //2.企业关联方特征指数
 	    var json = {
 	      areaCode: this.state.areaCode,
-	      companyName: this.state.companyName,
+	      companyName: companyName,
 	      currentMonth: this.state.dateLeft,
 	      compareMonth: this.state.dateRight
 	    };
 	    this.getDynamicRiskData(json);
+	    this.getDynamicRiskTag(json);
 	  },
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	    console.log(nextProps);
@@ -63613,22 +63615,46 @@
 	      };
 	      this.getDynamicRiskData(json);
 	    }
+
+	    var isEqual = Immutable.is(nextProps.dynamicRiskCompanyTagResult, this.props.dynamicRiskCompanyTagResult); //判断数据是否变化
+	    if (!isEqual) {
+	      var dynamicRiskCompanyTagRequest = nextProps.dynamicRiskCompanyTagRequest;
+	      var dynamicRiskCompanyTagResult = nextProps.dynamicRiskCompanyTagResult;
+
+	      if (dynamicRiskCompanyTagRequest == true) {
+	        if (dynamicRiskCompanyTagResult.success == true) {
+	          this.dataFomatTag(dynamicRiskCompanyTagResult);
+	        } else {
+	          console.log(404);
+	        }
+	      }
+	    }
 	  },
 	  dataFomat: function dataFomat(data) {
-	    console.log(data, 99999);
 	    var content = data.content;
 	    this.setState({ indexCmpData: content });
+	  },
+	  dataFomatTag: function dataFomatTag(data) {
+	    console.log(data, "公司标签");
+	    var content = data.content;
+	    var backgroud = content.backgroud;
+	    this.setState({ companyTag: backgroud });
 	  },
 	  getDynamicRiskData: function getDynamicRiskData(data) {
 	    var getDynamicRiskIndexCmp = this.props.getDynamicRiskIndexCmp;
 
 	    getDynamicRiskIndexCmp(data);
 	  },
+	  getDynamicRiskTag: function getDynamicRiskTag(data) {
+	    var getDynamicRiskCompanyTag = this.props.getDynamicRiskCompanyTag;
+
+	    getDynamicRiskCompanyTag(data);
+	  },
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'linefin-dynamic-risk' },
-	      _react2.default.createElement(_RiskSearchHeader2.default, null),
+	      _react2.default.createElement(_RiskSearchHeader2.default, _extends({}, this.props, { companyName: this.state.companyName, companyInfo: this.state.companyTag })),
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'dynamic-risk-box content-space-10' },
@@ -63676,6 +63702,10 @@
 
 	    dynamicRiskIndexCmpRequest: state.DynamicRiskIndexCmp.request,
 	    dynamicRiskIndexCmpResult: state.DynamicRiskIndexCmp.result,
+
+	    //获取公司标签
+	    dynamicRiskCompanyTagRequest: state.DynamicRiskCompanyTag.request,
+	    dynamicRiskCompanyTagResult: state.DynamicRiskCompanyTag.result,
 
 	    //获取搜索框的值  传递
 	    riskSearch: state.RiskSearch.data,
@@ -63734,7 +63764,9 @@
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
-	    var companyName = "《国际金融报》社有限公司";
+	    var companyName = this.props.location.query.companyName;
+	    this.setState({ companyName: companyName });
+
 	    var jsonData = { companyName: companyName };
 	    this.setState({ companyName: companyName });
 	    this.getRelativeDate(jsonData);
@@ -91764,7 +91796,7 @@
 
 
 	// module
-	exports.push([module.id, "/*@整体布局(一级)\r\n------------------------------------------------------------------*/\r\n.realtime-index {\r\n}\r\n.realtime-index .realtime-top {\r\n\twidth: 100%;\r\n\theight: 65%;\r\n}\r\n.realtime-index .realtime-bottom {\r\n\twidth: 100%;\r\n\theight: 35%;\r\n}\r\n\r\n/*@整体布局(二级)\r\n------------------------------------------------------------------*/\r\n.realtime-index .realtime-top>div {\r\n\tfloat: left;\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tpadding: 10px;\r\n}\r\n.realtime-index .realtime-top .realtime-top-left {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-middle {\r\n\twidth: 44%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-right {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-left {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-right {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-left: 100px;\r\n\tpadding-right: 20px;\r\n}\r\n\r\n/*realtime-top-left(左边表格)  //pudong huangpu  hongkou\r\n------------------------------------------------------------------*/\r\n.realtime-top-left {\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-left  h4 {\r\n\tfont-size: 18px;\r\n\tline-height: 40px;\r\n}\r\n.realtime-top-left  .title li {\r\n\tfloat: left;\r\n\twidth: 25%;\r\n\ttext-align: center;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tborder: 1px solid;\r\n\tcursor: pointer;\r\n\tposition: relative;\r\n}\r\n.realtime-top-left  .title li.active:after {\r\n\tcontent: \"\";\r\n\tposition: absolute;\r\n\tbottom: -6px;\r\n\tleft: 0px;\r\n\twidth: 100%;\r\n\theight: 3px;\r\n\tbackground: #fff;\r\n\tz-index: 999;\r\n}\r\n.realtime-top-left  .title li:nth-child(1) {\r\n\tbackground: red\r\n}\r\n.realtime-top-left  .title li:nth-child(2) {\r\n\tbackground: #ebc900\r\n}\r\n.realtime-top-left  .title li:nth-child(3) {\r\n\tbackground: #32b16c\r\n}\r\n.realtime-top-left  .title li:nth-child(4) {\r\n\tbackground: #000\r\n}\r\n.realtime-top-left  .table-wrap {\r\n\twidth: 100%;\r\n\theight: 440px;\r\n\toverflow-x: hidden;\r\n\toverflow-y: scroll;\r\n}\r\n.realtime-top-left table {\r\n\twidth: 100%;\r\n\theight: 200px;\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-left table tr th:nth-chid(1) {\r\n\twidth: 10%;\r\n}\r\n.realtime-top-left table tr th:nth-chid(2) {\r\n\twidth: 70%;\r\n}\r\n.realtime-top-left table tr th:nth-chid(3) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left table tr td {\r\n\ttext-align: center;\r\n\theight: 40px\r\n}\r\n.realtime-top-left table tr th {\r\n\ttext-align: center;\r\n\theight: 40px\r\n}\r\n.realtime-top-left table tr td {\r\n\tborder-top: 1px solid #3c414a\r\n}\r\n.realtime-top-left table tr td:nth-chid(1) {\r\n\twidth: 10%;\r\n}\r\n.realtime-top-left table tr td:nth-chid(2) {\r\n\twidth: 70%;\r\n}\r\n.realtime-top-left table tr td:nth-chid(3) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left .color {\r\n\theight: 16px;\r\n\twidth: 60%;\r\n\tposition: relative;\r\n\tbottom: 10px;\r\n\ttop: 20px;\r\n\tleft: 50%;\r\n\ttransform: translateX(-50%);\r\n}\r\n.realtime-top-left .color img {\r\n\tdisplay: block;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*realtime-top-left(左边表格)\r\n------------------------------------------------------------------*/\r\n.realtime-top-right {\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-top-right .item {\r\n\twidth: 100%;\r\n\theight: 33.3%;\r\n}\r\n\r\n/*realtime-bottom-right(右下角)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-right {\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n\tpadding-left: 20px\r\n}\r\n.realtime-bottom-right>h4 {\r\n\tcolor: #fff;\r\n\tline-height: 30px;\r\n\tfont-size: 16px;\r\n}\r\n.realtime-bottom-right ul li {\r\n\theight: 134px;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-right ul li h4 {\r\n\tpadding: 15px 0px;\r\n\tfont-size: 14px;\r\n\tcolor: #e14340\r\n}\r\n.realtime-bottom-right ul li h4 a {\r\n\tcolor: #e14340 !important\r\n}\r\n.realtime-bottom-right ul li p {\r\n\tcolor: #fff;\r\n\tdisplay: inline-block;\r\n\tmargin-right: 10px;\r\n}\r\n.realtime-bottom-right ul li span {\r\n\tposition: absolute;\r\n\tright: 10px;\r\n\tbottom: 30px;\r\n\tcolor: #666\r\n}\r\n\r\n/*realtime-bottom-right(中间的大地图)\r\n------------------------------------------------------------------*/\r\n.realtime-top-middle #demo {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*上海地图的信息框*/\r\n.realtime-top-middle .info {\r\n\twidth: 200px;\r\n\theight: 90px;\r\n\tleft: 2%;\r\n\ttop: 2%;\r\n\tposition: absolute;\r\n\tz-index: 999;\r\n\tcursor: pointer;\r\n\tdisplay: none\r\n}\r\n.realtime-top-middle .info .info-left, .realtime-top-middle .info .info-right {\r\n\tfloat: left;\r\n\twidth: 50%;\r\n\theight: 100%;\r\n}\r\n.realtime-top-middle .info .info-left {\r\n\tpadding: 0px 3px 3px 0px;\r\n}\r\n.realtime-top-middle .info .info-right {\r\n\tbackground: #363e48;\r\n\tborder-radius: 3px;\r\n\tfont-size: 24px;\r\n\tcolor: #e14340;\r\n\tline-height: 90px;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-middle .info .info-left .title {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 43px;\r\n\tfont-size: 12px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 43px;\r\n\tborder-radius: 3px;\r\n}\r\n.realtime-top-middle .info .info-left .date {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 43px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 43px;\r\n\tmargin-top: 3px;\r\n\tborder-radius: 3px;\r\n}\r\n\r\n/*上海地图的返回按钮*/\r\n.realtime-top-middle .return {\r\n\tbackground: linear-gradient(to bottom, #b96f6f 5%, red 50%, #f50202 100%);\r\n\tposition: absolute;\r\n\tbottom: 10%;\r\n\tleft: 3%;\r\n\tdisplay: none;\r\n}\r\n\r\n/*地下的长条信息框*/\r\n.realtime-top-middle .bar {\r\n\twidth: 98%;\r\n\theight: 40px;\r\n\tbackground: #282f39;\r\n\ttext-align: center;\r\n\tline-height: 40px;\r\n\tposition: absolute;\r\n\tbottom: 1%;\r\n\tfont-size: 12px;\r\n\tdisplay: none\r\n}\r\n.realtime-top-middle .bar img {\r\n\twidth: 30px;\r\n\theight: 30px;\r\n\tposition: absolute;\r\n\tleft: 5%;\r\n\ttop: 5px;\r\n}\r\n.darkRed {\r\n\tcolor: #e14340;\r\n\tpadding: 0px 5px;\r\n}\r\n\r\n/*tootips实验*/\r\n.testTo {\r\n\twidth: auto;\r\n\theight: auto;\r\n\tfont-size: 12px;\r\n\tcursor: pointer;\r\n}\r\n.testTo h4 {\r\n\tdisplay: inline-block;\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo label {\r\n\tdisplay: inline-block;\r\n\twidth: 60px;\r\n\theight: 18px;\r\n\tborder: 1px solid #fff;\r\n\ttext-align: center;\r\n\tvertical-align: middle;\r\n\tmargin-left: 20px;\r\n\tcolor: #000;\r\n\ttext-align: center;\r\n\ttext-indent: 5px;\r\n\tline-height: 16px;\r\n}\r\n.testTo p {\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo p span {\r\n\tcolor: yellow\r\n}\r\n.black {\r\n\tbackground: black;\r\n\tcolor: #fff !important\r\n}\r\n.green {\r\n\tbackground: green\r\n}\r\n.yellow {\r\n\tbackground: yellow\r\n}\r\n.red {\r\n\tbackground: red\r\n}\r\n\r\n/**/\r\n.testTo .tableH4 {\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n\tcolor: #ce3431;\r\n\tfont-size: 14px;\r\n\tfont-weight: bold;\r\n}\r\n.testTo table td {\r\n\tborder: 1px solid #1a2029;\r\n\ttext-align: center;\r\n\tpadding: 5px;\r\n}\r\n.testTo .tip-scroll {\r\n\twidth: 200px;\r\n\theight: 100px;\r\n\ttext-align: center;\r\n\toverflow-y: auto;\r\n}\r\n.testTo .tip-scroll  span {\r\n\tdisplay: block;\r\n\tpadding: 5px 0;\r\n}", ""]);
+	exports.push([module.id, "/*@整体布局(一级)\r\n------------------------------------------------------------------*/\r\n.realtime-index {\r\n}\r\n.realtime-index .realtime-top {\r\n\twidth: 100%;\r\n\theight: 65%;\r\n}\r\n.realtime-index .realtime-bottom {\r\n\twidth: 100%;\r\n\theight: 35%;\r\n}\r\n\r\n/*@整体布局(二级)\r\n------------------------------------------------------------------*/\r\n.realtime-index .realtime-top>div {\r\n\tfloat: left;\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tpadding: 10px;\r\n}\r\n.realtime-index .realtime-top .realtime-top-left {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-middle {\r\n\twidth: 44%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-right {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-left {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-right {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-left: 100px;\r\n\tpadding-right: 20px;\r\n}\r\n\r\n/*realtime-top-left(左边表格)  //pudong huangpu  hongkou\r\n------------------------------------------------------------------*/\r\n.realtime-top-left {\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-left  h4 {\r\n\tfont-size: 18px;\r\n\tline-height: 40px;\r\n}\r\n.realtime-top-left  .title li {\r\n\tfloat: left;\r\n\twidth: 25%;\r\n\ttext-align: center;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tborder: 1px solid;\r\n\tcursor: pointer;\r\n\tposition: relative;\r\n}\r\n.realtime-top-left  .title li.active:after {\r\n\tcontent: \"\";\r\n\tposition: absolute;\r\n\tbottom: -6px;\r\n\tleft: 0px;\r\n\twidth: 100%;\r\n\theight: 3px;\r\n\tbackground: #fff;\r\n\tz-index: 999;\r\n}\r\n.realtime-top-left  .title li:nth-child(1) {\r\n\tbackground: red\r\n}\r\n.realtime-top-left  .title li:nth-child(2) {\r\n\tbackground: #ebc900\r\n}\r\n.realtime-top-left  .title li:nth-child(3) {\r\n\tbackground: #32b16c\r\n}\r\n.realtime-top-left  .title li:nth-child(4) {\r\n\tbackground: #000\r\n}\r\n.realtime-top-left  .table-wrap {\r\n\twidth: 100%;\r\n\theight: 440px;\r\n\toverflow-x: hidden;\r\n\toverflow-y: scroll;\r\n}\r\n.realtime-top-left table {\r\n\twidth: 100%;\r\n\theight: 200px;\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-left table tr th:nth-chid(1) {\r\n\twidth: 10%;\r\n}\r\n.realtime-top-left table tr th:nth-chid(2) {\r\n\twidth: 70%;\r\n}\r\n.realtime-top-left table tr th:nth-chid(3) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left table tr td {\r\n\ttext-align: center;\r\n\theight: 40px\r\n}\r\n.realtime-top-left table tr th {\r\n\ttext-align: center;\r\n\theight: 40px\r\n}\r\n.realtime-top-left table tr td {\r\n\tborder-top: 1px solid #3c414a\r\n}\r\n.realtime-top-left table tr td:nth-chid(1) {\r\n\twidth: 10%;\r\n}\r\n.realtime-top-left table tr td:nth-chid(2) {\r\n\twidth: 70%;\r\n}\r\n.realtime-top-left table tr td:nth-chid(3) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left .color {\r\n\theight: 16px;\r\n\twidth: 60%;\r\n\tposition: relative;\r\n\tbottom: 10px;\r\n\ttop: 20px;\r\n\tleft: 50%;\r\n\ttransform: translateX(-50%);\r\n}\r\n.realtime-top-left .color img {\r\n\tdisplay: block;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*realtime-top-left(左边表格)\r\n------------------------------------------------------------------*/\r\n.realtime-top-right {\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-top-right .item {\r\n\twidth: 100%;\r\n\theight: 33.3%;\r\n}\r\n\r\n/*realtime-bottom-right(右下角)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-right {\r\n\toverflow-x: hidden;\r\n\tpadding-left: 20px\r\n}\r\n.realtime-bottom-right>h4 {\r\n\tcolor: #fff;\r\n\tline-height: 30px;\r\n\tfont-size: 16px;\r\n}\r\n.realtime-bottom-right ul {\r\n\theight: 100%;\r\n\toverflow: scroll;\r\n}\r\n.realtime-bottom-right ul li {\r\n\theight: 134px;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-right ul li h4 {\r\n\tpadding: 15px 0px;\r\n\tfont-size: 14px;\r\n\tcolor: #e14340\r\n}\r\n.realtime-bottom-right ul li h4 a {\r\n\tcolor: #e14340 !important\r\n}\r\n.realtime-bottom-right ul li p {\r\n\tcolor: #fff;\r\n\tdisplay: inline-block;\r\n\tmargin-right: 10px;\r\n}\r\n.realtime-bottom-right ul li span {\r\n\tposition: absolute;\r\n\tright: 10px;\r\n\tbottom: 30px;\r\n\tcolor: #666\r\n}\r\n\r\n/*realtime-bottom-right(中间的大地图)\r\n------------------------------------------------------------------*/\r\n.realtime-top-middle #demo {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*上海地图的信息框*/\r\n.realtime-top-middle .info {\r\n\twidth: 200px;\r\n\theight: 90px;\r\n\tleft: 2%;\r\n\ttop: 2%;\r\n\tposition: absolute;\r\n\tz-index: 999;\r\n\tcursor: pointer;\r\n\tdisplay: none\r\n}\r\n.realtime-top-middle .info .info-left, .realtime-top-middle .info .info-right {\r\n\tfloat: left;\r\n\twidth: 50%;\r\n\theight: 100%;\r\n}\r\n.realtime-top-middle .info .info-left {\r\n\tpadding: 0px 3px 3px 0px;\r\n}\r\n.realtime-top-middle .info .info-right {\r\n\tbackground: #363e48;\r\n\tborder-radius: 3px;\r\n\tfont-size: 24px;\r\n\tcolor: #e14340;\r\n\tline-height: 90px;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-middle .info .info-left .title {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 43px;\r\n\tfont-size: 12px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 43px;\r\n\tborder-radius: 3px;\r\n}\r\n.realtime-top-middle .info .info-left .date {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 43px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 43px;\r\n\tmargin-top: 3px;\r\n\tborder-radius: 3px;\r\n}\r\n\r\n/*上海地图的返回按钮*/\r\n.realtime-top-middle .return {\r\n\tbackground: linear-gradient(to bottom, #b96f6f 5%, red 50%, #f50202 100%);\r\n\tposition: absolute;\r\n\tbottom: 10%;\r\n\tleft: 3%;\r\n\tdisplay: none;\r\n}\r\n\r\n/*地下的长条信息框*/\r\n.realtime-top-middle .bar {\r\n\twidth: 98%;\r\n\theight: 40px;\r\n\tbackground: #282f39;\r\n\ttext-align: center;\r\n\tline-height: 40px;\r\n\tposition: absolute;\r\n\tbottom: 1%;\r\n\tfont-size: 12px;\r\n\tdisplay: none\r\n}\r\n.realtime-top-middle .bar img {\r\n\twidth: 30px;\r\n\theight: 30px;\r\n\tposition: absolute;\r\n\tleft: 5%;\r\n\ttop: 5px;\r\n}\r\n.darkRed {\r\n\tcolor: #e14340;\r\n\tpadding: 0px 5px;\r\n}\r\n\r\n/*tootips实验*/\r\n.testTo {\r\n\twidth: auto;\r\n\theight: auto;\r\n\tfont-size: 12px;\r\n\tcursor: pointer;\r\n}\r\n.testTo h4 {\r\n\tdisplay: inline-block;\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo label {\r\n\tdisplay: inline-block;\r\n\twidth: 60px;\r\n\theight: 18px;\r\n\tborder: 1px solid #fff;\r\n\ttext-align: center;\r\n\tvertical-align: middle;\r\n\tmargin-left: 20px;\r\n\tcolor: #000;\r\n\ttext-align: center;\r\n\ttext-indent: 5px;\r\n\tline-height: 16px;\r\n}\r\n.testTo p {\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo p span {\r\n\tcolor: yellow\r\n}\r\n.black {\r\n\tbackground: black;\r\n\tcolor: #fff !important\r\n}\r\n.green {\r\n\tbackground: green\r\n}\r\n.yellow {\r\n\tbackground: yellow\r\n}\r\n.red {\r\n\tbackground: red\r\n}\r\n\r\n/**/\r\n.testTo .tableH4 {\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n\tcolor: #ce3431;\r\n\tfont-size: 14px;\r\n\tfont-weight: bold;\r\n}\r\n.testTo table td {\r\n\tborder: 1px solid #1a2029;\r\n\ttext-align: center;\r\n\tpadding: 5px;\r\n}\r\n.testTo .tip-scroll {\r\n\twidth: 200px;\r\n\theight: 100px;\r\n\ttext-align: center;\r\n\toverflow-y: auto;\r\n}\r\n.testTo .tip-scroll  span {\r\n\tdisplay: block;\r\n\tpadding: 5px 0;\r\n}", ""]);
 
 	// exports
 
