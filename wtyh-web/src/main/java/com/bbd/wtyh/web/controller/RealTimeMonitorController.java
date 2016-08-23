@@ -58,8 +58,8 @@ public class RealTimeMonitorController {
         if (null == list || list.size() == 0) {
             list = realTimeMonitorService.spectrumAnalysis();
             if (null != list && list.size() >= 1) {
-                redisDAO.addSet(key, String.valueOf(list), Constants.REDIS_10);
-                //addObject(key, list, Constants.REDIS_10, List.class)
+//                redisDAO.addSet(key, String.valueOf(list), Constants.REDIS_10);
+                redisDAO.addObject(key, list, Constants.REDIS_10, List.class);
             }
         }
         return ResponseBean.successResponse(list);
