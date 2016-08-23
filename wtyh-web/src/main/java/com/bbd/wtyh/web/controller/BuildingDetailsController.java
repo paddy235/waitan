@@ -21,6 +21,8 @@ public class BuildingDetailsController {
     @Autowired
     public BuildingDetailsService buildingDetailsService;
 
+
+
     /**
      * 楼宇图片
      * @param buildingId

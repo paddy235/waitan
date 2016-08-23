@@ -2,6 +2,8 @@ package com.bbd.wtyh.web.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.bbd.wtyh.util.CalculateUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,6 +118,8 @@ public class CrowdFundingController {
 			hb.getxAxis().add(bean.getTypeCN());
 			hb.getseries().add(bean.getPeopleNumber());
 		}
+
+
 		return ResponseBean.successResponse(hb);
 	}
 	
@@ -131,7 +135,7 @@ public class CrowdFundingController {
 	@ResponseBody
 	public ResponseBean newlyAmount(){
 		
-		HistogramBean<String, Float> hb = new HistogramBean<>();
+		HistogramBean<String, Double> hb = new HistogramBean<>();
 		
 		List<CrowdFundingStatisticsDO> list = crowdFundingSer.lastMonthType();
 		
@@ -141,7 +145,7 @@ public class CrowdFundingController {
 		hb.setTitle(list.get(0).getMonth()+"月上海各类众筹平台新增项目数的成功筹资金额");
 		for (CrowdFundingStatisticsDO bean : list) {
 			hb.getxAxis().add(bean.getTypeCN());
-			hb.getseries().add(bean.getAmount());
+			hb.getseries().add(CalculateUtils.divide(bean.getAmount(),10000,2));
 		}
 		return ResponseBean.successResponse(hb);
 	}

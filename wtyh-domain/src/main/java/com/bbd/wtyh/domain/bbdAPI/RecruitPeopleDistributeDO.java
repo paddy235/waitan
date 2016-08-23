@@ -1,5 +1,7 @@
 package com.bbd.wtyh.domain.bbdAPI;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.List;
 
 /**
@@ -11,23 +13,26 @@ public class RecruitPeopleDistributeDO {
     private List<Rdata> rdata;
 
     public class Rdata {
-        private String x_value;
-        private String y_value;
+        @JSONField(name = "x_unit")
+        private String name;
 
-        public String getX_value() {
-            return x_value;
+        @JSONField(name = "x_value")
+        private String value;
+
+        public String getName() {
+            return name;
         }
 
-        public void setX_value(String x_value) {
-            this.x_value = x_value;
+        public void setName(String name) {
+            this.name = name;
         }
 
-        public String getY_value() {
-            return y_value;
+        public String getValue() {
+            return value;
         }
 
-        public void setY_value(String y_value) {
-            this.y_value = y_value;
+        public void setValue(String value) {
+            this.value = value;
         }
     }
 

@@ -1,9 +1,11 @@
 package com.bbd.wtyh.web.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
@@ -34,9 +36,7 @@ public class FactoringController {
 	@Autowired
 	private FactoringService facSer;
 	
-	
-	
-	
+
 	/**
 	* 在沪商业保理企业数量
 	* @return Object
@@ -210,7 +210,7 @@ public class FactoringController {
 	
 	
 	/**
-	* 商业保理在沪企业数量、全市商业保理企业注册资本总额 综合接口
+	* 在沪商业保理企业数量，全市商业保理企业注册资本总额 综合接口
 	*
 	* @return Object
 	*/
@@ -218,8 +218,9 @@ public class FactoringController {
 	@ResponseBody
 	public Object countCapitalBySeason(){
 		
-		LineChartBean<String, Object> line = new LineChartBean<>();
-		
+		LineChartBean<String, Integer> line = new LineChartBean<>();
+		line.setTitle("在沪商业保理企业数量");
+
 		HistogramBean<String, Object> hist = new HistogramBean<>();
 		hist.setTitle("全市商业保理企业注册资本总额");
 		
@@ -233,15 +234,34 @@ public class FactoringController {
 		if (CollectionUtils.isEmpty(list)) {
 			return ResponseBean.successResponse(map);
 		}
-		
-		for (CompanyCountDO cdo : list) {
-			line.getxAxis().add(cdo.getName());
-			line.getseries().add(cdo.getCount());
-			hist.getxAxis().add(cdo.getName());
-			hist.getseries().add(cdo.getSum());
+
+		int comNum = 0;
+		int sum = 0;
+		for (int k=0;k<list.size();k++) {
+			CompanyCountDO cdo = list.get(k);
+			comNum += cdo.getCount();
+			sum += cdo.getSum();
+			if(list.size()-9 < k){
+				line.getxAxis().add(cdo.getName());
+				line.getseries().add(comNum);
+				hist.getxAxis().add(cdo.getName());
+				hist.getseries().add( WanToYi( sum ) );
+			}
 		}
 		
 		return ResponseBean.successResponse(map);
+	}
+
+
+	/***
+	 *
+	 * 万元转亿元
+	 * */
+	private Double WanToYi(Integer wan){
+		if(wan == null){
+			return 0.0;
+		}
+		return new BigDecimal(""+wan).divide(new BigDecimal("10000"),1,BigDecimal.ROUND_HALF_UP).doubleValue();
 	}
 	
 	

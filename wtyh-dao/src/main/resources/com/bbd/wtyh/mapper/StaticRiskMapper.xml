@@ -222,6 +222,16 @@
         order by date DESC;
     </select>
 
+    <select id="queryDateVersionByMonth" resultType="java.lang.String" parameterType="java.util.HashMap">
+        SELECT
+          data_version AS date
+        FROM
+          relation_data
+        WHERE
+          company_name = #{companyName}
+          AND data_version LIKE CONCAT('%',#{dataVersionString},'%' )
+    </select>
+
     <select id="maxDataVersion" resultType="java.lang.String">
         SELECT
 			MAX(data_version)
@@ -229,4 +239,60 @@
 			static_risk_data
     </select>
 
+    <select id="queryOne" resultType="com.bbd.wtyh.domain.StaticRiskDataDO">
+        SELECT <include refid="staticRiskDataDOContent"></include> from static_risk_data where company_name='上海一口田投资管理有限公司' LIMIT 1
+    </select>
+
+    <insert id="save" parameterType="com.bbd.wtyh.domain.StaticRiskDataDO" >
+        INSERT INTO `static_risk_data` VALUES (#{createBy}, #{createDate}, #{updateBy}, #{updateDate}, #{area}, #{companyName}, #{dataVersion}, #{riskDate}, #{staticRiskIndex}, #{maxCompanyNum}, #{averagePersonNum}, #{oneLevelPerson}, #{realControlRisk}, #{childCompnayControlPerson_num}, #{childChildControlNum}, #{coreChildCompany}, #{companyExpandRisk}, #{controlChildCompanyNum},
+         #{oneCompanyNum}, #{controlCompany}, #{relationInRisk}, #{threePersonNum}, #{twoCompanyNum}, #{coreTwoCompany}, #{illegalFinancingRisk}, #{sixMonthNewCompanyNum}, #{toYearNewComapnyNum}, #{sixMonthNewCompany}, #{relationCompanySum}, #{shortRisk},
+         #{investment}, #{advisory}, #{trade}, #{lease}, #{factoring}, #{companyList},
+         #{illegalMoneyFinancingRisk}, #{capitalBgRisk}, #{undergraduateNum}, #{uperUndergraduateNum}, #{followUndergraduateNum},
+         #{recruitmentSum}, #{top5RecruitmentSum}, #{personStructureRisk}, #{creditInfoRisk}, #{isExposure});
+    </insert>
+
+    <sql id="staticRiskDataDOContent">
+         area AS area,
+         company_name AS companyName,
+         data_version AS dataVersion,
+         risk_date AS riskDate,
+         static_risk_index AS staticRiskIndex,
+         max_company_num AS maxCompanyNum,
+         average_person_num AS averagePersonNum,
+         one_level_person AS oneLevelPerson,
+         real_control_risk AS realControlRisk,
+         child_compnay_control_person_num AS childCompnayControlPerson_num,
+         child_child_control_num AS childChildControlNum,
+         core_child_company AS coreChildCompany,
+         company_expand_risk AS companyExpandRisk,
+         control_child_company_num AS controlChildCompanyNum,
+         one_company_num AS oneCompanyNum,
+         control_company AS controlCompany,
+         relation_in_risk AS relationInRisk,
+         three_person_num AS threePersonNum,
+         two_company_num AS twoCompanyNum,
+         core_two_company AS coreTwoCompany,
+         illegal_financing_risk AS illegalFinancingRisk,
+         six_month_new_company_num AS sixMonthNewCompanyNum,
+         to_year_new_comapny_num AS toYearNewComapnyNum,
+         six_month_new_company AS sixMonthNewCompany,
+         relation_company_sum AS relationCompanySum,
+         short_risk AS shortRisk,
+         investment AS investment,
+         advisory AS advisory,
+         trade AS trade,
+         lease AS lease,
+         factoring AS factoring,
+         company_list AS companyList,
+         illegal_money_financing_risk AS illegalMoneyFinancingRisk,
+         capital_bg_risk AS capitalBgRisk,
+         undergraduate_num AS undergraduateNum,
+         uper_undergraduate_num AS uperUndergraduateNum,
+         follow_undergraduate_num AS followUndergraduateNum,
+         recruitment_sum AS recruitmentSum,
+         top5_recruitment_sum AS top5RecruitmentSum,
+         person_structure_risk AS personStructureRisk,
+         is_exposure AS isExposure,
+         credit_info_risk AS creditInfoRisk
+    </sql>
 </mapper>

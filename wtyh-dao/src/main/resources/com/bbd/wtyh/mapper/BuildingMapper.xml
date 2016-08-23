@@ -4,6 +4,7 @@
   
     <select id="queryBuildings" parameterType="int" resultType="com.bbd.wtyh.domain.BuildingDO">
 			select b.building_id buildingId,b.name,b.park_id parkId,
+			       b.img_url imgUrl,
 			       b.finance_company_number finComNum,b.finance_company_ratio ratio
 			from building b,park p where b.park_id=p.park_id and p.area_id=#{areaId};
 	</select>
@@ -20,5 +21,27 @@
 				  
 			order by cn.create_date desc
 	</select>
-  
+
+	<select id="countByArea"  resultType="com.bbd.wtyh.domain.BuildingNumberInAreaDO">
+		SELECT
+			park.`name` AS name,
+			COUNT(building.building_id) AS count
+		FROM
+			building
+		LEFT JOIN park ON building.park_id = park.park_id
+		GROUP BY
+			building.park_id
+	</select>
+
+	<select id="companyGroupByArea"  resultType="com.bbd.wtyh.domain.CompanyGroupByAreaDO">
+		SELECT
+			company.`name` AS companyName,
+			park.`name` AS area
+		FROM
+			building
+		LEFT JOIN park ON building.park_id = park.park_id
+		LEFT JOIN company_building ON building.building_id = company_building.building_id
+		LEFT JOIN company ON company_building.company_id = company.company_id
+	</select>
+
 </mapper>

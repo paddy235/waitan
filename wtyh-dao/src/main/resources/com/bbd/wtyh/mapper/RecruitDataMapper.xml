@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.RecruitDataMapper">
+  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.RecruitDataDO">
+    <id column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <id column="data_version" jdbcType="VARCHAR" property="dataVersion" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="DATE" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="DATE" property="updateDate" />
+    <result column="recruit_detail" jdbcType="LONGVARCHAR" property="recruitDetail" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    company_name, data_version, create_by, create_date, update_by, update_date,recruit_detail
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from recruit_data
+    where company_name = #{companyName,jdbcType=VARCHAR}
+      and data_version = #{dataVersion,jdbcType=VARCHAR}
+  </select>
+
+</mapper>
