@@ -72,8 +72,8 @@
         <property name="basePackage" value="com.bbd.**.mapper"/>
     </bean>
 
-    <!-- start cache annotation -->
-    <cache:annotation-driven/>
+    <!--&lt;!&ndash; start cache annotation &ndash;&gt;-->
+    <!--<cache:annotation-driven/>-->
 
     <!-- Redis AND Pool -->
     <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
