@@ -40,7 +40,7 @@ public class MockSerserController {
                     "\"money_stock\":8430.91," +
                     "\"top10_num_amount\":0," +
                     "\"bid_num_stay_stil\":6205," +
-                    "\"company_name\":\"阿丽亚路上海投资发展有限公司\"," +
+                    "\"company_name\":\"汕头市金通汽车运输有限公司\"," +
                     "\"plat_status\":\"正常\"," +
                     "\"30_day_net_inflow\":6565.6," +
                     "\"top1_sum_amount\":0," +

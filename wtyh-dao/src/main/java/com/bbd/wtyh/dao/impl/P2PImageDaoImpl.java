@@ -85,7 +85,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
                 @Override
                 public Object parse(String s) {
                     JSONObject jsonObject = JSON.parseObject(s);
-                    data.put("total", jsonObject.get("total"));
+                    data.put("total", jsonObject.get("total")==""?0:jsonObject.get("total"));
                     return data;
                 }
             });
