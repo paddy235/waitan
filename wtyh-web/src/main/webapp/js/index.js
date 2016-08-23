@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "bbfd8fac014baaa5a8f5"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "39d0176cf4c5a7b36c15"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -59526,7 +59526,7 @@
 
 
 	// module
-	exports.push([module.id, ".line-finace-search{\r\n\tpadding: 20px;\r\n}\r\n.line-finace-index h3{\r\n\ttext-align: center;\r\n\tfont-size: 24px;\r\n}\r\n.line-finace-search label{\r\n\tfont-size: 24px;\r\n\tcolor: #ffffff;\r\n\tmargin-right: 10px;\r\n}\r\n.line-finace-search .mt-input{\r\n\twidth: 600px;\r\n\theight: 50px;\r\n\tdisplay: block;\r\n\tmargin: 0 auto;\r\n\tmargin-top: 20px;\r\n}\r\n.line-finace-search .mt-input input{\r\n\theight: 50px !important;\r\n}\r\n.line-finace-search .mt-input .mt-iconbtn{\r\n\twidth: 36px;\r\n\theight: 36px;\r\n\tmargin-top: -18px;\r\n}\r\n.line-finace-search .mt-input .iconfont{\r\n\tfont-size: 36px;\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*搜索条件*/\r\n.search-conditon{\r\n\tborder-bottom: dashed 1px #7e3235;\r\n\tpadding: 5px 20px;\r\n}\r\n.search-conditon.last{\r\n\tborder-bottom: none;\r\n}\r\n.search-conditon label{\r\n\tdisplay: inline-block;\r\n}\r\n.search-conditon ul{\r\n\tdisplay: inline-block;\r\n}\r\n.search-conditon ul li{\r\n\tdisplay: inline-block;\r\n\tpadding: 5px;\r\n\tcursor: pointer;\r\n\tfont-size: 14px;\r\n\tmargin-left:5px;\r\n}\r\n.search-conditon ul li.active{\r\n\tbackground-color: #e14340;\r\n\tborder-radius: 2px;\r\n}\r\n\r\n/*线下理财风险分布 begin*/\r\n.line-finace-risk-distrib{\r\n\tmargin-top: 20px;\r\n}\r\n.line-finace-risk-distrib h4{\r\n\ttext-align: center;\r\n\tfont-size: 16px;\r\n\tcolor:#ffffff;\r\n}\r\n.line-finace-risk-distrib .chart-box{\r\n\tbackground-color: #2b323c;\r\n\tmargin-top: 10px;\r\n\theight: 500px;\r\n}\r\n/*线下理财风险分布 end*/\r\n\r\n/*线下理财列表 begin*/\r\n.line-finace-list{\r\n\tbackground-color: #1a2029;\r\n\tmargin-top: 20px;\r\n}\r\n.line-finace-list .mod-title h3{\r\n\tdisplay: block;\r\n\ttext-align: center;\r\n}\r\n.line-finace-list .mod-content{\r\n\tbackground-color: #181a29;\r\n}\r\n.line-finace-list .mod-content .content-title span{\r\n\tfloat: left;\r\n\tdisplay: block;\r\n\twidth: 180px;\r\n\theight: 40px;\r\n\tbackground-color: #e14340;\r\n\ttext-align: center;\r\n\tline-height: 40px;\r\n\tfont-size: 16px;\r\n\tborder-top-left-radius: 5px;\r\n}\r\n.line-finace-list .mod-content .content-title{\r\n\theight: 40px;\r\n}\r\n.line-finace-list .mod-content .content-title  .select{\r\n\tfloat: right;\r\n}\r\n.line-finace-list .mod-content .content-title   .mt-select{\r\n\tbackground-color: #5e5f6a;\r\n\tmargin-top:5px;\r\n\tmargin-right: 5px;\r\n\tborder-radius: 5px;\r\n\theight: 30px;\r\n\tline-height: 30px;\r\n}\r\n.line-finace-list .mod-content .content-title .mt-select-title {\r\n\theight: 30px;\r\n\tline-height: 30px;\r\n}\r\n.line-finace-list .mod-content .content-title   .mt-select i{\r\n\tcolor:#181a29;\r\n\ttop: 8px;\r\n}\r\n.line-finace-list .mod-content .content-title ul{\r\n\tbackground-color: #5e5f6a;\r\n\tborder:none;\r\n\tborder-radius: 2px;\r\n}\r\n.line-finace-list .mod-content .table-box{\r\n\tbackground-color: #2b323c;\r\n\tpadding: 0px 10px 20px 10px;\r\n\toverflow: hidden;\r\n}\r\n.line-finace-list .mod-content .table-box thead tr th{\r\n\tbackground-color: #2b323c;\r\n}\r\n.line-finace-list .mod-content .table-box thead tr th.talign-left{\r\n\tpadding-left: 40px;\r\n}\r\n.line-finace-list .mod-content .table-box tbody tr td.talign-left{\r\n\tpadding-left: 40px;\r\n}\r\n.line-finace-list .mod-content .table-box .odd td{\r\n\tbackground-color: #1a2029;\r\n}\r\n.line-finace-list .mod-content .table-box .even td{\r\n\tbackground-color: #2b323c;\r\n}\r\n.line-finace-list .mod-content .table-box td em{\r\n\tdisplay: inline-block;\r\n\tpadding: 2px 10px;\r\n\tmargin-left: 10px; \r\n}\r\n.line-finace-list .mod-content .table-box td em.bg-red{\r\n\tbackground-color:#e14340;\r\n}\r\n.line-finace-list .mod-content .table-box td em.bg-yellow{\r\n\tbackground-color: #f19149;\r\n}\r\n.line-finace-list .mod-content .table-box tbody tr td i{\r\n\tmargin-left: 5px;\r\n}\r\n.line-finace-list .mod-content .table-box tbody tr td i.icon-arrowupx{\r\n\tcolor: #00a0ea;\r\n\tfont-size: 12px;\r\n}\r\n.line-finace-list .mod-content .table-box tbody tr td i.icon-xiangshang{\r\n\tcolor: #df4440;\r\n\tfont-size: 12px;\r\n}\r\n.line-finace-list .mod-content .table-box tbody tr td span{\r\n\tcursor: pointer;\r\n}\r\n.table-top-line  tbody tr td{\r\n\tborder-top: solid 1px #555b63;\r\n}\r\n/*线下理财列表 end*/\r\n\r\n", ""]);
+	exports.push([module.id, ".line-finace-search{\r\n\tpadding: 20px;\r\n}\r\n.line-finace-index h3{\r\n\ttext-align: center;\r\n\tfont-size: 24px;\r\n}\r\n.line-finace-search label{\r\n\tfont-size: 24px;\r\n\tcolor: #ffffff;\r\n\tmargin-right: 10px;\r\n}\r\n.line-finace-search .mt-input{\r\n\twidth: 600px;\r\n\theight: 50px;\r\n\tdisplay: block;\r\n\tmargin: 0 auto;\r\n\tmargin-top: 20px;\r\n}\r\n.line-finace-search .mt-input input{\r\n\theight: 50px !important;\r\n}\r\n.line-finace-search .mt-input .mt-iconbtn{\r\n\twidth: 36px;\r\n\theight: 36px;\r\n\tmargin-top: -18px;\r\n}\r\n.line-finace-search .mt-input .iconfont{\r\n\tfont-size: 36px;\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*搜索条件*/\r\n.search-conditon{\r\n\tborder-bottom: dashed 1px #7e3235;\r\n\tpadding: 5px 20px;\r\n}\r\n.search-conditon.last{\r\n\tborder-bottom: none;\r\n}\r\n.search-conditon label{\r\n\tdisplay: inline-block;\r\n}\r\n.search-conditon ul{\r\n\tdisplay: inline-block;\r\n}\r\n.search-conditon ul li{\r\n\tdisplay: inline-block;\r\n\tpadding: 5px;\r\n\tcursor: pointer;\r\n\tfont-size: 14px;\r\n\tmargin-left:5px;\r\n}\r\n.search-conditon ul li.active{\r\n\tbackground-color: #e14340;\r\n\tborder-radius: 2px;\r\n}\r\n\r\n/*线下理财风险分布 begin*/\r\n.line-finace-risk-distrib{\r\n\tmargin-top: 20px;\r\n}\r\n.line-finace-risk-distrib h4{\r\n\ttext-align: center;\r\n\tfont-size: 16px;\r\n\tcolor:#ffffff;\r\n}\r\n.line-finace-risk-distrib .chart-box{\r\n\tbackground-color: #2b323c;\r\n\tmargin-top: 10px;\r\n\theight: 500px;\r\n}\r\n/*线下理财风险分布 end*/\r\n\r\n/*线下理财列表 begin*/\r\n.line-finace-list{\r\n\tbackground-color: #1a2029;\r\n\tmargin-top: 20px;\r\n}\r\n.line-finace-list .mod-title h3{\r\n\tdisplay: block;\r\n\ttext-align: center;\r\n}\r\n.line-finace-list .mod-content{\r\n\tbackground-color: #181a29;\r\n}\r\n.line-finace-list .mod-content .content-title span{\r\n\tfloat: left;\r\n\tdisplay: block;\r\n\twidth: 180px;\r\n\theight: 40px;\r\n\tbackground-color: #e14340;\r\n\ttext-align: center;\r\n\tline-height: 40px;\r\n\tfont-size: 16px;\r\n\tborder-top-left-radius: 5px;\r\n}\r\n.line-finace-list .mod-content .content-title{\r\n\theight: 40px;\r\n}\r\n.line-finace-list .mod-content .content-title  .select{\r\n\tfloat: right;\r\n}\r\n.line-finace-list .mod-content .content-title   .mt-select{\r\n\tbackground-color: #5e5f6a;\r\n\tmargin-top:5px;\r\n\tmargin-right: 5px;\r\n\tborder-radius: 5px;\r\n\theight: 30px;\r\n\tline-height: 30px;\r\n}\r\n.line-finace-list .mod-content .content-title .mt-select-title {\r\n\theight: 30px;\r\n\tline-height: 30px;\r\n}\r\n.line-finace-list .mod-content .content-title   .mt-select i{\r\n\tcolor:#181a29;\r\n\ttop: 8px;\r\n}\r\n.line-finace-list .mod-content .content-title ul{\r\n\tbackground-color: #5e5f6a;\r\n\tborder:none;\r\n\tborder-radius: 2px;\r\n}\r\n.line-finace-list .mod-content .table-box{\r\n\tbackground-color: #2b323c;\r\n\tpadding: 0px 10px 20px 10px;\r\n\toverflow: hidden;\r\n}\r\n.line-finace-list .mod-content .table-box thead tr th{\r\n\tbackground-color: #2b323c;\r\n}\r\n.line-finace-list .mod-content .table-box thead tr th.talign-left{\r\n\tpadding-left: 40px;\r\n}\r\n.line-finace-list .mod-content .table-box .odd td{\r\n\tbackground-color: #1a2029;\r\n}\r\n.line-finace-list .mod-content .table-box .even td{\r\n\tbackground-color: #2b323c;\r\n}\r\n.line-finace-list .mod-content .table-box  td a{\r\n\tcolor: #ffffff;\r\n}\r\n.line-finace-list .mod-content .table-box td em{\r\n\tdisplay: inline-block;\r\n\tpadding: 2px 10px;\r\n\tmargin-left: 10px; \r\n}\r\n.line-finace-list .mod-content .table-box td em.bg-red{\r\n\tbackground-color:#e14340;\r\n}\r\n.line-finace-list .mod-content .table-box td em.bg-yellow{\r\n\tbackground-color: #f19149;\r\n}\r\n.line-finace-list .mod-content .table-box tbody tr td i{\r\n\tmargin-left: 5px;\r\n}\r\n.line-finace-list .mod-content .table-box tbody tr td i.icon-arrowupx{\r\n\tcolor: #00a0ea;\r\n\tfont-size: 12px;\r\n}\r\n.line-finace-list .mod-content .table-box tbody tr td i.icon-xiangshang{\r\n\tcolor: #df4440;\r\n\tfont-size: 12px;\r\n}\r\n.line-finace-list .mod-content .table-box tbody tr td span{\r\n\tcursor: pointer;\r\n}\r\n.table-top-line  tbody tr td{\r\n\tborder-top: solid 1px #555b63;\r\n}\r\n/*线下理财列表 end*/\r\n\r\n", ""]);
 
 	// exports
 
@@ -60056,6 +60056,8 @@
 
 	var _ScatterChart2 = _interopRequireDefault(_ScatterChart);
 
+	var _reactRouter = __webpack_require__(243);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Immutable = __webpack_require__(706);
@@ -60266,8 +60268,8 @@
 	                                            'td',
 	                                            { className: 'talign-left' },
 	                                            _react2.default.createElement(
-	                                                'span',
-	                                                { onClick: this.jumpClick },
+	                                                _reactRouter.Link,
+	                                                { to: { pathname: '/lineFinanceStaticRisk', query: { companyName: elem.companyName } }, onClick: this.jumpClick },
 	                                                elem.companyName
 	                                            ),
 	                                            comQua
@@ -60292,8 +60294,8 @@
 	                                            'td',
 	                                            { className: 'talign-left' },
 	                                            _react2.default.createElement(
-	                                                'span',
-	                                                { onClick: this.jumpClick },
+	                                                _reactRouter.Link,
+	                                                { to: { pathname: '/lineFinanceStaticRisk', query: { companyName: elem.companyName } }, onClick: this.jumpClick },
 	                                                elem.companyName
 	                                            ),
 	                                            comQua
@@ -63564,6 +63566,7 @@
 	  },
 	  componentDidMount: function componentDidMount() {
 	    var companyName = this.props.location.query.companyName;
+	    console.log(companyName, 'companyName 22');
 	    this.setState({ companyName: companyName });
 	    //2.企业关联方特征指数
 	    var json = {
@@ -63576,7 +63579,19 @@
 	    this.getDynamicRiskTag(json);
 	  },
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    console.log(nextProps);
+	    var iscompanyNameEqual = Immutable.is(nextProps.location.query.companyName, this.props.location.query.companyName); //判断数据是否变化
+	    if (!iscompanyNameEqual) {
+	      var companyName = nextProps.location.query.companyName;
+	      var json = {
+	        areaCode: this.state.areaCode,
+	        companyName: companyName,
+	        currentMonth: currentMonth,
+	        compareMonth: compareMonth
+	      };
+	      this.setState({ companyName: companyName });
+	      this.getDynamicRiskData(json);
+	    }
+
 	    var isEqual = Immutable.is(nextProps.dynamicRiskIndexCmpResult, this.props.dynamicRiskIndexCmpResult); //判断数据是否变化
 	    if (!isEqual) {
 	      var dynamicRiskIndexCmpRequest = nextProps.dynamicRiskIndexCmpRequest;
@@ -63945,6 +63960,7 @@
 	      var json = { companyName: companyName, month: nowDate };
 	      this.getRelativeImg(json);
 	    }
+
 	    var isImgEqual = Immutable.is(nextProps.dynamicRiskLeftImgResult, this.props.dynamicRiskLeftImgResult);
 	    if (!isImgEqual) {
 	      var dynamicRiskLeftImgRequest = nextProps.dynamicRiskLeftImgRequest;
