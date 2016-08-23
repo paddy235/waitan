@@ -46,19 +46,30 @@ public class MockSerserController {
                     "\"top1_sum_amount\":0," +
                     "\"amount_taotal\":23154.0985," +
                     "\"plat_data_six_month\": [" +
-                        "{date: \"2016-08-08\", day_interest_rate: \"5.6\", day_amount: \"100\", day_money_stock: \"578\"}, " +
-                        "{date: \"2016-08-09\", day_interest_rate: \"6.6\", day_amount: \"300\", day_money_stock: \"666\"}, " +
-                        "{date: \"2016-08-10\", day_interest_rate: \"5.7\", day_amount: \"200\", day_money_stock: \"333\"}, " +
-                        "{date: \"2016-08-11\", day_interest_rate: \"5.8\", day_amount: \"400\", day_money_stock: \"123\"}" +
+                           "{date: \"2016-08-08\", day_interest_rate: \"5.6\", day_amount: \"100\", day_money_stock: \"578\"}, " +
+                           "{date: \"2016-08-09\", day_interest_rate: \"6.6\", day_amount: \"300\", day_money_stock: \"666\"}, " +
+                           "{date: \"2016-08-10\", day_interest_rate: \"5.7\", day_amount: \"200\", day_money_stock: \"333\"}, " +
+                           "{date: \"2016-08-12\", day_interest_rate: \"5.8\", day_amount: \"400\", day_money_stock: \"555\"}, " +
+                           "{date: \"2016-08-13\", day_interest_rate: \"5.9\", day_amount: \"500\", day_money_stock: \"789\"}, " +
+                           "{date: \"2016-08-14\", day_interest_rate: \"6.0\", day_amount: \"600\", day_money_stock: \"452\"}, " +
+                           "{date: \"2016-08-15\", day_interest_rate: \"6.1\", day_amount: \"400\", day_money_stock: \"125\"}, " +
+                           "{date: \"2016-08-16\", day_interest_rate: \"6.2\", day_amount: \"100\", day_money_stock: \"852\"}, " +
+                           "{date: \"2016-08-17\", day_interest_rate: \"6.3\", day_amount: \"300\", day_money_stock: \"963\"}, " +
+                           "{date: \"2016-08-18\", day_interest_rate: \"6.4\", day_amount: \"700\", day_money_stock: \"784\"}, " +
+                           "{date: \"2016-08-19\", day_interest_rate: \"6.5\", day_amount: \"400\", day_money_stock: \"123\"}, " +
+                           "{date: \"2016-08-20\", day_interest_rate: \"6.6\", day_amount: \"100\", day_money_stock: \"148\"}, " +
+                           "{date: \"2016-08-21\", day_interest_rate: \"6.7\", day_amount: \"500\", day_money_stock: \"524\"}, " +
+                           "{date: \"2016-08-22\", day_interest_rate: \"6.8\", day_amount: \"600\", day_money_stock: \"745\"}, " +
+                           "{date: \"2016-08-23\", day_interest_rate: \"6.9\", day_amount: \"300\", day_money_stock: \"326\"}, " +
                     "]}";
 
         } else if (dataType.equals("yuqing")) {
             return "{plat_name: \"投融范\", " +
                     "score: \"10\", " +
                     "warning: [" +
-                        "{info:\"上海p2p投融范发逾期公告 承诺9个月内兑付\"}," +
-                        "{info:\"投融范一个推子布局的诈骗平台推子兼职诈骗，人人得而诛之\"}," +
-                        "{info:\"投融范项目逾期，回款无望\"}" +
+                    "{info:\"上海p2p投融范发逾期公告 承诺9个月内兑付\"}," +
+                    "{info:\"投融范一个推子布局的诈骗平台推子兼职诈骗，人人得而诛之\"}," +
+                    "{info:\"投融范项目逾期，回款无望\"}" +
                     "]}";
 
         } else if (dataType.equals("plat_list")) {
@@ -93,9 +104,7 @@ public class MockSerserController {
         }
     }
 
-    
-    
-    
+
     /**
      * 核心数据及集中度
      *
@@ -121,19 +130,19 @@ public class MockSerserController {
                     "\"top1_sum_amount\":0," +
                     "\"amount_taotal\":23154.0985," +
                     "\"plat_data_six_month\": [" +
-                        "{date: \"2016-08-08\", day_interest_rate: \"5.6\", day_amount: \"100\", day_money_stock: \"578\"}, " +
-                        "{date: \"2016-08-09\", day_interest_rate: \"6.6\", day_amount: \"300\", day_money_stock: \"666\"}, " +
-                        "{date: \"2016-08-10\", day_interest_rate: \"5.7\", day_amount: \"200\", day_money_stock: \"333\"}, " +
-                        "{date: \"2016-08-11\", day_interest_rate: \"5.8\", day_amount: \"400\", day_money_stock: \"123\"}" +
+                    "{date: \"2016-08-08\", day_interest_rate: \"5.6\", day_amount: \"100\", day_money_stock: \"578\"}, " +
+                    "{date: \"2016-08-09\", day_interest_rate: \"6.6\", day_amount: \"300\", day_money_stock: \"666\"}, " +
+                    "{date: \"2016-08-10\", day_interest_rate: \"5.7\", day_amount: \"200\", day_money_stock: \"333\"}, " +
+                    "{date: \"2016-08-11\", day_interest_rate: \"5.8\", day_amount: \"400\", day_money_stock: \"123\"}" +
                     "]}";
 
         } else if (dataType.equals("yuqing")) {
             return "{plat_name: \"投融范\", " +
                     "score: \"10\", " +
                     "warning: [" +
-                        "{info:\"上海p2p投融范发逾期公告 承诺9个月内兑付\"}," +
-                        "{info:\"投融范一个推子布局的诈骗平台推子兼职诈骗，人人得而诛之\"}," +
-                        "{info:\"投融范项目逾期，回款无望\"}" +
+                    "{info:\"上海p2p投融范发逾期公告 承诺9个月内兑付\"}," +
+                    "{info:\"投融范一个推子布局的诈骗平台推子兼职诈骗，人人得而诛之\"}," +
+                    "{info:\"投融范项目逾期，回款无望\"}" +
                     "]}";
 
         } else if (dataType.equals("plat_list")) {
@@ -197,7 +206,7 @@ public class MockSerserController {
         for (int k = 0; k < 3; k++) {
             AreaIndexDTO dto = new AreaIndexDTO();
 
-            dto.setArea(k==0?"浦东新区":(k==1?"虹口区":"黄浦区"));
+            dto.setArea(k == 0 ? "浦东新区" : (k == 1 ? "虹口区" : "黄浦区"));
             dto.setCompetitiveness(k * 3);
             dto.setEcosystem(k * 2);
             dto.setRank(k * 5);
