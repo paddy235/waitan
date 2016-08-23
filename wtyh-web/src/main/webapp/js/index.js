@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "f0b92dfd693b697a32f1"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "62f695761bbfe5c48a77"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -47563,7 +47563,7 @@
 
 
 	// module
-	exports.push([module.id, "* {\r\n\tmargin: 0px;\r\n\tpadding: 0px;\r\n}\r\n\r\nul,\r\nli {\r\n\tlist-style: none;\r\n}\r\n\r\na {\r\n\ttext-decoration: none;\r\n}\r\n\r\nhtml {\r\n\t-webkit-text-size-adjust: none;\r\n}\r\n\r\nbody {\r\n\tbackground-color: #1a2029;\r\n\tcolor: #ffffff;\r\n\tfont-family: 'Microsoft Yahei';\r\n}\r\n\r\n.clear:after {\r\n\tcontent: \".\";\r\n\theight: 0;\r\n\tvisibility: hidden;\r\n\tdisplay: block;\r\n\tclear: both;\r\n}\r\n\r\n.cur-pointer {\r\n\tcursor: pointer;\r\n}\r\n\r\n/*头部导航 header begin*/\r\n.header {\r\n\twidth: 100%;\r\n\theight: 60px;\r\n\tbackground-color: #383e47;\r\n\toverflow: hidden;\r\n}\r\n\r\n.header .logo {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\tline-height: 60px;\r\n\tcolor: #ffffff;\r\n\tfont-size: 20px;\r\n}\r\n\r\n.header .logo .img {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\twidth: 90px;\r\n\theight: 60px;\r\n\tbackground: url(/images/logo.png);\r\n}\r\n\r\n.header .right {\r\n\tfloat: right;\r\n\tmargin-top: 20px;\r\n\tmargin-right: 30px;\r\n}\r\n\r\n.header .right .name {\r\n\tfont-size: 16px;\r\n\tcolor: #ffffff;\r\n\tmargin-right: 30px;\r\n\tcursor: pointer;\r\n}\r\n\r\n.list-header {\r\n\tfont-size: 18px;\r\n\tcolor: #fff;\r\n\tpadding: 14px;\t/*text-indent: 30px;*/\r\n}\r\n\r\n.wrap {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tposition: relative;\r\n\tz-index: 500;\r\n\toverflow: hidden;\r\n\tbackground: #1f253d;\r\n\tbackground-size: cover;\r\n}\r\n\r\n.header .right .name span {\r\n\tmargin-left: 10px;\r\n\tmargin-right: 8px;\r\n\tfont-weight: bold;\r\n}\r\n\r\n.header .right .quit {\r\n\tfont-size: 16px;\r\n\tcolor: #e24643;\r\n}\r\n\r\n/*头部导航 header end*/\r\n.radius4 {\r\n\tborder-radius: 5px;\r\n}\r\n\r\n/*主题页导航  begin*/\r\n.menu {\r\n\twidth: 100%;\r\n\theight: 50px;\r\n\tbackground-color: #2b323c;\r\n}\r\n\r\n.menu ul.nav {\r\n\theight: 50px;\r\n\tfloat: left;\r\n}\r\n\r\n.menu ul.nav  li {\r\n\tfloat: left;\r\n\tposition: relative;\r\n}\r\n\r\n.menu ul.nav  li a {\r\n\tcolor: #ffffff;\r\n\tpadding: 0px 30px;\r\n\tline-height: 50px;\r\n}\r\n\r\n.menu ul.nav li a.active:after {\r\n\tcontent: \"\";\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\tbottom: 0px;\r\n\twidth: 100%;\r\n\theight: 0.2rem;\r\n\tbackground: #e14340;\r\n\tz-index: 0;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav {\r\n\twidth: 96px;\r\n\theight: auto;\r\n\tbackground-color: #545e6d;\r\n\tposition: absolute;\r\n\tleft: 50%;\r\n\ttop: 40px;\r\n\tmargin-left: -50px;\r\n\tz-index: 10;\r\n\tdisplay: none;\r\n}\r\n\r\n.menu ul.nav  li ul.hide {\r\n\tdisplay: none;\r\n}\r\n\r\n.menu ul.nav  li ul.show {\r\n\tdisplay: block;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li {\r\n\twidth: 100%;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\ttext-align: center;\r\n\tfloat: none;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li a {\r\n\tdisplay: block;\r\n\twidth: 100%;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\ttext-align: center;\r\n\tpadding: 0 0;\r\n\tfont-size: 14px;\r\n\tcolor: #b7b7b7;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li a.active:after {\r\n\tdisplay: none;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li a:hover {\r\n\tbackground-color: #42b8e2;\r\n\tcolor: #ffffff;\r\n}\r\n\r\n.menu .right-park {\r\n\tfloat: right;\r\n\tmargin-top: 12px;\r\n\tmargin-right: 30px;\r\n}\r\n\r\n.menu .right-park .mt-select {\r\n\tmargin-right: 10px;\r\n}\r\n\r\n.menu .right-park .mt-select-title {\r\n\tbackground-color: #ffffff;\r\n\tcolor: #333333;\r\n}\r\n\r\n.menu .right-park .mt-select-box {\r\n\tcolor: #333333;\r\n}\r\n\r\n.menu .right-park a {\r\n\tbackground-color: #e14340;\r\n\tcolor: #ffffff;\r\n\tpadding: 4px 10px;\r\n\tborder-radius: 5px;\r\n}\r\n\r\n/*主题页导航  end*/\r\n\r\n/*控制边距的类*/\r\n.content-space-10 {\r\n\tmargin: 10px;\r\n}\r\n\r\n.content-space-top-0 {\r\n\tmargin: 0px 10px 10px 10px;\r\n}\r\n\r\n.mod-space-l {\r\n\tmargin-left: 0.5%;\r\n}\r\n\r\n.mod-space-t {\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.mod-space-dl {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n.mod-space-dt {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n/*模块公用样式 begin*/\r\n.mod {\r\n\theight: 100%;\r\n\tbackground-color: #2b323c;\r\n}\r\n\r\n.mod .mod-title h3 {\r\n\tdisplay: inline-block;\r\n\tvertical-align: middle;\r\n\tfont-weight: normal;\r\n\tfont-style: normal;\r\n\tfont-size: 16px;\r\n\tcolor: #ffffff;\r\n\tmargin-left: 10px;\r\n\tpadding: 8px 0;\r\n}\r\n\r\n.mod .mod-title .mod-title-right {\r\n\tfloat: right;\r\n}\r\n\r\n/*模块标题上的下拉选择框 begind*/\r\n.mod .mod-title .mod-title-right .mt-select {\r\n\tcolor: #e5e5e5;\r\n\tbackground-color: #1a2029;\r\n\tborder: none;\r\n\tpadding-left: 5px;\r\n\tpadding-right: 5px;\r\n}\r\n\r\n.mod .mod-title .mod-title-right .mt-select-box {\r\n\tbackground-color: #1a2029;\r\n\tborder: none;\r\n}\r\n\r\n/*模块标题上的下拉选择框 end*/\r\n.mt-select {\r\n\tborder: none !important;\r\n}\r\n\r\n/*模块公用样式 end*/\r\n*:focus {\r\n\toutline: none;\r\n}\r\n\r\n/*表格公用样式*/\r\ntable {\r\n\tborder-collapse: separate;\r\n}\r\n\r\n.wtyh-table thead th {\r\n\tborder-bottom: none;\r\n\tbackground-color: #1a2029;\r\n\tcolor: #dddddd;\r\n\tfont-size: 14px;\r\n\tfont-weight: normal;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.wtyh-table thead tr {\r\n\tborder-top-left-radius: 5px;\r\n\tborder-top-right-radius: 5px;\r\n}\r\n\r\n.wtyh-table tbody td {\r\n\tborder-bottom: none;\r\n\tcolor: #ffffff;\r\n\tfont-size: 14px;\r\n}\r\n\r\n.wtyh-table tbody tr.odd td {\r\n\tbackground: #2b323c;\r\n}\r\n\r\n.wtyh-table tbody tr.odd-line td {\r\n\tbackground: #36404d;\r\n\tborder-right: 1px #2b323c solid;\r\n}\r\n\r\n.wtyh-table tbody tr.odd-blackbg-line td {\r\n\tbackground: #222932;\r\n\tborder-right: 1px #2b323c solid;\r\n}\r\n\r\n.wtyh-table tbody tr.even td {\r\n\tbackground-color: #1a2029;\r\n}\r\n\r\n.talign-left {\r\n\ttext-align: left !important;\r\n}\r\n\r\n.wtyh-table.table-border-b  tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.talign-right {\r\n\ttext-align: right !important;\r\n}\r\n\r\n.talign-center {\r\n\ttext-align: center !important;\r\n}\r\n\r\n.header-gray {\r\n\theight: 50px;\r\n\tline-height: 50px;\r\n\tbackground: #394351;\r\n\tborder-top-left-radius: 5px;\r\n\tborder-top-right-radius: 5px;\r\n}\r\n\r\n.skublue {\r\n\tcolor: #00b8ee\r\n}\r\n\r\n.orange {\r\n\tcolor: #e14340\r\n}\r\n\r\n/*限制字数五个字*/\r\n.word-limit-5 {\r\n\toverflow: hidden; /*自动隐藏文字*/\r\n\ttext-overflow: ellipsis;/*文字隐藏后添加省略号*/\r\n\twhite-space: nowrap;/*强制不换行*/\r\n\tdisplay: inline-block;\r\n\twidth: 80px;\r\n}\r\n\r\n/*分页样式覆盖*/\r\n.mt-pagelist {\r\n\tmargin-top: 10px !important;\r\n}\r\n\r\n.mt-pagelist ul {\r\n\theight: 30px;\r\n}\r\n\r\n.mt-pagelist .mt-select,\r\n.mt-pagelist .mt-pagelist-first,\r\n.mt-pagelist .mt-pagelist-end,\r\n.mt-pagelist .mt-pagelist-runprev,\r\n.mt-pagelist .mt-pagelist-runnext {\r\n\tdisplay: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-prev,\r\n.mt-pagelist .mt-pagelist-next,\r\n.mt-pagelist .mt-pagelist-btn,\r\n.mt-pagelist .mt-pagelist-end,\r\n.mt-pagelist .mt-pagelist-first {\r\n\tbackground-color: #1a2029 !important;\r\n\tcolor: #ffffff !important;\r\n\tborder: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-input .mt-input {\r\n\tbackground-color: #1a2029 !important;\r\n\tcolor: #ffffff !important;\r\n\tborder: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li {\r\n\tbackground-color: #1a2029 !important;\r\n\tcolor: #ffffff !important;\r\n\tborder: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li a {\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n\tline-height: 26px !important;\r\n\tborder-radius: 2px !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li a:hover {\r\n\tbackground-color: #e14340 !important;\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li.on a {\r\n\tbackground-color: #e14340 !important;\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-btn:hover,\r\n.mt-pagelist .mt-pagelist-prev:hover,\r\n.mt-pagelist .mt-pagelist-next:hover {\r\n\tbackground-color: #e14340 !important;\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n}\r\n\r\n/*搜索框*/\r\n.mt-input .mt-iconbtn,\r\n.mt-input-block .mt-iconbtn a {\r\n\tcursor: pointer !important;\r\n}\r\n\r\n/*颜色*/\r\n.c-red {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*联想词*/\r\n.ac_results {\r\n\tpadding: 0;\r\n\toverflow: auto;\r\n\tz-index: 99999;\r\n\tmax-height: 200px;\r\n\tbackground: rgba(17, 38, 67, 0.9);\r\n\tborder-bottom-left-radius: 4px;\r\n\tborder-bottom-right-radius: 4px;\r\n}\r\n\r\n.ac_results ul {\r\n\twidth: 100%;\r\n\tlist-style: none;\r\n\tpadding: 0;\r\n\tmargin: 0;\r\n}\r\n\r\n.ac_results ul li:last-child {\r\n\tborder-bottom-left-radius: 4px;\r\n\tborder-bottom-right-radius: 4px;\r\n}\r\n\r\n.ac_results li {\r\n\tpadding: 5px 10px;\r\n\tdisplay: block;\r\n\tfont-size: 14px;\r\n\toverflow: hidden;\r\n}\r\n\r\n.ac_results .group-item {\r\n\tcursor: pointer;\r\n}\r\n\r\n.ac_results ul .group-item:hover {\r\n\tbackground: #063a5f;\r\n}\r\n\r\n.ac_results .group {\r\n\tcolor: #666;\r\n}\r\n\r\n.ac_results i {\r\n\tfont-size: 12px;\r\n\tcolor: #999;\r\n\tpadding-left: 1em;\r\n}\r\n\r\n.ac_results .strong {\r\n\tcolor: #13b7fe;\r\n}\r\n\r\n.ac-results ul li.group:hover {\r\n\tcursor: default;\r\n\tbackground-color: #172837;\r\n\tcolor: #666;\r\n}\r\n\r\n.iconfont.icon-desc {\r\n\tcursor: pointer;\r\n}\r\n\r\n", ""]);
+	exports.push([module.id, "* {\r\n\tmargin: 0px;\r\n\tpadding: 0px;\r\n}\r\n\r\nul,\r\nli {\r\n\tlist-style: none;\r\n}\r\n\r\na {\r\n\ttext-decoration: none;\r\n}\r\n\r\nhtml {\r\n\t-webkit-text-size-adjust: none;\r\n}\r\n\r\nbody {\r\n\tbackground-color: #1a2029;\r\n\tcolor: #ffffff;\r\n\tfont-family: 'Microsoft Yahei';\r\n}\r\n\r\n.clear:after {\r\n\tcontent: \".\";\r\n\theight: 0;\r\n\tvisibility: hidden;\r\n\tdisplay: block;\r\n\tclear: both;\r\n}\r\n\r\n.cur-pointer {\r\n\tcursor: pointer;\r\n}\r\n\r\n/*头部导航 header begin*/\r\n.header {\r\n\twidth: 100%;\r\n\theight: 60px;\r\n\tbackground-color: #383e47;\r\n\toverflow: hidden;\r\n}\r\n\r\n.header .logo {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\tline-height: 60px;\r\n\tcolor: #ffffff;\r\n\tfont-size: 20px;\r\n}\r\n\r\n.header .logo .img {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\twidth: 90px;\r\n\theight: 60px;\r\n\tbackground: url(/images/logo.png);\r\n}\r\n\r\n.header .right {\r\n\tfloat: right;\r\n\tmargin-top: 20px;\r\n\tmargin-right: 30px;\r\n}\r\n\r\n.header .right .name {\r\n\tfont-size: 16px;\r\n\tcolor: #ffffff;\r\n\tmargin-right: 30px;\r\n\tcursor: pointer;\r\n}\r\n\r\n.list-header {\r\n\tfont-size: 18px;\r\n\tcolor: #fff;\r\n\tpadding: 14px;\t/*text-indent: 30px;*/\r\n}\r\n\r\n.wrap {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tposition: relative;\r\n\tz-index: 500;\r\n\toverflow: hidden;\r\n\tbackground: #1f253d;\r\n\tbackground-size: cover;\r\n}\r\n\r\n.header .right .name span {\r\n\tmargin-left: 10px;\r\n\tmargin-right: 8px;\r\n\tfont-weight: bold;\r\n}\r\n\r\n.header .right .quit {\r\n\tfont-size: 16px;\r\n\tcolor: #e24643;\r\n}\r\n\r\n/*头部导航 header end*/\r\n.radius4 {\r\n\tborder-radius: 5px;\r\n}\r\n\r\n/*主题页导航  begin*/\r\n.menu {\r\n\twidth: 100%;\r\n\theight: 50px;\r\n\tbackground-color: #2b323c;\r\n}\r\n\r\n.menu ul.nav {\r\n\theight: 50px;\r\n\tfloat: left;\r\n}\r\n\r\n.menu ul.nav  li {\r\n\tfloat: left;\r\n\tposition: relative;\r\n}\r\n\r\n.menu ul.nav  li a {\r\n\tcolor: #ffffff;\r\n\tpadding: 0px 30px;\r\n\tline-height: 50px;\r\n}\r\n\r\n.menu ul.nav li a.active:after {\r\n\tcontent: \"\";\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\tbottom: 0px;\r\n\twidth: 100%;\r\n\theight: 0.2rem;\r\n\tbackground: #e14340;\r\n\tz-index: 0;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav {\r\n\twidth: 96px;\r\n\theight: auto;\r\n\tbackground-color: #545e6d;\r\n\tposition: absolute;\r\n\tleft: 50%;\r\n\ttop: 40px;\r\n\tmargin-left: -50px;\r\n\tz-index: 10;\r\n\tdisplay: none;\r\n}\r\n\r\n.menu ul.nav  li ul.hide {\r\n\tdisplay: none;\r\n}\r\n\r\n.menu ul.nav  li ul.show {\r\n\tdisplay: block;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li {\r\n\twidth: 100%;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\ttext-align: center;\r\n\tfloat: none;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li a {\r\n\tdisplay: block;\r\n\twidth: 100%;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\ttext-align: center;\r\n\tpadding: 0 0;\r\n\tfont-size: 14px;\r\n\tcolor: #b7b7b7;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li a.active:after {\r\n\tdisplay: none;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li a:hover {\r\n\tbackground-color: #42b8e2;\r\n\tcolor: #ffffff;\r\n}\r\n\r\n.menu .right-park {\r\n\tfloat: right;\r\n\tmargin-top: 12px;\r\n\tmargin-right: 30px;\r\n}\r\n\r\n.menu .right-park .mt-select {\r\n\tmargin-right: 10px;\r\n}\r\n\r\n.menu .right-park .mt-select-title {\r\n\tbackground-color: #ffffff;\r\n\tcolor: #333333;\r\n}\r\n\r\n.menu .right-park .mt-select-box {\r\n\tcolor: #333333;\r\n}\r\n\r\n.menu .right-park a {\r\n\tbackground-color: #e14340;\r\n\tcolor: #ffffff;\r\n\tpadding: 4px 10px;\r\n\tborder-radius: 5px;\r\n}\r\n\r\n/*主题页导航  end*/\r\n\r\n/*控制边距的类*/\r\n.content-space-10 {\r\n\tmargin: 10px;\r\n}\r\n\r\n.content-space-top-0 {\r\n\tmargin: 0px 10px 10px 10px;\r\n}\r\n\r\n.mod-space-l {\r\n\tmargin-left: 0.5%;\r\n}\r\n\r\n.mod-space-t {\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.mod-space-dl {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n.mod-space-dt {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n/*模块公用样式 begin*/\r\n.mod {\r\n\theight: 100%;\r\n\tbackground-color: #2b323c;\r\n}\r\n\r\n.mod .mod-title h3 {\r\n\tdisplay: inline-block;\r\n\tvertical-align: middle;\r\n\tfont-weight: normal;\r\n\tfont-style: normal;\r\n\tfont-size: 16px;\r\n\tcolor: #ffffff;\r\n\tmargin-left: 10px;\r\n\tpadding: 8px 0;\r\n}\r\n\r\n.mod .mod-title .mod-title-right {\r\n\tfloat: right;\r\n}\r\n\r\n/*模块标题上的下拉选择框 begind*/\r\n.mod .mod-title .mod-title-right .mt-select {\r\n\tcolor: #e5e5e5;\r\n\tbackground-color: #1a2029;\r\n\tborder: none;\r\n\tpadding-left: 5px;\r\n\tpadding-right: 5px;\r\n}\r\n\r\n.mod .mod-title .mod-title-right .mt-select-box {\r\n\tbackground-color: #1a2029;\r\n\tborder: none;\r\n}\r\n\r\n/*模块标题上的下拉选择框 end*/\r\n.mt-select {\r\n\tborder: none !important;\r\n}\r\n\r\n/*模块公用样式 end*/\r\n*:focus {\r\n\toutline: none;\r\n}\r\n\r\n/*表格公用样式*/\r\ntable {\r\n\tborder-collapse: separate;\r\n}\r\n\r\n.wtyh-table thead th {\r\n\tborder-bottom: none;\r\n\tbackground-color: #1a2029;\r\n\tcolor: #dddddd;\r\n\tfont-size: 14px;\r\n\tfont-weight: normal;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.wtyh-table thead tr {\r\n\tborder-top-left-radius: 5px;\r\n\tborder-top-right-radius: 5px;\r\n}\r\n\r\n.wtyh-table tbody td {\r\n\tborder-bottom: none;\r\n\tcolor: #ffffff;\r\n\tfont-size: 14px;\r\n}\r\n.wtyh-table tbody td .word-limit-5{\r\n\tcursor: pointer;\r\n\tcolor: #ffffff;\r\n}\r\n.wtyh-table tbody tr.odd td {\r\n\tbackground: #2b323c;\r\n}\r\n\r\n.wtyh-table tbody tr.odd-line td {\r\n\tbackground: #36404d;\r\n\tborder-right: 1px #2b323c solid;\r\n}\r\n\r\n.wtyh-table tbody tr.odd-blackbg-line td {\r\n\tbackground: #222932;\r\n\tborder-right: 1px #2b323c solid;\r\n}\r\n\r\n.wtyh-table tbody tr.even td {\r\n\tbackground-color: #1a2029;\r\n}\r\n\r\n.talign-left {\r\n\ttext-align: left !important;\r\n}\r\n\r\n.wtyh-table.table-border-b  tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.talign-right {\r\n\ttext-align: right !important;\r\n}\r\n\r\n.talign-center {\r\n\ttext-align: center !important;\r\n}\r\n\r\n.header-gray {\r\n\theight: 50px;\r\n\tline-height: 50px;\r\n\tbackground: #394351;\r\n\tborder-top-left-radius: 5px;\r\n\tborder-top-right-radius: 5px;\r\n}\r\n\r\n.skublue {\r\n\tcolor: #00b8ee\r\n}\r\n\r\n.orange {\r\n\tcolor: #e14340\r\n}\r\n\r\n/*限制字数五个字*/\r\n.word-limit-5 {\r\n\toverflow: hidden; /*自动隐藏文字*/\r\n\ttext-overflow: ellipsis;/*文字隐藏后添加省略号*/\r\n\twhite-space: nowrap;/*强制不换行*/\r\n\tdisplay: inline-block;\r\n\twidth: 80px;\r\n}\r\n\r\n/*分页样式覆盖*/\r\n.mt-pagelist {\r\n\tmargin-top: 10px !important;\r\n}\r\n\r\n.mt-pagelist ul {\r\n\theight: 30px;\r\n}\r\n\r\n.mt-pagelist .mt-select,\r\n.mt-pagelist .mt-pagelist-first,\r\n.mt-pagelist .mt-pagelist-end,\r\n.mt-pagelist .mt-pagelist-runprev,\r\n.mt-pagelist .mt-pagelist-runnext {\r\n\tdisplay: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-prev,\r\n.mt-pagelist .mt-pagelist-next,\r\n.mt-pagelist .mt-pagelist-btn,\r\n.mt-pagelist .mt-pagelist-end,\r\n.mt-pagelist .mt-pagelist-first {\r\n\tbackground-color: #1a2029 !important;\r\n\tcolor: #ffffff !important;\r\n\tborder: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-input .mt-input {\r\n\tbackground-color: #1a2029 !important;\r\n\tcolor: #ffffff !important;\r\n\tborder: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li {\r\n\tbackground-color: #1a2029 !important;\r\n\tcolor: #ffffff !important;\r\n\tborder: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li a {\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n\tline-height: 26px !important;\r\n\tborder-radius: 2px !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li a:hover {\r\n\tbackground-color: #e14340 !important;\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li.on a {\r\n\tbackground-color: #e14340 !important;\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-btn:hover,\r\n.mt-pagelist .mt-pagelist-prev:hover,\r\n.mt-pagelist .mt-pagelist-next:hover {\r\n\tbackground-color: #e14340 !important;\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n}\r\n\r\n/*搜索框*/\r\n.mt-input .mt-iconbtn,\r\n.mt-input-block .mt-iconbtn a {\r\n\tcursor: pointer !important;\r\n}\r\n\r\n/*颜色*/\r\n.c-red {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*联想词*/\r\n.ac_results {\r\n\tpadding: 0;\r\n\toverflow: auto;\r\n\tz-index: 99999;\r\n\tmax-height: 200px;\r\n\tbackground: rgba(17, 38, 67, 0.9);\r\n\tborder-bottom-left-radius: 4px;\r\n\tborder-bottom-right-radius: 4px;\r\n}\r\n\r\n.ac_results ul {\r\n\twidth: 100%;\r\n\tlist-style: none;\r\n\tpadding: 0;\r\n\tmargin: 0;\r\n}\r\n\r\n.ac_results ul li:last-child {\r\n\tborder-bottom-left-radius: 4px;\r\n\tborder-bottom-right-radius: 4px;\r\n}\r\n\r\n.ac_results li {\r\n\tpadding: 5px 10px;\r\n\tdisplay: block;\r\n\tfont-size: 14px;\r\n\toverflow: hidden;\r\n}\r\n\r\n.ac_results .group-item {\r\n\tcursor: pointer;\r\n}\r\n\r\n.ac_results ul .group-item:hover {\r\n\tbackground: #063a5f;\r\n}\r\n\r\n.ac_results .group {\r\n\tcolor: #666;\r\n}\r\n\r\n.ac_results i {\r\n\tfont-size: 12px;\r\n\tcolor: #999;\r\n\tpadding-left: 1em;\r\n}\r\n\r\n.ac_results .strong {\r\n\tcolor: #13b7fe;\r\n}\r\n\r\n.ac-results ul li.group:hover {\r\n\tcursor: default;\r\n\tbackground-color: #172837;\r\n\tcolor: #666;\r\n}\r\n\r\n.iconfont.icon-desc {\r\n\tcursor: pointer;\r\n}\r\n\r\n", ""]);
 
 	// exports
 
@@ -58080,10 +58080,10 @@
 	        var numF = data.bugCount;
 	        setInterval(function () {
 	            nums += Math.round(Math.random() * 60) + 260;
-	            numJ += Math.round(Math.random() * 60) + 260;
+	            // numJ+= Math.round(Math.random() * 60)+260;
 	            numF += Math.round(Math.random() * 60) + 260;
 	            numRunA.resetData(nums);
-	            numRunB.resetData(numJ);
+	            // numRunB.resetData(numJ);
 	            numRunC.resetData(numF);
 	        }, 5000);
 	    },
@@ -59533,9 +59533,9 @@
 	                    console.log(data, '33333333333');
 	                    if (param.formatter == "BusinessNum") {
 	                        //典当总额业务笔数
-	                        return data.name + ' 年<br/> 典当总额：&nbsp ' + data.data[3] + "亿元<br/>业务笔数：&nbsp  " + data.data[2];
+	                        return data.name + ' 年<br/> 典当总额：&nbsp <span style="color:#00b7f0">' + data.data[3] + '亿元</span><br/>业务笔数：&nbsp  <span style="color:#00b7f0">' + data.data[2] + '</span>';
 	                    } else {
-	                        return data.name + ' 年<br/> ' + param.forMaterTitle + "：" + data.data[2] + '亿元<br/>' + param.forMaterTip + "：" + data.data[2] + "亿元";
+	                        return data.name + ' 年<br/> ' + param.forMaterTitle + "：" + data.data[2] + '亿元<br/>' + param.forMaterTip + "：" + data.data[3] + "亿元";
 	                    }
 	                }
 	            },
@@ -59613,18 +59613,20 @@
 	            series: [{
 	                name: '',
 	                type: 'scatter',
-	                symbolSize: function symbolSize(val) {
-	                    console.log(val[2], 'val');
-	                    if (val[2] < 10000) {
-	                        return val[2] / 500;
-	                    } else if (10000 < val[2] && val[2] < 100000) {
-	                        return val[2] / 5000;
-	                    } else if (100000 < val[2] && val[2] < 1000000) {
-	                        return val[2] / 10000;
-	                    } else if (1000000 < val[2] && val[2] < 10000000) {
-	                        return val[2] / 80000;
+	                symbolSize: param.symbolSize || function (val) {
+	                    console.log(val[3], '第四个值');
+	                    if (val[3] < 1000) {
+	                        return val[3] / 10;
+	                    } else if (val[3] > 1000 && val[3] < 10000) {
+	                        return val[3] / 1000;
+	                    } else if (10000 < val[3] && val[3] < 100000) {
+	                        return val[3] / 5000;
+	                    } else if (100000 < val[3] && val[3] < 1000000) {
+	                        return val[3] / 10000;
+	                    } else if (1000000 < val[3] && val[3] < 10000000) {
+	                        return val[3] / 80000;
 	                    } else {
-	                        return val[2] / 1000000;
+	                        return val[3] / 1000000;
 	                    }
 	                },
 	                data: param.data,
@@ -60134,18 +60136,43 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var companyName = "中智资产管理有限公司";
+	var Immutable = __webpack_require__(718);
+
 	//静态风险指数
 	var LineFinanceStaticRisk = _react2.default.createClass({
 	  displayName: 'LineFinanceStaticRisk',
+	  getInitialState: function getInitialState() {
+	    return {
+	      companyName: this.props.location.query.companyName,
+	      companyInfo: ""
+	    };
+	  },
 
 	  componentWillMount: function componentWillMount() {},
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {},
+	  componentDidMount: function componentDidMount() {
+	    $(".risk-search-header .search-bar .right a").first().addClass('active');
+	    var paramObj = { companyName: this.state.companyName };
+	    this.queryCompanyInfo(paramObj);
+	  },
+	  queryCompanyInfo: function queryCompanyInfo(param) {
+	    var queryCompanyInfo = this.props.queryCompanyInfo;
+
+	    queryCompanyInfo(param);
+	  },
+
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var isEqual = Immutable.is(nextProps.queryCompanyInfoRequest, this.props.queryCompanyInfoRequest);
+	    if (!isEqual) {
+	      this.setState({
+	        companyInfo: nextProps.queryCompanyInfoResult.content.backgroud
+	      });
+	    }
+	  },
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'linefin-static-risk' },
-	      _react2.default.createElement(_RiskSearchHeader2.default, null),
+	      _react2.default.createElement(_RiskSearchHeader2.default, { companyInfo: this.state.companyInfo, companyName: this.state.companyName }),
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'static-risk-box content-space-10' },
@@ -60187,7 +60214,11 @@
 	    companyNewsResult: state.CompanyNews.result,
 	    //时间列表
 	    queryDateVersionRequest: state.QueryDateVersion.request,
-	    queryDateVersionResult: state.QueryDateVersion.result
+	    queryDateVersionResult: state.QueryDateVersion.result,
+
+	    //公司标签
+	    queryCompanyInfoRequest: state.QueryCompanyInfo.request,
+	    queryCompanyInfoResult: state.QueryCompanyInfo.result
 	  };
 	}
 
@@ -60265,6 +60296,12 @@
 	          console.log(404);
 	        }
 	      }
+	    }
+	    //传入标签
+	    if (nextProps.companyInfo) {
+	      this.setState({
+	        companyTag: nextProps.companyInfo
+	      });
 	    }
 	  },
 	  getRiskSearchVal: function getRiskSearchVal(data) {
@@ -60392,7 +60429,7 @@
 
 
 	// module
-	exports.push([module.id, ".risk-search-header{\r\n\t\r\n}\r\n.risk-search-header .search-bar{\r\n\tbackground-color: #212831;\r\n\theight: 50px;\r\n\tline-height: 50px;\r\n\tpadding-left:20px;\r\n\toverflow: hidden;\r\n}\r\n.risk-search-header .search-bar .left{\r\n\tfloat: left;\r\n}\r\n.risk-search-header .search-bar .right{\r\n\tfloat: right;\r\n}\r\n.risk-search-header .search-bar .company-name{\r\n\tcolor: #ffffff;\r\n\tfont-size: 16px;\r\n\tdisplay: inline-block;\r\n}\r\n.risk-search-header .search-bar .company-info{\r\n\tdisplay: inline-block;\r\n\tmargin-left: 20px;\r\n}\r\n.risk-search-header .search-bar .company-info span{\r\n\tpadding: 2px 5px;\r\n\tfont-size: 12px;\r\n\tmargin: 0 5px;\r\n}\r\n.risk-search-header .search-bar .company-info span.bg-blue{\r\n\tbackground-color: #00b7ee;\r\n}\r\n.risk-search-header .search-bar .company-info span.bg-yellow{\r\n\tbackground-color: #f98d2b;\r\n}\r\n.risk-search-header .search-bar .company-info span.bg-red{\r\n\tbackground-color: #e14340;\r\n}\r\n.risk-search-header .search-bar .export-report{\r\n\tbackground-color: #e5e5e5;\r\n\tborder-radius: 2px;\r\n\tpadding: 2px 5px;\r\n\tfont-size: 12px;\r\n\tmargin-left: 40px;\r\n}\r\n.risk-search-header .search-bar .export-report i{\r\n\tmargin-right: 2px;\r\n}\r\n.risk-search-header .search-bar .right{\r\n\r\n}\r\n.risk-search-header .search-bar .right a{\r\n\tdisplay: inline-block;\r\n\theight: 100%;\r\n\tfont-size: 16px;\r\n\tpadding: 0 10px;\r\n\tcolor: #999999;\r\n}\r\n.risk-search-header .search-bar .right a i{\r\n\tmargin-right: 5px;\r\n}\r\n.risk-search-header .search-bar .right a.active{\r\n\tbackground-color: #1a2029;\r\n\tcolor: #ffffff;\r\n}\r\n.risk-search-header .search-bar .right a.active i{\r\n\tcolor: #e14340;\r\n}", ""]);
+	exports.push([module.id, ".risk-search-header{\r\n\t\r\n}\r\n.risk-search-header .search-bar{\r\n\tbackground-color: #212831;\r\n\theight: 50px;\r\n\tline-height: 50px;\r\n\tpadding-left:20px;\r\n\toverflow: hidden;\r\n}\r\n.risk-search-header .search-bar .left{\r\n\tfloat: left;\r\n}\r\n.risk-search-header .search-bar .left a{\r\n\tcolor:#272436;\r\n}\r\n.risk-search-header .search-bar .right{\r\n\tfloat: right;\r\n}\r\n.risk-search-header .search-bar .company-name{\r\n\tcolor: #ffffff;\r\n\tfont-size: 16px;\r\n\tdisplay: inline-block;\r\n}\r\n.risk-search-header .search-bar .company-info{\r\n\tdisplay: inline-block;\r\n\tmargin-left: 20px;\r\n}\r\n.risk-search-header .search-bar .company-info span{\r\n\tpadding: 2px 5px;\r\n\tfont-size: 12px;\r\n\tmargin: 0 5px;\r\n}\r\n.risk-search-header .search-bar .company-info span.bg-blue{\r\n\tbackground-color: #00b7ee;\r\n}\r\n.risk-search-header .search-bar .company-info span.bg-yellow{\r\n\tbackground-color: #f98d2b;\r\n}\r\n.risk-search-header .search-bar .company-info span.bg-red{\r\n\tbackground-color: #e14340;\r\n}\r\n.risk-search-header .search-bar .export-report{\r\n\tbackground-color: #e5e5e5;\r\n\tborder-radius: 2px;\r\n\tpadding: 2px 5px;\r\n\tfont-size: 12px;\r\n\tmargin-left: 40px;\r\n}\r\n.risk-search-header .search-bar .export-report i{\r\n\tmargin-right: 2px;\r\n}\r\n.risk-search-header .search-bar .right{\r\n\r\n}\r\n.risk-search-header .search-bar .right a{\r\n\tdisplay: inline-block;\r\n\theight: 100%;\r\n\tfont-size: 16px;\r\n\tpadding: 0 10px;\r\n\tcolor: #999999;\r\n}\r\n.risk-search-header .search-bar .right a i{\r\n\tmargin-right: 5px;\r\n}\r\n.risk-search-header .search-bar .right a.active{\r\n\tbackground-color: #1a2029;\r\n\tcolor: #ffffff;\r\n}\r\n.risk-search-header .search-bar .right a.active i{\r\n\tcolor: #e14340;\r\n}", ""]);
 
 	// exports
 
@@ -60441,6 +60478,8 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactRouter = __webpack_require__(243);
+
 	var _index = __webpack_require__(692);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -60452,19 +60491,28 @@
 
 	    getInitialState: function getInitialState() {
 	        return {
-	            searchVal: ''
+	            searchVal: '',
+	            companyName: ''
 	        };
 	    },
 	    componentDidMount: function componentDidMount() {
+	        var companyName = this.props.location.query.companyName;
+	        this.setState({ companyName: companyName });
 	        seajs.use("/relativeGraph/assets/script/main/dynamic");
+	        this.queryDynamicPic(1, companyName);
+	    },
+	    queryDynamicPic: function queryDynamicPic(param, companyName, ev) {
+	        $(".btns .btn").removeClass('active');
+	        $(".btns .btn").eq(param - 1).addClass('active');
 	        var queryDynamicPic = this.props.queryDynamicPic;
 
 	        queryDynamicPic({
-	            "companyName": "宁夏思越资产投资管理有限责任公司",
+	            "companyName": companyName,
 	            "dataVersion": "20160530",
-	            "degree": 3
+	            "degree": param
 	        });
 	    },
+
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	        var isEqual = Immutable.is(nextProps.dynamicPicResult, this.props.dynamicPicResult);
 	        if (!isEqual) {
@@ -60561,6 +60609,12 @@
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'mod-content' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'pic_rank' },
+	                    _react2.default.createElement('span', { className: 'add iconfont icon-jia', id: 'btn_bigmore' }),
+	                    _react2.default.createElement('span', { className: 'sub iconfont icon-jian', id: 'btn_smaller' })
+	                ),
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'relation-legend' },
@@ -60693,17 +60747,17 @@
 	                            { className: 'btns' },
 	                            _react2.default.createElement(
 	                                'div',
-	                                { className: 'btn active' },
+	                                { className: 'btn active', onClick: this.queryDynamicPic.bind(this, 1, this.state.companyName) },
 	                                '一度'
 	                            ),
 	                            _react2.default.createElement(
 	                                'div',
-	                                { className: 'btn' },
+	                                { className: 'btn', onClick: this.queryDynamicPic.bind(this, 2, this.state.companyName) },
 	                                '二度'
 	                            ),
 	                            _react2.default.createElement(
 	                                'div',
-	                                { className: 'btn' },
+	                                { className: 'btn', onClick: this.queryDynamicPic.bind(this, 3, this.state.companyName) },
 	                                '三度'
 	                            )
 	                        )
@@ -60825,7 +60879,7 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        'a',
-	                        { href: '', className: 'see-detail' },
+	                        { href: '/#/SearchResultDetail?company=' + this.state.companyName, className: 'see-detail' },
 	                        '查看详情'
 	                    )
 	                ),
@@ -60882,7 +60936,7 @@
 
 
 	// module
-	exports.push([module.id, "/*关联图模块 begin*/\r\n.linefin-rel-graph {\r\n\theight: 1300px;\r\n}\r\n\r\n.linefin-rel-graph .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-rel-graph .mod-title h3 {\r\n}\r\n\r\n.linefin-rel-graph .mod-title .mod-title-right {\r\n\tmargin-top: 5px;\r\n\tdisplay: inline-block;\r\n\tfloat: right;\r\n}\r\n\r\n.linefin-rel-graph .mod-title-right i.icon-fullscreen {\r\n\tmargin-left: 20px;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 6px;\r\n\tfloat: right;\r\n\tcursor: pointer;\r\n}\r\n\r\n.linefin-rel-graph .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .relation-graph-box {\r\n\theight: 1200px;\r\n}\r\n\r\n/*关联图模块 end*/\r\n\r\n/*公司舆情 begin*/\r\n.linefin-cocompose {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n.linefin-cocompose .mod-title {\r\n\tbackground-color: #36404d;\r\n}\r\n\r\n.linefin-cocompose .mod-content {\r\n\theight: 550px;\r\n}\r\n\r\n.linefin-cocompose .content-box {\r\n\theight: 534px;\r\n\toverflow: auto;\r\n\tmargin: 20px 20px 0px 20px;\r\n\tbackground-color: #212831;\r\n\tpadding: 20px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box {\r\n\toverflow: hidden;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 a {\r\n\tcolor: #ffffff;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 em {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 24px;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\tborder-radius: 2px;\r\n\tbackground-color: #1a2029;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box p {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tmargin-left: 45px;\r\n\ttext-indent: 28px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tfloat: right;\r\n\tcolor: #e14340;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source .name {\r\n\tmargin-right: 40px;\r\n}\r\n\r\n/**公司舆情 end*/\r\n\r\n/*静态风险指数构成 begin*/\r\n.linefin-index-constitute .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-index-constitute .mt-select {\r\n\tmargin-top: 5px;\r\n\tmargin-right: 5px;\r\n\tcolor: #c9c9ca;\r\n}\r\n\r\n.linefin-index-constitute .con-box {\r\n\tbackground-color: #2b323c;\r\n\tpadding: 0 20px;\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-info {\r\n\theight: 846px;\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-pie {\r\n\theight: 520px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item {\r\n\tcursor: pointer;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-head {\r\n\tbackground-color: #1a2029;\r\n\tborder-bottom: solid 1px #2b323c;\r\n\theight: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\tfont-size: 14px;\r\n\theight: 20px;\r\n\tline-height: 20px;\r\n\tmargin-top: 10px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.name {\r\n\tcolor: #e5e5e5;\r\n\twidth: 40%;\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.num {\r\n\twidth: 60%;\r\n\ttext-indent: 10%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head {\r\n\theight: 60px;\r\n\tbackground-color: #e14340;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span {\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.name {\r\n\tfont-size: 18px;\r\n\tborder-color: #ed8e8c;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.num em {\r\n\tfont-size: 36px;\r\n\tcolor: #ffffff;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-other .item-head span.num i {\r\n\tfloat: right;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 3px;\r\n\tfont-size: 14px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table {\r\n\twidth: 100%;\r\n\tbackground-color: #36404d;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table {\r\n\twidth: 100%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td {\r\n\tborder-bottom: solid 1px #2b323c;\r\n\tpadding: 10px 0;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-left {\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-right {\r\n\tpadding-left: 10%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart {\r\n\theight: 330px;\r\n\tbackground-color: #212831;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart h4 {\r\n\tbackground-color: #1a2029;\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n\tpadding: 0 20px;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart .chart-b {\r\n\theight: 290px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-head span.name {\r\n\tfont-size: 16px;\r\n\tborder-color: #d0d8df;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-con {\r\n\tdisplay: none;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-con {\r\n\tdisplay: block;\r\n}\r\n\r\n/*关联图 图例 begin*/\r\n.relation-legend {\r\n\tmargin: 25px 0 15px 10px;\r\n\twidth: 99%;\r\n\theight: 56px;\r\n}\r\n\r\n.relation-legend table {\r\n\tbackground: #1a2029;\r\n\twidth: 80%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n\r\n.relation-legend table tr {\r\n\theight: 50%;\r\n\twidth: 10%;\r\n}\r\n\r\n.relation-legend table tr td {\r\n\tpadding: 8px 0 0 14px;\r\n\tposition: relative;\r\n\twidth: 19.8%;\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.relation-legend table tr span {\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.relation-legend table tr .item-lable {\r\n\tfont-size: 12px;\r\n\tcolor: #b2b2b2;\r\n\tposition: absolute;\r\n}\r\n\r\n.relation-legend table tr img {\r\n\tmargin: -5px 20px 0 0;\r\n}\r\n\r\n.relation-legend table tr .square {\r\n\twidth: 17px;\r\n\theight: 17px;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.relation-legend table tr .round {\r\n\twidth: 17px;\r\n\theight: 17px;\r\n\tmargin-right: 20px;\r\n\tborder-radius: 100px;\r\n}\r\n\r\n.relation-legend table tr .orange {\r\n\tbackground: #f44603;\r\n}\r\n\r\n.relation-legend table tr .orange-two {\r\n\tbackground: #f98d2b;\r\n}\r\n\r\n.relation-legend table tr .blue {\r\n\tbackground: #046adb;\r\n}\r\n\r\n.relation-legend table tr .yellow {\r\n\tbackground: #ffdb03;\r\n}\r\n\r\n.relation-legend table tr .green {\r\n\tbackground: #73d528;\r\n}\r\n\r\n.relation-legend .condition {\r\n\twidth: 19.6%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n\tmargin-left: 2px;\r\n\tbackground: #212831;\r\n}\r\n\r\n.relation-legend .condition .lable {\r\n\tfont-size: 12px;\r\n\tcolor: #fff;\r\n\twidth: 100%;\r\n\theight: 50%;\r\n\tpadding-top: 8px;\r\n\tline-height: 100%;\r\n\ttext-align: center;\r\n}\r\n\r\n.relation-legend .condition .btns {\r\n\twidth: 100%;\r\n\theight: 50%;\r\n}\r\n\r\n.relation-legend .condition .btns .btn {\r\n\tbackground: #474f5c;\r\n\tfloat: left;\r\n\twidth: 32.5%;\r\n\theight: 100%;\r\n\tmargin-left: 1px;\r\n\ttext-align: center;\r\n\tpadding-top: 5px;\r\n\tcursor: pointer;\r\n}\r\n\r\n.relation-legend .condition .btns .btn.active {\r\n\tbackground-color: #00b8ee;\r\n}\r\n\r\n.relation-modal {\r\n\tposition: absolute;\r\n\tleft: 10px;\r\n\ttop: 100px;\r\n\twidth: 270px;\r\n\tpadding-bottom: 5px;\r\n\tborder-radius: 5px;\r\n\tbackground: #222931;\r\n\tz-index: 99999;\r\n\t-webkit-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n\t-moz-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n\tbox-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n}\r\n\r\n.relation-modal .company-title {\r\n\twidth: 100%;\r\n\theight: 30px;\r\n\tline-height: 30px;\r\n\tpadding-left: 5%;\r\n\tbackground: #4B5668;\r\n\tborder-top-left-radius: 5px;\r\n\tborder-top-right-radius: 5px;\r\n}\r\n\r\n.relation-modal table {\r\n\twidth: 100%;\r\n}\r\n\r\n.relation-modal table tr {\r\n\twidth: 100%;\r\n}\r\n\r\n.relation-modal table tr td {\r\n\theight: 27px;\r\n\tline-height: 27px;\r\n\tfont-size: 12px;\r\n}\r\n\r\n.relation-modal table tr td:first-child {\r\n\twidth: 60%;\r\n\tcolor: #878E96;\r\n\tpadding-left: 5%;\r\n}\r\n\r\n.relation-modal table tr td:last-child {\r\n\twidth: 40%;\r\n}\r\n\r\n.relation-modal .see-detail {\r\n\tfont-size: 12px;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\tcolor: #ffffff;\r\n\ttext-align: center;\r\n\tdisplay: block;\r\n\tborder-radius: 5px;\r\n\tbackground-color: #e14340;\r\n\tmargin-top: 10px;\r\n\tmargin-bottom: 10px;\r\n\tmargin-left: 10px;\r\n\tmargin-right: 10px;\r\n}\r\n\r\n/*关联图 图例 end*/\r\n\r\n/*关联图 侧边栏begin*/\r\n.sidebox {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation-tips {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .sidebar {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .canvas {\r\n\tmargin-right: auto !important;\r\n}\r\n\r\n.correlation .time-line {\r\n\tdisplay: none;\r\n}\r\n\r\n/*关联图 end*/\r\n\r\n/*静态风险指数构成 end*/", ""]);
+	exports.push([module.id, "/*关联图模块 begin*/\r\n.linefin-rel-graph {\r\n\theight: 1300px;\r\n}\r\n\r\n.linefin-rel-graph .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-rel-graph .mod-title h3 {\r\n}\r\n\r\n.linefin-rel-graph .mod-title .mod-title-right {\r\n\tmargin-top: 5px;\r\n\tdisplay: inline-block;\r\n\tfloat: right;\r\n}\r\n\r\n.linefin-rel-graph .mod-title-right i.icon-fullscreen {\r\n\tmargin-left: 20px;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 6px;\r\n\tfloat: right;\r\n\tcursor: pointer;\r\n}\r\n\r\n.linefin-rel-graph .mod-content {\r\n\tposition: relative;\r\n}\r\n.linefin-rel-graph .mod-content .pic_rank{\r\n\tposition: absolute;\r\n    right: 17px;\r\n    top: 62px;\r\n}\r\n.linefin-rel-graph .mod-content .pic_rank span{\r\n\tborder: 1px solid #3A4450;\r\n    display: inline-block;\r\n    width: 22px;\r\n    height: 22px;\r\n    background: #19202A;\r\n    text-align: center;\r\n    line-height: 18px;\r\n    color: #E14340;\r\n    cursor:pointer;\r\n    margin-left:8px;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .relation-graph-box {\r\n\theight: 1200px;\r\n}\r\n\r\n/*关联图模块 end*/\r\n\r\n/*公司舆情 begin*/\r\n.linefin-cocompose {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n.linefin-cocompose .mod-title {\r\n\tbackground-color: #36404d;\r\n}\r\n\r\n.linefin-cocompose .mod-content {\r\n\theight: 550px;\r\n}\r\n\r\n.linefin-cocompose .content-box {\r\n\theight: 534px;\r\n\toverflow: auto;\r\n\tmargin: 20px 20px 0px 20px;\r\n\tbackground-color: #212831;\r\n\tpadding: 20px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box {\r\n\toverflow: hidden;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 a {\r\n\tcolor: #ffffff;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 em {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 24px;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\tborder-radius: 2px;\r\n\tbackground-color: #1a2029;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box p {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tmargin-left: 45px;\r\n\ttext-indent: 28px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tfloat: right;\r\n\tcolor: #e14340;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source .name {\r\n\tmargin-right: 40px;\r\n}\r\n\r\n/**公司舆情 end*/\r\n\r\n/*静态风险指数构成 begin*/\r\n.linefin-index-constitute .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-index-constitute .mt-select {\r\n\tmargin-top: 5px;\r\n\tmargin-right: 5px;\r\n\tcolor: #c9c9ca;\r\n}\r\n\r\n.linefin-index-constitute .con-box {\r\n\tbackground-color: #2b323c;\r\n\tpadding: 0 20px;\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-info {\r\n\tmin-height: 1362px;\r\n\t\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-pie {\r\n\theight: 520px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item {\r\n\tcursor: pointer;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-head {\r\n\tbackground-color: #1a2029;\r\n\tborder-bottom: solid 1px #2b323c;\r\n\theight: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\tfont-size: 14px;\r\n\theight: 20px;\r\n\tline-height: 20px;\r\n\tmargin-top: 10px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.name {\r\n\tcolor: #e5e5e5;\r\n\twidth: 40%;\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.num {\r\n\twidth: 60%;\r\n\ttext-indent: 10%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head {\r\n\theight: 60px;\r\n\tbackground-color: #e14340;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span {\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.name {\r\n\tfont-size: 18px;\r\n\tborder-color: #ed8e8c;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.num em {\r\n\tfont-size: 36px;\r\n\tcolor: #ffffff;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-other .item-head span.num i {\r\n\tfloat: right;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 3px;\r\n\tfont-size: 14px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table {\r\n\twidth: 100%;\r\n\tbackground-color: #36404d;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table {\r\n\twidth: 100%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td {\r\n\tborder-bottom: solid 1px #2b323c;\r\n\tpadding: 10px 0;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-left {\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-right {\r\n\tpadding-left: 10%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart {\r\n\theight: 330px;\r\n\tbackground-color: #212831;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart h4 {\r\n\tbackground-color: #1a2029;\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n\tpadding: 0 20px;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart .chart-b {\r\n\theight: 290px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-head span.name {\r\n\tfont-size: 16px;\r\n\tborder-color: #d0d8df;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-con {\r\n\tdisplay: none;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-con {\r\n\tdisplay: block;\r\n}\r\n\r\n/*关联图 图例 begin*/\r\n.relation-legend {\r\n\tmargin: 25px 0 15px 10px;\r\n\twidth: 99%;\r\n\theight: 56px;\r\n}\r\n\r\n.relation-legend table {\r\n\tbackground: #1a2029;\r\n\twidth: 80%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n\r\n.relation-legend table tr {\r\n\theight: 50%;\r\n\twidth: 10%;\r\n}\r\n\r\n.relation-legend table tr td {\r\n\tpadding: 8px 0 0 14px;\r\n\tposition: relative;\r\n\twidth: 19.8%;\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.relation-legend table tr span {\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.relation-legend table tr .item-lable {\r\n\tfont-size: 12px;\r\n\tcolor: #b2b2b2;\r\n\tposition: absolute;\r\n}\r\n\r\n.relation-legend table tr img {\r\n\tmargin: -5px 20px 0 0;\r\n}\r\n\r\n.relation-legend table tr .square {\r\n\twidth: 17px;\r\n\theight: 17px;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.relation-legend table tr .round {\r\n\twidth: 17px;\r\n\theight: 17px;\r\n\tmargin-right: 20px;\r\n\tborder-radius: 100px;\r\n}\r\n\r\n.relation-legend table tr .orange {\r\n\tbackground: #f44603;\r\n}\r\n\r\n.relation-legend table tr .orange-two {\r\n\tbackground: #f98d2b;\r\n}\r\n\r\n.relation-legend table tr .blue {\r\n\tbackground: #046adb;\r\n}\r\n\r\n.relation-legend table tr .yellow {\r\n\tbackground: #ffdb03;\r\n}\r\n\r\n.relation-legend table tr .green {\r\n\tbackground: #73d528;\r\n}\r\n\r\n.relation-legend .condition {\r\n\twidth: 19.6%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n\tmargin-left: 2px;\r\n\tbackground: #212831;\r\n}\r\n\r\n.relation-legend .condition .lable {\r\n\tfont-size: 12px;\r\n\tcolor: #fff;\r\n\twidth: 100%;\r\n\theight: 50%;\r\n\tpadding-top: 8px;\r\n\tline-height: 100%;\r\n\ttext-align: center;\r\n}\r\n\r\n.relation-legend .condition .btns {\r\n\twidth: 100%;\r\n\theight: 50%;\r\n}\r\n\r\n.relation-legend .condition .btns .btn {\r\n\tbackground: #474f5c;\r\n\tfloat: left;\r\n\twidth: 32.5%;\r\n\theight: 100%;\r\n\tmargin-left: 1px;\r\n\ttext-align: center;\r\n\tpadding-top: 5px;\r\n\tcursor: pointer;\r\n}\r\n\r\n.relation-legend .condition .btns .btn.active {\r\n\tbackground-color: #00b8ee;\r\n}\r\n\r\n.relation-modal {\r\n\tposition: absolute;\r\n\tleft: 10px;\r\n\ttop: 100px;\r\n\twidth: 270px;\r\n\tpadding-bottom: 5px;\r\n\tborder-radius: 5px;\r\n\tbackground: #222931;\r\n\tz-index: 99999;\r\n\t-webkit-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n\t-moz-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n\tbox-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n}\r\n\r\n.relation-modal .company-title {\r\n\twidth: 100%;\r\n\theight: 30px;\r\n\tline-height: 30px;\r\n\tpadding-left: 5%;\r\n\tbackground: #4B5668;\r\n\tborder-top-left-radius: 5px;\r\n\tborder-top-right-radius: 5px;\r\n}\r\n\r\n.relation-modal table {\r\n\twidth: 100%;\r\n}\r\n\r\n.relation-modal table tr {\r\n\twidth: 100%;\r\n}\r\n\r\n.relation-modal table tr td {\r\n\theight: 27px;\r\n\tline-height: 27px;\r\n\tfont-size: 12px;\r\n}\r\n\r\n.relation-modal table tr td:first-child {\r\n\twidth: 60%;\r\n\tcolor: #878E96;\r\n\tpadding-left: 5%;\r\n}\r\n\r\n.relation-modal table tr td:last-child {\r\n\twidth: 40%;\r\n}\r\n\r\n.relation-modal .see-detail {\r\n\tfont-size: 12px;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\tcolor: #ffffff;\r\n\ttext-align: center;\r\n\tdisplay: block;\r\n\tborder-radius: 5px;\r\n\tbackground-color: #e14340;\r\n\tmargin-top: 10px;\r\n\tmargin-bottom: 10px;\r\n\tmargin-left: 10px;\r\n\tmargin-right: 10px;\r\n}\r\n\r\n/*关联图 图例 end*/\r\n\r\n/*关联图 侧边栏begin*/\r\n.sidebox {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation-tips {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .sidebar {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .canvas {\r\n\tmargin-right: auto !important;\r\n}\r\n\r\n.correlation .time-line {\r\n\tdisplay: none;\r\n}\r\n\r\n/*关联图 end*/\r\n\r\n/*静态风险指数构成 end*/", ""]);
 
 	// exports
 
@@ -60929,7 +60983,7 @@
 	    componentDidMount: function componentDidMount() {
 	        var companyName = this.props.location.query.companyName;
 	        this.setState({ companyName: companyName });
-	        this.requestCompanyNews(this.state.companyName);
+	        this.requestCompanyNews(companyName);
 	    },
 	    requestCompanyNews: function requestCompanyNews(companyName) {
 	        //请求公司舆情
@@ -61049,9 +61103,8 @@
 	            statisticsDate: [],
 	            riskIndex: [],
 	            avgRiskIndex: [],
-	            lineOption: "",
 	            riskList: "",
-	            allDate: [],
+	            allDate: "",
 	            companyName: "",
 	            pieOption: ""
 	        };
@@ -61059,10 +61112,6 @@
 	    componentDidMount: function componentDidMount() {
 	        var companyName = this.props.location.query.companyName;
 	        this.setState({ companyName: companyName });
-
-	        //请求列表数据
-	        var jsonData = { companyName: companyName, currentDate: '2016-05-30', areaCode: "长宁区" };
-	        this.queryRiskData(jsonData);
 
 	        //请求时间列表
 	        var jsonDataDate = { companyName: companyName };
@@ -61079,7 +61128,7 @@
 	            this.setState({
 	                riskList: nextProps.riskDataResult.content
 	            });
-	            this.setParm(this.state.riskList);
+	            this.setParm(nextProps.riskDataResult.content);
 	        }
 	        var _allDate = [];
 	        var queryDateVersionIsEqual = Immutable.is(nextProps.queryDateVersionRequest, this.props.queryDateVersionRequest);
@@ -61094,14 +61143,19 @@
 	            this.setState({
 	                allDate: _allDate
 	            });
+	            this.queryRiskData(_allDate[0].label); //首次获取时间请求列表
 	        }
+
 	        var statisticsIsEqual = Immutable.is(nextProps.statisticsRequest, this.props.statisticsRequest);
 	        if (!statisticsIsEqual) {
-	            debugger;
+	            this.setState({
+	                lineOption: nextProps.statisticsResult
+	            });
 	        }
 	    },
-	    queryRiskData: function queryRiskData(jsonData) {
+	    queryRiskData: function queryRiskData(currentDate) {
 	        //获取列表数据
+	        var jsonData = { companyName: this.state.companyName, currentDate: currentDate };
 	        var queryRiskData = this.props.queryRiskData;
 
 	        queryRiskData(jsonData);
@@ -61125,7 +61179,9 @@
 	        var isTrue = $itemParent.hasClass('active');
 	        var isFirstItem = $itemParent.hasClass('item-first');
 	        if (isTrue) {
+	            //关闭
 	            if (!isFirstItem) {
+	                //不是第一项
 	                $itemParent.removeClass('active');
 	                $(this.refs.itemFirst).addClass('active');
 	                $itemParent.find('.item-head .num i').removeClass('icon-xup').addClass('icon-xdown');
@@ -61134,6 +61190,9 @@
 	                $('.item-other').find('.item-head .num i').removeClass('icon-xup').addClass('icon-xdown');
 	            }
 	        } else {
+	            //@yq 修改bug5630 
+	            $(".item-other").removeClass('active');
+	            $('.item-other').find('.item-head .num i').removeClass('icon-xup').addClass('icon-xdown');
 	            if (!isFirstItem) {
 	                $itemParent.find('.item-head .num i').removeClass('icon-xdown').addClass('icon-xup');
 	                $(this.refs.itemFirst).removeClass('active');
@@ -61144,8 +61203,7 @@
 	            $itemParent.addClass('active');
 	        }
 	    },
-	    setParm: function setParm() {
-	        var itemTable = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
+	    setParm: function setParm(itemTable) {
 	        //渲染右边饼图
 	        var option = {
 	            "color": ["#dfab62", "#e85d1a", "#0e6d41", "#959595", "#f6b750", "#01b9ef", "#e24340", "#facd89", "#ff9b93", "#d58165", "#91c7af", "#6b9f88"],
@@ -61188,7 +61246,17 @@
 	        };
 	        this.setState({ pieOption: option });
 	    },
-	    setLineParm: function setLineParm() {
+	    setLineParm: function setLineParm(param) {
+	        var _xAxisArr = [],
+	            _riskIndexArr = [],
+	            _avgRiskIndexArr = [];
+	        this.state.lineOption[param].map(function (item) {
+	            _xAxisArr.push(item.date);
+	        });
+	        this.state.lineOption[param].map(function (item) {
+	            _riskIndexArr.push(item.riskIndex);
+	            _avgRiskIndexArr.push(item.avgRiskIndex);
+	        });
 	        var option = {
 	            color: ["#00b7ee", "#f8b551"],
 	            bgColor: "",
@@ -61201,12 +61269,10 @@
 	            yAxisName: "",
 	            legendRight: "30",
 	            legend: ["公司", "行业平均"],
-	            xAxis: this.state.statisticsDate,
-	            series: [this.state.riskIndex, this.state.avgRiskIndex]
+	            xAxis: _xAxisArr,
+	            series: [_riskIndexArr, _avgRiskIndexArr]
 	        };
-	        this.setState({
-	            lineOption: option
-	        });
+	        return option;
 	    },
 	    render: function render() {
 	        var self = this;
@@ -61214,14 +61280,18 @@
 	            width: '85px',
 	            className: 'index-selected',
 	            value: 2,
-	            placeholder: this.state.allDate[0],
+	            placeholder: this.state.allDate ? this.state.allDate[0].label : '',
 	            name: 'testselect',
 	            id: 'indexSelected',
 	            data: this.state.allDate,
-	            onChange: function onChange(value) {
-	                var queryRiskData = self.props.queryRiskData;
+	            onChange: function onChange(val) {
+	                self.state.allDate.map(function (item) {
+	                    if (item.value == val) {
+	                        var queryRiskData = self.props.queryRiskData;
 
-	                queryRiskData({ companyName: self.companyName, currentDate: value, areaCode: "长宁区" });
+	                        queryRiskData({ companyName: self.state.companyName, currentDate: item.label });
+	                    }
+	                });
 	            }
 	        };
 	        var itemTable = this.state.riskList || '';
@@ -61239,7 +61309,7 @@
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'mod-title-right sd' },
-	                    _react2.default.createElement(_index.Selected, selectProp)
+	                    this.state.allDate ? _react2.default.createElement(_index.Selected, selectProp) : ''
 	                )
 	            ),
 	            _react2.default.createElement(
@@ -61292,7 +61362,7 @@
 	                                    _react2.default.createElement(
 	                                        'div',
 	                                        { className: 'chart-b' },
-	                                        _react2.default.createElement(_LineChart2.default, { option: this.setLineParm(0), style: { height: '290px', width: '100%' } })
+	                                        this.state.lineOption ? _react2.default.createElement(_LineChart2.default, { option: this.setLineParm('tabIndex0'), style: { height: '290px', width: '100%' } }) : ""
 	                                    )
 	                                )
 	                            )
@@ -61387,7 +61457,7 @@
 	                                    _react2.default.createElement(
 	                                        'div',
 	                                        { className: 'chart-b' },
-	                                        _react2.default.createElement(_LineChart2.default, { option: this.setLineParm(1), style: { height: '290px', width: '510px' } })
+	                                        this.state.lineOption ? _react2.default.createElement(_LineChart2.default, { option: this.setLineParm('tabIndex1'), style: { height: '290px', width: '510px' } }) : ''
 	                                    )
 	                                )
 	                            )
@@ -61482,7 +61552,7 @@
 	                                    _react2.default.createElement(
 	                                        'div',
 	                                        { className: 'chart-b' },
-	                                        _react2.default.createElement(_LineChart2.default, { option: this.setLineParm(2), style: { height: '290px', width: '510px' } })
+	                                        this.state.lineOption ? _react2.default.createElement(_LineChart2.default, { option: this.setLineParm('tabIndex2'), style: { height: '290px', width: '510px' } }) : ''
 	                                    )
 	                                )
 	                            )
@@ -61577,7 +61647,7 @@
 	                                    _react2.default.createElement(
 	                                        'div',
 	                                        { className: 'chart-b' },
-	                                        _react2.default.createElement(_LineChart2.default, { option: this.setLineParm(3), style: { height: '290px', width: '510px' } })
+	                                        this.state.lineOption ? _react2.default.createElement(_LineChart2.default, { option: this.setLineParm('tabIndex3'), style: { height: '290px', width: '510px' } }) : ''
 	                                    )
 	                                )
 	                            )
@@ -61672,7 +61742,7 @@
 	                                    _react2.default.createElement(
 	                                        'div',
 	                                        { className: 'chart-b' },
-	                                        _react2.default.createElement(_LineChart2.default, { option: this.setLineParm(4), style: { height: '290px', width: '510px' } })
+	                                        this.state.lineOption ? _react2.default.createElement(_LineChart2.default, { option: this.setLineParm('tabIndex4'), style: { height: '290px', width: '510px' } }) : ''
 	                                    )
 	                                )
 	                            )
@@ -61767,7 +61837,7 @@
 	                                    _react2.default.createElement(
 	                                        'div',
 	                                        { className: 'chart-b' },
-	                                        _react2.default.createElement(_LineChart2.default, { option: this.setLineParm(5), style: { height: '290px', width: '510px' } })
+	                                        this.state.lineOption ? _react2.default.createElement(_LineChart2.default, { option: this.setLineParm('tabIndex5'), style: { height: '290px', width: '510px' } }) : ''
 	                                    )
 	                                )
 	                            )
@@ -61904,7 +61974,7 @@
 	                                    _react2.default.createElement(
 	                                        'div',
 	                                        { className: 'chart-b' },
-	                                        _react2.default.createElement(_LineChart2.default, { option: this.setLineParm(6), style: { height: '290px', width: '510px' } })
+	                                        this.state.lineOption ? _react2.default.createElement(_LineChart2.default, { option: this.setLineParm('tabIndex6'), style: { height: '290px', width: '510px' } }) : ''
 	                                    )
 	                                )
 	                            )
@@ -61999,7 +62069,51 @@
 	                                    _react2.default.createElement(
 	                                        'div',
 	                                        { className: 'chart-b' },
-	                                        _react2.default.createElement(_LineChart2.default, { option: this.setLineParm(7), style: { height: '290px', width: '510px' } })
+	                                        this.state.lineOption ? _react2.default.createElement(_LineChart2.default, { option: this.setLineParm('tabIndex7'), style: { height: '290px', width: '510px' } }) : ''
+	                                    )
+	                                )
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'item item-other' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'item-head' },
+	                                _react2.default.createElement(
+	                                    'span',
+	                                    { className: 'name' },
+	                                    '资本背景风险'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'span',
+	                                    { className: 'num' },
+	                                    _react2.default.createElement(
+	                                        'em',
+	                                        { className: 'c-red' },
+	                                        itemTable && itemTable.perStructRisk
+	                                    )
+	                                )
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'item item-other' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'item-head' },
+	                                _react2.default.createElement(
+	                                    'span',
+	                                    { className: 'name' },
+	                                    '信用信息风险'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'span',
+	                                    { className: 'num' },
+	                                    _react2.default.createElement(
+	                                        'em',
+	                                        { className: 'c-red' },
+	                                        itemTable && itemTable.perStructRisk
 	                                    )
 	                                )
 	                            )
@@ -62066,7 +62180,17 @@
 	        backgroundColor: 'rgba(0,0,0,0.7)',
 	        padding: [10, 10, 10, 10],
 	        formatter: function formatter(v) {
-	          return v.name + "<br/>" + v.seriesName + " :&nbsp;<span style='color:#00b7f0'>" + v.value + "(" + v.percent + "%)" + "</span>";
+	          var _until = "";
+	          if (parm.flag == "balanceDistri") {
+	            return v.name + "<br/>" + v.seriesName + "<span style='color:#00b7f0'>" + v.value + _until + "亿元(" + v.percent + "%)" + "</span>";
+	          } else {
+	            if (parm.unit == undefined) {
+	              _until = "";
+	            } else {
+	              _until = parm.unit;
+	            }
+	            return v.name + ":&nbsp;<span style='color:#00b7f0'>" + v.value + _until + "(" + v.percent + "%)" + "</span>";
+	          }
 	        }
 	      },
 	      legend: {
@@ -62242,7 +62366,13 @@
 	                formatter: function formatter(v) {
 	                    var info = v[0].name + "<br/>";
 	                    for (var i = 0; i < v.length; i++) {
-	                        var _spanCorlor = '<span style=color:' + parm.color[i] + '>' + v[i].value + '</span><br/>';
+	                        var _until = "";
+	                        if (parm.unit == undefined) {
+	                            _until = "";
+	                        } else {
+	                            _until = parm.unit[i];
+	                        }
+	                        var _spanCorlor = '<span style=color:' + parm.color[i] + '>' + v[i].value + _until + '</span><br/>';
 	                        info += v[i].seriesName + " :&nbsp;" + _spanCorlor;
 	                    }
 	                    return info;
@@ -62392,6 +62522,7 @@
 	exports.queryRiskData = queryRiskData;
 	exports.companyNews = companyNews;
 	exports.queryDateVersion = queryDateVersion;
+	exports.queryCompanyInfo = queryCompanyInfo;
 	/*
 	  线下理财监测creat by yq
 	*/
@@ -62564,6 +62695,40 @@
 	      },
 	      error: function error(result) {
 	        return dispatch(queryDataFail(result));
+	      }
+	    });
+	  };
+	}
+	//请求公司标签/offlineFinance/companyInfo.do
+	var COMPANY_INFO_SUCCESS = exports.COMPANY_INFO_SUCCESS = 'COMPANY_INFO_SUCCESS';
+	var COMPANY_INFO_FAIL = exports.COMPANY_INFO_FAIL = 'COMPANY_INFO_FAIL';
+	function companyInfoSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: COMPANY_INFO_SUCCESS,
+	    result: result
+	  };
+	}
+	function companyInfoFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: COMPANY_INFO_FAIL,
+	    result: result
+	  };
+	}
+	function queryCompanyInfo(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "/offlineFinance/companyInfo.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(companyInfoSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(companyInfoFail(result));
 	      }
 	    });
 	  };
@@ -66321,10 +66486,14 @@
 
 	        for (var i = 0; i < conLength; i++) {
 	            var year = content[i].year;
-	            var balance = content[i].amount; //贷款余额
-	            var dataArr = [i, i, balance];
+	            var amount = content[i].amount; //贷款余额
+	            var number = content[i].number; //笔数
+	            var companyAmount = content[i].number; //公司数量
+	            var averageBlance = Number(amount / companyAmount).toFixed(2); //平均担保责任余额
+	            console.log(averageBlance, '333333333333');
+	            var dataArr = [i, i, amount, averageBlance];
 
-	            balanceArr.push(balance);
+	            balanceArr.push(amount);
 	            guaraDutyBalaData.xAxis.push(year);
 	            guaraDutyBalaData.data.push(dataArr);
 
@@ -66346,6 +66515,9 @@
 
 	        this.setState({ guaraDutyBalaData: guaraDutyBalaData, guaraEachAverData: guaraEachAverData, balanceDistrData: balanceDistrData });
 	    },
+	    searchFun: function searchFun(e) {
+	        this.props.history.push('/SearchResultDetail?companyName=' + e);
+	    },
 	    render: function render() {
 	        return _react2.default.createElement(
 	            'div',
@@ -66353,7 +66525,7 @@
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'search-box' },
-	                _react2.default.createElement(_IndustrySearch2.default, { label: '融资担保监测', className: 'small-loan-search', placeholder: '请输入企业名称检索' })
+	                _react2.default.createElement(_IndustrySearch2.default, { label: '融资担保监测', companyType: '3', searchFun: this.searchFun, className: 'small-loan-search', placeholder: '请输入企业名称检索' })
 	            ),
 	            _react2.default.createElement(
 	                'div',
@@ -66419,6 +66591,10 @@
 	        //股东行业风险
 	        finGuaIndustryRiskRequest: state.FinGuaIndustryRisk.request,
 	        finGuaIndustryRiskResult: state.FinGuaIndustryRisk.result,
+
+	        //股东行业风险
+	        finGuaIndustryRiskDetailRequest: state.FinGuaIndustryRiskDetail.request,
+	        finGuaIndustryRiskDetailResult: state.FinGuaIndustryRiskDetail.result,
 
 	        //大额借款公司信息列表
 	        largeGuaraRequest: state.LargeGuara.request,
@@ -66493,6 +66669,7 @@
 	exports.getfinGuaMap = getfinGuaMap;
 	exports.getFinGuaDutyBalance = getFinGuaDutyBalance;
 	exports.getFinGuaIndustryRisk = getFinGuaIndustryRisk;
+	exports.getFinGuaIndustryRiskDetail = getFinGuaIndustryRiskDetail;
 	exports.getLargeGuara = getLargeGuara;
 	/*
 	  融资担保模块action
@@ -66650,6 +66827,44 @@
 	  };
 	}
 	/*股东行业风险  end*/
+	/*股东行业风险详情 begin*/
+	var FINGUA_INDUSTRYRISK_DET_SUCCESS = exports.FINGUA_INDUSTRYRISK_DET_SUCCESS = 'FINGUA_INDUSTRYRISK_DET_SUCCESS';
+	var FINGUA_INDUSTRYRISK_DET_FAIL = exports.FINGUA_INDUSTRYRISK_DET_FAIL = 'FINGUA_INDUSTRYRISK_DET_FAIL';
+
+	function finGuaIndustryRiskDetSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: FINGUA_INDUSTRYRISK_DET_SUCCESS,
+	    result: result
+	  };
+	}
+
+	function finGuaIndustryRiskDetFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: FINGUA_INDUSTRYRISK_DET_FAIL,
+	    result: result
+	  };
+	}
+
+	function getFinGuaIndustryRiskDetail(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "/guarantee/shareholderRiskDetail.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(finGuaIndustryRiskDetSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(finGuaIndustryRiskDetFail(result));
+	      }
+	    });
+	  };
+	}
+	/*股东行业风险详情  end*/
 
 	/*大额被担保人信息列表 begin*/
 	var LARGE_GUARA_SUCCESS = exports.LARGE_GUARA_SUCCESS = 'LARGE_GUARA_SUCCESS';
@@ -66706,6 +66921,8 @@
 	var _react = __webpack_require__(138);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(243);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -66853,8 +67070,8 @@
 	                                            'td',
 	                                            { width: '25%', className: 'talign-left' },
 	                                            _react2.default.createElement(
-	                                                'span',
-	                                                { className: 'word-limit-5', 'data-tip': elem.companyName },
+	                                                _reactRouter.Link,
+	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-5', title: elem.companyName, 'data-tip': elem.companyName },
 	                                                elem.companyName
 	                                            )
 	                                        ),
@@ -66882,8 +67099,8 @@
 	                                            'td',
 	                                            { width: '25%', className: 'talign-left' },
 	                                            _react2.default.createElement(
-	                                                'span',
-	                                                { className: 'word-limit-5', 'data-tip': elem.companyName },
+	                                                _reactRouter.Link,
+	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-5', title: elem.companyName, 'data-tip': elem.companyName },
 	                                                elem.companyName
 	                                            )
 	                                        ),
@@ -66952,7 +67169,7 @@
 
 
 	// module
-	exports.push([module.id, ".finance-guara-index .mt-table {\r\n\tmargin: 0px !important;\r\n}\r\n\r\n/*企业评级*/\r\n.finance-guara-index .company-grade .mod-content .table-content {\r\n\theight: 530px;\r\n\toverflow: auto;\r\n}\r\n\r\n/*担保责任余额结构分布*/\r\n.finance-guara-index .balance-distribute {\r\n\theight: 49.5%;\r\n}\r\n\r\n.finance-guara-index .balance-distribute .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*担保笔均折线图*/\r\n.finance-guara-index .each-average {\r\n\theight: 49.5%;\r\n\tmargin-top: 2%;\r\n}\r\n\r\n.finance-guara-index .each-average .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*地图模块*/\r\n.finance-guara-index .finance-guara-map .map-chart-box {\r\n\theight: 610px;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .finance-guara-map .company-chart-box {\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.finance-guara-index .finance-guara-map .visual-text {\r\n\tposition: absolute;\r\n\tbottom: 26%;\r\n\tright: 3%;\r\n\tz-index: 1000;\r\n\twidth: 14px;\r\n}\r\n\r\n/*贷款余额占比*/\r\n.finance-guara-index .loan-balance .chart-box {\r\n\theight: 300px;\r\n}\r\n\r\n/*股东行业风险*/\r\n.finance-guara-index .industry-risk .mod-content .table-content {\r\n\theight: 240px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk .mod-content .table-content table td a {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*大额借款人信息列表*/\r\n\r\n/*股东风险更多*/\r\n.finance-guara-index .industry-risk-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: fixed;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content {\r\n\tpadding: 8px 10px;\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content ul {\r\n\tdisplay: inline-block;\r\n\twidth: 33.33%;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content ul li {\r\n\tpadding: 15px 5px;\r\n\tfont-size: 14px;\r\n}", ""]);
+	exports.push([module.id, ".finance-guara-index .mt-table {\r\n\tmargin: 0px !important;\r\n}\r\n\r\n/*企业评级*/\r\n.finance-guara-index .company-grade .mod-content .table-content {\r\n\theight: 530px;\r\n\toverflow: auto;\r\n}\r\n\r\n/*担保责任余额结构分布*/\r\n.finance-guara-index .balance-distribute {\r\n\theight: 49.5%;\r\n}\r\n\r\n.finance-guara-index .balance-distribute .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*担保笔均折线图*/\r\n.finance-guara-index .each-average {\r\n\theight: 49.5%;\r\n\tmargin-top: 2%;\r\n}\r\n\r\n.finance-guara-index .each-average .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*地图模块*/\r\n.finance-guara-index .finance-guara-map .map-chart-box {\r\n\theight: 610px;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .finance-guara-map .company-chart-box {\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.finance-guara-index .finance-guara-map .visual-text {\r\n\tposition: absolute;\r\n\tbottom: 26%;\r\n\tright: 3%;\r\n\tz-index: 1000;\r\n\twidth: 14px;\r\n}\r\n\r\n/*贷款余额占比*/\r\n.finance-guara-index .loan-balance .chart-box {\r\n\theight: 300px;\r\n}\r\n\r\n/*股东行业风险*/\r\n.finance-guara-index .industry-risk .mod-content .table-content {\r\n\theight: 240px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk .mod-content .table-content table td a.more {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*大额借款人信息列表*/\r\n\r\n/*股东风险更多*/\r\n.finance-guara-index .industry-risk-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: fixed;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content {\r\n\tpadding: 8px 10px;\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content ul {\r\n\tdisplay: inline-block;\r\n\twidth: 33.33%;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content ul li {\r\n\tpadding: 15px 5px;\r\n\tfont-size: 14px;\r\n}", ""]);
 
 	// exports
 
@@ -67249,8 +67466,14 @@
 	                backgroundColor: 'rgba(0,0,0,0.7)',
 	                padding: [10, 10, 10, 10],
 	                formatter: function formatter(v) {
+	                    var _until = "";
+	                    if (parm.unit == undefined) {
+	                        _until = "";
+	                    } else {
+	                        _until = parm.unit;
+	                    }
 	                    if (!isNaN(v.value)) {
-	                        return v.name + "<br/>" + v.seriesName + ":" + v.value;
+	                        return v.name + "<br/>" + v.seriesName + ":<span style='color:#00b7f0'>" + v.value + "(" + _until + ")</span>";
 	                    } else {
 	                        return v.name;
 	                    }
@@ -67480,99 +67703,98 @@
 
 	//担保责任余额结构分布
 	var BalanceDistribute = _react2.default.createClass({
-	  displayName: 'BalanceDistribute',
+	    displayName: 'BalanceDistribute',
 
-	  getInitialState: function getInitialState() {
-	    return {
-	      option: null
-	    };
-	  },
-	  componentDidMount: function componentDidMount() {},
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    console.log(nextProps, '这是11111111111111');
-	    var isEqual = Immutable.is(nextProps.balanceDistrData, this.props.balanceDistrData);
-	    console.log(isEqual);
-	    if (!isEqual) {
-	      var balanceDistrData = nextProps.balanceDistrData;
+	    getInitialState: function getInitialState() {
+	        return {
+	            option: null
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {},
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var isEqual = Immutable.is(nextProps.balanceDistrData, this.props.balanceDistrData);
+	        console.log(isEqual);
+	        if (!isEqual) {
+	            var balanceDistrData = nextProps.balanceDistrData;
 
-	      this.dataFomat(balanceDistrData);
+	            this.dataFomat(balanceDistrData);
+	        }
+	    },
+	    dataFomat: function dataFomat(data) {
+	        var option = {
+	            "color": ["#6c9f87", "#e14340", "#efd79b"],
+	            "title": "",
+	            "xtitle": "",
+	            "legend": ["政策性", "综合型", "钢贸类"],
+	            "legendShow": true,
+	            "legendOrient": "vertical",
+	            "legendLeft": "",
+	            "legendTop": "middle",
+	            "legendRight": "10%",
+	            "seriesName": "",
+	            "flag": "balanceDistri",
+	            "radius": "70%",
+	            "lable": { normal: { show: false },
+	                emphasis: { show: false }
+	            },
+	            "center": ['40%', '50%'],
+	            "series": data
+	        };
+	        this.setState({ option: option });
+	    },
+	    //   setParm:function(){
+	    //   const option ={
+	    //         "color":["#6c9f87", "#e14340","#61a0a8"],
+	    //         "title":"",
+	    //         "xtitle":"",
+	    //         "legend": ["政策性", "综合型","钢贸类"],
+	    //         "legendShow":true,
+	    //         "legendOrient":"vertical",
+	    //         "legendLeft":"",
+	    //         "legendTop":"middle",
+	    //         "legendRight":"10%",
+	    //         "seriesName":"担保责任余额结构分布",
+	    //         "radius":"70%",
+	    //         "lable":{ normal: { show:false},
+	    //                   emphasis: {show:false}
+	    //               },
+	    //         "center":['40%', '50%'],
+	    //         "series": [
+	    //                 {value:500, name:'政策性'},
+	    //                 {value:800, name:'综合型'},
+	    //                 {value:400, name:'钢贸类'}
+	    //             ]
+	    //     };
+	    //         return option;
+	    // },
+	    render: function render() {
+	        var bbdPie = "";
+	        if (this.state.option) {
+	            bbdPie = _react2.default.createElement(_BasePie2.default, { option: this.state.option, style: { height: '272px', width: '100%' } });
+	        }
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'balance-distribute mod' },
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'mod-title' },
+	                _react2.default.createElement(
+	                    'h3',
+	                    null,
+	                    '担保责任余额结构分布'
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'mod-content' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'chart-box' },
+	                    bbdPie
+	                )
+	            )
+	        );
 	    }
-	  },
-	  dataFomat: function dataFomat(data) {
-	    console.log(data, 33333333333333);
-	    var option = {
-	      "color": ["#6c9f87", "#e14340", "#efd79b"],
-	      "title": "",
-	      "xtitle": "",
-	      "legend": ["政策性", "综合型", "钢贸类"],
-	      "legendShow": true,
-	      "legendOrient": "vertical",
-	      "legendLeft": "",
-	      "legendTop": "middle",
-	      "legendRight": "10%",
-	      "seriesName": "担保责任余额结构分布",
-	      "radius": "70%",
-	      "lable": { normal: { show: false },
-	        emphasis: { show: false }
-	      },
-	      "center": ['40%', '50%'],
-	      "series": data
-	    };
-	    this.setState({ option: option });
-	  },
-	  //   setParm:function(){
-	  //   const option ={
-	  //         "color":["#6c9f87", "#e14340","#61a0a8"],
-	  //         "title":"",
-	  //         "xtitle":"",
-	  //         "legend": ["政策性", "综合型","钢贸类"],
-	  //         "legendShow":true,
-	  //         "legendOrient":"vertical",
-	  //         "legendLeft":"",
-	  //         "legendTop":"middle",
-	  //         "legendRight":"10%",
-	  //         "seriesName":"担保责任余额结构分布",
-	  //         "radius":"70%",
-	  //         "lable":{ normal: { show:false},
-	  //                   emphasis: {show:false}
-	  //               },
-	  //         "center":['40%', '50%'],
-	  //         "series": [
-	  //                 {value:500, name:'政策性'},
-	  //                 {value:800, name:'综合型'},
-	  //                 {value:400, name:'钢贸类'}
-	  //             ]
-	  //     };
-	  //         return option;
-	  // },
-	  render: function render() {
-	    var bbdPie = "";
-	    if (this.state.option) {
-	      bbdPie = _react2.default.createElement(_BasePie2.default, { option: this.state.option, style: { height: '272px', width: '100%' } });
-	    }
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'balance-distribute mod' },
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'mod-title' },
-	        _react2.default.createElement(
-	          'h3',
-	          null,
-	          '担保责任余额结构分布'
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'mod-content' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'chart-box' },
-	          bbdPie
-	        )
-	      )
-	    );
-	  }
 	});
 	module.exports = BalanceDistribute;
 
@@ -67744,6 +67966,7 @@
 	    }
 	  },
 	  dataFomat: function dataFomat(data) {
+	    console.log(data, '担保责任余额');
 	    var option = {
 	      id: 'guara-balance-chart', //必传
 	      height: '272px', //必传 带上单位
@@ -67834,6 +68057,8 @@
 
 	var _reactRedux = __webpack_require__(317);
 
+	var _reactRouter = __webpack_require__(243);
+
 	var _IndustryRiskMore = __webpack_require__(797);
 
 	var _IndustryRiskMore2 = _interopRequireDefault(_IndustryRiskMore);
@@ -67848,6 +68073,7 @@
 	    getInitialState: function getInitialState() {
 	        return {
 	            industryRiskList: [],
+	            industryRiskDetList: {},
 	            orderType: "desc", //默认降序
 	            orderField: "" //需要排序的字段
 	        };
@@ -67875,7 +68101,7 @@
 	        });
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var isEqual = Immutable.is(nextProps.finGuaIndustryRiskRequest, this.props.finGuaIndustryRiskResult);
+	        var isEqual = Immutable.is(nextProps.finGuaIndustryRiskResult, this.props.finGuaIndustryRiskResult);
 	        if (!isEqual) {
 	            var finGuaIndustryRiskRequest = nextProps.finGuaIndustryRiskRequest;
 	            var finGuaIndustryRiskResult = nextProps.finGuaIndustryRiskResult;
@@ -67888,16 +68114,51 @@
 	                }
 	            }
 	        }
+
+	        var isEqualDet = Immutable.is(nextProps.finGuaIndustryRiskDetailResult, this.props.finGuaIndustryRiskDetailResult);
+	        if (!isEqualDet) {
+	            var finGuaIndustryRiskDetailRequest = nextProps.finGuaIndustryRiskDetailRequest;
+	            var finGuaIndustryRiskDetailResult = nextProps.finGuaIndustryRiskDetailResult;
+
+	            console.log(finGuaIndustryRiskDetailRequest, finGuaIndustryRiskDetailResult, '123');
+	            if (finGuaIndustryRiskDetailRequest == true) {
+	                if (finGuaIndustryRiskDetailResult.success == true) {
+	                    console.log(finGuaIndustryRiskDetailResult, 'finGuaIndustryRiskDetailResult');
+	                    this.dataFomatDetail(finGuaIndustryRiskDetailResult);
+	                } else {
+	                    //错误后提示
+	                }
+	            }
+	        }
 	    },
 	    dataFomat: function dataFomat(data) {
 	        var content = data.content;
 	        this.setState({ industryRiskList: content });
 	    },
-	    orderByField: function orderByField(parm, e) {},
-	    handleMore: function handleMore(e) {
-	        console.log(e);
+	    dataFomatDetail: function dataFomatDetail(data) {
+	        var content = data.content;
+	        console.log(content, 'xuyao');
+	        this.setState({ industryRiskDetList: content });
+	    },
+	    getFinGuaIndustryRiskDetail: function getFinGuaIndustryRiskDetail(jsonData) {
+	        var getFinGuaIndustryRiskDetail = this.props.getFinGuaIndustryRiskDetail;
+
+	        getFinGuaIndustryRiskDetail(jsonData);
+	    },
+	    handleMore: function handleMore(data, e) {
+	        console.log(data, e);
+	        var jsonData = { companyId: data };
+	        this.getFinGuaIndustryRiskDetail(jsonData);
+
 	        var left = e.screenX - 500;
 	        var top = e.screenY - 310;
+	        var moreStyle = {
+	            position: 'fixed',
+	            left: left + 'px',
+	            top: top + 'px',
+	            display: 'block'
+	        };
+	        //this.setState({moreStyle:moreStyle});
 	        $('.industry-risk-more').css({
 	            position: 'fixed',
 	            left: left + 'px',
@@ -67975,6 +68236,7 @@
 	                            'tbody',
 	                            null,
 	                            this.state.industryRiskList.map(function (elem, index) {
+	                                var companyId = elem.companyId;
 	                                if (index % 2) {
 	                                    return _react2.default.createElement(
 	                                        'tr',
@@ -67983,8 +68245,8 @@
 	                                            'td',
 	                                            { width: '20%', className: 'talign-left' },
 	                                            _react2.default.createElement(
-	                                                'span',
-	                                                { className: 'word-limit-5', 'data-tip': elem.companyName },
+	                                                _reactRouter.Link,
+	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-5', title: elem.companyName, 'data-tip': elem.companyName },
 	                                                elem.companyName
 	                                            )
 	                                        ),
@@ -68008,7 +68270,7 @@
 	                                            { width: '13%' },
 	                                            _react2.default.createElement(
 	                                                'a',
-	                                                { href: 'javascript:;', onClick: this.handleMore },
+	                                                { href: 'javascript:;', className: 'more', onClick: this.handleMore.bind(this, companyId) },
 	                                                '更多'
 	                                            )
 	                                        )
@@ -68021,8 +68283,8 @@
 	                                            'td',
 	                                            { width: '20%', className: 'talign-left' },
 	                                            _react2.default.createElement(
-	                                                'span',
-	                                                { className: 'word-limit-5', 'data-tip': elem.companyName },
+	                                                _reactRouter.Link,
+	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-5', title: elem.companyName, 'data-tip': elem.companyName },
 	                                                elem.companyName
 	                                            )
 	                                        ),
@@ -68046,7 +68308,7 @@
 	                                            { width: '13%' },
 	                                            _react2.default.createElement(
 	                                                'a',
-	                                                { href: 'javascript:;', onClick: this.handleMore },
+	                                                { href: 'javascript:;', className: 'more', onClick: this.handleMore.bind(this, companyId) },
 	                                                '更多'
 	                                            )
 	                                        )
@@ -68057,7 +68319,7 @@
 	                    )
 	                )
 	            ),
-	            _react2.default.createElement(_IndustryRiskMore2.default, null)
+	            _react2.default.createElement(_IndustryRiskMore2.default, { riskListDet: this.state.industryRiskDetList })
 	        );
 	    }
 	});
@@ -68094,121 +68356,107 @@
 
 	//股东行业风险更多
 	var IndustryRiskMore = _react2.default.createClass({
-	   displayName: 'IndustryRiskMore',
+	  displayName: 'IndustryRiskMore',
 
-	   getInitialState: function getInitialState() {
-	      return {};
-	   },
-	   closeClick: function closeClick(e) {
-	      $(this.refs.industryRiskMore).hide();
-	   },
-	   render: function render() {
-	      return _react2.default.createElement(
-	         'div',
-	         { className: 'industry-risk-more', ref: 'industryRiskMore' },
-	         _react2.default.createElement(
-	            'div',
-	            { className: 'title' },
-	            _react2.default.createElement(
-	               'span',
-	               null,
-	               'P2P关联'
-	            ),
-	            _react2.default.createElement(
-	               'span',
-	               null,
-	               '私募基金关联'
-	            ),
-	            _react2.default.createElement(
-	               'span',
-	               null,
-	               '线下理财关联'
-	            ),
-	            _react2.default.createElement('i', { className: 'iconfont icon-guanbi', onClick: this.closeClick })
-	         ),
-	         _react2.default.createElement(
-	            'div',
-	            { className: 'content' },
-	            _react2.default.createElement(
-	               'ul',
-	               { className: 'left' },
-	               _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  '上海贝电实业（集团）股份有限公司'
-	               ),
-	               _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  '上海贝电实业（集团）股份有限公司'
-	               ),
-	               _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  '上海贝电实业（集团）股份有限公司'
-	               ),
-	               _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  '上海贝电实业（集团）股份有限公司'
-	               ),
-	               _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  '上海贝电实业（集团）股份有限公司'
-	               )
-	            ),
-	            _react2.default.createElement(
-	               'ul',
-	               { className: 'middle' },
-	               _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  '上海贝电实业（集团）股份有限公司'
-	               ),
-	               _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  '上海贝电实业（集团）股份有限公司'
-	               ),
-	               _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  '上海贝电实业（集团）股份有限公司'
-	               ),
-	               _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  '上海贝电实业（集团）股份有限公司'
-	               ),
-	               _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  '上海贝电实业（集团）股份有限公司'
-	               )
-	            ),
-	            _react2.default.createElement(
-	               'ul',
-	               { className: 'right' },
-	               _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  '上海贝电实业（集团）股份有限公司'
-	               ),
-	               _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  '上海贝电实业（集团）股份有限公司'
-	               ),
-	               _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  '上海贝电实业（集团）股份有限公司'
-	               )
-	            )
-	         )
-	      );
-	   }
+	  getInitialState: function getInitialState() {
+	    return {
+	      p2p: [], //p2p
+	      linFin: [], //线下理财
+	      preFun: [] };
+	  },
+	  //私募基金
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var isEqual = Immutable.is(nextProps.riskListDet, this.props.riskListDet);
+	    if (!isEqual) {
+	      this.dataFomat(nextProps);
+	    }
+	  },
+	  dataFomat: function dataFomat(data) {
+	    console.log(data.riskListDet, 333);
+	    var p2p = [],
+	        linFin = [],
+	        preFun = [];
+	    var riskListDet = data.riskListDet;
+	    if (riskListDet["1"] != undefined) {
+	      p2p = riskListDet["1"];
+	    }
+	    if (riskListDet["4"] != undefined) {
+	      linFin = riskListDet["4"];
+	    }
+	    if (riskListDet["5"] != undefined) {
+	      preFun = riskListDet["5"];
+	    }
+	    this.setState({ p2p: p2p, linFin: linFin, preFun: preFun });
+	  },
+	  closeClick: function closeClick(e) {
+	    $(this.refs.industryRiskMore).hide();
+	  },
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'industry-risk-more', ref: 'industryRiskMore' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'title' },
+	        _react2.default.createElement(
+	          'span',
+	          null,
+	          'P2P关联'
+	        ),
+	        _react2.default.createElement(
+	          'span',
+	          null,
+	          '私募基金关联'
+	        ),
+	        _react2.default.createElement(
+	          'span',
+	          null,
+	          '线下理财关联'
+	        ),
+	        _react2.default.createElement('i', { className: 'iconfont icon-guanbi', onClick: this.closeClick })
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'content' },
+	        _react2.default.createElement(
+	          'ul',
+	          { className: 'left' },
+	          this.state.p2p.map(function (elem, index) {
+	            console.log(elem);
+	            return _react2.default.createElement(
+	              'li',
+	              null,
+	              elem
+	            );
+	          }.bind(this))
+	        ),
+	        _react2.default.createElement(
+	          'ul',
+	          { className: 'middle' },
+	          this.state.preFun.map(function (elem, index) {
+	            console.log(elem);
+	            return _react2.default.createElement(
+	              'li',
+	              null,
+	              elem
+	            );
+	          }.bind(this))
+	        ),
+	        _react2.default.createElement(
+	          'ul',
+	          { className: 'right' },
+	          this.state.linFin.map(function (elem, index) {
+	            console.log(elem);
+	            return _react2.default.createElement(
+	              'li',
+	              null,
+	              elem
+	            );
+	          }.bind(this))
+	        )
+	      )
+	    );
+	  }
 	});
 	module.exports = IndustryRiskMore;
 
@@ -68234,6 +68482,8 @@
 	var _reactRedux = __webpack_require__(317);
 
 	var _index = __webpack_require__(692);
+
+	var _reactRouter = __webpack_require__(243);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -68373,8 +68623,8 @@
 	                    'td',
 	                    { className: 'talign-left' },
 	                    _react2.default.createElement(
-	                      'span',
-	                      { className: 'word-limit-5', 'data-tip': elem.guaranteeName, title: elem.guaranteeName },
+	                      _reactRouter.Link,
+	                      { to: { pathname: '/SearchResultDetail', query: { companyName: elem.guaranteeName } }, className: 'word-limit-5', title: elem.guaranteeName },
 	                      elem.guaranteeName
 	                    )
 	                  ),
@@ -68382,8 +68632,8 @@
 	                    'td',
 	                    null,
 	                    _react2.default.createElement(
-	                      'span',
-	                      { className: 'word-limit-5', 'data-tip': elem.guaranteedName, title: elem.guaranteedName },
+	                      _reactRouter.Link,
+	                      { to: { pathname: '/SearchResultDetail', query: { companyName: elem.guaranteedName } }, className: 'word-limit-5', title: elem.guaranteedName },
 	                      elem.guaranteedName
 	                    )
 	                  ),
@@ -68402,7 +68652,7 @@
 	                    elem.guaranteedRegisteredCapital
 	                  )
 	                );
-	              }{
+	              } else {
 	                return _react2.default.createElement(
 	                  'tr',
 	                  { className: 'odd' },
@@ -68410,8 +68660,8 @@
 	                    'td',
 	                    { className: 'talign-left' },
 	                    _react2.default.createElement(
-	                      'span',
-	                      { className: 'word-limit-5', 'data-tip': elem.guaranteeName, title: elem.guaranteeName },
+	                      _reactRouter.Link,
+	                      { to: { pathname: '/SearchResultDetail', query: { companyName: elem.guaranteeName } }, className: 'word-limit-5', title: elem.guaranteeName },
 	                      elem.guaranteeName
 	                    )
 	                  ),
@@ -68419,8 +68669,8 @@
 	                    'td',
 	                    null,
 	                    _react2.default.createElement(
-	                      'span',
-	                      { className: 'word-limit-5', 'data-tip': elem.guaranteedName, title: elem.guaranteedName },
+	                      _reactRouter.Link,
+	                      { to: { pathname: '/SearchResultDetail', query: { companyName: elem.guaranteedName } }, className: 'word-limit-5', title: elem.guaranteedName },
 	                      elem.guaranteedName
 	                    )
 	                  ),
@@ -68428,8 +68678,8 @@
 	                    'td',
 	                    null,
 	                    _react2.default.createElement(
-	                      'span',
-	                      { className: 'word-limit-5', 'data-tip': elem.guaranteedBusinessType, title: elem.guaranteedBusinessType },
+	                      _reactRouter.Link,
+	                      { to: { pathname: '/SearchResultDetail', query: { companyName: elem.guaranteedBusinessType } }, className: 'word-limit-5', title: elem.guaranteedBusinessType },
 	                      elem.guaranteedBusinessType
 	                    )
 	                  ),
@@ -68569,7 +68819,7 @@
 	    },
 	    handleFunction: function handleFunction(searchVal) {
 	        console.log(searchVal, "================搜索词语============================");
-	        this.props.history.push('/SearchResultDetail?platName=' + searchVal);
+	        this.props.history.push('/SearchResultDetail?companyName=' + searchVal);
 	    },
 	    mixins: [_setHeight2.default],
 	    render: function render() {
@@ -68837,7 +69087,7 @@
 																																																	{ width: '25%' },
 																																																	_react2.default.createElement(
 																																																					_reactRouter.Link,
-																																																					{ to: { pathname: '/SearchResultDetail', query: { formpage: 'CompanyProgress', company: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName, title: item.companyName },
+																																																					{ to: { pathname: '/SearchResultDetail', query: { formpage: 'CompanyProgress', companyName: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName, title: item.companyName },
 																																																					item.companyName
 																																																	)
 																																													),
@@ -68876,7 +69126,7 @@
 																																																	{ width: '25%' },
 																																																	_react2.default.createElement(
 																																																					_reactRouter.Link,
-																																																					{ to: { pathname: '/SearchResultDetail', query: { formpage: 'CompanyProgress', company: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName, title: item.companyName },
+																																																					{ to: { pathname: '/SearchResultDetail', query: { formpage: 'CompanyProgress', companyName: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName, title: item.companyName },
 																																																					item.companyName
 																																																	)
 																																													),
@@ -68952,7 +69202,7 @@
 
 
 	// module
-	exports.push([module.id, ".privateFund-index .middle-l .content,\r\n.privateFund-index .middle-r .content {\r\n\theight: 570px;\r\n}\r\n\r\n.privateFund-index .middle-l .content .content-l {\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index .middle-l .content .content-r {\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index .middle-r .content .content-l {\r\n\twidth: 40%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index  .middle-r .content .content-r {\r\n\twidth: 60%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark {\r\n\tmargin-top: 50px;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark table {\r\n\theight: 100px;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark table {\r\n\twidth: 100%;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark tbody {\r\n\tbackground: #3a4352;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark .padding-l20 {\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark .word-limit-5 {\r\n\r\n\t/*width: 200px;*/\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark tbody tr {\r\n\tborder-bottom: 1px #555c6c solid;\r\n\ttext-align: left;\r\n}\r\n\r\n.privateFund-index .top-left-l .mod-content,\r\n.privateFund-index .top-r .mod-content {\r\n\tpadding: 10px 15px 50px 15px;\r\n}\r\n\r\n.privateFund-index .top-left-l .table-content,\r\n.privateFund-index .top-r .table-content {\r\n\theight: 460px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.privateFund-index .top-left-l .table-content table,\r\n.privateFund-index .top-r .table-content table {\r\n\r\n\t/*height: 100%*/\r\n}\r\n\r\n.privateFund-index .top-left-l  thead th,\r\n.privateFund-index .top-r  thead th {\r\n\ttext-align: left;\r\n\theight: 40px;\r\n\tpadding: 0px !important;\r\n}\r\n\r\n.privateFund-index .top-left-l tbody td,\r\n.privateFund-index .top-r tbody td {\r\n\ttext-align: left;\r\n\tpadding: 10px 0px !important;\r\n}\r\n\r\n.privateFund-index .top-left-l .mt-table th {\r\n\tpadding: 0px;\r\n}\r\n\r\n.padding-l20 {\r\n\tpadding-left: 20px !important;\r\n}", ""]);
+	exports.push([module.id, ".privateFund-index .middle-l .content,\r\n.privateFund-index .middle-r .content {\r\n\theight: 570px;\r\n}\r\n\r\n.privateFund-index .middle-l .content .content-l {\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index .middle-l .content .content-r {\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index .middle-r .content .content-l {\r\n\twidth: 40%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index  .middle-r .content .content-r {\r\n\twidth: 60%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark {\r\n\tmargin-top: 50px;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark table {\r\n\theight: 100px;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark table {\r\n\twidth: 100%;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark tbody {\r\n\tbackground: #3a4352;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark .padding-l20 {\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark .word-limit-5 {\r\n\r\n\t/*width: 200px;*/\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark tbody tr {\r\n\tborder-bottom: 1px #555c6c solid;\r\n\ttext-align: left;\r\n}\r\n\r\n.privateFund-index .top-left-l .mod-content,\r\n.privateFund-index .top-r .mod-content {\r\n\tpadding: 10px 15px 50px 15px;\r\n}\r\n\r\n.privateFund-index .top-left-l .table-content,\r\n.privateFund-index .top-r .table-content {\r\n\theight: 460px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.privateFund-index .top-left-l .table-content table,\r\n.privateFund-index .top-r .table-content table {\r\n\tmargin-top: 0px !important;\t/*height: 100%*/\r\n}\r\n\r\n.privateFund-index  .mt-table {\r\n\tmargin: 0px 0px !important;\r\n}\r\n\r\n.privateFund-index .top-left-l  thead th,\r\n.privateFund-index .top-r  thead th {\r\n\ttext-align: left;\r\n\theight: 40px;\r\n\tpadding: 0px !important;\r\n}\r\n\r\n.privateFund-index .top-left-l tbody td,\r\n.privateFund-index .top-r tbody td {\r\n\ttext-align: left;\r\n\tpadding: 10px 0px !important;\r\n}\r\n\r\n.privateFund-index .top-left-l .mt-table th {\r\n\tpadding: 0px;\r\n}\r\n\r\n.padding-l20 {\r\n\tpadding-left: 20px !important;\r\n}", ""]);
 
 	// exports
 
@@ -69271,7 +69521,7 @@
 	                                                { width: '30%' },
 	                                                _react2.default.createElement(
 	                                                    _reactRouter.Link,
-	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'QDLPQuality', company: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName, title: item.companyName },
+	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'QDLPQuality', companyName: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName, title: item.companyName },
 	                                                    item.companyName
 	                                                )
 	                                            ),
@@ -69306,7 +69556,7 @@
 	                                                { width: '30%' },
 	                                                _react2.default.createElement(
 	                                                    _reactRouter.Link,
-	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'QDLPQuality', company: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName, title: item.companyName },
+	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'QDLPQuality', companyName: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName, title: item.companyName },
 	                                                    item.companyName
 	                                                )
 	                                            ),
@@ -69983,6 +70233,7 @@
 	                        "gridBottom": "20%",
 	                        "barName": ["私募机构数量", "管理资本金额"],
 	                        "xAxis": chartxAxis,
+	                        "unit": ["", "亿元"],
 	                        "yAxisName": ["亿元", "个数"],
 	                        "barWidth": 20,
 	                        "symbolSize": 10,
@@ -70049,28 +70300,57 @@
 	    setOption: function setOption(parm) {
 	        var seriesBarData = [];
 	        if (parm.series.bar) {
-	            for (var i = 0; i < parm.series.bar.length; i++) {
-	                var seriesBarItem = {
-	                    name: parm.barName[i],
-	                    type: 'bar',
-	                    label: {
-	                        normal: {
-	                            show: parm.labelShow || false,
-	                            position: parm.lablePosition || "top",
-	                            textStyle: {
-	                                color: "#fff"
+	            if (!parm.series.line) {
+	                for (var i = 0; i < parm.series.bar.length; i++) {
+	                    var seriesBarItem = {
+	                        name: parm.barName[i],
+	                        type: 'bar',
+	                        label: {
+	                            normal: {
+	                                show: parm.labelShow || false,
+	                                position: parm.lablePosition || "top",
+	                                textStyle: {
+	                                    color: "#fff"
+	                                }
 	                            }
+	                        },
+	                        stack: parm.stack == undefined ? "" : parm.stack,
+	                        barWidth: parm.barWidth == undefined ? "auto" : parm.barWidth,
+	                        data: parm.series.bar[i],
+	                        itemStyle: parm.itemStyle || {
+	                            normal: {},
+	                            emphasis: {}
 	                        }
-	                    },
-	                    stack: parm.stack == undefined ? "" : parm.stack,
-	                    barWidth: parm.barWidth == undefined ? "auto" : parm.barWidth,
-	                    data: parm.series.bar[i],
-	                    itemStyle: parm.itemStyle || {
-	                        normal: {},
-	                        emphasis: {}
+	                    };
+	                    if (i == parm.series.bar.length - 1) {
+	                        seriesBarItem["yAxisIndex"] = 1;
 	                    }
-	                };
-	                seriesBarData.push(seriesBarItem);
+	                    seriesBarData.push(seriesBarItem);
+	                }
+	            } else {
+	                for (var i = 0; i < parm.series.bar.length; i++) {
+	                    var seriesBarItem = {
+	                        name: parm.barName[i],
+	                        type: 'bar',
+	                        label: {
+	                            normal: {
+	                                show: parm.labelShow || false,
+	                                position: parm.lablePosition || "top",
+	                                textStyle: {
+	                                    color: "#fff"
+	                                }
+	                            }
+	                        },
+	                        stack: parm.stack == undefined ? "" : parm.stack,
+	                        barWidth: parm.barWidth == undefined ? "auto" : parm.barWidth,
+	                        data: parm.series.bar[i],
+	                        itemStyle: parm.itemStyle || {
+	                            normal: {},
+	                            emphasis: {}
+	                        }
+	                    };
+	                    seriesBarData.push(seriesBarItem);
+	                }
 	            }
 	        }
 	        var barAreaStyle = {};
@@ -70108,7 +70388,13 @@
 	                formatter: function formatter(v) {
 	                    var info = v[0].name + "<br/>";
 	                    for (var i = 0; i < v.length; i++) {
-	                        var _spanCorlor = '<span style=color:' + parm.color[i] + '>' + v[i].value + '</span><br/>';
+	                        var _until = "";
+	                        if (parm.unit == undefined) {
+	                            _until = "";
+	                        } else {
+	                            _until = parm.unit[i];
+	                        }
+	                        var _spanCorlor = '<span style=color:' + parm.color[i] + '>' + v[i].value + _until + '</span><br/>';
 	                        info += v[i].seriesName + " :&nbsp;" + _spanCorlor;
 	                    }
 	                    return info;
@@ -70142,6 +70428,10 @@
 	                containLabel: true
 	            },
 	            xAxis: [{
+	                name: parm.Xname || "",
+	                nameTextStyle: {
+	                    color: "#7f868e"
+	                },
 	                type: parm.Xtype || 'category',
 	                data: parm.xAxis || [],
 	                axisLabel: {
@@ -70453,20 +70743,21 @@
 	                        "color": ["#efd79b", "#e14340"],
 	                        "titleShow": "show",
 	                        "titleX": "center",
-	                        "legend": ["披露数量", "投资金额"],
+	                        "legend": ["投资金额", "披露数量"],
 	                        "legendShow": true,
 	                        "legendLeft": "10%",
 	                        "legendBottom": "20",
 	                        "gridBottom": "20%",
-	                        "barName": ["披露数量"],
-	                        "lineName": ["投资金额"],
+	                        "barName": ["投资金额"],
+	                        "lineName": ["披露数量"],
 	                        "xAxis": chartxAxis,
 	                        "yAxisName": ["亿元", "数量"],
+	                        "unit": ["亿元", ""],
 	                        "barWidth": 30,
 	                        "symbolSize": 5,
 	                        "series": {
-	                            "bar": [_barData],
-	                            "line": [_lineData]
+	                            "bar": [_lineData],
+	                            "line": [_barData]
 	                        }
 	                    };
 
@@ -70965,17 +71256,23 @@
 	    var conLength = content.length;
 	    for (var i = 0; i < conLength; i++) {
 	      var year = content[i].year;
-	      var balance = content[i].amount; //贷款余额
-	      var dataArr = [i, i, balance];
+	      var amount = content[i].amount; //贷款余额
 
-	      balanceArr.push(balance);
+	      var number = content[i].number; //笔数
+	      var companyAmount = content[i].companyAmount; //公司数量
+	      var averageBlance = Number(amount / companyAmount).toFixed(2); //平均贷款余额
+
+	      //贷款余额
+	      var dataArr = [i, i, amount, averageBlance];
+	      balanceArr.push(amount);
 	      loanBalanceData.xAxis.push(year);
 	      loanBalanceData.data.push(dataArr);
 
+	      var eachAver = Number(amount / number).toFixed(2); //贷款笔均数
 	      eachAverageData.xAxis.push(year);
-	      eachAverageData.series.push(content[i].number);
+	      eachAverageData.series.push(eachAver);
 
-	      var amount = content[i].amount;
+	      //三农 小微企业
 	      var agricultureBalance = content[i].agricultureBalance;
 	      var smallCompanyBalance = content[i].smallCompanyBalance;
 	      balanceRatioData.push({
@@ -70983,9 +71280,9 @@
 	        amount: amount,
 	        agricultureBalance: agricultureBalance,
 	        smallCompanyBalance: smallCompanyBalance,
-	        amountScale: amount / amount * 0.7,
-	        agrBalScale: agricultureBalance / amount * 0.7,
-	        smlComBalScale: smallCompanyBalance / amount * 0.7
+	        amountScale: Number(amount / amount * 0.7).toFixed(2),
+	        agrBalScale: Number(agricultureBalance / amount).toFixed(2),
+	        smlComBalScale: Number(smallCompanyBalance / amount).toFixed(2)
 	      });
 	    }
 
@@ -70997,6 +71294,9 @@
 
 	    this.setState({ loanBalanceData: loanBalanceData, eachAverageData: eachAverageData, balanceRatioData: balanceRatioData });
 	  },
+	  searchFun: function searchFun(e) {
+	    this.props.history.push('/SearchResultDetail?companyName=' + e);
+	  },
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
@@ -71004,7 +71304,7 @@
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'search-box' },
-	        _react2.default.createElement(_IndustrySearch2.default, { label: '小额贷款监测', className: 'small-loan-search', placeholder: '请输入企业名称检索' })
+	        _react2.default.createElement(_IndustrySearch2.default, { label: '小额贷款监测', companyType: '2', searchFun: this.searchFun, className: 'small-loan-search', placeholder: '请输入企业名称检索' })
 	      ),
 	      _react2.default.createElement(
 	        'div',
@@ -71069,6 +71369,10 @@
 	    //股东行业风险
 	    industryRiskRequest: state.IndustryRisk.request,
 	    industryRiskResult: state.IndustryRisk.result,
+
+	    //股东行业风险详情
+	    industryRiskDetailRequest: state.IndustryRiskDetail.request,
+	    industryRiskDetailResult: state.IndustryRiskDetail.result,
 
 	    //大额借款公司信息列表
 	    largeLoanRequest: state.LargeLoan.request,
@@ -71143,6 +71447,7 @@
 	exports.getSmallLoanMap = getSmallLoanMap;
 	exports.getLoanBalance = getLoanBalance;
 	exports.getIndustryRisk = getIndustryRisk;
+	exports.getIndustryRiskDetail = getIndustryRiskDetail;
 	exports.getLargeLoan = getLargeLoan;
 	/*
 	  小额贷款模块action
@@ -71301,6 +71606,44 @@
 	  };
 	}
 	/*股东行业风险  end*/
+	/*股东行业风险详情 begin*/
+	var INDUSTRY_RISK_DETAIL_SUCCESS = exports.INDUSTRY_RISK_DETAIL_SUCCESS = 'INDUSTRY_RISK_DETAIL_SUCCESS';
+	var INDUSTRY_RISK_DETAIL_FAIL = exports.INDUSTRY_RISK_DETAIL_FAIL = 'INDUSTRY_RISK_DETAIL_FAIL';
+
+	function industryRiskDetailSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: INDUSTRY_RISK_DETAIL_SUCCESS,
+	    result: result
+	  };
+	}
+
+	function industryRiskDetailFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: INDUSTRY_RISK_DETAIL_FAIL,
+	    result: result
+	  };
+	}
+
+	function getIndustryRiskDetail(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "/loan/shareholderRiskDetail.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(industryRiskDetailSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(industryRiskDetailFail(result));
+	      }
+	    });
+	  };
+	}
+	/*股东行业风险详情  end*/
 
 	/*大额借款人信息列表 begin*/
 	var LARGE_LOAN_SUCCESS = exports.LARGE_LOAN_SUCCESS = 'LARGE_LOAN_SUCCESS';
@@ -71357,6 +71700,8 @@
 	var _react = __webpack_require__(138);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(243);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -71503,8 +71848,8 @@
 	                                            'td',
 	                                            { width: '25%', className: 'talign-left' },
 	                                            _react2.default.createElement(
-	                                                'span',
-	                                                { className: 'word-limit-5', 'data-tip': elem.companyName },
+	                                                _reactRouter.Link,
+	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-5', title: elem.companyName, 'data-tip': elem.companyName },
 	                                                elem.companyName
 	                                            )
 	                                        ),
@@ -71532,8 +71877,8 @@
 	                                            'td',
 	                                            { width: '25%', className: 'talign-left' },
 	                                            _react2.default.createElement(
-	                                                'span',
-	                                                { className: 'word-limit-5', 'data-tip': elem.companyName },
+	                                                _reactRouter.Link,
+	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-5', title: elem.companyName, 'data-tip': elem.companyName },
 	                                                elem.companyName
 	                                            )
 	                                        ),
@@ -71602,7 +71947,7 @@
 
 
 	// module
-	exports.push([module.id, ".small-loan-index .mt-table {\r\n\tmargin: 0px !important;\r\n}\r\n\r\n/*企业评级*/\r\n.small-loan-index .company-grade .mod-content .table-content {\r\n\theight: 530px;\r\n\toverflow: auto;\r\n}\r\n\r\n/*余额占比*/\r\n.small-loan-index .balance-radio {\r\n\theight: 49.5%;\r\n}\r\n\r\n.small-loan-index .balance-radio .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*贷款笔均折线图*/\r\n.small-loan-index .each-average {\r\n\theight: 49.5%;\r\n\tmargin-top: 2%;\r\n}\r\n\r\n.small-loan-index .each-average .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*地图模块*/\r\n.small-loan-index .small-loan-map .map-chart-box {\r\n\theight: 610px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .small-loan-map .company-chart-box {\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.small-loan-index .small-loan-map .visual-text {\r\n\tposition: absolute;\r\n\tbottom: 26%;\r\n\tright: 3%;\r\n\tz-index: 1000;\r\n\twidth: 14px;\r\n}\r\n\r\n/*贷款余额占比*/\r\n.small-loan-index .loan-balance .chart-box {\r\n\theight: 300px;\r\n}\r\n\r\n/*股东行业风险*/\r\n.small-loan-index .industry-risk .mod-content .table-content {\r\n\theight: 240px;\r\n\toverflow: auto;\r\n}\r\n\r\n.small-loan-index .industry-risk .mod-content .table-content table td a {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*大额借款人信息列表*/\r\n\r\n/*股东风险更多*/\r\n.small-loan-index .industry-risk-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: fixed;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content {\r\n\tpadding: 8px 10px;\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul {\r\n\tdisplay: inline-block;\r\n\twidth: 33.33%;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul li {\r\n\tpadding: 15px 5px;\r\n\tfont-size: 14px;\r\n}", ""]);
+	exports.push([module.id, ".small-loan-index .mt-table {\r\n\tmargin: 0px !important;\r\n}\r\n\r\n/*企业评级*/\r\n.small-loan-index .company-grade .mod-content .table-content {\r\n\theight: 530px;\r\n\toverflow: auto;\r\n}\r\n\r\n/*余额占比*/\r\n.small-loan-index .balance-radio {\r\n\theight: 49.5%;\r\n}\r\n\r\n.small-loan-index .balance-radio .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*贷款笔均折线图*/\r\n.small-loan-index .each-average {\r\n\theight: 49.5%;\r\n\tmargin-top: 2%;\r\n}\r\n\r\n.small-loan-index .each-average .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*地图模块*/\r\n.small-loan-index .small-loan-map .map-chart-box {\r\n\theight: 610px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .small-loan-map .company-chart-box {\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.small-loan-index .small-loan-map .visual-text {\r\n\tposition: absolute;\r\n\tbottom: 26%;\r\n\tright: 3%;\r\n\tz-index: 1000;\r\n\twidth: 14px;\r\n}\r\n\r\n/*贷款余额占比*/\r\n.small-loan-index .loan-balance .chart-box {\r\n\theight: 300px;\r\n}\r\n\r\n/*股东行业风险*/\r\n.small-loan-index .industry-risk .mod-content .table-content {\r\n\theight: 240px;\r\n\toverflow: auto;\r\n}\r\n\r\n.small-loan-index .industry-risk .mod-content .table-content table td a.more {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*大额借款人信息列表*/\r\n\r\n/*股东风险更多*/\r\n.small-loan-index .industry-risk-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: fixed;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content {\r\n\tpadding: 8px 10px;\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul {\r\n\tdisplay: inline-block;\r\n\twidth: 33.33%;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul li {\r\n\tpadding: 15px 5px;\r\n\tfont-size: 14px;\r\n}", ""]);
 
 	// exports
 
@@ -71834,7 +72179,18 @@
 	                    show: true,
 	                    backgroundColor: 'rgba(0,0,0,0.7)',
 	                    padding: [10, 10, 10, 10],
-	                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+	                    //formatter: "{a} <br/>{b} : {c} ({d}%)"
+	                    formatter: function formatter(data) {
+	                        console.log(data.name, 4444);
+	                        if (data.name != "invisible") {
+	                            var value = data.value;
+	                            if (value == 70) {
+	                                return data.seriesName + "：100(100)%";
+	                            } else {
+	                                return data.seriesName + "：" + data.value + "(" + data.value + ")%";
+	                            }
+	                        }
+	                    }
 	                },
 	                calculable: true,
 	                color: ["#e14340", "#01b0d1", "#00c7ab"],
@@ -72301,6 +72657,8 @@
 
 	var _IndustryRiskMore2 = _interopRequireDefault(_IndustryRiskMore);
 
+	var _reactRouter = __webpack_require__(243);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Immutable = __webpack_require__(718);
@@ -72311,6 +72669,7 @@
 	    getInitialState: function getInitialState() {
 	        return {
 	            industryRiskList: [],
+	            industryRiskDetList: {},
 	            orderType: "desc", //默认降序
 	            orderField: "" //需要排序的字段
 	        };
@@ -72327,7 +72686,7 @@
 	        $('#industryRisk-scroll').perfectScrollbar('update');
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var isEqual = Immutable.is(nextProps.industryRiskRequest, this.props.industryRiskResult);
+	        var isEqual = Immutable.is(nextProps.industryRiskResult, this.props.industryRiskResult);
 	        if (!isEqual) {
 	            var industryRiskRequest = nextProps.industryRiskRequest;
 	            var industryRiskResult = nextProps.industryRiskResult;
@@ -72340,10 +72699,33 @@
 	                }
 	            }
 	        }
+
+	        var isEqualDet = Immutable.is(nextProps.industryRiskDetailResult, this.props.industryRiskDetailResult);
+	        if (!isEqualDet) {
+	            var industryRiskDetailRequest = nextProps.industryRiskDetailRequest;
+	            var industryRiskDetailResult = nextProps.industryRiskDetailResult;
+
+	            if (industryRiskDetailRequest == true) {
+	                if (industryRiskDetailResult.success == true) {
+	                    this.dataFomatDetail(industryRiskDetailResult);
+	                } else {
+	                    //错误后提示
+	                }
+	            }
+	        }
 	    },
 	    dataFomat: function dataFomat(data) {
 	        var content = data.content;
 	        this.setState({ industryRiskList: content });
+	    },
+	    dataFomatDetail: function dataFomatDetail(data) {
+	        var content = data.content;
+	        this.setState({ industryRiskDetList: content });
+	    },
+	    getIndustryRiskDetail: function getIndustryRiskDetail(jsonData) {
+	        var getIndustryRiskDetail = this.props.getIndustryRiskDetail;
+
+	        getIndustryRiskDetail(jsonData);
 	    },
 	    handleClick: function handleClick(field) {
 	        var _dom = $(this.refs[field]),
@@ -72357,10 +72739,20 @@
 	            this.setState({ industryRiskList: _basedata });
 	        });
 	    },
-	    handleMore: function handleMore(e) {
-	        console.log(e);
+	    handleMore: function handleMore(data, e) {
+	        console.log(data, e);
+	        var jsonData = { companyId: data };
+	        this.getIndustryRiskDetail(jsonData);
+
 	        var left = e.screenX - 500;
 	        var top = e.screenY - 310;
+	        var moreStyle = {
+	            position: 'fixed',
+	            left: left + 'px',
+	            top: top + 'px',
+	            display: 'block'
+	        };
+	        //this.setState({moreStyle:moreStyle});
 	        $('.industry-risk-more').css({
 	            position: 'fixed',
 	            left: left + 'px',
@@ -72438,6 +72830,7 @@
 	                            'tbody',
 	                            null,
 	                            this.state.industryRiskList.map(function (elem, index) {
+	                                var companyId = elem.companyId;
 	                                if (index % 2) {
 	                                    return _react2.default.createElement(
 	                                        'tr',
@@ -72446,8 +72839,8 @@
 	                                            'td',
 	                                            { width: '20%', className: 'talign-left' },
 	                                            _react2.default.createElement(
-	                                                'span',
-	                                                { className: 'word-limit-5', 'data-tip': elem.companyName, title: elem.companyName },
+	                                                _reactRouter.Link,
+	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-5', title: elem.companyName, 'data-tip': elem.companyName },
 	                                                elem.companyName
 	                                            )
 	                                        ),
@@ -72471,7 +72864,7 @@
 	                                            { width: '13%' },
 	                                            _react2.default.createElement(
 	                                                'a',
-	                                                { href: 'javascript:;', onClick: this.handleMore },
+	                                                { href: 'javascript:;', className: 'more', onClick: this.handleMore.bind(this, companyId) },
 	                                                '更多'
 	                                            )
 	                                        )
@@ -72484,8 +72877,8 @@
 	                                            'td',
 	                                            { width: '20%', className: 'talign-left' },
 	                                            _react2.default.createElement(
-	                                                'span',
-	                                                { className: 'word-limit-5', 'data-tip': elem.companyName, title: elem.companyName },
+	                                                _reactRouter.Link,
+	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-5', title: elem.companyName, 'data-tip': elem.companyName },
 	                                                elem.companyName
 	                                            )
 	                                        ),
@@ -72509,7 +72902,7 @@
 	                                            { width: '13%' },
 	                                            _react2.default.createElement(
 	                                                'a',
-	                                                { href: 'javascript:;', onClick: this.handleMore },
+	                                                { href: 'javascript:;', className: 'more', onClick: this.handleMore.bind(this, companyId) },
 	                                                '更多'
 	                                            )
 	                                        )
@@ -72520,7 +72913,7 @@
 	                    )
 	                )
 	            ),
-	            _react2.default.createElement(_IndustryRiskMore2.default, null)
+	            _react2.default.createElement(_IndustryRiskMore2.default, { riskListDet: this.state.industryRiskDetList })
 	        );
 	    }
 	});
@@ -72553,123 +72946,111 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var Immutable = __webpack_require__(718);
+
 	//股东行业风险更多
 	var IndustryRiskMore = _react2.default.createClass({
-	   displayName: 'IndustryRiskMore',
+	  displayName: 'IndustryRiskMore',
 
-	   getInitialState: function getInitialState() {
-	      return {};
-	   },
-	   closeClick: function closeClick(e) {
-	      $(this.refs.industryRiskMore).hide();
-	   },
-	   render: function render() {
-	      return _react2.default.createElement(
-	         'div',
-	         { className: 'industry-risk-more', ref: 'industryRiskMore' },
-	         _react2.default.createElement(
-	            'div',
-	            { className: 'title' },
-	            _react2.default.createElement(
-	               'span',
-	               null,
-	               'P2P关联'
-	            ),
-	            _react2.default.createElement(
-	               'span',
-	               null,
-	               '私募基金关联'
-	            ),
-	            _react2.default.createElement(
-	               'span',
-	               null,
-	               '线下理财关联'
-	            ),
-	            _react2.default.createElement('i', { className: 'iconfont icon-guanbi', onClick: this.closeClick })
-	         ),
-	         _react2.default.createElement(
-	            'div',
-	            { className: 'content' },
-	            _react2.default.createElement(
-	               'ul',
-	               { className: 'left' },
-	               _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  '上海贝电实业（集团）股份有限公司'
-	               ),
-	               _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  '上海贝电实业（集团）股份有限公司'
-	               ),
-	               _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  '上海贝电实业（集团）股份有限公司'
-	               ),
-	               _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  '上海贝电实业（集团）股份有限公司'
-	               ),
-	               _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  '上海贝电实业（集团）股份有限公司'
-	               )
-	            ),
-	            _react2.default.createElement(
-	               'ul',
-	               { className: 'middle' },
-	               _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  '上海贝电实业（集团）股份有限公司'
-	               ),
-	               _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  '上海贝电实业（集团）股份有限公司'
-	               ),
-	               _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  '上海贝电实业（集团）股份有限公司'
-	               ),
-	               _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  '上海贝电实业（集团）股份有限公司'
-	               ),
-	               _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  '上海贝电实业（集团）股份有限公司'
-	               )
-	            ),
-	            _react2.default.createElement(
-	               'ul',
-	               { className: 'right' },
-	               _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  '上海贝电实业（集团）股份有限公司'
-	               ),
-	               _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  '上海贝电实业（集团）股份有限公司'
-	               ),
-	               _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  '上海贝电实业（集团）股份有限公司'
-	               )
-	            )
-	         )
-	      );
-	   }
+	  getInitialState: function getInitialState() {
+	    return {
+	      p2p: [], //p2p
+	      linFin: [], //线下理财
+	      preFun: [] };
+	  },
+	  //私募基金
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var isEqual = Immutable.is(nextProps.riskListDet, this.props.riskListDet);
+	    if (!isEqual) {
+	      this.dataFomat(nextProps);
+	    }
+	  },
+	  dataFomat: function dataFomat(data) {
+	    console.log(data.riskListDet, 333);
+	    var p2p = [],
+	        linFin = [],
+	        preFun = [];
+	    var riskListDet = data.riskListDet;
+	    if (riskListDet["1"] != undefined) {
+	      p2p = riskListDet["1"];
+	    }
+	    if (riskListDet["4"] != undefined) {
+	      linFin = riskListDet["4"];
+	    }
+	    if (riskListDet["5"] != undefined) {
+	      preFun = riskListDet["5"];
+	    }
+	    this.setState({ p2p: p2p, linFin: linFin, preFun: preFun });
+	  },
+	  closeClick: function closeClick(e) {
+	    $(this.refs.industryRiskMore).hide();
+	  },
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'industry-risk-more', ref: 'industryRiskMore' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'title' },
+	        _react2.default.createElement(
+	          'span',
+	          null,
+	          'P2P关联'
+	        ),
+	        _react2.default.createElement(
+	          'span',
+	          null,
+	          '私募基金关联'
+	        ),
+	        _react2.default.createElement(
+	          'span',
+	          null,
+	          '线下理财关联'
+	        ),
+	        _react2.default.createElement('i', { className: 'iconfont icon-guanbi', onClick: this.closeClick })
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'content' },
+	        _react2.default.createElement(
+	          'ul',
+	          { className: 'left' },
+	          this.state.p2p.map(function (elem, index) {
+	            console.log(elem);
+	            return _react2.default.createElement(
+	              'li',
+	              null,
+	              elem
+	            );
+	          }.bind(this))
+	        ),
+	        _react2.default.createElement(
+	          'ul',
+	          { className: 'middle' },
+	          this.state.preFun.map(function (elem, index) {
+	            console.log(elem);
+	            return _react2.default.createElement(
+	              'li',
+	              null,
+	              elem
+	            );
+	          }.bind(this))
+	        ),
+	        _react2.default.createElement(
+	          'ul',
+	          { className: 'right' },
+	          this.state.linFin.map(function (elem, index) {
+	            console.log(elem);
+	            return _react2.default.createElement(
+	              'li',
+	              null,
+	              elem
+	            );
+	          }.bind(this))
+	        )
+	      )
+	    );
+	  }
 	});
 	module.exports = IndustryRiskMore;
 
@@ -72695,6 +73076,8 @@
 	var _reactRedux = __webpack_require__(317);
 
 	var _index = __webpack_require__(692);
+
+	var _reactRouter = __webpack_require__(243);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -72834,8 +73217,8 @@
 	                    'td',
 	                    { className: 'talign-left' },
 	                    _react2.default.createElement(
-	                      'span',
-	                      { className: 'word-limit-5', 'data-tip': elem.borrowerName },
+	                      _reactRouter.Link,
+	                      { to: { pathname: '/SearchResultDetail', query: { companyName: elem.borrowerName } }, className: 'word-limit-5', title: elem.borrowerName },
 	                      elem.borrowerName
 	                    )
 	                  ),
@@ -72843,8 +73226,8 @@
 	                    'td',
 	                    null,
 	                    _react2.default.createElement(
-	                      'span',
-	                      { className: 'word-limit-5', 'data-tip': elem.lenderName },
+	                      _reactRouter.Link,
+	                      { to: { pathname: '/SearchResultDetail', query: { companyName: elem.lenderName } }, className: 'word-limit-5', title: elem.lenderName },
 	                      elem.lenderName
 	                    )
 	                  ),
@@ -72867,8 +73250,8 @@
 	                    'td',
 	                    { className: 'talign-left' },
 	                    _react2.default.createElement(
-	                      'span',
-	                      { className: 'word-limit-5', 'data-tip': elem.borrowerName },
+	                      _reactRouter.Link,
+	                      { to: { pathname: '/SearchResultDetail', query: { companyName: elem.borrowerName } }, className: 'word-limit-5', title: elem.borrowerName },
 	                      elem.borrowerName
 	                    )
 	                  ),
@@ -72876,8 +73259,8 @@
 	                    'td',
 	                    null,
 	                    _react2.default.createElement(
-	                      'span',
-	                      { className: 'word-limit-5', 'data-tip': elem.lenderName },
+	                      _reactRouter.Link,
+	                      { to: { pathname: '/SearchResultDetail', query: { companyName: elem.lenderName } }, className: 'word-limit-5', title: elem.lenderName },
 	                      elem.lenderName
 	                    )
 	                  ),
@@ -73444,6 +73827,7 @@
 	                "yFlag": "",
 	                "y2Flag": "%",
 	                "yAxisName": ["亿元", "综合利率"],
+	                "unit": ["亿元", "%"],
 	                "barWidth": 20,
 	                "symbolSize": 5,
 	                "xAxis": volumeData.bargain.xAxis,
@@ -73525,6 +73909,7 @@
 	                "visualMapRight": "50", //值茷位置
 	                "visualMapBottom": "30",
 	                "visualMapText": ["公司数量"],
+	                "unit": "家",
 	                "series": mapData.hotMap.data
 	            };
 	            this.setState({ chartOption: optionParm });
@@ -73849,6 +74234,7 @@
 	                legendRight: "10",
 	                legendTop: "-10",
 	                symbolSize: 5,
+	                unit: ["%", "%"],
 	                yAxisName: "",
 	                legend: ["上海问题平台比例", "全国问题平台比例"],
 	                xAxis: problemScaleData.problem.xAxis,
@@ -74627,7 +75013,7 @@
 	                                        null,
 	                                        _react2.default.createElement(
 	                                            'span',
-	                                            { className: 'word-limit-5', 'data-tip': item.companyName },
+	                                            { className: 'word-limit-5', 'data-tip': item.companyName, title: item.companyName },
 	                                            item.companyName
 	                                        )
 	                                    ),
@@ -74671,7 +75057,8 @@
 	                                        null,
 	                                        _react2.default.createElement(
 	                                            'span',
-	                                            { className: 'word-limit-5', 'data-tip': item.address },
+	                                            { className: 'word-limit-5', 'data-tip': item.address, title: item.address },
+	                                            '>',
 	                                            item.address
 	                                        ),
 	                                        ' '
@@ -74966,14 +75353,7 @@
 
 	            if (coreDataRequest == true) {
 	                if (coreDataResult.success) {
-	                    var _setParm = [];
-	                    for (var item in coreDataResult.content) {
-	                        var items = {
-	                            name: item,
-	                            value: coreDataResult.content[item]
-	                        };
-	                        _setParm.push(items);
-	                    }
+	                    var _setParm = [coreDataResult.content];
 	                    this.setState({ listData: _setParm });
 	                } else {
 	                    //错误后提示
@@ -74997,6 +75377,7 @@
 	                        yAxisName: "万元",
 	                        yFlag: "", //y轴单位
 	                        gridBottom: '0',
+	                        unit: ["万元"],
 	                        gridTop: '15%',
 	                        legend: ["成交量"],
 	                        legendShow: false,
@@ -75105,47 +75486,173 @@
 	                        _react2.default.createElement(
 	                            'table',
 	                            { className: 'mt-table wtyh-table' },
-	                            _react2.default.createElement(
-	                                'tbody',
-	                                null,
-	                                this.state.listData.map(function (item, index) {
-	                                    {
-	                                        if (index % 2) {
-	                                            return _react2.default.createElement(
-	                                                'tr',
+	                            this.state.listData.map(function (item, index) {
+	                                {
+	                                    var _amount_total = item.amount_total == undefined ? "/" : item.amount_total;
+	                                    var _money_stock = item.money_stock == undefined ? "/" : item.money_stock;
+	                                    var _interest_rate = item.interest_rate == undefined ? "/" : item.interest_rate;
+	                                    var _month_net_inflow = item.month_net_inflow == undefined ? "/" : item.month_net_inflow;
+	                                    var _bid_num_stay_stil = item.bid_num_stay_stil == undefined ? "/" : item.bid_num_stay_stil;
+
+	                                    var _bor_num_stay_stil = item.bor_num_stay_stil == undefined ? "/" : item.bor_num_stay_stil;
+	                                    var _top1_sum_amount = item.top1_sum_amount == undefined ? "/" : item.top1_sum_amount;
+	                                    var _top10_sum_amount = item.top10_sum_amount == undefined ? "/" : item.top10_sum_amount;
+	                                    return _react2.default.createElement(
+	                                        'tbody',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'tr',
+	                                            { className: 'odd-blackbg-line' },
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                null,
+	                                                '累计成交量'
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
 	                                                null,
 	                                                _react2.default.createElement(
-	                                                    'td',
+	                                                    'span',
 	                                                    null,
-	                                                    item.name
-	                                                ),
-	                                                _react2.default.createElement(
-	                                                    'td',
-	                                                    null,
-	                                                    item.value,
+	                                                    _amount_total,
 	                                                    '亿元'
 	                                                )
-	                                            );
-	                                        } else {
-	                                            return _react2.default.createElement(
-	                                                'tr',
-	                                                { className: 'odd-blackbg-line' },
+	                                            )
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'tr',
+	                                            null,
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                null,
+	                                                '贷款余额'
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                null,
 	                                                _react2.default.createElement(
-	                                                    'td',
+	                                                    'span',
 	                                                    null,
-	                                                    item.name
-	                                                ),
-	                                                _react2.default.createElement(
-	                                                    'td',
-	                                                    null,
-	                                                    item.value,
+	                                                    _money_stock,
 	                                                    '亿元'
 	                                                )
-	                                            );
-	                                        }
-	                                    }
-	                                })
-	                            )
+	                                            )
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'tr',
+	                                            { className: 'odd-blackbg-line' },
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                null,
+	                                                '平均利率'
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                null,
+	                                                _react2.default.createElement(
+	                                                    'span',
+	                                                    null,
+	                                                    _interest_rate,
+	                                                    '%'
+	                                                )
+	                                            )
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'tr',
+	                                            null,
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                null,
+	                                                '近30日净资金流入'
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                null,
+	                                                _react2.default.createElement(
+	                                                    'span',
+	                                                    null,
+	                                                    _month_net_inflow,
+	                                                    '万元'
+	                                                )
+	                                            )
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'tr',
+	                                            { className: 'odd-blackbg-line' },
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                null,
+	                                                '待收投资人数'
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                null,
+	                                                _react2.default.createElement(
+	                                                    'span',
+	                                                    null,
+	                                                    _bid_num_stay_stil
+	                                                )
+	                                            )
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'tr',
+	                                            null,
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                null,
+	                                                '待还借款人数'
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                null,
+	                                                _react2.default.createElement(
+	                                                    'span',
+	                                                    null,
+	                                                    _bor_num_stay_stil
+	                                                )
+	                                            )
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'tr',
+	                                            { className: 'odd-blackbg-line' },
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                null,
+	                                                '最大单户借款额'
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                null,
+	                                                _react2.default.createElement(
+	                                                    'span',
+	                                                    null,
+	                                                    _top1_sum_amount,
+	                                                    '万元'
+	                                                )
+	                                            )
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'tr',
+	                                            null,
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                null,
+	                                                '最大十户借款额'
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                null,
+	                                                _react2.default.createElement(
+	                                                    'span',
+	                                                    null,
+	                                                    _top10_sum_amount,
+	                                                    '万元'
+	                                                )
+	                                            )
+	                                        )
+	                                    );
+	                                }
+	                            })
 	                        )
 	                    ),
 	                    _react2.default.createElement(
@@ -75253,9 +75760,14 @@
 	                formatter: function formatter(v) {
 	                    var info = "";
 	                    for (var i = 0; i < v.length; i++) {
-
-	                        var _spanCorlor = v[i].seriesName + ' :&nbsp;<span style=color:' + parm.color[i] + '>' + v[i].value + '</span><br/>';
-	                        info += v[i].name + "<br/>" + _spanCorlor;
+	                        var _until = "";
+	                        if (parm.unit == undefined) {
+	                            _until = "";
+	                        } else {
+	                            _until = parm.unit[i];
+	                        }
+	                        var _spanCorlor = v[i].name + ' :&nbsp;<span style=color:' + parm.color[i] + '>' + v[i].value + _until + '</span><br/>';
+	                        info += _spanCorlor;
 	                    }
 	                    return info;
 	                },
@@ -76779,7 +77291,7 @@
 	    },
 	    handleFunction: function handleFunction(searchVal) {
 	        console.log(searchVal, "================搜索词语============================");
-	        this.props.history.push('/SearchResultDetail?platName=' + searchVal);
+	        this.props.history.push('/SearchResultDetail?companyName=' + searchVal);
 	    },
 	    mixins: [_setHeight2.default],
 	    render: function render() {
@@ -76877,7 +77389,7 @@
 
 
 	// module
-	exports.push([module.id, ".raise-index .radius4 {\r\n\tborder-radius: 5px;\t/*background: #2b323c;*/\r\n}\r\n\r\n.raise-index .header {\r\n\theight: 70px;\r\n\tline-height: 70px;\r\n\tfont-size: 24px;\r\n\tcolor: #fff;\r\n\tbackground: #1a2029;\r\n\ttext-align: center;\r\n}\r\n\r\n.raise-index .raise-index-left {\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n\r\n.raise-index .raise-index-right {\r\n\twidth: 49.5%;\r\n\tfloat: left;\r\n}\r\n\r\n.raise-index .raise-index-right {\r\n\tmargin-left: 0.5%\r\n}\r\n\r\n.raise-index  .content {\r\n\tpadding: 0px 10px 20px 10px;\r\n}\r\n\r\n.raise-index a {\r\n\tcolor: #e14340\r\n}", ""]);
+	exports.push([module.id, ".raise-index .radius4 {\r\n\tborder-radius: 5px;\t/*background: #2b323c;*/\r\n}\r\n\r\n.raise-index .header {\r\n\theight: 70px;\r\n\tline-height: 70px;\r\n\tfont-size: 24px;\r\n\tcolor: #fff;\r\n\tbackground: #1a2029;\r\n\ttext-align: center;\r\n}\r\n\r\n.raise-index .raise-index-left {\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n\r\n.raise-index .raise-index-right {\r\n\twidth: 49.5%;\r\n\tfloat: left;\r\n}\r\n\r\n.raise-index .raise-index-right {\r\n\tmargin-left: 0.5%\r\n}\r\n\r\n.raise-index  .content {\r\n\tpadding: 0px 10px 20px 10px;\r\n}\r\n\r\n.raise-index a {\r\n\tcolor: #e14340 !important;\r\n}", ""]);
 
 	// exports
 
@@ -76935,6 +77447,7 @@
 	                        "color": ["#deab61", "#e14340", "#91c7ae", "#efd79b"],
 	                        "title": "",
 	                        "xtitle": "",
+	                        "yAxisName": "个数",
 	                        "legend": businessTypesResult.content.legend,
 	                        "legendShow": true,
 	                        "legendOrient": "vertical",
@@ -76943,6 +77456,7 @@
 	                        "legendRight": "20%",
 	                        "seriesName": "企业数",
 	                        "radius": "70%",
+	                        "unit": "家",
 	                        "lable": {
 	                            normal: { show: false },
 	                            emphasis: { show: false }
@@ -77189,7 +77703,7 @@
 	                        titleX: "center",
 	                        color: ["#e14340"],
 	                        barWidth: 30,
-	                        yAxisName: "",
+	                        yAxisName: "个数",
 	                        gradient: ['rgb(251, 99, 96)', 'rgb(193, 42, 39)'],
 	                        yFlag: "", //y轴单位
 	                        splitLineShow: false,
@@ -77504,7 +78018,7 @@
 	                        { width: '25%' },
 	                        _react2.default.createElement(
 	                          _reactRouter.Link,
-	                          { to: { pathname: '/SearchResultDetail', query: { formpage: 'platformRun', company: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName },
+	                          { to: { pathname: '/SearchResultDetail', query: { formpage: 'platformRun', companyName: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName, title: item.companyName },
 	                          item.companyName
 	                        )
 	                      ),
@@ -77538,7 +78052,7 @@
 	                        { width: '25%' },
 	                        _react2.default.createElement(
 	                          _reactRouter.Link,
-	                          { to: { pathname: '/SearchResultDetail', query: { formpage: 'platformRun', company: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName },
+	                          { to: { pathname: '/SearchResultDetail', query: { formpage: 'platformRun', companyName: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName, title: item.companyName },
 	                          item.companyName
 	                        )
 	                      ),
@@ -77730,7 +78244,7 @@
 	                                                { width: '30%', className: 'talign-left' },
 	                                                _react2.default.createElement(
 	                                                    _reactRouter.Link,
-	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'platformBase', company: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName, title: item.companyName },
+	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'platformBase', companyName: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName, title: item.companyName },
 	                                                    item.companyName
 	                                                )
 	                                            ),
@@ -77777,7 +78291,7 @@
 	                                                { width: '30%', className: 'talign-left' },
 	                                                _react2.default.createElement(
 	                                                    _reactRouter.Link,
-	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'platformBase', company: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName, title: item.companyName },
+	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'platformBase', companyName: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName, title: item.companyName },
 	                                                    item.companyName
 	                                                )
 	                                            ),
@@ -78188,7 +78702,7 @@
 	    },
 	    handleFunction: function handleFunction(searchVal) {
 	        console.log(searchVal, "================搜索词语============================");
-	        this.props.history.push('/SearchResultDetail?platName=' + searchVal);
+	        this.props.history.push('/SearchResultDetail?companyName=' + searchVal);
 	    },
 	    mixins: [_setHeight2.default],
 	    render: function render() {
@@ -78414,7 +78928,7 @@
 
 
 	// module
-	exports.push([module.id, ".pawnMonitoring-index .right-bottom tbody td,\r\n.pawnMonitoring-index .right-bottom thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.pawnMonitoring-index .right-bottom .table-content {\r\n\theight: 500px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.pawnMonitoring-index .right-bottom  .mod-content {\r\n\tpadding: 10px 20px 20px 20px;\r\n}\r\n\r\n.pawnMonitoring-index .mt-table {\r\n\tmargin: 0px;\r\n}\r\n\r\n.pawnMonitoring-index .right-bottom .table-content  table {\r\n\r\n\t/*height: 100%;*/\r\n\tmargin: 0px;\r\n}\r\n\r\n.pawnMonitoring-index .right-bottom .table-content  table td {\r\n\tpadding: 15px 10px;\r\n}\r\n\r\n.pawnMonitoring-index .right-bottom .table-content  table tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.pawnMonitoring-index .right-bottom .table-title th {\r\n\theight: 50px\r\n}\r\n\r\n.pawnMonitoring-index .right-bottom  .mod-title .totle-num {\r\n\tfont-size: 14px;\r\n\tcolor: #fff;\r\n\tfloat: right;\r\n\tdisplay: inline-block;\r\n\tmargin: 15px 20px 0px 0px;\r\n}\r\n\r\n.mt-select.company-dire {\r\n\tbackground: #393a48;\r\n\tborder: 1px #393a48 solid;\r\n\tmargin-left: 5px;\r\n}", ""]);
+	exports.push([module.id, ".pawnMonitoring-index .right-bottom tbody td,\r\n.pawnMonitoring-index .right-bottom thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.pawnMonitoring-index .right-bottom .table-content {\r\n\theight: 500px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.pawnMonitoring-index .right-bottom  .mod-content {\r\n\tpadding: 10px 20px 20px 20px;\r\n}\r\n\r\n.pawnMonitoring-index .mt-table {\r\n\tmargin: 0px;\r\n}\r\n\r\n.pawnMonitoring-index .right-bottom .table-content  table {\r\n\r\n\t/*height: 100%;*/\r\n\tmargin: 0px;\r\n}\r\n\r\n.pawnMonitoring-index .right-bottom .table-content  table td {\r\n\tpadding: 15px 10px;\r\n}\r\n\r\n.pawnMonitoring-index .right-bottom .table-content  table tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.pawnMonitoring-index .right-bottom .table-title th {\r\n\theight: 50px\r\n}\r\n\r\n.pawnMonitoring-index .right-bottom  .mod-title .totle-num {\r\n\tfont-size: 14px;\r\n\tcolor: #fff;\r\n\tfloat: right;\r\n\tdisplay: inline-block;\r\n\tmargin: 15px 20px 0px 0px;\r\n}\r\n\r\n.pawnMonitoring-index a {\r\n\tcolor: #e14340\r\n}\r\n\r\n.mt-select.company-dire {\r\n\tbackground: #393a48;\r\n\tborder: 1px #393a48 solid;\r\n\tmargin-left: 5px;\r\n}", ""]);
 
 	// exports
 
@@ -78465,6 +78979,7 @@
 					color: ["#e14340", "#12b5b0"],
 					barWidth: 20,
 					yAxisName: "亿元",
+					unit: ["亿元", "亿元"],
 					yFlag: "", //y轴单位
 					splitLineShow: false,
 					gridBottom: '5%',
@@ -78854,7 +79369,7 @@
 	                                    var _address = item.address == null ? "/" : item.address;
 	                                    var _registeredCapital = item.registeredCapital == null ? "/" : item.registeredCapital;
 	                                    var _registeredTime = item.registeredTime == null ? "/" : item.registeredTime;
-	                                    var _danwei = item.registeredCapitalType == 1 ? "人民币" : "美元";
+	                                    var _danwei = item.registeredCapitalType == 1 ? "万元" : "美元";
 	                                    if (index % 2) {
 	                                        return _react2.default.createElement(
 	                                            'tr',
@@ -78867,7 +79382,11 @@
 	                                            _react2.default.createElement(
 	                                                'td',
 	                                                { width: '30%' },
-	                                                item.companyName
+	                                                _react2.default.createElement(
+	                                                    _reactRouter.Link,
+	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'platformRun', companyName: item.companyName } } },
+	                                                    item.companyName
+	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
@@ -78903,7 +79422,11 @@
 	                                            _react2.default.createElement(
 	                                                'td',
 	                                                { width: '30%' },
-	                                                item.companyName
+	                                                _react2.default.createElement(
+	                                                    _reactRouter.Link,
+	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'platformRun', companyName: item.companyName } } },
+	                                                    item.companyName
+	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
@@ -79102,7 +79625,7 @@
 	    mixins: [_setHeight2.default],
 	    handleFunction: function handleFunction(searchVal) {
 	        console.log(searchVal, "================搜索词语============================");
-	        this.props.history.push('/SearchResultDetail?platName=' + searchVal);
+	        this.props.history.push('/SearchResultDetail?companyName=' + searchVal);
 	    },
 	    render: function render() {
 	        return _react2.default.createElement(
@@ -79199,7 +79722,7 @@
 
 
 	// module
-	exports.push([module.id, ".tradingPlaces-index .tradingP-left {\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n\r\n.tradingPlaces-index .tradingP-right {\r\n\twidth: 49.5%;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%;\r\n}\r\n\r\n.tradingPlaces-index .content {\r\n\tpadding: 30px 20px 30px 20px;\r\n}\r\n\r\n.tradingPlaces-index  a {\r\n\tcolor: #e14340\r\n}", ""]);
+	exports.push([module.id, ".tradingPlaces-index .tradingP-left {\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n\r\n.tradingPlaces-index .tradingP-right {\r\n\twidth: 49.5%;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%;\r\n}\r\n\r\n.tradingPlaces-index .content {\r\n\tpadding: 30px 20px 30px 20px;\r\n}\r\n\r\n.tradingPlaces-index  a {\r\n\tcolor: #e14340 !important\r\n}", ""]);
 
 	// exports
 
@@ -79526,7 +80049,7 @@
 	        return {
 	            list: [],
 	            orderZB: "DESC",
-	            areaName: "",
+	            areaName: "浦东新区",
 	            orderName: ""
 	        };
 	    },
@@ -79541,7 +80064,7 @@
 	        getHPQListRequest(jsonData);
 	    },
 	    componentDidMount: function componentDidMount() {
-	        this.setState({ areaName: "" });
+	        this.setState({ areaName: this.state.areaName });
 	        this.setState({ orderZB: "DESC" });
 	        this.countyChange(this.state.areaName, "", this.state.orderZB);
 	        $('#hpqList-scroll').perfectScrollbar();
@@ -79552,8 +80075,8 @@
 	    handleClick: function handleClick(field) {
 	        var _dom = $(this.refs[field]),
 	            _domAttr = _dom.attr("data-order"),
-	            _domIco = _dom.find("em"),
-	            _domIcoIs = _dom.find("em").hasClass('icon-desc');
+	            _domIco = _dom.find("i"),
+	            _domIcoIs = _dom.find("i").hasClass('icon-desc');
 	        _domIcoIs == true ? _domIco.removeClass('icon-desc').addClass('icon-asc') : _domIco.removeClass('icon-asc').addClass('icon-desc');
 	        _domAttr == "desc" ? _dom.attr("data-order", "asc") : _dom.attr("data-order", "desc");
 	        this.setState({ orderName: field, orderZB: _dom.attr("data-order") }, function () {
@@ -79592,7 +80115,8 @@
 	                _react2.default.createElement(
 	                    'h3',
 	                    null,
-	                    '黄浦区交易场所列表'
+	                    this.state.areaName,
+	                    '交易场所列表'
 	                )
 	            ),
 	            _react2.default.createElement(
@@ -79774,7 +80298,7 @@
 
 	    getInitialState: function getInitialState() {
 	        return {
-	            statusName: "",
+	            statusName: "通过验收",
 	            listData: []
 	        };
 	    },
@@ -79787,8 +80311,7 @@
 	        getDetailListRequest(jsonData);
 	    },
 	    componentDidMount: function componentDidMount() {
-	        this.setState({ statusName: "" });
-	        this.countyChange(this.statusName);
+	        this.countyChange(this.state.statusName);
 	        $('#detailList-scroll').perfectScrollbar();
 	    },
 	    componentDidUpdate: function componentDidUpdate() {
@@ -79827,7 +80350,8 @@
 	                _react2.default.createElement(
 	                    'h3',
 	                    null,
-	                    '取得合规意见或经过会商的交易场所详情列表'
+	                    this.state.statusName,
+	                    '详情列表'
 	                )
 	            ),
 	            _react2.default.createElement(
@@ -80681,6 +81205,7 @@
 	                        "gridRight": "2%",
 	                        "gridBottom": "20%",
 	                        "yAxisName": ["亿人民币元", "亿美元"],
+	                        "unit": ["亿元", "亿美元", ""],
 	                        "yFlag": "",
 	                        "xAxis": LeaseNumChartResult.content.xAxis,
 	                        "barWidth": 30,
@@ -80910,13 +81435,7 @@
 	                            emphasis: { show: false }
 	                        },
 	                        "center": ['50%', '46%'],
-	                        "series": [{
-	                            value: ContrastLeftNumChartResult.content.inAreaNumber,
-	                            name: '自贸区'
-	                        }, {
-	                            value: ContrastLeftNumChartResult.content.outAreaNumber,
-	                            name: '非自贸区'
-	                        }]
+	                        "series": [{ value: ContrastLeftNumChartResult.content.inAreaNumber, name: '自贸区' }, { value: ContrastLeftNumChartResult.content.outAreaNumber, name: '非自贸区' }]
 	                    };
 	                    this.setState({ paramContrastLeft: optionThe });
 	                } else {
@@ -81052,7 +81571,7 @@
 	    componentDidMount: function componentDidMount() {
 	        var getContrastRightnumRequest = this.props.getContrastRightnumRequest;
 
-	        var jsonData = { 'year': 2016 };
+	        var jsonData = { 'year': 2015 };
 	        getContrastRightnumRequest(jsonData);
 
 	        var getTimeSelectRequest = this.props.getTimeSelectRequest;
@@ -81137,7 +81656,7 @@
 	            width: '95px',
 	            className: 'index-selected',
 	            value: this.state.selectVar,
-	            placeholder: '2016',
+	            placeholder: '2015',
 	            name: 'testselect',
 	            data: this.state.TimeSelectVal,
 	            onChange: function (value, label) {
@@ -81328,14 +81847,6 @@
 
 	            if (ContrastCatalogNumChartRequest == true) {
 	                if (ContrastCatalogNumChartResult.success) {
-	                    // for(var i = 0;i < ContrastCatalogNumChartResult.content.length;i++){
-	                    //   if(ContrastCatalogNumChartResult.content[i].riskStatus == "正常") innerdata.push(ContrastCatalogNumChartResult.content[i])
-	                    //     else outerdata.push(ContrastCatalogNumChartResult.content[i])
-	                    // }
-	                    // this.setState({
-	                    //     CompanyDirectoryData:ContrastCatalogNumChartResult.content,
-	                    //     CatalogCentent:ContrastCatalogNumChartResult.content
-	                    // })                    
 	                    this.dataFomat(ContrastCatalogNumChartResult);
 	                } else {
 	                    //错误后提示
@@ -81358,22 +81869,19 @@
 	        //console.info("qqqqqqqqqqqqqqqqqqqqqq",selectVar)
 	        this.setState({ CatalogSelect: selectVar });
 	    },
-	    //地区
-	    selectDataVal: function selectDataVal(data) {
-	        var areaNameData = { 'areaName': data };
+	    //风险状态判断
+	    quarterChoice: function quarterChoice(value) {
+	        var areaName = $("#indexSelected").find('.mt-select-title').text();
+	        var analysisResult = $("#indexSelectedFeng").attr('data-val');
+	        var riskA = $("#indexSelectedShi").attr('data-val');
+	        var riskB = $("#indexSelectedWei").attr('data-val');
+	        var riskC = $("#indexSelectedAdd").attr('data-val');
+	        var riskD = $("#indexSelectedBtt").attr('data-val');
+	        var areaNameData = { 'areaName': areaName, 'analysisResult': analysisResult, "riskA": riskA, "riskB": riskB, "riskC": riskC, "riskD": riskD };
 	        var getContrastCatalognumRequest = this.props.getContrastCatalognumRequest;
 
 	        getContrastCatalognumRequest(areaNameData);
-	    },
-	    //风险状态判断
-	    quarterChoice: function quarterChoice(value) {
-	        $("#indexSelected").find('.mt-select-title').text();
-	        console.log('jifei-----', $("#indexSelected").find('.mt-select-title').text());
-	        $("#indexSelectedFeng").attr('data-val');
-	        $("#indexSelectedShi").attr('data-val');
-	        $("#indexSelectedWei").attr('data-val');
-	        $("#indexSelectedAdd").attr('data-val');
-	        $("#indexSelectedBtt").attr('data-val');
+	        console.info("jifei++++", areaNameData);
 	    },
 	    render: function render() {
 	        //下拉选择列表头         
@@ -81385,7 +81893,7 @@
 	            name: 'testselect',
 	            data: this.state.CatalogSelect,
 	            onChange: function (value, label) {
-	                this.selectDataVal(label);
+	                this.quarterChoice(label);
 	            }.bind(this)
 	        };
 	        //下拉选择风险状态
@@ -81557,7 +82065,7 @@
 	                                                { to: { pathname: HOME_PATH + "/SearchResultDetail" } },
 	                                                _react2.default.createElement(
 	                                                    'span',
-	                                                    { className: 'leftD' },
+	                                                    { className: 'leftD', title: item.companyName },
 	                                                    item.companyName
 	                                                )
 	                                            )
@@ -81567,7 +82075,7 @@
 	                                            null,
 	                                            _react2.default.createElement(
 	                                                'span',
-	                                                { className: 'leftD' },
+	                                                { className: 'leftD', title: item.address },
 	                                                item.address
 	                                            )
 	                                        ),
@@ -81618,7 +82126,7 @@
 	                                                { to: { pathname: HOME_PATH + "/SearchResultDetail" } },
 	                                                _react2.default.createElement(
 	                                                    'span',
-	                                                    { className: 'leftD' },
+	                                                    { className: 'leftD', title: item.companyName },
 	                                                    item.companyName
 	                                                )
 	                                            )
@@ -81628,7 +82136,7 @@
 	                                            null,
 	                                            _react2.default.createElement(
 	                                                'span',
-	                                                { className: 'leftD' },
+	                                                { className: 'leftD', title: item.address },
 	                                                item.address
 	                                            )
 	                                        ),
@@ -81872,7 +82380,7 @@
 
 
 	// module
-	exports.push([module.id, ".commercialS-index .content {\r\n\tpadding: 0px 10px 20px 10px;\r\n}\r\n\r\n.commercialS-index .pawnM-top {\r\n}\r\n\r\n.commercialS-index .pawnM-top .top-left {\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n\r\n.commercialS-index .pawnM-top .top-right {\r\n\twidth: 49.5%;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%\r\n}\r\n\r\n.commercialS-index .pawnM-Middle {\r\n\tmargin: 0.5% 0px;\r\n}\r\n\r\n.commercialS-index .pawnM-Middle .middle-left {\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n\r\n.commercialS-index .pawnM-Middle .middle-right {\r\n\twidth: 49.5%;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%\r\n}\r\n\r\n.commercialS-index .pawnM-bottom {\r\n}\r\n\r\n.commercialS-index  a {\r\n\tcolor: #e14340\r\n}", ""]);
+	exports.push([module.id, ".commercialS-index .content {\r\n\tpadding: 0px 10px 20px 10px;\r\n}\r\n\r\n.commercialS-index .pawnM-top {\r\n}\r\n\r\n.commercialS-index .pawnM-top .top-left {\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n\r\n.commercialS-index .pawnM-top .top-right {\r\n\twidth: 49.5%;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%\r\n}\r\n\r\n.commercialS-index .pawnM-Middle {\r\n\tmargin: 0.5% 0px;\r\n}\r\n\r\n.commercialS-index .pawnM-Middle .middle-left {\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n\r\n.commercialS-index .pawnM-Middle .middle-right {\r\n\twidth: 49.5%;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%\r\n}\r\n\r\n.commercialS-index .pawnM-bottom {\r\n}", ""]);
 
 	// exports
 
@@ -82182,7 +82690,7 @@
 
 
 	// module
-	exports.push([module.id, ".commercialS-index .right-bottom tbody td,\r\n.commercialS-index .right-bottom thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content {\r\n\theight: 560px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content .mt-table,\r\n.commercialS-index .right-bottom .table-title  .mt-table {\r\n\tmargin: 0px;\r\n}\r\n\r\n.commercialS-index .right-bottom  .mod-content {\r\n\tpadding: 10px 20px 20px 20px;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table {\r\n\r\n\t/*height: 100%*/\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table  td {\r\n\tpadding: 16px 0px;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-title th {\r\n\theight: 50px\r\n}\r\n\r\n.commercialS-index .right-bottom  .mod-title .totle-num {\r\n\tfont-size: 14px;\r\n\tcolor: #fff;\r\n\tfloat: right;\r\n\tdisplay: inline-block;\r\n\tmargin: 15px 20px 0px 0px;\r\n}\r\n\r\n.mt-select.company-dire {\r\n\tbackground: #393a48;\r\n\tborder: 1px #393a48 solid;\r\n\tmargin-left: 5px;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n}\r\n\r\n.mt-select.company-dire .mt-select-title {\r\n\theight: 25px;\r\n}\r\n\r\n.mt-select.company-dire .mt-select-box {\r\n\tbackground: #1f1f27;\r\n\tborder: 1px #1f1f27 solid\r\n}\r\n.modLong .long{\r\n\twidth: 250px;\r\n}", ""]);
+	exports.push([module.id, ".commercialS-index .right-bottom tbody td,\r\n.commercialS-index .right-bottom thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content {\r\n\theight: 560px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content .mt-table,\r\n.commercialS-index .right-bottom .table-title  .mt-table {\r\n\tmargin: 0px;\r\n}\r\n\r\n.commercialS-index .right-bottom  .mod-content {\r\n\tpadding: 10px 20px 20px 20px;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table {\r\n\r\n\t/*height: 100%*/\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table  td {\r\n\tpadding: 16px 0px;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-title th {\r\n\theight: 50px\r\n}\r\n\r\n.commercialS-index .right-bottom  .mod-title .totle-num {\r\n\tfont-size: 14px;\r\n\tcolor: #fff;\r\n\tfloat: right;\r\n\tdisplay: inline-block;\r\n\tmargin: 15px 20px 0px 0px;\r\n}\r\n\r\n.commercialS-index a {\r\n\tcolor: #e14340 !important\r\n}\r\n\r\n.mt-select.company-dire {\r\n\tbackground: #393a48;\r\n\tborder: 1px #393a48 solid;\r\n\tmargin-left: 5px;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n}\r\n\r\n.mt-select.company-dire .mt-select-title {\r\n\theight: 25px;\r\n}\r\n\r\n.mt-select.company-dire .mt-select-box {\r\n\tbackground: #1f1f27;\r\n\tborder: 1px #1f1f27 solid\r\n}\r\n\r\n.modLong .long {\r\n\twidth: 250px;\r\n}", ""]);
 
 	// exports
 
@@ -82451,6 +82959,7 @@
 	            legendRight: "20",
 	            xAxisLine: true,
 	            xAxisLabel: true,
+	            xAxisName: "企业数量",
 	            gradient: ['rgb(251, 99, 96)', 'rgb(193, 42, 39)'],
 	            legend: [""],
 	            label: {
@@ -82466,7 +82975,7 @@
 	                }
 	            },
 	            gridLeft: '5%',
-	            gridRight: '5%',
+	            gridRight: '7%',
 	            gridTop: '5%',
 	            gridBottom: '10%',
 	            yAxis: data.xAxis,
@@ -82568,13 +83077,12 @@
 	    handleClick: function handleClick(field) {
 	        var _dom = $(this.refs[field]),
 	            _domAttr = _dom.attr("data-order"),
-	            _domIco = _dom.find("em"),
-	            _domIcoIs = _dom.find("em").hasClass('icon-desc');
+	            _domIco = _dom.find("i"),
+	            _domIcoIs = _dom.find("i").hasClass('icon-desc');
 	        _domIcoIs == true ? _domIco.removeClass('icon-desc').addClass('icon-asc') : _domIco.removeClass('icon-asc').addClass('icon-desc');
 	        _domAttr == "desc" ? _dom.attr("data-order", "asc") : _dom.attr("data-order", "desc");
 	        this.setState({ orderType: _dom.attr("data-order"), orderField: field }, function () {
 	            var _basedata = BOSS.sort(this.state.selectedData, field, this.state.orderType);
-	            console.log(this.state.orderType, "===============_basedata");
 	            this.setState({ selectedData: _basedata });
 	        });
 	    },
@@ -82618,17 +83126,23 @@
 	                //内资
 	                this.setState({
 	                    selectedData: innerdata
+	                }, function () {
+	                    $("#platformBase-scroll").scrollTop(0);
 	                });
 	                break;
 	            case 3:
 	                //外资
 	                this.setState({
 	                    selectedData: outerdata
+	                }, function () {
+	                    $("#platformBase-scroll").scrollTop(0);
 	                });
 	                break;
 	            default:
 	                this.setState({
 	                    selectedData: CompanyDirectoryDatas
+	                }, function () {
+	                    $("#platformBase-scroll").scrollTop(0);
 	                });
 	                break;
 	        }
@@ -83251,7 +83765,7 @@
 
 
 	// module
-	exports.push([module.id, ".prepaidC-index .right-bottom tbody td,\r\n.prepaidC-index .right-bottom thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.prepaidC-index  .mt-table {\r\n\tmargin: 0px;\r\n}\r\n\r\n.prepaidC-index  .mt-table tr td a {\r\n\tcolor: #fff;\r\n}\r\n\r\n.prepaidC-index .right-bottom .table-content {\r\n\theight: 500px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.prepaidC-index .right-bottom  .mod-content {\r\n\tpadding: 10px 20px 20px 20px;\r\n}\r\n\r\n/*.prepaidC-index .right-bottom .table-content  table {\r\n\theight: 100%\r\n}*/\r\n.prepaidC-index .right-bottom .table-content  table tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.prepaidC-index .right-bottom .table-title th {\r\n\theight: 50px\r\n}\r\n\r\n.prepaidC-index .right-bottom .table-content  .mt-table td {\r\n\tpadding: 15px 8px;\r\n}\r\n\r\n.prepaidC-index .right-bottom  .mod-title .totle-num {\r\n\tfont-size: 14px;\r\n\tcolor: #fff;\r\n\tfloat: right;\r\n\tdisplay: inline-block;\r\n\tmargin: 15px 20px 0px 0px;\r\n}\r\n\r\n.mt-select .company-dire {\r\n\tbackground: #393a48;\r\n\tborder: 1px #393a48 solid;\r\n\tmargin-left: 5px;\r\n}\r\n\r\n.orange {\r\n\tcolor: #e14340;\r\n}\r\n\r\n.yellows {\r\n\tcolor: #fcae03;\r\n}\r\n\r\n.reds {\r\n\tcolor: #e14340;\r\n}\r\n\r\n.statu-yellow {\r\n\tcolor: #feac00\r\n}\r\n\r\n.statu-green {\r\n\tcolor: #33da82\r\n}\r\n\r\n.prepaidC-index .BZ-num {\r\n\tfloat: right;\r\n\tmargin: 10px 20px 0px 0px;\r\n}\r\n\r\n.prepaidC-index .BZ-num .orange {\r\n\tfont-size: 16px;\r\n}", ""]);
+	exports.push([module.id, ".prepaidC-index .right-bottom tbody td,\r\n.prepaidC-index .right-bottom thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.prepaidC-index  .mt-table {\r\n\tmargin: 0px;\r\n}\r\n\r\n.prepaidC-index  .mt-table tr td a {\r\n\tcolor: #fff;\r\n}\r\n\r\n.prepaidC-index .right-bottom .table-content {\r\n\theight: 500px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.prepaidC-index .right-bottom  .mod-content {\r\n\tpadding: 10px 20px 20px 20px;\r\n}\r\n\r\n/*.prepaidC-index .right-bottom .table-content  table {\r\n\theight: 100%\r\n}*/\r\n.prepaidC-index .right-bottom .table-content  table tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.prepaidC-index .right-bottom .table-title th {\r\n\theight: 50px\r\n}\r\n\r\n.prepaidC-index .right-bottom .table-content  .mt-table td {\r\n\tpadding: 15px 8px;\r\n}\r\n\r\n.prepaidC-index .right-bottom  .mod-title .totle-num {\r\n\tfont-size: 14px;\r\n\tcolor: #fff;\r\n\tfloat: right;\r\n\tdisplay: inline-block;\r\n\tmargin: 15px 20px 0px 0px;\r\n}\r\n\r\n.mt-select .company-dire {\r\n\tbackground: #393a48;\r\n\tborder: 1px #393a48 solid;\r\n\tmargin-left: 5px;\r\n}\r\n\r\n.prepaidC-index .orange {\r\n\tcolor: #3aec8e;\r\n}\r\n\r\n.prepaidC-index .yellows {\r\n\tcolor: #fcae03;\r\n}\r\n\r\n.prepaidC-index .reds {\r\n\tcolor: #e14340;\r\n}\r\n\r\n.prepaidC-index .statu-yellow {\r\n\tcolor: #feac00\r\n}\r\n\r\n.prepaidC-index .statu-green {\r\n\tcolor: #33da82\r\n}\r\n\r\n.prepaidC-index .BZ-num {\r\n\tfloat: right;\r\n\tmargin: 10px 20px 0px 0px;\r\n}\r\n\r\n.prepaidC-index .BZ-num .orange {\r\n\tfont-size: 16px;\r\n}", ""]);
 
 	// exports
 
@@ -83578,7 +84092,7 @@
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '25%' },
+	                                            { width: '25%', title: ele.companyName },
 	                                            _react2.default.createElement(
 	                                                _reactRouter.Link,
 	                                                { to: { pathname: HOME_PATH + "/SearchResultDetail" } },
@@ -83616,7 +84130,7 @@
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '25%' },
+	                                            { width: '25%', title: ele.companyName },
 	                                            _react2.default.createElement(
 	                                                _reactRouter.Link,
 	                                                { to: { pathname: HOME_PATH + "/SearchResultDetail" } },
@@ -86590,7 +87104,7 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'SearchInp' },
-	          _react2.default.createElement('input', { placeholder: '', type: 'text', ref: 'inp', id: 'inp', onKeyUp: this.keySearch, placeholder: '请输入企业名称检索' }),
+	          _react2.default.createElement('input', { placeholder: '', type: 'text', ref: 'inp', id: 'inp', onKeyUp: this.keySearch, placeholder: '请输入企业名称或关键字检索' }),
 	          _react2.default.createElement(
 	            'a',
 	            { id: 'href', href: 'javascript:void(0);', onClick: this.clickSearch },
@@ -86708,7 +87222,7 @@
 	  },
 	  //分页回调 
 	  setCallBack: function setCallBack(nowpage, eachPageCount) {
-	    console.info("aaaaaaaaaaaaaaaaaaa", eachPageCount);
+	    //console.info("aaaaaaaaaaaaaaaaaaa",eachPageCount)
 	    this.setState({ nowpage: nowpage - 1 });
 	    var searchName = "";
 	    $("#inp").val() ? searchName = $("#inp").val() : searchName = this.props.location.query.searchInfo;
@@ -86973,7 +87487,7 @@
 	                _react2.default.createElement(
 	                    'span',
 	                    null,
-	                    '上海明成投资有限公司'
+	                    this.props.location.query.companyName
 	                ),
 	                _react2.default.createElement(
 	                    'div',
@@ -87142,9 +87656,9 @@
 
 	        companyPicRequest({
 	            "platName": this.state.companyVal,
-	            "companyName": "宁夏思越资产投资管理有限责任公司",
+	            "companyName": this.props.location.query.companyName,
 	            "dataVersion": "20160530",
-	            "degree": 3
+	            "degree": 1
 	        });
 	        // require('/relativeGraph/assets/script/dynamic.js').reDrawCanvas();
 	    },
@@ -87395,126 +87909,6 @@
 	                ),
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'relation-modal' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'company-title' },
-	                        '成都中建明城投资有限公司'
-	                    ),
-	                    _react2.default.createElement(
-	                        'table',
-	                        null,
-	                        _react2.default.createElement(
-	                            'tbody',
-	                            null,
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '注册资本'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '500万'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '登记状态'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '在营开业企业'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '关联方法人节点数'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '386'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '关联方自然人节点数'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '289'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '自然人股东数'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '21'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '法人股东数'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '8'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '子股东数'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '0'
-	                                )
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'a',
-	                        { href: '', className: 'see-detail' },
-	                        '查看详情'
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'div',
 	                    { className: 'relation-graph-box' },
 	                    _react2.default.createElement(
 	                        'div',
@@ -87741,6 +88135,7 @@
 
 	      if (CompanyInfoNewsRequest == true) {
 	        data = CompanyInfoNewsResult.content.results;
+	        if (!data) return;
 	        console.log(data, "companyInfoNEWS");
 	        _this.setState({
 	          itemAll: data.map(function (item, index) {
@@ -88294,6 +88689,7 @@
 
 				if (CompanyInfoBRequest == true) {
 					data = CompanyInfoBResult.content;
+					if (!CompanyInfoBResult.content) return;
 					_this.setState({
 						shareholderName: data.gdxx.shareholder_name,
 						shareholderType: data.gdxx.shareholder_type,
@@ -90144,7 +90540,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -90197,76 +90593,79 @@
 
 	//实时监测首页
 	var RealtimeMonitorIndex = _react2.default.createClass({
-	  displayName: 'RealtimeMonitorIndex',
-	  getInitialState: function getInitialState() {
-	    return {
-	      windowHeight: null,
-	      indexRange: null
-	    };
-	  },
-	  componentDidMount: function componentDidMount() {
-	    $(window).resize(function (event) {
-	      this.setState({
-	        windowHeight: $(window).height()
-	      });
-	    }.bind(this));
-	  },
-	  componentWillMount: function componentWillMount() {
-	    this.setState({
-	      windowHeight: $(window).height()
-	    });
-	  },
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {},
-	  getRange: function getRange(range) {
-	    this.setState({
-	      indexRange: range
-	    });
-	  },
+	    displayName: 'RealtimeMonitorIndex',
+	    getInitialState: function getInitialState() {
+	        return {
+	            windowHeight: null,
+	            indexRange: null
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        $(window).resize(function (event) {
+	            this.setState({
+	                windowHeight: $(window).height()
+	            });
+	        }.bind(this));
+	    },
+	    componentWillMount: function componentWillMount() {
+	        this.setState({
+	            windowHeight: $(window).height()
+	        });
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {},
+	    getRange: function getRange(range) {
+	        this.setState({
+	            indexRange: range
+	        });
+	    },
 
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'realtime-index wrap', style: { "height": this.state.windowHeight - 60 } },
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'realtime-top' },
-	        _react2.default.createElement(_topLeft2.default, _extends({ getRange: this.getRange }, this.props)),
-	        _react2.default.createElement(_topMiddle2.default, _extends({ pushRange: this.state.indexRange }, this.props)),
-	        _react2.default.createElement(_topRight2.default, this.props)
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'realtime-bottom' },
-	        _react2.default.createElement(_bottomLeft2.default, null),
-	        _react2.default.createElement(_bottomRight2.default, this.props)
-	      )
-	    );
-	  }
+	    render: function render() {
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'realtime-index wrap', style: { "height": this.state.windowHeight - 60 } },
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'realtime-top' },
+	                _react2.default.createElement(_topLeft2.default, _extends({ getRange: this.getRange }, this.props)),
+	                _react2.default.createElement(_topMiddle2.default, _extends({ pushRange: this.state.indexRange }, this.props)),
+	                _react2.default.createElement(_topRight2.default, this.props)
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'realtime-bottom' },
+	                _react2.default.createElement(_bottomLeft2.default, null),
+	                _react2.default.createElement(_bottomRight2.default, this.props)
+	            )
+	        );
+	    }
 	});
 
 	//将 request  result 绑定到props的request result
 	function mapStateToProps(state) {
-	  return {
-	    realTimeTableResult: state.RealTimeTable.result,
-	    realTimeTableRequest: state.RealTimeTable.request, //RealTimeTable注册在reduce里面的index。拿到处理后的两个返回值。
+	    return {
+	        realTimeTableResult: state.RealTimeTable.result,
+	        realTimeTableRequest: state.RealTimeTable.request, //RealTimeTable注册在reduce里面的index。拿到处理后的两个返回值。
 
-	    realTimeNineResult: state.RealTimeNine.result,
-	    realTimeNineRequest: state.RealTimeNine.request, //RealTimeNine注册在reduce里面的index。拿到处理后的两个返回值。
+	        realTimeNineResult: state.RealTimeNine.result,
+	        realTimeNineRequest: state.RealTimeNine.request, //RealTimeNine注册在reduce里面的index。拿到处理后的两个返回值。
 
-	    realTimeNewsResult: state.RealTimeNews.result,
-	    realTimeNewsRequest: state.RealTimeNews.request, //RealTimeNews注册在reduce里面的index。拿到处理后的两个返回值。
+	        realTimeNewsResult: state.RealTimeNews.result,
+	        realTimeNewsRequest: state.RealTimeNews.request, //RealTimeNews注册在reduce里面的index。拿到处理后的两个返回值。
 
-	    realTimeMapResult: state.RealTimeMap.result,
-	    realTimeMapRequest: state.RealTimeMap.request, //RealTimeMap注册在reduce里面的index。拿到处理后的两个返回值。
+	        realTimeMapResult: state.RealTimeMap.result,
+	        realTimeMapRequest: state.RealTimeMap.request, //RealTimeMap注册在reduce里面的index。拿到处理后的两个返回值。
 
-	    realTimeMapShResult: state.RealTimeMapSh.result,
-	    realTimeMapShRequest: state.RealTimeMapSh.request //RealTimeMap注册在reduce里面的index。拿到处理后的两个返回值。
-	  };
+	        realTimeMapShResult: state.RealTimeMapSh.result,
+	        realTimeMapShRequest: state.RealTimeMapSh.request, //Real搜索TimeMa在reduce里面的index。拿到处理后的两个返回值。
+
+	        realTimeRiskShResult: state.RealTimeRisk.result,
+	        realTimeRiskRequest: state.RealTimeRisk.request //RealTimeMap注册在reduce里面的index。拿到处理后的两个返回值。
+	    };
 	}
 
 	//将action的所有方法绑定到props上
 	function mapDispatchToProps(dispatch) {
-	  return (0, _redux.bindActionCreators)(RealTimeCreaTers, dispatch);
+	    return (0, _redux.bindActionCreators)(RealTimeCreaTers, dispatch);
 	}
 
 	//通过react-redux提供的connect方法将我们需要的state中的数据和actions中的方法绑定到props上
@@ -91464,6 +91863,9 @@
 	                        gridTop: "20%",
 	                        yType: "value",
 	                        legend: [],
+	                        symbolSize: function symbolSize() {
+	                            return 10;
+	                        },
 	                        xAxis: nineDate.content.loan.xAxis,
 	                        yAxis: [],
 	                        data: paramOneData,
@@ -91561,7 +91963,8 @@
 	                        "yAxis": nineDate.content.exchange.xAxis /*["奖励众筹", "非公开股权融资", "公益s众筹", "公益2q众筹", "公益众d筹"]*/
 	                        , "Ytype": "category",
 	                        "Xtype": "value",
-	                        "yAxisName": ["新增项目数", ""],
+	                        // "yAxisName": ["新增项目数"],
+	                        "Xname": "企业总数",
 	                        "barWidth": 20,
 	                        "symbolSize": 10,
 	                        "series": {
@@ -91585,7 +91988,6 @@
 	                        "xAxis": nineDate.content.crowd.xAxis,
 	                        "yAxisName": ["新增项目数", ""],
 	                        "barWidth": 20,
-	                        "symbolSize": 10,
 	                        "series": {
 	                            "bar": [nineDate.content.crowd.series]
 	                        }
@@ -91604,12 +92006,17 @@
 	                        id: 'realTimeRightTwo', //必传
 	                        height: '100%', //必传 带上单位
 	                        title: '典当总额及业务笔数',
+	                        forMaterTitle: "典当总额",
+	                        forMaterTip: '业务笔数',
 	                        yType: "value",
 	                        gridTop: "20%",
 	                        legend: [],
 	                        xAxis: nineDate.content.mortgage.xAxis,
 	                        yAxis: ['100000', '200000', '3000000', '4000000', '5000000'],
 	                        data: paramSevenData,
+	                        symbolSize: function symbolSize() {
+	                            return 10;
+	                        },
 	                        series: [[{
 	                            color: '#e14340'
 	                        }]]
@@ -91673,31 +92080,18 @@
 	                        "gridRight": "0%",
 	                        "axisLabelR": false,
 	                        "barName": ["管理资本金额"],
-	                        "xAxis": ["2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016"],
+	                        "xAxis": nineDate.content.prepaid.xAxis,
 	                        "yAxisName": ["亿元", ""],
 	                        "barWidth": 20,
 	                        "symbolSize": 10,
 	                        "labelShow": true,
 	                        "series": {
-	                            "bar": [[
-	                                // Math.round(Math.random() * 200),
-	                                // Math.round(Math.random() * 200),
-	                                // Math.round(Math.random() * 200),
-	                                // Math.round(Math.random() * 200),
-	                                // Math.round(Math.random() * 200),
-	                                // Math.round(Math.random() * 200),
-	                                // Math.round(Math.random() * 200),
-	                                // Math.round(Math.random() * 200),
-	                                // Math.round(Math.random() * 200),
-	                                // Math.round(Math.random() * 200),
-	                                // Math.round(Math.random() * 200),
-	                                // Math.round(Math.random() * 200)
-	                            ]]
+	                            "bar": [nineDate.content.prepaid.series]
 	                        }
 	                    };
 	                } else {
-	                        alert(404);
-	                    }
+	                    alert(404);
+	                }
 	            }
 	        }
 	    },
@@ -92157,6 +92551,7 @@
 	exports.getRealTimeNews = getRealTimeNews;
 	exports.getRealTimeMap = getRealTimeMap;
 	exports.getRealTimeMapSh = getRealTimeMapSh;
+	exports.getRealTimeRisk = getRealTimeRisk;
 	/*
 	  实时监测左侧表格action
 	*/
@@ -92356,6 +92751,45 @@
 	  };
 	}
 
+	/* 
+	  线下理财分布=
+	*/
+	var REALTIME_RISK_SUCCESS = exports.REALTIME_RISK_SUCCESS = 'REALTIME_RISK_SUCCESS';
+	var REALTIME_RISK_FAIL = exports.REALTIME_RISK_FAIL = 'REALTIME_RISK_FAIL';
+
+	function RealTimeRiskSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: REALTIME_RISK_SUCCESS,
+	    result: result
+	  };
+	}
+	function RealTimeRiskFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: REALTIME_RISK_FAIL,
+	    result: result
+	  };
+	}
+
+	function getRealTimeRisk(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "/risk/getScanner.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(RealTimeRiskSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(RealTimeRiskFail(result));
+	      }
+	    });
+	  };
+	}
+
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "RealTimeAction.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
@@ -92509,6 +92943,10 @@
 
 	var _IndustryRisk2 = _interopRequireDefault(_IndustryRisk);
 
+	var _IndustryRiskDetail = __webpack_require__(1395);
+
+	var _IndustryRiskDetail2 = _interopRequireDefault(_IndustryRiskDetail);
+
 	var _LargeLoan = __webpack_require__(1005);
 
 	var _LargeLoan2 = _interopRequireDefault(_LargeLoan);
@@ -92528,6 +92966,10 @@
 	var _FinGuaIndustryRisk = __webpack_require__(1009);
 
 	var _FinGuaIndustryRisk2 = _interopRequireDefault(_FinGuaIndustryRisk);
+
+	var _FinGuaIndustryRiskDetail = __webpack_require__(1396);
+
+	var _FinGuaIndustryRiskDetail2 = _interopRequireDefault(_FinGuaIndustryRiskDetail);
 
 	var _LargeGuara = __webpack_require__(1010);
 
@@ -92717,6 +93159,10 @@
 
 	var _realtimeMapShReducer2 = _interopRequireDefault(_realtimeMapShReducer);
 
+	var _realtimeRiskReducer = __webpack_require__(1397);
+
+	var _realtimeRiskReducer2 = _interopRequireDefault(_realtimeRiskReducer);
+
 	var _MenuParkSelectVal = __webpack_require__(1057);
 
 	var _MenuParkSelectVal2 = _interopRequireDefault(_MenuParkSelectVal);
@@ -92829,6 +93275,10 @@
 
 	var _QueryDateVersion2 = _interopRequireDefault(_QueryDateVersion);
 
+	var _QueryCompanyInfo = __webpack_require__(1398);
+
+	var _QueryCompanyInfo2 = _interopRequireDefault(_QueryCompanyInfo);
+
 	var _DynamicRiskCompanyTag = __webpack_require__(1086);
 
 	var _DynamicRiskCompanyTag2 = _interopRequireDefault(_DynamicRiskCompanyTag);
@@ -92886,8 +93336,22 @@
 
 	/*预付卡 begin*/
 
+	/*商业保理监测 end*/
 
-	//楼宇详情页
+	/*线下理财监测 start*/
+	//线下理财首页
+
+
+	/*众筹监测 end*/
+
+	/*商业保理监测 begin*/
+
+
+	//园区首页
+
+	/*实时监测 end*/
+
+	//园区
 
 	//企业占比对比
 
@@ -92934,9 +93398,6 @@
 	//基本信息
 
 	//网贷平台数据展示
-
-
-	//融资担保
 
 
 	/*企业全息查询*/
@@ -93015,6 +93476,7 @@
 	  CompanyGrade: _CompanyGrade2.default,
 	  LoanBalance: _LoanBalance2.default,
 	  IndustryRisk: _IndustryRisk2.default,
+	  IndustryRiskDetail: _IndustryRiskDetail2.default,
 	  LargeLoan: _LargeLoan2.default,
 
 	  //园区
@@ -93042,6 +93504,7 @@
 	  FinGuaCompanyGrade: _FinGuaCompanyGrade2.default,
 	  GuaraDutyBalance: _GuaraDutyBalance2.default,
 	  FinGuaIndustryRisk: _FinGuaIndustryRisk2.default,
+	  FinGuaIndustryRiskDetail: _FinGuaIndustryRiskDetail2.default,
 	  LargeGuara: _LargeGuara2.default,
 
 	  //实时监测
@@ -93050,6 +93513,7 @@
 	  RealTimeNews: _realtimeNewsReducer2.default,
 	  RealTimeMap: _realtimeMapReducer2.default,
 	  RealTimeMapSh: _realtimeMapShReducer2.default,
+	  RealTimeRisk: _realtimeRiskReducer2.default,
 
 	  //商业保理监测
 	  ChartAll: _ChartAll4.default,
@@ -93082,6 +93546,7 @@
 	  RiskData: _RiskData2.default,
 	  CompanyNews: _CompanyNews2.default,
 	  QueryDateVersion: _QueryDateVersion2.default,
+	  QueryCompanyInfo: _QueryCompanyInfo2.default,
 	  //动态风险
 	  DynamicRiskCompanyTag: _DynamicRiskCompanyTag2.default,
 	  DynamicRiskDate: _DynamicRiskDate2.default,
@@ -93110,22 +93575,8 @@
 
 	//动态风险模块 begein
 
-	/*商业保理监测 end*/
 
-	/*线下理财监测 start*/
-	//线下理财首页
-
-
-	/*众筹监测 end*/
-
-	/*商业保理监测 begin*/
-
-
-	//园区首页
-
-	/*实时监测 end*/
-
-	//园区
+	//楼宇详情页
 
 	//取得合规意见或经过会商的交易场所详情列表
 
@@ -93161,6 +93612,9 @@
 
 	/*====================================P2P平台监测============================*/
 	//上海区域发展指数排名
+
+
+	//融资担保
 
 	//小额贷款
 
@@ -94181,12 +94635,12 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
-	exports.default = FinGuaIndustryRisk;
+	exports.default = finGuaIndustryRisk;
 
 	var _FinanceGuaraIndexAction = __webpack_require__(786);
 
 	//股东行业风险
-	function FinGuaIndustryRisk() {
+	function finGuaIndustryRisk() {
 		var state = arguments.length <= 0 || arguments[0] === undefined ? {
 			request: false,
 			result: {}
@@ -106102,6 +106556,180 @@
 	    return String(it).replace(regExp, replacer);
 	  };
 	};
+
+/***/ },
+/* 1395 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = industryRiskDetail;
+
+	var _SmallLoanIndexAction = __webpack_require__(818);
+
+	//股东行业风险详情
+	function industryRiskDetail() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _SmallLoanIndexAction.INDUSTRY_RISK_DETAIL_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _SmallLoanIndexAction.INDUSTRY_RISK_DETAIL_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "IndustryRiskDetail.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1396 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = finGuaIndustryRiskDetail;
+
+	var _FinanceGuaraIndexAction = __webpack_require__(786);
+
+	//股东行业风险详情
+	function finGuaIndustryRiskDetail() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _FinanceGuaraIndexAction.FINGUA_INDUSTRYRISK_DET_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _FinanceGuaraIndexAction.FINGUA_INDUSTRYRISK_DET_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "FinGuaIndustryRiskDetail.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1397 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = realTimeRisk;
+
+	var _RealTimeAction = __webpack_require__(983);
+
+	function realTimeRisk() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _RealTimeAction.REALTIME_RISK_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _RealTimeAction.REALTIME_RISK_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "realtimeRiskReducer.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1398 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = queryCompanyInfo;
+
+	var _LineFinanceStaticRiskAction = __webpack_require__(761);
+
+	function queryCompanyInfo() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _LineFinanceStaticRiskAction.COMPANY_INFO_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _LineFinanceStaticRiskAction.COMPANY_INFO_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "QueryCompanyInfo.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ }
 /******/ ]);
