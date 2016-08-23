@@ -2,10 +2,8 @@ package com.bbd.wtyh.web.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.bbd.wtyh.domain.CapitalAmountDO;
-import com.bbd.wtyh.domain.CommercialFactoringStatisticDO;
-import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
-import com.bbd.wtyh.domain.MortgageStatisticDO;
+import com.bbd.wtyh.common.Constants;
+import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.dto.IndustryShanghaiDTO;
 import com.bbd.wtyh.domain.dto.LoanBalanceDTO;
 import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
@@ -41,6 +39,9 @@ public class RealTimeMonitorController {
     @Autowired
     private JedisPool jedisPool;
 
+    @Autowired
+    private RedisDAO redisDAO;
+
 
     /**
      * 光谱分析 - 只做标识，前端区分
@@ -63,20 +64,8 @@ public class RealTimeMonitorController {
     @ResponseBody
     public ResponseBean ChinaMap() {
         Map<String, Object> content = realTimeMonitorService.ChinaMap();
-        String rstJson = JSON.toJSONString(content);
-        final String key = "wtyh:realtimeMonitor:ChinaMap";
-        if (jedisPool.getResource().get(key) == null) {
-            jedisPool.getResource().set(key, rstJson);
-            return ResponseBean.successResponse(content);
-        } else {
-            String rstJsonRedis = jedisPool.getResource().get(key);
-            System.out.println("数据:"+rstJsonRedis);
-            //parse Json
-            JSONObject jsonObject = JSON.parseObject(rstJsonRedis);
-            Map<String, Object> map = new HashMap<>();
-            map.put("SHData", jsonObject.get("SHData"));
-            return ResponseBean.successResponse(map);
-        }
+        return ResponseBean.successResponse(content);
+
     }
 
     /**
@@ -87,12 +76,19 @@ public class RealTimeMonitorController {
     @RequestMapping("/shMap")
     @ResponseBody
     public ResponseBean shMap() {
-        List<List<CompanyAnalysisResultDO>> content = realTimeMonitorService.shMap();
+        final String key = "wtyh:realtimeMonitor:shMap1";
+        List<List<CompanyAnalysisResultDO>> list = (List<List<CompanyAnalysisResultDO>>) redisDAO.getObject(key);
+        if (null == list || list.size() == 0) {
+            list = realTimeMonitorService.shMap();
+            if (null != list && list.size() >= 1) {
+                redisDAO.addObject(key, list, Constants.REDIS_10, List.class);
+            }
+        }
         // 返回值结构
         Map<String, List> sHposition = new HashMap<>();
         List<Map> sHsereis = new ArrayList<>();
         Map<String, String> sHhoverDot = new HashMap<>();
-        for (List<CompanyAnalysisResultDO> l : content) {
+        for (List<CompanyAnalysisResultDO> l : list) {
             for (CompanyAnalysisResultDO companyAnalysisResultDO : l) {
                 sHposition.put(companyAnalysisResultDO.getName(), Arrays.asList(companyAnalysisResultDO.getLongitude(), companyAnalysisResultDO.getLatitude()));
 
@@ -108,28 +104,20 @@ public class RealTimeMonitorController {
                 }
             }
         }
-        Map<String, Map> sHhoverArea = realTimeMonitorService.shArea();
+        final String key2 = "wtyh:realtimeMonitor:shMap2";
+        Map<String, Map> sHhoverArea = (Map<String, Map>) redisDAO.getObject(key2);
+        if (null == list || list.size() == 0) {
+            sHhoverArea = realTimeMonitorService.shArea();
+            if (null != list && list.size() >= 1) {
+                redisDAO.addObject(key, list, Constants.REDIS_10, sHhoverArea.getClass());
+            }
+        }
         Map<String, Object> rst = new HashMap<>();
         rst.put("SHposition", sHposition);
         rst.put("SHsereis", sHsereis);
         rst.put("SHhoverDot", sHhoverDot);
         rst.put("SHhoverArea", sHhoverArea);
-        String rstJson = JSON.toJSONString(rst);
-        final String key = "wtyh:realtimeMonitor:shMap";
-        if (jedisPool.getResource().get(key) == null) {
-            jedisPool.getResource().set(key, rstJson);
-            return ResponseBean.successResponse(rst);
-        } else {
-            String rstJsonRedis = jedisPool.getResource().get(key);
-            //parse Json
-            JSONObject jsonObject = JSON.parseObject(rstJsonRedis);
-            Map<String, Object> map = new HashMap<>();
-            map.put("SHposition", jsonObject.get("SHposition"));
-            map.put("SHsereis", jsonObject.get("SHsereis"));
-            map.put("SHhoverDot", jsonObject.get("SHhoverDot"));
-            map.put("SHhoverArea", jsonObject.get("SHhoverArea"));
-            return ResponseBean.successResponse(map);
-        }
+        return ResponseBean.successResponse(rst);
     }
 
     /**

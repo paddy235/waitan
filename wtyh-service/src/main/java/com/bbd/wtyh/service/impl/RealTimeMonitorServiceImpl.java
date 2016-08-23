@@ -1,5 +1,8 @@
 package com.bbd.wtyh.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.dao.RealTimeMonitorDao;
 import com.bbd.wtyh.domain.BuildingNumberInAreaDO;
 import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
@@ -8,7 +11,9 @@ import com.bbd.wtyh.domain.RelatedCompanyStatisticDO;
 import com.bbd.wtyh.domain.dto.StaticRiskDTO;
 import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
 import com.bbd.wtyh.mapper.*;
+import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.RealTimeMonitorService;
+import com.bbd.wtyh.web.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +38,9 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
 
     @Autowired
     private RealTimeMonitorDao realTimeMonitorDao;
+
+    @Autowired
+    private RedisDAO redisDAO;
 
     private final Integer MAX = null;
     private final Integer EMPHASIS = 70;
@@ -61,7 +69,14 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
 
     @Override
     public Map<String, Object> ChinaMap() {
-        List<RelatedCompanyStatisticDO> list = relatedCompanyStatisticMapper.getChinaMap();
+        final String key = "wtyh:realtimeMonitor:ChinaMap";
+        List<RelatedCompanyStatisticDO> list = (List<RelatedCompanyStatisticDO>) redisDAO.getObject(key);
+        if (null == list || list.size() == 0) {
+            list = relatedCompanyStatisticMapper.getChinaMap();
+            if (null != list && list.size() >= 1) {
+                redisDAO.addObject(key, list, Constants.REDIS_10, List.class);
+            }
+        }
         Map<String, Object> map = new LinkedHashMap<>();
         List<Object> resultList = new ArrayList<>();
         for (RelatedCompanyStatisticDO re : list) {
