@@ -32,7 +32,7 @@ public interface OfflineFinanceService {
      * @param companyName
      * @return
      */
-    public List<Map> staticRiskIndex(String companyName);
+    public Map staticRiskIndex(String companyName);
 
     /**
      * 静态风险指数列表
