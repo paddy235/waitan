@@ -63,7 +63,20 @@ public class RealTimeMonitorController {
     @ResponseBody
     public ResponseBean ChinaMap() {
         Map<String, Object> content = realTimeMonitorService.ChinaMap();
-        return ResponseBean.successResponse(content);
+        String rstJson = JSON.toJSONString(content);
+        final String key = "wtyh:realtimeMonitor:ChinaMap";
+        if (jedisPool.getResource().get(key) == null) {
+            jedisPool.getResource().set(key, rstJson);
+            return ResponseBean.successResponse(content);
+        } else {
+            String rstJsonRedis = jedisPool.getResource().get(key);
+            System.out.println("数据:"+rstJsonRedis);
+            //parse Json
+            JSONObject jsonObject = JSON.parseObject(rstJsonRedis);
+            Map<String, Object> map = new HashMap<>();
+            map.put("SHData", jsonObject.get("SHData"));
+            return ResponseBean.successResponse(map);
+        }
     }
 
     /**
