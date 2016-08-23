@@ -31,7 +31,11 @@ public class P2PImageServiceImpl implements P2PImageService {
         PlatDataDO pn = p2PImageDao.getPlatData(platName);
         PlatListDO platListDO = p2PImageDao.wangDaiLogo(platName);
         Map<String, Object> result = new LinkedHashMap<>();
-        result.put("logo", platListDO.getLogo_url());//logo
+        if (platListDO.getLogo_url()==null) {
+            result.put("logo", null);
+        }
+//        result.put("logo", platListDO.getLogo_url());//logo
+        result.put("logo", null);//logo
         result.put("score",pn.getPlat_score()); // 评分
         result.put("platname",pn.getPlat_name()); // 平台名称
         result.put("status",pn.getPlat_status()); // 营业状态
