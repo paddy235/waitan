@@ -22,6 +22,8 @@ public interface RealTimeMonitorService {
 
     List<List<CompanyAnalysisResultDO>> shMap();
 
+    Map<String, Object> shMapMonitor();
+
     List<List> spectrumAnalysis();
 
     Map<String, Map> shArea();

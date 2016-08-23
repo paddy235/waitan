@@ -6,6 +6,7 @@ import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.CourtAnnouncementDO;
 import com.bbd.wtyh.domain.bbdAPI.IndustryCodeDO;
+import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
 import com.bbd.wtyh.service.HologramQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,8 +60,16 @@ public class HologramQueryServiceImpl implements HologramQueryService {
     }
 
     @Override
-    public BaiDuYuQingDO newsConsensus(String company) {
-        return hologramQueryDao.newsConsensus(company);
+    public Map<String, Object> newsConsensus(String company) {
+        BaiDuYuQingDO baiDuYuQingDO = hologramQueryDao.newsConsensus(company);
+        Map<String, Object> data = new HashMap<>();
+        for (BaiDuYuQingDO.Results result : baiDuYuQingDO.getResults()) {
+            data.put("title", result.getNews_title());
+            data.put("content", result.getContent());
+            data.put("newsSite", result.getNews_site());
+            data.put("pubDate", result.getPubdate());
+        }
+        return data;
     }
 
     @Override

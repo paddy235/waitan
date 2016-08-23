@@ -5,6 +5,8 @@ import com.bbd.wtyh.domain.bbdAPI.BBDLogoDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
+import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
+import com.bbd.wtyh.domain.wangDaiAPI.SearchCompanyDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
 
 import java.util.Map;
@@ -57,5 +59,5 @@ public interface P2PImageDao {
      * @param company
      * @return
      */
-    BBDLogoDO bbdLogo(String company);
+    PlatListDO wangDaiLogo(String platName);
 }

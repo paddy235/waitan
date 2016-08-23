@@ -10,6 +10,7 @@ import com.bbd.wtyh.domain.bbdAPI.BBDLogoDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
+import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompanyDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
 import com.bbd.wtyh.mapper.PlatformNameInformationMapper;
@@ -232,20 +233,20 @@ public class P2PImageDaoImpl implements P2PImageDao {
      * 企业logo信息
      *
      */
-    public BBDLogoDO bbdLogo(String company) {
-        String coreDataDealURL = "http://dataom.api.bbdservice.com/api/bbd_ent_logo/?company="+company+"&ak=c541b0bdda84c4b8953682d43c9ef840";
+    public PlatListDO wangDaiLogo(String platName) {
+        String coreDataDealURL = url + "?dataType=plat_list" + "&plat_name=" + platName;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
-            return httpTemplate.get(coreDataDealURL, new HttpCallback<BBDLogoDO>() {
+            return httpTemplate.get(coreDataDealURL, new HttpCallback<PlatListDO>() {
                 @Override
                 public boolean valid() {
                     return true;
                 }
 
                 @Override
-                public BBDLogoDO parse(String result) {
+                public PlatListDO parse(String result) {
                     Gson gson = new Gson();
-                    return gson.fromJson(result, BBDLogoDO.class);
+                    return gson.fromJson(result, PlatListDO.class);
                 }
             });
         } catch (Exception e) {
