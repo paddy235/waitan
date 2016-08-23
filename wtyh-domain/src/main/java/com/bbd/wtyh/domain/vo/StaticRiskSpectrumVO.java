@@ -1,10 +1,12 @@
 package com.bbd.wtyh.domain.vo;
 
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class StaticRiskSpectrumVO {
+@SuppressWarnings("serial")
+public class StaticRiskSpectrumVO implements Serializable {
 	private String name; // 公司名称
 	private Date riskDate; // 风险时间
 	private BigDecimal stcRiskIndex; // 静态风险指数
