@@ -38,12 +38,6 @@
 		GROUP BY m.`year`
 	</select>
 
-
-
-
-
-
-
 	<select id="queryFinanceLeaseStatistic" parameterType="java.util.Map" resultType="com.bbd.wtyh.domain.vo.FinanceLeaseStatisticVO">
 		SELECT
 			IFNULL(registered_capital_type,1) as registeredCapitalType,

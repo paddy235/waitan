@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.bbd.wtyh.util.CalculateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -245,23 +246,11 @@ public class FactoringController {
 				line.getxAxis().add(cdo.getName());
 				line.getseries().add(comNum);
 				hist.getxAxis().add(cdo.getName());
-				hist.getseries().add( WanToYi( sum ) );
+				hist.getseries().add(CalculateUtils.WanToYi( sum ) );
 			}
 		}
 		
 		return ResponseBean.successResponse(map);
-	}
-
-
-	/***
-	 *
-	 * 万元转亿元
-	 * */
-	private Double WanToYi(Integer wan){
-		if(wan == null){
-			return 0.0;
-		}
-		return new BigDecimal(""+wan).divide(new BigDecimal("10000"),1,BigDecimal.ROUND_HALF_UP).doubleValue();
 	}
 	
 	
