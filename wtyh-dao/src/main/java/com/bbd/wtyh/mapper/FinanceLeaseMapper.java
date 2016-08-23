@@ -20,4 +20,9 @@ public interface FinanceLeaseMapper {
     List<String> getYears();
 
     List<CompanyCapitalVO> queryCompanysAndCapital();
+
+    public Integer queryFinanceLeaseMinYear();
+
+    public Integer queryFinanceLeaseMaxYear();
+
 }
