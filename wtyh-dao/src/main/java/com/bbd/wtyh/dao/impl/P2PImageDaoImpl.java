@@ -273,7 +273,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
                     data.put("amount_total", jsonObject.get("amount_total"));
                     data.put("money_stock", jsonObject.get("money_stock"));
                     data.put("interest_rate", jsonObject.get("interest_rate"));
-                    data.put("30_day_net_inflow", jsonObject.get("30_day_net_inflow"));
+                    data.put("month_net_inflow", jsonObject.get("30_day_net_inflow"));
                     data.put("bid_num_stay_stil", jsonObject.get("bid_num_stay_stil"));
                     data.put("bor_num_stay_stil", jsonObject.get("bor_num_stay_stil"));
                     data.put("top1_sum_amount", jsonObject.get("top1_sum_amount"));
