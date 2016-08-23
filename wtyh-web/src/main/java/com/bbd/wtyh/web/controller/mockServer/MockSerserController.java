@@ -41,7 +41,7 @@ public class MockSerserController {
                     "\"top10_num_amount\":0," +
                     "\"bid_num_stay_stil\":6205," +
                     "\"company_name\":\"汕头市金通汽车运输有限公司\"," +
-                    "\"plat_status\":\"正常\"," +
+                    "\"plat_status\":\"正常营业\"," +
                     "\"30_day_net_inflow\":6565.6," +
                     "\"top1_sum_amount\":0," +
                     "\"amount_taotal\":23154.0985," +
@@ -73,7 +73,7 @@ public class MockSerserController {
                     "]}";
 
         } else if (dataType.equals("plat_list")) {
-            return "{plat_name: \"测试数据\", company_name: \"攀枝花市交通旅游客运有限责任公司\", logo_url: \"http://logo.url.com\"}";
+            return "{plat_name: \"测试数据\", company_name: \"攀枝花市交通旅游客运有限责任公司\", logo_url: \"https://www.baidu.com/favicon.ico\"}";
 
         } else if (dataType.equals("leida")) {
             return "{\"plat_name\":\"今日劫财\"," +
