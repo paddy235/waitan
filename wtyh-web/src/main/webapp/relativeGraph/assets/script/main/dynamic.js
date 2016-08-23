@@ -812,25 +812,31 @@ define(function(require, exports, module) {
 		if (e.target.isCompany) {
 			$.ajax({
 				type: "GET",
-				url: "/PToPMonitor/integrated.do", //查询公司接口详细信息
-				data: {},
+				url: "relatedPartyStatistics.do", //查询公司接口详细信息relatedPartyStatistics.do
+				data: {
+					origCompanyName:'上海仁石投资管理有限公司',
+					tarCompanyName:'上海仁石投资管理有限公司',
+					dataVersion:'20160407',
+					degree:3
+				},
 				dataType: "json",
 				success: function(data) {
 					data = data.obj;
 					// $("#companyNameHtml").html(name);
-					var shtml = '<div class="company-title">成都中建明城投资有限公司</div>\
+					var shtml = '<div class="relation-modal"><div class="company-title">成都中建明城投资有限公司</div>\
                       <table>\
                         <tbody>\
-                          <tr><td>注册资本</td><td>500万</td></tr>\
-                          <tr><td>登记状态</td><td>在营开业企业</td></tr>\
-                          <tr><td>关联方法人节点数</td><td>386</td></tr>\
-                          <tr><td>关联方自然人节点数</td><td>289</td></tr>\
-                          <tr><td>自然人股东数</td><td>21</td></tr>\
-                          <tr><td>法人股东数</td><td>8</td></tr>\
-                          <tr><td>子股东数</td><td>0</td></tr>\
+                          <tr><td>注册资本</td><td>'+data.capital+'</td></tr>\
+                          <tr><td>登记状态</td><td>'+data.registation+'</td></tr>\
+                          <tr><td>关联方法人节点数</td><td>'+data.legalPersonNodes+'</td></tr>\
+                          <tr><td>关联方自然人节点数</td><td>'+data.naturalPersonNode+'</td></tr>\
+                          <tr><td>自然人股东数</td><td>'+data.naturalPersonShareholders+'</td></tr>\
+                          <tr><td>法人股东数</td><td>'+data.legalPersonShareholders+'</td></tr>\
+                          <tr><td>子股东数</td><td>'+data.subsidiarys+'</td></tr>\
+                          <tr><td>诉讼记录</td><td>'+data.litigationRecord+'</td></tr>\
                         </tbody>\
-                        <a href="" className="see-detail">查看详情</a>\
-                      </table>';
+                        <a href="/#/SearchResultDetail?company=上海仁石投资管理有限公司" className="see-detail">查看详情</a>\
+                      </table></div>';
 					$("#relation-modal").html(shtml).show();
 				}
 			});
