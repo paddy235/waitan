@@ -1,12 +1,16 @@
 package com.bbd.wtyh.service.impl;
 
 
+import com.bbd.wtyh.domain.vo.CompanyCapitalVO;
 import com.bbd.wtyh.domain.vo.FinanceLeaseStatisticVO;
 import com.bbd.wtyh.domain.vo.FinanceLeaseVO;
 import com.bbd.wtyh.domain.vo.FinanceLeasecCompanyVO;
 import com.bbd.wtyh.mapper.FinanceLeaseMapper;
 import com.bbd.wtyh.service.FinanceLeaseService;
 import com.bbd.wtyh.util.CalculateUtils;
+import com.bbd.wtyh.web.XAxisSeriesBarLineBean;
+import com.bbd.wtyh.web.XAxisSeriesBarsLineBean;
+import org.apache.commons.beanutils.converters.DoubleConverter;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.formula.functions.T;
@@ -29,6 +33,30 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
 
     @Resource
     private FinanceLeaseMapper financeLeaseMapper;
+
+
+    /**
+     * @author suyin
+     *
+     * */
+    public XAxisSeriesBarsLineBean companysAndMoney(){
+        List<CompanyCapitalVO> list = financeLeaseMapper.queryCompanysAndCapital();
+        XAxisSeriesBarsLineBean<Double,Integer> bean = new XAxisSeriesBarsLineBean();
+
+        int rmb = 0;
+        int us = 0;
+        int company = 0;
+        for (CompanyCapitalVO vo :list) {
+            bean.getxAxis().add(vo.getYear());
+            bean.getSeries().getLine().add((double)(company+=vo.getCompanyNumber()));
+            bean.getSeries().getBar()[0].add(CalculateUtils.divide(rmb+=vo.getRmb(),10000,2));
+            bean.getSeries().getBar()[1].add(CalculateUtils.divide(us+=vo.getUs(),10000,2));
+        }
+
+        return bean;
+    }
+
+
 
     @Override
     public Map leaseCompanyStatistic() {

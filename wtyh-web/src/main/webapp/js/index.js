@@ -58770,8 +58770,7 @@
 	                            //HTML5不支持
 	                            if (!window.applicationCache) {
 	                                $(this).animate({
-	                                    top: thisTop
-	                                }, setting.speed);
+	                                    top: this}, setting.speed);
 	                            } else {
 	                                $(this).css({
 	                                    'transform': 'translateY(' + thisTop + ')',

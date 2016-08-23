@@ -33,9 +33,21 @@ public class FinanceLeaseController {
     @RequestMapping("leaseCompanyStatistic.do")
     @ResponseBody
     public ResponseBean leaseCompanyStatistic() {
-        Map data = financeLeaseService.leaseCompanyStatistic();
+//        Map data = financeLeaseService.leaseCompanyStatistic();
+//        return ResponseBean.successResponse(data);
+        // 上面是把周旋的注释了，下面是我加的
+        Object data = financeLeaseService.companysAndMoney();
         return ResponseBean.successResponse(data);
     }
+
+
+
+
+
+
+
+
+
 
     /**
      * 上海市自贸区融资租赁企业占比对比
@@ -46,6 +58,8 @@ public class FinanceLeaseController {
     public ResponseBean leaseCompanyCategory(Integer year) {
         Map data = financeLeaseService.leaseCompanyCategory(year);
         return ResponseBean.successResponse(data);
+
+
     }
 
     /**
