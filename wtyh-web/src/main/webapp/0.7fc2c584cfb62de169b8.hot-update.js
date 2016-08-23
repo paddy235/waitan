@@ -1,0 +1,124 @@
+webpackHotUpdate(0,{
+
+/***/ 961:
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	__webpack_require__(947);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	/**
+	 * 招聘人员指数图
+	 */
+
+
+	var xDate = null;
+	var series = null;
+	var PersonIndexChart = _react2.default.createClass({
+		displayName: 'PersonIndexChart',
+		drawImg: function drawImg() {
+			var myChart = echarts.init(document.getElementById('show-charts'));
+			var option = {
+
+				grid: {
+					left: '7%',
+					right: '6%',
+					bottom: '6%',
+					containLabel: true
+				},
+				xAxis: {
+					type: 'category',
+					axisLine: {
+						show: true,
+						lineStyle: {
+							color: '#232932'
+						}
+					},
+					axisLabel: {
+						show: true,
+						textStyle: {
+							color: '#fff',
+							fontSize: 14
+						}
+					},
+					data: ['2015-08', '2015-09', '2015-10', '2015-11', '2015-12', '2016-01', '2016-02', '2016-03', '2016-04', '2016-05', '2016-06', '2016-07']
+				},
+				yAxis: {
+					name: '指数（%）',
+					type: 'value',
+					nameTextStyle: {
+						color: '#fff',
+						fontSize: 14
+					},
+					axisLine: {
+						show: true,
+						lineStyle: {
+							color: '#232932'
+						}
+					},
+					axisLabel: {
+						textStyle: {
+							color: '#fff',
+							fontSize: 14
+						}
+					},
+					splitLine: {
+						lineStyle: {
+							color: '#232932'
+						}
+					}
+				},
+				series: [{
+					name: '邮件营销',
+					type: 'line',
+					stack: '总量',
+					data: series, /*---------ajax----------*/
+					symbol: 'circle',
+					symbolSize: 15,
+					lineStyle: {
+						normal: {
+							color: '#73d528',
+							width: 3
+						}
+					},
+					itemStyle: {
+						normal: {
+							color: '#73d528',
+							shadowColor: 'red',
+							shadowBlur: {
+								shadowColor: 'rgba(115, 213, 40, 0.8)',
+								shadowBlur: 5
+							}
+						}
+					}
+				}]
+			};
+			myChart.setOption(option);
+		},
+		componentDidMount: function componentDidMount() {
+			this.drawImg();
+		},
+		render: function render() {
+			return _react2.default.createElement('div', { id: 'show-charts', className: 'show-charts' });
+		}
+	});
+	exports.default = PersonIndexChart;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "PersonIndexChart.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ }
+
+})

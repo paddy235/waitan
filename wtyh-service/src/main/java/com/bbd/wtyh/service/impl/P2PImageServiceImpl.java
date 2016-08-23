@@ -6,15 +6,14 @@ import com.bbd.wtyh.domain.bbdAPI.BBDLogoDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
+import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
+import com.bbd.wtyh.domain.wangDaiAPI.SearchCompanyDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
 import com.bbd.wtyh.service.P2PImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * P2P平台状态信息业务层
@@ -30,11 +29,9 @@ public class P2PImageServiceImpl implements P2PImageService {
     @Override
     public Map<String, Object> platFormStatus(String platName) {
         PlatDataDO pn = p2PImageDao.getPlatData(platName);
-        BBDLogoDO bbdLogoDO = p2PImageDao.bbdLogo(pn.getCompany_name());
-        Map<String, Object> result = new HashMap<>();
-        for (BBDLogoDO.Result data : bbdLogoDO.getResults()) {
-            result.put("logo", data.getCompany_logo());
-        }
+        PlatListDO platListDO = p2PImageDao.wangDaiLogo(platName);
+        Map<String, Object> result = new LinkedHashMap<>();
+        result.put("logo", platListDO.getLogo_url());//logo
         result.put("score",pn.getPlat_score()); // 评分
         result.put("platname",pn.getPlat_name()); // 平台名称
         result.put("status",pn.getPlat_status()); // 营业状态
@@ -65,7 +62,6 @@ public class P2PImageServiceImpl implements P2PImageService {
         Map<String, Object> data = p2PImageDao.baseInfoWangDaiApi(platName);
         BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(String.valueOf(data.get("公司名称")));
         ZuZhiJiGoudmDO zuZhiJiGoudmDO = p2PImageDao.baseInfoZuZhiJiGou(String.valueOf(data.get("公司名称")));
-
         Map<String, Object> map = new HashMap<>();
         // TODO 接口可能有问题
         for (BaseDataDO.Results result : baseDataDO.getResults()) {
@@ -81,7 +77,6 @@ public class P2PImageServiceImpl implements P2PImageService {
         }
         map.put("platName", data.get("平台名称"));
         map.put("companyName", data.get("公司名称"));
-
         return map;
     }
 
