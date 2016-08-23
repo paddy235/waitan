@@ -8,5 +8,5 @@ import java.util.List;
 public interface InvestmentStatisticMapper {
     InvestmentStatisticDO selectByPrimaryKey(Integer year);
 
-    List<InvestmentReturnStatisticDO> selectAll();
+    List<InvestmentStatisticDO> selectAll();
 }

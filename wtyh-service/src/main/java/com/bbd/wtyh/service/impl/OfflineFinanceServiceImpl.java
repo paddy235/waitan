@@ -407,8 +407,8 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
                     redis_value = Constants.attDir+File.separator+new File(filePath).getName();
                     redisDAO.addString(redis_key,redis_value, Constants.cacheDay);
                 } catch (Exception e) {
-                    e.printStackTrace();
-                    throw e;
+                    logger.info("数据平台不存在该公司的数据版本", e);
+                    return "";
                 }
 
             }

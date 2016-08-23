@@ -3,7 +3,7 @@ package com.bbd.wtyh.domain;
 public class InvestmentStatisticDO extends BaseDO {
     private Integer year;
 
-    private Integer investmentAmount;
+    private Double investmentAmount;
 
     private Integer publishNumber;
 
@@ -23,11 +23,11 @@ public class InvestmentStatisticDO extends BaseDO {
         this.year = year;
     }
 
-    public Integer getInvestmentAmount() {
+    public Double getInvestmentAmount() {
         return investmentAmount;
     }
 
-    public void setInvestmentAmount(Integer investmentAmount) {
+    public void setInvestmentAmount(Double investmentAmount) {
         this.investmentAmount = investmentAmount;
     }
 }

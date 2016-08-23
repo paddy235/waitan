@@ -98,6 +98,16 @@ public class RealTimeMonitorController {
 
         return ResponseBean.successResponse(rst);
     }
+    /**
+     * 上海地图--左上角监测，下面滚动条
+     * @return
+     */
+    @RequestMapping("/shMapMonitorAndRoll")
+    @ResponseBody
+    public ResponseBean shMapMonitor() {
+        Map<String, Object> content = realTimeMonitorService.shMapMonitor();
+        return ResponseBean.successResponse(content);
+    }
 
 
 
