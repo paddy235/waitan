@@ -53,12 +53,13 @@ public class RealTimeMonitorController {
     @ResponseBody
     public ResponseBean spectrumAnalysis() {
 //        List<List> content = realTimeMonitorService.spectrumAnalysis();
-        final String key = "wtyh:realtimeMonitor:spectrumAnalysis";
+        final String key = "wtyh:realtimeMonitor:guangPu";
         List<List> list = (List<List>) redisDAO.getObject(key);
         if (null == list || list.size() == 0) {
             list = realTimeMonitorService.spectrumAnalysis();
             if (null != list && list.size() >= 1) {
                 redisDAO.addSet(key, String.valueOf(list), Constants.REDIS_10);
+                //addObject(key, list, Constants.REDIS_10, List.class)
             }
         }
         return ResponseBean.successResponse(list);
