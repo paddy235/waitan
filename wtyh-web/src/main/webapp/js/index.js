@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "93b51a32eb9bacdd34aa"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "05c503c846fad26b68d2"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -67252,7 +67252,7 @@
 	            var companyAmount = content[i].number; //公司数量
 	            var averageBlance = Number(amount / companyAmount).toFixed(2); //平均担保责任余额
 
-	            var dataArr = [i, i, amountBill, averageBlance];
+	            var dataArr = [i, i, amountBill, averageBlance]; //
 
 	            balanceArr.push(amountBill);
 	            guaraDutyBalaData.xAxis.push(year);
@@ -67262,14 +67262,15 @@
 	            guaraEachAverData.series.push(content[i].number);
 	        }
 	        var balanceMax = Math.max.apply(null, balanceArr);
-	        var eachYAxis = balanceMax / 5;
+	        console.log(balanceMax, '最大值');
+	        var eachYAxis = Number(balanceMax / 5).toFixed(2);
 	        for (var j = 0; j < 5; j++) {
 	            guaraDutyBalaData.yAxis.push(eachYAxis * j);
 	        }
 
-	        var policyBalance = content[conLength - 1].policyBalance; //政策类
-	        var steelBalance = content[conLength - 1].steelBalance; //钢贸类
-	        var compositeBalance = content[conLength - 1].compositeBalance; //综合类
+	        var policyBalance = Number(content[conLength - 1].policyBalance / 10000).toFixed(2); //政策类 //转成单位亿元
+	        var steelBalance = Number(content[conLength - 1].steelBalance / 10000).toFixed(2); //钢贸类 //转成单位亿元
+	        var compositeBalance = Number(content[conLength - 1].compositeBalance / 10000).toFixed(2); //综合类 //转成单位亿元
 	        balanceDistrData.push({ "name": "政策性", "value": policyBalance });
 	        balanceDistrData.push({ "name": "综合型", "value": compositeBalance });
 	        balanceDistrData.push({ "name": "钢贸类", "value": steelBalance });
