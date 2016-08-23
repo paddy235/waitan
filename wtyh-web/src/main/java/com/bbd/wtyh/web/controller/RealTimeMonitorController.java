@@ -106,10 +106,10 @@ public class RealTimeMonitorController {
         }
         final String key2 = "wtyh:realtimeMonitor:shMap2";
         Map<String, Map> sHhoverArea = (Map<String, Map>) redisDAO.getObject(key2);
-        if (null == list || list.size() == 0) {
+        if (null == sHhoverArea || sHhoverArea.size() == 0) {
             sHhoverArea = realTimeMonitorService.shArea();
-            if (null != list && list.size() >= 1) {
-                redisDAO.addObject(key, list, Constants.REDIS_10, sHhoverArea.getClass());
+            if (null != sHhoverArea && sHhoverArea.size() >= 1) {
+                redisDAO.addObject(key2, sHhoverArea, Constants.REDIS_10, Map.class);
             }
         }
         Map<String, Object> rst = new HashMap<>();

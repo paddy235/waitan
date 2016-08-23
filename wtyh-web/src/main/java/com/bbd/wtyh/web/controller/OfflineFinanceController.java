@@ -269,7 +269,7 @@ public class OfflineFinanceController {
     @RequestMapping("staticRiskIndex.do")
     @ResponseBody
     public ResponseBean staticRiskIndex(String companyName) {
-        List<Map> data = offlineFinanceService.staticRiskIndex(companyName);
+        Map data = offlineFinanceService.staticRiskIndex(companyName);
         return ResponseBean.successResponse(data);
     }
 
