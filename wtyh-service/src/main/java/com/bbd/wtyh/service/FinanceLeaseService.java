@@ -25,4 +25,5 @@ public interface FinanceLeaseService {
     List<String> getYears();
 
     XAxisSeriesBarsLineBean companysAndMoney();
+
 }
