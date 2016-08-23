@@ -567,17 +567,17 @@ define(function(require, exports, module) {
 			//当前节点的style
 			var clicked_node_style = node.zr_shape.style;
 			var text;
-			if (checked) {
-				text = '隐藏'
-			} else {
-				text = '扩展'
-			}
+			//if (checked) {
+			//	text = '隐藏'
+			//} else {
+			//	text = '扩展'
+			//}
 			node_extend = new Rectangle({
 				style: {
 					x: clicked_node_style.x + 30,
 					y: node.zr_shape.type == 'rectangle' ? clicked_node_style.y : clicked_node_style.y - 10,
-					width: 30,
-					height: 20,
+					width: 0,
+					height: 0,
 					color: '#3CB371',
 					strokeColor: '#d9d9d9',
 					lineWidth: 0,
@@ -592,8 +592,8 @@ define(function(require, exports, module) {
 				highlightStyle: {
 					x: clicked_node_style.x + 30,
 					y: node.zr_shape.type == 'rectangle' ? clicked_node_style.y : clicked_node_style.y - 10,
-					width: 30,
-					height: 20,
+					width: 0,
+					height: 0,
 					color: '#3CB371',
 					strokeColor: '#d9d9d9',
 					lineWidth: 0,
@@ -616,13 +616,13 @@ define(function(require, exports, module) {
 					check_company(node_name) //隐藏，显示
 					highlight_relation(node_name)
 
-					if (checked) {
-						this.style.text = "隐藏";
-						this.highlightStyle.text = "隐藏";
-					} else {
-						this.style.text = "扩展";
-						this.highlightStyle.text = "扩展";
-					}
+					//if (checked) {
+					//	this.style.text = "隐藏";
+					//	this.highlightStyle.text = "隐藏";
+					//} else {
+					//	this.style.text = "扩展";
+					//	this.highlightStyle.text = "扩展";
+					//}
 				}
 			});
 			//console.log("node_extend:",node.zr_shape.type);
@@ -633,12 +633,12 @@ define(function(require, exports, module) {
 						style: {
 							x: clicked_node_style.x + 70,
 							y: node.zr_shape.type == 'rectangle' ? clicked_node_style.y : clicked_node_style.y - 10,
-							width: 30,
-							height: 20,
+							width: 0,
+							height: 0,
 							color: '#3CB371',
 							strokeColor: '#d9d9d9',
 							lineWidth: 0,
-							text: '详情',
+							text: '',
 							textFont: "normal 12px Microsoft Yahei",
 							textColor: '#d9d9d9',
 							textPosition: 'inside',
@@ -649,12 +649,12 @@ define(function(require, exports, module) {
 						highlightStyle: {
 							x: clicked_node_style.x + 70,
 							y: node.zr_shape.type == 'rectangle' ? clicked_node_style.y : clicked_node_style.y - 10,
-							width: 30,
-							height: 20,
+							width: 0,
+							height: 0,
 							color: '#3CB371',
 							strokeColor: '#d9d9d9',
 							lineWidth: 0,
-							text: '详情',
+							text: '',
 							textFont: "normal 12px Microsoft Yahei",
 							textColor: '#d9d9d9',
 							textPosition: 'inside',
