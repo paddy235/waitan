@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "a052fe43476215266b50"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "bbfd8fac014baaa5a8f5"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -61147,11 +61147,13 @@
 	    };
 	  },
 	  componentWillMount: function componentWillMount() {
-	    // var companyName=this.state.companyName;
+
 	    // var json={companyName:companyName};
 	    // this.getRiskSearch(json);
 	  },
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    // var companyName=nextProps.location.query.companyName;
+	    // this.setState({companyName:companyName}); 
 
 	    // var isEqual=Immutable.is(nextProps.dynamicRiskCompanyTagResult, this.props.dynamicRiskCompanyTagResult)//判断数据是否变化
 	    //      if(!isEqual){
@@ -61232,13 +61234,13 @@
 	          { className: 'right' },
 	          _react2.default.createElement(
 	            _reactRouter.Link,
-	            { activeClassName: 'active', to: { pathname: '/lineFinanceStaticRisk', query: { companyName: this.state.companyName } } },
+	            { activeClassName: 'active', to: { pathname: '/lineFinanceStaticRisk', query: { companyName: this.props.companyName } } },
 	            _react2.default.createElement('i', { className: 'iconfont icon-bar' }),
 	            '静态风险指数'
 	          ),
 	          _react2.default.createElement(
 	            _reactRouter.Link,
-	            { activeClassName: 'active', to: { pathname: '/lineFinanceDynamicRisk', query: { companyName: this.state.companyName } } },
+	            { activeClassName: 'active', to: { pathname: '/lineFinanceDynamicRisk', query: { companyName: this.props.companyName } } },
 	            _react2.default.createElement('i', { className: 'iconfont icon-history' }),
 	            '风险时序差异对比'
 	          )
