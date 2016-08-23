@@ -222,6 +222,7 @@
     <select id="companyInfo" parameterType="String" resultType="java.util.Map">
         SELECT
             c.`name` AS NAME,
+            IF(c.status=1,'存续',IF(c.status=2,'注销',0)) AS status,
             cb.background AS background
         FROM
             company c
