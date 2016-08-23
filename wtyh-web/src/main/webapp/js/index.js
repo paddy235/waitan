@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "5b3b040df8c15c7aaf76"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b657432d0e0ecbdd2d41"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -58994,6 +58994,9 @@
 	                max: 200,
 	                right: '4%',
 	                bottom: '8%',
+	                textStyle: {
+	                    color: "#fff"
+	                },
 	                inRange: {
 	                    colorLightness: [1, 0.5]
 	                },
@@ -59923,7 +59926,7 @@
 
 
 	// module
-	exports.push([module.id, ".industry-search{\r\n\tpadding: 15px;\r\n}\r\n.industry-search label{\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tmargin-right: 10px;\r\n\tline-height: 40px;\r\n\tdisplay: block;\r\n\tfloat: left;\r\n}\r\n.industry-search .mt-input input{\r\n\twidth: 400px;\r\n\theight: 40px;\r\n}\r\n.industry-search .mt-input .mt-iconbtn{\r\n\twidth: 36px;\r\n\theight: 36px;\r\n\tmargin-top: -15px;\r\n}\r\n.industry-search .mt-input .iconfont{\r\n\tfont-size: 30px;\r\n\tcolor: #e14340;\r\n}", ""]);
+	exports.push([module.id, ".industry-search {\r\n\tpadding: 15px;\r\n}\r\n\r\n.industry-search label {\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tmargin-right: 10px;\r\n\tline-height: 40px;\r\n\tdisplay: block;\r\n\tfloat: left;\r\n}\r\n\r\n.industry-search .mt-input input {\r\n\twidth: 400px;\r\n\theight: 40px;\r\n}\r\n\r\n.industry-search .mt-input .mt-iconbtn {\r\n\twidth: 36px;\r\n\theight: 36px;\r\n\tmargin-top: -15px;\r\n}\r\n\r\n.industry-search .mt-input .iconfont {\r\n\tfont-size: 30px;\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*关联图 图例 begin*/\r\n.relation-legend {\r\n\tmargin: 25px 0 15px 10px;\r\n\twidth: 99%;\r\n\theight: 56px;\r\n}\r\n\r\n.relation-legend table {\r\n\tbackground: #1a2029;\r\n\twidth: 80%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n\r\n.relation-legend table tr {\r\n\theight: 50%;\r\n\twidth: 10%;\r\n}\r\n\r\n.relation-legend table tr td {\r\n\tpadding: 8px 0 0 14px;\r\n\tposition: relative;\r\n\twidth: 19.8%;\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.relation-legend table tr span {\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.relation-legend table tr .item-lable {\r\n\tfont-size: 12px;\r\n\tcolor: #b2b2b2;\r\n\tposition: absolute;\r\n}\r\n\r\n.relation-legend table tr img {\r\n\tmargin: -5px 20px 0 0;\r\n}\r\n\r\n.relation-legend table tr .square {\r\n\twidth: 17px;\r\n\theight: 17px;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.relation-legend table tr .round {\r\n\twidth: 17px;\r\n\theight: 17px;\r\n\tmargin-right: 20px;\r\n\tborder-radius: 100px;\r\n}\r\n\r\n.relation-legend table tr .orange {\r\n\tbackground: #fe0000;\r\n}\r\n\r\n.relation-legend table tr .orange-two {\r\n\tbackground: #ffca00;\r\n}\r\n\r\n.relation-legend table tr .blue {\r\n\tbackground: #0030b0;\r\n}\r\n\r\n.relation-legend table tr .yellow {\r\n\tbackground: #36b3eb;\r\n}\r\n\r\n.relation-legend table tr .green {\r\n\tbackground: #c1c1c1;\r\n}\r\n\r\n.relation-legend .condition {\r\n\twidth: 19.6%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n\tmargin-left: 2px;\r\n\tbackground: #212831;\r\n}\r\n\r\n.relation-legend .condition .lable {\r\n\tfont-size: 12px;\r\n\tcolor: #fff;\r\n\twidth: 100%;\r\n\theight: 50%;\r\n\tpadding-top: 8px;\r\n\tline-height: 100%;\r\n\ttext-align: center;\r\n}\r\n\r\n.relation-legend .condition .btns {\r\n\twidth: 100%;\r\n\theight: 50%;\r\n}\r\n\r\n.relation-legend .condition .btns .btn {\r\n\tbackground: #474f5c;\r\n\tfloat: left;\r\n\twidth: 32.5%;\r\n\theight: 100%;\r\n\tmargin-left: 1px;\r\n\ttext-align: center;\r\n\tpadding-top: 5px;\r\n\tcursor: pointer;\r\n}\r\n\r\n.relation-legend .condition .btns .btn.active {\r\n\tbackground-color: #00b8ee;\r\n}\r\n\r\n.relation-modal {\r\n\tposition: absolute;\r\n\tleft: 10px;\r\n\ttop: 100px;\r\n\twidth: 270px;\r\n\tpadding-bottom: 5px;\r\n\tborder-radius: 5px;\r\n\tbackground: #222931;\r\n\tz-index: 99999;\r\n\t-webkit-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n\t-moz-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n\tbox-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n}\r\n\r\n.relation-modal .company-title {\r\n\twidth: 100%;\r\n\theight: 30px;\r\n\tline-height: 30px;\r\n\tpadding-left: 5%;\r\n\tbackground: #4B5668;\r\n\tborder-top-left-radius: 5px;\r\n\tborder-top-right-radius: 5px;\r\n}\r\n\r\n.relation-modal table {\r\n\twidth: 100%;\r\n}\r\n\r\n.relation-modal table tr {\r\n\twidth: 100%;\r\n}\r\n\r\n.relation-modal table tr td {\r\n\theight: 27px;\r\n\tline-height: 27px;\r\n\tfont-size: 12px;\r\n}\r\n\r\n.relation-modal table tr td:first-child {\r\n\twidth: 60%;\r\n\tcolor: #878E96;\r\n\tpadding-left: 5%;\r\n}\r\n\r\n.relation-modal table tr td:last-child {\r\n\twidth: 40%;\r\n}\r\n\r\n.relation-modal .see-detail {\r\n\tfont-size: 12px;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\tcolor: #ffffff;\r\n\ttext-align: center;\r\n\tdisplay: block;\r\n\tborder-radius: 5px;\r\n\tbackground-color: #e14340;\r\n\tmargin-top: 10px;\r\n\tmargin-bottom: 10px;\r\n\tmargin-left: 10px;\r\n\tmargin-right: 10px;\r\n}\r\n\r\n/*关联图 图例 end*/\r\n\r\n/*关联图 侧边栏begin*/\r\n.sidebox {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation-tips {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .sidebar {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .canvas {\r\n\tmargin-right: auto !important;\r\n}\r\n\r\n.correlation .time-line {\r\n\tdisplay: none;\r\n}\r\n\r\n/*关联图 end*/", ""]);
 
 	// exports
 
@@ -60141,26 +60144,43 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var Immutable = __webpack_require__(718);
+
 	//静态风险指数
 	var LineFinanceStaticRisk = _react2.default.createClass({
 	  displayName: 'LineFinanceStaticRisk',
 	  getInitialState: function getInitialState() {
 	    return {
-	      companyName: this.props.location.query.companyName
+	      companyName: this.props.location.query.companyName,
+	      companyInfo: ""
 	    };
 	  },
 
 	  componentWillMount: function componentWillMount() {},
 	  componentDidMount: function componentDidMount() {
 	    $(".risk-search-header .search-bar .right a").first().addClass('active');
+	    var paramObj = { companyName: this.state.companyName };
+	    this.queryCompanyInfo(paramObj);
+	  },
+	  queryCompanyInfo: function queryCompanyInfo(param) {
+	    var queryCompanyInfo = this.props.queryCompanyInfo;
+
+	    queryCompanyInfo(param);
 	  },
 
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {},
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var isEqual = Immutable.is(nextProps.queryCompanyInfoRequest, this.props.queryCompanyInfoRequest);
+	    if (!isEqual) {
+	      this.setState({
+	        companyInfo: nextProps.queryCompanyInfoResult.content.backgroud
+	      });
+	    }
+	  },
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'linefin-static-risk' },
-	      _react2.default.createElement(_RiskSearchHeader2.default, { companyName: this.state.companyName }),
+	      _react2.default.createElement(_RiskSearchHeader2.default, { companyInfo: this.state.companyInfo, companyName: this.state.companyName }),
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'static-risk-box content-space-10' },
@@ -60202,8 +60222,11 @@
 	    companyNewsResult: state.CompanyNews.result,
 	    //时间列表
 	    queryDateVersionRequest: state.QueryDateVersion.request,
-	    queryDateVersionResult: state.QueryDateVersion.result
+	    queryDateVersionResult: state.QueryDateVersion.result,
 
+	    //公司标签
+	    queryCompanyInfoRequest: state.QueryCompanyInfo.request,
+	    queryCompanyInfoResult: state.QueryCompanyInfo.result
 	  };
 	}
 
@@ -60281,6 +60304,12 @@
 	          console.log(404);
 	        }
 	      }
+	    }
+	    //传入标签
+	    if (nextProps.companyInfo) {
+	      this.setState({
+	        companyTag: nextProps.companyInfo
+	      });
 	    }
 	  },
 	  getRiskSearchVal: function getRiskSearchVal(data) {
@@ -60457,6 +60486,8 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactRouter = __webpack_require__(243);
+
 	var _index = __webpack_require__(692);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -60565,6 +60596,13 @@
 	        var searchVal = e.target.value;
 	        this.setState({ searchVal: searchVal });
 	    },
+	    closeDetail: function closeDetail() {
+	        $(".relation-modal").hide();
+	    },
+	    openDetail: function openDetail() {
+	        $(".relation-modal").show();
+	    },
+
 	    render: function render() {
 	        return _react2.default.createElement(
 	            'div',
@@ -60740,129 +60778,10 @@
 	                        )
 	                    )
 	                ),
+	                _react2.default.createElement('div', { className: 'relation-modal', id: 'relation-modal' }),
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'relation-modal' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'company-title' },
-	                        '成都中建明城投资有限公司'
-	                    ),
-	                    _react2.default.createElement(
-	                        'table',
-	                        null,
-	                        _react2.default.createElement(
-	                            'tbody',
-	                            null,
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '注册资本'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '500万'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '登记状态'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '在营开业企业'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '关联方法人节点数'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '386'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '关联方自然人节点数'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '289'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '自然人股东数'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '21'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '法人股东数'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '8'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '子股东数'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'td',
-	                                    null,
-	                                    '0'
-	                                )
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'a',
-	                        { href: '', className: 'see-detail' },
-	                        '查看详情'
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'relation-graph-box' },
+	                    { className: 'relation-graph-box', onClick: this.openDetail },
 	                    _react2.default.createElement(
 	                        'div',
 	                        { className: 'main correlation', id: 'dyMapMain' },
@@ -60913,7 +60832,7 @@
 
 
 	// module
-	exports.push([module.id, "/*关联图模块 begin*/\r\n.linefin-rel-graph {\r\n\theight: 1300px;\r\n}\r\n\r\n.linefin-rel-graph .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-rel-graph .mod-title h3 {\r\n}\r\n\r\n.linefin-rel-graph .mod-title .mod-title-right {\r\n\tmargin-top: 5px;\r\n\tdisplay: inline-block;\r\n\tfloat: right;\r\n}\r\n\r\n.linefin-rel-graph .mod-title-right i.icon-fullscreen {\r\n\tmargin-left: 20px;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 6px;\r\n\tfloat: right;\r\n\tcursor: pointer;\r\n}\r\n\r\n.linefin-rel-graph .mod-content {\r\n\tposition: relative;\r\n}\r\n.linefin-rel-graph .mod-content .pic_rank{\r\n\tposition: absolute;\r\n    right: 17px;\r\n    top: 62px;\r\n}\r\n.linefin-rel-graph .mod-content .pic_rank span{\r\n\tborder: 1px solid #3A4450;\r\n    display: inline-block;\r\n    width: 22px;\r\n    height: 22px;\r\n    background: #19202A;\r\n    text-align: center;\r\n    line-height: 18px;\r\n    color: #E14340;\r\n    cursor:pointer;\r\n    margin-left:8px;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .relation-graph-box {\r\n\theight: 1200px;\r\n}\r\n\r\n/*关联图模块 end*/\r\n\r\n/*公司舆情 begin*/\r\n.linefin-cocompose {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n.linefin-cocompose .mod-title {\r\n\tbackground-color: #36404d;\r\n}\r\n\r\n.linefin-cocompose .mod-content {\r\n\theight: 550px;\r\n}\r\n\r\n.linefin-cocompose .content-box {\r\n\theight: 534px;\r\n\toverflow: auto;\r\n\tmargin: 20px 20px 0px 20px;\r\n\tbackground-color: #212831;\r\n\tpadding: 20px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box {\r\n\toverflow: hidden;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 a {\r\n\tcolor: #ffffff;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 em {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 24px;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\tborder-radius: 2px;\r\n\tbackground-color: #1a2029;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box p {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tmargin-left: 45px;\r\n\ttext-indent: 28px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tfloat: right;\r\n\tcolor: #e14340;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source .name {\r\n\tmargin-right: 40px;\r\n}\r\n\r\n/**公司舆情 end*/\r\n\r\n/*静态风险指数构成 begin*/\r\n.linefin-index-constitute .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-index-constitute .mt-select {\r\n\tmargin-top: 5px;\r\n\tmargin-right: 5px;\r\n\tcolor: #c9c9ca;\r\n}\r\n\r\n.linefin-index-constitute .con-box {\r\n\tbackground-color: #2b323c;\r\n\tpadding: 0 20px;\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-info {\r\n\tmin-height: 1362px;\r\n\t\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-pie {\r\n\theight: 520px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item {\r\n\tcursor: pointer;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-head {\r\n\tbackground-color: #1a2029;\r\n\tborder-bottom: solid 1px #2b323c;\r\n\theight: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\tfont-size: 14px;\r\n\theight: 20px;\r\n\tline-height: 20px;\r\n\tmargin-top: 10px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.name {\r\n\tcolor: #e5e5e5;\r\n\twidth: 40%;\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.num {\r\n\twidth: 60%;\r\n\ttext-indent: 10%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head {\r\n\theight: 60px;\r\n\tbackground-color: #e14340;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span {\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.name {\r\n\tfont-size: 18px;\r\n\tborder-color: #ed8e8c;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.num em {\r\n\tfont-size: 36px;\r\n\tcolor: #ffffff;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-other .item-head span.num i {\r\n\tfloat: right;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 3px;\r\n\tfont-size: 14px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table {\r\n\twidth: 100%;\r\n\tbackground-color: #36404d;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table {\r\n\twidth: 100%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td {\r\n\tborder-bottom: solid 1px #2b323c;\r\n\tpadding: 10px 0;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-left {\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-right {\r\n\tpadding-left: 10%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart {\r\n\theight: 330px;\r\n\tbackground-color: #212831;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart h4 {\r\n\tbackground-color: #1a2029;\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n\tpadding: 0 20px;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart .chart-b {\r\n\theight: 290px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-head span.name {\r\n\tfont-size: 16px;\r\n\tborder-color: #d0d8df;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-con {\r\n\tdisplay: none;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-con {\r\n\tdisplay: block;\r\n}\r\n\r\n/*关联图 图例 begin*/\r\n.relation-legend {\r\n\tmargin: 25px 0 15px 10px;\r\n\twidth: 99%;\r\n\theight: 56px;\r\n}\r\n\r\n.relation-legend table {\r\n\tbackground: #1a2029;\r\n\twidth: 80%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n\r\n.relation-legend table tr {\r\n\theight: 50%;\r\n\twidth: 10%;\r\n}\r\n\r\n.relation-legend table tr td {\r\n\tpadding: 8px 0 0 14px;\r\n\tposition: relative;\r\n\twidth: 19.8%;\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.relation-legend table tr span {\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.relation-legend table tr .item-lable {\r\n\tfont-size: 12px;\r\n\tcolor: #b2b2b2;\r\n\tposition: absolute;\r\n}\r\n\r\n.relation-legend table tr img {\r\n\tmargin: -5px 20px 0 0;\r\n}\r\n\r\n.relation-legend table tr .square {\r\n\twidth: 17px;\r\n\theight: 17px;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.relation-legend table tr .round {\r\n\twidth: 17px;\r\n\theight: 17px;\r\n\tmargin-right: 20px;\r\n\tborder-radius: 100px;\r\n}\r\n\r\n.relation-legend table tr .orange {\r\n\tbackground: #f44603;\r\n}\r\n\r\n.relation-legend table tr .orange-two {\r\n\tbackground: #f98d2b;\r\n}\r\n\r\n.relation-legend table tr .blue {\r\n\tbackground: #046adb;\r\n}\r\n\r\n.relation-legend table tr .yellow {\r\n\tbackground: #ffdb03;\r\n}\r\n\r\n.relation-legend table tr .green {\r\n\tbackground: #73d528;\r\n}\r\n\r\n.relation-legend .condition {\r\n\twidth: 19.6%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n\tmargin-left: 2px;\r\n\tbackground: #212831;\r\n}\r\n\r\n.relation-legend .condition .lable {\r\n\tfont-size: 12px;\r\n\tcolor: #fff;\r\n\twidth: 100%;\r\n\theight: 50%;\r\n\tpadding-top: 8px;\r\n\tline-height: 100%;\r\n\ttext-align: center;\r\n}\r\n\r\n.relation-legend .condition .btns {\r\n\twidth: 100%;\r\n\theight: 50%;\r\n}\r\n\r\n.relation-legend .condition .btns .btn {\r\n\tbackground: #474f5c;\r\n\tfloat: left;\r\n\twidth: 32.5%;\r\n\theight: 100%;\r\n\tmargin-left: 1px;\r\n\ttext-align: center;\r\n\tpadding-top: 5px;\r\n\tcursor: pointer;\r\n}\r\n\r\n.relation-legend .condition .btns .btn.active {\r\n\tbackground-color: #00b8ee;\r\n}\r\n\r\n.relation-modal {\r\n\tposition: absolute;\r\n\tleft: 10px;\r\n\ttop: 100px;\r\n\twidth: 270px;\r\n\tpadding-bottom: 5px;\r\n\tborder-radius: 5px;\r\n\tbackground: #222931;\r\n\tz-index: 99999;\r\n\t-webkit-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n\t-moz-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n\tbox-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n}\r\n\r\n.relation-modal .company-title {\r\n\twidth: 100%;\r\n\theight: 30px;\r\n\tline-height: 30px;\r\n\tpadding-left: 5%;\r\n\tbackground: #4B5668;\r\n\tborder-top-left-radius: 5px;\r\n\tborder-top-right-radius: 5px;\r\n}\r\n\r\n.relation-modal table {\r\n\twidth: 100%;\r\n}\r\n\r\n.relation-modal table tr {\r\n\twidth: 100%;\r\n}\r\n\r\n.relation-modal table tr td {\r\n\theight: 27px;\r\n\tline-height: 27px;\r\n\tfont-size: 12px;\r\n}\r\n\r\n.relation-modal table tr td:first-child {\r\n\twidth: 60%;\r\n\tcolor: #878E96;\r\n\tpadding-left: 5%;\r\n}\r\n\r\n.relation-modal table tr td:last-child {\r\n\twidth: 40%;\r\n}\r\n\r\n.relation-modal .see-detail {\r\n\tfont-size: 12px;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\tcolor: #ffffff;\r\n\ttext-align: center;\r\n\tdisplay: block;\r\n\tborder-radius: 5px;\r\n\tbackground-color: #e14340;\r\n\tmargin-top: 10px;\r\n\tmargin-bottom: 10px;\r\n\tmargin-left: 10px;\r\n\tmargin-right: 10px;\r\n}\r\n\r\n/*关联图 图例 end*/\r\n\r\n/*关联图 侧边栏begin*/\r\n.sidebox {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation-tips {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .sidebar {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .canvas {\r\n\tmargin-right: auto !important;\r\n}\r\n\r\n.correlation .time-line {\r\n\tdisplay: none;\r\n}\r\n\r\n/*关联图 end*/\r\n\r\n/*静态风险指数构成 end*/", ""]);
+	exports.push([module.id, "/*关联图模块 begin*/\r\n.linefin-rel-graph {\r\n\theight: 1300px;\r\n}\r\n\r\n.linefin-rel-graph .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-rel-graph .mod-title h3 {\r\n}\r\n\r\n.linefin-rel-graph .mod-title .mod-title-right {\r\n\tmargin-top: 5px;\r\n\tdisplay: inline-block;\r\n\tfloat: right;\r\n}\r\n\r\n.linefin-rel-graph .mod-title-right i.icon-fullscreen {\r\n\tmargin-left: 20px;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 6px;\r\n\tfloat: right;\r\n\tcursor: pointer;\r\n}\r\n\r\n.linefin-rel-graph .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .pic_rank {\r\n\tposition: absolute;\r\n\tright: 17px;\r\n\ttop: 62px;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .pic_rank span {\r\n\tborder: 1px solid #3A4450;\r\n\tdisplay: inline-block;\r\n\twidth: 22px;\r\n\theight: 22px;\r\n\tbackground: #19202A;\r\n\ttext-align: center;\r\n\tline-height: 18px;\r\n\tcolor: #E14340;\r\n\tcursor: pointer;\r\n\tmargin-left: 8px;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .relation-graph-box {\r\n\theight: 1200px;\r\n}\r\n\r\n/*关联图模块 end*/\r\n\r\n/*公司舆情 begin*/\r\n.linefin-cocompose {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n.linefin-cocompose .mod-title {\r\n\tbackground-color: #36404d;\r\n}\r\n\r\n.linefin-cocompose .mod-content {\r\n\theight: 550px;\r\n}\r\n\r\n.linefin-cocompose .content-box {\r\n\theight: 534px;\r\n\toverflow: auto;\r\n\tmargin: 20px 20px 0px 20px;\r\n\tbackground-color: #212831;\r\n\tpadding: 20px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box {\r\n\toverflow: hidden;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 a {\r\n\tcolor: #ffffff;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 em {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 24px;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\tborder-radius: 2px;\r\n\tbackground-color: #1a2029;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box p {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tmargin-left: 45px;\r\n\ttext-indent: 28px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tfloat: right;\r\n\tcolor: #e14340;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source .name {\r\n\tmargin-right: 40px;\r\n}\r\n\r\n/**公司舆情 end*/\r\n\r\n/*静态风险指数构成 begin*/\r\n.linefin-index-constitute .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-index-constitute .mt-select {\r\n\tmargin-top: 5px;\r\n\tmargin-right: 5px;\r\n\tcolor: #c9c9ca;\r\n}\r\n\r\n.linefin-index-constitute .con-box {\r\n\tbackground-color: #2b323c;\r\n\tpadding: 0 20px;\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-info {\r\n\tmin-height: 1362px;\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-pie {\r\n\theight: 520px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item {\r\n\tcursor: pointer;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-head {\r\n\tbackground-color: #1a2029;\r\n\tborder-bottom: solid 1px #2b323c;\r\n\theight: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\tfont-size: 14px;\r\n\theight: 20px;\r\n\tline-height: 20px;\r\n\tmargin-top: 10px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.name {\r\n\tcolor: #e5e5e5;\r\n\twidth: 40%;\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.num {\r\n\twidth: 60%;\r\n\ttext-indent: 10%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head {\r\n\theight: 60px;\r\n\tbackground-color: #e14340;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span {\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.name {\r\n\tfont-size: 18px;\r\n\tborder-color: #ed8e8c;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.num em {\r\n\tfont-size: 36px;\r\n\tcolor: #ffffff;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-other .item-head span.num i {\r\n\tfloat: right;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 3px;\r\n\tfont-size: 14px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table {\r\n\twidth: 100%;\r\n\tbackground-color: #36404d;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table {\r\n\twidth: 100%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td {\r\n\tborder-bottom: solid 1px #2b323c;\r\n\tpadding: 10px 0;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-left {\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-right {\r\n\tpadding-left: 10%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart {\r\n\theight: 330px;\r\n\tbackground-color: #212831;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart h4 {\r\n\tbackground-color: #1a2029;\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n\tpadding: 0 20px;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart .chart-b {\r\n\theight: 290px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-head span.name {\r\n\tfont-size: 16px;\r\n\tborder-color: #d0d8df;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-con {\r\n\tdisplay: none;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-con {\r\n\tdisplay: block;\r\n}\r\n\r\n/*关联图 侧边栏begin*/\r\n.sidebox {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation-tips {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .sidebar {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .canvas {\r\n\tmargin-right: auto !important;\r\n}\r\n\r\n.correlation .time-line {\r\n\tdisplay: none;\r\n}\r\n\r\n/*静态风险指数构成 end*/", ""]);
 
 	// exports
 
@@ -61302,7 +61221,7 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        'div',
-	                        { className: 'index-con-info clear' },
+	                        { className: 'index-con-info' },
 	                        _react2.default.createElement(
 	                            'div',
 	                            { className: 'item item-first active', ref: 'itemFirst' },
@@ -62050,6 +61969,50 @@
 	                                    )
 	                                )
 	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'item item-other' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'item-head' },
+	                                _react2.default.createElement(
+	                                    'span',
+	                                    { className: 'name' },
+	                                    '资本背景风险'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'span',
+	                                    { className: 'num' },
+	                                    _react2.default.createElement(
+	                                        'em',
+	                                        { className: 'c-red' },
+	                                        itemTable && itemTable.perStructRisk
+	                                    )
+	                                )
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'item item-other' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'item-head' },
+	                                _react2.default.createElement(
+	                                    'span',
+	                                    { className: 'name' },
+	                                    '信用信息风险'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'span',
+	                                    { className: 'num' },
+	                                    _react2.default.createElement(
+	                                        'em',
+	                                        { className: 'c-red' },
+	                                        itemTable && itemTable.perStructRisk
+	                                    )
+	                                )
+	                            )
 	                        )
 	                    )
 	                )
@@ -62456,6 +62419,7 @@
 	exports.queryRiskData = queryRiskData;
 	exports.companyNews = companyNews;
 	exports.queryDateVersion = queryDateVersion;
+	exports.queryCompanyInfo = queryCompanyInfo;
 	/*
 	  线下理财监测creat by yq
 	*/
@@ -62628,6 +62592,40 @@
 	      },
 	      error: function error(result) {
 	        return dispatch(queryDataFail(result));
+	      }
+	    });
+	  };
+	}
+	//请求公司标签/offlineFinance/companyInfo.do
+	var COMPANY_INFO_SUCCESS = exports.COMPANY_INFO_SUCCESS = 'COMPANY_INFO_SUCCESS';
+	var COMPANY_INFO_FAIL = exports.COMPANY_INFO_FAIL = 'COMPANY_INFO_FAIL';
+	function companyInfoSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: COMPANY_INFO_SUCCESS,
+	    result: result
+	  };
+	}
+	function companyInfoFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: COMPANY_INFO_FAIL,
+	    result: result
+	  };
+	}
+	function queryCompanyInfo(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "/offlineFinance/companyInfo.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(companyInfoSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(companyInfoFail(result));
 	      }
 	    });
 	  };
@@ -75326,6 +75324,7 @@
 	                        gridBottom: '0',
 	                        gridTop: '15%',
 	                        legend: ["利率"],
+	                        unit: ["%", ""],
 	                        legendShow: false,
 	                        xAxis: coreTrendResult.content.xAxis,
 	                        series: [coreTrendResult.content.series]
@@ -75353,6 +75352,7 @@
 	                        symbolSize: 5,
 	                        legendIsShow: false,
 	                        yFlag: "",
+	                        unit: ["%", ""],
 	                        yAxisName: "金额(亿元)",
 	                        legendRight: "30",
 	                        legend: ["贷款余额"],
@@ -75674,6 +75674,8 @@
 	            color: parm.color,
 	            tooltip: {
 	                trigger: 'axis',
+	                backgroundColor: 'rgba(0,0,0,0.7)',
+	                padding: [10, 10, 10, 10],
 	                formatter: function formatter(v) {
 	                    var info = "";
 	                    for (var i = 0; i < v.length; i++) {
@@ -75712,6 +75714,10 @@
 	            },
 	            xAxis: [{
 	                type: 'category',
+	                name: parm.xAxisName == undefined ? "" : parm.xAxisName,
+	                nameTextStyle: {
+	                    color: "#7f868e"
+	                },
 	                data: parm.xAxis,
 	                axisLabel: {
 	                    formatter: '{value}',
@@ -75848,6 +75854,7 @@
 	    var _selectVal = this.props.location.query.platName == undefined ? "" : this.props.location.query.platName;
 	    return {
 	      listData: [],
+	      company: "",
 	      companyVal: _selectVal
 	    };
 	  },
@@ -75860,6 +75867,7 @@
 	    if (!isEqualCompany) {
 	      var getlitigationRequest = this.props.getlitigationRequest;
 
+	      this.setState({ company: nextProps.companyData });
 	      getlitigationRequest({ "platName": this.state.companyVal });
 	    }
 	    var isEqual = Immutable.is(nextProps.litigationResult, this.props.litigationResult);
@@ -75879,6 +75887,7 @@
 	    }
 	  },
 	  render: function render() {
+	    var _companyName = this.state.company;
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'bottom-l radius4 mod' },
@@ -75922,7 +75931,7 @@
 	                  { className: 'ssong-num' },
 	                  _react2.default.createElement(
 	                    _reactRouter.Link,
-	                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'Portrait' } }, className: 'orange' },
+	                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'Portrait', companyName: _companyName } }, className: 'orange' },
 	                    item.total
 	                  )
 	                )
@@ -76176,7 +76185,8 @@
 	                                    "category": point.level,
 	                                    "color": color,
 	                                    "name": point.name,
-	                                    "symbol": symbol
+	                                    "symbol": symbol,
+	                                    "isGetCompany": false
 	                                };
 	                            }
 	                        }
@@ -76352,36 +76362,9 @@
 	                                )
 	                            )
 	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'condition', style: { display: "none" } },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'lable' },
-	                            '请选择以下筛选条件'
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'btns' },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'btn' },
-	                                '一度'
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'btn' },
-	                                '二度'
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'btn' },
-	                                '三度'
-	                            )
-	                        )
 	                    )
 	                ),
+	                _react2.default.createElement('div', { className: 'relation-modal', id: 'relation-modal' }),
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'relation-graph-box' },
@@ -78578,10 +78561,10 @@
 	                        _xAxisData.push(chartAllResult.content[item].year); //年份
 	                        _companyNumber.push(chartAllResult.content[item].companyNumber);
 
-	                        _balance.push(chartAllResult.content[item].balance);
-	                        _registerCapital.push(chartAllResult.content[item].registerCapital);
-	                        _totalIncome.push(chartAllResult.content[item].totalIncome);
-	                        _totalAmout.push(chartAllResult.content[item].totalAmout);
+	                        _balance.push(Number(chartAllResult.content[item].balance / 10000).toFixed(2));
+	                        _registerCapital.push(Number(chartAllResult.content[item].registerCapital / 10000).toFixed(2));
+	                        _totalIncome.push(Number(chartAllResult.content[item].totalIncome / 10000).toFixed(2));
+	                        _totalAmout.push(Number(chartAllResult.content[item].totalAmout / 10000).toFixed(2));
 	                        _number.push(chartAllResult.content[item].number);
 	                    }
 
@@ -79287,7 +79270,7 @@
 	                                    var _address = item.address == null ? "/" : item.address;
 	                                    var _registeredCapital = item.registeredCapital == null ? "/" : item.registeredCapital;
 	                                    var _registeredTime = item.registeredTime == null ? "/" : item.registeredTime;
-	                                    var _danwei = item.registeredCapitalType == 1 ? "万元" : "美元";
+	                                    var _danwei = item.registeredCapitalType == 1 ? "万人民币" : "万美元";
 	                                    if (index % 2) {
 	                                        return _react2.default.createElement(
 	                                            'tr',
@@ -80700,11 +80683,15 @@
 	  displayName: 'FinanceLease',
 
 	  mixins: [_setHeight2.default],
+	  hrefFunction: function hrefFunction(searchVal) {
+	    //console.log(searchVal,"================搜索词语============================");
+	    this.props.history.push('/SearchResultDetail?companyName=' + searchVal);
+	  },
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
-	      { className: 'finance-list-index' },
-	      _react2.default.createElement(_IndustrySearch2.default, { label: '融资租赁监测', placeholder: '请输入企业名称检索' }),
+	      { className: 'finance-list-index', searchFun: this.hrefFunction, style: this.state.style },
+	      _react2.default.createElement(_IndustrySearch2.default, { label: '融资租赁监测', companyType: '13', searchFun: this.hrefFunction, placeholder: '请输入企业名称检索' }),
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'FinanceLeaseBottom' },
@@ -81980,12 +81967,8 @@
 	                                            null,
 	                                            _react2.default.createElement(
 	                                                _reactRouter.Link,
-	                                                { to: { pathname: HOME_PATH + "/SearchResultDetail" } },
-	                                                _react2.default.createElement(
-	                                                    'span',
-	                                                    { className: 'leftD', title: item.companyName },
-	                                                    item.companyName
-	                                                )
+	                                                { to: { pathname: '/SearchResultDetail', query: { formpage: 'CompanyProgress', companyName: item.companyName } }, className: 'word-limit-5 leftD', 'data-tip': item.companyName, title: item.companyName },
+	                                                item.companyName
 	                                            )
 	                                        ),
 	                                        _react2.default.createElement(
@@ -82041,12 +82024,8 @@
 	                                            null,
 	                                            _react2.default.createElement(
 	                                                _reactRouter.Link,
-	                                                { to: { pathname: HOME_PATH + "/SearchResultDetail" } },
-	                                                _react2.default.createElement(
-	                                                    'span',
-	                                                    { className: 'leftD', title: item.companyName },
-	                                                    item.companyName
-	                                                )
+	                                                { to: { pathname: '/SearchResultDetail', query: { formpage: 'CompanyProgress', companyName: item.companyName } }, className: 'word-limit-5 leftD', 'data-tip': item.companyName, title: item.companyName },
+	                                                item.companyName
 	                                            )
 	                                        ),
 	                                        _react2.default.createElement(
@@ -83349,11 +83328,15 @@
 	            }
 	        }
 	    },
+	    hrefFunction: function hrefFunction(searchVal) {
+	        //console.log(searchVal,"================搜索词语============================");
+	        this.props.history.push('/SearchResultDetail?companyName=' + searchVal);
+	    },
 	    render: function render() {
 	        return _react2.default.createElement(
 	            'div',
-	            { className: 'prepaidC-index', style: this.state.style },
-	            _react2.default.createElement(_IndustrySearch2.default, { label: '单用途预付卡备案企业监测', placeholder: '请输入企业名称检索' }),
+	            { className: 'prepaidC-index', searchFun: this.hrefFunction, style: this.state.style },
+	            _react2.default.createElement(_IndustrySearch2.default, { label: '单用途预付卡备案企业监测', companyType: '11', searchFun: this.hrefFunction, placeholder: '请输入企业名称检索' }),
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'content clearfix' },
@@ -83572,6 +83555,7 @@
 				color: ["#e14340", "#12b5b0"],
 				barWidth: 30,
 				yAxisName: "金额(亿元)",
+				xAxisName: "企业数量",
 				yFlag: "", //y轴单位
 				splitLineShow: false,
 				legend: ["企业预付金额总额"],
@@ -83591,7 +83575,7 @@
 				gridTop: "10%",
 				gridBottom: "5%",
 				gridLeft: "5%",
-				gridRight: "5%",
+				gridRight: "11%",
 				xAxis: data.xAxis,
 				series: [data.series]
 			};
@@ -83683,7 +83667,7 @@
 
 
 	// module
-	exports.push([module.id, ".prepaidC-index .right-bottom tbody td,\r\n.prepaidC-index .right-bottom thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.prepaidC-index  .mt-table {\r\n\tmargin: 0px;\r\n}\r\n\r\n.prepaidC-index  .mt-table tr td a {\r\n\tcolor: #fff;\r\n}\r\n\r\n.prepaidC-index .right-bottom .table-content {\r\n\theight: 500px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.prepaidC-index .right-bottom  .mod-content {\r\n\tpadding: 10px 20px 20px 20px;\r\n}\r\n\r\n/*.prepaidC-index .right-bottom .table-content  table {\r\n\theight: 100%\r\n}*/\r\n.prepaidC-index .right-bottom .table-content  table tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.prepaidC-index .right-bottom .table-title th {\r\n\theight: 50px\r\n}\r\n\r\n.prepaidC-index .right-bottom .table-content  .mt-table td {\r\n\tpadding: 15px 8px;\r\n}\r\n\r\n.prepaidC-index .right-bottom  .mod-title .totle-num {\r\n\tfont-size: 14px;\r\n\tcolor: #fff;\r\n\tfloat: right;\r\n\tdisplay: inline-block;\r\n\tmargin: 15px 20px 0px 0px;\r\n}\r\n\r\n.mt-select .company-dire {\r\n\tbackground: #393a48;\r\n\tborder: 1px #393a48 solid;\r\n\tmargin-left: 5px;\r\n}\r\n\r\n.prepaidC-index .orange {\r\n\tcolor: #3aec8e;\r\n}\r\n\r\n.prepaidC-index .yellows {\r\n\tcolor: #fcae03;\r\n}\r\n\r\n.prepaidC-index .reds {\r\n\tcolor: #e14340;\r\n}\r\n\r\n.prepaidC-index .statu-yellow {\r\n\tcolor: #feac00\r\n}\r\n\r\n.prepaidC-index .statu-green {\r\n\tcolor: #33da82\r\n}\r\n\r\n.prepaidC-index .BZ-num {\r\n\tfloat: right;\r\n\tmargin: 10px 20px 0px 0px;\r\n}\r\n\r\n.prepaidC-index .BZ-num .orange {\r\n\tfont-size: 16px;\r\n}", ""]);
+	exports.push([module.id, ".prepaidC-index .right-bottom tbody td,\r\n.prepaidC-index .right-bottom thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.prepaidC-index  .mt-table {\r\n\tmargin: 0px;\r\n}\r\n\r\n.prepaidC-index  .mt-table tr td a {\r\n\tcolor: #fff;\r\n}\r\n\r\n.prepaidC-index .right-bottom .table-content {\r\n\theight: 500px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.prepaidC-index .right-bottom  .mod-content {\r\n\tpadding: 10px 20px 20px 20px;\r\n}\r\n\r\n/*.prepaidC-index .right-bottom .table-content  table {\r\n\theight: 100%\r\n}*/\r\n.prepaidC-index .right-bottom .table-content  table tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.prepaidC-index .right-bottom .table-title th {\r\n\theight: 50px\r\n}\r\n\r\n.prepaidC-index .right-bottom .table-content  .mt-table td {\r\n\theight: 50px;\r\n}\r\n\r\n.prepaidC-index .right-bottom  .mod-title .totle-num {\r\n\tfont-size: 14px;\r\n\tcolor: #fff;\r\n\tfloat: right;\r\n\tdisplay: inline-block;\r\n\tmargin: 15px 20px 0px 0px;\r\n}\r\n\r\n.mt-select .company-dire {\r\n\tbackground: #393a48;\r\n\tborder: 1px #393a48 solid;\r\n\tmargin-left: 5px;\r\n}\r\n\r\n.prepaidC-index .orange {\r\n\tcolor: #3aec8e;\r\n}\r\n\r\n.prepaidC-index .yellows {\r\n\tcolor: #fcae03;\r\n}\r\n\r\n.prepaidC-index .reds {\r\n\tcolor: #e14340;\r\n}\r\n.prepaidC-index .oranges{\r\n\tcolor: #e0433c;\r\n}\r\n.prepaidC-index .statu-yellow {\r\n\tcolor: #feac00\r\n}\r\n\r\n.prepaidC-index .statu-green {\r\n\tcolor: #33da82\r\n}\r\n\r\n.prepaidC-index .BZ-num {\r\n\tfloat: right;\r\n\tmargin: 10px 20px 0px 0px;\r\n}\r\n\r\n.prepaidC-index .BZ-num .orange {\r\n\tfont-size: 16px;\r\n}", ""]);
 
 	// exports
 
@@ -83786,7 +83770,7 @@
 	                    '备案企业：',
 	                    _react2.default.createElement(
 	                        'em',
-	                        { className: 'orange' },
+	                        { className: 'oranges' },
 	                        this.state.sum
 	                    ),
 	                    ' 家'
@@ -83833,6 +83817,15 @@
 	};
 	var CompanyDirectory = _react2.default.createClass({
 	    displayName: 'CompanyDirectory',
+
+	    componentDidMount: function componentDidMount() {
+	        //滚动条
+	        $("#platformBase-scroll").perfectScrollbar();
+	    },
+	    //滚动条
+	    componentDidUpdate: function componentDidUpdate() {
+	        $("#platformBase-scroll").perfectScrollbar('update').scrollTop(0);
+	    },
 	    getInitialState: function getInitialState() {
 	        return {
 	            msgNoticeDataS: []
@@ -83886,14 +83879,6 @@
 	                break;
 	        }
 	    },
-	    componentDidMount: function componentDidMount() {
-	        //滚动条
-	        $("#platformBase-scroll").perfectScrollbar();
-	    },
-	    //滚动条
-	    componentDidUpdate: function componentDidUpdate() {
-	        $("#platformBase-scroll").perfectScrollbar('update');
-	    },
 	    render: function render() {
 	        var selectQuarter = {
 	            width: '75px',
@@ -83923,7 +83908,7 @@
 	                    '共',
 	                    _react2.default.createElement(
 	                        'em',
-	                        { className: 'orange' },
+	                        { className: 'oranges' },
 	                        ' ',
 	                        this.state.msgNoticeDataS.length,
 	                        ' '
@@ -84010,10 +83995,10 @@
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '25%', title: ele.companyName },
+	                                            { width: '25%' },
 	                                            _react2.default.createElement(
 	                                                _reactRouter.Link,
-	                                                { to: { pathname: HOME_PATH + "/SearchResultDetail" } },
+	                                                { to: { pathname: '/SearchResultDetail', query: { formpage: 'CompanyProgress', companyName: ele.companyName } }, className: 'word-limit-5', 'data-tip': ele.companyName, title: ele.companyName },
 	                                                ele.companyName
 	                                            )
 	                                        ),
@@ -84048,10 +84033,10 @@
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '25%', title: ele.companyName },
+	                                            { width: '25%' },
 	                                            _react2.default.createElement(
 	                                                _reactRouter.Link,
-	                                                { to: { pathname: HOME_PATH + "/SearchResultDetail" } },
+	                                                { to: { pathname: '/SearchResultDetail', query: { formpage: 'CompanyProgress', companyName: ele.companyName } }, className: 'word-limit-5', 'data-tip': ele.companyName, title: ele.companyName },
 	                                                ele.companyName
 	                                            )
 	                                        ),
@@ -90687,7 +90672,7 @@
 	  },
 	  componentWillMount: function componentWillMount() {
 	    this.setState({
-	      windowHeight: $(window).height()
+	      windowHeight: $(window).height() - 60
 	    });
 	  },
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {},
@@ -91948,7 +91933,7 @@
 	                        link: "/smallLoan#/smallLoan",
 	                        id: 'realTimeRightOne', //必传
 	                        height: '100%', //必传 带上单位
-	                        title: '小额贷款之贷款余额',
+	                        title: '贷款余额',
 	                        forMaterTitle: "贷款余额",
 	                        forMaterTip: '平均贷款余额',
 	                        gridTop: "20%",
@@ -92142,27 +92127,8 @@
 	                        "itemStyle": {},
 	                        "series": {
 	                            //后台暂时没得数据，莫法传
-	                            "bar": [[
-	                                // Math.round(Math.random() * 200),
-	                                // Math.round(Math.random() * 200),
-	                                // Math.round(Math.random() * 200),
-	                                // Math.round(Math.random() * 200),
-	                                // Math.round(Math.random() * 200),
-	                                // Math.round(Math.random() * 200),
-	                                // Math.round(Math.random() * 200),
-	                                // Math.round(Math.random() * 200)
-	                            ]],
-	                            "line": [[
-	                                // Math.round(Math.random() * 200),
-	                                // Math.round(Math.random() * 200),
-	                                // Math.round(Math.random() * 200),
-	                                // Math.round(Math.random() * 200),
-	                                // Math.round(Math.random() * 200),
-	                                // Math.round(Math.random() * 200),
-	                                // Math.round(Math.random() * 200),
-	                                // Math.round(Math.random() * 200)
-
-	                            ]]
+	                            "bar": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]],
+	                            "line": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
 	                        }
 	                    };
 	                    paramNine = {
@@ -93348,6 +93314,10 @@
 
 	var _QueryDateVersion2 = _interopRequireDefault(_QueryDateVersion);
 
+	var _QueryCompanyInfo = __webpack_require__(1398);
+
+	var _QueryCompanyInfo2 = _interopRequireDefault(_QueryCompanyInfo);
+
 	var _DynamicRiskCompanyTag = __webpack_require__(1087);
 
 	var _DynamicRiskCompanyTag2 = _interopRequireDefault(_DynamicRiskCompanyTag);
@@ -93405,53 +93375,76 @@
 
 	/*预付卡 begin*/
 
+	/*商业保理监测 end*/
 
-	//楼宇详情页
+	/*线下理财监测 start*/
+	//线下理财首页
 
-	//取得合规意见或经过会商的交易场所详情列表
+
+	/*众筹监测 end*/
+
+	/*商业保理监测 begin*/
+
+
+	//园区首页
+
+	/*实时监测 end*/
+
+	//园区
+
+	//企业占比对比
+
+	//企业目录列表
+
+	/*实时监测 begin*/
+
+	/*=================================交易场所监测=================================*/
+
+	/*=================================融资租赁=================================*/
+	//典当法人企业数
 
 	//交易场所清理整顿分类
 
-	//上海市典当企业目录
+	/*=================================典当行业监测=================================*/
 
-	//列表
-
-	//6月上海各类众筹平台新增项目数
-
-	/*====================================私募基金===============================*/
+	/*=================================交易场所监测=================================*/
+	//黄浦区交易场所列表
 
 	/*=================================众筹监测=================================*/
-	//业务类型
 
-	//私募基金分类
+	/*=================================典当行业监测=================================*/
+	//所有图标
 
+	//6月上海各类众筹平台新增项目数的成功筹资金额
 
-	/*====================================p2p画像平台============================*/
+	//6月上海各类众筹平台新增项目的投资人次
 
-	/*====================================私募基金===============================*/
-	//QDLP试点企业最新进展
+	//私募股权基本情况
 
-	//评分雷达图
+	//私募证券基本情况
 
-	//平台舆情
+	//QFLP试点企业最新进展
 
-	//公司基本信息
+	//动态图谱
 
-	//p2p图表
+	//诉讼信息
 
+	//核心数据
 
 	/*====================================P2P平台监测============================*/
-	//上海区域发展指数排名
 
+	/*====================================p2p画像平台============================*/
+	//基本信息
 
-	//融资担保
-
-	//小额贷款
-
-	//三个echarts图的接口
+	//网贷平台数据展示
 
 
 	/*企业全息查询*/
+
+	/*行业监测模块*/
+	/* 公共搜索 */
+
+	//诉讼记录的五个接口
 	var rootReducer = (0, _redux.combineReducers)({
 
 	  /*企业全息*/
@@ -93592,6 +93585,7 @@
 	  RiskData: _RiskData2.default,
 	  CompanyNews: _CompanyNews2.default,
 	  QueryDateVersion: _QueryDateVersion2.default,
+	  QueryCompanyInfo: _QueryCompanyInfo2.default,
 	  //动态风险
 	  DynamicRiskCompanyTag: _DynamicRiskCompanyTag2.default,
 	  DynamicRiskDate: _DynamicRiskDate2.default,
@@ -93620,76 +93614,53 @@
 
 	//动态风险模块 begein
 
-	/*商业保理监测 end*/
 
-	/*线下理财监测 start*/
-	//线下理财首页
+	//楼宇详情页
 
-
-	/*众筹监测 end*/
-
-	/*商业保理监测 begin*/
-
-
-	//园区首页
-
-	/*实时监测 end*/
-
-	//园区
-
-	//企业占比对比
-
-	//企业目录列表
-
-	/*实时监测 begin*/
-
-	/*=================================交易场所监测=================================*/
-
-	/*=================================融资租赁=================================*/
-	//典当法人企业数
+	//取得合规意见或经过会商的交易场所详情列表
 
 	//交易场所清理整顿分类
 
-	/*=================================典当行业监测=================================*/
+	//上海市典当企业目录
 
-	/*=================================交易场所监测=================================*/
-	//黄浦区交易场所列表
+	//列表
+
+	//6月上海各类众筹平台新增项目数
+
+	/*====================================私募基金===============================*/
 
 	/*=================================众筹监测=================================*/
+	//业务类型
 
-	/*=================================典当行业监测=================================*/
-	//所有图标
+	//私募基金分类
 
-	//6月上海各类众筹平台新增项目数的成功筹资金额
-
-	//6月上海各类众筹平台新增项目的投资人次
-
-	//私募股权基本情况
-
-	//私募证券基本情况
-
-	//QFLP试点企业最新进展
-
-	//动态图谱
-
-	//诉讼信息
-
-	//核心数据
-
-	/*====================================P2P平台监测============================*/
 
 	/*====================================p2p画像平台============================*/
-	//基本信息
 
-	//网贷平台数据展示
+	/*====================================私募基金===============================*/
+	//QDLP试点企业最新进展
+
+	//评分雷达图
+
+	//平台舆情
+
+	//公司基本信息
+
+	//p2p图表
+
+
+	/*====================================P2P平台监测============================*/
+	//上海区域发展指数排名
+
+
+	//融资担保
+
+	//小额贷款
+
+	//三个echarts图的接口
 
 
 	/*企业全息查询*/
-
-	/*行业监测模块*/
-	/* 公共搜索 */
-
-	//诉讼记录的五个接口
 
 	exports.default = rootReducer;
 
@@ -106754,6 +106725,49 @@
 	}
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "FinGuaIndustryRiskDetail.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 1398 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = queryCompanyInfo;
+
+	var _LineFinanceStaticRiskAction = __webpack_require__(761);
+
+	function queryCompanyInfo() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _LineFinanceStaticRiskAction.COMPANY_INFO_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _LineFinanceStaticRiskAction.COMPANY_INFO_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(681); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "QueryCompanyInfo.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ }
