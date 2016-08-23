@@ -4,6 +4,26 @@
 <mapper namespace="com.bbd.wtyh.mapper.FinanceLeaseMapper">
 
 
+	<select id="queryFinanceLeaseMinYear" resultType="int">
+		SELECT
+		MIN(YEAR(registered_date)) as year
+		FROM
+		company
+		WHERE
+		registered_capital = 13
+		AND registered_date IS NOT NULL
+	</select>
+
+	<select id="queryFinanceLeaseMaxYear" resultType="int">
+		SELECT
+		MAX(YEAR(registered_date)) as year
+		FROM
+		company
+		WHERE
+		registered_capital = 13
+		AND registered_date IS NOT NULL
+	</select>
+
 	<select id="queryCompanysAndCapital"  resultType="com.bbd.wtyh.domain.vo.CompanyCapitalVO">
 		select m.year,count(0) companyNumber , SUM(IF(m.type=1,capital,0) ) rmb , SUM(IF(m.type=2,capital,0) ) us
 
