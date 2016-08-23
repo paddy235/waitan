@@ -85,7 +85,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
                 @Override
                 public Object parse(String s) {
                     JSONObject jsonObject = JSON.parseObject(s);
-                    data.put("total", jsonObject.get("total"));
+                    data.put("total", jsonObject.get("total")==""?0:jsonObject.get("total"));
                     return data;
                 }
             });
@@ -258,7 +258,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
     @Override
     public Map<String, Object> coreDataInfo(String platName) {
         String url = String.format("http://localhost:8080/financial_services.do?dataType=plat_data&plat_name=%s", platName);
-        final Map<String, Object> data = new HashMap<>();
+        final Map<String, Object> data = new LinkedHashMap<>();
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             httpTemplate.get(url, new HttpCallback<Object>() {
