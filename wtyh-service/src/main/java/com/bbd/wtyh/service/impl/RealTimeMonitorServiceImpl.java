@@ -58,21 +58,6 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
     }
 
     @Override
-    public List<CompanyAnalysisResult> spectrumAnalysisEmphasis() {
-        return companyAnalysisResultMapper.getSpectrumAnalysis(CompanyAnalysisResult.IMPORT_FOCUS.getType());
-    }
-
-    @Override
-    public List<CompanyAnalysisResult> spectrumAnalysisUsual() {
-        return companyAnalysisResultMapper.getSpectrumAnalysis(CompanyAnalysisResult.COMMON_FOCUS.getType());
-    }
-
-    @Override
-    public List<CompanyAnalysisResult> spectrumAnalysisNormal() {
-        return companyAnalysisResultMapper.getSpectrumAnalysis(CompanyAnalysisResult.NORMAL.getType());
-    }
-
-    @Override
     public List<CompanyAnalysisResult> spectrumAnalysisAlready() {
         return companyAnalysisResultMapper.getSpectrumAnalysis(CompanyAnalysisResult.RISK.getType());
     }

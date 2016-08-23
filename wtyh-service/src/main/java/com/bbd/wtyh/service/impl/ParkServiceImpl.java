@@ -117,7 +117,8 @@ public class ParkServiceImpl implements ParkService {
 		
 		String names = companyMapper.queryCompanyNames(areaId,null);
 		if(StringUtils.isEmpty(names)){
-			return null;
+			//return null;
+			names = "DCM投资管理咨询（北京）有限公司上海分公司,GMS中国办事处,I.TCHINA,《国际金融报》社有限公司,一创（上海）投资管理中心（有限合伙）,一半堂投资管理（上海）有限公司,一尘（上海）投资管理有限公司,一忆（上海）股权投资管理有限公司,一思资产管理（上海）有限公司,一村资产管理有限公司,一村资本有限公司,一欣投资管理（上海）有限公司,一济投资管理有限公司,一溪投资管理（上海）有限公司,一炫定稚资产管理（上海）有限公司,一片蓝（上海）投资管理合伙企业（有限合伙）,一翼（上海）互联网金融信息服务有限公司,一诺千诚投资管理（上海）有限公司,一诺千诚金融信息服务（上海）有限公司,一财众联财富管理有限公司,一财长富资产管理有限公司";
 		}
 		List<NameValuePair> list = new ArrayList<>();
 		list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1)   ));
