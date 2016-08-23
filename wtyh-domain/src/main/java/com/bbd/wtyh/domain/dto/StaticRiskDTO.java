@@ -1,10 +1,12 @@
 package com.bbd.wtyh.domain.dto;
 
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class StaticRiskDTO {
+@SuppressWarnings("serial")
+public class StaticRiskDTO implements Serializable {
 
 	private String companyName; // 公司名称
 	private String dataVersion; // 数据版本
