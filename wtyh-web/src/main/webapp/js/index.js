@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "d389bf065f8b80b98623"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "626f00042092309c5bbc"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -87839,9 +87839,10 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	//子模块引入
+
 
 	__webpack_require__(930);
 
@@ -87871,42 +87872,52 @@
 
 	//企业全息信息查询平台首页
 
-	//子模块引入
 	var Immutable = __webpack_require__(706);
 
 	var InfoSearchIndex = _react2.default.createClass({
 	  displayName: 'InfoSearchIndex',
 
+	  getInitialState: function getInitialState() {
+	    return {
+	      result: null
+	    };
+	  },
+	  parmFun: function parmFun(data) {
+	    console.log(data, 111);
+	    this.setState({ result: data }, function () {
+	      console.log(this.state.result, 222);
+	    });
+	  },
 	  render: function render() {
-
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'info-search-index' },
-	      _react2.default.createElement(_Search2.default, this.props),
-	      _react2.default.createElement(_SearchList2.default, this.props)
+	      _react2.default.createElement(_Search2.default, _extends({}, this.props, { parmFun: this.parmFun })),
+	      _react2.default.createElement(_SearchList2.default, _extends({}, this.props, { parm: this.state.result }))
 	    );
 	  }
 	});
-	//module.exports = InfoSearchIndex;
-
+	module.exports = InfoSearchIndex;
 
 	//将 request  result 绑定到props的request result 
-	function searchDataStateToProps(state) {
-	  return {
+	// function searchDataStateToProps(state) {
+	//   console.log(state,'222')
+	//   return {
 
-	    searchDataRequest: state.infoSearch.request,
-	    searchDataResult: state.infoSearch.result
+	//     searchDataRequest:state.infoSearch.request,
+	//     searchDataResult: state.infoSearch.result,
 
-	  };
-	}
 
-	//将action的所有方法绑定到props上
-	function searchDataDispatchToProps(dispatch) {
-	  return (0, _redux.bindActionCreators)(infoSearchActionCreaters, dispatch);
-	}
+	//   }
+	// }
+
+	// //将action的所有方法绑定到props上
+	// function searchDataDispatchToProps(dispatch) {
+	//   return bindActionCreators(infoSearchActionCreaters, dispatch)
+	// }
 
 	//通过react-redux提供的connect方法将我们需要的state中的数据和actions中的方法绑定到props上
-	exports.default = (0, _reactRedux.connect)(searchDataStateToProps, searchDataDispatchToProps)(InfoSearchIndex);
+	//export default connect(searchDataStateToProps,searchDataDispatchToProps)(InfoSearchIndex)
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Index.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
@@ -88045,17 +88056,31 @@
 	    this.setState({ searchKey: val });
 	  },
 	  clickSearch: function clickSearch() {
+	    console.log(1111);
 	    if (this.state.searchKey) {
 	      var companyData = {
 	        "company": this.state.searchKey,
 	        "page_no": 1,
 	        "page_size": 4
 	      };
-	      var getSearchDataRequest = this.props.getSearchDataRequest;
-
-	      getSearchDataRequest(companyData);
+	      // const {getSearchDataRequest}=this.props;
+	      // getSearchDataRequest(companyData);
 	      // $("#show").show()
+	      this.ajaxFun(companyData);
 	    }
+	  },
+	  ajaxFun: function ajaxFun(companyData) {
+	    var _this = this;
+	    $.ajax({
+	      url: "/hologram/search.do",
+	      dataType: "json",
+	      data: companyData,
+	      type: "GET",
+	      success: function success(result) {
+
+	        _this.props.parmFun(result);
+	      }
+	    });
 	  },
 	  keySearch: function keySearch(event) {
 	    if (event.which == "13") this.clickSearch();
@@ -88163,152 +88188,144 @@
 	  getInitialState: function getInitialState() {
 	    return {
 	      count: 0,
-	      DataList: [],
+	      dataList: [],
 	      nowpage: 0
 	    };
-	  },
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    var isEqual = Immutable.is(nextProps.searchDataResult, this.props.searchDataResult);
-	    if (!isEqual) {
-	      var searchDataRequest = nextProps.searchDataRequest;
-	      var searchDataResult = nextProps.searchDataResult;
-
-	      if (searchDataRequest == true) {
-	        if (searchDataResult.success == true) {
-	          this.dataFomat(searchDataResult);
-	        } else {
-	          //错误后提示
-	        }
-	      }
-	    }
-	  },
-	  dataFomat: function dataFomat(data) {
-	    console.log(data, 555555555555);
-	    var content = data.content.rdata;
-	    var count = data.content.sum;
-	    if (content.length != 0) this.setState({ count: count, DataList: content });else this.setState({ count: count, DataList: null });
-	  },
-	  getLargeLoan: function getLargeLoan(jsonData) {
-	    var getSearchDataRequest = this.props.getSearchDataRequest;
-
-	    getSearchDataRequest(jsonData);
-	  },
-	  //分页回调  
-	  setCallBack: function setCallBack(nowpage, eachPageCount) {
-	    //console.info("aaaaaaaaaaaaaaaaaaa",eachPageCount) 
-	    this.setState({ nowpage: nowpage - 1 });
-	    var searchName = "";
-	    $("#inp").val() ? searchName = $("#inp").val() : searchName = this.props.location.query.searchInfo;
-	    var jsonData = {
-	      "company": searchName,
-	      "page_no": nowpage - 1,
-	      "page_size": 4
-	    };
-	    if ($("#inp").val() || this.props.location.query.searchInfo) this.getLargeLoan(jsonData);
 	  },
 	  componentDidMount: function componentDidMount() {
 	    if (this.props.location.query.searchInfo) {
 	      var jsonData = {
 	        "company": this.props.location.query.searchInfo,
-	        "page_no": 0,
+	        "page_no": 1,
 	        "page_size": 4
 	      };
 	      this.getLargeLoan(jsonData);
 	    }
 	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 
+	    var result = nextProps.parm;
+	    console.log(result, 333);
+	    this.dataFomat(result);
+	    // var isEqual=Immutable.is(nextProps.searchDataResult, this.props.searchDataResult)
+	    //       if(!isEqual){
+	    //        const {searchDataRequest,searchDataResult}=nextProps;
+	    //        if(searchDataRequest==true){
+	    //           if(searchDataResult.success==true){
+	    //             this.dataFomat(searchDataResult);
+	    //           }else{
+	    //               //错误后提示
+	    //           }
+	    //       }
+	    //     }
+	  },
+	  dataFomat: function dataFomat(data) {
+	    console.log(data, 444);
+	    var content = data.content;
+	    var total = content.total;
+	    if (total > 0) {
+	      this.setState({ count: content.sum, dataList: content.rdata }, function () {
+	        console.log(this.state.dataList[0].address, 455);
+	      });
+	    }
+	    // console.log(data,content,555555555555);
+	    // //var isNull=$.isEmptyObject(content);
+	    // var total=content.total;
+	    // if(total){
+	    //   var content=data.content.rdata;
+	    //   var count=data.content.sum;
+	    //   this.setState({count:count,DataList:content});
+	    // }else{
+	    //   this.setState({count:0,DataList:[]})
+	    // }
+	  },
+	  getLargeLoan: function getLargeLoan(jsonData) {
+	    // const {getSearchDataRequest}=this.props;
+	    // getSearchDataRequest(jsonData);
+	  },
+	  //分页回调  
+	  setCallBack: function setCallBack(nowpage, eachPageCount) {
+
+	    // this.setState({nowpage:nowpage});
+	    // var searchName = "";
+	    // ($("#inp").val())? searchName = $("#inp").val(): searchName = this.props.location.query.searchInfo 
+	    //    var jsonData={
+	    //           "company":searchName,
+	    //           "page_no":nowpage,
+	    //           "page_size":4
+	    //         };
+	    //   if($("#inp").val() || this.props.location.query.searchInfo) this.getLargeLoan(jsonData)
+	  },
 	  render: function render() {
-	    var textBox = "";
-	    if (this.state.count != 0) {
-	      textBox = _react2.default.createElement(
-	        'span',
-	        { className: 'total' },
-	        '共搜索到相关',
-	        _react2.default.createElement(
-	          'em',
-	          null,
-	          this.state.count
-	        ),
-	        '家企业'
-	      );
+	    var dataList = [];
+	    if (this.state.dataList.length > 0) {
+	      dataList = this.state.dataList;
+	      console.log(dataList, 99);
 	    }
-	    if (this.state.DataList) {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'SearchList' },
-	        _react2.default.createElement(
-	          'ul',
-	          { className: 'ulBox xxx', id: 'show' },
-	          this.state.DataList.map(function (ele, index) {
-	            return _react2.default.createElement(
-	              'li',
-	              { className: 'liList', key: index },
+
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'SearchList' },
+	      _react2.default.createElement(
+	        'ul',
+	        { className: 'ulBox xxx', id: 'show' },
+	        dataList.map(function (ele, index) {
+	          return _react2.default.createElement(
+	            'li',
+	            { className: 'liList', key: index },
+	            _react2.default.createElement(
+	              'ul',
+	              null,
 	              _react2.default.createElement(
-	                'ul',
-	                null,
+	                _reactRouter.Link,
+	                { to: "/SearchResultDetail?companyName=" + ele.company_name },
 	                _react2.default.createElement(
-	                  _reactRouter.Link,
-	                  { to: "/SearchResultDetail?companyName=" + ele.company_name },
-	                  _react2.default.createElement(
-	                    'h2',
-	                    null,
-	                    ele.company_name
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  'li',
+	                  'h2',
 	                  null,
-	                  '注册号：',
-	                  ele.regno
-	                ),
-	                _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  '类型：',
-	                  ele.company_type
-	                ),
-	                _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  '法定代表人：',
-	                  ele.frname
-	                ),
-	                _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  '注册资本：',
-	                  ele.regcap
-	                ),
-	                _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  '成立日期：',
-	                  ele.esdate
-	                ),
-	                _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  '注册地址：',
-	                  ele.address
+	                  ele.company_name
 	                )
+	              ),
+	              _react2.default.createElement(
+	                'li',
+	                null,
+	                '注册号：',
+	                ele.regno
+	              ),
+	              _react2.default.createElement(
+	                'li',
+	                null,
+	                '类型：',
+	                ele.company_type
+	              ),
+	              _react2.default.createElement(
+	                'li',
+	                null,
+	                '法定代表人：',
+	                ele.frname
+	              ),
+	              _react2.default.createElement(
+	                'li',
+	                null,
+	                '注册资本：',
+	                ele.regcap
+	              ),
+	              _react2.default.createElement(
+	                'li',
+	                null,
+	                '成立日期：',
+	                ele.esdate
+	              ),
+	              _react2.default.createElement(
+	                'li',
+	                null,
+	                '注册地址：',
+	                ele.address
 	              )
-	            );
-	          }),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'page' },
-	            textBox,
-	            _react2.default.createElement(_index.PageList, { id: 'pageList1', count: this.state.count, showPage: '6', callback: this.setCallBack })
-	          )
-	        )
-	      );
-	    } else if (this.state.DataList == null) {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'noResult' },
-	        '抱歉！ 暂无搜索结果'
-	      );
-	    }
+	            )
+	          );
+	        })
+	      )
+	    );
 	  }
 	});
 	module.exports = SearchList;
