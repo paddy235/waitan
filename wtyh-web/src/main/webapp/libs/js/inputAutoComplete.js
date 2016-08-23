@@ -118,10 +118,10 @@
 			dataList.push('<div class=' + acClass + ' id=' + acId + ' style="display:none"><ul>');
 
 			if (type == "base") {
-				if (data.length > 0) {
-					for (var i = 0; i < data.length; i++) {
-						var _getColor = data[i].replace(_getBaseKey, '<span class="strong">' + _getBaseKey + '</span>');
-						dataList.push('<li class="group-item" data-key=' + data[i] + ' data-company="">' + _getColor + '</li>');
+				if (data.content.length > 0) {
+					for (var i = 0; i < data.content.length; i++) {
+						var _getColor = data.content[i].replace(_getBaseKey, '<span class="strong">' + _getBaseKey + '</span>');
+						dataList.push('<li class="group-item" data-key=' + data.content[i] + ' data-company="">' + _getColor + '</li>');
 					};
 				} else {
 					dataList.push('<li class="group" >暂无相关数据。</li>');
