@@ -46,4 +46,15 @@ public class CalculateUtils {
         return null;
     }
 
+
+    /***
+     *
+     * 万元转亿元
+     * */
+    public static Double WanToYi(Integer wan){
+        if(wan == null){
+            return 0.0;
+        }
+        return new BigDecimal(""+wan).divide(new BigDecimal("10000"),1,BigDecimal.ROUND_HALF_UP).doubleValue();
+    }
 }

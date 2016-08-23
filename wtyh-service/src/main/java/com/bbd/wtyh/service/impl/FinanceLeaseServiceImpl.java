@@ -63,8 +63,6 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
         return bean;
     }
 
-
-
     @Override
     public Map leaseCompanyStatistic() {
         List<FinanceLeaseStatisticVO> list = financeLeaseMapper.queryFinanceLeaseStatistic(null);
