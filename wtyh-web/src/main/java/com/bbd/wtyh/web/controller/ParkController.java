@@ -93,7 +93,7 @@ public class ParkController {
     @ResponseBody
     public ResponseBean news(@RequestParam(required=true) Integer areaId) {
 
-        Object data = parkService.queryParkNews(areaId,2,1);
+        Object data = parkService.queryParkNews(areaId,20,1);
         
         return ResponseBean.successResponse(data);
     }

@@ -31,5 +31,13 @@
 			and area=#{areaCode};
 		</if>
 	</select>
-	
+
+	<insert id="save" parameterType="com.bbd.wtyh.domain.DynamicRiskDataDO" >
+		INSERT INTO `dynamic_risk_data` VALUES (
+		#{createBy},#{createDate},#{updateBy},#{updateDate},#{area},#{companyName},#{dataVersion},
+		#{riskDate},#{bbdTimeRiskIndex},#{personNum},#{companyNum},#{sumNum},#{corePersonList},#{controlNum},
+		#{agreeActionNum},#{agreeActionProportion},#{agreeCompanyDetail},#{oneTwoComapnyNum},
+		#{oneTwoCompanyProportion},#{threePersonNum},#{threePersonProportion},#{typeSumNum},#{typeSumProportion},
+		#{companyDetail},#{areaList},#{areaCompanyNum});
+	</insert>
 </mapper>
