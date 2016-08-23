@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -113,6 +114,34 @@ public class OfflineFinanceController {
         String areaCode = request.getParameter("areaCode");
         return offlineFinanceService.queryStatistics(companyName, tabIndex, areaCode);
     }
+
+
+
+    /**
+     * 风险指数趋势变化图综合接口
+     *
+     * @param companyName 公司名称
+     * @param areaCode 区域代码
+     * @return Map<String,Object>
+     * @throws ParseException
+     * @author suyin
+     */
+    @RequestMapping(value = "queryStatisticsMultiple.do")
+    @ResponseBody
+    public Map<String,Object> queryStatisticsMultiple( String companyName, String areaCode) throws ParseException {
+
+        Map<String,Object> map = new HashMap<>();
+        for (int tabIndex=0;tabIndex<8;tabIndex++) {
+            Object o = offlineFinanceService.queryStatistics(companyName, ""+tabIndex, areaCode);
+            map.put("tabIndex"+tabIndex,o);
+        }
+
+        return map;
+    }
+
+
+
+
 
     /**
      * 静态风险指数列表
