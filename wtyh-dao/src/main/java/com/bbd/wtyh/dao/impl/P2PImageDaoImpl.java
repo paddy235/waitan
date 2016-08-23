@@ -85,7 +85,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
                 @Override
                 public Object parse(String s) {
                     JSONObject jsonObject = JSON.parseObject(s);
-                    data.put("total", jsonObject.get("total"));
+                    data.put("total", jsonObject.get("total")==""?0:jsonObject.get("total"));
                     return data;
                 }
             });
@@ -258,7 +258,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
     @Override
     public Map<String, Object> coreDataInfo(String platName) {
         String url = String.format("http://localhost:8080/financial_services.do?dataType=plat_data&plat_name=%s", platName);
-        final Map<String, Object> data = new HashMap<>();
+        final Map<String, Object> data = new LinkedHashMap<>();
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             httpTemplate.get(url, new HttpCallback<Object>() {
@@ -270,14 +270,14 @@ public class P2PImageDaoImpl implements P2PImageDao {
                 @Override
                 public Object parse(String result) {
                     JSONObject jsonObject = JSON.parseObject(result);
-                    data.put("累计成交量", jsonObject.get("amount_total"));
-                    data.put("借款余额", jsonObject.get("money_stock"));
-                    data.put("平均利率", jsonObject.get("interest_rate"));
-                    data.put("近30日资金净流入", jsonObject.get("30_day_net_inflow"));
-                    data.put("待收投资人数", jsonObject.get("bid_num_stay_stil"));
-                    data.put("待还借款人数", jsonObject.get("bor_num_stay_stil"));
-                    data.put("最大单户借款额", jsonObject.get("top1_sum_amount"));
-                    data.put("最大十户借款额", jsonObject.get("top10_sum_amount"));
+                    data.put("amount_total", jsonObject.get("amount_total"));
+                    data.put("money_stock", jsonObject.get("money_stock"));
+                    data.put("interest_rate", jsonObject.get("interest_rate"));
+                    data.put("30_day_net_inflow", jsonObject.get("30_day_net_inflow"));
+                    data.put("bid_num_stay_stil", jsonObject.get("bid_num_stay_stil"));
+                    data.put("bor_num_stay_stil", jsonObject.get("bor_num_stay_stil"));
+                    data.put("top1_sum_amount", jsonObject.get("top1_sum_amount"));
+                    data.put("top10_sum_amount", jsonObject.get("top10_sum_amount"));
                     return data;
                 }
             });
