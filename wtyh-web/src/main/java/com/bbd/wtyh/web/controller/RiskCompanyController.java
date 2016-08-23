@@ -98,6 +98,7 @@ public class RiskCompanyController {
 			return ResponseBean.errorResponse("错误的分页请求参数！");
 		}
 		pagination.setPageNumber(pageNo);
+		pagination.setPageSize(8); // 每页展示8个
 		Map<String, Object> params = new HashMap<>();
 		params.put("keyword", keyword);
 		params.put("pagination", pagination);

@@ -77,6 +77,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
         Map result = new HashMap();
         List backgroud = new ArrayList();
         if (!CollectionUtils.isEmpty(list)) {
+            result.put("status", list.get(0).get("status"));
             String backgroudString = "";
             for (Map map : list) {
                 int back = (int)map.get("background");
@@ -97,6 +98,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
                 backgroud.add(backgroudString);
             }
         }
+
         result.put("companyName", companyName);
         result.put("backgroud", backgroud);
         return result;

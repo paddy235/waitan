@@ -11,7 +11,9 @@ import java.util.List;
  */
 public interface GuaranteeService {
 
-    List<GuaranteeBalanceDO> getGuaranteeBalance();
+    List<GuaranteeBalanceDO> getGuaranteeBalanceByYear();
+
+    List<GuaranteeBalanceDO> getGuaranteeBalanceByMonth();
 
     List<GuaranteedInfoDO> listLargeGuarantee(Pagination pagination, Integer orderByField, String descAsc);
 

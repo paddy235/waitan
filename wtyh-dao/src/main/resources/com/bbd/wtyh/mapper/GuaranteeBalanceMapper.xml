@@ -26,6 +26,16 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
+  <select id="listByMonth" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from guarantee_balance
+    order by year*100+month desc
+    limit 0,12
+
+  </select>
+
+
   <select id="listByYear" resultMap="BaseResultMap">
     select
     year,sum(guarantee_balance) guarantee_balance,sum(number) number,sum(steel_balance) steel_balance,
