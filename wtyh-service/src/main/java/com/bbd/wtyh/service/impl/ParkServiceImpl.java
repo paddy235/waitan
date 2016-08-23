@@ -39,10 +39,7 @@ public class ParkServiceImpl implements ParkService {
 	
 	@Value("${api.baidu.batch.news.ktype}")
 	private int ktype;
-	
-	@Value("${api.baidu.batch.news.start}")
-	private String start;
-	
+
 	@Value("${api.baidu.batch.news.ak}")
 	private String ak;
 	
@@ -123,9 +120,10 @@ public class ParkServiceImpl implements ParkService {
 			return null;
 		}
 		List<NameValuePair> list = new ArrayList<>();
-		list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1) +",贵阳市城市建设投资有限责任公司,贵州詹阳动力重工有限公司"   ));
+		list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1)   ));
 		list.add(new BasicNameValuePair("ktype", ""+ktype));
-		list.add(new BasicNameValuePair("start", start));
+		list.add(new BasicNameValuePair("page", pageNum+""));
+		list.add(new BasicNameValuePair("pageSize", pageSize+""));
 		list.add(new BasicNameValuePair("ak",ak));
 		
 	
@@ -149,9 +147,10 @@ public class ParkServiceImpl implements ParkService {
 			return null;
 		}
 		List<NameValuePair> list = new ArrayList<>();
-		list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1) +",贵阳市城市建设投资有限责任公司,贵州詹阳动力重工有限公司"  ));
+		list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1)  ));
 		list.add(new BasicNameValuePair("ktype", ""+ktype));
-		list.add(new BasicNameValuePair("start", start));
+		list.add(new BasicNameValuePair("pageSize", "20"));
+		list.add(new BasicNameValuePair("page", "1"));
 		list.add(new BasicNameValuePair("ak",ak));
 		try {
 			return HttpClientUtils.httpPost(batchNewsUrl, list );
