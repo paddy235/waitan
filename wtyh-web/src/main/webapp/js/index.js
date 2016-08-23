@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "e00f07b03cedfbb7046b"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "93b51a32eb9bacdd34aa"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -58891,7 +58891,8 @@
 	                            //HTML5不支持
 	                            if (!window.applicationCache) {
 	                                $(this).animate({
-	                                    top: this}, setting.speed);
+	                                    top: thisTop
+	                                }, setting.speed);
 	                            } else {
 	                                $(this).css({
 	                                    'transform': 'translateY(' + thisTop + ')',
@@ -60402,7 +60403,7 @@
 	                        //典当总额业务笔数
 	                        return data.name + ' 年<br/> 典当总额：&nbsp <span style="color:#00b7f0">' + data.data[3] + '亿元</span><br/>业务笔数：&nbsp  <span style="color:#00b7f0">' + data.data[2] + '</span>';
 	                    } else {
-	                        return data.name + ' 年<br/> ' + param.forMaterTitle + "：" + data.data[2] + '亿元<br/>' + param.forMaterTip + "：" + data.data[3] + "亿元";
+	                        return data.name + ' 年<br/> ' + param.forMaterTitle + "：" + data.data[2] + '亿元<br/>' + param.forMaterTip + "：" + data.data[3] + "万元";
 	                    }
 	                }
 	            },
@@ -67245,14 +67246,15 @@
 
 	        for (var i = 0; i < conLength; i++) {
 	            var year = content[i].year;
-	            var amount = content[i].amount; //贷款余额
+	            var amount = content[i].amount; //贷款余额 单位万元
+	            var amountBill = Number(amount / 10000).toFixed(2); //转成单位亿元
 	            var number = content[i].number; //笔数
 	            var companyAmount = content[i].number; //公司数量
 	            var averageBlance = Number(amount / companyAmount).toFixed(2); //平均担保责任余额
-	            console.log(averageBlance, '333333333333');
-	            var dataArr = [i, i, amount, averageBlance];
 
-	            balanceArr.push(amount);
+	            var dataArr = [i, i, amountBill, averageBlance];
+
+	            balanceArr.push(amountBill);
 	            guaraDutyBalaData.xAxis.push(year);
 	            guaraDutyBalaData.data.push(dataArr);
 
@@ -71883,7 +71885,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 
 	__webpack_require__(804);
@@ -71965,189 +71967,189 @@
 
 	//小额贷款首页
 	var SmallLoanIndex = _react2.default.createClass({
-	  displayName: 'SmallLoanIndex',
+	    displayName: 'SmallLoanIndex',
 
-	  mixins: [_setMinHeight2.default],
-	  getInitialState: function getInitialState() {
-	    return {
-	      loanBalanceData: {},
-	      balanceRatioData: {},
-	      eachAverageData: {}
-	    };
-	  },
-	  componentDidMount: function componentDidMount() {
-	    var getLoanBalance = this.props.getLoanBalance;
+	    mixins: [_setMinHeight2.default],
+	    getInitialState: function getInitialState() {
+	        return {
+	            loanBalanceData: {},
+	            balanceRatioData: {},
+	            eachAverageData: {}
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        var getLoanBalance = this.props.getLoanBalance;
 
-	    var jsonData = {};
-	    getLoanBalance(jsonData);
-	  },
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    var isEqual = Immutable.is(nextProps.loanBalanceRequest, this.props.loanBalanceResult);
-	    if (!isEqual) {
-	      var loanBalanceRequest = nextProps.loanBalanceRequest;
-	      var loanBalanceResult = nextProps.loanBalanceResult;
+	        var jsonData = {};
+	        getLoanBalance(jsonData);
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var isEqual = Immutable.is(nextProps.loanBalanceRequest, this.props.loanBalanceResult);
+	        if (!isEqual) {
+	            var loanBalanceRequest = nextProps.loanBalanceRequest;
+	            var loanBalanceResult = nextProps.loanBalanceResult;
 
-	      if (loanBalanceRequest == true) {
-	        if (loanBalanceResult.success == true) {
-	          this.dataFomat(loanBalanceResult);
-	        } else {
-	          //错误后提示
+	            if (loanBalanceRequest == true) {
+	                if (loanBalanceResult.success == true) {
+	                    this.dataFomat(loanBalanceResult);
+	                } else {
+	                    //错误后提示
+	                }
+	            }
 	        }
-	      }
+	    },
+	    dataFomat: function dataFomat(data) {
+	        console.log(data, '贷款余额');
+	        var content = data.content;
+	        //小额贷款数据
+	        var loanBalanceData = { //贷款余额数据
+	            xAxis: [],
+	            yAxis: [],
+	            data: [] ////[[0,0,30],[1,1,10],[2,2,20],[3,3,50],[4,4,60],[5,5,10],[6,6,80]],
+	        };
+
+	        var balanceArr = [];
+	        //贷款笔均折线图
+	        var eachAverageData = {
+	            xAxis: [],
+	            series: []
+	        };
+
+	        //三农小微企业图表数据
+	        var balanceRatioData = [];
+
+	        var conLength = content.length;
+	        for (var i = 0; i < conLength; i++) {
+	            var year = content[i].year;
+	            var amount = content[i].amount; //贷款余额 原单位万元 
+	            var amountBill = Number(content[i].amount / 10000).toFixed(2); //转成亿元
+
+	            var number = content[i].number; //笔数
+	            var companyAmount = content[i].companyAmount; //公司数量
+	            var averageBlance = Number(amount / companyAmount).toFixed(2); //平均贷款余额
+
+	            //贷款余额
+	            var dataArr = [i, i, amountBill, averageBlance];
+	            balanceArr.push(amountBill);
+	            loanBalanceData.xAxis.push(year);
+	            loanBalanceData.data.push(dataArr);
+
+	            var eachAver = Number(amount / number).toFixed(2); //贷款笔均数
+	            eachAverageData.xAxis.push(year);
+	            eachAverageData.series.push(eachAver);
+
+	            //三农 小微企业
+	            var agricultureBalance = Number(content[i].agricultureBalance / 10000).toFixed(2); //转成亿元
+	            var smallCompanyBalance = Number(content[i].smallCompanyBalance / 10000).toFixed(2); //转成亿元
+	            balanceRatioData.push({
+	                year: year,
+	                amount: amountBill,
+	                agricultureBalance: agricultureBalance,
+	                smallCompanyBalance: smallCompanyBalance,
+	                amountScale: Number(amountBill / amountBill * 0.7).toFixed(2),
+	                agrBalScale: Number(agricultureBalance / amountBill).toFixed(2),
+	                smlComBalScale: Number(smallCompanyBalance / amountBill).toFixed(2)
+	            });
+	        }
+
+	        var balanceMax = Math.max.apply(null, balanceArr);
+	        var eachYAxis = balanceMax / 5;
+	        for (var j = 0; j < 5; j++) {
+	            loanBalanceData.yAxis.push(eachYAxis * j);
+	        }
+
+	        this.setState({ loanBalanceData: loanBalanceData, eachAverageData: eachAverageData, balanceRatioData: balanceRatioData });
+	    },
+	    searchFun: function searchFun(e) {
+	        this.props.history.push('/SearchResultDetail?companyName=' + e);
+	    },
+	    render: function render() {
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'small-loan-index content-space-10', style: this.state.style },
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'search-box' },
+	                _react2.default.createElement(_IndustrySearch2.default, { label: '小额贷款监测', companyType: '2', searchFun: this.searchFun, className: 'small-loan-search', placeholder: '请输入企业名称检索' })
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'top' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'left' },
+	                    _react2.default.createElement(_CompanyGrade2.default, this.props)
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'middle mod-space-l' },
+	                    _react2.default.createElement(_SmallLoanMap2.default, this.props)
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'right mod-space-l' },
+	                    _react2.default.createElement(_BalanceRatio2.default, { balanceRatioData: this.state.balanceRatioData }),
+	                    _react2.default.createElement(_EachAverage2.default, { eachAverageData: this.state.eachAverageData })
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'bottom mod-space-t' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'left' },
+	                    _react2.default.createElement(_LoanBalance2.default, { loanBalanceData: this.state.loanBalanceData })
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'middle mod-space-l' },
+	                    _react2.default.createElement(_IndustryRisk2.default, this.props)
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'right mod-space-l' },
+	                    _react2.default.createElement(_LargeLoan2.default, this.props)
+	                )
+	            )
+	        );
 	    }
-	  },
-	  dataFomat: function dataFomat(data) {
-	    console.log(data, '贷款余额');
-	    var content = data.content;
-	    //小额贷款数据
-	    var loanBalanceData = { //贷款余额数据
-	      xAxis: [],
-	      yAxis: [],
-	      data: [] ////[[0,0,30],[1,1,10],[2,2,20],[3,3,50],[4,4,60],[5,5,10],[6,6,80]],
-	    };
-
-	    var balanceArr = [];
-	    //贷款笔均折线图
-	    var eachAverageData = {
-	      xAxis: [],
-	      series: []
-	    };
-
-	    //三农小微企业图表数据
-	    var balanceRatioData = [];
-
-	    var conLength = content.length;
-	    for (var i = 0; i < conLength; i++) {
-	      var year = content[i].year;
-	      var amount = content[i].amount; //贷款余额
-
-
-	      var number = content[i].number; //笔数
-	      var companyAmount = content[i].companyAmount; //公司数量
-	      var averageBlance = Number(amount / companyAmount).toFixed(2); //平均贷款余额
-
-	      //贷款余额
-	      var dataArr = [i, i, amount, averageBlance];
-	      balanceArr.push(amount);
-	      loanBalanceData.xAxis.push(year);
-	      loanBalanceData.data.push(dataArr);
-
-	      var eachAver = Number(amount / number).toFixed(2); //贷款笔均数
-	      eachAverageData.xAxis.push(year);
-	      eachAverageData.series.push(eachAver);
-
-	      //三农 小微企业
-	      var agricultureBalance = content[i].agricultureBalance;
-	      var smallCompanyBalance = content[i].smallCompanyBalance;
-	      balanceRatioData.push({
-	        year: year,
-	        amount: amount,
-	        agricultureBalance: agricultureBalance,
-	        smallCompanyBalance: smallCompanyBalance,
-	        amountScale: Number(amount / amount * 0.7).toFixed(2),
-	        agrBalScale: Number(agricultureBalance / amount).toFixed(2),
-	        smlComBalScale: Number(smallCompanyBalance / amount).toFixed(2)
-	      });
-	    }
-
-	    var balanceMax = Math.max.apply(null, balanceArr);
-	    var eachYAxis = balanceMax / 5;
-	    for (var j = 0; j < 5; j++) {
-	      loanBalanceData.yAxis.push(eachYAxis * j);
-	    }
-
-	    this.setState({ loanBalanceData: loanBalanceData, eachAverageData: eachAverageData, balanceRatioData: balanceRatioData });
-	  },
-	  searchFun: function searchFun(e) {
-	    this.props.history.push('/SearchResultDetail?companyName=' + e);
-	  },
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'small-loan-index content-space-10', style: this.state.style },
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'search-box' },
-	        _react2.default.createElement(_IndustrySearch2.default, { label: '小额贷款监测', companyType: '2', searchFun: this.searchFun, className: 'small-loan-search', placeholder: '请输入企业名称检索' })
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'top' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'left' },
-	          _react2.default.createElement(_CompanyGrade2.default, this.props)
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'middle mod-space-l' },
-	          _react2.default.createElement(_SmallLoanMap2.default, this.props)
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'right mod-space-l' },
-	          _react2.default.createElement(_BalanceRatio2.default, { balanceRatioData: this.state.balanceRatioData }),
-	          _react2.default.createElement(_EachAverage2.default, { eachAverageData: this.state.eachAverageData })
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'bottom mod-space-t' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'left' },
-	          _react2.default.createElement(_LoanBalance2.default, { loanBalanceData: this.state.loanBalanceData })
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'middle mod-space-l' },
-	          _react2.default.createElement(_IndustryRisk2.default, this.props)
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'right mod-space-l' },
-	          _react2.default.createElement(_LargeLoan2.default, this.props)
-	        )
-	      )
-	    );
-	  }
 	});
 	//module.exports = SmallLoanIndex;
 
 	//将 request  result 绑定到props的request result 
 	function mapStateToProps(state) {
-	  return {
+	    return {
 
-	    //企业评级
-	    companyGradeRequest: state.CompanyGrade.request,
-	    companyGradeResult: state.CompanyGrade.result,
+	        //企业评级
+	        companyGradeRequest: state.CompanyGrade.request,
+	        companyGradeResult: state.CompanyGrade.result,
 
-	    //地图
-	    smollLoanMapRequest: state.SmallLoanMap.request,
-	    smollLoanMapResult: state.SmallLoanMap.result,
+	        //地图
+	        smollLoanMapRequest: state.SmallLoanMap.request,
+	        smollLoanMapResult: state.SmallLoanMap.result,
 
-	    //贷款余额
-	    loanBalanceRequest: state.LoanBalance.request,
-	    loanBalanceResult: state.LoanBalance.result,
+	        //贷款余额
+	        loanBalanceRequest: state.LoanBalance.request,
+	        loanBalanceResult: state.LoanBalance.result,
 
-	    //股东行业风险
-	    industryRiskRequest: state.IndustryRisk.request,
-	    industryRiskResult: state.IndustryRisk.result,
+	        //股东行业风险
+	        industryRiskRequest: state.IndustryRisk.request,
+	        industryRiskResult: state.IndustryRisk.result,
 
-	    //股东行业风险详情
-	    industryRiskDetailRequest: state.IndustryRiskDetail.request,
-	    industryRiskDetailResult: state.IndustryRiskDetail.result,
+	        //股东行业风险详情
+	        industryRiskDetailRequest: state.IndustryRiskDetail.request,
+	        industryRiskDetailResult: state.IndustryRiskDetail.result,
 
-	    //大额借款公司信息列表
-	    largeLoanRequest: state.LargeLoan.request,
-	    largeLoanResult: state.LargeLoan.result
+	        //大额借款公司信息列表
+	        largeLoanRequest: state.LargeLoan.request,
+	        largeLoanResult: state.LargeLoan.result
 
-	  };
+	    };
 	}
 
 	//将action的所有方法绑定到props上
 	function mapDispatchToProps(dispatch) {
-	  return (0, _redux.bindActionCreators)(SmallLoanActionCreaters, dispatch);
+	    return (0, _redux.bindActionCreators)(SmallLoanActionCreaters, dispatch);
 	}
 
 	//通过react-redux提供的connect方法将我们需要的state中的数据和actions中的方法绑定到props上
@@ -72765,12 +72767,14 @@
 	        var series = [];
 	        var year = [];
 	        for (var i = 0; i < len; i++) {
+	            console.log(data[i], '数据是啥');
 	            year.push(data[i].year);
 	            var eachYear = {
 	                series: [{
 	                    data: [{
 	                        value: data[i].amountScale * 100,
-	                        name: '贷款余额总计'
+	                        name: '贷款余额总计',
+	                        amount: data[i].amount
 	                    }, {
 	                        value: (1 - data[i].amountScale) * 100,
 	                        name: 'invisible',
@@ -72786,7 +72790,8 @@
 	                }, {
 	                    data: [{
 	                        value: data[i].smlComBalScale * 100,
-	                        name: '小微企业贷款余额总计'
+	                        name: '小微企业贷款余额总计',
+	                        amount: data[i].amount
 	                    }, {
 	                        value: (1 - data[i].smlComBalScale) * 100,
 	                        name: 'invisible',
@@ -72803,7 +72808,8 @@
 
 	                    data: [{
 	                        value: data[i].agrBalScale * 100,
-	                        name: '三农企业贷款余额总计'
+	                        name: '三农企业贷款余额总计',
+	                        amount: data[i].amount
 	                    }, {
 	                        value: (1 - data[i].agrBalScale) * 100,
 	                        name: 'invisible',
@@ -72945,13 +72951,13 @@
 	                    padding: [10, 10, 10, 10],
 	                    //formatter: "{a} <br/>{b} : {c} ({d}%)"
 	                    formatter: function formatter(data) {
-	                        console.log(data.name, 4444);
+	                        console.log(data, 4444);
 	                        if (data.name != "invisible") {
 	                            var value = data.value;
 	                            if (value == 70) {
-	                                return data.seriesName + "：100(100)%";
+	                                return data.seriesName + "：" + data.data.amount + "亿元" + "(100%)";
 	                            } else {
-	                                return data.seriesName + "：" + data.value + "(" + data.value + ")%";
+	                                return data.seriesName + "：" + data.data.amount + "亿元" + "(" + data.value + "%)";
 	                            }
 	                        }
 	                    }
@@ -73997,7 +74003,11 @@
 	                  _react2.default.createElement(
 	                    'td',
 	                    null,
-	                    elem.borrowerBusinessType
+	                    _react2.default.createElement(
+	                      'span',
+	                      { className: 'word-limit-5', title: elem.borrowerBusinessType },
+	                      elem.borrowerBusinessType
+	                    )
 	                  ),
 	                  _react2.default.createElement(
 	                    'td',
@@ -74030,7 +74040,11 @@
 	                  _react2.default.createElement(
 	                    'td',
 	                    null,
-	                    elem.borrowerBusinessType
+	                    _react2.default.createElement(
+	                      'span',
+	                      { title: elem.borrowerBusinessType, className: 'word-limit-5' },
+	                      elem.borrowerBusinessType
+	                    )
 	                  ),
 	                  _react2.default.createElement(
 	                    'td',
@@ -86534,7 +86548,8 @@
 	            normalLen: 0,
 
 	            show: false, //控制风险企业列表显示隐藏
-	            warnClass: ""
+	            warnClass: "",
+	            warnName: ""
 	        };
 	    },
 	    componentDidMount: function componentDidMount() {
@@ -86694,21 +86709,26 @@
 	                var val = $this.data('val');
 	                var riskCompany = "";
 	                var warnClass = "";
+	                var warnName = "";
 	                if (val == "haveRisk") {
 	                    riskCompany = _this.state.haveRiskCompany;
 	                    warnClass = "Black";
+	                    warnName = "已出风险企业";
 	                } else if (val == "focus") {
 	                    riskCompany = _this.state.focusCompany;
 	                    warnClass = "Red";
+	                    warnName = "重点关注企业";
 	                } else if (val == "general") {
 	                    riskCompany = _this.state.generalCompany;
 	                    warnClass = "Yellow";
+	                    warnName = "一般关注企业";
 	                } else {
 	                    riskCompany = _this.state.normalCompany;
 	                    warnClass = "Green";
+	                    warnName = "正常企业";
 	                }
 	                console.log(warnClass, '333333333333');
-	                _this.setState({ showBuildRisk: riskCompany, show: true, warnClass: warnClass });
+	                _this.setState({ showBuildRisk: riskCompany, show: true, warnClass: warnClass, warnName: warnName });
 	            }
 	        });
 	    },
@@ -86855,7 +86875,7 @@
 	                        _react2.default.createElement(
 	                            'h3',
 	                            null,
-	                            '已出风险企业'
+	                            this.state.warnName
 	                        ),
 	                        _react2.default.createElement('i', { className: "iconfont icon-warning " + this.state.warnClass })
 	                    ),
@@ -86974,7 +86994,8 @@
 	            orderType: "desc", //默认降序
 	            orderField: "", //需要排序的字段
 	            areaId: 0,
-	            buildingId: 0
+	            buildingId: 0,
+	            companyNo: 0
 	        };
 	    },
 	    componentDidMount: function componentDidMount() {
@@ -87016,7 +87037,8 @@
 	    },
 	    dataFomat: function dataFomat(data) {
 	        var content = data.content;
-	        this.setState({ Enterprise: content });
+	        var companyNo = content.length;
+	        this.setState({ Enterprise: content, companyNo: companyNo });
 	    },
 	    getBuildCompanyList: function getBuildCompanyList(json) {
 	        var getBuildCompanyList = this.props.getBuildCompanyList;
@@ -87050,7 +87072,8 @@
 	                _react2.default.createElement(
 	                    'span',
 	                    { className: 'right' },
-	                    '1122家'
+	                    this.state.companyNo,
+	                    '家'
 	                )
 	            ),
 	            _react2.default.createElement(
