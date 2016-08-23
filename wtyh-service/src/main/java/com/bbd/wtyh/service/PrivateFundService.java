@@ -28,6 +28,6 @@ public interface PrivateFundService {
 
     List<InvestmentReturnStatisticDO> investmentReturn();
 
-    List<InvestmentReturnStatisticDO> investmentAmount();
+    List<InvestmentStatisticDO> investmentAmount();
 
 }
