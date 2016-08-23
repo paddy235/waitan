@@ -39,7 +39,7 @@ public interface HologramQueryService {
      * @return
      * @param company
      */
-    BaiDuYuQingDO newsConsensus(String company);
+    Map<String, Object> newsConsensus(String company);
 
     /**
      * 企业信息详情-工商信息
