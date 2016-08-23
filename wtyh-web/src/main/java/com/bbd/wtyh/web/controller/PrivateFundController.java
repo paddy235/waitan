@@ -8,6 +8,7 @@ import com.bbd.wtyh.domain.dto.QflpCompanyDTO;
 import com.bbd.wtyh.domain.enums.CompanyProgress;
 import com.bbd.wtyh.service.CompanyService;
 import com.bbd.wtyh.service.PrivateFundService;
+import com.bbd.wtyh.util.CalculateUtils;
 import com.bbd.wtyh.web.ResponseBean;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
@@ -166,7 +167,12 @@ public class PrivateFundController {
 
     @RequestMapping("investmentAmount.do")
     public ResponseBean investmentAmount() {
-        List<InvestmentReturnStatisticDO> list = privateFundService.investmentAmount();
+        List<InvestmentStatisticDO> list = privateFundService.investmentAmount();
+
+        for (InvestmentStatisticDO irs:list) {
+            irs.setInvestmentAmount(CalculateUtils.divide(irs.getInvestmentAmount(),10000,2));
+        }
+
         return ResponseBean.successResponse(list);
     }
 
