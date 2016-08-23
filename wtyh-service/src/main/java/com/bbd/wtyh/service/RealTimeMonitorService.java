@@ -10,11 +10,6 @@ import java.util.Map;
  * Created by YanWenyuan on 2016/8/15.
  */
 public interface RealTimeMonitorService {
-    List<CompanyAnalysisResult> spectrumAnalysisEmphasis();
-
-    List<CompanyAnalysisResult> spectrumAnalysisUsual();
-
-    List<CompanyAnalysisResult> spectrumAnalysisNormal();
 
     List<CompanyAnalysisResult> spectrumAnalysisAlready();
 
