@@ -175,7 +175,7 @@
         </if>
     </select>
 
-	<select id="searchCompanyName" resultType="java.lang.String" resultMap="BaseResultMap">
+	<select id="searchCompanyName" resultType="java.util.HashMap" resultMap="BaseResultMap">
 		select
 			c.`name` as name, 
 			c.legal_person as legalPerson, 
