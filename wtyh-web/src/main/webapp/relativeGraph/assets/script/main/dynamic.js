@@ -822,7 +822,7 @@ define(function(require, exports, module) {
 				success: function(data) {
 					data = data.obj;
 					// $("#companyNameHtml").html(name);
-					var shtml = '<div class="relation-modal"><div class="company-title">' + name + '</div>\
+					var shtml = '<div class="relation-modal"><div class="company-title">' + name + '<span class="iconfont icon-iconfontshequyijujue"></span></div>\
                       <table>\
                         <tbody>\
                           <tr><td>注册资本</td><td>' + data.capital + '</td></tr>\
@@ -838,6 +838,9 @@ define(function(require, exports, module) {
                       <a href="/#/SearchResultDetail?company=' + name + '" class="see-detail">查看详情</a>\
                       </div>';
 					$("#relation-modal").html(shtml).show();
+					$(".relation-modal .icon-iconfontshequyijujue").on("click",function(){
+						$("#relation-modal").hide();
+					})
 				}
 			});
 		} else {
