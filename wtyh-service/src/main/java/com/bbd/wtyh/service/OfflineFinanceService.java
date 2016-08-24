@@ -76,7 +76,19 @@ public interface OfflineFinanceService {
 
     public StaticRiskVO queryCurrentStaticRisk(String companyName, String currentDate, String areaCode);
 
+    /**
+     * 动态风险指数图
+     * @param companyName
+     * @param month
+     * @return
+     * @throws Exception
+     */
     public String createYED(String companyName, String month) throws Exception;
 
+    /**
+     * 获取企业标签
+     * @param companyName
+     * @return
+     */
     Map companyInfo(String companyName);
 }
