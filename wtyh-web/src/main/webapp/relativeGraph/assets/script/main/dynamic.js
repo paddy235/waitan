@@ -799,7 +799,6 @@ define(function(require, exports, module) {
 		zr_node_click = true;
 		zr_node_highlight_lock = true;
 		//高亮
-
 		if (v) {
 			var name = e.target.style.text;
 		} else {
@@ -814,8 +813,8 @@ define(function(require, exports, module) {
 				type: "GET",
 				url: "relatedPartyStatistics.do", //查询公司接口详细信息relatedPartyStatistics.do
 				data: {
-					origCompanyName:'上海仁石投资管理有限公司',
-					tarCompanyName:'上海仁石投资管理有限公司',
+					origCompanyName:name,
+					tarCompanyName:name,
 					dataVersion:'20160407',
 					degree:3
 				},
@@ -823,7 +822,7 @@ define(function(require, exports, module) {
 				success: function(data) {
 					data = data.obj;
 					// $("#companyNameHtml").html(name);
-					var shtml = '<div class="relation-modal"><div class="company-title">成都中建明城投资有限公司</div>\
+					var shtml = '<div class="relation-modal"><div class="company-title">'+name+'</div>\
                       <table>\
                         <tbody>\
                           <tr><td>注册资本</td><td>'+data.capital+'</td></tr>\
@@ -835,8 +834,9 @@ define(function(require, exports, module) {
                           <tr><td>子股东数</td><td>'+data.subsidiarys+'</td></tr>\
                           <tr><td>诉讼记录</td><td>'+data.litigationRecord+'</td></tr>\
                         </tbody>\
-                        <a href="/#/SearchResultDetail?company=上海仁石投资管理有限公司" className="see-detail">查看详情</a>\
-                      </table></div>';
+                      </table>\
+                      <a href="/#/SearchResultDetail?company='+name+'" class="see-detail">查看详情</a>\
+                      </div>';
 					$("#relation-modal").html(shtml).show();
 				}
 			});
@@ -883,7 +883,6 @@ define(function(require, exports, module) {
 	 * 6.鼠标在zr图谱的箭头点击并且移动
 	 */
 	function zr_mouse_click(e) {
-
 
 		if (!e.target) {
 			console.log("点击空白");
