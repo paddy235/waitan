@@ -207,9 +207,9 @@
     </select>
     
     <select id="searchCompanyNameCount" resultType="int" parameterType="string">
-		select count(1) from company where company_type=4
-		<if test="_parameter != null and _parameter != ''">
-			and name like concat('%',#{_parameter, jdbcType=VARCHAR},'%')
+		select count(1) from company c, index_data i where c.`name`=i.company_name and c.company_type=4 
+		<if test="keyword != null and keyword != ''">
+			and c.`name` like concat('%',#{keyword},'%')
 		</if>
     </select>
 
