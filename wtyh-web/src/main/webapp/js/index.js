@@ -52385,7 +52385,12 @@
 
 	    //公司标签
 	    queryCompanyInfoRequest: state.QueryCompanyInfo.request,
-	    queryCompanyInfoResult: state.QueryCompanyInfo.result
+	    queryCompanyInfoResult: state.QueryCompanyInfo.result,
+
+	    //新增两项
+	    queryRiskIndexRequest: state.QueryRiskIndex.request,
+	    queryRiskIndexResult: state.QueryRiskIndex.result
+
 	  };
 	}
 
@@ -53109,7 +53114,8 @@
 	            riskList: "",
 	            allDate: "",
 	            companyName: "",
-	            pieOption: ""
+	            pieOption: "",
+	            createData: ""
 	        };
 	    },
 	    componentDidMount: function componentDidMount() {
@@ -53126,12 +53132,15 @@
 	        //请求右面折线图       
 	        var jsonDataLine = { companyName: companyName, areaCode: "金山区" };
 	        this.staticRiskIndex(jsonDataLine);
+
+	        this.queryRiskIndex(jsonDataDate);
 	    },
 
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	        if (this.state.companyName && this.state.companyName != this.props.location.query.companyName) {
 	            this.queryAllData();
 	        }
+
 	        var riskDataIsEqual = Immutable.is(nextProps.riskDataResult, this.props.riskDataResult);
 	        if (!riskDataIsEqual) {
 	            this.setState({
@@ -53139,6 +53148,7 @@
 	            });
 	            this.setParm(nextProps.riskDataResult.content);
 	        }
+
 	        var dateVersionIsEqual = Immutable.is(nextProps.queryDateVersionResult, this.props.queryDateVersionResult);
 	        var _allDate = [];
 	        if (!dateVersionIsEqual) {
@@ -53164,6 +53174,11 @@
 	                lineOption: nextProps.statisticsResult
 	            });
 	        }
+
+	        var riskIndexIsEqual = Immutable.is(nextProps.queryRiskIndexResult, this.props.queryRiskIndexResult);
+	        if (!riskIndexIsEqual) {
+	            this.setState({ createData: nextProps.queryRiskIndexResult.content });
+	        }
 	    },
 	    queryRiskData: function queryRiskData(currentDate) {
 	        //获取列表数据
@@ -53182,6 +53197,11 @@
 	        //请求右面折线图          
 	        var queryStatistics = this.props.queryStatistics;var self = this;
 	        queryStatistics(jsonDataLine);
+	    },
+	    queryRiskIndex: function queryRiskIndex(jsonData) {
+	        var queryRiskIndex = this.props.queryRiskIndex;
+
+	        queryRiskIndex(jsonData);
 	    },
 
 	    itemClick: function itemClick(e) {
@@ -54103,7 +54123,7 @@
 	                                    _react2.default.createElement(
 	                                        'em',
 	                                        { className: 'c-red' },
-	                                        itemTable && itemTable.perStructRisk
+	                                        this.state.createData && this.state.createData.capitalRisk
 	                                    )
 	                                )
 	                            )
@@ -54125,7 +54145,7 @@
 	                                    _react2.default.createElement(
 	                                        'em',
 	                                        { className: 'c-red' },
-	                                        itemTable && itemTable.perStructRisk
+	                                        this.state.createData && this.state.createData.creditInfoRisk
 	                                    )
 	                                )
 	                            )
@@ -54520,6 +54540,7 @@
 	exports.companyNews = companyNews;
 	exports.queryDateVersion = queryDateVersion;
 	exports.queryCompanyInfo = queryCompanyInfo;
+	exports.queryRiskIndex = queryRiskIndex;
 	/*
 	  线下理财监测creat by yq
 	*/
@@ -54726,6 +54747,40 @@
 	      },
 	      error: function error(result) {
 	        return dispatch(companyInfoFail(result));
+	      }
+	    });
+	  };
+	}
+	//请求新添加的两个数据/offlineFinance/staticRiskIndex.do
+	var RISK_INDEX_SUCCESS = exports.RISK_INDEX_SUCCESS = 'RISK_INDEX_SUCCESS';
+	var RISK_INDEX_FAIL = exports.RISK_INDEX_FAIL = 'RISK_INDEX_FAIL';
+	function riskIndexSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: RISK_INDEX_SUCCESS,
+	    result: result
+	  };
+	}
+	function riskIndexFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: RISK_INDEX_FAIL,
+	    result: result
+	  };
+	}
+	function queryRiskIndex(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "/offlineFinance/staticRiskIndex.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(riskIndexSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(riskIndexFail(result));
 	      }
 	    });
 	  };
@@ -76375,13 +76430,10 @@
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
-	    var areaId = this.props.location.query.areaId;
-	    if (areaId != undefined) {
-	      var jsonData = { areaId: areaId };
-	      this.getParkNews(jsonData);
-	    }
+	    this.allRequest();
 	  },
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    console.log(nextProps, 333);
 	    var isSelectValEqual = Immutable.is(nextProps.menuParkSelectVal, this.props.menuParkSelectVal);
 	    if (!isSelectValEqual) {
 	      var menuParkSelectVal = nextProps.menuParkSelectVal;
@@ -76404,6 +76456,7 @@
 	        }
 	      }
 	    }
+	    this.allRequest();
 	  },
 	  dataFomat: function dataFomat(data) {
 	    var contentStr = data.content;
@@ -76419,7 +76472,13 @@
 	    this.setState({ consensu: results });
 	    console.log(results, 'kankan');
 	  },
-
+	  allRequest: function allRequest() {
+	    var areaId = this.props.location.query.areaId;
+	    if (areaId != undefined) {
+	      var jsonData = { areaId: areaId };
+	      this.getParkNews(jsonData);
+	    }
+	  },
 	  getParkNews: function getParkNews(menuParkSelectVal) {
 	    var getParkNews = this.props.getParkNews;
 
@@ -76744,7 +76803,7 @@
 	        myChart = echarts.init(document.getElementById("myChart"));
 	        option = {
 	            backgroundColor: '#2b323c',
-	            color: ['#61A0A9', '#C33533', '#6e6f71', '#61a0a9', '#2f4553', '#c09f9a', '#dfab62', '#536571', '#6D7075', '#DFAB62'],
+	            color: ['#61A0A9', '#C33533', '#6e6f71', '#64c5a6', '#2f4553', '#c09f9a', '#dfab62', '#536571', '#98a5b5', '#DFAB62'],
 	            title: {
 	                text: "园区行业分布",
 	                x: "left",
@@ -78146,11 +78205,21 @@
 	        var content = data.content;
 	        var IndustryBox = [];
 	        var IndustryContent = [];
+	        // for(var i=0; i< content.length; i++){
+	        //     IndustryBox.push({value:content[i].count,name:content[i].type});
+	        // };
+	        // for(var j=0; j< content[0].children.length; j++){
+	        //     IndustryContent.push({value:content[0].children[j].count,name:content[0].children[j].type}) 
+	        // };
 	        for (var i = 0; i < content.length; i++) {
 	            IndustryBox.push({ value: content[i].count, name: content[i].type });
-	        };
-	        for (var j = 0; j < content[0].children.length; j++) {
-	            IndustryContent.push({ value: content[0].children[j].count, name: content[0].children[j].type });
+	            if (content[i].children) {
+	                for (var j = 0; j < content[i].children.length; j++) {
+	                    IndustryContent.push({ value: content[i].children[j].count, name: content[i].children[j].type });
+	                }
+	            } else {
+	                IndustryContent.push({ value: content[i].count, name: content[i].type });
+	            }
 	        };
 	        this.initMap(IndustryBox, IndustryContent);
 	    },
@@ -78164,7 +78233,7 @@
 	        var myChart = echarts.init(document.getElementById("Industry"));
 	        var option = {
 	            backgroundColor: '#2b323c',
-	            color: ['#c33533', '#61a0a9', '#54656f', '#6e6f71', '#2f4553', '#c09f9a', '#dfab62'],
+	            color: ['#61A0A9', '#C33533', '#6e6f71', '#64c5a6', '#2f4553', '#c09f9a', '#dfab62', '#536571', '#98a5b5', '#DFAB62'],
 	            title: {
 	                text: "楼宇行业分布",
 	                x: "left",
@@ -78180,7 +78249,9 @@
 	            },
 	            tooltip: {
 	                trigger: 'item',
-	                formatter: "{a} <br/>{b}: {c} ({d}%)"
+	                formatter: function formatter(data) {
+	                    return '<div>' + data.name + ':' + data.value + ' (' + data.percent + '%)' + '</div>';
+	                }
 	            },
 	            legend: {
 	                orient: 'vertical',
@@ -79826,8 +79897,9 @@
 	        data = CompanyInfoNewsResult.content.results;
 	        if (!data) return;
 	        console.log(data, "companyInfoNEWS");
+	        debugger;
 	        _this.setState({
-	          itemAll: data.map(function (item, index) {
+	          itemAll: !data ? "暂无数据" : data.map(function (item, index) {
 	            return _react2.default.createElement(
 	              'div',
 	              { className: 'news-item', key: index },
@@ -83470,9 +83542,8 @@
 	                            return data.name + "年<br/>贷款余额：" + data.data[1] / 10000 + "亿元<br/>平均贷款余额：" + data.data[2] + "万元";
 	                        },
 	                        gridTop: "20%",
-	                        // yType:"value",
+	                        yType: "value",
 	                        legend: [],
-	                        yAxis: ['0', '3000000', '6000000', '9000000', '12000000', '15000000'],
 	                        symbolSize: function symbolSize() {
 	                            return 10;
 	                        },
@@ -84047,13 +84118,9 @@
 	        '舆情'
 	      ),
 	      _react2.default.createElement(
-	        'div',
-	        { className: 'jf' },
-	        _react2.default.createElement(
-	          'ul',
-	          null,
-	          this.state.list
-	        )
+	        'ul',
+	        null,
+	        this.state.list
 	      )
 	    );
 	  }
@@ -84840,6 +84907,10 @@
 
 	var _QueryCompanyInfo2 = _interopRequireDefault(_QueryCompanyInfo);
 
+	var _QueryRiskIndex = __webpack_require__(1301);
+
+	var _QueryRiskIndex2 = _interopRequireDefault(_QueryRiskIndex);
+
 	var _DynamicRiskCompanyTag = __webpack_require__(991);
 
 	var _DynamicRiskCompanyTag2 = _interopRequireDefault(_DynamicRiskCompanyTag);
@@ -84897,76 +84968,53 @@
 
 	/*预付卡 begin*/
 
-	/*商业保理监测 end*/
 
-	/*线下理财监测 start*/
-	//线下理财首页
+	//楼宇详情页
 
-
-	/*众筹监测 end*/
-
-	/*商业保理监测 begin*/
-
-
-	//园区首页
-
-	/*实时监测 end*/
-
-	//园区
-
-	//企业占比对比
-
-	//企业目录列表
-
-	/*实时监测 begin*/
-
-	/*=================================交易场所监测=================================*/
-
-	/*=================================融资租赁=================================*/
-	//典当法人企业数
+	//取得合规意见或经过会商的交易场所详情列表
 
 	//交易场所清理整顿分类
 
-	/*=================================典当行业监测=================================*/
+	//上海市典当企业目录
 
-	/*=================================交易场所监测=================================*/
-	//黄浦区交易场所列表
+	//列表
+
+	//6月上海各类众筹平台新增项目数
+
+	/*====================================私募基金===============================*/
 
 	/*=================================众筹监测=================================*/
+	//业务类型
 
-	/*=================================典当行业监测=================================*/
-	//所有图标
+	//私募基金分类
 
-	//6月上海各类众筹平台新增项目数的成功筹资金额
-
-	//6月上海各类众筹平台新增项目的投资人次
-
-	//私募股权基本情况
-
-	//私募证券基本情况
-
-	//QFLP试点企业最新进展
-
-	//动态图谱
-
-	//诉讼信息
-
-	//核心数据
-
-	/*====================================P2P平台监测============================*/
 
 	/*====================================p2p画像平台============================*/
-	//基本信息
 
-	//网贷平台数据展示
+	/*====================================私募基金===============================*/
+	//QDLP试点企业最新进展
+
+	//评分雷达图
+
+	//平台舆情
+
+	//公司基本信息
+
+	//p2p图表
+
+
+	/*====================================P2P平台监测============================*/
+	//上海区域发展指数排名
+
+
+	//融资担保
+
+	//小额贷款
+
+	//三个echarts图的接口
 
 
 	/*企业全息查询*/
-
-	/*行业监测模块*/
-	/* 公共搜索 */
-
-	//诉讼记录的五个接口
 	var rootReducer = (0, _redux.combineReducers)({
 
 	  /*企业全息*/
@@ -85108,6 +85156,7 @@
 	  CompanyNews: _CompanyNews2.default,
 	  QueryDateVersion: _QueryDateVersion2.default,
 	  QueryCompanyInfo: _QueryCompanyInfo2.default,
+	  QueryRiskIndex: _QueryRiskIndex2.default,
 	  //动态风险
 	  DynamicRiskCompanyTag: _DynamicRiskCompanyTag2.default,
 	  DynamicRiskDate: _DynamicRiskDate2.default,
@@ -85133,56 +85182,78 @@
 
 	//头部搜索值传递
 
-
 	//动态风险模块 begein
 
+	/*商业保理监测 end*/
 
-	//楼宇详情页
+	/*线下理财监测 start*/
+	//线下理财首页
 
-	//取得合规意见或经过会商的交易场所详情列表
+
+	/*众筹监测 end*/
+
+	/*商业保理监测 begin*/
+
+
+	//园区首页
+
+	/*实时监测 end*/
+
+	//园区
+
+	//企业占比对比
+
+	//企业目录列表
+
+	/*实时监测 begin*/
+
+	/*=================================交易场所监测=================================*/
+
+	/*=================================融资租赁=================================*/
+	//典当法人企业数
 
 	//交易场所清理整顿分类
 
-	//上海市典当企业目录
+	/*=================================典当行业监测=================================*/
 
-	//列表
-
-	//6月上海各类众筹平台新增项目数
-
-	/*====================================私募基金===============================*/
+	/*=================================交易场所监测=================================*/
+	//黄浦区交易场所列表
 
 	/*=================================众筹监测=================================*/
-	//业务类型
 
-	//私募基金分类
+	/*=================================典当行业监测=================================*/
+	//所有图标
 
+	//6月上海各类众筹平台新增项目数的成功筹资金额
 
-	/*====================================p2p画像平台============================*/
+	//6月上海各类众筹平台新增项目的投资人次
 
-	/*====================================私募基金===============================*/
-	//QDLP试点企业最新进展
+	//私募股权基本情况
 
-	//评分雷达图
+	//私募证券基本情况
 
-	//平台舆情
+	//QFLP试点企业最新进展
 
-	//公司基本信息
+	//动态图谱
 
-	//p2p图表
+	//诉讼信息
 
+	//核心数据
 
 	/*====================================P2P平台监测============================*/
-	//上海区域发展指数排名
 
+	/*====================================p2p画像平台============================*/
+	//基本信息
 
-	//融资担保
-
-	//小额贷款
-
-	//三个echarts图的接口
+	//网贷平台数据展示
 
 
 	/*企业全息查询*/
+
+	/*行业监测模块*/
+	/* 公共搜索 */
+
+	//诉讼记录的五个接口
 	exports.default = rootReducer;
 
 /***/ },
@@ -97756,6 +97827,44 @@
 	    return String(it).replace(regExp, replacer);
 	  };
 	};
+
+/***/ },
+/* 1301 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = queryRiskIndex;
+
+	var _LineFinanceStaticRiskAction = __webpack_require__(662);
+
+	function queryRiskIndex() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _LineFinanceStaticRiskAction.RISK_INDEX_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _LineFinanceStaticRiskAction.RISK_INDEX_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
 
 /***/ }
 /******/ ]);
