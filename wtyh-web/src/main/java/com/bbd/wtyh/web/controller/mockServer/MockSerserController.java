@@ -46,7 +46,7 @@ public class MockSerserController {
                     "\"top1_sum_amount\":0," +
                     "\"amount_taotal\":23154.0985," +
                     "\"plat_data_six_month\": [" +
-                           "{date: \"2016-08-08\", day_interest_rate: \"5.6\", day_amount: \"100\", day_money_stock: \"578\"}, " +
+
                            "{date: \"2016-08-09\", day_interest_rate: \"6.6\", day_amount: \"300\", day_money_stock: \"666\"}, " +
                            "{date: \"2016-08-10\", day_interest_rate: \"5.7\", day_amount: \"200\", day_money_stock: \"333\"}, " +
                            "{date: \"2016-08-11\", day_interest_rate: \"5.8\", day_amount: \"400\", day_money_stock: \"555\"}, " +
@@ -61,7 +61,7 @@ public class MockSerserController {
                            "{date: \"2016-08-20\", day_interest_rate: \"6.6\", day_amount: \"100\", day_money_stock: \"148\"}, " +
                            "{date: \"2016-08-21\", day_interest_rate: \"6.7\", day_amount: \"500\", day_money_stock: \"524\"}, " +
                            "{date: \"2016-08-22\", day_interest_rate: \"6.8\", day_amount: \"600\", day_money_stock: \"745\"}, " +
-                           "{date: \"2016-08-23\", day_interest_rate: \"6.9\", day_amount: \"300\", day_money_stock: \"326\"}, " +
+                           "{date: \"2016-08-23\", day_interest_rate: \"6.9\", day_amount: \"300\", day_money_stock: \"326\"} " +
                     "]}";
 
         } else if (dataType.equals("yuqing")) {
