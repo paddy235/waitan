@@ -51674,7 +51674,7 @@
 	                formatter: param.tooltip || function (data) {
 	                    if (param.formatter == "BusinessNum") {
 	                        //典当总额业务笔数
-	                        return data.name + ' 年<br/> 典当总额：&nbsp <span style="color:#00b7f0">' + data.data[2] + '亿元</span><br/>业务笔数：&nbsp  <span style="color:#00b7f0">' + data.data[3] + '</span>';
+	                        return data.name + ' 年<br/> 业务笔数：&nbsp <span style="color:#00b7f0">' + data.data[2] + '</span><br/>典当总额：&nbsp  <span style="color:#00b7f0">' + data.data[3] + '亿元</span>';
 	                    } else {
 	                        return data.name + ' 年<br/> ' + param.forMaterTitle + "：" + data.data[2] + '亿元<br/>' + param.forMaterTip + "：" + data.data[3] + "万元";
 	                    }
@@ -51891,7 +51891,12 @@
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'search-box' },
-	        _react2.default.createElement(_IndustrySearch2.default, { companyType: '4', keyWord: this.state.keyWord, searchFun: this.getInputVal, label: '线下理财监测', className: 'small-loan-search', placeholder: '请输入企业名称检索' })
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          '线下理财监测'
+	        ),
+	        _react2.default.createElement(_index.Input, { placeholder: '请输入企业名称检索', value: this.state.searchVal, icon: 'icon-search', iconplace: 'right', type: 'text', searchClick: this.searchClick })
 	      ),
 	      _react2.default.createElement(
 	        'div',
@@ -70861,7 +70866,7 @@
 	            var _setData = [];
 	            for (var i = 0; i < Data.data.length; i++) {
 	                var item = [];
-	                item.push(i, i, Data.data[i], Data.yAxisData[i]);
+	                item.push(i, i, Data.yAxisData[i], Data.data[i]);
 	                _setData.push(item);
 	            }
 
@@ -79050,10 +79055,7 @@
 
 	  mixins: [_setHeight2.default],
 	  componentDidMount: function componentDidMount() {
-	    var getPageNums = this.props.location.query.formpage;
-	    if (getPageNums != "Portrait") {
-	      window.scrollTo(0, 0);
-	    }
+	    window.scrollTo(0, 0);
 	  },
 	  render: function render() {
 	    return _react2.default.createElement(
