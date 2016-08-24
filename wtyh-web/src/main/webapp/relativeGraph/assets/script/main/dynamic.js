@@ -588,11 +588,11 @@ define(function(require, exports, module) {
 				// high light
 				zr_shape.style.opacity = opacity_show
 				zr_arrow.line.style.opacity = opacity_show;
-				zr_arrow.line.style.strokeColor = "#ff8400";
+				zr_arrow.line.style.strokeColor = "#80bb5f";
 				// 手动添加的没有箭头
 				if (zr_arrow.polygon) {
 					zr_arrow.polygon.style.opacity = opacity_show;
-					zr_arrow.polygon.style.color = "#ff8400";
+					zr_arrow.polygon.style.color = "#80bb5f";
 				}
 			}
 			// 判断是否文字被隐藏了
@@ -635,10 +635,10 @@ define(function(require, exports, module) {
 					if (highlight_relation) {
 						zr_shape.style.opacity = opacity_show
 						zr_arrow.line.style.opacity = opacity_show;
-						zr_arrow.line.style.strokeColor = "#ff8400";
+						zr_arrow.line.style.strokeColor = "#80bb5f";
 						if (zr_arrow.polygon) {
 							zr_arrow.polygon.style.opacity = opacity_show;
-							zr_arrow.polygon.style.color = "#ff8400";
+							zr_arrow.polygon.style.color = "#80bb5f";
 						}
 					}
 				}
