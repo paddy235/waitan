@@ -49,6 +49,7 @@ public class MockSerserController {
                            "{date: \"2016-08-08\", day_interest_rate: \"5.6\", day_amount: \"100\", day_money_stock: \"578\"}, " +
                            "{date: \"2016-08-09\", day_interest_rate: \"6.6\", day_amount: \"300\", day_money_stock: \"666\"}, " +
                            "{date: \"2016-08-10\", day_interest_rate: \"5.7\", day_amount: \"200\", day_money_stock: \"333\"}, " +
+                           "{date: \"2016-08-11\", day_interest_rate: \"5.8\", day_amount: \"400\", day_money_stock: \"555\"}, " +
                            "{date: \"2016-08-12\", day_interest_rate: \"5.8\", day_amount: \"400\", day_money_stock: \"555\"}, " +
                            "{date: \"2016-08-13\", day_interest_rate: \"5.9\", day_amount: \"500\", day_money_stock: \"789\"}, " +
                            "{date: \"2016-08-14\", day_interest_rate: \"6.0\", day_amount: \"600\", day_money_stock: \"452\"}, " +
