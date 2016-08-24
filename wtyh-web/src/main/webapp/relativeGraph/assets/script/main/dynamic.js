@@ -832,7 +832,6 @@ define(function(require, exports, module) {
                           <tr><td>自然人股东数</td><td>' + data.naturalPersonShareholders + '</td></tr>\
                           <tr><td>法人股东数</td><td>' + data.legalPersonShareholders + '</td></tr>\
                           <tr><td>子股东数</td><td>' + data.subsidiarys + '</td></tr>\
-                          <tr><td>诉讼记录</td><td>' + data.litigationRecord + '</td></tr>\
                         </tbody>\
                       </table>\
                       <a href="/#/SearchResultDetail?company=' + name + '" class="see-detail">查看详情</a>\
