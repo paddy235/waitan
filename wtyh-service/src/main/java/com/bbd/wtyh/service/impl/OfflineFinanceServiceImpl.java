@@ -146,7 +146,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
         Map map = new HashMap();
         map.put("capitalRisk", 50);
         map.put("creditInfoRisk", 43);
-        return null;
+        return map;
     }
 
     @Override
