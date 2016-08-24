@@ -27,10 +27,10 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     @Value("${api.court.searchCompany.ak}")
     private String searchCompanyAK;
 
-    @Value("${api.baidu.news.url}")
+    @Value("${api.baidu.batch.news.url}")
     private String baiduYuQingURL;     // 百度舆情
 
-    @Value("${api.baidu.news.ak}")
+    @Value("${api.baidu.batch.news.ak}")
     private String baiduYuqingAK;
 
     @Value("${api.court.openCourtAnnouncement.url}")
