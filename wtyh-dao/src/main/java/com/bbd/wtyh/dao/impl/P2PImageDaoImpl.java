@@ -97,11 +97,11 @@ public class P2PImageDaoImpl implements P2PImageDao {
 
     @Override
     public Map<String, Object> radarScore(String platName) {
-        String url = String.format("http://localhost:8080/financial_services.do?dataType=leida&plat_name=%s", platName);
+        String _url = String.format(url + "?dataType=leida&plat_name=%s", platName);
         HttpTemplate httpTemplate = new HttpTemplate();
         final Map<String, Object> source = new LinkedHashMap<>();
         try {
-            httpTemplate.get(url, new HttpCallback<Object>() {
+            httpTemplate.get(_url, new HttpCallback<Object>() {
                 @Override
                 public boolean valid() {
                     return false;
@@ -152,7 +152,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
      * 暂时数据乱码，可后期网贷提供后处理
      */
     public Map<String, Object> baseInfoWangDaiApi(String platName){
-        String platFormName = "http://localhost:8080/financial_services.do?dataType=plat_list&plat_name="+platName;
+        String platFormName = url + "?dataType=plat_list&plat_name="+platName;
         final Map<String, Object> data = new HashMap<>();
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
@@ -257,11 +257,11 @@ public class P2PImageDaoImpl implements P2PImageDao {
 
     @Override
     public Map<String, Object> coreDataInfo(String platName) {
-        String url = String.format("http://localhost:8080/financial_services.do?dataType=plat_data&plat_name=%s", platName);
+        String _url = String.format(url + "?dataType=plat_data&plat_name=%s", platName);
         final Map<String, Object> data = new LinkedHashMap<>();
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
-            httpTemplate.get(url, new HttpCallback<Object>() {
+            httpTemplate.get(_url, new HttpCallback<Object>() {
                 @Override
                 public boolean valid() {
                     return true;

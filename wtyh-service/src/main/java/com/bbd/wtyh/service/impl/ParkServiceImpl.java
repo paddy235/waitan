@@ -171,18 +171,19 @@ public class ParkServiceImpl implements ParkService {
 		
 		List<CompanyTypeCountDO> ljr = new ArrayList<>();
 		
-		countType(ljr , areaId ,CompanyDO.TYPE_P2P_1,"p2p");
-		
+		countType(ljr , areaId ,CompanyDO.TYPE_P2P_1,"P2P");
 		countType(ljr , areaId ,CompanyDO.TYPE_XD_2,"小额贷款");
-		
 		countType(ljr , areaId ,CompanyDO.TYPE_RZDB_3,"融资担保");
-		
 		countType(ljr , areaId ,CompanyDO.TYPE_XXLC_4,"线下理财");
-		
 		countType(ljr , areaId ,CompanyDO.TYPE_SMJJ_5,"私募基金");
-		
 		countType(ljr , areaId ,CompanyDO.TYPE_ZC_6,"众筹");
-		
+		countType(ljr , areaId ,CompanyDO.TYPE_JYS_9,"交易所");
+		countType(ljr , areaId ,CompanyDO.TYPE_SYBL_10,"商业保理");
+		countType(ljr , areaId ,CompanyDO.TYPE_YFK_11,"预付卡");
+		countType(ljr , areaId ,CompanyDO.TYPE_DD_12,"典当");
+		countType(ljr , areaId ,CompanyDO.TYPE_RZZL_13,"融资租赁");
+		//公司类型 1:P2P 2:小贷 3:融资担保 4:线下理财 5:私募基金 6:众筹 7:金融 8:其他 9:交易所 10:商业保理 11.预付卡 12.典当 13融资租赁
+
 		List<CompanyTypeCountDO> bigType = new ArrayList<>();
 		
 		CompanyTypeCountDO ljrCount = new CompanyTypeCountDO();
@@ -200,7 +201,7 @@ public class ParkServiceImpl implements ParkService {
 	}
 	
 	private void countType( List<CompanyTypeCountDO> list , Integer areaId ,Byte type,String name){
-		CompanyTypeCountDO b = companyMapper.countByType(areaId, CompanyDO.TYPE_P2P_1);
+		CompanyTypeCountDO b = companyMapper.countByType(areaId, type);
 		list.add(b.setType(name));
 		
 	}
@@ -235,18 +236,17 @@ public class ParkServiceImpl implements ParkService {
 	public List<CompanyTypeCountDO> buildingBusinessDistribute(Integer buildingId) {
 		
 		List<CompanyTypeCountDO> ljr = new ArrayList<>();
-		
-		countTypeByBuild(ljr , buildingId ,CompanyDO.TYPE_P2P_1,"p2p");
-		
-		countTypeByBuild(ljr , buildingId ,CompanyDO.TYPE_XD_2,"小额贷款");
-		
-		countTypeByBuild(ljr , buildingId ,CompanyDO.TYPE_RZDB_3,"融资担保");
-		
-		countTypeByBuild(ljr , buildingId ,CompanyDO.TYPE_XXLC_4,"线下理财");
-		
-		countTypeByBuild(ljr , buildingId ,CompanyDO.TYPE_SMJJ_5,"私募基金");
-		
-		countTypeByBuild(ljr , buildingId ,CompanyDO.TYPE_ZC_6,"众筹");
+		countType(ljr , buildingId ,CompanyDO.TYPE_P2P_1,"P2P");
+		countType(ljr , buildingId ,CompanyDO.TYPE_XD_2,"小额贷款");
+		countType(ljr , buildingId ,CompanyDO.TYPE_RZDB_3,"融资担保");
+		countType(ljr , buildingId ,CompanyDO.TYPE_XXLC_4,"线下理财");
+		countType(ljr , buildingId ,CompanyDO.TYPE_SMJJ_5,"私募基金");
+		countType(ljr , buildingId ,CompanyDO.TYPE_ZC_6,"众筹");
+		countType(ljr , buildingId ,CompanyDO.TYPE_JYS_9,"交易所");
+		countType(ljr , buildingId ,CompanyDO.TYPE_SYBL_10,"商业保理");
+		countType(ljr , buildingId ,CompanyDO.TYPE_YFK_11,"预付卡");
+		countType(ljr , buildingId ,CompanyDO.TYPE_DD_12,"典当");
+		countType(ljr , buildingId ,CompanyDO.TYPE_RZZL_13,"融资租赁");
 		
 		List<CompanyTypeCountDO> bigType = new ArrayList<>();
 		
@@ -260,7 +260,6 @@ public class ParkServiceImpl implements ParkService {
 		bigType.add(ljrCount.setType("类金融"));
 		
 		countTypeByBuild(bigType , buildingId ,CompanyDO.TYPE_JR_7,"金融");
-		
 		countTypeByBuild(bigType , buildingId ,CompanyDO.TYPE_QT_8,"其他");
 		
 		return bigType;
@@ -268,7 +267,7 @@ public class ParkServiceImpl implements ParkService {
 	}
 	
 	private void countTypeByBuild( List<CompanyTypeCountDO> list , Integer buildingId ,Byte type,String name){
-		CompanyTypeCountDO b = companyMapper.countTypeByBuild(buildingId, CompanyDO.TYPE_P2P_1);
+		CompanyTypeCountDO b = companyMapper.countTypeByBuild(buildingId, type);
 		list.add(b.setType(name));
 		
 	}

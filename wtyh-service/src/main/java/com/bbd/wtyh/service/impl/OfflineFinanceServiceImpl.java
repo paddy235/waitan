@@ -74,7 +74,16 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     @Override
     public Map companyInfo(String companyName) {
         List<Map<Integer, String>> list = companyMapper.companyInfo(companyName);
+        float staticsRiskIndex = staticRiskMapper.queryStaticsRiskIndex(companyName);
+
         Map result = new HashMap();
+        if (staticsRiskIndex > 70) {
+            result.put("analysisResult", "重点关注");
+        } else if (staticsRiskIndex >= 60 && staticsRiskIndex < 70) {
+            result.put("analysisResult", "一般关注");
+        } else if (staticsRiskIndex < 60) {
+            result.put("analysisResult", "正常");
+        }
         List backgroud = new ArrayList();
         if (!CollectionUtils.isEmpty(list)) {
             result.put("status", list.get(0).get("status"));
@@ -109,7 +118,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     public Map<String, List> queryRelation(String companyName, String dataVersion, String degreesLevel) throws Exception  {
         List<List<String>> list = null;
         JSONArray jsonArr = null;
-        String json = redisDAO.getString(companyName + APIConstants.redis_relation_LinksDataJTTP + dataVersion);
+        String json = redisDAO.getString(companyName + APIConstants.redis_relation_LinksDataJTTP + dataVersion + degreesLevel);
         if (StringUtils.isEmpty(json)) {
             if (StringUtils.isEmpty(degreesLevel)) {
                 json = relationCompanyService.getAPIDynamicRelatedPartUploadJTTP(companyName, APIConstants.show_relation_E, dataVersion);
@@ -137,7 +146,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
         Map map = new HashMap();
         map.put("capitalRisk", 50);
         map.put("creditInfoRisk", 43);
-        return null;
+        return map;
     }
 
     @Override
