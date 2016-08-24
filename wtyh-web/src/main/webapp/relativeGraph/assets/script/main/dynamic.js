@@ -811,7 +811,7 @@ define(function(require, exports, module) {
 		if (e.target.isCompany) {
 			$.ajax({
 				type: "GET",
-				url: "relatedPartyStatistics.do", //查询公司接口详细信息relatedPartyStatistics.do
+				url: "/relatedPartyStatistics.do", //查询公司接口详细信息relatedPartyStatistics.do
 				data: {
 					origCompanyName:name,
 					tarCompanyName:name,
