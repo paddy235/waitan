@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @SuppressWarnings("serial")
-public class CompanyDO extends BaseDO {
+public class CompanyDO extends BaseDO implements Comparable {
     //公司类型 1:P2P 2:小贷 3:融资担保 4:线下理财 5:私募基金 6:众筹 7:金融 8:其他 9:交易所 10:商业保理 11.预付卡 12.典当 13融资租赁
 	public static final byte TYPE_P2P_1  = 1;
 	public static final byte TYPE_XD_2   = 2;
@@ -58,7 +58,32 @@ public class CompanyDO extends BaseDO {
 
     private BigDecimal staticRisk;
 
-	public String getBackgroundCN() {
+    private Date exposureDate;
+
+    private Integer analysisResult;
+
+
+    public void setBackgroundCN(String backgroundCN) {
+        this.backgroundCN = backgroundCN;
+    }
+
+    public Date getExposureDate() {
+        return exposureDate;
+    }
+
+    public void setExposureDate(Date exposureDate) {
+        this.exposureDate = exposureDate;
+    }
+
+    public Integer getAnalysisResult() {
+        return analysisResult;
+    }
+
+    public void setAnalysisResult(Integer analysisResult) {
+        this.analysisResult = analysisResult;
+    }
+
+    public String getBackgroundCN() {
 	    if(null == background){
 	        return null;
         }
@@ -236,4 +261,16 @@ public class CompanyDO extends BaseDO {
 	public void setStaticRisk(BigDecimal staticRisk) {
 		this.staticRisk = staticRisk;
 	}
+
+    @Override
+    public int compareTo(Object o) {
+
+        if(this.analysisResult==1){
+
+        }
+
+
+
+        return 0;
+    }
 }

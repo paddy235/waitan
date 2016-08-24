@@ -300,6 +300,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
 
                 @Override
                 public PlatDataDO parse(String result) {
+
                     return JSON.parseObject(result, PlatDataDO.class);
                 }
             });
