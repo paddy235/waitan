@@ -77,6 +77,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
         Map result = new HashMap();
         List backgroud = new ArrayList();
         if (!CollectionUtils.isEmpty(list)) {
+            result.put("status", list.get(0).get("status"));
             String backgroudString = "";
             for (Map map : list) {
                 int back = (int)map.get("background");
@@ -97,6 +98,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
                 backgroud.add(backgroudString);
             }
         }
+
         result.put("companyName", companyName);
         result.put("backgroud", backgroud);
         return result;
@@ -131,7 +133,10 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     }
 
     @Override
-    public List<Map> staticRiskIndex(String companyName) {
+    public Map staticRiskIndex(String companyName) {
+        Map map = new HashMap();
+        map.put("capitalRisk", 50);
+        map.put("creditInfoRisk", 43);
         return null;
     }
 

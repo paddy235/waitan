@@ -2,16 +2,14 @@ package com.bbd.wtyh.web.controller;
 
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.CapitalAmountDO;
+import com.bbd.wtyh.domain.CompanyCountDO;
 import com.bbd.wtyh.domain.MortgageStatisticDO;
 import com.bbd.wtyh.domain.dto.IndustryShanghaiDTO;
 import com.bbd.wtyh.domain.dto.LoanBalanceDTO;
 import com.bbd.wtyh.domain.vo.*;
 import com.bbd.wtyh.service.*;
 import com.bbd.wtyh.util.CalculateUtils;
-import com.bbd.wtyh.web.HistogramBean;
-import com.bbd.wtyh.web.ResponseBean;
-import com.bbd.wtyh.web.XAxisSeriesBarLineBean;
-import com.bbd.wtyh.web.XAxisSeriesLinesBean;
+import com.bbd.wtyh.web.*;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -269,7 +267,7 @@ public class OfflineFinanceController {
     @RequestMapping("staticRiskIndex.do")
     @ResponseBody
     public ResponseBean staticRiskIndex(String companyName) {
-        List<Map> data = offlineFinanceService.staticRiskIndex(companyName);
+        Map data = offlineFinanceService.staticRiskIndex(companyName);
         return ResponseBean.successResponse(data);
     }
 
@@ -453,21 +451,30 @@ public class OfflineFinanceController {
             }
         }
         //商业保理
-//        List<CommercialFactoringStatisticDO> facList = factoringService.companyCountByYear();
-        @SuppressWarnings("unchecked")
-//        XAxisSeriesLinesBean<Integer,Integer> dto = new XAxisSeriesLinesBean<>(
-//                new ArrayList<Integer>(),
-//                new ArrayList<Integer>());
-//
-//        if (!CollectionUtils.isEmpty(facList)) {
-//            for (CommercialFactoringStatisticDO bean : facList) {
-//                dto.getxAxis().add(bean.getYear());
-//                dto.getSeries()[0].add(bean.getCompanyNumber());
-//                dto.getSeries()[1].add(bean.getTotalAmout());
-//            }
-//        }
-                //预付卡
-                ResponseBean prepaidCompanyResponseBean = prepaidCompanyController.amount();
+        List<CompanyCountDO> facList = factoringService.countCapitalBySeason();
+
+        HistogramBean<String, Object> hist = new HistogramBean<>();
+        hist.setTitle("全市商业保理企业注册资本总额");
+
+        Map<String,Object> map = new HashMap<>();
+
+        map.put("histogram", hist);
+
+        List<CompanyCountDO> list = factoringService.countCapitalBySeason();
+
+        if (!CollectionUtils.isEmpty(list)) {
+            int sum = 0;
+            for (int k = 0; k < list.size(); k++) {
+                CompanyCountDO cdo = list.get(k);
+                sum += cdo.getSum();
+                if (list.size() - 9 < k) {
+                    hist.getxAxis().add(cdo.getName());
+                    hist.getseries().add(CalculateUtils.WanToYi(sum));
+                }
+            }
+        }
+        //预付卡
+        ResponseBean prepaidCompanyResponseBean = prepaidCompanyController.amount();
         Map result = new LinkedHashMap();
         result.put("loan", loanDTO);
         result.put("private", privateDTO);
@@ -476,8 +483,7 @@ public class OfflineFinanceController {
         result.put("exchange", exchangeCompanyBean);
         result.put("crowd", crowdFundingResponseBean.getContent());
         result.put("mortgage", mortgageDTO);
-//        result.put("factoring", dto);
-        result.put("factoring", "");
+        result.put("factoring", map);
         result.put("prepaid", prepaidCompanyResponseBean.getContent());
         return ResponseBean.successResponse(result);
     }

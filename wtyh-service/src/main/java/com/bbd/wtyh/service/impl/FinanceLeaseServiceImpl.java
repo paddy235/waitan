@@ -63,8 +63,6 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
         return bean;
     }
 
-
-
     @Override
     public Map leaseCompanyStatistic() {
         List<FinanceLeaseStatisticVO> list = financeLeaseMapper.queryFinanceLeaseStatistic(null);
@@ -89,10 +87,27 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
                     yearCompanyNumberMap.put(year, financeLeaseStatisticVO.getCompanyNumber());
                 }
             }
+
+
+            Integer minYear = financeLeaseMapper.queryFinanceLeaseMinYear();
+            Integer maxYear = financeLeaseMapper.queryFinanceLeaseMaxYear();
+            Map<Integer, Integer> tempMap = new LinkedHashMap<>();
+            for (int i=minYear; i<=maxYear; i++) {
+                tempMap.put(i, i);
+            }
             Map paramMap = new HashedMap();
-            for (Integer year : yearSet) {
+            for (Integer key : tempMap.keySet()) {
+                if (yearCompanyNumberMap.get(key) == null) {
+                    xAxis.add(key);
+                    lineList.add(0);
+                } else {
+                    xAxis.add(key);
+                    lineList.add(yearCompanyNumberMap.get(key));
+                }
+
+
                 for (int j=1; j<3; j++) {
-                    paramMap.put("year", year);
+                    paramMap.put("year", key);
                     paramMap.put("registeredCapitalType", j);
                     List<FinanceLeaseStatisticVO> tempList = financeLeaseMapper.queryFinanceLeaseStatistic(paramMap);
                     if (j == 1) {
@@ -109,11 +124,10 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
                         }
                     }
                 }
+
             }
-            for (Integer key : yearCompanyNumberMap.keySet()) {
-                xAxis.add(key);
-                lineList.add(yearCompanyNumberMap.get(key));
-            }
+
+
         }
         barList.add(barList1);
         barList.add(barList2);

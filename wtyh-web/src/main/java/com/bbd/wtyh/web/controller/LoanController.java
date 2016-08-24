@@ -20,7 +20,7 @@ import java.util.Map;
 
 /**
  * 小额贷款
- * <p>
+ * <p/>
  * Created by Marco on 2016/8/8.
  */
 @RestController
@@ -91,19 +91,43 @@ public class LoanController {
         CompanyQuery query = new CompanyQuery();
         query.setCompanyType((int) CompanyDO.TYPE_XD_2);
         int amount = companyService.countCompanyNum(query);
-        List<LoanBalanceDO> loanBalanceList = loanService.getLoanBalance();
+        List<LoanBalanceDO> loanBalanceList = loanService.getLoanBalanceByYear();
         List<LoanBalanceDTO> result = Lists.newArrayList();
         for (LoanBalanceDO balanceDO : loanBalanceList) {
-            LoanBalanceDTO loanBalanceDTO = new LoanBalanceDTO();
-            loanBalanceDTO.setYear(balanceDO.getYear());
-            loanBalanceDTO.setAmount(balanceDO.getAmount());
-            loanBalanceDTO.setAgricultureBalance(balanceDO.getAgricultureBalance());
-            loanBalanceDTO.setSmallCompanyBalance(balanceDO.getSmallCompanyBalance());
-            loanBalanceDTO.setNumber(balanceDO.getNumber());
-            loanBalanceDTO.setCompanyAmount(amount);
-            result.add(loanBalanceDTO);
+            result.add(getLoanBalanceDTO(amount, balanceDO));
         }
         return ResponseBean.successResponse(result);
+    }
+
+    private LoanBalanceDTO getLoanBalanceDTO(int amount, LoanBalanceDO balanceDO) {
+        LoanBalanceDTO loanBalanceDTO = new LoanBalanceDTO();
+        loanBalanceDTO.setMonth(balanceDO.getMonth());
+        loanBalanceDTO.setYear(balanceDO.getYear());
+        loanBalanceDTO.setAmount(balanceDO.getAmount());
+        loanBalanceDTO.setAgricultureBalance(balanceDO.getAgricultureBalance());
+        loanBalanceDTO.setSmallCompanyBalance(balanceDO.getSmallCompanyBalance());
+        loanBalanceDTO.setNumber(balanceDO.getNumber());
+        loanBalanceDTO.setCompanyAmount(amount);
+        return loanBalanceDTO;
+    }
+
+
+    /**
+     * 贷款余额统计信息
+     *
+     * @return
+     */
+    @RequestMapping("balanceByMonth.do")
+    public ResponseBean balanceByMonth() {
+        CompanyQuery query = new CompanyQuery();
+        query.setCompanyType((int) CompanyDO.TYPE_XD_2);
+        int amount = companyService.countCompanyNum(query);
+        List<LoanBalanceDO> loanBalanceList = loanService.getLoanBalanceByMonth();
+        List<LoanBalanceDTO> result = Lists.newArrayList();
+        for (LoanBalanceDO balanceDO : loanBalanceList) {
+            result.add(getLoanBalanceDTO(amount, balanceDO));
+        }
+        return ResponseBean.successResponse(Lists.reverse(result));
     }
 
 

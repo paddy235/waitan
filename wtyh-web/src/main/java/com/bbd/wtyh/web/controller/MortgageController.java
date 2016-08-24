@@ -37,7 +37,7 @@ public class MortgageController {
      */
     @RequestMapping("statisticList.do")
     public ResponseBean statisticList() {
-        return ResponseBean.successResponse(mortgageService.getMortgageStatisticList());
+        return ResponseBean.successResponse(Lists.reverse(mortgageService.getMortgageStatisticList()));
     }
 
 

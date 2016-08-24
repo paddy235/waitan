@@ -11,7 +11,9 @@ import java.util.List;
  */
 public interface LoanService {
 
-    List<LoanBalanceDO> getLoanBalance();
+    List<LoanBalanceDO> getLoanBalanceByYear();
+
+    List<LoanBalanceDO> getLoanBalanceByMonth();
 
     List<LargeLoanDO> listLargeLoan(Pagination pagination, Integer orderByField, String descAsc);
 

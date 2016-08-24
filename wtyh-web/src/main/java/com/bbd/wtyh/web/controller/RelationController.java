@@ -59,7 +59,7 @@ public class RelationController {
      * @throws Exception
      */
     @SuppressWarnings({"rawtypes"})
-    @RequestMapping("/relatedPartyStatistics")
+    @RequestMapping("relatedPartyStatistics.do")
     public
     @ResponseBody
     AjaxVO relatedPartyStatistics(HttpServletRequest request) throws Exception {
