@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "f926e3bc7acab4ee0f0c"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "8ed3417a52005d7d8b4f"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -60191,7 +60191,7 @@
 	                _react2.default.createElement(
 	                    'h3',
 	                    null,
-	                    '线下理财分布'
+	                    '线下理财风险分布'
 	                )
 	            ),
 	            _react2.default.createElement(
@@ -61163,26 +61163,8 @@
 	      companyName: ""
 	    };
 	  },
-	  componentWillMount: function componentWillMount() {
-
-	    // var json={companyName:companyName};
-	    // this.getRiskSearch(json);
-	  },
+	  componentWillMount: function componentWillMount() {},
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    // var companyName=nextProps.location.query.companyName;
-	    // this.setState({companyName:companyName}); 
-
-	    // var isEqual=Immutable.is(nextProps.dynamicRiskCompanyTagResult, this.props.dynamicRiskCompanyTagResult)//判断数据是否变化
-	    //      if(!isEqual){
-	    //       const {dynamicRiskCompanyTagRequest,dynamicRiskCompanyTagResult}=nextProps;
-	    //       if(dynamicRiskCompanyTagRequest==true){
-	    //          if(dynamicRiskCompanyTagResult.success==true){
-	    //             this.dataFomat(dynamicRiskCompanyTagResult);
-	    //          }else{
-	    //              console.log(404)
-	    //          }
-	    //      }
-	    //    }
 	    //传入标签
 	    if (nextProps.companyInfo) {
 	      this.setState({
@@ -61190,21 +61172,9 @@
 	      });
 	    }
 	  },
-	  // getRiskSearch:function(data){
-	  //   // console.log(this.props,'xuyao')
-	  //    const {getDynamicRiskCompanyTag}=this.props;
-	  //   // getRiskSearchVal(data);
-	  //   // var json={companyName:data};
-	  //    getDynamicRiskCompanyTag(data);
-	  // },
-	  // dataFomat:function(data){
-	  //   console.log(data,'公司标签')
-
-	  // },
 	  //重新载入搜索结果的页面
 	  searchKey: function searchKey(data) {
 	    this.props.history.push("/lineFinanceDynamicRisk?companyName=" + data);
-	    //this.getRiskSearch(data);
 	  },
 	  render: function render() {
 	    //企业标签className
@@ -61232,11 +61202,27 @@
 	            'div',
 	            { className: 'company-info' },
 	            this.state.companyTag.map(function (item, index) {
-	              return _react2.default.createElement(
-	                'span',
-	                { className: classNameSet[index], key: 'span-' + index },
-	                item
-	              );
+	              var tag = "";
+	              if (item == "存续") {
+	                tag = _react2.default.createElement(
+	                  'span',
+	                  { className: 'bg-blue' },
+	                  item
+	                );
+	              } else if (item == "国营企业") {
+	                tag = _react2.default.createElement(
+	                  'span',
+	                  { className: 'bg-red' },
+	                  item
+	                );
+	              } else if (item == "民营企业") {
+	                tag = _react2.default.createElement(
+	                  'span',
+	                  { className: 'bg-yellow' },
+	                  item
+	                );
+	              }
+	              return tag;
 	            })
 	          ),
 	          _react2.default.createElement(
@@ -63636,6 +63622,8 @@
 	    console.log(data, "公司标签");
 	    var content = data.content;
 	    var backgroud = content.backgroud;
+	    var status = content.status;
+	    backgroud.push(status);
 	    this.setState({ companyTag: backgroud });
 	  },
 	  getDynamicRiskData: function getDynamicRiskData(data) {
@@ -64044,6 +64032,7 @@
 	    var select = null;
 	    var flag = this.props.flag;
 	    var nowVal = null;
+	    console.log(this.props.date, '日期');
 
 	    if (this.props.date.length > 0) {
 	      var d = this.props.date[0];
@@ -85671,6 +85660,7 @@
 	      results = [];
 	    }
 	    this.setState({ consensu: results });
+	    console.log(results, 'kankan');
 	  },
 
 	  getParkNews: function getParkNews(menuParkSelectVal) {
