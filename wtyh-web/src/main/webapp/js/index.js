@@ -76298,6 +76298,7 @@
 	var Imgs = _react2.default.createClass({
 	    displayName: 'Imgs',
 
+
 	    getInitialState: function getInitialState() {
 	        return {
 	            areaId: "",
