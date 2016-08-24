@@ -118,7 +118,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     public Map<String, List> queryRelation(String companyName, String dataVersion, String degreesLevel) throws Exception  {
         List<List<String>> list = null;
         JSONArray jsonArr = null;
-        String json = redisDAO.getString(companyName + APIConstants.redis_relation_LinksDataJTTP + dataVersion);
+        String json = redisDAO.getString(companyName + APIConstants.redis_relation_LinksDataJTTP + dataVersion + degreesLevel);
         if (StringUtils.isEmpty(json)) {
             if (StringUtils.isEmpty(degreesLevel)) {
                 json = relationCompanyService.getAPIDynamicRelatedPartUploadJTTP(companyName, APIConstants.show_relation_E, dataVersion);
@@ -146,7 +146,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
         Map map = new HashMap();
         map.put("capitalRisk", 50);
         map.put("creditInfoRisk", 43);
-        return null;
+        return map;
     }
 
     @Override
