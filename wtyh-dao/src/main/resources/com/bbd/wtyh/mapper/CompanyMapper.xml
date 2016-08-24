@@ -18,6 +18,8 @@
         <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
         <result column="update_date" jdbcType="DATE" property="updateDate"/>
         <result column="registered_type" jdbcType="VARCHAR" property="registeredType"/>
+        <result column="exposure_date" jdbcType="DATE" property="exposureDate"/>
+        <result column="analysisResult" jdbcType="TINYINT" property="analysisResult"/>
 
     </resultMap>
     <sql id="Base_Column_List">
@@ -86,13 +88,26 @@
 
     <select id="buildingCompany" resultMap="BaseResultMap">
 
-        select c.*,cb.background from company c ,
-        company_building b,company_background cb
 
-        where b.company_id=c.company_id
-        and b.building_id=#{buildingId}
-        and cb.company_id=c.company_id
-        and cb.background in (3,4)
+
+        select a.*, IFNULL(car.analysis_result,4) analysisResult,car.exposure_date exposureDate
+
+        from (
+                select c.*,cb.background
+                from company c ,
+                     company_building b,
+                     company_background cb
+                where b.company_id=c.company_id
+                      and b.building_id=#{buildingId}
+                      and cb.company_id=c.company_id
+                      and cb.background in (3,4)
+                      and c.company_type is not null
+            )
+        a
+        LEFT JOIN company_analysis_result car
+        on car.company_id=a.company_id
+
+
         order by
 
         <choose>
@@ -192,9 +207,9 @@
     </select>
     
     <select id="searchCompanyNameCount" resultType="int" parameterType="string">
-		select count(1) from company where company_type=4
-		<if test="_parameter != null and _parameter != ''">
-			and name like concat('%',#{_parameter, jdbcType=VARCHAR},'%')
+		select count(1) from company c, index_data i where c.`name`=i.company_name and c.company_type=4 
+		<if test="keyword != null and keyword != ''">
+			and c.`name` like concat('%',#{keyword},'%')
 		</if>
     </select>
 

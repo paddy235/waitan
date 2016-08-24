@@ -45,20 +45,15 @@
 			var nowEleId = $(this.element).attr('id');
 			var acId = that.autoParam.acId;
 			$('body').on('click', function(e) {
-				var nowClickId = $(e.target).parent().parent()[0].id;
+				var nowClickId = e.target.id;
 				if (nowEleId == nowClickId) {
 					that.show();
+				} else if (nowClickId == acId) {
+					that.selectEle();
 				} else {
 					that.hide();
 				}
-
-				// } else if (nowClickId == acId) {
-				// 	that.selectEle();
-				// }
 			});
-			$("li.group-item").unbind('click').bind('click', function() {
-				that.selectEle();
-			})
 		},
 		autoWatch: function() {
 			var that = this;

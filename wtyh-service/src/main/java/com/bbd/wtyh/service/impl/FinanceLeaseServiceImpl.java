@@ -238,11 +238,11 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
 
             for (FinanceLeasecCompanyVO financeLeasecCompanyVO : tempList) {
                 String riskStatus = financeLeasecCompanyVO.getRiskStatus();
-                if (analysisResult == null ) {
+                if (analysisResult != null && analysisResult == 2) {
                     resultList.add(financeLeasecCompanyVO);
-                } else if (analysisResult == 0 && "正常".equals(riskStatus)) {
+                } else if (analysisResult != null && analysisResult == 0 && "正常".equals(riskStatus)) {
                     resultList.add(financeLeasecCompanyVO);
-                } else if (analysisResult == 1 && "潜在".equals(riskStatus)) {
+                } else if (analysisResult != null && analysisResult == 1 && "潜在".equals(riskStatus)) {
                     resultList.add(financeLeasecCompanyVO);
                 }
             }

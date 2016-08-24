@@ -26,8 +26,6 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
     private RedisDAO redisDAO;
     @Autowired
     private CompanyMapper companyMapper;
-    @Value("${api.baidu.news.url}")
-    private String url;
 
     @Value("${api.baidu.batch.news.ak}")
     private String ak;
