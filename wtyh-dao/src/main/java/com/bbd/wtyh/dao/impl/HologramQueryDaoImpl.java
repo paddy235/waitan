@@ -233,7 +233,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      */
     public ZuZhiJiGoudmDO baseInfoZuZhiJiGou(String companyName) {
 //        String url = zuZhiJiGouURL+"?company="+companyName+"&ak="+zuZhiJiGouURL;
-        String URL = "http://dataom.api.bbdservice.com/api/bbd_zuzhijigoudm/?company=%E6%94%80%E6%9E%9D%E8%8A%B1%E5%B8%82%E4%BA%A4%E9%80%9A%E6%97%85%E6%B8%B8%E5%AE%A2%E8%BF%90%E6%9C%89%E9%99%90%E8%B4%A3%E4%BB%BB%E5%85%AC%E5%8F%B8&ak=605f60df40668579e939515fef710d2b";
+        String URL = "http://dataom.api.bbdservice.com/api/bbd_zuzhijigoudm/?company="+companyName+"&ak=605f60df40668579e939515fef710d2b";
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(URL, new HttpCallback<ZuZhiJiGoudmDO>() {

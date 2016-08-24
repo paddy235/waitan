@@ -78,7 +78,11 @@ public class HologramQueryServiceImpl implements HologramQueryService {
         Map<String, Object> data = new HashMap<>();
         ZuZhiJiGoudmDO zuZhiJiGoudmDO = hologramQueryDao.baseInfoZuZhiJiGou(companyName);
         for (ZuZhiJiGoudmDO.Result result : zuZhiJiGoudmDO.getResults()) {
-            data.put("组织机构代码", result.getJgdm());
+            if (result.getJgdm()=="" || result.getJgdm()==null) {
+                data.put("组织机构代码", null);
+            } else {
+                data.put("组织机构代码", result.getJgdm());
+            }
         }
         for (BaseDataDO.Results result : baseDataDO.getResults()) {
             data.put("法定代表人",result.getJbxx().getFrname());
