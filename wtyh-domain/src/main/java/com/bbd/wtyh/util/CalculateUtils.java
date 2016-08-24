@@ -23,6 +23,17 @@ public class CalculateUtils {
         return bBcs.divide(bCs, scale, BigDecimal.ROUND_HALF_EVEN).doubleValue();
     }
 
+
+
+
+
+
+
+
+
+
+
+
     /**
      * 精度调整
      * @param rate
@@ -46,4 +57,15 @@ public class CalculateUtils {
         return null;
     }
 
+
+    /***
+     *
+     * 万元转亿元
+     * */
+    public static Double WanToYi(Integer wan){
+        if(wan == null){
+            return 0.0;
+        }
+        return new BigDecimal(""+wan).divide(new BigDecimal("10000"),1,BigDecimal.ROUND_HALF_UP).doubleValue();
+    }
 }

@@ -1,5 +1,7 @@
 package com.bbd.wtyh.domain;
 
+import com.bbd.wtyh.util.CalculateUtils;
+
 public class BuildingDO extends BaseDO {
 	
    
@@ -16,20 +18,28 @@ public class BuildingDO extends BaseDO {
     * @Fields finComNum : finance_company_number 类金融企业数量	
     */
     private Integer finComNum;
+
+    /**
+     *  企业数量
+     */
+    private Integer total;
     
     
     /**
     * @Fields ratio : finance_company_ratio 类金融企业占比
     */
     private String  finComRatio;
-    
-    
-    
-    
 
 
+    public Integer getTotal() {
+        return total;
+    }
 
-	public String getImgUrl() {
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
+
+    public String getImgUrl() {
 		return imgUrl;
 	}
 
@@ -50,6 +60,9 @@ public class BuildingDO extends BaseDO {
 
 
 	public String getFinComRatio() {
+
+        finComRatio = CalculateUtils.divide(finComNum*100,total,1)+"%";
+
 		return finComRatio;
 	}
 

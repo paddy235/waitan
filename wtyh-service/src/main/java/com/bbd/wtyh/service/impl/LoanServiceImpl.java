@@ -23,7 +23,12 @@ public class LoanServiceImpl implements LoanService {
     private LargeLoanMapper largeLoanMapper;
 
     @Override
-    public List<LoanBalanceDO> getLoanBalance() {
+    public List<LoanBalanceDO> getLoanBalanceByMonth() {
+        return loanBalanceMapper.listByMonth();
+    }
+
+    @Override
+    public List<LoanBalanceDO> getLoanBalanceByYear() {
         return loanBalanceMapper.listByYear();
     }
 

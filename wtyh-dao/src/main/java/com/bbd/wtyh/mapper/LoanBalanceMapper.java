@@ -7,5 +7,7 @@ import java.util.List;
 public interface LoanBalanceMapper {
     LoanBalanceDO selectByPrimaryKey(Integer id);
 
+    List<LoanBalanceDO> listByMonth();
+
     List<LoanBalanceDO> listByYear();
 }

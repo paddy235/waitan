@@ -117,7 +117,8 @@ public class ParkServiceImpl implements ParkService {
 		
 		String names = companyMapper.queryCompanyNames(areaId,null);
 		if(StringUtils.isEmpty(names)){
-			return null;
+			//return null;
+			names = "DCM投资管理咨询（北京）有限公司上海分公司,GMS中国办事处,I.TCHINA,《国际金融报》社有限公司,一创（上海）投资管理中心（有限合伙）,一半堂投资管理（上海）有限公司,一尘（上海）投资管理有限公司,一忆（上海）股权投资管理有限公司,一思资产管理（上海）有限公司,一村资产管理有限公司,一村资本有限公司,一欣投资管理（上海）有限公司,一济投资管理有限公司,一溪投资管理（上海）有限公司,一炫定稚资产管理（上海）有限公司,一片蓝（上海）投资管理合伙企业（有限合伙）,一翼（上海）互联网金融信息服务有限公司,一诺千诚投资管理（上海）有限公司,一诺千诚金融信息服务（上海）有限公司,一财众联财富管理有限公司,一财长富资产管理有限公司";
 		}
 		List<NameValuePair> list = new ArrayList<>();
 		list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1)   ));
@@ -170,18 +171,19 @@ public class ParkServiceImpl implements ParkService {
 		
 		List<CompanyTypeCountDO> ljr = new ArrayList<>();
 		
-		countType(ljr , areaId ,CompanyDO.TYPE_P2P_1,"p2p");
-		
+		countType(ljr , areaId ,CompanyDO.TYPE_P2P_1,"P2P");
 		countType(ljr , areaId ,CompanyDO.TYPE_XD_2,"小额贷款");
-		
 		countType(ljr , areaId ,CompanyDO.TYPE_RZDB_3,"融资担保");
-		
 		countType(ljr , areaId ,CompanyDO.TYPE_XXLC_4,"线下理财");
-		
 		countType(ljr , areaId ,CompanyDO.TYPE_SMJJ_5,"私募基金");
-		
 		countType(ljr , areaId ,CompanyDO.TYPE_ZC_6,"众筹");
-		
+		countType(ljr , areaId ,CompanyDO.TYPE_JYS_9,"交易所");
+		countType(ljr , areaId ,CompanyDO.TYPE_SYBL_10,"商业保理");
+		countType(ljr , areaId ,CompanyDO.TYPE_YFK_11,"预付卡");
+		countType(ljr , areaId ,CompanyDO.TYPE_DD_12,"典当");
+		countType(ljr , areaId ,CompanyDO.TYPE_RZZL_13,"融资租赁");
+		//公司类型 1:P2P 2:小贷 3:融资担保 4:线下理财 5:私募基金 6:众筹 7:金融 8:其他 9:交易所 10:商业保理 11.预付卡 12.典当 13融资租赁
+
 		List<CompanyTypeCountDO> bigType = new ArrayList<>();
 		
 		CompanyTypeCountDO ljrCount = new CompanyTypeCountDO();
@@ -199,7 +201,7 @@ public class ParkServiceImpl implements ParkService {
 	}
 	
 	private void countType( List<CompanyTypeCountDO> list , Integer areaId ,Byte type,String name){
-		CompanyTypeCountDO b = companyMapper.countByType(areaId, CompanyDO.TYPE_P2P_1);
+		CompanyTypeCountDO b = companyMapper.countByType(areaId, type);
 		list.add(b.setType(name));
 		
 	}
@@ -234,18 +236,17 @@ public class ParkServiceImpl implements ParkService {
 	public List<CompanyTypeCountDO> buildingBusinessDistribute(Integer buildingId) {
 		
 		List<CompanyTypeCountDO> ljr = new ArrayList<>();
-		
-		countTypeByBuild(ljr , buildingId ,CompanyDO.TYPE_P2P_1,"p2p");
-		
-		countTypeByBuild(ljr , buildingId ,CompanyDO.TYPE_XD_2,"小额贷款");
-		
-		countTypeByBuild(ljr , buildingId ,CompanyDO.TYPE_RZDB_3,"融资担保");
-		
-		countTypeByBuild(ljr , buildingId ,CompanyDO.TYPE_XXLC_4,"线下理财");
-		
-		countTypeByBuild(ljr , buildingId ,CompanyDO.TYPE_SMJJ_5,"私募基金");
-		
-		countTypeByBuild(ljr , buildingId ,CompanyDO.TYPE_ZC_6,"众筹");
+		countType(ljr , buildingId ,CompanyDO.TYPE_P2P_1,"P2P");
+		countType(ljr , buildingId ,CompanyDO.TYPE_XD_2,"小额贷款");
+		countType(ljr , buildingId ,CompanyDO.TYPE_RZDB_3,"融资担保");
+		countType(ljr , buildingId ,CompanyDO.TYPE_XXLC_4,"线下理财");
+		countType(ljr , buildingId ,CompanyDO.TYPE_SMJJ_5,"私募基金");
+		countType(ljr , buildingId ,CompanyDO.TYPE_ZC_6,"众筹");
+		countType(ljr , buildingId ,CompanyDO.TYPE_JYS_9,"交易所");
+		countType(ljr , buildingId ,CompanyDO.TYPE_SYBL_10,"商业保理");
+		countType(ljr , buildingId ,CompanyDO.TYPE_YFK_11,"预付卡");
+		countType(ljr , buildingId ,CompanyDO.TYPE_DD_12,"典当");
+		countType(ljr , buildingId ,CompanyDO.TYPE_RZZL_13,"融资租赁");
 		
 		List<CompanyTypeCountDO> bigType = new ArrayList<>();
 		
@@ -259,7 +260,6 @@ public class ParkServiceImpl implements ParkService {
 		bigType.add(ljrCount.setType("类金融"));
 		
 		countTypeByBuild(bigType , buildingId ,CompanyDO.TYPE_JR_7,"金融");
-		
 		countTypeByBuild(bigType , buildingId ,CompanyDO.TYPE_QT_8,"其他");
 		
 		return bigType;
@@ -267,7 +267,7 @@ public class ParkServiceImpl implements ParkService {
 	}
 	
 	private void countTypeByBuild( List<CompanyTypeCountDO> list , Integer buildingId ,Byte type,String name){
-		CompanyTypeCountDO b = companyMapper.countTypeByBuild(buildingId, CompanyDO.TYPE_P2P_1);
+		CompanyTypeCountDO b = companyMapper.countTypeByBuild(buildingId, type);
 		list.add(b.setType(name));
 		
 	}

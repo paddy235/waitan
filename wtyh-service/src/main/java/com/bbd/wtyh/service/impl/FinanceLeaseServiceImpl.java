@@ -1,12 +1,16 @@
 package com.bbd.wtyh.service.impl;
 
 
+import com.bbd.wtyh.domain.vo.CompanyCapitalVO;
 import com.bbd.wtyh.domain.vo.FinanceLeaseStatisticVO;
 import com.bbd.wtyh.domain.vo.FinanceLeaseVO;
 import com.bbd.wtyh.domain.vo.FinanceLeasecCompanyVO;
 import com.bbd.wtyh.mapper.FinanceLeaseMapper;
 import com.bbd.wtyh.service.FinanceLeaseService;
 import com.bbd.wtyh.util.CalculateUtils;
+import com.bbd.wtyh.web.XAxisSeriesBarLineBean;
+import com.bbd.wtyh.web.XAxisSeriesBarsLineBean;
+import org.apache.commons.beanutils.converters.DoubleConverter;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.formula.functions.T;
@@ -29,6 +33,35 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
 
     @Resource
     private FinanceLeaseMapper financeLeaseMapper;
+
+
+    /**
+     * @author suyin
+     *
+     * */
+    public XAxisSeriesBarsLineBean companysAndMoney(){
+        List<CompanyCapitalVO> list = financeLeaseMapper.queryCompanysAndCapital();
+        XAxisSeriesBarsLineBean<Double,Integer> bean = new XAxisSeriesBarsLineBean();
+
+        int rmb = 0;
+        int us = 0;
+        int company = 0;
+        for (int k=0;k<list.size();k++) {
+            CompanyCapitalVO vo = list.get(k);
+            us+=vo.getUs();
+            company+=vo.getCompanyNumber();
+            rmb+=vo.getRmb();
+            if(k>list.size()-6){
+                bean.getxAxis().add(vo.getYear());
+                bean.getSeries().getLine().add((double)company);
+                bean.getSeries().getBar()[0].add(CalculateUtils.divide(rmb,10000,2));
+                bean.getSeries().getBar()[1].add(CalculateUtils.divide(us,10000,2));
+            }
+
+        }
+
+        return bean;
+    }
 
     @Override
     public Map leaseCompanyStatistic() {
@@ -54,10 +87,27 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
                     yearCompanyNumberMap.put(year, financeLeaseStatisticVO.getCompanyNumber());
                 }
             }
+
+
+            Integer minYear = financeLeaseMapper.queryFinanceLeaseMinYear();
+            Integer maxYear = financeLeaseMapper.queryFinanceLeaseMaxYear();
+            Map<Integer, Integer> tempMap = new LinkedHashMap<>();
+            for (int i=minYear; i<=maxYear; i++) {
+                tempMap.put(i, i);
+            }
             Map paramMap = new HashedMap();
-            for (Integer year : yearSet) {
+            for (Integer key : tempMap.keySet()) {
+                if (yearCompanyNumberMap.get(key) == null) {
+                    xAxis.add(key);
+                    lineList.add(0);
+                } else {
+                    xAxis.add(key);
+                    lineList.add(yearCompanyNumberMap.get(key));
+                }
+
+
                 for (int j=1; j<3; j++) {
-                    paramMap.put("year", year);
+                    paramMap.put("year", key);
                     paramMap.put("registeredCapitalType", j);
                     List<FinanceLeaseStatisticVO> tempList = financeLeaseMapper.queryFinanceLeaseStatistic(paramMap);
                     if (j == 1) {
@@ -74,11 +124,10 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
                         }
                     }
                 }
+
             }
-            for (Integer key : yearCompanyNumberMap.keySet()) {
-                xAxis.add(key);
-                lineList.add(yearCompanyNumberMap.get(key));
-            }
+
+
         }
         barList.add(barList1);
         barList.add(barList2);
@@ -189,7 +238,7 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
 
             for (FinanceLeasecCompanyVO financeLeasecCompanyVO : tempList) {
                 String riskStatus = financeLeasecCompanyVO.getRiskStatus();
-                if (analysisResult == null) {
+                if (analysisResult == null ) {
                     resultList.add(financeLeasecCompanyVO);
                 } else if (analysisResult == 0 && "正常".equals(riskStatus)) {
                     resultList.add(financeLeasecCompanyVO);

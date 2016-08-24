@@ -175,7 +175,7 @@
         </if>
     </select>
 
-	<select id="searchCompanyName" resultType="java.lang.String" resultMap="BaseResultMap">
+	<select id="searchCompanyName" resultType="java.util.HashMap" resultMap="BaseResultMap">
 		select
 			c.`name` as name, 
 			c.legal_person as legalPerson, 
@@ -222,6 +222,7 @@
     <select id="companyInfo" parameterType="String" resultType="java.util.Map">
         SELECT
             c.`name` AS NAME,
+            IF(c.status=1,'存续',IF(c.status=2,'注销',0)) AS status,
             cb.background AS background
         FROM
             company c

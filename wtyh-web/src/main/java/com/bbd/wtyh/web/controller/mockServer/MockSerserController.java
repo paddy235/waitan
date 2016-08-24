@@ -41,7 +41,7 @@ public class MockSerserController {
                     "\"top10_num_amount\":0," +
                     "\"bid_num_stay_stil\":6205," +
                     "\"company_name\":\"汕头市金通汽车运输有限公司\"," +
-                    "\"plat_status\":\"正常\"," +
+                    "\"plat_status\":\"正常营业\"," +
                     "\"30_day_net_inflow\":6565.6," +
                     "\"top1_sum_amount\":0," +
                     "\"amount_taotal\":23154.0985," +
@@ -73,7 +73,7 @@ public class MockSerserController {
                     "]}";
 
         } else if (dataType.equals("plat_list")) {
-            return "{plat_name: \"测试数据\", company_name: \"攀枝花市交通旅游客运有限责任公司\", logo_url: \"http://logo.url.com\"}";
+            return "{plat_name: \"测试数据\", company_name: \"攀枝花市交通旅游客运有限责任公司\", logo_url: \"https://www.baidu.com/favicon.ico\"}";
 
         } else if (dataType.equals("leida")) {
             return "{\"plat_name\":\"今日劫财\"," +
@@ -188,7 +188,7 @@ public class MockSerserController {
             dto.setAmount(k * 3);
             dto.setIncome_rate(k * 4);
             dto.setLoan_period(k * 5);
-            dto.setPlat_name("平台名称" + k);
+            dto.setPlat_name(new String[]{"国酷小宝","角分在线","金扣理财","金票银贷","金砖财行","君掌柜","伦取贷","秒车贷"}[k-1]);
             dto.setRank(k);
             dto.setStay_still_of_total(k * 90000);
             list.add(dto);

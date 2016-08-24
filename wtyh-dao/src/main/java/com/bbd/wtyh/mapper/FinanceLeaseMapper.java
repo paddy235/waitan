@@ -1,5 +1,6 @@
 package com.bbd.wtyh.mapper;
 
+import com.bbd.wtyh.domain.vo.CompanyCapitalVO;
 import com.bbd.wtyh.domain.vo.FinanceLeaseStatisticVO;
 import com.bbd.wtyh.domain.vo.FinanceLeaseVO;
 import org.apache.ibatis.annotations.Param;
@@ -17,4 +18,11 @@ public interface FinanceLeaseMapper {
     public List<FinanceLeaseVO> queryLeaseCompanyList(Map map);
 
     List<String> getYears();
+
+    List<CompanyCapitalVO> queryCompanysAndCapital();
+
+    public Integer queryFinanceLeaseMinYear();
+
+    public Integer queryFinanceLeaseMaxYear();
+
 }

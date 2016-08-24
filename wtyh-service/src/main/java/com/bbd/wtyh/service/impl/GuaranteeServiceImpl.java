@@ -29,7 +29,12 @@ public class GuaranteeServiceImpl implements GuaranteeService {
 
 
     @Override
-    public List<GuaranteeBalanceDO> getGuaranteeBalance() {
+    public List<GuaranteeBalanceDO> getGuaranteeBalanceByMonth() {
+        return guaranteeBalanceMapper.listByMonth();
+    }
+
+    @Override
+    public List<GuaranteeBalanceDO> getGuaranteeBalanceByYear() {
         return guaranteeBalanceMapper.listByYear();
     }
 
