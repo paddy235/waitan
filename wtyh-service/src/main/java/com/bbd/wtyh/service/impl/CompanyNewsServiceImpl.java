@@ -1,45 +1,20 @@
 package com.bbd.wtyh.service.impl;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.bbd.higgs.utils.ListUtil;
-import com.bbd.higgs.utils.http.HttpCallback;
-import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.common.Constants;
-import com.bbd.wtyh.domain.CompanyDO;
-import com.bbd.wtyh.domain.RelatedCompanyDO;
-import com.bbd.wtyh.domain.RelatedCompanyStatisticDO;
-import com.bbd.wtyh.domain.dto.ShareholderRiskDTO;
-import com.bbd.wtyh.domain.vo.CompanyNewsVO;
-import com.bbd.wtyh.domain.vo.StatisticsVO;
 import com.bbd.wtyh.mapper.CompanyMapper;
-import com.bbd.wtyh.mapper.RelatedCompanyMapper;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.CompanyNewsService;
-import com.bbd.wtyh.service.CompanyService;
-import com.bbd.wtyh.service.ShareholderRiskService;
 import com.bbd.wtyh.util.relation.HttpClientUtils;
-import com.bbd.wtyh.web.relationPara.param.RelatedParameters;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author tracy zhou
@@ -78,17 +53,22 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
     @Override
     public String getCompanyNews(String company) {
         try {
-            if(!StringUtils.isEmpty(company)){
-                List<NameValuePair> list = new ArrayList<>();
-                list.add(new BasicNameValuePair("keys", company));
-                list.add(new BasicNameValuePair("ktype", ""+ktype));
-                list.add(new BasicNameValuePair("pageSize", "100"));
-                list.add(new BasicNameValuePair("ak",ak));
-                try {
-                    String data = HttpClientUtils.httpPost(batchNewsUrl, list);
-                    return data;
-                } catch (Exception e) {
-                    e.printStackTrace();
+            String companyNewsJsonData = (String)redisDAO.getObject(Constants.REDIS_KEY_NEWS_DATA);
+            if (!StringUtils.isEmpty(companyNewsJsonData)) {
+                return companyNewsJsonData;
+            } else {
+                if (!StringUtils.isEmpty(company)) {
+                    List<NameValuePair> list = new ArrayList<>();
+                    list.add(new BasicNameValuePair("keys", company + ",DCM投资管理咨询（北京）有限公司上海分公司,GMS中国办事处,I.TCHINA,《国际金融报》社有限公司,一创（上海）投资管理中心（有限合伙）,一半堂投资管理（上海）有限公司,一尘（上海）投资管理有限公司,一忆（上海）股权投资管理有限公司,一思资产管理（上海）有限公司,一村资产管理有限公司,一村资本有限公司,一欣投资管理（上海）有限公司,一济投资管理有限公司,一溪投资管理（上海）有限公司,一炫定稚资产管理（上海）有限公司,一片蓝（上海）投资管理合伙企业（有限合伙）,一翼（上海）互联网金融信息服务有限公司,一诺千诚投资管理（上海）有限公司,一诺千诚金融信息服务（上海）有限公司,一财众联财富管理有限公司,一财长富资产管理有限公司"));
+                    list.add(new BasicNameValuePair("ktype", "" + ktype));
+                    list.add(new BasicNameValuePair("pageSize", "20"));
+                    list.add(new BasicNameValuePair("page", "1"));
+                    list.add(new BasicNameValuePair("ak", ak));
+                    try {
+                        return HttpClientUtils.httpPost(batchNewsUrl, list);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         } catch (Exception e) {
@@ -107,7 +87,7 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
                 return null;
             }
             List<NameValuePair> list = new ArrayList<>();
-            list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1) +",贵阳市城市建设投资有限责任公司,贵州詹阳动力重工有限公司"   ));
+            list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1) +",DCM投资管理咨询（北京）有限公司上海分公司,GMS中国办事处,I.TCHINA,《国际金融报》社有限公司,一创（上海）投资管理中心（有限合伙）,一半堂投资管理（上海）有限公司,一尘（上海）投资管理有限公司,一忆（上海）股权投资管理有限公司,一思资产管理（上海）有限公司,一村资产管理有限公司,一村资本有限公司,一欣投资管理（上海）有限公司,一济投资管理有限公司,一溪投资管理（上海）有限公司,一炫定稚资产管理（上海）有限公司,一片蓝（上海）投资管理合伙企业（有限合伙）,一翼（上海）互联网金融信息服务有限公司,一诺千诚投资管理（上海）有限公司,一诺千诚金融信息服务（上海）有限公司,一财众联财富管理有限公司,一财长富资产管理有限公司"   ));
             list.add(new BasicNameValuePair("ktype", ""+ktype));
             list.add(new BasicNameValuePair("pageSize", "100"));
             list.add(new BasicNameValuePair("ak",ak));
@@ -129,7 +109,7 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
         String names = companyMapper.queryCompanyNames(null, null);
         if(!StringUtils.isEmpty(names)){
             List<NameValuePair> list = new ArrayList<>();
-            list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1) +",贵阳市城市建设投资有限责任公司,贵州詹阳动力重工有限公司"   ));
+            list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1) +",DCM投资管理咨询（北京）有限公司上海分公司,GMS中国办事处,I.TCHINA,《国际金融报》社有限公司,一创（上海）投资管理中心（有限合伙）,一半堂投资管理（上海）有限公司,一尘（上海）投资管理有限公司,一忆（上海）股权投资管理有限公司,一思资产管理（上海）有限公司,一村资产管理有限公司,一村资本有限公司,一欣投资管理（上海）有限公司,一济投资管理有限公司,一溪投资管理（上海）有限公司,一炫定稚资产管理（上海）有限公司,一片蓝（上海）投资管理合伙企业（有限合伙）,一翼（上海）互联网金融信息服务有限公司,一诺千诚投资管理（上海）有限公司,一诺千诚金融信息服务（上海）有限公司,一财众联财富管理有限公司,一财长富资产管理有限公司"   ));
             list.add(new BasicNameValuePair("ktype", ""+ktype));
             list.add(new BasicNameValuePair("pageSize", "100"));
             list.add(new BasicNameValuePair("ak",ak));
