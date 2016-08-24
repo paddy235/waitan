@@ -61,7 +61,7 @@ public class BuildingDO extends BaseDO {
 
 	public String getFinComRatio() {
 
-        finComRatio = CalculateUtils.divide(finComNum*100,total,2)+"%";
+        finComRatio = CalculateUtils.divide(finComNum*100,total,1)+"%";
 
 		return finComRatio;
 	}
