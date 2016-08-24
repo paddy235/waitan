@@ -172,15 +172,10 @@ public class ParkServiceImpl implements ParkService {
 		List<CompanyTypeCountDO> ljr = new ArrayList<>();
 		
 		countType(ljr , areaId ,CompanyDO.TYPE_P2P_1,"p2p");
-		
 		countType(ljr , areaId ,CompanyDO.TYPE_XD_2,"小额贷款");
-		
 		countType(ljr , areaId ,CompanyDO.TYPE_RZDB_3,"融资担保");
-		
 		countType(ljr , areaId ,CompanyDO.TYPE_XXLC_4,"线下理财");
-		
 		countType(ljr , areaId ,CompanyDO.TYPE_SMJJ_5,"私募基金");
-		
 		countType(ljr , areaId ,CompanyDO.TYPE_ZC_6,"众筹");
 		
 		List<CompanyTypeCountDO> bigType = new ArrayList<>();
