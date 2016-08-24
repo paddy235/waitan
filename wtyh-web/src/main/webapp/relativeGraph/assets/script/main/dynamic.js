@@ -831,11 +831,10 @@ define(function(require, exports, module) {
                           <tr><td>关联方自然人节点数</td><td>' + data.naturalPersonNode + '</td></tr>\
                           <tr><td>自然人股东数</td><td>' + data.naturalPersonShareholders + '</td></tr>\
                           <tr><td>法人股东数</td><td>' + data.legalPersonShareholders + '</td></tr>\
-                          <tr><td>子股东数</td><td>' + data.subsidiarys + '</td></tr>\
+                          <tr><td>子公司数</td><td>' + data.subsidiarys + '</td></tr>\
                         </tbody>\
                       </table>\
-                      <a href="/#/SearchResultDetail?company=' + name + '" class="see-detail">查看详情</a>\
-                      </div>';
+                  </div>';
 					$("#relation-modal").html(shtml).show();
 					$(".relation-modal .icon-iconfontshequyijujue").on("click",function(){
 						$("#relation-modal").hide();
