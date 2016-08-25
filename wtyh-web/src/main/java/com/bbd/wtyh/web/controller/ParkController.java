@@ -51,7 +51,7 @@ public class ParkController {
 
     
     /**
-    * 根据园区查询类金融企业集中度  与 楼宇列表 共用接口
+    * 根据园区查询新型金融企业集中度  与 楼宇列表 共用接口
     * @param areaId 区域id,必传
     * @return ResponseBean  
     */

@@ -21,7 +21,7 @@ public interface ParkService {
 	
 	
 	/**
-	* 根据区域id查询类金融企业集中度
+	* 根据区域id查询新型金融企业集中度
 	*
 	* @param areaId  区域id
 	* @return List<BuildingDO>
@@ -30,7 +30,7 @@ public interface ParkService {
 	
 	
 	/**
-	* 根据区域id查询类金融企业集中度
+	* 根据区域id查询新型金融企业集中度
 	*
 	* @param areaId  区域id
 	* @return List<BuildingDO>

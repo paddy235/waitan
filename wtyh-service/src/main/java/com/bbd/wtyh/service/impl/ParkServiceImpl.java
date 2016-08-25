@@ -192,7 +192,7 @@ public class ParkServiceImpl implements ParkService {
 			ljrCount.setCount( ljrCount.getCount()+ctc.getCount() );
 		}
 		ljrCount.setChildren(ljr);
-		bigType.add(ljrCount.setType("类金融"));
+		bigType.add(ljrCount.setType("新型金融"));
 		
 		countType(bigType , areaId ,CompanyDO.TYPE_JR_7,"金融");
 		countType(bigType , areaId ,CompanyDO.TYPE_QT_8,"其他");
@@ -257,7 +257,7 @@ public class ParkServiceImpl implements ParkService {
 		}
 		ljrCount.setChildren(ljr);
 		
-		bigType.add(ljrCount.setType("类金融"));
+		bigType.add(ljrCount.setType("新型金融"));
 		
 		countTypeByBuild(bigType , buildingId ,CompanyDO.TYPE_JR_7,"金融");
 		countTypeByBuild(bigType , buildingId ,CompanyDO.TYPE_QT_8,"其他");
