@@ -40486,6 +40486,7 @@
 	    };
 	  },
 	  componentWillMount: function componentWillMount() {
+	    console.log('menuPark是否执行了');
 	    this.getMenuParkSelectList();
 	  },
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
@@ -40504,12 +40505,16 @@
 	    }
 	  },
 	  dataFomat: function dataFomat(data) {
+	    console.log(data, '是否执行这个数据请求');
 	    var content = data.content;
 	    var len = content.length;
 	    var selectArr = [];
 	    for (var i = 0; i < len; i++) {
 	      selectArr.push({ value: content[i].areaId, label: content[i].name });
 	    }
+	    var areaId = selectArr[0].value;
+	    console.log(areaId, 'xuyao');
+	    //this.props.history.push('/parkMonitor?areaId='+areaId);
 	    this.getMenuParkSelectVal(selectArr[0].value, selectArr[0].name);
 	    this.setState({ selectDataArr: selectArr, value: selectArr[0].value });
 	  },
@@ -40559,7 +40564,8 @@
 	          if (routPath == "/buildDetail") {
 	            this.props.history.push('/parkMonitor?areaId=' + areaId);
 	          } else {
-	            this.getMenuParkSelectVal(areaId, name);
+	            this.props.history.push('/parkMonitor?areaId=' + areaId);
+	            //this.getMenuParkSelectVal(areaId,name);
 	          }
 	        }.bind(this)
 	      };
@@ -52102,11 +52108,6 @@
 	  },
 	  componentDidMount: function componentDidMount() {
 	    window.scrollTo(0, 0);
-	    $(".address").hover(function () {
-	      $(this).next().show();
-	    }, function () {
-	      $(this).next().hide();
-	    });
 	  },
 
 	  render: function render() {
@@ -52184,12 +52185,7 @@
 	            ),
 	            _react2.default.createElement(
 	              'dd',
-	              { className: 'address' },
-	              propObj.address
-	            ),
-	            _react2.default.createElement(
-	              'dd',
-	              { className: 'all-address' },
+	              { className: 'address', title: propObj.address },
 	              propObj.address
 	            )
 	          )
@@ -76042,7 +76038,7 @@
 	        parkCampRequest: state.ParkCamp.request,
 	        parkCampResult: state.ParkCamp.result,
 
-	        //新型金融企业集中度
+	        //类金融企业集中度
 	        parkFinanceRequest: state.ParkFinance.request,
 	        parkFinanceResult: state.ParkFinance.result,
 
@@ -76162,7 +76158,7 @@
 	}
 	/*舆情end*/
 
-	/*新型金融企业集中度begin*/
+	/*类金融企业集中度begin*/
 	var PARK_FINANCE_SUCCESS = exports.PARK_FINANCE_SUCCESS = 'PARK_FINANCE_SUCCESS';
 	var PARK_FINANCE_FAIL = exports.PARK_FINANCE_FAIL = 'PARK_FINANCE_FAIL';
 
@@ -76197,7 +76193,7 @@
 	    });
 	  };
 	}
-	/*新型金融企业集中度 end*/
+	/*类金融企业集中度 end*/
 
 	/*园区行业分布begin*/
 	var PARK_INDUSTRY_SUCCESS = exports.PARK_INDUSTRY_SUCCESS = 'PARK_INDUSTRY_SUCCESS';
@@ -76431,7 +76427,7 @@
 
 
 	// module
-	exports.push([module.id, "/*@parkMonitor jifei  图片\r\n---------------------------------------------------------*/\r\n.Imgs{\r\n\twidth: 100%;\r\n\theight: 770px;\r\n    background: url(\"/images/Bg.png\") no-repeat;\r\n    background-size: 100% 770px;\r\n}\r\n/*@parkMonitor 舆情\r\n---------------------------------------------------------*/\r\n.Consensu{\r\n\twidth: 100%;\r\n\theight: 320px;\r\n\tmargin-top: 10px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n.Consensu h3{\r\n\tpadding: 15px 20px;\r\n\tcolor: #ddd;\r\n}\r\n.Consensu .box{\r\n\twidth: 99%;\r\n    height: 240px;\r\n    overflow: auto;\r\n    padding: 0px 0 0 10px;\r\n    margin-top: 15px;\r\n}\r\n.Consensu .box .list{\r\n\twidth: 98%;\r\n\theight: 115px;\r\n\tborder-bottom: 1px solid #484f59;\t\r\n\tbackground: #1b1f28;\r\n}\r\n.Consensu .box .list:nth-child(even){\r\n\tmargin-top: 10px;\r\n\tmargin-bottom: 10px;\r\n}\r\n.Consensu .box .list ul{\r\n\twidth: 100%;\r\n\theight: 105px;\r\n}\r\n.Consensu .box .list li{\r\n    height: 33px;\r\n    line-height: 50px;\r\n    text-indent: 30px;\r\n    font-size: 14px;\r\n}\r\n.Consensu .box .list li:nth-child(1){\r\n\tfont-size: 14px;\r\n\tcolor: #e34f4b;\r\n\tcursor: pointer;\r\n}\r\n.Consensu .box .list li:nth-child(1) .liLeft{\r\n\tmargin-left: 20px;\r\n}\r\n.Consensu .box .list li:nth-child(2){\r\n\tfont-size: 14px;\r\n    cursor: pointer;\r\n    width: 89%;\r\n    overflow: hidden;\r\n    white-space: nowrap;\r\n    text-overflow: ellipsis;\r\n}\r\n.Consensu .box .list li:nth-child(1) a{\r\n\tcolor: #e34f4b;\r\n}\r\n.Consensu .box .list li:nth-child(3) .liRight{\r\n\tfloat: right;\r\n\tpadding-right: 20px;\r\n\tfont-size: 14px;\r\n\tcolor: #8b8f98;\r\n}\r\n.Consensu .box .list li:nth-child(3) .spanLeft{\r\n\tmargin-right: 20px;\r\n}\r\n/*@parkMonitor 新型金融企业集中度\r\n---------------------------------------------------------*/\r\n.Finance{\r\n\twidth: 100%;\r\n\theight: 380px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n.Finance h3{\r\n\tpadding: 15px 20px;\r\n\tcolor: #ddd;\r\n}\r\n.Finance .box{\r\n\twidth: 95%;\r\n    height: 255px;\r\n    border: 1px solid #2b323c;\r\n    margin: 40px auto;\r\n}\r\n.Finance .box .item{\r\n\twidth: 95%;\r\n    height: 193px;\r\n    margin: 35px auto;\r\n    overflow: auto; \r\n}\r\n.Finance .box .item ul li{\r\n\twidth: 30%;\r\n    display: inline-block;\r\n    text-align: center;\r\n    vertical-align: middle;\r\n    margin-left: 10px;\r\n}\r\n.Finance .box .item ul li img{\r\n\tcursor: pointer;\r\n}\r\n.Finance .box .item ul li a span{\r\n\tdisplay: block;\r\n\tcolor: #898f98;\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n}\r\n.Finance .box .item ul li .num-ratio {\r\n\tmargin-top: 10px;\r\n}\r\n.Finance .box .item ul li .num-ratio .num{\r\n\tfont-size: 24px;\r\n\tcolor: #ffffff;\r\n\tdisplay: inline-block;\r\n\tpadding: 0px 10px;\r\n}\r\n.Finance .box .item ul li .num-ratio .ratio{\r\n\tfont-size: 24px;\r\n\tcolor: #e14340;\r\n\tdisplay: inline-block;\r\n\tpadding: 0px 10px;\r\n\tborder-left: solid 1px #48505a;\r\n}\r\n\r\n\r\n\r\n/*@parkMonitor 园区行业分布\r\n---------------------------------------------------------*/\r\n.Park{\r\n\twidth: 100%;\r\n\theight: 380px;\r\n\tmargin-top: 10px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n/*@parkMonitor 在营时间分布\r\n---------------------------------------------------------*/\r\n.TheCamp{\r\n\twidth: 100%;\r\n\theight: 320px;\r\n\tmargin-top: 10px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n   ", ""]);
+	exports.push([module.id, "/*@parkMonitor jifei  图片\r\n---------------------------------------------------------*/\r\n.Imgs{\r\n\twidth: 100%;\r\n\theight: 770px;\r\n    background: url(\"/images/Bg.png\") no-repeat;\r\n    background-size: 100% 770px;\r\n}\r\n/*@parkMonitor 舆情\r\n---------------------------------------------------------*/\r\n.Consensu{\r\n\twidth: 100%;\r\n\theight: 320px;\r\n\tmargin-top: 10px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n.Consensu h3{\r\n\tpadding: 15px 20px;\r\n\tcolor: #ddd;\r\n}\r\n.Consensu .box{\r\n\twidth: 99%;\r\n    height: 240px;\r\n    overflow: auto;\r\n    padding: 0px 0 0 10px;\r\n    margin-top: 15px;\r\n}\r\n.Consensu .box .list{\r\n\twidth: 98%;\r\n\theight: 115px;\r\n\tborder-bottom: 1px solid #484f59;\t\r\n\tbackground: #1b1f28;\r\n}\r\n.Consensu .box .list:nth-child(even){\r\n\tmargin-top: 10px;\r\n\tmargin-bottom: 10px;\r\n}\r\n.Consensu .box .list ul{\r\n\twidth: 100%;\r\n\theight: 105px;\r\n}\r\n.Consensu .box .list li{\r\n    height: 33px;\r\n    line-height: 50px;\r\n    text-indent: 30px;\r\n    font-size: 14px;\r\n}\r\n.Consensu .box .list li:nth-child(1){\r\n\tfont-size: 14px;\r\n\tcolor: #e34f4b;\r\n\tcursor: pointer;\r\n}\r\n.Consensu .box .list li:nth-child(1) .liLeft{\r\n\tmargin-left: 20px;\r\n}\r\n.Consensu .box .list li:nth-child(2){\r\n\tfont-size: 14px;\r\n    cursor: pointer;\r\n    width: 89%;\r\n    overflow: hidden;\r\n    white-space: nowrap;\r\n    text-overflow: ellipsis;\r\n}\r\n.Consensu .box .list li:nth-child(1) a{\r\n\tcolor: #e34f4b;\r\n}\r\n.Consensu .box .list li:nth-child(3) .liRight{\r\n\tfloat: right;\r\n\tpadding-right: 20px;\r\n\tfont-size: 14px;\r\n\tcolor: #8b8f98;\r\n}\r\n.Consensu .box .list li:nth-child(3) .spanLeft{\r\n\tmargin-right: 20px;\r\n}\r\n/*@parkMonitor 类金融企业集中度\r\n---------------------------------------------------------*/\r\n.Finance{\r\n\twidth: 100%;\r\n\theight: 380px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n.Finance h3{\r\n\tpadding: 15px 20px;\r\n\tcolor: #ddd;\r\n}\r\n.Finance .box{\r\n\twidth: 95%;\r\n    height: 255px;\r\n    border: 1px solid #2b323c;\r\n    margin: 40px auto;\r\n}\r\n.Finance .box .item{\r\n\twidth: 95%;\r\n    height: 193px;\r\n    margin: 35px auto;\r\n    overflow: auto; \r\n}\r\n.Finance .box .item ul li{\r\n\twidth: 30%;\r\n    display: inline-block;\r\n    text-align: center;\r\n    vertical-align: middle;\r\n    margin-left: 10px;\r\n}\r\n.Finance .box .item ul li img{\r\n\tcursor: pointer;\r\n}\r\n.Finance .box .item ul li a span{\r\n\tdisplay: block;\r\n\tcolor: #898f98;\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n}\r\n.Finance .box .item ul li .num-ratio {\r\n\tmargin-top: 10px;\r\n}\r\n.Finance .box .item ul li .num-ratio .num{\r\n\tfont-size: 24px;\r\n\tcolor: #ffffff;\r\n\tdisplay: inline-block;\r\n\tpadding: 0px 10px;\r\n}\r\n.Finance .box .item ul li .num-ratio .ratio{\r\n\tfont-size: 24px;\r\n\tcolor: #e14340;\r\n\tdisplay: inline-block;\r\n\tpadding: 0px 10px;\r\n\tborder-left: solid 1px #48505a;\r\n}\r\n\r\n\r\n\r\n/*@parkMonitor 园区行业分布\r\n---------------------------------------------------------*/\r\n.Park{\r\n\twidth: 100%;\r\n\theight: 380px;\r\n\tmargin-top: 10px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n/*@parkMonitor 在营时间分布\r\n---------------------------------------------------------*/\r\n.TheCamp{\r\n\twidth: 100%;\r\n\theight: 320px;\r\n\tmargin-top: 10px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 4px;\r\n}\r\n   ", ""]);
 
 	// exports
 
@@ -76466,20 +76462,24 @@
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
-	    this.allRequest();
-	  },
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    console.log(nextProps, 333);
-	    this.allRequest();
-	    var isSelectValEqual = Immutable.is(nextProps.menuParkSelectVal, this.props.menuParkSelectVal);
-	    if (!isSelectValEqual) {
-	      var menuParkSelectVal = nextProps.menuParkSelectVal;
-
-	      var jsonData = { areaId: menuParkSelectVal.areaId };
-	      console.log(jsonData, 11111111);
+	    var areaId = this.props.location.query.areaId;
+	    console.log(areaId, '5555555555');
+	    if (areaId != undefined) {
+	      this.setState({ areaId: areaId });
+	      var jsonData = { areaId: areaId };
 	      this.getParkNews(jsonData);
 	    }
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var areaId = this.props.location.query.areaId;
+	    console.log(areaId, nextProps.menuParkSelectVal, this.props.menuParkSelectVal, '6666666');
+	    // var isSelectValEqual=Immutable.is(nextProps.menuParkSelectVal, this.props.menuParkSelectVal)
+	    //     if(!isSelectValEqual){
+	    //      const {menuParkSelectVal}=nextProps;
+	    //      var jsonData={areaId:menuParkSelectVal.areaId}
+	    //      this.getParkNews(jsonData)
 
+	    //  }
 	    var isEqual = Immutable.is(nextProps.parkNewsResult, this.props.parkNewsResult); //判断数据是否变化
 	    if (!isEqual) {
 	      var parkNewsRequest = nextProps.parkNewsRequest;
@@ -76496,7 +76496,6 @@
 	  },
 	  dataFomat: function dataFomat(data) {
 	    var contentStr = data.content;
-	    console.log(contentStr, 9999);
 	    var contentJson = null;
 	    var results = null;
 	    if (contentStr) {
@@ -76506,14 +76505,6 @@
 	      results = [];
 	    }
 	    this.setState({ consensu: results });
-	    console.log(results, 'kankan');
-	  },
-	  allRequest: function allRequest() {
-	    var areaId = this.props.location.query.areaId;
-	    if (areaId != undefined) {
-	      var jsonData = { areaId: areaId };
-	      this.getParkNews(jsonData);
-	    }
 	  },
 	  getParkNews: function getParkNews(menuParkSelectVal) {
 	    var getParkNews = this.props.getParkNews;
@@ -76617,7 +76608,7 @@
 
 	var Immutable = __webpack_require__(620);
 
-	//新型金融企业集中度
+	//类金融企业集中度
 	var Finance = _react2.default.createClass({
 	    displayName: 'Finance',
 
@@ -76630,6 +76621,7 @@
 	    componentDidMount: function componentDidMount() {
 	        var areaId = this.props.location.query.areaId;
 	        if (areaId != undefined) {
+	            this.setState({ areaId: areaId });
 	            var jsonData = { areaId: areaId };
 	            this.getParkFinance(jsonData);
 	        }
@@ -76637,10 +76629,12 @@
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 
 	        var isSelectValEqual = Immutable.is(nextProps.menuParkSelectVal, this.props.menuParkSelectVal);
+	        console.log(isSelectValEqual, '44445555555555');
 	        if (!isSelectValEqual) {
 	            var menuParkSelectVal = nextProps.menuParkSelectVal;
 
 	            var jsonData = { areaId: menuParkSelectVal.areaId };
+	            console.log(jsonData, 'areaId 33333');
 	            this.setState({ areaId: menuParkSelectVal.areaId });
 	            this.getParkFinance(jsonData);
 	        }
@@ -76653,7 +76647,7 @@
 
 	            if (parkFinanceRequest == true) {
 	                if (parkFinanceResult.success == true) {
-	                    console.log(parkFinanceResult, '新型金融企业集中度11111');
+	                    console.log(parkFinanceResult, '类金融企业集中度11111');
 	                    this.dataFomat(parkFinanceResult);
 	                } else {
 	                    console.log(404);
@@ -76706,7 +76700,6 @@
 	                            this.state.item.map(function (elem, index) {
 	                                var buildingId = elem.buildingId;
 	                                var idex = index % 3;
-	                                console.log(idex, index, 222222222222);
 	                                return _react2.default.createElement(
 	                                    'li',
 	                                    { key: index },
@@ -76866,7 +76859,7 @@
 	                textStyle: {
 	                    color: "#dddddd"
 	                },
-	                data: ['金融', '新型金融', '其他']
+	                data: ['金融', '类金融', '其他']
 	            },
 	            series: [{
 	                type: 'pie',
@@ -78309,7 +78302,7 @@
 	                textStyle: {
 	                    color: "#dddddd"
 	                },
-	                data: ['金融', '新型金融', '其他']
+	                data: ['金融', '类金融', '其他']
 	            },
 	            series: [{
 	                name: '访问来源',
@@ -88425,7 +88418,7 @@
 
 	var _ParkMonitorIndexAction = __webpack_require__(826);
 
-	//新型金融企业集中度
+	//类金融企业集中度
 	function parkFinance() {
 		var state = arguments.length <= 0 || arguments[0] === undefined ? {
 			request: false,
