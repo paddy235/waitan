@@ -131,7 +131,7 @@ public class PToPMonitorController {
     	
     	IndustryShanghaiDTO maxDto = list.get(0);
     	for (IndustryShanghaiDTO dto : list) {
-			if(maxDto.getDate().compareTo(dto.getDate()) > 0){
+			if(maxDto.getDate().compareTo(dto.getDate()) < 0){
 				maxDto = dto;
 			}
 		}

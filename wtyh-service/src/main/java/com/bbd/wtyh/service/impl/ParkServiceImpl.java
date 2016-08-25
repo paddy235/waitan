@@ -3,7 +3,8 @@ package com.bbd.wtyh.service.impl;
 import java.util.*;
 
 import com.bbd.wtyh.mapper.*;
-import org.apache.commons.lang.StringUtils;
+import com.bbd.wtyh.service.DataomApiBbdservice;
+import org.springframework.util.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.http.NameValuePair;
@@ -38,6 +39,9 @@ public class ParkServiceImpl implements ParkService {
 
 	@Value("${api.baidu.batch.news.ak}")
 	private String ak;
+
+	@Autowired
+	private DataomApiBbdservice dataomApiBbdservice;
 
 	@Autowired
 	private StaticRiskMapper staticRiskMapper;
@@ -113,27 +117,31 @@ public class ParkServiceImpl implements ParkService {
 
 	@Override
 	public String queryParkNews(Integer areaId,Integer pageSize,Integer pageNum){
-		
+
+		String result = null;
 		String names = companyMapper.queryCompanyNames(areaId,null);
-		if(StringUtils.isEmpty(names)){
-			//return null;
-			names = "DCM投资管理咨询（北京）有限公司上海分公司,GMS中国办事处,I.TCHINA,《国际金融报》社有限公司,一创（上海）投资管理中心（有限合伙）,一半堂投资管理（上海）有限公司,一尘（上海）投资管理有限公司,一忆（上海）股权投资管理有限公司,一思资产管理（上海）有限公司,一村资产管理有限公司,一村资本有限公司,一欣投资管理（上海）有限公司,一济投资管理有限公司,一溪投资管理（上海）有限公司,一炫定稚资产管理（上海）有限公司,一片蓝（上海）投资管理合伙企业（有限合伙）,一翼（上海）互联网金融信息服务有限公司,一诺千诚投资管理（上海）有限公司,一诺千诚金融信息服务（上海）有限公司,一财众联财富管理有限公司,一财长富资产管理有限公司";
+		if(!StringUtils.isEmpty(names)){
+			List<NameValuePair> list = new ArrayList<>();
+			list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1)   ));
+			list.add(new BasicNameValuePair("ktype", ""+ktype));
+			list.add(new BasicNameValuePair("page", pageNum+""));
+			list.add(new BasicNameValuePair("pageSize", pageSize+""));
+			list.add(new BasicNameValuePair("ak",ak));
+			try {
+				result = HttpClientUtils.httpPost(batchNewsUrl, list );
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		List<NameValuePair> list = new ArrayList<>();
-		list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1)   ));
-		list.add(new BasicNameValuePair("ktype", ""+ktype));
-		list.add(new BasicNameValuePair("page", pageNum+""));
-		list.add(new BasicNameValuePair("pageSize", pageSize+""));
-		list.add(new BasicNameValuePair("ak",ak));
-		
-	
-		try {
-			return HttpClientUtils.httpPost(batchNewsUrl, list );
-		} catch (Exception e) {
-			e.printStackTrace();
+		if( !StringUtils.hasText(result) ){
+			return dataomApiBbdservice.bbdQyxgYuqing("上海自贸区");
+		}
+
+		if(result.contains("\"total\": 0")){
+			return dataomApiBbdservice.bbdQyxgYuqing("上海自贸区");
 		}
 		
-		return null;
+		return result;
 		
 	}
 
@@ -143,22 +151,29 @@ public class ParkServiceImpl implements ParkService {
 	public String buildingNews(Integer buildingId) {
 		
 		String names = companyMapper.queryCompanyNames(null,buildingId);
-		if(StringUtils.isEmpty(names)){
-			return null;
+		String result = null;
+		if(!StringUtils.isEmpty(names)){
+			List<NameValuePair> list = new ArrayList<>();
+			list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1)   ));
+			list.add(new BasicNameValuePair("ktype", ""+ktype));
+			list.add(new BasicNameValuePair("page", "1"));
+			list.add(new BasicNameValuePair("pageSize", "20"));
+			list.add(new BasicNameValuePair("ak",ak));
+			try {
+				result = HttpClientUtils.httpPost(batchNewsUrl, list );
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		List<NameValuePair> list = new ArrayList<>();
-		list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1)  ));
-		list.add(new BasicNameValuePair("ktype", ""+ktype));
-		list.add(new BasicNameValuePair("pageSize", "20"));
-		list.add(new BasicNameValuePair("page", "1"));
-		list.add(new BasicNameValuePair("ak",ak));
-		try {
-			return HttpClientUtils.httpPost(batchNewsUrl, list );
-		} catch (Exception e) {
-			e.printStackTrace();
+		if( !StringUtils.hasText(result) ){
+			return dataomApiBbdservice.bbdQyxgYuqing("上海自贸区");
 		}
-		
-		return null;
+
+		if(result.contains("\"total\": 0")){
+			return dataomApiBbdservice.bbdQyxgYuqing("上海自贸区");
+		}
+
+		return result;
 		
 	}
 	
