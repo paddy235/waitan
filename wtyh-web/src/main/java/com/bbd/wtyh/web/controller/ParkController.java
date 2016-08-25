@@ -2,18 +2,13 @@ package com.bbd.wtyh.web.controller;
 
 import java.util.List;
 
+import com.bbd.wtyh.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bbd.wtyh.domain.AreaDO;
-import com.bbd.wtyh.domain.BuildingDO;
-import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
-import com.bbd.wtyh.domain.CompanyNewsDO;
-import com.bbd.wtyh.domain.CompanyTypeCountDO;
-import com.bbd.wtyh.domain.InBusinessDO;
 import com.bbd.wtyh.service.AreaService;
 import com.bbd.wtyh.service.CompanyNewsService;
 import com.bbd.wtyh.service.ParkService;
@@ -145,7 +140,17 @@ public class ParkController {
        @ResponseBody
        public ResponseBean buildingCompany(@RequestParam(required=true) Integer buildingId,Integer orderField,String descAsc) {
 
-           Object data = parkService.buildingCompany(buildingId,orderField,descAsc);
+           List<CompanyDO> data = parkService.buildingCompany(buildingId,orderField,descAsc);
+
+           for (CompanyDO cdo:data) {
+               if (cdo.getCompanyType() == 7 || cdo.getCompanyType() == 8)
+                   continue;
+
+//               if(){
+//
+//               }
+
+           }
            
            return ResponseBean.successResponse(data);
        }

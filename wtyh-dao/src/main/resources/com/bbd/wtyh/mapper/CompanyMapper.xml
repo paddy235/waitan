@@ -86,12 +86,15 @@
    </select>
 
 
+
+    <select id="maxVersion" resultType="int">
+        select max(data_version) from  static_risk_data
+    </select>
+
+
     <select id="buildingCompany" resultMap="BaseResultMap">
 
-
-
         select a.*, IFNULL(car.analysis_result,4) analysisResult,car.exposure_date exposureDate
-
         from (
                 select c.*,cb.background
                 from company c ,
@@ -106,7 +109,6 @@
         a
         LEFT JOIN company_analysis_result car
         on car.company_id=a.company_id
-
 
         order by
 
@@ -208,8 +210,8 @@
     
     <select id="searchCompanyNameCount" resultType="int" parameterType="string">
 		select count(1) from company c, index_data i where c.`name`=i.company_name and c.company_type=4 
-		<if test="keyword != null and keyword != ''">
-			and c.`name` like concat('%',#{keyword},'%')
+		<if test="_parameter != null and _parameter != ''">
+			and c.`name` like concat('%',#{_parameter},'%')
 		</if>
     </select>
 
