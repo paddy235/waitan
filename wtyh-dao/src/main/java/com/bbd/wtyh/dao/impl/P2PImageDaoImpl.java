@@ -18,6 +18,8 @@ import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
 import com.bbd.wtyh.mapper.PlatformNameInformationMapper;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.sun.javafx.fxml.expression.Expression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -67,7 +69,8 @@ public class P2PImageDaoImpl implements P2PImageDao {
 
                 @Override
                 public YuQingDO parse(String result) {
-                    return JSON.parseObject(result, YuQingDO.class);
+                    Gson gson = new Gson();
+                    return gson.fromJson(result, YuQingDO.class);
                 }
             });
         } catch (Exception e) {
@@ -155,30 +158,29 @@ public class P2PImageDaoImpl implements P2PImageDao {
 
     /**
      * 基本信息--网贷接口数据
-     * 暂时数据乱码，可后期网贷提供后处理
+     *
      */
-    public Map<String, Object> baseInfoWangDaiApi(String platName){
+    public  List<PlatListDO> baseInfoWangDaiApi(String platName){
         String platFormName = url + "?dataType=plat_list&plat_name="+platName;
         final Map<String, Object> data = new HashMap<>();
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
-            httpTemplate.get(platFormName, new HttpCallback<Object>() {
+            return httpTemplate.get(platFormName, new HttpCallback<List<PlatListDO>>() {
                 @Override
                 public boolean valid() {
+
                     return true;
                 }
                 @Override
-                public Object parse(String result) {
-                    JSONObject jsonObject = JSON.parseObject(result);
-                    data.put("平台名称", jsonObject.get("plat_name"));
-                    data.put("公司名称", jsonObject.get("company_name"));
-                    return data;
+                public  List<PlatListDO> parse(String result) {
+                    Gson gson = new Gson();
+                    return gson.fromJson(result, new TypeToken<List<PlatListDO>>(){}.getType());
                 }
             });
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return data;
     }
 
     /**
@@ -192,7 +194,6 @@ public class P2PImageDaoImpl implements P2PImageDao {
             return baseDataDO;
         } else {
             String baseURL = bbdQyxxURL + "?company=" + companyName + "&ak=" + bbdQyxxAK;
-            final Map<String, Object> map = new LinkedHashMap<>();
             HttpTemplate httpTemplate = new HttpTemplate();
             try {
                 return httpTemplate.get(baseURL, new HttpCallback<BaseDataDO>() {
@@ -203,7 +204,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
                     @Override
                     public BaseDataDO parse(String result) {
                         Gson gson = new Gson();
-//                        redisDAO.addObject(Constants.REDIS_KEY_BASE_INFO_BBD_DATA, gson.fromJson(result, BaseDataDO.class), Constants.cacheDay, BaseDataDO.class);
+                        redisDAO.addObject(Constants.REDIS_KEY_BASE_INFO_BBD_DATA, gson.fromJson(result, BaseDataDO.class), Constants.cacheDay, BaseDataDO.class);
                         return gson.fromJson(result, BaseDataDO.class);
                     }
                 });
@@ -313,8 +314,8 @@ public class P2PImageDaoImpl implements P2PImageDao {
 
                 @Override
                 public PlatDataDO parse(String result) {
-
-                    return JSON.parseObject(result, PlatDataDO.class);
+                    Gson gson = new Gson();
+                    return gson.fromJson(result, PlatDataDO.class);
                 }
             });
         } catch (Exception e) {
