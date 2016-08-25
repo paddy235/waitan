@@ -304,7 +304,7 @@ public class PToPMonitorController {
     			as = new Integer[]{0,0};
     		}
     		as[0] += dto.getNew_plat_num();
-    		as[1] += dto.getTotal_plat_num_sh();
+    		as[1] += dto.getTotal_plat_num();
     		map.put(dto.getSeason(), as);
 		}
     	
