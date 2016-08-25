@@ -265,12 +265,23 @@ public class CompanyDO extends BaseDO implements Comparable {
     @Override
     public int compareTo(Object o) {
 
-        if(this.analysisResult==1){
+        CompanyDO cdo = (CompanyDO)o;
 
-        }
+//        if(this.analysisResult != cdo.getAnalysisResult()){
+//            return -1;
+//        }
+//
+//        if(this.analysisResult == 2 || this.analysisResult == 3){
+//           return this.analysisResult.compareTo(cdo.getAnalysisResult());
+//        }
+//
+//        if(this.analysisResult == 1){
+//            if(){
+//
+//            }
+//        }
 
 
-
-        return 0;
+        return -1;
     }
 }
