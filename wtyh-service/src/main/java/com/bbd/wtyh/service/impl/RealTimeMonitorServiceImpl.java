@@ -129,13 +129,10 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
         }
         Map<String, Map> rst = new HashMap<>();
         for (BuildingNumberInAreaDO buildingNumberInAreaDO : buildingNumberInArea) {
-            Map<String, String> num = new HashMap<>();
-            num.put("num", buildingNumberInAreaDO.getCount());
-            rst.put(buildingNumberInAreaDO.getName(), num);
-
-            Map<String, List> companyName = new HashMap<>();
-            companyName.put("companyName", companyGroupByAreaMap.get(buildingNumberInAreaDO.getName()));
-            rst.put(buildingNumberInAreaDO.getName(), companyName);
+            Map<String, Object> data = new HashMap<>();
+            data.put("num", buildingNumberInAreaDO.getCount());
+            data.put("companyName", companyGroupByAreaMap.get(buildingNumberInAreaDO.getName()));
+            rst.put(buildingNumberInAreaDO.getName(), data);
         }
         return rst;
     }
