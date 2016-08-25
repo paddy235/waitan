@@ -58929,7 +58929,7 @@
 	  return function (dispatch) {
 	    console.log(json);
 	    $.ajax({
-	      url: "/guarantee/balance.do",
+	      url: "/guarantee/balanceByMonth.do",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
@@ -63625,7 +63625,7 @@
 	  return function (dispatch) {
 	    console.log(json);
 	    $.ajax({
-	      url: "/loan/balance.do",
+	      url: "/loan/balanceByMonth.do",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
@@ -63781,14 +63781,12 @@
 	    getInitialState: function getInitialState() {
 	        return {
 	            companyGradeList: [],
-	            orderByField: "",
-	            descAsc: ""
+	            orderByField: "1",
+	            descAsc: "desc"
 	        };
 	    },
 	    componentDidMount: function componentDidMount() {
-	        var orderByField = this.state.orderByField;
-	        var descAsc = this.state.descAsc;
-	        var jsonData = { orderByField: orderByField, descAsc: descAsc };
+	        var jsonData = {};
 	        this.getCompanyGrade(jsonData);
 	        $('#companyGrade-scroll').perfectScrollbar();
 	    },
