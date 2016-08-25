@@ -7,6 +7,8 @@ public class GuaranteeBalanceDTO {
 
     private Integer year;
 
+    private Integer month;
+
     private Integer amount;
 
     private Integer number;
@@ -73,5 +75,13 @@ public class GuaranteeBalanceDTO {
 
     public void setCompanyAmount(Integer companyAmount) {
         this.companyAmount = companyAmount;
+    }
+
+    public Integer getMonth() {
+        return month;
+    }
+
+    public void setMonth(Integer month) {
+        this.month = month;
     }
 }
