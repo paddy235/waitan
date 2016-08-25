@@ -238,7 +238,7 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
 
             for (FinanceLeasecCompanyVO financeLeasecCompanyVO : tempList) {
                 String riskStatus = financeLeasecCompanyVO.getRiskStatus();
-                if (analysisResult != null && analysisResult == 2) {
+                if (analysisResult == null) {
                     resultList.add(financeLeasecCompanyVO);
                 } else if (analysisResult != null && analysisResult == 0 && "正常".equals(riskStatus)) {
                     resultList.add(financeLeasecCompanyVO);
