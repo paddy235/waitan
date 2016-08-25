@@ -3,10 +3,19 @@
 <mapper namespace="com.bbd.wtyh.mapper.BuildingMapper">
   
     <select id="queryBuildings" parameterType="int" resultType="com.bbd.wtyh.domain.BuildingDO">
-			select b.building_id buildingId,b.name,b.park_id parkId,
-			       b.img_url imgUrl,
-			       b.finance_company_number finComNum,b.finance_company_ratio ratio
-			from building b,park p where b.park_id=p.park_id and p.area_id=#{areaId};
+
+			select b.building_id buildingId,
+			       b.name,b.park_id parkId,
+			       b.img_url imgUrl ,
+			       count(1) total ,
+			       sum( IF(c.company_type=7 or c.company_type=8,0,1) ) finComNum
+			from building b,park p ,
+			     company_building cb ,
+			     company c
+			where c.company_id=cb.company_id and
+			      cb.building_id=b.building_id and
+			      b.park_id=p.park_id and p.area_id=#{areaId}
+			GROUP BY b.building_id ,b.name,b.park_id,b.img_url
 	</select>
 	
 
