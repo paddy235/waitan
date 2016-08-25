@@ -40485,7 +40485,7 @@
 	      selectDataArr: []
 	    };
 	  },
-	  componentWillMount: function componentWillMount() {
+	  componentDidMount: function componentDidMount() {
 	    console.log('menuPark是否执行了');
 	    this.getMenuParkSelectList();
 	  },
@@ -40504,6 +40504,10 @@
 	      }
 	    }
 	  },
+	  // shouldComponentUpdate:function(nextProps){
+	  //   //this.getMenuParkSelectList();
+	  //   return false;
+	  // },
 	  dataFomat: function dataFomat(data) {
 	    console.log(data, '是否执行这个数据请求');
 	    var content = data.content;
@@ -40573,6 +40577,7 @@
 	    }
 	    var navActive = false;
 	    var routPath = this.props.location.pathname;
+	    var areaId = this.props.location.query.areaId;
 	    if (routPath == '/P2P' || routPath == '/lineFinance' || routPath == '/smallLoan' || routPath == '/financeGuara' || routPath == '/privateFund') {
 	      navActive = true;
 	    } else {
@@ -40702,7 +40707,7 @@
 	          null,
 	          _react2.default.createElement(
 	            _reactRouter.Link,
-	            { activeClassName: 'active', to: '/parkMonitor', onClick: this.menuSlide },
+	            { activeClassName: 'active', to: { pathname: '/parkMonitor', query: { areaId: areaId } }, onClick: this.menuSlide },
 	            '园区监测平台'
 	          )
 	        ),
@@ -50765,12 +50770,12 @@
 	  },
 	  searchClick: function searchClick(e) {
 	    var searchVal = $(e.target).parent("a").prev().val();
-	    this.props.history.push('/lineFinanceSearchResult?keyWord=' + searchVal + '');
+	    this.props.history.push('/lineFinanceSearchResult?keyword=' + searchVal + '');
 	  },
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
-	      { className: 'line-finace-search' },
+	      { className: 'line-finace-search linfin-search-box' },
 	      _react2.default.createElement(
 	        'h3',
 	        null,
@@ -51708,7 +51713,7 @@
 	                    }
 	                },
 	                axisLabel: {
-	                    formatter: '{value}',
+	                    // formatter: '{value}',
 	                    textStyle: {
 	                        color: "#99a3b7",
 	                        fontSize: 12,
@@ -51727,7 +51732,7 @@
 	                }
 	            },
 	            yAxis: {
-	                type: param.yType || 'value',
+	                type: param.yType || 'category',
 	                name: param.yAxisName == undefined ? "" : param.yAxisName,
 	                boundaryGap: ["10%", "10%"],
 	                min: 0,
@@ -51747,7 +51752,7 @@
 	                    }
 	                },
 	                axisLabel: {
-	                    formatter: param.xFormatter || "{value}",
+	                    // formatter: param.xFormatter||"",
 	                    textStyle: {
 	                        color: "#99a3b7",
 	                        fontSize: 12,
@@ -51852,10 +51857,6 @@
 	  },
 	  componentDidMount: function componentDidMount() {
 	    window.scrollTo(0, 0);
-	    var keyword = this.props.location.query.keyWord;
-	    this.setState({ keyword: keyword });
-	    var jsonData = { pageNo: this.state.pageNo, pageSize: 8, keyword: keyword };
-	    this.getSearchList(jsonData);
 	  },
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	    var isEqual = Immutable.is(nextProps.SearchResultResult, this.props.SearchResultResult); //判断数据是否变化
@@ -51886,8 +51887,8 @@
 	  },
 	  //分页回调  
 	  setCallBack: function setCallBack(nowpage, eachPageCount) {
-	    var keyWord = this.props.location.query.keyWord;
-	    var jsonData = { pageNo: nowpage, pageSize: 8, keyword: keyWord };
+	    var keyword = this.props.location.query.keyword;
+	    var jsonData = { pageNo: nowpage, pageSize: 8, keyword: keyword };
 	    this.setState({ pageNo: nowpage });
 	    this.getSearchList(jsonData);
 	  },
@@ -52429,6 +52430,8 @@
 
 	var _reactRedux = __webpack_require__(242);
 
+	var _index = __webpack_require__(594);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	//import * as LineFinanceDynamicRiskActionCreaters from '../../../../actions/industryMonitor/lineFinance/LineFinanceDynamicRiskAction'
@@ -52454,8 +52457,9 @@
 	  },
 	  //重新载入搜索结果的页面
 
-	  searchKey: function searchKey(data) {
-	    this.props.history.push(this.props.currentPage + "?companyName=" + data);
+	  searchClick: function searchClick(e) {
+	    var searchVal = $(e.target).parent("a").prev().val();
+	    this.props.history.push("/lineFinanceSearchResult?keyword=" + searchVal);
 	  },
 	  render: function render() {
 	    return _react2.default.createElement(
@@ -52464,7 +52468,12 @@
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'search-box' },
-	        _react2.default.createElement(_IndustrySearch2.default, { companyType: '4', searchFun: this.searchKey, label: '线下理财监测', className: 'small-loan-search', placeholder: '请输入企业名称检索' })
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          '线下理财监测'
+	        ),
+	        _react2.default.createElement(_index.Input, { placeholder: '请输入企业名称检索', value: this.state.searchVal, icon: 'icon-search', iconplace: 'right', type: 'text', searchClick: this.searchClick })
 	      ),
 	      _react2.default.createElement(
 	        'div',
@@ -52603,7 +52612,7 @@
 
 
 	// module
-	exports.push([module.id, ".risk-search-header{\r\n\t\r\n}\r\n.risk-search-header .search-bar{\r\n\tbackground-color: #212831;\r\n\theight: 50px;\r\n\tline-height: 50px;\r\n\tpadding-left:20px;\r\n\toverflow: hidden;\r\n}\r\n.risk-search-header .search-bar .left{\r\n\tfloat: left;\r\n}\r\n.risk-search-header .search-bar .left a{\r\n\tcolor:#272436;\r\n}\r\n.risk-search-header .search-bar .right{\r\n\tfloat: right;\r\n}\r\n.risk-search-header .search-bar .company-name{\r\n\tcolor: #ffffff;\r\n\tfont-size: 16px;\r\n\tdisplay: inline-block;\r\n}\r\n.risk-search-header .search-bar .company-info{\r\n\tdisplay: inline-block;\r\n\tmargin-left: 20px;\r\n}\r\n.risk-search-header .search-bar .company-info span{\r\n\tpadding: 2px 5px;\r\n\tfont-size: 12px;\r\n\tmargin: 0 5px;\r\n}\r\n.risk-search-header .search-bar .company-info span.bg-blue{\r\n\tbackground-color: #00b7ee;\r\n}\r\n.risk-search-header .search-bar .company-info span.bg-yellow{\r\n\tbackground-color: #f98d2b;\r\n}\r\n.risk-search-header .search-bar .company-info span.bg-red{\r\n\tbackground-color: #e14340;\r\n}\r\n.risk-search-header .search-bar .export-report{\r\n\tbackground-color: #e5e5e5;\r\n\tborder-radius: 2px;\r\n\tpadding: 2px 5px;\r\n\tfont-size: 12px;\r\n\tmargin-left: 40px;\r\n}\r\n.risk-search-header .search-bar .export-report i{\r\n\tmargin-right: 2px;\r\n}\r\n.risk-search-header .search-bar .right{\r\n\r\n}\r\n.risk-search-header .search-bar .right a{\r\n\tdisplay: inline-block;\r\n\theight: 100%;\r\n\tfont-size: 16px;\r\n\tpadding: 0 10px;\r\n\tcolor: #999999;\r\n}\r\n.risk-search-header .search-bar .right a i{\r\n\tmargin-right: 5px;\r\n}\r\n.risk-search-header .search-bar .right a.active{\r\n\tbackground-color: #1a2029;\r\n\tcolor: #ffffff;\r\n}\r\n.risk-search-header .search-bar .right a.active i{\r\n\tcolor: #e14340;\r\n}\r\n\r\n.risk-search-header .search-bar .tag-bg-red{\r\n\tbackground-color: red;\r\n}\r\n.risk-search-header .search-bar .tag-bg-yellow{\r\n\tbackground-color: #ebc900;\r\n}\r\n.risk-search-header .search-bar .tag-bg-green{\r\n\tbackground-color: #32b16c;\r\n}\r\n.risk-search-header .search-bar .tag-bg-black{\r\n\tbackground-color: #000;\r\n}", ""]);
+	exports.push([module.id, ".risk-search-header{\r\n\t\r\n}\r\n.risk-search-header .search-bar{\r\n\tbackground-color: #212831;\r\n\theight: 50px;\r\n\tline-height: 50px;\r\n\tpadding-left:20px;\r\n\toverflow: hidden;\r\n}\r\n.risk-search-header .search-bar .left{\r\n\tfloat: left;\r\n}\r\n.risk-search-header .search-bar .left a{\r\n\tcolor:#272436;\r\n}\r\n.risk-search-header .search-bar .right{\r\n\tfloat: right;\r\n}\r\n.risk-search-header .search-bar .company-name{\r\n\tcolor: #ffffff;\r\n\tfont-size: 16px;\r\n\tdisplay: inline-block;\r\n}\r\n.risk-search-header .search-bar .company-info{\r\n\tdisplay: inline-block;\r\n\tmargin-left: 20px;\r\n}\r\n.risk-search-header .search-bar .company-info span{\r\n\tpadding: 2px 5px;\r\n\tfont-size: 12px;\r\n\tmargin: 0 5px;\r\n}\r\n.risk-search-header .search-bar .company-info span.bg-blue{\r\n\tbackground-color: #00b7ee;\r\n}\r\n.risk-search-header .search-bar .company-info span.bg-yellow{\r\n\tbackground-color: #f98d2b;\r\n}\r\n.risk-search-header .search-bar .company-info span.bg-red{\r\n\tbackground-color: #e14340;\r\n}\r\n.risk-search-header .search-bar .export-report{\r\n\tbackground-color: #e5e5e5;\r\n\tborder-radius: 2px;\r\n\tpadding: 2px 5px;\r\n\tfont-size: 12px;\r\n\tmargin-left: 40px;\r\n}\r\n.risk-search-header .search-bar .export-report i{\r\n\tmargin-right: 2px;\r\n}\r\n.risk-search-header .search-bar .right{\r\n\r\n}\r\n.risk-search-header .search-bar .right a{\r\n\tdisplay: inline-block;\r\n\theight: 100%;\r\n\tfont-size: 16px;\r\n\tpadding: 0 10px;\r\n\tcolor: #999999;\r\n}\r\n.risk-search-header .search-bar .right a i{\r\n\tmargin-right: 5px;\r\n}\r\n.risk-search-header .search-bar .right a.active{\r\n\tbackground-color: #1a2029;\r\n\tcolor: #ffffff;\r\n}\r\n.risk-search-header .search-bar .right a.active i{\r\n\tcolor: #e14340;\r\n}\r\n\r\n.risk-search-header .search-bar .tag-bg-red{\r\n\tbackground-color: red;\r\n}\r\n.risk-search-header .search-bar .tag-bg-yellow{\r\n\tbackground-color: #ebc900;\r\n}\r\n.risk-search-header .search-bar .tag-bg-green{\r\n\tbackground-color: #32b16c;\r\n}\r\n.risk-search-header .search-bar .tag-bg-black{\r\n\tbackground-color: #000;\r\n}\r\n\r\n/*顶部左侧输入框 begind*/\r\n.risk-search-header .search-box{\r\n\tpadding: 20px;\r\n\toverflow: hidden;\r\n}\r\n.line-finace-index h3{\r\n\ttext-align: center;\r\n\tfont-size: 24px;\r\n}\r\n.risk-search-header .search-box label{\r\n\tfont-size: 24px;\r\n\tcolor: #ffffff;\r\n\tmargin-right: 10px;\r\n\tfloat: left;\r\n\tmargin-top:5px;\r\n}\r\n.risk-search-header .search-box .mt-input{\r\n\twidth: 400px;\r\n\theight: 40px;\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\tmargin: 0 auto;\r\n}\r\n.risk-search-header .search-box .mt-input input{\r\n\theight: 40px;\r\n}\r\n.risk-search-header .search-box .mt-input .mt-iconbtn{\r\n\twidth: 36px;\r\n\theight: 36px;\r\n\tmargin-top: -18px;\r\n}\r\n.risk-search-header .search-box .mt-input .iconfont{\r\n\tfont-size: 36px;\r\n\tcolor: #e14340;\r\n}\r\n/*顶部左侧输入框 end*/", ""]);
 
 	// exports
 
@@ -54866,7 +54875,6 @@
 
 	  getInitialState: function getInitialState() {
 	    return {
-	      areaCode: "上海市",
 	      companyName: "",
 	      compareMonth: "2016-08",
 	      currentMonth: "2016-07",
@@ -54883,7 +54891,6 @@
 	    this.setState({ companyName: companyName });
 	    //2.企业关联方特征指数
 	    var json = {
-	      areaCode: this.state.areaCode,
 	      companyName: companyName,
 	      currentMonth: this.state.dateLeft,
 	      compareMonth: this.state.dateRight
@@ -54896,7 +54903,6 @@
 	    if (!iscompanyNameEqual) {
 	      var companyName = nextProps.location.query.companyName;
 	      var json = {
-	        areaCode: this.state.areaCode,
 	        companyName: companyName,
 	        currentMonth: currentMonth,
 	        compareMonth: compareMonth
@@ -54938,7 +54944,6 @@
 	        this.setState({ compareMonth: compareMonth });
 	      }
 	      var json = {
-	        areaCode: this.state.areaCode,
 	        companyName: this.state.companyName,
 	        currentMonth: currentMonth,
 	        compareMonth: compareMonth
@@ -55379,12 +55384,10 @@
 	    console.log(this.props.date, '日期');
 
 	    if (this.props.date.length > 0) {
-	      var d = this.props.date[0];
-	      nowVal = this.props.date[0].value;
 	      var selectProp = {
 	        width: '85px',
 	        className: 'index-selected',
-	        value: nowVal,
+	        value: 1,
 	        placeholder: '时间选择',
 	        name: 'testselect',
 	        id: 'indexSelected',
@@ -55636,12 +55639,17 @@
 	    var nowVal = null;
 
 	    if (this.props.date.length > 0) {
-	      var d = this.props.date[0];
-	      nowVal = this.props.date[1].value;
+	      var nowVal = this.props.date.length;
+	      var val = '';
+	      if (nowVal == 1) {
+	        val = 1;
+	      } else {
+	        val = 2;
+	      }
 	      var selectProp = {
 	        width: '85px',
 	        className: 'index-selected',
-	        value: nowVal,
+	        value: val,
 	        placeholder: '时间选择',
 	        name: 'testselect',
 	        id: 'indexSelected',
@@ -64085,7 +64093,7 @@
 	                    data: [{
 	                        value: data[i].smlComBalScale * 100,
 	                        name: '小微企业贷款余额总计',
-	                        amount: data[i].amount
+	                        amount: data[i].smallCompanyBalance
 	                    }, {
 	                        value: (1 - data[i].smlComBalScale) * 100,
 	                        name: 'invisible',
@@ -64103,7 +64111,7 @@
 	                    data: [{
 	                        value: data[i].agrBalScale * 100,
 	                        name: '三农企业贷款余额总计',
-	                        amount: data[i].amount
+	                        amount: data[i].agricultureBalance
 	                    }, {
 	                        value: (1 - data[i].agrBalScale) * 100,
 	                        name: 'invisible',
@@ -76787,7 +76795,7 @@
 	            ParkBox.push({ value: content[i].count, name: content[i].type });
 	            if (content[i].children) {
 	                for (var j = 0; j < content[i].children.length; j++) {
-	                    ParkContent.push({ value: content[i].children[j].count, name: content[i].children[j].type });
+	                    if (content[i].children[j].count != 0) ParkContent.push({ value: content[i].children[j].count, name: content[i].children[j].type });
 	                }
 	            } else {
 	                ParkContent.push({ value: content[i].count, name: content[i].type });
@@ -78230,7 +78238,7 @@
 	            IndustryBox.push({ value: content[i].count, name: content[i].type });
 	            if (content[i].children) {
 	                for (var j = 0; j < content[i].children.length; j++) {
-	                    IndustryContent.push({ value: content[i].children[j].count, name: content[i].children[j].type });
+	                    if (content[i].children[j].count != 0) IndustryContent.push({ value: content[i].children[j].count, name: content[i].children[j].type });
 	                }
 	            } else {
 	                IndustryContent.push({ value: content[i].count, name: content[i].type });
@@ -83222,9 +83230,6 @@
 	                                }
 	                            });
 	                        }
-	                        _this.setState({
-	                            comNUM: length
-	                        });
 	                        var mapTootip = "<div class='testTo'>\
 	                                      <h4 class='tableH4'>" + v.name + "</h4>\
 	                                      <table>\
@@ -83683,11 +83688,11 @@
 
 	                    //paramOneData-fixed == 1
 	                    var paramOneData = [];
-	                    nineDate.content.loan.series[0].map(function (item, index) {
+	                    nineDate.content.loan.series[1].map(function (item, index) {
 	                        var xx = [index, item];
 	                        paramOneData.push(xx);
 	                    });
-	                    nineDate.content.loan.series[1].map(function (item, index) {
+	                    nineDate.content.loan.series[0].map(function (item, index) {
 	                        paramOneData[index].push(item);
 	                    });
 	                    //paramOneData-fixed-end
@@ -83717,7 +83722,7 @@
 	                    paramTwo = {
 	                        "link": "/smallLoan#/privateFund",
 	                        "title": "私募基金",
-	                        "color": ["#f5b94b", "#01b6ed"],
+	                        "color": ["#01b6ed", "#f5b94b"],
 	                        "titleShow": "show",
 	                        "titleX": "left",
 	                        "legend": ["管理资本金额", "私募机构数量"],
@@ -83729,6 +83734,8 @@
 	                        "barName": ["管理资本金额", "私募机构数量"],
 	                        "xAxis": nineDate.content.private.xAxis,
 	                        "yAxisName": ["亿元", "个数"],
+	                        "unit": ["", "亿元"],
+	                        "yRightLable": "bar",
 	                        "barWidth": 20,
 	                        "symbolSize": 10,
 	                        "series": {
