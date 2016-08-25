@@ -250,17 +250,17 @@ public class ParkServiceImpl implements ParkService {
 	public List<CompanyTypeCountDO> buildingBusinessDistribute(Integer buildingId) {
 		
 		List<CompanyTypeCountDO> ljr = new ArrayList<>();
-		countType(ljr , buildingId ,CompanyDO.TYPE_P2P_1,"P2P");
-		countType(ljr , buildingId ,CompanyDO.TYPE_XD_2,"小额贷款");
-		countType(ljr , buildingId ,CompanyDO.TYPE_RZDB_3,"融资担保");
-		countType(ljr , buildingId ,CompanyDO.TYPE_XXLC_4,"线下理财");
-		countType(ljr , buildingId ,CompanyDO.TYPE_SMJJ_5,"私募基金");
-		countType(ljr , buildingId ,CompanyDO.TYPE_ZC_6,"众筹");
-		countType(ljr , buildingId ,CompanyDO.TYPE_JYS_9,"交易所");
-		countType(ljr , buildingId ,CompanyDO.TYPE_SYBL_10,"商业保理");
-		countType(ljr , buildingId ,CompanyDO.TYPE_YFK_11,"预付卡");
-		countType(ljr , buildingId ,CompanyDO.TYPE_DD_12,"典当");
-		countType(ljr , buildingId ,CompanyDO.TYPE_RZZL_13,"融资租赁");
+		countTypeByBuild(ljr , buildingId ,CompanyDO.TYPE_P2P_1,"P2P");
+		countTypeByBuild(ljr , buildingId ,CompanyDO.TYPE_XD_2,"小额贷款");
+		countTypeByBuild(ljr , buildingId ,CompanyDO.TYPE_RZDB_3,"融资担保");
+		countTypeByBuild(ljr , buildingId ,CompanyDO.TYPE_XXLC_4,"线下理财");
+		countTypeByBuild(ljr , buildingId ,CompanyDO.TYPE_SMJJ_5,"私募基金");
+		countTypeByBuild(ljr , buildingId ,CompanyDO.TYPE_ZC_6,"众筹");
+		countTypeByBuild(ljr , buildingId ,CompanyDO.TYPE_JYS_9,"交易所");
+		countTypeByBuild(ljr , buildingId ,CompanyDO.TYPE_SYBL_10,"商业保理");
+		countTypeByBuild(ljr , buildingId ,CompanyDO.TYPE_YFK_11,"预付卡");
+		countTypeByBuild(ljr , buildingId ,CompanyDO.TYPE_DD_12,"典当");
+		countTypeByBuild(ljr , buildingId ,CompanyDO.TYPE_RZZL_13,"融资租赁");
 		
 		List<CompanyTypeCountDO> bigType = new ArrayList<>();
 		
