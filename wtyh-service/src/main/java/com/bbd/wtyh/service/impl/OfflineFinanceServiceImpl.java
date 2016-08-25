@@ -74,7 +74,16 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     @Override
     public Map companyInfo(String companyName) {
         List<Map<Integer, String>> list = companyMapper.companyInfo(companyName);
+        float staticsRiskIndex = staticRiskMapper.queryStaticsRiskIndex(companyName);
+
         Map result = new HashMap();
+        if (staticsRiskIndex > 70) {
+            result.put("analysisResult", "重点关注");
+        } else if (staticsRiskIndex >= 60 && staticsRiskIndex < 70) {
+            result.put("analysisResult", "一般关注");
+        } else if (staticsRiskIndex < 60) {
+            result.put("analysisResult", "正常");
+        }
         List backgroud = new ArrayList();
         if (!CollectionUtils.isEmpty(list)) {
             result.put("status", list.get(0).get("status"));
