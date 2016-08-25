@@ -58508,7 +58508,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 
 	__webpack_require__(685);
@@ -58590,182 +58590,181 @@
 
 	//融资担保
 	var FinanceGuaraIndex = _react2.default.createClass({
-	    displayName: 'FinanceGuaraIndex',
+	  displayName: 'FinanceGuaraIndex',
 
-	    mixins: [_setMinHeight2.default],
-	    getInitialState: function getInitialState() {
-	        return {
-	            guaraDutyBalaData: {},
-	            balanceDistrData: [],
-	            guaraEachAverData: {}
-	        };
-	    },
-	    componentDidMount: function componentDidMount() {
-	        window.scrollTo(0, 0);
-	        var getFinGuaDutyBalance = this.props.getFinGuaDutyBalance;
+	  mixins: [_setMinHeight2.default],
+	  getInitialState: function getInitialState() {
+	    return {
+	      guaraDutyBalaData: {},
+	      balanceDistrData: [],
+	      guaraEachAverData: {}
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {
+	    window.scrollTo(0, 0);
+	    var getFinGuaDutyBalance = this.props.getFinGuaDutyBalance;
 
-	        var jsonData = {};
-	        getFinGuaDutyBalance(jsonData);
-	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var isEqual = Immutable.is(nextProps.guaraDutyBalanceRequest, this.props.guaraDutyBalanceResult);
-	        if (!isEqual) {
-	            var guaraDutyBalanceRequest = nextProps.guaraDutyBalanceRequest;
-	            var guaraDutyBalanceResult = nextProps.guaraDutyBalanceResult;
+	    var jsonData = {};
+	    getFinGuaDutyBalance(jsonData);
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var isEqual = Immutable.is(nextProps.guaraDutyBalanceRequest, this.props.guaraDutyBalanceResult);
+	    if (!isEqual) {
+	      var guaraDutyBalanceRequest = nextProps.guaraDutyBalanceRequest;
+	      var guaraDutyBalanceResult = nextProps.guaraDutyBalanceResult;
 
-	            if (guaraDutyBalanceRequest == true) {
-	                if (guaraDutyBalanceResult.success == true) {
-	                    this.dataFomat(guaraDutyBalanceResult);
-	                } else {
-	                    //错误后提示
-	                }
-	            }
+	      if (guaraDutyBalanceRequest == true) {
+	        if (guaraDutyBalanceResult.success == true) {
+	          this.dataFomat(guaraDutyBalanceResult);
+	        } else {
+	          //错误后提示
 	        }
-	    },
-	    dataFomat: function dataFomat(data) {
-	        var content = data.content;
-	        var guaraDutyBalaData = { //担保责任余额
-	            xAxis: [],
-	            yAxis: [],
-	            data: []
-	        };
-	        var balanceArr = [];
-	        //贷款笔均折线图
-	        var guaraEachAverData = {
-	            xAxis: [],
-	            series: []
-	        };
-
-	        //担保在责任余额结构分布图
-	        var balanceDistrData = [];
-
-	        var conLength = content.length;
-
-	        for (var i = 0; i < conLength; i++) {
-	            var year = content[i].year;
-	            var amount = content[i].amount; //贷款余额 单位万元
-	            var amountBill = Number(amount / 10000).toFixed(2); //转成单位亿元
-	            var number = content[i].number; //笔数
-	            var companyAmount = content[i].number; //公司数量
-	            var averageBlance = Number(amount / companyAmount).toFixed(2); //平均担保责任余额
-
-	            var dataArr = [i, i, amountBill, averageBlance]; //
-
-	            balanceArr.push(amountBill);
-	            guaraDutyBalaData.xAxis.push(year);
-	            guaraDutyBalaData.data.push(dataArr);
-
-	            guaraEachAverData.xAxis.push(year);
-	            var eachAver = Number(amount / number).toFixed(2); //贷款笔均数
-	            guaraEachAverData.series.push(eachAver);
-	        }
-	        var balanceMax = Math.max.apply(null, balanceArr);
-	        console.log(balanceMax, '最大值');
-	        var eachYAxis = Number(balanceMax / 5).toFixed(2);
-	        for (var j = 0; j < 5; j++) {
-	            guaraDutyBalaData.yAxis.push(eachYAxis * j);
-	        }
-
-	        var policyBalance = Number(content[conLength - 1].policyBalance / 10000).toFixed(2); //政策类 //转成单位亿元
-	        var steelBalance = Number(content[conLength - 1].steelBalance / 10000).toFixed(2); //钢贸类 //转成单位亿元
-	        var compositeBalance = Number(content[conLength - 1].compositeBalance / 10000).toFixed(2); //综合类 //转成单位亿元
-	        balanceDistrData.push({ "name": "政策性", "value": policyBalance });
-	        balanceDistrData.push({ "name": "综合型", "value": compositeBalance });
-	        balanceDistrData.push({ "name": "钢贸类", "value": steelBalance });
-
-	        this.setState({ guaraDutyBalaData: guaraDutyBalaData, guaraEachAverData: guaraEachAverData, balanceDistrData: balanceDistrData });
-	    },
-	    searchFun: function searchFun(e) {
-	        this.props.history.push('/SearchResultDetail?companyName=' + e);
-	    },
-	    render: function render() {
-	        return _react2.default.createElement(
-	            'div',
-	            { className: 'finance-guara-index content-space-10', style: this.state.style },
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'search-box' },
-	                _react2.default.createElement(_IndustrySearch2.default, { label: '融资担保监测', companyType: '3', searchFun: this.searchFun, className: 'small-loan-search', placeholder: '请输入企业名称检索' })
-	            ),
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'top' },
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'left' },
-	                    _react2.default.createElement(_FinanceGuaraCompanyGrade2.default, this.props)
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'middle mod-space-l' },
-	                    _react2.default.createElement(_FinanceGuaraMap2.default, this.props)
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'right mod-space-l' },
-	                    _react2.default.createElement(_BalanceDistribute2.default, { balanceDistrData: this.state.balanceDistrData }),
-	                    _react2.default.createElement(_GuaraEachAverage2.default, { guaraEachAverData: this.state.guaraEachAverData })
-	                )
-	            ),
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'bottom mod-space-t' },
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'left' },
-	                    _react2.default.createElement(_GuaraDutyBalance2.default, { guaraDutyBalaData: this.state.guaraDutyBalaData })
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'middle mod-space-l' },
-	                    _react2.default.createElement(_FinanceGuaraIndustryRisk2.default, this.props)
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'right mod-space-l' },
-	                    _react2.default.createElement(_LargeGuara2.default, this.props)
-	                )
-	            )
-	        );
+	      }
 	    }
+	  },
+	  dataFomat: function dataFomat(data) {
+	    var content = data.content;
+	    var guaraDutyBalaData = { //担保责任余额
+	      xAxis: [],
+	      yAxis: [],
+	      data: []
+	    };
+	    var balanceArr = [];
+	    //贷款笔均折线图
+	    var guaraEachAverData = {
+	      xAxis: [],
+	      series: []
+	    };
+
+	    //担保在责任余额结构分布图
+	    var balanceDistrData = [];
+
+	    var conLength = content.length;
+
+	    for (var i = 0; i < conLength; i++) {
+	      var year = content[i].year + "-" + content[i].month;
+	      var amount = content[i].amount; //贷款余额 单位万元
+	      var amountBill = Number(amount / 10000).toFixed(2); //转成单位亿元
+	      var number = content[i].number; //笔数
+	      var companyAmount = content[i].number; //公司数量
+	      var averageBlance = Number(amount / companyAmount).toFixed(2); //平均担保责任余额
+
+	      var dataArr = [i, i, amountBill, averageBlance]; //
+
+	      balanceArr.push(amountBill);
+	      guaraDutyBalaData.xAxis.push(year);
+	      guaraDutyBalaData.data.push(dataArr);
+	      guaraDutyBalaData.yAxis.push(amountBill);
+
+	      guaraEachAverData.xAxis.push(year);
+	      var eachAver = Number(amount / number).toFixed(2); //贷款笔均数
+	      guaraEachAverData.series.push(eachAver);
+	    }
+
+	    guaraDutyBalaData.yAxis.sort(function (a, b) {
+	      return a - b;
+	    });
+
+	    var policyBalance = Number(content[conLength - 1].policyBalance / 10000).toFixed(2); //政策类 //转成单位亿元
+	    var steelBalance = Number(content[conLength - 1].steelBalance / 10000).toFixed(2); //钢贸类 //转成单位亿元
+	    var compositeBalance = Number(content[conLength - 1].compositeBalance / 10000).toFixed(2); //综合类 //转成单位亿元
+	    balanceDistrData.push({ "name": "政策性", "value": policyBalance });
+	    balanceDistrData.push({ "name": "综合型", "value": compositeBalance });
+	    balanceDistrData.push({ "name": "钢贸类", "value": steelBalance });
+
+	    this.setState({ guaraDutyBalaData: guaraDutyBalaData, guaraEachAverData: guaraEachAverData, balanceDistrData: balanceDistrData });
+	  },
+	  searchFun: function searchFun(e) {
+	    this.props.history.push('/SearchResultDetail?companyName=' + e);
+	  },
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'finance-guara-index content-space-10', style: this.state.style },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'search-box' },
+	        _react2.default.createElement(_IndustrySearch2.default, { label: '融资担保监测', companyType: '3', searchFun: this.searchFun, className: 'small-loan-search', placeholder: '请输入企业名称检索' })
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'top' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'left' },
+	          _react2.default.createElement(_FinanceGuaraCompanyGrade2.default, this.props)
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'middle mod-space-l' },
+	          _react2.default.createElement(_FinanceGuaraMap2.default, this.props)
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'right mod-space-l' },
+	          _react2.default.createElement(_BalanceDistribute2.default, { balanceDistrData: this.state.balanceDistrData }),
+	          _react2.default.createElement(_GuaraEachAverage2.default, { guaraEachAverData: this.state.guaraEachAverData })
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'bottom mod-space-t' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'left' },
+	          _react2.default.createElement(_GuaraDutyBalance2.default, { guaraDutyBalaData: this.state.guaraDutyBalaData })
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'middle mod-space-l' },
+	          _react2.default.createElement(_FinanceGuaraIndustryRisk2.default, this.props)
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'right mod-space-l' },
+	          _react2.default.createElement(_LargeGuara2.default, this.props)
+	        )
+	      )
+	    );
+	  }
 	});
 
 	//module.exports = FinanceGuaraIndex;
 
 	//将 request  result 绑定到props的request result 
 	function mapStateToProps(state) {
-	    return {
+	  return {
 
-	        //企业评级
-	        FinGuaCompanyGradeRequest: state.FinGuaCompanyGrade.request,
-	        FinGuaCompanyGradeResult: state.FinGuaCompanyGrade.result,
+	    //企业评级
+	    FinGuaCompanyGradeRequest: state.FinGuaCompanyGrade.request,
+	    FinGuaCompanyGradeResult: state.FinGuaCompanyGrade.result,
 
-	        //地图
-	        finGuaMapRequest: state.FinGuaMap.request,
-	        finGuaMapResult: state.FinGuaMap.result,
+	    //地图
+	    finGuaMapRequest: state.FinGuaMap.request,
+	    finGuaMapResult: state.FinGuaMap.result,
 
-	        //贷款余额
-	        guaraDutyBalanceRequest: state.GuaraDutyBalance.request,
-	        guaraDutyBalanceResult: state.GuaraDutyBalance.result,
+	    //贷款余额
+	    guaraDutyBalanceRequest: state.GuaraDutyBalance.request,
+	    guaraDutyBalanceResult: state.GuaraDutyBalance.result,
 
-	        //股东行业风险
-	        finGuaIndustryRiskRequest: state.FinGuaIndustryRisk.request,
-	        finGuaIndustryRiskResult: state.FinGuaIndustryRisk.result,
+	    //股东行业风险
+	    finGuaIndustryRiskRequest: state.FinGuaIndustryRisk.request,
+	    finGuaIndustryRiskResult: state.FinGuaIndustryRisk.result,
 
-	        //股东行业风险
-	        finGuaIndustryRiskDetailRequest: state.FinGuaIndustryRiskDetail.request,
-	        finGuaIndustryRiskDetailResult: state.FinGuaIndustryRiskDetail.result,
+	    //股东行业风险
+	    finGuaIndustryRiskDetailRequest: state.FinGuaIndustryRiskDetail.request,
+	    finGuaIndustryRiskDetailResult: state.FinGuaIndustryRiskDetail.result,
 
-	        //大额借款公司信息列表
-	        largeGuaraRequest: state.LargeGuara.request,
-	        largeGuaraResult: state.LargeGuara.result
+	    //大额借款公司信息列表
+	    largeGuaraRequest: state.LargeGuara.request,
+	    largeGuaraResult: state.LargeGuara.result
 
-	    };
+	  };
 	}
 
 	//将action的所有方法绑定到props上
 	function mapDispatchToProps(dispatch) {
-	    return (0, _redux.bindActionCreators)(finGuaraActionCreaters, dispatch);
+	  return (0, _redux.bindActionCreators)(finGuaraActionCreaters, dispatch);
 	}
 
 	//通过react-redux提供的connect方法将我们需要的state中的数据和actions中的方法绑定到props上
@@ -59090,9 +59089,7 @@
 	        };
 	    },
 	    componentDidMount: function componentDidMount() {
-	        var orderByField = this.state.orderByField;
-	        var descAsc = this.state.descAsc;
-	        var jsonData = { orderByField: orderByField, descAsc: descAsc };
+	        var jsonData = {};
 	        this.getCompanyGrade(jsonData);
 	        $('#financeGuara-scroll').perfectScrollbar();
 	    },
@@ -63331,7 +63328,7 @@
 
 	        var conLength = content.length;
 	        for (var i = 0; i < conLength; i++) {
-	            var year = content[i].year;
+	            var year = content[i].year + "-" + content[i].month;
 	            var amount = content[i].amount; //贷款余额 原单位万元 
 	            var amountBill = Number(content[i].amount / 10000).toFixed(2); //转成亿元
 
@@ -63344,6 +63341,7 @@
 	            balanceArr.push(amountBill);
 	            loanBalanceData.xAxis.push(year);
 	            loanBalanceData.data.push(dataArr);
+	            loanBalanceData.yAxis.push(amountBill);
 
 	            var eachAver = Number(amount / number).toFixed(2); //贷款笔均数
 	            eachAverageData.xAxis.push(year);
@@ -63363,11 +63361,9 @@
 	            });
 	        }
 
-	        var balanceMax = Math.max.apply(null, balanceArr);
-	        var eachYAxis = balanceMax / 5;
-	        for (var j = 0; j < 5; j++) {
-	            loanBalanceData.yAxis.push(eachYAxis * j);
-	        }
+	        loanBalanceData.yAxis.sort(function (a, b) {
+	            return a - b;
+	        });
 
 	        this.setState({ loanBalanceData: loanBalanceData, eachAverageData: eachAverageData, balanceRatioData: balanceRatioData });
 	    },
@@ -78402,8 +78398,10 @@
 	        var content = data.content;
 	        var len = content.length;
 	        var dataPie = [];
+	        var legendData = [];
 	        for (var i = 0; i < len; i++) {
 	            dataPie.push({ value: content[i].count, name: content[i].type });
+	            legendData.push(content[i].type);
 	        }
 	        console.log(dataPie, 'dataPie');
 	        var param = {
@@ -78414,7 +78412,7 @@
 	            legendBottom: "10%",
 	            height: '350px', //必传 带上单位
 	            title: '',
-	            legendData: ['国企', '名企'],
+	            legendData: legendData,
 	            data: dataPie
 	        };
 	        this.setState({ option: param });
