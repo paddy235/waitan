@@ -76530,14 +76530,14 @@
 	                    _react2.default.createElement(
 	                      'span',
 	                      { className: 'liLeft' },
-	                      elem.search_key
+	                      elem.news_title
 	                    )
 	                  )
 	                ),
 	                _react2.default.createElement(
 	                  'li',
 	                  null,
-	                  elem.news_title
+	                  elem.main
 	                ),
 	                _react2.default.createElement(
 	                  'li',
