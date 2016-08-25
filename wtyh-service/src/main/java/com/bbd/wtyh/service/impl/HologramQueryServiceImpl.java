@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -104,24 +105,23 @@ public class HologramQueryServiceImpl implements HologramQueryService {
     @Override
     public Map<String, Map<String, Object>> shareholdersSenior(String companyName) {
         BaseDataDO baseDataDo = hologramQueryDao.shareholdersSenior(companyName);
-        Map<String, Map<String, Object>> list = new HashMap<>();
-        Map<String, Object> data1 = new HashMap<>();
-        Map<String, Object> data2 = new HashMap<>();
         for (BaseDataDO.Results result : baseDataDo.getResults()) {
+            Map<String, Map<String, Object>> list = new LinkedHashMap<>();
             for (BaseDataDO.Gdxx gdxx : result.getGdxx()) {
+                Map<String, Object> data1 = new LinkedHashMap<>();
                 data1.put("shareholder_name",gdxx.getShareholder_name());
                 data1.put("shareholder_type",gdxx.getShareholder_type());
                 list.put("gdxx", data1);
             }
             for (BaseDataDO.Baxx baxx : result.getBaxx()) {
-                data2.put("company_name",baxx.getCompany_name());
+                Map<String, Object> data2 = new LinkedHashMap<>();
                 data2.put("name",baxx.getName());
                 data2.put("position",baxx.getPosition());
-                data2.put("type",baxx.getType());
                 list.put("bgxx", data2);
             }
+            return list;
         }
-        return list;
+        return null;
     }
 
     @Override
