@@ -1,18 +1,19 @@
 package com.bbd.wtyh.domain.bbdAPI;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * Created by wangchenge on 2016/8/13 0013.
  */
-public class BaseDataDO {
+public class BaseDataDO implements Serializable{
     private String msg;
     private String err_code;
     private Integer rsize;
     private String total;
     private List<Results> results;
 
-    public static class Results {
+    public static class Results implements Serializable{
         private Jbxx jbxx;
         private List<Bgxx> bgxx;
         private List<Baxx> baxx;
@@ -53,7 +54,7 @@ public class BaseDataDO {
             this.gdxx = gdxx;
         }
     }
-    public static class Bgxx {
+    public static class Bgxx implements Serializable {
         private String change_items;
         private String content_before_change;
         private String content_after_change;
@@ -95,7 +96,7 @@ public class BaseDataDO {
         }
     }
 
-    public static class Baxx {
+    public static class Baxx implements Serializable {
         private String company_name;
         private String no;
         private String name;
@@ -146,7 +147,7 @@ public class BaseDataDO {
         }
     }
 
-    public static class Gdxx {
+    public static class Gdxx implements Serializable {
         private String no;
         private String shareholder_name;
         private String shareholder_type;
@@ -197,7 +198,7 @@ public class BaseDataDO {
         }
     }
 
-    public static class Jbxx {
+    public static class Jbxx implements Serializable {
         private String credit_code;
         private String _id;
         private String regno_or_creditcode;

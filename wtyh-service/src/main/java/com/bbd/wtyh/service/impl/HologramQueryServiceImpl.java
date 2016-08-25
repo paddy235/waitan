@@ -11,9 +11,7 @@ import com.bbd.wtyh.service.HologramQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 企业全息信息查询平台业务层实现类
@@ -102,26 +100,28 @@ public class HologramQueryServiceImpl implements HologramQueryService {
     }
 
     @Override
-    public Map<String, Map<String, Object>> shareholdersSenior(String companyName) {
+    public Map<String, List> shareholdersSenior(String companyName) {
         BaseDataDO baseDataDo = hologramQueryDao.shareholdersSenior(companyName);
-        Map<String, Map<String, Object>> list = new HashMap<>();
-        Map<String, Object> data1 = new HashMap<>();
-        Map<String, Object> data2 = new HashMap<>();
+        Map<String, List> content = new HashMap<>();
         for (BaseDataDO.Results result : baseDataDo.getResults()) {
+            List<Map> list1 = new ArrayList<>();
             for (BaseDataDO.Gdxx gdxx : result.getGdxx()) {
-                data1.put("shareholder_name",gdxx.getShareholder_name());
-                data1.put("shareholder_type",gdxx.getShareholder_type());
-                list.put("gdxx", data1);
+                Map<String, Object> data = new LinkedHashMap<>();
+                data.put("shareholder_name",gdxx.getShareholder_name());
+                data.put("shareholder_type",gdxx.getShareholder_type());
+                list1.add(data);
             }
+            content.put("gdxx", list1);
+            List<Map> list2 = new ArrayList<>();
             for (BaseDataDO.Baxx baxx : result.getBaxx()) {
-                data2.put("company_name",baxx.getCompany_name());
-                data2.put("name",baxx.getName());
-                data2.put("position",baxx.getPosition());
-                data2.put("type",baxx.getType());
-                list.put("bgxx", data2);
+                Map<String, Object> data = new LinkedHashMap<>();
+                data.put("name",baxx.getName());
+                data.put("position",baxx.getPosition());
+                list2.add(data);
             }
+            content.put("baxx", list2);
         }
-        return list;
+        return content;
     }
 
     @Override
