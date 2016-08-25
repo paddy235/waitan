@@ -1,8 +1,8 @@
 package com.bbd.wtyh.service.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+
+import com.bbd.wtyh.mapper.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -17,10 +17,6 @@ import com.bbd.wtyh.domain.CompanyBackgroundDO;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.CompanyTypeCountDO;
 import com.bbd.wtyh.domain.InBusinessDO;
-import com.bbd.wtyh.mapper.BuildingMapper;
-import com.bbd.wtyh.mapper.CompanyAnalysisResultMapper;
-import com.bbd.wtyh.mapper.CompanyMapper;
-import com.bbd.wtyh.mapper.ParkMapper;
 import com.bbd.wtyh.service.ParkService;
 import com.bbd.wtyh.util.relation.HttpClientUtils;
 
@@ -42,6 +38,9 @@ public class ParkServiceImpl implements ParkService {
 
 	@Value("${api.baidu.batch.news.ak}")
 	private String ak;
+
+	@Autowired
+	private StaticRiskMapper staticRiskMapper;
 	
 	@Autowired
 	private BuildingMapper buildingMapper;
@@ -299,13 +298,75 @@ public class ParkServiceImpl implements ParkService {
 	public List<CompanyAnalysisResultDO> queryRiskByBuilding(Integer buildingId) {
 
 		List<CompanyAnalysisResultDO> list = carMapper.queryRiskByBuilding(buildingId);
+		List<CompanyAnalysisResultDO> black_1 = new ArrayList();
+		List<CompanyAnalysisResultDO> other_234 = new ArrayList();
 
-		return list;
-		
+		for (CompanyAnalysisResultDO car : list) {
+			if(car.getAnalysisResult()!=null && car.getAnalysisResult() == 1){
+				black_1.add(car);
+			}else{
+				Float staticsRiskIndex = staticRiskMapper.queryStaticsRiskIndex(car.getName());
+				staticsRiskIndex = staticsRiskIndex==null?0:staticsRiskIndex;
+				car.setStaticRiskIndex(staticsRiskIndex+"");
+				car.setAnalysisResult(getIndex(staticsRiskIndex));
+				other_234.add(car);
+			}
+		}
+		sortByDate(black_1);
+		sortByIndex(other_234);
+
+		black_1.addAll(other_234);
+
+		return black_1;
 	}
 
 
 
+	private void sortByIndex(List<CompanyAnalysisResultDO> list){
+		Collections.sort(list, new Comparator<CompanyAnalysisResultDO>() {
+			@Override
+			public int compare(CompanyAnalysisResultDO o1, CompanyAnalysisResultDO o2) {
+				if(o1.getStaticRiskIndex()==null ){
+					return -1;
+				}
+				if(o2.getStaticRiskIndex()==null){
+					return 1;
+				}
+				return new Float(o1.getStaticRiskIndex()).compareTo(new Float(o2.getStaticRiskIndex()));
+			}
+		});
+	}
+
+
+
+	private void sortByDate(List<CompanyAnalysisResultDO> black_1){
+		Collections.sort(black_1, new Comparator<CompanyAnalysisResultDO>() {
+			@Override
+			public int compare(CompanyAnalysisResultDO o1, CompanyAnalysisResultDO o2) {
+				if(o1.getExposureDate()==null ){
+					return -1;
+				}
+				if(o2.getExposureDate()==null){
+					return 1;
+				}
+
+				return o1.getExposureDate().compareTo(o2.getExposureDate());
+			}
+		});
+	}
+
+
+
+	// 颜色 1:已曝光(黑) 2:高危(红) 3:关注(黄) 4:正常(绿)
+	private byte getIndex(float index){
+		if (index > 70) {
+			return 2;
+		} else if (index >= 60 && index < 70) {
+			return 3;
+		} else {
+			return 4;
+		}
+	}
 	
 
 }

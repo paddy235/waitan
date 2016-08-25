@@ -200,7 +200,6 @@ public class ParkController {
            public ResponseBean buildingRisk(@RequestParam(required=true) Integer buildingId) {
 
            	  List<CompanyAnalysisResultDO> data = parkService.queryRiskByBuilding(buildingId);
-               
               return ResponseBean.successResponse(data);
            }
          
