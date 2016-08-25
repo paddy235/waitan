@@ -187,7 +187,7 @@ public class RegisterUniversalFilterChainImp {
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     public Map<String, List> queryRelation(String companyName, String dataVersion, Integer degree) throws Exception {
-        String json = redisDAO.getString(companyName + APIConstants.redis_relation_LinksDataJTTP + dataVersion);
+        String json = redisDAO.getString(companyName + APIConstants.redis_relation_LinksDataJTTP + "-" + dataVersion + "-" + degree);
         if (StringUtils.isNullOrEmpty(json)) {
             json = this.getAPIDynamicRelatedPartUploadJTTP(companyName, degree, dataVersion);
         }

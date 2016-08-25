@@ -1,19 +1,16 @@
 package com.bbd.wtyh.web.controller;
 
 import java.util.List;
+import java.util.TreeSet;
 
+import com.bbd.wtyh.domain.*;
+import org.apache.velocity.runtime.directive.Foreach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bbd.wtyh.domain.AreaDO;
-import com.bbd.wtyh.domain.BuildingDO;
-import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
-import com.bbd.wtyh.domain.CompanyNewsDO;
-import com.bbd.wtyh.domain.CompanyTypeCountDO;
-import com.bbd.wtyh.domain.InBusinessDO;
 import com.bbd.wtyh.service.AreaService;
 import com.bbd.wtyh.service.CompanyNewsService;
 import com.bbd.wtyh.service.ParkService;
@@ -51,10 +48,10 @@ public class ParkController {
 
         return ResponseBean.successResponse(data);
     }
-    
+
     
     /**
-    * 根据园区查询类金融企业集中度  与 楼宇列表 共用接口
+    * 根据园区查询新型金融企业集中度  与 楼宇列表 共用接口
     * @param areaId 区域id,必传
     * @return ResponseBean  
     */
@@ -63,7 +60,7 @@ public class ParkController {
     public ResponseBean oncentration(@RequestParam(required=true) Integer areaId) {
 
         List<BuildingDO> data = parkService.queryBuildings(areaId);
-        
+
         return ResponseBean.successResponse(data);
     }
     
@@ -145,8 +142,8 @@ public class ParkController {
        @ResponseBody
        public ResponseBean buildingCompany(@RequestParam(required=true) Integer buildingId,Integer orderField,String descAsc) {
 
-           Object data = parkService.buildingCompany(buildingId,orderField,descAsc);
-           
+           List<CompanyDO> data = parkService.buildingCompany(buildingId,orderField,descAsc);
+
            return ResponseBean.successResponse(data);
        }
        

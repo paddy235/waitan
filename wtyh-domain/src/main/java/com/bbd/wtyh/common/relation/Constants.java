@@ -41,8 +41,6 @@ public class Constants {
 	public static WebApplicationContext context;
 
 
-	public static final String API_SEARCH_URL = "api.search.baseinfo.url";
-
 
 	public static final class SESSION {
 		public static final String loginName = "loginName";

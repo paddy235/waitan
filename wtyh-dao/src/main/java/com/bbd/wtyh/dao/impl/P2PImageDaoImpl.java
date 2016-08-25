@@ -4,16 +4,19 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
+import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.dao.P2PImageDao;
 import com.bbd.wtyh.domain.PlatformNameInformationDO;
 import com.bbd.wtyh.domain.bbdAPI.BBDLogoDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
+import com.bbd.wtyh.domain.vo.StatisticsVO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompanyDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
 import com.bbd.wtyh.mapper.PlatformNameInformationMapper;
+import com.bbd.wtyh.redis.RedisDAO;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -47,6 +50,9 @@ public class P2PImageDaoImpl implements P2PImageDao {
 
     @Autowired
     private PlatformNameInformationMapper platformNameInformationMapper;
+
+    @Autowired
+    private RedisDAO redisDAO;
 
     @Override
     public YuQingDO platformConsensus(String platName) {
@@ -181,25 +187,32 @@ public class P2PImageDaoImpl implements P2PImageDao {
      */
     @Override
     public BaseDataDO baseInfoBBDData(String companyName) {
-        String baseURL = bbdQyxxURL + "?company=" + companyName + "&ak=" + bbdQyxxAK;
-        final Map<String, Object> map = new LinkedHashMap<>();
-        HttpTemplate httpTemplate = new HttpTemplate();
-        try {
-            return httpTemplate.get(baseURL, new HttpCallback<BaseDataDO>() {
-                @Override
-                public boolean valid() {
-                    return true;
-                }
-                @Override
-                public BaseDataDO parse(String result) {
-                    Gson gson = new Gson();
-                    return gson.fromJson(result, BaseDataDO.class);
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+        BaseDataDO baseDataDO = (BaseDataDO) redisDAO.getObject(Constants.REDIS_KEY_BASE_INFO_BBD_DATA);
+        if (baseDataDO != null) {
+            return baseDataDO;
+        } else {
+            String baseURL = bbdQyxxURL + "?company=" + companyName + "&ak=" + bbdQyxxAK;
+            final Map<String, Object> map = new LinkedHashMap<>();
+            HttpTemplate httpTemplate = new HttpTemplate();
+            try {
+                return httpTemplate.get(baseURL, new HttpCallback<BaseDataDO>() {
+                    @Override
+                    public boolean valid() {
+                        return true;
+                    }
+                    @Override
+                    public BaseDataDO parse(String result) {
+                        Gson gson = new Gson();
+//                        redisDAO.addObject(Constants.REDIS_KEY_BASE_INFO_BBD_DATA, gson.fromJson(result, BaseDataDO.class), Constants.cacheDay, BaseDataDO.class);
+                        return gson.fromJson(result, BaseDataDO.class);
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
         }
+
     }
 
     /**
@@ -208,7 +221,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
      */
     public ZuZhiJiGoudmDO baseInfoZuZhiJiGou(String companyName) {
 //        String url = zuZhiJiGouURL+"?company="+companyName+"&ak="+zuZhiJiGouURL;
-        String URL = "http://dataom.api.bbdservice.com/api/bbd_zuzhijigoudm/?company=%E6%94%80%E6%9E%9D%E8%8A%B1%E5%B8%82%E4%BA%A4%E9%80%9A%E6%97%85%E6%B8%B8%E5%AE%A2%E8%BF%90%E6%9C%89%E9%99%90%E8%B4%A3%E4%BB%BB%E5%85%AC%E5%8F%B8&ak=605f60df40668579e939515fef710d2b";
+        String URL = "http://dataom.api.bbdservice.com/api/bbd_zuzhijigoudm/?company="+companyName+"&ak=605f60df40668579e939515fef710d2b";
         final Map<String, Object> map = new LinkedHashMap<>();
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
@@ -300,6 +313,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
 
                 @Override
                 public PlatDataDO parse(String result) {
+
                     return JSON.parseObject(result, PlatDataDO.class);
                 }
             });

@@ -18,6 +18,8 @@
         <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
         <result column="update_date" jdbcType="DATE" property="updateDate"/>
         <result column="registered_type" jdbcType="VARCHAR" property="registeredType"/>
+        <result column="exposure_date" jdbcType="DATE" property="exposureDate"/>
+        <result column="analysisResult" jdbcType="TINYINT" property="analysisResult"/>
 
     </resultMap>
     <sql id="Base_Column_List">
@@ -84,23 +86,40 @@
    </select>
 
 
+
+    <select id="maxVersion" resultType="int">
+        select max(data_version) from  static_risk_data
+    </select>
+
+
     <select id="buildingCompany" resultMap="BaseResultMap">
 
-        select c.*,cb.background from company c ,
-        company_building b,company_background cb
+        select a.*, IFNULL(car.analysis_result,4) analysisResult,car.exposure_date exposureDate
+        from (
 
-        where b.company_id=c.company_id
-        and b.building_id=#{buildingId}
-        and cb.company_id=c.company_id
-        and cb.background in (3,4)
+
+                select c.* , IFNULL(cb.background , 3) background
+                from company c
+                left join   company_building b
+                            on  b.company_id=c.company_id
+                left join   (  select * from  company_background cb where cb.background in (3,4) ) cb
+                            on cb.company_id=c.company_id
+                where b.building_id=#{buildingId}
+                      and c.company_type is not null
+
+            )
+        a
+        LEFT JOIN company_analysis_result car
+        on car.company_id=a.company_id
+
         order by
 
         <choose>
-            <when test="orderField == 2">c.registered_capital</when>
-            <when test="orderField == 3">cb.background</when>
-            <when test="orderField == 4">c.registered_date</when>
-            <when test="orderField == 5">c.registered_type</when>
-            <otherwise>c.company_type</otherwise>
+            <when test="orderField == 2">a.registered_capital</when>
+            <when test="orderField == 3">a.background</when>
+            <when test="orderField == 4">a.registered_date</when>
+            <when test="orderField == 5">a.registered_type</when>
+            <otherwise>a.company_type</otherwise>
         </choose>
 
 
@@ -159,10 +178,10 @@
             order by
             <choose>
                 <when test="orderByField==1">
-                    registered_capital_type,registered_capital
+                    registered_capital_type is null,registered_capital_type,registered_capital
                 </when>
                 <when test="orderByField==2">
-                    registered_date
+                    registered_date is null, registered_date
                 </when>
             </choose>
 
@@ -191,10 +210,10 @@
 		limit #{pagination.begin}, #{pagination.pageSize}
     </select>
     
-    <select id="searchCompanyNameCount" resultType="int" parameterType="java.lang.String">
-		select count(1) from company where company_type=4
-		<if test="keyword != null and keyword != ''">
-			and name like concat('%',#{keyword},'%')
+    <select id="searchCompanyNameCount" resultType="int" parameterType="string">
+		select count(1) from company c, index_data i where c.`name`=i.company_name and c.company_type=4 
+		<if test="_parameter != null and _parameter != ''">
+			and c.`name` like concat('%',#{_parameter},'%')
 		</if>
     </select>
 

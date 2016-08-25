@@ -68,7 +68,7 @@
         select c.company_id,c.`name` , IFNULL(cas.analysis_result,4) analysisResult from company c
         LEFT JOIN company_building cb  on cb.company_id=c.company_id
         left JOIN company_analysis_result cas on cas.company_id=c.company_id
-        where cb.company_id=c.company_id and cb.building_id=#{buildingId}
+        where cb.company_id=c.company_id and cb.building_id=#{buildingId} and c.company_type not in (7,8)
     </select>
 
 

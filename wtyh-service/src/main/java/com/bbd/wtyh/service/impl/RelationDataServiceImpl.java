@@ -88,15 +88,11 @@ public class RelationDataServiceImpl implements RelationDataService {
 
         if(currentRelationData==null || compareRelationData==null)
         {
-            System.out.println("关联方数据不存在");
-            throw new BbdException("关联方数据不存在",true);
-            //return null;
+            logger.info("关联方数据不存在");
         }
         if(currentDynamicRisk==null || compareDynamicRisk==null)
         {
-            System.out.println("动态指标数据不存在");
-            throw new BbdException("动态指标数据不存在",true);
-            //return null;
+            logger.info("动态指标数据不存在");
         }
         try {
             vo = RelationDataUtils.compareRelationData(currentRelationData, compareRelationData);
