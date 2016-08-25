@@ -32,13 +32,13 @@
             order by
             <choose>
                 <when test="orderByField == 1">
-                    out_level
+                    out_level is null,out_level
                 </when>
                 <when test="orderByField == 2">
-                    inner_level
+                    inner_level is null,inner_level
                 </when>
                 <otherwise>
-                    live_level
+                    live_level is null,live_level
                 </otherwise>
             </choose>
             <choose>
@@ -48,6 +48,9 @@
                 <otherwise>desc</otherwise>
             </choose>
 
+        </if>
+        <if test="orderByField==null">
+            order by live_level is null,live_level, inner_level is null,inner_level,out_level is null,out_level
         </if>
     </select>
 </mapper>

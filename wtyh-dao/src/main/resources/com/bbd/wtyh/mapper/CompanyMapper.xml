@@ -174,10 +174,10 @@
             order by
             <choose>
                 <when test="orderByField==1">
-                    registered_capital_type,registered_capital
+                    registered_capital_type is null,registered_capital_type,registered_capital
                 </when>
                 <when test="orderByField==2">
-                    registered_date
+                    registered_date is null, registered_date
                 </when>
             </choose>
 
