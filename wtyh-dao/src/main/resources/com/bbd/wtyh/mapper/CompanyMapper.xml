@@ -176,10 +176,10 @@
             order by
             <choose>
                 <when test="orderByField==1">
-                    registered_capital_type,registered_capital
+                    registered_capital_type is null,registered_capital_type,registered_capital
                 </when>
                 <when test="orderByField==2">
-                    registered_date
+                    registered_date is null, registered_date
                 </when>
             </choose>
 
@@ -209,9 +209,9 @@
     </select>
     
     <select id="searchCompanyNameCount" resultType="int" parameterType="string">
-		select count(1) from company where company_type=4
-		<if test="_parameter != null and _parameter != ''">
-			and name like concat('%',#{_parameter, jdbcType=VARCHAR},'%')
+		select count(1) from company c, index_data i where c.`name`=i.company_name and c.company_type=4 
+		<if test="keyword != null and keyword != ''">
+			and c.`name` like concat('%',#{keyword},'%')
 		</if>
     </select>
 

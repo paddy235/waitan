@@ -23,17 +23,6 @@ public class CalculateUtils {
         return bBcs.divide(bCs, scale, BigDecimal.ROUND_HALF_EVEN).doubleValue();
     }
 
-
-
-
-
-
-
-
-
-
-
-
     /**
      * 精度调整
      * @param rate

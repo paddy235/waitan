@@ -51671,10 +51671,10 @@
 	                position: 'top',
 	                backgroundColor: 'rgba(0,0,0,0.7)',
 	                padding: [10, 10, 10, 10],
-	                formatter: function formatter(data) {
+	                formatter: param.tooltip || function (data) {
 	                    if (param.formatter == "BusinessNum") {
 	                        //典当总额业务笔数
-	                        return data.name + ' 年<br/> 典当总额：&nbsp <span style="color:#00b7f0">' + data.data[2] + '亿元</span><br/>业务笔数：&nbsp  <span style="color:#00b7f0">' + data.data[3] + '</span>';
+	                        return data.name + ' 年<br/> 业务笔数：&nbsp <span style="color:#00b7f0">' + data.data[2] + '</span><br/>典当总额：&nbsp  <span style="color:#00b7f0">' + data.data[3] + '亿元</span>';
 	                    } else {
 	                        return data.name + ' 年<br/> ' + param.forMaterTitle + "：" + data.data[2] + '亿元<br/>' + param.forMaterTip + "：" + data.data[3] + "万元";
 	                    }
@@ -51721,6 +51721,7 @@
 	                type: param.yType || 'category',
 	                name: param.yAxisName == undefined ? "" : param.yAxisName,
 	                boundaryGap: ["10%", "10%"],
+	                nameGap: param.YnameGap || 8,
 	                nameTextStyle: {
 	                    color: "#7f868e"
 	                },
@@ -51890,7 +51891,12 @@
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'search-box' },
-	        _react2.default.createElement(_IndustrySearch2.default, { companyType: '4', keyWord: this.state.keyWord, searchFun: this.getInputVal, label: '线下理财监测', className: 'small-loan-search', placeholder: '请输入企业名称检索' })
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          '线下理财监测'
+	        ),
+	        _react2.default.createElement(_index.Input, { placeholder: '请输入企业名称检索', value: this.state.searchVal, icon: 'icon-search', iconplace: 'right', type: 'text', searchClick: this.searchClick })
 	      ),
 	      _react2.default.createElement(
 	        'div',
@@ -52379,7 +52385,12 @@
 
 	    //公司标签
 	    queryCompanyInfoRequest: state.QueryCompanyInfo.request,
-	    queryCompanyInfoResult: state.QueryCompanyInfo.result
+	    queryCompanyInfoResult: state.QueryCompanyInfo.result,
+
+	    //新增两项
+	    queryRiskIndexRequest: state.QueryRiskIndex.request,
+	    queryRiskIndexResult: state.QueryRiskIndex.result
+
 	  };
 	}
 
@@ -52933,7 +52944,7 @@
 
 
 	// module
-	exports.push([module.id, "/*关联图模块 begin*/\r\n.linefin-rel-graph {\r\n\theight: 1300px;\r\n}\r\n\r\n.linefin-rel-graph .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-rel-graph .mod-title h3 {\r\n}\r\n\r\n.linefin-rel-graph .mod-title .mod-title-right {\r\n\tmargin-top: 5px;\r\n\tdisplay: inline-block;\r\n\tfloat: right;\r\n}\r\n\r\n.linefin-rel-graph .mod-title-right i.icon-fullscreen {\r\n\tmargin-left: 20px;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 6px;\r\n\tfloat: right;\r\n\tcursor: pointer;\r\n}\r\n\r\n.linefin-rel-graph .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .pic_rank {\r\n\tposition: absolute;\r\n\tright: 17px;\r\n\ttop: 62px;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .pic_rank span {\r\n\tborder: 1px solid #3A4450;\r\n\tdisplay: inline-block;\r\n\twidth: 22px;\r\n\theight: 22px;\r\n\tbackground: #19202A;\r\n\ttext-align: center;\r\n\tline-height: 18px;\r\n\tcolor: #E14340;\r\n\tcursor: pointer;\r\n\tmargin-left: 8px;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .relation-graph-box {\r\n\theight: 1200px;\r\n}\r\n\r\n/*关联图模块 end*/\r\n\r\n/*公司舆情 begin*/\r\n.linefin-cocompose {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n.linefin-cocompose .mod-title {\r\n\tbackground-color: #36404d;\r\n}\r\n\r\n.linefin-cocompose .mod-content {\r\n\theight: 550px;\r\n}\r\n\r\n.linefin-cocompose .content-box {\r\n\theight: 534px;\r\n\toverflow: auto;\r\n\tmargin: 20px 20px 0px 20px;\r\n\tbackground-color: #212831;\r\n\tpadding: 20px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box {\r\n\toverflow: hidden;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 a {\r\n\tcolor: #ffffff;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 em {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 24px;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\tborder-radius: 2px;\r\n\tbackground-color: #1a2029;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box p {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tmargin-left: 45px;\r\n\ttext-indent: 28px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tfloat: right;\r\n\tcolor: #e14340;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source .name {\r\n\tmargin-right: 40px;\r\n}\r\n\r\n/**公司舆情 end*/\r\n\r\n/*静态风险指数构成 begin*/\r\n.linefin-index-constitute .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-index-constitute .mt-select {\r\n\tmargin-top: 5px;\r\n\tmargin-right: 5px;\r\n\tcolor: #c9c9ca;\r\n}\r\n\r\n.linefin-index-constitute .con-box {\r\n\tbackground-color: #2b323c;\r\n\tpadding: 0 20px;\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-info {\r\n\tmin-height: 1362px;\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-pie {\r\n\theight: 520px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item {\r\n\tcursor: pointer;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-head {\r\n\tbackground-color: #1a2029;\r\n\tborder-bottom: solid 1px #2b323c;\r\n\theight: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\tfont-size: 14px;\r\n\theight: 20px;\r\n\tline-height: 20px;\r\n\tmargin-top: 10px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.name {\r\n\tcolor: #e5e5e5;\r\n\twidth: 40%;\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.num {\r\n\twidth: 60%;\r\n\ttext-indent: 10%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head {\r\n\theight: 60px;\r\n\tbackground-color: #e14340;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span {\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.name {\r\n\tfont-size: 18px;\r\n\tborder-color: #ed8e8c;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.num em {\r\n\tfont-size: 36px;\r\n\tcolor: #ffffff;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-other .item-head span.num i {\r\n\tfloat: right;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 3px;\r\n\tfont-size: 14px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table {\r\n\twidth: 100%;\r\n\tbackground-color: #36404d;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table {\r\n\twidth: 100%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td {\r\n\tborder-bottom: solid 1px #2b323c;\r\n\tpadding: 10px 0;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-left {\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-right {\r\n\tpadding-left: 10%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart {\r\n\theight: 330px;\r\n\tbackground-color: #212831;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart h4 {\r\n\tbackground-color: #1a2029;\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n\tpadding: 0 20px;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart .chart-b {\r\n\theight: 290px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-head span.name {\r\n\tfont-size: 16px;\r\n\tborder-color: #d0d8df;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-con {\r\n\tdisplay: none;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-con {\r\n\tdisplay: block;\r\n}\r\n\r\n/*关联图 侧边栏begin*/\r\n.sidebox {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation-tips {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .sidebar {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .canvas {\r\n\tmargin-right: auto !important;\r\n}\r\n\r\n.correlation .time-line {\r\n\tdisplay: none;\r\n}\r\n\r\n/*静态风险指数构成 end*/", ""]);
+	exports.push([module.id, "/*关联图模块 begin*/\r\n.linefin-rel-graph {\r\n\theight: 1300px;\r\n}\r\n\r\n.linefin-rel-graph .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-rel-graph .mod-title h3 {\r\n}\r\n\r\n.linefin-rel-graph .mod-title .mod-title-right {\r\n\tmargin-top: 5px;\r\n\tdisplay: inline-block;\r\n\tfloat: right;\r\n}\r\n\r\n.linefin-rel-graph .mod-title-right i.icon-fullscreen {\r\n\tmargin-left: 20px;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 6px;\r\n\tfloat: right;\r\n\tcursor: pointer;\r\n}\r\n\r\n.linefin-rel-graph .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .pic_rank {\r\n\tposition: absolute;\r\n\tright: 17px;\r\n\ttop: 62px;\r\n\tz-index: 999;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .pic_rank span {\r\n\tborder: 1px solid #3A4450;\r\n\tdisplay: inline-block;\r\n\twidth: 22px;\r\n\theight: 22px;\r\n\tbackground: #19202A;\r\n\ttext-align: center;\r\n\tline-height: 18px;\r\n\tcolor: #E14340;\r\n\tcursor: pointer;\r\n\tmargin-left: 8px;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .relation-graph-box {\r\n\theight: 1200px;\r\n}\r\n\r\n/*关联图模块 end*/\r\n\r\n/*公司舆情 begin*/\r\n.linefin-cocompose {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n.linefin-cocompose .mod-title {\r\n\tbackground-color: #36404d;\r\n}\r\n\r\n.linefin-cocompose .mod-content {\r\n\theight: 550px;\r\n}\r\n\r\n.linefin-cocompose .content-box {\r\n\theight: 534px;\r\n\toverflow: auto;\r\n\tmargin: 20px 20px 0px 20px;\r\n\tbackground-color: #212831;\r\n\tpadding: 20px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box {\r\n\toverflow: hidden;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 a {\r\n\tcolor: #ffffff;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 em {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 24px;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\tborder-radius: 2px;\r\n\tbackground-color: #1a2029;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box p {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tmargin-left: 45px;\r\n\ttext-indent: 28px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tfloat: right;\r\n\tcolor: #e14340;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source .name {\r\n\tmargin-right: 40px;\r\n}\r\n\r\n/**公司舆情 end*/\r\n\r\n/*静态风险指数构成 begin*/\r\n.linefin-index-constitute .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-index-constitute .mt-select {\r\n\tmargin-top: 5px;\r\n\tmargin-right: 5px;\r\n\tcolor: #c9c9ca;\r\n}\r\n\r\n.linefin-index-constitute .con-box {\r\n\tbackground-color: #2b323c;\r\n\tpadding: 0 20px;\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-info {\r\n\tmin-height: 1362px;\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-pie {\r\n\theight: 520px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item {\r\n\tcursor: pointer;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-head {\r\n\tbackground-color: #1a2029;\r\n\tborder-bottom: solid 1px #2b323c;\r\n\theight: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\tfont-size: 14px;\r\n\theight: 20px;\r\n\tline-height: 20px;\r\n\tmargin-top: 10px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.name {\r\n\tcolor: #e5e5e5;\r\n\twidth: 40%;\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.num {\r\n\twidth: 60%;\r\n\ttext-indent: 10%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head {\r\n\theight: 60px;\r\n\tbackground-color: #e14340;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span {\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.name {\r\n\tfont-size: 18px;\r\n\tborder-color: #ed8e8c;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.num em {\r\n\tfont-size: 36px;\r\n\tcolor: #ffffff;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-other .item-head span.num i {\r\n\tfloat: right;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 3px;\r\n\tfont-size: 14px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table {\r\n\twidth: 100%;\r\n\tbackground-color: #36404d;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table {\r\n\twidth: 100%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td {\r\n\tborder-bottom: solid 1px #2b323c;\r\n\tpadding: 10px 0;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-left {\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-right {\r\n\tpadding-left: 10%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart {\r\n\theight: 330px;\r\n\tbackground-color: #212831;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart h4 {\r\n\tbackground-color: #1a2029;\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n\tpadding: 0 20px;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart .chart-b {\r\n\theight: 290px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-head span.name {\r\n\tfont-size: 16px;\r\n\tborder-color: #d0d8df;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-con {\r\n\tdisplay: none;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-con {\r\n\tdisplay: block;\r\n}\r\n\r\n/*关联图 侧边栏begin*/\r\n.sidebox {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation-tips {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .sidebar {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .canvas {\r\n\tmargin-right: auto !important;\r\n}\r\n\r\n.correlation .time-line {\r\n\tdisplay: none;\r\n}\r\n\r\n/*静态风险指数构成 end*/", ""]);
 
 	// exports
 
@@ -53103,7 +53114,8 @@
 	            riskList: "",
 	            allDate: "",
 	            companyName: "",
-	            pieOption: ""
+	            pieOption: "",
+	            createData: ""
 	        };
 	    },
 	    componentDidMount: function componentDidMount() {
@@ -53120,12 +53132,15 @@
 	        //请求右面折线图       
 	        var jsonDataLine = { companyName: companyName, areaCode: "金山区" };
 	        this.staticRiskIndex(jsonDataLine);
+
+	        this.queryRiskIndex(jsonDataDate);
 	    },
 
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	        if (this.state.companyName && this.state.companyName != this.props.location.query.companyName) {
 	            this.queryAllData();
 	        }
+
 	        var riskDataIsEqual = Immutable.is(nextProps.riskDataResult, this.props.riskDataResult);
 	        if (!riskDataIsEqual) {
 	            this.setState({
@@ -53133,6 +53148,7 @@
 	            });
 	            this.setParm(nextProps.riskDataResult.content);
 	        }
+
 	        var dateVersionIsEqual = Immutable.is(nextProps.queryDateVersionResult, this.props.queryDateVersionResult);
 	        var _allDate = [];
 	        if (!dateVersionIsEqual) {
@@ -53158,6 +53174,11 @@
 	                lineOption: nextProps.statisticsResult
 	            });
 	        }
+
+	        var riskIndexIsEqual = Immutable.is(nextProps.queryRiskIndexResult, this.props.queryRiskIndexResult);
+	        if (!riskIndexIsEqual) {
+	            this.setState({ createData: nextProps.queryRiskIndexResult.content });
+	        }
 	    },
 	    queryRiskData: function queryRiskData(currentDate) {
 	        //获取列表数据
@@ -53176,6 +53197,11 @@
 	        //请求右面折线图          
 	        var queryStatistics = this.props.queryStatistics;var self = this;
 	        queryStatistics(jsonDataLine);
+	    },
+	    queryRiskIndex: function queryRiskIndex(jsonData) {
+	        var queryRiskIndex = this.props.queryRiskIndex;
+
+	        queryRiskIndex(jsonData);
 	    },
 
 	    itemClick: function itemClick(e) {
@@ -54097,7 +54123,7 @@
 	                                    _react2.default.createElement(
 	                                        'em',
 	                                        { className: 'c-red' },
-	                                        itemTable && itemTable.perStructRisk
+	                                        this.state.createData && this.state.createData.capitalRisk
 	                                    )
 	                                )
 	                            )
@@ -54119,7 +54145,7 @@
 	                                    _react2.default.createElement(
 	                                        'em',
 	                                        { className: 'c-red' },
-	                                        itemTable && itemTable.perStructRisk
+	                                        this.state.createData && this.state.createData.creditInfoRisk
 	                                    )
 	                                )
 	                            )
@@ -54514,6 +54540,7 @@
 	exports.companyNews = companyNews;
 	exports.queryDateVersion = queryDateVersion;
 	exports.queryCompanyInfo = queryCompanyInfo;
+	exports.queryRiskIndex = queryRiskIndex;
 	/*
 	  线下理财监测creat by yq
 	*/
@@ -54720,6 +54747,40 @@
 	      },
 	      error: function error(result) {
 	        return dispatch(companyInfoFail(result));
+	      }
+	    });
+	  };
+	}
+	//请求新添加的两个数据/offlineFinance/staticRiskIndex.do
+	var RISK_INDEX_SUCCESS = exports.RISK_INDEX_SUCCESS = 'RISK_INDEX_SUCCESS';
+	var RISK_INDEX_FAIL = exports.RISK_INDEX_FAIL = 'RISK_INDEX_FAIL';
+	function riskIndexSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: RISK_INDEX_SUCCESS,
+	    result: result
+	  };
+	}
+	function riskIndexFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: RISK_INDEX_FAIL,
+	    result: result
+	  };
+	}
+	function queryRiskIndex(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "/offlineFinance/staticRiskIndex.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(riskIndexSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(riskIndexFail(result));
 	      }
 	    });
 	  };
@@ -55040,9 +55101,17 @@
 	    for (var i = 0; i < len; i++) {
 	      dateArr.push({ value: i + 1, label: content[i] });
 	    }
+	    var dateLeft = content[0];
+	    var dateRight = content[1];
 	    //把第一个时间赋值给第一个图 第二个时间赋值给第二个图
-	    this.setState({ date: dateArr, dateLeft: content[0], dateRight: content[1] });
-	    var jsonData = { dateLeft: content[0], dateRight: content[1] };
+	    console.log(content[0], "第一个日期");
+	    if (len < 2) {
+	      dateLeft = content[0];
+	      dateRight = content[0];
+	    }
+	    this.setState({ date: dateArr, dateLeft: dateLeft, dateRight: dateRight });
+	    var jsonData = { dateLeft: dateLeft, dateRight: dateRight };
+	    console.log(jsonData, dateArr, '看看这个日期');
 	    this.getSelectDate(jsonData);
 	  },
 	  getRelativeDate: function getRelativeDate(jsonData) {
@@ -70852,7 +70921,7 @@
 	            var _setData = [];
 	            for (var i = 0; i < Data.data.length; i++) {
 	                var item = [];
-	                item.push(i, i, Data.data[i], Data.yAxisData[i]);
+	                item.push(i, i, Data.yAxisData[i], Data.data[i]);
 	                _setData.push(item);
 	            }
 
@@ -73507,380 +73576,403 @@
 	var innerdata = [];
 	var outerdata = [];
 	var Catalog = _react2.default.createClass({
-	    displayName: 'Catalog',
+	  displayName: 'Catalog',
 
-	    getInitialState: function getInitialState() {
-	        return {
-	            CatalogCentent: [],
-	            CompanyDirectoryData: [],
-	            CatalogDirectoryData: [],
-	            CatalogSelect: [],
-	            CatalogAdd: []
-	        };
-	    },
-	    //初始
-	    componentDidMount: function componentDidMount() {
-	        var getContrastCatalognumRequest = this.props.getContrastCatalognumRequest;
+	  getInitialState: function getInitialState() {
+	    return {
+	      CatalogCentent: [],
+	      CompanyDirectoryData: [],
+	      CatalogDirectoryData: [],
+	      CatalogSelect: [],
+	      CatalogAdd: []
+	    };
+	  },
+	  //初始
+	  componentDidMount: function componentDidMount() {
+	    var getContrastCatalognumRequest = this.props.getContrastCatalognumRequest;
 
-	        var jsonData = { 'areaName': '黄浦区' };
-	        getContrastCatalognumRequest(jsonData);
+	    var jsonData = { 'areaName': '黄浦区' };
+	    getContrastCatalognumRequest(jsonData);
 
-	        var getSelectRequest = this.props.getSelectRequest;
+	    var getSelectRequest = this.props.getSelectRequest;
 
-	        var jsonData = { 'areaId': 104 };
-	        getSelectRequest(jsonData);
+	    var jsonData = { 'areaId': 104 };
+	    getSelectRequest(jsonData);
 
-	        $("#platformBase-scroll").perfectScrollbar();
-	    },
-	    componentDidUpdate: function componentDidUpdate() {
-	        $("#platformBase-scroll").perfectScrollbar('update').scrollTop(0);
-	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        //下拉框
-	        var isEqual = Immutable.is(nextProps.CatalogSelectNumChartRequest, this.props.CatalogSelectNumChartResult);
-	        if (!isEqual) {
-	            var CatalogSelectNumChartRequest = nextProps.CatalogSelectNumChartRequest;
-	            var CatalogSelectNumChartResult = nextProps.CatalogSelectNumChartResult;
-
-	            if (CatalogSelectNumChartRequest == true) {
-	                if (CatalogSelectNumChartResult.success) {
-	                    this.dataCatalogSelect(CatalogSelectNumChartResult);
-	                } else {
-	                    //错误后提示
-	                }
-	            }
-	        }
-	        //列表
-	        var isEqual = Immutable.is(nextProps.ContrastCatalogNumChartRequest, this.props.ContrastCatalogNumChartResult);
-	        if (!isEqual) {
-	            var ContrastCatalogNumChartRequest = nextProps.ContrastCatalogNumChartRequest;
-	            var ContrastCatalogNumChartResult = nextProps.ContrastCatalogNumChartResult;
-
-	            if (ContrastCatalogNumChartRequest == true) {
-	                if (ContrastCatalogNumChartResult.success) {
-	                    this.dataFomat(ContrastCatalogNumChartResult);
-	                } else {
-	                    //错误后提示
-	                }
-	            }
-	        }
-	    },
-	    //列表 
-	    dataFomat: function dataFomat(data) {
-	        var content = data.content;
-	        this.setState({ CatalogCentent: content });
-	    },
+	    $("#platformBase-scroll").perfectScrollbar();
+	  },
+	  componentDidUpdate: function componentDidUpdate() {
+	    $("#platformBase-scroll").perfectScrollbar('update').scrollTop(0);
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	    //下拉框
-	    dataCatalogSelect: function dataCatalogSelect(data) {
-	        var content = data.content;
-	        var selectVar = [];
-	        for (var j = 0; j < content.length; j++) {
-	            selectVar.push({ value: j, label: content[j] });
-	        }
-	        //console.info("qqqqqqqqqqqqqqqqqqqqqq",selectVar)
-	        this.setState({ CatalogSelect: selectVar });
-	    },
-	    //风险状态判断
-	    quarterChoice: function quarterChoice(value) {
-	        var areaName = $("#indexSelected").find('.mt-select-title').text();
-	        var analysisResult = $("#indexSelectedFeng").attr('data-val');
-	        var riskA = $("#indexSelectedShi").attr('data-val');
-	        var riskB = $("#indexSelectedWei").attr('data-val');
-	        var riskC = $("#indexSelectedAdd").attr('data-val');
-	        var riskD = $("#indexSelectedBtt").attr('data-val');
-	        var areaNameData = { 'areaName': areaName, 'analysisResult': analysisResult, "riskA": riskA, "riskB": riskB, "riskC": riskC, "riskD": riskD };
-	        var getContrastCatalognumRequest = this.props.getContrastCatalognumRequest;
+	    var isEqual = Immutable.is(nextProps.CatalogSelectNumChartRequest, this.props.CatalogSelectNumChartResult);
+	    if (!isEqual) {
+	      var CatalogSelectNumChartRequest = nextProps.CatalogSelectNumChartRequest;
+	      var CatalogSelectNumChartResult = nextProps.CatalogSelectNumChartResult;
 
-	        getContrastCatalognumRequest(areaNameData);
-	        //console.info("jifei++++",areaNameData)
-	    },
-	    render: function render() {
-	        //下拉选择列表头          
-	        var selectProp = {
-	            width: '110px',
-	            className: 'index-selected',
-	            value: 1,
-	            placeholder: '黄浦区',
-	            name: 'testselect',
-	            data: this.state.CatalogSelect,
-	            onChange: function (value, label) {
-	                this.quarterChoice(label);
-	            }.bind(this)
-	        };
-	        //下拉选择风险状态
-	        var selectPropL = {
-	            width: '55px',
-	            className: 'index-selected',
-	            value: '',
-	            placeholder: '高级选项',
-	            name: 'testselect',
-	            data: [{ value: '', label: '全部' }, { value: 0, label: '正常' }, { value: 1, label: '潜在' }],
-	            onChange: function (value, label) {
-	                //console.log('当前值为：', value);          
-	                this.quarterChoice(value);
-	            }.bind(this)
-	        };
-	        //下拉选择全部
-	        var selectProps = {
-	            width: '55px',
-	            className: 'index-selected',
-	            value: '',
-	            placeholder: '高级选项',
-	            name: 'testselect',
-	            data: [{ value: '', label: '全部' }, { value: 1, label: '是' }],
-	            onChange: function (value, label) {
-	                console.log('当前值为：', value);
-	                this.quarterChoice(value);
-	            }.bind(this)
-	        };
-	        return _react2.default.createElement(
-	            'div',
-	            { className: 'Catalog mod' },
+	      if (CatalogSelectNumChartRequest == true) {
+	        if (CatalogSelectNumChartResult.success) {
+	          this.dataCatalogSelect(CatalogSelectNumChartResult);
+	        } else {
+	          //错误后提示
+	        }
+	      }
+	    }
+	    //列表
+	    var isEqual = Immutable.is(nextProps.ContrastCatalogNumChartRequest, this.props.ContrastCatalogNumChartResult);
+	    if (!isEqual) {
+	      var ContrastCatalogNumChartRequest = nextProps.ContrastCatalogNumChartRequest;
+	      var ContrastCatalogNumChartResult = nextProps.ContrastCatalogNumChartResult;
+
+	      if (ContrastCatalogNumChartRequest == true) {
+	        if (ContrastCatalogNumChartResult.success) {
+	          this.dataFomat(ContrastCatalogNumChartResult);
+	        } else {
+	          //错误后提示
+	        }
+	      }
+	    }
+	  },
+	  //列表 
+	  dataFomat: function dataFomat(data) {
+	    var content = data.content;
+	    this.setState({ CatalogCentent: content });
+	  },
+	  //下拉框
+	  dataCatalogSelect: function dataCatalogSelect(data) {
+	    var content = data.content;
+	    var selectVar = [];
+	    for (var j = 0; j < content.length; j++) {
+	      selectVar.push({ value: j, label: content[j] });
+	    }
+	    //console.info("qqqqqqqqqqqqqqqqqqqqqq",selectVar)
+	    this.setState({ CatalogSelect: selectVar });
+	  },
+	  //风险状态判断
+	  quarterChoice: function quarterChoice(value) {
+	    var areaName = $("#indexSelected").find('.mt-select-title').text();
+	    var analysisResult = $("#indexSelectedFeng").attr('data-val');
+	    if (analysisResult == 99) {
+	      analysisResult = "";
+	    }
+	    var riskA = $("#indexSelectedShi").attr('data-val');
+	    if (riskA == 99) {
+	      riskA = "";
+	    }
+	    var riskB = $("#indexSelectedWei").attr('data-val');
+	    if (riskB == 99) {
+	      riskB = "";
+	    }
+	    var riskC = $("#indexSelectedAdd").attr('data-val');
+	    if (riskC == 99) {
+	      riskC = "";
+	    }
+	    var riskD = $("#indexSelectedBtt").attr('data-val');
+	    if (riskD == 99) {
+	      riskD = "";
+	    }
+
+	    var areaNameData = { 'areaName': areaName, 'analysisResult': analysisResult, "riskA": riskA, "riskB": riskB, "riskC": riskC, "riskD": riskD };
+	    var getContrastCatalognumRequest = this.props.getContrastCatalognumRequest;
+
+	    getContrastCatalognumRequest(areaNameData);
+	    //console.info("jifei++++",areaNameData)
+	  },
+	  render: function render() {
+	    //下拉选择列表头          
+	    var selectProp = {
+	      width: '110px',
+	      className: 'index-selected',
+	      value: 1,
+	      placeholder: '黄浦区',
+	      name: 'testselect',
+	      data: this.state.CatalogSelect,
+	      onChange: function (value, label) {
+	        this.quarterChoice(label);
+	      }.bind(this)
+	    };
+	    //下拉选择风险状态
+	    var selectPropL = {
+	      width: '55px',
+	      className: 'index-selected',
+	      value: 99,
+	      placeholder: '高级选项',
+	      name: 'testselect',
+	      data: [{ value: 99, label: '全部' }, { value: 0, label: '正常' }, { value: 1, label: '潜在' }],
+	      onChange: function (value, label) {
+	        //console.log('当前值为：', value);   
+	        if (value == 99) {
+	          this.quarterChoice("");
+	        } else {
+	          this.quarterChoice(value);
+	        }
+	      }.bind(this)
+	    };
+	    //下拉选择全部
+	    var selectProps = {
+	      width: '55px',
+	      className: 'index-selected',
+	      value: 99,
+	      placeholder: '高级选项',
+	      name: 'testselect',
+	      data: [{ value: 99, label: '全部' }, { value: 1, label: '是' }],
+	      onChange: function (value, label) {
+	        if (value == 99) {
+	          this.quarterChoice("");
+	        } else {
+	          this.quarterChoice(value);
+	        }
+	      }.bind(this)
+	    };
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'Catalog mod' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'mod-title' },
+	        _react2.default.createElement(
+	          'h3',
+	          null,
+	          '上海市融资租赁企业目录'
+	        ),
+	        _react2.default.createElement(
+	          'span',
+	          { className: 'total' },
+	          '共',
+	          _react2.default.createElement(
+	            'em',
+	            { ref: 'totleCount' },
+	            this.state.CatalogCentent.length
+	          ),
+	          '家企业'
+	        ),
+	        _react2.default.createElement(
+	          'span',
+	          { className: 'right' },
+	          _react2.default.createElement(
+	            'em',
+	            null,
+	            '地区筛选'
+	          ),
+	          _react2.default.createElement(_index.Selected, _extends({}, selectProp, { id: 'indexSelected' }))
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'tabs' },
+	        _react2.default.createElement(
+	          'table',
+	          { className: 'wtyh-table table-border-b' },
+	          _react2.default.createElement(
+	            'thead',
+	            null,
 	            _react2.default.createElement(
-	                'div',
-	                { className: 'mod-title' },
+	              'tr',
+	              null,
+	              _react2.default.createElement(
+	                'th',
+	                { rowSpan: '2', className: 'width1' },
+	                '序号'
+	              ),
+	              _react2.default.createElement(
+	                'th',
+	                { rowSpan: '2', className: 'width2' },
 	                _react2.default.createElement(
-	                    'h3',
-	                    null,
-	                    '上海市融资租赁企业目录'
-	                ),
-	                _react2.default.createElement(
-	                    'span',
-	                    { className: 'total' },
-	                    '共',
-	                    _react2.default.createElement(
-	                        'em',
-	                        { ref: 'totleCount' },
-	                        this.state.CatalogCentent.length
-	                    ),
-	                    '家企业'
-	                ),
-	                _react2.default.createElement(
-	                    'span',
-	                    { className: 'right' },
-	                    _react2.default.createElement(
-	                        'em',
-	                        null,
-	                        '地区筛选'
-	                    ),
-	                    _react2.default.createElement(_index.Selected, _extends({}, selectProp, { id: 'indexSelected' }))
+	                  'span',
+	                  { className: 'leftD' },
+	                  '公司名称'
 	                )
+	              ),
+	              _react2.default.createElement(
+	                'th',
+	                { rowSpan: '2', className: 'width3' },
+	                _react2.default.createElement(
+	                  'span',
+	                  { className: 'leftD' },
+	                  '注册地址'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'th',
+	                { rowSpan: '2', className: 'width4' },
+	                '风险状态',
+	                _react2.default.createElement(_index.Selected, _extends({}, selectPropL, { id: 'indexSelectedFeng' }))
+	              ),
+	              _react2.default.createElement(
+	                'th',
+	                { colSpan: '4', className: 'width5' },
+	                '潜在风险'
+	              )
 	            ),
 	            _react2.default.createElement(
-	                'div',
-	                { className: 'tabs' },
-	                _react2.default.createElement(
-	                    'table',
-	                    { className: 'wtyh-table table-border-b' },
-	                    _react2.default.createElement(
-	                        'thead',
-	                        null,
-	                        _react2.default.createElement(
-	                            'tr',
-	                            null,
-	                            _react2.default.createElement(
-	                                'th',
-	                                { rowSpan: '2', className: 'width1' },
-	                                '序号'
-	                            ),
-	                            _react2.default.createElement(
-	                                'th',
-	                                { rowSpan: '2', className: 'width2' },
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    { className: 'leftD' },
-	                                    '公司名称'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'th',
-	                                { rowSpan: '2', className: 'width3' },
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    { className: 'leftD' },
-	                                    '注册地址'
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'th',
-	                                { rowSpan: '2', className: 'width4' },
-	                                '风险状态',
-	                                _react2.default.createElement(_index.Selected, _extends({}, selectPropL, { id: 'indexSelectedFeng' }))
-	                            ),
-	                            _react2.default.createElement(
-	                                'th',
-	                                { colSpan: '4', className: 'width5' },
-	                                '潜在风险'
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'tr',
-	                            null,
-	                            _react2.default.createElement(
-	                                'th',
-	                                { className: 'width6' },
-	                                '失联',
-	                                _react2.default.createElement(_index.Selected, _extends({}, selectProps, { id: 'indexSelectedShi' }))
-	                            ),
-	                            _react2.default.createElement(
-	                                'th',
-	                                { className: 'width6' },
-	                                '未参加自查',
-	                                _react2.default.createElement(_index.Selected, _extends({}, selectProps, { id: 'indexSelectedWei' }))
-	                            ),
-	                            _react2.default.createElement(
-	                                'th',
-	                                { className: 'width6' },
-	                                '一年以上零认缴',
-	                                _react2.default.createElement(_index.Selected, _extends({}, selectProps, { id: 'indexSelectedAdd' }))
-	                            ),
-	                            _react2.default.createElement(
-	                                'th',
-	                                { className: 'width6' },
-	                                '一年以上未经营',
-	                                _react2.default.createElement(_index.Selected, _extends({}, selectProps, { id: 'indexSelectedBtt' }))
-	                            )
-	                        )
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'box', id: 'platformBase-scroll' },
-	                    _react2.default.createElement(
-	                        'table',
-	                        { className: 'wtyh-table table-border-b' },
-	                        _react2.default.createElement(
-	                            'tbody',
-	                            null,
-	                            this.state.CatalogCentent.map(function (item, index) {
-	                                var Green = '';
-	                                item.riskStatus == "正常" ? Green = 'Green' : Green = 'Yellow';
-	                                var riskStatusA = item.riskStatusA == null ? "—" : item.riskStatusA;
-	                                var riskStatusB = item.riskStatusB == null ? "—" : item.riskStatusB;
-	                                var riskStatusC = item.riskStatusC == null ? "—" : item.riskStatusC;
-	                                var riskStatusD = item.riskStatusD == null ? "—" : item.riskStatusD;
-	                                if (index % 2) {
-	                                    return _react2.default.createElement(
-	                                        'tr',
-	                                        { key: index },
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            null,
-	                                            index + 1
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            null,
-	                                            _react2.default.createElement(
-	                                                _reactRouter.Link,
-	                                                { to: { pathname: '/SearchResultDetail', query: { formpage: 'CompanyProgress', companyName: item.companyName } }, className: 'word-limit-5 leftD', 'data-tip': item.companyName, title: item.companyName },
-	                                                item.companyName
-	                                            )
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            null,
-	                                            _react2.default.createElement(
-	                                                'span',
-	                                                { className: 'leftD', title: item.address },
-	                                                item.address
-	                                            )
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            null,
-	                                            _react2.default.createElement(
-	                                                'span',
-	                                                { className: Green },
-	                                                item.riskStatus
-	                                            )
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            null,
-	                                            riskStatusA
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            null,
-	                                            riskStatusB
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            null,
-	                                            riskStatusC
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            null,
-	                                            riskStatusD
-	                                        )
-	                                    );
-	                                } else {
-	                                    return _react2.default.createElement(
-	                                        'tr',
-	                                        { key: index },
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            null,
-	                                            index + 1
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            null,
-	                                            _react2.default.createElement(
-	                                                _reactRouter.Link,
-	                                                { to: { pathname: '/SearchResultDetail', query: { formpage: 'CompanyProgress', companyName: item.companyName } }, className: 'word-limit-5 leftD', 'data-tip': item.companyName, title: item.companyName },
-	                                                item.companyName
-	                                            )
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            null,
-	                                            _react2.default.createElement(
-	                                                'span',
-	                                                { className: 'leftD', title: item.address },
-	                                                item.address
-	                                            )
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            null,
-	                                            _react2.default.createElement(
-	                                                'span',
-	                                                { className: Green },
-	                                                item.riskStatus
-	                                            )
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            null,
-	                                            riskStatusA
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            null,
-	                                            riskStatusB
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            null,
-	                                            riskStatusC
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            null,
-	                                            riskStatusD
-	                                        )
-	                                    );
-	                                }
-	                            })
-	                        )
-	                    )
-	                )
+	              'tr',
+	              null,
+	              _react2.default.createElement(
+	                'th',
+	                { className: 'width6' },
+	                '失联',
+	                _react2.default.createElement(_index.Selected, _extends({}, selectProps, { id: 'indexSelectedShi' }))
+	              ),
+	              _react2.default.createElement(
+	                'th',
+	                { className: 'width6' },
+	                '未参加自查',
+	                _react2.default.createElement(_index.Selected, _extends({}, selectProps, { id: 'indexSelectedWei' }))
+	              ),
+	              _react2.default.createElement(
+	                'th',
+	                { className: 'width6' },
+	                '一年以上零认缴',
+	                _react2.default.createElement(_index.Selected, _extends({}, selectProps, { id: 'indexSelectedAdd' }))
+	              ),
+	              _react2.default.createElement(
+	                'th',
+	                { className: 'width6' },
+	                '一年以上未经营',
+	                _react2.default.createElement(_index.Selected, _extends({}, selectProps, { id: 'indexSelectedBtt' }))
+	              )
 	            )
-	        );
-	    }
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'box', id: 'platformBase-scroll' },
+	          _react2.default.createElement(
+	            'table',
+	            { className: 'wtyh-table table-border-b' },
+	            _react2.default.createElement(
+	              'tbody',
+	              null,
+	              this.state.CatalogCentent.map(function (item, index) {
+	                var Green = '';
+	                item.riskStatus == "正常" ? Green = 'Green' : Green = 'Yellow';
+	                var riskStatusA = item.riskStatusA == null ? "—" : item.riskStatusA;
+	                var riskStatusB = item.riskStatusB == null ? "—" : item.riskStatusB;
+	                var riskStatusC = item.riskStatusC == null ? "—" : item.riskStatusC;
+	                var riskStatusD = item.riskStatusD == null ? "—" : item.riskStatusD;
+	                if (index % 2) {
+	                  return _react2.default.createElement(
+	                    'tr',
+	                    { key: index },
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      index + 1
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      _react2.default.createElement(
+	                        _reactRouter.Link,
+	                        { to: { pathname: '/SearchResultDetail', query: { formpage: 'CompanyProgress', companyName: item.companyName } }, className: 'word-limit-5 leftD', 'data-tip': item.companyName, title: item.companyName },
+	                        item.companyName
+	                      )
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      _react2.default.createElement(
+	                        'span',
+	                        { className: 'leftD', title: item.address },
+	                        item.address
+	                      )
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      _react2.default.createElement(
+	                        'span',
+	                        { className: Green },
+	                        item.riskStatus
+	                      )
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      riskStatusA
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      riskStatusB
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      riskStatusC
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      riskStatusD
+	                    )
+	                  );
+	                } else {
+	                  return _react2.default.createElement(
+	                    'tr',
+	                    { key: index },
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      index + 1
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      _react2.default.createElement(
+	                        _reactRouter.Link,
+	                        { to: { pathname: '/SearchResultDetail', query: { formpage: 'CompanyProgress', companyName: item.companyName } }, className: 'word-limit-5 leftD', 'data-tip': item.companyName, title: item.companyName },
+	                        item.companyName
+	                      )
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      _react2.default.createElement(
+	                        'span',
+	                        { className: 'leftD', title: item.address },
+	                        item.address
+	                      )
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      _react2.default.createElement(
+	                        'span',
+	                        { className: Green },
+	                        item.riskStatus
+	                      )
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      riskStatusA
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      riskStatusB
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      riskStatusC
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      riskStatusD
+	                    )
+	                  );
+	                }
+	              })
+	            )
+	          )
+	        )
+	      )
+	    );
+	  }
 	});
 	module.exports = Catalog;
 
@@ -76206,6 +76298,7 @@
 	var Imgs = _react2.default.createClass({
 	    displayName: 'Imgs',
 
+
 	    getInitialState: function getInitialState() {
 	        return {
 	            areaId: "",
@@ -76338,13 +76431,10 @@
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
-	    var areaId = this.props.location.query.areaId;
-	    if (areaId != undefined) {
-	      var jsonData = { areaId: areaId };
-	      this.getParkNews(jsonData);
-	    }
+	    this.allRequest();
 	  },
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    console.log(nextProps, 333);
 	    var isSelectValEqual = Immutable.is(nextProps.menuParkSelectVal, this.props.menuParkSelectVal);
 	    if (!isSelectValEqual) {
 	      var menuParkSelectVal = nextProps.menuParkSelectVal;
@@ -76367,6 +76457,7 @@
 	        }
 	      }
 	    }
+	    this.allRequest();
 	  },
 	  dataFomat: function dataFomat(data) {
 	    var contentStr = data.content;
@@ -76382,7 +76473,13 @@
 	    this.setState({ consensu: results });
 	    console.log(results, 'kankan');
 	  },
-
+	  allRequest: function allRequest() {
+	    var areaId = this.props.location.query.areaId;
+	    if (areaId != undefined) {
+	      var jsonData = { areaId: areaId };
+	      this.getParkNews(jsonData);
+	    }
+	  },
 	  getParkNews: function getParkNews(menuParkSelectVal) {
 	    var getParkNews = this.props.getParkNews;
 
@@ -76687,10 +76784,15 @@
 	        var ParkContent = [];
 	        for (var i = 0; i < content.length; i++) {
 	            ParkBox.push({ value: content[i].count, name: content[i].type });
+	            if (content[i].children) {
+	                for (var j = 0; j < content[i].children.length; j++) {
+	                    ParkContent.push({ value: content[i].children[j].count, name: content[i].children[j].type });
+	                }
+	            } else {
+	                ParkContent.push({ value: content[i].count, name: content[i].type });
+	            }
 	        };
-	        for (var j = 0; j < content[0].children.length; j++) {
-	            ParkContent.push({ value: content[0].children[j].count, name: content[0].children[j].type });
-	        };
+
 	        this.initMap(ParkBox, ParkContent);
 	    },
 	    getParkIndustry: function getParkIndustry(menuParkSelectVal) {
@@ -76702,7 +76804,7 @@
 	        myChart = echarts.init(document.getElementById("myChart"));
 	        option = {
 	            backgroundColor: '#2b323c',
-	            color: ['#c33533', '#61a0a9', '#54656f', '#6e6f71', '#2f4553', '#c09f9a', '#dfab62'],
+	            color: ['#61A0A9', '#C33533', '#6e6f71', '#64c5a6', '#2f4553', '#c09f9a', '#dfab62', '#536571', '#98a5b5', '#DFAB62'],
 	            title: {
 	                text: "园区行业分布",
 	                x: "left",
@@ -76718,7 +76820,9 @@
 	            },
 	            tooltip: {
 	                trigger: 'item',
-	                formatter: "{a} <br/>{b}: {c} ({d}%)"
+	                formatter: function formatter(data) {
+	                    return '<div>' + data.name + ':' + data.value + ' (' + data.percent + '%)' + '</div>';
+	                }
 	            },
 	            legend: {
 	                orient: 'vertical',
@@ -78102,11 +78206,21 @@
 	        var content = data.content;
 	        var IndustryBox = [];
 	        var IndustryContent = [];
+	        // for(var i=0; i< content.length; i++){
+	        //     IndustryBox.push({value:content[i].count,name:content[i].type});
+	        // };
+	        // for(var j=0; j< content[0].children.length; j++){
+	        //     IndustryContent.push({value:content[0].children[j].count,name:content[0].children[j].type}) 
+	        // };
 	        for (var i = 0; i < content.length; i++) {
 	            IndustryBox.push({ value: content[i].count, name: content[i].type });
-	        };
-	        for (var j = 0; j < content[0].children.length; j++) {
-	            IndustryContent.push({ value: content[0].children[j].count, name: content[0].children[j].type });
+	            if (content[i].children) {
+	                for (var j = 0; j < content[i].children.length; j++) {
+	                    IndustryContent.push({ value: content[i].children[j].count, name: content[i].children[j].type });
+	                }
+	            } else {
+	                IndustryContent.push({ value: content[i].count, name: content[i].type });
+	            }
 	        };
 	        this.initMap(IndustryBox, IndustryContent);
 	    },
@@ -78120,7 +78234,7 @@
 	        var myChart = echarts.init(document.getElementById("Industry"));
 	        var option = {
 	            backgroundColor: '#2b323c',
-	            color: ['#c33533', '#61a0a9', '#54656f', '#6e6f71', '#2f4553', '#c09f9a', '#dfab62'],
+	            color: ['#61A0A9', '#C33533', '#6e6f71', '#64c5a6', '#2f4553', '#c09f9a', '#dfab62', '#536571', '#98a5b5', '#DFAB62'],
 	            title: {
 	                text: "楼宇行业分布",
 	                x: "left",
@@ -78136,7 +78250,9 @@
 	            },
 	            tooltip: {
 	                trigger: 'item',
-	                formatter: "{a} <br/>{b}: {c} ({d}%)"
+	                formatter: function formatter(data) {
+	                    return '<div>' + data.name + ':' + data.value + ' (' + data.percent + '%)' + '</div>';
+	                }
 	            },
 	            legend: {
 	                orient: 'vertical',
@@ -78229,109 +78345,116 @@
 	var Immutable = __webpack_require__(620);
 	//企业背景情况
 	var CompanyBg = _react2.default.createClass({
-	  displayName: 'CompanyBg',
+	    displayName: 'CompanyBg',
 
-	  getInitialState: function getInitialState() {
-	    return {
-	      option: null,
-	      areaId: 0,
-	      buildingId: 0
-	    };
-	  },
-	  componentDidMount: function componentDidMount() {
-	    var areaId = this.props.location.query.areaId;
-	    var buildingId = this.props.location.query.buildingId;
+	    getInitialState: function getInitialState() {
+	        return {
+	            option: null,
+	            areaId: 0,
+	            buildingId: 0
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        var areaId = this.props.location.query.areaId;
+	        var buildingId = this.props.location.query.buildingId;
 
-	    this.setState({ areaId: areaId, buildingId: buildingId });
+	        this.setState({ areaId: areaId, buildingId: buildingId });
 
-	    var json = { buildingId: buildingId };
-	    this.getCompanyBg(json);
-	  },
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    //切换大厦
-	    var isSwitchValEqual = Immutable.is(nextProps.buildSwitchVal, this.props.buildSwitchVal);
-	    if (!isSwitchValEqual) {
-	      var buildSwitchVal = nextProps.buildSwitchVal;
+	        var json = { buildingId: buildingId };
+	        this.getCompanyBg(json);
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        //切换大厦
+	        var isSwitchValEqual = Immutable.is(nextProps.buildSwitchVal, this.props.buildSwitchVal);
+	        if (!isSwitchValEqual) {
+	            var buildSwitchVal = nextProps.buildSwitchVal;
 
-	      var buildingId = buildSwitchVal.buildId;
+	            var buildingId = buildSwitchVal.buildId;
 
-	      this.setState({ buildingId: buildingId });
+	            this.setState({ buildingId: buildingId });
 
-	      var json = { buildingId: buildingId };
-	      this.getCompanyBg(json);
-	    }
-
-	    var isEqual = Immutable.is(nextProps.companyBgResult, this.props.companyBgResult); //判断数据是否变化
-	    if (!isEqual) {
-	      var companyBgRequest = nextProps.companyBgRequest;
-	      var companyBgResult = nextProps.companyBgResult;
-
-	      if (companyBgRequest == true) {
-	        if (companyBgResult.success == true) {
-	          this.dataFomat(companyBgResult);
-	        } else {
-	          console.log(404);
+	            var json = { buildingId: buildingId };
+	            this.getCompanyBg(json);
 	        }
-	      }
-	    }
-	  },
-	  dataFomat: function dataFomat(data) {
-	    console.log(data, 'aaaaaaaaaaaaa');
-	    var param = {
-	      id: 'small-loan-company-chart', //必传
-	      color: ['#efd79b', '#e24340'],
-	      legendOrient: "",
-	      legendRight: "7%",
-	      legendBottom: "10%",
-	      height: '350px', //必传 带上单位
-	      title: '',
-	      legendData: ['国企', '名企'],
-	      data: [{ value: 135, name: '国企' }, { value: 310, name: '名企' }]
-	    };
-	    this.setState({ option: param });
-	  },
-	  getCompanyBg: function getCompanyBg(json) {
-	    var getCompanyBg = this.props.getCompanyBg;
 
-	    getCompanyBg(json);
-	  },
-	  //   setPieParm:function(){
-	  //      var param={
-	  //           id:'small-loan-company-chart',//必传
-	  //           color:['#efd79b','#e24340'],
-	  //           legendOrient:"",
-	  //           legendRight:"7%",
-	  //           legendBottom:"10%",
-	  //           height:'350px',//必传 带上单位
-	  //           title:'',
-	  //           legendData:['国企','名企'],
-	  //           data: [
-	  //                     {value:135, name:'国企'},
-	  //                     {value:310, name:'名企'}
-	  //                 ]
-	  //       }
-	  //       return param;
-	  // },
-	  render: function render() {
-	    var bbdPie = "";
-	    if (this.state.option) {
-	      bbdPie = _react2.default.createElement(_PieChart2.default, { param: this.state.option });
+	        var isEqual = Immutable.is(nextProps.companyBgResult, this.props.companyBgResult); //判断数据是否变化
+	        if (!isEqual) {
+	            var companyBgRequest = nextProps.companyBgRequest;
+	            var companyBgResult = nextProps.companyBgResult;
+
+	            if (companyBgRequest == true) {
+	                if (companyBgResult.success == true) {
+	                    this.dataFomat(companyBgResult);
+	                } else {
+	                    console.log(404);
+	                }
+	            }
+	        }
+	    },
+	    dataFomat: function dataFomat(data) {
+	        console.log(data, 'aaaaaaaaaaaaa');
+	        var content = data.content;
+	        var len = content.length;
+	        var dataPie = [];
+	        for (var i = 0; i < len; i++) {
+	            dataPie.push({ value: content[i].count, name: content[i].type });
+	        }
+	        console.log(dataPie, 'dataPie');
+	        var param = {
+	            id: 'small-loan-company-chart', //必传
+	            color: ['#efd79b', '#e24340'],
+	            legendOrient: "",
+	            legendRight: "7%",
+	            legendBottom: "10%",
+	            height: '350px', //必传 带上单位
+	            title: '',
+	            legendData: ['国企', '名企'],
+	            data: dataPie
+	        };
+	        this.setState({ option: param });
+	    },
+	    getCompanyBg: function getCompanyBg(json) {
+	        var getCompanyBg = this.props.getCompanyBg;
+
+	        getCompanyBg(json);
+	    },
+	    //   setPieParm:function(){
+	    //      var param={
+	    //           id:'small-loan-company-chart',//必传
+	    //           color:['#efd79b','#e24340'],
+	    //           legendOrient:"",
+	    //           legendRight:"7%",
+	    //           legendBottom:"10%",
+	    //           height:'350px',//必传 带上单位
+	    //           title:'',
+	    //           legendData:['国企','名企'],
+	    //           data: [
+	    //                     {value:135, name:'国企'},
+	    //                     {value:310, name:'名企'}
+	    //                 ]
+	    //       }
+	    //       return param;
+	    // },
+	    render: function render() {
+	        var bbdPie = "";
+	        if (this.state.option) {
+	            bbdPie = _react2.default.createElement(_PieChart2.default, { param: this.state.option });
+	        }
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'Context mod', id: 'Context' },
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'mod-title' },
+	                _react2.default.createElement(
+	                    'h3',
+	                    null,
+	                    '企业背景情况'
+	                )
+	            ),
+	            bbdPie
+	        );
 	    }
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'Context mod', id: 'Context' },
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'mod-title' },
-	        _react2.default.createElement(
-	          'h3',
-	          null,
-	          '企业背景情况'
-	        )
-	      ),
-	      bbdPie
-	    );
-	  }
 	});
 	module.exports = CompanyBg;
 
@@ -79004,10 +79127,7 @@
 
 	  mixins: [_setHeight2.default],
 	  componentDidMount: function componentDidMount() {
-	    var getPageNums = this.props.location.query.formpage;
-	    if (getPageNums != "Portrait") {
-	      window.scrollTo(0, 0);
-	    }
+	    window.scrollTo(0, 0);
 	  },
 	  render: function render() {
 	    return _react2.default.createElement(
@@ -79311,7 +79431,6 @@
 	        var isEqual = Immutable.is(nextProps.CompanyPicRequest, this.props.CompanyPicResult);
 	        if (!isEqual) {
 	            (function () {
-	                debugger;
 	                var CompanyPicRequest = nextProps.CompanyPicRequest;
 	                var CompanyPicResult = nextProps.CompanyPicResult;
 
@@ -79467,7 +79586,7 @@
 	                                _react2.default.createElement(
 	                                    'td',
 	                                    null,
-	                                    _react2.default.createElement('img', { src: '/images/xuxianjiantou.png' }),
+	                                    _react2.default.createElement('img', { src: '/images/shixianjiantou.png' }),
 	                                    _react2.default.createElement(
 	                                        'span',
 	                                        { className: 'item-lable' },
@@ -79521,7 +79640,7 @@
 	                                _react2.default.createElement(
 	                                    'td',
 	                                    null,
-	                                    _react2.default.createElement('img', { src: '/images/shixianjiantou.png' }),
+	                                    _react2.default.createElement('img', { src: '/images/xuxianjiantou.png' }),
 	                                    _react2.default.createElement(
 	                                        'span',
 	                                        { className: 'item-lable' },
@@ -79611,7 +79730,7 @@
 
 
 	// module
-	exports.push([module.id, "#search-result-detail .relation-map {\r\n  width: 64%;\r\n  height: 100%;\r\n}\r\n#search-result-detail .relation-map .content-title {\r\n  width: 100%;\r\n  background: #383e47;\r\n  padding: 5px 10px;\r\n}\r\n#search-result-detail .relation-map .content-title span {\r\n  font-size: 20px;\r\n  color: #fff;\r\n}\r\n#search-result-detail .relation-map .content-title .btn {\r\n  width: 102px;\r\n  height: 28px;\r\n  line-height: 28px;\r\n  text-align: center;\r\n  display: inline-block;\r\n  border-radius: 3px;\r\n  background: #e14340;\r\n  font-size: 12px;\r\n  margin-left: 15px;\r\n}\r\n#search-result-detail .relation-map .content-title .right-content {\r\n  float: right;\r\n  margin-top: 7px;\r\n}\r\n#search-result-detail .relation-map .content-title .right-content input {\r\n  width: 260px;\r\n  height: 30px;\r\n  border: none;\r\n  padding-left: 15px;\r\n  border-radius: 100px;\r\n  color: #666;\r\n}\r\n#search-result-detail .relation-map .content-title .right-content .cancel {\r\n  margin-left: -25px;\r\n  color: #939aa4;\r\n}\r\n#search-result-detail .relation-map .content-title .right-content .enlarge {\r\n  margin: 0 8px 0 31px;\r\n}\r\n#search-result-detail .relation-map .company-leix {\r\n  margin: 25px 0 15px 10px;\r\n  width: 99%;\r\n  height: 56px;\r\n}\r\n#search-result-detail .relation-map .company-leix table {\r\n  background: #1a2029;\r\n  width: 80%;\r\n  height: 100%;\r\n  float: left;\r\n}\r\n#search-result-detail .relation-map .company-leix table tr {\r\n  height: 50%;\r\n  width: 10%;\r\n}\r\n#search-result-detail .relation-map .company-leix table tr td {\r\n  padding: 8px 0 0 14px;\r\n  position: relative;\r\n  width: 19.8%;\r\n  display: inline-block;\r\n}\r\n#search-result-detail .relation-map .company-leix table tr span {\r\n  display: inline-block;\r\n}\r\n#search-result-detail .relation-map .company-leix table tr .item-lable {\r\n  font-size: 12px;\r\n  color: #b2b2b2;\r\n  position: absolute;\r\n}\r\n#search-result-detail .relation-map .company-leix table tr img {\r\n  margin: -5px 20px 0 0;\r\n}\r\n#search-result-detail .relation-map .company-leix table tr .square {\r\n  width: 17px;\r\n  height: 17px;\r\n  margin-right: 20px;\r\n}\r\n#search-result-detail .relation-map .company-leix table tr .round {\r\n  width: 17px;\r\n  height: 17px;\r\n  margin-right: 20px;\r\n  border-radius: 100px;\r\n}\r\n#search-result-detail .relation-map .company-leix table tr .orange {\r\n  background: #f44603;\r\n}\r\n#search-result-detail .relation-map .company-leix table tr .orange-two {\r\n  background: #f98d2b;\r\n}\r\n#search-result-detail .relation-map .company-leix table tr .blue {\r\n  background: #046adb;\r\n}\r\n#search-result-detail .relation-map .company-leix table tr .yellow {\r\n  background: #ffdb03;\r\n}\r\n#search-result-detail .relation-map .company-leix table tr .green {\r\n  background: #73d528;\r\n}\r\n#search-result-detail .relation-map .company-leix .condition {\r\n  width: 19.6%;\r\n  height: 100%;\r\n  float: left;\r\n  margin-left: 2px;\r\n  background: #212831;\r\n}\r\n#search-result-detail .relation-map .company-leix .condition .lable {\r\n  font-size: 12px;\r\n  color: #fff;\r\n  width: 100%;\r\n  height: 50%;\r\n  padding-top: 8px;\r\n  line-height: 100%;\r\n  text-align: center;\r\n}\r\n#search-result-detail .relation-map .company-leix .condition .btns {\r\n  width: 100%;\r\n  height: 50%;\r\n}\r\n#search-result-detail .relation-map .company-leix .condition .btns .btn {\r\n  background: #00b7ee;\r\n  float: left;\r\n  width: 32.5%;\r\n  height: 100%;\r\n  margin-left: 1px;\r\n  text-align: center;\r\n  padding-top: 5px;\r\n}\r\n#search-result-detail .relation-map .square-show {\r\n  width: 100%;\r\n  height: 80%;\r\n  margin: 10px;\r\n  position: relative;\r\n}\r\n#search-result-detail .relation-map .square-show .company-profile {\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0;\r\n  width: 270px;\r\n  padding-bottom: 5px;\r\n  border-radius: 5px;\r\n  background: #222931;\r\n  -webkit-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n  -moz-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n}\r\n#search-result-detail .relation-map .square-show .company-profile .company-title {\r\n  width: 100%;\r\n  height: 30px;\r\n  line-height: 30px;\r\n  padding-left: 5%;\r\n  background: #4B5668;\r\n  border-top-left-radius: 5px;\r\n  border-top-right-radius: 5px;\r\n}\r\n#search-result-detail .relation-map .square-show .company-profile table {\r\n  width: 100%;\r\n}\r\n#search-result-detail .relation-map .square-show .company-profile table tr {\r\n  width: 100%;\r\n}\r\n#search-result-detail .relation-map .square-show .company-profile table tr td {\r\n  height: 27px;\r\n  line-height: 27px;\r\n  font-size: 12px;\r\n}\r\n#search-result-detail .relation-map .square-show .company-profile table tr td:first-child {\r\n  width: 60%;\r\n  color: #878E96;\r\n  padding-left: 5%;\r\n}\r\n#search-result-detail .relation-map .square-show .company-profile table tr td:last-child {\r\n  width: 40%;\r\n}\r\n#search-result-detail .company-info {\r\n  width: 34.5%;\r\n  height: 42%;\r\n  padding: 15px;\r\n}\r\n#search-result-detail .company-info .logo-name {\r\n  overflow: hidden;\r\n  *zoom: 1;\r\n  margin-bottom: 15px;\r\n}\r\n#search-result-detail .company-info .logo-name .logo {\r\n  float: left;\r\n  width: 90px;\r\n  height: 90px;\r\n  background: url(\"/images/no-logo.png\");\r\n}\r\n#search-result-detail .company-info .logo-name .cname {\r\n  float: left;\r\n  font-size: 18px;\r\n  margin: 2px;\r\n  padding-left: 20px;\r\n}\r\n#search-result-detail .company-info .person-info {\r\n  width: 100%;\r\n  height: 71%;\r\n  background: #1f252f;\r\n  padding: 26px 10px 0 34px;\r\n}\r\n#search-result-detail .company-info .person-info > div {\r\n  margin-bottom: 10%;\r\n}\r\n#search-result-detail .company-info .person-info i {\r\n  color: #facd89;\r\n  font-size: 14px;\r\n}\r\n#search-result-detail .company-info .person-info span {\r\n  font-size: 14px;\r\n  margin-left: 13px;\r\n}\r\n#search-result-detail .company-news {\r\n  width: 34.5%;\r\n  height: 56.7%;\r\n  padding: 15px;\r\n}\r\n#search-result-detail .company-news .news-name {\r\n  font-size: 18px;\r\n  margin-bottom: 2.6%;\r\n}\r\n#search-result-detail .company-news .news-item {\r\n  height: auto;  /* overflow-y: scroll; */\r\n}\r\n#search-result-detail .company-news .news-list-item {\r\n  padding: 1.2% 0 1.7% 1.2%;\r\n  background: #1a2029;\r\n  border-bottom: 1px solid #cccccc;\r\n  margin-bottom: 1.5%;\r\n}\r\n#search-result-detail .company-news .news-list-item .item-num {\r\n  width: 17px;\r\n  height: 17px;\r\n  text-align: center;\r\n  line-height: 17px;\r\n  border-radius: 3px;\r\n  background: #6a6a6a;\r\n  font-size: 11px;\r\n  float: left;\r\n}\r\n#search-result-detail .company-news .news-list-item .item-title {\r\n  font-size: 14px;\r\n  color: #e14340;\r\n  font-weight: bold;\r\n  float: left;\r\n  margin-left: 15px;\r\n}\r\n#search-result-detail .company-news .news-list-item .item-title a {\r\n  color: #e14340;\r\n}\r\n#search-result-detail .company-news .news-list-item .item-content {\r\n  margin-top: 17px;\r\n  text-indent: 2em;\r\n  padding: 0 25px 20px 25px;\r\n}\r\n#search-result-detail .company-news .news-list-item .right-bottom-text {\r\n  float: right;\r\n  color: #898f98;\r\n}\r\n#search-result-detail .company-news .news-list-item .right-bottom-text .website {\r\n  margin-right: 40px;\r\n}\r\n#search-result-detail .company-news .news-list-item .right-bottom-text .rel-date {\r\n  margin-right: 25px;\r\n}\r\n#search-result-detail .company-detail-inner {\r\n  width: 99%;\r\n  margin-bottom: 10px !important;\r\n  padding: 13px 20px 20px 17px;\r\n}\r\n#search-result-detail .company-detail-inner .clabel {\r\n  font-size: 18px;\r\n  margin-bottom: 23px;\r\n}\r\n#search-result-detail .company-detail-inner .label-all {\r\n  background: #333b46;\r\n}\r\n#search-result-detail .company-detail-inner .label-all .label-name {\r\n  width: 180px;\r\n  height: 40px;\r\n  line-height: 40px;\r\n  text-align: center;\r\n  background: #464f5c;\r\n  margin-right: 2px;\r\n  font-size: 14px;\r\n  float: left;\r\n  cursor: pointer;\r\n}\r\n#search-result-detail .company-detail-inner .label-all .name-active {\r\n  background: #e14340;\r\n}\r\n#search-result-detail .company-detail-inner .bussiness-content > div {\r\n  width: 100%;\r\n  margin-top: 17px;\r\n}\r\n#search-result-detail .company-detail-inner .bussiness-info table {\r\n  margin-left: 63px;\r\n  width: 90%;\r\n}\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:first-child {\r\n  font-weight: bold;\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:nth-child(2) {\r\n  width: 30%;\r\n}\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:nth-child(3) {\r\n  font-weight: bold;\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:nth-child(4) {\r\n  width: 30%;\r\n}\r\n#search-result-detail .company-detail-inner .bussiness-info table tr .bussiness-scope {\r\n  width: 85% !important;\r\n}\r\n#search-result-detail .company-detail-inner .bussiness-info td {\r\n  display: inline-block;\r\n  line-height: 36px;\r\n}\r\n#search-result-detail .company-detail-inner .shareholder-exe .shareholder-title {\r\n  width: 100%;\r\n  border-bottom: 5px solid #363C48;\r\n}\r\n#search-result-detail .company-detail-inner .shareholder-exe .title-item {\r\n  width: 220px;\r\n  height: 50px;\r\n  line-height: 50px;\r\n  position: relative;\r\n  top: 5px;\r\n  display: inline-block;\r\n  text-align: center;\r\n  margin-right: 2px;\r\n  cursor: pointer;\r\n  border-bottom: 5px solid #464f5c;\r\n}\r\n#search-result-detail .company-detail-inner .shareholder-exe .title-active {\r\n  border-bottom: 5px solid #e14340;\r\n}\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-title {\r\n  width: 100%;\r\n}\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-title > div {\r\n  width: 220px;\r\n  height: 80px;\r\n  line-height: 80px;\r\n  font-size: 14px;\r\n  font-weight: bold;\r\n  text-align: center;\r\n  display: inline-block;\r\n}\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-content {\r\n  width: 100%;\r\n}\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-content > div {\r\n  width: 220px;\r\n  height: 80px;\r\n  line-height: 80px;\r\n  font-size: 14px;\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .control-title {\r\n  width: 100%;\r\n  border-bottom: 5px solid #363C48;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .title-item {\r\n  width: 220px;\r\n  height: 50px;\r\n  line-height: 50px;\r\n  position: relative;\r\n  top: 5px;\r\n  display: inline-block;\r\n  text-align: center;\r\n  cursor: pointer;\r\n  margin-right: 2px;\r\n  border-bottom: 5px solid #464f5c;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .title-active {\r\n  border-bottom: 5px solid #e14340;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .content .content-title {\r\n  width: 100%;\r\n  height: 80px;\r\n  line-height: 80px;\r\n  font-size: 14px;\r\n  font-weight: bold;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .content .content-content {\r\n  width: 100%;\r\n  padding: 10px;\r\n  font-size: 14px;\r\n  float: left;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div:first-child {\r\n  width: 10%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div:nth-child(2) {\r\n  width: 13%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div:nth-child(3) {\r\n  width: 33%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div:nth-child(4) {\r\n  width: 13%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div:nth-child(5) {\r\n  width: 13%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n  padding: 0 1%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div:first-child {\r\n  width: 10%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div:nth-child(2) {\r\n  width: 13%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div:nth-child(3) {\r\n  width: 33%;\r\n  text-indent: 2em;\r\n  text-align: left;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div:nth-child(4) {\r\n  width: 13%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div:nth-child(5) {\r\n  width: 13%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:first-child {\r\n  width: 10%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(2) {\r\n  width: 25%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(3) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(4) {\r\n  width: 10%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(5) {\r\n  width: 10%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(6) {\r\n  width: 10%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(7) {\r\n  width: 10%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n  padding: 0 1%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:first-child {\r\n  width: 10%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(2) {\r\n  width: 25%;\r\n  text-align: left;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(3) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(4) {\r\n  width: 10%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(5) {\r\n  width: 10%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(6) {\r\n  width: 10%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(7) {\r\n  width: 10%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:first-child {\r\n  width: 25%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:nth-child(2) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:nth-child(3) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:nth-child(4) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:nth-child(5) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:nth-child(6) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n  padding: 0 1%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:first-child {\r\n  width: 25%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:nth-child(2) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:nth-child(3) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:nth-child(4) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:nth-child(5) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:nth-child(6) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-title > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-title > div:first-child {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-title > div:nth-child(2) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-title > div:nth-child(3) {\r\n  width: 20%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-title > div:nth-child(4) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n  padding: 0 1%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div:first-child {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div:nth-child(2) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div:nth-child(3) {\r\n  width: 20%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div:nth-child(4) {\r\n  width: 15%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-title > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-title > div:first-child {\r\n  width: 13%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-title > div:nth-child(2) {\r\n  width: 40%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-title > div:nth-child(3) {\r\n  width: 13%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-title > div:nth-child(4) {\r\n  width: 13%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n  padding: 0 1%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div:first-child {\r\n  width: 13%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div:nth-child(2) {\r\n  width: 40%;\r\n  text-align: left;\r\n  text-indent: 2em;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div:nth-child(3) {\r\n  width: 13%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div:nth-child(4) {\r\n  width: 13%;\r\n}\r\n#search-result-detail .company-detail-inner .recruiting-info .recruiting-title {\r\n  width: 100%;\r\n  border-bottom: 5px solid #363C48;\r\n}\r\n#search-result-detail .company-detail-inner .recruiting-info .title-item {\r\n  width: 180px;\r\n  height: 50px;\r\n  line-height: 50px;\r\n  position: relative;\r\n  top: 5px;\r\n  display: inline-block;\r\n  text-align: center;\r\n  margin-right: 2px;\r\n  cursor: pointer;\r\n  border-bottom: 5px solid #464f5c;\r\n}\r\n#search-result-detail .company-detail-inner .recruiting-info .title-active {\r\n  border-bottom: 5px solid #e14340;\r\n}\r\n#search-result-detail .company-detail-inner .recruiting-info .show-charts {\r\n  width: 100%;\r\n  height: 390px;\r\n}\r\n#search-result-detail .company-detail-inner .recruiting-info .show-charts #person-index {\r\n  width: 50%;\r\n  height: 100%;\r\n  float: left;\r\n}\r\n#search-result-detail .company-detail-inner .recruiting-info .show-charts #pay-distribute {\r\n  width: 50%;\r\n  height: 100%;\r\n  float: left;\r\n}\r\n#search-result-detail  .relation-legend {\r\n  width: auto;\r\n  margin: 35px 10px 15px 10px;\r\n}\r\n#search-result-detail .relation-legend table tr .square {\r\n  width: 10px;\r\n  height: 10px;\r\n}\r\n#search-result-detail  .relation-legend table tr .round {\r\n  width: 10px;\r\n  height: 10px;\r\n}\r\n#search-result-detail .linefin-rel-graph .mod-content .relation-graph-box {\r\n  height: 795px;\r\n  overflow: hidden;\r\n}\r\n#search-result-detail  .linefin-rel-graph {\r\n  height: 914px\r\n}\r\n#search-result-detail  .linefin-rel-graph .mod-title {\r\n  border-top-left-radius: 5px;\r\n  border-top-right-radius: 5px;\r\n}\r\n#search-result-detail .relation-legend .condition {\r\n  margin-top: -2px;\r\n}\r\n#search-result-detail  .linefin-rel-graph .mod-title h3 {\r\n  display: inline-block;\r\n  vertical-align: middle;\r\n  font-weight: normal;\r\n  font-style: normal;\r\n  font-size: 16px;\r\n  color: #ffffff;\r\n  margin-left: 10px;\r\n  padding: 8px 0;\r\n}\r\n.company-news-scroll {\r\n  overflow-y: scroll;\r\n  overflow-x: hidden;\r\n}", ""]);
+	exports.push([module.id, "#search-result-detail .relation-map {\r\n  width: 64%;\r\n  height: 100%;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title {\r\n  width: 100%;\r\n  background: #383e47;\r\n  padding: 5px 10px;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title span {\r\n  font-size: 20px;\r\n  color: #fff;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title .btn {\r\n  width: 102px;\r\n  height: 28px;\r\n  line-height: 28px;\r\n  text-align: center;\r\n  display: inline-block;\r\n  border-radius: 3px;\r\n  background: #e14340;\r\n  font-size: 12px;\r\n  margin-left: 15px;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title .right-content {\r\n  float: right;\r\n  margin-top: 7px;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title .right-content input {\r\n  width: 260px;\r\n  height: 30px;\r\n  border: none;\r\n  padding-left: 15px;\r\n  border-radius: 100px;\r\n  color: #666;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title .right-content .cancel {\r\n  margin-left: -25px;\r\n  color: #939aa4;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title .right-content .enlarge {\r\n  margin: 0 8px 0 31px;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix {\r\n  margin: 25px 0 15px 10px;\r\n  width: 99%;\r\n  height: 56px;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table {\r\n  background: #1a2029;\r\n  width: 80%;\r\n  height: 100%;\r\n  float: left;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr {\r\n  height: 50%;\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr td {\r\n  padding: 8px 0 0 14px;\r\n  position: relative;\r\n  width: 19.8%;\r\n  display: inline-block;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr span {\r\n  display: inline-block;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .item-lable {\r\n  font-size: 12px;\r\n  color: #b2b2b2;\r\n  position: absolute;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr img {\r\n  margin: -5px 20px 0 0;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .square {\r\n  width: 17px;\r\n  height: 17px;\r\n  margin-right: 20px;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .round {\r\n  width: 17px;\r\n  height: 17px;\r\n  margin-right: 20px;\r\n  border-radius: 100px;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .orange {\r\n  background: #f44603;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .orange-two {\r\n  background: #f98d2b;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .blue {\r\n  background: #046adb;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .yellow {\r\n  background: #ffdb03;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .green {\r\n  background: #73d528;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix .condition {\r\n  width: 19.6%;\r\n  height: 100%;\r\n  float: left;\r\n  margin-left: 2px;\r\n  background: #212831;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix .condition .lable {\r\n  font-size: 12px;\r\n  color: #fff;\r\n  width: 100%;\r\n  height: 50%;\r\n  padding-top: 8px;\r\n  line-height: 100%;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix .condition .btns {\r\n  width: 100%;\r\n  height: 50%;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix .condition .btns .btn {\r\n  background: #00b7ee;\r\n  float: left;\r\n  width: 32.5%;\r\n  height: 100%;\r\n  margin-left: 1px;\r\n  text-align: center;\r\n  padding-top: 5px;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show {\r\n  width: 100%;\r\n  height: 80%;\r\n  margin: 10px;\r\n  position: relative;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile {\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0;\r\n  width: 270px;\r\n  padding-bottom: 5px;\r\n  border-radius: 5px;\r\n  background: #222931;\r\n  -webkit-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n  -moz-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile .company-title {\r\n  width: 100%;\r\n  height: 30px;\r\n  line-height: 30px;\r\n  padding-left: 5%;\r\n  background: #4B5668;\r\n  border-top-left-radius: 5px;\r\n  border-top-right-radius: 5px;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile table {\r\n  width: 100%;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile table tr {\r\n  width: 100%;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile table tr td {\r\n  height: 27px;\r\n  line-height: 27px;\r\n  font-size: 12px;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile table tr td:first-child {\r\n  width: 60%;\r\n  color: #878E96;\r\n  padding-left: 5%;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile table tr td:last-child {\r\n  width: 40%;\r\n}\r\n\r\n#search-result-detail .company-info {\r\n  width: 34.5%;\r\n  height: 42%;\r\n  padding: 15px;\r\n}\r\n\r\n#search-result-detail .company-info .logo-name {\r\n  overflow: hidden;\r\n  *zoom: 1;\r\n  margin-bottom: 15px;\r\n}\r\n\r\n#search-result-detail .company-info .logo-name .logo {\r\n  float: left;\r\n  width: 90px;\r\n  height: 90px;\r\n  background: url(\"/images/no-logo.png\");\r\n}\r\n\r\n#search-result-detail .company-info .logo-name .cname {\r\n  float: left;\r\n  font-size: 18px;\r\n  margin: 2px;\r\n  padding-left: 20px;\r\n}\r\n\r\n#search-result-detail .company-info .person-info {\r\n  width: 100%;\r\n  height: 71%;\r\n  background: #1f252f;\r\n  padding: 26px 10px 0 34px;\r\n}\r\n\r\n#search-result-detail .company-info .person-info > div {\r\n  margin-bottom: 10%;\r\n}\r\n\r\n#search-result-detail .company-info .person-info i {\r\n  color: #facd89;\r\n  font-size: 14px;\r\n}\r\n\r\n#search-result-detail .company-info .person-info span {\r\n  font-size: 14px;\r\n  margin-left: 13px;\r\n}\r\n\r\n#search-result-detail .company-news {\r\n  width: 34.5%;\r\n  height: 56.7%;\r\n  padding: 15px;\r\n}\r\n\r\n#search-result-detail .company-news .news-name {\r\n  font-size: 18px;\r\n  margin-bottom: 2.6%;\r\n}\r\n\r\n#search-result-detail .company-news .news-item {\r\n  height: auto;  /* overflow-y: scroll; */\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item {\r\n  padding: 1.2% 0 1.7% 1.2%;\r\n  background: #1a2029;\r\n  border-bottom: 1px solid #cccccc;\r\n  margin-bottom: 1.5%;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .item-num {\r\n  width: 17px;\r\n  height: 17px;\r\n  text-align: center;\r\n  line-height: 17px;\r\n  border-radius: 3px;\r\n  background: #6a6a6a;\r\n  font-size: 11px;\r\n  float: left;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .item-title {\r\n  font-size: 14px;\r\n  color: #e14340;\r\n  font-weight: bold;\r\n  float: left;\r\n  margin-left: 15px;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .item-title a {\r\n  color: #e14340;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .item-content {\r\n  margin-top: 17px;\r\n  text-indent: 2em;\r\n  padding: 0 25px 20px 25px;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .right-bottom-text {\r\n  float: right;\r\n  color: #898f98;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .right-bottom-text .website {\r\n  margin-right: 40px;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .right-bottom-text .rel-date {\r\n  margin-right: 25px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner {\r\n  width: 99%;\r\n  margin-bottom: 10px !important;\r\n  padding: 13px 20px 20px 17px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .clabel {\r\n  font-size: 18px;\r\n  margin-bottom: 23px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .label-all {\r\n  background: #333b46;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .label-all .label-name {\r\n  width: 180px;\r\n  height: 40px;\r\n  line-height: 40px;\r\n  text-align: center;\r\n  background: #464f5c;\r\n  margin-right: 2px;\r\n  font-size: 14px;\r\n  float: left;\r\n  cursor: pointer;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .label-all .name-active {\r\n  background: #e14340;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-content > div {\r\n  width: 100%;\r\n  margin-top: 17px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table {\r\n  margin-left: 63px;\r\n  width: 90%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:first-child {\r\n  font-weight: bold;\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:nth-child(2) {\r\n  width: 30%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:nth-child(3) {\r\n  font-weight: bold;\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:nth-child(4) {\r\n  width: 30%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table tr .bussiness-scope {\r\n  width: 85% !important;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info td {\r\n  display: inline-block;\r\n  line-height: 36px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .shareholder-title {\r\n  width: 100%;\r\n  border-bottom: 5px solid #363C48;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .title-item {\r\n  width: 220px;\r\n  height: 50px;\r\n  line-height: 50px;\r\n  position: relative;\r\n  top: 5px;\r\n  display: inline-block;\r\n  text-align: center;\r\n  margin-right: 2px;\r\n  cursor: pointer;\r\n  border-bottom: 5px solid #464f5c;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .title-active {\r\n  border-bottom: 5px solid #e14340;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-title {\r\n  width: 100%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-title > div {\r\n  width: 220px;\r\n  height: 80px;\r\n  line-height: 80px;\r\n  font-size: 14px;\r\n  font-weight: bold;\r\n  text-align: center;\r\n  display: inline-block;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-content {\r\n  width: 100%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-content > div {\r\n  width: 220px;\r\n  height: 80px;  /*line-height: 80px;*/\r\n  font-size: 14px;\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .control-title {\r\n  width: 100%;\r\n  border-bottom: 5px solid #363C48;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .title-item {\r\n  width: 220px;\r\n  height: 50px;\r\n  line-height: 50px;\r\n  position: relative;\r\n  top: 5px;\r\n  display: inline-block;\r\n  text-align: center;\r\n  cursor: pointer;\r\n  margin-right: 2px;\r\n  border-bottom: 5px solid #464f5c;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .title-active {\r\n  border-bottom: 5px solid #e14340;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .content .content-title {\r\n  width: 100%;\r\n  height: 80px;\r\n  line-height: 80px;\r\n  font-size: 14px;\r\n  font-weight: bold;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .content .content-content {\r\n  width: 100%;\r\n  padding: 10px;\r\n  font-size: 14px;\r\n  float: left;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div:first-child {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div:nth-child(2) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div:nth-child(3) {\r\n  width: 33%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div:nth-child(4) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div:nth-child(5) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n  padding: 0 1%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div:first-child {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div:nth-child(2) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div:nth-child(3) {\r\n  width: 33%;\r\n  text-indent: 2em;\r\n  text-align: left;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div:nth-child(4) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div:nth-child(5) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:first-child {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(2) {\r\n  width: 25%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(3) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(4) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(5) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(6) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(7) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n  padding: 0 1%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:first-child {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(2) {\r\n  width: 25%;\r\n  text-align: left;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(3) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(4) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(5) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(6) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(7) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:first-child {\r\n  width: 25%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:nth-child(2) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:nth-child(3) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:nth-child(4) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:nth-child(5) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:nth-child(6) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n  padding: 0 1%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:first-child {\r\n  width: 25%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:nth-child(2) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:nth-child(3) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:nth-child(4) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:nth-child(5) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:nth-child(6) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-title > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-title > div:first-child {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-title > div:nth-child(2) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-title > div:nth-child(3) {\r\n  width: 20%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-title > div:nth-child(4) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n  padding: 0 1%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div:first-child {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div:nth-child(2) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div:nth-child(3) {\r\n  width: 20%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div:nth-child(4) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-title > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-title > div:first-child {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-title > div:nth-child(2) {\r\n  width: 40%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-title > div:nth-child(3) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-title > div:nth-child(4) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n  padding: 0 1%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div:first-child {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div:nth-child(2) {\r\n  width: 40%;\r\n  text-align: left;\r\n  text-indent: 2em;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div:nth-child(3) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div:nth-child(4) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .recruiting-title {\r\n  width: 100%;\r\n  border-bottom: 5px solid #363C48;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .title-item {\r\n  width: 180px;\r\n  height: 50px;\r\n  line-height: 50px;\r\n  position: relative;\r\n  top: 5px;\r\n  display: inline-block;\r\n  text-align: center;\r\n  margin-right: 2px;\r\n  cursor: pointer;\r\n  border-bottom: 5px solid #464f5c;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .title-active {\r\n  border-bottom: 5px solid #e14340;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .show-charts {\r\n  width: 100%;\r\n  height: 390px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .show-charts #person-index {\r\n  width: 50%;\r\n  height: 100%;\r\n  float: left;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .show-charts #pay-distribute {\r\n  width: 50%;\r\n  height: 100%;\r\n  float: left;\r\n}\r\n\r\n#search-result-detail  .relation-legend {\r\n  width: auto;\r\n  margin: 35px 10px 15px 10px;\r\n}\r\n\r\n#search-result-detail .relation-legend table tr .square {\r\n  width: 10px;\r\n  height: 10px;\r\n}\r\n\r\n#search-result-detail  .relation-legend table tr .round {\r\n  width: 10px;\r\n  height: 10px;\r\n}\r\n\r\n#search-result-detail .linefin-rel-graph .mod-content .relation-graph-box {\r\n  height: 795px;\r\n  overflow: hidden;\r\n}\r\n\r\n#search-result-detail  .linefin-rel-graph {\r\n  height: 914px\r\n}\r\n\r\n#search-result-detail  .linefin-rel-graph .mod-title {\r\n  border-top-left-radius: 5px;\r\n  border-top-right-radius: 5px;\r\n}\r\n\r\n#search-result-detail .relation-legend .condition {\r\n  margin-top: -2px;\r\n}\r\n\r\n#search-result-detail  .linefin-rel-graph .mod-title h3 {\r\n  display: inline-block;\r\n  vertical-align: middle;\r\n  font-weight: normal;\r\n  font-style: normal;\r\n  font-size: 16px;\r\n  color: #ffffff;\r\n  margin-left: 10px;\r\n  padding: 8px 0;\r\n}\r\n\r\n.company-news-scroll {\r\n  overflow-y: scroll;\r\n  overflow-x: hidden;\r\n}", ""]);
 
 	// exports
 
@@ -79779,8 +79898,9 @@
 	        data = CompanyInfoNewsResult.content.results;
 	        if (!data) return;
 	        console.log(data, "companyInfoNEWS");
+	        debugger;
 	        _this.setState({
-	          itemAll: data.map(function (item, index) {
+	          itemAll: !data ? "暂无数据" : data.map(function (item, index) {
 	            return _react2.default.createElement(
 	              'div',
 	              { className: 'news-item', key: index },
@@ -83419,6 +83539,9 @@
 	                        title: '贷款余额',
 	                        forMaterTitle: "贷款余额",
 	                        forMaterTip: '平均贷款余额',
+	                        tooltip: function tooltip(data) {
+	                            return data.name + "年<br/>贷款余额：" + data.data[1] / 10000 + "亿元<br/>平均贷款余额：" + data.data[2] + "万元";
+	                        },
 	                        gridTop: "20%",
 	                        yType: "value",
 	                        legend: [],
@@ -83426,7 +83549,6 @@
 	                            return 10;
 	                        },
 	                        xAxis: nineDate.content.loan.xAxis,
-	                        yAxis: [],
 	                        data: paramOneData,
 	                        series: [[{
 	                            color: '#e14340'
@@ -83575,7 +83697,12 @@
 	                        forMaterTip: '业务笔数',
 	                        yType: "value",
 	                        gridTop: "20%",
+	                        yAxisName: "笔数",
+	                        YnameGap: 5,
 	                        legend: [],
+	                        tooltip: function tooltip(data) {
+	                            return data.name + "年<br/>典当总额：" + data.data[1] / 10000 + "(亿元)<br/>业务笔数：" + data.data[2];
+	                        },
 	                        xAxis: nineDate.content.mortgage.xAxis,
 	                        yAxis: ['100000', '200000', '3000000', '4000000', '5000000'],
 	                        data: paramSevenData,
@@ -83992,13 +84119,9 @@
 	        '舆情'
 	      ),
 	      _react2.default.createElement(
-	        'div',
-	        { className: 'jf' },
-	        _react2.default.createElement(
-	          'ul',
-	          null,
-	          this.state.list
-	        )
+	        'ul',
+	        null,
+	        this.state.list
 	      )
 	    );
 	  }
@@ -84785,6 +84908,10 @@
 
 	var _QueryCompanyInfo2 = _interopRequireDefault(_QueryCompanyInfo);
 
+	var _QueryRiskIndex = __webpack_require__(1301);
+
+	var _QueryRiskIndex2 = _interopRequireDefault(_QueryRiskIndex);
+
 	var _DynamicRiskCompanyTag = __webpack_require__(991);
 
 	var _DynamicRiskCompanyTag2 = _interopRequireDefault(_DynamicRiskCompanyTag);
@@ -84842,76 +84969,53 @@
 
 	/*预付卡 begin*/
 
-	/*商业保理监测 end*/
 
-	/*线下理财监测 start*/
-	//线下理财首页
+	//楼宇详情页
 
-
-	/*众筹监测 end*/
-
-	/*商业保理监测 begin*/
-
-
-	//园区首页
-
-	/*实时监测 end*/
-
-	//园区
-
-	//企业占比对比
-
-	//企业目录列表
-
-	/*实时监测 begin*/
-
-	/*=================================交易场所监测=================================*/
-
-	/*=================================融资租赁=================================*/
-	//典当法人企业数
+	//取得合规意见或经过会商的交易场所详情列表
 
 	//交易场所清理整顿分类
 
-	/*=================================典当行业监测=================================*/
+	//上海市典当企业目录
 
-	/*=================================交易场所监测=================================*/
-	//黄浦区交易场所列表
+	//列表
+
+	//6月上海各类众筹平台新增项目数
+
+	/*====================================私募基金===============================*/
 
 	/*=================================众筹监测=================================*/
+	//业务类型
 
-	/*=================================典当行业监测=================================*/
-	//所有图标
+	//私募基金分类
 
-	//6月上海各类众筹平台新增项目数的成功筹资金额
-
-	//6月上海各类众筹平台新增项目的投资人次
-
-	//私募股权基本情况
-
-	//私募证券基本情况
-
-	//QFLP试点企业最新进展
-
-	//动态图谱
-
-	//诉讼信息
-
-	//核心数据
-
-	/*====================================P2P平台监测============================*/
 
 	/*====================================p2p画像平台============================*/
-	//基本信息
 
-	//网贷平台数据展示
+	/*====================================私募基金===============================*/
+	//QDLP试点企业最新进展
+
+	//评分雷达图
+
+	//平台舆情
+
+	//公司基本信息
+
+	//p2p图表
+
+
+	/*====================================P2P平台监测============================*/
+	//上海区域发展指数排名
+
+
+	//融资担保
+
+	//小额贷款
+
+	//三个echarts图的接口
 
 
 	/*企业全息查询*/
-
-	/*行业监测模块*/
-	/* 公共搜索 */
-
-	//诉讼记录的五个接口
 	var rootReducer = (0, _redux.combineReducers)({
 
 	  /*企业全息*/
@@ -85053,6 +85157,7 @@
 	  CompanyNews: _CompanyNews2.default,
 	  QueryDateVersion: _QueryDateVersion2.default,
 	  QueryCompanyInfo: _QueryCompanyInfo2.default,
+	  QueryRiskIndex: _QueryRiskIndex2.default,
 	  //动态风险
 	  DynamicRiskCompanyTag: _DynamicRiskCompanyTag2.default,
 	  DynamicRiskDate: _DynamicRiskDate2.default,
@@ -85078,56 +85183,78 @@
 
 	//头部搜索值传递
 
-
 	//动态风险模块 begein
 
+	/*商业保理监测 end*/
 
-	//楼宇详情页
+	/*线下理财监测 start*/
+	//线下理财首页
 
-	//取得合规意见或经过会商的交易场所详情列表
+
+	/*众筹监测 end*/
+
+	/*商业保理监测 begin*/
+
+
+	//园区首页
+
+	/*实时监测 end*/
+
+	//园区
+
+	//企业占比对比
+
+	//企业目录列表
+
+	/*实时监测 begin*/
+
+	/*=================================交易场所监测=================================*/
+
+	/*=================================融资租赁=================================*/
+	//典当法人企业数
 
 	//交易场所清理整顿分类
 
-	//上海市典当企业目录
+	/*=================================典当行业监测=================================*/
 
-	//列表
-
-	//6月上海各类众筹平台新增项目数
-
-	/*====================================私募基金===============================*/
+	/*=================================交易场所监测=================================*/
+	//黄浦区交易场所列表
 
 	/*=================================众筹监测=================================*/
-	//业务类型
 
-	//私募基金分类
+	/*=================================典当行业监测=================================*/
+	//所有图标
 
+	//6月上海各类众筹平台新增项目数的成功筹资金额
 
-	/*====================================p2p画像平台============================*/
+	//6月上海各类众筹平台新增项目的投资人次
 
-	/*====================================私募基金===============================*/
-	//QDLP试点企业最新进展
+	//私募股权基本情况
 
-	//评分雷达图
+	//私募证券基本情况
 
-	//平台舆情
+	//QFLP试点企业最新进展
 
-	//公司基本信息
+	//动态图谱
 
-	//p2p图表
+	//诉讼信息
 
+	//核心数据
 
 	/*====================================P2P平台监测============================*/
-	//上海区域发展指数排名
 
+	/*====================================p2p画像平台============================*/
+	//基本信息
 
-	//融资担保
-
-	//小额贷款
-
-	//三个echarts图的接口
+	//网贷平台数据展示
 
 
 	/*企业全息查询*/
+
+	/*行业监测模块*/
+	/* 公共搜索 */
+
+	//诉讼记录的五个接口
 	exports.default = rootReducer;
 
 /***/ },
@@ -97701,6 +97828,44 @@
 	    return String(it).replace(regExp, replacer);
 	  };
 	};
+
+/***/ },
+/* 1301 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = queryRiskIndex;
+
+	var _LineFinanceStaticRiskAction = __webpack_require__(662);
+
+	function queryRiskIndex() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _LineFinanceStaticRiskAction.RISK_INDEX_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _LineFinanceStaticRiskAction.RISK_INDEX_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
 
 /***/ }
 /******/ ]);
