@@ -3,11 +3,14 @@ package com.bbd.wtyh.service.impl;
 import com.bbd.higgs.utils.ListUtil;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.common.Constants;
+import com.bbd.wtyh.domain.CompanyCreditInformationDO;
+import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.dto.StaticRiskDTO;
 import com.bbd.wtyh.domain.vo.LineVO;
 import com.bbd.wtyh.domain.vo.PointVO;
 import com.bbd.wtyh.domain.vo.StaticRiskVO;
 import com.bbd.wtyh.domain.vo.StatisticsVO;
+import com.bbd.wtyh.mapper.CompanyCreditInformationMapper;
 import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.mapper.StaticRiskMapper;
 import com.bbd.wtyh.redis.RedisDAO;
@@ -20,6 +23,7 @@ import com.bbd.wtyh.service.impl.relation.common.APIConstants;
 import com.bbd.wtyh.service.impl.relation.exception.BbdException;
 import com.bbd.wtyh.util.CalculateUtils;
 import com.bbd.wtyh.util.DateUtils;
+import com.google.gson.Gson;
 import net.sf.json.JSONArray;
 import net.sf.json.JsonConfig;
 import org.slf4j.Logger;
@@ -59,6 +63,8 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     private RedisDAO redisDAO;
     @Autowired
     private CompanyNewsService companyNewsService;
+    @Autowired
+    private CompanyCreditInformationMapper companyCreditInformationMapper;
     @Autowired
     private CompanyMapper companyMapper;
     @Value("${share.path}")
@@ -143,10 +149,31 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 
     @Override
     public Map staticRiskIndex(String companyName) {
-        Map map = new HashMap();
-        map.put("capitalRisk", 50);
-        map.put("creditInfoRisk", 43);
-        return map;
+        Map result = new HashMap();
+        CompanyDO companyDO = companyMapper.selectByName(companyName);
+        Integer creditInfoRisk = 0;
+        if (companyDO != null) {
+            List<CompanyCreditInformationDO> list = companyCreditInformationMapper.selectCompanyCreditInformationList(companyDO.getCompanyId());
+                    if (!CollectionUtils.isEmpty(list)) {
+                        Gson gson = new Gson();
+                        for (CompanyCreditInformationDO companyCreditInformationDO : list) {
+                            Map<String, String> map = gson.fromJson(companyCreditInformationDO.getContent(), Map.class);
+                            for (String key : map.keySet()) {
+                                if (map.get(key).contains("非正常户认定") || map.get(key).contains("责令")) {
+                                    creditInfoRisk += 15;
+                                }
+                                if (map.get(key).contains("处罚")) {
+                                    creditInfoRisk += 10;
+                                }
+                            }
+                        }
+                    }
+        }
+        float capitalBgRisk = 0;
+        capitalBgRisk = staticRiskMapper.queryCapitalBgRisk(companyName);
+        result.put("capitalRisk", capitalBgRisk);
+        result.put("creditInfoRisk", creditInfoRisk);
+        return result;
     }
 
     @Override
