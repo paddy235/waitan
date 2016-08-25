@@ -203,7 +203,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
                     @Override
                     public BaseDataDO parse(String result) {
                         Gson gson = new Gson();
-                        redisDAO.addObject(Constants.REDIS_KEY_BASE_INFO_BBD_DATA, gson.fromJson(result, BaseDataDO.class), Constants.cacheDay, BaseDataDO.class);
+//                        redisDAO.addObject(Constants.REDIS_KEY_BASE_INFO_BBD_DATA, gson.fromJson(result, BaseDataDO.class), Constants.cacheDay, BaseDataDO.class);
                         return gson.fromJson(result, BaseDataDO.class);
                     }
                 });
