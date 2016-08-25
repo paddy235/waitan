@@ -390,7 +390,7 @@ public class OfflineFinanceController {
     @ResponseBody
     public ResponseBean businessChartShow() {
         //小贷
-        ResponseBean loanResponseBean = loanController.balance();
+        ResponseBean loanResponseBean = loanController.balanceByMonth();
         List<LoanBalanceDTO> loanBalanceResult = (List<LoanBalanceDTO>)loanResponseBean.getContent();
 
         @SuppressWarnings("unchecked")
