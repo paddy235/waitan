@@ -20,21 +20,20 @@ public class Constants {
 	public static final String REDIS_KEY_FFRZWG_RISK = "RK_FFRZWGR";
 	public static final String REDIS_KEY_RCJG_RISK = "RK_RCJGR";
 	public static final String REDIS_KEY_NEWS_DATA = "YQ_NEWS";
+	public static final String REDIS_KEY_BASE_INFO_BBD_DATA = "BASE_INFO_BBD_DATA";
 	public static final String characterCode = "utf-8";
 	/**
 	 * 线下理财关联数据使用 start
 	 */
 	public static String SEARCH_API_DATA_VERSION = "";
-	public static String DATA_VERSION = "";
+	public static String DATA_VERSION = "20160430";
 	public static String RELATION_DATA_VERSION = "";
-	public static final String SEARCH_API_COMPANY_URL = "api.search.company.url";
 	public static String systemAesScret;//系统公司加密
 	public static final String SYSTEM_CODE = "system";
 	public static String SSJL_DATA_VERSION = ""; // 诉讼记录API版本号
 	public static String shareDir;//分享附件文件夹
 	public static String mappingPath;//附件文件夹映射到服务器的目录
 	public static String attDir = "att";//
-	public static final String API_SEARCH_URL = "api.search.baseinfo.url";
 	// 系统自带的方法，所有人都有此功能
 	public static Map<String, String> SystemActionMethod = new HashMap<String, String>();
 	
@@ -103,7 +102,6 @@ public class Constants {
 				}
 			}
 			systemAesScret = system.getProperty("system.aes.scret", "").trim();
-			DATA_VERSION = system.getProperty("api.data.version", "").trim();
 			shareDir = system.getProperty("share.path", "").trim();
 			mappingPath = system.getProperty("mapping.path", "").trim();
 			SSJL_DATA_VERSION = system.getProperty("api.ssjl.data.version", "").trim();
