@@ -29,7 +29,7 @@ public class HologramQueryServiceImpl implements HologramQueryService {
 
     @Override
     public SearchComanyDO search(String company, int page_no, int page_size) {
-        return hologramQueryDao.search(company, page_no, page_size);
+        return hologramQueryDao.search(company, page_no - 1, page_size); // page_no减1是因为数据平台首页从0开始
     }
 
     @Override
@@ -79,11 +79,7 @@ public class HologramQueryServiceImpl implements HologramQueryService {
         Map<String, Object> data = new HashMap<>();
         ZuZhiJiGoudmDO zuZhiJiGoudmDO = hologramQueryDao.baseInfoZuZhiJiGou(companyName);
         for (ZuZhiJiGoudmDO.Result result : zuZhiJiGoudmDO.getResults()) {
-            if (result.getJgdm()=="" || result.getJgdm()==null) {
-                data.put("组织机构代码", null);
-            } else {
-                data.put("组织机构代码", result.getJgdm());
-            }
+            data.put("组织机构代码", result.getJgdm());
         }
         for (BaseDataDO.Results result : baseDataDO.getResults()) {
             data.put("法定代表人",result.getJbxx().getFrname());

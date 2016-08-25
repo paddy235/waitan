@@ -118,6 +118,7 @@ public class GuaranteeController {
     private GuaranteeBalanceDTO getGuaranteeBalanceDTO(int amount, GuaranteeBalanceDO balanceDO) {
         GuaranteeBalanceDTO guaranteeBalanceDTO = new GuaranteeBalanceDTO();
         guaranteeBalanceDTO.setYear(balanceDO.getYear());
+        guaranteeBalanceDTO.setMonth(balanceDO.getMonth());
         guaranteeBalanceDTO.setAmount(balanceDO.getGuaranteeBalance());
         guaranteeBalanceDTO.setSteelBalance(balanceDO.getSteelBalance());
         guaranteeBalanceDTO.setCompositeBalance(balanceDO.getCompositeBalance());

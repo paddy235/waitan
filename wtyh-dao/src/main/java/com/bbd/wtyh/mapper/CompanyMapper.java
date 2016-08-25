@@ -15,6 +15,9 @@ public interface CompanyMapper {
 
     CompanyDO selectByPrimaryKey(Integer companyId);
 
+
+    int maxVersion();
+
     int countByQuery(CompanyQuery query);
 
     List<CompanyDO> queryCompany(CompanyQuery query);

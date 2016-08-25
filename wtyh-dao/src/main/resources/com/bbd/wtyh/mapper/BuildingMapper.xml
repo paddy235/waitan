@@ -16,7 +16,6 @@
 			      cb.building_id=b.building_id and
 			      b.park_id=p.park_id and p.area_id=#{areaId}
 			GROUP BY b.building_id ,b.name,b.park_id,b.img_url
-
 	</select>
 	
 

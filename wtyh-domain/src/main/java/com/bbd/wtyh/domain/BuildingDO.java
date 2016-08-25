@@ -15,7 +15,7 @@ public class BuildingDO extends BaseDO {
     
     
     /**
-    * @Fields finComNum : finance_company_number 类金融企业数量	
+    * @Fields finComNum : finance_company_number 新型金融企业数量
     */
     private Integer finComNum;
 
@@ -23,10 +23,10 @@ public class BuildingDO extends BaseDO {
      *  企业数量
      */
     private Integer total;
-    
+
     
     /**
-    * @Fields ratio : finance_company_ratio 类金融企业占比
+    * @Fields ratio : finance_company_ratio 新型金融企业占比
     */
     private String  finComRatio;
 
