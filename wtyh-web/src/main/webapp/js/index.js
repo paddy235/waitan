@@ -40659,7 +40659,7 @@
 	              _react2.default.createElement(
 	                _reactRouter.Link,
 	                { activeClassName: 'active', to: '/PawnMonitoring', onClick: this.subMenu },
-	                '典当行业监测'
+	                '典当'
 	              )
 	            ),
 	            _react2.default.createElement(
@@ -51132,9 +51132,9 @@
 	            visualMap: {
 	                type: 'continuous',
 	                min: 0,
-	                max: 200,
-	                right: '4%',
-	                bottom: '8%',
+	                max: parm.visualMapMax || 200,
+	                right: '2%',
+	                bottom: parm.visualMapBottom || '8%',
 	                textStyle: {
 	                    color: "#fff"
 	                },
@@ -51147,7 +51147,7 @@
 	                        color: ['#e14341']
 	                    }
 	                },
-	                text: ['高', '低'], // 文本，默认为数值文本
+	                text: ['', ''], // 文本，默认为数值文本
 	                calculable: true
 	            },
 	            tooltip: {
@@ -51156,7 +51156,7 @@
 	                padding: [10, 10, 10, 10],
 	                formatter: function formatter(data) {
 	                    var dataIndex = data.dataIndex;
-	                    var opr = '<div class="scatter-bubble-tip">' + '<h4>' + parm.companyInfo[dataIndex].name + '</h4>' + '<ul>' + '<li>注册资本：<span class="c-blue">' + parm.companyInfo[dataIndex].regCapital + '</span></li>' + '<li>法人代表：<span class="c-blue">' + parm.companyInfo[dataIndex].corporate + '</span></li>' + '<li>公司类型：<span class="c-blue">' + parm.companyInfo[dataIndex].companyType + '</span></li>' + '<li>成立时间：<span class="c-blue">' + parm.companyInfo[dataIndex].foundDate + '</span></li>' + '<li>静态风险指数：<span class="c-blue">' + data.value[0] + '</span></li>' + '<li>动态风险指数：<span class="c-blue">' + data.value[1] + '</span></li>' + '</ul>' + '</div>';
+	                    var opr = '<div class="scatter-bubble-tip">' + '<h4>' + parm.companyInfo[dataIndex].name + '</h4>' + '<ul>' + '<li>注册资本：<span class="c-blue">' + parm.companyInfo[dataIndex].regCapital + '万元</span></li>' + '<li>法人代表：<span class="c-blue">' + parm.companyInfo[dataIndex].corporate + '</span></li>' + '<li>公司类型：<span class="c-blue">' + parm.companyInfo[dataIndex].companyType + '</span></li>' + '<li>成立时间：<span class="c-blue">' + parm.companyInfo[dataIndex].foundDate + '</span></li>' + '<li>静态风险指数：<span class="c-blue">' + data.value[0] + '</span></li>' + '<li>动态风险指数：<span class="c-blue">' + data.value[1] + '</span></li>' + '</ul>' + '</div>';
 	                    return opr;
 	                }
 	            },
@@ -51676,7 +51676,7 @@
 	                        //典当总额业务笔数
 	                        return data.name + ' 年<br/> 业务笔数：&nbsp <span style="color:#00b7f0">' + data.data[2] + '</span><br/>典当总额：&nbsp  <span style="color:#00b7f0">' + data.data[3] + '亿元</span>';
 	                    } else {
-	                        return data.name + ' 年<br/> ' + param.forMaterTitle + "：" + data.data[2] + '亿元<br/>' + param.forMaterTip + "：" + data.data[3] + "万元";
+	                        return data.name + '<br/> ' + param.forMaterTitle + "：" + data.data[2] + '亿元<br/>' + param.forMaterTip + "：" + data.data[3] + "万元";
 	                    }
 	                }
 	            },
@@ -51690,7 +51690,7 @@
 	            xAxis: {
 	                type: 'category',
 	                data: param.xAxis,
-	                boundaryGap: false,
+	                boundaryGap: true,
 	                splitLine: {
 	                    show: false,
 	                    lineStyle: {
@@ -51721,6 +51721,10 @@
 	                type: param.yType || 'category',
 	                name: param.yAxisName == undefined ? "" : param.yAxisName,
 	                boundaryGap: ["10%", "10%"],
+	                min: 0,
+	                axisLabel: {
+	                    show: false
+	                },
 	                nameGap: param.YnameGap || 8,
 	                nameTextStyle: {
 	                    color: "#7f868e"
@@ -51734,7 +51738,7 @@
 	                    }
 	                },
 	                axisLabel: {
-	                    formatter: '{value}',
+	                    formatter: param.xFormatter || "value",
 	                    textStyle: {
 	                        color: "#99a3b7",
 	                        fontSize: 12,
@@ -52485,16 +52489,40 @@
 	                  { className: 'bg-blue' },
 	                  item
 	                );
-	              } else if (item == "国营企业") {
+	              } else if (item == "国企" || item == "民营企业") {
 	                tag = _react2.default.createElement(
 	                  'span',
 	                  { className: 'bg-red' },
 	                  item
 	                );
-	              } else if (item == "民营企业") {
+	              } else if (item == "上市公司" || item == "非上市公司") {
 	                tag = _react2.default.createElement(
 	                  'span',
 	                  { className: 'bg-yellow' },
+	                  item
+	                );
+	              } else if (item == "正常") {
+	                tag = _react2.default.createElement(
+	                  'span',
+	                  { className: 'tag-bg-green' },
+	                  item
+	                );
+	              } else if (item == "一般关注") {
+	                tag = _react2.default.createElement(
+	                  'span',
+	                  { className: 'tag-bg-yellow' },
+	                  item
+	                );
+	              } else if (item == "重点关注") {
+	                tag = _react2.default.createElement(
+	                  'span',
+	                  { className: 'tag-bg-red' },
+	                  item
+	                );
+	              } else if (item == "已出风险") {
+	                tag = _react2.default.createElement(
+	                  'span',
+	                  { className: 'tag-bg-black' },
 	                  item
 	                );
 	              }
@@ -52576,7 +52604,7 @@
 
 
 	// module
-	exports.push([module.id, ".risk-search-header{\r\n\t\r\n}\r\n.risk-search-header .search-bar{\r\n\tbackground-color: #212831;\r\n\theight: 50px;\r\n\tline-height: 50px;\r\n\tpadding-left:20px;\r\n\toverflow: hidden;\r\n}\r\n.risk-search-header .search-bar .left{\r\n\tfloat: left;\r\n}\r\n.risk-search-header .search-bar .left a{\r\n\tcolor:#272436;\r\n}\r\n.risk-search-header .search-bar .right{\r\n\tfloat: right;\r\n}\r\n.risk-search-header .search-bar .company-name{\r\n\tcolor: #ffffff;\r\n\tfont-size: 16px;\r\n\tdisplay: inline-block;\r\n}\r\n.risk-search-header .search-bar .company-info{\r\n\tdisplay: inline-block;\r\n\tmargin-left: 20px;\r\n}\r\n.risk-search-header .search-bar .company-info span{\r\n\tpadding: 2px 5px;\r\n\tfont-size: 12px;\r\n\tmargin: 0 5px;\r\n}\r\n.risk-search-header .search-bar .company-info span.bg-blue{\r\n\tbackground-color: #00b7ee;\r\n}\r\n.risk-search-header .search-bar .company-info span.bg-yellow{\r\n\tbackground-color: #f98d2b;\r\n}\r\n.risk-search-header .search-bar .company-info span.bg-red{\r\n\tbackground-color: #e14340;\r\n}\r\n.risk-search-header .search-bar .export-report{\r\n\tbackground-color: #e5e5e5;\r\n\tborder-radius: 2px;\r\n\tpadding: 2px 5px;\r\n\tfont-size: 12px;\r\n\tmargin-left: 40px;\r\n}\r\n.risk-search-header .search-bar .export-report i{\r\n\tmargin-right: 2px;\r\n}\r\n.risk-search-header .search-bar .right{\r\n\r\n}\r\n.risk-search-header .search-bar .right a{\r\n\tdisplay: inline-block;\r\n\theight: 100%;\r\n\tfont-size: 16px;\r\n\tpadding: 0 10px;\r\n\tcolor: #999999;\r\n}\r\n.risk-search-header .search-bar .right a i{\r\n\tmargin-right: 5px;\r\n}\r\n.risk-search-header .search-bar .right a.active{\r\n\tbackground-color: #1a2029;\r\n\tcolor: #ffffff;\r\n}\r\n.risk-search-header .search-bar .right a.active i{\r\n\tcolor: #e14340;\r\n}", ""]);
+	exports.push([module.id, ".risk-search-header{\r\n\t\r\n}\r\n.risk-search-header .search-bar{\r\n\tbackground-color: #212831;\r\n\theight: 50px;\r\n\tline-height: 50px;\r\n\tpadding-left:20px;\r\n\toverflow: hidden;\r\n}\r\n.risk-search-header .search-bar .left{\r\n\tfloat: left;\r\n}\r\n.risk-search-header .search-bar .left a{\r\n\tcolor:#272436;\r\n}\r\n.risk-search-header .search-bar .right{\r\n\tfloat: right;\r\n}\r\n.risk-search-header .search-bar .company-name{\r\n\tcolor: #ffffff;\r\n\tfont-size: 16px;\r\n\tdisplay: inline-block;\r\n}\r\n.risk-search-header .search-bar .company-info{\r\n\tdisplay: inline-block;\r\n\tmargin-left: 20px;\r\n}\r\n.risk-search-header .search-bar .company-info span{\r\n\tpadding: 2px 5px;\r\n\tfont-size: 12px;\r\n\tmargin: 0 5px;\r\n}\r\n.risk-search-header .search-bar .company-info span.bg-blue{\r\n\tbackground-color: #00b7ee;\r\n}\r\n.risk-search-header .search-bar .company-info span.bg-yellow{\r\n\tbackground-color: #f98d2b;\r\n}\r\n.risk-search-header .search-bar .company-info span.bg-red{\r\n\tbackground-color: #e14340;\r\n}\r\n.risk-search-header .search-bar .export-report{\r\n\tbackground-color: #e5e5e5;\r\n\tborder-radius: 2px;\r\n\tpadding: 2px 5px;\r\n\tfont-size: 12px;\r\n\tmargin-left: 40px;\r\n}\r\n.risk-search-header .search-bar .export-report i{\r\n\tmargin-right: 2px;\r\n}\r\n.risk-search-header .search-bar .right{\r\n\r\n}\r\n.risk-search-header .search-bar .right a{\r\n\tdisplay: inline-block;\r\n\theight: 100%;\r\n\tfont-size: 16px;\r\n\tpadding: 0 10px;\r\n\tcolor: #999999;\r\n}\r\n.risk-search-header .search-bar .right a i{\r\n\tmargin-right: 5px;\r\n}\r\n.risk-search-header .search-bar .right a.active{\r\n\tbackground-color: #1a2029;\r\n\tcolor: #ffffff;\r\n}\r\n.risk-search-header .search-bar .right a.active i{\r\n\tcolor: #e14340;\r\n}\r\n\r\n.risk-search-header .search-bar .tag-bg-red{\r\n\tbackground-color: red;\r\n}\r\n.risk-search-header .search-bar .tag-bg-yellow{\r\n\tbackground-color: #ebc900;\r\n}\r\n.risk-search-header .search-bar .tag-bg-green{\r\n\tbackground-color: #32b16c;\r\n}\r\n.risk-search-header .search-bar .tag-bg-black{\r\n\tbackground-color: #000;\r\n}", ""]);
 
 	// exports
 
@@ -53038,7 +53066,7 @@
 	                                        { className: 'title' },
 	                                        _react2.default.createElement(
 	                                            'a',
-	                                            { href: item.bbd_source },
+	                                            { href: item.bbd_url },
 	                                            _react2.default.createElement(
 	                                                'em',
 	                                                null,
@@ -53050,7 +53078,7 @@
 	                                    _react2.default.createElement(
 	                                        'p',
 	                                        { className: 'abstract' },
-	                                        item.search_key
+	                                        item.main
 	                                    ),
 	                                    _react2.default.createElement(
 	                                        'div',
@@ -53058,7 +53086,7 @@
 	                                        _react2.default.createElement(
 	                                            'span',
 	                                            { className: 'name' },
-	                                            item.news_site
+	                                            item.author
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'span',
@@ -53375,7 +53403,7 @@
 	                                    _react2.default.createElement(
 	                                        'em',
 	                                        null,
-	                                        '51.2'
+	                                        itemTable && itemTable.stcRiskIndex
 	                                    ),
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-xiangshang' })
 	                                )
@@ -54943,6 +54971,9 @@
 	    var backgroud = content.backgroud;
 	    var status = content.status;
 	    backgroud.push(status);
+	    var analysisResult = content.analysisResult;
+
+	    backgroud.push(analysisResult);
 	    this.setState({ companyTag: backgroud });
 	  },
 	  getDynamicRiskData: function getDynamicRiskData(data) {
@@ -58805,7 +58836,7 @@
 
 
 	// module
-	exports.push([module.id, "/*小额贷款 begin*/\r\n.finance-guara-index .top{\r\n\toverflow: hidden;\r\n\twidth: 100%;\r\n\theight: 610px;\r\n}\r\n.finance-guara-index .top .left{\r\n\twidth: 27%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n.finance-guara-index .top .middle{\r\n\twidth: 45%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n.finance-guara-index .top .right{\r\n\twidth: 27%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n.finance-guara-index .bottom{\r\n\toverflow: hidden;\r\n\twidth: 100%;\r\n\theight: 300px;\r\n}\r\n.finance-guara-index .bottom .left{\r\n\tfloat: left;\r\n\twidth: 32%;\r\n\theight: 100%;\r\n}\r\n.finance-guara-index .bottom .middle{\r\n\tfloat: left;\r\n\twidth: 35%;\r\n\theight: 100%;\r\n}\r\n.finance-guara-index .bottom .right{\r\n\tfloat: left;\r\n\twidth: 32%;\r\n\theight: 100%;\r\n}\r\n/*小额贷款 end*/", ""]);
+	exports.push([module.id, "/*小额贷款 begin*/\r\n.finance-guara-index .top {\r\n\toverflow: hidden;\r\n\twidth: 100%;\r\n\theight: 610px;\r\n}\r\n\r\n.finance-guara-index .top .left {\r\n\twidth: 27%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n\r\n.finance-guara-index .top .middle {\r\n\twidth: 45%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n\r\n.finance-guara-index .top .right {\r\n\twidth: 27%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n\r\n.finance-guara-index .bottom {\r\n\toverflow: hidden;\r\n\twidth: 100%;\r\n\theight: 300px;\r\n}\r\n\r\n.finance-guara-index .bottom .left {\r\n\tfloat: left;\r\n\twidth: 32%;\r\n\theight: 100%;\r\n}\r\n\r\n.finance-guara-index .bottom .middle {\r\n\tfloat: left;\r\n\twidth: 35%;\r\n\theight: 100%;\r\n}\r\n\r\n.finance-guara-index .bottom .right {\r\n\tfloat: left;\r\n\twidth: 32%;\r\n\theight: 100%;\r\n}\r\n\r\n/*小额贷款 end*/", ""]);
 
 	// exports
 
@@ -59313,7 +59344,7 @@
 
 
 	// module
-	exports.push([module.id, ".finance-guara-index .mt-table {\r\n\tmargin: 0px !important;\r\n}\r\n\r\n/*企业评级*/\r\n.finance-guara-index .company-grade .mod-content .table-content {\r\n\theight: 530px;\r\n\toverflow: auto;\r\n}\r\n\r\n/*担保责任余额结构分布*/\r\n.finance-guara-index .balance-distribute {\r\n\theight: 49.5%;\r\n}\r\n\r\n.finance-guara-index .balance-distribute .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*担保笔均折线图*/\r\n.finance-guara-index .each-average {\r\n\theight: 49.5%;\r\n\tmargin-top: 2%;\r\n}\r\n\r\n.finance-guara-index .each-average .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*地图模块*/\r\n.finance-guara-index .finance-guara-map .map-chart-box {\r\n\theight: 610px;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .finance-guara-map .company-chart-box {\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.finance-guara-index .finance-guara-map .visual-text {\r\n\tposition: absolute;\r\n\tbottom: 26%;\r\n\tright: 3%;\r\n\tz-index: 1000;\r\n\twidth: 14px;\r\n}\r\n\r\n/*贷款余额占比*/\r\n.finance-guara-index .loan-balance .chart-box {\r\n\theight: 300px;\r\n}\r\n\r\n/*股东行业风险*/\r\n.finance-guara-index .industry-risk .mod-content .table-content {\r\n\theight: 240px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk .mod-content .table-content table td a.more {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*大额借款人信息列表*/\r\n\r\n/*股东风险更多*/\r\n.finance-guara-index .industry-risk-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: fixed;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content {\r\n\tpadding: 8px 10px;\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content .content-riskMore {\r\n\twidth: 100%;\r\n\theight: 199px\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content ul {\r\n\tdisplay: inline-block;\r\n\twidth: 33.33%;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content ul li {\r\n\tpadding: 15px 5px;\r\n\tfont-size: 14px;\r\n}", ""]);
+	exports.push([module.id, ".finance-guara-index .mt-table {\r\n\tmargin: 0px !important;\r\n}\r\n\r\n/*企业评级*/\r\n.finance-guara-index .company-grade .mod-content .table-content {\r\n\theight: 530px;\r\n\toverflow: auto;\r\n}\r\n\r\n/*担保责任余额结构分布*/\r\n.finance-guara-index .balance-distribute {\r\n\theight: 49.5%;\r\n}\r\n\r\n.finance-guara-index .balance-distribute .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*担保笔均折线图*/\r\n.finance-guara-index .each-average {\r\n\theight: 49.5%;\r\n\tmargin-top: 2%;\r\n}\r\n\r\n.finance-guara-index .each-average .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*地图模块*/\r\n.finance-guara-index .finance-guara-map .map-chart-box {\r\n\theight: 610px;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .finance-guara-map .company-chart-box {\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.finance-guara-index .finance-guara-map .visual-text {\r\n\tposition: absolute;\r\n\tbottom: 26%;\r\n\tright: 3%;\r\n\tz-index: 1000;\r\n\twidth: 14px;\r\n}\r\n\r\n/*贷款余额占比*/\r\n.finance-guara-index .loan-balance .chart-box {\r\n\theight: 300px;\r\n}\r\n\r\n/*股东行业风险*/\r\n.finance-guara-index .industry-risk .mod-content .table-content {\r\n\theight: 240px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk .mod-content .table-content table td a.more {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*大额借款人信息列表*/\r\n\r\n/*股东风险更多*/\r\n.finance-guara-index .industry-risk-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: fixed;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content {\r\n\r\n\t/*padding: 8px 10px;*/\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content .content-riskMore {\r\n\twidth: 100%;\t/*height: 199px*/\r\n\tdisplay: table;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content ul {\r\n\tdisplay: table-cell;\r\n\twidth: 33.33%;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content ul li {\r\n\tpadding: 15px 5px;\r\n\tfont-size: 14px;\r\n}", ""]);
 
 	// exports
 
@@ -60333,7 +60364,7 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '22%', className: 'cur-pointer', 'data-order': this.state.offlineFinance, ref: 'offlineFinance', onClick: this.handleClick.bind(this, "offlineFinance") },
+	                                    { width: '22%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'offlineFinance', onClick: this.handleClick.bind(this, "offlineFinance") },
 	                                    '线下理财关联',
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                                ),
@@ -60541,9 +60572,8 @@
 	          { className: 'content-riskMore' },
 	          _react2.default.createElement(
 	            'ul',
-	            { className: 'left' },
+	            null,
 	            this.state.p2p.map(function (elem, index) {
-	              console.log(elem);
 	              return _react2.default.createElement(
 	                'li',
 	                null,
@@ -60553,9 +60583,8 @@
 	          ),
 	          _react2.default.createElement(
 	            'ul',
-	            { className: 'middle' },
+	            null,
 	            this.state.preFun.map(function (elem, index) {
-	              console.log(elem);
 	              return _react2.default.createElement(
 	                'li',
 	                null,
@@ -60565,9 +60594,8 @@
 	          ),
 	          _react2.default.createElement(
 	            'ul',
-	            { className: 'right' },
+	            null,
 	            this.state.linFin.map(function (elem, index) {
-	              console.log(elem);
 	              return _react2.default.createElement(
 	                'li',
 	                null,
@@ -64005,7 +64033,7 @@
 
 
 	// module
-	exports.push([module.id, ".small-loan-index .mt-table {\r\n\tmargin: 0px !important;\r\n}\r\n\r\n/*企业评级*/\r\n.small-loan-index .company-grade .mod-content .table-content {\r\n\theight: 530px;\r\n\toverflow: auto;\r\n}\r\n\r\n/*余额占比*/\r\n.small-loan-index .balance-radio {\r\n\theight: 49.5%;\r\n}\r\n\r\n.small-loan-index .balance-radio .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*贷款笔均折线图*/\r\n.small-loan-index .each-average {\r\n\theight: 49.5%;\r\n\tmargin-top: 2%;\r\n}\r\n\r\n.small-loan-index .each-average .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*地图模块*/\r\n.small-loan-index .small-loan-map .map-chart-box {\r\n\theight: 610px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .small-loan-map .company-chart-box {\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.small-loan-index .small-loan-map .visual-text {\r\n\tposition: absolute;\r\n\tbottom: 26%;\r\n\tright: 3%;\r\n\tz-index: 1000;\r\n\twidth: 14px;\r\n}\r\n\r\n/*贷款余额占比*/\r\n.small-loan-index .loan-balance .chart-box {\r\n\theight: 300px;\r\n}\r\n\r\n/*股东行业风险*/\r\n.small-loan-index .industry-risk .mod-content .table-content {\r\n\theight: 240px;\r\n\toverflow: auto;\r\n}\r\n\r\n.small-loan-index .industry-risk .mod-content .table-content table td a.more {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*大额借款人信息列表*/\r\n\r\n/*股东风险更多*/\r\n.small-loan-index .industry-risk-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: fixed;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content {\r\n\tpadding: 8px 10px;\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content .content-more {\r\n\theight: 199px;\r\n\twidth: 100%\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul {\r\n\tdisplay: inline-block;\r\n\twidth: 33.33%;\r\n\theight: 199px;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul li {\r\n\tpadding: 15px 5px;\r\n}", ""]);
+	exports.push([module.id, ".small-loan-index .mt-table {\r\n\tmargin: 0px !important;\r\n}\r\n\r\n/*企业评级*/\r\n.small-loan-index .company-grade .mod-content .table-content {\r\n\theight: 530px;\r\n\toverflow: auto;\r\n}\r\n\r\n/*余额占比*/\r\n.small-loan-index .balance-radio {\r\n\theight: 49.5%;\r\n}\r\n\r\n.small-loan-index .balance-radio .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*贷款笔均折线图*/\r\n.small-loan-index .each-average {\r\n\theight: 49.5%;\r\n\tmargin-top: 2%;\r\n}\r\n\r\n.small-loan-index .each-average .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*地图模块*/\r\n.small-loan-index .small-loan-map .map-chart-box {\r\n\theight: 610px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .small-loan-map .company-chart-box {\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.small-loan-index .small-loan-map .visual-text {\r\n\tposition: absolute;\r\n\tbottom: 26%;\r\n\tright: 3%;\r\n\tz-index: 1000;\r\n\twidth: 14px;\r\n}\r\n\r\n/*贷款余额占比*/\r\n.small-loan-index .loan-balance .chart-box {\r\n\theight: 300px;\r\n}\r\n\r\n/*股东行业风险*/\r\n.small-loan-index .industry-risk .mod-content .table-content {\r\n\theight: 240px;\r\n\toverflow: auto;\r\n}\r\n\r\n.small-loan-index .industry-risk .mod-content .table-content table td a.more {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*大额借款人信息列表*/\r\n\r\n/*股东风险更多*/\r\n.small-loan-index .industry-risk-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: fixed;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content {\r\n\r\n\t/*padding: 8px 10px;*/\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content .content-more {\r\n\theight: 199px;\r\n\twidth: 100%;\r\n\tdisplay: table;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul {\r\n\r\n\t/*display: inline-block;*/\r\n\twidth: 33.33%;\t/*height: 199px;*/\r\n\tdisplay: table-cell;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul li {\r\n\tpadding: 15px 5px;\r\n}", ""]);
 
 	// exports
 
@@ -64224,9 +64252,6 @@
 	                        emphasis: {},
 	                        textStyle: {
 	                            color: '#ffffff'
-	                        },
-	                        formatter: function formatter(value, index) {
-	                            return value;
 	                        }
 	                    }
 	                },
@@ -64234,15 +64259,17 @@
 	                    show: true,
 	                    backgroundColor: 'rgba(0,0,0,0.7)',
 	                    padding: [10, 10, 10, 10],
-	                    //formatter: "{a} <br/>{b} : {c} ({d}%)"
 	                    formatter: function formatter(data) {
 	                        console.log(data, 4444);
+	                        if (data.componentType == "timeline") {
+	                            return false;
+	                        }
 	                        if (data.name != "invisible") {
 	                            var value = data.value;
 	                            if (value == 70) {
-	                                return data.seriesName + "：" + data.data.amount + "亿元" + "(100%)";
+	                                return data.name + "：" + data.data.amount + "亿元" + "(100%)";
 	                            } else {
-	                                return data.seriesName + "：" + data.data.amount + "亿元" + "(" + data.value + "%)";
+	                                return data.name + "：" + data.data.amount + "亿元" + "(" + data.value + "%)";
 	                            }
 	                        }
 	                    }
@@ -64636,6 +64663,15 @@
 	      xAxis: data.xAxis,
 	      yAxis: data.yAxis,
 	      data: data.data,
+	      symbolSize: function symbolSize(val) {
+	        if (val[3] < 1000) {
+	          return val[3] / 10;
+	        } else if (val[3] > 1000 && val[3] < 10000) {
+	          return val[3] / 400;
+	        } else {
+	          return val[3] / 400;
+	        }
+	      },
 	      series: [[{
 	        color: '#e14340'
 	      }]]
@@ -65051,9 +65087,8 @@
 	          { className: 'content-more clearfix' },
 	          _react2.default.createElement(
 	            'ul',
-	            { className: 'left' },
+	            null,
 	            this.state.p2p.map(function (elem, index) {
-	              console.log(elem);
 	              return _react2.default.createElement(
 	                'li',
 	                null,
@@ -65063,9 +65098,8 @@
 	          ),
 	          _react2.default.createElement(
 	            'ul',
-	            { className: 'middle' },
+	            null,
 	            this.state.preFun.map(function (elem, index) {
-	              console.log(elem);
 	              return _react2.default.createElement(
 	                'li',
 	                null,
@@ -65075,9 +65109,8 @@
 	          ),
 	          _react2.default.createElement(
 	            'ul',
-	            { className: 'right' },
+	            null,
 	            this.state.linFin.map(function (elem, index) {
-	              console.log(elem);
 	              return _react2.default.createElement(
 	                'li',
 	                null,
@@ -72021,7 +72054,7 @@
 	                                                { width: '25%' },
 	                                                _react2.default.createElement(
 	                                                    _reactRouter.Link,
-	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'HPQList', company: item.name } }, className: 'word-limit-5', 'data-tip': item.name, title: item.name },
+	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'HPQList', companyName: item.name } }, className: 'word-limit-5', 'data-tip': item.name, title: item.name },
 	                                                    item.name
 	                                                )
 	                                            ),
@@ -72059,7 +72092,7 @@
 	                                                { width: '25%' },
 	                                                _react2.default.createElement(
 	                                                    _reactRouter.Link,
-	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'HPQList', company: item.name } }, className: 'word-limit-5', 'data-tip': item.name, title: item.name },
+	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'HPQList', companyName: item.name } }, className: 'word-limit-5', 'data-tip': item.name, title: item.name },
 	                                                    item.name
 	                                                )
 	                                            ),
@@ -72249,7 +72282,7 @@
 	                                                { width: '25%' },
 	                                                _react2.default.createElement(
 	                                                    _reactRouter.Link,
-	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'DetailList', company: item.name } }, className: 'word-limit-5', 'data-tip': item.name, title: item.name },
+	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'DetailList', companyName: item.name } }, className: 'word-limit-5', 'data-tip': item.name, title: item.name },
 	                                                    item.name
 	                                                )
 	                                            ),
@@ -72287,7 +72320,7 @@
 	                                                { width: '25%' },
 	                                                _react2.default.createElement(
 	                                                    _reactRouter.Link,
-	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'DetailList', company: item.name } }, className: 'word-limit-5', 'data-tip': item.name, title: item.name },
+	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'DetailList', companyName: item.name } }, className: 'word-limit-5', 'data-tip': item.name, title: item.name },
 	                                                    item.name
 	                                                )
 	                                            ),
@@ -73197,7 +73230,7 @@
 	    componentDidMount: function componentDidMount() {
 	        var getContrastLeftnumRequest = this.props.getContrastLeftnumRequest;
 
-	        var jsonData = { 'year': 2016 };
+	        var jsonData = { 'year': 2013 };
 	        getContrastLeftnumRequest(jsonData);
 
 	        var getTimeSelectRequest = this.props.getTimeSelectRequest;
@@ -73284,7 +73317,7 @@
 	            width: '95px',
 	            className: 'index-selected',
 	            value: this.state.selectVar,
-	            placeholder: '2016',
+	            placeholder: '2013',
 	            name: 'testselect',
 	            data: this.state.TimeSelect,
 	            onChange: function (value, label) {
@@ -73363,7 +73396,7 @@
 	    componentDidMount: function componentDidMount() {
 	        var getContrastRightnumRequest = this.props.getContrastRightnumRequest;
 
-	        var jsonData = { 'year': 2015 };
+	        var jsonData = { 'year': 2016 };
 	        getContrastRightnumRequest(jsonData);
 
 	        var getTimeSelectRequest = this.props.getTimeSelectRequest;
@@ -73448,7 +73481,7 @@
 	            width: '95px',
 	            className: 'index-selected',
 	            value: this.state.selectVar,
-	            placeholder: '2015',
+	            placeholder: '2016',
 	            name: 'testselect',
 	            data: this.state.TimeSelectVal,
 	            onChange: function (value, label) {
@@ -77643,44 +77676,53 @@
 	    },
 	    riskListSwitch: function riskListSwitch() {
 	        //风险企业切换
-	        console.log('切换');
 	        var _this = this;
 	        $('.risk-list').on('click', 'tr', function () {
+	            console.log('切换');
 	            var $this = $(this);
 	            var num = $this.find('.r').text();
+	            var $tr = $(this).parent('tbody').find('tr');
 	            if (num == "0") {
 	                return false;
 	            } else {
-	                var tbody = $(this).parent('tbody').find('tr').removeClass('active');
-	                $this.addClass('active');
-	                var val = $this.data('val');
-	                var riskCompany = "";
-	                var warnClass = "";
-	                var warnName = "";
-	                if (val == "haveRisk") {
-	                    riskCompany = _this.state.haveRiskCompany;
-	                    warnClass = "Black";
-	                    warnName = "已出风险企业";
-	                } else if (val == "focus") {
-	                    riskCompany = _this.state.focusCompany;
-	                    warnClass = "Red";
-	                    warnName = "重点关注企业";
-	                } else if (val == "general") {
-	                    riskCompany = _this.state.generalCompany;
-	                    warnClass = "Yellow";
-	                    warnName = "一般关注企业";
+	                var isActive = $tr.hasClass('active');
+	                console.log(isActive, 234);
+	                if (isActive == true) {
+	                    $tr.removeClass('active');
+	                    _this.setState({ show: false });
 	                } else {
-	                    riskCompany = _this.state.normalCompany;
-	                    warnClass = "Green";
-	                    warnName = "正常企业";
+	                    $tr.removeClass('active');
+	                    $this.addClass('active');
+	                    var val = $this.data('val');
+	                    var riskCompany = "";
+	                    var warnClass = "";
+	                    var warnName = "";
+	                    if (val == "haveRisk") {
+	                        riskCompany = _this.state.haveRiskCompany;
+	                        warnClass = "Black";
+	                        warnName = "已出风险企业";
+	                    } else if (val == "focus") {
+	                        riskCompany = _this.state.focusCompany;
+	                        warnClass = "Red";
+	                        warnName = "重点关注企业";
+	                    } else if (val == "general") {
+	                        riskCompany = _this.state.generalCompany;
+	                        warnClass = "Yellow";
+	                        warnName = "一般关注企业";
+	                    } else {
+	                        riskCompany = _this.state.normalCompany;
+	                        warnClass = "Green";
+	                        warnName = "正常企业";
+	                    }
+	                    console.log(warnClass, '333333333333');
+	                    _this.setState({ showBuildRisk: riskCompany, show: true, warnClass: warnClass, warnName: warnName });
 	                }
-	                console.log(warnClass, '333333333333');
-	                _this.setState({ showBuildRisk: riskCompany, show: true, warnClass: warnClass, warnName: warnName });
 	            }
 	        });
 	    },
 	    handleBuild: function handleBuild(ele, e) {
 	        //大厦切换
+	        console.log('大厦切换');
 	        var len = this.state.buildList.length; //获取大厦的个数
 	        var index = this.state.curBuildIndex;
 	        if (ele == -1) {
@@ -77699,10 +77741,8 @@
 	        this.setState({ curBuildIndex: index, curBuild: curBuild, show: false });
 
 	        this.getBuildSwitchVal({ buildId: curBuildId, buildName: curBuildName, parkId: parkId });
-	        $('.risk-list').on('click', 'tr', function () {
-	            var $this = $(this);
-	            $this.removeClass('active');
-	        });
+
+	        $('.risk-list').find('tr').removeClass('active');
 	    },
 	    render: function render() {
 
@@ -77904,7 +77944,7 @@
 
 
 	// module
-	exports.push([module.id, "/*@parkMonitor jifei  图片\r\n---------------------------------------------------------*/\r\n.Img{\r\n\twidth: 100%;\r\n\theight: 948px;\r\n\t/*background: url(\"/images/floor.png\") no-repeat;*/\r\n\tbackground-size: 100% 948px;\r\n}\r\n.Img .carousel{\r\n\twidth: 180px;\r\n\theight: 30px;\r\n\tbackground: #e2f1fc;\r\n\tborder-radius: 3px;\r\n\tposition: relative;\r\n    top: 10px;\r\n    left: 10px;\r\n}\r\n.Img .carousel i{\r\n\tdisplay: block;\r\n\tline-height: 30px;\r\n\tmargin-left: 3px;\r\n\tcolor: #1a2029;\r\n\tfont-size: 18px;\r\n\tcursor: pointer;\r\n}\r\n.Img .carousel i.left{\r\n\tfloat: left;\r\n}\r\n.Img .carousel i.right{\r\n\tfloat: right;\r\n}\r\n.Img .carousel .list-box{\r\n\twidth: 136px;\r\n\tfloat: left;\r\n\toverflow: hidden;\r\n}\r\n.Img .carousel ul{\r\n\tfloat: left;\r\n\twidth: 100%;\r\n\toverflow: hidden;\r\n}\r\n.Img .carousel ul li{\r\n\tline-height: 30px;\r\n\tfloat: left;\r\n\twidth: 100%;\r\n\tcolor: #1a2029;\r\n\ttext-align: center;\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n}\r\n.Img  .tabs{\r\n\twidth: 30%;\r\n    height: 150px;\r\n    float: right;\r\n    margin-right: 20px;\r\n    margin-top: -10px;\r\n}\r\n.Img  .tabs table{\r\n\twidth: 100%;\r\n\tborder-radius: 3px;\r\n\toverflow: hidden;\r\n}\r\n.Img  .tabs table tr th{\r\n\theight: 30px;\r\n\ttext-align: center;\r\n\twidth: 50%;\r\n\tbackground: #e14340;\r\n\tcolor: #fff;\r\n}\r\n.Img  .tabs table tr td{\r\n\tcursor: pointer;\r\n\twidth: 50%;\r\n\theight: 35px;\r\n\ttext-align: center;\r\n\tbackground: #5383a1;\r\n\tborder-bottom: 1px solid #75c5f1;\r\n\tcolor: #fff;\r\n}\r\n.Img  .tabs table tbody tr.active td{\r\n\tbackground: rgba(183,223,248,0.5);\r\n}\r\n.Img  .tabs table tr td .Red{\r\n\tcolor: #e14340;\r\n\tfont-size: 18px;\r\n}\r\n.Img  .tabs table tr td .Yellow{\r\n\tcolor: #f39800;\r\n\tfont-size: 18px;\r\n}\r\n.Img  .tabs table tr td .Green{\r\n\tcolor: #32b16c;\r\n\tfont-size: 18px;\r\n}\r\n.Img  .tabs table tr td .Black{\r\n\tcolor: #000000;\r\n\tfont-size: 18px;\r\n}\r\n\r\n\r\n.Img .onTabs{\r\n\twidth: 43.6%;\r\n    height: 280px;\r\n    border-radius: 3px;   \r\n    position: absolute;\r\n    left: 3%;\r\n    top: 17%;\r\n}\r\n.Img .onTabs .tableLeft{\r\n\twidth: 85%;\r\n\theight: 274px;\r\n\tbackground: rgba(100, 131, 152, 0.5) none repeat scroll 0 0;\r\n\tfloat: left;\r\n\tdisplay: none;\r\n}\r\n.Img .onTabs .tableLeft.show{\r\n\tdisplay: block;\r\n}\r\n.Img .onTabs .solidRight{\r\n\twidth: 15%;\r\n    border: 1px solid #ffffff;\r\n    position: absolute;\r\n    right: 0;\r\n    top: 46.8%;\r\n}\r\n.Img .onTabs .mod-title{\r\n\tborder-bottom: 1px solid #495b69;\r\n}\r\n.Img .onTabs .mod-title i{\r\n\tfloat: right;\r\n    margin: 10px;\r\n    font-size: 18px;\r\n}\r\n.Img .onTabs .mod-title i.Black{\r\n    color: #000000;\r\n}\r\n.Img .onTabs .mod-title i.Green{\r\n    color: #32b16c;\r\n}\r\n.Img .onTabs .mod-title i.Yellow{\r\n    color:#f39800;\r\n}\r\n.Img .onTabs .mod-title i.Red{\r\n    color: #e14340;\r\n}\r\n.Img .onTabs .box{\r\n\twidth: 100%;\r\n\theight: 234px;\r\n\toverflow: auto;\r\n}\r\n.Img .onTabs .box table {\r\n\twidth: 93%;\r\n    margin: 0 10px;\r\n}\r\n.Img .onTabs .box table  tr td{\r\n\theight: 33px;\r\n\twidth: 95%;\r\n\twhite-space: nowrap;\r\n}\r\n.Img .onTabs .box table  tr td span{\r\n\tfloat: left;\r\n\tpadding-right: 10px;\r\n}\r\n.Img .yuan{\r\n\tposition: absolute;\r\n    right: 52%;\r\n    top: 29.7%;\r\n}\r\n/*@parkMonitor jifei  楼宇企业列表\r\n---------------------------------------------------------*/\r\n.Enterprise{\r\n\twidth: 100%;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\theight: 560px;\r\n}\r\n.Enterprise .right{\r\n\tcolor: #e14340;\r\n\tfloat: right;\r\n\tfont-size: 16px;\r\n\tpadding: 10px 33px;\r\n}\r\n.Enterprise .mod-content{\r\n    width: 100%;\r\n    margin: 10px auto;\r\n}\r\n.Enterprise .mod-content .table-content{\r\n\theight: 470px;\r\n    overflow: auto;\r\n}\r\n.Enterprise .mod-content .wtyh-table{\r\n\twidth: 96%;\r\n    margin: 0 auto;\r\n}\r\n\r\n.Enterprise .mod-content .wtyh-table tr td{\r\n\theight: 40px;\r\n\tfont-size: 12px;\r\n\tborder-bottom: 1px solid #444951;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr:nth-child(even){\r\n\tbackground: #222932;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr td span{\r\n\tfloat: left;\r\n\tpadding-left: 10%;\r\n\tcolor: #fff;\r\n\tcursor: pointer;\r\n}\r\n.Enterprise .mod-content .wtyh-table tr td a{\r\n\tcolor:#ffffff;\r\n}\r\n\r\n/*@parkMonitor jifei  楼宇行业分布\r\n---------------------------------------------------------*/\r\n.Industry{\r\n\twidth: 49.5%;\r\n\theight: 398px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\tmargin-top: 10px;\r\n\tfloat: left;\r\n}\r\n/*@parkMonitor jifei  企业背景情况\r\n---------------------------------------------------------*/\r\n.Context{\r\n\twidth: 49.5%;\r\n\theight: 398px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\tmargin-top: 10px;\r\n\tfloat: right;\r\n}\r\n/*@parkMonitor jifei  舆情更新\r\n---------------------------------------------------------*/\r\n.Footer{\r\n\twidth: 100%;\r\n\theight: 60px;\r\n\tposition: fixed;\r\n    bottom: 0;\r\n    left: 0;\r\n    background: rgba(43, 50, 60, 0.9) none repeat scroll 0 0;\r\n    box-shadow: 2px 2px 10px #000;\r\n}\r\n.Footer .box{\r\n\twidth: 95%;\r\n\theight: 40px;\r\n\tmargin: 10px auto;\r\n\tposition: relative;\r\n}\r\n.Footer .boxLeft{\r\n\twidth: 10%;\r\n\theight: 40px;\r\n\tborder-right: 1px solid #8a9199;\r\n\tline-height: 40px;\r\n\tfloat: left;\r\n}\r\n.Footer .boxLeft .icon-news{\r\n\tfont-size: 35px;\r\n\tcolor: #e14340;\r\n}\r\n.Footer .boxLeft .size{\r\n\tfont-size: 18px;\r\n    vertical-align: super;\r\n    padding-left: 25%;\r\n}\r\n.Footer .boxRight{\r\n\twidth: 85%;\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n\tfloat: right;\r\n\t/* background: #666 */\r\n}\r\n.Footer .boxRight ul li{\r\n\tfloat: left;\r\n}\r\n.Footer .boxRight ul li:nth-child(1){\r\n\twidth: 20%;\r\n    font-size: 16px;\r\n    color: #e14340;\r\n    overflow: hidden;\r\n    text-overflow: ellipsis;\r\n    white-space: nowrap;\r\n    display: inline-block;\r\n}\r\n.Footer .boxRight ul li:nth-child(1) em{\r\n\tpadding-left: 5%;\r\n}\r\n.Footer .boxRight ul li:nth-child(2){\r\n\twidth: 60%;\r\n\tfont-size: 14px;\r\n    overflow: hidden;\r\n    text-overflow: ellipsis;\r\n    white-space: nowrap;\r\n    display: inline-block;\r\n}\r\n.Footer .boxRight ul li:nth-child(2) .liTop{\r\n\tpadding-left: 8%;\r\n}\r\n.Footer .boxRight ul li:nth-child(3){\r\n\twidth: 20%;\r\n\tfont-size: 12px;\r\n}\r\n.Footer .boxRight ul li:nth-child(3) em{\r\n\tpadding-left: 5%;\r\n}\r\n.Footer .boxRight ul li:nth-child(3) .liRight{\r\n\tpadding-left: 18%;\r\n}\r\n.boxRight{\r\noverflow: hidden;\r\nposition: relative;\r\n}\r\n.boxRight ul{\r\n\t/* background: red; */\r\n\twidth: 100%;height: 40px;\r\n}\r\n\r\n.boxRightScroll {\r\n\twidth: 100%;\r\n\theight: auto;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n}", ""]);
+	exports.push([module.id, "/*@parkMonitor jifei  图片\r\n---------------------------------------------------------*/\r\n.Img {\r\n\twidth: 100%;\r\n\theight: 948px;\t/*background: url(\"/images/floor.png\") no-repeat;*/\r\n\tbackground-size: 100% 948px;\r\n}\r\n\r\n.Img .carousel {\r\n\twidth: 180px;\r\n\theight: 30px;\r\n\tbackground: #e2f1fc;\r\n\tborder-radius: 3px;\r\n\tposition: relative;\r\n\ttop: 10px;\r\n\tleft: 10px;\r\n}\r\n\r\n.Img .carousel i {\r\n\tdisplay: block;\r\n\tline-height: 30px;\r\n\tmargin-left: 3px;\r\n\tcolor: #1a2029;\r\n\tfont-size: 18px;\r\n\tcursor: pointer;\r\n}\r\n\r\n.Img .carousel i.left {\r\n\tfloat: left;\r\n}\r\n\r\n.Img .carousel i.right {\r\n\tfloat: right;\r\n}\r\n\r\n.Img .carousel .list-box {\r\n\twidth: 136px;\r\n\tfloat: left;\r\n\toverflow: hidden;\r\n}\r\n\r\n.Img .carousel ul {\r\n\tfloat: left;\r\n\twidth: 100%;\r\n\toverflow: hidden;\r\n}\r\n\r\n.Img .carousel ul li {\r\n\tline-height: 30px;\r\n\tfloat: left;\r\n\twidth: 100%;\r\n\tcolor: #1a2029;\r\n\ttext-align: center;\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n}\r\n\r\n.Img  .tabs {\r\n\twidth: 30%;\r\n\theight: 150px;\r\n\tfloat: right;\r\n\tmargin-right: 20px;\r\n\tmargin-top: -10px;\r\n}\r\n\r\n.Img  .tabs table {\r\n\twidth: 100%;\r\n\tborder-radius: 3px;\r\n\toverflow: hidden;\r\n}\r\n\r\n.Img  .tabs table tr th {\r\n\theight: 30px;\r\n\ttext-align: center;\r\n\twidth: 50%;\r\n\tbackground: #e14340;\r\n\tcolor: #fff;\r\n}\r\n\r\n.Img  .tabs table tr td {\r\n\tcursor: pointer;\r\n\twidth: 50%;\r\n\theight: 35px;\r\n\ttext-align: center;\r\n\tbackground: #5383a1;\r\n\tborder-bottom: 1px solid #75c5f1;\r\n\tcolor: #fff;\r\n}\r\n\r\n.Img  .tabs table tbody tr.active td {\r\n\tbackground: rgba(183, 223, 248, 0.5);\r\n}\r\n\r\n.Img  .tabs table tr td .Red {\r\n\tcolor: #e14340;\r\n\tfont-size: 18px;\r\n}\r\n\r\n.Img  .tabs table tr td .Yellow {\r\n\tcolor: #f39800;\r\n\tfont-size: 18px;\r\n}\r\n\r\n.Img  .tabs table tr td .Green {\r\n\tcolor: #32b16c;\r\n\tfont-size: 18px;\r\n}\r\n\r\n.Img  .tabs table tr td .Black {\r\n\tcolor: #000000;\r\n\tfont-size: 18px;\r\n}\r\n\r\n.Img .onTabs {\r\n\twidth: 43.6%;\r\n\theight: 280px;\r\n\tborder-radius: 3px;\r\n\tposition: absolute;\r\n\tleft: 3%;\r\n\ttop: 17%;\r\n}\r\n\r\n.Img .onTabs .tableLeft {\r\n\twidth: 85%;\r\n\theight: 274px;\r\n\tbackground: rgba(100, 131, 152, 0.5) none repeat scroll 0 0;\r\n\tfloat: left;\r\n\tdisplay: none;\r\n}\r\n\r\n.Img .onTabs .tableLeft.show {\r\n\tdisplay: block;\r\n}\r\n\r\n.Img .onTabs .solidRight {\r\n\twidth: 15%;\r\n\tborder: 1px solid #ffffff;\r\n\tposition: absolute;\r\n\tright: 0;\r\n\ttop: 46.8%;\r\n}\r\n\r\n.Img .onTabs .mod-title {\r\n\tborder-bottom: 1px solid #495b69;\r\n}\r\n\r\n.Img .onTabs .mod-title i {\r\n\tfloat: right;\r\n\tmargin: 10px;\r\n\tfont-size: 18px;\r\n}\r\n\r\n.Img .onTabs .mod-title i.Black {\r\n\tcolor: #000000;\r\n}\r\n\r\n.Img .onTabs .mod-title i.Green {\r\n\tcolor: #32b16c;\r\n}\r\n\r\n.Img .onTabs .mod-title i.Yellow {\r\n\tcolor: #f39800;\r\n}\r\n\r\n.Img .onTabs .mod-title i.Red {\r\n\tcolor: #e14340;\r\n}\r\n\r\n.Img .onTabs .box {\r\n\twidth: 100%;\r\n\theight: 234px;\r\n\toverflow: auto;\r\n}\r\n\r\n.Img .onTabs .box table {\r\n\twidth: 93%;\r\n\tmargin: 0 10px;\r\n}\r\n\r\n.Img .onTabs .box table  tr td {\r\n\theight: 33px;\r\n\twidth: 95%;\r\n\twhite-space: nowrap;\r\n}\r\n\r\n.Img .onTabs .box table  tr td span {\r\n\tfloat: left;\r\n\tpadding-right: 10px;\r\n}\r\n\r\n.Img .yuan {\r\n\tposition: absolute;\r\n\tright: 52%;\r\n\ttop: 29.7%;\r\n}\r\n\r\n/*@parkMonitor jifei  楼宇企业列表\r\n---------------------------------------------------------*/\r\n.Enterprise {\r\n\twidth: 100%;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\theight: 560px;\r\n}\r\n\r\n.Enterprise .right {\r\n\tcolor: #e14340;\r\n\tfloat: right;\r\n\tfont-size: 16px;\r\n\tpadding: 10px 33px;\r\n}\r\n\r\n.Enterprise .mod-content {\r\n\twidth: 100%;\r\n\tmargin: 10px auto;\r\n}\r\n\r\n.Enterprise .mod-content .table-content {\r\n\theight: 470px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.Enterprise .wtyh-table thead th {\r\n\tpadding: 10px 0px;\r\n}\r\n\r\n.Enterprise .mod-content .wtyh-table {\r\n\twidth: 96%;\r\n\tmargin: 0 auto;\r\n}\r\n\r\n.Enterprise .mod-content .wtyh-table tr td {\r\n\theight: 40px;\r\n\tfont-size: 12px;\r\n\tborder-bottom: 1px solid #444951;\r\n}\r\n\r\n.Enterprise .mod-content .wtyh-table tr:nth-child(even) {\r\n\tbackground: #222932;\r\n}\r\n\r\n.Enterprise .mod-content .wtyh-table tr td span {\r\n\tfloat: left;\r\n\tpadding-left: 10%;\r\n\tcolor: #fff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.Enterprise .mod-content .wtyh-table tr td a {\r\n\tcolor: #ffffff;\r\n}\r\n\r\n/*@parkMonitor jifei  楼宇行业分布\r\n---------------------------------------------------------*/\r\n.Industry {\r\n\twidth: 49.5%;\r\n\theight: 398px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\tmargin-top: 10px;\r\n\tfloat: left;\r\n}\r\n\r\n/*@parkMonitor jifei  企业背景情况\r\n---------------------------------------------------------*/\r\n.Context {\r\n\twidth: 49.5%;\r\n\theight: 398px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\tmargin-top: 10px;\r\n\tfloat: right;\r\n}\r\n\r\n/*@parkMonitor jifei  舆情更新\r\n---------------------------------------------------------*/\r\n.Footer {\r\n\twidth: 100%;\r\n\theight: 60px;\r\n\tposition: fixed;\r\n\tbottom: 0;\r\n\tleft: 0;\r\n\tbackground: rgba(43, 50, 60, 0.9) none repeat scroll 0 0;\r\n\tbox-shadow: 2px 2px 10px #000;\r\n}\r\n\r\n.Footer .box {\r\n\twidth: 95%;\r\n\theight: 40px;\r\n\tmargin: 10px auto;\r\n\tposition: relative;\r\n}\r\n\r\n.Footer .boxLeft {\r\n\twidth: 10%;\r\n\theight: 40px;\r\n\tborder-right: 1px solid #8a9199;\r\n\tline-height: 40px;\r\n\tfloat: left;\r\n}\r\n\r\n.Footer .boxLeft .icon-news {\r\n\tfont-size: 35px;\r\n\tcolor: #e14340;\r\n}\r\n\r\n.Footer .boxLeft .size {\r\n\tfont-size: 18px;\r\n\tvertical-align: super;\r\n\tpadding-left: 25%;\r\n}\r\n\r\n.Footer .boxRight {\r\n\twidth: 85%;\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n\tfloat: right;\t/* background: #666 */\r\n}\r\n\r\n.Footer .boxRight ul li {\r\n\tfloat: left;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(1) {\r\n\twidth: 20%;\r\n\tfont-size: 16px;\r\n\tcolor: #e14340;\r\n\toverflow: hidden;\r\n\ttext-overflow: ellipsis;\r\n\twhite-space: nowrap;\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(1) em {\r\n\tpadding-left: 5%;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(2) {\r\n\twidth: 60%;\r\n\tfont-size: 14px;\r\n\toverflow: hidden;\r\n\ttext-overflow: ellipsis;\r\n\twhite-space: nowrap;\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(2) .liTop {\r\n\tpadding-left: 8%;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(3) {\r\n\twidth: 20%;\r\n\tfont-size: 12px;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(3) em {\r\n\tpadding-left: 5%;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(3) .liRight {\r\n\tpadding-left: 18%;\r\n}\r\n\r\n.boxRight {\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.boxRight ul {\r\n\r\n\t/* background: red; */\r\n\twidth: 100%;\r\n\theight: 40px;\r\n}\r\n\r\n.boxRightScroll {\r\n\twidth: 100%;\r\n\theight: auto;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n}", ""]);
 
 	// exports
 
@@ -77945,6 +77985,7 @@
 	        };
 	    },
 	    componentDidMount: function componentDidMount() {
+	        $('#buildCompanyList-scorll').perfectScrollbar();
 	        var areaId = this.props.location.query.areaId;
 	        var buildingId = this.props.location.query.buildingId;
 
@@ -77954,6 +77995,7 @@
 	        this.getBuildCompanyList(json);
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        $('#buildCompanyList-scorll').perfectScrollbar('update');
 	        //切换大厦
 	        var isSwitchValEqual = Immutable.is(nextProps.buildSwitchVal, this.props.buildSwitchVal);
 	        if (!isSwitchValEqual) {
@@ -78078,7 +78120,7 @@
 	                ),
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'table-content' },
+	                    { className: 'table-content', id: 'buildCompanyList-scorll' },
 	                    _react2.default.createElement(
 	                        'table',
 	                        { className: 'wtyh-table table-border-b mod-left' },
@@ -78689,6 +78731,7 @@
 	  getInitialState: function getInitialState() {
 	    return {
 	      result: null
+
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
@@ -79245,6 +79288,11 @@
 	 */
 	var SearchResultDetail = _react2.default.createClass({
 	    displayName: 'SearchResultDetail',
+	    getInitialState: function getInitialState() {
+	        return {
+	            isShowSearch: true
+	        };
+	    },
 
 	    pageScroll: function pageScroll() {
 	        $('html, body').animate({ scrollTop: 0 }, 'slow');
@@ -79254,6 +79302,18 @@
 	        if (getPageNums != "Portrait") {
 	            window.scrollTo(0, 0);
 	        }
+	        if (getPageNums) {
+	            this.setState({
+	                isShowSearch: false
+	            });
+	        }
+	    },
+	    searchResult: function searchResult() {
+	        var searchKey = $("#keyworld").val();
+	        this.props.history.push("/InfoSearchIndex?searchInfo=" + searchKey);
+	    },
+	    goBack: function goBack() {
+	        this.props.history.goBack();
 	    },
 	    render: function render() {
 	        return _react2.default.createElement(
@@ -79275,19 +79335,19 @@
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'right-content' },
-	                    _react2.default.createElement(
+	                    this.state.isShowSearch ? _react2.default.createElement(
 	                        'div',
 	                        { className: 'search-group' },
-	                        _react2.default.createElement('input', { type: 'text', placeholder: '请输入企业名称检索' }),
+	                        _react2.default.createElement('input', { id: 'keyworld', type: 'text', placeholder: '请输入企业名称检索' }),
 	                        _react2.default.createElement(
-	                            'a',
-	                            { href: '/#/InfoSearchIndex', className: 'search' },
+	                            'span',
+	                            { onClick: this.searchResult, className: 'search' },
 	                            _react2.default.createElement('i', { className: 'iconfont icon-search' })
 	                        )
-	                    ),
+	                    ) : '',
 	                    _react2.default.createElement(
 	                        'div',
-	                        { className: 'back-btn' },
+	                        { className: 'back-btn', onClick: this.goBack },
 	                        _react2.default.createElement('i', { className: 'iconfont icon-fanhui fanhui' }),
 	                        '返回'
 	                    )
@@ -79915,7 +79975,6 @@
 	        data = CompanyInfoNewsResult.content.results;
 	        if (!data) return;
 	        console.log(data, "companyInfoNEWS");
-	        debugger;
 	        _this.setState({
 	          itemAll: !data ? "暂无数据" : data.map(function (item, index) {
 	            return _react2.default.createElement(
@@ -80051,7 +80110,6 @@
 			if (getPageNums == "Portrait") {
 				this.refs.susong.click();
 			}
-
 			var a = this.props.location.query.companyName;
 		},
 		switchPage: function switchPage(param, ev) {
@@ -80112,7 +80170,22 @@
 				_react2.default.createElement(
 					'div',
 					{ className: 'bussiness-content' },
-					this.state.pageNum == 1 ? _react2.default.createElement(_BusinessInfo2.default, this.props) : this.state.pageNum == 2 ? _react2.default.createElement(_ShareholderExe2.default, this.props) : this.state.pageNum == 3 ? _react2.default.createElement(_ControlRecord2.default, this.props) : _react2.default.createElement(_RecruitingInfo2.default, this.props)
+					function () {
+						switch (this.state.pageNum) {
+							case 1:
+								return _react2.default.createElement(_BusinessInfo2.default, this.props);
+								break;
+							case 2:
+								return _react2.default.createElement(_ShareholderExe2.default, this.props);
+								break;
+							case 3:
+								return _react2.default.createElement(_ControlRecord2.default, this.props);
+								break;
+							default:
+								return _react2.default.createElement(_RecruitingInfo2.default, this.props);
+								break;
+						}
+					}
 				)
 			);
 		}
@@ -82403,7 +82476,7 @@
 
 
 	// module
-	exports.push([module.id, "/*@整体布局(一级)\r\n------------------------------------------------------------------*/\r\n.realtime-index {\r\n}\r\n.realtime-index .realtime-top {\r\n\twidth: 100%;\r\n\theight: 65%;\r\n}\r\n.realtime-index .realtime-bottom {\r\n\twidth: 100%;\r\n\theight: 35%;\r\n}\r\n\r\n/*@整体布局(二级)\r\n------------------------------------------------------------------*/\r\n.realtime-index .realtime-top>div {\r\n\tfloat: left;\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tpadding: 10px;\r\n}\r\n.realtime-index .realtime-top .realtime-top-left {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-middle {\r\n\twidth: 44%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-right {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-left {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-right {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-left: 100px;\r\n\tpadding-right: 20px;\r\n\tpadding-top: 26px;\r\n}\r\n\r\n/*realtime-top-left(左边表格)  //pudong huangpu  hongkou\r\n------------------------------------------------------------------*/\r\n.realtime-top-left {\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-left  h4 {\r\n\tfont-size: 18px;\r\n\tline-height: 40px;\r\n}\r\n.realtime-top-left  .title li {\r\n\tfloat: left;\r\n\twidth: 25%;\r\n\ttext-align: center;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tborder: 1px solid;\r\n\tcursor: pointer;\r\n\tposition: relative;\r\n}\r\n.realtime-top-left  .title li.active:after {\r\n\tcontent: \"\";\r\n\tposition: absolute;\r\n\tbottom: -6px;\r\n\tleft: 0px;\r\n\twidth: 100%;\r\n\theight: 3px;\r\n\tbackground: #fff;\r\n\tz-index: 999;\r\n}\r\n.realtime-top-left  .title li:nth-child(1) {\r\n\tbackground: red\r\n}\r\n.realtime-top-left  .title li:nth-child(2) {\r\n\tbackground: #ebc900\r\n}\r\n.realtime-top-left  .title li:nth-child(3) {\r\n\tbackground: #32b16c\r\n}\r\n.realtime-top-left  .title li:nth-child(4) {\r\n\tbackground: #000\r\n}\r\n.realtime-top-left  .table-wrap {\r\n\twidth: 100%;\r\n\theight: 440px;\r\n\toverflow-x: hidden;\r\n\toverflow-y: scroll;\r\n}\r\n.realtime-top-left table {\r\n\twidth: 100%;\r\n\theight: 200px;\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-left table tr th:nth-chid(1) {\r\n\twidth: 10%;\r\n}\r\n.realtime-top-left table tr th:nth-chid(2) {\r\n\twidth: 70%;\r\n}\r\n.realtime-top-left table tr th:nth-chid(3) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left table tr td {\r\n\ttext-align: center;\r\n\theight: 40px\r\n}\r\n.realtime-top-left table tr th {\r\n\ttext-align: center;\r\n\theight: 40px\r\n}\r\n.realtime-top-left table tr td {\r\n\tborder-top: 1px solid #3c414a\r\n}\r\n.realtime-top-left table tr td:nth-chid(1) {\r\n\twidth: 10%;\r\n}\r\n.realtime-top-left table tr td:nth-chid(2) {\r\n\twidth: 70%;\r\n}\r\n.realtime-top-left table tr td:nth-chid(3) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left .color {\r\n\theight: 16px;\r\n\twidth: 60%;\r\n\tposition: relative;\r\n\tbottom: 10px;\r\n\ttop: 20px;\r\n\tleft: 50%;\r\n\ttransform: translateX(-50%);\r\n}\r\n.realtime-top-left .color img {\r\n\tdisplay: block;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*realtime-top-left(左边表格)\r\n------------------------------------------------------------------*/\r\n.realtime-top-right {\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-top-right .item {\r\n\twidth: 100%;\r\n\theight: 33.3%;\r\n}\r\n\r\n/*realtime-bottom-right(右下角)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-right {\r\n\toverflow-x: hidden;\r\n\tpadding-left: 20px\r\n}\r\n.realtime-bottom-right>h4 {\r\n\tcolor: #fff;\r\n\tline-height: 30px;\r\n\tfont-size: 16px;\r\n}\r\n.realtime-bottom-right ul {\r\n\theight: 100%;\r\n\toverflow: scroll;\r\n}\r\n.realtime-bottom-right ul li {\r\n\theight: 134px;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-right ul li h4 {\r\n\tpadding: 15px 0px;\r\n\tfont-size: 14px;\r\n\tcolor: #e14340\r\n}\r\n.realtime-bottom-right ul li h4 a {\r\n\tcolor: #e14340 !important\r\n}\r\n.realtime-bottom-right ul li p {\r\n\tcolor: #fff;\r\n\tdisplay: inline-block;\r\n\tmargin-right: 10px;\r\n}\r\n.realtime-bottom-right ul li span {\r\n\tposition: absolute;\r\n\tright: 10px;\r\n\tbottom: 30px;\r\n\tcolor: #666\r\n}\r\n\r\n/*realtime-bottom-right(中间的大地图)\r\n------------------------------------------------------------------*/\r\n.realtime-top-middle #demo {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*上海地图的信息框*/\r\n.realtime-top-middle .info {\r\n\twidth: 200px;\r\n\theight: 90px;\r\n\tleft: 2%;\r\n\ttop: 2%;\r\n\tposition: absolute;\r\n\tz-index: 999;\r\n\tcursor: pointer;\r\n\tdisplay: none\r\n}\r\n.realtime-top-middle .info .info-left, .realtime-top-middle .info .info-right {\r\n\tfloat: left;\r\n\twidth: 50%;\r\n\theight: 100%;\r\n}\r\n.realtime-top-middle .info .info-left {\r\n\tpadding: 0px 3px 3px 0px;\r\n}\r\n.realtime-top-middle .info .info-right {\r\n\tbackground: #363e48;\r\n\tborder-radius: 3px;\r\n\tfont-size: 24px;\r\n\tcolor: #e14340;\r\n\tline-height: 90px;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-middle .info .info-left .title {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 43px;\r\n\tfont-size: 12px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 43px;\r\n\tborder-radius: 3px;\r\n}\r\n.realtime-top-middle .info .info-left .date {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 43px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 43px;\r\n\tmargin-top: 3px;\r\n\tborder-radius: 3px;\r\n}\r\n\r\n/*上海地图的返回按钮*/\r\n.realtime-top-middle .return {\r\n\tbackground: linear-gradient(to bottom, #b96f6f 5%, red 50%, #f50202 100%);\r\n\tposition: absolute;\r\n\tbottom: 10%;\r\n\tleft: 3%;\r\n\tdisplay: none;\r\n}\r\n\r\n/*地下的长条信息框*/\r\n.realtime-top-middle .bar {\r\n\twidth: 98%;\r\n\theight: 40px;\r\n\tbackground: #282f39;\r\n\ttext-align: center;\r\n\tline-height: 40px;\r\n\tposition: absolute;\r\n\tbottom: 1%;\r\n\tfont-size: 12px;\r\n\tdisplay: none\r\n}\r\n.realtime-top-middle .bar img {\r\n\twidth: 30px;\r\n\theight: 30px;\r\n\tposition: absolute;\r\n\tleft: 5%;\r\n\ttop: 5px;\r\n}\r\n.darkRed {\r\n\tcolor: #e14340;\r\n\tpadding: 0px 5px;\r\n}\r\n\r\n/*tootips实验*/\r\n.testTo {\r\n\twidth: auto;\r\n\theight: auto;\r\n\tfont-size: 12px;\r\n\tcursor: pointer;\r\n}\r\n.testTo h4 {\r\n\tdisplay: inline-block;\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo label {\r\n\tdisplay: inline-block;\r\n\twidth: 60px;\r\n\theight: 18px;\r\n\tborder: 1px solid #fff;\r\n\ttext-align: center;\r\n\tvertical-align: middle;\r\n\tmargin-left: 20px;\r\n\tcolor: #000;\r\n\ttext-align: center;\r\n\ttext-indent: 5px;\r\n\tline-height: 16px;\r\n}\r\n.testTo p {\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo p span {\r\n\tcolor: yellow\r\n}\r\n.black {\r\n\tbackground: black;\r\n\tcolor: #fff !important\r\n}\r\n.green {\r\n\tbackground: green\r\n}\r\n.yellow {\r\n\tbackground: yellow\r\n}\r\n.red {\r\n\tbackground: red\r\n}\r\n\r\n/**/\r\n.testTo .tableH4 {\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n\tcolor: #ce3431;\r\n\tfont-size: 14px;\r\n\tfont-weight: bold;\r\n}\r\n.testTo table td {\r\n\tborder: 1px solid #1a2029;\r\n\ttext-align: center;\r\n\tpadding: 5px;\r\n}\r\n.testTo .tip-scroll {\r\n\twidth: 200px;\r\n\theight: 100px;\r\n\ttext-align: center;\r\n\toverflow-y: auto;\r\n}\r\n.testTo .tip-scroll  span {\r\n\tdisplay: block;\r\n\tpadding: 5px 0;\r\n}", ""]);
+	exports.push([module.id, "/*@整体布局(一级)\r\n------------------------------------------------------------------*/\r\n.realtime-index {\r\n}\r\n.realtime-index .realtime-top {\r\n\twidth: 100%;\r\n\theight: 65%;\r\n}\r\n.realtime-index .realtime-bottom {\r\n\twidth: 100%;\r\n\theight: 35%;\r\n}\r\n\r\n/*@整体布局(二级)\r\n------------------------------------------------------------------*/\r\n.realtime-index .realtime-top>div {\r\n\tfloat: left;\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tpadding: 10px;\r\n}\r\n.realtime-index .realtime-top .realtime-top-left {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-middle {\r\n\twidth: 44%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-right {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-left {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-top: 26px;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-right {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-left: 100px;\r\n\tpadding-top: 26px;\r\n\toverflow-y: hidden;\r\n}\r\n\r\n/*realtime-top-left(左边表格)  //pudong huangpu  hongkou\r\n------------------------------------------------------------------*/\r\n.realtime-top-left {\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-left  h4 {\r\n\tfont-size: 18px;\r\n\tline-height: 40px;\r\n}\r\n.realtime-top-left  .title li {\r\n\tfloat: left;\r\n\twidth: 25%;\r\n\ttext-align: center;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tborder: 1px solid;\r\n\tcursor: pointer;\r\n\tposition: relative;\r\n}\r\n.realtime-top-left  .title li.active:after {\r\n\tcontent: \"\";\r\n\tposition: absolute;\r\n\tbottom: -6px;\r\n\tleft: 0px;\r\n\twidth: 100%;\r\n\theight: 3px;\r\n\tbackground: #fff;\r\n\tz-index: 999;\r\n}\r\n.realtime-top-left  .title li:nth-child(1) {\r\n\tbackground: red\r\n}\r\n.realtime-top-left  .title li:nth-child(2) {\r\n\tbackground: #ebc900\r\n}\r\n.realtime-top-left  .title li:nth-child(3) {\r\n\tbackground: #32b16c\r\n}\r\n.realtime-top-left  .title li:nth-child(4) {\r\n\tbackground: #000\r\n}\r\n.realtime-top-left  .table-wrap {\r\n\twidth: 100%;\r\n\theight: 440px;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA{\r\n    width: 100%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th{\r\n\theight: 40px;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(1){\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(2){\r\n\twidth: 60%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th .tbsLeft{\r\n\tfloat: left;\r\n\tpadding-left: 5%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th .thSpan{\r\n\tfloat: left;\r\n\tpadding-left: 15%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td{\r\n\tborder-bottom: 1px solid #3c404b;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td .tbsLeft{\r\n\tfloat: left;\r\n\tpadding-left: 5%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td .thSpan{\r\n\tfloat: left;\r\n\tpadding-left: 15%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox{\r\n\theight: 400px;\r\n\toverflow: auto;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(3){\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB{\r\n    width: 100%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td{\r\n\theight: 40px;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(1){\r\n\twidth: 20%;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(2){\r\n\twidth: 60%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(3){\r\n\twidth: 20%;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-left .color {\r\n\theight: 16px;\r\n\twidth: 60%;\r\n\tposition: relative;\r\n\tbottom: 10px;\r\n\ttop: 50px;\r\n\tleft: 50%;\r\n\ttransform: translateX(-50%);\r\n}\r\n.realtime-top-left .color img {\r\n\tdisplay: block;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*realtime-top-left(左边表格)\r\n------------------------------------------------------------------*/\r\n.realtime-top-right {\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-top-right .item {\r\n\twidth: 100%;\r\n\theight: 33.3%;\r\n}\r\n\r\n/*realtime-bottom-right(右下角)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-right {\r\n\toverflow: hidden;\r\n\tpadding-left: 20px\r\n}\r\n.realtime-bottom-right>h4 {\r\n\tcolor: #fff;\r\n\tline-height: 30px;\r\n\tfont-size: 16px;\r\n}\r\n.realtime-bottom-right ul {\r\n\theight: 100%;\r\n\toverflow-y: scroll;\r\n\toverflow-x:hidden;\r\n}\r\n.realtime-bottom-right ul li {\r\n\theight: 134px;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-right ul li h4 {\r\n\tpadding: 15px 0px;\r\n\tfont-size: 14px;\r\n\tcolor: #e14340\r\n}\r\n.realtime-bottom-right ul li h4 a {\r\n\tcolor: #e14340 !important\r\n}\r\n.realtime-bottom-right ul li p {\r\n\tcolor: #fff;\r\n\tmargin-right: 10px;\r\n\toverflow: hidden;\r\n}\r\n.BottomRightP {\r\n\tdisplay: block;\r\n\theight: 41px;\r\n}\r\n.realtime-bottom-right ul li span {\r\n\tposition: absolute;\r\n\tright: 10px;\r\n\tbottom: 2px;\r\n\tcolor: #666;\r\n}\r\n.realtime-bottom-right ul li span p {\r\n\tdisplay: inline-block;\r\n}\r\n\r\n/*realtime-bottom-right(中间的大地图)\r\n------------------------------------------------------------------*/\r\n.realtime-top-middle #demo {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*上海地图的信息框*/\r\n.realtime-top-middle .info {\r\n\twidth: 200px;\r\n\theight: 90px;\r\n\tleft: 2%;\r\n\ttop: 2%;\r\n\tposition: absolute;\r\n\tz-index: 999;\r\n\tcursor: pointer;\r\n\tdisplay: none\r\n}\r\n.realtime-top-middle .info .info-left, .realtime-top-middle .info .info-right {\r\n\tfloat: left;\r\n\twidth: 50%;\r\n\theight: 100%;\r\n}\r\n.realtime-top-middle .info .info-left {\r\n\tpadding: 0px 3px 3px 0px;\r\n}\r\n.realtime-top-middle .info .info-right {\r\n\tbackground: #363e48;\r\n\tborder-radius: 3px;\r\n\tfont-size: 24px;\r\n\tcolor: #e14340;\r\n\tline-height: 90px;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-middle .info .info-left .title {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 43px;\r\n\tfont-size: 12px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 43px;\r\n\tborder-radius: 3px;\r\n}\r\n.realtime-top-middle .info .info-left .date {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 43px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 43px;\r\n\tmargin-top: 3px;\r\n\tborder-radius: 3px;\r\n}\r\n\r\n/*上海地图的返回按钮*/\r\n.realtime-top-middle .return {\r\n\tbackground: linear-gradient(to bottom, #b96f6f 5%, red 50%, #f50202 100%);\r\n\tposition: absolute;\r\n\tbottom: 10%;\r\n\tleft: 3%;\r\n\tdisplay: none;\r\n}\r\n\r\n/*地下的长条信息框*/\r\n.realtime-top-middle .bar {\r\n\twidth: 98%;\r\n\theight: 40px;\r\n\tbackground: #282f39;\r\n\ttext-align: center;\r\n\tline-height: 40px;\r\n\tposition: absolute;\r\n\tbottom: 1%;\r\n\tfont-size: 12px;\r\n\tdisplay: none\r\n}\r\n.realtime-top-middle .bar img {\r\n\twidth: 30px;\r\n\theight: 30px;\r\n\tposition: absolute;\r\n\tleft: 5%;\r\n\ttop: 5px;\r\n}\r\n.darkRed {\r\n\tcolor: #e14340;\r\n\tpadding: 0px 5px;\r\n}\r\n\r\n/*tootips实验*/\r\n.testTo {\r\n\twidth: auto;\r\n\theight: auto;\r\n\tfont-size: 12px;\r\n\tcursor: pointer;\r\n}\r\n.testTo h4 {\r\n\tdisplay: inline-block;\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo label {\r\n\tdisplay: inline-block;\r\n\twidth: 60px;\r\n\theight: 18px;\r\n\tborder: 1px solid #fff;\r\n\ttext-align: center;\r\n\tvertical-align: middle;\r\n\tmargin-left: 20px;\r\n\tcolor: #000;\r\n\ttext-align: center;\r\n\ttext-indent: 5px;\r\n\tline-height: 16px;\r\n}\r\n.testTo p {\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo p span {\r\n\tcolor: yellow\r\n}\r\n.black {\r\n\tbackground: black;\r\n\tcolor: #fff !important\r\n}\r\n.green {\r\n\tbackground: green\r\n}\r\n.yellow {\r\n\tbackground: yellow\r\n}\r\n.red {\r\n\tbackground: red\r\n}\r\n\r\n/**/\r\n.testTo .tableH4 {\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n\tcolor: #ce3431;\r\n\tfont-size: 14px;\r\n\tfont-weight: bold;\r\n}\r\n.testTo table td {\r\n\tborder: 1px solid #1a2029;\r\n\ttext-align: center;\r\n\tpadding: 5px;\r\n}\r\n.testTo .tip-scroll {\r\n\twidth: 200px;\r\n\theight: 100px;\r\n\ttext-align: center;\r\n\toverflow-y: auto;\r\n}\r\n.testTo .tip-scroll  span {\r\n\tdisplay: block;\r\n\tpadding: 5px 0;\r\n}\r\n\r\n/*realtime-bottom-rleft(线下理财)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-left {\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-left  .more {\r\n\tcolor: #fff;\r\n\tfont-size: 14px;\r\n\tposition: absolute;\r\n\ttop: 60px;\r\n\tright: 11%;\r\n\tz-index: 99999;\r\n}", ""]);
 
 	// exports
 
@@ -82443,8 +82516,14 @@
 
 	    var jsonData = {}; //ajax传递给后台的data键值对
 	    getRealTimeTable(jsonData);
+	    //滚动条样式
+	    $("#platformBase-scroll").perfectScrollbar();
 	  },
 
+	  //滚动条样式
+	  componentDidUpdate: function componentDidUpdate() {
+	    $("#platformBase-scroll").perfectScrollbar('update').scrollTop(0);
+	  },
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	    var _this = this;
 	    var isEqual = Immutable.is(nextProps.realTimeTableResult, this.props.realTimeTableResult); //判断数据是否变化
@@ -82462,7 +82541,7 @@
 	              { className: 'table-wrap' },
 	              _react2.default.createElement(
 	                'table',
-	                null,
+	                { className: 'tbsA' },
 	                _react2.default.createElement(
 	                  'thead',
 	                  null,
@@ -82472,12 +82551,20 @@
 	                    _react2.default.createElement(
 	                      'th',
 	                      null,
-	                      '序号'
+	                      _react2.default.createElement(
+	                        'span',
+	                        { className: 'thSpan' },
+	                        '序号'
+	                      )
 	                    ),
 	                    _react2.default.createElement(
 	                      'th',
 	                      null,
-	                      '公司名字'
+	                      _react2.default.createElement(
+	                        'span',
+	                        { className: 'tbsLeft' },
+	                        '公司名字'
+	                      )
 	                    ),
 	                    _react2.default.createElement(
 	                      'th',
@@ -82485,31 +82572,51 @@
 	                      '注册资本(万元)'
 	                    )
 	                  )
-	                ),
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'div',
+	                { className: 'tbsBox', id: 'platformBase-scroll' },
 	                _react2.default.createElement(
-	                  'tbody',
-	                  null,
-	                  tableDate.content[0].map(function (elem, index) {
-	                    return _react2.default.createElement(
-	                      'tr',
-	                      { key: index },
-	                      _react2.default.createElement(
-	                        'td',
-	                        null,
-	                        index + 1
-	                      ),
-	                      _react2.default.createElement(
-	                        'td',
-	                        null,
-	                        elem.name
-	                      ),
-	                      _react2.default.createElement(
-	                        'td',
-	                        null,
-	                        elem.registered_capital
-	                      )
-	                    );
-	                  })
+	                  'table',
+	                  { className: 'tbsB' },
+	                  _react2.default.createElement(
+	                    'tbody',
+	                    null,
+	                    tableDate.content[0].map(function (elem, index) {
+	                      return _react2.default.createElement(
+	                        'tr',
+	                        { key: index },
+	                        _react2.default.createElement(
+	                          'td',
+	                          null,
+	                          _react2.default.createElement(
+	                            'span',
+	                            { className: 'thSpan' },
+	                            index + 1
+	                          )
+	                        ),
+	                        _react2.default.createElement(
+	                          'td',
+	                          null,
+	                          _react2.default.createElement(
+	                            'span',
+	                            { className: 'tbsLeft', title: elem.name },
+	                            _react2.default.createElement(
+	                              'a',
+	                              { style: { color: "#fff" }, href: "/#/SearchResultDetail?companyName=" + elem.name },
+	                              elem.name
+	                            )
+	                          )
+	                        ),
+	                        _react2.default.createElement(
+	                          'td',
+	                          null,
+	                          elem.registered_capital
+	                        )
+	                      );
+	                    })
+	                  )
 	                )
 	              )
 	            )
@@ -82536,7 +82643,7 @@
 	          { className: 'table-wrap' },
 	          _react2.default.createElement(
 	            'table',
-	            null,
+	            { className: 'tbsA' },
 	            _react2.default.createElement(
 	              'thead',
 	              null,
@@ -82546,12 +82653,20 @@
 	                _react2.default.createElement(
 	                  'th',
 	                  null,
-	                  '序号'
+	                  _react2.default.createElement(
+	                    'span',
+	                    { className: 'thSpan' },
+	                    '序号'
+	                  )
 	                ),
 	                _react2.default.createElement(
 	                  'th',
 	                  null,
-	                  '公司名字'
+	                  _react2.default.createElement(
+	                    'span',
+	                    { className: 'tbsLeft' },
+	                    '公司名字'
+	                  )
 	                ),
 	                _react2.default.createElement(
 	                  'th',
@@ -82559,31 +82674,51 @@
 	                  threeTitle
 	                )
 	              )
-	            ),
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'tbsBox', id: 'platformBase-scroll' },
 	            _react2.default.createElement(
-	              'tbody',
-	              null,
-	              tableDate.content[fixRange - 1].map(function (elem, index) {
-	                return _react2.default.createElement(
-	                  'tr',
-	                  { key: index },
-	                  _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    index + 1
-	                  ),
-	                  _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    elem.name
-	                  ),
-	                  _react2.default.createElement(
-	                    'td',
-	                    null,
-	                    elem.registered_capital
-	                  )
-	                );
-	              })
+	              'table',
+	              { className: 'tbsB' },
+	              _react2.default.createElement(
+	                'tbody',
+	                null,
+	                tableDate.content[fixRange - 1].map(function (elem, index) {
+	                  return _react2.default.createElement(
+	                    'tr',
+	                    { key: index },
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      _react2.default.createElement(
+	                        'span',
+	                        { className: 'thSpan' },
+	                        index + 1
+	                      )
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      _react2.default.createElement(
+	                        'span',
+	                        { className: 'tbsLeft', title: elem.name },
+	                        _react2.default.createElement(
+	                          'a',
+	                          { style: { color: "#fff" }, href: "/#/SearchResultDetail?companyName=" + elem.name },
+	                          elem.name
+	                        )
+	                      )
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      null,
+	                      elem.registered_capital
+	                    )
+	                  );
+	                })
+	              )
 	            )
 	          )
 	        )
@@ -83556,6 +83691,11 @@
 	                        title: '贷款余额',
 	                        forMaterTitle: "贷款余额",
 	                        forMaterTip: '平均贷款余额',
+	                        yAxisName: "亿元",
+	                        xFormatter: function xFormatter(v) {
+	                            console.log(v, "yyyyyyyyyyyyy");
+	                            return v / 10000;
+	                        },
 	                        tooltip: function tooltip(data) {
 	                            return data.name + "年<br/>贷款余额：" + data.data[1] / 10000 + "亿元<br/>平均贷款余额：" + data.data[2] + "万元";
 	                        },
@@ -83938,8 +84078,10 @@
 	    }
 	    var option = {
 	      color: ["#a40000"],
-	      title: "",
+	      title: "线下理财风险指数",
 	      companyInfo: companyInfo,
+	      visualMapBottom: "12%",
+	      visualMapMax: 100,
 	      yAxisName: "动态风险指数",
 	      xAxisName: "静态风险指数",
 	      series: [{
@@ -83996,15 +84138,29 @@
 	    };
 	    return option;
 	  },
+	  onChartClick: function onChartClick(e) {
+	    var companyInfo = this.state.companyInfo;
+	    var dataIndex = e.dataIndex;
+	    var companyName = companyInfo[dataIndex].name;
+	    console.log(companyName, 44444444444);
+	    this.props.history.push("/lineFinanceStaticRisk?companyName=" + companyName + "");
+	  },
 	  render: function render() {
-	    console.log(this.props, "~~~~~~~~~~~~~~~~!!!!!!!!!!!!~~~~~~~~~~~~~~~~~");
+	    var onEvents = {
+	      'click': this.onChartClick
+	    };
 	    var bbdScatterBubble = "";
 	    if (this.state.option) {
-	      bbdScatterBubble = _react2.default.createElement(_ScatterBubbleChart2.default, { option: this.state.option });
+	      bbdScatterBubble = _react2.default.createElement(_ScatterBubbleChart2.default, { option: this.state.option, onEvents: onEvents });
 	    }
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'realtime-bottom-left', id: 'realtime-bottom-left' },
+	      _react2.default.createElement(
+	        _reactRouter.Link,
+	        { className: 'more', to: '/lineFinance' },
+	        '查看更多'
+	      ),
 	      bbdScatterBubble
 	    );
 	  }
@@ -84053,13 +84209,23 @@
 	      console.log(data, "++++++++++++++++++++++舆情++++++++++++++++++++");
 	      _this.setState({
 	        list: data.results.map(function (item, index) {
+	          var main = item.main.substring(0, 69);
 	          return _react2.default.createElement(
 	            'li',
 	            { key: index, className: 'animated zoomIn', style: { 'WebkitAnimationDelay': index * 0.1 + 's' } },
 	            _react2.default.createElement(
-	              'p',
+	              'h4',
 	              null,
-	              item.main
+	              _react2.default.createElement(
+	                'a',
+	                { href: item.bbd_url },
+	                item.search_key
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              { title: item.main, className: 'BottomRightP' },
+	              main + "..."
 	            ),
 	            _react2.default.createElement('br', null),
 	            _react2.default.createElement(
@@ -84070,7 +84236,7 @@
 	                null,
 	                item.author
 	              ),
-	              '  ',
+	              ' ',
 	              _react2.default.createElement(
 	                'p',
 	                null,
