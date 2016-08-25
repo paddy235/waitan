@@ -28,7 +28,7 @@ public class HologramQueryServiceImpl implements HologramQueryService {
 
     @Override
     public SearchComanyDO search(String company, int page_no, int page_size) {
-        return hologramQueryDao.search(company, page_no, page_size);
+        return hologramQueryDao.search(company, page_no - 1, page_size); // page_no减1是因为数据平台首页从0开始
     }
 
     @Override
