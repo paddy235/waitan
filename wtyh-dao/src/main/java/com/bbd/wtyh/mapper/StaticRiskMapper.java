@@ -61,5 +61,5 @@ public interface StaticRiskMapper {
 
     StaticRiskDataDO queryOne();
 
-    float queryStaticsRiskIndex(String companyName);
+    Float queryStaticsRiskIndex(String companyName);
 }

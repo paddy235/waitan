@@ -34,7 +34,7 @@ public class CompanySearchAPIServiceImpl implements CompanySearchAPIService {
 	/**
 	 * 调用第三方接口
 	 * 
-	 * @param params
+	 * @param keyword
 	 * @return
 	 * @throws Exception 
 	 */
@@ -49,7 +49,6 @@ public class CompanySearchAPIServiceImpl implements CompanySearchAPIService {
 	 * 查询参数组装
 	 * 
 	 * @param keyword
-	 * @param areaCode
 	 * @return
 	 */
 	private List<NameValuePair> getUrlParam(String keyword) {
