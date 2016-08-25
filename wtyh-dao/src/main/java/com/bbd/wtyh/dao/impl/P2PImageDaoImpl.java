@@ -4,16 +4,19 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
+import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.dao.P2PImageDao;
 import com.bbd.wtyh.domain.PlatformNameInformationDO;
 import com.bbd.wtyh.domain.bbdAPI.BBDLogoDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
+import com.bbd.wtyh.domain.vo.StatisticsVO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompanyDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
 import com.bbd.wtyh.mapper.PlatformNameInformationMapper;
+import com.bbd.wtyh.redis.RedisDAO;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -47,6 +50,9 @@ public class P2PImageDaoImpl implements P2PImageDao {
 
     @Autowired
     private PlatformNameInformationMapper platformNameInformationMapper;
+
+    @Autowired
+    private RedisDAO redisDAO;
 
     @Override
     public YuQingDO platformConsensus(String platName) {
@@ -181,25 +187,32 @@ public class P2PImageDaoImpl implements P2PImageDao {
      */
     @Override
     public BaseDataDO baseInfoBBDData(String companyName) {
-        String baseURL = bbdQyxxURL + "?company=" + companyName + "&ak=" + bbdQyxxAK;
-        final Map<String, Object> map = new LinkedHashMap<>();
-        HttpTemplate httpTemplate = new HttpTemplate();
-        try {
-            return httpTemplate.get(baseURL, new HttpCallback<BaseDataDO>() {
-                @Override
-                public boolean valid() {
-                    return true;
-                }
-                @Override
-                public BaseDataDO parse(String result) {
-                    Gson gson = new Gson();
-                    return gson.fromJson(result, BaseDataDO.class);
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+        BaseDataDO baseDataDO = (BaseDataDO) redisDAO.getObject(Constants.REDIS_KEY_BASE_INFO_BBD_DATA);
+        if (baseDataDO != null) {
+            return baseDataDO;
+        } else {
+            String baseURL = bbdQyxxURL + "?company=" + companyName + "&ak=" + bbdQyxxAK;
+            final Map<String, Object> map = new LinkedHashMap<>();
+            HttpTemplate httpTemplate = new HttpTemplate();
+            try {
+                return httpTemplate.get(baseURL, new HttpCallback<BaseDataDO>() {
+                    @Override
+                    public boolean valid() {
+                        return true;
+                    }
+                    @Override
+                    public BaseDataDO parse(String result) {
+                        Gson gson = new Gson();
+                        redisDAO.addObject(Constants.REDIS_KEY_BASE_INFO_BBD_DATA, gson.fromJson(result, BaseDataDO.class), Constants.cacheDay, BaseDataDO.class);
+                        return gson.fromJson(result, BaseDataDO.class);
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
         }
+
     }
 
     /**

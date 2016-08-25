@@ -93,7 +93,7 @@ public class HologramQueryController {
     @RequestMapping("/shareholdersSenior")
     @ResponseBody
     public ResponseBean shareholdersSenior(@RequestParam(required = true) String company) {
-        Map<String, Map<String, Object>> result = hologramQueryService.shareholdersSenior(company);
+        Map<String, List> result = hologramQueryService.shareholdersSenior(company);
         return ResponseBean.successResponse(result);
     }
 

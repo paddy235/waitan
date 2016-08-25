@@ -139,7 +139,7 @@ public class BasicDataService {
 	public String companyDataStatistics(String companyName)
 	{
 
-		String cds_key = companyName+APIConstants.redis_cds;
+		String cds_key = companyName + APIConstants.redis_cds + "-" + companyName;
 		String cds_value = redisDAO.getString(cds_key);
 		if(cds_value!=null)
 		{

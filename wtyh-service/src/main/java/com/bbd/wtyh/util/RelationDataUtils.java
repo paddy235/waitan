@@ -22,7 +22,10 @@ public class RelationDataUtils {
 	 */
 	public static RelationDataVO compareRelationData(RelationDataIndexVO current , RelationDataIndexVO compare) throws UnsupportedEncodingException{
 		RelationDataVO vo = new RelationDataVO();
-		
+
+		if (current == null || compare == null) {
+			return vo;
+		}
 		vo.setCrtRelationPersonNum(current.getRelationPersonNum());
 		vo.setCpeRelationPersonNum(compare.getRelationPersonNum());
 		
@@ -225,6 +228,9 @@ public class RelationDataUtils {
 	 * @return
 	 */
 	public static RelationDataVO addAgreeActionProp(RelationDataVO vo, DynamicRiskIndexVO current, DynamicRiskIndexVO compare) {
+		if (current == null || compare == null) {
+			return vo;
+		}
 		vo.setCrtAgreeActNum(current.getAgreeActNum());
 		vo.setCpeAgreeActNum(compare.getAgreeActNum());
 		String crtAgreeComDet = current.getAgreeComDet();
