@@ -63781,8 +63781,8 @@
 	    getInitialState: function getInitialState() {
 	        return {
 	            companyGradeList: [],
-	            orderByField: 1,
-	            descAsc: "desc"
+	            orderByField: "",
+	            descAsc: ""
 	        };
 	    },
 	    componentDidMount: function componentDidMount() {
