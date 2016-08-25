@@ -199,7 +199,8 @@
 			c.`name` as name, 
 			c.legal_person as legalPerson, 
 			c.address as address, 
-			c.registered_capital as registeredCapital, 
+			c.registered_capital as registeredCapital,
+            c.registered_capital_type as registeredCapitalType,
 			c.registered_date as registeredDate, 
 			c.registered_type as registeredType, 
 			i.static_risk_index as staticRisk
