@@ -1,8 +1,10 @@
 package com.bbd.wtyh.web.controller;
 
 import java.util.List;
+import java.util.TreeSet;
 
 import com.bbd.wtyh.domain.*;
+import org.apache.velocity.runtime.directive.Foreach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,7 +48,7 @@ public class ParkController {
 
         return ResponseBean.successResponse(data);
     }
-    
+
     
     /**
     * 根据园区查询类金融企业集中度  与 楼宇列表 共用接口
@@ -58,7 +60,7 @@ public class ParkController {
     public ResponseBean oncentration(@RequestParam(required=true) Integer areaId) {
 
         List<BuildingDO> data = parkService.queryBuildings(areaId);
-        
+
         return ResponseBean.successResponse(data);
     }
     
@@ -142,16 +144,6 @@ public class ParkController {
 
            List<CompanyDO> data = parkService.buildingCompany(buildingId,orderField,descAsc);
 
-           for (CompanyDO cdo:data) {
-               if (cdo.getCompanyType() == 7 || cdo.getCompanyType() == 8)
-                   continue;
-
-//               if(){
-//
-//               }
-
-           }
-           
            return ResponseBean.successResponse(data);
        }
        
