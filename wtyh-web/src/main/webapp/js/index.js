@@ -40514,7 +40514,7 @@
 	    }
 	    var areaId = selectArr[0].value;
 	    console.log(areaId, 'xuyao');
-	    //this.props.history.push('/parkMonitor?areaId='+areaId);
+	    this.props.history.push('/parkMonitor?areaId=' + areaId);
 	    this.getMenuParkSelectVal(selectArr[0].value, selectArr[0].name);
 	    this.setState({ selectDataArr: selectArr, value: selectArr[0].value });
 	  },
@@ -76427,130 +76427,130 @@
 
 	//舆情
 	var Consensu = _react2.default.createClass({
-	  displayName: 'Consensu',
+	    displayName: 'Consensu',
 
-	  getInitialState: function getInitialState() {
-	    return {
-	      consensu: []
-	    };
-	  },
-	  componentDidMount: function componentDidMount() {
-	    var areaId = this.props.location.query.areaId;
-	    console.log(areaId, '5555555555');
-	    if (areaId != undefined) {
-	      this.setState({ areaId: areaId });
-	      var jsonData = { areaId: areaId };
-	      this.getParkNews(jsonData);
-	    }
-	  },
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    var areaId = this.props.location.query.areaId;
-	    console.log(areaId, nextProps.menuParkSelectVal, this.props.menuParkSelectVal, '6666666');
-	    // var isSelectValEqual=Immutable.is(nextProps.menuParkSelectVal, this.props.menuParkSelectVal)
-	    //     if(!isSelectValEqual){
-	    //      const {menuParkSelectVal}=nextProps;
-	    //      var jsonData={areaId:menuParkSelectVal.areaId}
-	    //      this.getParkNews(jsonData)
-
-	    //  }
-	    var isEqual = Immutable.is(nextProps.parkNewsResult, this.props.parkNewsResult); //判断数据是否变化
-	    if (!isEqual) {
-	      var parkNewsRequest = nextProps.parkNewsRequest;
-	      var parkNewsResult = nextProps.parkNewsResult;
-
-	      if (parkNewsRequest == true) {
-	        if (parkNewsResult.success == true) {
-	          this.dataFomat(parkNewsResult);
-	        } else {
-	          console.log(404);
+	    getInitialState: function getInitialState() {
+	        return {
+	            consensu: []
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        var areaId = this.props.location.query.areaId;
+	        console.log(areaId, '5555555555');
+	        if (areaId != undefined) {
+	            this.setState({ areaId: areaId });
+	            var jsonData = { areaId: areaId };
+	            this.getParkNews(jsonData);
 	        }
-	      }
-	    }
-	  },
-	  dataFomat: function dataFomat(data) {
-	    var contentStr = data.content;
-	    var contentJson = null;
-	    var results = null;
-	    if (contentStr) {
-	      contentJson = JSON.parse(contentStr);
-	      results = contentJson.results;
-	    } else {
-	      results = [];
-	    }
-	    this.setState({ consensu: results });
-	  },
-	  getParkNews: function getParkNews(menuParkSelectVal) {
-	    var getParkNews = this.props.getParkNews;
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var areaId = this.props.location.query.areaId;
+	        console.log(areaId, nextProps.menuParkSelectVal, this.props.menuParkSelectVal, '6666666');
+	        var isSelectValEqual = Immutable.is(nextProps.menuParkSelectVal, this.props.menuParkSelectVal);
+	        if (!isSelectValEqual) {
+	            var menuParkSelectVal = nextProps.menuParkSelectVal;
 
-	    getParkNews(menuParkSelectVal);
-	  },
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'Consensu mod' },
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'mod-title' },
-	        _react2.default.createElement(
-	          'h3',
-	          null,
-	          '舆情'
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'mod-content' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'box' },
-	          this.state.consensu.map(function (elem, index) {
-	            var pubdate = elem.pubdate.substr(0, 10);
-	            return _react2.default.createElement(
-	              'div',
-	              { className: 'list', key: index },
-	              _react2.default.createElement(
-	                'ul',
-	                null,
+	            var jsonData = { areaId: menuParkSelectVal.areaId };
+	            this.getParkNews(jsonData);
+	        }
+	        var isEqual = Immutable.is(nextProps.parkNewsResult, this.props.parkNewsResult); //判断数据是否变化
+	        if (!isEqual) {
+	            var parkNewsRequest = nextProps.parkNewsRequest;
+	            var parkNewsResult = nextProps.parkNewsResult;
+
+	            if (parkNewsRequest == true) {
+	                if (parkNewsResult.success == true) {
+	                    this.dataFomat(parkNewsResult);
+	                } else {
+	                    console.log(404);
+	                }
+	            }
+	        }
+	    },
+	    dataFomat: function dataFomat(data) {
+	        var contentStr = data.content;
+	        var contentJson = null;
+	        var results = null;
+	        if (contentStr) {
+	            contentJson = JSON.parse(contentStr);
+	            results = contentJson.results;
+	        } else {
+	            results = [];
+	        }
+	        this.setState({ consensu: results });
+	    },
+	    getParkNews: function getParkNews(menuParkSelectVal) {
+	        var getParkNews = this.props.getParkNews;
+
+	        getParkNews(menuParkSelectVal);
+	    },
+	    render: function render() {
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'Consensu mod' },
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'mod-title' },
 	                _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  _react2.default.createElement(
-	                    'a',
-	                    { href: elem.bbd_url },
-	                    index + 1,
-	                    _react2.default.createElement(
-	                      'span',
-	                      { className: 'liLeft' },
-	                      elem.news_title
-	                    )
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  elem.main
-	                ),
-	                _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  _react2.default.createElement(
-	                    'span',
-	                    { className: 'liRight' },
-	                    _react2.default.createElement(
-	                      'span',
-	                      { className: 'spanLeft' },
-	                      elem.fromSite
-	                    ),
-	                    pubdate
-	                  )
+	                    'h3',
+	                    null,
+	                    '舆情'
 	                )
-	              )
-	            );
-	          })
-	        )
-	      )
-	    );
-	  }
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'mod-content' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'box' },
+	                    this.state.consensu.map(function (elem, index) {
+	                        var pubdate = elem.pubdate.substr(0, 10);
+	                        return _react2.default.createElement(
+	                            'div',
+	                            { className: 'list', key: index },
+	                            _react2.default.createElement(
+	                                'ul',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'li',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        'a',
+	                                        { href: elem.bbd_url },
+	                                        index + 1,
+	                                        _react2.default.createElement(
+	                                            'span',
+	                                            { className: 'liLeft' },
+	                                            elem.news_title
+	                                        )
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'li',
+	                                    null,
+	                                    elem.main
+	                                ),
+	                                _react2.default.createElement(
+	                                    'li',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        'span',
+	                                        { className: 'liRight' },
+	                                        _react2.default.createElement(
+	                                            'span',
+	                                            { className: 'spanLeft' },
+	                                            elem.fromSite
+	                                        ),
+	                                        pubdate
+	                                    )
+	                                )
+	                            )
+	                        );
+	                    })
+	                )
+	            )
+	        );
+	    }
 	});
 	module.exports = Consensu;
 	// export default connect(
