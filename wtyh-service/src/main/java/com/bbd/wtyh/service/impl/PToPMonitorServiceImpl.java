@@ -39,12 +39,8 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
     public List<IndustryCompareDTO> getCompareData() throws Exception{
     	
     	List<IndustryCompareDTO> list;
-   	 
-    	
-    	List<NameValuePair> param = new ArrayList<>();
-     	param.add(new BasicNameValuePair("dataType", "industry_compare"));
-     	
-    	String json = HttpClientUtils.httpPost(this.finSerUrl,param);
+
+    	String json = HttpClientUtils.httpGet(this.finSerUrl+"?dataType=industry_compare");
     	
      	Gson gson = new Gson();
      	list = gson.fromJson(json, new TypeToken<ArrayList<IndustryCompareDTO>>(){}.getType());
@@ -58,11 +54,8 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
      	
      	List<AreaIndexDTO> list;
    	 
-    	
-    	List<NameValuePair> param = new ArrayList<>();
-     	param.add(new BasicNameValuePair("dataType", "area_index"));
-     	
-    	String json = HttpClientUtils.httpPost(this.finSerUrl,param);
+
+    	String json = HttpClientUtils.httpGet(this.finSerUrl+"?dataType=area_index");
     	
      	log.info(json);
      	Gson gson = new Gson();
@@ -76,11 +69,8 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
    public List<PlatRankDataDTO> getPlatRankData() throws Exception{
      	
      	List<PlatRankDataDTO> list ;
-     	
-     	List<NameValuePair> param = new ArrayList<>();
-     	param.add(new BasicNameValuePair("dataType", "plat_rank_data"));
-     	
-    	String json = HttpClientUtils.httpPost(this.finSerUrl,param);
+
+    	String json = HttpClientUtils.httpGet(this.finSerUrl+"?dataType=plat_rank_data");
      	
      	log.info(json);
      	Gson gson = new Gson();
@@ -92,12 +82,8 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
      
 
     public List<IndustryShanghaiDTO> getData() throws Exception{
-    	
-    	
-    	List<NameValuePair> param = new ArrayList<>();
-     	param.add(new BasicNameValuePair("dataType", "industry_shanghai"));
-     	
-    	String json = HttpClientUtils.httpPost(this.finSerUrl,param);
+
+    	String json = HttpClientUtils.httpGet(this.finSerUrl+"?dataType=industry_shanghai");
     
     	log.info(json);
     	Gson gson = new Gson();
@@ -112,11 +98,8 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
      public List<IndustryProblemDTO> getProblemData() throws Exception{
      	
      	List<IndustryProblemDTO> list;
-    	
-     	List<NameValuePair> param = new ArrayList<>();
-     	param.add(new BasicNameValuePair("dataType", "industry_problem"));
      	
-    	String json = HttpClientUtils.httpPost(this.finSerUrl,param);
+    	String json = HttpClientUtils.httpGet(this.finSerUrl+"?dataType=industry_problem");
      	log.info(json);
      	Gson gson = new Gson();
      	list = gson.fromJson(json, new TypeToken<ArrayList<IndustryProblemDTO>>(){}.getType());
