@@ -40565,7 +40565,7 @@
 	            this.props.history.push('/parkMonitor?areaId=' + areaId);
 	          } else {
 	            this.props.history.push('/parkMonitor?areaId=' + areaId);
-	            //this.getMenuParkSelectVal(areaId,name);
+	            this.getMenuParkSelectVal(areaId, name);
 	          }
 	        }.bind(this)
 	      };
@@ -42598,7 +42598,7 @@
 					this.state.title
 				),
 				_react2.default.createElement("input", { type: "hidden", name: this.props.name, defaultValue: this.state.value }),
-				_react2.default.createElement("i", { className: "iconfont icon-arrowdown" }),
+				_react2.default.createElement("i", { className: "iconfont icon-selectDown" }),
 				_react2.default.createElement(
 					"ul",
 					{ className: "mt-select-box" },
@@ -51674,9 +51674,12 @@
 	                left: 'right'
 	            },
 	            tooltip: {
-	                position: 'top',
+	                // position: 'top',
 	                backgroundColor: 'rgba(0,0,0,0.7)',
 	                padding: [10, 10, 10, 10],
+	                textStyle: {
+	                    fontSize: 12
+	                },
 	                formatter: param.tooltip || function (data) {
 	                    if (param.formatter == "BusinessNum") {
 	                        //典当总额业务笔数
@@ -51724,7 +51727,7 @@
 	                }
 	            },
 	            yAxis: {
-	                type: param.yType || 'category',
+	                type: param.yType || 'value',
 	                name: param.yAxisName == undefined ? "" : param.yAxisName,
 	                boundaryGap: ["10%", "10%"],
 	                min: 0,
@@ -51744,7 +51747,7 @@
 	                    }
 	                },
 	                axisLabel: {
-	                    formatter: param.xFormatter || "value",
+	                    formatter: param.xFormatter || "{value}",
 	                    textStyle: {
 	                        color: "#99a3b7",
 	                        fontSize: 12,
@@ -62351,6 +62354,7 @@
 	                        "gridBottom": "20%",
 	                        "barName": ["私募机构数量", "管理资本金额"],
 	                        "xAxis": chartxAxis,
+	                        "yRightLable": "bar",
 	                        "unit": ["", "亿元"],
 	                        "yAxisName": ["亿元", "个数"],
 	                        "barWidth": 20,
@@ -62413,57 +62417,31 @@
 	    setOption: function setOption(parm) {
 	        var seriesBarData = [];
 	        if (parm.series.bar) {
-	            if (!parm.series.line) {
-	                for (var i = 0; i < parm.series.bar.length; i++) {
-	                    var seriesBarItem = {
-	                        name: parm.barName[i],
-	                        type: 'bar',
-	                        label: {
-	                            normal: {
-	                                show: parm.labelShow || false,
-	                                position: parm.lablePosition || "top",
-	                                textStyle: {
-	                                    color: "#fff"
-	                                }
+	            for (var i = 0; i < parm.series.bar.length; i++) {
+	                var seriesBarItem = {
+	                    name: parm.barName[i],
+	                    type: 'bar',
+	                    label: {
+	                        normal: {
+	                            show: parm.labelShow || false,
+	                            position: parm.lablePosition || "top",
+	                            textStyle: {
+	                                color: "#fff"
 	                            }
-	                        },
-	                        stack: parm.stack == undefined ? "" : parm.stack,
-	                        barWidth: parm.barWidth == undefined ? "auto" : parm.barWidth,
-	                        data: parm.series.bar[i],
-	                        itemStyle: parm.itemStyle || {
-	                            normal: {},
-	                            emphasis: {}
 	                        }
-	                    };
-	                    if (i == parm.series.bar.length - 1) {
-	                        seriesBarItem["yAxisIndex"] = 1;
+	                    },
+	                    stack: parm.stack == undefined ? "" : parm.stack,
+	                    barWidth: parm.barWidth == undefined ? "auto" : parm.barWidth,
+	                    data: parm.series.bar[i],
+	                    itemStyle: parm.itemStyle || {
+	                        normal: {},
+	                        emphasis: {}
 	                    }
-	                    seriesBarData.push(seriesBarItem);
+	                };
+	                if (i == parm.series.bar.length - 1 && parm.yRightLable == "bar") {
+	                    seriesBarItem["yAxisIndex"] = 1;
 	                }
-	            } else {
-	                for (var i = 0; i < parm.series.bar.length; i++) {
-	                    var seriesBarItem = {
-	                        name: parm.barName[i],
-	                        type: 'bar',
-	                        label: {
-	                            normal: {
-	                                show: parm.labelShow || false,
-	                                position: parm.lablePosition || "top",
-	                                textStyle: {
-	                                    color: "#fff"
-	                                }
-	                            }
-	                        },
-	                        stack: parm.stack == undefined ? "" : parm.stack,
-	                        barWidth: parm.barWidth == undefined ? "auto" : parm.barWidth,
-	                        data: parm.series.bar[i],
-	                        itemStyle: parm.itemStyle || {
-	                            normal: {},
-	                            emphasis: {}
-	                        }
-	                    };
-	                    seriesBarData.push(seriesBarItem);
-	                }
+	                seriesBarData.push(seriesBarItem);
 	            }
 	        }
 	        var barAreaStyle = {};
@@ -62472,10 +62450,12 @@
 	                var seriesBarItem = {
 	                    name: parm.lineName[j],
 	                    type: 'line',
-	                    yAxisIndex: 1,
 	                    symbolSize: parm.symbolSize,
 	                    data: parm.series.line[j]
 	                };
+	                if (i == parm.series.line.length - 1 && parm.yRightLable == "line") {
+	                    seriesBarItem["yAxisIndex"] = 1;
+	                }
 	                seriesBarData.push(seriesBarItem);
 	            }
 	        }
@@ -73037,6 +73017,7 @@
 	                        "lineName": ["企业数量"],
 	                        // "YnameRoutate":0,
 	                        // "YnameLocation":"top",
+	                        "yRightLable": "bar",
 	                        "gridLeft": "2%",
 	                        "gridRight": "2%",
 	                        "gridBottom": "20%",
@@ -73119,7 +73100,7 @@
 
 
 	// module
-	exports.push([module.id, "/*@parkMonitor jifei  上海市融资租聘企业数\r\n---------------------------------------------------------*/\r\n.Lease{\r\n\twidth: 100%;\r\n\theight: 495px;\r\n    background: #2b323c;\r\n    border-radius: 3px;\r\n}\r\n/*@parkMonitor jifei  上海市融资租聘企业年末余额及资产总额\r\n---------------------------------------------------------*/\r\n.Balance{\r\n\twidth: 100%;\r\n\theight: 495px;\r\n\tmargin-top: 10px;\r\n    background: #2b323c;\r\n    border-radius: 3px;\r\n    display: none;\r\n}\r\n/*@parkMonitor jifei  上海市自贸区融资租聘企业占比对比\r\n---------------------------------------------------------*/\r\n.ContrastLeft{\r\n\twidth: 50%;\r\n\theight: 495px;\r\n\tbackground: #2b323c;\r\n\tfloat: left; \r\n\tposition: relative;\r\n\tborder-radius: 3px 0px 0px 3px;\r\n}\r\n.ContrastLeft .select{\r\n\tposition: absolute;\r\n    top: 23%;\r\n    left: 40%;\r\n}\r\n.ContrastRight .select{\r\n\tposition: absolute;\r\n    left: 45%;\r\n}\r\n.ContrastLeft .select .mt-select{\r\n\tborder: none;\r\n\tbackground: #959aa0;\r\n}\r\n.ContrastLeft .select .mt-select .iconfont{\r\n\tcolor: #fff;\r\n}\r\n.ContrastLeft .select .mt-select .mt-select-box{\r\n\tborder: none;\r\n\tbackground: rgba(43, 50, 60, 0.9) none repeat scroll 0 0;\r\n\tborder-radius: 3px;\r\n}\r\n.ContrastRight{\r\n\twidth: 50%;\r\n\theight: 495px;\r\n\tbackground: #2b323c;\r\n\tfloat: right;\r\n\tborder-radius:  0px 3px 3px 0px ;\r\n}\r\n/*@parkMonitor jifei  业务发生额及不良率\r\n---------------------------------------------------------*/\r\n.Unhealthy{\r\n    width: 100%;\r\n\theight: 495px;\r\n\tmargin-top: 10px;\r\n    background: #2b323c;\r\n    border-radius: 3px;\r\n    float: left;\r\n    display: none;\r\n}\r\n/*@parkMonitor jifei  上海市融资租赁企业目录\r\n---------------------------------------------------------*/\r\n.Catalog .right{\r\n\tfloat: right;\r\n\tpadding: 10px 10px;\r\n}\r\n.Catalog .right .mt-select{\r\n\tbackground: #565a63;\r\n\tborder: none;\r\n\tz-index: 100;\r\n}\r\n.Catalog .right .mt-select .mt-select-box{\r\n\tborder: none;\r\n\tleft: 0;\r\n\tright: 0;\r\n\tborder-radius: 2px;\r\n}\r\n.Catalog .right .mt-select .mt-select-box{\r\n\tbackground: #565a63;\r\n}\r\n.Catalog .right em{\r\n\tcolor: #979b9e;\r\n\tmargin-right: 10px;\r\n}\r\n.Catalog .tabs{\r\n\twidth: 99%;\r\n\theight: auto;\r\n\tmargin: 10px auto;\r\n}\r\n.Catalog .total{\r\n\tvertical-align: sub;\r\n\tpadding-left: 5%;\r\n}\r\n.Catalog .total em{\r\n\tcolor: #f83c33;\r\n}\r\n.Catalog .tabs table{\r\n\twidth: 100%;\r\n}\r\n.width1{width: 5%;height: 80px;}\r\n.width2{width: 15%;}\r\n.width3{width: 15%;}\r\n.width4{width: 8%;border-right: 1px solid #4b5058;}\r\n.width5{width: 67%;height: 40px;}\r\n.width6{width: 10%;}\r\n.Catalog .tabs table tr th .mt-select{\r\n\tborder: none;\r\n    background: none;\r\n    margin-top: 5px;\r\n    padding: 0;\r\n    font-size: 12px;\r\n}\r\n.Catalog .tabs table tr th .leftD{\r\n\tfloat: left;\r\n\tpadding-left: 25%;\r\n}\r\n.Catalog .tabs table tr th .mt-select .mt-select-title{\r\n\tcolor: #999ca1;\r\n\twidth: 40px;\r\n}\r\n.Catalog .tabs table tr th .mt-select .iconfont{\r\n\tright: 6px;\r\n}\r\n.Catalog .tabs table tr th .mt-select .mt-select-box{\r\n\tborder: none;\r\n\tbackground: rgba(43, 50, 60, 0.5) none repeat scroll 0 0;\r\n\tborder-radius: 3px;\r\n}\r\n.Catalog .tabs .box{\r\n\theight: 800px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n.Catalog .tabs table tr td{\r\n\ttext-align: center;\r\n\theight: 80px;\r\n\tfont-size: 12px;\r\n}\r\n.Catalog .tabs table tr td .leftD{\r\n\tfloat: left;\r\n\tpadding-left: 23%;\r\n\tcolor: #fff;\r\n\tcursor: pointer;\r\n\toverflow: hidden;\r\n    text-overflow: ellipsis;\r\n    white-space: nowrap;\r\n    display: inline-block;\r\n    width: 250px;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(1){\r\n    width: 6%;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(2){\r\n    width: 18%;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(3){\r\n    width: 18%;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(4){\r\n    width: 10%;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(5){\r\n    width: 12%;\r\n} \r\n.Catalog .tabs .box table tr td:nth-child(6){\r\n    width: 12%;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(7){\r\n    width: 12%;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(8){\r\n    width: 12%;\r\n}\r\n.Catalog .tabs .box table tr:nth-child(even) td{\r\n\tbackground: #222931;\r\n}\r\n.Catalog .tabs .box table tr td .Green{\r\n\tcolor: #38ff8f;\r\n}\r\n.Catalog .tabs .box table tr td .Yellow{\r\n\tcolor: #fa9705;\r\n}\r\n.FinanceLeaseTop .mt-select .mt-select-title .placeholder{\r\n\tcolor: #dddddd;\r\n}\r\n.ContrastLeft .mt-select .mt-select-title .placeholder{\r\n\tcolor: #fff;\r\n}\r\n.ContrastRight .mt-select .mt-select-title .placeholder{\r\n\tcolor: #fff;\r\n}", ""]);
+	exports.push([module.id, "/*@parkMonitor jifei  上海市融资租聘企业数\r\n---------------------------------------------------------*/\r\n.Lease{\r\n\twidth: 100%;\r\n\theight: 495px;\r\n    background: #2b323c;\r\n    border-radius: 3px;\r\n}\r\n/*@parkMonitor jifei  上海市融资租聘企业年末余额及资产总额\r\n---------------------------------------------------------*/\r\n.Balance{\r\n\twidth: 100%;\r\n\theight: 495px;\r\n\tmargin-top: 10px;\r\n    background: #2b323c;\r\n    border-radius: 3px;\r\n    display: none;\r\n}\r\n/*@parkMonitor jifei  上海市自贸区融资租聘企业占比对比\r\n---------------------------------------------------------*/\r\n.ContrastLeft{\r\n\twidth: 50%;\r\n\theight: 495px;\r\n\tbackground: #2b323c;\r\n\tfloat: left; \r\n\tposition: relative;\r\n\tborder-radius: 3px 0px 0px 3px;\r\n}\r\n.ContrastLeft .select{\r\n\tposition: absolute;\r\n    top: 23%;\r\n    left: 40%;\r\n}\r\n.ContrastRight .select{\r\n\tposition: absolute;\r\n    left: 45%;\r\n}\r\n.ContrastLeft .select .mt-select{\r\n\tborder: none;\r\n\tbackground: #959aa0;\r\n}\r\n.ContrastLeft .select .mt-select .iconfont{\r\n\tcolor: #fff;\r\n}\r\n.ContrastLeft .select .mt-select .mt-select-box{\r\n\tborder: none;\r\n\tbackground: rgba(43, 50, 60, 0.9) none repeat scroll 0 0;\r\n\tborder-radius: 3px;\r\n}\r\n.ContrastRight{\r\n\twidth: 50%;\r\n\theight: 495px;\r\n\tbackground: #2b323c;\r\n\tfloat: right;\r\n\tborder-radius:  0px 3px 3px 0px ;\r\n}\r\n/*@parkMonitor jifei  业务发生额及不良率\r\n---------------------------------------------------------*/\r\n.Unhealthy{\r\n    width: 100%;\r\n\theight: 495px;\r\n\tmargin-top: 10px;\r\n    background: #2b323c;\r\n    border-radius: 3px;\r\n    float: left;\r\n    display: none;\r\n}\r\n/*@parkMonitor jifei  上海市融资租赁企业目录\r\n---------------------------------------------------------*/\r\n.Catalog .right{\r\n\tfloat: right;\r\n\tpadding: 10px 10px;\r\n}\r\n.Catalog .right .mt-select{\r\n\tbackground: #565a63;\r\n\tborder: none;\r\n\tz-index: 100;\r\n}\r\n.Catalog .right .mt-select .mt-select-box{\r\n\tborder: none;\r\n\tleft: 0;\r\n\tright: 0;\r\n\tborder-radius: 2px;\r\n}\r\n.Catalog .right .mt-select .mt-select-box{\r\n\tbackground: #565a63;\r\n}\r\n.Catalog .right em{\r\n\tcolor: #979b9e;\r\n\tmargin-right: 10px;\r\n}\r\n.Catalog .tabs{\r\n\twidth: 99%;\r\n\theight: auto;\r\n\tmargin: 10px auto;\r\n}\r\n.Catalog .total{\r\n\tvertical-align: sub;\r\n\tpadding-left: 5%;\r\n}\r\n.Catalog .total em{\r\n\tcolor: #f83c33;\r\n}\r\n.Catalog .tabs table{\r\n\twidth: 100%;\r\n}\r\n.width1{width: 5%;height: 80px;}\r\n.width2{width: 15%;}\r\n.width3{width: 15%;}\r\n.width4{width: 8%;border-right: 1px solid #4b5058;}\r\n.width5{width: 67%;height: 40px;}\r\n.width6{width: 10%;}\r\n.Catalog .tabs table tr th .mt-select{\r\n\tborder: none;\r\n    background: none;\r\n    margin-top: 5px;\r\n    padding: 0;\r\n    font-size: 12px;\r\n}\r\n.Catalog .tabs table tr th .leftD{\r\n\tfloat: left;\r\n\tpadding-left: 25%;\r\n}\r\n.Catalog .tabs table tr th .mt-select .mt-select-title{\r\n\tcolor: #999ca1;\r\n\twidth: 40px;\r\n}\r\n.Catalog .tabs table tr th .mt-select .iconfont{\r\n\tright: 6px;\r\n}\r\n.Catalog .tabs table tr th .mt-select .mt-select-box{\r\n\tborder: none;\r\n\tbackground: rgba(43, 50, 60, 0.5) none repeat scroll 0 0;\r\n\tborder-radius: 3px;\r\n}\r\n.Catalog .tabs .box{\r\n\theight: 800px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n.Catalog .tabs table tr td{\r\n\ttext-align: center;\r\n\theight: 80px;\r\n\tfont-size: 12px;\r\n}\r\n.Catalog .tabs table tr td .leftD{\r\n\tfloat: left;\r\n\tpadding-left: 25%;\r\n\tcolor: #fff;\r\n\tcursor: pointer;\r\n\toverflow: hidden;\r\n    text-overflow: ellipsis;\r\n    white-space: nowrap;\r\n    display: inline-block;\r\n    width: 250px;\r\n    text-align: left;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(1){\r\n    width: 6%;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(2){\r\n    width: 18%;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(3){\r\n    width: 18%;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(4){\r\n    width: 10%;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(5){\r\n    width: 12%;\r\n} \r\n.Catalog .tabs .box table tr td:nth-child(6){\r\n    width: 12%;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(7){\r\n    width: 12%;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(8){\r\n    width: 12%;\r\n}\r\n.Catalog .tabs .box table tr:nth-child(even) td{\r\n\tbackground: #222931;\r\n}\r\n.Catalog .tabs .box table tr td .Green{\r\n\tcolor: #38ff8f;\r\n}\r\n.Catalog .tabs .box table tr td .Yellow{\r\n\tcolor: #fa9705;\r\n}\r\n.FinanceLeaseTop .mt-select .mt-select-title .placeholder{\r\n\tcolor: #dddddd;\r\n}\r\n.ContrastLeft .mt-select .mt-select-title .placeholder{\r\n\tcolor: #fff;\r\n}\r\n.ContrastRight .mt-select .mt-select-title .placeholder{\r\n\tcolor: #fff;\r\n}", ""]);
 
 	// exports
 
@@ -73896,7 +73877,7 @@
 	                      null,
 	                      _react2.default.createElement(
 	                        _reactRouter.Link,
-	                        { to: { pathname: '/SearchResultDetail', query: { formpage: 'CompanyProgress', companyName: item.companyName } }, className: 'word-limit-5 leftD', 'data-tip': item.companyName, title: item.companyName },
+	                        { to: { pathname: '/SearchResultDetail', query: { formpage: 'CompanyProgress', companyName: item.companyName } }, className: 'leftD', 'data-tip': item.companyName, title: item.companyName },
 	                        item.companyName
 	                      )
 	                    ),
@@ -73953,7 +73934,7 @@
 	                      null,
 	                      _react2.default.createElement(
 	                        _reactRouter.Link,
-	                        { to: { pathname: '/SearchResultDetail', query: { formpage: 'CompanyProgress', companyName: item.companyName } }, className: 'word-limit-5 leftD', 'data-tip': item.companyName, title: item.companyName },
+	                        { to: { pathname: '/SearchResultDetail', query: { formpage: 'CompanyProgress', companyName: item.companyName } }, className: 'leftD', 'data-tip': item.companyName, title: item.companyName },
 	                        item.companyName
 	                      )
 	                    ),
@@ -74500,7 +74481,7 @@
 
 
 	// module
-	exports.push([module.id, ".commercialS-index .right-bottom tbody td,\r\n.commercialS-index .right-bottom thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content {\r\n\theight: 560px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content .mt-table,\r\n.commercialS-index .right-bottom .table-title  .mt-table {\r\n\tmargin: 0px;\r\n}\r\n\r\n.commercialS-index .right-bottom  .mod-content {\r\n\tpadding: 10px 20px 20px 20px;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table {\r\n\r\n\t/*height: 100%*/\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table  td {\r\n\tpadding: 16px 0px;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-title th {\r\n\theight: 50px\r\n}\r\n\r\n.commercialS-index .right-bottom  .mod-title .totle-num {\r\n\tfont-size: 14px;\r\n\tcolor: #fff;\r\n\tfloat: right;\r\n\tdisplay: inline-block;\r\n\tmargin: 15px 20px 0px 0px;\r\n}\r\n\r\n.commercialS-index a {\r\n\tcolor: #e14340 !important\r\n}\r\n\r\n.mt-select.company-dire {\r\n\tbackground: #393a48;\r\n\tborder: 1px #393a48 solid;\r\n\tmargin-left: 5px;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n}\r\n\r\n.mt-select.company-dire .mt-select-title {\r\n\theight: 25px;\r\n}\r\n\r\n.mt-select.company-dire .mt-select-box {\r\n\tbackground: #1f1f27;\r\n\tborder: 1px #1f1f27 solid\r\n}\r\n\r\n.modLong .long {\r\n\twidth: 250px;\r\n}\r\n\r\n.commercialS-index .wtyh-table tbody td .word-limit-5 {\r\n\twidth: 150px;\r\n}", ""]);
+	exports.push([module.id, ".commercialS-index .right-bottom tbody td,\r\n.commercialS-index .right-bottom thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content {\r\n\theight: 560px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content .mt-table,\r\n.commercialS-index .right-bottom .table-title  .mt-table {\r\n\tmargin: 0px;\r\n}\r\n\r\n.commercialS-index .right-bottom  .mod-content {\r\n\tpadding: 10px 20px 20px 20px;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table {\r\n\r\n\t/*height: 100%*/\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table  td {\r\n\tpadding: 16px 0px;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-title th {\r\n\theight: 50px\r\n}\r\n\r\n.commercialS-index .right-bottom  .mod-title .totle-num {\r\n\tfont-size: 14px;\r\n\tcolor: #fff;\r\n\tfloat: right;\r\n\tdisplay: inline-block;\r\n\tmargin: 15px 20px 0px 0px;\r\n}\r\n\r\n.commercialS-index a {\r\n\tcolor: #e14340 !important\r\n}\r\n\r\n.mt-select.company-dire {\r\n\tbackground: #1a2029;\r\n\tborder: 1px #1a2029 solid;\r\n\tmargin-left: 5px;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n}\r\n\r\n.mt-select.company-dire .mt-select-title {\r\n\theight: 25px;\r\n}\r\n\r\n.commercialS-index  .mt-select .mt-select-box {\r\n\tborder: none;\r\n\tbackground: rgba(43, 50, 60, 0.5) none repeat scroll 0 0;\r\n\tborder-radius: 3px;\r\n}\r\n\r\n.commercialS-index .mt-select .mt-select-title {\r\n\tline-height: 22px;\r\n}\r\n\r\n.commercialS-index .wtyh-table tbody td .word-limit-5.long {\r\n\twidth: 250px;\r\n}\r\n\r\n.commercialS-index .wtyh-table tbody td .word-limit-5 {\r\n\twidth: 150px;\r\n}", ""]);
 
 	// exports
 
@@ -75052,7 +75033,7 @@
 	                                            ' ',
 	                                            _react2.default.createElement(
 	                                                _reactRouter.Link,
-	                                                { to: { pathname: '/SearchResultDetail', query: { formpage: 'platformRun', companyName: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName, title: item.companyName },
+	                                                { to: { pathname: '/SearchResultDetail', query: { formpage: 'platformRun', companyName: item.companyName } }, className: 'word-limit-5 long', 'data-tip': item.companyName, title: item.companyName },
 	                                                item.companyName
 	                                            )
 	                                        ),
@@ -75073,12 +75054,8 @@
 	                                        _react2.default.createElement(
 	                                            'td',
 	                                            { width: '15%' },
-	                                            _react2.default.createElement(
-	                                                'span',
-	                                                { className: 'word-limit-5', title: '' },
-	                                                item.registeredCapital,
-	                                                '万元'
-	                                            )
+	                                            item.registeredCapital,
+	                                            '万元'
 	                                        )
 	                                    );
 	                                } else {
@@ -75096,7 +75073,7 @@
 	                                            ' ',
 	                                            _react2.default.createElement(
 	                                                _reactRouter.Link,
-	                                                { to: { pathname: '/SearchResultDetail', query: { formpage: 'platformRun', companyName: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName, title: item.companyName },
+	                                                { to: { pathname: '/SearchResultDetail', query: { formpage: 'platformRun', companyName: item.companyName } }, className: 'word-limit-5 long', 'data-tip': item.companyName, title: item.companyName },
 	                                                item.companyName
 	                                            )
 	                                        ),
@@ -75117,12 +75094,8 @@
 	                                        _react2.default.createElement(
 	                                            'td',
 	                                            { width: '15%' },
-	                                            _react2.default.createElement(
-	                                                'span',
-	                                                { className: 'word-limit-5', title: '' },
-	                                                item.registeredCapital,
-	                                                '万元'
-	                                            )
+	                                            item.registeredCapital,
+	                                            '万元'
 	                                        )
 	                                    );
 	                                }
@@ -75551,7 +75524,7 @@
 
 
 	// module
-	exports.push([module.id, ".prepaidC-index .right-bottom tbody td,\r\n.prepaidC-index .right-bottom thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.prepaidC-index  .mt-table {\r\n\tmargin: 0px;\r\n}\r\n\r\n.prepaidC-index  .mt-table tr td a {\r\n\tcolor: #fff;\r\n}\r\n\r\n.prepaidC-index .right-bottom .table-content {\r\n\theight: 500px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.prepaidC-index .right-bottom  .mod-content {\r\n\tpadding: 10px 20px 20px 20px;\r\n}\r\n\r\n/*.prepaidC-index .right-bottom .table-content  table {\r\n\theight: 100%\r\n}*/\r\n.prepaidC-index .right-bottom .table-content  table tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.prepaidC-index .right-bottom .table-title th {\r\n\theight: 50px\r\n}\r\n\r\n.prepaidC-index .right-bottom .table-content  .mt-table td {\r\n\theight: 50px;\r\n}\r\n\r\n.prepaidC-index .right-bottom  .mod-title .totle-num {\r\n\tfont-size: 14px;\r\n\tcolor: #fff;\r\n\tfloat: right;\r\n\tdisplay: inline-block;\r\n\tmargin: 15px 20px 0px 0px;\r\n}\r\n\r\n.mt-select .company-dire {\r\n\tbackground: #393a48;\r\n\tborder: 1px #393a48 solid;\r\n\tmargin-left: 5px;\r\n}\r\n\r\n.prepaidC-index .orange {\r\n\tcolor: #3aec8e;\r\n}\r\n\r\n.prepaidC-index .yellows {\r\n\tcolor: #fcae03;\r\n}\r\n\r\n.prepaidC-index .reds {\r\n\tcolor: #e14340;\r\n}\r\n.prepaidC-index .oranges{\r\n\tcolor: #e0433c;\r\n}\r\n.prepaidC-index .statu-yellow {\r\n\tcolor: #feac00\r\n}\r\n\r\n.prepaidC-index .statu-green {\r\n\tcolor: #33da82\r\n}\r\n\r\n.prepaidC-index .BZ-num {\r\n\tfloat: right;\r\n\tmargin: 10px 20px 0px 0px;\r\n}\r\n\r\n.prepaidC-index .BZ-num .orange {\r\n\tfont-size: 16px;\r\n}\r\n.prepaidC-index .longs{\r\n\twidth: 200px;\r\n}", ""]);
+	exports.push([module.id, ".prepaidC-index .right-bottom tbody td,\r\n.prepaidC-index .right-bottom thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.prepaidC-index  .mt-table {\r\n\tmargin: 0px;\r\n}\r\n\r\n.prepaidC-index  .mt-table tr td a {\r\n\tcolor: #fff;\r\n}\r\n\r\n.prepaidC-index .right-bottom .table-content {\r\n\theight: 500px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.prepaidC-index .right-bottom  .mod-content {\r\n\tpadding: 10px 20px 20px 20px;\r\n}\r\n\r\n/*.prepaidC-index .right-bottom .table-content  table {\r\n\theight: 100%\r\n}*/\r\n.prepaidC-index .right-bottom .table-content  table tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.prepaidC-index .right-bottom .table-title th {\r\n\theight: 50px\r\n}\r\n\r\n.prepaidC-index .right-bottom .table-content  .mt-table td {\r\n\theight: 50px;\r\n}\r\n\r\n.prepaidC-index .right-bottom  .mod-title .totle-num {\r\n\tfont-size: 14px;\r\n\tcolor: #fff;\r\n\tfloat: right;\r\n\tdisplay: inline-block;\r\n\tmargin: 15px 20px 0px 0px;\r\n}\r\n\r\n.mt-select .company-dire {\r\n\tbackground: #1a2029;\r\n\tborder: 1px #393a48 solid;\r\n\tmargin-left: 5px;\r\n}\r\n.prepaidC-index .mt-select .mt-select-box{\r\n\tborder: none;\r\n\tbackground: rgba(43, 50, 60, 0.5) none repeat scroll 0 0;\r\n}\r\n.prepaidC-index .mt-select .iconfont{\r\n\tright: 15px\r\n}\r\n.prepaidC-index .mt-select .mt-select-title{\r\n\tfont-size: 12px;\r\n}\r\n.prepaidC-index  .mt-select{\r\n\tbackground: #1a2029;\r\n}\r\n.prepaidC-index .orange {\r\n\tcolor: #3aec8e;\r\n}\r\n\r\n.prepaidC-index .yellows {\r\n\tcolor: #fcae03;\r\n}\r\n\r\n.prepaidC-index .reds {\r\n\tcolor: #e14340;\r\n}\r\n.prepaidC-index .oranges{\r\n\tcolor: #e0433c;\r\n}\r\n.prepaidC-index .statu-yellow {\r\n\tcolor: #feac00\r\n}\r\n\r\n.prepaidC-index .statu-green {\r\n\tcolor: #33da82\r\n}\r\n\r\n.prepaidC-index .BZ-num {\r\n\tfloat: right;\r\n\tmargin: 10px 20px 0px 0px;\r\n}\r\n\r\n.prepaidC-index .BZ-num .orange {\r\n\tfont-size: 16px;\r\n}\r\n.prepaidC-index .longs{\r\n\twidth: 200px;\r\n}", ""]);
 
 	// exports
 
@@ -75758,7 +75731,7 @@
 	    },
 	    render: function render() {
 	        var selectQuarter = {
-	            width: '75px',
+	            width: '71px',
 	            className: 'company-dire',
 	            name: 'testselect',
 	            value: "1",
@@ -80128,6 +80101,7 @@
 			});
 		},
 		render: function render() {
+			var self = this;
 			return _react2.default.createElement(
 				'div',
 				{ className: 'company-detail-inner mod-space-l mod-space-t' },
@@ -80164,21 +80138,21 @@
 					'div',
 					{ className: 'bussiness-content' },
 					function () {
-						switch (this.state.pageNum) {
+						switch (self.state.pageNum) {
 							case 1:
-								return _react2.default.createElement(_BusinessInfo2.default, this.props);
+								return _react2.default.createElement(_BusinessInfo2.default, self.props);
 								break;
 							case 2:
-								return _react2.default.createElement(_ShareholderExe2.default, this.props);
+								return _react2.default.createElement(_ShareholderExe2.default, self.props);
 								break;
 							case 3:
-								return _react2.default.createElement(_ControlRecord2.default, this.props);
+								return _react2.default.createElement(_ControlRecord2.default, self.props);
 								break;
 							default:
-								return _react2.default.createElement(_RecruitingInfo2.default, this.props);
+								return _react2.default.createElement(_RecruitingInfo2.default, self.props);
 								break;
 						}
-					}
+					}()
 				)
 			);
 		}
@@ -82293,7 +82267,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -82346,89 +82320,92 @@
 
 	//实时监测首页
 	var RealtimeMonitorIndex = _react2.default.createClass({
-	  displayName: 'RealtimeMonitorIndex',
-	  getInitialState: function getInitialState() {
-	    return {
-	      windowHeight: null,
-	      indexRange: null
-	    };
-	  },
-	  componentDidMount: function componentDidMount() {
-	    window.scrollTo(0, 0);
-	    $(window).resize(function (event) {
-	      this.setState({
-	        windowHeight: $(window).height() - 60
-	      });
-	    }.bind(this));
+	    displayName: 'RealtimeMonitorIndex',
+	    getInitialState: function getInitialState() {
+	        return {
+	            windowHeight: null,
+	            indexRange: null
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        window.scrollTo(0, 0);
+	        $(window).resize(function (event) {
+	            this.setState({
+	                windowHeight: $(window).height() - 60
+	            });
+	        }.bind(this));
 
-	    $(document).keypress(function (event) {
-	      if (event.keyCode == 112) {
-	        this.setState({
-	          windowHeight: $(window).height() - 60
+	        $(document).keypress(function (event) {
+	            if (event.keyCode == 112) {
+	                this.setState({
+	                    windowHeight: $(window).height() - 60
+	                });
+	            }
 	        });
-	      }
-	    });
-	  },
-	  componentWillMount: function componentWillMount() {
-	    this.setState({
-	      windowHeight: $(window).height() - 60
-	    });
-	  },
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {},
-	  getRange: function getRange(range) {
-	    this.setState({
-	      indexRange: range
-	    });
-	  },
+	    },
+	    componentWillMount: function componentWillMount() {
+	        this.setState({
+	            windowHeight: $(window).height() - 60
+	        });
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {},
+	    getRange: function getRange(range) {
+	        this.setState({
+	            indexRange: range
+	        });
+	    },
 
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'realtime-index wrap', style: { "height": this.state.windowHeight } },
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'realtime-top' },
-	        _react2.default.createElement(_topLeft2.default, _extends({ getRange: this.getRange }, this.props)),
-	        _react2.default.createElement(_topMiddle2.default, _extends({ pushRange: this.state.indexRange }, this.props)),
-	        _react2.default.createElement(_topRight2.default, this.props)
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'realtime-bottom' },
-	        _react2.default.createElement(_bottomLeft2.default, this.props),
-	        _react2.default.createElement(_bottomRight2.default, this.props)
-	      )
-	    );
-	  }
+	    render: function render() {
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'realtime-index wrap', style: { "height": this.state.windowHeight } },
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'realtime-top' },
+	                _react2.default.createElement(_topLeft2.default, _extends({ getRange: this.getRange }, this.props)),
+	                _react2.default.createElement(_topMiddle2.default, _extends({ pushRange: this.state.indexRange }, this.props)),
+	                _react2.default.createElement(_topRight2.default, this.props)
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'realtime-bottom' },
+	                _react2.default.createElement(_bottomLeft2.default, this.props),
+	                _react2.default.createElement(_bottomRight2.default, this.props)
+	            )
+	        );
+	    }
 	});
 
 	//将 request  result 绑定到props的request result 
 	function mapStateToProps(state) {
-	  return {
-	    realTimeTableResult: state.RealTimeTable.result,
-	    realTimeTableRequest: state.RealTimeTable.request, //RealTimeTable注册在reduce里面的index。拿到处理后的两个返回值。
+	    return {
+	        realTimeTableResult: state.RealTimeTable.result,
+	        realTimeTableRequest: state.RealTimeTable.request, //RealTimeTable注册在reduce里面的index。拿到处理后的两个返回值。
 
-	    realTimeNineResult: state.RealTimeNine.result,
-	    realTimeNineRequest: state.RealTimeNine.request, //RealTimeNine注册在reduce里面的index。拿到处理后的两个返回值。
+	        realTimeNineResult: state.RealTimeNine.result,
+	        realTimeNineRequest: state.RealTimeNine.request, //RealTimeNine注册在reduce里面的index。拿到处理后的两个返回值。
 
-	    realTimeNewsResult: state.RealTimeNews.result,
-	    realTimeNewsRequest: state.RealTimeNews.request, //RealTimeNews注册在reduce里面的index。拿到处理后的两个返回值。
+	        realTimeNewsResult: state.RealTimeNews.result,
+	        realTimeNewsRequest: state.RealTimeNews.request, //RealTimeNews注册在reduce里面的index。拿到处理后的两个返回值。
 
-	    realTimeMapResult: state.RealTimeMap.result,
-	    realTimeMapRequest: state.RealTimeMap.request, //RealTimeMap注册在reduce里面的index。拿到处理后的两个返回值。
+	        realTimeMapResult: state.RealTimeMap.result,
+	        realTimeMapRequest: state.RealTimeMap.request, //RealTimeMap注册在reduce里面的index。拿到处理后的两个返回值。
 
 
-	    realTimeMapShResult: state.RealTimeMapSh.result,
-	    realTimeMapShRequest: state.RealTimeMapSh.request, //Real搜索TimeMa在reduce里面的index。拿到处理后的两个返回值。
+	        realTimeMapShResult: state.RealTimeMapSh.result,
+	        realTimeMapShRequest: state.RealTimeMapSh.request, //Real搜索TimeMa在reduce里面的index。拿到处理后的两个返回值。
 
-	    realTimeRiskResult: state.RealTimeRisk.result,
-	    realTimeRiskRequest: state.RealTimeRisk.request //RealTimeMap注册在reduce里面的index。拿到处理后的两个返回值。
-	  };
+	        realTimeRiskResult: state.RealTimeRisk.result,
+	        realTimeRiskRequest: state.RealTimeRisk.request, //RealTimeMap注册在reduce里面的index。拿到处理后的两个返回值。
+
+	        realTimeScrollResult: state.RealTimeScroll.result,
+	        realTimeScrollRequest: state.RealTimeScroll.request
+	    };
 	}
 
 	//将action的所有方法绑定到props上
 	function mapDispatchToProps(dispatch) {
-	  return (0, _redux.bindActionCreators)(RealTimeCreaTers, dispatch);
+	    return (0, _redux.bindActionCreators)(RealTimeCreaTers, dispatch);
 	}
 
 	//通过react-redux提供的connect方法将我们需要的state中的数据和actions中的方法绑定到props上
@@ -82803,11 +82780,6 @@
 	/*上海地图接口的全局变量*/
 	var TopMiddle = _react2.default.createClass({
 	    displayName: 'TopMiddle',
-	    getInitialState: function getInitialState() {
-	        return {
-	            mapeType: "china"
-	        };
-	    },
 	    mapChina: function mapChina() {
 	        var _this = this;
 	        //中国点的经纬度
@@ -83036,9 +83008,9 @@
 	                },
 	                itemStyle: {
 	                    normal: {
-	                        areaColor: '#25a9c3',
-	                        borderColor: 'darkgreen',
-	                        borderWidth: 0.5
+	                        areaColor: 'none',
+	                        borderColor: '#5a87d8',
+	                        borderWidth: 1
 	                    },
 	                    emphasis: {
 	                        areaColor: '#25a9c3'
@@ -83105,11 +83077,15 @@
 	                    }
 	                },
 	                symbolSize: function symbolSize(val) {
-	                    return 8;
+	                    console.log(val, "点的大小");
+	                    if (val[2] > 200000) {
+	                        return 1;
+	                    }
+	                    return val[2] / 500 + 5;
 	                },
 	                itemStyle: {
 	                    normal: {
-	                        color: color[0]
+	                        color: "#52f5f6"
 	                    }
 	                },
 	                data: SHData.map(function (dataItem) {
@@ -83184,6 +83160,7 @@
 	                   ];*/
 	        var geoSereis = ajaxDataSH.SHsereis; //后台请求回来的ajax数据值~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	        SHposition = ajaxDataSH.SHposition; //后台请求回来的ajax经纬度~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 	        chartShanghai = echarts.init(document.getElementById("demo"));
 	        var option = {
 	            tooltip: {
@@ -83219,7 +83196,7 @@
 	                                break;
 
 	                            case 4:
-	                                typeP = "风险值<span> " + numORdate + " </span>";typeLabel = "<label class='testLable red'>重点关注</label>";
+	                                typeP = "风险值<span class='red'> " + numORdate + " </span>";typeLabel = "<label class='testLable red'>重点关注</label>";
 	                                break;
 
 	                        };
@@ -83245,6 +83222,9 @@
 	                                }
 	                            });
 	                        }
+	                        _this.setState({
+	                            comNUM: length
+	                        });
 	                        var mapTootip = "<div class='testTo'>\
 	                                      <h4 class='tableH4'>" + v.name + "</h4>\
 	                                      <table>\
@@ -83428,8 +83408,21 @@
 	            $(".realtime-top-middle .info,.realtime-top-middle .return,.realtime-top-middle .bar").hide();
 	        });
 	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    getInitialState: function getInitialState() {
+	        return {
+	            mapeType: "china",
+	            comNUM: null,
+	            scrollInfo: {
+	                date: null,
+	                infoNum: null,
+	                ad: null,
+	                daifei: null,
+	                internet: null
+	            }
 
+	        };
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	        var _this = this;
 	        var isEqual = Immutable.is(nextProps.realTimeMapResult /*now*/, this.props.realTimeMapResult /*before*/); //判断数据是否变化
 	        if (!isEqual) {
@@ -83463,17 +83456,38 @@
 	                }
 	            }
 	        }
+
+	        var isEqualScr = Immutable.is(nextProps.realTimeScrollResult, this.props.realTimeScrollResult); //判断数据是否变化
+	        if (!isEqualScr) {
+	            var realTimeScrollRequest = nextProps.realTimeScrollRequest;
+	            var realTimeScrollResult = nextProps.realTimeScrollResult;
+
+	            if (realTimeScrollRequest == true) {
+	                console.info("aaaaaaaaaaaa", realTimeScrollResult.content.监控日期);
+	                this.setState({
+	                    comNUM: realTimeScrollResult.content.已监控企业数,
+	                    scrollInfo: {
+	                        date: realTimeScrollResult.content.监控日期,
+	                        infoNum: realTimeScrollResult.content.举报信息,
+	                        ad: realTimeScrollResult.content.监测广告,
+	                        daifei: realTimeScrollResult.content.打非监测,
+	                        internet: realTimeScrollResult.content.互联网金融监测
+	                    }
+	                });
+	            } else {}
+	        }
 	    },
 	    componentDidMount: function componentDidMount() {
 	        var _this = this;
 	        var _props = this.props;
 	        var getRealTimeMap = _props.getRealTimeMap;
-	        var getRealTimeMapSh = _props.getRealTimeMapSh; // 取到props里面的getRealTimeTable方法。也可以说是请求action
+	        var getRealTimeMapSh = _props.getRealTimeMapSh;
+	        var getRealTimeScroll = _props.getRealTimeScroll; // 取到props里面的getRealTimeTable方法。也可以说是请求action
 
 	        var jsonData = {}; //ajax传递给后台的data键值对
 	        getRealTimeMap(jsonData);
 	        getRealTimeMapSh(jsonData);
-
+	        getRealTimeScroll(jsonData);
 	        $(window).resize(function (event) {
 	            console.log(chartChina);
 
@@ -83555,13 +83569,13 @@
 	                    _react2.default.createElement(
 	                        'div',
 	                        { className: 'date' },
-	                        '2016\\08\\24'
+	                        this.state.scrollInfo.date
 	                    )
 	                ),
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'info-right' },
-	                    '235,452'
+	                    this.state.comNUM
 	                )
 	            ),
 	            _react2.default.createElement(
@@ -83580,25 +83594,25 @@
 	                    _react2.default.createElement(
 	                        'span',
 	                        { className: 'darkRed' },
-	                        '865'
+	                        this.state.scrollInfo.infoNum
 	                    ),
 	                    '条;监测广告',
 	                    _react2.default.createElement(
 	                        'span',
 	                        { className: 'darkRed' },
-	                        '465'
+	                        this.state.scrollInfo.ad
 	                    ),
-	                    '条; 打非',
+	                    '条; 打非监测',
 	                    _react2.default.createElement(
 	                        'span',
 	                        { className: 'darkRed' },
-	                        '86'
+	                        this.state.scrollInfo.daifei
 	                    ),
-	                    '家;互联网金融排查',
+	                    '家;互联网金融监测',
 	                    _react2.default.createElement(
 	                        'span',
 	                        { className: 'darkRed' },
-	                        '125'
+	                        this.state.scrollInfo.internet
 	                    ),
 	                    '家'
 	                )
@@ -83685,12 +83699,8 @@
 	                        forMaterTitle: "贷款余额",
 	                        forMaterTip: '平均贷款余额',
 	                        yAxisName: "亿元",
-	                        xFormatter: function xFormatter(v) {
-	                            console.log(v, "yyyyyyyyyyyyy");
-	                            return v / 10000;
-	                        },
 	                        tooltip: function tooltip(data) {
-	                            return data.name + "年<br/>贷款余额：" + data.data[1] / 10000 + "亿元<br/>平均贷款余额：" + data.data[2] + "万元";
+	                            return data.name + "年<br/>贷款余额：" + parseFloat(data.data[1] / 10000).toFixed(2) + "亿元<br/>平均贷款余额：" + data.data[2] + "万元";
 	                        },
 	                        gridTop: "20%",
 	                        yType: "value",
@@ -83742,27 +83752,30 @@
 	                        "gridBottom": "0%",
 	                        "yFlag": "",
 	                        "xAxis": nineDate.content.p2p.xAxis,
-	                        "yAxisName": ["家数", ""],
+	                        "yAxisName": ["家数"],
 	                        "barWidth": 20,
 	                        "symbolSize": 10,
 	                        "series": {
 	                            "bar": [nineDate.content.p2p.series.bar],
 	                            "line": [nineDate.content.p2p.series.line]
-	                        }
+	                        },
+	                        "axisLabelR": false
 	                    };
+	                    console.info("aaaaaaaaaaaa", nineDate.content.p2p.xAxis);
 	                    paramFour = {
 	                        "link": "/smallLoan#/financeGuara",
 	                        "titleShow": true,
 	                        "title": "融资租赁",
-	                        "color": ["#12b5b0", "#e24441", "rgb(230,162,74)"],
-	                        "legend": ["注册资本($)", "注册资本(¥)", "企业数量"],
+	                        "color": ["#e24441", "#12b5b0", "rgb(230,162,74)"],
+	                        "legend": ["注册资本(¥)", "注册资本($)", "企业数量"],
 	                        "legendShow": true,
 	                        "legendLeft": "center",
 	                        "legendTop": "20",
 	                        "legendWidth": 600,
-	                        "barName": ["注册资本($)", "注册资本(¥)"],
+	                        "barName": ["注册资本(¥)", "注册资本($)"],
 	                        "lineName": ["企业数量"],
 	                        "YnameRoutate": 0,
+	                        "yRightLable": "bar",
 	                        "YnameLocation": "end",
 	                        "gridLeft": "5%",
 	                        "gridRight": "0%",
@@ -83777,6 +83790,7 @@
 	                            "line": [nineDate.content.finance.series.line]
 	                        }
 	                    };
+	                    console.info("hjhjhjhjhjhjhjhhjhj", nineDate.content.finance.series.bar);
 	                    paramFive = {
 	                        "link": "/smallLoan#/TradingPlaces",
 	                        "title": "交易场所清理整顿分类",
@@ -83812,17 +83826,17 @@
 	                        "color": ["#f93330"],
 	                        "titleShow": "show",
 	                        "titleX": "left",
-	                        "legend": ["新增项目数"],
-	                        "legendShow": false,
+	                        "legend": ["上月新增项目数"],
+	                        "legendShow": true,
 	                        "legendLeft": "center",
 	                        "axisLabelR": false,
 	                        "legendTop": "20",
 	                        "gridBottom": "0%",
 	                        "gridRight": "0%",
 	                        "labelShow": true,
-	                        "barName": ["新增项目数"],
+	                        "barName": ["上月新增项目数"],
 	                        "xAxis": nineDate.content.crowd.xAxis,
-	                        "yAxisName": ["新增项目数", ""],
+	                        "yAxisName": ["", ""],
 	                        "barWidth": 20,
 	                        "series": {
 	                            "bar": [nineDate.content.crowd.series]
@@ -83851,7 +83865,7 @@
 	                        YnameGap: 5,
 	                        legend: [],
 	                        tooltip: function tooltip(data) {
-	                            return data.name + "年<br/>典当总额：" + data.data[1] / 10000 + "(亿元)<br/>业务笔数：" + data.data[2];
+	                            return data.name + "年<br/>典当总额：" + parseFloat(data.data[1] / 10000).toFixed(2) + "亿元<br/>业务笔数：" + data.data[2];
 	                        },
 	                        xAxis: nineDate.content.mortgage.xAxis,
 	                        yAxis: ['100000', '200000', '3000000', '4000000', '5000000'],
@@ -84202,7 +84216,7 @@
 	      console.log(data, "++++++++++++++++++++++舆情++++++++++++++++++++");
 	      _this.setState({
 	        list: data.results.map(function (item, index) {
-	          var main = item.main.substring(0, 69);
+	          var main = item.main.substring(0, 80);
 	          return _react2.default.createElement(
 	            'li',
 	            { key: index, className: 'animated zoomIn', style: { 'WebkitAnimationDelay': index * 0.1 + 's' } },
@@ -84212,7 +84226,7 @@
 	              _react2.default.createElement(
 	                'a',
 	                { href: item.bbd_url },
-	                item.search_key
+	                item.news_title
 	              )
 	            ),
 	            _react2.default.createElement(
@@ -84361,6 +84375,7 @@
 	exports.getRealTimeMap = getRealTimeMap;
 	exports.getRealTimeMapSh = getRealTimeMapSh;
 	exports.getRealTimeRisk = getRealTimeRisk;
+	exports.getRealTimeScroll = getRealTimeScroll;
 	/*
 	  实时监测左侧表格action
 	*/
@@ -84595,6 +84610,44 @@
 	      },
 	      error: function error(result) {
 	        return dispatch(RealTimeRiskFail(result));
+	      }
+	    });
+	  };
+	}
+	/* 
+	   地图上监测企业数 和 滚动条=
+	*/
+	var REALTIME_SCROLL_SUCCESS = exports.REALTIME_SCROLL_SUCCESS = 'REALTIME_SCROLL_SUCCESS';
+	var REALTIME_SCROLL_FAIL = exports.REALTIME_SCROLL_FAIL = 'REALTIME_SCROLL_FAIL';
+
+	function RealTimeScrollSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: REALTIME_SCROLL_SUCCESS,
+	    result: result
+	  };
+	}
+	function RealTimeScrollFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: REALTIME_SCROLL_FAIL,
+	    result: result
+	  };
+	}
+
+	function getRealTimeScroll(json) {
+	  return function (dispatch) {
+	    $.ajax({
+	      url: "/realTimeMonitor/shMapMonitorAndRoll.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        console.log("ajax已经执行");
+	        return dispatch(RealTimeScrollSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(RealTimeScrollFail(result));
 	      }
 	    });
 	  };
@@ -84968,6 +85021,10 @@
 
 	var _realtimeRiskReducer2 = _interopRequireDefault(_realtimeRiskReducer);
 
+	var _realtimeScrollRuducer = __webpack_require__(1302);
+
+	var _realtimeScrollRuducer2 = _interopRequireDefault(_realtimeScrollRuducer);
+
 	var _MenuParkSelectVal = __webpack_require__(961);
 
 	var _MenuParkSelectVal2 = _interopRequireDefault(_MenuParkSelectVal);
@@ -85148,50 +85205,59 @@
 
 	//楼宇详情页
 
-	//取得合规意见或经过会商的交易场所详情列表
+	//企业占比对比
+
+	//企业目录列表
+
+	/*实时监测 begin*/
+
+	/*=================================交易场所监测=================================*/
+
+	/*=================================融资租赁=================================*/
+	//典当法人企业数
 
 	//交易场所清理整顿分类
 
-	//上海市典当企业目录
+	/*=================================典当行业监测=================================*/
 
-	//列表
-
-	//6月上海各类众筹平台新增项目数
-
-	/*====================================私募基金===============================*/
+	/*=================================交易场所监测=================================*/
+	//黄浦区交易场所列表
 
 	/*=================================众筹监测=================================*/
-	//业务类型
 
-	//私募基金分类
+	/*=================================典当行业监测=================================*/
+	//所有图标
 
+	//6月上海各类众筹平台新增项目数的成功筹资金额
 
-	/*====================================p2p画像平台============================*/
+	//6月上海各类众筹平台新增项目的投资人次
 
-	/*====================================私募基金===============================*/
-	//QDLP试点企业最新进展
+	//私募股权基本情况
 
-	//评分雷达图
+	//私募证券基本情况
 
-	//平台舆情
+	//QFLP试点企业最新进展
 
-	//公司基本信息
+	//动态图谱
 
-	//p2p图表
+	//诉讼信息
 
+	//核心数据
 
 	/*====================================P2P平台监测============================*/
-	//上海区域发展指数排名
 
+	/*====================================p2p画像平台============================*/
+	//基本信息
 
-	//融资担保
-
-	//小额贷款
-
-	//三个echarts图的接口
+	//网贷平台数据展示
 
 
 	/*企业全息查询*/
+
+	/*行业监测模块*/
+	/* 公共搜索 */
+
+	//诉讼记录的五个接口
 	var rootReducer = (0, _redux.combineReducers)({
 
 	  /*企业全息*/
@@ -85300,6 +85366,7 @@
 	  RealTimeMap: _realtimeMapReducer2.default,
 	  RealTimeMapSh: _realtimeMapShReducer2.default,
 	  RealTimeRisk: _realtimeRiskReducer2.default,
+	  RealTimeScroll: _realtimeScrollRuducer2.default,
 
 	  //商业保理监测
 	  ChartAll: _ChartAll4.default,
@@ -85378,59 +85445,50 @@
 
 	//园区
 
-	//企业占比对比
-
-	//企业目录列表
-
-	/*实时监测 begin*/
-
-	/*=================================交易场所监测=================================*/
-
-	/*=================================融资租赁=================================*/
-	//典当法人企业数
+	//取得合规意见或经过会商的交易场所详情列表
 
 	//交易场所清理整顿分类
 
-	/*=================================典当行业监测=================================*/
+	//上海市典当企业目录
 
-	/*=================================交易场所监测=================================*/
-	//黄浦区交易场所列表
+	//列表
+
+	//6月上海各类众筹平台新增项目数
+
+	/*====================================私募基金===============================*/
 
 	/*=================================众筹监测=================================*/
+	//业务类型
 
-	/*=================================典当行业监测=================================*/
-	//所有图标
+	//私募基金分类
 
-	//6月上海各类众筹平台新增项目数的成功筹资金额
-
-	//6月上海各类众筹平台新增项目的投资人次
-
-	//私募股权基本情况
-
-	//私募证券基本情况
-
-	//QFLP试点企业最新进展
-
-	//动态图谱
-
-	//诉讼信息
-
-	//核心数据
-
-	/*====================================P2P平台监测============================*/
 
 	/*====================================p2p画像平台============================*/
-	//基本信息
 
-	//网贷平台数据展示
+	/*====================================私募基金===============================*/
+	//QDLP试点企业最新进展
+
+	//评分雷达图
+
+	//平台舆情
+
+	//公司基本信息
+
+	//p2p图表
+
+
+	/*====================================P2P平台监测============================*/
+	//上海区域发展指数排名
+
+
+	//融资担保
+
+	//小额贷款
+
+	//三个echarts图的接口
 
 
 	/*企业全息查询*/
-
-	/*行业监测模块*/
-	/* 公共搜索 */
-
-	//诉讼记录的五个接口
 	exports.default = rootReducer;
 
 /***/ },
@@ -98042,6 +98100,44 @@
 	    return String(it).replace(regExp, replacer);
 	  };
 	};
+
+/***/ },
+/* 1302 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = RealTimeScroll;
+
+	var _RealTimeAction = __webpack_require__(884);
+
+	function RealTimeScroll() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _RealTimeAction.REALTIME_SCROLL_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _RealTimeAction.REALTIME_SCROLL_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
 
 /***/ }
 /******/ ]);
