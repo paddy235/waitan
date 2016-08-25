@@ -77696,9 +77696,13 @@
 	        var curBuildId = this.state.buildList[index].buildingId;
 	        var curBuildName = this.state.buildList[index].name;
 	        var parkId = this.state.buildList[index].parkId;
-	        this.setState({ curBuildIndex: index, curBuild: curBuild });
+	        this.setState({ curBuildIndex: index, curBuild: curBuild, show: false });
 
 	        this.getBuildSwitchVal({ buildId: curBuildId, buildName: curBuildName, parkId: parkId });
+	        $('.risk-list').on('click', 'tr', function () {
+	            var $this = $(this);
+	            $this.removeClass('active');
+	        });
 	    },
 	    render: function render() {
 
@@ -78533,9 +78537,15 @@
 	  dataFomat: function dataFomat(data) {
 	    var _this = this;
 	    var contentStr = data.content;
-	    var contentJson = JSON.parse(contentStr);
-	    console.log(contentJson);
-	    var results = contentJson.results;
+	    var contentJson = null;
+	    var results = null;
+	    if (contentStr) {
+	      contentJson = JSON.parse(contentStr);
+	      results = contentJson.results;
+	    } else {
+	      results = [];
+	    }
+	    console.log(results);
 	    this.setState({ newsList: results }, function () {
 	      console.log(this.state.newsList, 2333333333333);
 	      _this.buildNewsScroll();
@@ -78585,6 +78595,7 @@
 	            'div',
 	            { className: 'boxRightScroll' },
 	            this.state.newsList.map(function (elem, index) {
+	              var pubdate = elem.pubdate.substr(0, 10);
 	              return _react2.default.createElement(
 	                'ul',
 	                null,
@@ -78595,15 +78606,6 @@
 	                  _react2.default.createElement(
 	                    'em',
 	                    null,
-	                    elem.search_key
-	                  )
-	                ),
-	                _react2.default.createElement(
-	                  'li',
-	                  null,
-	                  _react2.default.createElement(
-	                    'span',
-	                    { className: 'liTop' },
 	                    elem.news_title
 	                  )
 	                ),
@@ -78612,12 +78614,21 @@
 	                  null,
 	                  _react2.default.createElement(
 	                    'span',
+	                    { className: 'liTop' },
+	                    elem.main
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'li',
+	                  null,
+	                  _react2.default.createElement(
+	                    'span',
 	                    { className: 'liRight' },
-	                    elem.news_site,
+	                    elem.author,
 	                    _react2.default.createElement(
 	                      'em',
 	                      null,
-	                      elem.pubdate
+	                      pubdate
 	                    )
 	                  )
 	                )
