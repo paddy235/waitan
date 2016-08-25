@@ -1340,6 +1340,15 @@ define(function(require, exports, module) {
 		console.log("=====>isshow", isshow);
 	};
 
+	$(document).on("click","#fullscreen",function(){
+		if($(".window-show-graph")[0]){
+			dyMapWid = $(window).width()*0.64
+		}else{
+			dyMapWid = $(window).width()
+		}
+		resize_canvas();
+		resize();
+	})
 
 	//
 	exports.resetCanvasSize = function() {
