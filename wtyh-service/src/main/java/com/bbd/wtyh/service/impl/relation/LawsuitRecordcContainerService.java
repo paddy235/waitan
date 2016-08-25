@@ -36,8 +36,7 @@ public class LawsuitRecordcContainerService extends ApiContainerService {
     private static final Integer PAGE_SIZE = 50;
     private static Logger log = LoggerFactory.getLogger(LawsuitRecordcContainerService.class);
 
-    @Value("${" + Constants.API_SEARCH_URL + "}")
-    private String url;
+    private String url = "";
 
     @Autowired
     private RedisDAO redisDao;
