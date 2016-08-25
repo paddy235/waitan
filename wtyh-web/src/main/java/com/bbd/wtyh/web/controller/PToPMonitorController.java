@@ -9,6 +9,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
+import com.bbd.wtyh.util.CalculateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -131,7 +133,7 @@ public class PToPMonitorController {
     	
     	IndustryShanghaiDTO maxDto = list.get(0);
     	for (IndustryShanghaiDTO dto : list) {
-			if(maxDto.getDate().compareTo(dto.getDate()) > 0){
+			if(maxDto.getDate().compareTo(dto.getDate()) < 0){
 				maxDto = dto;
 			}
 		}
@@ -387,8 +389,8 @@ public class PToPMonitorController {
     	 
     	 for (PlatRankDataDTO dto : list) {
     		double total = dto.getStay_still_of_total();
-    		total = new BigDecimal("0"+total).divide(new BigDecimal("10000"), 2, BigDecimal.ROUND_HALF_UP).doubleValue();
-    		dto.setStay_still_of_total(total);
+    		dto.setStay_still_of_total(CalculateUtils.divide(total,100000000,2));
+			dto.setAmount(CalculateUtils.divide(dto.getAmount(),100000000,2));
 		 }
      	
      	 return ResponseBean.successResponse( list );

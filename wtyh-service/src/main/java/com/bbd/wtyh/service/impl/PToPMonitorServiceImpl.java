@@ -182,7 +182,12 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
 				}
 				@Override
 				public List<IndustryShanghaiDTO> parse(String result) {
-					return JSON.parseArray(result, IndustryShanghaiDTO.class);
+
+					Gson gson = new Gson();
+
+					List<IndustryShanghaiDTO> list = gson.fromJson(result,new TypeToken<List<IndustryShanghaiDTO>>(){}.getType());
+
+					return list;
 				}
 			});
 		} catch (Exception e) {
