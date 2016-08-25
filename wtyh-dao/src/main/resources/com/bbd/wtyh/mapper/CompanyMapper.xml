@@ -113,11 +113,11 @@
         order by
 
         <choose>
-            <when test="orderField == 2">c.registered_capital</when>
-            <when test="orderField == 3">cb.background</when>
-            <when test="orderField == 4">c.registered_date</when>
-            <when test="orderField == 5">c.registered_type</when>
-            <otherwise>c.company_type</otherwise>
+            <when test="orderField == 2">a.registered_capital</when>
+            <when test="orderField == 3">a.background</when>
+            <when test="orderField == 4">a.registered_date</when>
+            <when test="orderField == 5">a.registered_type</when>
+            <otherwise>a.company_type</otherwise>
         </choose>
 
 
