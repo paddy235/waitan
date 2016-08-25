@@ -130,13 +130,9 @@ public class IndustryShanghaiDTO {
 	
 	
 	
-	
-	/**
-	* getter method
-	* @return season
-	*/
-	
+
 	public String getSeason() {
+		season = getDate();
 		return season;
 	}
 
@@ -144,11 +140,6 @@ public class IndustryShanghaiDTO {
 
 
 
-	
-	/**
-	* setter method
-	* @param season 
-	*/
 	
 	public void setSeason(String season) {
 		this.season = season;
