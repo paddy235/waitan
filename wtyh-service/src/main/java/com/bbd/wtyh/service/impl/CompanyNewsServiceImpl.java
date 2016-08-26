@@ -104,6 +104,7 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
             return companyNewsJsonData;
         } else {
             String names = companyMapper.queryCompanyNames(null, null);
+            logger.info("Query company names." + names);
             if(StringUtils.isEmpty(names)){
                 return null;
             }
@@ -120,7 +121,7 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
                     return data;
                 }
             } catch (Exception e) {
-            	logger.error(e.getMessage());
+            	logger.error("Method getCompanyNews get Exception." + e.getMessage());
                 e.printStackTrace();
             }
         }
