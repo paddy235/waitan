@@ -54,6 +54,8 @@ public class OfflineFinanceController {
     @Autowired
     private FactoringService factoringService;
     @Autowired
+    private FactoringController factoringController;
+    @Autowired
     private CrowdFundingController crowdFundingController;
     @Autowired
     private PrepaidCompanyController prepaidCompanyController;
@@ -451,28 +453,7 @@ public class OfflineFinanceController {
             }
         }
         //商业保理
-        List<CompanyCountDO> facList = factoringService.countCapitalBySeason();
-
-        HistogramBean<String, Object> hist = new HistogramBean<>();
-        hist.setTitle("全市商业保理企业注册资本总额");
-
-        Map<String,Object> map = new HashMap<>();
-
-        map.put("histogram", hist);
-
-        List<CompanyCountDO> list = factoringService.countCapitalBySeason();
-
-        if (!CollectionUtils.isEmpty(list)) {
-            int sum = 0;
-            for (int k = 0; k < list.size(); k++) {
-                CompanyCountDO cdo = list.get(k);
-                sum += cdo.getSum();
-                if (list.size() - 9 < k) {
-                    hist.getxAxis().add(cdo.getName());
-                    hist.getseries().add(CalculateUtils.WanToYi(sum));
-                }
-            }
-        }
+        Object factoringObject = factoringController.countCapitalBySeason();
         //预付卡
         ResponseBean prepaidCompanyResponseBean = prepaidCompanyController.amount();
         Map result = new LinkedHashMap();
@@ -483,7 +464,7 @@ public class OfflineFinanceController {
         result.put("exchange", exchangeCompanyBean);
         result.put("crowd", crowdFundingResponseBean.getContent());
         result.put("mortgage", mortgageDTO);
-        result.put("factoring", map);
+        result.put("factoring", factoringObject);
         result.put("prepaid", prepaidCompanyResponseBean.getContent());
         return ResponseBean.successResponse(result);
     }
