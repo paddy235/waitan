@@ -57488,7 +57488,7 @@
 
 
 	// module
-	exports.push([module.id, "/*tablez组件*/\r\n.index-list-table{\r\n\tbackground-color: #37414d;\r\n}\r\n.index-list-table table{\r\n\tmargin: 0px;\r\n}\r\n.index-list-table tr td{\r\n\tborder:solid 1px #2b323a;\r\n}\r\n.index-list-table tr td.td-in{\r\n\tpadding: 0px 0px;\r\n}\r\n.index-list-table tr td.td-in table td{\r\n\tborder:none;\r\n}\r\n.index-list-table .table-seven .td-in{\r\n\tpadding: 0px;\r\n\tposition: relative;\r\n}\r\n.index-list-table .table-seven .table-in{\r\n\theight: 160px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.index-list-table .table-seven .table-in tr td{\r\n\tpadding: 0px !important;\r\n\tborder-bottom: solid 1px #2b323a;\r\n}", ""]);
+	exports.push([module.id, "/*tablez组件*/\r\n.index-list-table{\r\n\tbackground-color: #37414d;\r\n}\r\n.index-list-table table{\r\n\tmargin: 0px;\r\n}\r\n.index-list-table tr td{\r\n\tborder:solid 1px #2b323a;\r\n}\r\n.index-list-table tr td span{\r\n\tdisplay: inline-block;\r\n\tpadding: 5px;\r\n}\r\n.index-list-table tr td.td-in{\r\n\tpadding: 0px 0px;\r\n}\r\n.index-list-table tr td.td-in table td{\r\n\tborder:none;\r\n}\r\n.index-list-table .table-seven .td-in{\r\n\tpadding: 0px;\r\n\tposition: relative;\r\n}\r\n.index-list-table .table-seven .table-in{\r\n\theight: 160px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.index-list-table .table-seven .table-in tr td{\r\n\tpadding: 0px !important;\r\n\tborder-bottom: solid 1px #2b323a;\r\n}\r\n\r\n.index-list-table tr td.gsmx div{\r\n\theight: 80px;\r\n\toverflow: auto;\r\n}\r\n.index-list-table tr td.gsmx div span{\r\n\tdisplay: block;\r\n}", ""]);
 
 	// exports
 
@@ -58117,22 +58117,22 @@
 	            null,
 	            _react2.default.createElement(
 	              'td',
-	              null,
+	              { width: '25%' },
 	              '风险类型'
 	            ),
 	            _react2.default.createElement(
 	              'td',
-	              null,
+	              { width: '25%' },
 	              '特征指标'
 	            ),
 	            _react2.default.createElement(
 	              'td',
-	              null,
+	              { width: '25%' },
 	              current
 	            ),
 	            _react2.default.createElement(
 	              'td',
-	              null,
+	              { width: '25%' },
 	              compare
 	            )
 	          ),
@@ -58189,25 +58189,33 @@
 	            ),
 	            _react2.default.createElement(
 	              'td',
-	              null,
-	              dynamicRisk ? dynamicRisk.curCompanyDetail.map(function (elem, index) {
-	                return _react2.default.createElement(
-	                  'span',
-	                  null,
-	                  elem
-	                );
-	              }) : ""
+	              { className: 'gsmx' },
+	              _react2.default.createElement(
+	                'div',
+	                null,
+	                dynamicRisk ? dynamicRisk.curCompanyDetail.map(function (elem, index) {
+	                  return _react2.default.createElement(
+	                    'span',
+	                    null,
+	                    elem
+	                  );
+	                }) : ""
+	              )
 	            ),
 	            _react2.default.createElement(
 	              'td',
-	              null,
-	              dynamicRisk ? dynamicRisk.cprCompanyDetail.map(function (elem, index) {
-	                return _react2.default.createElement(
-	                  'span',
-	                  null,
-	                  elem
-	                );
-	              }) : ""
+	              { className: 'gsmx' },
+	              _react2.default.createElement(
+	                'div',
+	                null,
+	                dynamicRisk ? dynamicRisk.cprCompanyDetail.map(function (elem, index) {
+	                  return _react2.default.createElement(
+	                    'span',
+	                    null,
+	                    elem
+	                  );
+	                }) : ""
+	              )
 	            )
 	          )
 	        )
