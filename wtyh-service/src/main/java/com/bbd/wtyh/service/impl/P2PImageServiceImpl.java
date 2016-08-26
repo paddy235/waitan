@@ -105,8 +105,16 @@ public class P2PImageServiceImpl implements P2PImageService {
         }
         
         List<List<String>> result = new ArrayList<>();
-        result.add(days);
-        result.add(amounts);
+        Collections.reverse(days);
+        Collections.reverse(amounts);
+        List<String> days1 = new ArrayList<>();
+        List<String> amounts1 = new ArrayList<>();
+        for (int i=0; i<15; i++) {
+            days1.add(days.get(i));
+            amounts1.add(amounts.get(i));
+        }
+        result.add(days1);
+        result.add(amounts1);
         return result;
     }
 
@@ -121,10 +129,17 @@ public class P2PImageServiceImpl implements P2PImageService {
             days.add(pdsm.getDate());
             interestRates.add(String.valueOf(pdsm.getDay_interest_rate()));
         }
-
+        Collections.reverse(days);
+        Collections.reverse(interestRates);
+        List<String> days1 = new ArrayList<>();
+        List<String> interestRates1 = new ArrayList<>();
+        for (int i=0; i<15; i++) {
+            days1.add(days.get(i));
+            interestRates1.add(interestRates.get(i));
+        }
         List<List<String>> result = new ArrayList<>();
-        result.add(days);
-        result.add(interestRates);
+        result.add(days1);
+        result.add(interestRates1);
         return result;
     }
 
@@ -140,10 +155,17 @@ public class P2PImageServiceImpl implements P2PImageService {
             BigDecimal dayAmount = new BigDecimal(String.valueOf(pdsm.getDay_money_stock()));
             loanOverages.add(dayAmount.toPlainString());
         }
-
+        Collections.reverse(days);
+        Collections.reverse(loanOverages);
+        List<String> days1 = new ArrayList<>();
+        List<String> loanOverages1 = new ArrayList<>();
+        for (int i=0; i<15; i++) {
+            days1.add(days.get(i));
+            loanOverages1.add(loanOverages.get(i));
+        }
         List<List<String>> result = new ArrayList<>();
-        result.add(days);
-        result.add(loanOverages);
+        result.add(days1);
+        result.add(loanOverages1);
         return result;
     }
 
