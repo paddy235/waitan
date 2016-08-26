@@ -65,9 +65,9 @@ public class P2PImageServiceImpl implements P2PImageService {
 
     @Override
     public Map<String, Object> baseInfo(String platName) {
-        List<PlatListDO> platListDO = p2PImageDao.baseInfoWangDaiApi(platName);
-        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(String.valueOf(platListDO.get(0).getCompany_name()));
-        ZuZhiJiGoudmDO zuZhiJiGoudmDO = p2PImageDao.baseInfoZuZhiJiGou(String.valueOf(platListDO.get(0).getCompany_name()));
+        PlatformNameInformationDO platformNameInformationDO = p2PImageDao.hasOrNotCompany(platName);
+        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(platformNameInformationDO.getName());
+        ZuZhiJiGoudmDO zuZhiJiGoudmDO = p2PImageDao.baseInfoZuZhiJiGou(platformNameInformationDO.getName());
         Map<String, Object> map = new HashMap<>();
         // TODO 接口可能有问题
         for (BaseDataDO.Results result : baseDataDO.getResults()) {
@@ -81,8 +81,8 @@ public class P2PImageServiceImpl implements P2PImageService {
         for (ZuZhiJiGoudmDO.Result result : zuZhiJiGoudmDO.getResults()) {
             map.put("companyCode", result.getJgdm());
         }
-        map.put("platName", platListDO.get(0).getPlat_name());
-        map.put("companyName", platListDO.get(0).getCompany_name());
+        map.put("platName", platformNameInformationDO.getPlatformName());
+        map.put("companyName", platformNameInformationDO.getName());
         return map;
     }
 

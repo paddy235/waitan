@@ -92,7 +92,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
                 @Override
                 public Object parse(String s) {
                     JSONObject jsonObject = JSON.parseObject(s);
-                    data.put("total", jsonObject.get("total")==""?0:jsonObject.get("total"));
+                    data.put("total", jsonObject.get("total") == "" ? 0 : jsonObject.get("total"));
                     return data;
                 }
             });
@@ -156,10 +156,9 @@ public class P2PImageDaoImpl implements P2PImageDao {
 
     /**
      * 基本信息--网贷接口数据
-     *
      */
-    public  List<PlatListDO> baseInfoWangDaiApi(String platName){
-        String platFormName = url + "?dataType=plat_list&plat_name="+platName;
+    public List<PlatListDO> baseInfoWangDaiApi(String platName) {
+        String platFormName = url + "?dataType=plat_list&plat_name=" + platName;
         final Map<String, Object> data = new HashMap<>();
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
@@ -169,10 +168,12 @@ public class P2PImageDaoImpl implements P2PImageDao {
 
                     return true;
                 }
+
                 @Override
-                public  List<PlatListDO> parse(String result) {
+                public List<PlatListDO> parse(String result) {
                     Gson gson = new Gson();
-                    return gson.fromJson(result, new TypeToken<List<PlatListDO>>(){}.getType());
+                    return gson.fromJson(result, new TypeToken<List<PlatListDO>>() {
+                    }.getType());
                 }
             });
         } catch (Exception e) {
@@ -183,7 +184,6 @@ public class P2PImageDaoImpl implements P2PImageDao {
 
     /**
      * 基本信息--BBD数据平台接口
-     *
      */
     @Override
     public BaseDataDO baseInfoBBDData(String companyName) {
@@ -199,6 +199,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
                     public boolean valid() {
                         return true;
                     }
+
                     @Override
                     public BaseDataDO parse(String result) {
                         Gson gson = new Gson();
@@ -216,11 +217,10 @@ public class P2PImageDaoImpl implements P2PImageDao {
 
     /**
      * 基本信息--组织机构代码api
-     *
      */
     public ZuZhiJiGoudmDO baseInfoZuZhiJiGou(String companyName) {
 //        String url = zuZhiJiGouURL+"?company="+companyName+"&ak="+zuZhiJiGouURL;
-        String URL = "http://dataom.api.bbdservice.com/api/bbd_zuzhijigoudm/?company="+companyName+"&ak=605f60df40668579e939515fef710d2b";
+        String URL = "http://dataom.api.bbdservice.com/api/bbd_zuzhijigoudm/?company=" + companyName + "&ak=605f60df40668579e939515fef710d2b";
         final Map<String, Object> map = new LinkedHashMap<>();
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
@@ -229,6 +229,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
                 public boolean valid() {
                     return true;
                 }
+
                 @Override
                 public ZuZhiJiGoudmDO parse(String result) {
                     Gson gson = new Gson();
@@ -243,7 +244,6 @@ public class P2PImageDaoImpl implements P2PImageDao {
 
     /**
      * 企业logo信息
-     *
      */
     public PlatListDO wangDaiLogo(String platName) {
         String coreDataDealURL = url + "?dataType=plat_list" + "&plat_name=" + platName;
@@ -313,7 +313,8 @@ public class P2PImageDaoImpl implements P2PImageDao {
                 @Override
                 public PlatDataDO parse(String result) {
                     Gson gson = new Gson();
-                    return gson.fromJson(result, new TypeToken<PlatDataDO>(){}.getType());
+                    return gson.fromJson(result, new TypeToken<PlatDataDO>() {
+                    }.getType());
                 }
             });
         } catch (Exception e) {
