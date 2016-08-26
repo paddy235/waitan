@@ -77,4 +77,9 @@ public class RiskCompanyServiceImpl implements RiskCompanyService {
 		return riskCompanyMapper.getTopCount(params);
 	}
 
+	@Override
+	public String getLastDataVersion() {
+		return riskCompanyMapper.getLastDataVersion();
+	}
+
 }
