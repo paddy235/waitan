@@ -1,14 +1,19 @@
 package com.bbd.wtyh.web.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.bbd.wtyh.domain.vo.CompanySearchVO;
+import com.bbd.wtyh.domain.vo.CompanyVO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -103,7 +108,30 @@ public class RiskCompanyController {
 		params.put("keyword", keyword);
 		params.put("pagination", pagination);
 		List<CompanyDO> list = companyService.searchCompanyName(params);
-		pagination.setList(list);
+		List<CompanySearchVO> resultList = new ArrayList<>();
+		if (!CollectionUtils.isEmpty(list)) {
+			for (CompanyDO companyDO : list) {
+				CompanySearchVO companySearchVO = new CompanySearchVO();
+				companySearchVO.setName(companyDO.getName());
+				companySearchVO.setAddress(companyDO.getAddress());
+				companySearchVO.setCompanyType(companyDO.getCompanyType());
+				companySearchVO.setLegalPerson(companyDO.getLegalPerson());
+				companySearchVO.setStaticRisk(companyDO.getStaticRisk());
+				companySearchVO.setRegisteredDate(companyDO.getRegisteredDate());
+				if (companyDO.getRegisteredCapitalType() != null) {
+					if (companyDO.getRegisteredCapitalType() == 1) {
+						companySearchVO.setRegisteredCapital(companyDO.getRegisteredCapital() + "万人民币");
+					}
+					if (companyDO.getRegisteredCapitalType() == 2) {
+						companySearchVO.setRegisteredCapital(companyDO.getRegisteredCapital() + "万美元");
+					}
+				}
+				resultList.add(companySearchVO);
+			}
+		}
+
+		pagination.setList(resultList);
+
 		return ResponseBean.successResponse(pagination);
 	}
 

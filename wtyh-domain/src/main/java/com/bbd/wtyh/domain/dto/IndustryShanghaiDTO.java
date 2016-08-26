@@ -21,7 +21,7 @@ public class IndustryShanghaiDTO {
 	/**
 	 * 上海累计P2P平台数量
 	 * */
-	private int total_plat_num_sh;
+	private int total_plat_num;
 	/**
 	 * 上海新增P2P平台数量
 	 * */
@@ -130,13 +130,9 @@ public class IndustryShanghaiDTO {
 	
 	
 	
-	
-	/**
-	* getter method
-	* @return season
-	*/
-	
+
 	public String getSeason() {
+		season = getDate();
 		return season;
 	}
 
@@ -144,11 +140,6 @@ public class IndustryShanghaiDTO {
 
 
 
-	
-	/**
-	* setter method
-	* @param season 
-	*/
 	
 	public void setSeason(String season) {
 		this.season = season;
@@ -158,14 +149,14 @@ public class IndustryShanghaiDTO {
 
 
 
-	public int getTotal_plat_num_sh() {
-		return total_plat_num_sh;
+	public int getTotal_plat_num() {
+		return total_plat_num;
 	}
 	
 	
 	
 	public void setTotal_plat_num_sh(int total_plat_num_sh) {
-		this.total_plat_num_sh = total_plat_num_sh;
+		this.total_plat_num = total_plat_num;
 	}
 	
 	

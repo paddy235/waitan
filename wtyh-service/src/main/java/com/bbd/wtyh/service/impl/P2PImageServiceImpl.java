@@ -10,6 +10,7 @@ import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompanyDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
 import com.bbd.wtyh.service.P2PImageService;
+import com.sun.org.apache.xpath.internal.SourceTree;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,13 +30,13 @@ public class P2PImageServiceImpl implements P2PImageService {
     @Override
     public Map<String, Object> platFormStatus(String platName) {
         PlatDataDO pn = p2PImageDao.getPlatData(platName);
-        PlatListDO platListDO = p2PImageDao.wangDaiLogo(platName);
+        List<PlatListDO> platListDO = p2PImageDao.baseInfoWangDaiApi(platName);
         Map<String, Object> result = new LinkedHashMap<>();
-        if (platListDO.getLogo_url()==null) {
+        if (platListDO.get(0).getLogo_url()==null) {
             result.put("logo", null);
         }
 //        result.put("logo", platListDO.getLogo_url());//logo
-        result.put("logo", null);//logo
+        result.put("logo", platListDO.get(0).getLogo_url());//logo
         result.put("score",pn.getPlat_score()); // 评分
         result.put("platname",pn.getPlat_name()); // 平台名称
         result.put("status",pn.getPlat_status()); // 营业状态
@@ -56,16 +57,16 @@ public class P2PImageServiceImpl implements P2PImageService {
     @Override
     public Map<String, Object> radarScore(String platName) {
         PlatDataDO platData = p2PImageDao.getPlatData(platName);
-        Map<String, Object> data = p2PImageDao.radarScore(platName         );
+        Map<String, Object> data = p2PImageDao.radarScore(platName);
         data.put("sumScore",platData.getPlat_score());
         return data;
     }
 
     @Override
     public Map<String, Object> baseInfo(String platName) {
-        Map<String, Object> data = p2PImageDao.baseInfoWangDaiApi(platName);
-        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(String.valueOf(data.get("公司名称")));
-        ZuZhiJiGoudmDO zuZhiJiGoudmDO = p2PImageDao.baseInfoZuZhiJiGou(String.valueOf(data.get("公司名称")));
+        List<PlatListDO> platListDO = p2PImageDao.baseInfoWangDaiApi(platName);
+        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(String.valueOf(platListDO.get(0).getCompany_name()));
+        ZuZhiJiGoudmDO zuZhiJiGoudmDO = p2PImageDao.baseInfoZuZhiJiGou(String.valueOf(platListDO.get(0).getCompany_name()));
         Map<String, Object> map = new HashMap<>();
         // TODO 接口可能有问题
         for (BaseDataDO.Results result : baseDataDO.getResults()) {
@@ -79,8 +80,8 @@ public class P2PImageServiceImpl implements P2PImageService {
         for (ZuZhiJiGoudmDO.Result result : zuZhiJiGoudmDO.getResults()) {
             map.put("companyCode", result.getJgdm());
         }
-        map.put("platName", data.get("平台名称"));
-        map.put("companyName", data.get("公司名称"));
+        map.put("platName", platListDO.get(0).getPlat_name());
+        map.put("companyName", platListDO.get(0).getCompany_name());
         return map;
     }
 

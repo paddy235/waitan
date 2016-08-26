@@ -9,6 +9,7 @@ import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompanyDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,7 +31,7 @@ public interface P2PImageDao {
 
     Map<String, Object> radarScore(String plat_name);
 
-    Map<String, Object> baseInfoWangDaiApi(String platName);
+    List<PlatListDO> baseInfoWangDaiApi(String platName);
 
     BaseDataDO baseInfoBBDData(String companyName);
 
