@@ -6,6 +6,15 @@ package com.bbd.wtyh.domain;
 public class BuildingNumberInAreaDO {
     private String name;
     private String count;
+    private int areaId;
+
+    public int getAreaId() {
+        return areaId;
+    }
+
+    public void setAreaId(int areaId) {
+        this.areaId = areaId;
+    }
 
     public String getName() {
         return name;

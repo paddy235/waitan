@@ -120,10 +120,10 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
         Map<String, List> companyGroupByAreaMap = new HashMap<>();
         for (CompanyGroupByAreaDO e : companyGroupByArea) {
             if (companyGroupByAreaMap.containsKey(e.getArea())) {
-                companyGroupByAreaMap.get(e.getArea()).add(e.getCompanyName());
+                companyGroupByAreaMap.get(e.getArea()).add(e.getBuildingName());
             } else {
                 List<String> companys = new ArrayList<>();
-                companys.add(e.getCompanyName());
+                companys.add(e.getBuildingName());
                 companyGroupByAreaMap.put(e.getArea(), companys);
             }
         }
@@ -131,6 +131,7 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
         for (BuildingNumberInAreaDO buildingNumberInAreaDO : buildingNumberInArea) {
             Map<String, Object> data = new HashMap<>();
             data.put("num", buildingNumberInAreaDO.getCount());
+            data.put("areaId", buildingNumberInAreaDO.getAreaId());
             data.put("companyName", companyGroupByAreaMap.get(buildingNumberInAreaDO.getName()));
             rst.put(buildingNumberInAreaDO.getName(), data);
         }

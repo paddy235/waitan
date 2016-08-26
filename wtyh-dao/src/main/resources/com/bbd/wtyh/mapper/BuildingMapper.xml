@@ -33,6 +33,7 @@
 
 	<select id="countByArea"  resultType="com.bbd.wtyh.domain.BuildingNumberInAreaDO">
 		SELECT
+			park.area_id AS areaId,
 			park.`name` AS name,
 			COUNT(building.building_id) AS count
 		FROM
@@ -44,13 +45,13 @@
 
 	<select id="companyGroupByArea"  resultType="com.bbd.wtyh.domain.CompanyGroupByAreaDO">
 		SELECT
-			company.`name` AS companyName,
+			building.`name` AS buildingName,
 			park.`name` AS area
 		FROM
 			building
 		LEFT JOIN park ON building.park_id = park.park_id
-		LEFT JOIN company_building ON building.building_id = company_building.building_id
-		LEFT JOIN company ON company_building.company_id = company.company_id
+-- 		LEFT JOIN company_building ON building.building_id = company_building.building_id
+-- 		LEFT JOIN company ON company_building.company_id = company.company_id
 	</select>
 
 </mapper>
