@@ -121,7 +121,7 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
                     data = dataomApiBbdservice.bbdQyxgYuqing("上海");
                 }
 
-                if (!StringUtils.isEmpty(data)) {
+                if (!StringUtils.isEmpty(data) && data.contains("\"total\": 0")) {
                 	logger.info("Set in redis." + data);
                     redisDAO.addObject(Constants.REDIS_KEY_NEWS_DATA, data, Constants.cacheDay, String.class);
                     return data;
