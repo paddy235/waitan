@@ -313,7 +313,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
                 @Override
                 public PlatDataDO parse(String result) {
                     Gson gson = new Gson();
-                    return gson.fromJson(result, PlatDataDO.class);
+                    return gson.fromJson(result, new TypeToken<PlatDataDO>(){}.getType());
                 }
             });
         } catch (Exception e) {

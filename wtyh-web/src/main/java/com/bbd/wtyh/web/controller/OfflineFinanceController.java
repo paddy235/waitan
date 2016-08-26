@@ -399,7 +399,7 @@ public class OfflineFinanceController {
                 new ArrayList<String>());
 
         for (LoanBalanceDTO loanBalanceDTO : loanBalanceResult) {
-            loanDTO.getxAxis().add(loanBalanceDTO.getYear().toString());
+            loanDTO.getxAxis().add(loanBalanceDTO.getYear().toString() + loanBalanceDTO.getMonth().toString());
             loanDTO.getSeries()[0].add(loanBalanceDTO.getAmount().toString());
             loanDTO.getSeries()[1].add(String.valueOf(CalculateUtils.divide(loanBalanceDTO.getAmount(), loanBalanceDTO.getCompanyAmount(), 2)));
         }
