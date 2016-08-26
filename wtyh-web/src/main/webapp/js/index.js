@@ -51736,9 +51736,6 @@
 	                name: param.yAxisName == undefined ? "" : param.yAxisName,
 	                boundaryGap: ["10%", "10%"],
 	                min: 0,
-	                axisLabel: {
-	                    show: false
-	                },
 	                nameGap: param.YnameGap || 8,
 	                nameTextStyle: {
 	                    color: "#7f868e"
@@ -51752,6 +51749,7 @@
 	                    }
 	                },
 	                axisLabel: {
+	                    show: false,
 	                    // formatter: param.xFormatter||"",
 	                    textStyle: {
 	                        color: "#99a3b7",
@@ -55755,7 +55753,7 @@
 	            addAgreeComDet: [],
 	            decreaseAgreeComDet: [],
 	            crtAgreeActNum: 0,
-	            crtAgreeActNum: 0,
+	            cpeAgreeActNum: 0,
 	            //子公司
 	            addChildCompany: [],
 	            decreaseChildCompany: [],
@@ -55769,12 +55767,12 @@
 	            //一度法人
 	            addOneCompany: [],
 	            decreaseOneCompany: [],
-	            crtOnePersonNum: 0,
-	            cpeOnePersonNum: 0,
+	            crtOneCompanyNum: 0,
+	            cpeOneCompanyNum: 0,
 	            //二度自然人
 	            addTwoPerson: [],
 	            decreaseTwoPerson: [],
-	            crtTwoCompanyNum: 0,
+	            crtTwoPersonNum: 0,
 	            cpeTwoPersonNum: 0,
 	            //二度法人
 	            addTwoCompany: [],
@@ -55817,7 +55815,7 @@
 	                addAgreeComDet: relationData.addAgreeComDet,
 	                decreaseAgreeComDet: relationData.decreaseAgreeComDet,
 	                crtAgreeActNum: relationData.crtAgreeActNum,
-	                crtAgreeActNum: relationData.crtAgreeActNum,
+	                cpeAgreeActNum: relationData.cpeAgreeActNum,
 	                //子公司
 	                addChildCompany: relationData.addChildCompany,
 	                decreaseChildCompany: relationData.decreaseChildCompany,
@@ -55831,12 +55829,12 @@
 	                //一度法人
 	                addOneCompany: relationData.addOneCompany,
 	                decreaseOneCompany: relationData.decreaseOneCompany,
-	                crtOnePersonNum: relationData.crtOnePersonNum,
-	                cpeOnePersonNum: relationData.cpeOnePersonNum,
+	                crtOneCompanyNum: relationData.crtOneCompanyNum,
+	                cpeOneCompanyNum: relationData.cpeOneCompanyNum,
 	                //二度自然人
 	                addTwoPerson: relationData.addTwoPerson,
 	                decreaseTwoPerson: relationData.decreaseTwoPerson,
-	                crtTwoCompanyNum: relationData.crtTwoCompanyNum,
+	                crtTwoPersonNum: relationData.crtTwoPersonNum,
 	                cpeTwoPersonNum: relationData.cpeTwoPersonNum,
 	                //二度法人
 	                addTwoCompany: relationData.addTwoCompany,
@@ -76342,6 +76340,7 @@
 	            this.setState({ areaId: menuParkSelectVal.areaId });
 
 	            this.getParkImg(jsonData);
+	            console.log(23444444);
 	        }
 	        //园区图片
 	        var isParkEqual = Immutable.is(nextProps.parkImgResult, this.props.parkImgResult); //判断数据是否变化
@@ -76459,14 +76458,13 @@
 	        }
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var areaId = this.props.location.query.areaId;
-	        console.log(areaId, nextProps.menuParkSelectVal, this.props.menuParkSelectVal, '6666666');
 	        var isSelectValEqual = Immutable.is(nextProps.menuParkSelectVal, this.props.menuParkSelectVal);
 	        if (!isSelectValEqual) {
 	            var menuParkSelectVal = nextProps.menuParkSelectVal;
 
 	            var jsonData = { areaId: menuParkSelectVal.areaId };
 	            this.getParkNews(jsonData);
+	            console.log(666);
 	        }
 	        var isEqual = Immutable.is(nextProps.parkNewsResult, this.props.parkNewsResult); //判断数据是否变化
 	        if (!isEqual) {

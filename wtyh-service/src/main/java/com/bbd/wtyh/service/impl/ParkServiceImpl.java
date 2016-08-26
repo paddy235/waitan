@@ -389,11 +389,11 @@ public class ParkServiceImpl implements ParkService {
 	// 颜色 1:已曝光(黑) 2:高危(红) 3:关注(黄) 4:正常(绿)
 	private byte getIndex(float index){
 		if (index > 70) {
-			return 2;
+			return 2;//2:高危(红)
 		} else if (index >= 60 && index < 70) {
-			return 3;
+			return 3; // 3:关注(黄)
 		} else {
-			return 4;
+			return 4; // 4:正常(绿)
 		}
 	}
 	
