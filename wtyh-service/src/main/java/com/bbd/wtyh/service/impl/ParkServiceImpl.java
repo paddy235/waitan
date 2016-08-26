@@ -4,6 +4,8 @@ import java.util.*;
 
 import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.service.DataomApiBbdservice;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -29,6 +31,8 @@ import com.bbd.wtyh.util.relation.HttpClientUtils;
 @Service
 public class ParkServiceImpl implements ParkService {
 
+
+	private static Logger log = LoggerFactory.getLogger(ParkServiceImpl.class);
 	
 	
 	@Value("${api.baidu.batch.news.url}")
@@ -129,18 +133,25 @@ public class ParkServiceImpl implements ParkService {
 			list.add(new BasicNameValuePair("ak",ak));
 			try {
 				result = HttpClientUtils.httpPost(batchNewsUrl, list );
+
+				log.info("舆情："+batchNewsUrl+" 返回值为:"+result);
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		if( !StringUtils.hasText(result) ){
-			return dataomApiBbdservice.bbdQyxgYuqing("上海自贸区");
+			result = dataomApiBbdservice.bbdQyxgYuqing("上海自贸区");
+			log.info("舆情：上海自贸区 返回值为:"+result);
+			return result;
 		}
 
 		if(result.contains("\"total\": 0")){
-			return dataomApiBbdservice.bbdQyxgYuqing("上海自贸区");
+			result = dataomApiBbdservice.bbdQyxgYuqing("上海自贸区");
+			log.info("舆情：上海自贸区 返回值为:"+result);
+			return result;
 		}
-		
+
 		return result;
 		
 	}
@@ -161,16 +172,19 @@ public class ParkServiceImpl implements ParkService {
 			list.add(new BasicNameValuePair("ak",ak));
 			try {
 				result = HttpClientUtils.httpPost(batchNewsUrl, list );
+				log.info("舆情："+batchNewsUrl+" 返回值为:"+result);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		if( !StringUtils.hasText(result) ){
-			return dataomApiBbdservice.bbdQyxgYuqing("上海自贸区");
+			result = dataomApiBbdservice.bbdQyxgYuqing("上海自贸区");
+			log.info("舆情：上海自贸区 返回值为:"+result);
 		}
 
 		if(result.contains("\"total\": 0")){
-			return dataomApiBbdservice.bbdQyxgYuqing("上海自贸区");
+			result = dataomApiBbdservice.bbdQyxgYuqing("上海自贸区");
+			log.info("舆情：上海自贸区 返回值为:"+result);
 		}
 
 		return result;
