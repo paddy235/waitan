@@ -45,7 +45,6 @@
 			var nowEleId = $(this.element).attr('id');
 			var acId = that.autoParam.acId;
 			$('body').on('click', function(e) {
-				// var nowClickId = $(e.target).parent().parent()[0].id;
 				var nowClickId = e.target.id;
 				if (nowEleId == nowClickId) {
 					that.show();
@@ -151,7 +150,7 @@
 		},
 		hide: function() {
 			var acClass = this.autoParam.acClass;
-			$('.' + acClass).hide();
+			$('.' + acClass).html("").hide();
 		},
 		setPos: function() {
 			var acClass = this.autoParam.acClass;
@@ -172,7 +171,6 @@
 			var $resultLi = $('.' + acClass).find('ul li');
 			// $resultLi.each(function() {
 			$('.' + acClass).find('ul li').unbind('click').on('click', function() {
-				console.log("click测试====================")
 				var key = $(this).data('key');
 				var keyCompany = $(this).data('company');
 				var isgroup = $(this).hasClass('group');
