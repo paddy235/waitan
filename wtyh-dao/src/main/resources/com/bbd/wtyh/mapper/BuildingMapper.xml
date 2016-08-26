@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bbd.wtyh.mapper.BuildingMapper">
-  
+
     <select id="queryBuildings" parameterType="int" resultType="com.bbd.wtyh.domain.BuildingDO">
 
 			select b.building_id buildingId,
@@ -17,9 +17,9 @@
 			      b.park_id=p.park_id and p.area_id=#{areaId}
 			GROUP BY b.building_id ,b.name,b.park_id,b.img_url
 	</select>
-	
 
-	<select id="buildingNews" resultType="com.bbd.wtyh.domain.CompanyNewsDO">
+
+    <select id="buildingNews" resultType="com.bbd.wtyh.domain.CompanyNewsDO">
 			select cn.news_id id,cn.company_id companyId,cn.title,cn.content,
 			       cn.date,cn.url,cn.create_date createDate,cn.from_site fromSite
 			       
@@ -31,7 +31,7 @@
 			order by cn.create_date desc
 	</select>
 
-	<select id="countByArea"  resultType="com.bbd.wtyh.domain.BuildingNumberInAreaDO">
+    <select id="countByArea" resultType="com.bbd.wtyh.domain.BuildingNumberInAreaDO">
 		SELECT
 			park.area_id AS areaId,
 			park.`name` AS name,
@@ -43,7 +43,7 @@
 			building.park_id
 	</select>
 
-	<select id="companyGroupByArea"  resultType="com.bbd.wtyh.domain.CompanyGroupByAreaDO">
+    <select id="companyGroupByArea" resultType="com.bbd.wtyh.domain.CompanyGroupByAreaDO">
 		SELECT
 			building.`name` AS buildingName,
 			park.`name` AS area
@@ -52,6 +52,17 @@
 		LEFT JOIN park ON building.park_id = park.park_id
 -- 		LEFT JOIN company_building ON building.building_id = company_building.building_id
 -- 		LEFT JOIN company ON company_building.company_id = company.company_id
+	</select>
+
+    <select id="countCompanyByArea" resultType="com.bbd.wtyh.domain.CountCompanyByAreaDO">
+		SELECT
+		COUNT(company_building.building_id) AS count,
+		park.`name` AS area
+		FROM
+		building
+		LEFT JOIN park ON building.park_id = park.park_id
+		LEFT JOIN company_building ON building.building_id = company_building.building_id
+		-- 		LEFT JOIN company ON company_building.company_id = company.company_id
 	</select>
 
 </mapper>

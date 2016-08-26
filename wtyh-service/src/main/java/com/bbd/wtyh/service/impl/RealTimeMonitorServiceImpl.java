@@ -4,10 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.dao.RealTimeMonitorDao;
-import com.bbd.wtyh.domain.BuildingNumberInAreaDO;
-import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
-import com.bbd.wtyh.domain.CompanyGroupByAreaDO;
-import com.bbd.wtyh.domain.RelatedCompanyStatisticDO;
+import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.dto.StaticRiskDTO;
 import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
 import com.bbd.wtyh.mapper.*;
@@ -116,6 +113,7 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
     public Map<String, Map> shArea() {
         List<BuildingNumberInAreaDO> buildingNumberInArea = buildingMapper.countByArea();
         List<CompanyGroupByAreaDO> companyGroupByArea = buildingMapper.companyGroupByArea();
+        List<CountCompanyByAreaDO> countCompanyByArea = buildingMapper.countCompanyByArea();
 
         Map<String, List> companyGroupByAreaMap = new HashMap<>();
         for (CompanyGroupByAreaDO e : companyGroupByArea) {
@@ -127,12 +125,19 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
                 companyGroupByAreaMap.put(e.getArea(), companys);
             }
         }
+
+        Map<String, String> countCompanyByAreaMap = new HashMap<>();
+        for (CountCompanyByAreaDO e : countCompanyByArea) {
+            countCompanyByAreaMap.put(e.getArea(), e.getCount());
+        }
+
         Map<String, Map> rst = new HashMap<>();
         for (BuildingNumberInAreaDO buildingNumberInAreaDO : buildingNumberInArea) {
             Map<String, Object> data = new HashMap<>();
             data.put("num", buildingNumberInAreaDO.getCount());
             data.put("areaId", buildingNumberInAreaDO.getAreaId());
-            data.put("companyName", companyGroupByAreaMap.get(buildingNumberInAreaDO.getName()));
+            data.put("buildingName", companyGroupByAreaMap.get(buildingNumberInAreaDO.getName()));
+            data.put("companyNum", countCompanyByAreaMap.get(buildingNumberInAreaDO.getName()));
             rst.put(buildingNumberInAreaDO.getName(), data);
         }
         return rst;
