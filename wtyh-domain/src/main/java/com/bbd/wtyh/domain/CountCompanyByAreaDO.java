@@ -3,16 +3,16 @@ package com.bbd.wtyh.domain;
 /**
  * Created by YanWenyuan on 2016/8/19.
  */
-public class CompanyGroupByAreaDO {
-    private String buildingName;
+public class CountCompanyByAreaDO {
+    private String count;
     private String area;
 
-    public String getBuildingName() {
-        return buildingName;
+    public String getCount() {
+        return count;
     }
 
-    public void setBuildingName(String buildingName) {
-        this.buildingName = buildingName;
+    public void setCount(String count) {
+        this.count = count;
     }
 
     public String getArea() {

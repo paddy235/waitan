@@ -6,6 +6,7 @@ import java.math.BigDecimal;
  * 计算工具类
  */
 public class CalculateUtils {
+
     /**
      * @Description: 封装除法
      * @param bcs 被除数
@@ -56,5 +57,10 @@ public class CalculateUtils {
             return 0.0;
         }
         return new BigDecimal(""+wan).divide(new BigDecimal("10000"),1,BigDecimal.ROUND_HALF_UP).doubleValue();
+    }
+
+    public static String decimalFormat (float x) {
+        java.text.DecimalFormat df = new java.text.DecimalFormat("#0.00");
+        return df.format(x);
     }
 }
