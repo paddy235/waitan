@@ -18,5 +18,4 @@
     <!-- 启用对事务的注解支持 -->
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 
-
 </beans>

@@ -4,6 +4,8 @@ import java.util.*;
 
 import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.service.DataomApiBbdservice;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -29,6 +31,8 @@ import com.bbd.wtyh.util.relation.HttpClientUtils;
 @Service
 public class ParkServiceImpl implements ParkService {
 
+
+	private static Logger log = LoggerFactory.getLogger(ParkServiceImpl.class);
 	
 	
 	@Value("${api.baidu.batch.news.url}")
@@ -129,18 +133,25 @@ public class ParkServiceImpl implements ParkService {
 			list.add(new BasicNameValuePair("ak",ak));
 			try {
 				result = HttpClientUtils.httpPost(batchNewsUrl, list );
+
+				log.info("舆情："+batchNewsUrl+" 返回值为:"+result);
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		if( !StringUtils.hasText(result) ){
-			return dataomApiBbdservice.bbdQyxgYuqing("上海自贸区");
+			result = dataomApiBbdservice.bbdQyxgYuqing("上海自贸区");
+			log.info("舆情：上海自贸区 返回值为:"+result);
+			return result;
 		}
 
 		if(result.contains("\"total\": 0")){
-			return dataomApiBbdservice.bbdQyxgYuqing("上海自贸区");
+			result = dataomApiBbdservice.bbdQyxgYuqing("上海自贸区");
+			log.info("舆情：上海自贸区 返回值为:"+result);
+			return result;
 		}
-		
+
 		return result;
 		
 	}
@@ -161,16 +172,19 @@ public class ParkServiceImpl implements ParkService {
 			list.add(new BasicNameValuePair("ak",ak));
 			try {
 				result = HttpClientUtils.httpPost(batchNewsUrl, list );
+				log.info("舆情："+batchNewsUrl+" 返回值为:"+result);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		if( !StringUtils.hasText(result) ){
-			return dataomApiBbdservice.bbdQyxgYuqing("上海自贸区");
+			result = dataomApiBbdservice.bbdQyxgYuqing("上海自贸区");
+			log.info("舆情：上海自贸区 返回值为:"+result);
 		}
 
 		if(result.contains("\"total\": 0")){
-			return dataomApiBbdservice.bbdQyxgYuqing("上海自贸区");
+			result = dataomApiBbdservice.bbdQyxgYuqing("上海自贸区");
+			log.info("舆情：上海自贸区 返回值为:"+result);
 		}
 
 		return result;
@@ -289,16 +303,23 @@ public class ParkServiceImpl implements ParkService {
 
 	@Override
 	public List<CompanyTypeCountDO> buildingBackground(Integer buildingId) {
-		
+
+		List<CompanyDO> data = buildingCompany(buildingId,null,"asc");
+
 		List<CompanyTypeCountDO> list = new ArrayList<>();
-		
-		CompanyTypeCountDO gq = companyMapper.buildingBackground(buildingId,CompanyBackgroundDO.Bg.Gq.val);
+		CompanyTypeCountDO gq = new CompanyTypeCountDO();
 		gq.setType(CompanyBackgroundDO.Bg.Gq.CN);
 		list.add(gq);
-		
-		CompanyTypeCountDO myqy = companyMapper.buildingBackground(buildingId,CompanyBackgroundDO.Bg.Myqy.val);
+		CompanyTypeCountDO myqy = new CompanyTypeCountDO();
 		myqy.setType(CompanyBackgroundDO.Bg.Myqy.CN);
 		list.add(myqy);
+		for (CompanyDO cdo:data) {
+			if(cdo.getBackground()==3){
+				gq.setCount(gq.getCount()+1);
+			}else{
+				myqy.setCount(myqy.getCount()+1);
+			}
+		}
 		
 		return list;
 	}
@@ -317,6 +338,7 @@ public class ParkServiceImpl implements ParkService {
 		List<CompanyAnalysisResultDO> other_234 = new ArrayList();
 
 		for (CompanyAnalysisResultDO car : list) {
+			log.info("企业名称："+car.getName());
 			if(car.getAnalysisResult()!=null && car.getAnalysisResult() == 1){
 				black_1.add(car);
 			}else{
@@ -375,11 +397,11 @@ public class ParkServiceImpl implements ParkService {
 	// 颜色 1:已曝光(黑) 2:高危(红) 3:关注(黄) 4:正常(绿)
 	private byte getIndex(float index){
 		if (index > 70) {
-			return 2;
+			return 2;//2:高危(红)
 		} else if (index >= 60 && index < 70) {
-			return 3;
+			return 3; // 3:关注(黄)
 		} else {
-			return 4;
+			return 4; // 4:正常(绿)
 		}
 	}
 	

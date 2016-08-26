@@ -21,7 +21,7 @@
 
     <select id="getSpectrumAnalysis" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List"/>, exposure_date AS exposureDate
         from company_analysis_result, company
         where analysis_result = #{type,jdbcType=INTEGER} AND company.company_id = company_analysis_result.company_id
     </select>
