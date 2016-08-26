@@ -9,6 +9,8 @@ import com.bbd.wtyh.util.relation.HttpClientUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -91,10 +93,14 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
 
         return result;
     }
+    
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    
     @Override
     public String getCompanyNews() {
         String companyNewsJsonData = (String)redisDAO.getObject(Constants.REDIS_KEY_NEWS_DATA);
         if (!StringUtils.isEmpty(companyNewsJsonData)) {
+        	logger.info("Get in redis." + companyNewsJsonData);
             return companyNewsJsonData;
         } else {
             String names = companyMapper.queryCompanyNames(null, null);
@@ -109,10 +115,12 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
             try {
                 String data = HttpClientUtils.httpPost(batchNewsUrl, list);
                 if (!StringUtils.isEmpty(data)) {
+                	logger.info("Set in redis." + data);
                     redisDAO.addObject(Constants.REDIS_KEY_NEWS_DATA, data, Constants.cacheDay, String.class);
                     return data;
                 }
             } catch (Exception e) {
+            	logger.error(e.getMessage());
                 e.printStackTrace();
             }
         }
