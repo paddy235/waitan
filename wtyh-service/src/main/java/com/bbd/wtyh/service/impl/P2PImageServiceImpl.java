@@ -14,6 +14,7 @@ import com.sun.org.apache.xpath.internal.SourceTree;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -99,7 +100,8 @@ public class P2PImageServiceImpl implements P2PImageService {
         List<String> amounts = new ArrayList<>();
         for (PlatDataDO.PlatDataSixMonth pdsm : platDataSixMonth) {
             days.add(pdsm.getDate());
-            amounts.add(String.valueOf(pdsm.getDay_amount()));
+            BigDecimal dayAmount = new BigDecimal(String.valueOf(pdsm.getDay_amount()));
+            amounts.add(dayAmount.toPlainString());
         }
         
         List<List<String>> result = new ArrayList<>();
@@ -135,7 +137,8 @@ public class P2PImageServiceImpl implements P2PImageService {
         List<String> loanOverages = new ArrayList<>();
         for (PlatDataDO.PlatDataSixMonth pdsm : platDataSixMonth) {
             days.add(pdsm.getDate());
-            loanOverages.add(String.valueOf(pdsm.getDay_money_stock()));
+            BigDecimal dayAmount = new BigDecimal(String.valueOf(pdsm.getDay_money_stock()));
+            loanOverages.add(dayAmount.toPlainString());
         }
 
         List<List<String>> result = new ArrayList<>();
