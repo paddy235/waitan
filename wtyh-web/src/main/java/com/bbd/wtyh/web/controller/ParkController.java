@@ -172,7 +172,7 @@ public class ParkController {
          public ResponseBean buildingBackground(@RequestParam(required=true) Integer buildingId) {
 
          	List<CompanyTypeCountDO> data = parkService.buildingBackground(buildingId);
-             
+
             return ResponseBean.successResponse(data);
          }
          

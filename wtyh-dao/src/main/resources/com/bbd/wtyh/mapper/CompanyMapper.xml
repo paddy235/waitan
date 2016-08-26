@@ -77,7 +77,7 @@
 
     <select id="buildingBackground" resultType="com.bbd.wtyh.domain.CompanyTypeCountDO">
    		
-   		select count(*) count from company com , company_building cb , company_background cbg  where    			
+   		select count( DISTINCT com.name) count from company com , company_building cb , company_background cbg  where
    			cb.company_id=com.company_id and 
    			com.company_id=cbg.company_id and
    			cb.building_id=#{buildingId} and 

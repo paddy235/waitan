@@ -303,16 +303,23 @@ public class ParkServiceImpl implements ParkService {
 
 	@Override
 	public List<CompanyTypeCountDO> buildingBackground(Integer buildingId) {
-		
+
+		List<CompanyDO> data = buildingCompany(buildingId,null,"asc");
+
 		List<CompanyTypeCountDO> list = new ArrayList<>();
-		
-		CompanyTypeCountDO gq = companyMapper.buildingBackground(buildingId,CompanyBackgroundDO.Bg.Gq.val);
+		CompanyTypeCountDO gq = new CompanyTypeCountDO();
 		gq.setType(CompanyBackgroundDO.Bg.Gq.CN);
 		list.add(gq);
-		
-		CompanyTypeCountDO myqy = companyMapper.buildingBackground(buildingId,CompanyBackgroundDO.Bg.Myqy.val);
+		CompanyTypeCountDO myqy = new CompanyTypeCountDO();
 		myqy.setType(CompanyBackgroundDO.Bg.Myqy.CN);
 		list.add(myqy);
+		for (CompanyDO cdo:data) {
+			if(cdo.getBackground()==3){
+				gq.setCount(gq.getCount()+1);
+			}else{
+				myqy.setCount(myqy.getCount()+1);
+			}
+		}
 		
 		return list;
 	}
@@ -331,6 +338,7 @@ public class ParkServiceImpl implements ParkService {
 		List<CompanyAnalysisResultDO> other_234 = new ArrayList();
 
 		for (CompanyAnalysisResultDO car : list) {
+			log.info("企业名称："+car.getName());
 			if(car.getAnalysisResult()!=null && car.getAnalysisResult() == 1){
 				black_1.add(car);
 			}else{
