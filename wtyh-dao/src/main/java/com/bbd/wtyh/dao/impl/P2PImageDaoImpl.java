@@ -141,12 +141,12 @@ public class P2PImageDaoImpl implements P2PImageDao {
         }
         List<List<Object>> series = new ArrayList<>();
         List<Object> serie = new ArrayList<>();
-        serie.add(source.get("违约成本"));
-        serie.add(source.get("信息披露"));
-        serie.add(source.get("资本充足"));
         serie.add(source.get("运营能力"));
-        serie.add(source.get("流动性"));
+        serie.add(source.get("违约成本"));
         serie.add(source.get("分散度"));
+        serie.add(source.get("资本充足"));
+        serie.add(source.get("流动性"));
+        serie.add(source.get("信息披露"));
         series.add(serie);
         result.put("indicator", indicator);
         result.put("series", series);
