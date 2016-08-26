@@ -401,7 +401,7 @@ public class OfflineFinanceController {
                 new ArrayList<String>());
 
         for (LoanBalanceDTO loanBalanceDTO : loanBalanceResult) {
-            loanDTO.getxAxis().add(loanBalanceDTO.getYear().toString() + loanBalanceDTO.getMonth().toString());
+            loanDTO.getxAxis().add(loanBalanceDTO.getYear().toString() + "-" + loanBalanceDTO.getMonth().toString());
             loanDTO.getSeries()[0].add(loanBalanceDTO.getAmount().toString());
             loanDTO.getSeries()[1].add(String.valueOf(CalculateUtils.divide(loanBalanceDTO.getAmount(), loanBalanceDTO.getCompanyAmount(), 2)));
         }
@@ -415,7 +415,7 @@ public class OfflineFinanceController {
 
         for (CapitalAmountDO capitalAmountDO : capitalAmountList) {
             privateDTO.getxAxis().add(privateFundService.getTypeById(capitalAmountDO.getTypeId()).getTypeName());
-            privateDTO.getSeries()[0].add(capitalAmountDO.getManagedCapitalAmount().toString());
+            privateDTO.getSeries()[0].add(CalculateUtils.decimalFormat(capitalAmountDO.getManagedCapitalAmount() * 10000));
             privateDTO.getSeries()[1].add(capitalAmountDO.getPublishCompanyNumber().toString());
         }
         //p2p
