@@ -141,7 +141,7 @@ public class PToPMonitorController {
     	List<Map<String, Object>> data = new ArrayList<>();
     	for (Map.Entry<String, Object> entry: maxDto.getArea_num().entrySet()) {
     		Map<String, Object> areaNum = new HashMap<>();
-    		areaNum.put("name", entry.getKey());
+    		areaNum.put("name", entry.getKey()+(entry.getKey().endsWith("区")?"":"区"));
     		areaNum.put("value", entry.getValue());
 			data.add(areaNum);
 		}
@@ -192,37 +192,45 @@ public class PToPMonitorController {
     /**
      * 行业人气
      *
-     * @return XAxisSeriesLinesDO<Integer>
+     * @return XAxisSeriesLinesDO<Double>
      */
-    public XAxisSeriesLinesBean<Integer,String> popularity(List<IndustryShanghaiDTO> list){
+    public XAxisSeriesLinesBean<Double,String> popularity(List<IndustryShanghaiDTO> list){
     	
     	@SuppressWarnings("unchecked")
-		XAxisSeriesLinesBean<Integer,String> data = new XAxisSeriesLinesBean<>(
-								    			new ArrayList<Integer>(),
-								    			new ArrayList<Integer>());
+		XAxisSeriesLinesBean<Double,String> data = new XAxisSeriesLinesBean<>(
+								    			new ArrayList<Double>(),
+								    			new ArrayList<Double>());
     	data.setTitle("行业人气");
     	if(CollectionUtils.isEmpty(list) ){
     		return data;
     	}
     	
-    	Map<String, Integer[]> map = new TreeMap<>();
+    	Map<String, Double[]> map = new TreeMap<>();
     	
     	for (IndustryShanghaiDTO dto : list) {
-			
-    		Integer[] as = map.get(dto.getDate());
+
+			Double[] as = map.get(dto.getDate());
     		if(as == null){
-    			as = new Integer[]{0,0};
+    			as = new Double[]{0.0,0.0};
     		}
     		as[0] += dto.getInvest_num();
     		as[1] += dto.getBorrowed_num();
     		map.put(dto.getDate(), as);
 		}
+
+		for (Map.Entry entry :map.entrySet()) {
+			Double[] as = (Double[])entry.getValue();
+			as[0] = CalculateUtils.divide(as[0],10000,2);
+			as[1] = CalculateUtils.divide(as[1],10000,2);
+			entry.setValue(as);
+		}
+
     	
     	data.getxAxis().addAll(map.keySet());
     	
-    	Iterator<Integer[]> it = map.values().iterator();
+    	Iterator<Double[]> it = map.values().iterator();
     	while(it.hasNext()){
-    		Integer[] lines = it.next();
+			Double[] lines = it.next();
     		data.getSeries()[0].add(lines[0]);
     		data.getSeries()[1].add(lines[1]);
     	}
