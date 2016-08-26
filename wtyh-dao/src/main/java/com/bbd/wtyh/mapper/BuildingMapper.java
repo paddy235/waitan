@@ -2,10 +2,7 @@ package com.bbd.wtyh.mapper;
 
 import java.util.List;
 
-import com.bbd.wtyh.domain.BuildingDO;
-import com.bbd.wtyh.domain.BuildingNumberInAreaDO;
-import com.bbd.wtyh.domain.CompanyGroupByAreaDO;
-import com.bbd.wtyh.domain.CompanyNewsDO;
+import com.bbd.wtyh.domain.*;
 
 public interface BuildingMapper {
 
@@ -18,4 +15,6 @@ public interface BuildingMapper {
     List<BuildingNumberInAreaDO> countByArea();
 
     List<CompanyGroupByAreaDO> companyGroupByArea();
+
+    List<CountCompanyByAreaDO> countCompanyByArea();
 }
