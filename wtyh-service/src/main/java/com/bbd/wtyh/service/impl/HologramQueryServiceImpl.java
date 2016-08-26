@@ -1,5 +1,6 @@
 package com.bbd.wtyh.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.bbd.wtyh.dao.HologramQueryDao;
 import com.bbd.wtyh.domain.bbdAPI.*;
 import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDO;
@@ -7,9 +8,11 @@ import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.CourtAnnouncementDO;
 import com.bbd.wtyh.domain.bbdAPI.IndustryCodeDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
+import com.bbd.wtyh.service.DataomApiBbdservice;
 import com.bbd.wtyh.service.HologramQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.*;
 
@@ -23,6 +26,9 @@ import java.util.*;
 public class HologramQueryServiceImpl implements HologramQueryService {
     @Autowired
     private HologramQueryDao hologramQueryDao;
+
+    @Autowired
+    private DataomApiBbdservice dabservice;
 
     @Override
     public SearchComanyDO search(String company, int page_no, int page_size) {
@@ -60,15 +66,39 @@ public class HologramQueryServiceImpl implements HologramQueryService {
     @Override
     public Map<String, Object> newsConsensus(String company) {
         BaiDuYuQingDO baiDuYuQingDO = hologramQueryDao.newsConsensus(company);
+
+        if(StringUtils.hasText(baiDuYuQingDO.getTotal()) || "0".equals(baiDuYuQingDO.getTotal().trim())){
+            String data = dabservice.bbdQyxgYuqing("上海");
+            baiDuYuQingDO = JSON.parseObject(data,BaiDuYuQingDO.class);
+        }
+
         Map<String, Object> data = new HashMap<>();
         for (BaiDuYuQingDO.Results result : baiDuYuQingDO.getResults()) {
             data.put("title", result.getNews_title());
-            data.put("content", result.getContent());
+            data.put("content", result.getMain());
             data.put("newsSite", result.getNews_site());
             data.put("pubDate", result.getPubdate());
         }
         return data;
     }
+
+    @Override
+    public BaiDuYuQingDO newsConsensusList(String company) {
+        BaiDuYuQingDO baiDuYuQingDO = hologramQueryDao.newsConsensus(company);
+
+        if(StringUtils.hasText(baiDuYuQingDO.getTotal()) || "0".equals(baiDuYuQingDO.getTotal().trim())){
+            String data = dabservice.bbdQyxgYuqing("上海");
+            baiDuYuQingDO = JSON.parseObject(data,BaiDuYuQingDO.class);
+        }
+
+        return baiDuYuQingDO;
+    }
+
+
+
+
+
+
 
     @Override
     public Map<String, Object> businessInfo(String companyName) {

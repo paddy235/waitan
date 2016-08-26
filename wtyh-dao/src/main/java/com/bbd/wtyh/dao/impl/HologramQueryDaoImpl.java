@@ -6,9 +6,9 @@ import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.dao.HologramQueryDao;
 import com.bbd.wtyh.domain.bbdAPI.*;
 import com.google.gson.Gson;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -92,6 +92,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
 
     @Value("${api.bbdlog.ak}")
     private String bbdLogoAK;
+
 
     /**
      * 信息查询平台搜索
@@ -181,6 +182,9 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     @Override
     public BaiDuYuQingDO newsConsensus(String company) {
         String api = baiduYuQingURL + "?company=" + company + "&ak=" + baiduYuqingAK;
+
+
+
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(api, new HttpCallback<BaiDuYuQingDO>() {
@@ -191,6 +195,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
 
                 @Override
                 public BaiDuYuQingDO parse(String result) {
+
                     return JSON.parseObject(result, BaiDuYuQingDO.class);
                 }
             });
@@ -198,6 +203,9 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
             e.printStackTrace();
             return null;
         }
+
+
+
     }
 
     /**
