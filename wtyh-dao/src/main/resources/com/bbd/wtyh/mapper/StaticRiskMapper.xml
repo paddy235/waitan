@@ -244,6 +244,19 @@
         LIMIT 1;
     </select>
 
+
+    <select id="queryCapitalBgRisk" parameterType="java.lang.String" resultType="java.lang.Float">
+        SELECT
+        capital_bg_risk
+        FROM
+        static_risk_data
+        WHERE
+        company_name = #{companyName}
+        ORDER BY
+        data_version DESC
+        LIMIT 1;
+    </select>
+
     <select id="maxDataVersion" resultType="java.lang.String">
         SELECT
 			MAX(data_version)

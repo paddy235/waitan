@@ -4,10 +4,13 @@ import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.CompanyNewsService;
+import com.bbd.wtyh.service.DataomApiBbdservice;
 import com.bbd.wtyh.util.relation.HttpClientUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -36,6 +39,9 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
     @Value("${api.baidu.batch.news.url}")
     private String batchNewsUrl;
 
+    @Autowired
+    private DataomApiBbdservice dataomApiBbdservice;
+
     /**
      * @param url        地址
      * @param company    公司名称
@@ -50,6 +56,8 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
 
     @Override
     public String getCompanyNews(String company) {
+        String result = null;
+
         try {
             String companyNewsJsonData = (String)redisDAO.getObject(Constants.REDIS_KEY_NEWS_DATA);
             if (!StringUtils.isEmpty(companyNewsJsonData)) {
@@ -57,13 +65,15 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
             } else {
                 if (!StringUtils.isEmpty(company)) {
                     List<NameValuePair> list = new ArrayList<>();
-                    list.add(new BasicNameValuePair("keys", company + ",DCM投资管理咨询（北京）有限公司上海分公司,GMS中国办事处,I.TCHINA,《国际金融报》社有限公司,一创（上海）投资管理中心（有限合伙）,一半堂投资管理（上海）有限公司,一尘（上海）投资管理有限公司,一忆（上海）股权投资管理有限公司,一思资产管理（上海）有限公司,一村资产管理有限公司,一村资本有限公司,一欣投资管理（上海）有限公司,一济投资管理有限公司,一溪投资管理（上海）有限公司,一炫定稚资产管理（上海）有限公司,一片蓝（上海）投资管理合伙企业（有限合伙）,一翼（上海）互联网金融信息服务有限公司,一诺千诚投资管理（上海）有限公司,一诺千诚金融信息服务（上海）有限公司,一财众联财富管理有限公司,一财长富资产管理有限公司"));
+                    list.add(new BasicNameValuePair("keys", company));
                     list.add(new BasicNameValuePair("ktype", "" + ktype));
                     list.add(new BasicNameValuePair("pageSize", "20"));
                     list.add(new BasicNameValuePair("page", "1"));
                     list.add(new BasicNameValuePair("ak", ak));
                     try {
-                        return HttpClientUtils.httpPost(batchNewsUrl, list);
+                        result = HttpClientUtils.httpPost(batchNewsUrl, list);
+
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -72,30 +82,46 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+
+        if( !org.springframework.util.StringUtils.hasText(result) ){
+            return dataomApiBbdservice.bbdQyxgYuqing("上海自贸区");
+        }
+
+        if(result.contains("\"total\": 0")){
+            return dataomApiBbdservice.bbdQyxgYuqing("上海自贸区");
+        }
+
+        return result;
     }
+    
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    
     @Override
     public String getCompanyNews() {
         String companyNewsJsonData = (String)redisDAO.getObject(Constants.REDIS_KEY_NEWS_DATA);
         if (!StringUtils.isEmpty(companyNewsJsonData)) {
+        	logger.info("Get in redis." + companyNewsJsonData);
             return companyNewsJsonData;
         } else {
             String names = companyMapper.queryCompanyNames(null, null);
+            logger.info("Query company names." + names);
             if(StringUtils.isEmpty(names)){
                 return null;
             }
             List<NameValuePair> list = new ArrayList<>();
-            list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1) +",DCM投资管理咨询（北京）有限公司上海分公司,GMS中国办事处,I.TCHINA,《国际金融报》社有限公司,一创（上海）投资管理中心（有限合伙）,一半堂投资管理（上海）有限公司,一尘（上海）投资管理有限公司,一忆（上海）股权投资管理有限公司,一思资产管理（上海）有限公司,一村资产管理有限公司,一村资本有限公司,一欣投资管理（上海）有限公司,一济投资管理有限公司,一溪投资管理（上海）有限公司,一炫定稚资产管理（上海）有限公司,一片蓝（上海）投资管理合伙企业（有限合伙）,一翼（上海）互联网金融信息服务有限公司,一诺千诚投资管理（上海）有限公司,一诺千诚金融信息服务（上海）有限公司,一财众联财富管理有限公司,一财长富资产管理有限公司"   ));
+            list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1) ));
             list.add(new BasicNameValuePair("ktype", ""+ktype));
             list.add(new BasicNameValuePair("pageSize", "100"));
             list.add(new BasicNameValuePair("ak",ak));
             try {
                 String data = HttpClientUtils.httpPost(batchNewsUrl, list);
                 if (!StringUtils.isEmpty(data)) {
+                	logger.info("Set in redis." + data);
                     redisDAO.addObject(Constants.REDIS_KEY_NEWS_DATA, data, Constants.cacheDay, String.class);
                     return data;
                 }
             } catch (Exception e) {
+            	logger.error("Method getCompanyNews get Exception." + e.getMessage());
                 e.printStackTrace();
             }
         }

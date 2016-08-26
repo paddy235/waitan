@@ -10,9 +10,11 @@ import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompanyDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
 import com.bbd.wtyh.service.P2PImageService;
+import com.sun.org.apache.xpath.internal.SourceTree;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -29,13 +31,13 @@ public class P2PImageServiceImpl implements P2PImageService {
     @Override
     public Map<String, Object> platFormStatus(String platName) {
         PlatDataDO pn = p2PImageDao.getPlatData(platName);
-        PlatListDO platListDO = p2PImageDao.wangDaiLogo(platName);
+        List<PlatListDO> platListDO = p2PImageDao.baseInfoWangDaiApi(platName);
         Map<String, Object> result = new LinkedHashMap<>();
-        if (platListDO.getLogo_url()==null) {
+        if (platListDO.get(0).getLogo_url()==null) {
             result.put("logo", null);
         }
 //        result.put("logo", platListDO.getLogo_url());//logo
-        result.put("logo", null);//logo
+        result.put("logo", platListDO.get(0).getLogo_url());//logo
         result.put("score",pn.getPlat_score()); // 评分
         result.put("platname",pn.getPlat_name()); // 平台名称
         result.put("status",pn.getPlat_status()); // 营业状态
@@ -56,16 +58,16 @@ public class P2PImageServiceImpl implements P2PImageService {
     @Override
     public Map<String, Object> radarScore(String platName) {
         PlatDataDO platData = p2PImageDao.getPlatData(platName);
-        Map<String, Object> data = p2PImageDao.radarScore(platName         );
+        Map<String, Object> data = p2PImageDao.radarScore(platName);
         data.put("sumScore",platData.getPlat_score());
         return data;
     }
 
     @Override
     public Map<String, Object> baseInfo(String platName) {
-        Map<String, Object> data = p2PImageDao.baseInfoWangDaiApi(platName);
-        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(String.valueOf(data.get("公司名称")));
-        ZuZhiJiGoudmDO zuZhiJiGoudmDO = p2PImageDao.baseInfoZuZhiJiGou(String.valueOf(data.get("公司名称")));
+        List<PlatListDO> platListDO = p2PImageDao.baseInfoWangDaiApi(platName);
+        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(String.valueOf(platListDO.get(0).getCompany_name()));
+        ZuZhiJiGoudmDO zuZhiJiGoudmDO = p2PImageDao.baseInfoZuZhiJiGou(String.valueOf(platListDO.get(0).getCompany_name()));
         Map<String, Object> map = new HashMap<>();
         // TODO 接口可能有问题
         for (BaseDataDO.Results result : baseDataDO.getResults()) {
@@ -79,8 +81,8 @@ public class P2PImageServiceImpl implements P2PImageService {
         for (ZuZhiJiGoudmDO.Result result : zuZhiJiGoudmDO.getResults()) {
             map.put("companyCode", result.getJgdm());
         }
-        map.put("platName", data.get("平台名称"));
-        map.put("companyName", data.get("公司名称"));
+        map.put("platName", platListDO.get(0).getPlat_name());
+        map.put("companyName", platListDO.get(0).getCompany_name());
         return map;
     }
 
@@ -98,12 +100,21 @@ public class P2PImageServiceImpl implements P2PImageService {
         List<String> amounts = new ArrayList<>();
         for (PlatDataDO.PlatDataSixMonth pdsm : platDataSixMonth) {
             days.add(pdsm.getDate());
-            amounts.add(String.valueOf(pdsm.getDay_amount()));
+            BigDecimal dayAmount = new BigDecimal(String.valueOf(pdsm.getDay_amount()));
+            amounts.add(dayAmount.toPlainString());
         }
         
         List<List<String>> result = new ArrayList<>();
-        result.add(days);
-        result.add(amounts);
+        Collections.reverse(days);
+        Collections.reverse(amounts);
+        List<String> days1 = new ArrayList<>();
+        List<String> amounts1 = new ArrayList<>();
+        for (int i=0; i<15; i++) {
+            days1.add(days.get(i));
+            amounts1.add(amounts.get(i));
+        }
+        result.add(days1);
+        result.add(amounts1);
         return result;
     }
 
@@ -118,10 +129,17 @@ public class P2PImageServiceImpl implements P2PImageService {
             days.add(pdsm.getDate());
             interestRates.add(String.valueOf(pdsm.getDay_interest_rate()));
         }
-
+        Collections.reverse(days);
+        Collections.reverse(interestRates);
+        List<String> days1 = new ArrayList<>();
+        List<String> interestRates1 = new ArrayList<>();
+        for (int i=0; i<15; i++) {
+            days1.add(days.get(i));
+            interestRates1.add(interestRates.get(i));
+        }
         List<List<String>> result = new ArrayList<>();
-        result.add(days);
-        result.add(interestRates);
+        result.add(days1);
+        result.add(interestRates1);
         return result;
     }
 
@@ -134,12 +152,20 @@ public class P2PImageServiceImpl implements P2PImageService {
         List<String> loanOverages = new ArrayList<>();
         for (PlatDataDO.PlatDataSixMonth pdsm : platDataSixMonth) {
             days.add(pdsm.getDate());
-            loanOverages.add(String.valueOf(pdsm.getDay_money_stock()));
+            BigDecimal dayAmount = new BigDecimal(String.valueOf(pdsm.getDay_money_stock()));
+            loanOverages.add(dayAmount.toPlainString());
         }
-
+        Collections.reverse(days);
+        Collections.reverse(loanOverages);
+        List<String> days1 = new ArrayList<>();
+        List<String> loanOverages1 = new ArrayList<>();
+        for (int i=0; i<15; i++) {
+            days1.add(days.get(i));
+            loanOverages1.add(loanOverages.get(i));
+        }
         List<List<String>> result = new ArrayList<>();
-        result.add(days);
-        result.add(loanOverages);
+        result.add(days1);
+        result.add(loanOverages1);
         return result;
     }
 

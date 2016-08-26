@@ -60,8 +60,8 @@ public class RegisterUniversalFilterChainImp {
         }
         //存储到redis   目标公司原始数据data
         if (StringUtils.isNotNullOrEmpty(data)) {
-            redisDAO.delete(companyName + APIConstants.redis_relation_LinksDataJTTP + dataVersion);
-            redisDAO.addString(companyName + APIConstants.redis_relation_LinksDataJTTP + dataVersion, data, Constants.cacheDay);
+            redisDAO.delete(companyName + APIConstants.redis_relation_LinksDataJTTP + dataVersion + degreesLevel);
+            redisDAO.addString(companyName + APIConstants.redis_relation_LinksDataJTTP + dataVersion + degreesLevel, data, Constants.cacheDay);
         }
         return data;
     }
@@ -171,7 +171,7 @@ public class RegisterUniversalFilterChainImp {
     @SuppressWarnings({ "unchecked", "deprecation" })
     public List<List<Object>> HierarchicalFuzzySearchDataJTTP(String companyName, String dataVersion, Integer degree) throws Exception
     {
-        String json = redisDAO.getString(companyName + APIConstants.redis_relation_LinksDataJTTP + dataVersion);
+        String json = redisDAO.getString(companyName + APIConstants.redis_relation_LinksDataJTTP + dataVersion + degree);
         if (StringUtils.isNullOrEmpty(json)) {
             json = this.getAPIDynamicRelatedPartUploadJTTP(companyName, degree, dataVersion);
         }
