@@ -62513,7 +62513,6 @@
 	                        "xAxis": chartxAxis,
 	                        "yRightLable": "bar",
 	                        "unit": ["亿元", "个"],
-	                        "yRightLable": "bar",
 	                        "yAxisName": ["亿元", "个数"],
 	                        "barWidth": 20,
 	                        "symbolSize": 10,
@@ -79137,7 +79136,7 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'SearchInp' },
-	          _react2.default.createElement('input', { placeholder: '', type: 'text', ref: 'inp', value: this.state.searchKey, onChange: this.handleChange, id: 'inp', onKeyUp: this.keySearch, placeholder: '请输入企业名称或关键字检索' }),
+	          _react2.default.createElement('input', { type: 'text', ref: 'inp', value: this.state.searchKey, onChange: this.handleChange, id: 'inp', onKeyUp: this.keySearch, placeholder: '请输入企业名称或关键字检索' }),
 	          _react2.default.createElement(
 	            'a',
 	            { id: 'href', href: 'javascript:;', onClick: this.clickSearch },
