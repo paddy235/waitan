@@ -42,7 +42,7 @@ define(function(require, exports, module) {
 	var word_show_flag = true;
 	// 点击节点出现扩展按钮、信息按钮
 	var node_extend, node_info
-	//透明度
+		//透明度
 	var opacity_hidden = 0;
 	var opacity_show = 1;
 	var opacity_arrow = 0.25;
@@ -126,7 +126,7 @@ define(function(require, exports, module) {
 		Circle = require("../zrender/shape/Circle");
 		Text = require("../zrender/shape/Text")
 		Polygon = require("../zrender/shape/Polygon")
-		//
+			//
 		Group = require("../zrender/Group");
 		//
 		color = require("../zrender/tool/color");
@@ -134,7 +134,7 @@ define(function(require, exports, module) {
 		height = Math.ceil(zr.getHeight());
 		//
 		event = require("../zrender/tool/event")
-		// 涉及到重新计算，所以必须在这儿初始化对象。
+			// 涉及到重新计算，所以必须在这儿初始化对象。
 		main_data = new Object();
 		category_data = new Object();
 		zr_nodes = [];
@@ -204,8 +204,8 @@ define(function(require, exports, module) {
 		init_shapes(new_radius)
 		init_links()
 		init_zrender()
-		//var end = new Date().getTime()
-		//console.log("render time:" + (end - start))
+			//var end = new Date().getTime()
+			//console.log("render time:" + (end - start))
 	}
 
 	function init_shapes(new_radius) {
@@ -242,7 +242,7 @@ define(function(require, exports, module) {
 				// 圆心
 				if (category == 0) {
 					center_coordinate = new Coordinate(width / 2, height / 2)
-					//
+						//
 					var center = create_node(symbol, center_coordinate, color, name, isGetCompany);
 					zr.addShape(center)
 					zr_nodes.push(center)
@@ -402,7 +402,7 @@ define(function(require, exports, module) {
 				var arrow = create_arrow(start_coordinate, end_coordinate, links[i].line == "dotted", addflag)
 				zr.addShape(arrow.line)
 				zr_arrows.push(arrow.line)
-				// 如果不是手动添加的，则把箭头加入进去
+					// 如果不是手动添加的，则把箭头加入进去
 				if (!addflag) {
 					zr.addShape(arrow.polygon)
 					zr_arrows.push(arrow.polygon)
@@ -429,7 +429,7 @@ define(function(require, exports, module) {
 		zr.on("click", zr_mouse_click);
 		zr.on("mousedown", zr_mouse_down)
 		zr.on("mouseup", zr_mouse_up)
-		// 渲染
+			// 渲染
 		zr.render();
 	}
 
@@ -708,19 +708,8 @@ define(function(require, exports, module) {
 
 	/////////////////////////页面按钮事件
 	var zoom_value = radius;
-	$('#btn_smaller').on("click", function() {
-		zoom_value -= 10;
-		if (zoom_value > 200) {
-			zoom_value = 200;
-		}
-		if (zoom_value < 50) {
-			zoom_value = 50
-		}
-		zr.dispose()
-		js_init(init, zoom_value)
-	});
 
-	$('#btn_bigmore').on("click", function() {
+	function fangda() {
 		zoom_value += 10;
 		if (zoom_value > 200) {
 			zoom_value = 200;
@@ -730,7 +719,40 @@ define(function(require, exports, module) {
 		}
 		zr.dispose()
 		js_init(init, zoom_value)
-	})
+	}
+	// $('#btn_smaller').on("click", function() {
+	// 	zoom_value -= 10;
+	// 	if (zoom_value > 200) {
+	// 		zoom_value = 200;
+	// 	}
+	// 	if (zoom_value < 50) {
+	// 		zoom_value = 50
+	// 	}
+	// 	zr.dispose()
+	// 	js_init(init, zoom_value)
+	// });
+	function suoxiao() {
+		zoom_value -= 10;
+		if (zoom_value > 200) {
+			zoom_value = 200;
+		}
+		if (zoom_value < 50) {
+			zoom_value = 50
+		}
+		zr.dispose()
+		js_init(init, zoom_value)
+	}
+	// $('#btn_bigmore').on("click", function() {
+	// 	zoom_value += 10;
+	// 	if (zoom_value > 200) {
+	// 		zoom_value = 200;
+	// 	}
+	// 	if (zoom_value < 50) {
+	// 		zoom_value = 50
+	// 	}
+	// 	zr.dispose()
+	// 	js_init(init, zoom_value)
+	// })
 
 	function resize() {
 		//            zoom_value = 100;
@@ -836,7 +858,7 @@ define(function(require, exports, module) {
                       </table>\
                   </div>';
 					$("#relation-modal").html(shtml).show();
-					$(".relation-modal .icon-iconfontshequyijujue").on("click",function(){
+					$(".relation-modal .icon-iconfontshequyijujue").on("click", function() {
 						$("#relation-modal").hide();
 					})
 				}
@@ -1116,15 +1138,15 @@ define(function(require, exports, module) {
 	//路线
 	var route_template = $('.route_template').clone().show();
 	$(".fa.fa-link.icon_jx").click(function() {
-		show_route($(this))
-		zr.delShape("ext").delShape("detail")
-		zr.painter.refresh(null, true)
-	})
-	/**
-	 * 返回路线html
-	 * @param search 要查询公司名称
-	 * */
-	//用于保存路线结果
+			show_route($(this))
+			zr.delShape("ext").delShape("detail")
+			zr.painter.refresh(null, true)
+		})
+		/**
+		 * 返回路线html
+		 * @param search 要查询公司名称
+		 * */
+		//用于保存路线结果
 	var route_rst;
 
 	function route_maker(search) {
@@ -1222,14 +1244,14 @@ define(function(require, exports, module) {
 			var relations = getRelationByName(company_name);
 			toggle_relations(relations, true)
 			relations.push(company_name)
-			//check_relation(relations, false)
+				//check_relation(relations, false)
 			checked = false;
 		} else {
 			//扩展
 			var relations = getRelationByName(company_name);
 			toggle_relations(relations, false)
 			relations.push(company_name)
-			//check_relation(relations, true)
+				//check_relation(relations, true)
 			checked = true;
 		}
 	}
@@ -1340,10 +1362,10 @@ define(function(require, exports, module) {
 		console.log("=====>isshow", isshow);
 	};
 
-	$(document).on("click","#fullscreen",function(){
-		if($(".window-show-graph")[0]){
-			dyMapWid = $(window).width()*0.64
-		}else{
+	$(document).on("click", "#fullscreen", function() {
+		if ($(".window-show-graph")[0]) {
+			dyMapWid = $(window).width() * 0.64
+		} else {
 			dyMapWid = $(window).width()
 		}
 		resize_canvas();
@@ -1356,8 +1378,13 @@ define(function(require, exports, module) {
 		resize_canvas();
 		resize();
 	}
-
-	//重绘
+	exports.zoomAdd = function() {
+		fangda();
+	}
+	exports.zoomSub = function() {
+			suoxiao();
+		}
+		//重绘
 	exports.reDrawCanvas = function() {
 		category_data = [];
 		// zr图的圆心坐标
