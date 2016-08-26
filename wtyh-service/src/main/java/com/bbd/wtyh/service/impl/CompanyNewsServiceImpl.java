@@ -94,7 +94,7 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
     @Override
     public String getCompanyNews() {
         String companyNewsJsonData = (String)redisDAO.getObject(Constants.REDIS_KEY_NEWS_DATA);
-        if (!StringUtils.isEmpty(companyNewsJsonData)) {
+        if (false && !StringUtils.isEmpty(companyNewsJsonData)) {
         	logger.info("Get in redis." + companyNewsJsonData);
             return companyNewsJsonData;
         } else {
@@ -110,8 +110,15 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
             list.add(new BasicNameValuePair("ak",ak));
             try {
                 String data = HttpClientUtils.httpPost(batchNewsUrl, list);
-                if(data==null){
+                if(data==null || data.contains("\"total\"")){
+                    data = dataomApiBbdservice.bbdQyxgYuqing("上海");
+                }
 
+                if( !org.springframework.util.StringUtils.hasText(data) ){
+                    data = dataomApiBbdservice.bbdQyxgYuqing("上海");
+
+                }else if(data.contains("\"total\": 0")){
+                    data = dataomApiBbdservice.bbdQyxgYuqing("上海");
                 }
 
                 if (!StringUtils.isEmpty(data)) {
