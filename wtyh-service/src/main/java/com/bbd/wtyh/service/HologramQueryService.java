@@ -104,4 +104,6 @@ public interface HologramQueryService {
     RecruitPeopleDistributeDO recruitPeopleDistribute(String company);
 
     RecruitPeopleSalaryDO recruitPeopleSalary(String company);
+
+    BaiDuYuQingDO newsConsensusList(String company);
 }

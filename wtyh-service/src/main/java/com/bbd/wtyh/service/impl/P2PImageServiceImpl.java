@@ -33,11 +33,14 @@ public class P2PImageServiceImpl implements P2PImageService {
         PlatDataDO pn = p2PImageDao.getPlatData(platName);
         List<PlatListDO> platListDO = p2PImageDao.baseInfoWangDaiApi(platName);
         Map<String, Object> result = new LinkedHashMap<>();
-        if (platListDO.get(0).getLogo_url()==null) {
-            result.put("logo", null);
+        for (int i=0; i<platListDO.size(); i++) {
+            if (platListDO.get(i).getLogo_url()==null) {
+                result.put("logo", null);
+            }
+            if (platListDO.get(i).getPlat_name()!=null && platName.equals(platListDO.get(i).getPlat_name())) {
+                result.put("logo", platListDO.get(i).getLogo_url());//logo
+            }
         }
-//        result.put("logo", platListDO.getLogo_url());//logo
-        result.put("logo", platListDO.get(0).getLogo_url());//logo
         result.put("score",pn.getPlat_score()); // 评分
         result.put("platname",pn.getPlat_name()); // 平台名称
         result.put("status",pn.getPlat_status()); // 营业状态
@@ -65,11 +68,10 @@ public class P2PImageServiceImpl implements P2PImageService {
 
     @Override
     public Map<String, Object> baseInfo(String platName) {
-        List<PlatListDO> platListDO = p2PImageDao.baseInfoWangDaiApi(platName);
-        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(String.valueOf(platListDO.get(0).getCompany_name()));
-        ZuZhiJiGoudmDO zuZhiJiGoudmDO = p2PImageDao.baseInfoZuZhiJiGou(String.valueOf(platListDO.get(0).getCompany_name()));
+        PlatformNameInformationDO platformNameInformationDO = p2PImageDao.hasOrNotCompany(platName);
+        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(platformNameInformationDO.getName());
+        ZuZhiJiGoudmDO zuZhiJiGoudmDO = p2PImageDao.baseInfoZuZhiJiGou(platformNameInformationDO.getName());
         Map<String, Object> map = new HashMap<>();
-        // TODO 接口可能有问题
         for (BaseDataDO.Results result : baseDataDO.getResults()) {
             map.put("legalPeople", result.getJbxx().getFrname());
             map.put("capital", result.getJbxx().getRegcap());
@@ -81,8 +83,8 @@ public class P2PImageServiceImpl implements P2PImageService {
         for (ZuZhiJiGoudmDO.Result result : zuZhiJiGoudmDO.getResults()) {
             map.put("companyCode", result.getJgdm());
         }
-        map.put("platName", platListDO.get(0).getPlat_name());
-        map.put("companyName", platListDO.get(0).getCompany_name());
+        map.put("platName", platformNameInformationDO.getPlatformName());
+        map.put("companyName", platformNameInformationDO.getName());
         return map;
     }
 
