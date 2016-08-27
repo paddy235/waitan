@@ -15,4 +15,6 @@ public interface RiskCompanyMapper {
 	
 	int getTopCount(Map<String, Object> params);
 	
+	String getLastDataVersion();
+	
 }
