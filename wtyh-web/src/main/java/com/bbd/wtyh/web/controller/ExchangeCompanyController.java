@@ -1,6 +1,7 @@
 package com.bbd.wtyh.web.controller;
 
 
+import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.vo.ExchangeCompanyAreaVO;
 import com.bbd.wtyh.domain.vo.ExchangeCompanyVO;
@@ -55,6 +56,9 @@ public class ExchangeCompanyController {
         if (!CollectionUtils.isEmpty(data)) {
             for (int i=0; i<data.size(); i++) {
                 ExchangeCompanyAreaVO exchangeCompanyAreaVO = data.get(i);
+                if ("上海市".equals(exchangeCompanyAreaVO.getName())){
+                    continue;
+                }
                 yAxis.add(exchangeCompanyAreaVO.getName());
                 series.add(exchangeCompanyAreaVO.getCount());
             }
