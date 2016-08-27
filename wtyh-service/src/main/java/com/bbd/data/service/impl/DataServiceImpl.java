@@ -3,6 +3,8 @@ package com.bbd.data.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,8 +65,23 @@ public class DataServiceImpl implements DataService {
 
 	@Override
 	public void updateTableData(String tableName, String idField, String updateField,Integer idValue , String value) {
-		
-		tableDataMapper.updateTableData(tableName,idField,  updateField,idValue ,  value);
+
+		tableDataMapper.updateTableData(tableName, idField, updateField, idValue, value);
+
 	}
+
+	@Override
+	public Map<String, Object> getCredit(String companyName) {
+
+		String content = tableDataMapper.getCredit(companyName);
+		if(content == null){
+			return null;
+		}
+
+		Gson gson = new Gson();
+		return gson.fromJson(content,new TypeToken<Map<String, Object>>(){}.getType());
+
+	}
+
 
 }

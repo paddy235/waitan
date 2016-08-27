@@ -54,6 +54,12 @@
 	<update id="updateTableData">
 		update ${tableName} set ${updateField}=#{value} where ${idField}=#{idValue}
 	</update>
-	
+
+
+	<select id="getCredit" resultType="string" >
+
+		select a.content from company_credit_information a,company b where a.company_id=b.company_id and b.`name`=#{companyName} LIMIT 1
+
+	</select>
 
 </mapper>
