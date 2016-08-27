@@ -94,7 +94,7 @@
 
     <select id="buildingCompany" resultMap="BaseResultMap">
 
-        select a.*, IFNULL(car.analysis_result,4) analysisResult,car.exposure_date exposureDate
+        select DISTINCT  a.*, IFNULL(car.analysis_result,4) analysisResult,car.exposure_date exposureDate
         from (
 
 

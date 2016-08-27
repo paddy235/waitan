@@ -21,6 +21,25 @@ public class BaiDuYuQingDO {
         private String pubdate;
         private String content; // TODO 新闻内容
         private String main;
+        private String bbd_url;
+        private String bbd_type;
+
+
+        public String getBbd_url() {
+            return bbd_url;
+        }
+
+        public void setBbd_url(String bbd_url) {
+            this.bbd_url = bbd_url;
+        }
+
+        public String getBbd_type() {
+            return bbd_type;
+        }
+
+        public void setBbd_type(String bbd_type) {
+            this.bbd_type = bbd_type;
+        }
 
         public String getMain() {
             if(!StringUtils.hasText(main) && StringUtils.hasText(content)){
