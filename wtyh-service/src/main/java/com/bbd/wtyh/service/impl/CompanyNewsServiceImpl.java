@@ -93,45 +93,39 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
     
     @Override
     public String getCompanyNews() {
-        String companyNewsJsonData = (String)redisDAO.getObject(Constants.REDIS_KEY_NEWS_DATA);
-        if (false && !StringUtils.isEmpty(companyNewsJsonData)) {
-        	logger.info("Get in redis." + companyNewsJsonData);
-            return companyNewsJsonData;
-        } else {
-            String names = companyMapper.queryCompanyNames(null, null);
-            logger.info("Query company names." + names);
-            if(StringUtils.isEmpty(names)){
-                return null;
-            }
-            List<NameValuePair> list = new ArrayList<>();
-            list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1) ));
-            list.add(new BasicNameValuePair("ktype", ""+ktype));
-            list.add(new BasicNameValuePair("pageSize", "100"));
-            list.add(new BasicNameValuePair("ak",ak));
-            try {
-                String data = HttpClientUtils.httpPost(batchNewsUrl, list);
-                if(data==null || data.contains("\"total\"")){
-                    data = dataomApiBbdservice.bbdQyxgYuqing("上海");
-                }
 
-                if( !org.springframework.util.StringUtils.hasText(data) ){
-                    data = dataomApiBbdservice.bbdQyxgYuqing("上海");
+        String data = (String)redisDAO.getObject(Constants.REDIS_KEY_NEWS_DATA);
 
-                }else if(data.contains("\"total\": 0")){
-                    data = dataomApiBbdservice.bbdQyxgYuqing("上海");
-                }
-
-                if (!StringUtils.isEmpty(data) && data.contains("\"total\": 0")) {
-                	logger.info("Set in redis." + data);
-                    redisDAO.addObject(Constants.REDIS_KEY_NEWS_DATA, data, Constants.cacheDay, String.class);
-                    return data;
-                }
-            } catch (Exception e) {
-            	logger.error("Method getCompanyNews get Exception." + e.getMessage());
-                e.printStackTrace();
-            }
+        if (false && !StringUtils.isEmpty(data)) {
+        	logger.info("Get in redis." + data);
+            return data;
         }
-        return null;
+        String names = companyMapper.queryCompanyNames(null, null);
+        logger.info("Query company names." + names);
+        if(StringUtils.isEmpty(names)){
+            return null;
+        }
+        List<NameValuePair> list = new ArrayList<>();
+        list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1) ));
+        list.add(new BasicNameValuePair("ktype", ""+ktype));
+        list.add(new BasicNameValuePair("pageSize", "100"));
+        list.add(new BasicNameValuePair("ak",ak));
+        try {
+            data = HttpClientUtils.httpPost(batchNewsUrl, list);
+            if(StringUtils.isBlank(data) || data.contains("\"total\": 0")){
+                data = dataomApiBbdservice.bbdQyxgYuqing("上海");
+            }
+
+            if (!StringUtils.isBlank(data) && data.contains("\"total\"") && !data.contains("\"total\": 0")) {
+                logger.info("Set in redis." + data);
+                redisDAO.addObject(Constants.REDIS_KEY_NEWS_DATA, data, Constants.cacheDay, String.class);
+            }
+        } catch (Exception e) {
+            logger.error("Method getCompanyNews get Exception." + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return data;
     }
 
     @Scheduled(cron="0 0 0 * * *")
