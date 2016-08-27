@@ -51856,7 +51856,8 @@
 	      count: 0,
 	      pageNo: 1,
 	      keyword: "",
-	      searchResult: []
+	      searchResult: [],
+	      searchTip: ""
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
@@ -51882,7 +51883,14 @@
 	    var content = data.content;
 	    var list = content.list;
 	    var count = content.count;
-	    this.setState({ searchResult: list, count: count });
+	    if (count > 200) {
+	      count = 200;
+	    }
+	    if (count > 0) {
+	      this.setState({ searchResult: list, count: count });
+	    } else {
+	      this.setState({ searchTip: "抱歉！ 暂无搜索结果" });
+	    }
 	  },
 	  getSearchList: function getSearchList(jsonData) {
 	    var getSearchResult = this.props.getSearchResult;
@@ -51905,7 +51913,7 @@
 	  render: function render() {
 	    var count = this.state.count;
 	    var searchCount = "";
-	    if (count != 0) {
+	    if (count > 0) {
 	      searchCount = _react2.default.createElement(
 	        'div',
 	        { className: 'search-count' },
@@ -51938,14 +51946,18 @@
 	        _react2.default.createElement(
 	          'ul',
 	          { className: 'search-list' },
-	          this.state.searchResult.map(function (item, index) {
+	          this.state.searchResult.length > 0 ? this.state.searchResult.map(function (item, index) {
 	            console.log(item, index, 123456);
 	            return _react2.default.createElement(
 	              'li',
 	              { key: index },
 	              _react2.default.createElement(_ResultMod2.default, { dataItem: item })
 	            );
-	          })
+	          }) : _react2.default.createElement(
+	            'li',
+	            { className: 'noResult' },
+	            this.state.searchTip
+	          )
 	        ),
 	        searchCount,
 	        _react2.default.createElement(_index.PageList, { id: 'search-result-page', eachPageCount: '8', count: this.state.count, showPage: '10', callback: this.setCallBack })
@@ -67429,7 +67441,7 @@
 
 
 	// module
-	exports.push([module.id, ".p2p-portrait {\r\n}\r\n\r\n.p2p-portrait .portrait-left {\r\n\twidth: 45%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right {\r\n\twidth: 54.5%;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom {\r\n\twidth: 100%;\r\n\tmargin-top: 0.5%\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t {\r\n\twidth: 100%;\r\n\theight: 180px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m {\r\n\twidth: 100%;\r\n\theight: 275px;\r\n\tmargin: 1.5% 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-b {\r\n\twidth: 100%;\r\n\theight: 815px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t {\r\n\twidth: 100%;\r\n\theight: 464px\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b {\r\n\twidth: 100%;\r\n\theight: 815px;\r\n\tmargin-top: 1.4%;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l {\r\n\twidth: 24%;\r\n\theight: 255px;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-r {\r\n\twidth: 75.5%;\r\n\theight: 255px;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%;\r\n}\r\n\r\n.p2p-portrait  .compangMsg-log {\r\n\twidth: 90px;\r\n\theight: 90px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tdisplay: table;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul li {\r\n\tdisplay: table-cell;\r\n\tvertical-align: middle;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul span {\r\n\tdisplay: block;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul .score {\r\n\tfont-size: 50px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul .score-title {\r\n\tfont-size: 18px;\r\n\tcolor: #fff\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul .state {\r\n\tfont-size: 24px;\r\n\tcolor: #fff\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .wtyh-table {\r\n\theight: 180px;\r\n\tcolor: #dddddd\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .wtyh-table td {\r\n\tcolor: #dddddd;\r\n\tpadding-left: 15px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .wtyh-table td .word-limit-5 {\r\n\twidth: 200px\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .list-items {\r\n\tpadding: 10px 10px 0px 10px\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content {\r\n\tpadding: 65px 43px 20px 43px\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul {\r\n\tdisplay: table;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n\tpadding-bottom: 20px;\r\n\ttext-align: center;\r\n\tborder-bottom: 1px #00b8ee solid;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul:before {\r\n\tcontent: \"\";\r\n\theight: 50%;\r\n\twidth: 1px;\r\n\tbackground: #00b8ee;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n\tleft: 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul:after {\r\n\tcontent: \"\";\r\n\theight: 50%;\r\n\twidth: 1px;\r\n\tbackground: #00b8ee;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n\tright: 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul li {\r\n\tdisplay: table-cell;\r\n\twidth: 33.3%;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .icon-susong {\r\n\tdisplay: inline-block;\r\n\tfont-size: 60px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .ssong-title {\r\n\tfont-size: 18px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .ssong-num {\r\n\tfont-size: 50px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .content {\r\n\tmargin: 20px;\r\n\theight: 170px;\r\n\tbackground: #212831;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .serial-num {\r\n\twidth: 25px;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\ttext-align: center;\r\n\tbackground: #1a2029;\r\n\tcolor: #fff;\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item a {\r\n\tcolor: #e14340\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item {\r\n\tcolor: #d9d9d9;\r\n\tpadding: 11px 30px 11px 30px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item table {\r\n\twidth: 100%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .item-mark {\r\n\ttext-indent: 30px;\r\n\tline-height: 24px;\r\n\theight: 48px;\r\n\tword-break: break-all;\r\n\tdisplay: -webkit-box;\r\n\t-webkit-line-clamp: 2;\r\n\t-webkit-box-orient: vertical;\r\n\toverflow: hidden;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .content_news {\r\n\theight: 48px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item  .td2-l {\r\n\twidth: 5%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item  .td2-r {\r\n\twidth: 95%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .soure,\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .time {\r\n\tcolor: #999999\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .time {\r\n\tdisplay: inline-block;\r\n\tmargin-left: 20px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .content {\r\n\tpadding: 15px  50px 0px 50px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t ul.content-ul {\r\n\tdisplay: table;\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t ul.content-ul>li {\r\n\tdisplay: table-cell;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-l {\r\n\twidth: 15%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-c {\r\n\twidth: 53%;\r\n\tmargin-right: 2%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r {\r\n\twidth: 30%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-l .socre-title {\r\n\tfont-size: 30px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-l .score {\r\n\tfont-size: 52px;\r\n\tmargin-top: 40px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r table {\r\n\r\n\t/*text-align: center;*/\r\n\twidth: 100%;\r\n\theight: 380px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r  .score-leida-r-ul li {\r\n\twidth: 48%;\r\n\tfloat: left;\r\n\tpadding: 15px 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r p {\r\n\tfont-size: 32px;\r\n\tcolor: #fdba45\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t  .leida-c-pic {\r\n\theight: 382px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r span {\r\n\tfont-size: 16px;\r\n\tcolor: #dddddd\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .content {\r\n\tpadding: 40px 30px;\r\n\theight: 760px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top {\r\n\theight: 50%;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top table {\r\n\twidth: 100%;\r\n\theight: 90%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-bottom .bottom-line-left {\r\n\twidth: 50%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-bottom .bottom-line-right {\r\n\twidth: 50%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top table  td {\r\n\twidth: 50%;\r\n\tcolor: #dddddd;\r\n\tpadding-left: 30px !important;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top .top-list {\r\n\theight: 100%;\r\n\twidth: 40%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top .top-bar {\r\n\theight: 100%;\r\n\twidth: 55%;\r\n\tfloat: right;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-bottom {\r\n\theight: 50%\r\n}\r\n\r\n.p2p-portrait .relation-legend table {\r\n\twidth: 100%\r\n}\r\n\r\n.p2p-portrait .relation-modal {\r\n\tdisplay: none;\r\n}\r\n\r\n.p2p-portrait .linefin-rel-graph .mod-content .relation-graph-box {\r\n\theight: 640px;\r\n\toverflow: hidden;\r\n}\r\n\r\n.p2p-portrait  .linefin-rel-graph {\r\n\theight: 815px\r\n}\r\n\r\n.p2p-portrait .relation-legend table tr td {\r\n\twidth: 19.8%;\r\n}\r\n\r\n.p2p-portrait .relation-legend {\r\n\tmargin: 35px 10px 15px 10px;\r\n\twidth: auto;\r\n}\r\n\r\n.p2p-portrait  .relation-legend table tr .square,\r\n.p2p-portrait   .relation-legend table tr .round {\r\n\tmargin-right: 5px;\r\n}\r\n\r\n.p2p-portrait  .relation-legend table tr .square {\r\n\twidth: 10px;\r\n\theight: 10px;\r\n}\r\n\r\n.p2p-portrait   .relation-legend table tr .round {\r\n\twidth: 10px;\r\n\theight: 10px;\r\n}\r\n\r\n.p2p-portrait .pic_rank {\r\n\tposition: absolute;\r\n\tz-index: 9999;\r\n\tright: 10px;\r\n\ttop: 74px;\r\n}\r\n\r\n.p2p-portrait .pic_rank span {\r\n\tcolor: #e14340;\r\n\tdisplay: inline-block;\r\n\twidth: 25px;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tbackground: #000;\r\n\tborder: 1px #3b424c solid;\r\n\tmargin-left: 10px;\r\n\tcursor: pointer;\r\n\ttext-align: center;\r\n\tfont-weight: bold;\r\n}\r\n\r\n#dyMapMain,\r\n#dyMap {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}", ""]);
+	exports.push([module.id, ".p2p-portrait {\r\n}\r\n\r\n.p2p-portrait .portrait-left {\r\n\twidth: 45%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right {\r\n\twidth: 54.5%;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom {\r\n\twidth: 100%;\r\n\tmargin-top: 0.5%\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t {\r\n\twidth: 100%;\r\n\theight: 180px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m {\r\n\twidth: 100%;\r\n\theight: 275px;\r\n\tmargin: 1.5% 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-b {\r\n\twidth: 100%;\r\n\theight: 815px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t {\r\n\twidth: 100%;\r\n\theight: 464px\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b {\r\n\twidth: 100%;\r\n\theight: 815px;\r\n\tmargin-top: 1.4%;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l {\r\n\twidth: 24%;\r\n\theight: 255px;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-r {\r\n\twidth: 75.5%;\r\n\theight: 255px;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%;\r\n}\r\n\r\n.p2p-portrait  .compangMsg-log {\r\n\twidth: 90px;\r\n\theight: 90px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tdisplay: table;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul li {\r\n\tdisplay: table-cell;\r\n\tvertical-align: middle;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul span {\r\n\tdisplay: block;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul .score {\r\n\tfont-size: 50px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul .score-title {\r\n\tfont-size: 18px;\r\n\tcolor: #fff\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul .state {\r\n\tfont-size: 24px;\r\n\tcolor: #fff\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .wtyh-table {\r\n\theight: 180px;\r\n\tcolor: #dddddd\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .wtyh-table td {\r\n\tcolor: #dddddd;\r\n\tpadding-left: 15px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .wtyh-table td .word-limit-5 {\r\n\twidth: 200px\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .list-items {\r\n\tpadding: 10px 10px 0px 10px\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content {\r\n\tpadding: 65px 43px 20px 43px\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul {\r\n\tdisplay: table;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n\tpadding-bottom: 20px;\r\n\ttext-align: center;\r\n\tborder-bottom: 1px #00b8ee solid;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul:before {\r\n\tcontent: \"\";\r\n\theight: 50%;\r\n\twidth: 1px;\r\n\tbackground: #00b8ee;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n\tleft: 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul:after {\r\n\tcontent: \"\";\r\n\theight: 50%;\r\n\twidth: 1px;\r\n\tbackground: #00b8ee;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n\tright: 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul li {\r\n\tdisplay: table-cell;\r\n\twidth: 33.3%;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .icon-susong {\r\n\tdisplay: inline-block;\r\n\tfont-size: 60px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .ssong-title {\r\n\tfont-size: 18px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .ssong-num {\r\n\tfont-size: 50px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .content {\r\n\tmargin: 20px;\r\n\theight: 170px;\r\n\tbackground: #212831;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .serial-num {\r\n\twidth: 25px;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\ttext-align: center;\r\n\tbackground: #1a2029;\r\n\tcolor: #fff;\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item a {\r\n\tcolor: #e14340\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item {\r\n\tcolor: #d9d9d9;\r\n\tpadding: 30px 30px 30px 30px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item table {\r\n\twidth: 100%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .item-mark {\r\n\ttext-indent: 30px;\r\n\tline-height: 24px;\r\n\theight: 48px;\t/*\tword-break: break-all;\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tdisplay: -webkit-box;\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t-webkit-line-clamp: 2;\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t-webkit-box-orient: vertical;*/\r\n\toverflow: hidden;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .content_news {\r\n\r\n\t/*height: 48px;*/\r\n\tpadding: 20px 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item  .td2-l {\r\n\twidth: 5%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item  .td2-r {\r\n\twidth: 95%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .marks {\r\n\ttext-align: right;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .soure,\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .time {\r\n\tcolor: #999999\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .time {\r\n\tdisplay: inline-block;\r\n\tmargin-left: 20px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .content {\r\n\tpadding: 15px  50px 0px 50px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t ul.content-ul {\r\n\tdisplay: table;\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t ul.content-ul>li {\r\n\tdisplay: table-cell;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-l {\r\n\twidth: 15%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-c {\r\n\twidth: 53%;\r\n\tmargin-right: 2%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r {\r\n\twidth: 30%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-l .socre-title {\r\n\tfont-size: 30px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-l .score {\r\n\tfont-size: 52px;\r\n\tmargin-top: 40px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r table {\r\n\r\n\t/*text-align: center;*/\r\n\twidth: 100%;\r\n\theight: 380px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r  .score-leida-r-ul li {\r\n\twidth: 48%;\r\n\tfloat: left;\r\n\tpadding: 15px 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r p {\r\n\tfont-size: 32px;\r\n\tcolor: #fdba45\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t  .leida-c-pic {\r\n\theight: 382px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r span {\r\n\tfont-size: 16px;\r\n\tcolor: #dddddd\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .content {\r\n\tpadding: 40px 30px;\r\n\theight: 760px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top {\r\n\theight: 50%;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top table {\r\n\twidth: 100%;\r\n\theight: 90%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-bottom .bottom-line-left {\r\n\twidth: 50%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-bottom .bottom-line-right {\r\n\twidth: 50%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top table  td {\r\n\twidth: 50%;\r\n\tcolor: #dddddd;\r\n\tpadding-left: 30px !important;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top .top-list {\r\n\theight: 100%;\r\n\twidth: 40%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top .top-bar {\r\n\theight: 100%;\r\n\twidth: 55%;\r\n\tfloat: right;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-bottom {\r\n\theight: 50%\r\n}\r\n\r\n.p2p-portrait .relation-legend table {\r\n\twidth: 100%\r\n}\r\n\r\n.p2p-portrait .relation-modal {\r\n\tdisplay: none;\r\n}\r\n\r\n.p2p-portrait .linefin-rel-graph .mod-content .relation-graph-box {\r\n\theight: 640px;\r\n\toverflow: hidden;\r\n}\r\n\r\n.p2p-portrait  .linefin-rel-graph {\r\n\theight: 812px\r\n}\r\n\r\n.p2p-portrait .relation-legend table tr td {\r\n\twidth: 19.8%;\r\n}\r\n\r\n.p2p-portrait .relation-legend {\r\n\tmargin: 35px 10px 15px 10px;\r\n\twidth: auto;\r\n}\r\n\r\n.p2p-portrait  .relation-legend table tr .square,\r\n.p2p-portrait   .relation-legend table tr .round {\r\n\tmargin-right: 5px;\r\n}\r\n\r\n.p2p-portrait  .relation-legend table tr .square {\r\n\twidth: 10px;\r\n\theight: 10px;\r\n}\r\n\r\n.p2p-portrait   .relation-legend table tr .round {\r\n\twidth: 10px;\r\n\theight: 10px;\r\n}\r\n\r\n.p2p-portrait .pic_rank {\r\n\tposition: absolute;\r\n\tz-index: 9999;\r\n\tright: 10px;\r\n\ttop: 74px;\r\n}\r\n\r\n.p2p-portrait .pic_rank span {\r\n\tcolor: #e14340;\r\n\tdisplay: inline-block;\r\n\twidth: 25px;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tbackground: #000;\r\n\tborder: 1px #3b424c solid;\r\n\tmargin-left: 10px;\r\n\tcursor: pointer;\r\n\ttext-align: center;\r\n\tfont-weight: bold;\r\n}\r\n\r\n#dyMapMain,\r\n#dyMap {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}", ""]);
 
 	// exports
 
@@ -68305,130 +68317,151 @@
 	var Immutable = __webpack_require__(620);
 
 	var PublicOpinion = _react2.default.createClass({
-	  displayName: 'PublicOpinion',
+	    displayName: 'PublicOpinion',
 
-	  getInitialState: function getInitialState() {
-	    var _selectVal = this.props.location.query.platName == undefined ? "" : this.props.location.query.platName;
-	    return {
-	      listData: [],
-	      companyVal: _selectVal
-	    };
-	  },
-	  componentDidMount: function componentDidMount() {
-	    $('#publicOpinion-scroll').perfectScrollbar();
-	  },
-	  componentDidUpdate: function componentDidUpdate() {
-	    $('#publicOpinion-scroll').perfectScrollbar('update');
-	  },
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    if (nextProps.companyData == "") {
-	      return;
-	    }
-	    var isEqualCompany = Immutable.is(nextProps.companyData, this.props.companyData);
-	    if (!isEqualCompany) {
-	      var getpublicOpinionRequest = this.props.getpublicOpinionRequest;
-
-	      getpublicOpinionRequest({ "platName": this.state.companyVal });
-	    }
-	    var isEqual = Immutable.is(nextProps.publicOpinionResult, this.props.publicOpinionResult);
-	    if (!isEqual) {
-	      var publicOpinionRequest = nextProps.publicOpinionRequest;
-	      var publicOpinionResult = nextProps.publicOpinionResult;
-
-	      if (publicOpinionRequest == true) {
-	        if (publicOpinionResult.success) {
-	          var _setData = [];
-	          for (var item in publicOpinionResult.content.warning) {
-	            var items = {
-	              "info": publicOpinionResult.content.warning[item].content,
-	              "name": publicOpinionResult.content.plat_name
-	            };
-	            _setData.push(items);
-	          }
-
-	          this.setState({ listData: _setData });
-	        } else {
-	          //错误后提示
+	    getInitialState: function getInitialState() {
+	        var _selectVal = this.props.location.query.platName == undefined ? "" : this.props.location.query.platName;
+	        return {
+	            listData: [],
+	            companyVal: _selectVal
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        $('#publicOpinion-scroll').perfectScrollbar();
+	    },
+	    componentDidUpdate: function componentDidUpdate() {
+	        $('#publicOpinion-scroll').perfectScrollbar('update');
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        if (nextProps.companyData == "") {
+	            return;
 	        }
-	      }
-	    }
-	  },
-	  render: function render() {
+	        var isEqualCompany = Immutable.is(nextProps.companyData, this.props.companyData);
+	        if (!isEqualCompany) {
+	            var getpublicOpinionRequest = this.props.getpublicOpinionRequest;
 
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'bottom-r radius4 mod' },
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'header-gray' },
-	        _react2.default.createElement(
-	          'span',
-	          { className: 'title' },
-	          '平台舆情'
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'content', id: 'publicOpinion-scroll' },
-	        this.state.listData.map(function (item, index) {
-	          {
-	            var num = index + 1;
-	            return _react2.default.createElement(
-	              'div',
-	              { className: 'list-item' },
-	              _react2.default.createElement(
-	                'table',
-	                null,
+	            getpublicOpinionRequest({ "platName": this.state.companyVal });
+	        }
+	        var isEqual = Immutable.is(nextProps.publicOpinionResult, this.props.publicOpinionResult);
+	        if (!isEqual) {
+	            var publicOpinionRequest = nextProps.publicOpinionRequest;
+	            var publicOpinionResult = nextProps.publicOpinionResult;
+
+	            if (publicOpinionRequest == true) {
+	                if (publicOpinionResult.success) {
+	                    var _setData = [];
+	                    for (var item in publicOpinionResult.content.warning) {
+	                        var items = {
+	                            "title": publicOpinionResult.content.warning[item].title,
+	                            "info": BOSS.cutString(publicOpinionResult.content.warning[item].content, 320),
+	                            "content": publicOpinionResult.content.warning[item].content,
+	                            "source": publicOpinionResult.content.warning[item].source,
+	                            "date": publicOpinionResult.content.warning[item].date
+	                        };
+	                        _setData.push(items);
+	                    }
+
+	                    this.setState({ listData: _setData });
+	                } else {
+	                    //错误后提示
+	                }
+	            }
+	        }
+	    },
+	    render: function render() {
+
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'bottom-r radius4 mod' },
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'header-gray' },
 	                _react2.default.createElement(
-	                  'tbody',
-	                  null,
-	                  _react2.default.createElement(
-	                    'tr',
-	                    null,
-	                    _react2.default.createElement(
-	                      'td',
-	                      { rowSpan: '3', className: 'v-aglign-t td2-l' },
-	                      _react2.default.createElement(
-	                        'span',
-	                        { className: 'serial-num' },
-	                        num
-	                      )
-	                    ),
-	                    _react2.default.createElement(
-	                      'td',
-	                      { className: 'td2-r' },
-	                      _react2.default.createElement(
-	                        'a',
-	                        { href: 'javascript:void(null)' },
-	                        item.name
-	                      )
-	                    )
-	                  ),
-	                  _react2.default.createElement(
-	                    'tr',
-	                    null,
-	                    _react2.default.createElement(
-	                      'td',
-	                      null,
-	                      _react2.default.createElement(
-	                        'div',
-	                        { className: 'content_news' },
-	                        _react2.default.createElement(
-	                          'p',
-	                          { className: 'item-mark', title: item.info },
-	                          item.info
-	                        )
-	                      )
-	                    )
-	                  )
+	                    'span',
+	                    { className: 'title' },
+	                    '平台舆情'
 	                )
-	              )
-	            );
-	          }
-	        })
-	      )
-	    );
-	  }
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'content', id: 'publicOpinion-scroll' },
+	                this.state.listData.map(function (item, index) {
+	                    {
+	                        var num = index + 1;
+	                        return _react2.default.createElement(
+	                            'div',
+	                            { className: 'list-item' },
+	                            _react2.default.createElement(
+	                                'table',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'tbody',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        'tr',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { rowSpan: '3', className: 'v-aglign-t td2-l' },
+	                                            _react2.default.createElement(
+	                                                'span',
+	                                                { className: 'serial-num' },
+	                                                num
+	                                            )
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { className: 'td2-r' },
+	                                            _react2.default.createElement(
+	                                                'a',
+	                                                { href: 'javascript:void(null)' },
+	                                                item.title
+	                                            )
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'tr',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            null,
+	                                            _react2.default.createElement(
+	                                                'div',
+	                                                { className: 'content_news' },
+	                                                _react2.default.createElement(
+	                                                    'p',
+	                                                    { className: 'item-mark', title: item.content },
+	                                                    item.info
+	                                                )
+	                                            )
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'tr',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { className: 'marks' },
+	                                            _react2.default.createElement(
+	                                                'span',
+	                                                { className: 'soure' },
+	                                                item.source
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'span',
+	                                                { className: 'time' },
+	                                                item.date
+	                                            )
+	                                        )
+	                                    )
+	                                )
+	                            )
+	                        );
+	                    }
+	                })
+	            )
+	        );
+	    }
 	});
 
 	module.exports = PublicOpinion;
@@ -68565,7 +68598,7 @@
 	    render: function render() {
 	        return _react2.default.createElement(
 	            'div',
-	            { className: 'linefin-rel-graph mod' },
+	            { className: 'linefin-rel-graph mod radius4' },
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'header-gray' },
@@ -83064,7 +83097,7 @@
 
 
 	// module
-	exports.push([module.id, "/*@整体布局(一级)\r\n------------------------------------------------------------------*/\r\n.realtime-index {\r\n}\r\n.realtime-index .realtime-top {\r\n\twidth: 100%;\r\n\theight: 65%;\r\n}\r\n.realtime-index .realtime-bottom {\r\n\twidth: 100%;\r\n\theight: 35%;\r\n}\r\n\r\n/*@整体布局(二级)\r\n------------------------------------------------------------------*/\r\n.realtime-index .realtime-top>div {\r\n\tfloat: left;\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tpadding: 10px;\r\n}\r\n.realtime-index .realtime-top .realtime-top-left {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-middle {\r\n\twidth: 44%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-right {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-left {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-top: 26px;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-right {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-left: 100px;\r\n\tpadding-top: 26px;\r\n\toverflow-y: hidden;\r\n}\r\n\r\n/*realtime-top-left(左边表格)  //pudong huangpu  hongkou\r\n------------------------------------------------------------------*/\r\n.realtime-top-left {\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-left  h4 {\r\n\tfont-size: 18px;\r\n\tline-height: 40px;\r\n}\r\n.realtime-top-left  .title li {\r\n\tfloat: left;\r\n\twidth: 25%;\r\n\ttext-align: center;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tborder: 1px solid;\r\n\tcursor: pointer;\r\n\tposition: relative;\r\n}\r\n.realtime-top-left  .title li.active:after {\r\n\tcontent: \"\";\r\n\tposition: absolute;\r\n\tbottom: -6px;\r\n\tleft: 0px;\r\n\twidth: 100%;\r\n\theight: 3px;\r\n\tbackground: #fff;\r\n\tz-index: 999;\r\n}\r\n.realtime-top-left  .title li:nth-child(1) {\r\n\tbackground: red\r\n}\r\n.realtime-top-left  .title li:nth-child(2) {\r\n\tbackground: #ebc900\r\n}\r\n.realtime-top-left  .title li:nth-child(3) {\r\n\tbackground: #32b16c\r\n}\r\n.realtime-top-left  .title li:nth-child(4) {\r\n\tbackground: #000\r\n}\r\n.realtime-top-left  .table-wrap {\r\n\twidth: 100%;\r\n\theight: 80%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA {\r\n\twidth: 100%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th {\r\n\theight: 40px;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(1) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(2) {\r\n\twidth: 60%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th .tbsLeft {\r\n\tfloat: left;\r\n\tpadding-left: 5%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th .thSpan {\r\n\tfloat: left;\r\n\tpadding-left: 15%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td {\r\n\tborder-bottom: 1px solid #3c404b;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td .tbsLeft {\r\n\tfloat: left;\r\n\tpadding-left: 5%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td .thSpan {\r\n\tfloat: left;\r\n\tpadding-left: 15%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox {\r\n\theight: 92%;\r\n\toverflow: auto;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(3) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB {\r\n\twidth: 100%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td {\r\n\theight: 40px;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(1) {\r\n\twidth: 20%;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(2) {\r\n\twidth: 60%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(3) {\r\n\twidth: 20%;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-left .color {\r\n\theight: 16px;\r\n\twidth: 60%;\r\n\tposition: absolute;\r\n\tbottom: 10px;\r\n\tleft: 50%;\r\n\ttransform: translateX(-50%);\r\n}\r\n.realtime-top-left .color img {\r\n\tdisplay: block;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*realtime-top-left(左边表格)\r\n------------------------------------------------------------------*/\r\n.realtime-top-right {\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-top-right .item {\r\n\twidth: 100%;\r\n\theight: 33.3%;\r\n}\r\n\r\n/*realtime-bottom-right(右下角)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-right {\r\n\toverflow: hidden;\r\n\tpadding-left: 20px\r\n}\r\n.realtime-bottom-right>h4 {\r\n\tcolor: #fff;\r\n\tline-height: 30px;\r\n\tfont-size: 16px;\r\n}\r\n.realtime-bottom-right ul {\r\n\theight: 100%;\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-bottom-right ul li {\r\n\theight: 134px;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-right ul li h4 {\r\n\tpadding: 15px 0px;\r\n\tfont-size: 14px;\r\n\tcolor: #e14340\r\n}\r\n.realtime-bottom-right ul li h4 a {\r\n\tcolor: #e14340 !important\r\n}\r\n.realtime-bottom-right ul li p {\r\n\tcolor: #fff;\r\n\tmargin-right: 10px;\r\n\toverflow: hidden;\r\n}\r\n.BottomRightP {\r\n\tdisplay: block;\r\n\theight: 41px;\r\n}\r\n.realtime-bottom-right ul li span {\r\n\tposition: absolute;\r\n\tright: 10px;\r\n\tbottom: 2px;\r\n\tcolor: #666;\r\n}\r\n.realtime-bottom-right ul li span p {\r\n\tdisplay: inline-block;\r\n}\r\n\r\n/*realtime-bottom-right(中间的大地图)\r\n------------------------------------------------------------------*/\r\n.realtime-top-middle #demo {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*上海地图的信息框*/\r\n.realtime-top-middle .info {\r\n\twidth: 160px;\r\n\theight: 70px;\r\n\tleft: 5%;\r\n\ttop: 5%;\r\n\tposition: absolute;\r\n\tz-index: 999;\r\n\tcursor: pointer;\r\n\toverflow: hidden;\r\n\tdisplay: none\r\n}\r\n.realtime-top-middle .info .info-left, .realtime-top-middle .info .info-right {\r\n\tfloat: left;\r\n\twidth: 50%;\r\n\theight: 100%;\r\n}\r\n.realtime-top-middle .info .info-left {\r\n\tpadding: 0px 3px 3px 0px;\r\n}\r\n.realtime-top-middle .info .info-right {\r\n\tbackground: #363e48;\r\n\tborder-radius: 3px;\r\n\tfont-size: 24px;\r\n\tcolor: #e14340;\r\n\tline-height: 70px;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-middle .info .info-left .title {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 34px;\r\n\tfont-size: 12px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 34px;\r\n\tborder-radius: 3px;\r\n}\r\n.realtime-top-middle .info .info-left .date {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 34px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 34px;\r\n\tmargin-top: 3px;\r\n\tborder-radius: 3px;\r\n\tfont-size: 12px;\r\n}\r\n\r\n/*上海地图的返回按钮*/\r\n.realtime-top-middle .return {\r\n\tbackground: linear-gradient(to bottom, #b96f6f 5%, red 50%, #f50202 100%);\r\n\tposition: absolute;\r\n\tbottom: 10%;\r\n\tleft: 3%;\r\n\tdisplay: none;\r\n}\r\n\r\n/*地下的长条信息框*/\r\n.realtime-top-middle .bar {\r\n\twidth: 98%;\r\n\theight: 40px;\r\n\tbackground: #282f39;\r\n\ttext-align: center;\r\n\tline-height: 40px;\r\n\tposition: absolute;\r\n\tbottom: 1%;\r\n\tfont-size: 12px;\r\n\tdisplay: none;\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-middle .carousel {\r\n\tposition: absolute;\r\n\tleft: 6%;\r\n\ttop: 0;\r\n\tz-index: 999;\r\n}\r\n.realtime-top-middle .bar img {\r\n\twidth: 30px;\r\n\theight: 30px;\r\n\tposition: absolute;\r\n\tleft: 5%;\r\n\ttop: 5px;\r\n}\r\n.darkRed {\r\n\tcolor: #e14340;\r\n\tpadding: 0px 5px;\r\n}\r\n\r\n/*tootips实验*/\r\n.testTo {\r\n\twidth: auto;\r\n\theight: auto;\r\n\tfont-size: 12px;\r\n\tcursor: pointer;\r\n}\r\n.testTo h4 {\r\n\tdisplay: inline-block;\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo label {\r\n\tdisplay: inline-block;\r\n\twidth: 60px;\r\n\theight: 18px;\r\n\tborder: 1px solid #fff;\r\n\ttext-align: center;\r\n\tvertical-align: middle;\r\n\tmargin-left: 20px;\r\n\tcolor: #000;\r\n\ttext-align: center;\r\n\ttext-indent: 5px;\r\n\tline-height: 16px;\r\n}\r\n.testTo p {\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo p span {\r\n\tcolor: yellow\r\n}\r\n.black {\r\n\tbackground: black;\r\n\tcolor: #fff !important\r\n}\r\n.green {\r\n\tbackground: green\r\n}\r\n.yellow {\r\n\tbackground: yellow;\r\n}\r\n.red {\r\n\tbackground: red;\r\n}\r\n\r\n/**/\r\n.testTo .tableH4 {\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n\tcolor: #ce3431;\r\n\tfont-size: 14px;\r\n\tfont-weight: bold;\r\n}\r\n.testTo table td {\r\n\tborder: 1px solid #1a2029;\r\n\ttext-align: center;\r\n\tpadding: 5px;\r\n}\r\n.testTo .tip-scroll {\r\n\twidth: 200px;\r\n\theight: 100px;\r\n\ttext-align: center;\r\n\toverflow-y: auto;\r\n}\r\n.testTo .tip-scroll  span {\r\n\tdisplay: block;\r\n\tpadding: 5px 0;\r\n}\r\n.testTo .nums {\r\n\tdisplay: block;\r\n\ttext-align: center;\r\n}\r\n\r\n/*realtime-bottom-rleft(线下理财)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-left {\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-left  .more {\r\n\tcolor: #fff;\r\n\tfont-size: 14px;\r\n\tposition: absolute;\r\n\ttop: 60px;\r\n\tright: 11%;\r\n\tz-index: 99999;\r\n}", ""]);
+	exports.push([module.id, "/*@整体布局(一级)\r\n------------------------------------------------------------------*/\r\n.realtime-index {\r\n}\r\n.realtime-index .realtime-top {\r\n\twidth: 100%;\r\n\theight: 65%;\r\n}\r\n.realtime-index .realtime-bottom {\r\n\twidth: 100%;\r\n\theight: 35%;\r\n}\r\n\r\n/*@整体布局(二级)\r\n------------------------------------------------------------------*/\r\n.realtime-index .realtime-top>div {\r\n\tfloat: left;\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tpadding: 10px;\r\n}\r\n.realtime-index .realtime-top .realtime-top-left {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-middle {\r\n\twidth: 44%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-right {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-left {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-top: 26px;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-right {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-left: 100px;\r\n\tpadding-top: 26px;\r\n\toverflow-y: hidden;\r\n}\r\n\r\n/*realtime-top-left(左边表格)  //pudong huangpu  hongkou\r\n------------------------------------------------------------------*/\r\n.realtime-top-left {\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-left  h4 {\r\n\tfont-size: 18px;\r\n\tline-height: 40px;\r\n}\r\n.realtime-top-left  .title li {\r\n\tfloat: left;\r\n\twidth: 25%;\r\n\ttext-align: center;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tborder: 1px solid;\r\n\tcursor: pointer;\r\n\tposition: relative;\r\n}\r\n.realtime-top-left  .title li.active:after {\r\n\tcontent: \"\";\r\n\tposition: absolute;\r\n\tbottom: -6px;\r\n\tleft: 0px;\r\n\twidth: 100%;\r\n\theight: 3px;\r\n\tbackground: #fff;\r\n\tz-index: 999;\r\n}\r\n.realtime-top-left  .title li:nth-child(1) {\r\n\tbackground: red\r\n}\r\n.realtime-top-left  .title li:nth-child(2) {\r\n\tbackground: #ebc900\r\n}\r\n.realtime-top-left  .title li:nth-child(3) {\r\n\tbackground: #32b16c\r\n}\r\n.realtime-top-left  .title li:nth-child(4) {\r\n\tbackground: #000\r\n}\r\n.realtime-top-left  .table-wrap {\r\n\twidth: 100%;\r\n\theight: 80%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA {\r\n\twidth: 100%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th {\r\n\theight: 40px;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(1) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(2) {\r\n\twidth: 60%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th .tbsLeft {\r\n\tfloat: left;\r\n\tpadding-left: 5%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th .thSpan {\r\n\tfloat: left;\r\n\tpadding-left: 15%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td {\r\n\tborder-bottom: 1px solid #3c404b;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td .tbsLeft {\r\n\tfloat: left;\r\n\tpadding-left: 5%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td .thSpan {\r\n\tfloat: left;\r\n\tpadding-left: 15%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox {\r\n\theight: 92%;\r\n\toverflow: auto;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(3) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB {\r\n\twidth: 100%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td {\r\n\theight: 40px;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(1) {\r\n\twidth: 20%;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(2) {\r\n\twidth: 60%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(3) {\r\n\twidth: 20%;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-left .color {\r\n\theight: 16px;\r\n\twidth: 60%;\r\n\tposition: absolute;\r\n\tbottom: 10px;\r\n\tleft: 50%;\r\n\ttransform: translateX(-50%);\r\n}\r\n.realtime-top-left .color img {\r\n\tdisplay: block;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*realtime-top-left(左边表格)\r\n------------------------------------------------------------------*/\r\n.realtime-top-right {\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-top-right .item {\r\n\twidth: 100%;\r\n\theight: 33.3%;\r\n}\r\n\r\n/*realtime-bottom-right(右下角)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-right {\r\n\toverflow: hidden;\r\n\tpadding-left: 20px\r\n}\r\n.realtime-bottom-right>h4 {\r\n\tcolor: #fff;\r\n\tline-height: 30px;\r\n\tfont-size: 16px;\r\n}\r\n.realtime-bottom-right ul {\r\n\theight: 100%;\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-bottom-right ul li {\r\n\theight: 134px;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-right ul li h4 {\r\n\tpadding: 15px 0px;\r\n\tfont-size: 14px;\r\n\tcolor: #e14340\r\n}\r\n.realtime-bottom-right ul li h4 a {\r\n\tcolor: #e14340 !important\r\n}\r\n.realtime-bottom-right ul li p {\r\n\tcolor: #fff;\r\n\tmargin-right: 10px;\r\n\toverflow: hidden;\r\n}\r\n.BottomRightP {\r\n\tdisplay: block;\r\n\theight: 41px;\r\n}\r\n.realtime-bottom-right ul li span {\r\n\tposition: absolute;\r\n\tright: 10px;\r\n\tbottom: 2px;\r\n\tcolor: #666;\r\n}\r\n.realtime-bottom-right ul li span p {\r\n\tdisplay: inline-block;\r\n}\r\n\r\n/*realtime-bottom-right(中间的大地图)\r\n------------------------------------------------------------------*/\r\n.realtime-top-middle #demo {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*上海地图的信息框*/\r\n.realtime-top-middle .info {\r\n\twidth: 160px;\r\n\theight: 70px;\r\n\tleft: 5%;\r\n\ttop: 5%;\r\n\tposition: absolute;\r\n\tz-index: 999;\r\n\tcursor: pointer;\r\n\toverflow: hidden;\r\n\tdisplay: none\r\n}\r\n.realtime-top-middle .info .info-left, .realtime-top-middle .info .info-right {\r\n\tfloat: left;\r\n\twidth: 50%;\r\n\theight: 100%;\r\n}\r\n.realtime-top-middle .info .info-left {\r\n\tpadding: 0px 3px 3px 0px;\r\n}\r\n.realtime-top-middle .info .info-right {\r\n\tbackground: #363e48;\r\n\tborder-radius: 3px;\r\n\tfont-size: 24px;\r\n\tcolor: #e14340;\r\n\tline-height: 70px;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-middle .info .info-left .title {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 34px;\r\n\tfont-size: 12px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 34px;\r\n\tborder-radius: 3px;\r\n}\r\n.realtime-top-middle .info .info-left .date {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 34px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 34px;\r\n\tmargin-top: 3px;\r\n\tborder-radius: 3px;\r\n\tfont-size: 12px;\r\n}\r\n\r\n/*上海地图的返回按钮*/\r\n.realtime-top-middle .return {\r\n\tbackground: linear-gradient(to bottom, #b96f6f 5%, red 50%, #f50202 100%);\r\n\tposition: absolute;\r\n\tbottom: 10%;\r\n\tleft: 3%;\r\n\tdisplay: none;\r\n}\r\n\r\n/*地下的长条信息框*/\r\n.realtime-top-middle .bar {\r\n\twidth: 98%;\r\n\theight: 40px;\r\n\tbackground: #282f39;\r\n\ttext-align: center;\r\n\tline-height: 40px;\r\n\tposition: absolute;\r\n\tbottom: 1%;\r\n\tfont-size: 12px;\r\n\tdisplay: none;\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-middle .carousel {\r\n\tposition: absolute;\r\n\tleft: 6%;\r\n\ttop: 0;\r\n\tz-index: 999;\r\n}\r\n.realtime-top-middle .bar img {\r\n\twidth: 30px;\r\n\theight: 30px;\r\n\tposition: absolute;\r\n\tleft: 5%;\r\n\ttop: 5px;\r\n}\r\n.darkRed {\r\n\tcolor: #e14340;\r\n\tpadding: 0px 5px;\r\n}\r\n\r\n/*tootips实验*/\r\n.testTo {\r\n\twidth: auto;\r\n\theight: auto;\r\n\tfont-size: 12px;\r\n\tcursor: pointer;\r\n}\r\n.testTo h4 {\r\n\tdisplay: inline-block;\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo label {\r\n\tdisplay: inline-block;\r\n\twidth: 60px;\r\n\theight: 18px;\r\n\tborder: 1px solid #fff;\r\n\ttext-align: center;\r\n\tvertical-align: middle;\r\n\tmargin-left: 20px;\r\n\tcolor: #000;\r\n\ttext-align: center;\r\n\ttext-indent: 5px;\r\n\tline-height: 16px;\r\n}\r\n.testTo p {\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo p span {\r\n\tcolor: yellow\r\n}\r\n.black {\r\n\tbackground: black;\r\n\tcolor: #fff !important\r\n}\r\n.green {\r\n\tbackground: green\r\n}\r\n.yellow {\r\n\tbackground: yellow;\r\n}\r\n.red {\r\n\tbackground: red;\r\n}\r\n.white {\r\n\tcolor: #fff !important;\r\n}\r\n\r\n/**/\r\n.testTo .tableH4 {\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n\tcolor: #ce3431;\r\n\tfont-size: 14px;\r\n\tfont-weight: bold;\r\n}\r\n.testTo table td {\r\n\tborder: 1px solid #1a2029;\r\n\ttext-align: center;\r\n\tpadding: 5px;\r\n}\r\n.testTo .tip-scroll {\r\n\twidth: 200px;\r\n\theight: 100px;\r\n\ttext-align: center;\r\n\toverflow-y: auto;\r\n}\r\n.testTo .tip-scroll  span {\r\n\tdisplay: block;\r\n\tpadding: 5px 0;\r\n}\r\n.testTo .nums {\r\n\tdisplay: block;\r\n\ttext-align: center;\r\n}\r\n\r\n/*realtime-bottom-rleft(线下理财)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-left {\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-left  .more {\r\n\tcolor: #fff;\r\n\tfont-size: 14px;\r\n\tposition: absolute;\r\n\ttop: 60px;\r\n\tright: 11%;\r\n\tz-index: 99999;\r\n}", ""]);
 
 	// exports
 
@@ -83277,6 +83310,11 @@
 	                'tbody',
 	                null,
 	                tableDate.content[fixRange - 1].map(function (elem, index) {
+	                  //因为表格第四个tab的数据格式不一样，为日期，所以需要判断
+	                  var three = fixRange - 1 == 3 ? elem.exposureDate : elem.registered_capital;
+	                  console.log(fixRange - 1, "fixRange-1");
+	                  console.log(three, "three");
+	                  debugger;
 	                  return _react2.default.createElement(
 	                    'tr',
 	                    { key: index },
@@ -83305,7 +83343,7 @@
 	                    _react2.default.createElement(
 	                      'td',
 	                      null,
-	                      elem.registered_capital
+	                      three
 	                    )
 	                  );
 	                })
@@ -83399,6 +83437,152 @@
 	var SHposition = {};
 	var option;
 	var geoSereisFinal = { '1': [], '2': [], '3': [], '4': [] };
+	//中国点的经纬度
+	var geoCoordMap = {
+	    '上海': [121.4648, 31.2891],
+	    '东莞': [113.8953, 22.901],
+	    '东营': [118.7073, 37.5513],
+	    '中山': [113.4229, 22.478],
+	    '临汾': [111.4783, 36.1615],
+	    '临沂': [118.3118, 35.2936],
+	    '丹东': [124.541, 40.4242],
+	    '丽水': [119.5642, 28.1854],
+	    '乌鲁木齐': [87.9236, 43.5883],
+	    '佛山': [112.8955, 23.1097],
+	    '保定': [115.0488, 39.0948],
+	    '兰州': [103.5901, 36.3043],
+	    '包头': [110.3467, 41.4899],
+	    '北京': [116.4551, 40.2539],
+	    '北海': [109.314, 21.6211],
+	    '南京': [118.8062, 31.9208],
+	    '南宁': [108.479, 23.1152],
+	    '南昌': [116.0046, 28.6633],
+	    '南通': [121.1023, 32.1625],
+	    '厦门': [118.1689, 24.6478],
+	    '台州': [121.1353, 28.6688],
+	    '合肥': [117.29, 32.0581],
+	    '呼和浩特': [111.4124, 40.4901],
+	    '咸阳': [108.4131, 34.8706],
+	    '哈尔滨': [127.9688, 45.368],
+	    '唐山': [118.4766, 39.6826],
+	    '嘉兴': [120.9155, 30.6354],
+	    '大同': [113.7854, 39.8035],
+	    '大连': [122.2229, 39.4409],
+	    '太原': [112.3352, 37.9413],
+	    '威海': [121.9482, 37.1393],
+	    '宁波': [121.5967, 29.6466],
+	    '宝鸡': [107.1826, 34.3433],
+	    '宿迁': [118.5535, 33.7775],
+	    '常州': [119.4543, 31.5582],
+	    '广州': [113.5107, 23.2196],
+	    '廊坊': [116.521, 39.0509],
+	    '延安': [109.1052, 36.4252],
+	    '张家口': [115.1477, 40.8527],
+	    '徐州': [117.5208, 34.3268],
+	    '德州': [116.6858, 37.2107],
+	    '惠州': [114.6204, 23.1647],
+	    '成都': [103.9526, 30.7617],
+	    '扬州': [119.4653, 32.8162],
+	    '承德': [117.5757, 41.4075],
+	    '拉萨': [91.1865, 30.1465],
+	    '无锡': [120.3442, 31.5527],
+	    '日照': [119.2786, 35.5023],
+	    '昆明': [102.9199, 25.4663],
+	    '杭州': [119.5313, 29.8773],
+	    '枣庄': [117.323, 34.8926],
+	    '柳州': [109.3799, 24.9774],
+	    '株洲': [113.5327, 27.0319],
+	    '武汉': [114.3896, 30.6628],
+	    '汕头': [117.1692, 23.3405],
+	    '江门': [112.6318, 22.1484],
+	    '沈阳': [123.1238, 42.1216],
+	    '沧州': [116.8286, 38.2104],
+	    '河源': [114.917, 23.9722],
+	    '泉州': [118.3228, 25.1147],
+	    '泰安': [117.0264, 36.0516],
+	    '泰州': [120.0586, 32.5525],
+	    '济南': [117.1582, 36.8701],
+	    '济宁': [116.8286, 35.3375],
+	    '海口': [110.3893, 19.8516],
+	    '淄博': [118.0371, 36.6064],
+	    '淮安': [118.927, 33.4039],
+	    '深圳': [114.5435, 22.5439],
+	    '清远': [112.9175, 24.3292],
+	    '温州': [120.498, 27.8119],
+	    '渭南': [109.7864, 35.0299],
+	    '湖州': [119.8608, 30.7782],
+	    '湘潭': [112.5439, 27.7075],
+	    '滨州': [117.8174, 37.4963],
+	    '潍坊': [119.0918, 36.524],
+	    '烟台': [120.7397, 37.5128],
+	    '玉溪': [101.9312, 23.8898],
+	    '珠海': [113.7305, 22.1155],
+	    '盐城': [120.2234, 33.5577],
+	    '盘锦': [121.9482, 41.0449],
+	    '石家庄': [114.4995, 38.1006],
+	    '福州': [119.4543, 25.9222],
+	    '秦皇岛': [119.2126, 40.0232],
+	    '绍兴': [120.564, 29.7565],
+	    '聊城': [115.9167, 36.4032],
+	    '肇庆': [112.1265, 23.5822],
+	    '舟山': [122.2559, 30.2234],
+	    '苏州': [120.6519, 31.3989],
+	    '莱芜': [117.6526, 36.2714],
+	    '菏泽': [115.6201, 35.2057],
+	    '营口': [122.4316, 40.4297],
+	    '葫芦岛': [120.1575, 40.578],
+	    '衡水': [115.8838, 37.7161],
+	    '衢州': [118.6853, 28.8666],
+	    '西宁': [101.4038, 36.8207],
+	    '西安': [109.1162, 34.2004],
+	    '贵阳': [106.6992, 26.7682],
+	    '连云港': [119.1248, 34.552],
+	    '邢台': [114.8071, 37.2821],
+	    '邯郸': [114.4775, 36.535],
+	    '郑州': [113.4668, 34.6234],
+	    '鄂尔多斯': [108.9734, 39.2487],
+	    '金华': [120.0037, 29.1028],
+	    '铜川': [109.0393, 35.1947],
+	    '银川': [106.3586, 38.1775],
+	    '镇江': [119.4763, 31.9702],
+	    '长春': [125.8154, 44.2584],
+	    '长沙': [113.0823, 28.2568],
+	    '长治': [112.8625, 36.4746],
+	    '阳泉': [113.4778, 38.0951],
+	    '青岛': [120.4651, 36.3373],
+	    '韶关': [113.7964, 24.7028],
+	    //省名
+	    '天津': [117.11, 39.09],
+	    '重庆': [106.32, 29.32],
+	    '黑龙江': [126.41, 45.45],
+	    '吉林': [125.19, 43.52],
+	    '辽宁': [123.24, 41.5],
+	    '内蒙古': [111.48, 40.49],
+	    '河北': [114.28, 38.02],
+	    '山西': [112.34, 37.52],
+	    '山东': [117, 36.38],
+	    '河南': [113.42, 34.48],
+	    '陕西': [108.54, 34.16],
+	    '甘肃': [103.49, 36.03],
+	    '宁夏': [106.16, 38.2],
+	    '青海': [101.45, 36.38],
+	    '新疆': [87.36, 43.48],
+	    '安徽': [117.18, 31.51],
+	    '江苏': [118.5, 32.02],
+	    '浙江': [120.09, 30.14],
+	    '湖南': [113, 28.11],
+	    '江西': [115.52, 28.41],
+	    '湖北': [114.21, 30.37],
+	    '四川': [104.05, 30.39],
+	    '贵州': [106.42, 26.35],
+	    '福建': [119.18, 26.05],
+	    '台湾': [121.31, 25.03],
+	    '广东': [113.15, 23.08],
+	    '海南': [110.2, 20.02],
+	    '广西': [108.2, 22.48],
+	    '云南': [102.41, 25],
+	    '西藏': [90.08, 29.39]
+	};
 	/*上海地图接口的全局变量*/
 	var TopMiddle = _react2.default.createClass({
 	    displayName: 'TopMiddle',
@@ -83417,205 +83601,26 @@
 	        }
 	        return res;
 	    },
+	    convertDataSH: function convertDataSH(data) {
+	        var res = [];
+	        for (var i = 0; i < data.length; i++) {
+	            var dataItem = data[i];
+	            var fromCoord = geoCoordMap[dataItem[0].name];
+	            var toCoord = geoCoordMap[dataItem[1].name];
+	            if (fromCoord && toCoord) {
+	                res.push({
+	                    fromName: dataItem[0].name,
+	                    toName: dataItem[1].name,
+	                    coords: [fromCoord, toCoord]
+	                });
+	            }
+	        }
+	        return res;
+	    },
 	    mapChina: function mapChina() {
 	        var _this = this;
-	        //中国点的经纬度
-	        var geoCoordMap = {
-	            '上海': [121.4648, 31.2891],
-	            '东莞': [113.8953, 22.901],
-	            '东营': [118.7073, 37.5513],
-	            '中山': [113.4229, 22.478],
-	            '临汾': [111.4783, 36.1615],
-	            '临沂': [118.3118, 35.2936],
-	            '丹东': [124.541, 40.4242],
-	            '丽水': [119.5642, 28.1854],
-	            '乌鲁木齐': [87.9236, 43.5883],
-	            '佛山': [112.8955, 23.1097],
-	            '保定': [115.0488, 39.0948],
-	            '兰州': [103.5901, 36.3043],
-	            '包头': [110.3467, 41.4899],
-	            '北京': [116.4551, 40.2539],
-	            '北海': [109.314, 21.6211],
-	            '南京': [118.8062, 31.9208],
-	            '南宁': [108.479, 23.1152],
-	            '南昌': [116.0046, 28.6633],
-	            '南通': [121.1023, 32.1625],
-	            '厦门': [118.1689, 24.6478],
-	            '台州': [121.1353, 28.6688],
-	            '合肥': [117.29, 32.0581],
-	            '呼和浩特': [111.4124, 40.4901],
-	            '咸阳': [108.4131, 34.8706],
-	            '哈尔滨': [127.9688, 45.368],
-	            '唐山': [118.4766, 39.6826],
-	            '嘉兴': [120.9155, 30.6354],
-	            '大同': [113.7854, 39.8035],
-	            '大连': [122.2229, 39.4409],
-	            '太原': [112.3352, 37.9413],
-	            '威海': [121.9482, 37.1393],
-	            '宁波': [121.5967, 29.6466],
-	            '宝鸡': [107.1826, 34.3433],
-	            '宿迁': [118.5535, 33.7775],
-	            '常州': [119.4543, 31.5582],
-	            '广州': [113.5107, 23.2196],
-	            '廊坊': [116.521, 39.0509],
-	            '延安': [109.1052, 36.4252],
-	            '张家口': [115.1477, 40.8527],
-	            '徐州': [117.5208, 34.3268],
-	            '德州': [116.6858, 37.2107],
-	            '惠州': [114.6204, 23.1647],
-	            '成都': [103.9526, 30.7617],
-	            '扬州': [119.4653, 32.8162],
-	            '承德': [117.5757, 41.4075],
-	            '拉萨': [91.1865, 30.1465],
-	            '无锡': [120.3442, 31.5527],
-	            '日照': [119.2786, 35.5023],
-	            '昆明': [102.9199, 25.4663],
-	            '杭州': [119.5313, 29.8773],
-	            '枣庄': [117.323, 34.8926],
-	            '柳州': [109.3799, 24.9774],
-	            '株洲': [113.5327, 27.0319],
-	            '武汉': [114.3896, 30.6628],
-	            '汕头': [117.1692, 23.3405],
-	            '江门': [112.6318, 22.1484],
-	            '沈阳': [123.1238, 42.1216],
-	            '沧州': [116.8286, 38.2104],
-	            '河源': [114.917, 23.9722],
-	            '泉州': [118.3228, 25.1147],
-	            '泰安': [117.0264, 36.0516],
-	            '泰州': [120.0586, 32.5525],
-	            '济南': [117.1582, 36.8701],
-	            '济宁': [116.8286, 35.3375],
-	            '海口': [110.3893, 19.8516],
-	            '淄博': [118.0371, 36.6064],
-	            '淮安': [118.927, 33.4039],
-	            '深圳': [114.5435, 22.5439],
-	            '清远': [112.9175, 24.3292],
-	            '温州': [120.498, 27.8119],
-	            '渭南': [109.7864, 35.0299],
-	            '湖州': [119.8608, 30.7782],
-	            '湘潭': [112.5439, 27.7075],
-	            '滨州': [117.8174, 37.4963],
-	            '潍坊': [119.0918, 36.524],
-	            '烟台': [120.7397, 37.5128],
-	            '玉溪': [101.9312, 23.8898],
-	            '珠海': [113.7305, 22.1155],
-	            '盐城': [120.2234, 33.5577],
-	            '盘锦': [121.9482, 41.0449],
-	            '石家庄': [114.4995, 38.1006],
-	            '福州': [119.4543, 25.9222],
-	            '秦皇岛': [119.2126, 40.0232],
-	            '绍兴': [120.564, 29.7565],
-	            '聊城': [115.9167, 36.4032],
-	            '肇庆': [112.1265, 23.5822],
-	            '舟山': [122.2559, 30.2234],
-	            '苏州': [120.6519, 31.3989],
-	            '莱芜': [117.6526, 36.2714],
-	            '菏泽': [115.6201, 35.2057],
-	            '营口': [122.4316, 40.4297],
-	            '葫芦岛': [120.1575, 40.578],
-	            '衡水': [115.8838, 37.7161],
-	            '衢州': [118.6853, 28.8666],
-	            '西宁': [101.4038, 36.8207],
-	            '西安': [109.1162, 34.2004],
-	            '贵阳': [106.6992, 26.7682],
-	            '连云港': [119.1248, 34.552],
-	            '邢台': [114.8071, 37.2821],
-	            '邯郸': [114.4775, 36.535],
-	            '郑州': [113.4668, 34.6234],
-	            '鄂尔多斯': [108.9734, 39.2487],
-	            '金华': [120.0037, 29.1028],
-	            '铜川': [109.0393, 35.1947],
-	            '银川': [106.3586, 38.1775],
-	            '镇江': [119.4763, 31.9702],
-	            '长春': [125.8154, 44.2584],
-	            '长沙': [113.0823, 28.2568],
-	            '长治': [112.8625, 36.4746],
-	            '阳泉': [113.4778, 38.0951],
-	            '青岛': [120.4651, 36.3373],
-	            '韶关': [113.7964, 24.7028],
-	            //省名
-	            '天津': [117.11, 39.09],
-	            '重庆': [106.32, 29.32],
-	            '黑龙江': [126.41, 45.45],
-	            '吉林': [125.19, 43.52],
-	            '辽宁': [123.24, 41.5],
-	            '内蒙古': [111.48, 40.49],
-	            '河北': [114.28, 38.02],
-	            '山西': [112.34, 37.52],
-	            '山东': [117, 36.38],
-	            '河南': [113.42, 34.48],
-	            '陕西': [108.54, 34.16],
-	            '甘肃': [103.49, 36.03],
-	            '宁夏': [106.16, 38.2],
-	            '青海': [101.45, 36.38],
-	            '新疆': [87.36, 43.48],
-	            '安徽': [117.18, 31.51],
-	            '江苏': [118.5, 32.02],
-	            '浙江': [120.09, 30.14],
-	            '湖南': [113, 28.11],
-	            '江西': [115.52, 28.41],
-	            '湖北': [114.21, 30.37],
-	            '四川': [104.05, 30.39],
-	            '贵州': [106.42, 26.35],
-	            '福建': [119.18, 26.05],
-	            '台湾': [121.31, 25.03],
-	            '广东': [113.15, 23.08],
-	            '海南': [110.2, 20.02],
-	            '广西': [108.2, 22.48],
-	            '云南': [102.41, 25],
-	            '西藏': [90.08, 29.39]
-	        };
-	        var convertData = function convertData(data) {
-	            var res = [];
-	            for (var i = 0; i < data.length; i++) {
-	                var dataItem = data[i];
-	                var fromCoord = geoCoordMap[dataItem[0].name];
-	                var toCoord = geoCoordMap[dataItem[1].name];
-	                if (fromCoord && toCoord) {
-	                    res.push({
-	                        fromName: dataItem[0].name,
-	                        toName: dataItem[1].name,
-	                        coords: [fromCoord, toCoord]
-	                    });
-	                }
-	            }
-	            return res;
-	        };
 	        var res = [];
-	        // var SHData = [
-	        //   [{name:'包头',value:95},{name:'上海'}],
-	        //   [{name:'昆明',value:90},{name:'上海'}],
-	        //   [{name:'广州',value:80},{name:'上海'}],
-	        //   [{name:'郑州',value:70},{name:'上海'}],
-	        //   [{name:'长春',value:60},{name:'上海'}],
-	        //   [{name:'重庆',value:50},{name:'上海'}],
-	        //   [{name:'长沙',value:40},{name:'上海'}],
-	        //   [{name:'北京',value:30},{name:'上海'}],
-	        //   [{name:'丹东',value:20},{name:'上海'}],
-	        //   [{name:'大连',value:10},{name:'上海'}]
-	        // ];
-	        // var SHData =  [
-	        //         [
-	        //             {
-	        //                 "name": "大连",
-	        //                 "value": 204433
-	        //             },
-	        //             {
-	        //                 "name": "上海"
-	        //             }
-	        //         ],
-	        //         [
-	        //             {
-	        //                 "name": "重庆",
-	        //                 "value": 1594
-	        //             },
-	        //             {
-	        //                 "name": "上海"
-	        //             }
-	        //         ]
-	        //     ]
-	        var SHData = ajaxDataChina.content.SHData;
-
+	        var SHData = ajaxDataChina.content.SHData; //中国地图线的数据
 	        var color = ['#facd89', '#ffa022', '#46bee9'];
 	        chartChina = echarts.init(document.getElementById("demo"));
 	        var option = {
@@ -83657,7 +83662,7 @@
 	            series: [{ //线
 	                name: "",
 	                type: 'lines',
-	                zlevel: 1,
+	                zlevel: 20,
 	                effect: {
 	                    show: true,
 	                    period: 6,
@@ -83672,7 +83677,7 @@
 	                        curveness: 0.2
 	                    }
 	                },
-	                data: _this.convertData(SHData)
+	                data: _this.convertDataSH(SHData) //可能的错误点 doto
 	            }, { //线上移动的图标
 	                name: "",
 	                type: 'lines',
@@ -83692,7 +83697,7 @@
 	                        curveness: 0.2
 	                    }
 	                },
-	                data: _this.convertData(SHData)
+	                data: _this.convertDataSH(SHData)
 	            }, { //圆点
 	                name: "",
 	                type: 'effectScatter',
@@ -83813,18 +83818,18 @@
 	                        switch (range) {
 
 	                            case 1:
-	                                typeP = "曝光日期<span> " + numORdate + " </span>";typeLabel = "<label class='testLable'>已出风险</label>";
+	                                typeP = "曝光日期<span> " + numORdate + " </span>";typeLabel = "<label class='testLable white'>已出风险</label>";
 	                                break;
 	                            case 2:
-	                                typeP = "风险值<span> " + numORdate + " </span>";typeLabel = "<label class='testLable green'>正常</label>";
+	                                typeP = "风险值<span> " + Number(numORdate).toFixed(2) + " </span>";typeLabel = "<label class='testLable green'>正常</label>";
 	                                break;
 
 	                            case 3:
-	                                typeP = "风险值<span> " + numORdate + " </span>";typeLabel = "<label class='testLable yellow'>一般关注</label>";
+	                                typeP = "风险值<span> " + Number(numORdate).toFixed(2) + " </span>";typeLabel = "<label class='testLable yellow'>一般关注</label>";
 	                                break;
 
 	                            case 4:
-	                                typeP = "风险值<span> " + numORdate + " </span>";typeLabel = "<label class='testLable red'>重点关注</label>";
+	                                typeP = "风险值<span> " + Number(numORdate).toFixed(2) + " </span>";typeLabel = "<label class='testLable red'>重点关注</label>";
 	                                break;
 
 	                        };
@@ -83844,7 +83849,8 @@
 
 	                        // var length = ajaxDataSH.SHhoverArea[hoverName].companyName.length;
 	                        if (ajaxDataSH.SHhoverArea[hoverName]) {
-	                            companyNum = ajaxDataSH.SHhoverArea[hoverName].companyNum;
+	                            //可能返回为null  处理下
+	                            companyNum = ajaxDataSH.SHhoverArea[hoverName].companyNum || "";
 	                            num = ajaxDataSH.SHhoverArea[hoverName].num;
 	                            ajaxDataSH.SHhoverArea[hoverName].buildingName.map(function (item, index) {
 
@@ -84062,7 +84068,6 @@
 	            if (realTimeMapRequest == true) {
 	                if (realTimeMapRequest == true) {
 	                    ajaxDataChina = realTimeMapResult;
-	                    // console.log(ajaxDataChina.content.SHData,"fuck u")
 	                } else {
 	                    alert(404);
 	                }
@@ -84110,9 +84115,6 @@
 	            var realtimeSwithVal = nextProps.realtimeSwithVal;
 
 	            if (!!chartShanghai) {
-	                console.info("jjjjjjjjjjjjjjjjjj", geoSereisFinal[realtimeSwithVal]);
-	                // option.series[0].data =geoSereisFinal[realtimeSwithVal];
-
 	                chartShanghai.setOption({
 	                    series: [{
 	                        data: this.convertData(geoSereisFinal[realtimeSwithVal])
@@ -84126,14 +84128,14 @@
 	        var _props = this.props;
 	        var getRealTimeMap = _props.getRealTimeMap;
 	        var getRealTimeMapSh = _props.getRealTimeMapSh;
-	        var getRealTimeScroll = _props.getRealTimeScroll; // 取到props里面的getRealTimeTable方法。也可以说是请求action
+	        var getRealTimeScroll = _props.getRealTimeScroll;
 
-	        var jsonData = {}; //ajax传递给后台的data键值对
+	        var jsonData = {};
 	        getRealTimeMap(jsonData);
 	        getRealTimeMapSh(jsonData);
 	        getRealTimeScroll(jsonData);
+
 	        $(window).resize(function (event) {
-	            console.log(chartChina);
 	            if (chartChina) {
 	                chartChina.resize();
 	            };
@@ -84142,68 +84144,17 @@
 	            };
 	        }.bind(this));
 	    },
-	    componentDidUpdate: function componentDidUpdate(nextProps, nextState) {
-	        // var convertData = function (data) {
-	        //       var res = [];
-	        //       for (var i = 0; i < data.length; i++) {
-	        //           var geoCoord = SHposition[data[i].name];
-	        //           if (geoCoord) {
-	        //               res.push({
-	        //                   name: data[i].name,
-	        //                   value: geoCoord.concat(data[i].value)
-	        //               });
-	        //           }
-	        //       }
-	        //       return res;
-	        // };
-	        // var range = this.props.pushRange;
-	        //   //这一块传值的时候，name是后台传的，value这个系数也是后台传过来。ps：也可以直接传递convertData处理过后的数组
-	        // if (range != null && chartShanghai != undefined) {
-	        //   if (range == 1) {
-	        //       chartShanghai.setOption({
-	        //             series:[
-	        //               {
-	        //                 data: convertData([
-	        //                       {name:"中晋股权投资基金管理(上海)有限公司",value:1},
-	        //                       {name:"融宜宝积家投资管理（北京）有限公司上海分公司",value:1},
-	        //                       {name:"上海太宥恒资产管理有限公司",value:1},
-	        //                       {name:"上海炳恒财富投资管理（集团）有限公司",value:1},
-	        //                       {name:"上海长来资产管理有限公司",value:1}
-	        //                      ])
-	        //               }
-	        //             ]
-	        //           })
-	        //   } else {
-	        //           chartShanghai.setOption({
-	        //             series:[
-	        //               {
-	        //                 data: convertData([
-	        //                     {name:"黄浦区",value:this.props.pushRange},
-	        //                     {name:"浦东新区",value:this.props.pushRange},
-	        //                     {name:"徐汇区",value:this.props.pushRange,myName:"1243546"},
-	        //                     {name:"长宁区",value:this.props.pushRange},
-	        //                     {name:"静安区",value:this.props.pushRange},
-	        //                     {name:"普陀区",value:this.props.pushRange},
-	        //                     {name:"虹口区",value:this.props.pushRange},
-	        //                     {name:"杨浦区",value:this.props.pushRange}
-	        //                      ])
-	        //               }
-	        //             ]
-	        //           })
-	        //   }
-	        // }
-	    },
 
 	    NewsScroll: function NewsScroll() {
 	        //地图上一行字的滚动
 	        var barWidth = parseInt($(".bar").css("width"));
 	        scroll();
 	        function scroll() {
-	            $(".carousel").animate({ left: -barWidth }, 20000, function () {
+	            $(".carousel").animate({ left: -barWidth }, 40000, function () {
 	                $(".carousel").css("left", barWidth + "px");
 	            });
 	        }
-	        var b = setInterval(scroll, 20000);
+	        var b = setInterval(scroll, 40000);
 	    },
 	    render: function render() {
 	        return _react2.default.createElement(
@@ -84355,7 +84306,7 @@
 	                        link: "/smallLoan#/smallLoan",
 	                        id: 'realTimeRightOne', //必传
 	                        height: '100%', //必传 带上单位
-	                        title: '贷款余额',
+	                        title: '小额贷款',
 	                        forMaterTitle: "贷款余额",
 	                        forMaterTip: '平均贷款余额',
 	                        yAxisName: "亿元",
@@ -84422,28 +84373,29 @@
 	                    paramThree = {
 	                        "link": "/smallLoan#/P2P",
 	                        "titleShow": true,
-	                        "title": "P2P平台",
+	                        "Ytype": "value",
+	                        "title": "P2P",
 	                        "color": ["#12b5b0", "#e24441"],
-	                        "legend": ["上海新增", "上海累计"],
+	                        "legend": ["上海累计", "上海新增"],
 	                        "legendShow": true,
 	                        "legendLeft": "center",
 	                        "legendTop": "20",
-	                        "barName": ["上海新增"],
-	                        "lineName": ["上海累计"],
+	                        "barName": ["上海累计"],
+	                        "lineName": ["上海新增"],
 	                        "YnameLocation": "end",
 	                        "gridLeft": "5%",
 	                        "gridRight": "0%",
 	                        "gridBottom": "0%",
 	                        // "yFlag":"",
 	                        // "y2Flag":"",
-	                        "yRightLable": "line",
+	                        "yRightLable": "bar",
 	                        "xAxis": nineDate.content.p2p.xAxis,
-	                        "yAxisName": ["新增", "累计"],
+	                        "yAxisName": ["累计", "新增"],
 	                        "barWidth": 20,
 	                        "symbolSize": 10,
 	                        "series": {
-	                            "bar": [nineDate.content.p2p.series.bar],
-	                            "line": [nineDate.content.p2p.series.line]
+	                            "line": [nineDate.content.p2p.series.line],
+	                            "bar": [nineDate.content.p2p.series.bar]
 	                        }
 	                    };
 	                    paramFour = {
@@ -84476,7 +84428,7 @@
 	                    };
 	                    paramFive = {
 	                        "link": "/smallLoan#/TradingPlaces",
-	                        "title": "交易场所清理整顿分类",
+	                        "title": "交易场所",
 	                        "color": ["#f93330"],
 	                        "titleShow": "show",
 	                        "titleX": "left",
@@ -84505,7 +84457,7 @@
 	                    };
 	                    paramSix = {
 	                        "link": "/smallLoan#/RaiseIndex",
-	                        "title": "众筹平台",
+	                        "title": "众筹",
 	                        "color": ["#f93330"],
 	                        "titleShow": "show",
 	                        "titleX": "left",
@@ -84543,7 +84495,7 @@
 	                        link: "/smallLoan#/PawnMonitoring",
 	                        id: 'realTimeRightTwo', //必传
 	                        height: '100%', //必传 带上单位
-	                        title: '典当总额及业务笔数',
+	                        title: '典当',
 	                        forMaterTitle: "典当总额",
 	                        forMaterTip: '业务笔数',
 	                        gridTop: "20%",
@@ -84580,7 +84532,7 @@
 	                        "gridRight": "0%",
 	                        "gridBottom": "0%",
 	                        "Ytype": "value",
-	                        "xAxis": ["2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012"],
+	                        "xAxis": nineDate.content.factoring.content.histogram.xAxis,
 	                        "yAxisName": ["亿元", "个数"],
 	                        "unit": ["亿元", ""],
 	                        "yRightLable": "bar",
@@ -84589,13 +84541,13 @@
 	                        "itemStyle": {},
 	                        "series": {
 	                            //后台暂时没得数据，莫法传
-	                            "bar": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]],
-	                            "line": [[Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200), Math.round(Math.random() * 200)]]
+	                            "bar": [nineDate.content.factoring.content.histogram.series],
+	                            "line": [nineDate.content.factoring.content.line.series]
 	                        }
 	                    };
 	                    paramNine = {
 	                        "link": "/smallLoan#/prepaidCard",
-	                        "title": "预付卡之备案企业预付金额总额",
+	                        "title": "单用途预付卡",
 	                        "color": ["#12b5b0", "#01b6ed"],
 	                        "titleShow": "show",
 	                        "titleX": "left",
@@ -84910,14 +84862,18 @@
 	              null,
 	              _react2.default.createElement(
 	                'a',
-	                { href: item.bbd_url },
+	                { href: item.bbd_url, target: '_blank' },
 	                item.news_title
 	              )
 	            ),
 	            _react2.default.createElement(
 	              'p',
 	              { title: item.main, className: 'BottomRightP' },
-	              main + "..."
+	              _react2.default.createElement(
+	                'a',
+	                { href: item.bbd_url, style: { color: "#fff" }, target: '_blank' },
+	                main + "..."
+	              )
 	            ),
 	            _react2.default.createElement('br', null),
 	            _react2.default.createElement(
@@ -84946,44 +84902,6 @@
 	    var jsonData = {}; //ajax传递给后台的data键值对
 	    getRealTimeNews(jsonData);
 	  },
-
-	  /*  componentWillReceiveProps: function(nextProps) {
-	      console.log(nextProps.realTimeNewsResult)
-	      console.log(this.props.realTimeNewsResult)
-	      var _this = this;
-	      var isEqual=Immutable.is(nextProps.realTimeNewsRequest, this.props.realTimeNewsResult)//判断数据是否变化
-	              if(!isEqual){
-	               const {realTimeNewsRequest,realTimeNewsResult}=nextProps;
-	               if(realTimeNewsRequest==true){
-	                  if(realTimeNewsRequest==true){ 
-	                    console.log(realTimeNewsResult,"top")
-	                      return;var data=JSON.parse(realTimeNewsResult);
-	                      console.log(data,"fixfixfix")
-	                      // _this.setState({
-	                      //   list:(
-	                      //         realTimeNewsResult.content.map(function(item,index){
-	                      //           return (
-	                      //                 <li key={index} className="animated zoomIn" style={{'WebkitAnimationDelay':index*0.1+'s'}}>
-	                      //                   <h4>
-	                      //                     <a href="http://wwww.baidu.com">{item.searchKey}</a>
-	                      //                   </h4>
-	                      //                   <p>
-	                      //                     {item.newsTitle}
-	                      //                   </p>
-	                      //                   <span>
-	                      //                     <p>{item.newsSite}</p>  <p>{item.pubDate}</p>
-	                      //                   </span>
-	                      //                 </li>
-	                      //             )
-	                      //         })
-	                      //         )
-	                      // })
-	                  }else{
-	                      alert(404)
-	                  }
-	              }
-	            }
-	    },*/
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
