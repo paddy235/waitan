@@ -45,7 +45,6 @@
 			var nowEleId = $(this.element).attr('id');
 			var acId = that.autoParam.acId;
 			$('body').on('click', function(e) {
-				// var nowClickId = $(e.target).parent().parent()[0].id;
 				var nowClickId = e.target.id;
 				if (nowEleId == nowClickId) {
 					that.show();
