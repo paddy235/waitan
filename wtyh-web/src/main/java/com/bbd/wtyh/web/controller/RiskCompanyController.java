@@ -95,7 +95,8 @@ public class RiskCompanyController {
 	@ResponseBody
 	public ResponseBean doSearch(@RequestParam(required = false) String keyword, @RequestParam int pageNo) {
 		keyword = this.strFilter(keyword);
-		int count = companyService.searchCompanyNameCount(keyword);
+		String dataVersion = riskCompanyService.getLastDataVersion();
+		int count = companyService.searchCompanyNameCount(keyword, dataVersion);
 		Pagination pagination = new Pagination();
 		pagination.setCount(count >= MAX_COUNT ? MAX_COUNT - 1 : count); // 搜索结果最多保留200条数据
 		if (pageNo >= MAX_PAGE_NO || pageNo <= -1) {
@@ -107,6 +108,7 @@ public class RiskCompanyController {
 		Map<String, Object> params = new HashMap<>();
 		params.put("keyword", keyword);
 		params.put("pagination", pagination);
+		params.put("dataVersion", dataVersion);
 		List<CompanyDO> list = companyService.searchCompanyName(params);
 		List<CompanySearchVO> resultList = new ArrayList<>();
 		if (!CollectionUtils.isEmpty(list)) {

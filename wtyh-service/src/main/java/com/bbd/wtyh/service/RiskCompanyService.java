@@ -13,4 +13,6 @@ public interface RiskCompanyService {
 	
 	int getTopCount(Map<String, Object> params);
 	
+	String getLastDataVersion();
+	
 }

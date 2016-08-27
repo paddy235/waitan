@@ -422,7 +422,30 @@ public class OfflineFinanceController {
         XAxisSeriesBarLineBean<Integer,String> pToPMonitorResponseBean = new XAxisSeriesBarLineBean<>();
         try {
             List<IndustryShanghaiDTO> list = pToPMonitorService.getData();
-            pToPMonitorResponseBean = pToPMonitorController.newlyPlat(list);
+            XAxisSeriesBarLineBean<Integer,String> data = new XAxisSeriesBarLineBean<>();
+            data.setTitle("上海新增平台发展趋势");
+            if(!CollectionUtils.isEmpty(list) ){
+                Map<String, Integer[]> map = new TreeMap<>();
+                for (IndustryShanghaiDTO dto : list) {
+                    Integer[] as = map.get(dto.getSeason());
+                    if(as == null){
+                        as = new Integer[]{0,0};
+                    }
+                    as[0] += dto.getTotal_plat_num();
+                    as[1] += dto.getNew_plat_num();
+                    map.put(dto.getSeason(), as);
+                }
+                data.getxAxis().addAll(map.keySet());
+
+                Iterator<Integer[]> it = map.values().iterator();
+                while(it.hasNext()){
+                    Integer[] newTot = it.next();
+                    data.getSeries().getBar().add(newTot[0]);
+                    data.getSeries().getLine().add(newTot[1]);
+                }
+            }
+
+            pToPMonitorResponseBean = data;
         } catch (Exception e) {
             e.printStackTrace();
         }
