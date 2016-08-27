@@ -3,6 +3,7 @@ package com.bbd.wtyh.service.impl;
 import java.util.*;
 
 import com.bbd.wtyh.mapper.*;
+import com.bbd.wtyh.service.CompanyNewsService;
 import com.bbd.wtyh.service.DataomApiBbdservice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,6 +60,9 @@ public class ParkServiceImpl implements ParkService {
 	
 	@Autowired
 	private ParkMapper parkMapper;
+
+	@Autowired
+	private CompanyNewsService cns;
 	
 	@Autowired
 	private CompanyAnalysisResultMapper carMapper;
@@ -140,16 +144,8 @@ public class ParkServiceImpl implements ParkService {
 				e.printStackTrace();
 			}
 		}
-		if( !StringUtils.hasText(result) ){
-			result = dataomApiBbdservice.bbdQyxgYuqing("上海自贸区");
-			log.info("舆情：上海自贸区 返回值为:"+result);
-			return result;
-		}
-
-		if(result.contains("\"total\": 0")){
-			result = dataomApiBbdservice.bbdQyxgYuqing("上海自贸区");
-			log.info("舆情：上海自贸区 返回值为:"+result);
-			return result;
+		if( !StringUtils.hasText(result) || result.contains("\"total\": 0")){
+			return cns.getCompanyNews();
 		}
 
 		return result;
@@ -177,14 +173,8 @@ public class ParkServiceImpl implements ParkService {
 				e.printStackTrace();
 			}
 		}
-		if( !StringUtils.hasText(result) ){
-			result = dataomApiBbdservice.bbdQyxgYuqing("上海自贸区");
-			log.info("舆情：上海自贸区 返回值为:"+result);
-		}
-
-		if(result.contains("\"total\": 0")){
-			result = dataomApiBbdservice.bbdQyxgYuqing("上海自贸区");
-			log.info("舆情：上海自贸区 返回值为:"+result);
+		if( !StringUtils.hasText(result) || result.contains("\"total\": 0")){
+			return cns.getCompanyNews();
 		}
 
 		return result;

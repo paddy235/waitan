@@ -85,12 +85,6 @@ public class HologramQueryServiceImpl implements HologramQueryService {
     @Override
     public BaiDuYuQingDO newsConsensusList(String company) {
         BaiDuYuQingDO baiDuYuQingDO = hologramQueryDao.newsConsensus(company);
-
-        if(StringUtils.hasText(baiDuYuQingDO.getTotal()) || "0".equals(baiDuYuQingDO.getTotal().trim())){
-            String data = dabservice.bbdQyxgYuqing("上海");
-            baiDuYuQingDO = JSON.parseObject(data,BaiDuYuQingDO.class);
-        }
-
         return baiDuYuQingDO;
     }
 
