@@ -415,7 +415,7 @@ public class OfflineFinanceController {
 
         for (CapitalAmountDO capitalAmountDO : capitalAmountList) {
             privateDTO.getxAxis().add(privateFundService.getTypeById(capitalAmountDO.getTypeId()).getTypeName());
-            privateDTO.getSeries()[0].add(CalculateUtils.decimalFormat(capitalAmountDO.getManagedCapitalAmount() * 10000));
+            privateDTO.getSeries()[0].add(String.valueOf(capitalAmountDO.getManagedCapitalAmount()));
             privateDTO.getSeries()[1].add(capitalAmountDO.getPublishCompanyNumber().toString());
         }
         //p2p

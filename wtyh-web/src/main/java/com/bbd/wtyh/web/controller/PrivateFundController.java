@@ -169,8 +169,9 @@ public class PrivateFundController {
     public ResponseBean investmentAmount() {
         List<InvestmentStatisticDO> list = privateFundService.investmentAmount();
 
-        for (InvestmentStatisticDO irs:list) {
-            irs.setInvestmentAmount(CalculateUtils.divide(irs.getInvestmentAmount(),10000,2));
+        for (InvestmentStatisticDO irs : list) {
+            //从百万元转换单位为亿元
+            irs.setInvestmentAmount(CalculateUtils.divide(irs.getInvestmentAmount(), 100, 2));
         }
 
         return ResponseBean.successResponse(list);
