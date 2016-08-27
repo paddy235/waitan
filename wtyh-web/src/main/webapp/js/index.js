@@ -80424,11 +80424,8 @@
 	                    _react2.default.createElement(
 	                        'div',
 	                        null,
-<<<<<<< HEAD
-	                        item.title || '-'
-=======
+
 	                        item.main || '-'
->>>>>>> df573c9435d9766bb0c93b2b73b668f16bd5c390
 	                    ),
 	                    _react2.default.createElement(
 	                        'div',
