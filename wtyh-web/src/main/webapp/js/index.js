@@ -75629,7 +75629,7 @@
 				color: ["#e14340", "#12b5b0"],
 				barWidth: 30,
 				yAxisName: "金额(亿元)",
-				xAxisName: "企业数量",
+				xAxisName: "",
 				yFlag: "", //y轴单位
 				splitLineShow: false,
 				legend: ["企业预付金额总额"],
