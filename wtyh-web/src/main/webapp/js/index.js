@@ -40486,10 +40486,10 @@
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
-	    console.log('menuPark是否执行了');
 	    this.getMenuParkSelectList();
 	  },
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+
 	    var isEqual = Immutable.is(nextProps.menuParkSelectListResult, this.props.menuParkSelectListResult); //判断数据是否变化
 	    if (!isEqual) {
 	      var menuParkSelectListRequest = nextProps.menuParkSelectListRequest;
@@ -40504,12 +40504,7 @@
 	      }
 	    }
 	  },
-	  // shouldComponentUpdate:function(nextProps){
-	  //   //this.getMenuParkSelectList();
-	  //   return false;
-	  // },
 	  dataFomat: function dataFomat(data) {
-	    console.log(data, '是否执行这个数据请求');
 	    var content = data.content;
 	    var len = content.length;
 	    var selectArr = [];
@@ -40517,10 +40512,16 @@
 	      selectArr.push({ value: content[i].areaId, label: content[i].name });
 	    }
 	    var areaId = selectArr[0].value;
-	    console.log(areaId, 'xuyao');
-	    this.props.history.push('/parkMonitor?areaId=' + areaId);
-	    this.getMenuParkSelectVal(selectArr[0].value, selectArr[0].name);
-	    this.setState({ selectDataArr: selectArr, value: selectArr[0].value });
+
+	    //当从其他页面跳转过来时 特殊处理
+	    var areaId = this.props.location.query.areaId;
+	    if (areaId == undefined) {
+	      this.props.history.push('/parkMonitor');
+	      this.getMenuParkSelectVal(selectArr[0].value, selectArr[0].name);
+	      this.setState({ selectDataArr: selectArr, value: selectArr[0].value });
+	    } else {
+	      this.setState({ selectDataArr: selectArr, value: areaId });
+	    }
 	  },
 	  getMenuParkSelectList: function getMenuParkSelectList(data) {
 	    var getMenuParkSelectList = this.props.getMenuParkSelectList;
@@ -51902,6 +51903,22 @@
 	    this.getSearchList(jsonData);
 	  },
 	  render: function render() {
+	    var count = this.state.count;
+	    var searchCount = "";
+	    if (count != 0) {
+	      searchCount = _react2.default.createElement(
+	        'div',
+	        { className: 'search-count' },
+	        '共搜索到',
+	        _react2.default.createElement(
+	          'span',
+	          { className: 'c-red' },
+	          this.state.count
+	        ),
+	        '家相关企业'
+	      );
+	    }
+
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'line-finace-result', style: this.state.style },
@@ -51930,17 +51947,7 @@
 	            );
 	          })
 	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'search-count' },
-	          '共搜索到',
-	          _react2.default.createElement(
-	            'span',
-	            { className: 'c-red' },
-	            this.state.count
-	          ),
-	          '家相关企业'
-	        ),
+	        searchCount,
 	        _react2.default.createElement(_index.PageList, { id: 'search-result-page', count: this.state.count, showPage: '10', callback: this.setCallBack })
 	      )
 	    );
@@ -52263,7 +52270,10 @@
 	  value: true
 	});
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /**
+	                                                                                                                                                                                                                                                                   * 静态风险页面
+	                                                                                                                                                                                                                                                                   */
+
 
 	__webpack_require__(630);
 
@@ -52640,6 +52650,9 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	/**
+	 * 静态风险关联图谱
+	 */
 	var Immutable = __webpack_require__(620);
 	//风险指数关联图
 	var LineFinanceRelationGraph = _react2.default.createClass({
@@ -53024,6 +53037,9 @@
 
 	var Immutable = __webpack_require__(620);
 	//公司舆情
+	/**
+	 * 静态风险-新闻舆情
+	 */
 	var LineFinanceCoCompose = _react2.default.createClass({
 	    displayName: 'LineFinanceCoCompose',
 
@@ -53085,7 +53101,6 @@
 	                        'ul',
 	                        null,
 	                        this.state.listData ? this.state.listData.map(function (item, index) {
-	                            debugger;
 	                            _time = item.pubdate && item.pubdate.substring(0, 9);
 	                            _content = item.main && item.main.length > 120 ? item.main.substring(0, 120) : item.main;
 	                            return _react2.default.createElement(
@@ -53099,7 +53114,7 @@
 	                                        { className: 'title' },
 	                                        _react2.default.createElement(
 	                                            'a',
-	                                            { href: item.bbd_url },
+	                                            { target: '_blank', href: item.bbd_url },
 	                                            _react2.default.createElement(
 	                                                'em',
 	                                                null,
@@ -53110,7 +53125,7 @@
 	                                    ),
 	                                    _react2.default.createElement(
 	                                        'a',
-	                                        { href: item.bbd_url, className: 'abstract' },
+	                                        { target: '_blank', href: item.bbd_url, className: 'abstract' },
 	                                        _content + '...'
 	                                    ),
 	                                    _react2.default.createElement(
@@ -53162,6 +53177,9 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	/**
+	 * 静态风险指数构成
+	 */
 	var Immutable = __webpack_require__(620);
 	//静态风险指数构成
 	var LineFinanceIndexConstitute = _react2.default.createClass({
@@ -68661,7 +68679,7 @@
 						for (var i = 0; i < scoreLeidaResult.content.indicator.length; i++) {
 							var _item = {
 								name: scoreLeidaResult.content.indicator[i].name,
-								value: (scoreLeidaResult.content.indicator[i].max + 30).toFixed(2)
+								max: (scoreLeidaResult.content.indicator[i].max + 30).toFixed(2)
 							};
 							_setindicator.push(_item);
 						}
@@ -68673,7 +68691,7 @@
 							"series": scoreLeidaResult.content.series,
 							"indicator": _setindicator
 						};
-						// console.log(chartOption,"chartOption==============")
+						console.log(chartOption, "chartOption==============");
 						// console.log(scoreLeidaResult.content.indicator,"scoreLeidaResult.content.indicator==============")
 						this.setState({ listData: scoreLeidaResult.content.indicator });
 						this.setState({ leidaData: chartOption });
@@ -69815,8 +69833,8 @@
 	                            }
 	                        },
 	                        legendBottom: "5%",
-	                        unit: ["亿"],
-	                        legend: ["筹资金额"],
+	                        unit: ["个"],
+	                        legend: ["新增项目"],
 	                        xAxis: newProjectResult.content.xAxis,
 	                        series: [newProjectResult.content.series]
 	                    };
@@ -76623,6 +76641,7 @@
 	    },
 	    componentDidMount: function componentDidMount() {
 	        var areaId = this.props.location.query.areaId;
+	        console.log(areaId, 222);
 	        if (areaId != undefined) {
 	            this.setState({ areaId: areaId });
 	            var jsonData = { areaId: areaId };
@@ -78162,7 +78181,7 @@
 
 
 	// module
-	exports.push([module.id, "/*@parkMonitor jifei  图片\r\n---------------------------------------------------------*/\r\n.Img {\r\n\twidth: 100%;\r\n\theight: 948px;\t/*background: url(\"/images/floor.png\") no-repeat;*/\r\n\tbackground-size: 100% 948px;\r\n}\r\n\r\n.Img .carousel {\r\n\twidth: 180px;\r\n\theight: 30px;\r\n\tbackground: #e2f1fc;\r\n\tborder-radius: 3px;\r\n\tposition: relative;\r\n\ttop: 10px;\r\n\tleft: 10px;\r\n}\r\n\r\n.Img .carousel i {\r\n\tdisplay: block;\r\n\tline-height: 30px;\r\n\tmargin-left: 3px;\r\n\tcolor: #1a2029;\r\n\tfont-size: 18px;\r\n\tcursor: pointer;\r\n}\r\n\r\n.Img .carousel i.left {\r\n\tfloat: left;\r\n}\r\n\r\n.Img .carousel i.right {\r\n\tfloat: right;\r\n}\r\n\r\n.Img .carousel .list-box {\r\n\twidth: 136px;\r\n\tfloat: left;\r\n\toverflow: hidden;\r\n}\r\n\r\n.Img .carousel ul {\r\n\tfloat: left;\r\n\twidth: 100%;\r\n\toverflow: hidden;\r\n}\r\n\r\n.Img .carousel ul li {\r\n\tline-height: 30px;\r\n\tfloat: left;\r\n\twidth: 100%;\r\n\tcolor: #1a2029;\r\n\ttext-align: center;\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n}\r\n\r\n.Img  .tabs {\r\n\twidth: 30%;\r\n\theight: 150px;\r\n\tfloat: right;\r\n\tmargin-right: 20px;\r\n\tmargin-top: -10px;\r\n}\r\n\r\n.Img  .tabs table {\r\n\twidth: 100%;\r\n\tborder-radius: 3px;\r\n\toverflow: hidden;\r\n}\r\n\r\n.Img  .tabs table tr th {\r\n\theight: 30px;\r\n\ttext-align: center;\r\n\twidth: 50%;\r\n\tbackground: #e14340;\r\n\tcolor: #fff;\r\n}\r\n.Img  .tabs table tr td {\r\n\tcursor: pointer;\r\n\twidth: 50%;\r\n\theight: 35px;\r\n\ttext-align: center;\r\n\tbackground: #5383a1;\r\n\tborder-bottom: 1px solid #75c5f1;\r\n\tcolor: #fff;\r\n}\r\n\r\n.Img  .tabs table tbody tr.active td {\r\n\tbackground: rgba(183, 223, 248, 0.5);\r\n}\r\n\r\n.Img  .tabs table tr td .Red {\r\n\tcolor: #e14340;\r\n\tfont-size: 18px;\r\n}\r\n\r\n.Img  .tabs table tr td .Yellow {\r\n\tcolor: #f39800;\r\n\tfont-size: 18px;\r\n}\r\n\r\n.Img  .tabs table tr td .Green {\r\n\tcolor: #32b16c;\r\n\tfont-size: 18px;\r\n}\r\n\r\n.Img  .tabs table tr td .Black {\r\n\tcolor: #000000;\r\n\tfont-size: 18px;\r\n}\r\n\r\n.Img .onTabs {\r\n\twidth: 43.6%;\r\n\theight: 280px;\r\n\tborder-radius: 3px;\r\n\tposition: absolute;\r\n\tleft: 3%;\r\n\ttop: 17%;\r\n}\r\n\r\n.Img .onTabs .tableLeft {\r\n\twidth: 85%;\r\n\theight: 274px;\r\n\tbackground: rgba(100, 131, 152, 0.5) none repeat scroll 0 0;\r\n\tfloat: left;\r\n\tdisplay: none;\r\n}\r\n\r\n.Img .onTabs .tableLeft.show {\r\n\tdisplay: block;\r\n}\r\n\r\n.Img .onTabs .solidRight {\r\n\twidth: 15%;\r\n\tborder: 1px solid #ffffff;\r\n\tposition: absolute;\r\n\tright: 0;\r\n\ttop: 46.8%;\r\n}\r\n\r\n.Img .onTabs .mod-title {\r\n\tborder-bottom: 1px solid #495b69;\r\n}\r\n\r\n.Img .onTabs .mod-title i {\r\n\tfloat: right;\r\n\tmargin: 10px;\r\n\tfont-size: 18px;\r\n}\r\n\r\n.Img .onTabs .mod-title i.Black {\r\n\tcolor: #000000;\r\n}\r\n\r\n.Img .onTabs .mod-title i.Green {\r\n\tcolor: #32b16c;\r\n}\r\n\r\n.Img .onTabs .mod-title i.Yellow {\r\n\tcolor: #f39800;\r\n}\r\n\r\n.Img .onTabs .mod-title i.Red {\r\n\tcolor: #e14340;\r\n}\r\n\r\n.Img .onTabs .box {\r\n\twidth: 100%;\r\n\theight: 234px;\r\n\toverflow: auto;\r\n}\r\n\r\n.Img .onTabs .box table {\r\n\twidth: 93%;\r\n\tmargin: 0 10px;\r\n}\r\n\r\n.Img .onTabs .box table  tr td {\r\n\theight: 33px;\r\n\twidth: 95%;\r\n\twhite-space: nowrap;\r\n}\r\n\r\n.Img .onTabs .box table  tr td span {\r\n\tfloat: left;\r\n\tpadding-right: 10px;\r\n}\r\n\r\n.Img .yuan {\r\n\tposition: absolute;\r\n\tright: 52%;\r\n\ttop: 29.7%;\r\n}\r\n\r\n/*@parkMonitor jifei  楼宇企业列表\r\n---------------------------------------------------------*/\r\n.Enterprise {\r\n\twidth: 100%;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\theight: 560px;\r\n}\r\n\r\n.Enterprise .right {\r\n\tcolor: #e14340;\r\n\tfloat: right;\r\n\tfont-size: 16px;\r\n\tpadding: 10px 33px;\r\n}\r\n\r\n.Enterprise .mod-content {\r\n\twidth: 100%;\r\n\tmargin: 10px auto;\r\n}\r\n\r\n.Enterprise .mod-content .table-content {\r\n\theight: 470px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.Enterprise .wtyh-table thead th {\r\n\tpadding: 10px 0px;\r\n}\r\n.Enterprise .wtyh-table thead th  span{\r\n\tcursor: pointer;\r\n}\r\n\r\n.Enterprise .mod-content .wtyh-table {\r\n\twidth: 96%;\r\n\tmargin: 0 auto;\r\n}\r\n\r\n.Enterprise .mod-content .wtyh-table tr td {\r\n\theight: 40px;\r\n\tfont-size: 12px;\r\n\tborder-bottom: 1px solid #444951;\r\n}\r\n\r\n.Enterprise .mod-content .wtyh-table tr:nth-child(even) {\r\n\tbackground: #222932;\r\n}\r\n\r\n.Enterprise .mod-content .wtyh-table tr td span {\r\n\tfloat: left;\r\n\tpadding-left: 10%;\r\n\tcolor: #fff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.Enterprise .mod-content .wtyh-table tr td a {\r\n\tcolor: #ffffff;\r\n}\r\n\r\n/*@parkMonitor jifei  楼宇行业分布\r\n---------------------------------------------------------*/\r\n.Industry {\r\n\twidth: 49.5%;\r\n\theight: 398px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\tmargin-top: 10px;\r\n\tfloat: left;\r\n}\r\n\r\n/*@parkMonitor jifei  企业背景情况\r\n---------------------------------------------------------*/\r\n.Context {\r\n\twidth: 49.5%;\r\n\theight: 398px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\tmargin-top: 10px;\r\n\tfloat: right;\r\n}\r\n\r\n/*@parkMonitor jifei  舆情更新\r\n---------------------------------------------------------*/\r\n.Footer {\r\n\twidth: 100%;\r\n\theight: 60px;\r\n\tposition: fixed;\r\n\tbottom: 0;\r\n\tleft: 0;\r\n\tbackground: rgba(43, 50, 60, 0.9) none repeat scroll 0 0;\r\n\tbox-shadow: 2px 2px 10px #000;\r\n}\r\n\r\n.Footer .box {\r\n\twidth: 95%;\r\n\theight: 40px;\r\n\tmargin: 10px auto;\r\n\tposition: relative;\r\n}\r\n\r\n.Footer .boxLeft {\r\n\twidth: 10%;\r\n\theight: 40px;\r\n\tborder-right: 1px solid #8a9199;\r\n\tline-height: 40px;\r\n\tfloat: left;\r\n}\r\n\r\n.Footer .boxLeft .icon-news {\r\n\tfont-size: 35px;\r\n\tcolor: #e14340;\r\n}\r\n\r\n.Footer .boxLeft .size {\r\n\tfont-size: 18px;\r\n\tvertical-align: super;\r\n\tpadding-left: 25%;\r\n}\r\n\r\n.Footer .boxRight {\r\n\twidth: 85%;\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n\tfloat: right;\t/* background: #666 */\r\n}\r\n\r\n.Footer .boxRight ul li {\r\n\tfloat: left;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(1) {\r\n\twidth: 20%;\r\n\tfont-size: 16px;\r\n\tcolor: #e14340;\r\n\toverflow: hidden;\r\n\ttext-overflow: ellipsis;\r\n\twhite-space: nowrap;\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(1) em {\r\n\tpadding-left: 5%;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(2) {\r\n\twidth: 60%;\r\n\tfont-size: 14px;\r\n\toverflow: hidden;\r\n\ttext-overflow: ellipsis;\r\n\twhite-space: nowrap;\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(2) .liTop {\r\n\tpadding-left: 8%;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(3) {\r\n\twidth: 20%;\r\n\tfont-size: 12px;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(3) em {\r\n\tpadding-left: 5%;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(3) .liRight {\r\n\tpadding-left: 18%;\r\n}\r\n\r\n.boxRight {\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.boxRight ul {\r\n\r\n\t/* background: red; */\r\n\twidth: 100%;\r\n\theight: 40px;\r\n}\r\n\r\n.boxRightScroll {\r\n\twidth: 100%;\r\n\theight: auto;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n}", ""]);
+	exports.push([module.id, "/*@parkMonitor jifei  图片\r\n---------------------------------------------------------*/\r\n.Img {\r\n\twidth: 100%;\r\n\theight: 948px;\t/*background: url(\"/images/floor.png\") no-repeat;*/\r\n\tbackground-size: 100% 948px;\r\n}\r\n\r\n.Img .carousel {\r\n\twidth: 180px;\r\n\theight: 30px;\r\n\tbackground: #e2f1fc;\r\n\tborder-radius: 3px;\r\n\tposition: relative;\r\n\ttop: 10px;\r\n\tleft: 10px;\r\n}\r\n\r\n.Img .carousel i {\r\n\tdisplay: block;\r\n\tline-height: 30px;\r\n\tmargin-left: 3px;\r\n\tcolor: #1a2029;\r\n\tfont-size: 18px;\r\n\tcursor: pointer;\r\n}\r\n\r\n.Img .carousel i.left {\r\n\tfloat: left;\r\n}\r\n\r\n.Img .carousel i.right {\r\n\tfloat: right;\r\n}\r\n\r\n.Img .carousel .list-box {\r\n\twidth: 136px;\r\n\tfloat: left;\r\n\toverflow: hidden;\r\n}\r\n\r\n.Img .carousel ul {\r\n\tfloat: left;\r\n\twidth: 100%;\r\n\toverflow: hidden;\r\n}\r\n\r\n.Img .carousel ul li {\r\n\tline-height: 30px;\r\n\tfloat: left;\r\n\twidth: 100%;\r\n\tcolor: #1a2029;\r\n\ttext-align: center;\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n}\r\n\r\n.Img  .tabs {\r\n\twidth: 30%;\r\n\theight: 150px;\r\n\tfloat: right;\r\n\tmargin-right: 20px;\r\n\tmargin-top: -10px;\r\n}\r\n\r\n.Img  .tabs table {\r\n\twidth: 100%;\r\n\tborder-radius: 3px;\r\n\toverflow: hidden;\r\n}\r\n\r\n.Img  .tabs table tr th {\r\n\theight: 30px;\r\n\ttext-align: center;\r\n\twidth: 50%;\r\n\tbackground: #e14340;\r\n\tcolor: #fff;\r\n}\r\n.Img  .tabs table tr td {\r\n\tcursor: pointer;\r\n\twidth: 50%;\r\n\theight: 35px;\r\n\ttext-align: center;\r\n\tbackground: #5383a1;\r\n\tborder-bottom: 1px solid #75c5f1;\r\n\tcolor: #fff;\r\n}\r\n\r\n.Img  .tabs table tbody tr.active td {\r\n\tbackground: rgba(183, 223, 248, 0.5);\r\n}\r\n\r\n.Img  .tabs table tr td .Red {\r\n\tcolor: #e14340;\r\n\tfont-size: 18px;\r\n}\r\n\r\n.Img  .tabs table tr td .Yellow {\r\n\tcolor: #f39800;\r\n\tfont-size: 18px;\r\n}\r\n\r\n.Img  .tabs table tr td .Green {\r\n\tcolor: #32b16c;\r\n\tfont-size: 18px;\r\n}\r\n\r\n.Img  .tabs table tr td .Black {\r\n\tcolor: #000000;\r\n\tfont-size: 18px;\r\n}\r\n\r\n.Img .onTabs {\r\n\twidth: 43.6%;\r\n\theight: 280px;\r\n\tborder-radius: 3px;\r\n\tposition: absolute;\r\n\tleft: 3%;\r\n\ttop: 17%;\r\n}\r\n\r\n.Img .onTabs .tableLeft {\r\n\twidth: 85%;\r\n\theight: 274px;\r\n\tbackground: rgba(100, 131, 152, 0.5) none repeat scroll 0 0;\r\n\tfloat: left;\r\n\tdisplay: none;\r\n}\r\n\r\n.Img .onTabs .tableLeft.show {\r\n\tdisplay: block;\r\n}\r\n\r\n.Img .onTabs .solidRight {\r\n\twidth: 15%;\r\n\tborder: 1px solid #ffffff;\r\n\tposition: absolute;\r\n\tright: 0;\r\n\ttop: 46.8%;\r\n}\r\n\r\n.Img .onTabs .mod-title {\r\n\tborder-bottom: 1px solid #495b69;\r\n}\r\n\r\n.Img .onTabs .mod-title i {\r\n\tfloat: right;\r\n\tmargin: 10px;\r\n\tfont-size: 18px;\r\n}\r\n\r\n.Img .onTabs .mod-title i.Black {\r\n\tcolor: #000000;\r\n}\r\n\r\n.Img .onTabs .mod-title i.Green {\r\n\tcolor: #32b16c;\r\n}\r\n\r\n.Img .onTabs .mod-title i.Yellow {\r\n\tcolor: #f39800;\r\n}\r\n\r\n.Img .onTabs .mod-title i.Red {\r\n\tcolor: #e14340;\r\n}\r\n\r\n.Img .onTabs .box {\r\n\twidth: 100%;\r\n\theight: 234px;\r\n\toverflow: auto;\r\n}\r\n\r\n.Img .onTabs .box table {\r\n\twidth: 93%;\r\n\tmargin: 0 10px;\r\n}\r\n\r\n.Img .onTabs .box table  tr td {\r\n\theight: 33px;\r\n\twidth: 95%;\r\n\twhite-space: nowrap;\r\n}\r\n\r\n.Img .onTabs .box table  tr td span {\r\n\tfloat: left;\r\n\tpadding-right: 10px;\r\n}\r\n\r\n.Img .yuan {\r\n\tposition: absolute;\r\n\tright: 52%;\r\n\ttop: 29.7%;\r\n}\r\n\r\n/*@parkMonitor jifei  楼宇企业列表\r\n---------------------------------------------------------*/\r\n.Enterprise {\r\n\twidth: 100%;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\theight: 560px;\r\n}\r\n\r\n.Enterprise .right {\r\n\tcolor: #e14340;\r\n\tfloat: right;\r\n\tfont-size: 16px;\r\n\tpadding: 10px 33px;\r\n}\r\n\r\n.Enterprise .mod-content {\r\n\twidth: 100%;\r\n\tmargin: 10px auto;\r\n}\r\n\r\n.Enterprise .mod-content .table-content {\r\n\theight: 470px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.Enterprise .wtyh-table thead th {\r\n\tpadding: 10px 0px;\r\n}\r\n.Enterprise .wtyh-table thead th  span{\r\n\tcursor: pointer;\r\n}\r\n\r\n.Enterprise .mod-content .wtyh-table {\r\n\twidth: 96%;\r\n\tmargin: 0 auto;\r\n}\r\n\r\n.Enterprise .mod-content .wtyh-table tr td {\r\n\theight: 40px;\r\n\tfont-size: 12px;\r\n\tborder-bottom: 1px solid #444951;\r\n}\r\n\r\n.Enterprise .mod-content .wtyh-table tr:nth-child(even) {\r\n\tbackground: #222932;\r\n}\r\n\r\n.Enterprise .mod-content .wtyh-table tr td span {\r\n\tfloat: left;\r\n\tpadding-left: 10%;\r\n\tcolor: #fff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.Enterprise .mod-content .wtyh-table tr td a {\r\n\tcolor: #ffffff;\r\n}\r\n\r\n/*@parkMonitor jifei  楼宇行业分布\r\n---------------------------------------------------------*/\r\n.Industry {\r\n\twidth: 49.5%;\r\n\theight: 398px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\tmargin-top: 10px;\r\n\tfloat: left;\r\n}\r\n\r\n/*@parkMonitor jifei  企业背景情况\r\n---------------------------------------------------------*/\r\n.Context {\r\n\twidth: 49.5%;\r\n\theight: 398px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\tmargin-top: 10px;\r\n\tfloat: right;\r\n}\r\n\r\n/*@parkMonitor jifei  舆情更新\r\n---------------------------------------------------------*/\r\n.Footer {\r\n\twidth: 100%;\r\n\theight: 60px;\r\n\tposition: fixed;\r\n\tbottom: 0;\r\n\tleft: 0;\r\n\tbackground: rgba(43, 50, 60, 0.9) none repeat scroll 0 0;\r\n\tbox-shadow: 2px 2px 10px #000;\r\n}\r\n\r\n.Footer .box {\r\n\twidth: 95%;\r\n\theight: 40px;\r\n\tmargin: 10px auto;\r\n\tposition: relative;\r\n}\r\n\r\n.Footer .boxLeft {\r\n\twidth: 10%;\r\n\theight: 40px;\r\n\tborder-right: 1px solid #8a9199;\r\n\tline-height: 40px;\r\n\tfloat: left;\r\n}\r\n\r\n.Footer .boxLeft .icon-news {\r\n\tfont-size: 35px;\r\n\tcolor: #e14340;\r\n}\r\n\r\n.Footer .boxLeft .size {\r\n\tfont-size: 18px;\r\n\tvertical-align: super;\r\n\tpadding-left: 25%;\r\n}\r\n\r\n.Footer .boxRight {\r\n\twidth: 85%;\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n\tfloat: right;\t/* background: #666 */\r\n}\r\n\r\n.Footer .boxRight ul li {\r\n\tfloat: left;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(1) {\r\n\twidth: 20%;\r\n\tfont-size: 16px;\r\n\tcolor: #e14340;\r\n\toverflow: hidden;\r\n\ttext-overflow: ellipsis;\r\n\twhite-space: nowrap;\r\n\tdisplay: inline-block;\r\n}\r\n.Footer .boxRight ul li:nth-child(1) a{\r\n\tcolor: #e14340;\r\n}\r\n.Footer .boxRight ul li:nth-child(1) em {\r\n\tpadding-left: 5%;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(2) {\r\n\twidth: 60%;\r\n\tfont-size: 14px;\r\n\toverflow: hidden;\r\n\ttext-overflow: ellipsis;\r\n\twhite-space: nowrap;\r\n\tdisplay: inline-block;\r\n}\r\n.Footer .boxRight ul li:nth-child(2) a{\r\n\tcolor: #ffffff;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(2) .liTop {\r\n\tpadding-left: 8%;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(3) {\r\n\twidth: 20%;\r\n\tfont-size: 12px;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(3) em {\r\n\tpadding-left: 5%;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(3) .liRight {\r\n\tpadding-left: 18%;\r\n}\r\n\r\n.boxRight {\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.boxRight ul {\r\n\r\n\t/* background: red; */\r\n\twidth: 100%;\r\n\theight: 40px;\r\n}\r\n\r\n.boxRightScroll {\r\n\twidth: 100%;\r\n\theight: auto;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n}", ""]);
 
 	// exports
 
@@ -78346,6 +78365,12 @@
 	                            'tbody',
 	                            null,
 	                            this.state.Enterprise.map(function (elem, index) {
+	                                var registeredCapital = elem.registeredCapital;
+	                                if (registeredCapital == null) {
+	                                    registeredCapital = "/";
+	                                } else {
+	                                    registeredCapital = registeredCapital + "万元";
+	                                }
 	                                return _react2.default.createElement(
 	                                    'tr',
 	                                    { key: index },
@@ -78371,7 +78396,7 @@
 	                                    _react2.default.createElement(
 	                                        'td',
 	                                        { className: 'talign-left', width: '10%' },
-	                                        elem.registeredCapital + "万元"
+	                                        registeredCapital
 	                                    ),
 	                                    _react2.default.createElement(
 	                                        'td',
@@ -78868,19 +78893,23 @@
 	                _react2.default.createElement(
 	                  'li',
 	                  null,
-	                  index + 1,
 	                  _react2.default.createElement(
-	                    'em',
-	                    null,
-	                    elem.news_title
+	                    'a',
+	                    { href: elem.bbd_url, target: '_blank' },
+	                    index + 1,
+	                    _react2.default.createElement(
+	                      'em',
+	                      null,
+	                      elem.news_title
+	                    )
 	                  )
 	                ),
 	                _react2.default.createElement(
 	                  'li',
 	                  null,
 	                  _react2.default.createElement(
-	                    'span',
-	                    { className: 'liTop' },
+	                    'a',
+	                    { href: elem.bbd_url, target: '_blank', className: 'liTop' },
 	                    elem.main
 	                  )
 	                ),
@@ -79025,7 +79054,7 @@
 
 
 	// module
-	exports.push([module.id, "#search-result-detail {\r\n  position: relative;\r\n  transition: all 2s linear;\r\n  -moz-transition: all 2s linear;\r\n  -webkit-transition: all 2s linear;\r\n  -o-transition: all 2s linear;\r\n  width: 100%;\r\n  height: 1080px;\r\n  min-width: 900px; }\r\n  #search-result-detail .clear-fix:after {\r\n    display: block;\r\n    clear: both;\r\n    content: \"\";\r\n    visibility: hidden;\r\n    height: 0; }\r\n  #search-result-detail .company-name {\r\n    padding: 13px;\r\n    background: #383e47;\r\n    width: 100%; }\r\n    #search-result-detail .company-name > span {\r\n      font-size: 18px;\r\n      color: #fff; }\r\n    #search-result-detail .company-tag{\r\n       display: inline-block;\r\n       margin-left: 20px;\r\n    }\r\n    #search-result-detail .company-tag > span{\r\n        padding: 2px 5px;\r\n        font-size: 12px;\r\n        margin: 0 5px;\r\n    }\r\n    #search-result-detail .company-tag > span:first-child{\r\n      background:#00b7ee;\r\n    }\r\n    #search-result-detail .company-tag > span:nth-child(2){\r\n      background:#e14340;\r\n    }\r\n    #search-result-detail .company-tag > span:nth-child(3){\r\n      background:#f98d2b;\r\n    }\r\n    #search-result-detail .company-tag > span:nth-child(4){\r\n      background:#32b16c;\r\n    }\r\n    #search-result-detail .company-name .right-content {\r\n      float: right; \r\n      margin-top: -5px;\r\n      }\r\n      #search-result-detail .company-name .right-content > div {\r\n        display: inline-block; }\r\n      #search-result-detail .company-name .right-content .search-group {\r\n        position: relative;\r\n        margin-right: 18px; }\r\n        #search-result-detail .company-name .right-content .search-group input {\r\n          width: 330px;\r\n          height: 35px;\r\n          font-size: 14px;\r\n          color: #898f98;\r\n          padding: 15px;\r\n          border-radius: 5px;\r\n          border: none; }\r\n        #search-result-detail .company-name .right-content .search-group .search {\r\n          margin-left: -31px;\r\n          color: #e8716f;\r\n          position: absolute;\r\n          top: 5px; }\r\n          #search-result-detail .company-name .right-content .search-group .search i {\r\n            font-size: 24px; }\r\n      #search-result-detail .company-name .right-content .back-btn {\r\n        width: 72px;\r\n        height: 24px;\r\n        cursor: pointer;\r\n        line-height: 24px;\r\n        text-align: center;\r\n        background: #5f93e7;\r\n        border-radius: 5px; }\r\n        #search-result-detail .company-name .right-content .back-btn .fanhui {\r\n          margin-right: 5px;\r\n          color: #272636; }\r\n  #search-result-detail .company-detail {\r\n    width: 100%;\r\n    height: 85%; }\r\n    #search-result-detail .company-detail > div {\r\n      float: left;\r\n      border-radius: 5px;\r\n      background: #2b323c; }\r\n  #search-result-detail .back-top {\r\n    position: fixed;\r\n    bottom: 30px;\r\n    right: 30px;\r\n    cursor: pointer; }\r\n    #search-result-detail .back-top .icon-top {\r\n      font-size: 30px; }\r\n\r\n/*# sourceMappingURL=style.css.map */\r\n", ""]);
+	exports.push([module.id, "#search-result-detail {\r\n  position: relative;\r\n  transition: all 2s linear;\r\n  -moz-transition: all 2s linear;\r\n  -webkit-transition: all 2s linear;\r\n  -o-transition: all 2s linear;\r\n  width: 100%;\r\n  height: 1080px;\r\n  min-width: 900px; }\r\n  #search-result-detail .clear-fix:after {\r\n    display: block;\r\n    clear: both;\r\n    content: \"\";\r\n    visibility: hidden;\r\n    height: 0; }\r\n  #search-result-detail .company-name {\r\n    padding: 13px;\r\n    background: #383e47;\r\n    width: 100%; }\r\n    #search-result-detail .company-name > span {\r\n      font-size: 18px;\r\n      color: #fff; }\r\n    #search-result-detail .company-tag{\r\n       display: inline-block;\r\n       margin-left: 20px;\r\n    }\r\n    #search-result-detail .company-tag > span{\r\n        padding: 2px 5px;\r\n        font-size: 12px;\r\n        margin: 0 5px;\r\n    }\r\n    #search-result-detail .company-tag > span:first-child{\r\n      background:#00b7ee;\r\n    }\r\n    #search-result-detail .company-tag > span:nth-child(2){\r\n      background:#e14340;\r\n    }\r\n    #search-result-detail .company-tag > span:nth-child(3){\r\n      background:#f98d2b;\r\n    }\r\n    #search-result-detail .company-tag > span:nth-child(4){\r\n      background:#32b16c;\r\n    }\r\n    #search-result-detail .company-name .right-content {\r\n      float: right; \r\n      margin-top: -5px;\r\n      }\r\n      #search-result-detail .company-name .right-content > div {\r\n        display: inline-block; }\r\n      #search-result-detail .company-name .right-content .search-group {\r\n        position: relative;\r\n        margin-right: 18px; }\r\n        #search-result-detail .company-name .right-content .search-group input {\r\n          width: 330px;\r\n          height: 35px;\r\n          font-size: 14px;\r\n          color: #898f98;\r\n          padding-left: 15px;\r\n          border-radius: 5px;\r\n          border: none; }\r\n        #search-result-detail .company-name .right-content .search-group .search {\r\n          margin-left: -31px;\r\n          color: #e8716f;\r\n          position: absolute;\r\n          top: 5px; }\r\n          #search-result-detail .company-name .right-content .search-group .search i {\r\n            font-size: 24px; }\r\n      #search-result-detail .company-name .right-content .back-btn {\r\n        width: 72px;\r\n        height: 24px;\r\n        cursor: pointer;\r\n        line-height: 24px;\r\n        text-align: center;\r\n        background: #5f93e7;\r\n        border-radius: 5px; }\r\n        #search-result-detail .company-name .right-content .back-btn .fanhui {\r\n          margin-right: 5px;\r\n          color: #272636; }\r\n  #search-result-detail .company-detail {\r\n    width: 100%;\r\n    height: 85%; }\r\n    #search-result-detail .company-detail > div {\r\n      float: left;\r\n      border-radius: 5px;\r\n      background: #2b323c; }\r\n  #search-result-detail .back-top {\r\n    position: fixed;\r\n    bottom: 30px;\r\n    right: 30px;\r\n    cursor: pointer; }\r\n    #search-result-detail .back-top .icon-top {\r\n      font-size: 30px; }\r\n\r\n/*# sourceMappingURL=style.css.map */\r\n", ""]);
 
 	// exports
 
@@ -79456,7 +79485,7 @@
 
 
 	// module
-	exports.push([module.id, "#search-result-detail {\r\n  position: relative;\r\n  transition: all 2s linear;\r\n  -moz-transition: all 2s linear;\r\n  -webkit-transition: all 2s linear;\r\n  -o-transition: all 2s linear;\r\n  width: 100%;\r\n  height: 1080px;\r\n  min-width: 900px; }\r\n  #search-result-detail .clear-fix:after {\r\n    display: block;\r\n    clear: both;\r\n    content: \"\";\r\n    visibility: hidden;\r\n    height: 0; }\r\n  #search-result-detail .company-name {\r\n    padding: 13px;\r\n    background: #383e47;\r\n    width: 100%; }\r\n    #search-result-detail .company-name > span {\r\n      font-size: 18px;\r\n      color: #fff; }\r\n    #search-result-detail .company-tag{\r\n       display: inline-block;\r\n       margin-left: 20px;\r\n    }\r\n    #search-result-detail .company-tag > span{\r\n        padding: 2px 5px;\r\n        font-size: 12px;\r\n        margin: 0 5px;\r\n    }\r\n    #search-result-detail .company-tag > span:first-child{\r\n      background:#00b7ee;\r\n    }\r\n    #search-result-detail .company-tag > span:nth-child(2){\r\n      background:#e14340;\r\n    }\r\n    #search-result-detail .company-tag > span:nth-child(3){\r\n      background:#f98d2b;\r\n    }\r\n    #search-result-detail .company-tag > span:nth-child(4){\r\n      background:#32b16c;\r\n    }\r\n    #search-result-detail .company-name .right-content {\r\n      float: right; \r\n      margin-top: -5px;\r\n      }\r\n      #search-result-detail .company-name .right-content > div {\r\n        display: inline-block; }\r\n      #search-result-detail .company-name .right-content .search-group {\r\n        position: relative;\r\n        margin-right: 18px; }\r\n        #search-result-detail .company-name .right-content .search-group input {\r\n          width: 330px;\r\n          height: 35px;\r\n          font-size: 14px;\r\n          color: #898f98;\r\n          padding: 15px;\r\n          border-radius: 5px;\r\n          border: none; }\r\n        #search-result-detail .company-name .right-content .search-group .search {\r\n          margin-left: -31px;\r\n          color: #e8716f;\r\n          position: absolute;\r\n          top: 5px; }\r\n          #search-result-detail .company-name .right-content .search-group .search i {\r\n            font-size: 24px; }\r\n      #search-result-detail .company-name .right-content .back-btn {\r\n        width: 72px;\r\n        height: 24px;\r\n        cursor: pointer;\r\n        line-height: 24px;\r\n        text-align: center;\r\n        background: #5f93e7;\r\n        border-radius: 5px; }\r\n        #search-result-detail .company-name .right-content .back-btn .fanhui {\r\n          margin-right: 5px;\r\n          color: #272636; }\r\n  #search-result-detail .company-detail {\r\n    width: 100%;\r\n    height: 85%; }\r\n    #search-result-detail .company-detail > div {\r\n      float: left;\r\n      border-radius: 5px;\r\n      background: #2b323c; }\r\n  #search-result-detail .back-top {\r\n    position: fixed;\r\n    bottom: 30px;\r\n    right: 30px;\r\n    cursor: pointer; }\r\n    #search-result-detail .back-top .icon-top {\r\n      font-size: 30px; }\r\n\r\n/*# sourceMappingURL=style.css.map */\r\n", ""]);
+	exports.push([module.id, "#search-result-detail {\r\n  position: relative;\r\n  transition: all 2s linear;\r\n  -moz-transition: all 2s linear;\r\n  -webkit-transition: all 2s linear;\r\n  -o-transition: all 2s linear;\r\n  width: 100%;\r\n  height: 1080px;\r\n  min-width: 900px; }\r\n  #search-result-detail .clear-fix:after {\r\n    display: block;\r\n    clear: both;\r\n    content: \"\";\r\n    visibility: hidden;\r\n    height: 0; }\r\n  #search-result-detail .company-name {\r\n    padding: 13px;\r\n    background: #383e47;\r\n    width: 100%; }\r\n    #search-result-detail .company-name > span {\r\n      font-size: 18px;\r\n      color: #fff; }\r\n    #search-result-detail .company-tag{\r\n       display: inline-block;\r\n       margin-left: 20px;\r\n    }\r\n    #search-result-detail .company-tag > span{\r\n        padding: 2px 5px;\r\n        font-size: 12px;\r\n        margin: 0 5px;\r\n    }\r\n    #search-result-detail .company-tag > span:first-child{\r\n      background:#00b7ee;\r\n    }\r\n    #search-result-detail .company-tag > span:nth-child(2){\r\n      background:#e14340;\r\n    }\r\n    #search-result-detail .company-tag > span:nth-child(3){\r\n      background:#f98d2b;\r\n    }\r\n    #search-result-detail .company-tag > span:nth-child(4){\r\n      background:#32b16c;\r\n    }\r\n    #search-result-detail .company-name .right-content {\r\n      float: right; \r\n      margin-top: -5px;\r\n      }\r\n      #search-result-detail .company-name .right-content > div {\r\n        display: inline-block; }\r\n      #search-result-detail .company-name .right-content .search-group {\r\n        position: relative;\r\n        margin-right: 18px; }\r\n        #search-result-detail .company-name .right-content .search-group input {\r\n          width: 330px;\r\n          height: 35px;\r\n          font-size: 14px;\r\n          color: #898f98;\r\n          padding-left: 15px;\r\n          border-radius: 5px;\r\n          border: none; }\r\n        #search-result-detail .company-name .right-content .search-group .search {\r\n          margin-left: -31px;\r\n          color: #e8716f;\r\n          position: absolute;\r\n          top: 5px; }\r\n          #search-result-detail .company-name .right-content .search-group .search i {\r\n            font-size: 24px; }\r\n      #search-result-detail .company-name .right-content .back-btn {\r\n        width: 72px;\r\n        height: 24px;\r\n        cursor: pointer;\r\n        line-height: 24px;\r\n        text-align: center;\r\n        background: #5f93e7;\r\n        border-radius: 5px; }\r\n        #search-result-detail .company-name .right-content .back-btn .fanhui {\r\n          margin-right: 5px;\r\n          color: #272636; }\r\n  #search-result-detail .company-detail {\r\n    width: 100%;\r\n    height: 85%; }\r\n    #search-result-detail .company-detail > div {\r\n      float: left;\r\n      border-radius: 5px;\r\n      background: #2b323c; }\r\n  #search-result-detail .back-top {\r\n    position: fixed;\r\n    bottom: 30px;\r\n    right: 30px;\r\n    cursor: pointer; }\r\n    #search-result-detail .back-top .icon-top {\r\n      font-size: 30px; }\r\n\r\n/*# sourceMappingURL=style.css.map */\r\n", ""]);
 
 	// exports
 
@@ -80278,14 +80307,14 @@
 	                    { className: 'item-title' },
 	                    _react2.default.createElement(
 	                      'a',
-	                      { href: 'http://www.baidu.com' },
+	                      { target: '_blank', href: 'http://www.baidu.com' },
 	                      item.news_title
 	                    )
 	                  )
 	                ),
 	                _react2.default.createElement(
 	                  'a',
-	                  { href: 'http://www.baidu.com', className: 'item-content' },
+	                  { target: '_blank', href: 'http://www.baidu.com', className: 'item-content' },
 	                  _content + '...'
 	                ),
 	                _react2.default.createElement(
