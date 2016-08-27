@@ -7,6 +7,7 @@ import com.bbd.wtyh.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -55,7 +56,10 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public int searchCompanyNameCount(String keyword) {
-        return companyMapper.searchCompanyNameCount(keyword);
+    public int searchCompanyNameCount(String keyword, String dataVersion) {
+    	Map<String, Object> params = new HashMap<>();
+    	params.put("keyword", keyword);
+    	params.put("dataVersion", dataVersion);
+        return companyMapper.searchCompanyNameCount(params);
     }
 }
