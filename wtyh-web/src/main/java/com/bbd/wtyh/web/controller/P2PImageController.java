@@ -56,7 +56,11 @@ public class P2PImageController {
     @ResponseBody
     public ResponseBean platFormStatus(@RequestParam(required = true) String platName) {
         Map<String, Object> content = p2PImageService.platFormStatus(platName);
-        return ResponseBean.successResponse(content);
+        if (null != content && content.size() != 0) {
+            return ResponseBean.successResponse(content);
+        } else {
+            return ResponseBean.successResponse(null);
+        }
     }
 
     /**
@@ -80,7 +84,11 @@ public class P2PImageController {
     @ResponseBody
     public ResponseBean lawsuitMsg(@RequestParam(required = true) String platName) {
         Map<String, Object> conent = p2PImageService.lawsuitMsg(platName);
-        return ResponseBean.successResponse(conent);
+        if (null != conent && conent.size() != 0) {
+            return ResponseBean.successResponse(conent);
+        } else {
+            return ResponseBean.successResponse(null);
+        }
     }
 
     /**
@@ -93,11 +101,13 @@ public class P2PImageController {
     public ResponseBean radarScore(@RequestParam(required = true)String platName) {
         Map<String, Object> result = p2PImageService.radarScore(platName);
         RadarChartBean radarChart = new RadarChartBean<>();
-        if (result.size() != 0) {
+        if (null != result && result.size() != 0) {
             radarChart.setIndicator(result.get("indicator"));
             radarChart.setSeries(result.get("series"));
             radarChart.setScore(result.get("sumScore"));
             radarChart.setCode(result.get("code"));
+        } else {
+            return ResponseBean.successResponse(null);
         }
         return ResponseBean.successResponse(radarChart);
     }
@@ -111,7 +121,12 @@ public class P2PImageController {
     @ResponseBody
     public ResponseBean baseInfo(@RequestParam(required = true)String platName) {
         Map<String, Object> content = p2PImageService.baseInfo(platName);
-        return ResponseBean.successResponse(content);
+        if (null != content && content.size() != 0) {
+            return ResponseBean.successResponse(content);
+        } else {
+            return ResponseBean.successResponse(null);
+        }
+
     }
 
     /**
@@ -123,7 +138,11 @@ public class P2PImageController {
     @ResponseBody
     public ResponseBean coreDataInfo(@RequestParam(required = true) String platName) {
         Map<String, Object> content = p2PImageService.coreDataInfo(platName);
-        return ResponseBean.successResponse(content);
+        if (null != content && content.size() != 0) {
+            return ResponseBean.successResponse(content);
+        } else {
+            return ResponseBean.successResponse(null);
+        }
     }
 
     /**
@@ -136,9 +155,11 @@ public class P2PImageController {
     public ResponseBean coreDataDealTrend(@RequestParam(required = true) String platName) {
         List<List<String>> data = p2PImageService.coreDataDealTrend(platName);
         HistogramBean<String, String> content = new HistogramBean();
-        if (data.size() != 0) {
+        if (null != data && data.size() != 0) {
             content.setxAxis(data.get(0));
             content.setseries(data.get(1));
+        } else {
+            return ResponseBean.successResponse(null);
         }
         return ResponseBean.successResponse(content);
     }
@@ -153,9 +174,11 @@ public class P2PImageController {
     public ResponseBean coreDataInterestRateTrend(@RequestParam(required = true) String platName) {
         List<List<String>> data = p2PImageService.coreDataInterestRateTrend(platName);
         HistogramBean<String, String> content = new HistogramBean();
-        if (data.size() != 0) {
+        if (null != data && data.size() != 0) {
             content.setxAxis(data.get(0));
             content.setseries(data.get(1));
+        } else {
+            return ResponseBean.successResponse(null);
         }
         return ResponseBean.successResponse(content);
     }
@@ -170,9 +193,11 @@ public class P2PImageController {
     public ResponseBean coreDataLoadOverage(@RequestParam(required = true) String platName) {
         List<List<String>> data = p2PImageService.coreDataLoadOverage(platName);
         HistogramBean<String, String> content = new HistogramBean();
-        if (data.size() != 0) {
+        if (null != data && data.size() != 0) {
             content.setxAxis(data.get(0));
             content.setseries(data.get(1));
+        } else {
+            return ResponseBean.successResponse(null);
         }
         return ResponseBean.successResponse(content);
     }
