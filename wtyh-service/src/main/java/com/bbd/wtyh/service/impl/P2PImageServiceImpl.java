@@ -31,13 +31,19 @@ public class P2PImageServiceImpl implements P2PImageService {
     @Override
     public Map<String, Object> platFormStatus(String platName) {
         PlatDataDO pn = p2PImageDao.getPlatData(platName);
+        if (null == pn) {
+            return null;
+        }
         List<PlatListDO> platListDO = p2PImageDao.baseInfoWangDaiApi(platName);
+        if (null == platListDO || platListDO.size() == 0) {
+            return null;
+        }
         Map<String, Object> result = new LinkedHashMap<>();
         for (int i=0; i<platListDO.size(); i++) {
-            if (platListDO.get(i).getLogo_url()==null) {
+            if (null == platListDO.get(i).getLogo_url()) {
                 result.put("logo", null);
             }
-            if (platListDO.get(i).getPlat_name()!=null && platName.equals(platListDO.get(i).getPlat_name())) {
+            if (null != platListDO.get(i).getPlat_name() && platName.equals(platListDO.get(i).getPlat_name())) {
                 result.put("logo", platListDO.get(i).getLogo_url());//logo
             }
         }
@@ -54,14 +60,28 @@ public class P2PImageServiceImpl implements P2PImageService {
 
     @Override
     public Map<String, Object> lawsuitMsg(String platName) {
-        PlatDataDO pn = p2PImageDao.getPlatData(platName);
-        return p2PImageDao.lawsuitMsg(pn.getCompany_name());
+        PlatDataDO platDataDO = p2PImageDao.getPlatData(platName);
+        if (null == platDataDO) {
+            return null;
+        }
+//        System.out.println("13"+platDataDO.getCompany_name());
+        Map<String, Object> result = p2PImageDao.lawsuitMsg(platDataDO.getCompany_name());
+        if (null == result || result.size() == 0) {
+            return null;
+        }
+        return result;
     }
 
     @Override
     public Map<String, Object> radarScore(String platName) {
         PlatDataDO platData = p2PImageDao.getPlatData(platName);
+        if (null == platData) {
+            return null;
+        }
         Map<String, Object> data = p2PImageDao.radarScore(platName);
+        if (null == data || data.size() == 0) {
+            return null;
+        }
         data.put("sumScore",platData.getPlat_score());
         return data;
     }
@@ -69,8 +89,17 @@ public class P2PImageServiceImpl implements P2PImageService {
     @Override
     public Map<String, Object> baseInfo(String platName) {
         PlatformNameInformationDO platformNameInformationDO = p2PImageDao.hasOrNotCompany(platName);
+        if (null == platformNameInformationDO) {
+            return null;
+        }
         BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(platformNameInformationDO.getName());
+        if (null == baseDataDO) {
+            return null;
+        }
         ZuZhiJiGoudmDO zuZhiJiGoudmDO = p2PImageDao.baseInfoZuZhiJiGou(platformNameInformationDO.getName());
+        if (null == zuZhiJiGoudmDO) {
+            return null;
+        }
         Map<String, Object> map = new HashMap<>();
         for (BaseDataDO.Results result : baseDataDO.getResults()) {
             map.put("legalPeople", result.getJbxx().getFrname());
@@ -91,12 +120,18 @@ public class P2PImageServiceImpl implements P2PImageService {
     @Override
     public Map<String, Object> coreDataInfo(String platName) {
         Map<String, Object> data = p2PImageDao.coreDataInfo(platName);
+        if (null == data || data.size() == 0) {
+            return null;
+        }
         return data;
     }
 
     @Override
     public List<List<String>> coreDataDealTrend(String platName) {
         PlatDataDO data = p2PImageDao.getPlatData(platName);
+        if (null == data) {
+            return null;
+        }
         List<PlatDataDO.PlatDataSixMonth> platDataSixMonth = data.getPlat_data_six_month();
         List<String> days = new ArrayList<>();
         List<String> amounts = new ArrayList<>();
@@ -105,7 +140,6 @@ public class P2PImageServiceImpl implements P2PImageService {
             BigDecimal dayAmount = new BigDecimal(String.valueOf(pdsm.getDay_amount()));
             amounts.add(dayAmount.toPlainString());
         }
-        
         List<List<String>> result = new ArrayList<>();
         List<String> days1 = new ArrayList<>();
         List<String> amounts1 = new ArrayList<>();
@@ -124,6 +158,9 @@ public class P2PImageServiceImpl implements P2PImageService {
     public List<List<String>> coreDataInterestRateTrend(String plat_name) {
         // 处理数据转换
         PlatDataDO data = p2PImageDao.getPlatData(plat_name);
+        if (null == data) {
+            return null;
+        }
         List<PlatDataDO.PlatDataSixMonth> platDataSixMonth = data.getPlat_data_six_month();
         List<String> days = new ArrayList<>();
         List<String> interestRates = new ArrayList<>();
@@ -149,6 +186,9 @@ public class P2PImageServiceImpl implements P2PImageService {
     public List<List<String>> coreDataLoadOverage(String plat_name) {
         // 处理数据转换
         PlatDataDO data = p2PImageDao.getPlatData(plat_name);
+        if (null == data) {
+            return null;
+        }
         List<PlatDataDO.PlatDataSixMonth> platDataSixMonth = data.getPlat_data_six_month();
         List<String> days = new ArrayList<>();
         List<String> loanOverages = new ArrayList<>();
