@@ -11,14 +11,41 @@ public class YuQingDO {
     private List<Warning> warning;
 
     private class Warning {
-        private String info;
+        private String title;
+        private String content;
+        private String source;
+        private String date;
 
-        public String getInfo() {
-            return info;
+        public String getTitle() {
+            return title;
         }
 
-        public void setInfo(String info) {
-            this.info = info;
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
+
+        public String getSource() {
+            return source;
+        }
+
+        public void setSource(String source) {
+            this.source = source;
+        }
+
+        public String getDate() {
+            return date;
+        }
+
+        public void setDate(String date) {
+            this.date = date;
         }
     }
 
