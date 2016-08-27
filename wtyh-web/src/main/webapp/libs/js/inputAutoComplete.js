@@ -45,20 +45,16 @@
 			var nowEleId = $(this.element).attr('id');
 			var acId = that.autoParam.acId;
 			$('body').on('click', function(e) {
-				var nowClickId = $(e.target).parent().parent()[0].id;
+				var nowClickId = e.target.id;
 				if (nowEleId == nowClickId) {
 					that.show();
 				} else {
 					that.hide();
 				}
-
-				// } else if (nowClickId == acId) {
-				// 	that.selectEle();
-				// }
 			});
-			$("li.group-item").unbind('click').bind('click', function() {
-				that.selectEle();
-			})
+			// $("li.group-item").unbind('click').bind('click', function() {
+			// 	that.selectEle();
+			// })
 		},
 		autoWatch: function() {
 			var that = this;
@@ -154,7 +150,7 @@
 		},
 		hide: function() {
 			var acClass = this.autoParam.acClass;
-			$('.' + acClass).hide();
+			$('.' + acClass).html("").hide();
 		},
 		setPos: function() {
 			var acClass = this.autoParam.acClass;
@@ -173,25 +169,28 @@
 			var acClass = this.autoParam.acClass;
 			var $element = $(this.element);
 			var $resultLi = $('.' + acClass).find('ul li');
-			$resultLi.each(function() {
-				$(this).on('click', function() {
-					var key = $(this).data('key');
-					var keyCompany = $(this).data('company');
-					var isgroup = $(this).hasClass('group');
-					if (isgroup) {
-						$element.attr({
-							data_flag: "noWorld",
-							company: ""
-						});
-						return false;
-					}
-					$element.val(key).attr({
-						company: keyCompany,
-						data_flag: "hasWorld",
+			// $resultLi.each(function() {
+			$('.' + acClass).find('ul li').unbind('click').on('click', function() {
+				var key = $(this).data('key');
+				var keyCompany = $(this).data('company');
+				var isgroup = $(this).hasClass('group');
+				if (isgroup) {
+					$element.attr({
+						data_flag: "noWorld",
+						company: ""
 					});
-					that.hide();
-				});
+					return false;
+				}
+				document.getElementById("autocomplete").value = key;
+				document.getElementById("autocomplete").setAttribute("company", keyCompany);
+				document.getElementById("autocomplete").setAttribute("data_flag", "hasWorld")
+					// $element.attr({
+					// 	company: keyCompany,
+					// 	data_flag: "hasWorld",
+					// });
+				that.hide();
 			});
+			// });
 		}
 	}
 

@@ -42,7 +42,7 @@
                     d.business_type
                 </when>
                 <when test="orderByField==4">
-                    registered_capital is null, d.registered_capital_type,d.registered_capital
+                    d.registered_capital is null, d.registered_capital_type,d.registered_capital
                 </when>
             </choose>
 
