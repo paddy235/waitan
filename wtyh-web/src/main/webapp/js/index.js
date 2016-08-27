@@ -51389,7 +51389,6 @@
 	        }
 
 	        var isEqual = Immutable.is(nextProps.lineFinanceListRequest, this.props.lineFinanceListResult); //判断数据是否变化
-	        console.log(isEqual, 8888888888);
 	        if (!isEqual) {
 	            var lineFinanceListRequest = nextProps.lineFinanceListRequest;
 	            var lineFinanceListResult = nextProps.lineFinanceListResult;
@@ -51407,7 +51406,6 @@
 	    dataFomat: function dataFomat(data) {
 	        var content = data.content;
 	        var itemList = content.list;
-	        console.log(itemList, 9999999999999);
 
 	        this.setState({ itemList: itemList, count: content.count });
 	    },
@@ -51552,7 +51550,7 @@
 	                                        _react2.default.createElement(
 	                                            'td',
 	                                            { className: 'talign-left' },
-	                                            index + 1
+	                                            elem.ranking
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
@@ -51578,7 +51576,7 @@
 	                                        _react2.default.createElement(
 	                                            'td',
 	                                            { className: 'talign-left' },
-	                                            index + 1
+	                                            elem.ranking
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
@@ -52345,6 +52343,7 @@
 	    this.queryCompanyName();
 	  },
 	  queryCompanyName: function queryCompanyName() {
+	    //获取公司名称
 	    var paramObj = { companyName: this.props.location.query.companyName };
 	    this.setState({
 	      companyName: this.props.location.query.companyName
@@ -52352,6 +52351,7 @@
 	    this.queryCompanyInfo(paramObj);
 	  },
 	  queryCompanyInfo: function queryCompanyInfo(param) {
+	    //查询公司标签
 	    var queryCompanyInfo = this.props.queryCompanyInfo;
 
 	    queryCompanyInfo(param);
@@ -52362,6 +52362,7 @@
 	      this.queryCompanyName();
 	    }
 	    if (nextProps.queryCompanyInfoRequest) {
+	      //标签处理
 	      var _companyInfo = [];
 	      _companyInfo.push(nextProps.queryCompanyInfoResult.content.status);
 	      _companyInfo = _companyInfo.concat(nextProps.queryCompanyInfoResult.content.backgroud);
@@ -52401,9 +52402,7 @@
 	    //静态图谱
 	    dynamicPicRequest: state.DynamicPic.request,
 	    dynamicPicResult: state.DynamicPic.result,
-	    //静态风险指数构成
-	    // staticRiskRequest:state.StaticRisk.request,
-	    // staticRiskResult: state.StaticRisk.result,
+
 	    //静态风险变化趋势图
 
 	    statisticsRequest: state.Statistics.request,
@@ -53035,7 +53034,7 @@
 
 
 	// module
-	exports.push([module.id, "/*关联图模块 begin*/\r\n.linefin-rel-graph {\r\n\theight: 1300px;\r\n}\r\n.window-show-graph{\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%!important;\r\n    z-index: 100;\r\n    margin: 0;\r\n}\r\n.linefin-rel-graph .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-rel-graph .mod-title h3 {\r\n}\r\n\r\n.linefin-rel-graph .mod-title .mod-title-right {\r\n\tmargin-top: 5px;\r\n\tdisplay: inline-block;\r\n\tfloat: right;\r\n}\r\n\r\n.linefin-rel-graph .mod-title-right i.icon-fullscreen,.linefin-rel-graph .mod-title-right i.icon-zoomout{\r\n\tmargin-left: 20px;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 6px;\r\n\tfloat: right;\r\n\tcursor: pointer;\r\n}\r\n.linefin-rel-graph .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .pic_rank {\r\n\tposition: absolute;\r\n\tright: 17px;\r\n\ttop: 62px;\r\n\tz-index: 999;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .pic_rank span {\r\n\tborder: 1px solid #3A4450;\r\n\tdisplay: inline-block;\r\n\twidth: 22px;\r\n\theight: 22px;\r\n\tbackground: #19202A;\r\n\ttext-align: center;\r\n\tline-height: 18px;\r\n\tcolor: #E14340;\r\n\tcursor: pointer;\r\n\tmargin-left: 8px;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .relation-graph-box {\r\n\theight: 1166px;\r\n}\r\n\r\n/*关联图模块 end*/\r\n\r\n/*公司舆情 begin*/\r\n.linefin-cocompose {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n.linefin-cocompose .mod-title {\r\n\tbackground-color: #36404d;\r\n}\r\n\r\n.linefin-cocompose .mod-content {\r\n\theight: 550px;\r\n}\r\n\r\n.linefin-cocompose .content-box {\r\n\theight: 534px;\r\n\toverflow: auto;\r\n\tmargin: 20px 20px 0px 20px;\r\n\tbackground-color: #212831;\r\n\tpadding: 20px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box {\r\n\toverflow: hidden;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 a {\r\n\tcolor: #e14340;\r\n\tfont-weight:bold;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 em {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 24px;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\tborder-radius: 2px;\r\n\tbackground-color: #1a2029;\r\n\tmargin-right: 20px;\r\n\tcolor:#fff;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .abstract {\r\n\tdisplay:block;\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tmargin-left: 45px;\r\n\ttext-indent: 28px;\t\r\n\tcolor:#fff;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tfloat: right;\r\n\tcolor: #e14340;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source .name {\r\n\tmargin-right: 40px;\r\n}\r\n\r\n/**公司舆情 end*/\r\n\r\n/*静态风险指数构成 begin*/\r\n.linefin-index-constitute .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-index-constitute .mt-select {\r\n\tmargin-top: 5px;\r\n\tmargin-right: 5px;\r\n\tcolor: #c9c9ca;\r\n}\r\n\r\n.linefin-index-constitute .con-box {\r\n\tbackground-color: #2b323c;\r\n\tpadding: 0 20px;\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-info {\r\n\tmin-height: 1362px;\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-pie {\r\n\theight: 520px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item {\r\n\tcursor: pointer;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-head {\r\n\tbackground-color: #1a2029;\r\n\tborder-bottom: solid 1px #2b323c;\r\n\theight: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\tfont-size: 14px;\r\n\theight: 20px;\r\n\tline-height: 20px;\r\n\tmargin-top: 10px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.name {\r\n\tcolor: #e5e5e5;\r\n\twidth: 40%;\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.num {\r\n\twidth: 60%;\r\n\ttext-indent: 10%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head {\r\n\theight: 60px;\r\n\tbackground-color: #e14340;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span {\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.name {\r\n\tfont-size: 18px;\r\n\tborder-color: #ed8e8c;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.num em {\r\n\tfont-size: 36px;\r\n\tcolor: #ffffff;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-other .item-head span.num i {\r\n\tfloat: right;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 3px;\r\n\tfont-size: 14px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table {\r\n\twidth: 100%;\r\n\tbackground-color: #36404d;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table {\r\n\twidth: 100%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td {\r\n\tborder-bottom: solid 1px #2b323c;\r\n\tpadding: 10px 0;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-left {\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-right {\r\n\tpadding-left: 10%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart {\r\n\theight: 330px;\r\n\tbackground-color: #212831;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart h4 {\r\n\tbackground-color: #1a2029;\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n\tpadding: 0 20px;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart .chart-b {\r\n\theight: 290px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-head span.name {\r\n\tfont-size: 16px;\r\n\tborder-color: #d0d8df;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-con {\r\n\tdisplay: none;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-con {\r\n\tdisplay: block;\r\n}\r\n\r\n/*关联图 侧边栏begin*/\r\n.sidebox {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation-tips {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .sidebar {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .canvas {\r\n\tmargin-right: auto !important;\r\n}\r\n\r\n.correlation .time-line {\r\n\tdisplay: none;\r\n}\r\n\r\n/*静态风险指数构成 end*/", ""]);
+	exports.push([module.id, "/*关联图模块 begin*/\r\n.linefin-rel-graph {\r\n\theight: 1300px;\r\n}\r\n.window-show-graph{\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%!important;\r\n    z-index: 100;\r\n    margin: 0;\r\n}\r\n.linefin-rel-graph .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-rel-graph .mod-title h3 {\r\n}\r\n\r\n.linefin-rel-graph .mod-title .mod-title-right {\r\n\tmargin-top: 5px;\r\n\tdisplay: inline-block;\r\n\tfloat: right;\r\n}\r\n\r\n.linefin-rel-graph .mod-title-right i.icon-fullscreen,.linefin-rel-graph .mod-title-right i.icon-zoomout{\r\n\tmargin-left: 20px;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 6px;\r\n\tfloat: right;\r\n\tcursor: pointer;\r\n}\r\n.linefin-rel-graph .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .pic_rank {\r\n\tposition: absolute;\r\n\tright: 17px;\r\n\ttop: 62px;\r\n\tz-index: 999;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .pic_rank span {\r\n\tborder: 1px solid #3A4450;\r\n\tdisplay: inline-block;\r\n\twidth: 22px;\r\n\theight: 22px;\r\n\tbackground: #19202A;\r\n\ttext-align: center;\r\n\tline-height: 18px;\r\n\tcolor: #E14340;\r\n\tcursor: pointer;\r\n\tmargin-left: 8px;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .relation-graph-box {\r\n\theight: 1166px;\r\n}\r\n\r\n/*关联图模块 end*/\r\n\r\n/*公司舆情 begin*/\r\n.linefin-cocompose {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n.linefin-cocompose .mod-title {\r\n\tbackground-color: #36404d;\r\n}\r\n\r\n.linefin-cocompose .mod-content {\r\n\theight: 550px;\r\n}\r\n\r\n.linefin-cocompose .content-box {\r\n\theight: 534px;\r\n\toverflow: auto;\r\n\tmargin: 20px 20px 0px 20px;\r\n\tbackground-color: #212831;\r\n\tpadding: 20px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box {\r\n\toverflow: hidden;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 a {\r\n\tcolor: #e14340;\r\n\tfont-weight:bold;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 em {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 24px;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\tborder-radius: 2px;\r\n\tbackground-color: #1a2029;\r\n\tmargin-right: 20px;\r\n\tcolor:#fff;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .abstract {\r\n\tdisplay:block;\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tmargin-left: 45px;\r\n\ttext-indent: 28px;\t\r\n\tcolor:#fff;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tfloat: right;\r\n\tcolor: #e14340;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source .name {\r\n\tmargin-right: 40px;\r\n}\r\n\r\n/**公司舆情 end*/\r\n\r\n/*静态风险指数构成 begin*/\r\n.linefin-index-constitute .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-index-constitute .mt-select {\r\n\tmargin-top: 5px;\r\n\tmargin-right: 5px;\r\n\tcolor: #c9c9ca;\r\n}\r\n\r\n.linefin-index-constitute .con-box {\r\n\tbackground-color: #2b323c;\r\n\tpadding: 0 20px;\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-info {\r\n\tmin-height: 1362px;\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-pie {\r\n\theight: 520px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item {\r\n\tcursor: pointer;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-head {\r\n\tbackground-color: #1a2029;\r\n\tborder-bottom: solid 1px #2b323c;\r\n\theight: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\tfont-size: 14px;\r\n\theight: 20px;\r\n\tline-height: 20px;\r\n\tmargin-top: 10px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.name {\r\n\tcolor: #e5e5e5;\r\n\twidth: 40%;\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.num {\r\n\twidth: 60%;\r\n\ttext-indent: 10%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head {\r\n\theight: 60px;\r\n\tbackground-color: #e14340;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span {\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.name {\r\n\tfont-size: 18px;\r\n\tborder-color: #ed8e8c;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.num em {\r\n\tfont-size: 36px;\r\n\tcolor: #ffffff;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-other .item-head span.num i {\r\n\tfloat: right;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 3px;\r\n\tfont-size: 14px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table {\r\n\twidth: 100%;\r\n\tbackground-color: #36404d;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table {\r\n\twidth: 100%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td {\r\n\tborder-bottom: solid 1px #2b323c;\r\n\tpadding: 10px 0;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-left {\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-right {\r\n\tpadding-left: 10%;\r\n\tpadding-right:5%;\r\n}\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-right span{\r\n\tdisplay:block;\r\n}\r\n.linefin-index-constitute .index-con-info .item .item-chart {\r\n\theight: 330px;\r\n\tbackground-color: #212831;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart h4 {\r\n\tbackground-color: #1a2029;\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n\tpadding: 0 20px;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart .chart-b {\r\n\theight: 290px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-head span.name {\r\n\tfont-size: 16px;\r\n\tborder-color: #d0d8df;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-con {\r\n\tdisplay: none;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-con {\r\n\tdisplay: block;\r\n}\r\n\r\n/*关联图 侧边栏begin*/\r\n.sidebox {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation-tips {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .sidebar {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .canvas {\r\n\tmargin-right: auto !important;\r\n}\r\n\r\n.correlation .time-line {\r\n\tdisplay: none;\r\n}\r\n\r\n/*静态风险指数构成 end*/", ""]);
 
 	// exports
 
@@ -53087,6 +53086,7 @@
 	        this.queryNews();
 	    },
 	    queryNews: function queryNews() {
+	        //查询公司舆情信息
 	        var companyName = this.props.location.query.companyName;
 	        this.setState({ companyName: companyName });
 	        this.requestCompanyNews(companyName);
@@ -53199,7 +53199,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	/**
-	 * 静态风险指数构成
+	 * 静态风险指数构成（右边全部）
 	 */
 	var Immutable = __webpack_require__(620);
 	//静态风险指数构成
@@ -53222,6 +53222,7 @@
 	        this.queryAllData();
 	    },
 	    queryAllData: function queryAllData() {
+	        //获取公司名称
 	        var companyName = this.props.location.query.companyName;
 	        this.setState({ companyName: companyName });
 
@@ -53240,7 +53241,7 @@
 	        if (this.state.companyName && this.state.companyName != this.props.location.query.companyName) {
 	            this.queryAllData();
 	        }
-
+	        //静态风险指数所有数据
 	        var riskDataIsEqual = Immutable.is(nextProps.riskDataResult, this.props.riskDataResult);
 	        if (!riskDataIsEqual) {
 	            this.setState({
@@ -53248,11 +53249,10 @@
 	            });
 	            this.setParm(nextProps.riskDataResult.content);
 	        }
-
+	        //右边时间列表
 	        var dateVersionIsEqual = Immutable.is(nextProps.queryDateVersionResult, this.props.queryDateVersionResult);
 	        var _allDate = [];
 	        if (!dateVersionIsEqual) {
-	            //右边时间列表
 	            nextProps.queryDateVersionResult.content.map(function (item, index) {
 	                _allDate.push({
 	                    value: index + 1,
@@ -53266,15 +53266,14 @@
 	                this.queryRiskData(_allDate[0].label); //首次获取时间请求列表
 	            }
 	        }
-
+	        //静态风险指数趋势图
 	        var statisticsIsEqual = Immutable.is(nextProps.statisticsResult, this.props.statisticsResult);
 	        if (!statisticsIsEqual) {
-	            //折线图
 	            this.setState({
 	                lineOption: nextProps.statisticsResult
 	            });
 	        }
-
+	        //多余的两个（资本背景，信用指数）
 	        var riskIndexIsEqual = Immutable.is(nextProps.queryRiskIndexResult, this.props.queryRiskIndexResult);
 	        if (!riskIndexIsEqual) {
 	            this.setState({ createData: nextProps.queryRiskIndexResult.content });
@@ -53299,6 +53298,7 @@
 	        queryStatistics(jsonDataLine);
 	    },
 	    queryRiskIndex: function queryRiskIndex(jsonData) {
+	        //多余的两个（资本背景，信用指数）
 	        var queryRiskIndex = this.props.queryRiskIndex;
 
 	        queryRiskIndex(jsonData);
@@ -53355,7 +53355,7 @@
 	            "center": ['50%', '50%'],
 	            "series": [{
 	                "name": "非法融资违规风险",
-	                "value": itemTable && itemTable.illFinRisk
+	                "value": itemTable && itemTable.illMoneyFinRisk
 	            }, {
 	                "name": "人才结构风险",
 	                "value": itemTable && itemTable.perStructRisk
@@ -53385,6 +53385,7 @@
 	        this.setState({ pieOption: option });
 	    },
 	    setLineParm: function setLineParm(param) {
+	        //静态趋势图
 	        var _xAxisArr = [],
 	            _riskIndexArr = [],
 	            _avgRiskIndexArr = [];
@@ -53433,6 +53434,7 @@
 	            }
 	        };
 	        var itemTable = this.state.riskList || '';
+	        var companyList = itemTable && itemTable.companyList && itemTable.companyList.split('|'); //公司名单                            
 	        return _react2.default.createElement(
 	            'div',
 	            { className: 'linefin-index-constitute mod' },
@@ -53578,7 +53580,20 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.oneLvlPer
+	                                                    function () {
+	                                                        if (!itemTable || !itemTable.oneLvlPer) {
+	                                                            return;
+	                                                        }
+	                                                        var oneLvlPer = itemTable.oneLvlPer.split('|');
+	                                                        var coreCldComHtml = oneLvlPer.map(function (item, index) {
+	                                                            return _react2.default.createElement(
+	                                                                'span',
+	                                                                { key: index },
+	                                                                item
+	                                                            );
+	                                                        });
+	                                                        return coreCldComHtml;
+	                                                    }()
 	                                                )
 	                                            )
 	                                        )
@@ -53673,7 +53688,20 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.coreCldCom
+	                                                    function () {
+	                                                        if (!itemTable || !itemTable.coreCldCom) {
+	                                                            return;
+	                                                        }
+	                                                        var coreCldCom = itemTable.coreCldCom.split('|');
+	                                                        var coreCldComHtml = coreCldCom.map(function (item, index) {
+	                                                            return _react2.default.createElement(
+	                                                                'span',
+	                                                                { key: index },
+	                                                                item
+	                                                            );
+	                                                        });
+	                                                        return coreCldComHtml;
+	                                                    }()
 	                                                )
 	                                            )
 	                                        )
@@ -53754,7 +53782,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.oneComNum
+	                                                    itemTable && itemTable.oneComNum == "0.0" ? itemTable.oneComNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -53768,7 +53796,20 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.conCom
+	                                                    function () {
+	                                                        if (!itemTable || !itemTable.conCom) {
+	                                                            return;
+	                                                        }
+	                                                        var conCom = itemTable.conCom.split('|');
+	                                                        var coreCldComHtml = conCom.map(function (item, index) {
+	                                                            return _react2.default.createElement(
+	                                                                'span',
+	                                                                { key: index },
+	                                                                item
+	                                                            );
+	                                                        });
+	                                                        return coreCldComHtml;
+	                                                    }()
 	                                                )
 	                                            )
 	                                        )
@@ -53835,7 +53876,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.thrPerNum
+	                                                    itemTable && itemTable.thrPerNum == "0.0" ? itemTable.thrPerNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -53849,7 +53890,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.twoComNum
+	                                                    itemTable && itemTable.twoComNum == "0.0" ? itemTable.twoComNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -53863,7 +53904,20 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.coreTwoCom
+	                                                    function () {
+	                                                        if (!itemTable || !itemTable.coreTwoCom) {
+	                                                            return;
+	                                                        }
+	                                                        var coreTwoCom = itemTable.coreTwoCom.split('|');
+	                                                        var coreCldComHtml = coreTwoCom.map(function (item, index) {
+	                                                            return _react2.default.createElement(
+	                                                                'span',
+	                                                                { key: index },
+	                                                                item
+	                                                            );
+	                                                        });
+	                                                        return coreCldComHtml;
+	                                                    }()
 	                                                )
 	                                            )
 	                                        )
@@ -53930,7 +53984,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.sixMonNewComNum
+	                                                    itemTable && itemTable.sixMonNewComNum == "0.0" ? itemTable.sixMonNewComNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -53944,7 +53998,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.sixMonNewComNum
+	                                                    itemTable && itemTable.sixMonNewComNum == "0.0" ? itemTable.sixMonNewComNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -53958,7 +54012,20 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.sixMonNewCom
+	                                                    function () {
+	                                                        if (!itemTable || !itemTable.sixMonNewCom) {
+	                                                            return;
+	                                                        }
+	                                                        var sixMonNewCom = itemTable.sixMonNewCom.split('|');
+	                                                        var coreCldComHtml = sixMonNewCom.map(function (item, index) {
+	                                                            return _react2.default.createElement(
+	                                                                'span',
+	                                                                { key: index },
+	                                                                item
+	                                                            );
+	                                                        });
+	                                                        return coreCldComHtml;
+	                                                    }()
 	                                                )
 	                                            )
 	                                        )
@@ -54095,7 +54162,13 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.companyList
+	                                                    companyList && companyList.map(function (item, index) {
+	                                                        return _react2.default.createElement(
+	                                                            'span',
+	                                                            { key: index },
+	                                                            item
+	                                                        );
+	                                                    })
 	                                                )
 	                                            )
 	                                        )
@@ -64929,7 +65002,6 @@
 	    }
 	  },
 	  dataFomat: function dataFomat(data) {
-	    console.log(data, 333333333333333);
 	    var option = {
 	      id: 'loan-balance-chart', //必传
 	      height: '272px', //必传 带上单位
@@ -64954,7 +65026,6 @@
 	        color: '#e14340'
 	      }]]
 	    };
-	    console.log(data.data, "datayAxis==================================");
 	    this.setState({ option: option });
 	  },
 	  render: function render() {
@@ -71249,9 +71320,9 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _ScatterChart = __webpack_require__(643);
+	var _ScatterChartCopy = __webpack_require__(1304);
 
-	var _ScatterChart2 = _interopRequireDefault(_ScatterChart);
+	var _ScatterChartCopy2 = _interopRequireDefault(_ScatterChartCopy);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -71275,10 +71346,13 @@
 	            var _setData = [];
 	            for (var i = 0; i < Data.data.length; i++) {
 	                var item = [];
-	                item.push(i, i, Data.yAxisData[i], Data.data[i]);
+	                item.push(Data.xAxisData[i].toString(), Data.yAxisData[i], Data.data[i]);
 	                _setData.push(item);
 	            }
-
+	            var _xAxisData = [];
+	            for (var j = 0; j < Data.xAxisData.length; j++) {
+	                _xAxisData.push(Data.xAxisData[j].toString());
+	            }
 	            var optionParm = {
 	                id: 'loan-balance-chart', //必传
 	                height: '465px', //必传 带上单位
@@ -71286,20 +71360,20 @@
 	                yAxisName: "笔数",
 	                legend: [],
 	                formatter: "BusinessNum",
-	                xAxis: Data.xAxisData,
-	                yAxis: Data.yAxisData,
+	                xAxis: _xAxisData,
 	                data: _setData,
 	                series: [[{
 	                    color: '#e14340'
 	                }]]
 	            };
+	            console.log(optionParm, "ashima===============");
 	            this.setState({ option: optionParm });
 	        }
 	    },
 	    render: function render() {
 	        var chartBox = "";
 	        if (this.state.option) {
-	            chartBox = _react2.default.createElement(_ScatterChart2.default, { param: this.state.option });
+	            chartBox = _react2.default.createElement(_ScatterChartCopy2.default, { param: this.state.option });
 	        }
 	        return _react2.default.createElement(
 	            'div',
@@ -80446,7 +80520,7 @@
 	            { className: 'no-data' },
 	            '暂无相关信息！'
 	          ) : data.map(function (item, index) {
-	            _time = item.pubdate.substring(0, 9);
+	            _time = item.pubdate.substring(0, 10);
 	            _content = item.content && item.content.length > 120 ? item.content.substring(0, 120) : item.content;
 	            return _react2.default.createElement(
 	              'div',
@@ -80467,14 +80541,14 @@
 	                    { className: 'item-title' },
 	                    _react2.default.createElement(
 	                      'a',
-	                      { target: '_blank', href: 'http://www.baidu.com' },
+	                      { target: '_blank', href: item.bbd_url },
 	                      item.news_title
 	                    )
 	                  )
 	                ),
 	                _react2.default.createElement(
 	                  'a',
-	                  { target: '_blank', href: 'http://www.baidu.com', className: 'item-content' },
+	                  { target: '_blank', href: item.bbd_url, className: 'item-content' },
 	                  _content + '...'
 	                ),
 	                _react2.default.createElement(
@@ -98814,6 +98888,195 @@
 	    return String(it).replace(regExp, replacer);
 	  };
 	};
+
+/***/ },
+/* 1304 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(158);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	//散点图 横坐标为时间
+
+	/*
+	  调用方式：
+	     var param={
+	            id:'loan-balance-chart',//必传
+	            height:'272px',//必传 带上单位
+	            title:'贷款余额',
+	            legend: [],
+	            xAxis:['2010', '2011', '2012','2013', '2014', '2015', '2016'],
+	            yAxis: ['20', '40', '60', '80', '100', '120', '140'],
+	            data: [[0,0,30],[1,1,10],[2,2,20],[3,3,50],[4,4,60],[5,5,10],[6,6,80]],
+	            series:[
+	                    [{
+	                      color:'#e14340'
+	                    }]
+	                  ]
+	        }
+	*/
+	var ScatterChartCopy = _react2.default.createClass({
+	    displayName: 'ScatterChartCopy',
+
+	    componentDidMount: function componentDidMount() {
+	        var id = this.props.param.id;
+	        var bubbleChart = echarts.init(document.getElementById(id));
+	        var param = this.props.param;
+	        var option = this.setOption(param);
+	        bubbleChart.setOption(option);
+	        this.resizeChart(bubbleChart);
+	    },
+	    resizeChart: function resizeChart(bubbleChart) {
+	        //容器发生改变时重新设置图表大小
+	        $(window).resize(function () {
+	            bubbleChart.resize();
+	        });
+	    },
+	    setOption: function setOption(param) {
+	        var option = {
+	            title: {
+	                text: param.title || "",
+	                link: param.link || "",
+	                target: "self",
+	                textStyle: {
+	                    fontSize: 14,
+	                    color: "#fff",
+	                    fontFamily: "microsoft yahei",
+	                    fontWeight: "normal"
+	                }
+	            },
+	            legend: {
+	                data: [],
+	                left: 'right'
+	            },
+	            tooltip: {
+	                backgroundColor: 'rgba(0,0,0,0.7)',
+	                padding: [10, 10, 10, 10],
+	                textStyle: {
+	                    fontSize: 12
+	                },
+	                formatter: param.tooltip || function (data) {
+	                    if (param.formatter == "BusinessNum") {
+	                        //典当总额业务笔数
+	                        return data.data[0] + ' 年<br/> 业务笔数：&nbsp <span style="color:#00b7f0">' + data.data[1] + '</span><br/>典当总额：&nbsp  <span style="color:#00b7f0">' + data.data[2] + '亿元</span>';
+	                    } else {
+	                        return data.name + '<br/> ' + param.forMaterTitle + "：" + data.data[2] + '亿元<br/>' + param.forMaterTip + "：" + data.data[3] + "万元";
+	                    }
+	                }
+	            },
+	            grid: {
+	                top: param.gridTop || '10%',
+	                left: '5%',
+	                bottom: '5%',
+	                right: '5%',
+	                containLabel: true
+	            },
+	            xAxis: {
+	                type: 'category',
+	                data: param.xAxis,
+	                splitLine: {
+	                    show: false,
+	                    lineStyle: {
+	                        color: '#353b45',
+	                        type: 'solid'
+	                    }
+	                },
+	                axisLabel: {
+	                    // formatter: '{value}',
+	                    textStyle: {
+	                        color: "#99a3b7",
+	                        fontSize: 12,
+	                        fontFamily: 'Microsoft Yahei'
+	                    }
+	                },
+	                axisLine: {
+	                    show: true,
+	                    lineStyle: {
+	                        color: '#353b45',
+	                        type: 'solid'
+	                    }
+	                },
+	                axisTick: {
+	                    show: false
+	                }
+
+	            },
+	            yAxis: {
+	                type: 'value',
+	                scale: true,
+	                data: [],
+	                splitNumber: param.yAxisSplit == undefined ? 5 : param.yAxisSplit,
+	                nameTextStyle: {
+	                    color: "#7f868e"
+	                },
+	                data: param.yAxis,
+	                splitLine: {
+	                    show: true,
+	                    lineStyle: {
+	                        color: '#353b45',
+	                        type: 'solid'
+	                    }
+	                },
+	                axisLabel: {
+	                    show: true,
+	                    textStyle: {
+	                        color: "#99a3b7",
+	                        fontSize: 12,
+	                        fontFamily: 'Microsoft Yahei'
+	                    }
+	                },
+	                axisLine: {
+	                    show: true,
+	                    lineStyle: {
+	                        color: '#353b45',
+	                        type: 'solid'
+	                    }
+	                },
+	                axisTick: {
+	                    show: false
+	                }
+	            },
+	            series: [{
+	                name: 'Punch Card',
+	                type: 'scatter',
+	                symbolSize: function symbolSize(val) {
+	                    if (val[1] < 1000) {
+	                        return val[1] / 10;
+	                    } else if (val[1] > 1000 && val[1] < 10000) {
+	                        return val[1] / 1000;
+	                    } else if (10000 < val[1] && val[1] < 100000) {
+	                        return val[1] / 5000;
+	                    } else if (100000 < val[1] && val[1] < 1000000) {
+	                        return val[1] / 10000;
+	                    } else if (1000000 < val[1] && val[1] < 10000000) {
+	                        return val[1] / 80000;
+	                    } else {
+	                        return val[1] / 1000000;
+	                    }
+	                },
+	                data: param.data,
+	                animationDelay: function animationDelay(idx) {
+	                    return idx * 5;
+	                }
+	            }]
+	        };
+	        return option;
+	    },
+	    render: function render() {
+	        return _react2.default.createElement('div', { id: this.props.param.id, style: { height: this.props.param.height } });
+	    }
+	});
+
+	module.exports = ScatterChartCopy;
 
 /***/ }
 /******/ ]);
