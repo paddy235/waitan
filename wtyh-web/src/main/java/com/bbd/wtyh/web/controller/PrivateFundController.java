@@ -147,7 +147,8 @@ public class PrivateFundController {
         for (CapitalAmountDO capitalAmountDO : capitalAmountList) {
             Map<String, Object> map = Maps.newHashMap();
             map.put("typeName", privateFundService.getTypeById(capitalAmountDO.getTypeId()).getTypeName());
-            map.put("managedCapitalAmount", capitalAmountDO.getManagedCapitalAmount());
+            //从百万元转换单位为亿元
+            map.put("managedCapitalAmount", CalculateUtils.divide(capitalAmountDO.getManagedCapitalAmount(), 100, 2));
             map.put("publishCompanyNumber", capitalAmountDO.getPublishCompanyNumber());
             result.add(map);
         }
@@ -169,8 +170,9 @@ public class PrivateFundController {
     public ResponseBean investmentAmount() {
         List<InvestmentStatisticDO> list = privateFundService.investmentAmount();
 
-        for (InvestmentStatisticDO irs:list) {
-            irs.setInvestmentAmount(CalculateUtils.divide(irs.getInvestmentAmount(),10000,2));
+        for (InvestmentStatisticDO irs : list) {
+            //从百万元转换单位为亿元
+            irs.setInvestmentAmount(CalculateUtils.divide(irs.getInvestmentAmount(), 100, 2));
         }
 
         return ResponseBean.successResponse(list);
