@@ -50392,7 +50392,7 @@
 	  mixins: [_setMinHeight2.default],
 	  getInitialState: function getInitialState() {
 	    //区域选择
-	    var areaSelect = ["黄浦区", "徐汇区", "静安区", "长宁区", "普陀区", "虹口区", "杨浦区", "浦东新区", "闵行区", "宝山区", "嘉定区", "金山区", "松江区", "青浦区", "奉贤区", "崇明县", "卢湾区", "闸北区"];
+	    var areaSelect = ["黄浦区", "徐汇区", "静安区", "长宁区", "普陀区", "虹口区", "杨浦区", "浦东新区", "闵行区", "宝山区", "嘉定区", "金山区", "松江区", "青浦区", "奉贤区", "崇明县", "闸北区"];
 	    //注册资本
 	    var regCapital = ["10-50万元", "50-100万元", "100-500万元", "500万以上"];
 	    //存续时间
@@ -53550,7 +53550,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.maxComNum
+	                                                    itemTable && itemTable.maxComNum == "0.0" ? itemTable.maxComNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -53564,7 +53564,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.avgPerNum
+	                                                    itemTable && itemTable.avgPerNum == "0.0" ? itemTable.avgPerNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -53645,7 +53645,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.cldComConPerNum
+	                                                    itemTable && itemTable.cldComConPerNum == "0.0" ? itemTable.cldComConPerNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -53659,7 +53659,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.cldCtlNum
+	                                                    itemTable && itemTable.cldCtlNum == "0.0" ? itemTable.cldCtlNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -53740,7 +53740,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.ctlCldComNum
+	                                                    itemTable && itemTable.ctlCldComNum == "0.0" ? itemTable.ctlCldComNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
