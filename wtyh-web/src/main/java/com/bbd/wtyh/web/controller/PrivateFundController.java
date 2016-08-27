@@ -147,8 +147,7 @@ public class PrivateFundController {
         for (CapitalAmountDO capitalAmountDO : capitalAmountList) {
             Map<String, Object> map = Maps.newHashMap();
             map.put("typeName", privateFundService.getTypeById(capitalAmountDO.getTypeId()).getTypeName());
-            //从百万元转换单位为亿元
-            map.put("managedCapitalAmount", CalculateUtils.divide(capitalAmountDO.getManagedCapitalAmount(), 100, 2));
+            map.put("managedCapitalAmount", capitalAmountDO.getManagedCapitalAmount());
             map.put("publishCompanyNumber", capitalAmountDO.getPublishCompanyNumber());
             result.add(map);
         }
