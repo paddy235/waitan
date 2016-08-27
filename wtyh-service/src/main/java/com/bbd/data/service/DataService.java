@@ -67,5 +67,13 @@ public interface DataService {
 	* @return void
 	*/
 	void updateTableData(String tableName, String idField, String updateField,Integer idValue , String value);
-	
+
+
+	/**
+	 * 根据公司名称查询信用数据
+	 *
+	 * @param  companyName  公司名称
+	 * @return List<Map<String,Object>>
+	 */
+    Map<String,Object> getCredit(String companyName);
 }
