@@ -79414,7 +79414,7 @@
 	          ),
 	          '家企业'
 	        ),
-	        _react2.default.createElement(_index.PageList, { id: 'search-list', count: this.state.count, showPage: '6', callback: this.setCallBack })
+	        _react2.default.createElement(_index.PageList, { id: 'search-list', eachPageCount: '4', count: this.state.count, showPage: '6', callback: this.setCallBack })
 	      )
 	    );
 	  }
