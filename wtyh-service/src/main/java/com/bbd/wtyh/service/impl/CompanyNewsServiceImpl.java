@@ -1,5 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
+import com.bbd.higgs.utils.http.HttpCallback;
+import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.redis.RedisDAO;
@@ -39,6 +41,17 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
     @Value("${api.baidu.batch.news.url}")
     private String batchNewsUrl;
 
+    @Value("${api.dataom.yuqing.url}")
+    private String apiDataomYuqingUrl;
+
+
+    @Value("${api.dataom.news.url}")
+    private String apiDataonNewsUrl;
+
+
+
+
+
     @Autowired
     private DataomApiBbdservice dataomApiBbdservice;
 
@@ -59,31 +72,24 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
         String result = null;
 
         try {
-
             if (!StringUtils.isEmpty(company)) {
-                List<NameValuePair> list = new ArrayList<>();
-                list.add(new BasicNameValuePair("keys", company));
-                list.add(new BasicNameValuePair("ktype", "" + ktype));
-                list.add(new BasicNameValuePair("pageSize", "20"));
-                list.add(new BasicNameValuePair("page", "1"));
-                list.add(new BasicNameValuePair("ak", ak));
-                try {
-                    result = HttpClientUtils.httpPost(batchNewsUrl, list);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                HttpTemplate ht = new HttpTemplate();
+                result = ht.get(apiDataonNewsUrl + company, new HttpCallback<String>() {
+                    @Override
+                    public String parse(String s) {
+                        return s;
+                    }
+                    @Override
+                    public boolean valid() {
+                        return true;
+                    }
+                });
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        if( !org.springframework.util.StringUtils.hasText(result) ){
-            return dataomApiBbdservice.bbdQyxgYuqing("金融");
-        }
-
-        if(result.contains("\"total\": 0")){
-            return dataomApiBbdservice.bbdQyxgYuqing("金融");
+        if( result==null || result.contains("\"total\": 0")){
+            return getCompanyNews();
         }
 
         return result;
@@ -96,25 +102,25 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
 
         String data = (String)redisDAO.getObject(Constants.REDIS_KEY_NEWS_DATA);
 
-        if (false && !StringUtils.isEmpty(data)) {
+        if (!StringUtils.isEmpty(data)) {
         	logger.info("Get in redis." + data);
             return data;
         }
-        String names = companyMapper.queryCompanyNames(null, null);
-        logger.info("Query company names." + names);
-        if(StringUtils.isEmpty(names)){
-            return null;
-        }
-        List<NameValuePair> list = new ArrayList<>();
-        list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1) ));
-        list.add(new BasicNameValuePair("ktype", ""+ktype));
-        list.add(new BasicNameValuePair("pageSize", "100"));
-        list.add(new BasicNameValuePair("ak",ak));
+
         try {
-            data = HttpClientUtils.httpPost(batchNewsUrl, list);
-            if(StringUtils.isBlank(data) || data.contains("\"total\": 0")){
-                data = dataomApiBbdservice.bbdQyxgYuqing("上海");
-            }
+                HttpTemplate ht = new HttpTemplate();
+                data = ht.get(apiDataomYuqingUrl, new HttpCallback<String>(){
+
+                    @Override
+                    public boolean valid() {
+                        return true;
+                    }
+
+                    @Override
+                    public String parse(String s) {
+                        return s;
+                    }
+                });
 
             if (!StringUtils.isBlank(data) && data.contains("\"total\"") && !data.contains("\"total\": 0")) {
                 logger.info("Set in redis." + data);

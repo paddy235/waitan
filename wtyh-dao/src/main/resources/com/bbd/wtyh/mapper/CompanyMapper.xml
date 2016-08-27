@@ -94,7 +94,7 @@
 
     <select id="buildingCompany" resultMap="BaseResultMap">
 
-        select a.*, IFNULL(car.analysis_result,4) analysisResult,car.exposure_date exposureDate
+        select DISTINCT  a.*, IFNULL(car.analysis_result,4) analysisResult,car.exposure_date exposureDate
         from (
 
 
@@ -203,18 +203,18 @@
             c.registered_capital_type as registeredCapitalType,
 			c.registered_date as registeredDate, 
 			c.registered_type as registeredType, 
-			i.static_risk_index as staticRisk
-		from company c, index_data i where c.`name`=i.company_name and c.company_type=4 
+			s.static_risk_index as staticRisk
+		from company c, static_risk_data s where c.`name`=s.company_name and c.company_type=4 and s.data_version=#{dataVersion}
 		<if test="keyword != null and keyword != ''">
 			and c.`name` like concat('%',#{keyword},'%')
 		</if>
 		limit #{pagination.begin}, #{pagination.pageSize}
     </select>
     
-    <select id="searchCompanyNameCount" resultType="int" parameterType="string">
-		select count(1) from company c, index_data i where c.`name`=i.company_name and c.company_type=4 
-		<if test="_parameter != null and _parameter != ''">
-			and c.`name` like concat('%',#{_parameter},'%')
+    <select id="searchCompanyNameCount" resultType="int" parameterType="java.util.HashMap">
+		select count(1) from company c, static_risk_data s where c.`name`=s.company_name and c.company_type=4 and s.data_version=#{dataVersion}
+		<if test="keyword != null and keyword != ''">
+			and c.`name` like concat('%',#{keyword},'%')
 		</if>
     </select>
 

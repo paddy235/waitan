@@ -4,6 +4,7 @@ import com.bbd.higgs.utils.ListUtil;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.CompanyCreditInformationDO;
+import com.bbd.wtyh.domain.CompanyCreditPointItemsDO;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.dto.StaticRiskDTO;
 import com.bbd.wtyh.domain.vo.LineVO;
@@ -152,22 +153,37 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
         Map result = new HashMap();
         CompanyDO companyDO = companyMapper.selectByName(companyName);
         Integer creditInfoRisk = 0;
+
+        Map<String, Integer> itemsMap = new HashMap<>();
+        itemsMap = (Map) redisDAO.getObject(Constants.REDIS_KEY_COMPANY_CREDIT_POINT_ITEMS);
+        if (itemsMap == null || itemsMap.size() == 0) {
+            List<CompanyCreditPointItemsDO> items = companyCreditInformationMapper.selectCompanyCreditPointItems();
+            Map<String, Integer> tempMap = new HashMap<>();
+            if (!CollectionUtils.isEmpty(items)) {
+                for (CompanyCreditPointItemsDO companyCreditPointItemsDO : items) {
+                    tempMap.put(companyCreditPointItemsDO.getItem(), companyCreditPointItemsDO.getPoint());
+                }
+            }
+            if (tempMap != null && tempMap.size() > 0) {
+                redisDAO.addObject(Constants.REDIS_KEY_COMPANY_CREDIT_POINT_ITEMS, tempMap, Constants.cacheDay, Map.class);
+            }
+        }
+
+
         if (companyDO != null) {
             List<CompanyCreditInformationDO> list = companyCreditInformationMapper.selectCompanyCreditInformationList(companyDO.getCompanyId());
-                    if (!CollectionUtils.isEmpty(list)) {
-                        Gson gson = new Gson();
-                        for (CompanyCreditInformationDO companyCreditInformationDO : list) {
-                            Map<String, String> map = gson.fromJson(companyCreditInformationDO.getContent(), Map.class);
-                            for (String key : map.keySet()) {
-                                if (map.get(key).contains("非正常户认定") || map.get(key).contains("责令")) {
-                                    creditInfoRisk += 15;
-                                }
-                                if (map.get(key).contains("处罚")) {
-                                    creditInfoRisk += 10;
-                                }
-                            }
+
+            if (!CollectionUtils.isEmpty(list) && itemsMap != null && itemsMap.size() > 0) {
+                Gson gson = new Gson();
+                for (CompanyCreditInformationDO companyCreditInformationDO : list) {
+                    Map<String, String> map = gson.fromJson(companyCreditInformationDO.getContent(), Map.class);
+                    for (String key : map.keySet()) {
+                        if (itemsMap.get(key) != null && itemsMap.get(key) > 0) {
+                            creditInfoRisk += itemsMap.get(key);
                         }
                     }
+                }
+            }
         }
         float capitalBgRisk = 0;
         capitalBgRisk = staticRiskMapper.queryCapitalBgRisk(companyName);

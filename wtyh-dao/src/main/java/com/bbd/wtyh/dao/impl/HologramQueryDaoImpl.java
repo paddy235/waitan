@@ -3,12 +3,18 @@ package com.bbd.wtyh.dao.impl;
 import com.alibaba.fastjson.JSON;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
+import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.dao.HologramQueryDao;
 import com.bbd.wtyh.domain.bbdAPI.*;
+import com.bbd.wtyh.redis.RedisDAO;
 import com.google.gson.Gson;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +26,9 @@ import java.util.Map;
  */
 @Repository("hologramQueryDao")
 public class HologramQueryDaoImpl implements HologramQueryDao {
+
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Value("${api.court.searchCompany.url}")
     private String searchCompanyURL;     // 搜索
@@ -92,6 +101,57 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
 
     @Value("${api.bbdlog.ak}")
     private String bbdLogoAK;
+
+    @Value("${api.dataom.yuqing.url}")
+    private String apiDataomYuqingUrl;
+
+
+    @Value("${api.dataom.news.url}")
+    private String apiDataomNewsUrl;
+
+
+    @Autowired
+    private RedisDAO redisDAO;
+
+
+
+
+
+    public String getCompanyNews() {
+
+        String data = (String)redisDAO.getObject(Constants.REDIS_KEY_NEWS_DATA);
+
+        if (!org.apache.commons.lang.StringUtils.isEmpty(data)) {
+            logger.info("Get in redis." + data);
+            return data;
+        }
+
+        try {
+            HttpTemplate ht = new HttpTemplate();
+            data = ht.get(apiDataomYuqingUrl, new HttpCallback<String>(){
+
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public String parse(String s) {
+                    return s;
+                }
+            });
+
+            if (!org.apache.commons.lang.StringUtils.isBlank(data) && data.contains("\"total\"") && !data.contains("\"total\": 0")) {
+                logger.info("Set in redis." + data);
+                redisDAO.addObject(Constants.REDIS_KEY_NEWS_DATA, data, Constants.cacheDay, String.class);
+            }
+        } catch (Exception e) {
+            logger.error("Method getCompanyNews get Exception." + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return data;
+    }
 
 
     /**
@@ -181,13 +241,11 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      */
     @Override
     public BaiDuYuQingDO newsConsensus(String company) {
-        String api = baiduYuQingURL + "?company=" + company + "&ak=" + baiduYuqingAK;
-
-
-
+        String api = apiDataomNewsUrl+company;
         HttpTemplate httpTemplate = new HttpTemplate();
+        BaiDuYuQingDO bdyqDO = null;
         try {
-            return httpTemplate.get(api, new HttpCallback<BaiDuYuQingDO>() {
+            bdyqDO = httpTemplate.get(api, new HttpCallback<BaiDuYuQingDO>() {
                 @Override
                 public boolean valid() {
                     return true;
@@ -195,15 +253,23 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
 
                 @Override
                 public BaiDuYuQingDO parse(String result) {
-
                     return JSON.parseObject(result, BaiDuYuQingDO.class);
                 }
+
+
             });
-        } catch (Exception e) {
+         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
 
+        if(bdyqDO==null || "0".equals(bdyqDO.getTotal() )){
+            String data = getCompanyNews();
+            return JSON.parseObject(data, BaiDuYuQingDO.class);
+        }
+
+
+        return bdyqDO;
 
 
     }

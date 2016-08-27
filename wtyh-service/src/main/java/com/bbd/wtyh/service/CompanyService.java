@@ -25,6 +25,6 @@ public interface CompanyService {
 
     List<CompanyDO> searchCompanyName(Map<String, Object> params);
 
-    int searchCompanyNameCount(String keyword);
+    int searchCompanyNameCount(String keyword, String dataVersion);
 
 }
