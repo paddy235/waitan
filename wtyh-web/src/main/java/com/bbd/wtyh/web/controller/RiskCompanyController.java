@@ -76,9 +76,9 @@ public class RiskCompanyController {
 			for (int i = 0; i < list.size(); i++) {
 				RiskCompanyInfoDO tmp = list.get(i);
 				if ("0".equals(sortType)) {
-					tmp.setRanking(pagination.getCount() - i);
+					tmp.setRanking(pagination.getCount() - i - (pagination.getPageNumber() - 1) * pagination.getPageSize());
 				} else {
-					tmp.setRanking(i + 1);
+					tmp.setRanking(i + 1 + (pagination.getPageNumber() - 1) * pagination.getPageSize());
 				}
 			}
 		}
