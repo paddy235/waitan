@@ -469,7 +469,8 @@ public class OfflineFinanceController {
                 new ArrayList<String>(),
                 new ArrayList<String>());
         if (!CollectionUtils.isEmpty(mortgageList)) {
-            for (MortgageStatisticDO mortgageStatisticDO : mortgageList) {
+            for (int k = mortgageList.size()-1;k>-1;k--) {
+                MortgageStatisticDO mortgageStatisticDO = mortgageList.get(k);
                 mortgageDTO.getxAxis().add(mortgageStatisticDO.getYear().toString());
                 mortgageDTO.getSeries()[0].add(mortgageStatisticDO.getNumber().toString());
                 mortgageDTO.getSeries()[1].add(mortgageStatisticDO.getTotalAmout().toString());
