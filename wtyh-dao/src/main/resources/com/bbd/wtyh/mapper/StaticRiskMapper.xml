@@ -204,7 +204,12 @@
             LIMIT 0, 1
         ) t2
         ON t1.risk_date = t2.risk_date
-        ORDER BY static_risk_index DESC
+        <if test="normal_flag == true">
+            ORDER BY static_risk_index ASC
+        </if>
+        <if test="normal_flag == false">
+            ORDER BY static_risk_index DESC
+        </if>
         LIMIT 0, 200
     </select>
 

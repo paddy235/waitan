@@ -25520,11 +25520,11 @@
 
 	var _index4 = _interopRequireDefault(_index3);
 
-	var _index5 = __webpack_require__(700);
+	var _index5 = __webpack_require__(701);
 
 	var _index6 = _interopRequireDefault(_index5);
 
-	var _index7 = __webpack_require__(716);
+	var _index7 = __webpack_require__(717);
 
 	var _index8 = _interopRequireDefault(_index7);
 
@@ -50467,7 +50467,7 @@
 	    } else if (regCapCheck == "100-500万元") {
 	      minRegCapital = 100;
 	      maxRegCapital = 500;
-	    } else if (regCapCheck == "500万元以上") {
+	    } else if (regCapCheck == "500万以上") {
 	      minRegCapital = 500;
 	    }
 
@@ -50482,6 +50482,8 @@
 	    } else if (durTimCheck == "5-10年") {
 	      minReviewTime = 5;
 	      maxReviewTime = 10;
+	    } else if (durTimCheck == "10年以上") {
+	      minReviewTime = 10;
 	    }
 
 	    if (comBgCheck == "国企") {
@@ -50927,115 +50929,118 @@
 
 	//线下理财风险分布
 	var LineFinanceRiskDistr = _react2.default.createClass({
-	    displayName: 'LineFinanceRiskDistr',
+	  displayName: 'LineFinanceRiskDistr',
 
-	    getInitialState: function getInitialState() {
-	        return {
-	            option: null,
-	            companyInfo: []
-	        };
-	    },
-	    componentDidMount: function componentDidMount() {
-	        window.scrollTo(0, 0);
-	        this.getLinFinRiskDistr();
-	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var isCheckValEqual = Immutable.is(nextProps.parm, this.props.parm);
-	        if (!isCheckValEqual) {
-	            var parm = nextProps.parm;
+	  getInitialState: function getInitialState() {
+	    return {
+	      option: null,
+	      companyInfo: []
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {
+	    window.scrollTo(0, 0);
+	    this.getLinFinRiskDistr();
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var isCheckValEqual = Immutable.is(nextProps.parm, this.props.parm);
+	    if (!isCheckValEqual) {
+	      var parm = nextProps.parm;
 
-	            var jsonData = parm;
-	            this.getLinFinRiskDistr(jsonData);
-	        }
-
-	        var isEqual = Immutable.is(nextProps.lineFinaceRiskDistriRequest, this.props.lineFinaceRiskDistriResult);
-	        if (!isEqual) {
-	            var lineFinaceRiskDistriRequest = nextProps.lineFinaceRiskDistriRequest;
-	            var lineFinaceRiskDistriResult = nextProps.lineFinaceRiskDistriResult;
-
-	            if (lineFinaceRiskDistriRequest == true) {
-	                if (lineFinaceRiskDistriResult.success == true) {
-	                    this.dataFomat(lineFinaceRiskDistriResult);
-	                } else {
-	                    //错误后提示
-	                }
-	            }
-	        }
-	    },
-
-	    getLinFinRiskDistr: function getLinFinRiskDistr(jsonData) {
-	        var getLinFinRiskDistr = this.props.getLinFinRiskDistr;
-
-	        getLinFinRiskDistr(jsonData);
-	    },
-	    dataFomat: function dataFomat(data) {
-	        var companyInfo = [];
-	        var staticRisk = [];
-	        var seriesData = [];
-
-	        var content = data.content;
-	        var len = content.length;
-	        for (var i = 0; i < len; i++) {
-	            companyInfo.push({
-	                name: content[i].companyName,
-	                regCapital: content[i].regCapital,
-	                corporate: content[i].legalRpt,
-	                companyType: content[i].companyType,
-	                foundDate: content[i].regDateStr
-	            });
-	            staticRisk.push(content[i].staticRiskIndex); //保存静态风险指数
-	            seriesData.push([content[i].staticRiskIndex, content[i].dynamicRiskIndex]);
-	        }
-	        var max = Math.max.apply(null, staticRisk);
-	        var min = Math.min.apply(null, staticRisk);
-	        var option = {
-	            color: ["#a40000"],
-	            title: "",
-	            companyInfo: companyInfo,
-	            visualMapMax: max,
-	            visualMapMin: min,
-	            yAxisName: "动态风险指数",
-	            xAxisName: "静态风险指数",
-	            series: [{
-	                name: '风险指数',
-	                type: 'scatter',
-	                data: seriesData
-	            }]
-	        };
-	        console.log(seriesData, max, min, '看看这个');
-
-	        this.setState({ option: option, companyInfo: companyInfo });
-	    },
-	    onChartClick: function onChartClick(e) {
-	        var companyInfo = this.state.companyInfo;
-	        var dataIndex = e.dataIndex;
-	        var companyName = companyInfo[dataIndex].name;
-	        console.log(companyName, 4444);
-	        this.props.history.push("/lineFinanceStaticRisk?companyName=" + companyName + "");
-	    },
-	    render: function render() {
-	        var onEvents = {
-	            'click': this.onChartClick
-	        };
-	        var bbdScatterBubble = "";
-	        if (this.state.option) {
-	            bbdScatterBubble = _react2.default.createElement(_ScatterBubbleChart2.default, { onEvents: onEvents, option: this.state.option });
-	        }
-	        return _react2.default.createElement(
-	            'div',
-	            { className: 'line-finace-risk-distrib' },
-	            _react2.default.createElement(
-	                'h4',
-	                null,
-	                '线下理财风险分布'
-	            ),
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'chart-box' },
-	                bbdScatterBubble
-	            )
-	        );
+	      var jsonData = parm;
+	      this.getLinFinRiskDistr(jsonData);
 	    }
+
+	    var isEqual = Immutable.is(nextProps.lineFinaceRiskDistriRequest, this.props.lineFinaceRiskDistriResult);
+	    if (!isEqual) {
+	      var lineFinaceRiskDistriRequest = nextProps.lineFinaceRiskDistriRequest;
+	      var lineFinaceRiskDistriResult = nextProps.lineFinaceRiskDistriResult;
+
+	      if (lineFinaceRiskDistriRequest == true) {
+	        if (lineFinaceRiskDistriResult.success == true) {
+	          this.dataFomat(lineFinaceRiskDistriResult);
+	        } else {
+	          //错误后提示
+	        }
+	      }
+	    }
+	  },
+
+	  getLinFinRiskDistr: function getLinFinRiskDistr(jsonData) {
+	    var getLinFinRiskDistr = this.props.getLinFinRiskDistr;
+
+	    getLinFinRiskDistr(jsonData);
+	  },
+	  dataFomat: function dataFomat(data) {
+
+	    var companyInfo = [];
+	    var staticRisk = [];
+	    var seriesData = [];
+
+	    var content = data.content;
+	    var len = content.length;
+	    console.log(len, 111111111);
+	    if (len > 0) {
+	      for (var i = 0; i < len; i++) {
+	        companyInfo.push({
+	          name: content[i].companyName,
+	          regCapital: content[i].regCapital,
+	          corporate: content[i].legalRpt,
+	          companyType: content[i].companyType,
+	          foundDate: content[i].regDateStr
+	        });
+	        staticRisk.push(content[i].staticRiskIndex); //保存静态风险指数
+	        seriesData.push([content[i].staticRiskIndex, content[i].dynamicRiskIndex]);
+	      }
+	      var max = Math.max.apply(null, staticRisk);
+	      var min = Math.min.apply(null, staticRisk);
+	      var option = {
+	        color: ["#a40000"],
+	        title: "",
+	        companyInfo: companyInfo,
+	        visualMapMax: max,
+	        visualMapMin: min,
+	        yAxisName: "动态风险指数",
+	        xAxisName: "静态风险指数",
+	        series: [{
+	          name: '风险指数',
+	          type: 'scatter',
+	          data: seriesData
+	        }]
+	      };
+	      this.setState({ option: option, companyInfo: companyInfo });
+	    } else {
+	      this.setState({ option: null, companyInfo: [] });
+	    }
+	  },
+	  onChartClick: function onChartClick(e) {
+	    var companyInfo = this.state.companyInfo;
+	    var dataIndex = e.dataIndex;
+	    var companyName = companyInfo[dataIndex].name;
+	    this.props.history.push("/lineFinanceStaticRisk?companyName=" + companyName + "");
+	  },
+	  render: function render() {
+	    var onEvents = {
+	      'click': this.onChartClick
+	    };
+	    var bbdScatterBubble = "";
+	    if (this.state.option) {
+	      bbdScatterBubble = _react2.default.createElement(_ScatterBubbleChart2.default, { onEvents: onEvents, option: this.state.option });
+	    }
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'line-finace-risk-distrib' },
+	      _react2.default.createElement(
+	        'h4',
+	        null,
+	        '线下理财风险分布'
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'chart-box' },
+	        bbdScatterBubble
+	      )
+	    );
+	  }
 	});
 	module.exports = LineFinanceRiskDistr;
 
@@ -51406,8 +51411,12 @@
 	    dataFomat: function dataFomat(data) {
 	        var content = data.content;
 	        var itemList = content.list;
-
-	        this.setState({ itemList: itemList, count: content.count });
+	        var count = content.count;
+	        if (count == 0) {
+	            this.setState({ itemList: [], count: 0 });
+	        } else {
+	            this.setState({ itemList: itemList, count: content.count });
+	        }
 	    },
 	    getLinFinList: function getLinFinList(jsonData) {
 	        var getLinFinList = this.props.getLinFinList;
@@ -53033,7 +53042,7 @@
 
 
 	// module
-	exports.push([module.id, "/*关联图模块 begin*/\r\n.linefin-rel-graph {\r\n\theight: 1300px;\r\n}\r\n.window-show-graph{\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%!important;\r\n    z-index: 100;\r\n    margin: 0;\r\n}\r\n.linefin-rel-graph .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-rel-graph .mod-title h3 {\r\n}\r\n\r\n.linefin-rel-graph .mod-title .mod-title-right {\r\n\tmargin-top: 5px;\r\n\tdisplay: inline-block;\r\n\tfloat: right;\r\n}\r\n\r\n.linefin-rel-graph .mod-title-right i.icon-fullscreen,.linefin-rel-graph .mod-title-right i.icon-zoomout{\r\n\tmargin-left: 20px;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 6px;\r\n\tfloat: right;\r\n\tcursor: pointer;\r\n}\r\n.linefin-rel-graph .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .pic_rank {\r\n\tposition: absolute;\r\n\tright: 17px;\r\n\ttop: 62px;\r\n\tz-index: 999;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .pic_rank span {\r\n\tborder: 1px solid #3A4450;\r\n\tdisplay: inline-block;\r\n\twidth: 22px;\r\n\theight: 22px;\r\n\tbackground: #19202A;\r\n\ttext-align: center;\r\n\tline-height: 18px;\r\n\tcolor: #E14340;\r\n\tcursor: pointer;\r\n\tmargin-left: 8px;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .relation-graph-box {\r\n\theight: 1166px;\r\n}\r\n\r\n/*关联图模块 end*/\r\n\r\n/*公司舆情 begin*/\r\n.linefin-cocompose {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n.linefin-cocompose .mod-title {\r\n\tbackground-color: #36404d;\r\n}\r\n\r\n.linefin-cocompose .mod-content {\r\n\theight: 550px;\r\n}\r\n\r\n.linefin-cocompose .content-box {\r\n\theight: 534px;\r\n\toverflow: auto;\r\n\tmargin: 20px 20px 0px 20px;\r\n\tbackground-color: #212831;\r\n\tpadding: 20px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box {\r\n\toverflow: hidden;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 a {\r\n\tcolor: #e14340;\r\n\tfont-weight:bold;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 em {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 24px;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\tborder-radius: 2px;\r\n\tbackground-color: #1a2029;\r\n\tmargin-right: 20px;\r\n\tcolor:#fff;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .abstract {\r\n\tdisplay:block;\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tmargin-left: 45px;\r\n\ttext-indent: 28px;\t\r\n\tcolor:#fff;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tfloat: right;\r\n\tcolor: #e14340;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source .name {\r\n\tmargin-right: 40px;\r\n}\r\n\r\n/**公司舆情 end*/\r\n\r\n/*静态风险指数构成 begin*/\r\n.linefin-index-constitute .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-index-constitute .mt-select {\r\n\tmargin-top: 5px;\r\n\tmargin-right: 5px;\r\n\tcolor: #c9c9ca;\r\n}\r\n\r\n.linefin-index-constitute .con-box {\r\n\tbackground-color: #2b323c;\r\n\tpadding: 0 20px;\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-info {\r\n\tmin-height: 1362px;\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-pie {\r\n\theight: 520px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item {\r\n\tcursor: pointer;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-head {\r\n\tbackground-color: #1a2029;\r\n\tborder-bottom: solid 1px #2b323c;\r\n\theight: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\tfont-size: 14px;\r\n\theight: 20px;\r\n\tline-height: 20px;\r\n\tmargin-top: 10px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.name {\r\n\tcolor: #e5e5e5;\r\n\twidth: 40%;\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.num {\r\n\twidth: 60%;\r\n\ttext-indent: 10%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head {\r\n\theight: 60px;\r\n\tbackground-color: #e14340;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span {\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.name {\r\n\tfont-size: 18px;\r\n\tborder-color: #ed8e8c;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.num em {\r\n\tfont-size: 36px;\r\n\tcolor: #ffffff;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-other .item-head span.num i {\r\n\tfloat: right;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 3px;\r\n\tfont-size: 14px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table {\r\n\twidth: 100%;\r\n\tbackground-color: #36404d;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table {\r\n\twidth: 100%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td {\r\n\tborder-bottom: solid 1px #2b323c;\r\n\tpadding: 10px 0;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-left {\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-right {\r\n\tpadding-left: 10%;\r\n\tpadding-right:5%;\r\n}\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-right span{\r\n\tdisplay:block;\r\n}\r\n.linefin-index-constitute .index-con-info .item .item-chart {\r\n\theight: 330px;\r\n\tbackground-color: #212831;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart h4 {\r\n\tbackground-color: #1a2029;\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n\tpadding: 0 20px;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart .chart-b {\r\n\theight: 290px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-head span.name {\r\n\tfont-size: 16px;\r\n\tborder-color: #d0d8df;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-con {\r\n\tdisplay: none;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-con {\r\n\tdisplay: block;\r\n}\r\n\r\n/*关联图 侧边栏begin*/\r\n.sidebox {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation-tips {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .sidebar {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .canvas {\r\n\tmargin-right: auto !important;\r\n}\r\n\r\n.correlation .time-line {\r\n\tdisplay: none;\r\n}\r\n\r\n/*静态风险指数构成 end*/", ""]);
+	exports.push([module.id, "/*关联图模块 begin*/\r\n.linefin-rel-graph {\r\n\theight: 1300px;\r\n}\r\n.window-show-graph{\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%!important;\r\n    z-index: 100;\r\n    margin: 0;\r\n}\r\n.linefin-rel-graph .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-rel-graph .mod-title h3 {\r\n}\r\n\r\n.linefin-rel-graph .mod-title .mod-title-right {\r\n\tmargin-top: 5px;\r\n\tdisplay: inline-block;\r\n\tfloat: right;\r\n}\r\n\r\n.linefin-rel-graph .mod-title-right i.icon-fullscreen,.linefin-rel-graph .mod-title-right i.icon-zoomout{\r\n\tmargin-left: 20px;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 6px;\r\n\tfloat: right;\r\n\tcursor: pointer;\r\n}\r\n.linefin-rel-graph .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .pic_rank {\r\n\tposition: absolute;\r\n\tright: 17px;\r\n\ttop: 62px;\r\n\tz-index: 999;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .pic_rank span {\r\n\tborder: 1px solid #3A4450;\r\n\tdisplay: inline-block;\r\n\twidth: 22px;\r\n\theight: 22px;\r\n\tbackground: #19202A;\r\n\ttext-align: center;\r\n\tline-height: 18px;\r\n\tcolor: #E14340;\r\n\tcursor: pointer;\r\n\tmargin-left: 8px;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .relation-graph-box {\r\n\theight: 1166px;\r\n}\r\n\r\n/*关联图模块 end*/\r\n\r\n/*公司舆情 begin*/\r\n.linefin-cocompose {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n.linefin-cocompose .mod-title {\r\n\tbackground-color: #36404d;\r\n}\r\n\r\n.linefin-cocompose .mod-content {\r\n\theight: 550px;\r\n}\r\n\r\n.linefin-cocompose .content-box {\r\n\theight: 534px;\r\n\toverflow: auto;\r\n\tmargin: 20px 20px 0px 20px;\r\n\tbackground-color: #212831;\r\n\tpadding: 20px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box {\r\n\toverflow: hidden;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 a {\r\n\tcolor: #e14340;\r\n\tfont-weight:bold;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 em {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 24px;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\tborder-radius: 2px;\r\n\tbackground-color: #1a2029;\r\n\tmargin-right: 20px;\r\n\tcolor:#fff;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .abstract {\r\n\tdisplay:block;\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tmargin-left: 45px;\r\n\ttext-indent: 28px;\t\r\n\tcolor:#fff;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tfloat: right;\r\n\tcolor: #e14340;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source .name {\r\n\tmargin-right: 40px;\r\n}\r\n\r\n/**公司舆情 end*/\r\n\r\n/*静态风险指数构成 begin*/\r\n.linefin-index-constitute .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-index-constitute .mt-select {\r\n\tmargin-top: 5px;\r\n\tmargin-right: 5px;\r\n\tcolor: #c9c9ca;\r\n}\r\n\r\n.linefin-index-constitute .con-box {\r\n\tbackground-color: #2b323c;\r\n\tpadding: 0 20px;\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-info {\r\n\tmin-height: 1362px;\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-pie {\r\n\theight: 520px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item {\r\n\tcursor: pointer;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-head {\r\n\tbackground-color: #1a2029;\r\n\tborder-bottom: solid 1px #2b323c;\r\n\theight: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\tfont-size: 14px;\r\n\theight: 20px;\r\n\tline-height: 20px;\r\n\tmargin-top: 10px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.name {\r\n\tcolor: #e5e5e5;\r\n\twidth: 40%;\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.num {\r\n\twidth: 60%;\r\n\ttext-indent: 10%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head {\r\n\theight: 60px;\r\n\tbackground-color: #e14340;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span {\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.name {\r\n\tfont-size: 18px;\r\n\tborder-color: #ed8e8c;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.num em {\r\n\tfont-size: 36px;\r\n\tcolor: #ffffff;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-other .item-head span.num i {\r\n\tfloat: right;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 3px;\r\n\tfont-size: 14px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table {\r\n\twidth: 100%;\r\n\tbackground-color: #36404d;\r\n}\r\n.linefin-index-constitute .index-con-info .item .item-table .td-box{\r\n\theight: 122px;\r\n\toverflow: auto;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table {\r\n\twidth: 100%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td {\r\n\tborder-bottom: solid 1px #2b323c;\r\n\tpadding: 10px 0;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-left {\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-right {\r\n\tpadding-left: 10%;\r\n\tpadding-right:5%;\r\n}\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-right span{\r\n\tdisplay:block;\r\n}\r\n.linefin-index-constitute .index-con-info .item .item-chart {\r\n\theight: 330px;\r\n\tbackground-color: #212831;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart h4 {\r\n\tbackground-color: #1a2029;\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n\tpadding: 0 20px;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart .chart-b {\r\n\theight: 290px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-head span.name {\r\n\tfont-size: 16px;\r\n\tborder-color: #d0d8df;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-con {\r\n\tdisplay: none;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-con {\r\n\tdisplay: block;\r\n}\r\n\r\n/*关联图 侧边栏begin*/\r\n.sidebox {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation-tips {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .sidebar {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .canvas {\r\n\tmargin-right: auto !important;\r\n}\r\n\r\n.correlation .time-line {\r\n\tdisplay: none;\r\n}\r\n\r\n/*静态风险指数构成 end*/", ""]);
 
 	// exports
 
@@ -53060,116 +53069,124 @@
 	 * 静态风险-新闻舆情
 	 */
 	var LineFinanceCoCompose = _react2.default.createClass({
-	    displayName: 'LineFinanceCoCompose',
+	  displayName: 'LineFinanceCoCompose',
 
-	    getInitialState: function getInitialState() {
-	        return {
-	            listData: "",
-	            companyName: ""
-	        };
-	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        if (this.state.companyName && this.state.companyName != this.props.location.query.companyName) {
-	            this.queryNews();
-	        }
-	        var companyNewsIsEqual = Immutable.is(nextProps.companyNewsRequest, this.props.companyNewsRequest);
-	        if (!companyNewsIsEqual) {
-	            var dataList = nextProps.companyNewsResult.content ? eval("(" + nextProps.companyNewsResult.content + ")") : "";
-	            this.setState({
-	                listData: dataList.results
-	            });
-	        }
-	    },
-
-	    componentDidMount: function componentDidMount() {
-	        this.queryNews();
-	    },
-	    queryNews: function queryNews() {
-	        //查询公司舆情信息
-	        var companyName = this.props.location.query.companyName;
-	        this.setState({ companyName: companyName });
-	        this.requestCompanyNews(companyName);
-	    },
-
-	    requestCompanyNews: function requestCompanyNews(companyName) {
-	        //请求公司舆情
-	        var companyNews = this.props.companyNews;
-
-	        companyNews({ companyName: companyName });
-	    },
-	    render: function render() {
-	        var _content, _time;
-	        return _react2.default.createElement(
-	            'div',
-	            { className: 'linefin-cocompose mod' },
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'mod-title' },
-	                _react2.default.createElement(
-	                    'h3',
-	                    null,
-	                    '新闻舆情'
-	                )
-	            ),
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'mod-content' },
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'content-box' },
-	                    _react2.default.createElement(
-	                        'ul',
-	                        null,
-	                        this.state.listData ? this.state.listData.map(function (item, index) {
-	                            _time = item.pubdate && item.pubdate.substring(0, 9);
-	                            _content = item.main && item.main.length > 120 ? item.main.substring(0, 120) : item.main;
-	                            return _react2.default.createElement(
-	                                'li',
-	                                { key: index },
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'list-box' },
-	                                    _react2.default.createElement(
-	                                        'h4',
-	                                        { className: 'title' },
-	                                        _react2.default.createElement(
-	                                            'a',
-	                                            { target: '_blank', href: item.bbd_url },
-	                                            _react2.default.createElement(
-	                                                'em',
-	                                                null,
-	                                                index + 1
-	                                            ),
-	                                            item.news_title
-	                                        )
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'a',
-	                                        { target: '_blank', href: item.bbd_url, className: 'abstract' },
-	                                        _content + '...'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'div',
-	                                        { className: 'source' },
-	                                        _react2.default.createElement(
-	                                            'span',
-	                                            { className: 'name' },
-	                                            item.author
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'span',
-	                                            { className: 'date' },
-	                                            _time
-	                                        )
-	                                    )
-	                                )
-	                            );
-	                        }) : ""
-	                    )
-	                )
-	            )
-	        );
+	  getInitialState: function getInitialState() {
+	    return {
+	      listData: "",
+	      companyName: ""
+	    };
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    if (this.state.companyName && this.state.companyName != this.props.location.query.companyName) {
+	      this.queryNews();
 	    }
+	    var companyNewsIsEqual = Immutable.is(nextProps.companyNewsRequest, this.props.companyNewsRequest);
+	    if (!companyNewsIsEqual) {
+	      var companyNewsResult = nextProps.companyNewsResult;
+	      this.listDataFomat(companyNewsResult);
+	    }
+	  },
+	  componentDidMount: function componentDidMount() {
+	    this.queryNews();
+	  },
+	  listDataFomat: function listDataFomat(data) {
+	    var contentStr = data.content;
+	    var contentJson = null;
+	    var results = null;
+	    if (contentStr) {
+	      contentJson = JSON.parse(contentStr);
+	      results = contentJson.results;
+	    } else {
+	      results = [];
+	    }
+	    this.setState({ listData: results });
+	  },
+	  queryNews: function queryNews() {
+	    //查询公司舆情信息
+	    var companyName = this.props.location.query.companyName;
+	    this.setState({ companyName: companyName });
+	    this.requestCompanyNews(companyName);
+	  },
+	  requestCompanyNews: function requestCompanyNews(companyName) {
+	    //请求公司舆情
+	    var companyNews = this.props.companyNews;
+
+	    companyNews({ companyName: companyName });
+	  },
+	  render: function render() {
+	    var _content, _time;
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'linefin-cocompose mod' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'mod-title' },
+	        _react2.default.createElement(
+	          'h3',
+	          null,
+	          '新闻舆情'
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'mod-content' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'content-box' },
+	          _react2.default.createElement(
+	            'ul',
+	            null,
+	            this.state.listData ? this.state.listData.map(function (item, index) {
+	              _time = item.pubdate && item.pubdate.substring(0, 9);
+	              _content = item.main && item.main.length > 120 ? item.main.substring(0, 120) : item.main;
+	              return _react2.default.createElement(
+	                'li',
+	                { key: index },
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'list-box' },
+	                  _react2.default.createElement(
+	                    'h4',
+	                    { className: 'title' },
+	                    _react2.default.createElement(
+	                      'a',
+	                      { target: '_blank', href: item.bbd_url },
+	                      _react2.default.createElement(
+	                        'em',
+	                        null,
+	                        index + 1
+	                      ),
+	                      item.news_title
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'a',
+	                    { target: '_blank', href: item.bbd_url, className: 'abstract' },
+	                    _content + '...'
+	                  ),
+	                  _react2.default.createElement(
+	                    'div',
+	                    { className: 'source' },
+	                    _react2.default.createElement(
+	                      'span',
+	                      { className: 'name' },
+	                      item.author
+	                    ),
+	                    _react2.default.createElement(
+	                      'span',
+	                      { className: 'date' },
+	                      _time
+	                    )
+	                  )
+	                )
+	              );
+	            }) : ""
+	          )
+	        )
+	      )
+	    );
+	  }
 	});
 	module.exports = LineFinanceCoCompose;
 
@@ -53551,7 +53568,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.maxComNum == "0.0" ? itemTable.maxComNum : 0
+	                                                    itemTable && itemTable.maxComNum != "0.0" ? itemTable.maxComNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -53565,7 +53582,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.avgPerNum == "0.0" ? itemTable.avgPerNum : 0
+	                                                    itemTable && itemTable.avgPerNum != "0.0" ? itemTable.avgPerNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -53579,20 +53596,24 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    function () {
-	                                                        if (!itemTable || !itemTable.oneLvlPer) {
-	                                                            return;
-	                                                        }
-	                                                        var oneLvlPer = itemTable.oneLvlPer.split('|');
-	                                                        var coreCldComHtml = oneLvlPer.map(function (item, index) {
-	                                                            return _react2.default.createElement(
-	                                                                'span',
-	                                                                { key: index },
-	                                                                item
-	                                                            );
-	                                                        });
-	                                                        return coreCldComHtml;
-	                                                    }()
+	                                                    _react2.default.createElement(
+	                                                        'div',
+	                                                        { className: 'td-box' },
+	                                                        function () {
+	                                                            if (!itemTable || !itemTable.oneLvlPer) {
+	                                                                return;
+	                                                            }
+	                                                            var oneLvlPer = itemTable.oneLvlPer.split('|');
+	                                                            var coreCldComHtml = oneLvlPer.map(function (item, index) {
+	                                                                return _react2.default.createElement(
+	                                                                    'span',
+	                                                                    { key: index },
+	                                                                    item
+	                                                                );
+	                                                            });
+	                                                            return coreCldComHtml;
+	                                                        }()
+	                                                    )
 	                                                )
 	                                            )
 	                                        )
@@ -53659,7 +53680,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.cldComConPerNum == "0.0" ? itemTable.cldComConPerNum : 0
+	                                                    itemTable && itemTable.cldComConPerNum != "0.0" ? itemTable.cldComConPerNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -53673,7 +53694,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.cldCtlNum == "0.0" ? itemTable.cldCtlNum : 0
+	                                                    itemTable && itemTable.cldCtlNum != "0.0" ? itemTable.cldCtlNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -53687,20 +53708,24 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    function () {
-	                                                        if (!itemTable || !itemTable.coreCldCom) {
-	                                                            return;
-	                                                        }
-	                                                        var coreCldCom = itemTable.coreCldCom.split('|');
-	                                                        var coreCldComHtml = coreCldCom.map(function (item, index) {
-	                                                            return _react2.default.createElement(
-	                                                                'span',
-	                                                                { key: index },
-	                                                                item
-	                                                            );
-	                                                        });
-	                                                        return coreCldComHtml;
-	                                                    }()
+	                                                    _react2.default.createElement(
+	                                                        'div',
+	                                                        { className: 'td-box' },
+	                                                        function () {
+	                                                            if (!itemTable || !itemTable.coreCldCom) {
+	                                                                return;
+	                                                            }
+	                                                            var coreCldCom = itemTable.coreCldCom.split('|');
+	                                                            var coreCldComHtml = coreCldCom.map(function (item, index) {
+	                                                                return _react2.default.createElement(
+	                                                                    'span',
+	                                                                    { key: index },
+	                                                                    item
+	                                                                );
+	                                                            });
+	                                                            return coreCldComHtml;
+	                                                        }()
+	                                                    )
 	                                                )
 	                                            )
 	                                        )
@@ -53767,7 +53792,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.ctlCldComNum == "0.0" ? itemTable.ctlCldComNum : 0
+	                                                    itemTable && itemTable.ctlCldComNum != "0.0" ? itemTable.ctlCldComNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -53781,7 +53806,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.oneComNum == "0.0" ? itemTable.oneComNum : 0
+	                                                    itemTable && itemTable.oneComNum != "0.0" ? itemTable.oneComNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -53795,20 +53820,24 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    function () {
-	                                                        if (!itemTable || !itemTable.conCom) {
-	                                                            return;
-	                                                        }
-	                                                        var conCom = itemTable.conCom.split('|');
-	                                                        var coreCldComHtml = conCom.map(function (item, index) {
-	                                                            return _react2.default.createElement(
-	                                                                'span',
-	                                                                { key: index },
-	                                                                item
-	                                                            );
-	                                                        });
-	                                                        return coreCldComHtml;
-	                                                    }()
+	                                                    _react2.default.createElement(
+	                                                        'div',
+	                                                        { className: 'td-box' },
+	                                                        function () {
+	                                                            if (!itemTable || !itemTable.conCom) {
+	                                                                return;
+	                                                            }
+	                                                            var conCom = itemTable.conCom.split('|');
+	                                                            var coreCldComHtml = conCom.map(function (item, index) {
+	                                                                return _react2.default.createElement(
+	                                                                    'span',
+	                                                                    { key: index },
+	                                                                    item
+	                                                                );
+	                                                            });
+	                                                            return coreCldComHtml;
+	                                                        }()
+	                                                    )
 	                                                )
 	                                            )
 	                                        )
@@ -53839,7 +53868,7 @@
 	                                _react2.default.createElement(
 	                                    'span',
 	                                    { className: 'name' },
-	                                    '非法融盗衍生风险'
+	                                    '非法融资衍生风险'
 	                                ),
 	                                _react2.default.createElement(
 	                                    'span',
@@ -53875,7 +53904,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.thrPerNum == "0.0" ? itemTable.thrPerNum : 0
+	                                                    itemTable && itemTable.thrPerNum != "0.0" ? itemTable.thrPerNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -53889,7 +53918,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.twoComNum == "0.0" ? itemTable.twoComNum : 0
+	                                                    itemTable && itemTable.twoComNum != "0.0" ? itemTable.twoComNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -53903,20 +53932,24 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    function () {
-	                                                        if (!itemTable || !itemTable.coreTwoCom) {
-	                                                            return;
-	                                                        }
-	                                                        var coreTwoCom = itemTable.coreTwoCom.split('|');
-	                                                        var coreCldComHtml = coreTwoCom.map(function (item, index) {
-	                                                            return _react2.default.createElement(
-	                                                                'span',
-	                                                                { key: index },
-	                                                                item
-	                                                            );
-	                                                        });
-	                                                        return coreCldComHtml;
-	                                                    }()
+	                                                    _react2.default.createElement(
+	                                                        'div',
+	                                                        { className: 'td-box' },
+	                                                        function () {
+	                                                            if (!itemTable || !itemTable.coreTwoCom) {
+	                                                                return;
+	                                                            }
+	                                                            var coreTwoCom = itemTable.coreTwoCom.split('|');
+	                                                            var coreCldComHtml = coreTwoCom.map(function (item, index) {
+	                                                                return _react2.default.createElement(
+	                                                                    'span',
+	                                                                    { key: index },
+	                                                                    item
+	                                                                );
+	                                                            });
+	                                                            return coreCldComHtml;
+	                                                        }()
+	                                                    )
 	                                                )
 	                                            )
 	                                        )
@@ -53983,7 +54016,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.sixMonNewComNum == "0.0" ? itemTable.sixMonNewComNum : 0
+	                                                    itemTable && itemTable.sixMonNewComNum != "0.0" ? itemTable.sixMonNewComNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -53997,7 +54030,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.sixMonNewComNum == "0.0" ? itemTable.sixMonNewComNum : 0
+	                                                    itemTable && itemTable.sixMonNewComNum != "0.0" ? itemTable.sixMonNewComNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -54011,20 +54044,24 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    function () {
-	                                                        if (!itemTable || !itemTable.sixMonNewCom) {
-	                                                            return;
-	                                                        }
-	                                                        var sixMonNewCom = itemTable.sixMonNewCom.split('|');
-	                                                        var coreCldComHtml = sixMonNewCom.map(function (item, index) {
-	                                                            return _react2.default.createElement(
-	                                                                'span',
-	                                                                { key: index },
-	                                                                item
-	                                                            );
-	                                                        });
-	                                                        return coreCldComHtml;
-	                                                    }()
+	                                                    _react2.default.createElement(
+	                                                        'div',
+	                                                        { className: 'td-box' },
+	                                                        function () {
+	                                                            if (!itemTable || !itemTable.sixMonNewCom) {
+	                                                                return;
+	                                                            }
+	                                                            var sixMonNewCom = itemTable.sixMonNewCom.split('|');
+	                                                            var coreCldComHtml = sixMonNewCom.map(function (item, index) {
+	                                                                return _react2.default.createElement(
+	                                                                    'span',
+	                                                                    { key: index },
+	                                                                    item
+	                                                                );
+	                                                            });
+	                                                            return coreCldComHtml;
+	                                                        }()
+	                                                    )
 	                                                )
 	                                            )
 	                                        )
@@ -54161,13 +54198,17 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    companyList && companyList.map(function (item, index) {
-	                                                        return _react2.default.createElement(
-	                                                            'span',
-	                                                            { key: index },
-	                                                            item
-	                                                        );
-	                                                    })
+	                                                    _react2.default.createElement(
+	                                                        'div',
+	                                                        { className: 'td-box' },
+	                                                        companyList && companyList.map(function (item, index) {
+	                                                            return _react2.default.createElement(
+	                                                                'span',
+	                                                                { key: index },
+	                                                                item
+	                                                            );
+	                                                        })
+	                                                    )
 	                                                )
 	                                            )
 	                                        )
@@ -54234,7 +54275,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.underNum
+	                                                    itemTable && itemTable.underNum != '0.0' ? itemTable.underNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -54248,7 +54289,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.upperUnderNum
+	                                                    itemTable && itemTable.upperUnderNum != '0.0' ? itemTable.upperUnderNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -54262,7 +54303,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.upperUnderNum
+	                                                    itemTable && itemTable.flwUnderNum != '0.0' ? itemTable.flwUnderNum : 0
 	                                                )
 	                                            )
 	                                        )
@@ -57700,7 +57741,7 @@
 
 
 	// module
-	exports.push([module.id, "/*tablez组件*/\r\n.index-list-table{\r\n\tbackground-color: #37414d;\r\n}\r\n.index-list-table table{\r\n\tmargin: 0px;\r\n}\r\n.index-list-table tr td{\r\n\tborder:solid 1px #2b323a;\r\n}\r\n.index-list-table tr td span{\r\n\tdisplay: inline-block;\r\n\tpadding: 5px;\r\n}\r\n.index-list-table tr td.td-in{\r\n\tpadding: 0px 0px;\r\n}\r\n.index-list-table tr td.td-in table td{\r\n\tborder:none;\r\n}\r\n.index-list-table .table-seven .td-in{\r\n\tpadding: 0px;\r\n\tposition: relative;\r\n}\r\n.index-list-table .table-seven .table-in{\r\n\theight: 160px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.index-list-table .table-seven .table-in tr td{\r\n\tpadding: 0px !important;\r\n\tborder-bottom: solid 1px #2b323a;\r\n}\r\n\r\n.index-list-table tr td.gsmx div{\r\n\theight: 80px;\r\n\toverflow: auto;\r\n}\r\n.index-list-table tr td.gsmx div span{\r\n\tdisplay: block;\r\n}", ""]);
+	exports.push([module.id, "/*tablez组件*/\r\n.index-list-table{\r\n\tbackground-color: #37414d;\r\n}\r\n.index-list-table table{\r\n\tmargin: 0px;\r\n}\r\n.index-list-table tr td{\r\n\tborder:solid 1px #2b323a;\r\n\tborder-bottom: none;\r\n}\r\n.index-list-table tr td span{\r\n\tdisplay: inline-block;\r\n\tpadding: 5px;\r\n}\r\n.index-list-table tr td.td-in{\r\n\tpadding: 0px 0px;\r\n}\r\n.index-list-table tr td.td-in table td{\r\n\tborder:none;\r\n}\r\n.index-list-table .table-seven .td-in{\r\n\tpadding: 0px;\r\n\tposition: relative;\r\n\theight: 160px;\r\n}\r\n.index-list-table .table-seven .table-in{\r\n\theight: 160px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.index-list-table .table-seven .table-in tr td{\r\n\tpadding: 0px !important;\r\n\tborder-bottom: solid 1px #2b323a;\r\n}\r\n\r\n.index-list-table tr td.gsmx div{\r\n\theight: 80px;\r\n\toverflow: auto;\r\n}\r\n.index-list-table tr td.gsmx div span{\r\n\tdisplay: block;\r\n}", ""]);
 
 	// exports
 
@@ -58462,228 +58503,313 @@
 	var Immutable = __webpack_require__(620);
 	//指数列表 第四个表格
 	var IndexListTableSeven = _react2.default.createClass({
-	    displayName: 'IndexListTableSeven',
+	  displayName: 'IndexListTableSeven',
 
-	    getInitialState: function getInitialState() {
-	        return {
-	            indexCmpData: {}
-	        };
-	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        console.log(nextProps, 'nextProps');
-	        var isEqual = Immutable.is(nextProps.indexCmpData, this.props.indexCmpData); //判断数据是否变化
-	        if (!isEqual) {
-	            var indexCmpData = nextProps.indexCmpData;
-	            this.setState({ indexCmpData: indexCmpData });
-	        }
-	    },
-	    render: function render() {
-	        var indexCmpData = this.state.indexCmpData;
-	        var isNull = $.isEmptyObject(indexCmpData);
-	        var current = "",
-	            compare = "",
-	            dynamicRisk = null;
-	        if (!isNull) {
-	            current = this.state.indexCmpData.current; //获取当前时间
-	            compare = this.state.indexCmpData.compare; //获取对比时间
-	            dynamicRisk = this.state.indexCmpData.dynamicRisk;
-	        }
-	        console.log(dynamicRisk, '第七个表格');
-	        return _react2.default.createElement(
-	            'div',
-	            { className: 'index-list-table' },
-	            _react2.default.createElement(
-	                'table',
-	                { className: 'mt-table mt-table-center wtyh-table table-seven' },
-	                _react2.default.createElement(
-	                    'tbody',
-	                    null,
-	                    _react2.default.createElement(
-	                        'tr',
-	                        null,
-	                        _react2.default.createElement(
-	                            'td',
-	                            null,
-	                            '风险类型'
-	                        ),
-	                        _react2.default.createElement('td', null),
-	                        _react2.default.createElement(
-	                            'td',
-	                            { colSpan: '2' },
-	                            current
-	                        ),
-	                        _react2.default.createElement(
-	                            'td',
-	                            { colSpan: '2' },
-	                            compare
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'tr',
-	                        null,
-	                        _react2.default.createElement(
-	                            'td',
-	                            { rowSpan: '5' },
-	                            '跨区域舞弊风险'
-	                        ),
-	                        _react2.default.createElement(
-	                            'td',
-	                            null,
-	                            '地域积聚化排名'
-	                        ),
-	                        _react2.default.createElement(
-	                            'td',
-	                            null,
-	                            '地域'
-	                        ),
-	                        _react2.default.createElement(
-	                            'td',
-	                            null,
-	                            '法人数量'
-	                        ),
-	                        _react2.default.createElement(
-	                            'td',
-	                            null,
-	                            '地域'
-	                        ),
-	                        _react2.default.createElement(
-	                            'td',
-	                            null,
-	                            '法人数量'
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'tr',
-	                        null,
-	                        _react2.default.createElement(
-	                            'td',
-	                            null,
-	                            '1'
-	                        ),
-	                        _react2.default.createElement(
-	                            'td',
-	                            { rowSpan: '4', className: 'td-in' },
-	                            _react2.default.createElement(
-	                                'table',
-	                                { className: 'mt-table mt-table-center wtyh-table table-in' },
-	                                _react2.default.createElement(
-	                                    'tbody',
-	                                    null,
-	                                    dynamicRisk ? dynamicRisk.curAreaList.map(function (elem, index) {
-	                                        return _react2.default.createElement(
-	                                            'tr',
-	                                            null,
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                null,
-	                                                elem
-	                                            )
-	                                        );
-	                                    }) : ""
-	                                )
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'td',
-	                            { rowSpan: '4', className: 'td-in' },
-	                            _react2.default.createElement(
-	                                'table',
-	                                { className: 'mt-table mt-table-center wtyh-table table-in' },
-	                                _react2.default.createElement(
-	                                    'tbody',
-	                                    null,
-	                                    dynamicRisk ? dynamicRisk.curAreaCompanyNum.map(function (elem, index) {
-	                                        return _react2.default.createElement(
-	                                            'tr',
-	                                            null,
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                null,
-	                                                elem
-	                                            )
-	                                        );
-	                                    }) : ""
-	                                )
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'td',
-	                            { rowSpan: '4', className: 'td-in' },
-	                            _react2.default.createElement(
-	                                'table',
-	                                { className: 'mt-table mt-table-center wtyh-table table-in' },
-	                                _react2.default.createElement(
-	                                    'tbody',
-	                                    null,
-	                                    dynamicRisk ? dynamicRisk.cprAreaList.map(function (elem, index) {
-	                                        return _react2.default.createElement(
-	                                            'tr',
-	                                            null,
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                null,
-	                                                elem
-	                                            )
-	                                        );
-	                                    }) : ""
-	                                )
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'td',
-	                            { rowSpan: '4', className: 'td-in' },
-	                            _react2.default.createElement(
-	                                'table',
-	                                { className: 'mt-table mt-table-center wtyh-table table-in' },
-	                                _react2.default.createElement(
-	                                    'tbody',
-	                                    null,
-	                                    dynamicRisk ? dynamicRisk.cprAreaCompanyNum.map(function (elem, index) {
-	                                        return _react2.default.createElement(
-	                                            'tr',
-	                                            null,
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                null,
-	                                                elem
-	                                            )
-	                                        );
-	                                    }) : ""
-	                                )
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'tr',
-	                        null,
-	                        _react2.default.createElement(
-	                            'td',
-	                            null,
-	                            '2'
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'tr',
-	                        null,
-	                        _react2.default.createElement(
-	                            'td',
-	                            null,
-	                            '3'
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'tr',
-	                        null,
-	                        _react2.default.createElement(
-	                            'td',
-	                            null,
-	                            '4'
-	                        )
-	                    )
-	                )
-	            )
-	        );
+	  getInitialState: function getInitialState() {
+	    return {
+	      indexCmpData: {},
+	      curAreaRank: [] //控制第七个表格的排名序号
+	    };
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    console.log(nextProps, 'nextProps');
+	    var isEqual = Immutable.is(nextProps.indexCmpData, this.props.indexCmpData); //判断数据是否变化
+	    if (!isEqual) {
+	      var indexCmpData = nextProps.indexCmpData;
+	      this.dataFomat(indexCmpData);
 	    }
+	  },
+	  dataFomat: function dataFomat(indexCmpData) {
+	    var isNull = $.isEmptyObject(indexCmpData);
+	    if (!isNull) {
+	      var rank = indexCmpData.dynamicRisk.curAreaList.length;
+	      var curAreaRank = [];
+	      //排名控制
+	      if (rank == 1) {
+	        curAreaRank[0] = _react2.default.createElement(
+	          'td',
+	          null,
+	          '1'
+	        );
+	        curAreaRank[1] = "";
+	        curAreaRank[2] = "";
+	        curAreaRank[3] = "";
+	      } else if (rank == 2) {
+	        curAreaRank[0] = _react2.default.createElement(
+	          'tr',
+	          null,
+	          _react2.default.createElement(
+	            'td',
+	            null,
+	            '1'
+	          )
+	        );
+	        curAreaRank[1] = _react2.default.createElement(
+	          'tr',
+	          null,
+	          _react2.default.createElement(
+	            'td',
+	            null,
+	            '2'
+	          )
+	        );
+	        curAreaRank[2] = "";
+	        curAreaRank[3] = "";
+	      } else if (rank == 3) {
+	        curAreaRank[0] = _react2.default.createElement(
+	          'tr',
+	          null,
+	          _react2.default.createElement(
+	            'td',
+	            null,
+	            '1'
+	          )
+	        );
+	        curAreaRank[1] = _react2.default.createElement(
+	          'tr',
+	          null,
+	          _react2.default.createElement(
+	            'td',
+	            null,
+	            '2'
+	          )
+	        );
+	        curAreaRank[2] = _react2.default.createElement(
+	          'tr',
+	          null,
+	          _react2.default.createElement(
+	            'td',
+	            null,
+	            '3'
+	          )
+	        );
+	        curAreaRank[3] = "";
+	      } else {
+	        curAreaRank[0] = _react2.default.createElement(
+	          'tr',
+	          null,
+	          _react2.default.createElement(
+	            'td',
+	            null,
+	            '1'
+	          )
+	        );
+	        curAreaRank[1] = _react2.default.createElement(
+	          'tr',
+	          null,
+	          _react2.default.createElement(
+	            'td',
+	            null,
+	            '2'
+	          )
+	        );
+	        curAreaRank[2] = _react2.default.createElement(
+	          'tr',
+	          null,
+	          _react2.default.createElement(
+	            'td',
+	            null,
+	            '3'
+	          )
+	        );
+	        curAreaRank[3] = _react2.default.createElement(
+	          'tr',
+	          null,
+	          _react2.default.createElement(
+	            'td',
+	            null,
+	            '4'
+	          )
+	        );
+	      }
+	      this.setState({ indexCmpData: indexCmpData, curAreaRank: curAreaRank });
+	    } else {
+	      this.setState({ indexCmpData: {}, curAreaRank: [] });
+	    }
+	  },
+	  render: function render() {
+	    var indexCmpData = this.state.indexCmpData;
+	    var isNull = $.isEmptyObject(indexCmpData);
+	    var current = "",
+	        compare = "",
+	        dynamicRisk = null;
+	    if (!isNull) {
+	      current = this.state.indexCmpData.current; //获取当前时间
+	      compare = this.state.indexCmpData.compare; //获取对比时间
+	      dynamicRisk = this.state.indexCmpData.dynamicRisk;
+	    }
+	    console.log(dynamicRisk, '第七个表格');
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'index-list-table' },
+	      _react2.default.createElement(
+	        'table',
+	        { className: 'mt-table mt-table-center wtyh-table table-seven' },
+	        _react2.default.createElement(
+	          'tbody',
+	          null,
+	          _react2.default.createElement(
+	            'tr',
+	            null,
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              '风险类型'
+	            ),
+	            _react2.default.createElement('td', null),
+	            _react2.default.createElement(
+	              'td',
+	              { colSpan: '2' },
+	              current
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              { colSpan: '2' },
+	              compare
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'tr',
+	            null,
+	            _react2.default.createElement(
+	              'td',
+	              { rowSpan: '5' },
+	              '跨区域舞弊风险'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              '地域积聚化排名'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              '地域'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              '法人数量'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              '地域'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              '法人数量'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'tr',
+	            null,
+	            _react2.default.createElement(
+	              'td',
+	              null,
+	              '1'
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              { rowSpan: '4', className: 'td-in' },
+	              _react2.default.createElement(
+	                'table',
+	                { className: 'mt-table mt-table-center wtyh-table table-in' },
+	                _react2.default.createElement(
+	                  'tbody',
+	                  null,
+	                  dynamicRisk ? dynamicRisk.curAreaList.map(function (elem, index) {
+	                    return _react2.default.createElement(
+	                      'tr',
+	                      null,
+	                      _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        elem
+	                      )
+	                    );
+	                  }) : ""
+	                )
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              { rowSpan: '4', className: 'td-in' },
+	              _react2.default.createElement(
+	                'table',
+	                { className: 'mt-table mt-table-center wtyh-table table-in' },
+	                _react2.default.createElement(
+	                  'tbody',
+	                  null,
+	                  dynamicRisk ? dynamicRisk.curAreaCompanyNum.map(function (elem, index) {
+	                    return _react2.default.createElement(
+	                      'tr',
+	                      null,
+	                      _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        elem
+	                      )
+	                    );
+	                  }) : ""
+	                )
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              { rowSpan: '4', className: 'td-in' },
+	              _react2.default.createElement(
+	                'table',
+	                { className: 'mt-table mt-table-center wtyh-table table-in' },
+	                _react2.default.createElement(
+	                  'tbody',
+	                  null,
+	                  dynamicRisk ? dynamicRisk.cprAreaList.map(function (elem, index) {
+	                    return _react2.default.createElement(
+	                      'tr',
+	                      null,
+	                      _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        elem
+	                      )
+	                    );
+	                  }) : ""
+	                )
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'td',
+	              { rowSpan: '4', className: 'td-in' },
+	              _react2.default.createElement(
+	                'table',
+	                { className: 'mt-table mt-table-center wtyh-table table-in' },
+	                _react2.default.createElement(
+	                  'tbody',
+	                  null,
+	                  dynamicRisk ? dynamicRisk.cprAreaCompanyNum.map(function (elem, index) {
+	                    return _react2.default.createElement(
+	                      'tr',
+	                      null,
+	                      _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        elem
+	                      )
+	                    );
+	                  }) : ""
+	                )
+	              )
+	            )
+	          ),
+	          this.state.curAreaRank[1],
+	          this.state.curAreaRank[2],
+	          this.state.curAreaRank[3]
+	        )
+	      )
+	    );
+	  }
 	});
 	module.exports = IndexListTableSeven;
 
@@ -58958,11 +59084,11 @@
 
 	var _GuaraDutyBalance2 = _interopRequireDefault(_GuaraDutyBalance);
 
-	var _FinanceGuaraIndustryRisk = __webpack_require__(697);
+	var _FinanceGuaraIndustryRisk = __webpack_require__(698);
 
 	var _FinanceGuaraIndustryRisk2 = _interopRequireDefault(_FinanceGuaraIndustryRisk);
 
-	var _LargeGuara = __webpack_require__(699);
+	var _LargeGuara = __webpack_require__(700);
 
 	var _LargeGuara2 = _interopRequireDefault(_LargeGuara);
 
@@ -60461,7 +60587,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _ScatterChartCopy = __webpack_require__(728);
+	var _ScatterChartCopy = __webpack_require__(697);
 
 	var _ScatterChartCopy2 = _interopRequireDefault(_ScatterChartCopy);
 
@@ -60543,6 +60669,194 @@
 
 	'use strict';
 
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(158);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	//散点图 横坐标为时间
+
+	/*
+	  调用方式：
+	     var param={
+	            id:'loan-balance-chart',//必传
+	            height:'272px',//必传 带上单位
+	            title:'贷款余额',
+	            legend: [],
+	            xAxis:['2010', '2011', '2012','2013', '2014', '2015', '2016'],
+	            yAxis: ['20', '40', '60', '80', '100', '120', '140'],
+	            data: [[0,0,30],[1,1,10],[2,2,20],[3,3,50],[4,4,60],[5,5,10],[6,6,80]],
+	            series:[
+	                    [{
+	                      color:'#e14340'
+	                    }]
+	                  ]
+	        }
+	*/
+	var ScatterChartCopy = _react2.default.createClass({
+	    displayName: 'ScatterChartCopy',
+
+	    componentDidMount: function componentDidMount() {
+	        var id = this.props.param.id;
+	        var bubbleChart = echarts.init(document.getElementById(id));
+	        var param = this.props.param;
+	        var option = this.setOption(param);
+	        bubbleChart.setOption(option);
+	        this.resizeChart(bubbleChart);
+	    },
+	    resizeChart: function resizeChart(bubbleChart) {
+	        //容器发生改变时重新设置图表大小
+	        $(window).resize(function () {
+	            bubbleChart.resize();
+	        });
+	    },
+	    setOption: function setOption(param) {
+	        var option = {
+	            title: {
+	                text: param.title || "",
+	                link: param.link || "",
+	                target: "self",
+	                textStyle: {
+	                    fontSize: 14,
+	                    color: "#fff",
+	                    fontFamily: "microsoft yahei",
+	                    fontWeight: "normal"
+	                }
+	            },
+	            legend: {
+	                data: [],
+	                left: 'right'
+	            },
+	            tooltip: {
+	                backgroundColor: 'rgba(0,0,0,0.7)',
+	                padding: [10, 10, 10, 10],
+	                textStyle: {
+	                    fontSize: 12
+	                },
+	                formatter: param.tooltip || function (data) {
+	                    if (param.formatter == "BusinessNum") {
+	                        //典当总额业务笔数
+	                        return data.data[0] + ' 年<br/> 业务笔数：&nbsp <span style="color:#00b7f0">' + data.data[1] + '</span><br/>典当总额：&nbsp  <span style="color:#00b7f0">' + data.data[2] + '亿元</span>';
+	                    } else {
+	                        return data.data[0] + '<br/> ' + param.forMaterTitle + "：" + data.data[1] + '亿元<br/>' + param.forMaterTip + "：" + data.data[2] + "万元";
+	                    }
+	                }
+	            },
+	            grid: {
+	                top: param.gridTop || '10%',
+	                left: '5%',
+	                bottom: '5%',
+	                right: '5%',
+	                containLabel: true
+	            },
+	            xAxis: {
+	                type: 'category',
+	                data: param.xAxis,
+	                splitLine: {
+	                    show: false,
+	                    lineStyle: {
+	                        color: '#353b45',
+	                        type: 'solid'
+	                    }
+	                },
+	                axisLabel: {
+	                    // formatter: '{value}',
+	                    textStyle: {
+	                        color: "#99a3b7",
+	                        fontSize: 12,
+	                        fontFamily: 'Microsoft Yahei'
+	                    }
+	                },
+	                axisLine: {
+	                    show: true,
+	                    lineStyle: {
+	                        color: '#353b45',
+	                        type: 'solid'
+	                    }
+	                },
+	                axisTick: {
+	                    show: false
+	                }
+
+	            },
+	            yAxis: {
+	                type: 'value',
+	                scale: true,
+	                splitNumber: param.yAxisSplit == undefined ? 5 : param.yAxisSplit,
+	                nameTextStyle: {
+	                    color: "#7f868e"
+	                },
+	                data: param.yAxis,
+	                splitLine: {
+	                    show: true,
+	                    lineStyle: {
+	                        color: '#353b45',
+	                        type: 'solid'
+	                    }
+	                },
+	                axisLabel: {
+	                    show: true,
+	                    textStyle: {
+	                        color: "#99a3b7",
+	                        fontSize: 12,
+	                        fontFamily: 'Microsoft Yahei'
+	                    }
+	                },
+	                axisLine: {
+	                    show: true,
+	                    lineStyle: {
+	                        color: '#353b45',
+	                        type: 'solid'
+	                    }
+	                },
+	                axisTick: {
+	                    show: false
+	                }
+	            },
+	            series: [{
+	                name: 'Punch Card',
+	                type: 'scatter',
+	                symbolSize: function symbolSize(val) {
+	                    if (val[1] < 1000) {
+	                        return val[1] / 10;
+	                    } else if (val[1] > 1000 && val[1] < 10000) {
+	                        return val[1] / 1000;
+	                    } else if (10000 < val[1] && val[1] < 100000) {
+	                        return val[1] / 5000;
+	                    } else if (100000 < val[1] && val[1] < 1000000) {
+	                        return val[1] / 10000;
+	                    } else if (1000000 < val[1] && val[1] < 10000000) {
+	                        return val[1] / 80000;
+	                    } else {
+	                        return val[1] / 1000000;
+	                    }
+	                },
+	                data: param.data,
+	                animationDelay: function animationDelay(idx) {
+	                    return idx * 5;
+	                }
+	            }]
+	        };
+	        return option;
+	    },
+	    render: function render() {
+	        return _react2.default.createElement('div', { id: this.props.param.id, style: { height: this.props.param.height } });
+	    }
+	});
+
+	module.exports = ScatterChartCopy;
+
+/***/ },
+/* 698 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
 	__webpack_require__(689);
 
 	var _react = __webpack_require__(2);
@@ -60555,7 +60869,7 @@
 
 	var _reactRouter = __webpack_require__(159);
 
-	var _IndustryRiskMore = __webpack_require__(698);
+	var _IndustryRiskMore = __webpack_require__(699);
 
 	var _IndustryRiskMore2 = _interopRequireDefault(_IndustryRiskMore);
 
@@ -60817,7 +61131,7 @@
 	module.exports = FinanceGuaraIndustryRisk;
 
 /***/ },
-/* 698 */
+/* 699 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -60951,7 +61265,7 @@
 	module.exports = IndustryRiskMore;
 
 /***/ },
-/* 699 */
+/* 700 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -61190,7 +61504,7 @@
 	module.exports = LargeGuara;
 
 /***/ },
-/* 700 */
+/* 701 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -61199,7 +61513,7 @@
 	    value: true
 	});
 
-	__webpack_require__(701);
+	__webpack_require__(702);
 
 	var _react = __webpack_require__(2);
 
@@ -61217,39 +61531,39 @@
 
 	var _IndustrySearch2 = _interopRequireDefault(_IndustrySearch);
 
-	var _CompanyProgress = __webpack_require__(703);
+	var _CompanyProgress = __webpack_require__(704);
 
 	var _CompanyProgress2 = _interopRequireDefault(_CompanyProgress);
 
-	var _CompanyQuality = __webpack_require__(706);
+	var _CompanyQuality = __webpack_require__(707);
 
 	var _CompanyQuality2 = _interopRequireDefault(_CompanyQuality);
 
-	var _QDLPQuality = __webpack_require__(707);
+	var _QDLPQuality = __webpack_require__(708);
 
 	var _QDLPQuality2 = _interopRequireDefault(_QDLPQuality);
 
-	var _FundClass = __webpack_require__(708);
+	var _FundClass = __webpack_require__(709);
 
 	var _FundClass2 = _interopRequireDefault(_FundClass);
 
-	var _FundCase = __webpack_require__(709);
+	var _FundCase = __webpack_require__(710);
 
 	var _FundCase2 = _interopRequireDefault(_FundCase);
 
-	var _EquityL = __webpack_require__(711);
+	var _EquityL = __webpack_require__(712);
 
 	var _EquityL2 = _interopRequireDefault(_EquityL);
 
-	var _EquityM = __webpack_require__(713);
+	var _EquityM = __webpack_require__(714);
 
 	var _EquityM2 = _interopRequireDefault(_EquityM);
 
-	var _EquityR = __webpack_require__(714);
+	var _EquityR = __webpack_require__(715);
 
 	var _EquityR2 = _interopRequireDefault(_EquityR);
 
-	var _PrivateFundIndexAction = __webpack_require__(715);
+	var _PrivateFundIndexAction = __webpack_require__(716);
 
 	var PrivateFundIndexCreaters = _interopRequireWildcard(_PrivateFundIndexAction);
 
@@ -61389,13 +61703,13 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(PrivateFundIndex);
 
 /***/ },
-/* 701 */
+/* 702 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(702);
+	var content = __webpack_require__(703);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(591)(content, {});
@@ -61415,7 +61729,7 @@
 	}
 
 /***/ },
-/* 702 */
+/* 703 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(590)();
@@ -61429,12 +61743,12 @@
 
 
 /***/ },
-/* 703 */
+/* 704 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(704);
+	__webpack_require__(705);
 
 	var _react = __webpack_require__(2);
 
@@ -61645,13 +61959,13 @@
 	module.exports = CompanyProgress;
 
 /***/ },
-/* 704 */
+/* 705 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(705);
+	var content = __webpack_require__(706);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(591)(content, {});
@@ -61671,7 +61985,7 @@
 	}
 
 /***/ },
-/* 705 */
+/* 706 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(590)();
@@ -61685,12 +61999,12 @@
 
 
 /***/ },
-/* 706 */
+/* 707 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(704);
+	__webpack_require__(705);
 
 	var _react = __webpack_require__(2);
 
@@ -61846,12 +62160,12 @@
 	module.exports = CompanyQuality;
 
 /***/ },
-/* 707 */
+/* 708 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(704);
+	__webpack_require__(705);
 
 	var _react = __webpack_require__(2);
 
@@ -62067,12 +62381,12 @@
 	module.exports = QDLPQuality;
 
 /***/ },
-/* 708 */
+/* 709 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(704);
+	__webpack_require__(705);
 
 	var _react = __webpack_require__(2);
 
@@ -62234,12 +62548,12 @@
 	module.exports = FundClass;
 
 /***/ },
-/* 709 */
+/* 710 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(704);
+	__webpack_require__(705);
 
 	var _react = __webpack_require__(2);
 
@@ -62253,7 +62567,7 @@
 
 	var _BasePie2 = _interopRequireDefault(_BasePie);
 
-	var _HorizontalBarChart = __webpack_require__(710);
+	var _HorizontalBarChart = __webpack_require__(711);
 
 	var _HorizontalBarChart2 = _interopRequireDefault(_HorizontalBarChart);
 
@@ -62414,7 +62728,7 @@
 	module.exports = FundCase;
 
 /***/ },
-/* 710 */
+/* 711 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -62633,12 +62947,12 @@
 	exports.default = BBDHorizontalBar;
 
 /***/ },
-/* 711 */
+/* 712 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(704);
+	__webpack_require__(705);
 
 	var _react = __webpack_require__(2);
 
@@ -62648,7 +62962,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _LineBarChart = __webpack_require__(712);
+	var _LineBarChart = __webpack_require__(713);
 
 	var _LineBarChart2 = _interopRequireDefault(_LineBarChart);
 
@@ -62732,7 +63046,7 @@
 	module.exports = EquityL;
 
 /***/ },
-/* 712 */
+/* 713 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -63013,12 +63327,12 @@
 	exports.default = BBDLineBar;
 
 /***/ },
-/* 713 */
+/* 714 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(704);
+	__webpack_require__(705);
 
 	var _react = __webpack_require__(2);
 
@@ -63028,7 +63342,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _LineBarChart = __webpack_require__(712);
+	var _LineBarChart = __webpack_require__(713);
 
 	var _LineBarChart2 = _interopRequireDefault(_LineBarChart);
 
@@ -63117,12 +63431,12 @@
 	module.exports = EquityM;
 
 /***/ },
-/* 714 */
+/* 715 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(704);
+	__webpack_require__(705);
 
 	var _react = __webpack_require__(2);
 
@@ -63132,7 +63446,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _LineBarChart = __webpack_require__(712);
+	var _LineBarChart = __webpack_require__(713);
 
 	var _LineBarChart2 = _interopRequireDefault(_LineBarChart);
 
@@ -63217,7 +63531,7 @@
 	module.exports = EquityR;
 
 /***/ },
-/* 715 */
+/* 716 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -63537,7 +63851,7 @@
 	/*私募股权基本情况*/
 
 /***/ },
-/* 716 */
+/* 717 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -63546,7 +63860,7 @@
 	    value: true
 	});
 
-	__webpack_require__(717);
+	__webpack_require__(718);
 
 	var _react = __webpack_require__(2);
 
@@ -63556,7 +63870,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _SmallLoanIndexAction = __webpack_require__(719);
+	var _SmallLoanIndexAction = __webpack_require__(720);
 
 	var SmallLoanActionCreaters = _interopRequireWildcard(_SmallLoanIndexAction);
 
@@ -63570,23 +63884,23 @@
 
 	var _IndustrySearch2 = _interopRequireDefault(_IndustrySearch);
 
-	var _CompanyGrade = __webpack_require__(720);
+	var _CompanyGrade = __webpack_require__(721);
 
 	var _CompanyGrade2 = _interopRequireDefault(_CompanyGrade);
 
-	var _BalanceRatio = __webpack_require__(723);
+	var _BalanceRatio = __webpack_require__(724);
 
 	var _BalanceRatio2 = _interopRequireDefault(_BalanceRatio);
 
-	var _EachAverage = __webpack_require__(725);
+	var _EachAverage = __webpack_require__(726);
 
 	var _EachAverage2 = _interopRequireDefault(_EachAverage);
 
-	var _SmallLoanMap = __webpack_require__(726);
+	var _SmallLoanMap = __webpack_require__(727);
 
 	var _SmallLoanMap2 = _interopRequireDefault(_SmallLoanMap);
 
-	var _LoanBalance = __webpack_require__(727);
+	var _LoanBalance = __webpack_require__(728);
 
 	var _LoanBalance2 = _interopRequireDefault(_LoanBalance);
 
@@ -63658,12 +63972,10 @@
 	        }
 	    },
 	    dataFomat: function dataFomat(data) {
-	        console.log(data, '贷款余额');
 	        var content = data.content;
 	        //小额贷款数据
 	        var loanBalanceData = { //贷款余额数据
 	            xAxis: [],
-	            //yAxis:[],
 	            data: [] ////[['2010',45,30],['2010',10,10],['2010',40,20],['2010',30,50],['2010',60,60],['2010',50,10],['2010',70,80]],
 	        };
 
@@ -63815,13 +64127,13 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SmallLoanIndex);
 
 /***/ },
-/* 717 */
+/* 718 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(718);
+	var content = __webpack_require__(719);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(591)(content, {});
@@ -63841,7 +64153,7 @@
 	}
 
 /***/ },
-/* 718 */
+/* 719 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(590)();
@@ -63855,7 +64167,7 @@
 
 
 /***/ },
-/* 719 */
+/* 720 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -64105,12 +64417,12 @@
 	/*大额借款人信息列表  end*/
 
 /***/ },
-/* 720 */
+/* 721 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(721);
+	__webpack_require__(722);
 
 	var _react = __webpack_require__(2);
 
@@ -64323,13 +64635,13 @@
 	module.exports = CompanyGrade;
 
 /***/ },
-/* 721 */
+/* 722 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(722);
+	var content = __webpack_require__(723);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(591)(content, {});
@@ -64349,7 +64661,7 @@
 	}
 
 /***/ },
-/* 722 */
+/* 723 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(590)();
@@ -64363,12 +64675,12 @@
 
 
 /***/ },
-/* 723 */
+/* 724 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(721);
+	__webpack_require__(722);
 
 	var _react = __webpack_require__(2);
 
@@ -64378,7 +64690,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _AnnularPieChart = __webpack_require__(724);
+	var _AnnularPieChart = __webpack_require__(725);
 
 	var _AnnularPieChart2 = _interopRequireDefault(_AnnularPieChart);
 
@@ -64511,7 +64823,7 @@
 	module.exports = BalanceRatio;
 
 /***/ },
-/* 724 */
+/* 725 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -64705,12 +65017,12 @@
 	module.exports = AnnularPieChart;
 
 /***/ },
-/* 725 */
+/* 726 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(721);
+	__webpack_require__(722);
 
 	var _react = __webpack_require__(2);
 
@@ -64799,12 +65111,12 @@
 	module.exports = EachAverage;
 
 /***/ },
-/* 726 */
+/* 727 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(721);
+	__webpack_require__(722);
 
 	var _react = __webpack_require__(2);
 
@@ -64932,12 +65244,12 @@
 	module.exports = SmallLoanMap;
 
 /***/ },
-/* 727 */
+/* 728 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(721);
+	__webpack_require__(722);
 
 	var _react = __webpack_require__(2);
 
@@ -64947,7 +65259,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _ScatterChartCopy = __webpack_require__(728);
+	var _ScatterChartCopy = __webpack_require__(697);
 
 	var _ScatterChartCopy2 = _interopRequireDefault(_ScatterChartCopy);
 
@@ -65033,200 +65345,12 @@
 	module.exports = LoanBalance;
 
 /***/ },
-/* 728 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(158);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	//散点图 横坐标为时间
-
-	/*
-	  调用方式：
-	     var param={
-	            id:'loan-balance-chart',//必传
-	            height:'272px',//必传 带上单位
-	            title:'贷款余额',
-	            legend: [],
-	            xAxis:['2010', '2011', '2012','2013', '2014', '2015', '2016'],
-	            yAxis: ['20', '40', '60', '80', '100', '120', '140'],
-	            data: [[0,0,30],[1,1,10],[2,2,20],[3,3,50],[4,4,60],[5,5,10],[6,6,80]],
-	            series:[
-	                    [{
-	                      color:'#e14340'
-	                    }]
-	                  ]
-	        }
-	*/
-	var ScatterChartCopy = _react2.default.createClass({
-	    displayName: 'ScatterChartCopy',
-
-	    componentDidMount: function componentDidMount() {
-	        var id = this.props.param.id;
-	        var bubbleChart = echarts.init(document.getElementById(id));
-	        var param = this.props.param;
-	        var option = this.setOption(param);
-	        bubbleChart.setOption(option);
-	        this.resizeChart(bubbleChart);
-	    },
-	    resizeChart: function resizeChart(bubbleChart) {
-	        //容器发生改变时重新设置图表大小
-	        $(window).resize(function () {
-	            bubbleChart.resize();
-	        });
-	    },
-	    setOption: function setOption(param) {
-	        var option = {
-	            title: {
-	                text: param.title || "",
-	                link: param.link || "",
-	                target: "self",
-	                textStyle: {
-	                    fontSize: 14,
-	                    color: "#fff",
-	                    fontFamily: "microsoft yahei",
-	                    fontWeight: "normal"
-	                }
-	            },
-	            legend: {
-	                data: [],
-	                left: 'right'
-	            },
-	            tooltip: {
-	                backgroundColor: 'rgba(0,0,0,0.7)',
-	                padding: [10, 10, 10, 10],
-	                textStyle: {
-	                    fontSize: 12
-	                },
-	                formatter: param.tooltip || function (data) {
-	                    if (param.formatter == "BusinessNum") {
-	                        //典当总额业务笔数
-	                        return data.data[0] + ' 年<br/> 业务笔数：&nbsp <span style="color:#00b7f0">' + data.data[1] + '</span><br/>典当总额：&nbsp  <span style="color:#00b7f0">' + data.data[2] + '亿元</span>';
-	                    } else {
-	                        return data.data[0] + '<br/> ' + param.forMaterTitle + "：" + data.data[1] + '亿元<br/>' + param.forMaterTip + "：" + data.data[2] + "万元";
-	                    }
-	                }
-	            },
-	            grid: {
-	                top: param.gridTop || '10%',
-	                left: '5%',
-	                bottom: '5%',
-	                right: '5%',
-	                containLabel: true
-	            },
-	            xAxis: {
-	                type: 'category',
-	                data: param.xAxis,
-	                splitLine: {
-	                    show: false,
-	                    lineStyle: {
-	                        color: '#353b45',
-	                        type: 'solid'
-	                    }
-	                },
-	                axisLabel: {
-	                    // formatter: '{value}',
-	                    textStyle: {
-	                        color: "#99a3b7",
-	                        fontSize: 12,
-	                        fontFamily: 'Microsoft Yahei'
-	                    }
-	                },
-	                axisLine: {
-	                    show: true,
-	                    lineStyle: {
-	                        color: '#353b45',
-	                        type: 'solid'
-	                    }
-	                },
-	                axisTick: {
-	                    show: false
-	                }
-
-	            },
-	            yAxis: {
-	                type: 'value',
-	                scale: true,
-	                splitNumber: param.yAxisSplit == undefined ? 5 : param.yAxisSplit,
-	                nameTextStyle: {
-	                    color: "#7f868e"
-	                },
-	                data: param.yAxis,
-	                splitLine: {
-	                    show: true,
-	                    lineStyle: {
-	                        color: '#353b45',
-	                        type: 'solid'
-	                    }
-	                },
-	                axisLabel: {
-	                    show: true,
-	                    textStyle: {
-	                        color: "#99a3b7",
-	                        fontSize: 12,
-	                        fontFamily: 'Microsoft Yahei'
-	                    }
-	                },
-	                axisLine: {
-	                    show: true,
-	                    lineStyle: {
-	                        color: '#353b45',
-	                        type: 'solid'
-	                    }
-	                },
-	                axisTick: {
-	                    show: false
-	                }
-	            },
-	            series: [{
-	                name: 'Punch Card',
-	                type: 'scatter',
-	                symbolSize: function symbolSize(val) {
-	                    if (val[1] < 1000) {
-	                        return val[1] / 10;
-	                    } else if (val[1] > 1000 && val[1] < 10000) {
-	                        return val[1] / 1000;
-	                    } else if (10000 < val[1] && val[1] < 100000) {
-	                        return val[1] / 5000;
-	                    } else if (100000 < val[1] && val[1] < 1000000) {
-	                        return val[1] / 10000;
-	                    } else if (1000000 < val[1] && val[1] < 10000000) {
-	                        return val[1] / 80000;
-	                    } else {
-	                        return val[1] / 1000000;
-	                    }
-	                },
-	                data: param.data,
-	                animationDelay: function animationDelay(idx) {
-	                    return idx * 5;
-	                }
-	            }]
-	        };
-	        return option;
-	    },
-	    render: function render() {
-	        return _react2.default.createElement('div', { id: this.props.param.id, style: { height: this.props.param.height } });
-	    }
-	});
-
-	module.exports = ScatterChartCopy;
-
-/***/ },
 /* 729 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(721);
+	__webpack_require__(722);
 
 	var _react = __webpack_require__(2);
 
@@ -65502,7 +65626,7 @@
 
 	'use strict';
 
-	__webpack_require__(721);
+	__webpack_require__(722);
 
 	var _react = __webpack_require__(2);
 
@@ -65636,7 +65760,7 @@
 
 	'use strict';
 
-	__webpack_require__(721);
+	__webpack_require__(722);
 
 	var _react = __webpack_require__(2);
 
@@ -66235,7 +66359,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _LineBarChart = __webpack_require__(712);
+	var _LineBarChart = __webpack_require__(713);
 
 	var _LineBarChart2 = _interopRequireDefault(_LineBarChart);
 
@@ -66357,7 +66481,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _LineBarChart = __webpack_require__(712);
+	var _LineBarChart = __webpack_require__(713);
 
 	var _LineBarChart2 = _interopRequireDefault(_LineBarChart);
 
@@ -66911,7 +67035,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _HorizontalBarChart = __webpack_require__(710);
+	var _HorizontalBarChart = __webpack_require__(711);
 
 	var _HorizontalBarChart2 = _interopRequireDefault(_HorizontalBarChart);
 
@@ -71481,7 +71605,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _ScatterChartCopy = __webpack_require__(728);
+	var _ScatterChartCopy = __webpack_require__(697);
 
 	var _ScatterChartCopy2 = _interopRequireDefault(_ScatterChartCopy);
 
@@ -72328,7 +72452,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _HorizontalBarChart = __webpack_require__(710);
+	var _HorizontalBarChart = __webpack_require__(711);
 
 	var _HorizontalBarChart2 = _interopRequireDefault(_HorizontalBarChart);
 
@@ -72481,10 +72605,10 @@
 	        this.setState({ areaName: this.state.areaName });
 	        this.setState({ orderZB: "DESC" });
 	        this.countyChange(this.state.areaName, "", this.state.orderZB);
-	        $('#hpqList-scroll').perfectScrollbar();
+	        $('#hpqList-scroll').perfectScrollbar().scrollTop(0);
 	    },
 	    componentDidUpdate: function componentDidUpdate() {
-	        $('#hpqList-scroll').perfectScrollbar('update');
+	        $('#hpqList-scroll').perfectScrollbar('update').scrollTop(0);
 	    },
 	    handleClick: function handleClick(field) {
 	        var _dom = $(this.refs[field]),
@@ -72721,10 +72845,10 @@
 	    },
 	    componentDidMount: function componentDidMount() {
 	        this.countyChange(this.state.statusName);
-	        $('#detailList-scroll').perfectScrollbar();
+	        $('#detailList-scroll').perfectScrollbar().scrollTop(0);
 	    },
 	    componentDidUpdate: function componentDidUpdate() {
-	        $('#detailList-scroll').perfectScrollbar('update');
+	        $('#detailList-scroll').perfectScrollbar('update').scrollTop(0);
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 
@@ -73552,7 +73676,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _LineBarChart = __webpack_require__(712);
+	var _LineBarChart = __webpack_require__(713);
 
 	var _LineBarChart2 = _interopRequireDefault(_LineBarChart);
 
@@ -73678,7 +73802,7 @@
 
 
 	// module
-	exports.push([module.id, "/*@parkMonitor jifei  上海市融资租聘企业数\r\n---------------------------------------------------------*/\r\n.Lease{\r\n\twidth: 100%;\r\n\theight: 495px;\r\n    background: #2b323c;\r\n    border-radius: 3px;\r\n}\r\n/*@parkMonitor jifei  上海市融资租聘企业年末余额及资产总额\r\n---------------------------------------------------------*/\r\n.Balance{\r\n\twidth: 100%;\r\n\theight: 495px;\r\n\tmargin-top: 10px;\r\n    background: #2b323c;\r\n    border-radius: 3px;\r\n    display: none;\r\n}\r\n/*@parkMonitor jifei  上海市自贸区融资租聘企业占比对比\r\n---------------------------------------------------------*/\r\n.ContrastLeft{\r\n\twidth: 50%;\r\n\theight: 495px;\r\n\tbackground: #2b323c;\r\n\tfloat: left; \r\n\tposition: relative;\r\n\tborder-radius: 3px 0px 0px 3px;\r\n}\r\n.ContrastLeft .select{\r\n\tposition: absolute;\r\n    top: 23%;\r\n    left: 40%;\r\n}\r\n.ContrastRight .select{\r\n\tposition: absolute;\r\n    left: 45%;\r\n}\r\n.ContrastLeft .select .mt-select{\r\n\tborder: none;\r\n\tbackground: #959aa0;\r\n}\r\n.ContrastLeft .select .mt-select .iconfont{\r\n\tcolor: #fff;\r\n}\r\n.ContrastLeft .select .mt-select .mt-select-box{\r\n\tborder: none;\r\n\tbackground: rgba(43, 50, 60, 0.9) none repeat scroll 0 0;\r\n\tborder-radius: 3px;\r\n}\r\n.ContrastRight{\r\n\twidth: 50%;\r\n\theight: 495px;\r\n\tbackground: #2b323c;\r\n\tfloat: right;\r\n\tborder-radius:  0px 3px 3px 0px ;\r\n}\r\n/*@parkMonitor jifei  业务发生额及不良率\r\n---------------------------------------------------------*/\r\n.Unhealthy{\r\n    width: 100%;\r\n\theight: 495px;\r\n\tmargin-top: 10px;\r\n    background: #2b323c;\r\n    border-radius: 3px;\r\n    float: left;\r\n    display: none;\r\n}\r\n/*@parkMonitor jifei  上海市融资租赁企业目录\r\n---------------------------------------------------------*/\r\n.Catalog .right{\r\n\tfloat: right;\r\n\tpadding: 10px 10px;\r\n}\r\n.Catalog .right .mt-select{\r\n\tbackground: #565a63;\r\n\tborder: none;\r\n\tz-index: 100;\r\n}\r\n.Catalog .right .mt-select .mt-select-box{\r\n\tborder: none;\r\n\tleft: 0;\r\n\tright: 0;\r\n\tborder-radius: 2px;\r\n}\r\n.Catalog .right .mt-select .mt-select-box{\r\n\tbackground: #565a63;\r\n}\r\n.Catalog .right em{\r\n\tcolor: #979b9e;\r\n\tmargin-right: 10px;\r\n}\r\n.Catalog .tabs{\r\n\twidth: 99%;\r\n\theight: auto;\r\n\tmargin: 10px auto;\r\n}\r\n.Catalog .total{\r\n\tvertical-align: sub;\r\n\tpadding-left: 5%;\r\n}\r\n.Catalog .total em{\r\n\tcolor: #f83c33;\r\n}\r\n.Catalog .tabs table{\r\n\twidth: 100%;\r\n}\r\n.width1{width: 5%;height: 80px;}\r\n.width2{width: 15%;}\r\n.width3{width: 15%;}\r\n.width4{width: 8%;border-right: 1px solid #4b5058;}\r\n.width5{width: 67%;height: 40px;}\r\n.width6{width: 10%;}\r\n.Catalog .tabs table tr th .mt-select{\r\n\tborder: none;\r\n    background: none;\r\n    margin-top: 5px;\r\n    padding: 0;\r\n    font-size: 12px;\r\n}\r\n.Catalog .tabs table tr th .leftD{\r\n\tfloat: left;\r\n\tpadding-left: 25%;\r\n}\r\n.Catalog .tabs table tr th .mt-select .mt-select-title{\r\n\tcolor: #999ca1;\r\n\twidth: 40px;\r\n}\r\n.Catalog .tabs table tr th .mt-select .iconfont{\r\n\tright: 6px;\r\n}\r\n.Catalog .tabs table tr th .mt-select .mt-select-box{\r\n\tborder: none;\r\n\tbackground: rgba(43, 50, 60, 0.5) none repeat scroll 0 0;\r\n\tborder-radius: 3px;\r\n}\r\n.Catalog .tabs .box{\r\n\theight: 800px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n.Catalog .tabs table tr td{\r\n\ttext-align: center;\r\n\theight: 80px;\r\n\tfont-size: 12px;\r\n}\r\n.Catalog .tabs table tr td .leftD{\r\n\tfloat: left;\r\n\tpadding-left: 25%;\r\n\tcolor: #fff;\r\n\tcursor: pointer;\r\n\toverflow: hidden;\r\n    text-overflow: ellipsis;\r\n    white-space: nowrap;\r\n    display: inline-block;\r\n    width: 250px;\r\n    text-align: left;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(1){\r\n    width: 6%;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(2){\r\n    width: 18%;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(3){\r\n    width: 18%;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(4){\r\n    width: 10%;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(5){\r\n    width: 12%;\r\n} \r\n.Catalog .tabs .box table tr td:nth-child(6){\r\n    width: 12%;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(7){\r\n    width: 12%;\r\n}\r\n.Catalog .tabs .box table tr td:nth-child(8){\r\n    width: 12%;\r\n}\r\n.Catalog .tabs .box table tr:nth-child(even) td{\r\n\tbackground: #222931;\r\n}\r\n.Catalog .tabs .box table tr td .Green{\r\n\tcolor: #38ff8f;\r\n}\r\n.Catalog .tabs .box table tr td .Yellow{\r\n\tcolor: #fa9705;\r\n}\r\n.FinanceLeaseTop .mt-select .mt-select-title .placeholder{\r\n\tcolor: #dddddd;\r\n}\r\n.ContrastLeft .mt-select .mt-select-title .placeholder{\r\n\tcolor: #fff;\r\n}\r\n.ContrastRight .mt-select .mt-select-title .placeholder{\r\n\tcolor: #fff;\r\n}", ""]);
+	exports.push([module.id, "/*@parkMonitor jifei  上海市融资租聘企业数\r\n---------------------------------------------------------*/\r\n.Lease {\r\n\twidth: 100%;\r\n\theight: 495px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n}\r\n\r\n/*@parkMonitor jifei  上海市融资租聘企业年末余额及资产总额\r\n---------------------------------------------------------*/\r\n.Balance {\r\n\twidth: 100%;\r\n\theight: 495px;\r\n\tmargin-top: 10px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\tdisplay: none;\r\n}\r\n\r\n/*@parkMonitor jifei  上海市自贸区融资租聘企业占比对比\r\n---------------------------------------------------------*/\r\n.ContrastLeft {\r\n\twidth: 50%;\r\n\theight: 495px;\r\n\tbackground: #2b323c;\r\n\tfloat: left;\r\n\tposition: relative;\r\n\tborder-radius: 3px 0px 0px 3px;\r\n}\r\n\r\n.ContrastLeft .select {\r\n\tposition: absolute;\r\n\ttop: 23%;\r\n\tleft: 40%;\r\n}\r\n\r\n.ContrastRight .select {\r\n\tposition: absolute;\r\n\tleft: 45%;\r\n}\r\n\r\n.ContrastLeft .select .mt-select {\r\n\tborder: none;\r\n\tbackground: #959aa0;\r\n}\r\n\r\n.ContrastLeft .select .mt-select .iconfont {\r\n\tcolor: #fff;\r\n}\r\n\r\n.ContrastLeft .select .mt-select .mt-select-box {\r\n\tborder: none;\r\n\tbackground: rgba(43, 50, 60, 0.9) none repeat scroll 0 0;\r\n\tborder-radius: 3px;\r\n}\r\n\r\n.ContrastRight {\r\n\twidth: 50%;\r\n\theight: 495px;\r\n\tbackground: #2b323c;\r\n\tfloat: right;\r\n\tborder-radius: 0px 3px 3px 0px;\r\n}\r\n\r\n/*@parkMonitor jifei  业务发生额及不良率\r\n---------------------------------------------------------*/\r\n.Unhealthy {\r\n\twidth: 100%;\r\n\theight: 495px;\r\n\tmargin-top: 10px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\tfloat: left;\r\n\tdisplay: none;\r\n}\r\n\r\n/*@parkMonitor jifei  上海市融资租赁企业目录\r\n---------------------------------------------------------*/\r\n.Catalog .right {\r\n\tfloat: right;\r\n\tpadding: 10px 10px;\r\n}\r\n\r\n.Catalog .right .mt-select {\r\n\tbackground: #565a63;\r\n\tborder: none;\r\n\tz-index: 100;\r\n}\r\n\r\n.Catalog .right .mt-select .mt-select-box {\r\n\tborder: none;\r\n\tleft: 0;\r\n\tright: 0;\r\n\tborder-radius: 2px;\r\n}\r\n\r\n.Catalog .right .mt-select .mt-select-box {\r\n\tbackground: #565a63;\r\n}\r\n\r\n.Catalog .right em {\r\n\tcolor: #979b9e;\r\n\tmargin-right: 10px;\r\n}\r\n\r\n.Catalog .tabs {\r\n\tmargin: 10px auto;\r\n}\r\n\r\n.Catalog .total {\r\n\tvertical-align: sub;\r\n\tpadding-left: 5%;\r\n}\r\n\r\n.Catalog .total em {\r\n\tcolor: #f83c33;\r\n}\r\n\r\n.Catalog .tabs table {\r\n\twidth: 100%;\r\n}\r\n\r\n.Catalog .tabs table tr th .mt-select {\r\n\tborder: none;\r\n\tbackground: none;\r\n\tmargin-top: 5px;\r\n\tpadding: 0;\r\n\tfont-size: 12px;\r\n}\r\n\r\n.Catalog .tabs table tr th .mt-select .mt-select-title {\r\n\tcolor: #999ca1;\r\n\twidth: 40px;\r\n}\r\n\r\n.Catalog .tabs table tr th .mt-select .iconfont {\r\n\tright: 6px;\r\n}\r\n\r\n.Catalog .tabs table tr th .mt-select .mt-select-box {\r\n\tborder: none;\r\n\tbackground: rgba(43, 50, 60, 0.5) none repeat scroll 0 0;\r\n\tborder-radius: 3px;\r\n}\r\n\r\n.Catalog .qzfx-th {\r\n\theight: 40px;\r\n}\r\n\r\n.Catalog .tabs .box {\r\n\theight: 800px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.Catalog .border-r {\r\n\tborder-right: 1px solid #4b5058;\r\n}\r\n\r\n.Catalog  .ps-container  table td {\r\n\tpadding: 15px 0px;\r\n\ttext-align: center;\r\n}\r\n\r\n.Catalog .wtyh-table tbody td .word-limit-5 {\r\n\twidth: 200px;\r\n}\r\n\r\n.Catalog .tabs .box table tr td .Green {\r\n\tcolor: #38ff8f;\r\n}\r\n\r\n.Catalog .tabs .box table tr td .Yellow {\r\n\tcolor: #fa9705;\r\n}\r\n\r\n.FinanceLeaseTop .mt-select .mt-select-title .placeholder {\r\n\tcolor: #dddddd;\r\n}\r\n\r\n.ContrastLeft .mt-select .mt-select-title .placeholder {\r\n\tcolor: #fff;\r\n}\r\n\r\n.ContrastRight .mt-select .mt-select-title .placeholder {\r\n\tcolor: #fff;\r\n}", ""]);
 
 	// exports
 
@@ -74082,7 +74206,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _LineBarChart = __webpack_require__(712);
+	var _LineBarChart = __webpack_require__(713);
 
 	var _LineBarChart2 = _interopRequireDefault(_LineBarChart);
 
@@ -74362,12 +74486,12 @@
 	              null,
 	              _react2.default.createElement(
 	                'th',
-	                { rowSpan: '2', className: 'width1' },
+	                { rowSpan: '2', style: { width: "5%" } },
 	                '序号'
 	              ),
 	              _react2.default.createElement(
 	                'th',
-	                { rowSpan: '2', className: 'width2' },
+	                { rowSpan: '2', className: 'talign-left', style: { width: "15%" } },
 	                _react2.default.createElement(
 	                  'span',
 	                  { className: 'leftD' },
@@ -74376,7 +74500,7 @@
 	              ),
 	              _react2.default.createElement(
 	                'th',
-	                { rowSpan: '2', className: 'width3' },
+	                { rowSpan: '2', className: 'talign-left', style: { width: "15%" } },
 	                _react2.default.createElement(
 	                  'span',
 	                  { className: 'leftD' },
@@ -74385,13 +74509,13 @@
 	              ),
 	              _react2.default.createElement(
 	                'th',
-	                { rowSpan: '2', className: 'width4' },
+	                { rowSpan: '2', style: { width: "5%" }, className: 'border-r' },
 	                '风险状态',
 	                _react2.default.createElement(_index.Selected, _extends({}, selectPropL, { id: 'indexSelectedFeng' }))
 	              ),
 	              _react2.default.createElement(
 	                'th',
-	                { colSpan: '4', className: 'width5' },
+	                { colSpan: '4', style: { width: "60%" }, className: 'qzfx-th' },
 	                '潜在风险'
 	              )
 	            ),
@@ -74400,25 +74524,25 @@
 	              null,
 	              _react2.default.createElement(
 	                'th',
-	                { className: 'width6' },
+	                { style: { width: "12%" } },
 	                '失联',
 	                _react2.default.createElement(_index.Selected, _extends({}, selectProps, { id: 'indexSelectedShi' }))
 	              ),
 	              _react2.default.createElement(
 	                'th',
-	                { className: 'width6' },
+	                { style: { width: "12%" } },
 	                '未参加自查',
 	                _react2.default.createElement(_index.Selected, _extends({}, selectProps, { id: 'indexSelectedWei' }))
 	              ),
 	              _react2.default.createElement(
 	                'th',
-	                { className: 'width6' },
+	                { style: { width: "12%" } },
 	                '一年以上零认缴',
 	                _react2.default.createElement(_index.Selected, _extends({}, selectProps, { id: 'indexSelectedAdd' }))
 	              ),
 	              _react2.default.createElement(
 	                'th',
-	                { className: 'width6' },
+	                { style: { width: "12%" } },
 	                '一年以上未经营',
 	                _react2.default.createElement(_index.Selected, _extends({}, selectProps, { id: 'indexSelectedBtt' }))
 	              )
@@ -74427,7 +74551,7 @@
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'box', id: 'platformBase-scroll' },
+	          { className: 'box platformBase-box', id: 'platformBase-scroll' },
 	          _react2.default.createElement(
 	            'table',
 	            { className: 'wtyh-table table-border-b' },
@@ -74444,33 +74568,33 @@
 	                if (index % 2) {
 	                  return _react2.default.createElement(
 	                    'tr',
-	                    { key: index },
+	                    { key: index, className: 'even' },
 	                    _react2.default.createElement(
 	                      'td',
-	                      null,
+	                      { style: { width: "5%" } },
 	                      index + 1
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      null,
+	                      { className: 'talign-left', style: { width: "15%" } },
 	                      _react2.default.createElement(
 	                        _reactRouter.Link,
-	                        { to: { pathname: '/SearchResultDetail', query: { formpage: 'CompanyProgress', companyName: item.companyName } }, className: 'leftD', 'data-tip': item.companyName, title: item.companyName },
+	                        { to: { pathname: '/SearchResultDetail', query: { formpage: 'CompanyProgress', companyName: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName, title: item.companyName },
 	                        item.companyName
 	                      )
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      null,
+	                      { className: 'talign-left', style: { width: "15%" } },
 	                      _react2.default.createElement(
 	                        'span',
-	                        { className: 'leftD', title: item.address },
+	                        { className: 'word-limit-5', 'data-tip': item.address, title: item.address },
 	                        item.address
 	                      )
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      null,
+	                      { style: { width: "5%" } },
 	                      _react2.default.createElement(
 	                        'span',
 	                        { className: Green },
@@ -74479,55 +74603,55 @@
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      null,
+	                      { style: { width: "12%" } },
 	                      riskStatusA
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      null,
+	                      { style: { width: "12%" } },
 	                      riskStatusB
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      null,
+	                      { style: { width: "12%" } },
 	                      riskStatusC
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      null,
+	                      { style: { width: "12%" } },
 	                      riskStatusD
 	                    )
 	                  );
 	                } else {
 	                  return _react2.default.createElement(
 	                    'tr',
-	                    { key: index },
+	                    { key: index, className: 'odd' },
 	                    _react2.default.createElement(
 	                      'td',
-	                      null,
+	                      { style: { width: "5%" } },
 	                      index + 1
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      null,
+	                      { className: 'talign-left', style: { width: "15%" } },
 	                      _react2.default.createElement(
 	                        _reactRouter.Link,
-	                        { to: { pathname: '/SearchResultDetail', query: { formpage: 'CompanyProgress', companyName: item.companyName } }, className: 'leftD', 'data-tip': item.companyName, title: item.companyName },
+	                        { to: { pathname: '/SearchResultDetail', query: { formpage: 'CompanyProgress', companyName: item.companyName } }, className: 'word-limit-5', 'data-tip': item.companyName, title: item.companyName },
 	                        item.companyName
 	                      )
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      null,
+	                      { className: 'talign-left', style: { width: "15%" } },
 	                      _react2.default.createElement(
 	                        'span',
-	                        { className: 'leftD', title: item.address },
+	                        { className: 'word-limit-5', 'data-tip': item.address, title: item.address },
 	                        item.address
 	                      )
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      null,
+	                      { style: { width: "5%" } },
 	                      _react2.default.createElement(
 	                        'span',
 	                        { className: Green },
@@ -74536,22 +74660,22 @@
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      null,
+	                      { style: { width: "12%" } },
 	                      riskStatusA
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      null,
+	                      { style: { width: "12%" } },
 	                      riskStatusB
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      null,
+	                      { style: { width: "12%" } },
 	                      riskStatusC
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      null,
+	                      { style: { width: "12%" } },
 	                      riskStatusD
 	                    )
 	                  );
@@ -75059,7 +75183,7 @@
 
 
 	// module
-	exports.push([module.id, ".commercialS-index .right-bottom tbody td,\r\n.commercialS-index .right-bottom thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content {\r\n\theight: 560px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content .mt-table,\r\n.commercialS-index .right-bottom .table-title  .mt-table {\r\n\tmargin: 0px;\r\n}\r\n\r\n.commercialS-index .right-bottom  .mod-content {\r\n\tpadding: 10px 20px 20px 20px;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table {\r\n\r\n\t/*height: 100%*/\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table  td {\r\n\tpadding: 16px 0px;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-title th {\r\n\theight: 50px\r\n}\r\n\r\n.commercialS-index .right-bottom  .mod-title .totle-num {\r\n\tfont-size: 14px;\r\n\tcolor: #fff;\r\n\tfloat: right;\r\n\tdisplay: inline-block;\r\n\tmargin: 15px 20px 0px 0px;\r\n}\r\n\r\n.commercialS-index a {\r\n\tcolor: #e14340 !important\r\n}\r\n\r\n.mt-select.company-dire {\r\n\tbackground: #1a2029;\r\n\tborder: 1px #1a2029 solid;\r\n\tmargin-left: 5px;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n}\r\n\r\n.mt-select.company-dire .mt-select-title {\r\n\theight: 25px;\r\n}\r\n\r\n.commercialS-index  .mt-select .mt-select-box {\r\n\tborder: none;\r\n\tbackground: rgba(43, 50, 60, 0.5) none repeat scroll 0 0;\r\n\tborder-radius: 3px;\r\n}\r\n\r\n.commercialS-index .mt-select .mt-select-title {\r\n\tline-height: 22px;\r\n}\r\n\r\n.commercialS-index .wtyh-table tbody td .word-limit-5.long {\r\n\twidth: 250px;\r\n}\r\n\r\n.commercialS-index .wtyh-table tbody td .word-limit-5 {\r\n\twidth: 150px;\r\n}", ""]);
+	exports.push([module.id, ".commercialS-index .right-bottom tbody td,\r\n.commercialS-index .right-bottom thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content {\r\n\theight: 560px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content .mt-table,\r\n.commercialS-index .right-bottom .table-title  .mt-table {\r\n\tmargin: 0px;\r\n}\r\n\r\n.commercialS-index .right-bottom  .mod-content {\r\n\tpadding: 10px 20px 20px 20px;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table {\r\n\r\n\t/*height: 100%*/\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table  td {\r\n\tpadding: 16px 0px;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-content  table tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.commercialS-index .right-bottom .table-title th {\r\n\theight: 50px\r\n}\r\n\r\n.commercialS-index .right-bottom  .mod-title .totle-num {\r\n\tfont-size: 14px;\r\n\tcolor: #fff;\r\n\tfloat: right;\r\n\tdisplay: inline-block;\r\n\tmargin: 15px 20px 0px 0px;\r\n}\r\n\r\n.commercialS-index a {\r\n\r\n\t/*color: #e14340 !important*/\r\n}\r\n\r\n.mt-select.company-dire {\r\n\tbackground: #1a2029;\r\n\tborder: 1px #1a2029 solid;\r\n\tmargin-left: 5px;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n}\r\n\r\n.mt-select.company-dire .mt-select-title {\r\n\theight: 25px;\r\n}\r\n\r\n.commercialS-index  .mt-select .mt-select-box {\r\n\tborder: none;\r\n\tbackground: rgba(43, 50, 60, 0.5) none repeat scroll 0 0;\r\n\tborder-radius: 3px;\r\n}\r\n\r\n.commercialS-index .mt-select .mt-select-title {\r\n\tline-height: 22px;\r\n}\r\n\r\n.commercialS-index .wtyh-table tbody td .word-limit-5.long {\r\n\twidth: 250px;\r\n}\r\n\r\n.commercialS-index .wtyh-table tbody td .word-limit-5 {\r\n\twidth: 150px;\r\n}", ""]);
 
 	// exports
 
@@ -75294,7 +75418,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _HorizontalBarChart = __webpack_require__(710);
+	var _HorizontalBarChart = __webpack_require__(711);
 
 	var _HorizontalBarChart2 = _interopRequireDefault(_HorizontalBarChart);
 
@@ -75461,13 +75585,17 @@
 
 	            if (CompanyDirectoryRequest == true) {
 	                if (CompanyDirectoryResult.success) {
-	                    for (var i = 0; i < CompanyDirectoryResult.content.length; i++) {
-	                        if (CompanyDirectoryResult.content[i].isForeign == "内资") innerdata.push(CompanyDirectoryResult.content[i]);else outerdata.push(CompanyDirectoryResult.content[i]);
-	                    }
 	                    this.setState({
 	                        CompanyDirectoryData: CompanyDirectoryResult.content,
 	                        selectedData: CompanyDirectoryResult.content
 	                    });
+	                    for (var i = 0; i < CompanyDirectoryResult.content.length; i++) {
+	                        if (CompanyDirectoryResult.content[i].isForeign == "内资") {
+	                            innerdata.push(CompanyDirectoryResult.content[i]);
+	                        } else if (CompanyDirectoryResult.content[i].isForeign == "外资") {
+	                            outerdata.push(CompanyDirectoryResult.content[i]);
+	                        }
+	                    }
 	                } else {
 	                    //错误后提示
 	                }
@@ -75784,7 +75912,7 @@
 	        return _react2.default.createElement(
 	            'div',
 	            { className: 'prepaidC-index', searchFun: this.hrefFunction, style: this.state.style },
-	            _react2.default.createElement(_IndustrySearch2.default, { label: '单用途预付卡备案企业监测', companyType: '11', searchFun: this.hrefFunction, placeholder: '请输入企业名称检索' }),
+	            _react2.default.createElement(_IndustrySearch2.default, { label: '单用途预付卡备案企业监测', companyType: '', type: 'base', searchFun: this.hrefFunction, placeholder: '请输入企业名称检索' }),
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'content clearfix' },
@@ -77572,7 +77700,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _HorizontalBarChart = __webpack_require__(710);
+	var _HorizontalBarChart = __webpack_require__(711);
 
 	var _HorizontalBarChart2 = _interopRequireDefault(_HorizontalBarChart);
 
@@ -83337,7 +83465,7 @@
 
 
 	// module
-	exports.push([module.id, "/*@整体布局(一级)\r\n------------------------------------------------------------------*/\r\n.realtime-index {\r\n}\r\n.realtime-index .realtime-top {\r\n\twidth: 100%;\r\n\theight: 65%;\r\n}\r\n.realtime-index .realtime-bottom {\r\n\twidth: 100%;\r\n\theight: 35%;\r\n}\r\n\r\n/*@整体布局(二级)\r\n------------------------------------------------------------------*/\r\n.realtime-index .realtime-top>div {\r\n\tfloat: left;\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tpadding: 10px;\r\n}\r\n.realtime-index .realtime-top .realtime-top-left {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-middle {\r\n\twidth: 44%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-right {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-left {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-top: 26px;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-right {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-left: 100px;\r\n\tpadding-top: 26px;\r\n\toverflow-y: hidden;\r\n}\r\n\r\n/*realtime-top-left(左边表格)  //pudong huangpu  hongkou\r\n------------------------------------------------------------------*/\r\n.realtime-top-left {\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-left  h4 {\r\n\tfont-size: 18px;\r\n\tline-height: 40px;\r\n}\r\n.realtime-top-left  .title li {\r\n\tfloat: left;\r\n\twidth: 25%;\r\n\ttext-align: center;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tborder: 1px solid;\r\n\tcursor: pointer;\r\n\tposition: relative;\r\n}\r\n.realtime-top-left  .title li.active:after {\r\n\tcontent: \"\";\r\n\tposition: absolute;\r\n\tbottom: -6px;\r\n\tleft: 0px;\r\n\twidth: 100%;\r\n\theight: 3px;\r\n\tbackground: #fff;\r\n\tz-index: 999;\r\n}\r\n.realtime-top-left  .title li:nth-child(1) {\r\n\tbackground: red\r\n}\r\n.realtime-top-left  .title li:nth-child(2) {\r\n\tbackground: #ebc900\r\n}\r\n.realtime-top-left  .title li:nth-child(3) {\r\n\tbackground: #32b16c\r\n}\r\n.realtime-top-left  .title li:nth-child(4) {\r\n\tbackground: #000\r\n}\r\n.realtime-top-left  .table-wrap {\r\n\twidth: 100%;\r\n\theight: 80%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA {\r\n\twidth: 100%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th {\r\n\theight: 40px;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(1) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(2) {\r\n\twidth: 60%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th .tbsLeft {\r\n\tfloat: left;\r\n\tpadding-left: 5%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th .thSpan {\r\n\tfloat: left;\r\n\tpadding-left: 15%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td {\r\n\tborder-bottom: 1px solid #3c404b;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td .tbsLeft {\r\n\tfloat: left;\r\n\tpadding-left: 5%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td .thSpan {\r\n\tfloat: left;\r\n\tpadding-left: 15%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox {\r\n\theight: 92%;\r\n\toverflow: auto;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(3) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB {\r\n\twidth: 100%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td {\r\n\theight: 40px;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(1) {\r\n\twidth: 20%;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(2) {\r\n\twidth: 60%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(3) {\r\n\twidth: 20%;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-left .color {\r\n\theight: 16px;\r\n\twidth: 60%;\r\n\tposition: absolute;\r\n\tbottom: 10px;\r\n\tleft: 50%;\r\n\ttransform: translateX(-50%);\r\n}\r\n.realtime-top-left .color img {\r\n\tdisplay: block;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*realtime-top-left(左边表格)\r\n------------------------------------------------------------------*/\r\n.realtime-top-right {\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-top-right .item {\r\n\twidth: 100%;\r\n\theight: 33.3%;\r\n}\r\n\r\n/*realtime-bottom-right(右下角)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-right {\r\n\toverflow: hidden;\r\n\tpadding-left: 20px\r\n}\r\n.realtime-bottom-right>h4 {\r\n\tcolor: #fff;\r\n\tline-height: 30px;\r\n\tfont-size: 16px;\r\n}\r\n.realtime-bottom-right ul {\r\n\theight: 100%;\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-bottom-right ul li {\r\n\theight: 134px;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-right ul li h4 {\r\n\tpadding: 15px 0px;\r\n\tfont-size: 14px;\r\n\tcolor: #e14340\r\n}\r\n.realtime-bottom-right ul li h4 a {\r\n\tcolor: #e14340 !important\r\n}\r\n.realtime-bottom-right ul li p {\r\n\tcolor: #fff;\r\n\tmargin-right: 10px;\r\n\toverflow: hidden;\r\n}\r\n.BottomRightP {\r\n\tdisplay: block;\r\n\theight: 41px;\r\n}\r\n.realtime-bottom-right ul li span {\r\n\tposition: absolute;\r\n\tright: 10px;\r\n\tbottom: 2px;\r\n\tcolor: #666;\r\n}\r\n.realtime-bottom-right ul li span p {\r\n\tdisplay: inline-block;\r\n}\r\n\r\n/*realtime-bottom-right(中间的大地图)\r\n------------------------------------------------------------------*/\r\n.realtime-top-middle #demo {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*上海地图的信息框*/\r\n.realtime-top-middle .info {\r\n\twidth: 160px;\r\n\theight: 70px;\r\n\tleft: 5%;\r\n\ttop: 5%;\r\n\tposition: absolute;\r\n\tz-index: 999;\r\n\tcursor: pointer;\r\n\toverflow: hidden;\r\n\tdisplay: none\r\n}\r\n.realtime-top-middle .info .info-left, .realtime-top-middle .info .info-right {\r\n\tfloat: left;\r\n\twidth: 50%;\r\n\theight: 100%;\r\n}\r\n.realtime-top-middle .info .info-left {\r\n\tpadding: 0px 3px 3px 0px;\r\n}\r\n.realtime-top-middle .info .info-right {\r\n\tbackground: #363e48;\r\n\tborder-radius: 3px;\r\n\tfont-size: 24px;\r\n\tcolor: #e14340;\r\n\tline-height: 70px;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-middle .info .info-left .title {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 34px;\r\n\tfont-size: 12px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 34px;\r\n\tborder-radius: 3px;\r\n}\r\n.realtime-top-middle .info .info-left .date {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 34px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 34px;\r\n\tmargin-top: 3px;\r\n\tborder-radius: 3px;\r\n\tfont-size: 12px;\r\n}\r\n\r\n/*上海地图的返回按钮*/\r\n.realtime-top-middle .return {\r\n\tbackground: linear-gradient(to bottom, #b96f6f 5%, red 50%, #f50202 100%);\r\n\tposition: absolute;\r\n\tbottom: 10%;\r\n\tleft: 3%;\r\n\tdisplay: none;\r\n}\r\n\r\n/*地下的长条信息框*/\r\n.realtime-top-middle .bar {\r\n\twidth: 98%;\r\n\theight: 40px;\r\n\tbackground: #282f39;\r\n\ttext-align: center;\r\n\tline-height: 40px;\r\n\tposition: absolute;\r\n\tbottom: 1%;\r\n\tfont-size: 12px;\r\n\tdisplay: none;\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-middle .carousel {\r\n\tposition: absolute;\r\n\tleft: 6%;\r\n\ttop: 0;\r\n\tz-index: 999;\r\n}\r\n.realtime-top-middle .bar img {\r\n\twidth: 30px;\r\n\theight: 30px;\r\n\tposition: absolute;\r\n\tleft: 5%;\r\n\ttop: 5px;\r\n}\r\n.darkRed {\r\n\tcolor: #e14340;\r\n\tpadding: 0px 5px;\r\n}\r\n\r\n/*tootips实验*/\r\n.testTo {\r\n\twidth: auto;\r\n\theight: auto;\r\n\tfont-size: 12px;\r\n\tcursor: pointer;\r\n}\r\n.testTo h4 {\r\n\tdisplay: inline-block;\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo label {\r\n\tdisplay: inline-block;\r\n\twidth: 60px;\r\n\theight: 18px;\r\n\tborder: 1px solid #fff;\r\n\ttext-align: center;\r\n\tvertical-align: middle;\r\n\tmargin-left: 20px;\r\n\tcolor: #000;\r\n\ttext-align: center;\r\n\ttext-indent: 5px;\r\n\tline-height: 16px;\r\n}\r\n.testTo p {\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo p span {\r\n\tcolor: yellow\r\n}\r\n.black {\r\n\tbackground: black;\r\n\tcolor: #fff !important\r\n}\r\n.green {\r\n\tbackground: green\r\n}\r\n.yellow {\r\n\tbackground: yellow;\r\n}\r\n.red {\r\n\tbackground: red;\r\n}\r\n.whiteFont {\r\n\tcolor: #fff !important;\r\n}\r\n\r\n/**/\r\n.testTo .tableH4 {\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n\tcolor: #ce3431;\r\n\tfont-size: 14px;\r\n\tfont-weight: bold;\r\n}\r\n.testTo table td {\r\n\tborder: 1px solid #1a2029;\r\n\ttext-align: center;\r\n\tpadding: 5px;\r\n}\r\n.testTo .tip-scroll {\r\n\twidth: 200px;\r\n\theight: 100px;\r\n\ttext-align: center;\r\n\toverflow-y: auto;\r\n}\r\n.testTo .tip-scroll  span {\r\n\tdisplay: block;\r\n\tpadding: 5px 0;\r\n}\r\n.testTo .nums {\r\n\tdisplay: block;\r\n\ttext-align: center;\r\n}\r\n\r\n/*realtime-bottom-rleft(线下理财)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-left {\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-left  .more {\r\n\tcolor: #fff;\r\n\tfont-size: 14px;\r\n\tposition: absolute;\r\n\ttop: 60px;\r\n\tright: 11%;\r\n\tz-index: 99999;\r\n}", ""]);
+	exports.push([module.id, "/*@整体布局(一级)\r\n------------------------------------------------------------------*/\r\n.realtime-index {\r\n}\r\n.realtime-index .realtime-top {\r\n\twidth: 100%;\r\n\theight: 65%;\r\n}\r\n.realtime-index .realtime-bottom {\r\n\twidth: 100%;\r\n\theight: 35%;\r\n}\r\n\r\n/*@整体布局(二级)\r\n------------------------------------------------------------------*/\r\n.realtime-index .realtime-top>div {\r\n\tfloat: left;\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tpadding: 10px;\r\n}\r\n.realtime-index .realtime-top .realtime-top-left {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-middle {\r\n\twidth: 44%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-right {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-left {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-top: 26px;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-right {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-left: 100px;\r\n\tpadding-top: 26px;\r\n\toverflow-y: hidden;\r\n}\r\n\r\n/*realtime-top-left(左边表格)  //pudong huangpu  hongkou\r\n------------------------------------------------------------------*/\r\n.realtime-top-left {\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-left  h4 {\r\n\tfont-size: 18px;\r\n\tline-height: 40px;\r\n}\r\n.realtime-top-left  .title li {\r\n\tfloat: left;\r\n\twidth: 25%;\r\n\ttext-align: center;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tborder: 1px solid;\r\n\tcursor: pointer;\r\n\tposition: relative;\r\n}\r\n.realtime-top-left  .title li.active:after {\r\n\tcontent: \"\";\r\n\tposition: absolute;\r\n\tbottom: -6px;\r\n\tleft: 0px;\r\n\twidth: 100%;\r\n\theight: 3px;\r\n\tbackground: #fff;\r\n\tz-index: 999;\r\n}\r\n.realtime-top-left  .title li:nth-child(1) {\r\n\tbackground: red\r\n}\r\n.realtime-top-left  .title li:nth-child(2) {\r\n\tbackground: #ebc900\r\n}\r\n.realtime-top-left  .title li:nth-child(3) {\r\n\tbackground: #32b16c\r\n}\r\n.realtime-top-left  .title li:nth-child(4) {\r\n\tbackground: #000\r\n}\r\n.realtime-top-left  .table-wrap {\r\n\twidth: 100%;\r\n\theight: 80%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA {\r\n\twidth: 100%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th {\r\n\theight: 40px;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(1) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(2) {\r\n\twidth: 60%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th .tbsLeft {\r\n\tfloat: left;\r\n\tpadding-left: 5%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th .thSpan {\r\n\tfloat: left;\r\n\tpadding-left: 15%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td {\r\n\tborder-bottom: 1px solid #3c404b;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td .tbsLeft {\r\n\tfloat: left;\r\n\tpadding-left: 5%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td .thSpan {\r\n\tfloat: left;\r\n\tpadding-left: 15%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox {\r\n\theight: 92%;\r\n\toverflow: auto;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(3) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB {\r\n\twidth: 100%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td {\r\n\theight: 40px;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(1) {\r\n\twidth: 20%;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(2) {\r\n\twidth: 60%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(3) {\r\n\twidth: 20%;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-left .color {\r\n\theight: 16px;\r\n\twidth: 60%;\r\n\tposition: absolute;\r\n\tbottom: 10px;\r\n\tleft: 50%;\r\n\ttransform: translateX(-50%);\r\n}\r\n.realtime-top-left .color img {\r\n\tdisplay: block;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*realtime-top-left(左边表格)\r\n------------------------------------------------------------------*/\r\n.realtime-top-right {\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-top-right .item {\r\n\twidth: 100%;\r\n\theight: 33.3%;\r\n}\r\n\r\n/*realtime-bottom-right(右下角)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-right {\r\n\toverflow: hidden;\r\n\tpadding-left: 20px\r\n}\r\n.realtime-bottom-right>h4 {\r\n\tcolor: #fff;\r\n\tline-height: 30px;\r\n\tfont-size: 16px;\r\n}\r\n.realtime-bottom-right ul {\r\n\theight: 100%;\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-bottom-right ul li {\r\n\theight: 134px;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-right ul li h4 {\r\n\tpadding: 15px 0px;\r\n\tfont-size: 14px;\r\n\tcolor: #e14340\r\n}\r\n.realtime-bottom-right ul li h4 a {\r\n\tcolor: #e14340 !important\r\n}\r\n.realtime-bottom-right ul li p {\r\n\tcolor: #fff;\r\n\tmargin-right: 10px;\r\n\toverflow: hidden;\r\n}\r\n.BottomRightP {\r\n\tdisplay: block;\r\n\theight: 41px;\r\n}\r\n.realtime-bottom-right ul li span {\r\n\tposition: absolute;\r\n\tright: 10px;\r\n\tbottom: 2px;\r\n\tcolor: #666;\r\n}\r\n.realtime-bottom-right ul li span p {\r\n\tdisplay: inline-block;\r\n}\r\n\r\n/*realtime-bottom-right(中间的大地图)\r\n------------------------------------------------------------------*/\r\n.realtime-top-middle #demo {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*上海地图的信息框*/\r\n.realtime-top-middle .info {\r\n\twidth: 160px;\r\n\theight: 70px;\r\n\tleft: 5%;\r\n\ttop: 5%;\r\n\tposition: absolute;\r\n\tz-index: 999;\r\n\tcursor: pointer;\r\n\toverflow: hidden;\r\n\tdisplay: none\r\n}\r\n.realtime-top-middle .info .info-left, .realtime-top-middle .info .info-right {\r\n\tfloat: left;\r\n\twidth: 50%;\r\n\theight: 100%;\r\n}\r\n.realtime-top-middle .info .info-left {\r\n\tpadding: 0px 3px 3px 0px;\r\n}\r\n.realtime-top-middle .info .info-right {\r\n\tbackground: #363e48;\r\n\tborder-radius: 3px;\r\n\tfont-size: 24px;\r\n\tcolor: #e14340;\r\n\tline-height: 70px;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-middle .info .info-left .title {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 34px;\r\n\tfont-size: 12px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 34px;\r\n\tborder-radius: 3px;\r\n}\r\n.realtime-top-middle .info .info-left .date {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 34px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 34px;\r\n\tmargin-top: 3px;\r\n\tborder-radius: 3px;\r\n\tfont-size: 12px;\r\n}\r\n\r\n/*上海地图的返回按钮*/\r\n.realtime-top-middle .return {\r\n\tbackground: linear-gradient(to bottom, #b96f6f 5%, red 50%, #f50202 100%);\r\n\tposition: absolute;\r\n\tbottom: 10%;\r\n\tleft: 3%;\r\n\tdisplay: none;\r\n}\r\n\r\n/*地下的长条信息框*/\r\n.realtime-top-middle .bar {\r\n\twidth: 98%;\r\n\theight: 40px;\r\n\tbackground: #282f39;\r\n\ttext-align: center;\r\n\tline-height: 40px;\r\n\tposition: absolute;\r\n\tbottom: 1%;\r\n\tfont-size: 12px;\r\n\tdisplay: none;\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-middle .carousel {\r\n\tposition: absolute;\r\n\tleft: 6%;\r\n\ttop: 0;\r\n\tz-index: 999;\r\n}\r\n.realtime-top-middle .bar img {\r\n\twidth: 30px;\r\n\theight: 30px;\r\n\tposition: absolute;\r\n\tleft: 5%;\r\n\ttop: 5px;\r\n}\r\n.darkRed {\r\n\tcolor: #e14340;\r\n\tpadding: 0px 5px;\r\n}\r\n\r\n/*tootips实验*/\r\n.testTo {\r\n\twidth: auto;\r\n\theight: auto;\r\n\tfont-size: 12px;\r\n\tcursor: pointer;\r\n}\r\n.testTo h4 {\r\n\tdisplay: inline-block;\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo label {\r\n\tdisplay: inline-block;\r\n\twidth: 60px;\r\n\theight: 18px;\r\n\tborder: 1px solid #fff;\r\n\ttext-align: center;\r\n\tvertical-align: middle;\r\n\tmargin-left: 20px;\r\n\ttext-align: center;\r\n\ttext-indent: 5px;\r\n\tline-height: 16px;\r\n\ttext-shadow: 1px 1px 1px #000;\r\n}\r\n.testTo p {\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo p span {\r\n\tcolor: yellow\r\n}\r\n.black {\r\n\tbackground: black;\r\n\tcolor: #fff !important\r\n}\r\n.green {\r\n\tbackground: green\r\n}\r\n.yellow {\r\n\tbackground: #ebc900;\r\n}\r\n.red {\r\n\tbackground: red;\r\n}\r\n.redFont {\r\n\tcolor: red !important;\r\n}\r\n.whiteFont {\r\n\tcolor: #fff !important;\r\n}\r\n\r\n/**/\r\n.testTo .tableH4 {\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n\tcolor: #ce3431;\r\n\tfont-size: 14px;\r\n\tfont-weight: bold;\r\n}\r\n.testTo table td {\r\n\tborder: 1px solid #1a2029;\r\n\ttext-align: center;\r\n\tpadding: 5px;\r\n}\r\n.testTo .tip-scroll {\r\n\twidth: 200px;\r\n\theight: 100px;\r\n\ttext-align: center;\r\n\toverflow-y: auto;\r\n}\r\n.testTo .tip-scroll  span {\r\n\tdisplay: block;\r\n\tpadding: 5px 0;\r\n}\r\n.testTo .nums {\r\n\tdisplay: block;\r\n\ttext-align: center;\r\n}\r\n\r\n/*realtime-bottom-rleft(线下理财)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-left {\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-left  .more {\r\n\tcolor: #fff;\r\n\tfont-size: 14px;\r\n\tposition: absolute;\r\n\ttop: 60px;\r\n\tright: 11%;\r\n\tz-index: 99999;\r\n}", ""]);
 
 	// exports
 
@@ -83552,9 +83680,6 @@
 	                tableDate.content[fixRange - 1].map(function (elem, index) {
 	                  //因为表格第四个tab的数据格式不一样，为日期，所以需要判断
 	                  var three = fixRange - 1 == 3 ? elem.exposureDate : elem.registered_capital;
-	                  console.log(fixRange - 1, "fixRange-1");
-	                  console.log(three, "three");
-	                  debugger;
 	                  return _react2.default.createElement(
 	                    'tr',
 	                    { key: index },
@@ -83591,7 +83716,6 @@
 	            )
 	          )
 	        )
-
 	      });
 	    }
 
@@ -83902,7 +84026,7 @@
 	            series: [{ //线
 	                name: "",
 	                type: 'lines',
-	                zlevel: 20,
+	                zlevel: 1,
 	                effect: {
 	                    show: true,
 	                    period: 6,
@@ -84058,7 +84182,7 @@
 	                        switch (range) {
 
 	                            case 1:
-	                                typeP = "曝光日期<span> " + numORdate + " </span>";typeLabel = "<label class='testLable whiteFont'>已出风险</label>";
+	                                typeP = "曝光日期<span class='redFont'> " + numORdate + " </span>";typeLabel = "<label class='testLable whiteFont'>已出风险</label>";
 	                                break;
 	                            case 2:
 	                                typeP = "风险值<span> " + Number(numORdate).toFixed(2) + " </span>";typeLabel = "<label class='testLable green whiteFont'>正常</label>";
@@ -84087,7 +84211,7 @@
 	                        var companyNum = 0;
 	                        var num = 0;
 
-	                        // var length = ajaxDataSH.SHhoverArea[hoverName].companyName.length;
+	                        // var length = ajaxDataSH.SHhoverArea[hoverName].companyName.length;aa
 	                        if (ajaxDataSH.SHhoverArea[hoverName]) {
 	                            //可能返回为null  处理下
 	                            companyNum = ajaxDataSH.SHhoverArea[hoverName].companyNum || "";
@@ -84266,13 +84390,22 @@
 	        };
 	        chartShanghai.setOption(option);
 	        chartShanghai.on("click", function (v) {
+	            console.log(v, "咱们来测试一下点");
 	            if (v.name == "浦东新区" || v.name == "黄浦区" || v.name == "虹口区") {
 	                var hoverName = v.name.toString();
 	                _this.props.history.push("/parkMonitor?areaId=" + ajaxDataSH.SHhoverArea[hoverName].areaId);
 	            }
-	            // if(v.name == "普陀区" && v.seriesType == "scatter") {
-	            //   _this.props.history.push("/InfoSearchIndex")
-	            // }
+	            if (v.seriesType == "scatter") {
+	                debugger;
+	                console.log(parseInt(v.data.value[2]));
+	                if (parseInt(v.data.value[2]) > 1) {
+
+	                    _this.props.history.push("/lineFinanceStaticRisk?companyName=" + v.name);
+	                } else {
+
+	                    _this.props.history.push("/SearchResultDetail?companyName=" + v.name);
+	                }
+	            }
 	        });
 	        _this.setState({
 	            mapeType: "china"
@@ -84390,11 +84523,11 @@
 	        var barWidth = parseInt($(".bar").css("width"));
 	        scroll();
 	        function scroll() {
-	            $(".carousel").animate({ left: -barWidth }, 40000, function () {
+	            $(".carousel").animate({ left: -barWidth }, 20000, function () {
 	                $(".carousel").css("left", barWidth + "px");
 	            });
 	        }
-	        var b = setInterval(scroll, 40000);
+	        var b = setInterval(scroll, 20000);
 	    },
 	    render: function render() {
 	        return _react2.default.createElement(
@@ -84492,7 +84625,7 @@
 
 	var _ScatterChart2 = _interopRequireDefault(_ScatterChart);
 
-	var _LineBarChart = __webpack_require__(712);
+	var _LineBarChart = __webpack_require__(713);
 
 	var _LineBarChart2 = _interopRequireDefault(_LineBarChart);
 
@@ -86995,7 +87128,7 @@
 	});
 	exports.default = smallLoanMap;
 
-	var _SmallLoanIndexAction = __webpack_require__(719);
+	var _SmallLoanIndexAction = __webpack_require__(720);
 
 	//地图
 	function smallLoanMap() {
@@ -87034,7 +87167,7 @@
 	});
 	exports.default = companyGrade;
 
-	var _SmallLoanIndexAction = __webpack_require__(719);
+	var _SmallLoanIndexAction = __webpack_require__(720);
 
 	//企业评级
 	function companyGrade() {
@@ -87073,7 +87206,7 @@
 	});
 	exports.default = loanBalance;
 
-	var _SmallLoanIndexAction = __webpack_require__(719);
+	var _SmallLoanIndexAction = __webpack_require__(720);
 
 	//贷款余额 贷款笔均折线图 三农小微企业余额占比
 	function loanBalance() {
@@ -87112,7 +87245,7 @@
 	});
 	exports.default = industryRisk;
 
-	var _SmallLoanIndexAction = __webpack_require__(719);
+	var _SmallLoanIndexAction = __webpack_require__(720);
 
 	//股东行业风险
 	function industryRisk() {
@@ -87151,7 +87284,7 @@
 	});
 	exports.default = industryRiskDetail;
 
-	var _SmallLoanIndexAction = __webpack_require__(719);
+	var _SmallLoanIndexAction = __webpack_require__(720);
 
 	//股东行业风险详情
 	function industryRiskDetail() {
@@ -87190,7 +87323,7 @@
 	});
 	exports.default = largeLoan;
 
-	var _SmallLoanIndexAction = __webpack_require__(719);
+	var _SmallLoanIndexAction = __webpack_require__(720);
 
 	//大额贷款人信息列表
 	function largeLoan() {
@@ -87986,7 +88119,7 @@
 	});
 	exports.default = CompanyProgress;
 
-	var _PrivateFundIndexAction = __webpack_require__(715);
+	var _PrivateFundIndexAction = __webpack_require__(716);
 
 	function CompanyProgress() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -88024,7 +88157,7 @@
 	});
 	exports.default = QDLPQuality;
 
-	var _PrivateFundIndexAction = __webpack_require__(715);
+	var _PrivateFundIndexAction = __webpack_require__(716);
 
 	function QDLPQuality() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -88062,7 +88195,7 @@
 	});
 	exports.default = FundClass;
 
-	var _PrivateFundIndexAction = __webpack_require__(715);
+	var _PrivateFundIndexAction = __webpack_require__(716);
 
 	function FundClass() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -88100,7 +88233,7 @@
 	});
 	exports.default = FundCase;
 
-	var _PrivateFundIndexAction = __webpack_require__(715);
+	var _PrivateFundIndexAction = __webpack_require__(716);
 
 	function FundCase() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -88138,7 +88271,7 @@
 	});
 	exports.default = FundCaseTop;
 
-	var _PrivateFundIndexAction = __webpack_require__(715);
+	var _PrivateFundIndexAction = __webpack_require__(716);
 
 	function FundCaseTop() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -88176,7 +88309,7 @@
 	});
 	exports.default = EquityL;
 
-	var _PrivateFundIndexAction = __webpack_require__(715);
+	var _PrivateFundIndexAction = __webpack_require__(716);
 
 	function EquityL() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -88214,7 +88347,7 @@
 	});
 	exports.default = EquityM;
 
-	var _PrivateFundIndexAction = __webpack_require__(715);
+	var _PrivateFundIndexAction = __webpack_require__(716);
 
 	function EquityM() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -88252,7 +88385,7 @@
 	});
 	exports.default = EquityR;
 
-	var _PrivateFundIndexAction = __webpack_require__(715);
+	var _PrivateFundIndexAction = __webpack_require__(716);
 
 	function EquityR() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
