@@ -43,12 +43,13 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
     private final Integer EMPHASIS = 70;
     private final Integer USUAL = 60;
     private final Integer MIN = null;
+    private final boolean NORMAL_FLAG = true;
 
     @Override
     public List<List> spectrumAnalysis() {
-        List<StaticRiskDTO> spectrumAnalysisEmphasis = staticRiskMapper.getSpectrumAnalysis(EMPHASIS, MAX);
-        List<StaticRiskDTO> spectrumAnalysisUsual = staticRiskMapper.getSpectrumAnalysis(USUAL, EMPHASIS);
-        List<StaticRiskDTO> spectrumAnalysisNormal = staticRiskMapper.getSpectrumAnalysis(MIN, USUAL);
+        List<StaticRiskDTO> spectrumAnalysisEmphasis = staticRiskMapper.getSpectrumAnalysis(EMPHASIS, MAX, !NORMAL_FLAG);
+        List<StaticRiskDTO> spectrumAnalysisUsual = staticRiskMapper.getSpectrumAnalysis(USUAL, EMPHASIS,  !NORMAL_FLAG);
+        List<StaticRiskDTO> spectrumAnalysisNormal = staticRiskMapper.getSpectrumAnalysis(MIN, USUAL, NORMAL_FLAG);
         List<CompanyAnalysisResult> spectrumAnalysisAlready = spectrumAnalysisAlready();
 
         List<List> rst = new ArrayList<>();
