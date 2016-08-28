@@ -53138,7 +53138,7 @@
 	            'ul',
 	            null,
 	            this.state.listData ? this.state.listData.map(function (item, index) {
-	              _time = item.pubdate && item.pubdate.substring(0, 9);
+	              _time = item.pubdate && item.pubdate.substring(0, 10);
 	              _content = item.main && item.main.length > 120 ? item.main.substring(0, 120) : item.main;
 	              return _react2.default.createElement(
 	                'li',
