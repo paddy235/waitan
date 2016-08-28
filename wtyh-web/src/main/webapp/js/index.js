@@ -67,7 +67,7 @@
 
 	var _Root2 = _interopRequireDefault(_Root);
 
-	var _configureStore = __webpack_require__(885);
+	var _configureStore = __webpack_require__(886);
 
 	var _configureStore2 = _interopRequireDefault(_configureStore);
 
@@ -25528,59 +25528,59 @@
 
 	var _index8 = _interopRequireDefault(_index7);
 
-	var _index9 = __webpack_require__(731);
+	var _index9 = __webpack_require__(732);
 
 	var _index10 = _interopRequireDefault(_index9);
 
-	var _Portrait = __webpack_require__(745);
+	var _Portrait = __webpack_require__(746);
 
 	var _Portrait2 = _interopRequireDefault(_Portrait);
 
-	var _Index3 = __webpack_require__(758);
+	var _Index3 = __webpack_require__(759);
 
 	var _Index4 = _interopRequireDefault(_Index3);
 
-	var _Index5 = __webpack_require__(770);
+	var _Index5 = __webpack_require__(771);
 
 	var _Index6 = _interopRequireDefault(_Index5);
 
-	var _Index7 = __webpack_require__(781);
+	var _Index7 = __webpack_require__(782);
 
 	var _Index8 = _interopRequireDefault(_Index7);
 
-	var _Index9 = __webpack_require__(791);
+	var _Index9 = __webpack_require__(792);
 
 	var _Index10 = _interopRequireDefault(_Index9);
 
-	var _Index11 = __webpack_require__(803);
+	var _Index11 = __webpack_require__(804);
 
 	var _Index12 = _interopRequireDefault(_Index11);
 
-	var _Index13 = __webpack_require__(814);
+	var _Index13 = __webpack_require__(815);
 
 	var _Index14 = _interopRequireDefault(_Index13);
 
-	var _Index15 = __webpack_require__(823);
+	var _Index15 = __webpack_require__(824);
 
 	var _Index16 = _interopRequireDefault(_Index15);
 
-	var _buildDetail = __webpack_require__(834);
+	var _buildDetail = __webpack_require__(835);
 
 	var _buildDetail2 = _interopRequireDefault(_buildDetail);
 
-	var _Index17 = __webpack_require__(843);
+	var _Index17 = __webpack_require__(844);
 
 	var _Index18 = _interopRequireDefault(_Index17);
 
-	var _SearchResult3 = __webpack_require__(851);
+	var _SearchResult3 = __webpack_require__(852);
 
 	var _SearchResult4 = _interopRequireDefault(_SearchResult3);
 
-	var _SearchResultDetail = __webpack_require__(854);
+	var _SearchResultDetail = __webpack_require__(855);
 
 	var _SearchResultDetail2 = _interopRequireDefault(_SearchResultDetail);
 
-	var _index11 = __webpack_require__(874);
+	var _index11 = __webpack_require__(875);
 
 	var _index12 = _interopRequireDefault(_index11);
 
@@ -50392,7 +50392,7 @@
 	  mixins: [_setMinHeight2.default],
 	  getInitialState: function getInitialState() {
 	    //区域选择
-	    var areaSelect = ["黄浦区", "徐汇区", "静安区", "长宁区", "普陀区", "虹口区", "杨浦区", "浦东新区", "闵行区", "宝山区", "嘉定区", "金山区", "松江区", "青浦区", "奉贤区", "崇明县", "卢湾区", "闸北区"];
+	    var areaSelect = ["黄浦区", "徐汇区", "静安区", "长宁区", "普陀区", "虹口区", "杨浦区", "浦东新区", "闵行区", "宝山区", "嘉定区", "金山区", "松江区", "青浦区", "奉贤区", "崇明县", "闸北区"];
 	    //注册资本
 	    var regCapital = ["10-50万元", "50-100万元", "100-500万元", "500万以上"];
 	    //存续时间
@@ -51389,7 +51389,6 @@
 	        }
 
 	        var isEqual = Immutable.is(nextProps.lineFinanceListRequest, this.props.lineFinanceListResult); //判断数据是否变化
-	        console.log(isEqual, 8888888888);
 	        if (!isEqual) {
 	            var lineFinanceListRequest = nextProps.lineFinanceListRequest;
 	            var lineFinanceListResult = nextProps.lineFinanceListResult;
@@ -51407,7 +51406,6 @@
 	    dataFomat: function dataFomat(data) {
 	        var content = data.content;
 	        var itemList = content.list;
-	        console.log(itemList, 9999999999999);
 
 	        this.setState({ itemList: itemList, count: content.count });
 	    },
@@ -51552,7 +51550,7 @@
 	                                        _react2.default.createElement(
 	                                            'td',
 	                                            { className: 'talign-left' },
-	                                            index + 1
+	                                            elem.ranking
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
@@ -51578,7 +51576,7 @@
 	                                        _react2.default.createElement(
 	                                            'td',
 	                                            { className: 'talign-left' },
-	                                            index + 1
+	                                            elem.ranking
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
@@ -51862,6 +51860,8 @@
 	  },
 	  componentDidMount: function componentDidMount() {
 	    window.scrollTo(0, 0);
+	    var keyword = this.props.location.query.keyword;
+	    this.setState({ keyword: keyword });
 	  },
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	    var isEqual = Immutable.is(nextProps.SearchResultResult, this.props.SearchResultResult); //判断数据是否变化
@@ -51889,7 +51889,7 @@
 	    if (count > 0) {
 	      this.setState({ searchResult: list, count: count });
 	    } else {
-	      this.setState({ searchTip: "抱歉！ 暂无搜索结果" });
+	      this.setState({ searchResult: [], count: 0, searchTip: "抱歉！ 暂无搜索结果" });
 	    }
 	  },
 	  getSearchList: function getSearchList(jsonData) {
@@ -51906,6 +51906,7 @@
 	  },
 	  searchClick: function searchClick(e) {
 	    var searchVal = $(e.target).parent("a").prev().val();
+	    this.setState({ keyword: searchVal });
 	    var nowpage = this.state.pageNo;
 	    var jsonData = { pageNo: nowpage, pageSize: 8, keyword: searchVal };
 	    this.getSearchList(jsonData);
@@ -51938,7 +51939,7 @@
 	          null,
 	          '线下理财监测'
 	        ),
-	        _react2.default.createElement(_index.Input, { placeholder: '请输入企业名称检索', value: this.state.searchVal, icon: 'icon-search', iconplace: 'right', type: 'text', searchClick: this.searchClick })
+	        _react2.default.createElement(_index.Input, { placeholder: '请输入企业名称检索', value: this.state.keyword, icon: 'icon-search', iconplace: 'right', type: 'text', searchClick: this.searchClick })
 	      ),
 	      _react2.default.createElement(
 	        'div',
@@ -51947,13 +51948,12 @@
 	          'ul',
 	          { className: 'search-list' },
 	          this.state.searchResult.length > 0 ? this.state.searchResult.map(function (item, index) {
-	            console.log(item, index, 123456);
 	            return _react2.default.createElement(
 	              'li',
 	              { key: index },
-	              _react2.default.createElement(_ResultMod2.default, { dataItem: item })
+	              _react2.default.createElement(_ResultMod2.default, { dataItem: item, keyword: this.state.keyword })
 	            );
-	          }) : _react2.default.createElement(
+	          }.bind(this)) : _react2.default.createElement(
 	            'li',
 	            { className: 'noResult' },
 	            this.state.searchTip
@@ -52130,7 +52130,8 @@
 
 	  getInitialState: function getInitialState() {
 	    return {
-	      searchVal: ''
+	      searchVal: '',
+	      title: ""
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
@@ -52139,14 +52140,15 @@
 
 	  render: function render() {
 	    var propObj = this.props.dataItem;
+	    var keyword = this.props.keyword;
+	    var title = propObj.name.replace(keyword, '<span class="c-red">' + keyword + '</span>');
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'line-finace-search-mod' },
 	      _react2.default.createElement(
 	        'h4',
 	        null,
-	        propObj.name,
-	        _react2.default.createElement('span', { className: 'c-red' })
+	        _react2.default.createElement('div', { dangerouslySetInnerHTML: { __html: title } })
 	      ),
 	      _react2.default.createElement(
 	        'div',
@@ -52340,6 +52342,7 @@
 	    this.queryCompanyName();
 	  },
 	  queryCompanyName: function queryCompanyName() {
+	    //获取公司名称
 	    var paramObj = { companyName: this.props.location.query.companyName };
 	    this.setState({
 	      companyName: this.props.location.query.companyName
@@ -52347,6 +52350,7 @@
 	    this.queryCompanyInfo(paramObj);
 	  },
 	  queryCompanyInfo: function queryCompanyInfo(param) {
+	    //查询公司标签
 	    var queryCompanyInfo = this.props.queryCompanyInfo;
 
 	    queryCompanyInfo(param);
@@ -52357,6 +52361,7 @@
 	      this.queryCompanyName();
 	    }
 	    if (nextProps.queryCompanyInfoRequest) {
+	      //标签处理
 	      var _companyInfo = [];
 	      _companyInfo.push(nextProps.queryCompanyInfoResult.content.status);
 	      _companyInfo = _companyInfo.concat(nextProps.queryCompanyInfoResult.content.backgroud);
@@ -52396,9 +52401,7 @@
 	    //静态图谱
 	    dynamicPicRequest: state.DynamicPic.request,
 	    dynamicPicResult: state.DynamicPic.result,
-	    //静态风险指数构成
-	    // staticRiskRequest:state.StaticRisk.request,
-	    // staticRiskResult: state.StaticRisk.result,
+
 	    //静态风险变化趋势图
 
 	    statisticsRequest: state.Statistics.request,
@@ -53030,7 +53033,7 @@
 
 
 	// module
-	exports.push([module.id, "/*关联图模块 begin*/\r\n.linefin-rel-graph {\r\n\theight: 1300px;\r\n}\r\n.window-show-graph{\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%!important;\r\n    z-index: 100;\r\n    margin: 0;\r\n}\r\n.linefin-rel-graph .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-rel-graph .mod-title h3 {\r\n}\r\n\r\n.linefin-rel-graph .mod-title .mod-title-right {\r\n\tmargin-top: 5px;\r\n\tdisplay: inline-block;\r\n\tfloat: right;\r\n}\r\n\r\n.linefin-rel-graph .mod-title-right i.icon-fullscreen,.linefin-rel-graph .mod-title-right i.icon-zoomout{\r\n\tmargin-left: 20px;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 6px;\r\n\tfloat: right;\r\n\tcursor: pointer;\r\n}\r\n.linefin-rel-graph .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .pic_rank {\r\n\tposition: absolute;\r\n\tright: 17px;\r\n\ttop: 62px;\r\n\tz-index: 999;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .pic_rank span {\r\n\tborder: 1px solid #3A4450;\r\n\tdisplay: inline-block;\r\n\twidth: 22px;\r\n\theight: 22px;\r\n\tbackground: #19202A;\r\n\ttext-align: center;\r\n\tline-height: 18px;\r\n\tcolor: #E14340;\r\n\tcursor: pointer;\r\n\tmargin-left: 8px;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .relation-graph-box {\r\n\theight: 1166px;\r\n}\r\n\r\n/*关联图模块 end*/\r\n\r\n/*公司舆情 begin*/\r\n.linefin-cocompose {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n.linefin-cocompose .mod-title {\r\n\tbackground-color: #36404d;\r\n}\r\n\r\n.linefin-cocompose .mod-content {\r\n\theight: 550px;\r\n}\r\n\r\n.linefin-cocompose .content-box {\r\n\theight: 534px;\r\n\toverflow: auto;\r\n\tmargin: 20px 20px 0px 20px;\r\n\tbackground-color: #212831;\r\n\tpadding: 20px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box {\r\n\toverflow: hidden;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 a {\r\n\tcolor: #e14340;\r\n\tfont-weight:bold;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 em {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 24px;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\tborder-radius: 2px;\r\n\tbackground-color: #1a2029;\r\n\tmargin-right: 20px;\r\n\tcolor:#fff;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .abstract {\r\n\tdisplay:block;\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tmargin-left: 45px;\r\n\ttext-indent: 28px;\t\r\n\tcolor:#fff;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tfloat: right;\r\n\tcolor: #e14340;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source .name {\r\n\tmargin-right: 40px;\r\n}\r\n\r\n/**公司舆情 end*/\r\n\r\n/*静态风险指数构成 begin*/\r\n.linefin-index-constitute .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-index-constitute .mt-select {\r\n\tmargin-top: 5px;\r\n\tmargin-right: 5px;\r\n\tcolor: #c9c9ca;\r\n}\r\n\r\n.linefin-index-constitute .con-box {\r\n\tbackground-color: #2b323c;\r\n\tpadding: 0 20px;\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-info {\r\n\tmin-height: 1362px;\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-pie {\r\n\theight: 520px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item {\r\n\tcursor: pointer;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-head {\r\n\tbackground-color: #1a2029;\r\n\tborder-bottom: solid 1px #2b323c;\r\n\theight: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\tfont-size: 14px;\r\n\theight: 20px;\r\n\tline-height: 20px;\r\n\tmargin-top: 10px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.name {\r\n\tcolor: #e5e5e5;\r\n\twidth: 40%;\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.num {\r\n\twidth: 60%;\r\n\ttext-indent: 10%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head {\r\n\theight: 60px;\r\n\tbackground-color: #e14340;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span {\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.name {\r\n\tfont-size: 18px;\r\n\tborder-color: #ed8e8c;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.num em {\r\n\tfont-size: 36px;\r\n\tcolor: #ffffff;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-other .item-head span.num i {\r\n\tfloat: right;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 3px;\r\n\tfont-size: 14px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table {\r\n\twidth: 100%;\r\n\tbackground-color: #36404d;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table {\r\n\twidth: 100%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td {\r\n\tborder-bottom: solid 1px #2b323c;\r\n\tpadding: 10px 0;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-left {\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-right {\r\n\tpadding-left: 10%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart {\r\n\theight: 330px;\r\n\tbackground-color: #212831;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart h4 {\r\n\tbackground-color: #1a2029;\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n\tpadding: 0 20px;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart .chart-b {\r\n\theight: 290px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-head span.name {\r\n\tfont-size: 16px;\r\n\tborder-color: #d0d8df;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-con {\r\n\tdisplay: none;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-con {\r\n\tdisplay: block;\r\n}\r\n\r\n/*关联图 侧边栏begin*/\r\n.sidebox {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation-tips {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .sidebar {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .canvas {\r\n\tmargin-right: auto !important;\r\n}\r\n\r\n.correlation .time-line {\r\n\tdisplay: none;\r\n}\r\n\r\n/*静态风险指数构成 end*/", ""]);
+	exports.push([module.id, "/*关联图模块 begin*/\r\n.linefin-rel-graph {\r\n\theight: 1300px;\r\n}\r\n.window-show-graph{\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%!important;\r\n    z-index: 100;\r\n    margin: 0;\r\n}\r\n.linefin-rel-graph .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-rel-graph .mod-title h3 {\r\n}\r\n\r\n.linefin-rel-graph .mod-title .mod-title-right {\r\n\tmargin-top: 5px;\r\n\tdisplay: inline-block;\r\n\tfloat: right;\r\n}\r\n\r\n.linefin-rel-graph .mod-title-right i.icon-fullscreen,.linefin-rel-graph .mod-title-right i.icon-zoomout{\r\n\tmargin-left: 20px;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 6px;\r\n\tfloat: right;\r\n\tcursor: pointer;\r\n}\r\n.linefin-rel-graph .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .pic_rank {\r\n\tposition: absolute;\r\n\tright: 17px;\r\n\ttop: 62px;\r\n\tz-index: 999;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .pic_rank span {\r\n\tborder: 1px solid #3A4450;\r\n\tdisplay: inline-block;\r\n\twidth: 22px;\r\n\theight: 22px;\r\n\tbackground: #19202A;\r\n\ttext-align: center;\r\n\tline-height: 18px;\r\n\tcolor: #E14340;\r\n\tcursor: pointer;\r\n\tmargin-left: 8px;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .relation-graph-box {\r\n\theight: 1166px;\r\n}\r\n\r\n/*关联图模块 end*/\r\n\r\n/*公司舆情 begin*/\r\n.linefin-cocompose {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n.linefin-cocompose .mod-title {\r\n\tbackground-color: #36404d;\r\n}\r\n\r\n.linefin-cocompose .mod-content {\r\n\theight: 550px;\r\n}\r\n\r\n.linefin-cocompose .content-box {\r\n\theight: 534px;\r\n\toverflow: auto;\r\n\tmargin: 20px 20px 0px 20px;\r\n\tbackground-color: #212831;\r\n\tpadding: 20px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box {\r\n\toverflow: hidden;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 a {\r\n\tcolor: #e14340;\r\n\tfont-weight:bold;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 em {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 24px;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\tborder-radius: 2px;\r\n\tbackground-color: #1a2029;\r\n\tmargin-right: 20px;\r\n\tcolor:#fff;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .abstract {\r\n\tdisplay:block;\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tmargin-left: 45px;\r\n\ttext-indent: 28px;\t\r\n\tcolor:#fff;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tfloat: right;\r\n\tcolor: #e14340;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source .name {\r\n\tmargin-right: 40px;\r\n}\r\n\r\n/**公司舆情 end*/\r\n\r\n/*静态风险指数构成 begin*/\r\n.linefin-index-constitute .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-index-constitute .mt-select {\r\n\tmargin-top: 5px;\r\n\tmargin-right: 5px;\r\n\tcolor: #c9c9ca;\r\n}\r\n\r\n.linefin-index-constitute .con-box {\r\n\tbackground-color: #2b323c;\r\n\tpadding: 0 20px;\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-info {\r\n\tmin-height: 1362px;\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-pie {\r\n\theight: 520px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item {\r\n\tcursor: pointer;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-head {\r\n\tbackground-color: #1a2029;\r\n\tborder-bottom: solid 1px #2b323c;\r\n\theight: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\tfont-size: 14px;\r\n\theight: 20px;\r\n\tline-height: 20px;\r\n\tmargin-top: 10px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.name {\r\n\tcolor: #e5e5e5;\r\n\twidth: 40%;\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.num {\r\n\twidth: 60%;\r\n\ttext-indent: 10%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head {\r\n\theight: 60px;\r\n\tbackground-color: #e14340;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span {\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.name {\r\n\tfont-size: 18px;\r\n\tborder-color: #ed8e8c;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.num em {\r\n\tfont-size: 36px;\r\n\tcolor: #ffffff;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-other .item-head span.num i {\r\n\tfloat: right;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 3px;\r\n\tfont-size: 14px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table {\r\n\twidth: 100%;\r\n\tbackground-color: #36404d;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table {\r\n\twidth: 100%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td {\r\n\tborder-bottom: solid 1px #2b323c;\r\n\tpadding: 10px 0;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-left {\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-right {\r\n\tpadding-left: 10%;\r\n\tpadding-right:5%;\r\n}\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-right span{\r\n\tdisplay:block;\r\n}\r\n.linefin-index-constitute .index-con-info .item .item-chart {\r\n\theight: 330px;\r\n\tbackground-color: #212831;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart h4 {\r\n\tbackground-color: #1a2029;\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n\tpadding: 0 20px;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart .chart-b {\r\n\theight: 290px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-head span.name {\r\n\tfont-size: 16px;\r\n\tborder-color: #d0d8df;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-con {\r\n\tdisplay: none;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-con {\r\n\tdisplay: block;\r\n}\r\n\r\n/*关联图 侧边栏begin*/\r\n.sidebox {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation-tips {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .sidebar {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .canvas {\r\n\tmargin-right: auto !important;\r\n}\r\n\r\n.correlation .time-line {\r\n\tdisplay: none;\r\n}\r\n\r\n/*静态风险指数构成 end*/", ""]);
 
 	// exports
 
@@ -53082,6 +53085,7 @@
 	        this.queryNews();
 	    },
 	    queryNews: function queryNews() {
+	        //查询公司舆情信息
 	        var companyName = this.props.location.query.companyName;
 	        this.setState({ companyName: companyName });
 	        this.requestCompanyNews(companyName);
@@ -53194,7 +53198,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	/**
-	 * 静态风险指数构成
+	 * 静态风险指数构成（右边全部）
 	 */
 	var Immutable = __webpack_require__(620);
 	//静态风险指数构成
@@ -53217,6 +53221,7 @@
 	        this.queryAllData();
 	    },
 	    queryAllData: function queryAllData() {
+	        //获取公司名称
 	        var companyName = this.props.location.query.companyName;
 	        this.setState({ companyName: companyName });
 
@@ -53235,7 +53240,7 @@
 	        if (this.state.companyName && this.state.companyName != this.props.location.query.companyName) {
 	            this.queryAllData();
 	        }
-
+	        //静态风险指数所有数据
 	        var riskDataIsEqual = Immutable.is(nextProps.riskDataResult, this.props.riskDataResult);
 	        if (!riskDataIsEqual) {
 	            this.setState({
@@ -53243,11 +53248,10 @@
 	            });
 	            this.setParm(nextProps.riskDataResult.content);
 	        }
-
+	        //右边时间列表
 	        var dateVersionIsEqual = Immutable.is(nextProps.queryDateVersionResult, this.props.queryDateVersionResult);
 	        var _allDate = [];
 	        if (!dateVersionIsEqual) {
-	            //右边时间列表
 	            nextProps.queryDateVersionResult.content.map(function (item, index) {
 	                _allDate.push({
 	                    value: index + 1,
@@ -53261,15 +53265,14 @@
 	                this.queryRiskData(_allDate[0].label); //首次获取时间请求列表
 	            }
 	        }
-
+	        //静态风险指数趋势图
 	        var statisticsIsEqual = Immutable.is(nextProps.statisticsResult, this.props.statisticsResult);
 	        if (!statisticsIsEqual) {
-	            //折线图
 	            this.setState({
 	                lineOption: nextProps.statisticsResult
 	            });
 	        }
-
+	        //多余的两个（资本背景，信用指数）
 	        var riskIndexIsEqual = Immutable.is(nextProps.queryRiskIndexResult, this.props.queryRiskIndexResult);
 	        if (!riskIndexIsEqual) {
 	            this.setState({ createData: nextProps.queryRiskIndexResult.content });
@@ -53294,6 +53297,7 @@
 	        queryStatistics(jsonDataLine);
 	    },
 	    queryRiskIndex: function queryRiskIndex(jsonData) {
+	        //多余的两个（资本背景，信用指数）
 	        var queryRiskIndex = this.props.queryRiskIndex;
 
 	        queryRiskIndex(jsonData);
@@ -53350,7 +53354,7 @@
 	            "center": ['50%', '50%'],
 	            "series": [{
 	                "name": "非法融资违规风险",
-	                "value": itemTable && itemTable.illFinRisk
+	                "value": itemTable && itemTable.illMoneyFinRisk
 	            }, {
 	                "name": "人才结构风险",
 	                "value": itemTable && itemTable.perStructRisk
@@ -53380,6 +53384,7 @@
 	        this.setState({ pieOption: option });
 	    },
 	    setLineParm: function setLineParm(param) {
+	        //静态趋势图
 	        var _xAxisArr = [],
 	            _riskIndexArr = [],
 	            _avgRiskIndexArr = [];
@@ -53428,6 +53433,7 @@
 	            }
 	        };
 	        var itemTable = this.state.riskList || '';
+	        var companyList = itemTable && itemTable.companyList && itemTable.companyList.split('|'); //公司名单                            
 	        return _react2.default.createElement(
 	            'div',
 	            { className: 'linefin-index-constitute mod' },
@@ -53545,7 +53551,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.maxComNum
+	                                                    itemTable && itemTable.maxComNum == "0.0" ? itemTable.maxComNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -53559,7 +53565,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.avgPerNum
+	                                                    itemTable && itemTable.avgPerNum == "0.0" ? itemTable.avgPerNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -53573,7 +53579,20 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.oneLvlPer
+	                                                    function () {
+	                                                        if (!itemTable || !itemTable.oneLvlPer) {
+	                                                            return;
+	                                                        }
+	                                                        var oneLvlPer = itemTable.oneLvlPer.split('|');
+	                                                        var coreCldComHtml = oneLvlPer.map(function (item, index) {
+	                                                            return _react2.default.createElement(
+	                                                                'span',
+	                                                                { key: index },
+	                                                                item
+	                                                            );
+	                                                        });
+	                                                        return coreCldComHtml;
+	                                                    }()
 	                                                )
 	                                            )
 	                                        )
@@ -53640,7 +53659,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.cldComConPerNum
+	                                                    itemTable && itemTable.cldComConPerNum == "0.0" ? itemTable.cldComConPerNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -53654,7 +53673,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.cldCtlNum
+	                                                    itemTable && itemTable.cldCtlNum == "0.0" ? itemTable.cldCtlNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -53668,7 +53687,20 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.coreCldCom
+	                                                    function () {
+	                                                        if (!itemTable || !itemTable.coreCldCom) {
+	                                                            return;
+	                                                        }
+	                                                        var coreCldCom = itemTable.coreCldCom.split('|');
+	                                                        var coreCldComHtml = coreCldCom.map(function (item, index) {
+	                                                            return _react2.default.createElement(
+	                                                                'span',
+	                                                                { key: index },
+	                                                                item
+	                                                            );
+	                                                        });
+	                                                        return coreCldComHtml;
+	                                                    }()
 	                                                )
 	                                            )
 	                                        )
@@ -53735,7 +53767,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.ctlCldComNum
+	                                                    itemTable && itemTable.ctlCldComNum == "0.0" ? itemTable.ctlCldComNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -53749,7 +53781,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.oneComNum
+	                                                    itemTable && itemTable.oneComNum == "0.0" ? itemTable.oneComNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -53763,7 +53795,20 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.conCom
+	                                                    function () {
+	                                                        if (!itemTable || !itemTable.conCom) {
+	                                                            return;
+	                                                        }
+	                                                        var conCom = itemTable.conCom.split('|');
+	                                                        var coreCldComHtml = conCom.map(function (item, index) {
+	                                                            return _react2.default.createElement(
+	                                                                'span',
+	                                                                { key: index },
+	                                                                item
+	                                                            );
+	                                                        });
+	                                                        return coreCldComHtml;
+	                                                    }()
 	                                                )
 	                                            )
 	                                        )
@@ -53830,7 +53875,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.thrPerNum
+	                                                    itemTable && itemTable.thrPerNum == "0.0" ? itemTable.thrPerNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -53844,7 +53889,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.twoComNum
+	                                                    itemTable && itemTable.twoComNum == "0.0" ? itemTable.twoComNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -53858,7 +53903,20 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.coreTwoCom
+	                                                    function () {
+	                                                        if (!itemTable || !itemTable.coreTwoCom) {
+	                                                            return;
+	                                                        }
+	                                                        var coreTwoCom = itemTable.coreTwoCom.split('|');
+	                                                        var coreCldComHtml = coreTwoCom.map(function (item, index) {
+	                                                            return _react2.default.createElement(
+	                                                                'span',
+	                                                                { key: index },
+	                                                                item
+	                                                            );
+	                                                        });
+	                                                        return coreCldComHtml;
+	                                                    }()
 	                                                )
 	                                            )
 	                                        )
@@ -53925,7 +53983,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.sixMonNewComNum
+	                                                    itemTable && itemTable.sixMonNewComNum == "0.0" ? itemTable.sixMonNewComNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -53939,7 +53997,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.sixMonNewComNum
+	                                                    itemTable && itemTable.sixMonNewComNum == "0.0" ? itemTable.sixMonNewComNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -53953,7 +54011,20 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.sixMonNewCom
+	                                                    function () {
+	                                                        if (!itemTable || !itemTable.sixMonNewCom) {
+	                                                            return;
+	                                                        }
+	                                                        var sixMonNewCom = itemTable.sixMonNewCom.split('|');
+	                                                        var coreCldComHtml = sixMonNewCom.map(function (item, index) {
+	                                                            return _react2.default.createElement(
+	                                                                'span',
+	                                                                { key: index },
+	                                                                item
+	                                                            );
+	                                                        });
+	                                                        return coreCldComHtml;
+	                                                    }()
 	                                                )
 	                                            )
 	                                        )
@@ -54090,7 +54161,13 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.companyList
+	                                                    companyList && companyList.map(function (item, index) {
+	                                                        return _react2.default.createElement(
+	                                                            'span',
+	                                                            { key: index },
+	                                                            item
+	                                                        );
+	                                                    })
 	                                                )
 	                                            )
 	                                        )
@@ -58834,7 +58911,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 
 	__webpack_require__(685);
@@ -58916,181 +58993,175 @@
 
 	//融资担保
 	var FinanceGuaraIndex = _react2.default.createClass({
-	  displayName: 'FinanceGuaraIndex',
+	    displayName: 'FinanceGuaraIndex',
 
-	  mixins: [_setMinHeight2.default],
-	  getInitialState: function getInitialState() {
-	    return {
-	      guaraDutyBalaData: {},
-	      balanceDistrData: [],
-	      guaraEachAverData: {}
-	    };
-	  },
-	  componentDidMount: function componentDidMount() {
-	    window.scrollTo(0, 0);
-	    var getFinGuaDutyBalance = this.props.getFinGuaDutyBalance;
+	    mixins: [_setMinHeight2.default],
+	    getInitialState: function getInitialState() {
+	        return {
+	            guaraDutyBalaData: {},
+	            balanceDistrData: [],
+	            guaraEachAverData: {}
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        window.scrollTo(0, 0);
+	        var getFinGuaDutyBalance = this.props.getFinGuaDutyBalance;
 
-	    var jsonData = {};
-	    getFinGuaDutyBalance(jsonData);
-	  },
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    var isEqual = Immutable.is(nextProps.guaraDutyBalanceRequest, this.props.guaraDutyBalanceResult);
-	    if (!isEqual) {
-	      var guaraDutyBalanceRequest = nextProps.guaraDutyBalanceRequest;
-	      var guaraDutyBalanceResult = nextProps.guaraDutyBalanceResult;
+	        var jsonData = {};
+	        getFinGuaDutyBalance(jsonData);
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var isEqual = Immutable.is(nextProps.guaraDutyBalanceRequest, this.props.guaraDutyBalanceResult);
+	        if (!isEqual) {
+	            var guaraDutyBalanceRequest = nextProps.guaraDutyBalanceRequest;
+	            var guaraDutyBalanceResult = nextProps.guaraDutyBalanceResult;
 
-	      if (guaraDutyBalanceRequest == true) {
-	        if (guaraDutyBalanceResult.success == true) {
-	          this.dataFomat(guaraDutyBalanceResult);
-	        } else {
-	          //错误后提示
+	            if (guaraDutyBalanceRequest == true) {
+	                if (guaraDutyBalanceResult.success == true) {
+	                    this.dataFomat(guaraDutyBalanceResult);
+	                } else {
+	                    //错误后提示
+	                }
+	            }
 	        }
-	      }
+	    },
+	    dataFomat: function dataFomat(data) {
+	        var content = data.content;
+	        var guaraDutyBalaData = { //担保责任余额
+	            xAxis: [],
+	            data: []
+	        };
+	        var balanceArr = [];
+	        //贷款笔均折线图
+	        var guaraEachAverData = {
+	            xAxis: [],
+	            series: []
+	        };
+
+	        //担保在责任余额结构分布图
+	        var balanceDistrData = [];
+
+	        var conLength = content.length;
+
+	        for (var i = 0; i < conLength; i++) {
+	            var year = content[i].year + "-" + content[i].month;
+	            var amount = content[i].amount; //贷款余额 单位万元
+	            var amountBill = Number(amount / 10000).toFixed(2); //转成单位亿元
+	            var number = content[i].number; //笔数
+	            var companyAmount = content[i].number; //公司数量
+	            var averageBlance = Number(amount / companyAmount).toFixed(2); //平均担保责任余额
+
+	            var dataArr = [year, amountBill, averageBlance]; //
+
+	            balanceArr.push(amountBill);
+	            guaraDutyBalaData.xAxis.push(year);
+	            guaraDutyBalaData.data.push(dataArr);
+
+	            guaraEachAverData.xAxis.push(year);
+	            var eachAver = Number(amount / number).toFixed(2); //贷款笔均数
+	            guaraEachAverData.series.push(eachAver);
+	        }
+
+	        var policyBalance = Number(content[conLength - 1].policyBalance / 10000).toFixed(2); //政策类 //转成单位亿元
+	        var steelBalance = Number(content[conLength - 1].steelBalance / 10000).toFixed(2); //钢贸类 //转成单位亿元
+	        var compositeBalance = Number(content[conLength - 1].compositeBalance / 10000).toFixed(2); //综合类 //转成单位亿元
+	        balanceDistrData.push({ "name": "政策性", "value": policyBalance });
+	        balanceDistrData.push({ "name": "综合型", "value": compositeBalance });
+	        balanceDistrData.push({ "name": "钢贸类", "value": steelBalance });
+
+	        this.setState({ guaraDutyBalaData: guaraDutyBalaData, guaraEachAverData: guaraEachAverData, balanceDistrData: balanceDistrData });
+	    },
+	    searchFun: function searchFun(e) {
+	        this.props.history.push('/SearchResultDetail?companyName=' + e);
+	    },
+	    render: function render() {
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'finance-guara-index content-space-10', style: this.state.style },
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'search-box' },
+	                _react2.default.createElement(_IndustrySearch2.default, { label: '融资担保监测', companyType: '3', searchFun: this.searchFun, className: 'small-loan-search', placeholder: '请输入企业名称检索' })
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'top' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'left' },
+	                    _react2.default.createElement(_FinanceGuaraCompanyGrade2.default, this.props)
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'middle mod-space-l' },
+	                    _react2.default.createElement(_FinanceGuaraMap2.default, this.props)
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'right mod-space-l' },
+	                    _react2.default.createElement(_BalanceDistribute2.default, { balanceDistrData: this.state.balanceDistrData }),
+	                    _react2.default.createElement(_GuaraEachAverage2.default, { guaraEachAverData: this.state.guaraEachAverData })
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'bottom mod-space-t' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'left' },
+	                    _react2.default.createElement(_GuaraDutyBalance2.default, { guaraDutyBalaData: this.state.guaraDutyBalaData })
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'middle mod-space-l' },
+	                    _react2.default.createElement(_FinanceGuaraIndustryRisk2.default, this.props)
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'right mod-space-l' },
+	                    _react2.default.createElement(_LargeGuara2.default, this.props)
+	                )
+	            )
+	        );
 	    }
-	  },
-	  dataFomat: function dataFomat(data) {
-	    var content = data.content;
-	    var guaraDutyBalaData = { //担保责任余额
-	      xAxis: [],
-	      yAxis: [],
-	      data: []
-	    };
-	    var balanceArr = [];
-	    //贷款笔均折线图
-	    var guaraEachAverData = {
-	      xAxis: [],
-	      series: []
-	    };
-
-	    //担保在责任余额结构分布图
-	    var balanceDistrData = [];
-
-	    var conLength = content.length;
-
-	    for (var i = 0; i < conLength; i++) {
-	      var year = content[i].year + "-" + content[i].month;
-	      var amount = content[i].amount; //贷款余额 单位万元
-	      var amountBill = Number(amount / 10000).toFixed(2); //转成单位亿元
-	      var number = content[i].number; //笔数
-	      var companyAmount = content[i].number; //公司数量
-	      var averageBlance = Number(amount / companyAmount).toFixed(2); //平均担保责任余额
-
-	      var dataArr = [i, i, amountBill, averageBlance]; //
-
-	      balanceArr.push(amountBill);
-	      guaraDutyBalaData.xAxis.push(year);
-	      guaraDutyBalaData.data.push(dataArr);
-	      guaraDutyBalaData.yAxis.push(amountBill);
-
-	      guaraEachAverData.xAxis.push(year);
-	      var eachAver = Number(amount / number).toFixed(2); //贷款笔均数
-	      guaraEachAverData.series.push(eachAver);
-	    }
-
-	    guaraDutyBalaData.yAxis.sort(function (a, b) {
-	      return a - b;
-	    });
-
-	    var policyBalance = Number(content[conLength - 1].policyBalance / 10000).toFixed(2); //政策类 //转成单位亿元
-	    var steelBalance = Number(content[conLength - 1].steelBalance / 10000).toFixed(2); //钢贸类 //转成单位亿元
-	    var compositeBalance = Number(content[conLength - 1].compositeBalance / 10000).toFixed(2); //综合类 //转成单位亿元
-	    balanceDistrData.push({ "name": "政策性", "value": policyBalance });
-	    balanceDistrData.push({ "name": "综合型", "value": compositeBalance });
-	    balanceDistrData.push({ "name": "钢贸类", "value": steelBalance });
-
-	    this.setState({ guaraDutyBalaData: guaraDutyBalaData, guaraEachAverData: guaraEachAverData, balanceDistrData: balanceDistrData });
-	  },
-	  searchFun: function searchFun(e) {
-	    this.props.history.push('/SearchResultDetail?companyName=' + e);
-	  },
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'finance-guara-index content-space-10', style: this.state.style },
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'search-box' },
-	        _react2.default.createElement(_IndustrySearch2.default, { label: '融资担保监测', companyType: '3', searchFun: this.searchFun, className: 'small-loan-search', placeholder: '请输入企业名称检索' })
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'top' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'left' },
-	          _react2.default.createElement(_FinanceGuaraCompanyGrade2.default, this.props)
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'middle mod-space-l' },
-	          _react2.default.createElement(_FinanceGuaraMap2.default, this.props)
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'right mod-space-l' },
-	          _react2.default.createElement(_BalanceDistribute2.default, { balanceDistrData: this.state.balanceDistrData }),
-	          _react2.default.createElement(_GuaraEachAverage2.default, { guaraEachAverData: this.state.guaraEachAverData })
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'bottom mod-space-t' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'left' },
-	          _react2.default.createElement(_GuaraDutyBalance2.default, { guaraDutyBalaData: this.state.guaraDutyBalaData })
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'middle mod-space-l' },
-	          _react2.default.createElement(_FinanceGuaraIndustryRisk2.default, this.props)
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'right mod-space-l' },
-	          _react2.default.createElement(_LargeGuara2.default, this.props)
-	        )
-	      )
-	    );
-	  }
 	});
 
 	//module.exports = FinanceGuaraIndex;
 
 	//将 request  result 绑定到props的request result 
 	function mapStateToProps(state) {
-	  return {
+	    return {
 
-	    //企业评级
-	    FinGuaCompanyGradeRequest: state.FinGuaCompanyGrade.request,
-	    FinGuaCompanyGradeResult: state.FinGuaCompanyGrade.result,
+	        //企业评级
+	        FinGuaCompanyGradeRequest: state.FinGuaCompanyGrade.request,
+	        FinGuaCompanyGradeResult: state.FinGuaCompanyGrade.result,
 
-	    //地图
-	    finGuaMapRequest: state.FinGuaMap.request,
-	    finGuaMapResult: state.FinGuaMap.result,
+	        //地图
+	        finGuaMapRequest: state.FinGuaMap.request,
+	        finGuaMapResult: state.FinGuaMap.result,
 
-	    //贷款余额
-	    guaraDutyBalanceRequest: state.GuaraDutyBalance.request,
-	    guaraDutyBalanceResult: state.GuaraDutyBalance.result,
+	        //贷款余额
+	        guaraDutyBalanceRequest: state.GuaraDutyBalance.request,
+	        guaraDutyBalanceResult: state.GuaraDutyBalance.result,
 
-	    //股东行业风险
-	    finGuaIndustryRiskRequest: state.FinGuaIndustryRisk.request,
-	    finGuaIndustryRiskResult: state.FinGuaIndustryRisk.result,
+	        //股东行业风险
+	        finGuaIndustryRiskRequest: state.FinGuaIndustryRisk.request,
+	        finGuaIndustryRiskResult: state.FinGuaIndustryRisk.result,
 
-	    //股东行业风险
-	    finGuaIndustryRiskDetailRequest: state.FinGuaIndustryRiskDetail.request,
-	    finGuaIndustryRiskDetailResult: state.FinGuaIndustryRiskDetail.result,
+	        //股东行业风险
+	        finGuaIndustryRiskDetailRequest: state.FinGuaIndustryRiskDetail.request,
+	        finGuaIndustryRiskDetailResult: state.FinGuaIndustryRiskDetail.result,
 
-	    //大额借款公司信息列表
-	    largeGuaraRequest: state.LargeGuara.request,
-	    largeGuaraResult: state.LargeGuara.result
+	        //大额借款公司信息列表
+	        largeGuaraRequest: state.LargeGuara.request,
+	        largeGuaraResult: state.LargeGuara.result
 
-	  };
+	    };
 	}
 
 	//将action的所有方法绑定到props上
 	function mapDispatchToProps(dispatch) {
-	  return (0, _redux.bindActionCreators)(finGuaraActionCreaters, dispatch);
+	    return (0, _redux.bindActionCreators)(finGuaraActionCreaters, dispatch);
 	}
 
 	//通过react-redux提供的connect方法将我们需要的state中的数据和actions中的方法绑定到props上
@@ -60390,9 +60461,9 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _ScatterChart = __webpack_require__(643);
+	var _ScatterChartCopy = __webpack_require__(728);
 
-	var _ScatterChart2 = _interopRequireDefault(_ScatterChart);
+	var _ScatterChartCopy2 = _interopRequireDefault(_ScatterChartCopy);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -60427,7 +60498,6 @@
 	      legend: [],
 	      yAxisName: '亿元',
 	      xAxis: data.xAxis,
-	      yAxis: data.yAxis,
 	      data: data.data,
 	      series: [[{
 	        color: '#e14340'
@@ -60436,30 +60506,10 @@
 
 	    this.setState({ option: option });
 	  },
-	  // setParam:function(){
-	  //     var param={
-	  //         id:'loan-balance-chart',//必传
-	  //         height:'272px',//必传 带上单位
-	  //         title:'',
-	  //         yAxisName:'亿元',
-	  //         forMaterTitle:"担保责任余额",
-	  //         forMaterTip:'平均担保责任余额',
-	  //         legend: [],
-	  //         xAxis:['2010', '2011', '2012','2013', '2014', '2015', '2016'],
-	  //         yAxis: ['20', '40', '60', '80', '100', '120', '140'],
-	  //         data: [[0,0,30],[1,1,10],[2,2,20],[3,3,50],[4,4,60],[5,5,10],[6,6,80]],
-	  //         series:[
-	  //                 [{
-	  //                   color:'#e14340'
-	  //                 }]
-	  //               ]
-	  //     }
-	  //     return param;
-	  // },
 	  render: function render() {
 	    var bbdScatter = "";
 	    if (this.state.option) {
-	      bbdScatter = _react2.default.createElement(_ScatterChart2.default, { param: this.state.option });
+	      bbdScatter = _react2.default.createElement(_ScatterChartCopy2.default, { param: this.state.option });
 	    }
 	    return _react2.default.createElement(
 	      'div',
@@ -62634,7 +62684,7 @@
 	                        chartxAxis = [];
 	                    for (var item in equityLResult.content) {
 	                        chartxAxis.push(equityLResult.content[item].typeName);
-	                        _chartData1.push((equityLResult.content[item].managedCapitalAmount / 1000).toFixed(2));
+	                        _chartData1.push((equityLResult.content[item].managedCapitalAmount / 10000).toFixed(2));
 	                        _chartData2.push(equityLResult.content[item].publishCompanyNumber);
 	                    }
 	                    var option = {
@@ -63540,11 +63590,11 @@
 
 	var _LoanBalance2 = _interopRequireDefault(_LoanBalance);
 
-	var _IndustryRisk = __webpack_require__(728);
+	var _IndustryRisk = __webpack_require__(729);
 
 	var _IndustryRisk2 = _interopRequireDefault(_IndustryRisk);
 
-	var _LargeLoan = __webpack_require__(730);
+	var _LargeLoan = __webpack_require__(731);
 
 	var _LargeLoan2 = _interopRequireDefault(_LargeLoan);
 
@@ -63613,8 +63663,8 @@
 	        //小额贷款数据
 	        var loanBalanceData = { //贷款余额数据
 	            xAxis: [],
-	            yAxis: [],
-	            data: [] ////[[0,0,30],[1,1,10],[2,2,20],[3,3,50],[4,4,60],[5,5,10],[6,6,80]],
+	            //yAxis:[],
+	            data: [] ////[['2010',45,30],['2010',10,10],['2010',40,20],['2010',30,50],['2010',60,60],['2010',50,10],['2010',70,80]],
 	        };
 
 	        var balanceArr = [];
@@ -63638,11 +63688,11 @@
 	            var averageBlance = Number(amount / companyAmount).toFixed(2); //平均贷款余额
 
 	            //贷款余额
-	            var dataArr = [i, i, amountBill, averageBlance];
+	            var dataArr = [year, amountBill, averageBlance];
 	            balanceArr.push(amountBill);
 	            loanBalanceData.xAxis.push(year);
 	            loanBalanceData.data.push(dataArr);
-	            loanBalanceData.yAxis.push(amountBill);
+	            //loanBalanceData.yAxis.push(amountBill);
 
 	            var eachAver = Number(amount / number).toFixed(2); //贷款笔均数
 	            eachAverageData.xAxis.push(year);
@@ -63662,9 +63712,10 @@
 	            });
 	        }
 
-	        loanBalanceData.yAxis.sort(function (a, b) {
-	            return a - b;
-	        });
+	        // loanBalanceData.yAxis.sort(function(a,b){
+	        //   return a-b;
+	        // })
+
 
 	        this.setState({ loanBalanceData: loanBalanceData, eachAverageData: eachAverageData, balanceRatioData: balanceRatioData });
 	    },
@@ -64896,9 +64947,9 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _ScatterChart = __webpack_require__(643);
+	var _ScatterChartCopy = __webpack_require__(728);
 
-	var _ScatterChart2 = _interopRequireDefault(_ScatterChart);
+	var _ScatterChartCopy2 = _interopRequireDefault(_ScatterChartCopy);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -64924,7 +64975,6 @@
 	    }
 	  },
 	  dataFomat: function dataFomat(data) {
-	    console.log(data, 333333333333333);
 	    var option = {
 	      id: 'loan-balance-chart', //必传
 	      height: '272px', //必传 带上单位
@@ -64934,7 +64984,7 @@
 	      legend: [],
 	      yAxisName: '亿元',
 	      xAxis: data.xAxis,
-	      yAxis: data.yAxis,
+	      //yAxis: data.yAxis,
 	      data: data.data,
 	      symbolSize: function symbolSize(val) {
 	        if (val[3] < 1000) {
@@ -64949,13 +64999,12 @@
 	        color: '#e14340'
 	      }]]
 	    };
-	    console.log(data.data, "datayAxis==================================");
 	    this.setState({ option: option });
 	  },
 	  render: function render() {
 	    var bbdScatter = "";
 	    if (this.state.option) {
-	      bbdScatter = _react2.default.createElement(_ScatterChart2.default, { param: this.state.option });
+	      bbdScatter = _react2.default.createElement(_ScatterChartCopy2.default, { param: this.state.option });
 	    }
 	    return _react2.default.createElement(
 	      'div',
@@ -64989,6 +65038,194 @@
 
 	'use strict';
 
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(158);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	//散点图 横坐标为时间
+
+	/*
+	  调用方式：
+	     var param={
+	            id:'loan-balance-chart',//必传
+	            height:'272px',//必传 带上单位
+	            title:'贷款余额',
+	            legend: [],
+	            xAxis:['2010', '2011', '2012','2013', '2014', '2015', '2016'],
+	            yAxis: ['20', '40', '60', '80', '100', '120', '140'],
+	            data: [[0,0,30],[1,1,10],[2,2,20],[3,3,50],[4,4,60],[5,5,10],[6,6,80]],
+	            series:[
+	                    [{
+	                      color:'#e14340'
+	                    }]
+	                  ]
+	        }
+	*/
+	var ScatterChartCopy = _react2.default.createClass({
+	    displayName: 'ScatterChartCopy',
+
+	    componentDidMount: function componentDidMount() {
+	        var id = this.props.param.id;
+	        var bubbleChart = echarts.init(document.getElementById(id));
+	        var param = this.props.param;
+	        var option = this.setOption(param);
+	        bubbleChart.setOption(option);
+	        this.resizeChart(bubbleChart);
+	    },
+	    resizeChart: function resizeChart(bubbleChart) {
+	        //容器发生改变时重新设置图表大小
+	        $(window).resize(function () {
+	            bubbleChart.resize();
+	        });
+	    },
+	    setOption: function setOption(param) {
+	        var option = {
+	            title: {
+	                text: param.title || "",
+	                link: param.link || "",
+	                target: "self",
+	                textStyle: {
+	                    fontSize: 14,
+	                    color: "#fff",
+	                    fontFamily: "microsoft yahei",
+	                    fontWeight: "normal"
+	                }
+	            },
+	            legend: {
+	                data: [],
+	                left: 'right'
+	            },
+	            tooltip: {
+	                backgroundColor: 'rgba(0,0,0,0.7)',
+	                padding: [10, 10, 10, 10],
+	                textStyle: {
+	                    fontSize: 12
+	                },
+	                formatter: param.tooltip || function (data) {
+	                    if (param.formatter == "BusinessNum") {
+	                        //典当总额业务笔数
+	                        return data.data[0] + ' 年<br/> 业务笔数：&nbsp <span style="color:#00b7f0">' + data.data[1] + '</span><br/>典当总额：&nbsp  <span style="color:#00b7f0">' + data.data[2] + '亿元</span>';
+	                    } else {
+	                        return data.data[0] + '<br/> ' + param.forMaterTitle + "：" + data.data[1] + '亿元<br/>' + param.forMaterTip + "：" + data.data[2] + "万元";
+	                    }
+	                }
+	            },
+	            grid: {
+	                top: param.gridTop || '10%',
+	                left: '5%',
+	                bottom: '5%',
+	                right: '5%',
+	                containLabel: true
+	            },
+	            xAxis: {
+	                type: 'category',
+	                data: param.xAxis,
+	                splitLine: {
+	                    show: false,
+	                    lineStyle: {
+	                        color: '#353b45',
+	                        type: 'solid'
+	                    }
+	                },
+	                axisLabel: {
+	                    // formatter: '{value}',
+	                    textStyle: {
+	                        color: "#99a3b7",
+	                        fontSize: 12,
+	                        fontFamily: 'Microsoft Yahei'
+	                    }
+	                },
+	                axisLine: {
+	                    show: true,
+	                    lineStyle: {
+	                        color: '#353b45',
+	                        type: 'solid'
+	                    }
+	                },
+	                axisTick: {
+	                    show: false
+	                }
+
+	            },
+	            yAxis: {
+	                type: 'value',
+	                scale: true,
+	                splitNumber: param.yAxisSplit == undefined ? 5 : param.yAxisSplit,
+	                nameTextStyle: {
+	                    color: "#7f868e"
+	                },
+	                data: param.yAxis,
+	                splitLine: {
+	                    show: true,
+	                    lineStyle: {
+	                        color: '#353b45',
+	                        type: 'solid'
+	                    }
+	                },
+	                axisLabel: {
+	                    show: true,
+	                    textStyle: {
+	                        color: "#99a3b7",
+	                        fontSize: 12,
+	                        fontFamily: 'Microsoft Yahei'
+	                    }
+	                },
+	                axisLine: {
+	                    show: true,
+	                    lineStyle: {
+	                        color: '#353b45',
+	                        type: 'solid'
+	                    }
+	                },
+	                axisTick: {
+	                    show: false
+	                }
+	            },
+	            series: [{
+	                name: 'Punch Card',
+	                type: 'scatter',
+	                symbolSize: function symbolSize(val) {
+	                    if (val[1] < 1000) {
+	                        return val[1] / 10;
+	                    } else if (val[1] > 1000 && val[1] < 10000) {
+	                        return val[1] / 1000;
+	                    } else if (10000 < val[1] && val[1] < 100000) {
+	                        return val[1] / 5000;
+	                    } else if (100000 < val[1] && val[1] < 1000000) {
+	                        return val[1] / 10000;
+	                    } else if (1000000 < val[1] && val[1] < 10000000) {
+	                        return val[1] / 80000;
+	                    } else {
+	                        return val[1] / 1000000;
+	                    }
+	                },
+	                data: param.data,
+	                animationDelay: function animationDelay(idx) {
+	                    return idx * 5;
+	                }
+	            }]
+	        };
+	        return option;
+	    },
+	    render: function render() {
+	        return _react2.default.createElement('div', { id: this.props.param.id, style: { height: this.props.param.height } });
+	    }
+	});
+
+	module.exports = ScatterChartCopy;
+
+/***/ },
+/* 729 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
 	__webpack_require__(721);
 
 	var _react = __webpack_require__(2);
@@ -64999,7 +65236,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _IndustryRiskMore = __webpack_require__(729);
+	var _IndustryRiskMore = __webpack_require__(730);
 
 	var _IndustryRiskMore2 = _interopRequireDefault(_IndustryRiskMore);
 
@@ -65260,7 +65497,7 @@
 	module.exports = IndustryRisk;
 
 /***/ },
-/* 729 */
+/* 730 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -65394,7 +65631,7 @@
 	module.exports = IndustryRiskMore;
 
 /***/ },
-/* 730 */
+/* 731 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -65631,7 +65868,7 @@
 	module.exports = LargeLoan;
 
 /***/ },
-/* 731 */
+/* 732 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -65640,7 +65877,7 @@
 	    value: true
 	});
 
-	__webpack_require__(732);
+	__webpack_require__(733);
 
 	var _react = __webpack_require__(2);
 
@@ -65652,7 +65889,7 @@
 
 	var _reactRouter = __webpack_require__(159);
 
-	var _P2PIndexAction = __webpack_require__(734);
+	var _P2PIndexAction = __webpack_require__(735);
 
 	var P2PIndexActionCreaters = _interopRequireWildcard(_P2PIndexAction);
 
@@ -65664,35 +65901,35 @@
 
 	var _IndustrySearch2 = _interopRequireDefault(_IndustrySearch);
 
-	var _devTrend = __webpack_require__(735);
+	var _devTrend = __webpack_require__(736);
 
 	var _devTrend2 = _interopRequireDefault(_devTrend);
 
-	var _volume = __webpack_require__(738);
+	var _volume = __webpack_require__(739);
 
 	var _volume2 = _interopRequireDefault(_volume);
 
-	var _map = __webpack_require__(739);
+	var _map = __webpack_require__(740);
 
 	var _map2 = _interopRequireDefault(_map);
 
-	var _areaRanking = __webpack_require__(740);
+	var _areaRanking = __webpack_require__(741);
 
 	var _areaRanking2 = _interopRequireDefault(_areaRanking);
 
-	var _problemScale = __webpack_require__(741);
+	var _problemScale = __webpack_require__(742);
 
 	var _problemScale2 = _interopRequireDefault(_problemScale);
 
-	var _IndustrySentiment = __webpack_require__(742);
+	var _IndustrySentiment = __webpack_require__(743);
 
 	var _IndustrySentiment2 = _interopRequireDefault(_IndustrySentiment);
 
-	var _netCreditContrast = __webpack_require__(743);
+	var _netCreditContrast = __webpack_require__(744);
 
 	var _netCreditContrast2 = _interopRequireDefault(_netCreditContrast);
 
-	var _netCredit = __webpack_require__(744);
+	var _netCredit = __webpack_require__(745);
 
 	var _netCredit2 = _interopRequireDefault(_netCredit);
 
@@ -65812,13 +66049,13 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(P2PIndex);
 
 /***/ },
-/* 732 */
+/* 733 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(733);
+	var content = __webpack_require__(734);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(591)(content, {});
@@ -65838,7 +66075,7 @@
 	}
 
 /***/ },
-/* 733 */
+/* 734 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(590)();
@@ -65852,7 +66089,7 @@
 
 
 /***/ },
-/* 734 */
+/* 735 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -65983,12 +66220,12 @@
 	/*网贷平台数据展示end*/
 
 /***/ },
-/* 735 */
+/* 736 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(736);
+	__webpack_require__(737);
 
 	var _react = __webpack_require__(2);
 
@@ -66065,13 +66302,13 @@
 	module.exports = DevTrend;
 
 /***/ },
-/* 736 */
+/* 737 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(737);
+	var content = __webpack_require__(738);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(591)(content, {});
@@ -66091,7 +66328,7 @@
 	}
 
 /***/ },
-/* 737 */
+/* 738 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(590)();
@@ -66105,12 +66342,12 @@
 
 
 /***/ },
-/* 738 */
+/* 739 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(736);
+	__webpack_require__(737);
 
 	var _react = __webpack_require__(2);
 
@@ -66189,12 +66426,12 @@
 	module.exports = volume;
 
 /***/ },
-/* 739 */
+/* 740 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(736);
+	__webpack_require__(737);
 
 	var _react = __webpack_require__(2);
 
@@ -66251,12 +66488,12 @@
 	module.exports = DevTrend;
 
 /***/ },
-/* 740 */
+/* 741 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(736);
+	__webpack_require__(737);
 
 	var _react = __webpack_require__(2);
 
@@ -66498,12 +66735,12 @@
 	module.exports = AareaRanking;
 
 /***/ },
-/* 741 */
+/* 742 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(736);
+	__webpack_require__(737);
 
 	var _react = __webpack_require__(2);
 
@@ -66578,12 +66815,12 @@
 	module.exports = DevTrend;
 
 /***/ },
-/* 742 */
+/* 743 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(736);
+	__webpack_require__(737);
 
 	var _react = __webpack_require__(2);
 
@@ -66659,12 +66896,12 @@
 	module.exports = IndustrySentiment;
 
 /***/ },
-/* 743 */
+/* 744 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(736);
+	__webpack_require__(737);
 
 	var _react = __webpack_require__(2);
 
@@ -66752,12 +66989,12 @@
 	module.exports = NetCreditContrast;
 
 /***/ },
-/* 744 */
+/* 745 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(736);
+	__webpack_require__(737);
 
 	var _react = __webpack_require__(2);
 
@@ -66958,7 +67195,7 @@
 	module.exports = NetCredit;
 
 /***/ },
-/* 745 */
+/* 746 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -66976,7 +67213,7 @@
 	//评分雷达图
 
 
-	__webpack_require__(732);
+	__webpack_require__(733);
 
 	var _react = __webpack_require__(2);
 
@@ -66994,35 +67231,35 @@
 
 	var _IndustrySearch2 = _interopRequireDefault(_IndustrySearch);
 
-	var _baseMsg = __webpack_require__(746);
+	var _baseMsg = __webpack_require__(747);
 
 	var _baseMsg2 = _interopRequireDefault(_baseMsg);
 
-	var _companyMsg = __webpack_require__(749);
+	var _companyMsg = __webpack_require__(750);
 
 	var _companyMsg2 = _interopRequireDefault(_companyMsg);
 
-	var _coreData = __webpack_require__(750);
+	var _coreData = __webpack_require__(751);
 
 	var _coreData2 = _interopRequireDefault(_coreData);
 
-	var _litigation = __webpack_require__(752);
+	var _litigation = __webpack_require__(753);
 
 	var _litigation2 = _interopRequireDefault(_litigation);
 
-	var _publicOpinion = __webpack_require__(753);
+	var _publicOpinion = __webpack_require__(754);
 
 	var _publicOpinion2 = _interopRequireDefault(_publicOpinion);
 
-	var _rankPic = __webpack_require__(754);
+	var _rankPic = __webpack_require__(755);
 
 	var _rankPic2 = _interopRequireDefault(_rankPic);
 
-	var _scoreLeida = __webpack_require__(755);
+	var _scoreLeida = __webpack_require__(756);
 
 	var _scoreLeida2 = _interopRequireDefault(_scoreLeida);
 
-	var _P2PPortraitAction = __webpack_require__(757);
+	var _P2PPortraitAction = __webpack_require__(758);
 
 	var P2PPortraitCreaters = _interopRequireWildcard(_P2PPortraitAction);
 
@@ -67192,12 +67429,12 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(P2PPortrait);
 
 /***/ },
-/* 746 */
+/* 747 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(747);
+	__webpack_require__(748);
 
 	var _react = __webpack_require__(2);
 
@@ -67407,13 +67644,13 @@
 	module.exports = BaseMsg;
 
 /***/ },
-/* 747 */
+/* 748 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(748);
+	var content = __webpack_require__(749);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(591)(content, {});
@@ -67433,7 +67670,7 @@
 	}
 
 /***/ },
-/* 748 */
+/* 749 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(590)();
@@ -67447,12 +67684,12 @@
 
 
 /***/ },
-/* 749 */
+/* 750 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(747);
+	__webpack_require__(748);
 
 	var _react = __webpack_require__(2);
 
@@ -67557,12 +67794,12 @@
 	module.exports = CompanyMsg;
 
 /***/ },
-/* 750 */
+/* 751 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(747);
+	__webpack_require__(748);
 
 	var _react = __webpack_require__(2);
 
@@ -67572,7 +67809,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _BarChart = __webpack_require__(751);
+	var _BarChart = __webpack_require__(752);
 
 	var _BarChart2 = _interopRequireDefault(_BarChart);
 
@@ -67958,7 +68195,7 @@
 	module.exports = CoreData;
 
 /***/ },
-/* 751 */
+/* 752 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -68179,12 +68416,12 @@
 	exports.default = BarChart;
 
 /***/ },
-/* 752 */
+/* 753 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(747);
+	__webpack_require__(748);
 
 	var _react = __webpack_require__(2);
 
@@ -68297,12 +68534,12 @@
 	module.exports = Litigation;
 
 /***/ },
-/* 753 */
+/* 754 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(747);
+	__webpack_require__(748);
 
 	var _react = __webpack_require__(2);
 
@@ -68467,12 +68704,12 @@
 	module.exports = PublicOpinion;
 
 /***/ },
-/* 754 */
+/* 755 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(747);
+	__webpack_require__(748);
 
 	var _react = __webpack_require__(2);
 
@@ -68755,12 +68992,12 @@
 	module.exports = RankPic;
 
 /***/ },
-/* 755 */
+/* 756 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(747);
+	__webpack_require__(748);
 
 	var _react = __webpack_require__(2);
 
@@ -68770,7 +69007,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _RadarChart = __webpack_require__(756);
+	var _RadarChart = __webpack_require__(757);
 
 	var _RadarChart2 = _interopRequireDefault(_RadarChart);
 
@@ -68915,7 +69152,7 @@
 	module.exports = ScoreLeida;
 
 /***/ },
-/* 756 */
+/* 757 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -69034,7 +69271,7 @@
 	exports.default = RadarChart;
 
 /***/ },
-/* 757 */
+/* 758 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -69449,7 +69686,7 @@
 	}
 
 /***/ },
-/* 758 */
+/* 759 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -69458,7 +69695,7 @@
 	    value: true
 	});
 
-	__webpack_require__(759);
+	__webpack_require__(760);
 
 	var _react = __webpack_require__(2);
 
@@ -69476,31 +69713,31 @@
 
 	var _IndustrySearch2 = _interopRequireDefault(_IndustrySearch);
 
-	var _BusinessTypes = __webpack_require__(761);
+	var _BusinessTypes = __webpack_require__(762);
 
 	var _BusinessTypes2 = _interopRequireDefault(_BusinessTypes);
 
-	var _InvestPeople = __webpack_require__(764);
+	var _InvestPeople = __webpack_require__(765);
 
 	var _InvestPeople2 = _interopRequireDefault(_InvestPeople);
 
-	var _NewProject = __webpack_require__(765);
+	var _NewProject = __webpack_require__(766);
 
 	var _NewProject2 = _interopRequireDefault(_NewProject);
 
-	var _RaiseMount = __webpack_require__(766);
+	var _RaiseMount = __webpack_require__(767);
 
 	var _RaiseMount2 = _interopRequireDefault(_RaiseMount);
 
-	var _PlatformRun = __webpack_require__(767);
+	var _PlatformRun = __webpack_require__(768);
 
 	var _PlatformRun2 = _interopRequireDefault(_PlatformRun);
 
-	var _PlatformBase = __webpack_require__(768);
+	var _PlatformBase = __webpack_require__(769);
 
 	var _PlatformBase2 = _interopRequireDefault(_PlatformBase);
 
-	var _RaiseIndexAction = __webpack_require__(769);
+	var _RaiseIndexAction = __webpack_require__(770);
 
 	var RaiseIndexCreaters = _interopRequireWildcard(_RaiseIndexAction);
 
@@ -69611,13 +69848,13 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(RaiseIndex);
 
 /***/ },
-/* 759 */
+/* 760 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(760);
+	var content = __webpack_require__(761);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(591)(content, {});
@@ -69637,7 +69874,7 @@
 	}
 
 /***/ },
-/* 760 */
+/* 761 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(590)();
@@ -69651,12 +69888,12 @@
 
 
 /***/ },
-/* 761 */
+/* 762 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(762);
+	__webpack_require__(763);
 
 	var _react = __webpack_require__(2);
 
@@ -69752,13 +69989,13 @@
 	module.exports = BusinessTypes;
 
 /***/ },
-/* 762 */
+/* 763 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(763);
+	var content = __webpack_require__(764);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(591)(content, {});
@@ -69778,7 +70015,7 @@
 	}
 
 /***/ },
-/* 763 */
+/* 764 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(590)();
@@ -69792,12 +70029,12 @@
 
 
 /***/ },
-/* 764 */
+/* 765 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(762);
+	__webpack_require__(763);
 
 	var _react = __webpack_require__(2);
 
@@ -69807,7 +70044,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _BarChart = __webpack_require__(751);
+	var _BarChart = __webpack_require__(752);
 
 	var _BarChart2 = _interopRequireDefault(_BarChart);
 
@@ -69899,12 +70136,12 @@
 	module.exports = InvestPeople;
 
 /***/ },
-/* 765 */
+/* 766 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(762);
+	__webpack_require__(763);
 
 	var _react = __webpack_require__(2);
 
@@ -69914,7 +70151,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _BarChart = __webpack_require__(751);
+	var _BarChart = __webpack_require__(752);
 
 	var _BarChart2 = _interopRequireDefault(_BarChart);
 
@@ -70005,12 +70242,12 @@
 	module.exports = NewProject;
 
 /***/ },
-/* 766 */
+/* 767 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(762);
+	__webpack_require__(763);
 
 	var _react = __webpack_require__(2);
 
@@ -70020,7 +70257,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _BarChart = __webpack_require__(751);
+	var _BarChart = __webpack_require__(752);
 
 	var _BarChart2 = _interopRequireDefault(_BarChart);
 
@@ -70110,12 +70347,12 @@
 	module.exports = RaiseMount;
 
 /***/ },
-/* 767 */
+/* 768 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(762);
+	__webpack_require__(763);
 
 	var _react = __webpack_require__(2);
 
@@ -70323,12 +70560,12 @@
 	module.exports = PlatformRun;
 
 /***/ },
-/* 768 */
+/* 769 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(762);
+	__webpack_require__(763);
 
 	var _react = __webpack_require__(2);
 
@@ -70565,7 +70802,7 @@
 	module.exports = PlatformBase;
 
 /***/ },
-/* 769 */
+/* 770 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -70773,7 +71010,7 @@
 	/*筹资金额、新增项目 列表end*/
 
 /***/ },
-/* 770 */
+/* 771 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -70782,7 +71019,7 @@
 	    value: true
 	});
 
-	__webpack_require__(771);
+	__webpack_require__(772);
 
 	var _react = __webpack_require__(2);
 
@@ -70800,27 +71037,27 @@
 
 	var _IndustrySearch2 = _interopRequireDefault(_IndustrySearch);
 
-	var _CompanyNum = __webpack_require__(773);
+	var _CompanyNum = __webpack_require__(774);
 
 	var _CompanyNum2 = _interopRequireDefault(_CompanyNum);
 
-	var _CapitalAmount = __webpack_require__(776);
+	var _CapitalAmount = __webpack_require__(777);
 
 	var _CapitalAmount2 = _interopRequireDefault(_CapitalAmount);
 
-	var _BusinessNum = __webpack_require__(777);
+	var _BusinessNum = __webpack_require__(778);
 
 	var _BusinessNum2 = _interopRequireDefault(_BusinessNum);
 
-	var _Income = __webpack_require__(778);
+	var _Income = __webpack_require__(779);
 
 	var _Income2 = _interopRequireDefault(_Income);
 
-	var _CompanyDirectory = __webpack_require__(779);
+	var _CompanyDirectory = __webpack_require__(780);
 
 	var _CompanyDirectory2 = _interopRequireDefault(_CompanyDirectory);
 
-	var _PawnMonitoringAction = __webpack_require__(780);
+	var _PawnMonitoringAction = __webpack_require__(781);
 
 	var PawnMonitoringActionCreaters = _interopRequireWildcard(_PawnMonitoringAction);
 
@@ -70977,13 +71214,13 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(PawnMonitoring);
 
 /***/ },
-/* 771 */
+/* 772 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(772);
+	var content = __webpack_require__(773);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(591)(content, {});
@@ -71003,7 +71240,7 @@
 	}
 
 /***/ },
-/* 772 */
+/* 773 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(590)();
@@ -71017,12 +71254,12 @@
 
 
 /***/ },
-/* 773 */
+/* 774 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(774);
+	__webpack_require__(775);
 
 	var _react = __webpack_require__(2);
 
@@ -71107,13 +71344,13 @@
 	module.exports = CompanyNum;
 
 /***/ },
-/* 774 */
+/* 775 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(775);
+	var content = __webpack_require__(776);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(591)(content, {});
@@ -71133,7 +71370,7 @@
 	}
 
 /***/ },
-/* 775 */
+/* 776 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(590)();
@@ -71147,12 +71384,12 @@
 
 
 /***/ },
-/* 776 */
+/* 777 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(774);
+	__webpack_require__(775);
 
 	var _react = __webpack_require__(2);
 
@@ -71162,7 +71399,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _BarChart = __webpack_require__(751);
+	var _BarChart = __webpack_require__(752);
 
 	var _BarChart2 = _interopRequireDefault(_BarChart);
 
@@ -71229,12 +71466,12 @@
 	module.exports = CapitalAmount;
 
 /***/ },
-/* 777 */
+/* 778 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(774);
+	__webpack_require__(775);
 
 	var _react = __webpack_require__(2);
 
@@ -71244,9 +71481,9 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _ScatterChart = __webpack_require__(643);
+	var _ScatterChartCopy = __webpack_require__(728);
 
-	var _ScatterChart2 = _interopRequireDefault(_ScatterChart);
+	var _ScatterChartCopy2 = _interopRequireDefault(_ScatterChartCopy);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -71270,10 +71507,13 @@
 	            var _setData = [];
 	            for (var i = 0; i < Data.data.length; i++) {
 	                var item = [];
-	                item.push(i, i, Data.yAxisData[i], Data.data[i]);
+	                item.push(Data.xAxisData[i].toString(), Data.yAxisData[i], Data.data[i]);
 	                _setData.push(item);
 	            }
-
+	            var _xAxisData = [];
+	            for (var j = 0; j < Data.xAxisData.length; j++) {
+	                _xAxisData.push(Data.xAxisData[j].toString());
+	            }
 	            var optionParm = {
 	                id: 'loan-balance-chart', //必传
 	                height: '465px', //必传 带上单位
@@ -71281,20 +71521,20 @@
 	                yAxisName: "笔数",
 	                legend: [],
 	                formatter: "BusinessNum",
-	                xAxis: Data.xAxisData,
-	                yAxis: Data.yAxisData,
+	                xAxis: _xAxisData,
 	                data: _setData,
 	                series: [[{
 	                    color: '#e14340'
 	                }]]
 	            };
+	            console.log(optionParm, "ashima===============");
 	            this.setState({ option: optionParm });
 	        }
 	    },
 	    render: function render() {
 	        var chartBox = "";
 	        if (this.state.option) {
-	            chartBox = _react2.default.createElement(_ScatterChart2.default, { param: this.state.option });
+	            chartBox = _react2.default.createElement(_ScatterChartCopy2.default, { param: this.state.option });
 	        }
 	        return _react2.default.createElement(
 	            'div',
@@ -71316,12 +71556,12 @@
 	module.exports = BusinessNum;
 
 /***/ },
-/* 778 */
+/* 779 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(774);
+	__webpack_require__(775);
 
 	var _react = __webpack_require__(2);
 
@@ -71331,7 +71571,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _BarChart = __webpack_require__(751);
+	var _BarChart = __webpack_require__(752);
 
 	var _BarChart2 = _interopRequireDefault(_BarChart);
 
@@ -71399,12 +71639,12 @@
 	module.exports = Income;
 
 /***/ },
-/* 779 */
+/* 780 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(774);
+	__webpack_require__(775);
 
 	var _react = __webpack_require__(2);
 
@@ -71661,7 +71901,7 @@
 	module.exports = CompanyDirectory;
 
 /***/ },
-/* 780 */
+/* 781 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -71752,7 +71992,7 @@
 	/*上海市典当企业目录*/
 
 /***/ },
-/* 781 */
+/* 782 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -71761,7 +72001,7 @@
 	    value: true
 	});
 
-	__webpack_require__(782);
+	__webpack_require__(783);
 
 	var _react = __webpack_require__(2);
 
@@ -71779,23 +72019,23 @@
 
 	var _IndustrySearch2 = _interopRequireDefault(_IndustrySearch);
 
-	var _RegionalDis = __webpack_require__(784);
+	var _RegionalDis = __webpack_require__(785);
 
 	var _RegionalDis2 = _interopRequireDefault(_RegionalDis);
 
-	var _Classification = __webpack_require__(787);
+	var _Classification = __webpack_require__(788);
 
 	var _Classification2 = _interopRequireDefault(_Classification);
 
-	var _HPQList = __webpack_require__(788);
+	var _HPQList = __webpack_require__(789);
 
 	var _HPQList2 = _interopRequireDefault(_HPQList);
 
-	var _DetailList = __webpack_require__(789);
+	var _DetailList = __webpack_require__(790);
 
 	var _DetailList2 = _interopRequireDefault(_DetailList);
 
-	var _TradingPlacesAction = __webpack_require__(790);
+	var _TradingPlacesAction = __webpack_require__(791);
 
 	var TradingPlacesCreaters = _interopRequireWildcard(_TradingPlacesAction);
 
@@ -71874,13 +72114,13 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(TradingPlaces);
 
 /***/ },
-/* 782 */
+/* 783 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(783);
+	var content = __webpack_require__(784);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(591)(content, {});
@@ -71900,7 +72140,7 @@
 	}
 
 /***/ },
-/* 783 */
+/* 784 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(590)();
@@ -71914,12 +72154,12 @@
 
 
 /***/ },
-/* 784 */
+/* 785 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(785);
+	__webpack_require__(786);
 
 	var _react = __webpack_require__(2);
 
@@ -72033,13 +72273,13 @@
 	module.exports = RegionalDis;
 
 /***/ },
-/* 785 */
+/* 786 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(786);
+	var content = __webpack_require__(787);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(591)(content, {});
@@ -72059,7 +72299,7 @@
 	}
 
 /***/ },
-/* 786 */
+/* 787 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(590)();
@@ -72073,12 +72313,12 @@
 
 
 /***/ },
-/* 787 */
+/* 788 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(785);
+	__webpack_require__(786);
 
 	var _react = __webpack_require__(2);
 
@@ -72196,12 +72436,12 @@
 	module.exports = Classification;
 
 /***/ },
-/* 788 */
+/* 789 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(785);
+	__webpack_require__(786);
 
 	var _react = __webpack_require__(2);
 
@@ -72444,12 +72684,12 @@
 	module.exports = HPQList;
 
 /***/ },
-/* 789 */
+/* 790 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(785);
+	__webpack_require__(786);
 
 	var _react = __webpack_require__(2);
 
@@ -72672,7 +72912,7 @@
 	module.exports = DetailList;
 
 /***/ },
-/* 790 */
+/* 791 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -72873,7 +73113,7 @@
 	/*点击区县新动能指数传递地图的选中区县begin*/
 
 /***/ },
-/* 791 */
+/* 792 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -72882,7 +73122,7 @@
 	  value: true
 	});
 
-	__webpack_require__(792);
+	__webpack_require__(793);
 
 	var _react = __webpack_require__(2);
 
@@ -72900,31 +73140,31 @@
 
 	var _setHeight2 = _interopRequireDefault(_setHeight);
 
-	var _financeLeaseAction = __webpack_require__(794);
+	var _financeLeaseAction = __webpack_require__(795);
 
 	var CommercialSecretIndexActionCreaters = _interopRequireWildcard(_financeLeaseAction);
 
-	var _Lease = __webpack_require__(795);
+	var _Lease = __webpack_require__(796);
 
 	var _Lease2 = _interopRequireDefault(_Lease);
 
-	var _Balance = __webpack_require__(798);
+	var _Balance = __webpack_require__(799);
 
 	var _Balance2 = _interopRequireDefault(_Balance);
 
-	var _ContrastLeft = __webpack_require__(799);
+	var _ContrastLeft = __webpack_require__(800);
 
 	var _ContrastLeft2 = _interopRequireDefault(_ContrastLeft);
 
-	var _ContrastRight = __webpack_require__(800);
+	var _ContrastRight = __webpack_require__(801);
 
 	var _ContrastRight2 = _interopRequireDefault(_ContrastRight);
 
-	var _Unhealthy = __webpack_require__(801);
+	var _Unhealthy = __webpack_require__(802);
 
 	var _Unhealthy2 = _interopRequireDefault(_Unhealthy);
 
-	var _Catalog = __webpack_require__(802);
+	var _Catalog = __webpack_require__(803);
 
 	var _Catalog2 = _interopRequireDefault(_Catalog);
 
@@ -73010,13 +73250,13 @@
 	exports.default = (0, _reactRedux.connect)(CommercialSecretStateToProps, CommercialSecretDispatchToProps)(FinanceLease);
 
 /***/ },
-/* 792 */
+/* 793 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(793);
+	var content = __webpack_require__(794);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(591)(content, {});
@@ -73036,7 +73276,7 @@
 	}
 
 /***/ },
-/* 793 */
+/* 794 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(590)();
@@ -73050,7 +73290,7 @@
 
 
 /***/ },
-/* 794 */
+/* 795 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -73297,12 +73537,12 @@
 	/*饼图下拉框end*/
 
 /***/ },
-/* 795 */
+/* 796 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(796);
+	__webpack_require__(797);
 
 	var _react = __webpack_require__(2);
 
@@ -73404,13 +73644,13 @@
 	module.exports = Lease;
 
 /***/ },
-/* 796 */
+/* 797 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(797);
+	var content = __webpack_require__(798);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(591)(content, {});
@@ -73430,7 +73670,7 @@
 	}
 
 /***/ },
-/* 797 */
+/* 798 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(590)();
@@ -73444,12 +73684,12 @@
 
 
 /***/ },
-/* 798 */
+/* 799 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(796);
+	__webpack_require__(797);
 
 	var _react = __webpack_require__(2);
 
@@ -73459,7 +73699,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _BarChart = __webpack_require__(751);
+	var _BarChart = __webpack_require__(752);
 
 	var _BarChart2 = _interopRequireDefault(_BarChart);
 
@@ -73506,14 +73746,14 @@
 	module.exports = Balance;
 
 /***/ },
-/* 799 */
+/* 800 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	__webpack_require__(796);
+	__webpack_require__(797);
 
 	var _react = __webpack_require__(2);
 
@@ -73672,14 +73912,14 @@
 	module.exports = ContrastLeft;
 
 /***/ },
-/* 800 */
+/* 801 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	__webpack_require__(796);
+	__webpack_require__(797);
 
 	var _react = __webpack_require__(2);
 
@@ -73827,12 +74067,12 @@
 	module.exports = ContrastRight;
 
 /***/ },
-/* 801 */
+/* 802 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(796);
+	__webpack_require__(797);
 
 	var _react = __webpack_require__(2);
 
@@ -73898,14 +74138,14 @@
 	module.exports = Unhealthy;
 
 /***/ },
-/* 802 */
+/* 803 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	__webpack_require__(796);
+	__webpack_require__(797);
 
 	var _react = __webpack_require__(2);
 
@@ -74327,7 +74567,7 @@
 	module.exports = Catalog;
 
 /***/ },
-/* 803 */
+/* 804 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -74336,7 +74576,7 @@
 	  value: true
 	});
 
-	__webpack_require__(804);
+	__webpack_require__(805);
 
 	var _react = __webpack_require__(2);
 
@@ -74346,7 +74586,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _commercialSecretIndexAction = __webpack_require__(806);
+	var _commercialSecretIndexAction = __webpack_require__(807);
 
 	var CommercialSecretIndexActionCreaters = _interopRequireWildcard(_commercialSecretIndexAction);
 
@@ -74358,23 +74598,23 @@
 
 	var _IndustrySearch2 = _interopRequireDefault(_IndustrySearch);
 
-	var _CompanyNum = __webpack_require__(807);
+	var _CompanyNum = __webpack_require__(808);
 
 	var _CompanyNum2 = _interopRequireDefault(_CompanyNum);
 
-	var _CompanyAmount = __webpack_require__(810);
+	var _CompanyAmount = __webpack_require__(811);
 
 	var _CompanyAmount2 = _interopRequireDefault(_CompanyAmount);
 
-	var _BusinessNum = __webpack_require__(811);
+	var _BusinessNum = __webpack_require__(812);
 
 	var _BusinessNum2 = _interopRequireDefault(_BusinessNum);
 
-	var _Balance = __webpack_require__(812);
+	var _Balance = __webpack_require__(813);
 
 	var _Balance2 = _interopRequireDefault(_Balance);
 
-	var _CompanyDirectory = __webpack_require__(813);
+	var _CompanyDirectory = __webpack_require__(814);
 
 	var _CompanyDirectory2 = _interopRequireDefault(_CompanyDirectory);
 
@@ -74484,13 +74724,13 @@
 	exports.default = (0, _reactRedux.connect)(CommercialSecretStateToProps, CommercialSecretDispatchToProps)(CommercialSecret);
 
 /***/ },
-/* 804 */
+/* 805 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(805);
+	var content = __webpack_require__(806);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(591)(content, {});
@@ -74510,7 +74750,7 @@
 	}
 
 /***/ },
-/* 805 */
+/* 806 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(590)();
@@ -74524,7 +74764,7 @@
 
 
 /***/ },
-/* 806 */
+/* 807 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -74690,12 +74930,12 @@
 	/*商业保理企业名单end */
 
 /***/ },
-/* 807 */
+/* 808 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(808);
+	__webpack_require__(809);
 
 	var _react = __webpack_require__(2);
 
@@ -74785,13 +75025,13 @@
 	module.exports = CompanyNum;
 
 /***/ },
-/* 808 */
+/* 809 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(809);
+	var content = __webpack_require__(810);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(591)(content, {});
@@ -74811,7 +75051,7 @@
 	}
 
 /***/ },
-/* 809 */
+/* 810 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(590)();
@@ -74825,12 +75065,12 @@
 
 
 /***/ },
-/* 810 */
+/* 811 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(808);
+	__webpack_require__(809);
 
 	var _react = __webpack_require__(2);
 
@@ -74840,7 +75080,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _BarChart = __webpack_require__(751);
+	var _BarChart = __webpack_require__(752);
 
 	var _BarChart2 = _interopRequireDefault(_BarChart);
 
@@ -74923,12 +75163,12 @@
 	module.exports = CompanyAmount;
 
 /***/ },
-/* 811 */
+/* 812 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(808);
+	__webpack_require__(809);
 
 	var _react = __webpack_require__(2);
 
@@ -75039,12 +75279,12 @@
 	module.exports = BusinessNum;
 
 /***/ },
-/* 812 */
+/* 813 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(808);
+	__webpack_require__(809);
 
 	var _react = __webpack_require__(2);
 
@@ -75154,12 +75394,12 @@
 	module.exports = Balance;
 
 /***/ },
-/* 813 */
+/* 814 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(808);
+	__webpack_require__(809);
 
 	var _react = __webpack_require__(2);
 
@@ -75449,7 +75689,7 @@
 	module.exports = CompanyDirectory;
 
 /***/ },
-/* 814 */
+/* 815 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -75458,7 +75698,7 @@
 	    value: true
 	});
 
-	__webpack_require__(815);
+	__webpack_require__(816);
 
 	var _react = __webpack_require__(2);
 
@@ -75468,7 +75708,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _prepaidCardAction = __webpack_require__(817);
+	var _prepaidCardAction = __webpack_require__(818);
 
 	var PrepaidCardActionCreaters = _interopRequireWildcard(_prepaidCardAction);
 
@@ -75480,15 +75720,15 @@
 
 	var _IndustrySearch2 = _interopRequireDefault(_IndustrySearch);
 
-	var _TotleMoney = __webpack_require__(818);
+	var _TotleMoney = __webpack_require__(819);
 
 	var _TotleMoney2 = _interopRequireDefault(_TotleMoney);
 
-	var _IndustryType = __webpack_require__(821);
+	var _IndustryType = __webpack_require__(822);
 
 	var _IndustryType2 = _interopRequireDefault(_IndustryType);
 
-	var _MsgNotice = __webpack_require__(822);
+	var _MsgNotice = __webpack_require__(823);
 
 	var _MsgNotice2 = _interopRequireDefault(_MsgNotice);
 
@@ -75587,13 +75827,13 @@
 	exports.default = (0, _reactRedux.connect)(PrepaidCardStateToProps, PrepaidCardDispatchToProps)(PrepaidCard);
 
 /***/ },
-/* 815 */
+/* 816 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(816);
+	var content = __webpack_require__(817);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(591)(content, {});
@@ -75613,7 +75853,7 @@
 	}
 
 /***/ },
-/* 816 */
+/* 817 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(590)();
@@ -75627,7 +75867,7 @@
 
 
 /***/ },
-/* 817 */
+/* 818 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -75716,12 +75956,12 @@
 	/*备案企业预付总额图表end*/
 
 /***/ },
-/* 818 */
+/* 819 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(819);
+	__webpack_require__(820);
 
 	var _react = __webpack_require__(2);
 
@@ -75731,7 +75971,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _BarChart = __webpack_require__(751);
+	var _BarChart = __webpack_require__(752);
 
 	var _BarChart2 = _interopRequireDefault(_BarChart);
 
@@ -75829,13 +76069,13 @@
 	module.exports = CapitalAmount;
 
 /***/ },
-/* 819 */
+/* 820 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(820);
+	var content = __webpack_require__(821);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(591)(content, {});
@@ -75855,7 +76095,7 @@
 	}
 
 /***/ },
-/* 820 */
+/* 821 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(590)();
@@ -75869,12 +76109,12 @@
 
 
 /***/ },
-/* 821 */
+/* 822 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(819);
+	__webpack_require__(820);
 
 	var _react = __webpack_require__(2);
 
@@ -75978,12 +76218,12 @@
 	module.exports = BusinessNum;
 
 /***/ },
-/* 822 */
+/* 823 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(819);
+	__webpack_require__(820);
 
 	var _react = __webpack_require__(2);
 
@@ -76257,7 +76497,7 @@
 	module.exports = CompanyDirectory;
 
 /***/ },
-/* 823 */
+/* 824 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -76266,7 +76506,7 @@
 	    value: true
 	});
 
-	__webpack_require__(824);
+	__webpack_require__(825);
 
 	var _react = __webpack_require__(2);
 
@@ -76276,7 +76516,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _ParkMonitorIndexAction = __webpack_require__(826);
+	var _ParkMonitorIndexAction = __webpack_require__(827);
 
 	var ParkMonitorIndexActionCreaters = _interopRequireWildcard(_ParkMonitorIndexAction);
 
@@ -76284,23 +76524,23 @@
 
 	var _setHeight2 = _interopRequireDefault(_setHeight);
 
-	var _Imgs = __webpack_require__(827);
+	var _Imgs = __webpack_require__(828);
 
 	var _Imgs2 = _interopRequireDefault(_Imgs);
 
-	var _Consensu = __webpack_require__(830);
+	var _Consensu = __webpack_require__(831);
 
 	var _Consensu2 = _interopRequireDefault(_Consensu);
 
-	var _Finance = __webpack_require__(831);
+	var _Finance = __webpack_require__(832);
 
 	var _Finance2 = _interopRequireDefault(_Finance);
 
-	var _Park = __webpack_require__(832);
+	var _Park = __webpack_require__(833);
 
 	var _Park2 = _interopRequireDefault(_Park);
 
-	var _TheCamp = __webpack_require__(833);
+	var _TheCamp = __webpack_require__(834);
 
 	var _TheCamp2 = _interopRequireDefault(_TheCamp);
 
@@ -76376,13 +76616,13 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ParkMonitorIndex);
 
 /***/ },
-/* 824 */
+/* 825 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(825);
+	var content = __webpack_require__(826);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(591)(content, {});
@@ -76402,7 +76642,7 @@
 	}
 
 /***/ },
-/* 825 */
+/* 826 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(590)();
@@ -76416,7 +76656,7 @@
 
 
 /***/ },
-/* 826 */
+/* 827 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -76618,12 +76858,12 @@
 	/*园区图片end*/
 
 /***/ },
-/* 827 */
+/* 828 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(828);
+	__webpack_require__(829);
 
 	var _react = __webpack_require__(2);
 
@@ -76704,13 +76944,13 @@
 	module.exports = Imgs;
 
 /***/ },
-/* 828 */
+/* 829 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(829);
+	var content = __webpack_require__(830);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(591)(content, {});
@@ -76730,7 +76970,7 @@
 	}
 
 /***/ },
-/* 829 */
+/* 830 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(590)();
@@ -76744,12 +76984,12 @@
 
 
 /***/ },
-/* 830 */
+/* 831 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(828);
+	__webpack_require__(829);
 
 	var _react = __webpack_require__(2);
 
@@ -76963,12 +77203,12 @@
 	// )(Consensu)
 
 /***/ },
-/* 831 */
+/* 832 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(828);
+	__webpack_require__(829);
 
 	var _react = __webpack_require__(2);
 
@@ -77116,12 +77356,12 @@
 	// )(Finance)
 
 /***/ },
-/* 832 */
+/* 833 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(828);
+	__webpack_require__(829);
 
 	var _react = __webpack_require__(2);
 
@@ -77317,12 +77557,12 @@
 	// )(Park)
 
 /***/ },
-/* 833 */
+/* 834 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(828);
+	__webpack_require__(829);
 
 	var _react = __webpack_require__(2);
 
@@ -77471,7 +77711,7 @@
 	// )(TheCamp)
 
 /***/ },
-/* 834 */
+/* 835 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -77480,7 +77720,7 @@
 	    value: true
 	});
 
-	__webpack_require__(824);
+	__webpack_require__(825);
 
 	var _react = __webpack_require__(2);
 
@@ -77490,7 +77730,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _BuildDetailAction = __webpack_require__(835);
+	var _BuildDetailAction = __webpack_require__(836);
 
 	var BuildDetailActionCreaters = _interopRequireWildcard(_BuildDetailAction);
 
@@ -77498,23 +77738,23 @@
 
 	var _setHeight2 = _interopRequireDefault(_setHeight);
 
-	var _BuildRisk = __webpack_require__(836);
+	var _BuildRisk = __webpack_require__(837);
 
 	var _BuildRisk2 = _interopRequireDefault(_BuildRisk);
 
-	var _BuildCompanyList = __webpack_require__(839);
+	var _BuildCompanyList = __webpack_require__(840);
 
 	var _BuildCompanyList2 = _interopRequireDefault(_BuildCompanyList);
 
-	var _BuildIndDistri = __webpack_require__(840);
+	var _BuildIndDistri = __webpack_require__(841);
 
 	var _BuildIndDistri2 = _interopRequireDefault(_BuildIndDistri);
 
-	var _CompanyBg = __webpack_require__(841);
+	var _CompanyBg = __webpack_require__(842);
 
 	var _CompanyBg2 = _interopRequireDefault(_CompanyBg);
 
-	var _BuildNews = __webpack_require__(842);
+	var _BuildNews = __webpack_require__(843);
 
 	var _BuildNews2 = _interopRequireDefault(_BuildNews);
 
@@ -77598,7 +77838,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ParkDuildDetail);
 
 /***/ },
-/* 835 */
+/* 836 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -77852,12 +78092,12 @@
 	/*楼宇切换传值 end*/
 
 /***/ },
-/* 836 */
+/* 837 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(837);
+	__webpack_require__(838);
 
 	var _react = __webpack_require__(2);
 
@@ -78285,13 +78525,13 @@
 	module.exports = BuildRisk;
 
 /***/ },
-/* 837 */
+/* 838 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(838);
+	var content = __webpack_require__(839);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(591)(content, {});
@@ -78311,7 +78551,7 @@
 	}
 
 /***/ },
-/* 838 */
+/* 839 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(590)();
@@ -78325,12 +78565,12 @@
 
 
 /***/ },
-/* 839 */
+/* 840 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(837);
+	__webpack_require__(838);
 
 	var _react = __webpack_require__(2);
 
@@ -78562,12 +78802,12 @@
 	module.exports = BuildCompanyList;
 
 /***/ },
-/* 840 */
+/* 841 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(837);
+	__webpack_require__(838);
 
 	var _react = __webpack_require__(2);
 
@@ -78759,12 +78999,12 @@
 	module.exports = BuildIndDistri;
 
 /***/ },
-/* 841 */
+/* 842 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(837);
+	__webpack_require__(838);
 
 	var _react = __webpack_require__(2);
 
@@ -78899,12 +79139,12 @@
 	module.exports = CompanyBg;
 
 /***/ },
-/* 842 */
+/* 843 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(837);
+	__webpack_require__(838);
 
 	var _react = __webpack_require__(2);
 
@@ -79079,7 +79319,7 @@
 	module.exports = BuildNews;
 
 /***/ },
-/* 843 */
+/* 844 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -79088,7 +79328,7 @@
 	  value: true
 	});
 
-	__webpack_require__(844);
+	__webpack_require__(845);
 
 	var _react = __webpack_require__(2);
 
@@ -79098,15 +79338,15 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _InfoSearchAction = __webpack_require__(846);
+	var _InfoSearchAction = __webpack_require__(847);
 
 	var infoSearchActionCreaters = _interopRequireWildcard(_InfoSearchAction);
 
-	var _Search = __webpack_require__(847);
+	var _Search = __webpack_require__(848);
 
 	var _Search2 = _interopRequireDefault(_Search);
 
-	var _SearchList = __webpack_require__(850);
+	var _SearchList = __webpack_require__(851);
 
 	var _SearchList2 = _interopRequireDefault(_SearchList);
 
@@ -79161,13 +79401,13 @@
 	exports.default = (0, _reactRedux.connect)(searchDataStateToProps, searchDataDispatchToProps)(InfoSearchIndex);
 
 /***/ },
-/* 844 */
+/* 845 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(845);
+	var content = __webpack_require__(846);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(591)(content, {});
@@ -79187,7 +79427,7 @@
 	}
 
 /***/ },
-/* 845 */
+/* 846 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(590)();
@@ -79201,7 +79441,7 @@
 
 
 /***/ },
-/* 846 */
+/* 847 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -79250,12 +79490,12 @@
 	/* 搜索列表 end*/
 
 /***/ },
-/* 847 */
+/* 848 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(848);
+	__webpack_require__(849);
 
 	var _react = __webpack_require__(2);
 
@@ -79332,13 +79572,13 @@
 	module.exports = Search;
 
 /***/ },
-/* 848 */
+/* 849 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(849);
+	var content = __webpack_require__(850);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(591)(content, {});
@@ -79358,7 +79598,7 @@
 	}
 
 /***/ },
-/* 849 */
+/* 850 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(590)();
@@ -79372,12 +79612,12 @@
 
 
 /***/ },
-/* 850 */
+/* 851 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(848);
+	__webpack_require__(849);
 
 	var _react = __webpack_require__(2);
 
@@ -79552,12 +79792,12 @@
 	module.exports = SearchList;
 
 /***/ },
-/* 851 */
+/* 852 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(852);
+	__webpack_require__(853);
 
 	var _react = __webpack_require__(2);
 
@@ -79592,13 +79832,13 @@
 	module.exports = InfoSearchResult;
 
 /***/ },
-/* 852 */
+/* 853 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(853);
+	var content = __webpack_require__(854);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(591)(content, {});
@@ -79618,7 +79858,7 @@
 	}
 
 /***/ },
-/* 853 */
+/* 854 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(590)();
@@ -79632,7 +79872,7 @@
 
 
 /***/ },
-/* 854 */
+/* 855 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -79641,7 +79881,7 @@
 	    value: true
 	});
 
-	__webpack_require__(852);
+	__webpack_require__(853);
 
 	var _react = __webpack_require__(2);
 
@@ -79653,23 +79893,23 @@
 
 	var _reactRouter = __webpack_require__(159);
 
-	var _AssociationGraph = __webpack_require__(855);
+	var _AssociationGraph = __webpack_require__(856);
 
 	var _AssociationGraph2 = _interopRequireDefault(_AssociationGraph);
 
-	var _CompanyInfo = __webpack_require__(858);
+	var _CompanyInfo = __webpack_require__(859);
 
 	var _CompanyInfo2 = _interopRequireDefault(_CompanyInfo);
 
-	var _CompanyNews = __webpack_require__(859);
+	var _CompanyNews = __webpack_require__(860);
 
 	var _CompanyNews2 = _interopRequireDefault(_CompanyNews);
 
-	var _CompanyDetail = __webpack_require__(860);
+	var _CompanyDetail = __webpack_require__(861);
 
 	var _CompanyDetail2 = _interopRequireDefault(_CompanyDetail);
 
-	var _InfoSearchAction = __webpack_require__(873);
+	var _InfoSearchAction = __webpack_require__(874);
 
 	var InfoSearchAction = _interopRequireWildcard(_InfoSearchAction);
 
@@ -79877,7 +80117,7 @@
 	// })()
 
 /***/ },
-/* 855 */
+/* 856 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -79886,7 +80126,7 @@
 	    value: true
 	});
 
-	__webpack_require__(856);
+	__webpack_require__(857);
 
 	var _react = __webpack_require__(2);
 
@@ -80219,13 +80459,13 @@
 	exports.default = AssociationGraph;
 
 /***/ },
-/* 856 */
+/* 857 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(857);
+	var content = __webpack_require__(858);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(591)(content, {});
@@ -80245,7 +80485,7 @@
 	}
 
 /***/ },
-/* 857 */
+/* 858 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(590)();
@@ -80259,7 +80499,7 @@
 
 
 /***/ },
-/* 858 */
+/* 859 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -80268,7 +80508,7 @@
 	  value: true
 	});
 
-	__webpack_require__(856);
+	__webpack_require__(857);
 
 	var _react = __webpack_require__(2);
 
@@ -80380,7 +80620,7 @@
 	exports.default = CompanyInfo;
 
 /***/ },
-/* 859 */
+/* 860 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -80389,7 +80629,7 @@
 	  value: true
 	});
 
-	__webpack_require__(856);
+	__webpack_require__(857);
 
 	var _react = __webpack_require__(2);
 
@@ -80441,7 +80681,7 @@
 	            { className: 'no-data' },
 	            '暂无相关信息！'
 	          ) : data.map(function (item, index) {
-	            _time = item.pubdate.substring(0, 9);
+	            _time = item.pubdate.substring(0, 10);
 	            _content = item.content && item.content.length > 120 ? item.content.substring(0, 120) : item.content;
 	            return _react2.default.createElement(
 	              'div',
@@ -80462,14 +80702,14 @@
 	                    { className: 'item-title' },
 	                    _react2.default.createElement(
 	                      'a',
-	                      { target: '_blank', href: 'http://www.baidu.com' },
+	                      { target: '_blank', href: item.bbd_url },
 	                      item.news_title
 	                    )
 	                  )
 	                ),
 	                _react2.default.createElement(
 	                  'a',
-	                  { target: '_blank', href: 'http://www.baidu.com', className: 'item-content' },
+	                  { target: '_blank', href: item.bbd_url, className: 'item-content' },
 	                  _content + '...'
 	                ),
 	                _react2.default.createElement(
@@ -80520,7 +80760,7 @@
 	exports.default = CompanyNews;
 
 /***/ },
-/* 860 */
+/* 861 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -80529,25 +80769,25 @@
 		value: true
 	});
 
-	__webpack_require__(856);
+	__webpack_require__(857);
 
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _BusinessInfo = __webpack_require__(861);
+	var _BusinessInfo = __webpack_require__(862);
 
 	var _BusinessInfo2 = _interopRequireDefault(_BusinessInfo);
 
-	var _ShareholderExe = __webpack_require__(862);
+	var _ShareholderExe = __webpack_require__(863);
 
 	var _ShareholderExe2 = _interopRequireDefault(_ShareholderExe);
 
-	var _ControlRecord = __webpack_require__(863);
+	var _ControlRecord = __webpack_require__(864);
 
 	var _ControlRecord2 = _interopRequireDefault(_ControlRecord);
 
-	var _RecruitingInfo = __webpack_require__(869);
+	var _RecruitingInfo = __webpack_require__(870);
 
 	var _RecruitingInfo2 = _interopRequireDefault(_RecruitingInfo);
 
@@ -80660,7 +80900,7 @@
 	exports.default = CompanyDetail;
 
 /***/ },
-/* 861 */
+/* 862 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -80669,7 +80909,7 @@
 	  value: true
 	});
 
-	__webpack_require__(856);
+	__webpack_require__(857);
 
 	var _react = __webpack_require__(2);
 
@@ -80926,7 +81166,7 @@
 	exports.default = BusinessInfo;
 
 /***/ },
-/* 862 */
+/* 863 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -80935,7 +81175,7 @@
 		value: true
 	});
 
-	__webpack_require__(856);
+	__webpack_require__(857);
 
 	var _react = __webpack_require__(2);
 
@@ -81093,7 +81333,7 @@
 	exports.default = ShareholderExe;
 
 /***/ },
-/* 863 */
+/* 864 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -81102,29 +81342,29 @@
 		value: true
 	});
 
-	__webpack_require__(856);
+	__webpack_require__(857);
 
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Announcement = __webpack_require__(864);
+	var _Announcement = __webpack_require__(865);
 
 	var _Announcement2 = _interopRequireDefault(_Announcement);
 
-	var _RefereeDocuments = __webpack_require__(865);
+	var _RefereeDocuments = __webpack_require__(866);
 
 	var _RefereeDocuments2 = _interopRequireDefault(_RefereeDocuments);
 
-	var _Executor = __webpack_require__(866);
+	var _Executor = __webpack_require__(867);
 
 	var _Executor2 = _interopRequireDefault(_Executor);
 
-	var _BrokenPromises = __webpack_require__(867);
+	var _BrokenPromises = __webpack_require__(868);
 
 	var _BrokenPromises2 = _interopRequireDefault(_BrokenPromises);
 
-	var _CourtAnnouncement = __webpack_require__(868);
+	var _CourtAnnouncement = __webpack_require__(869);
 
 	var _CourtAnnouncement2 = _interopRequireDefault(_CourtAnnouncement);
 
@@ -81224,7 +81464,7 @@
 	exports.default = ControlRecord;
 
 /***/ },
-/* 864 */
+/* 865 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -81233,7 +81473,7 @@
 	    value: true
 	});
 
-	__webpack_require__(856);
+	__webpack_require__(857);
 
 	var _react = __webpack_require__(2);
 
@@ -81380,7 +81620,7 @@
 	exports.default = Announcement;
 
 /***/ },
-/* 865 */
+/* 866 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -81389,7 +81629,7 @@
 	  value: true
 	});
 
-	__webpack_require__(856);
+	__webpack_require__(857);
 
 	var _react = __webpack_require__(2);
 
@@ -81549,7 +81789,7 @@
 	exports.default = RefereeDocuments;
 
 /***/ },
-/* 866 */
+/* 867 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -81558,7 +81798,7 @@
 		value: true
 	});
 
-	__webpack_require__(856);
+	__webpack_require__(857);
 
 	var _react = __webpack_require__(2);
 
@@ -81708,7 +81948,7 @@
 	exports.default = Executor;
 
 /***/ },
-/* 867 */
+/* 868 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -81717,7 +81957,7 @@
 		value: true
 	});
 
-	__webpack_require__(856);
+	__webpack_require__(857);
 
 	var _react = __webpack_require__(2);
 
@@ -81823,7 +82063,7 @@
 	exports.default = BrokenPromises;
 
 /***/ },
-/* 868 */
+/* 869 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -81832,7 +82072,7 @@
 		value: true
 	});
 
-	__webpack_require__(856);
+	__webpack_require__(857);
 
 	var _react = __webpack_require__(2);
 
@@ -81938,7 +82178,7 @@
 	exports.default = CourtAnnouncement;
 
 /***/ },
-/* 869 */
+/* 870 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -81947,21 +82187,21 @@
 		value: true
 	});
 
-	__webpack_require__(856);
+	__webpack_require__(857);
 
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _PersonIndexChart = __webpack_require__(870);
+	var _PersonIndexChart = __webpack_require__(871);
 
 	var _PersonIndexChart2 = _interopRequireDefault(_PersonIndexChart);
 
-	var _PersonIndexPie = __webpack_require__(871);
+	var _PersonIndexPie = __webpack_require__(872);
 
 	var _PersonIndexPie2 = _interopRequireDefault(_PersonIndexPie);
 
-	var _PayIndexBar = __webpack_require__(872);
+	var _PayIndexBar = __webpack_require__(873);
 
 	var _PayIndexBar2 = _interopRequireDefault(_PayIndexBar);
 
@@ -82020,7 +82260,7 @@
 	exports.default = RecruitingInfo;
 
 /***/ },
-/* 870 */
+/* 871 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -82029,7 +82269,7 @@
 		value: true
 	});
 
-	__webpack_require__(856);
+	__webpack_require__(857);
 
 	var _react = __webpack_require__(2);
 
@@ -82162,7 +82402,7 @@
 	exports.default = PersonIndexChart;
 
 /***/ },
-/* 871 */
+/* 872 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -82171,7 +82411,7 @@
 	    value: true
 	});
 
-	__webpack_require__(856);
+	__webpack_require__(857);
 
 	var _react = __webpack_require__(2);
 
@@ -82267,7 +82507,7 @@
 	exports.default = PersonIndexChart;
 
 /***/ },
-/* 872 */
+/* 873 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -82276,13 +82516,13 @@
 		value: true
 	});
 
-	__webpack_require__(856);
+	__webpack_require__(857);
 
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _BarChart = __webpack_require__(751);
+	var _BarChart = __webpack_require__(752);
 
 	var _BarChart2 = _interopRequireDefault(_BarChart);
 
@@ -82361,7 +82601,7 @@
 	exports.default = PersonIndexChart;
 
 /***/ },
-/* 873 */
+/* 874 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -82910,7 +83150,7 @@
 	}
 
 /***/ },
-/* 874 */
+/* 875 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -82925,7 +83165,7 @@
 	//redux
 
 
-	__webpack_require__(875);
+	__webpack_require__(876);
 
 	var _react = __webpack_require__(2);
 
@@ -82939,27 +83179,27 @@
 
 	var _setHeight2 = _interopRequireDefault(_setHeight);
 
-	var _topLeft = __webpack_require__(877);
+	var _topLeft = __webpack_require__(878);
 
 	var _topLeft2 = _interopRequireDefault(_topLeft);
 
-	var _topMiddle = __webpack_require__(878);
+	var _topMiddle = __webpack_require__(879);
 
 	var _topMiddle2 = _interopRequireDefault(_topMiddle);
 
-	var _topRight = __webpack_require__(879);
+	var _topRight = __webpack_require__(880);
 
 	var _topRight2 = _interopRequireDefault(_topRight);
 
-	var _bottomLeft = __webpack_require__(880);
+	var _bottomLeft = __webpack_require__(881);
 
 	var _bottomLeft2 = _interopRequireDefault(_bottomLeft);
 
-	var _bottomRight = __webpack_require__(881);
+	var _bottomRight = __webpack_require__(882);
 
 	var _bottomRight2 = _interopRequireDefault(_bottomRight);
 
-	var _RealTimeAction = __webpack_require__(884);
+	var _RealTimeAction = __webpack_require__(885);
 
 	var RealTimeCreaTers = _interopRequireWildcard(_RealTimeAction);
 
@@ -83063,13 +83303,13 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(RealtimeMonitorIndex);
 
 /***/ },
-/* 875 */
+/* 876 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(876);
+	var content = __webpack_require__(877);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(591)(content, {});
@@ -83089,7 +83329,7 @@
 	}
 
 /***/ },
-/* 876 */
+/* 877 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(590)();
@@ -83097,13 +83337,13 @@
 
 
 	// module
-	exports.push([module.id, "/*@整体布局(一级)\r\n------------------------------------------------------------------*/\r\n.realtime-index {\r\n}\r\n.realtime-index .realtime-top {\r\n\twidth: 100%;\r\n\theight: 65%;\r\n}\r\n.realtime-index .realtime-bottom {\r\n\twidth: 100%;\r\n\theight: 35%;\r\n}\r\n\r\n/*@整体布局(二级)\r\n------------------------------------------------------------------*/\r\n.realtime-index .realtime-top>div {\r\n\tfloat: left;\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tpadding: 10px;\r\n}\r\n.realtime-index .realtime-top .realtime-top-left {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-middle {\r\n\twidth: 44%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-right {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-left {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-top: 26px;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-right {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-left: 100px;\r\n\tpadding-top: 26px;\r\n\toverflow-y: hidden;\r\n}\r\n\r\n/*realtime-top-left(左边表格)  //pudong huangpu  hongkou\r\n------------------------------------------------------------------*/\r\n.realtime-top-left {\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-left  h4 {\r\n\tfont-size: 18px;\r\n\tline-height: 40px;\r\n}\r\n.realtime-top-left  .title li {\r\n\tfloat: left;\r\n\twidth: 25%;\r\n\ttext-align: center;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tborder: 1px solid;\r\n\tcursor: pointer;\r\n\tposition: relative;\r\n}\r\n.realtime-top-left  .title li.active:after {\r\n\tcontent: \"\";\r\n\tposition: absolute;\r\n\tbottom: -6px;\r\n\tleft: 0px;\r\n\twidth: 100%;\r\n\theight: 3px;\r\n\tbackground: #fff;\r\n\tz-index: 999;\r\n}\r\n.realtime-top-left  .title li:nth-child(1) {\r\n\tbackground: red\r\n}\r\n.realtime-top-left  .title li:nth-child(2) {\r\n\tbackground: #ebc900\r\n}\r\n.realtime-top-left  .title li:nth-child(3) {\r\n\tbackground: #32b16c\r\n}\r\n.realtime-top-left  .title li:nth-child(4) {\r\n\tbackground: #000\r\n}\r\n.realtime-top-left  .table-wrap {\r\n\twidth: 100%;\r\n\theight: 80%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA {\r\n\twidth: 100%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th {\r\n\theight: 40px;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(1) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(2) {\r\n\twidth: 60%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th .tbsLeft {\r\n\tfloat: left;\r\n\tpadding-left: 5%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th .thSpan {\r\n\tfloat: left;\r\n\tpadding-left: 15%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td {\r\n\tborder-bottom: 1px solid #3c404b;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td .tbsLeft {\r\n\tfloat: left;\r\n\tpadding-left: 5%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td .thSpan {\r\n\tfloat: left;\r\n\tpadding-left: 15%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox {\r\n\theight: 92%;\r\n\toverflow: auto;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(3) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB {\r\n\twidth: 100%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td {\r\n\theight: 40px;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(1) {\r\n\twidth: 20%;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(2) {\r\n\twidth: 60%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(3) {\r\n\twidth: 20%;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-left .color {\r\n\theight: 16px;\r\n\twidth: 60%;\r\n\tposition: absolute;\r\n\tbottom: 10px;\r\n\tleft: 50%;\r\n\ttransform: translateX(-50%);\r\n}\r\n.realtime-top-left .color img {\r\n\tdisplay: block;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*realtime-top-left(左边表格)\r\n------------------------------------------------------------------*/\r\n.realtime-top-right {\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-top-right .item {\r\n\twidth: 100%;\r\n\theight: 33.3%;\r\n}\r\n\r\n/*realtime-bottom-right(右下角)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-right {\r\n\toverflow: hidden;\r\n\tpadding-left: 20px\r\n}\r\n.realtime-bottom-right>h4 {\r\n\tcolor: #fff;\r\n\tline-height: 30px;\r\n\tfont-size: 16px;\r\n}\r\n.realtime-bottom-right ul {\r\n\theight: 100%;\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-bottom-right ul li {\r\n\theight: 134px;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-right ul li h4 {\r\n\tpadding: 15px 0px;\r\n\tfont-size: 14px;\r\n\tcolor: #e14340\r\n}\r\n.realtime-bottom-right ul li h4 a {\r\n\tcolor: #e14340 !important\r\n}\r\n.realtime-bottom-right ul li p {\r\n\tcolor: #fff;\r\n\tmargin-right: 10px;\r\n\toverflow: hidden;\r\n}\r\n.BottomRightP {\r\n\tdisplay: block;\r\n\theight: 41px;\r\n}\r\n.realtime-bottom-right ul li span {\r\n\tposition: absolute;\r\n\tright: 10px;\r\n\tbottom: 2px;\r\n\tcolor: #666;\r\n}\r\n.realtime-bottom-right ul li span p {\r\n\tdisplay: inline-block;\r\n}\r\n\r\n/*realtime-bottom-right(中间的大地图)\r\n------------------------------------------------------------------*/\r\n.realtime-top-middle #demo {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*上海地图的信息框*/\r\n.realtime-top-middle .info {\r\n\twidth: 160px;\r\n\theight: 70px;\r\n\tleft: 5%;\r\n\ttop: 5%;\r\n\tposition: absolute;\r\n\tz-index: 999;\r\n\tcursor: pointer;\r\n\toverflow: hidden;\r\n\tdisplay: none\r\n}\r\n.realtime-top-middle .info .info-left, .realtime-top-middle .info .info-right {\r\n\tfloat: left;\r\n\twidth: 50%;\r\n\theight: 100%;\r\n}\r\n.realtime-top-middle .info .info-left {\r\n\tpadding: 0px 3px 3px 0px;\r\n}\r\n.realtime-top-middle .info .info-right {\r\n\tbackground: #363e48;\r\n\tborder-radius: 3px;\r\n\tfont-size: 24px;\r\n\tcolor: #e14340;\r\n\tline-height: 70px;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-middle .info .info-left .title {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 34px;\r\n\tfont-size: 12px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 34px;\r\n\tborder-radius: 3px;\r\n}\r\n.realtime-top-middle .info .info-left .date {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 34px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 34px;\r\n\tmargin-top: 3px;\r\n\tborder-radius: 3px;\r\n\tfont-size: 12px;\r\n}\r\n\r\n/*上海地图的返回按钮*/\r\n.realtime-top-middle .return {\r\n\tbackground: linear-gradient(to bottom, #b96f6f 5%, red 50%, #f50202 100%);\r\n\tposition: absolute;\r\n\tbottom: 10%;\r\n\tleft: 3%;\r\n\tdisplay: none;\r\n}\r\n\r\n/*地下的长条信息框*/\r\n.realtime-top-middle .bar {\r\n\twidth: 98%;\r\n\theight: 40px;\r\n\tbackground: #282f39;\r\n\ttext-align: center;\r\n\tline-height: 40px;\r\n\tposition: absolute;\r\n\tbottom: 1%;\r\n\tfont-size: 12px;\r\n\tdisplay: none;\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-middle .carousel {\r\n\tposition: absolute;\r\n\tleft: 6%;\r\n\ttop: 0;\r\n\tz-index: 999;\r\n}\r\n.realtime-top-middle .bar img {\r\n\twidth: 30px;\r\n\theight: 30px;\r\n\tposition: absolute;\r\n\tleft: 5%;\r\n\ttop: 5px;\r\n}\r\n.darkRed {\r\n\tcolor: #e14340;\r\n\tpadding: 0px 5px;\r\n}\r\n\r\n/*tootips实验*/\r\n.testTo {\r\n\twidth: auto;\r\n\theight: auto;\r\n\tfont-size: 12px;\r\n\tcursor: pointer;\r\n}\r\n.testTo h4 {\r\n\tdisplay: inline-block;\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo label {\r\n\tdisplay: inline-block;\r\n\twidth: 60px;\r\n\theight: 18px;\r\n\tborder: 1px solid #fff;\r\n\ttext-align: center;\r\n\tvertical-align: middle;\r\n\tmargin-left: 20px;\r\n\tcolor: #000;\r\n\ttext-align: center;\r\n\ttext-indent: 5px;\r\n\tline-height: 16px;\r\n}\r\n.testTo p {\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo p span {\r\n\tcolor: yellow\r\n}\r\n.black {\r\n\tbackground: black;\r\n\tcolor: #fff !important\r\n}\r\n.green {\r\n\tbackground: green\r\n}\r\n.yellow {\r\n\tbackground: yellow;\r\n}\r\n.red {\r\n\tbackground: red;\r\n}\r\n.white {\r\n\tcolor: #fff !important;\r\n}\r\n\r\n/**/\r\n.testTo .tableH4 {\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n\tcolor: #ce3431;\r\n\tfont-size: 14px;\r\n\tfont-weight: bold;\r\n}\r\n.testTo table td {\r\n\tborder: 1px solid #1a2029;\r\n\ttext-align: center;\r\n\tpadding: 5px;\r\n}\r\n.testTo .tip-scroll {\r\n\twidth: 200px;\r\n\theight: 100px;\r\n\ttext-align: center;\r\n\toverflow-y: auto;\r\n}\r\n.testTo .tip-scroll  span {\r\n\tdisplay: block;\r\n\tpadding: 5px 0;\r\n}\r\n.testTo .nums {\r\n\tdisplay: block;\r\n\ttext-align: center;\r\n}\r\n\r\n/*realtime-bottom-rleft(线下理财)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-left {\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-left  .more {\r\n\tcolor: #fff;\r\n\tfont-size: 14px;\r\n\tposition: absolute;\r\n\ttop: 60px;\r\n\tright: 11%;\r\n\tz-index: 99999;\r\n}", ""]);
+	exports.push([module.id, "/*@整体布局(一级)\r\n------------------------------------------------------------------*/\r\n.realtime-index {\r\n}\r\n.realtime-index .realtime-top {\r\n\twidth: 100%;\r\n\theight: 65%;\r\n}\r\n.realtime-index .realtime-bottom {\r\n\twidth: 100%;\r\n\theight: 35%;\r\n}\r\n\r\n/*@整体布局(二级)\r\n------------------------------------------------------------------*/\r\n.realtime-index .realtime-top>div {\r\n\tfloat: left;\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tpadding: 10px;\r\n}\r\n.realtime-index .realtime-top .realtime-top-left {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-middle {\r\n\twidth: 44%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-right {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-left {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-top: 26px;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-right {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-left: 100px;\r\n\tpadding-top: 26px;\r\n\toverflow-y: hidden;\r\n}\r\n\r\n/*realtime-top-left(左边表格)  //pudong huangpu  hongkou\r\n------------------------------------------------------------------*/\r\n.realtime-top-left {\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-left  h4 {\r\n\tfont-size: 18px;\r\n\tline-height: 40px;\r\n}\r\n.realtime-top-left  .title li {\r\n\tfloat: left;\r\n\twidth: 25%;\r\n\ttext-align: center;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tborder: 1px solid;\r\n\tcursor: pointer;\r\n\tposition: relative;\r\n}\r\n.realtime-top-left  .title li.active:after {\r\n\tcontent: \"\";\r\n\tposition: absolute;\r\n\tbottom: -6px;\r\n\tleft: 0px;\r\n\twidth: 100%;\r\n\theight: 3px;\r\n\tbackground: #fff;\r\n\tz-index: 999;\r\n}\r\n.realtime-top-left  .title li:nth-child(1) {\r\n\tbackground: red\r\n}\r\n.realtime-top-left  .title li:nth-child(2) {\r\n\tbackground: #ebc900\r\n}\r\n.realtime-top-left  .title li:nth-child(3) {\r\n\tbackground: #32b16c\r\n}\r\n.realtime-top-left  .title li:nth-child(4) {\r\n\tbackground: #000\r\n}\r\n.realtime-top-left  .table-wrap {\r\n\twidth: 100%;\r\n\theight: 80%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA {\r\n\twidth: 100%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th {\r\n\theight: 40px;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(1) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(2) {\r\n\twidth: 60%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th .tbsLeft {\r\n\tfloat: left;\r\n\tpadding-left: 5%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th .thSpan {\r\n\tfloat: left;\r\n\tpadding-left: 15%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td {\r\n\tborder-bottom: 1px solid #3c404b;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td .tbsLeft {\r\n\tfloat: left;\r\n\tpadding-left: 5%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td .thSpan {\r\n\tfloat: left;\r\n\tpadding-left: 15%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox {\r\n\theight: 92%;\r\n\toverflow: auto;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(3) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB {\r\n\twidth: 100%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td {\r\n\theight: 40px;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(1) {\r\n\twidth: 20%;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(2) {\r\n\twidth: 60%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(3) {\r\n\twidth: 20%;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-left .color {\r\n\theight: 16px;\r\n\twidth: 60%;\r\n\tposition: absolute;\r\n\tbottom: 10px;\r\n\tleft: 50%;\r\n\ttransform: translateX(-50%);\r\n}\r\n.realtime-top-left .color img {\r\n\tdisplay: block;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*realtime-top-left(左边表格)\r\n------------------------------------------------------------------*/\r\n.realtime-top-right {\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-top-right .item {\r\n\twidth: 100%;\r\n\theight: 33.3%;\r\n}\r\n\r\n/*realtime-bottom-right(右下角)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-right {\r\n\toverflow: hidden;\r\n\tpadding-left: 20px\r\n}\r\n.realtime-bottom-right>h4 {\r\n\tcolor: #fff;\r\n\tline-height: 30px;\r\n\tfont-size: 16px;\r\n}\r\n.realtime-bottom-right ul {\r\n\theight: 100%;\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-bottom-right ul li {\r\n\theight: 134px;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-right ul li h4 {\r\n\tpadding: 15px 0px;\r\n\tfont-size: 14px;\r\n\tcolor: #e14340\r\n}\r\n.realtime-bottom-right ul li h4 a {\r\n\tcolor: #e14340 !important\r\n}\r\n.realtime-bottom-right ul li p {\r\n\tcolor: #fff;\r\n\tmargin-right: 10px;\r\n\toverflow: hidden;\r\n}\r\n.BottomRightP {\r\n\tdisplay: block;\r\n\theight: 41px;\r\n}\r\n.realtime-bottom-right ul li span {\r\n\tposition: absolute;\r\n\tright: 10px;\r\n\tbottom: 2px;\r\n\tcolor: #666;\r\n}\r\n.realtime-bottom-right ul li span p {\r\n\tdisplay: inline-block;\r\n}\r\n\r\n/*realtime-bottom-right(中间的大地图)\r\n------------------------------------------------------------------*/\r\n.realtime-top-middle #demo {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*上海地图的信息框*/\r\n.realtime-top-middle .info {\r\n\twidth: 160px;\r\n\theight: 70px;\r\n\tleft: 5%;\r\n\ttop: 5%;\r\n\tposition: absolute;\r\n\tz-index: 999;\r\n\tcursor: pointer;\r\n\toverflow: hidden;\r\n\tdisplay: none\r\n}\r\n.realtime-top-middle .info .info-left, .realtime-top-middle .info .info-right {\r\n\tfloat: left;\r\n\twidth: 50%;\r\n\theight: 100%;\r\n}\r\n.realtime-top-middle .info .info-left {\r\n\tpadding: 0px 3px 3px 0px;\r\n}\r\n.realtime-top-middle .info .info-right {\r\n\tbackground: #363e48;\r\n\tborder-radius: 3px;\r\n\tfont-size: 24px;\r\n\tcolor: #e14340;\r\n\tline-height: 70px;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-middle .info .info-left .title {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 34px;\r\n\tfont-size: 12px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 34px;\r\n\tborder-radius: 3px;\r\n}\r\n.realtime-top-middle .info .info-left .date {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 34px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 34px;\r\n\tmargin-top: 3px;\r\n\tborder-radius: 3px;\r\n\tfont-size: 12px;\r\n}\r\n\r\n/*上海地图的返回按钮*/\r\n.realtime-top-middle .return {\r\n\tbackground: linear-gradient(to bottom, #b96f6f 5%, red 50%, #f50202 100%);\r\n\tposition: absolute;\r\n\tbottom: 10%;\r\n\tleft: 3%;\r\n\tdisplay: none;\r\n}\r\n\r\n/*地下的长条信息框*/\r\n.realtime-top-middle .bar {\r\n\twidth: 98%;\r\n\theight: 40px;\r\n\tbackground: #282f39;\r\n\ttext-align: center;\r\n\tline-height: 40px;\r\n\tposition: absolute;\r\n\tbottom: 1%;\r\n\tfont-size: 12px;\r\n\tdisplay: none;\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-middle .carousel {\r\n\tposition: absolute;\r\n\tleft: 6%;\r\n\ttop: 0;\r\n\tz-index: 999;\r\n}\r\n.realtime-top-middle .bar img {\r\n\twidth: 30px;\r\n\theight: 30px;\r\n\tposition: absolute;\r\n\tleft: 5%;\r\n\ttop: 5px;\r\n}\r\n.darkRed {\r\n\tcolor: #e14340;\r\n\tpadding: 0px 5px;\r\n}\r\n\r\n/*tootips实验*/\r\n.testTo {\r\n\twidth: auto;\r\n\theight: auto;\r\n\tfont-size: 12px;\r\n\tcursor: pointer;\r\n}\r\n.testTo h4 {\r\n\tdisplay: inline-block;\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo label {\r\n\tdisplay: inline-block;\r\n\twidth: 60px;\r\n\theight: 18px;\r\n\tborder: 1px solid #fff;\r\n\ttext-align: center;\r\n\tvertical-align: middle;\r\n\tmargin-left: 20px;\r\n\tcolor: #000;\r\n\ttext-align: center;\r\n\ttext-indent: 5px;\r\n\tline-height: 16px;\r\n}\r\n.testTo p {\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo p span {\r\n\tcolor: yellow\r\n}\r\n.black {\r\n\tbackground: black;\r\n\tcolor: #fff !important\r\n}\r\n.green {\r\n\tbackground: green\r\n}\r\n.yellow {\r\n\tbackground: yellow;\r\n}\r\n.red {\r\n\tbackground: red;\r\n}\r\n.whiteFont {\r\n\tcolor: #fff !important;\r\n}\r\n\r\n/**/\r\n.testTo .tableH4 {\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n\tcolor: #ce3431;\r\n\tfont-size: 14px;\r\n\tfont-weight: bold;\r\n}\r\n.testTo table td {\r\n\tborder: 1px solid #1a2029;\r\n\ttext-align: center;\r\n\tpadding: 5px;\r\n}\r\n.testTo .tip-scroll {\r\n\twidth: 200px;\r\n\theight: 100px;\r\n\ttext-align: center;\r\n\toverflow-y: auto;\r\n}\r\n.testTo .tip-scroll  span {\r\n\tdisplay: block;\r\n\tpadding: 5px 0;\r\n}\r\n.testTo .nums {\r\n\tdisplay: block;\r\n\ttext-align: center;\r\n}\r\n\r\n/*realtime-bottom-rleft(线下理财)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-left {\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-left  .more {\r\n\tcolor: #fff;\r\n\tfont-size: 14px;\r\n\tposition: absolute;\r\n\ttop: 60px;\r\n\tright: 11%;\r\n\tz-index: 99999;\r\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 877 */
+/* 878 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -83118,7 +83358,7 @@
 
 	var _reactRouter = __webpack_require__(159);
 
-	__webpack_require__(875);
+	__webpack_require__(876);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -83408,7 +83648,7 @@
 	exports.default = TopLeft;
 
 /***/ },
-/* 878 */
+/* 879 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -83423,7 +83663,7 @@
 
 	var _reactRouter = __webpack_require__(159);
 
-	__webpack_require__(875);
+	__webpack_require__(876);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -83818,18 +84058,18 @@
 	                        switch (range) {
 
 	                            case 1:
-	                                typeP = "曝光日期<span> " + numORdate + " </span>";typeLabel = "<label class='testLable white'>已出风险</label>";
+	                                typeP = "曝光日期<span> " + numORdate + " </span>";typeLabel = "<label class='testLable whiteFont'>已出风险</label>";
 	                                break;
 	                            case 2:
-	                                typeP = "风险值<span> " + Number(numORdate).toFixed(2) + " </span>";typeLabel = "<label class='testLable green'>正常</label>";
+	                                typeP = "风险值<span> " + Number(numORdate).toFixed(2) + " </span>";typeLabel = "<label class='testLable green whiteFont'>正常</label>";
 	                                break;
 
 	                            case 3:
-	                                typeP = "风险值<span> " + Number(numORdate).toFixed(2) + " </span>";typeLabel = "<label class='testLable yellow'>一般关注</label>";
+	                                typeP = "风险值<span> " + Number(numORdate).toFixed(2) + " </span>";typeLabel = "<label class='testLable yellow whiteFont'>一般关注</label>";
 	                                break;
 
 	                            case 4:
-	                                typeP = "风险值<span> " + Number(numORdate).toFixed(2) + " </span>";typeLabel = "<label class='testLable red'>重点关注</label>";
+	                                typeP = "风险值<span> " + Number(numORdate).toFixed(2) + " </span>";typeLabel = "<label class='testLable red whiteFont'>重点关注</label>";
 	                                break;
 
 	                        };
@@ -84231,7 +84471,7 @@
 	exports.default = TopMiddle;
 
 /***/ },
-/* 879 */
+/* 880 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -84246,7 +84486,7 @@
 
 	var _reactRouter = __webpack_require__(159);
 
-	__webpack_require__(875);
+	__webpack_require__(876);
 
 	var _ScatterChart = __webpack_require__(643);
 
@@ -84659,7 +84899,7 @@
 	exports.default = TopRight;
 
 /***/ },
-/* 880 */
+/* 881 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -84674,7 +84914,7 @@
 
 	var _reactRouter = __webpack_require__(159);
 
-	__webpack_require__(875);
+	__webpack_require__(876);
 
 	var _ScatterBubbleChart = __webpack_require__(639);
 
@@ -84815,7 +85055,7 @@
 	exports.default = BottomLeft;
 
 /***/ },
-/* 881 */
+/* 882 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -84830,9 +85070,9 @@
 
 	var _reactRouter = __webpack_require__(159);
 
-	__webpack_require__(875);
+	__webpack_require__(876);
 
-	__webpack_require__(882);
+	__webpack_require__(883);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -84924,13 +85164,13 @@
 	exports.default = BottomRight;
 
 /***/ },
-/* 882 */
+/* 883 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(883);
+	var content = __webpack_require__(884);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(591)(content, {});
@@ -84950,7 +85190,7 @@
 	}
 
 /***/ },
-/* 883 */
+/* 884 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(590)();
@@ -84964,7 +85204,7 @@
 
 
 /***/ },
-/* 884 */
+/* 885 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -85268,7 +85508,7 @@
 	}
 
 /***/ },
-/* 885 */
+/* 886 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -85280,11 +85520,11 @@
 
 	var _redux = __webpack_require__(228);
 
-	var _reduxThunk = __webpack_require__(886);
+	var _reduxThunk = __webpack_require__(887);
 
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-	var _index = __webpack_require__(887);
+	var _index = __webpack_require__(888);
 
 	var _index2 = _interopRequireDefault(_index);
 
@@ -85302,7 +85542,7 @@
 	}
 
 /***/ },
-/* 886 */
+/* 887 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -85330,7 +85570,7 @@
 	exports['default'] = thunk;
 
 /***/ },
-/* 887 */
+/* 888 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -85343,423 +85583,423 @@
 
 	var _reactRouterRedux = __webpack_require__(222);
 
-	var _companyInfoTitRuducer = __webpack_require__(888);
+	var _companyInfoTitRuducer = __webpack_require__(889);
 
 	var _companyInfoTitRuducer2 = _interopRequireDefault(_companyInfoTitRuducer);
 
-	var _companyInfoNewsRuducer = __webpack_require__(889);
+	var _companyInfoNewsRuducer = __webpack_require__(890);
 
 	var _companyInfoNewsRuducer2 = _interopRequireDefault(_companyInfoNewsRuducer);
 
-	var _companyInfoARuducer = __webpack_require__(890);
+	var _companyInfoARuducer = __webpack_require__(891);
 
 	var _companyInfoARuducer2 = _interopRequireDefault(_companyInfoARuducer);
 
-	var _companyInfoBRuducer = __webpack_require__(891);
+	var _companyInfoBRuducer = __webpack_require__(892);
 
 	var _companyInfoBRuducer2 = _interopRequireDefault(_companyInfoBRuducer);
 
-	var _companyPic = __webpack_require__(892);
+	var _companyPic = __webpack_require__(893);
 
 	var _companyPic2 = _interopRequireDefault(_companyPic);
 
-	var _companyLabel = __webpack_require__(893);
+	var _companyLabel = __webpack_require__(894);
 
 	var _companyLabel2 = _interopRequireDefault(_companyLabel);
 
-	var _companyInfoC1Ruducer = __webpack_require__(894);
+	var _companyInfoC1Ruducer = __webpack_require__(895);
 
 	var _companyInfoC1Ruducer2 = _interopRequireDefault(_companyInfoC1Ruducer);
 
-	var _companyInfoC2Ruducer = __webpack_require__(895);
+	var _companyInfoC2Ruducer = __webpack_require__(896);
 
 	var _companyInfoC2Ruducer2 = _interopRequireDefault(_companyInfoC2Ruducer);
 
-	var _companyInfoC3Ruducer = __webpack_require__(896);
+	var _companyInfoC3Ruducer = __webpack_require__(897);
 
 	var _companyInfoC3Ruducer2 = _interopRequireDefault(_companyInfoC3Ruducer);
 
-	var _companyInfoC4Ruducer = __webpack_require__(897);
+	var _companyInfoC4Ruducer = __webpack_require__(898);
 
 	var _companyInfoC4Ruducer2 = _interopRequireDefault(_companyInfoC4Ruducer);
 
-	var _companyInfoC5Ruducer = __webpack_require__(898);
+	var _companyInfoC5Ruducer = __webpack_require__(899);
 
 	var _companyInfoC5Ruducer2 = _interopRequireDefault(_companyInfoC5Ruducer);
 
-	var _companyInfoD1Ruducer = __webpack_require__(899);
+	var _companyInfoD1Ruducer = __webpack_require__(900);
 
 	var _companyInfoD1Ruducer2 = _interopRequireDefault(_companyInfoD1Ruducer);
 
-	var _companyInfoD2Ruducer = __webpack_require__(900);
+	var _companyInfoD2Ruducer = __webpack_require__(901);
 
 	var _companyInfoD2Ruducer2 = _interopRequireDefault(_companyInfoD2Ruducer);
 
-	var _companyInfoD3Ruducer = __webpack_require__(901);
+	var _companyInfoD3Ruducer = __webpack_require__(902);
 
 	var _companyInfoD3Ruducer2 = _interopRequireDefault(_companyInfoD3Ruducer);
 
-	var _Common = __webpack_require__(902);
+	var _Common = __webpack_require__(903);
 
 	var _Common2 = _interopRequireDefault(_Common);
 
-	var _SmallLoanMap = __webpack_require__(903);
+	var _SmallLoanMap = __webpack_require__(904);
 
 	var _SmallLoanMap2 = _interopRequireDefault(_SmallLoanMap);
 
-	var _CompanyGrade = __webpack_require__(904);
+	var _CompanyGrade = __webpack_require__(905);
 
 	var _CompanyGrade2 = _interopRequireDefault(_CompanyGrade);
 
-	var _LoanBalance = __webpack_require__(905);
+	var _LoanBalance = __webpack_require__(906);
 
 	var _LoanBalance2 = _interopRequireDefault(_LoanBalance);
 
-	var _IndustryRisk = __webpack_require__(906);
+	var _IndustryRisk = __webpack_require__(907);
 
 	var _IndustryRisk2 = _interopRequireDefault(_IndustryRisk);
 
-	var _IndustryRiskDetail = __webpack_require__(907);
+	var _IndustryRiskDetail = __webpack_require__(908);
 
 	var _IndustryRiskDetail2 = _interopRequireDefault(_IndustryRiskDetail);
 
-	var _LargeLoan = __webpack_require__(908);
+	var _LargeLoan = __webpack_require__(909);
 
 	var _LargeLoan2 = _interopRequireDefault(_LargeLoan);
 
-	var _FinGuaMap = __webpack_require__(909);
+	var _FinGuaMap = __webpack_require__(910);
 
 	var _FinGuaMap2 = _interopRequireDefault(_FinGuaMap);
 
-	var _FinGuaCompanyGrade = __webpack_require__(910);
+	var _FinGuaCompanyGrade = __webpack_require__(911);
 
 	var _FinGuaCompanyGrade2 = _interopRequireDefault(_FinGuaCompanyGrade);
 
-	var _GuaraDutyBalance = __webpack_require__(911);
+	var _GuaraDutyBalance = __webpack_require__(912);
 
 	var _GuaraDutyBalance2 = _interopRequireDefault(_GuaraDutyBalance);
 
-	var _FinGuaIndustryRisk = __webpack_require__(912);
+	var _FinGuaIndustryRisk = __webpack_require__(913);
 
 	var _FinGuaIndustryRisk2 = _interopRequireDefault(_FinGuaIndustryRisk);
 
-	var _FinGuaIndustryRiskDetail = __webpack_require__(913);
+	var _FinGuaIndustryRiskDetail = __webpack_require__(914);
 
 	var _FinGuaIndustryRiskDetail2 = _interopRequireDefault(_FinGuaIndustryRiskDetail);
 
-	var _LargeGuara = __webpack_require__(914);
+	var _LargeGuara = __webpack_require__(915);
 
 	var _LargeGuara2 = _interopRequireDefault(_LargeGuara);
 
-	var _AreaRanking = __webpack_require__(915);
+	var _AreaRanking = __webpack_require__(916);
 
 	var _AreaRanking2 = _interopRequireDefault(_AreaRanking);
 
-	var _NetCredit = __webpack_require__(916);
+	var _NetCredit = __webpack_require__(917);
 
 	var _NetCredit2 = _interopRequireDefault(_NetCredit);
 
-	var _IndexChartAll = __webpack_require__(917);
+	var _IndexChartAll = __webpack_require__(918);
 
 	var _IndexChartAll2 = _interopRequireDefault(_IndexChartAll);
 
-	var _BaseMsg = __webpack_require__(918);
+	var _BaseMsg = __webpack_require__(919);
 
 	var _BaseMsg2 = _interopRequireDefault(_BaseMsg);
 
-	var _CompanyMsg = __webpack_require__(919);
+	var _CompanyMsg = __webpack_require__(920);
 
 	var _CompanyMsg2 = _interopRequireDefault(_CompanyMsg);
 
-	var _CoreData = __webpack_require__(920);
+	var _CoreData = __webpack_require__(921);
 
 	var _CoreData2 = _interopRequireDefault(_CoreData);
 
-	var _CoreBar = __webpack_require__(921);
+	var _CoreBar = __webpack_require__(922);
 
 	var _CoreBar2 = _interopRequireDefault(_CoreBar);
 
-	var _CoreTrend = __webpack_require__(922);
+	var _CoreTrend = __webpack_require__(923);
 
 	var _CoreTrend2 = _interopRequireDefault(_CoreTrend);
 
-	var _CoreBalance = __webpack_require__(923);
+	var _CoreBalance = __webpack_require__(924);
 
 	var _CoreBalance2 = _interopRequireDefault(_CoreBalance);
 
-	var _Litigation = __webpack_require__(924);
+	var _Litigation = __webpack_require__(925);
 
 	var _Litigation2 = _interopRequireDefault(_Litigation);
 
-	var _PublicOpinion = __webpack_require__(925);
+	var _PublicOpinion = __webpack_require__(926);
 
 	var _PublicOpinion2 = _interopRequireDefault(_PublicOpinion);
 
-	var _RankPic = __webpack_require__(926);
+	var _RankPic = __webpack_require__(927);
 
 	var _RankPic2 = _interopRequireDefault(_RankPic);
 
-	var _ScoreLeida = __webpack_require__(927);
+	var _ScoreLeida = __webpack_require__(928);
 
 	var _ScoreLeida2 = _interopRequireDefault(_ScoreLeida);
 
-	var _CompanyName = __webpack_require__(928);
+	var _CompanyName = __webpack_require__(929);
 
 	var _CompanyName2 = _interopRequireDefault(_CompanyName);
 
-	var _CompanyProgress = __webpack_require__(929);
+	var _CompanyProgress = __webpack_require__(930);
 
 	var _CompanyProgress2 = _interopRequireDefault(_CompanyProgress);
 
-	var _QDLPQuality = __webpack_require__(930);
+	var _QDLPQuality = __webpack_require__(931);
 
 	var _QDLPQuality2 = _interopRequireDefault(_QDLPQuality);
 
-	var _FundClass = __webpack_require__(931);
+	var _FundClass = __webpack_require__(932);
 
 	var _FundClass2 = _interopRequireDefault(_FundClass);
 
-	var _FundCase = __webpack_require__(932);
+	var _FundCase = __webpack_require__(933);
 
 	var _FundCase2 = _interopRequireDefault(_FundCase);
 
-	var _FundCaseTop = __webpack_require__(933);
+	var _FundCaseTop = __webpack_require__(934);
 
 	var _FundCaseTop2 = _interopRequireDefault(_FundCaseTop);
 
-	var _EquityL = __webpack_require__(934);
+	var _EquityL = __webpack_require__(935);
 
 	var _EquityL2 = _interopRequireDefault(_EquityL);
 
-	var _EquityM = __webpack_require__(935);
+	var _EquityM = __webpack_require__(936);
 
 	var _EquityM2 = _interopRequireDefault(_EquityM);
 
-	var _EquityR = __webpack_require__(936);
+	var _EquityR = __webpack_require__(937);
 
 	var _EquityR2 = _interopRequireDefault(_EquityR);
 
-	var _BusinessTypes = __webpack_require__(937);
+	var _BusinessTypes = __webpack_require__(938);
 
 	var _BusinessTypes2 = _interopRequireDefault(_BusinessTypes);
 
-	var _InvestPeople = __webpack_require__(938);
+	var _InvestPeople = __webpack_require__(939);
 
 	var _InvestPeople2 = _interopRequireDefault(_InvestPeople);
 
-	var _NewProject = __webpack_require__(939);
+	var _NewProject = __webpack_require__(940);
 
 	var _NewProject2 = _interopRequireDefault(_NewProject);
 
-	var _RaiseMount = __webpack_require__(940);
+	var _RaiseMount = __webpack_require__(941);
 
 	var _RaiseMount2 = _interopRequireDefault(_RaiseMount);
 
-	var _List = __webpack_require__(941);
+	var _List = __webpack_require__(942);
 
 	var _List2 = _interopRequireDefault(_List);
 
-	var _ChartAll = __webpack_require__(942);
+	var _ChartAll = __webpack_require__(943);
 
 	var _ChartAll2 = _interopRequireDefault(_ChartAll);
 
-	var _CompanyDirectory = __webpack_require__(943);
+	var _CompanyDirectory = __webpack_require__(944);
 
 	var _CompanyDirectory2 = _interopRequireDefault(_CompanyDirectory);
 
-	var _HPQList = __webpack_require__(944);
+	var _HPQList = __webpack_require__(945);
 
 	var _HPQList2 = _interopRequireDefault(_HPQList);
 
-	var _RegionalDis = __webpack_require__(945);
+	var _RegionalDis = __webpack_require__(946);
 
 	var _RegionalDis2 = _interopRequireDefault(_RegionalDis);
 
-	var _Classification = __webpack_require__(946);
+	var _Classification = __webpack_require__(947);
 
 	var _Classification2 = _interopRequireDefault(_Classification);
 
-	var _DetailList = __webpack_require__(947);
+	var _DetailList = __webpack_require__(948);
 
 	var _DetailList2 = _interopRequireDefault(_DetailList);
 
-	var _PieCounty = __webpack_require__(948);
+	var _PieCounty = __webpack_require__(949);
 
 	var _PieCounty2 = _interopRequireDefault(_PieCounty);
 
-	var _BarName = __webpack_require__(949);
+	var _BarName = __webpack_require__(950);
 
 	var _BarName2 = _interopRequireDefault(_BarName);
 
-	var _Lease = __webpack_require__(950);
+	var _Lease = __webpack_require__(951);
 
 	var _Lease2 = _interopRequireDefault(_Lease);
 
-	var _ContrastLeft = __webpack_require__(951);
+	var _ContrastLeft = __webpack_require__(952);
 
 	var _ContrastLeft2 = _interopRequireDefault(_ContrastLeft);
 
-	var _ContrastRight = __webpack_require__(952);
+	var _ContrastRight = __webpack_require__(953);
 
 	var _ContrastRight2 = _interopRequireDefault(_ContrastRight);
 
-	var _Catalog = __webpack_require__(953);
+	var _Catalog = __webpack_require__(954);
 
 	var _Catalog2 = _interopRequireDefault(_Catalog);
 
-	var _CatalogSelect = __webpack_require__(954);
+	var _CatalogSelect = __webpack_require__(955);
 
 	var _CatalogSelect2 = _interopRequireDefault(_CatalogSelect);
 
-	var _TimeSelect = __webpack_require__(955);
+	var _TimeSelect = __webpack_require__(956);
 
 	var _TimeSelect2 = _interopRequireDefault(_TimeSelect);
 
-	var _realtimeTableRuducer = __webpack_require__(956);
+	var _realtimeTableRuducer = __webpack_require__(957);
 
 	var _realtimeTableRuducer2 = _interopRequireDefault(_realtimeTableRuducer);
 
-	var _realtimeNineReducer = __webpack_require__(957);
+	var _realtimeNineReducer = __webpack_require__(958);
 
 	var _realtimeNineReducer2 = _interopRequireDefault(_realtimeNineReducer);
 
-	var _realtimeNewsReducer = __webpack_require__(958);
+	var _realtimeNewsReducer = __webpack_require__(959);
 
 	var _realtimeNewsReducer2 = _interopRequireDefault(_realtimeNewsReducer);
 
-	var _realtimeMapReducer = __webpack_require__(959);
+	var _realtimeMapReducer = __webpack_require__(960);
 
 	var _realtimeMapReducer2 = _interopRequireDefault(_realtimeMapReducer);
 
-	var _realtimeMapShReducer = __webpack_require__(960);
+	var _realtimeMapShReducer = __webpack_require__(961);
 
 	var _realtimeMapShReducer2 = _interopRequireDefault(_realtimeMapShReducer);
 
-	var _realtimeRiskReducer = __webpack_require__(961);
+	var _realtimeRiskReducer = __webpack_require__(962);
 
 	var _realtimeRiskReducer2 = _interopRequireDefault(_realtimeRiskReducer);
 
-	var _realtimeScrollRuducer = __webpack_require__(962);
+	var _realtimeScrollRuducer = __webpack_require__(963);
 
 	var _realtimeScrollRuducer2 = _interopRequireDefault(_realtimeScrollRuducer);
 
-	var _realtimeSwithVal = __webpack_require__(963);
+	var _realtimeSwithVal = __webpack_require__(964);
 
 	var _realtimeSwithVal2 = _interopRequireDefault(_realtimeSwithVal);
 
-	var _MenuParkSelectVal = __webpack_require__(964);
+	var _MenuParkSelectVal = __webpack_require__(965);
 
 	var _MenuParkSelectVal2 = _interopRequireDefault(_MenuParkSelectVal);
 
-	var _MenuParkSelectList = __webpack_require__(965);
+	var _MenuParkSelectList = __webpack_require__(966);
 
 	var _MenuParkSelectList2 = _interopRequireDefault(_MenuParkSelectList);
 
-	var _ParkCamp = __webpack_require__(966);
+	var _ParkCamp = __webpack_require__(967);
 
 	var _ParkCamp2 = _interopRequireDefault(_ParkCamp);
 
-	var _ParkFinance = __webpack_require__(967);
+	var _ParkFinance = __webpack_require__(968);
 
 	var _ParkFinance2 = _interopRequireDefault(_ParkFinance);
 
-	var _ParkIndustry = __webpack_require__(968);
+	var _ParkIndustry = __webpack_require__(969);
 
 	var _ParkIndustry2 = _interopRequireDefault(_ParkIndustry);
 
-	var _ParkNews = __webpack_require__(969);
+	var _ParkNews = __webpack_require__(970);
 
 	var _ParkNews2 = _interopRequireDefault(_ParkNews);
 
-	var _ParkImg = __webpack_require__(970);
+	var _ParkImg = __webpack_require__(971);
 
 	var _ParkImg2 = _interopRequireDefault(_ParkImg);
 
-	var _BuildCompanyList = __webpack_require__(971);
+	var _BuildCompanyList = __webpack_require__(972);
 
 	var _BuildCompanyList2 = _interopRequireDefault(_BuildCompanyList);
 
-	var _BuildIndDistri = __webpack_require__(972);
+	var _BuildIndDistri = __webpack_require__(973);
 
 	var _BuildIndDistri2 = _interopRequireDefault(_BuildIndDistri);
 
-	var _CompanyBg = __webpack_require__(973);
+	var _CompanyBg = __webpack_require__(974);
 
 	var _CompanyBg2 = _interopRequireDefault(_CompanyBg);
 
-	var _BuildList = __webpack_require__(974);
+	var _BuildList = __webpack_require__(975);
 
 	var _BuildList2 = _interopRequireDefault(_BuildList);
 
-	var _BuildNews = __webpack_require__(975);
+	var _BuildNews = __webpack_require__(976);
 
 	var _BuildNews2 = _interopRequireDefault(_BuildNews);
 
-	var _BuildRisk = __webpack_require__(976);
+	var _BuildRisk = __webpack_require__(977);
 
 	var _BuildRisk2 = _interopRequireDefault(_BuildRisk);
 
-	var _BuildSwitchVal = __webpack_require__(977);
+	var _BuildSwitchVal = __webpack_require__(978);
 
 	var _BuildSwitchVal2 = _interopRequireDefault(_BuildSwitchVal);
 
-	var _ChartAll3 = __webpack_require__(978);
+	var _ChartAll3 = __webpack_require__(979);
 
 	var _ChartAll4 = _interopRequireDefault(_ChartAll3);
 
-	var _businessnumChart = __webpack_require__(979);
+	var _businessnumChart = __webpack_require__(980);
 
 	var _businessnumChart2 = _interopRequireDefault(_businessnumChart);
 
-	var _balanceChart = __webpack_require__(980);
+	var _balanceChart = __webpack_require__(981);
 
 	var _balanceChart2 = _interopRequireDefault(_balanceChart);
 
-	var _CompanyDirectoryChart = __webpack_require__(981);
+	var _CompanyDirectoryChart = __webpack_require__(982);
 
 	var _CompanyDirectoryChart2 = _interopRequireDefault(_CompanyDirectoryChart);
 
-	var _LineFinanceRiskDistri = __webpack_require__(982);
+	var _LineFinanceRiskDistri = __webpack_require__(983);
 
 	var _LineFinanceRiskDistri2 = _interopRequireDefault(_LineFinanceRiskDistri);
 
-	var _LineFinanceList = __webpack_require__(983);
+	var _LineFinanceList = __webpack_require__(984);
 
 	var _LineFinanceList2 = _interopRequireDefault(_LineFinanceList);
 
-	var _CheckVal = __webpack_require__(984);
+	var _CheckVal = __webpack_require__(985);
 
 	var _CheckVal2 = _interopRequireDefault(_CheckVal);
 
-	var _SearchResultList = __webpack_require__(985);
+	var _SearchResultList = __webpack_require__(986);
 
 	var _SearchResultList2 = _interopRequireDefault(_SearchResultList);
 
-	var _DynamicPic = __webpack_require__(1305);
+	var _DynamicPic = __webpack_require__(988);
 
 	var _DynamicPic2 = _interopRequireDefault(_DynamicPic);
 
-	var _Statistics = __webpack_require__(1306);
+	var _Statistics = __webpack_require__(989);
 
 	var _Statistics2 = _interopRequireDefault(_Statistics);
 
-	var _RiskData = __webpack_require__(1307);
+	var _RiskData = __webpack_require__(990);
 
 	var _RiskData2 = _interopRequireDefault(_RiskData);
 
-	var _CompanyNews = __webpack_require__(1308);
+	var _CompanyNews = __webpack_require__(991);
 
 	var _CompanyNews2 = _interopRequireDefault(_CompanyNews);
 
-	var _QueryDateVersion = __webpack_require__(1309);
+	var _QueryDateVersion = __webpack_require__(992);
 
 	var _QueryDateVersion2 = _interopRequireDefault(_QueryDateVersion);
 
-	var _QueryCompanyInfo = __webpack_require__(1310);
+	var _QueryCompanyInfo = __webpack_require__(993);
 
 	var _QueryCompanyInfo2 = _interopRequireDefault(_QueryCompanyInfo);
 
-	var _QueryRiskIndex = __webpack_require__(1311);
+	var _QueryRiskIndex = __webpack_require__(994);
 
 	var _QueryRiskIndex2 = _interopRequireDefault(_QueryRiskIndex);
 
@@ -86116,7 +86356,7 @@
 	exports.default = rootReducer;
 
 /***/ },
-/* 888 */
+/* 889 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -86126,7 +86366,7 @@
 	});
 	exports.default = getCompanyInfoTit;
 
-	var _InfoSearchAction = __webpack_require__(873);
+	var _InfoSearchAction = __webpack_require__(874);
 
 	//这个函数就是处理，action里面成功和失败的2个返回函数。
 	//当ajax请求成功了，就可以调用这个两个返回函数进行操作。
@@ -86164,7 +86404,7 @@
 	// request、result
 
 /***/ },
-/* 889 */
+/* 890 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -86174,7 +86414,7 @@
 	});
 	exports.default = getCompanyInfoNews;
 
-	var _InfoSearchAction = __webpack_require__(873);
+	var _InfoSearchAction = __webpack_require__(874);
 
 	//这个函数就是处理，action里面成功和失败的2个返回函数。
 	//当ajax请求成功了，就可以调用这个两个返回函数进行操作。
@@ -86206,7 +86446,7 @@
 	}
 
 /***/ },
-/* 890 */
+/* 891 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -86216,7 +86456,7 @@
 	});
 	exports.default = getCompanyInfoA;
 
-	var _InfoSearchAction = __webpack_require__(873);
+	var _InfoSearchAction = __webpack_require__(874);
 
 	//这个函数就是处理，action里面成功和失败的2个返回函数。
 	//当ajax请求成功了，就可以调用这个两个返回函数进行操作。
@@ -86248,7 +86488,7 @@
 	}
 
 /***/ },
-/* 891 */
+/* 892 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -86258,7 +86498,7 @@
 	});
 	exports.default = getCompanyInfoA;
 
-	var _InfoSearchAction = __webpack_require__(873);
+	var _InfoSearchAction = __webpack_require__(874);
 
 	//这个函数就是处理，action里面成功和失败的2个返回函数。
 	//当ajax请求成功了，就可以调用这个两个返回函数进行操作。
@@ -86290,7 +86530,7 @@
 	}
 
 /***/ },
-/* 892 */
+/* 893 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -86300,7 +86540,7 @@
 	});
 	exports.default = CompanyPic;
 
-	var _InfoSearchAction = __webpack_require__(873);
+	var _InfoSearchAction = __webpack_require__(874);
 
 	function CompanyPic() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -86328,7 +86568,7 @@
 	}
 
 /***/ },
-/* 893 */
+/* 894 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -86338,7 +86578,7 @@
 	});
 	exports.default = getCompanyLabels;
 
-	var _InfoSearchAction = __webpack_require__(873);
+	var _InfoSearchAction = __webpack_require__(874);
 
 	//这个函数就是处理，action里面成功和失败的2个返回函数。
 	//当ajax请求成功了，就可以调用这个两个返回函数进行操作。
@@ -86370,7 +86610,7 @@
 	}
 
 /***/ },
-/* 894 */
+/* 895 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -86380,7 +86620,7 @@
 	});
 	exports.default = getCompanyInfoC1;
 
-	var _InfoSearchAction = __webpack_require__(873);
+	var _InfoSearchAction = __webpack_require__(874);
 
 	//这个函数就是处理，action里面成功和失败的2个返回函数。
 	//当ajax请求成功了，就可以调用这个两个返回函数进行操作。
@@ -86412,7 +86652,7 @@
 	}
 
 /***/ },
-/* 895 */
+/* 896 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -86422,7 +86662,7 @@
 	});
 	exports.default = getCompanyInfoC2;
 
-	var _InfoSearchAction = __webpack_require__(873);
+	var _InfoSearchAction = __webpack_require__(874);
 
 	//这个函数就是处理，action里面成功和失败的2个返回函数。
 	//当ajax请求成功了，就可以调用这个两个返回函数进行操作。
@@ -86454,7 +86694,7 @@
 	}
 
 /***/ },
-/* 896 */
+/* 897 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -86464,7 +86704,7 @@
 	});
 	exports.default = getCompanyInfoC3;
 
-	var _InfoSearchAction = __webpack_require__(873);
+	var _InfoSearchAction = __webpack_require__(874);
 
 	//这个函数就是处理，action里面成功和失败的2个返回函数。
 	//当ajax请求成功了，就可以调用这个两个返回函数进行操作。
@@ -86496,7 +86736,7 @@
 	}
 
 /***/ },
-/* 897 */
+/* 898 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -86506,7 +86746,7 @@
 	});
 	exports.default = getCompanyInfoC4;
 
-	var _InfoSearchAction = __webpack_require__(873);
+	var _InfoSearchAction = __webpack_require__(874);
 
 	//这个函数就是处理，action里面成功和失败的2个返回函数。
 	//当ajax请求成功了，就可以调用这个两个返回函数进行操作。
@@ -86538,7 +86778,7 @@
 	}
 
 /***/ },
-/* 898 */
+/* 899 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -86548,7 +86788,7 @@
 	});
 	exports.default = getCompanyInfoC5;
 
-	var _InfoSearchAction = __webpack_require__(873);
+	var _InfoSearchAction = __webpack_require__(874);
 
 	//这个函数就是处理，action里面成功和失败的2个返回函数。
 	//当ajax请求成功了，就可以调用这个两个返回函数进行操作。
@@ -86580,7 +86820,7 @@
 	}
 
 /***/ },
-/* 899 */
+/* 900 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -86590,7 +86830,7 @@
 	});
 	exports.default = getCompanyInfoD1;
 
-	var _InfoSearchAction = __webpack_require__(873);
+	var _InfoSearchAction = __webpack_require__(874);
 
 	//这个函数就是处理，action里面成功和失败的2个返回函数。
 	//当ajax请求成功了，就可以调用这个两个返回函数进行操作。
@@ -86622,7 +86862,7 @@
 	}
 
 /***/ },
-/* 900 */
+/* 901 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -86632,7 +86872,7 @@
 	});
 	exports.default = getCompanyInfoD2;
 
-	var _InfoSearchAction = __webpack_require__(873);
+	var _InfoSearchAction = __webpack_require__(874);
 
 	//这个函数就是处理，action里面成功和失败的2个返回函数。
 	//当ajax请求成功了，就可以调用这个两个返回函数进行操作。
@@ -86664,7 +86904,7 @@
 	}
 
 /***/ },
-/* 901 */
+/* 902 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -86674,7 +86914,7 @@
 	});
 	exports.default = getCompanyInfoD3;
 
-	var _InfoSearchAction = __webpack_require__(873);
+	var _InfoSearchAction = __webpack_require__(874);
 
 	//这个函数就是处理，action里面成功和失败的2个返回函数。
 	//当ajax请求成功了，就可以调用这个两个返回函数进行操作。
@@ -86706,7 +86946,7 @@
 	}
 
 /***/ },
-/* 902 */
+/* 903 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -86745,7 +86985,7 @@
 	}
 
 /***/ },
-/* 903 */
+/* 904 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -86784,7 +87024,7 @@
 	}
 
 /***/ },
-/* 904 */
+/* 905 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -86823,7 +87063,7 @@
 	}
 
 /***/ },
-/* 905 */
+/* 906 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -86862,7 +87102,7 @@
 	}
 
 /***/ },
-/* 906 */
+/* 907 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -86901,7 +87141,7 @@
 	}
 
 /***/ },
-/* 907 */
+/* 908 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -86940,7 +87180,7 @@
 	}
 
 /***/ },
-/* 908 */
+/* 909 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -86979,7 +87219,7 @@
 	}
 
 /***/ },
-/* 909 */
+/* 910 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87018,7 +87258,7 @@
 	}
 
 /***/ },
-/* 910 */
+/* 911 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87057,7 +87297,7 @@
 	}
 
 /***/ },
-/* 911 */
+/* 912 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87096,7 +87336,7 @@
 	}
 
 /***/ },
-/* 912 */
+/* 913 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87135,7 +87375,7 @@
 	}
 
 /***/ },
-/* 913 */
+/* 914 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87174,7 +87414,7 @@
 	}
 
 /***/ },
-/* 914 */
+/* 915 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87213,7 +87453,7 @@
 	}
 
 /***/ },
-/* 915 */
+/* 916 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87223,7 +87463,7 @@
 	});
 	exports.default = AreaRanking;
 
-	var _P2PIndexAction = __webpack_require__(734);
+	var _P2PIndexAction = __webpack_require__(735);
 
 	function AreaRanking() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -87251,7 +87491,7 @@
 	}
 
 /***/ },
-/* 916 */
+/* 917 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87261,7 +87501,7 @@
 	});
 	exports.default = NetCredit;
 
-	var _P2PIndexAction = __webpack_require__(734);
+	var _P2PIndexAction = __webpack_require__(735);
 
 	function NetCredit() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -87289,7 +87529,7 @@
 	}
 
 /***/ },
-/* 917 */
+/* 918 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87299,7 +87539,7 @@
 	});
 	exports.default = IndexChartAll;
 
-	var _P2PIndexAction = __webpack_require__(734);
+	var _P2PIndexAction = __webpack_require__(735);
 
 	function IndexChartAll() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -87327,7 +87567,7 @@
 	}
 
 /***/ },
-/* 918 */
+/* 919 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87337,7 +87577,7 @@
 	});
 	exports.default = BaseMsg;
 
-	var _P2PPortraitAction = __webpack_require__(757);
+	var _P2PPortraitAction = __webpack_require__(758);
 
 	function BaseMsg() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -87365,7 +87605,7 @@
 	}
 
 /***/ },
-/* 919 */
+/* 920 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87375,7 +87615,7 @@
 	});
 	exports.default = CompanyMsg;
 
-	var _P2PPortraitAction = __webpack_require__(757);
+	var _P2PPortraitAction = __webpack_require__(758);
 
 	function CompanyMsg() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -87403,7 +87643,7 @@
 	}
 
 /***/ },
-/* 920 */
+/* 921 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87413,7 +87653,7 @@
 	});
 	exports.default = CoreData;
 
-	var _P2PPortraitAction = __webpack_require__(757);
+	var _P2PPortraitAction = __webpack_require__(758);
 
 	function CoreData() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -87441,7 +87681,7 @@
 	}
 
 /***/ },
-/* 921 */
+/* 922 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87451,7 +87691,7 @@
 	});
 	exports.default = CoreBar;
 
-	var _P2PPortraitAction = __webpack_require__(757);
+	var _P2PPortraitAction = __webpack_require__(758);
 
 	function CoreBar() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -87479,7 +87719,7 @@
 	}
 
 /***/ },
-/* 922 */
+/* 923 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87489,7 +87729,7 @@
 	});
 	exports.default = CoreTrend;
 
-	var _P2PPortraitAction = __webpack_require__(757);
+	var _P2PPortraitAction = __webpack_require__(758);
 
 	function CoreTrend() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -87517,7 +87757,7 @@
 	}
 
 /***/ },
-/* 923 */
+/* 924 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87527,7 +87767,7 @@
 	});
 	exports.default = CoreBalance;
 
-	var _P2PPortraitAction = __webpack_require__(757);
+	var _P2PPortraitAction = __webpack_require__(758);
 
 	function CoreBalance() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -87555,7 +87795,7 @@
 	}
 
 /***/ },
-/* 924 */
+/* 925 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87565,7 +87805,7 @@
 	});
 	exports.default = Litigation;
 
-	var _P2PPortraitAction = __webpack_require__(757);
+	var _P2PPortraitAction = __webpack_require__(758);
 
 	function Litigation() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -87593,7 +87833,7 @@
 	}
 
 /***/ },
-/* 925 */
+/* 926 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87603,7 +87843,7 @@
 	});
 	exports.default = PublicOpinion;
 
-	var _P2PPortraitAction = __webpack_require__(757);
+	var _P2PPortraitAction = __webpack_require__(758);
 
 	function PublicOpinion() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -87631,7 +87871,7 @@
 	}
 
 /***/ },
-/* 926 */
+/* 927 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87641,7 +87881,7 @@
 	});
 	exports.default = RankPic;
 
-	var _P2PPortraitAction = __webpack_require__(757);
+	var _P2PPortraitAction = __webpack_require__(758);
 
 	function RankPic() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -87669,7 +87909,7 @@
 	}
 
 /***/ },
-/* 927 */
+/* 928 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87679,7 +87919,7 @@
 	});
 	exports.default = ScoreLeida;
 
-	var _P2PPortraitAction = __webpack_require__(757);
+	var _P2PPortraitAction = __webpack_require__(758);
 
 	function ScoreLeida() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -87707,7 +87947,7 @@
 	}
 
 /***/ },
-/* 928 */
+/* 929 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87717,7 +87957,7 @@
 	});
 	exports.default = CompanyName;
 
-	var _P2PPortraitAction = __webpack_require__(757);
+	var _P2PPortraitAction = __webpack_require__(758);
 
 	function CompanyName() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -87736,7 +87976,7 @@
 	}
 
 /***/ },
-/* 929 */
+/* 930 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87774,7 +88014,7 @@
 	}
 
 /***/ },
-/* 930 */
+/* 931 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87812,7 +88052,7 @@
 	}
 
 /***/ },
-/* 931 */
+/* 932 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87850,7 +88090,7 @@
 	}
 
 /***/ },
-/* 932 */
+/* 933 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87888,7 +88128,7 @@
 	}
 
 /***/ },
-/* 933 */
+/* 934 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87926,7 +88166,7 @@
 	}
 
 /***/ },
-/* 934 */
+/* 935 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -87964,7 +88204,7 @@
 	}
 
 /***/ },
-/* 935 */
+/* 936 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88002,7 +88242,7 @@
 	}
 
 /***/ },
-/* 936 */
+/* 937 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88040,7 +88280,7 @@
 	}
 
 /***/ },
-/* 937 */
+/* 938 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88050,7 +88290,7 @@
 	});
 	exports.default = BusinessTypes;
 
-	var _RaiseIndexAction = __webpack_require__(769);
+	var _RaiseIndexAction = __webpack_require__(770);
 
 	function BusinessTypes() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -88078,7 +88318,7 @@
 	}
 
 /***/ },
-/* 938 */
+/* 939 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88088,7 +88328,7 @@
 	});
 	exports.default = InvestPeople;
 
-	var _RaiseIndexAction = __webpack_require__(769);
+	var _RaiseIndexAction = __webpack_require__(770);
 
 	function InvestPeople() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -88116,7 +88356,7 @@
 	}
 
 /***/ },
-/* 939 */
+/* 940 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88126,7 +88366,7 @@
 	});
 	exports.default = NewProject;
 
-	var _RaiseIndexAction = __webpack_require__(769);
+	var _RaiseIndexAction = __webpack_require__(770);
 
 	function NewProject() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -88154,7 +88394,7 @@
 	}
 
 /***/ },
-/* 940 */
+/* 941 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88164,7 +88404,7 @@
 	});
 	exports.default = RaiseMount;
 
-	var _RaiseIndexAction = __webpack_require__(769);
+	var _RaiseIndexAction = __webpack_require__(770);
 
 	function RaiseMount() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -88192,7 +88432,7 @@
 	}
 
 /***/ },
-/* 941 */
+/* 942 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88202,7 +88442,7 @@
 	});
 	exports.default = List;
 
-	var _RaiseIndexAction = __webpack_require__(769);
+	var _RaiseIndexAction = __webpack_require__(770);
 
 	function List() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -88230,7 +88470,7 @@
 	}
 
 /***/ },
-/* 942 */
+/* 943 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88240,7 +88480,7 @@
 	});
 	exports.default = PawnMChartAll;
 
-	var _PawnMonitoringAction = __webpack_require__(780);
+	var _PawnMonitoringAction = __webpack_require__(781);
 
 	function PawnMChartAll() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -88268,7 +88508,7 @@
 	}
 
 /***/ },
-/* 943 */
+/* 944 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88278,7 +88518,7 @@
 	});
 	exports.default = CompanyDirectory;
 
-	var _PawnMonitoringAction = __webpack_require__(780);
+	var _PawnMonitoringAction = __webpack_require__(781);
 
 	function CompanyDirectory() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -88306,7 +88546,7 @@
 	}
 
 /***/ },
-/* 944 */
+/* 945 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88316,7 +88556,7 @@
 	});
 	exports.default = HPQList;
 
-	var _TradingPlacesAction = __webpack_require__(790);
+	var _TradingPlacesAction = __webpack_require__(791);
 
 	function HPQList() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -88344,7 +88584,7 @@
 	}
 
 /***/ },
-/* 945 */
+/* 946 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88354,7 +88594,7 @@
 	});
 	exports.default = RegionalDis;
 
-	var _TradingPlacesAction = __webpack_require__(790);
+	var _TradingPlacesAction = __webpack_require__(791);
 
 	function RegionalDis() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -88382,7 +88622,7 @@
 	}
 
 /***/ },
-/* 946 */
+/* 947 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88392,7 +88632,7 @@
 	});
 	exports.default = Classification;
 
-	var _TradingPlacesAction = __webpack_require__(790);
+	var _TradingPlacesAction = __webpack_require__(791);
 
 	function Classification() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -88420,7 +88660,7 @@
 	}
 
 /***/ },
-/* 947 */
+/* 948 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88430,7 +88670,7 @@
 	});
 	exports.default = DetailList;
 
-	var _TradingPlacesAction = __webpack_require__(790);
+	var _TradingPlacesAction = __webpack_require__(791);
 
 	function DetailList() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -88458,7 +88698,7 @@
 	}
 
 /***/ },
-/* 948 */
+/* 949 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88468,7 +88708,7 @@
 	});
 	exports.default = PieCounty;
 
-	var _TradingPlacesAction = __webpack_require__(790);
+	var _TradingPlacesAction = __webpack_require__(791);
 
 	function PieCounty() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -88487,7 +88727,7 @@
 	}
 
 /***/ },
-/* 949 */
+/* 950 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88497,7 +88737,7 @@
 	});
 	exports.default = BarName;
 
-	var _TradingPlacesAction = __webpack_require__(790);
+	var _TradingPlacesAction = __webpack_require__(791);
 
 	function BarName() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -88516,7 +88756,7 @@
 	}
 
 /***/ },
-/* 950 */
+/* 951 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88526,7 +88766,7 @@
 	});
 	exports.default = Lease;
 
-	var _financeLeaseAction = __webpack_require__(794);
+	var _financeLeaseAction = __webpack_require__(795);
 
 	//企业评级
 	function Lease() {
@@ -88555,7 +88795,7 @@
 	}
 
 /***/ },
-/* 951 */
+/* 952 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88565,7 +88805,7 @@
 	});
 	exports.default = ContrastLeft;
 
-	var _financeLeaseAction = __webpack_require__(794);
+	var _financeLeaseAction = __webpack_require__(795);
 
 	//企业评级
 	function ContrastLeft() {
@@ -88594,7 +88834,7 @@
 	}
 
 /***/ },
-/* 952 */
+/* 953 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88604,7 +88844,7 @@
 	});
 	exports.default = ContrastRight;
 
-	var _financeLeaseAction = __webpack_require__(794);
+	var _financeLeaseAction = __webpack_require__(795);
 
 	//企业评级
 	function ContrastRight() {
@@ -88633,7 +88873,7 @@
 	}
 
 /***/ },
-/* 953 */
+/* 954 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88643,7 +88883,7 @@
 	});
 	exports.default = Catalog;
 
-	var _financeLeaseAction = __webpack_require__(794);
+	var _financeLeaseAction = __webpack_require__(795);
 
 	//企业评级
 	function Catalog() {
@@ -88672,7 +88912,7 @@
 	}
 
 /***/ },
-/* 954 */
+/* 955 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88682,7 +88922,7 @@
 	});
 	exports.default = CatalogSelect;
 
-	var _financeLeaseAction = __webpack_require__(794);
+	var _financeLeaseAction = __webpack_require__(795);
 
 	//企业评级
 	function CatalogSelect() {
@@ -88711,7 +88951,7 @@
 	}
 
 /***/ },
-/* 955 */
+/* 956 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88721,7 +88961,7 @@
 	});
 	exports.default = TimeSelect;
 
-	var _financeLeaseAction = __webpack_require__(794);
+	var _financeLeaseAction = __webpack_require__(795);
 
 	//企业评级
 	function TimeSelect() {
@@ -88750,7 +88990,7 @@
 	}
 
 /***/ },
-/* 956 */
+/* 957 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88760,7 +89000,7 @@
 	});
 	exports.default = realTimeTable;
 
-	var _RealTimeAction = __webpack_require__(884);
+	var _RealTimeAction = __webpack_require__(885);
 
 	//这个函数就是处理，action里面成功和失败的2个返回函数。
 	//当ajax请求成功了，就可以调用这个两个返回函数进行操作。
@@ -88790,7 +89030,7 @@
 	}
 
 /***/ },
-/* 957 */
+/* 958 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88800,7 +89040,7 @@
 	});
 	exports.default = realTimeNine;
 
-	var _RealTimeAction = __webpack_require__(884);
+	var _RealTimeAction = __webpack_require__(885);
 
 	//这个函数就是处理，action里面成功和失败的2个返回函数。
 	//当ajax请求成功了，就可以调用这个两个返回函数进行操作。
@@ -88838,7 +89078,7 @@
 	// request、result
 
 /***/ },
-/* 958 */
+/* 959 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88848,7 +89088,7 @@
 	});
 	exports.default = realTimeNine;
 
-	var _RealTimeAction = __webpack_require__(884);
+	var _RealTimeAction = __webpack_require__(885);
 
 	//这个函数就是处理，action里面成功和失败的2个返回函数。
 	//当ajax请求成功了，就可以调用这个两个返回函数进行操作。
@@ -88886,7 +89126,7 @@
 	// request、result
 
 /***/ },
-/* 959 */
+/* 960 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88896,7 +89136,7 @@
 	});
 	exports.default = realTimeMap;
 
-	var _RealTimeAction = __webpack_require__(884);
+	var _RealTimeAction = __webpack_require__(885);
 
 	//这个函数就是处理，action里面成功和失败的2个返回函数。
 	//当ajax请求成功了，就可以调用这个两个返回函数进行操作。
@@ -88934,7 +89174,7 @@
 	// request、result
 
 /***/ },
-/* 960 */
+/* 961 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88944,7 +89184,7 @@
 	});
 	exports.default = realTimeMapSh;
 
-	var _RealTimeAction = __webpack_require__(884);
+	var _RealTimeAction = __webpack_require__(885);
 
 	//这个函数就是处理，action里面成功和失败的2个返回函数。
 	//当ajax请求成功了，就可以调用这个两个返回函数进行操作。
@@ -88982,7 +89222,7 @@
 	// request、result
 
 /***/ },
-/* 961 */
+/* 962 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -88992,7 +89232,7 @@
 	});
 	exports.default = realTimeRisk;
 
-	var _RealTimeAction = __webpack_require__(884);
+	var _RealTimeAction = __webpack_require__(885);
 
 	function realTimeRisk() {
 		var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -89020,7 +89260,7 @@
 	}
 
 /***/ },
-/* 962 */
+/* 963 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89030,7 +89270,7 @@
 	});
 	exports.default = RealTimeScroll;
 
-	var _RealTimeAction = __webpack_require__(884);
+	var _RealTimeAction = __webpack_require__(885);
 
 	function RealTimeScroll() {
 		var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -89058,7 +89298,7 @@
 	}
 
 /***/ },
-/* 963 */
+/* 964 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -89068,7 +89308,7 @@
 	});
 	exports.default = realtimeSwithVal;
 
-	var _RealTimeAction = __webpack_require__(884);
+	var _RealTimeAction = __webpack_require__(885);
 
 	//初始化数据
 	var initialState = {
@@ -89090,7 +89330,7 @@
 	}
 
 /***/ },
-/* 964 */
+/* 965 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -89122,7 +89362,7 @@
 	}
 
 /***/ },
-/* 965 */
+/* 966 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89161,7 +89401,7 @@
 	}
 
 /***/ },
-/* 966 */
+/* 967 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89171,7 +89411,7 @@
 	});
 	exports.default = parkCamp;
 
-	var _ParkMonitorIndexAction = __webpack_require__(826);
+	var _ParkMonitorIndexAction = __webpack_require__(827);
 
 	//在营时间分布
 	function parkCamp() {
@@ -89200,7 +89440,7 @@
 	}
 
 /***/ },
-/* 967 */
+/* 968 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89210,7 +89450,7 @@
 	});
 	exports.default = parkFinance;
 
-	var _ParkMonitorIndexAction = __webpack_require__(826);
+	var _ParkMonitorIndexAction = __webpack_require__(827);
 
 	//类金融企业集中度
 	function parkFinance() {
@@ -89239,7 +89479,7 @@
 	}
 
 /***/ },
-/* 968 */
+/* 969 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89249,7 +89489,7 @@
 	});
 	exports.default = parkIndustry;
 
-	var _ParkMonitorIndexAction = __webpack_require__(826);
+	var _ParkMonitorIndexAction = __webpack_require__(827);
 
 	//园区行业分布
 	function parkIndustry() {
@@ -89278,7 +89518,7 @@
 	}
 
 /***/ },
-/* 969 */
+/* 970 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89288,7 +89528,7 @@
 	});
 	exports.default = parkNews;
 
-	var _ParkMonitorIndexAction = __webpack_require__(826);
+	var _ParkMonitorIndexAction = __webpack_require__(827);
 
 	//舆情
 	function parkNews() {
@@ -89317,7 +89557,7 @@
 	}
 
 /***/ },
-/* 970 */
+/* 971 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89327,7 +89567,7 @@
 	});
 	exports.default = parkImg;
 
-	var _ParkMonitorIndexAction = __webpack_require__(826);
+	var _ParkMonitorIndexAction = __webpack_require__(827);
 
 	//楼宇企业列表
 	function parkImg() {
@@ -89356,7 +89596,7 @@
 	}
 
 /***/ },
-/* 971 */
+/* 972 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89366,7 +89606,7 @@
 	});
 	exports.default = buildCompanyList;
 
-	var _BuildDetailAction = __webpack_require__(835);
+	var _BuildDetailAction = __webpack_require__(836);
 
 	//楼宇企业列表
 	function buildCompanyList() {
@@ -89395,7 +89635,7 @@
 	}
 
 /***/ },
-/* 972 */
+/* 973 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89405,7 +89645,7 @@
 	});
 	exports.default = buildIndDistri;
 
-	var _BuildDetailAction = __webpack_require__(835);
+	var _BuildDetailAction = __webpack_require__(836);
 
 	//楼宇企业列表
 	function buildIndDistri() {
@@ -89434,7 +89674,7 @@
 	}
 
 /***/ },
-/* 973 */
+/* 974 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89444,7 +89684,7 @@
 	});
 	exports.default = companyBg;
 
-	var _BuildDetailAction = __webpack_require__(835);
+	var _BuildDetailAction = __webpack_require__(836);
 
 	//楼宇企业列表
 	function companyBg() {
@@ -89473,7 +89713,7 @@
 	}
 
 /***/ },
-/* 974 */
+/* 975 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89483,7 +89723,7 @@
 	});
 	exports.default = buildList;
 
-	var _BuildDetailAction = __webpack_require__(835);
+	var _BuildDetailAction = __webpack_require__(836);
 
 	//楼宇列表
 	function buildList() {
@@ -89512,7 +89752,7 @@
 	}
 
 /***/ },
-/* 975 */
+/* 976 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89522,7 +89762,7 @@
 	});
 	exports.default = buildNews;
 
-	var _BuildDetailAction = __webpack_require__(835);
+	var _BuildDetailAction = __webpack_require__(836);
 
 	//楼宇舆情
 	function buildNews() {
@@ -89551,7 +89791,7 @@
 	}
 
 /***/ },
-/* 976 */
+/* 977 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89561,7 +89801,7 @@
 	});
 	exports.default = buildRisk;
 
-	var _BuildDetailAction = __webpack_require__(835);
+	var _BuildDetailAction = __webpack_require__(836);
 
 	//楼宇风险
 	function buildRisk() {
@@ -89590,7 +89830,7 @@
 	}
 
 /***/ },
-/* 977 */
+/* 978 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -89600,7 +89840,7 @@
 	});
 	exports.default = buildSwitchVal;
 
-	var _BuildDetailAction = __webpack_require__(835);
+	var _BuildDetailAction = __webpack_require__(836);
 
 	//初始化数据
 	var initialState = {
@@ -89622,7 +89862,7 @@
 	}
 
 /***/ },
-/* 978 */
+/* 979 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89632,7 +89872,7 @@
 	});
 	exports.default = ChartAll;
 
-	var _commercialSecretIndexAction = __webpack_require__(806);
+	var _commercialSecretIndexAction = __webpack_require__(807);
 
 	function ChartAll() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -89660,7 +89900,7 @@
 	}
 
 /***/ },
-/* 979 */
+/* 980 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89670,7 +89910,7 @@
 	});
 	exports.default = businessnumChart;
 
-	var _commercialSecretIndexAction = __webpack_require__(806);
+	var _commercialSecretIndexAction = __webpack_require__(807);
 
 	function businessnumChart() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -89698,7 +89938,7 @@
 	}
 
 /***/ },
-/* 980 */
+/* 981 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89708,7 +89948,7 @@
 	});
 	exports.default = balanceChart;
 
-	var _commercialSecretIndexAction = __webpack_require__(806);
+	var _commercialSecretIndexAction = __webpack_require__(807);
 
 	function balanceChart() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -89736,7 +89976,7 @@
 	}
 
 /***/ },
-/* 981 */
+/* 982 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89746,7 +89986,7 @@
 	});
 	exports.default = CompanyDirectoryChart;
 
-	var _commercialSecretIndexAction = __webpack_require__(806);
+	var _commercialSecretIndexAction = __webpack_require__(807);
 
 	function CompanyDirectoryChart() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -89774,7 +90014,7 @@
 	}
 
 /***/ },
-/* 982 */
+/* 983 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89813,7 +90053,7 @@
 	};
 
 /***/ },
-/* 983 */
+/* 984 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89852,7 +90092,7 @@
 	}
 
 /***/ },
-/* 984 */
+/* 985 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89883,7 +90123,7 @@
 	}
 
 /***/ },
-/* 985 */
+/* 986 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -89893,7 +90133,7 @@
 	});
 	exports.default = searchResult;
 
-	var _LineFinanceSearchResultAction = __webpack_require__(986);
+	var _LineFinanceSearchResultAction = __webpack_require__(987);
 
 	console.log(_LineFinanceSearchResultAction.SEARCH_RESULT_SUCCESS);
 	function searchResult() {
@@ -89922,7 +90162,7 @@
 	}
 
 /***/ },
-/* 986 */
+/* 987 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -89973,14 +90213,286 @@
 	}
 
 /***/ },
-/* 987 */,
-/* 988 */,
-/* 989 */,
-/* 990 */,
-/* 991 */,
-/* 992 */,
-/* 993 */,
-/* 994 */,
+/* 988 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = dynamicPic;
+
+	var _LineFinanceStaticRiskAction = __webpack_require__(662);
+
+	function dynamicPic() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _LineFinanceStaticRiskAction.DYNAMIC_PIC_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _LineFinanceStaticRiskAction.DYNAMIC_PIC_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	} /**
+	   * 关联图谱DynamicPic
+	   */
+
+/***/ },
+/* 989 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = statistics;
+
+	var _LineFinanceStaticRiskAction = __webpack_require__(662);
+
+	function statistics() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _LineFinanceStaticRiskAction.STATISTICS_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _LineFinanceStaticRiskAction.STATISTICS_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	} /**
+	   * 静态风险-条形趋势图
+	   */
+
+/***/ },
+/* 990 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = riskData;
+
+	var _LineFinanceStaticRiskAction = __webpack_require__(662);
+
+	function riskData() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _LineFinanceStaticRiskAction.RISK_DATA_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _LineFinanceStaticRiskAction.RISK_DATA_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	} /**
+	   * 静态风险指数构成所有数据
+	   */
+
+/***/ },
+/* 991 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = statistics;
+
+	var _LineFinanceStaticRiskAction = __webpack_require__(662);
+
+	function statistics() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _LineFinanceStaticRiskAction.COMPANY_NEWS_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _LineFinanceStaticRiskAction.COMPANY_NEWS_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	} /**
+	   * 线下理财舆情
+	   */
+
+/***/ },
+/* 992 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = queryDateVersion;
+
+	var _LineFinanceStaticRiskAction = __webpack_require__(662);
+
+	function queryDateVersion() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _LineFinanceStaticRiskAction.QUERY_DATA_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _LineFinanceStaticRiskAction.QUERY_DATA_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	} /**
+	   * 静态风险-时间列表
+	   */
+
+/***/ },
+/* 993 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = queryCompanyInfo;
+
+	var _LineFinanceStaticRiskAction = __webpack_require__(662);
+
+	function queryCompanyInfo() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _LineFinanceStaticRiskAction.COMPANY_INFO_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _LineFinanceStaticRiskAction.COMPANY_INFO_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	} /**
+	   * 静态风险-公司标签
+	   */
+
+/***/ },
+/* 994 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = queryRiskIndex;
+
+	var _LineFinanceStaticRiskAction = __webpack_require__(662);
+
+	function queryRiskIndex() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _LineFinanceStaticRiskAction.RISK_INDEX_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _LineFinanceStaticRiskAction.RISK_INDEX_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	} /**
+	   * 静态风险-资本背景，信用信息
+	   */
+
+/***/ },
 /* 995 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -90281,7 +90793,7 @@
 	});
 	exports.default = industryTypeChart;
 
-	var _prepaidCardAction = __webpack_require__(817);
+	var _prepaidCardAction = __webpack_require__(818);
 
 	function industryTypeChart() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -90319,7 +90831,7 @@
 	});
 	exports.default = TotleMoney;
 
-	var _prepaidCardAction = __webpack_require__(817);
+	var _prepaidCardAction = __webpack_require__(818);
 
 	function TotleMoney() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -90395,7 +90907,7 @@
 	});
 	exports.default = SearchData;
 
-	var _InfoSearchAction = __webpack_require__(846);
+	var _InfoSearchAction = __webpack_require__(847);
 
 	function SearchData() {
 	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
@@ -98537,286 +99049,6 @@
 	    return String(it).replace(regExp, replacer);
 	  };
 	};
-
-/***/ },
-/* 1305 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.default = dynamicPic;
-
-	var _LineFinanceStaticRiskAction = __webpack_require__(662);
-
-	function dynamicPic() {
-		var state = arguments.length <= 0 || arguments[0] === undefined ? {
-			request: false,
-			result: {}
-		} : arguments[0];
-		var action = arguments[1];
-
-		switch (action.type) {
-			case _LineFinanceStaticRiskAction.DYNAMIC_PIC_SUCCESS:
-				//请求成功！
-				return Object.assign({}, state, {
-					request: true,
-					result: action.result
-				});
-			case _LineFinanceStaticRiskAction.DYNAMIC_PIC_FAIL:
-				//请求失败！
-				return Object.assign({}, state, {
-					request: true,
-					result: action.result
-				});
-			default:
-				return state;
-		}
-	} /**
-	   * 关联图谱DynamicPic
-	   */
-
-/***/ },
-/* 1306 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.default = statistics;
-
-	var _LineFinanceStaticRiskAction = __webpack_require__(662);
-
-	function statistics() {
-		var state = arguments.length <= 0 || arguments[0] === undefined ? {
-			request: false,
-			result: {}
-		} : arguments[0];
-		var action = arguments[1];
-
-		switch (action.type) {
-			case _LineFinanceStaticRiskAction.STATISTICS_SUCCESS:
-				//请求成功！
-				return Object.assign({}, state, {
-					request: true,
-					result: action.result
-				});
-			case _LineFinanceStaticRiskAction.STATISTICS_FAIL:
-				//请求失败！
-				return Object.assign({}, state, {
-					request: true,
-					result: action.result
-				});
-			default:
-				return state;
-		}
-	} /**
-	   * 静态风险-条形趋势图
-	   */
-
-/***/ },
-/* 1307 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.default = riskData;
-
-	var _LineFinanceStaticRiskAction = __webpack_require__(662);
-
-	function riskData() {
-		var state = arguments.length <= 0 || arguments[0] === undefined ? {
-			request: false,
-			result: {}
-		} : arguments[0];
-		var action = arguments[1];
-
-		switch (action.type) {
-			case _LineFinanceStaticRiskAction.RISK_DATA_SUCCESS:
-				//请求成功！
-				return Object.assign({}, state, {
-					request: true,
-					result: action.result
-				});
-			case _LineFinanceStaticRiskAction.RISK_DATA_FAIL:
-				//请求失败！
-				return Object.assign({}, state, {
-					request: true,
-					result: action.result
-				});
-			default:
-				return state;
-		}
-	} /**
-	   * 静态风险指数构成所有数据
-	   */
-
-/***/ },
-/* 1308 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.default = statistics;
-
-	var _LineFinanceStaticRiskAction = __webpack_require__(662);
-
-	function statistics() {
-		var state = arguments.length <= 0 || arguments[0] === undefined ? {
-			request: false,
-			result: {}
-		} : arguments[0];
-		var action = arguments[1];
-
-		switch (action.type) {
-			case _LineFinanceStaticRiskAction.COMPANY_NEWS_SUCCESS:
-				//请求成功！
-				return Object.assign({}, state, {
-					request: true,
-					result: action.result
-				});
-			case _LineFinanceStaticRiskAction.COMPANY_NEWS_FAIL:
-				//请求失败！
-				return Object.assign({}, state, {
-					request: true,
-					result: action.result
-				});
-			default:
-				return state;
-		}
-	} /**
-	   * 线下理财舆情
-	   */
-
-/***/ },
-/* 1309 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.default = queryDateVersion;
-
-	var _LineFinanceStaticRiskAction = __webpack_require__(662);
-
-	function queryDateVersion() {
-		var state = arguments.length <= 0 || arguments[0] === undefined ? {
-			request: false,
-			result: {}
-		} : arguments[0];
-		var action = arguments[1];
-
-		switch (action.type) {
-			case _LineFinanceStaticRiskAction.QUERY_DATA_SUCCESS:
-				//请求成功！
-				return Object.assign({}, state, {
-					request: true,
-					result: action.result
-				});
-			case _LineFinanceStaticRiskAction.QUERY_DATA_FAIL:
-				//请求失败！
-				return Object.assign({}, state, {
-					request: true,
-					result: action.result
-				});
-			default:
-				return state;
-		}
-	} /**
-	   * 静态风险-时间列表
-	   */
-
-/***/ },
-/* 1310 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.default = queryCompanyInfo;
-
-	var _LineFinanceStaticRiskAction = __webpack_require__(662);
-
-	function queryCompanyInfo() {
-		var state = arguments.length <= 0 || arguments[0] === undefined ? {
-			request: false,
-			result: {}
-		} : arguments[0];
-		var action = arguments[1];
-
-		switch (action.type) {
-			case _LineFinanceStaticRiskAction.COMPANY_INFO_SUCCESS:
-				//请求成功！
-				return Object.assign({}, state, {
-					request: true,
-					result: action.result
-				});
-			case _LineFinanceStaticRiskAction.COMPANY_INFO_FAIL:
-				//请求失败！
-				return Object.assign({}, state, {
-					request: true,
-					result: action.result
-				});
-			default:
-				return state;
-		}
-	} /**
-	   * 静态风险-公司标签
-	   */
-
-/***/ },
-/* 1311 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	exports.default = queryRiskIndex;
-
-	var _LineFinanceStaticRiskAction = __webpack_require__(662);
-
-	function queryRiskIndex() {
-		var state = arguments.length <= 0 || arguments[0] === undefined ? {
-			request: false,
-			result: {}
-		} : arguments[0];
-		var action = arguments[1];
-
-		switch (action.type) {
-			case _LineFinanceStaticRiskAction.RISK_INDEX_SUCCESS:
-				//请求成功！
-				return Object.assign({}, state, {
-					request: true,
-					result: action.result
-				});
-			case _LineFinanceStaticRiskAction.RISK_INDEX_FAIL:
-				//请求失败！
-				return Object.assign({}, state, {
-					request: true,
-					result: action.result
-				});
-			default:
-				return state;
-		}
-	} /**
-	   * 静态风险-资本背景，信用信息
-	   */
 
 /***/ }
 /******/ ]);

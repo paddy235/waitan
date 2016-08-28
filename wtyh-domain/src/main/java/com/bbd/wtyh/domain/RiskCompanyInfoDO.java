@@ -19,6 +19,7 @@ public class RiskCompanyInfoDO extends BaseDO {
 	private Date regDate; // 注册时间
 	
 	private String regDateStr;
+	private int ranking;
 
 	public String getArea() {
 		return area;
@@ -120,6 +121,14 @@ public class RiskCompanyInfoDO extends BaseDO {
 
 	public void setRegDateStr(String regDateStr) {
 		this.regDateStr = regDateStr;
+	}
+
+	public int getRanking() {
+		return ranking;
+	}
+
+	public void setRanking(int ranking) {
+		this.ranking = ranking;
 	}
 
 }

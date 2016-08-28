@@ -90,14 +90,18 @@ public class P2PImageDaoImpl implements P2PImageDao {
                 }
 
                 @Override
-                public Object parse(String s) {
-                    JSONObject jsonObject = JSON.parseObject(s);
+                public Object parse(String result) {
+                    if (null == result || result.length() == 0) {
+                        return null;
+                    }
+                    JSONObject jsonObject = JSON.parseObject(result);
                     data.put("total", jsonObject.get("total") == "" ? 0 : jsonObject.get("total"));
                     return data;
                 }
             });
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
         return data;
     }
@@ -116,6 +120,9 @@ public class P2PImageDaoImpl implements P2PImageDao {
 
                 @Override
                 public Object parse(String result) {
+                    if (null == result || result.length() == 0 ) {
+                        return null;
+                    }
                     JSONObject object = JSON.parseObject(result);
                     source.put("运营能力", object.get("operation"));
                     source.put("违约成本", object.get("penalty_cost"));
@@ -128,6 +135,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
             });
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
         //数据格式化
         Map<String, Object> result = new LinkedHashMap<>();
@@ -281,6 +289,9 @@ public class P2PImageDaoImpl implements P2PImageDao {
 
                 @Override
                 public Object parse(String result) {
+                    if (null == result || result.length()==0) {
+                        return null;
+                    }
                     JSONObject jsonObject = JSON.parseObject(result);
                     data.put("amount_total", jsonObject.get("amount_total"));
                     data.put("money_stock", jsonObject.get("money_stock"));
@@ -295,6 +306,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
             });
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
         return data;
     }
@@ -312,6 +324,9 @@ public class P2PImageDaoImpl implements P2PImageDao {
 
                 @Override
                 public PlatDataDO parse(String result) {
+                    if (null == result || result.length() == 0) {
+                        return null;
+                    }
                     Gson gson = new Gson();
                     return gson.fromJson(result, new TypeToken<PlatDataDO>() {
                     }.getType());
