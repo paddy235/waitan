@@ -61,6 +61,9 @@ public class FinanceLeaseController {
     @RequestMapping("leaseCompanyList.do")
     @ResponseBody
     public ResponseBean leaseCompanyList(String areaName, Integer analysisResult, Integer riskA, Integer riskB, Integer riskC, Integer riskD) {
+        if(riskD!=null){
+            analysisResult = 1;
+        }
         List<FinanceLeasecCompanyVO> list = financeLeaseService.leaseCompanyList(areaName, analysisResult, riskA, riskB, riskC, riskD);
         return ResponseBean.successResponse(list);
     }
