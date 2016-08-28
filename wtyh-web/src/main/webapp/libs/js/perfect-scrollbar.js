@@ -24,7 +24,7 @@
     minScrollbarLength: null,
     useBothWheelAxes: false,
     useKeyboard: true,
-    suppressScrollX: false,
+    suppressScrollX: true,
     suppressScrollY: false,
     scrollXMarginOffset: 0,
     scrollYMarginOffset: 0,

@@ -119,12 +119,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
 
     public String getCompanyNews() {
 
-        String data = (String)redisDAO.getObject(Constants.REDIS_KEY_NEWS_DATA);
-
-        if (!org.apache.commons.lang.StringUtils.isEmpty(data)) {
-            logger.info("Get in redis." + data);
-            return data;
-        }
+        String data = null;
 
         try {
             HttpTemplate ht = new HttpTemplate();
@@ -141,10 +136,6 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
                 }
             });
 
-            if (!org.apache.commons.lang.StringUtils.isBlank(data) && data.contains("\"total\"") && !data.contains("\"total\": 0")) {
-                logger.info("Set in redis." + data);
-                redisDAO.addObject(Constants.REDIS_KEY_NEWS_DATA, data, Constants.cacheDay, String.class);
-            }
         } catch (Exception e) {
             logger.error("Method getCompanyNews get Exception." + e.getMessage());
             e.printStackTrace();
