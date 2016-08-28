@@ -84789,7 +84789,7 @@
 	                    _react2.default.createElement(
 	                        'span',
 	                        { style: { display: "inline-block" } },
-	                        '截止2016年7月27日：收到举报信息：'
+	                        '截止目前：收到举报信息：'
 	                    ),
 	                    _react2.default.createElement(
 	                        'span',
