@@ -52030,7 +52030,7 @@
 	        requestType: 'get',
 	        requestUrl: '/searchCompany.do',
 	        requestData: {
-	          companyType: this.props.companyType, //1: P2P 2:小贷 3:融资担保 4:线下理财 5:私募基金 6:众筹 7:其他 8:金融 9:交易所 10:商业保理 11.预付卡 12.典当 13融资租赁,
+	          // companyType:this.props.companyType,//1: P2P 2:小贷 3:融资担保 4:线下理财 5:私募基金 6:众筹 7:其他 8:金融 9:交易所 10:商业保理 11.预付卡 12.典当 13融资租赁,
 	          size: 5,
 	          form: "base"
 	        },
@@ -60527,9 +60527,10 @@
 	      unit: ['万元'],
 	      yAxisName: "万元",
 	      legendRight: "center",
+	      yFlag: "",
 	      legendTop: '1%',
-	      legendPadding: [],
-	      grid: { top: '10%', left: '5%', right: '5%', bottom: '5%', containLabel: true },
+	      legendPadding: [0, 0, 0, 0],
+	      grid: { top: '10%', left: '5%', right: '5%', bottom: '10%', containLabel: true },
 	      legend: ["贷款总余额/总笔数"],
 	      xAxis: data.xAxis,
 	      series: [data.series]
@@ -62654,12 +62655,12 @@
 	            if (fundCaseTopRequest == true) {
 	                var _barData = [],
 	                    _baryAxis = [];
-
-	                for (var item in fundCaseTopResult.content) {
-	                    _baryAxis.push(fundCaseTopResult.content[item].companyName);
+	                var _dataSore = BOSS.sort(fundCaseTopResult.content, "productNumber", "asc");
+	                for (var item in _dataSore) {
+	                    _baryAxis.push(_dataSore[item].companyName);
 	                    var barItem = {
-	                        value: fundCaseTopResult.content[item].productNumber,
-	                        name: fundCaseTopResult.content[item].companyName
+	                        value: _dataSore[item].productNumber,
+	                        name: _dataSore[item].companyName
 	                    };
 	                    _barData.push(barItem);
 	                }
@@ -65070,7 +65071,7 @@
 	            legendRight: "center",
 	            legendTop: '1%',
 	            legendPadding: [0, 0, 0, 0],
-	            grid: { top: '10%', left: '5%', right: '5%', bottom: '5%', containLabel: true },
+	            grid: { top: '10%', left: '5%', right: '5%', bottom: '10%', containLabel: true },
 	            yAxisName: "万元",
 	            legend: ["贷款总余额/总笔数"],
 	            xAxis: data.xAxis,
@@ -75532,7 +75533,7 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _index = __webpack_require__(594);
+	var _index2 = __webpack_require__(594);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -75642,6 +75643,7 @@
 	        }
 	    },
 	    render: function render() {
+	        var _noListIndex = this.state.selectedDataHaveReg.length;
 	        var selectQuarter = {
 	            width: '75px',
 	            className: 'company-dire',
@@ -75707,7 +75709,7 @@
 	                                    'th',
 	                                    { width: '20%' },
 	                                    '企业类型',
-	                                    _react2.default.createElement(_index.Selected, selectQuarter)
+	                                    _react2.default.createElement(_index2.Selected, selectQuarter)
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
@@ -75820,6 +75822,7 @@
 	                            }),
 	                            //无注册资本
 	                            this.state.selectedDataNoReg.map(function (item, index) {
+	                                var _index = _noListIndex + index + 1;
 	                                var _address = item.address == null ? "/" : item.address;
 	                                var registeredCapital = item.registeredCapital == null ? "/" : item.registeredCapital + "万元";
 	                                if (index % 2) {
@@ -75829,7 +75832,7 @@
 	                                        _react2.default.createElement(
 	                                            'td',
 	                                            { width: '10%', className: 'talign-center' },
-	                                            index + 1
+	                                            _index
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
@@ -75868,7 +75871,7 @@
 	                                        _react2.default.createElement(
 	                                            'td',
 	                                            { width: '10%', className: 'talign-center' },
-	                                            index + 1
+	                                            _index
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
@@ -80712,7 +80715,7 @@
 
 
 	// module
-	exports.push([module.id, "#search-result-detail .no-data{\r\n  margin:20px 0;\r\n  color:#E14340;\r\n  font-size:16px;\r\n}\r\n#search-result-detail .relation-map {\r\n  width: 64%;\r\n  height: 100%;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title {\r\n  width: 100%;\r\n  background: #383e47;\r\n  padding: 5px 10px;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title span {\r\n  font-size: 20px;\r\n  color: #fff;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title .btn {\r\n  width: 102px;\r\n  height: 28px;\r\n  line-height: 28px;\r\n  text-align: center;\r\n  display: inline-block;\r\n  border-radius: 3px;\r\n  background: #e14340;\r\n  font-size: 12px;\r\n  margin-left: 15px;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title .right-content {\r\n  float: right;\r\n  margin-top: 7px;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title .right-content input {\r\n  width: 260px;\r\n  height: 30px;\r\n  border: none;\r\n  padding-left: 15px;\r\n  border-radius: 100px;\r\n  color: #666;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title .right-content .cancel {\r\n  margin-left: -25px;\r\n  color: #939aa4;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title .right-content .enlarge {\r\n  margin: 0 8px 0 31px;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix {\r\n  margin: 25px 0 15px 10px;\r\n  width: 99%;\r\n  height: 56px;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table {\r\n  background: #1a2029;\r\n  width: 80%;\r\n  height: 100%;\r\n  float: left;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr {\r\n  height: 50%;\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr td {\r\n  padding: 8px 0 0 14px;\r\n  position: relative;\r\n  width: 19.8%;\r\n  display: inline-block;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr span {\r\n  display: inline-block;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .item-lable {\r\n  font-size: 12px;\r\n  color: #b2b2b2;\r\n  position: absolute;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr img {\r\n  margin: -5px 20px 0 0;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .square {\r\n  width: 17px;\r\n  height: 17px;\r\n  margin-right: 20px;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .round {\r\n  width: 17px;\r\n  height: 17px;\r\n  margin-right: 20px;\r\n  border-radius: 100px;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .orange {\r\n  background: #f44603;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .orange-two {\r\n  background: #f98d2b;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .blue {\r\n  background: #046adb;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .yellow {\r\n  background: #ffdb03;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .green {\r\n  background: #73d528;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix .condition {\r\n  width: 19.6%;\r\n  height: 100%;\r\n  float: left;\r\n  margin-left: 2px;\r\n  background: #212831;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix .condition .lable {\r\n  font-size: 12px;\r\n  color: #fff;\r\n  width: 100%;\r\n  height: 50%;\r\n  padding-top: 8px;\r\n  line-height: 100%;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix .condition .btns {\r\n  width: 100%;\r\n  height: 50%;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix .condition .btns .btn {\r\n  background: #00b7ee;\r\n  float: left;\r\n  width: 32.5%;\r\n  height: 100%;\r\n  margin-left: 1px;\r\n  text-align: center;\r\n  padding-top: 5px;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show {\r\n  width: 100%;\r\n  height: 80%;\r\n  margin: 10px;\r\n  position: relative;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile {\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0;\r\n  width: 270px;\r\n  padding-bottom: 5px;\r\n  border-radius: 5px;\r\n  background: #222931;\r\n  -webkit-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n  -moz-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile .company-title {\r\n  width: 100%;\r\n  height: 30px;\r\n  line-height: 30px;\r\n  padding-left: 5%;\r\n  background: #4B5668;\r\n  border-top-left-radius: 5px;\r\n  border-top-right-radius: 5px;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile table {\r\n  width: 100%;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile table tr {\r\n  width: 100%;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile table tr td {\r\n  height: 27px;\r\n  line-height: 27px;\r\n  font-size: 12px;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile table tr td:first-child {\r\n  width: 60%;\r\n  color: #878E96;\r\n  padding-left: 5%;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile table tr td:last-child {\r\n  width: 40%;\r\n}\r\n\r\n#search-result-detail .company-info {\r\n  width: 34.5%;\r\n  height: 42%;\r\n  padding: 15px;\r\n}\r\n\r\n#search-result-detail .company-info .logo-name {\r\n  overflow: hidden;\r\n  *zoom: 1;\r\n  margin-bottom: 15px;\r\n}\r\n\r\n#search-result-detail .company-info .logo-name .logo {\r\n  float: left;\r\n  width: 90px;\r\n  height: 90px;\r\n  background: url(\"/images/no-logo.png\");\r\n}\r\n\r\n#search-result-detail .company-info .logo-name .cname {\r\n  float: left;\r\n  font-size: 18px;\r\n  margin: 2px;\r\n  padding-left: 20px;\r\n}\r\n\r\n#search-result-detail .company-info .person-info {\r\n  width: 100%;\r\n  height: 71%;\r\n  background: #1f252f;\r\n  padding: 26px 10px 0 34px;\r\n}\r\n\r\n#search-result-detail .company-info .person-info > div {\r\n  margin-bottom: 10%;\r\n}\r\n\r\n#search-result-detail .company-info .person-info i {\r\n  color: #facd89;\r\n  font-size: 14px;\r\n}\r\n\r\n#search-result-detail .company-info .person-info span {\r\n  font-size: 14px;\r\n  margin-left: 13px;\r\n}\r\n\r\n#search-result-detail .company-news {\r\n  width: 34.5%;\r\n  height: 56.7%;\r\n  padding: 15px;\r\n}\r\n\r\n#search-result-detail .company-news .news-name {\r\n  font-size: 18px;\r\n  margin-bottom: 2.6%;\r\n}\r\n\r\n#search-result-detail .company-news .news-item {\r\n  height: auto;  /* overflow-y: scroll; */\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item {\r\n  padding: 1.2% 0 1.7% 1.2%;\r\n  background: #1a2029;\r\n  border-bottom: 1px solid #cccccc;\r\n  margin-bottom: 1.5%;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .item-num {\r\n  width: 17px;\r\n  height: 17px;\r\n  text-align: center;\r\n  line-height: 17px;\r\n  border-radius: 3px;\r\n  background: #6a6a6a;\r\n  font-size: 11px;\r\n  float: left;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .item-title {\r\n  font-size: 14px;\r\n  color: #e14340;\r\n  font-weight: bold;\r\n  float: left;\r\n  margin-left: 15px;\r\n  width:90%;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .item-title a {\r\n  color: #e14340;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .item-content {\r\n  display:block;\r\n  cursor:pointer;\r\n  color:#fff;\r\n  margin-top: 17px;\r\n  text-indent: 2em;\r\n  padding: 0 25px 20px 25px;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .right-bottom-text {\r\n  float: right;\r\n  color: #898f98;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .right-bottom-text .website {\r\n  margin-right: 40px;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .right-bottom-text .rel-date {\r\n  margin-right: 25px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner {\r\n  width: 99%;\r\n  margin-bottom: 10px !important;\r\n  padding: 13px 20px 20px 17px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .clabel {\r\n  font-size: 18px;\r\n  margin-bottom: 23px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .label-all {\r\n  background: #333b46;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .label-all .label-name {\r\n  width: 180px;\r\n  height: 40px;\r\n  line-height: 40px;\r\n  text-align: center;\r\n  background: #464f5c;\r\n  margin-right: 2px;\r\n  font-size: 14px;\r\n  float: left;\r\n  cursor: pointer;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .label-all .name-active {\r\n  background: #e14340;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-content > div {\r\n  width: 100%;\r\n  margin-top: 17px;\r\n  min-height:460px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table {\r\n  margin-left: 63px;\r\n  width: 90%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:first-child {\r\n  font-weight: bold;\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:nth-child(2) {\r\n  width: 30%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:nth-child(3) {\r\n  font-weight: bold;\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:nth-child(4) {\r\n  width: 30%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table tr .bussiness-scope {\r\n  width: 85% !important;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info td {\r\n  display: inline-block;\r\n  line-height: 36px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .shareholder-title {\r\n  width: 100%;\r\n  border-bottom: 5px solid #363C48;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .title-item {\r\n  width: 220px;\r\n  height: 50px;\r\n  line-height: 50px;\r\n  position: relative;\r\n  top: 5px;\r\n  display: inline-block;\r\n  text-align: center;\r\n  margin-right: 2px;\r\n  cursor: pointer;\r\n  border-bottom: 5px solid #464f5c;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .title-active {\r\n  border-bottom: 5px solid #e14340;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-title {\r\n  width: 100%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-title > div {\r\n  width: 220px;\r\n  height: 80px;\r\n  line-height: 80px;\r\n  font-size: 14px;\r\n  font-weight: bold;\r\n  text-align: center;\r\n  display: inline-block;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-content {\r\n  width: 100%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-content > div {\r\n  width: 220px;\r\n  height: 60px;  /*line-height: 80px;*/\r\n  font-size: 14px;\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-content > div > span{\r\n  text-align:left;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .control-title {\r\n  width: 100%;\r\n  border-bottom: 5px solid #363C48;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .title-item {\r\n  width: 220px;\r\n  height: 50px;\r\n  line-height: 50px;\r\n  position: relative;\r\n  top: 5px;\r\n  display: inline-block;\r\n  text-align: center;\r\n  cursor: pointer;\r\n  margin-right: 2px;\r\n  border-bottom: 5px solid #464f5c;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .title-active {\r\n  border-bottom: 5px solid #e14340;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .content .content-title {\r\n  width: 100%;\r\n  height: 80px;\r\n  line-height: 80px;\r\n  font-size: 14px;\r\n  font-weight: bold;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .content .content-content {\r\n  width: 100%;\r\n  padding: 10px;\r\n  font-size: 14px;\r\n  float: left;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div:first-child {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div:nth-child(2) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div:nth-child(3) {\r\n  width: 33%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div:nth-child(4) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div:nth-child(5) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n  padding: 0 1%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div > span {\r\n  text-align:left;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div:first-child {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div:nth-child(2) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div:nth-child(3) {\r\n  width: 33%;\r\n  text-indent: 2em;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div:nth-child(4) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div:nth-child(5) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:first-child {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(2) {\r\n  width: 25%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(3) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(4) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(5) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(6) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(7) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n  padding: 0 1%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div > span {\r\n  text-align:left;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:first-child {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(2) {\r\n  width: 25%;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(3) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(4) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(5) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(6) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(7) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:first-child {\r\n  width: 25%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:nth-child(2) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:nth-child(3) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:nth-child(4) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:nth-child(5) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:nth-child(6) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n  padding: 0 1%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div > span{\r\n  text-align:left;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:first-child {\r\n  width: 25%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:nth-child(2) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:nth-child(3) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:nth-child(4) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:nth-child(5) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:nth-child(6) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-title > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-title > div:first-child {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-title > div:nth-child(2) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-title > div:nth-child(3) {\r\n  width: 20%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-title > div:nth-child(4) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n  padding: 0 1%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div >span {\r\n  text-align:left;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div:first-child {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div:nth-child(2) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div:nth-child(3) {\r\n  width: 20%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div:nth-child(4) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-title > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-title > div:first-child {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-title > div:nth-child(2) {\r\n  width: 40%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-title > div:nth-child(3) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-title > div:nth-child(4) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n  padding: 0 1%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div > span{\r\n  text-align:left;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div:first-child {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div:nth-child(2) {\r\n  width: 40%;\r\n  text-align: center;\r\n  text-indent: 2em;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div:nth-child(3) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div:nth-child(4) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .recruiting-title {\r\n  width: 100%;\r\n  border-bottom: 5px solid #363C48;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .title-item {\r\n  width: 180px;\r\n  height: 50px;\r\n  line-height: 50px;\r\n  position: relative;\r\n  top: 5px;\r\n  display: inline-block;\r\n  text-align: center;\r\n  margin-right: 2px;\r\n  cursor: pointer;\r\n  border-bottom: 5px solid #464f5c;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .title-active {\r\n  border-bottom: 5px solid #e14340;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .show-charts {\r\n  width: 100%;\r\n  height: 390px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .show-charts #person-index {\r\n  width: 50%;\r\n  height: 100%;\r\n  float: left;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .show-charts #pay-distribute {\r\n  width: 50%;\r\n  height: 100%;\r\n  float: left;\r\n}\r\n\r\n#search-result-detail  .relation-legend {\r\n  width: auto;\r\n  margin: 35px 10px 0px 10px;\r\n}\r\n\r\n#search-result-detail .relation-legend table tr .square {\r\n  width: 10px;\r\n  height: 10px;\r\n}\r\n\r\n#search-result-detail  .relation-legend table tr .round {\r\n  width: 10px;\r\n  height: 10px;\r\n}\r\n#search-result-detail .window-show-graph{\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%!important;\r\n    z-index: 100;\r\n    margin: 0;\r\n}\r\n#search-result-detail .linefin-rel-graph .mod-content .relation-graph-box {\r\n    height: 785px;\r\n    overflow: hidden;\r\n    padding-top: 15px;\r\n}\r\n\r\n#search-result-detail  .linefin-rel-graph {\r\n  height: 914px\r\n}\r\n\r\n#search-result-detail  .linefin-rel-graph .mod-title {\r\n  border-top-left-radius: 5px;\r\n  border-top-right-radius: 5px;\r\n}\r\n\r\n#search-result-detail .relation-legend .condition {\r\n  margin-top: -2px;\r\n}\r\n\r\n#search-result-detail  .linefin-rel-graph .mod-title h3 {\r\n  display: inline-block;\r\n  vertical-align: middle;\r\n  font-weight: normal;\r\n  font-style: normal;\r\n  font-size: 16px;\r\n  color: #ffffff;\r\n  margin-left: 10px;\r\n  padding: 8px 0;\r\n}\r\n\r\n.company-news-scroll {\r\n  overflow-y: scroll;\r\n  overflow-x: hidden;\r\n}", ""]);
+	exports.push([module.id, "#search-result-detail .no-data{\r\n  margin:20px 0;\r\n  color:#E14340;\r\n  font-size:16px;\r\n}\r\n#search-result-detail .relation-map {\r\n  width: 64%;\r\n  height: 100%;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title {\r\n  width: 100%;\r\n  background: #383e47;\r\n  padding: 5px 10px;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title span {\r\n  font-size: 20px;\r\n  color: #fff;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title .btn {\r\n  width: 102px;\r\n  height: 28px;\r\n  line-height: 28px;\r\n  text-align: center;\r\n  display: inline-block;\r\n  border-radius: 3px;\r\n  background: #e14340;\r\n  font-size: 12px;\r\n  margin-left: 15px;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title .right-content {\r\n  float: right;\r\n  margin-top: 7px;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title .right-content input {\r\n  width: 260px;\r\n  height: 30px;\r\n  border: none;\r\n  padding-left: 15px;\r\n  border-radius: 100px;\r\n  color: #666;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title .right-content .cancel {\r\n  margin-left: -25px;\r\n  color: #939aa4;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title .right-content .enlarge {\r\n  margin: 0 8px 0 31px;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix {\r\n  margin: 25px 0 15px 10px;\r\n  width: 99%;\r\n  height: 56px;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table {\r\n  background: #1a2029;\r\n  width: 80%;\r\n  height: 100%;\r\n  float: left;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr {\r\n  height: 50%;\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr td {\r\n  padding: 8px 0 0 14px;\r\n  position: relative;\r\n  width: 19.8%;\r\n  display: inline-block;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr span {\r\n  display: inline-block;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .item-lable {\r\n  font-size: 12px;\r\n  color: #b2b2b2;\r\n  position: absolute;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr img {\r\n  margin: -5px 20px 0 0;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .square {\r\n  width: 17px;\r\n  height: 17px;\r\n  margin-right: 20px;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .round {\r\n  width: 17px;\r\n  height: 17px;\r\n  margin-right: 20px;\r\n  border-radius: 100px;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .orange {\r\n  background: #f44603;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .orange-two {\r\n  background: #f98d2b;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .blue {\r\n  background: #046adb;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .yellow {\r\n  background: #ffdb03;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .green {\r\n  background: #73d528;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix .condition {\r\n  width: 19.6%;\r\n  height: 100%;\r\n  float: left;\r\n  margin-left: 2px;\r\n  background: #212831;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix .condition .lable {\r\n  font-size: 12px;\r\n  color: #fff;\r\n  width: 100%;\r\n  height: 50%;\r\n  padding-top: 8px;\r\n  line-height: 100%;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix .condition .btns {\r\n  width: 100%;\r\n  height: 50%;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix .condition .btns .btn {\r\n  background: #00b7ee;\r\n  float: left;\r\n  width: 32.5%;\r\n  height: 100%;\r\n  margin-left: 1px;\r\n  text-align: center;\r\n  padding-top: 5px;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show {\r\n  width: 100%;\r\n  height: 80%;\r\n  margin: 10px;\r\n  position: relative;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile {\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0;\r\n  width: 270px;\r\n  padding-bottom: 5px;\r\n  border-radius: 5px;\r\n  background: #222931;\r\n  -webkit-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n  -moz-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile .company-title {\r\n  width: 100%;\r\n  height: 30px;\r\n  line-height: 30px;\r\n  padding-left: 5%;\r\n  background: #4B5668;\r\n  border-top-left-radius: 5px;\r\n  border-top-right-radius: 5px;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile table {\r\n  width: 100%;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile table tr {\r\n  width: 100%;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile table tr td {\r\n  height: 27px;\r\n  line-height: 27px;\r\n  font-size: 12px;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile table tr td:first-child {\r\n  width: 60%;\r\n  color: #878E96;\r\n  padding-left: 5%;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile table tr td:last-child {\r\n  width: 40%;\r\n}\r\n\r\n#search-result-detail .company-info {\r\n  width: 34.5%;\r\n  height: 42%;\r\n  padding: 15px;\r\n}\r\n\r\n#search-result-detail .company-info .logo-name {\r\n  overflow: hidden;\r\n  *zoom: 1;\r\n  margin-bottom: 15px;\r\n}\r\n\r\n#search-result-detail .company-info .logo-name .logo {\r\n  float: left;\r\n  width: 90px;\r\n  height: 90px;\r\n  background: url(\"/images/no-logo.png\");\r\n}\r\n\r\n#search-result-detail .company-info .logo-name .cname {\r\n  float: left;\r\n  font-size: 18px;\r\n  margin: 2px;\r\n  padding-left: 20px;\r\n}\r\n\r\n#search-result-detail .company-info .person-info {\r\n  width: 100%;\r\n  height: 71%;\r\n  background: #1f252f;\r\n  padding: 26px 10px 0 34px;\r\n}\r\n\r\n#search-result-detail .company-info .person-info > div {\r\n  margin-bottom: 10%;\r\n}\r\n\r\n#search-result-detail .company-info .person-info i {\r\n  color: #facd89;\r\n  font-size: 14px;\r\n}\r\n\r\n#search-result-detail .company-info .person-info span {\r\n  font-size: 14px;\r\n  margin-left: 13px;\r\n}\r\n\r\n#search-result-detail .company-news {\r\n  width: 34.5%;\r\n  height: 56.7%;\r\n  padding: 15px;\r\n}\r\n\r\n#search-result-detail .company-news .news-name {\r\n  font-size: 18px;\r\n  margin-bottom: 2.6%;\r\n}\r\n\r\n#search-result-detail .company-news .news-item {\r\n  height: auto;  /* overflow-y: scroll; */\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item {\r\n  padding: 1.2% 0 1.7% 1.2%;\r\n  background: #1a2029;\r\n  border-bottom: 1px solid #cccccc;\r\n  margin-bottom: 1.5%;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .item-num {\r\n  width: 17px;\r\n  height: 17px;\r\n  text-align: center;\r\n  line-height: 17px;\r\n  border-radius: 3px;\r\n  background: #6a6a6a;\r\n  font-size: 11px;\r\n  float: left;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .item-title {\r\n  font-size: 14px;\r\n  color: #e14340;\r\n  font-weight: bold;\r\n  float: left;\r\n  margin-left: 15px;\r\n  width:90%;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .item-title a {\r\n  color: #e14340;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .item-content {\r\n  display:block;\r\n  cursor:pointer;\r\n  color:#fff;\r\n  margin-top: 17px;\r\n  text-indent: 2em;\r\n  padding: 0 25px 20px 25px;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .right-bottom-text {\r\n  float: right;\r\n  color: #898f98;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .right-bottom-text .website {\r\n  margin-right: 40px;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .right-bottom-text .rel-date {\r\n  margin-right: 25px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner {\r\n  width: 99%;\r\n  margin-bottom: 10px !important;\r\n  padding: 13px 20px 20px 17px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .clabel {\r\n  font-size: 18px;\r\n  margin-bottom: 23px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .label-all {\r\n  background: #333b46;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .label-all .label-name {\r\n  width: 180px;\r\n  height: 40px;\r\n  line-height: 40px;\r\n  text-align: center;\r\n  background: #464f5c;\r\n  margin-right: 2px;\r\n  font-size: 14px;\r\n  float: left;\r\n  cursor: pointer;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .label-all .name-active {\r\n  background: #e14340;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-content > div {\r\n  width: 100%;\r\n  margin-top: 17px;\r\n  min-height:460px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table {\r\n  margin-left: 63px;\r\n  width: 90%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:first-child {\r\n  font-weight: bold;\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:nth-child(2) {\r\n  width: 30%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:nth-child(3) {\r\n  font-weight: bold;\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:nth-child(4) {\r\n  width: 30%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table tr .bussiness-scope {\r\n  width: 85% !important;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info td {\r\n  display: inline-block;\r\n  line-height: 36px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .shareholder-title {\r\n  width: 100%;\r\n  border-bottom: 5px solid #363C48;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .title-item {\r\n  width: 220px;\r\n  height: 50px;\r\n  line-height: 50px;\r\n  position: relative;\r\n  top: 5px;\r\n  display: inline-block;\r\n  text-align: center;\r\n  margin-right: 2px;\r\n  cursor: pointer;\r\n  border-bottom: 5px solid #464f5c;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .title-active {\r\n  border-bottom: 5px solid #e14340;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-title {\r\n  width: 100%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-title > div {\r\n  width: 220px;\r\n  height: 80px;\r\n  line-height: 80px;\r\n  font-size: 14px;\r\n  font-weight: bold;\r\n  text-align: center;\r\n  display: inline-block;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-content {\r\n  width: 100%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-content > div {\r\n  width: 220px;\r\n  height: 60px;  /*line-height: 80px;*/\r\n  font-size: 14px;\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-content > div > span{\r\n  text-align:left;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .control-title {\r\n  width: 100%;\r\n  border-bottom: 5px solid #363C48;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .title-item {\r\n  width: 220px;\r\n  height: 50px;\r\n  line-height: 50px;\r\n  position: relative;\r\n  top: 5px;\r\n  display: inline-block;\r\n  text-align: center;\r\n  cursor: pointer;\r\n  margin-right: 2px;\r\n  border-bottom: 5px solid #464f5c;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .title-active {\r\n  border-bottom: 5px solid #e14340;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .content .content-title {\r\n  width: 100%;\r\n  height: 80px;\r\n  line-height: 80px;\r\n  font-size: 14px;\r\n  font-weight: bold;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .content .content-content {\r\n  width: 100%;\r\n  padding: 10px;\r\n  font-size: 14px;\r\n  float: left;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div:first-child {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div:nth-child(2) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div:nth-child(3) {\r\n  width: 33%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div:nth-child(4) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-title > div:nth-child(5) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n  padding: 0 1%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div > span {\r\n  text-align:left;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div:first-child {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div:nth-child(2) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div:nth-child(3) {\r\n  width: 33%;\r\n  text-indent: 2em;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div:nth-child(4) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .announcement .content-content > div:nth-child(5) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:first-child {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(2) {\r\n  width: 25%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(3) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(4) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(5) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(6) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-title > div:nth-child(7) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n  padding: 0 1%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div > span {\r\n  text-align:left;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:first-child {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(2) {\r\n  width: 25%;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(3) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(4) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(5) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(6) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .referee-documents .content-content > div:nth-child(7) {\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:first-child {\r\n  width: 25%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:nth-child(2) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:nth-child(3) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:nth-child(4) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:nth-child(5) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-title > div:nth-child(6) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n  padding: 0 1%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div > span{\r\n  text-align:left;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:first-child {\r\n  width: 25%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:nth-child(2) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:nth-child(3) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:nth-child(4) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:nth-child(5) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .executor .content-content > div:nth-child(6) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-title > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-title > div:first-child {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-title > div:nth-child(2) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-title > div:nth-child(3) {\r\n  width: 20%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-title > div:nth-child(4) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n  padding: 0 1%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div >span {\r\n  text-align:left;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div:first-child {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div:nth-child(2) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div:nth-child(3) {\r\n  width: 20%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .broken-promises .content-content > div:nth-child(4) {\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-title > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-title > div:first-child {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-title > div:nth-child(2) {\r\n  width: 40%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-title > div:nth-child(3) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-title > div:nth-child(4) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div {\r\n  display: inline-block;\r\n  text-align: center;\r\n  padding: 0 1%;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div > span{\r\n  text-align:left;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div:first-child {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div:nth-child(2) {\r\n  width: 40%;\r\n  text-align: center;\r\n  text-indent: 2em;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div:nth-child(3) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .court-announcement .content-content > div:nth-child(4) {\r\n  width: 13%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .recruiting-title {\r\n  width: 100%;\r\n  border-bottom: 5px solid #363C48;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .title-item {\r\n  width: 180px;\r\n  height: 50px;\r\n  line-height: 50px;\r\n  position: relative;\r\n  top: 5px;\r\n  display: inline-block;\r\n  text-align: center;\r\n  margin-right: 2px;\r\n  cursor: pointer;\r\n  border-bottom: 5px solid #464f5c;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .title-active {\r\n  border-bottom: 5px solid #e14340;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .show-charts {\r\n  width: 100%;\r\n  height: 390px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .show-charts #person-index {\r\n  width: 50%;\r\n  height: 100%;\r\n  float: left;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .show-charts #pay-distribute {\r\n  width: 50%;\r\n  height: 100%;\r\n  float: left;\r\n}\r\n\r\n#search-result-detail  .relation-legend {\r\n  width: auto;\r\n  margin: 35px 10px 0px 10px;\r\n}\r\n\r\n#search-result-detail .relation-legend table tr .square {\r\n  width: 10px;\r\n  height: 10px;\r\n}\r\n\r\n#search-result-detail  .relation-legend table tr .round {\r\n  width: 10px;\r\n  height: 10px;\r\n}\r\n#search-result-detail .window-show-graph{\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%!important;\r\n    z-index: 100;\r\n    margin: 0;\r\n}\r\n#search-result-detail .linefin-rel-graph .mod-content .relation-graph-box {\r\n    height: 785px;\r\n    overflow: hidden;\r\n    padding-top: 15px;\r\n}\r\n\r\n#search-result-detail  .linefin-rel-graph {\r\n  height: 914px\r\n}\r\n\r\n#search-result-detail  .linefin-rel-graph .mod-title {\r\n  border-top-left-radius: 5px;\r\n  border-top-right-radius: 5px;\r\n}\r\n\r\n#search-result-detail .relation-legend .condition {\r\n  margin-top: -2px;\r\n}\r\n\r\n#search-result-detail  .linefin-rel-graph .mod-title h3 {\r\n  display: inline-block;\r\n  vertical-align: middle;\r\n  font-weight: normal;\r\n  font-style: normal;\r\n  font-size: 16px;\r\n  color: #ffffff;\r\n  margin-left: 10px;\r\n  padding: 8px 0;\r\n}\r\n\r\n.company-news-scroll {\r\n  overflow-y: scroll;\r\n  overflow-x: hidden;\r\n}\r\n\r\n.modal-bg{\r\n  background: #000000;\r\n  opacity: 0.5;\r\n  position: fixed;\r\n  left: 0px;\r\n  right: 0px;\r\n  top: 0px;\r\n  bottom: 0px;\r\n  z-index: 10;\r\n}\r\n.doc-modal{\r\n  width: 600px;\r\n  height: 600px;\r\n  position: fixed;\r\n  left: 50%;\r\n  top: 50%;\r\n  margin-left:-300px;\r\n  margin-top: -300px;\r\n  border-radius: 5px;\r\n  z-index: 100;\r\n  background-color: #ffffff;\r\n}\r\n.doc-modal h3{\r\n  text-align: center;\r\n  color: #000;\r\n}\r\n.doc-modal .modal-content{\r\n  color: #000;\r\n  padding: 10px;\r\n}\r\n.doc-modal .modal-content .left{\r\n  float: left;\r\n  width: 380px;\r\n  margin: 10px;\r\n}\r\n.doc-modal .modal-content .left h4{\r\n  font-size: 16px;\r\n  text-align: center;\r\n  padding:5px 0;\r\n}\r\n.doc-modal .modal-content .left .main{\r\n  margin-top: 10px;\r\n}\r\n.doc-modal .modal-content .right{\r\n  float: left;\r\n  width: 180px;\r\n  overflow: auto;\r\n}\r\n.doc-modal .modal-content .right span{\r\n  display: block;\r\n  padding: 2px;\r\n}\r\n", ""]);
 
 	// exports
 
@@ -80891,9 +80894,8 @@
 	      var CompanyInfoNewsResult = nextProps.CompanyInfoNewsResult;
 
 	      if (CompanyInfoNewsRequest == true) {
-	        data = CompanyInfoNewsResult.content.results;
+	        data = CompanyInfoNewsResult.content.results.slice(0, 20);
 	        data = this.arrSort(data);
-	        console.log(data, "companyInfoNEWS");
 	        _this.setState({
 	          itemAll: !data || data.length == 0 ? _react2.default.createElement(
 	            'div',
@@ -81845,7 +81847,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 
 	__webpack_require__(857);
@@ -81862,148 +81864,214 @@
 	var Immutable = __webpack_require__(620);
 	var data = "1";
 	var RefereeDocuments = _react2.default.createClass({
-	  displayName: 'RefereeDocuments',
-	  getInitialState: function getInitialState() {
-	    return {
-	      content: null,
-	      data: ""
-	    };
-	  },
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    var _this = this;
-	    if (nextProps.CompanyInfoC2Request) {
-	      var data = nextProps.CompanyInfoC2Result;
-	      console.log(data, "诉讼记录B");
-	      this.setState({
-	        data: data.content,
-	        content: !data.content || data.content.length == 0 ? _react2.default.createElement(
-	          'div',
-	          { className: 'no-data' },
-	          '截止目前,通过中国裁判文书网、中华人民共和国最高人民法院全国法院被执行人信息查询平台，未发现目标公司的诉讼记录相关情况信息。'
-	        ) : data.content.map(function (item, index) {
-	          return _react2.default.createElement(
+	    displayName: 'RefereeDocuments',
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            content: [],
+	            data: "",
+	            main: "",
+	            titleOne: "",
+	            titleTwo: ""
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        var getCompanyInfoC2 = this.props.getCompanyInfoC2; // 取到props里面的getRealTimeTable方法。也可以说是请求action
+
+	        var data = this.props.location.query.companyName;
+	        var jsonData = { company: data };
+	        getCompanyInfoC2(jsonData);
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        if (nextProps.CompanyInfoC2Request) {
+	            var data = nextProps.CompanyInfoC2Result;
+	            console.log(data, '1222');
+
+	            this.setState({ data: data.content, content: data.content });
+	        }
+	    },
+	    hanldTitle: function hanldTitle(e) {
+	        var main = $(e.target).data('main');
+	        var titleOne = $(e.target).text();
+	        this.setState({ main: main, titleOne: titleOne, titleTwo: titleTwo });
+	    },
+	    render: function render() {
+	        return _react2.default.createElement(
 	            'div',
-	            { className: 'content-content clear-fix', key: index },
-	            _react2.default.createElement(
-	              'div',
-	              null,
-	              _react2.default.createElement(
-	                'span',
-	                null,
-	                item.casecode || '-'
-	              )
+	            { className: 'content referee-documents' },
+	            !this.state.data || this.state.data.length == 0 ? '' : _react2.default.createElement(
+	                'div',
+	                { className: 'content-title' },
+	                _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    '案号'
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    '案件标题'
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    '案由'
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    '案件类型'
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    '审判时间'
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    '当事人类型'
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    '案件结果'
+	                )
 	            ),
-	            _react2.default.createElement(
-	              'div',
-	              null,
-	              _react2.default.createElement(
-	                'span',
-	                null,
-	                item.title || '-'
-	              )
+	            this.state.content.length > 0 ? this.state.content.map(function (item, index) {
+	                var main = item.main;
+	                return _react2.default.createElement(
+	                    'div',
+	                    { className: 'content-content clear-fix', key: index },
+	                    _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        _react2.default.createElement(
+	                            'span',
+	                            null,
+	                            item.casecode || '-'
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'hanldTitle' },
+	                        _react2.default.createElement(
+	                            'span',
+	                            { onClick: this.hanldTitle, 'data-main': item.main },
+	                            item.title || '-'
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        _react2.default.createElement(
+	                            'span',
+	                            null,
+	                            item.action_cause || '-'
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        _react2.default.createElement(
+	                            'span',
+	                            null,
+	                            item.case_type || '-'
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        _react2.default.createElement(
+	                            'span',
+	                            null,
+	                            item.sentence_date || '-'
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        '被告'
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        _react2.default.createElement(
+	                            'span',
+	                            null,
+	                            item.caseout_come || '-'
+	                        )
+	                    )
+	                );
+	            }.bind(this)) : _react2.default.createElement(
+	                'div',
+	                { className: 'no-data' },
+	                '截止目前,通过中国裁判文书网、中华人民共和国最高人民法院全国法院被执行人信息查询平台，未发现目标公司的诉讼记录相关情况信息。'
 	            ),
+	            _react2.default.createElement('div', { className: 'modal-bg' }),
 	            _react2.default.createElement(
-	              'div',
-	              null,
-	              _react2.default.createElement(
-	                'span',
-	                null,
-	                item.action_cause || '-'
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              null,
-	              _react2.default.createElement(
-	                'span',
-	                null,
-	                item.case_type || '-'
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              null,
-	              _react2.default.createElement(
-	                'span',
-	                null,
-	                item.sentence_date || '-'
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              null,
-	              '被告'
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              null,
-	              _react2.default.createElement(
-	                'span',
-	                null,
-	                item.caseout_come || '-'
-	              )
+	                'div',
+	                { className: 'doc-modal' },
+	                _react2.default.createElement(
+	                    'h3',
+	                    null,
+	                    '标题'
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'modal-content' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'left' },
+	                        _react2.default.createElement(
+	                            'h4',
+	                            null,
+	                            '二级标题'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'main' },
+	                            this.state.main
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'right' },
+	                        _react2.default.createElement(
+	                            'span',
+	                            null,
+	                            '法院当事人: 原告乐19号楼六层6184号房间。'
+	                        ),
+	                        _react2.default.createElement(
+	                            'span',
+	                            null,
+	                            '案件结果: 原告乐视网信19号楼六层6184号房间。'
+	                        ),
+	                        _react2.default.createElement(
+	                            'span',
+	                            null,
+	                            '审理法院: 原告乐视网信息路68号19号楼六层6184号房间。'
+	                        ),
+	                        _react2.default.createElement(
+	                            'span',
+	                            null,
+	                            '受理费: 原告乐视网信息技68号19号楼六层6184号房间。'
+	                        ),
+	                        _react2.default.createElement(
+	                            'span',
+	                            null,
+	                            '裁判日期: 原告乐视网区学院南路68号19号楼六层6184号房间。'
+	                        ),
+	                        _react2.default.createElement(
+	                            'span',
+	                            null,
+	                            '案由: 原告乐视网信息技南路68号19号楼六'
+	                        )
+	                    )
+	                )
 	            )
-	          );
-	        })
-
-	      });
+	        );
 	    }
-	  },
-	  componentDidMount: function componentDidMount() {
-	    var getCompanyInfoC2 = this.props.getCompanyInfoC2; // 取到props里面的getRealTimeTable方法。也可以说是请求action
-
-	    var data = this.props.location.query.companyName;
-	    var jsonData = {
-	      company: data
-	    };
-	    getCompanyInfoC2(jsonData);
-	  },
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'content referee-documents' },
-	      !this.state.data || this.state.data.length == 0 ? '' : _react2.default.createElement(
-	        'div',
-	        { className: 'content-title' },
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          '案号'
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          '案件标题'
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          '案由'
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          '案件类型'
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          '审判时间'
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          '当事人类型'
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          null,
-	          '案件结果'
-	        )
-	      ),
-	      this.state.content
-	    );
-	  }
 	});
 	exports.default = RefereeDocuments;
 
@@ -84244,11 +84312,11 @@
 	            if (geoSereis[p].value == '1') {
 	                geoSereisFinal["4"].push(geoSereis[p]);
 	            } else if (geoSereis[p].value == '2') {
-	                geoSereisFinal["3"].push(geoSereis[p]);
+	                geoSereisFinal["1"].push(geoSereis[p]);
 	            } else if (geoSereis[p].value == '3') {
 	                geoSereisFinal["2"].push(geoSereis[p]);
 	            } else {
-	                geoSereisFinal["1"].push(geoSereis[p]);
+	                geoSereisFinal["3"].push(geoSereis[p]);
 	            }
 	        }
 	        SHposition = ajaxDataSH.SHposition; //后台请求回来的ajax经纬度~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -84277,7 +84345,8 @@
 	                                typeP = "曝光日期<span class='redFont'> " + numORdate + " </span>";typeLabel = "<label class='testLable whiteFont'>已出风险</label>";
 	                                break;
 	                            case 2:
-	                                typeP = "风险值<span class='redFont'> " + Number(numORdate).toFixed(2) + " </span>";typeLabel = "<label class='testLable green whiteFont'>正常</label>";
+	                                typeP = "风险值<span class='redFont'> " + Number(numORdate).toFixed(2) + " </span>";typeLabel = "<label class='testLable red whiteFont'>重点关注</label>";
+
 	                                break;
 
 	                            case 3:
@@ -84285,7 +84354,7 @@
 	                                break;
 
 	                            case 4:
-	                                typeP = "风险值<span class='redFont'> " + Number(numORdate).toFixed(2) + " </span>";typeLabel = "<label class='testLable red whiteFont'>重点关注</label>";
+	                                typeP = "风险值<span class='redFont'> " + Number(numORdate).toFixed(2) + " </span>";typeLabel = "<label class='testLable green whiteFont'>正常</label>";
 	                                break;
 
 	                        };
@@ -84359,7 +84428,7 @@
 	                textStyle: {
 	                    color: '#fff'
 	                },
-	                pieces: [{ value: 4, label: '123（自定义特殊颜色）', color: 'red' }, { value: 3, label: '123（自定义特殊颜色）', color: 'yellow' }, { value: 2, label: '123（自定义特殊颜色）', color: 'green' }, { value: 1, label: '123（自定义特殊颜色）', color: 'black' }, { value: 1000, label: '123（自定义特殊颜色）', color: '#246e86' }, { value: 500, label: '123（自定义特殊颜色）', color: '#72b3c7' }],
+	                pieces: [{ value: 2, label: '123（自定义特殊颜色）', color: 'red' }, { value: 3, label: '123（自定义特殊颜色）', color: 'yellow' }, { value: 4, label: '123（自定义特殊颜色）', color: 'green' }, { value: 1, label: '123（自定义特殊颜色）', color: 'black' }, { value: 1000, label: '123（自定义特殊颜色）', color: '#246e86' }, { value: 500, label: '123（自定义特殊颜色）', color: '#72b3c7' }],
 	                inRange: {
 	                    color: ['red', "green"]
 	                }
@@ -84860,7 +84929,7 @@
 	                        "gridBottom": "0%",
 	                        // "yFlag":"",
 	                        // "y2Flag":"",
-	                        "yRightLable": "bar",
+	                        "yRightLable": "line",
 	                        "xAxis": nineDate.content.p2p.xAxis,
 	                        "yAxisName": ["累计", "新增"],
 	                        "barWidth": 20,
@@ -84871,7 +84940,7 @@
 	                        }
 	                    };
 	                    paramFour = {
-	                        "link": "/smallLoan#/financeGuara",
+	                        "link": "/smallLoan#/financeLease",
 	                        "titleShow": true,
 	                        "title": "融资租赁",
 	                        "color": ["#e24441", "#12b5b0", "rgb(230,162,74)"],
