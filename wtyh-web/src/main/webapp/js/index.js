@@ -60520,17 +60520,15 @@
 	    console.log(data, 999999999999999);
 	    var option = {
 	      color: ["#00b8ee", "#f8b551"],
-	      title: "",
 	      titleX: "left",
 	      boxId: "each-average-chart",
 	      symbolSize: 10,
 	      legendIsShow: true,
-	      yFlag: "",
 	      unit: ['万元'],
 	      yAxisName: "万元",
 	      legendRight: "center",
 	      legendTop: '1%',
-	      legendPadding: [0, 0, 0, 0],
+	      legendPadding: [],
 	      grid: { top: '10%', left: '5%', right: '5%', bottom: '5%', containLabel: true },
 	      legend: ["贷款总余额/总笔数"],
 	      xAxis: data.xAxis,
@@ -60538,29 +60536,11 @@
 	    };
 	    this.setState({ option: option });
 	  },
-	  // setParm:function(){
-	  //   const option ={
-	  //     color:["#00b8ee","#f8b551"],
-	  //         title:"",
-	  //         titleX:"left",
-	  //         boxId:"each-average-chart",
-	  //         symbolSize:10,
-	  //         legendIsShow:true,
-	  //         yFlag:"",
-	  //         legendRight:"center",
-	  //         legendTop:'1%',
-	  //         legendPadding:[0,0,0,0],
-	  //         grid:{top:'10%',left: '5%',right: '5%',bottom: '5%',containLabel: true},
-	  //         yAxisName:"",
-	  //         legend:["贷款总余额/总笔数"],
-	  //         xAxis:['2013', '2014', '2015', '2016', '2017', '2018'],
-	  //         series:[[0,1,2,3,4]]
-	  //     }
-	  //       return option;
-	  // },
 	  render: function render() {
 	    var bbdLine = "";
+
 	    if (this.state.option) {
+	      console.log(this.state.option, '11111111');
 	      bbdLine = _react2.default.createElement(_LineChart2.default, { option: this.state.option, style: { height: '272px', width: '100%' } });
 	    }
 	    return _react2.default.createElement(
@@ -85342,9 +85322,9 @@
 	    var _this = this;
 	    var isEqual = Immutable.is(nextProps.realTimeNewsResult, this.props.realTimeNewsResult);
 	    if (!isEqual) {
-	      var data = JSON.parse(nextProps.realTimeNewsResult.content);
+	      var data = JSON.parse(nextProps.realTimeNewsResult.content).results.slice(0, 20);
 	      _this.setState({
-	        list: data.results.map(function (item, index) {
+	        list: data.map(function (item, index) {
 	          var main = item.main.substring(0, 80);
 	          return _react2.default.createElement(
 	            'li',
