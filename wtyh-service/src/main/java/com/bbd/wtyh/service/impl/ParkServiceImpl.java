@@ -128,6 +128,7 @@ public class ParkServiceImpl implements ParkService {
 
 		String result = null;
 		String names = companyMapper.queryCompanyNames(areaId,null);
+		log.info("園區舆情公司爲："+names);
 		if(!StringUtils.isEmpty(names)){
 			List<NameValuePair> list = new ArrayList<>();
 			list.add(new BasicNameValuePair("keys", names.substring(0, names.length()-1)   ));

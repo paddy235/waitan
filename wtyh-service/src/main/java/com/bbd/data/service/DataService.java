@@ -75,5 +75,5 @@ public interface DataService {
 	 * @param  companyName  公司名称
 	 * @return List<Map<String,Object>>
 	 */
-    Map<String,Object> getCredit(String companyName);
+	List<Map<String, Object>> getCredit(String companyName);
 }

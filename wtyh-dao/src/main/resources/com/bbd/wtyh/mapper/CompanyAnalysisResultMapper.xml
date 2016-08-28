@@ -65,7 +65,7 @@
 
 
     <select id="queryRiskByBuilding" resultType="com.bbd.wtyh.domain.CompanyAnalysisResultDO" >
-        select c.company_id,c.`name` , cas.analysis_result analysisResult
+        select DISTINCT c.company_id,c.`name` , cas.analysis_result analysisResult
         from company c
         LEFT JOIN company_building cb  on cb.company_id=c.company_id
         LEFT JOIN company_analysis_result cas on cas.company_id=c.company_id

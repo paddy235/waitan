@@ -9,7 +9,7 @@
 </head>
 
 
-<body>
+<body onkeydown="keyLogin();">
 <center>
 <br/><br/>
 	<h2>用户登录</h2>
@@ -30,6 +30,17 @@
 		</div>
 	</div>
 	<script>
+
+		function keyLogin(){
+			if (event.keyCode==13){   //回车键的键值为13
+				submitForm(); //调用登录按钮的登录事件
+			}
+        }
+
+
+
+
+
 		function submitForm(){
 			$('#ff').form('submit',{
 				onSubmit:function(){
