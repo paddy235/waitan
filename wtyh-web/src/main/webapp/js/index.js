@@ -75672,7 +75672,7 @@
 	                        'em',
 	                        { className: 'orange' },
 	                        ' ',
-	                        this.state.selectedData.length,
+	                        this.state.selectedDataHaveReg.length + this.state.selectedDataNoReg.length,
 	                        ' '
 	                    ),
 	                    '家企业'
@@ -78737,11 +78737,6 @@
 	                        )
 	                    )
 	                )
-	            ),
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'yuan' },
-	                _react2.default.createElement('img', { src: '' })
 	            )
 	        );
 	    }
@@ -80227,7 +80222,7 @@
 	                    this.state.isShowSearch ? _react2.default.createElement(
 	                        'div',
 	                        { className: 'search-group' },
-	                        _react2.default.createElement('input', { id: 'keyworld', type: 'text', placeholder: '请输入企业名称检索' }),
+	                        _react2.default.createElement('input', { id: 'keyworld', type: 'text', placeholder: '请输入企业名称或关键字检索' }),
 	                        _react2.default.createElement(
 	                            'span',
 	                            { onClick: this.searchResult, className: 'search' },
