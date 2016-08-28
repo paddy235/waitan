@@ -1,15 +1,10 @@
 package com.bbd.wtyh.mapper;
 
-import com.bbd.wtyh.domain.CompanyDO;
-import com.bbd.wtyh.domain.CompanyTypeCountDO;
-import com.bbd.wtyh.domain.InBusinessDO;
 import com.bbd.wtyh.domain.StaticRiskDataDO;
 import com.bbd.wtyh.domain.dto.StaticRiskDTO;
-import com.bbd.wtyh.domain.query.CompanyQuery;
 import com.bbd.wtyh.domain.vo.StatisticsVO;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -49,7 +44,7 @@ public interface StaticRiskMapper {
 
     public StaticRiskDTO queryLastStaticRisk(Map<String, Object> params);
 
-    List<StaticRiskDTO> getSpectrumAnalysis(@Param("low")Integer low, @Param("upper")Integer upper);
+    List<StaticRiskDTO> getSpectrumAnalysis(@Param("low") Integer low, @Param("upper") Integer upper, @Param("normal_flag")boolean normal_flag);
 
     public List<String> queryDateVersion(Map<String, Object> params);
 
