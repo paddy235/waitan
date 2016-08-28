@@ -1,30 +1,18 @@
 package com.bbd.wtyh.service.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-
 import com.alibaba.fastjson.JSON;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.poi.util.SystemOutLogger;
+import com.bbd.wtyh.domain.dto.*;
+import com.bbd.wtyh.service.PToPMonitorService;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.bbd.wtyh.domain.dto.AreaIndexDTO;
-import com.bbd.wtyh.domain.dto.IndustryCompareDTO;
-import com.bbd.wtyh.domain.dto.IndustryProblemDTO;
-import com.bbd.wtyh.domain.dto.IndustryShanghaiDTO;
-import com.bbd.wtyh.domain.dto.PlatRankDataDTO;
-import com.bbd.wtyh.service.PToPMonitorService;
-import com.bbd.wtyh.util.relation.HttpClientUtils;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import java.util.List;
 
 /**
 * 
