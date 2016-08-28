@@ -31,6 +31,19 @@
 			border-color: #666666;
 			background-color: #ffffff;
 		}
+
+
+		table.gridtable .space td {
+			border-width: 1px;
+			padding: 1px;
+			border-style: solid;
+			height: 2px;
+			border-color: #666666;
+			background-color: #3d3d3d;
+		}
+
+
+
 	</style>
 
 </head>
@@ -40,8 +53,12 @@
 	<br/>
 	<br/>
 	<br/>
+
+
+
+
 	<form action="${ctx}/credit/info.do" method="post" >
- 		企业名称：<input name="companyName" style="width: 250px;" value="${param.companyName}" /> <input type="submit" value="查询" />
+ 		企业名称：<input name="companyName" style="width: 250px;" value="${param.companyName}" /> <input type="submit" value="查询" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input onclick="window.location.href='${ctx}/data/showTables.do'" value="返回至基础数据修改" type="button" />
 	</form>
 
 
@@ -49,8 +66,12 @@
 	<br/>
 	<br/>
 	<table class="gridtable">
+
 		<c:forEach items="${list}" var="map" >
-			<tr><td>${map.key}</td><td>${map.value}</td></tr>
+			<tr class="space" ><td colspan="2">&nbsp;</td></tr>
+			<c:forEach items="${map}" var="kv" >
+			<tr><td>${kv.key}</td><td>${kv.value}</td></tr>
+			</c:forEach>
 		</c:forEach>
 	</table>
 
