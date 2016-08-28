@@ -21,9 +21,10 @@
 
     <select id="getSpectrumAnalysis" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>, exposure_date AS exposureDate
+        <include refid="Base_Column_List"/>, DATE_FORMAT(exposure_date,'%Y-%m') AS exposureDate
         from company_analysis_result, company
         where analysis_result = #{type,jdbcType=INTEGER} AND company.company_id = company_analysis_result.company_id
+        ORDER BY exposureDate DESC
     </select>
 
     <select id="getSpectrumAnalysisAll" resultMap="BaseResultMap">
@@ -61,11 +62,8 @@
     </select>
 
 
-
-
-
-    <select id="queryRiskByBuilding" resultType="com.bbd.wtyh.domain.CompanyAnalysisResultDO" >
-        select c.company_id,c.`name` , cas.analysis_result analysisResult
+    <select id="queryRiskByBuilding" resultType="com.bbd.wtyh.domain.CompanyAnalysisResultDO">
+        select DISTINCT c.company_id,c.`name` , cas.analysis_result analysisResult
         from company c
         LEFT JOIN company_building cb  on cb.company_id=c.company_id
         LEFT JOIN company_analysis_result cas on cas.company_id=c.company_id

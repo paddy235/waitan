@@ -1,11 +1,14 @@
 package com.bbd.data.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +24,8 @@ import com.bbd.data.service.DataService;
 */
 @Service
 public class DataServiceImpl implements DataService {
+
+	private Logger log = LoggerFactory.getLogger(getClass());
 
 	@Autowired
 	private TableDataMapper tableDataMapper;
@@ -71,15 +76,19 @@ public class DataServiceImpl implements DataService {
 	}
 
 	@Override
-	public Map<String, Object> getCredit(String companyName) {
+	public List<Map<String, Object>> getCredit(String companyName) {
 
-		String content = tableDataMapper.getCredit(companyName);
-		if(content == null){
-			return null;
-		}
+		List<String> list = tableDataMapper.getCredit(companyName);
 
 		Gson gson = new Gson();
-		return gson.fromJson(content,new TypeToken<Map<String, Object>>(){}.getType());
+		List<Map<String,Object>> maps = new ArrayList<>();
+		for (String str:list) {
+			log.info(str);
+			Map<String, Object> map = gson.fromJson(str,new TypeToken<Map<String, Object>>(){}.getType());
+			maps.add(map);
+		}
+
+		return maps;
 
 	}
 

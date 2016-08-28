@@ -39,5 +39,5 @@ public interface TableDataMapper {
 							@Param(value="idValue") Integer idValue ,
 							@Param(value="value") String value);
 
-    String getCredit(@Param(value="companyName") String companyName);
+    List<String> getCredit(@Param(value="companyName") String companyName);
 }

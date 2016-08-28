@@ -58,7 +58,7 @@
 
 	<select id="getCredit" resultType="string" >
 
-		select a.content from company_credit_information a,company b where a.company_id=b.company_id and b.`name`=#{companyName} LIMIT 1
+		select a.content from company_credit_information a,company b where a.company_id=b.company_id and b.`name`=#{companyName}
 
 	</select>
 
