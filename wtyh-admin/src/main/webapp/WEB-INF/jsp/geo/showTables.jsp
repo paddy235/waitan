@@ -17,7 +17,7 @@
 <body>
 <center>	
 
-	<button onclick="window.location.href='${ctx}/credit/info.do'">公司信用平台信息查询</button><br/><br/>
+	<div style="width: 740px;" align="right"><button onclick="window.location.href='${ctx}/credit/info.do'">公司信用平台信息查询-&gt;</button></div><br/><br/>
 
 	<table class="easyui-datagrid" title="系统数据表" style="width:740px"
 		   data-options="rownumbers:true,singleSelect:true,url:'${ctx}/data/tables.do',method:'get'">

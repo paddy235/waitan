@@ -72,6 +72,16 @@ public class RiskCompanyController {
 		pagination.setPageNumber(pageNo);
 		params.put("pagination", pagination);
 		List<RiskCompanyInfoDO> list = riskCompanyService.getTop(params);
+		if (null != list && list.size() >= 1) {
+			for (int i = 0; i < list.size(); i++) {
+				RiskCompanyInfoDO tmp = list.get(i);
+				if ("0".equals(sortType)) {
+					tmp.setRanking(pagination.getCount() - i - (pagination.getPageNumber() - 1) * pagination.getPageSize());
+				} else {
+					tmp.setRanking(i + 1 + (pagination.getPageNumber() - 1) * pagination.getPageSize());
+				}
+			}
+		}
 		pagination.setList(list);
 		return ResponseBean.successResponse(pagination);
 	}
