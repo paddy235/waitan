@@ -72,7 +72,7 @@
 		WHERE
 			c.company_type = 13
 		<if test="year > 0">
-			AND YEAR(registered_date) = #{year}
+			AND YEAR(registered_date) <![CDATA[<=]]> #{year}
 		</if>
 		GROUP BY
 			fle.free_trade_zone;
