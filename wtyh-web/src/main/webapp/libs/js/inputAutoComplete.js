@@ -69,7 +69,10 @@
 				if (oldValue == newValue) {
 					that.show();
 					return false;
+				} else if (newValue == "") {
+					return false;
 				} else {
+					// console.log("我来过请求地址=============================")
 					that.delayRequest(newValue, 0);
 				}
 			})
