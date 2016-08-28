@@ -20,6 +20,15 @@ public class JudgeDocDO {
         private String sentence_date; // 审判时间
         private String litigant_type;  // 当事人类型
         private String caseout_come;    // 案件结果
+        private String casecode;
+
+        public String getCasecode() {
+            return casecode;
+        }
+
+        public void setCasecode(String casecode) {
+            this.casecode = casecode;
+        }
 
         public String getCompany_name() {
             return company_name;
