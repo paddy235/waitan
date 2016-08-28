@@ -50825,7 +50825,7 @@
 
 
 	// module
-	exports.push([module.id, ".line-finace-search{\r\n\tpadding: 20px;\r\n}\r\n.line-finace-index h3{\r\n\ttext-align: center;\r\n\tfont-size: 24px;\r\n}\r\n.line-finace-search label{\r\n\tfont-size: 24px;\r\n\tcolor: #ffffff;\r\n\tmargin-right: 10px;\r\n}\r\n.line-finace-search .mt-input{\r\n\twidth: 600px;\r\n\theight: 50px;\r\n\tdisplay: block;\r\n\tmargin: 0 auto;\r\n\tmargin-top: 20px;\r\n}\r\n.line-finace-search .mt-input input{\r\n\theight: 50px !important;\r\n}\r\n.line-finace-search .mt-input .mt-iconbtn{\r\n\twidth: 36px;\r\n\theight: 36px;\r\n\tmargin-top: -18px;\r\n}\r\n.line-finace-search .mt-input .iconfont{\r\n\tfont-size: 36px;\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*搜索条件*/\r\n.search-conditon{\r\n\tborder-bottom: dashed 1px #7e3235;\r\n\tpadding: 5px 20px;\r\n}\r\n.search-conditon.last{\r\n\tborder-bottom: none;\r\n}\r\n.search-conditon label{\r\n\tdisplay: inline-block;\r\n}\r\n.search-conditon ul{\r\n\tdisplay: inline-block;\r\n}\r\n.search-conditon ul li{\r\n\tdisplay: inline-block;\r\n\tpadding: 5px;\r\n\tcursor: pointer;\r\n\tfont-size: 14px;\r\n\tmargin-left:5px;\r\n}\r\n.search-conditon ul li.active{\r\n\tbackground-color: #e14340;\r\n\tborder-radius: 2px;\r\n}\r\n\r\n/*线下理财风险分布 begin*/\r\n.line-finace-risk-distrib{\r\n\tmargin-top: 20px;\r\n}\r\n.line-finace-risk-distrib h4{\r\n\ttext-align: center;\r\n\tfont-size: 16px;\r\n\tcolor:#ffffff;\r\n}\r\n.line-finace-risk-distrib .chart-box{\r\n\tbackground-color: #2b323c;\r\n\tmargin-top: 10px;\r\n\theight: 500px;\r\n}\r\n/*线下理财风险分布 end*/\r\n\r\n/*线下理财列表 begin*/\r\n.line-finace-list{\r\n\tbackground-color: #1a2029;\r\n\tmargin-top: 20px;\r\n}\r\n.line-finace-list .mod-title h3{\r\n\tdisplay: block;\r\n\ttext-align: center;\r\n}\r\n.line-finace-list .mod-content{\r\n\tbackground-color: #181a29;\r\n}\r\n.line-finace-list .mod-content .content-title span{\r\n\tfloat: left;\r\n\tdisplay: block;\r\n\twidth: 180px;\r\n\theight: 40px;\r\n\tbackground-color: #e14340;\r\n\ttext-align: center;\r\n\tline-height: 40px;\r\n\tfont-size: 16px;\r\n\tborder-top-left-radius: 5px;\r\n}\r\n.line-finace-list .mod-content .content-title{\r\n\theight: 40px;\r\n}\r\n.line-finace-list .mod-content .content-title  .select{\r\n\tfloat: right;\r\n}\r\n.line-finace-list .mod-content .content-title   .mt-select{\r\n\tbackground-color: #5e5f6a;\r\n\tmargin-top:5px;\r\n\tmargin-right: 5px;\r\n\tborder-radius: 5px;\r\n\theight: 30px;\r\n\tline-height: 30px;\r\n}\r\n.line-finace-list .mod-content .content-title .mt-select-title {\r\n\theight: 30px;\r\n\tline-height: 30px;\r\n}\r\n.line-finace-list .mod-content .content-title   .mt-select i{\r\n\tcolor:#181a29;\r\n\ttop: 8px;\r\n}\r\n.line-finace-list .mod-content .content-title ul{\r\n\tbackground-color: #5e5f6a;\r\n\tborder:none;\r\n\tborder-radius: 2px;\r\n}\r\n.line-finace-list .mod-content .table-box{\r\n\tbackground-color: #2b323c;\r\n\tpadding: 0px 10px 20px 10px;\r\n\toverflow: hidden;\r\n}\r\n.line-finace-list .mod-content .table-box thead tr th{\r\n\tbackground-color: #2b323c;\r\n}\r\n.line-finace-list .mod-content .table-box thead tr th.talign-left{\r\n\tpadding-left: 40px;\r\n}\r\n.line-finace-list .mod-content .table-box .odd td{\r\n\tbackground-color: #1a2029;\r\n}\r\n.line-finace-list .mod-content .table-box .even td{\r\n\tbackground-color: #2b323c;\r\n}\r\n.line-finace-list .mod-content .table-box  td a{\r\n\tcolor: #ffffff;\r\n}\r\n.line-finace-list .mod-content .table-box td em{\r\n\tdisplay: inline-block;\r\n\tpadding: 2px 10px;\r\n\tmargin-left: 10px; \r\n}\r\n.line-finace-list .mod-content .table-box td em.bg-red{\r\n\tbackground-color:#e14340;\r\n}\r\n.line-finace-list .mod-content .table-box td em.bg-yellow{\r\n\tbackground-color: #f19149;\r\n}\r\n.line-finace-list .mod-content .table-box tbody tr td i{\r\n\tmargin-left: 5px;\r\n}\r\n.line-finace-list .mod-content .table-box tbody tr td i.icon-arrowupx{\r\n\tcolor: #00a0ea;\r\n\tfont-size: 12px;\r\n}\r\n.line-finace-list .mod-content .table-box tbody tr td i.icon-xiangshang{\r\n\tcolor: #df4440;\r\n\tfont-size: 12px;\r\n}\r\n.line-finace-list .mod-content .table-box tbody tr td span{\r\n\tcursor: pointer;\r\n}\r\n.table-top-line  tbody tr td{\r\n\tborder-top: solid 1px #555b63;\r\n}\r\n/*线下理财列表 end*/\r\n\r\n", ""]);
+	exports.push([module.id, ".line-finace-search{\r\n\tpadding: 20px;\r\n}\r\n.line-finace-index h3{\r\n\ttext-align: center;\r\n\tfont-size: 24px;\r\n}\r\n.line-finace-search label{\r\n\tfont-size: 24px;\r\n\tcolor: #ffffff;\r\n\tmargin-right: 10px;\r\n}\r\n.line-finace-search .mt-input{\r\n\twidth: 600px;\r\n\theight: 50px;\r\n\tdisplay: block;\r\n\tmargin: 0 auto;\r\n\tmargin-top: 20px;\r\n}\r\n.line-finace-search .mt-input input{\r\n\theight: 50px !important;\r\n}\r\n.line-finace-search .mt-input .mt-iconbtn{\r\n\twidth: 36px;\r\n\theight: 36px;\r\n\tmargin-top: -18px;\r\n}\r\n.line-finace-search .mt-input .iconfont{\r\n\tfont-size: 36px;\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*搜索条件*/\r\n.search-conditon{\r\n\tborder-bottom: dashed 1px #7e3235;\r\n\tpadding: 5px 20px;\r\n}\r\n.search-conditon.last{\r\n\tborder-bottom: none;\r\n}\r\n.search-conditon label{\r\n\tdisplay: inline-block;\r\n}\r\n.search-conditon ul{\r\n\tdisplay: inline-block;\r\n}\r\n.search-conditon ul li{\r\n\tdisplay: inline-block;\r\n\tpadding: 5px;\r\n\tcursor: pointer;\r\n\tfont-size: 14px;\r\n\tmargin-left:5px;\r\n}\r\n.search-conditon ul li.active{\r\n\tbackground-color: #e14340;\r\n\tborder-radius: 2px;\r\n}\r\n\r\n/*线下理财风险分布 begin*/\r\n.line-finace-risk-distrib{\r\n\tmargin-top: 20px;\r\n}\r\n.line-finace-risk-distrib h4{\r\n\ttext-align: center;\r\n\tfont-size: 16px;\r\n\tcolor:#ffffff;\r\n}\r\n.line-finace-risk-distrib .chart-box{\r\n\tbackground-color: #2b323c;\r\n\tmargin-top: 10px;\r\n\theight: 500px;\r\n\ttext-align: center;\r\n\tline-height: 500px;\r\n}\r\n/*线下理财风险分布 end*/\r\n\r\n/*线下理财列表 begin*/\r\n.line-finace-list{\r\n\tbackground-color: #1a2029;\r\n\tmargin-top: 20px;\r\n}\r\n.line-finace-list .mod-title h3{\r\n\tdisplay: block;\r\n\ttext-align: center;\r\n}\r\n.line-finace-list .mod-content{\r\n\tbackground-color: #181a29;\r\n}\r\n.line-finace-list .mod-content .content-title span{\r\n\tfloat: left;\r\n\tdisplay: block;\r\n\twidth: 180px;\r\n\theight: 40px;\r\n\tbackground-color: #e14340;\r\n\ttext-align: center;\r\n\tline-height: 40px;\r\n\tfont-size: 16px;\r\n\tborder-top-left-radius: 5px;\r\n}\r\n.line-finace-list .mod-content .content-title{\r\n\theight: 40px;\r\n}\r\n.line-finace-list .mod-content .content-title  .select{\r\n\tfloat: right;\r\n}\r\n.line-finace-list .mod-content .content-title   .mt-select{\r\n\tbackground-color: #5e5f6a;\r\n\tmargin-top:5px;\r\n\tmargin-right: 5px;\r\n\tborder-radius: 5px;\r\n\theight: 30px;\r\n\tline-height: 30px;\r\n}\r\n.line-finace-list .mod-content .content-title .mt-select-title {\r\n\theight: 30px;\r\n\tline-height: 30px;\r\n}\r\n.line-finace-list .mod-content .content-title   .mt-select i{\r\n\tcolor:#181a29;\r\n\ttop: 8px;\r\n}\r\n.line-finace-list .mod-content .content-title ul{\r\n\tbackground-color: #5e5f6a;\r\n\tborder:none;\r\n\tborder-radius: 2px;\r\n}\r\n.line-finace-list .mod-content .table-box{\r\n\tbackground-color: #2b323c;\r\n\tpadding: 0px 10px 20px 10px;\r\n\toverflow: hidden;\r\n}\r\n.line-finace-list .mod-content .table-box thead tr th{\r\n\tbackground-color: #2b323c;\r\n}\r\n.line-finace-list .mod-content .table-box thead tr th.talign-left{\r\n\tpadding-left: 40px;\r\n}\r\n.line-finace-list .mod-content .table-box .odd td{\r\n\tbackground-color: #1a2029;\r\n}\r\n.line-finace-list .mod-content .table-box .even td{\r\n\tbackground-color: #2b323c;\r\n}\r\n.line-finace-list .mod-content .table-box  td a{\r\n\tcolor: #ffffff;\r\n}\r\n.line-finace-list .mod-content .table-box td em{\r\n\tdisplay: inline-block;\r\n\tpadding: 2px 10px;\r\n\tmargin-left: 10px; \r\n}\r\n.line-finace-list .mod-content .table-box td em.bg-red{\r\n\tbackground-color:#e14340;\r\n}\r\n.line-finace-list .mod-content .table-box td em.bg-yellow{\r\n\tbackground-color: #f19149;\r\n}\r\n.line-finace-list .mod-content .table-box tbody tr td i{\r\n\tmargin-left: 5px;\r\n}\r\n.line-finace-list .mod-content .table-box tbody tr td i.icon-arrowupx{\r\n\tcolor: #00a0ea;\r\n\tfont-size: 12px;\r\n}\r\n.line-finace-list .mod-content .table-box tbody tr td i.icon-xiangshang{\r\n\tcolor: #df4440;\r\n\tfont-size: 12px;\r\n}\r\n.line-finace-list .mod-content .table-box tbody tr td span{\r\n\tcursor: pointer;\r\n}\r\n.table-top-line  tbody tr td{\r\n\tborder-top: solid 1px #555b63;\r\n}\r\n/*线下理财列表 end*/\r\n\r\n", ""]);
 
 	// exports
 
@@ -51025,6 +51025,8 @@
 	    var bbdScatterBubble = "";
 	    if (this.state.option) {
 	      bbdScatterBubble = _react2.default.createElement(_ScatterBubbleChart2.default, { onEvents: onEvents, option: this.state.option });
+	    } else {
+	      bbdScatterBubble = "暂无数据";
 	    }
 	    return _react2.default.createElement(
 	      'div',
@@ -52794,10 +52796,15 @@
 	        this.setState({ searchVal: searchVal });
 	    },
 	    windowShow: function windowShow() {
-	        if ($(".linefin-rel-graph").hasClass('window-show-graph')) {
+	        var $icon = $(".search-enlarge").find('i');
+	        console.log($icon);
+	        var isTrue = $(".linefin-rel-graph").hasClass('window-show-graph');
+	        if (isTrue) {
 	            $(".linefin-rel-graph").removeClass("window-show-graph");
+	            $icon.removeClass('icon-tcqp').addClass('icon-fullscreen');
 	        } else {
 	            $(".linefin-rel-graph").addClass("window-show-graph");
+	            $icon.removeClass('icon-fullscreen').addClass('icon-tcqp');
 	        }
 	    },
 	    closeDetail: function closeDetail() {
@@ -53042,7 +53049,7 @@
 
 
 	// module
-	exports.push([module.id, "/*关联图模块 begin*/\r\n.linefin-rel-graph {\r\n\theight: 1300px;\r\n}\r\n.window-show-graph{\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%!important;\r\n    z-index: 100;\r\n    margin: 0;\r\n}\r\n.linefin-rel-graph .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-rel-graph .mod-title h3 {\r\n}\r\n\r\n.linefin-rel-graph .mod-title .mod-title-right {\r\n\tmargin-top: 5px;\r\n\tdisplay: inline-block;\r\n\tfloat: right;\r\n}\r\n\r\n.linefin-rel-graph .mod-title-right i.icon-fullscreen,.linefin-rel-graph .mod-title-right i.icon-zoomout{\r\n\tmargin-left: 20px;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 6px;\r\n\tfloat: right;\r\n\tcursor: pointer;\r\n}\r\n.linefin-rel-graph .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .pic_rank {\r\n\tposition: absolute;\r\n\tright: 17px;\r\n\ttop: 62px;\r\n\tz-index: 999;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .pic_rank span {\r\n\tborder: 1px solid #3A4450;\r\n\tdisplay: inline-block;\r\n\twidth: 22px;\r\n\theight: 22px;\r\n\tbackground: #19202A;\r\n\ttext-align: center;\r\n\tline-height: 18px;\r\n\tcolor: #E14340;\r\n\tcursor: pointer;\r\n\tmargin-left: 8px;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .relation-graph-box {\r\n\theight: 1166px;\r\n}\r\n\r\n/*关联图模块 end*/\r\n\r\n/*公司舆情 begin*/\r\n.linefin-cocompose {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n.linefin-cocompose .mod-title {\r\n\tbackground-color: #36404d;\r\n}\r\n\r\n.linefin-cocompose .mod-content {\r\n\theight: 550px;\r\n}\r\n\r\n.linefin-cocompose .content-box {\r\n\theight: 534px;\r\n\toverflow: auto;\r\n\tmargin: 20px 20px 0px 20px;\r\n\tbackground-color: #212831;\r\n\tpadding: 20px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box {\r\n\toverflow: hidden;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 a {\r\n\tcolor: #e14340;\r\n\tfont-weight:bold;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 em {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 24px;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\tborder-radius: 2px;\r\n\tbackground-color: #1a2029;\r\n\tmargin-right: 20px;\r\n\tcolor:#fff;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .abstract {\r\n\tdisplay:block;\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tmargin-left: 45px;\r\n\ttext-indent: 28px;\t\r\n\tcolor:#fff;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tfloat: right;\r\n\tcolor: #e14340;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source .name {\r\n\tmargin-right: 40px;\r\n}\r\n\r\n/**公司舆情 end*/\r\n\r\n/*静态风险指数构成 begin*/\r\n.linefin-index-constitute .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-index-constitute .mt-select {\r\n\tmargin-top: 5px;\r\n\tmargin-right: 5px;\r\n\tcolor: #c9c9ca;\r\n}\r\n\r\n.linefin-index-constitute .con-box {\r\n\tbackground-color: #2b323c;\r\n\tpadding: 0 20px;\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-info {\r\n\tmin-height: 1362px;\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-pie {\r\n\theight: 520px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item {\r\n\tcursor: pointer;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-head {\r\n\tbackground-color: #1a2029;\r\n\tborder-bottom: solid 1px #2b323c;\r\n\theight: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\tfont-size: 14px;\r\n\theight: 20px;\r\n\tline-height: 20px;\r\n\tmargin-top: 10px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.name {\r\n\tcolor: #e5e5e5;\r\n\twidth: 40%;\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.num {\r\n\twidth: 60%;\r\n\ttext-indent: 10%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head {\r\n\theight: 60px;\r\n\tbackground-color: #e14340;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span {\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.name {\r\n\tfont-size: 18px;\r\n\tborder-color: #ed8e8c;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.num em {\r\n\tfont-size: 36px;\r\n\tcolor: #ffffff;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-other .item-head span.num i {\r\n\tfloat: right;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 3px;\r\n\tfont-size: 14px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table {\r\n\twidth: 100%;\r\n\tbackground-color: #36404d;\r\n}\r\n.linefin-index-constitute .index-con-info .item .item-table .td-box{\r\n\theight: 122px;\r\n\toverflow: auto;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table {\r\n\twidth: 100%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td {\r\n\tborder-bottom: solid 1px #2b323c;\r\n\tpadding: 10px 0;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-left {\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-right {\r\n\tpadding-left: 10%;\r\n\tpadding-right:5%;\r\n}\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-right span{\r\n\tdisplay:block;\r\n}\r\n.linefin-index-constitute .index-con-info .item .item-chart {\r\n\theight: 330px;\r\n\tbackground-color: #212831;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart h4 {\r\n\tbackground-color: #1a2029;\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n\tpadding: 0 20px;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart .chart-b {\r\n\theight: 290px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-head span.name {\r\n\tfont-size: 16px;\r\n\tborder-color: #d0d8df;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-con {\r\n\tdisplay: none;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-con {\r\n\tdisplay: block;\r\n}\r\n\r\n/*关联图 侧边栏begin*/\r\n.sidebox {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation-tips {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .sidebar {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .canvas {\r\n\tmargin-right: auto !important;\r\n}\r\n\r\n.correlation .time-line {\r\n\tdisplay: none;\r\n}\r\n\r\n/*静态风险指数构成 end*/", ""]);
+	exports.push([module.id, "/*关联图模块 begin*/\r\n.linefin-rel-graph {\r\n\theight: 1300px;\r\n}\r\n\r\n.window-show-graph {\r\n\tposition: fixed;\r\n\ttop: 0;\r\n\tleft: 0;\r\n\twidth: 100%;\r\n\theight: 100% !important;\r\n\tz-index: 100;\r\n\tmargin: 0;\r\n}\r\n\r\n.linefin-rel-graph .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-rel-graph .mod-title h3 {\r\n}\r\n\r\n.linefin-rel-graph .mod-title .mod-title-right {\r\n\tmargin-top: 5px;\r\n\tdisplay: inline-block;\r\n\tfloat: right;\r\n}\r\n\r\n.linefin-rel-graph .mod-title-right i.icon-fullscreen,\r\n.linefin-rel-graph .mod-title-right i.icon-zoomout {\r\n\tmargin-left: 20px;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 6px;\r\n\tfloat: right;\r\n\tcursor: pointer;\r\n}\r\n.linefin-rel-graph .mod-title-right i.iconfont{\r\n\tmargin-left: 20px;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 6px;\r\n\tfloat: right;\r\n\tcursor: pointer;\r\n}\r\n.linefin-rel-graph .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .pic_rank {\r\n\tposition: absolute;\r\n\tright: 17px;\r\n\ttop: 62px;\r\n\tz-index: 999;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .pic_rank span {\r\n\tborder: 1px solid #3A4450;\r\n\tdisplay: inline-block;\r\n\twidth: 22px;\r\n\theight: 22px;\r\n\tbackground: #19202A;\r\n\ttext-align: center;\r\n\tline-height: 18px;\r\n\tcolor: #E14340;\r\n\tcursor: pointer;\r\n\tmargin-left: 8px;\r\n}\r\n\r\n.linefin-rel-graph .mod-content .relation-graph-box {\r\n\theight: 1166px;\r\n}\r\n\r\n/*关联图模块 end*/\r\n\r\n/*公司舆情 begin*/\r\n.linefin-cocompose {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n.linefin-cocompose .mod-title {\r\n\tbackground-color: #36404d;\r\n}\r\n\r\n.linefin-cocompose .mod-content {\r\n\theight: 550px;\r\n}\r\n\r\n.linefin-cocompose .content-box {\r\n\theight: 534px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n\tmargin: 20px 20px 0px 20px;\r\n\tbackground-color: #212831;\r\n\tpadding: 20px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box {\r\n\toverflow: hidden;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 a {\r\n\tcolor: #e14340;\r\n\tfont-weight: bold;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box h4 em {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 24px;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\tborder-radius: 2px;\r\n\tbackground-color: #1a2029;\r\n\tmargin-right: 20px;\r\n\tcolor: #fff;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .abstract {\r\n\tdisplay: block;\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tmargin-left: 45px;\r\n\ttext-indent: 28px;\r\n\tcolor: #fff;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source {\r\n\tfont-size: 14px;\r\n\tmargin-top: 5px;\r\n\tfloat: right;\r\n\tcolor: #e14340;\r\n}\r\n\r\n.linefin-cocompose .content-box .list-box .source .name {\r\n\tmargin-right: 40px;\r\n}\r\n\r\n/**公司舆情 end*/\r\n\r\n/*静态风险指数构成 begin*/\r\n.linefin-index-constitute .mod-title {\r\n\tbackground-color: #394351;\r\n}\r\n\r\n.linefin-index-constitute .mt-select {\r\n\tmargin-top: 5px;\r\n\tmargin-right: 5px;\r\n\tcolor: #c9c9ca;\r\n}\r\n\r\n.linefin-index-constitute .con-box {\r\n\tbackground-color: #2b323c;\r\n\tpadding: 0 20px;\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-info {\r\n\tmin-height: 1362px;\r\n}\r\n\r\n.linefin-index-constitute .con-box .index-con-pie {\r\n\theight: 520px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item {\r\n\tcursor: pointer;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-head {\r\n\tbackground-color: #1a2029;\r\n\tborder-bottom: solid 1px #2b323c;\r\n\theight: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\tfont-size: 14px;\r\n\theight: 20px;\r\n\tline-height: 20px;\r\n\tmargin-top: 10px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.name {\r\n\tcolor: #e5e5e5;\r\n\twidth: 40%;\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info  .item-head span.num {\r\n\twidth: 60%;\r\n\ttext-indent: 10%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head {\r\n\theight: 60px;\r\n\tbackground-color: #e14340;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span {\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.name {\r\n\tfont-size: 18px;\r\n\tborder-color: #ed8e8c;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-first .item-head span.num em {\r\n\tfont-size: 36px;\r\n\tcolor: #ffffff;\r\n\tmargin-right: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item-other .item-head span.num i {\r\n\tfloat: right;\r\n\tmargin-right: 20px;\r\n\tmargin-top: 3px;\r\n\tfont-size: 14px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table {\r\n\twidth: 100%;\r\n\tbackground-color: #36404d;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table .td-box {\r\n\theight: 122px;\r\n\toverflow: auto;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table {\r\n\twidth: 100%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td {\r\n\tborder-bottom: solid 1px #2b323c;\r\n\tpadding: 10px 0;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-left {\r\n\tborder-right: solid 2px #2b323c;\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-right {\r\n\tpadding-left: 10%;\r\n\tpadding-right: 5%;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-table table td.t-right span {\r\n\tdisplay: block;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart {\r\n\theight: 330px;\r\n\tbackground-color: #212831;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart h4 {\r\n\tbackground-color: #1a2029;\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n\tpadding: 0 20px;\r\n\tfont-size: 16px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-chart .chart-b {\r\n\theight: 290px;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-head span.name {\r\n\tfont-size: 16px;\r\n\tborder-color: #d0d8df;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item .item-con {\r\n\tdisplay: none;\r\n}\r\n\r\n.linefin-index-constitute .index-con-info .item.active .item-con {\r\n\tdisplay: block;\r\n}\r\n\r\n/*关联图 侧边栏begin*/\r\n.sidebox {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation-tips {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .sidebar {\r\n\tdisplay: none;\r\n}\r\n\r\n.correlation .canvas {\r\n\tmargin-right: auto !important;\r\n}\r\n\r\n.correlation .time-line {\r\n\tdisplay: none;\r\n}\r\n\r\n/*静态风险指数构成 end*/", ""]);
 
 	// exports
 
@@ -53089,6 +53096,10 @@
 	  },
 	  componentDidMount: function componentDidMount() {
 	    this.queryNews();
+	    $('#lineFinanceCoCompose-scroll').perfectScrollbar();
+	  },
+	  componentDidUpdate: function componentDidUpdate() {
+	    $('#lineFinanceCoCompose-scroll').perfectScrollbar('update');
 	  },
 	  listDataFomat: function listDataFomat(data) {
 	    var contentStr = data.content;
@@ -53100,7 +53111,7 @@
 	    } else {
 	      results = [];
 	    }
-	    this.setState({ listData: results });
+	    this.setState({ listData: results.slice(0, 20) });
 	  },
 	  queryNews: function queryNews() {
 	    //查询公司舆情信息
@@ -53133,12 +53144,12 @@
 	        { className: 'mod-content' },
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'content-box' },
+	          { className: 'content-box', id: 'lineFinanceCoCompose-scroll' },
 	          _react2.default.createElement(
 	            'ul',
 	            null,
 	            this.state.listData ? this.state.listData.map(function (item, index) {
-	              _time = item.pubdate && item.pubdate.substring(0, 9);
+	              _time = item.pubdate && item.pubdate.substring(0, 10);
 	              _content = item.main && item.main.length > 120 ? item.main.substring(0, 120) : item.main;
 	              return _react2.default.createElement(
 	                'li',
@@ -59614,10 +59625,10 @@
 	    componentDidMount: function componentDidMount() {
 	        var jsonData = {};
 	        this.getCompanyGrade(jsonData);
-	        $('#financeGuara-scroll').perfectScrollbar();
+	        $('#financeGuara2-scroll').perfectScrollbar();
 	    },
 	    componentDidUpdate: function componentDidUpdate() {
-	        $('#financeGuara-scroll').perfectScrollbar('update');
+	        $('#financeGuara2-scroll').perfectScrollbar('update');
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	        var isEqual = Immutable.is(nextProps.FinGuaCompanyGradeRequest, this.props.FinGuaCompanyGradeResult); //判断数据是否变化
@@ -59721,7 +59732,7 @@
 	                ),
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'table-content', id: 'financeGuara-scroll' },
+	                    { className: 'table-content', id: 'financeGuara2-scroll' },
 	                    _react2.default.createElement(
 	                        'table',
 	                        { className: 'mt-table mt-table-center wtyh-table' },
@@ -59836,7 +59847,7 @@
 
 
 	// module
-	exports.push([module.id, ".finance-guara-index .mt-table {\r\n\tmargin: 0px !important;\r\n}\r\n\r\n/*企业评级*/\r\n.finance-guara-index .company-grade .mod-content .table-content {\r\n\theight: 530px;\r\n\toverflow: auto;\r\n}\r\n\r\n/*担保责任余额结构分布*/\r\n.finance-guara-index .balance-distribute {\r\n\theight: 49.5%;\r\n}\r\n\r\n.finance-guara-index .balance-distribute .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*担保笔均折线图*/\r\n.finance-guara-index .each-average {\r\n\theight: 49.5%;\r\n\tmargin-top: 2%;\r\n}\r\n\r\n.finance-guara-index .each-average .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*地图模块*/\r\n.finance-guara-index .finance-guara-map .map-chart-box {\r\n\theight: 610px;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .finance-guara-map .company-chart-box {\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.finance-guara-index .finance-guara-map .visual-text {\r\n\tposition: absolute;\r\n\tbottom: 26%;\r\n\tright: 3%;\r\n\tz-index: 1000;\r\n\twidth: 14px;\r\n}\r\n\r\n/*贷款余额占比*/\r\n.finance-guara-index .loan-balance .chart-box {\r\n\theight: 300px;\r\n}\r\n\r\n/*股东行业风险*/\r\n.finance-guara-index .industry-risk{\r\n\tposition: relative;\r\n}\r\n.finance-guara-index .industry-risk .mod-content .table-content {\r\n\theight: 240px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk .mod-content .table-content table td a.more {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*大额借款人信息列表*/\r\n\r\n/*股东风险更多*/\r\n.finance-guara-index .industry-risk-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content {\r\n\r\n\t/*padding: 8px 10px;*/\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content .content-riskMore {\r\n\twidth: 100%;\t/*height: 199px*/\r\n\tdisplay: table;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content ul {\r\n\tdisplay: table-cell;\r\n\twidth: 33.33%;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content ul li {\r\n\tpadding: 15px 5px;\r\n\tfont-size: 14px;\r\n}\r\n\r\n/*大额借款人*/\r\n.large-guara .table-content {\r\n\theight: 240px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}", ""]);
+	exports.push([module.id, ".finance-guara-index .mt-table {\r\n\tmargin: 0px !important;\r\n}\r\n\r\n/*企业评级*/\r\n.finance-guara-index .company-grade .mod-content .table-content {\r\n\theight: 530px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n/*担保责任余额结构分布*/\r\n.finance-guara-index .balance-distribute {\r\n\theight: 49.5%;\r\n}\r\n\r\n.finance-guara-index .balance-distribute .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*担保笔均折线图*/\r\n.finance-guara-index .each-average {\r\n\theight: 49.5%;\r\n\tmargin-top: 2%;\r\n}\r\n\r\n.finance-guara-index .each-average .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*地图模块*/\r\n.finance-guara-index .finance-guara-map .map-chart-box {\r\n\theight: 610px;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .finance-guara-map .company-chart-box {\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.finance-guara-index .finance-guara-map .visual-text {\r\n\tposition: absolute;\r\n\tbottom: 26%;\r\n\tright: 3%;\r\n\tz-index: 1000;\r\n\twidth: 14px;\r\n}\r\n\r\n/*贷款余额占比*/\r\n.finance-guara-index .loan-balance .chart-box {\r\n\theight: 300px;\r\n}\r\n\r\n/*股东行业风险*/\r\n.finance-guara-index .industry-risk {\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk .mod-content .table-content {\r\n\theight: 240px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk .mod-content .table-content table td a.more {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*大额借款人信息列表*/\r\n\r\n/*股东风险更多*/\r\n.finance-guara-index .industry-risk-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content {\r\n\r\n\t/*padding: 8px 10px;*/\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content .content-riskMore {\r\n\twidth: 100%;\t/*height: 199px*/\r\n\tdisplay: table;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content ul {\r\n\tdisplay: table-cell;\r\n\twidth: 33.33%;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content ul li {\r\n\tpadding: 15px 5px;\r\n\tfont-size: 14px;\r\n}\r\n\r\n/*大额借款人*/\r\n.large-guara .table-content {\r\n\theight: 240px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}", ""]);
 
 	// exports
 
@@ -60153,6 +60164,13 @@
 	                calculable: true,
 	                textStyle: {
 	                    color: '#fff'
+	                },
+	                formatter: function formatter(value) {
+	                    if (!isNaN(value)) {
+	                        return value;
+	                    } else {
+	                        return "";
+	                    }
 	                },
 	                inRange: {
 	                    color: ['rgba(4, 184, 245, 1)', 'rgba(14, 155, 200, 1)', 'rgba(34, 114, 139, 1)']
@@ -60502,17 +60520,15 @@
 	    console.log(data, 999999999999999);
 	    var option = {
 	      color: ["#00b8ee", "#f8b551"],
-	      title: "",
 	      titleX: "left",
 	      boxId: "each-average-chart",
 	      symbolSize: 10,
 	      legendIsShow: true,
-	      yFlag: "",
 	      unit: ['万元'],
 	      yAxisName: "万元",
 	      legendRight: "center",
 	      legendTop: '1%',
-	      legendPadding: [0, 0, 0, 0],
+	      legendPadding: [],
 	      grid: { top: '10%', left: '5%', right: '5%', bottom: '5%', containLabel: true },
 	      legend: ["贷款总余额/总笔数"],
 	      xAxis: data.xAxis,
@@ -60520,29 +60536,11 @@
 	    };
 	    this.setState({ option: option });
 	  },
-	  // setParm:function(){
-	  //   const option ={
-	  //     color:["#00b8ee","#f8b551"],
-	  //         title:"",
-	  //         titleX:"left",
-	  //         boxId:"each-average-chart",
-	  //         symbolSize:10,
-	  //         legendIsShow:true,
-	  //         yFlag:"",
-	  //         legendRight:"center",
-	  //         legendTop:'1%',
-	  //         legendPadding:[0,0,0,0],
-	  //         grid:{top:'10%',left: '5%',right: '5%',bottom: '5%',containLabel: true},
-	  //         yAxisName:"",
-	  //         legend:["贷款总余额/总笔数"],
-	  //         xAxis:['2013', '2014', '2015', '2016', '2017', '2018'],
-	  //         series:[[0,1,2,3,4]]
-	  //     }
-	  //       return option;
-	  // },
 	  render: function render() {
 	    var bbdLine = "";
+
 	    if (this.state.option) {
+	      console.log(this.state.option, '11111111');
 	      bbdLine = _react2.default.createElement(_LineChart2.default, { option: this.state.option, style: { height: '272px', width: '100%' } });
 	    }
 	    return _react2.default.createElement(
@@ -60786,6 +60784,7 @@
 	            },
 	            yAxis: {
 	                type: 'value',
+	                name: param.yAxisName == undefined ? "" : param.yAxisName,
 	                scale: true,
 	                splitNumber: param.yAxisSplit == undefined ? 5 : param.yAxisSplit,
 	                nameTextStyle: {
@@ -74561,10 +74560,10 @@
 	              this.state.CatalogCentent.map(function (item, index) {
 	                var Green = '';
 	                item.riskStatus == "正常" ? Green = 'Green' : Green = 'Yellow';
-	                var riskStatusA = item.riskStatusA == null ? "—" : item.riskStatusA;
-	                var riskStatusB = item.riskStatusB == null ? "—" : item.riskStatusB;
-	                var riskStatusC = item.riskStatusC == null ? "—" : item.riskStatusC;
-	                var riskStatusD = item.riskStatusD == null ? "—" : item.riskStatusD;
+	                var riskStatusA = item.riskStatusA == null ? "/" : item.riskStatusA;
+	                var riskStatusB = item.riskStatusB == null ? "/" : item.riskStatusB;
+	                var riskStatusC = item.riskStatusC == null ? "/" : item.riskStatusC;
+	                var riskStatusD = item.riskStatusD == null ? "/" : item.riskStatusD;
 	                if (index % 2) {
 	                  return _react2.default.createElement(
 	                    'tr',
@@ -75538,20 +75537,22 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Immutable = __webpack_require__(620);
-	var innerdata = [];
-	var outerdata = [];
+
 	var CompanyDirectory = _react2.default.createClass({
 	    displayName: 'CompanyDirectory',
+
 	    getInitialState: function getInitialState() {
 	        return {
-	            CompanyDirectoryData: [],
 	            selected: 1,
 	            selectedData: [],
+	            selectedDataHaveReg: [], //有注册资本
+	            innerdata: [], //内资
+	            outerdata: [], //外资
+	            selectedDataNoReg: [], //无注册资本
 	            orderType: "desc", //默认降序
 	            orderField: "" //需要排序的字段
 	        };
 	    },
-
 	    //排序
 	    handleClick: function handleClick(field) {
 	        var _dom = $(this.refs[field]),
@@ -75561,8 +75562,8 @@
 	        _domIcoIs == true ? _domIco.removeClass('icon-desc').addClass('icon-asc') : _domIco.removeClass('icon-asc').addClass('icon-desc');
 	        _domAttr == "desc" ? _dom.attr("data-order", "asc") : _dom.attr("data-order", "desc");
 	        this.setState({ orderType: _dom.attr("data-order"), orderField: field }, function () {
-	            var _basedata = BOSS.sort(this.state.selectedData, field, this.state.orderType);
-	            this.setState({ selectedData: _basedata });
+	            var _basedata = BOSS.sort(this.state.selectedDataHaveReg, field, this.state.orderType);
+	            this.setState({ selectedDataHaveReg: _basedata });
 	        });
 	    },
 	    componentDidMount: function componentDidMount() {
@@ -75585,49 +75586,59 @@
 
 	            if (CompanyDirectoryRequest == true) {
 	                if (CompanyDirectoryResult.success) {
-	                    this.setState({
-	                        CompanyDirectoryData: CompanyDirectoryResult.content,
-	                        selectedData: CompanyDirectoryResult.content
-	                    });
-	                    for (var i = 0; i < CompanyDirectoryResult.content.length; i++) {
-	                        if (CompanyDirectoryResult.content[i].isForeign == "内资") {
-	                            innerdata.push(CompanyDirectoryResult.content[i]);
-	                        } else if (CompanyDirectoryResult.content[i].isForeign == "外资") {
-	                            outerdata.push(CompanyDirectoryResult.content[i]);
-	                        }
-	                    }
+	                    this.dataFomat(CompanyDirectoryResult);
 	                } else {
 	                    //错误后提示
 	                }
 	            }
 	        }
 	    },
+	    dataFomat: function dataFomat(CompanyDirectoryResult) {
+	        var content = CompanyDirectoryResult.content;
+	        var innerdata = [],
+	            outerdata = [];
+
+	        var len = content.length;
+	        for (var i = 0; i < len; i++) {
+	            if (content[i].isForeign == "内资") {
+	                innerdata.push(content[i]);
+	            } else if (content[i].isForeign == "外资") {
+	                outerdata.push(content[i]);
+	            }
+	            this.regCapitalHandle(content);
+	        }
+
+	        this.setState({
+	            selectedData: content,
+	            innerdata: innerdata,
+	            outerdata: outerdata
+	        });
+	    },
+	    regCapitalHandle: function regCapitalHandle(content) {
+	        //对注册资本为空的做处理
+	        var selectedDataHaveReg = [],
+	            selectedDataNoReg = [];
+	        //过滤掉注册资本为空的
+	        var len = content.length;
+	        for (var i = 0; i < len; i++) {
+	            if (content[i].registeredCapital == null) {
+	                selectedDataNoReg.push(content[i]);
+	            } else {
+	                selectedDataHaveReg.push(content[i]);
+	            }
+	        }
+	        this.setState({ selectedDataHaveReg: selectedDataHaveReg, selectedDataNoReg: selectedDataNoReg }, function () {
+	            $("#platformBase-scroll").scrollTop(0);
+	        });
+	    },
 	    quarterChoice: function quarterChoice(value) {
-	        var CompanyDirectoryDatas = this.state.CompanyDirectoryData;
-	        switch (value) {
-	            case 2:
-	                //内资
-	                this.setState({
-	                    selectedData: innerdata
-	                }, function () {
-	                    $("#platformBase-scroll").scrollTop(0);
-	                });
-	                break;
-	            case 3:
-	                //外资
-	                this.setState({
-	                    selectedData: outerdata
-	                }, function () {
-	                    $("#platformBase-scroll").scrollTop(0);
-	                });
-	                break;
-	            default:
-	                this.setState({
-	                    selectedData: CompanyDirectoryDatas
-	                }, function () {
-	                    $("#platformBase-scroll").scrollTop(0);
-	                });
-	                break;
+	        var _this = this;
+	        if (value == 2) {
+	            this.regCapitalHandle(_this.state.innerdata);
+	        } else if (value == 3) {
+	            this.regCapitalHandle(_this.state.outerdata);
+	        } else {
+	            this.regCapitalHandle(_this.state.selectedData);
 	        }
 	    },
 	    render: function render() {
@@ -75661,7 +75672,7 @@
 	                        'em',
 	                        { className: 'orange' },
 	                        ' ',
-	                        this.state.selectedData.length,
+	                        this.state.selectedDataHaveReg.length + this.state.selectedDataNoReg.length,
 	                        ' '
 	                    ),
 	                    '家企业'
@@ -75722,8 +75733,11 @@
 	                        _react2.default.createElement(
 	                            'tbody',
 	                            null,
-	                            this.state.selectedData.map(function (item, index) {
+
+	                            //有注册资本
+	                            this.state.selectedDataHaveReg.map(function (item, index) {
 	                                var _address = item.address == null ? "/" : item.address;
+	                                var registeredCapital = item.registeredCapital == null ? "/" : item.registeredCapital + "万元";
 	                                if (index % 2) {
 	                                    return _react2.default.createElement(
 	                                        'tr',
@@ -75760,8 +75774,7 @@
 	                                        _react2.default.createElement(
 	                                            'td',
 	                                            { width: '15%' },
-	                                            item.registeredCapital,
-	                                            '万元'
+	                                            registeredCapital
 	                                        )
 	                                    );
 	                                } else {
@@ -75800,8 +75813,91 @@
 	                                        _react2.default.createElement(
 	                                            'td',
 	                                            { width: '15%' },
-	                                            item.registeredCapital,
-	                                            '万元'
+	                                            registeredCapital
+	                                        )
+	                                    );
+	                                }
+	                            }),
+	                            //无注册资本
+	                            this.state.selectedDataNoReg.map(function (item, index) {
+	                                var _address = item.address == null ? "/" : item.address;
+	                                var registeredCapital = item.registeredCapital == null ? "/" : item.registeredCapital + "万元";
+	                                if (index % 2) {
+	                                    return _react2.default.createElement(
+	                                        'tr',
+	                                        { key: index, className: 'even' },
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '10%', className: 'talign-center' },
+	                                            index + 1
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '25%' },
+	                                            ' ',
+	                                            _react2.default.createElement(
+	                                                _reactRouter.Link,
+	                                                { to: { pathname: '/SearchResultDetail', query: { formpage: 'platformRun', companyName: item.companyName } }, className: 'word-limit-5 long', 'data-tip': item.companyName, title: item.companyName },
+	                                                item.companyName
+	                                            )
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '20%' },
+	                                            item.isForeign
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '30%' },
+	                                            _react2.default.createElement(
+	                                                'span',
+	                                                { className: 'word-limit-5 long', 'data-tip': _address, title: _address },
+	                                                _address
+	                                            )
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '15%' },
+	                                            registeredCapital
+	                                        )
+	                                    );
+	                                } else {
+	                                    return _react2.default.createElement(
+	                                        'tr',
+	                                        { key: index, className: 'odd' },
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '10%', className: 'talign-center' },
+	                                            index + 1
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '25%' },
+	                                            ' ',
+	                                            _react2.default.createElement(
+	                                                _reactRouter.Link,
+	                                                { to: { pathname: '/SearchResultDetail', query: { formpage: 'platformRun', companyName: item.companyName } }, className: 'word-limit-5 long', 'data-tip': item.companyName, title: item.companyName },
+	                                                item.companyName
+	                                            )
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '20%' },
+	                                            item.isForeign
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '30%' },
+	                                            _react2.default.createElement(
+	                                                'span',
+	                                                { className: 'word-limit-5 long', 'data-tip': _address, title: _address },
+	                                                _address
+	                                            )
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '15%' },
+	                                            registeredCapital
 	                                        )
 	                                    );
 	                                }
@@ -78641,11 +78737,6 @@
 	                        )
 	                    )
 	                )
-	            ),
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'yuan' },
-	                _react2.default.createElement('img', { src: '' })
 	            )
 	        );
 	    }
@@ -78687,7 +78778,7 @@
 
 
 	// module
-	exports.push([module.id, "/*@parkMonitor jifei  图片\r\n---------------------------------------------------------*/\r\n.Img {\r\n\twidth: 100%;\r\n\theight: 948px;\t/*background: url(\"/images/floor.png\") no-repeat;*/\r\n\tbackground-size: 100% 948px;\r\n}\r\n\r\n.Img .carousel {\r\n\twidth: 180px;\r\n\theight: 30px;\r\n\tbackground: #e2f1fc;\r\n\tborder-radius: 3px;\r\n\tposition: relative;\r\n\ttop: 10px;\r\n\tleft: 10px;\r\n}\r\n\r\n.Img .carousel i {\r\n\tdisplay: block;\r\n\tline-height: 30px;\r\n\tmargin-left: 3px;\r\n\tcolor: #1a2029;\r\n\tfont-size: 18px;\r\n\tcursor: pointer;\r\n}\r\n\r\n.Img .carousel i.left {\r\n\tfloat: left;\r\n}\r\n\r\n.Img .carousel i.right {\r\n\tfloat: right;\r\n}\r\n\r\n.Img .carousel .list-box {\r\n\twidth: 136px;\r\n\tfloat: left;\r\n\toverflow: hidden;\r\n}\r\n\r\n.Img .carousel ul {\r\n\tfloat: left;\r\n\twidth: 100%;\r\n\toverflow: hidden;\r\n}\r\n\r\n.Img .carousel ul li {\r\n\tline-height: 30px;\r\n\tfloat: left;\r\n\twidth: 100%;\r\n\tcolor: #1a2029;\r\n\ttext-align: center;\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n}\r\n\r\n.Img  .tabs {\r\n\twidth: 30%;\r\n\theight: 150px;\r\n\tfloat: right;\r\n\tmargin-right: 20px;\r\n\tmargin-top: -10px;\r\n}\r\n\r\n.Img  .tabs table {\r\n\twidth: 100%;\r\n\tborder-radius: 3px;\r\n\toverflow: hidden;\r\n}\r\n\r\n.Img  .tabs table tr th {\r\n\theight: 30px;\r\n\ttext-align: center;\r\n\twidth: 50%;\r\n\tbackground: #e14340;\r\n\tcolor: #fff;\r\n}\r\n.Img  .tabs table tr td {\r\n\tcursor: pointer;\r\n\twidth: 50%;\r\n\theight: 35px;\r\n\ttext-align: center;\r\n\tbackground: #5383a1;\r\n\tborder-bottom: 1px solid #75c5f1;\r\n\tcolor: #fff;\r\n}\r\n\r\n.Img  .tabs table tbody tr.active td {\r\n\tbackground: rgba(183, 223, 248, 0.5);\r\n}\r\n\r\n.Img  .tabs table tr td .Red {\r\n\tcolor: #e14340;\r\n\tfont-size: 18px;\r\n}\r\n\r\n.Img  .tabs table tr td .Yellow {\r\n\tcolor: #f39800;\r\n\tfont-size: 18px;\r\n}\r\n\r\n.Img  .tabs table tr td .Green {\r\n\tcolor: #32b16c;\r\n\tfont-size: 18px;\r\n}\r\n\r\n.Img  .tabs table tr td .Black {\r\n\tcolor: #000000;\r\n\tfont-size: 18px;\r\n}\r\n\r\n.Img .onTabs {\r\n\twidth: 43.6%;\r\n\theight: 280px;\r\n\tborder-radius: 3px;\r\n\tposition: absolute;\r\n\tleft: 3%;\r\n\ttop: 17%;\r\n}\r\n\r\n.Img .onTabs .tableLeft {\r\n\twidth: 85%;\r\n\theight: 274px;\r\n\tbackground: rgba(100, 131, 152, 0.5) none repeat scroll 0 0;\r\n\tfloat: left;\r\n\tdisplay: none;\r\n}\r\n\r\n.Img .onTabs .tableLeft.show {\r\n\tdisplay: block;\r\n}\r\n\r\n.Img .onTabs .solidRight {\r\n\twidth: 15%;\r\n\tborder: 1px solid #ffffff;\r\n\tposition: absolute;\r\n\tright: 0;\r\n\ttop: 46.8%;\r\n}\r\n\r\n.Img .onTabs .mod-title {\r\n\tborder-bottom: 1px solid #495b69;\r\n}\r\n\r\n.Img .onTabs .mod-title i {\r\n\tfloat: right;\r\n\tmargin: 10px;\r\n\tfont-size: 18px;\r\n}\r\n\r\n.Img .onTabs .mod-title i.Black {\r\n\tcolor: #000000;\r\n}\r\n\r\n.Img .onTabs .mod-title i.Green {\r\n\tcolor: #32b16c;\r\n}\r\n\r\n.Img .onTabs .mod-title i.Yellow {\r\n\tcolor: #f39800;\r\n}\r\n\r\n.Img .onTabs .mod-title i.Red {\r\n\tcolor: #e14340;\r\n}\r\n\r\n.Img .onTabs .box {\r\n\twidth: 100%;\r\n\theight: 234px;\r\n\toverflow: auto;\r\n}\r\n\r\n.Img .onTabs .box table {\r\n\twidth: 93%;\r\n\tmargin: 0 10px;\r\n}\r\n\r\n.Img .onTabs .box table  tr td {\r\n\theight: 33px;\r\n\twidth: 95%;\r\n\twhite-space: nowrap;\r\n}\r\n\r\n.Img .onTabs .box table  tr td span {\r\n\tfloat: left;\r\n\tpadding-right: 10px;\r\n}\r\n\r\n.Img .yuan {\r\n\tposition: absolute;\r\n\tright: 52%;\r\n\ttop: 29.7%;\r\n}\r\n\r\n/*@parkMonitor jifei  楼宇企业列表\r\n---------------------------------------------------------*/\r\n.Enterprise {\r\n\twidth: 100%;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\theight: 560px;\r\n}\r\n\r\n.Enterprise .right {\r\n\tcolor: #e14340;\r\n\tfloat: right;\r\n\tfont-size: 16px;\r\n\tpadding: 10px 33px;\r\n}\r\n\r\n.Enterprise .mod-content {\r\n\twidth: 100%;\r\n\tmargin: 10px auto;\r\n}\r\n\r\n.Enterprise .mod-content .table-content {\r\n\theight: 470px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.Enterprise .wtyh-table thead th {\r\n\tpadding: 10px 0px;\r\n}\r\n.Enterprise .wtyh-table thead th  span{\r\n\tcursor: pointer;\r\n}\r\n\r\n.Enterprise .mod-content .wtyh-table {\r\n\twidth: 96%;\r\n\tmargin: 0 auto;\r\n}\r\n\r\n.Enterprise .mod-content .wtyh-table tr td {\r\n\theight: 40px;\r\n\tfont-size: 12px;\r\n\tborder-bottom: 1px solid #444951;\r\n}\r\n\r\n.Enterprise .mod-content .wtyh-table tr:nth-child(even) {\r\n\tbackground: #222932;\r\n}\r\n\r\n.Enterprise .mod-content .wtyh-table tr td span {\r\n\tfloat: left;\r\n\tpadding-left: 10%;\r\n\tcolor: #fff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.Enterprise .mod-content .wtyh-table tr td a {\r\n\tcolor: #ffffff;\r\n}\r\n\r\n/*@parkMonitor jifei  楼宇行业分布\r\n---------------------------------------------------------*/\r\n.Industry {\r\n\twidth: 49.5%;\r\n\theight: 398px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\tmargin-top: 10px;\r\n\tfloat: left;\r\n}\r\n\r\n/*@parkMonitor jifei  企业背景情况\r\n---------------------------------------------------------*/\r\n.Context {\r\n\twidth: 49.5%;\r\n\theight: 398px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\tmargin-top: 10px;\r\n\tfloat: right;\r\n}\r\n\r\n/*@parkMonitor jifei  舆情更新\r\n---------------------------------------------------------*/\r\n.Footer {\r\n\twidth: 100%;\r\n\theight: 60px;\r\n\tposition: fixed;\r\n\tbottom: 0;\r\n\tleft: 0;\r\n\tbackground: rgba(43, 50, 60, 0.9) none repeat scroll 0 0;\r\n\tbox-shadow: 2px 2px 10px #000;\r\n}\r\n\r\n.Footer .box {\r\n\twidth: 95%;\r\n\theight: 40px;\r\n\tmargin: 10px auto;\r\n\tposition: relative;\r\n}\r\n\r\n.Footer .boxLeft {\r\n\twidth: 10%;\r\n\theight: 40px;\r\n\tborder-right: 1px solid #8a9199;\r\n\tline-height: 40px;\r\n\tfloat: left;\r\n}\r\n\r\n.Footer .boxLeft .icon-news {\r\n\tfont-size: 35px;\r\n\tcolor: #e14340;\r\n}\r\n\r\n.Footer .boxLeft .size {\r\n\tfont-size: 18px;\r\n\tvertical-align: super;\r\n\tpadding-left: 25%;\r\n}\r\n\r\n.Footer .boxRight {\r\n\twidth: 85%;\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n\tfloat: right;\t/* background: #666 */\r\n}\r\n\r\n.Footer .boxRight ul li {\r\n\tfloat: left;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(1) {\r\n\twidth: 20%;\r\n\tfont-size: 16px;\r\n\tcolor: #e14340;\r\n\toverflow: hidden;\r\n\ttext-overflow: ellipsis;\r\n\twhite-space: nowrap;\r\n\tdisplay: inline-block;\r\n}\r\n.Footer .boxRight ul li:nth-child(1) a{\r\n\tcolor: #e14340;\r\n}\r\n.Footer .boxRight ul li:nth-child(1) em {\r\n\tpadding-left: 5%;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(2) {\r\n\twidth: 60%;\r\n\tfont-size: 14px;\r\n\toverflow: hidden;\r\n\ttext-overflow: ellipsis;\r\n\twhite-space: nowrap;\r\n\tdisplay: inline-block;\r\n}\r\n.Footer .boxRight ul li:nth-child(2) a{\r\n\tcolor: #ffffff;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(2) .liTop {\r\n\tpadding-left: 8%;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(3) {\r\n\twidth: 20%;\r\n\tfont-size: 12px;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(3) em {\r\n\tpadding-left: 5%;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(3) .liRight {\r\n\tpadding-left: 18%;\r\n}\r\n\r\n.boxRight {\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.boxRight ul {\r\n\r\n\t/* background: red; */\r\n\twidth: 100%;\r\n\theight: 40px;\r\n}\r\n\r\n.boxRightScroll {\r\n\twidth: 100%;\r\n\theight: auto;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n}", ""]);
+	exports.push([module.id, "/*@parkMonitor jifei  图片\r\n---------------------------------------------------------*/\r\n.Img {\r\n\twidth: 100%;\r\n\theight: 948px;\t/*background: url(\"/images/floor.png\") no-repeat;*/\r\n\tbackground-size: 100% 948px;\r\n}\r\n\r\n.Img .carousel {\r\n\twidth: 180px;\r\n\theight: 30px;\r\n\tbackground: #e2f1fc;\r\n\tborder-radius: 3px;\r\n\tposition: relative;\r\n\ttop: 10px;\r\n\tleft: 10px;\r\n}\r\n\r\n.Img .carousel i {\r\n\tdisplay: block;\r\n\tline-height: 30px;\r\n\tmargin-left: 3px;\r\n\tcolor: #1a2029;\r\n\tfont-size: 18px;\r\n\tcursor: pointer;\r\n}\r\n\r\n.Img .carousel i.left {\r\n\tfloat: left;\r\n}\r\n\r\n.Img .carousel i.right {\r\n\tfloat: right;\r\n}\r\n\r\n.Img .carousel .list-box {\r\n\twidth: 136px;\r\n\tfloat: left;\r\n\toverflow: hidden;\r\n}\r\n\r\n.Img .carousel ul {\r\n\tfloat: left;\r\n\twidth: 100%;\r\n\toverflow: hidden;\r\n}\r\n\r\n.Img .carousel ul li {\r\n\tline-height: 30px;\r\n\tfloat: left;\r\n\twidth: 100%;\r\n\tcolor: #1a2029;\r\n\ttext-align: center;\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n}\r\n\r\n.Img  .tabs {\r\n\twidth: 30%;\r\n\theight: 150px;\r\n\tfloat: right;\r\n\tmargin-right: 20px;\r\n\tmargin-top: -10px;\r\n}\r\n\r\n.Img  .tabs table {\r\n\twidth: 100%;\r\n\tborder-radius: 3px;\r\n\toverflow: hidden;\r\n}\r\n\r\n.Img  .tabs table tr th {\r\n\theight: 30px;\r\n\ttext-align: center;\r\n\twidth: 50%;\r\n\tbackground: #e14340;\r\n\tcolor: #fff;\r\n}\r\n.Img  .tabs table tr td {\r\n\tcursor: pointer;\r\n\twidth: 50%;\r\n\ttext-align: center;\r\n\tpadding: 8px;\r\n\tbackground: #5383a1;\r\n\tborder-bottom: 1px solid #75c5f1;\r\n\tcolor: #fff;\r\n}\r\n\r\n.Img  .tabs table tbody tr.active td {\r\n\tbackground: rgba(183, 223, 248, 0.5);\r\n}\r\n\r\n.Img  .tabs table tr td .Red {\r\n\tcolor: #e14340;\r\n\tfont-size: 18px;\r\n}\r\n\r\n.Img  .tabs table tr td .Yellow {\r\n\tcolor: #f39800;\r\n\tfont-size: 18px;\r\n}\r\n\r\n.Img  .tabs table tr td .Green {\r\n\tcolor: #32b16c;\r\n\tfont-size: 18px;\r\n}\r\n\r\n.Img  .tabs table tr td .Black {\r\n\tcolor: #000000;\r\n\tfont-size: 18px;\r\n}\r\n\r\n.Img .onTabs {\r\n\twidth: 43.6%;\r\n\theight: 280px;\r\n\tborder-radius: 3px;\r\n\tposition: absolute;\r\n\tleft: 3%;\r\n\ttop: 17%;\r\n}\r\n\r\n.Img .onTabs .tableLeft {\r\n\twidth: 85%;\r\n\theight: 274px;\r\n\tbackground: rgba(100, 131, 152, 0.5) none repeat scroll 0 0;\r\n\tfloat: left;\r\n\tdisplay: none;\r\n}\r\n\r\n.Img .onTabs .tableLeft.show {\r\n\tdisplay: block;\r\n}\r\n\r\n.Img .onTabs .solidRight {\r\n\twidth: 15%;\r\n\tborder: 1px solid #ffffff;\r\n\tposition: absolute;\r\n\tright: 0;\r\n\ttop: 46.8%;\r\n}\r\n\r\n.Img .onTabs .mod-title {\r\n\tborder-bottom: 1px solid #495b69;\r\n}\r\n\r\n.Img .onTabs .mod-title i {\r\n\tfloat: right;\r\n\tmargin: 10px;\r\n\tfont-size: 18px;\r\n}\r\n\r\n.Img .onTabs .mod-title i.Black {\r\n\tcolor: #000000;\r\n}\r\n\r\n.Img .onTabs .mod-title i.Green {\r\n\tcolor: #32b16c;\r\n}\r\n\r\n.Img .onTabs .mod-title i.Yellow {\r\n\tcolor: #f39800;\r\n}\r\n\r\n.Img .onTabs .mod-title i.Red {\r\n\tcolor: #e14340;\r\n}\r\n\r\n.Img .onTabs .box {\r\n\twidth: 100%;\r\n\theight: 234px;\r\n\toverflow: auto;\r\n}\r\n\r\n.Img .onTabs .box table {\r\n\twidth: 93%;\r\n\tmargin: 0 10px;\r\n}\r\n\r\n.Img .onTabs .box table  tr td {\r\n\theight: 33px;\r\n\twidth: 95%;\r\n\twhite-space: nowrap;\r\n}\r\n\r\n.Img .onTabs .box table  tr td span {\r\n\tfloat: left;\r\n\tpadding-right: 10px;\r\n}\r\n\r\n.Img .yuan {\r\n\tposition: absolute;\r\n\tright: 52%;\r\n\ttop: 29.7%;\r\n}\r\n\r\n/*@parkMonitor jifei  楼宇企业列表\r\n---------------------------------------------------------*/\r\n.Enterprise {\r\n\twidth: 100%;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\theight: 560px;\r\n}\r\n\r\n.Enterprise .right {\r\n\tcolor: #e14340;\r\n\tfloat: right;\r\n\tfont-size: 16px;\r\n\tpadding: 10px 33px;\r\n}\r\n\r\n.Enterprise .mod-content {\r\n\twidth: 100%;\r\n\tmargin: 10px auto;\r\n}\r\n\r\n.Enterprise .mod-content .table-content {\r\n\theight: 470px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.Enterprise .wtyh-table thead th {\r\n\tpadding: 10px 0px;\r\n}\r\n.Enterprise .wtyh-table thead th  span{\r\n\tcursor: pointer;\r\n}\r\n\r\n.Enterprise .mod-content .wtyh-table {\r\n\twidth: 96%;\r\n\tmargin: 0 auto;\r\n}\r\n\r\n.Enterprise .mod-content .wtyh-table tr td {\r\n\theight: 40px;\r\n\tfont-size: 12px;\r\n\tborder-bottom: 1px solid #444951;\r\n}\r\n\r\n.Enterprise .mod-content .wtyh-table tr:nth-child(even) {\r\n\tbackground: #222932;\r\n}\r\n\r\n.Enterprise .mod-content .wtyh-table tr td span {\r\n\tfloat: left;\r\n\tpadding-left: 10%;\r\n\tcolor: #fff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.Enterprise .mod-content .wtyh-table tr td a {\r\n\tcolor: #ffffff;\r\n}\r\n\r\n/*@parkMonitor jifei  楼宇行业分布\r\n---------------------------------------------------------*/\r\n.Industry {\r\n\twidth: 49.5%;\r\n\theight: 398px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\tmargin-top: 10px;\r\n\tfloat: left;\r\n}\r\n\r\n/*@parkMonitor jifei  企业背景情况\r\n---------------------------------------------------------*/\r\n.Context {\r\n\twidth: 49.5%;\r\n\theight: 398px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\tmargin-top: 10px;\r\n\tfloat: right;\r\n}\r\n\r\n/*@parkMonitor jifei  舆情更新\r\n---------------------------------------------------------*/\r\n.Footer {\r\n\twidth: 100%;\r\n\theight: 60px;\r\n\tposition: fixed;\r\n\tbottom: 0;\r\n\tleft: 0;\r\n\tbackground: rgba(43, 50, 60, 0.9) none repeat scroll 0 0;\r\n\tbox-shadow: 2px 2px 10px #000;\r\n}\r\n\r\n.Footer .box {\r\n\twidth: 95%;\r\n\theight: 40px;\r\n\tmargin: 10px auto;\r\n\tposition: relative;\r\n}\r\n\r\n.Footer .boxLeft {\r\n\twidth: 10%;\r\n\theight: 40px;\r\n\tborder-right: 1px solid #8a9199;\r\n\tline-height: 40px;\r\n\tfloat: left;\r\n}\r\n\r\n.Footer .boxLeft .icon-news {\r\n\tfont-size: 35px;\r\n\tcolor: #e14340;\r\n}\r\n\r\n.Footer .boxLeft .size {\r\n\tfont-size: 18px;\r\n\tvertical-align: super;\r\n\tpadding-left: 25%;\r\n}\r\n\r\n.Footer .boxRight {\r\n\twidth: 85%;\r\n\theight: 40px;\r\n\tline-height: 40px;\r\n\tfloat: right;\t/* background: #666 */\r\n}\r\n\r\n.Footer .boxRight ul li {\r\n\tfloat: left;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(1) {\r\n\twidth: 20%;\r\n\tfont-size: 16px;\r\n\tcolor: #e14340;\r\n\toverflow: hidden;\r\n\ttext-overflow: ellipsis;\r\n\twhite-space: nowrap;\r\n\tdisplay: inline-block;\r\n}\r\n.Footer .boxRight ul li:nth-child(1) a{\r\n\tcolor: #e14340;\r\n}\r\n.Footer .boxRight ul li:nth-child(1) em {\r\n\tpadding-left: 5%;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(2) {\r\n\twidth: 60%;\r\n\tfont-size: 14px;\r\n\toverflow: hidden;\r\n\ttext-overflow: ellipsis;\r\n\twhite-space: nowrap;\r\n\tdisplay: inline-block;\r\n}\r\n.Footer .boxRight ul li:nth-child(2) a{\r\n\tcolor: #ffffff;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(2) .liTop {\r\n\tpadding-left: 8%;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(3) {\r\n\twidth: 20%;\r\n\tfont-size: 12px;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(3) em {\r\n\tpadding-left: 5%;\r\n}\r\n\r\n.Footer .boxRight ul li:nth-child(3) .liRight {\r\n\tpadding-left: 18%;\r\n}\r\n\r\n.boxRight {\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.boxRight ul {\r\n\r\n\t/* background: red; */\r\n\twidth: 100%;\r\n\theight: 40px;\r\n}\r\n\r\n.boxRightScroll {\r\n\twidth: 100%;\r\n\theight: auto;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n}", ""]);
 
 	// exports
 
@@ -80131,7 +80222,7 @@
 	                    this.state.isShowSearch ? _react2.default.createElement(
 	                        'div',
 	                        { className: 'search-group' },
-	                        _react2.default.createElement('input', { id: 'keyworld', type: 'text', placeholder: '请输入企业名称检索' }),
+	                        _react2.default.createElement('input', { id: 'keyworld', type: 'text', placeholder: '请输入企业名称或关键字检索' }),
 	                        _react2.default.createElement(
 	                            'span',
 	                            { onClick: this.searchResult, className: 'search' },
@@ -83465,7 +83556,7 @@
 
 
 	// module
-	exports.push([module.id, "/*@整体布局(一级)\r\n------------------------------------------------------------------*/\r\n.realtime-index {\r\n}\r\n.realtime-index .realtime-top {\r\n\twidth: 100%;\r\n\theight: 65%;\r\n}\r\n.realtime-index .realtime-bottom {\r\n\twidth: 100%;\r\n\theight: 35%;\r\n}\r\n\r\n/*@整体布局(二级)\r\n------------------------------------------------------------------*/\r\n.realtime-index .realtime-top>div {\r\n\tfloat: left;\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tpadding: 10px;\r\n}\r\n.realtime-index .realtime-top .realtime-top-left {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-middle {\r\n\twidth: 44%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-right {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-left {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-top: 26px;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-right {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-left: 100px;\r\n\tpadding-top: 26px;\r\n\toverflow-y: hidden;\r\n}\r\n\r\n/*realtime-top-left(左边表格)  //pudong huangpu  hongkou\r\n------------------------------------------------------------------*/\r\n.realtime-top-left {\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-left  h4 {\r\n\tfont-size: 18px;\r\n\tline-height: 40px;\r\n}\r\n.realtime-top-left  .title li {\r\n\tfloat: left;\r\n\twidth: 25%;\r\n\ttext-align: center;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tborder: 1px solid;\r\n\tcursor: pointer;\r\n\tposition: relative;\r\n}\r\n.realtime-top-left  .title li.active:after {\r\n\tcontent: \"\";\r\n\tposition: absolute;\r\n\tbottom: -6px;\r\n\tleft: 0px;\r\n\twidth: 100%;\r\n\theight: 3px;\r\n\tbackground: #fff;\r\n\tz-index: 999;\r\n}\r\n.realtime-top-left  .title li:nth-child(1) {\r\n\tbackground: red\r\n}\r\n.realtime-top-left  .title li:nth-child(2) {\r\n\tbackground: #ebc900\r\n}\r\n.realtime-top-left  .title li:nth-child(3) {\r\n\tbackground: #32b16c\r\n}\r\n.realtime-top-left  .title li:nth-child(4) {\r\n\tbackground: #000\r\n}\r\n.realtime-top-left  .table-wrap {\r\n\twidth: 100%;\r\n\theight: 80%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA {\r\n\twidth: 100%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th {\r\n\theight: 40px;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(1) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(2) {\r\n\twidth: 60%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th .tbsLeft {\r\n\tfloat: left;\r\n\tpadding-left: 5%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th .thSpan {\r\n\tfloat: left;\r\n\tpadding-left: 15%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td {\r\n\tborder-bottom: 1px solid #3c404b;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td .tbsLeft {\r\n\tfloat: left;\r\n\tpadding-left: 5%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td .thSpan {\r\n\tfloat: left;\r\n\tpadding-left: 15%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox {\r\n\theight: 92%;\r\n\toverflow: auto;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(3) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB {\r\n\twidth: 100%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td {\r\n\theight: 40px;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(1) {\r\n\twidth: 20%;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(2) {\r\n\twidth: 60%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(3) {\r\n\twidth: 20%;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-left .color {\r\n\theight: 16px;\r\n\twidth: 60%;\r\n\tposition: absolute;\r\n\tbottom: 10px;\r\n\tleft: 50%;\r\n\ttransform: translateX(-50%);\r\n}\r\n.realtime-top-left .color img {\r\n\tdisplay: block;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*realtime-top-left(左边表格)\r\n------------------------------------------------------------------*/\r\n.realtime-top-right {\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-top-right .item {\r\n\twidth: 100%;\r\n\theight: 33.3%;\r\n}\r\n\r\n/*realtime-bottom-right(右下角)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-right {\r\n\toverflow: hidden;\r\n\tpadding-left: 20px\r\n}\r\n.realtime-bottom-right>h4 {\r\n\tcolor: #fff;\r\n\tline-height: 30px;\r\n\tfont-size: 16px;\r\n}\r\n.realtime-bottom-right ul {\r\n\theight: 100%;\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-bottom-right ul li {\r\n\theight: 134px;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-right ul li h4 {\r\n\tpadding: 15px 0px;\r\n\tfont-size: 14px;\r\n\tcolor: #e14340\r\n}\r\n.realtime-bottom-right ul li h4 a {\r\n\tcolor: #e14340 !important\r\n}\r\n.realtime-bottom-right ul li p {\r\n\tcolor: #fff;\r\n\tmargin-right: 10px;\r\n\toverflow: hidden;\r\n}\r\n.BottomRightP {\r\n\tdisplay: block;\r\n\theight: 41px;\r\n}\r\n.realtime-bottom-right ul li span {\r\n\tposition: absolute;\r\n\tright: 10px;\r\n\tbottom: 2px;\r\n\tcolor: #666;\r\n}\r\n.realtime-bottom-right ul li span p {\r\n\tdisplay: inline-block;\r\n}\r\n\r\n/*realtime-bottom-right(中间的大地图)\r\n------------------------------------------------------------------*/\r\n.realtime-top-middle #demo {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*上海地图的信息框*/\r\n.realtime-top-middle .info {\r\n\twidth: 160px;\r\n\theight: 70px;\r\n\tleft: 5%;\r\n\ttop: 5%;\r\n\tposition: absolute;\r\n\tz-index: 999;\r\n\tcursor: pointer;\r\n\toverflow: hidden;\r\n\tdisplay: none\r\n}\r\n.realtime-top-middle .info .info-left, .realtime-top-middle .info .info-right {\r\n\tfloat: left;\r\n\twidth: 50%;\r\n\theight: 100%;\r\n}\r\n.realtime-top-middle .info .info-left {\r\n\tpadding: 0px 3px 3px 0px;\r\n}\r\n.realtime-top-middle .info .info-right {\r\n\tbackground: #363e48;\r\n\tborder-radius: 3px;\r\n\tfont-size: 24px;\r\n\tcolor: #e14340;\r\n\tline-height: 70px;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-middle .info .info-left .title {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 34px;\r\n\tfont-size: 12px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 34px;\r\n\tborder-radius: 3px;\r\n}\r\n.realtime-top-middle .info .info-left .date {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 34px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 34px;\r\n\tmargin-top: 3px;\r\n\tborder-radius: 3px;\r\n\tfont-size: 12px;\r\n}\r\n\r\n/*上海地图的返回按钮*/\r\n.realtime-top-middle .return {\r\n\tbackground: linear-gradient(to bottom, #b96f6f 5%, red 50%, #f50202 100%);\r\n\tposition: absolute;\r\n\tbottom: 10%;\r\n\tleft: 3%;\r\n\tdisplay: none;\r\n}\r\n\r\n/*地下的长条信息框*/\r\n.realtime-top-middle .bar {\r\n\twidth: 98%;\r\n\theight: 40px;\r\n\tbackground: #282f39;\r\n\ttext-align: center;\r\n\tline-height: 40px;\r\n\tposition: absolute;\r\n\tbottom: 1%;\r\n\tfont-size: 12px;\r\n\tdisplay: none;\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-middle .carousel {\r\n\tposition: absolute;\r\n\tleft: 6%;\r\n\ttop: 0;\r\n\tz-index: 999;\r\n}\r\n.realtime-top-middle .bar img {\r\n\twidth: 30px;\r\n\theight: 30px;\r\n\tposition: absolute;\r\n\tleft: 5%;\r\n\ttop: 5px;\r\n}\r\n.darkRed {\r\n\tcolor: #e14340;\r\n\tpadding: 0px 5px;\r\n}\r\n\r\n/*tootips实验*/\r\n.testTo {\r\n\twidth: auto;\r\n\theight: auto;\r\n\tfont-size: 12px;\r\n\tcursor: pointer;\r\n}\r\n.testTo h4 {\r\n\tdisplay: inline-block;\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo label {\r\n\tdisplay: inline-block;\r\n\twidth: 60px;\r\n\theight: 18px;\r\n\tborder: 1px solid #fff;\r\n\ttext-align: center;\r\n\tvertical-align: middle;\r\n\tmargin-left: 20px;\r\n\ttext-align: center;\r\n\ttext-indent: 5px;\r\n\tline-height: 16px;\r\n\ttext-shadow: 1px 1px 1px #000;\r\n}\r\n.testTo p {\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo p span {\r\n\tcolor: yellow\r\n}\r\n.black {\r\n\tbackground: black;\r\n\tcolor: #fff !important\r\n}\r\n.green {\r\n\tbackground: green\r\n}\r\n.yellow {\r\n\tbackground: #ebc900;\r\n}\r\n.red {\r\n\tbackground: red;\r\n}\r\n.redFont {\r\n\tcolor: red !important;\r\n}\r\n.whiteFont {\r\n\tcolor: #fff !important;\r\n}\r\n\r\n/**/\r\n.testTo .tableH4 {\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n\tcolor: #ce3431;\r\n\tfont-size: 14px;\r\n\tfont-weight: bold;\r\n}\r\n.testTo table td {\r\n\tborder: 1px solid #1a2029;\r\n\ttext-align: center;\r\n\tpadding: 5px;\r\n}\r\n.testTo .tip-scroll {\r\n\twidth: 200px;\r\n\theight: 100px;\r\n\ttext-align: center;\r\n\toverflow-y: auto;\r\n}\r\n.testTo .tip-scroll  span {\r\n\tdisplay: block;\r\n\tpadding: 5px 0;\r\n}\r\n.testTo .nums {\r\n\tdisplay: block;\r\n\ttext-align: center;\r\n}\r\n\r\n/*realtime-bottom-rleft(线下理财)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-left {\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-left  .more {\r\n\tcolor: #fff;\r\n\tfont-size: 14px;\r\n\tposition: absolute;\r\n\ttop: 60px;\r\n\tright: 11%;\r\n\tz-index: 99999;\r\n}", ""]);
+	exports.push([module.id, "/*@整体布局(一级)\r\n------------------------------------------------------------------*/\r\n.realtime-index {\r\n}\r\n.realtime-index .realtime-top {\r\n\twidth: 100%;\r\n\theight: 65%;\r\n}\r\n.realtime-index .realtime-bottom {\r\n\twidth: 100%;\r\n\theight: 35%;\r\n}\r\n\r\n/*@整体布局(二级)\r\n------------------------------------------------------------------*/\r\n.realtime-index .realtime-top>div {\r\n\tfloat: left;\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tpadding: 10px;\r\n}\r\n.realtime-index .realtime-top .realtime-top-left {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-middle {\r\n\twidth: 44%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-right {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-left {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-top: 26px;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-right {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-left: 100px;\r\n\tpadding-top: 26px;\r\n\toverflow-y: hidden;\r\n}\r\n\r\n/*realtime-top-left(左边表格)  //pudong huangpu  hongkou\r\n------------------------------------------------------------------*/\r\n.realtime-top-left {\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-left  h4 {\r\n\tfont-size: 18px;\r\n\tline-height: 40px;\r\n}\r\n.realtime-top-left  .title li {\r\n\tfloat: left;\r\n\twidth: 25%;\r\n\ttext-align: center;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tborder: 1px solid;\r\n\tcursor: pointer;\r\n\tposition: relative;\r\n}\r\n.realtime-top-left  .title li.active:after {\r\n\tcontent: \"\";\r\n\tposition: absolute;\r\n\tbottom: -6px;\r\n\tleft: 0px;\r\n\twidth: 100%;\r\n\theight: 3px;\r\n\tbackground: #fff;\r\n\tz-index: 999;\r\n}\r\n.realtime-top-left  .title li:nth-child(1) {\r\n\tbackground: red\r\n}\r\n.realtime-top-left  .title li:nth-child(2) {\r\n\tbackground: #ebc900\r\n}\r\n.realtime-top-left  .title li:nth-child(3) {\r\n\tbackground: #32b16c\r\n}\r\n.realtime-top-left  .title li:nth-child(4) {\r\n\tbackground: #000\r\n}\r\n.realtime-top-left  .table-wrap {\r\n\twidth: 100%;\r\n\theight: 80%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA {\r\n\twidth: 100%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th {\r\n\theight: 40px;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(1) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(2) {\r\n\twidth: 60%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th .tbsLeft {\r\n\tfloat: left;\r\n\tpadding-left: 5%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th .thSpan {\r\n\tfloat: left;\r\n\tpadding-left: 15%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td {\r\n\tborder-bottom: 1px solid #3c404b;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td .tbsLeft {\r\n\tfloat: left;\r\n\tpadding-left: 5%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td .thSpan {\r\n\tfloat: left;\r\n\tpadding-left: 15%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox {\r\n\theight: 92%;\r\n\toverflow: auto;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(3) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB {\r\n\twidth: 100%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td {\r\n\theight: 40px;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(1) {\r\n\twidth: 20%;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(2) {\r\n\twidth: 60%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(3) {\r\n\twidth: 20%;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-left .color {\r\n\theight: 16px;\r\n\twidth: 60%;\r\n\tposition: absolute;\r\n\tbottom: 10px;\r\n\tleft: 50%;\r\n\ttransform: translateX(-50%);\r\n}\r\n.realtime-top-left .color img {\r\n\tdisplay: block;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*realtime-top-left(左边表格)\r\n------------------------------------------------------------------*/\r\n.realtime-top-right {\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-top-right .item {\r\n\twidth: 100%;\r\n\theight: 33.3%;\r\n}\r\n\r\n/*realtime-bottom-right(右下角)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-right {\r\n\toverflow: hidden;\r\n\tpadding-left: 20px\r\n}\r\n.realtime-bottom-right>h4 {\r\n\tcolor: #fff;\r\n\tline-height: 30px;\r\n\tfont-size: 16px;\r\n}\r\n.realtime-bottom-right ul {\r\n\theight: 100%;\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-bottom-right ul li {\r\n\theight: 134px;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-right ul li h4 {\r\n\tpadding: 15px 0px;\r\n\tfont-size: 14px;\r\n\tcolor: #e14340\r\n}\r\n.realtime-bottom-right ul li h4 a {\r\n\tcolor: #e14340 !important\r\n}\r\n.realtime-bottom-right ul li p {\r\n\tcolor: #fff;\r\n\tmargin-right: 10px;\r\n\toverflow: hidden;\r\n}\r\n.BottomRightP {\r\n\tdisplay: block;\r\n\theight: 41px;\r\n}\r\n.realtime-bottom-right ul li span {\r\n\tposition: absolute;\r\n\tright: 10px;\r\n\tbottom: 2px;\r\n\tcolor: #666;\r\n}\r\n.realtime-bottom-right ul li span p {\r\n\tdisplay: inline-block;\r\n}\r\n\r\n/*realtime-bottom-right(中间的大地图)\r\n------------------------------------------------------------------*/\r\n.realtime-top-middle #demo {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*上海地图的信息框*/\r\n.realtime-top-middle .info {\r\n\twidth: 160px;\r\n\theight: 70px;\r\n\tleft: 5%;\r\n\ttop: 5%;\r\n\tposition: absolute;\r\n\tz-index: 999;\r\n\tcursor: pointer;\r\n\toverflow: hidden;\r\n\tdisplay: none\r\n}\r\n.realtime-top-middle .info .info-left, .realtime-top-middle .info .info-right {\r\n\tfloat: left;\r\n\twidth: 50%;\r\n\theight: 100%;\r\n}\r\n.realtime-top-middle .info .info-left {\r\n\tpadding: 0px 3px 3px 0px;\r\n}\r\n.realtime-top-middle .info .info-right {\r\n\tbackground: #363e48;\r\n\tborder-radius: 3px;\r\n\tfont-size: 24px;\r\n\tcolor: #e14340;\r\n\tline-height: 70px;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-middle .info .info-left .title {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 34px;\r\n\tfont-size: 12px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 34px;\r\n\tborder-radius: 3px;\r\n}\r\n.realtime-top-middle .info .info-left .date {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 34px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 34px;\r\n\tmargin-top: 3px;\r\n\tborder-radius: 3px;\r\n\tfont-size: 12px;\r\n}\r\n\r\n/*上海地图的返回按钮*/\r\n.realtime-top-middle .return {\r\n\tbackground: linear-gradient(to bottom, #b96f6f 5%, red 50%, #f50202 100%);\r\n\tposition: absolute;\r\n\tbottom: 10%;\r\n\tleft: 3%;\r\n\tdisplay: none;\r\n}\r\n\r\n/*地下的长条信息框*/\r\n.realtime-top-middle .bar {\r\n\twidth: 98%;\r\n\theight: 40px;\r\n\tbackground: #282f39;\r\n\ttext-align: center;\r\n\tline-height: 40px;\r\n\tposition: absolute;\r\n\tbottom: 1%;\r\n\tfont-size: 12px;\r\n\tdisplay: none;\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-middle .carousel {\r\n\tposition: absolute;\r\n\ttop: 0;\r\n\tz-index: 999;\r\n\twidth: 100%;\r\n\tanimation: move-xc  40s infinite;\r\n}\r\n@keyframes move-xc {\r\n\tfrom {\r\n\t\tleft: 100%;\r\n\t}\r\n\tto {\r\n\t\tleft: -100%;\r\n\t}\r\n}\r\n.realtime-top-middle .bar img {\r\n\twidth: 30px;\r\n\theight: 30px;\r\n\tposition: absolute;\r\n\tleft: 5%;\r\n\ttop: 5px;\r\n}\r\n.darkRed {\r\n\tcolor: #e14340;\r\n\tpadding: 0px 5px;\r\n}\r\n\r\n/*tootips实验*/\r\n.testTo {\r\n\twidth: auto;\r\n\theight: auto;\r\n\tfont-size: 12px;\r\n\tcursor: pointer;\r\n}\r\n.testTo h4 {\r\n\tdisplay: inline-block;\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo label {\r\n\tdisplay: inline-block;\r\n\twidth: 60px;\r\n\theight: 18px;\r\n\tborder: 1px solid #fff;\r\n\ttext-align: center;\r\n\tvertical-align: middle;\r\n\tmargin-left: 20px;\r\n\ttext-align: center;\r\n\ttext-indent: 5px;\r\n\tline-height: 16px;\r\n\ttext-shadow: 1px 1px 1px #000;\r\n}\r\n.testTo p {\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo p span {\r\n\tcolor: yellow\r\n}\r\n.black {\r\n\tbackground: black;\r\n\tcolor: #fff !important\r\n}\r\n.green {\r\n\tbackground: green\r\n}\r\n.yellow {\r\n\tbackground: #ebc900;\r\n}\r\n.red {\r\n\tbackground: red;\r\n}\r\n.redFont {\r\n\tcolor: red !important;\r\n}\r\n.whiteFont {\r\n\tcolor: #fff !important;\r\n}\r\n\r\n/**/\r\n.testTo .tableH4 {\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n\tcolor: #ce3431;\r\n\tfont-size: 14px;\r\n\tfont-weight: bold;\r\n}\r\n.testTo table td {\r\n\tborder: 1px solid #1a2029;\r\n\ttext-align: center;\r\n\tpadding: 5px;\r\n}\r\n.testTo .tip-scroll {\r\n\twidth: 200px;\r\n\theight: 100px;\r\n\ttext-align: center;\r\n\toverflow-y: auto;\r\n}\r\n.testTo .tip-scroll  span {\r\n\tdisplay: block;\r\n\tpadding: 5px 0;\r\n}\r\n.testTo .nums {\r\n\tdisplay: block;\r\n\ttext-align: center;\r\n}\r\n\r\n/*realtime-bottom-rleft(线下理财)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-left {\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-left  .more {\r\n\tcolor: #fff;\r\n\tfont-size: 14px;\r\n\tposition: absolute;\r\n\ttop: 60px;\r\n\tright: 11%;\r\n\tz-index: 99999;\r\n}", ""]);
 
 	// exports
 
@@ -83524,6 +83615,7 @@
 	        if (realTimeTableRequest == true) {
 	          //这里可以开始渲染数据
 	          tableDate = realTimeTableResult; //赋值给全局变量
+	          //console.log("sfsfsfsfsffsfsf", tableDate);
 	          _this.setState({
 	            table: _react2.default.createElement(
 	              'div',
@@ -84185,15 +84277,15 @@
 	                                typeP = "曝光日期<span class='redFont'> " + numORdate + " </span>";typeLabel = "<label class='testLable whiteFont'>已出风险</label>";
 	                                break;
 	                            case 2:
-	                                typeP = "风险值<span> " + Number(numORdate).toFixed(2) + " </span>";typeLabel = "<label class='testLable green whiteFont'>正常</label>";
+	                                typeP = "风险值<span class='redFont'> " + Number(numORdate).toFixed(2) + " </span>";typeLabel = "<label class='testLable green whiteFont'>正常</label>";
 	                                break;
 
 	                            case 3:
-	                                typeP = "风险值<span> " + Number(numORdate).toFixed(2) + " </span>";typeLabel = "<label class='testLable yellow whiteFont'>一般关注</label>";
+	                                typeP = "风险值<span class='redFont'> " + Number(numORdate).toFixed(2) + " </span>";typeLabel = "<label class='testLable yellow whiteFont'>一般关注</label>";
 	                                break;
 
 	                            case 4:
-	                                typeP = "风险值<span> " + Number(numORdate).toFixed(2) + " </span>";typeLabel = "<label class='testLable red whiteFont'>重点关注</label>";
+	                                typeP = "风险值<span class='redFont'> " + Number(numORdate).toFixed(2) + " </span>";typeLabel = "<label class='testLable red whiteFont'>重点关注</label>";
 	                                break;
 
 	                        };
@@ -84396,7 +84488,7 @@
 	                _this.props.history.push("/parkMonitor?areaId=" + ajaxDataSH.SHhoverArea[hoverName].areaId);
 	            }
 	            if (v.seriesType == "scatter") {
-	                debugger;
+	                //debugger;
 	                console.log(parseInt(v.data.value[2]));
 	                if (parseInt(v.data.value[2]) > 1) {
 
@@ -84488,6 +84580,8 @@
 	            var realtimeSwithVal = nextProps.realtimeSwithVal;
 
 	            if (!!chartShanghai) {
+	                console.log(geoSereisFinal, "geoSereisFinal");
+	                console.log(realtimeSwithVal, "realtimeSwithVal");
 	                chartShanghai.setOption({
 	                    series: [{
 	                        data: this.convertData(geoSereisFinal[realtimeSwithVal])
@@ -84521,13 +84615,13 @@
 	    NewsScroll: function NewsScroll() {
 	        //地图上一行字的滚动
 	        var barWidth = parseInt($(".bar").css("width"));
-	        scroll();
 	        function scroll() {
 	            $(".carousel").animate({ left: -barWidth }, 20000, function () {
 	                $(".carousel").css("left", barWidth + "px");
 	            });
+
+	            setTimeout(scroll, 20000); //
 	        }
-	        var b = setInterval(scroll, 20000);
 	    },
 	    render: function render() {
 	        return _react2.default.createElement(
@@ -84569,7 +84663,11 @@
 	                _react2.default.createElement(
 	                    'p',
 	                    { className: 'carousel' },
-	                    '截止2016年7月27日：收到举报信息：',
+	                    _react2.default.createElement(
+	                        'span',
+	                        { style: { width: '205px', display: "inline-block" } },
+	                        '截止2016年7月27日：收到举报信息：'
+	                    ),
 	                    _react2.default.createElement(
 	                        'span',
 	                        { className: 'darkRed' },
@@ -84621,9 +84719,9 @@
 
 	__webpack_require__(876);
 
-	var _ScatterChart = __webpack_require__(643);
+	var _ScatterChartCopy = __webpack_require__(697);
 
-	var _ScatterChart2 = _interopRequireDefault(_ScatterChart);
+	var _ScatterChartCopy2 = _interopRequireDefault(_ScatterChartCopy);
 
 	var _LineBarChart = __webpack_require__(713);
 
@@ -84664,7 +84762,8 @@
 	                    var paramOneData = [];
 	                    nineDate.content.loan.series[0].map(function (item, index) {
 	                        item = Number(item / 10000).toFixed(2);
-	                        var xx = [index, index, item];
+	                        var x = nineDate.content.loan.xAxis[index];
+	                        var xx = [x, item];
 	                        paramOneData.push(xx);
 	                    });
 	                    nineDate.content.loan.series[1].map(function (item, index) {
@@ -84684,9 +84783,9 @@
 	                        forMaterTip: '平均贷款余额',
 	                        yAxisName: "亿元",
 	                        tooltip: function tooltip(data) {
-	                            return data.name + "年<br/>贷款余额：" + data.data[2] + "亿元<br/>平均贷款余额：" + data.data[3] + "万元";
+	                            return data.data[0] + "<br/>贷款余额：" + data.data[1] + "亿元<br/>平均贷款余额：" + data.data[2] + "万元";
 	                        },
-	                        gridTop: "20%",
+	                        gridTop: "25%",
 	                        legend: [],
 	                        symbolSize: function symbolSize(val) {
 	                            if (val[3] < 1000) {
@@ -84698,7 +84797,7 @@
 	                            }
 	                        },
 	                        xAxis: nineDate.content.loan.xAxis,
-	                        yAxis: paramOneyAxis,
+	                        //yAxis:paramOneyAxis,
 	                        data: paramOneData,
 	                        series: [[{
 	                            color: '#e14340'
@@ -84852,7 +84951,8 @@
 	                    };
 	                    var paramSevenData = [];
 	                    nineDate.content.mortgage.series[0].map(function (item, index) {
-	                        var xx = [index, index, item];
+	                        var x = nineDate.content.mortgage.xAxis.reverse()[index];
+	                        var xx = [x, item];
 	                        paramSevenData.push(xx);
 	                    });
 	                    nineDate.content.mortgage.series[1].map(function (item, index) {
@@ -84862,8 +84962,6 @@
 	                    nineDate.content.mortgage.series[0].map(function (item, index) {
 	                        b.push((item / 10000).toFixed(2));
 	                    });
-	                    console.log(b, "第7个图的y");
-	                    console.log(paramSevenData, "第7个图的series");
 	                    paramSeven = {
 	                        link: "/smallLoan#/PawnMonitoring",
 	                        id: 'realTimeRightTwo', //必传
@@ -84876,10 +84974,10 @@
 	                        YnameGap: 5,
 	                        legend: [],
 	                        tooltip: function tooltip(data) {
-	                            return data.name + "年<br/>典当总额：" + parseFloat(data.data[2] / 10000).toFixed(2) + "亿元<br/>业务笔数：" + data.data[3];
+	                            return data.data[0] + "<br/>典当总额：" + parseFloat(data.data[1] / 10000).toFixed(2) + "亿元<br/>业务笔数：" + data.data[2];
 	                        },
 	                        xAxis: nineDate.content.mortgage.xAxis.reverse(),
-	                        yAxis: b,
+	                        // yAxis:b,
 	                        data: paramSevenData,
 	                        symbolSize: function symbolSize() {
 	                            return 20;
@@ -84950,7 +85048,7 @@
 	    render: function render() {
 	        var paramOneBox, paramTwoBox, paramThreeBox, paramFourBox, paramFiveBox, paramSixBox, paramSevenBox, paramEightBox, paramNineBox;
 	        if (!!paramOne) {
-	            paramOneBox = _react2.default.createElement(_ScatterChart2.default, { param: paramOne, style: { height: '100%', width: '100%' } });
+	            paramOneBox = _react2.default.createElement(_ScatterChartCopy2.default, { param: paramOne, style: { height: '100%', width: '100%' } });
 	        }
 	        if (!!paramTwo) {
 	            paramTwoBox = _react2.default.createElement(_LineBarChart2.default, { param: paramTwo, style: { height: '100%', width: '100%' } });
@@ -84968,7 +85066,7 @@
 	            paramSixBox = _react2.default.createElement(_LineBarChart2.default, { param: paramSix, style: { height: '100%', width: '100%' } });
 	        }
 	        if (!!paramSeven) {
-	            paramSevenBox = _react2.default.createElement(_ScatterChart2.default, { param: paramSeven, style: { height: '100%', width: '100%' } });
+	            paramSevenBox = _react2.default.createElement(_ScatterChartCopy2.default, { param: paramSeven, style: { height: '100%', width: '100%' } });
 	        }
 	        if (!!paramEight) {
 	            paramEightBox = _react2.default.createElement(_LineBarChart2.default, { param: paramEight, style: { height: '100%', width: '100%' } });
@@ -85223,9 +85321,9 @@
 	    var _this = this;
 	    var isEqual = Immutable.is(nextProps.realTimeNewsResult, this.props.realTimeNewsResult);
 	    if (!isEqual) {
-	      var data = JSON.parse(nextProps.realTimeNewsResult.content);
+	      var data = JSON.parse(nextProps.realTimeNewsResult.content).results.slice(0, 20);
 	      _this.setState({
-	        list: data.results.map(function (item, index) {
+	        list: data.map(function (item, index) {
 	          var main = item.main.substring(0, 80);
 	          return _react2.default.createElement(
 	            'li',
