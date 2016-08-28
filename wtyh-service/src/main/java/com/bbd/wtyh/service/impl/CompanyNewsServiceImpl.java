@@ -100,12 +100,7 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
     @Override
     public String getCompanyNews() {
 
-        String data = (String)redisDAO.getObject(Constants.REDIS_KEY_NEWS_DATA);
-
-        if (!StringUtils.isEmpty(data)) {
-        	logger.info("Get in redis." + data);
-            return data;
-        }
+        String data = null;
 
         try {
                 HttpTemplate ht = new HttpTemplate();
@@ -122,10 +117,6 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
                     }
                 });
 
-            if (!StringUtils.isBlank(data) && data.contains("\"total\"") && !data.contains("\"total\": 0")) {
-                logger.info("Set in redis." + data);
-                redisDAO.addObject(Constants.REDIS_KEY_NEWS_DATA, data, Constants.cacheDay, String.class);
-            }
         } catch (Exception e) {
             logger.error("Method getCompanyNews get Exception." + e.getMessage());
             e.printStackTrace();
@@ -145,9 +136,6 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
             list.add(new BasicNameValuePair("ak",ak));
             try {
                 String data = HttpClientUtils.httpPost(batchNewsUrl, list);
-                if (!StringUtils.isEmpty(data)) {
-                    redisDAO.addObject(Constants.REDIS_KEY_NEWS_DATA, data, Constants.cacheDay, String.class);
-                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

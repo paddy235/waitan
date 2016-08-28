@@ -19,7 +19,6 @@ public class Constants {
 	public static final String REDIS_KEY_DQZL_RISK = "RK_DQZLR";
 	public static final String REDIS_KEY_FFRZWG_RISK = "RK_FFRZWGR";
 	public static final String REDIS_KEY_RCJG_RISK = "RK_RCJGR";
-	public static final String REDIS_KEY_NEWS_DATA = "YQ_NEWS";
 	public static final String REDIS_KEY_BASE_INFO_BBD_DATA = "BASE_INFO_BBD_DATA";
 	public static final String REDIS_KEY_COMPANY_CREDIT_POINT_ITEMS = "BASE_INFO_COMPANY_CREDIT_POINT_ITEMS";
 	public static final String characterCode = "utf-8";
