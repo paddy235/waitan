@@ -187,6 +187,7 @@
                 LEFT JOIN company ON static_risk_data.company_name = company.`name`
                 WHERE
                     1 = 1
+                    and company_name not in('上海申彤大大资产管理有限公司','中晋资产管理（上海）有限公司')
                     <if test="low != null">
                         and #{low} &lt;= static_risk_index
                     </if>
