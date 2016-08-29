@@ -60417,31 +60417,6 @@
 	        };
 	        this.setState({ option: option });
 	    },
-	    //   setParm:function(){
-	    //   const option ={
-	    //         "color":["#6c9f87", "#e14340","#61a0a8"],
-	    //         "title":"",
-	    //         "xtitle":"",
-	    //         "legend": ["政策性", "综合型","钢贸类"],
-	    //         "legendShow":true,
-	    //         "legendOrient":"vertical",
-	    //         "legendLeft":"",
-	    //         "legendTop":"middle",
-	    //         "legendRight":"10%",
-	    //         "seriesName":"担保责任余额结构分布",
-	    //         "radius":"70%",
-	    //         "lable":{ normal: { show:false},
-	    //                   emphasis: {show:false}
-	    //               },
-	    //         "center":['40%', '50%'],
-	    //         "series": [
-	    //                 {value:500, name:'政策性'},
-	    //                 {value:800, name:'综合型'},
-	    //                 {value:400, name:'钢贸类'}
-	    //             ]
-	    //     };
-	    //         return option;
-	    // },
 	    render: function render() {
 	        var bbdPie = "";
 	        if (this.state.option) {
@@ -64780,7 +64755,6 @@
 	            };
 	            series.push(eachYear);
 	        }
-	        console.log(series);
 	        var option = {
 	            id: 'balance-ratio-char', //必传
 	            height: '260px', //必传 带上单位
