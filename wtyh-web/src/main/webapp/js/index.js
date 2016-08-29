@@ -50140,124 +50140,6 @@
 	    },
 
 	    changeNum: function changeNum(data) {
-	        // $.fn.numberAnimate = function(setting) {
-	        //     var defaults = {
-	        //         speed : 1000,//动画速度
-	        //         num : "", //初始化值
-	        //         iniAnimate : true, //是否要初始化动画效果
-	        //         symbol : '',//默认的分割符号，千，万，千万
-	        //         dot : 0 //保留几位小数点
-	        //     }
-	        //     //如果setting为空，就取default的值
-	        //     var setting = $.extend(defaults, setting);
-	        //     //如果对象有多个，提示出错
-	        //     if($(this).length > 1){
-	        //         alert("just only one obj!");
-	        //         return;
-	        //     }
-	        //     //如果未设置初始化值。提示出错
-	        //     if(setting.num == ""){
-	        //         alert("must set a num!");
-	        //         return;
-	        //     }
-	        //     var nHtml = '<div class="mt-number-animate-dom" data-num="{{num}}">\
-	        //                     <span class="mt-number-animate-span">0</span>\
-	        //                     <span class="mt-number-animate-span">1</span>\
-	        //                     <span class="mt-number-animate-span">2</span>\
-	        //                     <span class="mt-number-animate-span">3</span>\
-	        //                     <span class="mt-number-animate-span">4</span>\
-	        //                     <span class="mt-number-animate-span">5</span>\
-	        //                     <span class="mt-number-animate-span">6</span>\
-	        //                     <span class="mt-number-animate-span">7</span>\
-	        //                     <span class="mt-number-animate-span">8</span>\
-	        //                     <span class="mt-number-animate-span">9</span>\
-	        //                     <span class="mt-number-animate-span">.</span>\
-	        //                 </div>';
-	        //     //数字处理
-	        //     var numToArr = function(num){
-	        //         num = parseFloat(num).toFixed(setting.dot);
-	        //         if(typeof(num) == 'number'){
-	        //             var arrStr = num.toString().split("");    
-	        //         }else{
-	        //             var arrStr = num.split("");
-	        //         }
-	        //         //console.log(arrStr);
-	        //         return arrStr;
-	        //     }
-	        //     //设置DOM symbol:分割符号
-	        //     var setNumDom = function(arrStr){
-	        //         var shtml = '<div class="mt-number-animate">';
-	        //         for(var i=0,len=arrStr.length; i<len; i++){
-	        //             if(i != 0 && (len-i)%3 == 0 && setting.symbol != "" && arrStr[i]!="."){
-	        //                 shtml += '<div class="mt-number-animate-dot">'+setting.symbol+'</div>'+nHtml.replace("{{num}}",arrStr[i]);
-	        //             }else{
-	        //                 shtml += nHtml.replace("{{num}}",arrStr[i]);
-	        //             }
-	        //         }
-	        //         shtml += '</div>';
-	        //         return shtml;
-	        //     }
-	        //     //执行动画
-	        //     var runAnimate = function($parent){
-	        //         $parent.find(".mt-number-animate-dom").each(function() {
-	        //             var num = $(this).attr("data-num");
-	        //             num = (num=="."?10:num);
-	        //             var spanHei = $(this).height()/11; //11为元素个数
-	        //             var thisTop = -num*spanHei+"px";
-	        //             var transform = $(this).css("transform");
-	        //             if(transform=='none' || -num*spanHei != parseInt(transform.split(",")[5], 10)){
-	        //                 if(setting.iniAnimate){
-	        //                     //HTML5不支持
-	        //                     if(!window.applicationCache){
-	        //                         $(this).animate({
-	        //                             top : thisTop
-	        //                         }, setting.speed);
-	        //                     }else{
-	        //                        $(this).css({
-	        //                             'transform':'translateY('+thisTop+')',
-	        //                             '-ms-transform':'translateY('+thisTop+')',     /* IE 9 */
-	        //                             '-moz-transform':'translateY('+thisTop+')',    /* Firefox */
-	        //                             '-webkit-transform':'translateY('+thisTop+')', /* Safari 和 Chrome */
-	        //                             '-o-transform':'translateY('+thisTop+')',
-	        //                             '-ms-transition':setting.speed/1000+'s',
-	        //                             '-moz-transition':setting.speed/1000+'s',
-	        //                             '-webkit-transition':setting.speed/1000+'s',
-	        //                             '-o-transition':setting.speed/1000+'s',
-	        //                             'transition':setting.speed/1000+'s'
-	        //                         }); 
-	        //                     }
-	        //                 }else{
-	        //                     setting.iniAnimate = true;
-	        //                     $(this).css({
-	        //                         top : thisTop
-	        //                     });
-	        //                 }
-	        //             }
-	        //         });
-	        //     }
-	        //     //初始化
-	        //     var init = function($parent){
-	        //         //初始化
-	        //         $parent.html(setNumDom(numToArr(setting.num)));
-	        //         runAnimate($parent);
-	        //     };
-	        //     //重置参数
-	        //     this.resetData = function(num){
-	        //         var newArr = numToArr(num);
-	        //         var $dom = $(this).find(".mt-number-animate-dom");
-	        //         if($dom.length < newArr.length){
-	        //             $(this).html(setNumDom(numToArr(num)));
-	        //         }else{
-	        //             $dom.each(function(index, el) {
-	        //                 $(this).attr("data-num",newArr[index]);
-	        //             });
-	        //         }
-	        //         runAnimate($(this));
-	        //     }
-	        //     //init
-	        //     init($(this));
-	        //     return this;
-	        // }
 	        //数字滚动插件
 	        var numRunA = $(".homeScrollA").numberAnimate({ num: data.dataCount, speed: 2000, symbol: "," });
 	        var numRunB = $(".homeScrollB").numberAnimate({ num: data.companyCount, speed: 2000, symbol: "," });
@@ -64615,7 +64497,7 @@
 
 
 	// module
-	exports.push([module.id, ".small-loan-index .mt-table {\r\n\tmargin: 0px !important;\r\n}\r\n\r\n/*企业评级*/\r\n.small-loan-index .company-grade .mod-content .table-content {\r\n\theight: 530px;\r\n\toverflow: auto;\r\n}\r\n\r\n/*余额占比*/\r\n.small-loan-index .balance-radio {\r\n\theight: 49.5%;\r\n}\r\n\r\n.small-loan-index .balance-radio .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*贷款笔均折线图*/\r\n.small-loan-index .each-average {\r\n\theight: 49.5%;\r\n\tmargin-top: 2%;\r\n}\r\n\r\n.small-loan-index .each-average .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*地图模块*/\r\n.small-loan-index .small-loan-map .map-chart-box {\r\n\theight: 610px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .small-loan-map .company-chart-box {\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.small-loan-index .small-loan-map .visual-text {\r\n\tposition: absolute;\r\n\tbottom: 26%;\r\n\tright: 3%;\r\n\tz-index: 1000;\r\n\twidth: 14px;\r\n}\r\n\r\n/*贷款余额占比*/\r\n.small-loan-index .loan-balance .chart-box {\r\n\theight: 300px;\r\n}\r\n\r\n/*股东行业风险*/\r\n.small-loan-index .industry-risk{\r\n\tposition: relative;\r\n}\r\n.small-loan-index .industry-risk .mod-content .table-content {\r\n\theight: 240px;\t/*overflow: auto;*/\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk .mod-content .table-content table td a.more {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*大额借款人信息列表*/\r\n\r\n/*股东风险更多*/\r\n.small-loan-index .industry-risk-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content {\r\n\r\n\t/*padding: 8px 10px;*/\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content .content-more {\r\n\theight: 199px;\r\n\twidth: 100%;\r\n\tdisplay: table;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul {\r\n\r\n\t/*display: inline-block;*/\r\n\twidth: 33.33%;\t/*height: 199px;*/\r\n\tdisplay: table-cell;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul li {\r\n\tpadding: 15px 5px;\r\n}\r\n\r\n/*大额借款人*/\r\n.large-loan .table-content {\r\n\theight: 240px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}", ""]);
+	exports.push([module.id, ".small-loan-index .mt-table {\r\n\tmargin: 0px !important;\r\n}\r\n\r\n/*企业评级*/\r\n.small-loan-index .company-grade .mod-content .table-content {\r\n\theight: 530px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n/*余额占比*/\r\n.small-loan-index .balance-radio {\r\n\theight: 49.5%;\r\n}\r\n\r\n.small-loan-index .balance-radio .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*贷款笔均折线图*/\r\n.small-loan-index .each-average {\r\n\theight: 49.5%;\r\n\tmargin-top: 2%;\r\n}\r\n\r\n.small-loan-index .each-average .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*地图模块*/\r\n.small-loan-index .small-loan-map .map-chart-box {\r\n\theight: 610px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .small-loan-map .company-chart-box {\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.small-loan-index .small-loan-map .visual-text {\r\n\tposition: absolute;\r\n\tbottom: 26%;\r\n\tright: 3%;\r\n\tz-index: 1000;\r\n\twidth: 14px;\r\n}\r\n\r\n/*贷款余额占比*/\r\n.small-loan-index .loan-balance .chart-box {\r\n\theight: 300px;\r\n}\r\n\r\n/*股东行业风险*/\r\n.small-loan-index .industry-risk{\r\n\tposition: relative;\r\n}\r\n.small-loan-index .industry-risk .mod-content .table-content {\r\n\theight: 240px;\t\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk .mod-content .table-content table td a.more {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*大额借款人信息列表*/\r\n\r\n/*股东风险更多*/\r\n.small-loan-index .industry-risk-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content {\r\n\r\n\t/*padding: 8px 10px;*/\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content .content-more {\r\n\theight: 199px;\r\n\twidth: 100%;\r\n\tdisplay: table;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul {\r\n\r\n\t/*display: inline-block;*/\r\n\twidth: 33.33%;\t/*height: 199px;*/\r\n\tdisplay: table-cell;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul li {\r\n\tpadding: 15px 5px;\r\n}\r\n\r\n/*大额借款人*/\r\n.large-loan .table-content {\r\n\theight: 240px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}", ""]);
 
 	// exports
 
