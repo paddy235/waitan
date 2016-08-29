@@ -1,7 +1,7 @@
 package com.bbd.wtyh.service.impl.relation;
 
+import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.common.relation.APIConstants;
-import com.bbd.wtyh.util.relation.HttpClientUtils;
 import com.bbd.wtyh.util.relation.StringUtils;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -73,7 +73,7 @@ public class ApiContainerService {
  				paramList.add(new BasicNameValuePair(PARAM_REQUIRE, require[i].trim()));
 			}
 		}
-		return HttpClientUtils.httpPost(url, paramList);
+		return new HttpTemplate().post(url, paramList);
 	}
 
 	//分页查询API
@@ -102,7 +102,7 @@ public class ApiContainerService {
 				paramList.add(new BasicNameValuePair(PARAM_REQUIRE, require[i].trim()));
 			}
 		}
-		return HttpClientUtils.httpPost(url, paramList);
+		return new HttpTemplate().post(url, paramList);
 	}
 
 	//不分页查询API
@@ -128,7 +128,7 @@ public class ApiContainerService {
 				paramList.add(new BasicNameValuePair(PARAM_REQUIRE, require[i].trim()));
 			}
 		}
-		return HttpClientUtils.httpPost(url, paramList);
+		return new HttpTemplate().post(url, paramList);
 	}
 	
 	public String decodeUnicode(String theString) {
@@ -277,7 +277,7 @@ public class ApiContainerService {
 				paramList.add(new BasicNameValuePair(entry.getKey().toString(), entry.getValue().toString()));
 			}
 		}
-		return HttpClientUtils.httpPost(url, paramList);
+		return new HttpTemplate().post(url, paramList);
 	}
 
 }

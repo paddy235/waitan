@@ -1,17 +1,12 @@
 package com.bbd.wtyh.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
-import com.bbd.wtyh.domain.dto.IndustryCompareDTO;
 import com.bbd.wtyh.service.DataomApiBbdservice;
-import com.bbd.wtyh.util.relation.HttpClientUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * Created by win7 on 2016/8/25.

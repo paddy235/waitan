@@ -1,16 +1,12 @@
 package com.bbd.wtyh.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
+import com.bbd.wtyh.service.CompanySearchAPIService;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.bbd.wtyh.service.CompanySearchAPIService;
-import com.bbd.wtyh.util.relation.HttpClientUtils;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
 * 
