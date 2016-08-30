@@ -49339,7 +49339,7 @@
 
 
 	// module
-	exports.push([module.id, "/*@All暂时放在这里，全局公用的css\r\n---------------------------------------------------------*/\r\n\r\n/*@homeOne   jifei\r\n---------------------------------------------------------*/\r\n.HomeOne {\r\n\twidth: 800px;\r\n\theight: 130px;\r\n\tmargin: 10px auto;\r\n\t// border: 1px solid red;\r\n\tmargin-bottom: 10px;\r\n}\r\n.HomeOne .HomeOne-tite {\r\n\twidth: 100%;\r\n\theight: 55px;\r\n\t// border: 1px solid red;\r\n\tmargin-top: 60px;\r\n}\r\n.HomeOne .HomeOne-tite h1 {\r\n\ttext-align: center;\r\n\tcolor: #fff;\r\n}\r\n.HomeOne .HomeOne-tite h1 span {\r\n\tmargin-left: 5px;\r\n}\r\n.HomeOne .HomeOne-tite .icon-qiyejibenxinxichaxun {\r\n\tcolor: #6093e6;\r\n\tfont-size: 55px;\r\n\tposition: relative;\r\n\ttop: 5px;\r\n}\r\n.HomeOne .HomeOne-inp {\r\n\twidth: 100%;\r\n\theight: 50px;\r\n\t// border: 1px solid red;\r\n\tmargin-top: 24px;\r\n}\r\n.HomeOne .HomeOne-inp input {\r\n\twidth: 89%;\r\n\theight: 50px;\r\n\tbackground: #fff;\r\n\tborder: none;\r\n\toutline: none;\r\n\tcolor: #666666;\r\n\tpadding-left: 20px;\r\n\ttransition: 0.6s;\r\n}\r\n.HomeOne .HomeOne-inp input:focus {\r\n\tbox-shadow: inset 0px 1px 6px rgba(19, 18, 18, 0.4);\r\n}\r\n.HomeOne .HomeOne-inp .jump {\r\n\twidth: 10%;\r\n\theight: 50px;\r\n\tbackground: #5f93e7;\r\n\tfloat: right;\r\n}\r\n.HomeOne .HomeOne-inp .jump .search {\r\n\tcolor: #fff;\r\n\tfont-size: 30px;\r\n\tposition: relative;\r\n\ttop: 10px;\r\n\tleft: 25px;\r\n}\r\n\r\n/*@homeTwo\r\n---------------------------------------------------------*/\r\n.HomeTwo {\r\n\twidth: 90%;\r\n\theight: 620px;\r\n\tmargin: 0px auto;\r\n\tmargin-bottom: 0px\r\n}\r\n.middleLeft, .middleCenter, .middleRight {\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n.middleLeft {\r\n\twidth: 22%;\r\n}\r\n.middleLeft .list {\r\n\twidth: 100%;\r\n\theight: 120px;\r\n\tborder-radius: 5px;\r\n\tposition: relative;\r\n\tbox-shadow: 0 2px 5px #080b12;\r\n\tline-height: 120px;\r\n\ttext-align: center;\r\n\tborder: 3px solid #00b7ee;\r\n\tcursor: pointer;\r\n\tmargin-top: 130px;\r\n\t-webkit-transition: all .5s;\r\n\tposition: relative;\r\n}\r\n.middleLeft .list:hover {\r\n\tbackground: #153e50\r\n}\r\n.middleLeft .list:focus {\r\n\tbox-shadow: 0 5px 5px #080b12;\r\n}\r\n.middleLeft .top {\r\n\tmargin-top: 0;\r\n}\r\n.middleLeft .list h2 {\r\n\tcolor: #dddddd;\r\n}\r\n.middleLeft .list h2:hover {\r\n\tcolor: #fff;\r\n}\r\n.middleLeft .list h2 img {\r\n\tposition: absolute;\r\n\tleft: 6%;\r\n\ttop: 30px;\r\n}\r\n.middleLeft .list h2 span {\r\n\tmargin-left: 50px;\r\n}\r\n.middleLeft .list .size {\r\n\tfont-size: 55px;\r\n\tcolor: #2c7dff;\r\n\tposition: relative;\r\n\ttop: 10px;\r\n}\r\n.middleLeft .list .d {\r\n\tposition: relative;\r\n\tleft: -35px;\r\n}\r\n.middleLeft .list:hover .size {\r\n\tcolor: #fff;\r\n}\r\n\r\n/*csy center*/\r\n.middleCenter {\r\n\twidth: 56%;\r\n}\r\n.middleCenter #homeMap {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tposition: relative;\r\n}\r\n.middleRight {\r\n\twidth: 22%;\r\n}\r\n\r\n/*@homeThree\r\n---------------------------------------------------------*/\r\n.HomeThree {\r\n\twidth: 50.4%;\r\n\theight: 219px;\r\n\tmargin: 0 auto;\r\n}\r\n.HomeThree ul {\r\n\tpadding-right: 90px\r\n}\r\n.HomeThree ul li {\r\n\twidth: 33%;\r\n\theight: 130px;\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\t/* padding-top: 35px; */\r\n\tposition: relative;\r\n}\r\n.HomeThree ul li  em {\r\n\tcolor: #dddddd;\r\n\tfont-size: 14px;\r\n}\r\n.HomeThree ul li  .yellow {\r\n\tcolor: #f59800;\r\n\tfont-size: 12px;\r\n\tmargin-left: 5px;\r\n}\r\n.HomeThree .mt-number-animate {\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tfont-size: 25px;\r\n\tfont-family: \"microsoft yahei\";\r\n\tfont-weight: normal;\r\n\toverflow: hidden;\r\n}\r\n.HomeThree .mt-number-animate-dot {\r\n\tline-height: 26px;\r\n\tcolor: #5f91e6;\r\n\tfloat: left;\r\n}\r\n.HomeThree .icon-xiangshang:before {\r\n\tposition: relative;\r\n\tright: -140px;\r\n\ttop: 18px;\r\n\tcolor: #f39800;\r\n\tfont-size: 12px;\r\n}\r\n.HomeThree .theTwo .icon-xiangshang:before {\r\n\tright: -98px !important;\r\n}\r\n.HomeThree ul li p:nth-child(even) {\r\n\tfont-size: 14px;\r\n\tcolor: #dddddd;\r\n\tmargin-top: 10px;\r\n\tmargin-left: 85px\r\n}\r\n.HomeThree .mt-number-animate-span {\r\n\tcolor: #5f91e6;\r\n\tfont-size: 30px;\r\n}\r\n.HomeThree  .mt-number-animate .mt-number-animate-dom {\r\n\twidth: 18px;\r\n\tfloat: left;\r\n}\r\n.HomeThree  .mt-number-animate {\r\n\tmargin-left: 80px\r\n}\r\n.HomeTwo .one-tip {\r\n\twidth: 160px;\r\n\theight: auto;\r\n\tposition: absolute;\r\n\ttop: -3px;\r\n\tright: -169px;\r\n\tpadding: 5px 15px;\r\n\tbackground: #fff;\r\n\tcolor: #444;\r\n\tfont-size: 14px;\r\n\tline-height: 1;\r\n\tborder-radius: 5px;\r\n\tdisplay: none\r\n}\r\n.HomeTwo .one-tip li {\r\n\twidth: 100%;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n}\r\n.HomeTwo .one-tip li:hover {\r\n\tbackground: #5f93e7 !important;\r\n}\r\n.HomeTwo .one-tip li:hover a {\r\n\tcolor: #fff !important\r\n}\r\n.HomeTwo .one-tip li:hover a {\r\n\tcolor: #fff !important\r\n}\r\n.middleLeft {\r\n\tposition: relative;\r\n\tz-index: 999;\r\n\tpadding-top: 100px\r\n}", ""]);
+	exports.push([module.id, "/*@All暂时放在这里，全局公用的css\r\n---------------------------------------------------------*/\r\n\r\n/*@homeOne   jifei\r\n---------------------------------------------------------*/\r\n.HomeOne {\r\n\twidth: 800px;\r\n\theight: 130px;\r\n\tmargin: 10px auto;\r\n\t// border: 1px solid red;\r\n\tmargin-bottom: 10px;\r\n}\r\n.HomeOne .HomeOne-tite {\r\n\twidth: 100%;\r\n\theight: 55px;\r\n\t// border: 1px solid red;\r\n\tmargin-top: 60px;\r\n}\r\n.HomeOne .HomeOne-tite h1 {\r\n\ttext-align: center;\r\n\tcolor: #fff;\r\n}\r\n.HomeOne .HomeOne-tite h1 span {\r\n\tmargin-left: 5px;\r\n}\r\n.HomeOne .HomeOne-tite .icon-qiyejibenxinxichaxun {\r\n\tcolor: #6093e6;\r\n\tfont-size: 55px;\r\n\tposition: relative;\r\n\ttop: 5px;\r\n}\r\n.HomeOne .HomeOne-inp {\r\n\twidth: 100%;\r\n\theight: 50px;\r\n\tmargin-top: 24px;\r\n}\r\n.HomeOne .HomeOne-inp input {\r\n\twidth: 89%;\r\n\theight: 50px;\r\n\tbackground: #fff;\r\n\tborder: none;\r\n\toutline: none;\r\n\tcolor: #666666;\r\n\tpadding-left: 20px;\r\n\ttransition: 0.6s;\r\n}\r\n.HomeOne .HomeOne-inp input:focus {\r\n\tbox-shadow: inset 0px 1px 6px rgba(19, 18, 18, 0.4);\r\n}\r\n.HomeOne .HomeOne-inp .jump {\r\n\twidth: 10%;\r\n\theight: 50px;\r\n\tbackground: #5f93e7;\r\n\tfloat: right;\r\n}\r\n.HomeOne .HomeOne-inp .jump .search {\r\n\tcolor: #fff;\r\n\tfont-size: 30px;\r\n\tposition: relative;\r\n\ttop: 10px;\r\n\tleft: 25px;\r\n}\r\n\r\n/*@homeTwo\r\n---------------------------------------------------------*/\r\n.HomeTwo {\r\n\twidth: 90%;\r\n\theight: 620px;\r\n\tmargin: 0px auto;\r\n\tmargin-bottom: 0px\r\n}\r\n.middleLeft, .middleCenter, .middleRight {\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n.middleLeft {\r\n\twidth: 22%;\r\n}\r\n.middleLeft .list {\r\n\twidth: 100%;\r\n\theight: 120px;\r\n\tborder-radius: 5px;\r\n\tposition: relative;\r\n\tbox-shadow: 0 2px 5px #080b12;\r\n\tline-height: 120px;\r\n\ttext-align: center;\r\n\tborder: 3px solid #00b7ee;\r\n\tcursor: pointer;\r\n\tmargin-top: 130px;\r\n\t-webkit-transition: all .5s;\r\n\tposition: relative;\r\n}\r\n.middleLeft .list:hover {\r\n\tbackground: #153e50\r\n}\r\n.middleLeft .list:focus {\r\n\tbox-shadow: 0 5px 5px #080b12;\r\n}\r\n.middleLeft .top {\r\n\tmargin-top: 0;\r\n}\r\n.middleLeft .list h2 {\r\n\tcolor: #dddddd;\r\n}\r\n.middleLeft .list h2:hover {\r\n\tcolor: #fff;\r\n}\r\n.middleLeft .list h2 img {\r\n\tposition: absolute;\r\n\tleft: 6%;\r\n\ttop: 30px;\r\n}\r\n.middleLeft .list h2 span {\r\n\tmargin-left: 50px;\r\n}\r\n.middleLeft .list .size {\r\n\tfont-size: 55px;\r\n\tcolor: #2c7dff;\r\n\tposition: relative;\r\n\ttop: 10px;\r\n}\r\n.middleLeft .list .d {\r\n\tposition: relative;\r\n\tleft: -35px;\r\n}\r\n.middleLeft .list:hover .size {\r\n\tcolor: #fff;\r\n}\r\n\r\n/*csy center*/\r\n.middleCenter {\r\n\twidth: 56%;\r\n}\r\n.middleCenter #homeMap {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tposition: relative;\r\n}\r\n.middleRight {\r\n\twidth: 22%;\r\n}\r\n.HomeTwo .one-tip {\r\n\twidth: 160px;\r\n\theight: auto;\r\n\tposition: absolute;\r\n\ttop: -3px;\r\n\tright: -169px;\r\n\tpadding: 5px 15px;\r\n\tbackground: #fff;\r\n\tcolor: #444;\r\n\tfont-size: 14px;\r\n\tline-height: 1;\r\n\tborder-radius: 5px;\r\n\tdisplay: none\r\n}\r\n.HomeTwo .one-tip li {\r\n\twidth: 100%;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n}\r\n.HomeTwo .one-tip li:hover {\r\n\tbackground: #5f93e7 !important;\r\n}\r\n.HomeTwo .one-tip li:hover a {\r\n\tcolor: #fff !important\r\n}\r\n.HomeTwo .one-tip li:hover a {\r\n\tcolor: #fff !important\r\n}\r\n.middleLeft {\r\n\tposition: relative;\r\n\tz-index: 999;\r\n\tpadding-top: 100px\r\n}\r\n\r\n/*@homeThree\r\n---------------------------------------------------------*/\r\n.HomeThree ul li  em {\r\n\tcolor: #dddddd;\r\n\tfont-size: 14px;\r\n}\r\n.HomeThree .mt-number-animate {\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tfont-size: 25px;\r\n\tfont-family: \"microsoft yahei\";\r\n\tfont-weight: normal;\r\n\toverflow: hidden;\r\n\tmargin: 0 auto;\r\n}\r\n.HomeThree .mt-number-animate-dot {\r\n\tline-height: 26px;\r\n\tcolor: #5f91e6;\r\n\tfloat: left;\r\n}\r\n.HomeThree .mt-number-animate-span {\r\n\tcolor: #5f91e6;\r\n\tfont-size: 30px;\r\n}\r\n.HomeThree  .mt-number-animate .mt-number-animate-dom {\r\n\twidth: 18px;\r\n\tfloat: left;\r\n}\r\n.HomeThree .icon-xiangshang:before {\r\n\tposition: absolute;\r\n\tright: -20px;\r\n\ttop: 5px;\r\n\tcolor: #f39800;\r\n\tfont-size: 12px;\r\n}\r\n\r\n/*@homeThree fixed\r\n---------------------------------------------------------*/\r\n.HomeThree {\r\n\twidth: 933px;\r\n\theight: 220px;\r\n\tmargin: 0 auto;\r\n}\r\n.HomeThree ul {\r\n\r\n\t/* \t// padding-right: 90px */\r\n}\r\n.HomeThree ul li {\r\n\twidth: 310px;\r\n\theight: 130px;\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\t/* padding-top: 35px; */\r\n\tposition: relative;\r\n}\r\n.HomeThree ul li div[class*=\"homeScroll\"] {\r\n\theight: auto;\r\n\tposition: relative;\r\n}", ""]);
 
 	// exports
 
@@ -49662,7 +49662,7 @@
 	                    normal: {
 	                        areaColor: 'none',
 	                        borderColor: '#0cbaef',
-	                        borderWidth: 2
+	                        borderWidth: 0.4
 	                    },
 	                    emphasis: {
 	                        areaColor: '#e6e6e6'
@@ -49734,7 +49734,7 @@
 	                },
 	                itemStyle: {
 	                    normal: {
-	                        color: "#ddb926"
+	                        color: "#f19149"
 	                    }
 	                },
 	                data: SHData.map(function (dataItem) {
@@ -49766,7 +49766,7 @@
 	                },
 	                itemStyle: {
 	                    normal: {
-	                        color: "red"
+	                        color: "#d81111"
 	                    }
 	                },
 	                data: [{
@@ -49794,7 +49794,7 @@
 	                    normal: {
 	                        areaColor: 'none',
 	                        borderColor: '#0cbaef',
-	                        borderWidth: 2
+	                        borderWidth: 0.4
 	                    },
 	                    emphasis: {
 	                        areaColor: '#e6e6e6'
@@ -50140,126 +50140,8 @@
 	    },
 
 	    changeNum: function changeNum(data) {
-	        $.fn.numberAnimate = function (setting) {
-	            var defaults = {
-	                speed: 1000, //动画速度
-	                num: "", //初始化值
-	                iniAnimate: true, //是否要初始化动画效果
-	                symbol: '', //默认的分割符号，千，万，千万
-	                dot: 0 //保留几位小数点
-	            };
-	            //如果setting为空，就取default的值
-	            var setting = $.extend(defaults, setting);
-	            //如果对象有多个，提示出错
-	            if ($(this).length > 1) {
-	                alert("just only one obj!");
-	                return;
-	            }
-	            //如果未设置初始化值。提示出错
-	            if (setting.num == "") {
-	                alert("must set a num!");
-	                return;
-	            }
-	            var nHtml = '<div class="mt-number-animate-dom" data-num="{{num}}">\
-	                        <span class="mt-number-animate-span">0</span>\
-	                        <span class="mt-number-animate-span">1</span>\
-	                        <span class="mt-number-animate-span">2</span>\
-	                        <span class="mt-number-animate-span">3</span>\
-	                        <span class="mt-number-animate-span">4</span>\
-	                        <span class="mt-number-animate-span">5</span>\
-	                        <span class="mt-number-animate-span">6</span>\
-	                        <span class="mt-number-animate-span">7</span>\
-	                        <span class="mt-number-animate-span">8</span>\
-	                        <span class="mt-number-animate-span">9</span>\
-	                        <span class="mt-number-animate-span">.</span>\
-	                    </div>';
-	            //数字处理
-	            var numToArr = function numToArr(num) {
-	                num = parseFloat(num).toFixed(setting.dot);
-	                if (typeof num == 'number') {
-	                    var arrStr = num.toString().split("");
-	                } else {
-	                    var arrStr = num.split("");
-	                }
-	                //console.log(arrStr);
-	                return arrStr;
-	            };
-	            //设置DOM symbol:分割符号
-	            var setNumDom = function setNumDom(arrStr) {
-	                var shtml = '<div class="mt-number-animate">';
-	                for (var i = 0, len = arrStr.length; i < len; i++) {
-	                    if (i != 0 && (len - i) % 3 == 0 && setting.symbol != "" && arrStr[i] != ".") {
-	                        shtml += '<div class="mt-number-animate-dot">' + setting.symbol + '</div>' + nHtml.replace("{{num}}", arrStr[i]);
-	                    } else {
-	                        shtml += nHtml.replace("{{num}}", arrStr[i]);
-	                    }
-	                }
-	                shtml += '</div>';
-	                return shtml;
-	            };
-	            //执行动画
-	            var runAnimate = function runAnimate($parent) {
-	                $parent.find(".mt-number-animate-dom").each(function () {
-	                    var num = $(this).attr("data-num");
-	                    num = num == "." ? 10 : num;
-	                    var spanHei = $(this).height() / 11; //11为元素个数
-	                    var thisTop = -num * spanHei + "px";
-	                    var transform = $(this).css("transform");
-	                    if (transform == 'none' || -num * spanHei != parseInt(transform.split(",")[5], 10)) {
-	                        if (setting.iniAnimate) {
-	                            //HTML5不支持
-	                            if (!window.applicationCache) {
-	                                $(this).animate({
-	                                    top: thisTop
-	                                }, setting.speed);
-	                            } else {
-	                                $(this).css({
-	                                    'transform': 'translateY(' + thisTop + ')',
-	                                    '-ms-transform': 'translateY(' + thisTop + ')', /* IE 9 */
-	                                    '-moz-transform': 'translateY(' + thisTop + ')', /* Firefox */
-	                                    '-webkit-transform': 'translateY(' + thisTop + ')', /* Safari 和 Chrome */
-	                                    '-o-transform': 'translateY(' + thisTop + ')',
-	                                    '-ms-transition': setting.speed / 1000 + 's',
-	                                    '-moz-transition': setting.speed / 1000 + 's',
-	                                    '-webkit-transition': setting.speed / 1000 + 's',
-	                                    '-o-transition': setting.speed / 1000 + 's',
-	                                    'transition': setting.speed / 1000 + 's'
-	                                });
-	                            }
-	                        } else {
-	                            setting.iniAnimate = true;
-	                            $(this).css({
-	                                top: thisTop
-	                            });
-	                        }
-	                    }
-	                });
-	            };
-	            //初始化
-	            var init = function init($parent) {
-	                //初始化
-	                $parent.html(setNumDom(numToArr(setting.num)));
-	                runAnimate($parent);
-	            };
-	            //重置参数
-	            this.resetData = function (num) {
-	                var newArr = numToArr(num);
-	                var $dom = $(this).find(".mt-number-animate-dom");
-	                if ($dom.length < newArr.length) {
-	                    $(this).html(setNumDom(numToArr(num)));
-	                } else {
-	                    $dom.each(function (index, el) {
-	                        $(this).attr("data-num", newArr[index]);
-	                    });
-	                }
-	                runAnimate($(this));
-	            };
-	            //init
-	            init($(this));
-	            return this;
-	        };
 	        //数字滚动插件
-	        var numRunA = $(".homeScrollA").numberAnimate({ num: 23894782, speed: 2000, symbol: "," });
+	        var numRunA = $(".homeScrollA").numberAnimate({ num: data.dataCount, speed: 2000, symbol: "," });
 	        var numRunB = $(".homeScrollB").numberAnimate({ num: data.companyCount, speed: 2000, symbol: "," });
 	        var numRunC = $(".homeScrollC").numberAnimate({ num: data.bugCount, speed: 2000, symbol: "," });
 	        var nums = data.dataCount;
@@ -50282,6 +50164,7 @@
 
 	            if (homeThreeRequest == true) {
 	                if (homeThreeResult.success == true) {
+	                    console.log(homeThreeResult.content, 11111);
 	                    this.changeNum(homeThreeResult.content);
 	                } else {
 	                    console.log(404);
@@ -50298,31 +50181,31 @@
 	                null,
 	                _react2.default.createElement(
 	                    'li',
-	                    { className: 'thrOne' },
-	                    _react2.default.createElement('div', { className: 'homeScrollA iconfont icon-xiangshang', style: { width: "260px", height: '43px' } }),
+	                    { className: '' },
+	                    _react2.default.createElement('div', { className: 'homeScrollA iconfont icon-xiangshang' }),
 	                    _react2.default.createElement(
 	                        'div',
-	                        { style: { marginLeft: "73px" } },
+	                        null,
 	                        '数据分析'
 	                    )
 	                ),
 	                _react2.default.createElement(
 	                    'li',
-	                    { className: 'theTwo' },
-	                    _react2.default.createElement('div', { className: 'homeScrollB iconfont icon-xiangshang', style: { width: "200px", height: '43px', marginLeft: "40px" } }),
+	                    { className: '' },
+	                    _react2.default.createElement('div', { className: 'homeScrollB iconfont icon-xiangshang' }),
 	                    _react2.default.createElement(
 	                        'div',
-	                        { style: { marginLeft: "107px" } },
+	                        null,
 	                        '企业数量'
 	                    )
 	                ),
 	                _react2.default.createElement(
 	                    'li',
-	                    { className: 'theThree' },
-	                    _react2.default.createElement('div', { className: 'homeScrollC iconfont icon-xiangshang', style: { width: "260px", height: '43px' } }),
+	                    { className: '' },
+	                    _react2.default.createElement('div', { className: 'homeScrollC iconfont icon-xiangshang' }),
 	                    _react2.default.createElement(
 	                        'div',
-	                        { style: { marginLeft: "80px" } },
+	                        null,
 	                        '数据抓取'
 	                    )
 	                )
@@ -53461,7 +53344,12 @@
 	            }
 	        };
 	        var itemTable = this.state.riskList || '';
-	        var companyList = itemTable && itemTable.companyList && itemTable.companyList.split('|'); //公司名单                            
+	        var companyList = itemTable && itemTable.companyList && itemTable.companyList.split('|'); //公司名单    
+	        var oneLvlPer = itemTable && itemTable.oneLvlPer && itemTable.oneLvlPer.split('|'); //核心一度关联自然人
+	        var coreCldCom = itemTable && itemTable.coreCldCom && itemTable.coreCldCom.split('|'); //核心子公司
+	        var conCom = itemTable && itemTable.conCom && itemTable.conCom.split('|'); //控股子公司
+	        var coreTwoCom = itemTable && itemTable.coreTwoCom && itemTable.coreTwoCom.split('|'); //核心二度关联公司
+	        var sixMonNewCom = itemTable && itemTable.sixMonNewCom && itemTable.sixMonNewCom.split('|'); //6个月以内新成立的公司                        
 	        return _react2.default.createElement(
 	            'div',
 	            { className: 'linefin-index-constitute mod' },
@@ -53610,20 +53498,13 @@
 	                                                    _react2.default.createElement(
 	                                                        'div',
 	                                                        { className: 'td-box' },
-	                                                        function () {
-	                                                            if (!itemTable || !itemTable.oneLvlPer) {
-	                                                                return;
-	                                                            }
-	                                                            var oneLvlPer = itemTable.oneLvlPer.split('|');
-	                                                            var coreCldComHtml = oneLvlPer.map(function (item, index) {
-	                                                                return _react2.default.createElement(
-	                                                                    'span',
-	                                                                    { key: index },
-	                                                                    item
-	                                                                );
-	                                                            });
-	                                                            return coreCldComHtml;
-	                                                        }()
+	                                                        oneLvlPer && oneLvlPer.map(function (item, index) {
+	                                                            return _react2.default.createElement(
+	                                                                'span',
+	                                                                { key: index },
+	                                                                item
+	                                                            );
+	                                                        })
 	                                                    )
 	                                                )
 	                                            )
@@ -53722,20 +53603,13 @@
 	                                                    _react2.default.createElement(
 	                                                        'div',
 	                                                        { className: 'td-box' },
-	                                                        function () {
-	                                                            if (!itemTable || !itemTable.coreCldCom) {
-	                                                                return;
-	                                                            }
-	                                                            var coreCldCom = itemTable.coreCldCom.split('|');
-	                                                            var coreCldComHtml = coreCldCom.map(function (item, index) {
-	                                                                return _react2.default.createElement(
-	                                                                    'span',
-	                                                                    { key: index },
-	                                                                    item
-	                                                                );
-	                                                            });
-	                                                            return coreCldComHtml;
-	                                                        }()
+	                                                        coreCldCom && coreCldCom.map(function (item, index) {
+	                                                            return _react2.default.createElement(
+	                                                                'span',
+	                                                                { key: index },
+	                                                                item
+	                                                            );
+	                                                        })
 	                                                    )
 	                                                )
 	                                            )
@@ -53834,20 +53708,13 @@
 	                                                    _react2.default.createElement(
 	                                                        'div',
 	                                                        { className: 'td-box' },
-	                                                        function () {
-	                                                            if (!itemTable || !itemTable.conCom) {
-	                                                                return;
-	                                                            }
-	                                                            var conCom = itemTable.conCom.split('|');
-	                                                            var coreCldComHtml = conCom.map(function (item, index) {
-	                                                                return _react2.default.createElement(
-	                                                                    'span',
-	                                                                    { key: index },
-	                                                                    item
-	                                                                );
-	                                                            });
-	                                                            return coreCldComHtml;
-	                                                        }()
+	                                                        conCom && conCom.map(function (item, index) {
+	                                                            return _react2.default.createElement(
+	                                                                'span',
+	                                                                { key: index },
+	                                                                item
+	                                                            );
+	                                                        })
 	                                                    )
 	                                                )
 	                                            )
@@ -53946,20 +53813,13 @@
 	                                                    _react2.default.createElement(
 	                                                        'div',
 	                                                        { className: 'td-box' },
-	                                                        function () {
-	                                                            if (!itemTable || !itemTable.coreTwoCom) {
-	                                                                return;
-	                                                            }
-	                                                            var coreTwoCom = itemTable.coreTwoCom.split('|');
-	                                                            var coreCldComHtml = coreTwoCom.map(function (item, index) {
-	                                                                return _react2.default.createElement(
-	                                                                    'span',
-	                                                                    { key: index },
-	                                                                    item
-	                                                                );
-	                                                            });
-	                                                            return coreCldComHtml;
-	                                                        }()
+	                                                        coreTwoCom && coreTwoCom.map(function (item, index) {
+	                                                            return _react2.default.createElement(
+	                                                                'span',
+	                                                                { key: index },
+	                                                                item
+	                                                            );
+	                                                        })
 	                                                    )
 	                                                )
 	                                            )
@@ -54058,20 +53918,13 @@
 	                                                    _react2.default.createElement(
 	                                                        'div',
 	                                                        { className: 'td-box' },
-	                                                        function () {
-	                                                            if (!itemTable || !itemTable.sixMonNewCom) {
-	                                                                return;
-	                                                            }
-	                                                            var sixMonNewCom = itemTable.sixMonNewCom.split('|');
-	                                                            var coreCldComHtml = sixMonNewCom.map(function (item, index) {
-	                                                                return _react2.default.createElement(
-	                                                                    'span',
-	                                                                    { key: index },
-	                                                                    item
-	                                                                );
-	                                                            });
-	                                                            return coreCldComHtml;
-	                                                        }()
+	                                                        sixMonNewCom && sixMonNewCom.map(function (item, index) {
+	                                                            return _react2.default.createElement(
+	                                                                'span',
+	                                                                { key: index },
+	                                                                item
+	                                                            );
+	                                                        })
 	                                                    )
 	                                                )
 	                                            )
@@ -60796,7 +60649,7 @@
 	            series: [{
 	                name: 'Punch Card',
 	                type: 'scatter',
-	                symbolSize: function symbolSize(val) {
+	                symbolSize: param.symbolSize || function (val) {
 	                    if (val[1] < 1000) {
 	                        return val[1] / 10;
 	                    } else if (val[1] > 1000 && val[1] < 10000) {
@@ -64644,7 +64497,7 @@
 
 
 	// module
-	exports.push([module.id, ".small-loan-index .mt-table {\r\n\tmargin: 0px !important;\r\n}\r\n\r\n/*企业评级*/\r\n.small-loan-index .company-grade .mod-content .table-content {\r\n\theight: 530px;\r\n\toverflow: auto;\r\n}\r\n\r\n/*余额占比*/\r\n.small-loan-index .balance-radio {\r\n\theight: 49.5%;\r\n}\r\n\r\n.small-loan-index .balance-radio .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*贷款笔均折线图*/\r\n.small-loan-index .each-average {\r\n\theight: 49.5%;\r\n\tmargin-top: 2%;\r\n}\r\n\r\n.small-loan-index .each-average .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*地图模块*/\r\n.small-loan-index .small-loan-map .map-chart-box {\r\n\theight: 610px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .small-loan-map .company-chart-box {\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.small-loan-index .small-loan-map .visual-text {\r\n\tposition: absolute;\r\n\tbottom: 26%;\r\n\tright: 3%;\r\n\tz-index: 1000;\r\n\twidth: 14px;\r\n}\r\n\r\n/*贷款余额占比*/\r\n.small-loan-index .loan-balance .chart-box {\r\n\theight: 300px;\r\n}\r\n\r\n/*股东行业风险*/\r\n.small-loan-index .industry-risk{\r\n\tposition: relative;\r\n}\r\n.small-loan-index .industry-risk .mod-content .table-content {\r\n\theight: 240px;\t/*overflow: auto;*/\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk .mod-content .table-content table td a.more {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*大额借款人信息列表*/\r\n\r\n/*股东风险更多*/\r\n.small-loan-index .industry-risk-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content {\r\n\r\n\t/*padding: 8px 10px;*/\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content .content-more {\r\n\theight: 199px;\r\n\twidth: 100%;\r\n\tdisplay: table;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul {\r\n\r\n\t/*display: inline-block;*/\r\n\twidth: 33.33%;\t/*height: 199px;*/\r\n\tdisplay: table-cell;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul li {\r\n\tpadding: 15px 5px;\r\n}\r\n\r\n/*大额借款人*/\r\n.large-loan .table-content {\r\n\theight: 240px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}", ""]);
+	exports.push([module.id, ".small-loan-index .mt-table {\r\n\tmargin: 0px !important;\r\n}\r\n\r\n/*企业评级*/\r\n.small-loan-index .company-grade .mod-content .table-content {\r\n\theight: 530px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n/*余额占比*/\r\n.small-loan-index .balance-radio {\r\n\theight: 49.5%;\r\n}\r\n\r\n.small-loan-index .balance-radio .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*贷款笔均折线图*/\r\n.small-loan-index .each-average {\r\n\theight: 49.5%;\r\n\tmargin-top: 2%;\r\n}\r\n\r\n.small-loan-index .each-average .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*地图模块*/\r\n.small-loan-index .small-loan-map .map-chart-box {\r\n\theight: 610px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .small-loan-map .company-chart-box {\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.small-loan-index .small-loan-map .visual-text {\r\n\tposition: absolute;\r\n\tbottom: 26%;\r\n\tright: 3%;\r\n\tz-index: 1000;\r\n\twidth: 14px;\r\n}\r\n\r\n/*贷款余额占比*/\r\n.small-loan-index .loan-balance .chart-box {\r\n\theight: 300px;\r\n}\r\n\r\n/*股东行业风险*/\r\n.small-loan-index .industry-risk{\r\n\tposition: relative;\r\n}\r\n.small-loan-index .industry-risk .mod-content .table-content {\r\n\theight: 240px;\t\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk .mod-content .table-content table td a.more {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*大额借款人信息列表*/\r\n\r\n/*股东风险更多*/\r\n.small-loan-index .industry-risk-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content {\r\n\r\n\t/*padding: 8px 10px;*/\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content .content-more {\r\n\theight: 199px;\r\n\twidth: 100%;\r\n\tdisplay: table;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul {\r\n\r\n\t/*display: inline-block;*/\r\n\twidth: 33.33%;\t/*height: 199px;*/\r\n\tdisplay: table-cell;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul li {\r\n\tpadding: 15px 5px;\r\n}\r\n\r\n/*大额借款人*/\r\n.large-loan .table-content {\r\n\theight: 240px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}", ""]);
 
 	// exports
 
@@ -84747,15 +84600,7 @@
 	                        },
 	                        gridTop: "25%",
 	                        legend: [],
-	                        symbolSize: function symbolSize(val) {
-	                            if (val[3] < 1000) {
-	                                return val[3] / 10;
-	                            } else if (val[3] > 1000 && val[3] < 10000) {
-	                                return val[3] / 400;
-	                            } else {
-	                                return val[3] / 400;
-	                            }
-	                        },
+
 	                        xAxis: nineDate.content.loan.xAxis,
 	                        //yAxis:paramOneyAxis,
 	                        data: paramOneData,
@@ -84912,6 +84757,7 @@
 	                    var paramSevenData = [];
 	                    nineDate.content.mortgage.series[0].map(function (item, index) {
 	                        var x = nineDate.content.mortgage.xAxis.reverse()[index];
+	                        var item = parseFloat(item / 10000).toFixed(2);
 	                        var xx = [x, item];
 	                        paramSevenData.push(xx);
 	                    });
@@ -84934,9 +84780,9 @@
 	                        YnameGap: 5,
 	                        legend: [],
 	                        tooltip: function tooltip(data) {
-	                            return data.data[0] + "<br/>典当总额：" + parseFloat(data.data[1] / 10000).toFixed(2) + "亿元<br/>业务笔数：" + data.data[2];
+	                            return data.data[0] + "<br/>典当总额：" + data.data[1] + "亿元<br/>业务笔数：" + data.data[2];
 	                        },
-	                        xAxis: nineDate.content.mortgage.xAxis.reverse(),
+	                        xAxis: nineDate.content.mortgage.xAxis,
 	                        // yAxis:b,
 	                        data: paramSevenData,
 	                        symbolSize: function symbolSize() {
@@ -85269,7 +85115,7 @@
 
 	var Immutable = __webpack_require__(620);
 
-	var data;
+	var data; //这里要做没有数据的判断
 	var BottomRight = _react2.default.createClass({
 	  displayName: 'BottomRight',
 	  getInitialState: function getInitialState() {
