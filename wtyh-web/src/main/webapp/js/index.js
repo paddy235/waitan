@@ -39763,6 +39763,10 @@
 
 	var _reactRouter = __webpack_require__(159);
 
+	var _redux = __webpack_require__(228);
+
+	var _reactRedux = __webpack_require__(242);
+
 	var _Header = __webpack_require__(587);
 
 	var _Header2 = _interopRequireDefault(_Header);
@@ -39852,11 +39856,24 @@
 
 	var _reactRouter = __webpack_require__(159);
 
+	var _LoginAction = __webpack_require__(625);
+
+	var LoginActionCreaters = _interopRequireWildcard(_LoginAction);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Header = _react2.default.createClass({
 	  displayName: 'Header',
 
+	  componentDidMount: function componentDidMount() {
+	    if (sessionStorage.LoginName) {
+	      $(this.refs.getName).html(sessionStorage.LoginName);
+	    } else {
+	      $(this.refs.getName).html("");
+	    }
+	  },
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
@@ -39874,11 +39891,7 @@
 	          'span',
 	          { className: 'name' },
 	          _react2.default.createElement('i', { className: 'iconfont icon-user' }),
-	          _react2.default.createElement(
-	            'span',
-	            null,
-	            'Admin'
-	          ),
+	          _react2.default.createElement('span', { ref: 'getName' }),
 	          _react2.default.createElement('i', { className: 'iconfont icon-arrowdown' })
 	        ),
 	        _react2.default.createElement(
@@ -49339,10 +49352,13 @@
 
 	    getInitialState: function getInitialState() {
 	        return {
-	            tipMsg: ""
+	            tipMsg: "",
+	            LoginName: ""
 	        };
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var setLoginName = this.props.setLoginName;
+
 	        var userName = $(_reactDom2.default.findDOMNode(this.refs.userInput)).find('input').val();
 	        var request = nextProps.request;
 	        var result = nextProps.result;
@@ -49351,11 +49367,13 @@
 	            if (request == true) {
 	                this.setState({ tipMsg: "登录中..." });
 	                if (result.content) {
-	                    this.setLoginName({ LoginName: userName });
+	                    console.log("我登录成功");
+	                    // setLoginName({LoginName:userName});
+	                    sessionStorage.LoginName = userName;
 	                    this.setState({ tipMsg: "登录成功！" });
 	                    this.props.history.pushState(null, '/index');
 	                } else {
-	                    this.setLoginName({ LoginName: "" });
+	                    sessionStorage.LoginName = userName;
 	                    this.setState({ tipMsg: "您输入的用户名或密码有误！请重新输入。" });
 	                }
 	            }
@@ -49366,13 +49384,13 @@
 	        var user = $(userInput).find('input').val();
 	        var passwordInput = _reactDom2.default.findDOMNode(this.refs.passwordInput);
 	        var password = $(passwordInput).find('input').val();
-	        console.log(user, password);
 	        var _props = this.props;
 	        var loginRequest = _props.loginRequest;
 	        var setLoginName = _props.setLoginName;
 
 	        var loginJson = { name: user, password: password };
 	        loginRequest(loginJson);
+	        // setLoginName({LoginName:this.state.LoginName});
 	    },
 	    render: function render() {
 	        return _react2.default.createElement(
@@ -49518,7 +49536,7 @@
 	  return function (dispatch) {
 	    console.log(json);
 	    $.ajax({
-	      url: "/data/industryMonitor/p2p/index/indexChart.json", //"/login.do",//"/data/industryMonitor/p2p/index/indexChart.json",    
+	      url: "/login.do", //"/login.do",//"/data/industryMonitor/p2p/index/indexChart.json",    
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
@@ -86793,7 +86811,7 @@
 	  return function (dispatch) {
 	    console.log(json);
 	    $.ajax({
-	      url: "/data/industryMonitor/p2p/index/indexChart.json", //"/login.do",//"/data/industryMonitor/p2p/index/indexChart.json",    
+	      url: "/login.do", //"/login.do",//"/data/industryMonitor/p2p/index/indexChart.json",    
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
