@@ -39877,6 +39877,7 @@
 	  displayName: 'Header',
 
 	  componentDidMount: function componentDidMount() {
+	    //验证缓存
 	    if (sessionStorage.LoginName) {
 	      $(this.refs.getName).html(sessionStorage.LoginName);
 	    } else {
