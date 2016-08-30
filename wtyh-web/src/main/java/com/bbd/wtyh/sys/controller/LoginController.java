@@ -31,13 +31,13 @@ public class LoginController {
 		//数据库的密码是bbd123456
 		String pwd = userSer.getPassword(name);
 		if( StringUtils.isEmpty(pwd) ){
-			return ResponseBean.errorResponse("false");
+			return ResponseBean.successResponse(false);
 		}
 		
 		String dataPwd =  new SimpleHash("md5", password ,ByteSource.Util.bytes("123456"),2).toHex();
 		
 		if(!dataPwd.equals(pwd)){
-			return ResponseBean.errorResponse(false);
+			return ResponseBean.successResponse(false);
 		}
 		
 		request.getSession().setAttribute(Constants.SESSION.loginName, name);
