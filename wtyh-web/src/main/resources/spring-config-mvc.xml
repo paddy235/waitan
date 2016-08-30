@@ -22,7 +22,7 @@
 			<ref bean="userAccessInterceptor" />
 		</mvc:interceptor>
        <mvc:interceptor>
-           <mvc:mapping path="/**.do" />
+           <mvc:mapping path="/**" />
            <ref bean="loginInterceptor" />
        </mvc:interceptor>
 	</mvc:interceptors>
