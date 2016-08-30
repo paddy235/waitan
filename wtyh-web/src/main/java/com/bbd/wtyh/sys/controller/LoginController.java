@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
 * 
@@ -44,6 +45,18 @@ public class LoginController {
 		
 		return ResponseBean.successResponse(true);
 		
+	}
+
+
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest request){
+
+
+		HttpSession se = request.getSession(false);
+		if(se!=null)
+		  se.invalidate();
+
+		return "/";
 	}
 	
 }

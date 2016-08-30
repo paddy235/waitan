@@ -30,7 +30,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		   return true;
 		}
 	
-		if("/login".equals(annotation.value()[0])){
+		if("/login".equals(annotation.value()[0]) || "/logout".equals(annotation.value()[0])){
 			return true;
 		}
 		
