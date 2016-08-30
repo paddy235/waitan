@@ -36,7 +36,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		
 		Object loginName = request.getSession().getAttribute(Constants.SESSION.loginName);
 		if(loginName == null){
-			response.sendRedirect(request.getContextPath()+"/index.jsp");
+			response.getWriter().write("{success:false,msg:'no login'}");
 			return false;
 		}
 		

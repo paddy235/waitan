@@ -12,7 +12,7 @@
 
     <mvc:annotation-driven />
 
-    <context:component-scan base-package="com.bbd.wtyh.web.controller"/>
+    <context:component-scan base-package="com.bbd.wtyh.**.controller"/>
     <context:property-placeholder location="classpath:config/*.properties" />
 
    <mvc:interceptors>
@@ -21,11 +21,20 @@
 			<mvc:mapping path="/**" />
 			<ref bean="userAccessInterceptor" />
 		</mvc:interceptor>
+       <mvc:interceptor>
+           <mvc:mapping path="/**.do" />
+           <ref bean="loginInterceptor" />
+       </mvc:interceptor>
 	</mvc:interceptors>
 
 	<bean id="userAccessInterceptor"
 		class="com.bbd.sys.service.UserAccessApiInterceptor">
-	</bean>    
+	</bean>
+
+    <bean id="loginInterceptor" class="com.bbd.sys.service.LoginInterceptor"></bean>
+
+
+
 
     <bean id="messageSource"
           class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
