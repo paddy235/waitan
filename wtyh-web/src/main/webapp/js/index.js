@@ -59387,7 +59387,7 @@
 	            var amount = content[i].amount; //贷款余额 单位万元
 	            var amountBill = Number(amount / 10000).toFixed(2); //转成单位亿元
 	            var number = content[i].number; //笔数
-	            var companyAmount = content[i].number; //公司数量
+	            var companyAmount = content[i].companyAmount; //公司数量
 	            var averageBlance = Number(amount / companyAmount).toFixed(2); //平均担保责任余额
 
 	            var dataArr = [year, amountBill, averageBlance]; //
@@ -62492,19 +62492,19 @@
 	                                                'td',
 	                                                { width: '20%' },
 	                                                item.total,
-	                                                '亿'
+	                                                '万元'
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
 	                                                { width: '20%' },
 	                                                item.dollarPart,
-	                                                '亿'
+	                                                '万元'
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
 	                                                { width: '20%' },
 	                                                item.rmbTotal,
-	                                                '亿'
+	                                                '万元'
 	                                            )
 	                                        );
 	                                    } else {
@@ -62529,19 +62529,19 @@
 	                                                'td',
 	                                                { width: '20%' },
 	                                                item.total,
-	                                                '亿'
+	                                                '万元'
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
 	                                                { width: '20%' },
 	                                                item.dollarPart,
-	                                                '亿'
+	                                                '万元'
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
 	                                                { width: '20%' },
 	                                                item.rmbTotal,
-	                                                '亿'
+	                                                '万元'
 	                                            )
 	                                        );
 	                                    }
