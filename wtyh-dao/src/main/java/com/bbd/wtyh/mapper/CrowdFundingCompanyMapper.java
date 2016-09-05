@@ -9,5 +9,9 @@ public interface CrowdFundingCompanyMapper {
     CrowdFundingCompanyDO selectByPrimaryKey(Integer companyId);
 
 	List<CrowdFundingCompanyDO> allCompanys();
+
+
+    List<String> queryCompany(String keyword);
+
 	
 }
