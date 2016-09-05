@@ -38,11 +38,12 @@ public class P2PImageController {
     @RequestMapping("/hasOrNotCompany")
     @ResponseBody
     public ResponseBean hasOrNotCompany(@RequestParam(required = true) String platName) {
-        PlatformNameInformationDO content = p2PImageService.hasOrNotCompany(platName);
+        Map<String, Object> content = p2PImageService.coreDataInfo(platName);
+        PlatformNameInformationDO companyInfo = p2PImageService.hasOrNotCompany(platName);
         if (content == null) {
-            return ResponseBean.errorResponse(content);
+            return ResponseBean.errorResponse(companyInfo);
         } else {
-            return ResponseBean.successResponse(content);
+            return ResponseBean.successResponse(companyInfo);
         }
     }
 
