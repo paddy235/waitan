@@ -1,5 +1,7 @@
 package com.bbd.wtyh.domain;
 
+import org.springframework.util.StringUtils;
+
 public class CrowdFundingCompanyDO extends BaseDO {
 	
     private Integer companyId;
@@ -51,7 +53,7 @@ public class CrowdFundingCompanyDO extends BaseDO {
 	}
 
 	public String getAddress() {
-		return address;
+		return StringUtils.hasText(address)?address:null;
 	}
 
 		
