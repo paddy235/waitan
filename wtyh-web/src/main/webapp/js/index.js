@@ -39880,8 +39880,8 @@
 	      'div',
 	      { className: 'header' },
 	      _react2.default.createElement(
-	        'a',
-	        { href: '/', className: 'logo' },
+	        _reactRouter.Link,
+	        { to: '/index', className: 'logo' },
 	        _react2.default.createElement('span', { className: 'img' }),
 	        this.props.text
 	      ),
@@ -39896,8 +39896,8 @@
 	          _react2.default.createElement('i', { className: 'iconfont icon-arrowdown' })
 	        ),
 	        _react2.default.createElement(
-	          'a',
-	          { href: '/logout.do', className: 'quit' },
+	          _reactRouter.Link,
+	          { to: '/logout.do', className: 'quit' },
 	          _react2.default.createElement('i', { className: 'iconfont icon-quit' })
 	        )
 	      )
@@ -40393,14 +40393,14 @@
 	    var areaId = selectArr[0].value;
 
 	    //当从其他页面跳转过来时 特殊处理
-	    areaId = this.props.location.query.areaId;
-	    if (areaId == undefined) {
-	      this.props.history.push('/parkMonitor');
-	      this.getMenuParkSelectVal(selectArr[0].value, selectArr[0].name);
-	      this.setState({ selectDataArr: selectArr, value: selectArr[0].value });
-	    } else {
-	      this.setState({ selectDataArr: selectArr, value: areaId });
-	    }
+	    //areaId=this.props.location.query.areaId;
+	    // if(areaId==undefined){
+	    //    this.props.history.push('/parkMonitor');
+	    //    this.getMenuParkSelectVal(selectArr[0].value,selectArr[0].name)
+	    //    this.setState({selectDataArr:selectArr,value:selectArr[0].value});
+	    // }else{
+	    this.setState({ selectDataArr: selectArr, value: areaId });
+	    // }
 	  },
 	  getMenuParkSelectList: function getMenuParkSelectList(data) {
 	    var getMenuParkSelectList = this.props.getMenuParkSelectList;
@@ -40446,7 +40446,6 @@
 	    var infoBtn = null;
 
 	    if (this.props.selectShow == "show" && this.state.value) {
-	      console.log(this.state.value, "执行了");
 	      var selectProp = {
 	        width: '160px',
 	        className: 'index-selected',
@@ -42452,7 +42451,6 @@
 				this.props.placeholder
 			);
 			var value = this.props.value;
-			console.log(value, '看看变化没11');
 			//设置初始值
 			if (this.props.value != undefined) {
 				this.props.data.map(function (index, elem) {
@@ -50423,15 +50421,19 @@
 	    var durationTime = ["一年以内", "1-3年", "3-5年", "5-10年", "10年以上"];
 	    //公司背景
 	    var companyBg = ["国企", "上市公司"];
+	    //风险标签
+	    var risk = ["重点关注", "一般关注", "正常", "已出风险"];
 	    return {
 	      areaSelect: areaSelect,
 	      regCapital: regCapital,
 	      durationTime: durationTime,
 	      companyBg: companyBg,
+	      risk: risk,
 	      areaCheck: "",
 	      regCapCheck: "",
 	      durTimCheck: "",
 	      comBgCheck: "",
+	      riskCheck: "",
 	      parm: {}
 	    };
 	  },
@@ -50463,8 +50465,12 @@
 	      this.setState({ durTimCheck: nowVal }, function () {
 	        _this.checkValObj();
 	      });
-	    } else {
+	    } else if (label == "公司背景") {
 	      this.setState({ comBgCheck: nowVal }, function () {
+	        _this.checkValObj();
+	      });
+	    } else {
+	      this.setState({ riskCheck: nowVal }, function () {
 	        _this.checkValObj();
 	      });
 	    }
@@ -50476,6 +50482,7 @@
 	    var comBgCheck = this.state.comBgCheck;
 
 	    var area = this.state.areaCheck;
+	    var risk = this.state.riskCheck;
 	    var minRegCapital = "";
 	    var maxRegCapital = "";
 	    var companyQualification = "";
@@ -50521,7 +50528,8 @@
 	      maxRegCapital: maxRegCapital,
 	      minReviewTime: minReviewTime,
 	      maxReviewTime: maxReviewTime,
-	      companyQualification: companyQualification
+	      companyQualification: companyQualification,
+	      risk: risk
 	    };
 
 	    this.setState({ parm: parm });
@@ -50541,7 +50549,8 @@
 	        _react2.default.createElement(_SearchCondition2.default, _extends({ label: '区域选择', className: '', conList: this.state.areaSelect }, this.props)),
 	        _react2.default.createElement(_SearchCondition2.default, _extends({ label: '注册资本', className: '', conList: this.state.regCapital }, this.props)),
 	        _react2.default.createElement(_SearchCondition2.default, _extends({ label: '存续时间', className: '', conList: this.state.durationTime }, this.props)),
-	        _react2.default.createElement(_SearchCondition2.default, _extends({ label: '公司背景', className: 'last', conList: this.state.companyBg }, this.props))
+	        _react2.default.createElement(_SearchCondition2.default, _extends({ label: '公司背景', className: '', conList: this.state.companyBg }, this.props)),
+	        _react2.default.createElement(_SearchCondition2.default, _extends({ label: '风险标签', className: 'last', conList: this.state.risk }, this.props))
 	      ),
 	      _react2.default.createElement(
 	        'div',
@@ -51404,10 +51413,10 @@
 	        if (!isCheckValEqual) {
 	            var parm = nextProps.parm;
 
-	            console.log(parm, 9999999999999);
 	            this.setState({ parm: parm });
 	            var jsonData = {
 	                area: parm.area,
+	                //risk:parm.risk,
 	                minRegCapital: parm.minRegCapital,
 	                maxRegCapital: parm.maxRegCapital,
 	                minReviewTime: parm.minReviewTime,
@@ -51457,6 +51466,7 @@
 	        if (parm) {
 	            jsonData = {
 	                area: parm.area,
+	                //risk:parm.risk,
 	                minRegCapital: parm.minRegCapital,
 	                maxRegCapital: parm.maxRegCapital,
 	                minReviewTime: parm.minReviewTime,
@@ -51490,6 +51500,7 @@
 	                if (parm) {
 	                    var jsonData = {
 	                        area: parm.area,
+	                        //risk:parm.risk,
 	                        minRegCapital: parm.minRegCapital,
 	                        maxRegCapital: parm.maxRegCapital,
 	                        minReviewTime: parm.minReviewTime,
@@ -54527,8 +54538,9 @@
 	      series: [{
 	        name: parm.seriesName,
 	        type: 'pie',
-	        avoidLabelOverlap: false,
-	        selectedOffset: "5",
+	        selectedMode: parm.selectedMode == undefined ? false : parm.selectedMode,
+	        selectedOffset: 10,
+	        // avoidLabelOverlap: false,
 	        roseType: parm.roseType == undefined ? false : parm.roseType,
 	        radius: parm.radius,
 	        center: parm.center,
@@ -71514,7 +71526,6 @@
 	                    color: '#e14340'
 	                }]]
 	            };
-	            console.log(optionParm, "ashima===============");
 	            this.setState({ option: optionParm });
 	        }
 	    },
@@ -72177,6 +72188,12 @@
 	        var jsonData = {};
 	        getRegionalDisRequest(jsonData);
 	    },
+	    handleClickPie: function handleClickPie() {
+	        var setPieCounty = this.props.setPieCounty;
+
+	        var jsonData = { areaName: "" };
+	        setPieCounty(jsonData);
+	    },
 	    onChartClick: function onChartClick(param, echart) {
 	        var setPieCounty = this.props.setPieCounty;
 
@@ -72204,6 +72221,7 @@
 	                        "color": ["#dfab62", "#e85d1a", "#0e6d41", "#959595", "#f6b750", "#01b9ef", "#e24340", "#facd89", "#ff9b93", "#d58165", "#91c7af", "#6b9f88"],
 	                        "title": "",
 	                        "xtitle": "",
+	                        "selectedMode": "single",
 	                        "legend": [""],
 	                        "legendShow": false,
 	                        "legendOrient": "vertical",
@@ -72250,6 +72268,11 @@
 	                    'h3',
 	                    null,
 	                    '交易场所区域分布'
+	                ),
+	                _react2.default.createElement(
+	                    'span',
+	                    { className: 'checkAll', onClick: this.handleClickPie },
+	                    '显示所有'
 	                )
 	            ),
 	            chartBox
@@ -72294,7 +72317,7 @@
 
 
 	// module
-	exports.push([module.id, ".tradingPlaces-index .left-bottom .mod-content,\r\n.tradingPlaces-index .right-bottom .mod-content {\r\n\tpadding: 20px 20px 0px 20px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom,\r\n.tradingPlaces-index .right-bottom {\r\n\tpadding: 0px 0px 50px 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mod-content .table-title th,\r\n.tradingPlaces-index .right-bottom .mod-content .table-title th {\r\n\theight: 50px;\r\n\tpadding: 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .table-content,\r\n.tradingPlaces-index .right-bottom .table-content {\r\n\theight: 540px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .table-content .word-limit-5,\r\n.tradingPlaces-index .right-bottom .table-content .word-limit-5 {\r\n\twidth: 100px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mt-table,\r\n.tradingPlaces-index .right-bottom  .mt-table {\r\n\tmargin: 0px 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .table-content table td,\r\n.tradingPlaces-index .right-bottom .table-content table td {\r\n\r\n\t/*height: 100%;*/\r\n\tpadding: 15px 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mt-table-center th,\r\n.tradingPlaces-index .right-bottom .mt-table-center th {\r\n\ttext-align: left;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mt-table td,\r\n.tradingPlaces-index .right-bottom .mt-table td {\r\n\ttext-align: left;\r\n}", ""]);
+	exports.push([module.id, ".tradingPlaces-index .left-bottom .mod-content,\r\n.tradingPlaces-index .right-bottom .mod-content {\r\n\tpadding: 20px 20px 0px 20px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom,\r\n.tradingPlaces-index .right-bottom {\r\n\tpadding: 0px 0px 50px 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mod-content .table-title th,\r\n.tradingPlaces-index .right-bottom .mod-content .table-title th {\r\n\theight: 50px;\r\n\tpadding: 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .table-content,\r\n.tradingPlaces-index .right-bottom .table-content {\r\n\theight: 540px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .table-content .word-limit-5,\r\n.tradingPlaces-index .right-bottom .table-content .word-limit-5 {\r\n\twidth: 100px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mt-table,\r\n.tradingPlaces-index .right-bottom  .mt-table {\r\n\tmargin: 0px 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .table-content table td,\r\n.tradingPlaces-index .right-bottom .table-content table td {\r\n\r\n\t/*height: 100%;*/\r\n\tpadding: 15px 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mt-table-center th,\r\n.tradingPlaces-index .right-bottom .mt-table-center th {\r\n\ttext-align: left;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mt-table td,\r\n.tradingPlaces-index .right-bottom .mt-table td {\r\n\ttext-align: left;\r\n}\r\n\r\n.tradingPlaces-index .checkAll {\r\n\tcolor: #fff;\t/*font-size: 20px;*/\r\n\ttext-align: center;\r\n\tpadding: 5px 10px;\r\n\tbackground: #999;\r\n\tborder-radius: 3px;\r\n\tdisplay: inline-block;\r\n\tmargin: 5px 0px 0px 10px;\r\n\tcursor: pointer;\r\n}", ""]);
 
 	// exports
 
@@ -72329,6 +72352,12 @@
 	        return {
 	            option: null
 	        };
+	    },
+	    handleClickBar: function handleClickBar() {
+	        var setBarName = this.props.setBarName;
+
+	        var jsonData = { statusName: "" };
+	        setBarName(jsonData);
 	    },
 	    componentDidMount: function componentDidMount() {
 	        var getClassificationAllRequest = this.props.getClassificationAllRequest;
@@ -72413,6 +72442,11 @@
 	                    'h3',
 	                    null,
 	                    '交易场所清理整顿分类'
+	                ),
+	                _react2.default.createElement(
+	                    'span',
+	                    { className: 'checkAll', onClick: this.handleClickBar },
+	                    '显示所有'
 	                )
 	            ),
 	            chartBox
@@ -72450,7 +72484,7 @@
 	        return {
 	            list: [],
 	            orderZB: "DESC",
-	            areaName: "浦东新区",
+	            areaName: "",
 	            orderName: ""
 	        };
 	    },
@@ -72507,6 +72541,7 @@
 	        }
 	    },
 	    render: function render() {
+	        var _areaName = this.state.areaName == "" ? "上海市" : this.state.areaName;
 	        return _react2.default.createElement(
 	            'div',
 	            { className: 'left-bottom' },
@@ -72516,7 +72551,7 @@
 	                _react2.default.createElement(
 	                    'h3',
 	                    null,
-	                    this.state.areaName,
+	                    _areaName,
 	                    '交易场所列表'
 	                )
 	            ),
@@ -72694,7 +72729,7 @@
 
 	    getInitialState: function getInitialState() {
 	        return {
-	            statusName: "通过验收",
+	            statusName: "",
 	            listData: []
 	        };
 	    },
@@ -72737,6 +72772,7 @@
 	        }
 	    },
 	    render: function render() {
+	        var _statusName = this.state.statusName == "" ? "上海市" : this.state.statusName;
 	        return _react2.default.createElement(
 	            'div',
 	            { className: 'right-bottom' },
@@ -72746,7 +72782,7 @@
 	                _react2.default.createElement(
 	                    'h3',
 	                    null,
-	                    this.state.statusName,
+	                    _statusName,
 	                    '详情列表'
 	                )
 	            ),
