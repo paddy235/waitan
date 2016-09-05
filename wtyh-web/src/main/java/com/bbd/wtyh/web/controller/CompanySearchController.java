@@ -7,6 +7,7 @@ import com.bbd.wtyh.web.ResponseBean;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.Period;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,6 +32,9 @@ public class CompanySearchController {
         if (null == size || size <= 0) {
             size = 5;
         }
+
+
+
         if (StringUtils.isNotEmpty(keyword)) {
             keyword = keyword.trim();
             keyword = keyword.replace("(", "（");
