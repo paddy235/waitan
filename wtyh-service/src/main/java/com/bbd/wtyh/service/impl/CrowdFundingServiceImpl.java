@@ -49,4 +49,9 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
 		return cfcMapper.allCompanys();
 	}
 
+	@Override
+	public List<String> queryCompany(String keyword){
+		return cfcMapper.queryCompany(keyword);
+	}
+
 }

@@ -144,7 +144,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 
     @Override
     public String companyNews(String companyName) {
-        String string = companyNewsService.getCompanyNews(companyName);
+        String string = companyNewsService.findCompanyNews(companyName);
         return string;
     }
 
