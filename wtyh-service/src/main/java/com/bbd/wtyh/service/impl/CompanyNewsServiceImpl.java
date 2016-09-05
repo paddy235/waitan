@@ -80,6 +80,23 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
         return result;
     }
 
+
+    @Override
+    public String findCompanyNews(String company) {
+        String result = null;
+
+        try {
+            if (!StringUtils.isEmpty(company)) {
+                HttpTemplate ht = new HttpTemplate();
+                result = ht.get(apiDataonNewsUrl + company);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override

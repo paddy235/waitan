@@ -13,7 +13,7 @@ import java.util.List;
 public interface CompanyNewsService {
 
 	/**
-	 * 获取某个公司的舆情
+	 * 获取某个公司的舆情,查询不到时，获取所有公司的舆情
 	 * @param company
 	 * @return
      */
@@ -24,5 +24,13 @@ public interface CompanyNewsService {
 	 * @return
      */
 	public String getCompanyNews();
+
+
+	/**
+	 * 获取某个公司的舆情,查询不到时不做其他查询
+	 * @param company
+	 * @return
+	 */
+	public String findCompanyNews(String company);
 
 }
