@@ -74,21 +74,18 @@ public class ExchangeCompanyServiceImpl implements ExchangeCompanyService {
 
     @Override
     public List<ExchangeCompanyVO> exchangeCompanyByStatus(String statusName) {
-        Integer status = 1;
-        if ("市政府批复设立".equals(statusName)) {
-            status = 1;
-        } else if ("自行设立".equals(statusName)) {
-            status = 2;
-        } else if ("主管单位批设但未经会商".equals(statusName)) {
-            status = 3;
-        } else if ("取得合规意见或经过会商".equals(statusName)) {
-            status = 4;
-        } else if ("通过验收".equals(statusName)) {
-            status = 5;
+        List<ExchangeCompanyVO> list = new ArrayList<>();
+        if ("企业自行设立".equals(statusName)) {
+            list.addAll(exchangeCompanyMapper.queryExchangeCompanyByStatus(2));
+        } else if ("市政府及市相关主管单位批复设立".equals(statusName)) {
+            list.addAll(exchangeCompanyMapper.queryExchangeCompanyByStatus(1));
+            list.addAll(exchangeCompanyMapper.queryExchangeCompanyByStatus(3));
+            list.addAll(exchangeCompanyMapper.queryExchangeCompanyByStatus(4));
+        } else if ("2013年通过清整联办验收".equals(statusName)) {
+            list.addAll(exchangeCompanyMapper.queryExchangeCompanyByStatus(5));
         } else {
-            //do nothing
+            list.addAll(exchangeCompanyMapper.queryExchangeCompanyByStatus(0));
         }
-        List<ExchangeCompanyVO> list = exchangeCompanyMapper.queryExchangeCompanyByStatus(status);
         return list;
     }
 
