@@ -102,7 +102,7 @@
 		LEFT JOIN area a ON a.area_id = c.area_id
 		<where>
 			AND c.company_type = 13
-		<if test="areaName != null and areaName != ''">
+		<if test="areaName != null and areaName != '' and areaName != '全部'">
 			AND a.name = #{areaName}
 		</if>
 		<if test="areaName == null or areaName == ''">

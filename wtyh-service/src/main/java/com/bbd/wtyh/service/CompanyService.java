@@ -13,6 +13,8 @@ public interface CompanyService {
 
     int countCompanyNum(CompanyQuery query);
 
+    List<Map<String,Object>> countCompanyNum();
+
     String getNameById(Integer companyId);
 
     CompanyDO getCompanyById(Integer companyId);

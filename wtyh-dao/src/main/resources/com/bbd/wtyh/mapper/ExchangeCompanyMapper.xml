@@ -57,7 +57,7 @@
 		LEFT JOIN area a ON c.area_id = a.area_id
 		WHERE
 			1=1
-		<if test="areaName != null and areaName != ''">
+		<if test="areaName != null and areaName != '' and areaName != '全部'">
 			and a.name = #{areaName}
 		</if>
 		<if test="orderName == 'registeredCapital'">
