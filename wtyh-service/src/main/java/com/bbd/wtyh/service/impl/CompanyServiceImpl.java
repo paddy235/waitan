@@ -25,6 +25,11 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
+    public List<Map<String, Object>> countCompanyNum() {
+        return companyMapper.countCompany();
+    }
+
+    @Override
     public String getNameById(Integer companyId) {
         return companyMapper.selectByPrimaryKey(companyId).getName();
     }

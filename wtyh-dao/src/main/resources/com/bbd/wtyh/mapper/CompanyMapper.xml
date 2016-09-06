@@ -251,4 +251,20 @@
             c.`name` = #{companyName}
     </select>
 
+
+
+    <select id="countCompany"  resultType="java.util.Map">
+            SELECT c.*,a.`name` from (
+                    select COUNT(1) num ,c.area_id
+                    from company c
+                    where c.area_id is not null
+                    GROUP BY c.area_id
+            ) c
+            LEFT JOIN area a
+            on a.area_id=c.area_id
+            where a.parent_id=104
+    </select>
+
+
+
 </mapper>
