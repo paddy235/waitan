@@ -78350,7 +78350,11 @@
 
 	        $('.risk-list').find('tr').removeClass('active');
 	    },
-	    handleBuildRisk: function handleBuildRisk(e) {},
+	    handleBuildRisk: function handleBuildRisk(e) {
+	        console.log(e);
+	        // var companyType=$(e.target).data('type');
+	        // console.log(companyType)
+	    },
 	    render: function render() {
 	        return _react2.default.createElement(
 	            'div',
@@ -78494,12 +78498,12 @@
 	                                            null,
 	                                            _react2.default.createElement(
 	                                                'span',
-	                                                { 'data-type': elem.name, onClick: this.handleBuildRisk() },
+	                                                { ctype: elem.companyType, onClick: this.handleBuildRisk() },
 	                                                elem.name
 	                                            )
 	                                        )
 	                                    );
-	                                })
+	                                }.bind(this))
 	                            )
 	                        )
 	                    )
