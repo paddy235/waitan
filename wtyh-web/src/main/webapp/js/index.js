@@ -64740,7 +64740,7 @@
 
 
 	// module
-	exports.push([module.id, ".small-loan-index .mt-table {\r\n\tmargin: 0px !important;\r\n}\r\n\r\n/*企业评级*/\r\n.small-loan-index .company-grade .mod-content .table-content {\r\n\theight: 530px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n.small-loan-index .company-grade .table-content .wtyh-table{\r\n\twidth: 510px;\r\n}\r\n\r\n/*余额占比*/\r\n.small-loan-index .balance-radio {\r\n\theight: 49.5%;\r\n}\r\n\r\n.small-loan-index .balance-radio .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*贷款笔均折线图*/\r\n.small-loan-index .each-average {\r\n\theight: 49.5%;\r\n\tmargin-top: 2%;\r\n}\r\n\r\n.small-loan-index .each-average .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*地图模块*/\r\n.small-loan-index .small-loan-map .map-chart-box {\r\n\theight: 610px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .small-loan-map .company-chart-box {\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.small-loan-index .small-loan-map .visual-text {\r\n\tposition: absolute;\r\n\tbottom: 26%;\r\n\tright: 3%;\r\n\tz-index: 1000;\r\n\twidth: 14px;\r\n}\r\n\r\n/*贷款余额占比*/\r\n.small-loan-index .loan-balance .chart-box {\r\n\theight: 300px;\r\n}\r\n\r\n/*股东行业风险*/\r\n.small-loan-index .industry-risk{\r\n\tposition: relative;\r\n}\r\n.small-loan-index .industry-risk .mod-content .table-content {\r\n\theight: 240px;\t\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk .mod-content .table-content table td a.more {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*大额借款人信息列表*/\r\n\r\n/*股东风险更多*/\r\n.small-loan-index .industry-risk-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content {\r\n\r\n\t/*padding: 8px 10px;*/\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content .content-more {\r\n\theight: 199px;\r\n\twidth: 100%;\r\n\tdisplay: table;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul {\r\n\r\n\t/*display: inline-block;*/\r\n\twidth: 33.33%;\t/*height: 199px;*/\r\n\tdisplay: table-cell;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul li {\r\n\tpadding: 15px 5px;\r\n}\r\n\r\n/*大额借款人*/\r\n.large-loan .table-content {\r\n\theight: 240px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}", ""]);
+	exports.push([module.id, ".small-loan-index .mt-table {\r\n\tmargin: 0px !important;\r\n}\r\n\r\n/*企业评级*/\r\n.small-loan-index .company-grade .mod-content .table-content {\r\n\theight: 530px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n.small-loan-index .company-grade .table-content .wtyh-table{\r\n\twidth: 510px;\r\n}\r\n\r\n/*余额占比*/\r\n.small-loan-index .balance-radio {\r\n\theight: 49.5%;\r\n}\r\n\r\n.small-loan-index .balance-radio .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*贷款笔均折线图*/\r\n.small-loan-index .each-average {\r\n\theight: 49.5%;\r\n\tmargin-top: 2%;\r\n}\r\n\r\n.small-loan-index .each-average .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*地图模块*/\r\n.small-loan-index .small-loan-map .map-chart-box {\r\n\theight: 610px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .small-loan-map .company-chart-box {\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.small-loan-index .small-loan-map .visual-text {\r\n\tposition: absolute;\r\n\tbottom: 26%;\r\n\tright: 3%;\r\n\tz-index: 1000;\r\n\twidth: 14px;\r\n}\r\n\r\n/*贷款余额占比*/\r\n.small-loan-index .loan-balance .chart-box {\r\n\theight: 300px;\r\n}\r\n\r\n/*股东行业风险*/\r\n.small-loan-index .industry-risk{\r\n\tposition: relative;\r\n}\r\n.small-loan-index .industry-risk .mod-content .table-content {\r\n\theight: 240px;\t\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk .mod-content .table-content table td a.more {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*大额借款人信息列表*/\r\n\r\n/*股东风险更多*/\r\n.small-loan-index .industry-risk-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content {\r\n\r\n\t/*padding: 8px 10px;*/\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content .content-more {\r\n\theight: 199px;\r\n\twidth: 100%;\r\n\tdisplay: table;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul {\r\n\r\n\t/*display: inline-block;*/\r\n\twidth: 33.33%;\t/*height: 199px;*/\r\n\tdisplay: table-cell;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul li {\r\n\tpadding: 15px 5px;\r\n}\r\n.industry-risk-more .content ul li em{\r\n\tmargin-left: 10px;\r\n\tpadding: 0px 5px;\r\n\tfont-size: 12px;\r\n}\r\n.industry-risk-more .content ul li em.bg-black{\r\n\tbackground-color: #000000;\r\n}\r\n.industry-risk-more .content ul li em.bg-red{\r\n\tbackground-color: red;\r\n}\r\n.industry-risk-more .content ul li em.bg-yellow{\r\n\tbackground-color: #ebc900;\r\n}\r\n.industry-risk-more .content ul li em.bg-green{\r\n\tbackground-color: #32b16c;\r\n}\r\n\r\n/*大额借款人*/\r\n.large-loan .table-content {\r\n\theight: 240px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}", ""]);
 
 	// exports
 
@@ -65830,10 +65830,43 @@
 	            'ul',
 	            null,
 	            this.state.linFin.map(function (elem, index) {
+	              console.log(elem, 111);
+	              var riskLevel = elem.riskLevel;
+	              var label = "";
+	              if (riskLevel == 1) {
+	                label = _react2.default.createElement(
+	                  'em',
+	                  { className: 'bg-black' },
+	                  '已曝光'
+	                );
+	              } else if (riskLevel == 2) {
+	                label = _react2.default.createElement(
+	                  'em',
+	                  { className: 'bg-red' },
+	                  '高危'
+	                );
+	              } else if (riskLevel == 3) {
+	                label = _react2.default.createElement(
+	                  'em',
+	                  { className: 'bg-yellow' },
+	                  '一般关注'
+	                );
+	              } else if (riskLevel == 4) {
+	                label = _react2.default.createElement(
+	                  'em',
+	                  { className: 'bg-green' },
+	                  '正常'
+	                );
+	              }
 	              return _react2.default.createElement(
 	                'li',
 	                null,
-	                elem
+	                _react2.default.createElement(
+	                  'span',
+	                  null,
+	                  elem.companyName
+	                ),
+	                label
 	              );
 	            }.bind(this))
 	          )
@@ -72383,7 +72416,7 @@
 
 
 	// module
-	exports.push([module.id, ".tradingPlaces-index .left-bottom .mod-content,\r\n.tradingPlaces-index .right-bottom .mod-content {\r\n\tpadding: 20px 20px 0px 20px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom,\r\n.tradingPlaces-index .right-bottom {\r\n\tpadding: 0px 0px 50px 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mod-content .table-title th,\r\n.tradingPlaces-index .right-bottom .mod-content .table-title th {\r\n\theight: 50px;\r\n\tpadding: 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .table-content,\r\n.tradingPlaces-index .right-bottom .table-content {\r\n\theight: 540px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .table-content .word-limit-5,\r\n.tradingPlaces-index .right-bottom .table-content .word-limit-5 {\r\n\twidth: 100px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mt-table,\r\n.tradingPlaces-index .right-bottom  .mt-table {\r\n\tmargin: 0px 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .table-content table td,\r\n.tradingPlaces-index .right-bottom .table-content table td {\r\n\r\n\t/*height: 100%;*/\r\n\tpadding: 15px 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mt-table-center th,\r\n.tradingPlaces-index .right-bottom .mt-table-center th {\r\n\ttext-align: left;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mt-table td,\r\n.tradingPlaces-index .right-bottom .mt-table td {\r\n\ttext-align: left;\r\n}\r\n\r\n.tradingPlaces-index .checkAll {\r\n\tcolor: #fff;\t/*font-size: 20px;*/\r\n\ttext-align: center;\r\n\tpadding: 5px 10px;\r\n\tbackground: #999;\r\n\tborder-radius: 3px;\r\n\tdisplay: inline-block;\r\n\tmargin: 8px 0px 0px 10px;\r\n\tcursor: pointer;\r\n\tfilter: alpha(opacity=100 finishopacity=50 style=1 startx=0, starty=0, finishx=0, finishy=150) progid:DXImageTransform.Microsoft.gradient(startcolorstr=#eb4845, endcolorstr=#b43230, gradientType=0);\r\n\t-ms-filter: alpha(opacity=100 finishopacity=50 style=1 startx=0, starty=0, finishx=0, finishy=150) progid:DXImageTransform.Microsoft.gradient(startcolorstr=#eb4845, endcolorstr=#b43230, gradientType=0);/*IE8*/\r\n\tbackground: #eb4845; /* 一些不支持背景渐变的浏览器 */\r\n\tbackground: -moz-linear-gradient(top, #eb4845, rgba(180, 50, 48, 1));\r\n\tbackground: -webkit-gradient(linear, 0 0, 0 bottom, from(#eb4845), to(rgba(180, 50, 48, 1)));\r\n\tbackground: -o-linear-gradient(top, red, rgba(180, 50, 48, 1));\r\n}", ""]);
+	exports.push([module.id, ".tradingPlaces-index .left-bottom .mod-content,\r\n.tradingPlaces-index .right-bottom .mod-content {\r\n\tpadding: 20px 20px 0px 20px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom,\r\n.tradingPlaces-index .right-bottom {\r\n\tpadding: 0px 0px 50px 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mod-content .table-title th,\r\n.tradingPlaces-index .right-bottom .mod-content .table-title th {\r\n\theight: 50px;\r\n\tpadding: 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .table-content,\r\n.tradingPlaces-index .right-bottom .table-content {\r\n\theight: 540px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .table-content .word-limit-5,\r\n.tradingPlaces-index .right-bottom .table-content .word-limit-5 {\r\n\twidth: 100px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mt-table,\r\n.tradingPlaces-index .right-bottom  .mt-table {\r\n\tmargin: 0px 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .table-content table td,\r\n.tradingPlaces-index .right-bottom .table-content table td {\r\n\r\n\t/*height: 100%;*/\r\n\tpadding: 15px 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mt-table-center th,\r\n.tradingPlaces-index .right-bottom .mt-table-center th {\r\n\ttext-align: left;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mt-table td,\r\n.tradingPlaces-index .right-bottom .mt-table td {\r\n\ttext-align: left;\r\n}\r\n\r\n.tradingPlaces-index .checkAll {\r\n\tcolor: #fff;\t/*font-size: 20px;*/\r\n\ttext-align: center;\r\n\tpadding: 5px 10px;\r\n\tbackground: #999;\r\n\tborder-radius: 3px;\r\n\tdisplay: inline-block;\r\n\tmargin: 8px 10px 0px 10px;\r\n\tcursor: pointer;\r\n\tfloat: right;\r\n\tfilter: alpha(opacity=100 finishopacity=50 style=1 startx=0, starty=0, finishx=0, finishy=150) progid:DXImageTransform.Microsoft.gradient(startcolorstr=#eb4845, endcolorstr=#b43230, gradientType=0);\r\n\t-ms-filter: alpha(opacity=100 finishopacity=50 style=1 startx=0, starty=0, finishx=0, finishy=150) progid:DXImageTransform.Microsoft.gradient(startcolorstr=#eb4845, endcolorstr=#b43230, gradientType=0);/*IE8*/\r\n\tbackground: #eb4845; /* 一些不支持背景渐变的浏览器 */\r\n\tbackground: -moz-linear-gradient(top, #eb4845, rgba(180, 50, 48, 1));\r\n\tbackground: -webkit-gradient(linear, 0 0, 0 bottom, from(#eb4845), to(rgba(180, 50, 48, 1)));\r\n\tbackground: -o-linear-gradient(top, red, rgba(180, 50, 48, 1));\r\n}", ""]);
 
 	// exports
 
@@ -72653,15 +72686,20 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '20%', className: 'cur-pointer', 'data-order': this.state.orderZB, ref: 'registeredCapital', onClick: this.handleClick.bind(this, "registeredCapital") },
+	                                    { width: '15%', className: 'cur-pointer', 'data-order': this.state.orderZB, ref: 'registeredCapital', onClick: this.handleClick.bind(this, "registeredCapital") },
 	                                    '注册资本',
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '20%', className: 'cur-pointer', 'data-order': this.state.orderZB, ref: 'registeredDate', onClick: this.handleClick.bind(this, "registeredDate") },
+	                                    { width: '15%', className: 'cur-pointer', 'data-order': this.state.orderZB, ref: 'registeredDate', onClick: this.handleClick.bind(this, "registeredDate") },
 	                                    '注册时间',
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
+	                                ),
+	                                _react2.default.createElement(
+	                                    'th',
+	                                    { width: '10%' },
+	                                    '网址'
 	                                )
 	                            )
 	                        )
@@ -72682,6 +72720,7 @@
 	                                    var _address = item.address == null ? "/" : item.address;
 	                                    var _registeredCapital = item.registeredCapital == null ? "/" : item.registeredCapital + "万元";
 	                                    var _registeredDate = item.registeredDate == null ? "/" : item.registeredDate;
+	                                    var _website = item.website == null ? "/" : item.website;
 	                                    if (index % 2) {
 	                                        return _react2.default.createElement(
 	                                            'tr',
@@ -72711,13 +72750,22 @@
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
-	                                                { width: '20%' },
+	                                                { width: '15%' },
 	                                                _registeredCapital
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
-	                                                { width: '20%' },
+	                                                { width: '15%' },
 	                                                _registeredDate
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '10%' },
+	                                                _react2.default.createElement(
+	                                                    'a',
+	                                                    { target: '_blank', href: _website },
+	                                                    '查看'
+	                                                )
 	                                            )
 	                                        );
 	                                    } else {
@@ -72749,13 +72797,22 @@
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
-	                                                { width: '20%' },
+	                                                { width: '15%' },
 	                                                _registeredCapital
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
-	                                                { width: '20%' },
+	                                                { width: '15%' },
 	                                                _registeredDate
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '10%' },
+	                                                _react2.default.createElement(
+	                                                    'a',
+	                                                    { target: '_blank', href: _website },
+	                                                    '查看'
+	                                                )
 	                                            )
 	                                        );
 	                                    }
@@ -72884,13 +72941,18 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '20%' },
+	                                    { width: '15%' },
 	                                    '监管部门'
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '20%' },
+	                                    { width: '15%' },
 	                                    '法定代表人'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'th',
+	                                    { width: '10%' },
+	                                    '网址'
 	                                )
 	                            )
 	                        )
@@ -72911,6 +72973,7 @@
 	                                    var _legaPerson = item.legalPerson == null ? "/" : item.legalPerson;
 	                                    var _approveDepartment = item.approveDepartment == null ? "/" : item.approveDepartment;
 	                                    var _superviseDepartment = item.superviseDepartment == null ? "/" : item.superviseDepartment;
+	                                    var _website = item.website == null ? "/" : item.website;
 	                                    if (index % 2) {
 	                                        return _react2.default.createElement(
 	                                            'tr',
@@ -72936,7 +72999,7 @@
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
-	                                                { width: '20%' },
+	                                                { width: '15%' },
 	                                                _react2.default.createElement(
 	                                                    'span',
 	                                                    { className: 'word-limit-5', 'data-tip': _superviseDepartment, title: _superviseDepartment },
@@ -72945,8 +73008,17 @@
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
-	                                                { width: '20%' },
+	                                                { width: '15%' },
 	                                                _legaPerson
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '10%' },
+	                                                _react2.default.createElement(
+	                                                    'a',
+	                                                    { target: '_blank', href: _website },
+	                                                    '查看'
+	                                                )
 	                                            )
 	                                        );
 	                                    } else {
@@ -72974,7 +73046,7 @@
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
-	                                                { width: '20%' },
+	                                                { width: '15%' },
 	                                                _react2.default.createElement(
 	                                                    'span',
 	                                                    { className: 'word-limit-5', title: _superviseDepartment, 'data-tip': _superviseDepartment },
@@ -72983,8 +73055,17 @@
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
-	                                                { width: '20%' },
+	                                                { width: '15%' },
 	                                                _legaPerson
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '10%' },
+	                                                _react2.default.createElement(
+	                                                    'a',
+	                                                    { target: '_blank', href: _website },
+	                                                    '查看'
+	                                                )
 	                                            )
 	                                        );
 	                                    }
