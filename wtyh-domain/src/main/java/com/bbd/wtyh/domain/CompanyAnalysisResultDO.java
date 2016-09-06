@@ -14,11 +14,18 @@ public class CompanyAnalysisResultDO extends BaseDO {
 
 	private int registered_capital;
 
+	/*	*
+	* 公司类型 1:P2P 2:小贷 3:融资担保 4:线下理财 5:私募基金 6:众筹 7:其他 8:金融 9:交易所 10:商业保理 11.预付卡 12.典当 13融资租赁
+	* */
+	private Integer companyType;
+
 	private int registered_capital_type;
 
 	private String exposureDate;
 
 	private String staticRiskIndex;
+
+
 
 
 	// 颜色 1:已曝光(黑) 2:高危(红) 3:关注(黄) 4:正常(绿)
@@ -68,6 +75,15 @@ public class CompanyAnalysisResultDO extends BaseDO {
 
 	public void setStaticRiskIndex(String staticRiskIndex) {
 		this.staticRiskIndex = staticRiskIndex;
+	}
+
+
+	public Integer getCompanyType() {
+		return companyType;
+	}
+
+	public void setCompanyType(Integer companyType) {
+		this.companyType = companyType;
 	}
 
 	public String getExposureDate() {
