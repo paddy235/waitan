@@ -10,7 +10,7 @@ import java.util.List;
 public interface CompanyLevelService {
 
 
-    List<CompanyLevelDTO> getCompanyLevel(Integer companyType, Integer orderByField, String descAsc);
+    List<CompanyLevelDTO> getCompanyLevel(Integer companyType,Integer areaId, Integer orderByField, String descAsc);
 
 
 }

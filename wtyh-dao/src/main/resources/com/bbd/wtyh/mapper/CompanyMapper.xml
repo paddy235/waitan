@@ -20,11 +20,11 @@
         <result column="registered_type" jdbcType="VARCHAR" property="registeredType"/>
         <result column="exposure_date" jdbcType="DATE" property="exposureDate"/>
         <result column="analysisResult" jdbcType="TINYINT" property="analysisResult"/>
-
+        <result column="risk_level" jdbcType="TINYINT" property="riskLevel"/>
     </resultMap>
     <sql id="Base_Column_List">
     company_id, name, legal_person, area_id, address, registered_capital, registered_capital_type,business_type, registered_date,
-    company_type, status, create_by, create_date, update_by, update_date
+    company_type, risk_level, status, create_by, create_date, update_by, update_date
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select

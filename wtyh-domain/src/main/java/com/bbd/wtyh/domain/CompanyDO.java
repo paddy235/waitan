@@ -62,6 +62,9 @@ public class CompanyDO extends BaseDO implements Comparable {
 
     private Integer analysisResult;
 
+    //公司风险等级
+    private Integer riskLevel;
+
 
     public void setBackgroundCN(String backgroundCN) {
         this.backgroundCN = backgroundCN;
@@ -244,10 +247,15 @@ public class CompanyDO extends BaseDO implements Comparable {
     }
 
 
+    public Integer getRiskLevel() {
+        return riskLevel;
+    }
 
+    public void setRiskLevel(Integer riskLevel) {
+        this.riskLevel = riskLevel;
+    }
 
-
-	public BigDecimal getStaticRisk() {
+    public BigDecimal getStaticRisk() {
 		if (null != staticRisk) {
 			return staticRisk.divide(BigDecimal.ONE, 1, BigDecimal.ROUND_HALF_UP);
 		}
