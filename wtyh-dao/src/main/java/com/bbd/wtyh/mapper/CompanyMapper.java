@@ -58,4 +58,26 @@ public interface CompanyMapper {
     List<CompanyDO> queryCompanyByType(@Param("companyType") Integer companyType, @Param("orderByField") Integer orderByField, @Param("descAsc") String descAsc);
 
     List<CompanyDO> getSpectrumAnalysis(@Param("risk_level")Integer risk_level);
+
+    /**
+     * 获取总条数
+     * @return
+     */
+    int countAllCompany();
+
+    /**
+     * 分页获取企业信息
+     * @param params
+     * @return
+     */
+    List<CompanyDO> findByPage(Map<String, Object> params);
+
+    /**
+     * 更新企业光谱
+     * @param riskLevel
+     * @param companyId
+     */
+    void updateRiskLevel(
+            @Param(value = "riskLevel") Integer riskLevel,
+            @Param(value = "companyId") Integer companyId);
 }

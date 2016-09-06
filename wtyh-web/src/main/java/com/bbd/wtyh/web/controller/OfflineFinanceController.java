@@ -274,47 +274,6 @@ public class OfflineFinanceController {
     }
 
     /**
-     * 静态风险指数列表
-     *
-     * @param companyName
-     * @return
-     */
-    @RequestMapping("staticRiskList.do")
-    @ResponseBody
-    public ResponseBean staticRiskList(String companyName) {
-        List<Map> data = offlineFinanceService.staticRiskList(companyName);
-        return ResponseBean.successResponse(data);
-    }
-
-    /**
-     * 企业关联方特征指数对比
-     *
-     * @param companyName 企业名称
-     * @param dateA       对比时间
-     * @param dateB       对比时间
-     * @param typeId      对比内容
-     * @return
-     */
-    @RequestMapping("companyRelatedComparisonChart.do")
-    @ResponseBody
-    public ResponseBean companyRelatedComparisonChart(String companyName, String dateA, String dateB, Integer typeId) {
-        List<Map> data = offlineFinanceService.companyRelatedComparisonChart(companyName, dateA, dateB);
-        return ResponseBean.successResponse(data);
-    }
-
-    /**
-     * 列表展示量化后的风险系数
-     *
-     * @return
-     */
-    @RequestMapping("riskFactor.do")
-    @ResponseBody
-    public ResponseBean riskFactor() {
-        List<Map> data = offlineFinanceService.riskFactor();
-        return ResponseBean.successResponse(data);
-    }
-
-    /**
      * 公司标签
      *
      * @return
@@ -491,5 +450,16 @@ public class OfflineFinanceController {
         result.put("factoring", factoringObject);
         result.put("prepaid", prepaidCompanyResponseBean.getContent());
         return ResponseBean.successResponse(result);
+    }
+
+    /**
+     * 更新企业光谱分析结果
+     * @return
+     */
+    @RequestMapping("updateCompanyRiskLevel.do")
+    @ResponseBody
+    public ResponseBean updateCompanyRiskLevel() {
+        offlineFinanceService.updateCompanyRiskLevel();
+        return ResponseBean.successResponse("更新成功");
     }
 }

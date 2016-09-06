@@ -3,16 +3,24 @@ package com.bbd.wtyh.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
+import com.bbd.wtyh.domain.PlatformNameInformationDO;
 import com.bbd.wtyh.domain.dto.*;
+import com.bbd.wtyh.mapper.PlatformNameInformationMapper;
 import com.bbd.wtyh.service.PToPMonitorService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.apache.commons.collections.map.HashedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
 * 
@@ -27,7 +35,8 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
 	@Value("${financial.services.url}")
 	private String finSerUrl;
 	
-	
+	@Autowired
+	private PlatformNameInformationMapper platformNameInformationMapper;
 	  
     public List<IndustryCompareDTO> getCompareData() throws Exception{
     	
@@ -143,6 +152,37 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
 
 
 
+	public Map getPlatRankMapData() throws Exception{
+
+		List<PlatRankDataDTO> list = new ArrayList<>();
+		String url = this.finSerUrl+"?dataType=plat_rank_data";
+		HttpTemplate httpTemplate = new HttpTemplate();
+		try {
+			list = httpTemplate.get(url, new HttpCallback<List<PlatRankDataDTO>>() {
+				@Override
+				public boolean valid() {
+					return true;
+				}
+				@Override
+				public List<PlatRankDataDTO> parse(String result) {
+					return JSON.parseArray(result, PlatRankDataDTO.class);
+				}
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Map map = new HashMap();
+		if (!CollectionUtils.isEmpty(list)) {
+			for (PlatRankDataDTO platRankDataDTO : list) {
+				String plat_name = platRankDataDTO.getPlat_name();
+				PlatformNameInformationDO platformNameInformationDO = platformNameInformationMapper.hasOrNotCompany(plat_name);
+				if (platformNameInformationDO != null) {
+					map.put(platformNameInformationDO.getCompanyId(), platRankDataDTO.getRank());
+				}
+			}
+		}
+		return map;
+	}
 
 
 
