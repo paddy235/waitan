@@ -212,4 +212,17 @@ public class P2PImageServiceImpl implements P2PImageService {
     public PlatformNameInformationDO hasOrNotCompany(String platName) {
         return p2PImageDao.hasOrNotCompany(platName);
     }
+
+    @Override
+    public List<PlatformNameInformationDO> associatedCompanys(String platName) {
+        List<PlatformNameInformationDO> rst = new ArrayList<>();
+        List<PlatformNameInformationDO> platNames = p2PImageDao.associatedPlatName(platName);
+        rst.addAll(platNames);
+        // 拼接 5 个元素的列表
+        if (5 > platNames.size()) {
+            List<PlatformNameInformationDO> companyNames = p2PImageDao.associatedCompanyName(platName, 5 - platNames.size());
+            rst.addAll(companyNames);
+        }
+        return rst;
+    }
 }

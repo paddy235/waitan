@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -77,8 +78,8 @@ public class LoanController {
      * @return
      */
     @RequestMapping("companyLevel.do")
-    public ResponseBean companyLevel(Integer orderByField, String descAsc) {
-        return ResponseBean.successResponse(companyLevelService.getCompanyLevel((int) CompanyDO.TYPE_XD_2, orderByField, descAsc));
+    public ResponseBean companyLevel(Integer areaId, Integer orderByField, String descAsc) {
+        return ResponseBean.successResponse(companyLevelService.getCompanyLevel((int) CompanyDO.TYPE_XD_2, areaId, orderByField, descAsc));
     }
 
     /**
@@ -187,8 +188,9 @@ public class LoanController {
             } else {
                 dto.setBorrowerRegisteredCapital("无");
             }
+            Collection<RelatedCompanyDTO> relatedCompanyDTOs = shareholderRiskService.getRelatedCompany(largeLoanDO.getBorrowerId()).get((int) CompanyDO.TYPE_XXLC_4);
+            dto.setRelatedOfflineFinance(null == relatedCompanyDTOs ? 0 : relatedCompanyDTOs.size());
             result.add(dto);
-
         }
         Map<String, Object> map = Maps.newHashMap();
         map.put("list", result);

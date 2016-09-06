@@ -276,6 +276,16 @@ public class P2PImageDaoImpl implements P2PImageDao {
     }
 
     @Override
+    public List<PlatformNameInformationDO> associatedPlatName(String platName) {
+        return platformNameInformationMapper.associatedPlatName(platName);
+    }
+
+    @Override
+    public List<PlatformNameInformationDO> associatedCompanyName(String platName, Integer limit_size) {
+        return platformNameInformationMapper.associatedCompanyName(platName, limit_size);
+    }
+
+    @Override
     public Map<String, Object> coreDataInfo(String platName) {
         String _url = String.format(url + "?dataType=plat_data&plat_name=%s", platName);
         final Map<String, Object> data = new LinkedHashMap<>();

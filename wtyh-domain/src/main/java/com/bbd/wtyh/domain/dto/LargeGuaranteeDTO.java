@@ -11,6 +11,8 @@ public class LargeGuaranteeDTO {
     private String guaranteedName;
     private String guaranteedBusinessType;
     private String guaranteedRegisteredCapital;
+    //被担保人的关联线下理财公司数
+    private Integer relatedOfflineFinance;
 
     public Integer getGuaranteeId() {
         return guaranteeId;
@@ -58,5 +60,13 @@ public class LargeGuaranteeDTO {
 
     public void setGuaranteedRegisteredCapital(String guaranteedRegisteredCapital) {
         this.guaranteedRegisteredCapital = guaranteedRegisteredCapital;
+    }
+
+    public Integer getRelatedOfflineFinance() {
+        return relatedOfflineFinance;
+    }
+
+    public void setRelatedOfflineFinance(Integer relatedOfflineFinance) {
+        this.relatedOfflineFinance = relatedOfflineFinance;
     }
 }

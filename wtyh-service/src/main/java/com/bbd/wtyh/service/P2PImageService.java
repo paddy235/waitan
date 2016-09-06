@@ -53,4 +53,11 @@ public interface P2PImageService {
     List<List<String>> coreDataLoadOverage(String plat_name);
 
     PlatformNameInformationDO hasOrNotCompany(String plat_name);
+
+    /**
+     * 根据用户输入，联想 平台名称，以及公司名称
+     * @param platName
+     * @return
+     */
+    List<PlatformNameInformationDO> associatedCompanys(String platName);
 }

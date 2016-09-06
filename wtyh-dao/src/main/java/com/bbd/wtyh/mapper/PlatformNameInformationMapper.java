@@ -3,6 +3,8 @@ package com.bbd.wtyh.mapper;
 import com.bbd.wtyh.domain.PlatformNameInformationDO;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 
 /**
 * 区域mapper
@@ -11,4 +13,9 @@ import org.apache.ibatis.annotations.Param;
 */
 public interface PlatformNameInformationMapper {
 	PlatformNameInformationDO hasOrNotCompany(@Param(value = "plat_name") String plat_name);
+
+	List<PlatformNameInformationDO> associatedPlatName(@Param(value = "plat_name")String platName);
+
+	List<PlatformNameInformationDO> associatedCompanyName(@Param(value = "company_name") String platName,
+														  @Param(value = "limit_size")Integer limit_size);
 }

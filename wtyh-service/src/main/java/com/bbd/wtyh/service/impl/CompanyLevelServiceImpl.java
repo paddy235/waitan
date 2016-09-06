@@ -24,11 +24,11 @@ public class CompanyLevelServiceImpl implements CompanyLevelService {
 
 
     @Override
-    public List<CompanyLevelDTO> getCompanyLevel(Integer companyType, Integer orderByField, String descAsc) {
+    public List<CompanyLevelDTO> getCompanyLevel(Integer companyType, Integer areaId, Integer orderByField, String descAsc) {
         if (null == companyType || companyType <= 0) {
             throw new RuntimeException("companyType must be not null");
         }
-        List<CompanyLevelDO> list = companyLevelMapper.selectCompanyLevel(companyType, orderByField, descAsc);
+        List<CompanyLevelDO> list = companyLevelMapper.selectCompanyLevel(companyType, areaId, orderByField, descAsc);
         List<CompanyLevelDTO> result = Lists.newArrayList();
         for (CompanyLevelDO levelDO : list) {
             CompanyLevelDTO levelDTO = new CompanyLevelDTO();
