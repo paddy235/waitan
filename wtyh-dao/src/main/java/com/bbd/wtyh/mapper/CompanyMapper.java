@@ -56,4 +56,6 @@ public interface CompanyMapper {
     List<Map<Integer, String>> companyInfo(String companyName);
 
     List<CompanyDO> queryCompanyByType(@Param("companyType") Integer companyType, @Param("orderByField") Integer orderByField, @Param("descAsc") String descAsc);
+
+    List<CompanyDO> getSpectrumAnalysis(@Param("risk_level")Integer risk_level);
 }

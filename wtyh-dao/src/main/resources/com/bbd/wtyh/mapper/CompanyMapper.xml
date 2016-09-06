@@ -266,5 +266,16 @@
     </select>
 
 
+    <select id="getSpectrumAnalysis"  resultType="com.bbd.wtyh.domain.CompanyDO">
+        SELECT
+            company.`name`,
+            company.registered_capital AS registeredCapital,
+            company_analysis_result.exposure_date AS exposureDate
+        FROM
+            company
+        LEFT JOIN company_analysis_result ON company.company_id = company_analysis_result.company_id
+        WHERE
+            risk_level = #{risk_level}
+    </select>
 
 </mapper>
