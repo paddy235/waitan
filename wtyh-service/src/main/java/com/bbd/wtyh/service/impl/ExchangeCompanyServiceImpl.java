@@ -35,25 +35,32 @@ public class ExchangeCompanyServiceImpl implements ExchangeCompanyService {
         List<Map> list = exchangeCompanyMapper.queryExchangeCompanyCategory();
         List<Map> resultList = new ArrayList<>();
         if (!CollectionUtils.isEmpty(list)) {
+            Map<String, Integer> resultMap = new HashedMap();
             for (Map map : list) {
-                Map result = new HashedMap();
                 int status = (int)map.get("status");
+                int number = Integer.parseInt(map.get("number").toString());
                 String statusName = "";
-                if (status == 1) {
-                    statusName = "市政府批复设立";
-                } else if (status == 2) {
-                    statusName = "自行设立";
-                } else if (status == 3) {
-                    statusName = "主管单位批设但未经会商";
-                } else if (status == 4) {
-                    statusName = "取得合规意见或经过会商";
+                if (status == 2) {
+                    statusName = "企业自行设立";
+                    resultMap.put(statusName, number);
+                } else if (status == 1 || status == 3 || status == 4) {
+                    statusName = "市政府及市相关主管单位批复设立";
+                    if (resultMap.get(statusName) == null) {
+                        resultMap.put(statusName, number);
+                    } else {
+                        resultMap.put(statusName, resultMap.get(statusName) + number);
+                    }
                 } else if (status == 5) {
-                    statusName = "通过验收";
+                    statusName = "2013年通过清整联办验收";
+                    resultMap.put(statusName, number);
                 } else {
                     //do nothing;
                 }
-                result.put(statusName, map.get("number"));
-                resultList.add(result);
+            }
+            for (String key : resultMap.keySet()) {
+                Map temp = new HashedMap();
+                temp.put(key, resultMap.get(key));
+                resultList.add(temp);
             }
         }
         return resultList;
