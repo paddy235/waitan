@@ -66510,7 +66510,7 @@
 
 
 	// module
-	exports.push([module.id, "/*content banner*/\r\n\r\n/*index top*/\r\n.p2p-index .p2p-index-top .top-l {\r\n\twidth: 28%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-index-top .top-l .top-l-t {\r\n\twidth: 100%;\r\n\theight: 300px;\r\n}\r\n\r\n.p2p-index-top .top-l  .top-l-b {\r\n\tmargin-top: 2%;\r\n\theight: 340px;\r\n}\r\n\r\n.p2p-index .p2p-index-top .top-c {\r\n\twidth: 38.5%;\r\n\tfloat: left;\r\n\theight: 649px;\r\n\tmargin: 0px 0.5%;\r\n}\r\n\r\n.p2p-index .p2p-index-top .top-r {\r\n\twidth: 32.5%;\r\n\theight: 649px;\r\n\tfloat: left;\r\n}\r\n\r\n/*index bom*/\r\n.p2p-index .p2p-index-bom {\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l {\r\n\twidth: 67%;\r\n\tfloat: left;\r\n\theight: 490px;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-t {\r\n\theight: 255px;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-t .bom-l-t-l {\r\n\twidth: 42%;\t/*height: 100%;*/\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-t .bom-l-t-r {\r\n\twidth: 57.5%;\t/*height: 100%;*/\r\n\tfloat: left;\r\n\tmargin-left: 0.5%\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-b {\r\n\theight: 230px;\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-r {\r\n\twidth: 32.5%;\r\n\tmargin-left: 0.5%;\r\n\theight: 490px;\r\n\tfloat: left;\r\n}\r\n\r\n/*AareaRanking banner -css*/\r\n.p2p-index .list-header {\r\n\tfont-size: 18px;\r\n\tcolor: #fff;\r\n\tpadding: 14px;\r\n\ttext-indent: 30px;\r\n}\r\n\r\n.p2p-index .list-items {\r\n\tpadding: 0px 10px 30px 10px;\r\n}\r\n\r\n.p2p-index .table-8 th,\r\n.p2p-index .table-8 td {\r\n\twidth: 12.5%;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-index .table-8 th {\r\n\theight: 60px;\r\n}\r\n\r\n.p2p-index .table-6 th {\r\n\theight: 88px;\r\n}\r\n\r\n.p2p-index .table-8 {\r\n\r\n\t/*height: 550px;*/\r\n}\r\n\r\n.p2p-index .table-6 th,\r\n.p2p-index .table-6 td {\r\n\twidth: 13.5%;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-index .table-6 .diff-width {\r\n\twidth: 20%;\r\n}\r\n\r\n.p2p-index .table-6 {\r\n\theight: 400px;\r\n}\r\n\r\n.p2p-index .table-8.title {\r\n\tdisplay: block;\r\n\twidth: 100%\r\n}\r\n\r\n/*gray-theme-table for table -css*/\r\n.p2p-table {\r\n\twidth: 100%;\t/*height: 100%;*/\r\n\tcolor: #dddddd;\r\n}", ""]);
+	exports.push([module.id, "/*content banner*/\r\n\r\n/*index top*/\r\n.p2p-index .p2p-index-top .top-l {\r\n\twidth: 28%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-index-top .top-l .top-l-t {\r\n\twidth: 100%;\r\n\theight: 300px;\r\n}\r\n\r\n.p2p-index-top .top-l  .top-l-b {\r\n\tmargin-top: 2%;\r\n\theight: 340px;\r\n}\r\n\r\n.p2p-index .p2p-index-top .top-c {\r\n\twidth: 38.5%;\r\n\tfloat: left;\r\n\theight: 649px;\r\n\tmargin: 0px 0.5%;\r\n}\r\n\r\n.p2p-index .p2p-index-top .top-r {\r\n\twidth: 32.5%;\r\n\theight: 649px;\r\n\tfloat: left;\r\n}\r\n\r\n/*index bom*/\r\n.p2p-index .p2p-index-bom {\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l {\r\n\twidth: 67%;\r\n\tfloat: left;\r\n\theight: 490px;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-t {\r\n\theight: 255px;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-t .bom-l-t-l {\r\n\twidth: 42%;\t/*height: 100%;*/\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-t .bom-l-t-r {\r\n\twidth: 57.5%;\t/*height: 100%;*/\r\n\tfloat: left;\r\n\tmargin-left: 0.5%\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-b {\r\n\theight: 230px;\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-r {\r\n\twidth: 32.5%;\r\n\tmargin-left: 0.5%;\r\n\theight: 490px;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-r .table-content {\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n\theight: 316px;\r\n}\r\n\r\n/*AareaRanking banner -css*/\r\n.p2p-index .list-header {\r\n\tfont-size: 18px;\r\n\tcolor: #fff;\r\n\tpadding: 14px;\r\n\ttext-indent: 30px;\r\n}\r\n\r\n.p2p-index .list-items {\r\n\tpadding: 0px 10px 30px 10px;\r\n}\r\n\r\n.p2p-index .table-8 th,\r\n.p2p-index .table-8 td {\r\n\twidth: 12.5%;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-index .table-8 th {\r\n\theight: 60px;\r\n}\r\n\r\n.p2p-index .table-6 th {\r\n\theight: 88px;\r\n}\r\n\r\n.p2p-index .table-8 {\r\n\r\n\t/*height: 550px;*/\r\n}\r\n\r\n.p2p-index .table-6 th,\r\n.p2p-index .table-6 td {\r\n\twidth: 13.5%;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-index .table-6 .diff-width {\r\n\twidth: 20%;\r\n}\r\n\r\n.p2p-index .table-6 {\r\n\theight: 400px;\r\n}\r\n\r\n.p2p-index .table-8.title {\r\n\tdisplay: block;\r\n\twidth: 100%\r\n}\r\n\r\n/*gray-theme-table for table -css*/\r\n.p2p-table {\r\n\twidth: 100%;\t/*height: 100%;*/\r\n\tcolor: #dddddd;\r\n}", ""]);
 
 	// exports
 
@@ -67194,6 +67194,10 @@
 
 	        var jsonData = {};
 	        getNetCreditRequest(jsonData);
+	        $('#p2p-scroll').perfectScrollbar({ suppressScrollX: false });
+	    },
+	    componentDidUpdate: function componentDidUpdate() {
+	        $('#p2p-scroll').perfectScrollbar({ suppressScrollX: false }, 'update');
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	        var isEqual = Immutable.is(nextProps.netCreditRequest, this.props.netCreditResult);
@@ -67230,7 +67234,7 @@
 	                    'table',
 	                    { className: 'table-6 mt-table wtyh-table' },
 	                    _react2.default.createElement(
-	                        'tHead',
+	                        'thead',
 	                        null,
 	                        _react2.default.createElement(
 	                            'tr',
@@ -67266,99 +67270,107 @@
 	                                '累计待还金额'
 	                            )
 	                        )
-	                    ),
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'table-content', id: 'p2p-scroll' },
 	                    _react2.default.createElement(
-	                        'tbody',
-	                        null,
-	                        this.state.listData.map(function (item, index) {
-	                            var _amount = item.amount == undefined ? "/" : Number(item.amount).toFixed(2) + "亿";
-	                            var _stay_still_of_total = item.stay_still_of_total == undefined ? "/" : Number(item.stay_still_of_total).toFixed(2) + "亿";
-	                            {
-	                                if (index % 2) {
-	                                    return _react2.default.createElement(
-	                                        'tr',
-	                                        null,
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            null,
-	                                            item.rank
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
+	                        'table',
+	                        { className: 'mt-table mt-table-center wtyh-table table-6' },
+	                        _react2.default.createElement(
+	                            'tbody',
+	                            null,
+	                            this.state.listData.map(function (item, index) {
+	                                var _amount = item.amount == undefined ? "/" : Number(item.amount).toFixed(2) + "亿";
+	                                var _stay_still_of_total = item.stay_still_of_total == undefined ? "/" : Number(item.stay_still_of_total).toFixed(2) + "亿";
+	                                {
+	                                    if (index % 2) {
+	                                        return _react2.default.createElement(
+	                                            'tr',
 	                                            null,
 	                                            _react2.default.createElement(
-	                                                _reactRouter.Link,
-	                                                { to: { pathname: '/Portrait', query: { platName: item.plat_name } } },
-	                                                item.plat_name
-	                                            )
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            null,
-	                                            _amount
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            null,
-	                                            item.income_rate,
-	                                            '%'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            null,
-	                                            item.loan_period,
-	                                            '月'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            null,
-	                                            _stay_still_of_total
-	                                        )
-	                                    );
-	                                } else {
-	                                    return _react2.default.createElement(
-	                                        'tr',
-	                                        { className: 'odd-line' },
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            null,
-	                                            item.rank
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            null,
+	                                                'td',
+	                                                null,
+	                                                item.rank
+	                                            ),
 	                                            _react2.default.createElement(
-	                                                _reactRouter.Link,
-	                                                { to: { pathname: '/Portrait', query: { platName: item.plat_name } } },
-	                                                item.plat_name
+	                                                'td',
+	                                                null,
+	                                                _react2.default.createElement(
+	                                                    _reactRouter.Link,
+	                                                    { to: { pathname: '/Portrait', query: { platName: item.plat_name } } },
+	                                                    item.plat_name
+	                                                )
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { className: 'diff-width' },
+	                                                _amount
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                null,
+	                                                item.income_rate,
+	                                                '%'
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { className: 'diff-width' },
+	                                                item.loan_period,
+	                                                '月'
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { className: 'diff-width' },
+	                                                _stay_still_of_total
 	                                            )
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            null,
-	                                            _amount
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            null,
-	                                            item.income_rate,
-	                                            '%'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            null,
-	                                            item.loan_period,
-	                                            '月'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            null,
-	                                            _stay_still_of_total
-	                                        )
-	                                    );
+	                                        );
+	                                    } else {
+	                                        return _react2.default.createElement(
+	                                            'tr',
+	                                            { className: 'odd-line' },
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                null,
+	                                                item.rank
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                null,
+	                                                _react2.default.createElement(
+	                                                    _reactRouter.Link,
+	                                                    { to: { pathname: '/Portrait', query: { platName: item.plat_name } } },
+	                                                    item.plat_name
+	                                                )
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { className: 'diff-width' },
+	                                                _amount
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                null,
+	                                                item.income_rate,
+	                                                '%'
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { className: 'diff-width' },
+	                                                item.loan_period,
+	                                                '月'
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { className: 'diff-width' },
+	                                                _stay_still_of_total
+	                                            )
+	                                        );
+	                                    }
 	                                }
-	                            }
-	                        })
+	                            })
+	                        )
 	                    )
 	                )
 	            )
@@ -67632,6 +67644,9 @@
 	        };
 	    },
 	    componentDidMount: function componentDidMount() {},
+	    handleClickGoQX: function handleClickGoQX() {
+	        this.props.history.push('/SearchResultDetail?companyName=' + this.props.companyData);
+	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	        if (nextProps.companyData == "") {
 	            return;
@@ -67668,6 +67683,11 @@
 	                    'span',
 	                    { className: 'title' },
 	                    '基本信息'
+	                ),
+	                _react2.default.createElement(
+	                    'span',
+	                    { className: 'checkAll', onClick: this.handleClickGoQX },
+	                    '全系信息'
 	                )
 	            ),
 	            _react2.default.createElement(
@@ -67852,7 +67872,7 @@
 
 
 	// module
-	exports.push([module.id, ".p2p-portrait {\r\n}\r\n\r\n.p2p-portrait .portrait-left {\r\n\twidth: 45%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right {\r\n\twidth: 54.5%;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom {\r\n\twidth: 100%;\r\n\tmargin-top: 0.5%\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t {\r\n\twidth: 100%;\r\n\theight: 180px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m {\r\n\twidth: 100%;\r\n\theight: 275px;\r\n\tmargin: 1.5% 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-b {\r\n\twidth: 100%;\r\n\theight: 815px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t {\r\n\twidth: 100%;\r\n\theight: 464px\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b {\r\n\twidth: 100%;\r\n\theight: 815px;\r\n\tmargin-top: 1.4%;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l {\r\n\twidth: 24%;\r\n\theight: 255px;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-r {\r\n\twidth: 75.5%;\r\n\theight: 255px;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%;\r\n}\r\n\r\n.p2p-portrait  .compangMsg-log {\r\n\twidth: 90px;\r\n\theight: 90px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tdisplay: table;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul li {\r\n\tdisplay: table-cell;\r\n\tvertical-align: middle;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul span {\r\n\tdisplay: block;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul .score {\r\n\tfont-size: 50px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul .score-title {\r\n\tfont-size: 18px;\r\n\tcolor: #fff\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul .state {\r\n\tfont-size: 24px;\r\n\tcolor: #fff\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .wtyh-table {\r\n\theight: 180px;\r\n\tcolor: #dddddd\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .wtyh-table td {\r\n\tcolor: #dddddd;\r\n\tpadding-left: 15px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .wtyh-table td .word-limit-5 {\r\n\twidth: 200px\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .list-items {\r\n\tpadding: 10px 10px 0px 10px\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content {\r\n\tpadding: 65px 43px 20px 43px\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul {\r\n\tdisplay: table;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n\tpadding-bottom: 20px;\r\n\ttext-align: center;\r\n\tborder-bottom: 1px #00b8ee solid;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul:before {\r\n\tcontent: \"\";\r\n\theight: 50%;\r\n\twidth: 1px;\r\n\tbackground: #00b8ee;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n\tleft: 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul:after {\r\n\tcontent: \"\";\r\n\theight: 50%;\r\n\twidth: 1px;\r\n\tbackground: #00b8ee;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n\tright: 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul li {\r\n\tdisplay: table-cell;\r\n\twidth: 33.3%;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .icon-susong {\r\n\tdisplay: inline-block;\r\n\tfont-size: 60px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .ssong-title {\r\n\tfont-size: 18px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .ssong-num {\r\n\tfont-size: 50px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .content {\r\n\tmargin: 20px;\r\n\theight: 170px;\r\n\tbackground: #212831;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .serial-num {\r\n\twidth: 25px;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\ttext-align: center;\r\n\tbackground: #1a2029;\r\n\tcolor: #fff;\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item a {\r\n\tcolor: #e14340\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item {\r\n\tcolor: #d9d9d9;\r\n\tpadding: 30px 30px 30px 30px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item table {\r\n\twidth: 100%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .item-mark {\r\n\ttext-indent: 30px;\r\n\tline-height: 24px;\r\n\theight: 48px;\t/*\tword-break: break-all;\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tdisplay: -webkit-box;\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t-webkit-line-clamp: 2;\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t-webkit-box-orient: vertical;*/\r\n\toverflow: hidden;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .content_news {\r\n\r\n\t/*height: 48px;*/\r\n\tpadding: 20px 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item  .td2-l {\r\n\twidth: 5%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item  .td2-r {\r\n\twidth: 95%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .marks {\r\n\ttext-align: right;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .soure,\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .time {\r\n\tcolor: #999999\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .time {\r\n\tdisplay: inline-block;\r\n\tmargin-left: 20px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .content {\r\n\tpadding: 15px  50px 0px 50px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t ul.content-ul {\r\n\tdisplay: table;\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t ul.content-ul>li {\r\n\tdisplay: table-cell;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-l {\r\n\twidth: 15%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-c {\r\n\twidth: 53%;\r\n\tmargin-right: 2%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r {\r\n\twidth: 30%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-l .socre-title {\r\n\tfont-size: 30px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-l .score {\r\n\tfont-size: 52px;\r\n\tmargin-top: 40px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r table {\r\n\r\n\t/*text-align: center;*/\r\n\twidth: 100%;\r\n\theight: 380px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r  .score-leida-r-ul li {\r\n\twidth: 48%;\r\n\tfloat: left;\r\n\tpadding: 15px 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r p {\r\n\tfont-size: 32px;\r\n\tcolor: #fdba45\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t  .leida-c-pic {\r\n\theight: 382px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r span {\r\n\tfont-size: 16px;\r\n\tcolor: #dddddd\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .content {\r\n\tpadding: 40px 30px;\r\n\theight: 760px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top {\r\n\theight: 50%;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top table {\r\n\twidth: 100%;\r\n\theight: 90%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-bottom .bottom-line-left {\r\n\twidth: 50%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-bottom .bottom-line-right {\r\n\twidth: 50%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top table  td {\r\n\twidth: 50%;\r\n\tcolor: #dddddd;\r\n\tpadding-left: 30px !important;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top .top-list {\r\n\theight: 100%;\r\n\twidth: 40%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top .top-bar {\r\n\theight: 100%;\r\n\twidth: 55%;\r\n\tfloat: right;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-bottom {\r\n\theight: 50%\r\n}\r\n\r\n.p2p-portrait .relation-legend table {\r\n\twidth: 100%\r\n}\r\n\r\n.p2p-portrait .relation-modal {\r\n\tdisplay: none;\r\n}\r\n\r\n.p2p-portrait .linefin-rel-graph .mod-content .relation-graph-box {\r\n\theight: 640px;\r\n\toverflow: hidden;\r\n}\r\n\r\n.p2p-portrait  .linefin-rel-graph {\r\n\theight: 812px\r\n}\r\n\r\n.p2p-portrait .relation-legend table tr td {\r\n\twidth: 19.8%;\r\n}\r\n\r\n.p2p-portrait .relation-legend {\r\n\tmargin: 35px 10px 15px 10px;\r\n\twidth: auto;\r\n}\r\n\r\n.p2p-portrait  .relation-legend table tr .square,\r\n.p2p-portrait   .relation-legend table tr .round {\r\n\tmargin-right: 5px;\r\n}\r\n\r\n.p2p-portrait  .relation-legend table tr .square {\r\n\twidth: 10px;\r\n\theight: 10px;\r\n}\r\n\r\n.p2p-portrait   .relation-legend table tr .round {\r\n\twidth: 10px;\r\n\theight: 10px;\r\n}\r\n\r\n.p2p-portrait .pic_rank {\r\n\tposition: absolute;\r\n\tz-index: 9999;\r\n\tright: 10px;\r\n\ttop: 74px;\r\n}\r\n\r\n.p2p-portrait .pic_rank span {\r\n\tcolor: #e14340;\r\n\tdisplay: inline-block;\r\n\twidth: 25px;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tbackground: #000;\r\n\tborder: 1px #3b424c solid;\r\n\tmargin-left: 10px;\r\n\tcursor: pointer;\r\n\ttext-align: center;\r\n\tfont-weight: bold;\r\n}\r\n\r\n#dyMapMain,\r\n#dyMap {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}", ""]);
+	exports.push([module.id, ".p2p-portrait {\r\n}\r\n\r\n.p2p-portrait .portrait-left {\r\n\twidth: 45%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right {\r\n\twidth: 54.5%;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom {\r\n\twidth: 100%;\r\n\tmargin-top: 0.5%\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t {\r\n\twidth: 100%;\r\n\theight: 180px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m {\r\n\twidth: 100%;\r\n\theight: 271px;\r\n\tmargin: 1.5% 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-b {\r\n\twidth: 100%;\r\n\theight: 815px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t {\r\n\twidth: 100%;\r\n\theight: 464px\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b {\r\n\twidth: 100%;\r\n\theight: 815px;\r\n\tmargin-top: 1.4%;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l {\r\n\twidth: 24%;\r\n\theight: 255px;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-r {\r\n\twidth: 75.5%;\r\n\theight: 255px;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%;\r\n}\r\n\r\n.p2p-portrait  .compangMsg-log {\r\n\twidth: 90px;\r\n\theight: 90px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tdisplay: table;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul li {\r\n\tdisplay: table-cell;\r\n\tvertical-align: middle;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul span {\r\n\tdisplay: block;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul .score {\r\n\tfont-size: 50px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul .score-title {\r\n\tfont-size: 18px;\r\n\tcolor: #fff\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-t ul .state {\r\n\tfont-size: 24px;\r\n\tcolor: #fff\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .wtyh-table {\r\n\theight: 180px;\r\n\tcolor: #dddddd\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .wtyh-table td {\r\n\tcolor: #dddddd;\r\n\tpadding-left: 15px;\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .wtyh-table td .word-limit-5 {\r\n\twidth: 200px\r\n}\r\n\r\n.p2p-portrait .portrait-left .left-m .list-items {\r\n\tpadding: 10px 10px 0px 10px\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content {\r\n\tpadding: 65px 43px 20px 43px\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul {\r\n\tdisplay: table;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n\tpadding-bottom: 20px;\r\n\ttext-align: center;\r\n\tborder-bottom: 1px #00b8ee solid;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul:before {\r\n\tcontent: \"\";\r\n\theight: 50%;\r\n\twidth: 1px;\r\n\tbackground: #00b8ee;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n\tleft: 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul:after {\r\n\tcontent: \"\";\r\n\theight: 50%;\r\n\twidth: 1px;\r\n\tbackground: #00b8ee;\r\n\tposition: absolute;\r\n\tbottom: 0px;\r\n\tright: 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .content ul li {\r\n\tdisplay: table-cell;\r\n\twidth: 33.3%;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .icon-susong {\r\n\tdisplay: inline-block;\r\n\tfont-size: 60px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .ssong-title {\r\n\tfont-size: 18px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom .bottom-l .ssong-num {\r\n\tfont-size: 50px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .content {\r\n\tmargin: 20px;\r\n\theight: 170px;\r\n\tbackground: #212831;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .serial-num {\r\n\twidth: 25px;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\ttext-align: center;\r\n\tbackground: #1a2029;\r\n\tcolor: #fff;\r\n\tdisplay: inline-block;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item a {\r\n\tcolor: #e14340\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item {\r\n\tcolor: #d9d9d9;\r\n\tpadding: 30px 30px 30px 30px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item table {\r\n\twidth: 100%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .item-mark {\r\n\ttext-indent: 30px;\r\n\tline-height: 24px;\r\n\theight: 48px;\t/*\tword-break: break-all;\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tdisplay: -webkit-box;\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t-webkit-line-clamp: 2;\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t-webkit-box-orient: vertical;*/\r\n\toverflow: hidden;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .content_news {\r\n\r\n\t/*height: 48px;*/\r\n\tpadding: 20px 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item  .td2-l {\r\n\twidth: 5%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item  .td2-r {\r\n\twidth: 95%\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .marks {\r\n\ttext-align: right;\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .soure,\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .time {\r\n\tcolor: #999999\r\n}\r\n\r\n.p2p-portrait .portrait-bottom  .bottom-r .list-item .time {\r\n\tdisplay: inline-block;\r\n\tmargin-left: 20px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .content {\r\n\tpadding: 15px  50px 0px 50px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t ul.content-ul {\r\n\tdisplay: table;\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t ul.content-ul>li {\r\n\tdisplay: table-cell;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-l {\r\n\twidth: 15%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-c {\r\n\twidth: 53%;\r\n\tmargin-right: 2%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r {\r\n\twidth: 30%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-l .socre-title {\r\n\tfont-size: 30px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-l .score {\r\n\tfont-size: 52px;\r\n\tmargin-top: 40px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r table {\r\n\r\n\t/*text-align: center;*/\r\n\twidth: 100%;\r\n\theight: 380px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r  .score-leida-r-ul li {\r\n\twidth: 48%;\r\n\tfloat: left;\r\n\tpadding: 15px 0px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r p {\r\n\tfont-size: 32px;\r\n\tcolor: #fdba45\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t  .leida-c-pic {\r\n\theight: 382px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-t .score-leida-r span {\r\n\tfont-size: 16px;\r\n\tcolor: #dddddd\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .content {\r\n\tpadding: 40px 30px;\r\n\theight: 760px;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top {\r\n\theight: 50%;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top table {\r\n\twidth: 100%;\r\n\theight: 90%\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-bottom .bottom-line-left {\r\n\twidth: 50%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-bottom .bottom-line-right {\r\n\twidth: 50%;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top table  td {\r\n\twidth: 50%;\r\n\tcolor: #dddddd;\r\n\tpadding-left: 30px !important;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top .top-list {\r\n\theight: 100%;\r\n\twidth: 40%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-top .top-bar {\r\n\theight: 100%;\r\n\twidth: 55%;\r\n\tfloat: right;\r\n}\r\n\r\n.p2p-portrait .portrait-right .right-b .core-bottom {\r\n\theight: 50%\r\n}\r\n\r\n.p2p-portrait .relation-legend table {\r\n\twidth: 100%\r\n}\r\n\r\n.p2p-portrait .relation-modal {\r\n\tdisplay: none;\r\n}\r\n\r\n.p2p-portrait .linefin-rel-graph .mod-content .relation-graph-box {\r\n\theight: 640px;\r\n\toverflow: hidden;\r\n}\r\n\r\n.p2p-portrait  .linefin-rel-graph {\r\n\theight: 812px\r\n}\r\n\r\n.p2p-portrait .relation-legend table tr td {\r\n\twidth: 19.8%;\r\n}\r\n\r\n.p2p-portrait .relation-legend {\r\n\tmargin: 35px 10px 15px 10px;\r\n\twidth: auto;\r\n}\r\n\r\n.p2p-portrait  .relation-legend table tr .square,\r\n.p2p-portrait   .relation-legend table tr .round {\r\n\tmargin-right: 5px;\r\n}\r\n\r\n.p2p-portrait  .relation-legend table tr .square {\r\n\twidth: 10px;\r\n\theight: 10px;\r\n}\r\n\r\n.p2p-portrait   .relation-legend table tr .round {\r\n\twidth: 10px;\r\n\theight: 10px;\r\n}\r\n\r\n.p2p-portrait .pic_rank {\r\n\tposition: absolute;\r\n\tz-index: 9999;\r\n\tright: 10px;\r\n\ttop: 74px;\r\n}\r\n\r\n.p2p-portrait .pic_rank span {\r\n\tcolor: #e14340;\r\n\tdisplay: inline-block;\r\n\twidth: 25px;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tbackground: #000;\r\n\tborder: 1px #3b424c solid;\r\n\tmargin-left: 10px;\r\n\tcursor: pointer;\r\n\ttext-align: center;\r\n\tfont-weight: bold;\r\n}\r\n\r\n#dyMapMain,\r\n#dyMap {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n.p2p-portrait .checkAll {\r\n\tcolor: #fff;\t/*font-size: 20px;*/\r\n\ttext-align: center;\t/*padding: 5px 10px;*/\r\n\theight: 30px;\r\n\twidth: 75px;\r\n\tline-height: 30px;\r\n\tbackground: #999;\r\n\tborder-radius: 3px;\r\n\tdisplay: inline-block;\r\n\tfloat: right;\r\n\tmargin: 10px 10px 0px 00px;\r\n\tcursor: pointer;\r\n\tfilter: alpha(opacity=100 finishopacity=50 style=1 startx=0, starty=0, finishx=0, finishy=150) progid:DXImageTransform.Microsoft.gradient(startcolorstr=#eb4845, endcolorstr=#b43230, gradientType=0);\r\n\t-ms-filter: alpha(opacity=100 finishopacity=50 style=1 startx=0, starty=0, finishx=0, finishy=150) progid:DXImageTransform.Microsoft.gradient(startcolorstr=#eb4845, endcolorstr=#b43230, gradientType=0);/*IE8*/\r\n\tbackground: #eb4845; /* 一些不支持背景渐变的浏览器 */\r\n\tbackground: -moz-linear-gradient(top, #eb4845, rgba(180, 50, 48, 1));\r\n\tbackground: -webkit-gradient(linear, 0 0, 0 bottom, from(#eb4845), to(rgba(180, 50, 48, 1)));\r\n\tbackground: -o-linear-gradient(top, red, rgba(180, 50, 48, 1));\r\n}", ""]);
 
 	// exports
 
@@ -72323,7 +72343,7 @@
 
 
 	// module
-	exports.push([module.id, ".tradingPlaces-index .left-bottom .mod-content,\r\n.tradingPlaces-index .right-bottom .mod-content {\r\n\tpadding: 20px 20px 0px 20px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom,\r\n.tradingPlaces-index .right-bottom {\r\n\tpadding: 0px 0px 50px 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mod-content .table-title th,\r\n.tradingPlaces-index .right-bottom .mod-content .table-title th {\r\n\theight: 50px;\r\n\tpadding: 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .table-content,\r\n.tradingPlaces-index .right-bottom .table-content {\r\n\theight: 540px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .table-content .word-limit-5,\r\n.tradingPlaces-index .right-bottom .table-content .word-limit-5 {\r\n\twidth: 100px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mt-table,\r\n.tradingPlaces-index .right-bottom  .mt-table {\r\n\tmargin: 0px 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .table-content table td,\r\n.tradingPlaces-index .right-bottom .table-content table td {\r\n\r\n\t/*height: 100%;*/\r\n\tpadding: 15px 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mt-table-center th,\r\n.tradingPlaces-index .right-bottom .mt-table-center th {\r\n\ttext-align: left;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mt-table td,\r\n.tradingPlaces-index .right-bottom .mt-table td {\r\n\ttext-align: left;\r\n}\r\n\r\n.tradingPlaces-index .checkAll {\r\n\tcolor: #fff;\t/*font-size: 20px;*/\r\n\ttext-align: center;\r\n\tpadding: 5px 10px;\r\n\tbackground: #999;\r\n\tborder-radius: 3px;\r\n\tdisplay: inline-block;\r\n\tmargin: 5px 0px 0px 10px;\r\n\tcursor: pointer;\r\n}", ""]);
+	exports.push([module.id, ".tradingPlaces-index .left-bottom .mod-content,\r\n.tradingPlaces-index .right-bottom .mod-content {\r\n\tpadding: 20px 20px 0px 20px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom,\r\n.tradingPlaces-index .right-bottom {\r\n\tpadding: 0px 0px 50px 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mod-content .table-title th,\r\n.tradingPlaces-index .right-bottom .mod-content .table-title th {\r\n\theight: 50px;\r\n\tpadding: 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .table-content,\r\n.tradingPlaces-index .right-bottom .table-content {\r\n\theight: 540px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .table-content .word-limit-5,\r\n.tradingPlaces-index .right-bottom .table-content .word-limit-5 {\r\n\twidth: 100px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mt-table,\r\n.tradingPlaces-index .right-bottom  .mt-table {\r\n\tmargin: 0px 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .table-content table td,\r\n.tradingPlaces-index .right-bottom .table-content table td {\r\n\r\n\t/*height: 100%;*/\r\n\tpadding: 15px 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mt-table-center th,\r\n.tradingPlaces-index .right-bottom .mt-table-center th {\r\n\ttext-align: left;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mt-table td,\r\n.tradingPlaces-index .right-bottom .mt-table td {\r\n\ttext-align: left;\r\n}\r\n\r\n.tradingPlaces-index .checkAll {\r\n\tcolor: #fff;\t/*font-size: 20px;*/\r\n\ttext-align: center;\r\n\tpadding: 5px 10px;\r\n\tbackground: #999;\r\n\tborder-radius: 3px;\r\n\tdisplay: inline-block;\r\n\tmargin: 8px 0px 0px 10px;\r\n\tcursor: pointer;\r\n\tfilter: alpha(opacity=100 finishopacity=50 style=1 startx=0, starty=0, finishx=0, finishy=150) progid:DXImageTransform.Microsoft.gradient(startcolorstr=#eb4845, endcolorstr=#b43230, gradientType=0);\r\n\t-ms-filter: alpha(opacity=100 finishopacity=50 style=1 startx=0, starty=0, finishx=0, finishy=150) progid:DXImageTransform.Microsoft.gradient(startcolorstr=#eb4845, endcolorstr=#b43230, gradientType=0);/*IE8*/\r\n\tbackground: #eb4845; /* 一些不支持背景渐变的浏览器 */\r\n\tbackground: -moz-linear-gradient(top, #eb4845, rgba(180, 50, 48, 1));\r\n\tbackground: -webkit-gradient(linear, 0 0, 0 bottom, from(#eb4845), to(rgba(180, 50, 48, 1)));\r\n\tbackground: -o-linear-gradient(top, red, rgba(180, 50, 48, 1));\r\n}", ""]);
 
 	// exports
 
@@ -73303,7 +73323,7 @@
 
 
 	// module
-	exports.push([module.id, ".FinanceLeaseBottom{\r\n\twidth: 99%;\r\n\theight: 500px;\r\n\tmargin: 0 auto;\r\n}\r\n.FinanceLeaseBottom .left{\r\n\twidth: 50%;\r\n\theight: 500px;\r\n\tfloat: left;\r\n\tpadding: 0px 10px 10px 0px;\r\n}\r\n.FinanceLeaseBottom .right{\r\n\twidth: 50%;\r\n\theight: 500px;\r\n\tfloat: right;\r\n}\r\n.FinanceLeaseTop{\r\n\twidth: 99%;\r\n\theight: 960px;\r\n\tmargin: 5px auto;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\toverflow: auto;\r\n}", ""]);
+	exports.push([module.id, ".FinanceLeaseBottom {\r\n\twidth: 99%;\r\n\theight: 500px;\r\n\tmargin: 0 auto;\r\n}\r\n\r\n.FinanceLeaseBottom .left {\r\n\twidth: 50%;\r\n\theight: 500px;\r\n\tfloat: left;\r\n\tpadding: 0px 10px 10px 0px;\r\n}\r\n\r\n.FinanceLeaseBottom .right {\r\n\twidth: 50%;\r\n\theight: 500px;\r\n\tfloat: right;\r\n}\r\n\r\n.FinanceLeaseTop {\r\n\twidth: 99%;\t/*height: 960px;*/\r\n\tmargin: 5px auto;\r\n\tpadding: 10px 0px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n\toverflow: auto;\r\n}", ""]);
 
 	// exports
 
@@ -73697,7 +73717,7 @@
 
 
 	// module
-	exports.push([module.id, "/*@parkMonitor jifei  上海市融资租聘企业数\r\n---------------------------------------------------------*/\r\n.Lease {\r\n\twidth: 100%;\r\n\theight: 495px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n}\r\n/*@parkMonitor jifei  上海市自贸区融资租聘企业占比对比\r\n---------------------------------------------------------*/\r\n.ContrastLeft {\r\n\twidth: 50%;\r\n\theight: 495px;\r\n\tbackground: #2b323c;\r\n\tfloat: left;\r\n\tposition: relative;\r\n\tborder-radius: 3px 0px 0px 3px;\r\n}\r\n\r\n.ContrastLeft .select {\r\n\tposition: absolute;\r\n\ttop: 23%;\r\n\tleft: 40%;\r\n}\r\n\r\n.ContrastRight .select {\r\n\tposition: absolute;\r\n\tleft: 45%;\r\n}\r\n\r\n.ContrastLeft .select .mt-select {\r\n\tborder: none;\r\n\tbackground: #959aa0;\r\n}\r\n\r\n.ContrastLeft .select .mt-select .iconfont {\r\n\tcolor: #fff;\r\n}\r\n\r\n.ContrastLeft .select .mt-select .mt-select-box {\r\n\tborder: none;\r\n\tbackground: rgba(43, 50, 60, 0.9) none repeat scroll 0 0;\r\n\tborder-radius: 3px;\r\n}\r\n\r\n.ContrastRight {\r\n\twidth: 50%;\r\n\theight: 495px;\r\n\tbackground: #2b323c;\r\n\tfloat: right;\r\n\tborder-radius: 0px 3px 3px 0px;\r\n}\r\n/*@parkMonitor jifei  上海市融资租赁企业目录\r\n---------------------------------------------------------*/\r\n.Catalog .right {\r\n\tfloat: right;\r\n\tpadding: 10px 10px;\r\n}\r\n\r\n.Catalog .right .mt-select {\r\n\tbackground: #565a63;\r\n\tborder: none;\r\n\tz-index: 100;\r\n}\r\n\r\n.Catalog .right .mt-select .mt-select-box {\r\n\tborder: none;\r\n\tleft: 0;\r\n\tright: 0;\r\n\tborder-radius: 2px;\r\n}\r\n\r\n.Catalog .right .mt-select .mt-select-box {\r\n\tbackground: #565a63;\r\n}\r\n\r\n.Catalog .right em {\r\n\tcolor: #979b9e;\r\n\tmargin-right: 10px;\r\n}\r\n\r\n.Catalog .tabs {\r\n\tmargin: 10px auto;\r\n}\r\n\r\n.Catalog .total {\r\n\tvertical-align: sub;\r\n\tpadding-left: 5%;\r\n}\r\n\r\n.Catalog .total em {\r\n\tcolor: #f83c33;\r\n}\r\n\r\n.Catalog .tabs table {\r\n\twidth: 100%;\r\n}\r\n\r\n.Catalog .tabs table tr th .mt-select {\r\n\tborder: none;\r\n\tbackground: none;\r\n\tmargin-top: 3px;\r\n\tpadding: 0;\r\n\tfont-size: 12px;\r\n}\r\n\r\n.Catalog .tabs table tr th .mt-select .mt-select-title {\r\n\tcolor: #999ca1;\r\n\twidth: 40px;\r\n}\r\n\r\n.Catalog .tabs table tr th .mt-select .iconfont {\r\n\tright: 6px;\r\n}\r\n\r\n.Catalog .tabs table tr th .mt-select .mt-select-box {\r\n\tborder: none;\r\n\tbackground: rgba(43, 50, 60, 0.5) none repeat scroll 0 0;\r\n\tborder-radius: 3px;\r\n}\r\n\r\n.Catalog .qzfx-th {\r\n\theight: 40px;\r\n}\r\n\r\n.Catalog .tabs .box {\r\n\theight: 800px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.Catalog .border-r {\r\n\tborder-right: 1px solid #4b5058;\r\n}\r\n\r\n.Catalog  .ps-container  table td {\r\n\tpadding: 15px 0px;\r\n\ttext-align: center;\r\n}\r\n\r\n.Catalog .wtyh-table tbody td .word-limit-5 {\r\n\twidth: 200px;\r\n}\r\n\r\n.Catalog .tabs .box table tr td .Green {\r\n\tcolor: #38ff8f;\r\n}\r\n\r\n.Catalog .tabs .box table tr td .Yellow {\r\n\tcolor: #fa9705;\r\n}\r\n\r\n.FinanceLeaseTop .mt-select .mt-select-title .placeholder {\r\n\tcolor: #dddddd;\r\n}\r\n\r\n.ContrastLeft .mt-select .mt-select-title .placeholder {\r\n\tcolor: #fff;\r\n}\r\n\r\n.ContrastRight .mt-select .mt-select-title .placeholder {\r\n\tcolor: #fff;\r\n}", ""]);
+	exports.push([module.id, "/*@parkMonitor jifei  上海市融资租聘企业数\r\n---------------------------------------------------------*/\r\n.Lease {\r\n\twidth: 100%;\r\n\theight: 495px;\r\n\tbackground: #2b323c;\r\n\tborder-radius: 3px;\r\n}\r\n\r\n/*@parkMonitor jifei  上海市自贸区融资租聘企业占比对比\r\n---------------------------------------------------------*/\r\n.ContrastLeft {\r\n\twidth: 50%;\r\n\theight: 495px;\r\n\tbackground: #2b323c;\r\n\tfloat: left;\r\n\tposition: relative;\r\n\tborder-radius: 3px 0px 0px 3px;\r\n}\r\n\r\n.ContrastLeft .select {\r\n\tposition: absolute;\r\n\ttop: 23%;\r\n\tleft: 40%;\r\n}\r\n\r\n.ContrastRight .select {\r\n\tposition: absolute;\r\n\tleft: 45%;\r\n}\r\n\r\n.ContrastLeft .select .mt-select {\r\n\tborder: none;\r\n\tbackground: #959aa0;\r\n}\r\n\r\n.ContrastLeft .select .mt-select .iconfont {\r\n\tcolor: #fff;\r\n}\r\n\r\n.ContrastLeft .select .mt-select .mt-select-box {\r\n\tborder: none;\r\n\tbackground: rgba(43, 50, 60, 0.9) none repeat scroll 0 0;\r\n\tborder-radius: 3px;\r\n}\r\n\r\n.ContrastRight {\r\n\twidth: 50%;\r\n\theight: 495px;\r\n\tbackground: #2b323c;\r\n\tfloat: right;\r\n\tborder-radius: 0px 3px 3px 0px;\r\n}\r\n\r\n/*@parkMonitor jifei  上海市融资租赁企业目录\r\n---------------------------------------------------------*/\r\n.Catalog .right {\r\n\tfloat: right;\r\n\tpadding: 10px 10px;\r\n}\r\n\r\n.Catalog .right .mt-select {\r\n\tbackground: #565a63;\r\n\tborder: none;\r\n\tz-index: 100;\r\n}\r\n\r\n.Catalog .right .mt-select .mt-select-box {\r\n\tborder: none;\r\n\tleft: 0;\r\n\tright: 0;\r\n\tborder-radius: 2px;\r\n}\r\n\r\n.Catalog .right .mt-select .mt-select-box {\r\n\tbackground: #565a63;\r\n}\r\n\r\n.Catalog .right em {\r\n\tcolor: #979b9e;\r\n\tmargin-right: 10px;\r\n}\r\n\r\n.Catalog .tabs {\r\n\tmargin: 10px auto;\r\n}\r\n\r\n.Catalog .total {\r\n\tvertical-align: sub;\r\n\tpadding-left: 5%;\r\n}\r\n\r\n.Catalog .total em {\r\n\tcolor: #f83c33;\r\n}\r\n\r\n.Catalog .tabs table {\r\n\twidth: 100%;\r\n}\r\n\r\n.Catalog .tabs table tr th .mt-select {\r\n\tborder: none;\r\n\tbackground: none;\r\n\tmargin-top: 3px;\r\n\tpadding: 0;\r\n\tfont-size: 12px;\r\n}\r\n\r\n.Catalog .tabs table tr th .mt-select .mt-select-title {\r\n\tcolor: #999ca1;\r\n\twidth: 40px;\r\n}\r\n\r\n.Catalog .tabs table tr th .mt-select .iconfont {\r\n\tright: 6px;\r\n}\r\n\r\n.Catalog .tabs table tr th .mt-select .mt-select-box {\r\n\tborder: none;\r\n\tbackground: rgba(43, 50, 60, 0.5) none repeat scroll 0 0;\r\n\tborder-radius: 3px;\r\n}\r\n\r\n.Catalog .qzfx-th {\r\n\theight: 40px;\r\n}\r\n\r\n.Catalog .tabs .box {\r\n\theight: 326px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.Catalog .border-r {\r\n\tborder-right: 1px solid #4b5058;\r\n}\r\n\r\n.Catalog  .ps-container  table td {\r\n\tpadding: 15px 0px;\r\n\ttext-align: center;\r\n}\r\n\r\n.Catalog .wtyh-table tbody td .word-limit-5 {\r\n\twidth: 200px;\r\n}\r\n\r\n.Catalog .tabs .box table tr td .Green {\r\n\tcolor: #38ff8f;\r\n}\r\n\r\n.Catalog .tabs .box table tr td .Yellow {\r\n\tcolor: #fa9705;\r\n}\r\n\r\n.FinanceLeaseTop .mt-select .mt-select-title .placeholder {\r\n\tcolor: #dddddd;\r\n}\r\n\r\n.ContrastLeft .mt-select .mt-select-title .placeholder {\r\n\tcolor: #fff;\r\n}\r\n\r\n.ContrastRight .mt-select .mt-select-title .placeholder {\r\n\tcolor: #fff;\r\n}", ""]);
 
 	// exports
 
@@ -78350,10 +78370,17 @@
 
 	        $('.risk-list').find('tr').removeClass('active');
 	    },
-	    handleBuildRisk: function handleBuildRisk(e) {
-	        console.log(e);
-	        // var companyType=$(e.target).data('type');
-	        // console.log(companyType)
+	    handleBuildRisk: function handleBuildRisk(companyType, companyName, e) {
+	        console.log(companyType, companyName);
+	        if (companyType == 1) {
+	            //p2p
+	            this.props.history.pushState(null, '/P2P?platName=' + companyName);
+	        } else if (companyType == 4) {
+	            //线下理财
+	            this.props.history.pushState(null, '/lineFinanceStaticRisk?companyName=' + companyName);
+	        } else {
+	            this.props.history.pushState(null, '/SearchResultDetail?companyName=' + companyName);
+	        }
 	    },
 	    render: function render() {
 	        return _react2.default.createElement(
@@ -78490,6 +78517,7 @@
 	                                'tbody',
 	                                null,
 	                                this.state.showBuildRisk.map(function (elem, index) {
+	                                    console.log(elem.companyType, 'xuyao');
 	                                    return _react2.default.createElement(
 	                                        'tr',
 	                                        null,
@@ -78498,7 +78526,7 @@
 	                                            null,
 	                                            _react2.default.createElement(
 	                                                'span',
-	                                                { ctype: elem.companyType, onClick: this.handleBuildRisk() },
+	                                                { 'data-type': elem.companyType, onClick: this.handleBuildRisk.bind(this, elem.companyType, elem.name) },
 	                                                elem.name
 	                                            )
 	                                        )
