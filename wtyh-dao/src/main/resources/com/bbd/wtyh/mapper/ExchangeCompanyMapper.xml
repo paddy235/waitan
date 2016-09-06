@@ -33,31 +33,34 @@
 		SELECT
 			c.`name` as name,
 			ec.approve_department as approveDepartment ,
-			ec.supervise_department superviseDepartment,
-			c.legal_person legalPerson
+			ec.supervise_department as superviseDepartment,
+			c.legal_person as legalPerson,
+			ec.website as website
 		FROM
 			exchange_company ec
 		LEFT JOIN company c ON ec.company_id = c.company_id
 		<where>
+			1=1
 			<if test="status > 0">
-				ec.`status` = #{status}
+				and ec.`status` = #{status}
 			</if>
 		</where>
 	</select>
 
-	<select id="queryExchangeCompanyListByAreaId" parameterType="java.util.Map" resultType="com.bbd.wtyh.domain.CompanyDO">
+	<select id="queryExchangeCompanyListByAreaId" parameterType="java.util.Map" resultType="com.bbd.wtyh.domain.vo.ExchangeCompanyVO">
 		SELECT
 			c.`name`,
 			c.address,
 			c.registered_capital as registeredCapital,
-			c.registered_date as registeredDate
+			c.registered_date as registeredDate,
+			ec.website as website
 		FROM
 			exchange_company ec
 		LEFT JOIN company c ON ec.company_id = c.company_id
 		LEFT JOIN area a ON c.area_id = a.area_id
 		WHERE
 			1=1
-		<if test="areaName != null and areaName != '' and areaName != '全部'">
+		<if test="areaName != null and areaName != ''">
 			and a.name = #{areaName}
 		</if>
 		<if test="orderName == 'registeredCapital'">
