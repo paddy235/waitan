@@ -211,7 +211,7 @@
         <if test="normal_flag == false">
             ORDER BY static_risk_index DESC
         </if>
-        LIMIT 0, 200
+        LIMIT 0, 400
     </select>
 
     <select id="queryDateVersion" resultType="java.lang.String" parameterType="java.util.HashMap">
