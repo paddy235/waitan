@@ -2,6 +2,7 @@ package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.CompanyDO;
+import com.bbd.wtyh.domain.dto.RelatedCompanyDTO;
 import com.bbd.wtyh.domain.dto.ShareholderRiskDTO;
 import com.bbd.wtyh.mapper.RelatedCompanyMapper;
 import com.bbd.wtyh.redis.RedisDAO;
@@ -113,10 +114,10 @@ public class ShareholderRiskServiceImpl implements ShareholderRiskService {
     }
 
     @Override
-    public Multimap<Integer, String> getRelatedCompany(Integer companyId) {
+    public Multimap<Integer, RelatedCompanyDTO> getRelatedCompany(Integer companyId) {
 
         try {
-            Multimap<Integer, String> relatedCompanyMap = ArrayListMultimap.create();
+            Multimap<Integer, RelatedCompanyDTO> relatedCompanyMap = ArrayListMultimap.create();
             Map<String, List> relationMap = relatedCompanyService.queryRelation(companyService.getNameById(companyId), dataVersion, 1);
             List<PointVO> pointList = relationMap.get("pointList");
             for (PointVO pointVO : pointList) {
@@ -128,7 +129,7 @@ public class ShareholderRiskServiceImpl implements ShareholderRiskService {
                     continue;
                 }
                 if (relatedCompanyTypes.contains(relatedCompany.getCompanyType().intValue())) {
-                    relatedCompanyMap.put(relatedCompany.getCompanyType().intValue(), relatedCompany.getName());
+                    relatedCompanyMap.put(relatedCompany.getCompanyType().intValue(), new RelatedCompanyDTO(relatedCompany.getName(), relatedCompany.getRiskLevel()));
                 }
             }
             return relatedCompanyMap;
