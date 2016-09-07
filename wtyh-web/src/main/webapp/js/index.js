@@ -50499,14 +50499,16 @@
 	    var regCapCheck = this.state.regCapCheck;
 	    var durTimCheck = this.state.durTimCheck;
 	    var comBgCheck = this.state.comBgCheck;
+	    var risk = this.state.riskCheck;
 
 	    var area = this.state.areaCheck;
-	    var risk = this.state.riskCheck;
+
 	    var minRegCapital = "";
 	    var maxRegCapital = "";
 	    var companyQualification = "";
 	    var minReviewTime = "";
 	    var maxReviewTime = "";
+	    var riskLevel = "";
 
 	    if (regCapCheck == "10-50万元") {
 	      minRegCapital = 10;
@@ -50542,13 +50544,23 @@
 	      companyQualification = 1;
 	    }
 
+	    if (risk == "已出风险") {
+	      riskLevel = "1";
+	    } else if (risk == "重点关注") {
+	      riskLevel = "2";
+	    } else if (risk == "一般关注") {
+	      riskLevel = "3";
+	    } else if (risk == "正常") {
+	      riskLevel = "4";
+	    }
+
 	    var parm = { area: area,
 	      minRegCapital: minRegCapital,
 	      maxRegCapital: maxRegCapital,
 	      minReviewTime: minReviewTime,
 	      maxReviewTime: maxReviewTime,
 	      companyQualification: companyQualification,
-	      risk: risk
+	      riskLevel: riskLevel
 	    };
 
 	    this.setState({ parm: parm });
@@ -51435,7 +51447,7 @@
 	            this.setState({ parm: parm });
 	            var jsonData = {
 	                area: parm.area,
-	                //risk:parm.risk,
+	                riskLevel: parm.riskLevel,
 	                minRegCapital: parm.minRegCapital,
 	                maxRegCapital: parm.maxRegCapital,
 	                minReviewTime: parm.minReviewTime,
@@ -51485,7 +51497,7 @@
 	        if (parm) {
 	            jsonData = {
 	                area: parm.area,
-	                //risk:parm.risk,
+	                riskLevel: parm.riskLevel,
 	                minRegCapital: parm.minRegCapital,
 	                maxRegCapital: parm.maxRegCapital,
 	                minReviewTime: parm.minReviewTime,
@@ -51519,7 +51531,7 @@
 	                if (parm) {
 	                    var jsonData = {
 	                        area: parm.area,
-	                        //risk:parm.risk,
+	                        riskLevel: parm.riskLevel,
 	                        minRegCapital: parm.minRegCapital,
 	                        maxRegCapital: parm.maxRegCapital,
 	                        minReviewTime: parm.minReviewTime,
