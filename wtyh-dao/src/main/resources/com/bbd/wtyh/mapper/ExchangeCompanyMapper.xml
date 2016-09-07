@@ -53,7 +53,8 @@
 			c.address,
 			c.registered_capital as registeredCapital,
 			c.registered_date as registeredDate,
-			ec.website as website
+			ec.website as website,
+			c.risk_level AS riskLevel
 		FROM
 			exchange_company ec
 		LEFT JOIN company c ON ec.company_id = c.company_id

@@ -21,7 +21,16 @@ public class PlatRankDataDTO {
 	
 	private double stay_still_of_total;
 
-	
+	private String plat_status;
+
+	public String getPlat_status() {
+		return plat_status;
+	}
+
+	public void setPlat_status(String plat_status) {
+		this.plat_status = plat_status;
+	}
+
 	public int getRank() {
 		return rank;
 	}
