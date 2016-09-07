@@ -191,7 +191,7 @@ public class MockSerserController {
             dto.setLoan_period(k * 5);
             dto.setPlat_name(new String[]{"国酷小宝","角分在线","金扣理财","金票银贷","金砖财行","君掌柜","伦取贷","秒车贷"}[k-1]);
             dto.setRank(k);
-            dto.setStay_still_of_total(k * 90000);
+//            dto.setStay_still_of_total(k * 90000);
             list.add(dto);
         }
 

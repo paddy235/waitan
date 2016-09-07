@@ -238,7 +238,7 @@
           AND data_version LIKE CONCAT('%',#{dataVersionString},'%' )
     </select>
 
-    <select id="queryStaticsRiskIndex" parameterType="java.lang.String" resultType="java.lang.Float">
+    <select id="queryStaticsRiskIndex" parameterType="java.lang.String" resultType="Float">
         SELECT
         static_risk_index
         FROM

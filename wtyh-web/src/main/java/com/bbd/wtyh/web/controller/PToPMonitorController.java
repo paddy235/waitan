@@ -122,7 +122,7 @@ public class PToPMonitorController {
      * @return XAxisSeriesLinesDO<Integer>
      */
     public Map<String, Object> hotMap(List<IndustryShanghaiDTO> list){
-    	
+
     	HashMap<String,Object> map = new HashMap<>();
     	map.put("code", 1);
     	map.put("title", "热力图");
@@ -130,7 +130,7 @@ public class PToPMonitorController {
     		map.put("data", new ArrayList<>());
         	return map;
     	}
-    	
+
     	IndustryShanghaiDTO maxDto = list.get(0);
     	for (IndustryShanghaiDTO dto : list) {
 			if(maxDto.getDate().compareTo(dto.getDate()) < 0){
@@ -374,42 +374,31 @@ public class PToPMonitorController {
      }
      
 
-     
-     
-     
-     /**
-      * 上海网贷平台数据展示
-      *
-      * @return ResponseBean
-     * @throws Exception 
-      */
-     @RequestMapping("/platRankData")
-     @ResponseBody
-     public Object platRankData() throws Exception{
-    	 
-    	 List<PlatRankDataDTO> list = pToPMonitorService.getPlatRankData();
-    	 
-    	 if(CollectionUtils.isEmpty(list)){
-    		 return ResponseBean.successResponse( new ArrayList<>() );
-    	 }
-    	 
-    	 for (PlatRankDataDTO dto : list) {
-    		double total = dto.getStay_still_of_total();
-    		dto.setStay_still_of_total(CalculateUtils.divide(total,100000000,2));
-			dto.setAmount(CalculateUtils.divide(dto.getAmount(),100000000,2));
-		 }
-     	
-     	 return ResponseBean.successResponse( list );
-     	
-     }
-     
+    /**
+     * 上海网贷平台数据展示
+     *
+     * @return ResponseBean
+     * @throws Exception
+     */
+    @RequestMapping("/platRankData")
+    @ResponseBody
+    public Object platRankData() throws Exception {
 
-     
-    
+        List<PlatRankDataDTO> list = pToPMonitorService.getPlatRankData();
 
-     
-     
-     
-     
-	
+        if (CollectionUtils.isEmpty(list)) {
+            return ResponseBean.successResponse(new ArrayList<>());
+        }
+
+        for (PlatRankDataDTO dto : list) {
+            double total = Double.valueOf(dto.getStay_still_of_total().isEmpty() ? "0" : dto.getStay_still_of_total());
+            dto.setStay_still_of_total(String.valueOf(CalculateUtils.divide(total, 100000000, 2)));
+            dto.setAmount(CalculateUtils.divide(dto.getAmount(), 100000000, 2));
+        }
+
+        return ResponseBean.successResponse(list);
+
+    }
+
+
 }
