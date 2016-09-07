@@ -14,10 +14,14 @@ public interface CompanyAnalysisResultMapper {
 
     CompanyAnalysisResultDO selectByPrimaryKey(Integer companyId);
 
+    CompanyAnalysisResultDO findCompanyAnalysisResultByCompanyId(@Param(value = "companyId") Integer companyId);
+
     List<CompanyAnalysisResultDO> queryRiskByBuilding(Integer buildingId);
 
     List<CompanyAnalysisResult> getSpectrumAnalysis(int type);
 
     List<CompanyAnalysisResultDO> shMap(@Param(value = "analysisResult") Integer analysisResult,
                                         @Param(value = "dateVersion")String dateVersion);
+
+
 }

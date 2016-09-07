@@ -85,6 +85,17 @@
    			 
    </select>
 
+    <select id="countAllCompany" resultType="int">
+        select count(*) count from company
+    </select>
+
+    <select id="findByPage" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        select * from company limit #{pagination.begin}, #{pagination.pageSize}
+    </select>
+
+    <update id="updateRiskLevel">
+        update company set risk_level=#{riskLevel} where company_id=#{companyId}
+    </update>
 
 
     <select id="maxVersion" resultType="int">
@@ -266,5 +277,16 @@
     </select>
 
 
+    <select id="getSpectrumAnalysis"  resultType="com.bbd.wtyh.domain.CompanyDO">
+        SELECT
+            company.`name`,
+            company.registered_capital AS registeredCapital,
+            company_analysis_result.exposure_date AS exposureDate
+        FROM
+            company
+        LEFT JOIN company_analysis_result ON company.company_id = company_analysis_result.company_id
+        WHERE
+            risk_level = #{risk_level}
+    </select>
 
 </mapper>

@@ -54,9 +54,9 @@ public interface StaticRiskMapper {
 
     String queryDateVersionByMonth(Map<String, Object> params);
 
-    StaticRiskDataDO queryOne();
-
     Float queryStaticsRiskIndex(String companyName);
 
     Float queryCapitalBgRisk(String companyName);
+
+    StaticRiskDataDO queryStaticsRiskData(String companyName);
 }
