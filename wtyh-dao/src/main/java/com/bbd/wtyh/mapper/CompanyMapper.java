@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.bbd.wtyh.domain.bbdAPI.RecruitPeopleSalaryDO;
 import com.bbd.wtyh.domain.query.CompanyQuery;
 import com.bbd.wtyh.domain.vo.SpectrumVO;
 import org.apache.ibatis.annotations.Param;
@@ -81,4 +82,6 @@ public interface CompanyMapper {
     void updateRiskLevel(
             @Param(value = "riskLevel") Integer riskLevel,
             @Param(value = "companyId") Integer companyId);
+
+    CompanyDO queryCompanyByName(@Param(value = "company")String company);
 }

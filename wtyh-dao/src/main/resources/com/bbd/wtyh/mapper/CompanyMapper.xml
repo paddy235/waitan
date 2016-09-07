@@ -290,4 +290,14 @@
         ORDER BY company_analysis_result.exposure_date DESC
     </select>
 
+    <select id="queryCompanyByName"  resultType="com.bbd.wtyh.domain.CompanyDO">
+        SELECT
+            company.`name`,
+            company.company_type AS companyType
+        FROM
+          company
+        WHERE
+          company.`name` = #{company}
+    </select>
+
 </mapper>
