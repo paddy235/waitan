@@ -49289,19 +49289,27 @@
 	            }
 	        }
 	    },
-	    handleClickLogin: function handleClickLogin() {
-	        var userInput = _reactDom2.default.findDOMNode(this.refs.userInput);
-	        var user = $(userInput).find('input').val();
-	        var passwordInput = _reactDom2.default.findDOMNode(this.refs.passwordInput);
-	        var password = $(passwordInput).find('input').val();
-	        var _props = this.props;
-	        var loginRequest = _props.loginRequest;
-	        var setLoginName = _props.setLoginName;
+	    componentDidMount: function componentDidMount() {
+	        $(".login-submit-btn").click(function () {
+	            var userInput = _reactDom2.default.findDOMNode(this.refs.userInput);
+	            var user = $(userInput).find('input').val();
+	            var passwordInput = _reactDom2.default.findDOMNode(this.refs.passwordInput);
+	            var password = $(passwordInput).find('input').val();
+	            var _props = this.props;
+	            var loginRequest = _props.loginRequest;
+	            var setLoginName = _props.setLoginName;
 
-	        var loginJson = { name: user, password: password };
-	        loginRequest(loginJson);
-	        // setLoginName({LoginName:this.state.LoginName});
+	            var loginJson = { name: user, password: password };
+	            loginRequest(loginJson);
+	        }.bind(this));
+	        document.onkeydown = function (e) {
+	            var ev = document.all ? window.event : e;
+	            if (ev.keyCode == 13) {
+	                $(".login-submit-btn").trigger('click');
+	            }
+	        };
 	    },
+
 	    render: function render() {
 	        return _react2.default.createElement(
 	            'div',
@@ -49329,7 +49337,7 @@
 	                                _react2.default.createElement(
 	                                    'td',
 	                                    null,
-	                                    _react2.default.createElement(_index.Input, { placeholder: '用户名', ref: 'userInput', icon: 'icon-user', iconplace: 'left', type: 'text', validate: v1 })
+	                                    _react2.default.createElement(_index.Input, { placeholder: '用户名', className: 'username', ref: 'userInput', icon: 'icon-user', iconplace: 'left', type: 'text', validate: v1 })
 	                                )
 	                            ),
 	                            _react2.default.createElement(
@@ -49338,7 +49346,7 @@
 	                                _react2.default.createElement(
 	                                    'td',
 	                                    null,
-	                                    _react2.default.createElement(_index.Input, { placeholder: '密码', ref: 'passwordInput', icon: 'icon-password', iconplace: 'left', type: 'password', validate: v2 })
+	                                    _react2.default.createElement(_index.Input, { placeholder: '密码', className: 'password', ref: 'passwordInput', icon: 'icon-password', iconplace: 'left', type: 'password', validate: v2 })
 	                                )
 	                            ),
 	                            _react2.default.createElement(
@@ -49349,7 +49357,7 @@
 	                                    { className: 'login-submit' },
 	                                    _react2.default.createElement(
 	                                        'a',
-	                                        { href: 'javascript:void(0)', className: 'login-submit-btn mt-btn-round-blue', onClick: this.handleClickLogin },
+	                                        { href: 'javascript:void(0)', className: 'login-submit-btn mt-btn-round-blue' },
 	                                        '登 录'
 	                                    )
 	                                )
@@ -59369,8 +59377,10 @@
 
 	        //大额借款公司信息列表
 	        largeGuaraRequest: state.LargeGuara.request,
-	        largeGuaraResult: state.LargeGuara.result
+	        largeGuaraResult: state.LargeGuara.result,
 
+	        //地图点击传值
+	        finGuaMapVal: state.FinGuaMapVal.data
 	    };
 	}
 
@@ -59437,6 +59447,7 @@
 	exports.getFinGuaIndustryRisk = getFinGuaIndustryRisk;
 	exports.getFinGuaIndustryRiskDetail = getFinGuaIndustryRiskDetail;
 	exports.getLargeGuara = getLargeGuara;
+	exports.getMapSwitchVal = getMapSwitchVal;
 	/*
 	  融资担保模块action
 	*/
@@ -59671,6 +59682,17 @@
 	}
 	/*大额被担保人信息列表  end*/
 
+	/*点击地图传值 begin*/
+	var MAP_SWITCH_VAL = exports.MAP_SWITCH_VAL = 'MAP_SWITCH_VAL';
+
+	function getMapSwitchVal(data) {
+	  return {
+	    type: MAP_SWITCH_VAL,
+	    data: data
+	  };
+	}
+	/*点击地图传值 end*/
+
 /***/ },
 /* 693 */
 /***/ function(module, exports, __webpack_require__) {
@@ -59721,6 +59743,12 @@
 	                    console.log(404);
 	                }
 	            }
+	        }
+
+	        var isMapValEqual = Immutable.is(nextProps.finGuaMapVal, this.props.finGuaMapVal); //判断数据是否变化 
+	        if (!isMapValEqual) {
+	            var finGuaMapVal = nextProps.finGuaMapVal;
+	            this.getCompanyGrade(finGuaMapVal);
 	        }
 	    },
 	    orderByField: function orderByField(parm, e) {
@@ -59925,7 +59953,7 @@
 
 
 	// module
-	exports.push([module.id, ".finance-guara-index .mt-table {\r\n\tmargin: 0px !important;\r\n}\r\n\r\n/*企业评级*/\r\n.finance-guara-index .company-grade .mod-content .table-content {\r\n\theight: 530px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n/*担保责任余额结构分布*/\r\n.finance-guara-index .balance-distribute {\r\n\theight: 49.5%;\r\n}\r\n\r\n.finance-guara-index .balance-distribute .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*担保笔均折线图*/\r\n.finance-guara-index .each-average {\r\n\theight: 49.5%;\r\n\tmargin-top: 2%;\r\n}\r\n\r\n.finance-guara-index .each-average .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*地图模块*/\r\n.finance-guara-index .finance-guara-map .map-chart-box {\r\n\theight: 610px;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .finance-guara-map .company-chart-box {\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.finance-guara-index .finance-guara-map .visual-text {\r\n\tposition: absolute;\r\n\tbottom: 26%;\r\n\tright: 3%;\r\n\tz-index: 1000;\r\n\twidth: 14px;\r\n}\r\n\r\n/*贷款余额占比*/\r\n.finance-guara-index .loan-balance .chart-box {\r\n\theight: 300px;\r\n}\r\n\r\n/*股东行业风险*/\r\n.finance-guara-index .industry-risk {\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk .mod-content .table-content {\r\n\theight: 240px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk .mod-content .table-content table td a.more {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*大额借款人信息列表*/\r\n\r\n/*股东风险更多*/\r\n.finance-guara-index .industry-risk-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content {\r\n\r\n\t/*padding: 8px 10px;*/\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content .content-riskMore {\r\n\twidth: 100%;\t/*height: 199px*/\r\n\tdisplay: table;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content ul {\r\n\tdisplay: table-cell;\r\n\twidth: 33.33%;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content ul li {\r\n\tpadding: 15px 5px;\r\n\tfont-size: 14px;\r\n}\r\n\r\n/*大额借款人*/\r\n.large-guara .table-content {\r\n\theight: 240px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}", ""]);
+	exports.push([module.id, ".finance-guara-index .mt-table {\r\n\tmargin: 0px !important;\r\n}\r\n\r\n/*企业评级*/\r\n.finance-guara-index .company-grade .mod-content .table-content {\r\n\theight: 530px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n/*担保责任余额结构分布*/\r\n.finance-guara-index .balance-distribute {\r\n\theight: 49.5%;\r\n}\r\n\r\n.finance-guara-index .balance-distribute .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*担保笔均折线图*/\r\n.finance-guara-index .each-average {\r\n\theight: 49.5%;\r\n\tmargin-top: 2%;\r\n}\r\n\r\n.finance-guara-index .each-average .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*地图模块*/\r\n.finance-guara-index .finance-guara-map .map-chart-box {\r\n\theight: 610px;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .finance-guara-map .company-chart-box {\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.finance-guara-index .finance-guara-map .visual-text {\r\n\tposition: absolute;\r\n\tbottom: 26%;\r\n\tright: 3%;\r\n\tz-index: 1000;\r\n\twidth: 14px;\r\n}\r\n\r\n/*贷款余额占比*/\r\n.finance-guara-index .loan-balance .chart-box {\r\n\theight: 300px;\r\n}\r\n\r\n/*股东行业风险*/\r\n.finance-guara-index .industry-risk {\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk .mod-content .table-content {\r\n\theight: 240px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk .mod-content .table-content table td a.more {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*大额借款人信息列表*/\r\n\r\n/*股东风险更多*/\r\n.finance-guara-index .industry-risk-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n.finance-guara-index .industry-risk-more .content ul li em{\r\n\tmargin-left: 10px;\r\n\tpadding: 0px 5px;\r\n\tfont-size: 12px;\r\n\tdisplay: inline-block\r\n}\r\n.finance-guara-index .industry-risk-more .content ul li em.bg-black{\r\n\tbackground-color: #000000;\r\n}\r\n.finance-guara-index .industry-risk-more .content ul li em.bg-red{\r\n\tbackground-color: red;\r\n}\r\n.finance-guara-index .industry-risk-more .content ul li em.bg-yellow{\r\n\tbackground-color: #ebc900;\r\n}\r\n.finance-guara-index .industry-risk-more .content ul li em.bg-green{\r\n\tbackground-color: #32b16c;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content {\r\n\r\n\t/*padding: 8px 10px;*/\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content .content-riskMore {\r\n\twidth: 100%;\t/*height: 199px*/\r\n\tdisplay: table;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content ul {\r\n\tdisplay: table-cell;\r\n\twidth: 33.33%;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content ul li {\r\n\tpadding: 15px 5px;\r\n\tfont-size: 14px;\r\n}\r\n\r\n/*大额借款人*/\r\n.large-guara .table-content {\r\n\theight: 240px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}", ""]);
 
 	// exports
 
@@ -59960,217 +59988,132 @@
 
 	//融资担保地图
 	var FinanceGuaraMap = _react2.default.createClass({
-	    displayName: 'FinanceGuaraMap',
+	  displayName: 'FinanceGuaraMap',
 
-	    getInitialState: function getInitialState() {
-	        return {
-	            mapOption: null,
-	            pieOption: null
-	        };
-	    },
-	    componentDidMount: function componentDidMount() {
-	        console.log(this.props, 3333);
-	        var getfinGuaMap = this.props.getfinGuaMap;
+	  getInitialState: function getInitialState() {
+	    return {
+	      mapOption: null,
+	      pieOption: null
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {
+	    console.log(this.props, 3333);
+	    var getfinGuaMap = this.props.getfinGuaMap;
 
-	        var jsonData = {};
-	        getfinGuaMap(jsonData);
-	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var isMapEqual = Immutable.is(nextProps.finGuaMapRequest, this.props.finGuaMapResult);
-	        console.log("isMapEqual:", isMapEqual);
-	        if (!isMapEqual) {
-	            var finGuaMapRequest = nextProps.finGuaMapRequest;
-	            var finGuaMapResult = nextProps.finGuaMapResult;
+	    var jsonData = {};
+	    getfinGuaMap(jsonData);
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var isMapEqual = Immutable.is(nextProps.finGuaMapResult, this.props.finGuaMapResult);
+	    console.log("isMapEqual:", isMapEqual);
+	    if (!isMapEqual) {
+	      var finGuaMapRequest = nextProps.finGuaMapRequest;
+	      var finGuaMapResult = nextProps.finGuaMapResult;
 
-	            if (finGuaMapRequest == true) {
-	                if (finGuaMapResult.success == true) {
-	                    this.dataFomatMap(finGuaMapResult);
-	                    this.dataFomatPie(finGuaMapResult);
-	                } else {
-	                    //错误后提示
-	                }
-	            }
+	      if (finGuaMapRequest == true) {
+	        if (finGuaMapResult.success == true) {
+	          this.dataFomatMap(finGuaMapResult);
+	          this.dataFomatPie(finGuaMapResult);
+	        } else {
+	          //错误后提示
 	        }
-	    },
-	    dataFomatMap: function dataFomatMap(data) {
-	        var content = data.content;
-	        var series = [];
-	        for (var i = 0; i < content.length; i++) {
-	            var s = { "name": content[i].areaName, "value": content[i].all };
-	            series.push(s);
-	        }
-	        var option = {
-	            "visualMapRight": "50", //值茷位置
-	            "visualMapBottom": "30",
-	            "seriesName": '小额贷款企业数',
-	            "series": series
-	        };
-	        this.setState({ mapOption: option });
-	    },
-	    dataFomatPie: function dataFomatPie(data) {
-	        var content = data.content;
-	        var series = [];
-	        var stateOwned = 0; //国企数量统计
-	        var privateCompany = 0; //私有企业数量统计
-	        for (var i = 0; i < content.length; i++) {
-	            stateOwned = stateOwned + content[i].stateOwned;
-	            privateCompany = privateCompany + content[i].privateCompany;
-	        }
-	        var option = {
-	            color: ['#e14340', '#ffffff'],
-	            id: 'small-loan-company-chart', //必传
-	            height: '200px', //必传 带上单位
-	            title: '',
-	            legendBottom: '0%',
-	            legendData: ['国有企业', '民营企业'],
-	            data: [{ value: stateOwned, name: '国有企业' }, { value: privateCompany, name: '民营企业' }]
-	        };
-	        this.setState({ pieOption: option });
-	    },
-	    // setParm:function(){
-	    //   const option ={
-	    //     "visualMapRight":"50",//值茷位置
-	    //     "visualMapBottom":"30",
-	    //      "seriesName":'融资担保企业数',
-	    //         "series": [
-	    //                 {
-	    //                     "name": "嘉定区",
-	    //                     "value": Math.round(Math.random() * 1000)
-	    //                 },
-	    //                 {
-	    //                     "name": "青浦区",
-	    //                     "value": Math.round(Math.random() * 1000)
-	    //                 },
-	    //                 {
-	    //                     "name": "松江区",
-	    //                     "value": Math.round(Math.random() * 1000)
-	    //                 },
-	    //                 {
-	    //                     "name": "金山区",
-	    //                     "value": Math.round(Math.random() * 1000)
-	    //                 },
-	    //                 {
-	    //                     "name": "崇明县",
-	    //                     "value": Math.round(Math.random() * 1000)
-	    //                 },
-	    //                 {
-	    //                     "name": "宝山区",
-	    //                     "value": Math.round(Math.random() * 1000)
-	    //                 },
-	    //                 {
-	    //                     "name": "杨浦区",
-	    //                     "value": Math.round(Math.random() * 1000)
-	    //                 },
-	    //                 {
-	    //                     "name": "闵行区",
-	    //                     "value": Math.round(Math.random() * 1000)
-	    //                 },
-
-	    //                 {
-	    //                     "name": "徐汇区",
-	    //                     "value": Math.round(Math.random() * 1000)
-	    //                 },
-	    //                 {
-	    //                     "name": "长宁区",
-	    //                     "value": Math.round(Math.random() * 1000)
-	    //                 },
-
-	    //                 {
-	    //                     "name": "普陀区",
-	    //                     "value": Math.round(Math.random() * 1000)
-	    //                 },
-	    //                 {
-	    //                     "name": "静安区",
-	    //                     "value": Math.round(Math.random() * 1000)
-	    //                 },
-
-	    //                 {
-	    //                     "name": "黄浦区",
-	    //                     "value": Math.round(Math.random() * 1000)
-	    //                 },
-	    //                 {
-	    //                     "name": "闸北区",
-	    //                     "value": Math.round(Math.random() * 1000)
-	    //                 },
-	    //                 {
-	    //                     "name": "闵行区",
-	    //                     "value": Math.round(Math.random() * 1000)
-	    //                 },
-	    //                 {
-	    //                     "name": "闵行区",
-	    //                     "value": Math.round(Math.random() * 1000)
-	    //                 },
-	    //                 {
-	    //                     "name": "闵行区",
-	    //                     "value": Math.round(Math.random() * 1000)
-	    //                 },
-	    //                 {
-	    //                     "name": "虹口区",
-	    //                     "value": Math.round(Math.random() * 1000)
-	    //                 },
-	    //                 {
-	    //                     "name": "浦东新区",
-	    //                     "value": Math.round(Math.random() * 1000)
-	    //                 },
-	    //                 {
-	    //                     "name": "奉贤区",
-	    //                     "value": Math.round(Math.random() * 1000)
-	    //                 }
-	    //             ]
-	    //     }
-	    //       return option;
-	    // },
-	    // setPieParm:function(){
-	    //      var param={
-	    //           id:'finance-guara-compose1',//必传  企业构成
-	    //           color:['#e14340','#ffffff'],
-	    //           height:'200px',//必传 带上单位
-	    //           title:'',
-	    //           legendBottom:'0%',
-	    //           grid:{top:'15%',left: '0%',right: '60%',bottom: '5%'},
-	    //           legendData:['国有企业','民营企业'],
-	    //           data: [
-	    //                     {value:100, name:'国有企业'},
-	    //                     {value:200, name:'民营企业'}
-	    //                 ]
-	    //       }
-	    //       return param;
-	    // },
-
-
-	    render: function render() {
-	        var bbdMap = "";
-	        if (this.state.mapOption) {
-	            bbdMap = _react2.default.createElement(_MapChart2.default, { option: this.state.mapOption, style: { height: '610px', width: '100%' } });
-	        }
-	        var bbdPie = "";
-	        if (this.state.pieOption) {
-	            bbdPie = _react2.default.createElement(_PieChart2.default, { param: this.state.pieOption });
-	        }
-	        return _react2.default.createElement(
-	            'div',
-	            { className: 'finance-guara-map mod' },
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'mod-content' },
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'map-chart-box' },
-	                    bbdMap,
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'visual-text' },
-	                        '企业数量'
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'company-chart-box' },
-	                    bbdPie
-	                )
-	            )
-	        );
+	      }
 	    }
+	  },
+	  shouldComponentUpdate: function shouldComponentUpdate(nextProps) {
+	    var isMapEqual = Immutable.is(nextProps.finGuaMapResult, this.props.finGuaMapResult);
+	    if (!isMapEqual) {
+	      return true;
+	    } else {
+	      return false;
+	    }
+	  },
+	  dataFomatMap: function dataFomatMap(data) {
+	    var content = data.content;
+	    var series = [];
+	    for (var i = 0; i < content.length; i++) {
+	      var s = { "name": content[i].areaName, "value": content[i].all, "areaId": content[i].areaId };
+	      series.push(s);
+	    }
+	    var option = {
+	      "visualMapRight": "50", //值茷位置
+	      "visualMapBottom": "30",
+	      "seriesName": '小额贷款企业数量',
+	      "selectedMode": 'multiple',
+	      "series": series
+	    };
+	    this.setState({ mapOption: option });
+	  },
+	  dataFomatPie: function dataFomatPie(data) {
+	    var content = data.content;
+	    var series = [];
+	    var stateOwned = 0; //国企数量统计
+	    var privateCompany = 0; //私有企业数量统计
+	    for (var i = 0; i < content.length; i++) {
+	      stateOwned = stateOwned + content[i].stateOwned;
+	      privateCompany = privateCompany + content[i].privateCompany;
+	    }
+	    var option = {
+	      color: ['#e14340', '#ffffff'],
+	      id: 'small-loan-company-chart', //必传
+	      height: '200px', //必传 带上单位
+	      title: '',
+	      legendBottom: '0%',
+	      legendData: ['国有企业', '民营企业'],
+	      data: [{ value: stateOwned, name: '国有企业' }, { value: privateCompany, name: '民营企业' }]
+	    };
+	    this.setState({ pieOption: option });
+	  },
+	  onMapClick: function onMapClick(e) {
+	    console.log(e);
+	    var areaId = e.data.areaId;
+	    var selected = e.data.selected;
+	    console.log(selected);
+	    var getMapSwitchVal = this.props.getMapSwitchVal;
+
+	    var jsonData = { areaId: areaId };
+	    if (selected == true) {
+	      getMapSwitchVal(jsonData);
+	    } else {
+	      getMapSwitchVal({});
+	    }
+	  },
+	  render: function render() {
+	    var onEvents = {
+	      'click': this.onMapClick
+	    };
+	    var bbdMap = "";
+	    if (this.state.mapOption) {
+	      bbdMap = _react2.default.createElement(_MapChart2.default, { option: this.state.mapOption, onEvents: onEvents, style: { height: '610px', width: '100%' } });
+	    }
+	    var bbdPie = "";
+	    if (this.state.pieOption) {
+	      bbdPie = _react2.default.createElement(_PieChart2.default, { param: this.state.pieOption });
+	    }
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'finance-guara-map mod' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'mod-content' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'map-chart-box' },
+	          bbdMap,
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'visual-text' },
+	            '企业数量'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'company-chart-box' },
+	          bbdPie
+	        )
+	      )
+	    );
+	  }
 	});
 	module.exports = FinanceGuaraMap;
 
@@ -60595,7 +60538,6 @@
 	    var bbdLine = "";
 
 	    if (this.state.option) {
-	      console.log(this.state.option, '11111111');
 	      bbdLine = _react2.default.createElement(_LineChart2.default, { option: this.state.option, style: { height: '272px', width: '100%' } });
 	    }
 	    return _react2.default.createElement(
@@ -60607,7 +60549,7 @@
 	        _react2.default.createElement(
 	          'h3',
 	          null,
-	          '贷款笔均折线图'
+	          '担保笔均时序图'
 	        )
 	      ),
 	      _react2.default.createElement(
@@ -61238,11 +61180,11 @@
 	    }
 	  },
 	  dataFomat: function dataFomat(data) {
-	    console.log(data.riskListDet, 333);
 	    var p2p = [],
 	        linFin = [],
 	        preFun = [];
 	    var riskListDet = data.riskListDet;
+	    console.log(riskListDet, 222);
 	    if (riskListDet["1"] != undefined) {
 	      p2p = riskListDet["1"];
 	    }
@@ -61294,7 +61236,7 @@
 	              return _react2.default.createElement(
 	                'li',
 	                null,
-	                elem
+	                elem.companyName
 	              );
 	            }.bind(this))
 	          ),
@@ -61305,7 +61247,7 @@
 	              return _react2.default.createElement(
 	                'li',
 	                null,
-	                elem
+	                elem.companyName
 	              );
 	            }.bind(this))
 	          ),
@@ -61313,10 +61255,44 @@
 	            'ul',
 	            null,
 	            this.state.linFin.map(function (elem, index) {
+	              var riskLevel = elem.riskLevel;
+	              var label = "";
+	              if (riskLevel == 1) {
+	                label = _react2.default.createElement(
+	                  'em',
+	                  { className: 'bg-black' },
+	                  '已曝光'
+	                );
+	              } else if (riskLevel == 2) {
+	                label = _react2.default.createElement(
+	                  'em',
+	                  { className: 'bg-red' },
+	                  '高危'
+	                );
+	              } else if (riskLevel == 3) {
+	                label = _react2.default.createElement(
+	                  'em',
+	                  { className: 'bg-yellow' },
+	                  '一般关注'
+	                );
+	              } else if (riskLevel == 4) {
+	                label = _react2.default.createElement(
+	                  'em',
+	                  { className: 'bg-green' },
+	                  '正常'
+	                );
+	              } else {
+	                label = "";
+	              }
 	              return _react2.default.createElement(
 	                'li',
 	                null,
-	                elem
+	                _react2.default.createElement(
+	                  'span',
+	                  null,
+	                  elem.companyName
+	                ),
+	                label
 	              );
 	            }.bind(this))
 	          )
@@ -61451,20 +61427,26 @@
 	                ),
 	                _react2.default.createElement(
 	                  'th',
-	                  { width: '25%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 2) },
+	                  { width: '20%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 2) },
 	                  '被担保公司',
 	                  _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                ),
 	                _react2.default.createElement(
 	                  'th',
-	                  { width: '30%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 3) },
+	                  { width: '20%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 3) },
 	                  '被担保公司行业',
 	                  _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                ),
 	                _react2.default.createElement(
 	                  'th',
-	                  { width: '25%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 4) },
+	                  { width: '15%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 4) },
 	                  '注册资本',
+	                  _react2.default.createElement('i', { className: 'iconfont icon-desc' })
+	                ),
+	                _react2.default.createElement(
+	                  'th',
+	                  { width: '25%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 4) },
+	                  '被担保人关联风险',
 	                  _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                )
 	              )
@@ -61496,7 +61478,7 @@
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      { width: '25%' },
+	                      { width: '20%' },
 	                      _react2.default.createElement(
 	                        _reactRouter.Link,
 	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.guaranteedName } }, className: 'word-limit-5', title: elem.guaranteedName },
@@ -61505,12 +61487,17 @@
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      { width: '30%' },
+	                      { width: '20%' },
 	                      _react2.default.createElement(
 	                        'span',
 	                        { className: 'word-limit-5', 'data-tip': elem.guaranteedBusinessType, title: elem.guaranteedBusinessType },
 	                        elem.guaranteedBusinessType
 	                      )
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      { width: '15%' },
+	                      elem.guaranteedRegisteredCapital
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
@@ -61533,7 +61520,7 @@
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      { width: '25%' },
+	                      { width: '20%' },
 	                      _react2.default.createElement(
 	                        _reactRouter.Link,
 	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.guaranteedName } }, className: 'word-limit-5', title: elem.guaranteedName },
@@ -61542,12 +61529,17 @@
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      { width: '30%' },
+	                      { width: '20%' },
 	                      _react2.default.createElement(
 	                        'span',
 	                        { className: 'word-limit-5', 'data-tip': elem.guaranteedBusinessType, title: elem.guaranteedBusinessType },
 	                        elem.guaranteedBusinessType
 	                      )
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      { width: '15%' },
+	                      elem.guaranteedRegisteredCapital
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
@@ -64749,7 +64741,7 @@
 
 
 	// module
-	exports.push([module.id, ".small-loan-index .mt-table {\r\n\tmargin: 0px !important;\r\n}\r\n\r\n/*企业评级*/\r\n.small-loan-index .company-grade .mod-content .table-content {\r\n\theight: 530px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n.small-loan-index .company-grade .table-content .wtyh-table{\r\n\twidth: 510px;\r\n}\r\n\r\n/*余额占比*/\r\n.small-loan-index .balance-radio {\r\n\theight: 49.5%;\r\n}\r\n\r\n.small-loan-index .balance-radio .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*贷款笔均折线图*/\r\n.small-loan-index .each-average {\r\n\theight: 49.5%;\r\n\tmargin-top: 2%;\r\n}\r\n\r\n.small-loan-index .each-average .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*地图模块*/\r\n.small-loan-index .small-loan-map .map-chart-box {\r\n\theight: 610px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .small-loan-map .company-chart-box {\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.small-loan-index .small-loan-map .visual-text {\r\n\tposition: absolute;\r\n\tbottom: 26%;\r\n\tright: 3%;\r\n\tz-index: 1000;\r\n\twidth: 14px;\r\n}\r\n\r\n/*贷款余额占比*/\r\n.small-loan-index .loan-balance .chart-box {\r\n\theight: 300px;\r\n}\r\n\r\n/*股东行业风险*/\r\n.small-loan-index .industry-risk{\r\n\tposition: relative;\r\n}\r\n.small-loan-index .industry-risk .mod-content .table-content {\r\n\theight: 240px;\t\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk .mod-content .table-content table td a.more {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*大额借款人信息列表*/\r\n\r\n/*股东风险更多*/\r\n.small-loan-index .industry-risk-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content {\r\n\r\n\t/*padding: 8px 10px;*/\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content .content-more {\r\n\theight: 199px;\r\n\twidth: 100%;\r\n\tdisplay: table;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul {\r\n\r\n\t/*display: inline-block;*/\r\n\twidth: 33.33%;\t/*height: 199px;*/\r\n\tdisplay: table-cell;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul li {\r\n\tpadding: 15px 5px;\r\n}\r\n.industry-risk-more .content ul li em{\r\n\tmargin-left: 10px;\r\n\tpadding: 0px 5px;\r\n\tfont-size: 12px;\r\n}\r\n.industry-risk-more .content ul li em.bg-black{\r\n\tbackground-color: #000000;\r\n}\r\n.industry-risk-more .content ul li em.bg-red{\r\n\tbackground-color: red;\r\n}\r\n.industry-risk-more .content ul li em.bg-yellow{\r\n\tbackground-color: #ebc900;\r\n}\r\n.industry-risk-more .content ul li em.bg-green{\r\n\tbackground-color: #32b16c;\r\n}\r\n\r\n/*大额借款人*/\r\n.large-loan .table-content {\r\n\theight: 240px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}", ""]);
+	exports.push([module.id, ".small-loan-index .mt-table {\r\n\tmargin: 0px !important;\r\n}\r\n\r\n/*企业评级*/\r\n.small-loan-index .company-grade .mod-content .table-content {\r\n\theight: 530px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n.small-loan-index .company-grade .table-content .wtyh-table{\r\n\twidth: 510px;\r\n}\r\n\r\n/*余额占比*/\r\n.small-loan-index .balance-radio {\r\n\theight: 49.5%;\r\n}\r\n\r\n.small-loan-index .balance-radio .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*贷款笔均折线图*/\r\n.small-loan-index .each-average {\r\n\theight: 49.5%;\r\n\tmargin-top: 2%;\r\n}\r\n\r\n.small-loan-index .each-average .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*地图模块*/\r\n.small-loan-index .small-loan-map .map-chart-box {\r\n\theight: 610px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .small-loan-map .company-chart-box {\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.small-loan-index .small-loan-map .visual-text {\r\n\tposition: absolute;\r\n\tbottom: 26%;\r\n\tright: 3%;\r\n\tz-index: 1000;\r\n\twidth: 14px;\r\n}\r\n\r\n/*贷款余额占比*/\r\n.small-loan-index .loan-balance .chart-box {\r\n\theight: 300px;\r\n}\r\n\r\n/*股东行业风险*/\r\n.small-loan-index .industry-risk{\r\n\tposition: relative;\r\n}\r\n.small-loan-index .industry-risk .mod-content .table-content {\r\n\theight: 240px;\t\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk .mod-content .table-content table td a.more {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*大额借款人信息列表*/\r\n\r\n/*股东风险更多*/\r\n.small-loan-index .industry-risk-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content {\r\n\r\n\t/*padding: 8px 10px;*/\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content .content-more {\r\n\theight: 199px;\r\n\twidth: 100%;\r\n\tdisplay: table;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul {\r\n\r\n\t/*display: inline-block;*/\r\n\twidth: 33.33%;\t/*height: 199px;*/\r\n\tdisplay: table-cell;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul li {\r\n\tpadding: 15px 5px;\r\n}\r\n.industry-risk-more .content ul li em{\r\n\tmargin-left: 10px;\r\n\tpadding: 0px 5px;\r\n\tfont-size: 12px;\r\n\tdisplay: inline-block\r\n}\r\n.industry-risk-more .content ul li em.bg-black{\r\n\tbackground-color: #000000;\r\n}\r\n.industry-risk-more .content ul li em.bg-red{\r\n\tbackground-color: red;\r\n}\r\n.industry-risk-more .content ul li em.bg-yellow{\r\n\tbackground-color: #ebc900;\r\n}\r\n.industry-risk-more .content ul li em.bg-green{\r\n\tbackground-color: #32b16c;\r\n}\r\n\r\n/*大额借款人*/\r\n.large-loan .table-content {\r\n\theight: 240px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}", ""]);
 
 	// exports
 
@@ -65073,6 +65065,8 @@
 	        var jsonData = { areaId: areaId };
 	        if (selected == true) {
 	            getMapSwitchVal(jsonData);
+	        } else {
+	            getMapSwitchVal({});
 	        }
 	    },
 	    render: function render() {
@@ -65591,7 +65585,7 @@
 	              return _react2.default.createElement(
 	                'li',
 	                null,
-	                elem
+	                elem.companyName
 	              );
 	            }.bind(this))
 	          ),
@@ -65602,7 +65596,7 @@
 	              return _react2.default.createElement(
 	                'li',
 	                null,
-	                elem
+	                elem.companyName
 	              );
 	            }.bind(this))
 	          ),
@@ -65610,7 +65604,6 @@
 	            'ul',
 	            null,
 	            this.state.linFin.map(function (elem, index) {
-	              console.log(elem, 111);
 	              var riskLevel = elem.riskLevel;
 	              var label = "";
 	              if (riskLevel == 1) {
@@ -72212,7 +72205,7 @@
 
 
 	// module
-	exports.push([module.id, ".tradingPlaces-index .left-bottom .mod-content,\r\n.tradingPlaces-index .right-bottom .mod-content {\r\n\tpadding: 20px 20px 0px 20px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom,\r\n.tradingPlaces-index .right-bottom {\r\n\tpadding: 0px 0px 50px 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mod-content .table-title th,\r\n.tradingPlaces-index .right-bottom .mod-content .table-title th {\r\n\theight: 50px;\r\n\tpadding: 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .table-content,\r\n.tradingPlaces-index .right-bottom .table-content {\r\n\theight: 540px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .table-content .word-limit-5,\r\n.tradingPlaces-index .right-bottom .table-content .word-limit-5 {\r\n\twidth: 100px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mt-table,\r\n.tradingPlaces-index .right-bottom  .mt-table {\r\n\tmargin: 0px 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .table-content table td,\r\n.tradingPlaces-index .right-bottom .table-content table td {\r\n\r\n\t/*height: 100%;*/\r\n\tpadding: 15px 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mt-table-center th,\r\n.tradingPlaces-index .right-bottom .mt-table-center th {\r\n\ttext-align: left;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mt-table td,\r\n.tradingPlaces-index .right-bottom .mt-table td {\r\n\ttext-align: left;\r\n}\r\n\r\n.tradingPlaces-index .checkAll {\r\n\tcolor: #fff;\t/*font-size: 20px;*/\r\n\ttext-align: center;\r\n\tpadding: 5px 10px;\r\n\tbackground: #999;\r\n\tborder-radius: 3px;\r\n\tdisplay: inline-block;\r\n\tmargin: 8px 10px 0px 10px;\r\n\tcursor: pointer;\r\n\tfloat: right;\r\n\tfilter: alpha(opacity=100 finishopacity=50 style=1 startx=0, starty=0, finishx=0, finishy=150) progid:DXImageTransform.Microsoft.gradient(startcolorstr=#eb4845, endcolorstr=#b43230, gradientType=0);\r\n\t-ms-filter: alpha(opacity=100 finishopacity=50 style=1 startx=0, starty=0, finishx=0, finishy=150) progid:DXImageTransform.Microsoft.gradient(startcolorstr=#eb4845, endcolorstr=#b43230, gradientType=0);/*IE8*/\r\n\tbackground: #eb4845; /* 一些不支持背景渐变的浏览器 */\r\n\tbackground: -moz-linear-gradient(top, #eb4845, rgba(180, 50, 48, 1));\r\n\tbackground: -webkit-gradient(linear, 0 0, 0 bottom, from(#eb4845), to(rgba(180, 50, 48, 1)));\r\n\tbackground: -o-linear-gradient(top, red, rgba(180, 50, 48, 1));\r\n}", ""]);
+	exports.push([module.id, ".tradingPlaces-index .left-bottom .mod-content,\r\n.tradingPlaces-index .right-bottom .mod-content {\r\n\tpadding: 20px 20px 0px 20px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom,\r\n.tradingPlaces-index .right-bottom {\r\n\tpadding: 0px 0px 50px 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mod-content .table-title th,\r\n.tradingPlaces-index .right-bottom .mod-content .table-title th {\r\n\theight: 50px;\r\n\tpadding: 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .table-content,\r\n.tradingPlaces-index .right-bottom .table-content {\r\n\theight: 540px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .table-content .word-limit-5,\r\n.tradingPlaces-index .right-bottom .table-content .word-limit-5 {\r\n\twidth: 100px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mt-table,\r\n.tradingPlaces-index .right-bottom  .mt-table {\r\n\tmargin: 0px 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .table-content table td,\r\n.tradingPlaces-index .right-bottom .table-content table td {\r\n\r\n\t/*height: 100%;*/\r\n\tpadding: 15px 0px;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mt-table-center th,\r\n.tradingPlaces-index .right-bottom .mt-table-center th {\r\n\ttext-align: left;\r\n}\r\n\r\n.tradingPlaces-index .left-bottom .mt-table td,\r\n.tradingPlaces-index .right-bottom .mt-table td {\r\n\ttext-align: left;\r\n}\r\n\r\n.tradingPlaces-index .checkAll {\r\n\tcolor: #fff;\t/*font-size: 20px;*/\r\n\ttext-align: center;\r\n\tpadding: 5px 10px;\r\n\tbackground: #999;\r\n\tborder-radius: 3px;\r\n\tdisplay: inline-block;\r\n\tmargin: 8px 10px 0px 10px;\r\n\tcursor: pointer;\r\n\tfloat: right;\r\n\tfilter: alpha(opacity=100 finishopacity=50 style=1 startx=0, starty=0, finishx=0, finishy=150) progid:DXImageTransform.Microsoft.gradient(startcolorstr=#eb4845, endcolorstr=#b43230, gradientType=0);\r\n\t-ms-filter: alpha(opacity=100 finishopacity=50 style=1 startx=0, starty=0, finishx=0, finishy=150) progid:DXImageTransform.Microsoft.gradient(startcolorstr=#eb4845, endcolorstr=#b43230, gradientType=0);/*IE8*/\r\n\tbackground: #eb4845; /* 一些不支持背景渐变的浏览器 */\r\n\tbackground: -moz-linear-gradient(top, #eb4845, rgba(180, 50, 48, 1));\r\n\tbackground: -webkit-gradient(linear, 0 0, 0 bottom, from(#eb4845), to(rgba(180, 50, 48, 1)));\r\n\tbackground: -o-linear-gradient(top, red, rgba(180, 50, 48, 1));\r\n}\r\n\r\n.tradingPlaces-index .color1 {\r\n\tcolor: #fff\r\n}\r\n\r\n.tradingPlaces-index .color2 {\r\n\tcolor: #ebc900\r\n}\r\n\r\n.tradingPlaces-index .color3 {\r\n\tcolor: #ff0000\r\n}\r\n\r\n.tradingPlaces-index .color4 {\r\n\tcolor: #32b16c\r\n}", ""]);
 
 	// exports
 
@@ -72472,12 +72465,12 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '25%' },
+	                                    { width: '20%' },
 	                                    '交易所'
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '25%' },
+	                                    { width: '20%' },
 	                                    '注册地址'
 	                                ),
 	                                _react2.default.createElement(
@@ -72491,6 +72484,11 @@
 	                                    { width: '15%', className: 'cur-pointer', 'data-order': this.state.orderZB, ref: 'registeredDate', onClick: this.handleClick.bind(this, "registeredDate") },
 	                                    '注册时间',
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
+	                                ),
+	                                _react2.default.createElement(
+	                                    'th',
+	                                    { width: '10%' },
+	                                    '风险等级'
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
@@ -72517,6 +72515,21 @@
 	                                    var _registeredCapital = item.registeredCapital == null ? "/" : item.registeredCapital + "万元";
 	                                    var _registeredDate = item.registeredDate == null ? "/" : item.registeredDate;
 	                                    var _website = item.website == null ? "/" : item.website;
+	                                    var _riskLevel = item.riskLevel;
+	                                    var _riskLevelColor = "";
+	                                    if (_riskLevel == 1) {
+	                                        _riskLevel = "已出风险";
+	                                        _riskLevelColor = "color1";
+	                                    } else if (_riskLevel == 2) {
+	                                        _riskLevel = "重点关注";
+	                                        _riskLevelColor = "color2";
+	                                    } else if (_riskLevel == 3) {
+	                                        _riskLevel = "一般关注";
+	                                        _riskLevelColor = "color3";
+	                                    } else {
+	                                        _riskLevel = "正常";
+	                                        _riskLevelColor = "color4";
+	                                    }
 	                                    if (index % 2) {
 	                                        return _react2.default.createElement(
 	                                            'tr',
@@ -72528,7 +72541,7 @@
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
-	                                                { width: '25%' },
+	                                                { width: '20%' },
 	                                                _react2.default.createElement(
 	                                                    _reactRouter.Link,
 	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'HPQList', companyName: item.name } }, className: 'word-limit-5', 'data-tip': item.name, title: item.name },
@@ -72537,7 +72550,7 @@
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
-	                                                { width: '25%' },
+	                                                { width: '20%' },
 	                                                _react2.default.createElement(
 	                                                    'span',
 	                                                    { className: 'word-limit-5', 'data-tip': _address, title: _address },
@@ -72553,6 +72566,15 @@
 	                                                'td',
 	                                                { width: '15%' },
 	                                                _registeredDate
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '10%' },
+	                                                _react2.default.createElement(
+	                                                    'span',
+	                                                    { className: _riskLevelColor },
+	                                                    _riskLevel
+	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
@@ -72575,7 +72597,7 @@
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
-	                                                { width: '25%' },
+	                                                { width: '20%' },
 	                                                _react2.default.createElement(
 	                                                    _reactRouter.Link,
 	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'HPQList', companyName: item.name } }, className: 'word-limit-5', 'data-tip': item.name, title: item.name },
@@ -72584,7 +72606,7 @@
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
-	                                                { width: '25%' },
+	                                                { width: '20%' },
 	                                                _react2.default.createElement(
 	                                                    'span',
 	                                                    { className: 'word-limit-5', 'data-tip': _address, title: _address },
@@ -72600,6 +72622,15 @@
 	                                                'td',
 	                                                { width: '15%' },
 	                                                _registeredDate
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '10%' },
+	                                                _react2.default.createElement(
+	                                                    'span',
+	                                                    { className: _riskLevelColor },
+	                                                    _riskLevel
+	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
@@ -85606,6 +85637,10 @@
 
 	var _LargeGuara2 = _interopRequireDefault(_LargeGuara);
 
+	var _FinGuaMapVal = __webpack_require__(1305);
+
+	var _FinGuaMapVal2 = _interopRequireDefault(_FinGuaMapVal);
+
 	var _AreaRanking = __webpack_require__(903);
 
 	var _AreaRanking2 = _interopRequireDefault(_AreaRanking);
@@ -86103,11 +86138,7 @@
 	//网贷平台数据展示
 
 
-	/*行业监测模块*/
-	//小额贷款
-
-
-	/*登录*/
+	//融资担保
 	var rootReducer = (0, _redux.combineReducers)({
 	  Login: _login2.default,
 	  LoginName: _LoginName2.default,
@@ -86194,6 +86225,7 @@
 	  FinGuaIndustryRisk: _FinGuaIndustryRisk2.default,
 	  FinGuaIndustryRiskDetail: _FinGuaIndustryRiskDetail2.default,
 	  LargeGuara: _LargeGuara2.default,
+	  FinGuaMapVal: _FinGuaMapVal2.default,
 
 	  //实时监测
 	  RealTimeTable: _realtimeTableRuducer2.default,
@@ -86326,7 +86358,11 @@
 	//上海区域发展指数排名
 
 
-	//融资担保
+	/*行业监测模块*/
+	//小额贷款
+
+
+	/*登录*/
 	exports.default = rootReducer;
 
 /***/ },
@@ -99092,6 +99128,38 @@
 	    return String(it).replace(regExp, replacer);
 	  };
 	};
+
+/***/ },
+/* 1305 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = finGuaMapVal;
+
+	var _FinanceGuaraIndexAction = __webpack_require__(692);
+
+	//初始化数据
+	var initialState = {
+		data: ""
+	};
+
+	function finGuaMapVal() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _FinanceGuaraIndexAction.MAP_SWITCH_VAL:
+				return {
+					data: action.data
+				};
+			default:
+				return state;
+		}
+	}
 
 /***/ }
 /******/ ]);
