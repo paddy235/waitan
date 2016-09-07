@@ -266,7 +266,7 @@
     </select>
 
 
-    <select id="getSpectrumAnalysis"  resultType="com.bbd.wtyh.domain.CompanyDO">
+    <select id="getSpectrumAnalysis"  resultType="com.bbd.wtyh.domain.vo.SpectrumVO">
         SELECT
             company.`name`,
             company.registered_capital AS registeredCapital,
@@ -276,6 +276,7 @@
         LEFT JOIN company_analysis_result ON company.company_id = company_analysis_result.company_id
         WHERE
             risk_level = #{risk_level}
+        ORDER BY company_analysis_result.exposure_date DESC
     </select>
 
 </mapper>
