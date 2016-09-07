@@ -137,14 +137,26 @@ public class PToPMonitorController {
 				maxDto = dto;
 			}
 		}
-    	
+
+
+		Map<String, Object> ja = null;
+		Map<String, Object> zb = null;
     	List<Map<String, Object>> data = new ArrayList<>();
     	for (Map.Entry<String, Object> entry: maxDto.getArea_num().entrySet()) {
     		Map<String, Object> areaNum = new HashMap<>();
     		areaNum.put("name", "浦东".equals(entry.getKey())?"浦东新区":entry.getKey()+(entry.getKey().endsWith("区")?"":"区"));
     		areaNum.put("value", entry.getValue());
+			if(entry.getKey().contains("闸北")){
+				zb = areaNum;
+				continue;
+			}else if(entry.getKey().contains("静安")){
+				ja = areaNum;
+			}
 			data.add(areaNum);
 		}
+		if(ja!=null && zb!=null)
+			ja.put("value",Double.valueOf(zb.get("value").toString())+Double.valueOf(ja.get("value")+""));
+
     	map.put("data", data);
     	return map;
     }
