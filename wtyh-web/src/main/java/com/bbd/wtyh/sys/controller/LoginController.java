@@ -49,14 +49,15 @@ public class LoginController {
 
 
 	@RequestMapping("/logout")
-	public String logout(HttpServletRequest request){
+	@ResponseBody
+	public Object logout(HttpServletRequest request){
 
 
 		HttpSession se = request.getSession(false);
 		if(se!=null)
 		  se.invalidate();
 
-		return "/";
+		return ResponseBean.successResponse(true);
 	}
 	
 }
