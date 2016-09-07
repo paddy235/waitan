@@ -171,13 +171,13 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		Map map = new HashMap();
+		Map<Integer, Integer> map = new HashMap();
 		if (!CollectionUtils.isEmpty(list)) {
 			for (PlatRankDataDTO platRankDataDTO : list) {
 				String plat_name = platRankDataDTO.getPlat_name();
 				PlatformNameInformationDO platformNameInformationDO = platformNameInformationMapper.hasOrNotCompany(plat_name);
 				if (platformNameInformationDO != null) {
-					map.put(platformNameInformationDO.getCompanyId(), platRankDataDTO.getRank());
+					map.put(platformNameInformationDO.getCompanyId(), 0);
 				}
 			}
 		}
