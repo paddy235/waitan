@@ -23,6 +23,16 @@ public class PlatRankDataDTO {
 
 	private String plat_status;
 
+	private String registered_address;
+
+	public String getRegistered_address() {
+		return registered_address;
+	}
+
+	public void setRegistered_address(String registered_address) {
+		this.registered_address = registered_address;
+	}
+
 	public String getPlat_status() {
 		return plat_status;
 	}
