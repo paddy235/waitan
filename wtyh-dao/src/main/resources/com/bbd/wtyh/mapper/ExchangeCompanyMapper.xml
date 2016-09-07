@@ -52,6 +52,7 @@
 			c.`name`,
 			c.address,
 			c.registered_capital as registeredCapital,
+			c.legal_person as legalPerson,
 			c.registered_date as registeredDate,
 			ec.website as website,
 			c.risk_level AS riskLevel
@@ -61,6 +62,9 @@
 		LEFT JOIN area a ON c.area_id = a.area_id
 		WHERE
 			1=1
+		<if test="type != null and type > 0">
+			and ec.type = #{type}
+		</if>
 		<if test="areaName != null and areaName != ''">
 			and a.name = #{areaName}
 		</if>
