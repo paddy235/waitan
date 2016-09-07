@@ -39875,17 +39875,17 @@
 	      $(this.refs.getName).html("");
 	    }
 	  },
-	  // loginOut:function(){
-	  //     $.ajax({
-	  //       url: "/logout.do",
-	  //       dataType:"json", 
-	  //       data: {},
-	  //       type: "GET",
-	  //       success: function(result) {
-	  //           console.log(result)
-	  //       }
-	  //     });
-	  // },
+	  loginOut: function loginOut() {
+	    $.ajax({
+	      url: "/logout.do",
+	      dataType: "json",
+	      data: {},
+	      type: "GET",
+	      success: function success(result) {
+	        console.log(result);
+	      }
+	    });
+	  },
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
@@ -39907,8 +39907,8 @@
 	          _react2.default.createElement('i', { className: 'iconfont icon-arrowdown' })
 	        ),
 	        _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: '/logout.do', className: 'quit' },
+	          'a',
+	          { href: 'javascript:;', className: 'quit', onClick: this.loginOut() },
 	          _react2.default.createElement('i', { className: 'iconfont icon-quit' })
 	        )
 	      )
@@ -79387,7 +79387,7 @@
 
 
 	// module
-	exports.push([module.id, "#search-result-detail {\r\n  position: relative;\r\n  transition: all 2s linear;\r\n  -moz-transition: all 2s linear;\r\n  -webkit-transition: all 2s linear;\r\n  -o-transition: all 2s linear;\r\n  width: 100%;\r\n  height: 1080px;\r\n  min-width: 900px; }\r\n  #search-result-detail .clear-fix:after {\r\n    display: block;\r\n    clear: both;\r\n    content: \"\";\r\n    visibility: hidden;\r\n    height: 0; }\r\n  #search-result-detail .company-name {\r\n    padding: 13px;\r\n    background: #383e47;\r\n    width: 100%; }\r\n    #search-result-detail .company-name > span {\r\n      font-size: 18px;\r\n      color: #fff; }\r\n    #search-result-detail .company-tag{\r\n       display: inline-block;\r\n       margin-left: 20px;\r\n    }\r\n    #search-result-detail .company-tag > span{\r\n        padding: 2px 5px;\r\n        font-size: 12px;\r\n        margin: 0 5px;\r\n    }\r\n    #search-result-detail .company-tag > span:first-child{\r\n      background:#00b7ee;\r\n    }\r\n    #search-result-detail .company-tag > span:nth-child(2){\r\n      background:#e14340;\r\n    }\r\n    #search-result-detail .company-tag > span:nth-child(3){\r\n      background:#f98d2b;\r\n    }\r\n    #search-result-detail .company-tag > span:nth-child(4){\r\n      background:#32b16c;\r\n    }\r\n    #search-result-detail .company-name .right-content {\r\n      float: right; \r\n      margin-top: -5px;\r\n      }\r\n      #search-result-detail .company-name .right-content > div {\r\n        display: inline-block; }\r\n      #search-result-detail .company-name .right-content .search-group {\r\n        position: relative;\r\n        margin-right: 18px; }\r\n        #search-result-detail .company-name .right-content .search-group input {\r\n          width: 330px;\r\n          height: 35px;\r\n          font-size: 14px;\r\n          color: #898f98;\r\n          padding-left: 15px;\r\n          border-radius: 5px;\r\n          border: none; }\r\n        #search-result-detail .company-name .right-content .search-group .search {\r\n          margin-left: -31px;\r\n          color: #e8716f;\r\n          position: absolute;\r\n          top: 5px; }\r\n          #search-result-detail .company-name .right-content .search-group .search i {\r\n            font-size: 24px; }\r\n      #search-result-detail .company-name .right-content .back-btn {\r\n        width: 72px;\r\n        height: 24px;\r\n        cursor: pointer;\r\n        line-height: 24px;\r\n        text-align: center;\r\n        background: #5f93e7;\r\n        border-radius: 5px; }\r\n        #search-result-detail .company-name .right-content .back-btn .fanhui {\r\n          margin-right: 5px;\r\n          color: #272636; }\r\n  #search-result-detail .company-detail {\r\n    width: 100%;\r\n    height: 85%; }\r\n    #search-result-detail .company-detail > div {\r\n      float: left;\r\n      border-radius: 5px;\r\n      background: #2b323c; }\r\n  #search-result-detail .back-top {\r\n    position: fixed;\r\n    bottom: 30px;\r\n    right: 30px;\r\n    cursor: pointer; }\r\n    #search-result-detail .back-top .icon-top {\r\n      font-size: 30px; }\r\n\r\n/*# sourceMappingURL=style.css.map */\r\n", ""]);
+	exports.push([module.id, "#search-result-detail {\r\n  position: relative;\r\n  transition: all 2s linear;\r\n  -moz-transition: all 2s linear;\r\n  -webkit-transition: all 2s linear;\r\n  -o-transition: all 2s linear;\r\n  width: 100%;\r\n  height: 1080px;\r\n  min-width: 900px; }\r\n  #search-result-detail .clear-fix:after {\r\n    display: block;\r\n    clear: both;\r\n    content: \"\";\r\n    visibility: hidden;\r\n    height: 0; }\r\n  #search-result-detail .company-name {\r\n    padding: 13px;\r\n    background: #383e47;\r\n    width: 100%; }\r\n    #search-result-detail .company-name > span {\r\n      font-size: 18px;\r\n      color: #fff; }\r\n    #search-result-detail .company-tag{\r\n       display: inline-block;\r\n       margin-left: 20px;\r\n    }\r\n    #search-result-detail .company-tag > span{\r\n        padding: 2px 5px;\r\n        font-size: 12px;\r\n        margin: 0 5px;\r\n    }\r\n    #search-result-detail .company-tag > span:first-child{\r\n      background:#00b7ee;\r\n    }\r\n    #search-result-detail .company-tag > span:nth-child(2){\r\n      background:#e14340;\r\n    }\r\n    #search-result-detail .company-tag > span:nth-child(3){\r\n      background:#f98d2b;\r\n    }\r\n    #search-result-detail .company-tag > span:nth-child(4){\r\n      background:#32b16c;\r\n    }\r\n    #search-result-detail .see-risk{\r\n      color: #ffffff;\r\n      background-color: #e14340;\r\n      margin-left: 20px;\r\n      border-radius: 2px;\r\n      padding: 5px 10px;\r\n      font-size: 14px;\r\n    }\r\n    #search-result-detail .company-name .right-content {\r\n      float: right; \r\n      margin-top: -5px;\r\n      }\r\n      #search-result-detail .company-name .right-content > div {\r\n        display: inline-block; }\r\n      #search-result-detail .company-name .right-content .search-group {\r\n        position: relative;\r\n        margin-right: 18px; }\r\n        #search-result-detail .company-name .right-content .search-group input {\r\n          width: 330px;\r\n          height: 35px;\r\n          font-size: 14px;\r\n          color: #898f98;\r\n          padding-left: 15px;\r\n          border-radius: 5px;\r\n          border: none; }\r\n        #search-result-detail .company-name .right-content .search-group .search {\r\n          margin-left: -31px;\r\n          color: #e8716f;\r\n          position: absolute;\r\n          top: 5px; }\r\n          #search-result-detail .company-name .right-content .search-group .search i {\r\n            font-size: 24px; }\r\n      #search-result-detail .company-name .right-content .back-btn {\r\n        width: 72px;\r\n        height: 24px;\r\n        cursor: pointer;\r\n        line-height: 24px;\r\n        text-align: center;\r\n        background: #5f93e7;\r\n        border-radius: 5px; }\r\n        #search-result-detail .company-name .right-content .back-btn .fanhui {\r\n          margin-right: 5px;\r\n          color: #272636; }\r\n  #search-result-detail .company-detail {\r\n    width: 100%;\r\n    height: 85%; }\r\n    #search-result-detail .company-detail > div {\r\n      float: left;\r\n      border-radius: 5px;\r\n      background: #2b323c; }\r\n  #search-result-detail .back-top {\r\n    position: fixed;\r\n    bottom: 30px;\r\n    right: 30px;\r\n    cursor: pointer; }\r\n    #search-result-detail .back-top .icon-top {\r\n      font-size: 30px; }\r\n\r\n/*# sourceMappingURL=style.css.map */\r\n", ""]);
 
 	// exports
 
@@ -79797,27 +79797,28 @@
 
 	var SearchResultDetail = _react2.default.createClass({
 	    displayName: 'SearchResultDetail',
+
 	    getInitialState: function getInitialState() {
 	        return {
 	            isShowSearch: false,
-	            companyTag: ""
+	            companyTag: "",
+	            companyType: ""
 	        };
-	    },
-
-	    pageScroll: function pageScroll() {
-	        $('html, body').animate({ scrollTop: 0 }, 'slow');
 	    },
 	    componentDidMount: function componentDidMount() {
 	        var getPageNums = this.props.location.query.formpage;
 	        if (getPageNums != "Portrait") {
 	            window.scrollTo(0, 0);
 	        }
+	        //获取公司类型
+	        var companyType = this.props.location.query.companyType;
 	        //判断是否是从search过来
 	        var isSearch = this.props.location.query.isSearch;
 	        if (isSearch) {
-	            this.setState({
-	                isShowSearch: true
-	            });
+	            this.setState({ isShowSearch: true });
+	        }
+	        if (companyType) {
+	            this.setState({ companyType: companyType });
 	        }
 
 	        var queryCompanyInfo = this.props.queryCompanyInfo;
@@ -79837,6 +79838,9 @@
 	                companyTag: allData
 	            });
 	        }
+	    },
+	    pageScroll: function pageScroll() {
+	        $('html, body').animate({ scrollTop: 0 }, 'slow');
 	    },
 	    searchResult: function searchResult() {
 	        var searchKey = $("#keyworld").val();
@@ -79867,6 +79871,11 @@
 	                            item
 	                        );
 	                    })
+	                ),
+	                _react2.default.createElement(
+	                    'a',
+	                    { href: '', className: 'see-risk' },
+	                    '查看风险'
 	                ),
 	                _react2.default.createElement(
 	                    'div',
