@@ -39953,7 +39953,7 @@
 
 
 	// module
-	exports.push([module.id, "* {\r\n\tmargin: 0px;\r\n\tpadding: 0px;\r\n}\r\n\r\nul,\r\nli {\r\n\tlist-style: none;\r\n}\r\n\r\na {\r\n\ttext-decoration: none;\r\n}\r\n\r\nhtml {\r\n\t-webkit-text-size-adjust: none;\r\n}\r\n\r\nbody {\r\n\tbackground-color: #1a2029;\r\n\tcolor: #ffffff;\r\n\tfont-family: 'Microsoft Yahei';\r\n}\r\n\r\ninput[type=text]::-ms-clear {\r\n\tdisplay: none\r\n}\r\n\r\n.clear:after {\r\n\tcontent: \".\";\r\n\theight: 0;\r\n\tvisibility: hidden;\r\n\tdisplay: block;\r\n\tclear: both;\r\n}\r\n\r\n.cur-pointer {\r\n\tcursor: pointer;\r\n}\r\n\r\n/*头部导航 header begin*/\r\n.header {\r\n\twidth: 100%;\r\n\theight: 60px;\r\n\tbackground-color: #383e47;\r\n\toverflow: hidden;\r\n}\r\n\r\n.header .logo {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\tline-height: 60px;\r\n\tcolor: #ffffff;\r\n\tfont-size: 20px;\r\n}\r\n\r\n.header .logo .img {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\twidth: 90px;\r\n\theight: 60px;\r\n\tbackground: url(/images/logo.png);\r\n}\r\n\r\n.header .right {\r\n\tfloat: right;\r\n\tmargin-top: 20px;\r\n\tmargin-right: 30px;\r\n}\r\n\r\n.header .right .name {\r\n\tfont-size: 16px;\r\n\tcolor: #ffffff;\r\n\tmargin-right: 30px;\r\n\tcursor: pointer;\r\n}\r\n\r\n.list-header {\r\n\tfont-size: 18px;\r\n\tcolor: #fff;\r\n\tpadding: 14px;\t/*text-indent: 30px;*/\r\n}\r\n\r\n.wrap {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tposition: relative;\r\n\tz-index: 500;\r\n\toverflow: hidden;\r\n\tbackground: #1f253d;\r\n\tbackground-size: cover;\r\n}\r\n\r\n.header .right .name span {\r\n\tmargin-left: 10px;\r\n\tmargin-right: 8px;\r\n\tfont-weight: bold;\r\n}\r\n\r\n.header .right .quit {\r\n\tfont-size: 16px;\r\n\tcolor: #e24643;\r\n}\r\n\r\n/*头部导航 header end*/\r\n.radius4 {\r\n\tborder-radius: 5px;\r\n}\r\n\r\n/*主题页导航  begin*/\r\n.menu {\r\n\twidth: 100%;\r\n\theight: 50px;\r\n\tbackground-color: #2b323c;\r\n}\r\n\r\n.menu ul.nav {\r\n\theight: 50px;\r\n\tfloat: left;\r\n}\r\n\r\n.menu ul.nav  li {\r\n\tfloat: left;\r\n\tposition: relative;\r\n}\r\n\r\n.menu ul.nav  li a {\r\n\tcolor: #ffffff;\r\n\tpadding: 0px 30px;\r\n\tline-height: 50px;\r\n}\r\n\r\n.menu ul.nav li a.active:after {\r\n\tcontent: \"\";\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\tbottom: 0px;\r\n\twidth: 100%;\r\n\theight: 0.2rem;\r\n\tbackground: #e14340;\r\n\tz-index: 0;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav {\r\n\twidth: 96px;\r\n\theight: auto;\r\n\tbackground-color: #545e6d;\r\n\tposition: absolute;\r\n\tleft: 50%;\r\n\ttop: 40px;\r\n\tmargin-left: -50px;\r\n\tz-index: 100;\r\n\tdisplay: none;\r\n}\r\n\r\n.menu ul.nav  li ul.hide {\r\n\tdisplay: none;\r\n}\r\n\r\n.menu ul.nav  li ul.show {\r\n\tdisplay: block;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li {\r\n\twidth: 100%;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\ttext-align: center;\r\n\tfloat: none;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li a {\r\n\tdisplay: block;\r\n\twidth: 100%;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\ttext-align: center;\r\n\tpadding: 0 0;\r\n\tfont-size: 14px;\r\n\tcolor: #b7b7b7;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li a.active:after {\r\n\tdisplay: none;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li a:hover {\r\n\tbackground-color: #42b8e2;\r\n\tcolor: #ffffff;\r\n}\r\n\r\n.menu .right-park {\r\n\tfloat: right;\r\n\tmargin-top: 12px;\r\n\tmargin-right: 30px;\r\n}\r\n\r\n.menu .right-park .mt-select {\r\n\tmargin-right: 10px;\r\n}\r\n\r\n.menu .right-park .mt-select-title {\r\n\tbackground-color: #ffffff;\r\n\tcolor: #333333;\r\n}\r\n\r\n.menu .right-park .mt-select-box {\r\n\tcolor: #333333;\r\n}\r\n\r\n.menu .right-park a {\r\n\tbackground-color: #e14340;\r\n\tcolor: #ffffff;\r\n\tpadding: 4px 10px;\r\n\tborder-radius: 5px;\r\n}\r\n\r\n/*主题页导航  end*/\r\n\r\n/*控制边距的类*/\r\n.content-space-10 {\r\n\tmargin: 10px;\r\n}\r\n\r\n.content-space-top-0 {\r\n\tmargin: 0px 10px 10px 10px;\r\n}\r\n\r\n.mod-space-l {\r\n\tmargin-left: 0.5%;\r\n}\r\n\r\n.mod-space-t {\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.mod-space-dl {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n.mod-space-dt {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n/*模块公用样式 begin*/\r\n.mod {\r\n\theight: 100%;\r\n\tbackground-color: #2b323c;\r\n}\r\n\r\n.mod .mod-title h3 {\r\n\tdisplay: inline-block;\r\n\tvertical-align: middle;\r\n\tfont-weight: normal;\r\n\tfont-style: normal;\r\n\tfont-size: 16px;\r\n\tcolor: #ffffff;\r\n\tmargin-left: 10px;\r\n\tpadding: 8px 0;\r\n}\r\n\r\n.mod .mod-title .mod-title-right {\r\n\tfloat: right;\r\n}\r\n\r\n/*模块标题上的下拉选择框 begind*/\r\n.mod .mod-title .mod-title-right .mt-select {\r\n\tcolor: #e5e5e5;\r\n\tbackground-color: #1a2029;\r\n\tborder: none;\r\n\tpadding-left: 5px;\r\n\tpadding-right: 5px;\r\n}\r\n\r\n.mod .mod-title .mod-title-right .mt-select-box {\r\n\tbackground-color: #1a2029;\r\n\tborder: none;\r\n}\r\n\r\n/*模块标题上的下拉选择框 end*/\r\n.mt-select {\r\n\tborder: none !important;\r\n}\r\n\r\n/*模块公用样式 end*/\r\n*:focus {\r\n\toutline: none;\r\n}\r\n\r\n/*表格公用样式*/\r\ntable {\r\n\tborder-collapse: separate;\r\n}\r\n\r\n.wtyh-table thead th {\r\n\tborder-bottom: none;\r\n\tbackground-color: #1a2029;\r\n\tcolor: #dddddd;\r\n\tfont-size: 14px;\r\n\tfont-weight: normal;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.wtyh-table thead tr {\r\n\tborder-top-left-radius: 5px;\r\n\tborder-top-right-radius: 5px;\r\n}\r\n\r\n.wtyh-table tbody td {\r\n\tborder-bottom: none;\r\n\tcolor: #ffffff;\r\n\tfont-size: 14px;\r\n}\r\n\r\n.wtyh-table tbody td .word-limit-5 {\r\n\tcursor: pointer;\r\n\tcolor: #ffffff;\r\n}\r\n.wtyh-table tbody td .word-limit-8 {\r\n\tcursor: pointer;\r\n\tcolor: #ffffff;\r\n}\r\n.wtyh-table tbody td .word-limit-10 {\r\n\tcursor: pointer;\r\n\tcolor: #ffffff;\r\n}\r\n\r\n.wtyh-table tbody tr.odd td {\r\n\tbackground: #2b323c;\r\n}\r\n\r\n.wtyh-table tbody tr.odd-line td {\r\n\tbackground: #36404d;\r\n\tborder-right: 1px #2b323c solid;\r\n}\r\n\r\n.wtyh-table tbody tr.odd-blackbg-line td {\r\n\tbackground: #222932;\r\n\tborder-right: 1px #2b323c solid;\r\n}\r\n\r\n.wtyh-table tbody tr.even td {\r\n\tbackground-color: #1a2029;\r\n}\r\n\r\n.talign-left {\r\n\ttext-align: left !important;\r\n}\r\n\r\n.wtyh-table.table-border-b  tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.talign-right {\r\n\ttext-align: right !important;\r\n}\r\n\r\n.talign-center {\r\n\ttext-align: center !important;\r\n}\r\n\r\n.header-gray {\r\n\theight: 50px;\r\n\tline-height: 50px;\r\n\tbackground: #394351;\r\n\tborder-top-left-radius: 5px;\r\n\tborder-top-right-radius: 5px;\r\n}\r\n\r\n.skublue {\r\n\tcolor: #00b8ee\r\n}\r\n\r\n.orange {\r\n\tcolor: #e14340\r\n}\r\n\r\n/*限制字数五个字*/\r\n.word-limit-5 {\r\n\toverflow: hidden; /*自动隐藏文字*/\r\n\ttext-overflow: ellipsis;/*文字隐藏后添加省略号*/\r\n\twhite-space: nowrap;/*强制不换行*/\r\n\tdisplay: inline-block;\r\n\twidth: 80px;\r\n}\r\n.word-limit-8 {\r\n\toverflow: hidden; /*自动隐藏文字*/\r\n\ttext-overflow: ellipsis;/*文字隐藏后添加省略号*/\r\n\twhite-space: nowrap;/*强制不换行*/\r\n\tdisplay: inline-block;\r\n\twidth: 108px;\r\n}\r\n.word-limit-10 {\r\n\toverflow: hidden; /*自动隐藏文字*/\r\n\ttext-overflow: ellipsis;/*文字隐藏后添加省略号*/\r\n\twhite-space: nowrap;/*强制不换行*/\r\n\tdisplay: inline-block;\r\n\twidth: 160px;\r\n}\r\n\r\n/*分页样式覆盖*/\r\n.mt-pagelist {\r\n\tmargin-top: 10px !important;\r\n}\r\n\r\n.mt-pagelist ul {\r\n\theight: 30px;\r\n}\r\n\r\n.mt-pagelist .mt-select,\r\n.mt-pagelist .mt-pagelist-first,\r\n.mt-pagelist .mt-pagelist-end,\r\n.mt-pagelist .mt-pagelist-runprev,\r\n.mt-pagelist .mt-pagelist-runnext {\r\n\tdisplay: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-prev,\r\n.mt-pagelist .mt-pagelist-next,\r\n.mt-pagelist .mt-pagelist-btn,\r\n.mt-pagelist .mt-pagelist-end,\r\n.mt-pagelist .mt-pagelist-first {\r\n\tbackground-color: #1a2029 !important;\r\n\tcolor: #ffffff !important;\r\n\tborder: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-input .mt-input {\r\n\tbackground-color: #1a2029 !important;\r\n\tcolor: #ffffff !important;\r\n\tborder: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li {\r\n\tbackground-color: #1a2029 !important;\r\n\tcolor: #ffffff !important;\r\n\tborder: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li a {\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n\tline-height: 26px !important;\r\n\tborder-radius: 2px !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li a:hover {\r\n\tbackground-color: #e14340 !important;\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li.on a {\r\n\tbackground-color: #e14340 !important;\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-btn:hover,\r\n.mt-pagelist .mt-pagelist-prev:hover,\r\n.mt-pagelist .mt-pagelist-next:hover {\r\n\tbackground-color: #e14340 !important;\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n}\r\n\r\n/*搜索框*/\r\n.mt-input .mt-iconbtn,\r\n.mt-input-block .mt-iconbtn a {\r\n\tcursor: pointer !important;\r\n}\r\n\r\n/*颜色*/\r\n.c-red {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*联想词*/\r\n.ac_results {\r\n\tpadding: 0;\r\n\toverflow: auto;\r\n\tz-index: 99999;\r\n\tmax-height: 200px;\r\n\tbackground: rgba(17, 38, 67, 0.9);\r\n\tborder-bottom-left-radius: 4px;\r\n\tborder-bottom-right-radius: 4px;\r\n}\r\n\r\n.ac_results ul {\r\n\twidth: 100%;\r\n\tlist-style: none;\r\n\tpadding: 0;\r\n\tmargin: 0;\r\n}\r\n\r\n.ac_results ul li:last-child {\r\n\tborder-bottom-left-radius: 4px;\r\n\tborder-bottom-right-radius: 4px;\r\n}\r\n\r\n.ac_results li {\r\n\tpadding: 5px 10px;\r\n\tdisplay: block;\r\n\tfont-size: 14px;\r\n\toverflow: hidden;\r\n}\r\n\r\n.ac_results .group-item {\r\n\tcursor: pointer;\r\n}\r\n\r\n.ac_results ul .group-item:hover {\r\n\tbackground: #063a5f;\r\n}\r\n\r\n.ac_results .group {\r\n\tcolor: #666;\r\n}\r\n\r\n.ac_results i {\r\n\tfont-size: 12px;\r\n\tcolor: #999;\r\n\tpadding-left: 1em;\r\n}\r\n\r\n.ac_results .strong {\r\n\tcolor: #13b7fe;\r\n}\r\n\r\n.ac-results ul li.group:hover {\r\n\tcursor: default;\r\n\tbackground-color: #172837;\r\n\tcolor: #666;\r\n}\r\n\r\n.iconfont.icon-desc {\r\n\tcursor: pointer;\r\n}", ""]);
+	exports.push([module.id, "* {\r\n\tmargin: 0px;\r\n\tpadding: 0px;\r\n}\r\n\r\nul,\r\nli {\r\n\tlist-style: none;\r\n}\r\n\r\na {\r\n\ttext-decoration: none;\r\n}\r\n\r\nhtml {\r\n\t-webkit-text-size-adjust: none;\r\n}\r\n\r\nbody {\r\n\tbackground-color: #1a2029;\r\n\tcolor: #ffffff;\r\n\tfont-family: 'Microsoft Yahei';\r\n}\r\n\r\ninput[type=text]::-ms-clear {\r\n\tdisplay: none\r\n}\r\n\r\n.clear:after {\r\n\tcontent: \".\";\r\n\theight: 0;\r\n\tvisibility: hidden;\r\n\tdisplay: block;\r\n\tclear: both;\r\n}\r\n\r\n.cur-pointer {\r\n\tcursor: pointer;\r\n}\r\n\r\n/*头部导航 header begin*/\r\n.header {\r\n\twidth: 100%;\r\n\theight: 60px;\r\n\tbackground-color: #383e47;\r\n\toverflow: hidden;\r\n}\r\n\r\n.header .logo {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\tline-height: 60px;\r\n\tcolor: #ffffff;\r\n\tfont-size: 20px;\r\n}\r\n\r\n.header .logo .img {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\twidth: 90px;\r\n\theight: 60px;\r\n\tbackground: url(/images/logo.png);\r\n}\r\n\r\n.header .right {\r\n\tfloat: right;\r\n\tmargin-top: 20px;\r\n\tmargin-right: 30px;\r\n}\r\n\r\n.header .right .name {\r\n\tfont-size: 16px;\r\n\tcolor: #ffffff;\r\n\tmargin-right: 30px;\r\n\tcursor: pointer;\r\n}\r\n\r\n.list-header {\r\n\tfont-size: 18px;\r\n\tcolor: #fff;\r\n\tpadding: 14px;\t/*text-indent: 30px;*/\r\n}\r\n\r\n.wrap {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tposition: relative;\r\n\tz-index: 500;\r\n\toverflow: hidden;\r\n\tbackground: #1f253d;\r\n\tbackground-size: cover;\r\n}\r\n\r\n.header .right .name span {\r\n\tmargin-left: 10px;\r\n\tmargin-right: 8px;\r\n\tfont-weight: bold;\r\n}\r\n\r\n.header .right .quit {\r\n\tfont-size: 16px;\r\n\tcolor: #e24643;\r\n}\r\n\r\n/*头部导航 header end*/\r\n.radius4 {\r\n\tborder-radius: 5px;\r\n}\r\n\r\n/*主题页导航  begin*/\r\n.menu {\r\n\twidth: 100%;\r\n\theight: 50px;\r\n\tbackground-color: #2b323c;\r\n}\r\n\r\n.menu ul.nav {\r\n\theight: 50px;\r\n\tfloat: left;\r\n}\r\n\r\n.menu ul.nav  li {\r\n\tfloat: left;\r\n\tposition: relative;\r\n}\r\n\r\n.menu ul.nav  li a {\r\n\tcolor: #ffffff;\r\n\tpadding: 0px 30px;\r\n\tline-height: 50px;\r\n}\r\n\r\n.menu ul.nav li a.active:after {\r\n\tcontent: \"\";\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\tbottom: 0px;\r\n\twidth: 100%;\r\n\theight: 0.2rem;\r\n\tbackground: #e14340;\r\n\tz-index: 0;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav {\r\n\twidth: 96px;\r\n\theight: auto;\r\n\tbackground-color: #545e6d;\r\n\tposition: absolute;\r\n\tleft: 50%;\r\n\ttop: 40px;\r\n\tmargin-left: -50px;\r\n\tz-index: 100;\r\n\tdisplay: none;\r\n}\r\n\r\n.menu ul.nav  li ul.hide {\r\n\tdisplay: none;\r\n}\r\n\r\n.menu ul.nav  li ul.show {\r\n\tdisplay: block;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li {\r\n\twidth: 100%;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\ttext-align: center;\r\n\tfloat: none;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li a {\r\n\tdisplay: block;\r\n\twidth: 100%;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\ttext-align: center;\r\n\tpadding: 0 0;\r\n\tfont-size: 14px;\r\n\tcolor: #b7b7b7;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li a.active:after {\r\n\tdisplay: none;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li a:hover {\r\n\tbackground-color: #42b8e2;\r\n\tcolor: #ffffff;\r\n}\r\n\r\n.menu .right-park {\r\n\tfloat: right;\r\n\tmargin-top: 12px;\r\n\tmargin-right: 30px;\r\n}\r\n\r\n.menu .right-park .mt-select {\r\n\tmargin-right: 10px;\r\n}\r\n\r\n.menu .right-park .mt-select-title {\r\n\tbackground-color: #ffffff;\r\n\tcolor: #333333;\r\n}\r\n\r\n.menu .right-park .mt-select-box {\r\n\tcolor: #333333;\r\n}\r\n\r\n.menu .right-park a {\r\n\tbackground-color: #e14340;\r\n\tcolor: #ffffff;\r\n\tpadding: 4px 10px;\r\n\tborder-radius: 5px;\r\n}\r\n\r\n/*主题页导航  end*/\r\n\r\n/*控制边距的类*/\r\n.content-space-10 {\r\n\tmargin: 10px;\r\n}\r\n\r\n.content-space-top-0 {\r\n\tmargin: 0px 10px 10px 10px;\r\n}\r\n\r\n.mod-space-l {\r\n\tmargin-left: 0.5%;\r\n}\r\n\r\n.mod-space-t {\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.mod-space-dl {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n.mod-space-dt {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n/*模块公用样式 begin*/\r\n.mod {\r\n\theight: 100%;\r\n\tbackground-color: #2b323c;\r\n}\r\n\r\n.mod .mod-title h3 {\r\n\tdisplay: inline-block;\r\n\tvertical-align: middle;\r\n\tfont-weight: normal;\r\n\tfont-style: normal;\r\n\tfont-size: 16px;\r\n\tcolor: #ffffff;\r\n\tmargin-left: 10px;\r\n\tpadding: 8px 0;\r\n}\r\n\r\n.mod .mod-title .mod-title-right {\r\n\tfloat: right;\r\n}\r\n\r\n/*模块标题上的下拉选择框 begind*/\r\n.mod .mod-title .mod-title-right .mt-select {\r\n\tcolor: #e5e5e5;\r\n\tbackground-color: #1a2029;\r\n\tborder: none;\r\n\tpadding-left: 5px;\r\n\tpadding-right: 5px;\r\n}\r\n\r\n.mod .mod-title .mod-title-right .mt-select-box {\r\n\tbackground-color: #1a2029;\r\n\tborder: none;\r\n}\r\n\r\n/*模块标题上的下拉选择框 end*/\r\n.mt-select {\r\n\tborder: none !important;\r\n}\r\n\r\n/*模块公用样式 end*/\r\n*:focus {\r\n\toutline: none;\r\n}\r\n\r\n/*表格公用样式*/\r\ntable {\r\n\tborder-collapse: separate;\r\n}\r\n\r\n.wtyh-table thead th {\r\n\tborder-bottom: none;\r\n\tbackground-color: #1a2029;\r\n\tcolor: #dddddd;\r\n\tfont-size: 14px;\r\n\tfont-weight: normal;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.wtyh-table thead tr {\r\n\tborder-top-left-radius: 5px;\r\n\tborder-top-right-radius: 5px;\r\n}\r\n\r\n.wtyh-table tbody td {\r\n\tborder-bottom: none;\r\n\tcolor: #ffffff;\r\n\tfont-size: 14px;\r\n}\r\n\r\n.wtyh-table tbody td .word-limit-5 {\r\n\tcursor: pointer;\r\n\tcolor: #ffffff;\r\n}\r\n.wtyh-table tbody td .word-limit-8 {\r\n\tcursor: pointer;\r\n\tcolor: #ffffff;\r\n}\r\n.wtyh-table tbody td .word-limit-10 {\r\n\tcursor: pointer;\r\n\tcolor: #ffffff;\r\n}\r\n\r\n.wtyh-table tbody tr.odd td {\r\n\tbackground: #2b323c;\r\n}\r\n\r\n.wtyh-table tbody tr.odd-line td {\r\n\tbackground: #36404d;\r\n\tborder-right: 1px #2b323c solid;\r\n}\r\n\r\n.wtyh-table tbody tr.odd-blackbg-line td {\r\n\tbackground: #222932;\r\n\tborder-right: 1px #2b323c solid;\r\n}\r\n\r\n.wtyh-table tbody tr.even td {\r\n\tbackground-color: #1a2029;\r\n}\r\n\r\n.talign-left {\r\n\ttext-align: left !important;\r\n}\r\n\r\n.wtyh-table.table-border-b  tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.talign-right {\r\n\ttext-align: right !important;\r\n}\r\n\r\n.talign-center {\r\n\ttext-align: center !important;\r\n}\r\n\r\n.header-gray {\r\n\theight: 50px;\r\n\tline-height: 50px;\r\n\tbackground: #394351;\r\n\tborder-top-left-radius: 5px;\r\n\tborder-top-right-radius: 5px;\r\n}\r\n\r\n.skublue {\r\n\tcolor: #00b8ee\r\n}\r\n\r\n.orange {\r\n\tcolor: #e14340\r\n}\r\n\r\n/*限制字数五个字*/\r\n.word-limit-5 {\r\n\toverflow: hidden; /*自动隐藏文字*/\r\n\ttext-overflow: ellipsis;/*文字隐藏后添加省略号*/\r\n\twhite-space: nowrap;/*强制不换行*/\r\n\tdisplay: inline-block;\r\n\twidth: 80px;\r\n}\r\n.word-limit-8 {\r\n\toverflow: hidden; /*自动隐藏文字*/\r\n\ttext-overflow: ellipsis;/*文字隐藏后添加省略号*/\r\n\twhite-space: nowrap;/*强制不换行*/\r\n\tdisplay: inline-block;\r\n\twidth: 120px;\r\n}\r\n.word-limit-10 {\r\n\toverflow: hidden; /*自动隐藏文字*/\r\n\ttext-overflow: ellipsis;/*文字隐藏后添加省略号*/\r\n\twhite-space: nowrap;/*强制不换行*/\r\n\tdisplay: inline-block;\r\n\twidth: 150px;\r\n}\r\n\r\n/*分页样式覆盖*/\r\n.mt-pagelist {\r\n\tmargin-top: 10px !important;\r\n}\r\n\r\n.mt-pagelist ul {\r\n\theight: 30px;\r\n}\r\n\r\n.mt-pagelist .mt-select,\r\n.mt-pagelist .mt-pagelist-first,\r\n.mt-pagelist .mt-pagelist-end,\r\n.mt-pagelist .mt-pagelist-runprev,\r\n.mt-pagelist .mt-pagelist-runnext {\r\n\tdisplay: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-prev,\r\n.mt-pagelist .mt-pagelist-next,\r\n.mt-pagelist .mt-pagelist-btn,\r\n.mt-pagelist .mt-pagelist-end,\r\n.mt-pagelist .mt-pagelist-first {\r\n\tbackground-color: #1a2029 !important;\r\n\tcolor: #ffffff !important;\r\n\tborder: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-input .mt-input {\r\n\tbackground-color: #1a2029 !important;\r\n\tcolor: #ffffff !important;\r\n\tborder: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li {\r\n\tbackground-color: #1a2029 !important;\r\n\tcolor: #ffffff !important;\r\n\tborder: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li a {\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n\tline-height: 26px !important;\r\n\tborder-radius: 2px !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li a:hover {\r\n\tbackground-color: #e14340 !important;\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li.on a {\r\n\tbackground-color: #e14340 !important;\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-btn:hover,\r\n.mt-pagelist .mt-pagelist-prev:hover,\r\n.mt-pagelist .mt-pagelist-next:hover {\r\n\tbackground-color: #e14340 !important;\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n}\r\n\r\n/*搜索框*/\r\n.mt-input .mt-iconbtn,\r\n.mt-input-block .mt-iconbtn a {\r\n\tcursor: pointer !important;\r\n}\r\n\r\n/*颜色*/\r\n.c-red {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*联想词*/\r\n.ac_results {\r\n\tpadding: 0;\r\n\toverflow: auto;\r\n\tz-index: 99999;\r\n\tmax-height: 200px;\r\n\tbackground: rgba(17, 38, 67, 0.9);\r\n\tborder-bottom-left-radius: 4px;\r\n\tborder-bottom-right-radius: 4px;\r\n}\r\n\r\n.ac_results ul {\r\n\twidth: 100%;\r\n\tlist-style: none;\r\n\tpadding: 0;\r\n\tmargin: 0;\r\n}\r\n\r\n.ac_results ul li:last-child {\r\n\tborder-bottom-left-radius: 4px;\r\n\tborder-bottom-right-radius: 4px;\r\n}\r\n\r\n.ac_results li {\r\n\tpadding: 5px 10px;\r\n\tdisplay: block;\r\n\tfont-size: 14px;\r\n\toverflow: hidden;\r\n}\r\n\r\n.ac_results .group-item {\r\n\tcursor: pointer;\r\n}\r\n\r\n.ac_results ul .group-item:hover {\r\n\tbackground: #063a5f;\r\n}\r\n\r\n.ac_results .group {\r\n\tcolor: #666;\r\n}\r\n\r\n.ac_results i {\r\n\tfont-size: 12px;\r\n\tcolor: #999;\r\n\tpadding-left: 1em;\r\n}\r\n\r\n.ac_results .strong {\r\n\tcolor: #13b7fe;\r\n}\r\n\r\n.ac-results ul li.group:hover {\r\n\tcursor: default;\r\n\tbackground-color: #172837;\r\n\tcolor: #666;\r\n}\r\n\r\n.iconfont.icon-desc {\r\n\tcursor: pointer;\r\n}", ""]);
 
 	// exports
 
@@ -59823,24 +59823,24 @@
 	                                null,
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '25%', className: 'talign-left' },
+	                                    { width: '40%', className: 'talign-left' },
 	                                    '企业名称'
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '25%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 1) },
+	                                    { width: '20%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 1) },
 	                                    '外部评级',
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '25%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 2) },
+	                                    { width: '20%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 2) },
 	                                    '内部评级',
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '25%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 3) },
+	                                    { width: '20%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 3) },
 	                                    '现场检查',
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                                )
@@ -59867,26 +59867,26 @@
 	                                        { className: 'even' },
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '25%', className: 'talign-left' },
+	                                            { width: '40%', className: 'talign-left' },
 	                                            _react2.default.createElement(
 	                                                _reactRouter.Link,
-	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-5', title: elem.companyName, 'data-tip': elem.companyName },
+	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-10', title: elem.companyName, 'data-tip': elem.companyName },
 	                                                elem.companyName
 	                                            )
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '25%' },
+	                                            { width: '20%' },
 	                                            _outLevel
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '25%' },
+	                                            { width: '20%' },
 	                                            _innerLevel
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '25%' },
+	                                            { width: '20%' },
 	                                            _liveLevel
 	                                        )
 	                                    );
@@ -59896,26 +59896,26 @@
 	                                        { className: 'odd' },
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '25%', className: 'talign-left' },
+	                                            { width: '40%', className: 'talign-left' },
 	                                            _react2.default.createElement(
 	                                                _reactRouter.Link,
-	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-5', title: elem.companyName, 'data-tip': elem.companyName },
+	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-10', title: elem.companyName, 'data-tip': elem.companyName },
 	                                                elem.companyName
 	                                            )
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '25%' },
+	                                            { width: '20%' },
 	                                            _outLevel
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '25%' },
+	                                            { width: '20%' },
 	                                            _innerLevel
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '25%' },
+	                                            { width: '20%' },
 	                                            _liveLevel
 	                                        )
 	                                    );
@@ -61018,7 +61018,7 @@
 	                                null,
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '20%', className: 'talign-left' },
+	                                    { width: '25%', className: 'talign-left' },
 	                                    '公司名'
 	                                ),
 	                                _react2.default.createElement(
@@ -61029,7 +61029,7 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '25%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'privateFund', onClick: this.handleClick.bind(this, "privateFund") },
+	                                    { width: '20%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'privateFund', onClick: this.handleClick.bind(this, "privateFund") },
 	                                    '私募基金关联',
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                                ),
@@ -61065,10 +61065,10 @@
 	                                        { className: 'even' },
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '20%', className: 'talign-left' },
+	                                            { width: '25%', className: 'talign-left' },
 	                                            _react2.default.createElement(
 	                                                _reactRouter.Link,
-	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-5', title: elem.companyName, 'data-tip': elem.companyName },
+	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-8', title: elem.companyName, 'data-tip': elem.companyName },
 	                                                elem.companyName
 	                                            )
 	                                        ),
@@ -61079,7 +61079,7 @@
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '25%' },
+	                                            { width: '20%' },
 	                                            elem.privateFund
 	                                        ),
 	                                        _react2.default.createElement(
@@ -61103,10 +61103,10 @@
 	                                        { className: 'odd' },
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '20%', className: 'talign-left' },
+	                                            { width: '25%', className: 'talign-left' },
 	                                            _react2.default.createElement(
 	                                                _reactRouter.Link,
-	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-5', title: elem.companyName, 'data-tip': elem.companyName },
+	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-8', title: elem.companyName, 'data-tip': elem.companyName },
 	                                                elem.companyName
 	                                            )
 	                                        ),
@@ -61117,7 +61117,7 @@
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '25%' },
+	                                            { width: '20%' },
 	                                            elem.privateFund
 	                                        ),
 	                                        _react2.default.createElement(
@@ -61433,19 +61433,19 @@
 	                null,
 	                _react2.default.createElement(
 	                  'th',
-	                  { width: '20%', className: 'talign-left cur-pointer', onClick: this.orderByField.bind(this, 1) },
+	                  { width: '28%', className: 'talign-left cur-pointer', onClick: this.orderByField.bind(this, 1) },
 	                  '担保公司',
 	                  _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                ),
 	                _react2.default.createElement(
 	                  'th',
-	                  { width: '20%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 2) },
+	                  { width: '27%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 2) },
 	                  '被担保公司',
 	                  _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                ),
 	                _react2.default.createElement(
 	                  'th',
-	                  { width: '20%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 3) },
+	                  { width: '15%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 3) },
 	                  '被担保公司行业',
 	                  _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                ),
@@ -61457,7 +61457,7 @@
 	                ),
 	                _react2.default.createElement(
 	                  'th',
-	                  { width: '25%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 4) },
+	                  { width: '15%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 4) },
 	                  '被担保人关联风险',
 	                  _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                )
@@ -61481,25 +61481,25 @@
 	                    { className: 'even' },
 	                    _react2.default.createElement(
 	                      'td',
-	                      { className: 'talign-left', width: '20%' },
+	                      { className: 'talign-left', width: '28%' },
 	                      _react2.default.createElement(
 	                        _reactRouter.Link,
-	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.guaranteeName } }, className: 'word-limit-5', title: elem.guaranteeName },
+	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.guaranteeName } }, className: 'word-limit-8', title: elem.guaranteeName },
 	                        elem.guaranteeName
 	                      )
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      { width: '20%' },
+	                      { width: '27%' },
 	                      _react2.default.createElement(
 	                        _reactRouter.Link,
-	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.guaranteedName } }, className: 'word-limit-5', title: elem.guaranteedName },
+	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.guaranteedName } }, className: 'word-limit-8', title: elem.guaranteedName },
 	                        elem.guaranteedName
 	                      )
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      { width: '20%' },
+	                      { width: '15%' },
 	                      _react2.default.createElement(
 	                        'span',
 	                        { className: 'word-limit-5', 'data-tip': elem.guaranteedBusinessType, title: elem.guaranteedBusinessType },
@@ -61513,8 +61513,8 @@
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      { width: '25%' },
-	                      elem.guaranteedRegisteredCapital
+	                      { width: '15%' },
+	                      elem.relatedOfflineFinance
 	                    )
 	                  );
 	                } else {
@@ -61523,25 +61523,25 @@
 	                    { className: 'odd' },
 	                    _react2.default.createElement(
 	                      'td',
-	                      { className: 'talign-left', width: '20%' },
+	                      { className: 'talign-left', width: '28%' },
 	                      _react2.default.createElement(
 	                        _reactRouter.Link,
-	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.guaranteeName } }, className: 'word-limit-5', title: elem.guaranteeName },
+	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.guaranteeName } }, className: 'word-limit-8', title: elem.guaranteeName },
 	                        elem.guaranteeName
 	                      )
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      { width: '20%' },
+	                      { width: '27%' },
 	                      _react2.default.createElement(
 	                        _reactRouter.Link,
-	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.guaranteedName } }, className: 'word-limit-5', title: elem.guaranteedName },
+	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.guaranteedName } }, className: 'word-limit-8', title: elem.guaranteedName },
 	                        elem.guaranteedName
 	                      )
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      { width: '20%' },
+	                      { width: '15%' },
 	                      _react2.default.createElement(
 	                        'span',
 	                        { className: 'word-limit-5', 'data-tip': elem.guaranteedBusinessType, title: elem.guaranteedBusinessType },
@@ -61555,8 +61555,8 @@
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      { width: '25%' },
-	                      elem.guaranteedRegisteredCapital
+	                      { width: '15%' },
+	                      elem.relatedOfflineFinance
 	                    )
 	                  );
 	                }
@@ -64527,7 +64527,7 @@
 	    componentDidMount: function componentDidMount() {
 	        var jsonData = {};
 	        this.getCompanyGrade(jsonData);
-	        $('#companyGrade-scroll').perfectScrollbar({ suppressScrollX: false });
+	        $('#companyGrade-scroll').perfectScrollbar();
 	    },
 	    componentDidUpdate: function componentDidUpdate() {
 	        $('#companyGrade-scroll').perfectScrollbar('update');
@@ -65324,7 +65324,6 @@
 	        });
 	    },
 	    handleMore: function handleMore(data, e) {
-	        console.log(data, e);
 	        var jsonData = { companyId: data };
 	        this.getIndustryRiskDetail(jsonData);
 	        var offTop = $('.industry-risk').offset().top;
@@ -65368,7 +65367,7 @@
 	                                null,
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '20%', className: 'talign-left' },
+	                                    { width: '25%', className: 'talign-left' },
 	                                    '公司名'
 	                                ),
 	                                _react2.default.createElement(
@@ -65379,7 +65378,7 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '25%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'privateFund', onClick: this.handleClick.bind(this, "privateFund") },
+	                                    { width: '20%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'privateFund', onClick: this.handleClick.bind(this, "privateFund") },
 	                                    '私募基金关联',
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                                ),
@@ -65415,10 +65414,10 @@
 	                                        { className: 'even' },
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '20%', className: 'talign-left' },
+	                                            { width: '25%', className: 'talign-left' },
 	                                            _react2.default.createElement(
 	                                                _reactRouter.Link,
-	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-5', title: elem.companyName, 'data-tip': elem.companyName },
+	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-8', title: elem.companyName, 'data-tip': elem.companyName },
 	                                                elem.companyName
 	                                            )
 	                                        ),
@@ -65429,7 +65428,7 @@
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '25%' },
+	                                            { width: '20%' },
 	                                            elem.privateFund
 	                                        ),
 	                                        _react2.default.createElement(
@@ -65453,10 +65452,10 @@
 	                                        { className: 'odd' },
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '20%', className: 'talign-left' },
+	                                            { width: '25%', className: 'talign-left' },
 	                                            _react2.default.createElement(
 	                                                _reactRouter.Link,
-	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-5', title: elem.companyName, 'data-tip': elem.companyName },
+	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-8', title: elem.companyName, 'data-tip': elem.companyName },
 	                                                elem.companyName
 	                                            )
 	                                        ),
@@ -65467,7 +65466,7 @@
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '25%' },
+	                                            { width: '20%' },
 	                                            elem.privateFund
 	                                        ),
 	                                        _react2.default.createElement(
@@ -65779,19 +65778,19 @@
 	                null,
 	                _react2.default.createElement(
 	                  'th',
-	                  { width: '20%', className: 'talign-left cur-pointer', onClick: this.orderByField.bind(this, 1) },
+	                  { width: '28%', className: 'talign-left cur-pointer', onClick: this.orderByField.bind(this, 1) },
 	                  '借款公司',
 	                  _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                ),
 	                _react2.default.createElement(
 	                  'th',
-	                  { width: '20%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 2) },
+	                  { width: '27%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 2) },
 	                  '贷款公司',
 	                  _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                ),
 	                _react2.default.createElement(
 	                  'th',
-	                  { width: '20%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 3) },
+	                  { width: '15%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 3) },
 	                  '借款公司行业',
 	                  _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                ),
@@ -65803,7 +65802,7 @@
 	                ),
 	                _react2.default.createElement(
 	                  'th',
-	                  { width: '25%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 5) },
+	                  { width: '15%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 5) },
 	                  '借款人关联风险',
 	                  _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                )
@@ -65824,28 +65823,28 @@
 	                if (index % 2) {
 	                  return _react2.default.createElement(
 	                    'tr',
-	                    { className: 'even', width: '20%' },
+	                    { className: 'even', width: '28%' },
 	                    _react2.default.createElement(
 	                      'td',
 	                      { className: 'talign-left' },
 	                      _react2.default.createElement(
 	                        _reactRouter.Link,
-	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.borrowerName } }, className: 'word-limit-5', title: elem.borrowerName },
+	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.borrowerName } }, className: 'word-limit-8', title: elem.borrowerName },
 	                        elem.borrowerName
 	                      )
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      { width: '20%' },
+	                      { width: '27%' },
 	                      _react2.default.createElement(
 	                        _reactRouter.Link,
-	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.lenderName } }, className: 'word-limit-5', title: elem.lenderName },
+	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.lenderName } }, className: 'word-limit-8', title: elem.lenderName },
 	                        elem.lenderName
 	                      )
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      { width: '20%' },
+	                      { width: '15%' },
 	                      _react2.default.createElement(
 	                        'span',
 	                        { className: 'word-limit-5', title: elem.borrowerBusinessType },
@@ -65859,35 +65858,35 @@
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      { width: '25%' },
-	                      elem.borrowerRegisteredCapital
+	                      { width: '15%' },
+	                      elem.relatedOfflineFinance
 	                    )
 	                  );
 	                }{
 	                  return _react2.default.createElement(
 	                    'tr',
-	                    { className: 'odd', width: '20%' },
+	                    { className: 'odd', width: '28%' },
 	                    _react2.default.createElement(
 	                      'td',
 	                      { className: 'talign-left' },
 	                      _react2.default.createElement(
 	                        _reactRouter.Link,
-	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.borrowerName } }, className: 'word-limit-5', title: elem.borrowerName },
+	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.borrowerName } }, className: 'word-limit-8', title: elem.borrowerName },
 	                        elem.borrowerName
 	                      )
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      { width: '20%' },
+	                      { width: '27%' },
 	                      _react2.default.createElement(
 	                        _reactRouter.Link,
-	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.lenderName } }, className: 'word-limit-5', title: elem.lenderName },
+	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.lenderName } }, className: 'word-limit-8', title: elem.lenderName },
 	                        elem.lenderName
 	                      )
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      { width: '20%' },
+	                      { width: '15%' },
 	                      _react2.default.createElement(
 	                        'span',
 	                        { className: 'word-limit-5', title: elem.borrowerBusinessType },
@@ -65901,8 +65900,8 @@
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      { width: '25%' },
-	                      elem.borrowerRegisteredCapital
+	                      { width: '15%' },
+	                      elem.relatedOfflineFinance
 	                    )
 	                  );
 	                }
