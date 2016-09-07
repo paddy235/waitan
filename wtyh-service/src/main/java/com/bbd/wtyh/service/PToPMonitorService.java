@@ -46,6 +46,11 @@ public interface PToPMonitorService {
 	*/
 	public List<PlatRankDataDTO> getPlatRankData()throws Exception;
 
+	/**
+	 * 网贷平台企业光谱数据
+	 * @return
+	 * @throws Exception
+	 */
 	public Map<Integer, Integer> getPlatRankMapData()throws Exception;
 	
 	     

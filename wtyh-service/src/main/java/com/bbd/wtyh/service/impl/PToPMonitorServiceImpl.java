@@ -175,9 +175,22 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
 		if (!CollectionUtils.isEmpty(list)) {
 			for (PlatRankDataDTO platRankDataDTO : list) {
 				String plat_name = platRankDataDTO.getPlat_name();
+				String plat_status = platRankDataDTO.getPlat_status();
 				PlatformNameInformationDO platformNameInformationDO = platformNameInformationMapper.hasOrNotCompany(plat_name);
 				if (platformNameInformationDO != null) {
-					map.put(platformNameInformationDO.getCompanyId(), 0);
+					Integer riskLevel = 4;
+					if ("正常".equals(plat_status)) {
+						riskLevel = 4;
+					} else if ("一般关注".equals(plat_status)) {
+						riskLevel = 3;
+					} else if ("重点关注".equals(plat_status)) {
+						riskLevel = 2;
+					} else if ("问题".equals(plat_status)) {
+						riskLevel = 1;
+					} else {
+
+					}
+					map.put(platformNameInformationDO.getCompanyId(), riskLevel);
 				}
 			}
 		}
