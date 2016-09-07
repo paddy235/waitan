@@ -21,7 +21,26 @@ public class PlatRankDataDTO {
 	
 	private double stay_still_of_total;
 
-	
+	private String plat_status;
+
+	private String registered_address;
+
+	public String getRegistered_address() {
+		return registered_address;
+	}
+
+	public void setRegistered_address(String registered_address) {
+		this.registered_address = registered_address;
+	}
+
+	public String getPlat_status() {
+		return plat_status;
+	}
+
+	public void setPlat_status(String plat_status) {
+		this.plat_status = plat_status;
+	}
+
 	public int getRank() {
 		return rank;
 	}

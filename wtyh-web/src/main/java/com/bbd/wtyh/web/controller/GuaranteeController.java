@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -75,8 +76,8 @@ public class GuaranteeController {
      * @return
      */
     @RequestMapping("companyLevel.do")
-    public ResponseBean companyLevel(Integer orderByField, String descAsc) {
-        return ResponseBean.successResponse(companyLevelService.getCompanyLevel((int) CompanyDO.TYPE_RZDB_3, orderByField, descAsc));
+    public ResponseBean companyLevel(Integer areaId, Integer orderByField, String descAsc) {
+        return ResponseBean.successResponse(companyLevelService.getCompanyLevel((int) CompanyDO.TYPE_RZDB_3, areaId, orderByField, descAsc));
     }
 
     /**
@@ -185,6 +186,9 @@ public class GuaranteeController {
             } else {
                 dto.setGuaranteedRegisteredCapital("无");
             }
+            Collection<RelatedCompanyDTO> relatedCompanyDTOs = shareholderRiskService.getRelatedCompany(infoDO.getGuaranteedId()).get((int) CompanyDO.TYPE_XXLC_4);
+            dto.setRelatedOfflineFinance(null == relatedCompanyDTOs ? 0 : relatedCompanyDTOs.size());
+
             result.add(dto);
 
         }

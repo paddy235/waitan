@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -38,11 +39,17 @@ public class P2PImageController {
     @RequestMapping("/hasOrNotCompany")
     @ResponseBody
     public ResponseBean hasOrNotCompany(@RequestParam(required = true) String platName) {
-        PlatformNameInformationDO content = p2PImageService.hasOrNotCompany(platName);
-        if (content == null) {
-            return ResponseBean.errorResponse(content);
+        Map<String, Object> hasOrNotCompany = p2PImageService.coreDataInfo(platName);
+        List<PlatformNameInformationDO> associatedCompanys = p2PImageService.associatedCompanys(platName);
+
+        Map<String, Object> rst = new HashMap<>();
+        rst.put("associatedWords", associatedCompanys);
+        if (hasOrNotCompany == null) {
+            rst.put("isGoToHologram", true);
+            return ResponseBean.successResponse(rst);
         } else {
-            return ResponseBean.successResponse(content);
+            rst.put("isGoToHologram", false);
+            return ResponseBean.successResponse(rst);
         }
     }
 
@@ -98,7 +105,7 @@ public class P2PImageController {
      */
     @RequestMapping("/radarScore")
     @ResponseBody
-    public ResponseBean radarScore(@RequestParam(required = true)String platName) {
+    public ResponseBean radarScore(@RequestParam(required = true) String platName) {
         Map<String, Object> result = p2PImageService.radarScore(platName);
         RadarChartBean radarChart = new RadarChartBean<>();
         if (null != result && result.size() != 0) {
@@ -119,7 +126,7 @@ public class P2PImageController {
      */
     @RequestMapping("/baseInfo")
     @ResponseBody
-    public ResponseBean baseInfo(@RequestParam(required = true)String platName) {
+    public ResponseBean baseInfo(@RequestParam(required = true) String platName) {
         Map<String, Object> content = p2PImageService.baseInfo(platName);
         if (null != content && content.size() != 0) {
             return ResponseBean.successResponse(content);

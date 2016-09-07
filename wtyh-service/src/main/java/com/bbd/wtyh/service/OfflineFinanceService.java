@@ -35,13 +35,6 @@ public interface OfflineFinanceService {
     public Map staticRiskIndex(String companyName);
 
     /**
-     * 静态风险指数列表
-     * @param companyName
-     * @return
-     */
-    public List<Map> staticRiskList(String companyName);
-
-    /**
      * 风险指数趋势变化图
      * @param companyName
      * @param tabIndex
@@ -50,33 +43,11 @@ public interface OfflineFinanceService {
      */
     public List<StatisticsVO> queryStatistics(String companyName, String tabIndex, String areaCode) throws ParseException;
 
-    /**
-     * 动态指数时间轴对比图
-     * @param companyName
-     * @param dateA
-     * @param dateB
-     * @return
-     */
-    List<Map> dynamicComparisonChart(String companyName, String dateA, String dateB);
-
-    /**
-     * 企业关联方特征指数对比
-     * @param companyName
-     * @param dateA
-     * @param dateB
-     * @return
-     */
-    public List<Map> companyRelatedComparisonChart(String companyName, String dateA, String dateB);
-
-    /**
-     * 列表展示量化后的风险系数
-     * @return
-     */
-    public List<Map> riskFactor();
-
     public StaticRiskVO queryCurrentStaticRisk(String companyName, String currentDate, String areaCode);
 
     public String createYED(String companyName, String month) throws Exception;
 
     Map companyInfo(String companyName);
+
+    void updateCompanyRiskLevel();
 }

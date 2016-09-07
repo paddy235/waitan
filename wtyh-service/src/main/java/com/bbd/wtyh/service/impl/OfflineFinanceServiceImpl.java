@@ -3,22 +3,20 @@ package com.bbd.wtyh.service.impl;
 import com.bbd.higgs.utils.ListUtil;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.common.Constants;
-import com.bbd.wtyh.domain.CompanyCreditInformationDO;
-import com.bbd.wtyh.domain.CompanyCreditPointItemsDO;
-import com.bbd.wtyh.domain.CompanyDO;
+import com.bbd.wtyh.common.Pagination;
+import com.bbd.wtyh.domain.*;
+import com.bbd.wtyh.domain.dto.PlatRankDataDTO;
 import com.bbd.wtyh.domain.dto.StaticRiskDTO;
 import com.bbd.wtyh.domain.vo.LineVO;
 import com.bbd.wtyh.domain.vo.PointVO;
 import com.bbd.wtyh.domain.vo.StaticRiskVO;
 import com.bbd.wtyh.domain.vo.StatisticsVO;
+import com.bbd.wtyh.mapper.CompanyAnalysisResultMapper;
 import com.bbd.wtyh.mapper.CompanyCreditInformationMapper;
 import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.mapper.StaticRiskMapper;
 import com.bbd.wtyh.redis.RedisDAO;
-import com.bbd.wtyh.service.BuildFileService;
-import com.bbd.wtyh.service.CompanyNewsService;
-import com.bbd.wtyh.service.OfflineFinanceService;
-import com.bbd.wtyh.service.RelationCompanyService;
+import com.bbd.wtyh.service.*;
 import com.bbd.wtyh.service.impl.relation.RegisterUniversalFilterChainImp;
 import com.bbd.wtyh.service.impl.relation.common.APIConstants;
 import com.bbd.wtyh.service.impl.relation.exception.BbdException;
@@ -27,10 +25,12 @@ import com.bbd.wtyh.util.DateUtils;
 import com.google.gson.Gson;
 import net.sf.json.JSONArray;
 import net.sf.json.JsonConfig;
+import org.apache.commons.collections.map.HashedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -68,6 +68,10 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     private CompanyCreditInformationMapper companyCreditInformationMapper;
     @Autowired
     private CompanyMapper companyMapper;
+    @Autowired
+    private CompanyAnalysisResultMapper companyAnalysisResultMapper;
+    @Autowired
+    private PToPMonitorService pToPMonitorService;
     @Value("${share.path}")
     private String shareDir;
 
@@ -78,6 +82,61 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     private static final String FALL = "-1";
     private final String file_type_1 = "yed";
 
+    @Scheduled(cron = "0 0 0 * * *")
+    @Override
+    public void updateCompanyRiskLevel() {
+        Map<Integer, Integer> platRankMapData = new HashMap();
+        try {
+            platRankMapData = pToPMonitorService.getPlatRankMapData();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        int totalCount = companyMapper.countAllCompany();
+        Pagination pagination = new Pagination();
+        pagination.setPageSize(1000);
+        pagination.setCount(totalCount);
+        int total = pagination.getLastPageNumber();
+        Map<String, Object> params = new HashMap<>();
+        for (int i=1; i<=total; i++) {
+            pagination.setPageNumber(i);
+            params.put("pagination", pagination);
+            List<CompanyDO> list = companyMapper.findByPage(params);
+            if (!CollectionUtils.isEmpty(list)) {
+                for (CompanyDO companyDO : list) {
+                    Integer companyId = companyDO.getCompanyId();
+                    CompanyAnalysisResultDO companyAnalysisResultDO = companyAnalysisResultMapper.findCompanyAnalysisResultByCompanyId(companyId);
+                    StaticRiskDataDO staticRiskDataDO = staticRiskMapper.queryStaticsRiskData(companyDO.getName());
+                    Integer riskLevel = null;
+                    if (companyAnalysisResultDO != null) {
+                        riskLevel = (int)companyAnalysisResultDO.getAnalysisResult();
+                        companyMapper.updateRiskLevel(riskLevel, companyId);
+                        System.out.println("-----analysis-------"+companyId);
+                        break;
+                    }
+                    if (staticRiskDataDO != null) {
+                        float staticsRiskIndex = staticRiskDataDO.getStaticRiskIndex();
+                        if (staticsRiskIndex > 70) {
+                            riskLevel = 2;
+                        } else if (staticsRiskIndex >= 60 && staticsRiskIndex < 70) {
+                            riskLevel = 3;
+                        } else if (staticsRiskIndex < 60) {
+                            riskLevel = 4;
+                        }
+                        System.out.println("-----static-------"+companyId);
+                        companyMapper.updateRiskLevel(riskLevel, companyId);
+                        break;
+                    }
+                    Integer riskLevelForPToP = platRankMapData.get(companyId);
+                    if (riskLevelForPToP != null && riskLevelForPToP > 0) {
+                        System.out.println("-----p2p-------"+companyId);
+                        companyMapper.updateRiskLevel(riskLevelForPToP, companyId);
+                    }
+                    System.out.println("-----nothing-------"+companyId);
+                }
+            }
+        }
+
+    }
     @Override
     public Map companyInfo(String companyName) {
         List<Map<Integer, String>> list = companyMapper.companyInfo(companyName);
@@ -190,11 +249,6 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
         result.put("capitalRisk", capitalBgRisk);
         result.put("creditInfoRisk", creditInfoRisk);
         return result;
-    }
-
-    @Override
-    public List<Map> staticRiskList(String companyName) {
-        return null;
     }
 
     @Override
@@ -405,21 +459,6 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
                 }
             }
         }
-    }
-
-    @Override
-    public List<Map> dynamicComparisonChart(String companyName, String dateA, String dateB) {
-        return null;
-    }
-
-    @Override
-    public List<Map> companyRelatedComparisonChart(String companyName, String dateA, String dateB) {
-        return null;
-    }
-
-    @Override
-    public List<Map> riskFactor() {
-        return null;
     }
 
     @Override

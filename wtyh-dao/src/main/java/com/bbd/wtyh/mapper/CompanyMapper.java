@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.bbd.wtyh.domain.query.CompanyQuery;
+import com.bbd.wtyh.domain.vo.SpectrumVO;
 import org.apache.ibatis.annotations.Param;
 
 import com.bbd.wtyh.domain.CompanyDO;
@@ -56,4 +57,28 @@ public interface CompanyMapper {
     List<Map<Integer, String>> companyInfo(String companyName);
 
     List<CompanyDO> queryCompanyByType(@Param("companyType") Integer companyType, @Param("orderByField") Integer orderByField, @Param("descAsc") String descAsc);
+
+
+    List<SpectrumVO> getSpectrumAnalysis(@Param("risk_level")Integer risk_level);
+
+    /**
+     * 获取总条数
+     * @return
+     */
+    int countAllCompany();
+
+    /**
+     * 分页获取企业信息
+     * @param params
+     * @return
+     */
+    List<CompanyDO> findByPage(Map<String, Object> params);
+    /**
+     * 更新企业光谱
+     * @param riskLevel
+     * @param companyId
+     */
+    void updateRiskLevel(
+            @Param(value = "riskLevel") Integer riskLevel,
+            @Param(value = "companyId") Integer companyId);
 }

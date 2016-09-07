@@ -2,6 +2,7 @@ package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.CompanyDO;
+import com.bbd.wtyh.domain.dto.RelatedCompanyDTO;
 import com.bbd.wtyh.domain.dto.ShareholderRiskDTO;
 import com.bbd.wtyh.mapper.RelatedCompanyMapper;
 import com.bbd.wtyh.redis.RedisDAO;
@@ -24,11 +25,12 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Created by Marco on 2016/8/8 0008.
+ * Created by Marco on 2016/8/8.
  */
 @Service
 public class ShareholderRiskServiceImpl implements ShareholderRiskService {
     private static final String SHAREHOLDER_RISK_CACHE_PRIFIX = "ShareholderRisk-";
+    private static final String RELATED_COMPANY_CACHE_PRIFIX = "RelatedCompany-";
     @Autowired
     private RelatedCompanyMapper relatedCompanyMapper;
     @Autowired
@@ -113,12 +115,25 @@ public class ShareholderRiskServiceImpl implements ShareholderRiskService {
     }
 
     @Override
-    public Multimap<Integer, String> getRelatedCompany(Integer companyId) {
+    public Multimap<Integer, RelatedCompanyDTO> getRelatedCompany(Integer companyId) {
 
+        Object object = redisDAO.getObject(RELATED_COMPANY_CACHE_PRIFIX + companyId);
+        if (null == object) {
+            object = innerGetRelatedCompany(companyId);
+            redisDAO.addObject(RELATED_COMPANY_CACHE_PRIFIX + companyId, object, Constants.REDIS_10, ArrayListMultimap.class);
+        }
+        return (Multimap<Integer, RelatedCompanyDTO>) object;
+    }
+
+
+    private Multimap<Integer, RelatedCompanyDTO> innerGetRelatedCompany(Integer companyId) {
         try {
-            Multimap<Integer, String> relatedCompanyMap = ArrayListMultimap.create();
+            Multimap<Integer, RelatedCompanyDTO> relatedCompanyMap = ArrayListMultimap.create();
             Map<String, List> relationMap = relatedCompanyService.queryRelation(companyService.getNameById(companyId), dataVersion, 1);
             List<PointVO> pointList = relationMap.get("pointList");
+            if (null == pointList) {
+                return ArrayListMultimap.create();
+            }
             for (PointVO pointVO : pointList) {
                 if (pointVO.getIsPerson().equals("1")) {
                     continue;
@@ -128,14 +143,13 @@ public class ShareholderRiskServiceImpl implements ShareholderRiskService {
                     continue;
                 }
                 if (relatedCompanyTypes.contains(relatedCompany.getCompanyType().intValue())) {
-                    relatedCompanyMap.put(relatedCompany.getCompanyType().intValue(), relatedCompany.getName());
+                    relatedCompanyMap.put(relatedCompany.getCompanyType().intValue(), new RelatedCompanyDTO(relatedCompany.getName(), relatedCompany.getRiskLevel()));
                 }
             }
             return relatedCompanyMap;
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage(), e);
         }
-
-
     }
+
 }

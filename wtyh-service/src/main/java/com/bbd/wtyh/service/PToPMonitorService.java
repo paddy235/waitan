@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.bbd.wtyh.domain.dto.AreaIndexDTO;
 import com.bbd.wtyh.domain.dto.IndustryCompareDTO;
@@ -44,8 +45,8 @@ public interface PToPMonitorService {
 	* @return List<PlatRankDataDTO>
 	*/
 	public List<PlatRankDataDTO> getPlatRankData()throws Exception;
-	
-	
+
+	public Map<Integer, Integer> getPlatRankMapData()throws Exception;
 	
 	     
 	

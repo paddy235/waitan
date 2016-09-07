@@ -57,8 +57,22 @@ public interface P2PImageDao {
 
     /**
      * 企业logo
-     * @param company
+     * @param platName
      * @return
      */
     PlatListDO wangDaiLogo(String platName);
+
+    /**
+     * 联想  平台名称
+     * @param platName
+     * @return
+     */
+    List<PlatformNameInformationDO> associatedPlatName(String platName);
+
+    /**
+     * 联想  公司名称
+     * @param platName
+     * @return
+     */
+    List<PlatformNameInformationDO> associatedCompanyName(String platName, Integer limit_size);
 }

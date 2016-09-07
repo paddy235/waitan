@@ -8,6 +8,6 @@ import java.util.List;
 public interface CompanyLevelMapper {
     CompanyLevelDO selectByPrimaryKey(Integer companyId);
 
-    List<CompanyLevelDO> selectCompanyLevel(@Param("companyType") Integer companyType, @Param("orderByField") Integer orderByField, @Param("descAsc") String descAsc);
+    List<CompanyLevelDO> selectCompanyLevel(@Param("companyType") Integer companyType,@Param("areaId") Integer areaId, @Param("orderByField") Integer orderByField, @Param("descAsc") String descAsc);
 
 }

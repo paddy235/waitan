@@ -7,6 +7,7 @@ import com.bbd.wtyh.dao.RealTimeMonitorDao;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.dto.StaticRiskDTO;
 import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
+import com.bbd.wtyh.domain.vo.SpectrumVO;
 import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.RealTimeMonitorService;
@@ -34,6 +35,9 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
     private BuildingMapper buildingMapper;
 
     @Autowired
+    private CompanyMapper companyMapper;
+
+    @Autowired
     private RealTimeMonitorDao realTimeMonitorDao;
 
     @Autowired
@@ -45,8 +49,28 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
     private final Integer MIN = null;
     private final boolean NORMAL_FLAG = true;
 
+    //  2:重点关注(红) 3:一般关注(黄) 4:正常(绿)'，1:已出风险(黑)
+    private final Integer FOCUS_LEVEL = 2;
+    private final Integer USUAL_LEVEL = 3;
+    private final Integer NORMAL_LEVEL = 4;
+    private final Integer RISK_LEVEL = 1;
+
     @Override
     public List<List> spectrumAnalysis() {
+        List<SpectrumVO> spectrumAnalysisFocus = companyMapper.getSpectrumAnalysis(FOCUS_LEVEL);
+        List<SpectrumVO> spectrumAnalysisUsual = companyMapper.getSpectrumAnalysis(USUAL_LEVEL);
+        List<SpectrumVO> spectrumAnalysisNormal = companyMapper.getSpectrumAnalysis(NORMAL_LEVEL);
+        List<SpectrumVO> spectrumAnalysisRisk = companyMapper.getSpectrumAnalysis(RISK_LEVEL);
+
+        List<List> rst = new ArrayList<>();
+        rst.add(spectrumAnalysisFocus);
+        rst.add(spectrumAnalysisUsual);
+        rst.add(spectrumAnalysisNormal);
+        rst.add(spectrumAnalysisRisk);
+        return rst;
+    }
+
+    public List<List> spectrumAnalysisBackup() {
         List<StaticRiskDTO> spectrumAnalysisEmphasis = staticRiskMapper.getSpectrumAnalysis(EMPHASIS, MAX, !NORMAL_FLAG);
         List<StaticRiskDTO> spectrumAnalysisUsual = staticRiskMapper.getSpectrumAnalysis(USUAL, EMPHASIS,  !NORMAL_FLAG);
         List<StaticRiskDTO> spectrumAnalysisNormal = staticRiskMapper.getSpectrumAnalysis(MIN, USUAL, NORMAL_FLAG);
@@ -153,6 +177,7 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
         Map<String, Object> data = realTimeMonitorDao.shMapMonitor();
         return data;
     }
+
 
 
 }

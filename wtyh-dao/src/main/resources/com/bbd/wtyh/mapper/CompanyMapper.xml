@@ -20,11 +20,11 @@
         <result column="registered_type" jdbcType="VARCHAR" property="registeredType"/>
         <result column="exposure_date" jdbcType="DATE" property="exposureDate"/>
         <result column="analysisResult" jdbcType="TINYINT" property="analysisResult"/>
-
+        <result column="risk_level" jdbcType="TINYINT" property="riskLevel"/>
     </resultMap>
     <sql id="Base_Column_List">
     company_id, name, legal_person, area_id, address, registered_capital, registered_capital_type,business_type, registered_date,
-    company_type, status, create_by, create_date, update_by, update_date
+    company_type, risk_level, status, create_by, create_date, update_by, update_date
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
@@ -85,6 +85,17 @@
    			 
    </select>
 
+    <select id="countAllCompany" resultType="int">
+        select count(*) count from company
+    </select>
+
+    <select id="findByPage" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        select * from company limit #{pagination.begin}, #{pagination.pageSize}
+    </select>
+
+    <update id="updateRiskLevel">
+        update company set risk_level=#{riskLevel} where company_id=#{companyId}
+    </update>
 
 
     <select id="maxVersion" resultType="int">
@@ -266,5 +277,17 @@
     </select>
 
 
+    <select id="getSpectrumAnalysis"  resultType="com.bbd.wtyh.domain.vo.SpectrumVO">
+        SELECT
+            company.`name`,
+            company.registered_capital AS registeredCapital,
+            company_analysis_result.exposure_date AS exposureDate
+        FROM
+            company
+        LEFT JOIN company_analysis_result ON company.company_id = company_analysis_result.company_id
+        WHERE
+            risk_level = #{risk_level}
+        ORDER BY company_analysis_result.exposure_date DESC
+    </select>
 
 </mapper>

@@ -11,6 +11,8 @@ public class LargeLoanDTO {
     private String lenderName;
     private String borrowerBusinessType;
     private String borrowerRegisteredCapital;
+    //借款人的关联线下理财公司数
+    private Integer relatedOfflineFinance;
 
     public Integer getLenderId() {
         return lenderId;
@@ -58,5 +60,13 @@ public class LargeLoanDTO {
 
     public void setBorrowerRegisteredCapital(String borrowerRegisteredCapital) {
         this.borrowerRegisteredCapital = borrowerRegisteredCapital;
+    }
+
+    public Integer getRelatedOfflineFinance() {
+        return relatedOfflineFinance;
+    }
+
+    public void setRelatedOfflineFinance(Integer relatedOfflineFinance) {
+        this.relatedOfflineFinance = relatedOfflineFinance;
     }
 }
