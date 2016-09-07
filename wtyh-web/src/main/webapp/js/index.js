@@ -52131,12 +52131,13 @@
 	  },
 	  handleChange: function handleChange(e) {
 	    var searchVal = $(e.target).parent().prev().val();
-	    var searchValAttr = $(e.target).parent().prev()[0].getAttribute("company");
+	    var searchAttrCompany = $(e.target).parent().prev()[0].getAttribute("company"); //公司
+	    var searchAttrPlat = $(e.target).parent().prev()[0].getAttribute("plat"); //平台
 	    var isClick = $(e.target).parent().prev()[0].getAttribute("data_flag");
 	    if (isClick == "hasWorld") {
 	      this.setState({ searchVal: searchVal });
 	      if (this.props.searchFun) {
-	        this.props.searchFun(searchVal, searchValAttr);
+	        this.props.searchFun(searchAttrPlat, searchAttrCompany);
 	      }
 	    }
 	  },
@@ -67264,15 +67265,6 @@
 	    value: true
 	});
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; //基本信息
-	//公司基本信息
-	//核心数据
-	//诉讼信息
-	//平台舆情
-	//动态图谱
-	//评分雷达图
-
-
 	__webpack_require__(737);
 
 	var _react = __webpack_require__(2);
@@ -67328,6 +67320,9 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	//p2p平台画像
+	//动态图谱
+	//诉讼信息
+	//公司基本信息
 	var P2PPortrait = _react2.default.createClass({
 	    displayName: 'P2PPortrait',
 
@@ -67344,65 +67339,64 @@
 
 	        var _selectVal = this.props.location.query.platName == undefined ? "" : this.props.location.query.platName;
 	        $("#autocomplete").val(_selectVal);
-	        this.setState({ getCompany: _selectVal }, function () {
-	            $.ajax({
-	                url: "/P2PImage/hasOrNotCompany.do",
-	                dataType: "json",
-	                data: {
-	                    platName: this.state.getCompany
-	                },
-	                type: "GET",
-	                success: function (result) {
-	                    if (result.content) {
+	        this.setState({ getCompany: _selectVal });
 
-	                        this.setState({ companyName: result.content.name }, function () {
-	                            setCompany({ getCompanyName: this.state.companyName });
-	                        });
-	                    } else {
-	                        this.setState({ companyName: "" }, function () {
-	                            setCompany({ getCompanyName: this.state.companyName });
-	                        });
-	                    }
-	                }.bind(this)
-	            });
-	        });
+	        // ,function(){
+	        //      $.ajax({
+	        //        url: "/P2PImage/hasOrNotCompany.do",
+	        //        dataType:"json", 
+	        //        data: {
+	        //          platName:this.state.getCompany
+	        //        },
+	        //        type: "GET",
+	        //        success: function(result) {
+	        //          if(result.content){
+
+	        //            this.setState({companyName:result.content.name},function(){
+	        //                    setCompany({getCompanyName: this.state.companyName});
+	        //            })
+	        //          } else{
+	        //             this.setState({companyName:""},function(){
+	        //                    setCompany({getCompanyName: this.state.companyName});
+	        //             })
+	        //          }
+	        //        }.bind(this)
+	        //    });
+	        // }
 	    },
-	    handleFunction: function handleFunction(searchVal, searchValAttr) {
-	        if (searchValAttr != "") {
-	            this.setState({ companyVal: searchVal, companyName: searchValAttr }, function () {
-	                var _props = this.props;
-	                var getbaseMsgRequest = _props.getbaseMsgRequest;
-	                var getcompanyMsgRequest = _props.getcompanyMsgRequest;
-	                var getcoreDataRequest = _props.getcoreDataRequest;
-	                var getCoreBarDataRequest = _props.getCoreBarDataRequest;
-	                var getCoreTrendDataRequest = _props.getCoreTrendDataRequest;
-	                var getCoreBalanceDataRequest = _props.getCoreBalanceDataRequest;
-	                var getlitigationRequest = _props.getlitigationRequest;
-	                var getpublicOpinionRequest = _props.getpublicOpinionRequest;
-	                var getrankPicRequest = _props.getrankPicRequest;
-	                var getscoreLeidaRequest = _props.getscoreLeidaRequest;
+	    handleFunction: function handleFunction(plat, company) {
+	        this.setState({ companyVal: plat, companyName: company }, function () {
+	            var _props = this.props;
+	            var getbaseMsgRequest = _props.getbaseMsgRequest;
+	            var getcompanyMsgRequest = _props.getcompanyMsgRequest;
+	            var getcoreDataRequest = _props.getcoreDataRequest;
+	            var getCoreBarDataRequest = _props.getCoreBarDataRequest;
+	            var getCoreTrendDataRequest = _props.getCoreTrendDataRequest;
+	            var getCoreBalanceDataRequest = _props.getCoreBalanceDataRequest;
+	            var getlitigationRequest = _props.getlitigationRequest;
+	            var getpublicOpinionRequest = _props.getpublicOpinionRequest;
+	            var getrankPicRequest = _props.getrankPicRequest;
+	            var getscoreLeidaRequest = _props.getscoreLeidaRequest;
 
 
-	                getbaseMsgRequest({ "platName": this.state.companyVal });
-	                getcompanyMsgRequest({ "platName": this.state.companyVal });
-	                getcoreDataRequest({ "platName": this.state.companyVal });
-	                getCoreBarDataRequest({ "platName": this.state.companyVal });
-	                getCoreTrendDataRequest({ "platName": this.state.companyVal });
-	                getCoreBalanceDataRequest({ "platName": this.state.companyVal });
+	            getbaseMsgRequest({ "platName": this.state.companyVal });
+	            getcompanyMsgRequest({ "platName": this.state.companyVal });
+	            getcoreDataRequest({ "platName": this.state.companyVal });
+	            getCoreBarDataRequest({ "platName": this.state.companyVal });
+	            getCoreTrendDataRequest({ "platName": this.state.companyVal });
+	            getCoreBalanceDataRequest({ "platName": this.state.companyVal });
 
-	                getlitigationRequest({ "platName": this.state.companyVal });
-	                getpublicOpinionRequest({ "platName": this.state.companyVal });
+	            getlitigationRequest({ "platName": this.state.companyVal });
+	            getpublicOpinionRequest({ "platName": this.state.companyVal });
 
-	                getrankPicRequest({
-	                    "platName": this.state.companyVal,
-	                    "companyName": searchValAttr,
-	                    "dataVersion": "20160530",
-	                    "degree": 3
-	                }); //动态图谱
+	            getrankPicRequest({
+	                "platName": this.state.companyVal,
+	                "dataVersion": "20160530",
+	                "degree": 2
+	            }); //动态图谱
 
-	                getscoreLeidaRequest({ "platName": this.state.companyVal });
-	            });
-	        }
+	            getscoreLeidaRequest({ "platName": this.state.companyVal });
+	        });
 	    },
 	    render: function render() {
 	        return _react2.default.createElement(
@@ -67419,22 +67413,22 @@
 	                    _react2.default.createElement(
 	                        'div',
 	                        { className: 'portrait-left' },
-	                        _react2.default.createElement(_companyMsg2.default, _extends({}, this.props, { companyData: this.state.companyName })),
-	                        _react2.default.createElement(_baseMsg2.default, _extends({}, this.props, { companyData: this.state.companyName })),
-	                        _react2.default.createElement(_rankPic2.default, _extends({}, this.props, { companyData: this.state.companyName }))
+	                        _react2.default.createElement(_companyMsg2.default, this.props),
+	                        _react2.default.createElement(_baseMsg2.default, this.props),
+	                        _react2.default.createElement(_rankPic2.default, this.props)
 	                    ),
 	                    _react2.default.createElement(
 	                        'div',
 	                        { className: 'portrait-right' },
-	                        _react2.default.createElement(_scoreLeida2.default, _extends({}, this.props, { companyData: this.state.companyName })),
-	                        _react2.default.createElement(_coreData2.default, _extends({}, this.props, { companyData: this.state.companyName }))
+	                        _react2.default.createElement(_scoreLeida2.default, this.props),
+	                        _react2.default.createElement(_coreData2.default, this.props)
 	                    )
 	                ),
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'portrait-bottom  clearfix' },
-	                    _react2.default.createElement(_litigation2.default, _extends({}, this.props, { companyData: this.state.companyName })),
-	                    _react2.default.createElement(_publicOpinion2.default, _extends({}, this.props, { companyData: this.state.companyName }))
+	                    _react2.default.createElement(_litigation2.default, this.props),
+	                    _react2.default.createElement(_publicOpinion2.default, this.props)
 	                )
 	            )
 	        );
@@ -67443,6 +67437,10 @@
 	// module.exports = P2PPortrait;
 
 	//将 request  result 绑定到props的request result 
+	//评分雷达图
+	//平台舆情
+	//核心数据
+	//基本信息
 	function mapStateToProps(state) {
 	    return {
 	        baseMsgRequest: state.BaseMsg.request,
@@ -67517,20 +67515,18 @@
 	            listData: []
 	        };
 	    },
-	    componentDidMount: function componentDidMount() {},
+	    componentDidMount: function componentDidMount() {
+	        var getbaseMsgRequest = this.props.getbaseMsgRequest;
+
+	        getbaseMsgRequest({ "platName": this.state.companyVal });
+	    },
 	    handleClickGoQX: function handleClickGoQX() {
 	        this.props.history.push('/SearchResultDetail?companyName=' + this.props.companyData);
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        if (nextProps.companyData == "") {
-	            return;
-	        }
-	        var isEqualCompany = Immutable.is(nextProps.companyData, this.props.companyData);
-	        if (!isEqualCompany) {
-	            var getbaseMsgRequest = this.props.getbaseMsgRequest;
+	        var setCompany = this.props.setCompany;
 
-	            getbaseMsgRequest({ "platName": this.state.companyVal });
-	        }
+
 	        var isEqual = Immutable.is(nextProps.baseMsgResult, this.props.baseMsgResult);
 	        if (!isEqual) {
 	            var baseMsgRequest = nextProps.baseMsgRequest;
@@ -67539,6 +67535,7 @@
 	            if (baseMsgRequest == true) {
 	                if (baseMsgResult.success) {
 	                    var _setParm = [baseMsgResult.content];
+	                    setCompany({ baseMsgCompany: baseMsgResult.content.companyName });
 	                    this.setState({ listData: _setParm });
 	                } else {
 	                    //错误后提示
@@ -67786,15 +67783,6 @@
 	        getcompanyMsgRequest({ "platName": this.state.companyVal });
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        if (nextProps.companyData == "") {
-	            return;
-	        }
-	        var isEqualCompany = Immutable.is(nextProps.companyData, this.props.companyData);
-	        if (!isEqualCompany) {
-	            var getcompanyMsgRequest = this.props.getcompanyMsgRequest;
-
-	            getcompanyMsgRequest({ "platName": this.state.companyVal });
-	        }
 	        var isEqual = Immutable.is(nextProps.companyMsgResult, this.props.companyMsgResult);
 	        if (!isEqual) {
 	            var companyMsgRequest = nextProps.companyMsgRequest;
@@ -67902,26 +67890,20 @@
 	            companyVal: _selectVal
 	        };
 	    },
-	    componentDidMount: function componentDidMount() {},
+	    componentDidMount: function componentDidMount() {
+	        var _props = this.props;
+	        var getcoreDataRequest = _props.getcoreDataRequest;
+	        var getCoreBarDataRequest = _props.getCoreBarDataRequest;
+	        var getCoreTrendDataRequest = _props.getCoreTrendDataRequest;
+	        var getCoreBalanceDataRequest = _props.getCoreBalanceDataRequest;
+
+	        getcoreDataRequest({ "platName": this.state.companyVal });
+	        getCoreBarDataRequest({ "platName": this.state.companyVal });
+	        getCoreTrendDataRequest({ "platName": this.state.companyVal });
+	        getCoreBalanceDataRequest({ "platName": this.state.companyVal });
+	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	        var _this = this;
-	        if (nextProps.companyData == "") {
-	            return;
-	        }
-	        var isEqualCompany = Immutable.is(nextProps.companyData, this.props.companyData);
-	        if (!isEqualCompany) {
-	            var _props = this.props;
-	            var getcoreDataRequest = _props.getcoreDataRequest;
-	            var getCoreBarDataRequest = _props.getCoreBarDataRequest;
-	            var getCoreTrendDataRequest = _props.getCoreTrendDataRequest;
-	            var getCoreBalanceDataRequest = _props.getCoreBalanceDataRequest;
-
-	            getcoreDataRequest({ "platName": this.state.companyVal });
-	            getCoreBarDataRequest({ "platName": this.state.companyVal });
-	            getCoreTrendDataRequest({ "platName": this.state.companyVal });
-	            getCoreBalanceDataRequest({ "platName": this.state.companyVal });
-	        }
-
 	        var isEqual = Immutable.is(nextProps.coreDataResult, this.props.coreDataResult);
 	        if (!isEqual) {
 	            var coreDataRequest = nextProps.coreDataRequest;
@@ -68509,22 +68491,17 @@
 	    var _selectVal = this.props.location.query.platName == undefined ? "" : this.props.location.query.platName;
 	    return {
 	      listData: [],
-	      company: "",
+	      getBaseCompany: "",
 	      companyVal: _selectVal
 	    };
 	  },
-	  componentDidMount: function componentDidMount() {},
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    if (nextProps.companyData == "") {
-	      return;
-	    }
-	    var isEqualCompany = Immutable.is(nextProps.companyData, this.props.companyData);
-	    if (!isEqualCompany) {
-	      var getlitigationRequest = this.props.getlitigationRequest;
+	  componentDidMount: function componentDidMount() {
+	    var getlitigationRequest = this.props.getlitigationRequest;
 
-	      this.setState({ company: nextProps.companyData });
-	      getlitigationRequest({ "platName": this.state.companyVal });
-	    }
+	    getlitigationRequest({ "platName": this.state.companyVal });
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    this.setState({ getBaseCompany: nextProps.companyName.baseMsgCompany });
 	    var isEqual = Immutable.is(nextProps.litigationResult, this.props.litigationResult);
 	    if (!isEqual) {
 	      var litigationRequest = nextProps.litigationRequest;
@@ -68542,7 +68519,7 @@
 	    }
 	  },
 	  render: function render() {
-	    var _companyName = this.state.company;
+	    var _companyName = this.state.getBaseCompany;
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'bottom-l radius4 mod' },
@@ -68632,21 +68609,16 @@
 	        };
 	    },
 	    componentDidMount: function componentDidMount() {
+	        var getpublicOpinionRequest = this.props.getpublicOpinionRequest;
+
+	        getpublicOpinionRequest({ "platName": this.state.companyVal });
 	        $('#publicOpinion-scroll').perfectScrollbar();
 	    },
 	    componentDidUpdate: function componentDidUpdate() {
 	        $('#publicOpinion-scroll').perfectScrollbar('update');
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        if (nextProps.companyData == "") {
-	            return;
-	        }
-	        var isEqualCompany = Immutable.is(nextProps.companyData, this.props.companyData);
-	        if (!isEqualCompany) {
-	            var getpublicOpinionRequest = this.props.getpublicOpinionRequest;
 
-	            getpublicOpinionRequest({ "platName": this.state.companyVal });
-	        }
 	        var isEqual = Immutable.is(nextProps.publicOpinionResult, this.props.publicOpinionResult);
 	        if (!isEqual) {
 	            var publicOpinionRequest = nextProps.publicOpinionRequest;
@@ -68800,22 +68772,17 @@
 	            companyVal: _selectVal
 	        };
 	    },
-	    componentDidMount: function componentDidMount() {},
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        if (nextProps.companyData == "") {
-	            return;
-	        }
-	        var isEqualCompany = Immutable.is(nextProps.companyData, this.props.companyData);
-	        if (!isEqualCompany) {
-	            var getrankPicRequest = this.props.getrankPicRequest;
+	    componentDidMount: function componentDidMount() {
+	        var getrankPicRequest = this.props.getrankPicRequest;
 
-	            getrankPicRequest({
-	                "platName": this.state.companyVal,
-	                "companyName": nextProps.companyData,
-	                "dataVersion": "20160530",
-	                "degree": 3
-	            });
-	        }
+	        getrankPicRequest({
+	            "platName": this.state.companyVal,
+	            // "companyName":nextProps.companyData,
+	            "dataVersion": "20160530",
+	            "degree": 2
+	        });
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	        var isEqual = Immutable.is(nextProps.rankPicResult, this.props.rankPicResult);
 	        if (!isEqual) {
 	            (function () {
@@ -69093,17 +69060,12 @@
 				companyVal: _selectVal
 			};
 		},
-		componentDidMount: function componentDidMount() {},
-		componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-			if (nextProps.companyData == "") {
-				return;
-			}
-			var isEqualCompany = Immutable.is(nextProps.companyData, this.props.companyData);
-			if (!isEqualCompany) {
-				var getscoreLeidaRequest = this.props.getscoreLeidaRequest;
+		componentDidMount: function componentDidMount() {
+			var getscoreLeidaRequest = this.props.getscoreLeidaRequest;
 
-				getscoreLeidaRequest({ "platName": this.state.companyVal });
-			}
+			getscoreLeidaRequest({ "platName": this.state.companyVal });
+		},
+		componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 			var isEqual = Immutable.is(nextProps.scoreLeidaResult, this.props.scoreLeidaResult);
 			if (!isEqual) {
 				var scoreLeidaRequest = nextProps.scoreLeidaRequest;
@@ -71929,6 +71891,10 @@
 
 	var _HPQList2 = _interopRequireDefault(_HPQList);
 
+	var _ElseHPQList = __webpack_require__(1306);
+
+	var _ElseHPQList2 = _interopRequireDefault(_ElseHPQList);
+
 	var _DetailList = __webpack_require__(793);
 
 	var _DetailList2 = _interopRequireDefault(_DetailList);
@@ -71942,7 +71908,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	//黄浦区交易场所列表
-	//交易场所区域分布
+	//交易场所清理整顿分类
 	var TradingPlaces = _react2.default.createClass({
 	    displayName: 'TradingPlaces',
 
@@ -71973,6 +71939,12 @@
 	                    { className: 'tradingP-right mod radius4 clearfix' },
 	                    _react2.default.createElement(_Classification2.default, this.props),
 	                    _react2.default.createElement(_DetailList2.default, this.props)
+	                ),
+	                _react2.default.createElement('div', { style: { clear: "both" } }),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'tradingP-bom mod radius4 clearfix' },
+	                    _react2.default.createElement(_ElseHPQList2.default, this.props)
 	                )
 	            )
 	        );
@@ -71981,7 +71953,8 @@
 	// module.exports = TradingPlaces;
 	//将 request  result 绑定到props的request result 
 	//取得合规意见或经过商的交易场所详情列表
-	//交易场所清理整顿分类
+	//黄浦区交易场所列表
+	//交易场所区域分布
 	function mapStateToProps(state) {
 	    return {
 	        HPQListRequest: state.HPQList.request,
@@ -72046,7 +72019,7 @@
 
 
 	// module
-	exports.push([module.id, ".tradingPlaces-index .tradingP-left {\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n\r\n.tradingPlaces-index .tradingP-right {\r\n\twidth: 49.5%;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%;\r\n}\r\n\r\n.tradingPlaces-index .content {\r\n\tpadding: 30px 20px 30px 20px;\r\n}\r\n\r\n.tradingPlaces-index  a {\r\n\tcolor: #e14340 !important\r\n}", ""]);
+	exports.push([module.id, ".tradingPlaces-index .tradingP-left {\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n\r\n.tradingPlaces-index .tradingP-right {\r\n\twidth: 49.5%;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%;\r\n}\r\n\r\n.tradingPlaces-index .tradingP-bom {\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.tradingPlaces-index .content {\r\n\tpadding: 30px 20px 30px 20px;\r\n}\r\n\r\n.tradingPlaces-index  a {\r\n\tcolor: #e14340 !important\r\n}", ""]);
 
 	// exports
 
@@ -72393,6 +72366,7 @@
 
 	        var jsonData = {
 	            areaName: county, //地区
+	            type: 1,
 	            orderName: listType, //列表排序
 	            orderType: orderType //desc  //asc
 	        };
@@ -85658,7 +85632,7 @@
 
 	var _LargeGuara2 = _interopRequireDefault(_LargeGuara);
 
-	var _FinGuaMapVal = __webpack_require__(1305);
+	var _FinGuaMapVal = __webpack_require__(1307);
 
 	var _FinGuaMapVal2 = _interopRequireDefault(_FinGuaMapVal);
 
@@ -99151,7 +99125,275 @@
 	};
 
 /***/ },
-/* 1305 */
+/* 1305 */,
+/* 1306 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	__webpack_require__(789);
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(159);
+
+	var _reactRedux = __webpack_require__(242);
+
+	var _index = __webpack_require__(594);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Immutable = __webpack_require__(620);
+	var HPQList = _react2.default.createClass({
+	    displayName: 'HPQList',
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            list: [],
+	            orderZB: "DESC",
+	            areaName: "",
+	            orderName: ""
+	        };
+	    },
+	    countyChange: function countyChange(county, listType, orderType) {
+	        var getHPQListRequest = this.props.getHPQListRequest;
+
+	        var jsonData = {
+	            areaName: county, //地区
+	            type: 2,
+	            orderName: listType, //列表排序
+	            orderType: orderType //desc  //asc
+	        };
+	        getHPQListRequest(jsonData);
+	    },
+	    componentDidMount: function componentDidMount() {
+	        this.setState({ areaName: this.state.areaName });
+	        this.setState({ orderZB: "DESC" });
+	        this.countyChange(this.state.areaName, "", this.state.orderZB);
+	        $('#hpqList-scroll').perfectScrollbar().scrollTop(0);
+	    },
+	    componentDidUpdate: function componentDidUpdate() {
+	        $('#hpqList-scroll').perfectScrollbar('update').scrollTop(0);
+	    },
+	    handleClick: function handleClick(field) {
+	        var _dom = $(this.refs[field]),
+	            _domAttr = _dom.attr("data-order"),
+	            _domIco = _dom.find("i"),
+	            _domIcoIs = _dom.find("i").hasClass('icon-desc');
+	        _domIcoIs == true ? _domIco.removeClass('icon-desc').addClass('icon-asc') : _domIco.removeClass('icon-asc').addClass('icon-desc');
+	        _domAttr == "desc" ? _dom.attr("data-order", "asc") : _dom.attr("data-order", "desc");
+	        this.setState({ orderName: field, orderZB: _dom.attr("data-order") }, function () {
+	            this.countyChange(this.state.areaName, field, this.state.orderZB);
+	        });
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var isEqualCounty = Immutable.is(nextProps.pieCounty.areaName, this.props.pieCounty.areaName);
+	        if (!isEqualCounty) {
+	            this.setState({ areaName: nextProps.pieCounty.areaName });
+	            this.countyChange(nextProps.pieCounty.areaName, "", "");
+	        }
+
+	        var isEqual = Immutable.is(nextProps.HPQListResult, this.props.HPQListResult);
+	        if (!isEqual) {
+	            var HPQListRequest = nextProps.HPQListRequest;
+	            var HPQListResult = nextProps.HPQListResult;
+
+
+	            if (HPQListRequest == true) {
+	                if (HPQListResult.success) {
+	                    this.setState({ list: HPQListResult.content });
+	                } else {
+	                    //错误后提示
+	                }
+	            }
+	        }
+	    },
+	    render: function render() {
+	        var _areaName = this.state.areaName == "" ? "上海市" : this.state.areaName;
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'left-bottom' },
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'mod-title' },
+	                _react2.default.createElement(
+	                    'h3',
+	                    null,
+	                    _areaName,
+	                    '其他交易场所列表'
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'mod-content' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'table-title' },
+	                    _react2.default.createElement(
+	                        'table',
+	                        { className: 'mt-table mt-table-center wtyh-table' },
+	                        _react2.default.createElement(
+	                            'thead',
+	                            null,
+	                            _react2.default.createElement(
+	                                'tr',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'th',
+	                                    { width: '10%', className: 'talign-center' },
+	                                    '序号'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'th',
+	                                    { width: '25%' },
+	                                    '交易所'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'th',
+	                                    { width: '25%' },
+	                                    '注册地址'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'th',
+	                                    { width: '10%' },
+	                                    '法定代表人'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'th',
+	                                    { width: '15%', className: 'cur-pointer', 'data-order': this.state.orderZB, ref: 'registeredCapital', onClick: this.handleClick.bind(this, "registeredCapital") },
+	                                    '注册资本',
+	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
+	                                ),
+	                                _react2.default.createElement(
+	                                    'th',
+	                                    { width: '15%', className: 'cur-pointer', 'data-order': this.state.orderZB, ref: 'registeredDate', onClick: this.handleClick.bind(this, "registeredDate") },
+	                                    '注册时间',
+	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
+	                                )
+	                            )
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'table-content', id: 'hpqList-scroll' },
+	                    _react2.default.createElement(
+	                        'table',
+	                        { className: 'mt-table mt-table-center wtyh-table table-border-b' },
+	                        _react2.default.createElement(
+	                            'tbody',
+	                            null,
+	                            this.state.list.map(function (item, index) {
+	                                {
+	                                    var num = index + 1;
+	                                    var _address = item.address == null ? "/" : item.address;
+	                                    var _registeredCapital = item.registeredCapital == null ? "/" : item.registeredCapital + "万元";
+	                                    var _registeredDate = item.registeredDate == null ? "/" : item.registeredDate;
+	                                    var _legalPerson = item.legalPerson == null ? "/" : item.legalPerson;
+
+	                                    if (index % 2) {
+	                                        return _react2.default.createElement(
+	                                            'tr',
+	                                            { className: 'even' },
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '10%', className: 'talign-center' },
+	                                                num
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '25%' },
+	                                                _react2.default.createElement(
+	                                                    _reactRouter.Link,
+	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'HPQList', companyName: item.name } }, className: 'word-limit-5', 'data-tip': item.name, title: item.name },
+	                                                    item.name
+	                                                )
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '25%' },
+	                                                _react2.default.createElement(
+	                                                    'span',
+	                                                    { className: 'word-limit-5', 'data-tip': _address, title: _address },
+	                                                    _address
+	                                                )
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '10%' },
+	                                                _legalPerson
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '15%' },
+	                                                _registeredCapital
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '15%' },
+	                                                _registeredDate
+	                                            )
+	                                        );
+	                                    } else {
+	                                        return _react2.default.createElement(
+	                                            'tr',
+	                                            { className: 'odd' },
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '10%', className: 'talign-center' },
+	                                                num
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '25%' },
+	                                                _react2.default.createElement(
+	                                                    _reactRouter.Link,
+	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'HPQList', companyName: item.name } }, className: 'word-limit-5', 'data-tip': item.name, title: item.name },
+	                                                    item.name
+	                                                )
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '25%' },
+	                                                _react2.default.createElement(
+	                                                    'span',
+	                                                    { className: 'word-limit-5', 'data-tip': _address, title: _address },
+	                                                    _address
+	                                                )
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '10%' },
+	                                                _legalPerson
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '15%' },
+	                                                _registeredCapital
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '15%' },
+	                                                _registeredDate
+	                                            )
+	                                        );
+	                                    }
+	                                }
+	                            })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = HPQList;
+
+/***/ },
+/* 1307 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";

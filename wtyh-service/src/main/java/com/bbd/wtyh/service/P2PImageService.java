@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service;
 
 import com.bbd.wtyh.domain.PlatformNameInformationDO;
+import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
 
 import java.util.List;
@@ -13,6 +14,14 @@ import java.util.Map;
  * @since 2016.8.5
  */
 public interface P2PImageService {
+
+    /**
+     * P2P 获取平台名称
+     *
+     * @return
+     */
+    public PlatDataDO getPlatData(String platName);
+
     /**
      * P2P检测平台状态信息
      *
@@ -23,8 +32,8 @@ public interface P2PImageService {
     /**
      * 舆情信息
      *
-     * @return
      * @param platName
+     * @return
      */
     YuQingDO platformConsensus(String platName);
 
@@ -41,7 +50,7 @@ public interface P2PImageService {
      * @return
      */
     Map<String, Object> radarScore(String plat_name);
-    
+
     Map<String, Object> baseInfo(String platName);
 
     Map<String, Object> coreDataInfo(String platName);
@@ -56,6 +65,7 @@ public interface P2PImageService {
 
     /**
      * 根据用户输入，联想 平台名称，以及公司名称
+     *
      * @param platName
      * @return
      */

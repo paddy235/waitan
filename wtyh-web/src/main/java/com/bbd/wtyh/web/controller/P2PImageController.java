@@ -43,11 +43,11 @@ public class P2PImageController {
         List<PlatformNameInformationDO> associatedCompanys = p2PImageService.associatedCompanys(platName);
 
         Map<String, Object> rst = new HashMap<>();
+        rst.put("associatedWords", associatedCompanys);
         if (hasOrNotCompany == null) {
             rst.put("isGoToHologram", false);
             return ResponseBean.successResponse(rst);
         } else {
-            rst.put("associatedWords", associatedCompanys);
             rst.put("isGoToHologram", true);
             return ResponseBean.successResponse(rst);
         }
