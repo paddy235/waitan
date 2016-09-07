@@ -50433,7 +50433,7 @@
 	  mixins: [_setMinHeight2.default],
 	  getInitialState: function getInitialState() {
 	    //区域选择
-	    var areaSelect = ["黄浦区", "徐汇区", "静安区", "长宁区", "普陀区", "虹口区", "杨浦区", "浦东新区", "闵行区", "宝山区", "嘉定区", "金山区", "松江区", "青浦区", "奉贤区", "崇明县", "闸北区"];
+	    var areaSelect = ["浦东新区", "黄浦区", "静安区", "徐汇区", "长宁区", "普陀区", "虹口区", "杨浦区", "宝山区", "闵行区", "嘉定区", "金山区", "松江区", "青浦区", "奉贤区", "崇明县"];
 	    //注册资本
 	    var regCapital = ["10-50万元", "50-100万元", "100-500万元", "500万以上"];
 	    //存续时间
@@ -65039,6 +65039,7 @@
 	            var s = { "name": content[i].areaName, "value": content[i].all, "areaId": content[i].areaId };
 	            series.push(s);
 	        }
+	        console.log(series, 11);
 	        var option = {
 	            "visualMapRight": "50", //值茷位置
 	            "visualMapBottom": "30",
