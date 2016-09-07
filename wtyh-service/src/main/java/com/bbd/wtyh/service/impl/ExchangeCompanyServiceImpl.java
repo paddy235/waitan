@@ -90,12 +90,13 @@ public class ExchangeCompanyServiceImpl implements ExchangeCompanyService {
     }
 
     @Override
-    public List<CompanyDO> exchangeCompanyListByAreaId(String areaName, String orderName, String orderType) {
+    public List<ExchangeCompanyVO> exchangeCompanyListByAreaId(String areaName, String orderName, String orderType, Integer type) {
         Map map = new HashMap();
         map.put("areaName", areaName);
         map.put("orderName", orderName);
         map.put("orderType", orderType);
-        List<CompanyDO> list = exchangeCompanyMapper.queryExchangeCompanyListByAreaId(map);
+        map.put("type", type);
+        List<ExchangeCompanyVO> list = exchangeCompanyMapper.queryExchangeCompanyListByAreaId(map);
         return list;
     }
 }

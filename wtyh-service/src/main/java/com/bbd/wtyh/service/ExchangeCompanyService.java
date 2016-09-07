@@ -44,5 +44,5 @@ public interface ExchangeCompanyService {
      * @param orderType
      * @return
      */
-    public List<CompanyDO> exchangeCompanyListByAreaId(String areaName, String orderName, String orderType);
+    public List<ExchangeCompanyVO> exchangeCompanyListByAreaId(String areaName, String orderName, String orderType, Integer type);
 }

@@ -1,6 +1,8 @@
 package com.bbd.wtyh.web.controller;
 
 
+import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
+import com.bbd.wtyh.service.P2PImageService;
 import com.bbd.wtyh.service.impl.relation.RegisterUniversalFilterChainImp;
 import com.bbd.wtyh.service.impl.relation.RelationService;
 import com.bbd.wtyh.service.impl.relation.SearchAPIandRelatedPartyService;
@@ -31,6 +33,9 @@ public class RelationController {
     @Autowired
     private SearchAPIandRelatedPartyService searchAPIandRelatedPartyService;
 
+    @Autowired
+    private P2PImageService p2PImageService;
+
     @SuppressWarnings("rawtypes")
     @RequestMapping(value = "/queryDynamicPicData")
     public
@@ -38,6 +43,12 @@ public class RelationController {
     Map<String, List> queryDynamicPicData(HttpServletRequest request) {
         try {
             String companyName = request.getParameter("companyName");
+            // p2p 平台名称 传入，查询 公司名称
+            String plat_name = request.getParameter("platName");
+            if (plat_name != null) {
+                PlatDataDO platData = p2PImageService.getPlatData(plat_name);
+                companyName = platData == null ? "" : ((platData.getCompany_name() == null) ? "" : platData.getCompany_name());
+            }
             String dataVersion = request.getParameter("dataVersion");
             Integer degree = Integer.valueOf(request.getParameter("degree"));
             if (StringUtils.isNullOrEmpty(dataVersion)) {
