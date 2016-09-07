@@ -18,5 +18,5 @@ public interface ExchangeCompanyMapper {
 
     public List<ExchangeCompanyVO> queryExchangeCompanyByStatus(@Param("status") Integer status);
 
-    public List<CompanyDO> queryExchangeCompanyListByAreaId(Map map);
+    public List<ExchangeCompanyVO> queryExchangeCompanyListByAreaId(Map map);
 }

@@ -26,6 +26,13 @@ public class P2PImageServiceImpl implements P2PImageService {
     private P2PImageDao p2PImageDao;
 
     @Override
+    public PlatDataDO getPlatData(String platName) {
+        PlatDataDO pn = p2PImageDao.getPlatData(platName);
+        return pn;
+    }
+
+
+    @Override
     public Map<String, Object> platFormStatus(String platName) {
         PlatDataDO pn = p2PImageDao.getPlatData(platName);
         if (null == pn) {

@@ -89,8 +89,8 @@ public class ExchangeCompanyController {
      */
     @RequestMapping("exchangeCompanyListByAreaId.do")
     @ResponseBody
-    public ResponseBean exchangeCompanyListByAreaId(String areaName, String orderName, String orderType) {
-        List<CompanyDO> data = exchangeCompanyService.exchangeCompanyListByAreaId(areaName, orderName, orderType);
+    public ResponseBean exchangeCompanyListByAreaId(String areaName, String orderName, String orderType, Integer type) {
+        List<ExchangeCompanyVO> data = exchangeCompanyService.exchangeCompanyListByAreaId(areaName, orderName, orderType, type);
         return ResponseBean.successResponse(data);
     }
 
