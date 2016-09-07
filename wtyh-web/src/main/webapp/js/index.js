@@ -39953,7 +39953,7 @@
 
 
 	// module
-	exports.push([module.id, "* {\r\n\tmargin: 0px;\r\n\tpadding: 0px;\r\n}\r\n\r\nul,\r\nli {\r\n\tlist-style: none;\r\n}\r\n\r\na {\r\n\ttext-decoration: none;\r\n}\r\n\r\nhtml {\r\n\t-webkit-text-size-adjust: none;\r\n}\r\n\r\nbody {\r\n\tbackground-color: #1a2029;\r\n\tcolor: #ffffff;\r\n\tfont-family: 'Microsoft Yahei';\r\n}\r\n\r\ninput[type=text]::-ms-clear {\r\n\tdisplay: none\r\n}\r\n\r\n.clear:after {\r\n\tcontent: \".\";\r\n\theight: 0;\r\n\tvisibility: hidden;\r\n\tdisplay: block;\r\n\tclear: both;\r\n}\r\n\r\n.cur-pointer {\r\n\tcursor: pointer;\r\n}\r\n\r\n/*头部导航 header begin*/\r\n.header {\r\n\twidth: 100%;\r\n\theight: 60px;\r\n\tbackground-color: #383e47;\r\n\toverflow: hidden;\r\n}\r\n\r\n.header .logo {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\tline-height: 60px;\r\n\tcolor: #ffffff;\r\n\tfont-size: 20px;\r\n}\r\n\r\n.header .logo .img {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\twidth: 90px;\r\n\theight: 60px;\r\n\tbackground: url(/images/logo.png);\r\n}\r\n\r\n.header .right {\r\n\tfloat: right;\r\n\tmargin-top: 20px;\r\n\tmargin-right: 30px;\r\n}\r\n\r\n.header .right .name {\r\n\tfont-size: 16px;\r\n\tcolor: #ffffff;\r\n\tmargin-right: 30px;\r\n\tcursor: pointer;\r\n}\r\n\r\n.list-header {\r\n\tfont-size: 18px;\r\n\tcolor: #fff;\r\n\tpadding: 14px;\t/*text-indent: 30px;*/\r\n}\r\n\r\n.wrap {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tposition: relative;\r\n\tz-index: 500;\r\n\toverflow: hidden;\r\n\tbackground: #1f253d;\r\n\tbackground-size: cover;\r\n}\r\n\r\n.header .right .name span {\r\n\tmargin-left: 10px;\r\n\tmargin-right: 8px;\r\n\tfont-weight: bold;\r\n}\r\n\r\n.header .right .quit {\r\n\tfont-size: 16px;\r\n\tcolor: #e24643;\r\n}\r\n\r\n/*头部导航 header end*/\r\n.radius4 {\r\n\tborder-radius: 5px;\r\n}\r\n\r\n/*主题页导航  begin*/\r\n.menu {\r\n\twidth: 100%;\r\n\theight: 50px;\r\n\tbackground-color: #2b323c;\r\n}\r\n\r\n.menu ul.nav {\r\n\theight: 50px;\r\n\tfloat: left;\r\n}\r\n\r\n.menu ul.nav  li {\r\n\tfloat: left;\r\n\tposition: relative;\r\n}\r\n\r\n.menu ul.nav  li a {\r\n\tcolor: #ffffff;\r\n\tpadding: 0px 30px;\r\n\tline-height: 50px;\r\n}\r\n\r\n.menu ul.nav li a.active:after {\r\n\tcontent: \"\";\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\tbottom: 0px;\r\n\twidth: 100%;\r\n\theight: 0.2rem;\r\n\tbackground: #e14340;\r\n\tz-index: 0;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav {\r\n\twidth: 96px;\r\n\theight: auto;\r\n\tbackground-color: #545e6d;\r\n\tposition: absolute;\r\n\tleft: 50%;\r\n\ttop: 40px;\r\n\tmargin-left: -50px;\r\n\tz-index: 100;\r\n\tdisplay: none;\r\n}\r\n\r\n.menu ul.nav  li ul.hide {\r\n\tdisplay: none;\r\n}\r\n\r\n.menu ul.nav  li ul.show {\r\n\tdisplay: block;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li {\r\n\twidth: 100%;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\ttext-align: center;\r\n\tfloat: none;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li a {\r\n\tdisplay: block;\r\n\twidth: 100%;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\ttext-align: center;\r\n\tpadding: 0 0;\r\n\tfont-size: 14px;\r\n\tcolor: #b7b7b7;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li a.active:after {\r\n\tdisplay: none;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li a:hover {\r\n\tbackground-color: #42b8e2;\r\n\tcolor: #ffffff;\r\n}\r\n\r\n.menu .right-park {\r\n\tfloat: right;\r\n\tmargin-top: 12px;\r\n\tmargin-right: 30px;\r\n}\r\n\r\n.menu .right-park .mt-select {\r\n\tmargin-right: 10px;\r\n}\r\n\r\n.menu .right-park .mt-select-title {\r\n\tbackground-color: #ffffff;\r\n\tcolor: #333333;\r\n}\r\n\r\n.menu .right-park .mt-select-box {\r\n\tcolor: #333333;\r\n}\r\n\r\n.menu .right-park a {\r\n\tbackground-color: #e14340;\r\n\tcolor: #ffffff;\r\n\tpadding: 4px 10px;\r\n\tborder-radius: 5px;\r\n}\r\n\r\n/*主题页导航  end*/\r\n\r\n/*控制边距的类*/\r\n.content-space-10 {\r\n\tmargin: 10px;\r\n}\r\n\r\n.content-space-top-0 {\r\n\tmargin: 0px 10px 10px 10px;\r\n}\r\n\r\n.mod-space-l {\r\n\tmargin-left: 0.5%;\r\n}\r\n\r\n.mod-space-t {\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.mod-space-dl {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n.mod-space-dt {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n/*模块公用样式 begin*/\r\n.mod {\r\n\theight: 100%;\r\n\tbackground-color: #2b323c;\r\n}\r\n\r\n.mod .mod-title h3 {\r\n\tdisplay: inline-block;\r\n\tvertical-align: middle;\r\n\tfont-weight: normal;\r\n\tfont-style: normal;\r\n\tfont-size: 16px;\r\n\tcolor: #ffffff;\r\n\tmargin-left: 10px;\r\n\tpadding: 8px 0;\r\n}\r\n\r\n.mod .mod-title .mod-title-right {\r\n\tfloat: right;\r\n}\r\n\r\n/*模块标题上的下拉选择框 begind*/\r\n.mod .mod-title .mod-title-right .mt-select {\r\n\tcolor: #e5e5e5;\r\n\tbackground-color: #1a2029;\r\n\tborder: none;\r\n\tpadding-left: 5px;\r\n\tpadding-right: 5px;\r\n}\r\n\r\n.mod .mod-title .mod-title-right .mt-select-box {\r\n\tbackground-color: #1a2029;\r\n\tborder: none;\r\n}\r\n\r\n/*模块标题上的下拉选择框 end*/\r\n.mt-select {\r\n\tborder: none !important;\r\n}\r\n\r\n/*模块公用样式 end*/\r\n*:focus {\r\n\toutline: none;\r\n}\r\n\r\n/*表格公用样式*/\r\ntable {\r\n\tborder-collapse: separate;\r\n}\r\n\r\n.wtyh-table thead th {\r\n\tborder-bottom: none;\r\n\tbackground-color: #1a2029;\r\n\tcolor: #dddddd;\r\n\tfont-size: 14px;\r\n\tfont-weight: normal;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.wtyh-table thead tr {\r\n\tborder-top-left-radius: 5px;\r\n\tborder-top-right-radius: 5px;\r\n}\r\n\r\n.wtyh-table tbody td {\r\n\tborder-bottom: none;\r\n\tcolor: #ffffff;\r\n\tfont-size: 14px;\r\n}\r\n\r\n.wtyh-table tbody td .word-limit-5 {\r\n\tcursor: pointer;\r\n\tcolor: #ffffff;\r\n}\r\n.wtyh-table tbody td .word-limit-8 {\r\n\tcursor: pointer;\r\n\tcolor: #ffffff;\r\n}\r\n.wtyh-table tbody td .word-limit-10 {\r\n\tcursor: pointer;\r\n\tcolor: #ffffff;\r\n}\r\n\r\n.wtyh-table tbody tr.odd td {\r\n\tbackground: #2b323c;\r\n}\r\n\r\n.wtyh-table tbody tr.odd-line td {\r\n\tbackground: #36404d;\r\n\tborder-right: 1px #2b323c solid;\r\n}\r\n\r\n.wtyh-table tbody tr.odd-blackbg-line td {\r\n\tbackground: #222932;\r\n\tborder-right: 1px #2b323c solid;\r\n}\r\n\r\n.wtyh-table tbody tr.even td {\r\n\tbackground-color: #1a2029;\r\n}\r\n\r\n.talign-left {\r\n\ttext-align: left !important;\r\n}\r\n\r\n.wtyh-table.table-border-b  tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.talign-right {\r\n\ttext-align: right !important;\r\n}\r\n\r\n.talign-center {\r\n\ttext-align: center !important;\r\n}\r\n\r\n.header-gray {\r\n\theight: 50px;\r\n\tline-height: 50px;\r\n\tbackground: #394351;\r\n\tborder-top-left-radius: 5px;\r\n\tborder-top-right-radius: 5px;\r\n}\r\n\r\n.skublue {\r\n\tcolor: #00b8ee\r\n}\r\n\r\n.orange {\r\n\tcolor: #e14340\r\n}\r\n\r\n/*限制字数五个字*/\r\n.word-limit-5 {\r\n\toverflow: hidden; /*自动隐藏文字*/\r\n\ttext-overflow: ellipsis;/*文字隐藏后添加省略号*/\r\n\twhite-space: nowrap;/*强制不换行*/\r\n\tdisplay: inline-block;\r\n\twidth: 80px;\r\n}\r\n.word-limit-8 {\r\n\toverflow: hidden; /*自动隐藏文字*/\r\n\ttext-overflow: ellipsis;/*文字隐藏后添加省略号*/\r\n\twhite-space: nowrap;/*强制不换行*/\r\n\tdisplay: inline-block;\r\n\twidth: 108px;\r\n}\r\n.word-limit-10 {\r\n\toverflow: hidden; /*自动隐藏文字*/\r\n\ttext-overflow: ellipsis;/*文字隐藏后添加省略号*/\r\n\twhite-space: nowrap;/*强制不换行*/\r\n\tdisplay: inline-block;\r\n\twidth: 160px;\r\n}\r\n\r\n/*分页样式覆盖*/\r\n.mt-pagelist {\r\n\tmargin-top: 10px !important;\r\n}\r\n\r\n.mt-pagelist ul {\r\n\theight: 30px;\r\n}\r\n\r\n.mt-pagelist .mt-select,\r\n.mt-pagelist .mt-pagelist-first,\r\n.mt-pagelist .mt-pagelist-end,\r\n.mt-pagelist .mt-pagelist-runprev,\r\n.mt-pagelist .mt-pagelist-runnext {\r\n\tdisplay: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-prev,\r\n.mt-pagelist .mt-pagelist-next,\r\n.mt-pagelist .mt-pagelist-btn,\r\n.mt-pagelist .mt-pagelist-end,\r\n.mt-pagelist .mt-pagelist-first {\r\n\tbackground-color: #1a2029 !important;\r\n\tcolor: #ffffff !important;\r\n\tborder: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-input .mt-input {\r\n\tbackground-color: #1a2029 !important;\r\n\tcolor: #ffffff !important;\r\n\tborder: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li {\r\n\tbackground-color: #1a2029 !important;\r\n\tcolor: #ffffff !important;\r\n\tborder: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li a {\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n\tline-height: 26px !important;\r\n\tborder-radius: 2px !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li a:hover {\r\n\tbackground-color: #e14340 !important;\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li.on a {\r\n\tbackground-color: #e14340 !important;\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-btn:hover,\r\n.mt-pagelist .mt-pagelist-prev:hover,\r\n.mt-pagelist .mt-pagelist-next:hover {\r\n\tbackground-color: #e14340 !important;\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n}\r\n\r\n/*搜索框*/\r\n.mt-input .mt-iconbtn,\r\n.mt-input-block .mt-iconbtn a {\r\n\tcursor: pointer !important;\r\n}\r\n\r\n/*颜色*/\r\n.c-red {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*联想词*/\r\n.ac_results {\r\n\tpadding: 0;\r\n\toverflow: auto;\r\n\tz-index: 99999;\r\n\tmax-height: 200px;\r\n\tbackground: rgba(17, 38, 67, 0.9);\r\n\tborder-bottom-left-radius: 4px;\r\n\tborder-bottom-right-radius: 4px;\r\n}\r\n\r\n.ac_results ul {\r\n\twidth: 100%;\r\n\tlist-style: none;\r\n\tpadding: 0;\r\n\tmargin: 0;\r\n}\r\n\r\n.ac_results ul li:last-child {\r\n\tborder-bottom-left-radius: 4px;\r\n\tborder-bottom-right-radius: 4px;\r\n}\r\n\r\n.ac_results li {\r\n\tpadding: 5px 10px;\r\n\tdisplay: block;\r\n\tfont-size: 14px;\r\n\toverflow: hidden;\r\n}\r\n\r\n.ac_results .group-item {\r\n\tcursor: pointer;\r\n}\r\n\r\n.ac_results ul .group-item:hover {\r\n\tbackground: #063a5f;\r\n}\r\n\r\n.ac_results .group {\r\n\tcolor: #666;\r\n}\r\n\r\n.ac_results i {\r\n\tfont-size: 12px;\r\n\tcolor: #999;\r\n\tpadding-left: 1em;\r\n}\r\n\r\n.ac_results .strong {\r\n\tcolor: #13b7fe;\r\n}\r\n\r\n.ac-results ul li.group:hover {\r\n\tcursor: default;\r\n\tbackground-color: #172837;\r\n\tcolor: #666;\r\n}\r\n\r\n.iconfont.icon-desc {\r\n\tcursor: pointer;\r\n}", ""]);
+	exports.push([module.id, "* {\r\n\tmargin: 0px;\r\n\tpadding: 0px;\r\n}\r\n\r\nul,\r\nli {\r\n\tlist-style: none;\r\n}\r\n\r\na {\r\n\ttext-decoration: none;\r\n}\r\n\r\nhtml {\r\n\t-webkit-text-size-adjust: none;\r\n}\r\n\r\nbody {\r\n\tbackground-color: #1a2029;\r\n\tcolor: #ffffff;\r\n\tfont-family: 'Microsoft Yahei';\r\n}\r\n\r\ninput[type=text]::-ms-clear {\r\n\tdisplay: none\r\n}\r\n\r\n.clear:after {\r\n\tcontent: \".\";\r\n\theight: 0;\r\n\tvisibility: hidden;\r\n\tdisplay: block;\r\n\tclear: both;\r\n}\r\n\r\n.cur-pointer {\r\n\tcursor: pointer;\r\n}\r\n\r\n/*头部导航 header begin*/\r\n.header {\r\n\twidth: 100%;\r\n\theight: 60px;\r\n\tbackground-color: #383e47;\r\n\toverflow: hidden;\r\n}\r\n\r\n.header .logo {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\tline-height: 60px;\r\n\tcolor: #ffffff;\r\n\tfont-size: 20px;\r\n}\r\n\r\n.header .logo .img {\r\n\tdisplay: block;\r\n\tfloat: left;\r\n\twidth: 90px;\r\n\theight: 60px;\r\n\tbackground: url(/images/logo.png);\r\n}\r\n\r\n.header .right {\r\n\tfloat: right;\r\n\tmargin-top: 20px;\r\n\tmargin-right: 30px;\r\n}\r\n\r\n.header .right .name {\r\n\tfont-size: 16px;\r\n\tcolor: #ffffff;\r\n\tmargin-right: 30px;\r\n\tcursor: pointer;\r\n}\r\n\r\n.list-header {\r\n\tfont-size: 18px;\r\n\tcolor: #fff;\r\n\tpadding: 14px;\t/*text-indent: 30px;*/\r\n}\r\n\r\n.wrap {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tposition: relative;\r\n\tz-index: 500;\r\n\toverflow: hidden;\r\n\tbackground: #1f253d;\r\n\tbackground-size: cover;\r\n}\r\n\r\n.header .right .name span {\r\n\tmargin-left: 10px;\r\n\tmargin-right: 8px;\r\n\tfont-weight: bold;\r\n}\r\n\r\n.header .right .quit {\r\n\tfont-size: 16px;\r\n\tcolor: #e24643;\r\n}\r\n\r\n/*头部导航 header end*/\r\n.radius4 {\r\n\tborder-radius: 5px;\r\n}\r\n\r\n/*主题页导航  begin*/\r\n.menu {\r\n\twidth: 100%;\r\n\theight: 50px;\r\n\tbackground-color: #2b323c;\r\n}\r\n\r\n.menu ul.nav {\r\n\theight: 50px;\r\n\tfloat: left;\r\n}\r\n\r\n.menu ul.nav  li {\r\n\tfloat: left;\r\n\tposition: relative;\r\n}\r\n\r\n.menu ul.nav  li a {\r\n\tcolor: #ffffff;\r\n\tpadding: 0px 30px;\r\n\tline-height: 50px;\r\n}\r\n\r\n.menu ul.nav li a.active:after {\r\n\tcontent: \"\";\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\tbottom: 0px;\r\n\twidth: 100%;\r\n\theight: 0.2rem;\r\n\tbackground: #e14340;\r\n\tz-index: 0;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav {\r\n\twidth: 96px;\r\n\theight: auto;\r\n\tbackground-color: #545e6d;\r\n\tposition: absolute;\r\n\tleft: 50%;\r\n\ttop: 40px;\r\n\tmargin-left: -50px;\r\n\tz-index: 100;\r\n\tdisplay: none;\r\n}\r\n\r\n.menu ul.nav  li ul.hide {\r\n\tdisplay: none;\r\n}\r\n\r\n.menu ul.nav  li ul.show {\r\n\tdisplay: block;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li {\r\n\twidth: 100%;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\ttext-align: center;\r\n\tfloat: none;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li a {\r\n\tdisplay: block;\r\n\twidth: 100%;\r\n\theight: 24px;\r\n\tline-height: 24px;\r\n\ttext-align: center;\r\n\tpadding: 0 0;\r\n\tfont-size: 14px;\r\n\tcolor: #b7b7b7;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li a.active:after {\r\n\tdisplay: none;\r\n}\r\n\r\n.menu ul.nav  li ul.sub-nav li a:hover {\r\n\tbackground-color: #42b8e2;\r\n\tcolor: #ffffff;\r\n}\r\n\r\n.menu .right-park {\r\n\tfloat: right;\r\n\tmargin-top: 12px;\r\n\tmargin-right: 30px;\r\n}\r\n\r\n.menu .right-park .mt-select {\r\n\tmargin-right: 10px;\r\n}\r\n\r\n.menu .right-park .mt-select-title {\r\n\tbackground-color: #ffffff;\r\n\tcolor: #333333;\r\n}\r\n\r\n.menu .right-park .mt-select-box {\r\n\tcolor: #333333;\r\n}\r\n\r\n.menu .right-park a {\r\n\tbackground-color: #e14340;\r\n\tcolor: #ffffff;\r\n\tpadding: 4px 10px;\r\n\tborder-radius: 5px;\r\n}\r\n\r\n/*主题页导航  end*/\r\n\r\n/*控制边距的类*/\r\n.content-space-10 {\r\n\tmargin: 10px;\r\n}\r\n\r\n.content-space-top-0 {\r\n\tmargin: 0px 10px 10px 10px;\r\n}\r\n\r\n.mod-space-l {\r\n\tmargin-left: 0.5%;\r\n}\r\n\r\n.mod-space-t {\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.mod-space-dl {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n.mod-space-dt {\r\n\tmargin-top: 1%;\r\n}\r\n\r\n/*模块公用样式 begin*/\r\n.mod {\r\n\theight: 100%;\r\n\tbackground-color: #2b323c;\r\n}\r\n\r\n.mod .mod-title h3 {\r\n\tdisplay: inline-block;\r\n\tvertical-align: middle;\r\n\tfont-weight: normal;\r\n\tfont-style: normal;\r\n\tfont-size: 16px;\r\n\tcolor: #ffffff;\r\n\tmargin-left: 10px;\r\n\tpadding: 8px 0;\r\n}\r\n\r\n.mod .mod-title .mod-title-right {\r\n\tfloat: right;\r\n}\r\n\r\n/*模块标题上的下拉选择框 begind*/\r\n.mod .mod-title .mod-title-right .mt-select {\r\n\tcolor: #e5e5e5;\r\n\tbackground-color: #1a2029;\r\n\tborder: none;\r\n\tpadding-left: 5px;\r\n\tpadding-right: 5px;\r\n}\r\n\r\n.mod .mod-title .mod-title-right .mt-select-box {\r\n\tbackground-color: #1a2029;\r\n\tborder: none;\r\n}\r\n\r\n/*模块标题上的下拉选择框 end*/\r\n.mt-select {\r\n\tborder: none !important;\r\n}\r\n\r\n/*模块公用样式 end*/\r\n*:focus {\r\n\toutline: none;\r\n}\r\n\r\n/*表格公用样式*/\r\ntable {\r\n\tborder-collapse: separate;\r\n}\r\n\r\n.wtyh-table thead th {\r\n\tborder-bottom: none;\r\n\tbackground-color: #1a2029;\r\n\tcolor: #dddddd;\r\n\tfont-size: 14px;\r\n\tfont-weight: normal;\r\n\tvertical-align: middle;\r\n}\r\n\r\n.wtyh-table thead tr {\r\n\tborder-top-left-radius: 5px;\r\n\tborder-top-right-radius: 5px;\r\n}\r\n\r\n.wtyh-table tbody td {\r\n\tborder-bottom: none;\r\n\tcolor: #ffffff;\r\n\tfont-size: 14px;\r\n}\r\n\r\n.wtyh-table tbody td .word-limit-5 {\r\n\tcursor: pointer;\r\n\tcolor: #ffffff;\r\n}\r\n.wtyh-table tbody td .word-limit-8 {\r\n\tcursor: pointer;\r\n\tcolor: #ffffff;\r\n}\r\n.wtyh-table tbody td .word-limit-10 {\r\n\tcursor: pointer;\r\n\tcolor: #ffffff;\r\n}\r\n\r\n.wtyh-table tbody tr.odd td {\r\n\tbackground: #2b323c;\r\n}\r\n\r\n.wtyh-table tbody tr.odd-line td {\r\n\tbackground: #36404d;\r\n\tborder-right: 1px #2b323c solid;\r\n}\r\n\r\n.wtyh-table tbody tr.odd-blackbg-line td {\r\n\tbackground: #222932;\r\n\tborder-right: 1px #2b323c solid;\r\n}\r\n\r\n.wtyh-table tbody tr.even td {\r\n\tbackground-color: #1a2029;\r\n}\r\n\r\n.talign-left {\r\n\ttext-align: left !important;\r\n}\r\n\r\n.wtyh-table.table-border-b  tr {\r\n\tborder-bottom: 1px #4b5058 solid;\r\n}\r\n\r\n.talign-right {\r\n\ttext-align: right !important;\r\n}\r\n\r\n.talign-center {\r\n\ttext-align: center !important;\r\n}\r\n\r\n.header-gray {\r\n\theight: 50px;\r\n\tline-height: 50px;\r\n\tbackground: #394351;\r\n\tborder-top-left-radius: 5px;\r\n\tborder-top-right-radius: 5px;\r\n}\r\n\r\n.skublue {\r\n\tcolor: #00b8ee\r\n}\r\n\r\n.orange {\r\n\tcolor: #e14340\r\n}\r\n\r\n/*限制字数五个字*/\r\n.word-limit-5 {\r\n\toverflow: hidden; /*自动隐藏文字*/\r\n\ttext-overflow: ellipsis;/*文字隐藏后添加省略号*/\r\n\twhite-space: nowrap;/*强制不换行*/\r\n\tdisplay: inline-block;\r\n\twidth: 80px;\r\n}\r\n.word-limit-8 {\r\n\toverflow: hidden; /*自动隐藏文字*/\r\n\ttext-overflow: ellipsis;/*文字隐藏后添加省略号*/\r\n\twhite-space: nowrap;/*强制不换行*/\r\n\tdisplay: inline-block;\r\n\twidth: 120px;\r\n}\r\n.word-limit-10 {\r\n\toverflow: hidden; /*自动隐藏文字*/\r\n\ttext-overflow: ellipsis;/*文字隐藏后添加省略号*/\r\n\twhite-space: nowrap;/*强制不换行*/\r\n\tdisplay: inline-block;\r\n\twidth: 150px;\r\n}\r\n\r\n/*分页样式覆盖*/\r\n.mt-pagelist {\r\n\tmargin-top: 10px !important;\r\n}\r\n\r\n.mt-pagelist ul {\r\n\theight: 30px;\r\n}\r\n\r\n.mt-pagelist .mt-select,\r\n.mt-pagelist .mt-pagelist-first,\r\n.mt-pagelist .mt-pagelist-end,\r\n.mt-pagelist .mt-pagelist-runprev,\r\n.mt-pagelist .mt-pagelist-runnext {\r\n\tdisplay: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-prev,\r\n.mt-pagelist .mt-pagelist-next,\r\n.mt-pagelist .mt-pagelist-btn,\r\n.mt-pagelist .mt-pagelist-end,\r\n.mt-pagelist .mt-pagelist-first {\r\n\tbackground-color: #1a2029 !important;\r\n\tcolor: #ffffff !important;\r\n\tborder: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-input .mt-input {\r\n\tbackground-color: #1a2029 !important;\r\n\tcolor: #ffffff !important;\r\n\tborder: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li {\r\n\tbackground-color: #1a2029 !important;\r\n\tcolor: #ffffff !important;\r\n\tborder: none !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li a {\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n\tline-height: 26px !important;\r\n\tborder-radius: 2px !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li a:hover {\r\n\tbackground-color: #e14340 !important;\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-page li.on a {\r\n\tbackground-color: #e14340 !important;\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n}\r\n\r\n.mt-pagelist .mt-pagelist-btn:hover,\r\n.mt-pagelist .mt-pagelist-prev:hover,\r\n.mt-pagelist .mt-pagelist-next:hover {\r\n\tbackground-color: #e14340 !important;\r\n\tborder: none !important;\r\n\tcolor: #ffffff !important;\r\n}\r\n\r\n/*搜索框*/\r\n.mt-input .mt-iconbtn,\r\n.mt-input-block .mt-iconbtn a {\r\n\tcursor: pointer !important;\r\n}\r\n\r\n/*颜色*/\r\n.c-red {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*联想词*/\r\n.ac_results {\r\n\tpadding: 0;\r\n\toverflow: auto;\r\n\tz-index: 99999;\r\n\tmax-height: 200px;\r\n\tbackground: rgba(17, 38, 67, 0.9);\r\n\tborder-bottom-left-radius: 4px;\r\n\tborder-bottom-right-radius: 4px;\r\n}\r\n\r\n.ac_results ul {\r\n\twidth: 100%;\r\n\tlist-style: none;\r\n\tpadding: 0;\r\n\tmargin: 0;\r\n}\r\n\r\n.ac_results ul li:last-child {\r\n\tborder-bottom-left-radius: 4px;\r\n\tborder-bottom-right-radius: 4px;\r\n}\r\n\r\n.ac_results li {\r\n\tpadding: 5px 10px;\r\n\tdisplay: block;\r\n\tfont-size: 14px;\r\n\toverflow: hidden;\r\n}\r\n\r\n.ac_results .group-item {\r\n\tcursor: pointer;\r\n}\r\n\r\n.ac_results ul .group-item:hover {\r\n\tbackground: #063a5f;\r\n}\r\n\r\n.ac_results .group {\r\n\tcolor: #666;\r\n}\r\n\r\n.ac_results i {\r\n\tfont-size: 12px;\r\n\tcolor: #999;\r\n\tpadding-left: 1em;\r\n}\r\n\r\n.ac_results .strong {\r\n\tcolor: #13b7fe;\r\n}\r\n\r\n.ac-results ul li.group:hover {\r\n\tcursor: default;\r\n\tbackground-color: #172837;\r\n\tcolor: #666;\r\n}\r\n\r\n.iconfont.icon-desc {\r\n\tcursor: pointer;\r\n}", ""]);
 
 	// exports
 
@@ -52131,12 +52131,13 @@
 	  },
 	  handleChange: function handleChange(e) {
 	    var searchVal = $(e.target).parent().prev().val();
-	    var searchValAttr = $(e.target).parent().prev()[0].getAttribute("company");
+	    var searchAttrCompany = $(e.target).parent().prev()[0].getAttribute("company"); //公司
+	    var searchAttrPlat = $(e.target).parent().prev()[0].getAttribute("plat"); //平台
 	    var isClick = $(e.target).parent().prev()[0].getAttribute("data_flag");
 	    if (isClick == "hasWorld") {
 	      this.setState({ searchVal: searchVal });
 	      if (this.props.searchFun) {
-	        this.props.searchFun(searchVal, searchValAttr);
+	        this.props.searchFun(searchAttrPlat, searchAttrCompany);
 	      }
 	    }
 	  },
@@ -59823,24 +59824,24 @@
 	                                null,
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '25%', className: 'talign-left' },
+	                                    { width: '40%', className: 'talign-left' },
 	                                    '企业名称'
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '25%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 1) },
+	                                    { width: '20%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 1) },
 	                                    '外部评级',
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '25%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 2) },
+	                                    { width: '20%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 2) },
 	                                    '内部评级',
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '25%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 3) },
+	                                    { width: '20%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 3) },
 	                                    '现场检查',
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                                )
@@ -59867,26 +59868,26 @@
 	                                        { className: 'even' },
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '25%', className: 'talign-left' },
+	                                            { width: '40%', className: 'talign-left' },
 	                                            _react2.default.createElement(
 	                                                _reactRouter.Link,
-	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-5', title: elem.companyName, 'data-tip': elem.companyName },
+	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-10', title: elem.companyName, 'data-tip': elem.companyName },
 	                                                elem.companyName
 	                                            )
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '25%' },
+	                                            { width: '20%' },
 	                                            _outLevel
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '25%' },
+	                                            { width: '20%' },
 	                                            _innerLevel
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '25%' },
+	                                            { width: '20%' },
 	                                            _liveLevel
 	                                        )
 	                                    );
@@ -59896,26 +59897,26 @@
 	                                        { className: 'odd' },
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '25%', className: 'talign-left' },
+	                                            { width: '40%', className: 'talign-left' },
 	                                            _react2.default.createElement(
 	                                                _reactRouter.Link,
-	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-5', title: elem.companyName, 'data-tip': elem.companyName },
+	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-10', title: elem.companyName, 'data-tip': elem.companyName },
 	                                                elem.companyName
 	                                            )
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '25%' },
+	                                            { width: '20%' },
 	                                            _outLevel
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '25%' },
+	                                            { width: '20%' },
 	                                            _innerLevel
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '25%' },
+	                                            { width: '20%' },
 	                                            _liveLevel
 	                                        )
 	                                    );
@@ -61018,7 +61019,7 @@
 	                                null,
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '20%', className: 'talign-left' },
+	                                    { width: '25%', className: 'talign-left' },
 	                                    '公司名'
 	                                ),
 	                                _react2.default.createElement(
@@ -61029,7 +61030,7 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '25%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'privateFund', onClick: this.handleClick.bind(this, "privateFund") },
+	                                    { width: '20%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'privateFund', onClick: this.handleClick.bind(this, "privateFund") },
 	                                    '私募基金关联',
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                                ),
@@ -61065,10 +61066,10 @@
 	                                        { className: 'even' },
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '20%', className: 'talign-left' },
+	                                            { width: '25%', className: 'talign-left' },
 	                                            _react2.default.createElement(
 	                                                _reactRouter.Link,
-	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-5', title: elem.companyName, 'data-tip': elem.companyName },
+	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-8', title: elem.companyName, 'data-tip': elem.companyName },
 	                                                elem.companyName
 	                                            )
 	                                        ),
@@ -61079,7 +61080,7 @@
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '25%' },
+	                                            { width: '20%' },
 	                                            elem.privateFund
 	                                        ),
 	                                        _react2.default.createElement(
@@ -61103,10 +61104,10 @@
 	                                        { className: 'odd' },
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '20%', className: 'talign-left' },
+	                                            { width: '25%', className: 'talign-left' },
 	                                            _react2.default.createElement(
 	                                                _reactRouter.Link,
-	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-5', title: elem.companyName, 'data-tip': elem.companyName },
+	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-8', title: elem.companyName, 'data-tip': elem.companyName },
 	                                                elem.companyName
 	                                            )
 	                                        ),
@@ -61117,7 +61118,7 @@
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '25%' },
+	                                            { width: '20%' },
 	                                            elem.privateFund
 	                                        ),
 	                                        _react2.default.createElement(
@@ -61433,19 +61434,19 @@
 	                null,
 	                _react2.default.createElement(
 	                  'th',
-	                  { width: '20%', className: 'talign-left cur-pointer', onClick: this.orderByField.bind(this, 1) },
+	                  { width: '28%', className: 'talign-left cur-pointer', onClick: this.orderByField.bind(this, 1) },
 	                  '担保公司',
 	                  _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                ),
 	                _react2.default.createElement(
 	                  'th',
-	                  { width: '20%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 2) },
+	                  { width: '27%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 2) },
 	                  '被担保公司',
 	                  _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                ),
 	                _react2.default.createElement(
 	                  'th',
-	                  { width: '20%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 3) },
+	                  { width: '15%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 3) },
 	                  '被担保公司行业',
 	                  _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                ),
@@ -61457,7 +61458,7 @@
 	                ),
 	                _react2.default.createElement(
 	                  'th',
-	                  { width: '25%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 4) },
+	                  { width: '15%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 4) },
 	                  '被担保人关联风险',
 	                  _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                )
@@ -61481,25 +61482,25 @@
 	                    { className: 'even' },
 	                    _react2.default.createElement(
 	                      'td',
-	                      { className: 'talign-left', width: '20%' },
+	                      { className: 'talign-left', width: '28%' },
 	                      _react2.default.createElement(
 	                        _reactRouter.Link,
-	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.guaranteeName } }, className: 'word-limit-5', title: elem.guaranteeName },
+	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.guaranteeName } }, className: 'word-limit-8', title: elem.guaranteeName },
 	                        elem.guaranteeName
 	                      )
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      { width: '20%' },
+	                      { width: '27%' },
 	                      _react2.default.createElement(
 	                        _reactRouter.Link,
-	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.guaranteedName } }, className: 'word-limit-5', title: elem.guaranteedName },
+	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.guaranteedName } }, className: 'word-limit-8', title: elem.guaranteedName },
 	                        elem.guaranteedName
 	                      )
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      { width: '20%' },
+	                      { width: '15%' },
 	                      _react2.default.createElement(
 	                        'span',
 	                        { className: 'word-limit-5', 'data-tip': elem.guaranteedBusinessType, title: elem.guaranteedBusinessType },
@@ -61513,8 +61514,8 @@
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      { width: '25%' },
-	                      elem.guaranteedRegisteredCapital
+	                      { width: '15%' },
+	                      elem.relatedOfflineFinance
 	                    )
 	                  );
 	                } else {
@@ -61523,25 +61524,25 @@
 	                    { className: 'odd' },
 	                    _react2.default.createElement(
 	                      'td',
-	                      { className: 'talign-left', width: '20%' },
+	                      { className: 'talign-left', width: '28%' },
 	                      _react2.default.createElement(
 	                        _reactRouter.Link,
-	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.guaranteeName } }, className: 'word-limit-5', title: elem.guaranteeName },
+	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.guaranteeName } }, className: 'word-limit-8', title: elem.guaranteeName },
 	                        elem.guaranteeName
 	                      )
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      { width: '20%' },
+	                      { width: '27%' },
 	                      _react2.default.createElement(
 	                        _reactRouter.Link,
-	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.guaranteedName } }, className: 'word-limit-5', title: elem.guaranteedName },
+	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.guaranteedName } }, className: 'word-limit-8', title: elem.guaranteedName },
 	                        elem.guaranteedName
 	                      )
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      { width: '20%' },
+	                      { width: '15%' },
 	                      _react2.default.createElement(
 	                        'span',
 	                        { className: 'word-limit-5', 'data-tip': elem.guaranteedBusinessType, title: elem.guaranteedBusinessType },
@@ -61555,8 +61556,8 @@
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      { width: '25%' },
-	                      elem.guaranteedRegisteredCapital
+	                      { width: '15%' },
+	                      elem.relatedOfflineFinance
 	                    )
 	                  );
 	                }
@@ -64527,7 +64528,7 @@
 	    componentDidMount: function componentDidMount() {
 	        var jsonData = {};
 	        this.getCompanyGrade(jsonData);
-	        $('#companyGrade-scroll').perfectScrollbar({ suppressScrollX: false });
+	        $('#companyGrade-scroll').perfectScrollbar();
 	    },
 	    componentDidUpdate: function componentDidUpdate() {
 	        $('#companyGrade-scroll').perfectScrollbar('update');
@@ -65324,7 +65325,6 @@
 	        });
 	    },
 	    handleMore: function handleMore(data, e) {
-	        console.log(data, e);
 	        var jsonData = { companyId: data };
 	        this.getIndustryRiskDetail(jsonData);
 	        var offTop = $('.industry-risk').offset().top;
@@ -65368,7 +65368,7 @@
 	                                null,
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '20%', className: 'talign-left' },
+	                                    { width: '25%', className: 'talign-left' },
 	                                    '公司名'
 	                                ),
 	                                _react2.default.createElement(
@@ -65379,7 +65379,7 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '25%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'privateFund', onClick: this.handleClick.bind(this, "privateFund") },
+	                                    { width: '20%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'privateFund', onClick: this.handleClick.bind(this, "privateFund") },
 	                                    '私募基金关联',
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                                ),
@@ -65415,10 +65415,10 @@
 	                                        { className: 'even' },
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '20%', className: 'talign-left' },
+	                                            { width: '25%', className: 'talign-left' },
 	                                            _react2.default.createElement(
 	                                                _reactRouter.Link,
-	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-5', title: elem.companyName, 'data-tip': elem.companyName },
+	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-8', title: elem.companyName, 'data-tip': elem.companyName },
 	                                                elem.companyName
 	                                            )
 	                                        ),
@@ -65429,7 +65429,7 @@
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '25%' },
+	                                            { width: '20%' },
 	                                            elem.privateFund
 	                                        ),
 	                                        _react2.default.createElement(
@@ -65453,10 +65453,10 @@
 	                                        { className: 'odd' },
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '20%', className: 'talign-left' },
+	                                            { width: '25%', className: 'talign-left' },
 	                                            _react2.default.createElement(
 	                                                _reactRouter.Link,
-	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-5', title: elem.companyName, 'data-tip': elem.companyName },
+	                                                { to: { pathname: '/SearchResultDetail', query: { companyName: elem.companyName } }, className: 'word-limit-8', title: elem.companyName, 'data-tip': elem.companyName },
 	                                                elem.companyName
 	                                            )
 	                                        ),
@@ -65467,7 +65467,7 @@
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '25%' },
+	                                            { width: '20%' },
 	                                            elem.privateFund
 	                                        ),
 	                                        _react2.default.createElement(
@@ -65779,19 +65779,19 @@
 	                null,
 	                _react2.default.createElement(
 	                  'th',
-	                  { width: '20%', className: 'talign-left cur-pointer', onClick: this.orderByField.bind(this, 1) },
+	                  { width: '28%', className: 'talign-left cur-pointer', onClick: this.orderByField.bind(this, 1) },
 	                  '借款公司',
 	                  _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                ),
 	                _react2.default.createElement(
 	                  'th',
-	                  { width: '20%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 2) },
+	                  { width: '27%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 2) },
 	                  '贷款公司',
 	                  _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                ),
 	                _react2.default.createElement(
 	                  'th',
-	                  { width: '20%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 3) },
+	                  { width: '15%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 3) },
 	                  '借款公司行业',
 	                  _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                ),
@@ -65803,7 +65803,7 @@
 	                ),
 	                _react2.default.createElement(
 	                  'th',
-	                  { width: '25%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 5) },
+	                  { width: '15%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 5) },
 	                  '借款人关联风险',
 	                  _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                )
@@ -65824,28 +65824,28 @@
 	                if (index % 2) {
 	                  return _react2.default.createElement(
 	                    'tr',
-	                    { className: 'even', width: '20%' },
+	                    { className: 'even', width: '28%' },
 	                    _react2.default.createElement(
 	                      'td',
 	                      { className: 'talign-left' },
 	                      _react2.default.createElement(
 	                        _reactRouter.Link,
-	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.borrowerName } }, className: 'word-limit-5', title: elem.borrowerName },
+	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.borrowerName } }, className: 'word-limit-8', title: elem.borrowerName },
 	                        elem.borrowerName
 	                      )
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      { width: '20%' },
+	                      { width: '27%' },
 	                      _react2.default.createElement(
 	                        _reactRouter.Link,
-	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.lenderName } }, className: 'word-limit-5', title: elem.lenderName },
+	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.lenderName } }, className: 'word-limit-8', title: elem.lenderName },
 	                        elem.lenderName
 	                      )
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      { width: '20%' },
+	                      { width: '15%' },
 	                      _react2.default.createElement(
 	                        'span',
 	                        { className: 'word-limit-5', title: elem.borrowerBusinessType },
@@ -65859,35 +65859,35 @@
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      { width: '25%' },
-	                      elem.borrowerRegisteredCapital
+	                      { width: '15%' },
+	                      elem.relatedOfflineFinance
 	                    )
 	                  );
 	                }{
 	                  return _react2.default.createElement(
 	                    'tr',
-	                    { className: 'odd', width: '20%' },
+	                    { className: 'odd', width: '28%' },
 	                    _react2.default.createElement(
 	                      'td',
 	                      { className: 'talign-left' },
 	                      _react2.default.createElement(
 	                        _reactRouter.Link,
-	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.borrowerName } }, className: 'word-limit-5', title: elem.borrowerName },
+	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.borrowerName } }, className: 'word-limit-8', title: elem.borrowerName },
 	                        elem.borrowerName
 	                      )
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      { width: '20%' },
+	                      { width: '27%' },
 	                      _react2.default.createElement(
 	                        _reactRouter.Link,
-	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.lenderName } }, className: 'word-limit-5', title: elem.lenderName },
+	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.lenderName } }, className: 'word-limit-8', title: elem.lenderName },
 	                        elem.lenderName
 	                      )
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      { width: '20%' },
+	                      { width: '15%' },
 	                      _react2.default.createElement(
 	                        'span',
 	                        { className: 'word-limit-5', title: elem.borrowerBusinessType },
@@ -65901,8 +65901,8 @@
 	                    ),
 	                    _react2.default.createElement(
 	                      'td',
-	                      { width: '25%' },
-	                      elem.borrowerRegisteredCapital
+	                      { width: '15%' },
+	                      elem.relatedOfflineFinance
 	                    )
 	                  );
 	                }
@@ -67265,15 +67265,6 @@
 	    value: true
 	});
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; //基本信息
-	//公司基本信息
-	//核心数据
-	//诉讼信息
-	//平台舆情
-	//动态图谱
-	//评分雷达图
-
-
 	__webpack_require__(737);
 
 	var _react = __webpack_require__(2);
@@ -67329,6 +67320,9 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	//p2p平台画像
+	//动态图谱
+	//诉讼信息
+	//公司基本信息
 	var P2PPortrait = _react2.default.createClass({
 	    displayName: 'P2PPortrait',
 
@@ -67345,65 +67339,64 @@
 
 	        var _selectVal = this.props.location.query.platName == undefined ? "" : this.props.location.query.platName;
 	        $("#autocomplete").val(_selectVal);
-	        this.setState({ getCompany: _selectVal }, function () {
-	            $.ajax({
-	                url: "/P2PImage/hasOrNotCompany.do",
-	                dataType: "json",
-	                data: {
-	                    platName: this.state.getCompany
-	                },
-	                type: "GET",
-	                success: function (result) {
-	                    if (result.content) {
+	        this.setState({ getCompany: _selectVal });
 
-	                        this.setState({ companyName: result.content.name }, function () {
-	                            setCompany({ getCompanyName: this.state.companyName });
-	                        });
-	                    } else {
-	                        this.setState({ companyName: "" }, function () {
-	                            setCompany({ getCompanyName: this.state.companyName });
-	                        });
-	                    }
-	                }.bind(this)
-	            });
-	        });
+	        // ,function(){
+	        //      $.ajax({
+	        //        url: "/P2PImage/hasOrNotCompany.do",
+	        //        dataType:"json", 
+	        //        data: {
+	        //          platName:this.state.getCompany
+	        //        },
+	        //        type: "GET",
+	        //        success: function(result) {
+	        //          if(result.content){
+
+	        //            this.setState({companyName:result.content.name},function(){
+	        //                    setCompany({getCompanyName: this.state.companyName});
+	        //            })
+	        //          } else{
+	        //             this.setState({companyName:""},function(){
+	        //                    setCompany({getCompanyName: this.state.companyName});
+	        //             })
+	        //          }
+	        //        }.bind(this)
+	        //    });
+	        // }
 	    },
-	    handleFunction: function handleFunction(searchVal, searchValAttr) {
-	        if (searchValAttr != "") {
-	            this.setState({ companyVal: searchVal, companyName: searchValAttr }, function () {
-	                var _props = this.props;
-	                var getbaseMsgRequest = _props.getbaseMsgRequest;
-	                var getcompanyMsgRequest = _props.getcompanyMsgRequest;
-	                var getcoreDataRequest = _props.getcoreDataRequest;
-	                var getCoreBarDataRequest = _props.getCoreBarDataRequest;
-	                var getCoreTrendDataRequest = _props.getCoreTrendDataRequest;
-	                var getCoreBalanceDataRequest = _props.getCoreBalanceDataRequest;
-	                var getlitigationRequest = _props.getlitigationRequest;
-	                var getpublicOpinionRequest = _props.getpublicOpinionRequest;
-	                var getrankPicRequest = _props.getrankPicRequest;
-	                var getscoreLeidaRequest = _props.getscoreLeidaRequest;
+	    handleFunction: function handleFunction(plat, company) {
+	        this.setState({ companyVal: plat, companyName: company }, function () {
+	            var _props = this.props;
+	            var getbaseMsgRequest = _props.getbaseMsgRequest;
+	            var getcompanyMsgRequest = _props.getcompanyMsgRequest;
+	            var getcoreDataRequest = _props.getcoreDataRequest;
+	            var getCoreBarDataRequest = _props.getCoreBarDataRequest;
+	            var getCoreTrendDataRequest = _props.getCoreTrendDataRequest;
+	            var getCoreBalanceDataRequest = _props.getCoreBalanceDataRequest;
+	            var getlitigationRequest = _props.getlitigationRequest;
+	            var getpublicOpinionRequest = _props.getpublicOpinionRequest;
+	            var getrankPicRequest = _props.getrankPicRequest;
+	            var getscoreLeidaRequest = _props.getscoreLeidaRequest;
 
 
-	                getbaseMsgRequest({ "platName": this.state.companyVal });
-	                getcompanyMsgRequest({ "platName": this.state.companyVal });
-	                getcoreDataRequest({ "platName": this.state.companyVal });
-	                getCoreBarDataRequest({ "platName": this.state.companyVal });
-	                getCoreTrendDataRequest({ "platName": this.state.companyVal });
-	                getCoreBalanceDataRequest({ "platName": this.state.companyVal });
+	            getbaseMsgRequest({ "platName": this.state.companyVal });
+	            getcompanyMsgRequest({ "platName": this.state.companyVal });
+	            getcoreDataRequest({ "platName": this.state.companyVal });
+	            getCoreBarDataRequest({ "platName": this.state.companyVal });
+	            getCoreTrendDataRequest({ "platName": this.state.companyVal });
+	            getCoreBalanceDataRequest({ "platName": this.state.companyVal });
 
-	                getlitigationRequest({ "platName": this.state.companyVal });
-	                getpublicOpinionRequest({ "platName": this.state.companyVal });
+	            getlitigationRequest({ "platName": this.state.companyVal });
+	            getpublicOpinionRequest({ "platName": this.state.companyVal });
 
-	                getrankPicRequest({
-	                    "platName": this.state.companyVal,
-	                    "companyName": searchValAttr,
-	                    "dataVersion": "20160530",
-	                    "degree": 3
-	                }); //动态图谱
+	            getrankPicRequest({
+	                "platName": this.state.companyVal,
+	                "dataVersion": "20160530",
+	                "degree": 2
+	            }); //动态图谱
 
-	                getscoreLeidaRequest({ "platName": this.state.companyVal });
-	            });
-	        }
+	            getscoreLeidaRequest({ "platName": this.state.companyVal });
+	        });
 	    },
 	    render: function render() {
 	        return _react2.default.createElement(
@@ -67420,22 +67413,22 @@
 	                    _react2.default.createElement(
 	                        'div',
 	                        { className: 'portrait-left' },
-	                        _react2.default.createElement(_companyMsg2.default, _extends({}, this.props, { companyData: this.state.companyName })),
-	                        _react2.default.createElement(_baseMsg2.default, _extends({}, this.props, { companyData: this.state.companyName })),
-	                        _react2.default.createElement(_rankPic2.default, _extends({}, this.props, { companyData: this.state.companyName }))
+	                        _react2.default.createElement(_companyMsg2.default, this.props),
+	                        _react2.default.createElement(_baseMsg2.default, this.props),
+	                        _react2.default.createElement(_rankPic2.default, this.props)
 	                    ),
 	                    _react2.default.createElement(
 	                        'div',
 	                        { className: 'portrait-right' },
-	                        _react2.default.createElement(_scoreLeida2.default, _extends({}, this.props, { companyData: this.state.companyName })),
-	                        _react2.default.createElement(_coreData2.default, _extends({}, this.props, { companyData: this.state.companyName }))
+	                        _react2.default.createElement(_scoreLeida2.default, this.props),
+	                        _react2.default.createElement(_coreData2.default, this.props)
 	                    )
 	                ),
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'portrait-bottom  clearfix' },
-	                    _react2.default.createElement(_litigation2.default, _extends({}, this.props, { companyData: this.state.companyName })),
-	                    _react2.default.createElement(_publicOpinion2.default, _extends({}, this.props, { companyData: this.state.companyName }))
+	                    _react2.default.createElement(_litigation2.default, this.props),
+	                    _react2.default.createElement(_publicOpinion2.default, this.props)
 	                )
 	            )
 	        );
@@ -67444,6 +67437,10 @@
 	// module.exports = P2PPortrait;
 
 	//将 request  result 绑定到props的request result 
+	//评分雷达图
+	//平台舆情
+	//核心数据
+	//基本信息
 	function mapStateToProps(state) {
 	    return {
 	        baseMsgRequest: state.BaseMsg.request,
@@ -67518,20 +67515,18 @@
 	            listData: []
 	        };
 	    },
-	    componentDidMount: function componentDidMount() {},
+	    componentDidMount: function componentDidMount() {
+	        var getbaseMsgRequest = this.props.getbaseMsgRequest;
+
+	        getbaseMsgRequest({ "platName": this.state.companyVal });
+	    },
 	    handleClickGoQX: function handleClickGoQX() {
 	        this.props.history.push('/SearchResultDetail?companyName=' + this.props.companyData);
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        if (nextProps.companyData == "") {
-	            return;
-	        }
-	        var isEqualCompany = Immutable.is(nextProps.companyData, this.props.companyData);
-	        if (!isEqualCompany) {
-	            var getbaseMsgRequest = this.props.getbaseMsgRequest;
+	        var setCompany = this.props.setCompany;
 
-	            getbaseMsgRequest({ "platName": this.state.companyVal });
-	        }
+
 	        var isEqual = Immutable.is(nextProps.baseMsgResult, this.props.baseMsgResult);
 	        if (!isEqual) {
 	            var baseMsgRequest = nextProps.baseMsgRequest;
@@ -67540,6 +67535,7 @@
 	            if (baseMsgRequest == true) {
 	                if (baseMsgResult.success) {
 	                    var _setParm = [baseMsgResult.content];
+	                    setCompany({ baseMsgCompany: baseMsgResult.content.companyName });
 	                    this.setState({ listData: _setParm });
 	                } else {
 	                    //错误后提示
@@ -67787,15 +67783,6 @@
 	        getcompanyMsgRequest({ "platName": this.state.companyVal });
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        if (nextProps.companyData == "") {
-	            return;
-	        }
-	        var isEqualCompany = Immutable.is(nextProps.companyData, this.props.companyData);
-	        if (!isEqualCompany) {
-	            var getcompanyMsgRequest = this.props.getcompanyMsgRequest;
-
-	            getcompanyMsgRequest({ "platName": this.state.companyVal });
-	        }
 	        var isEqual = Immutable.is(nextProps.companyMsgResult, this.props.companyMsgResult);
 	        if (!isEqual) {
 	            var companyMsgRequest = nextProps.companyMsgRequest;
@@ -67903,26 +67890,20 @@
 	            companyVal: _selectVal
 	        };
 	    },
-	    componentDidMount: function componentDidMount() {},
+	    componentDidMount: function componentDidMount() {
+	        var _props = this.props;
+	        var getcoreDataRequest = _props.getcoreDataRequest;
+	        var getCoreBarDataRequest = _props.getCoreBarDataRequest;
+	        var getCoreTrendDataRequest = _props.getCoreTrendDataRequest;
+	        var getCoreBalanceDataRequest = _props.getCoreBalanceDataRequest;
+
+	        getcoreDataRequest({ "platName": this.state.companyVal });
+	        getCoreBarDataRequest({ "platName": this.state.companyVal });
+	        getCoreTrendDataRequest({ "platName": this.state.companyVal });
+	        getCoreBalanceDataRequest({ "platName": this.state.companyVal });
+	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	        var _this = this;
-	        if (nextProps.companyData == "") {
-	            return;
-	        }
-	        var isEqualCompany = Immutable.is(nextProps.companyData, this.props.companyData);
-	        if (!isEqualCompany) {
-	            var _props = this.props;
-	            var getcoreDataRequest = _props.getcoreDataRequest;
-	            var getCoreBarDataRequest = _props.getCoreBarDataRequest;
-	            var getCoreTrendDataRequest = _props.getCoreTrendDataRequest;
-	            var getCoreBalanceDataRequest = _props.getCoreBalanceDataRequest;
-
-	            getcoreDataRequest({ "platName": this.state.companyVal });
-	            getCoreBarDataRequest({ "platName": this.state.companyVal });
-	            getCoreTrendDataRequest({ "platName": this.state.companyVal });
-	            getCoreBalanceDataRequest({ "platName": this.state.companyVal });
-	        }
-
 	        var isEqual = Immutable.is(nextProps.coreDataResult, this.props.coreDataResult);
 	        if (!isEqual) {
 	            var coreDataRequest = nextProps.coreDataRequest;
@@ -68510,22 +68491,17 @@
 	    var _selectVal = this.props.location.query.platName == undefined ? "" : this.props.location.query.platName;
 	    return {
 	      listData: [],
-	      company: "",
+	      getBaseCompany: "",
 	      companyVal: _selectVal
 	    };
 	  },
-	  componentDidMount: function componentDidMount() {},
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    if (nextProps.companyData == "") {
-	      return;
-	    }
-	    var isEqualCompany = Immutable.is(nextProps.companyData, this.props.companyData);
-	    if (!isEqualCompany) {
-	      var getlitigationRequest = this.props.getlitigationRequest;
+	  componentDidMount: function componentDidMount() {
+	    var getlitigationRequest = this.props.getlitigationRequest;
 
-	      this.setState({ company: nextProps.companyData });
-	      getlitigationRequest({ "platName": this.state.companyVal });
-	    }
+	    getlitigationRequest({ "platName": this.state.companyVal });
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    this.setState({ getBaseCompany: nextProps.companyName.baseMsgCompany });
 	    var isEqual = Immutable.is(nextProps.litigationResult, this.props.litigationResult);
 	    if (!isEqual) {
 	      var litigationRequest = nextProps.litigationRequest;
@@ -68543,7 +68519,7 @@
 	    }
 	  },
 	  render: function render() {
-	    var _companyName = this.state.company;
+	    var _companyName = this.state.getBaseCompany;
 	    return _react2.default.createElement(
 	      'div',
 	      { className: 'bottom-l radius4 mod' },
@@ -68633,21 +68609,16 @@
 	        };
 	    },
 	    componentDidMount: function componentDidMount() {
+	        var getpublicOpinionRequest = this.props.getpublicOpinionRequest;
+
+	        getpublicOpinionRequest({ "platName": this.state.companyVal });
 	        $('#publicOpinion-scroll').perfectScrollbar();
 	    },
 	    componentDidUpdate: function componentDidUpdate() {
 	        $('#publicOpinion-scroll').perfectScrollbar('update');
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        if (nextProps.companyData == "") {
-	            return;
-	        }
-	        var isEqualCompany = Immutable.is(nextProps.companyData, this.props.companyData);
-	        if (!isEqualCompany) {
-	            var getpublicOpinionRequest = this.props.getpublicOpinionRequest;
 
-	            getpublicOpinionRequest({ "platName": this.state.companyVal });
-	        }
 	        var isEqual = Immutable.is(nextProps.publicOpinionResult, this.props.publicOpinionResult);
 	        if (!isEqual) {
 	            var publicOpinionRequest = nextProps.publicOpinionRequest;
@@ -68801,22 +68772,17 @@
 	            companyVal: _selectVal
 	        };
 	    },
-	    componentDidMount: function componentDidMount() {},
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        if (nextProps.companyData == "") {
-	            return;
-	        }
-	        var isEqualCompany = Immutable.is(nextProps.companyData, this.props.companyData);
-	        if (!isEqualCompany) {
-	            var getrankPicRequest = this.props.getrankPicRequest;
+	    componentDidMount: function componentDidMount() {
+	        var getrankPicRequest = this.props.getrankPicRequest;
 
-	            getrankPicRequest({
-	                "platName": this.state.companyVal,
-	                "companyName": nextProps.companyData,
-	                "dataVersion": "20160530",
-	                "degree": 3
-	            });
-	        }
+	        getrankPicRequest({
+	            "platName": this.state.companyVal,
+	            // "companyName":nextProps.companyData,
+	            "dataVersion": "20160530",
+	            "degree": 2
+	        });
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	        var isEqual = Immutable.is(nextProps.rankPicResult, this.props.rankPicResult);
 	        if (!isEqual) {
 	            (function () {
@@ -69094,17 +69060,12 @@
 				companyVal: _selectVal
 			};
 		},
-		componentDidMount: function componentDidMount() {},
-		componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-			if (nextProps.companyData == "") {
-				return;
-			}
-			var isEqualCompany = Immutable.is(nextProps.companyData, this.props.companyData);
-			if (!isEqualCompany) {
-				var getscoreLeidaRequest = this.props.getscoreLeidaRequest;
+		componentDidMount: function componentDidMount() {
+			var getscoreLeidaRequest = this.props.getscoreLeidaRequest;
 
-				getscoreLeidaRequest({ "platName": this.state.companyVal });
-			}
+			getscoreLeidaRequest({ "platName": this.state.companyVal });
+		},
+		componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 			var isEqual = Immutable.is(nextProps.scoreLeidaResult, this.props.scoreLeidaResult);
 			if (!isEqual) {
 				var scoreLeidaRequest = nextProps.scoreLeidaRequest;
@@ -71930,6 +71891,10 @@
 
 	var _HPQList2 = _interopRequireDefault(_HPQList);
 
+	var _ElseHPQList = __webpack_require__(1306);
+
+	var _ElseHPQList2 = _interopRequireDefault(_ElseHPQList);
+
 	var _DetailList = __webpack_require__(793);
 
 	var _DetailList2 = _interopRequireDefault(_DetailList);
@@ -71943,7 +71908,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	//黄浦区交易场所列表
-	//交易场所区域分布
+	//交易场所清理整顿分类
 	var TradingPlaces = _react2.default.createClass({
 	    displayName: 'TradingPlaces',
 
@@ -71974,6 +71939,12 @@
 	                    { className: 'tradingP-right mod radius4 clearfix' },
 	                    _react2.default.createElement(_Classification2.default, this.props),
 	                    _react2.default.createElement(_DetailList2.default, this.props)
+	                ),
+	                _react2.default.createElement('div', { style: { clear: "both" } }),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'tradingP-bom mod radius4 clearfix' },
+	                    _react2.default.createElement(_ElseHPQList2.default, this.props)
 	                )
 	            )
 	        );
@@ -71982,7 +71953,8 @@
 	// module.exports = TradingPlaces;
 	//将 request  result 绑定到props的request result 
 	//取得合规意见或经过商的交易场所详情列表
-	//交易场所清理整顿分类
+	//黄浦区交易场所列表
+	//交易场所区域分布
 	function mapStateToProps(state) {
 	    return {
 	        HPQListRequest: state.HPQList.request,
@@ -72047,7 +72019,7 @@
 
 
 	// module
-	exports.push([module.id, ".tradingPlaces-index .tradingP-left {\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n\r\n.tradingPlaces-index .tradingP-right {\r\n\twidth: 49.5%;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%;\r\n}\r\n\r\n.tradingPlaces-index .content {\r\n\tpadding: 30px 20px 30px 20px;\r\n}\r\n\r\n.tradingPlaces-index  a {\r\n\tcolor: #e14340 !important\r\n}", ""]);
+	exports.push([module.id, ".tradingPlaces-index .tradingP-left {\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n\r\n.tradingPlaces-index .tradingP-right {\r\n\twidth: 49.5%;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%;\r\n}\r\n\r\n.tradingPlaces-index .tradingP-bom {\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.tradingPlaces-index .content {\r\n\tpadding: 30px 20px 30px 20px;\r\n}\r\n\r\n.tradingPlaces-index  a {\r\n\tcolor: #e14340 !important\r\n}", ""]);
 
 	// exports
 
@@ -72394,6 +72366,7 @@
 
 	        var jsonData = {
 	            areaName: county, //地区
+	            type: 1,
 	            orderName: listType, //列表排序
 	            orderType: orderType //desc  //asc
 	        };
@@ -85650,7 +85623,7 @@
 
 	var _LargeGuara2 = _interopRequireDefault(_LargeGuara);
 
-	var _FinGuaMapVal = __webpack_require__(1305);
+	var _FinGuaMapVal = __webpack_require__(1307);
 
 	var _FinGuaMapVal2 = _interopRequireDefault(_FinGuaMapVal);
 
@@ -99143,7 +99116,275 @@
 	};
 
 /***/ },
-/* 1305 */
+/* 1305 */,
+/* 1306 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	__webpack_require__(789);
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(159);
+
+	var _reactRedux = __webpack_require__(242);
+
+	var _index = __webpack_require__(594);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Immutable = __webpack_require__(620);
+	var HPQList = _react2.default.createClass({
+	    displayName: 'HPQList',
+
+	    getInitialState: function getInitialState() {
+	        return {
+	            list: [],
+	            orderZB: "DESC",
+	            areaName: "",
+	            orderName: ""
+	        };
+	    },
+	    countyChange: function countyChange(county, listType, orderType) {
+	        var getHPQListRequest = this.props.getHPQListRequest;
+
+	        var jsonData = {
+	            areaName: county, //地区
+	            type: 2,
+	            orderName: listType, //列表排序
+	            orderType: orderType //desc  //asc
+	        };
+	        getHPQListRequest(jsonData);
+	    },
+	    componentDidMount: function componentDidMount() {
+	        this.setState({ areaName: this.state.areaName });
+	        this.setState({ orderZB: "DESC" });
+	        this.countyChange(this.state.areaName, "", this.state.orderZB);
+	        $('#hpqList-scroll').perfectScrollbar().scrollTop(0);
+	    },
+	    componentDidUpdate: function componentDidUpdate() {
+	        $('#hpqList-scroll').perfectScrollbar('update').scrollTop(0);
+	    },
+	    handleClick: function handleClick(field) {
+	        var _dom = $(this.refs[field]),
+	            _domAttr = _dom.attr("data-order"),
+	            _domIco = _dom.find("i"),
+	            _domIcoIs = _dom.find("i").hasClass('icon-desc');
+	        _domIcoIs == true ? _domIco.removeClass('icon-desc').addClass('icon-asc') : _domIco.removeClass('icon-asc').addClass('icon-desc');
+	        _domAttr == "desc" ? _dom.attr("data-order", "asc") : _dom.attr("data-order", "desc");
+	        this.setState({ orderName: field, orderZB: _dom.attr("data-order") }, function () {
+	            this.countyChange(this.state.areaName, field, this.state.orderZB);
+	        });
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var isEqualCounty = Immutable.is(nextProps.pieCounty.areaName, this.props.pieCounty.areaName);
+	        if (!isEqualCounty) {
+	            this.setState({ areaName: nextProps.pieCounty.areaName });
+	            this.countyChange(nextProps.pieCounty.areaName, "", "");
+	        }
+
+	        var isEqual = Immutable.is(nextProps.HPQListResult, this.props.HPQListResult);
+	        if (!isEqual) {
+	            var HPQListRequest = nextProps.HPQListRequest;
+	            var HPQListResult = nextProps.HPQListResult;
+
+
+	            if (HPQListRequest == true) {
+	                if (HPQListResult.success) {
+	                    this.setState({ list: HPQListResult.content });
+	                } else {
+	                    //错误后提示
+	                }
+	            }
+	        }
+	    },
+	    render: function render() {
+	        var _areaName = this.state.areaName == "" ? "上海市" : this.state.areaName;
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'left-bottom' },
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'mod-title' },
+	                _react2.default.createElement(
+	                    'h3',
+	                    null,
+	                    _areaName,
+	                    '其他交易场所列表'
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'mod-content' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'table-title' },
+	                    _react2.default.createElement(
+	                        'table',
+	                        { className: 'mt-table mt-table-center wtyh-table' },
+	                        _react2.default.createElement(
+	                            'thead',
+	                            null,
+	                            _react2.default.createElement(
+	                                'tr',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'th',
+	                                    { width: '10%', className: 'talign-center' },
+	                                    '序号'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'th',
+	                                    { width: '25%' },
+	                                    '交易所'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'th',
+	                                    { width: '25%' },
+	                                    '注册地址'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'th',
+	                                    { width: '10%' },
+	                                    '法定代表人'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'th',
+	                                    { width: '15%', className: 'cur-pointer', 'data-order': this.state.orderZB, ref: 'registeredCapital', onClick: this.handleClick.bind(this, "registeredCapital") },
+	                                    '注册资本',
+	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
+	                                ),
+	                                _react2.default.createElement(
+	                                    'th',
+	                                    { width: '15%', className: 'cur-pointer', 'data-order': this.state.orderZB, ref: 'registeredDate', onClick: this.handleClick.bind(this, "registeredDate") },
+	                                    '注册时间',
+	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
+	                                )
+	                            )
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'table-content', id: 'hpqList-scroll' },
+	                    _react2.default.createElement(
+	                        'table',
+	                        { className: 'mt-table mt-table-center wtyh-table table-border-b' },
+	                        _react2.default.createElement(
+	                            'tbody',
+	                            null,
+	                            this.state.list.map(function (item, index) {
+	                                {
+	                                    var num = index + 1;
+	                                    var _address = item.address == null ? "/" : item.address;
+	                                    var _registeredCapital = item.registeredCapital == null ? "/" : item.registeredCapital + "万元";
+	                                    var _registeredDate = item.registeredDate == null ? "/" : item.registeredDate;
+	                                    var _legalPerson = item.legalPerson == null ? "/" : item.legalPerson;
+
+	                                    if (index % 2) {
+	                                        return _react2.default.createElement(
+	                                            'tr',
+	                                            { className: 'even' },
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '10%', className: 'talign-center' },
+	                                                num
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '25%' },
+	                                                _react2.default.createElement(
+	                                                    _reactRouter.Link,
+	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'HPQList', companyName: item.name } }, className: 'word-limit-5', 'data-tip': item.name, title: item.name },
+	                                                    item.name
+	                                                )
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '25%' },
+	                                                _react2.default.createElement(
+	                                                    'span',
+	                                                    { className: 'word-limit-5', 'data-tip': _address, title: _address },
+	                                                    _address
+	                                                )
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '10%' },
+	                                                _legalPerson
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '15%' },
+	                                                _registeredCapital
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '15%' },
+	                                                _registeredDate
+	                                            )
+	                                        );
+	                                    } else {
+	                                        return _react2.default.createElement(
+	                                            'tr',
+	                                            { className: 'odd' },
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '10%', className: 'talign-center' },
+	                                                num
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '25%' },
+	                                                _react2.default.createElement(
+	                                                    _reactRouter.Link,
+	                                                    { to: { pathname: '/SearchResultDetail', query: { formpage: 'HPQList', companyName: item.name } }, className: 'word-limit-5', 'data-tip': item.name, title: item.name },
+	                                                    item.name
+	                                                )
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '25%' },
+	                                                _react2.default.createElement(
+	                                                    'span',
+	                                                    { className: 'word-limit-5', 'data-tip': _address, title: _address },
+	                                                    _address
+	                                                )
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '10%' },
+	                                                _legalPerson
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '15%' },
+	                                                _registeredCapital
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '15%' },
+	                                                _registeredDate
+	                                            )
+	                                        );
+	                                    }
+	                                }
+	                            })
+	                        )
+	                    )
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = HPQList;
+
+/***/ },
+/* 1307 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";

@@ -125,15 +125,31 @@
 				if (data.content.length > 0) {
 					for (var i = 0; i < data.content.length; i++) {
 						var _getColor = data.content[i].replace(_getBaseKey, '<span class="strong">' + _getBaseKey + '</span>');
-						dataList.push('<li class="group-item" data-key=' + data.content[i] + ' data-company="">' + _getColor + '</li>');
+						dataList.push('<li class="group-item" data-key=' + data.content[i] + ' data-baseKey=' + data.content[i] + '   data-company="">' + _getColor + '</li>');
 					};
 				} else {
 					dataList.push('<li class="group" >暂无相关数据。</li>');
 				}
 			} else {
 				if (data.content) {
-					var _getColor = data.content.platformName.replace(_getBaseKey, '<span class="strong">' + _getBaseKey + '</span>');
-					dataList.push('<li class="group-item" data-key=' + data.content.platformName + ' data-company=' + data.content.name + '>' + _getColor + '</li>');
+					if (data.content.isGoToHologram) {
+						var _dataSoure = data.content.associatedWords;
+
+						for (var i = 0; i < _dataSoure.length; i++) {
+							if (_dataSoure[i].name) { //有公司名称
+								var _getColor = _dataSoure[i].name.replace(_getBaseKey, '<span class="strong">' + _getBaseKey + '</span>');
+								dataList.push('<li class="group-item" data-key=' + _dataSoure[i].name + ' data-plat=' + _dataSoure[i].platformName + '  data-company=' + _dataSoure[i].name + ' >' + _getColor + '</li>');
+							} else {
+								var _getColor = _dataSoure[i].platformName.replace(_getBaseKey, '<span class="strong">' + _getBaseKey + '</span>');
+								dataList.push('<li class="group-item" data-key=' + _dataSoure[i].platformName + '  data-plat=' + _dataSoure[i].platformName + '  data-company=' + _dataSoure[i].platformName + '>' + _getColor + '</li>');
+							}
+						};
+					} else {
+						dataList.push('<li class="group" >暂无相关数据。</li>');
+					}
+
+					// var _getColor = data.content.platformName.replace(_getBaseKey, '<span class="strong">' + _getBaseKey + '</span>');
+					// dataList.push('<li class="group-item" data-key=' + data.content.platformName + ' data-company=' + data.content.name + '>' + _getColor + '</li>');
 				} else {
 					dataList.push('<li class="group" >暂无相关数据。</li>');
 				}
@@ -175,7 +191,8 @@
 			// $resultLi.each(function() {
 			$('.' + acClass).find('ul li').unbind('click').on('click', function() {
 				var key = $(this).data('key');
-				var keyCompany = $(this).data('company');
+				var keyCompany = $(this).data('company'); //公司
+				var keyPlat = $(this).data('plat'); //平台
 				var isgroup = $(this).hasClass('group');
 				if (isgroup) {
 					$element.attr({
@@ -186,11 +203,12 @@
 				}
 				document.getElementById("autocomplete").value = key;
 				document.getElementById("autocomplete").setAttribute("company", keyCompany);
+				document.getElementById("autocomplete").setAttribute("plat", keyPlat);
 				document.getElementById("autocomplete").setAttribute("data_flag", "hasWorld")
-					// $element.attr({
-					// 	company: keyCompany,
-					// 	data_flag: "hasWorld",
-					// });
+				// $element.attr({
+				// 	company: keyCompany,
+				// 	data_flag: "hasWorld",
+				// });
 				that.hide();
 			});
 			// });
