@@ -85,6 +85,17 @@
    			 
    </select>
 
+    <select id="countAllCompany" resultType="int">
+        select count(*) count from company
+    </select>
+
+    <select id="findByPage" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+        select * from company limit #{pagination.begin}, #{pagination.pageSize}
+    </select>
+
+    <update id="updateRiskLevel">
+        update company set risk_level=#{riskLevel} where company_id=#{companyId}
+    </update>
 
 
     <select id="maxVersion" resultType="int">

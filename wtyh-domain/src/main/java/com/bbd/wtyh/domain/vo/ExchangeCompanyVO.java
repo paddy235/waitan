@@ -17,6 +17,16 @@ public class ExchangeCompanyVO implements Serializable {
 
 	private String website;
 
+	private Integer riskLevel;
+
+	public Integer getRiskLevel() {
+		return riskLevel;
+	}
+
+	public void setRiskLevel(Integer riskLevel) {
+		this.riskLevel = riskLevel;
+	}
+
 	private String legalPerson;
 
 	private String address;

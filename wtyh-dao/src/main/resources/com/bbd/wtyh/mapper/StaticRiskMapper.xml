@@ -263,15 +263,16 @@
         LIMIT 1;
     </select>
 
+    <select id="queryStaticsRiskData" parameterType="java.lang.String" resultType="com.bbd.wtyh.domain.StaticRiskDataDO">
+        SELECT <include refid="staticRiskDataDOContent"></include> from static_risk_data
+        where company_name=#{companyName} ORDER BY data_version desc LIMIT 1;
+    </select>
+
     <select id="maxDataVersion" resultType="java.lang.String">
         SELECT
 			MAX(data_version)
 		FROM
 			static_risk_data
-    </select>
-
-    <select id="queryOne" resultType="com.bbd.wtyh.domain.StaticRiskDataDO">
-        SELECT <include refid="staticRiskDataDOContent"></include> from static_risk_data where company_name='上海一口田投资管理有限公司' LIMIT 1
     </select>
 
     <insert id="save" parameterType="com.bbd.wtyh.domain.StaticRiskDataDO" >

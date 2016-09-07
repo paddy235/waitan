@@ -45,10 +45,10 @@ public class RiskCompanyController {
 	public ResponseBean getScanner(@RequestParam(required = false) String area,
 			@RequestParam(required = false) String minRegCapital, @RequestParam(required = false) String maxRegCapital,
 			@RequestParam(required = false) String companyQualification,
-			@RequestParam(required = false) String minReviewTime,
-			@RequestParam(required = false) String maxReviewTime) {
+			@RequestParam(required = false) String minReviewTime, @RequestParam(required = false) String maxReviewTime,
+			@RequestParam(required = false) String riskLevel) {
 		Map<String, Object> params = this.fillMap(area, minRegCapital, maxRegCapital, companyQualification,
-				minReviewTime, maxReviewTime);
+				minReviewTime, maxReviewTime, riskLevel);
 		return ResponseBean.successResponse(riskCompanyService.getScanner(params));
 	}
 
@@ -58,9 +58,10 @@ public class RiskCompanyController {
 			@RequestParam(required = false) String minRegCapital, @RequestParam(required = false) String maxRegCapital,
 			@RequestParam(required = false) String companyQualification,
 			@RequestParam(required = false) String minReviewTime, @RequestParam(required = false) String maxReviewTime,
-			@RequestParam(defaultValue = "0") String sortType, @RequestParam int pageNo) {
+			@RequestParam(required = false) String riskLevel, @RequestParam(defaultValue = "0") String sortType,
+			@RequestParam int pageNo) {
 		Map<String, Object> params = this.fillMap(area, minRegCapital, maxRegCapital, companyQualification,
-				minReviewTime, maxReviewTime);
+				minReviewTime, maxReviewTime, riskLevel);
 		params.put("sortType", sortType); // 排序方式
 		int count = riskCompanyService.getTopCount(params);
 		Pagination pagination = new Pagination();
@@ -87,7 +88,7 @@ public class RiskCompanyController {
 	}
 
 	private Map<String, Object> fillMap(String area, String minRegCapital, String maxRegCapital,
-			String companyQualification, String minReviewTime, String maxReviewTime) {
+			String companyQualification, String minReviewTime, String maxReviewTime, String riskLevel) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("area", area);
 		map.put("minRegCapital", StringUtils.isNotNullOrEmpty(minRegCapital) ? new BigDecimal(minRegCapital) : null);
@@ -98,6 +99,7 @@ public class RiskCompanyController {
 			map.put("companyQualification", "1|0");
 		map.put("minReviewTime", StringUtils.isNotNullOrEmpty(minReviewTime) ? new BigDecimal(minReviewTime) : null);
 		map.put("maxReviewTime", StringUtils.isNotNullOrEmpty(maxReviewTime) ? new BigDecimal(maxReviewTime) : null);
+		map.put("riskLevel", riskLevel);
 		return map;
 	}
 

@@ -31,7 +31,7 @@ public class RiskCompanyServiceImpl implements RiskCompanyService {
 	public List<RiskCompanyInfoDO> getScanner(Map<String, Object> params) {
 		String key = SCANNER_PREFIX_KEY + params.get("area") + "_" + params.get("minRegCapital") + "_"
 				+ params.get("maxRegCapital") + "_" + params.get("companyQualification") + "_"
-				+ params.get("minReviewTime") + "_" + params.get("maxReviewTime");
+				+ params.get("minReviewTime") + "_" + params.get("maxReviewTime") + "_" + params.get("riskLevel");
 		List<RiskCompanyInfoDO> scannerList = (List<RiskCompanyInfoDO>) redisDAO.getObject(key);
 		if (null == scannerList || scannerList.size() == 0) {
 			int realCount = riskCompanyMapper.getScannerCount(params);
@@ -61,8 +61,8 @@ public class RiskCompanyServiceImpl implements RiskCompanyService {
 	public List<RiskCompanyInfoDO> getTop(Map<String, Object> params) {
 		String key = TOP_PREFIX_KEY + params.get("area") + "_" + params.get("minRegCapital") + "_"
 				+ params.get("maxRegCapital") + "_" + params.get("companyQualification") + "_"
-				+ params.get("minReviewTime") + "_" + params.get("maxReviewTime") + "_"
-				+ params.get("sortType") + "_" + ((Pagination) params.get("pagination")).getPageNumber();
+				+ params.get("minReviewTime") + "_" + params.get("maxReviewTime") + "_" + params.get("sortType") + "_"
+				+ ((Pagination) params.get("pagination")).getPageNumber() + "_" + params.get("riskLevel");
 		List<RiskCompanyInfoDO> list = ((List<RiskCompanyInfoDO>) redisDAO.getObject(key));
 		if (ListUtil.isEmpty(list)) {
 			list = riskCompanyMapper.getTop(params);

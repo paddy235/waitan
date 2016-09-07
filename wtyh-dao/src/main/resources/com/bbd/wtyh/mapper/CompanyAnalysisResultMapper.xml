@@ -63,12 +63,17 @@
 
 
     <select id="queryRiskByBuilding" resultType="com.bbd.wtyh.domain.CompanyAnalysisResultDO">
-        select DISTINCT c.company_id,c.`name` , cas.analysis_result analysisResult
+        select DISTINCT c.company_id,c.`name` ,c.company_type companyType ,
+                        cas.analysis_result analysisResult
         from company c
         LEFT JOIN company_building cb  on cb.company_id=c.company_id
         LEFT JOIN company_analysis_result cas on cas.company_id=c.company_id
         where cb.company_id=c.company_id and cb.building_id=#{buildingId} and c.company_type not in (7,8)
     </select>
 
+    <select id="findCompanyAnalysisResultByCompanyId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT * from company_analysis_result
+        WHERE company_id=#{companyId}
+    </select>
 
 </mapper>
