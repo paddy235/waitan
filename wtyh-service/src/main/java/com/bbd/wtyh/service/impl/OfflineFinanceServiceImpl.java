@@ -96,7 +96,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
         pagination.setPageSize(1000);
         pagination.setCount(totalCount);
         int total = pagination.getLastPageNumber();
-        Map<String, Object> params = new HashedMap();
+        Map<String, Object> params = new HashMap<>();
         for (int i=1; i<=total; i++) {
             pagination.setPageNumber(i);
             params.put("pagination", pagination);
