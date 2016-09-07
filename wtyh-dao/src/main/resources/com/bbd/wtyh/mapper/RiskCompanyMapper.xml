@@ -4,64 +4,68 @@
 
 	<sql id="indexDataCondition">
 		<where>
+			i.company_name=c.`name`
 			<if test="area != null and area != ''">
-				AND area=#{area}
+				AND i.area=#{area}
 			</if>
 			<if test="minRegCapital != null and minRegCapital != ''">
-				AND reg_capital<![CDATA[>=]]>#{minRegCapital}
+				AND i.reg_capital<![CDATA[>=]]>#{minRegCapital}
 			</if>
 			<if test="maxRegCapital != null and maxRegCapital != ''">
-				AND reg_capital<![CDATA[<=]]>#{maxRegCapital}
+				AND i.reg_capital<![CDATA[<=]]>#{maxRegCapital}
 			</if>
 			<if test="companyQualification != null and companyQualification != ''">
-				AND company_qualification=#{companyQualification}
+				AND i.company_qualification=#{companyQualification}
 			</if>
 			<if test="minReviewTime != null and minReviewTime != ''">
-				AND review_time<![CDATA[>=]]>#{minReviewTime}
+				AND i.review_time<![CDATA[>=]]>#{minReviewTime}
 			</if>
 			<if test="maxReviewTime != null and maxReviewTime != ''">
-				AND review_time<![CDATA[<=]]>#{maxReviewTime}
+				AND i.review_time<![CDATA[<=]]>#{maxReviewTime}
+			</if>
+			<if test="riskLevel != null and riskLevel != ''">
+				AND c.risk_level=#{riskLevel}
 			</if>
 		</where>
 	</sql>
 	<sql id="indexDataContent">
-		create_by as createBy,
-		create_date as createDate,
-		update_by as updateBy,
-		update_date as updateDate,
-		area as area,
-		reg_capital as regCapital,
-		company_qualification as companyQualification,
-		company_name as companyName,
-		static_risk_index as staticRiskIndex,
-		dynamic_risk_index as dynamicRiskIndex,
-		legal_rpt as legalRpt,
-		company_type as companyType,
-		review_time as reviewTime,
-		is_rise as isRise,
-		reg_date as regDate,
-		DATE_FORMAT(reg_date,'%Y-%m-%d') as regDateStr
+		i.create_by as createBy,
+		i.create_date as createDate,
+		i.update_by as updateBy,
+		i.update_date as updateDate,
+		i.area as area,
+		i.reg_capital as regCapital,
+		i.company_qualification as companyQualification,
+		i.company_name as companyName,
+		i.static_risk_index as staticRiskIndex,
+		i.dynamic_risk_index as dynamicRiskIndex,
+		i.legal_rpt as legalRpt,
+		i.company_type as companyType,
+		i.review_time as reviewTime,
+		i.is_rise as isRise,
+		i.reg_date as regDate,
+		DATE_FORMAT(i.reg_date,'%Y-%m-%d') as regDateStr
 	</sql>
 
 	<select id="getScanner" resultType="com.bbd.wtyh.domain.RiskCompanyInfoDO" parameterType="java.util.HashMap">
 		select
 			<include refid="indexDataContent"></include>
-		from index_data
+		from index_data i, company c
 		<include refid="indexDataCondition"></include>
-		order by static_risk_index asc
+		order by i.static_risk_index asc
 	</select>
 	
 	<select id="getScannerCount" parameterType="java.util.HashMap" resultType="int">
-		select count(1) from index_data
+		select count(1) from index_data i, company c
 		<include refid="indexDataCondition"></include>
 	</select>
 	
 	<select id="getTop" parameterType="java.util.HashMap" resultType="com.bbd.wtyh.domain.RiskCompanyInfoDO">
 		select
 			<include refid="indexDataContent"></include>
-		from index_data
+		from index_data i, company c
 		<include refid="indexDataCondition"></include>
-		order by static_risk_index 
+		order by i.static_risk_index 
 		<choose>
 			<when test="sortType == '0'.toString()">
 				asc
@@ -74,9 +78,7 @@
 	</select>
 	
 	<select id="getTopCount" parameterType="java.util.HashMap" resultType="int">
-		select
-			count(1)
-		from index_data
+		select count(1) from index_data i, company c
 		<include refid="indexDataCondition"></include>
 	</select>
 	
