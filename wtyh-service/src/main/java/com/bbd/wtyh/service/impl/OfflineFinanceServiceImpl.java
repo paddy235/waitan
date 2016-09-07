@@ -140,8 +140,11 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     @Override
     public Map companyInfo(String companyName) {
         List<Map<Integer, String>> list = companyMapper.companyInfo(companyName);
-        float staticsRiskIndex = staticRiskMapper.queryStaticsRiskIndex(companyName);
+        Float staticsRiskIndex = staticRiskMapper.queryStaticsRiskIndex(companyName);
 
+        if (staticsRiskIndex == null) {
+            staticsRiskIndex = 0f;
+        }
         Map result = new HashMap();
         if (staticsRiskIndex > 70) {
             result.put("analysisResult", "重点关注");
