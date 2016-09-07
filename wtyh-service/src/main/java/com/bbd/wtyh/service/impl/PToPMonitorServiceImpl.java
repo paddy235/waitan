@@ -214,7 +214,8 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
 					Gson gson = new Gson();
 
 					List<IndustryShanghaiDTO> list = gson.fromJson(result,new TypeToken<List<IndustryShanghaiDTO>>(){}.getType());
-
+					IndustryShanghaiDTO ja = null;
+					IndustryShanghaiDTO zb = null;
 					return list;
 				}
 			});

@@ -19,9 +19,19 @@ public class PlatRankDataDTO {
 	
 	private double loan_period;
 	
-	private double stay_still_of_total;
+	private String stay_still_of_total;
 
 	private String plat_status;
+
+	private String registered_address;
+
+	public String getRegistered_address() {
+		return registered_address;
+	}
+
+	public void setRegistered_address(String registered_address) {
+		this.registered_address = registered_address;
+	}
 
 	public String getPlat_status() {
 		return plat_status;
@@ -74,15 +84,12 @@ public class PlatRankDataDTO {
 	public void setLoan_period(double loan_period) {
 		this.loan_period = loan_period;
 	}
-	
-	public double getStay_still_of_total() {
+
+	public String getStay_still_of_total() {
 		return stay_still_of_total;
 	}
-	
-	public void setStay_still_of_total(double stay_still_of_total) {
+
+	public void setStay_still_of_total(String stay_still_of_total) {
 		this.stay_still_of_total = stay_still_of_total;
 	}
-	
-	
-	
 }

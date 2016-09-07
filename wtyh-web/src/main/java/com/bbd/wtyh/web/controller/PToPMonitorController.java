@@ -122,7 +122,7 @@ public class PToPMonitorController {
      * @return XAxisSeriesLinesDO<Integer>
      */
     public Map<String, Object> hotMap(List<IndustryShanghaiDTO> list){
-    	
+
     	HashMap<String,Object> map = new HashMap<>();
     	map.put("code", 1);
     	map.put("title", "热力图");
@@ -130,21 +130,33 @@ public class PToPMonitorController {
     		map.put("data", new ArrayList<>());
         	return map;
     	}
-    	
+
     	IndustryShanghaiDTO maxDto = list.get(0);
     	for (IndustryShanghaiDTO dto : list) {
 			if(maxDto.getDate().compareTo(dto.getDate()) < 0){
 				maxDto = dto;
 			}
 		}
-    	
+
+
+		Map<String, Object> ja = null;
+		Map<String, Object> zb = null;
     	List<Map<String, Object>> data = new ArrayList<>();
     	for (Map.Entry<String, Object> entry: maxDto.getArea_num().entrySet()) {
     		Map<String, Object> areaNum = new HashMap<>();
     		areaNum.put("name", "浦东".equals(entry.getKey())?"浦东新区":entry.getKey()+(entry.getKey().endsWith("区")?"":"区"));
     		areaNum.put("value", entry.getValue());
+			if(entry.getKey().contains("闸北")){
+				zb = areaNum;
+				continue;
+			}else if(entry.getKey().contains("静安")){
+				ja = areaNum;
+			}
 			data.add(areaNum);
 		}
+		if(ja!=null && zb!=null)
+			ja.put("value",Double.valueOf(zb.get("value").toString())+Double.valueOf(ja.get("value")+""));
+
     	map.put("data", data);
     	return map;
     }
@@ -362,42 +374,31 @@ public class PToPMonitorController {
      }
      
 
-     
-     
-     
-     /**
-      * 上海网贷平台数据展示
-      *
-      * @return ResponseBean
-     * @throws Exception 
-      */
-     @RequestMapping("/platRankData")
-     @ResponseBody
-     public Object platRankData() throws Exception{
-    	 
-    	 List<PlatRankDataDTO> list = pToPMonitorService.getPlatRankData();
-    	 
-    	 if(CollectionUtils.isEmpty(list)){
-    		 return ResponseBean.successResponse( new ArrayList<>() );
-    	 }
-    	 
-    	 for (PlatRankDataDTO dto : list) {
-    		double total = dto.getStay_still_of_total();
-    		dto.setStay_still_of_total(CalculateUtils.divide(total,100000000,2));
-			dto.setAmount(CalculateUtils.divide(dto.getAmount(),100000000,2));
-		 }
-     	
-     	 return ResponseBean.successResponse( list );
-     	
-     }
-     
+    /**
+     * 上海网贷平台数据展示
+     *
+     * @return ResponseBean
+     * @throws Exception
+     */
+    @RequestMapping("/platRankData")
+    @ResponseBody
+    public Object platRankData() throws Exception {
 
-     
-    
+        List<PlatRankDataDTO> list = pToPMonitorService.getPlatRankData();
 
-     
-     
-     
-     
-	
+        if (CollectionUtils.isEmpty(list)) {
+            return ResponseBean.successResponse(new ArrayList<>());
+        }
+
+        for (PlatRankDataDTO dto : list) {
+            double total = Double.valueOf(dto.getStay_still_of_total().isEmpty() ? "0" : dto.getStay_still_of_total());
+            dto.setStay_still_of_total(String.valueOf(CalculateUtils.divide(total, 100000000, 2)));
+            dto.setAmount(CalculateUtils.divide(dto.getAmount(), 100000000, 2));
+        }
+
+        return ResponseBean.successResponse(list);
+
+    }
+
+
 }
