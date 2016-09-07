@@ -2,12 +2,13 @@ package com.bbd.wtyh.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.bbd.wtyh.dao.HologramQueryDao;
+import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.bbdAPI.*;
 import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.CourtAnnouncementDO;
 import com.bbd.wtyh.domain.bbdAPI.IndustryCodeDO;
-import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
+import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.service.DataomApiBbdservice;
 import com.bbd.wtyh.service.HologramQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class HologramQueryServiceImpl implements HologramQueryService {
 
     @Autowired
     private DataomApiBbdservice dabservice;
+
+    @Autowired
+    private CompanyMapper companyMapper;
 
     @Override
     public SearchComanyDO search(String company, int page_no, int page_size) {
@@ -88,10 +92,10 @@ public class HologramQueryServiceImpl implements HologramQueryService {
         return baiDuYuQingDO;
     }
 
-
-
-
-
+    @Override
+    public CompanyDO tag(String company) {
+        return companyMapper.queryCompanyByName(company);
+    }
 
 
     @Override
