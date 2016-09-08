@@ -25634,6 +25634,8 @@
 	                                                                        { path: '/', component: _App2.default },
 	                                                                        _react2.default.createElement(_reactRouter.IndexRoute, { component: _Index2.default }),
 	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'login', component: _Index2.default }),
+	                                                                        '//',
+	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'login', component: _Index2.default }),
 	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'index', component: _Index4.default }),
 	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'lineFinance', component: _index2.default }),
 	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'lineFinanceSearchResult', component: _SearchResult2.default }),
@@ -25654,7 +25656,8 @@
 	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'buildDetail', component: _buildDetail2.default }),
 	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'InfoSearchIndex', component: _Index20.default }),
 	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'SearchResultDetail', component: _SearchResultDetail2.default }),
-	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'realtimeMonitor', component: _index12.default })
+	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'realtimeMonitor', component: _index12.default }),
+	                                                                        '//'
 	                                                            )
 	                                                )
 	                                    )
@@ -39788,12 +39791,13 @@
 	  render: function render() {
 	    var routPath = this.props.location.pathname;
 	    var _userName = sessionStorage.LoginName;
+	    console.log(routPath, '看看路径');
 	    var app = null;
-	    if (routPath != "/") {
-	      if (!_userName || _userName == "") {
-	        this.props.history.push('/');
-	      }
-	    }
+	    // if(routPath!="/"){
+	    //   if( !_userName||_userName==""){
+	    //     this.props.history.push('/');
+	    //    }
+	    // }
 
 	    if (routPath == "/") {
 	      app = _react2.default.createElement(
@@ -39805,21 +39809,21 @@
 	      app = _react2.default.createElement(
 	        'div',
 	        { className: 'app' },
-	        _react2.default.createElement(_Header2.default, null),
+	        _react2.default.createElement(_Header2.default, this.props),
 	        this.props.children
 	      );
 	    } else if (routPath == '/realtimeMonitor') {
 	      app = _react2.default.createElement(
 	        'div',
 	        { className: 'app' },
-	        _react2.default.createElement(_Header2.default, { text: '上海市新型金融业态监测分析平台' }),
+	        _react2.default.createElement(_Header2.default, _extends({ text: '上海市新型金融业态监测分析平台' }, this.props)),
 	        this.props.children
 	      );
 	    } else if (routPath == '/parkMonitor' || routPath == '/buildDetail') {
 	      app = _react2.default.createElement(
 	        'div',
 	        { className: 'app' },
-	        _react2.default.createElement(_Header2.default, { text: '上海市新型金融业态监测分析平台' }),
+	        _react2.default.createElement(_Header2.default, _extends({ text: '上海市新型金融业态监测分析平台' }, this.props)),
 	        _react2.default.createElement(_Menu2.default, _extends({}, this.props, { selectShow: 'show' })),
 	        this.props.children
 	      );
@@ -39827,7 +39831,7 @@
 	      app = _react2.default.createElement(
 	        'div',
 	        { className: 'app' },
-	        _react2.default.createElement(_Header2.default, { text: '上海市新型金融业态监测分析平台' }),
+	        _react2.default.createElement(_Header2.default, _extends({ text: '上海市新型金融业态监测分析平台' }, this.props)),
 	        _react2.default.createElement(_Menu2.default, _extends({}, this.props, { selectShow: 'hide' })),
 	        this.props.children
 	      );
@@ -39881,9 +39885,14 @@
 	      dataType: "json",
 	      data: {},
 	      type: "GET",
-	      success: function success(result) {
-	        console.log(result);
-	      }
+	      success: function (result) {
+	        console.log(this.props, 111);
+	        if (result.success) {
+	          this.props.history.push('/');
+	        } else {
+	          alert('退出失败！');
+	        }
+	      }.bind(this)
 	    });
 	  },
 	  render: function render() {
