@@ -55875,7 +55875,7 @@
 
 
 	// module
-	exports.push([module.id, "/*单个时间轴 begin*/\r\n.linefin-each-timeaxis .mod-title{\r\n\theight: 45px;\r\n\tline-height: 45px;\r\n\tbackground-color: #1a2029 !important;\r\n\tpadding: 0 10px;\r\n\tmargin-top: 10px;\r\n}\r\n.linefin-each-timeaxis .mod-title.bl{\r\n\tborder-left: solid 1px #000000;\r\n}\r\n.linefin-each-timeaxis .mod-title .date{\r\n\tfloat: left;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .label{\r\n\tfont-size: 14px;\r\n\tcolor: #ffffff;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select{\r\n\tbackground-color: #ffffff;\r\n\tborder-radius: 5px;\r\n\tpadding-left: 5px;\r\n\tpadding-right: 0px;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select .mt-select-title{\r\n\tcolor: #1a1a1a;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select i{\r\n\tfont-size: 24px;\r\n\ttop: 0px;\r\n\tcolor:#1a1a1a;\r\n\tright:0px;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select-box{\r\n\tcolor: #1a1a1a;\r\n}\r\n/*缩放条*/\r\n.scale{\r\n\tfloat: right;\r\n\tmargin-top: 10px;\r\n\twidth: 298px;\r\n\theight: 24px;\r\n\tbackground-color: #0d1013;\r\n}\r\n.scale .min,.scale .add{\r\n\tborder:solid 1px #dddddd;\r\n\tdisplay: inline-block;\r\n\twidth: 24px;\r\n\theight: 24px;\r\n\ttext-align: center;\r\n\tline-height: 20px;\r\n\tcursor: pointer;\r\n\tcolor: #00b7ee;\r\n}\r\n.scale .min{\r\n\tfloat: left;\r\n}\r\n.scale .add{\r\n\tfloat: right;\r\n}\r\n\r\n.scale .scale-bar{\r\n\tdisplay: inline-block;\r\n\twidth: 250px;\r\n\theight: 24px;\r\n\tfloat: left;\r\n\tposition: relative;\r\n}\r\n.scale .scale-bar .s-bar{\r\n\tdisplay:block;\r\n\twidth: 60%;\r\n\theight: 24px;\r\n\tbackground: #1e5799; /* Old browsers */\r\n\tbackground: -moz-linear-gradient(left,  #1e5799 0%, #00b7e7 0%, #207cca 100%, #7db9e8 100%); /* FF3.6-15 */\r\n\tbackground: -webkit-linear-gradient(left,  #1e5799 0%,#00b7e7 0%,#207cca 100%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */\r\n\tbackground: linear-gradient(to right,  #1e5799 0%,#00b7e7 0%,#207cca 100%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */\r\n\tfilter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=1 ); /* IE6-9 */\r\n}\r\n.scale .scale-bar em{\r\n\tcolor: #999999;\r\n\tfont-size: 14px;\r\n\theight: 24px;\r\n\tposition: absolute;\r\n\tleft: 60%;\r\n\ttop: 3px;\r\n\tline-height: normal;\r\n}\r\n.linefin-each-timeaxis .mod-title .icon-zoomout{\r\n\tfloat: right;\r\n\tmargin-left: 10px;\r\n\tmargin-top: 13px;\r\n\tcolor: #00b7ee;\r\n}\r\n\r\n/*内容 begin*/\r\n.linefin-each-timeaxis .mod-content.bl{\r\n\tborder-left:solid 1px #282e37;\r\n}\r\n\r\n.linefin-each-timeaxis .mod-content .con-box{\r\n\twidth: 95%;\r\n\theight: 620px;\r\n\tmargin: 0 auto;\r\n\tmargin-top: 100px;\r\n\ttext-align: center;\r\n\tvertical-align: middle;\r\n\tposition: relative;\r\n}\r\n\r\n.linefin-each-timeaxis .mod-content .con-box img{\r\n\twidth: 80%;\r\n\tposition: absolute;\r\n\tleft: 50%;\r\n\ttop: 50%;\r\n\tmargin-left: -40%;\r\n\tmargin-top: -40%;\r\n}\r\n/*内容 end*/\r\n/*单个时间轴 end*/", ""]);
+	exports.push([module.id, "/*单个时间轴 begin*/\r\n.linefin-each-timeaxis .mod-title{\r\n\theight: 45px;\r\n\tline-height: 45px;\r\n\tbackground-color: #1a2029 !important;\r\n\tpadding: 0 10px;\r\n\tmargin-top: 10px;\r\n}\r\n.linefin-each-timeaxis .mod-title.bl{\r\n\tborder-left: solid 1px #000000;\r\n}\r\n.linefin-each-timeaxis .mod-title .date{\r\n\tfloat: left;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .label{\r\n\tfont-size: 14px;\r\n\tcolor: #ffffff;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select{\r\n\tbackground-color: #ffffff;\r\n\tborder-radius: 5px;\r\n\tpadding-left: 5px;\r\n\tpadding-right: 0px;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select .mt-select-title{\r\n\tcolor: #1a1a1a;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select i{\r\n\tfont-size: 24px;\r\n\ttop: 0px;\r\n\tcolor:#1a1a1a;\r\n\tright:0px;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select-box{\r\n\tcolor: #1a1a1a;\r\n}\r\n/*缩放条*/\r\n.scale{\r\n\tfloat: right;\r\n\tmargin-top: 10px;\r\n\twidth: 298px;\r\n\theight: 24px;\r\n\tbackground-color: #0d1013;\r\n}\r\n.scale .min,.scale .add{\r\n\tborder:solid 1px #dddddd;\r\n\tdisplay: inline-block;\r\n\twidth: 24px;\r\n\theight: 24px;\r\n\ttext-align: center;\r\n\tline-height: 20px;\r\n\tcursor: pointer;\r\n\tcolor: #00b7ee;\r\n}\r\n.scale .min{\r\n\tfloat: left;\r\n}\r\n.scale .add{\r\n\tfloat: right;\r\n}\r\n\r\n.scale .scale-bar{\r\n\tdisplay: inline-block;\r\n\twidth: 250px;\r\n\theight: 24px;\r\n\tfloat: left;\r\n\tposition: relative;\r\n}\r\n.scale .scale-bar .s-bar{\r\n\tdisplay:block;\r\n\twidth: 60%;\r\n\theight: 24px;\r\n\tbackground: #1e5799; /* Old browsers */\r\n\tbackground: -moz-linear-gradient(left,  #1e5799 0%, #00b7e7 0%, #207cca 100%, #7db9e8 100%); /* FF3.6-15 */\r\n\tbackground: -webkit-linear-gradient(left,  #1e5799 0%,#00b7e7 0%,#207cca 100%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */\r\n\tbackground: linear-gradient(to right,  #1e5799 0%,#00b7e7 0%,#207cca 100%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */\r\n\tfilter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=1 ); /* IE6-9 */\r\n}\r\n.scale .scale-bar em{\r\n\tcolor: #999999;\r\n\tfont-size: 14px;\r\n\theight: 24px;\r\n\tposition: absolute;\r\n\tleft: 60%;\r\n\ttop: 3px;\r\n\tline-height: normal;\r\n}\r\n.linefin-each-timeaxis .mod-title .icon-zoomout{\r\n\tfloat: right;\r\n\tmargin-left: 10px;\r\n\tmargin-top: 13px;\r\n\tcolor: #00b7ee;\r\n}\r\n\r\n/*内容 begin*/\r\n.linefin-each-timeaxis .mod-content.bl{\r\n\tborder-left:solid 1px #282e37;\r\n}\r\n\r\n.linefin-each-timeaxis .mod-content .con-box{\r\n\twidth: 70%;\r\n\theight: 620px;\r\n\tmargin: 0 auto;\r\n\tmargin-top: 0px;\r\n\ttext-align: center;\r\n\tvertical-align: middle;\r\n\tposition: relative;\r\n}\r\n\r\n.linefin-each-timeaxis .mod-content .con-box img{\r\n\twidth: 80%;\r\n\tposition: absolute;\r\n\tleft: 50%;\r\n\ttop: 50%;\r\n\tmargin-left: -40%;\r\n\tmargin-top: -40%;\r\n}\r\n/*内容 end*/\r\n/*单个时间轴 end*/", ""]);
 
 	// exports
 
@@ -62659,17 +62659,26 @@
 	                        "legend": _setRosePieLegend,
 	                        "legendShow": true,
 	                        "radius": "60%",
-	                        // "roseType": "radius",//是否玫瑰型
-	                        // "radius": [20, 110],
+	                        "lable": {
+	                            emphasis: {
+	                                show: true,
+	                                formatter: function formatter(val) {
+	                                    return val.value;
+	                                }
+
+	                            },
+	                            normal: { show: false }
+	                        },
+	                        "labelLine": {
+	                            normal: {
+	                                show: false
+	                            }
+	                        },
 	                        "legendOrient": "horizontal",
 	                        "legendLeft": "20%",
 	                        "legendTop": "65%",
 	                        "seriesName": "基金类型",
 	                        "unit": "家",
-	                        "lable": {
-	                            normal: { show: false },
-	                            emphasis: { show: false }
-	                        },
 	                        "center": ['50%', '35%'],
 	                        "series": _setRosePieData
 	                    };
@@ -62804,7 +62813,7 @@
 	                            },
 	                            emphasis: { show: false }
 	                        },
-	                        labelLine: {
+	                        "labelLine": {
 	                            normal: {
 	                                show: false
 	                            }
