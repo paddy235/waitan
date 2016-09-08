@@ -18,4 +18,6 @@ public interface PlatformNameInformationMapper {
 
 	List<PlatformNameInformationDO> associatedCompanyName(@Param(value = "company_name") String platName,
 														  @Param(value = "limit_size")Integer limit_size);
+
+	String getPlatName(@Param(value = "company_name")String company);
 }
