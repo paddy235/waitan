@@ -3,6 +3,7 @@ package com.bbd.wtyh.web.controller;
 import com.bbd.wtyh.domain.AreaDO;
 import com.bbd.wtyh.service.AreaService;
 import com.bbd.wtyh.web.ResponseBean;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
@@ -32,14 +33,12 @@ public class AreaController {
 	@RequestMapping(value = "getAreaByParentId.do")
 	@ResponseBody
 	public ResponseBean getAreaByParentId(Integer areaId) {
-		List<AreaDO> list = areaService.selectByParentId(areaId);
-		Set<String> areaSet = new LinkedHashSet<>();
-		if (!CollectionUtils.isEmpty(list)) {
-			for (AreaDO areaDO : list) {
-				areaSet.add(areaDO.getName());
-			}
-		}
-		return ResponseBean.successResponse(areaSet);
+		//产品提出要排序，不读库的方式，写死
+		List<String> list = Lists.newArrayList("浦东新区","黄浦区","静安区","徐汇区",
+												"长宁区","普陀区","虹口区","杨浦区",
+												"宝山区","闵行区","嘉定区","金山区",
+												"松江区","青浦区","奉贤区","崇明县");
+		return ResponseBean.successResponse(list);
 	}
 
 }

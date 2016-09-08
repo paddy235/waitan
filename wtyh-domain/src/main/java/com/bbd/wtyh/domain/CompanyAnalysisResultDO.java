@@ -25,6 +25,8 @@ public class CompanyAnalysisResultDO extends BaseDO {
 
 	private String staticRiskIndex;
 
+	private String platform;
+
 
 
 
@@ -52,6 +54,14 @@ public class CompanyAnalysisResultDO extends BaseDO {
 			return "正常";
 		}
     }
+
+	public String getPlatform() {
+		return platform;
+	}
+
+	public void setPlatform(String platform) {
+		this.platform = platform;
+	}
 
 	public String getLongitude() {
 		return longitude;
