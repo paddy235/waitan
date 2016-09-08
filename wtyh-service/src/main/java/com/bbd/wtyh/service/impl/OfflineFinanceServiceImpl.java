@@ -7,6 +7,7 @@ import com.bbd.wtyh.common.Pagination;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.dto.PlatRankDataDTO;
 import com.bbd.wtyh.domain.dto.StaticRiskDTO;
+import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
 import com.bbd.wtyh.domain.vo.LineVO;
 import com.bbd.wtyh.domain.vo.PointVO;
 import com.bbd.wtyh.domain.vo.StaticRiskVO;
@@ -42,6 +43,10 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 /**
  * 线下理财接口实现层
  * @author zhouxuan
@@ -85,79 +90,92 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     @Scheduled(cron = "0 0 0 * * *")
     @Override
     public void updateCompanyRiskLevel() {
-        Map<Integer, Integer> platRankMapData = new HashMap();
         try {
-            platRankMapData = pToPMonitorService.getPlatRankMapData();
+            final Map<Integer, Integer> platRankMapData = pToPMonitorService.getPlatRankMapData();
+
+            int totalCount = companyMapper.countAllCompany();
+            Pagination pagination = new Pagination();
+            pagination.setPageSize(1000);
+            pagination.setCount(totalCount);
+            int total = pagination.getLastPageNumber();
+            Map<String, Object> params = new HashMap<>();
+
+            ExecutorService dataExecutorService = Executors.newFixedThreadPool(20);
+
+            for (int i=1; i<=total; i++) {
+                System.out.println("----i------"+i);
+                pagination.setPageNumber(i);
+                params.put("pagination", pagination);
+                List<CompanyDO> list = companyMapper.findByPage(params);
+                if (!CollectionUtils.isEmpty(list)) {
+                    for (final CompanyDO companyDO : list) {
+                        dataExecutorService.submit(new Runnable() {
+                            @Override
+                            public void run() {
+                                updateCompanRiskLevel(platRankMapData, companyDO);
+                            }
+                        });
+
+                        //System.out.println("-----nothing-------"+companyId);
+                    }
+                }
+            }
+            dataExecutorService.shutdown();
+            dataExecutorService.awaitTermination(1, TimeUnit.DAYS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        int totalCount = companyMapper.countAllCompany();
-        Pagination pagination = new Pagination();
-        pagination.setPageSize(1000);
-        pagination.setCount(totalCount);
-        int total = pagination.getLastPageNumber();
-        Map<String, Object> params = new HashMap<>();
-        for (int i=1; i<=total; i++) {
-            pagination.setPageNumber(i);
-            params.put("pagination", pagination);
-            List<CompanyDO> list = companyMapper.findByPage(params);
-            if (!CollectionUtils.isEmpty(list)) {
-                for (CompanyDO companyDO : list) {
-                    Integer companyId = companyDO.getCompanyId();
-                    CompanyAnalysisResultDO companyAnalysisResultDO = companyAnalysisResultMapper.findCompanyAnalysisResultByCompanyId(companyId);
-                    StaticRiskDataDO staticRiskDataDO = staticRiskMapper.queryStaticsRiskData(companyDO.getName());
-                    Integer riskLevel = null;
-                    if (companyAnalysisResultDO != null) {
-                        riskLevel = (int)companyAnalysisResultDO.getAnalysisResult();
-                        companyMapper.updateRiskLevel(riskLevel, companyId);
-                        System.out.println("-----analysis-------"+companyId);
-                        break;
-                    }
-                    if (staticRiskDataDO != null) {
-                        float staticsRiskIndex = staticRiskDataDO.getStaticRiskIndex();
-                        if (staticsRiskIndex > 70) {
-                            riskLevel = 2;
-                        } else if (staticsRiskIndex >= 60 && staticsRiskIndex < 70) {
-                            riskLevel = 3;
-                        } else if (staticsRiskIndex < 60) {
-                            riskLevel = 4;
-                        }
-                        System.out.println("-----static-------"+companyId);
-                        companyMapper.updateRiskLevel(riskLevel, companyId);
-                        break;
-                    }
-                    Integer riskLevelForPToP = platRankMapData.get(companyId);
-                    if (riskLevelForPToP != null && riskLevelForPToP > 0) {
-                        System.out.println("-----p2p-------"+companyId);
-                        companyMapper.updateRiskLevel(riskLevelForPToP, companyId);
-                        break;
-                    }
-                    companyMapper.updateRiskLevel(riskLevel, companyId);
-                    System.out.println("-----nothing-------"+companyId);
-                }
+    }
+
+    private void updateCompanRiskLevel(Map<Integer, Integer> platRankMapData, CompanyDO companyDO) {
+        Integer companyId = companyDO.getCompanyId();
+        Integer companyType = (int)companyDO.getCompanyType();
+        CompanyAnalysisResultDO companyAnalysisResultDO = companyAnalysisResultMapper.findCompanyAnalysisResultByCompanyId(companyId);
+        StaticRiskDataDO staticRiskDataDO = staticRiskMapper.queryStaticsRiskData(companyDO.getName());
+        Integer riskLevel = null;
+        Integer riskLevelForPToP = platRankMapData.get(companyId);
+        if (riskLevelForPToP != null && riskLevelForPToP > 0) {
+            System.out.println("-----p2p-------"+companyId);
+            companyMapper.updateRiskLevel(riskLevelForPToP, companyId);
+        }
+
+        if (staticRiskDataDO != null) {
+            float staticsRiskIndex = staticRiskDataDO.getStaticRiskIndex();
+            if (staticsRiskIndex > 70) {
+                riskLevel = 2;
+            } else if (staticsRiskIndex >= 60 && staticsRiskIndex < 70) {
+                riskLevel = 3;
+            } else if (staticsRiskIndex < 60) {
+                riskLevel = 4;
+            }
+            System.out.println("-----static-------"+companyId);
+            companyMapper.updateRiskLevel(riskLevel, companyId);
+        }
+
+        if (companyAnalysisResultDO != null) {
+            riskLevel = (int)companyAnalysisResultDO.getAnalysisResult();
+            if (companyType != CompanyDO.TYPE_YFK_11) {
+                companyMapper.updateRiskLevel(riskLevel, companyId);
+                System.out.println("-----analysis-------"+companyId);
             }
         }
-
     }
+
     @Override
     public Map companyInfo(String companyName) {
-        List<Map<Integer, String>> list = companyMapper.companyInfo(companyName);
-        Float staticsRiskIndex = staticRiskMapper.queryStaticsRiskIndex(companyName);
+        List<Map<Integer, Object>> list = companyMapper.companyInfo(companyName);
 
-        if (staticsRiskIndex == null) {
-            staticsRiskIndex = 0f;
-        }
         Map result = new HashMap();
-        if (staticsRiskIndex > 70) {
-            result.put("analysisResult", "重点关注");
-        } else if (staticsRiskIndex >= 60 && staticsRiskIndex < 70) {
-            result.put("analysisResult", "一般关注");
-        } else if (staticsRiskIndex < 60) {
-            result.put("analysisResult", "正常");
-        }
+
         List backgroud = new ArrayList();
         if (!CollectionUtils.isEmpty(list)) {
             result.put("status", list.get(0).get("status"));
+            if (list.get(0).get("riskLevel") != null) {
+                result.put("analysisResult", CompanyAnalysisResult.getName(Integer.parseInt(list.get(0).get("riskLevel").toString())));
+            }
+
             String backgroudString = "";
             for (Map map : list) {
                 int back = (int)map.get("background");

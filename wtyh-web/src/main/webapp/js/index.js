@@ -40406,17 +40406,11 @@
 	    for (var i = 0; i < len; i++) {
 	      selectArr.push({ value: content[i].areaId, label: content[i].name });
 	    }
-	    var areaId = selectArr[0].value;
 
 	    //当从其他页面跳转过来时 特殊处理
-	    //areaId=this.props.location.query.areaId;
-	    // if(areaId==undefined){
-	    //    this.props.history.push('/parkMonitor');
-	    //    this.getMenuParkSelectVal(selectArr[0].value,selectArr[0].name)
-	    //    this.setState({selectDataArr:selectArr,value:selectArr[0].value});
-	    // }else{
+	    //var areaId=selectArr[0].value;
+	    var areaId = this.props.location.query.areaId;
 	    this.setState({ selectDataArr: selectArr, value: areaId });
-	    // }
 	  },
 	  getMenuParkSelectList: function getMenuParkSelectList(data) {
 	    var getMenuParkSelectList = this.props.getMenuParkSelectList;
@@ -40432,27 +40426,26 @@
 	  menuSlide: function menuSlide(e) {
 	    var $this = $(e.target);
 	    var text = $this.text();
-	    console.log(text);
 	    if (text == '行业监测平台') {
 	      var isTrue = this.state.industrySubNav;
 	      if (!isTrue) {
-	        this.setState({ industrySubNav: true });
+	        this.setState({ industrySubNav: true, parkSubNav: false });
 	      } else {
-	        this.setState({ industrySubNav: false });
+	        this.setState({ industrySubNav: false, parkSubNav: false });
 	      }
 	    } else if (text == '园区监测') {
 	      var isTrue = this.state.parkSubNav;
+	      console.log(isTrue);
 	      if (!isTrue) {
-	        this.setState({ parkSubNav: true });
+	        this.setState({ parkSubNav: true, industrySubNav: false });
 	      } else {
-	        this.setState({ parkSubNav: false });
+	        this.setState({ parkSubNav: false, industrySubNav: false });
 	      }
 	    } else {
 	      this.setState({ industrySubNav: false, parkSubNav: false });
 	    }
 	  },
 	  subMenu: function subMenu(item, e) {
-	    console.log(item.value, 'xuyao');
 	    this.setState({ industrySubNav: false, parkSubNav: false, value: item.value });
 	    this.getMenuParkSelectVal(item.value, item.label);
 	  },
@@ -40462,6 +40455,7 @@
 	    var infoBtn = null;
 
 	    if (this.props.selectShow == "show" && this.state.value) {
+	      console.log(this.state.value, this.props.selectShow, 'xuyao测试');
 	      var selectProp = {
 	        width: '160px',
 	        className: 'index-selected',
@@ -40490,7 +40484,7 @@
 	    var industryNavActive = false,
 	        parkNavActive = false;
 	    var routPath = this.props.location.pathname;
-	    console.log(routPath, '11111');
+
 	    var areaId = this.props.location.query.areaId;
 	    if (routPath == '/P2P' || routPath == '/lineFinance' || routPath == '/smallLoan' || routPath == '/financeGuara' || routPath == '/privateFund') {
 	      industryNavActive = true;
@@ -49866,7 +49860,7 @@
 	            },
 	            geo: {
 	                map: 'shanghai',
-	                roam: true,
+	                roam: false,
 	                label: {
 	                    emphasis: {
 	                        show: false
@@ -49991,7 +49985,7 @@
 	                type: 'map',
 	                name: '',
 	                map: 'shanghai',
-	                roam: true,
+	                roam: false,
 	                animationDurationUpdate: 1000,
 	                animationEasingUpdate: 'quinticInOut',
 	                label: {
@@ -50167,7 +50161,7 @@
 	                            _react2.default.createElement(
 	                                _reactRouter.Link,
 	                                { className: 'links', activeClassName: 'active', to: { pathname: HOME_PATH + "/P2P" } },
-	                                'P2P'
+	                                '网络借贷'
 	                            )
 	                        ),
 	                        _react2.default.createElement(
@@ -52239,7 +52233,7 @@
 	    if (isClick == "hasWorld") {
 	      this.setState({ searchVal: searchVal });
 	      if (this.props.searchFun) {
-	        this.props.searchFun(searchAttrPlat, searchAttrCompany);
+	        this.props.searchFun(searchAttrCompany, searchAttrPlat);
 	      }
 	    }
 	  },
@@ -52821,8 +52815,8 @@
 	            '导出报告'
 	          ),
 	          _react2.default.createElement(
-	            'a',
-	            { href: '', className: 'see-detail' },
+	            _reactRouter.Link,
+	            { to: '/SearchResultDetail?companyName=' + this.props.companyName, className: 'see-detail' },
 	            '查看全息信息详情'
 	          )
 	        ),
@@ -53675,7 +53669,7 @@
 	        var selectProp = { //渲染右边时间选择         
 	            width: '85px',
 	            className: 'index-selected',
-	            value: 2,
+	            value: 1,
 	            placeholder: this.state.allDate ? this.state.allDate[0].label : '',
 	            name: 'testselect',
 	            id: 'indexSelected',
@@ -54248,7 +54242,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.sixMonNewComNum != "0.0" ? itemTable.sixMonNewComNum : 0
+	                                                    itemTable && itemTable.toYearNewComNum != "0.0" ? itemTable.toYearNewComNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -54381,7 +54375,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.lease
+	                                                    itemTable && itemTable.trade
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -55881,7 +55875,7 @@
 
 
 	// module
-	exports.push([module.id, "/*单个时间轴 begin*/\r\n.linefin-each-timeaxis .mod-title{\r\n\theight: 45px;\r\n\tline-height: 45px;\r\n\tbackground-color: #1a2029 !important;\r\n\tpadding: 0 10px;\r\n\tmargin-top: 10px;\r\n}\r\n.linefin-each-timeaxis .mod-title.bl{\r\n\tborder-left: solid 1px #000000;\r\n}\r\n.linefin-each-timeaxis .mod-title .date{\r\n\tfloat: left;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .label{\r\n\tfont-size: 14px;\r\n\tcolor: #ffffff;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select{\r\n\tbackground-color: #ffffff;\r\n\tborder-radius: 5px;\r\n\tpadding-left: 5px;\r\n\tpadding-right: 0px;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select .mt-select-title{\r\n\tcolor: #1a1a1a;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select i{\r\n\tfont-size: 24px;\r\n\ttop: 0px;\r\n\tcolor:#1a1a1a;\r\n\tright:0px;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select-box{\r\n\tcolor: #1a1a1a;\r\n}\r\n/*缩放条*/\r\n.scale{\r\n\tfloat: right;\r\n\tmargin-top: 10px;\r\n\twidth: 298px;\r\n\theight: 24px;\r\n\tbackground-color: #0d1013;\r\n}\r\n.scale .min,.scale .add{\r\n\tborder:solid 1px #dddddd;\r\n\tdisplay: inline-block;\r\n\twidth: 24px;\r\n\theight: 24px;\r\n\ttext-align: center;\r\n\tline-height: 20px;\r\n\tcursor: pointer;\r\n\tcolor: #00b7ee;\r\n}\r\n.scale .min{\r\n\tfloat: left;\r\n}\r\n.scale .add{\r\n\tfloat: right;\r\n}\r\n\r\n.scale .scale-bar{\r\n\tdisplay: inline-block;\r\n\twidth: 250px;\r\n\theight: 24px;\r\n\tfloat: left;\r\n\tposition: relative;\r\n}\r\n.scale .scale-bar .s-bar{\r\n\tdisplay:block;\r\n\twidth: 60%;\r\n\theight: 24px;\r\n\tbackground: #1e5799; /* Old browsers */\r\n\tbackground: -moz-linear-gradient(left,  #1e5799 0%, #00b7e7 0%, #207cca 100%, #7db9e8 100%); /* FF3.6-15 */\r\n\tbackground: -webkit-linear-gradient(left,  #1e5799 0%,#00b7e7 0%,#207cca 100%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */\r\n\tbackground: linear-gradient(to right,  #1e5799 0%,#00b7e7 0%,#207cca 100%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */\r\n\tfilter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=1 ); /* IE6-9 */\r\n}\r\n.scale .scale-bar em{\r\n\tcolor: #999999;\r\n\tfont-size: 14px;\r\n\theight: 24px;\r\n\tposition: absolute;\r\n\tleft: 60%;\r\n\ttop: 3px;\r\n\tline-height: normal;\r\n}\r\n.linefin-each-timeaxis .mod-title .icon-zoomout{\r\n\tfloat: right;\r\n\tmargin-left: 10px;\r\n\tmargin-top: 13px;\r\n\tcolor: #00b7ee;\r\n}\r\n\r\n/*内容 begin*/\r\n.linefin-each-timeaxis .mod-content.bl{\r\n\tborder-left:solid 1px #282e37;\r\n}\r\n\r\n.linefin-each-timeaxis .mod-content .con-box{\r\n\twidth: 95%;\r\n\theight: 620px;\r\n\tmargin: 0 auto;\r\n\tmargin-top: 100px;\r\n\ttext-align: center;\r\n\tvertical-align: middle;\r\n\tposition: relative;\r\n}\r\n\r\n.linefin-each-timeaxis .mod-content .con-box img{\r\n\twidth: 80%;\r\n\tposition: absolute;\r\n\tleft: 50%;\r\n\ttop: 50%;\r\n\tmargin-left: -40%;\r\n\tmargin-top: -40%;\r\n}\r\n/*内容 end*/\r\n/*单个时间轴 end*/", ""]);
+	exports.push([module.id, "/*单个时间轴 begin*/\r\n.linefin-each-timeaxis .mod-title{\r\n\theight: 45px;\r\n\tline-height: 45px;\r\n\tbackground-color: #1a2029 !important;\r\n\tpadding: 0 10px;\r\n\tmargin-top: 10px;\r\n}\r\n.linefin-each-timeaxis .mod-title.bl{\r\n\tborder-left: solid 1px #000000;\r\n}\r\n.linefin-each-timeaxis .mod-title .date{\r\n\tfloat: left;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .label{\r\n\tfont-size: 14px;\r\n\tcolor: #ffffff;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select{\r\n\tbackground-color: #ffffff;\r\n\tborder-radius: 5px;\r\n\tpadding-left: 5px;\r\n\tpadding-right: 0px;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select .mt-select-title{\r\n\tcolor: #1a1a1a;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select i{\r\n\tfont-size: 24px;\r\n\ttop: 0px;\r\n\tcolor:#1a1a1a;\r\n\tright:0px;\r\n}\r\n.linefin-each-timeaxis .mod-title .date .mt-select-box{\r\n\tcolor: #1a1a1a;\r\n}\r\n/*缩放条*/\r\n.scale{\r\n\tfloat: right;\r\n\tmargin-top: 10px;\r\n\twidth: 298px;\r\n\theight: 24px;\r\n\tbackground-color: #0d1013;\r\n}\r\n.scale .min,.scale .add{\r\n\tborder:solid 1px #dddddd;\r\n\tdisplay: inline-block;\r\n\twidth: 24px;\r\n\theight: 24px;\r\n\ttext-align: center;\r\n\tline-height: 20px;\r\n\tcursor: pointer;\r\n\tcolor: #00b7ee;\r\n}\r\n.scale .min{\r\n\tfloat: left;\r\n}\r\n.scale .add{\r\n\tfloat: right;\r\n}\r\n\r\n.scale .scale-bar{\r\n\tdisplay: inline-block;\r\n\twidth: 250px;\r\n\theight: 24px;\r\n\tfloat: left;\r\n\tposition: relative;\r\n}\r\n.scale .scale-bar .s-bar{\r\n\tdisplay:block;\r\n\twidth: 60%;\r\n\theight: 24px;\r\n\tbackground: #1e5799; /* Old browsers */\r\n\tbackground: -moz-linear-gradient(left,  #1e5799 0%, #00b7e7 0%, #207cca 100%, #7db9e8 100%); /* FF3.6-15 */\r\n\tbackground: -webkit-linear-gradient(left,  #1e5799 0%,#00b7e7 0%,#207cca 100%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */\r\n\tbackground: linear-gradient(to right,  #1e5799 0%,#00b7e7 0%,#207cca 100%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */\r\n\tfilter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=1 ); /* IE6-9 */\r\n}\r\n.scale .scale-bar em{\r\n\tcolor: #999999;\r\n\tfont-size: 14px;\r\n\theight: 24px;\r\n\tposition: absolute;\r\n\tleft: 60%;\r\n\ttop: 3px;\r\n\tline-height: normal;\r\n}\r\n.linefin-each-timeaxis .mod-title .icon-zoomout{\r\n\tfloat: right;\r\n\tmargin-left: 10px;\r\n\tmargin-top: 13px;\r\n\tcolor: #00b7ee;\r\n}\r\n\r\n/*内容 begin*/\r\n.linefin-each-timeaxis .mod-content.bl{\r\n\tborder-left:solid 1px #282e37;\r\n}\r\n\r\n.linefin-each-timeaxis .mod-content .con-box{\r\n\twidth: 70%;\r\n\theight: 620px;\r\n\tmargin: 0 auto;\r\n\tmargin-top: 0px;\r\n\ttext-align: center;\r\n\tvertical-align: middle;\r\n\tposition: relative;\r\n}\r\n\r\n.linefin-each-timeaxis .mod-content .con-box img{\r\n\twidth: 80%;\r\n\tposition: absolute;\r\n\tleft: 50%;\r\n\ttop: 50%;\r\n\tmargin-left: -40%;\r\n\tmargin-top: -40%;\r\n}\r\n/*内容 end*/\r\n/*单个时间轴 end*/", ""]);
 
 	// exports
 
@@ -60153,7 +60147,7 @@
 	    var option = {
 	      "visualMapRight": "50", //值茷位置
 	      "visualMapBottom": "30",
-	      "seriesName": '小额贷款企业数量',
+	      "seriesName": '融资担保监测数量',
 	      "selectedMode": 'multiple',
 	      "series": series
 	    };
@@ -60629,7 +60623,6 @@
 	    // }
 	  },
 	  dataFomat: function dataFomat(data) {
-	    console.log(data, 999999999999999);
 	    var option = {
 	      color: ["#00b8ee", "#f8b551"],
 	      titleX: "left",
@@ -60643,7 +60636,7 @@
 	      legendTop: '1%',
 	      legendPadding: [0, 0, 0, 0],
 	      grid: { top: '10%', left: '5%', right: '5%', bottom: '10%', containLabel: true },
-	      legend: ["贷款总余额/总笔数"],
+	      legend: ["担保总额/总笔数"],
 	      xAxis: data.xAxis,
 	      series: [data.series]
 	    };
@@ -60848,8 +60841,14 @@
 	                }
 	            },
 	            legend: {
-	                data: [],
-	                left: 'right'
+	                data: param.legend || [],
+	                textStyle: {
+	                    color: "#99a3b7",
+	                    fontSize: 12,
+	                    fontFamily: 'Microsoft Yahei'
+	                },
+	                left: 'center',
+	                top: "15px"
 	            },
 	            tooltip: {
 	                backgroundColor: 'rgba(0,0,0,0.7)',
@@ -60939,7 +60938,7 @@
 	                }
 	            },
 	            series: [{
-	                name: 'Punch Card',
+	                name: param.legend[0] || "",
 	                type: 'scatter',
 	                symbolSize: param.symbolSize || function (val) {
 	                    if (val[1] < 1000) {
@@ -62666,17 +62665,26 @@
 	                        "legend": _setRosePieLegend,
 	                        "legendShow": true,
 	                        "radius": "60%",
-	                        // "roseType": "radius",//是否玫瑰型
-	                        // "radius": [20, 110],
+	                        "lable": {
+	                            emphasis: {
+	                                show: true,
+	                                formatter: function formatter(val) {
+	                                    return val.value;
+	                                }
+
+	                            },
+	                            normal: { show: false }
+	                        },
+	                        "labelLine": {
+	                            normal: {
+	                                show: false
+	                            }
+	                        },
 	                        "legendOrient": "horizontal",
 	                        "legendLeft": "20%",
 	                        "legendTop": "65%",
 	                        "seriesName": "基金类型",
 	                        "unit": "家",
-	                        "lable": {
-	                            normal: { show: false },
-	                            emphasis: { show: false }
-	                        },
 	                        "center": ['50%', '35%'],
 	                        "series": _setRosePieData
 	                    };
@@ -62811,7 +62819,7 @@
 	                            },
 	                            emphasis: { show: false }
 	                        },
-	                        labelLine: {
+	                        "labelLine": {
 	                            normal: {
 	                                show: false
 	                            }
@@ -64856,7 +64864,7 @@
 
 
 	// module
-	exports.push([module.id, ".small-loan-index .mt-table {\r\n\tmargin: 0px !important;\r\n}\r\n\r\n/*企业评级*/\r\n.small-loan-index .company-grade .mod-content .table-content {\r\n\theight: 530px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n.small-loan-index .company-grade .table-content .wtyh-table{\r\n\twidth: 510px;\r\n}\r\n\r\n/*余额占比*/\r\n.small-loan-index .balance-radio {\r\n\theight: 49.5%;\r\n}\r\n\r\n.small-loan-index .balance-radio .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*贷款笔均折线图*/\r\n.small-loan-index .each-average {\r\n\theight: 49.5%;\r\n\tmargin-top: 2%;\r\n}\r\n\r\n.small-loan-index .each-average .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*地图模块*/\r\n.small-loan-index .small-loan-map .map-chart-box {\r\n\theight: 610px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .small-loan-map .company-chart-box {\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.small-loan-index .small-loan-map .visual-text {\r\n\tposition: absolute;\r\n\tbottom: 26%;\r\n\tright: 3%;\r\n\tz-index: 1000;\r\n\twidth: 14px;\r\n}\r\n\r\n/*贷款余额占比*/\r\n.small-loan-index .loan-balance .chart-box {\r\n\theight: 300px;\r\n}\r\n\r\n/*股东行业风险*/\r\n.small-loan-index .industry-risk{\r\n\tposition: relative;\r\n}\r\n.small-loan-index .industry-risk .mod-content .table-content {\r\n\theight: 240px;\t\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk .mod-content .table-content table td a.more {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*大额借款人信息列表*/\r\n\r\n/*股东风险更多*/\r\n.small-loan-index .industry-risk-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content {\r\n\r\n\t/*padding: 8px 10px;*/\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content .content-more {\r\n\theight: 199px;\r\n\twidth: 100%;\r\n\tdisplay: table;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul {\r\n\r\n\t/*display: inline-block;*/\r\n\twidth: 33.33%;\t/*height: 199px;*/\r\n\tdisplay: table-cell;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul li {\r\n\tpadding: 15px 5px;\r\n}\r\n.industry-risk-more .content ul li em{\r\n\tmargin-left: 10px;\r\n\tpadding: 0px 5px;\r\n\tfont-size: 12px;\r\n\tdisplay: inline-block\r\n}\r\n.industry-risk-more .content ul li em.bg-black{\r\n\tbackground-color: #000000;\r\n}\r\n.industry-risk-more .content ul li em.bg-red{\r\n\tbackground-color: red;\r\n}\r\n.industry-risk-more .content ul li em.bg-yellow{\r\n\tbackground-color: #ebc900;\r\n}\r\n.industry-risk-more .content ul li em.bg-green{\r\n\tbackground-color: #32b16c;\r\n}\r\n\r\n/*大额借款人*/\r\n.large-loan .table-content {\r\n\theight: 240px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}", ""]);
+	exports.push([module.id, ".small-loan-index .mt-table {\r\n\tmargin: 0px !important;\r\n}\r\n\r\n/*企业评级*/\r\n.small-loan-index .company-grade .mod-content .table-content {\r\n\theight: 530px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n.small-loan-index .company-grade .table-content .wtyh-table{\r\n\r\n}\r\n\r\n/*余额占比*/\r\n.small-loan-index .balance-radio {\r\n\theight: 49.5%;\r\n}\r\n\r\n.small-loan-index .balance-radio .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*贷款笔均折线图*/\r\n.small-loan-index .each-average {\r\n\theight: 49.5%;\r\n\tmargin-top: 2%;\r\n}\r\n\r\n.small-loan-index .each-average .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*地图模块*/\r\n.small-loan-index .small-loan-map .map-chart-box {\r\n\theight: 610px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .small-loan-map .company-chart-box {\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.small-loan-index .small-loan-map .visual-text {\r\n\tposition: absolute;\r\n\tbottom: 26%;\r\n\tright: 3%;\r\n\tz-index: 1000;\r\n\twidth: 14px;\r\n}\r\n\r\n/*贷款余额占比*/\r\n.small-loan-index .loan-balance .chart-box {\r\n\theight: 300px;\r\n}\r\n\r\n/*股东行业风险*/\r\n.small-loan-index .industry-risk{\r\n\tposition: relative;\r\n}\r\n.small-loan-index .industry-risk .mod-content .table-content {\r\n\theight: 240px;\t\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk .mod-content .table-content table td a.more {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*大额借款人信息列表*/\r\n\r\n/*股东风险更多*/\r\n.small-loan-index .industry-risk-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content {\r\n\r\n\t/*padding: 8px 10px;*/\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content .content-more {\r\n\theight: 199px;\r\n\twidth: 100%;\r\n\tdisplay: table;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul {\r\n\r\n\t/*display: inline-block;*/\r\n\twidth: 33.33%;\t/*height: 199px;*/\r\n\tdisplay: table-cell;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul li {\r\n\tpadding: 15px 5px;\r\n}\r\n.industry-risk-more .content ul li em{\r\n\tmargin-left: 10px;\r\n\tpadding: 0px 5px;\r\n\tfont-size: 12px;\r\n\tdisplay: inline-block\r\n}\r\n.industry-risk-more .content ul li em.bg-black{\r\n\tbackground-color: #000000;\r\n}\r\n.industry-risk-more .content ul li em.bg-red{\r\n\tbackground-color: red;\r\n}\r\n.industry-risk-more .content ul li em.bg-yellow{\r\n\tbackground-color: #ebc900;\r\n}\r\n.industry-risk-more .content ul li em.bg-green{\r\n\tbackground-color: #32b16c;\r\n}\r\n\r\n/*大额借款人*/\r\n.large-loan .table-content {\r\n\theight: 240px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}", ""]);
 
 	// exports
 
@@ -64915,7 +64923,6 @@
 	            agrBalScale.push(data[i].agrBalScale);
 	            smlComBalScale.push(data[i].smlComBalScale);
 	        }
-
 	        var option = {
 	            "title": "",
 	            "color": ["#efd79b", "#e14340"],
@@ -64930,6 +64937,7 @@
 	            "lineName": ["三农占比", "小微企业占比"],
 	            "xAxis": year,
 	            "yAxisName": ["亿元", "占比"],
+	            "y2Flag": '%',
 	            "unit": ["亿元", "%", "%"],
 	            "barWidth": 30,
 	            "symbolSize": 5,
@@ -66129,8 +66137,8 @@
 	            }
 	        }
 	    },
-	    handleFunction: function handleFunction(searchVal) {
-	        this.props.history.push('/Portrait?platName=' + searchVal);
+	    handleFunction: function handleFunction(company, plat) {
+	        this.props.history.push('/Portrait?platName=' + plat);
 	    },
 	    mixins: [_setHeight2.default],
 	    render: function render() {
@@ -67502,7 +67510,7 @@
 	        //    });
 	        // }
 	    },
-	    handleFunction: function handleFunction(plat, company) {
+	    handleFunction: function handleFunction(company, plat) {
 	        this.setState({ companyVal: plat, companyName: company }, function () {
 	            var _props = this.props;
 	            var getbaseMsgRequest = _props.getbaseMsgRequest;
@@ -68985,7 +68993,6 @@
 	                                };
 	                            }
 	                        }
-
 	                        main.reDrawCanvas();
 	                    });
 	                }
@@ -72061,7 +72068,7 @@
 	    render: function render() {
 	        return _react2.default.createElement(
 	            'div',
-	            { className: 'tradingPlaces-index', searchFun: this.handleFunction, style: this.state.style },
+	            { className: 'tradingPlaces-index', style: this.state.style },
 	            _react2.default.createElement(_IndustrySearch2.default, { label: '交易场所监测', companyType: '9', searchFun: this.handleFunction, placeholder: '请输入企业名称检索' }),
 	            _react2.default.createElement(
 	                'div',
@@ -74001,6 +74008,7 @@
 
 	            if (LeaseNumChartRequest == true) {
 	                if (LeaseNumChartResult.success) {
+
 	                    var options = {
 	                        "titleShow": true,
 	                        "color": ["#e24441", "#12b5b0", "#fec252"],
@@ -78553,7 +78561,6 @@
 	        if (!isSwitchValEqual) {
 	            var buildSwitchVal = nextProps.buildSwitchVal;
 
-	            console.log(buildSwitchVal, 9666666666666);
 	            var areaId = this.state.areaId;
 	            var buildingId = buildSwitchVal.buildId;
 
@@ -78574,9 +78581,7 @@
 	            if (buildRiskRequest == true) {
 	                if (buildRiskResult.success == true) {
 	                    this.riskCompanyDataFomat(buildRiskResult);
-	                } else {
-	                    console.log(404);
-	                }
+	                } else {}
 	            }
 	        }
 	        //大厦列表
@@ -78588,9 +78593,7 @@
 	            if (buildListRequest == true) {
 	                if (buildListResult.success == true) {
 	                    this.listDataFomat(buildListResult);
-	                } else {
-	                    console.log(404);
-	                }
+	                } else {}
 	            }
 	        }
 	    },
@@ -78598,7 +78601,6 @@
 	        //设置风险企业列表
 	        var _this = this;
 	        var content = data.content;
-	        console.log(content, 11111);
 	        this.setState({ buildRisk: content, showBuildRisk: content }, function () {
 	            _this.riskCompanyScreen(); //风险企业筛选
 	        });
@@ -78641,14 +78643,12 @@
 	        //大厦
 	        var _this = this;
 	        var content = data.content;
-	        console.log(content, '大厦列表');
 	        var curBuildId = this.state.buildingId; //取得当前buildingId
 	        var len = content.length;
 	        var j = 0;
 	        for (var i = 0; i < len; i++) {
 	            console.log(content[i]);
 	            var bId = content[i].buildingId;
-	            console.log(bId, curBuildId, '对比');
 	            if (bId == curBuildId) {
 	                j = i;
 	                break;
@@ -78683,7 +78683,6 @@
 	        //风险企业切换
 	        var _this = this;
 	        $('.risk-list').on('click', 'tr', function () {
-	            console.log('切换');
 	            var $this = $(this);
 	            var num = $this.find('.r').text();
 	            var $tr = $this.parent('tbody').find('tr');
@@ -78727,7 +78726,6 @@
 	    },
 	    handleBuild: function handleBuild(ele, e) {
 	        //大厦切换
-	        console.log('大厦切换');
 	        var len = this.state.buildList.length; //获取大厦的个数
 	        var index = this.state.curBuildIndex;
 	        if (ele == -1) {
@@ -78905,7 +78903,7 @@
 	                                            null,
 	                                            _react2.default.createElement(
 	                                                'span',
-	                                                { 'data-type': elem.companyType, onClick: this.handleBuildRisk.bind(this, elem.companyType, elem.name) },
+	                                                { className: 'cur-pointer', 'data-type': elem.companyType, onClick: this.handleBuildRisk.bind(this, elem.companyType, elem.name) },
 	                                                elem.name
 	                                            )
 	                                        )
@@ -79343,7 +79341,7 @@
 	            series: [{
 	                type: 'pie',
 	                selectedMode: 'single',
-	                center: ['45%', 200],
+	                center: ['45%', 180],
 	                radius: [0, '30%'],
 	                label: {
 	                    normal: {
@@ -79358,7 +79356,7 @@
 	                data: IndustryBox
 	            }, {
 	                type: 'pie',
-	                center: ['45%', 200],
+	                center: ['45%', 180],
 	                radius: ['40%', '60%'],
 	                data: IndustryEnd
 	            }]
@@ -79482,8 +79480,8 @@
 	            color: ['#efd79b', '#e24340'],
 	            legendOrient: "",
 	            legendRight: "7%",
-	            legendBottom: "10%",
-	            height: '350px', //必传 带上单位
+	            legendBottom: "20%",
+	            height: '340px', //必传 带上单位
 	            title: '',
 	            legendData: legendData,
 	            data: dataPie
@@ -79832,7 +79830,7 @@
 
 
 	// module
-	exports.push([module.id, "#search-result-detail {\r\n  position: relative;\r\n  transition: all 2s linear;\r\n  -moz-transition: all 2s linear;\r\n  -webkit-transition: all 2s linear;\r\n  -o-transition: all 2s linear;\r\n  width: 100%;\r\n  height: 1080px;\r\n  min-width: 900px; }\r\n  #search-result-detail .clear-fix:after {\r\n    display: block;\r\n    clear: both;\r\n    content: \"\";\r\n    visibility: hidden;\r\n    height: 0; }\r\n  #search-result-detail .company-name {\r\n    padding: 13px;\r\n    background: #383e47;\r\n    width: 100%; }\r\n    #search-result-detail .company-name > span {\r\n      font-size: 18px;\r\n      color: #fff; }\r\n    #search-result-detail .company-tag{\r\n       display: inline-block;\r\n       margin-left: 20px;\r\n    }\r\n    #search-result-detail .company-tag > span{\r\n        padding: 2px 5px;\r\n        font-size: 12px;\r\n        margin: 0 5px;\r\n    }\r\n    #search-result-detail .company-tag > span:first-child{\r\n      background:#00b7ee;\r\n    }\r\n    #search-result-detail .company-tag > span:nth-child(2){\r\n      background:#e14340;\r\n    }\r\n    #search-result-detail .company-tag > span:nth-child(3){\r\n      background:#f98d2b;\r\n    }\r\n    #search-result-detail .company-tag > span:nth-child(4){\r\n      background:#32b16c;\r\n    }\r\n    #search-result-detail .see-risk{\r\n      color: #ffffff;\r\n      background-color: #e14340;\r\n      margin-left: 20px;\r\n      border-radius: 2px;\r\n      padding: 5px 10px;\r\n      font-size: 14px;\r\n    }\r\n    #search-result-detail .company-name .right-content {\r\n      float: right; \r\n      margin-top: -5px;\r\n      }\r\n      #search-result-detail .company-name .right-content > div {\r\n        display: inline-block; }\r\n      #search-result-detail .company-name .right-content .search-group {\r\n        position: relative;\r\n        margin-right: 18px; }\r\n        #search-result-detail .company-name .right-content .search-group input {\r\n          width: 330px;\r\n          height: 35px;\r\n          font-size: 14px;\r\n          color: #898f98;\r\n          padding-left: 15px;\r\n          border-radius: 5px;\r\n          border: none; }\r\n        #search-result-detail .company-name .right-content .search-group .search {\r\n          margin-left: -31px;\r\n          color: #e8716f;\r\n          position: absolute;\r\n          top: 5px; }\r\n          #search-result-detail .company-name .right-content .search-group .search i {\r\n            font-size: 24px; }\r\n      #search-result-detail .company-name .right-content .back-btn {\r\n        width: 72px;\r\n        height: 24px;\r\n        cursor: pointer;\r\n        line-height: 24px;\r\n        text-align: center;\r\n        background: #5f93e7;\r\n        border-radius: 5px; }\r\n        #search-result-detail .company-name .right-content .back-btn .fanhui {\r\n          margin-right: 5px;\r\n          color: #272636; }\r\n  #search-result-detail .company-detail {\r\n    width: 100%;\r\n    height: 85%; }\r\n    #search-result-detail .company-detail > div {\r\n      float: left;\r\n      border-radius: 5px;\r\n      background: #2b323c; }\r\n  #search-result-detail .back-top {\r\n    position: fixed;\r\n    bottom: 30px;\r\n    right: 30px;\r\n    cursor: pointer; }\r\n    #search-result-detail .back-top .icon-top {\r\n      font-size: 30px; }\r\n\r\n/*# sourceMappingURL=style.css.map */\r\n", ""]);
+	exports.push([module.id, "#search-result-detail {\r\n  position: relative;\r\n  transition: all 2s linear;\r\n  -moz-transition: all 2s linear;\r\n  -webkit-transition: all 2s linear;\r\n  -o-transition: all 2s linear;\r\n  width: 100%;\r\n  height: 1080px;\r\n  min-width: 900px; }\r\n  #search-result-detail .clear-fix:after {\r\n    display: block;\r\n    clear: both;\r\n    content: \"\";\r\n    visibility: hidden;\r\n    height: 0; }\r\n  #search-result-detail .company-name {\r\n    padding: 13px;\r\n    background: #383e47;\r\n    width: 100%; }\r\n    #search-result-detail .company-name > span {\r\n      font-size: 18px;\r\n      color: #fff; }\r\n    #search-result-detail .company-tag{\r\n       display: inline-block;\r\n       margin-left: 20px;\r\n    }\r\n    #search-result-detail .company-tag > span{\r\n        padding: 2px 5px;\r\n        font-size: 12px;\r\n        margin: 0 5px;\r\n    }\r\n    #search-result-detail .company-tag .tag-bg-green{\r\n      background:#32b16c;\r\n    }\r\n    #search-result-detail .company-tag .tag-bg-red{\r\n      background:red;\r\n    }\r\n    #search-result-detail .company-tag .tag-bg-yellow{\r\n      background:#ebc900;\r\n    }\r\n    #search-result-detail .company-tag .tag-bg-black{\r\n      background:#000000;\r\n    }\r\n    #search-result-detail .see-risk{\r\n      color: #ffffff;\r\n      background-color: #e14340;\r\n      margin-left: 20px;\r\n      border-radius: 2px;\r\n      padding: 5px 10px;\r\n      font-size: 14px;\r\n    }\r\n    #search-result-detail .company-name .right-content {\r\n      float: right; \r\n      margin-top: -5px;\r\n      }\r\n      #search-result-detail .company-name .right-content > div {\r\n        display: inline-block; }\r\n      #search-result-detail .company-name .right-content .search-group {\r\n        position: relative;\r\n        margin-right: 18px; }\r\n        #search-result-detail .company-name .right-content .search-group input {\r\n          width: 330px;\r\n          height: 35px;\r\n          font-size: 14px;\r\n          color: #898f98;\r\n          padding-left: 15px;\r\n          border-radius: 5px;\r\n          border: none; }\r\n        #search-result-detail .company-name .right-content .search-group .search {\r\n          margin-left: -31px;\r\n          color: #e8716f;\r\n          position: absolute;\r\n          top: 5px; }\r\n          #search-result-detail .company-name .right-content .search-group .search i {\r\n            font-size: 24px; }\r\n      #search-result-detail .company-name .right-content .back-btn {\r\n        width: 72px;\r\n        height: 24px;\r\n        cursor: pointer;\r\n        line-height: 24px;\r\n        text-align: center;\r\n        background: #5f93e7;\r\n        border-radius: 5px; }\r\n        #search-result-detail .company-name .right-content .back-btn .fanhui {\r\n          margin-right: 5px;\r\n          color: #272636; }\r\n  #search-result-detail .company-detail {\r\n    width: 100%;\r\n    height: 85%; }\r\n    #search-result-detail .company-detail > div {\r\n      float: left;\r\n      border-radius: 5px;\r\n      background: #2b323c; }\r\n  #search-result-detail .back-top {\r\n    position: fixed;\r\n    bottom: 30px;\r\n    right: 30px;\r\n    cursor: pointer; }\r\n    #search-result-detail .back-top .icon-top {\r\n      font-size: 30px; }\r\n\r\n/*# sourceMappingURL=style.css.map */\r\n", ""]);
 
 	// exports
 
@@ -80275,13 +80273,6 @@
 
 	        var isEqual = Immutable.is(nextProps.CompanyLabelResult, this.props.CompanyLabelResult); //判断数据是否变化
 	        if (!isEqual) {
-	            // var allData = [];
-	            //  allData.push(nextProps.CompanyLabelResult.content.status)
-	            //  allData.push(...nextProps.CompanyLabelResult.content.backgroud)
-	            //  allData.push(nextProps.CompanyLabelResult.content.analysisResult)
-	            //  this.setState({
-	            //     companyTag:allData
-	            //  }) 
 	            var CompanyLabelRequest = nextProps.CompanyLabelRequest;
 	            var CompanyLabelResult = nextProps.CompanyLabelResult;
 
@@ -80324,11 +80315,12 @@
 	    dataFomatCompanyType: function dataFomatCompanyType(data) {
 	        var content = data.content;
 	        var companyType = "";
+	        var platName = "";
 	        if (content) {
 	            companyType = content.companyType;
+	            platName = content.platName;
 	        }
-	        console.log(companyType, 'xuyao');
-	        this.setState({ companyType: companyType });
+	        this.setState({ companyType: companyType, platName: platName });
 	    },
 	    pageScroll: function pageScroll() {
 	        $('html, body').animate({ scrollTop: 0 }, 'slow');
@@ -80347,14 +80339,14 @@
 	        var seeRiskBtn = "";
 	        if (companyType == 4) {
 	            seeRiskBtn = _react2.default.createElement(
-	                'a',
-	                { href: '', className: 'see-risk' },
+	                _reactRouter.Link,
+	                { to: '/lineFinanceStaticRisk?companyName=' + companyName, className: 'see-risk' },
 	                '查看风险'
 	            );
 	        } else if (companyType == 1) {
 	            seeRiskBtn = _react2.default.createElement(
-	                'a',
-	                { href: '', className: 'see-risk' },
+	                _reactRouter.Link,
+	                { to: '/Portrait?platName=' + platName, className: 'see-risk' },
 	                '查看风险'
 	            );
 	        } else {
@@ -82816,89 +82808,6 @@
 	var series = [];
 	var PersonIndexChart = _react2.default.createClass({
 		displayName: 'PersonIndexChart',
-		drawImg: function drawImg() {
-			var myChart = echarts.init(document.getElementById('show-charts'));
-			var option = {
-
-				grid: {
-					left: '7%',
-					right: '6%',
-					bottom: '6%',
-					containLabel: true
-				},
-				xAxis: {
-					type: 'category',
-					axisLine: {
-						show: true,
-						lineStyle: {
-							color: '#232932'
-						}
-					},
-					axisLabel: {
-						show: true,
-						textStyle: {
-							color: '#fff',
-							fontSize: 14
-						}
-					},
-					data: xDate /*--------------ajax-------------*/
-				},
-				yAxis: {
-					name: '指数（%）',
-					type: 'value',
-					nameTextStyle: {
-						color: '#fff',
-						fontSize: 14
-					},
-					axisLine: {
-						show: true,
-						lineStyle: {
-							color: '#232932'
-						}
-					},
-					axisLabel: {
-						textStyle: {
-							color: '#fff',
-							fontSize: 14
-						}
-					},
-					splitLine: {
-						lineStyle: {
-							color: '#232932'
-						}
-					}
-				},
-				series: [{
-					name: '邮件营销',
-					type: 'line',
-					stack: '总量',
-					data: series, /*---------ajax----------*/
-					symbol: 'circle',
-					symbolSize: 15,
-					lineStyle: {
-						normal: {
-							color: '#73d528',
-							width: 3
-						}
-					},
-					itemStyle: {
-						normal: {
-							color: '#73d528',
-							shadowColor: 'red',
-							shadowBlur: {
-								shadowColor: 'rgba(115, 213, 40, 0.8)',
-								shadowBlur: 5
-							}
-						}
-					}
-				}]
-			};
-			myChart.setOption(option);
-		},
-
-		// componentDidMount() {
-		//      this.drawImg(); 
-		// },
 		componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 			var _this = this;
 			if (nextProps.CompanyInfoD1Request) {
@@ -82907,12 +82816,89 @@
 					$("#show-charts").html('<div class="no-data">暂无相关信息！</div>');
 					return;
 				}
+				xDate = [], series = [];
 				data.map(function (item, index) {
 					xDate.push(item.x_value);
 					series.push(item.y_value);
 				});
-				console.log(data, "第一个图");
-				this.drawImg();
+
+				var myChart = echarts.init(document.getElementById('show-charts'));
+				var option = {
+
+					grid: {
+						left: '7%',
+						right: '6%',
+						bottom: '6%',
+						containLabel: true
+					},
+					xAxis: {
+						type: 'category',
+						axisLine: {
+							show: true,
+							lineStyle: {
+								color: '#232932'
+							}
+						},
+						axisLabel: {
+							show: true,
+							textStyle: {
+								color: '#fff',
+								fontSize: 14
+							}
+						},
+						data: xDate /*--------------ajax-------------*/
+					},
+					yAxis: {
+						name: '指数（%）',
+						type: 'value',
+						nameTextStyle: {
+							color: '#fff',
+							fontSize: 14
+						},
+						axisLine: {
+							show: true,
+							lineStyle: {
+								color: '#232932'
+							}
+						},
+						axisLabel: {
+							textStyle: {
+								color: '#fff',
+								fontSize: 14
+							}
+						},
+						splitLine: {
+							lineStyle: {
+								color: '#232932'
+							}
+						}
+					},
+					series: [{
+						name: '邮件营销',
+						type: 'line',
+						stack: '总量',
+						data: series, /*---------ajax----------*/
+						symbol: 'circle',
+						symbolSize: 15,
+						lineStyle: {
+							normal: {
+								color: '#73d528',
+								width: 3
+							}
+						},
+						itemStyle: {
+							normal: {
+								color: '#73d528',
+								shadowColor: 'red',
+								shadowBlur: {
+									shadowColor: 'rgba(115, 213, 40, 0.8)',
+									shadowBlur: 5
+								}
+							}
+						}
+					}]
+				};
+				myChart.setOption(option);
 			}
 		},
 		componentDidMount: function componentDidMount() {
@@ -83073,11 +83059,11 @@
 			var _this = this;
 			if (nextProps.CompanyInfoD3Request) {
 				var data = nextProps.CompanyInfoD3Result.content.rdata;
-				console.log(data, "第3个图");
 				if (data.length == 0) {
 					// $("#pay-distribute").html('<div class="no-data">暂无相关信息！</div>')
 					return;
 				}
+				xData = [], series = [];
 				data.map(function (item, index) {
 					xData.push(item.x_value);
 					series.push(item.y_value);
@@ -83904,7 +83890,7 @@
 
 
 	// module
-	exports.push([module.id, "/*@整体布局(一级)\r\n------------------------------------------------------------------*/\r\n.realtime-index {\r\n}\r\n.realtime-index .realtime-top {\r\n\twidth: 100%;\r\n\theight: 65%;\r\n}\r\n.realtime-index .realtime-bottom {\r\n\twidth: 100%;\r\n\theight: 35%;\r\n}\r\n\r\n/*@整体布局(二级)\r\n------------------------------------------------------------------*/\r\n.realtime-index .realtime-top>div {\r\n\tfloat: left;\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tpadding: 10px;\r\n}\r\n.realtime-index .realtime-top .realtime-top-left {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-middle {\r\n\twidth: 44%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-right {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-left {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-top: 26px;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-right {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-left: 100px;\r\n\tpadding-top: 26px;\r\n\toverflow-y: hidden;\r\n}\r\n\r\n/*realtime-top-left(左边表格)  //pudong huangpu  hongkou\r\n------------------------------------------------------------------*/\r\n.realtime-top-left {\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-left  h4 {\r\n\tfont-size: 18px;\r\n\tline-height: 40px;\r\n}\r\n.realtime-top-left  .title li {\r\n\tfloat: left;\r\n\twidth: 25%;\r\n\ttext-align: center;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tborder: 1px solid;\r\n\tcursor: pointer;\r\n\tposition: relative;\r\n}\r\n.realtime-top-left  .title li.active:after {\r\n\tcontent: \"\";\r\n\tposition: absolute;\r\n\tbottom: -6px;\r\n\tleft: 0px;\r\n\twidth: 100%;\r\n\theight: 3px;\r\n\tbackground: #fff;\r\n\tz-index: 999;\r\n}\r\n.realtime-top-left  .title li:nth-child(1) {\r\n\tbackground: red\r\n}\r\n.realtime-top-left  .title li:nth-child(2) {\r\n\tbackground: #ebc900\r\n}\r\n.realtime-top-left  .title li:nth-child(3) {\r\n\tbackground: #32b16c\r\n}\r\n.realtime-top-left  .title li:nth-child(4) {\r\n\tbackground: #000\r\n}\r\n.realtime-top-left  .table-wrap {\r\n\twidth: 100%;\r\n\theight: 75%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA {\r\n\twidth: 100%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th {\r\n\theight: 40px;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(1) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(2) {\r\n\twidth: 60%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th .tbsLeft {\r\n\tfloat: left;\r\n\tpadding-left: 5%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th .thSpan {\r\n\tfloat: left;\r\n\tpadding-left: 15%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td {\r\n\tborder-bottom: 1px solid #3c404b;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td .tbsLeft {\r\n\tfloat: left;\r\n\tpadding-left: 5%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td .thSpan {\r\n\tfloat: left;\r\n\tpadding-left: 15%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox {\r\n\theight: 92%;\r\n\toverflow: auto;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(3) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB {\r\n\twidth: 100%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td {\r\n\theight: 40px;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(1) {\r\n\twidth: 20%;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(2) {\r\n\twidth: 60%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(3) {\r\n\twidth: 20%;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-left .color {\r\n\theight: 16px;\r\n\twidth: 60%;\r\n\tposition: absolute;\r\n\tbottom: 10px;\r\n\tleft: 50%;\r\n\ttransform: translateX(-50%);\r\n}\r\n.realtime-top-left .color img {\r\n\tdisplay: block;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n.realtime-top-left .mlBtn {\r\n\tdisplay: block;\r\n\tpadding: 4px 5px;\r\n\tfont-size: 13px;\r\n\tmargin: 37px auto;\r\n\tborder: none;\r\n\tborder-radius: 5px;\r\n\tbox-shadow: 0px 2px 4px #000;\r\n\ttext-shadow: 0px 1px 1px #000;\r\n\tcolor: #fff;\r\n\tbackground: -webkit-gradient(linear, left top, left bottom, from(#d66f6d), to(#a30f0d));\r\n\tbackground: -ms-gradient(linear, left top, left bottom, from(#d66f6d), to(#a30f0d));\r\n\tbackground: gradient(linear, left top, left bottom, from(#d66f6d), to(#a30f0d));\r\n}\r\n\r\n/*realtime-top-right(右侧的9个图)\r\n------------------------------------------------------------------*/\r\n.realtime-top-right {\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-top-right .item {\r\n\twidth: 100%;\r\n\theight: 33.3%;\r\n}\r\n\r\n/*realtime-bottom-right(右下角)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-right {\r\n\toverflow: hidden;\r\n\tpadding-left: 20px\r\n}\r\n.realtime-bottom-right>h4 {\r\n\tcolor: #fff;\r\n\tline-height: 30px;\r\n\tfont-size: 16px;\r\n}\r\n.realtime-bottom-right ul {\r\n\theight: 100%;\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-bottom-right ul li {\r\n\theight: 134px;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-right ul li h4 {\r\n\tpadding: 15px 0px;\r\n\tfont-size: 14px;\r\n\tcolor: #e14340\r\n}\r\n.realtime-bottom-right ul li h4 a {\r\n\tcolor: #e14340 !important\r\n}\r\n.realtime-bottom-right ul li p {\r\n\tcolor: #fff;\r\n\tmargin-right: 10px;\r\n\toverflow: hidden;\r\n}\r\n.BottomRightP {\r\n\tdisplay: block;\r\n\theight: 41px;\r\n}\r\n.realtime-bottom-right ul li span {\r\n\tposition: absolute;\r\n\tright: 10px;\r\n\tbottom: 2px;\r\n\tcolor: #666;\r\n}\r\n.realtime-bottom-right ul li span p {\r\n\tdisplay: inline-block;\r\n}\r\n\r\n/*realtime-bottom-right(中间的大地图)\r\n------------------------------------------------------------------*/\r\n.realtime-top-middle #demo {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*上海地图的信息框*/\r\n.realtime-top-middle .info {\r\n\twidth: 160px;\r\n\theight: 70px;\r\n\tleft: 5%;\r\n\ttop: 5%;\r\n\tposition: absolute;\r\n\tz-index: 999;\r\n\tcursor: pointer;\r\n\toverflow: hidden;\r\n\tdisplay: none\r\n}\r\n.realtime-top-middle .info .info-left, .realtime-top-middle .info .info-right {\r\n\tfloat: left;\r\n\twidth: 50%;\r\n\theight: 100%;\r\n}\r\n.realtime-top-middle .info .info-left {\r\n\tpadding: 0px 3px 3px 0px;\r\n}\r\n.realtime-top-middle .info .info-right {\r\n\tbackground: #363e48;\r\n\tborder-radius: 3px;\r\n\tfont-size: 24px;\r\n\tcolor: #e14340;\r\n\tline-height: 70px;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-middle .info .info-left .title {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 34px;\r\n\tfont-size: 12px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 34px;\r\n\tborder-radius: 3px;\r\n}\r\n.realtime-top-middle .info .info-left .date {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 34px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 34px;\r\n\tmargin-top: 3px;\r\n\tborder-radius: 3px;\r\n\tfont-size: 12px;\r\n}\r\n\r\n/*上海地图的返回按钮*/\r\n.realtime-top-middle .return {\r\n\tbackground: linear-gradient(to bottom, #b96f6f 5%, red 50%, #f50202 100%);\r\n\tposition: absolute;\r\n\tbottom: 10%;\r\n\tleft: 3%;\r\n\tdisplay: none;\r\n}\r\n\r\n/*地下的长条信息框*/\r\n.realtime-top-middle .bar {\r\n\twidth: 98%;\r\n\theight: 40px;\r\n\tbackground: #282f39;\r\n\ttext-align: center;\r\n\tline-height: 40px;\r\n\tposition: absolute;\r\n\tbottom: 1%;\r\n\tfont-size: 12px;\r\n\tdisplay: none;\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-middle .bar .bar-content {\r\n\theight: 40px;\r\n\twidth: 90%;\r\n\toverflow: hidden;\r\n\tmargin-left: 10%;\r\n\tposition: relative;\r\n}\r\n.realtime-top-middle .carousel {\r\n\tposition: absolute;\r\n\ttop: 0;\r\n\tz-index: 999;\r\n\twidth: 100%;\r\n\tanimation-timing-function: linear;\r\n\tanimation: move-xc  20s infinite;\r\n}\r\n@keyframes move-xc {\r\n\tfrom {\r\n\t\tleft: 100%;\r\n\t}\r\n\tto {\r\n\t\tleft: -100%;\r\n\t}\r\n}\r\n.realtime-top-middle .bar img {\r\n\twidth: 30px;\r\n\theight: 30px;\r\n\tposition: absolute;\r\n\tleft: 5%;\r\n\ttop: 5px;\r\n\tpadding-right: 20px;\r\n\tbox-sizing: content-box;\r\n\tbackground: #282f39;\r\n\tz-index: 9999;\r\n}\r\n.darkRed {\r\n\tcolor: #e14340;\r\n\tpadding: 0px 5px;\r\n}\r\n\r\n/*tootips实验*/\r\n.testTo {\r\n\twidth: auto;\r\n\theight: auto;\r\n\tfont-size: 12px;\r\n\tcursor: pointer;\r\n}\r\n.testTo h4 {\r\n\tdisplay: inline-block;\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo label {\r\n\tdisplay: inline-block;\r\n\twidth: 60px;\r\n\theight: 18px;\r\n\tborder: 1px solid #fff;\r\n\ttext-align: center;\r\n\tvertical-align: middle;\r\n\tmargin-left: 20px;\r\n\ttext-align: center;\r\n\ttext-indent: 5px;\r\n\tline-height: 16px;\r\n\ttext-shadow: 1px 1px 1px #000;\r\n}\r\n.testTo p {\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo p span {\r\n\tcolor: yellow\r\n}\r\n.black {\r\n\tbackground: black;\r\n\tcolor: #fff !important\r\n}\r\n.green {\r\n\tbackground: green\r\n}\r\n.yellow {\r\n\tbackground: #ebc900;\r\n}\r\n.red {\r\n\tbackground: red;\r\n}\r\n.redFont {\r\n\tcolor: red !important;\r\n}\r\n.whiteFont {\r\n\tcolor: #fff !important;\r\n}\r\n\r\n/**/\r\n.testTo .tableH4 {\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n\tcolor: #ce3431;\r\n\tfont-size: 14px;\r\n\tfont-weight: bold;\r\n}\r\n.testTo table td {\r\n\tborder: 1px solid #1a2029;\r\n\ttext-align: center;\r\n\tpadding: 5px;\r\n}\r\n.testTo .tip-scroll {\r\n\twidth: 200px;\r\n\theight: 100px;\r\n\ttext-align: center;\r\n\toverflow-y: auto;\r\n}\r\n.testTo .tip-scroll  span {\r\n\tdisplay: block;\r\n\tpadding: 5px 0;\r\n}\r\n.testTo .nums {\r\n\tdisplay: block;\r\n\ttext-align: center;\r\n}\r\n.switchDirection {\r\n\tdisplay: block;\r\n\tposition: absolute;\r\n\tbottom: 50px;\r\n\tleft: 50px;\r\n\tz-index: 999;\r\n\tpadding: 4px 5px;\r\n\tfont-size: 13px;\r\n\tmargin: 37px auto;\r\n\tborder: none;\r\n\tborder-radius: 5px;\r\n\tbox-shadow: 0px 2px 4px #000;\r\n\ttext-shadow: 0px 1px 1px #000;\r\n\tcolor: #fff;\r\n\tbackground: -webkit-gradient(linear, left top, left bottom, from(#d66f6d), to(#a30f0d));\r\n\tbackground: -ms-gradient(linear, left top, left bottom, from(#d66f6d), to(#a30f0d));\r\n\tbackground: gradient(linear, left top, left bottom, from(#d66f6d), to(#a30f0d));\r\n}\r\n\r\n/*realtime-bottom-rleft(线下理财)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-left {\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-left  .more {\r\n\tcolor: #fff;\r\n\tfont-size: 14px;\r\n\tposition: absolute;\r\n\ttop: 60px;\r\n\tright: 11%;\r\n\tz-index: 99999;\r\n}", ""]);
+	exports.push([module.id, "/*@整体布局(一级)\r\n------------------------------------------------------------------*/\r\n.realtime-index {\r\n}\r\n.realtime-index .realtime-top {\r\n\twidth: 100%;\r\n\theight: 65%;\r\n}\r\n.realtime-index .realtime-bottom {\r\n\twidth: 100%;\r\n\theight: 35%;\r\n}\r\n\r\n/*@整体布局(二级)\r\n------------------------------------------------------------------*/\r\n.realtime-index .realtime-top>div {\r\n\tfloat: left;\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tpadding: 10px;\r\n}\r\n.realtime-index .realtime-top .realtime-top-left {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-middle {\r\n\twidth: 44%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-right {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-left {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-top: 26px;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-right {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-left: 100px;\r\n\tpadding-top: 26px;\r\n\toverflow-y: hidden;\r\n}\r\n\r\n/*realtime-top-left(左边表格)  //pudong huangpu  hongkou\r\n------------------------------------------------------------------*/\r\n.realtime-top-left {\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-left  h4 {\r\n\tfont-size: 18px;\r\n\tline-height: 40px;\r\n}\r\n.realtime-top-left  .title li {\r\n\tfloat: left;\r\n\twidth: 25%;\r\n\ttext-align: center;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tborder: 1px solid;\r\n\tcursor: pointer;\r\n\tposition: relative;\r\n}\r\n.realtime-top-left  .title li.active:after {\r\n\tcontent: \"\";\r\n\tposition: absolute;\r\n\tbottom: -6px;\r\n\tleft: 0px;\r\n\twidth: 100%;\r\n\theight: 3px;\r\n\tbackground: #fff;\r\n\tz-index: 999;\r\n}\r\n.realtime-top-left  .title li:nth-child(1) {\r\n\tbackground: red\r\n}\r\n.realtime-top-left  .title li:nth-child(2) {\r\n\tbackground: #ebc900\r\n}\r\n.realtime-top-left  .title li:nth-child(3) {\r\n\tbackground: #32b16c\r\n}\r\n.realtime-top-left  .title li:nth-child(4) {\r\n\tbackground: #000\r\n}\r\n.realtime-top-left  .table-wrap {\r\n\twidth: 100%;\r\n\theight: 75%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA {\r\n\twidth: 100%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th {\r\n\theight: 40px;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(1) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(2) {\r\n\twidth: 60%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th .tbsLeft {\r\n\tfloat: left;\r\n\tpadding-left: 5%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th .thSpan {\r\n\tfloat: left;\r\n\tpadding-left: 15%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td {\r\n\tborder-bottom: 1px solid #3c404b;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td .tbsLeft {\r\n\tfloat: left;\r\n\tpadding-left: 5%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td .thSpan {\r\n\tfloat: left;\r\n\tpadding-left: 15%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox {\r\n\theight: 92%;\r\n\toverflow: auto;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(3) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB {\r\n\twidth: 100%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td {\r\n\theight: 40px;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(1) {\r\n\twidth: 20%;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(2) {\r\n\twidth: 60%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(3) {\r\n\twidth: 20%;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-left .color {\r\n\theight: 16px;\r\n\twidth: 60%;\r\n\tposition: absolute;\r\n\tbottom: 10px;\r\n\tleft: 50%;\r\n\ttransform: translateX(-50%);\r\n}\r\n.realtime-top-left .color img {\r\n\tdisplay: block;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n.realtime-top-left .mlBtn {\r\n\tdisplay: block;\r\n\tpadding: 4px 5px;\r\n\tfont-size: 13px;\r\n\tmargin: 37px auto;\r\n\tborder: none;\r\n\tborder-radius: 5px;\r\n\tbox-shadow: 0px 2px 4px #000;\r\n\ttext-shadow: 0px 1px 1px #000;\r\n\tcolor: #fff;\r\n\tbackground: -webkit-gradient(linear, left top, left bottom, from(#d66f6d), to(#a30f0d));\r\n\tbackground: -ms-gradient(linear, left top, left bottom, from(#d66f6d), to(#a30f0d));\r\n\tbackground: gradient(linear, left top, left bottom, from(#d66f6d), to(#a30f0d));\r\n\tbackground: #a30f0d\\9\\0;\r\n}\r\n\r\n/*realtime-top-right(右侧的9个图)\r\n------------------------------------------------------------------*/\r\n.realtime-top-right {\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-top-right .item {\r\n\twidth: 100%;\r\n\theight: 33.3%;\r\n}\r\n\r\n/*realtime-bottom-right(右下角)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-right {\r\n\toverflow: hidden;\r\n\tpadding-left: 20px\r\n}\r\n.realtime-bottom-right>h4 {\r\n\tcolor: #fff;\r\n\tline-height: 30px;\r\n\tfont-size: 16px;\r\n}\r\n.realtime-bottom-right ul {\r\n\theight: 100%;\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-bottom-right ul li {\r\n\theight: 134px;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-right ul li h4 {\r\n\tpadding: 15px 0px;\r\n\tfont-size: 14px;\r\n\tcolor: #e14340\r\n}\r\n.realtime-bottom-right ul li h4 a {\r\n\tcolor: #e14340 !important\r\n}\r\n.realtime-bottom-right ul li p {\r\n\tcolor: #fff;\r\n\tmargin-right: 10px;\r\n\toverflow: hidden;\r\n}\r\n.BottomRightP {\r\n\tdisplay: block;\r\n\theight: 41px;\r\n}\r\n.realtime-bottom-right ul li span {\r\n\tposition: absolute;\r\n\tright: 10px;\r\n\tbottom: 2px;\r\n\tcolor: #666;\r\n}\r\n.realtime-bottom-right ul li span p {\r\n\tdisplay: inline-block;\r\n}\r\n\r\n/*realtime-bottom-right(中间的大地图)\r\n------------------------------------------------------------------*/\r\n.realtime-top-middle #demo {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*上海地图的信息框*/\r\n.realtime-top-middle .info {\r\n\twidth: 160px;\r\n\theight: 70px;\r\n\tleft: 5%;\r\n\ttop: 5%;\r\n\tposition: absolute;\r\n\tz-index: 999;\r\n\tcursor: pointer;\r\n\toverflow: hidden;\r\n\tdisplay: none\r\n}\r\n.realtime-top-middle .info .info-left, .realtime-top-middle .info .info-right {\r\n\tfloat: left;\r\n\twidth: 50%;\r\n\theight: 100%;\r\n}\r\n.realtime-top-middle .info .info-left {\r\n\tpadding: 0px 3px 3px 0px;\r\n}\r\n.realtime-top-middle .info .info-right {\r\n\tbackground: #363e48;\r\n\tborder-radius: 3px;\r\n\tfont-size: 24px;\r\n\tcolor: #e14340;\r\n\tline-height: 70px;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-middle .info .info-left .title {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 34px;\r\n\tfont-size: 12px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 34px;\r\n\tborder-radius: 3px;\r\n}\r\n.realtime-top-middle .info .info-left .date {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 34px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 34px;\r\n\tmargin-top: 3px;\r\n\tborder-radius: 3px;\r\n\tfont-size: 12px;\r\n}\r\n\r\n/*上海地图的返回按钮*/\r\n.realtime-top-middle .return {\r\n\tbackground: linear-gradient(to bottom, #b96f6f 5%, red 50%, #f50202 100%);\r\n\tposition: absolute;\r\n\tbottom: 10%;\r\n\tleft: 3%;\r\n\tdisplay: none;\r\n}\r\n\r\n/*地下的长条信息框*/\r\n.realtime-top-middle .bar {\r\n\twidth: 98%;\r\n\theight: 40px;\r\n\tbackground: #282f39;\r\n\ttext-align: center;\r\n\tline-height: 40px;\r\n\tposition: absolute;\r\n\tbottom: 1%;\r\n\tfont-size: 12px;\r\n\tdisplay: none;\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-middle .bar .bar-content {\r\n\theight: 40px;\r\n\twidth: 90%;\r\n\toverflow: hidden;\r\n\tmargin-left: 10%;\r\n\tposition: relative;\r\n}\r\n.realtime-top-middle .carousel {\r\n\tposition: absolute;\r\n\ttop: 0;\r\n\tz-index: 999;\r\n\twidth: 100%;\r\n\tanimation-timing-function: linear;\r\n\tanimation: move-xc  20s infinite;\r\n}\r\n@keyframes move-xc {\r\n\tfrom {\r\n\t\tleft: 100%;\r\n\t}\r\n\tto {\r\n\t\tleft: -100%;\r\n\t}\r\n}\r\n.realtime-top-middle .bar img {\r\n\twidth: 30px;\r\n\theight: 30px;\r\n\tposition: absolute;\r\n\tleft: 5%;\r\n\ttop: 5px;\r\n\tpadding-right: 20px;\r\n\tbox-sizing: content-box;\r\n\tbackground: #282f39;\r\n\tz-index: 9999;\r\n}\r\n.darkRed {\r\n\tcolor: #e14340;\r\n\tpadding: 0px 5px;\r\n}\r\n\r\n/*tootips实验*/\r\n.testTo {\r\n\twidth: auto;\r\n\theight: auto;\r\n\tfont-size: 12px;\r\n\tcursor: pointer;\r\n}\r\n.testTo h4 {\r\n\tdisplay: inline-block;\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo label {\r\n\tdisplay: inline-block;\r\n\twidth: 60px;\r\n\theight: 18px;\r\n\tborder: 1px solid #fff;\r\n\ttext-align: center;\r\n\tvertical-align: middle;\r\n\tmargin-left: 20px;\r\n\ttext-align: center;\r\n\ttext-indent: 5px;\r\n\tline-height: 16px;\r\n\ttext-shadow: 1px 1px 1px #000;\r\n}\r\n.testTo p {\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo p span {\r\n\tcolor: yellow\r\n}\r\n.black {\r\n\tbackground: black;\r\n\tcolor: #fff !important\r\n}\r\n.green {\r\n\tbackground: green\r\n}\r\n.yellow {\r\n\tbackground: #ebc900;\r\n}\r\n.red {\r\n\tbackground: red;\r\n}\r\n.redFont {\r\n\tcolor: red !important;\r\n}\r\n.whiteFont {\r\n\tcolor: #fff !important;\r\n}\r\n\r\n/**/\r\n.testTo .tableH4 {\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n\tcolor: #ce3431;\r\n\tfont-size: 14px;\r\n\tfont-weight: bold;\r\n}\r\n.testTo table td {\r\n\tborder: 1px solid #1a2029;\r\n\ttext-align: center;\r\n\tpadding: 5px;\r\n}\r\n.testTo .tip-scroll {\r\n\twidth: 200px;\r\n\theight: 100px;\r\n\ttext-align: center;\r\n\toverflow-y: auto;\r\n}\r\n.testTo .tip-scroll  span {\r\n\tdisplay: block;\r\n\tpadding: 5px 0;\r\n}\r\n.testTo .nums {\r\n\tdisplay: block;\r\n\ttext-align: center;\r\n}\r\n.switchDirection {\r\n\tdisplay: block;\r\n\tposition: absolute;\r\n\tbottom: 50px;\r\n\tleft: 50px;\r\n\tz-index: 999;\r\n\tpadding: 4px 5px;\r\n\tfont-size: 13px;\r\n\tmargin: 37px auto;\r\n\tborder: none;\r\n\tborder-radius: 5px;\r\n\tbox-shadow: 0px 2px 4px #000;\r\n\ttext-shadow: 0px 1px 1px #000;\r\n\tcolor: #fff;\r\n\tbackground: -webkit-gradient(linear, left top, left bottom, from(#d66f6d), to(#a30f0d));\r\n\tbackground: -ms-gradient(linear, left top, left bottom, from(#d66f6d), to(#a30f0d));\r\n\tbackground: gradient(linear, left top, left bottom, from(#d66f6d), to(#a30f0d));\r\n\tbackground: #a30f0d\\9\\0;\r\n}\r\n\r\n/*realtime-bottom-rleft(线下理财)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-left {\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-left  .more {\r\n\tcolor: #fff;\r\n\tfont-size: 14px;\r\n\tposition: absolute;\r\n\ttop: 60px;\r\n\tright: 11%;\r\n\tz-index: 99999;\r\n}", ""]);
 
 	// exports
 
@@ -84186,7 +84172,9 @@
 	    var threeContent = range == 1 ? "2014/3/3" : parseInt(Math.random() * 5000);
 	    var threeTitle = range == 1 ? "风险暴露日期" : "注册资本(万元)";
 	    var state = null;
-	    if ($(".mlBtn").text() == "查看更多") {
+	    if (fixRange == 3) {
+	      return false; //如果是”正常“列表，点击查看更多是没有效果的（这个版本需求）
+	    } else if ($(".mlBtn").text() == "查看更多") {
 	      state = true;
 	      $(".mlBtn").text("收起");
 	    } else if ($(".mlBtn").text() == "收起") {
@@ -85282,8 +85270,7 @@
 	                            return data.data[0] + "<br/>贷款余额：" + data.data[1] + "亿元<br/>平均贷款余额：" + data.data[2] + "万元";
 	                        },
 	                        gridTop: "25%",
-	                        legend: [],
-
+	                        legend: ["贷款余额及平均贷款余额"],
 	                        xAxis: nineDate.content.loan.xAxis,
 	                        //yAxis:paramOneyAxis,
 	                        data: paramOneData,
@@ -85461,7 +85448,7 @@
 	                        gridTop: "20%",
 	                        yAxisName: "亿元",
 	                        YnameGap: 5,
-	                        legend: [],
+	                        legend: ["业务金额和业务笔数"],
 	                        tooltip: function tooltip(data) {
 	                            return data.data[0] + "<br/>典当总额：" + data.data[1] + "亿元<br/>业务笔数：" + data.data[2];
 	                        },
@@ -85512,7 +85499,7 @@
 	                        "titleShow": "show",
 	                        "titleX": "left",
 	                        "legend": ["管理资本金额"],
-	                        "legendShow": false,
+	                        "legendShow": true,
 	                        "legendLeft": "center",
 	                        "legendTop": "20",
 	                        "gridBottom": "0%",
