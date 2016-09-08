@@ -78786,11 +78786,10 @@
 
 	        $('.risk-list').find('tr').removeClass('active');
 	    },
-	    handleBuildRisk: function handleBuildRisk(companyType, companyName, e) {
-	        console.log(companyType, companyName);
+	    handleBuildRisk: function handleBuildRisk(companyType, companyName, platform, e) {
 	        if (companyType == 1) {
 	            //p2p
-	            this.props.history.pushState(null, '/P2P?platName=' + companyName);
+	            this.props.history.pushState(null, '/P2P?platName=' + platform);
 	        } else if (companyType == 4) {
 	            //线下理财
 	            this.props.history.pushState(null, '/lineFinanceStaticRisk?companyName=' + companyName);
@@ -78939,7 +78938,7 @@
 	                                            null,
 	                                            _react2.default.createElement(
 	                                                'span',
-	                                                { className: 'cur-pointer', 'data-type': elem.companyType, onClick: this.handleBuildRisk.bind(this, elem.companyType, elem.name) },
+	                                                { className: 'cur-pointer', 'data-type': elem.companyType, onClick: this.handleBuildRisk.bind(this, elem.companyType, elem.name, elem.platform) },
 	                                                elem.name
 	                                            )
 	                                        )
