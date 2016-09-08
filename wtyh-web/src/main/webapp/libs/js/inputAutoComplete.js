@@ -72,7 +72,6 @@
 				} else if (newValue == "") {
 					return false;
 				} else {
-					// console.log("我来过请求地址=============================")
 					that.delayRequest(newValue, 0);
 				}
 			})
@@ -125,31 +124,24 @@
 				if (data.content.length > 0) {
 					for (var i = 0; i < data.content.length; i++) {
 						var _getColor = data.content[i].replace(_getBaseKey, '<span class="strong">' + _getBaseKey + '</span>');
-						dataList.push('<li class="group-item" data-key=' + data.content[i] + ' data-baseKey=' + data.content[i] + '   data-company="">' + _getColor + '</li>');
+						dataList.push('<li class="group-item" data-key=' + data.content[i] + ' data-baseKey=' + data.content[i] + '   data-company=' + data.content[i] + ' >' + _getColor + '</li>');
 					};
 				} else {
 					dataList.push('<li class="group" >暂无相关数据。</li>');
 				}
 			} else {
-				if (data.content) {
-					if (data.content.isGoToHologram) {
-						var _dataSoure = data.content.associatedWords;
+				if (data.content.associatedWords.length > 0) {
+					var _dataSoure = data.content.associatedWords;
+					for (var i = 0; i < _dataSoure.length; i++) {
+						if (_dataSoure[i].name) { //有公司名称
+							var _getColor = _dataSoure[i].name.replace(_getBaseKey, '<span class="strong">' + _getBaseKey + '</span>');
+							dataList.push('<li class="group-item" data-key=' + _dataSoure[i].name + ' data-plat=' + _dataSoure[i].platformName + '  data-company=' + _dataSoure[i].companyName + ' >' + _getColor + '</li>');
+						} else {
+							var _getColor = _dataSoure[i].platformName.replace(_getBaseKey, '<span class="strong">' + _getBaseKey + '</span>');
+							dataList.push('<li class="group-item" data-key=' + _dataSoure[i].platformName + '  data-plat=' + _dataSoure[i].platformName + '  data-company=' + _dataSoure[i].companyName + '>' + _getColor + '</li>');
+						}
+					};
 
-						for (var i = 0; i < _dataSoure.length; i++) {
-							if (_dataSoure[i].name) { //有公司名称
-								var _getColor = _dataSoure[i].name.replace(_getBaseKey, '<span class="strong">' + _getBaseKey + '</span>');
-								dataList.push('<li class="group-item" data-key=' + _dataSoure[i].name + ' data-plat=' + _dataSoure[i].platformName + '  data-company=' + _dataSoure[i].name + ' >' + _getColor + '</li>');
-							} else {
-								var _getColor = _dataSoure[i].platformName.replace(_getBaseKey, '<span class="strong">' + _getBaseKey + '</span>');
-								dataList.push('<li class="group-item" data-key=' + _dataSoure[i].platformName + '  data-plat=' + _dataSoure[i].platformName + '  data-company=' + _dataSoure[i].platformName + '>' + _getColor + '</li>');
-							}
-						};
-					} else {
-						dataList.push('<li class="group" >暂无相关数据。</li>');
-					}
-
-					// var _getColor = data.content.platformName.replace(_getBaseKey, '<span class="strong">' + _getBaseKey + '</span>');
-					// dataList.push('<li class="group-item" data-key=' + data.content.platformName + ' data-company=' + data.content.name + '>' + _getColor + '</li>');
 				} else {
 					dataList.push('<li class="group" >暂无相关数据。</li>');
 				}
@@ -205,13 +197,8 @@
 				document.getElementById("autocomplete").setAttribute("company", keyCompany);
 				document.getElementById("autocomplete").setAttribute("plat", keyPlat);
 				document.getElementById("autocomplete").setAttribute("data_flag", "hasWorld")
-				// $element.attr({
-				// 	company: keyCompany,
-				// 	data_flag: "hasWorld",
-				// });
 				that.hide();
 			});
-			// });
 		}
 	}
 
