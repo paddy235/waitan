@@ -60917,6 +60917,7 @@
 	            },
 	            yAxis: {
 	                type: 'value',
+	                min: param.yMin == undefined ? "auto" : param.yMin,
 	                name: param.yAxisName == undefined ? "" : param.yAxisName,
 	                scale: true,
 	                splitNumber: param.yAxisSplit == undefined ? 5 : param.yAxisSplit,
@@ -66182,7 +66183,7 @@
 	        return _react2.default.createElement(
 	            'div',
 	            { className: 'p2p-index', style: this.state.style },
-	            _react2.default.createElement(_IndustrySearch2.default, { label: 'P2P平台监测', searchFun: this.handleFunction, isHotWorld: 'p2p', companyType: '1', placeholder: '请输入平台全称' }),
+	            _react2.default.createElement(_IndustrySearch2.default, { label: '网贷平台监测', searchFun: this.handleFunction, isHotWorld: 'p2p', companyType: '1', placeholder: '请输入平台全称' }),
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'p2p-index-content' },
@@ -71563,6 +71564,7 @@
 	                yAxisName: "笔数",
 	                legend: [],
 	                formatter: "BusinessNum",
+	                yMin: 0,
 	                xAxis: _xAxisData,
 	                data: _setData,
 	                series: [[{
@@ -74510,7 +74512,7 @@
 	  componentDidMount: function componentDidMount() {
 	    var getContrastCatalognumRequest = this.props.getContrastCatalognumRequest;
 
-	    var jsonData = { 'areaName': '黄浦区' };
+	    var jsonData = { 'areaName': '全部' };
 	    getContrastCatalognumRequest(jsonData);
 
 	    var getSelectRequest = this.props.getSelectRequest;
@@ -74562,7 +74564,8 @@
 	  dataCatalogSelect: function dataCatalogSelect(data) {
 	    var content = data.content;
 	    var selectVar = [];
-	    for (var j = 0; j < content.length; j++) {
+	    selectVar.push({ value: 99, label: "全部" });
+	    for (var j = 1; j < content.length; j++) {
 	      selectVar.push({ value: j, label: content[j] });
 	    }
 	    //console.info("qqqqqqqqqqqqqqqqqqqqqq",selectVar)
@@ -74603,8 +74606,8 @@
 	    var selectProp = {
 	      width: '110px',
 	      className: 'index-selected',
-	      value: 1,
-	      placeholder: '黄浦区',
+	      value: 99,
+	      placeholder: '全部',
 	      name: 'testselect',
 	      data: this.state.CatalogSelect,
 	      onChange: function (value, label) {
