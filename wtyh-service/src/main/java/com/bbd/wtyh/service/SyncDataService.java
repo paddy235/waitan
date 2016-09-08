@@ -2,6 +2,7 @@ package com.bbd.wtyh.service;
 
 import com.bbd.wtyh.domain.AreaDO;
 import com.bbd.wtyh.domain.NvDO;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -12,6 +13,5 @@ import java.util.List;
 */
 public interface SyncDataService {
 
-
-	public String receiveData(String syncData);
+	void receiveFileData(MultipartFile file) throws Exception;
 }

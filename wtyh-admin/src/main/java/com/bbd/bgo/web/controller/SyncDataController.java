@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 数据同步
@@ -21,11 +22,11 @@ public class SyncDataController {
     @Autowired
     private SyncDataService syncDataService;
 
-    @RequestMapping(value = "receiveData.do")
+    @RequestMapping(value = "receiveFileData.do")
     @ResponseBody
-    public ResponseBean getScanner(@RequestParam(required = false) String syncData) {
-        String string = syncDataService.receiveData(syncData);
-        return ResponseBean.successResponse(string);
+    public ResponseBean receiveFileData(MultipartFile file) {
+        syncDataService.receiveFileData(file);
+        return ResponseBean.successResponse("写入成功");
     }
 
 }
