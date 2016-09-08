@@ -60403,17 +60403,29 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var Immutable = __webpack_require__(620);
 	//饼状图
 	var PieChart = _react2.default.createClass({
 	    displayName: 'PieChart',
 
 	    componentDidMount: function componentDidMount() {
-	        var id = this.props.param.id;
-	        var pieChart = echarts.init(document.getElementById(id));
 	        var param = this.props.param;
 	        var option = this.setOption(param);
-	        pieChart.setOption(option);
+	        this.drawEchart(option);
 	        this.resizeChart(pieChart);
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var isEqual = Immutable.is(nextProps.param, this.props.param);
+	        if (!isEqual) {
+	            var param = nextProps.param;
+	            var option = this.setOption(param);
+	            this.drawEchart(option);
+	        }
+	    },
+	    drawEchart: function drawEchart(option) {
+	        var id = this.props.param.id;
+	        var pieChart = echarts.init(document.getElementById(id));
+	        pieChart.setOption(option);
 	    },
 	    resizeChart: function resizeChart(pieChart) {
 	        //容器发生改变时重新设置图表大小
@@ -60422,6 +60434,7 @@
 	        });
 	    },
 	    setOption: function setOption(param) {
+	        console.log(param, '看看');
 	        var option = {
 	            color: param.color,
 	            tooltip: {
@@ -63299,7 +63312,8 @@
 	                    symbolSize: parm.symbolSize,
 	                    data: parm.series.line[j]
 	                };
-	                if (j == parm.series.line.length - 1 && parm.yRightLable == "line") {
+	                //if(j==parm.series.line.length-1&&parm.yRightLable=="line"){
+	                if (parm.yRightLable == "line") {
 	                    seriesBarItem["yAxisIndex"] = 1;
 	                }
 	                seriesBarData.push(seriesBarItem);
@@ -65105,130 +65119,133 @@
 
 	//上海市地图
 	var SmallLoanMap = _react2.default.createClass({
-	    displayName: 'SmallLoanMap',
+	  displayName: 'SmallLoanMap',
 
-	    getInitialState: function getInitialState() {
-	        return {
-	            mapOption: null,
-	            pieOption: null
-	        };
-	    },
-	    componentDidMount: function componentDidMount() {
-	        var getSmallLoanMap = this.props.getSmallLoanMap;
+	  getInitialState: function getInitialState() {
+	    return {
+	      mapOption: null,
+	      pieOption: null
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {
+	    var getSmallLoanMap = this.props.getSmallLoanMap;
 
-	        var jsonData = {};
-	        getSmallLoanMap(jsonData);
-	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var isMapEqual = Immutable.is(nextProps.smollLoanMapResult, this.props.smollLoanMapResult);
-	        if (!isMapEqual) {
-	            var smollLoanMapRequest = nextProps.smollLoanMapRequest;
-	            var smollLoanMapResult = nextProps.smollLoanMapResult;
+	    var jsonData = {};
+	    getSmallLoanMap(jsonData);
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var isMapEqual = Immutable.is(nextProps.smollLoanMapResult, this.props.smollLoanMapResult);
+	    if (!isMapEqual) {
+	      var smollLoanMapRequest = nextProps.smollLoanMapRequest;
+	      var smollLoanMapResult = nextProps.smollLoanMapResult;
 
-	            if (smollLoanMapRequest == true) {
-	                if (smollLoanMapResult.success == true) {
-	                    this.dataFomatMap(smollLoanMapResult);
-	                    this.dataFomatPie(smollLoanMapResult);
-	                } else {
-	                    //错误后提示
-	                }
-	            }
-	        }
-	    },
-	    shouldComponentUpdate: function shouldComponentUpdate(nextProps) {
-	        var isMapEqual = Immutable.is(nextProps.smollLoanMapResult, this.props.smollLoanMapResult);
-	        if (!isMapEqual) {
-	            return true;
+	      if (smollLoanMapRequest == true) {
+	        if (smollLoanMapResult.success == true) {
+	          this.dataFomatMap(smollLoanMapResult);
+	          this.dataFomatPie(smollLoanMapResult);
 	        } else {
-	            return false;
+	          //错误后提示
 	        }
-	    },
-	    dataFomatMap: function dataFomatMap(data) {
-	        var content = data.content;
-	        var series = [];
-	        for (var i = 0; i < content.length; i++) {
-	            var s = { "name": content[i].areaName, "value": content[i].all, "areaId": content[i].areaId };
-	            series.push(s);
-	        }
-	        console.log(series, 11);
-	        var option = {
-	            "visualMapRight": "50", //值茷位置
-	            "visualMapBottom": "30",
-	            "seriesName": '小额贷款企业数',
-	            "selectedMode": 'multiple',
-	            "series": series
-	        };
-	        this.setState({ mapOption: option });
-	    },
-	    dataFomatPie: function dataFomatPie(data) {
-	        var content = data.content;
-	        var series = [];
-	        var stateOwned = 0; //国企数量统计
-	        var privateCompany = 0; //私有企业数量统计
-	        for (var i = 0; i < content.length; i++) {
-	            stateOwned = stateOwned + content[i].stateOwned;
-	            privateCompany = privateCompany + content[i].privateCompany;
-	        }
-	        var option = {
-	            color: ['#e14340', '#ffffff'],
-	            id: 'small-loan-company-chart', //必传
-	            height: '200px', //必传 带上单位
-	            title: '',
-	            legendBottom: '0%',
-	            legendData: ['国有企业', '民营企业'],
-	            data: [{ value: stateOwned, name: '国有企业' }, { value: privateCompany, name: '民营企业' }]
-	        };
-	        this.setState({ pieOption: option });
-	    },
-	    onMapClick: function onMapClick(e) {
-	        console.log(e);
-	        var areaId = e.data.areaId;
-	        var selected = e.data.selected;
-	        var getMapSwitchVal = this.props.getMapSwitchVal;
-
-	        var jsonData = { areaId: areaId };
-	        if (selected == true) {
-	            getMapSwitchVal(jsonData);
-	        } else {
-	            getMapSwitchVal({});
-	        }
-	    },
-	    render: function render() {
-	        var onEvents = {
-	            'click': this.onMapClick
-	        };
-	        var bbdMap = "";
-	        if (this.state.mapOption) {
-	            bbdMap = _react2.default.createElement(_MapChart2.default, { option: this.state.mapOption, onEvents: onEvents, style: { height: '610px', width: '100%' } });
-	        }
-	        var bbdPie = "";
-	        if (this.state.pieOption) {
-	            bbdPie = _react2.default.createElement(_PieChart2.default, { param: this.state.pieOption });
-	        }
-	        return _react2.default.createElement(
-	            'div',
-	            { className: 'small-loan-map mod' },
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'mod-content' },
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'map-chart-box', id: 'small-loan-map-chart' },
-	                    bbdMap,
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'visual-text' },
-	                        '企业数量'
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'company-chart-box' },
-	                    bbdPie
-	                )
-	            )
-	        );
+	      }
 	    }
+	  },
+	  shouldComponentUpdate: function shouldComponentUpdate(nextProps) {
+	    var isMapEqual = Immutable.is(nextProps.smollLoanMapResult, this.props.smollLoanMapResult);
+	    if (!isMapEqual) {
+	      return true;
+	    } else {
+	      return false;
+	    }
+	  },
+	  dataFomatMap: function dataFomatMap(data) {
+	    var content = data.content;
+	    var series = [];
+	    for (var i = 0; i < content.length; i++) {
+	      var s = { "name": content[i].areaName, "value": content[i].all, "areaId": content[i].areaId };
+	      series.push(s);
+	    }
+	    console.log(series, 11);
+	    var option = {
+	      "visualMapRight": "50", //值茷位置
+	      "visualMapBottom": "30",
+	      "seriesName": '小额贷款企业数',
+	      "selectedMode": 'multiple',
+	      "series": series
+	    };
+	    this.setState({ mapOption: option });
+	  },
+	  dataFomatPie: function dataFomatPie(data) {
+	    var content = data.content;
+	    var series = [];
+	    var stateOwned = 0; //国企数量统计
+	    var privateCompany = 0; //私有企业数量统计
+	    for (var i = 0; i < content.length; i++) {
+	      stateOwned = stateOwned + content[i].stateOwned;
+	      privateCompany = privateCompany + content[i].privateCompany;
+	    }
+	    var option = {
+	      color: ['#e14340', '#ffffff'],
+	      id: 'small-loan-company-chart', //必传
+	      height: '200px', //必传 带上单位
+	      title: '',
+	      legendBottom: '0%',
+	      legendData: ['国有企业', '民营企业'],
+	      data: [{ value: stateOwned, name: '国有企业' }, { value: privateCompany, name: '民营企业' }]
+	    };
+	    this.setState({ pieOption: option });
+	  },
+	  onMapClick: function onMapClick(e) {
+	    var areaId = e.data.areaId;
+	    var selected = e.data.selected;
+	    var getMapSwitchVal = this.props.getMapSwitchVal;
+
+	    var jsonData = { areaId: areaId };
+	    if (selected == true) {
+	      getMapSwitchVal(jsonData);
+	    } else {
+	      getMapSwitchVal({});
+	    }
+	    var option = this.state.option;
+	    var series = option.series;
+	    var len = series.length;
+	    for (var i = 0; i < len; i++) {}
+	  },
+	  render: function render() {
+	    var onEvents = {
+	      'click': this.onMapClick
+	    };
+	    var bbdMap = "";
+	    if (this.state.mapOption) {
+	      bbdMap = _react2.default.createElement(_MapChart2.default, { option: this.state.mapOption, onEvents: onEvents, style: { height: '610px', width: '100%' } });
+	    }
+	    var bbdPie = "";
+	    if (this.state.pieOption) {
+	      bbdPie = _react2.default.createElement(_PieChart2.default, { param: this.state.pieOption });
+	    }
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'small-loan-map mod' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'mod-content' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'map-chart-box', id: 'small-loan-map-chart' },
+	          bbdMap,
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'visual-text' },
+	            '企业数量'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'company-chart-box' },
+	          bbdPie
+	        )
+	      )
+	    );
+	  }
 	});
 	module.exports = SmallLoanMap;
 
@@ -78755,8 +78772,6 @@
 	        } else if (companyType == 4) {
 	            //线下理财
 	            this.props.history.pushState(null, '/lineFinanceStaticRisk?companyName=' + companyName);
-	        } else {
-	            this.props.history.pushState(null, '/SearchResultDetail?companyName=' + companyName);
 	        }
 	    },
 	    render: function render() {
@@ -78894,7 +78909,6 @@
 	                                'tbody',
 	                                null,
 	                                this.state.showBuildRisk.map(function (elem, index) {
-	                                    console.log(elem.companyType, 'xuyao');
 	                                    return _react2.default.createElement(
 	                                        'tr',
 	                                        null,
@@ -79451,6 +79465,7 @@
 	        }
 
 	        var isEqual = Immutable.is(nextProps.companyBgResult, this.props.companyBgResult); //判断数据是否变化
+	        console.log(isEqual, 2222);
 	        if (!isEqual) {
 	            var companyBgRequest = nextProps.companyBgRequest;
 	            var companyBgResult = nextProps.companyBgResult;
@@ -79465,7 +79480,6 @@
 	        }
 	    },
 	    dataFomat: function dataFomat(data) {
-	        console.log(data, 'aaaaaaaaaaaaa');
 	        var content = data.content;
 	        var len = content.length;
 	        var dataPie = [];
@@ -79493,26 +79507,10 @@
 
 	        getCompanyBg(json);
 	    },
-	    //   setPieParm:function(){
-	    //      var param={
-	    //           id:'small-loan-company-chart',//必传
-	    //           color:['#efd79b','#e24340'],
-	    //           legendOrient:"",
-	    //           legendRight:"7%",
-	    //           legendBottom:"10%",
-	    //           height:'350px',//必传 带上单位
-	    //           title:'',
-	    //           legendData:['国企','名企'],
-	    //           data: [
-	    //                     {value:135, name:'国企'},
-	    //                     {value:310, name:'名企'}
-	    //                 ]
-	    //       }
-	    //       return param;
-	    // },
 	    render: function render() {
 	        var bbdPie = "";
 	        if (this.state.option) {
+	            console.log('是否执行了', this.state.option);
 	            bbdPie = _react2.default.createElement(_PieChart2.default, { param: this.state.option });
 	        }
 	        return _react2.default.createElement(
@@ -79612,9 +79610,7 @@
 	    } else {
 	      results = [];
 	    }
-	    console.log(results);
 	    this.setState({ newsList: results }, function () {
-	      console.log(this.state.newsList, 2333333333333);
 	      _this.buildNewsScroll();
 	    });
 	  },
