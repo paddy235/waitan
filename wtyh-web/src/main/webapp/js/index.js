@@ -40406,17 +40406,11 @@
 	    for (var i = 0; i < len; i++) {
 	      selectArr.push({ value: content[i].areaId, label: content[i].name });
 	    }
-	    var areaId = selectArr[0].value;
 
 	    //当从其他页面跳转过来时 特殊处理
-	    //areaId=this.props.location.query.areaId;
-	    // if(areaId==undefined){
-	    //    this.props.history.push('/parkMonitor');
-	    //    this.getMenuParkSelectVal(selectArr[0].value,selectArr[0].name)
-	    //    this.setState({selectDataArr:selectArr,value:selectArr[0].value});
-	    // }else{
+	    //var areaId=selectArr[0].value;
+	    var areaId = this.props.location.query.areaId;
 	    this.setState({ selectDataArr: selectArr, value: areaId });
-	    // }
 	  },
 	  getMenuParkSelectList: function getMenuParkSelectList(data) {
 	    var getMenuParkSelectList = this.props.getMenuParkSelectList;
@@ -40432,27 +40426,26 @@
 	  menuSlide: function menuSlide(e) {
 	    var $this = $(e.target);
 	    var text = $this.text();
-	    console.log(text);
 	    if (text == '行业监测平台') {
 	      var isTrue = this.state.industrySubNav;
 	      if (!isTrue) {
-	        this.setState({ industrySubNav: true });
+	        this.setState({ industrySubNav: true, parkSubNav: false });
 	      } else {
-	        this.setState({ industrySubNav: false });
+	        this.setState({ industrySubNav: false, parkSubNav: false });
 	      }
 	    } else if (text == '园区监测') {
 	      var isTrue = this.state.parkSubNav;
+	      console.log(isTrue);
 	      if (!isTrue) {
-	        this.setState({ parkSubNav: true });
+	        this.setState({ parkSubNav: true, industrySubNav: false });
 	      } else {
-	        this.setState({ parkSubNav: false });
+	        this.setState({ parkSubNav: false, industrySubNav: false });
 	      }
 	    } else {
 	      this.setState({ industrySubNav: false, parkSubNav: false });
 	    }
 	  },
 	  subMenu: function subMenu(item, e) {
-	    console.log(item.value, 'xuyao');
 	    this.setState({ industrySubNav: false, parkSubNav: false, value: item.value });
 	    this.getMenuParkSelectVal(item.value, item.label);
 	  },
@@ -40462,6 +40455,7 @@
 	    var infoBtn = null;
 
 	    if (this.props.selectShow == "show" && this.state.value) {
+	      console.log(this.state.value, this.props.selectShow, 'xuyao测试');
 	      var selectProp = {
 	        width: '160px',
 	        className: 'index-selected',
@@ -40490,7 +40484,7 @@
 	    var industryNavActive = false,
 	        parkNavActive = false;
 	    var routPath = this.props.location.pathname;
-	    console.log(routPath, '11111');
+
 	    var areaId = this.props.location.query.areaId;
 	    if (routPath == '/P2P' || routPath == '/lineFinance' || routPath == '/smallLoan' || routPath == '/financeGuara' || routPath == '/privateFund') {
 	      industryNavActive = true;
@@ -52239,7 +52233,7 @@
 	    if (isClick == "hasWorld") {
 	      this.setState({ searchVal: searchVal });
 	      if (this.props.searchFun) {
-	        this.props.searchFun(searchAttrPlat, searchAttrCompany);
+	        this.props.searchFun(searchAttrCompany, searchAttrPlat);
 	      }
 	    }
 	  },
@@ -52821,8 +52815,8 @@
 	            '导出报告'
 	          ),
 	          _react2.default.createElement(
-	            'a',
-	            { href: '', className: 'see-detail' },
+	            _reactRouter.Link,
+	            { to: '/SearchResultDetail?companyName=' + this.props.companyName, className: 'see-detail' },
 	            '查看全息信息详情'
 	          )
 	        ),
@@ -53675,7 +53669,7 @@
 	        var selectProp = { //渲染右边时间选择         
 	            width: '85px',
 	            className: 'index-selected',
-	            value: 2,
+	            value: 1,
 	            placeholder: this.state.allDate ? this.state.allDate[0].label : '',
 	            name: 'testselect',
 	            id: 'indexSelected',
@@ -54248,7 +54242,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.sixMonNewComNum != "0.0" ? itemTable.sixMonNewComNum : 0
+	                                                    itemTable && itemTable.toYearNewComNum != "0.0" ? itemTable.toYearNewComNum : 0
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -54381,7 +54375,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '60%', className: 't-right' },
-	                                                    itemTable && itemTable.lease
+	                                                    itemTable && itemTable.trade
 	                                                )
 	                                            ),
 	                                            _react2.default.createElement(
@@ -60153,7 +60147,7 @@
 	    var option = {
 	      "visualMapRight": "50", //值茷位置
 	      "visualMapBottom": "30",
-	      "seriesName": '小额贷款企业数量',
+	      "seriesName": '融资担保监测数量',
 	      "selectedMode": 'multiple',
 	      "series": series
 	    };
@@ -60629,7 +60623,6 @@
 	    // }
 	  },
 	  dataFomat: function dataFomat(data) {
-	    console.log(data, 999999999999999);
 	    var option = {
 	      color: ["#00b8ee", "#f8b551"],
 	      titleX: "left",
@@ -60643,7 +60636,7 @@
 	      legendTop: '1%',
 	      legendPadding: [0, 0, 0, 0],
 	      grid: { top: '10%', left: '5%', right: '5%', bottom: '10%', containLabel: true },
-	      legend: ["贷款总余额/总笔数"],
+	      legend: ["担保总额/总笔数"],
 	      xAxis: data.xAxis,
 	      series: [data.series]
 	    };
@@ -64915,7 +64908,6 @@
 	            agrBalScale.push(data[i].agrBalScale);
 	            smlComBalScale.push(data[i].smlComBalScale);
 	        }
-
 	        var option = {
 	            "title": "",
 	            "color": ["#efd79b", "#e14340"],
@@ -64930,6 +64922,7 @@
 	            "lineName": ["三农占比", "小微企业占比"],
 	            "xAxis": year,
 	            "yAxisName": ["亿元", "占比"],
+	            "y2Flag": '%',
 	            "unit": ["亿元", "%", "%"],
 	            "barWidth": 30,
 	            "symbolSize": 5,
@@ -66129,8 +66122,8 @@
 	            }
 	        }
 	    },
-	    handleFunction: function handleFunction(searchVal) {
-	        this.props.history.push('/Portrait?platName=' + searchVal);
+	    handleFunction: function handleFunction(company, plat) {
+	        this.props.history.push('/Portrait?platName=' + plat);
 	    },
 	    mixins: [_setHeight2.default],
 	    render: function render() {
@@ -67502,7 +67495,7 @@
 	        //    });
 	        // }
 	    },
-	    handleFunction: function handleFunction(plat, company) {
+	    handleFunction: function handleFunction(company, plat) {
 	        this.setState({ companyVal: plat, companyName: company }, function () {
 	            var _props = this.props;
 	            var getbaseMsgRequest = _props.getbaseMsgRequest;
@@ -68985,7 +68978,6 @@
 	                                };
 	                            }
 	                        }
-
 	                        main.reDrawCanvas();
 	                    });
 	                }
@@ -72061,7 +72053,7 @@
 	    render: function render() {
 	        return _react2.default.createElement(
 	            'div',
-	            { className: 'tradingPlaces-index', searchFun: this.handleFunction, style: this.state.style },
+	            { className: 'tradingPlaces-index', style: this.state.style },
 	            _react2.default.createElement(_IndustrySearch2.default, { label: '交易场所监测', companyType: '9', searchFun: this.handleFunction, placeholder: '请输入企业名称检索' }),
 	            _react2.default.createElement(
 	                'div',
@@ -74001,6 +73993,7 @@
 
 	            if (LeaseNumChartRequest == true) {
 	                if (LeaseNumChartResult.success) {
+
 	                    var options = {
 	                        "titleShow": true,
 	                        "color": ["#e24441", "#12b5b0", "#fec252"],
@@ -78553,7 +78546,6 @@
 	        if (!isSwitchValEqual) {
 	            var buildSwitchVal = nextProps.buildSwitchVal;
 
-	            console.log(buildSwitchVal, 9666666666666);
 	            var areaId = this.state.areaId;
 	            var buildingId = buildSwitchVal.buildId;
 
@@ -78574,9 +78566,7 @@
 	            if (buildRiskRequest == true) {
 	                if (buildRiskResult.success == true) {
 	                    this.riskCompanyDataFomat(buildRiskResult);
-	                } else {
-	                    console.log(404);
-	                }
+	                } else {}
 	            }
 	        }
 	        //大厦列表
@@ -78588,9 +78578,7 @@
 	            if (buildListRequest == true) {
 	                if (buildListResult.success == true) {
 	                    this.listDataFomat(buildListResult);
-	                } else {
-	                    console.log(404);
-	                }
+	                } else {}
 	            }
 	        }
 	    },
@@ -78598,7 +78586,6 @@
 	        //设置风险企业列表
 	        var _this = this;
 	        var content = data.content;
-	        console.log(content, 11111);
 	        this.setState({ buildRisk: content, showBuildRisk: content }, function () {
 	            _this.riskCompanyScreen(); //风险企业筛选
 	        });
@@ -78641,14 +78628,12 @@
 	        //大厦
 	        var _this = this;
 	        var content = data.content;
-	        console.log(content, '大厦列表');
 	        var curBuildId = this.state.buildingId; //取得当前buildingId
 	        var len = content.length;
 	        var j = 0;
 	        for (var i = 0; i < len; i++) {
 	            console.log(content[i]);
 	            var bId = content[i].buildingId;
-	            console.log(bId, curBuildId, '对比');
 	            if (bId == curBuildId) {
 	                j = i;
 	                break;
@@ -78683,7 +78668,6 @@
 	        //风险企业切换
 	        var _this = this;
 	        $('.risk-list').on('click', 'tr', function () {
-	            console.log('切换');
 	            var $this = $(this);
 	            var num = $this.find('.r').text();
 	            var $tr = $this.parent('tbody').find('tr');
@@ -78727,7 +78711,6 @@
 	    },
 	    handleBuild: function handleBuild(ele, e) {
 	        //大厦切换
-	        console.log('大厦切换');
 	        var len = this.state.buildList.length; //获取大厦的个数
 	        var index = this.state.curBuildIndex;
 	        if (ele == -1) {
@@ -78905,7 +78888,7 @@
 	                                            null,
 	                                            _react2.default.createElement(
 	                                                'span',
-	                                                { 'data-type': elem.companyType, onClick: this.handleBuildRisk.bind(this, elem.companyType, elem.name) },
+	                                                { className: 'cur-pointer', 'data-type': elem.companyType, onClick: this.handleBuildRisk.bind(this, elem.companyType, elem.name) },
 	                                                elem.name
 	                                            )
 	                                        )
@@ -79343,7 +79326,7 @@
 	            series: [{
 	                type: 'pie',
 	                selectedMode: 'single',
-	                center: ['45%', 200],
+	                center: ['45%', 180],
 	                radius: [0, '30%'],
 	                label: {
 	                    normal: {
@@ -79358,7 +79341,7 @@
 	                data: IndustryBox
 	            }, {
 	                type: 'pie',
-	                center: ['45%', 200],
+	                center: ['45%', 180],
 	                radius: ['40%', '60%'],
 	                data: IndustryEnd
 	            }]
@@ -79482,8 +79465,8 @@
 	            color: ['#efd79b', '#e24340'],
 	            legendOrient: "",
 	            legendRight: "7%",
-	            legendBottom: "10%",
-	            height: '350px', //必传 带上单位
+	            legendBottom: "20%",
+	            height: '340px', //必传 带上单位
 	            title: '',
 	            legendData: legendData,
 	            data: dataPie
@@ -79832,7 +79815,7 @@
 
 
 	// module
-	exports.push([module.id, "#search-result-detail {\r\n  position: relative;\r\n  transition: all 2s linear;\r\n  -moz-transition: all 2s linear;\r\n  -webkit-transition: all 2s linear;\r\n  -o-transition: all 2s linear;\r\n  width: 100%;\r\n  height: 1080px;\r\n  min-width: 900px; }\r\n  #search-result-detail .clear-fix:after {\r\n    display: block;\r\n    clear: both;\r\n    content: \"\";\r\n    visibility: hidden;\r\n    height: 0; }\r\n  #search-result-detail .company-name {\r\n    padding: 13px;\r\n    background: #383e47;\r\n    width: 100%; }\r\n    #search-result-detail .company-name > span {\r\n      font-size: 18px;\r\n      color: #fff; }\r\n    #search-result-detail .company-tag{\r\n       display: inline-block;\r\n       margin-left: 20px;\r\n    }\r\n    #search-result-detail .company-tag > span{\r\n        padding: 2px 5px;\r\n        font-size: 12px;\r\n        margin: 0 5px;\r\n    }\r\n    #search-result-detail .company-tag > span:first-child{\r\n      background:#00b7ee;\r\n    }\r\n    #search-result-detail .company-tag > span:nth-child(2){\r\n      background:#e14340;\r\n    }\r\n    #search-result-detail .company-tag > span:nth-child(3){\r\n      background:#f98d2b;\r\n    }\r\n    #search-result-detail .company-tag > span:nth-child(4){\r\n      background:#32b16c;\r\n    }\r\n    #search-result-detail .see-risk{\r\n      color: #ffffff;\r\n      background-color: #e14340;\r\n      margin-left: 20px;\r\n      border-radius: 2px;\r\n      padding: 5px 10px;\r\n      font-size: 14px;\r\n    }\r\n    #search-result-detail .company-name .right-content {\r\n      float: right; \r\n      margin-top: -5px;\r\n      }\r\n      #search-result-detail .company-name .right-content > div {\r\n        display: inline-block; }\r\n      #search-result-detail .company-name .right-content .search-group {\r\n        position: relative;\r\n        margin-right: 18px; }\r\n        #search-result-detail .company-name .right-content .search-group input {\r\n          width: 330px;\r\n          height: 35px;\r\n          font-size: 14px;\r\n          color: #898f98;\r\n          padding-left: 15px;\r\n          border-radius: 5px;\r\n          border: none; }\r\n        #search-result-detail .company-name .right-content .search-group .search {\r\n          margin-left: -31px;\r\n          color: #e8716f;\r\n          position: absolute;\r\n          top: 5px; }\r\n          #search-result-detail .company-name .right-content .search-group .search i {\r\n            font-size: 24px; }\r\n      #search-result-detail .company-name .right-content .back-btn {\r\n        width: 72px;\r\n        height: 24px;\r\n        cursor: pointer;\r\n        line-height: 24px;\r\n        text-align: center;\r\n        background: #5f93e7;\r\n        border-radius: 5px; }\r\n        #search-result-detail .company-name .right-content .back-btn .fanhui {\r\n          margin-right: 5px;\r\n          color: #272636; }\r\n  #search-result-detail .company-detail {\r\n    width: 100%;\r\n    height: 85%; }\r\n    #search-result-detail .company-detail > div {\r\n      float: left;\r\n      border-radius: 5px;\r\n      background: #2b323c; }\r\n  #search-result-detail .back-top {\r\n    position: fixed;\r\n    bottom: 30px;\r\n    right: 30px;\r\n    cursor: pointer; }\r\n    #search-result-detail .back-top .icon-top {\r\n      font-size: 30px; }\r\n\r\n/*# sourceMappingURL=style.css.map */\r\n", ""]);
+	exports.push([module.id, "#search-result-detail {\r\n  position: relative;\r\n  transition: all 2s linear;\r\n  -moz-transition: all 2s linear;\r\n  -webkit-transition: all 2s linear;\r\n  -o-transition: all 2s linear;\r\n  width: 100%;\r\n  height: 1080px;\r\n  min-width: 900px; }\r\n  #search-result-detail .clear-fix:after {\r\n    display: block;\r\n    clear: both;\r\n    content: \"\";\r\n    visibility: hidden;\r\n    height: 0; }\r\n  #search-result-detail .company-name {\r\n    padding: 13px;\r\n    background: #383e47;\r\n    width: 100%; }\r\n    #search-result-detail .company-name > span {\r\n      font-size: 18px;\r\n      color: #fff; }\r\n    #search-result-detail .company-tag{\r\n       display: inline-block;\r\n       margin-left: 20px;\r\n    }\r\n    #search-result-detail .company-tag > span{\r\n        padding: 2px 5px;\r\n        font-size: 12px;\r\n        margin: 0 5px;\r\n    }\r\n    #search-result-detail .company-tag .tag-bg-green{\r\n      background:#32b16c;\r\n    }\r\n    #search-result-detail .company-tag .tag-bg-red{\r\n      background:red;\r\n    }\r\n    #search-result-detail .company-tag .tag-bg-yellow{\r\n      background:#ebc900;\r\n    }\r\n    #search-result-detail .company-tag .tag-bg-black{\r\n      background:#000000;\r\n    }\r\n    #search-result-detail .see-risk{\r\n      color: #ffffff;\r\n      background-color: #e14340;\r\n      margin-left: 20px;\r\n      border-radius: 2px;\r\n      padding: 5px 10px;\r\n      font-size: 14px;\r\n    }\r\n    #search-result-detail .company-name .right-content {\r\n      float: right; \r\n      margin-top: -5px;\r\n      }\r\n      #search-result-detail .company-name .right-content > div {\r\n        display: inline-block; }\r\n      #search-result-detail .company-name .right-content .search-group {\r\n        position: relative;\r\n        margin-right: 18px; }\r\n        #search-result-detail .company-name .right-content .search-group input {\r\n          width: 330px;\r\n          height: 35px;\r\n          font-size: 14px;\r\n          color: #898f98;\r\n          padding-left: 15px;\r\n          border-radius: 5px;\r\n          border: none; }\r\n        #search-result-detail .company-name .right-content .search-group .search {\r\n          margin-left: -31px;\r\n          color: #e8716f;\r\n          position: absolute;\r\n          top: 5px; }\r\n          #search-result-detail .company-name .right-content .search-group .search i {\r\n            font-size: 24px; }\r\n      #search-result-detail .company-name .right-content .back-btn {\r\n        width: 72px;\r\n        height: 24px;\r\n        cursor: pointer;\r\n        line-height: 24px;\r\n        text-align: center;\r\n        background: #5f93e7;\r\n        border-radius: 5px; }\r\n        #search-result-detail .company-name .right-content .back-btn .fanhui {\r\n          margin-right: 5px;\r\n          color: #272636; }\r\n  #search-result-detail .company-detail {\r\n    width: 100%;\r\n    height: 85%; }\r\n    #search-result-detail .company-detail > div {\r\n      float: left;\r\n      border-radius: 5px;\r\n      background: #2b323c; }\r\n  #search-result-detail .back-top {\r\n    position: fixed;\r\n    bottom: 30px;\r\n    right: 30px;\r\n    cursor: pointer; }\r\n    #search-result-detail .back-top .icon-top {\r\n      font-size: 30px; }\r\n\r\n/*# sourceMappingURL=style.css.map */\r\n", ""]);
 
 	// exports
 
@@ -82810,89 +82793,6 @@
 	var series = [];
 	var PersonIndexChart = _react2.default.createClass({
 		displayName: 'PersonIndexChart',
-		drawImg: function drawImg() {
-			var myChart = echarts.init(document.getElementById('show-charts'));
-			var option = {
-
-				grid: {
-					left: '7%',
-					right: '6%',
-					bottom: '6%',
-					containLabel: true
-				},
-				xAxis: {
-					type: 'category',
-					axisLine: {
-						show: true,
-						lineStyle: {
-							color: '#232932'
-						}
-					},
-					axisLabel: {
-						show: true,
-						textStyle: {
-							color: '#fff',
-							fontSize: 14
-						}
-					},
-					data: xDate /*--------------ajax-------------*/
-				},
-				yAxis: {
-					name: '指数（%）',
-					type: 'value',
-					nameTextStyle: {
-						color: '#fff',
-						fontSize: 14
-					},
-					axisLine: {
-						show: true,
-						lineStyle: {
-							color: '#232932'
-						}
-					},
-					axisLabel: {
-						textStyle: {
-							color: '#fff',
-							fontSize: 14
-						}
-					},
-					splitLine: {
-						lineStyle: {
-							color: '#232932'
-						}
-					}
-				},
-				series: [{
-					name: '邮件营销',
-					type: 'line',
-					stack: '总量',
-					data: series, /*---------ajax----------*/
-					symbol: 'circle',
-					symbolSize: 15,
-					lineStyle: {
-						normal: {
-							color: '#73d528',
-							width: 3
-						}
-					},
-					itemStyle: {
-						normal: {
-							color: '#73d528',
-							shadowColor: 'red',
-							shadowBlur: {
-								shadowColor: 'rgba(115, 213, 40, 0.8)',
-								shadowBlur: 5
-							}
-						}
-					}
-				}]
-			};
-			myChart.setOption(option);
-		},
-
-		// componentDidMount() {
-		//      this.drawImg(); 
-		// },
 		componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 			var _this = this;
 			if (nextProps.CompanyInfoD1Request) {
@@ -82901,12 +82801,89 @@
 					$("#show-charts").html('<div class="no-data">暂无相关信息！</div>');
 					return;
 				}
+				xDate = [], series = [];
 				data.map(function (item, index) {
 					xDate.push(item.x_value);
 					series.push(item.y_value);
 				});
-				console.log(data, "第一个图");
-				this.drawImg();
+
+				var myChart = echarts.init(document.getElementById('show-charts'));
+				var option = {
+
+					grid: {
+						left: '7%',
+						right: '6%',
+						bottom: '6%',
+						containLabel: true
+					},
+					xAxis: {
+						type: 'category',
+						axisLine: {
+							show: true,
+							lineStyle: {
+								color: '#232932'
+							}
+						},
+						axisLabel: {
+							show: true,
+							textStyle: {
+								color: '#fff',
+								fontSize: 14
+							}
+						},
+						data: xDate /*--------------ajax-------------*/
+					},
+					yAxis: {
+						name: '指数（%）',
+						type: 'value',
+						nameTextStyle: {
+							color: '#fff',
+							fontSize: 14
+						},
+						axisLine: {
+							show: true,
+							lineStyle: {
+								color: '#232932'
+							}
+						},
+						axisLabel: {
+							textStyle: {
+								color: '#fff',
+								fontSize: 14
+							}
+						},
+						splitLine: {
+							lineStyle: {
+								color: '#232932'
+							}
+						}
+					},
+					series: [{
+						name: '邮件营销',
+						type: 'line',
+						stack: '总量',
+						data: series, /*---------ajax----------*/
+						symbol: 'circle',
+						symbolSize: 15,
+						lineStyle: {
+							normal: {
+								color: '#73d528',
+								width: 3
+							}
+						},
+						itemStyle: {
+							normal: {
+								color: '#73d528',
+								shadowColor: 'red',
+								shadowBlur: {
+									shadowColor: 'rgba(115, 213, 40, 0.8)',
+									shadowBlur: 5
+								}
+							}
+						}
+					}]
+				};
+				myChart.setOption(option);
 			}
 		},
 		componentDidMount: function componentDidMount() {
@@ -83067,11 +83044,11 @@
 			var _this = this;
 			if (nextProps.CompanyInfoD3Request) {
 				var data = nextProps.CompanyInfoD3Result.content.rdata;
-				console.log(data, "第3个图");
 				if (data.length == 0) {
 					// $("#pay-distribute").html('<div class="no-data">暂无相关信息！</div>')
 					return;
 				}
+				xData = [], series = [];
 				data.map(function (item, index) {
 					xData.push(item.x_value);
 					series.push(item.y_value);
