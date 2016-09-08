@@ -6,16 +6,15 @@ import com.bbd.wtyh.domain.dto.*;
 import com.bbd.wtyh.domain.query.CompanyQuery;
 import com.bbd.wtyh.service.*;
 import com.bbd.wtyh.web.ResponseBean;
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Multimap;
+import com.google.common.collect.*;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -188,9 +187,20 @@ public class LoanController {
             } else {
                 dto.setBorrowerRegisteredCapital("无");
             }
-            Collection<RelatedCompanyDTO> relatedCompanyDTOs = shareholderRiskService.getRelatedCompany(largeLoanDO.getBorrowerId()).get((int) CompanyDO.TYPE_XXLC_4);
-            dto.setRelatedOfflineFinance(null == relatedCompanyDTOs ? 0 : relatedCompanyDTOs.size());
+            dto.setRelatedOfflineFinance(shareholderRiskService.getRelatedCompany(largeLoanDO.getBorrowerId()).values().size());
             result.add(dto);
+        }
+        //根据关联风险数排序
+        if (null != orderByField && orderByField.equals(5)) {
+            result = Ordering.from(new Comparator<LargeLoanDTO>() {
+                @Override
+                public int compare(LargeLoanDTO o1, LargeLoanDTO o2) {
+                    return o1.getRelatedOfflineFinance() - o2.getRelatedOfflineFinance();
+                }
+            }).sortedCopy(result);
+            if (StringUtils.isNotEmpty(descAsc) && descAsc.equals("desc")) {
+                result = Lists.reverse(result);
+            }
         }
         Map<String, Object> map = Maps.newHashMap();
         map.put("list", result);

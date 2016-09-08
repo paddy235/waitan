@@ -254,11 +254,6 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
             return null;
         }
 
-        if(bdyqDO==null || "0".equals(bdyqDO.getTotal() )){
-            String data = getCompanyNews();
-            return JSON.parseObject(data, BaiDuYuQingDO.class);
-        }
-
 
         return bdyqDO;
 
