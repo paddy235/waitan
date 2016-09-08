@@ -90,7 +90,7 @@
     </select>
 
     <select id="findByPage" parameterType="java.util.HashMap" resultMap="BaseResultMap">
-        select * from company limit #{pagination.begin}, #{pagination.pageSize}
+        select <include refid="Base_Column_List"/> from company limit #{pagination.begin}, #{pagination.pageSize}
     </select>
 
     <update id="updateRiskLevel">
@@ -254,7 +254,8 @@
         SELECT
             c.`name` AS NAME,
             IF(c.status=1,'存续',IF(c.status=2,'注销',0)) AS status,
-            cb.background AS background
+            cb.background AS background,
+            c.risk_level as riskLevel
         FROM
             company c
         LEFT JOIN company_background cb ON c.company_id = cb.company_id
