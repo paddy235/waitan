@@ -25611,55 +25611,55 @@
 
 	//登录
 	var Root = _react2.default.createClass({
-	            displayName: 'Root',
-	            render: function render() {
-	                        var _props = this.props;
-	                        var store = _props.store;
-	                        var history = _props.history;
+	  displayName: 'Root',
+	  render: function render() {
+	    var _props = this.props;
+	    var store = _props.store;
+	    var history = _props.history;
 
-	                        console.log(this.props, 'history');
-	                        //history={history}
-	                        return _react2.default.createElement(
-	                                    _reactRedux.Provider,
-	                                    { store: store },
-	                                    _react2.default.createElement(
-	                                                'div',
-	                                                null,
-	                                                _react2.default.createElement(_DevTools2.default, null),
-	                                                _react2.default.createElement(
-	                                                            _reactRouter.Router,
-	                                                            null,
-	                                                            _react2.default.createElement(
-	                                                                        _reactRouter.Route,
-	                                                                        { path: '/', component: _App2.default },
-	                                                                        _react2.default.createElement(_reactRouter.IndexRoute, { component: _Index2.default }),
-	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'login', component: _Index2.default }),
-	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'index', component: _Index4.default }),
-	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'lineFinance', component: _index2.default }),
-	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'lineFinanceSearchResult', component: _SearchResult2.default }),
-	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'lineFinanceStaticRisk', component: _StaticRisk2.default }),
-	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'lineFinanceDynamicRisk', component: _DynamicRisk2.default }),
-	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'financeGuara', component: _index4.default }),
-	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'privateFund', component: _index6.default }),
-	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'smallLoan', component: _index8.default }),
-	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'P2P', component: _index10.default }),
-	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'Portrait', component: _Portrait2.default }),
-	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'RaiseIndex', component: _Index6.default }),
-	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'PawnMonitoring', component: _Index8.default }),
-	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'TradingPlaces', component: _Index10.default }),
-	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'financeLease', component: _Index12.default }),
-	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'commercialSecret', component: _Index14.default }),
-	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'prepaidCard', component: _Index16.default }),
-	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'parkMonitor', component: _Index18.default }),
-	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'buildDetail', component: _buildDetail2.default }),
-	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'InfoSearchIndex', component: _Index20.default }),
-	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'SearchResultDetail', component: _SearchResultDetail2.default }),
-	                                                                        _react2.default.createElement(_reactRouter.Route, { path: 'realtimeMonitor', component: _index12.default })
-	                                                            )
-	                                                )
-	                                    )
-	                        );
-	            }
+	    console.log(this.props, 'history');
+	    //history={history}
+	    return _react2.default.createElement(
+	      _reactRedux.Provider,
+	      { store: store },
+	      _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_DevTools2.default, null),
+	        _react2.default.createElement(
+	          _reactRouter.Router,
+	          null,
+	          _react2.default.createElement(
+	            _reactRouter.Route,
+	            { path: '/', component: _App2.default },
+	            _react2.default.createElement(_reactRouter.IndexRoute, { component: _Index2.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: 'login', component: _Index2.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: 'index', component: _Index4.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: 'lineFinance', component: _index2.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: 'lineFinanceSearchResult', component: _SearchResult2.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: 'lineFinanceStaticRisk', component: _StaticRisk2.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: 'lineFinanceDynamicRisk', component: _DynamicRisk2.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: 'financeGuara', component: _index4.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: 'privateFund', component: _index6.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: 'smallLoan', component: _index8.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: 'P2P', component: _index10.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: 'Portrait', component: _Portrait2.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: 'RaiseIndex', component: _Index6.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: 'PawnMonitoring', component: _Index8.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: 'TradingPlaces', component: _Index10.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: 'financeLease', component: _Index12.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: 'commercialSecret', component: _Index14.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: 'prepaidCard', component: _Index16.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: 'parkMonitor', component: _Index18.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: 'buildDetail', component: _buildDetail2.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: 'InfoSearchIndex', component: _Index20.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: 'SearchResultDetail', component: _SearchResultDetail2.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: 'realtimeMonitor', component: _index12.default })
+	          )
+	        )
+	      )
+	    );
+	  }
 	});
 	//实时监测
 
@@ -39795,7 +39795,7 @@
 	      }
 	    }
 
-	    if (routPath == "/") {
+	    if (routPath == "/" || routPath == "/login") {
 	      app = _react2.default.createElement(
 	        'div',
 	        { className: 'app' },
@@ -39805,21 +39805,21 @@
 	      app = _react2.default.createElement(
 	        'div',
 	        { className: 'app' },
-	        _react2.default.createElement(_Header2.default, null),
+	        _react2.default.createElement(_Header2.default, this.props),
 	        this.props.children
 	      );
 	    } else if (routPath == '/realtimeMonitor') {
 	      app = _react2.default.createElement(
 	        'div',
 	        { className: 'app' },
-	        _react2.default.createElement(_Header2.default, { text: '上海市新型金融业态监测分析平台' }),
+	        _react2.default.createElement(_Header2.default, _extends({ text: '上海市新型金融业态监测分析平台' }, this.props)),
 	        this.props.children
 	      );
 	    } else if (routPath == '/parkMonitor' || routPath == '/buildDetail') {
 	      app = _react2.default.createElement(
 	        'div',
 	        { className: 'app' },
-	        _react2.default.createElement(_Header2.default, { text: '上海市新型金融业态监测分析平台' }),
+	        _react2.default.createElement(_Header2.default, _extends({ text: '上海市新型金融业态监测分析平台' }, this.props)),
 	        _react2.default.createElement(_Menu2.default, _extends({}, this.props, { selectShow: 'show' })),
 	        this.props.children
 	      );
@@ -39827,7 +39827,7 @@
 	      app = _react2.default.createElement(
 	        'div',
 	        { className: 'app' },
-	        _react2.default.createElement(_Header2.default, { text: '上海市新型金融业态监测分析平台' }),
+	        _react2.default.createElement(_Header2.default, _extends({ text: '上海市新型金融业态监测分析平台' }, this.props)),
 	        _react2.default.createElement(_Menu2.default, _extends({}, this.props, { selectShow: 'hide' })),
 	        this.props.children
 	      );
@@ -39881,9 +39881,14 @@
 	      dataType: "json",
 	      data: {},
 	      type: "GET",
-	      success: function success(result) {
-	        console.log(result);
-	      }
+	      success: function (result) {
+	        console.log(this.props, 111);
+	        if (result.success) {
+	          this.props.history.push('/');
+	        } else {
+	          alert('退出失败！');
+	        }
+	      }.bind(this)
 	    });
 	  },
 	  render: function render() {
@@ -49249,6 +49254,8 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var Immutable = __webpack_require__(620);
+
 	var v1 = { data: {} };
 	v1.data[_index.validate.notempty] = '不能为空！';
 	v1.data[_index.validate.username] = '请输入正确的用户名！';
@@ -49266,14 +49273,23 @@
 	            LoginName: ""
 	        };
 	    },
+	    componentDidMount: function componentDidMount() {
+	        document.onkeydown = function (e) {
+	            var ev = document.all ? window.event : e;
+	            if (ev.keyCode == 13) {
+	                $(".login-submit-btn").trigger('click');
+	            }
+	        };
+	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	        var setLoginName = this.props.setLoginName;
 
 	        var userName = $(_reactDom2.default.findDOMNode(this.refs.userInput)).find('input').val();
-	        var request = nextProps.request;
-	        var result = nextProps.result;
+	        var isEqual = Immutable.is(nextProps.result, this.props.result); //判断数据是否变化
+	        if (!isEqual) {
+	            var request = nextProps.request;
+	            var result = nextProps.result;
 
-	        if (nextProps.result.success) {
 	            if (request == true) {
 	                this.setState({ tipMsg: "登录中..." });
 	                if (result.content) {
@@ -49289,27 +49305,18 @@
 	            }
 	        }
 	    },
-	    componentDidMount: function componentDidMount() {
-	        $(".login-submit-btn").click(function () {
-	            var userInput = _reactDom2.default.findDOMNode(this.refs.userInput);
-	            var user = $(userInput).find('input').val();
-	            var passwordInput = _reactDom2.default.findDOMNode(this.refs.passwordInput);
-	            var password = $(passwordInput).find('input').val();
-	            var _props = this.props;
-	            var loginRequest = _props.loginRequest;
-	            var setLoginName = _props.setLoginName;
+	    handleLogin: function handleLogin() {
+	        var userInput = _reactDom2.default.findDOMNode(this.refs.userInput);
+	        var user = $(userInput).find('input').val();
+	        var passwordInput = _reactDom2.default.findDOMNode(this.refs.passwordInput);
+	        var password = $(passwordInput).find('input').val();
+	        var _props = this.props;
+	        var loginRequest = _props.loginRequest;
+	        var setLoginName = _props.setLoginName;
 
-	            var loginJson = { name: user, password: password };
-	            loginRequest(loginJson);
-	        }.bind(this));
-	        document.onkeydown = function (e) {
-	            var ev = document.all ? window.event : e;
-	            if (ev.keyCode == 13) {
-	                $(".login-submit-btn").trigger('click');
-	            }
-	        };
+	        var loginJson = { name: user, password: password };
+	        loginRequest(loginJson);
 	    },
-
 	    render: function render() {
 	        return _react2.default.createElement(
 	            'div',
@@ -49357,7 +49364,7 @@
 	                                    { className: 'login-submit' },
 	                                    _react2.default.createElement(
 	                                        'a',
-	                                        { href: 'javascript:void(0)', className: 'login-submit-btn mt-btn-round-blue' },
+	                                        { href: 'javascript:;', className: 'login-submit-btn mt-btn-round-blue', onClick: this.handleLogin },
 	                                        '登 录'
 	                                    )
 	                                )
@@ -49513,19 +49520,21 @@
 	      'div',
 	      { className: 'Home wrap', id: 'home' },
 	      _react2.default.createElement(_homeOne2.default, this.props),
-	      _react2.default.createElement(_homeTwo2.default, null),
+	      _react2.default.createElement(_homeTwo2.default, this.props),
 	      _react2.default.createElement(_homeThree2.default, this.props)
 	    );
 	  }
 	});
 	//module.exports = Index;
 
-	//将 request  result 绑定到props的request result 
+	//将 request  result 绑定到props的request result s
 	function indexStateToProps(state) {
 	  return {
-
 	    homeThreeRequest: state.homeThree.request,
-	    homeThreeResult: state.homeThree.result
+	    homeThreeResult: state.homeThree.result,
+
+	    homeTwoRequest: state.homeTwo.request,
+	    homeTwoResult: state.homeTwo.result
 	  };
 	}
 
@@ -49572,7 +49581,7 @@
 
 
 	// module
-	exports.push([module.id, "/*@All暂时放在这里，全局公用的css\r\n---------------------------------------------------------*/\r\n\r\n/*@homeOne   jifei\r\n---------------------------------------------------------*/\r\n.HomeOne {\r\n\twidth: 800px;\r\n\theight: 130px;\r\n\tmargin: 10px auto;\r\n\t// border: 1px solid red;\r\n\tmargin-bottom: 10px;\r\n}\r\n.HomeOne .HomeOne-tite {\r\n\twidth: 100%;\r\n\theight: 55px;\r\n\t// border: 1px solid red;\r\n\tmargin-top: 60px;\r\n}\r\n.HomeOne .HomeOne-tite h1 {\r\n\ttext-align: center;\r\n\tcolor: #fff;\r\n}\r\n.HomeOne .HomeOne-tite h1 span {\r\n\tmargin-left: 5px;\r\n}\r\n.HomeOne .HomeOne-tite .icon-qiyejibenxinxichaxun {\r\n\tcolor: #6093e6;\r\n\tfont-size: 55px;\r\n\tposition: relative;\r\n\ttop: 5px;\r\n}\r\n.HomeOne .HomeOne-inp {\r\n\twidth: 100%;\r\n\theight: 50px;\r\n\tmargin-top: 24px;\r\n}\r\n.HomeOne .HomeOne-inp input {\r\n\twidth: 89%;\r\n\theight: 50px;\r\n\tbackground: #fff;\r\n\tborder: none;\r\n\toutline: none;\r\n\tcolor: #666666;\r\n\tpadding-left: 20px;\r\n\ttransition: 0.6s;\r\n}\r\n.HomeOne .HomeOne-inp input:focus {\r\n\tbox-shadow: inset 0px 1px 6px rgba(19, 18, 18, 0.4);\r\n}\r\n.HomeOne .HomeOne-inp .jump {\r\n\twidth: 10%;\r\n\theight: 50px;\r\n\tbackground: #5f93e7;\r\n\tfloat: right;\r\n}\r\n.HomeOne .HomeOne-inp .jump .search {\r\n\tcolor: #fff;\r\n\tfont-size: 30px;\r\n\tposition: relative;\r\n\ttop: 10px;\r\n\tleft: 25px;\r\n}\r\n\r\n/*@homeTwo\r\n---------------------------------------------------------*/\r\n.HomeTwo {\r\n\twidth: 90%;\r\n\theight: 620px;\r\n\tmargin: 0px auto;\r\n\tmargin-bottom: 0px\r\n}\r\n.middleLeft, .middleCenter, .middleRight {\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n.middleLeft {\r\n\twidth: 22%;\r\n}\r\n.middleLeft .list {\r\n\twidth: 100%;\r\n\theight: 120px;\r\n\tborder-radius: 5px;\r\n\tposition: relative;\r\n\tbox-shadow: 0 2px 5px #080b12;\r\n\tline-height: 120px;\r\n\ttext-align: center;\r\n\tborder: 3px solid #00b7ee;\r\n\tcursor: pointer;\r\n\tmargin-top: 130px;\r\n\t-webkit-transition: all .5s;\r\n\tposition: relative;\r\n}\r\n.middleLeft .list:hover {\r\n\tbackground: #153e50\r\n}\r\n.middleLeft .list:focus {\r\n\tbox-shadow: 0 5px 5px #080b12;\r\n}\r\n.middleLeft .top {\r\n\tmargin-top: 0;\r\n}\r\n.middleLeft .list h2 {\r\n\tcolor: #dddddd;\r\n}\r\n.middleLeft .list h2:hover {\r\n\tcolor: #fff;\r\n}\r\n.middleLeft .list h2 img {\r\n\tposition: absolute;\r\n\tleft: 6%;\r\n\ttop: 30px;\r\n}\r\n.middleLeft .list h2 span {\r\n\tmargin-left: 50px;\r\n}\r\n.middleLeft .list .size {\r\n\tfont-size: 55px;\r\n\tcolor: #2c7dff;\r\n\tposition: relative;\r\n\ttop: 10px;\r\n}\r\n.middleLeft .list .d {\r\n\tposition: relative;\r\n\tleft: -35px;\r\n}\r\n.middleLeft .list:hover .size {\r\n\tcolor: #fff;\r\n}\r\n\r\n/*csy center*/\r\n.middleCenter {\r\n\twidth: 56%;\r\n}\r\n.middleCenter #homeMap {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tposition: relative;\r\n}\r\n.middleRight {\r\n\twidth: 22%;\r\n}\r\n.HomeTwo .one-tip {\r\n\twidth: 160px;\r\n\theight: auto;\r\n\tposition: absolute;\r\n\ttop: -3px;\r\n\tright: -169px;\r\n\tpadding: 5px 15px;\r\n\tbackground: #fff;\r\n\tcolor: #444;\r\n\tfont-size: 14px;\r\n\tline-height: 1;\r\n\tborder-radius: 5px;\r\n\tdisplay: none\r\n}\r\n.HomeTwo .one-tip li {\r\n\twidth: 100%;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n}\r\n.HomeTwo .one-tip li:hover {\r\n\tbackground: #5f93e7 !important;\r\n}\r\n.HomeTwo .one-tip li:hover a {\r\n\tcolor: #fff !important\r\n}\r\n.HomeTwo .one-tip li:hover a {\r\n\tcolor: #fff !important\r\n}\r\n.middleLeft {\r\n\tposition: relative;\r\n\tz-index: 999;\r\n\tpadding-top: 100px\r\n}\r\n\r\n/*@homeThree\r\n---------------------------------------------------------*/\r\n.HomeThree ul li  em {\r\n\tcolor: #dddddd;\r\n\tfont-size: 14px;\r\n}\r\n.HomeThree .mt-number-animate {\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tfont-size: 25px;\r\n\tfont-family: \"microsoft yahei\";\r\n\tfont-weight: normal;\r\n\toverflow: hidden;\r\n\tmargin: 0 auto;\r\n}\r\n.HomeThree .mt-number-animate-dot {\r\n\tline-height: 26px;\r\n\tcolor: #5f91e6;\r\n\tfloat: left;\r\n}\r\n.HomeThree .mt-number-animate-span {\r\n\tcolor: #5f91e6;\r\n\tfont-size: 30px;\r\n}\r\n.HomeThree  .mt-number-animate .mt-number-animate-dom {\r\n\twidth: 18px;\r\n\tfloat: left;\r\n}\r\n.HomeThree .icon-xiangshang:before {\r\n\tposition: absolute;\r\n\tright: -20px;\r\n\ttop: 5px;\r\n\tcolor: #f39800;\r\n\tfont-size: 12px;\r\n}\r\n\r\n/*@homeThree fixed\r\n---------------------------------------------------------*/\r\n.HomeThree {\r\n\twidth: 933px;\r\n\theight: 220px;\r\n\tmargin: 0 auto;\r\n}\r\n.HomeThree ul {\r\n\r\n\t/* \t// padding-right: 90px */\r\n}\r\n.HomeThree ul li {\r\n\twidth: 310px;\r\n\theight: 130px;\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\t/* padding-top: 35px; */\r\n\tposition: relative;\r\n}\r\n.HomeThree ul li div[class*=\"homeScroll\"] {\r\n\theight: auto;\r\n\tposition: relative;\r\n}", ""]);
+	exports.push([module.id, "/*@All暂时放在这里，全局公用的css\r\n---------------------------------------------------------*/\r\n\r\n/*@homeOne   jifei\r\n---------------------------------------------------------*/\r\n.HomeOne {\r\n\twidth: 800px;\r\n\theight: 130px;\r\n\tmargin: 10px auto;\r\n\t// border: 1px solid red;\r\n\tmargin-bottom: 10px;\r\n}\r\n.HomeOne .HomeOne-tite {\r\n\twidth: 100%;\r\n\theight: 55px;\r\n\t// border: 1px solid red;\r\n\tmargin-top: 60px;\r\n}\r\n.HomeOne .HomeOne-tite h1 {\r\n\ttext-align: center;\r\n\tcolor: #fff;\r\n}\r\n.HomeOne .HomeOne-tite h1 span {\r\n\tmargin-left: 5px;\r\n}\r\n.HomeOne .HomeOne-tite .icon-qiyejibenxinxichaxun {\r\n\tcolor: #6093e6;\r\n\tfont-size: 55px;\r\n\tposition: relative;\r\n\ttop: 5px;\r\n}\r\n.HomeOne .HomeOne-inp {\r\n\twidth: 100%;\r\n\theight: 50px;\r\n\tmargin-top: 24px;\r\n}\r\n.HomeOne .HomeOne-inp input {\r\n\twidth: 89%;\r\n\theight: 50px;\r\n\tbackground: #fff;\r\n\tborder: none;\r\n\toutline: none;\r\n\tcolor: #666666;\r\n\tpadding-left: 20px;\r\n\ttransition: 0.6s;\r\n}\r\n.HomeOne .HomeOne-inp input:focus {\r\n\tbox-shadow: inset 0px 1px 6px rgba(19, 18, 18, 0.4);\r\n}\r\n.HomeOne .HomeOne-inp .jump {\r\n\twidth: 10%;\r\n\theight: 50px;\r\n\tbackground: #5f93e7;\r\n\tfloat: right;\r\n}\r\n.HomeOne .HomeOne-inp .jump .search {\r\n\tcolor: #fff;\r\n\tfont-size: 30px;\r\n\tposition: relative;\r\n\ttop: 10px;\r\n\tleft: 25px;\r\n}\r\n\r\n/*@homeTwo\r\n---------------------------------------------------------*/\r\n.HomeTwo {\r\n\twidth: 90%;\r\n\theight: 620px;\r\n\tmargin: 0px auto;\r\n\tmargin-bottom: 0px\r\n}\r\n.middleLeft, .middleCenter, .middleRight {\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tfloat: left;\r\n}\r\n.middleLeft {\r\n\twidth: 22%;\r\n}\r\n.middleLeft .list {\r\n\twidth: 100%;\r\n\theight: 120px;\r\n\tborder-radius: 5px;\r\n\tposition: relative;\r\n\tbox-shadow: 0 2px 5px #080b12;\r\n\tline-height: 120px;\r\n\ttext-align: center;\r\n\tborder: 3px solid #00b7ee;\r\n\tcursor: pointer;\r\n\tmargin-top: 130px;\r\n\t-webkit-transition: all .5s;\r\n\tposition: relative;\r\n}\r\n.middleLeft .list:hover {\r\n\tbackground: #153e50\r\n}\r\n.middleLeft .list:focus {\r\n\tbox-shadow: 0 5px 5px #080b12;\r\n}\r\n.middleLeft .top {\r\n\tmargin-top: 0;\r\n}\r\n.middleLeft .list h2 {\r\n\tcolor: #dddddd;\r\n}\r\n.middleLeft .list h2:hover {\r\n\tcolor: #fff;\r\n}\r\n.middleLeft .list h2 img {\r\n\tposition: absolute;\r\n\tleft: 6%;\r\n\ttop: 30px;\r\n}\r\n.middleLeft .list h2 span {\r\n\tmargin-left: 50px;\r\n}\r\n.middleLeft .list .size {\r\n\tfont-size: 55px;\r\n\tcolor: #2c7dff;\r\n\tposition: relative;\r\n\ttop: 10px;\r\n}\r\n.middleLeft .list .d {\r\n\tposition: relative;\r\n\tleft: -35px;\r\n}\r\n.middleLeft .list:hover .size {\r\n\tcolor: #fff;\r\n}\r\n\r\n/*csy center*/\r\n.middleCenter {\r\n\twidth: 56%;\r\n}\r\n.middleCenter #homeMap {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n\tposition: relative;\r\n}\r\n.middleRight {\r\n\twidth: 22%;\r\n}\r\n\r\n/*one-tip统一为点击大按钮之后的下拉菜单*/\r\n.HomeTwo .one-tip {\r\n\twidth: 160px;\r\n\theight: auto;\r\n\tposition: absolute;\r\n\ttop: -3px;\r\n\tright: -169px;\r\n\tpadding: 5px 12px;\r\n\tbackground: #fff;\r\n\tcolor: #444;\r\n\tfont-size: 13px;\r\n\tline-height: 1;\r\n\tborder-radius: 5px;\r\n\tdisplay: none\r\n}\r\n.HomeTwo .one-tip li {\r\n\twidth: 100%;\r\n\theight: 22px;\r\n\tline-height: 22px;\r\n}\r\n.HomeTwo .one-tip li:hover {\r\n\tbackground: #5f93e7 !important;\r\n}\r\n.HomeTwo .one-tip li:hover a {\r\n\tcolor: #fff !important\r\n}\r\n.HomeTwo .one-tip li:hover a {\r\n\tcolor: #fff !important\r\n}\r\n.middleLeft {\r\n\tposition: relative;\r\n\tz-index: 999;\r\n\tpadding-top: 100px\r\n}\r\n\r\n/*@homeThree\r\n---------------------------------------------------------*/\r\n.HomeThree ul li  em {\r\n\tcolor: #dddddd;\r\n\tfont-size: 14px;\r\n}\r\n.HomeThree .mt-number-animate {\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tfont-size: 25px;\r\n\tfont-family: \"microsoft yahei\";\r\n\tfont-weight: normal;\r\n\toverflow: hidden;\r\n\tmargin: 0 auto;\r\n}\r\n.HomeThree .mt-number-animate-dot {\r\n\tline-height: 26px;\r\n\tcolor: #5f91e6;\r\n\tfloat: left;\r\n}\r\n.HomeThree .mt-number-animate-span {\r\n\tcolor: #5f91e6;\r\n\tfont-size: 30px;\r\n}\r\n.HomeThree  .mt-number-animate .mt-number-animate-dom {\r\n\twidth: 18px;\r\n\tfloat: left;\r\n}\r\n.HomeThree .icon-xiangshang:before {\r\n\tposition: absolute;\r\n\tright: -20px;\r\n\ttop: 5px;\r\n\tcolor: #f39800;\r\n\tfont-size: 12px;\r\n}\r\n\r\n/*@homeThree fixed\r\n---------------------------------------------------------*/\r\n.HomeThree {\r\n\twidth: 933px;\r\n\theight: 220px;\r\n\tmargin: 0 auto;\r\n}\r\n.HomeThree ul {\r\n\r\n\t/* \t// padding-right: 90px */\r\n}\r\n.HomeThree ul li {\r\n\twidth: 310px;\r\n\theight: 130px;\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\t/* padding-top: 35px; */\r\n\tposition: relative;\r\n}\r\n.HomeThree ul li div[class*=\"homeScroll\"] {\r\n\theight: auto;\r\n\tposition: relative;\r\n}", ""]);
 
 	// exports
 
@@ -49587,6 +49596,7 @@
 	  value: true
 	});
 	exports.gethomethreeRequest = gethomethreeRequest;
+	exports.gethometwoRequest = gethometwoRequest;
 	/* 首页数字滚动 start*/
 	var INDEX_HOMETHREE_SUCCESS = exports.INDEX_HOMETHREE_SUCCESS = 'INDEX_HOMETHREE_SUCCESS';
 	var INDEX_HOMETHREE_FAIL = exports.INDEX_HOMETHREE_FAIL = 'INDEX_HOMETHREE_FAIL';
@@ -49624,6 +49634,44 @@
 	  };
 	}
 	/* 首页数字滚动 end*/
+
+	/* 上海地图 start*/
+	var INDEX_HOMETWO_SUCCESS = exports.INDEX_HOMETWO_SUCCESS = 'INDEX_HOMETWO_SUCCESS';
+	var INDEX_HOMETWO_FAIL = exports.INDEX_HOMETWO_FAIL = 'INDEX_HOMETWO_FAIL';
+
+	function hometwoRequestSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: INDEX_HOMETWO_SUCCESS,
+	    result: result
+	  };
+	}
+	function hometwoRequestFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: INDEX_HOMETWO_FAIL,
+	    result: result
+	  };
+	}
+
+	function gethometwoRequest(json) {
+	  return function (dispatch) {
+	    console.log(json);
+	    $.ajax({
+	      url: "/areaCount.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(hometwoRequestSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(hometwoRequestFail(result));
+	      }
+	    });
+	  };
+	}
+	/* 上海地图 end*/
 
 /***/ },
 /* 630 */
@@ -49725,29 +49773,31 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	//
+	var Immutable = __webpack_require__(620);
 
 	var getRandomInScope = function getRandomInScope(min, max) {
 	    return Math.floor(min + Math.random() * (max - min));
 	};
 	//上海点的经纬度
 	var geoCoordMapShanghai = {
-	    "黄浦区": [121.491193, 31.237373],
-	    "浦东新区": [121.550543, 31.227391],
+	    "黄浦区": [121.491193, 31.217373],
+	    "浦东新区": [121.650543, 31.127391],
 	    "徐汇区": [121.442885, 31.194911],
-	    "长宁区": [121.430868, 31.426536],
+	    "长宁区": [121.360868, 31.196536],
 	    "静安区": [121.453978, 31.234087],
-	    "普陀区": [121.403, 31.2551],
-	    "虹口区": [121.511735, 31.270146],
-	    "杨浦区": [121.532291, 31.465779],
+	    "普陀区": [121.403529, 31.255102],
+	    "虹口区": [121.485735, 31.270146],
+	    "杨浦区": [121.532291, 31.265779],
 	    "闵行区": [121.388372, 31.118512],
-	    "宝山区": [121.495971, 31.410956],
-	    "嘉定区": [121.272804, 31.380475],
+	    "宝山区": [121.455971, 31.410956],
+	    "嘉定区": [121.272804, 31.380475], //
 	    "金山区": [121.348902, 30.747995],
 	    "松江区": [121.235472, 31.038175],
 	    "青浦区": [121.130784, 31.155521],
 	    "奉贤区": [121.480604, 30.923204],
-	    "崇明区": [121.4038180000, 31.6286640000]
+	    "崇明区": [121.526575, 31.667547],
+	    "闸北区": [121.439314, 31.287177]
+
 	};
 	var SHData = [[{ name: '浦东新区', value: 90 }, { name: '黄浦区' }], [{ name: '徐汇区', value: 80 }, { name: '黄浦区' }], //
 	[{ name: '长宁区', value: 70 }, { name: '黄浦区' }], //
@@ -49761,9 +49811,9 @@
 	[{ name: '松江区', value: 30 }, { name: '黄浦区' }], //
 	[{ name: '青浦区', value: 30 }, { name: '黄浦区' }], //
 	[{ name: '奉贤区', value: 30 }, { name: '黄浦区' }], //
-	[{ name: '崇明区', value: 30 }, { name: '黄浦区' }] //
-	];
-
+	[{ name: '崇明区', value: 30 }, { name: '黄浦区' }], [{ name: '嘉定区', value: 30 }, { name: '黄浦区' }], //
+	[{ name: '闸北区', value: 30 }, { name: '黄浦区' }]];
+	var ajaxData = null;
 	var convertData = function convertData(data) {
 	    var res = [];
 	    for (var i = 0; i < data.length; i++) {
@@ -49796,7 +49846,13 @@
 	                borderColor: "#fff",
 	                borderWidth: 2,
 	                formatter: function formatter(params) {
-	                    return params.name;
+	                    var num = "";
+	                    ajaxData.map(function (item, index) {
+	                        if (item.name == params.name) {
+	                            num = item.num;
+	                        }
+	                    });
+	                    return "<span>" + params.name + "</span><br><span>企业数量：<a href='#'>" + num + "</a></span>";
 	                }
 	            },
 	            legend: {
@@ -49929,7 +49985,7 @@
 	                },
 	                data: [{
 	                    name: "黄浦区",
-	                    value: [121.491193, 31.237373]
+	                    value: [121.491193, 31.217373]
 	                }]
 	            }, {
 	                type: 'map',
@@ -50035,6 +50091,12 @@
 	    },
 	    componentDidMount: function componentDidMount() {
 
+	        //请求ajax数据
+	        var gethometwoRequest = this.props.gethometwoRequest;
+
+	        var jsonData = {};
+	        gethometwoRequest(jsonData); //这里是要执行的
+
 	        this.initMap();
 
 	        $(window).resize(function (event) {
@@ -50049,17 +50111,26 @@
 	            $(this).attr("src", src.replace("white", "blue"));
 	        });
 
-	        //这一段的代码，是点击空白关闭菜单。后期来做。记得噢~
-	        // $(document).on("click",function(e){
-
-	        //   var myClass = $(e.target).attr("class");
-	        //   if(myClass!="one-tip"&&myClass!="list") {
-	        //      $(".one-tip").slideUp('400')
-	        //   }
-	        // })
+	        //这一段的代码，是点击空白关闭菜单      
+	        $(document).on("click", function (e) {
+	            if ($(e.target).closest('ul').attr("id") != "one-tip") {
+	                $(".one-tip").slideUp('400');
+	            }
+	        });
 	    },
-	    HomeTwoFirstPop: function HomeTwoFirstPop() {
-	        $(".one-tip").slideToggle('400');
+
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var isEqual = Immutable.is(nextProps.homeTwoResult, this.props.homeTwoResult);
+	        if (!isEqual) {
+	            var homeTwoRequest = nextProps.homeTwoRequest;
+	            var homeTwoResult = nextProps.homeTwoResult;
+	            // console.log(homeTwoResult,"fuck")
+
+	            ajaxData = homeTwoResult.content;
+	        }
+	    },
+	    HomeTwoFirstPop: function HomeTwoFirstPop(e) {
+	        $(e.currentTarget).siblings('ul').slideToggle('400');
 	    },
 
 	    //数据渲染
@@ -50089,7 +50160,7 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        'ul',
-	                        { className: 'one-tip' },
+	                        { className: 'one-tip one', id: 'one-tip' },
 	                        _react2.default.createElement(
 	                            'li',
 	                            null,
@@ -50195,8 +50266,8 @@
 	                    'div',
 	                    { className: 'list' },
 	                    _react2.default.createElement(
-	                        _reactRouter.Link,
-	                        { className: 'links', activeClassName: 'active', to: { pathname: HOME_PATH + "/parkMonitor" } },
+	                        'a',
+	                        { className: 'links', activeClassName: 'active', to: 'javascript:', onClick: this.HomeTwoFirstPop },
 	                        _react2.default.createElement(
 	                            'h2',
 	                            null,
@@ -50205,6 +50276,37 @@
 	                                'span',
 	                                null,
 	                                '园区监测平台'
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'ul',
+	                        { className: 'one-tip four', id: 'one-tip' },
+	                        _react2.default.createElement(
+	                            'li',
+	                            null,
+	                            _react2.default.createElement(
+	                                _reactRouter.Link,
+	                                { className: 'links', activeClassName: 'active', to: { pathname: HOME_PATH + "/parkMonitor?areaId=1122" } },
+	                                '浦东新区'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'li',
+	                            null,
+	                            _react2.default.createElement(
+	                                _reactRouter.Link,
+	                                { className: 'links', activeClassName: 'active', to: { pathname: HOME_PATH + "/parkMonitor?areaId=1111" } },
+	                                '黄浦区'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'li',
+	                            null,
+	                            _react2.default.createElement(
+	                                _reactRouter.Link,
+	                                { className: 'links', activeClassName: 'active', to: { pathname: HOME_PATH + "/parkMonitor?areaId=1117" } },
+	                                '虹口区'
 	                            )
 	                        )
 	                    )
@@ -83802,7 +83904,7 @@
 
 
 	// module
-	exports.push([module.id, "/*@整体布局(一级)\r\n------------------------------------------------------------------*/\r\n.realtime-index {\r\n}\r\n.realtime-index .realtime-top {\r\n\twidth: 100%;\r\n\theight: 65%;\r\n}\r\n.realtime-index .realtime-bottom {\r\n\twidth: 100%;\r\n\theight: 35%;\r\n}\r\n\r\n/*@整体布局(二级)\r\n------------------------------------------------------------------*/\r\n.realtime-index .realtime-top>div {\r\n\tfloat: left;\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tpadding: 10px;\r\n}\r\n.realtime-index .realtime-top .realtime-top-left {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-middle {\r\n\twidth: 44%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-right {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-left {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-top: 26px;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-right {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-left: 100px;\r\n\tpadding-top: 26px;\r\n\toverflow-y: hidden;\r\n}\r\n\r\n/*realtime-top-left(左边表格)  //pudong huangpu  hongkou\r\n------------------------------------------------------------------*/\r\n.realtime-top-left {\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-left  h4 {\r\n\tfont-size: 18px;\r\n\tline-height: 40px;\r\n}\r\n.realtime-top-left  .title li {\r\n\tfloat: left;\r\n\twidth: 25%;\r\n\ttext-align: center;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tborder: 1px solid;\r\n\tcursor: pointer;\r\n\tposition: relative;\r\n}\r\n.realtime-top-left  .title li.active:after {\r\n\tcontent: \"\";\r\n\tposition: absolute;\r\n\tbottom: -6px;\r\n\tleft: 0px;\r\n\twidth: 100%;\r\n\theight: 3px;\r\n\tbackground: #fff;\r\n\tz-index: 999;\r\n}\r\n.realtime-top-left  .title li:nth-child(1) {\r\n\tbackground: red\r\n}\r\n.realtime-top-left  .title li:nth-child(2) {\r\n\tbackground: #ebc900\r\n}\r\n.realtime-top-left  .title li:nth-child(3) {\r\n\tbackground: #32b16c\r\n}\r\n.realtime-top-left  .title li:nth-child(4) {\r\n\tbackground: #000\r\n}\r\n.realtime-top-left  .table-wrap {\r\n\twidth: 100%;\r\n\theight: 80%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA {\r\n\twidth: 100%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th {\r\n\theight: 40px;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(1) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(2) {\r\n\twidth: 60%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th .tbsLeft {\r\n\tfloat: left;\r\n\tpadding-left: 5%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th .thSpan {\r\n\tfloat: left;\r\n\tpadding-left: 15%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td {\r\n\tborder-bottom: 1px solid #3c404b;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td .tbsLeft {\r\n\tfloat: left;\r\n\tpadding-left: 5%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td .thSpan {\r\n\tfloat: left;\r\n\tpadding-left: 15%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox {\r\n\theight: 92%;\r\n\toverflow: auto;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(3) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB {\r\n\twidth: 100%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td {\r\n\theight: 40px;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(1) {\r\n\twidth: 20%;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(2) {\r\n\twidth: 60%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(3) {\r\n\twidth: 20%;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-left .color {\r\n\theight: 16px;\r\n\twidth: 60%;\r\n\tposition: absolute;\r\n\tbottom: 10px;\r\n\tleft: 50%;\r\n\ttransform: translateX(-50%);\r\n}\r\n.realtime-top-left .color img {\r\n\tdisplay: block;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*realtime-top-left(左边表格)\r\n------------------------------------------------------------------*/\r\n.realtime-top-right {\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-top-right .item {\r\n\twidth: 100%;\r\n\theight: 33.3%;\r\n}\r\n\r\n/*realtime-bottom-right(右下角)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-right {\r\n\toverflow: hidden;\r\n\tpadding-left: 20px\r\n}\r\n.realtime-bottom-right>h4 {\r\n\tcolor: #fff;\r\n\tline-height: 30px;\r\n\tfont-size: 16px;\r\n}\r\n.realtime-bottom-right ul {\r\n\theight: 100%;\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-bottom-right ul li {\r\n\theight: 134px;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-right ul li h4 {\r\n\tpadding: 15px 0px;\r\n\tfont-size: 14px;\r\n\tcolor: #e14340\r\n}\r\n.realtime-bottom-right ul li h4 a {\r\n\tcolor: #e14340 !important\r\n}\r\n.realtime-bottom-right ul li p {\r\n\tcolor: #fff;\r\n\tmargin-right: 10px;\r\n\toverflow: hidden;\r\n}\r\n.BottomRightP {\r\n\tdisplay: block;\r\n\theight: 41px;\r\n}\r\n.realtime-bottom-right ul li span {\r\n\tposition: absolute;\r\n\tright: 10px;\r\n\tbottom: 2px;\r\n\tcolor: #666;\r\n}\r\n.realtime-bottom-right ul li span p {\r\n\tdisplay: inline-block;\r\n}\r\n\r\n/*realtime-bottom-right(中间的大地图)\r\n------------------------------------------------------------------*/\r\n.realtime-top-middle #demo {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*上海地图的信息框*/\r\n.realtime-top-middle .info {\r\n\twidth: 160px;\r\n\theight: 70px;\r\n\tleft: 5%;\r\n\ttop: 5%;\r\n\tposition: absolute;\r\n\tz-index: 999;\r\n\tcursor: pointer;\r\n\toverflow: hidden;\r\n\tdisplay: none\r\n}\r\n.realtime-top-middle .info .info-left, .realtime-top-middle .info .info-right {\r\n\tfloat: left;\r\n\twidth: 50%;\r\n\theight: 100%;\r\n}\r\n.realtime-top-middle .info .info-left {\r\n\tpadding: 0px 3px 3px 0px;\r\n}\r\n.realtime-top-middle .info .info-right {\r\n\tbackground: #363e48;\r\n\tborder-radius: 3px;\r\n\tfont-size: 24px;\r\n\tcolor: #e14340;\r\n\tline-height: 70px;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-middle .info .info-left .title {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 34px;\r\n\tfont-size: 12px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 34px;\r\n\tborder-radius: 3px;\r\n}\r\n.realtime-top-middle .info .info-left .date {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 34px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 34px;\r\n\tmargin-top: 3px;\r\n\tborder-radius: 3px;\r\n\tfont-size: 12px;\r\n}\r\n\r\n/*上海地图的返回按钮*/\r\n.realtime-top-middle .return {\r\n\tbackground: linear-gradient(to bottom, #b96f6f 5%, red 50%, #f50202 100%);\r\n\tposition: absolute;\r\n\tbottom: 10%;\r\n\tleft: 3%;\r\n\tdisplay: none;\r\n}\r\n\r\n/*地下的长条信息框*/\r\n.realtime-top-middle .bar {\r\n\twidth: 98%;\r\n\theight: 40px;\r\n\tbackground: #282f39;\r\n\ttext-align: center;\r\n\tline-height: 40px;\r\n\tposition: absolute;\r\n\tbottom: 1%;\r\n\tfont-size: 12px;\r\n\tdisplay: none;\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-middle .bar .bar-content{\r\n\theight: 40px;\r\n\twidth: 90%;\r\n\toverflow: hidden;\r\n\tmargin-left: 10%;\r\n\tposition: relative;\r\n}\r\n.realtime-top-middle .carousel {\r\n\tposition: absolute;\r\n\ttop: 0;\r\n\tz-index: 999;\r\n\twidth: 100%;\r\n\tanimation-timing-function: linear;\r\n\tanimation: move-xc  20s infinite;\r\n}\r\n@keyframes move-xc {\r\n\tfrom {\r\n\t\tleft: 100%;\r\n\t}\r\n\tto {\r\n\t\tleft: -100%;\r\n\t}\r\n}\r\n.realtime-top-middle .bar img {\r\n\twidth: 30px;\r\n\theight: 30px;\r\n\tposition: absolute;\r\n\tleft: 5%;\r\n\ttop: 5px;\r\n}\r\n.darkRed {\r\n\tcolor: #e14340;\r\n\tpadding: 0px 5px;\r\n}\r\n\r\n/*tootips实验*/\r\n.testTo {\r\n\twidth: auto;\r\n\theight: auto;\r\n\tfont-size: 12px;\r\n\tcursor: pointer;\r\n}\r\n.testTo h4 {\r\n\tdisplay: inline-block;\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo label {\r\n\tdisplay: inline-block;\r\n\twidth: 60px;\r\n\theight: 18px;\r\n\tborder: 1px solid #fff;\r\n\ttext-align: center;\r\n\tvertical-align: middle;\r\n\tmargin-left: 20px;\r\n\ttext-align: center;\r\n\ttext-indent: 5px;\r\n\tline-height: 16px;\r\n\ttext-shadow: 1px 1px 1px #000;\r\n}\r\n.testTo p {\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo p span {\r\n\tcolor: yellow\r\n}\r\n.black {\r\n\tbackground: black;\r\n\tcolor: #fff !important\r\n}\r\n.green {\r\n\tbackground: green\r\n}\r\n.yellow {\r\n\tbackground: #ebc900;\r\n}\r\n.red {\r\n\tbackground: red;\r\n}\r\n.redFont {\r\n\tcolor: red !important;\r\n}\r\n.whiteFont {\r\n\tcolor: #fff !important;\r\n}\r\n\r\n/**/\r\n.testTo .tableH4 {\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n\tcolor: #ce3431;\r\n\tfont-size: 14px;\r\n\tfont-weight: bold;\r\n}\r\n.testTo table td {\r\n\tborder: 1px solid #1a2029;\r\n\ttext-align: center;\r\n\tpadding: 5px;\r\n}\r\n.testTo .tip-scroll {\r\n\twidth: 200px;\r\n\theight: 100px;\r\n\ttext-align: center;\r\n\toverflow-y: auto;\r\n}\r\n.testTo .tip-scroll  span {\r\n\tdisplay: block;\r\n\tpadding: 5px 0;\r\n}\r\n.testTo .nums {\r\n\tdisplay: block;\r\n\ttext-align: center;\r\n}\r\n\r\n/*realtime-bottom-rleft(线下理财)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-left {\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-left  .more {\r\n\tcolor: #fff;\r\n\tfont-size: 14px;\r\n\tposition: absolute;\r\n\ttop: 60px;\r\n\tright: 11%;\r\n\tz-index: 99999;\r\n}", ""]);
+	exports.push([module.id, "/*@整体布局(一级)\r\n------------------------------------------------------------------*/\r\n.realtime-index {\r\n}\r\n.realtime-index .realtime-top {\r\n\twidth: 100%;\r\n\theight: 65%;\r\n}\r\n.realtime-index .realtime-bottom {\r\n\twidth: 100%;\r\n\theight: 35%;\r\n}\r\n\r\n/*@整体布局(二级)\r\n------------------------------------------------------------------*/\r\n.realtime-index .realtime-top>div {\r\n\tfloat: left;\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tpadding: 10px;\r\n}\r\n.realtime-index .realtime-top .realtime-top-left {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-middle {\r\n\twidth: 44%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-right {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-left {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-top: 26px;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-right {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-left: 100px;\r\n\tpadding-top: 26px;\r\n\toverflow-y: hidden;\r\n}\r\n\r\n/*realtime-top-left(左边表格)  //pudong huangpu  hongkou\r\n------------------------------------------------------------------*/\r\n.realtime-top-left {\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-left  h4 {\r\n\tfont-size: 18px;\r\n\tline-height: 40px;\r\n}\r\n.realtime-top-left  .title li {\r\n\tfloat: left;\r\n\twidth: 25%;\r\n\ttext-align: center;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tborder: 1px solid;\r\n\tcursor: pointer;\r\n\tposition: relative;\r\n}\r\n.realtime-top-left  .title li.active:after {\r\n\tcontent: \"\";\r\n\tposition: absolute;\r\n\tbottom: -6px;\r\n\tleft: 0px;\r\n\twidth: 100%;\r\n\theight: 3px;\r\n\tbackground: #fff;\r\n\tz-index: 999;\r\n}\r\n.realtime-top-left  .title li:nth-child(1) {\r\n\tbackground: red\r\n}\r\n.realtime-top-left  .title li:nth-child(2) {\r\n\tbackground: #ebc900\r\n}\r\n.realtime-top-left  .title li:nth-child(3) {\r\n\tbackground: #32b16c\r\n}\r\n.realtime-top-left  .title li:nth-child(4) {\r\n\tbackground: #000\r\n}\r\n.realtime-top-left  .table-wrap {\r\n\twidth: 100%;\r\n\theight: 75%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA {\r\n\twidth: 100%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th {\r\n\theight: 40px;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(1) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(2) {\r\n\twidth: 60%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th .tbsLeft {\r\n\tfloat: left;\r\n\tpadding-left: 5%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th .thSpan {\r\n\tfloat: left;\r\n\tpadding-left: 15%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td {\r\n\tborder-bottom: 1px solid #3c404b;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td .tbsLeft {\r\n\tfloat: left;\r\n\tpadding-left: 5%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td .thSpan {\r\n\tfloat: left;\r\n\tpadding-left: 15%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox {\r\n\theight: 92%;\r\n\toverflow: auto;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(3) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB {\r\n\twidth: 100%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td {\r\n\theight: 40px;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(1) {\r\n\twidth: 20%;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(2) {\r\n\twidth: 60%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(3) {\r\n\twidth: 20%;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-left .color {\r\n\theight: 16px;\r\n\twidth: 60%;\r\n\tposition: absolute;\r\n\tbottom: 10px;\r\n\tleft: 50%;\r\n\ttransform: translateX(-50%);\r\n}\r\n.realtime-top-left .color img {\r\n\tdisplay: block;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n.realtime-top-left .mlBtn {\r\n\tdisplay: block;\r\n\tpadding: 4px 5px;\r\n\tfont-size: 13px;\r\n\tmargin: 37px auto;\r\n\tborder: none;\r\n\tborder-radius: 5px;\r\n\tbox-shadow: 0px 2px 4px #000;\r\n\ttext-shadow: 0px 1px 1px #000;\r\n\tcolor: #fff;\r\n\tbackground: -webkit-gradient(linear, left top, left bottom, from(#d66f6d), to(#a30f0d));\r\n\tbackground: -ms-gradient(linear, left top, left bottom, from(#d66f6d), to(#a30f0d));\r\n\tbackground: gradient(linear, left top, left bottom, from(#d66f6d), to(#a30f0d));\r\n}\r\n\r\n/*realtime-top-right(右侧的9个图)\r\n------------------------------------------------------------------*/\r\n.realtime-top-right {\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-top-right .item {\r\n\twidth: 100%;\r\n\theight: 33.3%;\r\n}\r\n\r\n/*realtime-bottom-right(右下角)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-right {\r\n\toverflow: hidden;\r\n\tpadding-left: 20px\r\n}\r\n.realtime-bottom-right>h4 {\r\n\tcolor: #fff;\r\n\tline-height: 30px;\r\n\tfont-size: 16px;\r\n}\r\n.realtime-bottom-right ul {\r\n\theight: 100%;\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-bottom-right ul li {\r\n\theight: 134px;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-right ul li h4 {\r\n\tpadding: 15px 0px;\r\n\tfont-size: 14px;\r\n\tcolor: #e14340\r\n}\r\n.realtime-bottom-right ul li h4 a {\r\n\tcolor: #e14340 !important\r\n}\r\n.realtime-bottom-right ul li p {\r\n\tcolor: #fff;\r\n\tmargin-right: 10px;\r\n\toverflow: hidden;\r\n}\r\n.BottomRightP {\r\n\tdisplay: block;\r\n\theight: 41px;\r\n}\r\n.realtime-bottom-right ul li span {\r\n\tposition: absolute;\r\n\tright: 10px;\r\n\tbottom: 2px;\r\n\tcolor: #666;\r\n}\r\n.realtime-bottom-right ul li span p {\r\n\tdisplay: inline-block;\r\n}\r\n\r\n/*realtime-bottom-right(中间的大地图)\r\n------------------------------------------------------------------*/\r\n.realtime-top-middle #demo {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*上海地图的信息框*/\r\n.realtime-top-middle .info {\r\n\twidth: 160px;\r\n\theight: 70px;\r\n\tleft: 5%;\r\n\ttop: 5%;\r\n\tposition: absolute;\r\n\tz-index: 999;\r\n\tcursor: pointer;\r\n\toverflow: hidden;\r\n\tdisplay: none\r\n}\r\n.realtime-top-middle .info .info-left, .realtime-top-middle .info .info-right {\r\n\tfloat: left;\r\n\twidth: 50%;\r\n\theight: 100%;\r\n}\r\n.realtime-top-middle .info .info-left {\r\n\tpadding: 0px 3px 3px 0px;\r\n}\r\n.realtime-top-middle .info .info-right {\r\n\tbackground: #363e48;\r\n\tborder-radius: 3px;\r\n\tfont-size: 24px;\r\n\tcolor: #e14340;\r\n\tline-height: 70px;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-middle .info .info-left .title {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 34px;\r\n\tfont-size: 12px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 34px;\r\n\tborder-radius: 3px;\r\n}\r\n.realtime-top-middle .info .info-left .date {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 34px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 34px;\r\n\tmargin-top: 3px;\r\n\tborder-radius: 3px;\r\n\tfont-size: 12px;\r\n}\r\n\r\n/*上海地图的返回按钮*/\r\n.realtime-top-middle .return {\r\n\tbackground: linear-gradient(to bottom, #b96f6f 5%, red 50%, #f50202 100%);\r\n\tposition: absolute;\r\n\tbottom: 10%;\r\n\tleft: 3%;\r\n\tdisplay: none;\r\n}\r\n\r\n/*地下的长条信息框*/\r\n.realtime-top-middle .bar {\r\n\twidth: 98%;\r\n\theight: 40px;\r\n\tbackground: #282f39;\r\n\ttext-align: center;\r\n\tline-height: 40px;\r\n\tposition: absolute;\r\n\tbottom: 1%;\r\n\tfont-size: 12px;\r\n\tdisplay: none;\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-middle .bar .bar-content {\r\n\theight: 40px;\r\n\twidth: 90%;\r\n\toverflow: hidden;\r\n\tmargin-left: 10%;\r\n\tposition: relative;\r\n}\r\n.realtime-top-middle .carousel {\r\n\tposition: absolute;\r\n\ttop: 0;\r\n\tz-index: 999;\r\n\twidth: 100%;\r\n\tanimation-timing-function: linear;\r\n\tanimation: move-xc  20s infinite;\r\n}\r\n@keyframes move-xc {\r\n\tfrom {\r\n\t\tleft: 100%;\r\n\t}\r\n\tto {\r\n\t\tleft: -100%;\r\n\t}\r\n}\r\n.realtime-top-middle .bar img {\r\n\twidth: 30px;\r\n\theight: 30px;\r\n\tposition: absolute;\r\n\tleft: 5%;\r\n\ttop: 5px;\r\n\tpadding-right: 20px;\r\n\tbox-sizing: content-box;\r\n\tbackground: #282f39;\r\n\tz-index: 9999;\r\n}\r\n.darkRed {\r\n\tcolor: #e14340;\r\n\tpadding: 0px 5px;\r\n}\r\n\r\n/*tootips实验*/\r\n.testTo {\r\n\twidth: auto;\r\n\theight: auto;\r\n\tfont-size: 12px;\r\n\tcursor: pointer;\r\n}\r\n.testTo h4 {\r\n\tdisplay: inline-block;\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo label {\r\n\tdisplay: inline-block;\r\n\twidth: 60px;\r\n\theight: 18px;\r\n\tborder: 1px solid #fff;\r\n\ttext-align: center;\r\n\tvertical-align: middle;\r\n\tmargin-left: 20px;\r\n\ttext-align: center;\r\n\ttext-indent: 5px;\r\n\tline-height: 16px;\r\n\ttext-shadow: 1px 1px 1px #000;\r\n}\r\n.testTo p {\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo p span {\r\n\tcolor: yellow\r\n}\r\n.black {\r\n\tbackground: black;\r\n\tcolor: #fff !important\r\n}\r\n.green {\r\n\tbackground: green\r\n}\r\n.yellow {\r\n\tbackground: #ebc900;\r\n}\r\n.red {\r\n\tbackground: red;\r\n}\r\n.redFont {\r\n\tcolor: red !important;\r\n}\r\n.whiteFont {\r\n\tcolor: #fff !important;\r\n}\r\n\r\n/**/\r\n.testTo .tableH4 {\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n\tcolor: #ce3431;\r\n\tfont-size: 14px;\r\n\tfont-weight: bold;\r\n}\r\n.testTo table td {\r\n\tborder: 1px solid #1a2029;\r\n\ttext-align: center;\r\n\tpadding: 5px;\r\n}\r\n.testTo .tip-scroll {\r\n\twidth: 200px;\r\n\theight: 100px;\r\n\ttext-align: center;\r\n\toverflow-y: auto;\r\n}\r\n.testTo .tip-scroll  span {\r\n\tdisplay: block;\r\n\tpadding: 5px 0;\r\n}\r\n.testTo .nums {\r\n\tdisplay: block;\r\n\ttext-align: center;\r\n}\r\n.switchDirection {\r\n\tdisplay: block;\r\n\tposition: absolute;\r\n\tbottom: 50px;\r\n\tleft: 50px;\r\n\tz-index: 999;\r\n\tpadding: 4px 5px;\r\n\tfont-size: 13px;\r\n\tmargin: 37px auto;\r\n\tborder: none;\r\n\tborder-radius: 5px;\r\n\tbox-shadow: 0px 2px 4px #000;\r\n\ttext-shadow: 0px 1px 1px #000;\r\n\tcolor: #fff;\r\n\tbackground: -webkit-gradient(linear, left top, left bottom, from(#d66f6d), to(#a30f0d));\r\n\tbackground: -ms-gradient(linear, left top, left bottom, from(#d66f6d), to(#a30f0d));\r\n\tbackground: gradient(linear, left top, left bottom, from(#d66f6d), to(#a30f0d));\r\n}\r\n\r\n/*realtime-bottom-rleft(线下理财)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-left {\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-left  .more {\r\n\tcolor: #fff;\r\n\tfont-size: 14px;\r\n\tposition: absolute;\r\n\ttop: 60px;\r\n\tright: 11%;\r\n\tz-index: 99999;\r\n}", ""]);
 
 	// exports
 
@@ -83950,6 +84052,7 @@
 
 	          });
 	        } else {
+
 	          alert(404);
 	        }
 	      }
@@ -83961,9 +84064,13 @@
 	    var _this = this;
 	    var range = $(e.target).data("range");
 	    var fixRange = $(e.target).attr("data-a");
+	    var limit = Number($(e.target).attr("data-limit")) - 1; // 获取每一个表格限制初始化显示多少条数据
+
+	    //redux传值给中间的地图
 	    var getLSITSwitchVal = _this.props.getLSITSwitchVal;
 
 	    getLSITSwitchVal(fixRange);
+
 	    var threeContent = range == 1 ? "2014/3/3" : parseInt(Math.random() * 5000);
 	    var threeTitle = range == 1 ? "风险暴露日期" : "注册资本(万元)";
 	    function setTable() {
@@ -84016,6 +84123,10 @@
 	                'tbody',
 	                null,
 	                tableDate.content[fixRange - 1].map(function (elem, index) {
+	                  if (index > limit) {
+
+	                    return false;
+	                  }
 	                  //因为表格第四个tab的数据格式不一样，为日期，所以需要判断
 	                  var three = fixRange - 1 == 3 ? elem.exposureDate : elem.registered_capital;
 	                  return _react2.default.createElement(
@@ -84054,14 +84165,131 @@
 	            )
 	          )
 	        )
+	      }, function () {
+	        $(".mlBtn").text("查看更多");
 	      });
 	    }
+	    setTable();
+	    /*    function getRange(){
+	          // _this.props.getRange(range);//因为这个函数会触发componentWillReceiveProps。所以说如果它后执行的话，table就会还原上上面的逻辑
+	          setTable()
+	        }
+	        setTimeout(getRange,0)*/
+	  },
 
-	    function getRange() {
-	      // _this.props.getRange(range);//因为这个函数会触发componentWillReceiveProps。所以说如果它后执行的话，table就会还原上上面的逻辑
-	      setTable();
+	  //老夫预言，此处功能必改，此方法最好与上一个方法合并
+	  shrink: function shrink(e) {
+	    var btnState = $(".mlBtn").data("z"); //more && less
+	    var fixRange = $(".title .active").attr("data-a"); // 当前是第几个表格，取第几个content
+	    var range = $(".title .active").attr("data-range"); // 判断表头的数据
+	    var limit = Number($(".title .active").attr("data-limit")) - 1; // 获取每一个表格限制初始化显示多少条数据
+	    var threeContent = range == 1 ? "2014/3/3" : parseInt(Math.random() * 5000);
+	    var threeTitle = range == 1 ? "风险暴露日期" : "注册资本(万元)";
+	    var state = null;
+	    if ($(".mlBtn").text() == "查看更多") {
+	      state = true;
+	      $(".mlBtn").text("收起");
+	    } else if ($(".mlBtn").text() == "收起") {
+	      state = false;
+	      $(".mlBtn").text("查看更多");
 	    }
-	    setTimeout(getRange, 0);
+	    this.setState({
+	      table: _react2.default.createElement(
+	        'div',
+	        { className: 'table-wrap' },
+	        _react2.default.createElement(
+	          'table',
+	          { className: 'tbsA' },
+	          _react2.default.createElement(
+	            'thead',
+	            null,
+	            _react2.default.createElement(
+	              'tr',
+	              null,
+	              _react2.default.createElement(
+	                'th',
+	                null,
+	                _react2.default.createElement(
+	                  'span',
+	                  { className: 'thSpan' },
+	                  '序号'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'th',
+	                null,
+	                _react2.default.createElement(
+	                  'span',
+	                  { className: 'tbsLeft' },
+	                  '公司名字'
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'th',
+	                null,
+	                threeTitle
+	              )
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'tbsBox', id: 'platformBase-scroll' },
+	          _react2.default.createElement(
+	            'table',
+	            { className: 'tbsB' },
+	            _react2.default.createElement(
+	              'tbody',
+	              null,
+	              tableDate.content[fixRange - 1].map(function (elem, index) {
+	                if (!state) {
+
+	                  if (index > limit) {
+
+	                    return false;
+	                  }
+	                }
+	                //因为表格第四个tab的数据格式不一样，为日期，所以需要判断
+	                var three = fixRange - 1 == 3 ? elem.exposureDate : elem.registered_capital;
+	                return _react2.default.createElement(
+	                  'tr',
+	                  { key: index },
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      'span',
+	                      { className: 'thSpan' },
+	                      index + 1
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    _react2.default.createElement(
+	                      'span',
+	                      { className: 'tbsLeft', title: elem.name },
+	                      _react2.default.createElement(
+	                        'a',
+	                        { style: { color: "#fff" }, href: "/#/SearchResultDetail?companyName=" + elem.name },
+	                        elem.name
+	                      )
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    'td',
+	                    null,
+	                    three
+	                  )
+	                );
+	              })
+	            )
+	          )
+	        )
+	      )
+	    }, function () {
+	      //setState回调里处理按钮状态
+	    });
 	  },
 	  render: function render() {
 	    return _react2.default.createElement(
@@ -84077,22 +84305,22 @@
 	        { className: 'title', onClick: this.titleRange },
 	        _react2.default.createElement(
 	          'li',
-	          { 'data-range': '4', 'data-a': '1', className: 'active' },
+	          { 'data-range': '4', 'data-a': '1', 'data-limit': '50', className: 'active' },
 	          '重点关注'
 	        ),
 	        _react2.default.createElement(
 	          'li',
-	          { 'data-range': '3', 'data-a': '2', className: '' },
+	          { 'data-range': '3', 'data-a': '2', 'data-limit': '200', className: '' },
 	          '一般关注'
 	        ),
 	        _react2.default.createElement(
 	          'li',
-	          { 'data-range': '2', 'data-a': '3', className: '' },
+	          { 'data-range': '2', 'data-a': '3', 'data-limit': '200', className: '' },
 	          '正常'
 	        ),
 	        _react2.default.createElement(
 	          'li',
-	          { 'data-range': '1', 'data-a': '4', className: '' },
+	          { 'data-range': '1', 'data-a': '4', 'data-limit': '50', className: '' },
 	          '已出风险'
 	        )
 	      ),
@@ -84101,6 +84329,11 @@
 	        'div',
 	        { className: 'color' },
 	        _react2.default.createElement('img', { src: './images/bar.png', alt: '' })
+	      ),
+	      _react2.default.createElement(
+	        'button',
+	        { onClick: this.shrink, 'data-z': 'more', className: 'mlBtn' },
+	        '查看更多'
 	      )
 	    );
 	  }
@@ -84131,10 +84364,14 @@
 
 	var Immutable = __webpack_require__(620);
 
+	//因为中国地图要实时变化数据，所以把中国地图的option设置成全局
+	var chinaOption;
 	//抽离出来的地图实例
 	var chartChina, chartShanghai;
 	//用来保存ajax返回的地图数据
 	var ajaxDataChina, ajaxDataSH;
+	//中国地图(线)的初始数据
+	var SHData;
 	//存储上海的经纬度
 	var SHposition = {};
 	var option;
@@ -84322,10 +84559,11 @@
 	    mapChina: function mapChina() {
 	        var _this = this;
 	        var res = [];
-	        var SHData = ajaxDataChina.content.SHData; //中国地图线的数据
+	        //中国地图线的数据
+	        SHData = ajaxDataChina.content.SHData;
 	        var color = ['#facd89', '#ffa022', '#46bee9'];
 	        chartChina = echarts.init(document.getElementById("demo"));
-	        var option = {
+	        chinaOption = {
 	            backgroundColor: 'none',
 	            title: {
 	                left: 'center',
@@ -84364,7 +84602,7 @@
 	            series: [{ //线
 	                name: "",
 	                type: 'lines',
-	                zlevel: 1,
+	                zlevel: 3,
 	                effect: {
 	                    show: true,
 	                    period: 6,
@@ -84439,7 +84677,7 @@
 	                name: "",
 	                type: 'effectScatter',
 	                coordinateSystem: 'geo',
-	                zlevel: 2,
+	                zlevel: 10,
 	                rippleEffect: {
 	                    brushType: 'stroke'
 	                },
@@ -84464,7 +84702,7 @@
 	                }]
 	            }]
 	        };
-	        chartChina.setOption(option);
+	        chartChina.setOption(chinaOption);
 	        _this.setState({
 	            mapeType: "china"
 	        });
@@ -84473,6 +84711,7 @@
 	                this.dispose();
 	                _this.mapShanghai();
 	                $(".realtime-top-middle .info,.realtime-top-middle .return,.realtime-top-middle .bar").show();
+	                $(".switchDirection").hide();
 	            }
 	            _this.NewsScroll();
 	        });
@@ -84752,6 +84991,7 @@
 	        $(".realtime-top-middle").on("click", ".return", function () {
 	            chartShanghai.dispose();
 	            _this.mapChina();
+	            $(".switchDirection").show();
 	            $(".realtime-top-middle .info,.realtime-top-middle .return,.realtime-top-middle .bar").hide();
 	        });
 	    },
@@ -84867,7 +85107,7 @@
 	                $(".carousel").css("left", barWidth + "px");
 	            });
 
-	            setTimeout(scroll, 20000); //
+	            setTimeout(scroll, 20000);
 	        }
 	    },
 	    render: function render() {
@@ -84875,6 +85115,11 @@
 	            'div',
 	            { className: 'realtime-top-middle' },
 	            _react2.default.createElement('div', { id: 'demo' }),
+	            _react2.default.createElement(
+	                'button',
+	                { className: 'switchDirection' },
+	                '切换投资方向'
+	            ),
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'info' },
@@ -86478,6 +86723,10 @@
 
 	var _homeThree2 = _interopRequireDefault(_homeThree);
 
+	var _homeTwo = __webpack_require__(1309);
+
+	var _homeTwo2 = _interopRequireDefault(_homeTwo);
+
 	var _infoSearch = __webpack_require__(995);
 
 	var _infoSearch2 = _interopRequireDefault(_infoSearch);
@@ -86553,55 +86802,85 @@
 	/*企业全息信息查询平台 begin*/
 
 
-	//头部搜索值传递
+	/*预付卡 end*/
 
-	//动态风险模块 begein
-
-
-	//线下理财搜索结果页
+	/*首页 begin*/
 
 
-	//楼宇详情页
+	/*线下理财监测 end*/
 
-	//取得合规意见或经过会商的交易场所详情列表
+	/*预付卡 begin*/
+
+
+	/*静态风险*/
+
+	/*商业保理监测 end*/
+
+	/*线下理财监测 start*/
+	//线下理财首页
+
+
+	/*众筹监测 end*/
+
+	/*商业保理监测 begin*/
+
+
+	//园区首页
+
+	/*实时监测 end*/
+
+	//园区
+
+	//企业占比对比
+
+	//企业目录列表
+
+	/*实时监测 begin*/
+
+	/*=================================交易场所监测=================================*/
+
+	/*=================================融资租赁=================================*/
+	//典当法人企业数
 
 	//交易场所清理整顿分类
 
-	/*=================================典当行业监测=================================*/
+	//上海市典当企业目录
 
-	/*=================================交易场所监测=================================*/
-	//黄浦区交易场所列表
+	//列表
+
+	//6月上海各类众筹平台新增项目数
+
+	/*====================================私募基金===============================*/
 
 	/*=================================众筹监测=================================*/
+	//业务类型
 
-	/*=================================典当行业监测=================================*/
-	//所有图标
+	//私募基金分类
 
-	//6月上海各类众筹平台新增项目数的成功筹资金额
-
-	//6月上海各类众筹平台新增项目的投资人次
-
-	//私募股权基本情况
-
-	//私募证券基本情况
-
-	//QFLP试点企业最新进展
-
-	//动态图谱
-
-	//诉讼信息
-
-	//核心数据
-
-	/*====================================P2P平台监测============================*/
 
 	/*====================================p2p画像平台============================*/
-	//基本信息
 
-	//网贷平台数据展示
+	/*====================================私募基金===============================*/
+	//QDLP试点企业最新进展
+
+	//评分雷达图
+
+	//平台舆情
+
+	//公司基本信息
+
+	//p2p图表
 
 
-	//融资担保
+	/*====================================P2P平台监测============================*/
+	//上海区域发展指数排名
+
+
+	/*行业监测模块*/
+	//小额贷款
+
+
+	/*登录*/
 	var rootReducer = (0, _redux.combineReducers)({
 	  Login: _login2.default,
 	  LoginName: _LoginName2.default,
@@ -86747,6 +87026,7 @@
 
 	  //首页
 	  homeThree: _homeThree2.default,
+	  homeTwo: _homeTwo2.default,
 	  /*企业全息begin*/
 	  //首页
 	  infoSearch: _infoSearch2.default,
@@ -86778,85 +87058,55 @@
 	//详情
 
 
-	/*预付卡 end*/
+	//头部搜索值传递
 
-	/*首页 begin*/
-
-
-	/*线下理财监测 end*/
-
-	/*预付卡 begin*/
+	//动态风险模块 begein
 
 
-	/*静态风险*/
-
-	/*商业保理监测 end*/
-
-	/*线下理财监测 start*/
-	//线下理财首页
+	//线下理财搜索结果页
 
 
-	/*众筹监测 end*/
+	//楼宇详情页
 
-	/*商业保理监测 begin*/
-
-
-	//园区首页
-
-	/*实时监测 end*/
-
-	//园区
-
-	//企业占比对比
-
-	//企业目录列表
-
-	/*实时监测 begin*/
-
-	/*=================================交易场所监测=================================*/
-
-	/*=================================融资租赁=================================*/
-	//典当法人企业数
+	//取得合规意见或经过会商的交易场所详情列表
 
 	//交易场所清理整顿分类
 
-	//上海市典当企业目录
+	/*=================================典当行业监测=================================*/
 
-	//列表
-
-	//6月上海各类众筹平台新增项目数
-
-	/*====================================私募基金===============================*/
+	/*=================================交易场所监测=================================*/
+	//黄浦区交易场所列表
 
 	/*=================================众筹监测=================================*/
-	//业务类型
 
-	//私募基金分类
+	/*=================================典当行业监测=================================*/
+	//所有图标
 
+	//6月上海各类众筹平台新增项目数的成功筹资金额
 
-	/*====================================p2p画像平台============================*/
+	//6月上海各类众筹平台新增项目的投资人次
 
-	/*====================================私募基金===============================*/
-	//QDLP试点企业最新进展
+	//私募股权基本情况
 
-	//评分雷达图
+	//私募证券基本情况
 
-	//平台舆情
+	//QFLP试点企业最新进展
 
-	//公司基本信息
+	//动态图谱
 
-	//p2p图表
+	//诉讼信息
 
+	//核心数据
 
 	/*====================================P2P平台监测============================*/
-	//上海区域发展指数排名
+
+	/*====================================p2p画像平台============================*/
+	//基本信息
+
+	//网贷平台数据展示
 
 
-	/*行业监测模块*/
-	//小额贷款
-
-
-	/*登录*/
+	//融资担保
 	exports.default = rootReducer;
 
 /***/ },
@@ -99733,6 +99983,44 @@
 	    return String(it).replace(regExp, replacer);
 	  };
 	};
+
+/***/ },
+/* 1309 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = homeTwo;
+
+	var _IndexAction = __webpack_require__(629);
+
+	function homeTwo() {
+	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
+	        request: false,
+	        result: {}
+	    } : arguments[0];
+	    var action = arguments[1];
+
+	    switch (action.type) {
+	        case _IndexAction.INDEX_HOMETWO_SUCCESS:
+	            //请求成功！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        case _IndexAction.INDEX_HOMETWO_FAIL:
+	            //请求失败！
+	            return Object.assign({}, state, {
+	                request: true,
+	                result: action.result
+	            });
+	        default:
+	            return state;
+	    }
+	}
 
 /***/ }
 /******/ ]);

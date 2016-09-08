@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
 import java.util.Set;
@@ -28,9 +29,13 @@ public class SyncDataController {
 
     @RequestMapping(value = "receiveData.do")
     @ResponseBody
-    public ResponseBean getScanner(@RequestParam(required = false) String syncData) {
-        String string = syncDataService.receiveData(syncData);
-        return ResponseBean.successResponse(string);
+    public ResponseBean getScanner(MultipartFile file) {
+        try {
+            syncDataService.receiveFileData(file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseBean.successResponse("");
     }
 
 }
