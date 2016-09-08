@@ -80275,13 +80275,6 @@
 
 	        var isEqual = Immutable.is(nextProps.CompanyLabelResult, this.props.CompanyLabelResult); //判断数据是否变化
 	        if (!isEqual) {
-	            // var allData = [];
-	            //  allData.push(nextProps.CompanyLabelResult.content.status)
-	            //  allData.push(...nextProps.CompanyLabelResult.content.backgroud)
-	            //  allData.push(nextProps.CompanyLabelResult.content.analysisResult)
-	            //  this.setState({
-	            //     companyTag:allData
-	            //  }) 
 	            var CompanyLabelRequest = nextProps.CompanyLabelRequest;
 	            var CompanyLabelResult = nextProps.CompanyLabelResult;
 
@@ -80324,11 +80317,12 @@
 	    dataFomatCompanyType: function dataFomatCompanyType(data) {
 	        var content = data.content;
 	        var companyType = "";
+	        var platName = "";
 	        if (content) {
 	            companyType = content.companyType;
+	            platName = content.platName;
 	        }
-	        console.log(companyType, 'xuyao');
-	        this.setState({ companyType: companyType });
+	        this.setState({ companyType: companyType, platName: platName });
 	    },
 	    pageScroll: function pageScroll() {
 	        $('html, body').animate({ scrollTop: 0 }, 'slow');
@@ -80347,14 +80341,14 @@
 	        var seeRiskBtn = "";
 	        if (companyType == 4) {
 	            seeRiskBtn = _react2.default.createElement(
-	                'a',
-	                { href: '', className: 'see-risk' },
+	                _reactRouter.Link,
+	                { to: '/lineFinanceStaticRisk?companyName=' + companyName, className: 'see-risk' },
 	                '查看风险'
 	            );
 	        } else if (companyType == 1) {
 	            seeRiskBtn = _react2.default.createElement(
-	                'a',
-	                { href: '', className: 'see-risk' },
+	                _reactRouter.Link,
+	                { to: '/Portrait?platName=' + platName, className: 'see-risk' },
 	                '查看风险'
 	            );
 	        } else {
