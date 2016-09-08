@@ -1,5 +1,6 @@
 package com.bbd.wtyh.service;
 
+import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.bbdAPI.*;
 
 import java.util.List;
@@ -106,4 +107,6 @@ public interface HologramQueryService {
     RecruitPeopleSalaryDO recruitPeopleSalary(String company);
 
     BaiDuYuQingDO newsConsensusList(String company);
+
+    CompanyDO tag(String company);
 }

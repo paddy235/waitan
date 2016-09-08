@@ -65,6 +65,16 @@ public class CompanyDO extends BaseDO implements Comparable {
     //公司风险等级
     private Integer riskLevel;
 
+    // 平台名称
+    private String platName;
+
+    public String getPlatName() {
+        return platName;
+    }
+
+    public void setPlatName(String platName) {
+        this.platName = platName;
+    }
 
     public void setBackgroundCN(String backgroundCN) {
         this.backgroundCN = backgroundCN;

@@ -1,5 +1,6 @@
 package com.bbd.wtyh.web.controller;
 
+import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.bbdAPI.*;
 import com.bbd.wtyh.service.HologramQueryService;
 import com.bbd.wtyh.web.ResponseBean;
@@ -191,6 +192,18 @@ public class HologramQueryController {
     @ResponseBody
     public ResponseBean recruitPeopleSalary(@RequestParam(required = true) String company) {
         RecruitPeopleSalaryDO result = hologramQueryService.recruitPeopleSalary(company);
+        return ResponseBean.successResponse(result);
+    }
+
+    /**
+     * 企业标签
+     *
+     * @return
+     */
+    @RequestMapping("/tag")
+    @ResponseBody
+    public ResponseBean tag(@RequestParam(required = true) String company) {
+        CompanyDO result = hologramQueryService.tag(company);
         return ResponseBean.successResponse(result);
     }
 

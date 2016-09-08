@@ -2,12 +2,14 @@ package com.bbd.wtyh.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.bbd.wtyh.dao.HologramQueryDao;
+import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.bbdAPI.*;
 import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.CourtAnnouncementDO;
 import com.bbd.wtyh.domain.bbdAPI.IndustryCodeDO;
-import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
+import com.bbd.wtyh.mapper.CompanyMapper;
+import com.bbd.wtyh.mapper.PlatformNameInformationMapper;
 import com.bbd.wtyh.service.DataomApiBbdservice;
 import com.bbd.wtyh.service.HologramQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,13 @@ public class HologramQueryServiceImpl implements HologramQueryService {
     @Autowired
     private DataomApiBbdservice dabservice;
 
+    @Autowired
+    private CompanyMapper companyMapper;
+
+    @Autowired
+    private PlatformNameInformationMapper platformNameInformationMapper;
+
+
     @Override
     public SearchComanyDO search(String company, int page_no, int page_size) {
         return hologramQueryDao.search(company, page_no - 1, page_size); // page_no减1是因为数据平台首页从0开始
@@ -51,10 +60,10 @@ public class HologramQueryServiceImpl implements HologramQueryService {
         BaseDataDO baseDataDO = hologramQueryDao.outlineMsg(company);
         Map<String, Object> data = new HashMap<>();
         for (BaseDataDO.Results result : baseDataDO.getResults()) {
-            data.put("公司名称",result.getJbxx().getCompany_name());
-            data.put("法定代表人",result.getJbxx().getFrname());
-            data.put("注册资本",result.getJbxx().getRegcap());
-            data.put("注册地址",result.getJbxx().getAddress());
+            data.put("公司名称", result.getJbxx().getCompany_name());
+            data.put("法定代表人", result.getJbxx().getFrname());
+            data.put("注册资本", result.getJbxx().getRegcap());
+            data.put("注册地址", result.getJbxx().getAddress());
         }
         BBDLogoDO bbdLogoDO = hologramQueryDao.bbdLogo(company);
         for (BBDLogoDO.Result result : bbdLogoDO.getResults()) {
@@ -67,9 +76,9 @@ public class HologramQueryServiceImpl implements HologramQueryService {
     public Map<String, Object> newsConsensus(String company) {
         BaiDuYuQingDO baiDuYuQingDO = hologramQueryDao.newsConsensus(company);
 
-        if(StringUtils.hasText(baiDuYuQingDO.getTotal()) || "0".equals(baiDuYuQingDO.getTotal().trim())){
+        if (StringUtils.hasText(baiDuYuQingDO.getTotal()) || "0".equals(baiDuYuQingDO.getTotal().trim())) {
             String data = dabservice.bbdQyxgYuqing("上海");
-            baiDuYuQingDO = JSON.parseObject(data,BaiDuYuQingDO.class);
+            baiDuYuQingDO = JSON.parseObject(data, BaiDuYuQingDO.class);
         }
 
         Map<String, Object> data = new HashMap<>();
@@ -88,10 +97,14 @@ public class HologramQueryServiceImpl implements HologramQueryService {
         return baiDuYuQingDO;
     }
 
-
-
-
-
+    @Override
+    public CompanyDO tag(String company) {
+        CompanyDO companyDO = companyMapper.queryCompanyByName(company);
+        if (companyDO != null) {
+            companyDO.setPlatName(platformNameInformationMapper.getPlatName(company) == null ? "" : platformNameInformationMapper.getPlatName(company));
+        }
+        return companyDO;
+    }
 
 
     @Override
@@ -103,20 +116,20 @@ public class HologramQueryServiceImpl implements HologramQueryService {
             data.put("组织机构代码", result.getJgdm());
         }
         for (BaseDataDO.Results result : baseDataDO.getResults()) {
-            data.put("法定代表人",result.getJbxx().getFrname());
-            data.put("注册资本",result.getJbxx().getRegcap());
-            data.put("状态",result.getJbxx().getEnterprise_status());
-            data.put("注册时间",result.getJbxx().getEsdate());
-            data.put("工商注册号",result.getJbxx().getRegno());
-            data.put("企业类型",result.getJbxx().getCompany_type());
-            data.put("营业期限",result.getJbxx().getOperating_period());
-            data.put("登记机关",result.getJbxx().getRegorg());
-            data.put("核准日期",result.getJbxx().getApproval_date());
-            data.put("统一信用代码",result.getJbxx().getCredit_code());
-            data.put("经营范围",result.getJbxx().getOperate_scope());
+            data.put("法定代表人", result.getJbxx().getFrname());
+            data.put("注册资本", result.getJbxx().getRegcap());
+            data.put("状态", result.getJbxx().getEnterprise_status());
+            data.put("注册时间", result.getJbxx().getEsdate());
+            data.put("工商注册号", result.getJbxx().getRegno());
+            data.put("企业类型", result.getJbxx().getCompany_type());
+            data.put("营业期限", result.getJbxx().getOperating_period());
+            data.put("登记机关", result.getJbxx().getRegorg());
+            data.put("核准日期", result.getJbxx().getApproval_date());
+            data.put("统一信用代码", result.getJbxx().getCredit_code());
+            data.put("经营范围", result.getJbxx().getOperate_scope());
             for (IndustryCodeDO in : IndustryCodeDO.values()) {
                 if (String.valueOf(in).equals(String.valueOf(result.getJbxx().getCompany_industry()))) {
-                    data.put("行业",in.getValue());
+                    data.put("行业", in.getValue());
                 }
             }
         }
@@ -131,16 +144,16 @@ public class HologramQueryServiceImpl implements HologramQueryService {
             List<Map> list1 = new ArrayList<>();
             for (BaseDataDO.Gdxx gdxx : result.getGdxx()) {
                 Map<String, Object> data = new LinkedHashMap<>();
-                data.put("shareholder_name",gdxx.getShareholder_name());
-                data.put("shareholder_type",gdxx.getShareholder_type());
+                data.put("shareholder_name", gdxx.getShareholder_name());
+                data.put("shareholder_type", gdxx.getShareholder_type());
                 list1.add(data);
             }
             content.put("gdxx", list1);
             List<Map> list2 = new ArrayList<>();
             for (BaseDataDO.Baxx baxx : result.getBaxx()) {
                 Map<String, Object> data = new LinkedHashMap<>();
-                data.put("name",baxx.getName());
-                data.put("position",baxx.getPosition());
+                data.put("name", baxx.getName());
+                data.put("position", baxx.getPosition());
                 list2.add(data);
             }
             content.put("baxx", list2);

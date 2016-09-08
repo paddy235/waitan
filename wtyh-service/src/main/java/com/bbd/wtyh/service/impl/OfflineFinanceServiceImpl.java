@@ -130,7 +130,9 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
                     if (riskLevelForPToP != null && riskLevelForPToP > 0) {
                         System.out.println("-----p2p-------"+companyId);
                         companyMapper.updateRiskLevel(riskLevelForPToP, companyId);
+                        break;
                     }
+                    companyMapper.updateRiskLevel(riskLevel, companyId);
                     System.out.println("-----nothing-------"+companyId);
                 }
             }
