@@ -7,12 +7,22 @@
 			SELECT
 				platform_name_information.company_id AS companyId,
 				platform_name_information.platform_name AS platformName,
-				company. NAME
+				company.`name`
 			FROM
 				platform_name_information
 			LEFT JOIN company ON company.company_id = platform_name_information.company_id
 			WHERE
 				platform_name_information.platform_name = #{plat_name};
+	</select>
+
+	<select id="getPlatName" resultType="String">
+		SELECT
+			platform_name_information.platform_name AS platformName
+		FROM
+			platform_name_information
+		LEFT JOIN company ON company.company_id = platform_name_information.company_id
+		WHERE
+		company.`name` = #{company_name};
 	</select>
 
 	<select id="associatedPlatName" resultType="com.bbd.wtyh.domain.PlatformNameInformationDO">

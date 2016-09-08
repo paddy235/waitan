@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,8 +43,17 @@ public class P2PImageController {
         Map<String, Object> hasOrNotCompany = p2PImageService.coreDataInfo(platName);
         List<PlatformNameInformationDO> associatedCompanys = p2PImageService.associatedCompanys(platName);
 
+        // 剔除 不可访问的 联想词
+        List<PlatformNameInformationDO> accessAssociatedCompanys = new ArrayList<>();
+        for (PlatformNameInformationDO platformNameInformationDO : associatedCompanys) {
+            if (platformNameInformationDO.getPlatformName() != null
+                    && p2PImageService.coreDataInfo(platformNameInformationDO.getPlatformName() ) != null) {
+                accessAssociatedCompanys.add(platformNameInformationDO);
+            }
+        }
+
         Map<String, Object> rst = new HashMap<>();
-        rst.put("associatedWords", associatedCompanys);
+        rst.put("associatedWords", accessAssociatedCompanys);
         if (hasOrNotCompany == null) {
             rst.put("isGoToHologram", false);
             return ResponseBean.successResponse(rst);
