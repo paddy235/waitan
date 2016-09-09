@@ -26,6 +26,9 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
     private CompanyAnalysisResultMapper companyAnalysisResultMapper;
 
     @Autowired
+    private RelatedSubsidiaryStatisticMapper relatedSubsidiaryStatisticMapper;
+
+    @Autowired
     private RelatedCompanyStatisticMapper relatedCompanyStatisticMapper;
 
     @Autowired
@@ -91,15 +94,14 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
 
     @Override
     public Map<String, Object> ChinaMap() {
-        final String key = "wtyh:realtimeMonitor:ChinaMap";
-        List<RelatedCompanyStatisticDO> list = (List<RelatedCompanyStatisticDO>) redisDAO.getObject(key);
-        if (null == list || list.size() == 0) {
-            list = relatedCompanyStatisticMapper.getChinaMap();
-            if (null != list && list.size() >= 1) {
-                redisDAO.addObject(key, list, Constants.REDIS_10, List.class);
-            }
-        }
-        Map<String, Object> map = new LinkedHashMap<>();
+//        final String key = "wtyh:realtimeMonitor:ChinaMap";
+//        List<RelatedCompanyStatisticDO> list = (List<RelatedCompanyStatisticDO>) redisDAO.getObject(key);
+//        if (null == list || list.size() == 0) {
+        List<RelatedCompanyStatisticDO> list = relatedCompanyStatisticMapper.getChinaMap();
+//            if (null != list && list.size() >= 1) {
+//                redisDAO.addObject(key, list, Constants.REDIS_10, List.class);
+//            }
+//        }
         List<Object> resultList = new ArrayList<>();
         for (RelatedCompanyStatisticDO re : list) {
             List<Map<String, Object>> result = new ArrayList<>();
@@ -112,7 +114,30 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
             result.add(data2);
             resultList.add(result);
         }
+        Map<String, Object> map = new HashMap<>();
         map.put("SHData", resultList);
+        return map;
+    }
+
+
+    @Override
+    public Map<String, Object> ChinaMapSubsidiary() {
+        List<RelatedSubsidiaryStatisticDO> list = relatedSubsidiaryStatisticMapper.getChinaMapSubsidiary();
+
+        List<Object> resultList = new ArrayList<>();
+        for (RelatedSubsidiaryStatisticDO re : list) {
+            List<Map<String, Object>> result = new ArrayList<>();
+            Map<String, Object> data1 = new LinkedHashMap<>();
+            Map<String, Object> data2 = new LinkedHashMap<>();
+            data1.put("name", "上海");
+            data2.put("name", re.getAreaName());
+            data2.put("value", re.getRelatedSubsidiary());
+            result.add(data1);
+            result.add(data2);
+            resultList.add(result);
+        }
+        Map<String, Object> map = new HashMap<>();
+        map.put("SHData1", resultList);
         return map;
     }
 

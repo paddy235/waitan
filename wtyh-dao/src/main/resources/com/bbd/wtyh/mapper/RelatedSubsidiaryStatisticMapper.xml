@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.RelatedSubsidiaryStatisticMapper">
+    <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.RelatedSubsidiaryStatisticDO">
+        <id column="id" javaType="java.lang.Integer" property="id"/>
+        <result column="area_name" javaType="java.lang.String" property="areaName"/>
+        <result column="related_subsidiary" javaType="java.lang.Integer" property="relatedSubsidiary"/>
+        <result column="create_by"  javaType="java.lang.String" property="createBy"/>
+        <result column="create_date" javaType="java.util.Date" property="createDate"/>
+        <result column="update_by" javaType="java.lang.String" property="updateBy"/>
+        <result column="update_date" javaType="java.util.Date" property="updateDate"/>
+    </resultMap>
+    <select id="getChinaMapSubsidiary" resultMap="BaseResultMap">
+      select
+      area_name, related_subsidiary
+      from related_company_statistic
+    </select>
+</mapper>
