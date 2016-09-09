@@ -177,7 +177,16 @@ public class PrivateFundController {
 
     @RequestMapping("privateFundList.do")
     public ResponseBean privateFundList(Integer orderByField, String descAsc, Integer recordStatus) {
-        return ResponseBean.successResponse(privateFundService.privateFundExtraList(orderByField, descAsc, recordStatus));
+        if (null != recordStatus && recordStatus <= 0) {
+            recordStatus = null;
+        }
+        List<PrivateFundCompanyDTO> privateFundCompanyDTOs = privateFundService.privateFundExtraList(orderByField, descAsc, recordStatus);
+        for (PrivateFundCompanyDTO dto : privateFundCompanyDTOs) {
+            if (StringUtils.isNotEmpty(dto.getWebsite()) && !dto.getWebsite().startsWith("http")) {
+                dto.setWebsite("http://" + dto.getWebsite());
+            }
+        }
+        return ResponseBean.successResponse(privateFundCompanyDTOs);
     }
 
 
