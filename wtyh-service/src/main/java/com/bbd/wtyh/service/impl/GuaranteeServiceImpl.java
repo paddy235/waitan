@@ -40,6 +40,9 @@ public class GuaranteeServiceImpl implements GuaranteeService {
 
     @Override
     public List<GuaranteedInfoDO> listLargeGuarantee(Pagination pagination, Integer orderByField, String descAsc) {
+        if (null != orderByField && orderByField >= 5) {
+            orderByField = null;
+        }
         List<GuaranteedInfoDO> largeGuaranteeDTOs = guaranteedInfoMapper.listLargeGuarantee(pagination, orderByField, descAsc);
         return largeGuaranteeDTOs;
     }
