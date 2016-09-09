@@ -177,6 +177,9 @@ public class PrivateFundController {
 
     @RequestMapping("privateFundList.do")
     public ResponseBean privateFundList(Integer orderByField, String descAsc, Integer recordStatus) {
+        if (null != recordStatus && recordStatus <= 0) {
+            recordStatus = null;
+        }
         return ResponseBean.successResponse(privateFundService.privateFundExtraList(orderByField, descAsc, recordStatus));
     }
 
