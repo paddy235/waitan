@@ -43283,6 +43283,11 @@
 			//返回true 执行动画，如果count没变，不用重新渲染pages
 			if (nextProps.count != this.props.count) {
 				this.iniLiDom(1, nextProps.count, this.props.eachPageCount);
+				var $ul = $(this.refs.pagesUl);
+				var pix = 0;
+				$ul.css({
+					transform: 'translateX(' + -pix * liWid + 'px)' //
+				});
 			}
 		},
 
@@ -60770,6 +60775,20 @@
 	  },
 	  dataFomat: function dataFomat(data) {
 	    console.log(data, '担保责任余额');
+	    var dataYAxis = data.data;
+	    var len = dataYAxis.length;
+	    var yData = [];
+	    for (var i = 0; i < len; i++) {
+	      yData.push(dataYAxis[i][1]);
+	    }
+	    var minData = Math.min.apply(null, yData); //获取最小值
+	    //var first=minData.toString().substr(0,1);
+	    var minDataLen = parseInt(minData).toString().length;
+	    var k = 1;
+	    for (var i = 0; i < minDataLen - 1; i++) {
+	      k = k + "0";
+	    }
+
 	    var option = {
 	      id: 'guara-balance-chart', //必传
 	      height: '272px', //必传 带上单位
@@ -60777,6 +60796,7 @@
 	      forMaterTitle: "担保责任余额",
 	      forMaterTip: '平均担保责任余额',
 	      legend: [],
+	      yMin: k,
 	      yAxisName: '亿元',
 	      xAxis: data.xAxis,
 	      data: data.data,
@@ -65467,6 +65487,20 @@
 	  },
 	  dataFomat: function dataFomat(data) {
 	    console.log(data, '数据');
+	    var dataYAxis = data.data;
+	    var len = dataYAxis.length;
+	    var yData = [];
+	    for (var i = 0; i < len; i++) {
+	      yData.push(dataYAxis[i][1]);
+	    }
+	    var minData = Math.min.apply(null, yData); //获取最小值
+	    //var first=minData.toString().substr(0,1);
+	    var minDataLen = parseInt(minData).toString().length;
+	    var k = 1;
+	    for (var i = 0; i < minDataLen - 1; i++) {
+	      k = k + "0";
+	    }
+
 	    var option = {
 	      id: 'loan-balance-chart', //必传
 	      height: '272px', //必传 带上单位
@@ -65475,6 +65509,7 @@
 	      forMaterTip: '平均贷款余额',
 	      legend: [],
 	      yAxisName: '亿元',
+	      yMin: k,
 	      xAxis: data.xAxis,
 	      data: data.data,
 	      symbolSize: function symbolSize(val) {
@@ -79234,6 +79269,8 @@
 	    getInitialState: function getInitialState() {
 	        return {
 	            Enterprise: [],
+	            otherArr: [],
+	            haveTypeArr: [],
 	            orderType: "desc", //默认降序
 	            orderField: "", //需要排序的字段
 	            areaId: 0,
@@ -79283,7 +79320,18 @@
 	    dataFomat: function dataFomat(data) {
 	        var content = data.content;
 	        var companyNo = content.length;
-	        this.setState({ Enterprise: content, companyNo: companyNo });
+	        var len = content.length;
+	        var otherArr = []; //其他
+	        var haveTypeArr = []; //不是其他
+	        for (var i = 0; i < len; i++) {
+	            var comTypeCN = content[i].comTypeCN;
+	            if (comTypeCN == "其他") {
+	                otherArr.push(content[i]);
+	            } else {
+	                haveTypeArr.push(content[i]);
+	            }
+	        }
+	        this.setState({ Enterprise: content, otherArr: otherArr, haveTypeArr: haveTypeArr, companyNo: companyNo });
 	    },
 	    getBuildCompanyList: function getBuildCompanyList(json) {
 	        var getBuildCompanyList = this.props.getBuildCompanyList;
@@ -79298,8 +79346,8 @@
 	        _domIcoIs == true ? _domIco.removeClass('icon-desc').addClass('icon-asc') : _domIco.removeClass('icon-asc').addClass('icon-desc');
 	        _domAttr == "desc" ? _dom.attr("data-order", "asc") : _dom.attr("data-order", "desc");
 	        this.setState({ orderType: _dom.attr("data-order"), orderField: field }, function () {
-	            var _basedata = BOSS.sort(this.state.Enterprise, field, this.state.orderType);
-	            this.setState({ Enterprise: _basedata });
+	            var _basedata = BOSS.sort(this.state.haveTypeArr, field, this.state.orderType);
+	            this.setState({ haveTypeArr: _basedata });
 	        });
 	    },
 	    render: function render() {
@@ -79384,7 +79432,57 @@
 	                        _react2.default.createElement(
 	                            'tbody',
 	                            null,
-	                            this.state.Enterprise.map(function (elem, index) {
+	                            this.state.haveTypeArr.map(function (elem, index) {
+	                                var registeredCapital = elem.registeredCapital;
+	                                if (registeredCapital == null) {
+	                                    registeredCapital = "/";
+	                                } else {
+	                                    registeredCapital = registeredCapital + "万元";
+	                                }
+	                                return _react2.default.createElement(
+	                                    'tr',
+	                                    { key: index },
+	                                    _react2.default.createElement(
+	                                        'td',
+	                                        { className: 'talign-left', width: '30%' },
+	                                        _react2.default.createElement(
+	                                            _reactRouter.Link,
+	                                            { to: { pathname: '/SearchResultDetail', query: { companyName: elem.name } } },
+	                                            elem.name
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'td',
+	                                        { className: 'talign-left', width: '10%' },
+	                                        elem.backgroundCN
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'td',
+	                                        { className: 'talign-left', width: '10%' },
+	                                        elem.comTypeCN
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'td',
+	                                        { className: 'talign-left', width: '10%' },
+	                                        registeredCapital
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'td',
+	                                        { className: 'talign-left', width: '10%' },
+	                                        elem.registeredDate
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'td',
+	                                        { className: 'talign-left', width: '15%' },
+	                                        _react2.default.createElement(
+	                                            'span',
+	                                            { className: 'word-limit-5', title: elem.registeredType },
+	                                            elem.registeredType
+	                                        )
+	                                    )
+	                                );
+	                            }),
+	                            this.state.otherArr.map(function (elem, index) {
 	                                var registeredCapital = elem.registeredCapital;
 	                                if (registeredCapital == null) {
 	                                    registeredCapital = "/";
