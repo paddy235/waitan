@@ -65100,7 +65100,7 @@
 	        }
 	        var option = {
 	            "title": "",
-	            "color": ["#efd79b", "#e14340"],
+	            "color": ["#13c7c1", "#efd79b", "#e14340"],
 	            "titleShow": "show",
 	            "titleX": "center",
 	            "legend": ["贷款余额总计", "三农占比", "小微企业占比"],
