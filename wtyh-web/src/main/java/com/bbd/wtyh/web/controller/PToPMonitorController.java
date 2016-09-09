@@ -352,7 +352,6 @@ public class PToPMonitorController {
         for (PlatRankDataDTO dto : list) {
             double total = Double.valueOf(dto.getStay_still_of_total().isEmpty() || dto.getStay_still_of_total().equals("/") ? "0" : dto.getStay_still_of_total());
             dto.setStay_still_of_total(String.valueOf(CalculateUtils.divide(total, 100000000, 2)));
-
             dto.setAmount(String.valueOf(CalculateUtils.divide(Double.valueOf(!StringUtils.isNullOrEmpty(dto.getAmount()) ? "0" : dto.getAmount()), 100000000, 2)));
         }
 
