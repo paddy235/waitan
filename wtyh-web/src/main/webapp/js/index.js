@@ -65486,7 +65486,6 @@
 	    }
 	  },
 	  dataFomat: function dataFomat(data) {
-	    console.log(data, '数据');
 	    var dataYAxis = data.data;
 	    var len = dataYAxis.length;
 	    var yData = [];
@@ -68750,7 +68749,7 @@
 	                        } else {
 	                            _until = parm.unit[i];
 	                        }
-	                        var _spanCorlor = v[i].seriesName + ' :&nbsp;<span style=color:' + parm.color[i] + '>' + v[i].value + _until + '</span><br/>';
+	                        var _spanCorlor = v[i].seriesName + ' :&nbsp;<span style=color:' + parm.color[i] + '>' + v[i].value + _until + '%</span><br/>';
 	                        info += _spanCorlor;
 	                    }
 	                    return info;
@@ -68811,6 +68810,7 @@
 	                axisTick: {
 	                    show: false
 	                },
+	                nameGap: 0,
 	                splitLine: {
 	                    show: parm.splitLineShow == undefined ? true : parm.splitLineShow,
 	                    lineStyle: {
@@ -83418,14 +83418,15 @@
 				titleShow: true,
 				color: ["#E24340", "#00A0EA"],
 				barWidth: 40,
+				gridLeft: "12%",
 				yAxisName: "",
-				yFlag: "", //y轴单位
+				yFlag: "%", //y轴单位
 				splitLineShow: true,
 				legendShow: false,
 				gridTop: "10%",
-				legend: ["企业资产总额"],
-				xAxis: xData /*---------------ajax-----------------*/
-				, XTextColor: '#fff',
+				legend: ["薪资分布"],
+				xAxis: ["2k-5k", "5k-10k", "10k-20k", "20k-30k"], /*---------------ajax-----------------*/
+				XTextColor: '#fff',
 				YTextColor: '#fff',
 				series: [series /*---------------ajax-----------------*/
 				]
@@ -84354,7 +84355,7 @@
 	                        _react2.default.createElement(
 	                          'td',
 	                          null,
-	                          elem.registered_capital
+	                          elem.registeredCapital
 	                        )
 	                      );
 	                    })
@@ -84441,7 +84442,7 @@
 	                    return false;
 	                  }
 	                  //因为表格第四个tab的数据格式不一样，为日期，所以需要判断
-	                  var three = fixRange - 1 == 3 ? elem.exposureDate : elem.registered_capital;
+	                  var three = fixRange - 1 == 3 ? elem.exposureDate : elem.registeredCapital;
 	                  return _react2.default.createElement(
 	                    'tr',
 	                    { key: index },
@@ -84566,7 +84567,7 @@
 	                  }
 	                }
 	                //因为表格第四个tab的数据格式不一样，为日期，所以需要判断
-	                var three = fixRange - 1 == 3 ? elem.exposureDate : elem.registered_capital;
+	                var three = fixRange - 1 == 3 ? elem.exposureDate : elem.registeredCapital;
 	                return _react2.default.createElement(
 	                  'tr',
 	                  { key: index },
@@ -84847,9 +84848,6 @@
 	/*上海地图接口的全局变量*/
 	var TopMiddle = _react2.default.createClass({
 	    displayName: 'TopMiddle',
-	    getInitialState: function getInitialState() {
-	        return {};
-	    },
 
 	    convertData: function convertData(data) {
 	        var res = [];
