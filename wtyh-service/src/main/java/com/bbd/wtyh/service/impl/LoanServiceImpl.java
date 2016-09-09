@@ -34,7 +34,10 @@ public class LoanServiceImpl implements LoanService {
 
     @Override
     public List<LargeLoanDO> listLargeLoan(Pagination pagination, Integer orderByField, String descAsc) {
-        return largeLoanMapper.listLargeLoan(pagination,orderByField,descAsc);
+        if (null != orderByField && orderByField >= 5) {
+            orderByField = null;
+        }
+        return largeLoanMapper.listLargeLoan(pagination, orderByField, descAsc);
     }
 
     @Override
