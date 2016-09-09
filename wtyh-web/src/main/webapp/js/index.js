@@ -54560,7 +54560,7 @@
 	                                    _react2.default.createElement(
 	                                        'em',
 	                                        { className: 'c-red' },
-	                                        this.state.createData && this.state.createData.capitalRisk
+	                                        this.state.createData && this.state.createData.capitalRisk.toFixed(2)
 	                                    )
 	                                )
 	                            )
@@ -54582,7 +54582,7 @@
 	                                    _react2.default.createElement(
 	                                        'em',
 	                                        { className: 'c-red' },
-	                                        this.state.createData && this.state.createData.creditInfoRisk
+	                                        this.state.createData && this.state.createData.creditInfoRisk.toFixed(2)
 	                                    )
 	                                )
 	                            )
@@ -62305,7 +62305,7 @@
 
 
 	// module
-	exports.push([module.id, ".privateFund-index .middle-l .content,\r\n.privateFund-index .middle-r .content {\r\n\theight: 570px;\r\n}\r\n\r\n.privateFund-index .middle-l .content .content-l {\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index .middle-l .content .content-r {\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index .middle-r .content .content-l {\r\n\twidth: 40%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index  .middle-r .content .content-r {\r\n\twidth: 60%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark {\r\n\tmargin-top: 50px;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark table {\r\n\theight: 100px;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark table {\r\n\twidth: 100%;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark tbody {\r\n\tbackground: #3a4352;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark .padding-l20 {\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.privateFund-index  .word-limit-5.td150 {\r\n\twidth: 150px;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark tbody tr {\r\n\tborder-bottom: 1px #555c6c solid;\r\n\ttext-align: left;\r\n}\r\n\r\n.privateFund-index .top-left-l .mod-content,\r\n.privateFund-index .top-r .mod-content {\r\n\tpadding: 10px 15px 50px 15px;\r\n}\r\n\r\n.privateFund-index .top-left-l .table-content,\r\n.privateFund-index .top-r .table-content {\r\n\theight: 460px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.privateFund-index .privateF-b2  .table-content {\r\n\theight: 440px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.privateFund-index .privateF-b2  .mod-content {\r\n\tpadding: 10px 15px 50px 15px;\r\n}\r\n\r\n.privateFund-index .top-left-l .table-content table,\r\n.privateFund-index .top-r .table-content table {\r\n\tmargin-top: 0px !important;\t/*height: 100%*/\r\n}\r\n\r\n.privateFund-index  .mt-table {\r\n\tmargin: 0px 0px !important;\r\n}\r\n\r\n.privateFund-index .top-left-l  thead th,\r\n.privateFund-index .top-r  thead th {\r\n\ttext-align: left;\r\n\theight: 40px;\r\n\tpadding: 0px !important;\r\n}\r\n\r\n.privateFund-index .top-left-l tbody td,\r\n.privateFund-index .top-r tbody td {\r\n\ttext-align: left;\r\n\tpadding: 11px 0px !important;\r\n}\r\n\r\n.privateFund-index .top-left-l .mt-table th {\r\n\tpadding: 0px;\r\n}\r\n\r\n.padding-l20 {\r\n\tpadding-left: 20px !important;\r\n}\r\n\r\n.companyList-selected.mt-select {\r\n\tborder: none;\r\n\tbackground: none;\r\n\tmargin-top: 3px;\r\n\tpadding: 0;\r\n\tfont-size: 12px;\r\n}\r\n\r\n.companyList-selected.mt-select .mt-select-title {\r\n\tcolor: #999ca1;\r\n\twidth: 40px;\r\n}\r\n\r\n.companyList-selected.mt-select .iconfont {\r\n\tright: 6px;\r\n}\r\n\r\n.companyList-selected.mt-select .mt-select-box {\r\n\tborder: none;\r\n\tbackground: rgba(43, 50, 60, 0.5) none repeat scroll 0 0;\r\n\tborder-radius: 3px;\r\n}", ""]);
+	exports.push([module.id, ".privateFund-index .middle-l .content,\r\n.privateFund-index .middle-r .content {\r\n\theight: 570px;\r\n}\r\n\r\n.privateFund-index .middle-l .content .content-l {\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index .middle-l .content .content-r {\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index .middle-r .content .content-l {\r\n\twidth: 40%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index  .middle-r .content .content-r {\r\n\twidth: 60%;\r\n\tfloat: left;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark {\r\n\tmargin-top: 50px;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark table {\r\n\theight: 100px;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark table {\r\n\twidth: 100%;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark tbody {\r\n\tbackground: #3a4352;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark .padding-l20 {\r\n\tpadding-left: 20px;\r\n}\r\n\r\n.privateFund-index  .word-limit-5.td150 {\r\n\twidth: 150px;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark thead th {\r\n\ttext-align: left;\r\n}\r\n\r\n.privateFund-index .top-left-r .pic-remark tbody tr {\r\n\tborder-bottom: 1px #555c6c solid;\r\n\ttext-align: left;\r\n}\r\n\r\n.privateFund-index .top-left-l .mod-content,\r\n.privateFund-index .top-r .mod-content {\r\n\tpadding: 10px 15px 50px 15px;\r\n}\r\n\r\n.privateFund-index .top-left-l .table-content,\r\n.privateFund-index .top-r .table-content {\r\n\theight: 460px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.privateFund-index .privateF-b2  .table-content {\r\n\theight: 440px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.privateFund-index .privateF-b2  .mod-content {\r\n\tpadding: 10px 15px 50px 15px;\r\n}\r\n\r\n.privateFund-index .top-left-l .table-content table,\r\n.privateFund-index .top-r .table-content table {\r\n\tmargin-top: 0px !important;\t/*height: 100%*/\r\n}\r\n\r\n.privateFund-index  .mt-table {\r\n\tmargin: 0px 0px !important;\r\n}\r\n\r\n.privateFund-index .top-left-l  thead th,\r\n.privateFund-index .top-r  thead th {\r\n\ttext-align: left;\r\n\theight: 40px;\r\n\tpadding: 0px !important;\r\n}\r\n\r\n.privateFund-index .top-left-l tbody td,\r\n.privateFund-index .top-r tbody td {\r\n\ttext-align: left;\r\n\tpadding: 11px 0px !important;\r\n}\r\n\r\n.privateFund-index .top-left-l .mt-table th {\r\n\tpadding: 0px;\r\n}\r\n\r\n.padding-l20 {\r\n\tpadding-left: 20px !important;\r\n}\r\n\r\n.companyList-selected.mt-select {\r\n\tborder: none;\r\n\tbackground: none;\r\n\tmargin-top: 3px;\r\n\tpadding: 0;\r\n\tfont-size: 12px;\r\n}\r\n\r\n.companyList-selected.mt-select .mt-select-title {\r\n\tcolor: #999ca1;\r\n\twidth: 70px;\r\n}\r\n\r\n.companyList-selected.mt-select .iconfont {\r\n\tright: 6px;\r\n}\r\n\r\n.companyList-selected.mt-select .mt-select-box {\r\n\tborder: none;\r\n\tbackground: rgba(43, 50, 60, 0.5) none repeat scroll 0 0;\r\n\tborder-radius: 3px;\r\n}", ""]);
 
 	// exports
 
@@ -83166,7 +83166,6 @@
 
 				var myChart = echarts.init(document.getElementById('show-charts'));
 				var option = {
-
 					grid: {
 						left: '7%',
 						right: '6%',
@@ -83188,7 +83187,7 @@
 								fontSize: 14
 							}
 						},
-						data: xDate /*--------------ajax-------------*/
+						data: xDate
 					},
 					yAxis: {
 						name: '指数（%）',
@@ -83219,7 +83218,7 @@
 						name: '邮件营销',
 						type: 'line',
 						stack: '总量',
-						data: series, /*---------ajax----------*/
+						data: series,
 						symbol: 'circle',
 						symbolSize: 15,
 						lineStyle: {
@@ -83370,7 +83369,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-		value: true
+	  value: true
 	});
 
 	__webpack_require__(856);
@@ -83391,69 +83390,75 @@
 
 	var series = [];
 	var PersonIndexChart = _react2.default.createClass({
-		displayName: 'PersonIndexChart',
-		getInitialState: function getInitialState() {
-			return {
-				chart: null
-			};
-		},
-		componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-			var _this = this;
-			if (nextProps.CompanyInfoD3Request) {
-				var data = nextProps.CompanyInfoD3Result.content.rdata;
-				if (data.length == 0) {
-					// $("#pay-distribute").html('<div class="no-data">暂无相关信息！</div>')
-					return;
-				}
-				xData = [], series = [];
-				data.map(function (item, index) {
-					xData.push(item.x_value);
-					series.push(item.y_value);
-				});
+	  displayName: 'PersonIndexChart',
+	  getInitialState: function getInitialState() {
+	    return {
+	      chart: null
+	    };
+	  },
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var _this = this;
+	    if (nextProps.CompanyInfoD3Request) {
+	      var data = nextProps.CompanyInfoD3Result.content.rdata;
+	      if (data.length == 0) {
+	        return;
+	      }
+	      xData = [], series = [];
+	      var yValue = [],
+	          allData = 0;
+	      data.map(function (item, index) {
+	        xData.push(item.x_value);
+	        allData = allData + Number(item.y_value);
+	        yValue.push(item.y_value);
+	      });
+	      var len = yValue.length;
+	      for (var i = 0; i < len; i++) {
+	        var a = Number(Number(yValue[i]) / allData * 100).toFixed(2);
+	        series.push(a);
+	      }
+	      this.setState({
+	        chart: _react2.default.createElement(_BarChart2.default, { option: this.setParm(), style: { height: '100%', width: '100%' } })
+	      });
+	    }
+	  },
+	  componentDidMount: function componentDidMount() {
+	    var getCompanyInfoD3 = this.props.getCompanyInfoD3; // 取到props里面的getRealTimeTable方法。也可以说是请求action
 
-				this.setState({
-					chart: _react2.default.createElement(_BarChart2.default, { option: this.setParm(), style: { height: '100%', width: '100%' } })
-				});
-			}
-		},
-		componentDidMount: function componentDidMount() {
-			var getCompanyInfoD3 = this.props.getCompanyInfoD3; // 取到props里面的getRealTimeTable方法。也可以说是请求action
+	    var data = this.props.location.query.companyName;
+	    var jsonData = {
+	      company: data
+	    };
+	    getCompanyInfoD3(jsonData);
+	  },
 
-			var data = this.props.location.query.companyName;
-			var jsonData = {
-				company: data
-			};
-			getCompanyInfoD3(jsonData);
-		},
-
-		setParm: function setParm() {
-			var option = {
-				title: "薪酬分布",
-				titleX: "center",
-				titleShow: true,
-				color: ["#E24340", "#00A0EA"],
-				barWidth: 40,
-				gridLeft: "12%",
-				yAxisName: "",
-				yFlag: "%", //y轴单位
-				splitLineShow: true,
-				legendShow: false,
-				gridTop: "10%",
-				legend: ["薪资分布"],
-				xAxis: xData,
-				XTextColor: '#fff',
-				YTextColor: '#fff',
-				series: [series]
-			};
-			return option;
-		},
-		render: function render() {
-			return _react2.default.createElement(
-				'div',
-				{ id: 'pay-distribute' },
-				this.state.chart
-			);
-		}
+	  setParm: function setParm() {
+	    var option = {
+	      title: "薪酬分布",
+	      titleX: "center",
+	      titleShow: true,
+	      color: ["#E24340", "#00A0EA"],
+	      barWidth: 40,
+	      gridLeft: "12%",
+	      yAxisName: "",
+	      yFlag: "%", //y轴单位
+	      splitLineShow: true,
+	      legendShow: false,
+	      gridTop: "10%",
+	      legend: ["薪资分布"],
+	      xAxis: xData,
+	      XTextColor: '#fff',
+	      YTextColor: '#fff',
+	      series: [series]
+	    };
+	    return option;
+	  },
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      { id: 'pay-distribute' },
+	      this.state.chart
+	    );
+	  }
 	});
 	exports.default = PersonIndexChart;
 
@@ -85936,6 +85941,11 @@
 	                    nineDate.content.mortgage.series[0].map(function (item, index) {
 	                        b.push((item / 10000).toFixed(2));
 	                    });
+	                    console.log(nineDate.content.mortgage.xAxis, 11);
+	                    var xAxis = nineDate.content.mortgage.xAxis.sort(function (a, b) {
+	                        return a - b;
+	                    });
+	                    console.log(xAxis, 22);
 	                    paramSeven = {
 	                        link: "/smallLoan#/PawnMonitoring",
 	                        id: 'realTimeRightTwo', //必传
@@ -85950,7 +85960,7 @@
 	                        tooltip: function tooltip(data) {
 	                            return data.data[0] + "<br/>典当总额：" + data.data[1] + "亿元<br/>业务笔数：" + data.data[2];
 	                        },
-	                        xAxis: nineDate.content.mortgage.xAxis,
+	                        xAxis: xAxis,
 	                        // yAxis:b,
 	                        data: paramSevenData,
 	                        symbolSize: function symbolSize() {
@@ -100921,7 +100931,7 @@
 	    },
 	    render: function render() {
 	        var selectProp = {
-	            width: '55px',
+	            width: '85px',
 	            className: 'companyList-selected',
 	            value: 99,
 	            placeholder: '全部',
