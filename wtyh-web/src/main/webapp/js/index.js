@@ -39795,6 +39795,13 @@
 	      }
 	    }
 
+	    //暂时特殊处理下上海地图的区县合并问题
+	    if (routPath != "/smallLoan") {
+	      sessionStorage.smallLoanMapldNum = 0;
+	    } else if (routPath != "/financeGuara") {
+	      sessionStorage.financeGuaraMapldNum = 0;
+	    }
+
 	    if (routPath == "/" || routPath == "/login") {
 	      app = _react2.default.createElement(
 	        'div',
@@ -60107,11 +60114,17 @@
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
-	    console.log(this.props, 3333);
 	    var getfinGuaMap = this.props.getfinGuaMap;
 
 	    var jsonData = {};
 	    getfinGuaMap(jsonData);
+
+	    //特殊处理地图区县合并的问题 暂时用这个方法解决
+	    var financeGuaraMapldNum = sessionStorage.financeGuaraMapldNum;
+	    if (financeGuaraMapldNum == 0) {
+	      sessionStorage.financeGuaraMapldNum = 1;
+	      window.location.reload();
+	    }
 	  },
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	    var isMapEqual = Immutable.is(nextProps.finGuaMapResult, this.props.finGuaMapResult);
@@ -65258,6 +65271,13 @@
 	  componentDidMount: function componentDidMount() {
 	    var jsonData = {};
 	    this.getSmallLoanMap(jsonData);
+
+	    //特殊处理地图区县合并的问题 暂时用这个方法解决
+	    var smallLoanMapldNum = sessionStorage.smallLoanMapldNum;
+	    if (smallLoanMapldNum == 0) {
+	      sessionStorage.smallLoanMapldNum = 1;
+	      window.location.reload();
+	    }
 	  },
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	    var isMapEqual = Immutable.is(nextProps.smollLoanMapResult, this.props.smollLoanMapResult);
