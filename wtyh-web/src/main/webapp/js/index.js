@@ -62782,7 +62782,7 @@
 	                        "radius": "60%",
 	                        "lable": {
 	                            emphasis: {
-	                                show: true,
+	                                show: false,
 	                                formatter: function formatter(val) {
 	                                    return val.value + "家(" + val.percent + "%)";
 	                                }
@@ -63800,11 +63800,11 @@
 	                        "barName": ["投资金额"],
 	                        "lineName": ["披露数量"],
 	                        "xAxis": chartxAxis,
-	                        "yAxisName": ["亿元", "数量"],
+	                        "yAxisName": ["数量", "亿元"],
 	                        "unit": ["亿元", "个"],
 	                        "barWidth": 30,
 	                        "symbolSize": 5,
-	                        "yRightLable": "line",
+	                        "yRightLable": "bar",
 	                        "series": {
 	                            "bar": [_lineData],
 	                            "line": [_barData]
@@ -66910,7 +66910,7 @@
 	    getInitialState: function getInitialState() {
 	        return {
 	            listData: [],
-	            orderType: "desc", //默认降序
+	            orderType: "asc", //默认降序
 	            orderField: "" //需要排序的字段
 	        };
 	    },
@@ -66933,6 +66933,7 @@
 	        });
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var _this = this;
 	        var isEqual = Immutable.is(nextProps.areaRankingResult, this.props.areaRankingResult);
 	        if (!isEqual) {
 	            var areaRankingRequest = nextProps.areaRankingRequest;
@@ -66940,7 +66941,9 @@
 
 	            if (areaRankingRequest == true) {
 	                if (areaRankingResult.success) {
-	                    this.setState({ listData: areaRankingResult.content });
+	                    this.setState({ listData: areaRankingResult.content }, function () {
+	                        $(_this.refs.competitiveness).trigger('click');
+	                    });
 	                } else {
 	                    //错误后提示
 	                }
@@ -67911,7 +67914,6 @@
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	        var setCompany = this.props.setCompany;
 
-	        this.setState({ getBaseCompany: nextProps.companyName.baseMsgCompany });
 	        var isEqual = Immutable.is(nextProps.baseMsgResult, this.props.baseMsgResult);
 	        if (!isEqual) {
 	            var baseMsgRequest = nextProps.baseMsgRequest;
@@ -67920,8 +67922,9 @@
 	            if (baseMsgRequest == true) {
 	                if (baseMsgResult.success) {
 	                    var _setParm = [baseMsgResult.content];
-	                    setCompany({ baseMsgCompany: baseMsgResult.content.companyName });
-	                    this.setState({ listData: _setParm });
+	                    var companyName = baseMsgResult.content.companyName;
+	                    setCompany({ baseMsgCompany: companyName });
+	                    this.setState({ listData: _setParm, getBaseCompany: companyName });
 	                } else {
 	                    //错误后提示
 	                }
@@ -67943,7 +67946,7 @@
 	                _react2.default.createElement(
 	                    'span',
 	                    { className: 'checkAll', onClick: this.handleClickGoQX },
-	                    '全系信息'
+	                    '全息信息'
 	                )
 	            ),
 	            _react2.default.createElement(
@@ -71748,7 +71751,6 @@
 	        if (!isEqual) {
 	            var Data = nextProps.Data;
 
-
 	            var _setData = [];
 	            for (var i = 0; i < Data.data.length; i++) {
 	                var item = [];
@@ -71759,7 +71761,14 @@
 	            for (var j = 0; j < Data.xAxisData.length; j++) {
 	                _xAxisData.push(Data.xAxisData[j].toString());
 	            }
-	            console.log(_setData, 111);
+
+	            var minData = Math.min.apply(null, Data.yAxisData); //获取最小值
+	            var first = minData.toString().substr(0, 1);
+	            var minDataLen = minData.toString().length;
+	            var k = first;
+	            for (var i = 0; i < minDataLen - 1; i++) {
+	                k = k + "0";
+	            }
 	            var optionParm = {
 	                id: 'loan-balance-chart', //必传
 	                height: '465px', //必传 带上单位
@@ -71767,7 +71776,7 @@
 	                yAxisName: "笔数",
 	                legend: [],
 	                formatter: "BusinessNum",
-	                //yMin:1000,
+	                yMin: k,
 	                xAxis: _xAxisData,
 	                data: _setData,
 	                series: [[{
@@ -84576,19 +84585,20 @@
 	var Immutable = __webpack_require__(620);
 
 	//因为中国地图要实时变化数据，所以把中国地图的option设置成全局
-	var chinaOption;
+	var chinaOptionImport, chinaOptionExport;
 	//抽离出来的地图实例
 	var chartChina, chartShanghai;
 	//用来保存ajax返回的地图数据
 	var ajaxDataChina, ajaxDataSH;
 	//中国地图(线)的初始数据
-	var SHData;
+	var SHDataImport, SHDataExport;
 	//存储上海的经纬度
 	var SHposition = {};
 	var option;
 	var geoSereisFinal = { '1': [], '2': [], '3': [], '4': [] };
 	//中国点的经纬度
 	var geoCoordMap = {
+	    '总局': [121.4648, 31.2891],
 	    '上海': [121.4648, 31.2891],
 	    '东莞': [113.8953, 22.901],
 	    '东营': [118.7073, 37.5513],
@@ -84733,9 +84743,15 @@
 	    '云南': [102.41, 25],
 	    '西藏': [90.08, 29.39]
 	};
+	//地图的颜色基调
+	var color = ['#facd89', '#ffa022', '#46bee9'];
+	var switchDirectionInit = true;
 	/*上海地图接口的全局变量*/
 	var TopMiddle = _react2.default.createClass({
 	    displayName: 'TopMiddle',
+	    getInitialState: function getInitialState() {
+	        return {};
+	    },
 
 	    convertData: function convertData(data) {
 	        var res = [];
@@ -84771,10 +84787,10 @@
 	        var _this = this;
 	        var res = [];
 	        //中国地图线的数据
-	        SHData = ajaxDataChina.content.SHData;
-	        var color = ['#facd89', '#ffa022', '#46bee9'];
+	        SHDataImport = ajaxDataChina.content.SHData;
+	        SHDataExport = ajaxDataChina.content.SHData1;
 	        chartChina = echarts.init(document.getElementById("demo"));
-	        chinaOption = {
+	        chinaOptionImport = {
 	            backgroundColor: 'none',
 	            title: {
 	                left: 'center',
@@ -84828,7 +84844,7 @@
 	                        curveness: 0.2
 	                    }
 	                },
-	                data: _this.convertDataSH(SHData) //可能的错误点 doto
+	                data: _this.convertDataSH(SHDataImport) //可能的错误点 doto
 	            }, { //线上移动的图标
 	                name: "",
 	                type: 'lines',
@@ -84848,7 +84864,7 @@
 	                        curveness: 0.2
 	                    }
 	                },
-	                data: _this.convertDataSH(SHData)
+	                data: _this.convertDataSH(SHDataImport)
 	            }, { //圆点
 	                name: "",
 	                type: 'effectScatter',
@@ -84878,7 +84894,9 @@
 	                        color: "#52f5f6"
 	                    }
 	                },
-	                data: SHData.map(function (dataItem) {
+	                data: SHDataImport.map(function (dataItem) {
+	                    console.log(dataItem, "dataItem");
+	                    console.log(dataItem[0].name, "dataItem[0].name");
 	                    return {
 	                        name: dataItem[0].name,
 	                        value: geoCoordMap[dataItem[0].name].concat([dataItem[0].value])
@@ -84913,7 +84931,147 @@
 	                }]
 	            }]
 	        };
-	        chartChina.setOption(chinaOption);
+	        chinaOptionExport = {
+	            backgroundColor: 'none',
+	            title: {
+	                left: 'center',
+	                textStyle: {
+	                    color: '#fff'
+	                }
+	            },
+	            tooltip: {
+	                show: false,
+	                trigger: 'item'
+	            },
+	            geo: {
+	                map: 'china',
+	                top: "2%",
+	                left: "5%",
+	                right: "5%",
+	                bottom: "2%",
+	                roam: true,
+	                label: {
+	                    emphasis: {
+	                        show: false
+	                    }
+	                },
+	                itemStyle: {
+	                    normal: {
+	                        areaColor: 'none',
+	                        borderColor: '#5a87d8',
+	                        borderWidth: 1
+	                    },
+	                    emphasis: {
+	                        areaColor: '#25a9c3'
+	                    }
+	                }
+	            },
+	            series: [{ //线
+	                name: "",
+	                type: 'lines',
+	                zlevel: 3,
+	                effect: {
+	                    show: true,
+	                    period: 6,
+	                    trailLength: 0.7,
+	                    color: 'yellow',
+	                    symbolSize: 3
+	                },
+	                lineStyle: {
+	                    normal: {
+	                        color: color[0],
+	                        width: 0,
+	                        curveness: 0.2
+	                    }
+	                },
+	                data: _this.convertDataSH(SHDataExport) //可能的错误点 doto
+	            }, { //线上移动的图标
+	                name: "",
+	                type: 'lines',
+	                zlevel: 2,
+	                effect: {
+	                    show: false,
+	                    period: 6,
+	                    trailLength: 0,
+	                    symbol: "",
+	                    symbolSize: 15
+	                },
+	                lineStyle: {
+	                    normal: {
+	                        color: color[0],
+	                        width: 1,
+	                        opacity: 0.4,
+	                        curveness: 0.2
+	                    }
+	                },
+	                data: _this.convertDataSH(SHDataExport)
+	            }, { //圆点
+	                name: "",
+	                type: 'effectScatter',
+	                coordinateSystem: 'geo',
+	                zlevel: 2,
+	                rippleEffect: {
+	                    brushType: 'stroke'
+	                },
+	                label: {
+	                    normal: {
+	                        show: false,
+	                        position: 'right',
+	                        formatter: function formatter(v) {}
+	                    },
+	                    emphasis: {
+	                        show: true
+	                    }
+	                },
+	                symbolSize: function symbolSize(val) {
+	                    if (val[2] > 200000) {
+	                        return 1;
+	                    }
+	                    return val[2] / 500 + 5;
+	                },
+	                itemStyle: {
+	                    normal: {
+	                        color: "#52f5f6"
+	                    }
+	                },
+	                data: SHDataExport.map(function (dataItem) {
+	                    console.log(dataItem, "dataItem");
+	                    console.log(dataItem[1].name, "dataItem[1].name");
+	                    return {
+	                        name: dataItem[1].name,
+	                        value: geoCoordMap[dataItem[1].name].concat([dataItem[1].value])
+	                    };
+	                })
+	            }, { //圆点
+	                name: "",
+	                type: 'effectScatter',
+	                coordinateSystem: 'geo',
+	                zlevel: 10,
+	                rippleEffect: {
+	                    brushType: 'stroke'
+	                },
+	                label: {
+	                    normal: {
+	                        show: false,
+	                        position: 'right',
+	                        formatter: '{b}'
+	                    }
+	                },
+	                symbolSize: function symbolSize(val) {
+	                    return val[2] / 8 + 10;
+	                },
+	                itemStyle: {
+	                    normal: {
+	                        color: "red"
+	                    }
+	                },
+	                data: [{
+	                    name: "上海",
+	                    value: [121.4648, 31.2891, 40]
+	                }]
+	            }]
+	        };
+	        chartChina.setOption(chinaOptionImport);
 	        _this.setState({
 	            mapeType: "china"
 	        });
@@ -85300,13 +85458,14 @@
 	        getRealTimeMapSh(jsonData);
 	        getRealTimeScroll(jsonData);
 
+	        //地图自适应缩放
 	        $(window).resize(function (event) {
-	            if (chartChina) {
-	                chartChina.resize();
-	            };
-	            if (chartShanghai) {
-	                chartShanghai.resize();
-	            };
+
+	            chartChina && chartChina.resize();
+	            chartShanghai && chartShanghai.resize();
+
+	            // if(chartChina){chartChina.resize()};
+	            // if(chartShanghai){chartShanghai.resize()};
 	        }.bind(this));
 	    },
 
@@ -85321,6 +85480,12 @@
 	            setTimeout(scroll, 20000);
 	        }
 	    },
+	    //中国地图数据的切换(上海的进出)
+	    switchDirection: function switchDirection(e) {
+	        var _this = this;
+	        switchDirectionInit ? chartChina.setOption(chinaOptionExport) : chartChina.setOption(chinaOptionImport);
+	        switchDirectionInit = !switchDirectionInit;
+	    },
 	    render: function render() {
 	        return _react2.default.createElement(
 	            'div',
@@ -85328,7 +85493,7 @@
 	            _react2.default.createElement('div', { id: 'demo' }),
 	            _react2.default.createElement(
 	                'button',
-	                { className: 'switchDirection' },
+	                { className: 'switchDirection', onClick: this.switchDirection },
 	                '切换投资方向'
 	            ),
 	            _react2.default.createElement(
@@ -85544,7 +85709,7 @@
 	                        "link": "/smallLoan#/P2P",
 	                        "titleShow": true,
 	                        "Ytype": "value",
-	                        "title": "P2P",
+	                        "title": "网络借贷",
 	                        "color": ["#12b5b0", "#e24441"],
 	                        "legend": ["上海累计", "上海新增"],
 	                        "legendShow": true,
