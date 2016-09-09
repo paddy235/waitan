@@ -35,14 +35,15 @@
     </select>
 
     <select id="shMap" parameterType="java.lang.Integer" resultType="com.bbd.wtyh.domain.CompanyAnalysisResultDO">
-       SELECT
+        SELECT
             company.`name`,
             t1.longitude,
             t1.latitude,
-            t1.analysis_result AS analysisResult,
-            DATE_FORMAT(t1.exposure_date,'%Y-%m') AS exposureDate,
+            company.risk_level AS analysisResult,
+            DATE_FORMAT(t1.exposure_date, '%Y-%m') AS exposureDate,
             static_risk_data.static_risk_index AS staticRiskIndex
-        FROM (
+        FROM
+            (
                 SELECT
                     company_analysis_result.company_id,
                     company_location_information.longitude,
@@ -53,12 +54,13 @@
                     company_analysis_result
                 LEFT JOIN company_location_information ON company_location_information.company_id = company_analysis_result.company_id
                 WHERE
-                    company_analysis_result.analysis_result = #{analysisResult}
-                AND company_analysis_result.show_on_map = TRUE
+                    company_analysis_result.show_on_map = TRUE
             ) t1
         LEFT JOIN company ON company.company_id = t1.company_id
         LEFT JOIN static_risk_data ON company.`name` = static_risk_data.company_name
-        WHERE static_risk_data.data_version=#{dateVersion}
+        WHERE
+            static_risk_data.data_version = #{dateVersion} AND
+            company.risk_level = #{analysisResult}
     </select>
 
 
