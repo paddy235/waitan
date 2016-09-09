@@ -65,7 +65,7 @@ public class RealTimeMonitorController {
     }
 
     /**
-     * 全国地图
+     * 全国地图 - 股东
      *
      * @return
      */
@@ -73,6 +73,8 @@ public class RealTimeMonitorController {
     @ResponseBody
     public ResponseBean ChinaMap() {
         Map<String, Object> content = realTimeMonitorService.ChinaMap();
+        Map<String, Object> content1= realTimeMonitorService.ChinaMapSubsidiary();
+        content.putAll(content1);
         return ResponseBean.successResponse(content);
 
     }

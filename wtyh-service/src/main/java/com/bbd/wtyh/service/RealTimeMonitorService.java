@@ -22,4 +22,6 @@ public interface RealTimeMonitorService {
     List<List> spectrumAnalysis();
 
     Map<String, Map> shArea();
+
+    Map<String,Object> ChinaMapSubsidiary();
 }
