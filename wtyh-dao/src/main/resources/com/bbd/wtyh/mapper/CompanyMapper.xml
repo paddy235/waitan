@@ -282,7 +282,7 @@
         SELECT
             company.`name`,
             company.registered_capital AS registeredCapital,
-            company_analysis_result.exposure_date AS exposureDate
+            DATE_FORMAT(company_analysis_result.exposure_date,'%Y-%m') AS exposureDate
         FROM
             company
         LEFT JOIN company_analysis_result ON company.company_id = company_analysis_result.company_id
