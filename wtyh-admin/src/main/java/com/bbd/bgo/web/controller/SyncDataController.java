@@ -25,7 +25,11 @@ public class SyncDataController {
     @RequestMapping(value = "receiveFileData.do")
     @ResponseBody
     public ResponseBean receiveFileData(MultipartFile file) {
-        syncDataService.receiveFileData(file);
+        try {
+            syncDataService.receiveFileData(file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return ResponseBean.successResponse("写入成功");
     }
 

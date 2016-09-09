@@ -10,6 +10,8 @@
 				COUNT(company_id) as number
 			FROM
 				exchange_company
+			where
+				type = 1
 			GROUP BY
 				`status`
 	</select>
@@ -25,6 +27,7 @@
 			WHERE
 				1 = 1
 			AND c.area_id > 0
+			and ec.type = 1
 			GROUP BY
 				a.area_id
 	</select>
@@ -44,6 +47,7 @@
 			<if test="status > 0">
 				and ec.`status` = #{status}
 			</if>
+			and ec.type = 1
 		</where>
 	</select>
 
