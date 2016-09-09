@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.domain.*;
+import com.bbd.wtyh.domain.dto.PrivateFundCompanyDTO;
 import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.service.PrivateFundService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,8 @@ public class PrivateFundServiceImpl implements PrivateFundService {
     private InvestmentReturnStatisticMapper investmentReturnStatisticMapper;
     @Autowired
     private InvestmentStatisticMapper investmentStatisticMapper;
-
+    @Autowired
+    private PrivateFundExtraMapper privateFundExtraMapper;
 
 
     @Override
@@ -85,6 +87,11 @@ public class PrivateFundServiceImpl implements PrivateFundService {
     @Override
     public List<InvestmentStatisticDO> investmentAmount() {
         return investmentStatisticMapper.selectAll();
+    }
+
+    @Override
+    public List<PrivateFundCompanyDTO> privateFundExtraList(Integer orderByField, String descAsc, Integer recordStatus) {
+        return privateFundExtraMapper.selectAll(orderByField, descAsc, recordStatus);
     }
 
 }
