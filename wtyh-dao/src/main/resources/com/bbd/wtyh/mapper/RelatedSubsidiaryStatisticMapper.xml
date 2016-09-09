@@ -13,6 +13,6 @@
     <select id="getChinaMapSubsidiary" resultMap="BaseResultMap">
       select
       area_name, related_subsidiary
-      from related_company_statistic
+      from related_subsidiary_statistic
     </select>
 </mapper>
