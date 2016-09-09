@@ -68740,17 +68740,32 @@
 	                padding: [10, 10, 10, 10],
 	                formatter: function formatter(v) {
 	                    // console.log(v);
-	                    var info = v[0].name + "<br/>";
-	                    for (var i = 0; i < v.length; i++) {
+	                    var title = parm.title;
+	                    if (title == "薪酬分布") {
+	                        var info = v[0].name + "<br/>";
+	                        for (var i = 0; i < v.length; i++) {
 
-	                        var _until = "";
-	                        if (parm.unit == undefined) {
-	                            _until = "";
-	                        } else {
-	                            _until = parm.unit[i];
+	                            var _until = "";
+	                            if (parm.unit == undefined) {
+	                                _until = "";
+	                            } else {
+	                                _until = parm.unit[i];
+	                            }
+	                            var _spanCorlor = v[i].seriesName + ' :&nbsp;<span style=color:' + parm.color[i] + '>' + v[i].value + _until + '%</span><br/>';
+	                            info += _spanCorlor;
 	                        }
-	                        var _spanCorlor = v[i].seriesName + ' :&nbsp;<span style=color:' + parm.color[i] + '>' + v[i].value + _until + '%</span><br/>';
-	                        info += _spanCorlor;
+	                    } else {
+	                        var info = v[0].name + "<br/>";
+	                        for (var i = 0; i < v.length; i++) {
+	                            var _until = "";
+	                            if (parm.unit == undefined) {
+	                                _until = "";
+	                            } else {
+	                                _until = parm.unit[i];
+	                            }
+	                            var _spanCorlor = v[i].seriesName + ' :&nbsp;<span style=color:' + parm.color[i] + '>' + v[i].value + _until + '</span><br/>';
+	                            info += _spanCorlor;
+	                        }
 	                    }
 	                    return info;
 	                },
@@ -68810,7 +68825,7 @@
 	                axisTick: {
 	                    show: false
 	                },
-	                nameGap: 0,
+	                //nameGap:0,
 	                splitLine: {
 	                    show: parm.splitLineShow == undefined ? true : parm.splitLineShow,
 	                    lineStyle: {
