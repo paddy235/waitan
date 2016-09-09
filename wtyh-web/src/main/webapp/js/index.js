@@ -61688,7 +61688,7 @@
 	              'tbody',
 	              null,
 	              this.state.largeGuaraList.map(function (elem, index) {
-	                var guaranteeId = elem.guaranteeId;
+	                var guaranteedId = elem.guaranteedId;
 	                if (index % 2) {
 	                  return _react2.default.createElement(
 	                    'tr',
@@ -61730,7 +61730,7 @@
 	                      { width: '15%' },
 	                      _react2.default.createElement(
 	                        'a',
-	                        { href: 'javascript:;', className: 'more', onClick: this.handleMore.bind(this, guaranteeId) },
+	                        { href: 'javascript:;', className: 'more', onClick: this.handleMore.bind(this, guaranteedId) },
 	                        elem.relatedOfflineFinance
 	                      )
 	                    )
@@ -61776,7 +61776,7 @@
 	                      { width: '15%' },
 	                      _react2.default.createElement(
 	                        'a',
-	                        { href: 'javascript:;', className: 'more', onClick: this.handleMore.bind(this, guaranteeId) },
+	                        { href: 'javascript:;', className: 'more', onClick: this.handleMore.bind(this, guaranteedId) },
 	                        elem.relatedOfflineFinance
 	                      )
 	                    )
@@ -83440,11 +83440,10 @@
 				legendShow: false,
 				gridTop: "10%",
 				legend: ["薪资分布"],
-				xAxis: ["2k-5k", "5k-10k", "10k-20k", "20k-30k"], /*---------------ajax-----------------*/
+				xAxis: xData,
 				XTextColor: '#fff',
 				YTextColor: '#fff',
-				series: [series /*---------------ajax-----------------*/
-				]
+				series: [series]
 			};
 			return option;
 		},
