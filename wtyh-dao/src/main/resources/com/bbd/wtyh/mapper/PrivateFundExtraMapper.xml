@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.PrivateFundExtraMapper">
+    <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.PrivateFundExtraDO">
+        <id column="company_id" jdbcType="INTEGER" property="companyId"/>
+        <result column="website" jdbcType="VARCHAR" property="website"/>
+        <result column="paidin_capital" jdbcType="INTEGER" property="paidinCapital"/>
+        <result column="managed_fund" jdbcType="INTEGER" property="managedFund"/>
+        <result column="record_status" jdbcType="TINYINT" property="recordStatus"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="create_date" jdbcType="DATE" property="createDate"/>
+        <result column="update_by" jdbcType="VARCHAR" property="updateBy"/>
+        <result column="update_date" jdbcType="DATE" property="updateDate"/>
+    </resultMap>
+
+    <resultMap id="ExtraDTOResultMap" type="com.bbd.wtyh.domain.dto.PrivateFundCompanyDTO">
+        <id column="company_id" jdbcType="INTEGER" property="companyId"/>
+        <result column="website" jdbcType="VARCHAR" property="website"/>
+        <result column="paidin_capital" jdbcType="INTEGER" property="paidinCapital"/>
+        <result column="managed_fund" jdbcType="INTEGER" property="managedFund"/>
+        <result column="record_status" jdbcType="TINYINT" property="recordStatus"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="registered_capital" jdbcType="INTEGER" property="registeredCapital"/>
+        <result column="registered_date" jdbcType="DATE" property="registeredDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    company_id, website, paidin_capital, managed_fund, record_status, create_by, create_date, 
+    update_by, update_date
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from private_fund_extra
+        where company_id = #{companyId,jdbcType=INTEGER}
+    </select>
+
+
+    <select id="selectAll" resultMap="ExtraDTOResultMap">
+        select
+        a.company_id, a.website, a.paidin_capital, a.managed_fund,
+        a.record_status,b.name,b.registered_date,b.registered_capital
+        from private_fund_extra a,company b
+        <where>
+            a.company_id=b.company_id
+            <if test="null != recordStatus">
+               and  a.record_status=#{recordStatus}
+            </if>
+        </where>
+        <if test="null != orderByField">
+
+            order by
+            <choose>
+                <when test="orderByField==1">
+                    b.registered_date is null,b.registered_date
+                </when>
+                <when test="orderByField==2">
+                    b.registered_capital is null,b.registered_capital
+                </when>
+                <when test="orderByField==3">
+                    a.paidin_capital is null,a.paidin_capital
+                </when>
+                <when test="orderByField==4">
+                    a.managed_fund is null,a.managed_fund
+                </when>
+            </choose>
+
+            <choose>
+                <when test="descAsc=='desc'">
+                    desc
+                </when>
+                <otherwise>asc</otherwise>
+            </choose>
+
+        </if>
+    </select>
+</mapper>

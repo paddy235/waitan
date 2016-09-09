@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service;
 
 import com.bbd.wtyh.domain.*;
+import com.bbd.wtyh.domain.dto.PrivateFundCompanyDTO;
 
 import java.util.List;
 
@@ -29,5 +30,7 @@ public interface PrivateFundService {
     List<InvestmentReturnStatisticDO> investmentReturn();
 
     List<InvestmentStatisticDO> investmentAmount();
+
+    List<PrivateFundCompanyDTO> privateFundExtraList(Integer orderByField, String descAsc, Integer recordStatus);
 
 }

@@ -1,10 +1,7 @@
 package com.bbd.wtyh.web.controller;
 
 import com.bbd.wtyh.domain.*;
-import com.bbd.wtyh.domain.dto.PrivateFundProductTypeStatisticDTO;
-import com.bbd.wtyh.domain.dto.PrivateFundTypeStatisticDTO;
-import com.bbd.wtyh.domain.dto.QdlpProgressDTO;
-import com.bbd.wtyh.domain.dto.QflpCompanyDTO;
+import com.bbd.wtyh.domain.dto.*;
 import com.bbd.wtyh.domain.enums.CompanyProgress;
 import com.bbd.wtyh.service.CompanyService;
 import com.bbd.wtyh.service.PrivateFundService;
@@ -175,6 +172,21 @@ public class PrivateFundController {
         }
 
         return ResponseBean.successResponse(list);
+    }
+
+
+    @RequestMapping("privateFundList.do")
+    public ResponseBean privateFundList(Integer orderByField, String descAsc, Integer recordStatus) {
+        if (null != recordStatus && recordStatus <= 0) {
+            recordStatus = null;
+        }
+        List<PrivateFundCompanyDTO> privateFundCompanyDTOs = privateFundService.privateFundExtraList(orderByField, descAsc, recordStatus);
+        for (PrivateFundCompanyDTO dto : privateFundCompanyDTOs) {
+            if (StringUtils.isNotEmpty(dto.getWebsite()) && !dto.getWebsite().startsWith("http")) {
+                dto.setWebsite("http://" + dto.getWebsite());
+            }
+        }
+        return ResponseBean.successResponse(privateFundCompanyDTOs);
     }
 
 
