@@ -352,7 +352,23 @@ public class PToPMonitorController {
         for (PlatRankDataDTO dto : list) {
             double total = Double.valueOf(dto.getStay_still_of_total().isEmpty() || dto.getStay_still_of_total().equals("/") ? "0" : dto.getStay_still_of_total());
             dto.setStay_still_of_total(String.valueOf(CalculateUtils.divide(total, 100000000, 2)));
-            dto.setAmount(String.valueOf(CalculateUtils.divide(Double.valueOf(!StringUtils.isNullOrEmpty(dto.getAmount()) ? "0" : dto.getAmount()), 100000000, 2)));
+
+
+
+            try {
+
+                if(!org.springframework.util.StringUtils.hasText(dto.getAmount()) || "/".equals(dto.getAmount())){
+                    dto.setAmount("0");
+                }
+
+                dto.setAmount(dto.getAmount().split("\\.")[0]);
+
+                dto.setAmount(""+CalculateUtils.divide(Double.parseDouble(dto.getAmount()),100000000,2));
+
+            }catch (Exception e){
+
+            }
+
         }
 
         return ResponseBean.successResponse(list);
