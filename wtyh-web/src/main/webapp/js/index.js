@@ -61678,7 +61678,7 @@
 	                ),
 	                _react2.default.createElement(
 	                  'th',
-	                  { width: '15%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 4) },
+	                  { width: '15%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 5) },
 	                  '被担保人关联风险',
 	                  _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                )
