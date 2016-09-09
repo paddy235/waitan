@@ -43275,7 +43275,7 @@
 		componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 			//返回true 执行动画，如果count没变，不用重新渲染pages
 			if (nextProps.count != this.props.count) {
-				this.iniLiDom(nowpage, nextProps.count, this.props.eachPageCount);
+				this.iniLiDom(1, nextProps.count, this.props.eachPageCount);
 			}
 		},
 
@@ -51550,7 +51550,7 @@
 	                minReviewTime: parm.minReviewTime,
 	                maxReviewTime: parm.maxReviewTime,
 	                companyQualification: parm.companyQualification,
-	                pageNo: this.state.nowpage,
+	                pageNo: 1,
 	                sortType: this.state.sortType
 	            };
 	            this.getLinFinList(jsonData);
@@ -65256,10 +65256,8 @@
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
-	    var getSmallLoanMap = this.props.getSmallLoanMap;
-
 	    var jsonData = {};
-	    getSmallLoanMap(jsonData);
+	    this.getSmallLoanMap(jsonData);
 	  },
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	    var isMapEqual = Immutable.is(nextProps.smollLoanMapResult, this.props.smollLoanMapResult);
@@ -65286,6 +65284,11 @@
 	  //       return false;
 	  //     }
 	  //   },
+	  getSmallLoanMap: function getSmallLoanMap(jsonData) {
+	    var getSmallLoanMap = this.props.getSmallLoanMap;
+
+	    getSmallLoanMap(jsonData);
+	  },
 	  dataFomatMap: function dataFomatMap(data) {
 	    var content = data.content;
 	    var series = [];
@@ -65293,7 +65296,6 @@
 	      var s = { "name": content[i].areaName, "value": content[i].all, "areaId": content[i].areaId };
 	      series.push(s);
 	    }
-	    console.log(series, 11);
 	    var option = {
 	      "visualMapRight": "50", //值茷位置
 	      "visualMapBottom": "30",
@@ -65366,7 +65368,6 @@
 	      'click': this.onMapClick
 	    };
 	    var bbdMap = "";
-	    console.log(this.state.mapOption, 222);
 	    if (this.state.mapOption) {
 	      console.log(this.state.mapOption, 333);
 	      bbdMap = _react2.default.createElement(_MapChart2.default, { option: this.state.mapOption, onEvents: onEvents, style: { height: '610px', width: '100%' } });
@@ -71738,6 +71739,7 @@
 	            for (var j = 0; j < Data.xAxisData.length; j++) {
 	                _xAxisData.push(Data.xAxisData[j].toString());
 	            }
+	            console.log(_setData, 111);
 	            var optionParm = {
 	                id: 'loan-balance-chart', //必传
 	                height: '465px', //必传 带上单位
@@ -71745,7 +71747,7 @@
 	                yAxisName: "笔数",
 	                legend: [],
 	                formatter: "BusinessNum",
-	                yMin: 0,
+	                //yMin:1000,
 	                xAxis: _xAxisData,
 	                data: _setData,
 	                series: [[{
@@ -80028,7 +80030,7 @@
 
 
 	// module
-	exports.push([module.id, "#search-result-detail {\r\n  position: relative;\r\n  transition: all 2s linear;\r\n  -moz-transition: all 2s linear;\r\n  -webkit-transition: all 2s linear;\r\n  -o-transition: all 2s linear;\r\n  width: 100%;\r\n  height: 1080px;\r\n  min-width: 900px; }\r\n  #search-result-detail .clear-fix:after {\r\n    display: block;\r\n    clear: both;\r\n    content: \"\";\r\n    visibility: hidden;\r\n    height: 0; }\r\n  #search-result-detail .company-name {\r\n    padding: 13px;\r\n    background: #383e47;\r\n    width: 100%; }\r\n    #search-result-detail .company-name > span {\r\n      font-size: 18px;\r\n      color: #fff; }\r\n    #search-result-detail .company-tag{\r\n       display: inline-block;\r\n       margin-left: 20px;\r\n    }\r\n    #search-result-detail .company-tag > span{\r\n        padding: 2px 5px;\r\n        font-size: 12px;\r\n        margin: 0 5px;\r\n    }\r\n    #search-result-detail .company-tag .tag-bg-green{\r\n      background:#32b16c;\r\n    }\r\n    #search-result-detail .company-tag .tag-bg-red{\r\n      background:red;\r\n    }\r\n    #search-result-detail .company-tag .tag-bg-yellow{\r\n      background:#ebc900;\r\n    }\r\n    #search-result-detail .company-tag .tag-bg-black{\r\n      background:#000000;\r\n    }\r\n    #search-result-detail .see-risk{\r\n      color: #ffffff;\r\n      background-color: #e14340;\r\n      margin-left: 20px;\r\n      border-radius: 2px;\r\n      padding: 5px 10px;\r\n      font-size: 14px;\r\n    }\r\n    #search-result-detail .company-name .right-content {\r\n      float: right; \r\n      margin-top: -5px;\r\n      }\r\n      #search-result-detail .company-name .right-content > div {\r\n        display: inline-block; }\r\n      #search-result-detail .company-name .right-content .search-group {\r\n        position: relative;\r\n        margin-right: 18px; }\r\n        #search-result-detail .company-name .right-content .search-group input {\r\n          width: 330px;\r\n          height: 35px;\r\n          font-size: 14px;\r\n          color: #898f98;\r\n          padding-left: 15px;\r\n          border-radius: 5px;\r\n          border: none; }\r\n        #search-result-detail .company-name .right-content .search-group .search {\r\n          margin-left: -31px;\r\n          color: #e8716f;\r\n          position: absolute;\r\n          top: 5px; }\r\n          #search-result-detail .company-name .right-content .search-group .search i {\r\n            font-size: 24px; }\r\n      #search-result-detail .company-name .right-content .back-btn {\r\n        width: 72px;\r\n        height: 24px;\r\n        cursor: pointer;\r\n        line-height: 24px;\r\n        text-align: center;\r\n        background: #5f93e7;\r\n        border-radius: 5px; }\r\n        #search-result-detail .company-name .right-content .back-btn .fanhui {\r\n          margin-right: 5px;\r\n          color: #272636; }\r\n  #search-result-detail .company-detail {\r\n    width: 100%;\r\n    height: 85%; }\r\n    #search-result-detail .company-detail > div {\r\n      float: left;\r\n      border-radius: 5px;\r\n      background: #2b323c; }\r\n  #search-result-detail .back-top {\r\n    position: fixed;\r\n    bottom: 30px;\r\n    right: 30px;\r\n    cursor: pointer; }\r\n    #search-result-detail .back-top .icon-top {\r\n      font-size: 30px; }\r\n\r\n/*# sourceMappingURL=style.css.map */\r\n", ""]);
+	exports.push([module.id, "#search-result-detail {\r\n  position: relative;\r\n  transition: all 2s linear;\r\n  -moz-transition: all 2s linear;\r\n  -webkit-transition: all 2s linear;\r\n  -o-transition: all 2s linear;\r\n  width: 100%;\r\n  height: 1080px;\r\n  min-width: 900px; }\r\n  #search-result-detail .clear-fix:after {\r\n    display: block;\r\n    clear: both;\r\n    content: \"\";\r\n    visibility: hidden;\r\n    height: 0; }\r\n  #search-result-detail .company-name {\r\n    padding: 13px;\r\n    background: #383e47;\r\n    width: 100%; }\r\n    #search-result-detail .company-name > span {\r\n      font-size: 18px;\r\n      color: #fff; }\r\n    #search-result-detail .company-tag{\r\n       display: inline-block;\r\n       margin-left: 20px;\r\n    }\r\n    #search-result-detail .company-tag > span{\r\n        padding: 2px 5px;\r\n        font-size: 12px;\r\n        margin: 0 5px;\r\n    }\r\n#search-result-detail .company-tag .bg-blue{\r\n  background-color: #00b7ee;\r\n}\r\n#search-result-detail .company-tag .bg-yellow{\r\n  background-color: #f98d2b;\r\n}\r\n#search-result-detail .company-tag .bg-red{\r\n  background-color: #e14340;\r\n}\r\n    #search-result-detail .company-tag .tag-bg-green{\r\n      background:#32b16c;\r\n    }\r\n    #search-result-detail .company-tag .tag-bg-red{\r\n      background:red;\r\n    }\r\n    #search-result-detail .company-tag .tag-bg-yellow{\r\n      background:#ebc900;\r\n    }\r\n    #search-result-detail .company-tag .tag-bg-black{\r\n      background:#000000;\r\n    }\r\n    #search-result-detail .see-risk{\r\n      color: #ffffff;\r\n      background-color: #e14340;\r\n      margin-left: 20px;\r\n      border-radius: 2px;\r\n      padding: 5px 10px;\r\n      font-size: 14px;\r\n    }\r\n    #search-result-detail .company-name .right-content {\r\n      float: right; \r\n      margin-top: -5px;\r\n      }\r\n      #search-result-detail .company-name .right-content > div {\r\n        display: inline-block; }\r\n      #search-result-detail .company-name .right-content .search-group {\r\n        position: relative;\r\n        margin-right: 18px; }\r\n        #search-result-detail .company-name .right-content .search-group input {\r\n          width: 330px;\r\n          height: 35px;\r\n          font-size: 14px;\r\n          color: #898f98;\r\n          padding-left: 15px;\r\n          border-radius: 5px;\r\n          border: none; }\r\n        #search-result-detail .company-name .right-content .search-group .search {\r\n          margin-left: -31px;\r\n          color: #e8716f;\r\n          position: absolute;\r\n          top: 5px; }\r\n          #search-result-detail .company-name .right-content .search-group .search i {\r\n            font-size: 24px; }\r\n      #search-result-detail .company-name .right-content .back-btn {\r\n        width: 72px;\r\n        height: 24px;\r\n        cursor: pointer;\r\n        line-height: 24px;\r\n        text-align: center;\r\n        background: #5f93e7;\r\n        border-radius: 5px; }\r\n        #search-result-detail .company-name .right-content .back-btn .fanhui {\r\n          margin-right: 5px;\r\n          color: #272636; }\r\n  #search-result-detail .company-detail {\r\n    width: 100%;\r\n    height: 85%; }\r\n    #search-result-detail .company-detail > div {\r\n      float: left;\r\n      border-radius: 5px;\r\n      background: #2b323c; }\r\n  #search-result-detail .back-top {\r\n    position: fixed;\r\n    bottom: 30px;\r\n    right: 30px;\r\n    cursor: pointer; }\r\n    #search-result-detail .back-top .icon-top {\r\n      font-size: 30px; }\r\n\r\n/*# sourceMappingURL=style.css.map */\r\n", ""]);
 
 	// exports
 
