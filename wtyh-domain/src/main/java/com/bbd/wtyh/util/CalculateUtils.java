@@ -1,5 +1,8 @@
 package com.bbd.wtyh.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.math.BigDecimal;
 
 /**
@@ -19,8 +22,8 @@ public class CalculateUtils {
         if(cs.doubleValue() == 0){
             return 0;
         }
-        BigDecimal bBcs = new BigDecimal("0"+bcs);
-        BigDecimal bCs = new BigDecimal("0"+cs);
+        BigDecimal bBcs = new BigDecimal(String.valueOf(bcs));
+        BigDecimal bCs = new BigDecimal(String.valueOf(cs));
         return bBcs.divide(bCs, scale, BigDecimal.ROUND_HALF_EVEN).doubleValue();
     }
 
