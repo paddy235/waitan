@@ -59,4 +59,6 @@ public interface StaticRiskMapper {
     Float queryCapitalBgRisk(String companyName);
 
     StaticRiskDataDO queryStaticsRiskData(String companyName);
+
+    String getNewestDataVersion();
 }

@@ -14,4 +14,5 @@ import java.util.List;
 public interface SyncDataService {
 
 	void receiveFileData(MultipartFile file) throws Exception;
+
 }
