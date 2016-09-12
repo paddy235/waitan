@@ -31,6 +31,10 @@
       and area = #{area,jdbcType=VARCHAR}
   </select>
 
+  <select id="getNewestUpdateDate" resultType="date">
+    SELECT DISTINCT update_date from index_data ORDER BY update_date desc;
+  </select>
+
   <insert id="save" parameterType="com.bbd.wtyh.domain.IndexDataDO" >
     INSERT INTO `index_data` VALUES (
     #{createBy},#{createDate},#{updateBy},#{updateDate},
