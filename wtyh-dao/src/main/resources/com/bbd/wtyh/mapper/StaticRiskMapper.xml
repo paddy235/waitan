@@ -228,6 +228,16 @@
         order by date DESC;
     </select>
 
+    <select id="getNewestDataVersion" resultType="java.lang.String">
+        SELECT DISTINCT
+          data_version
+        FROM
+          static_risk_data
+        ORDER BY
+          data_version DESC
+        LIMIT 1;
+    </select>
+
     <select id="queryDateVersionByMonth" resultType="java.lang.String" parameterType="java.util.HashMap">
         SELECT
           data_version AS date
