@@ -47,9 +47,9 @@ public class SyncDataServiceImpl implements SyncDataService {
 	@Override
 	public void receiveFileData(MultipartFile file) throws Exception{
 		if (file != null) {
-			Gson gson = new GsonBuilder().setDateFormat("yyyyMMdd").create();
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 			String fileName = file.getOriginalFilename();
-			File f = new File("/data/wtyh/" + fileName + ".txt");
+			File f = new File("/data/wtyh/admin/" + fileName + ".txt");
 			FileUtils.forceMkdirParent(f);
 			OutputStream outputStream = new FileOutputStream(f);
 			IOUtils.copyLarge(file.getInputStream(), outputStream);
