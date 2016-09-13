@@ -85240,8 +85240,9 @@
 	    var threeContent = range == 1 ? "2014/3/3" : parseInt(Math.random() * 5000);
 	    var threeTitle = range == 1 ? "风险暴露日期" : "注册资本(万元)";
 	    var state = null;
-	    if (fixRange == 3) {
-	      return false; //如果是”正常“列表，点击查看更多是没有效果的（这个版本需求）
+	    if ( /*fixRange == 3*/false) {
+	      console.log("ss");
+	      // return false;//如果是”正常“列表，点击查看更多是没有效果的（这个版本需求）
 	    } else if ($(".mlBtn").text() == "查看更多") {
 	      state = true;
 	      $(".mlBtn").text("收起");
@@ -85369,7 +85370,7 @@
 	        { className: 'title', onClick: this.titleRange },
 	        _react2.default.createElement(
 	          'li',
-	          { 'data-range': '4', 'data-a': '1', 'data-limit': '50', className: 'active' },
+	          { 'data-range': '4', 'data-a': '1', 'data-limit': '200', className: 'active' },
 	          '重点关注'
 	        ),
 	        _react2.default.createElement(
@@ -85384,7 +85385,7 @@
 	        ),
 	        _react2.default.createElement(
 	          'li',
-	          { 'data-range': '1', 'data-a': '4', 'data-limit': '50', className: '' },
+	          { 'data-range': '1', 'data-a': '4', 'data-limit': '200', className: '' },
 	          '已出风险'
 	        )
 	      ),
@@ -86435,6 +86436,10 @@
 
 	var _LineBarChart2 = _interopRequireDefault(_LineBarChart);
 
+	var _publicFun = __webpack_require__(1314);
+
+	var _publicFun2 = _interopRequireDefault(_publicFun);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Immutable = __webpack_require__(620);
@@ -86467,6 +86472,8 @@
 	                    nineDate = realTimeNineResult; //赋值给全局变量
 
 	                    //数据处理
+
+
 	                    var paramOneData = [];
 	                    nineDate.content.loan.series[0].map(function (item, index) {
 	                        item = Number(item / 10000).toFixed(2);
@@ -86477,11 +86484,12 @@
 	                    nineDate.content.loan.series[1].map(function (item, index) {
 	                        paramOneData[index].push(item);
 	                    });
+
 	                    var paramOneyAxis = [];
-	                    nineDate.content.loan.series[0].map(function (item, index) {
-	                        paramOneyAxis.push((item / 10000).toFixed(2));
+	                    paramOneData.map(function (item, index) {
+	                        paramOneyAxis.push(item[1]);
 	                    });
-	                    console.log(paramOneData, "第一个图的series");
+	                    paramOneyAxis = _publicFun2.default.fomatYaxis(paramOneyAxis);
 	                    paramOne = {
 	                        link: "/smallLoan#/smallLoan",
 	                        id: 'realTimeRightOne', //必传
@@ -86497,6 +86505,9 @@
 	                        legend: ["贷款余额及平均贷款余额"],
 	                        xAxis: nineDate.content.loan.xAxis,
 	                        //yAxis:paramOneyAxis,
+	                        yMin: paramOneyAxis.min,
+	                        yMax: paramOneyAxis.max,
+	                        yInterval: paramOneyAxis.interval,
 	                        data: paramOneData,
 	                        series: [[{
 	                            color: '#e14340'
@@ -86662,11 +86673,15 @@
 	                    nineDate.content.mortgage.series[0].map(function (item, index) {
 	                        b.push((item / 10000).toFixed(2));
 	                    });
-	                    console.log(nineDate.content.mortgage.xAxis, 11);
 	                    var xAxis = nineDate.content.mortgage.xAxis.sort(function (a, b) {
 	                        return a - b;
 	                    });
-	                    console.log(xAxis, 22);
+
+	                    var paramSevenyAxis = [];
+	                    paramSevenData.map(function (item, index) {
+	                        paramSevenyAxis.push(item[1]);
+	                    });
+	                    paramSevenyAxis = _publicFun2.default.fomatYaxis(paramSevenyAxis);
 	                    paramSeven = {
 	                        link: "/smallLoan#/PawnMonitoring",
 	                        id: 'realTimeRightTwo', //必传
@@ -86683,6 +86698,9 @@
 	                        },
 	                        xAxis: xAxis,
 	                        // yAxis:b,
+	                        yMin: paramSevenyAxis.min,
+	                        yMax: paramSevenyAxis.max,
+	                        yInterval: paramSevenyAxis.interval,
 	                        data: paramSevenData,
 	                        symbolSize: function symbolSize() {
 	                            return 20;
