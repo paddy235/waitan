@@ -1,11 +1,13 @@
 package com.bbd.wtyh.service.impl;
 
+import com.bbd.higgs.utils.ListUtil;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.service.CompanyNewsService;
 import com.bbd.wtyh.service.DataomApiBbdservice;
 import com.bbd.wtyh.service.ParkService;
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.http.NameValuePair;
@@ -118,11 +120,18 @@ public class ParkServiceImpl implements ParkService {
     public String queryParkNews(Integer areaId, Integer pageSize, Integer pageNum) {
 
         String result = null;
-        String names = companyMapper.queryCompanyNames(areaId, null);
+        List<String> names = companyMapper.queryCompanyNames(areaId, null);
+
+        StringBuilder ns = new StringBuilder();
+        for (String n:names) {
+            ns.append(ns.length()>0?",":"").append(n);
+        }
+
+
         log.info("園區舆情公司爲：" + names);
         if (!StringUtils.isEmpty(names)) {
             List<NameValuePair> list = new ArrayList<>();
-            list.add(new BasicNameValuePair("keys", names.substring(0, names.length() - 1)));
+            list.add(new BasicNameValuePair("keys", ns.toString() ));
             list.add(new BasicNameValuePair("ktype", "" + ktype));
             list.add(new BasicNameValuePair("page", pageNum + ""));
             list.add(new BasicNameValuePair("pageSize", pageSize + ""));
@@ -134,9 +143,6 @@ public class ParkServiceImpl implements ParkService {
                 e.printStackTrace();
             }
         }
-        if (!StringUtils.hasText(result) || result.contains("\"total\": 0")) {
-            return cns.getCompanyNews();
-        }
 
         return result;
 
@@ -146,11 +152,17 @@ public class ParkServiceImpl implements ParkService {
     @Override
     public String buildingNews(Integer buildingId) {
 
-        String names = companyMapper.queryCompanyNames(null, buildingId);
+        List<String> names = companyMapper.queryCompanyNames(null, buildingId);
+
+        StringBuilder ns = new StringBuilder();
+        for (String n:names) {
+            ns.append(ns.length()>0?",":"").append(n);
+        }
+
         String result = null;
         if (!StringUtils.isEmpty(names)) {
             List<NameValuePair> list = new ArrayList<>();
-            list.add(new BasicNameValuePair("keys", names.substring(0, names.length() - 1)));
+            list.add(new BasicNameValuePair("keys", ns.toString()));
             list.add(new BasicNameValuePair("ktype", "" + ktype));
             list.add(new BasicNameValuePair("page", "1"));
             list.add(new BasicNameValuePair("pageSize", "20"));

@@ -52,8 +52,8 @@ public interface CompanyMapper {
 
     CompanyDO selectByName(String companyName);
 
-    String queryCompanyNames(@Param("areaId") Integer areaId,
-                             @Param("buildingId") Integer buildingId);
+    List<String> queryCompanyNames(@Param("areaId")     Integer areaId,
+                                   @Param("buildingId") Integer buildingId);
 
     List<Map<Integer, Object>> companyInfo(String companyName);
 
