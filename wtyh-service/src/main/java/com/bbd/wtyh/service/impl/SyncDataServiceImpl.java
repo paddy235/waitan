@@ -9,6 +9,7 @@ import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.service.SyncDataService;
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.LineIterator;
@@ -46,7 +47,7 @@ public class SyncDataServiceImpl implements SyncDataService {
 	@Override
 	public void receiveFileData(MultipartFile file) throws Exception{
 		if (file != null) {
-			Gson gson = new Gson();
+			Gson gson = new GsonBuilder().setDateFormat("yyyyMMdd").create();
 			String fileName = file.getOriginalFilename();
 			File f = new File("/data/wtyh/" + fileName + ".txt");
 			FileUtils.forceMkdirParent(f);
@@ -63,27 +64,27 @@ public class SyncDataServiceImpl implements SyncDataService {
 				switch (type) {
 					case 1:
 						StaticRiskDataDO staticRiskDataDO = new StaticRiskDataDO();
-						staticRiskDataDO = JSON.parseObject(content, StaticRiskDataDO.class);
+						staticRiskDataDO = gson.fromJson(content, StaticRiskDataDO.class);
 						staticRiskMapper.save(staticRiskDataDO);
 						break;
 					case 2:
 						DynamicRiskDataDO dynamicRiskDataDO = new DynamicRiskDataDO();
-						dynamicRiskDataDO = JSON.parseObject(content, DynamicRiskDataDO.class);
+						dynamicRiskDataDO = gson.fromJson(content, DynamicRiskDataDO.class);
 						dynamicRiskMapper.save(dynamicRiskDataDO);
 						break;
 					case 3:
 						RecruitDataDO recruitDataDO = new RecruitDataDO();
-						recruitDataDO = JSON.parseObject(content, RecruitDataDO.class);
+						recruitDataDO = gson.fromJson(content, RecruitDataDO.class);
 						recruitDataMapper.save(recruitDataDO);
 						break;
 					case 4:
 						IndexDataDO indexDataDO = new IndexDataDO();
-						indexDataDO = JSON.parseObject(content, IndexDataDO.class);
+						indexDataDO = gson.fromJson(content, IndexDataDO.class);
 						indexDataMapper.save(indexDataDO);
 						break;
 					case 5:
 						RelationDataDO relationDataDO = new RelationDataDO();
-						relationDataDO = JSON.parseObject(content, RelationDataDO.class);
+						relationDataDO = gson.fromJson(content, RelationDataDO.class);
 						relationDataMapper.save(relationDataDO);
 						break;
 				}
