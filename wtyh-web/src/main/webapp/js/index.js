@@ -54861,6 +54861,7 @@
 	                name: parm.yAxisName,
 	                interval: parm.yInterval == undefined ? "" : parm.yInterval,
 	                max: parm.yMax == undefined ? "auto" : parm.yMax,
+	                min: parm.yMin == undefined ? "auto" : parm.yMin,
 	                nameTextStyle: {
 	                    color: "#7f868e"
 	                },
@@ -60631,80 +60632,103 @@
 
 	var _LineChart2 = _interopRequireDefault(_LineChart);
 
+	var _publicFun = __webpack_require__(1314);
+
+	var _publicFun2 = _interopRequireDefault(_publicFun);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Immutable = __webpack_require__(620);
 
 	//担保笔均折线图
 	var GuaraEachAverage = _react2.default.createClass({
-	  displayName: 'GuaraEachAverage',
+	    displayName: 'GuaraEachAverage',
 
-	  getInitialState: function getInitialState() {
-	    return {
-	      option: null
-	    };
-	  },
-	  componentDidMount: function componentDidMount() {},
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    // var isEqual=Immutable.is(nextProps.eachAverageData, this.props.eachAverageData);
-	    //     console.log(nextProps,isEqual,'打印看看2222222222222')
-	    //     if(!isEqual){
-	    var guaraEachAverData = nextProps.guaraEachAverData;
+	    getInitialState: function getInitialState() {
+	        return {
+	            option: null
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {},
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        // var isEqual=Immutable.is(nextProps.eachAverageData, this.props.eachAverageData);
+	        //     console.log(nextProps,isEqual,'打印看看2222222222222')
+	        //     if(!isEqual){
+	        var guaraEachAverData = nextProps.guaraEachAverData;
 
-	    this.dataFomat(guaraEachAverData);
-	    // }
-	  },
-	  dataFomat: function dataFomat(data) {
-	    var option = {
-	      color: ["#00b8ee", "#f8b551"],
-	      titleX: "left",
-	      boxId: "each-average-chart",
-	      symbolSize: 10,
-	      legendIsShow: true,
-	      unit: ['万元'],
-	      yAxisName: "万元",
-	      yInterval: 150,
-	      yMax: 600,
-	      legendRight: "center",
-	      yFlag: "",
-	      legendTop: '1%',
-	      legendPadding: [0, 0, 0, 0],
-	      grid: { top: '10%', left: '5%', right: '5%', bottom: '10%', containLabel: true },
-	      legend: ["担保总额/总笔数"],
-	      xAxis: data.xAxis,
-	      series: [data.series]
-	    };
-	    this.setState({ option: option });
-	  },
-	  render: function render() {
-	    var bbdLine = "";
+	        this.dataFomat(guaraEachAverData);
+	        // }
+	    },
+	    dataFomat: function dataFomat(data) {
+	        var yData = data.series;
+	        var yAxis = _publicFun2.default.fomatYaxis(yData);
+	        // var minData=Math.min.apply(null,yData);//获取最小值
+	        // var maxData=Math.max.apply(null,yData);//获取最大值
+	        // var midData=(minData+maxData)/3;
+	        // var maxJudge=maxData+midData;
+	        // var min=0,max=0;
+	        // min=parseInt((minData-midData)/10)*10;
+	        // if(maxJudge<100){
+	        //    max=parseInt(maxData+midData);
+	        // }else{
+	        //    max=parseInt((maxData+midData)/10)*10;
+	        // }
+	        // var interval=parseInt((max-min)/5/10)*10;
+	        // if(min<0){
+	        //   min=0;
+	        // }
 
-	    if (this.state.option) {
-	      bbdLine = _react2.default.createElement(_LineChart2.default, { option: this.state.option, style: { height: '272px', width: '100%' } });
+	        var option = {
+	            color: ["#00b8ee", "#f8b551"],
+	            titleX: "left",
+	            boxId: "each-average-chart",
+	            symbolSize: 10,
+	            legendIsShow: true,
+	            unit: ['万元'],
+	            yAxisName: "万元",
+	            yMin: yAxis.min,
+	            yMax: yAxis.max,
+	            yInterval: yAxis.interval,
+	            legendRight: "center",
+	            yFlag: "",
+	            legendTop: '1%',
+	            legendPadding: [0, 0, 0, 0],
+	            grid: { top: '10%', left: '5%', right: '5%', bottom: '10%', containLabel: true },
+	            legend: ["担保总额/总笔数"],
+	            xAxis: data.xAxis,
+	            series: [data.series]
+	        };
+	        this.setState({ option: option });
+	    },
+	    render: function render() {
+	        var bbdLine = "";
+
+	        if (this.state.option) {
+	            bbdLine = _react2.default.createElement(_LineChart2.default, { option: this.state.option, style: { height: '272px', width: '100%' } });
+	        }
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'each-average mod' },
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'mod-title' },
+	                _react2.default.createElement(
+	                    'h3',
+	                    null,
+	                    '担保笔均时序图'
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'mod-content' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'chart-box' },
+	                    bbdLine
+	                )
+	            )
+	        );
 	    }
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'each-average mod' },
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'mod-title' },
-	        _react2.default.createElement(
-	          'h3',
-	          null,
-	          '担保笔均时序图'
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'mod-content' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'chart-box' },
-	          bbdLine
-	        )
-	      )
-	    );
-	  }
 	});
 	module.exports = GuaraEachAverage;
 
@@ -60728,9 +60752,14 @@
 
 	var _ScatterChartCopy2 = _interopRequireDefault(_ScatterChartCopy);
 
+	var _publicFun = __webpack_require__(1314);
+
+	var _publicFun2 = _interopRequireDefault(_publicFun);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Immutable = __webpack_require__(620);
+	console.log(_publicFun2.default, 111);
 
 	//担保责任余额
 	var GuaraDutyBalance = _react2.default.createClass({
@@ -60751,20 +60780,13 @@
 	    }
 	  },
 	  dataFomat: function dataFomat(data) {
-	    console.log(data, '担保责任余额');
 	    var dataYAxis = data.data;
 	    var len = dataYAxis.length;
 	    var yData = [];
 	    for (var i = 0; i < len; i++) {
 	      yData.push(dataYAxis[i][1]);
 	    }
-	    var minData = Math.min.apply(null, yData); //获取最小值
-	    //var first=minData.toString().substr(0,1);
-	    var minDataLen = parseInt(minData).toString().length;
-	    var k = 1;
-	    for (var i = 0; i < minDataLen - 1; i++) {
-	      k = k + "0";
-	    }
+	    var yAxis = _publicFun2.default.fomatYaxis(yData);
 
 	    var option = {
 	      id: 'guara-balance-chart', //必传
@@ -60773,7 +60795,9 @@
 	      forMaterTitle: "担保责任余额",
 	      forMaterTip: '平均担保责任余额',
 	      legend: [],
-	      yMin: k,
+	      yMin: yAxis.min,
+	      yMax: yAxis.max,
+	      yInterval: yAxis.interval,
 	      yAxisName: '亿元',
 	      xAxis: data.xAxis,
 	      data: data.data,
@@ -60954,6 +60978,8 @@
 	            yAxis: {
 	                type: 'value',
 	                min: param.yMin == undefined ? "auto" : param.yMin,
+	                max: param.yMax == undefined ? "auto" : param.yMax,
+	                interval: param.yInterval == undefined ? "" : param.yInterval,
 	                name: param.yAxisName == undefined ? "" : param.yAxisName,
 	                scale: true,
 	                splitNumber: param.yAxisSplit == undefined ? 5 : param.yAxisSplit,
@@ -65619,6 +65645,10 @@
 
 	var _LineChart2 = _interopRequireDefault(_LineChart);
 
+	var _publicFun = __webpack_require__(1314);
+
+	var _publicFun2 = _interopRequireDefault(_publicFun);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Immutable = __webpack_require__(620);
@@ -65642,6 +65672,9 @@
 	        }
 	    },
 	    dataFomat: function dataFomat(data) {
+	        var yData = data.series;
+	        var yAxis = _publicFun2.default.fomatYaxis(yData);
+
 	        var option = {
 	            color: ["#00b8ee", "#f8b551"],
 	            title: "",
@@ -65650,6 +65683,9 @@
 	            symbolSize: 10,
 	            legendIsShow: true,
 	            yFlag: "",
+	            yMin: yAxis.min,
+	            yMax: yAxis.max,
+	            yInterval: yAxis.interval,
 	            unit: ['万元'],
 	            legendRight: "center",
 	            legendTop: '1%',
@@ -65899,6 +65935,10 @@
 
 	var _ScatterChartCopy2 = _interopRequireDefault(_ScatterChartCopy);
 
+	var _publicFun = __webpack_require__(1314);
+
+	var _publicFun2 = _interopRequireDefault(_publicFun);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Immutable = __webpack_require__(620);
@@ -65928,13 +65968,7 @@
 	    for (var i = 0; i < len; i++) {
 	      yData.push(dataYAxis[i][1]);
 	    }
-	    var minData = Math.min.apply(null, yData); //获取最小值
-	    //var minFirst=minData.toString().substr(0,1);
-	    var minDataLen = parseInt(minData).toString().length;
-	    var k = 1;
-	    for (var i = 0; i < minDataLen - 1; i++) {
-	      k = k + "0";
-	    }
+	    var yAxis = _publicFun2.default.fomatYaxis(yData); //传入y轴数组 返回最小值 最大值 间隔
 
 	    var option = {
 	      id: 'loan-balance-chart', //必传
@@ -65944,7 +65978,9 @@
 	      forMaterTip: '平均贷款余额',
 	      legend: [],
 	      yAxisName: '亿元',
-	      yMin: k,
+	      yMin: yAxis.min,
+	      yMax: yAxis.max,
+	      yInterval: yAxis.interval,
 	      xAxis: data.xAxis,
 	      data: data.data,
 	      symbolSize: function symbolSize(val) {
@@ -68559,6 +68595,7 @@
 	                if (baseMsgResult.success) {
 	                    var _setParm = [baseMsgResult.content];
 	                    var companyName = baseMsgResult.content.companyName;
+	                    console.log(companyName, 'xuyao');
 	                    setCompany({ baseMsgCompany: companyName });
 	                    this.setState({ listData: _setParm, getBaseCompany: companyName });
 	                } else {
@@ -101241,6 +101278,70 @@
 	    return String(it).replace(regExp, replacer);
 	  };
 	};
+
+/***/ },
+/* 1314 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var publicFun = {
+		loadScript: function loadScript(url, callback) {
+			var script = document.createElement("script");
+			script.type = "text/javascript";
+			if (script.readyState) {
+				//IE 
+				script.onreadystatechange = function () {
+					if (script.readyState == "loaded" || script.readyState == "complete") {
+						script.onreadystatechange = null;
+						callback();
+					}
+				};
+			} else {
+				//Others: Firefox, Safari, Chrome, and Opera 
+				script.onload = function () {
+					callback();
+				};
+			}
+			script.src = url;
+			document.head.appendChild(script);
+		},
+		/*
+	 * @ yData:y轴坐标的数组
+	 */
+		fomatYaxis: function fomatYaxis(yData) {
+			//控制y轴的方法  
+			var minData = Math.min.apply(null, yData); //获取最小值
+			var maxData = Math.max.apply(null, yData); //获取最大值
+			var midData = (minData + maxData) / 3;
+			var maxJudge = maxData + midData;
+			var min = 0,
+			    max = 0;
+			min = parseInt((minData - midData) / 10) * 10;
+			if (maxJudge < 100) {
+				max = parseInt(maxData + midData);
+			} else {
+				max = parseInt((maxData + midData) / 10) * 10;
+			}
+			var interval = parseInt((max - min) / 5 / 10) * 10;
+			if (min < 0) {
+				min = 0;
+			}
+			return { min: min, max: max, interval: interval };
+		}
+	};
+
+	exports.default = publicFun;
 
 /***/ }
 /******/ ]);
