@@ -60866,23 +60866,6 @@
 
 	//散点图 横坐标为时间
 
-	/*
-	  调用方式：
-	     var param={
-	            id:'loan-balance-chart',//必传
-	            height:'272px',//必传 带上单位
-	            title:'贷款余额',
-	            legend: [],
-	            xAxis:['2010', '2011', '2012','2013', '2014', '2015', '2016'],
-	            yAxis: ['20', '40', '60', '80', '100', '120', '140'],
-	            data: [[0,0,30],[1,1,10],[2,2,20],[3,3,50],[4,4,60],[5,5,10],[6,6,80]],
-	            series:[
-	                    [{
-	                      color:'#e14340'
-	                    }]
-	                  ]
-	        }
-	*/
 	var ScatterChartCopy = _react2.default.createClass({
 	    displayName: 'ScatterChartCopy',
 
@@ -68084,7 +68067,9 @@
 
 	    getInitialState: function getInitialState() {
 	        return {
-	            listData: []
+	            listData: [],
+	            orderType: "asc", //默认降序
+	            orderField: "" //需要排序的字段
 	        };
 	    },
 	    componentDidMount: function componentDidMount() {
@@ -68097,15 +68082,31 @@
 	    componentDidUpdate: function componentDidUpdate() {
 	        $('#p2p-scroll').perfectScrollbar({ suppressScrollX: false }, 'update');
 	    },
+	    handleClick: function handleClick(field) {
+	        var _dom = $(this.refs[field]),
+	            _domAttr = _dom.attr("data-order"),
+	            _domIco = _dom.find("em"),
+	            _domIcoIs = _dom.find("em").hasClass('icon-desc');
+	        _domIcoIs == true ? _domIco.removeClass('icon-desc').addClass('icon-asc') : _domIco.removeClass('icon-asc').addClass('icon-desc');
+	        _domAttr == "desc" ? _dom.attr("data-order", "asc") : _dom.attr("data-order", "desc");
+	        this.setState({ orderType: _dom.attr("data-order"), orderField: field }, function () {
+	            var _basedata = BOSS.sort(this.state.listData, field, this.state.orderType);
+	            this.setState({ listData: _basedata });
+	        });
+	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var isEqual = Immutable.is(nextProps.netCreditRequest, this.props.netCreditResult);
+	        var _this = this;
+	        var isEqual = Immutable.is(nextProps.netCreditResult, this.props.netCreditResult);
 	        if (!isEqual) {
 	            var netCreditRequest = nextProps.netCreditRequest;
 	            var netCreditResult = nextProps.netCreditResult;
 
 	            if (netCreditRequest == true) {
 	                if (netCreditResult.success) {
-	                    this.setState({ listData: netCreditResult.content });
+	                    this.setState({ listData: netCreditResult.content }, function () {
+	                        console.log($(_this.refs.stay_still_of_total), "stay_still_of_total==========stay_still_of_total");
+	                        $(_this.refs.stay_still_of_total).trigger('click');
+	                    });
 	                } else {
 	                    //错误后提示
 	                }
@@ -68157,23 +68158,27 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '15%' },
-	                                    '成交量'
+	                                    { width: '15%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'amount', onClick: this.handleClick.bind(this, "amount") },
+	                                    '成交量',
+	                                    _react2.default.createElement('em', { className: 'iconfont icon-desc' })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '12%' },
-	                                    '平均利率'
+	                                    { width: '12%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'income_rate', onClick: this.handleClick.bind(this, "income_rate") },
+	                                    '平均利率',
+	                                    _react2.default.createElement('em', { className: 'iconfont icon-desc' })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '15%' },
-	                                    '平均借款期限'
+	                                    { width: '15%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'loan_period', onClick: this.handleClick.bind(this, "loan_period") },
+	                                    '平均借款期限',
+	                                    _react2.default.createElement('em', { className: 'iconfont icon-desc' })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '15%' },
-	                                    '累计待还金额'
+	                                    { width: '15%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'stay_still_of_total', onClick: this.handleClick.bind(this, "stay_still_of_total") },
+	                                    '累计待还金额',
+	                                    _react2.default.createElement('em', { className: 'iconfont icon-desc' })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
@@ -68186,6 +68191,7 @@
 	                            'tbody',
 	                            null,
 	                            this.state.listData.map(function (item, index) {
+	                                var _num = index + 1;
 	                                var _amount = item.amount == undefined ? "/" : Number(item.amount).toFixed(2) + "亿";
 	                                var _stay_still_of_total = item.stay_still_of_total == undefined ? "/" : Number(item.stay_still_of_total).toFixed(2) + "亿";
 	                                var _registered_address = item.registered_address == undefined ? "/" : item.registered_address;
@@ -68198,7 +68204,7 @@
 	                                            _react2.default.createElement(
 	                                                'td',
 	                                                null,
-	                                                item.rank
+	                                                _num
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
@@ -68253,7 +68259,7 @@
 	                                            _react2.default.createElement(
 	                                                'td',
 	                                                null,
-	                                                item.rank
+	                                                _num
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
