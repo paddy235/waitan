@@ -49273,10 +49273,12 @@
 	        };
 	    },
 	    componentDidMount: function componentDidMount() {
+	        var _this = this;
 	        document.onkeydown = function (e) {
 	            var ev = document.all ? window.event : e;
 	            if (ev.keyCode == 13) {
-	                $(".login-submit-btn").trigger('click');
+	                console.log(111);
+	                _this.handleLogin();
 	            }
 	        };
 	    },
@@ -50393,13 +50395,13 @@
 	        var numJ = data.companyCount;
 	        var numF = data.bugCount;
 	        setInterval(function () {
-	            nums += Math.round(Math.random() * 60) + 260;
+	            nums += Math.round(Math.random() * 0) + 50;
 	            // numJ+= Math.round(Math.random() * 60)+260;
-	            numF += Math.round(Math.random() * 60) + 260;
+	            numF += Math.round(Math.random() * 0) + 50;
 	            numRunA.resetData(nums);
 	            // numRunB.resetData(numJ);
 	            numRunC.resetData(numF);
-	        }, 5000);
+	        }, 20000);
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	        var isEqual = Immutable.is(nextProps.homeThreeRequest, this.props.homeThreeResult);
@@ -54758,7 +54760,6 @@
 	    },
 	    setOption: function setOption(parm) {
 	        var seriesLineData = [];
-
 	        for (var i = 0; i < parm.series.length; i++) {
 	            var barAreaStyle = {};
 	            if (parm.barGradient) {
@@ -54858,6 +54859,9 @@
 	            },
 	            yAxis: {
 	                name: parm.yAxisName,
+	                interval: parm.yInterval == undefined ? "" : parm.yInterval,
+	                max: parm.yMax == undefined ? "auto" : parm.yMax,
+	                min: parm.yMin == undefined ? "auto" : parm.yMin,
 	                nameTextStyle: {
 	                    color: "#7f868e"
 	                },
@@ -60628,78 +60632,103 @@
 
 	var _LineChart2 = _interopRequireDefault(_LineChart);
 
+	var _publicFun = __webpack_require__(1314);
+
+	var _publicFun2 = _interopRequireDefault(_publicFun);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Immutable = __webpack_require__(620);
 
 	//担保笔均折线图
 	var GuaraEachAverage = _react2.default.createClass({
-	  displayName: 'GuaraEachAverage',
+	    displayName: 'GuaraEachAverage',
 
-	  getInitialState: function getInitialState() {
-	    return {
-	      option: null
-	    };
-	  },
-	  componentDidMount: function componentDidMount() {},
-	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    // var isEqual=Immutable.is(nextProps.eachAverageData, this.props.eachAverageData);
-	    //     console.log(nextProps,isEqual,'打印看看2222222222222')
-	    //     if(!isEqual){
-	    var guaraEachAverData = nextProps.guaraEachAverData;
+	    getInitialState: function getInitialState() {
+	        return {
+	            option: null
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {},
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        // var isEqual=Immutable.is(nextProps.eachAverageData, this.props.eachAverageData);
+	        //     console.log(nextProps,isEqual,'打印看看2222222222222')
+	        //     if(!isEqual){
+	        var guaraEachAverData = nextProps.guaraEachAverData;
 
-	    this.dataFomat(guaraEachAverData);
-	    // }
-	  },
-	  dataFomat: function dataFomat(data) {
-	    var option = {
-	      color: ["#00b8ee", "#f8b551"],
-	      titleX: "left",
-	      boxId: "each-average-chart",
-	      symbolSize: 10,
-	      legendIsShow: true,
-	      unit: ['万元'],
-	      yAxisName: "万元",
-	      legendRight: "center",
-	      yFlag: "",
-	      legendTop: '1%',
-	      legendPadding: [0, 0, 0, 0],
-	      grid: { top: '10%', left: '5%', right: '5%', bottom: '10%', containLabel: true },
-	      legend: ["担保总额/总笔数"],
-	      xAxis: data.xAxis,
-	      series: [data.series]
-	    };
-	    this.setState({ option: option });
-	  },
-	  render: function render() {
-	    var bbdLine = "";
+	        this.dataFomat(guaraEachAverData);
+	        // }
+	    },
+	    dataFomat: function dataFomat(data) {
+	        var yData = data.series;
+	        var yAxis = _publicFun2.default.fomatYaxis(yData);
+	        // var minData=Math.min.apply(null,yData);//获取最小值
+	        // var maxData=Math.max.apply(null,yData);//获取最大值
+	        // var midData=(minData+maxData)/3;
+	        // var maxJudge=maxData+midData;
+	        // var min=0,max=0;
+	        // min=parseInt((minData-midData)/10)*10;
+	        // if(maxJudge<100){
+	        //    max=parseInt(maxData+midData);
+	        // }else{
+	        //    max=parseInt((maxData+midData)/10)*10;
+	        // }
+	        // var interval=parseInt((max-min)/5/10)*10;
+	        // if(min<0){
+	        //   min=0;
+	        // }
 
-	    if (this.state.option) {
-	      bbdLine = _react2.default.createElement(_LineChart2.default, { option: this.state.option, style: { height: '272px', width: '100%' } });
+	        var option = {
+	            color: ["#00b8ee", "#f8b551"],
+	            titleX: "left",
+	            boxId: "each-average-chart",
+	            symbolSize: 10,
+	            legendIsShow: true,
+	            unit: ['万元'],
+	            yAxisName: "万元",
+	            yMin: yAxis.min,
+	            yMax: yAxis.max,
+	            yInterval: yAxis.interval,
+	            legendRight: "center",
+	            yFlag: "",
+	            legendTop: '1%',
+	            legendPadding: [0, 0, 0, 0],
+	            grid: { top: '10%', left: '5%', right: '5%', bottom: '10%', containLabel: true },
+	            legend: ["担保总额/总笔数"],
+	            xAxis: data.xAxis,
+	            series: [data.series]
+	        };
+	        this.setState({ option: option });
+	    },
+	    render: function render() {
+	        var bbdLine = "";
+
+	        if (this.state.option) {
+	            bbdLine = _react2.default.createElement(_LineChart2.default, { option: this.state.option, style: { height: '272px', width: '100%' } });
+	        }
+	        return _react2.default.createElement(
+	            'div',
+	            { className: 'each-average mod' },
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'mod-title' },
+	                _react2.default.createElement(
+	                    'h3',
+	                    null,
+	                    '担保笔均时序图'
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'mod-content' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'chart-box' },
+	                    bbdLine
+	                )
+	            )
+	        );
 	    }
-	    return _react2.default.createElement(
-	      'div',
-	      { className: 'each-average mod' },
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'mod-title' },
-	        _react2.default.createElement(
-	          'h3',
-	          null,
-	          '担保笔均时序图'
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'mod-content' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'chart-box' },
-	          bbdLine
-	        )
-	      )
-	    );
-	  }
 	});
 	module.exports = GuaraEachAverage;
 
@@ -60723,9 +60752,14 @@
 
 	var _ScatterChartCopy2 = _interopRequireDefault(_ScatterChartCopy);
 
+	var _publicFun = __webpack_require__(1314);
+
+	var _publicFun2 = _interopRequireDefault(_publicFun);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Immutable = __webpack_require__(620);
+	console.log(_publicFun2.default, 111);
 
 	//担保责任余额
 	var GuaraDutyBalance = _react2.default.createClass({
@@ -60746,20 +60780,13 @@
 	    }
 	  },
 	  dataFomat: function dataFomat(data) {
-	    console.log(data, '担保责任余额');
 	    var dataYAxis = data.data;
 	    var len = dataYAxis.length;
 	    var yData = [];
 	    for (var i = 0; i < len; i++) {
 	      yData.push(dataYAxis[i][1]);
 	    }
-	    var minData = Math.min.apply(null, yData); //获取最小值
-	    //var first=minData.toString().substr(0,1);
-	    var minDataLen = parseInt(minData).toString().length;
-	    var k = 1;
-	    for (var i = 0; i < minDataLen - 1; i++) {
-	      k = k + "0";
-	    }
+	    var yAxis = _publicFun2.default.fomatYaxis(yData);
 
 	    var option = {
 	      id: 'guara-balance-chart', //必传
@@ -60768,7 +60795,9 @@
 	      forMaterTitle: "担保责任余额",
 	      forMaterTip: '平均担保责任余额',
 	      legend: [],
-	      yMin: k,
+	      yMin: yAxis.min,
+	      yMax: yAxis.max,
+	      yInterval: yAxis.interval,
 	      yAxisName: '亿元',
 	      xAxis: data.xAxis,
 	      data: data.data,
@@ -60837,23 +60866,6 @@
 
 	//散点图 横坐标为时间
 
-	/*
-	  调用方式：
-	     var param={
-	            id:'loan-balance-chart',//必传
-	            height:'272px',//必传 带上单位
-	            title:'贷款余额',
-	            legend: [],
-	            xAxis:['2010', '2011', '2012','2013', '2014', '2015', '2016'],
-	            yAxis: ['20', '40', '60', '80', '100', '120', '140'],
-	            data: [[0,0,30],[1,1,10],[2,2,20],[3,3,50],[4,4,60],[5,5,10],[6,6,80]],
-	            series:[
-	                    [{
-	                      color:'#e14340'
-	                    }]
-	                  ]
-	        }
-	*/
 	var ScatterChartCopy = _react2.default.createClass({
 	    displayName: 'ScatterChartCopy',
 
@@ -60949,6 +60961,8 @@
 	            yAxis: {
 	                type: 'value',
 	                min: param.yMin == undefined ? "auto" : param.yMin,
+	                max: param.yMax == undefined ? "auto" : param.yMax,
+	                interval: param.yInterval == undefined ? "" : param.yInterval,
 	                name: param.yAxisName == undefined ? "" : param.yAxisName,
 	                scale: true,
 	                splitNumber: param.yAxisSplit == undefined ? 5 : param.yAxisSplit,
@@ -65614,6 +65628,10 @@
 
 	var _LineChart2 = _interopRequireDefault(_LineChart);
 
+	var _publicFun = __webpack_require__(1314);
+
+	var _publicFun2 = _interopRequireDefault(_publicFun);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Immutable = __webpack_require__(620);
@@ -65637,6 +65655,9 @@
 	        }
 	    },
 	    dataFomat: function dataFomat(data) {
+	        var yData = data.series;
+	        var yAxis = _publicFun2.default.fomatYaxis(yData);
+
 	        var option = {
 	            color: ["#00b8ee", "#f8b551"],
 	            title: "",
@@ -65645,6 +65666,9 @@
 	            symbolSize: 10,
 	            legendIsShow: true,
 	            yFlag: "",
+	            yMin: yAxis.min,
+	            yMax: yAxis.max,
+	            yInterval: yAxis.interval,
 	            unit: ['万元'],
 	            legendRight: "center",
 	            legendTop: '1%',
@@ -65894,6 +65918,10 @@
 
 	var _ScatterChartCopy2 = _interopRequireDefault(_ScatterChartCopy);
 
+	var _publicFun = __webpack_require__(1314);
+
+	var _publicFun2 = _interopRequireDefault(_publicFun);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Immutable = __webpack_require__(620);
@@ -65923,13 +65951,7 @@
 	    for (var i = 0; i < len; i++) {
 	      yData.push(dataYAxis[i][1]);
 	    }
-	    var minData = Math.min.apply(null, yData); //获取最小值
-	    //var first=minData.toString().substr(0,1);
-	    var minDataLen = parseInt(minData).toString().length;
-	    var k = 1;
-	    for (var i = 0; i < minDataLen - 1; i++) {
-	      k = k + "0";
-	    }
+	    var yAxis = _publicFun2.default.fomatYaxis(yData); //传入y轴数组 返回最小值 最大值 间隔
 
 	    var option = {
 	      id: 'loan-balance-chart', //必传
@@ -65939,7 +65961,9 @@
 	      forMaterTip: '平均贷款余额',
 	      legend: [],
 	      yAxisName: '亿元',
-	      yMin: k,
+	      yMin: yAxis.min,
+	      yMax: yAxis.max,
+	      yInterval: yAxis.interval,
 	      xAxis: data.xAxis,
 	      data: data.data,
 	      symbolSize: function symbolSize(val) {
@@ -67364,7 +67388,7 @@
 
 
 	// module
-	exports.push([module.id, "/*content banner*/\r\n\r\n/*index top*/\r\n.p2p-index .p2p-index-top .top-l {\r\n\twidth: 28%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-index-top .top-l .top-l-t {\r\n\twidth: 100%;\r\n\theight: 300px;\r\n}\r\n\r\n.p2p-index-top .top-l  .top-l-b {\r\n\tmargin-top: 2%;\r\n\theight: 340px;\r\n}\r\n\r\n.p2p-index .p2p-index-top .top-c {\r\n\twidth: 38.5%;\r\n\tfloat: left;\r\n\theight: 649px;\r\n\tmargin: 0px 0.5%;\r\n}\r\n\r\n.p2p-index .p2p-index-top .top-r {\r\n\twidth: 32.5%;\r\n\theight: 649px;\r\n\tfloat: left;\r\n}\r\n\r\n/*index bom*/\r\n.p2p-index .p2p-index-bom {\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l {\r\n\twidth: 67%;\r\n\tfloat: left;\r\n\theight: 490px;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-t {\r\n\theight: 255px;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-t .bom-l-t-l {\r\n\twidth: 42%;\t/*height: 100%;*/\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-t .bom-l-t-r {\r\n\twidth: 57.5%;\t/*height: 100%;*/\r\n\tfloat: left;\r\n\tmargin-left: 0.5%\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-b {\r\n\theight: 230px;\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-r {\r\n\twidth: 32.5%;\r\n\tmargin-left: 0.5%;\r\n\theight: 490px;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-r .list-items .mt-table {\r\n\twidth: 780px\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-r .table-content {\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n\theight: 316px;\r\n}\r\n\r\n/*AareaRanking banner -css*/\r\n.p2p-index .list-header {\r\n\tfont-size: 18px;\r\n\tcolor: #fff;\r\n\tpadding: 14px;\r\n\ttext-indent: 30px;\r\n}\r\n\r\n.p2p-index .table-box {\r\n\tpadding: 0px 10px 30px 10px;\r\n}\r\n\r\n.p2p-index .bom-r .list-items {\r\n\r\n\t/*padding: 0px 10px 30px 10px;*/\r\n\toverflow: hidden;\r\n\tposition: relative;\t/*height: 428px;*/\r\n\theight: 428px;\r\n}\r\n\r\n.p2p-index .table-8 th,\r\n.p2p-index .table-8 td {\r\n\twidth: 12.5%;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-index .table-8 th {\r\n\theight: 60px;\r\n}\r\n\r\n.p2p-index .table-6 th {\r\n\theight: 88px;\r\n}\r\n\r\n.p2p-index .table-8 {\r\n\r\n\t/*height: 550px;*/\r\n}\r\n\r\n.p2p-index .table-6 th,\r\n.p2p-index .table-6 td {\r\n\r\n\t/*width: 13.5%;*/\r\n\ttext-align: center;\r\n\tpadding: 16px 10px;\r\n}\r\n\r\n.p2p-index .table-6 .diff-width {\r\n\r\n\t/*width: 20%;*/\r\n}\r\n\r\n.p2p-index .table-6 {\r\n\r\n\t/*height: 400px;*/\r\n}\r\n\r\n.p2p-index .table-8.title {\r\n\tdisplay: block;\r\n\twidth: 100%\r\n}\r\n\r\n/*gray-theme-table for table -css*/\r\n.p2p-table {\r\n\twidth: 100%;\t/*height: 100%;*/\r\n\tcolor: #dddddd;\r\n}", ""]);
+	exports.push([module.id, "/*content banner*/\r\n\r\n/*index top*/\r\n.p2p-index .p2p-index-top .top-l {\r\n\twidth: 28%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-index-top .top-l .top-l-t {\r\n\twidth: 100%;\r\n\theight: 300px;\r\n}\r\n\r\n.p2p-index-top .top-l  .top-l-b {\r\n\tmargin-top: 2%;\r\n\theight: 340px;\r\n}\r\n\r\n.p2p-index .p2p-index-top .top-c {\r\n\twidth: 38.5%;\r\n\tfloat: left;\r\n\theight: 649px;\r\n\tmargin: 0px 0.5%;\r\n}\r\n\r\n.p2p-index .p2p-index-top .top-r {\r\n\twidth: 32.5%;\r\n\theight: 649px;\r\n\tfloat: left;\r\n}\r\n\r\n/*index bom*/\r\n.p2p-index .p2p-index-bom {\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l {\r\n\twidth: 67%;\r\n\tfloat: left;\r\n\theight: 490px;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-t {\r\n\theight: 255px;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-t .bom-l-t-l {\r\n\twidth: 42%;\t/*height: 100%;*/\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-t .bom-l-t-r {\r\n\twidth: 57.5%;\t/*height: 100%;*/\r\n\tfloat: left;\r\n\tmargin-left: 0.5%\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-b {\r\n\theight: 230px;\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-r {\r\n\twidth: 32.5%;\r\n\tmargin-left: 0.5%;\r\n\theight: 490px;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-r .list-items .mt-table {\r\n\twidth: 880px\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-r .table-content {\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n\theight: 316px;\r\n}\r\n\r\n/*AareaRanking banner -css*/\r\n.p2p-index .list-header {\r\n\tfont-size: 18px;\r\n\tcolor: #fff;\r\n\tpadding: 14px;\r\n\ttext-indent: 30px;\r\n}\r\n\r\n.p2p-index .table-box {\r\n\tpadding: 0px 10px 30px 10px;\r\n}\r\n\r\n.p2p-index .bom-r .list-items {\r\n\r\n\t/*padding: 0px 10px 30px 10px;*/\r\n\toverflow: hidden;\r\n\tposition: relative;\t/*height: 428px;*/\r\n\theight: 428px;\r\n}\r\n\r\n.p2p-index .table-8 th,\r\n.p2p-index .table-8 td {\r\n\twidth: 12.5%;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-index .table-8 th {\r\n\theight: 60px;\r\n}\r\n\r\n.p2p-index .table-6 th {\r\n\theight: 88px;\r\n}\r\n\r\n.p2p-index .table-8 {\r\n\r\n\t/*height: 550px;*/\r\n}\r\n\r\n.p2p-index .table-6 th,\r\n.p2p-index .table-6 td {\r\n\r\n\t/*width: 13.5%;*/\r\n\ttext-align: center;\r\n\tpadding: 16px 10px;\r\n}\r\n\r\n.p2p-index .table-6 .diff-width {\r\n\r\n\t/*width: 20%;*/\r\n}\r\n\r\n.p2p-index .table-6 {\r\n\r\n\t/*height: 400px;*/\r\n}\r\n\r\n.p2p-index .table-8.title {\r\n\tdisplay: block;\r\n\twidth: 100%\r\n}\r\n\r\n/*gray-theme-table for table -css*/\r\n.p2p-table {\r\n\twidth: 100%;\t/*height: 100%;*/\r\n\tcolor: #dddddd;\r\n}", ""]);
 
 	// exports
 
@@ -68043,7 +68067,9 @@
 
 	    getInitialState: function getInitialState() {
 	        return {
-	            listData: []
+	            listData: [],
+	            orderType: "asc", //默认降序
+	            orderField: "" //需要排序的字段
 	        };
 	    },
 	    componentDidMount: function componentDidMount() {
@@ -68056,15 +68082,30 @@
 	    componentDidUpdate: function componentDidUpdate() {
 	        $('#p2p-scroll').perfectScrollbar({ suppressScrollX: false }, 'update');
 	    },
+	    handleClick: function handleClick(field) {
+	        var _dom = $(this.refs[field]),
+	            _domAttr = _dom.attr("data-order"),
+	            _domIco = _dom.find("em"),
+	            _domIcoIs = _dom.find("em").hasClass('icon-desc');
+	        _domIcoIs == true ? _domIco.removeClass('icon-desc').addClass('icon-asc') : _domIco.removeClass('icon-asc').addClass('icon-desc');
+	        _domAttr == "desc" ? _dom.attr("data-order", "asc") : _dom.attr("data-order", "desc");
+	        this.setState({ orderType: _dom.attr("data-order"), orderField: field }, function () {
+	            var _basedata = BOSS.sort(this.state.listData, field, this.state.orderType);
+	            this.setState({ listData: _basedata });
+	        });
+	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var isEqual = Immutable.is(nextProps.netCreditRequest, this.props.netCreditResult);
+	        var _this = this;
+	        var isEqual = Immutable.is(nextProps.netCreditResult, this.props.netCreditResult);
 	        if (!isEqual) {
 	            var netCreditRequest = nextProps.netCreditRequest;
 	            var netCreditResult = nextProps.netCreditResult;
 
 	            if (netCreditRequest == true) {
 	                if (netCreditResult.success) {
-	                    this.setState({ listData: netCreditResult.content });
+	                    this.setState({ listData: netCreditResult.content }, function () {
+	                        $(_this.refs.stay_still_of_total).trigger('click');
+	                    });
 	                } else {
 	                    //错误后提示
 	                }
@@ -68101,43 +68142,47 @@
 	                                null,
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    null,
+	                                    { width: '8%' },
 	                                    '排名'
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    null,
+	                                    { width: '10%' },
 	                                    '平台名称'
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    null,
+	                                    { width: '8%' },
 	                                    '状态'
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { className: 'diff-width' },
-	                                    '成交量'
+	                                    { width: '15%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'amount', onClick: this.handleClick.bind(this, "amount") },
+	                                    '成交量',
+	                                    _react2.default.createElement('em', { className: 'iconfont icon-desc' })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    null,
-	                                    '平均利率'
+	                                    { width: '12%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'income_rate', onClick: this.handleClick.bind(this, "income_rate") },
+	                                    '平均利率',
+	                                    _react2.default.createElement('em', { className: 'iconfont icon-desc' })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { className: 'diff-width' },
-	                                    '平均借款期限'
+	                                    { width: '15%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'loan_period', onClick: this.handleClick.bind(this, "loan_period") },
+	                                    '平均借款期限',
+	                                    _react2.default.createElement('em', { className: 'iconfont icon-desc' })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { className: 'diff-width' },
-	                                    '累计待还金额'
+	                                    { width: '15%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'stay_still_of_total', onClick: this.handleClick.bind(this, "stay_still_of_total") },
+	                                    '累计待还金额',
+	                                    _react2.default.createElement('em', { className: 'iconfont icon-desc' })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    null,
-	                                    '注册址'
+	                                    { width: '17%' },
+	                                    '注册地址'
 	                                )
 	                            )
 	                        ),
@@ -68145,6 +68190,7 @@
 	                            'tbody',
 	                            null,
 	                            this.state.listData.map(function (item, index) {
+	                                var _num = index + 1;
 	                                var _amount = item.amount == undefined ? "/" : Number(item.amount).toFixed(2) + "亿";
 	                                var _stay_still_of_total = item.stay_still_of_total == undefined ? "/" : Number(item.stay_still_of_total).toFixed(2) + "亿";
 	                                var _registered_address = item.registered_address == undefined ? "/" : item.registered_address;
@@ -68157,7 +68203,7 @@
 	                                            _react2.default.createElement(
 	                                                'td',
 	                                                null,
-	                                                item.rank
+	                                                _num
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
@@ -68175,7 +68221,7 @@
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
-	                                                { className: 'diff-width' },
+	                                                null,
 	                                                _amount
 	                                            ),
 	                                            _react2.default.createElement(
@@ -68186,13 +68232,13 @@
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
-	                                                { className: 'diff-width' },
+	                                                null,
 	                                                item.loan_period,
 	                                                '月'
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
-	                                                { className: 'diff-width' },
+	                                                null,
 	                                                _stay_still_of_total
 	                                            ),
 	                                            _react2.default.createElement(
@@ -68212,7 +68258,7 @@
 	                                            _react2.default.createElement(
 	                                                'td',
 	                                                null,
-	                                                item.rank
+	                                                _num
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
@@ -68230,7 +68276,7 @@
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
-	                                                { className: 'diff-width' },
+	                                                null,
 	                                                _amount
 	                                            ),
 	                                            _react2.default.createElement(
@@ -68241,13 +68287,13 @@
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
-	                                                { className: 'diff-width' },
+	                                                null,
 	                                                item.loan_period,
 	                                                '月'
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
-	                                                { className: 'diff-width' },
+	                                                null,
 	                                                _stay_still_of_total
 	                                            ),
 	                                            _react2.default.createElement(
@@ -68554,6 +68600,7 @@
 	                if (baseMsgResult.success) {
 	                    var _setParm = [baseMsgResult.content];
 	                    var companyName = baseMsgResult.content.companyName;
+	                    console.log(companyName, 'xuyao');
 	                    setCompany({ baseMsgCompany: companyName });
 	                    this.setState({ listData: _setParm, getBaseCompany: companyName });
 	                } else {
@@ -69419,10 +69466,10 @@
 	                nameTextStyle: {
 	                    color: "#7f868e"
 	                },
+	                nameLocation: "end",
 	                axisTick: {
 	                    show: false
 	                },
-	                //nameGap:0,
 	                splitLine: {
 	                    show: parm.splitLineShow == undefined ? true : parm.splitLineShow,
 	                    lineStyle: {
@@ -81834,7 +81881,7 @@
 
 
 	// module
-	exports.push([module.id, "#search-result-detail .no-data{\r\n  margin:20px 0;\r\n  color:#E14340;\r\n  font-size:16px;\r\n}\r\n#search-result-detail .relation-map {\r\n  width: 64%;\r\n  height: 100%;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title {\r\n  width: 100%;\r\n  background: #383e47;\r\n  padding: 5px 10px;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title span {\r\n  font-size: 20px;\r\n  color: #fff;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title .btn {\r\n  width: 102px;\r\n  height: 28px;\r\n  line-height: 28px;\r\n  text-align: center;\r\n  display: inline-block;\r\n  border-radius: 3px;\r\n  background: #e14340;\r\n  font-size: 12px;\r\n  margin-left: 15px;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title .right-content {\r\n  float: right;\r\n  margin-top: 7px;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title .right-content input {\r\n  width: 260px;\r\n  height: 30px;\r\n  border: none;\r\n  padding-left: 15px;\r\n  border-radius: 100px;\r\n  color: #666;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title .right-content .cancel {\r\n  margin-left: -25px;\r\n  color: #939aa4;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title .right-content .enlarge {\r\n  margin: 0 8px 0 31px;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix {\r\n  margin: 25px 0 15px 10px;\r\n  width: 99%;\r\n  height: 56px;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table {\r\n  background: #1a2029;\r\n  width: 80%;\r\n  height: 100%;\r\n  float: left;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr {\r\n  height: 50%;\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr td {\r\n  padding: 8px 0 0 14px;\r\n  position: relative;\r\n  width: 19.8%;\r\n  display: inline-block;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr span {\r\n  display: inline-block;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .item-lable {\r\n  font-size: 12px;\r\n  color: #b2b2b2;\r\n  position: absolute;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr img {\r\n  margin: -5px 20px 0 0;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .square {\r\n  width: 17px;\r\n  height: 17px;\r\n  margin-right: 20px;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .round {\r\n  width: 17px;\r\n  height: 17px;\r\n  margin-right: 20px;\r\n  border-radius: 100px;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .orange {\r\n  background: #f44603;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .orange-two {\r\n  background: #f98d2b;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .blue {\r\n  background: #046adb;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .yellow {\r\n  background: #ffdb03;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .green {\r\n  background: #73d528;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix .condition {\r\n  width: 19.6%;\r\n  height: 100%;\r\n  float: left;\r\n  margin-left: 2px;\r\n  background: #212831;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix .condition .lable {\r\n  font-size: 12px;\r\n  color: #fff;\r\n  width: 100%;\r\n  height: 50%;\r\n  padding-top: 8px;\r\n  line-height: 100%;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix .condition .btns {\r\n  width: 100%;\r\n  height: 50%;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix .condition .btns .btn {\r\n  background: #00b7ee;\r\n  float: left;\r\n  width: 32.5%;\r\n  height: 100%;\r\n  margin-left: 1px;\r\n  text-align: center;\r\n  padding-top: 5px;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show {\r\n  width: 100%;\r\n  height: 80%;\r\n  margin: 10px;\r\n  position: relative;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile {\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0;\r\n  width: 270px;\r\n  padding-bottom: 5px;\r\n  border-radius: 5px;\r\n  background: #222931;\r\n  -webkit-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n  -moz-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile .company-title {\r\n  width: 100%;\r\n  height: 30px;\r\n  line-height: 30px;\r\n  padding-left: 5%;\r\n  background: #4B5668;\r\n  border-top-left-radius: 5px;\r\n  border-top-right-radius: 5px;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile table {\r\n  width: 100%;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile table tr {\r\n  width: 100%;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile table tr td {\r\n  height: 27px;\r\n  line-height: 27px;\r\n  font-size: 12px;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile table tr td:first-child {\r\n  width: 60%;\r\n  color: #878E96;\r\n  padding-left: 5%;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile table tr td:last-child {\r\n  width: 40%;\r\n}\r\n\r\n#search-result-detail .company-info {\r\n  width: 34.5%;\r\n  height: 42%;\r\n  padding: 15px;\r\n}\r\n\r\n#search-result-detail .company-info .logo-name {\r\n  overflow: hidden;\r\n  *zoom: 1;\r\n  margin-bottom: 15px;\r\n}\r\n\r\n#search-result-detail .company-info .logo-name .logo {\r\n  float: left;\r\n  width: 90px;\r\n  height: 90px;\r\n  background: url(\"/images/no-logo.png\");\r\n}\r\n\r\n#search-result-detail .company-info .logo-name .cname {\r\n  float: left;\r\n  font-size: 18px;\r\n  margin: 2px;\r\n  padding-left: 20px;\r\n}\r\n\r\n#search-result-detail .company-info .person-info {\r\n  width: 100%;\r\n  height: 71%;\r\n  background: #1f252f;\r\n  padding: 26px 10px 0 34px;\r\n}\r\n\r\n#search-result-detail .company-info .person-info > div {\r\n  margin-bottom: 10%;\r\n}\r\n\r\n#search-result-detail .company-info .person-info i {\r\n  color: #facd89;\r\n  font-size: 14px;\r\n}\r\n\r\n#search-result-detail .company-info .person-info span {\r\n  font-size: 14px;\r\n  margin-left: 13px;\r\n}\r\n\r\n#search-result-detail .company-news {\r\n  width: 34.5%;\r\n  height: 56.7%;\r\n  padding: 15px;\r\n}\r\n\r\n#search-result-detail .company-news .news-name {\r\n  font-size: 18px;\r\n  margin-bottom: 2.6%;\r\n}\r\n\r\n#search-result-detail .company-news .news-item {\r\n  height: auto;  /* overflow-y: scroll; */\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item {\r\n  padding: 1.2% 0 1.7% 1.2%;\r\n  background: #1a2029;\r\n  border-bottom: 1px solid #cccccc;\r\n  margin-bottom: 1.5%;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .item-num {\r\n  width: 17px;\r\n  height: 17px;\r\n  text-align: center;\r\n  line-height: 17px;\r\n  border-radius: 3px;\r\n  background: #6a6a6a;\r\n  font-size: 11px;\r\n  float: left;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .item-title {\r\n  font-size: 14px;\r\n  color: #e14340;\r\n  font-weight: bold;\r\n  float: left;\r\n  margin-left: 15px;\r\n  width:90%;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .item-title a {\r\n  color: #e14340;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .item-content {\r\n  display:block;\r\n  cursor:pointer;\r\n  color:#fff;\r\n  margin-top: 17px;\r\n  text-indent: 2em;\r\n  padding: 0 25px 20px 25px;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .right-bottom-text {\r\n  float: right;\r\n  color: #898f98;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .right-bottom-text .website {\r\n  margin-right: 40px;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .right-bottom-text .rel-date {\r\n  margin-right: 25px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner {\r\n  width: 99%;\r\n  margin-bottom: 10px !important;\r\n  padding: 13px 20px 20px 17px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .clabel {\r\n  font-size: 18px;\r\n  margin-bottom: 23px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .label-all {\r\n  background: #333b46;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .label-all .label-name {\r\n  width: 180px;\r\n  height: 40px;\r\n  line-height: 40px;\r\n  text-align: center;\r\n  background: #464f5c;\r\n  margin-right: 2px;\r\n  font-size: 14px;\r\n  float: left;\r\n  cursor: pointer;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .label-all .name-active {\r\n  background: #e14340;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-content > div {\r\n  width: 100%;\r\n  margin-top: 17px;\r\n  min-height:460px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table {\r\n  margin-left: 63px;\r\n  width: 90%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:first-child {\r\n  font-weight: bold;\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:nth-child(2) {\r\n  width: 30%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:nth-child(3) {\r\n  font-weight: bold;\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:nth-child(4) {\r\n  width: 30%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table tr .bussiness-scope {\r\n  width: 85% !important;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info td {\r\n  display: inline-block;\r\n  line-height: 36px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .shareholder-title {\r\n  width: 100%;\r\n  border-bottom: 5px solid #363C48;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .title-item {\r\n  width: 220px;\r\n  height: 50px;\r\n  line-height: 50px;\r\n  position: relative;\r\n  top: 5px;\r\n  display: inline-block;\r\n  text-align: center;\r\n  margin-right: 2px;\r\n  cursor: pointer;\r\n  border-bottom: 5px solid #464f5c;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .title-active {\r\n  border-bottom: 5px solid #e14340;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-title {\r\n  width: 100%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-title > div {\r\n  width: 220px;\r\n  height: 80px;\r\n  line-height: 80px;\r\n  font-size: 14px;\r\n  font-weight: bold;\r\n  text-align: center;\r\n  display: inline-block;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-content {\r\n  width: 100%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-content > div {\r\n  width: 220px;\r\n  height: 60px;  /*line-height: 80px;*/\r\n  font-size: 14px;\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-content > div > span{\r\n  text-align:left;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .control-title {\r\n  width: 100%;\r\n  border-bottom: 5px solid #363C48;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .title-item {\r\n  width: 220px;\r\n  height: 50px;\r\n  line-height: 50px;\r\n  position: relative;\r\n  top: 5px;\r\n  display: inline-block;\r\n  text-align: center;\r\n  cursor: pointer;\r\n  margin-right: 2px;\r\n  border-bottom: 5px solid #464f5c;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .title-active {\r\n  border-bottom: 5px solid #e14340;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .content .content-title {\r\n  width: 100%;\r\n  height: 80px;\r\n  line-height: 80px;\r\n  font-size: 14px;\r\n  font-weight: bold;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .content .content-content {\r\n  width: 100%;\r\n  padding: 10px;\r\n  font-size: 14px;\r\n  float: left;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .recruiting-title {\r\n  width: 100%;\r\n  border-bottom: 5px solid #363C48;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .title-item {\r\n  width: 180px;\r\n  height: 50px;\r\n  line-height: 50px;\r\n  position: relative;\r\n  top: 5px;\r\n  display: inline-block;\r\n  text-align: center;\r\n  margin-right: 2px;\r\n  cursor: pointer;\r\n  border-bottom: 5px solid #464f5c;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .title-active {\r\n  border-bottom: 5px solid #e14340;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .show-charts {\r\n  width: 100%;\r\n  height: 390px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .show-charts #person-index {\r\n  width: 50%;\r\n  height: 100%;\r\n  float: left;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .show-charts #pay-distribute {\r\n  width: 50%;\r\n  height: 100%;\r\n  float: left;\r\n}\r\n\r\n#search-result-detail  .relation-legend {\r\n  width: auto;\r\n  margin: 35px 10px 0px 10px;\r\n}\r\n\r\n#search-result-detail .relation-legend table tr .square {\r\n  width: 10px;\r\n  height: 10px;\r\n}\r\n\r\n#search-result-detail  .relation-legend table tr .round {\r\n  width: 10px;\r\n  height: 10px;\r\n}\r\n#search-result-detail .window-show-graph{\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%!important;\r\n    z-index: 100;\r\n    margin: 0;\r\n}\r\n#search-result-detail .linefin-rel-graph .mod-content .relation-graph-box {\r\n    height: 785px;\r\n    overflow: hidden;\r\n    padding-top: 15px;\r\n}\r\n\r\n#search-result-detail  .linefin-rel-graph {\r\n  height: 914px\r\n}\r\n\r\n#search-result-detail  .linefin-rel-graph .mod-title {\r\n  border-top-left-radius: 5px;\r\n  border-top-right-radius: 5px;\r\n}\r\n\r\n#search-result-detail .relation-legend .condition {\r\n  margin-top: -2px;\r\n}\r\n\r\n#search-result-detail  .linefin-rel-graph .mod-title h3 {\r\n  display: inline-block;\r\n  vertical-align: middle;\r\n  font-weight: normal;\r\n  font-style: normal;\r\n  font-size: 16px;\r\n  color: #ffffff;\r\n  margin-left: 10px;\r\n  padding: 8px 0;\r\n}\r\n\r\n.company-news-scroll {\r\n  overflow-y: scroll;\r\n  overflow-x: hidden;\r\n}\r\n\r\n.modal-bg{\r\n  background: #000000;\r\n  opacity: 0.5;\r\n  position: fixed;\r\n  left: 0px;\r\n  right: 0px;\r\n  top: 0px;\r\n  bottom: 0px;\r\n  z-index: 10;\r\n}\r\n.modal-bg.hide{\r\n  display: none;\r\n}\r\n.modal-bg.show{\r\n  display: block;\r\n}\r\n.doc-modal{\r\n  width: 800px;\r\n  height: 600px;\r\n  position: fixed;\r\n  left: 50%;\r\n  top: 50%;\r\n  margin-left:-400px;\r\n  margin-top: -300px;\r\n  border-radius: 5px;\r\n  z-index: 100;\r\n  background-color: #ffffff;\r\n}\r\n.doc-modal.hide{\r\n  display: none;\r\n}\r\n.doc-modal.show{\r\n  display: block;\r\n}\r\n.doc-modal h3{\r\n  text-align: center;\r\n  color: #000;\r\n  margin: 0 auto;\r\n  position: relative;\r\n  padding: 10px 50px;\r\n  border-bottom: solid 1px red;\r\n  font-size: 20px;\r\n}\r\n.doc-modal h3 i{\r\n  position: absolute;\r\n  right: 10px;\r\n  top: 5px;\r\n  cursor: pointer;\r\n}\r\n.doc-modal  h4 span{\r\n  display: block;\r\n}\r\n.doc-modal  h4 .remark{\r\n  padding: 10px 0;\r\n  font-size: 14px;\r\n  text-align: right;\r\n}\r\n.doc-modal .modal-content{\r\n  color: #000;\r\n  padding: 10px;\r\n  height: 550px;\r\n  overflow: auto;\r\n}\r\n.doc-modal .modal-content .left{\r\n  float: left;\r\n  width: 500px;\r\n  margin: 10px;\r\n  border-right:solid 1px red;\r\n  padding: 5px 10px;\r\n}\r\n.doc-modal .modal-content .left h4{\r\n  font-size: 16px;\r\n  text-align: center;\r\n  padding:5px 0;\r\n  font-size: 18px;\r\n}\r\n.doc-modal .modal-content .left .main{\r\n  margin-top: 10px;\r\n}\r\n.doc-modal .modal-content .right{\r\n  float: left;\r\n  width: 260px;\r\n  overflow: auto;\r\n  padding: 5px 10px;\r\n\r\n}\r\n.doc-modal .modal-content .right span.sp{\r\n  display: block;\r\n  padding: 2px;\r\n}\r\n\r\n\r\n/*诉讼记录begin*/\r\n#search-result-detail .wtyh-table thead th{\r\n  background-color: #2b323c;\r\n}\r\n/*诉讼记录 end*/\r\n\r\n", ""]);
+	exports.push([module.id, "#search-result-detail .no-data{\r\n  margin:20px 0;\r\n  color:#E14340;\r\n  font-size:16px;\r\n}\r\n#search-result-detail .relation-map {\r\n  width: 64%;\r\n  height: 100%;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title {\r\n  width: 100%;\r\n  background: #383e47;\r\n  padding: 5px 10px;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title span {\r\n  font-size: 20px;\r\n  color: #fff;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title .btn {\r\n  width: 102px;\r\n  height: 28px;\r\n  line-height: 28px;\r\n  text-align: center;\r\n  display: inline-block;\r\n  border-radius: 3px;\r\n  background: #e14340;\r\n  font-size: 12px;\r\n  margin-left: 15px;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title .right-content {\r\n  float: right;\r\n  margin-top: 7px;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title .right-content input {\r\n  width: 260px;\r\n  height: 30px;\r\n  border: none;\r\n  padding-left: 15px;\r\n  border-radius: 100px;\r\n  color: #666;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title .right-content .cancel {\r\n  margin-left: -25px;\r\n  color: #939aa4;\r\n}\r\n\r\n#search-result-detail .relation-map .content-title .right-content .enlarge {\r\n  margin: 0 8px 0 31px;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix {\r\n  margin: 25px 0 15px 10px;\r\n  width: 99%;\r\n  height: 56px;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table {\r\n  background: #1a2029;\r\n  width: 80%;\r\n  height: 100%;\r\n  float: left;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr {\r\n  height: 50%;\r\n  width: 10%;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr td {\r\n  padding: 8px 0 0 14px;\r\n  position: relative;\r\n  width: 19.8%;\r\n  display: inline-block;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr span {\r\n  display: inline-block;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .item-lable {\r\n  font-size: 12px;\r\n  color: #b2b2b2;\r\n  position: absolute;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr img {\r\n  margin: -5px 20px 0 0;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .square {\r\n  width: 17px;\r\n  height: 17px;\r\n  margin-right: 20px;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .round {\r\n  width: 17px;\r\n  height: 17px;\r\n  margin-right: 20px;\r\n  border-radius: 100px;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .orange {\r\n  background: #f44603;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .orange-two {\r\n  background: #f98d2b;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .blue {\r\n  background: #046adb;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .yellow {\r\n  background: #ffdb03;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix table tr .green {\r\n  background: #73d528;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix .condition {\r\n  width: 19.6%;\r\n  height: 100%;\r\n  float: left;\r\n  margin-left: 2px;\r\n  background: #212831;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix .condition .lable {\r\n  font-size: 12px;\r\n  color: #fff;\r\n  width: 100%;\r\n  height: 50%;\r\n  padding-top: 8px;\r\n  line-height: 100%;\r\n  text-align: center;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix .condition .btns {\r\n  width: 100%;\r\n  height: 50%;\r\n}\r\n\r\n#search-result-detail .relation-map .company-leix .condition .btns .btn {\r\n  background: #00b7ee;\r\n  float: left;\r\n  width: 32.5%;\r\n  height: 100%;\r\n  margin-left: 1px;\r\n  text-align: center;\r\n  padding-top: 5px;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show {\r\n  width: 100%;\r\n  height: 80%;\r\n  margin: 10px;\r\n  position: relative;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile {\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0;\r\n  width: 270px;\r\n  padding-bottom: 5px;\r\n  border-radius: 5px;\r\n  background: #222931;\r\n  -webkit-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n  -moz-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile .company-title {\r\n  width: 100%;\r\n  height: 30px;\r\n  line-height: 30px;\r\n  padding-left: 5%;\r\n  background: #4B5668;\r\n  border-top-left-radius: 5px;\r\n  border-top-right-radius: 5px;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile table {\r\n  width: 100%;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile table tr {\r\n  width: 100%;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile table tr td {\r\n  height: 27px;\r\n  line-height: 27px;\r\n  font-size: 12px;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile table tr td:first-child {\r\n  width: 60%;\r\n  color: #878E96;\r\n  padding-left: 5%;\r\n}\r\n\r\n#search-result-detail .relation-map .square-show .company-profile table tr td:last-child {\r\n  width: 40%;\r\n}\r\n\r\n#search-result-detail .company-info {\r\n  width: 34.5%;\r\n  height: 42%;\r\n  padding: 15px;\r\n}\r\n\r\n#search-result-detail .company-info .logo-name {\r\n  overflow: hidden;\r\n  *zoom: 1;\r\n  margin-bottom: 15px;\r\n}\r\n\r\n#search-result-detail .company-info .logo-name .logo {\r\n  float: left;\r\n  width: 90px;\r\n  height: 90px;\r\n  background: url(\"/images/no-logo.png\");\r\n}\r\n\r\n#search-result-detail .company-info .logo-name .cname {\r\n  float: left;\r\n  font-size: 18px;\r\n  margin: 2px;\r\n  padding-left: 20px;\r\n}\r\n\r\n#search-result-detail .company-info .person-info {\r\n  width: 100%;\r\n  height: 71%;\r\n  background: #1f252f;\r\n  padding: 26px 10px 0 34px;\r\n}\r\n\r\n#search-result-detail .company-info .person-info > div {\r\n  margin-bottom: 10%;\r\n}\r\n\r\n#search-result-detail .company-info .person-info i {\r\n  color: #facd89;\r\n  font-size: 14px;\r\n}\r\n\r\n#search-result-detail .company-info .person-info span {\r\n  font-size: 14px;\r\n  margin-left: 13px;\r\n}\r\n\r\n#search-result-detail .company-news {\r\n  width: 34.5%;\r\n  height: 56.7%;\r\n  padding: 15px;\r\n}\r\n\r\n#search-result-detail .company-news .news-name {\r\n  font-size: 18px;\r\n  margin-bottom: 2.6%;\r\n}\r\n\r\n#search-result-detail .company-news .news-item {\r\n  height: auto;  /* overflow-y: scroll; */\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item {\r\n  padding: 1.2% 0 1.7% 1.2%;\r\n  background: #1a2029;\r\n  border-bottom: 1px solid #cccccc;\r\n  margin-bottom: 1.5%;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .item-num {\r\n  width: 17px;\r\n  height: 17px;\r\n  text-align: center;\r\n  line-height: 17px;\r\n  border-radius: 3px;\r\n  background: #6a6a6a;\r\n  font-size: 11px;\r\n  float: left;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .item-title {\r\n  font-size: 14px;\r\n  color: #e14340;\r\n  font-weight: bold;\r\n  float: left;\r\n  margin-left: 15px;\r\n  width:90%;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .item-title a {\r\n  color: #e14340;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .item-content {\r\n  display:block;\r\n  cursor:pointer;\r\n  color:#fff;\r\n  margin-top: 17px;\r\n  text-indent: 2em;\r\n  padding: 0 25px 20px 25px;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .right-bottom-text {\r\n  float: right;\r\n  color: #898f98;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .right-bottom-text .website {\r\n  margin-right: 40px;\r\n}\r\n\r\n#search-result-detail .company-news .news-list-item .right-bottom-text .rel-date {\r\n  margin-right: 25px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner {\r\n  width: 99%;\r\n  margin-bottom: 10px !important;\r\n  padding: 13px 20px 20px 17px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .clabel {\r\n  font-size: 18px;\r\n  margin-bottom: 23px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .label-all {\r\n  background: #333b46;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .label-all .label-name {\r\n  width: 180px;\r\n  height: 40px;\r\n  line-height: 40px;\r\n  text-align: center;\r\n  background: #464f5c;\r\n  margin-right: 2px;\r\n  font-size: 14px;\r\n  float: left;\r\n  cursor: pointer;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .label-all .name-active {\r\n  background: #e14340;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-content > div {\r\n  width: 100%;\r\n  margin-top: 17px;\r\n  min-height:460px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table {\r\n  margin-left: 63px;\r\n  width: 90%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:first-child {\r\n  font-weight: bold;\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:nth-child(2) {\r\n  width: 30%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:nth-child(3) {\r\n  font-weight: bold;\r\n  width: 15%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table tr td:nth-child(4) {\r\n  width: 30%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info table tr .bussiness-scope {\r\n  width: 85% !important;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .bussiness-info td {\r\n  display: inline-block;\r\n  line-height: 36px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .shareholder-title {\r\n  width: 100%;\r\n  border-bottom: 5px solid #363C48;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .title-item {\r\n  width: 220px;\r\n  height: 50px;\r\n  line-height: 50px;\r\n  position: relative;\r\n  top: 5px;\r\n  display: inline-block;\r\n  text-align: center;\r\n  margin-right: 2px;\r\n  cursor: pointer;\r\n  border-bottom: 5px solid #464f5c;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .title-active {\r\n  border-bottom: 5px solid #e14340;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-title {\r\n  width: 100%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-title > div {\r\n  width: 220px;\r\n  height: 80px;\r\n  line-height: 80px;\r\n  font-size: 14px;\r\n  font-weight: bold;\r\n  text-align: center;\r\n  display: inline-block;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-content {\r\n  width: 100%;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-content > div {\r\n  width: 220px;\r\n  height: 60px;  /*line-height: 80px;*/\r\n  font-size: 14px;\r\n  display: inline-block;\r\n  text-align: center;\r\n}\r\n#search-result-detail .company-detail-inner .shareholder-exe .content .content-content > div > span{\r\n  text-align:left;\r\n}\r\n#search-result-detail .company-detail-inner .control-record .control-title {\r\n  width: 100%;\r\n  border-bottom: 5px solid #363C48;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .title-item {\r\n  width: 220px;\r\n  height: 50px;\r\n  line-height: 50px;\r\n  position: relative;\r\n  top: 5px;\r\n  display: inline-block;\r\n  text-align: center;\r\n  cursor: pointer;\r\n  margin-right: 2px;\r\n  border-bottom: 5px solid #464f5c;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .title-active {\r\n  border-bottom: 5px solid #e14340;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .content .content-title {\r\n  width: 100%;\r\n  height: 80px;\r\n  line-height: 80px;\r\n  font-size: 14px;\r\n  font-weight: bold;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .control-record .content .content-content {\r\n  width: 100%;\r\n  padding: 10px;\r\n  font-size: 14px;\r\n  float: left;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .recruiting-title {\r\n  width: 100%;\r\n  border-bottom: 5px solid #363C48;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .title-item {\r\n  width: 180px;\r\n  height: 50px;\r\n  line-height: 50px;\r\n  position: relative;\r\n  top: 5px;\r\n  display: inline-block;\r\n  text-align: center;\r\n  margin-right: 2px;\r\n  cursor: pointer;\r\n  border-bottom: 5px solid #464f5c;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .title-active {\r\n  border-bottom: 5px solid #e14340;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .show-charts {\r\n  width: 100%;\r\n  height: 390px;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .show-charts #person-index {\r\n  width: 50%;\r\n  height: 100%;\r\n  float: left;\r\n}\r\n\r\n#search-result-detail .company-detail-inner .recruiting-info .show-charts #pay-distribute {\r\n  width: 50%;\r\n  height: 100%;\r\n  float: left;\r\n}\r\n\r\n#search-result-detail  .relation-legend {\r\n  width: auto;\r\n  margin: 35px 10px 0px 10px;\r\n}\r\n\r\n#search-result-detail .relation-legend table tr .square {\r\n  width: 10px;\r\n  height: 10px;\r\n}\r\n\r\n#search-result-detail  .relation-legend table tr .round {\r\n  width: 10px;\r\n  height: 10px;\r\n}\r\n#search-result-detail .window-show-graph{\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%!important;\r\n    z-index: 100;\r\n    margin: 0;\r\n}\r\n#search-result-detail .linefin-rel-graph .mod-content .relation-graph-box {\r\n    height: 785px;\r\n    overflow: hidden;\r\n    padding-top: 15px;\r\n}\r\n\r\n#search-result-detail  .linefin-rel-graph {\r\n  height: 914px\r\n}\r\n\r\n#search-result-detail  .linefin-rel-graph .mod-title {\r\n  border-top-left-radius: 5px;\r\n  border-top-right-radius: 5px;\r\n}\r\n\r\n#search-result-detail .relation-legend .condition {\r\n  margin-top: -2px;\r\n}\r\n\r\n#search-result-detail  .linefin-rel-graph .mod-title h3 {\r\n  display: inline-block;\r\n  vertical-align: middle;\r\n  font-weight: normal;\r\n  font-style: normal;\r\n  font-size: 16px;\r\n  color: #ffffff;\r\n  margin-left: 10px;\r\n  padding: 8px 0;\r\n}\r\n\r\n.company-news-scroll {\r\n  overflow-y: scroll;\r\n  overflow-x: hidden;\r\n}\r\n\r\n.modal-bg{\r\n  background: #000000;\r\n  opacity: 0.5;\r\n  position: fixed;\r\n  left: 0px;\r\n  right: 0px;\r\n  top: 0px;\r\n  bottom: 0px;\r\n  z-index: 10;\r\n}\r\n.modal-bg.hide{\r\n  display: none;\r\n}\r\n.modal-bg.show{\r\n  display: block;\r\n}\r\n.doc-modal{\r\n  width: 800px;\r\n  height: 600px;\r\n  position: fixed;\r\n  left: 50%;\r\n  top: 50%;\r\n  margin-left:-400px;\r\n  margin-top: -300px;\r\n  border-radius: 5px;\r\n  z-index: 100;\r\n  background-color: #ffffff;\r\n}\r\n.doc-modal.hide{\r\n  display: none;\r\n}\r\n.doc-modal.show{\r\n  display: block;\r\n}\r\n.doc-modal h3{\r\n  text-align: center;\r\n  color: #000;\r\n  margin: 0 auto;\r\n  position: relative;\r\n  padding: 10px 50px;\r\n  border-bottom: solid 1px red;\r\n  font-size: 20px;\r\n}\r\n.doc-modal h3 i{\r\n  position: absolute;\r\n  right: 10px;\r\n  top: 5px;\r\n  cursor: pointer;\r\n}\r\n.doc-modal  h4 span{\r\n  display: block;\r\n}\r\n.doc-modal  h4 .remark{\r\n  padding: 10px 0;\r\n  font-size: 14px;\r\n  text-align: right;\r\n}\r\n.doc-modal .modal-content{\r\n  color: #000;\r\n  padding: 10px;\r\n  height: 525px;\r\n  overflow: auto;\r\n}\r\n.doc-modal .modal-content .line{\r\n  position: absolute;\r\n  left: 510px;\r\n  height: 505px;\r\n  width: 1px;\r\n  background-color: red;\r\n}\r\n.doc-modal .modal-content .left{\r\n  float: left;\r\n  width: 500px;\r\n  height: 490px;\r\n \r\n  padding: 5px 10px;\r\n}\r\n.doc-modal .modal-content .left h4{\r\n  font-size: 16px;\r\n  text-align: center;\r\n  padding:5px 0;\r\n  font-size: 18px;\r\n}\r\n.doc-modal .modal-content .left .main{\r\n  margin-top: 10px;\r\n}\r\n.doc-modal .modal-content .right{\r\n  float: left;\r\n  width: 260px;\r\n  overflow: auto;\r\n  padding: 5px 10px;\r\n\r\n}\r\n.doc-modal .modal-content .right span.sp{\r\n  display: block;\r\n  padding: 2px;\r\n}\r\n\r\n\r\n/*诉讼记录begin*/\r\n#search-result-detail .wtyh-table thead th{\r\n  background-color: #2b323c;\r\n}\r\n/*诉讼记录 end*/\r\n\r\n", ""]);
 
 	// exports
 
@@ -83131,7 +83178,7 @@
 	                            ),
 	                            _react2.default.createElement(
 	                                'td',
-	                                null,
+	                                { className: 'cur-pointer' },
 	                                _react2.default.createElement(
 	                                    'span',
 	                                    { onClick: this.hanldTitle,
@@ -83251,7 +83298,8 @@
 	                            '当事人类型：',
 	                            this.state.litigantType
 	                        )
-	                    )
+	                    ),
+	                    _react2.default.createElement('div', { className: 'line' })
 	                )
 	            )
 	        );
@@ -84097,7 +84145,7 @@
 	      color: ["#E24340", "#00A0EA"],
 	      barWidth: 40,
 	      gridLeft: "12%",
-	      yAxisName: "",
+	      yAxisName: "CourtAnnouncement.jsx",
 	      yFlag: "%", //y轴单位
 	      splitLineShow: true,
 	      legendShow: false,
@@ -84895,7 +84943,7 @@
 
 
 	// module
-	exports.push([module.id, "/*@整体布局(一级)\r\n------------------------------------------------------------------*/\r\n.realtime-index {\r\n}\r\n.realtime-index .realtime-top {\r\n\twidth: 100%;\r\n\theight: 65%;\r\n}\r\n.realtime-index .realtime-bottom {\r\n\twidth: 100%;\r\n\theight: 35%;\r\n}\r\n\r\n/*@整体布局(二级)\r\n------------------------------------------------------------------*/\r\n.realtime-index .realtime-top>div {\r\n\tfloat: left;\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tpadding: 10px;\r\n}\r\n.realtime-index .realtime-top .realtime-top-left {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-middle {\r\n\twidth: 44%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-right {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-left {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-top: 26px;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-right {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-left: 100px;\r\n\tpadding-top: 26px;\r\n\toverflow-y: hidden;\r\n}\r\n\r\n/*realtime-top-left(左边表格)  //pudong huangpu  hongkou\r\n------------------------------------------------------------------*/\r\n.realtime-top-left {\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-left  h4 {\r\n\tfont-size: 18px;\r\n\tline-height: 40px;\r\n}\r\n.realtime-top-left  .title li {\r\n\tfloat: left;\r\n\twidth: 25%;\r\n\ttext-align: center;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tborder: 1px solid;\r\n\tcursor: pointer;\r\n\tposition: relative;\r\n}\r\n.realtime-top-left  .title li.active:after {\r\n\tcontent: \"\";\r\n\tposition: absolute;\r\n\tbottom: -6px;\r\n\tleft: 0px;\r\n\twidth: 100%;\r\n\theight: 3px;\r\n\tbackground: #fff;\r\n\tz-index: 999;\r\n}\r\n.realtime-top-left  .title li:nth-child(1) {\r\n\tbackground: red\r\n}\r\n.realtime-top-left  .title li:nth-child(2) {\r\n\tbackground: #ebc900\r\n}\r\n.realtime-top-left  .title li:nth-child(3) {\r\n\tbackground: #32b16c\r\n}\r\n.realtime-top-left  .title li:nth-child(4) {\r\n\tbackground: #000\r\n}\r\n.realtime-top-left  .table-wrap {\r\n\twidth: 100%;\r\n\theight: 75%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA {\r\n\twidth: 100%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th {\r\n\theight: 40px;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(1) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(2) {\r\n\twidth: 60%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th .tbsLeft {\r\n\tfloat: left;\r\n\tpadding-left: 5%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th .thSpan {\r\n\tfloat: left;\r\n\tpadding-left: 15%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td {\r\n\tborder-bottom: 1px solid #3c404b;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td .tbsLeft {\r\n\tfloat: left;\r\n\tpadding-left: 5%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td .thSpan {\r\n\tfloat: left;\r\n\tpadding-left: 15%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox {\r\n\theight: 92%;\r\n\toverflow: auto;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(3) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB {\r\n\twidth: 100%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td {\r\n\theight: 40px;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(1) {\r\n\twidth: 20%;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(2) {\r\n\twidth: 60%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(3) {\r\n\twidth: 20%;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-left .color {\r\n\theight: 16px;\r\n\twidth: 60%;\r\n\tposition: absolute;\r\n\tbottom: 10px;\r\n\tleft: 50%;\r\n\ttransform: translateX(-50%);\r\n}\r\n.realtime-top-left .color img {\r\n\tdisplay: block;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n.realtime-top-left .mlBtn {\r\n\tdisplay: block;\r\n\tpadding: 4px 5px;\r\n\tfont-size: 13px;\r\n\tmargin: 37px auto;\r\n\tborder: none;\r\n\tborder-radius: 5px;\r\n\tbox-shadow: 0px 2px 4px #000;\r\n\ttext-shadow: 0px 1px 1px #000;\r\n\tcolor: #fff;\r\n\tbackground: -webkit-gradient(linear, left top, left bottom, from(#d66f6d), to(#a30f0d));\r\n\tbackground: -ms-gradient(linear, left top, left bottom, from(#d66f6d), to(#a30f0d));\r\n\tbackground: gradient(linear, left top, left bottom, from(#d66f6d), to(#a30f0d));\r\n\tbackground: #a30f0d\\9\\0;\r\n}\r\n\r\n/*realtime-top-right(右侧的9个图)\r\n------------------------------------------------------------------*/\r\n.realtime-top-right {\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-top-right .item {\r\n\twidth: 100%;\r\n\theight: 33.3%;\r\n}\r\n\r\n/*realtime-bottom-right(右下角)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-right {\r\n\toverflow: hidden;\r\n\tpadding-left: 20px\r\n}\r\n.realtime-bottom-right>h4 {\r\n\tcolor: #fff;\r\n\tline-height: 30px;\r\n\tfont-size: 16px;\r\n}\r\n.realtime-bottom-right ul {\r\n\theight: 100%;\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-bottom-right ul li {\r\n\theight: 134px;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-right ul li h4 {\r\n\tpadding: 15px 0px;\r\n\tfont-size: 14px;\r\n\tcolor: #e14340\r\n}\r\n.realtime-bottom-right ul li h4 a {\r\n\tcolor: #e14340 !important\r\n}\r\n.realtime-bottom-right ul li p {\r\n\tcolor: #fff;\r\n\tmargin-right: 10px;\r\n\toverflow: hidden;\r\n}\r\n.BottomRightP {\r\n\tdisplay: block;\r\n\theight: 41px;\r\n}\r\n.realtime-bottom-right ul li span {\r\n\tposition: absolute;\r\n\tright: 10px;\r\n\tbottom: 2px;\r\n\tcolor: #666;\r\n}\r\n.realtime-bottom-right ul li span p {\r\n\tdisplay: inline-block;\r\n}\r\n\r\n/*realtime-bottom-right(中间的大地图)\r\n------------------------------------------------------------------*/\r\n.realtime-top-middle #demo {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*上海地图的信息框*/\r\n.realtime-top-middle .info {\r\n\twidth: 160px;\r\n\theight: 70px;\r\n\tleft: 5%;\r\n\ttop: 5%;\r\n\tposition: absolute;\r\n\tz-index: 999;\r\n\tcursor: pointer;\r\n\toverflow: hidden;\r\n\tdisplay: none\r\n}\r\n.realtime-top-middle .info .info-left, .realtime-top-middle .info .info-right {\r\n\tfloat: left;\r\n\twidth: 50%;\r\n\theight: 100%;\r\n}\r\n.realtime-top-middle .info .info-left {\r\n\tpadding: 0px 3px 3px 0px;\r\n}\r\n.realtime-top-middle .info .info-right {\r\n\tbackground: #363e48;\r\n\tborder-radius: 3px;\r\n\tfont-size: 24px;\r\n\tcolor: #e14340;\r\n\tline-height: 70px;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-middle .info .info-left .title {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 34px;\r\n\tfont-size: 12px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 34px;\r\n\tborder-radius: 3px;\r\n}\r\n.realtime-top-middle .info .info-left .date {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 34px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 34px;\r\n\tmargin-top: 3px;\r\n\tborder-radius: 3px;\r\n\tfont-size: 12px;\r\n}\r\n\r\n/*上海地图的返回按钮*/\r\n.realtime-top-middle .return {\r\n\tbackground: linear-gradient(to bottom, #b96f6f 5%, red 50%, #f50202 100%);\r\n\tposition: absolute;\r\n\tbottom: 10%;\r\n\tleft: 3%;\r\n\tdisplay: none;\r\n}\r\n\r\n/*地下的长条信息框*/\r\n.realtime-top-middle .bar {\r\n\twidth: 98%;\r\n\theight: 40px;\r\n\tbackground: #282f39;\r\n\ttext-align: center;\r\n\tline-height: 40px;\r\n\tposition: absolute;\r\n\tbottom: 1%;\r\n\tfont-size: 12px;\r\n\tdisplay: none;\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-middle .bar .bar-content {\r\n\theight: 40px;\r\n\twidth: 90%;\r\n\toverflow: hidden;\r\n\tmargin-left: 10%;\r\n\tposition: relative;\r\n}\r\n.realtime-top-middle .carousel {\r\n\tposition: absolute;\r\n\ttop: 0;\r\n\tz-index: 999;\r\n\twidth: 100%;\r\n\tanimation-timing-function: linear;\r\n\tanimation: move-xc  20s infinite;\r\n}\r\n@keyframes move-xc {\r\n\tfrom {\r\n\t\tleft: 100%;\r\n\t}\r\n\tto {\r\n\t\tleft: -100%;\r\n\t}\r\n}\r\n.realtime-top-middle .bar img {\r\n\twidth: 30px;\r\n\theight: 30px;\r\n\tposition: absolute;\r\n\tleft: 5%;\r\n\ttop: 5px;\r\n\tpadding-right: 20px;\r\n\tbox-sizing: content-box;\r\n\tbackground: #282f39;\r\n\tz-index: 9999;\r\n}\r\n.darkRed {\r\n\tcolor: #e14340;\r\n\tpadding: 0px 5px;\r\n}\r\n\r\n/*tootips实验*/\r\n.testTo {\r\n\twidth: auto;\r\n\theight: auto;\r\n\tfont-size: 12px;\r\n\tcursor: pointer;\r\n}\r\n.testTo h4 {\r\n\tdisplay: inline-block;\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo label {\r\n\tdisplay: inline-block;\r\n\twidth: 60px;\r\n\theight: 18px;\r\n\tborder: 1px solid #fff;\r\n\ttext-align: center;\r\n\tvertical-align: middle;\r\n\tmargin-left: 20px;\r\n\ttext-align: center;\r\n\ttext-indent: 5px;\r\n\tline-height: 16px;\r\n\ttext-shadow: 1px 1px 1px #000;\r\n}\r\n.testTo p {\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo p span {\r\n\tcolor: yellow\r\n}\r\n.black {\r\n\tbackground: black;\r\n\tcolor: #fff !important\r\n}\r\n.green {\r\n\tbackground: green\r\n}\r\n.yellow {\r\n\tbackground: #ebc900;\r\n}\r\n.red {\r\n\tbackground: red;\r\n}\r\n.redFont {\r\n\tcolor: red !important;\r\n}\r\n.whiteFont {\r\n\tcolor: #fff !important;\r\n}\r\n\r\n/**/\r\n.testTo .tableH4 {\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n\tcolor: #ce3431;\r\n\tfont-size: 14px;\r\n\tfont-weight: bold;\r\n}\r\n.testTo table td {\r\n\tborder: 1px solid #1a2029;\r\n\ttext-align: center;\r\n\tpadding: 5px;\r\n}\r\n.testTo .tip-scroll {\r\n\twidth: 200px;\r\n\theight: 100px;\r\n\ttext-align: center;\r\n\toverflow-y: auto;\r\n}\r\n.testTo .tip-scroll  span {\r\n\tdisplay: block;\r\n\tpadding: 5px 0;\r\n}\r\n.testTo .nums {\r\n\tdisplay: block;\r\n\ttext-align: center;\r\n}\r\n.switchDirection {\r\n\tdisplay: block;\r\n\tposition: absolute;\r\n\tbottom: 50px;\r\n\tleft: 50px;\r\n\tz-index: 999;\r\n\tpadding: 4px 5px;\r\n\tfont-size: 13px;\r\n\tmargin: 37px auto;\r\n\tborder: none;\r\n\tborder-radius: 5px;\r\n\tbox-shadow: 0px 2px 4px #000;\r\n\ttext-shadow: 0px 1px 1px #000;\r\n\tcolor: #fff;\r\n\tbackground: -webkit-gradient(linear, left top, left bottom, from(#d66f6d), to(#a30f0d));\r\n\tbackground: -ms-gradient(linear, left top, left bottom, from(#d66f6d), to(#a30f0d));\r\n\tbackground: gradient(linear, left top, left bottom, from(#d66f6d), to(#a30f0d));\r\n\tbackground: #a30f0d\\9\\0;\r\n}\r\n\r\n/*realtime-bottom-rleft(线下理财)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-left {\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-left  .more {\r\n\tcolor: #fff;\r\n\tfont-size: 14px;\r\n\tposition: absolute;\r\n\ttop: 60px;\r\n\tright: 11%;\r\n\tz-index: 99999;\r\n}", ""]);
+	exports.push([module.id, "/*@整体布局(一级)\r\n------------------------------------------------------------------*/\r\n.realtime-index {\r\n}\r\n.realtime-index .realtime-top {\r\n\twidth: 100%;\r\n\theight: 65%;\r\n}\r\n.realtime-index .realtime-bottom {\r\n\twidth: 100%;\r\n\theight: 35%;\r\n}\r\n\r\n/*@整体布局(二级)\r\n------------------------------------------------------------------*/\r\n.realtime-index .realtime-top>div {\r\n\tfloat: left;\r\n\tposition: relative;\r\n\theight: 100%;\r\n\tpadding: 10px;\r\n}\r\n.realtime-index .realtime-top .realtime-top-left {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-middle {\r\n\twidth: 44%;\r\n}\r\n.realtime-index .realtime-top .realtime-top-right {\r\n\twidth: 28%;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-left {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-top: 26px;\r\n}\r\n.realtime-index .realtime-bottom .realtime-bottom-right {\r\n\theight: 100%;\r\n\twidth: 50%;\r\n\tfloat: left;\r\n\tpadding-left: 100px;\r\n\tpadding-top: 26px;\r\n\toverflow-y: hidden;\r\n}\r\n\r\n/*realtime-top-left(左边表格)  //pudong huangpu  hongkou\r\n------------------------------------------------------------------*/\r\n.realtime-top-left {\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-left  h4 {\r\n\tfont-size: 18px;\r\n\tline-height: 40px;\r\n}\r\n.realtime-top-left  .title li {\r\n\tfloat: left;\r\n\twidth: 25%;\r\n\ttext-align: center;\r\n\theight: 25px;\r\n\tline-height: 25px;\r\n\tborder: 1px solid;\r\n\tcursor: pointer;\r\n\tposition: relative;\r\n}\r\n.realtime-top-left  .title li.active:after {\r\n\tcontent: \"\";\r\n\tposition: absolute;\r\n\tbottom: -6px;\r\n\tleft: 0px;\r\n\twidth: 100%;\r\n\theight: 3px;\r\n\tbackground: #fff;\r\n\tz-index: 999;\r\n}\r\n.realtime-top-left  .title li:nth-child(1) {\r\n\tbackground: red\r\n}\r\n.realtime-top-left  .title li:nth-child(2) {\r\n\tbackground: #ebc900\r\n}\r\n.realtime-top-left  .title li:nth-child(3) {\r\n\tbackground: #32b16c\r\n}\r\n.realtime-top-left  .title li:nth-child(4) {\r\n\tbackground: #000\r\n}\r\n.realtime-top-left  .table-wrap {\r\n\twidth: 100%;\r\n\theight: 75%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA {\r\n\twidth: 100%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th {\r\n\theight: 40px;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(1) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(2) {\r\n\twidth: 60%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th .tbsLeft {\r\n\tfloat: left;\r\n\tpadding-left: 5%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th .thSpan {\r\n\tfloat: left;\r\n\tpadding-left: 15%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td {\r\n\tborder-bottom: 1px solid #3c404b;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td .tbsLeft {\r\n\tfloat: left;\r\n\tpadding-left: 5%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td .thSpan {\r\n\tfloat: left;\r\n\tpadding-left: 15%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox {\r\n\theight: 92%;\r\n\toverflow: auto;\r\n}\r\n.realtime-top-left  .table-wrap .tbsA tr th:nth-child(3) {\r\n\twidth: 20%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB {\r\n\twidth: 100%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td {\r\n\theight: 40px;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(1) {\r\n\twidth: 20%;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(2) {\r\n\twidth: 60%;\r\n}\r\n.realtime-top-left  .table-wrap .tbsBox .tbsB tr td:nth-child(3) {\r\n\twidth: 20%;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-left .color {\r\n\theight: 16px;\r\n\twidth: 60%;\r\n\tposition: absolute;\r\n\tbottom: 10px;\r\n\tleft: 50%;\r\n\ttransform: translateX(-50%);\r\n}\r\n.realtime-top-left .color img {\r\n\tdisplay: block;\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n.realtime-top-left .mlBtn {\r\n\tdisplay: block;\r\n\tpadding: 4px 5px;\r\n\tfont-size: 13px;\r\n\tmargin: 37px auto;\r\n\tborder: none;\r\n\tborder-radius: 5px;\r\n\tbox-shadow: 0px 2px 4px #000;\r\n\ttext-shadow: 0px 1px 1px #000;\r\n\tcolor: #fff;\r\n\tbackground: -webkit-gradient(linear, left top, left bottom, from(#d66f6d), to(#a30f0d));\r\n\tbackground: -ms-gradient(linear, left top, left bottom, from(#d66f6d), to(#a30f0d));\r\n\tbackground: gradient(linear, left top, left bottom, from(#d66f6d), to(#a30f0d));\r\n\tbackground: #a30f0d\\9\\0;\r\n\tdisplay: none;\r\n}\r\n\r\n/*realtime-top-right(右侧的9个图)\r\n------------------------------------------------------------------*/\r\n.realtime-top-right {\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-top-right .item {\r\n\twidth: 100%;\r\n\theight: 33.3%;\r\n}\r\n\r\n/*realtime-bottom-right(右下角)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-right {\r\n\toverflow: hidden;\r\n\tpadding-left: 20px\r\n}\r\n.realtime-bottom-right>h4 {\r\n\tcolor: #fff;\r\n\tline-height: 30px;\r\n\tfont-size: 16px;\r\n}\r\n.realtime-bottom-right ul {\r\n\theight: 100%;\r\n\toverflow-y: scroll;\r\n\toverflow-x: hidden;\r\n}\r\n.realtime-bottom-right ul li {\r\n\theight: 134px;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-right ul li h4 {\r\n\tpadding: 15px 0px;\r\n\tfont-size: 14px;\r\n\tcolor: #e14340\r\n}\r\n.realtime-bottom-right ul li h4 a {\r\n\tcolor: #e14340 !important\r\n}\r\n.realtime-bottom-right ul li p {\r\n\tcolor: #fff;\r\n\tmargin-right: 10px;\r\n\toverflow: hidden;\r\n}\r\n.BottomRightP {\r\n\tdisplay: block;\r\n\theight: 41px;\r\n}\r\n.realtime-bottom-right ul li span {\r\n\tposition: absolute;\r\n\tright: 10px;\r\n\tbottom: 2px;\r\n\tcolor: #666;\r\n}\r\n.realtime-bottom-right ul li span p {\r\n\tdisplay: inline-block;\r\n}\r\n\r\n/*realtime-bottom-right(中间的大地图)\r\n------------------------------------------------------------------*/\r\n.realtime-top-middle #demo {\r\n\twidth: 100%;\r\n\theight: 100%;\r\n}\r\n\r\n/*上海地图的信息框*/\r\n.realtime-top-middle .info {\r\n\twidth: 160px;\r\n\theight: 70px;\r\n\tleft: 5%;\r\n\ttop: 5%;\r\n\tposition: absolute;\r\n\tz-index: 999;\r\n\tcursor: pointer;\r\n\toverflow: hidden;\r\n\tdisplay: none\r\n}\r\n.realtime-top-middle .info .info-left, .realtime-top-middle .info .info-right {\r\n\tfloat: left;\r\n\twidth: 50%;\r\n\theight: 100%;\r\n}\r\n.realtime-top-middle .info .info-left {\r\n\tpadding: 0px 3px 3px 0px;\r\n}\r\n.realtime-top-middle .info .info-right {\r\n\tbackground: #363e48;\r\n\tborder-radius: 3px;\r\n\tfont-size: 24px;\r\n\tcolor: #e14340;\r\n\tline-height: 70px;\r\n\ttext-align: center;\r\n}\r\n.realtime-top-middle .info .info-left .title {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 34px;\r\n\tfont-size: 12px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 34px;\r\n\tborder-radius: 3px;\r\n}\r\n.realtime-top-middle .info .info-left .date {\r\n\tcolor: #fff;\r\n\ttext-align: center;\r\n\tline-height: 34px;\r\n\tbackground: #363e48;\r\n\twidth: 100%;\r\n\theight: 34px;\r\n\tmargin-top: 3px;\r\n\tborder-radius: 3px;\r\n\tfont-size: 12px;\r\n}\r\n\r\n/*上海地图的返回按钮*/\r\n.realtime-top-middle .return {\r\n\tbackground: linear-gradient(to bottom, #b96f6f 5%, red 50%, #f50202 100%);\r\n\tposition: absolute;\r\n\tbottom: 10%;\r\n\tleft: 3%;\r\n\tdisplay: none;\r\n}\r\n\r\n/*地下的长条信息框*/\r\n.realtime-top-middle .bar {\r\n\twidth: 98%;\r\n\theight: 40px;\r\n\tbackground: #282f39;\r\n\ttext-align: center;\r\n\tline-height: 40px;\r\n\tposition: absolute;\r\n\tbottom: 1%;\r\n\tfont-size: 12px;\r\n\tdisplay: none;\r\n\toverflow: hidden;\r\n}\r\n.realtime-top-middle .bar .bar-content {\r\n\theight: 40px;\r\n\twidth: 90%;\r\n\toverflow: hidden;\r\n\tmargin-left: 10%;\r\n\tposition: relative;\r\n}\r\n.realtime-top-middle .carousel {\r\n\tposition: absolute;\r\n\ttop: 0;\r\n\tz-index: 999;\r\n\twidth: 100%;\r\n\tanimation-timing-function: linear;\r\n\tanimation: move-xc  20s infinite;\r\n}\r\n@keyframes move-xc {\r\n\tfrom {\r\n\t\tleft: 100%;\r\n\t}\r\n\tto {\r\n\t\tleft: -100%;\r\n\t}\r\n}\r\n.realtime-top-middle .bar img {\r\n\twidth: 30px;\r\n\theight: 30px;\r\n\tposition: absolute;\r\n\tleft: 5%;\r\n\ttop: 5px;\r\n\tpadding-right: 20px;\r\n\tbox-sizing: content-box;\r\n\tbackground: #282f39;\r\n\tz-index: 9999;\r\n}\r\n.darkRed {\r\n\tcolor: #e14340;\r\n\tpadding: 0px 5px;\r\n}\r\n\r\n/*tootips实验*/\r\n.testTo {\r\n\twidth: auto;\r\n\theight: auto;\r\n\tfont-size: 12px;\r\n\tcursor: pointer;\r\n}\r\n.testTo h4 {\r\n\tdisplay: inline-block;\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo label {\r\n\tdisplay: inline-block;\r\n\twidth: 60px;\r\n\theight: 18px;\r\n\tborder: 1px solid #fff;\r\n\ttext-align: center;\r\n\tvertical-align: middle;\r\n\tmargin-left: 20px;\r\n\ttext-align: center;\r\n\ttext-indent: 5px;\r\n\tline-height: 16px;\r\n\ttext-shadow: 1px 1px 1px #000;\r\n}\r\n.testTo p {\r\n\tcolor: #fff;\r\n\tfont-size: 12px;\r\n}\r\n.testTo p span {\r\n\tcolor: yellow\r\n}\r\n.black {\r\n\tbackground: black;\r\n\tcolor: #fff !important\r\n}\r\n.green {\r\n\tbackground: green\r\n}\r\n.yellow {\r\n\tbackground: #ebc900;\r\n}\r\n.red {\r\n\tbackground: red;\r\n}\r\n.redFont {\r\n\tcolor: red !important;\r\n}\r\n.whiteFont {\r\n\tcolor: #fff !important;\r\n}\r\n\r\n/**/\r\n.testTo .tableH4 {\r\n\twidth: 100%;\r\n\ttext-align: center;\r\n\tcolor: #ce3431;\r\n\tfont-size: 14px;\r\n\tfont-weight: bold;\r\n}\r\n.testTo table td {\r\n\tborder: 1px solid #1a2029;\r\n\ttext-align: center;\r\n\tpadding: 5px;\r\n}\r\n.testTo .tip-scroll {\r\n\twidth: 200px;\r\n\theight: 100px;\r\n\ttext-align: center;\r\n\toverflow-y: auto;\r\n}\r\n.testTo .tip-scroll  span {\r\n\tdisplay: block;\r\n\tpadding: 5px 0;\r\n}\r\n.testTo .nums {\r\n\tdisplay: block;\r\n\ttext-align: center;\r\n}\r\n.switchDirection {\r\n\tdisplay: block;\r\n\tposition: absolute;\r\n\tbottom: 50px;\r\n\tleft: 50px;\r\n\tz-index: 999;\r\n\tpadding: 4px 5px;\r\n\tfont-size: 13px;\r\n\tmargin: 37px auto;\r\n\tborder: none;\r\n\tborder-radius: 5px;\r\n\tbox-shadow: 0px 2px 4px #000;\r\n\ttext-shadow: 0px 1px 1px #000;\r\n\tcolor: #fff;\r\n\tbackground: -webkit-gradient(linear, left top, left bottom, from(#d66f6d), to(#a30f0d));\r\n\tbackground: -ms-gradient(linear, left top, left bottom, from(#d66f6d), to(#a30f0d));\r\n\tbackground: gradient(linear, left top, left bottom, from(#d66f6d), to(#a30f0d));\r\n\tbackground: #a30f0d\\9\\0;\r\n}\r\n\r\n/*realtime-bottom-rleft(线下理财)\r\n------------------------------------------------------------------*/\r\n.realtime-bottom-left {\r\n\tposition: relative;\r\n}\r\n.realtime-bottom-left  .more {\r\n\tcolor: #fff;\r\n\tfont-size: 14px;\r\n\tposition: absolute;\r\n\ttop: 60px;\r\n\tright: 11%;\r\n\tz-index: 99999;\r\n}", ""]);
 
 	// exports
 
@@ -85032,15 +85080,22 @@
 	                        _react2.default.createElement(
 	                          'td',
 	                          null,
-	                          elem.registeredCapital
+	                          elem.registeredCapital || "/"
 	                        )
 	                      );
 	                    })
 	                  )
+	                ),
+	                _react2.default.createElement(
+	                  'button',
+	                  { onClick: _this.shrink, 'data-z': 'more', className: 'mlBtn' },
+	                  '查看更多'
 	                )
 	              )
 	            )
 
+	          }, function () {
+	            $(".mlBtn").css("display", "block");
 	          });
 	        } else {
 
@@ -85120,6 +85175,7 @@
 	                  }
 	                  //因为表格第四个tab的数据格式不一样，为日期，所以需要判断
 	                  var three = fixRange - 1 == 3 ? elem.exposureDate : elem.registeredCapital;
+	                  !!three ? three = three : three = "/";
 	                  return _react2.default.createElement(
 	                    'tr',
 	                    { key: index },
@@ -85153,6 +85209,11 @@
 	                  );
 	                })
 	              )
+	            ),
+	            _react2.default.createElement(
+	              'button',
+	              { onClick: _this.shrink, 'data-z': 'more', className: 'mlBtn' },
+	              '查看更多'
 	            )
 	          )
 	        )
@@ -85170,6 +85231,7 @@
 
 	  //老夫预言，此处功能必改，此方法最好与上一个方法合并
 	  shrink: function shrink(e) {
+	    var _this = this;
 	    var theScroll = $(".tbsBox").scrollTop(); //记录最开始滚动条的位置
 	    var btnState = $(".mlBtn").data("z"); //more && less
 	    var fixRange = $(".title .active").attr("data-a"); // 当前是第几个表格，取第几个content
@@ -85178,8 +85240,9 @@
 	    var threeContent = range == 1 ? "2014/3/3" : parseInt(Math.random() * 5000);
 	    var threeTitle = range == 1 ? "风险暴露日期" : "注册资本(万元)";
 	    var state = null;
-	    if (fixRange == 3) {
-	      return false; //如果是”正常“列表，点击查看更多是没有效果的（这个版本需求）
+	    if ( /*fixRange == 3*/false) {
+	      console.log("ss");
+	      // return false;//如果是”正常“列表，点击查看更多是没有效果的（这个版本需求）
 	    } else if ($(".mlBtn").text() == "查看更多") {
 	      state = true;
 	      $(".mlBtn").text("收起");
@@ -85245,6 +85308,7 @@
 	                }
 	                //因为表格第四个tab的数据格式不一样，为日期，所以需要判断
 	                var three = fixRange - 1 == 3 ? elem.exposureDate : elem.registeredCapital;
+	                !!three ? three = three : three = "/";
 	                return _react2.default.createElement(
 	                  'tr',
 	                  { key: index },
@@ -85278,6 +85342,11 @@
 	                );
 	              })
 	            )
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { onClick: _this.shrink, 'data-z': 'more', className: 'mlBtn' },
+	            '查看更多'
 	          )
 	        )
 	      )
@@ -85301,7 +85370,7 @@
 	        { className: 'title', onClick: this.titleRange },
 	        _react2.default.createElement(
 	          'li',
-	          { 'data-range': '4', 'data-a': '1', 'data-limit': '50', className: 'active' },
+	          { 'data-range': '4', 'data-a': '1', 'data-limit': '200', className: 'active' },
 	          '重点关注'
 	        ),
 	        _react2.default.createElement(
@@ -85316,7 +85385,7 @@
 	        ),
 	        _react2.default.createElement(
 	          'li',
-	          { 'data-range': '1', 'data-a': '4', 'data-limit': '50', className: '' },
+	          { 'data-range': '1', 'data-a': '4', 'data-limit': '200', className: '' },
 	          '已出风险'
 	        )
 	      ),
@@ -85325,11 +85394,6 @@
 	        'div',
 	        { className: 'color' },
 	        _react2.default.createElement('img', { src: './images/bar.png', alt: '' })
-	      ),
-	      _react2.default.createElement(
-	        'button',
-	        { onClick: this.shrink, 'data-z': 'more', className: 'mlBtn' },
-	        '查看更多'
 	      )
 	    );
 	  }
@@ -86372,6 +86436,10 @@
 
 	var _LineBarChart2 = _interopRequireDefault(_LineBarChart);
 
+	var _publicFun = __webpack_require__(1314);
+
+	var _publicFun2 = _interopRequireDefault(_publicFun);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Immutable = __webpack_require__(620);
@@ -86404,6 +86472,8 @@
 	                    nineDate = realTimeNineResult; //赋值给全局变量
 
 	                    //数据处理
+
+
 	                    var paramOneData = [];
 	                    nineDate.content.loan.series[0].map(function (item, index) {
 	                        item = Number(item / 10000).toFixed(2);
@@ -86414,11 +86484,12 @@
 	                    nineDate.content.loan.series[1].map(function (item, index) {
 	                        paramOneData[index].push(item);
 	                    });
+
 	                    var paramOneyAxis = [];
-	                    nineDate.content.loan.series[0].map(function (item, index) {
-	                        paramOneyAxis.push((item / 10000).toFixed(2));
+	                    paramOneData.map(function (item, index) {
+	                        paramOneyAxis.push(item[1]);
 	                    });
-	                    console.log(paramOneData, "第一个图的series");
+	                    paramOneyAxis = _publicFun2.default.fomatYaxis(paramOneyAxis);
 	                    paramOne = {
 	                        link: "/smallLoan#/smallLoan",
 	                        id: 'realTimeRightOne', //必传
@@ -86434,6 +86505,9 @@
 	                        legend: ["贷款余额及平均贷款余额"],
 	                        xAxis: nineDate.content.loan.xAxis,
 	                        //yAxis:paramOneyAxis,
+	                        yMin: paramOneyAxis.min,
+	                        yMax: paramOneyAxis.max,
+	                        yInterval: paramOneyAxis.interval,
 	                        data: paramOneData,
 	                        series: [[{
 	                            color: '#e14340'
@@ -86599,11 +86673,15 @@
 	                    nineDate.content.mortgage.series[0].map(function (item, index) {
 	                        b.push((item / 10000).toFixed(2));
 	                    });
-	                    console.log(nineDate.content.mortgage.xAxis, 11);
 	                    var xAxis = nineDate.content.mortgage.xAxis.sort(function (a, b) {
 	                        return a - b;
 	                    });
-	                    console.log(xAxis, 22);
+
+	                    var paramSevenyAxis = [];
+	                    paramSevenData.map(function (item, index) {
+	                        paramSevenyAxis.push(item[1]);
+	                    });
+	                    paramSevenyAxis = _publicFun2.default.fomatYaxis(paramSevenyAxis);
 	                    paramSeven = {
 	                        link: "/smallLoan#/PawnMonitoring",
 	                        id: 'realTimeRightTwo', //必传
@@ -86620,6 +86698,9 @@
 	                        },
 	                        xAxis: xAxis,
 	                        // yAxis:b,
+	                        yMin: paramSevenyAxis.min,
+	                        yMax: paramSevenyAxis.max,
+	                        yInterval: paramSevenyAxis.interval,
 	                        data: paramSevenData,
 	                        symbolSize: function symbolSize() {
 	                            return 20;
@@ -101220,6 +101301,70 @@
 	    return String(it).replace(regExp, replacer);
 	  };
 	};
+
+/***/ },
+/* 1314 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var publicFun = {
+		loadScript: function loadScript(url, callback) {
+			var script = document.createElement("script");
+			script.type = "text/javascript";
+			if (script.readyState) {
+				//IE 
+				script.onreadystatechange = function () {
+					if (script.readyState == "loaded" || script.readyState == "complete") {
+						script.onreadystatechange = null;
+						callback();
+					}
+				};
+			} else {
+				//Others: Firefox, Safari, Chrome, and Opera 
+				script.onload = function () {
+					callback();
+				};
+			}
+			script.src = url;
+			document.head.appendChild(script);
+		},
+		/*
+	 * @ yData:y轴坐标的数组
+	 */
+		fomatYaxis: function fomatYaxis(yData) {
+			//控制y轴的方法  
+			var minData = Math.min.apply(null, yData); //获取最小值
+			var maxData = Math.max.apply(null, yData); //获取最大值
+			var midData = (minData + maxData) / 3;
+			var maxJudge = maxData + midData;
+			var min = 0,
+			    max = 0;
+			min = parseInt((minData - midData) / 10) * 10;
+			if (maxJudge < 100) {
+				max = parseInt(maxData + midData);
+			} else {
+				max = parseInt((maxData + midData) / 10) * 10;
+			}
+			var interval = parseInt((max - min) / 5 / 10) * 10;
+			if (min < 0) {
+				min = 0;
+			}
+			return { min: min, max: max, interval: interval };
+		}
+	};
+
+	exports.default = publicFun;
 
 /***/ }
 /******/ ]);
