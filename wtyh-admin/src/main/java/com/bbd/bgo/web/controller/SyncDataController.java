@@ -1,8 +1,10 @@
 package com.bbd.bgo.web.controller;
 
 
+import com.bbd.wtyh.service.RelationDataService;
 import com.bbd.wtyh.service.SyncDataService;
 import com.bbd.wtyh.web.ResponseBean;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,8 @@ public class SyncDataController {
 
     @Autowired
     private SyncDataService syncDataService;
+    @Autowired
+    private RelationDataService relationDataService;
 
     @RequestMapping(value = "receiveFileData.do")
     @ResponseBody
@@ -31,6 +35,12 @@ public class SyncDataController {
             e.printStackTrace();
         }
         return ResponseBean.successResponse("写入成功");
+    }
+
+    @RequestMapping(value = "getNewestDataVersion.do")
+    @ResponseBody
+    public String getNewestDataVersion() {
+        return relationDataService.getNewestDataVersion();
     }
 
 }

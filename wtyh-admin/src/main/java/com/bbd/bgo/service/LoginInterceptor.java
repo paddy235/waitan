@@ -34,6 +34,14 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			return true;
 		}
 
+		if("getNewestDataVersion.do".equals(annotation.value()[0])){
+			return true;
+		}
+
+		if("receiveFileData.do".equals(annotation.value()[0])){
+			return true;
+		}
+
 		Object loginName = request.getSession().getAttribute(Constants.SESSION.loginName);
 		if(loginName == null){
 			response.sendRedirect(request.getContextPath()+"/index.jsp");

@@ -34,6 +34,12 @@ public interface RelationDataService {
 	public List<String> queryDateVersion(String companyName, String areaCode);
 
 	/**
+	 * 获取最新的数据版本
+     * @return
+     */
+	public String getNewestDataVersion();
+
+	/**
 	 *
 	 * @param companyName
 	 * @param areaCode
