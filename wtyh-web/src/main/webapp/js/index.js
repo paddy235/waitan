@@ -40304,7 +40304,7 @@
 	  return function (dispatch) {
 	    console.log(json);
 	    $.ajax({
-	      url: "/login.do", //"/login.do",//"/data/industryMonitor/p2p/index/indexChart.json",    
+	      url: "/login.do",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
@@ -88451,7 +88451,7 @@
 	  return function (dispatch) {
 	    console.log(json);
 	    $.ajax({
-	      url: "/login.do", //"/login.do",//"/data/industryMonitor/p2p/index/indexChart.json",    
+	      url: "/login.do",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
