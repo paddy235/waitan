@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.TreeSet;
 
 import com.bbd.wtyh.domain.*;
+import com.bbd.wtyh.domain.vo.NewsVO;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.apache.velocity.runtime.directive.Foreach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +34,9 @@ public class ParkController {
     
     @Autowired
     private ParkService parkService;
+
+    @Autowired
+    private CompanyNewsService newsSer;
     
 
 
@@ -90,8 +96,16 @@ public class ParkController {
     @ResponseBody
     public ResponseBean news(@RequestParam(required=true) Integer areaId) {
 
-        Object data = parkService.queryParkNews(areaId,20,1);
-        
+        Gson gson = new Gson();
+
+        String data = parkService.queryParkNews(areaId,20,1);
+
+        NewsVO vo = gson.fromJson(data,new TypeToken<NewsVO>(){}.getType());
+        if(vo == null || vo.getRsize()==0){
+            vo = newsSer.findNews();
+            data = gson.toJson(vo);
+        }
+
         return ResponseBean.successResponse(data);
     }
     

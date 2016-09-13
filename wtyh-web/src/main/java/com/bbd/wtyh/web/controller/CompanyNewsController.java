@@ -1,7 +1,9 @@
 package com.bbd.wtyh.web.controller;
 
+import com.bbd.wtyh.domain.vo.NewsVO;
 import com.bbd.wtyh.service.CompanyNewsService;
 import com.bbd.wtyh.web.*;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,7 +26,11 @@ public class CompanyNewsController {
 	@ResponseBody
 	public ResponseBean getCompanyNews() {
 
-		String companyNewsJsonData = companyNewsService.getCompanyNews();
-		return ResponseBean.successResponse(companyNewsJsonData);
+		NewsVO vo = companyNewsService.findNews();
+
+		Gson gson = new Gson();
+
+		return ResponseBean.successResponse(gson.toJson(vo));
+
 	}
 }
