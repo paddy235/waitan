@@ -290,6 +290,7 @@
         WHERE
             risk_level = #{risk_level}
         ORDER BY company_analysis_result.exposure_date DESC
+        LIMIT 0, 400
     </select>
 
     <select id="queryCompanyByName"  resultType="com.bbd.wtyh.domain.CompanyDO">
