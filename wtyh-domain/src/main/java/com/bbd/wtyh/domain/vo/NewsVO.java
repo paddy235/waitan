@@ -1,7 +1,5 @@
 package com.bbd.wtyh.domain.vo;
 
-import javafx.scene.control.TableView;
-
 import java.util.ArrayList;
 import java.util.List;
 

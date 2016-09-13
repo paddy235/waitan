@@ -3,10 +3,13 @@ package com.bbd.wtyh.service.impl;
 import com.bbd.higgs.utils.ListUtil;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.domain.*;
+import com.bbd.wtyh.domain.vo.NewsVO;
 import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.service.CompanyNewsService;
 import com.bbd.wtyh.service.DataomApiBbdservice;
 import com.bbd.wtyh.service.ParkService;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -119,32 +122,53 @@ public class ParkServiceImpl implements ParkService {
     @Override
     public String queryParkNews(Integer areaId, Integer pageSize, Integer pageNum) {
 
-        String result = null;
         List<String> names = companyMapper.queryCompanyNames(areaId, null);
-
-        StringBuilder ns = new StringBuilder();
-        for (String n:names) {
-            ns.append(ns.length()>0?",":"").append(n);
-        }
+        NewsVO newsvo = getnews(  names);
+        return new Gson().toJson(newsvo);
+    }
 
 
-        log.info("園區舆情公司爲：" + names);
-        if (!StringUtils.isEmpty(names)) {
-            List<NameValuePair> list = new ArrayList<>();
-            list.add(new BasicNameValuePair("keys", ns.toString() ));
-            list.add(new BasicNameValuePair("ktype", "" + ktype));
-            list.add(new BasicNameValuePair("page", pageNum + ""));
-            list.add(new BasicNameValuePair("pageSize", pageSize + ""));
-            list.add(new BasicNameValuePair("ak", ak));
-            try {
-                result = new HttpTemplate().post(batchNewsUrl, list);
-                log.info("舆情：" + batchNewsUrl + " 返回值为:" + result);
-            } catch (Exception e) {
-                e.printStackTrace();
+    private NewsVO getnews(List<String> names){
+
+        String result = null;
+        Gson gson = new Gson();
+        NewsVO newsvo = new NewsVO();
+        int size = names.size();
+        for (int k=0;k<size;){
+            StringBuilder ns = new StringBuilder();
+
+            List<String> subNames = names.subList(k,(k+=100)<size?k:size);
+            for (String name: subNames ) {
+                ns.append(ns.length()>0?",":"").append( name );
             }
+
+
+            log.info("園區舆情公司爲：" + ns.toString());
+            if (!StringUtils.isEmpty(names)) {
+                List<NameValuePair> list = new ArrayList<>();
+                list.add(new BasicNameValuePair("keys", ns.toString() ));
+                list.add(new BasicNameValuePair("ktype", "" + ktype));
+                list.add(new BasicNameValuePair("page", "1"));
+                list.add(new BasicNameValuePair("pageSize", "20"));
+                list.add(new BasicNameValuePair("ak", ak));
+                try {
+                    result = new HttpTemplate().post(batchNewsUrl, list);
+                    log.info("舆情：" + batchNewsUrl + " 返回值为:" + result);
+
+                    NewsVO vo = gson.fromJson(result,new TypeToken<NewsVO>(){}.getType());
+                    newsvo.addNewsVO(vo);
+                    if(newsvo.getResults().size() >= 20){
+                        newsvo.setResults(newsvo.getResults().subList(0,20));
+                        break;
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
         }
 
-        return result;
+        return newsvo;
 
     }
 
@@ -154,31 +178,13 @@ public class ParkServiceImpl implements ParkService {
 
         List<String> names = companyMapper.queryCompanyNames(null, buildingId);
 
-        StringBuilder ns = new StringBuilder();
-        for (String n:names) {
-            ns.append(ns.length()>0?",":"").append(n);
-        }
+        NewsVO newsvo = getnews( names);
 
-        String result = null;
-        if (!StringUtils.isEmpty(names)) {
-            List<NameValuePair> list = new ArrayList<>();
-            list.add(new BasicNameValuePair("keys", ns.toString()));
-            list.add(new BasicNameValuePair("ktype", "" + ktype));
-            list.add(new BasicNameValuePair("page", "1"));
-            list.add(new BasicNameValuePair("pageSize", "20"));
-            list.add(new BasicNameValuePair("ak", ak));
-            try {
-                result = new HttpTemplate().post(batchNewsUrl, list);
-                log.info("舆情：" + batchNewsUrl + " 返回值为:" + result);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        if (!StringUtils.hasText(result) || result.contains("\"total\": 0")) {
+        if ( newsvo.getResults().size()==0 ) {
             return cns.getCompanyNews();
         }
 
-        return result;
+        return new Gson().toJson(newsvo);
 
     }
 
