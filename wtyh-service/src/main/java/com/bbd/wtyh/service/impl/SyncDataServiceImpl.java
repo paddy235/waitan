@@ -47,7 +47,7 @@ public class SyncDataServiceImpl implements SyncDataService {
 	public void receiveFileData(MultipartFile file) throws Exception{
 		if (file != null) {
 			Gson gson = new Gson();
-			String fileName = file.getName();
+			String fileName = file.getOriginalFilename();
 			File f = new File("/data/wtyh/" + fileName + ".txt");
 			FileUtils.forceMkdirParent(f);
 			OutputStream outputStream = new FileOutputStream(f);
