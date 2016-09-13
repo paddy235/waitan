@@ -68104,7 +68104,6 @@
 	            if (netCreditRequest == true) {
 	                if (netCreditResult.success) {
 	                    this.setState({ listData: netCreditResult.content }, function () {
-	                        console.log($(_this.refs.stay_still_of_total), "stay_still_of_total==========stay_still_of_total");
 	                        $(_this.refs.stay_still_of_total).trigger('click');
 	                    });
 	                } else {
