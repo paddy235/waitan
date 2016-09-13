@@ -1,10 +1,13 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.higgs.utils.http.HttpTemplate;
+import com.bbd.wtyh.domain.vo.NewsVO;
 import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.CompanyNewsService;
 import com.bbd.wtyh.service.DataomApiBbdservice;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -44,6 +47,9 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
 
     @Value("${api.dataom.news.url}")
     private String apiDataonNewsUrl;
+
+    @Value("${api.dataom.url}")
+    private String apiDataomUrl;
 
 
     @Autowired
@@ -109,12 +115,54 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
         }
     }
 
+
+
+    public NewsVO findNews(String key,Integer size){
+
+        String url = String.format(apiDataomUrl,key,size);
+        try {
+            String result = new HttpTemplate().get(url);
+            Gson gson = new Gson();
+            NewsVO vo = gson.fromJson(result,new TypeToken<NewsVO>(){}.getType());
+            return vo;
+        } catch (Exception e) {
+            logger.error("Method getCompanyNews get Exception." + e.getMessage());
+            return null;
+        }
+    }
+
+
+
+    /**
+     * 数据来源：中国金融新闻网（7条）+互联网金融（6条）+上海金融办（7条）
+     * qyxg_shanghai_finance_office，qyxg_weiyangwang，qyxg_chinesefinancialnews 。
+     * @return NewsVO
+     */
+    public NewsVO findNews(){
+        NewsVO list = new NewsVO();
+        list.addNewsVO(findNews("qyxg_shanghai_finance_office",7));
+        list.addNewsVO(findNews("qyxg_weiyangwang",6));
+        list.addNewsVO(findNews("qyxg_chinesefinancialnews",20-list.getRsize()));
+        return list;
+    }
+
+
+
+
+
+
     @Scheduled(cron = "0 0 0 * * *")
     public void scheduleQueryCompanyNews() {
-        String names = companyMapper.queryCompanyNames(null, null);
-        if (!StringUtils.isEmpty(names)) {
+
+        List<String> names = companyMapper.queryCompanyNames(null, null);
+
+        StringBuilder ns = new StringBuilder();
+        for (String n:names) {
+            ns.append(ns.length()>0?",":"").append(n);
+        }
+        if (!StringUtils.isEmpty(ns.toString())) {
             List<NameValuePair> list = new ArrayList<>();
-            list.add(new BasicNameValuePair("keys", names.substring(0, names.length() - 1)));
+            list.add(new BasicNameValuePair("keys", ns.toString() ));
             list.add(new BasicNameValuePair("ktype", "" + ktype));
             list.add(new BasicNameValuePair("pageSize", "100"));
             list.add(new BasicNameValuePair("ak", ak));
@@ -126,4 +174,8 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
         }
 
     }
+
+
+
+
 }

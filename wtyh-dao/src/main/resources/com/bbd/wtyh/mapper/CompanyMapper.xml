@@ -237,7 +237,7 @@
 
 
 	<select id="queryCompanyNames" resultType="string">
-        select Group_concat(c.`name`) 
+        select c.`name`
         from company c , company_building cb , building b ,park p
         where c.company_id=cb.company_id 
               and b.building_id=cb.building_id 

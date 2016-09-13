@@ -1,5 +1,8 @@
 package com.bbd.wtyh.domain.vo;
 
+import javafx.scene.control.TableView;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,9 +12,9 @@ import java.util.List;
  */
 public class NewsVO {
     private String msg;//: "ok",
-    private Integer rsize;//: 19,
-    private Integer total;//: 19,
-    private List<Result> results;//:
+    private Integer rsize=0;//: 19,
+    private Integer total=0;//: 19,
+    private List<Result> results = new ArrayList<>();//:
 
     public String getMsg() {
         return msg;
@@ -44,6 +47,22 @@ public class NewsVO {
     public void setResults(List<Result> results) {
         this.results = results;
     }
+
+
+    public NewsVO(){
+
+    }
+
+
+    public void addNewsVO(NewsVO vo){
+        if(vo == null || vo.getTotal() == 0){
+            return;
+        }
+        this.rsize += vo.getRsize();
+        this.total += vo.getTotal();
+        this.results.addAll(vo.getResults());
+    }
+
 
     public static class Result{
 
