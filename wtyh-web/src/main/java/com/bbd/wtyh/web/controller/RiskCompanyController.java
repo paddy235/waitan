@@ -58,31 +58,30 @@ public class RiskCompanyController {
 			@RequestParam(required = false) String minRegCapital, @RequestParam(required = false) String maxRegCapital,
 			@RequestParam(required = false) String companyQualification,
 			@RequestParam(required = false) String minReviewTime, @RequestParam(required = false) String maxReviewTime,
-			@RequestParam(required = false) String riskLevel, @RequestParam(defaultValue = "0") String sortType,
-			@RequestParam int pageNo) {
+			@RequestParam(required = false) String riskLevel, @RequestParam(defaultValue = "0") String sortType) {
 		Map<String, Object> params = this.fillMap(area, minRegCapital, maxRegCapital, companyQualification,
 				minReviewTime, maxReviewTime, riskLevel);
 		params.put("sortType", sortType); // 排序方式
 		int count = riskCompanyService.getTopCount(params);
 		Pagination pagination = new Pagination();
-		pagination.setCount(count >= MAX_COUNT ? MAX_COUNT - 1 : count); // 搜索结果最多保留200条数据
-		if (pageNo >= MAX_PAGE_NO || pageNo <= -1) {
-			pagination.setList(null);
-			return ResponseBean.errorResponse("错误的分页请求参数！");
-		}
-		pagination.setPageNumber(pageNo);
-		params.put("pagination", pagination);
+//		pagination.setCount(count >= MAX_COUNT ? MAX_COUNT - 1 : count); // 搜索结果最多保留200条数据
+//		if (pageNo >= MAX_PAGE_NO || pageNo <= -1) {
+//			pagination.setList(null);
+//			return ResponseBean.errorResponse("错误的分页请求参数！");
+//		}
+//		pagination.setPageNumber(pageNo);
+//		params.put("pagination", pagination);
 		List<RiskCompanyInfoDO> list = riskCompanyService.getTop(params);
-		if (null != list && list.size() >= 1) {
-			for (int i = 0; i < list.size(); i++) {
-				RiskCompanyInfoDO tmp = list.get(i);
-				if ("0".equals(sortType)) {
-					tmp.setRanking(pagination.getCount() - i - (pagination.getPageNumber() - 1) * pagination.getPageSize());
-				} else {
-					tmp.setRanking(i + 1 + (pagination.getPageNumber() - 1) * pagination.getPageSize());
-				}
-			}
-		}
+//		if (null != list && list.size() >= 1) {
+//			for (int i = 0; i < list.size(); i++) {
+//				RiskCompanyInfoDO tmp = list.get(i);
+//				if ("0".equals(sortType)) {
+//					tmp.setRanking(pagination.getCount() - i - (pagination.getPageNumber() - 1) * pagination.getPageSize());
+//				} else {
+//					tmp.setRanking(i + 1 + (pagination.getPageNumber() - 1) * pagination.getPageSize());
+//				}
+//			}
+//		}
 		pagination.setList(list);
 		return ResponseBean.successResponse(pagination);
 	}
