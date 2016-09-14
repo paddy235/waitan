@@ -79850,7 +79850,7 @@
 	                        ),
 	                        _react2.default.createElement(
 	                            'tr',
-	                            { 'data-val': 'normal' },
+	                            { 'data-val': 'normal', style: { display: "none" } },
 	                            _react2.default.createElement(
 	                                'td',
 	                                null,
