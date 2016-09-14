@@ -113,7 +113,7 @@ public class CompanyDO extends BaseDO implements Comparable {
         }
     	switch (companyType) {
 		case TYPE_P2P_1:
-			return "p2p";
+			return "网络借贷";
 		case TYPE_XD_2:
 			return "小贷";
 		case TYPE_RZDB_3:
