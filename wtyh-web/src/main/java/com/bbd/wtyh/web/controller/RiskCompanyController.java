@@ -64,7 +64,7 @@ public class RiskCompanyController {
 		params.put("sortType", sortType); // 排序方式
 		int count = riskCompanyService.getTopCount(params);
 		Pagination pagination = new Pagination();
-//		pagination.setCount(count >= MAX_COUNT ? MAX_COUNT - 1 : count); // 搜索结果最多保留200条数据
+		pagination.setCount(count >= MAX_COUNT ? MAX_COUNT - 1 : count); // 搜索结果最多保留200条数据
 //		if (pageNo >= MAX_PAGE_NO || pageNo <= -1) {
 //			pagination.setList(null);
 //			return ResponseBean.errorResponse("错误的分页请求参数！");

@@ -105,7 +105,7 @@
 			</otherwise>
 		</choose>
  		limit 0, 100) i
-		) tmp order by tmp.staticRiskIndex
+		) tmp group by tmp.companyName order by tmp.staticRiskIndex
 		<choose>
 			<when test="sortType == '0'.toString()">
 				asc
