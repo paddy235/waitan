@@ -49,7 +49,7 @@ public class SyncDataServiceImpl implements SyncDataService {
 		if (file != null) {
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 			String fileName = file.getOriginalFilename();
-			File f = new File("/data/wtyh/admin/" + fileName + ".txt");
+			File f = new File("/data/wtyh/admin/" + fileName);
 			FileUtils.forceMkdirParent(f);
 			OutputStream outputStream = new FileOutputStream(f);
 			IOUtils.copyLarge(file.getInputStream(), outputStream);

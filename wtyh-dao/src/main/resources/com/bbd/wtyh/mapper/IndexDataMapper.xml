@@ -38,7 +38,7 @@
   <insert id="save" parameterType="com.bbd.wtyh.domain.IndexDataDO" >
     INSERT INTO `index_data` VALUES (
     #{createBy},#{createDate},#{updateBy},#{updateDate},
-    #{area},#{reg_capital},#{companyQualification},#{companyName},#{staticRiskIndex},
+    #{area},#{regCapital},#{companyQualification},#{companyName},#{staticRiskIndex},
     #{dynamicRiskIndex},#{legalRpt},#{companyType},
     #{regDate},#{reviewTime},#{isRise});
   </insert>

@@ -59,10 +59,11 @@ public class RiskCompanyServiceImpl implements RiskCompanyService {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<RiskCompanyInfoDO> getTop(Map<String, Object> params) {
+		// + ((Pagination) params.get("pagination")).getPageNumber() 
 		String key = TOP_PREFIX_KEY + params.get("area") + "_" + params.get("minRegCapital") + "_"
 				+ params.get("maxRegCapital") + "_" + params.get("companyQualification") + "_"
 				+ params.get("minReviewTime") + "_" + params.get("maxReviewTime") + "_" + params.get("sortType") + "_"
-				+ ((Pagination) params.get("pagination")).getPageNumber() + "_" + params.get("riskLevel");
+				+ "_" + params.get("riskLevel");
 		List<RiskCompanyInfoDO> list = ((List<RiskCompanyInfoDO>) redisDAO.getObject(key));
 		if (ListUtil.isEmpty(list)) {
 			list = riskCompanyMapper.getTop(params);
