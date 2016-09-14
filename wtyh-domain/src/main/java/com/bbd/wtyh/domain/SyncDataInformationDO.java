@@ -7,7 +7,6 @@ import java.util.Date;
 
 @SuppressWarnings("serial")
 public class SyncDataInformationDO extends BaseDO {
-    private Integer id;
     private String content;//数据内容
     /**
      * 1:静态风险指数表 static_risk_dat
@@ -20,16 +19,6 @@ public class SyncDataInformationDO extends BaseDO {
     private String dataVersion; //数据版本
     private Date receiveDate;//推送时间
     private Integer status;//同步状态1:已同步0:未同步
-
-    @Override
-    public Integer getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getContent() {
         return content;
