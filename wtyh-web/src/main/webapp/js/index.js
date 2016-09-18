@@ -59438,7 +59438,7 @@
 	            guaraDutyBalaData.data.push(dataArr);
 
 	            guaraEachAverData.xAxis.push(year);
-	            var eachAver = Number(amount / number).toFixed(2); //贷款笔均数
+	            var eachAver = Number(amount / number).toFixed(2); //担保笔均数
 	            guaraEachAverData.series.push(eachAver);
 	        }
 
@@ -59480,7 +59480,7 @@
 	                    'div',
 	                    { className: 'right mod-space-l' },
 	                    _react2.default.createElement(_BalanceDistribute2.default, { balanceDistrData: this.state.balanceDistrData }),
-	                    _react2.default.createElement(_GuaraEachAverage2.default, { guaraEachAverData: this.state.guaraEachAverData })
+	                    _react2.default.createElement(_GuaraEachAverage2.default, this.props)
 	                )
 	            ),
 	            _react2.default.createElement(
@@ -59523,6 +59523,10 @@
 	        //贷款余额
 	        guaraDutyBalanceRequest: state.GuaraDutyBalance.request,
 	        guaraDutyBalanceResult: state.GuaraDutyBalance.result,
+
+	        //担保笔均折线图
+	        finGuaEachAverageRequest: state.FinGuaEachAverage.request,
+	        finGuaEachAverageResult: state.FinGuaEachAverage.result,
 
 	        //股东行业风险
 	        finGuaIndustryRiskRequest: state.FinGuaIndustryRisk.request,
@@ -59598,10 +59602,11 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.MAP_SWITCH_VAL = exports.LARGE_GUARA_FAIL = exports.LARGE_GUARA_SUCCESS = exports.FINGUA_INDUSTRYRISK_DET_FAIL = exports.FINGUA_INDUSTRYRISK_DET_SUCCESS = exports.FINGUA_INDUSTRYRISK_FAIL = exports.FINGUA_INDUSTRYRISK_SUCCESS = exports.FINGUA_DUTY_FAIL = exports.FINGUA_DUTY_SUCCESS = exports.FINGUA_MAP_FAIL = exports.FINGUA_MAP_SUCCESS = exports.FINGUA_COMPANYGRADE_FAIL = exports.FINGUA_COMPANYGRADE_SUCCESS = undefined;
+	exports.MAP_SWITCH_VAL = exports.LARGE_GUARA_FAIL = exports.LARGE_GUARA_SUCCESS = exports.FINGUA_INDUSTRYRISK_DET_FAIL = exports.FINGUA_INDUSTRYRISK_DET_SUCCESS = exports.FINGUA_INDUSTRYRISK_FAIL = exports.FINGUA_INDUSTRYRISK_SUCCESS = exports.FINGUA_EACHAVERAGE_FAIL = exports.FINGUA_EACHAVERAGE_SUCCESS = exports.FINGUA_DUTY_FAIL = exports.FINGUA_DUTY_SUCCESS = exports.FINGUA_MAP_FAIL = exports.FINGUA_MAP_SUCCESS = exports.FINGUA_COMPANYGRADE_FAIL = exports.FINGUA_COMPANYGRADE_SUCCESS = undefined;
 	exports.getFinGuaCompanyGrade = getFinGuaCompanyGrade;
 	exports.getfinGuaMap = getfinGuaMap;
 	exports.getFinGuaDutyBalance = getFinGuaDutyBalance;
+	exports.getFinGuaEachAverage = getFinGuaEachAverage;
 	exports.getFinGuaIndustryRisk = getFinGuaIndustryRisk;
 	exports.getFinGuaIndustryRiskDetail = getFinGuaIndustryRiskDetail;
 	exports.getLargeGuara = getLargeGuara;
@@ -59687,7 +59692,7 @@
 	}
 	/*地图模块end*/
 
-	/*担保责任余额 本接口可以用于“担保责任余额”，“担保责任余额结构分布”，“担保笔均折线图” 三个图表 begin*/
+	/*担保责任余额 本接口可以用于“担保责任余额”，“担保责任余额结构分布” begin*/
 	var FINGUA_DUTY_SUCCESS = exports.FINGUA_DUTY_SUCCESS = 'FINGUA_DUTY_SUCCESS';
 	var FINGUA_DUTY_FAIL = exports.FINGUA_DUTY_FAIL = 'FINGUA_DUTY_FAIL';
 
@@ -59723,7 +59728,45 @@
 	    });
 	  };
 	}
-	/*担保责任余额 本接口可以用于“担保责任余额”，“担保责任余额结构分布”，“担保笔均折线图” 三个图表 end*/
+	/*担保责任余额 本接口可以用于“担保责任余额”，“担保责任余额结构分布” end*/
+
+	/*担保笔均折线图 begin*/
+	var FINGUA_EACHAVERAGE_SUCCESS = exports.FINGUA_EACHAVERAGE_SUCCESS = 'FINGUA_EACHAVERAGE_SUCCESS';
+	var FINGUA_EACHAVERAGE_FAIL = exports.FINGUA_EACHAVERAGE_FAIL = 'FINGUA_EACHAVERAGE_FAIL';
+
+	function finGuaEachAverageSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: FINGUA_EACHAVERAGE_SUCCESS,
+	    result: result
+	  };
+	}
+
+	function finGuaEachAverageFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: FINGUA_EACHAVERAGE_FAIL,
+	    result: result
+	  };
+	}
+
+	function getFinGuaEachAverage(json) {
+	  return function (dispatch) {
+	    (0, _ajax.ajax)({
+	      url: "/guarantee/balanceByQuarter.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(finGuaEachAverageSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(finGuaEachAverageFail(result));
+	      }
+	    });
+	  };
+	}
+	/*担保笔均折线图 end*/
 
 	/*股东行业风险 begin*/
 	var FINGUA_INDUSTRYRISK_SUCCESS = exports.FINGUA_INDUSTRYRISK_SUCCESS = 'FINGUA_INDUSTRYRISK_SUCCESS';
@@ -60701,35 +60744,46 @@
 	            option: null
 	        };
 	    },
-	    componentDidMount: function componentDidMount() {},
+	    componentDidMount: function componentDidMount() {
+	        var jsonData = {};
+	        this.getEachAverage(jsonData);
+	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        // var isEqual=Immutable.is(nextProps.eachAverageData, this.props.eachAverageData);
-	        //     console.log(nextProps,isEqual,'打印看看2222222222222')
-	        //     if(!isEqual){
-	        var guaraEachAverData = nextProps.guaraEachAverData;
+	        var isEqual = Immutable.is(nextProps.finGuaEachAverageRequest, this.props.finGuaEachAverageResult); //判断数据是否变化
+	        if (!isEqual) {
+	            var finGuaEachAverageRequest = nextProps.finGuaEachAverageRequest;
+	            var finGuaEachAverageResult = nextProps.finGuaEachAverageResult;
 
-	        this.dataFomat(guaraEachAverData);
-	        // }
+	            if (finGuaEachAverageRequest == true) {
+	                if (finGuaEachAverageResult.success == true) {
+	                    this.dataFomat(finGuaEachAverageResult);
+	                } else {
+	                    console.log(404);
+	                }
+	            }
+	        }
 	    },
 	    dataFomat: function dataFomat(data) {
-	        var yData = data.series;
-	        var yAxis = _publicFun2.default.fomatYaxis(yData);
-	        // var minData=Math.min.apply(null,yData);//获取最小值
-	        // var maxData=Math.max.apply(null,yData);//获取最大值
-	        // var midData=(minData+maxData)/3;
-	        // var maxJudge=maxData+midData;
-	        // var min=0,max=0;
-	        // min=parseInt((minData-midData)/10)*10;
-	        // if(maxJudge<100){
-	        //    max=parseInt(maxData+midData);
-	        // }else{
-	        //    max=parseInt((maxData+midData)/10)*10;
-	        // }
-	        // var interval=parseInt((max-min)/5/10)*10;
-	        // if(min<0){
-	        //   min=0;
-	        // }
+	        var content = data.content;
+	        //贷款笔均折线图
+	        var guaraEachAverData = {
+	            xAxis: [],
+	            series: []
+	        };
+	        var conLength = content.length;
+	        for (var i = 0; i < conLength; i++) {
+	            var year = content[i].year + "Q" + content[i].quarter;
+	            var amount = content[i].amount; //贷款余额 单位万元
+	            var number = content[i].number; //笔数
 
+	            guaraEachAverData.xAxis.push(year);
+	            var eachAver = Number(amount / number).toFixed(2); //贷款笔均数
+	            guaraEachAverData.series.push(eachAver);
+	        }
+	        console.log(guaraEachAverData, 'dd');
+
+	        var yData = guaraEachAverData.series;
+	        var yAxis = _publicFun2.default.fomatYaxis(yData);
 	        var option = {
 	            color: ["#00b8ee", "#f8b551"],
 	            titleX: "left",
@@ -60747,10 +60801,15 @@
 	            legendPadding: [0, 0, 0, 0],
 	            grid: { top: '10%', left: '5%', right: '5%', bottom: '10%', containLabel: true },
 	            legend: ["担保总额/总笔数"],
-	            xAxis: data.xAxis,
-	            series: [data.series]
+	            xAxis: guaraEachAverData.xAxis,
+	            series: [guaraEachAverData.series]
 	        };
 	        this.setState({ option: option });
+	    },
+	    getEachAverage: function getEachAverage(jsonData) {
+	        var getFinGuaEachAverage = this.props.getFinGuaEachAverage;
+
+	        getFinGuaEachAverage(jsonData);
 	    },
 	    render: function render() {
 	        var bbdLine = "";
@@ -64912,10 +64971,10 @@
 
 	        var balanceArr = [];
 	        //贷款笔均折线图
-	        var eachAverageData = {
-	            xAxis: [],
-	            series: []
-	        };
+	        // var eachAverageData={
+	        //     xAxis:[],
+	        //     series:[]
+	        // }
 
 	        //三农小微企业图表数据
 	        var balanceRatioData = [];
@@ -64937,9 +64996,9 @@
 	            loanBalanceData.data.push(dataArr);
 	            //loanBalanceData.yAxis.push(amountBill);
 
-	            var eachAver = Number(amount / number).toFixed(2); //贷款笔均数
-	            eachAverageData.xAxis.push(year);
-	            eachAverageData.series.push(eachAver);
+	            // var eachAver=Number(amount/number).toFixed(2);//贷款笔均数
+	            // eachAverageData.xAxis.push(year);
+	            // eachAverageData.series.push(eachAver);
 
 	            //三农 小微企业
 	            var agricultureBalance = Number(content[i].agricultureBalance / 10000).toFixed(2); //转成亿元
@@ -64986,7 +65045,7 @@
 	                    'div',
 	                    { className: 'right mod-space-l' },
 	                    _react2.default.createElement(_BalanceRatio2.default, { balanceRatioData: this.state.balanceRatioData }),
-	                    _react2.default.createElement(_EachAverage2.default, { eachAverageData: this.state.eachAverageData })
+	                    _react2.default.createElement(_EachAverage2.default, this.props)
 	                )
 	            ),
 	            _react2.default.createElement(
@@ -65028,6 +65087,10 @@
 	        //贷款余额
 	        loanBalanceRequest: state.LoanBalance.request,
 	        loanBalanceResult: state.LoanBalance.result,
+
+	        //贷款笔均折线图
+	        loanEachAverageRequest: state.LoanEachAverage.request,
+	        loanEachAverageResult: state.LoanEachAverage.result,
 
 	        //股东行业风险
 	        industryRiskRequest: state.IndustryRisk.request,
@@ -65103,10 +65166,11 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.MAP_SWITCH_VAL = exports.LARGE_LOAN_FAIL = exports.LARGE_LOAN_SUCCESS = exports.INDUSTRY_RISK_DETAIL_FAIL = exports.INDUSTRY_RISK_DETAIL_SUCCESS = exports.INDUSTRY_RISK_FAIL = exports.INDUSTRY_RISK_SUCCESS = exports.LOAN_BALANCE_FAIL = exports.LOAN_BALANCE_SUCCESS = exports.SMALLLOAN_MAP_FAIL = exports.SMALLLOAN_MAP_SUCCESS = exports.COMPANY_GRADE_FAIL = exports.COMPANY_GRADE_SUCCESS = undefined;
+	exports.MAP_SWITCH_VAL = exports.LARGE_LOAN_FAIL = exports.LARGE_LOAN_SUCCESS = exports.INDUSTRY_RISK_DETAIL_FAIL = exports.INDUSTRY_RISK_DETAIL_SUCCESS = exports.INDUSTRY_RISK_FAIL = exports.INDUSTRY_RISK_SUCCESS = exports.LOAN_EACHAVERAGE_FAIL = exports.LOAN_EACHAVERAGE_SUCCESS = exports.LOAN_BALANCE_FAIL = exports.LOAN_BALANCE_SUCCESS = exports.SMALLLOAN_MAP_FAIL = exports.SMALLLOAN_MAP_SUCCESS = exports.COMPANY_GRADE_FAIL = exports.COMPANY_GRADE_SUCCESS = undefined;
 	exports.getCompanyGrade = getCompanyGrade;
 	exports.getSmallLoanMap = getSmallLoanMap;
 	exports.getLoanBalance = getLoanBalance;
+	exports.getLoanEachAverage = getLoanEachAverage;
 	exports.getIndustryRisk = getIndustryRisk;
 	exports.getIndustryRiskDetail = getIndustryRiskDetail;
 	exports.getLargeLoan = getLargeLoan;
@@ -65192,7 +65256,7 @@
 	}
 	/*地图模块end*/
 
-	/*贷款余额模块 此接口用于“贷款余额”，“贷款余额结构分布”，“贷款笔均折线图” begin*/
+	/*贷款余额模块 此接口用于“贷款余额”，“贷款余额结构分布”begin*/
 	var LOAN_BALANCE_SUCCESS = exports.LOAN_BALANCE_SUCCESS = 'LOAN_BALANCE_SUCCESS';
 	var LOAN_BALANCE_FAIL = exports.LOAN_BALANCE_FAIL = 'LOAN_BALANCE_FAIL';
 
@@ -65228,8 +65292,45 @@
 	    });
 	  };
 	}
-	/*贷款余额模块 此接口用于“贷款余额”，“贷款余额结构分布”，“贷款笔均折线图” end*/
+	/*贷款余额模块 此接口用于“贷款余额”，“贷款余额结构分布”， end*/
 
+	/*贷款笔均折线图begin*/
+	var LOAN_EACHAVERAGE_SUCCESS = exports.LOAN_EACHAVERAGE_SUCCESS = 'LOAN_EACHAVERAGE_SUCCESS';
+	var LOAN_EACHAVERAGE_FAIL = exports.LOAN_EACHAVERAGE_FAIL = 'LOAN_EACHAVERAGE_FAIL';
+
+	function loanEachAverageSuccess(result) {
+	  //请求成功调用方法
+	  return {
+	    type: LOAN_EACHAVERAGE_SUCCESS,
+	    result: result
+	  };
+	}
+
+	function loanEachAverageFail(result) {
+	  //请求失败调用方法
+	  return {
+	    type: LOAN_EACHAVERAGE_FAIL,
+	    result: result
+	  };
+	}
+
+	function getLoanEachAverage(json) {
+	  return function (dispatch) {
+	    (0, _ajax.ajax)({
+	      url: "/loan/balanceByQuarter.do",
+	      dataType: "json",
+	      data: json,
+	      type: "GET",
+	      success: function success(result) {
+	        return dispatch(loanEachAverageSuccess(result));
+	      },
+	      error: function error(result) {
+	        return dispatch(loanEachAverageFail(result));
+	      }
+	    });
+	  };
+	}
+	/*“贷款笔均折线图” end*/
 	/*股东行业风险 begin*/
 	var INDUSTRY_RISK_SUCCESS = exports.INDUSTRY_RISK_SUCCESS = 'INDUSTRY_RISK_SUCCESS';
 	var INDUSTRY_RISK_FAIL = exports.INDUSTRY_RISK_FAIL = 'INDUSTRY_RISK_FAIL';
@@ -65766,17 +65867,43 @@
 	            option: null
 	        };
 	    },
-	    componentDidMount: function componentDidMount() {},
+	    componentDidMount: function componentDidMount() {
+	        var jsonData = {};
+	        this.getEachAverage(jsonData);
+	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var isEqual = Immutable.is(nextProps.eachAverageData, this.props.eachAverageData);
+	        var isEqual = Immutable.is(nextProps.loanEachAverageRequest, this.props.loanEachAverageResult); //判断数据是否变化
 	        if (!isEqual) {
-	            var eachAverageData = nextProps.eachAverageData;
+	            var loanEachAverageRequest = nextProps.loanEachAverageRequest;
+	            var loanEachAverageResult = nextProps.loanEachAverageResult;
 
-	            this.dataFomat(eachAverageData);
+	            if (loanEachAverageRequest == true) {
+	                if (loanEachAverageResult.success == true) {
+	                    this.dataFomat(loanEachAverageResult);
+	                } else {
+	                    console.log(404);
+	                }
+	            }
 	        }
 	    },
 	    dataFomat: function dataFomat(data) {
-	        var yData = data.series;
+	        var content = data.content;
+	        //贷款笔均折线图
+	        var eachAverageData = {
+	            xAxis: [],
+	            series: []
+	        };
+	        var conLength = content.length;
+	        for (var i = 0; i < conLength; i++) {
+	            var year = content[i].year + "Q" + content[i].quarter;
+	            var amount = content[i].amount; //贷款余额 原单位万元 
+	            var number = content[i].number; //笔数
+
+	            var eachAver = Number(amount / number).toFixed(2); //贷款笔均数
+	            eachAverageData.xAxis.push(year);
+	            eachAverageData.series.push(eachAver);
+	        }
+	        var yData = eachAverageData.series;
 	        var yAxis = _publicFun2.default.fomatYaxis(yData);
 
 	        var option = {
@@ -65797,10 +65924,15 @@
 	            grid: { top: '10%', left: '5%', right: '5%', bottom: '10%', containLabel: true },
 	            yAxisName: "万元",
 	            legend: ["贷款总余额/总笔数"],
-	            xAxis: data.xAxis,
-	            series: [data.series]
+	            xAxis: eachAverageData.xAxis,
+	            series: [eachAverageData.series]
 	        };
 	        this.setState({ option: option });
+	    },
+	    getEachAverage: function getEachAverage(jsonData) {
+	        var getLoanEachAverage = this.props.getLoanEachAverage;
+
+	        getLoanEachAverage(jsonData);
 	    },
 	    render: function render() {
 	        var bbdLine = "";
@@ -87723,6 +87855,10 @@
 
 	var _SmallLoanMapVal2 = _interopRequireDefault(_SmallLoanMapVal);
 
+	var _LoanEachAverage = __webpack_require__(1316);
+
+	var _LoanEachAverage2 = _interopRequireDefault(_LoanEachAverage);
+
 	var _FinGuaMap = __webpack_require__(903);
 
 	var _FinGuaMap2 = _interopRequireDefault(_FinGuaMap);
@@ -87750,6 +87886,10 @@
 	var _FinGuaMapVal = __webpack_require__(909);
 
 	var _FinGuaMapVal2 = _interopRequireDefault(_FinGuaMapVal);
+
+	var _FinGuaEachAverage = __webpack_require__(1317);
+
+	var _FinGuaEachAverage2 = _interopRequireDefault(_FinGuaEachAverage);
 
 	var _AreaRanking = __webpack_require__(910);
 
@@ -88261,9 +88401,6 @@
 	//基本信息
 
 	//网贷平台数据展示
-
-
-	//融资担保
 	var rootReducer = (0, _redux.combineReducers)({
 	  Login: _login2.default,
 	  LoginName: _LoginName2.default,
@@ -88324,6 +88461,7 @@
 	  IndustryRiskDetail: _IndustryRiskDetail2.default,
 	  LargeLoan: _LargeLoan2.default,
 	  SmallLoanMapVal: _SmallLoanMapVal2.default,
+	  LoanEachAverage: _LoanEachAverage2.default,
 
 	  //园区
 	  MenuParkSelectVal: _MenuParkSelectVal2.default,
@@ -88353,6 +88491,7 @@
 	  FinGuaIndustryRiskDetail: _FinGuaIndustryRiskDetail2.default,
 	  LargeGuara: _LargeGuara2.default,
 	  FinGuaMapVal: _FinGuaMapVal2.default,
+	  FinGuaEachAverage: _FinGuaEachAverage2.default,
 
 	  //实时监测
 	  RealTimeTable: _realtimeTableRuducer2.default,
@@ -88492,6 +88631,9 @@
 
 	/*====================================P2P平台监测============================*/
 	//上海区域发展指数排名
+
+
+	//融资担保
 
 
 	/*行业监测模块*/
@@ -101453,6 +101595,84 @@
 	    return String(it).replace(regExp, replacer);
 	  };
 	};
+
+/***/ },
+/* 1316 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = loanBalance;
+
+	var _SmallLoanIndexAction = __webpack_require__(729);
+
+	//贷款笔均折线图
+	function loanBalance() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _SmallLoanIndexAction.LOAN_EACHAVERAGE_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _SmallLoanIndexAction.LOAN_EACHAVERAGE_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
+
+/***/ },
+/* 1317 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	exports.default = finGuaEachAverage;
+
+	var _FinanceGuaraIndexAction = __webpack_require__(693);
+
+	//担保笔均折线图
+	function finGuaEachAverage() {
+		var state = arguments.length <= 0 || arguments[0] === undefined ? {
+			request: false,
+			result: {}
+		} : arguments[0];
+		var action = arguments[1];
+
+		switch (action.type) {
+			case _FinanceGuaraIndexAction.FINGUA_EACHAVERAGE_SUCCESS:
+				//请求成功！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			case _FinanceGuaraIndexAction.FINGUA_EACHAVERAGE_FAIL:
+				//请求失败！
+				return Object.assign({}, state, {
+					request: true,
+					result: action.result
+				});
+			default:
+				return state;
+		}
+	}
 
 /***/ }
 /******/ ]);
