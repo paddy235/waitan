@@ -9,7 +9,6 @@ import com.bbd.wtyh.mapper.PlatformNameInformationMapper;
 import com.bbd.wtyh.service.PToPMonitorService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.apache.commons.collections.map.HashedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,262 +22,201 @@ import java.util.List;
 import java.util.Map;
 
 /**
-* 
-* @author Ian.Su
-* @since 2016年8月12日 下午2:09:15
-*/
+ * @author Ian.Su
+ * @since 2016年8月12日 下午2:09:15
+ */
 @Service
 public class PToPMonitorServiceImpl implements PToPMonitorService {
-	
-	Logger log = LoggerFactory.getLogger(getClass());
 
-	@Value("${financial.services.url}")
-	private String finSerUrl;
-	
-	@Autowired
-	private PlatformNameInformationMapper platformNameInformationMapper;
-	  
-    public List<IndustryCompareDTO> getCompareData() throws Exception{
-    	
+    Logger log = LoggerFactory.getLogger(getClass());
 
-   		String url = this.finSerUrl+"?dataType=industry_compare";
-		HttpTemplate httpTemplate = new HttpTemplate();
-		try {
-			return httpTemplate.get(url, new HttpCallback<List<IndustryCompareDTO>>() {
-				@Override
-				public boolean valid() {
-					return true;
-				}
-				@Override
-				public List<IndustryCompareDTO> parse(String result) {
-					return JSON.parseArray(result, IndustryCompareDTO.class);
-				}
-			});
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+    @Value("${financial.services.url}")
+    private String finSerUrl;
+
+    @Autowired
+    private PlatformNameInformationMapper platformNameInformationMapper;
+
+    public List<IndustryCompareDTO> getCompareData() throws Exception {
+
+
+        String url = this.finSerUrl + "?dataType=industry_compare";
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(url, new HttpCallback<List<IndustryCompareDTO>>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public List<IndustryCompareDTO> parse(String result) {
+                    return JSON.parseArray(result, IndustryCompareDTO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 
+    public List<AreaIndexDTO> getAreaIndex() throws Exception {
+
+
+        String url = this.finSerUrl + "?dataType=area_index";
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(url, new HttpCallback<List<AreaIndexDTO>>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public List<AreaIndexDTO> parse(String result) {
+                    return JSON.parseArray(result, AreaIndexDTO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
 
-
-
-
-
-
-
-
-
-
-
-	public List<AreaIndexDTO> getAreaIndex() throws Exception{
-
-
-
-		String url = this.finSerUrl+"?dataType=area_index";
-		HttpTemplate httpTemplate = new HttpTemplate();
-		try {
-			return httpTemplate.get(url, new HttpCallback<List<AreaIndexDTO>>() {
-				@Override
-				public boolean valid() {
-					return true;
-				}
-				@Override
-				public List<AreaIndexDTO> parse(String result) {
-					return JSON.parseArray(result, AreaIndexDTO.class);
-				}
-			});
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-
-
-     	
-     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-   public List<PlatRankDataDTO> getPlatRankData() throws Exception{
-
-
-	   String url = this.finSerUrl+"?dataType=plat_rank_data";
-	   HttpTemplate httpTemplate = new HttpTemplate();
-	   try {
-		   return httpTemplate.get(url, new HttpCallback<List<PlatRankDataDTO>>() {
-			   @Override
-			   public boolean valid() {
-				   return true;
-			   }
-			   @Override
-			   public List<PlatRankDataDTO> parse(String result) {
-				   System.out.println(result);
-				   return JSON.parseArray(result, PlatRankDataDTO.class);
-			   }
-		   });
-	   } catch (Exception e) {
-		   e.printStackTrace();
-		   return null;
-	   }
-     	
-     }
-
-
-
-	public Map getPlatRankMapData() throws Exception{
-
-		List<PlatRankDataDTO> list = new ArrayList<>();
-		String url = this.finSerUrl+"?dataType=plat_rank_data";
-		HttpTemplate httpTemplate = new HttpTemplate();
-		try {
-			list = httpTemplate.get(url, new HttpCallback<List<PlatRankDataDTO>>() {
-				@Override
-				public boolean valid() {
-					return true;
-				}
-				@Override
-				public List<PlatRankDataDTO> parse(String result) {
-					return JSON.parseArray(result, PlatRankDataDTO.class);
-				}
-			});
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		Map<Integer, Integer> map = new HashMap();
-		if (!CollectionUtils.isEmpty(list)) {
-			for (PlatRankDataDTO platRankDataDTO : list) {
-				String plat_name = platRankDataDTO.getPlat_name();
-				String plat_status = platRankDataDTO.getPlat_status();
-				PlatformNameInformationDO platformNameInformationDO = platformNameInformationMapper.hasOrNotCompany(plat_name);
-				if (platformNameInformationDO != null) {
-					Integer riskLevel = 4;
-					if ("正常".equals(plat_status)) {
-						riskLevel = 4;
-					} else if ("一般关注".equals(plat_status)) {
-						riskLevel = 3;
-					} else if ("重点关注".equals(plat_status)) {
-						riskLevel = 2;
-					} else if ("问题".equals(plat_status)) {
-						riskLevel = 1;
-					} else {
-
-					}
-					map.put(platformNameInformationDO.getCompanyId(), riskLevel);
-				}
-			}
-		}
-		return map;
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	public List<IndustryShanghaiDTO> getData() throws Exception{
-
-
-		String url = this.finSerUrl+"?dataType=industry_shanghai";
-		HttpTemplate httpTemplate = new HttpTemplate();
-		try {
-			return httpTemplate.get(url, new HttpCallback<List<IndustryShanghaiDTO>>() {
-				@Override
-				public boolean valid() {
-					return true;
-				}
-				@Override
-				public List<IndustryShanghaiDTO> parse(String result) {
-
-					Gson gson = new Gson();
-
-					List<IndustryShanghaiDTO> list = gson.fromJson(result,new TypeToken<List<IndustryShanghaiDTO>>(){}.getType());
-					IndustryShanghaiDTO ja = null;
-					IndustryShanghaiDTO zb = null;
-					return list;
-				}
-			});
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
 
     }
 
 
+    public List<PlatRankDataDTO> getPlatRankData(String platStatus) throws Exception {
 
 
+        String url = this.finSerUrl + "?dataType=plat_rank_data";
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(url, new HttpCallback<List<PlatRankDataDTO>>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public List<PlatRankDataDTO> parse(String result) {
+                    System.out.println(result);
+                    return JSON.parseArray(result, PlatRankDataDTO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
 
 
+    public Map getPlatRankMapData() throws Exception {
+
+        List<PlatRankDataDTO> list = new ArrayList<>();
+        String url = this.finSerUrl + "?dataType=plat_rank_data";
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            list = httpTemplate.get(url, new HttpCallback<List<PlatRankDataDTO>>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public List<PlatRankDataDTO> parse(String result) {
+                    return JSON.parseArray(result, PlatRankDataDTO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Map<Integer, Integer> map = new HashMap();
+        if (!CollectionUtils.isEmpty(list)) {
+            for (PlatRankDataDTO platRankDataDTO : list) {
+                String plat_name = platRankDataDTO.getPlat_name();
+                String plat_status = platRankDataDTO.getPlat_status();
+                PlatformNameInformationDO platformNameInformationDO = platformNameInformationMapper.hasOrNotCompany(plat_name);
+                if (platformNameInformationDO != null) {
+                    Integer riskLevel = 4;
+                    if ("正常".equals(plat_status)) {
+                        riskLevel = 4;
+                    } else if ("一般关注".equals(plat_status)) {
+                        riskLevel = 3;
+                    } else if ("重点关注".equals(plat_status)) {
+                        riskLevel = 2;
+                    } else if ("问题".equals(plat_status)) {
+                        riskLevel = 1;
+                    } else {
+
+                    }
+                    map.put(platformNameInformationDO.getCompanyId(), riskLevel);
+                }
+            }
+        }
+        return map;
+    }
 
 
+    public List<IndustryShanghaiDTO> getData() throws Exception {
 
 
-	public List<IndustryProblemDTO> getProblemData() throws Exception{
+        String url = this.finSerUrl + "?dataType=industry_shanghai";
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(url, new HttpCallback<List<IndustryShanghaiDTO>>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public List<IndustryShanghaiDTO> parse(String result) {
+
+                    Gson gson = new Gson();
+
+                    List<IndustryShanghaiDTO> list = gson.fromJson(result, new TypeToken<List<IndustryShanghaiDTO>>() {
+                    }.getType());
+                    IndustryShanghaiDTO ja = null;
+                    IndustryShanghaiDTO zb = null;
+                    return list;
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
 
 
-		 String url = this.finSerUrl+"?dataType=industry_problem";
-		 HttpTemplate httpTemplate = new HttpTemplate();
-		 try {
-			 return httpTemplate.get(url, new HttpCallback<List<IndustryProblemDTO>>() {
-				 @Override
-				 public boolean valid() {
-					 return true;
-				 }
-				 @Override
-				 public List<IndustryProblemDTO> parse(String result) {
-					 return JSON.parseArray(result, IndustryProblemDTO.class);
-				 }
-			 });
-		 } catch (Exception e) {
-			 e.printStackTrace();
-			 return null;
-		 }
-    	 
-     }
+    public List<IndustryProblemDTO> getProblemData() throws Exception {
 
 
+        String url = this.finSerUrl + "?dataType=industry_problem";
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(url, new HttpCallback<List<IndustryProblemDTO>>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public List<IndustryProblemDTO> parse(String result) {
+                    return JSON.parseArray(result, IndustryProblemDTO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
 
 
-
-
-
-	public static void main(String [] agrs) throws Exception {
+    public static void main(String[] agrs) throws Exception {
 
 //		String url = "http://140.206.51.154:5002/financial_services?dataType=industry_problem";
 //		HttpTemplate httpTemplate = new HttpTemplate();
@@ -297,8 +235,6 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
 //			e.printStackTrace();
 //
 //		}
-
-
 
 
 //		String url = "http://140.206.51.154:5002/financial_services?dataType=industry_shanghai";
@@ -358,29 +294,25 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
 //		}
 
 
-
-
-
-
 //报错
-		String url ="http://140.206.51.154:5002/financial_services?dataType=area_index";
+        String url = "http://140.206.51.154:5002/financial_services?dataType=area_index";
 
-		HttpTemplate httpTemplate = new HttpTemplate();
-		try {
-			 httpTemplate.get(url, new HttpCallback<List<AreaIndexDTO>>() {
-				@Override
-				public boolean valid() {
-					return true;
-				}
-				@Override
-				public List<AreaIndexDTO> parse(String result) {
-					return JSON.parseArray(result, AreaIndexDTO.class);
-				}
-			});
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            httpTemplate.get(url, new HttpCallback<List<AreaIndexDTO>>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
 
+                @Override
+                public List<AreaIndexDTO> parse(String result) {
+                    return JSON.parseArray(result, AreaIndexDTO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
 //		String url = "http://140.206.51.154:5002/financial_services?dataType=plat_rank_data";
@@ -402,27 +334,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
 //		}
 
 
-
-
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
 
 
 }
