@@ -66,12 +66,12 @@
 
 
     <select id="countTypeByBuild" resultType="com.bbd.wtyh.domain.CompanyTypeCountDO">
-   		
-   		select count(*) count from company com , company_building cb  where    			
-   			cb.company_id=com.company_id and 
-   			cb.building_id=#{buildingId} and 
-   			com.company_type=#{type}
-   			 
+   		select count(*) count from (
+            select  DISTINCT com.company_id from company com , company_building cb  where
+                cb.company_id=com.company_id and
+                cb.building_id=#{buildingId} and
+                com.company_type=#{type}
+          ) b
    </select>
 
 
@@ -130,7 +130,7 @@
             <when test="orderField == 3">a.background</when>
             <when test="orderField == 4">a.registered_date</when>
             <when test="orderField == 5">a.registered_type</when>
-            <otherwise>a.company_type</otherwise>
+            <otherwise>a.background</otherwise>
         </choose>
 
 
@@ -140,6 +140,7 @@
         <if test="descAsc=='desc'">
             desc
         </if>
+        , a.name desc
 
     </select>
 

@@ -5,7 +5,7 @@ package com.bbd.wtyh.domain.dto;
  */
 public class GuaranteeBalanceByQuaterDTO {
 
-    private Integer guaranteeBalance;
+    private Integer amount;
 
     private Integer year;
 
@@ -29,12 +29,12 @@ public class GuaranteeBalanceByQuaterDTO {
         this.companyAmount = companyAmount;
     }
 
-    public Integer getGuaranteeBalance() {
-        return guaranteeBalance;
+    public Integer getAmount() {
+        return amount;
     }
 
-    public void setGuaranteeBalance(Integer guaranteeBalance) {
-        this.guaranteeBalance = guaranteeBalance;
+    public void setAmount(Integer amount) {
+        this.amount = amount;
     }
 
     public Integer getYear() {
