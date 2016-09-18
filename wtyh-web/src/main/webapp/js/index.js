@@ -40351,11 +40351,16 @@
 	        data: ajaxParm.data,
 	        type: ajaxParm.type,
 	        success: function success(result) {
-	            var judgeLogin = result;
-	            console.log(result, 'xuyao');
-	            ajaxParm.success(result);
+	            var success = result.success;
+	            console.log(success, '成功了');
+	            if (success == false) {
+	                window.location.href = "/";
+	            } else {
+	                ajaxParm.success(result);
+	            }
 	        },
 	        error: function error(result) {
+	            console.log(result, '错误了');
 	            ajaxParm.error(result);
 	        }
 	    });
@@ -49660,6 +49665,7 @@
 	      data: json,
 	      type: "GET",
 	      success: function success(result) {
+	        console.log(result);
 	        return dispatch(homethreeRequestSuccess(result));
 	      },
 	      error: function error(result) {

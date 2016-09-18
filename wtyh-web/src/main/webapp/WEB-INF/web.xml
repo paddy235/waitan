@@ -85,6 +85,10 @@
         <location>/index.html</location>
     </error-page>
 
+    <session-config>
+        <session-timeout>1</session-timeout>
+    </session-config>
+
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
