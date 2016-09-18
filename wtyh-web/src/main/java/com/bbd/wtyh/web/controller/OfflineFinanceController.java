@@ -452,7 +452,6 @@ public class OfflineFinanceController {
         result.put("factoring", factoringObject);
         result.put("prepaid", prepaidCompanyResponseBean.getContent());
         result.put("balance", loanController.balanceByQuarter());
-        result.put("guarantee", guaranteeController.balanceByQuarter());
         return ResponseBean.successResponse(result);
     }
 
