@@ -40351,6 +40351,7 @@
 	        data: ajaxParm.data,
 	        type: ajaxParm.type,
 	        success: function success(result) {
+	            var judgeLogin = result;
 	            console.log(result, 'xuyao');
 	            ajaxParm.success(result);
 	        },
