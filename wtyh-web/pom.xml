@@ -46,6 +46,7 @@
                 <activeByDefault>false</activeByDefault>
             </activation>
             <build>
+
                 <filters>
                     <filter>src/main/resources/config/online.properties</filter>
                 </filters>
