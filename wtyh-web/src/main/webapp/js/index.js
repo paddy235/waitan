@@ -54172,7 +54172,7 @@
 	                                    _react2.default.createElement(
 	                                        'h4',
 	                                        null,
-	                                        '非法融盗衍生风险趋势'
+	                                        '非法融资衍生风险趋势'
 	                                    ),
 	                                    _react2.default.createElement(
 	                                        'div',
