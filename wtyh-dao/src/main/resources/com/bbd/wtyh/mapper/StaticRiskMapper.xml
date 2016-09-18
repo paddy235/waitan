@@ -261,7 +261,7 @@
     </select>
 
 
-    <select id="queryCapitalBgRisk" parameterType="java.lang.String" resultType="java.lang.Float">
+    <select id="queryCapitalBgRisk" parameterType="java.lang.String" resultType="Float">
         SELECT
         capital_bg_risk
         FROM
