@@ -115,6 +115,24 @@ public class GuaranteeController {
         return ResponseBean.successResponse(Lists.reverse(result));
     }
 
+    /**
+     * 担保余额统计,按照季度统计
+     *
+     * @return
+     */
+    @RequestMapping("balanceByQuarter.do")
+    public ResponseBean balanceByQuarter() {
+        CompanyQuery query = new CompanyQuery();
+        query.setCompanyType((int) CompanyDO.TYPE_RZDB_3);
+        int amount = companyService.countCompanyNum(query);
+        List<GuaranteeBalanceByQuaterDTO> guaranteeBalanceList = guaranteeService.getGuaranteeBalanceByQuarter();
+        for (GuaranteeBalanceByQuaterDTO balanceDO : guaranteeBalanceList) {
+            balanceDO.setCompanyAmount(amount);
+        }
+        return ResponseBean.successResponse(guaranteeBalanceList);
+    }
+
+
     private GuaranteeBalanceDTO getGuaranteeBalanceDTO(int amount, GuaranteeBalanceDO balanceDO) {
         GuaranteeBalanceDTO guaranteeBalanceDTO = new GuaranteeBalanceDTO();
         guaranteeBalanceDTO.setYear(balanceDO.getYear());
