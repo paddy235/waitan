@@ -46,7 +46,7 @@ public class GuaranteeServiceImpl implements GuaranteeService {
             if (map.containsKey(key)) {
                 GuaranteeBalanceByQuaterDTO quaterDTO = map.get(key);
                 quaterDTO.setCompositeBalance(quaterDTO.getCompositeBalance() + balanceDO.getCompositeBalance());
-                quaterDTO.setGuaranteeBalance(quaterDTO.getGuaranteeBalance() + balanceDO.getGuaranteeBalance());
+                quaterDTO.setAmount(quaterDTO.getAmount() + balanceDO.getGuaranteeBalance());
                 quaterDTO.setNumber(quaterDTO.getNumber() + balanceDO.getNumber());
                 quaterDTO.setPolicyBalance(quaterDTO.getPolicyBalance() + balanceDO.getPolicyBalance());
                 quaterDTO.setSteelBalance(quaterDTO.getSteelBalance() + balanceDO.getSteelBalance());
@@ -58,7 +58,7 @@ public class GuaranteeServiceImpl implements GuaranteeService {
                 dto.setPolicyBalance(balanceDO.getPolicyBalance());
                 dto.setCompositeBalance(balanceDO.getCompositeBalance());
                 dto.setSteelBalance(balanceDO.getSteelBalance());
-                dto.setGuaranteeBalance(balanceDO.getGuaranteeBalance());
+                dto.setAmount(balanceDO.getGuaranteeBalance());
                 dto.setNumber(balanceDO.getNumber());
                 map.put(key, dto);
                 monthCount.put(key, 1);
