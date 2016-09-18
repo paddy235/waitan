@@ -505,6 +505,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
                 } else {} // 保持结构完整
             }
         }
+        vo.setStcRiskIndex(String.valueOf(Integer.parseInt(vo.getStcRiskIndex()) + this.getCreditInfoRisk(companyName)));
         return vo;
     }
 
