@@ -60771,6 +60771,7 @@
 	            series: []
 	        };
 	        var conLength = content.length;
+
 	        for (var i = 0; i < conLength; i++) {
 	            var year = content[i].year + "Q" + content[i].quarter;
 	            var amount = content[i].amount; //贷款余额 单位万元
@@ -60780,9 +60781,10 @@
 	            var eachAver = Number(amount / number).toFixed(2); //贷款笔均数
 	            guaraEachAverData.series.push(eachAver);
 	        }
-	        console.log(guaraEachAverData, 'dd');
+	        var xAxis = guaraEachAverData.xAxis.reverse();
+	        var series = guaraEachAverData.series.reverse();
 
-	        var yData = guaraEachAverData.series;
+	        var yData = series;
 	        var yAxis = _publicFun2.default.fomatYaxis(yData);
 	        var option = {
 	            color: ["#00b8ee", "#f8b551"],
@@ -60801,8 +60803,8 @@
 	            legendPadding: [0, 0, 0, 0],
 	            grid: { top: '10%', left: '5%', right: '5%', bottom: '10%', containLabel: true },
 	            legend: ["担保总额/总笔数"],
-	            xAxis: guaraEachAverData.xAxis,
-	            series: [guaraEachAverData.series]
+	            xAxis: xAxis,
+	            series: [series]
 	        };
 	        this.setState({ option: option });
 	    },
@@ -64971,10 +64973,10 @@
 
 	        var balanceArr = [];
 	        //贷款笔均折线图
-	        // var eachAverageData={
-	        //     xAxis:[],
-	        //     series:[]
-	        // }
+	        var eachAverageData = {
+	            xAxis: [],
+	            series: []
+	        };
 
 	        //三农小微企业图表数据
 	        var balanceRatioData = [];
@@ -64996,9 +64998,9 @@
 	            loanBalanceData.data.push(dataArr);
 	            //loanBalanceData.yAxis.push(amountBill);
 
-	            // var eachAver=Number(amount/number).toFixed(2);//贷款笔均数
-	            // eachAverageData.xAxis.push(year);
-	            // eachAverageData.series.push(eachAver);
+	            var eachAver = Number(amount / number).toFixed(2); //贷款笔均数
+	            eachAverageData.xAxis.push(year);
+	            eachAverageData.series.push(eachAver);
 
 	            //三农 小微企业
 	            var agricultureBalance = Number(content[i].agricultureBalance / 10000).toFixed(2); //转成亿元
@@ -65903,7 +65905,10 @@
 	            eachAverageData.xAxis.push(year);
 	            eachAverageData.series.push(eachAver);
 	        }
-	        var yData = eachAverageData.series;
+	        var xAxis = eachAverageData.xAxis.reverse();
+	        var series = eachAverageData.series.reverse();
+
+	        var yData = series;
 	        var yAxis = _publicFun2.default.fomatYaxis(yData);
 
 	        var option = {
@@ -65924,8 +65929,8 @@
 	            grid: { top: '10%', left: '5%', right: '5%', bottom: '10%', containLabel: true },
 	            yAxisName: "万元",
 	            legend: ["贷款总余额/总笔数"],
-	            xAxis: eachAverageData.xAxis,
-	            series: [eachAverageData.series]
+	            xAxis: xAxis,
+	            series: [series]
 	        };
 	        this.setState({ option: option });
 	    },
@@ -86714,7 +86719,7 @@
 	var Immutable = __webpack_require__(621);
 
 	var nineDate = ""; //ajax返回回来的所有数据；
-	var paramOne, paramTwo, paramThree, paramFour, paramFive, paramSix, paramSeven, paramEight, paramNine; //每一个小模块的数据，初始状态为空，render判断为空的话就不渲染。
+	var paramOne, paramTwo, paramThree, paramFour, paramFive, paramSix, paramSeven, paramEight, paramNine, paramTemporary; //每一个小模块的数据，初始状态为空，render判断为空的话就不渲染。
 
 	var TopRight = _react2.default.createClass({
 	    displayName: 'TopRight',
@@ -86744,9 +86749,9 @@
 	                    //这里可以开始渲染数据
 	                    nineDate = realTimeNineResult; //赋值给全局变量
 
+	                    /**********第1个图——小额贷款**********/
+
 	                    //数据处理
-
-
 	                    var paramOneData = [];
 	                    nineDate.content.loan.series[0].map(function (item, index) {
 	                        item = Number(item / 10000).toFixed(2);
@@ -86787,6 +86792,9 @@
 	                            color: '#e14340'
 	                        }]]
 	                    };
+
+	                    /**********第2个图——私募基金**********/
+
 	                    var arrTwo = [];
 	                    nineDate.content.private.series.map(function (item, index) {
 	                        var a = [];
@@ -86826,6 +86834,9 @@
 	                            "bar": arrTwo
 	                        }
 	                    };
+
+	                    /**********第3个图——网络借贷**********/
+
 	                    paramThree = {
 	                        "link": "/smallLoan#/P2P",
 	                        "titleShow": true,
@@ -86854,6 +86865,9 @@
 	                            "bar": [nineDate.content.p2p.series.bar]
 	                        }
 	                    };
+
+	                    /**********第4个图——融资租赁**********/
+
 	                    paramFour = {
 	                        "link": "/smallLoan#/financeLease",
 	                        "titleShow": true,
@@ -86882,6 +86896,9 @@
 	                            "line": [nineDate.content.finance.series.line]
 	                        }
 	                    };
+
+	                    /**********第5个图——交易场所清理整顿分类**********/
+
 	                    paramFive = {
 	                        titleName: "交易场所清理整顿分类",
 	                        link: "/smallLoan#/TradingPlaces",
@@ -86912,6 +86929,9 @@
 	                        yAxis: nineDate.content.exchange.xAxis /*["奖励众筹", "非公开股权融资", "公益s众筹", "公益2q众筹", "公益众d筹"]*/
 	                        , series: [nineDate.content.exchange.series]
 	                    };
+
+	                    /**********第6个图——众筹**********/
+
 	                    paramSix = {
 	                        "link": "/smallLoan#/RaiseIndex",
 	                        "title": "众筹",
@@ -86934,6 +86954,9 @@
 	                            "bar": [nineDate.content.crowd.series]
 	                        }
 	                    };
+
+	                    /**********第7个图——典当**********/
+
 	                    var paramSevenData = [];
 	                    nineDate.content.mortgage.series[0].map(function (item, index) {
 	                        var x = nineDate.content.mortgage.xAxis.reverse()[index];
@@ -86984,6 +87007,9 @@
 	                            color: '#e14340'
 	                        }]]
 	                    };
+
+	                    /**********第8个图——商业保理**********/
+
 	                    paramEight = {
 	                        "link": "/smallLoan#/commercialSecret",
 	                        "titleShow": true,
@@ -87013,6 +87039,9 @@
 	                            "line": [nineDate.content.factoring.content.line.series]
 	                        }
 	                    };
+
+	                    /**********第9个图——单用途预付卡**********/
+
 	                    paramNine = {
 	                        "link": "/smallLoan#/prepaidCard",
 	                        "title": "单用途预付卡",
@@ -87036,6 +87065,46 @@
 	                            "bar": [nineDate.content.prepaid.series]
 	                        }
 	                    };
+
+	                    var TemporaryLine = [];
+	                    var TemporaryX = [];
+	                    debugger;
+	                    nineDate.content.guarantee.content.map(function (item, index) {
+	                        var val = Number(item.amount / item.number).toFixed(2);
+	                        var x = (item.year + "Q" + item.quarter).toString();
+	                        TemporaryLine.push(val);
+	                        TemporaryX.push(x);
+	                    });
+	                    TemporaryX.reverse();
+	                    TemporaryLine.reverse();
+	                    console.log(TemporaryLine, "add-line");
+	                    console.log(TemporaryX, "add-x");
+	                    /**********临时加的图——XXX**********/
+	                    paramTemporary = {
+	                        "link": "/smallLoan#/financeGuara",
+	                        "titleShow": true,
+	                        "Ytype": "value",
+	                        "title": "担保笔均时序图",
+	                        "color": ["#12b5b0", "#e24441"],
+	                        "legend": ["担保总额/总笔数"],
+	                        "legendShow": true,
+	                        "legendLeft": "center",
+	                        "legendTop": "20",
+	                        "unit": ["万元", ""],
+	                        "lineName": ["担保总额/总笔数"],
+	                        "YnameLocation": "end",
+	                        "gridLeft": "5%",
+	                        "gridRight": "0%",
+	                        "gridBottom": "0%",
+	                        "axisLabelR": false,
+	                        "xAxis": TemporaryX,
+	                        "yAxisName": ["万元", ""],
+	                        "barWidth": 20,
+	                        "symbolSize": 10,
+	                        "series": {
+	                            "line": [TemporaryLine]
+	                        }
+	                    };
 	                } else {
 	                    alert(404);
 	                }
@@ -87043,7 +87112,7 @@
 	        }
 	    },
 	    render: function render() {
-	        var paramOneBox, paramTwoBox, paramThreeBox, paramFourBox, paramFiveBox, paramSixBox, paramSevenBox, paramEightBox, paramNineBox;
+	        var paramOneBox, paramTwoBox, paramThreeBox, paramFourBox, paramFiveBox, paramSixBox, paramSevenBox, paramEightBox, paramNineBox, paramTemporaryBox;
 	        if (!!paramOne) {
 	            paramOneBox = _react2.default.createElement(_ScatterChartCopy2.default, { param: paramOne, style: { height: '100%', width: '100%' } });
 	        }
@@ -87071,6 +87140,10 @@
 	        if (!!paramNine) {
 	            paramNineBox = _react2.default.createElement(_LineBarChart2.default, { param: paramNine, style: { height: '100%', width: '100%' } });
 	        }
+	        //临时加的一个图paramTemporary
+	        if (!!paramTemporary) {
+	            paramTemporaryBox = _react2.default.createElement(_LineBarChart2.default, { param: paramTemporary, style: { height: '100%', width: '100%' } });
+	        }
 	        return _react2.default.createElement(
 	            'div',
 	            { className: 'realtime-top-right', id: 'realtime-top-right' },
@@ -87082,7 +87155,7 @@
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'item' },
-	                paramThreeBox
+	                paramTemporaryBox
 	            ),
 	            _react2.default.createElement(
 	                'div',
