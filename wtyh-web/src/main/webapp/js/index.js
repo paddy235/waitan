@@ -40302,7 +40302,6 @@
 
 	function loginRequest(json) {
 	  return function (dispatch) {
-	    console.log(json);
 	    $.ajax({
 	      url: "/login.do",
 	      dataType: "json",
@@ -88543,7 +88542,6 @@
 
 	function loginRequest(json) {
 	  return function (dispatch) {
-	    console.log(json);
 	    $.ajax({
 	      url: "/login.do",
 	      dataType: "json",
