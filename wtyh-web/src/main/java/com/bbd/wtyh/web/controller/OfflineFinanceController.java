@@ -67,7 +67,8 @@ public class OfflineFinanceController {
     private ExchangeCompanyService exchangeCompanyService;
     @Autowired
     private MortgageService mortgageService;
-
+    @Autowired
+    private GuaranteeController guaranteeController;
     /**
      * 关联图谱
      *
@@ -439,6 +440,7 @@ public class OfflineFinanceController {
         Object factoringObject = factoringController.countCapitalBySeason();
         //预付卡
         ResponseBean prepaidCompanyResponseBean = prepaidCompanyController.amount();
+        //
         Map result = new LinkedHashMap();
         result.put("loan", loanDTO);
         result.put("private", privateDTO);
@@ -449,6 +451,8 @@ public class OfflineFinanceController {
         result.put("mortgage", mortgageDTO);
         result.put("factoring", factoringObject);
         result.put("prepaid", prepaidCompanyResponseBean.getContent());
+        result.put("balance", loanController.balanceByQuarter());
+        result.put("guarantee", guaranteeController.balanceByQuarter());
         return ResponseBean.successResponse(result);
     }
 
