@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.bbd.higgs.utils.StringUtils;
+import com.bbd.wtyh.domain.PlatformNameInformationDO;
+import com.bbd.wtyh.service.P2PImageService;
 import com.bbd.wtyh.util.CalculateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.bbd.wtyh.domain.NvDO;
 import com.bbd.wtyh.domain.dto.IndustryCompareDTO;
@@ -47,6 +50,9 @@ public class PToPMonitorController {
 
     @Autowired
     private PToPMonitorService pToPMonitorService;
+
+    @Autowired
+    private P2PImageService p2PImageService;
 
 
     /**
@@ -341,8 +347,8 @@ public class PToPMonitorController {
      */
     @RequestMapping("/platRankData")
     @ResponseBody
-    public Object platRankData() throws Exception {
-        List<PlatRankDataDTO> list = pToPMonitorService.getPlatRankData();
+    public Object platRankData(@RequestParam(required = false) String platStatus) throws Exception {
+        List<PlatRankDataDTO> list = pToPMonitorService.getPlatRankData(platStatus);
         if (CollectionUtils.isEmpty(list)) {
             return ResponseBean.successResponse(new ArrayList<>());
         }
@@ -365,4 +371,23 @@ public class PToPMonitorController {
     }
 
 
+    /**
+     * 测试是否有”公司信息“
+     *
+     * @return
+     */
+    @RequestMapping("/hasOrNotInfo")
+    @ResponseBody
+    public ResponseBean hasOrNotCompany(@RequestParam(required = true) String platName) {
+        Map<String, Object> hasOrNotCompany = p2PImageService.platFormStatus(platName);
+
+        Map<String, Object> rst = new HashMap<>();
+        if (hasOrNotCompany == null || StringUtils.isNullOrEmpty(String.valueOf(hasOrNotCompany.get("score")))) {
+            rst.put("isGoToP2P", false);
+            return ResponseBean.successResponse(rst);
+        } else {
+            rst.put("isGoToP2P", true);
+            return ResponseBean.successResponse(rst);
+        }
+    }
 }

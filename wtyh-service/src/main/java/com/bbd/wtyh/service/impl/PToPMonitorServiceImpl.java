@@ -91,8 +91,9 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
 
         String url = this.finSerUrl + "?dataType=plat_rank_data";
         HttpTemplate httpTemplate = new HttpTemplate();
+        List<PlatRankDataDTO> wangdaizhijiaRst = null;
         try {
-            return httpTemplate.get(url, new HttpCallback<List<PlatRankDataDTO>>() {
+            wangdaizhijiaRst = httpTemplate.get(url, new HttpCallback<List<PlatRankDataDTO>>() {
                 @Override
                 public boolean valid() {
                     return true;
@@ -104,6 +105,19 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
                     return JSON.parseArray(result, PlatRankDataDTO.class);
                 }
             });
+
+            if (null != platStatus) {
+                List<PlatRankDataDTO> rst = new ArrayList<>();
+                for (PlatRankDataDTO platRankDataDTO : wangdaizhijiaRst) {
+                    if (platRankDataDTO.getPlat_status().equals(platStatus)) {
+                        rst.add(platRankDataDTO);
+                    }
+                }
+                return rst;
+            } else {
+                return wangdaizhijiaRst;
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             return null;

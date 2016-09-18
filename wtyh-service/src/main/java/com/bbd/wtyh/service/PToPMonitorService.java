@@ -43,8 +43,9 @@ public interface PToPMonitorService {
 	/**
 	* 网贷平台数据展示
 	* @return List<PlatRankDataDTO>
+	 * @param platStatus
 	*/
-	public List<PlatRankDataDTO> getPlatRankData()throws Exception;
+	public List<PlatRankDataDTO> getPlatRankData(String platStatus)throws Exception;
 
 	/**
 	 * 网贷平台企业光谱数据
