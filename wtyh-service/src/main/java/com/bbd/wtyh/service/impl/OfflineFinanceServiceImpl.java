@@ -505,11 +505,14 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
                 } else {} // 保持结构完整
             }
         }
-        Float staticRiskIndex = Float.parseFloat(vo.getStcRiskIndex()) + this.getCreditInfoRisk(companyName);
-        if (staticRiskIndex > 100) {
-            staticRiskIndex = 100f;
+        Float staticRiskIndex = 0f;
+        if (vo != null) {
+            staticRiskIndex = Float.parseFloat(vo.getStcRiskIndex()) + this.getCreditInfoRisk(companyName);
+            if (staticRiskIndex > 100) {
+                staticRiskIndex = 100f;
+            }
+            vo.setStcRiskIndex(String.valueOf(staticRiskIndex));
         }
-        vo.setStcRiskIndex(String.valueOf(staticRiskIndex));
         return vo;
     }
 
