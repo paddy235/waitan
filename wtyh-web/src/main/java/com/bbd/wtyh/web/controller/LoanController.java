@@ -132,6 +132,23 @@ public class LoanController {
 
 
     /**
+     * 担保余额统计,按照季度统计
+     *
+     * @return
+     */
+    @RequestMapping("balanceByQuarter.do")
+    public ResponseBean balanceByQuarter() {
+        CompanyQuery query = new CompanyQuery();
+        query.setCompanyType((int) CompanyDO.TYPE_XD_2);
+        int amount = companyService.countCompanyNum(query);
+        List<LoanBalanceByQuarterDTO> dtoList = loanService.getLoanBalanceByQuater();
+        for (LoanBalanceByQuarterDTO balanceDO : dtoList) {
+            balanceDO.setCompanyAmount(amount);
+        }
+        return ResponseBean.successResponse(dtoList);
+    }
+
+    /**
      * 股东行业风险列表
      *
      * @return

@@ -31,7 +31,7 @@
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>2.2.4</version>
+            <version>2.7</version>
         </dependency>
         <!-- Excel -->
         <dependency>
@@ -399,6 +399,8 @@
 
     <!-- 插件管理 -->
     <build>
+
+
         <resources>
 
         </resources>

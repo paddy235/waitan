@@ -233,47 +233,49 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     @Override
     public Map staticRiskIndex(String companyName) {
         Map result = new HashMap();
+
+        result.put("creditInfoRisk", this.getCreditInfoRisk(companyName));
+
+        Float capitalBgRisk = 0f;
+        capitalBgRisk = staticRiskMapper.queryCapitalBgRisk(companyName);
+        result.put("capitalRisk", capitalBgRisk);
+        return result;
+    }
+
+    public Integer getCreditInfoRisk(String companyName) {
         CompanyDO companyDO = companyMapper.selectByName(companyName);
         Integer creditInfoRisk = 0;
 
-        Map<String, Integer> itemsMap = new HashMap<>();
-        itemsMap = (Map) redisDAO.getObject(Constants.REDIS_KEY_COMPANY_CREDIT_POINT_ITEMS);
-        if (itemsMap == null || itemsMap.size() == 0) {
-            List<CompanyCreditPointItemsDO> items = companyCreditInformationMapper.selectCompanyCreditPointItems();
-            Map<String, Integer> tempMap = new HashMap<>();
-            if (!CollectionUtils.isEmpty(items)) {
-                for (CompanyCreditPointItemsDO companyCreditPointItemsDO : items) {
-                    tempMap.put(companyCreditPointItemsDO.getItem(), companyCreditPointItemsDO.getPoint());
-                }
-            }
-            if (tempMap != null && tempMap.size() > 0) {
-                redisDAO.addObject(Constants.REDIS_KEY_COMPANY_CREDIT_POINT_ITEMS, tempMap, Constants.cacheDay, Map.class);
+
+        List<CompanyCreditPointItemsDO> items = companyCreditInformationMapper.selectCompanyCreditPointItems();
+        Map<String, Integer> tempMap = new HashMap<>();
+        if (!CollectionUtils.isEmpty(items)) {
+            for (CompanyCreditPointItemsDO companyCreditPointItemsDO : items) {
+                tempMap.put(companyCreditPointItemsDO.getItem(), companyCreditPointItemsDO.getPoint());
             }
         }
 
-
         if (companyDO != null) {
             List<CompanyCreditInformationDO> list = companyCreditInformationMapper.selectCompanyCreditInformationList(companyDO.getCompanyId());
-
-            if (!CollectionUtils.isEmpty(list) && itemsMap != null && itemsMap.size() > 0) {
+            Map<String, String> isInMap = new HashMap<>();
+            if (!CollectionUtils.isEmpty(list) && tempMap != null) {
                 Gson gson = new Gson();
                 for (CompanyCreditInformationDO companyCreditInformationDO : list) {
                     Map<String, String> map = gson.fromJson(companyCreditInformationDO.getContent(), Map.class);
                     for (String key : map.keySet()) {
-                        if (itemsMap.get(key) != null && itemsMap.get(key) > 0) {
-                            creditInfoRisk += itemsMap.get(key);
+                        if (isInMap.get(key) == null) {
+                            isInMap.put(key, key);
+                            if (tempMap.get(key) != null && tempMap.get(key) > 0) {
+                                creditInfoRisk += tempMap.get(key);
+                            }
                         }
+
                     }
                 }
             }
         }
-        float capitalBgRisk = 0;
-        capitalBgRisk = staticRiskMapper.queryCapitalBgRisk(companyName);
-        result.put("capitalRisk", capitalBgRisk);
-        result.put("creditInfoRisk", creditInfoRisk);
-        return result;
+        return creditInfoRisk;
     }
-
     @Override
     public List<StatisticsVO> queryStatistics(String companyName, String tabIndex, String areaCode) throws ParseException {
         List<StatisticsVO> avgList = new ArrayList<>();
@@ -503,6 +505,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
                 } else {} // 保持结构完整
             }
         }
+        vo.setStcRiskIndex(String.valueOf(Integer.parseInt(vo.getStcRiskIndex()) + this.getCreditInfoRisk(companyName)));
         return vo;
     }
 

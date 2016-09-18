@@ -7,7 +7,7 @@ import java.util.List;
 public interface GuaranteeBalanceMapper {
     GuaranteeBalanceDO selectByPrimaryKey(Integer id);
 
-    List<GuaranteeBalanceDO> listByMonth();
+    List<GuaranteeBalanceDO> listByMonth(Integer totalItems);
 
     List<GuaranteeBalanceDO> listByYear();
 }
