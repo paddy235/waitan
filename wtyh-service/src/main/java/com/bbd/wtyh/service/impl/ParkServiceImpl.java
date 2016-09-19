@@ -181,7 +181,7 @@ public class ParkServiceImpl implements ParkService {
         NewsVO newsvo = getnews( names);
 
         if ( newsvo.getResults().size()==0 ) {
-            return cns.getCompanyNews();
+            newsvo = cns.findNews();
         }
 
         return new Gson().toJson(newsvo);
