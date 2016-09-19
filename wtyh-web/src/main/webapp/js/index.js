@@ -68308,7 +68308,7 @@
 	                        }
 	                    }
 	                },
-	                titleName: "网贷数据对比(上海VS全国)",
+	                titleName: "",
 	                legend: ["全国(亿元)", "上海(亿元)"],
 	                yAxis: ["成交量", "贷款余额"],
 	                xAxisLabel: true,
@@ -68419,7 +68419,12 @@
 
 	            if (netCreditJudgeRequest == true) {
 	                if (netCreditJudgeResult.success) {
-	                    console.log(netCreditJudgeResult, 111);
+	                    var isP2P = netCreditJudgeResult.content.isGoToP2P;
+	                    if (isP2P) {
+	                        this.props.history.push('/Portrait?platName=' + data);
+	                    } else {
+	                        this.props.history.push('/SearchResultDetail?companyName=' + data);
+	                    }
 	                } else {
 	                    //错误后提示
 	                }
@@ -68432,7 +68437,6 @@
 
 	        var jsonData = { platName: data };
 	        getNetCreditJudge(jsonData);
-	        // this.props.history.push('/Portrait?platName='+data);
 	    },
 	    render: function render() {
 	        return _react2.default.createElement(
@@ -73429,7 +73433,7 @@
 
 
 	// module
-	exports.push([module.id, ".tradingPlaces-index .tradingP-left {\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n\r\n.tradingPlaces-index .tradingP-right {\r\n\twidth: 49.5%;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%;\r\n}\r\n\r\n.tradingPlaces-index .tradingP-bom {\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.tradingPlaces-index .content {\r\n\tpadding: 30px 20px 30px 20px;\r\n}\r\n\r\n.tradingPlaces-index  a {\r\n\tcolor: #fff !important\r\n}", ""]);
+	exports.push([module.id, ".tradingPlaces-index .tradingP-left {\r\n\twidth: 50%;\r\n\tfloat: left;\r\n}\r\n\r\n.tradingPlaces-index .tradingP-right {\r\n\twidth: 49.5%;\r\n\tfloat: left;\r\n\tmargin-left: 0.5%;\r\n}\r\n\r\n.tradingPlaces-index .tradingP-bom {\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.tradingPlaces-index .content {\r\n\tpadding: 30px 20px 30px 20px;\r\n}\r\n\r\n.tradingPlaces-index  a {\r\n\tcolor: #fff;\r\n}\r\n.tradingPlaces-index a.c-gray{\r\n\tcolor:#524A4A;\r\n}", ""]);
 
 	// exports
 
@@ -74463,7 +74467,12 @@
 	                                    var _legaPerson = item.legalPerson == null ? "/" : item.legalPerson;
 	                                    var _approveDepartment = item.approveDepartment == null ? "/" : item.approveDepartment;
 	                                    var _superviseDepartment = item.superviseDepartment == null ? "/" : item.superviseDepartment;
-	                                    var _website = item.website == null ? "/" : item.website;
+	                                    var _website = item.website ? item.website : "javascript:;";
+	                                    var cname = "";
+	                                    console.log(item.website, 11);
+	                                    if (!item.website) {
+	                                        cname = "c-gray";
+	                                    }
 	                                    if (index % 2) {
 	                                        return _react2.default.createElement(
 	                                            'tr',
@@ -74506,7 +74515,7 @@
 	                                                { width: '10%' },
 	                                                _react2.default.createElement(
 	                                                    'a',
-	                                                    { target: '_blank', href: _website },
+	                                                    { href: _website, target: '_blank', className: cname },
 	                                                    '查看'
 	                                                )
 	                                            )
@@ -74553,7 +74562,7 @@
 	                                                { width: '10%' },
 	                                                _react2.default.createElement(
 	                                                    'a',
-	                                                    { target: '_blank', href: _website },
+	                                                    { href: _website, target: '_blank', className: cname },
 	                                                    '查看'
 	                                                )
 	                                            )
@@ -81240,7 +81249,6 @@
 	    this.setState({ searchKey: val });
 	  },
 	  clickSearch: function clickSearch() {
-	    console.log(1111);
 	    if (this.state.searchKey) {
 	      var companyData = {
 	        "company": this.state.searchKey,
@@ -87130,9 +87138,10 @@
 	                        }
 	                    };
 
+	                    /**********临时加的图——XXX**********/
+
 	                    var TemporaryLine = [];
 	                    var TemporaryX = [];
-	                    debugger;
 	                    nineDate.content.guarantee.content.map(function (item, index) {
 	                        var val = Number(item.amount / item.number).toFixed(2);
 	                        var x = (item.year + "Q" + item.quarter).toString();
@@ -87141,14 +87150,12 @@
 	                    });
 	                    TemporaryX.reverse();
 	                    TemporaryLine.reverse();
-	                    console.log(TemporaryLine, "add-line");
-	                    console.log(TemporaryX, "add-x");
-	                    /**********临时加的图——XXX**********/
+
 	                    paramTemporary = {
 	                        "link": "/smallLoan#/financeGuara",
 	                        "titleShow": true,
 	                        "Ytype": "value",
-	                        "title": "担保笔均时序图",
+	                        "title": "融资担保",
 	                        "color": ["#12b5b0", "#e24441"],
 	                        "legend": ["担保总额/总笔数"],
 	                        "legendShow": true,
