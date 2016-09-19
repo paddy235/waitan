@@ -80435,12 +80435,9 @@
 	                            'tbody',
 	                            null,
 	                            this.state.haveTypeArr.map(function (elem, index) {
-	                                var registeredCapital = elem.registeredCapital;
-	                                if (registeredCapital == null) {
-	                                    registeredCapital = "/";
-	                                } else {
-	                                    registeredCapital = registeredCapital + "万元";
-	                                }
+	                                var registeredCapital = elem.registeredCapital == null ? "/" : elem.registeredCapital + "万元";
+	                                var registeredDate = elem.registeredDate == null ? "/" : elem.registeredDate;
+	                                var registeredType = elem.registeredType == null ? "/" : elem.registeredType;
 	                                return _react2.default.createElement(
 	                                    'tr',
 	                                    { key: index },
@@ -80471,7 +80468,7 @@
 	                                    _react2.default.createElement(
 	                                        'td',
 	                                        { className: 'talign-left', width: '10%' },
-	                                        elem.registeredDate
+	                                        registeredDate
 	                                    ),
 	                                    _react2.default.createElement(
 	                                        'td',
@@ -80479,18 +80476,15 @@
 	                                        _react2.default.createElement(
 	                                            'span',
 	                                            { className: 'word-limit-5', title: elem.registeredType },
-	                                            elem.registeredType
+	                                            registeredType
 	                                        )
 	                                    )
 	                                );
 	                            }),
 	                            this.state.otherArr.map(function (elem, index) {
-	                                var registeredCapital = elem.registeredCapital;
-	                                if (registeredCapital == null) {
-	                                    registeredCapital = "/";
-	                                } else {
-	                                    registeredCapital = registeredCapital + "万元";
-	                                }
+	                                var registeredCapital = elem.registeredCapital == null ? "/" : elem.registeredCapital + "万元";
+	                                var registeredDate = elem.registeredDate == null ? "/" : elem.registeredDate;
+	                                var registeredType = elem.registeredType == null ? "/" : elem.registeredType;
 	                                return _react2.default.createElement(
 	                                    'tr',
 	                                    { key: index },
@@ -80521,7 +80515,7 @@
 	                                    _react2.default.createElement(
 	                                        'td',
 	                                        { className: 'talign-left', width: '10%' },
-	                                        elem.registeredDate
+	                                        registeredDate
 	                                    ),
 	                                    _react2.default.createElement(
 	                                        'td',
@@ -80529,7 +80523,7 @@
 	                                        _react2.default.createElement(
 	                                            'span',
 	                                            { className: 'word-limit-5', title: elem.registeredType },
-	                                            elem.registeredType
+	                                            registeredType
 	                                        )
 	                                    )
 	                                );
