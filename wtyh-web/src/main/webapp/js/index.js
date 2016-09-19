@@ -41184,6 +41184,9 @@
 	        if (this.props.disabled) {
 	            props['disabled'] = 'disabled';
 	        }
+	        if (this.props.tabindex) {
+	            props['tabIndex'] = this.props.tabindex;
+	        }
 
 	        //验证
 	        if (this.props.validate) {
@@ -49381,7 +49384,7 @@
 	                                _react2.default.createElement(
 	                                    'td',
 	                                    null,
-	                                    _react2.default.createElement(_index.Input, { placeholder: '用户名', className: 'username', ref: 'userInput', icon: 'icon-user', iconplace: 'left', type: 'text', validate: v1 })
+	                                    _react2.default.createElement(_index.Input, { placeholder: '用户名', tabindex: '1', className: 'username', ref: 'userInput', icon: 'icon-user', iconplace: 'left', type: 'text', validate: v1 })
 	                                )
 	                            ),
 	                            _react2.default.createElement(
@@ -49390,7 +49393,7 @@
 	                                _react2.default.createElement(
 	                                    'td',
 	                                    null,
-	                                    _react2.default.createElement(_index.Input, { placeholder: '密码', className: 'password', ref: 'passwordInput', icon: 'icon-password', iconplace: 'left', type: 'password', validate: v2 })
+	                                    _react2.default.createElement(_index.Input, { placeholder: '密码', tabindex: '2', className: 'password', ref: 'passwordInput', icon: 'icon-password', iconplace: 'left', type: 'password', validate: v2 })
 	                                )
 	                            ),
 	                            _react2.default.createElement(
