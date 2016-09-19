@@ -38,23 +38,25 @@ public class P2PImageServiceImpl implements P2PImageService {
         if (null == pn) {
             return null;
         }
-        List<PlatListDO> platListDO = p2PImageDao.baseInfoWangDaiApi(platName);
-        if (null == platListDO || platListDO.size() == 0) {
-            return null;
-        }
+
+        PlatListDO platListDO = findFromWangdaiPlatList(platName);
+
         Map<String, Object> result = new LinkedHashMap<>();
-        for (int i=0; i<platListDO.size(); i++) {
-            if (null == platListDO.get(i).getLogo_url()) {
-                result.put("logo", null);
-            }
-            if (null != platListDO.get(i).getPlat_name() && platName.equals(platListDO.get(i).getPlat_name())) {
-                result.put("logo", platListDO.get(i).getLogo_url());//logo
-            }
-        }
-        result.put("score",pn.getPlat_score()); // 评分
-        result.put("platname",pn.getPlat_name()); // 平台名称
-        result.put("status",pn.getPlat_status()); // 营业状态
+        result.put("logo", platListDO.getLogo_url());//logo
+        result.put("score", pn.getPlat_score()); // 评分
+        result.put("platname", pn.getPlat_name()); // 平台名称
+        result.put("companyName", pn.getCompany_name()); // 公司名称
+        result.put("status", pn.getPlat_status()); // 营业状态
         return result;
+    }
+
+    @Override
+    public PlatListDO findFromWangdaiPlatList(String platName) {
+        Map<String, PlatListDO> wangdaiPlatList = new HashMap<>();
+        for (PlatListDO platListDO : p2PImageDao.baseInfoWangDaiApi(platName)) {
+            wangdaiPlatList.put(platListDO.getPlat_name(), platListDO);
+        }
+        return wangdaiPlatList.get(platName);
     }
 
     @Override
@@ -86,7 +88,7 @@ public class P2PImageServiceImpl implements P2PImageService {
         if (null == data || data.size() == 0) {
             return null;
         }
-        data.put("sumScore",platData.getPlat_score());
+        data.put("sumScore", platData.getPlat_score());
         return data;
     }
 
@@ -147,7 +149,7 @@ public class P2PImageServiceImpl implements P2PImageService {
         List<List<String>> result = new ArrayList<>();
         List<String> days1 = new ArrayList<>();
         List<String> amounts1 = new ArrayList<>();
-        for (int i=0; i<15; i++) {
+        for (int i = 0; i < 15; i++) {
             days1.add(days.get(i));
             amounts1.add(amounts.get(i));
         }
@@ -174,7 +176,7 @@ public class P2PImageServiceImpl implements P2PImageService {
         }
         List<String> days1 = new ArrayList<>();
         List<String> interestRates1 = new ArrayList<>();
-        for (int i=0; i<15; i++) {
+        for (int i = 0; i < 15; i++) {
             days1.add(days.get(i));
             interestRates1.add(interestRates.get(i));
         }
@@ -203,7 +205,7 @@ public class P2PImageServiceImpl implements P2PImageService {
         }
         List<String> days1 = new ArrayList<>();
         List<String> loanOverages1 = new ArrayList<>();
-        for (int i=0; i<15; i++) {
+        for (int i = 0; i < 15; i++) {
             days1.add(days.get(i));
             loanOverages1.add(loanOverages.get(i));
         }

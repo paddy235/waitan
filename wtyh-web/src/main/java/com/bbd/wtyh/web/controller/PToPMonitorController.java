@@ -12,6 +12,7 @@ import java.util.TreeMap;
 
 import com.bbd.higgs.utils.StringUtils;
 import com.bbd.wtyh.domain.PlatformNameInformationDO;
+import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
 import com.bbd.wtyh.service.P2PImageService;
 import com.bbd.wtyh.util.CalculateUtils;
 import org.slf4j.Logger;
@@ -380,14 +381,32 @@ public class PToPMonitorController {
     @ResponseBody
     public ResponseBean hasOrNotCompany(@RequestParam(required = true) String platName) {
         Map<String, Object> hasOrNotCompany = p2PImageService.platFormStatus(platName);
+        PlatListDO platListDO = p2PImageService.findFromWangdaiPlatList(platName);
 
         Map<String, Object> rst = new HashMap<>();
-        if (hasOrNotCompany == null || StringUtils.isNullOrEmpty(String.valueOf(hasOrNotCompany.get("score")))) {
+        if (null == hasOrNotCompany) {
             rst.put("isGoToP2P", false);
-            return ResponseBean.successResponse(rst);
+            if (null == platListDO) {
+                rst.put("companyName", "");
+            } else {
+                rst.put("companyName", platListDO.getCompany_name());
+            }
         } else {
+            if (StringUtils.isNullOrEmpty(String.valueOf(hasOrNotCompany.get("score")))) {
+                rst.put("isGoToP2P", false);
+                if (StringUtils.isNullOrEmpty(String.valueOf(hasOrNotCompany.get("companyName")))) {
+                    if (null == platListDO) {
+                        rst.put("companyName", "");
+                    } else {
+                        rst.put("companyName", platListDO.getCompany_name());
+                    }
+                }
+            } else {
+                rst.put("companyName", hasOrNotCompany.get("companyName"));
+            }
             rst.put("isGoToP2P", true);
-            return ResponseBean.successResponse(rst);
+            rst.put("platName", platName);
         }
+        return ResponseBean.successResponse(rst);
     }
 }
