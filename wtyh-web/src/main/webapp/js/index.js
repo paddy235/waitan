@@ -51403,6 +51403,8 @@
 	                name: parm.xAxisName || "",
 	                type: 'value',
 	                scale: true,
+	                min: 0,
+	                max: 100,
 	                axisLabel: {
 	                    formatter: '{value}',
 	                    textStyle: {
@@ -68408,6 +68410,7 @@
 	        _domAttr == "desc" ? _dom.attr("data-order", "asc") : _dom.attr("data-order", "desc");
 	        this.setState({ orderType: _dom.attr("data-order"), orderField: field }, function () {
 	            var _basedata = BOSS.sort(this.state.listData, field, this.state.orderType);
+	            console.log(this.state.listData, 99);
 	            this.setState({ listData: _basedata });
 	        });
 	    },
@@ -68420,6 +68423,13 @@
 
 	            if (netCreditRequest == true) {
 	                if (netCreditResult.success) {
+	                    // var content=netCreditResult.content;
+	                    // var len=content.length;
+	                    // var listData=[];
+	                    // var eachObj={};
+	                    // for(var i=0;i<len;i++){
+
+	                    // }
 	                    this.setState({ listData: netCreditResult.content }, function () {
 	                        $(_this.refs.stay_still_of_total).trigger('click');
 	                    });
