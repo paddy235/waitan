@@ -67705,7 +67705,7 @@
 
 
 	// module
-	exports.push([module.id, "/*content banner*/\r\n\r\n/*index top*/\r\n.p2p-index .p2p-index-top .top-l {\r\n\twidth: 28%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-index-top .top-l .top-l-t {\r\n\twidth: 100%;\r\n\theight: 300px;\r\n}\r\n\r\n.p2p-index-top .top-l  .top-l-b {\r\n\tmargin-top: 2%;\r\n\theight: 340px;\r\n}\r\n\r\n.p2p-index .p2p-index-top .top-c {\r\n\twidth: 38.5%;\r\n\tfloat: left;\r\n\theight: 649px;\r\n\tmargin: 0px 0.5%;\r\n}\r\n\r\n.p2p-index .p2p-index-top .top-r {\r\n\twidth: 32.5%;\r\n\theight: 649px;\r\n\tfloat: left;\r\n}\r\n\r\n/*index bom*/\r\n.p2p-index .p2p-index-bom {\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l {\r\n\twidth: 67%;\r\n\tfloat: left;\r\n\theight: 490px;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-t {\r\n\theight: 255px;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-t .bom-l-t-l {\r\n\twidth: 42%;\t/*height: 100%;*/\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-t .bom-l-t-r {\r\n\twidth: 57.5%;\t/*height: 100%;*/\r\n\tfloat: left;\r\n\tmargin-left: 0.5%\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-b {\r\n\theight: 230px;\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-r {\r\n\twidth: 32.5%;\r\n\tmargin-left: 0.5%;\r\n\theight: 490px;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-r .list-items .mt-table {\r\n\twidth: 880px\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-r .table-content {\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n\theight: 316px;\r\n}\r\n\r\n/*AareaRanking banner -css*/\r\n.p2p-index .list-header {\r\n\tfont-size: 18px;\r\n\tcolor: #fff;\r\n\tpadding: 14px;\r\n\ttext-indent: 30px;\r\n}\r\n\r\n.p2p-index .table-box {\r\n\tpadding: 0px 10px 30px 10px;\r\n}\r\n\r\n.p2p-index .bom-r .list-items {\r\n\r\n\t/*padding: 0px 10px 30px 10px;*/\r\n\toverflow: hidden;\r\n\tposition: relative;\t/*height: 428px;*/\r\n\theight: 428px;\r\n}\r\n\r\n.p2p-index .table-8 th,\r\n.p2p-index .table-8 td {\r\n\twidth: 12.5%;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-index .table-8 th {\r\n\theight: 60px;\r\n}\r\n\r\n.p2p-index .table-6 th {\r\n\theight: 88px;\r\n}\r\n\r\n.p2p-index .table-8 {\r\n\r\n\t/*height: 550px;*/\r\n}\r\n\r\n.p2p-index .table-6 th,\r\n.p2p-index .table-6 td {\r\n\r\n\t/*width: 13.5%;*/\r\n\ttext-align: center;\r\n\tpadding: 16px 10px;\r\n}\r\n\r\n.p2p-index .table-6 .diff-width {\r\n\r\n\t/*width: 20%;*/\r\n}\r\n\r\n.p2p-index .table-6 {\r\n\r\n\t/*height: 400px;*/\r\n}\r\n\r\n.p2p-index .table-8.title {\r\n\tdisplay: block;\r\n\twidth: 100%\r\n}\r\n\r\n/*gray-theme-table for table -css*/\r\n.p2p-table {\r\n\twidth: 100%;\t/*height: 100%;*/\r\n\tcolor: #dddddd;\r\n}", ""]);
+	exports.push([module.id, "/*content banner*/\r\n\r\n/*index top*/\r\n.p2p-index .p2p-index-top .top-l {\r\n\twidth: 28%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-index-top .top-l .top-l-t {\r\n\twidth: 100%;\r\n\theight: 300px;\r\n}\r\n\r\n.p2p-index-top .top-l  .top-l-b {\r\n\tmargin-top: 2%;\r\n\theight: 340px;\r\n}\r\n\r\n.p2p-index .p2p-index-top .top-c {\r\n\twidth: 38.5%;\r\n\tfloat: left;\r\n\theight: 649px;\r\n\tmargin: 0px 0.5%;\r\n}\r\n\r\n.p2p-index .p2p-index-top .top-r {\r\n\twidth: 32.5%;\r\n\theight: 649px;\r\n\tfloat: left;\r\n}\r\n\r\n/*index bom*/\r\n.p2p-index .p2p-index-bom {\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l {\r\n\twidth: 67%;\r\n\tfloat: left;\r\n\theight: 490px;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-t {\r\n\theight: 255px;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-t .bom-l-t-l {\r\n\twidth: 42%;\t/*height: 100%;*/\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-t .bom-l-t-r {\r\n\twidth: 57.5%;\t/*height: 100%;*/\r\n\tfloat: left;\r\n\tmargin-left: 0.5%\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-b {\r\n\theight: 230px;\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-r {\r\n\twidth: 32.5%;\r\n\tmargin-left: 0.5%;\r\n\theight: 490px;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-r .list-items .mt-table {\r\n\twidth: 880px\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-r .table-content {\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n\theight: 316px;\r\n}\r\n\r\n\r\n/*AareaRanking banner -css*/\r\n.p2p-index .list-header {\r\n\tfont-size: 18px;\r\n\tcolor: #fff;\r\n\tpadding: 14px;\r\n\ttext-indent: 30px;\r\n}\r\n\r\n.p2p-index .table-box {\r\n\tpadding: 0px 10px 30px 10px;\r\n}\r\n\r\n.p2p-index .bom-r .list-items {\r\n\r\n\t/*padding: 0px 10px 30px 10px;*/\r\n\toverflow: hidden;\r\n\tposition: relative;\t/*height: 428px;*/\r\n\theight: 428px;\r\n}\r\n\r\n.p2p-index .table-8 th,\r\n.p2p-index .table-8 td {\r\n\twidth: 12.5%;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-index .table-8 th {\r\n\theight: 60px;\r\n}\r\n\r\n.p2p-index .table-6 th {\r\n\theight: 88px;\r\n}\r\n\r\n.p2p-index .table-8 {\r\n\r\n\t/*height: 550px;*/\r\n}\r\n\r\n.p2p-index .table-6 th,\r\n.p2p-index .table-6 td {\r\n\r\n\t/*width: 13.5%;*/\r\n\ttext-align: center;\r\n\tpadding: 16px 10px;\r\n}\r\n.p2p-index .table-6 th .mt-select{\r\n\tbackground-color: #1a2029;\r\n\tdisplay: inline-block;\r\n}\r\n.p2p-index .table-6 th .mt-select ul.mt-select-box{\r\n\tbackground-color: #1a2029;\r\n\tborder:none;\r\n}\r\n.p2p-index .table-6 .diff-width {\r\n\r\n\t/*width: 20%;*/\r\n}\r\n\r\n.p2p-index .table-6 {\r\n\r\n\t/*height: 400px;*/\r\n}\r\n\r\n.p2p-index .table-8.title {\r\n\tdisplay: block;\r\n\twidth: 100%\r\n}\r\n\r\n/*gray-theme-table for table -css*/\r\n.p2p-table {\r\n\twidth: 100%;\t/*height: 100%;*/\r\n\tcolor: #dddddd;\r\n}", ""]);
 
 	// exports
 
@@ -68392,10 +68392,8 @@
 	        };
 	    },
 	    componentDidMount: function componentDidMount() {
-	        var getNetCreditRequest = this.props.getNetCreditRequest;
-
 	        var jsonData = {};
-	        getNetCreditRequest(jsonData);
+	        this.getNetCreditRequest(jsonData);
 	        $('#p2p-scroll').perfectScrollbar({ suppressScrollX: false });
 	    },
 	    componentDidUpdate: function componentDidUpdate() {
@@ -68454,6 +68452,11 @@
 	            }
 	        }
 	    },
+	    getNetCreditRequest: function getNetCreditRequest(jsonData) {
+	        var getNetCreditRequest = this.props.getNetCreditRequest;
+
+	        getNetCreditRequest(jsonData);
+	    },
 	    goToDetail: function goToDetail(data, e) {
 	        var getNetCreditJudge = this.props.getNetCreditJudge;
 
@@ -68461,6 +68464,23 @@
 	        getNetCreditJudge(jsonData);
 	    },
 	    render: function render() {
+	        var select = {
+	            width: '90px',
+	            className: 'netcredit-status',
+	            name: 'testselect',
+	            value: "1",
+	            id: 'selectType',
+	            data: [{ value: '1', label: '全部' }, { value: '2', label: '正常' }, { value: '3', label: '一般关注' }, { value: '4', label: '重点关注' }, { value: '5', label: '问题' }],
+	            onChange: function (value, label) {
+	                var label = label;
+	                var jsonData = { platStatus: label };
+	                if (label == "全部") {
+	                    label = "";
+	                    jsonData = {};
+	                }
+	                this.getNetCreditRequest(jsonData);
+	            }.bind(this)
+	        };
 	        return _react2.default.createElement(
 	            'div',
 	            { className: 'mod bom-r radius4' },
@@ -68501,7 +68521,8 @@
 	                                _react2.default.createElement(
 	                                    'th',
 	                                    { width: '8%' },
-	                                    '状态'
+	                                    '状态 ',
+	                                    _react2.default.createElement(_index.Selected, select)
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
