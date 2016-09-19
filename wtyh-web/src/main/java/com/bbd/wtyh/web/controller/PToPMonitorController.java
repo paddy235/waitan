@@ -384,9 +384,11 @@ public class PToPMonitorController {
         Map<String, Object> rst = new HashMap<>();
         if (hasOrNotCompany == null || StringUtils.isNullOrEmpty(String.valueOf(hasOrNotCompany.get("score")))) {
             rst.put("isGoToP2P", false);
+            rst.put("companyName", hasOrNotCompany.get("companyName"));
             return ResponseBean.successResponse(rst);
         } else {
             rst.put("isGoToP2P", true);
+            rst.put("platName", platName);
             return ResponseBean.successResponse(rst);
         }
     }
