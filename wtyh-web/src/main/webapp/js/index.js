@@ -68465,7 +68465,7 @@
 	    },
 	    render: function render() {
 	        var select = {
-	            width: '90px',
+	            width: '100px',
 	            className: 'netcredit-status',
 	            name: 'testselect',
 	            value: "1",
