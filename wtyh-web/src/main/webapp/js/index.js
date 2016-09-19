@@ -68376,6 +68376,8 @@
 
 	var _reactRedux = __webpack_require__(242);
 
+	var _index = __webpack_require__(595);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Immutable = __webpack_require__(621);
@@ -73944,7 +73946,12 @@
 	                                    var _address = item.address == null ? "/" : item.address;
 	                                    var _registeredCapital = item.registeredCapital == null ? "/" : item.registeredCapital + "万元";
 	                                    var _registeredDate = item.registeredDate == null ? "/" : item.registeredDate;
-	                                    var _website = item.website == null ? "/" : item.website;
+	                                    var _website = item.website ? item.website : "javascript:;";
+	                                    var cname = "";
+	                                    if (!item.website) {
+	                                        cname = "c-gray";
+	                                    }
+
 	                                    var _riskLevel = item.riskLevel;
 	                                    var _riskLevelColor = "";
 	                                    if (_riskLevel == 1) {
@@ -74011,7 +74018,7 @@
 	                                                { width: '10%' },
 	                                                _react2.default.createElement(
 	                                                    'a',
-	                                                    { target: '_blank', href: _website },
+	                                                    { href: _website, target: '_blank', className: cname },
 	                                                    '查看'
 	                                                )
 	                                            )
@@ -74067,7 +74074,7 @@
 	                                                { width: '10%' },
 	                                                _react2.default.createElement(
 	                                                    'a',
-	                                                    { target: '_blank', href: _website },
+	                                                    { href: _website, target: '_blank', className: cname },
 	                                                    '查看'
 	                                                )
 	                                            )
