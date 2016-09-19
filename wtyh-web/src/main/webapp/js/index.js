@@ -49821,7 +49821,6 @@
 	//上海点的经纬度
 	var geoCoordMapShanghai = {
 	    "黄浦区": [121.491193, 31.217373],
-	    "浦东新区": [121.650543, 31.127391],
 	    "徐汇区": [121.442885, 31.194911],
 	    "长宁区": [121.360868, 31.196536],
 	    "静安区": [121.453978, 31.234087],
@@ -49831,13 +49830,14 @@
 	    "闵行区": [121.388372, 31.118512],
 	    "宝山区": [121.455971, 31.410956],
 	    "嘉定区": [121.272804, 31.380475],
+	    "浦东新区": [121.650543, 31.127391],
 	    "金山区": [121.348902, 30.747995],
 	    "松江区": [121.235472, 31.038175],
 	    "青浦区": [121.130784, 31.155521],
 	    "奉贤区": [121.480604, 30.923204],
 	    "崇明区": [121.526575, 31.667547]
 	};
-	var SHData = [[{ name: '浦东新区', value: 90 }, { name: '黄浦区' }], [{ name: '徐汇区', value: 80 }, { name: '黄浦区' }], [{ name: '长宁区', value: 70 }, { name: '黄浦区' }], [{ name: '静安区', value: 60 }, { name: '黄浦区' }], [{ name: '普陀区', value: 50 }, { name: '黄浦区' }], [{ name: '虹口区', value: 40 }, { name: '黄浦区' }], [{ name: '杨浦区', value: 30 }, { name: '黄浦区' }], [{ name: '闵行区', value: 30 }, { name: '黄浦区' }], [{ name: '宝山区', value: 30 }, { name: '黄浦区' }], [{ name: '金山区', value: 30 }, { name: '黄浦区' }], [{ name: '松江区', value: 30 }, { name: '黄浦区' }], [{ name: '青浦区', value: 30 }, { name: '黄浦区' }], [{ name: '奉贤区', value: 30 }, { name: '黄浦区' }], [{ name: '崇明区', value: 30 }, { name: '黄浦区' }], [{ name: '嘉定区', value: 30 }, { name: '黄浦区' }]];
+	var SHData = [[{ name: '徐汇区', value: 80 }, { name: '黄浦区' }], [{ name: '长宁区', value: 70 }, { name: '黄浦区' }], [{ name: '静安区', value: 60 }, { name: '黄浦区' }], [{ name: '普陀区', value: 50 }, { name: '黄浦区' }], [{ name: '虹口区', value: 40 }, { name: '黄浦区' }], [{ name: '杨浦区', value: 30 }, { name: '黄浦区' }], [{ name: '闵行区', value: 30 }, { name: '黄浦区' }], [{ name: '宝山区', value: 30 }, { name: '黄浦区' }], [{ name: '嘉定区', value: 30 }, { name: '黄浦区' }], [{ name: '浦东新区', value: 90 }, { name: '黄浦区' }], [{ name: '金山区', value: 30 }, { name: '黄浦区' }], [{ name: '松江区', value: 30 }, { name: '黄浦区' }], [{ name: '青浦区', value: 30 }, { name: '黄浦区' }], [{ name: '奉贤区', value: 30 }, { name: '黄浦区' }], [{ name: '崇明区', value: 30 }, { name: '黄浦区' }]];
 	var ajaxData = null;
 	var convertData = function convertData(data) {
 	    var res = [];
@@ -49972,7 +49972,7 @@
 	                    }
 	                },
 	                symbolSize: function symbolSize(val) {
-	                    return val[2] / 8 + 5;
+	                    return val[2] / 500 + 5;
 	                },
 	                itemStyle: {
 	                    normal: {
@@ -50125,7 +50125,6 @@
 	        var jsonData = {};
 	        gethometwoRequest(jsonData); //这里是要执行的
 
-	        this.initMap();
 
 	        $(window).resize(function (event) {
 	            this.initMap();
@@ -50155,6 +50154,15 @@
 	            // console.log(homeTwoResult,"fuck")
 
 	            ajaxData = homeTwoResult.content;
+	            ajaxData.map(function (item, index) {
+
+	                if (index != 0) {
+
+	                    SHData[index - 1][0].value = item.num;
+	                }
+	            });
+	            console.log(SHData, "p");
+	            this.initMap();
 	        }
 	    },
 	    HomeTwoFirstPop: function HomeTwoFirstPop(e) {
@@ -54910,9 +54918,9 @@
 	            },
 	            yAxis: {
 	                name: parm.yAxisName,
-	                interval: parm.yInterval == undefined ? "" : parm.yInterval,
-	                max: parm.yMax == undefined ? "auto" : parm.yMax,
-	                min: parm.yMin == undefined ? "auto" : parm.yMin,
+	                // interval:parm.yInterval==undefined?"":parm.yInterval,
+	                // max:parm.yMax==undefined?"auto":parm.yMax,
+	                // min:parm.yMin==undefined?"auto":parm.yMin,
 	                nameTextStyle: {
 	                    color: "#7f868e"
 	                },
@@ -60899,7 +60907,7 @@
 			} else {
 				max = parseInt((maxData + midData) / 10) * 10;
 			}
-			var interval = parseInt((max - min) / 5 / 10) * 10;
+			var interval = parseInt((max - min) / 6 / 10) * 10;
 			if (min < 0) {
 				min = 0;
 			}
@@ -72538,6 +72546,10 @@
 
 	var _LineChart2 = _interopRequireDefault(_LineChart);
 
+	var _publicFun = __webpack_require__(702);
+
+	var _publicFun2 = _interopRequireDefault(_publicFun);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Immutable = __webpack_require__(621);
@@ -72555,6 +72567,9 @@
 	        if (!isEqual) {
 	            var Data = nextProps.Data;
 
+	            var yData = Data.data;
+	            var yAxis = _publicFun2.default.fomatYaxis(yData);
+
 	            var optionParm = {
 	                color: ["#f9b554"],
 	                title: "",
@@ -72563,6 +72578,9 @@
 	                symbolSize: 5,
 	                legendIsShow: false,
 	                yFlag: "",
+	                yMin: yAxis.min,
+	                yMax: yAxis.max,
+	                yInterval: yAxis.interval,
 	                yAxisName: "个数",
 	                legendRight: "30",
 	                lineLable: {
@@ -76518,6 +76536,10 @@
 
 	var _LineChart2 = _interopRequireDefault(_LineChart);
 
+	var _publicFun = __webpack_require__(702);
+
+	var _publicFun2 = _interopRequireDefault(_publicFun);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Immutable = __webpack_require__(621);
@@ -76530,6 +76552,8 @@
 	    },
 
 	    setLineLParm: function setLineLParm(data) {
+	        var yData = data.line.series;
+	        var yAxis = _publicFun2.default.fomatYaxis(yData);
 	        var options = {
 	            color: ["#e24441"],
 	            title: "",
@@ -76538,6 +76562,9 @@
 	            symbolSize: 5,
 	            legendIsShow: false,
 	            yFlag: "",
+	            yMin: yAxis.min,
+	            yMax: yAxis.max,
+	            yInterval: yAxis.interval,
 	            lineLable: {
 	                normal: {
 	                    show: true,
@@ -80005,7 +80032,6 @@
 	                        warnClass = "Green";
 	                        warnName = "正常企业";
 	                    }
-	                    console.log(warnClass, '333333333333');
 	                    _this.setState({ showBuildRisk: riskCompany, show: true, warnClass: warnClass, warnName: warnName });
 	                }
 	            }
@@ -80016,12 +80042,18 @@
 	        var len = this.state.buildList.length; //获取大厦的个数
 	        var index = this.state.curBuildIndex;
 	        if (ele == -1) {
+	            //点击左侧按钮
 	            if (index > 0) {
 	                index = index - 1;
+	            } else {
+	                index = len - 1;
 	            }
 	        } else {
+	            //点击右侧按钮
 	            if (index < len - 1) {
 	                index = index + 1;
+	            } else {
+	                index = 0;
 	            }
 	        }
 	        var curBuild = this.state.buildList[index];
@@ -80291,6 +80323,7 @@
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	        $('#buildCompanyList-scorll').perfectScrollbar('update');
+	        $('#buildCompanyList-scorll').perfectScrollbar().scrollTop(0);
 	        //切换大厦
 	        var isSwitchValEqual = Immutable.is(nextProps.buildSwitchVal, this.props.buildSwitchVal);
 	        if (!isSwitchValEqual) {
@@ -80319,6 +80352,7 @@
 	        }
 	    },
 	    dataFomat: function dataFomat(data) {
+
 	        var content = data.content;
 	        var companyNo = content.length;
 	        var len = content.length;
