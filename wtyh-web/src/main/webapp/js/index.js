@@ -68413,17 +68413,21 @@
 	        }
 	        //判断是往哪里跳转
 	        var isJudgeEqual = Immutable.is(nextProps.netCreditJudgeResult, this.props.netCreditJudgeResult);
-	        if (!isEqual) {
+	        if (!isJudgeEqual) {
 	            var netCreditJudgeRequest = nextProps.netCreditJudgeRequest;
 	            var netCreditJudgeResult = nextProps.netCreditJudgeResult;
 
 	            if (netCreditJudgeRequest == true) {
 	                if (netCreditJudgeResult.success) {
 	                    var isP2P = netCreditJudgeResult.content.isGoToP2P;
+	                    var platName = netCreditJudgeResult.content.platName;
+	                    var companyName = netCreditJudgeResult.content.companyName;
 	                    if (isP2P) {
-	                        this.props.history.push('/Portrait?platName=' + data);
+	                        this.props.history.push('/Portrait?platName=' + platName);
 	                    } else {
-	                        this.props.history.push('/SearchResultDetail?companyName=' + data);
+	                        if (companyName) {
+	                            this.props.history.push('/SearchResultDetail?companyName=' + companyName);
+	                        }
 	                    }
 	                } else {
 	                    //错误后提示
@@ -68432,7 +68436,6 @@
 	        }
 	    },
 	    goToDetail: function goToDetail(data, e) {
-	        console.log(data, e);
 	        var getNetCreditJudge = this.props.getNetCreditJudge;
 
 	        var jsonData = { platName: data };
