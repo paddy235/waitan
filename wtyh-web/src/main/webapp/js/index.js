@@ -49840,8 +49840,11 @@
 	    "奉贤区": [121.480604, 30.923204],
 	    "崇明区": [121.526575, 31.667547]
 	};
-	var SHData = [[{ name: '徐汇区', value: 80 }, { name: '黄浦区' }], [{ name: '长宁区', value: 70 }, { name: '黄浦区' }], [{ name: '静安区', value: 60 }, { name: '黄浦区' }], [{ name: '普陀区', value: 50 }, { name: '黄浦区' }], [{ name: '虹口区', value: 40 }, { name: '黄浦区' }], [{ name: '杨浦区', value: 30 }, { name: '黄浦区' }], [{ name: '闵行区', value: 30 }, { name: '黄浦区' }], [{ name: '宝山区', value: 30 }, { name: '黄浦区' }], [{ name: '嘉定区', value: 30 }, { name: '黄浦区' }], [{ name: '浦东新区', value: 90 }, { name: '黄浦区' }], [{ name: '金山区', value: 30 }, { name: '黄浦区' }], [{ name: '松江区', value: 30 }, { name: '黄浦区' }], [{ name: '青浦区', value: 30 }, { name: '黄浦区' }], [{ name: '奉贤区', value: 30 }, { name: '黄浦区' }], [{ name: '崇明区', value: 30 }, { name: '黄浦区' }]];
+	//上海点和线的数据集合，没处理过的原始数据
+	var SHData = [[{ name: '徐汇区', value: 0 }, { name: '黄浦区' }], [{ name: '长宁区', value: 0 }, { name: '黄浦区' }], [{ name: '静安区', value: 0 }, { name: '黄浦区' }], [{ name: '普陀区', value: 0 }, { name: '黄浦区' }], [{ name: '虹口区', value: 0 }, { name: '黄浦区' }], [{ name: '杨浦区', value: 0 }, { name: '黄浦区' }], [{ name: '闵行区', value: 0 }, { name: '黄浦区' }], [{ name: '宝山区', value: 0 }, { name: '黄浦区' }], [{ name: '嘉定区', value: 0 }, { name: '黄浦区' }], [{ name: '浦东新区', value: 0 }, { name: '黄浦区' }], [{ name: '金山区', value: 0 }, { name: '黄浦区' }], [{ name: '松江区', value: 0 }, { name: '黄浦区' }], [{ name: '青浦区', value: 0 }, { name: '黄浦区' }], [{ name: '奉贤区', value: 0 }, { name: '黄浦区' }], [{ name: '崇明区', value: 0 }, { name: '黄浦区' }]];
+	//保存ajax数据
 	var ajaxData = null;
+	//用来处理SHData，转化成echarts的数据格式
 	var convertData = function convertData(data) {
 	    var res = [];
 	    for (var i = 0; i < data.length; i++) {
@@ -49850,9 +49853,9 @@
 	        var toCoord = geoCoordMapShanghai[dataItem[1].name];
 	        if (fromCoord && toCoord) {
 	            res.push({
-	                fromName: dataItem[0].name,
-	                toName: dataItem[1].name,
-	                coords: [fromCoord, toCoord]
+	                fromName: dataItem[0].name, //起点
+	                toName: dataItem[1].name, //终点
+	                coords: [fromCoord, toCoord] //经纬度
 	            });
 	        }
 	    }
@@ -49975,7 +49978,7 @@
 	                    }
 	                },
 	                symbolSize: function symbolSize(val) {
-	                    return val[2] / 500 + 5;
+	                    return val[2] / 1000 + 5;
 	                },
 	                itemStyle: {
 	                    normal: {
@@ -50122,17 +50125,18 @@
 	    },
 	    componentDidMount: function componentDidMount() {
 
-	        //请求ajax数据
+	        //redux请求ajax数据
 	        var gethometwoRequest = this.props.gethometwoRequest;
 
 	        var jsonData = {};
-	        gethometwoRequest(jsonData); //这里是要执行的
+	        gethometwoRequest(jsonData); //触发redux里面的action
 
-
+	        //窗口缩放自适应echarts图表
 	        $(window).resize(function (event) {
 	            this.initMap();
 	        }.bind(this));
 
+	        //按钮背景图标的切换，之前做fixed处理，就没有用class来控制，逻辑稍显琐碎，不过还是很叼
 	        $(".list h2 img").hover(function () {
 	            var src = $(this).attr("src");
 	            $(this).attr("src", src.replace("blue", "white"));
@@ -50154,21 +50158,23 @@
 	        if (!isEqual) {
 	            var homeTwoRequest = nextProps.homeTwoRequest;
 	            var homeTwoResult = nextProps.homeTwoResult;
-	            // console.log(homeTwoResult,"fuck")
+	            //把ajax返回的数据，放入到全局变量中，方便tootips的回调函数调用
 
 	            ajaxData = homeTwoResult.content;
 	            ajaxData.map(function (item, index) {
 
+	                //如果是0，0-1不可以为负数
 	                if (index != 0) {
-
+	                    //ajaxData要比SHData起始数组多一个项，所以要减1
 	                    SHData[index - 1][0].value = item.num;
 	                }
 	            });
-	            console.log(SHData, "p");
+	            //初始化地图
 	            this.initMap();
 	        }
 	    },
 	    HomeTwoFirstPop: function HomeTwoFirstPop(e) {
+	        //按钮下拉动画处理
 	        $(e.currentTarget).siblings('ul').slideToggle('400');
 	    },
 
@@ -68370,6 +68376,8 @@
 
 	var _reactRedux = __webpack_require__(242);
 
+	var _index = __webpack_require__(595);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Immutable = __webpack_require__(621);
@@ -73938,7 +73946,12 @@
 	                                    var _address = item.address == null ? "/" : item.address;
 	                                    var _registeredCapital = item.registeredCapital == null ? "/" : item.registeredCapital + "万元";
 	                                    var _registeredDate = item.registeredDate == null ? "/" : item.registeredDate;
-	                                    var _website = item.website == null ? "/" : item.website;
+	                                    var _website = item.website ? item.website : "javascript:;";
+	                                    var cname = "";
+	                                    if (!item.website) {
+	                                        cname = "c-gray";
+	                                    }
+
 	                                    var _riskLevel = item.riskLevel;
 	                                    var _riskLevelColor = "";
 	                                    if (_riskLevel == 1) {
@@ -74005,7 +74018,7 @@
 	                                                { width: '10%' },
 	                                                _react2.default.createElement(
 	                                                    'a',
-	                                                    { target: '_blank', href: _website },
+	                                                    { href: _website, target: '_blank', className: cname },
 	                                                    '查看'
 	                                                )
 	                                            )
@@ -74061,7 +74074,7 @@
 	                                                { width: '10%' },
 	                                                _react2.default.createElement(
 	                                                    'a',
-	                                                    { target: '_blank', href: _website },
+	                                                    { href: _website, target: '_blank', className: cname },
 	                                                    '查看'
 	                                                )
 	                                            )
@@ -87533,7 +87546,7 @@
 	              _react2.default.createElement(
 	                'p',
 	                null,
-	                item.author
+	                item.news_site
 	              ),
 	              ' ',
 	              _react2.default.createElement(
