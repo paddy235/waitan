@@ -72832,14 +72832,6 @@
 	            for (var j = 0; j < Data.xAxisData.length; j++) {
 	                _xAxisData.push(Data.xAxisData[j].toString());
 	            }
-
-	            // var minData=Math.min.apply(null,Data.yAxisData);//获取最小值
-	            // var first=minData.toString().substr(0,1);
-	            // var minDataLen=minData.toString().length;
-	            // var k=first;
-	            // for(var i=0;i<minDataLen-1;i++){
-	            //     k=k+"0";
-	            // }
 	            var dataYAxis = _setData;
 	            var len = dataYAxis.length;
 	            var yData = [];
@@ -72847,7 +72839,6 @@
 	                yData.push(dataYAxis[i][1]);
 	            }
 	            var yAxis = _publicFun2.default.fomatYaxis(yData);
-	            console.log(_setData, yAxis, 'xuyao');
 	            var optionParm = {
 	                id: 'loan-balance-chart', //必传
 	                height: '465px', //必传 带上单位
