@@ -53,6 +53,7 @@ public class P2PImageServiceImpl implements P2PImageService {
         }
         result.put("score",pn.getPlat_score()); // 评分
         result.put("platname",pn.getPlat_name()); // 平台名称
+        result.put("companyName",pn.getCompany_name()); // 公司名称
         result.put("status",pn.getPlat_status()); // 营业状态
         return result;
     }
