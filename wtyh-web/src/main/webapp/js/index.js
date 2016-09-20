@@ -40347,7 +40347,7 @@
 	function ajax(ajaxParm) {
 	    var timestamp = Date.parse(new Date());
 	    $.ajax({
-	        url: ajaxParm.url + "?" + "t=" + timestamp,
+	        url: ajaxParm.url,
 	        dataType: ajaxParm.dataType,
 	        data: ajaxParm.data,
 	        type: ajaxParm.type,
