@@ -263,10 +263,11 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
                 for (CompanyCreditInformationDO companyCreditInformationDO : list) {
                     Map<String, String> map = gson.fromJson(companyCreditInformationDO.getContent(), Map.class);
                     for (String key : map.keySet()) {
-                        if (isInMap.get(key) == null) {
-                            isInMap.put(key, key);
-                            if (tempMap.get(key) != null && tempMap.get(key) > 0) {
-                                creditInfoRisk += tempMap.get(key);
+                        String value = map.get(key);
+                        if (isInMap.get(value) == null) {
+                            isInMap.put(value, value);
+                            if (tempMap.get(value) != null && tempMap.get(value) > 0) {
+                                creditInfoRisk += tempMap.get(value);
                             }
                         }
 
