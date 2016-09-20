@@ -40341,29 +40341,28 @@
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	     value: true
 	});
 	exports.ajax = ajax;
 	function ajax(ajaxParm) {
-	    var timestamp = Date.parse(new Date());
-	    $.ajax({
-	        url: ajaxParm.url,
-	        dataType: ajaxParm.dataType,
-	        data: ajaxParm.data,
-	        type: ajaxParm.type,
-	        complete: function complete(result) {
-	            var data = result.responseText.substr(20, 8);
-	            if (data == "no login") {
-	                window.location.href = "/";
-	            }
-	        },
-	        success: function success(result) {
-	            ajaxParm.success(result);
-	        },
-	        error: function error(result) {
-	            ajaxParm.error(result);
-	        }
-	    });
+	     $.ajax({
+	          url: ajaxParm.url,
+	          dataType: ajaxParm.dataType,
+	          data: ajaxParm.data,
+	          type: ajaxParm.type,
+	          complete: function complete(result) {
+	               var data = result.responseText.substr(20, 8);
+	               if (data == "no login") {
+	                    window.location.href = "/";
+	               }
+	          },
+	          success: function success(result) {
+	               ajaxParm.success(result);
+	          },
+	          error: function error(result) {
+	               ajaxParm.error(result);
+	          }
+	     });
 	}
 
 /***/ },
