@@ -86519,7 +86519,7 @@
 	                        borderWidth: 1
 	                    }
 	                },
-	                data: _this.convertData(geoSereisFinal[1])
+	                data: _this.convertData(geoSereisFinal[_this.state.realtimeSwithVal])
 	            }, {
 	                type: 'map',
 	                name: '',
@@ -86697,9 +86697,10 @@
 	        if (!isEqualVal) {
 	            var realtimeSwithVal = nextProps.realtimeSwithVal;
 
+	            _this.setState({
+	                realtimeSwithVal: realtimeSwithVal
+	            });
 	            if (!!chartShanghai) {
-	                console.log(geoSereisFinal, "geoSereisFinal");
-	                console.log(realtimeSwithVal, "realtimeSwithVal");
 	                chartShanghai.setOption({
 	                    series: [{
 	                        data: this.convertData(geoSereisFinal[realtimeSwithVal])
@@ -86732,7 +86733,7 @@
 	    },
 
 	    NewsScroll: function NewsScroll() {
-	        //地图上一行字的滚动
+	        //地图上一行字的滚动,已经废弃，改用cssanimate控制
 	        var barWidth = parseInt($(".bar").css("width"));
 	        function scroll() {
 	            $(".carousel").animate({ left: -barWidth }, 20000, function () {
