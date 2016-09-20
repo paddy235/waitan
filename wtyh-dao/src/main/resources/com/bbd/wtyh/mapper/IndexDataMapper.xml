@@ -42,4 +42,23 @@
     #{dynamicRiskIndex},#{legalRpt},#{companyType},
     #{regDate},#{reviewTime},#{isRise});
   </insert>
+
+  <update id="update" parameterType="com.bbd.wtyh.domain.IndexDataDO" >
+    UPDATE `index_data` set
+    create_by = #{createBy},
+    create_date = #{createDate},
+    update_by = #{updateBy},
+    update_date = #{updateDate},
+    reg_capital = #{regCapital},
+    company_qualification = #{companyQualification},
+    static_risk_index = #{staticRiskIndex},
+    dynamic_risk_index = #{dynamicRiskIndex},
+    legal_rpt = #{legalRpt},
+    company_type = #{companyType},
+    reg_date = #{regDate},
+    review_time = #{reviewTime},
+    is_rise = #{isRise}
+    where company_name = #{companyName,jdbcType=VARCHAR}
+    and area = #{area,jdbcType=VARCHAR};
+  </update>
 </mapper>

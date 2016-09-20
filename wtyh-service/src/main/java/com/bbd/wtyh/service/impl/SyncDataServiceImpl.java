@@ -60,6 +60,7 @@ public class SyncDataServiceImpl implements SyncDataService {
 				SyncDataInformationDO syncDataInformationDO = new SyncDataInformationDO();
 				syncDataInformationDO = gson.fromJson(string, SyncDataInformationDO.class);
 				Integer type = syncDataInformationDO.getType();
+				System.out.println("----type------"+type);
 				String content = syncDataInformationDO.getContent();
 				switch (type) {
 					case 1:
@@ -80,7 +81,14 @@ public class SyncDataServiceImpl implements SyncDataService {
 					case 4:
 						IndexDataDO indexDataDO = new IndexDataDO();
 						indexDataDO = gson.fromJson(content, IndexDataDO.class);
-						indexDataMapper.save(indexDataDO);
+						String companyName = indexDataDO.getCompanyName();
+						String area = indexDataDO.getArea();
+						IndexDataDO isExistDO = indexDataMapper.selectByPrimaryKey(companyName, area);
+						if (isExistDO == null) {
+							indexDataMapper.save(indexDataDO);
+						} else {
+							indexDataMapper.update(indexDataDO);
+						}
 						break;
 					case 5:
 						RelationDataDO relationDataDO = new RelationDataDO();
