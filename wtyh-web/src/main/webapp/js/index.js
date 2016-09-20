@@ -40338,29 +40338,29 @@
 /* 593 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.ajax = ajax;
 	function ajax(ajaxParm) {
+	    var timestamp = Date.parse(new Date());
 	    $.ajax({
-	        url: ajaxParm.url,
+	        url: ajaxParm.url + "?" + "t=" + timestamp,
 	        dataType: ajaxParm.dataType,
 	        data: ajaxParm.data,
 	        type: ajaxParm.type,
-	        success: function success(result) {
-	            var success = result.success;
-	            console.log(success, '成功了');
-	            if (success == false) {
+	        complete: function complete(result) {
+	            var data = result.responseText.substr(20, 8);
+	            if (data == "no login") {
 	                window.location.href = "/";
-	            } else {
-	                ajaxParm.success(result);
 	            }
 	        },
+	        success: function success(result) {
+	            ajaxParm.success(result);
+	        },
 	        error: function error(result) {
-	            console.log(result, '错误了');
 	            ajaxParm.error(result);
 	        }
 	    });
