@@ -87079,7 +87079,7 @@
 	                        gridRight: "10%",
 	                        gridLeft: "10%",
 	                        gridBottom: "0%",
-	                        gridTop: "10%",
+	                        gridTop: "20%",
 	                        xAxisName: "企业数",
 	                        yAxis: nineDate.content.exchange.xAxis /*["奖励众筹", "非公开股权融资", "公益s众筹", "公益2q众筹", "公益众d筹"]*/
 	                        , series: [nineDate.content.exchange.series]
