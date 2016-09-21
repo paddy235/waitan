@@ -72849,6 +72849,15 @@
 	                yMax: yAxis.max,
 	                yInterval: yAxis.interval,
 	                xAxis: _xAxisData,
+	                symbolSize: function symbolSize(val) {
+	                    if (val[2] < 1000) {
+	                        return val[2] / 10;
+	                    } else if (val[2] > 1000 && val[2] < 10000) {
+	                        return val[2] / 400;
+	                    } else {
+	                        return val[2] / 400;
+	                    }
+	                },
 	                data: _setData,
 	                series: [[{
 	                    color: '#e14340'
