@@ -50,4 +50,6 @@ public interface OfflineFinanceService {
     Map companyInfo(String companyName);
 
     void updateCompanyRiskLevel();
+
+    void updateInexData();
 }
