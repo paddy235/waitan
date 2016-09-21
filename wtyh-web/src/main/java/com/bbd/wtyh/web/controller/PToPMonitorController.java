@@ -354,21 +354,25 @@ public class PToPMonitorController {
             return ResponseBean.successResponse(new ArrayList<>());
         }
 
+        List<Map> rst1 = new ArrayList<>();
         for (PlatRankDataDTO dto : list) {
-            double total = Double.valueOf(dto.getStay_still_of_total().isEmpty() || dto.getStay_still_of_total().equals("/") ? "0" : dto.getStay_still_of_total());
-            dto.setStay_still_of_total(String.valueOf(CalculateUtils.divide(total, 100000000, 2)));
+            Map<String, Object> rst = new HashMap<>();
+            rst.put("rank", dto.getRank());
+            rst.put("plat_name", dto.getPlat_name());
             try {
-                if (!org.springframework.util.StringUtils.hasText(dto.getAmount()) || "/".equals(dto.getAmount())) {
-                    dto.setAmount("0");
-                }
-                dto.setAmount(dto.getAmount().split("\\.")[0]);
-                dto.setAmount("" + CalculateUtils.divide(Double.parseDouble(dto.getAmount()), 100000000, 2));
+                rst.put("amount", CalculateUtils.divide(dto.getAmount(), 100000000, 2));
             } catch (Exception e) {
-
             }
+            rst.put("income_rate", dto.getIncome_rate() == null ? "" : dto.getIncome_rate());
+            rst.put("loan_period", dto.getLoan_period() == null ? "" : dto.getLoan_period());
+            rst.put("stay_still_of_total", CalculateUtils.divide(dto.getStay_still_of_total(), 100000000, 2));
+            rst.put("plat_status", dto.getPlat_status());
+            rst.put("registered_address", dto.getRegistered_address());
+
+            rst1.add(rst);
         }
 
-        return ResponseBean.successResponse(list);
+        return ResponseBean.successResponse(rst1);
     }
 
 

@@ -64380,8 +64380,8 @@
 	                                    var _recordStatus = item.recordStatus == 1 ? "已备案" : "取消备案";
 	                                    var _website = item.website == "" ? "javascript:void(null)" : item.website;
 	                                    var _managedFund = item.managedFund == null ? "/" : item.managedFund;
-	                                    var _paidinCapital = item.paidinCapital == null ? "/" : item.paidinCapital;
-	                                    var _registeredCapital = item.registeredCapital == null ? "/" : item.registeredCapital;
+	                                    var _paidinCapital = item.paidinCapital == null ? "/" : item.paidinCapital + "万元";
+	                                    var _registeredCapital = item.registeredCapital == null ? "/" : item.registeredCapital + "万元";
 	                                    if (index % 2) {
 	                                        return _react2.default.createElement(
 	                                            'tr',
@@ -66440,7 +66440,7 @@
 	                                _react2.default.createElement(
 	                                    'th',
 	                                    { width: '20%', className: 'cur-pointer', 'data-order': this.state.orderType, ref: 'p2p', onClick: this.handleClick.bind(this, "p2p") },
-	                                    'P2P关联',
+	                                    '网络借贷关联',
 	                                    _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                                ),
 	                                _react2.default.createElement(
@@ -66637,7 +66637,7 @@
 	        _react2.default.createElement(
 	          'span',
 	          null,
-	          'P2P关联'
+	          '网络借贷关联'
 	        ),
 	        _react2.default.createElement(
 	          'span',
@@ -67103,7 +67103,7 @@
 	        _react2.default.createElement(
 	          'span',
 	          null,
-	          'P2P关联'
+	          '网络借贷关联'
 	        ),
 	        _react2.default.createElement(
 	          'span',
@@ -68409,7 +68409,6 @@
 	        _domAttr == "desc" ? _dom.attr("data-order", "asc") : _dom.attr("data-order", "desc");
 	        this.setState({ orderType: _dom.attr("data-order"), orderField: field }, function () {
 	            var _basedata = BOSS.sort(this.state.listData, field, this.state.orderType);
-	            console.log(this.state.listData, 99);
 	            this.setState({ listData: _basedata });
 	        });
 	    },
@@ -68422,13 +68421,6 @@
 
 	            if (netCreditRequest == true) {
 	                if (netCreditResult.success) {
-	                    // var content=netCreditResult.content;
-	                    // var len=content.length;
-	                    // var listData=[];
-	                    // var eachObj={};
-	                    // for(var i=0;i<len;i++){
-
-	                    // }
 	                    this.setState({ listData: netCreditResult.content }, function () {
 	                        $(_this.refs.stay_still_of_total).trigger('click');
 	                    });
@@ -68570,10 +68562,12 @@
 	                            this.state.listData.map(function (item, index) {
 	                                var _num = index + 1;
 	                                var _amount = item.amount == undefined ? "/" : Number(item.amount).toFixed(2) + "亿";
-	                                var _stay_still_of_total = item.stay_still_of_total == undefined ? "/" : Number(item.stay_still_of_total).toFixed(2) + "亿";
+	                                var _stay_still_of_total = item.stay_still_of_total == "" ? "/" : Number(item.stay_still_of_total).toFixed(2) + "亿";
 	                                var _registered_address = item.registered_address == undefined ? "/" : item.registered_address;
 	                                var _plat_status = item.plat_status == "" ? "/" : item.plat_status;
 	                                var platName = item.plat_name;
+	                                var incomeRate = item.income_rate == "" ? "/" : item.income_rate + "%";
+	                                var loanPeriod = item.loan_period == "" ? "/" : item.loan_period + "月";
 	                                {
 	                                    if (index % 2) {
 	                                        return _react2.default.createElement(
@@ -68606,14 +68600,12 @@
 	                                            _react2.default.createElement(
 	                                                'td',
 	                                                null,
-	                                                item.income_rate,
-	                                                '%'
+	                                                incomeRate
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
 	                                                null,
-	                                                item.loan_period,
-	                                                '月'
+	                                                loanPeriod
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
@@ -68661,14 +68653,12 @@
 	                                            _react2.default.createElement(
 	                                                'td',
 	                                                null,
-	                                                item.income_rate,
-	                                                '%'
+	                                                incomeRate
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
 	                                                null,
-	                                                item.loan_period,
-	                                                '月'
+	                                                loanPeriod
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
@@ -72859,6 +72849,15 @@
 	                yMax: yAxis.max,
 	                yInterval: yAxis.interval,
 	                xAxis: _xAxisData,
+	                symbolSize: function symbolSize(val) {
+	                    if (val[2] < 1000) {
+	                        return val[2] / 10;
+	                    } else if (val[2] > 1000 && val[2] < 10000) {
+	                        return val[2] / 400;
+	                    } else {
+	                        return val[2] / 400;
+	                    }
+	                },
 	                data: _setData,
 	                series: [[{
 	                    color: '#e14340'
@@ -74154,7 +74153,7 @@
 	    getInitialState: function getInitialState() {
 	        return {
 	            list: [],
-	            orderZB: "DESC",
+	            orderZB: "",
 	            areaName: "",
 	            orderName: ""
 	        };
@@ -74172,8 +74171,8 @@
 	    },
 	    componentDidMount: function componentDidMount() {
 	        this.setState({ areaName: this.state.areaName });
-	        this.setState({ orderZB: "DESC" });
 	        this.countyChange(this.state.areaName, "", this.state.orderZB);
+	        this.setState({ orderZB: "desc" });
 	        $('#elsehpqList-scroll').perfectScrollbar().scrollTop(0);
 	    },
 	    componentDidUpdate: function componentDidUpdate() {
@@ -75352,12 +75351,12 @@
 	                    var options = {
 	                        "titleShow": true,
 	                        "color": ["#e24441", "#12b5b0", "#fec252"],
-	                        "legend": ["企业数量", "注册资本总额(人民币)", "注册资本注册资本总额(美元)"],
+	                        "legend": ["企业数量", "注册资本总额(人民币)", "注册资本总额(美元)"],
 	                        "legendShow": true,
 	                        "legendRight": "25%",
 	                        "legendTop": "1",
 	                        "legendWidth": 600,
-	                        "barName": ["注册资本总额(人民币)", "注册资本注册资本总额(美元)"],
+	                        "barName": ["注册资本总额(人民币)", "注册资本总额(美元)"],
 	                        "lineName": ["企业数量"],
 	                        // "YnameRoutate":0,
 	                        // "YnameLocation":"top",
@@ -79261,6 +79260,16 @@
 	                type: 'pie',
 	                center: ['45%', 200],
 	                radius: ['40%', '60%'],
+	                label: {
+	                    normal: {
+	                        show: false
+	                    }
+	                },
+	                labelLine: {
+	                    normal: {
+	                        show: false
+	                    }
+	                },
 	                data: ParkEnd
 	            }]
 	        };
@@ -80784,35 +80793,22 @@
 	                type: 'pie',
 	                center: ['45%', 180],
 	                radius: ['40%', '60%'],
+	                label: {
+	                    normal: {
+	                        show: false
+	                    }
+	                },
+	                labelLine: {
+	                    normal: {
+	                        show: false
+	                    }
+	                },
 	                data: IndustryEnd
 	            }]
 	        };
 	        myChart.setOption(option);
 	        myChart.resize();
 	    },
-
-	    // ajaxIndustry(val){
-	    //     $.ajax({
-	    //         url: 'park/buildingBusinessDistribute.do',
-	    //         type: 'get',
-	    //         dataType: 'json',
-	    //         data: {areaId: val},
-	    //         success:function(res){
-	    //             if(res.success){
-	    //                 var IndustryBox = [];
-	    //                 var IndustryContent = [];
-	    //                 for(var i=0; i< res.content.length; i++){
-	    //                     IndustryBox.push({value:res.content[i].count,name:res.content[i].type});
-	    //                 };
-	    //                 for(var j=0; j< res.content[0].children.length; j++){
-	    //                     IndustryContent.push({value:res.content[0].children[j].count,name:res.content[0].children[j].type}) 
-	    //                 };
-	    //             }
-	    //           this.initMap(IndustryBox,IndustryContent)
-	    //         }.bind(this)
-	    //     })
-	    // },
-
 	    render: function render() {
 	        return _react2.default.createElement('div', { className: 'Industry', id: 'Industry' });
 	    }
@@ -84561,6 +84557,7 @@
 	    getCompanyInfoD3(jsonData);
 	  },
 
+
 	  setParm: function setParm() {
 	    var option = {
 	      title: "薪酬分布",
@@ -84569,7 +84566,7 @@
 	      color: ["#E24340", "#00A0EA"],
 	      barWidth: 40,
 	      gridLeft: "12%",
-	      yAxisName: "CourtAnnouncement.jsx",
+	      yAxisName: "",
 	      yFlag: "%", //y轴单位
 	      splitLineShow: true,
 	      legendShow: false,
