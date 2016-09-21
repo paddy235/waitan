@@ -68409,7 +68409,6 @@
 	        _domAttr == "desc" ? _dom.attr("data-order", "asc") : _dom.attr("data-order", "desc");
 	        this.setState({ orderType: _dom.attr("data-order"), orderField: field }, function () {
 	            var _basedata = BOSS.sort(this.state.listData, field, this.state.orderType);
-	            console.log(this.state.listData, 99);
 	            this.setState({ listData: _basedata });
 	        });
 	    },
@@ -68422,13 +68421,6 @@
 
 	            if (netCreditRequest == true) {
 	                if (netCreditResult.success) {
-	                    // var content=netCreditResult.content;
-	                    // var len=content.length;
-	                    // var listData=[];
-	                    // var eachObj={};
-	                    // for(var i=0;i<len;i++){
-
-	                    // }
 	                    this.setState({ listData: netCreditResult.content }, function () {
 	                        $(_this.refs.stay_still_of_total).trigger('click');
 	                    });
@@ -68570,10 +68562,12 @@
 	                            this.state.listData.map(function (item, index) {
 	                                var _num = index + 1;
 	                                var _amount = item.amount == undefined ? "/" : Number(item.amount).toFixed(2) + "亿";
-	                                var _stay_still_of_total = item.stay_still_of_total == undefined ? "/" : Number(item.stay_still_of_total).toFixed(2) + "亿";
+	                                var _stay_still_of_total = item.stay_still_of_total == "" ? "/" : Number(item.stay_still_of_total).toFixed(2) + "亿";
 	                                var _registered_address = item.registered_address == undefined ? "/" : item.registered_address;
 	                                var _plat_status = item.plat_status == "" ? "/" : item.plat_status;
 	                                var platName = item.plat_name;
+	                                var incomeRate = item.income_rate == "" ? "/" : item.income_rate + "%";
+	                                var loanPeriod = item.loan_period == "" ? "/" : item.loan_period + "月";
 	                                {
 	                                    if (index % 2) {
 	                                        return _react2.default.createElement(
@@ -68606,14 +68600,12 @@
 	                                            _react2.default.createElement(
 	                                                'td',
 	                                                null,
-	                                                item.income_rate,
-	                                                '%'
+	                                                incomeRate
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
 	                                                null,
-	                                                item.loan_period,
-	                                                '月'
+	                                                loanPeriod
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
@@ -68661,14 +68653,12 @@
 	                                            _react2.default.createElement(
 	                                                'td',
 	                                                null,
-	                                                item.income_rate,
-	                                                '%'
+	                                                incomeRate
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
 	                                                null,
-	                                                item.loan_period,
-	                                                '月'
+	                                                loanPeriod
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
