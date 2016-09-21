@@ -84561,6 +84561,7 @@
 	    getCompanyInfoD3(jsonData);
 	  },
 
+
 	  setParm: function setParm() {
 	    var option = {
 	      title: "薪酬分布",
