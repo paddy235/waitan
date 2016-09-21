@@ -31,6 +31,13 @@
       and area = #{area,jdbcType=VARCHAR}
   </select>
 
+  <select id="findByPage" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from index_data
+    limit #{pagination.begin}, #{pagination.pageSize}
+  </select>
+
   <select id="getNewestUpdateDate" resultType="date">
     SELECT DISTINCT update_date from index_data ORDER BY update_date desc;
   </select>

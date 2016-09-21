@@ -5,6 +5,8 @@ import com.bbd.wtyh.domain.RecruitDataDO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 public interface IndexDataMapper {
 
@@ -15,4 +17,6 @@ public interface IndexDataMapper {
     public Date getNewestUpdateDate();
 
     public void update(IndexDataDO indexDataDO);
+
+    List<IndexDataDO> findByPage(Map<String, Object> params);
 }

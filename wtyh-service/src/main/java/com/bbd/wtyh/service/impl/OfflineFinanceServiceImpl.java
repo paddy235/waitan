@@ -12,10 +12,7 @@ import com.bbd.wtyh.domain.vo.LineVO;
 import com.bbd.wtyh.domain.vo.PointVO;
 import com.bbd.wtyh.domain.vo.StaticRiskVO;
 import com.bbd.wtyh.domain.vo.StatisticsVO;
-import com.bbd.wtyh.mapper.CompanyAnalysisResultMapper;
-import com.bbd.wtyh.mapper.CompanyCreditInformationMapper;
-import com.bbd.wtyh.mapper.CompanyMapper;
-import com.bbd.wtyh.mapper.StaticRiskMapper;
+import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.*;
 import com.bbd.wtyh.service.impl.relation.RegisterUniversalFilterChainImp;
@@ -74,6 +71,10 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     @Autowired
     private CompanyMapper companyMapper;
     @Autowired
+    private RiskCompanyMapper riskCompanyMapper;
+    @Autowired
+    private IndexDataMapper indexDataMapper;
+    @Autowired
     private CompanyAnalysisResultMapper companyAnalysisResultMapper;
     @Autowired
     private PToPMonitorService pToPMonitorService;
@@ -129,6 +130,51 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
         }
     }
 
+    @Override
+    public void updateInexData() {
+        int totalCount = riskCompanyMapper.getTopCount(null);
+        if (totalCount > 0) {
+            Pagination pagination = new Pagination();
+            pagination.setPageSize(1000);
+            pagination.setCount(totalCount);
+            int totalPage = pagination.getLastPageNumber();
+            Map<String, Object> params = new HashMap<>();
+            ExecutorService dataExecutorService = Executors.newFixedThreadPool(20);
+            for (int pageNo=1; pageNo <= totalPage; pageNo++) {
+                pagination.setPageNumber(pageNo);
+                params.put("pagination", pagination);
+                List<IndexDataDO> pageList = indexDataMapper.findByPage(params);
+                if (!CollectionUtils.isEmpty(pageList)) {
+                    for (final IndexDataDO indexDataDO : pageList) {
+                        final String companyName = indexDataDO.getCompanyName();
+                        Float staticRiskIndex = indexDataDO.getStaticRiskIndex();
+                        staticRiskIndex = this.getStaticRiskIndex(staticRiskIndex, companyName);
+                        indexDataDO.setStaticRiskIndex(staticRiskIndex);
+                        dataExecutorService.submit(new Runnable() {
+                            @Override
+                            public void run() {
+                                logger.warn("-------"+companyName);
+                                indexDataMapper.update(indexDataDO);
+                            }
+                        });
+                    }
+                }
+            }
+            dataExecutorService.shutdown();
+            try {
+                dataExecutorService.awaitTermination(1, TimeUnit.DAYS);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    /**
+     * 更新光谱分析结果
+     * @param platRankMapData
+     * @param companyDO
+     */
     private void updateCompanRiskLevel(Map<Integer, Integer> platRankMapData, CompanyDO companyDO) {
         Integer companyId = companyDO.getCompanyId();
         Integer companyType = (int)companyDO.getCompanyType();
@@ -242,6 +288,11 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
         return result;
     }
 
+    /**
+     * 本地模型
+     * @param companyName
+     * @return
+     */
     public Integer getCreditInfoRisk(String companyName) {
         CompanyDO companyDO = companyMapper.selectByName(companyName);
         Integer creditInfoRisk = 0;
@@ -270,13 +321,14 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
                                 creditInfoRisk += tempMap.get(value);
                             }
                         }
-
                     }
                 }
             }
         }
-        return creditInfoRisk;
+        //开三次方*5
+        return Integer.parseInt(new java.text.DecimalFormat("0").format(Math.pow(creditInfoRisk, 1.0/3)*5));
     }
+
     @Override
     public List<StatisticsVO> queryStatistics(String companyName, String tabIndex, String areaCode) throws ParseException {
         List<StatisticsVO> avgList = new ArrayList<>();
@@ -506,15 +558,24 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
                 } else {} // 保持结构完整
             }
         }
-        Float staticRiskIndex = 0f;
         if (vo != null) {
-            staticRiskIndex = Float.parseFloat(vo.getStcRiskIndex()) + this.getCreditInfoRisk(companyName);
-            if (staticRiskIndex > 100) {
-                staticRiskIndex = 100f;
-            }
-            vo.setStcRiskIndex(String.valueOf(staticRiskIndex));
+            vo.setStcRiskIndex(String.valueOf(getStaticRiskIndex(Float.parseFloat(vo.getStcRiskIndex()), companyName)));
         }
         return vo;
+    }
+
+    /**
+     * 静态风险指数+本地模型
+     * @param staticRiskIndex
+     * @param companyName
+     * @return
+     */
+    public Float getStaticRiskIndex(Float staticRiskIndex, String companyName) {
+        staticRiskIndex = staticRiskIndex + this.getCreditInfoRisk(companyName);
+        if (staticRiskIndex > 100) {
+            staticRiskIndex = 100f;
+        }
+        return staticRiskIndex;
     }
 
     @Override

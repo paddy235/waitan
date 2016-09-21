@@ -465,4 +465,15 @@ public class OfflineFinanceController {
         offlineFinanceService.updateCompanyRiskLevel();
         return ResponseBean.successResponse("更新成功");
     }
+
+    /**
+     * 更新企业光谱分析结果
+     * @return
+     */
+    @RequestMapping("updateInexData.do")
+    @ResponseBody
+    public ResponseBean updateInexData() {
+        offlineFinanceService.updateInexData();
+        return ResponseBean.successResponse("更新成功");
+    }
 }
