@@ -14,13 +14,13 @@ public class PlatRankDataDTO {
 
     private String plat_name;
 
-    private String amount;
+    private Double amount;
 
-    private String income_rate;
+    private Double income_rate;
 
-    private String loan_period;
+    private Double loan_period;
 
-    private String stay_still_of_total;
+    private Double stay_still_of_total;
 
     private String plat_status;
 
@@ -60,35 +60,35 @@ public class PlatRankDataDTO {
         this.plat_name = plat_name;
     }
 
-    public String getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
-    public String getIncome_rate() {
+    public Double getIncome_rate() {
         return income_rate;
     }
 
-    public void setIncome_rate(String income_rate) {
+    public void setIncome_rate(Double income_rate) {
         this.income_rate = income_rate;
     }
 
-    public String getLoan_period() {
+    public Double getLoan_period() {
         return loan_period;
     }
 
-    public void setLoan_period(String loan_period) {
+    public void setLoan_period(Double loan_period) {
         this.loan_period = loan_period;
     }
 
-    public String getStay_still_of_total() {
+    public Double getStay_still_of_total() {
         return stay_still_of_total;
     }
 
-    public void setStay_still_of_total(String stay_still_of_total) {
+    public void setStay_still_of_total(Double stay_still_of_total) {
         this.stay_still_of_total = stay_still_of_total;
     }
 }

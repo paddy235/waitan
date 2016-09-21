@@ -19,7 +19,7 @@ public class CalculateUtils {
      * @throws
      */
     public static double divide(Number bcs,Number cs,int scale){
-        if(cs.doubleValue() == 0){
+        if(bcs == null || cs == null || cs.doubleValue() == 0){
             return 0;
         }
         BigDecimal bBcs = new BigDecimal(String.valueOf(bcs));
