@@ -80429,8 +80429,16 @@
 	        var haveTypeLen = haveTypeArr.length;
 	        for (var j = 0; j < haveTypeLen; j++) {
 	            var registeredDate = haveTypeArr[j].registeredDate;
+	            var registeredCapital = haveTypeArr[j].registeredCapital;
+	            var registeredType = haveTypeArr[j].registeredType;
 	            if (registeredDate == null) {
 	                haveTypeArr[j].registeredDate = "";
+	            }
+	            if (registeredCapital == null) {
+	                haveTypeArr[j].registeredCapital = "";
+	            }
+	            if (registeredType == null) {
+	                haveTypeArr[j].registeredType = "";
 	            }
 	        }
 	        this.setState({ Enterprise: content, otherArr: otherArr, haveTypeArr: haveTypeArr, companyNo: companyNo });
@@ -80537,9 +80545,9 @@
 	                            'tbody',
 	                            null,
 	                            this.state.haveTypeArr.map(function (elem, index) {
-	                                var registeredCapital = elem.registeredCapital == null ? "/" : elem.registeredCapital + "万元";
-	                                var registeredDate = elem.registeredDate == null ? "/" : elem.registeredDate;
-	                                var registeredType = elem.registeredType == null ? "/" : elem.registeredType;
+	                                var registeredCapital = elem.registeredCapital == "" ? "/" : elem.registeredCapital + "万元";
+	                                var registeredDate = elem.registeredDate == "" ? "/" : elem.registeredDate;
+	                                var registeredType = elem.registeredType == "" ? "/" : elem.registeredType;
 	                                return _react2.default.createElement(
 	                                    'tr',
 	                                    { key: index },
