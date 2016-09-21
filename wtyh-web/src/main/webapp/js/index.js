@@ -84561,6 +84561,7 @@
 	    getCompanyInfoD3(jsonData);
 	  },
 
+
 	  setParm: function setParm() {
 	    var option = {
 	      title: "薪酬分布",
@@ -84569,7 +84570,7 @@
 	      color: ["#E24340", "#00A0EA"],
 	      barWidth: 40,
 	      gridLeft: "12%",
-	      yAxisName: "CourtAnnouncement.jsx",
+	      yAxisName: "",
 	      yFlag: "%", //y轴单位
 	      splitLineShow: true,
 	      legendShow: false,
