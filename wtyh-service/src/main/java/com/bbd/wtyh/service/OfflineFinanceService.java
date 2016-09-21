@@ -49,7 +49,9 @@ public interface OfflineFinanceService {
 
     Map companyInfo(String companyName);
 
-    void updateCompanyRiskLevel();
+    public void updateCompanyRiskLevel();
 
-    void updateInexData();
+    public void updateInexData();
+
+    public Float getSRI(Float staticRiskIndex, String companyName);
 }
