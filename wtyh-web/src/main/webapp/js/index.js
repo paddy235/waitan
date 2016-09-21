@@ -80426,6 +80426,13 @@
 	                haveTypeArr.push(content[i]);
 	            }
 	        }
+	        var haveTypeLen = haveTypeArr.length;
+	        for (var j = 0; j < haveTypeLen; j++) {
+	            var registeredDate = haveTypeArr[j].registeredDate;
+	            if (registeredDate == null) {
+	                haveTypeArr[j].registeredDate = "";
+	            }
+	        }
 	        this.setState({ Enterprise: content, otherArr: otherArr, haveTypeArr: haveTypeArr, companyNo: companyNo });
 	    },
 	    getBuildCompanyList: function getBuildCompanyList(json) {
@@ -80444,6 +80451,7 @@
 	            var _basedata = BOSS.sort(this.state.haveTypeArr, field, this.state.orderType);
 	            this.setState({ haveTypeArr: _basedata });
 	        });
+	        console.log(this.state.haveTypeArr);
 	    },
 	    render: function render() {
 	        return _react2.default.createElement(
