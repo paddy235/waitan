@@ -148,7 +148,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
                     for (final IndexDataDO indexDataDO : pageList) {
                         final String companyName = indexDataDO.getCompanyName();
                         Float staticRiskIndex = indexDataDO.getStaticRiskIndex();
-                        staticRiskIndex = this.getStaticRiskIndex(staticRiskIndex, companyName);
+                        staticRiskIndex = this.getSRI(staticRiskIndex, companyName);
                         indexDataDO.setStaticRiskIndex(staticRiskIndex);
                         dataExecutorService.submit(new Runnable() {
                             @Override
@@ -559,7 +559,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
             }
         }
         if (vo != null) {
-            vo.setStcRiskIndex(String.valueOf(getStaticRiskIndex(Float.parseFloat(vo.getStcRiskIndex()), companyName)));
+            vo.setStcRiskIndex(String.valueOf(getSRI(Float.parseFloat(vo.getStcRiskIndex()), companyName)));
         }
         return vo;
     }
@@ -570,7 +570,8 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
      * @param companyName
      * @return
      */
-    public Float getStaticRiskIndex(Float staticRiskIndex, String companyName) {
+    @Override
+    public Float getSRI(Float staticRiskIndex, String companyName) {
         staticRiskIndex = staticRiskIndex + this.getCreditInfoRisk(companyName);
         if (staticRiskIndex > 100) {
             staticRiskIndex = 100f;
