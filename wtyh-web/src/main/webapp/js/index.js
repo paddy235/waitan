@@ -59442,7 +59442,7 @@
 	        var conLength = content.length;
 
 	        for (var i = 0; i < conLength; i++) {
-	            var year = content[i].year + "-" + content[i].month;
+	            var year = content[i].year + "Q" + content[i].quarter;
 	            var amount = content[i].amount; //贷款余额 单位万元
 	            var amountBill = Number(amount / 10000).toFixed(2); //转成单位亿元
 	            var number = content[i].number; //笔数
@@ -59733,7 +59733,7 @@
 	function getFinGuaDutyBalance(json) {
 	  return function (dispatch) {
 	    (0, _ajax.ajax)({
-	      url: "/guarantee/balanceByMonth.do",
+	      url: "/guarantee/balanceByQuarter.do",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
@@ -60922,6 +60922,22 @@
 				min = 0;
 			}
 			return { min: min, max: max, interval: interval };
+		},
+		/*
+	 * @ arr:排序的数组 冒泡排序 二维数组 第一个元素排序
+	 */
+		sortArr: function sortArr(arr) {
+			var len = arr.length;
+			for (var i = 0; i < len; i++) {
+				for (var j = 0; j < len - i - 1; j++) {
+					if (arr[j][0] > arr[j + 1][0]) {
+						var temp = arr[j];
+						arr[j] = arr[j + 1];
+						arr[j + 1] = temp;
+					}
+				}
+			}
+			return arr;
 		}
 	};
 
@@ -60981,6 +60997,11 @@
 	    for (var i = 0; i < len; i++) {
 	      yData.push(dataYAxis[i][1]);
 	    }
+
+	    var dataYAxis = _publicFun2.default.sortArr(dataYAxis);
+
+	    var xAxis = data.xAxis.reverse();
+
 	    var yAxis = _publicFun2.default.fomatYaxis(yData);
 
 	    var option = {
@@ -60994,15 +61015,15 @@
 	      yMax: yAxis.max,
 	      yInterval: yAxis.interval,
 	      yAxisName: '亿元',
-	      xAxis: data.xAxis,
-	      data: data.data,
+	      xAxis: xAxis,
+	      data: dataYAxis,
 	      symbolSize: function symbolSize(val) {
 	        if (val[2] < 1000) {
 	          return val[2] / 10;
 	        } else if (val[2] > 1000 && val[2] < 10000) {
 	          return val[2] / 500;
 	        } else {
-	          return val[2] / 600;
+	          return val[2] / 1800;
 	        }
 	      },
 	      series: [[{
@@ -65001,7 +65022,7 @@
 
 	        var conLength = content.length;
 	        for (var i = 0; i < conLength; i++) {
-	            var year = content[i].year + "-" + content[i].month;
+	            var year = content[i].year + "Q" + content[i].quarter;
 	            var amount = content[i].amount; //贷款余额 原单位万元 
 	            var amountBill = Number(content[i].amount / 10000).toFixed(2); //转成亿元
 
@@ -65299,7 +65320,7 @@
 	function getLoanBalance(json) {
 	  return function (dispatch) {
 	    (0, _ajax.ajax)({
-	      url: "/loan/balanceByMonth.do",
+	      url: "/loan/balanceByQuarter.do",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
@@ -65792,6 +65813,12 @@
 	            agrBalScale.push(data[i].agrBalScale);
 	            smlComBalScale.push(data[i].smlComBalScale);
 	        }
+
+	        var year = year.reverse();
+	        var amount = amount.reverse();
+	        var agrBalScale = agrBalScale.reverse();
+	        var smlComBalScale = smlComBalScale.reverse();
+
 	        var option = {
 	            "title": "",
 	            "color": ["#13c7c1", "#efd79b", "#e14340"],
@@ -66224,9 +66251,15 @@
 	    var dataYAxis = data.data;
 	    var len = dataYAxis.length;
 	    var yData = [];
+	    var dataReverse = [];
 	    for (var i = 0; i < len; i++) {
 	      yData.push(dataYAxis[i][1]);
 	    }
+
+	    var dataYAxis = _publicFun2.default.sortArr(dataYAxis);
+
+	    var xAxis = data.xAxis.reverse();
+
 	    var yAxis = _publicFun2.default.fomatYaxis(yData); //传入y轴数组 返回最小值 最大值 间隔
 
 	    var option = {
@@ -66240,15 +66273,15 @@
 	      yMin: yAxis.min,
 	      yMax: yAxis.max,
 	      yInterval: yAxis.interval,
-	      xAxis: data.xAxis,
-	      data: data.data,
+	      xAxis: xAxis,
+	      data: dataYAxis,
 	      symbolSize: function symbolSize(val) {
 	        if (val[2] < 1000) {
 	          return val[2] / 10;
 	        } else if (val[2] > 1000 && val[2] < 10000) {
 	          return val[2] / 400;
 	        } else {
-	          return val[2] / 400;
+	          return val[2] / 800;
 	        }
 	      },
 	      series: [[{
