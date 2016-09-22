@@ -86986,7 +86986,7 @@
 	                    //数据处理
 	                    var loanBalanceData = { //贷款余额数据
 	                        xAxis: [],
-	                        data: [] ////[['2010',45,30],['2010',10,10],['2010',40,20],['2010',30,50],['2010',60,60],['2010',50,10],['2010',70,80]],
+	                        data: []
 	                    };
 	                    var content = nineDate.content.loan.content;
 	                    var conLength = content.length;
