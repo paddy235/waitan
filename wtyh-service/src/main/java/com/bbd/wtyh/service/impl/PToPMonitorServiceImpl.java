@@ -203,7 +203,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
                         IndustryShanghaiDTO zb = null;
                         System.out.print("------"+Constants.cacheDay);
                         if (!CollectionUtils.isEmpty(list)) {
-                            redisDAO.addObject(Constants.REDIS_KEY_BUSINESS_CHART_SHOW_INDUSTRY_SHANGHAI, list, Constants.cacheDay, List.class);
+                            redisDAO.addObject(Constants.REDIS_KEY_BUSINESS_CHART_SHOW_INDUSTRY_SHANGHAI, list, Constants.cacheDay_One_Day, List.class);
                         }
                         return list;
                     }
