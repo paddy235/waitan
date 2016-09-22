@@ -131,7 +131,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     }
 
     @Override
-    public void updateInexData() {
+    public void updateIndexData() {
         int totalCount = riskCompanyMapper.getTopCount(null);
         if (totalCount > 0) {
             Pagination pagination = new Pagination();
