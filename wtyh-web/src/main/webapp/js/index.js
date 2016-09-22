@@ -86984,22 +86984,40 @@
 	                    /**********第1个图——小额贷款**********/
 
 	                    //数据处理
-	                    var paramOneData = [];
-	                    nineDate.content.loan.series[0].map(function (item, index) {
-	                        item = Number(item / 10000).toFixed(2);
-	                        var x = nineDate.content.loan.xAxis[index];
-	                        var xx = [x, item];
-	                        paramOneData.push(xx);
-	                    });
-	                    nineDate.content.loan.series[1].map(function (item, index) {
-	                        paramOneData[index].push(item);
-	                    });
+	                    var loanBalanceData = { //贷款余额数据
+	                        xAxis: [],
+	                        data: [] ////[['2010',45,30],['2010',10,10],['2010',40,20],['2010',30,50],['2010',60,60],['2010',50,10],['2010',70,80]],
+	                    };
+	                    var content = nineDate.content.loan.content;
+	                    var conLength = content.length;
+	                    for (var i = 0; i < conLength; i++) {
+	                        var year = content[i].year + "Q" + content[i].quarter;
+	                        var amount = content[i].amount; //贷款余额 原单位万元 
+	                        var amountBill = Number(content[i].amount / 10000).toFixed(2); //转成亿元
 
-	                    var paramOneyAxis = [];
-	                    paramOneData.map(function (item, index) {
-	                        paramOneyAxis.push(item[1]);
-	                    });
-	                    paramOneyAxis = _publicFun2.default.fomatYaxis(paramOneyAxis);
+	                        var number = content[i].number; //笔数
+	                        var companyAmount = content[i].companyAmount; //公司数量
+	                        var averageBlance = Number(amount / companyAmount).toFixed(2); //平均贷款余额
+
+	                        //贷款余额
+	                        var dataArr = [year, amountBill, averageBlance];
+	                        loanBalanceData.xAxis.push(year);
+	                        loanBalanceData.data.push(dataArr);
+	                    }
+
+	                    var dataYAxis = loanBalanceData.data;
+	                    var len = dataYAxis.length;
+	                    var yData = [];
+	                    for (var i = 0; i < len; i++) {
+	                        yData.push(dataYAxis[i][1]);
+	                    }
+
+	                    var paramOneData = _publicFun2.default.sortArr(dataYAxis);
+
+	                    var paramOnexAxis = loanBalanceData.xAxis.reverse();
+
+	                    var paramOneyAxis = _publicFun2.default.fomatYaxis(yData); //传入y轴数组 返回最小值 最大值 间隔
+
 	                    paramOne = {
 	                        link: "/smallLoan#/smallLoan",
 	                        id: 'realTimeRightOne', //必传
@@ -87014,12 +87032,21 @@
 	                        },
 	                        gridTop: "25%",
 	                        legend: ["贷款余额及平均贷款余额"],
-	                        xAxis: nineDate.content.loan.xAxis,
+	                        xAxis: paramOnexAxis,
 	                        //yAxis:paramOneyAxis,
 	                        yMin: paramOneyAxis.min,
 	                        yMax: paramOneyAxis.max,
 	                        yInterval: paramOneyAxis.interval,
 	                        data: paramOneData,
+	                        symbolSize: function symbolSize(val) {
+	                            if (val[2] < 1000) {
+	                                return val[2] / 10;
+	                            } else if (val[2] > 1000 && val[2] < 10000) {
+	                                return val[2] / 600;
+	                            } else {
+	                                return val[2] / 1200;
+	                            }
+	                        },
 	                        series: [[{
 	                            color: '#e14340'
 	                        }]]
