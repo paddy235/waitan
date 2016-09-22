@@ -64951,6 +64951,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Immutable = __webpack_require__(621);
+	console.log(SmallLoanActionCreaters, 'SmallLoanActionCreaters');
 
 	//企业评级
 
