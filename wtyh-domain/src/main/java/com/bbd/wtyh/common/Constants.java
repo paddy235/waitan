@@ -75,6 +75,8 @@ public class Constants {
 	 */
 	public static Long cacheDay = 7l;
 
+	public static Long cacheDay_One_Day = 1l;
+
 	private static String [] docSort;
 	
 	public static String [] docSort(){
