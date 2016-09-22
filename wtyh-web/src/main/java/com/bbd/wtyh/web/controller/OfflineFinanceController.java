@@ -353,18 +353,6 @@ public class OfflineFinanceController {
     public ResponseBean businessChartShow() {
         //小贷
         ResponseBean loanResponseBean = loanController.balanceByQuarter();
-//        List<LoanBalanceDTO> loanBalanceResult = (List<LoanBalanceDTO>)loanResponseBean.getContent();
-//
-//        @SuppressWarnings("unchecked")
-//        XAxisSeriesLinesBean<String,String> loanDTO = new XAxisSeriesLinesBean<>(
-//                new ArrayList<String>(),
-//                new ArrayList<String>());
-//
-//        for (LoanBalanceDTO loanBalanceDTO : loanBalanceResult) {
-//            loanDTO.getxAxis().add(loanBalanceDTO.getYear().toString() + "-" + loanBalanceDTO.getMonth().toString());
-//            loanDTO.getSeries()[0].add(loanBalanceDTO.getAmount().toString());
-//            loanDTO.getSeries()[1].add(String.valueOf(CalculateUtils.divide(loanBalanceDTO.getAmount(), loanBalanceDTO.getCompanyAmount(), 2)));
-//        }
 
         //私募
         List<CapitalAmountDO> capitalAmountList = privateFundService.capitalAmount();

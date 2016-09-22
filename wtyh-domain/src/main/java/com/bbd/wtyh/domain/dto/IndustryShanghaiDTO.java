@@ -1,5 +1,6 @@
 package com.bbd.wtyh.domain.dto;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -10,7 +11,7 @@ import org.apache.commons.lang.StringUtils;
 * @since 2016年8月9日 下午2:28:36
 */
 
-public class IndustryShanghaiDTO {
+public class IndustryShanghaiDTO implements Serializable{
 	
 
 	
