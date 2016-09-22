@@ -51,7 +51,7 @@ public interface OfflineFinanceService {
 
     public void updateCompanyRiskLevel();
 
-    public void updateInexData();
+    public void updateIndexData();
 
     public Float getSRI(Float staticRiskIndex, String companyName);
 }
