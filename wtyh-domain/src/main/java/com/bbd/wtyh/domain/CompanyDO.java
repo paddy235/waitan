@@ -25,13 +25,13 @@ public class CompanyDO extends BaseDO implements Comparable {
 
     private Integer companyId;
 
-    private String name;
+    private String name="";
 
-    private String legalPerson;
+    private String legalPerson="";
 
     private Integer areaId;
 
-    private String address;
+    private String address="";
 
     private Integer registeredCapital;
 
@@ -43,18 +43,18 @@ public class CompanyDO extends BaseDO implements Comparable {
     private Byte companyType;
 
     @SuppressWarnings("unused")
-	private String comTypeCN;
+	private String comTypeCN="";
 
     private Byte status;
 
     private Byte background;
 
     @SuppressWarnings("unused")
-	private String backgroundCN;
+	private String backgroundCN="";
 
-    private String registeredType;
+    private String registeredType="";
 
-    private String businessType;
+    private String businessType="";
 
     private BigDecimal staticRisk;
 
@@ -66,7 +66,7 @@ public class CompanyDO extends BaseDO implements Comparable {
     private Integer riskLevel;
 
     // 平台名称
-    private String platName;
+    private String platName="";
 
     public String getPlatName() {
         return platName;
@@ -98,7 +98,7 @@ public class CompanyDO extends BaseDO implements Comparable {
 
     public String getBackgroundCN() {
 	    if(null == background){
-	        return null;
+	        return "";
         }
 		return CompanyBackgroundDO.Bg.getBg(this.background).CN;
 	}
@@ -109,7 +109,7 @@ public class CompanyDO extends BaseDO implements Comparable {
 
 	public String getComTypeCN(){
 	    if(null == companyType){
-	        return null;
+	        return "";
         }
     	switch (companyType) {
 		case TYPE_P2P_1:
@@ -139,7 +139,7 @@ public class CompanyDO extends BaseDO implements Comparable {
         case TYPE_RZZL_13:
             return "融资租赁";
 		default:
-			return null;
+			return "";
 		}
     }
 
@@ -189,7 +189,7 @@ public class CompanyDO extends BaseDO implements Comparable {
     }
 
     public void setLegalPerson(String legalPerson) {
-        this.legalPerson = legalPerson == null ? null : legalPerson.trim();
+        this.legalPerson = legalPerson == null ? "" : legalPerson.trim();
     }
 
     public Integer getAreaId() {
