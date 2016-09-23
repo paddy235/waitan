@@ -87045,7 +87045,7 @@
 	                            } else if (val[2] > 1000 && val[2] < 10000) {
 	                                return val[2] / 600;
 	                            } else {
-	                                return val[2] / 1200;
+	                                return val[2] / 2000;
 	                            }
 	                        },
 	                        series: [[{
