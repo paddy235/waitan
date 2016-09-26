@@ -29,7 +29,12 @@ public class LoginController {
 	@RequestMapping("/login")
 	@ResponseBody
 	public Object login(@RequestParam String name,@RequestParam String password,HttpServletRequest request){
-		//数据库的密码是bbd123456
+
+//		String adminpwd =  new SimpleHash("md5", "bbd54321" ,ByteSource.Util.bytes("123456"),2).toHex();
+//		System.out.println(adminpwd);
+
+
+		//数据库的密码是bbd54321
 		String pwd = userSer.getPassword(name);
 		if( StringUtils.isEmpty(pwd) ){
 			return ResponseBean.successResponse(false);
@@ -59,5 +64,6 @@ public class LoginController {
 
 		return ResponseBean.successResponse(true);
 	}
-	
+
+
 }
