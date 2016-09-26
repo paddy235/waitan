@@ -131,8 +131,9 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     }
 
     @Override
-    public void updateInexData() {
-        int totalCount = riskCompanyMapper.getTopCount(null);
+    public void updateIndexData() {
+        Map<String, Object> paramsMap = new HashMap<>();
+        int totalCount = riskCompanyMapper.getTopCount(paramsMap);
         if (totalCount > 0) {
             Pagination pagination = new Pagination();
             pagination.setPageSize(1000);
@@ -153,7 +154,8 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
                         dataExecutorService.submit(new Runnable() {
                             @Override
                             public void run() {
-                                logger.warn("-------"+companyName);
+                                System.out.println("----update---"+companyName);
+                                logger.warn("---update----"+companyName);
                                 indexDataMapper.update(indexDataDO);
                             }
                         });

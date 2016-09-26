@@ -22,6 +22,17 @@ public class Constants {
 	public static final String REDIS_KEY_BASE_INFO_BBD_DATA = "BASE_INFO_BBD_DATA";
 	public static final String REDIS_KEY_COMPANY_CREDIT_POINT_ITEMS = "BASE_INFO_COMPANY_CREDIT_POINT_ITEMS";
 	public static final String characterCode = "utf-8";
+	public static final String REDIS_KEY_BUSINESS_CHART_SHOW_P2P = "REDIS_KEY_BUSINESS_CHART_SHOW_P2P";
+	public static final String REDIS_KEY_BUSINESS_CHART_SHOW_FINANCE = "REDIS_KEY_BUSINESS_CHART_SHOW_FINANCE";
+	public static final String REDIS_KEY_BUSINESS_CHART_SHOW_EXCHANGE = "REDIS_KEY_BUSINESS_CHART_SHOW_EXCHANGE";
+	public static final String REDIS_KEY_BUSINESS_CHART_SHOW_CROWD = "REDIS_KEY_BUSINESS_CHART_SHOW_CROWD";
+	public static final String REDIS_KEY_BUSINESS_CHART_SHOW_MORTGAGE = "REDIS_KEY_BUSINESS_CHART_SHOW_MORTGAGE";
+	public static final String REDIS_KEY_BUSINESS_CHART_SHOW_FACTORING = "REDIS_KEY_BUSINESS_CHART_SHOW_FACTORING";
+	public static final String REDIS_KEY_BUSINESS_CHART_SHOW_PREPAID = "REDIS_KEY_BUSINESS_CHART_SHOW_PREPAID";
+	public static final String REDIS_KEY_BUSINESS_CHART_SHOW_GUARANTEE = "REDIS_KEY_BUSINESS_CHART_SHOW_GUARANTEE";
+	public static final String REDIS_KEY_BUSINESS_CHART_SHOW_LOAN = "REDIS_KEY_BUSINESS_CHART_SHOW_LOAN";
+	public static final String REDIS_KEY_BUSINESS_CHART_SHOW_PRIVATE = "REDIS_KEY_BUSINESS_CHART_SHOW_PRIVATE";
+	public static final String REDIS_KEY_BUSINESS_CHART_SHOW_INDUSTRY_SHANGHAI = "REDIS_KEY_BUSINESS_CHART_SHOW_INDUSTRY_SHANGHAI";
 	/**
 	 * 线下理财关联数据使用 start
 	 */
@@ -62,7 +73,9 @@ public class Constants {
 	/**
 	 * 线下理财关联数据使用 end
 	 */
-	public static Long cacheDay;
+	public static Long cacheDay = 7l;
+
+	public static Long cacheDay_One_Day = 1l;
 
 	private static String [] docSort;
 	
@@ -80,7 +93,7 @@ public class Constants {
 
 		InputStream is = null;
 		try {
-			is = Constants.class.getClassLoader().getResource("config/system.properties").openStream();
+			is = Constants.class.getClassLoader().getResource("config/online.properties").openStream();
 			system.load(is);
 
 			cacheDay = Long.parseLong(system.getProperty("cache.day", "").trim()) * 86400;

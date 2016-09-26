@@ -54803,7 +54803,7 @@
 /* 667 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -54816,7 +54816,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var BBDLine = _react2.default.createClass({
-	    displayName: "BBDLine",
+	    displayName: 'BBDLine',
 
 	    propTypes: {
 	        option: _react2.default.PropTypes.object.isRequired,
@@ -54829,6 +54829,7 @@
 	    },
 	    setOption: function setOption(parm) {
 	        var seriesLineData = [];
+	        console.log(parm, '222');
 	        for (var i = 0; i < parm.series.length; i++) {
 	            var barAreaStyle = {};
 	            if (parm.barGradient) {
@@ -55009,7 +55010,7 @@
 	        var style = this.props.style || {
 	            height: '300px'
 	        };
-	        return _react2.default.createElement("div", { ref: "echartsDom", style: style });
+	        return _react2.default.createElement('div', { ref: 'echartsDom', style: style });
 	    }
 	});
 	exports.default = BBDLine;
@@ -59442,7 +59443,7 @@
 	        var conLength = content.length;
 
 	        for (var i = 0; i < conLength; i++) {
-	            var year = content[i].year + "-" + content[i].month;
+	            var year = content[i].year + "Q" + content[i].quarter;
 	            var amount = content[i].amount; //贷款余额 单位万元
 	            var amountBill = Number(amount / 10000).toFixed(2); //转成单位亿元
 	            var number = content[i].number; //笔数
@@ -59733,7 +59734,7 @@
 	function getFinGuaDutyBalance(json) {
 	  return function (dispatch) {
 	    (0, _ajax.ajax)({
-	      url: "/guarantee/balanceByMonth.do",
+	      url: "/guarantee/balanceByQuarter.do",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
@@ -60907,7 +60908,7 @@
 			//控制y轴的方法  
 			var minData = Math.min.apply(null, yData); //获取最小值
 			var maxData = Math.max.apply(null, yData); //获取最大值
-			var midData = (minData + maxData) / 3;
+			var midData = (minData + maxData) / 8;
 			var maxJudge = maxData + midData;
 			var min = 0,
 			    max = 0;
@@ -60922,6 +60923,22 @@
 				min = 0;
 			}
 			return { min: min, max: max, interval: interval };
+		},
+		/*
+	 * @ arr:排序的数组 冒泡排序 二维数组 第一个元素排序
+	 */
+		sortArr: function sortArr(arr) {
+			var len = arr.length;
+			for (var i = 0; i < len; i++) {
+				for (var j = 0; j < len - i - 1; j++) {
+					if (arr[j][0] > arr[j + 1][0]) {
+						var temp = arr[j];
+						arr[j] = arr[j + 1];
+						arr[j + 1] = temp;
+					}
+				}
+			}
+			return arr;
 		}
 	};
 
@@ -60981,6 +60998,11 @@
 	    for (var i = 0; i < len; i++) {
 	      yData.push(dataYAxis[i][1]);
 	    }
+
+	    var dataYAxis = _publicFun2.default.sortArr(dataYAxis);
+
+	    var xAxis = data.xAxis.reverse();
+
 	    var yAxis = _publicFun2.default.fomatYaxis(yData);
 
 	    var option = {
@@ -60994,15 +61016,17 @@
 	      yMax: yAxis.max,
 	      yInterval: yAxis.interval,
 	      yAxisName: '亿元',
-	      xAxis: data.xAxis,
-	      data: data.data,
+	      xAxis: xAxis,
+	      data: dataYAxis,
 	      symbolSize: function symbolSize(val) {
 	        if (val[2] < 1000) {
 	          return val[2] / 10;
 	        } else if (val[2] > 1000 && val[2] < 10000) {
 	          return val[2] / 500;
+	        } else if (val[2] > 10000 && val[2] < 130000) {
+	          return val[2] / 2200;
 	        } else {
-	          return val[2] / 600;
+	          return val[2] / 2400;
 	        }
 	      },
 	      series: [[{
@@ -64927,6 +64951,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Immutable = __webpack_require__(621);
+	console.log(SmallLoanActionCreaters, 'SmallLoanActionCreaters');
 
 	//企业评级
 
@@ -65001,7 +65026,7 @@
 
 	        var conLength = content.length;
 	        for (var i = 0; i < conLength; i++) {
-	            var year = content[i].year + "-" + content[i].month;
+	            var year = content[i].year + "Q" + content[i].quarter;
 	            var amount = content[i].amount; //贷款余额 原单位万元 
 	            var amountBill = Number(content[i].amount / 10000).toFixed(2); //转成亿元
 
@@ -65299,7 +65324,7 @@
 	function getLoanBalance(json) {
 	  return function (dispatch) {
 	    (0, _ajax.ajax)({
-	      url: "/loan/balanceByMonth.do",
+	      url: "/loan/balanceByQuarter.do",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
@@ -65754,99 +65779,132 @@
 
 	var _reactRedux = __webpack_require__(242);
 
-	var _LineBarChart = __webpack_require__(721);
+	var _LineChart = __webpack_require__(667);
 
-	var _LineBarChart2 = _interopRequireDefault(_LineBarChart);
+	var _LineChart2 = _interopRequireDefault(_LineChart);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Immutable = __webpack_require__(621);
 
 	//三农、小微企业贷款余额占比
+
+	//import BBDLineBar from '../../../../Echart/LineBarChart'
 	var BalanceRatio = _react2.default.createClass({
-	    displayName: 'BalanceRatio',
+	  displayName: 'BalanceRatio',
 
-	    getInitialState: function getInitialState() {
-	        return {
-	            option: null
-	        };
-	    },
-	    componentDidMount: function componentDidMount() {},
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var isEqual = Immutable.is(nextProps.balanceRatioData, this.props.balanceRatioData);
-	        if (!isEqual) {
-	            var balanceRatioData = nextProps.balanceRatioData;
+	  getInitialState: function getInitialState() {
+	    return {
+	      option: null
+	    };
+	  },
+	  componentDidMount: function componentDidMount() {},
+	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	    var isEqual = Immutable.is(nextProps.balanceRatioData, this.props.balanceRatioData);
+	    if (!isEqual) {
+	      var balanceRatioData = nextProps.balanceRatioData;
 
-	            this.dataFomat(balanceRatioData);
-	        }
-	    },
-	    dataFomat: function dataFomat(data) {
-	        var len = data.length;
-	        var amount = [];
-	        var agrBalScale = [];
-	        var smlComBalScale = [];
-	        var year = [];
-	        for (var i = 0; i < len; i++) {
-	            year.push(data[i].year);
-	            amount.push(data[i].amount);
-	            agrBalScale.push(data[i].agrBalScale);
-	            smlComBalScale.push(data[i].smlComBalScale);
-	        }
-	        var option = {
-	            "title": "",
-	            "color": ["#13c7c1", "#efd79b", "#e14340"],
-	            "titleShow": "show",
-	            "titleX": "center",
-	            "legend": ["贷款余额总计", "三农占比", "小微企业占比"],
-	            "legendShow": true,
-	            "legendLeft": "10%",
-	            "legendTop": "1%",
-	            "gridBottom": "10%",
-	            "barName": ["贷款余额总计"],
-	            "lineName": ["三农占比", "小微企业占比"],
-	            "xAxis": year,
-	            "yAxisName": ["亿元", "占比"],
-	            "y2Flag": '%',
-	            "unit": ["亿元", "%", "%"],
-	            "barWidth": 30,
-	            "symbolSize": 5,
-	            "yRightLable": "line",
-	            "series": {
-	                "bar": [amount],
-	                "line": [agrBalScale, smlComBalScale]
-	            }
-	        };
-
-	        this.setState({ option: option });
-	    },
-	    render: function render() {
-	        var bbdAnnularLineBar = "";
-	        if (this.state.option) {
-	            bbdAnnularLineBar = _react2.default.createElement(_LineBarChart2.default, { param: this.state.option, style: { height: '270px', width: '100%' } });
-	        }
-	        return _react2.default.createElement(
-	            'div',
-	            { className: 'balance-radio mod' },
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'mod-title' },
-	                _react2.default.createElement(
-	                    'h3',
-	                    null,
-	                    '三农、小微企业贷款余额占比'
-	                )
-	            ),
-	            _react2.default.createElement(
-	                'div',
-	                { className: 'mod-content' },
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'chart-box' },
-	                    bbdAnnularLineBar
-	                )
-	            )
-	        );
+	      this.dataFomat(balanceRatioData);
 	    }
+	  },
+	  dataFomat: function dataFomat(data) {
+	    var len = data.length;
+	    var amount = [];
+	    var agrBalScale = [];
+	    var smlComBalScale = [];
+	    var year = [];
+	    for (var i = 0; i < len; i++) {
+	      year.push(data[i].year);
+	      amount.push(data[i].amount);
+	      agrBalScale.push(data[i].agrBalScale);
+	      smlComBalScale.push(data[i].smlComBalScale);
+	    }
+
+	    var year = year.reverse();
+	    var amount = amount.reverse();
+	    var agrBalScale = agrBalScale.reverse();
+	    var smlComBalScale = smlComBalScale.reverse();
+
+	    // var option = {
+	    //          "title": "",
+	    //          "color": ["#13c7c1","#efd79b", "#e14340"],
+	    //          "titleShow": "show",
+	    //          "titleX": "center",
+	    //          "legend": ["贷款余额总计", "三农占比","小微企业占比"],
+	    //          "legendShow": true,
+	    //          "legendLeft": "10%",
+	    //          "legendTop": "1%",
+	    //          "gridBottom": "10%",
+	    //          "barName": ["贷款余额总计"],
+	    //          "lineName": ["三农占比","小微企业占比"],
+	    //          "xAxis": year,
+	    //          "yAxisName": ["亿元", "占比"],
+	    //          "y2Flag":'%',
+	    //          "unit":["亿元","%","%"],
+	    //          "barWidth": 30,
+	    //          "symbolSize": 5,
+	    //          "yRightLable":"line",
+	    //          "series": {
+	    //             "line": [
+	    //                  agrBalScale,smlComBalScale
+	    //              ],
+	    //              "bar": [
+
+	    //              ]
+
+	    //          }
+	    //      };
+
+	    var option = {
+	      color: ["#efd79b", "#e14340"],
+	      title: "",
+	      titleX: "left",
+	      boxId: "balance-ratio-chart",
+	      symbolSize: 10,
+	      legendIsShow: true,
+	      yFlag: "%",
+	      unit: ["%", '%'],
+	      legendRight: "center",
+	      legendTop: '1%',
+	      legendPadding: [0, 0, 0, 0],
+	      grid: { top: '10%', left: '5%', right: '5%', bottom: '10%', containLabel: true },
+	      yAxisName: "占比",
+	      legend: ["三农占比", "小微企业占比"],
+	      xAxis: year,
+	      series: [agrBalScale, smlComBalScale]
+	    };
+	    console.log(option);
+	    this.setState({ option: option });
+	  },
+	  render: function render() {
+	    var bbdAnnularLine = "";
+	    if (this.state.option) {
+	      //bbdAnnularLineBar=<BBDLineBar param={this.state.option}  style={{height: '270px', width: '100%'}} />
+	      bbdAnnularLine = _react2.default.createElement(_LineChart2.default, { option: this.state.option, style: { height: '270px', width: '100%' } });
+	    }
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'balance-radio mod' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'mod-title' },
+	        _react2.default.createElement(
+	          'h3',
+	          null,
+	          '三农、小微企业贷款余额占比'
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'mod-content' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'chart-box' },
+	          bbdAnnularLine
+	        )
+	      )
+	    );
+	  }
 	});
 	module.exports = BalanceRatio;
 
@@ -65950,6 +66008,7 @@
 	            xAxis: xAxis,
 	            series: [series]
 	        };
+	        console.log(option);
 	        this.setState({ option: option });
 	    },
 	    getEachAverage: function getEachAverage(jsonData) {
@@ -66224,9 +66283,15 @@
 	    var dataYAxis = data.data;
 	    var len = dataYAxis.length;
 	    var yData = [];
+	    var dataReverse = [];
 	    for (var i = 0; i < len; i++) {
 	      yData.push(dataYAxis[i][1]);
 	    }
+
+	    var dataYAxis = _publicFun2.default.sortArr(dataYAxis);
+
+	    var xAxis = data.xAxis.reverse();
+
 	    var yAxis = _publicFun2.default.fomatYaxis(yData); //传入y轴数组 返回最小值 最大值 间隔
 
 	    var option = {
@@ -66240,15 +66305,15 @@
 	      yMin: yAxis.min,
 	      yMax: yAxis.max,
 	      yInterval: yAxis.interval,
-	      xAxis: data.xAxis,
-	      data: data.data,
+	      xAxis: xAxis,
+	      data: dataYAxis,
 	      symbolSize: function symbolSize(val) {
 	        if (val[2] < 1000) {
 	          return val[2] / 10;
 	        } else if (val[2] > 1000 && val[2] < 10000) {
 	          return val[2] / 400;
 	        } else {
-	          return val[2] / 400;
+	          return val[2] / 1000;
 	        }
 	      },
 	      series: [[{
@@ -80426,6 +80491,21 @@
 	                haveTypeArr.push(content[i]);
 	            }
 	        }
+	        var haveTypeLen = haveTypeArr.length;
+	        for (var j = 0; j < haveTypeLen; j++) {
+	            var registeredDate = haveTypeArr[j].registeredDate;
+	            var registeredCapital = haveTypeArr[j].registeredCapital;
+	            var registeredType = haveTypeArr[j].registeredType;
+	            if (registeredDate == null) {
+	                haveTypeArr[j].registeredDate = "";
+	            }
+	            if (registeredCapital == null) {
+	                haveTypeArr[j].registeredCapital = "";
+	            }
+	            if (registeredType == null) {
+	                haveTypeArr[j].registeredType = "";
+	            }
+	        }
 	        this.setState({ Enterprise: content, otherArr: otherArr, haveTypeArr: haveTypeArr, companyNo: companyNo });
 	    },
 	    getBuildCompanyList: function getBuildCompanyList(json) {
@@ -80444,6 +80524,7 @@
 	            var _basedata = BOSS.sort(this.state.haveTypeArr, field, this.state.orderType);
 	            this.setState({ haveTypeArr: _basedata });
 	        });
+	        console.log(this.state.haveTypeArr);
 	    },
 	    render: function render() {
 	        return _react2.default.createElement(
@@ -80529,9 +80610,9 @@
 	                            'tbody',
 	                            null,
 	                            this.state.haveTypeArr.map(function (elem, index) {
-	                                var registeredCapital = elem.registeredCapital == null ? "/" : elem.registeredCapital + "万元";
-	                                var registeredDate = elem.registeredDate == null ? "/" : elem.registeredDate;
-	                                var registeredType = elem.registeredType == null ? "/" : elem.registeredType;
+	                                var registeredCapital = elem.registeredCapital == "" ? "/" : elem.registeredCapital + "万元";
+	                                var registeredDate = elem.registeredDate == "" ? "/" : elem.registeredDate;
+	                                var registeredType = elem.registeredType == "" ? "/" : elem.registeredType;
 	                                return _react2.default.createElement(
 	                                    'tr',
 	                                    { key: index },
@@ -86904,22 +86985,40 @@
 	                    /**********第1个图——小额贷款**********/
 
 	                    //数据处理
-	                    var paramOneData = [];
-	                    nineDate.content.loan.series[0].map(function (item, index) {
-	                        item = Number(item / 10000).toFixed(2);
-	                        var x = nineDate.content.loan.xAxis[index];
-	                        var xx = [x, item];
-	                        paramOneData.push(xx);
-	                    });
-	                    nineDate.content.loan.series[1].map(function (item, index) {
-	                        paramOneData[index].push(item);
-	                    });
+	                    var loanBalanceData = { //贷款余额数据
+	                        xAxis: [],
+	                        data: []
+	                    };
+	                    var content = nineDate.content.loan.content;
+	                    var conLength = content.length;
+	                    for (var i = 0; i < conLength; i++) {
+	                        var year = content[i].year + "Q" + content[i].quarter;
+	                        var amount = content[i].amount; //贷款余额 原单位万元 
+	                        var amountBill = Number(content[i].amount / 10000).toFixed(2); //转成亿元
 
-	                    var paramOneyAxis = [];
-	                    paramOneData.map(function (item, index) {
-	                        paramOneyAxis.push(item[1]);
-	                    });
-	                    paramOneyAxis = _publicFun2.default.fomatYaxis(paramOneyAxis);
+	                        var number = content[i].number; //笔数
+	                        var companyAmount = content[i].companyAmount; //公司数量
+	                        var averageBlance = Number(amount / companyAmount).toFixed(2); //平均贷款余额
+
+	                        //贷款余额
+	                        var dataArr = [year, amountBill, averageBlance];
+	                        loanBalanceData.xAxis.push(year);
+	                        loanBalanceData.data.push(dataArr);
+	                    }
+
+	                    var dataYAxis = loanBalanceData.data;
+	                    var len = dataYAxis.length;
+	                    var yData = [];
+	                    for (var i = 0; i < len; i++) {
+	                        yData.push(dataYAxis[i][1]);
+	                    }
+
+	                    var paramOneData = _publicFun2.default.sortArr(dataYAxis);
+
+	                    var paramOnexAxis = loanBalanceData.xAxis.reverse();
+
+	                    var paramOneyAxis = _publicFun2.default.fomatYaxis(yData); //传入y轴数组 返回最小值 最大值 间隔
+
 	                    paramOne = {
 	                        link: "/smallLoan#/smallLoan",
 	                        id: 'realTimeRightOne', //必传
@@ -86934,12 +87033,21 @@
 	                        },
 	                        gridTop: "25%",
 	                        legend: ["贷款余额及平均贷款余额"],
-	                        xAxis: nineDate.content.loan.xAxis,
+	                        xAxis: paramOnexAxis,
 	                        //yAxis:paramOneyAxis,
 	                        yMin: paramOneyAxis.min,
 	                        yMax: paramOneyAxis.max,
 	                        yInterval: paramOneyAxis.interval,
 	                        data: paramOneData,
+	                        symbolSize: function symbolSize(val) {
+	                            if (val[2] < 1000) {
+	                                return val[2] / 10;
+	                            } else if (val[2] > 1000 && val[2] < 10000) {
+	                                return val[2] / 600;
+	                            } else {
+	                                return val[2] / 2000;
+	                            }
+	                        },
 	                        series: [[{
 	                            color: '#e14340'
 	                        }]]
