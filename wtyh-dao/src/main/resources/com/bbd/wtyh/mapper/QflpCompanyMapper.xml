@@ -25,6 +25,7 @@
     select
     <include refid="Base_Column_List" />
     from qflp_company
+    order by index_num
   </select>
 
 </mapper>
