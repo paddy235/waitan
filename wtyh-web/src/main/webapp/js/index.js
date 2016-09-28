@@ -68531,12 +68531,12 @@
 	    },
 	    render: function render() {
 	        var select = {
-	            width: '100px',
+	            width: '145px',
 	            className: 'netcredit-status',
 	            name: 'testselect',
 	            value: "1",
 	            id: 'selectType',
-	            data: [{ value: '1', label: '全部' }, { value: '2', label: '正常' }, { value: '3', label: '一般关注' }, { value: '4', label: '重点关注' }, { value: '5', label: '已出风险' }],
+	            data: [{ value: '1', label: '全部' }, { value: '2', label: '优良' }, { value: '3', label: '一般关注' }, { value: '4', label: '重点关注' }, { value: '5', label: '问题及停业平台' }],
 	            onChange: function (value, label) {
 	                var label = label;
 	                var jsonData = { platStatus: label };
@@ -86282,8 +86282,11 @@
 	                }
 	            },
 	            tooltip: {
-	                show: false,
-	                trigger: 'item'
+	                show: true,
+	                trigger: 'item',
+	                formatter: function formatter(data) {
+	                    return data.name;
+	                }
 	            },
 	            geo: {
 	                map: 'china',
