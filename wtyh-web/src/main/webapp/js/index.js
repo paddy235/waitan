@@ -79527,7 +79527,7 @@
 	                _react2.default.createElement(
 	                    'h3',
 	                    null,
-	                    '在营时间分布'
+	                    '持续经营时间'
 	                )
 	            ),
 	            _react2.default.createElement(_HorizontalBarChart2.default, {
