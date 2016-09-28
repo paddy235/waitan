@@ -86137,8 +86137,11 @@
 	                }
 	            },
 	            tooltip: {
-	                show: false,
-	                trigger: 'item'
+	                show: true,
+	                trigger: 'item',
+	                formatter: function formatter(data) {
+	                    return data.name;
+	                }
 	            },
 	            grid: {},
 	            geo: {
