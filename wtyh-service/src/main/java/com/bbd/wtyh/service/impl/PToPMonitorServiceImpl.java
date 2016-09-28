@@ -180,40 +180,34 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
 
 
     public List<IndustryShanghaiDTO> getData() throws Exception {
-        Gson gson = new Gson();
-        String json_industry_shanghai = redisDAO.getString(Constants.REDIS_KEY_BUSINESS_CHART_SHOW_INDUSTRY_SHANGHAI);
-        if (StringUtils.isEmpty(json_industry_shanghai)) {
-            String url = this.finSerUrl + "?dataType=industry_shanghai";
-            HttpTemplate httpTemplate = new HttpTemplate();
-            try {
-                return httpTemplate.get(url, new HttpCallback<List<IndustryShanghaiDTO>>() {
-                    @Override
-                    public boolean valid() {
-                        return true;
-                    }
 
-                    @Override
-                    public List<IndustryShanghaiDTO> parse(String result) {
 
-                        Gson gson = new Gson();
+        String url = this.finSerUrl + "?dataType=industry_shanghai";
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(url, new HttpCallback<List<IndustryShanghaiDTO>>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
 
-                        List<IndustryShanghaiDTO> list = gson.fromJson(result, new TypeToken<List<IndustryShanghaiDTO>>() {
-                        }.getType());
-                        IndustryShanghaiDTO ja = null;
-                        IndustryShanghaiDTO zb = null;
-                        if (!CollectionUtils.isEmpty(list)) {
-                            redisDAO.addObject(Constants.REDIS_KEY_BUSINESS_CHART_SHOW_INDUSTRY_SHANGHAI, list, Constants.cacheDay_One_Day, List.class);
-                        }
-                        return list;
-                    }
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            }
-        } else {
-            return gson.fromJson(json_industry_shanghai, List.class);
+                @Override
+                public List<IndustryShanghaiDTO> parse(String result) {
+
+                    Gson gson = new Gson();
+
+                    List<IndustryShanghaiDTO> list = gson.fromJson(result, new TypeToken<List<IndustryShanghaiDTO>>() {
+                    }.getType());
+                    IndustryShanghaiDTO ja = null;
+                    IndustryShanghaiDTO zb = null;
+                    return list;
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
+
     }
 
 

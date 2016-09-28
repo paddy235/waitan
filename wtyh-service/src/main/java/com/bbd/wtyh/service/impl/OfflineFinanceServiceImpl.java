@@ -134,6 +134,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     public void updateIndexData() {
         Map<String, Object> paramsMap = new HashMap<>();
         int totalCount = riskCompanyMapper.getTopCount(paramsMap);
+        System.out.println("----totalCount---"+totalCount);
         if (totalCount > 0) {
             Pagination pagination = new Pagination();
             pagination.setPageSize(1000);
@@ -560,9 +561,9 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
                 } else {} // 保持结构完整
             }
         }
-        if (vo != null) {
-            vo.setStcRiskIndex(String.valueOf(getSRI(Float.parseFloat(vo.getStcRiskIndex()), companyName)));
-        }
+//        if (vo != null) {
+//            vo.setStcRiskIndex(String.valueOf(getSRI(Float.parseFloat(vo.getStcRiskIndex()), companyName)));
+//        }
         return vo;
     }
 

@@ -68531,12 +68531,12 @@
 	    },
 	    render: function render() {
 	        var select = {
-	            width: '100px',
+	            width: '145px',
 	            className: 'netcredit-status',
 	            name: 'testselect',
 	            value: "1",
 	            id: 'selectType',
-	            data: [{ value: '1', label: '全部' }, { value: '2', label: '正常' }, { value: '3', label: '一般关注' }, { value: '4', label: '重点关注' }, { value: '5', label: '已出风险' }],
+	            data: [{ value: '1', label: '全部' }, { value: '2', label: '优良' }, { value: '3', label: '一般关注' }, { value: '4', label: '重点关注' }, { value: '5', label: '问题及停业平台' }],
 	            onChange: function (value, label) {
 	                var label = label;
 	                var jsonData = { platStatus: label };
@@ -78369,6 +78369,7 @@
 	var Immutable = __webpack_require__(621);
 	//子模块引入
 
+
 	//园区监测
 	var ParkMonitorIndex = _react2.default.createClass({
 	    displayName: 'ParkMonitorIndex',
@@ -79526,7 +79527,7 @@
 	                _react2.default.createElement(
 	                    'h3',
 	                    null,
-	                    '在营时间分布'
+	                    '持续经营时间'
 	                )
 	            ),
 	            _react2.default.createElement(_HorizontalBarChart2.default, {
@@ -86136,8 +86137,11 @@
 	                }
 	            },
 	            tooltip: {
-	                show: false,
-	                trigger: 'item'
+	                show: true,
+	                trigger: 'item',
+	                formatter: function formatter(data) {
+	                    return data.name;
+	                }
 	            },
 	            grid: {},
 	            geo: {
@@ -86278,8 +86282,11 @@
 	                }
 	            },
 	            tooltip: {
-	                show: false,
-	                trigger: 'item'
+	                show: true,
+	                trigger: 'item',
+	                formatter: function formatter(data) {
+	                    return data.name;
+	                }
 	            },
 	            geo: {
 	                map: 'china',
