@@ -87700,7 +87700,7 @@
 	              _react2.default.createElement(
 	                'p',
 	                null,
-	                item.bbd_dotime
+	                item.pubdate.substring(0, 10)
 	              )
 	            )
 	          );
