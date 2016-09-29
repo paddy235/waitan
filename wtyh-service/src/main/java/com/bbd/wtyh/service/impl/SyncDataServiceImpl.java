@@ -23,6 +23,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -106,8 +107,8 @@ public class SyncDataServiceImpl implements SyncDataService {
                 IndexDataDO indexDataDO = new IndexDataDO();
                 indexDataDO = gson.fromJson(content, IndexDataDO.class);
 				String companyName = indexDataDO.getCompanyName();
-				Float oldStaticRiskIndex = indexDataDO.getStaticRiskIndex();
-				Float staticRiskIndex = offlineFinanceService.getSRI(oldStaticRiskIndex, companyName);
+				BigDecimal oldStaticRiskIndex = indexDataDO.getStaticRiskIndex();
+				BigDecimal staticRiskIndex = offlineFinanceService.getSRI(oldStaticRiskIndex, companyName);
                 String area = indexDataDO.getArea();
                 IndexDataDO isExistDO = indexDataMapper.selectByPrimaryKey(companyName, area);
                 indexDataDO.setStaticRiskIndex(staticRiskIndex);

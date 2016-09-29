@@ -1,5 +1,6 @@
 package com.bbd.wtyh.mapper;
 
+import com.bbd.wtyh.domain.IndexDataDO;
 import com.bbd.wtyh.domain.StaticRiskDataDO;
 import com.bbd.wtyh.domain.dto.StaticRiskDTO;
 import com.bbd.wtyh.domain.vo.StatisticsVO;
@@ -61,4 +62,10 @@ public interface StaticRiskMapper {
     StaticRiskDataDO queryStaticsRiskData(String companyName);
 
     String getNewestDataVersion();
+
+    int getDataVersionCount(Map<String, Object> params);
+
+    public void update(StaticRiskDataDO staticRiskDataDO);
+
+    List<StaticRiskDataDO> findByPage(Map<String, Object> params);
 }

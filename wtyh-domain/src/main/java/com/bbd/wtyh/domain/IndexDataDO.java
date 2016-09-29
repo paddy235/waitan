@@ -1,5 +1,6 @@
 package com.bbd.wtyh.domain;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class IndexDataDO extends BaseDO {
@@ -7,7 +8,7 @@ public class IndexDataDO extends BaseDO {
 
     private String companyQualification;
 
-    private Float staticRiskIndex;
+    private BigDecimal staticRiskIndex;
 
     private Float dynamicRiskIndex;
 
@@ -57,11 +58,11 @@ public class IndexDataDO extends BaseDO {
         this.companyQualification = companyQualification == null ? null : companyQualification.trim();
     }
 
-    public Float getStaticRiskIndex() {
+    public BigDecimal getStaticRiskIndex() {
         return staticRiskIndex;
     }
 
-    public void setStaticRiskIndex(Float staticRiskIndex) {
+    public void setStaticRiskIndex(BigDecimal staticRiskIndex) {
         this.staticRiskIndex = staticRiskIndex;
     }
 
