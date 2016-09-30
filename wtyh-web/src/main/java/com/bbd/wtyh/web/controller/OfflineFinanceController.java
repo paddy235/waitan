@@ -455,13 +455,24 @@ public class OfflineFinanceController {
     }
 
     /**
-     * 更新企业光谱分析结果
+     * 更新静态风险指数+本地模型
      * @return
      */
     @RequestMapping("updateIndexData.do")
     @ResponseBody
-    public ResponseBean updateIndexData() {
-        offlineFinanceService.updateIndexData();
+    public ResponseBean updateIndexData(String companyName) {
+        offlineFinanceService.updateIndexData(companyName);
+        return ResponseBean.successResponse("更新成功");
+    }
+
+    /**
+     * 更新静态风险指数+本地模型
+     * @return
+     */
+    @RequestMapping("updateStaticRiskData.do")
+    @ResponseBody
+    public ResponseBean updateStaticRiskData(String companyName, String dataVersion) {
+        offlineFinanceService.updateStaticRiskData(companyName, dataVersion);
         return ResponseBean.successResponse("更新成功");
     }
 }

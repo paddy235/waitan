@@ -38,6 +38,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			return true;
 		}
 
+		if("updateStaticRiskData.do".equals(annotation.value()[0])){
+			return true;
+		}
+
 		if("updateCompanyRiskLevel.do".equals(annotation.value()[0])){
 			return true;
 		}

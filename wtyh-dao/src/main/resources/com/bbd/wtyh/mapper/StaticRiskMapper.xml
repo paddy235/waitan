@@ -303,7 +303,32 @@
         LIMIT 1;
     </select>
 
-
+    <select id="getDataVersionCount" parameterType="java.util.HashMap" resultType="int">
+        SELECT COUNT(1) from static_risk_data
+        <where>
+            1=1
+            <if test="dataVersion != null and dataVersion != ''">
+                AND data_version = #{dataVersion}
+            </if>
+        </where>
+    </select>
+    <select id="findByPage" parameterType="java.util.HashMap" resultType="com.bbd.wtyh.domain.StaticRiskDataDO">
+        select
+        <include refid="staticRiskDataDOContent"></include>
+        from static_risk_data
+        where 1=1
+        <if test="dataVersion != null and dataVersion != ''">
+            AND data_version = #{dataVersion}
+        </if>
+        limit #{pagination.begin}, #{pagination.pageSize}
+    </select>
+    <update id="update" parameterType="com.bbd.wtyh.domain.StaticRiskDataDO" >
+        UPDATE `static_risk_data` set
+        static_risk_index = #{staticRiskIndex}
+        where company_name = #{companyName,jdbcType=VARCHAR}
+        and area = #{area,jdbcType=VARCHAR}
+        AND data_version = #{dataVersion}
+    </update>
     <select id="queryCapitalBgRisk" parameterType="java.lang.String" resultType="Float">
         SELECT
         capital_bg_risk
