@@ -27,6 +27,9 @@ import java.util.List;
  */
 @Service
 public class CompanyNewsServiceImpl implements CompanyNewsService {
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
     @Autowired
     private RedisDAO redisDAO;
     @Autowired
@@ -103,7 +106,6 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
         return result;
     }
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public String getCompanyNews() {
@@ -120,8 +122,10 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
     public NewsVO findNews(String key,Integer size){
 
         String url = String.format(apiDataomUrl,key,size);
+        logger.info("实时监测舆情："+url);
         try {
             String result = new HttpTemplate().get(url);
+
             Gson gson = new Gson();
             NewsVO vo = gson.fromJson(result,new TypeToken<NewsVO>(){}.getType());
             return vo;
