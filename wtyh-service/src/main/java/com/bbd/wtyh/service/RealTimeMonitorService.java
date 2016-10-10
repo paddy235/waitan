@@ -2,6 +2,7 @@ package com.bbd.wtyh.service;
 
 import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
 import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
+import com.bbd.wtyh.domain.vo.SpectrumVO;
 
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,7 @@ public interface RealTimeMonitorService {
 
     Map<String, Object> shMapMonitor();
 
-    List<List> spectrumAnalysis();
+    List<List<SpectrumVO>> spectrumAnalysis();
 
     Map<String, Map> shArea();
 
