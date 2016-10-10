@@ -66283,9 +66283,10 @@
 	    var dataYAxis = data.data;
 	    var len = dataYAxis.length;
 	    var yData = [];
-	    var dataReverse = [];
+
 	    for (var i = 0; i < len; i++) {
-	      yData.push(dataYAxis[i][1]);
+	      yData.push(dataYAxis[i][1] / 3);
+	      dataYAxis[i][1] = (dataYAxis[i][1] / 3).toFixed(2);
 	    }
 
 	    var dataYAxis = _publicFun2.default.sortArr(dataYAxis);
