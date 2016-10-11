@@ -44,59 +44,16 @@
 		area as areaCode
 	</sql>
 
-    <sql id="staticRiskContent2">
-        srd.company_name as companyName,
-        srd.data_version as dataVersion,
-        srd.risk_date as riskDate,
-        id.static_risk_index as stcRiskIndex,
-        srd.max_company_num as maxComNum,
-        srd.average_person_num as avgPerNum,
-        srd.one_level_person as oneLvlPer,
-        srd.real_control_risk as realConRisk,
-        srd.child_compnay_control_person_num as cldComConPerNum,
-        srd.child_child_control_num as cldCtlNum,
-        srd.core_child_company as coreCldCom,
-        srd.company_expand_risk as comExpRisk,
-        srd.control_child_company_num as ctlCldComNum,
-        srd.one_company_num as oneComNum,
-        srd.control_company as conCom,
-        srd.relation_in_risk as relInRisk,
-        srd.three_person_num as thrPerNum,
-        srd.two_company_num as twoComNum,
-        srd.core_two_company as coreTwoCom,
-        srd.illegal_financing_risk as illFinRisk,
-        srd.six_month_new_company_num as sixMonNewComNum,
-        srd.to_year_new_comapny_num as toYearNewComNum,
-        srd.six_month_new_company as sixMonNewCom,
-        srd.relation_company_sum as relCompanySum,
-        srd.short_risk as shortRisk,
-        srd.investment as investment,
-        srd.advisory as advisory,
-        srd.trade as trade,
-        srd.lease as lease,
-        srd.factoring as factoring,
-        srd.company_list as companyList,
-        srd.illegal_money_financing_risk as illMoneyFinRisk,
-        srd.undergraduate_num as underNum,
-        srd.uper_undergraduate_num as upperUnderNum,
-        srd.follow_undergraduate_num as flwUnderNum,
-        srd.recruitment_sum as rectSum,
-        srd.top5_recruitment_sum as top5RecSum,
-        srd.person_structure_risk as perStructRisk,
-        srd.area as areaCode
-    </sql>
-
     <select id="queryLastStaticRisk" resultType="com.bbd.wtyh.domain.dto.StaticRiskDTO"
             parameterType="java.util.HashMap">
         select
-          <include refid="staticRiskContent2"></include>
-        from static_risk_data srd
-          LEFT JOIN index_data id on srd.company_name = id.company_name
-        where srd.company_name=#{companyName}
+          <include refid="staticRiskContent"></include>
+        from static_risk_data
+        where company_name=#{companyName}
         <if test="areaCode != null and areaCode != ''">
-            and srd.area=#{areaCode}
+            and area=#{areaCode}
         </if>
-        and srd.risk_date like concat(#{riskDateStr}, '%');
+        and risk_date like concat(#{riskDateStr}, '%');
     </select>
 
     <select id="queryIndStatistics" resultType="com.bbd.wtyh.domain.vo.StatisticsVO" parameterType="java.util.HashMap">
@@ -261,7 +218,7 @@
         select
           data_version as date
         from
-          relation_data
+        static_risk_data
         where
             company_name=#{companyName}
         <if test="areaCode != null and areaCode != ''">

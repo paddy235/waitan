@@ -239,12 +239,12 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 
         if (staticRiskDataDO != null) {
             BigDecimal staticsRiskIndex = staticRiskDataDO.getStaticRiskIndex();
-            if (staticsRiskIndex.compareTo(new BigDecimal(70))==1) {
+            if (staticsRiskIndex.compareTo(new BigDecimal(65.9))==1) {
                 riskLevel = 2;
-            } else if ((staticsRiskIndex.compareTo(new BigDecimal(60))==1 || staticsRiskIndex.compareTo(new BigDecimal(60))==0) &&
-                    staticsRiskIndex.compareTo(new BigDecimal(70))==-1) {
+            } else if ((staticsRiskIndex.compareTo(new BigDecimal(57.8))==1 || staticsRiskIndex.compareTo(new BigDecimal(57.8))==0) &&
+                    staticsRiskIndex.compareTo(new BigDecimal(65.9))==-1) {
                 riskLevel = 3;
-            } else if (staticsRiskIndex.compareTo(new BigDecimal(60))==-1) {
+            } else if (staticsRiskIndex.compareTo(new BigDecimal(57.8))==-1) {
                 riskLevel = 4;
             }
             System.out.println("-----static-------"+companyId);
