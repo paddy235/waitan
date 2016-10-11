@@ -288,9 +288,10 @@
         FROM
             company
         LEFT JOIN company_analysis_result ON company.company_id = company_analysis_result.company_id
+        LEFT JOIN static_risk_data ON company.name = static_risk_data.company_name
         WHERE
-            risk_level = #{risk_level}
-        ORDER BY company_analysis_result.exposure_date DESC
+            risk_level = #{risk_level} AND static_risk_data.data_version=#{dateVersion}
+        ORDER BY static_risk_data.static_risk_index DESC
         LIMIT 0, 400
     </select>
 
