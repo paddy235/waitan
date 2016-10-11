@@ -120,13 +120,19 @@ public class PToPMonitorController {
             return map;
         }
 
-        IndustryShanghaiDTO maxDto = list.get(0);
+//        IndustryShanghaiDTO maxDto = list.get(0);
+//        for (IndustryShanghaiDTO dto : list) {
+//            if (maxDto.getDate().compareTo(dto.getDate()) <= 0) {
+//                maxDto = dto;
+//            }
+//        }
+        IndustryShanghaiDTO maxDto = null;
         for (IndustryShanghaiDTO dto : list) {
-            if (maxDto.getDate().compareTo(dto.getDate()) < 0) {
+            if (dto.getArea_num() != null && dto.getArea_num().size() > 0) {
                 maxDto = dto;
+                break;
             }
         }
-
 
         Map<String, Object> ja = null;
         Map<String, Object> zb = null;
