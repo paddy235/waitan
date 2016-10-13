@@ -20,6 +20,10 @@ public class HotAreaDTO {
      * 民营企业数量
      */
     private Integer privateCompany;
+    /**
+     * 外资企业数量
+     */
+    private Integer foreignCapital;
 
     public Integer getAreaId() {
         return areaId;
@@ -59,5 +63,13 @@ public class HotAreaDTO {
 
     public void setPrivateCompany(Integer privateCompany) {
         this.privateCompany = privateCompany;
+    }
+
+    public Integer getForeignCapital() {
+        return foreignCapital;
+    }
+
+    public void setForeignCapital(Integer foreignCapital) {
+        this.foreignCapital = foreignCapital;
     }
 }
