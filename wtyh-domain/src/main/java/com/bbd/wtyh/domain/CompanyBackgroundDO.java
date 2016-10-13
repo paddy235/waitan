@@ -10,11 +10,12 @@ public class CompanyBackgroundDO extends BaseDO {
     
     static public enum Bg {
         
-    	//1:上市公司 2:非上市公司 3:国企 4:民营企业
+    	//1:上市公司 2:非上市公司 3:国企 4:民营企业 5:外资企业
     	Ssgs( (byte) 1,"上市公司"),
     	Fssgs((byte) 2,"非上市公司"),
     	Gq(   (byte) 3,"国企"),
-    	Myqy( (byte) 4,"民营企业");
+    	Myqy( (byte) 4,"民营企业"),
+        Wzqy( (byte) 5,"外资企业");
     	
         public final Byte val;
         public final String CN;
@@ -34,6 +35,8 @@ public class CompanyBackgroundDO extends BaseDO {
     			return Bg.Gq;
     		case 4:
     			return Bg.Myqy;
+            case 5:
+                return Bg.Wzqy;
     		default:
     			return null;
     		}
