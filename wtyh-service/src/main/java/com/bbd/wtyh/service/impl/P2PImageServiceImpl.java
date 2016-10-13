@@ -49,7 +49,7 @@ public class P2PImageServiceImpl implements P2PImageService {
 
         Map<String, Object> result = new LinkedHashMap<>();
         result.put("logo", platListDO.getLogo_url());//logo
-        result.put("rank", platRankDataDTO.getPlatRank()); // 评级
+        result.put("score", platRankDataDTO.getPlatRank()); // 评级
         result.put("platname", pn.getPlat_name()); // 平台名称
         result.put("companyName", pn.getCompany_name()); // 公司名称
         result.put("status", platRankDataDTO.getPlat_status()); // 营业状态
