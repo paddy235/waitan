@@ -4,10 +4,12 @@ import com.bbd.wtyh.dao.P2PImageDao;
 import com.bbd.wtyh.domain.PlatformNameInformationDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
+import com.bbd.wtyh.domain.dto.PlatRankDataDTO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
 import com.bbd.wtyh.service.P2PImageService;
+import com.bbd.wtyh.service.PToPMonitorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,9 @@ public class P2PImageServiceImpl implements P2PImageService {
     @Autowired
     private P2PImageDao p2PImageDao;
 
+    @Autowired
+    private PToPMonitorService pToPMonitorService;
+
     @Override
     public PlatDataDO getPlatData(String platName) {
         PlatDataDO pn = p2PImageDao.getPlatData(platName);
@@ -40,14 +45,29 @@ public class P2PImageServiceImpl implements P2PImageService {
         }
 
         PlatListDO platListDO = findFromWangdaiPlatList(platName);
+        PlatRankDataDTO platRankDataDTO = findFromWangdaiPlatRankData(platName);
 
         Map<String, Object> result = new LinkedHashMap<>();
         result.put("logo", platListDO.getLogo_url());//logo
-        result.put("score", pn.getPlat_score()); // 评分
+        result.put("rank", platRankDataDTO.getPlatRank()); // 评级
         result.put("platname", pn.getPlat_name()); // 平台名称
         result.put("companyName", pn.getCompany_name()); // 公司名称
-        result.put("status", pn.getPlat_status()); // 营业状态
+        result.put("status", platRankDataDTO.getPlat_status()); // 营业状态
         return result;
+    }
+
+    @Override
+    public PlatRankDataDTO findFromWangdaiPlatRankData(String platName) {
+        Map<String, PlatRankDataDTO> wangdaiPlatRankData = new HashMap<>();
+        try {
+            for (PlatRankDataDTO platRankDataDTO : pToPMonitorService.getPlatRankData(null)) {
+                wangdaiPlatRankData.put(platRankDataDTO.getPlat_name(), platRankDataDTO);
+            }
+            return wangdaiPlatRankData.get(platName);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new PlatRankDataDTO();
+        }
     }
 
     @Override

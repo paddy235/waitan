@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service;
 
 import com.bbd.wtyh.domain.PlatformNameInformationDO;
+import com.bbd.wtyh.domain.dto.PlatRankDataDTO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
@@ -29,6 +30,13 @@ public interface P2PImageService {
      * @return
      */
     Map<String, Object> platFormStatus(String platName);
+
+    /**
+     * 网贷之家列表，获取 网贷之家 分级什么的
+     * @param platName
+     * @return
+     */
+    PlatRankDataDTO findFromWangdaiPlatRankData(String platName);
 
     /**
      * 从网贷之家的  平台列表   找出指定的平台

@@ -58,12 +58,15 @@ public class LoanController {
             int stateOwned = companyService.countCompanyNum(query);
             query.setBackground((int) CompanyBackgroundDO.Bg.Myqy.val);
             int privateCompany = companyService.countCompanyNum(query);
+            query.setBackground((int) CompanyBackgroundDO.Bg.Wzqy.val);
+            int foreignCapital = companyService.countCompanyNum(query);
             HotAreaDTO hotAreaDTO = new HotAreaDTO();
             hotAreaDTO.setAreaId(areaDO.getAreaId());
             hotAreaDTO.setAreaName(areaDO.getName());
             hotAreaDTO.setAll(stateOwned + privateCompany);
             hotAreaDTO.setPrivateCompany(privateCompany);
             hotAreaDTO.setStateOwned(stateOwned);
+            hotAreaDTO.setForeignCapital(foreignCapital);
             result.add(hotAreaDTO);
         }
         return ResponseBean.successResponse(result);
