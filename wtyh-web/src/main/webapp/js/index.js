@@ -69327,12 +69327,7 @@
 	                            _react2.default.createElement(
 	                                'span',
 	                                { className: 'score orange' },
-	                                item.score
-	                            ),
-	                            _react2.default.createElement(
-	                                'span',
-	                                { className: 'score-title' },
-	                                '评分'
+	                                item.rank
 	                            )
 	                        ),
 	                        _react2.default.createElement(
