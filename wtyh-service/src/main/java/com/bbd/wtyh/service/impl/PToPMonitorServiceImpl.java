@@ -315,24 +315,24 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
 
 
 //报错
-        String url = "http://140.206.51.154:5002/financial_services?dataType=area_index";
-
-        HttpTemplate httpTemplate = new HttpTemplate();
-        try {
-            httpTemplate.get(url, new HttpCallback<List<AreaIndexDTO>>() {
-                @Override
-                public boolean valid() {
-                    return true;
-                }
-
-                @Override
-                public List<AreaIndexDTO> parse(String result) {
-                    return JSON.parseArray(result, AreaIndexDTO.class);
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        String url = "http://140.206.51.154:5002/financial_services?dataType=area_index";
+//
+//        HttpTemplate httpTemplate = new HttpTemplate();
+//        try {
+//            httpTemplate.get(url, new HttpCallback<List<AreaIndexDTO>>() {
+//                @Override
+//                public boolean valid() {
+//                    return true;
+//                }
+//
+//                @Override
+//                public List<AreaIndexDTO> parse(String result) {
+//                    return JSON.parseArray(result, AreaIndexDTO.class);
+//                }
+//            });
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
 
 //		String url = "http://140.206.51.154:5002/financial_services?dataType=plat_rank_data";
