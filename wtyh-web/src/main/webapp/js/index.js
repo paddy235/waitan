@@ -60266,18 +60266,20 @@
 	    var series = [];
 	    var stateOwned = 0; //国企数量统计
 	    var privateCompany = 0; //私有企业数量统计
+	    var foreignCapital = 0; //外资企业
 	    for (var i = 0; i < content.length; i++) {
 	      stateOwned = stateOwned + content[i].stateOwned;
 	      privateCompany = privateCompany + content[i].privateCompany;
+	      foreignCapital = foreignCapital + content[i].foreignCapital;
 	    }
 	    var option = {
-	      color: ['#e14340', '#ffffff'],
+	      "color": ["#6c9f87", "#e14340", "#efd79b"],
 	      id: 'small-loan-company-chart', //必传
-	      height: '200px', //必传 带上单位
+	      height: '240px', //必传 带上单位
 	      title: '',
 	      legendBottom: '0%',
-	      legendData: ['国有企业', '民营企业'],
-	      data: [{ value: stateOwned, name: '国有企业' }, { value: privateCompany, name: '民营企业' }]
+	      legendData: ['国有企业', '民营企业', '外资企业'],
+	      data: [{ value: stateOwned, name: '国有企业' }, { value: privateCompany, name: '民营企业' }, { value: foreignCapital, name: '外资企业' }]
 	    };
 	    this.setState({ pieOption: option });
 	  },
@@ -61861,14 +61863,14 @@
 	                null,
 	                _react2.default.createElement(
 	                  'th',
-	                  { width: '28%', className: 'talign-left cur-pointer', onClick: this.orderByField.bind(this, 1) },
-	                  '担保公司',
+	                  { width: '27%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 2) },
+	                  '被担保公司',
 	                  _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                ),
 	                _react2.default.createElement(
 	                  'th',
-	                  { width: '27%', className: 'cur-pointer', onClick: this.orderByField.bind(this, 2) },
-	                  '被担保公司',
+	                  { width: '28%', className: 'talign-left cur-pointer', onClick: this.orderByField.bind(this, 1) },
+	                  '担保公司',
 	                  _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                ),
 	                _react2.default.createElement(
@@ -61902,20 +61904,20 @@
 	                    { className: 'even' },
 	                    _react2.default.createElement(
 	                      'td',
-	                      { className: 'talign-left', width: '28%' },
-	                      _react2.default.createElement(
-	                        _reactRouter.Link,
-	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.guaranteeName } }, className: 'word-limit-8', title: elem.guaranteeName },
-	                        elem.guaranteeName
-	                      )
-	                    ),
-	                    _react2.default.createElement(
-	                      'td',
 	                      { width: '27%' },
 	                      _react2.default.createElement(
 	                        _reactRouter.Link,
 	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.guaranteedName } }, className: 'word-limit-8', title: elem.guaranteedName },
 	                        elem.guaranteedName
+	                      )
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      { className: 'talign-left', width: '28%' },
+	                      _react2.default.createElement(
+	                        _reactRouter.Link,
+	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.guaranteeName } }, className: 'word-limit-8', title: elem.guaranteeName },
+	                        elem.guaranteeName
 	                      )
 	                    ),
 	                    _react2.default.createElement(
@@ -61948,20 +61950,20 @@
 	                    { className: 'odd' },
 	                    _react2.default.createElement(
 	                      'td',
-	                      { className: 'talign-left', width: '28%' },
-	                      _react2.default.createElement(
-	                        _reactRouter.Link,
-	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.guaranteeName } }, className: 'word-limit-8', title: elem.guaranteeName },
-	                        elem.guaranteeName
-	                      )
-	                    ),
-	                    _react2.default.createElement(
-	                      'td',
 	                      { width: '27%' },
 	                      _react2.default.createElement(
 	                        _reactRouter.Link,
 	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.guaranteedName } }, className: 'word-limit-8', title: elem.guaranteedName },
 	                        elem.guaranteedName
+	                      )
+	                    ),
+	                    _react2.default.createElement(
+	                      'td',
+	                      { className: 'talign-left', width: '28%' },
+	                      _react2.default.createElement(
+	                        _reactRouter.Link,
+	                        { to: { pathname: '/SearchResultDetail', query: { companyName: elem.guaranteeName } }, className: 'word-limit-8', title: elem.guaranteeName },
+	                        elem.guaranteeName
 	                      )
 	                    ),
 	                    _react2.default.createElement(
@@ -66141,18 +66143,21 @@
 	    var series = [];
 	    var stateOwned = 0; //国企数量统计
 	    var privateCompany = 0; //私有企业数量统计
+	    var foreignCapital = 0; //外资企业
+
 	    for (var i = 0; i < content.length; i++) {
 	      stateOwned = stateOwned + content[i].stateOwned;
 	      privateCompany = privateCompany + content[i].privateCompany;
+	      foreignCapital = foreignCapital + content[i].foreignCapital;
 	    }
 	    var option = {
-	      color: ['#e14340', '#ffffff'],
+	      "color": ["#6c9f87", "#e14340", "#efd79b"],
 	      id: 'small-loan-company-chart', //必传
-	      height: '200px', //必传 带上单位
+	      height: '240px', //必传 带上单位
 	      title: '',
 	      legendBottom: '0%',
-	      legendData: ['国有企业', '民营企业'],
-	      data: [{ value: stateOwned, name: '国有企业' }, { value: privateCompany, name: '民营企业' }]
+	      legendData: ['国有企业', '民营企业', '外资企业'],
+	      data: [{ value: stateOwned, name: '国有企业' }, { value: privateCompany, name: '民营企业' }, { value: foreignCapital, name: '外资企业' }]
 	    };
 	    this.setState({ pieOption: option });
 	  },
@@ -68470,6 +68475,7 @@
 	        $('#p2p-scroll').perfectScrollbar({ suppressScrollX: false }, 'update');
 	    },
 	    handleClick: function handleClick(field) {
+	        console.log(field, 2222);
 	        var _dom = $(this.refs[field]),
 	            _domAttr = _dom.attr("data-order"),
 	            _domIco = _dom.find("em"),
@@ -68491,7 +68497,7 @@
 	            if (netCreditRequest == true) {
 	                if (netCreditResult.success) {
 	                    this.setState({ listData: netCreditResult.content }, function () {
-	                        $(_this.refs.stay_still_of_total).trigger('click');
+	                        $(_this.refs.amount).trigger('click');
 	                    });
 	                } else {
 	                    //错误后提示
@@ -69555,15 +69561,15 @@
 	                            { className: 'mt-table wtyh-table' },
 	                            this.state.listData.map(function (item, index) {
 	                                {
-	                                    var _amount_total = item.amount_total == undefined ? "/" : (item.amount_total / 100000000).toFixed(2) + "亿元";
-	                                    var _money_stock = item.money_stock == undefined ? "/" : (item.money_stock / 100000000).toFixed(2) + "亿元";
-	                                    var _interest_rate = item.interest_rate == undefined ? "/" : item.interest_rate + "%";
-	                                    var _month_net_inflow = item.month_net_inflow == undefined ? "/" : (item.month_net_inflow / 10000).toFixed(2) + "万元";
-	                                    var _bid_num_stay_stil = item.bid_num_stay_stil == undefined ? "/" : item.bid_num_stay_stil;
+	                                    var _amount_total = item.amount_total == null ? "/" : (item.amount_total / 100000000).toFixed(2) + "亿元";
+	                                    var _money_stock = item.money_stock == null ? "/" : (item.money_stock / 100000000).toFixed(2) + "亿元";
+	                                    var _interest_rate = item.interest_rate == null ? "/" : item.interest_rate + "%";
+	                                    var _month_net_inflow = item.month_net_inflow == null ? "/" : (item.month_net_inflow / 10000).toFixed(2) + "万元";
+	                                    var _bid_num_stay_stil = item.bid_num_stay_stil == null ? "/" : item.bid_num_stay_stil;
 
-	                                    var _bor_num_stay_stil = item.bor_num_stay_stil == undefined ? "/" : item.bor_num_stay_stil;
-	                                    var _top1_sum_amount = item.top1_sum_amount == undefined ? "/" : (item.top1_sum_amount / 10000).toFixed(2) + "万元";
-	                                    var _top10_sum_amount = item.top10_sum_amount == undefined ? "/" : (item.top10_sum_amount / 10000).toFixed(2) + "万元";
+	                                    var _bor_num_stay_stil = item.bor_num_stay_stil == null ? "/" : item.bor_num_stay_stil;
+	                                    var _top1_sum_amount = item.top1_sum_amount == null ? "/" : (item.top1_sum_amount / 10000).toFixed(2) + "万元";
+	                                    var _top10_sum_amount = item.top10_sum_amount == null ? "/" : (item.top10_sum_amount / 10000).toFixed(2) + "万元";
 	                                    return _react2.default.createElement(
 	                                        'tbody',
 	                                        null,
