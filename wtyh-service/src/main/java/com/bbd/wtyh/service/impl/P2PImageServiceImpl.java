@@ -10,6 +10,7 @@ import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
 import com.bbd.wtyh.service.P2PImageService;
 import com.bbd.wtyh.service.PToPMonitorService;
+import com.sun.javafx.collections.annotations.ReturnsUnmodifiableCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -120,14 +121,22 @@ public class P2PImageServiceImpl implements P2PImageService {
     @Override
     public Map<String, Object> baseInfo(String platName) {
         PlatformNameInformationDO platformNameInformationDO = p2PImageDao.hasOrNotCompany(platName);
-        if (null == platformNameInformationDO) {
+        PlatListDO platListDO = findFromWangdaiPlatList(platName);
+
+        String companyName = "";
+        if (null != platformNameInformationDO) {
+            companyName = platformNameInformationDO.getName();
+        } else if (null != platListDO) {
+            companyName = platListDO.getCompany_name();
+        } else {
             return null;
         }
-        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(platformNameInformationDO.getName());
+
+        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName);
         if (null == baseDataDO) {
             return null;
         }
-        ZuZhiJiGoudmDO zuZhiJiGoudmDO = p2PImageDao.baseInfoZuZhiJiGou(platformNameInformationDO.getName());
+        ZuZhiJiGoudmDO zuZhiJiGoudmDO = p2PImageDao.baseInfoZuZhiJiGou(companyName);
         if (null == zuZhiJiGoudmDO) {
             return null;
         }
@@ -143,8 +152,8 @@ public class P2PImageServiceImpl implements P2PImageService {
         for (ZuZhiJiGoudmDO.Result result : zuZhiJiGoudmDO.getResults()) {
             map.put("companyCode", result.getJgdm());
         }
-        map.put("platName", platformNameInformationDO.getPlatformName());
-        map.put("companyName", platformNameInformationDO.getName());
+        map.put("platName", platName);
+        map.put("companyName", companyName);
         return map;
     }
 

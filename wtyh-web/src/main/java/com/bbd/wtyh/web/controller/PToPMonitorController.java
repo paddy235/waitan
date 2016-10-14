@@ -410,7 +410,8 @@ public class PToPMonitorController {
     }
 
 
-    @RequestMapping("offlineFinanceNum.do")
+    @RequestMapping("/offlineFinanceNum")
+    @ResponseBody
     public ResponseBean shareholderRiskDetail(String platName) {
         if (Strings.isNullOrEmpty(platName)) {
             return ResponseBean.errorResponse("platName must be not null");
