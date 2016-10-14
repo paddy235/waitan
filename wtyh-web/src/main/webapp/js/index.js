@@ -67695,10 +67695,10 @@
 
 	            var optionParm = {
 	                "color": ["#12b5b0", "#e24441"],
-	                "legend": ["上海新增", "上海累计"],
+	                "legend": ["上海新发现", "上海累计"],
 	                "legendShow": true,
 	                "legendRight": "30",
-	                "barName": ["上海新增"],
+	                "barName": ["上海新发现"],
 	                "lineName": ["上海累计"],
 	                "yFlag": "",
 	                "barWidth": 20,
@@ -67899,12 +67899,14 @@
 	        if (!isEqual) {
 	            var mapData = nextProps.mapData;
 
+	            var series = mapData.hotMap.data;
+	            //series[12].name="黄浦区";
 	            var optionParm = {
 	                "visualMapRight": "50", //值茷位置
 	                "visualMapBottom": "30",
 	                "visualMapText": ["公司数量"],
 	                "unit": "家",
-	                "series": mapData.hotMap.data
+	                "series": series
 	            };
 	            this.setState({ chartOption: optionParm });
 	        }
@@ -69036,7 +69038,6 @@
 	                if (baseMsgResult.success) {
 	                    var _setParm = [baseMsgResult.content];
 	                    var companyName = baseMsgResult.content.companyName;
-	                    console.log(companyName, 'xuyao');
 	                    setCompany({ baseMsgCompany: companyName });
 	                    this.setState({ listData: _setParm, getBaseCompany: companyName });
 	                } else {
@@ -69326,11 +69327,6 @@
 	                                'span',
 	                                { className: 'score orange' },
 	                                item.score
-	                            ),
-	                            _react2.default.createElement(
-	                                'span',
-	                                { className: 'score-title' },
-	                                '评分'
 	                            )
 	                        ),
 	                        _react2.default.createElement(
@@ -69458,6 +69454,7 @@
 
 	            if (coreTrendRequest == true) {
 	                if (coreTrendResult.success) {
+	                    var series = coreTrendResult.content.series;
 	                    var option = {
 	                        title: "平台利率走势",
 	                        titleX: "center",
@@ -69472,7 +69469,7 @@
 	                        unit: ["%", ""],
 	                        legendShow: false,
 	                        xAxis: coreTrendResult.content.xAxis,
-	                        series: [coreTrendResult.content.series]
+	                        series: [series]
 	                    };
 	                    this.setState({ coreTrendData: option });
 	                } else {
@@ -70646,16 +70643,6 @@
 						{ className: 'content-ul' },
 						_react2.default.createElement(
 							'li',
-							{ className: 'score-leida-l' },
-							_react2.default.createElement(
-								'p',
-								{ className: 'orange socre-title' },
-								'总评分：'
-							),
-							_react2.default.createElement('p', { className: 'orange score', ref: 'scoreNum' })
-						),
-						_react2.default.createElement(
-							'li',
 							{ className: 'score-leida-c' },
 							_react2.default.createElement(
 								'div',
@@ -70670,15 +70657,15 @@
 								'ul',
 								{ className: 'score-leida-r-ul' },
 								this.state.listData.map(function (item, index) {
+									var max = item.max == "" ? "/" : item.max;
 									{
-
 										return _react2.default.createElement(
 											'li',
 											null,
 											_react2.default.createElement(
 												'p',
 												null,
-												item.max
+												max
 											),
 											_react2.default.createElement(
 												'span',
