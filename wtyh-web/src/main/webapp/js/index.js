@@ -69038,7 +69038,6 @@
 	                if (baseMsgResult.success) {
 	                    var _setParm = [baseMsgResult.content];
 	                    var companyName = baseMsgResult.content.companyName;
-	                    console.log(companyName, 'xuyao');
 	                    setCompany({ baseMsgCompany: companyName });
 	                    this.setState({ listData: _setParm, getBaseCompany: companyName });
 	                } else {
@@ -69327,7 +69326,7 @@
 	                            _react2.default.createElement(
 	                                'span',
 	                                { className: 'score orange' },
-	                                item.rank
+	                                item.score
 	                            )
 	                        ),
 	                        _react2.default.createElement(
