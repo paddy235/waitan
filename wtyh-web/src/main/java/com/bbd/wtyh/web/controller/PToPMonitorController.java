@@ -17,6 +17,7 @@ import com.bbd.wtyh.util.CalculateUtils;
 import com.bbd.wtyh.web.ResponseBean;
 import com.bbd.wtyh.web.XAxisSeriesBarLineBean;
 import com.bbd.wtyh.web.XAxisSeriesLinesBean;
+import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -347,6 +348,21 @@ public class PToPMonitorController {
     }
 
 
+    private List<Map<String, String>> filterPlatRankDataStatus(List<Map<String, String>> list, String platStatus) {
+        List<Map<String, String>> rst = new ArrayList<>();
+        if (!Strings.isNullOrEmpty(platStatus)) {
+            for (Map<String, String> element: list) {
+                if (element.get("plat_status").equals(platStatus)) {
+                    rst.add(element);
+                }
+            }
+            return rst;
+        } else {
+            return list;
+        }
+
+    }
+
     /**
      * 上海网贷平台数据展示
      *
@@ -355,14 +371,13 @@ public class PToPMonitorController {
      */
     @RequestMapping("/platRankData")
     @ResponseBody
-    public Object platRankData(@RequestParam(required = false) String platStatus) throws Exception {
-        List<Map> rstCache = (List<Map>) redisDAO.getObject(PLAT_RANK_CACHE_PRIFIX);
+    public Object platRankData(@RequestParam(required = false, defaultValue = "") String platStatus) throws Exception {
+        List<Map<String, String>> rstCache = (List<Map<String, String>>) redisDAO.getObject(PLAT_RANK_CACHE_PRIFIX);
         if (null != rstCache) {
-            return ResponseBean.successResponse(rstCache);
+            return ResponseBean.successResponse(filterPlatRankDataStatus(rstCache, platStatus));
         }
 
-
-        List<PlatRankDataDTO> list = pToPMonitorService.getPlatRankData(platStatus);
+        List<PlatRankDataDTO> list = pToPMonitorService.getPlatRankData();
         if (CollectionUtils.isEmpty(list)) {
             return ResponseBean.successResponse(new ArrayList<>());
         }
@@ -392,6 +407,15 @@ public class PToPMonitorController {
         }
 
         return ResponseBean.successResponse(rst1);
+    }
+
+
+    @RequestMapping("offlineFinanceNum.do")
+    public ResponseBean shareholderRiskDetail(String platName) {
+        if (Strings.isNullOrEmpty(platName)) {
+            return ResponseBean.errorResponse("platName must be not null");
+        }
+        return ResponseBean.successResponse(shareholderRiskService.getRelatedCompany(p2PImageService.findFromWangdaiPlatList(platName).getCompany_name()).asMap());
     }
 
 

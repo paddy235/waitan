@@ -60,7 +60,7 @@ public class P2PImageServiceImpl implements P2PImageService {
     public PlatRankDataDTO findFromWangdaiPlatRankData(String platName) {
         Map<String, PlatRankDataDTO> wangdaiPlatRankData = new HashMap<>();
         try {
-            for (PlatRankDataDTO platRankDataDTO : pToPMonitorService.getPlatRankData(null)) {
+            for (PlatRankDataDTO platRankDataDTO : pToPMonitorService.getPlatRankData()) {
                 wangdaiPlatRankData.put(platRankDataDTO.getPlat_name(), platRankDataDTO);
             }
             return wangdaiPlatRankData.get(platName);

@@ -134,14 +134,14 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
     }
 
 
-    public List<PlatRankDataDTO> getPlatRankData(String platStatus) throws Exception {
+    public List<PlatRankDataDTO> getPlatRankData() throws Exception {
 
 
         String url = this.finSerUrl + "?dataType=plat_rank_data";
         HttpTemplate httpTemplate = new HttpTemplate();
         List<PlatRankDataDTO> wangdaizhijiaRst = null;
         try {
-            wangdaizhijiaRst = httpTemplate.get(url, new HttpCallback<List<PlatRankDataDTO>>() {
+            return wangdaizhijiaRst = httpTemplate.get(url, new HttpCallback<List<PlatRankDataDTO>>() {
                 @Override
                 public boolean valid() {
                     return true;
@@ -154,18 +154,6 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
                 }
             });
 
-            if (null != platStatus) {
-                List<PlatRankDataDTO> rst = new ArrayList<>();
-                for (PlatRankDataDTO platRankDataDTO : wangdaizhijiaRst) {
-                    if (platRankDataDTO.getPlat_status().equals(platStatus)) {
-                        rst.add(platRankDataDTO);
-                    }
-                }
-                return rst;
-            } else {
-                return wangdaizhijiaRst;
-            }
-
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -174,6 +162,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
     }
 
 
+    @Override
     public Map getPlatRankMapData() throws Exception {
 
         List<PlatRankDataDTO> list = new ArrayList<>();
