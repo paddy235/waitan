@@ -10,7 +10,6 @@ import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
 import com.bbd.wtyh.service.P2PImageService;
 import com.bbd.wtyh.service.PToPMonitorService;
-import com.sun.javafx.collections.annotations.ReturnsUnmodifiableCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
