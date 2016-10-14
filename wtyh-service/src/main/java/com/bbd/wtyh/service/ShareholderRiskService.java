@@ -16,4 +16,6 @@ public interface ShareholderRiskService {
 
 
     Multimap<Integer, RelatedCompanyDTO> getRelatedCompany(Integer companyId);
+
+    Multimap<Integer, RelatedCompanyDTO> getRelatedCompany(String companyName);
 }

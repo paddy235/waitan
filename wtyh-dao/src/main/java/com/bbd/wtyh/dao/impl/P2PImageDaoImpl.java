@@ -164,8 +164,8 @@ public class P2PImageDaoImpl implements P2PImageDao {
     /**
      * 基本信息--网贷接口数据
      */
-    public List<PlatListDO> baseInfoWangDaiApi(String platName) {
-        String platFormName = url + "?dataType=plat_list&plat_name=" + platName;
+    public List<PlatListDO> baseInfoWangDaiApi() {
+        String platFormName = url + "?dataType=plat_list";
         final Map<String, Object> data = new HashMap<>();
         HttpTemplate httpTemplate = new HttpTemplate();
         try {

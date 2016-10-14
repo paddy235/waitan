@@ -46,6 +46,12 @@ public interface P2PImageService {
     PlatListDO findFromWangdaiPlatList(String platName);
 
     /**
+     * 获取 网贷之家 平台列表  list
+     * @return
+     */
+    Map<String, PlatListDO> getWangdaiPlatList();
+
+    /**
      * 舆情信息
      *
      * @param platName
