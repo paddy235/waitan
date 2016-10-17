@@ -397,7 +397,11 @@ public class PToPMonitorController {
             rst.put("stay_still_of_total", CalculateUtils.divide(dto.getStay_still_of_total(), 100000000, 2));
             rst.put("plat_status", dto.getPlat_status());
             rst.put("registered_address", dto.getRegistered_address());
-            rst.put("OffLineFinanceNum", pToPMonitorService.getOfflineFinanceNum(wangdaiPlatList.get(dto.getPlat_name()).getCompany_name()));
+            if (wangdaiPlatList.get(dto.getPlat_name()) == null) {//处理空指针异常
+                rst.put("OffLineFinanceNum", 0);
+            } else {
+                rst.put("OffLineFinanceNum", pToPMonitorService.getOfflineFinanceNum(wangdaiPlatList.get(dto.getPlat_name()).getCompany_name()));
+            }
 
             rst1.add(rst);
         }
