@@ -46,6 +46,14 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
+    public CompanyDO getCompanyByName(String companyName, boolean changeFullWidth) {
+        if (changeFullWidth) {
+            companyName = companyName.replace("(", "（").replace(")", "）");
+        }
+        return getCompanyByName(companyName);
+    }
+
+    @Override
     public List<CompanyDO> searchCompany(Integer companyType, String keyword, Integer size) {
         return companyMapper.searchCompany(companyType, keyword, size);
     }

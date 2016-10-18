@@ -78,7 +78,7 @@
 
 	var store = (0, _configureStore2.default)();
 	//保持历史同步
-	var history = (0, _reactRouterRedux.syncHistoryWithStore)(_reactRouter.browserHistory, store);
+	var history = (0, _reactRouterRedux.syncHistoryWithStore)(_reactRouter.hashHistory, store);
 	(0, _reactDom.render)(_react2.default.createElement(_Root2.default, { store: store, history: history }), document.getElementById('App'));
 
 /***/ },
@@ -25618,7 +25618,6 @@
 	    var history = _props.history;
 
 	    console.log(this.props, 'history');
-	    //history={history}
 	    return _react2.default.createElement(
 	      _reactRedux.Provider,
 	      { store: store },
@@ -25628,7 +25627,7 @@
 	        _react2.default.createElement(_DevTools2.default, null),
 	        _react2.default.createElement(
 	          _reactRouter.Router,
-	          null,
+	          { history: history },
 	          _react2.default.createElement(
 	            _reactRouter.Route,
 	            { path: '/', component: _App2.default },
@@ -40488,7 +40487,6 @@
 	    var infoBtn = null;
 
 	    if (this.props.selectShow == "show" && this.state.value) {
-	      console.log(this.state.value, this.props.selectShow, 'xuyao测试');
 	      var selectProp = {
 	        width: '160px',
 	        className: 'index-selected',
@@ -40660,7 +40658,7 @@
 	            this.state.selectDataArr.map(function (item, index) {
 	              return _react2.default.createElement(
 	                'li',
-	                null,
+	                { key: index },
 	                _react2.default.createElement(
 	                  _reactRouter.Link,
 	                  { activeClassName: 'active', to: { pathname: '/parkMonitor', query: { areaId: item.value } }, onClick: this.subMenu.bind(this, item) },
@@ -50468,7 +50466,6 @@
 
 	            if (homeThreeRequest == true) {
 	                if (homeThreeResult.success == true) {
-	                    console.log(homeThreeResult.content, 11111);
 	                    this.changeNum(homeThreeResult.content);
 	                } else {
 	                    console.log(404);
@@ -51108,7 +51105,7 @@
 	        this.props.conList.map(function (elem, index) {
 	          return _react2.default.createElement(
 	            'li',
-	            { className: '', label: this.props.label, onClick: this.checkClick },
+	            { key: index, className: '', label: this.props.label, onClick: this.checkClick },
 	            elem
 	          );
 	        }.bind(this))
@@ -60171,7 +60168,7 @@
 
 
 	// module
-	exports.push([module.id, ".finance-guara-index .mt-table {\r\n\tmargin: 0px !important;\r\n}\r\n\r\n/*企业评级*/\r\n.finance-guara-index .company-grade .mod-content .table-content {\r\n\theight: 530px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n/*担保责任余额结构分布*/\r\n.finance-guara-index .balance-distribute {\r\n\theight: 49.5%;\r\n}\r\n\r\n.finance-guara-index .balance-distribute .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*担保笔均折线图*/\r\n.finance-guara-index .each-average {\r\n\theight: 49.5%;\r\n\tmargin-top: 2%;\r\n}\r\n\r\n.finance-guara-index .each-average .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*地图模块*/\r\n.finance-guara-index .finance-guara-map .map-chart-box {\r\n\theight: 610px;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .finance-guara-map .company-chart-box {\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.finance-guara-index .finance-guara-map .visual-text {\r\n\tposition: absolute;\r\n\tbottom: 26%;\r\n\tright: 3%;\r\n\tz-index: 1000;\r\n\twidth: 14px;\r\n}\r\n\r\n/*贷款余额占比*/\r\n.finance-guara-index .loan-balance .chart-box {\r\n\theight: 300px;\r\n}\r\n\r\n/*股东行业风险*/\r\n.finance-guara-index .industry-risk {\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk .mod-content .table-content {\r\n\theight: 240px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index  .mod-content .table-content table td a.more {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*大额借款人信息列表*/\r\n\r\n/*股东风险更多*/\r\n.finance-guara-index .industry-risk-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n.finance-guara-index .industry-risk-more .content ul li em{\r\n\tmargin-left: 10px;\r\n\tpadding: 0px 5px;\r\n\tfont-size: 12px;\r\n\tdisplay: inline-block\r\n}\r\n.finance-guara-index .industry-risk-more .content ul li em.bg-black{\r\n\tbackground-color: #000000;\r\n}\r\n.finance-guara-index .industry-risk-more .content ul li em.bg-red{\r\n\tbackground-color: red;\r\n}\r\n.finance-guara-index .industry-risk-more .content ul li em.bg-yellow{\r\n\tbackground-color: #ebc900;\r\n}\r\n.finance-guara-index .industry-risk-more .content ul li em.bg-green{\r\n\tbackground-color: #32b16c;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content {\r\n\r\n\t/*padding: 8px 10px;*/\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content .content-riskMore {\r\n\twidth: 100%;\t/*height: 199px*/\r\n\tdisplay: table;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content ul {\r\n\tdisplay: table-cell;\r\n\twidth: 33.33%;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content ul li {\r\n\tpadding: 15px 5px;\r\n\tfont-size: 14px;\r\n}\r\n\r\n/*大额借款人*/\r\n.large-guara{\r\n\tposition: relative;\r\n}\r\n.large-guara .table-content {\r\n\theight: 280px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n.large-guara .table-content table{\r\n\twidth: 605px;\r\n}\r\n\r\n/*大额担保更多*/\r\n.finance-guara-index .large-guara-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.finance-guara-index .large-guara-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .large-guara-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.finance-guara-index .large-guara-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n.finance-guara-index .large-guara-more .content ul li em{\r\n\tmargin-left: 10px;\r\n\tpadding: 0px 5px;\r\n\tfont-size: 12px;\r\n\tdisplay: inline-block\r\n}\r\n.finance-guara-index .large-guara-more .content ul li em.bg-black{\r\n\tbackground-color: #000000;\r\n}\r\n.finance-guara-index .large-guara-more .content ul li em.bg-red{\r\n\tbackground-color: red;\r\n}\r\n.finance-guara-index .large-guara-more .content ul li em.bg-yellow{\r\n\tbackground-color: #ebc900;\r\n}\r\n.finance-guara-index .large-guara-more .content ul li em.bg-green{\r\n\tbackground-color: #32b16c;\r\n}\r\n\r\n.finance-guara-index .large-guara-more .content {\r\n\r\n\t/*padding: 8px 10px;*/\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .large-guara-more .content .content-riskMore {\r\n\twidth: 100%;\t/*height: 199px*/\r\n\tdisplay: table;\r\n}\r\n\r\n.finance-guara-index .large-guara-more .content ul {\r\n\tdisplay: table-cell;\r\n\twidth: 33.33%;\r\n}\r\n\r\n.finance-guara-index .large-guara-more .content ul li {\r\n\tpadding: 15px 5px;\r\n\tfont-size: 14px;\r\n}\r\n\r\n", ""]);
+	exports.push([module.id, ".finance-guara-index .mt-table {\r\n\tmargin: 0px !important;\r\n}\r\n\r\n/*企业评级*/\r\n.finance-guara-index .company-grade .mod-content .table-content {\r\n\theight: 530px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n/*担保责任余额结构分布*/\r\n.finance-guara-index .balance-distribute {\r\n\theight: 49.5%;\r\n}\r\n\r\n.finance-guara-index .balance-distribute .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*担保笔均折线图*/\r\n.finance-guara-index .each-average {\r\n\theight: 49.5%;\r\n\tmargin-top: 2%;\r\n}\r\n\r\n.finance-guara-index .each-average .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*地图模块*/\r\n.finance-guara-index .finance-guara-map .map-chart-box {\r\n\theight: 610px;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .finance-guara-map .company-chart-box {\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.finance-guara-index .finance-guara-map .visual-text {\r\n\tposition: absolute;\r\n\tbottom: 26%;\r\n\tright: 3%;\r\n\tz-index: 1000;\r\n\twidth: 14px;\r\n}\r\n\r\n/*贷款余额占比*/\r\n.finance-guara-index .loan-balance .chart-box {\r\n\theight: 300px;\r\n}\r\n\r\n/*股东行业风险*/\r\n.finance-guara-index .industry-risk {\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk .mod-content .table-content {\r\n\theight: 240px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index  .mod-content .table-content table td a.more {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*大额借款人信息列表*/\r\n\r\n/*股东风险更多*/\r\n.finance-guara-index .industry-risk-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n.finance-guara-index .industry-risk-more .content ul li em{\r\n\tmargin-left: 10px;\r\n\tpadding: 0px 5px;\r\n\tfont-size: 12px;\r\n\tdisplay: inline-block\r\n}\r\n.finance-guara-index .industry-risk-more .content ul li em.bg-black{\r\n\tbackground-color: #000000;\r\n}\r\n.finance-guara-index .industry-risk-more .content ul li em.bg-red{\r\n\tbackground-color: red;\r\n}\r\n.finance-guara-index .industry-risk-more .content ul li em.bg-yellow{\r\n\tbackground-color: #ebc900;\r\n}\r\n.finance-guara-index .industry-risk-more .content ul li em.bg-green{\r\n\tbackground-color: #32b16c;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content {\r\n\r\n\t/*padding: 8px 10px;*/\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content .content-riskMore {\r\n\twidth: 100%;\t/*height: 199px*/\r\n\tdisplay: table;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content ul {\r\n\tdisplay: table-cell;\r\n\twidth: 33.33%;\r\n}\r\n\r\n.finance-guara-index .industry-risk-more .content ul li {\r\n\tpadding: 15px 5px;\r\n\tfont-size: 14px;\r\n}\r\n\r\n/*大额借款人*/\r\n.large-guara{\r\n\tposition: relative;\r\n}\r\n.large-guara .table-title{\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n.large-guara .table-title table{\r\n\twidth: 605px;\r\n}\r\n.large-guara .table-content {\r\n\theight: 280px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n.large-guara .table-content table{\r\n\twidth: 605px;\r\n}\r\n\r\n/*大额担保更多*/\r\n.finance-guara-index .large-guara-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.finance-guara-index .large-guara-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .large-guara-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.finance-guara-index .large-guara-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n.finance-guara-index .large-guara-more .content ul li em{\r\n\tmargin-left: 10px;\r\n\tpadding: 0px 5px;\r\n\tfont-size: 12px;\r\n\tdisplay: inline-block\r\n}\r\n.finance-guara-index .large-guara-more .content ul li em.bg-black{\r\n\tbackground-color: #000000;\r\n}\r\n.finance-guara-index .large-guara-more .content ul li em.bg-red{\r\n\tbackground-color: red;\r\n}\r\n.finance-guara-index .large-guara-more .content ul li em.bg-yellow{\r\n\tbackground-color: #ebc900;\r\n}\r\n.finance-guara-index .large-guara-more .content ul li em.bg-green{\r\n\tbackground-color: #32b16c;\r\n}\r\n\r\n.finance-guara-index .large-guara-more .content {\r\n\r\n\t/*padding: 8px 10px;*/\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\twidth: 100%;\r\n\tposition: relative;\r\n}\r\n\r\n.finance-guara-index .large-guara-more .content .content-riskMore {\r\n\twidth: 100%;\t/*height: 199px*/\r\n\tdisplay: table;\r\n}\r\n\r\n.finance-guara-index .large-guara-more .content ul {\r\n\tdisplay: table-cell;\r\n\twidth: 33.33%;\r\n}\r\n\r\n.finance-guara-index .large-guara-more .content ul li {\r\n\tpadding: 15px 5px;\r\n\tfont-size: 14px;\r\n}\r\n\r\n", ""]);
 
 	// exports
 
@@ -61000,6 +60997,7 @@
 	    for (var i = 0; i < len; i++) {
 	      yData.push(dataYAxis[i][1] / 3);
 	      dataYAxis[i][1] = (dataYAxis[i][1] / 3).toFixed(2);
+	      dataYAxis[i][2] = (dataYAxis[i][2] / 3).toFixed(2);
 	    }
 
 	    var dataYAxis = _publicFun2.default.sortArr(dataYAxis);
@@ -61025,9 +61023,9 @@
 	        if (val[2] < 1000) {
 	          return val[2] / 10;
 	        } else if (val[2] > 1000 && val[2] < 10000) {
-	          return val[2] / 500;
+	          return val[2] / 300;
 	        } else if (val[2] > 10000 && val[2] < 130000) {
-	          return val[2] / 2200;
+	          return val[2] / 700;
 	        } else {
 	          return val[2] / 2400;
 	        }
@@ -61851,7 +61849,7 @@
 	        { className: 'mod-content' },
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'table-content', id: 'largerguara-scroll' },
+	          { className: 'table-title ps-title' },
 	          _react2.default.createElement(
 	            'table',
 	            { className: 'mt-table mt-table-center wtyh-table' },
@@ -61892,7 +61890,15 @@
 	                  _react2.default.createElement('i', { className: 'iconfont icon-desc' })
 	                )
 	              )
-	            ),
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'table-content', id: 'largerguara-scroll' },
+	          _react2.default.createElement(
+	            'table',
+	            { className: 'mt-table mt-table-center wtyh-table' },
 	            _react2.default.createElement(
 	              'tbody',
 	              null,
@@ -65761,7 +65767,7 @@
 
 
 	// module
-	exports.push([module.id, ".small-loan-index .mt-table {\r\n\tmargin: 0px !important;\r\n}\r\n\r\n/*企业评级*/\r\n.small-loan-index .company-grade .mod-content .table-content {\r\n\theight: 530px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n.small-loan-index .company-grade .table-content .wtyh-table{\r\n\r\n}\r\n\r\n/*余额占比*/\r\n.small-loan-index .balance-radio {\r\n\theight: 49.5%;\r\n}\r\n\r\n.small-loan-index .balance-radio .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*贷款笔均折线图*/\r\n.small-loan-index .each-average {\r\n\theight: 49.5%;\r\n\tmargin-top: 2%;\r\n}\r\n\r\n.small-loan-index .each-average .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*地图模块*/\r\n.small-loan-index .small-loan-map .map-chart-box {\r\n\theight: 610px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .small-loan-map .company-chart-box {\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.small-loan-index .small-loan-map .visual-text {\r\n\tposition: absolute;\r\n\tbottom: 26%;\r\n\tright: 3%;\r\n\tz-index: 1000;\r\n\twidth: 14px;\r\n}\r\n\r\n/*贷款余额占比*/\r\n.small-loan-index .loan-balance .chart-box {\r\n\theight: 300px;\r\n}\r\n\r\n/*股东行业风险*/\r\n.small-loan-index .industry-risk{\r\n\tposition: relative;\r\n}\r\n.small-loan-index .industry-risk .mod-content .table-content {\r\n\theight: 240px;\t\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index  .mod-content .table-content table td a.more {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*大额借款人信息列表*/\r\n\r\n/*股东风险更多*/\r\n.small-loan-index .industry-risk-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content {\r\n\r\n\t/*padding: 8px 10px;*/\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content .content-more {\r\n\theight: 199px;\r\n\twidth: 100%;\r\n\tdisplay: table;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul {\r\n\r\n\t/*display: inline-block;*/\r\n\twidth: 33.33%;\t/*height: 199px;*/\r\n\tdisplay: table-cell;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul li {\r\n\tpadding: 15px 5px;\r\n}\r\n.industry-risk-more .content ul li em{\r\n\tmargin-left: 10px;\r\n\tpadding: 0px 5px;\r\n\tfont-size: 12px;\r\n\tdisplay: inline-block\r\n}\r\n.industry-risk-more .content ul li em.bg-black{\r\n\tbackground-color: #000000;\r\n}\r\n.industry-risk-more .content ul li em.bg-red{\r\n\tbackground-color: red;\r\n}\r\n.industry-risk-more .content ul li em.bg-yellow{\r\n\tbackground-color: #ebc900;\r\n}\r\n.industry-risk-more .content ul li em.bg-green{\r\n\tbackground-color: #32b16c;\r\n}\r\n\r\n/*大额借款人*/\r\n.large-loan{\r\n\tposition: relative;\r\n}\r\n.large-loan .table-content {\r\n\theight: 280px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n.large-loan .table-content table{\r\n\twidth: 605px;\r\n}\r\n\r\n/*大额借款人更多*/\r\n.small-loan-index .large-loan-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.small-loan-index .large-loan-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .large-loan-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.small-loan-index .large-loan-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.small-loan-index .large-loan-more .content {\r\n\r\n\t/*padding: 8px 10px;*/\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .large-loan-more .content .content-more {\r\n\theight: 199px;\r\n\twidth: 100%;\r\n\tdisplay: table;\r\n}\r\n\r\n.small-loan-index .large-loan-more .content ul {\r\n\r\n\t/*display: inline-block;*/\r\n\twidth: 33.33%;\t/*height: 199px;*/\r\n\tdisplay: table-cell;\r\n}\r\n\r\n.small-loan-index .large-loan-more .content ul li {\r\n\tpadding: 15px 5px;\r\n}\r\n.large-loan-more .content ul li em{\r\n\tmargin-left: 10px;\r\n\tpadding: 0px 5px;\r\n\tfont-size: 12px;\r\n\tdisplay: inline-block\r\n}\r\n.large-loan-more .content ul li em.bg-black{\r\n\tbackground-color: #000000;\r\n}\r\n.large-loan-more .content ul li em.bg-red{\r\n\tbackground-color: red;\r\n}\r\n.large-loan-more .content ul li em.bg-yellow{\r\n\tbackground-color: #ebc900;\r\n}\r\n.large-loan-more .content ul li em.bg-green{\r\n\tbackground-color: #32b16c;\r\n}", ""]);
+	exports.push([module.id, ".small-loan-index .mt-table {\r\n\tmargin: 0px !important;\r\n}\r\n\r\n/*企业评级*/\r\n.small-loan-index .company-grade .mod-content .table-content {\r\n\theight: 530px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n.small-loan-index .company-grade .table-content .wtyh-table{\r\n\r\n}\r\n\r\n/*余额占比*/\r\n.small-loan-index .balance-radio {\r\n\theight: 49.5%;\r\n}\r\n\r\n.small-loan-index .balance-radio .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*贷款笔均折线图*/\r\n.small-loan-index .each-average {\r\n\theight: 49.5%;\r\n\tmargin-top: 2%;\r\n}\r\n\r\n.small-loan-index .each-average .chart-box {\r\n\theight: 272px;\r\n}\r\n\r\n/*地图模块*/\r\n.small-loan-index .small-loan-map .map-chart-box {\r\n\theight: 610px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .mod-content {\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .small-loan-map .company-chart-box {\r\n\twidth: 200px;\r\n\theight: 200px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n}\r\n\r\n.small-loan-index .small-loan-map .visual-text {\r\n\tposition: absolute;\r\n\tbottom: 26%;\r\n\tright: 3%;\r\n\tz-index: 1000;\r\n\twidth: 14px;\r\n}\r\n\r\n/*贷款余额占比*/\r\n.small-loan-index .loan-balance .chart-box {\r\n\theight: 300px;\r\n}\r\n\r\n/*股东行业风险*/\r\n.small-loan-index .industry-risk{\r\n\tposition: relative;\r\n}\r\n.small-loan-index .industry-risk .mod-content .table-content {\r\n\theight: 240px;\t\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index  .mod-content .table-content table td a.more {\r\n\tcolor: #e14340;\r\n}\r\n\r\n/*大额借款人信息列表*/\r\n\r\n/*股东风险更多*/\r\n.small-loan-index .industry-risk-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content {\r\n\r\n\t/*padding: 8px 10px;*/\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content .content-more {\r\n\theight: 199px;\r\n\twidth: 100%;\r\n\tdisplay: table;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul {\r\n\r\n\t/*display: inline-block;*/\r\n\twidth: 33.33%;\t/*height: 199px;*/\r\n\tdisplay: table-cell;\r\n}\r\n\r\n.small-loan-index .industry-risk-more .content ul li {\r\n\tpadding: 15px 5px;\r\n}\r\n.industry-risk-more .content ul li em{\r\n\tmargin-left: 10px;\r\n\tpadding: 0px 5px;\r\n\tfont-size: 12px;\r\n\tdisplay: inline-block\r\n}\r\n.industry-risk-more .content ul li em.bg-black{\r\n\tbackground-color: #000000;\r\n}\r\n.industry-risk-more .content ul li em.bg-red{\r\n\tbackground-color: red;\r\n}\r\n.industry-risk-more .content ul li em.bg-yellow{\r\n\tbackground-color: #ebc900;\r\n}\r\n.industry-risk-more .content ul li em.bg-green{\r\n\tbackground-color: #32b16c;\r\n}\r\n\r\n/*大额借款人*/\r\n.large-loan{\r\n\tposition: relative;\r\n}\r\n.large-loan .table-title{\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n.large-loan .table-title table{\r\n\twidth: 605px;\r\n}\r\n.large-loan .table-content {\r\n\theight: 280px;\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n}\r\n.large-loan .table-content table{\r\n\twidth: 605px;\r\n}\r\n\r\n/*大额借款人更多*/\r\n.small-loan-index .large-loan-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.small-loan-index .large-loan-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .large-loan-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 33%;\r\n}\r\n\r\n.small-loan-index .large-loan-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.small-loan-index .large-loan-more .content {\r\n\r\n\t/*padding: 8px 10px;*/\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\tposition: relative;\r\n}\r\n\r\n.small-loan-index .large-loan-more .content .content-more {\r\n\theight: 199px;\r\n\twidth: 100%;\r\n\tdisplay: table;\r\n}\r\n\r\n.small-loan-index .large-loan-more .content ul {\r\n\r\n\t/*display: inline-block;*/\r\n\twidth: 33.33%;\t/*height: 199px;*/\r\n\tdisplay: table-cell;\r\n}\r\n\r\n.small-loan-index .large-loan-more .content ul li {\r\n\tpadding: 15px 5px;\r\n}\r\n.large-loan-more .content ul li em{\r\n\tmargin-left: 10px;\r\n\tpadding: 0px 5px;\r\n\tfont-size: 12px;\r\n\tdisplay: inline-block\r\n}\r\n.large-loan-more .content ul li em.bg-black{\r\n\tbackground-color: #000000;\r\n}\r\n.large-loan-more .content ul li em.bg-red{\r\n\tbackground-color: red;\r\n}\r\n.large-loan-more .content ul li em.bg-yellow{\r\n\tbackground-color: #ebc900;\r\n}\r\n.large-loan-more .content ul li em.bg-green{\r\n\tbackground-color: #32b16c;\r\n}", ""]);
 
 	// exports
 
@@ -66289,10 +66295,12 @@
 	    var dataYAxis = data.data;
 	    var len = dataYAxis.length;
 	    var yData = [];
+	    console.log(dataYAxis, 111);
 
 	    for (var i = 0; i < len; i++) {
 	      yData.push(dataYAxis[i][1] / 3);
 	      dataYAxis[i][1] = (dataYAxis[i][1] / 3).toFixed(2);
+	      dataYAxis[i][2] = (dataYAxis[i][2] / 3).toFixed(2);
 	    }
 
 	    var dataYAxis = _publicFun2.default.sortArr(dataYAxis);
@@ -66318,9 +66326,9 @@
 	        if (val[2] < 1000) {
 	          return val[2] / 10;
 	        } else if (val[2] > 1000 && val[2] < 10000) {
-	          return val[2] / 400;
+	          return val[2] / 200;
 	        } else {
-	          return val[2] / 1000;
+	          return val[2] / 300;
 	        }
 	      },
 	      series: [[{
@@ -66950,7 +66958,7 @@
 	        { className: 'mod-content' },
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'table-title' },
+	          { className: 'table-title ps-title' },
 	          _react2.default.createElement(
 	            'table',
 	            { className: 'mt-table mt-table-center wtyh-table' },
@@ -68617,7 +68625,12 @@
 	        this.setState({ netCreditLinFinNum: content });
 	    },
 	    handleMore: function handleMore(data, e) {
+	        var $this = $(e.target);
+	        var val = $this.text();
 	        var jsonData = { platName: data };
+	        if (val == "0") {
+	            return false;
+	        }
 	        this.getNetCreditLinFinNum(jsonData);
 	        var offTop = $('.net-credit').offset().top;
 	        var offLeft = $('.net-credit').offset().left;
@@ -81213,7 +81226,7 @@
 	        console.log(dataPie, 'dataPie');
 	        var param = {
 	            id: 'small-loan-company-chart', //必传
-	            color: ['#efd79b', '#e24340'],
+	            color: ["#6c9f87", "#e14340", "#efd79b"],
 	            legendOrient: "",
 	            legendRight: "7%",
 	            legendBottom: "20%",
@@ -86469,7 +86482,6 @@
 	                    }
 	                },
 	                data: SHDataImport.map(function (dataItem) {
-	                    console.log(dataItem, "dataItem");
 	                    console.log(dataItem[0].name, "dataItem[0].name");
 	                    return {
 	                        name: dataItem[0].name,
@@ -87251,6 +87263,7 @@
 	                    for (var i = 0; i < len; i++) {
 	                        yData.push(dataYAxis[i][1] / 3);
 	                        dataYAxis[i][1] = (dataYAxis[i][1] / 3).toFixed(2);
+	                        dataYAxis[i][2] = (dataYAxis[i][2] / 3).toFixed(2);
 	                    }
 
 	                    var paramOneData = _publicFun2.default.sortArr(dataYAxis);
@@ -87283,9 +87296,9 @@
 	                            if (val[2] < 1000) {
 	                                return val[2] / 10;
 	                            } else if (val[2] > 1000 && val[2] < 10000) {
-	                                return val[2] / 600;
+	                                return val[2] / 200;
 	                            } else {
-	                                return val[2] / 2000;
+	                                return val[2] / 700;
 	                            }
 	                        },
 	                        series: [[{
@@ -87343,21 +87356,21 @@
 	                        "Ytype": "value",
 	                        "title": "网络借贷",
 	                        "color": ["#12b5b0", "#e24441"],
-	                        "legend": ["上海累计平台数", "上海新增平台数"],
+	                        "legend": ["上海累计平台数", "上海新发现平台数"],
 	                        "legendShow": true,
 	                        "legendLeft": "center",
 	                        "legendTop": "20",
 	                        "barName": ["上海累计平台数"],
-	                        "lineName": ["上海新增平台数"],
+	                        "lineName": ["上海新发现平台数"],
 	                        "YnameLocation": "end",
 	                        "gridLeft": "5%",
-	                        "gridRight": "0%",
+	                        "gridRight": "1%",
 	                        "gridBottom": "0%",
 	                        // "yFlag":"",
 	                        // "y2Flag":"",
 	                        "yRightLable": "line",
 	                        "xAxis": nineDate.content.p2p.xAxis,
-	                        "yAxisName": ["累计", "新增"],
+	                        "yAxisName": ["累计", "新发现"],
 	                        "barWidth": 20,
 	                        "symbolSize": 10,
 	                        "series": {
