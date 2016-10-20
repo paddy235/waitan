@@ -60,6 +60,7 @@ public class GuaranteeServiceImpl implements GuaranteeService {
                 dto.setSteelBalance(balanceDO.getSteelBalance());
                 dto.setAmount(balanceDO.getGuaranteeBalance());
                 dto.setNumber(balanceDO.getNumber());
+                dto.setCompanyAmount(balanceDO.getCompanyAmount());
                 map.put(key, dto);
                 monthCount.put(key, 1);
             }

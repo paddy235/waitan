@@ -11,6 +11,8 @@ public class GuaranteeBalanceDO extends BaseDO {
 
     private Integer number;
 
+    private Integer companyAmount;
+
     private Integer steelBalance;
 
     private Integer compositeBalance;
@@ -79,5 +81,13 @@ public class GuaranteeBalanceDO extends BaseDO {
 
     public void setPolicyBalance(Integer policyBalance) {
         this.policyBalance = policyBalance;
+    }
+
+    public Integer getCompanyAmount() {
+        return companyAmount;
+    }
+
+    public void setCompanyAmount(Integer companyAmount) {
+        this.companyAmount = companyAmount;
     }
 }

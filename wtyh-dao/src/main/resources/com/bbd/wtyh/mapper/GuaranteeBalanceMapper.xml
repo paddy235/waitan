@@ -7,6 +7,7 @@
     <result column="year" jdbcType="INTEGER" property="year" />
     <result column="month" jdbcType="INTEGER" property="month" />
     <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="company_amount" jdbcType="INTEGER" property="companyAmount" />
     <result column="steel_balance" jdbcType="INTEGER" property="steelBalance" />
     <result column="composite_balance" jdbcType="INTEGER" property="compositeBalance" />
     <result column="policy_balance" jdbcType="INTEGER" property="policyBalance" />
@@ -16,7 +17,7 @@
     <result column="update_date" jdbcType="DATE" property="updateDate" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, guarantee_balance, year, month, number, steel_balance, composite_balance, policy_balance, 
+    id, guarantee_balance, year, month, number, company_amount,steel_balance, composite_balance, policy_balance,
     create_by, create_date, update_by, update_date
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -39,7 +40,7 @@
   <select id="listByYear" resultMap="BaseResultMap">
     select
     year,sum(guarantee_balance) guarantee_balance,sum(number) number,sum(steel_balance) steel_balance,
-    sum(composite_balance) composite_balance,sum(policy_balance) policy_balance
+    sum(composite_balance) composite_balance,sum(policy_balance) policy_balance ,company_amount
     from guarantee_balance
     group by year
 
