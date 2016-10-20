@@ -109,11 +109,11 @@
         from (
 
 
-                select c.* , IFNULL(cb.background , 3) background
+                select c.* , IFNULL(cb.background , 4) background
                 from company c
                 left join   company_building b
                             on  b.company_id=c.company_id
-                left join   (  select * from  company_background cb where cb.background in (3,4) ) cb
+                left join   (  select * from  company_background cb where cb.background in (3,4,5) ) cb
                             on cb.company_id=c.company_id
                 where b.building_id=#{buildingId}
                       and c.company_type is not null
