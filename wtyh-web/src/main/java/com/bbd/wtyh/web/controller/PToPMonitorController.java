@@ -400,7 +400,7 @@ public class PToPMonitorController {
             if (wangdaiPlatList.get(dto.getPlat_name()) == null) {//处理空指针异常
                 rst.put("OffLineFinanceNum", 0);
             } else {
-                rst.put("OffLineFinanceNum", pToPMonitorService.getOfflineFinanceNum(p2PImageService.findCompanyNameFromDbThenAPI(dto.getPlat_name())));
+                rst.put("OffLineFinanceNum", pToPMonitorService.getOfflineFinanceNum(p2PImageService.findCompanyNameFromDbThenAPI(dto.getPlat_name(), wangdaiPlatList)));
             }
 
             rst1.add(rst);
@@ -420,7 +420,8 @@ public class PToPMonitorController {
         if (Strings.isNullOrEmpty(platName)) {
             return ResponseBean.errorResponse("platName must be not null");
         }
-        return ResponseBean.successResponse(shareholderRiskService.getRelatedCompany(p2PImageService.findCompanyNameFromDbThenAPI(platName)).asMap());
+        Map<String, PlatListDO> wangdaiPlatList = p2PImageService.getWangdaiPlatList();
+        return ResponseBean.successResponse(shareholderRiskService.getRelatedCompany(p2PImageService.findCompanyNameFromDbThenAPI(platName, wangdaiPlatList)).asMap());
     }
 
 
