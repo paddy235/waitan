@@ -78,7 +78,7 @@
 
 	var store = (0, _configureStore2.default)();
 	//保持历史同步
-	var history = (0, _reactRouterRedux.syncHistoryWithStore)(_reactRouter.browserHistory, store);
+	var history = (0, _reactRouterRedux.syncHistoryWithStore)(_reactRouter.hashHistory, store);
 	(0, _reactDom.render)(_react2.default.createElement(_Root2.default, { store: store, history: history }), document.getElementById('App'));
 
 /***/ },
@@ -25618,7 +25618,6 @@
 	    var history = _props.history;
 
 	    console.log(this.props, 'history');
-	    //history={history}
 	    return _react2.default.createElement(
 	      _reactRedux.Provider,
 	      { store: store },
@@ -25628,7 +25627,7 @@
 	        _react2.default.createElement(_DevTools2.default, null),
 	        _react2.default.createElement(
 	          _reactRouter.Router,
-	          null,
+	          { history: history },
 	          _react2.default.createElement(
 	            _reactRouter.Route,
 	            { path: '/', component: _App2.default },
@@ -40488,7 +40487,6 @@
 	    var infoBtn = null;
 
 	    if (this.props.selectShow == "show" && this.state.value) {
-	      console.log(this.state.value, this.props.selectShow, 'xuyao测试');
 	      var selectProp = {
 	        width: '160px',
 	        className: 'index-selected',
@@ -40660,7 +40658,7 @@
 	            this.state.selectDataArr.map(function (item, index) {
 	              return _react2.default.createElement(
 	                'li',
-	                null,
+	                { key: index },
 	                _react2.default.createElement(
 	                  _reactRouter.Link,
 	                  { activeClassName: 'active', to: { pathname: '/parkMonitor', query: { areaId: item.value } }, onClick: this.subMenu.bind(this, item) },
@@ -50468,7 +50466,6 @@
 
 	            if (homeThreeRequest == true) {
 	                if (homeThreeResult.success == true) {
-	                    console.log(homeThreeResult.content, 11111);
 	                    this.changeNum(homeThreeResult.content);
 	                } else {
 	                    console.log(404);
@@ -51108,7 +51105,7 @@
 	        this.props.conList.map(function (elem, index) {
 	          return _react2.default.createElement(
 	            'li',
-	            { className: '', label: this.props.label, onClick: this.checkClick },
+	            { key: index, className: '', label: this.props.label, onClick: this.checkClick },
 	            elem
 	          );
 	        }.bind(this))
@@ -61000,6 +60997,7 @@
 	    for (var i = 0; i < len; i++) {
 	      yData.push(dataYAxis[i][1] / 3);
 	      dataYAxis[i][1] = (dataYAxis[i][1] / 3).toFixed(2);
+	      dataYAxis[i][2] = (dataYAxis[i][2] / 3).toFixed(2);
 	    }
 
 	    var dataYAxis = _publicFun2.default.sortArr(dataYAxis);
@@ -61025,9 +61023,9 @@
 	        if (val[2] < 1000) {
 	          return val[2] / 10;
 	        } else if (val[2] > 1000 && val[2] < 10000) {
-	          return val[2] / 500;
+	          return val[2] / 300;
 	        } else if (val[2] > 10000 && val[2] < 130000) {
-	          return val[2] / 2200;
+	          return val[2] / 700;
 	        } else {
 	          return val[2] / 2400;
 	        }
@@ -66297,10 +66295,12 @@
 	    var dataYAxis = data.data;
 	    var len = dataYAxis.length;
 	    var yData = [];
+	    console.log(dataYAxis, 111);
 
 	    for (var i = 0; i < len; i++) {
 	      yData.push(dataYAxis[i][1] / 3);
 	      dataYAxis[i][1] = (dataYAxis[i][1] / 3).toFixed(2);
+	      dataYAxis[i][2] = (dataYAxis[i][2] / 3).toFixed(2);
 	    }
 
 	    var dataYAxis = _publicFun2.default.sortArr(dataYAxis);
@@ -66326,9 +66326,9 @@
 	        if (val[2] < 1000) {
 	          return val[2] / 10;
 	        } else if (val[2] > 1000 && val[2] < 10000) {
-	          return val[2] / 400;
+	          return val[2] / 200;
 	        } else {
-	          return val[2] / 1000;
+	          return val[2] / 300;
 	        }
 	      },
 	      series: [[{
@@ -86477,7 +86477,6 @@
 	                    }
 	                },
 	                data: SHDataImport.map(function (dataItem) {
-	                    console.log(dataItem, "dataItem");
 	                    console.log(dataItem[0].name, "dataItem[0].name");
 	                    return {
 	                        name: dataItem[0].name,
@@ -87259,6 +87258,7 @@
 	                    for (var i = 0; i < len; i++) {
 	                        yData.push(dataYAxis[i][1] / 3);
 	                        dataYAxis[i][1] = (dataYAxis[i][1] / 3).toFixed(2);
+	                        dataYAxis[i][2] = (dataYAxis[i][2] / 3).toFixed(2);
 	                    }
 
 	                    var paramOneData = _publicFun2.default.sortArr(dataYAxis);
@@ -87291,9 +87291,9 @@
 	                            if (val[2] < 1000) {
 	                                return val[2] / 10;
 	                            } else if (val[2] > 1000 && val[2] < 10000) {
-	                                return val[2] / 600;
+	                                return val[2] / 200;
 	                            } else {
-	                                return val[2] / 2000;
+	                                return val[2] / 700;
 	                            }
 	                        },
 	                        series: [[{
