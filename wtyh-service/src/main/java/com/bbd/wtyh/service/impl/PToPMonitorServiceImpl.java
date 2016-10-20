@@ -3,10 +3,16 @@ package com.bbd.wtyh.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
+import com.bbd.wtyh.common.Constants;
+import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.PlatformNameInformationDO;
 import com.bbd.wtyh.domain.dto.*;
 import com.bbd.wtyh.mapper.PlatformNameInformationMapper;
+import com.bbd.wtyh.redis.RedisDAO;
+import com.bbd.wtyh.service.CompanyService;
 import com.bbd.wtyh.service.PToPMonitorService;
+import com.bbd.wtyh.service.impl.relation.RegisterUniversalFilterChainImp;
+import com.bbd.wtyh.web.relationVO.PointVO;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.slf4j.Logger;
@@ -15,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,8 +40,49 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
     @Value("${financial.services.url}")
     private String finSerUrl;
 
+    @Value("${related.party.dataVersion}")
+    private String dataVersion;
+
     @Autowired
     private PlatformNameInformationMapper platformNameInformationMapper;
+
+    @Autowired
+    private RedisDAO redisDAO;
+
+    @Autowired
+    private RegisterUniversalFilterChainImp relatedCompanyService;
+
+    @Autowired
+    private CompanyService companyService;
+
+
+    @Override
+    public Integer getOfflineFinanceNum(String companyName) throws Exception {
+        Map<String, List> relationMap = relatedCompanyService.queryRelation(companyName, dataVersion, 1);
+        List<PointVO> pointList = relationMap.get("pointList");
+        if (org.apache.commons.collections.CollectionUtils.isEmpty(pointList)) {
+            return 0;
+        }
+        int offlineFinance = 0;
+
+        for (PointVO pointVO : pointList) {
+            if (pointVO.getIsPerson().equals("1")) {
+                continue;
+            }
+            CompanyDO relatedCompany = companyService.getCompanyByName(pointVO.getName());
+            if (null == relatedCompany || null == relatedCompany.getCompanyType()) {
+                continue;
+            }
+            if (relatedCompany.getCompanyType() == CompanyDO.TYPE_XXLC_4) {
+                offlineFinance++;
+            }
+        }
+        if (offlineFinance <= 0) {
+            return 0;
+        }
+        return offlineFinance;
+    }
+
 
     public List<IndustryCompareDTO> getCompareData() throws Exception {
 
@@ -86,14 +134,14 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
     }
 
 
-    public List<PlatRankDataDTO> getPlatRankData(String platStatus) throws Exception {
+    public List<PlatRankDataDTO> getPlatRankData() throws Exception {
 
 
         String url = this.finSerUrl + "?dataType=plat_rank_data";
         HttpTemplate httpTemplate = new HttpTemplate();
         List<PlatRankDataDTO> wangdaizhijiaRst = null;
         try {
-            wangdaizhijiaRst = httpTemplate.get(url, new HttpCallback<List<PlatRankDataDTO>>() {
+            return wangdaizhijiaRst = httpTemplate.get(url, new HttpCallback<List<PlatRankDataDTO>>() {
                 @Override
                 public boolean valid() {
                     return true;
@@ -106,18 +154,6 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
                 }
             });
 
-            if (null != platStatus) {
-                List<PlatRankDataDTO> rst = new ArrayList<>();
-                for (PlatRankDataDTO platRankDataDTO : wangdaizhijiaRst) {
-                    if (platRankDataDTO.getPlat_status().equals(platStatus)) {
-                        rst.add(platRankDataDTO);
-                    }
-                }
-                return rst;
-            } else {
-                return wangdaizhijiaRst;
-            }
-
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -126,6 +162,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
     }
 
 
+    @Override
     public Map getPlatRankMapData() throws Exception {
 
         List<PlatRankDataDTO> list = new ArrayList<>();
@@ -309,24 +346,24 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
 
 
 //报错
-        String url = "http://140.206.51.154:5002/financial_services?dataType=area_index";
-
-        HttpTemplate httpTemplate = new HttpTemplate();
-        try {
-            httpTemplate.get(url, new HttpCallback<List<AreaIndexDTO>>() {
-                @Override
-                public boolean valid() {
-                    return true;
-                }
-
-                @Override
-                public List<AreaIndexDTO> parse(String result) {
-                    return JSON.parseArray(result, AreaIndexDTO.class);
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        String url = "http://140.206.51.154:5002/financial_services?dataType=area_index";
+//
+//        HttpTemplate httpTemplate = new HttpTemplate();
+//        try {
+//            httpTemplate.get(url, new HttpCallback<List<AreaIndexDTO>>() {
+//                @Override
+//                public boolean valid() {
+//                    return true;
+//                }
+//
+//                @Override
+//                public List<AreaIndexDTO> parse(String result) {
+//                    return JSON.parseArray(result, AreaIndexDTO.class);
+//                }
+//            });
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
 
 //		String url = "http://140.206.51.154:5002/financial_services?dataType=plat_rank_data";

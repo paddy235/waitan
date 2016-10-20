@@ -352,19 +352,7 @@ public class OfflineFinanceController {
     @ResponseBody
     public ResponseBean businessChartShow() {
         //小贷
-        ResponseBean loanResponseBean = loanController.balanceByMonth();
-        List<LoanBalanceDTO> loanBalanceResult = (List<LoanBalanceDTO>)loanResponseBean.getContent();
-
-        @SuppressWarnings("unchecked")
-        XAxisSeriesLinesBean<String,String> loanDTO = new XAxisSeriesLinesBean<>(
-                new ArrayList<String>(),
-                new ArrayList<String>());
-
-        for (LoanBalanceDTO loanBalanceDTO : loanBalanceResult) {
-            loanDTO.getxAxis().add(loanBalanceDTO.getYear().toString() + "-" + loanBalanceDTO.getMonth().toString());
-            loanDTO.getSeries()[0].add(loanBalanceDTO.getAmount().toString());
-            loanDTO.getSeries()[1].add(String.valueOf(CalculateUtils.divide(loanBalanceDTO.getAmount(), loanBalanceDTO.getCompanyAmount(), 2)));
-        }
+        ResponseBean loanResponseBean = loanController.balanceByQuarter();
 
         //私募
         List<CapitalAmountDO> capitalAmountList = privateFundService.capitalAmount();
@@ -442,7 +430,7 @@ public class OfflineFinanceController {
         ResponseBean prepaidCompanyResponseBean = prepaidCompanyController.amount();
         //
         Map result = new LinkedHashMap();
-        result.put("loan", loanDTO);
+        result.put("loan", loanResponseBean);
         result.put("private", privateDTO);
         result.put("p2p", pToPMonitorResponseBean);
         result.put("finance", financeLeaseResponseBean.getContent());
@@ -467,13 +455,24 @@ public class OfflineFinanceController {
     }
 
     /**
-     * 更新企业光谱分析结果
+     * 更新静态风险指数+本地模型
      * @return
      */
-    @RequestMapping("updateInexData.do")
+    @RequestMapping("updateIndexData.do")
     @ResponseBody
-    public ResponseBean updateInexData() {
-        offlineFinanceService.updateInexData();
+    public ResponseBean updateIndexData(String companyName) {
+        offlineFinanceService.updateIndexData(companyName);
+        return ResponseBean.successResponse("更新成功");
+    }
+
+    /**
+     * 更新静态风险指数+本地模型
+     * @return
+     */
+    @RequestMapping("updateStaticRiskData.do")
+    @ResponseBody
+    public ResponseBean updateStaticRiskData(String companyName, String dataVersion) {
+        offlineFinanceService.updateStaticRiskData(companyName, dataVersion);
         return ResponseBean.successResponse("更新成功");
     }
 }

@@ -7,6 +7,7 @@ import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.dto.IndustryShanghaiDTO;
 import com.bbd.wtyh.domain.dto.LoanBalanceDTO;
 import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
+import com.bbd.wtyh.domain.vo.SpectrumVO;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.*;
 import com.bbd.wtyh.util.CalculateUtils;
@@ -52,15 +53,15 @@ public class RealTimeMonitorController {
     @RequestMapping("/spectrumAnalysis")
     @ResponseBody
     public ResponseBean spectrumAnalysis() {
-//        final String key = "wtyh:realtimeMonitor:guangPu1";
-//        List<List> list = (List<List>) redisDAO.getObject(key);
-//        if (null == list || list.size() == 0) {
-        List<List> list = realTimeMonitorService.spectrumAnalysis();
-//            if (null != list && list.size() >= 1) {
-////                redisDAO.addSet(key, String.valueOf(list), Constants.REDIS_10);
-//                redisDAO.addObject(key, list, Constants.REDIS_10, List.class);
-//            }
-//        }
+        final String key = "wtyh:realtimeMonitor:guangPu1";
+        List<List<SpectrumVO>> list = (List<List<SpectrumVO>>) redisDAO.getObject(key);
+        if (null == list || list.size() == 0) {
+            list = realTimeMonitorService.spectrumAnalysis();
+            if (null != list && list.size() >= 1) {
+//                redisDAO.addSet(key, String.valueOf(list), Constants.REDIS_10);
+                redisDAO.addObject(key, list, Constants.REDIS_10, List.class);
+            }
+        }
         return ResponseBean.successResponse(list);
     }
 
@@ -73,7 +74,7 @@ public class RealTimeMonitorController {
     @ResponseBody
     public ResponseBean ChinaMap() {
         Map<String, Object> content = realTimeMonitorService.ChinaMap();
-        Map<String, Object> content1= realTimeMonitorService.ChinaMapSubsidiary();
+        Map<String, Object> content1 = realTimeMonitorService.ChinaMapSubsidiary();
         content.putAll(content1);
         return ResponseBean.successResponse(content);
 

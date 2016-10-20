@@ -1,9 +1,11 @@
 package com.bbd.wtyh.domain.vo;
 
+import java.io.Serializable;
+
 /**
  * Created by YanWenyuan on 2016/9/7.
  */
-public class SpectrumVO {
+public class SpectrumVO implements Serializable {
     private String name;
     private Integer registeredCapital;
     private String exposureDate;

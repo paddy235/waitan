@@ -1,20 +1,23 @@
 package com.bbd.wtyh.web.controller;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
 import com.bbd.higgs.utils.StringUtils;
-import com.bbd.wtyh.domain.PlatformNameInformationDO;
+import com.bbd.wtyh.common.Constants;
+import com.bbd.wtyh.domain.NvDO;
+import com.bbd.wtyh.domain.dto.IndustryCompareDTO;
+import com.bbd.wtyh.domain.dto.IndustryProblemDTO;
+import com.bbd.wtyh.domain.dto.IndustryShanghaiDTO;
+import com.bbd.wtyh.domain.dto.PlatRankDataDTO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
+import com.bbd.wtyh.redis.RedisDAO;
+import com.bbd.wtyh.service.AreaService;
 import com.bbd.wtyh.service.P2PImageService;
+import com.bbd.wtyh.service.PToPMonitorService;
+import com.bbd.wtyh.service.ShareholderRiskService;
 import com.bbd.wtyh.util.CalculateUtils;
+import com.bbd.wtyh.web.ResponseBean;
+import com.bbd.wtyh.web.XAxisSeriesBarLineBean;
+import com.bbd.wtyh.web.XAxisSeriesLinesBean;
+import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +26,8 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.bbd.wtyh.domain.NvDO;
-import com.bbd.wtyh.domain.dto.IndustryCompareDTO;
-import com.bbd.wtyh.domain.dto.IndustryProblemDTO;
-import com.bbd.wtyh.domain.dto.IndustryShanghaiDTO;
-import com.bbd.wtyh.domain.dto.PlatRankDataDTO;
-import com.bbd.wtyh.service.AreaService;
-import com.bbd.wtyh.service.PToPMonitorService;
-import com.bbd.wtyh.web.ResponseBean;
-import com.bbd.wtyh.web.XAxisSeriesBarLineBean;
-import com.bbd.wtyh.web.XAxisSeriesLinesBean;
+
+import java.util.*;
 
 /**
  * P2P行业监测平台
@@ -45,6 +40,7 @@ import com.bbd.wtyh.web.XAxisSeriesLinesBean;
 public class PToPMonitorController {
 
     Logger log = LoggerFactory.getLogger(getClass());
+    private static final String PLAT_RANK_CACHE_PRIFIX = "wtyh:pToPMonitor:platRank";
 
     @Autowired
     private AreaService areaService;
@@ -54,6 +50,12 @@ public class PToPMonitorController {
 
     @Autowired
     private P2PImageService p2PImageService;
+
+    @Autowired
+    private ShareholderRiskService shareholderRiskService;
+
+    @Autowired
+    private RedisDAO redisDAO;
 
 
     /**
@@ -120,13 +122,19 @@ public class PToPMonitorController {
             return map;
         }
 
-        IndustryShanghaiDTO maxDto = list.get(0);
+//        IndustryShanghaiDTO maxDto = list.get(0);
+//        for (IndustryShanghaiDTO dto : list) {
+//            if (maxDto.getDate().compareTo(dto.getDate()) <= 0) {
+//                maxDto = dto;
+//            }
+//        }
+        IndustryShanghaiDTO maxDto = null;
         for (IndustryShanghaiDTO dto : list) {
-            if (maxDto.getDate().compareTo(dto.getDate()) < 0) {
+            if (dto.getArea_num() != null && dto.getArea_num().size() > 0) {
                 maxDto = dto;
+                break;
             }
         }
-
 
         Map<String, Object> ja = null;
         Map<String, Object> zb = null;
@@ -340,6 +348,21 @@ public class PToPMonitorController {
     }
 
 
+    private List<Map<String, String>> filterPlatRankDataStatus(List<Map<String, String>> list, String platStatus) {
+        List<Map<String, String>> rst = new ArrayList<>();
+        if (!Strings.isNullOrEmpty(platStatus)) {
+            for (Map<String, String> element: list) {
+                if (element.get("plat_status").equals(platStatus)) {
+                    rst.add(element);
+                }
+            }
+            return rst;
+        } else {
+            return list;
+        }
+
+    }
+
     /**
      * 上海网贷平台数据展示
      *
@@ -348,13 +371,19 @@ public class PToPMonitorController {
      */
     @RequestMapping("/platRankData")
     @ResponseBody
-    public Object platRankData(@RequestParam(required = false) String platStatus) throws Exception {
-        List<PlatRankDataDTO> list = pToPMonitorService.getPlatRankData(platStatus);
+    public Object platRankData(@RequestParam(required = false, defaultValue = "") String platStatus) throws Exception {
+        List<Map<String, String>> rstCache = (List<Map<String, String>>) redisDAO.getObject(PLAT_RANK_CACHE_PRIFIX);
+        if (1 == 0 && null != rstCache) {
+            return ResponseBean.successResponse(filterPlatRankDataStatus(rstCache, platStatus));
+        }
+
+        List<PlatRankDataDTO> list = pToPMonitorService.getPlatRankData();
         if (CollectionUtils.isEmpty(list)) {
             return ResponseBean.successResponse(new ArrayList<>());
         }
 
         List<Map> rst1 = new ArrayList<>();
+        Map<String, PlatListDO> wangdaiPlatList = p2PImageService.getWangdaiPlatList();
         for (PlatRankDataDTO dto : list) {
             Map<String, Object> rst = new HashMap<>();
             rst.put("rank", dto.getRank());
@@ -368,11 +397,30 @@ public class PToPMonitorController {
             rst.put("stay_still_of_total", CalculateUtils.divide(dto.getStay_still_of_total(), 100000000, 2));
             rst.put("plat_status", dto.getPlat_status());
             rst.put("registered_address", dto.getRegistered_address());
+            if (wangdaiPlatList.get(dto.getPlat_name()) == null) {//处理空指针异常
+                rst.put("OffLineFinanceNum", 0);
+            } else {
+                rst.put("OffLineFinanceNum", pToPMonitorService.getOfflineFinanceNum(p2PImageService.findCompanyNameFromDbThenAPI(dto.getPlat_name())));
+            }
 
             rst1.add(rst);
         }
 
+        if (null != rst1) {
+            redisDAO.addObject(PLAT_RANK_CACHE_PRIFIX, rst1, Constants.REDIS_10, rst1.getClass());
+        }
+
         return ResponseBean.successResponse(rst1);
+    }
+
+
+    @RequestMapping("/offlineFinanceNum")
+    @ResponseBody
+    public ResponseBean shareholderRiskDetail(String platName) {
+        if (Strings.isNullOrEmpty(platName)) {
+            return ResponseBean.errorResponse("platName must be not null");
+        }
+        return ResponseBean.successResponse(shareholderRiskService.getRelatedCompany(p2PImageService.findCompanyNameFromDbThenAPI(platName)).asMap());
     }
 
 

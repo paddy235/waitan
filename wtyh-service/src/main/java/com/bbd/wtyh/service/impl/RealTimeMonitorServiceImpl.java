@@ -1,8 +1,5 @@
 package com.bbd.wtyh.service.impl;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.dao.RealTimeMonitorDao;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.dto.StaticRiskDTO;
@@ -11,7 +8,6 @@ import com.bbd.wtyh.domain.vo.SpectrumVO;
 import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.RealTimeMonitorService;
-import com.bbd.wtyh.web.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,13 +55,14 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
     private final Integer RISK_LEVEL = 1;
 
     @Override
-    public List<List> spectrumAnalysis() {
-        List<SpectrumVO> spectrumAnalysisFocus = companyMapper.getSpectrumAnalysis(FOCUS_LEVEL);
-        List<SpectrumVO> spectrumAnalysisUsual = companyMapper.getSpectrumAnalysis(USUAL_LEVEL);
-        List<SpectrumVO> spectrumAnalysisNormal = companyMapper.getSpectrumAnalysis(NORMAL_LEVEL);
-        List<SpectrumVO> spectrumAnalysisRisk = companyMapper.getSpectrumAnalysis(RISK_LEVEL);
+    public List<List<SpectrumVO>> spectrumAnalysis() {
+        final String dateVersion = staticRiskMapper.maxDataVersion();
+        List<SpectrumVO> spectrumAnalysisFocus = companyMapper.getSpectrumAnalysis(FOCUS_LEVEL, dateVersion);
+        List<SpectrumVO> spectrumAnalysisUsual = companyMapper.getSpectrumAnalysis(USUAL_LEVEL, dateVersion);
+        List<SpectrumVO> spectrumAnalysisNormal = companyMapper.getSpectrumAnalysis(NORMAL_LEVEL, dateVersion);
+        List<SpectrumVO> spectrumAnalysisRisk = companyMapper.getSpectrumAnalysis(RISK_LEVEL, dateVersion);
 
-        List<List> rst = new ArrayList<>();
+        List<List<SpectrumVO>> rst = new ArrayList<>();
         rst.add(spectrumAnalysisFocus);
         rst.add(spectrumAnalysisUsual);
         rst.add(spectrumAnalysisNormal);

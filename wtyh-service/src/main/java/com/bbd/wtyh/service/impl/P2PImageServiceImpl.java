@@ -4,10 +4,12 @@ import com.bbd.wtyh.dao.P2PImageDao;
 import com.bbd.wtyh.domain.PlatformNameInformationDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
+import com.bbd.wtyh.domain.dto.PlatRankDataDTO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
 import com.bbd.wtyh.service.P2PImageService;
+import com.bbd.wtyh.service.PToPMonitorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,9 @@ public class P2PImageServiceImpl implements P2PImageService {
     @Autowired
     private P2PImageDao p2PImageDao;
 
+    @Autowired
+    private PToPMonitorService pToPMonitorService;
+
     @Override
     public PlatDataDO getPlatData(String platName) {
         PlatDataDO pn = p2PImageDao.getPlatData(platName);
@@ -40,23 +45,43 @@ public class P2PImageServiceImpl implements P2PImageService {
         }
 
         PlatListDO platListDO = findFromWangdaiPlatList(platName);
+        PlatRankDataDTO platRankDataDTO = findFromWangdaiPlatRankData(platName);
 
         Map<String, Object> result = new LinkedHashMap<>();
         result.put("logo", platListDO.getLogo_url());//logo
-        result.put("score", pn.getPlat_score()); // 评分
+        result.put("score", platRankDataDTO.getPlatRank()); // 评级
         result.put("platname", pn.getPlat_name()); // 平台名称
         result.put("companyName", pn.getCompany_name()); // 公司名称
-        result.put("status", pn.getPlat_status()); // 营业状态
+        result.put("status", platRankDataDTO.getPlat_status()); // 营业状态
         return result;
     }
 
     @Override
+    public PlatRankDataDTO findFromWangdaiPlatRankData(String platName) {
+        Map<String, PlatRankDataDTO> wangdaiPlatRankData = new HashMap<>();
+        try {
+            for (PlatRankDataDTO platRankDataDTO : pToPMonitorService.getPlatRankData()) {
+                wangdaiPlatRankData.put(platRankDataDTO.getPlat_name(), platRankDataDTO);
+            }
+            return wangdaiPlatRankData.get(platName);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new PlatRankDataDTO();
+        }
+    }
+
+    @Override
     public PlatListDO findFromWangdaiPlatList(String platName) {
+        return getWangdaiPlatList().get(platName);
+    }
+
+    @Override
+    public Map<String, PlatListDO> getWangdaiPlatList() {
         Map<String, PlatListDO> wangdaiPlatList = new HashMap<>();
-        for (PlatListDO platListDO : p2PImageDao.baseInfoWangDaiApi(platName)) {
+        for (PlatListDO platListDO : p2PImageDao.baseInfoWangDaiApi()) {
             wangdaiPlatList.put(platListDO.getPlat_name(), platListDO);
         }
-        return wangdaiPlatList.get(platName);
+        return wangdaiPlatList;
     }
 
     @Override
@@ -93,16 +118,29 @@ public class P2PImageServiceImpl implements P2PImageService {
     }
 
     @Override
-    public Map<String, Object> baseInfo(String platName) {
+    public String findCompanyNameFromDbThenAPI(String platName) {
         PlatformNameInformationDO platformNameInformationDO = p2PImageDao.hasOrNotCompany(platName);
-        if (null == platformNameInformationDO) {
+        PlatListDO platListDO = findFromWangdaiPlatList(platName);
+
+        String companyName = "";
+        if (null != platformNameInformationDO) {
+            companyName = platformNameInformationDO.getName();
+        } else if (null != platListDO) {
+            companyName = platListDO.getCompany_name();
+        } else {
             return null;
         }
-        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(platformNameInformationDO.getName());
+        return companyName;
+    }
+
+    @Override
+    public Map<String, Object> baseInfo(String platName) {
+        String companyName = findCompanyNameFromDbThenAPI(platName);
+        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName);
         if (null == baseDataDO) {
             return null;
         }
-        ZuZhiJiGoudmDO zuZhiJiGoudmDO = p2PImageDao.baseInfoZuZhiJiGou(platformNameInformationDO.getName());
+        ZuZhiJiGoudmDO zuZhiJiGoudmDO = p2PImageDao.baseInfoZuZhiJiGou(companyName);
         if (null == zuZhiJiGoudmDO) {
             return null;
         }
@@ -118,8 +156,8 @@ public class P2PImageServiceImpl implements P2PImageService {
         for (ZuZhiJiGoudmDO.Result result : zuZhiJiGoudmDO.getResults()) {
             map.put("companyCode", result.getJgdm());
         }
-        map.put("platName", platformNameInformationDO.getPlatformName());
-        map.put("companyName", platformNameInformationDO.getName());
+        map.put("platName", platName);
+        map.put("companyName", companyName);
         return map;
     }
 

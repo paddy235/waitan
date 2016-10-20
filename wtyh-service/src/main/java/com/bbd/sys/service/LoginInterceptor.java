@@ -33,7 +33,19 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		if("/login".equals(annotation.value()[0]) || "/logout".equals(annotation.value()[0])){
 			return true;
 		}
-		
+
+		if("updateIndexData.do".equals(annotation.value()[0])){
+			return true;
+		}
+
+		if("updateStaticRiskData.do".equals(annotation.value()[0])){
+			return true;
+		}
+
+		if("updateCompanyRiskLevel.do".equals(annotation.value()[0])){
+			return true;
+		}
+
 		Object loginName = request.getSession().getAttribute(Constants.SESSION.loginName);
 		if(loginName == null){
 			response.getWriter().write("{success:false,msg:'no login'}");

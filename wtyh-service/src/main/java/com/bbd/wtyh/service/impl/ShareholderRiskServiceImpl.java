@@ -116,7 +116,6 @@ public class ShareholderRiskServiceImpl implements ShareholderRiskService {
 
     @Override
     public Multimap<Integer, RelatedCompanyDTO> getRelatedCompany(Integer companyId) {
-
         Object object = redisDAO.getObject(RELATED_COMPANY_CACHE_PRIFIX + companyId);
         if (null == object) {
             object = innerGetRelatedCompany(companyId);
@@ -125,6 +124,10 @@ public class ShareholderRiskServiceImpl implements ShareholderRiskService {
         return (Multimap<Integer, RelatedCompanyDTO>) object;
     }
 
+    @Override
+    public Multimap<Integer, RelatedCompanyDTO> getRelatedCompany(String companyName) {
+        return getRelatedCompany(companyService.getCompanyByName(companyName).getCompanyId());
+    }
 
     private Multimap<Integer, RelatedCompanyDTO> innerGetRelatedCompany(Integer companyId) {
         try {

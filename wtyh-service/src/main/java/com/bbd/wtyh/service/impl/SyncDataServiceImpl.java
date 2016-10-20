@@ -23,6 +23,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -90,6 +91,10 @@ public class SyncDataServiceImpl implements SyncDataService {
             case 1:
                 StaticRiskDataDO staticRiskDataDO = new StaticRiskDataDO();
                 staticRiskDataDO = gson.fromJson(content, StaticRiskDataDO.class);
+				String companyName = staticRiskDataDO.getCompanyName();
+				BigDecimal oldStaticRiskIndex = staticRiskDataDO.getStaticRiskIndex();
+				BigDecimal staticRiskIndex = offlineFinanceService.getSRI(oldStaticRiskIndex, companyName);
+				staticRiskDataDO.setStaticRiskIndex(staticRiskIndex);
                 staticRiskMapper.save(staticRiskDataDO);
                 break;
             case 2:
@@ -105,12 +110,12 @@ public class SyncDataServiceImpl implements SyncDataService {
             case 4:
                 IndexDataDO indexDataDO = new IndexDataDO();
                 indexDataDO = gson.fromJson(content, IndexDataDO.class);
-				String companyName = indexDataDO.getCompanyName();
-				Float oldStaticRiskIndex = indexDataDO.getStaticRiskIndex();
-				Float staticRiskIndex = offlineFinanceService.getSRI(oldStaticRiskIndex, companyName);
+				String companyNameIndexData = indexDataDO.getCompanyName();
+				BigDecimal oldStaticRiskIndexIndexData = indexDataDO.getStaticRiskIndex();
+				BigDecimal staticRiskIndexIndexData = offlineFinanceService.getSRI(oldStaticRiskIndexIndexData, companyNameIndexData);
                 String area = indexDataDO.getArea();
-                IndexDataDO isExistDO = indexDataMapper.selectByPrimaryKey(companyName, area);
-                indexDataDO.setStaticRiskIndex(staticRiskIndex);
+                IndexDataDO isExistDO = indexDataMapper.selectByPrimaryKey(companyNameIndexData, area);
+                indexDataDO.setStaticRiskIndex(staticRiskIndexIndexData);
                 if (isExistDO == null) {
 					logger.info("------save-----"+indexDataDO.getCompanyName());
                     indexDataMapper.save(indexDataDO);

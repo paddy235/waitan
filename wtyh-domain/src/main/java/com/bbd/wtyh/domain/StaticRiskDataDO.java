@@ -8,7 +8,7 @@ public class StaticRiskDataDO extends BaseDO {
     private String companyName; // 公司名称
     private String dataVersion; // 数据版本号
     private Date riskDate; // 风险时间
-    private float staticRiskIndex; // 静态风险指数
+    private BigDecimal staticRiskIndex; // 静态风险指数
     private float maxCompanyNum; // 单个一度关联自然人最大控制企业数量
     private float averagePersonNum;//平均每位一度关联自然人控制企业数量',
     private String oneLevelPerson;//核心一度关联自然人',
@@ -79,11 +79,11 @@ public class StaticRiskDataDO extends BaseDO {
         this.riskDate = riskDate;
     }
 
-    public float getStaticRiskIndex() {
+    public BigDecimal getStaticRiskIndex() {
         return staticRiskIndex;
     }
 
-    public void setStaticRiskIndex(float staticRiskIndex) {
+    public void setStaticRiskIndex(BigDecimal staticRiskIndex) {
         this.staticRiskIndex = staticRiskIndex;
     }
 

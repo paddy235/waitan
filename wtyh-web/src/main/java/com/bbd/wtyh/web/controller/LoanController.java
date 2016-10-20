@@ -6,14 +6,15 @@ import com.bbd.wtyh.domain.dto.*;
 import com.bbd.wtyh.domain.query.CompanyQuery;
 import com.bbd.wtyh.service.*;
 import com.bbd.wtyh.web.ResponseBean;
-import com.google.common.collect.*;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Ordering;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -58,12 +59,15 @@ public class LoanController {
             int stateOwned = companyService.countCompanyNum(query);
             query.setBackground((int) CompanyBackgroundDO.Bg.Myqy.val);
             int privateCompany = companyService.countCompanyNum(query);
+            query.setBackground((int) CompanyBackgroundDO.Bg.Wzqy.val);
+            int foreignCapital = companyService.countCompanyNum(query);
             HotAreaDTO hotAreaDTO = new HotAreaDTO();
             hotAreaDTO.setAreaId(areaDO.getAreaId());
             hotAreaDTO.setAreaName(areaDO.getName());
             hotAreaDTO.setAll(stateOwned + privateCompany);
             hotAreaDTO.setPrivateCompany(privateCompany);
             hotAreaDTO.setStateOwned(stateOwned);
+            hotAreaDTO.setForeignCapital(foreignCapital);
             result.add(hotAreaDTO);
         }
         return ResponseBean.successResponse(result);

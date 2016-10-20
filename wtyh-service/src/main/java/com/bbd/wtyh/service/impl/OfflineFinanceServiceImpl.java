@@ -5,7 +5,6 @@ import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.common.Pagination;
 import com.bbd.wtyh.domain.*;
-import com.bbd.wtyh.domain.dto.PlatRankDataDTO;
 import com.bbd.wtyh.domain.dto.StaticRiskDTO;
 import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
 import com.bbd.wtyh.domain.vo.LineVO;
@@ -23,7 +22,7 @@ import com.bbd.wtyh.util.DateUtils;
 import com.google.gson.Gson;
 import net.sf.json.JSONArray;
 import net.sf.json.JsonConfig;
-import org.apache.commons.collections.map.HashedMap;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.io.File;
@@ -131,8 +129,10 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     }
 
     @Override
-    public void updateInexData() {
-        int totalCount = riskCompanyMapper.getTopCount(null);
+    public void updateIndexData(String companyNameParam) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        int totalCount = riskCompanyMapper.getTopCount(paramsMap);
+        System.out.println("----totalCount--updateIndexData----"+totalCount);
         if (totalCount > 0) {
             Pagination pagination = new Pagination();
             pagination.setPageSize(1000);
@@ -147,13 +147,17 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
                 if (!CollectionUtils.isEmpty(pageList)) {
                     for (final IndexDataDO indexDataDO : pageList) {
                         final String companyName = indexDataDO.getCompanyName();
-                        Float staticRiskIndex = indexDataDO.getStaticRiskIndex();
+                        if (StringUtils.isNotEmpty(companyNameParam) && !companyNameParam.equals(companyName)) {
+                            continue;
+                        }
+                        BigDecimal staticRiskIndex = indexDataDO.getStaticRiskIndex();
                         staticRiskIndex = this.getSRI(staticRiskIndex, companyName);
                         indexDataDO.setStaticRiskIndex(staticRiskIndex);
                         dataExecutorService.submit(new Runnable() {
                             @Override
                             public void run() {
-                                logger.warn("-------"+companyName);
+                                System.out.println("----updateIndexData---"+companyName);
+                                logger.warn("---updateIndexData----"+companyName);
                                 indexDataMapper.update(indexDataDO);
                             }
                         });
@@ -169,7 +173,53 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
         }
 
     }
+    @Override
+    public void updateStaticRiskData(String companyNameParam, String dataVersion) {
+        Map<String, Object> paramsMap = new HashMap<>();
+        paramsMap.put("dataVersion", dataVersion);
+        int totalCount = staticRiskMapper.getDataVersionCount(paramsMap);
+        System.out.println("----totalCount----updateStaticRiskData--"+totalCount);
+        if (totalCount > 0) {
+            Pagination pagination = new Pagination();
+            pagination.setPageSize(1000);
+            pagination.setCount(totalCount);
+            int totalPage = pagination.getLastPageNumber();
+            Map<String, Object> params = new HashMap<>();
+            ExecutorService dataExecutorService = Executors.newFixedThreadPool(20);
+            for (int pageNo=1; pageNo <= totalPage; pageNo++) {
+                pagination.setPageNumber(pageNo);
+                params.put("pagination", pagination);
+                params.put("dataVersion", dataVersion);
+                List<StaticRiskDataDO> pageList = staticRiskMapper.findByPage(params);
+                if (!CollectionUtils.isEmpty(pageList)) {
+                    for (final StaticRiskDataDO staticRiskDataDO : pageList) {
+                        final String companyName = staticRiskDataDO.getCompanyName();
+                        if (StringUtils.isNotEmpty(companyNameParam) && !companyNameParam.equals(companyName)) {
+                            continue;
+                        }
+                        BigDecimal staticRiskIndex = staticRiskDataDO.getStaticRiskIndex();
+                        staticRiskIndex = this.getSRI(staticRiskIndex, companyName);
+                        staticRiskDataDO.setStaticRiskIndex(staticRiskIndex);
+                        dataExecutorService.submit(new Runnable() {
+                            @Override
+                            public void run() {
+                                System.out.println("----updateStaticRiskData---"+companyName);
+                                logger.warn("---updateStaticRiskData----"+companyName);
+                                staticRiskMapper.update(staticRiskDataDO);
+                            }
+                        });
+                    }
+                }
+            }
+            dataExecutorService.shutdown();
+            try {
+                dataExecutorService.awaitTermination(1, TimeUnit.DAYS);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
+    }
     /**
      * 更新光谱分析结果
      * @param platRankMapData
@@ -188,12 +238,13 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
         }
 
         if (staticRiskDataDO != null) {
-            float staticsRiskIndex = staticRiskDataDO.getStaticRiskIndex();
-            if (staticsRiskIndex > 70) {
+            BigDecimal staticsRiskIndex = staticRiskDataDO.getStaticRiskIndex();
+            if (staticsRiskIndex.compareTo(new BigDecimal(65.9))==1) {
                 riskLevel = 2;
-            } else if (staticsRiskIndex >= 60 && staticsRiskIndex < 70) {
+            } else if ((staticsRiskIndex.compareTo(new BigDecimal(57.8))==1 || staticsRiskIndex.compareTo(new BigDecimal(57.8))==0) &&
+                    staticsRiskIndex.compareTo(new BigDecimal(65.9))==-1) {
                 riskLevel = 3;
-            } else if (staticsRiskIndex < 60) {
+            } else if (staticsRiskIndex.compareTo(new BigDecimal(57.8))==-1) {
                 riskLevel = 4;
             }
             System.out.println("-----static-------"+companyId);
@@ -293,7 +344,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
      * @param companyName
      * @return
      */
-    public Integer getCreditInfoRisk(String companyName) {
+    public BigDecimal getCreditInfoRisk(String companyName) {
         CompanyDO companyDO = companyMapper.selectByName(companyName);
         Integer creditInfoRisk = 0;
 
@@ -316,17 +367,22 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
                     for (String key : map.keySet()) {
                         String value = map.get(key);
                         if (isInMap.get(value) == null) {
+                            System.out.println("--value-----"+value);
                             isInMap.put(value, value);
                             if (tempMap.get(value) != null && tempMap.get(value) > 0) {
+                                System.out.println("-----in-----"+creditInfoRisk);
+                                System.out.println("--tempMap.get(value)-----"+tempMap.get(value));
                                 creditInfoRisk += tempMap.get(value);
+                                System.out.println("-----in-----"+creditInfoRisk);
                             }
                         }
                     }
                 }
             }
         }
+        System.out.println("--final--creditInfoRisk-----"+creditInfoRisk);
         //开三次方*5
-        return Integer.parseInt(new java.text.DecimalFormat("0").format(Math.pow(creditInfoRisk, 1.0/3)*5));
+        return new BigDecimal(Math.pow(creditInfoRisk, 1.0/3)*5);
     }
 
     @Override
@@ -558,9 +614,9 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
                 } else {} // 保持结构完整
             }
         }
-        if (vo != null) {
-            vo.setStcRiskIndex(String.valueOf(getSRI(Float.parseFloat(vo.getStcRiskIndex()), companyName)));
-        }
+//        if (vo != null) {
+//            vo.setStcRiskIndex(String.valueOf(getSRI(Float.parseFloat(vo.getStcRiskIndex()), companyName)));
+//        }
         return vo;
     }
 
@@ -571,12 +627,15 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
      * @return
      */
     @Override
-    public Float getSRI(Float staticRiskIndex, String companyName) {
-        staticRiskIndex = staticRiskIndex + this.getCreditInfoRisk(companyName);
-        if (staticRiskIndex > 100) {
-            staticRiskIndex = 100f;
+    public BigDecimal getSRI(BigDecimal staticRiskIndex, String companyName) {
+        System.out.println("---old--static--"+staticRiskIndex);
+        staticRiskIndex = staticRiskIndex.add(this.getCreditInfoRisk(companyName));
+        System.out.println("---new--static--"+staticRiskIndex);
+        if (staticRiskIndex.compareTo(new BigDecimal(100)) == 1) {
+            staticRiskIndex = new BigDecimal(100);
         }
-        return staticRiskIndex;
+        double f1 = staticRiskIndex.setScale(1,   BigDecimal.ROUND_HALF_UP).doubleValue();
+        return new BigDecimal(f1);
     }
 
     @Override

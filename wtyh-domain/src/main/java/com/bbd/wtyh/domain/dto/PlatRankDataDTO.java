@@ -91,4 +91,24 @@ public class PlatRankDataDTO {
     public void setStay_still_of_total(Double stay_still_of_total) {
         this.stay_still_of_total = stay_still_of_total;
     }
+
+    public String getPlatRank() {
+        final String RANK_A = "优良";
+        final String RANK_B = "一般关注";
+        final String RANK_C = "重点关注";
+        final String RANK_D = "问题及停业平台";
+
+        switch (this.plat_status) {
+            case RANK_A:
+                return "A";
+            case RANK_B:
+                return "B";
+            case RANK_C:
+                return "C";
+            case RANK_D:
+                return "D";
+            default:
+                return "\\";
+        }
+    }
 }

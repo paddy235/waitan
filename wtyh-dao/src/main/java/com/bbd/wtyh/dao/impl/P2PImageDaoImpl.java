@@ -9,7 +9,6 @@ import com.bbd.wtyh.dao.P2PImageDao;
 import com.bbd.wtyh.domain.PlatformNameInformationDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
-import com.bbd.wtyh.domain.vo.StatisticsVO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
 import com.bbd.wtyh.domain.wangDaiAPI.SearchCompanyDO;
@@ -120,7 +119,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
 
                 @Override
                 public Object parse(String result) {
-                    if (null == result || result.length() == 0 ) {
+                    if (null == result || result.length() == 0) {
                         return null;
                     }
                     JSONObject object = JSON.parseObject(result);
@@ -165,8 +164,8 @@ public class P2PImageDaoImpl implements P2PImageDao {
     /**
      * 基本信息--网贷接口数据
      */
-    public List<PlatListDO> baseInfoWangDaiApi(String platName) {
-        String platFormName = url + "?dataType=plat_list&plat_name=" + platName;
+    public List<PlatListDO> baseInfoWangDaiApi() {
+        String platFormName = url + "?dataType=plat_list";
         final Map<String, Object> data = new HashMap<>();
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
@@ -299,7 +298,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
 
                 @Override
                 public Object parse(String result) {
-                    if (null == result || result.length()==0) {
+                    if (null == result || result.length() == 0) {
                         return null;
                     }
                     JSONObject jsonObject = JSON.parseObject(result);
@@ -375,5 +374,4 @@ public class P2PImageDaoImpl implements P2PImageDao {
             return null;
         }
     }
-
 }

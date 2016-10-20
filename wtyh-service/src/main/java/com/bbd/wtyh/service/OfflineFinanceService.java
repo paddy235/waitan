@@ -3,6 +3,7 @@ package com.bbd.wtyh.service;
 import com.bbd.wtyh.domain.vo.StaticRiskVO;
 import com.bbd.wtyh.domain.vo.StatisticsVO;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +52,10 @@ public interface OfflineFinanceService {
 
     public void updateCompanyRiskLevel();
 
-    public void updateInexData();
+    public void updateIndexData(String companyName);
 
-    public Float getSRI(Float staticRiskIndex, String companyName);
+    public void updateStaticRiskData(String companyName, String dataVersion);
+
+    public BigDecimal getSRI(BigDecimal staticRiskIndex, String companyName);
+
 }
