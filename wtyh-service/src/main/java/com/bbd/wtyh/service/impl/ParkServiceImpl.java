@@ -301,9 +301,16 @@ public class ParkServiceImpl implements ParkService {
         CompanyTypeCountDO myqy = new CompanyTypeCountDO();
         myqy.setType(CompanyBackgroundDO.Bg.Myqy.CN);
         list.add(myqy);
+
+        CompanyTypeCountDO wzqy = new CompanyTypeCountDO();
+        wzqy.setType(CompanyBackgroundDO.Bg.Wzqy.CN);
+        list.add(wzqy);
+
         for (CompanyDO cdo : data) {
             if (cdo.getBackground() == 3) {
                 gq.setCount(gq.getCount() + 1);
+            }else if(cdo.getBackground() == 5){
+                wzqy.setCount(wzqy.getCount()+1);
             } else {
                 myqy.setCount(myqy.getCount() + 1);
             }
