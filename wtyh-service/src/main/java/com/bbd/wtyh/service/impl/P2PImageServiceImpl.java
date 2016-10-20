@@ -120,7 +120,7 @@ public class P2PImageServiceImpl implements P2PImageService {
     @Override
     public String findCompanyNameFromDbThenAPI(String platName, Map<String, PlatListDO> wangdaiList) {
         PlatformNameInformationDO platformNameInformationDO = p2PImageDao.hasOrNotCompany(platName);
-        PlatListDO platListDO = getWangdaiPlatList().get(platName);
+        PlatListDO platListDO = wangdaiList.get(platName);
 
         String companyName = "";
         if (null != platformNameInformationDO) {

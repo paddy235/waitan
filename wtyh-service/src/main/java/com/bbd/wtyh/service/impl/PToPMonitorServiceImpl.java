@@ -58,7 +58,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
 
     @Override
     public Integer getOfflineFinanceNum(String companyName) throws Exception {
-        if (companyName.equals("上海陆金所互联网金融信息服务有限公司")) {
+        if (companyName.equals("上海陆家嘴国际金融资产交易市场股份有限公司")) {
             return 0;
         }
         Map<String, List> relationMap = relatedCompanyService.queryRelation(companyName, dataVersion, 1);
