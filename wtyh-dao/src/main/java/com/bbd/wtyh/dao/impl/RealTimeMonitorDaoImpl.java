@@ -28,10 +28,10 @@ public class RealTimeMonitorDaoImpl implements RealTimeMonitorDao {
         Map<String, Object> data = new LinkedHashMap<>();
         data.put("已监控企业数", 82315);
         data.put("监控日期", sdf.format(date));
-        data.put("举报信息", 845);
+        data.put("举报信息", 5610);
         data.put("监测广告", 465);
         data.put("打非监测", 73250);
-        data.put("互联网金融监测", 273);
+        data.put("互联网金融监测", 666);
         return data;
     }
 }
