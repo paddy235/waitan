@@ -129,7 +129,6 @@ public class ShareholderRiskServiceImpl implements ShareholderRiskService {
         return getRelatedCompany(companyService.getCompanyByName(companyName).getCompanyId());
     }
 
-
     private Multimap<Integer, RelatedCompanyDTO> innerGetRelatedCompany(Integer companyId) {
         try {
             Multimap<Integer, RelatedCompanyDTO> relatedCompanyMap = ArrayListMultimap.create();

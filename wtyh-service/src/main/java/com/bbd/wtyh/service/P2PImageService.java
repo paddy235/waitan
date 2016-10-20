@@ -73,6 +73,8 @@ public interface P2PImageService {
      */
     Map<String, Object> radarScore(String plat_name);
 
+    String findCompanyNameFromDbThenAPI(String platName);
+
     Map<String, Object> baseInfo(String platName);
 
     Map<String, Object> coreDataInfo(String platName);
