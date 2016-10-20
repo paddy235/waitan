@@ -58,7 +58,7 @@ public class CrowdFundingController {
 		
 		for (NvDO nvDO : cfbs) {
 			String name = nvDO.getName();
-			name = "1".equals(nvDO.getName())?"公益型":"2".equals(name)?"综合型":"3".equals(name)?"权益型":"股权型";
+			name = "1".equals(nvDO.getName())?"公益型":"2".equals(name)?"综合型":"3".equals(name)?"权益型":"4".equals(name)?"股权型":"汽车型";
 			p.getLegend().add(name);
 			p.getSeries().add(new BasicNameValuePair(name , ""+nvDO.getValue()  ));
 			
