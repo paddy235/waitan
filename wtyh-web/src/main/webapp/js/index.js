@@ -68625,6 +68625,9 @@
 	        this.setState({ netCreditLinFinNum: content });
 	    },
 	    handleMore: function handleMore(data, e) {
+	        var $this = $(e.target);
+	        var val = $this.text();
+	        console.log(val);
 	        var jsonData = { platName: data };
 	        this.getNetCreditLinFinNum(jsonData);
 	        var offTop = $('.net-credit').offset().top;
