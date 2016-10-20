@@ -126,7 +126,7 @@ public class ShareholderRiskServiceImpl implements ShareholderRiskService {
 
     @Override
     public Multimap<Integer, RelatedCompanyDTO> getRelatedCompany(String companyName) {
-        return getRelatedCompany(companyService.getCompanyByName(companyName).getCompanyId());
+        return getRelatedCompany(companyService.getCompanyByName(companyName, true).getCompanyId());
     }
 
     private Multimap<Integer, RelatedCompanyDTO> innerGetRelatedCompany(Integer companyId) {

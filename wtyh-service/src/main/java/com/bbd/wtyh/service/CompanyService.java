@@ -21,6 +21,8 @@ public interface CompanyService {
 
     CompanyDO getCompanyByName(String companyName);
 
+    CompanyDO getCompanyByName(String companyName, boolean changeFullWidth);
+
     List<CompanyDO> searchCompany(Integer companyType, String keyword, Integer size);
 
     List<CompanyDO> queryCompanyByType(Integer companyType, Integer orderByField, String descAsc);

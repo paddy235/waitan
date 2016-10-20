@@ -66,8 +66,8 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
         if (org.apache.commons.collections.CollectionUtils.isEmpty(pointList)) {
             return 0;
         }
-        int offlineFinance = 0;
 
+        int offlineFinance = 0;
         for (PointVO pointVO : pointList) {
             if (pointVO.getIsPerson().equals("1")) {
                 continue;
