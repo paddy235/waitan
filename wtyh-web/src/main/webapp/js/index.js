@@ -68627,8 +68627,10 @@
 	    handleMore: function handleMore(data, e) {
 	        var $this = $(e.target);
 	        var val = $this.text();
-	        console.log(val);
 	        var jsonData = { platName: data };
+	        if (val == "0") {
+	            return false;
+	        }
 	        this.getNetCreditLinFinNum(jsonData);
 	        var offTop = $('.net-credit').offset().top;
 	        var offLeft = $('.net-credit').offset().left;
