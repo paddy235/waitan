@@ -373,7 +373,7 @@ public class PToPMonitorController {
     @ResponseBody
     public Object platRankData(@RequestParam(required = false, defaultValue = "") String platStatus) throws Exception {
         List<Map<String, String>> rstCache = (List<Map<String, String>>) redisDAO.getObject(PLAT_RANK_CACHE_PRIFIX);
-        if (1 == 0 && null != rstCache) {
+        if (null != rstCache) {
             return ResponseBean.successResponse(filterPlatRankDataStatus(rstCache, platStatus));
         }
 
