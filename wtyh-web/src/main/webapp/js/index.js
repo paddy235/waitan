@@ -81221,7 +81221,7 @@
 	        console.log(dataPie, 'dataPie');
 	        var param = {
 	            id: 'small-loan-company-chart', //必传
-	            color: ['#efd79b', '#e24340'],
+	            color: ["#6c9f87", "#e14340", "#efd79b"],
 	            legendOrient: "",
 	            legendRight: "7%",
 	            legendBottom: "20%",
