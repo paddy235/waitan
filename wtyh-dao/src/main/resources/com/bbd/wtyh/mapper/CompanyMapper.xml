@@ -283,6 +283,9 @@
     <select id="getSpectrumAnalysis"  resultType="com.bbd.wtyh.domain.vo.SpectrumVO">
         SELECT
             company.`name`,
+            company.longitude,
+            company.latitude,
+            static_risk_data.static_risk_index as staticRiskIndex,
             company.registered_capital AS registeredCapital,
             DATE_FORMAT(company_analysis_result.exposure_date,'%Y-%m') AS exposureDate
         FROM
