@@ -25623,7 +25623,6 @@
 	      _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_DevTools2.default, null),
 	        _react2.default.createElement(
 	          _reactRouter.Router,
 	          { history: history },
