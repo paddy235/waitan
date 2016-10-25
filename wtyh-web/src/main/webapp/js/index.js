@@ -42519,18 +42519,23 @@
 			}
 		},
 		handleClickTitle: function handleClickTitle(e) {
+			$(e.currentTarget).parents('.ps-title').removeClass('pos-title'); //xuyao 针对网络借贷页面做了特殊处理
 			var speed = 200;
 			var $box = $(e.currentTarget).find(".mt-select-box");
 			var val = $(e.target).attr("data-val");
 			if ($box.is(':hidden')) {
 				$box.slideDown(speed);
 			} else {
-				$box.slideUp(speed);
+				$box.slideUp(speed, function () {
+					$box.parents('.ps-title').addClass('pos-title'); //xuyao 针对网络借贷页面做了特殊处理
+				});
 			}
 
 			//点击后隐藏
 			$(document).one("click", function () {
-				$box.slideUp(speed);
+				$box.slideUp(speed, function () {
+					$box.parents('.ps-title').addClass('pos-title'); //xuyao 针对网络借贷页面做了特殊处理
+				});
 			});
 
 			e.stopPropagation();
@@ -67781,7 +67786,7 @@
 
 
 	// module
-	exports.push([module.id, "/*content banner*/\r\n\r\n/*index top*/\r\n.p2p-index .p2p-index-top .top-l {\r\n\twidth: 28%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-index-top .top-l .top-l-t {\r\n\twidth: 100%;\r\n\theight: 300px;\r\n}\r\n\r\n.p2p-index-top .top-l  .top-l-b {\r\n\tmargin-top: 2%;\r\n\theight: 340px;\r\n}\r\n\r\n.p2p-index .p2p-index-top .top-c {\r\n\twidth: 38.5%;\r\n\tfloat: left;\r\n\theight: 649px;\r\n\tmargin: 0px 0.5%;\r\n}\r\n\r\n.p2p-index .p2p-index-top .top-r {\r\n\twidth: 32.5%;\r\n\theight: 649px;\r\n\tfloat: left;\r\n}\r\n\r\n/*index bom*/\r\n.p2p-index .p2p-index-bom {\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l {\r\n\twidth: 67%;\r\n\tfloat: left;\r\n\theight: 490px;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-t {\r\n\theight: 255px;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-t .bom-l-t-l {\r\n\twidth: 42%;\t/*height: 100%;*/\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-t .bom-l-t-r {\r\n\twidth: 57.5%;\t/*height: 100%;*/\r\n\tfloat: left;\r\n\tmargin-left: 0.5%\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-b {\r\n\theight: 230px;\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-r {\r\n\twidth: 32.5%;\r\n\tmargin-left: 0.5%;\r\n\theight: 490px;\r\n\tfloat: left;\r\n\tposition: relative;\r\n}\r\n.p2p-index .p2p-index-bom .bom-r .table-title{\r\n\t\toverflow: hidden;\r\n}\r\n.p2p-index .p2p-index-bom .bom-r .table-title table{\r\n\twidth: 1000px;\r\n}\r\n.p2p-index .p2p-index-bom .bom-r .list-items .mt-table {\r\n\twidth:1000px\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-r .table-content {\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n\theight: 316px;\r\n}\r\n\r\n\r\n/*AareaRanking banner -css*/\r\n.p2p-index .list-header {\r\n\tfont-size: 18px;\r\n\tcolor: #fff;\r\n\tpadding: 14px;\r\n\ttext-indent: 30px;\r\n}\r\n\r\n.p2p-index .table-box {\r\n\tpadding: 0px 10px 30px 10px;\r\n}\r\n\r\n.p2p-index .bom-r .list-items {\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n\theight: 345px;\r\n}\r\n\r\n.p2p-index .table-8 th,\r\n.p2p-index .table-8 td {\r\n\twidth: 12.5%;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-index .table-8 th {\r\n\theight: 60px;\r\n}\r\n\r\n.p2p-index .table-6 th {\r\n\theight: 88px;\r\n}\r\n\r\n.p2p-index .table-8 {\r\n\r\n\t/*height: 550px;*/\r\n}\r\n\r\n.p2p-index .table-6 th,\r\n.p2p-index .table-6 td {\r\n\r\n\t/*width: 13.5%;*/\r\n\ttext-align: center;\r\n\tpadding: 16px 10px;\r\n}\r\n.p2p-index .table-6 th .mt-select{\r\n\tbackground-color: #1a2029;\r\n\tdisplay: inline-block;\r\n}\r\n.p2p-index .table-6 th .mt-select ul.mt-select-box{\r\n\tbackground-color: #1a2029;\r\n\tborder:none;\r\n}\r\n.p2p-index .table-6 .diff-width {\r\n\r\n\t/*width: 20%;*/\r\n}\r\n\r\n.p2p-index .table-6 {\r\n\r\n\t/*height: 400px;*/\r\n}\r\n.p2p-index .wtyh-table td a.more{\r\n\tcolor: #e14340;\r\n}\r\n\r\n.p2p-index .table-8.title {\r\n\tdisplay: block;\r\n\twidth: 100%\r\n}\r\n\r\n/*gray-theme-table for table -css*/\r\n.p2p-table {\r\n\twidth: 100%;\t/*height: 100%;*/\r\n\tcolor: #dddddd;\r\n}\r\n\r\n/*上海网贷平台数据展示 弹框*/\r\n.net-credit .net-credit-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.net-credit .net-credit-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.net-credit .net-credit-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 100%;\r\n}\r\n\r\n.net-credit .net-credit-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.net-credit .net-credit-more .content {\r\n\r\n\t/*padding: 8px 10px;*/\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\tposition: relative;\r\n}\r\n\r\n.net-credit .net-credit-more .content .content-more {\r\n\theight: 199px;\r\n\twidth: 100%;\r\n\tdisplay: table;\r\n}\r\n\r\n.net-credit .net-credit-more .content ul {\r\n\r\n\t/*display: inline-block;*/\r\n\twidth: 100%;\t/*height: 199px;*/\r\n\tdisplay: table-cell;\r\n}\r\n\r\n.net-credit .net-credit-more .content ul li {\r\n\tpadding: 15px 5px;\r\n}\r\n.net-credit-more .content ul li em{\r\n\tmargin-left: 10px;\r\n\tpadding: 0px 5px;\r\n\tfont-size: 12px;\r\n\tdisplay: inline-block\r\n}\r\n.net-credit-more .content ul li em.bg-black{\r\n\tbackground-color: #000000;\r\n}\r\n.net-credit-more .content ul li em.bg-red{\r\n\tbackground-color: red;\r\n}\r\n.net-credit-more .content ul li em.bg-yellow{\r\n\tbackground-color: #ebc900;\r\n}\r\n.net-credit-more .content ul li em.bg-green{\r\n\tbackground-color: #32b16c;\r\n}", ""]);
+	exports.push([module.id, "/*content banner*/\r\n\r\n/*index top*/\r\n.p2p-index .p2p-index-top .top-l {\r\n\twidth: 28%;\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-index-top .top-l .top-l-t {\r\n\twidth: 100%;\r\n\theight: 300px;\r\n}\r\n\r\n.p2p-index-top .top-l  .top-l-b {\r\n\tmargin-top: 2%;\r\n\theight: 340px;\r\n}\r\n\r\n.p2p-index .p2p-index-top .top-c {\r\n\twidth: 38.5%;\r\n\tfloat: left;\r\n\theight: 649px;\r\n\tmargin: 0px 0.5%;\r\n}\r\n\r\n.p2p-index .p2p-index-top .top-r {\r\n\twidth: 32.5%;\r\n\theight: 649px;\r\n\tfloat: left;\r\n}\r\n\r\n/*index bom*/\r\n.p2p-index .p2p-index-bom {\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l {\r\n\twidth: 67%;\r\n\tfloat: left;\r\n\theight: 490px;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-t {\r\n\theight: 255px;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-t .bom-l-t-l {\r\n\twidth: 42%;\t/*height: 100%;*/\r\n\tfloat: left;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-t .bom-l-t-r {\r\n\twidth: 57.5%;\t/*height: 100%;*/\r\n\tfloat: left;\r\n\tmargin-left: 0.5%\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-l .bom-l-b {\r\n\theight: 230px;\r\n\tmargin-top: 0.5%;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-r {\r\n\twidth: 32.5%;\r\n\tmargin-left: 0.5%;\r\n\theight: 490px;\r\n\tfloat: left;\r\n\tposition: relative;\r\n}\r\n.p2p-index .p2p-index-bom .bom-r .table-title{\r\n    overflow-x:hidden;\r\n}\r\n.p2p-index .p2p-index-bom .bom-r .pos-title{\r\n\tposition: relative;\r\n}\r\n.p2p-index .p2p-index-bom .bom-r .table-title table{\r\n\twidth: 1000px;\r\n\tmargin:0px !important;\r\n}\r\n.p2p-index .p2p-index-bom .bom-r .list-items .mt-table {\r\n\twidth:1000px;\r\n\tmargin:0 !important;\r\n}\r\n\r\n.p2p-index .p2p-index-bom .bom-r .table-content {\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n\theight: 316px;\r\n}\r\n\r\n\r\n/*AareaRanking banner -css*/\r\n.p2p-index .list-header {\r\n\tfont-size: 18px;\r\n\tcolor: #fff;\r\n\tpadding: 14px;\r\n\ttext-indent: 30px;\r\n}\r\n\r\n.p2p-index .table-box {\r\n\r\n\tposition: relative;\r\n}\r\n\r\n.p2p-index .bom-r .list-items {\r\n\toverflow: hidden;\r\n\tposition: relative;\r\n\theight: 365px;\r\n}\r\n\r\n.p2p-index .table-8 th,\r\n.p2p-index .table-8 td {\r\n\twidth: 12.5%;\r\n\ttext-align: center;\r\n}\r\n\r\n.p2p-index .table-8 th {\r\n\theight: 60px;\r\n}\r\n\r\n.p2p-index .table-6 th {\r\n\theight: 88px;\r\n}\r\n\r\n.p2p-index .table-8 {\r\n\r\n\t/*height: 550px;*/\r\n}\r\n\r\n.p2p-index .table-6 th,\r\n.p2p-index .table-6 td {\r\n\r\n\t/*width: 13.5%;*/\r\n\ttext-align: center;\r\n\tpadding: 16px 10px;\r\n}\r\n.p2p-index .table-6 th .mt-select{\r\n\tbackground-color: #1a2029;\r\n\tdisplay: inline-block;\r\n\tposition: absolute;\r\n    left: 145px;\r\n    top: 50px;\r\n}\r\n.p2p-index .table-6 th .mt-select ul.mt-select-box{\r\n\tbackground-color: #1a2029;\r\n\tborder:none;\r\n}\r\n.p2p-index .table-6 .diff-width {\r\n\r\n\t/*width: 20%;*/\r\n}\r\n\r\n.p2p-index .table-6 {\r\n\r\n\t/*height: 400px;*/\r\n}\r\n.p2p-index .wtyh-table td a.more{\r\n\tcolor: #e14340;\r\n}\r\n\r\n.p2p-index .table-8.title {\r\n\tdisplay: block;\r\n\twidth: 100%\r\n}\r\n\r\n/*gray-theme-table for table -css*/\r\n.p2p-table {\r\n\twidth: 100%;\t/*height: 100%;*/\r\n\tcolor: #dddddd;\r\n}\r\n\r\n/*上海网贷平台数据展示 弹框*/\r\n.net-credit .net-credit-more {\r\n\tbackground-color: #254155;\r\n\twidth: 480px;\r\n\theight: 260px;\r\n\tposition: absolute;\r\n\tleft: 0px;\r\n\ttop: 0px;\r\n\tz-index: 100;\r\n\tborder: solid 1px #040506;\r\n\tborder-radius: 5px;\r\n\tdisplay: none;\r\n}\r\n\r\n.net-credit .net-credit-more .title {\r\n\tborder-bottom: solid 1px #000000;\r\n\tpadding: 10px 20px;\r\n\tposition: relative;\r\n}\r\n\r\n.net-credit .net-credit-more .title span {\r\n\tdisplay: inline-block;\r\n\ttext-align: center;\r\n\twidth: 100%;\r\n}\r\n\r\n.net-credit .net-credit-more .title i {\r\n\tposition: absolute;\r\n\tright: 0px;\r\n\ttop: -1px;\r\n\tfont-size: 20px;\r\n\tcolor: #ffffff;\r\n\tcursor: pointer;\r\n}\r\n\r\n.net-credit .net-credit-more .content {\r\n\r\n\t/*padding: 8px 10px;*/\r\n\toverflow: hidden;\r\n\theight: 215px;\r\n\tposition: relative;\r\n}\r\n\r\n.net-credit .net-credit-more .content .content-more {\r\n\theight: 199px;\r\n\twidth: 100%;\r\n\tdisplay: table;\r\n}\r\n\r\n.net-credit .net-credit-more .content ul {\r\n\r\n\t/*display: inline-block;*/\r\n\twidth: 100%;\t/*height: 199px;*/\r\n\tdisplay: table-cell;\r\n}\r\n\r\n.net-credit .net-credit-more .content ul li {\r\n\tpadding: 15px 5px;\r\n}\r\n.net-credit-more .content ul li em{\r\n\tmargin-left: 10px;\r\n\tpadding: 0px 5px;\r\n\tfont-size: 12px;\r\n\tdisplay: inline-block\r\n}\r\n.net-credit-more .content ul li em.bg-black{\r\n\tbackground-color: #000000;\r\n}\r\n.net-credit-more .content ul li em.bg-red{\r\n\tbackground-color: red;\r\n}\r\n.net-credit-more .content ul li em.bg-yellow{\r\n\tbackground-color: #ebc900;\r\n}\r\n.net-credit-more .content ul li em.bg-green{\r\n\tbackground-color: #32b16c;\r\n}", ""]);
 
 	// exports
 
@@ -68590,6 +68595,10 @@
 	            display: 'block'
 	        });
 	    },
+	    hanldCtrSelect: function hanldCtrSelect() {
+	        console.log(123);
+	        $(this.refs.posTitle).removeClass('pos-title');
+	    },
 	    render: function render() {
 	        var select = {
 	            width: '145px',
@@ -68599,6 +68608,7 @@
 	            id: 'selectType',
 	            data: [{ value: '1', label: '全部' }, { value: '2', label: '优良' }, { value: '3', label: '一般关注' }, { value: '4', label: '重点关注' }, { value: '5', label: '问题及停业平台' }],
 	            onChange: function (value, label) {
+
 	                var label = label;
 	                var jsonData = { platStatus: label };
 	                if (label == "全部") {
@@ -68625,7 +68635,7 @@
 	                { className: 'table-box' },
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'table-title ps-title' },
+	                    { className: 'table-title ps-title pos-title' },
 	                    _react2.default.createElement(
 	                        'table',
 	                        { className: 'table-6 mt-table wtyh-table' },
@@ -68647,7 +68657,7 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '8%' },
+	                                    { width: '8%', onClick: this.hanldCtrSelect },
 	                                    '状态 ',
 	                                    _react2.default.createElement(_index.Selected, select)
 	                                ),
