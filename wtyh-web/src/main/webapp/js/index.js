@@ -86380,9 +86380,9 @@
 	        for (var i = 0; i < analysisLen; i++) {
 	            var geoSereis = [];
 	            var eachLen = analysisContent[i].length;
-	            if (eachLen > 300) {
+	            if (eachLen > 200) {
 	                //大于三百个就取三百个公司
-	                eachLen = 300;
+	                eachLen = 200;
 	            }
 	            for (var j = 0; j < eachLen; j++) {
 	                var name = analysisContent[i][j].name;
