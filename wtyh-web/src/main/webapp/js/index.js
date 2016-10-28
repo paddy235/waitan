@@ -56401,7 +56401,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '80%', className: 't-right' },
-	                                                    current,
+	                                                    compare,
 	                                                    ' 减少 ',
 	                                                    this.state.decreaseRelationPerson.length,
 	                                                    _react2.default.createElement('i', { className: 'iconfont icon-arrowupx' })
@@ -56520,7 +56520,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '80%', className: 't-right' },
-	                                                    current,
+	                                                    compare,
 	                                                    ' 减少 ',
 	                                                    this.state.decreaseCompanyPerson.length,
 	                                                    _react2.default.createElement('i', { className: 'iconfont icon-arrowupx' })
@@ -56639,7 +56639,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '80%', className: 't-right' },
-	                                                    current,
+	                                                    compare,
 	                                                    ' 减少 ',
 	                                                    this.state.decreaseAgreeComDet.length,
 	                                                    _react2.default.createElement('i', { className: 'iconfont icon-arrowupx' })
@@ -56758,7 +56758,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '80%', className: 't-right' },
-	                                                    current,
+	                                                    compare,
 	                                                    ' 减少 ',
 	                                                    this.state.decreaseChildCompany.length,
 	                                                    _react2.default.createElement('i', { className: 'iconfont icon-arrowupx' })
@@ -56877,7 +56877,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '80%', className: 't-right' },
-	                                                    current,
+	                                                    compare,
 	                                                    ' 减少 ',
 	                                                    this.state.decreaseOnePerson.length,
 	                                                    _react2.default.createElement('i', { className: 'iconfont icon-arrowupx' })
@@ -56996,7 +56996,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '80%', className: 't-right' },
-	                                                    current,
+	                                                    compare,
 	                                                    ' 减少',
 	                                                    _react2.default.createElement('i', { className: 'iconfont icon-arrowupx' })
 	                                                )
@@ -57114,7 +57114,7 @@
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '80%', className: 't-right' },
-	                                                    current,
+	                                                    compare,
 	                                                    ' 减少 ',
 	                                                    this.state.decreaseTwoPerson.length,
 	                                                    _react2.default.createElement('i', { className: 'iconfont icon-arrowupx' })
@@ -85661,6 +85661,7 @@
 	var tableDate = {}; //假设第一次把所有的数据都拿回来
 	var TopLeft = _react2.default.createClass({
 	  displayName: 'TopLeft',
+
 	  getInitialState: function getInitialState() {
 	    return {
 	      table: null
@@ -85674,7 +85675,6 @@
 	    //滚动条样式
 	    $("#platformBase-scroll").perfectScrollbar();
 	  },
-
 	  //滚动条样式
 	  componentDidUpdate: function componentDidUpdate() {
 	    $("#platformBase-scroll").perfectScrollbar('update').scrollTop(0);
@@ -85690,7 +85690,13 @@
 	        if (realTimeTableRequest == true) {
 	          //这里可以开始渲染数据
 	          tableDate = realTimeTableResult; //赋值给全局变量
-	          ////console.log("sfsfsfsfsffsfsf", tableDate);
+	          //redux传值给中间的地图
+	          var getLSITSwitchVal = _this.props.getLSITSwitchVal;
+
+	          var analysisContent = tableDate.content;
+	          var analysis = { "type": 1, "analysisContent": analysisContent };
+	          getLSITSwitchVal(analysis);
+
 	          _this.setState({
 	            table: _react2.default.createElement(
 	              'div',
@@ -85781,12 +85787,10 @@
 	                )
 	              )
 	            )
-
 	          }, function () {
 	            $(".mlBtn").css("display", "block");
 	          });
 	        } else {
-
 	          alert(404);
 	        }
 	      }
@@ -85803,7 +85807,10 @@
 	    //redux传值给中间的地图
 	    var getLSITSwitchVal = _this.props.getLSITSwitchVal;
 
-	    getLSITSwitchVal(fixRange);
+	    var analysisContent = tableDate.content;
+	    var analysis = { "type": fixRange, "analysisContent": analysisContent };
+	    getLSITSwitchVal(analysis);
+	    //getLSITSwitchVal(fixRange);
 
 	    var threeContent = range == 1 ? "2014/3/3" : parseInt(Math.random() * 5000);
 	    var threeTitle = range == 1 ? "风险暴露日期" : "注册资本(万元)";
@@ -85910,14 +85917,7 @@
 	      });
 	    }
 	    setTable();
-	    /*    function getRange(){
-	          // _this.props.getRange(range);//因为这个函数会触发componentWillReceiveProps。所以说如果它后执行的话，table就会还原上上面的逻辑
-	          setTable()
-	        }
-	        setTimeout(getRange,0)*/
 	  },
-
-	  //老夫预言，此处功能必改，此方法最好与上一个方法合并
 	  shrink: function shrink(e) {
 	    var _this = this;
 	    var theScroll = $(".tbsBox").scrollTop(); //记录最开始滚动条的位置
@@ -86056,22 +86056,22 @@
 	        { className: 'title', onClick: this.titleRange },
 	        _react2.default.createElement(
 	          'li',
-	          { 'data-range': '4', 'data-a': '1', 'data-limit': '200', className: 'active' },
+	          { 'data-range': '4', 'data-a': '1', 'data-type': 'zdgz', 'data-limit': '200', className: 'active' },
 	          '重点关注'
 	        ),
 	        _react2.default.createElement(
 	          'li',
-	          { 'data-range': '3', 'data-a': '2', 'data-limit': '200', className: '' },
+	          { 'data-range': '3', 'data-a': '2', 'data-type': 'ybgz', 'data-limit': '200', className: '' },
 	          '一般关注'
 	        ),
 	        _react2.default.createElement(
 	          'li',
-	          { 'data-range': '2', 'data-a': '3', 'data-limit': '200', className: '' },
+	          { 'data-range': '2', 'data-a': '3', 'data-type': 'zc', 'data-limit': '200', className: '' },
 	          '正常'
 	        ),
 	        _react2.default.createElement(
 	          'li',
-	          { 'data-range': '1', 'data-a': '4', 'data-limit': '200', className: '' },
+	          { 'data-range': '1', 'data-a': '4', 'data-type': 'ycfx', 'data-limit': '200', className: '' },
 	          '已出风险'
 	        )
 	      ),
@@ -86108,6 +86108,8 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 	var Immutable = __webpack_require__(621);
 
 	//因为中国地图要实时变化数据，所以把中国地图的option设置成全局
@@ -86121,7 +86123,7 @@
 	//存储上海的经纬度
 	var SHposition = {};
 	var option;
-	var geoSereisFinal = { '1': [], '2': [], '3': [], '4': [] };
+	var geoSereisFinal = { "1": [], "2": [], "3": [], "4": [] }; //重点关注  一般关注 正常 已出风险
 	//中国点的经纬度
 	var geoCoordMap = {
 	    '总局': [121.4648, 31.2891],
@@ -86276,6 +86278,138 @@
 	var TopMiddle = _react2.default.createClass({
 	    displayName: 'TopMiddle',
 
+	    getInitialState: function getInitialState() {
+	        return {
+	            mapeType: "china",
+	            comNUM: null,
+	            scrollInfo: {
+	                date: null,
+	                infoNum: null,
+	                ad: null,
+	                daifei: null,
+	                internet: null
+	            },
+	            realtimeSwithVal: 1,
+	            SHhoverDot: []
+	        };
+	    },
+	    componentDidMount: function componentDidMount() {
+	        var _this = this;
+	        var _props = this.props;
+	        var getRealTimeMap = _props.getRealTimeMap;
+	        var getRealTimeMapSh = _props.getRealTimeMapSh;
+	        var getRealTimeScroll = _props.getRealTimeScroll;
+
+	        var jsonData = {};
+	        getRealTimeMap(jsonData);
+	        getRealTimeMapSh(jsonData);
+	        getRealTimeScroll(jsonData);
+
+	        //地图自适应缩放
+	        $(window).resize(function (event) {
+	            chartChina && chartChina.resize();
+	            chartShanghai && chartShanghai.resize();
+	        }.bind(this));
+	    },
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        var _this = this;
+	        var isEqual = Immutable.is(nextProps.realTimeMapResult /*now*/, this.props.realTimeMapResult /*before*/); //判断数据是否变化
+	        if (!isEqual) {
+	            var realTimeMapRequest = nextProps.realTimeMapRequest;
+	            var realTimeMapResult = nextProps.realTimeMapResult;
+
+	            if (realTimeMapRequest == true) {
+	                if (realTimeMapRequest == true) {
+	                    ajaxDataChina = realTimeMapResult;
+	                } else {
+	                    alert(404);
+	                }
+	            }
+	        }
+	        var isEqualSh = Immutable.is(nextProps.realTimeMapShResult, this.props.realTimeMapShResult); //判断数据是否变化
+	        if (!isEqualSh) {
+	            var realTimeMapShRequest = nextProps.realTimeMapShRequest;
+	            var realTimeMapShResult = nextProps.realTimeMapShResult;
+
+	            if (realTimeMapShRequest == true) {
+	                if (realTimeMapShRequest == true) {
+	                    //可以判断一下  如果echarts的实例存在的话，就不要去实例化了，这样就不会重新渲染
+	                    // if(!chartChina) {
+	                    _this.mapChina(); //只需要初始化一个，因为上海地图的实例化方法，已经包含在了mapChina里面了。
+	                    // }
+	                    ajaxDataSH = realTimeMapShResult.content;
+	                } else {
+	                    alert(404);
+	                }
+	            }
+	        }
+
+	        var isEqualScr = Immutable.is(nextProps.realTimeScrollResult, this.props.realTimeScrollResult); //判断数据是否变化
+	        if (!isEqualScr) {
+	            var realTimeScrollRequest = nextProps.realTimeScrollRequest;
+	            var realTimeScrollResult = nextProps.realTimeScrollResult;
+
+	            if (realTimeScrollRequest == true) {
+	                this.setState({
+	                    comNUM: realTimeScrollResult.content.已监控企业数,
+	                    scrollInfo: {
+	                        date: realTimeScrollResult.content.监控日期,
+	                        infoNum: realTimeScrollResult.content.举报信息,
+	                        ad: realTimeScrollResult.content.监测广告,
+	                        daifei: realTimeScrollResult.content.打非监测,
+	                        internet: realTimeScrollResult.content.互联网金融监测
+	                    }
+	                });
+	            } else {}
+	        }
+
+	        var isEqualVal = Immutable.is(nextProps.realtimeSwithVal, this.props.realtimeSwithVal); //判断数据是否变化
+	        if (!isEqualVal) {
+	            var realtimeSwithVal = nextProps.realtimeSwithVal;
+
+	            this.spectrumAnalysisFormat(realtimeSwithVal); //调用方法格式化光谱分析数据            
+	        }
+	    },
+	    spectrumAnalysisFormat: function spectrumAnalysisFormat(realtimeSwithVal) {
+	        //左侧传递过来的光谱分析数据格式化
+	        var analysisContent = realtimeSwithVal.analysisContent;
+	        var SHpos = {},
+	            SHdot = {},
+	            geoFinal = {}; //经纬度 风险值  存储公司对象 
+	        var analysisLen = analysisContent.length;
+	        for (var i = 0; i < analysisLen; i++) {
+	            var geoSereis = [];
+	            var eachLen = analysisContent[i].length;
+	            if (eachLen > 300) {
+	                //大于三百个就取三百个公司
+	                eachLen = 300;
+	            }
+	            for (var j = 0; j < eachLen; j++) {
+	                var name = analysisContent[i][j].name;
+	                var pos = _defineProperty({}, name, analysisContent[i][j].location);
+	                Object.assign(SHpos, pos);
+	                var dot = _defineProperty({}, name, analysisContent[i][j].staticRiskIndex);
+	                Object.assign(SHdot, dot);
+	                geoSereis.push({ "name": name, "value": i + 1 });
+	            }
+	            var sereis = _defineProperty({}, i + 1, geoSereis);
+	            Object.assign(geoFinal, sereis);
+	        }
+	        SHposition = SHpos;
+	        geoSereisFinal = geoFinal;
+
+	        var type = realtimeSwithVal.type; //光谱分析的类型 1：重点关注 2：一般关注 3：正常 4：已出风险 
+
+	        this.setState({ SHhoverDot: SHdot, realtimeSwithVal: type }, function () {
+	            if (!!chartShanghai) {
+	                chartShanghai.setOption({
+	                    series: [{
+	                        data: this.convertData(geoSereisFinal[type])
+	                    }]
+	                });
+	            }
+	        });
+	    },
 	    convertData: function convertData(data) {
 	        var res = [];
 	        for (var i = 0; i < data.length; i++) {
@@ -86283,8 +86417,8 @@
 	            if (geoCoord) {
 	                res.push({
 	                    name: data[i].name,
-	                    value: geoCoord.concat(data[i].value),
-	                    data: data[i].data || ""
+	                    value: geoCoord.concat(data[i].value)
+	                    //data:data[i].data||""
 	                });
 	            }
 	        }
@@ -86617,22 +86751,6 @@
 	        var getRandomInScope = function getRandomInScope(min, max) {
 	            return Math.floor(min + Math.random() * (max - min));
 	        };
-	        /* geoSereis =[
-	                    {name:"黄浦区",value:1,date:222}
-	                   ];*/
-	        var geoSereis = ajaxDataSH.SHsereis; //后台请求回来的ajax数据值~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	        for (var p = 0; p < geoSereis.length; ++p) {
-	            if (geoSereis[p].value == '1') {
-	                geoSereisFinal["4"].push(geoSereis[p]);
-	            } else if (geoSereis[p].value == '2') {
-	                geoSereisFinal["1"].push(geoSereis[p]);
-	            } else if (geoSereis[p].value == '3') {
-	                geoSereisFinal["2"].push(geoSereis[p]);
-	            } else {
-	                geoSereisFinal["3"].push(geoSereis[p]);
-	            }
-	        }
-	        SHposition = ajaxDataSH.SHposition; //后台请求回来的ajax经纬度~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	        chartShanghai = echarts.init(document.getElementById("demo"));
 	        option = {
@@ -86650,26 +86768,20 @@
 	                        var typeLabel = null;
 	                        //这个就是hover点的ajax方法。
 	                        var hoverName = v.name.toString();
-	                        var numORdate = ajaxDataSH.SHhoverDot[hoverName];
-
+	                        var numORdate = _this.state.SHhoverDot[hoverName];
 	                        switch (range) {
-
 	                            case 1:
-	                                typeP = "曝光日期<span class='redFont'> " + numORdate + " </span>";typeLabel = "<label class='testLable whiteFont'>已出风险</label>";
+	                                typeP = "风险值<span class='redFont'> " + Number(numORdate).toFixed(2) + " </span>";typeLabel = "<label class='testLable red whiteFont'>重点关注</label>";
 	                                break;
 	                            case 2:
-	                                typeP = "风险值<span class='redFont'> " + Number(numORdate).toFixed(2) + " </span>";typeLabel = "<label class='testLable red whiteFont'>重点关注</label>";
-
-	                                break;
-
-	                            case 3:
 	                                typeP = "风险值<span class='redFont'> " + Number(numORdate).toFixed(2) + " </span>";typeLabel = "<label class='testLable yellow whiteFont'>一般关注</label>";
 	                                break;
-
-	                            case 4:
+	                            case 3:
 	                                typeP = "风险值<span class='redFont'> " + Number(numORdate).toFixed(2) + " </span>";typeLabel = "<label class='testLable green whiteFont'>正常</label>";
 	                                break;
-
+	                            case 4:
+	                                typeP = "曝光日期<span class='redFont'> " + numORdate + " </span>";typeLabel = "<label class='testLable whiteFont'>已出风险</label>";
+	                                break;
 	                        };
 	                        var scatterTootip = "<div class='testTo'>\
 	                                <h4>" + v.name + "</h4>" + typeLabel + "\
@@ -86741,7 +86853,7 @@
 	                textStyle: {
 	                    color: '#fff'
 	                },
-	                pieces: [{ value: 2, label: '123（自定义特殊颜色）', color: 'red' }, { value: 3, label: '123（自定义特殊颜色）', color: 'yellow' }, { value: 4, label: '123（自定义特殊颜色）', color: 'green' }, { value: 1, label: '123（自定义特殊颜色）', color: 'black' }, { value: 1000, label: '123（自定义特殊颜色）', color: '#246e86' }, { value: 500, label: '123（自定义特殊颜色）', color: '#72b3c7' }],
+	                pieces: [{ value: 1, label: '123（自定义特殊颜色）', color: 'red' }, { value: 2, label: '123（自定义特殊颜色）', color: '#ebc900' }, { value: 3, label: '123（自定义特殊颜色）', color: '#32b16c' }, { value: 4, label: '123（自定义特殊颜色）', color: 'black' }, { value: 1000, label: '123（自定义特殊颜色）', color: '#246e86' }, { value: 500, label: '123（自定义特殊颜色）', color: '#72b3c7' }],
 	                inRange: {
 	                    color: ['red', "green"]
 	                }
@@ -86769,7 +86881,9 @@
 	                name: '公司分布',
 	                type: 'scatter',
 	                coordinateSystem: 'geo',
-	                symbolSize: 12,
+	                symbolSize: function symbolSize(val) {
+	                    return 12;
+	                },
 	                label: {
 	                    normal: {
 	                        show: false
@@ -86779,6 +86893,9 @@
 	                    }
 	                },
 	                itemStyle: {
+	                    normal: {
+	                        color: 'red'
+	                    },
 	                    emphasis: {
 	                        borderColor: '#fff',
 	                        borderWidth: 1
@@ -86878,9 +86995,7 @@
 	                }
 	            }
 	        });
-	        _this.setState({
-	            mapeType: "china"
-	        });
+	        _this.setState({ mapeType: "china" });
 	        $(".realtime-top-middle").on("click", ".return", function () {
 	            chartShanghai.dispose();
 	            _this.mapChina();
@@ -86888,113 +87003,6 @@
 	            $(".realtime-top-middle .info,.realtime-top-middle .return,.realtime-top-middle .bar").hide();
 	        });
 	    },
-	    getInitialState: function getInitialState() {
-	        return {
-	            mapeType: "china",
-	            comNUM: null,
-	            scrollInfo: {
-	                date: null,
-	                infoNum: null,
-	                ad: null,
-	                daifei: null,
-	                internet: null
-	            },
-	            realtimeSwithVal: 1
-
-	        };
-	    },
-
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var _this = this;
-	        var isEqual = Immutable.is(nextProps.realTimeMapResult /*now*/, this.props.realTimeMapResult /*before*/); //判断数据是否变化
-	        if (!isEqual) {
-	            var realTimeMapRequest = nextProps.realTimeMapRequest;
-	            var realTimeMapResult = nextProps.realTimeMapResult;
-
-	            if (realTimeMapRequest == true) {
-	                if (realTimeMapRequest == true) {
-	                    ajaxDataChina = realTimeMapResult;
-	                } else {
-	                    alert(404);
-	                }
-	            }
-	        }
-	        var isEqualSh = Immutable.is(nextProps.realTimeMapShResult, this.props.realTimeMapShResult); //判断数据是否变化
-	        if (!isEqualSh) {
-	            var realTimeMapShRequest = nextProps.realTimeMapShRequest;
-	            var realTimeMapShResult = nextProps.realTimeMapShResult;
-
-	            if (realTimeMapShRequest == true) {
-	                if (realTimeMapShRequest == true) {
-	                    //可以判断一下  如果echarts的实例存在的话，就不要去实例化了，这样就不会重新渲染
-	                    // if(!chartChina) {
-	                    _this.mapChina(); //只需要初始化一个，因为上海地图的实例化方法，已经包含在了mapChina里面了。
-	                    // }
-	                    ajaxDataSH = realTimeMapShResult.content;
-	                } else {
-	                    alert(404);
-	                }
-	            }
-	        }
-
-	        var isEqualScr = Immutable.is(nextProps.realTimeScrollResult, this.props.realTimeScrollResult); //判断数据是否变化
-	        if (!isEqualScr) {
-	            var realTimeScrollRequest = nextProps.realTimeScrollRequest;
-	            var realTimeScrollResult = nextProps.realTimeScrollResult;
-
-	            if (realTimeScrollRequest == true) {
-	                this.setState({
-	                    comNUM: realTimeScrollResult.content.已监控企业数,
-	                    scrollInfo: {
-	                        date: realTimeScrollResult.content.监控日期,
-	                        infoNum: realTimeScrollResult.content.举报信息,
-	                        ad: realTimeScrollResult.content.监测广告,
-	                        daifei: realTimeScrollResult.content.打非监测,
-	                        internet: realTimeScrollResult.content.互联网金融监测
-	                    }
-	                });
-	            } else {}
-	        }
-
-	        var isEqualVal = Immutable.is(nextProps.realtimeSwithVal); //判断数据是否变化
-	        if (!isEqualVal) {
-	            var realtimeSwithVal = nextProps.realtimeSwithVal;
-
-	            _this.setState({
-	                realtimeSwithVal: realtimeSwithVal
-	            });
-	            if (!!chartShanghai) {
-	                chartShanghai.setOption({
-	                    series: [{
-	                        data: this.convertData(geoSereisFinal[realtimeSwithVal])
-	                    }]
-	                });
-	            }
-	        }
-	    },
-	    componentDidMount: function componentDidMount() {
-	        var _this = this;
-	        var _props = this.props;
-	        var getRealTimeMap = _props.getRealTimeMap;
-	        var getRealTimeMapSh = _props.getRealTimeMapSh;
-	        var getRealTimeScroll = _props.getRealTimeScroll;
-
-	        var jsonData = {};
-	        getRealTimeMap(jsonData);
-	        getRealTimeMapSh(jsonData);
-	        getRealTimeScroll(jsonData);
-
-	        //地图自适应缩放
-	        $(window).resize(function (event) {
-
-	            chartChina && chartChina.resize();
-	            chartShanghai && chartShanghai.resize();
-
-	            // if(chartChina){chartChina.resize()};
-	            // if(chartShanghai){chartShanghai.resize()};
-	        }.bind(this));
-	    },
-
 	    NewsScroll: function NewsScroll() {
 	        //地图上一行字的滚动,已经废弃，改用cssanimate控制
 	        var barWidth = parseInt($(".bar").css("width"));
