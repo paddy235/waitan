@@ -295,7 +295,7 @@
         WHERE
             risk_level = #{risk_level} AND static_risk_data.data_version=#{dateVersion}
         ORDER BY static_risk_data.static_risk_index DESC
-        LIMIT 0, 400
+        LIMIT 0, 800
     </select>
 
     <select id="queryCompanyByName"  resultType="com.bbd.wtyh.domain.CompanyDO">
