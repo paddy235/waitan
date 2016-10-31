@@ -86381,9 +86381,10 @@
 	            var geoSereis = [];
 	            var eachLen = analysisContent[i].length;
 	            console.log(analysisContent[i]);
-	            //if(eachLen>400){//大于三百个就取三百个公司
-	            //eachLen=400;
-	            // }
+	            if (eachLen > 200) {
+	                //大于三百个就取三百个公司
+	                eachLen = 200;
+	            }
 	            for (var j = 0; j < eachLen; j++) {
 	                var name = analysisContent[i][j].name;
 	                var pos = _defineProperty({}, name, analysisContent[i][j].location);
