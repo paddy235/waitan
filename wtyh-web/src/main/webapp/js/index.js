@@ -86380,10 +86380,10 @@
 	        for (var i = 0; i < analysisLen; i++) {
 	            var geoSereis = [];
 	            var eachLen = analysisContent[i].length;
-	            if (eachLen > 200) {
-	                //大于三百个就取三百个公司
-	                eachLen = 200;
-	            }
+	            console.log(analysisContent[i]);
+	            //if(eachLen>400){//大于三百个就取三百个公司
+	            //eachLen=400;
+	            // }
 	            for (var j = 0; j < eachLen; j++) {
 	                var name = analysisContent[i][j].name;
 	                var pos = _defineProperty({}, name, analysisContent[i][j].location);
@@ -86882,7 +86882,7 @@
 	                type: 'scatter',
 	                coordinateSystem: 'geo',
 	                symbolSize: function symbolSize(val) {
-	                    return 12;
+	                    return 10;
 	                },
 	                label: {
 	                    normal: {
