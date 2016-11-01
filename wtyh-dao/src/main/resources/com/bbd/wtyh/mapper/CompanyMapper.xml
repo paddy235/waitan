@@ -74,6 +74,9 @@
           ) b
    </select>
 
+    <select id="getRiskLevelNumber" resultType="map">
+        select risk_level as riskLevel, company_number as companyNumber from company_risk_number;
+    </select>
 
     <select id="buildingBackground" resultType="com.bbd.wtyh.domain.CompanyTypeCountDO">
    		
@@ -287,7 +290,8 @@
             company.latitude,
             static_risk_data.static_risk_index as staticRiskIndex,
             company.registered_capital AS registeredCapital,
-            DATE_FORMAT(company_analysis_result.exposure_date,'%Y-%m') AS exposureDate
+            DATE_FORMAT(company_analysis_result.exposure_date,'%Y-%m') AS exposureDate,
+            #{companyNumber} AS companyNumber
         FROM
             company
         LEFT JOIN company_analysis_result ON company.company_id = company_analysis_result.company_id
@@ -295,7 +299,7 @@
         WHERE
             risk_level = #{risk_level} AND static_risk_data.data_version=#{dateVersion}
         ORDER BY static_risk_data.static_risk_index DESC
-        LIMIT 0, 800
+        LIMIT 0, #{companyNumber}
     </select>
 
     <select id="queryCompanyByName"  resultType="com.bbd.wtyh.domain.CompanyDO">

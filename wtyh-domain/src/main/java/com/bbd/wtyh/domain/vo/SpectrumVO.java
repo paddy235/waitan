@@ -19,6 +19,7 @@ public class SpectrumVO implements Serializable {
     @JsonIgnore
     private Double latitude;
     private Double staticRiskIndex;
+    private Integer companyNumber;
 
     public String getName() {
         return name;
@@ -74,5 +75,13 @@ public class SpectrumVO implements Serializable {
 
     public void setLocation(List location) {
         this.location = location;
+    }
+
+    public Integer getCompanyNumber() {
+        return companyNumber;
+    }
+
+    public void setCompanyNumber(Integer companyNumber) {
+        this.companyNumber = companyNumber;
     }
 }
