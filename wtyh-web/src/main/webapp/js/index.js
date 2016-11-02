@@ -86419,13 +86419,13 @@
 	        //根据显示的点的最大数调整点的大小
 	        var symbolSize = 10;
 	        if (num < 201) {
-	            symbolSize = 14;
+	            symbolSize = 15;
 	        } else if (num > 200 && num < 401) {
-	            symbolSize = 12;
+	            symbolSize = 13;
 	        } else if (num > 400 && num < 601) {
-	            symbolSize = 10;
+	            symbolSize = 11;
 	        } else {
-	            symbolSize = 8;
+	            symbolSize = 9;
 	        }
 	        return symbolSize;
 	    },
