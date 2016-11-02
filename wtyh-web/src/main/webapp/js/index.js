@@ -86379,7 +86379,6 @@
 	            geoFinal = {}; //经纬度 风险值  存储公司对象 
 	        var analysisLen = analysisContent.length;
 	        var num = analysisContent[0][0].companyNumber; //后台返回的数值  每个类型最多返回的个数
-	        console.log(num, "num");
 	        for (var i = 0; i < analysisLen; i++) {
 	            var geoSereis = [];
 	            var eachLen = analysisContent[i].length;
