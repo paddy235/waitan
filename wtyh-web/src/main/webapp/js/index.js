@@ -86290,7 +86290,8 @@
 	                internet: null
 	            },
 	            realtimeSwithVal: 1,
-	            SHhoverDot: []
+	            SHhoverDot: [],
+	            symbolSize: 10
 	        };
 	    },
 	    componentDidMount: function componentDidMount() {
@@ -86377,14 +86378,14 @@
 	            SHdot = {},
 	            geoFinal = {}; //经纬度 风险值  存储公司对象 
 	        var analysisLen = analysisContent.length;
-	        var num = 600; //后台返回的数值  每个类型最多返回的个数
+	        var num = analysisContent[0][0].companyNumber; //后台返回的数值  每个类型最多返回的个数
+	        console.log(num, "num");
 	        for (var i = 0; i < analysisLen; i++) {
 	            var geoSereis = [];
 	            var eachLen = analysisContent[i].length;
-	            console.log(analysisContent[i]);
-	            if (eachLen > 200) {
-	                //大于三百个就取三百个公司
-	                eachLen = 200;
+	            if (eachLen > num) {
+	                //大于num个就取num个公司
+	                eachLen = num;
 	            }
 	            for (var j = 0; j < eachLen; j++) {
 	                var name = analysisContent[i][j].name;
@@ -86402,7 +86403,8 @@
 
 	        var type = realtimeSwithVal.type; //光谱分析的类型 1：重点关注 2：一般关注 3：正常 4：已出风险 
 	        var symbolSize = this.setSymbolSize(num); //调用设置点大小的方法
-	        this.setState({ SHhoverDot: SHdot, realtimeSwithVal: type }, function () {
+	        console.log(symbolSize, "symbolSize");
+	        this.setState({ SHhoverDot: SHdot, realtimeSwithVal: type, symbolSize: symbolSize }, function () {
 	            if (!!chartShanghai) {
 	                chartShanghai.setOption({
 	                    series: [{
@@ -86417,13 +86419,13 @@
 	        //根据显示的点的最大数调整点的大小
 	        var symbolSize = 10;
 	        if (num < 201) {
-	            symbolSize = 16;
-	        } else if (num > 200 && num < 401) {
 	            symbolSize = 14;
-	        } else if (num > 400 && num < 601) {
+	        } else if (num > 200 && num < 401) {
 	            symbolSize = 12;
-	        } else {
+	        } else if (num > 400 && num < 601) {
 	            symbolSize = 10;
+	        } else {
+	            symbolSize = 8;
 	        }
 	        return symbolSize;
 	    },
@@ -86898,7 +86900,7 @@
 	                name: '公司分布',
 	                type: 'scatter',
 	                coordinateSystem: 'geo',
-	                symbolSize: 10,
+	                symbolSize: _this.state.symbolSize,
 	                label: {
 	                    normal: {
 	                        show: false
@@ -87025,7 +87027,6 @@
 	            $(".carousel").animate({ left: -barWidth }, 20000, function () {
 	                $(".carousel").css("left", barWidth + "px");
 	            });
-
 	            setTimeout(scroll, 20000);
 	        }
 	    },
