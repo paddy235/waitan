@@ -86377,6 +86377,7 @@
 	            SHdot = {},
 	            geoFinal = {}; //经纬度 风险值  存储公司对象 
 	        var analysisLen = analysisContent.length;
+	        var num = 600; //后台返回的数值  每个类型最多返回的个数
 	        for (var i = 0; i < analysisLen; i++) {
 	            var geoSereis = [];
 	            var eachLen = analysisContent[i].length;
@@ -86400,16 +86401,31 @@
 	        geoSereisFinal = geoFinal;
 
 	        var type = realtimeSwithVal.type; //光谱分析的类型 1：重点关注 2：一般关注 3：正常 4：已出风险 
-
+	        var symbolSize = this.setSymbolSize(num); //调用设置点大小的方法
 	        this.setState({ SHhoverDot: SHdot, realtimeSwithVal: type }, function () {
 	            if (!!chartShanghai) {
 	                chartShanghai.setOption({
 	                    series: [{
+	                        symbolSize: symbolSize,
 	                        data: this.convertData(geoSereisFinal[type])
 	                    }]
 	                });
 	            }
 	        });
+	    },
+	    setSymbolSize: function setSymbolSize(num) {
+	        //根据显示的点的最大数调整点的大小
+	        var symbolSize = 10;
+	        if (num < 201) {
+	            symbolSize = 16;
+	        } else if (num > 200 && num < 401) {
+	            symbolSize = 14;
+	        } else if (num > 400 && num < 601) {
+	            symbolSize = 12;
+	        } else {
+	            symbolSize = 10;
+	        }
+	        return symbolSize;
 	    },
 	    convertData: function convertData(data) {
 	        var res = [];
@@ -86882,9 +86898,7 @@
 	                name: '公司分布',
 	                type: 'scatter',
 	                coordinateSystem: 'geo',
-	                symbolSize: function symbolSize(val) {
-	                    return 10;
-	                },
+	                symbolSize: 10,
 	                label: {
 	                    normal: {
 	                        show: false
