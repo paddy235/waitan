@@ -86406,9 +86406,7 @@
 	        geoSereisFinal = geoFinal;
 
 	        var type = realtimeSwithVal.type; //光谱分析的类型 1：重点关注 2：一般关注 3：正常 4：已出风险 
-	        console.log(num[type - 1], 'companyNumber');
 	        var symbolSize = this.setSymbolSize(num[type - 1]); //调用设置点大小的方法
-	        console.log(symbolSize, "symbolSize");
 	        this.setState({ SHhoverDot: SHdot, realtimeSwithVal: type, symbolSize: symbolSize }, function () {
 	            if (!!chartShanghai) {
 	                chartShanghai.setOption({
