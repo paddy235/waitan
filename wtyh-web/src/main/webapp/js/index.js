@@ -86378,13 +86378,18 @@
 	            SHdot = {},
 	            geoFinal = {}; //经纬度 风险值  存储公司对象 
 	        var analysisLen = analysisContent.length;
-	        var num = analysisContent[0][0].companyNumber; //后台返回的数值  每个类型最多返回的个数
+	        var num = [];
+	        num.push(analysisContent[0][0].companyNumber); //后台返回的数值  每个类型最多返回的个数
+	        num.push(analysisContent[1][0].companyNumber); //后台返回的数值  每个类型最多返回的个数
+	        num.push(analysisContent[2][0].companyNumber); //后台返回的数值  每个类型最多返回的个数
+	        num.push(analysisContent[3][0].companyNumber); //后台返回的数值  每个类型最多返回的个数
+
 	        for (var i = 0; i < analysisLen; i++) {
 	            var geoSereis = [];
 	            var eachLen = analysisContent[i].length;
-	            if (eachLen > num) {
+	            if (eachLen > num[i]) {
 	                //大于num个就取num个公司
-	                eachLen = num;
+	                eachLen = num[i];
 	            }
 	            for (var j = 0; j < eachLen; j++) {
 	                var name = analysisContent[i][j].name;
@@ -86401,7 +86406,8 @@
 	        geoSereisFinal = geoFinal;
 
 	        var type = realtimeSwithVal.type; //光谱分析的类型 1：重点关注 2：一般关注 3：正常 4：已出风险 
-	        var symbolSize = this.setSymbolSize(num); //调用设置点大小的方法
+	        console.log(num[type - 1], 'companyNumber');
+	        var symbolSize = this.setSymbolSize(num[type - 1]); //调用设置点大小的方法
 	        console.log(symbolSize, "symbolSize");
 	        this.setState({ SHhoverDot: SHdot, realtimeSwithVal: type, symbolSize: symbolSize }, function () {
 	            if (!!chartShanghai) {
