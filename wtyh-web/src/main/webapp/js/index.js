@@ -86395,7 +86395,12 @@
 	                var name = analysisContent[i][j].name;
 	                var pos = _defineProperty({}, name, analysisContent[i][j].location);
 	                Object.assign(SHpos, pos);
-	                var dot = _defineProperty({}, name, analysisContent[i][j].staticRiskIndex);
+	                var dot = "";
+	                if (i == 3) {
+	                    dot = _defineProperty({}, name, analysisContent[i][j].exposureDate);
+	                } else {
+	                    dot = _defineProperty({}, name, analysisContent[i][j].staticRiskIndex);
+	                }
 	                Object.assign(SHdot, dot);
 	                geoSereis.push({ "name": name, "value": i + 1 });
 	            }
@@ -86786,11 +86791,13 @@
 	                formatter: function formatter(v) {
 	                    function dot() {
 	                        var range = parseInt(v.data.value[2]);
+
 	                        var typeP = null;
 	                        var typeLabel = null;
 	                        //这个就是hover点的ajax方法。
 	                        var hoverName = v.name.toString();
 	                        var numORdate = _this.state.SHhoverDot[hoverName];
+	                        console.log(hoverName, numORdate, _this.state.SHhoverDot, 1111);
 	                        switch (range) {
 	                            case 1:
 	                                typeP = "风险值<span class='redFont'> " + Number(numORdate).toFixed(2) + " </span>";typeLabel = "<label class='testLable red whiteFont'>重点关注</label>";
