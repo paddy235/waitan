@@ -43,11 +43,6 @@ public class SyncDataController {
         return relationDataService.getNewestDataVersion();
     }
 
-    @RequestMapping(value = "test.do")
-    @ResponseBody
-    public ResponseBean test() {
-        syncDataService.test();
-        return ResponseBean.successResponse("---success----");
-    }
+
 
 }
