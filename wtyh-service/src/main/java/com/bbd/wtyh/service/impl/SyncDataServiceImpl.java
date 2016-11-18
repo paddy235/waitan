@@ -96,16 +96,19 @@ public class SyncDataServiceImpl implements SyncDataService {
 				BigDecimal staticRiskIndex = offlineFinanceService.getSRI(oldStaticRiskIndex, companyName);
 				staticRiskDataDO.setStaticRiskIndex(staticRiskIndex);
                 staticRiskMapper.save(staticRiskDataDO);
+				logger.info("----type---success---"+type);
                 break;
             case 2:
                 DynamicRiskDataDO dynamicRiskDataDO = new DynamicRiskDataDO();
                 dynamicRiskDataDO = gson.fromJson(content, DynamicRiskDataDO.class);
                 dynamicRiskMapper.save(dynamicRiskDataDO);
+				logger.info("----type---success---"+type);
                 break;
             case 3:
                 RecruitDataDO recruitDataDO = new RecruitDataDO();
                 recruitDataDO = gson.fromJson(content, RecruitDataDO.class);
                 recruitDataMapper.save(recruitDataDO);
+				logger.info("----type---success---"+type);
                 break;
             case 4:
                 IndexDataDO indexDataDO = new IndexDataDO();
@@ -117,10 +120,8 @@ public class SyncDataServiceImpl implements SyncDataService {
                 IndexDataDO isExistDO = indexDataMapper.selectByPrimaryKey(companyNameIndexData, area);
                 indexDataDO.setStaticRiskIndex(staticRiskIndexIndexData);
                 if (isExistDO == null) {
-					logger.info("------save-----"+indexDataDO.getCompanyName());
                     indexDataMapper.save(indexDataDO);
                 } else {
-					logger.info("------update-----"+indexDataDO.getCompanyName());
                     indexDataMapper.update(indexDataDO);
                 }
                 break;

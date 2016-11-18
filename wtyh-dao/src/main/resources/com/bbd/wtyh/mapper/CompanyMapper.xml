@@ -288,9 +288,9 @@
             NAME,
             longitude,
             latitude,
-            staticRiskIndex,
+            ifnull(staticRiskIndex,"") as staticRiskIndex,
             registeredCapital,
-            exposureDate,
+            ifnull(exposureDate,"") as exposureDate,
             #{companyNumber} AS companyNumber
         FROM
             (
