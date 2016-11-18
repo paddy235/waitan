@@ -72,6 +72,7 @@ public class SyncDataServiceImpl implements SyncDataService {
 						try {
 							insertData(string);
 						}catch (Throwable t){
+							logger.warn("----------exception------"+string);
 							t.printStackTrace();
 						}
 					}
@@ -124,11 +125,13 @@ public class SyncDataServiceImpl implements SyncDataService {
                 } else {
                     indexDataMapper.update(indexDataDO);
                 }
+				logger.info("----type---success---"+type);
                 break;
             case 5:
                 RelationDataDO relationDataDO = new RelationDataDO();
                 relationDataDO = gson.fromJson(content, RelationDataDO.class);
                 relationDataMapper.save(relationDataDO);
+				logger.info("----type---success---"+type);
                 break;
         }
 	}
