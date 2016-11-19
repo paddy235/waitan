@@ -466,7 +466,7 @@ public class OfflineFinanceController {
     }
 
     /**
-     * 更新静态风险指数+本地模型
+     * 更新static_risk_data静态风险指数+本地模型
      * @return
      */
     @RequestMapping("updateStaticRiskData.do")
