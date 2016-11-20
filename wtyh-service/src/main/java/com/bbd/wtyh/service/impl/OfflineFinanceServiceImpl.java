@@ -347,15 +347,15 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
      * @return
      */
     public BigDecimal getCreditInfoRisk(String companyName) {
-        CompanyDO companyDO = companyMapper.selectByName(companyName);
-        float companyRiskInfo = 0f;
-        if (companyDO != null) {
-            companyRiskInfo = companyCreditDetailMapper.getCompanyRiskInfo(companyDO.getCompanyId());
-        }
-
-        return new BigDecimal(companyRiskInfo);
+        return new BigDecimal(companyCreditDetailMapper.getCompanyRiskInfoByCompanyName(companyName));
     }
 
+    /**
+     * 本地模型分数统计逻辑
+     * 本地模型分数 开3次方 再乘以5
+     * @param creditInfoRisk
+     * @return
+     */
     private BigDecimal creditFormula(Integer creditInfoRisk) {
         return new BigDecimal(Math.pow(creditInfoRisk, 1.0/3)*5);
     }
@@ -376,7 +376,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     }
 
     /**
-     * 计算本地模型分数
+     * 统计本地模型总分
      * @param
      * @param tempMap
      * @param list

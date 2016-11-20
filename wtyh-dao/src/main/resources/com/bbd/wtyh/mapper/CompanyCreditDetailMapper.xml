@@ -12,7 +12,17 @@
         );
     </insert>
 
-    <select id="getCompanyRiskInfo" resultType="float">
+    <select id="getCompanyRiskInfoByCompanyId" resultType="float">
         SELECT company_risk_info from company_credit_detail where company_id=#{companyId};
+    </select>
+
+    <select id="getCompanyRiskInfoByCompanyName" resultType="float">
+        SELECT
+            IFNULL(ccd.company_risk_info, 0) AS company_risk_info
+        FROM
+            company c
+        LEFT JOIN company_credit_detail ccd ON ccd.company_id = c.company_id
+        WHERE
+            c.`name` = #{companyName}
     </select>
 </mapper>
