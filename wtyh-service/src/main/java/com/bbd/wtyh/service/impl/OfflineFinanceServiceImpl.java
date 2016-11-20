@@ -55,6 +55,8 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     @Resource
     private StaticRiskMapper staticRiskMapper;
     @Resource
+    private CompanyCreditDetailMapper companyCreditDetailMapper;
+    @Resource
     private RelationCompanyService relationCompanyService;
     @Resource
     private RegisterUniversalFilterChainImp registerUniversalFilterChainImp;
@@ -346,9 +348,23 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
      */
     public BigDecimal getCreditInfoRisk(String companyName) {
         CompanyDO companyDO = companyMapper.selectByName(companyName);
-        Integer creditInfoRisk = 0;
+        float companyRiskInfo = 0f;
+        if (companyDO != null) {
+            companyRiskInfo = companyCreditDetailMapper.getCompanyRiskInfo(companyDO.getCompanyId());
+        }
 
+        return new BigDecimal(companyRiskInfo);
+    }
 
+    private BigDecimal creditFormula(Integer creditInfoRisk) {
+        return new BigDecimal(Math.pow(creditInfoRisk, 1.0/3)*5);
+    }
+
+    /**
+     * 获取本地模型条目
+     * @return
+     */
+    private Map<String, Integer> getCompanyCreditPointItems() {
         List<CompanyCreditPointItemsDO> items = companyCreditInformationMapper.selectCompanyCreditPointItems();
         Map<String, Integer> tempMap = new HashMap<>();
         if (!CollectionUtils.isEmpty(items)) {
@@ -356,33 +372,35 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
                 tempMap.put(companyCreditPointItemsDO.getItem(), companyCreditPointItemsDO.getPoint());
             }
         }
+        return tempMap;
+    }
 
-        if (companyDO != null) {
-            List<CompanyCreditInformationDO> list = companyCreditInformationMapper.selectCompanyCreditInformationList(companyDO.getCompanyId());
-            Map<String, String> isInMap = new HashMap<>();
-            if (!CollectionUtils.isEmpty(list) && tempMap != null) {
-                Gson gson = new Gson();
-                for (CompanyCreditInformationDO companyCreditInformationDO : list) {
-                    Map<String, String> map = gson.fromJson(companyCreditInformationDO.getContent(), Map.class);
-                    for (String key : map.keySet()) {
-                        String value = map.get(key);
-                        if (isInMap.get(value) == null) {
-                            System.out.println("--value-----"+value);
-                            isInMap.put(value, value);
-                            if (tempMap.get(value) != null && tempMap.get(value) > 0) {
-                                System.out.println("-----in-----"+creditInfoRisk);
-                                System.out.println("--tempMap.get(value)-----"+tempMap.get(value));
-                                creditInfoRisk += tempMap.get(value);
-                                System.out.println("-----in-----"+creditInfoRisk);
-                            }
+    /**
+     * 计算本地模型分数
+     * @param
+     * @param tempMap
+     * @param list
+     * @return
+     */
+    private Integer getCompanyRiskInfo(Map<String, Integer> tempMap, List<CompanyCreditInformationDO> list) {
+        Integer creditInfoRisk = 0;
+        Map<String, String> isInMap = new HashMap<>();
+        if (!CollectionUtils.isEmpty(list) && tempMap != null) {
+            Gson gson = new Gson();
+            for (CompanyCreditInformationDO companyCreditInformationDO : list) {
+                Map<String, String> map = gson.fromJson(companyCreditInformationDO.getContent(), Map.class);
+                for (String key : map.keySet()) {
+                    String value = map.get(key);
+                    if (isInMap.get(value) == null) {
+                        isInMap.put(value, value);
+                        if (tempMap.get(value) != null && tempMap.get(value) > 0) {
+                            creditInfoRisk += tempMap.get(value);
                         }
                     }
                 }
             }
         }
-        System.out.println("--final--creditInfoRisk-----"+creditInfoRisk);
-        //开三次方*5
-        return new BigDecimal(Math.pow(creditInfoRisk, 1.0/3)*5);
+        return creditInfoRisk;
     }
 
     @Override
@@ -614,9 +632,6 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
                 } else {} // 保持结构完整
             }
         }
-//        if (vo != null) {
-//            vo.setStcRiskIndex(String.valueOf(getSRI(Float.parseFloat(vo.getStcRiskIndex()), companyName)));
-//        }
         return vo;
     }
 
@@ -636,6 +651,54 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
         }
         double f1 = staticRiskIndex.setScale(1,   BigDecimal.ROUND_HALF_UP).doubleValue();
         return new BigDecimal(f1);
+    }
+
+    @Override
+    public void saveCompanyCreditRisk() {
+        int totalCount = companyMapper.countAllCompany();
+        if (totalCount > 0) {
+            Pagination pagination = new Pagination();
+            pagination.setPageSize(1000);
+            pagination.setCount(totalCount);
+            int totalPage = pagination.getLastPageNumber();
+            Map<String, Object> params = new HashMap<>();
+            ExecutorService dataExecutorService = Executors.newFixedThreadPool(20);
+            Map<String, Integer> tempMap = getCompanyCreditPointItems();//本地模型加分项目
+            for (int pageNo = 1; pageNo <= totalPage; pageNo++) {
+                pagination.setPageNumber(pageNo);
+                params.put("pagination", pagination);
+                List<CompanyDO> pageList = companyMapper.findByPage(params);
+                if (!CollectionUtils.isEmpty(pageList)) {
+                    for (CompanyDO companyDO : pageList) {
+                        final Integer companyId = companyDO.getCompanyId();
+                        List<CompanyCreditInformationDO> list = companyCreditInformationMapper.selectCompanyCreditInformationList(companyId);
+                        if (CollectionUtils.isEmpty(list)) {
+                            System.out.println("----saveCompanyCreditRisk----continue----"+companyId);
+                            continue;
+                        }
+                        final Integer creditInfoRisk = this.getCompanyRiskInfo(tempMap, list);
+                        dataExecutorService.submit(new Runnable() {
+                            @Override
+                            public void run() {
+                            final CompanyCreditDetailDO companyCreditDetailDO = new CompanyCreditDetailDO();
+                            companyCreditDetailDO.setCompanyId(companyId);
+                            companyCreditDetailDO.setCompanyRiskInfo(creditFormula(creditInfoRisk).floatValue());
+                            companyCreditDetailDO.setCreateBy("system");
+                            companyCreditDetailDO.setCreateDate(new Date());
+                            companyCreditDetailMapper.save(companyCreditDetailDO);
+                            System.out.println("----saveCompanyCreditRisk----save----"+companyId);
+                            }
+                        });
+                    }
+                }
+            }
+            dataExecutorService.shutdown();
+            try {
+                dataExecutorService.awaitTermination(1, TimeUnit.DAYS);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

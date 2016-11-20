@@ -475,4 +475,15 @@ public class OfflineFinanceController {
         offlineFinanceService.updateStaticRiskData(companyName, dataVersion);
         return ResponseBean.successResponse("更新成功");
     }
+
+    /**
+     * 保存本地模型分数
+     * @return
+     */
+    @RequestMapping("saveCompanyCreditRisk.do")
+    @ResponseBody
+    public ResponseBean saveCompanyCreditRisk() {
+        offlineFinanceService.saveCompanyCreditRisk();
+        return ResponseBean.successResponse("保存成功");
+    }
 }

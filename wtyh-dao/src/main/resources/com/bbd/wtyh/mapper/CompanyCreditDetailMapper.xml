@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.CompanyCreditDetailMapper">
+    <insert id="save" parameterType="com.bbd.wtyh.domain.CompanyCreditDetailDO" >
+        INSERT INTO `company_credit_detail` VALUES (
+                        #{companyId},
+                        #{companyRiskInfo},
+                        #{createBy},
+                        #{createDate},
+                        #{updateBy},
+                        #{updateDate}
+        );
+    </insert>
+
+    <select id="getCompanyRiskInfo" resultType="float">
+        SELECT company_risk_info from company_credit_detail where company_id=#{companyId};
+    </select>
+</mapper>
