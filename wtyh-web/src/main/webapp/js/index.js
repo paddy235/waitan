@@ -53416,14 +53416,9 @@
 	    $('#lineFinanceCoCompose-scroll').perfectScrollbar('update');
 	  },
 	  listDataFomat: function listDataFomat(data) {
-	    var contentStr = data.content;
-	    var contentJson = null;
-	    var results = null;
-	    if (contentStr) {
-	      contentJson = JSON.parse(contentStr);
-	      results = contentJson.results;
-	    } else {
-	      results = [];
+	    var results = '';
+	    if (data.success) {
+	      results = data.content ? data.content.results : [];
 	    }
 	    this.setState({ listData: results.slice(0, 20) });
 	  },
