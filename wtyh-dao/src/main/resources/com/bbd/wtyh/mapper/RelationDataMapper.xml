@@ -48,4 +48,59 @@
 			and area =#{areaCode};
 		</if>
 	</select>
+
+
+	<insert id="save" parameterType="com.bbd.wtyh.domain.RelationDataDO" >
+		INSERT INTO `relation_data`(
+						create_by,
+						create_date,
+						update_by,
+						update_date,
+						area,
+						company_name,
+						data_version,
+						risk_date,
+						relation_person_num,
+						company_person_num,
+						child_company_num,
+						child_company_detail,
+						one_person_num,
+						one_person_detail,
+						one_company_num,
+						one_company_detail,
+						two_person_num,
+						two_person_detail,
+						two_company_num,
+						two_company_detail,
+						three_person_num,
+						three_person_detail,
+						three_company_num,
+						three_company_detail
+						) VALUES (
+						#{createBy},
+						#{createDate},
+						#{updateBy},
+						#{updateDate},
+						#{area},
+						#{companyName},
+						#{dataVersion},
+						#{riskDate},
+						#{relationPersonNum},
+						#{companyPersonNum},
+						#{childCompanyNum},
+						#{childCompanyDetail},
+						#{onePersonNum},
+						#{onePersonDetail},
+						#{oneCompanyNum},
+						#{oneCompanyDetail},
+						#{twoPersonNum},
+						#{twoPersonDetail},
+						#{twoCompanyNum},
+						#{twoCompanyDetail},
+						#{threePersonNum},
+						#{threePersonDetail},
+						#{threeCompanyNum},
+						#{threeCompanyDetail}
+						);
+	</insert>
 </mapper>

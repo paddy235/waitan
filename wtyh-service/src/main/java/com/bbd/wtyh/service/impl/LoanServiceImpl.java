@@ -56,6 +56,7 @@ public class LoanServiceImpl implements LoanService {
                 dto.setSmallCompanyBalance(balanceDO.getSmallCompanyBalance());
                 dto.setAmount(balanceDO.getAmount());
                 dto.setNumber(balanceDO.getNumber());
+                dto.setCompanyAmount(balanceDO.getCompanyAmount());
                 map.put(key, dto);
                 monthCount.put(key, 1);
             }

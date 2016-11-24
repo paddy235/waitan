@@ -8,6 +8,7 @@ import com.bbd.wtyh.domain.vo.SpectrumVO;
 import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.RealTimeMonitorService;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,10 +58,31 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
     @Override
     public List<List<SpectrumVO>> spectrumAnalysis() {
         final String dateVersion = staticRiskMapper.maxDataVersion();
-        List<SpectrumVO> spectrumAnalysisFocus = companyMapper.getSpectrumAnalysis(FOCUS_LEVEL, dateVersion);
-        List<SpectrumVO> spectrumAnalysisUsual = companyMapper.getSpectrumAnalysis(USUAL_LEVEL, dateVersion);
-        List<SpectrumVO> spectrumAnalysisNormal = companyMapper.getSpectrumAnalysis(NORMAL_LEVEL, dateVersion);
-        List<SpectrumVO> spectrumAnalysisRisk = companyMapper.getSpectrumAnalysis(RISK_LEVEL, dateVersion);
+        List<Map<Integer, Integer>> riskLevelNumber = companyMapper.getRiskLevelNumber();
+        Integer black = 400, red = 400, yellow = 400, green = 400;
+        if (CollectionUtils.isNotEmpty(riskLevelNumber)) {
+            for (Map<Integer, Integer> map : riskLevelNumber) {
+                Integer riskLevel = map.get("riskLevel");
+                Integer companyNumber = map.get("companyNumber");
+                if (riskLevel != null) {
+                    if (riskLevel == 1) {
+                        black = companyNumber;
+                    } else if (riskLevel == 2) {
+                        red = companyNumber;
+                    } else if (riskLevel == 3) {
+                        yellow = companyNumber;
+                    } else if (riskLevel == 4) {
+                        green = companyNumber;
+                    } else {
+
+                    }
+                }
+            }
+        }
+        List<SpectrumVO> spectrumAnalysisFocus = companyMapper.getSpectrumAnalysis(FOCUS_LEVEL, dateVersion, red);
+        List<SpectrumVO> spectrumAnalysisUsual = companyMapper.getSpectrumAnalysis(USUAL_LEVEL, dateVersion, yellow);
+        List<SpectrumVO> spectrumAnalysisNormal = companyMapper.getSpectrumAnalysis(NORMAL_LEVEL, dateVersion, green);
+        List<SpectrumVO> spectrumAnalysisRisk = companyMapper.getSpectrumAnalysis(RISK_LEVEL, dateVersion, black);
 
         List<List<SpectrumVO>> rst = new ArrayList<>();
         rst.add(spectrumAnalysisFocus);

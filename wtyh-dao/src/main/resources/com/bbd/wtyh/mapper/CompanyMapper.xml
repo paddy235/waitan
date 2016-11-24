@@ -74,6 +74,9 @@
           ) b
    </select>
 
+    <select id="getRiskLevelNumber" resultType="map">
+        select risk_level as riskLevel, company_number as companyNumber from company_risk_number;
+    </select>
 
     <select id="buildingBackground" resultType="com.bbd.wtyh.domain.CompanyTypeCountDO">
    		
@@ -282,17 +285,80 @@
 
     <select id="getSpectrumAnalysis"  resultType="com.bbd.wtyh.domain.vo.SpectrumVO">
         SELECT
-            company.`name`,
-            company.registered_capital AS registeredCapital,
-            DATE_FORMAT(company_analysis_result.exposure_date,'%Y-%m') AS exposureDate
+            NAME,
+            longitude,
+            latitude,
+            ifnull(staticRiskIndex,"") as staticRiskIndex,
+            registeredCapital,
+            ifnull(exposureDate,"") as exposureDate,
+            #{companyNumber} AS companyNumber
         FROM
-            company
-        LEFT JOIN company_analysis_result ON company.company_id = company_analysis_result.company_id
-        LEFT JOIN static_risk_data ON company.name = static_risk_data.company_name
-        WHERE
-            risk_level = #{risk_level} AND static_risk_data.data_version=#{dateVersion}
-        ORDER BY static_risk_data.static_risk_index DESC
-        LIMIT 0, 400
+            (
+                SELECT
+                    company.`name`,
+                    company.longitude,
+                    company.latitude,
+                    static_risk_data.static_risk_index AS staticRiskIndex,
+                    company.registered_capital AS registeredCapital,
+                    DATE_FORMAT(
+                        company_analysis_result.exposure_date,
+                        '%Y-%m'
+                    ) AS exposureDate
+                FROM
+                    company
+                LEFT JOIN company_analysis_result ON company.company_id = company_analysis_result.company_id
+                LEFT JOIN static_risk_data ON company. NAME = static_risk_data.company_name
+                WHERE
+                    risk_level = #{risk_level}
+                AND (
+                    static_risk_data.data_version = #{dateVersion}
+                    OR static_risk_data.data_version IS NULL
+                    OR static_risk_data.data_version = ''
+                )
+                UNION
+                    SELECT
+                        t1.`name`,
+                        t1.longitude,
+                        t1.latitude,
+                        NULL AS staticRiskIndex,
+                        t1.registered_capital AS registeredCapital,
+                        DATE_FORMAT(
+                            company_analysis_result.exposure_date,
+                            '%Y-%m'
+                        ) AS exposureDate
+                    FROM
+                        (
+                            SELECT
+                                `name`,
+                                company_id,
+                                registered_capital,
+                                longitude,
+                                latitude
+                            FROM
+                                company
+                            WHERE
+                                risk_level = #{risk_level}
+                            AND `name` NOT IN (
+                                SELECT
+                                    company.`name`
+                                FROM
+                                    company
+                                LEFT JOIN static_risk_data ON company. NAME = static_risk_data.company_name
+                                WHERE
+                                    risk_level = #{risk_level}
+                                AND (
+                                    static_risk_data.data_version = #{dateVersion}
+                                    OR static_risk_data.data_version IS NULL
+                                    OR static_risk_data.data_version = ''
+                                )
+                            )
+                        ) t1
+                    LEFT JOIN company_analysis_result ON t1.company_id = company_analysis_result.company_id
+            ) m
+        ORDER BY
+            staticRiskIndex DESC
+        LIMIT 0,
+         #{companyNumber}
     </select>
 
     <select id="queryCompanyByName"  resultType="com.bbd.wtyh.domain.CompanyDO">

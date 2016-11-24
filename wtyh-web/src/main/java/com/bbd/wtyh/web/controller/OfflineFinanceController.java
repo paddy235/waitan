@@ -465,7 +465,7 @@ public class OfflineFinanceController {
     }
 
     /**
-     * 更新静态风险指数+本地模型
+     * 更新index_data静态风险指数+本地模型
      * @return
      */
     @RequestMapping("updateIndexData.do")
@@ -476,7 +476,7 @@ public class OfflineFinanceController {
     }
 
     /**
-     * 更新静态风险指数+本地模型
+     * 更新static_risk_data静态风险指数+本地模型
      * @return
      */
     @RequestMapping("updateStaticRiskData.do")
@@ -484,5 +484,16 @@ public class OfflineFinanceController {
     public ResponseBean updateStaticRiskData(String companyName, String dataVersion) {
         offlineFinanceService.updateStaticRiskData(companyName, dataVersion);
         return ResponseBean.successResponse("更新成功");
+    }
+
+    /**
+     * 保存本地模型分数
+     * @return
+     */
+    @RequestMapping("saveCompanyCreditRisk.do")
+    @ResponseBody
+    public ResponseBean saveCompanyCreditRisk() {
+        offlineFinanceService.saveCompanyCreditRisk();
+        return ResponseBean.successResponse("保存成功");
     }
 }

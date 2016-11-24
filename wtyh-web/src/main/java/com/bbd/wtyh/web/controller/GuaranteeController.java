@@ -89,13 +89,10 @@ public class GuaranteeController {
      */
     @RequestMapping("balance.do")
     public ResponseBean balance() {
-        CompanyQuery query = new CompanyQuery();
-        query.setCompanyType((int) CompanyDO.TYPE_RZDB_3);
-        int amount = companyService.countCompanyNum(query);
         List<GuaranteeBalanceDO> guaranteeBalanceList = guaranteeService.getGuaranteeBalanceByYear();
         List<GuaranteeBalanceDTO> result = Lists.newArrayList();
         for (GuaranteeBalanceDO balanceDO : guaranteeBalanceList) {
-            result.add(getGuaranteeBalanceDTO(amount, balanceDO));
+            result.add(getGuaranteeBalanceDTO(balanceDO));
         }
         return ResponseBean.successResponse(result);
     }
@@ -107,13 +104,10 @@ public class GuaranteeController {
      */
     @RequestMapping("balanceByMonth.do")
     public ResponseBean balanceByMonth() {
-        CompanyQuery query = new CompanyQuery();
-        query.setCompanyType((int) CompanyDO.TYPE_RZDB_3);
-        int amount = companyService.countCompanyNum(query);
         List<GuaranteeBalanceDO> guaranteeBalanceList = guaranteeService.getGuaranteeBalanceByMonth();
         List<GuaranteeBalanceDTO> result = Lists.newArrayList();
         for (GuaranteeBalanceDO balanceDO : guaranteeBalanceList) {
-            result.add(getGuaranteeBalanceDTO(amount, balanceDO));
+            result.add(getGuaranteeBalanceDTO(balanceDO));
         }
         return ResponseBean.successResponse(Lists.reverse(result));
     }
@@ -125,18 +119,12 @@ public class GuaranteeController {
      */
     @RequestMapping("balanceByQuarter.do")
     public ResponseBean balanceByQuarter() {
-        CompanyQuery query = new CompanyQuery();
-        query.setCompanyType((int) CompanyDO.TYPE_RZDB_3);
-        int amount = companyService.countCompanyNum(query);
         List<GuaranteeBalanceByQuaterDTO> guaranteeBalanceList = guaranteeService.getGuaranteeBalanceByQuarter();
-        for (GuaranteeBalanceByQuaterDTO balanceDO : guaranteeBalanceList) {
-            balanceDO.setCompanyAmount(amount);
-        }
         return ResponseBean.successResponse(guaranteeBalanceList);
     }
 
 
-    private GuaranteeBalanceDTO getGuaranteeBalanceDTO(int amount, GuaranteeBalanceDO balanceDO) {
+    private GuaranteeBalanceDTO getGuaranteeBalanceDTO(GuaranteeBalanceDO balanceDO) {
         GuaranteeBalanceDTO guaranteeBalanceDTO = new GuaranteeBalanceDTO();
         guaranteeBalanceDTO.setYear(balanceDO.getYear());
         guaranteeBalanceDTO.setMonth(balanceDO.getMonth());
@@ -145,7 +133,7 @@ public class GuaranteeController {
         guaranteeBalanceDTO.setCompositeBalance(balanceDO.getCompositeBalance());
         guaranteeBalanceDTO.setPolicyBalance(balanceDO.getPolicyBalance());
         guaranteeBalanceDTO.setNumber(balanceDO.getNumber());
-        guaranteeBalanceDTO.setCompanyAmount(amount);
+        guaranteeBalanceDTO.setCompanyAmount(balanceDO.getCompanyAmount());
         return guaranteeBalanceDTO;
     }
 

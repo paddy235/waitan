@@ -92,18 +92,15 @@ public class LoanController {
      */
     @RequestMapping("balance.do")
     public ResponseBean balance() {
-        CompanyQuery query = new CompanyQuery();
-        query.setCompanyType((int) CompanyDO.TYPE_XD_2);
-        int amount = companyService.countCompanyNum(query);
         List<LoanBalanceDO> loanBalanceList = loanService.getLoanBalanceByYear();
         List<LoanBalanceDTO> result = Lists.newArrayList();
         for (LoanBalanceDO balanceDO : loanBalanceList) {
-            result.add(getLoanBalanceDTO(amount, balanceDO));
+            result.add(getLoanBalanceDTO(balanceDO));
         }
         return ResponseBean.successResponse(result);
     }
 
-    private LoanBalanceDTO getLoanBalanceDTO(int amount, LoanBalanceDO balanceDO) {
+    private LoanBalanceDTO getLoanBalanceDTO(LoanBalanceDO balanceDO) {
         LoanBalanceDTO loanBalanceDTO = new LoanBalanceDTO();
         loanBalanceDTO.setMonth(balanceDO.getMonth());
         loanBalanceDTO.setYear(balanceDO.getYear());
@@ -111,7 +108,7 @@ public class LoanController {
         loanBalanceDTO.setAgricultureBalance(balanceDO.getAgricultureBalance());
         loanBalanceDTO.setSmallCompanyBalance(balanceDO.getSmallCompanyBalance());
         loanBalanceDTO.setNumber(balanceDO.getNumber());
-        loanBalanceDTO.setCompanyAmount(amount);
+        loanBalanceDTO.setCompanyAmount(balanceDO.getCompanyAmount());
         return loanBalanceDTO;
     }
 
@@ -123,13 +120,10 @@ public class LoanController {
      */
     @RequestMapping("balanceByMonth.do")
     public ResponseBean balanceByMonth() {
-        CompanyQuery query = new CompanyQuery();
-        query.setCompanyType((int) CompanyDO.TYPE_XD_2);
-        int amount = companyService.countCompanyNum(query);
         List<LoanBalanceDO> loanBalanceList = loanService.getLoanBalanceByMonth();
         List<LoanBalanceDTO> result = Lists.newArrayList();
         for (LoanBalanceDO balanceDO : loanBalanceList) {
-            result.add(getLoanBalanceDTO(amount, balanceDO));
+            result.add(getLoanBalanceDTO(balanceDO));
         }
         return ResponseBean.successResponse(Lists.reverse(result));
     }
@@ -142,13 +136,7 @@ public class LoanController {
      */
     @RequestMapping("balanceByQuarter.do")
     public ResponseBean balanceByQuarter() {
-        CompanyQuery query = new CompanyQuery();
-        query.setCompanyType((int) CompanyDO.TYPE_XD_2);
-        int amount = companyService.countCompanyNum(query);
         List<LoanBalanceByQuarterDTO> dtoList = loanService.getLoanBalanceByQuater();
-        for (LoanBalanceByQuarterDTO balanceDO : dtoList) {
-            balanceDO.setCompanyAmount(amount);
-        }
         return ResponseBean.successResponse(dtoList);
     }
 
