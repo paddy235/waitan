@@ -105,7 +105,6 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     @Value("${api.dataom.yuqing.url}")
     private String apiDataomYuqingUrl;
 
-
     @Value("${api.dataom.news.url}")
     private String apiDataomNewsUrl;
 
