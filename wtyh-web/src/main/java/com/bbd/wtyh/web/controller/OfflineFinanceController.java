@@ -1,6 +1,7 @@
 package com.bbd.wtyh.web.controller;
 
 import com.bbd.wtyh.common.Constants;
+import com.bbd.wtyh.dao.HologramQueryDao;
 import com.bbd.wtyh.domain.CapitalAmountDO;
 import com.bbd.wtyh.domain.CompanyCountDO;
 import com.bbd.wtyh.domain.MortgageStatisticDO;
@@ -10,6 +11,7 @@ import com.bbd.wtyh.domain.vo.*;
 import com.bbd.wtyh.service.*;
 import com.bbd.wtyh.util.CalculateUtils;
 import com.bbd.wtyh.web.*;
+import com.google.gson.Gson;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +71,11 @@ public class OfflineFinanceController {
     private MortgageService mortgageService;
     @Autowired
     private GuaranteeController guaranteeController;
+
+
+    @Autowired
+    private HologramQueryService hologramQueryService;
+
     /**
      * 关联图谱
      *
@@ -257,7 +264,10 @@ public class OfflineFinanceController {
     @RequestMapping("companyNews.do")
     @ResponseBody
     public ResponseBean companyNews(String companyName) {
-        String data = offlineFinanceService.companyNews(companyName);
+       // String data = offlineFinanceService.companyNews(companyName);
+
+        Object data = hologramQueryService.newsConsensusList(companyName);
+
         return ResponseBean.successResponse(data);
     }
 
