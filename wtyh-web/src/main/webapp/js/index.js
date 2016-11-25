@@ -49670,8 +49670,8 @@
 	            return;
 	        }
 	        var oldPasswordLen = oldPassword.length;
-	        var newPasswordLen = oldPassword.length;
-	        var renewPasswordLen = oldPassword.length;
+	        var newPasswordLen = newPassword.length;
+	        var renewPasswordLen = renewPassword.length;
 	        if (oldPasswordLen < 8 || oldPasswordLen > 12) {
 	            return;
 	        }
