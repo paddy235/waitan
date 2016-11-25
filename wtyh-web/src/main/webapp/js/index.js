@@ -49657,6 +49657,7 @@
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {},
 	    handleChangePsw: function handleChangePsw() {
+	        $(this.refs.formbox).find('input').trigger('focus').trigger('blur');
 	        var userName = sessionStorage.LoginName;
 	        this.setState({ userName: userName });
 	        console.log(userName, '222');
@@ -49666,6 +49667,18 @@
 
 	        var json = { 'name': userName, 'oldPassword': oldPassword, 'newPassword': newPassword };
 	        if (newPassword == "" || renewPassword == "" || oldPassword == "") {
+	            return;
+	        }
+	        var oldPasswordLen = oldPassword.length;
+	        var newPasswordLen = oldPassword.length;
+	        var renewPasswordLen = oldPassword.length;
+	        if (oldPasswordLen < 8 || oldPasswordLen > 12) {
+	            return;
+	        }
+	        if (newPasswordLen < 8 || newPasswordLen > 12) {
+	            return;
+	        }
+	        if (renewPasswordLen < 8 || renewPasswordLen > 12) {
 	            return;
 	        }
 	        if (newPassword != renewPassword) {
