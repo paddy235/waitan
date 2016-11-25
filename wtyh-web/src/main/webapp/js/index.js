@@ -49367,7 +49367,6 @@
 	                this.setState({ tipMsg: "登录中..." });
 	                if (result.content) {
 	                    if (result.msg == "password.need.change") {
-	                        console.log('xuyao');
 	                        sessionStorage.LoginName = userName;
 	                        sessionStorage.changeTip = "密码已失效,请重置密码！";
 	                        this.props.history.pushState(null, '/changePsw'); //跳转到修改密码
@@ -49713,7 +49712,7 @@
 	                        tipMsg = "新设置密码不可与原密码设置相同";
 	                    } else if (msg == "password.change.success") {
 	                        tipMsg = "密码修改成功";
-	                        console.log(tipMsg);
+	                        sessionStorage.changeTip = "请设置密码！";
 	                        $this.props.history.pushState(null, '/index');
 	                    }
 	                    $this.setState({ tipMsg: tipMsg });
