@@ -5,7 +5,7 @@
 			<level>INFO</level>
 		</filter>
 		<encoder>
-			<pattern>[%date{yyyy-MM-dd HH:mm:ss}]||[%thread]||[%-5level]||[%logger:%line]||[%ex]||[%msg]||%n</pattern>
+			<pattern>%date{yyyy-MM-dd HH:mm:ss}||%thread||%level||%logger:%line||%msg %ex||%n</pattern>
 		</encoder>
 	</appender>
 	<appender name="sffall" class="ch.qos.logback.core.rolling.RollingFileAppender">
