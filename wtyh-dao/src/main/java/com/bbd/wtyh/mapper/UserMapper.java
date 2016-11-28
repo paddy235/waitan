@@ -15,8 +15,6 @@ public interface UserMapper {
 
     String getPassword(String loginName);
 
-    String getPasswordHistory(String loginName);
-
-    int updatePassword(@Param("loginName") String loginName, @Param("password") String password, @Param("passwordHistory") String passwordHistory);
+    int updatePassword(@Param("loginName") String loginName, @Param("password") String password);
 
 }

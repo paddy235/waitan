@@ -26,6 +26,8 @@ public interface UserService {
         String PASSWORD_CHANGE_SUCCESS   = "password.change.success";
         //密码需要修改
         String PASSWORD_NEED_CHANGE      = "password.need.change";
+        //新旧密码不能一样
+        String PASSWORD_EQUALS_OLD       = "password.equals.old";
 
     }
 

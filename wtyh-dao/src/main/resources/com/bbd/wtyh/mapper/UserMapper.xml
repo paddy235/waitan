@@ -10,12 +10,9 @@
 		select update_date from user where loginName=#{loginName}
 	</select>
 
-    <select id="getPasswordHistory" resultType="string">
-		select password_history from user where loginName=#{loginName}
-	</select>
 
     <update id="updatePassword">
-		update user set password=#{password},password_history=#{passwordHistory},update_date=now() where loginName=#{loginName}
+		update user set password=#{password},update_date=now() where loginName=#{loginName}
 	</update>
 
 

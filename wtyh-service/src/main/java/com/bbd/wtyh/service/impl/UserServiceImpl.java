@@ -2,8 +2,6 @@ package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.mapper.UserMapper;
 import com.bbd.wtyh.service.UserService;
-import com.google.common.base.Splitter;
-import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
@@ -11,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author Ian.Su
@@ -21,7 +18,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private static final String PASSWORD_HISTORY_SPLITTER = "|";
     @Autowired
-    private UserMapper userMapper;
+    private UserMapper          userMapper;
 
     @Override
     public String getPassword(String loginName) {
@@ -42,21 +39,10 @@ public class UserServiceImpl implements UserService {
         if (!password.equals(encryptPassword(oldPassword))) {
             return ResultCode.PASSWORD_ERROR;
         }
-        List<String> historyList = Lists.newArrayList();
-        String passwordHistory = userMapper.getPasswordHistory(loginName);
-        if (StringUtils.isNotEmpty(passwordHistory)) {
-            historyList = Lists.newArrayList(Splitter.on(PASSWORD_HISTORY_SPLITTER).omitEmptyStrings().trimResults().split(passwordHistory));
+        if (oldPassword.equals(newPassword)) {
+            return ResultCode.PASSWORD_EQUALS_OLD;
         }
-        for (String history : historyList) {
-            if (encryptPassword(newPassword).equals(history)) {
-                return ResultCode.PASSWORD_HISTORY_CONTAINS;
-            }
-        }
-        if (historyList.size() >= 2) {
-            historyList.remove(0);
-        }
-        historyList.add(password);
-        userMapper.updatePassword(loginName, encryptPassword(newPassword), StringUtils.join(historyList, "|"));
+        userMapper.updatePassword(loginName, encryptPassword(newPassword));
         return ResultCode.PASSWORD_CHANGE_SUCCESS;
     }
 
