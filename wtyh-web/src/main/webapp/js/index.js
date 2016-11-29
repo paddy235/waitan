@@ -51978,7 +51978,7 @@
 	            this.getLinFinList(jsonData);
 	        }
 
-	        var isEqual = Immutable.is(nextProps.lineFinanceListRequest, this.props.lineFinanceListResult); //判断数据是否变化
+	        var isEqual = Immutable.is(nextProps.lineFinanceListResult, this.props.lineFinanceListResult); //判断数据是否变化
 	        if (!isEqual) {
 	            var lineFinanceListRequest = nextProps.lineFinanceListRequest;
 	            var lineFinanceListResult = nextProps.lineFinanceListResult;
@@ -53709,38 +53709,27 @@
 	  getInitialState: function getInitialState() {
 	    return {
 	      listData: [],
-	      companyName: ""
+	      companyName: "",
+	      nodata: "none"
 	    };
 	  },
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	    if (this.state.companyName && this.state.companyName != this.props.location.query.companyName) {
-	      this.queryNews();
-	    }
-	    var companyNewsIsEqual = Immutable.is(nextProps.companyNewsRequest, this.props.companyNewsRequest);
+	    // if(this.props.location.query.companyName)){
+	    //       this.queryNews(); 
+	    //   }
+	    var companyNewsIsEqual = Immutable.is(nextProps.companyNewsResult, this.props.companyNewsResult);
 	    if (!companyNewsIsEqual) {
 	      var companyNewsResult = nextProps.companyNewsResult;
 	      this.listDataFomat(companyNewsResult);
 	    }
 	  },
 	  componentDidMount: function componentDidMount() {
-	    this.queryNews();
+	    var comopanyName = this.props.location.query.companyName;
+	    this.requestCompanyNews(comopanyName);
 	    $('#lineFinanceCoCompose-scroll').perfectScrollbar();
 	  },
 	  componentDidUpdate: function componentDidUpdate() {
 	    $('#lineFinanceCoCompose-scroll').perfectScrollbar('update');
-	  },
-	  listDataFomat: function listDataFomat(data) {
-	    var results = '';
-	    if (data.success) {
-	      results = data.content ? data.content.results : [];
-	    }
-	    this.setState({ listData: results.slice(0, 20) });
-	  },
-	  queryNews: function queryNews() {
-	    //查询公司舆情信息
-	    var companyName = this.props.location.query.companyName;
-	    this.setState({ companyName: companyName });
-	    this.requestCompanyNews(companyName);
 	  },
 	  requestCompanyNews: function requestCompanyNews(companyName) {
 	    //请求公司舆情
@@ -53748,6 +53737,19 @@
 
 	    companyNews({ companyName: companyName });
 	  },
+	  listDataFomat: function listDataFomat(data) {
+	    var _this = this;
+	    var results = '';
+	    if (data.success) {
+	      results = data.content.results;
+	      if (results.length > 0) {
+	        _this.setState({ listData: results.slice(0, 20), nodata: "none" }, function () {});
+	      } else {
+	        _this.setState({ nodata: "block" });
+	      }
+	    }
+	  },
+
 	  render: function render() {
 	    var _content, _time;
 	    return _react2.default.createElement(
@@ -53771,7 +53773,12 @@
 	          _react2.default.createElement(
 	            'ul',
 	            null,
-	            this.state.listData.length > 0 ? this.state.listData.map(function (item, index) {
+	            _react2.default.createElement(
+	              'li',
+	              { className: 'tip', style: { display: this.state.nodata } },
+	              '未搜索到相关舆情'
+	            ),
+	            this.state.listData.map(function (item, index) {
 	              _time = item.pubdate && item.pubdate.substring(0, 10);
 	              _content = item.main && item.main.length > 120 ? item.main.substring(0, 120) : item.main;
 	              return _react2.default.createElement(
@@ -53815,11 +53822,7 @@
 	                  )
 	                )
 	              );
-	            }) : _react2.default.createElement(
-	              'li',
-	              { className: 'tip' },
-	              '未搜索到相关舆情'
-	            )
+	            })
 	          )
 	        )
 	      )
