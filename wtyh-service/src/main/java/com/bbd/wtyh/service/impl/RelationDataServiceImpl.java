@@ -119,7 +119,9 @@ public class RelationDataServiceImpl implements RelationDataService {
         p = p * 100 / 15;
         DecimalFormat df = new DecimalFormat("#.0");
         Double result = Double.parseDouble(df.format(p));
-        if (result <= 0.0) {
+        if (result > 100) {
+            result = 100.0;
+        } else if (result <= 0.0) {
             result = 0.0;
         }
         return result;
@@ -144,7 +146,9 @@ public class RelationDataServiceImpl implements RelationDataService {
             c = c * 100 / 15;
             DecimalFormat df = new DecimalFormat("#.0");
             result = Double.parseDouble(df.format(c));
-            if (result <= 0.0) {
+            if (result > 100) {
+                result = 100.0;
+            } else if (result <= 0.0) {
                 result = 0.0;
             }
         }
@@ -171,7 +175,9 @@ public class RelationDataServiceImpl implements RelationDataService {
         p = p * 100 / 15;
         DecimalFormat df = new DecimalFormat("#.0");
         result = Double.parseDouble(df.format(p));
-        if (result <= 0.0) {
+        if (result > 100) {
+            result = 100.0;
+        } else if (result <= 0.0) {
             result = 0.0;
         }
         return result;
@@ -203,7 +209,9 @@ public class RelationDataServiceImpl implements RelationDataService {
             h = h * 100 / 15;
             DecimalFormat df = new DecimalFormat("#.0");
             result = Double.parseDouble(df.format(h));
-            if (result <= 0.0) {
+            if (result > 100) {
+                result = 100.0;
+            } else if (result <= 0.0) {
                 result = 0.0;
             }
         }
@@ -229,7 +237,9 @@ public class RelationDataServiceImpl implements RelationDataService {
         c1 = c1 * 100 / 15;
         DecimalFormat df = new DecimalFormat("#.0");
         result = Double.parseDouble(df.format(c1));
-        if (result <= 0.0) {
+        if (result > 100) {
+            result = 100.0;
+        } else if (result <= 0.0) {
             result = 0.0;
         }
         return result;
@@ -256,7 +266,9 @@ public class RelationDataServiceImpl implements RelationDataService {
         w1 = w1 * 100 / 15;
         DecimalFormat df = new DecimalFormat("#.0");
         result = Double.parseDouble(df.format(w1));
-        if (result <= 0.0) {
+        if (result > 100) {
+            result = 100.0;
+        } else if (result <= 0.0) {
             result = 0.0;
         }
         return result;
@@ -293,7 +305,9 @@ public class RelationDataServiceImpl implements RelationDataService {
         k = k * 100 / 15;
         DecimalFormat df = new DecimalFormat("#.0");
         Double result = Double.parseDouble(df.format(k));
-        if (result <= 0.0) {
+        if (result > 100) {
+            result = 100.0;
+        } else if (result <= 0.0) {
             result = 0.0;
         }
         return result;
@@ -316,7 +330,7 @@ public class RelationDataServiceImpl implements RelationDataService {
         double r6 = getIllegalFundRaisingRisk(curDynamicRisk, cprDynamicRisk);
         double r7 = getSteadyStateOperationRisk(curDynamicRisk, cprDynamicRisk);
         double r = r1 + r2 + r3 + r4 + r5 + r6 + r7;
-        r = r * 100 / 105;
+        r = r / 7;
         DecimalFormat df = new DecimalFormat("#.0");
         Double result = Double.parseDouble(df.format(r));
         return result;
