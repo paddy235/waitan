@@ -1,5 +1,21 @@
 package com.bbd.wtyh.service.impl;
 
+import java.io.UnsupportedEncodingException;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.vo.DynamicRiskIndexVO;
@@ -8,34 +24,9 @@ import com.bbd.wtyh.domain.vo.RelationDataIndexVO;
 import com.bbd.wtyh.domain.vo.RelationDataVO;
 import com.bbd.wtyh.mapper.DynamicRiskMapper;
 import com.bbd.wtyh.mapper.RelationDataMapper;
-
 import com.bbd.wtyh.mapper.StaticRiskMapper;
 import com.bbd.wtyh.service.RelationDataService;
-import com.bbd.wtyh.service.impl.relation.common.APIConstants;
-import com.bbd.wtyh.service.impl.relation.exception.BbdException;
-import com.bbd.wtyh.service.impl.relation.param.RelatedParameters;
 import com.bbd.wtyh.util.RelationDataUtils;
-import net.sf.json.JSONObject;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.CoreConnectionPNames;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-
-import javax.annotation.Resource;
-import java.io.*;
-import java.lang.reflect.Method;
-import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
 
 /**
  *
@@ -45,13 +36,13 @@ import java.util.*;
 @Service("relationDataService")
 public class RelationDataServiceImpl implements RelationDataService {
 
-    private Logger logger = LoggerFactory.getLogger(RelationDataServiceImpl.class);
+    private Logger             logger = LoggerFactory.getLogger(RelationDataServiceImpl.class);
     @Autowired
     private RelationDataMapper relationDataMapper;
     @Autowired
-    private DynamicRiskMapper dynamicRiskMapper;
+    private DynamicRiskMapper  dynamicRiskMapper;
     @Autowired
-    private StaticRiskMapper staticRiskMapper;
+    private StaticRiskMapper   staticRiskMapper;
 
     /**
      * 比较两个月份的关联方数据
@@ -60,15 +51,15 @@ public class RelationDataServiceImpl implements RelationDataService {
      * @param compareMonth
      * @return
      */
-    public RelationDataVO compareRelationData(String companyName, String areaCode, String currentMonth, String compareMonth)
-    {
+    @Override
+    public RelationDataVO compareRelationData(String companyName, String areaCode,
+                                              String currentMonth, String compareMonth) {
         RelationDataVO vo = new RelationDataVO();
         Date m1 = getMonthDate(currentMonth);
         Date m2 = getMonthDate(compareMonth);
         String cur = currentMonth;
         String cpr = compareMonth;
-        if(m2.before(m1))
-        {
+        if (m2.before(m1)) {
             currentMonth = cpr;
             compareMonth = cur;
         }
@@ -82,21 +73,19 @@ public class RelationDataServiceImpl implements RelationDataService {
         Map<String, Object> params2 = new HashMap<String, Object>();
         params2.put("companyName", companyName);
         params2.put("dataVersion", compareMonth);
-        params2.put("areaCode",areaCode);
+        params2.put("areaCode", areaCode);
         RelationDataIndexVO compareRelationData = relationDataMapper.getRelationData(params2);
         DynamicRiskIndexVO compareDynamicRisk = dynamicRiskMapper.queryDynamicRisk(params2);
 
-        if(currentRelationData==null || compareRelationData==null)
-        {
+        if (currentRelationData == null || compareRelationData == null) {
             logger.info("关联方数据不存在");
         }
-        if(currentDynamicRisk==null || compareDynamicRisk==null)
-        {
+        if (currentDynamicRisk == null || compareDynamicRisk == null) {
             logger.info("动态指标数据不存在");
         }
         try {
             vo = RelationDataUtils.compareRelationData(currentRelationData, compareRelationData);
-            vo = RelationDataUtils.addAgreeActionProp(vo,currentDynamicRisk,compareDynamicRisk);
+            vo = RelationDataUtils.addAgreeActionProp(vo, currentDynamicRisk, compareDynamicRisk);
             vo.setCurrentMonth(currentMonth);
             vo.setCompareMonth(compareMonth);
         } catch (UnsupportedEncodingException e) {
@@ -104,14 +93,15 @@ public class RelationDataServiceImpl implements RelationDataService {
         }
         return vo;
     }
+
     /**
      * 平台稳态运营风险
      * @param curDynamicRisk
      * @param cprDynamicRisk
      * @return
      */
-    private double getSteadyOperationRisk(DynamicRiskIndexVO curDynamicRisk,DynamicRiskIndexVO cprDynamicRisk)
-    {
+    private double getSteadyOperationRisk(DynamicRiskIndexVO curDynamicRisk,
+                                          DynamicRiskIndexVO cprDynamicRisk) {
         //当前自然人节点总数
         int x1 = curDynamicRisk.getPersonNum();
         //比较自然人节点总数
@@ -121,157 +111,138 @@ public class RelationDataServiceImpl implements RelationDataService {
         //比较企业法人节点总数
         int y2 = cprDynamicRisk.getCompanyNum();
         //自然人节点增长率
-        double x = (x2-x1)/(double)x1;
+        double x = (x2 - x1) / (double) x1;
         //企业法人节点增长率
-        double y = (y2-y1)/(double)y1;
+        double y = (y2 - y1) / (double) y1;
 
-        double p = 10*((double)x+y)/2;
+        double p = 10 * (x + y) / 2;
         p = p * 100 / 15;
         DecimalFormat df = new DecimalFormat("#.0");
         Double result = Double.parseDouble(df.format(p));
-        if(result>15)
-        {
-            result = 15.0;
-        }else if(result <= 0.0)
-        {
+        if (result <= 0.0) {
             result = 0.0;
         }
         return result;
 
     }
+
     /**
      * 平台可持续性风险
      * @param curDynamicRisk
      * @param cprDynamicRisk
      * @return
      */
-    private double getsustainableRisk(DynamicRiskIndexVO curDynamicRisk,DynamicRiskIndexVO cprDynamicRisk)
-    {
+    private double getsustainableRisk(DynamicRiskIndexVO curDynamicRisk,
+                                      DynamicRiskIndexVO cprDynamicRisk) {
         //当前利益一致行动法人数量占关联企业数量总和的比
         float x = curDynamicRisk.getAgreeActProp();
         //比较利益一致行动法人数量占关联企业数量总和的比
         float y = cprDynamicRisk.getAgreeActProp();
         Double result = 0.0;
-        if(x!=0){
-            double c = 4*y/x;
+        if (x != 0) {
+            double c = 4 * y / x;
             c = c * 100 / 15;
             DecimalFormat df = new DecimalFormat("#.0");
             result = Double.parseDouble(df.format(c));
-            if(result>15)
-            {
-                result = 15.0;
-            }else if(result <= 0.0)
-            {
+            if (result <= 0.0) {
                 result = 0.0;
             }
         }
         return result;
     }
+
     /**
      * 平台泡沫化风险
      * @param curDynamicRisk
      * @param cprDynamicRisk
      * @return
      */
-    private double getfoamRisk(DynamicRiskIndexVO curDynamicRisk,DynamicRiskIndexVO cprDynamicRisk)
-    {
+    private double getfoamRisk(DynamicRiskIndexVO curDynamicRisk,
+                               DynamicRiskIndexVO cprDynamicRisk) {
         //当前 一度二度关联法人数量
         int x = curDynamicRisk.getOneTwoCompanyNum();
         //比较一度二度关联法人数量
         int y = cprDynamicRisk.getOneTwoCompanyNum();
         double p = 0.0;
         Double result = 0.0;
-        if(x!=0)
-        {
-            p = 15*((double)y-x)/x;
+        if (x != 0) {
+            p = 15 * ((double) y - x) / x;
         }
         p = p * 100 / 15;
         DecimalFormat df = new DecimalFormat("#.0");
         result = Double.parseDouble(df.format(p));
-        if(result>15)
-        {
-            result = 15.0;
-        }else if(result <= 0.0)
-        {
+        if (result <= 0.0) {
             result = 0.0;
         }
         return result;
     }
+
     /**
      * 平台核心资本运营风险
      * @param curDynamicRisk
      * @param cprDynamicRisk
      * @return
      */
-    private double getCoreCapitalOperationRisk(DynamicRiskIndexVO curDynamicRisk,DynamicRiskIndexVO cprDynamicRisk)
-    {
+    private double getCoreCapitalOperationRisk(DynamicRiskIndexVO curDynamicRisk,
+                                               DynamicRiskIndexVO cprDynamicRisk) {
         //核心自然人前三控制节点总数
         int x = 0;
         Double result = 0.0;
         String[] curControlNum = curDynamicRisk.getControlNum().split("\\|");
-        for(int i =0;i<curControlNum.length;i++)
-        {
+        for (int i = 0; i < curControlNum.length; i++) {
             x += Integer.parseInt(curControlNum[i]);
         }
         //核心自然人前三控制节点总数
         int y = 0;
         String[] cprControlNum = cprDynamicRisk.getControlNum().split("\\|");
-        for(int i =0;i<cprControlNum.length;i++)
-        {
+        for (int i = 0; i < cprControlNum.length; i++) {
             y += Integer.parseInt(cprControlNum[i]);
         }
-        if(x != 0)
-        {
-            double h = 15*((double)y-x)/x;
+        if (x != 0) {
+            double h = 15 * ((double) y - x) / x;
             h = h * 100 / 15;
             DecimalFormat df = new DecimalFormat("#.0");
             result = Double.parseDouble(df.format(h));
-            if(result>15)
-            {
-                result = 15.0;
-            }else if(result <= 0.0)
-            {
+            if (result <= 0.0) {
                 result = 0.0;
             }
         }
 
         return result;
     }
+
     /**
      * 平台传销风险
      * @param curDynamicRisk
      * @param cprDynamicRisk
      * @return
      */
-    private double getPyramidSellingRisk(DynamicRiskIndexVO curDynamicRisk,DynamicRiskIndexVO cprDynamicRisk)
-    {
+    private double getPyramidSellingRisk(DynamicRiskIndexVO curDynamicRisk,
+                                         DynamicRiskIndexVO cprDynamicRisk) {
         int x = curDynamicRisk.getThreePersonNum();
         int y = cprDynamicRisk.getThreePersonNum();
         double c1 = 0.0;
         Double result = 0.0;
-        if(x!=0){
-            c1 = 15*((double)y-x)/x;
+        if (x != 0) {
+            c1 = 15 * ((double) y - x) / x;
         }
         c1 = c1 * 100 / 15;
         DecimalFormat df = new DecimalFormat("#.0");
         result = Double.parseDouble(df.format(c1));
-        if(result>15)
-        {
-            result = 15.0;
-        }else if(result <= 0.0)
-        {
+        if (result <= 0.0) {
             result = 0.0;
         }
         return result;
     }
+
     /**
      * 平台非法融资违约风险
      * @param curDynamicRisk
      * @param cprDynamicRisk
      * @return
      */
-    private double getIllegalFundRaisingRisk(DynamicRiskIndexVO curDynamicRisk,DynamicRiskIndexVO cprDynamicRisk)
-    {
+    private double getIllegalFundRaisingRisk(DynamicRiskIndexVO curDynamicRisk,
+                                             DynamicRiskIndexVO cprDynamicRisk) {
         int x = curDynamicRisk.getTypeSumNum();
 
         int y = cprDynamicRisk.getTypeSumNum();
@@ -279,68 +250,55 @@ public class RelationDataServiceImpl implements RelationDataService {
         double w1 = 0.0;
         Double result = 0.0;
 
-        if(x!=0)
-        {
-            w1 = 15*((double)y-x)/x;
+        if (x != 0) {
+            w1 = 15 * ((double) y - x) / x;
         }
         w1 = w1 * 100 / 15;
         DecimalFormat df = new DecimalFormat("#.0");
         result = Double.parseDouble(df.format(w1));
-        if(result>15)
-        {
-            result = 15.0;
-        }else if(result <= 0.0)
-        {
+        if (result <= 0.0) {
             result = 0.0;
         }
         return result;
     }
+
     /**
      * 平台跨区域舞弊行为
      * @param curDynamicRisk
      * @param cprDynamicRisk
      * @return
      */
-    private double getSteadyStateOperationRisk(DynamicRiskIndexVO curDynamicRisk,DynamicRiskIndexVO cprDynamicRisk)
-    {
+    private double getSteadyStateOperationRisk(DynamicRiskIndexVO curDynamicRisk,
+                                               DynamicRiskIndexVO cprDynamicRisk) {
         int x = 0;
-        if(!com.mysql.jdbc.StringUtils.isNullOrEmpty(curDynamicRisk.getAreaCompanyNum()))
-        {
+        if (!com.mysql.jdbc.StringUtils.isNullOrEmpty(curDynamicRisk.getAreaCompanyNum())) {
             String[] curAreaCompanyNum = curDynamicRisk.getAreaCompanyNum().split("\\|");
-            for(int i =0;i<curAreaCompanyNum.length;i++)
-            {
+            for (int i = 0; i < curAreaCompanyNum.length; i++) {
                 x += Integer.parseInt(curAreaCompanyNum[i]);
             }
         }
 
         int y = 0;
-        if(!com.mysql.jdbc.StringUtils.isNullOrEmpty(cprDynamicRisk.getAreaCompanyNum()))
-        {
+        if (!com.mysql.jdbc.StringUtils.isNullOrEmpty(cprDynamicRisk.getAreaCompanyNum())) {
             String[] cprAreaCompanyNum = cprDynamicRisk.getAreaCompanyNum().split("\\|");
-            for(int i =0;i<cprAreaCompanyNum.length;i++)
-            {
+            for (int i = 0; i < cprAreaCompanyNum.length; i++) {
                 y += Integer.parseInt(cprAreaCompanyNum[i]);
             }
         }
 
-
         double k = 0.0;
-        if(x!=0)
-        {
-            k = 15*((double)y-x)/x;
+        if (x != 0) {
+            k = 15 * ((double) y - x) / x;
         }
         k = k * 100 / 15;
         DecimalFormat df = new DecimalFormat("#.0");
         Double result = Double.parseDouble(df.format(k));
-        if(result>15)
-        {
-            result = 15.0;
-        }else if(result <= 0.0)
-        {
+        if (result <= 0.0) {
             result = 0.0;
         }
         return result;
     }
+
     /**
      *
      * BBD 风险
@@ -348,24 +306,26 @@ public class RelationDataServiceImpl implements RelationDataService {
      * @param cprDynamicRisk
      * @return
      */
-    private double getbbdTimeRiskIndex(DynamicRiskIndexVO curDynamicRisk,DynamicRiskIndexVO cprDynamicRisk)
-    {
-        double r1  = getSteadyOperationRisk(curDynamicRisk,cprDynamicRisk);
-        double r2  = getCoreCapitalOperationRisk(curDynamicRisk,cprDynamicRisk);
-        double r3  = getsustainableRisk(curDynamicRisk,cprDynamicRisk);
-        double r4  = getfoamRisk(curDynamicRisk,cprDynamicRisk);
-        double r5  = getPyramidSellingRisk(curDynamicRisk,cprDynamicRisk);
-        double r6  = getIllegalFundRaisingRisk(curDynamicRisk,cprDynamicRisk);
-        double r7  = getSteadyStateOperationRisk(curDynamicRisk,cprDynamicRisk);
-        double r = r1+r2+r3+r4+r5+r6+r7;
+    private double getbbdTimeRiskIndex(DynamicRiskIndexVO curDynamicRisk,
+                                       DynamicRiskIndexVO cprDynamicRisk) {
+        double r1 = getSteadyOperationRisk(curDynamicRisk, cprDynamicRisk);
+        double r2 = getCoreCapitalOperationRisk(curDynamicRisk, cprDynamicRisk);
+        double r3 = getsustainableRisk(curDynamicRisk, cprDynamicRisk);
+        double r4 = getfoamRisk(curDynamicRisk, cprDynamicRisk);
+        double r5 = getPyramidSellingRisk(curDynamicRisk, cprDynamicRisk);
+        double r6 = getIllegalFundRaisingRisk(curDynamicRisk, cprDynamicRisk);
+        double r7 = getSteadyStateOperationRisk(curDynamicRisk, cprDynamicRisk);
+        double r = r1 + r2 + r3 + r4 + r5 + r6 + r7;
         r = r * 100 / 105;
         DecimalFormat df = new DecimalFormat("#.0");
         Double result = Double.parseDouble(df.format(r));
         return result;
     }
+
     @Override
-    public DynamicRiskVO compareDynamicRisk(String companyName, String areaCode, String currentMonth, String compareMonth) {
-        DecimalFormat fnum  =   new  DecimalFormat("##0.00000");
+    public DynamicRiskVO compareDynamicRisk(String companyName, String areaCode,
+                                            String currentMonth, String compareMonth) {
+        DecimalFormat fnum = new DecimalFormat("##0.00000");
         Map<String, Object> cur_params = new HashMap<String, Object>();
         //比较两个月份，将时间靠前的作为被比较方，时间靠后的作为比较方
         Date m1 = getMonthDate(currentMonth);
@@ -379,21 +339,19 @@ public class RelationDataServiceImpl implements RelationDataService {
         Map<String, Object> cpr_params = new HashMap<String, Object>();
         cpr_params.put("companyName", companyName);
         cpr_params.put("dataVersion", compareMonth);
-        cpr_params.put("areaCode",areaCode);
+        cpr_params.put("areaCode", areaCode);
         DynamicRiskIndexVO cprDynamicRisk = dynamicRiskMapper.queryDynamicRisk(cpr_params);
-        if(m1.before(m2))
-        {
+        if (m1.before(m2)) {
             cur = curDynamicRisk;
             cpr = cprDynamicRisk;
-        }else
-        {
+        } else {
             cur = cprDynamicRisk;
             cpr = curDynamicRisk;
         }
         DynamicRiskVO vo = new DynamicRiskVO();
-        double bbdTimeRiskIndex = getbbdTimeRiskIndex(cur,cpr);
+        double bbdTimeRiskIndex = getbbdTimeRiskIndex(cur, cpr);
         vo.setBbdTimeRiskIndex(bbdTimeRiskIndex);
-        double steadyOperationRisk = getSteadyOperationRisk(cur,cpr);
+        double steadyOperationRisk = getSteadyOperationRisk(cur, cpr);
         vo.setSteadyOperationRisk(steadyOperationRisk);
         vo.setCurPersonNum(cur.getPersonNum());
         vo.setCprPersonNum(cpr.getPersonNum());
@@ -401,7 +359,7 @@ public class RelationDataServiceImpl implements RelationDataService {
         vo.setCprCompanyNum(cpr.getCompanyNum());
         vo.setCurSumNum(cur.getSumNum());
         vo.setCprSumNum(cpr.getSumNum());
-        double coreCapitalOperationRisk = getCoreCapitalOperationRisk(cur,cpr);
+        double coreCapitalOperationRisk = getCoreCapitalOperationRisk(cur, cpr);
         vo.setCoreCapitalOperationRisk(coreCapitalOperationRisk);
         String[] curCorePerLists = cur.getCorePerList().split("\\|");
         List<String> curCorePerList = new ArrayList<String>();
@@ -419,15 +377,15 @@ public class RelationDataServiceImpl implements RelationDataService {
         List<String> cprControlNums = new ArrayList<String>();
         Collections.addAll(cprControlNums, cprControlNum);
         vo.setCprControlNum(cprControlNums);
-        double sustainableRisk = getsustainableRisk(cur,cpr);
+        double sustainableRisk = getsustainableRisk(cur, cpr);
         vo.setSustainableRisk(sustainableRisk);
         vo.setCurAgreeActNum(cur.getAgreeActNum());
         vo.setCprAgreeActNum(cpr.getAgreeActNum());
 
         Float curAgreeActProp = Float.parseFloat(fnum.format(cur.getAgreeActProp()));
-        vo.setCurAgreeActProp(Math.round(curAgreeActProp*Constants.INT10000)/Constants.INT100);  //2015年1月5日修改  占比变为百分比
+        vo.setCurAgreeActProp(Math.round(curAgreeActProp * Constants.INT10000) / Constants.INT100); //2015年1月5日修改  占比变为百分比
         Float cprAgreeActProp = Float.parseFloat(fnum.format(cpr.getAgreeActProp()));
-        vo.setCprAgreeActProp(Math.round(cprAgreeActProp*Constants.INT10000)/Constants.INT100);  //2015年1月5日修改  占比变为百分比
+        vo.setCprAgreeActProp(Math.round(cprAgreeActProp * Constants.INT10000) / Constants.INT100); //2015年1月5日修改  占比变为百分比
         String[] curAgreeComDet = cur.getAgreeComDet().split("\\|");
         List<String> curAgreeComDets = new ArrayList<String>();
         Collections.addAll(curAgreeComDets, curAgreeComDet);
@@ -436,30 +394,34 @@ public class RelationDataServiceImpl implements RelationDataService {
         List<String> cprAgreeComDets = new ArrayList<String>();
         Collections.addAll(cprAgreeComDets, cprAgreeComDet);
         vo.setCprAgreeComDet(cprAgreeComDets);
-        double foamRisk = getfoamRisk(cur,cpr);
+        double foamRisk = getfoamRisk(cur, cpr);
         vo.setFoamRisk(foamRisk);
         vo.setCurOneTwoComapnyNum(cur.getOneTwoCompanyNum());
         vo.setCprOneTwoComapnyNum(cpr.getOneTwoCompanyNum());
         Float curOneTwoCompanyProp = Float.parseFloat(fnum.format(cur.getOneTwoCompanyProp()));
-        vo.setCurOneTwoCompanyProp(Math.round(curOneTwoCompanyProp*Constants.INT10000)/Constants.INT100);  //2015年1月5日修改  占比变为百分比
+        vo.setCurOneTwoCompanyProp(
+            Math.round(curOneTwoCompanyProp * Constants.INT10000) / Constants.INT100); //2015年1月5日修改  占比变为百分比
         Float cprOneTwoCompanyProp = Float.parseFloat(fnum.format(cpr.getOneTwoCompanyProp()));
-        vo.setCprOneTwoCompanyProp(Math.round(cprOneTwoCompanyProp*Constants.INT10000)/Constants.INT100);  //2015年1月5日修改  占比变为百分比
-        double pyramidSellingRisk = getPyramidSellingRisk(cur,cpr);
+        vo.setCprOneTwoCompanyProp(
+            Math.round(cprOneTwoCompanyProp * Constants.INT10000) / Constants.INT100); //2015年1月5日修改  占比变为百分比
+        double pyramidSellingRisk = getPyramidSellingRisk(cur, cpr);
         vo.setPyramidSellingRisk(pyramidSellingRisk);
         vo.setCurThreePersonNum(cur.getThreePersonNum());
         vo.setCprThreePersonNum(cpr.getThreePersonNum());
         Float curThreePersonProp = Float.parseFloat(fnum.format(cur.getThreePersonProp()));
-        vo.setCurThreePersonProp(Math.round(curThreePersonProp*Constants.INT10000)/Constants.INT100);  //2015年1月5日修改  占比变为百分比
+        vo.setCurThreePersonProp(
+            Math.round(curThreePersonProp * Constants.INT10000) / Constants.INT100); //2015年1月5日修改  占比变为百分比
         Float cprThreePersonProp = Float.parseFloat(fnum.format(cpr.getThreePersonProp()));
-        vo.setCprThreePersonProp(Math.round(cprThreePersonProp*Constants.INT10000)/Constants.INT100);  //2015年1月5日修改  占比变为百分比
-        double IllegalFundRaisingRisk = getIllegalFundRaisingRisk(cur,cpr);
+        vo.setCprThreePersonProp(
+            Math.round(cprThreePersonProp * Constants.INT10000) / Constants.INT100); //2015年1月5日修改  占比变为百分比
+        double IllegalFundRaisingRisk = getIllegalFundRaisingRisk(cur, cpr);
         vo.setIllegalFundRaisingRisk(IllegalFundRaisingRisk);
         vo.setCurTypeSumNum(cur.getTypeSumNum());
         vo.setCprTypeSumNum(cpr.getTypeSumNum());
         Float curTypeSumProp = Float.parseFloat(fnum.format(cur.getTypeSumProp()));
-        vo.setCurTypeSumProp(Math.round(curTypeSumProp*Constants.INT10000)/Constants.INT100);  //2015年1月5日修改  占比变为百分比
+        vo.setCurTypeSumProp(Math.round(curTypeSumProp * Constants.INT10000) / Constants.INT100); //2015年1月5日修改  占比变为百分比
         Float cprTypeSumProp = Float.parseFloat(fnum.format(cpr.getTypeSumProp()));
-        vo.setCprTypeSumProp(Math.round(cprTypeSumProp*Constants.INT10000)/Constants.INT100);  //2015年1月5日修改  占比变为百分比
+        vo.setCprTypeSumProp(Math.round(cprTypeSumProp * Constants.INT10000) / Constants.INT100); //2015年1月5日修改  占比变为百分比
         String[] curCompanyDetail = cur.getCompanyDetail().split("\\|");
         List<String> curCompanyDetails = new ArrayList<String>();
         Collections.addAll(curCompanyDetails, curCompanyDetail);
@@ -468,7 +430,7 @@ public class RelationDataServiceImpl implements RelationDataService {
         List<String> cprCompanyDetails = new ArrayList<String>();
         Collections.addAll(cprCompanyDetails, cprCompanyDetail);
         vo.setCprCompanyDetail(cprCompanyDetails);
-        double steadyStateOperationRisk = getSteadyStateOperationRisk(cur,cpr);
+        double steadyStateOperationRisk = getSteadyStateOperationRisk(cur, cpr);
         vo.setSteadyStateOperationRisk(steadyStateOperationRisk);
         String[] curAreaList = cur.getAreaList().split("\\|");
         List<String> curAreaLists = new ArrayList<String>();
@@ -510,9 +472,8 @@ public class RelationDataServiceImpl implements RelationDataService {
         return staticRiskMapper.queryDateVersionByMonth(params);
     }
 
-    public Date getMonthDate(String dataVersionString)
-    {
-        SimpleDateFormat dateformat=new SimpleDateFormat("yyyyMMdd");
+    public Date getMonthDate(String dataVersionString) {
+        SimpleDateFormat dateformat = new SimpleDateFormat("yyyyMMdd");
         Date date = null;
         try {
             if (!StringUtils.isEmpty(dataVersionString)) {
