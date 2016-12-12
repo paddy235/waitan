@@ -53,4 +53,12 @@ public interface CompanyNewsService {
 	public NewsVO findNews();
 
 
+	/**
+	 * 根据多数据源取舆情
+	 * @param types 多数据源，逗号隔开
+	 * @param size 请求数据量
+	 * @return NewsVO
+	 */
+	public NewsVO mutilTypeNews(String types,Integer size);
+
 }

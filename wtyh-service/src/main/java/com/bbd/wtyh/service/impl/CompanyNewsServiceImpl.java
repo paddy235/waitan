@@ -54,9 +54,33 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
     @Value("${api.dataom.url}")
     private String apiDataomUrl;
 
+    @Value("${api.yuqing.url}")
+    private String apiYuqingUrl;
+
 
     @Autowired
     private DataomApiBbdservice dataomApiBbdservice;
+
+
+    public NewsVO mutilTypeNews(String types,Integer size){
+        long start = System.currentTimeMillis();
+        String url = String.format(apiYuqingUrl,types,size);
+
+        try {
+            String result = new HttpTemplate().get(url);
+            Gson gson = new Gson();
+            NewsVO vo = gson.fromJson(result,new TypeToken<NewsVO>(){}.getType());
+            logger.info("舆情请求耗时：{}ms,url地址为：{}",System.currentTimeMillis()-start,url);
+            return vo;
+        } catch (Exception e) {
+            logger.error("Method getCompanyNews get Exception." + e.getMessage());
+            return null;
+        }
+    }
+
+
+
+
 
     /**
      * @param url     地址
