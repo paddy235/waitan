@@ -1,14 +1,20 @@
 package com.bbd.wtyh.mapper;
 
-import java.util.List;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.Date;
 
 /**
-* 
-* @author Ian.Su
-* @since 2016年8月15日 下午6:10:57
-*/
+ *
+ * @author Ian.Su
+ * @since 2016年8月15日 下午6:10:57
+ */
 public interface UserMapper {
-	
-	public List<String> getPassword(String loginName);
-	
+
+    Date getUpdateDate(String loginName);
+
+    String getPassword(String loginName);
+
+    int updatePassword(@Param("loginName") String loginName, @Param("password") String password);
+
 }

@@ -1,6 +1,7 @@
 package com.bbd.wtyh.web.controller;
 
 import com.bbd.wtyh.common.Constants;
+import com.bbd.wtyh.dao.HologramQueryDao;
 import com.bbd.wtyh.domain.CapitalAmountDO;
 import com.bbd.wtyh.domain.CompanyCountDO;
 import com.bbd.wtyh.domain.MortgageStatisticDO;
@@ -10,6 +11,7 @@ import com.bbd.wtyh.domain.vo.*;
 import com.bbd.wtyh.service.*;
 import com.bbd.wtyh.util.CalculateUtils;
 import com.bbd.wtyh.web.*;
+import com.google.gson.Gson;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +71,11 @@ public class OfflineFinanceController {
     private MortgageService mortgageService;
     @Autowired
     private GuaranteeController guaranteeController;
+
+
+    @Autowired
+    private HologramQueryService hologramQueryService;
+
     /**
      * 关联图谱
      *
@@ -257,7 +264,10 @@ public class OfflineFinanceController {
     @RequestMapping("companyNews.do")
     @ResponseBody
     public ResponseBean companyNews(String companyName) {
-        String data = offlineFinanceService.companyNews(companyName);
+       // String data = offlineFinanceService.companyNews(companyName);
+
+        Object data = hologramQueryService.newsConsensusList(companyName);
+
         return ResponseBean.successResponse(data);
     }
 
@@ -455,7 +465,7 @@ public class OfflineFinanceController {
     }
 
     /**
-     * 更新静态风险指数+本地模型
+     * 更新index_data静态风险指数+本地模型
      * @return
      */
     @RequestMapping("updateIndexData.do")
@@ -466,7 +476,7 @@ public class OfflineFinanceController {
     }
 
     /**
-     * 更新静态风险指数+本地模型
+     * 更新static_risk_data静态风险指数+本地模型
      * @return
      */
     @RequestMapping("updateStaticRiskData.do")
@@ -474,5 +484,16 @@ public class OfflineFinanceController {
     public ResponseBean updateStaticRiskData(String companyName, String dataVersion) {
         offlineFinanceService.updateStaticRiskData(companyName, dataVersion);
         return ResponseBean.successResponse("更新成功");
+    }
+
+    /**
+     * 保存本地模型分数
+     * @return
+     */
+    @RequestMapping("saveCompanyCreditRisk.do")
+    @ResponseBody
+    public ResponseBean saveCompanyCreditRisk() {
+        offlineFinanceService.saveCompanyCreditRisk();
+        return ResponseBean.successResponse("保存成功");
     }
 }

@@ -58,7 +58,7 @@ public interface CompanyMapper {
     List<CompanyDO> queryCompanyByType(@Param("companyType") Integer companyType, @Param("orderByField") Integer orderByField, @Param("descAsc") String descAsc);
 
 
-    List<SpectrumVO> getSpectrumAnalysis(@Param("risk_level") Integer risk_level, @Param("dateVersion") String dateVersion);
+    List<SpectrumVO> getSpectrumAnalysis(@Param("risk_level") Integer risk_level, @Param("dateVersion") String dateVersion, @Param("companyNumber") Integer companyNumber);
 
     /**
      * 获取总条数
@@ -78,8 +78,15 @@ public interface CompanyMapper {
      * @param companyId
      */
     void updateRiskLevel(
-            @Param(value = "riskLevel") Integer riskLevel,
-            @Param(value = "companyId") Integer companyId);
+            @Param("riskLevel") Integer riskLevel,
+            @Param("companyId") Integer companyId,
+            @Param("updateBy") String updateBy);
 
     CompanyDO queryCompanyByName(@Param(value = "company")String company);
+
+    /**
+     * 获取配置的地图展示光谱分析的点
+     * @return
+     */
+    List<Map<Integer,Integer>> getRiskLevelNumber();
 }

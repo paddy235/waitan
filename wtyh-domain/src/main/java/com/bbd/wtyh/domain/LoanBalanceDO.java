@@ -11,6 +11,8 @@ public class LoanBalanceDO extends BaseDO {
 
     private Integer number;
 
+    private Integer companyAmount;
+
     private Integer agricultureBalance;
 
     private Integer smallCompanyBalance;
@@ -69,5 +71,13 @@ public class LoanBalanceDO extends BaseDO {
 
     public void setSmallCompanyBalance(Integer smallCompanyBalance) {
         this.smallCompanyBalance = smallCompanyBalance;
+    }
+
+    public Integer getCompanyAmount() {
+        return companyAmount;
+    }
+
+    public void setCompanyAmount(Integer companyAmount) {
+        this.companyAmount = companyAmount;
     }
 }

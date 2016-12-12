@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.bbd.wtyh.redis.RedisDAO;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.apache.commons.lang.StringUtils;
@@ -29,6 +30,9 @@ public class DataServiceImpl implements DataService {
 
 	@Autowired
 	private TableDataMapper tableDataMapper;
+
+	@Autowired
+	private RedisDAO redisDAO;
 	
 	@Override
 	public List<TableDO> tables() {
@@ -72,7 +76,9 @@ public class DataServiceImpl implements DataService {
 	public void updateTableData(String tableName, String idField, String updateField,Integer idValue , String value) {
 
 		tableDataMapper.updateTableData(tableName, idField, updateField, idValue, value);
-
+		if ("company_risk_number".equals(tableName)) {
+			redisDAO.delete("wtyh:realtimeMonitor:guangPu1");
+		}
 	}
 
 	@Override

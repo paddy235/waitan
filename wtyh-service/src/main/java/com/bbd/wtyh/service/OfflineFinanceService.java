@@ -58,4 +58,5 @@ public interface OfflineFinanceService {
 
     public BigDecimal getSRI(BigDecimal staticRiskIndex, String companyName);
 
+    void saveCompanyCreditRisk();
 }

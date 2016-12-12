@@ -23,4 +23,21 @@
       and data_version = #{dataVersion,jdbcType=VARCHAR}
   </select>
 
+  <insert id="save" parameterType="com.bbd.wtyh.domain.RecruitDataDO" >
+    INSERT INTO `recruit_data`(create_by,
+                                create_date,
+                                update_by,
+                                update_date,
+                                company_name,
+                                data_version,
+                                recruit_detail)
+    VALUES(  #{createBy},
+              #{createDate},
+              #{updateBy},
+              #{updateDate},
+              #{companyName},
+              #{dataVersion},
+              #{recruitDetail});
+  </insert>
+
 </mapper>

@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bbd.wtyh.mapper.UserMapper">
- 
-	<select id="getPassword"  resultType="string" >
+
+    <select id="getPassword" resultType="string">
 		select password from user where loginName=#{loginName}
 	</select>
+
+    <select id="getUpdateDate" resultType="java.util.Date">
+		select update_date from user where loginName=#{loginName}
+	</select>
+
+
+    <update id="updatePassword">
+		update user set password=#{password},update_date=now() where loginName=#{loginName}
+	</update>
+
 
 </mapper>
