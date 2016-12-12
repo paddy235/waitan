@@ -88,7 +88,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     private static final String FALL = "-1";
     private final String file_type_1 = "yed";
 
-    @Scheduled(cron = "0 0 0 * * *")
+    @Scheduled(cron = "0 50 10 * * *")
     @Override
     public void updateCompanyRiskLevel() {
         try {
@@ -102,9 +102,8 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
             Map<String, Object> params = new HashMap<>();
 
             ExecutorService dataExecutorService = Executors.newFixedThreadPool(20);
-
+            logger.info("start update company risk level");
             for (int i=1; i<=total; i++) {
-                System.out.println("----i------"+i);
                 pagination.setPageNumber(i);
                 params.put("pagination", pagination);
                 List<CompanyDO> list = companyMapper.findByPage(params);
@@ -116,17 +115,14 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
                                 updateCompanRiskLevel(platRankMapData, companyDO);
                             }
                         });
-
-                        //System.out.println("-----nothing-------"+companyId);
                     }
                 }
             }
+            logger.info("end update company risk level");
             dataExecutorService.shutdown();
             dataExecutorService.awaitTermination(1, TimeUnit.DAYS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } catch (Exception e) {
-            e.printStackTrace();
+           logger.error(e.getMessage(),e);
         }
     }
 
@@ -134,7 +130,6 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     public void updateIndexData(String companyNameParam) {
         Map<String, Object> paramsMap = new HashMap<>();
         int totalCount = riskCompanyMapper.getTopCount(paramsMap);
-        System.out.println("----totalCount--updateIndexData----"+totalCount);
         if (totalCount > 0) {
             Pagination pagination = new Pagination();
             pagination.setPageSize(1000);
@@ -158,8 +153,6 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
                         dataExecutorService.submit(new Runnable() {
                             @Override
                             public void run() {
-                                System.out.println("----updateIndexData---"+companyName);
-                                logger.warn("---updateIndexData----"+companyName);
                                 indexDataMapper.update(indexDataDO);
                             }
                         });
@@ -170,7 +163,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
             try {
                 dataExecutorService.awaitTermination(1, TimeUnit.DAYS);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage(), e);
             }
         }
 
@@ -180,7 +173,6 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
         Map<String, Object> paramsMap = new HashMap<>();
         paramsMap.put("dataVersion", dataVersion);
         int totalCount = staticRiskMapper.getDataVersionCount(paramsMap);
-        System.out.println("----totalCount----updateStaticRiskData--"+totalCount);
         if (totalCount > 0) {
             Pagination pagination = new Pagination();
             pagination.setPageSize(1000);
@@ -205,8 +197,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
                         dataExecutorService.submit(new Runnable() {
                             @Override
                             public void run() {
-                                System.out.println("----updateStaticRiskData---"+companyName);
-                                logger.warn("---updateStaticRiskData----"+companyName);
+                                logger.warn("start updateStaticRiskData companyName:"+companyName);
                                 staticRiskMapper.update(staticRiskDataDO);
                             }
                         });
@@ -217,7 +208,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
             try {
                 dataExecutorService.awaitTermination(1, TimeUnit.DAYS);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage(), e);
             }
         }
 
@@ -229,14 +220,15 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
      */
     private void updateCompanRiskLevel(Map<Integer, Integer> platRankMapData, CompanyDO companyDO) {
         Integer companyId = companyDO.getCompanyId();
+        Integer oldRiskLevel = companyDO.getRiskLevel();
         Integer companyType = (int)companyDO.getCompanyType();
         CompanyAnalysisResultDO companyAnalysisResultDO = companyAnalysisResultMapper.findCompanyAnalysisResultByCompanyId(companyId);
         StaticRiskDataDO staticRiskDataDO = staticRiskMapper.queryStaticsRiskData(companyDO.getName());
-        Integer riskLevel = null;
+        Integer riskLevel = oldRiskLevel;
         Integer riskLevelForPToP = platRankMapData.get(companyId);
         if (riskLevelForPToP != null && riskLevelForPToP > 0) {
-            System.out.println("-----p2p-------"+companyId);
-            companyMapper.updateRiskLevel(riskLevelForPToP, companyId);
+            logger.warn("companyId:"+companyId+" riskLevelForP2P:"+riskLevelForPToP);
+            riskLevel = riskLevelForPToP;
         }
 
         if (staticRiskDataDO != null) {
@@ -249,17 +241,21 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
             } else if (staticsRiskIndex.compareTo(new BigDecimal(57.8))==-1) {
                 riskLevel = 4;
             }
-            System.out.println("-----static-------"+companyId);
-            companyMapper.updateRiskLevel(riskLevel, companyId);
+            logger.warn("companyId:"+companyId+" riskLevel from static_risk_data:"+riskLevel);
         }
 
         if (companyAnalysisResultDO != null) {
-            riskLevel = (int)companyAnalysisResultDO.getAnalysisResult();
+            //预付卡不考虑黑名单
             if (companyType != CompanyDO.TYPE_YFK_11) {
-                companyMapper.updateRiskLevel(riskLevel, companyId);
-                System.out.println("-----analysis-------"+companyId);
+                riskLevel = (int)companyAnalysisResultDO.getAnalysisResult();
+                logger.warn("companyId:"+companyId+" riskLevel from company_analysis_result:"+riskLevel);
             }
         }
+        if(oldRiskLevel != riskLevel){
+            logger.error("riskLevel changed: companyId="+companyId+" oldRiskLevel="+oldRiskLevel+" newRiskLevel:"+riskLevel);
+        }
+
+        companyMapper.updateRiskLevel(riskLevel, companyId,"TIMER");
     }
 
     @Override
@@ -673,7 +669,6 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
                         final Integer companyId = companyDO.getCompanyId();
                         List<CompanyCreditInformationDO> list = companyCreditInformationMapper.selectCompanyCreditInformationList(companyId);
                         if (CollectionUtils.isEmpty(list)) {
-                            System.out.println("----saveCompanyCreditRisk----continue----"+companyId);
                             continue;
                         }
                         final Integer creditInfoRisk = this.getCompanyRiskInfo(tempMap, list);

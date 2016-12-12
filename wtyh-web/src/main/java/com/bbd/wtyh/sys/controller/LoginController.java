@@ -50,7 +50,7 @@ public class LoginController {
 
         ResponseBean responseBean = ResponseBean.successResponse(true);
         Date date = userService.lastChangePasswordDate(name);
-        if (null != date && date.before(DateUtils.addDays(new Date(), -30))) {
+        if (null != date && date.before(DateUtils.addMonths(new Date(), -3))) {
             responseBean.setMsg(UserService.ResultCode.PASSWORD_NEED_CHANGE);
         }
 

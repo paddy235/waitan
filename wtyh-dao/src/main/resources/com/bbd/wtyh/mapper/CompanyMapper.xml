@@ -97,7 +97,7 @@
     </select>
 
     <update id="updateRiskLevel">
-        update company set risk_level=#{riskLevel} where company_id=#{companyId}
+        update company set risk_level=#{riskLevel},update_date=now(),update_by=#{updateBy} where company_id=#{companyId}
     </update>
 
 
