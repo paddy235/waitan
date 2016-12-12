@@ -231,6 +231,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
      */
     @Override
     public BaiDuYuQingDO newsConsensus(String company) {
+        long start = System.currentTimeMillis();
         String api = apiDataomNewsUrl+company;
         HttpTemplate httpTemplate = new HttpTemplate();
         BaiDuYuQingDO bdyqDO = null;
@@ -249,10 +250,11 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
 
             });
          } catch (Exception e) {
+            logger.info("请求失败：地址为{}",api);
             e.printStackTrace();
             return null;
         }
-
+        logger.info("请求响应时间{}ms，地址为{}",System.currentTimeMillis()-start,api);
 
         return bdyqDO;
 
