@@ -29,9 +29,9 @@ public class CompanyNewsController {
 		NewsVO vo = companyNewsService.mutilTypeNews("qxyg_weiyangwang," +
 				                                     "qxyg_shanghai_finance," +
 				                                     "qxyg_chinesefinance," +
-				                                     "qyxg_financial_times_data," +
+				                                     "qyxg_financial_times," +
 				                                     "qyxg_sinafinance," +
-				                                     "qyxg_national_economy_data",20);
+				                                     "qyxg_national_economy",20);
 
 		Gson gson = new Gson();
 
