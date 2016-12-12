@@ -102,7 +102,7 @@ public class ParkController {
 
         NewsVO vo = gson.fromJson(data,new TypeToken<NewsVO>(){}.getType());
         if(vo == null || vo.getRsize()==0){
-            vo = newsSer.mutilTypeNews("qyxg_shanghai_fta_data,qyxg_national_economy_data",20);
+            vo = newsSer.mutilTypeNews("qyxg_shanghai_fta,qyxg_national_economy",20);
             data = gson.toJson(vo);
         }
 
