@@ -19,6 +19,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -64,13 +66,39 @@ public class CompanyNewsServiceImpl implements CompanyNewsService {
 
     public NewsVO mutilTypeNews(String types,Integer size){
         long start = System.currentTimeMillis();
-        String url = String.format(apiYuqingUrl,types,size);
+        String url = String.format(apiYuqingUrl,types,size + 30);
 
         try {
             String result = new HttpTemplate().get(url);
             Gson gson = new Gson();
             NewsVO vo = gson.fromJson(result,new TypeToken<NewsVO>(){}.getType());
             logger.info("舆情请求耗时：{}ms,url地址为：{}",System.currentTimeMillis()-start,url);
+
+            if(vo!=null && vo.getResults()!=null){
+                Iterator<NewsVO.Result> it = vo.getResults().iterator();
+                while (it.hasNext()) {
+                    NewsVO.Result r = it.next();
+                    if( "qyxg_financial_times".equals(r.getBbd_type()) &&
+                        !"金融".equals(r.getPlate())){
+
+                        it.remove();
+
+                    }else if("qyxg_sinafinance".equals(r.getBbd_type()) &&
+                            !"宏观经济".equals(r.getPlate())&&
+                            !"金融新闻".equals(r.getPlate())&&
+                            !"国内财经".equals(r.getPlate())){
+
+                        it.remove();
+                    }
+                }
+                if(vo.getResults().size()>size){
+                    vo.setResults(vo.getResults().subList(0,size));
+                }
+            }
+
+
+
+
             return vo;
         } catch (Exception e) {
             logger.error("Method getCompanyNews get Exception." + e.getMessage());
