@@ -23,6 +23,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
+import static com.bbd.wtyh.common.Constants.REDIS_KEY_BASE_INFO_BBD_DATA;
+
 /**
  * p2p检测平台dao层实现类
  *
@@ -33,25 +35,25 @@ import java.util.*;
 public class P2PImageDaoImpl implements P2PImageDao {
 
     @Value("${api.finnacial.url}")
-    private String url;
+    private String                        url;
 
     @Value("${api.bbd_qyxx.url}")
-    private String bbdQyxxURL;
+    private String                        bbdQyxxURL;
 
     @Value("${api.bbd_qyxx.ak}")
-    private String bbdQyxxAK;
+    private String                        bbdQyxxAK;
 
     @Value("${api.bbdZuzhiJiGoudm.url}")
-    private String zuZhiJiGouURL;
+    private String                        zuZhiJiGouURL;
 
     @Value("${api.bbdZuzhiJiGoudm.ak}")
-    private String zuZhiJiGouAK;
+    private String                        zuZhiJiGouAK;
 
     @Autowired
     private PlatformNameInformationMapper platformNameInformationMapper;
 
     @Autowired
-    private RedisDAO redisDAO;
+    private RedisDAO                      redisDAO;
 
     @Override
     public YuQingDO platformConsensus(String platName) {
@@ -194,7 +196,8 @@ public class P2PImageDaoImpl implements P2PImageDao {
      */
     @Override
     public BaseDataDO baseInfoBBDData(String companyName) {
-        BaseDataDO baseDataDO = (BaseDataDO) redisDAO.getObject(Constants.REDIS_KEY_BASE_INFO_BBD_DATA);
+        final String redisKey = REDIS_KEY_BASE_INFO_BBD_DATA + "_" + companyName;
+        BaseDataDO baseDataDO = (BaseDataDO) redisDAO.getObject(redisKey);
         if (baseDataDO != null) {
             return baseDataDO;
         } else {
@@ -210,7 +213,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
                     @Override
                     public BaseDataDO parse(String result) {
                         Gson gson = new Gson();
-                        redisDAO.addObject(Constants.REDIS_KEY_BASE_INFO_BBD_DATA, gson.fromJson(result, BaseDataDO.class), Constants.cacheDay, BaseDataDO.class);
+                        redisDAO.addObject(redisKey, gson.fromJson(result, BaseDataDO.class), Constants.cacheDay, BaseDataDO.class);
                         return gson.fromJson(result, BaseDataDO.class);
                     }
                 });
@@ -226,7 +229,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
      * 基本信息--组织机构代码api
      */
     public ZuZhiJiGoudmDO baseInfoZuZhiJiGou(String companyName) {
-//        String url = zuZhiJiGouURL+"?company="+companyName+"&ak="+zuZhiJiGouURL;
+        //        String url = zuZhiJiGouURL+"?company="+companyName+"&ak="+zuZhiJiGouURL;
         String URL = "http://dataom.api.bbdservice.com/api/bbd_zuzhijigoudm/?company=" + companyName + "&ak=605f60df40668579e939515fef710d2b";
         final Map<String, Object> map = new LinkedHashMap<>();
         HttpTemplate httpTemplate = new HttpTemplate();
