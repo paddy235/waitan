@@ -88,7 +88,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     private static final String FALL = "-1";
     private final String file_type_1 = "yed";
 
-    @Scheduled(cron = "0 50 10 * * *")
+    @Scheduled(cron = "0 20 16 * * *")
     @Override
     public void updateCompanyRiskLevel() {
         try {
