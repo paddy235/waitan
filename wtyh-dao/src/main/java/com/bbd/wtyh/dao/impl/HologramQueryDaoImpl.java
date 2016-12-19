@@ -8,6 +8,7 @@ import com.bbd.wtyh.dao.HologramQueryDao;
 import com.bbd.wtyh.domain.bbdAPI.*;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +78,12 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
 
     @Value("${api.bbd_qyxx.ak}")
     private String bbdQyxxAK;
+
+    @Value("${api.recruit.url}")
+    private String recruitURL;
+
+    @Value("${api.recruit.ak}")
+    private String recruitAK;
 
     @Value("${api.recruitPeopleNumber.url}")
     private String recruitPeopleNumberURL;      // 招聘人数指数
@@ -469,6 +476,33 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
             return null;
         }
     }
+
+    @Override
+    public RecruitDataDO getRecruitData(String company, String timeTag) {
+        String api = recruitURL + timeTag + "&value=" + company + "&ak=" + recruitAK;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(api, new HttpCallback<RecruitDataDO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public RecruitDataDO parse(String result) {
+                    if (null == result || result.length() == 0) {
+                        return null;
+                    }
+                    return new Gson().fromJson(result, new TypeToken<RecruitDataDO>() {
+                    }.getType());
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
     @Override
     public RecruitPeopleNumberDO recruitPeopleNumber(String company) {

@@ -1,5 +1,6 @@
 package com.bbd.wtyh.domain.bbdAPI;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ public class RecruitPeopleSalaryDO {
     private String total;
     private List<Rdata> rdata;
 
-    public class Rdata {
+    public static class Rdata implements Serializable {
         private String x_value;
         private String y_value;
 

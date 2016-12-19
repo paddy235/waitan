@@ -53,7 +53,9 @@
         <if test="areaCode != null and areaCode != ''">
             and area=#{areaCode}
         </if>
-        and risk_date like concat(#{riskDateStr}, '%');
+        and risk_date like concat(#{riskDateStr}, '%')
+        ORDER BY risk_date DESC
+        LIMIT 1;
     </select>
 
     <select id="queryIndStatistics" resultType="com.bbd.wtyh.domain.vo.StatisticsVO" parameterType="java.util.HashMap">
@@ -165,8 +167,10 @@
         <if test="areaCode != null and areaCode != ''">
             and area=#{areaCode}
         </if>
-	     and
-		risk_date like concat(#{date}, '%');
+	    and
+		risk_date like concat(#{date}, '%')
+        ORDER BY risk_date DESC
+        LIMIT 1;
 	</sql>
 
     <!--始终获取 最新版本的 数据, 不知道使用子查询WHERE替换JION会不会有效率提升-->
@@ -245,7 +249,9 @@
           relation_data
         WHERE
           company_name = #{companyName}
-          AND data_version LIKE CONCAT('%',#{dataVersionString},'%' )
+        AND data_version LIKE CONCAT('%',#{dataVersionString},'%' )
+        ORDER BY data_version DESC
+        LIMIT 1
     </select>
 
     <select id="queryStaticsRiskIndex" parameterType="java.lang.String" resultType="Float">

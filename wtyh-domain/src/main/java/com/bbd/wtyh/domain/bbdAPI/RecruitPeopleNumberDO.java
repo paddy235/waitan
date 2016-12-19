@@ -10,7 +10,7 @@ public class RecruitPeopleNumberDO {
     private String total;
     private List<Rdata> rdata;
 
-    public class Rdata {
+    public static class Rdata {
         private String x_value;
         private String y_value;
 

@@ -166,8 +166,9 @@ public class HologramQueryController {
      */
     @RequestMapping("/recruitPeopleNumber")
     @ResponseBody
-    public ResponseBean recruitPeopleNumber(@RequestParam(required = true) String company) {
-        RecruitPeopleNumberDO result = hologramQueryService.recruitPeopleNumber(company);
+    public ResponseBean recruitPeopleNumber(@RequestParam(required = true) String company,
+                                            @RequestParam(required = false) String timeTag) {
+        RecruitPeopleNumberDO result = hologramQueryService.recruitPeopleNumber(company, timeTag);
         return ResponseBean.successResponse(result);
     }
 
@@ -178,8 +179,9 @@ public class HologramQueryController {
      */
     @RequestMapping("/recruitPeopleDistribute")
     @ResponseBody
-    public ResponseBean recruitPeopleDistribute(@RequestParam(required = true) String company) {
-        RecruitPeopleDistributeDO result = hologramQueryService.recruitPeopleDistribute(company);
+    public ResponseBean recruitPeopleDistribute(@RequestParam(required = true) String company,
+                                                @RequestParam(required = false) String timeTag) {
+        RecruitPeopleDistributeDO result = hologramQueryService.recruitPeopleDistribute(company, timeTag);
         return ResponseBean.successResponse(result);
     }
 
@@ -190,8 +192,9 @@ public class HologramQueryController {
      */
     @RequestMapping("/recruitPeopleSalary")
     @ResponseBody
-    public ResponseBean recruitPeopleSalary(@RequestParam(required = true) String company) {
-        RecruitPeopleSalaryDO result = hologramQueryService.recruitPeopleSalary(company);
+    public ResponseBean recruitPeopleSalary(@RequestParam(required = true) String company,
+                                            @RequestParam(required = false) String timeTag) {
+        RecruitPeopleSalaryDO result = hologramQueryService.recruitPeopleSalary(company, timeTag);
         return ResponseBean.successResponse(result);
     }
 

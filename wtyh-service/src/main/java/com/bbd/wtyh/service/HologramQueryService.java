@@ -100,11 +100,11 @@ public interface HologramQueryService {
      * @return
      * @param company
      */
-    RecruitPeopleNumberDO recruitPeopleNumber(String company);
+    RecruitPeopleNumberDO recruitPeopleNumber(String company, String timeTag);
 
-    RecruitPeopleDistributeDO recruitPeopleDistribute(String company);
+    RecruitPeopleDistributeDO recruitPeopleDistribute(String company, String timeTag);
 
-    RecruitPeopleSalaryDO recruitPeopleSalary(String company);
+    RecruitPeopleSalaryDO recruitPeopleSalary(String company, String timeTag);
 
     BaiDuYuQingDO newsConsensusList(String company);
 

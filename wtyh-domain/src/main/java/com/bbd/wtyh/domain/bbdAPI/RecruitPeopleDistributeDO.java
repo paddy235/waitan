@@ -12,7 +12,7 @@ public class RecruitPeopleDistributeDO {
     private String total;
     private List<Rdata> rdata;
 
-    public class Rdata {
+    public static class Rdata {
         @JSONField(name = "x_unit")
         private String name;
 

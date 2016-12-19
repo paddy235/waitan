@@ -31,4 +31,14 @@ public class DateUtils {
         c.add(Calendar.MONTH, -1);
         return df.format(c.getTime());
     }
+
+    public static String formatDate(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
+        return sdf.format(date);
+    }
+
+    public static void main(String[] args) {
+        System.out.print(formatDate(new Date()));
+    }
+
 }

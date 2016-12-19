@@ -39,4 +39,6 @@ public interface HologramQueryDao {
     RecruitPeopleDistributeDO recruitPeopleDistribute(String company);
 
     RecruitPeopleSalaryDO recruitPeopleSalary(String company);
+
+    RecruitDataDO getRecruitData(String company, String timeTag);
 }

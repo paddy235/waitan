@@ -12,10 +12,13 @@ import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.mapper.PlatformNameInformationMapper;
 import com.bbd.wtyh.service.DataomApiBbdservice;
 import com.bbd.wtyh.service.HologramQueryService;
+import com.bbd.wtyh.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import java.text.DateFormat;
 import java.util.*;
 
 /**
@@ -189,18 +192,92 @@ public class HologramQueryServiceImpl implements HologramQueryService {
     }
 
     @Override
-    public RecruitPeopleNumberDO recruitPeopleNumber(String company) {
-        return hologramQueryDao.recruitPeopleNumber(company);
+    public RecruitPeopleNumberDO recruitPeopleNumber(String company, String timeTag) {
+        if (StringUtils.isEmpty(timeTag)) {
+            timeTag = DateUtils.formatDate(new Date());
+        }
+        RecruitDataDO recruitDataDO = hologramQueryDao.getRecruitData(company, timeTag);
+        RecruitPeopleNumberDO recruitPeopleNumberDO = new RecruitPeopleNumberDO();
+        recruitPeopleNumberDO.setMsg("ok");
+        List list = new ArrayList();
+        if (!CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getIndex())) {
+            Map<String, String> indexMap = recruitDataDO.getResults().get(0).getIndex();
+            for (String key : indexMap.keySet()) {
+                RecruitPeopleNumberDO.Rdata rdata = new RecruitPeopleNumberDO.Rdata();
+                rdata.setX_value(key);
+                rdata.setY_value(indexMap.get(key));
+                list.add(rdata);
+            }
+        }
+        recruitPeopleNumberDO.setTotal(String.valueOf(list.size()));
+        recruitPeopleNumberDO.setRdata(list);
+        return recruitPeopleNumberDO;
     }
 
     @Override
-    public RecruitPeopleDistributeDO recruitPeopleDistribute(String company) {
-        return hologramQueryDao.recruitPeopleDistribute(company);
+    public RecruitPeopleDistributeDO recruitPeopleDistribute(String company, String timeTag) {
+        if (StringUtils.isEmpty(timeTag)) {
+            timeTag = DateUtils.formatDate(new Date());
+        }
+        RecruitDataDO recruitDataDO = hologramQueryDao.getRecruitData(company, timeTag);
+        RecruitPeopleDistributeDO recruitPeopleDistributeDO = new RecruitPeopleDistributeDO();
+        recruitPeopleDistributeDO.setMsg("ok");
+        List list = new ArrayList();
+        if (!CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getIndustry_ratio())) {
+            Map<String, String> indexMap = recruitDataDO.getResults().get(0).getIndustry_ratio();
+            for (String key : indexMap.keySet()) {
+                RecruitPeopleDistributeDO.Rdata rdata = new RecruitPeopleDistributeDO.Rdata();
+                rdata.setName(key);
+                rdata.setValue(indexMap.get(key));
+                list.add(rdata);
+            }
+        }
+        recruitPeopleDistributeDO.setTotal(String.valueOf(list.size()));
+        recruitPeopleDistributeDO.setRdata(list);
+        return recruitPeopleDistributeDO;
     }
 
     @Override
-    public RecruitPeopleSalaryDO recruitPeopleSalary(String company) {
-        return hologramQueryDao.recruitPeopleSalary(company);
+    public RecruitPeopleSalaryDO recruitPeopleSalary(String company, String timeTag) {
+        if (StringUtils.isEmpty(timeTag)) {
+            timeTag = DateUtils.formatDate(new Date());
+        }
+        RecruitDataDO recruitDataDO = hologramQueryDao.getRecruitData(company, timeTag);
+        RecruitPeopleSalaryDO recruitPeopleSalaryDO = new RecruitPeopleSalaryDO();
+        recruitPeopleSalaryDO.setMsg("ok");
+        List list = new ArrayList();
+        if (!CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getSalary_ratio())) {
+            Map<String, String> indexMap = recruitDataDO.getResults().get(0).getSalary_ratio();
+            for (String key : indexMap.keySet()) {
+                RecruitPeopleSalaryDO.Rdata rdata = new RecruitPeopleSalaryDO.Rdata();
+                rdata.setX_value(getSalaryData(key));
+                rdata.setY_value(indexMap.get(key));
+                list.add(rdata);
+            }
+        }
+        recruitPeopleSalaryDO.setTotal(String.valueOf(list.size()));
+        recruitPeopleSalaryDO.setRdata(list);
+        return recruitPeopleSalaryDO;
+    }
+
+    private String getSalaryData(String key) {
+        String salary = "";
+        if ("LevelOne".equals(key)) {
+            salary = "小于2K";
+        } else if ("LevelTwo".equals(key)) {
+            salary = "2K-5K";
+        } else if ("LevelThree".equals(key)) {
+            salary = "5K-10K";
+        } else if ("LevelFour".equals(key)) {
+            salary = "10K-20K";
+        } else if ("LevelFive".equals(key)) {
+            salary = "20K-30K";
+        } else if ("LevelSix".equals(key)) {
+            salary = "30K以上";
+        } else if ("Others".equals(key)) {
+            salary = "其他";
+        }
+        return salary;
     }
 
 

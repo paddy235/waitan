@@ -232,11 +232,16 @@ public class OfflineFinanceController {
                 throw new Exception("对不起，该公司数据不完整");
             }
         }
+        Map tempMap = new HashMap();
         for (int i = 0; i < dataVersionList.size(); i++) {
             MonthVO m = new MonthVO();
-            m.setKey(getMonth(dataVersionList.get(i)));
-            m.setValue(dataVersionList.get(i));
-            monthList.add(m);
+            String month = getMonth(dataVersionList.get(i));
+            if (tempMap.get(month) == null) {
+                tempMap.put(month, month);
+                m.setKey(month);
+                m.setValue(dataVersionList.get(i));
+                monthList.add(m);
+            }
         }
         //比较两个月份的关联方数据
         RelationDataVO vo = relationDataService.compareRelationData(companyName, areaCode, currentMonth, compareMonth);
@@ -310,17 +315,17 @@ public class OfflineFinanceController {
         if (isDeal != null && isDeal == 1) {
             return ResponseBean.successResponse(dataVersionList);
         }
-        List<String> result = new ArrayList<>();
+        Map<String, String> result = new LinkedHashMap();
         if (!CollectionUtils.isEmpty(dataVersionList)) {
             for (String string : dataVersionList) {
                 if (!StringUtils.isEmpty(string)) {
                     StringBuilder sb = new StringBuilder();
                     sb.append(string.substring(0, 4)).append("-").append(string.substring(4, 6));
-                    result.add(sb.toString());
+                    result.put(sb.toString(), sb.toString());
                 }
             }
         }
-        return ResponseBean.successResponse(result);
+        return ResponseBean.successResponse(result.values());
     }
 
     /**
