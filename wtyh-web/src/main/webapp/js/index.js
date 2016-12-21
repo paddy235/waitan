@@ -55045,6 +55045,8 @@
 	          }
 	          if (parm.flag == "balanceDistri") {
 	            return v.name + "<br/>" + v.seriesName + "<span style='color:#00b7f0'>" + v.value + _until + "亿元(" + v.percent + "%)" + "</span>";
+	          } else if (parm.flag == "personIndex") {
+	            return v.name + ":&nbsp;<span style='color:#00b7f0'>(" + v.percent + "%)" + "</span>";
 	          } else {
 
 	            return v.name + ":&nbsp;<span style='color:#00b7f0'>" + v.value + _until + "(" + v.percent + "%)" + "</span>";
@@ -85052,7 +85054,7 @@
 	            series = data;
 	            series.map(function (item, index) {
 	                legend.push(item.name);
-	                series[index].value = parseInt(item.value);
+	                series[index].value = item.value;
 	            });
 	            this.setState({
 	                chart: _react2.default.createElement(_BasePie2.default, { option: this.setParm(), style: { height: '100%', width: '100%' } })
@@ -85086,11 +85088,12 @@
 	            "seriesName": "企业数",
 	            "radius": ["40%", "85%"],
 	            "roseType": "area",
+	            "flag": "personIndex",
 	            "lable": {
 	                normal: {
 	                    show: true,
 	                    position: 'inner',
-	                    formatter: '{d}%'
+	                    formatter: '{a}%'
 	                },
 	                emphasis: { show: false }
 	            },
