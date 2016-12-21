@@ -196,10 +196,13 @@ public class HologramQueryServiceImpl implements HologramQueryService {
         if (StringUtils.isEmpty(timeTag)) {
             timeTag = DateUtils.formatDate(new Date());
         }
-        RecruitDataDO recruitDataDO = hologramQueryDao.getRecruitData(company, timeTag);
         RecruitPeopleNumberDO recruitPeopleNumberDO = new RecruitPeopleNumberDO();
         recruitPeopleNumberDO.setMsg("ok");
         List list = new ArrayList();
+        RecruitDataDO recruitDataDO = hologramQueryDao.getRecruitData(company, timeTag);
+        if (CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getIndex())) {
+            recruitDataDO = hologramQueryDao.getRecruitData(company, "201601");
+        }
         if (!CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getIndex())) {
             Map<String, String> indexMap = recruitDataDO.getResults().get(0).getIndex();
             for (String key : indexMap.keySet()) {
@@ -219,10 +222,13 @@ public class HologramQueryServiceImpl implements HologramQueryService {
         if (StringUtils.isEmpty(timeTag)) {
             timeTag = DateUtils.formatDate(new Date());
         }
-        RecruitDataDO recruitDataDO = hologramQueryDao.getRecruitData(company, timeTag);
         RecruitPeopleDistributeDO recruitPeopleDistributeDO = new RecruitPeopleDistributeDO();
         recruitPeopleDistributeDO.setMsg("ok");
         List list = new ArrayList();
+        RecruitDataDO recruitDataDO = hologramQueryDao.getRecruitData(company, timeTag);
+        if (CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getIndustry_ratio())) {
+            recruitDataDO = hologramQueryDao.getRecruitData(company, "201601");
+        }
         if (!CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getIndustry_ratio())) {
             Map<String, String> indexMap = recruitDataDO.getResults().get(0).getIndustry_ratio();
             for (String key : indexMap.keySet()) {
@@ -242,10 +248,13 @@ public class HologramQueryServiceImpl implements HologramQueryService {
         if (StringUtils.isEmpty(timeTag)) {
             timeTag = DateUtils.formatDate(new Date());
         }
-        RecruitDataDO recruitDataDO = hologramQueryDao.getRecruitData(company, timeTag);
         RecruitPeopleSalaryDO recruitPeopleSalaryDO = new RecruitPeopleSalaryDO();
         recruitPeopleSalaryDO.setMsg("ok");
         List list = new ArrayList();
+        RecruitDataDO recruitDataDO = hologramQueryDao.getRecruitData(company, timeTag);
+        if (CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getSalary_ratio())) {
+            recruitDataDO = hologramQueryDao.getRecruitData(company, "201601");
+        }
         if (!CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getSalary_ratio())) {
             Map<String, String> indexMap = recruitDataDO.getResults().get(0).getSalary_ratio();
             for (String key : indexMap.keySet()) {
