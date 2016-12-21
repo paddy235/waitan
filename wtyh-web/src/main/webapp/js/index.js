@@ -85093,7 +85093,7 @@
 	                normal: {
 	                    show: true,
 	                    position: 'inner',
-	                    formatter: '{a}%'
+	                    formatter: '{d}%'
 	                },
 	                emphasis: { show: false }
 	            },
