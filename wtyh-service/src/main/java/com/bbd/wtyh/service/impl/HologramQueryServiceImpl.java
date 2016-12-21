@@ -41,6 +41,18 @@ public class HologramQueryServiceImpl implements HologramQueryService {
     @Autowired
     private PlatformNameInformationMapper platformNameInformationMapper;
 
+    private HashMap<String, String> salaryHashMap = new LinkedHashMap<String, String>(){
+        {
+            put("LevelOne", "小于2K");
+            put("LevelTwo", "2K-5K");
+            put("LevelThree", "5K-10K");
+            put("LevelFour", "10K-20K");
+            put("LevelFive", "20K-30K");
+            put("LevelSix", "30K以上");
+            put("Others", "其他");
+        }
+    };
+
 
     @Override
     public SearchComanyDO search(String company, int page_no, int page_size) {
@@ -257,11 +269,14 @@ public class HologramQueryServiceImpl implements HologramQueryService {
         }
         if (!CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getSalary_ratio())) {
             Map<String, String> indexMap = recruitDataDO.getResults().get(0).getSalary_ratio();
-            for (String key : indexMap.keySet()) {
-                RecruitPeopleSalaryDO.Rdata rdata = new RecruitPeopleSalaryDO.Rdata();
-                rdata.setX_value(getSalaryData(key));
-                rdata.setY_value(indexMap.get(key));
-                list.add(rdata);
+            for (String key : salaryHashMap.keySet()) {
+                if (indexMap.get(key) != null) {
+                    RecruitPeopleSalaryDO.Rdata rdata = new RecruitPeopleSalaryDO.Rdata();
+                    rdata.setX_value(salaryHashMap.get(key));
+                    rdata.setY_value(indexMap.get(key));
+                    list.add(rdata);
+                }
+
             }
         }
         recruitPeopleSalaryDO.setTotal(String.valueOf(list.size()));
