@@ -1,7 +1,5 @@
 package com.bbd.wtyh.service.impl.relation;
 
-import com.bbd.wtyh.util.relation.ListUtils;
-import com.bbd.wtyh.web.relationVO.LineVO;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
@@ -9,9 +7,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Map;
 
 @Service
 public class RelationService {

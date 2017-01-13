@@ -2,6 +2,7 @@ package com.bbd.wtyh.service;
 
 import com.bbd.wtyh.domain.vo.StaticRiskVO;
 import com.bbd.wtyh.domain.vo.StatisticsVO;
+import com.bbd.wtyh.web.relationVO.RelationDiagramVO;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -19,7 +20,7 @@ public interface OfflineFinanceService {
      * @return
      */
     @SuppressWarnings("rawtypes")
-    public Map<String,List> queryRelation(String companyName, String dataVersion, String degreesLevel) throws Exception;
+    public RelationDiagramVO queryRelation(String companyName, String dataVersion, String degreesLevel) throws Exception;
 
     /**
      * 公司舆情

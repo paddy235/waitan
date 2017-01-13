@@ -9,8 +9,7 @@ import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.util.relation.ListUtils;
 import com.bbd.wtyh.util.relation.StringUtils;
 import com.bbd.wtyh.web.relationPara.param.RelatedParameters;
-import com.bbd.wtyh.web.relationVO.LineVO;
-import com.bbd.wtyh.web.relationVO.PointVO;
+import com.bbd.wtyh.web.relationVO.RelationDiagramVO;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
@@ -216,11 +215,11 @@ public class RegisterUniversalFilterChainImp {
      * @param list
      * @return
      */
-    private List<LineVO> getLineList(List<List<String>> list) {
-        List<LineVO> lineList = new ArrayList<LineVO>();
+    private List<RelationDiagramVO.LineVO> getLineList(List<List<String>> list) {
+        List<RelationDiagramVO.LineVO> lineList = new ArrayList<RelationDiagramVO.LineVO>();
         for (List<String> l : list) {
             if (ListUtils.isNotEmpty(l) && l.size() == 7) {
-                LineVO line = new LineVO();
+                RelationDiagramVO.LineVO line = new RelationDiagramVO.LineVO();
                 line.setOrig(l.get(0));
                 line.setTarget(l.get(1));
                 line.setType(l.get(2));
@@ -241,8 +240,8 @@ public class RegisterUniversalFilterChainImp {
      * @param list
      * @return
      */
-    private List<PointVO> getPointList(List<List<String>> list) {
-        List<PointVO> pointList = new ArrayList<PointVO>();
+    private List<RelationDiagramVO.PointVO> getPointList(List<List<String>> list) {
+        List<RelationDiagramVO.PointVO> pointList = new ArrayList<RelationDiagramVO.PointVO>();
         List<String> points = new ArrayList<String>();
         Map<String, String> sonComMap = new HashMap<String, String>();
         for (List<String> l : list) {
@@ -264,7 +263,7 @@ public class RegisterUniversalFilterChainImp {
                 s = s.replaceAll("_", ",");
                 String[] arr = s.split(",");
 
-                PointVO point = new PointVO();
+                RelationDiagramVO.PointVO point = new RelationDiagramVO.PointVO();
                 point.setIsPerson(arr[2]);
                 if (sonComMap.containsKey(arr[0]) && "1".equals(arr[1])) {
                     point.setIsSonCom("1"); // 子公司

@@ -3,7 +3,6 @@ package com.bbd.wtyh.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
-import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.PlatformNameInformationDO;
 import com.bbd.wtyh.domain.dto.*;
@@ -12,7 +11,7 @@ import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.CompanyService;
 import com.bbd.wtyh.service.PToPMonitorService;
 import com.bbd.wtyh.service.impl.relation.RegisterUniversalFilterChainImp;
-import com.bbd.wtyh.web.relationVO.PointVO;
+import com.bbd.wtyh.web.relationVO.RelationDiagramVO;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.slf4j.Logger;
@@ -21,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,13 +60,13 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
             return 0;
         }
         Map<String, List> relationMap = relatedCompanyService.queryRelation(companyName, dataVersion, 1);
-        List<PointVO> pointList = relationMap.get("pointList");
+        List<RelationDiagramVO.PointVO> pointList = relationMap.get("pointList");
         if (org.apache.commons.collections.CollectionUtils.isEmpty(pointList)) {
             return 0;
         }
 
         int offlineFinance = 0;
-        for (PointVO pointVO : pointList) {
+        for (RelationDiagramVO.PointVO pointVO : pointList) {
             if (pointVO.getIsPerson().equals("1")) {
                 continue;
             }

@@ -3,7 +3,7 @@ package com.bbd.wtyh.service.impl.relation;
 
 import com.bbd.wtyh.util.relation.ListUtils;
 import com.bbd.wtyh.web.relationVO.CompanyDataStatisticsVO;
-import com.bbd.wtyh.web.relationVO.LineVO;
+import com.bbd.wtyh.web.relationVO.RelationDiagramVO;
 import net.sf.json.JSONObject;
 import org.springframework.stereotype.Service;
 
@@ -58,7 +58,7 @@ public class SearchAPIandRelatedPartyService {
 		Integer subCompany = 0;
 		if (ListUtils.isNotEmpty(lineList)) {
 			for (Object obj : lineList) {
-				LineVO vo = (LineVO) obj;
+				RelationDiagramVO.LineVO vo = (RelationDiagramVO.LineVO) obj;
 				if (null != vo) {
 					if (vo.getType().contains("法人")) {
 						legalPerson++;

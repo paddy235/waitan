@@ -4,7 +4,9 @@ import com.bbd.higgs.utils.ListUtil;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.common.Pagination;
+import com.bbd.wtyh.dao.OfflineFinanceDao;
 import com.bbd.wtyh.domain.*;
+import com.bbd.wtyh.domain.dto.RelationDTO;
 import com.bbd.wtyh.domain.dto.StaticRiskDTO;
 import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
 import com.bbd.wtyh.domain.vo.LineVO;
@@ -19,6 +21,7 @@ import com.bbd.wtyh.service.impl.relation.common.APIConstants;
 import com.bbd.wtyh.service.impl.relation.exception.BbdException;
 import com.bbd.wtyh.util.CalculateUtils;
 import com.bbd.wtyh.util.DateUtils;
+import com.bbd.wtyh.web.relationVO.RelationDiagramVO;
 import com.google.gson.Gson;
 import net.sf.json.JSONArray;
 import net.sf.json.JsonConfig;
@@ -66,6 +69,8 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     private RedisDAO redisDAO;
     @Autowired
     private CompanyNewsService companyNewsService;
+    @Autowired
+    private OfflineFinanceDao offlineFinanceDao;
     @Autowired
     private CompanyCreditInformationMapper companyCreditInformationMapper;
     @Autowired
@@ -299,24 +304,125 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
-    public Map<String, List> queryRelation(String companyName, String dataVersion, String degreesLevel) throws Exception  {
-        List<List<String>> list = null;
-        JSONArray jsonArr = null;
-        String json = redisDAO.getString(companyName + APIConstants.redis_relation_LinksDataJTTP + dataVersion + degreesLevel);
-        if (StringUtils.isEmpty(json)) {
-            if (StringUtils.isEmpty(degreesLevel)) {
-                json = relationCompanyService.getAPIDynamicRelatedPartUploadJTTP(companyName, APIConstants.show_relation_E, dataVersion);
-            } else {
-                json = relationCompanyService.getAPIDynamicRelatedPartUploadJTTP(companyName, Integer.parseInt(degreesLevel), dataVersion);
+    public RelationDiagramVO queryRelation(String companyName, String dataVersion, String degreesLevel) throws Exception  {
+        RelationDTO relationDTO = offlineFinanceDao.getRealation(companyName, dataVersion);
+        return convert2RelationDiagramVO(relationDTO, companyName, Integer.valueOf(degreesLevel));
+    }
+
+    private RelationDiagramVO convert2RelationDiagramVO(RelationDTO relationDTO, String companyName, int degree) {
+        RelationDiagramVO relationDiagramVO = new RelationDiagramVO();
+
+        // 如果没有关联方信息
+        if (org.apache.commons.collections.CollectionUtils.isEmpty(relationDTO.getResults())) {
+            relationDiagramVO.setLineList(new ArrayList<RelationDiagramVO.LineVO>());
+            relationDiagramVO.setPointList(new ArrayList<RelationDiagramVO.PointVO>());
+            return relationDiagramVO;
+        }
+        // 连线集合
+        List<RelationDiagramVO.LineVO> lineVOs = new ArrayList<>();
+        // 点集合
+        List<RelationDiagramVO.PointVO> pointVOs = new ArrayList<>();
+        // 用于去重描点
+        List<String> sets = new ArrayList<>();
+        RelationDiagramVO.PointVO pointVOOne = new RelationDiagramVO.PointVO();
+        // 默认一个中心点
+        pointVOOne.setName(companyName);
+        pointVOOne.setIsPerson("0");
+        pointVOOne.setLevel("0");
+        pointVOOne.setIsSonCom("0");
+        pointVOs.add(pointVOOne);
+        sets.add(companyName);
+        // 循环遍历处理企业
+        for (RelationDTO.Result result : relationDTO.getResults()) {
+            // 三度公司
+            if (degree >= 1) {
+                if (Integer.parseInt(result.getInvestee_degree()) <= 1 && Integer.parseInt(result.getInvestor_degree()) <= 1) {
+                    hanldeResult(companyName, 1, lineVOs, pointVOs, result, sets);
+                }
             }
+            if (degree >= 2) {
+                if (Integer.parseInt(result.getInvestee_degree()) <= 2 && Integer.parseInt(result.getInvestee_degree()) >= 1 && Integer.parseInt(result.getInvestor_degree()) <= 2
+                        && Integer.parseInt(result.getInvestor_degree()) >= 1) {
+                    hanldeResult(companyName, 2, lineVOs, pointVOs, result, sets);
+                }
+            }
+            if (degree >= 3) {
+                if (Integer.parseInt(result.getInvestee_degree()) <= 3 && Integer.parseInt(result.getInvestee_degree()) >= 2 && Integer.parseInt(result.getInvestor_degree()) <= 3
+                        && Integer.parseInt(result.getInvestor_degree()) >= 2) {
+                    hanldeResult(companyName, 3, lineVOs, pointVOs, result, sets);
+                }
+            }
+
         }
-        if (StringUtils.isEmpty(json)) {
-            json="[]"; // 没有查询到数据的情况
+        relationDiagramVO.setPointList(pointVOs);
+        relationDiagramVO.setLineList(lineVOs);
+        return relationDiagramVO;
+
+    }
+
+    private void hanldeResult(String companyName, Integer degree, List<RelationDiagramVO.LineVO> lineVOs, List<RelationDiagramVO.PointVO> pointVOs, RelationDTO.Result result, List<String> set) {
+        RelationDiagramVO.LineVO lineVO = new RelationDiagramVO.LineVO();
+        lineVO.setOrig(result.getInvestor());
+        lineVO.setTarget(result.getInvestee());
+        lineVO.setIsFullLine(result.getRelType() + "");
+        lineVO.setRelationship(result.getIsNatural() + "");
+        lineVO.setOrigLevel(result.getInvestor_degree());
+        lineVO.setTarLevel(result.getInvestee_degree());
+        lineVO.setType(result.getType());
+        boolean flag = false;
+        // 如果是自然人
+        if (result.getIsNatural() == 1) {
+            if (!set.contains(result.getInvestor())) {
+                RelationDiagramVO.PointVO pointVO = new RelationDiagramVO.PointVO();
+                pointVO.setName(result.getInvestor());
+                set.add(result.getInvestor());
+                pointVO.setLevel(result.getInvestor_degree() + "");
+                pointVO.setIsPerson("1");
+                pointVO.setIsSonCom(result.getInvestor().equals(companyName) ? "1" : "0");
+                // 如果是重复则不增加这个节点
+                pointVOs.add(pointVO);
+            }
+            if (!set.contains(result.getInvestee())) {
+                RelationDiagramVO.PointVO pointVO = new RelationDiagramVO.PointVO();
+                pointVO.setIsPerson("0");
+                pointVO.setName(result.getInvestee());
+                set.add(result.getInvestee());
+                pointVO.setLevel(result.getInvestee_degree() + "");
+                pointVO.setIsSonCom(result.getInvestor().equals(companyName) ? "1" : "0");
+                // 如果是重复则不增加这个节点
+                pointVOs.add(pointVO);
+            }
+        } else {
+            if (!set.contains(result.getInvestor())) {
+                RelationDiagramVO.PointVO pointVO = new RelationDiagramVO.PointVO();
+                pointVO.setIsPerson("0");
+
+                pointVO.setName(result.getInvestor());
+                set.add(result.getInvestor());
+                if (result.getIsNatural().equals("1")) {
+                    pointVO.setIsPerson("1");
+                }
+                pointVO.setLevel(result.getInvestor_degree() + "");
+                pointVO.setIsSonCom(result.getInvestor().equals(companyName) ? "1" : "0");
+                // 如果是重复则不增加这个节点
+                pointVOs.add(pointVO);
+            }
+            if (!set.contains(result.getInvestee())) {
+                RelationDiagramVO.PointVO pointVO = new RelationDiagramVO.PointVO();
+                pointVO.setIsPerson("0");
+                pointVO.setIsPerson("0");
+                pointVO.setName(result.getInvestee());
+                set.add(result.getInvestee());
+                pointVO.setLevel(result.getInvestee_degree() + "");
+                pointVO.setIsSonCom(result.getInvestor().equals(companyName) ? "1" : "0");
+                // 如果是重复则不增加这个节点
+                pointVOs.add(pointVO);
+            }
+
         }
-        jsonArr = JSONArray.fromObject(json);
-        list = JSONArray.toList(jsonArr, new String(), new JsonConfig());
-        Map<String, List> map = this.getRelationData(list);
-        return map;
+
+        lineVOs.add(lineVO);
+
     }
 
     @Override

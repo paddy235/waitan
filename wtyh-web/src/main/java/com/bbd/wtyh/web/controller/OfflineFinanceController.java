@@ -11,9 +11,12 @@ import com.bbd.wtyh.domain.vo.*;
 import com.bbd.wtyh.service.*;
 import com.bbd.wtyh.util.CalculateUtils;
 import com.bbd.wtyh.web.*;
+import com.bbd.wtyh.web.relationVO.RelationDiagramVO;
 import com.google.gson.Gson;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.poi.util.StringUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -40,6 +43,8 @@ import java.util.*;
 @Controller
 @RequestMapping("/offlineFinance/")
 public class OfflineFinanceController {
+
+    private static final Logger logger = LoggerFactory.getLogger(OfflineFinanceController.class);
 
     @Autowired
     private OfflineFinanceService offlineFinanceService;
@@ -87,10 +92,10 @@ public class OfflineFinanceController {
     public
     @ResponseBody
     ResponseBean queryDynamicPicData(HttpServletRequest request) {
+        String companyName = request.getParameter("companyName");
+        String dataVersion = request.getParameter("dataVersion");
+        String degreesLevel = request.getParameter("degreesLevel");
         try {
-            String companyName = request.getParameter("companyName");
-            String dataVersion = request.getParameter("dataVersion");
-            String degreesLevel = request.getParameter("degreesLevel");
             if (StringUtils.isEmpty(companyName)) {
                 ResponseBean.successResponse("companyName参数为空");
             }
@@ -98,11 +103,20 @@ public class OfflineFinanceController {
             if (!CollectionUtils.isEmpty(dataVersionList)) {
                 dataVersion = dataVersionList.get(0);
             }
-            return ResponseBean.successResponse(offlineFinanceService.queryRelation(companyName, dataVersion, degreesLevel));
+            RelationDiagramVO result = offlineFinanceService.queryRelation(companyName, dataVersion, degreesLevel);
+            if (result == null) {
+                logger.error("无关联方图谱信息 --> 公司[" + companyName
+                        + "], dateVersion[" + dataVersion + "],关联度["
+                        + degreesLevel + "]");
+            }
+            return ResponseBean.successResponse(result);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("关联方图谱信息解析出错 --> 公司[" + companyName
+                    + "], dateVersion[" + dataVersion + "],关联度["
+                    + degreesLevel + "]");
+            logger.error(e.getMessage(), e);
+            return ResponseBean.errorResponse("关联方图谱信息正在准备中，请稍后尝试");
         }
-        return null;
     }
 
     /**

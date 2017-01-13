@@ -1,6 +1,7 @@
 package com.bbd.wtyh.domain.dto;
 
 
+import com.bbd.wtyh.domain.enums.NodeLabel;
 import com.bbd.wtyh.domain.enums.RelationType;
 
 import java.util.*;
@@ -16,7 +17,7 @@ public class RelationDataDTO {
 
     private String msg;
 
-    private List<RelationDTO> data;
+    private List<NonRealTimeRelationDTO> data;
 
     /**
      * data是否已经清洗
@@ -31,11 +32,11 @@ public class RelationDataDTO {
         if (isEtl) return;
 
         if (data != null) {
-            Iterator<RelationDTO> iterator = data.iterator();
-            Map<String,RelationDTO> uniqueRelations = new LinkedHashMap<>();
+            Iterator<NonRealTimeRelationDTO> iterator = data.iterator();
+            Map<String,NonRealTimeRelationDTO> uniqueRelations = new LinkedHashMap<>();
             Map<String,Integer> nodeLevelMap = new HashMap<>();
             while (iterator.hasNext()){
-                RelationDTO temp = iterator.next();
+                NonRealTimeRelationDTO temp = iterator.next();
                 if(nodeLevelMap.containsKey(temp.getMainNode())){
                     nodeLevelMap.put(temp.getMainNode(),Math.min(temp.getMainNodeLevel(),nodeLevelMap.get(temp.getMainNode())));
                 }else{
@@ -45,7 +46,7 @@ public class RelationDataDTO {
 
             iterator = data.iterator();
             while (iterator.hasNext()){
-                RelationDTO temp = iterator.next();
+                NonRealTimeRelationDTO temp = iterator.next();
                 if(temp.isQueryTarget()) continue;
 
                 String key = temp.getStartNode() + "->" + temp.getEndNode();
@@ -54,7 +55,7 @@ public class RelationDataDTO {
                     continue;
                 }
 
-                RelationDTO existRelation = uniqueRelations.get(key);
+                NonRealTimeRelationDTO existRelation = uniqueRelations.get(key);
                 integrateRelation(existRelation,temp,nodeLevelMap);
             }
 
@@ -75,7 +76,7 @@ public class RelationDataDTO {
      * @param exist
      * @param that
      */
-    private void integrateRelation(RelationDTO exist, RelationDTO that, Map<String,Integer> nodeLevelMap){
+    private void integrateRelation(NonRealTimeRelationDTO exist, NonRealTimeRelationDTO that, Map<String,Integer> nodeLevelMap){
         Integer startLevel = nodeLevelMap.get(exist.getStartNode());
         startLevel = startLevel == null ? 0 : startLevel;
         exist.setStartLevel(startLevel);
@@ -89,11 +90,11 @@ public class RelationDataDTO {
     }
 
 
-    public List<RelationDTO> getData() {
+    public List<NonRealTimeRelationDTO> getData() {
         return data;
     }
 
-    public void setData(List<RelationDTO> data) {
+    public void setData(List<NonRealTimeRelationDTO> data) {
         this.data = data;
     }
 

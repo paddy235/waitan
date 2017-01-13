@@ -9,7 +9,7 @@ import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.CompanyService;
 import com.bbd.wtyh.service.ShareholderRiskService;
 import com.bbd.wtyh.service.impl.relation.RegisterUniversalFilterChainImp;
-import com.bbd.wtyh.web.relationVO.PointVO;
+import com.bbd.wtyh.web.relationVO.RelationDiagramVO;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
@@ -68,7 +68,7 @@ public class ShareholderRiskServiceImpl implements ShareholderRiskService {
         for (CompanyDO companyDO : companyList) {
             try {
                 Map<String, List> relationMap = relatedCompanyService.queryRelation(companyDO.getName(), dataVersion, 1);
-                List<PointVO> pointList = relationMap.get("pointList");
+                List<RelationDiagramVO.PointVO> pointList = relationMap.get("pointList");
                 if (CollectionUtils.isEmpty(pointList)) {
                     continue;
                 }
@@ -78,7 +78,7 @@ public class ShareholderRiskServiceImpl implements ShareholderRiskService {
                 int p2p = 0;
                 int offlineFinance = 0;
                 int privateFund = 0;
-                for (PointVO pointVO : pointList) {
+                for (RelationDiagramVO.PointVO pointVO : pointList) {
                     if (pointVO.getIsPerson().equals("1")) {
                         continue;
                     }
@@ -133,11 +133,11 @@ public class ShareholderRiskServiceImpl implements ShareholderRiskService {
         try {
             Multimap<Integer, RelatedCompanyDTO> relatedCompanyMap = ArrayListMultimap.create();
             Map<String, List> relationMap = relatedCompanyService.queryRelation(companyService.getNameById(companyId), dataVersion, 1);
-            List<PointVO> pointList = relationMap.get("pointList");
+            List<RelationDiagramVO.PointVO> pointList = relationMap.get("pointList");
             if (null == pointList) {
                 return ArrayListMultimap.create();
             }
-            for (PointVO pointVO : pointList) {
+            for (RelationDiagramVO.PointVO pointVO : pointList) {
                 if (pointVO.getIsPerson().equals("1")) {
                     continue;
                 }
