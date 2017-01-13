@@ -2,10 +2,15 @@ package com.bbd.wtyh.service.impl;
 
 import com.bbd.higgs.utils.ListUtil;
 import com.bbd.higgs.utils.http.HttpTemplate;
+import com.bbd.wellspring.common.service.facade.relation.LineTypeEnum;
+import com.bbd.wellspring.common.service.facade.relation.NodeVoSymbolEnum;
+import com.bbd.wellspring.common.service.facade.relation.NodeVoTypeEnum;
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.common.Pagination;
 import com.bbd.wtyh.dao.OfflineFinanceDao;
+import com.bbd.wtyh.dao.P2PImageDao;
 import com.bbd.wtyh.domain.*;
+import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.dto.RelationDTO;
 import com.bbd.wtyh.domain.dto.StaticRiskDTO;
 import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
@@ -21,7 +26,11 @@ import com.bbd.wtyh.service.impl.relation.common.APIConstants;
 import com.bbd.wtyh.service.impl.relation.exception.BbdException;
 import com.bbd.wtyh.util.CalculateUtils;
 import com.bbd.wtyh.util.DateUtils;
+import com.bbd.wtyh.web.relationVO.LinkVO;
+import com.bbd.wtyh.web.relationVO.NodeVO;
 import com.bbd.wtyh.web.relationVO.RelationDiagramVO;
+import com.bbd.wtyh.web.relationVO.SubGraphVO;
+import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import net.sf.json.JSONArray;
 import net.sf.json.JsonConfig;
@@ -71,6 +80,8 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     private CompanyNewsService companyNewsService;
     @Autowired
     private OfflineFinanceDao offlineFinanceDao;
+    @Autowired
+    private P2PImageDao p2PImageDao;
     @Autowired
     private CompanyCreditInformationMapper companyCreditInformationMapper;
     @Autowired
@@ -302,10 +313,43 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
         return result;
     }
 
+    @Override
+    public RelationDiagramVO queryRealRealation(String companyName, Integer degree) {
+        RelationDiagramVO relationDiagramVO = new RelationDiagramVO();
+        BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName);
+        List<BaseDataDO.Results> resultsList = baseDataDO.getResults();
+        String unikey = "";
+        if (!CollectionUtils.isEmpty(resultsList)) {
+            unikey = resultsList.get(0).getJbxx().get_id();
+        } else {
+            return relationDiagramVO;
+        }
+
+        // 拿出包装类数据
+        SubGraphVO subGraphVO = offlineFinanceDao.queryRealTimeRelation(unikey, degree + "");
+
+        if (subGraphVO == null) {
+            return relationDiagramVO;
+        }
+
+        // 页面连线
+        List<LinkVO> lineVOs = (List<LinkVO>) subGraphVO.getLinks();
+        // 页面描点集合
+        List<NodeVO> nodeVOs = (List<NodeVO>) subGraphVO.getNodes();
+        // 处理节点
+        Map<String, Object> map = getPointList(nodeVOs);
+        // 处理线集合
+        relationDiagramVO
+                .setLineList(getLineList((Map<String, NodeVO>) map.get("pointDegree"), lineVOs));
+        // 处理点集合
+        relationDiagramVO.setPointList((List<RelationDiagramVO.PointVO>) map.get("pointList"));
+        return relationDiagramVO;
+    }
+
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public RelationDiagramVO queryRelation(String companyName, String dataVersion, String degreesLevel) throws Exception  {
-        RelationDTO relationDTO = offlineFinanceDao.getRealation(companyName, dataVersion);
+        RelationDTO relationDTO = offlineFinanceDao.queryRealation(companyName, dataVersion);
         return convert2RelationDiagramVO(relationDTO, companyName, Integer.valueOf(degreesLevel));
     }
 
@@ -943,6 +987,32 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
         }
         return vo;
     }
+
+    /**
+     * 获取线集合数据
+     *
+     * @return
+     */
+    private List<RelationDiagramVO.LineVO> getLineList(Map<String, NodeVO> pointDegree,
+                                                       Collection<LinkVO> links) {
+        List<RelationDiagramVO.LineVO> lineList = Lists.newArrayList();
+        if (!CollectionUtils.isEmpty(links)) {
+            for (LinkVO vo : links) {
+                RelationDiagramVO.LineVO lineVO = new RelationDiagramVO.LineVO();
+                lineVO.setIsFullLine(LineTypeEnum.line.equals(vo.getLine()) ? "1" : "0");
+                lineVO.setOrig(pointDegree.get(vo.getSource()).getCname());
+                lineVO.setOrigLevel(String.valueOf(pointDegree.get(vo.getSource()).getCategory()));
+                lineVO.setRelationship(vo.getRelatedParyName());
+                lineVO.setTarget(pointDegree.get(vo.getTarget()).getCname());
+                lineVO.setTarLevel(String.valueOf(pointDegree.get(vo.getTarget()).getCategory()));
+                lineVO.setType(vo.getGuanlian());
+
+                lineList.add(lineVO);
+            }
+        }
+        return lineList;
+    }
+
     /**
      * 获取线集合数据
      * @param list
@@ -965,6 +1035,36 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
             }
         }
         return lineList;
+    }
+
+    /**
+     * 获取点集合数据
+     *
+     * @param nodes
+     * @return
+     */
+    private Map<String, Object> getPointList(Collection<NodeVO> nodes) {
+        Map<String, Object> map = new HashMap<>();
+
+        List<RelationDiagramVO.PointVO> pointList = Lists.newArrayList();
+        Map<String, NodeVO> pointDegree = new HashMap<>();
+        if (!CollectionUtils.isEmpty(nodes)) {
+            for (NodeVO vo : nodes) {
+                pointDegree.put(vo.getName(), vo);
+
+                RelationDiagramVO.PointVO pointVO = new RelationDiagramVO.PointVO();
+                pointVO.setIsPerson(NodeVoSymbolEnum.circle.equals(vo.getSymbol()) ? "1" : "0");
+                pointVO.setIsSonCom(
+                        NodeVoTypeEnum.INVESTED.getRgb().equals(vo.getColor()) ? "1" : "0");
+                pointVO.setLevel(String.valueOf(vo.getCategory()));
+                pointVO.setName(vo.getCname());
+
+                pointList.add(pointVO);
+            }
+        }
+        map.put("pointList", pointList);
+        map.put("pointDegree", pointDegree);
+        return map;
     }
 
     /**

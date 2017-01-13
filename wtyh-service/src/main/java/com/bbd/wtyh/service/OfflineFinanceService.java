@@ -23,6 +23,14 @@ public interface OfflineFinanceService {
     public RelationDiagramVO queryRelation(String companyName, String dataVersion, String degreesLevel) throws Exception;
 
     /**
+     * 实时查询关联方信息
+     *
+     * @param companyName 公司名称
+     * @param degree      纬度
+     */
+    RelationDiagramVO queryRealRealation(String companyName, Integer degree);
+
+    /**
      * 公司舆情
      * @param companyName
      * @return
