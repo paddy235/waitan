@@ -94,11 +94,9 @@ public class OfflineFinanceController {
             if (StringUtils.isEmpty(companyName)) {
                 ResponseBean.successResponse("companyName参数为空");
             }
-            if (StringUtils.isEmpty(dataVersion)) {
-                List<String> dataVersionList = relationDataService.queryDateVersion(companyName, null);
-                if (!CollectionUtils.isEmpty(dataVersionList)) {
-                    dataVersion = dataVersionList.get(0);
-                }
+            List<String> dataVersionList = relationDataService.queryDateVersion(companyName, null);
+            if (!CollectionUtils.isEmpty(dataVersionList)) {
+                dataVersion = dataVersionList.get(0);
             }
             return ResponseBean.successResponse(offlineFinanceService.queryRelation(companyName, dataVersion, degreesLevel));
         } catch (Exception e) {
