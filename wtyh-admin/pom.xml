@@ -29,7 +29,7 @@
                         <directory>src/main/resources</directory>
                         <filtering>true</filtering>
                         <excludes>
-                            <exclude>config/online.properties</exclude>
+                            <exclude>config/dev.properties</exclude>
                         </excludes>
                     </resource>
                 </resources>

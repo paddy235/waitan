@@ -47,6 +47,14 @@ public class Constants {
 	public static String shareDir;//分享附件文件夹
 	public static String mappingPath;//附件文件夹映射到服务器的目录
 	public static String attDir = "att";//
+
+	/**
+	 * 网贷之家众筹api数据类型
+	 */
+	public static final String CROWD_DISTRIBUTE = "2";
+	public static final String CROWD_NEWLY_PROJECT = "3";
+	public static final String CROWD_NEWLY_AMOUNT = "4";
+	public static final String CROWD_NEWLY_PEOPLE = "5";
 	// 系统自带的方法，所有人都有此功能
 	public static Map<String, String> SystemActionMethod = new HashMap<String, String>();
 	

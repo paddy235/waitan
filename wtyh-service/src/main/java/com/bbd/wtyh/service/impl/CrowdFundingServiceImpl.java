@@ -1,7 +1,10 @@
 package com.bbd.wtyh.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
+import com.bbd.wtyh.dao.CrowdFundingDao;
+import com.bbd.wtyh.domain.wangDaiAPI.CrowdFundingStatisticsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,12 +27,15 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
 	
 	@Autowired
 	private CrowdFundingBusinessStatisticsMapper cfbsMapper;
-	
+
 	@Autowired
 	private CrowdFundingStatisticsMapper cfsMapper;
-	
+
 	@Autowired
 	private CrowdFundingCompanyMapper cfcMapper;
+
+	@Autowired
+	private CrowdFundingDao crowdFundingDao;
 	
 
 	@Override
@@ -38,15 +44,15 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
 	}
 
 	@Override
-	public List<CrowdFundingStatisticsDO> lastMonthType() {
-		return cfsMapper.lastMonthType();
+	public Map<String, String> lastMonthType(String dataType) {
+		return crowdFundingDao.lastMonthType(dataType);
 	}
 
 	
 
 	@Override
 	public List<CrowdFundingCompanyDO> allCompanys() {
-		return cfcMapper.allCompanys();
+		return crowdFundingDao.allCompanys();
 	}
 
 	@Override

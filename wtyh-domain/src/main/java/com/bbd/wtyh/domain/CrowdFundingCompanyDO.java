@@ -1,35 +1,27 @@
 package com.bbd.wtyh.domain;
 
+import com.google.gson.annotations.SerializedName;
 import org.springframework.util.StringUtils;
 
-public class CrowdFundingCompanyDO extends BaseDO {
+import java.io.Serializable;
 
-    private Integer companyId;
+public class CrowdFundingCompanyDO extends BaseDO implements Serializable {
+    @SerializedName("company_name")
     private String  companyName;          //公司名称
+    @SerializedName("operation_address")
     private String  address;              //营业地址
+    @SerializedName("registration_address")
     private String  areaName;             //注册地
+    @SerializedName("website_url")
     private String  websiteUrl;           //网址
+    @SerializedName("platform_name")
     private String  platformName;         //平台名称
-    private String  fundingBusinessType;  //业务类型;
-    private Integer successNumber;        //成功项目数
-    private Float   fundedAmout;          //已筹基金	
+    @SerializedName("success_number")
+    private String successNumber;        //成功项目数
+    @SerializedName("funded_amout")
+    private String   fundedAmout;          //已筹基金
+    @SerializedName("funding_business_type")
     private String  fundingBusinessTypeCN;//业务类型;
-
-    public String getFundingBusinessTypeCN() {
-
-        if (fundingBusinessType == null) {
-            return "";
-        }
-
-        fundingBusinessTypeCN = "1".equals(fundingBusinessType) ? "公益型"
-            : "2".equals(fundingBusinessType) ? "综合型" : "3".equals(fundingBusinessType) ? "权益型" : "4".equals(fundingBusinessType) ? "股权型" : "汽车型";
-
-        return fundingBusinessTypeCN;
-    }
-
-    public void setFundingBusinessTypeCN(String fundingBusinessTypeCN) {
-        this.fundingBusinessTypeCN = fundingBusinessTypeCN;
-    }
 
     public String getCompanyName() {
         return companyName;
@@ -40,7 +32,7 @@ public class CrowdFundingCompanyDO extends BaseDO {
     }
 
     public String getAddress() {
-        return StringUtils.hasText(address) ? address : null;
+        return address;
     }
 
     public void setAddress(String address) {
@@ -55,12 +47,12 @@ public class CrowdFundingCompanyDO extends BaseDO {
         this.areaName = areaName;
     }
 
-    public Integer getCompanyId() {
-        return companyId;
+    public String getWebsiteUrl() {
+        return websiteUrl;
     }
 
-    public void setCompanyId(Integer companyId) {
-        this.companyId = companyId;
+    public void setWebsiteUrl(String websiteUrl) {
+        this.websiteUrl = websiteUrl;
     }
 
     public String getPlatformName() {
@@ -68,38 +60,30 @@ public class CrowdFundingCompanyDO extends BaseDO {
     }
 
     public void setPlatformName(String platformName) {
-        this.platformName = platformName == null ? null : platformName.trim();
+        this.platformName = platformName;
     }
 
-    public String getWebsiteUrl() {
-        return websiteUrl;
-    }
-
-    public void setWebsiteUrl(String websiteUrl) {
-        this.websiteUrl = websiteUrl == null ? null : websiteUrl.trim();
-    }
-
-    public String getFundingBusinessType() {
-        return fundingBusinessType;
-    }
-
-    public void setFundingBusinessType(String fundingBusinessType) {
-        this.fundingBusinessType = fundingBusinessType == null ? null : fundingBusinessType.trim();
-    }
-
-    public Integer getSuccessNumber() {
+    public String getSuccessNumber() {
         return successNumber;
     }
 
-    public void setSuccessNumber(Integer successNumber) {
+    public void setSuccessNumber(String successNumber) {
         this.successNumber = successNumber;
     }
 
-    public Float getFundedAmout() {
+    public String getFundedAmout() {
         return fundedAmout;
     }
 
-    public void setFundedAmout(Float fundedAmout) {
+    public void setFundedAmout(String fundedAmout) {
         this.fundedAmout = fundedAmout;
+    }
+
+    public String getFundingBusinessTypeCN() {
+        return fundingBusinessTypeCN;
+    }
+
+    public void setFundingBusinessTypeCN(String fundingBusinessTypeCN) {
+        this.fundingBusinessTypeCN = fundingBusinessTypeCN;
     }
 }

@@ -32,15 +32,15 @@
                         <directory>src/main/resources</directory>
                         <filtering>true</filtering>
                         <excludes>
-                            <exclude>config/online.properties</exclude>
+                            <exclude>config/dev.properties</exclude>
                         </excludes>
                     </resource>
                 </resources>
             </build>
         </profile>
-        <!--上线环境-->
+        <!--上线环境 成都-->
         <profile>
-            <id>online</id>
+            <id>online_cd</id>
             <!-- 默认 -->
             <activation>
                 <activeByDefault>false</activeByDefault>
@@ -48,14 +48,36 @@
             <build>
 
                 <filters>
-                    <filter>src/main/resources/config/online.properties</filter>
+                    <filter>src/main/resources/config/online_cd.properties</filter>
                 </filters>
                 <resources>
                     <resource>
                         <directory>src/main/resources</directory>
                         <filtering>true</filtering>
                         <excludes>
-                            <exclude>config/dev.properties</exclude>
+                            <exclude>config/online_cd.properties</exclude>
+                        </excludes>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+        <!--上线环境 上海-->
+        <profile>
+            <id>online_sh</id>
+            <!-- 默认 -->
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <filters>
+                    <filter>src/main/resources/config/online_sh.properties</filter>
+                </filters>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <filtering>true</filtering>
+                        <excludes>
+                            <exclude>config/online_sh.properties</exclude>
                         </excludes>
                     </resource>
                 </resources>

@@ -1,9 +1,12 @@
 package com.bbd.wtyh.web.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
-import com.bbd.wtyh.util.CalculateUtils;
+import com.bbd.wtyh.common.Constants;
+import com.bbd.wtyh.domain.wangDaiAPI.CrowdFundingStatisticsDTO;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.bbd.wtyh.domain.CrowdFundingCompanyDO;
-import com.bbd.wtyh.domain.CrowdFundingStatisticsDO;
-import com.bbd.wtyh.domain.NvDO;
 import com.bbd.wtyh.service.CrowdFundingService;
 import com.bbd.wtyh.web.HistogramBean;
 import com.bbd.wtyh.web.PieChartBean;
@@ -48,23 +49,17 @@ public class CrowdFundingController {
 		
 		
 		PieChartBean<String, NameValuePair> p = new PieChartBean<>();
+
+		Map<String, String> map = crowdFundingSer.lastMonthType(Constants.CROWD_DISTRIBUTE);
 		
-		List<NvDO> cfbs = crowdFundingSer.lastMonthData();
-		
-		if(CollectionUtils.isEmpty(cfbs)){
+		if(map == null){
 			return ResponseBean.successResponse(p);
 		}
-		
-		
-		for (NvDO nvDO : cfbs) {
-			String name = nvDO.getName();
-			name = "1".equals(nvDO.getName())?"公益型":"2".equals(name)?"综合型":"3".equals(name)?"权益型":"4".equals(name)?"股权型":"汽车型";
-			p.getLegend().add(name);
-			p.getSeries().add(new BasicNameValuePair(name , ""+nvDO.getValue()  ));
-			
+		for (String key : map.keySet()) {
+			p.getLegend().add(key);
+			p.getSeries().add(new BasicNameValuePair(key , "" + map.get(key)  ));
 		}
-		
-		
+
 		return ResponseBean.successResponse(p);
 	}
 	
@@ -80,18 +75,19 @@ public class CrowdFundingController {
 	@ResponseBody
 	public ResponseBean newlyProject(){
 		
-		HistogramBean<String, Integer> hb = new HistogramBean<>();
+		HistogramBean<String, String> hb = new HistogramBean<>();
+
+		Map<String, String> map = crowdFundingSer.lastMonthType(Constants.CROWD_NEWLY_PROJECT);
 		
-		List<CrowdFundingStatisticsDO> list = crowdFundingSer.lastMonthType();
-		
-		if(CollectionUtils.isEmpty(list)){
+		if(map == null){
 			return ResponseBean.successResponse(hb);
 		}
-		hb.setTitle(list.get(0).getMonth()+"月上海各类众筹平台新增项目数");
-		for (CrowdFundingStatisticsDO bean : list) {
-			hb.getxAxis().add(bean.getTypeCN());
-			hb.getseries().add(bean.getProjectNumber());
+		hb.setTitle(Calendar.MONTH+"月上海各类众筹平台新增项目数");
+		for (String key : map.keySet()) {
+			hb.getxAxis().add(key);
+			hb.getseries().add(map.get(key));
 		}
+
 		return ResponseBean.successResponse(hb);
 	}
 	
@@ -107,19 +103,19 @@ public class CrowdFundingController {
 	@ResponseBody
 	public ResponseBean newlyPeople(){
 		
-		HistogramBean<String, Float> hb = new HistogramBean<>();
+		HistogramBean<String, String> hb = new HistogramBean<>();
+
+		Map<String, String> map = crowdFundingSer.lastMonthType(Constants.CROWD_NEWLY_PEOPLE);
 		
-		List<CrowdFundingStatisticsDO> list = crowdFundingSer.lastMonthType();
-		
-		if(CollectionUtils.isEmpty(list)){
+		if(map == null){
 			return ResponseBean.successResponse(hb);
 		}
-		hb.setTitle(list.get(0).getMonth()+"月上海各类众筹平台新增项目投资人次");
-		for (CrowdFundingStatisticsDO bean : list) {
-			hb.getxAxis().add(bean.getTypeCN());
-			hb.getseries().add(bean.getPeopleNumber());
-		}
+		hb.setTitle(Calendar.MONTH+"月上海各类众筹平台新增项目投资人次");
 
+		for (String key : map.keySet()) {
+			hb.getxAxis().add(key);
+			hb.getseries().add(map.get(key));
+		}
 
 		return ResponseBean.successResponse(hb);
 	}
@@ -135,18 +131,20 @@ public class CrowdFundingController {
 	@ResponseBody
 	public ResponseBean newlyAmount(){
 		
-		HistogramBean<String, Float> hb = new HistogramBean<>();
+		HistogramBean<String, String> hb = new HistogramBean<>();
+
+		Map<String, String> map = crowdFundingSer.lastMonthType(Constants.CROWD_NEWLY_AMOUNT);
 		
-		List<CrowdFundingStatisticsDO> list = crowdFundingSer.lastMonthType();
-		
-		if(CollectionUtils.isEmpty(list)){
+		if(map == null){
 			return ResponseBean.successResponse(hb);
 		}
-		hb.setTitle(list.get(0).getMonth()+"月上海各类众筹平台新增项目数的成功筹资金额");
-		for (CrowdFundingStatisticsDO bean : list) {
-			hb.getxAxis().add(bean.getTypeCN());
-			hb.getseries().add(bean.getAmount());
+		hb.setTitle(Calendar.MONTH+"月上海各类众筹平台新增项目数的成功筹资金额");
+
+		for (String key : map.keySet()) {
+			hb.getxAxis().add(key);
+			hb.getseries().add(map.get(key));
 		}
+
 		return ResponseBean.successResponse(hb);
 	}
 	
