@@ -127,24 +127,28 @@ public class HologramQueryServiceImpl implements HologramQueryService {
         BaseDataDO baseDataDO = hologramQueryDao.businessInfo(companyName);
         Map<String, Object> data = new HashMap<>();
         ZuZhiJiGoudmDO zuZhiJiGoudmDO = hologramQueryDao.baseInfoZuZhiJiGou(companyName);
-        for (ZuZhiJiGoudmDO.Result result : zuZhiJiGoudmDO.getResults()) {
-            data.put("组织机构代码", result.getJgdm());
+        if (zuZhiJiGoudmDO != null) {
+            for (ZuZhiJiGoudmDO.Result result : zuZhiJiGoudmDO.getResults()) {
+                data.put("组织机构代码", result.getJgdm());
+            }
         }
-        for (BaseDataDO.Results result : baseDataDO.getResults()) {
-            data.put("法定代表人", result.getJbxx().getFrname());
-            data.put("注册资本", result.getJbxx().getRegcap());
-            data.put("状态", result.getJbxx().getEnterprise_status());
-            data.put("注册时间", result.getJbxx().getEsdate());
-            data.put("工商注册号", result.getJbxx().getRegno());
-            data.put("企业类型", result.getJbxx().getCompany_type());
-            data.put("营业期限", result.getJbxx().getOperating_period());
-            data.put("登记机关", result.getJbxx().getRegorg());
-            data.put("核准日期", result.getJbxx().getApproval_date());
-            data.put("统一信用代码", result.getJbxx().getCredit_code());
-            data.put("经营范围", result.getJbxx().getOperate_scope());
-            for (IndustryCodeDO in : IndustryCodeDO.values()) {
-                if (String.valueOf(in).equals(String.valueOf(result.getJbxx().getCompany_industry()))) {
-                    data.put("行业", in.getValue());
+        if (baseDataDO != null) {
+            for (BaseDataDO.Results result : baseDataDO.getResults()) {
+                data.put("法定代表人", result.getJbxx().getFrname());
+                data.put("注册资本", result.getJbxx().getRegcap());
+                data.put("状态", result.getJbxx().getEnterprise_status());
+                data.put("注册时间", result.getJbxx().getEsdate());
+                data.put("工商注册号", result.getJbxx().getRegno());
+                data.put("企业类型", result.getJbxx().getCompany_type());
+                data.put("营业期限", result.getJbxx().getOperating_period());
+                data.put("登记机关", result.getJbxx().getRegorg());
+                data.put("核准日期", result.getJbxx().getApproval_date());
+                data.put("统一信用代码", result.getJbxx().getCredit_code());
+                data.put("经营范围", result.getJbxx().getOperate_scope());
+                for (IndustryCodeDO in : IndustryCodeDO.values()) {
+                    if (String.valueOf(in).equals(String.valueOf(result.getJbxx().getCompany_industry()))) {
+                        data.put("行业", in.getValue());
+                    }
                 }
             }
         }
