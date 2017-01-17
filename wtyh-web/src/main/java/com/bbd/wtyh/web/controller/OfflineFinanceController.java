@@ -99,10 +99,16 @@ public class OfflineFinanceController {
             if (StringUtils.isEmpty(companyName)) {
                 ResponseBean.successResponse("companyName参数为空");
             }
-            List<String> dataVersionList = relationDataService.queryDateVersion(companyName, null);
-            if (!CollectionUtils.isEmpty(dataVersionList)) {
-                dataVersion = dataVersionList.get(0);
+
+            if (StringUtils.isEmpty(dataVersion)) {
+                List<String> dataVersionList = relationDataService.queryDateVersion(companyName, null);
+                if (!CollectionUtils.isEmpty(dataVersionList)) {
+                    dataVersion = dataVersionList.get(0);
+                }
+            } else {
+                dataVersion = getDataVersionString(companyName, dataVersion);
             }
+
             RelationDiagramVO result = offlineFinanceService.queryRelation(companyName, dataVersion, degreesLevel);
             if (result == null) {
                 logger.error("无关联方图谱信息 --> 公司[" + companyName
@@ -178,10 +184,6 @@ public class OfflineFinanceController {
 
         return map;
     }
-
-
-
-
 
     /**
      * 静态风险指数列表
@@ -378,7 +380,7 @@ public class OfflineFinanceController {
     }
 
     /**
-     * @param dataVersionString
+     * @param dataVersionString 格式yyyy-MM
      * @return
      */
     public String getDataVersionString(String companyName, String dataVersionString) {
@@ -388,7 +390,6 @@ public class OfflineFinanceController {
         String dataVersion = relationDataService.queryDateVersionByMonth(companyName, dataVersionString);
         return dataVersion;
     }
-
 
     /**
      * 行业监测
