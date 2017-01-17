@@ -201,6 +201,7 @@ public class BaseDataDO implements Serializable{
     public static class Jbxx implements Serializable {
         private String credit_code;
         private String _id;
+        private String bbd_qyxx_id;
         private String regno_or_creditcode;
         private String regno;
         private String company_gis_lon;
@@ -246,6 +247,14 @@ public class BaseDataDO implements Serializable{
 
         public void set_id(String _id) {
             this._id = _id;
+        }
+
+        public String getBbd_qyxx_id() {
+            return bbd_qyxx_id;
+        }
+
+        public void setBbd_qyxx_id(String bbd_qyxx_id) {
+            this.bbd_qyxx_id = bbd_qyxx_id;
         }
 
         public String getRegno_or_creditcode() {
