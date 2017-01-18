@@ -15,6 +15,8 @@ import com.bbd.wtyh.mapper.CrowdFundingBusinessStatisticsMapper;
 import com.bbd.wtyh.mapper.CrowdFundingCompanyMapper;
 import com.bbd.wtyh.mapper.CrowdFundingStatisticsMapper;
 import com.bbd.wtyh.service.CrowdFundingService;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 /**
 * 
@@ -52,7 +54,19 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
 
 	@Override
 	public List<CrowdFundingCompanyDO> allCompanys() {
-		return crowdFundingDao.allCompanys();
+		List<CrowdFundingCompanyDO> list = crowdFundingDao.allCompanys();
+		if (!CollectionUtils.isEmpty(list)) {
+			for (CrowdFundingCompanyDO crowdFundingCompanyDO : list) {
+				String websiteUrl = crowdFundingCompanyDO.getWebsiteUrl();
+				if (StringUtils.isEmpty(websiteUrl)) {
+					continue;
+				}
+				if (!websiteUrl.contains("http://")) {
+					crowdFundingCompanyDO.setWebsiteUrl("http://" + websiteUrl);
+				}
+			}
+		}
+		return list;
 	}
 
 	@Override
