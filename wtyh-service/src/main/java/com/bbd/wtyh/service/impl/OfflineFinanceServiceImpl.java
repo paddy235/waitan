@@ -301,6 +301,8 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
                     backgroudString = "国企";
                 } else if (back == 4) {
                     backgroudString = "民营企业";
+                } else if (back == 5){
+                    backgroudString = "外资企业";
                 } else {
                     //do nothing
                 }
