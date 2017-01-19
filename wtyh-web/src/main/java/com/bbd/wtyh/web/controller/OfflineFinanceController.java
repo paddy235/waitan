@@ -12,8 +12,10 @@ import com.bbd.wtyh.service.*;
 import com.bbd.wtyh.util.CalculateUtils;
 import com.bbd.wtyh.web.*;
 import com.bbd.wtyh.web.relationVO.RelationDiagramVO;
+import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import org.apache.commons.collections.map.HashedMap;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.poi.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -224,6 +226,7 @@ public class OfflineFinanceController {
         try {
             return ResponseBean.successResponse(offlineFinanceService.createYED(companyName, month));
         } catch (Exception e) {
+            logger.error("生成关联方图片", "无关联方数据", companyName, month);
             return ResponseBean.errorResponse(e.getMessage());
         }
 

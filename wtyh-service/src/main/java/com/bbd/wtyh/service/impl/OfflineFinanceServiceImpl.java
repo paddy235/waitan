@@ -905,7 +905,9 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 
     public String createOriginYED(String companyName,String attDirectory,String month) throws Exception
     {
-        List<List<Object>> data =  registerUniversalFilterChainImp.HierarchicalFuzzySearchDataJTTP(companyName,month,3);
+
+        RelationDTO relationDTO = offlineFinanceDao.queryRealation(companyName, month);
+        List<List<Object>> data = convertRelationDTO(relationDTO);
         if(data.size()==0)
         {
             throw new BbdException(companyName + "：对不起，您搜索的公司关联方数据正在分析更新中，暂时无法提供信息，请稍后再试。",true);
@@ -925,6 +927,22 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
             return null;
         }
 
+    }
+
+    private List<List<Object>> convertRelationDTO(RelationDTO relationDTO) {
+        //原字符串数据 0列 投资方 1列 被投资方 2列 职位 3列 投资方度数 4列 被投资方度数 5列 线条 0 虚线 1 实线
+        //        *            6列 关系 0 公司 1 人
+        return Lists.transform(relationDTO.getResults(), (RelationDTO.Result result) -> {
+            List<Object> list = Lists.newArrayList();
+            list.add(result.getInvestor());
+            list.add(result.getInvestee());
+            list.add(result.getType());
+            list.add(result.getInvestor_degree());
+            list.add(result.getInvestee_degree());
+            list.add(result.getRelType());
+            list.add(result.getIsNatural());
+            return list;
+        });
     }
 
     @SuppressWarnings("rawtypes")
