@@ -50343,7 +50343,7 @@
 	                    };
 	                })
 	            }, { //圆点shanghai
-	                name: "",
+	                name: '',
 	                type: 'effectScatter',
 	                coordinateSystem: 'geo',
 	                zlevel: 10,
@@ -82390,8 +82390,10 @@
 	        var content = data.content;
 	        var backgroud = content.backgroud;
 	        var analysisResult = content.analysisResult;
+	        var status = content.status;
 
 	        backgroud.push(analysisResult);
+	        backgroud.push(status);
 	        this.setState({ companyTag: backgroud });
 	    },
 	    dataFomatCompanyType: function dataFomatCompanyType(data) {
@@ -82449,6 +82451,7 @@
 	                    'div',
 	                    { className: 'company-tag' },
 	                    this.state.companyTag.map(function (item, index) {
+	                        console.log(item, 11);
 	                        var tag = "";
 	                        if (item == "存续") {
 	                            tag = _react2.default.createElement(
@@ -82456,7 +82459,7 @@
 	                                { className: 'bg-blue' },
 	                                item
 	                            );
-	                        } else if (item == "国企" || item == "民营企业") {
+	                        } else if (item == "国企" || item == "民营企业" || item == "外资企业") {
 	                            tag = _react2.default.createElement(
 	                                'span',
 	                                { className: 'bg-red' },
