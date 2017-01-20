@@ -15,21 +15,21 @@
     <profiles>
         <!--开发环境-->
         <profile>
-            <id>dev</id>
+            <id>dev_admin</id>
             <!-- 默认 -->
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <build>
                 <filters>
-                    <filter>src/main/resources/config/dev.properties</filter>
+                    <filter>src/main/resources/config/dev_admin.properties</filter>
                 </filters>
                 <resources>
                     <resource>
                         <directory>src/main/resources</directory>
                         <filtering>true</filtering>
                         <excludes>
-                            <exclude>config/dev.properties</exclude>
+                            <exclude>config/dev_admin.properties</exclude>
                         </excludes>
                     </resource>
                 </resources>
@@ -37,21 +37,21 @@
         </profile>
         <!--上线环境-->
         <profile>
-            <id>online</id>
+            <id>online_admin</id>
             <!-- 默认 -->
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
             <build>
                 <filters>
-                    <filter>src/main/resources/config/online.properties</filter>
+                    <filter>src/main/resources/config/online_admin.properties</filter>
                 </filters>
                 <resources>
                     <resource>
                         <directory>src/main/resources</directory>
                         <filtering>true</filtering>
                         <excludes>
-                            <exclude>config/dev.properties</exclude>
+                            <exclude>config/online_admin.properties</exclude>
                         </excludes>
                     </resource>
                 </resources>
