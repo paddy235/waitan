@@ -82643,7 +82643,6 @@
 
 	        companyPicRequest({
 	            "companyName": companyName,
-	            "dataVersion": "20160530",
 	            "degreesLevel": param
 	        });
 	    },
@@ -85802,7 +85801,7 @@
 	function companyPicRequest(json) {
 	  return function (dispatch) {
 	    (0, _ajax.ajax)({
-	      url: "/offlineFinance/queryDynamicPicData.do", //"/relativeGraph/json/queryRelationship1.json",
+	      url: "/offlineFinance/queryDynamicPicDataRealTime.do", //"/relativeGraph/json/queryRelationship1.json",
 	      dataType: "json",
 	      data: json,
 	      type: "GET",
