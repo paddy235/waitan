@@ -131,15 +131,15 @@ public class OfflineFinanceController {
      * 关联图谱 - 查询(用去全息公司不带版本号)
      *
      * @param companyName 公司name
-     * @param degree 关联度(默认1)
+     * @param degreesLevel 关联度(默认1)
      * @return
      */
     @RequestMapping(value = "/queryDynamicPicDataRealTime.do")
     @ResponseBody
     public ResponseBean queryDynamicPicDataTwo(@RequestParam String companyName,
-                                               @RequestParam(defaultValue = "1") Integer degree) {
+                                               @RequestParam(defaultValue = "1") Integer degreesLevel) {
         try {
-            RelationDiagramVO result = offlineFinanceService.queryRealRealation(companyName, degree);
+            RelationDiagramVO result = offlineFinanceService.queryRealRealation(companyName, degreesLevel);
             return ResponseBean.successResponse(result);
         } catch (Exception e) {
             logger.error("RelationController->queryDynamicPicDataTwo", e);
