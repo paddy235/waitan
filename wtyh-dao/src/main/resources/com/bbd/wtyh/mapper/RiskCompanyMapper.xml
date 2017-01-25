@@ -122,7 +122,7 @@
 	</select>
 	
 	<select id="getLastDataVersion" resultType="string">
-		select data_version from static_risk_data group by data_version order by data_version desc limit 1
+		select data_version as dataVersion from static_risk_data group by data_version order by data_version desc limit 1
 	</select>
 
 </mapper>
