@@ -242,6 +242,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
         String api = apiDataomNewsUrl+company;
         HttpTemplate httpTemplate = new HttpTemplate();
         BaiDuYuQingDO bdyqDO = null;
+        Gson gson = new Gson();
         try {
             bdyqDO = httpTemplate.get(api, new HttpCallback<BaiDuYuQingDO>() {
                 @Override
@@ -251,7 +252,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
 
                 @Override
                 public BaiDuYuQingDO parse(String result) {
-                    return JSON.parseObject(result, BaiDuYuQingDO.class);
+                    return gson.fromJson(result, BaiDuYuQingDO.class);
                 }
 
 

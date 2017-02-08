@@ -1,5 +1,6 @@
 package com.bbd.wtyh.domain.bbdAPI;
 
+import com.google.gson.annotations.SerializedName;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class BaiDuYuQingDO {
         private String news_title;
         private String news_site;
         private String pubdate;
+        @SerializedName("abstract")
         private String content; // TODO 新闻内容
         private String main;
         private String bbd_url;
