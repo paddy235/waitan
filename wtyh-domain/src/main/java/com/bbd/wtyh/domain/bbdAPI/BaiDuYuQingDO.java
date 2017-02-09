@@ -43,16 +43,7 @@ public class BaiDuYuQingDO {
             this.bbd_type = bbd_type;
         }
 
-        public String getMain() {
-            if(!StringUtils.hasText(main) && StringUtils.hasText(content)){
-                return content;
-            }
-            return main;
-        }
 
-        public void setMain(String main) {
-            this.main = main;
-        }
 
         public String getNews_title() {
             return news_title;
@@ -79,15 +70,19 @@ public class BaiDuYuQingDO {
         }
 
         public String getContent() {
-
-            if(StringUtils.hasText(main) && !StringUtils.hasText(content)){
-                return main;
-            }
             return content;
         }
 
         public void setContent(String content) {
             this.content = content;
+        }
+
+        public String getMain() {
+            return main;
+        }
+
+        public void setMain(String main) {
+            this.main = main;
         }
     }
 
