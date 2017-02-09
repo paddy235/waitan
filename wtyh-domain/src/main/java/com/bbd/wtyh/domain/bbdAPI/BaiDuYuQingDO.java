@@ -1,5 +1,6 @@
 package com.bbd.wtyh.domain.bbdAPI;
 
+import com.google.gson.annotations.SerializedName;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class BaiDuYuQingDO {
         private String news_title;
         private String news_site;
         private String pubdate;
+        @SerializedName("abstract")
         private String content; // TODO 新闻内容
         private String main;
         private String bbd_url;
@@ -41,16 +43,7 @@ public class BaiDuYuQingDO {
             this.bbd_type = bbd_type;
         }
 
-        public String getMain() {
-            if(!StringUtils.hasText(main) && StringUtils.hasText(content)){
-                return content;
-            }
-            return main;
-        }
 
-        public void setMain(String main) {
-            this.main = main;
-        }
 
         public String getNews_title() {
             return news_title;
@@ -77,15 +70,19 @@ public class BaiDuYuQingDO {
         }
 
         public String getContent() {
-
-            if(StringUtils.hasText(main) && !StringUtils.hasText(content)){
-                return main;
-            }
             return content;
         }
 
         public void setContent(String content) {
             this.content = content;
+        }
+
+        public String getMain() {
+            return main;
+        }
+
+        public void setMain(String main) {
+            this.main = main;
         }
     }
 

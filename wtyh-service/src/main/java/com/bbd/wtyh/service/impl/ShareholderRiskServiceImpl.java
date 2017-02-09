@@ -145,6 +145,9 @@ public class ShareholderRiskServiceImpl implements ShareholderRiskService {
                 if (null == relatedCompany) {
                     continue;
                 }
+                if (null == relatedCompany.getCompanyType()) {
+                    continue;
+                }
                 if (relatedCompanyTypes.contains(relatedCompany.getCompanyType().intValue())) {
                     relatedCompanyMap.put(relatedCompany.getCompanyType().intValue(), new RelatedCompanyDTO(relatedCompany.getName(), relatedCompany.getRiskLevel()));
                 }
