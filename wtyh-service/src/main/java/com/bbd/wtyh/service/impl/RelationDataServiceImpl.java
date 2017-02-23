@@ -117,7 +117,7 @@ public class RelationDataServiceImpl implements RelationDataService {
 
         double p = 10 * (x + y) / 2;
         p = p * 100 / 15;
-        DecimalFormat df = new DecimalFormat("#.0");
+        DecimalFormat df = new DecimalFormat("#.0000");//数据平台用4位小数计算的动态风险指数，所以时序风险指数也先用4位小数计算 。 20170220-sunliming
         Double result = Double.parseDouble(df.format(p));
         if (result > 100) {
             result = 100.0;
@@ -144,7 +144,7 @@ public class RelationDataServiceImpl implements RelationDataService {
         if (x != 0) {
             double c = 4 * y / x;
             c = c * 100 / 15;
-            DecimalFormat df = new DecimalFormat("#.0");
+            DecimalFormat df = new DecimalFormat("#.0000");//数据平台用4位小数计算的动态风险指数，所以时序风险指数也先用4位小数计算 。 20170220-sunliming
             result = Double.parseDouble(df.format(c));
             if (result > 100) {
                 result = 100.0;
@@ -173,7 +173,7 @@ public class RelationDataServiceImpl implements RelationDataService {
             p = 15 * ((double) y - x) / x;
         }
         p = p * 100 / 15;
-        DecimalFormat df = new DecimalFormat("#.0");
+        DecimalFormat df = new DecimalFormat("#.0000");//数据平台用4位小数计算的动态风险指数，所以时序风险指数也先用4位小数计算 。 20170220-sunliming
         result = Double.parseDouble(df.format(p));
         if (result > 100) {
             result = 100.0;
@@ -207,7 +207,7 @@ public class RelationDataServiceImpl implements RelationDataService {
         if (x != 0) {
             double h = 15 * ((double) y - x) / x;
             h = h * 100 / 15;
-            DecimalFormat df = new DecimalFormat("#.0");
+            DecimalFormat df = new DecimalFormat("#.0000");//数据平台用4位小数计算的动态风险指数，所以时序风险指数也先用4位小数计算 。 20170220-sunliming
             result = Double.parseDouble(df.format(h));
             if (result > 100) {
                 result = 100.0;
@@ -235,7 +235,7 @@ public class RelationDataServiceImpl implements RelationDataService {
             c1 = 15 * ((double) y - x) / x;
         }
         c1 = c1 * 100 / 15;
-        DecimalFormat df = new DecimalFormat("#.0");
+        DecimalFormat df = new DecimalFormat("#.0000");//数据平台用4位小数计算的动态风险指数，所以时序风险指数也先用4位小数计算 。 20170220-sunliming
         result = Double.parseDouble(df.format(c1));
         if (result > 100) {
             result = 100.0;
@@ -264,7 +264,7 @@ public class RelationDataServiceImpl implements RelationDataService {
             w1 = 15 * ((double) y - x) / x;
         }
         w1 = w1 * 100 / 15;
-        DecimalFormat df = new DecimalFormat("#.0");
+        DecimalFormat df = new DecimalFormat("#.0000");//数据平台用4位小数计算的动态风险指数，所以时序风险指数也先用4位小数计算 。 20170220-sunliming
         result = Double.parseDouble(df.format(w1));
         if (result > 100) {
             result = 100.0;
@@ -303,7 +303,7 @@ public class RelationDataServiceImpl implements RelationDataService {
             k = 15 * ((double) y - x) / x;
         }
         k = k * 100 / 15;
-        DecimalFormat df = new DecimalFormat("#.0");
+        DecimalFormat df = new DecimalFormat("#.0000");//数据平台用4位小数计算的动态风险指数，所以时序风险指数也先用4位小数计算 。 20170220-sunliming
         Double result = Double.parseDouble(df.format(k));
         if (result > 100) {
             result = 100.0;
@@ -340,6 +340,7 @@ public class RelationDataServiceImpl implements RelationDataService {
     public DynamicRiskVO compareDynamicRisk(String companyName, String areaCode,
                                             String currentMonth, String compareMonth) {
         DecimalFormat fnum = new DecimalFormat("##0.00000");
+        DecimalFormat df = new DecimalFormat("#.0");//数据平台用4位小数计算的动态风险指数，所以时序风险指数也先用4位小数计算，再取1位小数显示 。 20170220-sunliming
         Map<String, Object> cur_params = new HashMap<String, Object>();
         //比较两个月份，将时间靠前的作为被比较方，时间靠后的作为比较方
         Date m1 = getMonthDate(currentMonth);
@@ -363,10 +364,10 @@ public class RelationDataServiceImpl implements RelationDataService {
             cpr = curDynamicRisk;
         }
         DynamicRiskVO vo = new DynamicRiskVO();
-        double bbdTimeRiskIndex = getbbdTimeRiskIndex(cur, cpr);
+        double bbdTimeRiskIndex = getbbdTimeRiskIndex(cur, cpr);//先用4位小数计算，再取1位小数显示 。 20170220-sunliming
         vo.setBbdTimeRiskIndex(bbdTimeRiskIndex);
         double steadyOperationRisk = getSteadyOperationRisk(cur, cpr);
-        vo.setSteadyOperationRisk(steadyOperationRisk);
+        vo.setSteadyOperationRisk(Double.parseDouble(df.format(steadyOperationRisk)));//先用4位小数计算，再取1位小数显示 。 20170220-sunliming
         vo.setCurPersonNum(cur.getPersonNum());
         vo.setCprPersonNum(cpr.getPersonNum());
         vo.setCurCompanyNum(cur.getCompanyNum());
@@ -374,7 +375,7 @@ public class RelationDataServiceImpl implements RelationDataService {
         vo.setCurSumNum(cur.getSumNum());
         vo.setCprSumNum(cpr.getSumNum());
         double coreCapitalOperationRisk = getCoreCapitalOperationRisk(cur, cpr);
-        vo.setCoreCapitalOperationRisk(coreCapitalOperationRisk);
+        vo.setCoreCapitalOperationRisk(Double.parseDouble(df.format(coreCapitalOperationRisk)));//先用4位小数计算，再取1位小数显示 。 20170220-sunliming
         String[] curCorePerLists = cur.getCorePerList().split("\\|");
         List<String> curCorePerList = new ArrayList<String>();
         Collections.addAll(curCorePerList, curCorePerLists);
@@ -392,7 +393,7 @@ public class RelationDataServiceImpl implements RelationDataService {
         Collections.addAll(cprControlNums, cprControlNum);
         vo.setCprControlNum(cprControlNums);
         double sustainableRisk = getsustainableRisk(cur, cpr);
-        vo.setSustainableRisk(sustainableRisk);
+        vo.setSustainableRisk(Double.parseDouble(df.format(sustainableRisk)));//先用4位小数计算，再取1位小数显示 。 20170220-sunliming
         vo.setCurAgreeActNum(cur.getAgreeActNum());
         vo.setCprAgreeActNum(cpr.getAgreeActNum());
 
@@ -409,7 +410,7 @@ public class RelationDataServiceImpl implements RelationDataService {
         Collections.addAll(cprAgreeComDets, cprAgreeComDet);
         vo.setCprAgreeComDet(cprAgreeComDets);
         double foamRisk = getfoamRisk(cur, cpr);
-        vo.setFoamRisk(foamRisk);
+        vo.setFoamRisk(Double.parseDouble(df.format(foamRisk)));//先用4位小数计算，再取1位小数显示 。 20170220-sunliming
         vo.setCurOneTwoComapnyNum(cur.getOneTwoCompanyNum());
         vo.setCprOneTwoComapnyNum(cpr.getOneTwoCompanyNum());
         Float curOneTwoCompanyProp = Float.parseFloat(fnum.format(cur.getOneTwoCompanyProp()));
@@ -419,7 +420,7 @@ public class RelationDataServiceImpl implements RelationDataService {
         vo.setCprOneTwoCompanyProp(
             Math.round(cprOneTwoCompanyProp * Constants.INT10000) / Constants.INT100); //2015年1月5日修改  占比变为百分比
         double pyramidSellingRisk = getPyramidSellingRisk(cur, cpr);
-        vo.setPyramidSellingRisk(pyramidSellingRisk);
+        vo.setPyramidSellingRisk(Double.parseDouble(df.format(pyramidSellingRisk)));//先用4位小数计算，再取1位小数显示 。 20170220-sunliming
         vo.setCurThreePersonNum(cur.getThreePersonNum());
         vo.setCprThreePersonNum(cpr.getThreePersonNum());
         Float curThreePersonProp = Float.parseFloat(fnum.format(cur.getThreePersonProp()));
@@ -429,7 +430,7 @@ public class RelationDataServiceImpl implements RelationDataService {
         vo.setCprThreePersonProp(
             Math.round(cprThreePersonProp * Constants.INT10000) / Constants.INT100); //2015年1月5日修改  占比变为百分比
         double IllegalFundRaisingRisk = getIllegalFundRaisingRisk(cur, cpr);
-        vo.setIllegalFundRaisingRisk(IllegalFundRaisingRisk);
+        vo.setIllegalFundRaisingRisk(Double.parseDouble(df.format(IllegalFundRaisingRisk)));//先用4位小数计算，再取1位小数显示 。 20170220-sunliming
         vo.setCurTypeSumNum(cur.getTypeSumNum());
         vo.setCprTypeSumNum(cpr.getTypeSumNum());
         Float curTypeSumProp = Float.parseFloat(fnum.format(cur.getTypeSumProp()));
@@ -445,7 +446,7 @@ public class RelationDataServiceImpl implements RelationDataService {
         Collections.addAll(cprCompanyDetails, cprCompanyDetail);
         vo.setCprCompanyDetail(cprCompanyDetails);
         double steadyStateOperationRisk = getSteadyStateOperationRisk(cur, cpr);
-        vo.setSteadyStateOperationRisk(steadyStateOperationRisk);
+        vo.setSteadyStateOperationRisk(Double.parseDouble(df.format(steadyStateOperationRisk)));//先用4位小数计算，再取1位小数显示 。 20170220-sunliming
         String[] curAreaList = cur.getAreaList().split("\\|");
         List<String> curAreaLists = new ArrayList<String>();
         Collections.addAll(curAreaLists, curAreaList);
