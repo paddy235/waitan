@@ -71,24 +71,24 @@
                 if(transform=='none' || -num*spanHei != parseInt(transform.split(",")[5], 10)){
                     if(setting.iniAnimate){
                         //HTML5不支持
-                        if(!window.applicationCache){
+                        //if(!window.applicationCache){
                             $(this).animate({
                                 top : thisTop
                             }, setting.speed);
-                        }else{
-                           $(this).css({
-                                'transform':'translateY('+thisTop+')',
-                                '-ms-transform':'translateY('+thisTop+')',     /* IE 9 */
-                                '-moz-transform':'translateY('+thisTop+')',    /* Firefox */
-                                '-webkit-transform':'translateY('+thisTop+')', /* Safari 和 Chrome */
-                                '-o-transform':'translateY('+thisTop+')',
-                                '-ms-transition':setting.speed/1000+'s',
-                                '-moz-transition':setting.speed/1000+'s',
-                                '-webkit-transition':setting.speed/1000+'s',
-                                '-o-transition':setting.speed/1000+'s',
-                                'transition':setting.speed/1000+'s'
-                            }); 
-                        }
+                        // }else{
+                        //    $(this).css({
+                        //         'transform':'translateY('+thisTop+')',
+                        //         '-ms-transform':'translateY('+thisTop+')',     /* IE 9 */
+                        //         '-moz-transform':'translateY('+thisTop+')',    /* Firefox */
+                        //         '-webkit-transform':'translateY('+thisTop+')', /* Safari 和 Chrome */
+                        //         '-o-transform':'translateY('+thisTop+')',
+                        //         '-ms-transition':setting.speed/1000+'s',
+                        //         '-moz-transition':setting.speed/1000+'s',
+                        //         '-webkit-transition':setting.speed/1000+'s',
+                        //         '-o-transition':setting.speed/1000+'s',
+                        //         'transition':setting.speed/1000+'s'
+                        //     }); 
+                        // }
                     }else{
                         setting.iniAnimate = true;
                         $(this).css({

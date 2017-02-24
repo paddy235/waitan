@@ -1,6 +1,7 @@
 /* Copyright (c) 2012, 2014 Hyeonje Alex Jun and other contributors
  * Licensed under the MIT License
  */
+ //修改以满足横向滚动是头部滚动 竖着滚动是固定头部  搜索 xuyao 找到修改的地方
 (function(factory) {
 	'use strict';
 
@@ -144,7 +145,7 @@
 
 				var scrollLeft = parseInt(scrollbarXLeft * (contentWidth - containerWidth) / (containerWidth - scrollbarXWidth), 10);
 				$this.scrollLeft(scrollLeft);
-				$thisTitle.scrollLeft(scrollLeft);//修改以满足横向滚动是头部滚动 竖着滚动是固定头部
+				$thisTitle.scrollLeft(scrollLeft);//xuyao 修改以满足横向滚动是头部滚动 竖着滚动是固定头部
 
 				if (isScrollbarYUsingRight) {
 					$scrollbarYRail.css({
@@ -483,7 +484,7 @@
 					} else if (positionRatio > 1) {
 						positionRatio = 1;
 					}
-                    $thisTitle.scrollLeft((contentWidth - containerWidth) * positionRatio);//修改以满足横向滚动是头部滚动 竖着滚动是固定头部
+                    $thisTitle.scrollLeft((contentWidth - containerWidth) * positionRatio);//xuyao 修改以满足横向滚动是头部滚动 竖着滚动是固定头部
 					$this.scrollLeft((contentWidth - containerWidth) * positionRatio);
 					
 				});

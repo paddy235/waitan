@@ -37,7 +37,7 @@ var BOSS = {
 	 * len 目标字节长度
 	 * 返回值： 处理结果字符串
 	 */
-	 cutString:function(str, len) {
+	cutString: function(str, len) {
 		//length属性读出来的汉字长度为1
 		if (str.length * 2 <= len) {
 			return str;
@@ -60,10 +60,11 @@ var BOSS = {
 		}
 		return s;
 	},
-	getQueryString:function(name) {
-    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-    var r = window.location.search.substr(1).match(reg);
-    if (r != null) return unescape(r[2]); return null;
-    }
+	getQueryString: function(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null) return unescape(r[2]);
+		return null;
+	}
 
 }

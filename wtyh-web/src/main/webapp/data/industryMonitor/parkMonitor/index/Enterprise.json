@@ -1,0 +1,48 @@
+{
+    "success": true,
+    "content": [
+        {
+            "id": null,
+            "createBy": "data-importer",
+            "createDate": 1470499200000,
+            "updateBy": null,
+            "updateDate": null,
+            "companyId": 725,
+            "name": "工商银行股份有限公司上海浦东分行",
+            "legalPerson": null,
+            "areaId": null,
+            "address": null,
+            "registeredCapital": null,
+            "registeredDate": null,
+            "companyType": 7,
+            "comTypeCN": "金融",
+            "products": null,
+            "status": null,
+            "background": 4,
+            "backgroundCN": "民营企业",
+            "registeredType": null
+        },
+        {
+            "id": null,
+            "createBy": "data-importer",
+            "createDate": 1470499200000,
+            "updateBy": null,
+            "updateDate": null,
+            "companyId": 725,
+            "name": "工商银行股份有限公司上海浦东分行",
+            "legalPerson": null,
+            "areaId": null,
+            "address": null,
+            "registeredCapital": null,
+            "registeredDate": null,
+            "companyType": 7,
+            "comTypeCN": "金融",
+            "products": null,
+            "status": null,
+            "background": 3,
+            "backgroundCN": "国企",
+            "registeredType": null
+        }
+    ],
+    "msg": ""
+}

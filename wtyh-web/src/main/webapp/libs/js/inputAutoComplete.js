@@ -180,7 +180,6 @@
 			var acClass = this.autoParam.acClass;
 			var $element = $(this.element);
 			var $resultLi = $('.' + acClass).find('ul li');
-			// $resultLi.each(function() {
 			$('.' + acClass).find('ul li').unbind('click').on('click', function() {
 				var key = $(this).data('key');
 				var keyCompany = $(this).data('company'); //公司

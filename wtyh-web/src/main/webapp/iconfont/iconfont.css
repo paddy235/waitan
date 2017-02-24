@@ -1,10 +1,10 @@
 
 @font-face {font-family: "iconfont";
-  src: url('iconfont.eot?t=1472543917'); /* IE9*/
-  src: url('iconfont.eot?t=1472543917#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('iconfont.woff?t=1472543917') format('woff'), /* chrome, firefox */
-  url('iconfont.ttf?t=1472543917') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-  url('iconfont.svg?t=1472543917#iconfont') format('svg'); /* iOS 4.1- */
+  src: url('iconfont.eot?t=1472460720'); /* IE9*/
+  src: url('iconfont.eot?t=1472460720#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('iconfont.woff?t=1472460720') format('woff'), /* chrome, firefox */
+  url('iconfont.ttf?t=1472460720') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('iconfont.svg?t=1472460720#iconfont') format('svg'); /* iOS 4.1- */
 }
 
 .iconfont {
@@ -21,7 +21,6 @@
 .icon-desc:before { content: "\e605"; }
 .icon-jianLeft:before { content: "\e607"; }
 .icon-xiangshang:before { content: "\e612"; }
-.icon-password:before { content: "\e623"; }
 .icon-iconrisk:before { content: "\e61e"; }
 .icon-jia:before { content: "\e614"; }
 .icon-search:before { content: "\e603"; }

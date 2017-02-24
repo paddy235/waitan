@@ -1,0 +1,52 @@
+{
+    "success": true,
+    "content": [
+        {
+            "type": "类金融",
+            "count": 60,
+            "children": [
+                {
+                    "type": "p2p",
+                    "count": 181,
+                    "children": null
+                },
+                {
+                    "type": "小额贷款",
+                    "count": 199,
+                    "children": null
+                },
+                {
+                    "type": "融资担保",
+                    "count": 123,
+                    "children": null
+                },
+                {
+                    "type": "线下理财",
+                    "count": 110,
+                    "children": null
+                },
+                {
+                    "type": "私募基金",
+                    "count": 150,
+                    "children": null
+                },
+                {
+                    "type": "众筹",
+                    "count": 180,
+                    "children": null
+                }
+            ]
+        },
+        {
+            "type": "金融",
+            "count": 100,
+            "children": null
+        },
+        {
+            "type": "其他",
+            "count": 120,
+            "children": null
+        }
+    ],
+    "msg": ""
+}
