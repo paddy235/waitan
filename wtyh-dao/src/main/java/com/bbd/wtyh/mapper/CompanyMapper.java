@@ -58,7 +58,8 @@ public interface CompanyMapper {
     List<CompanyDO> queryCompanyByType(@Param("companyType") Integer companyType, @Param("orderByField") Integer orderByField, @Param("descAsc") String descAsc);
 
 
-    List<SpectrumVO> getSpectrumAnalysis(@Param("risk_level") Integer risk_level, @Param("dateVersion") String dateVersion, @Param("companyNumber") Integer companyNumber);
+    List<SpectrumVO> getSpectrumAnalysis(@Param("risk_level") Integer risk_level, @Param("dateVersion") String dateVersion,
+                                         @Param("companyNumber") Integer companyNumber,@Param("areaId") Integer areaId);
 
     /**
      * 获取总条数

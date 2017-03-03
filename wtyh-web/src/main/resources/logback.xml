@@ -2,12 +2,13 @@
 <configuration debug="true">
 	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
 		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-			<level>INFO</level>
+			<level>all</level>
 		</filter>
 		<encoder>
 			<pattern>%date{yyyy-MM-dd HH:mm:ss}||%thread||%level||%logger:%line||%msg %ex||%n</pattern>
 		</encoder>
 	</appender>
+
 	<appender name="sffall" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<fileNamePattern>/usr/local/tomcat/logs/wtyh.log.%d{yyyy-MM-dd}</fileNamePattern>
@@ -18,6 +19,7 @@
 		</encoder>
 	</appender>
 	<logger name="org.springframework" level="INFO" />
+	<logger name="com.bbd" level="all" />
 
 	<root level="INFO">
 		<appender-ref ref="console" />

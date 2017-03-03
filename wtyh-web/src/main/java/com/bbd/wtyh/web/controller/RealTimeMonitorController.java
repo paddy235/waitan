@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import redis.clients.jedis.JedisPool;
 
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 /**
@@ -44,6 +45,9 @@ public class RealTimeMonitorController {
     @Autowired
     private RedisDAO redisDAO;
 
+    @Autowired
+    private AreaService areaService;
+
 
     /**
      * 光谱分析 - 只做标识，前端区分
@@ -52,11 +56,15 @@ public class RealTimeMonitorController {
      */
     @RequestMapping("/spectrumAnalysis")
     @ResponseBody
-    public ResponseBean spectrumAnalysis() {
-        final String key = "wtyh:realtimeMonitor:guangPu1";
+    public ResponseBean spectrumAnalysis(HttpSession session) {
+
+        Integer areaId = areaService.getAreaId(session);
+
+        final String key = "wtyh:realtimeMonitor:guangPu1"+areaId;
+
         List<List<SpectrumVO>> list = (List<List<SpectrumVO>>) redisDAO.getObject(key);
         if (null == list || list.size() == 0) {
-            list = realTimeMonitorService.spectrumAnalysis();
+            list = realTimeMonitorService.spectrumAnalysis(areaId);
 
             if (null != list && list.size() >= 1) {
                 for (List<SpectrumVO> spectrumVOList : list) {
@@ -93,7 +101,7 @@ public class RealTimeMonitorController {
      */
     @RequestMapping("/shMap")
     @ResponseBody
-    public ResponseBean shMap() {
+    public ResponseBean shMap(HttpSession session) {
         final String key = "wtyh:realtimeMonitor:shMap1";
         List<List<CompanyAnalysisResultDO>> list = (List<List<CompanyAnalysisResultDO>>) redisDAO.getObject(key);
         if (null == list || list.size() == 0) {
@@ -122,10 +130,13 @@ public class RealTimeMonitorController {
                 }
             }
         }
-        final String key2 = "wtyh:realtimeMonitor:shMap2";
+
+        Integer areaId = areaService.getAreaId(session);
+
+        final String key2 = "wtyh:realtimeMonitor:shMap2"+areaId;
         Map<String, Map> sHhoverArea = (Map<String, Map>) redisDAO.getObject(key2);
         if (null == sHhoverArea || sHhoverArea.size() == 0) {
-            sHhoverArea = realTimeMonitorService.shArea();
+            sHhoverArea = realTimeMonitorService.shArea(areaId);
             if (null != sHhoverArea && sHhoverArea.size() >= 1) {
                 redisDAO.addObject(key2, sHhoverArea, Constants.REDIS_10, Map.class);
             }

@@ -16,9 +16,11 @@ public interface AreaMapper{
 	
     
     /**
-    * @return List<Area> 
+	 * @param areaId
+     * @return List<Area>
+     *
     */
-    List<AreaDO> areaList();
+    List<AreaDO> areaList(@Param("areaId") Integer areaId);
 
 	
 	/**
