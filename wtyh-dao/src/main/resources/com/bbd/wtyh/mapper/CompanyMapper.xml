@@ -223,6 +223,9 @@
 		<if test="keyword != null and keyword != ''">
 			and c.`name` like concat('%',#{keyword},'%')
 		</if>
+        <if test="areaId != null">
+            and c.area_id=#{areaId}
+        </if>
 		limit #{pagination.begin}, #{pagination.pageSize}
     </select>
     
@@ -231,6 +234,11 @@
 		<if test="keyword != null and keyword != ''">
 			and c.`name` like concat('%',#{keyword},'%')
 		</if>
+
+        <if test="areaId != null">
+            and c.area_id=#{areaId}
+        </if>
+
     </select>
 
     <select id="selectByName" resultMap="BaseResultMap">

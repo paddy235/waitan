@@ -126,10 +126,13 @@ public class RiskCompanyController {
 
 	@RequestMapping(value = "/doSearch")
 	@ResponseBody
-	public ResponseBean doSearch(@RequestParam(required = false) String keyword, @RequestParam int pageNo) {
+	public ResponseBean doSearch(@RequestParam(required = false) String keyword, @RequestParam int pageNo,HttpSession session) {
+
+		Integer areaId = areaService.getAreaId(session);
+
 		keyword = this.strFilter(keyword);
 		String dataVersion = riskCompanyService.getLastDataVersion();
-		int count = companyService.searchCompanyNameCount(keyword, dataVersion);
+		int count = companyService.searchCompanyNameCount(keyword, dataVersion,areaId);
 		Pagination pagination = new Pagination();
 		pagination.setCount(count >= MAX_COUNT ? MAX_COUNT - 1 : count); // 搜索结果最多保留200条数据
 		if (pageNo >= MAX_PAGE_NO || pageNo <= -1) {
@@ -142,6 +145,8 @@ public class RiskCompanyController {
 		params.put("keyword", keyword);
 		params.put("pagination", pagination);
 		params.put("dataVersion", dataVersion);
+		params.put("areaId",areaId);
+
 		List<CompanyDO> list = companyService.searchCompanyName(params);
 		List<CompanySearchVO> resultList = new ArrayList<>();
 		if (!CollectionUtils.isEmpty(list)) {

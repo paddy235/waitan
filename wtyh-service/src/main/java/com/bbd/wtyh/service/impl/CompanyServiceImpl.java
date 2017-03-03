@@ -69,10 +69,11 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public int searchCompanyNameCount(String keyword, String dataVersion) {
+    public int searchCompanyNameCount(String keyword, String dataVersion,Integer areaId) {
     	Map<String, Object> params = new HashMap<>();
     	params.put("keyword", keyword);
     	params.put("dataVersion", dataVersion);
+        params.put("areaId", areaId);
         return companyMapper.searchCompanyNameCount(params);
     }
 }
