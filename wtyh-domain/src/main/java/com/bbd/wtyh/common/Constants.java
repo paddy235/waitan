@@ -80,6 +80,11 @@ public class Constants {
 	//占比变为百分比
 	public static float INT100 = 100;
 	public static int INT10000 = 10000;
+
+
+	public final static String SESSION_AREA = "session_area";
+
+
 	/**
 	 * 线下理财关联数据使用 end
 	 */
