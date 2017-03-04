@@ -3,7 +3,21 @@ package com.bbd.wtyh.domain;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Created by cgj on 2017/2/28.
+ */
+
 public class UserInfoTableDo implements Serializable {
+
+    public String getOldPwd() {
+        return oldPwd;
+    }
+
+    public void setOldPwd(String oldPwd) {
+        this.oldPwd = oldPwd;
+    }
+
+    private String oldPwd; //原密码
     //主键
     private Integer id;
 

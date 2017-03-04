@@ -38,8 +38,6 @@ public class UserInfoController {
 			HttpServletRequest request
 			) {
 		// hh.addHeader("aa","1234");
-		String loginName = (String)request.getSession().getAttribute(Constants.SESSION.loginName);
-		uitd.setLoginName(loginName);
 		try {
 			uis.createUser(uitd, resourceSet);
 		} catch (BusinessException be) {
@@ -61,9 +59,12 @@ public class UserInfoController {
 	@ResponseBody
 	public Object updateUserInfo(/*@RequestParam String loginName, @RequestParam String password, @RequestParam String type*/) {
 
+//		String loginName = (String)request.getSession().getAttribute(Constants.SESSION.loginName);
+//		uitd.setLoginName(loginName);
 		try {
-			Map<String,Object> rstMap = uis.GetForeUserInfoByLoginName( "adn-yang" );
+			Map<String,Object> rstMap = uis.getForeUserInfoByLoginName( "adn-yang1" );
 			System.out.println(rstMap);
+			return rstMap;
 		} catch (Exception ee)	{
 			;
 		}

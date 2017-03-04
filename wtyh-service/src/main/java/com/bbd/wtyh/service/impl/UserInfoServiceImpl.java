@@ -214,9 +214,6 @@ public class UserInfoServiceImpl implements UserInfoService {
 			throw new BusinessException("用户类型不合法");
 		}
 
-
-
-
 		uitd.setUpdateDate(new Date());
 		if ( StringUtils.isBlank(uitd.getUpdateBy()) || !rexCheckUserName(uitd.getUpdateBy()) ) {
 			throw new BusinessException("修改人为空");
@@ -249,11 +246,17 @@ public class UserInfoServiceImpl implements UserInfoService {
 		return 0;
 	}*/
 
-	public Map<String,Object> GetForeUserInfoByLoginName( String loginName ) throws Exception {
-		UserInfoTableDo uInfo = userInfo.selectForeUserInfoAll(loginName);
+	public Map<String,Object> getForeUserInfoByLoginName( String loginName ) throws Exception {
+		UserInfoTableDo uitd = userInfo.selectForeUserInfoAll(loginName);
+		if( StringUtils.isNotBlank( uitd.getRealName() ) ) {
+			uitd.setRealName(CipherUtils.decrypt(uitd.getRealName()));
+		}
+		if (StringUtils.isNotBlank(uitd.getMobile())) {
+			uitd.setMobile(CipherUtils.decrypt(uitd.getMobile()));
+		}
 		Set<String> rC = roleResourceService.queryResourceCodeByLoginName(loginName);
 		Map<String,Object> rstMap =new HashMap<String, Object>();
-		rstMap.put("userInfo",uInfo);
+		rstMap.put("userInfo",uitd);
 		rstMap.put("resourceCode",rC);
 		return rstMap;
 	}

@@ -1,6 +1,5 @@
 package com.bbd.wtyh.service;
 
-import com.bbd.wtyh.domain.UserInfoDo;
 import com.bbd.wtyh.domain.UserInfoTableDo;
 
 import java.util.Map;
@@ -24,7 +23,7 @@ public interface UserInfoService {
 
     public String userPasswordEncrypt(String context);
 
-    public Map<String,Object> GetForeUserInfoByLoginName(String LoginName ) throws Exception;
+    public Map<String,Object> getForeUserInfoByLoginName(String LoginName ) throws Exception;
 
 
 
