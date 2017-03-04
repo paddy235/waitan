@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.bbd.wtyh.service.RoleResourceService;
+import com.bbd.wtyh.service.UserInfoService;
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -24,6 +26,7 @@ import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.service.UserService;
 import com.bbd.wtyh.web.ResponseBean;
 
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -37,12 +40,12 @@ public class LoginController {
 	@Autowired
 	private RoleResourceService roleResourceService;
 	@Autowired
-	private UserService userSer;
+	private UserInfoService userInfoService;
 
 	@RequestMapping("/login")
 	@ResponseBody
 	public Object login(@RequestParam String name,@RequestParam String password,HttpServletRequest request){
-
+		Map map=null;
 		UsernamePasswordToken token = new UsernamePasswordToken(name, password);
 		token.setRememberMe(true);
 		//获取当前的Subject
@@ -50,12 +53,16 @@ public class LoginController {
 		try {
 			currentUser.login(token);
 			logger.info(name+"身份验证通过,登录后台系统!");
+			map=new HashedMap();
 			Set set=roleResourceService.queryResourceCodeByLoginName(name);
 			Session session=currentUser.getSession();
 			session.setAttribute("resource",set);//权限列表
 			session.setAttribute(Constants.SESSION.loginName, name);//登录用户名
-			session.setAttribute("area","");//用户所属地区编号
+			session.setAttribute("area","等功杰提供接口");//用户所属地区编号
 
+			map.put("resource",set);//给前端权限列表
+			map.put(Constants.SESSION.loginName, name);//给前端录用户名
+			map.put("area","等功杰提供接口");//给前端权限地区编号
 
 		}catch(Exception e){
 
@@ -65,7 +72,7 @@ public class LoginController {
 			return ResponseBean.errorResponse("false");
 		}
 
-		return ResponseBean.successResponse("data/showTables.do");
+		return map;
 
 	}
 
