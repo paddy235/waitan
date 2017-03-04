@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.RoleResourceMapper">
+
+	<select id="queryResourceCodeByLoginName" parameterType="java.lang.String" resultType="java.lang.String">
+		select resource.`code` from user_mgment,user_role,role_resource,resource
+		where user_mgment.id=user_role.user_id and user_role.role_id=role_resource.role_id
+		and role_resource.resource_id=resource.id
+		and user_mgment.login_name=#{loginName}
+	</select>
+
+	<select id="queryResourceCodeByUserId" parameterType="int" resultType="java.lang.String">
+		select resource.`code` from user_mgment,user_role,role_resource,resource
+		where user_mgment.id=user_role.user_id and user_role.role_id=role_resource.role_id
+		and role_resource.resource_id=resource.id
+		and user_mgment.id=#{userId}
+	</select>
+
+	<select id="getResourceByCode" parameterType="java.lang.String" resultType="com.bbd.wtyh.domain.ResourceDo">
+		select `id`, `code`, `name`, `parent_code`, `type`, `url`, `display_order`, `create_date`, `create_by`, `update_date`, `update_by`
+		from resource where `code` =  #{resourceCode}
+	</select>
+
+	<insert id="addRoleBase" parameterType="com.bbd.wtyh.domain.RoleDo" useGeneratedKeys="true" keyProperty="id"
+			keyColumn="id">
+		INSERT INTO `role` (`name`, `description`, `type`, `create_date`, `update_date`, `create_by`, `update_by`)
+		VALUES (#{name}, #{description}, #{type},  #{createDate}, #{updateDate}, #{createBy}, #{updateBy});
+	</insert>
+
+	<insert id="addRoleResourceRelation" parameterType="com.bbd.wtyh.domain.RoleResourceDo" useGeneratedKeys="true" keyProperty="id"
+			keyColumn="id">
+		INSERT INTO `role_resource` (`role_id`, `resource_id`, `create_date`, `update_date`, `create_by`, `update_by`)
+		VALUES (#{roleId}, #{resourceId}, #{createDate}, #{updateDate}, #{createBy}, #{updateBy});
+	</insert>
+	<insert id="addUserRoleRelation" parameterType="com.bbd.wtyh.domain.UserRoleDo" useGeneratedKeys="true" keyProperty="id"
+			keyColumn="id">
+		INSERT INTO `role_resource` (`user_id`, `role_id`, `create_date`, `update_date`, `create_by`, `update_by`)
+		VALUES (#{userId}, #{roleId}, #{createDate}, #{updateDate}, #{createBy}, #{updateBy});
+	</insert>
+
+	<select id="getRoleAreaRelationByRoleIdAndAreaId" parameterType="int" resultType="int">
+		select count(1)as counts  from role_area where
+		role_id=#{roleId} and area_id=#{areaId}
+	</select>
+
+	<select id="getUserRoleByUser" parameterType="int" resultType="com.bbd.wtyh.domain.UserRoleDo">
+		select user_role.id,user_role.user_id,user_role.role_id from user_role,user_mgment
+		where
+		user_role.user_id=user_mgment.id
+		and user_mgment.user_id=#{userId}
+	</select>
+	<delete id="deleteRoleResourceRelation" parameterType="int">
+		delete from role_resource where role_id=#{userId}
+	</delete>
+
+	<delete id="deleteRoleBase" parameterType="int">
+		delete from role where id=#{roleId}
+	</delete>
+
+	<delete id="deleteUserRoleRelation" parameterType="int">
+		delete from user_role where user_id=#{userId}
+	</delete>
+
+</mapper>
