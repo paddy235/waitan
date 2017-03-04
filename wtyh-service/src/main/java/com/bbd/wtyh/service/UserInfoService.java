@@ -2,8 +2,10 @@ package com.bbd.wtyh.service;
 
 import com.bbd.wtyh.domain.UserInfoTableDo;
 
+import java.util.Map;
+
 /**
- * Created by Administrator on 2017/2/27.
+ * Created by cgj on 2017/2/27.
  */
 public interface UserInfoService {
 
@@ -15,8 +17,14 @@ public interface UserInfoService {
      */
     public void createUser(UserInfoTableDo uitd, String resourceSet) throws Exception;
 
-    public void updateUserInfo(UserInfoDo uIfDo) throws Exception;
+    public void updateUserInfo(UserInfoTableDo uitd, String resourceSet) throws Exception ;
 
     public boolean compareUserNameMatchPassword(String loginName, String password, String type);
+
+    public String userPasswordEncrypt(String context);
+
+    public Map<String,Object> GetForeUserInfoByLoginName(String LoginName ) throws Exception;
+
+
 
 }

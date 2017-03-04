@@ -6,10 +6,11 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 import java.util.Map;
 
-public interface UserInfoMapper {
+/**
+ * Created by cgj on 2017/2/29.
+ */
 
-	// UserInfoTableDo selectByPrimaryKey(@Param("companyName") String companyName,
-	// @Param("area") String area);
+public interface UserInfoMapper {
 
 	public void saveU(UserInfoTableDo userInfoTableDo);
 
@@ -18,6 +19,8 @@ public interface UserInfoMapper {
 	public List<String> selectUserPassword(@Param("loginName") String loginName, @Param("type") String type);
 
 	public List<Map<String, Object>> selectUserPasswordAndId(@Param("loginName") String loginName);
+
+	public UserInfoTableDo selectForeUserInfoAll( @Param("loginName") String loginName );
 
 	// List<UserInfoTableDo> findByPage(Map<String, Object> params);
 }

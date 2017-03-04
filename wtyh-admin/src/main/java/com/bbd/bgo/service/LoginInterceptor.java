@@ -47,7 +47,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		if(loginName == null){
 			response.sendRedirect(request.getContextPath()+"/index.jsp");
 			return false;
-		} */
+		}*/
 
 		return true;
 	}
