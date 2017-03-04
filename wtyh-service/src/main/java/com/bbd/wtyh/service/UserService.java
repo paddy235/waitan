@@ -15,6 +15,10 @@ public interface UserService {
 
     String changePassword(String loginName, String oldPassword, String newPassword);
 
+    String encryptPassword(String password); //对用户密码加密
+
+    //String decryptPassword(String enPassword); //对用户密码解密
+
     interface ResultCode {
         //账号不存在
         String ACCOUNT_NOT_EXIT          = "account.not.exist";

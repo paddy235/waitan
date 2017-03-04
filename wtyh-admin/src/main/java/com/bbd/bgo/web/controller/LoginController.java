@@ -35,7 +35,9 @@ public class LoginController {
 			return ResponseBean.errorResponse("false");
 		}
 		
-		String dataPwd =  new SimpleHash("md5", password ,ByteSource.Util.bytes("123456"),2).toHex();
+		//String dataPwd =  new SimpleHash("md5", password ,ByteSource.Util.bytes("123456"),2).toHex();
+		String dataPwd =  userSer.encryptPassword(password);
+
 
 
 //		System.out.println("admin1"+":admin123456 "+new SimpleHash("md5", "admin123456" ,ByteSource.Util.bytes("123456"),2).toHex());
