@@ -54,8 +54,8 @@ public class UserRealm extends AuthorizingRealm {
         if (StringUtils.isEmpty(pwd)) {
             throw new UnknownAccountException(); //如果用户名错误;
         }
-
-        String dataPwd = new SimpleHash("md5", password, ByteSource.Util.bytes(Constants.SALT), 2).toHex();
+        String dataPwd =userService.encryptPassword(String.copyValueOf(password));
+        //String dataPwd = new SimpleHash("md5", password, ByteSource.Util.bytes(Constants.SALT), 2).toHex();
 
         if (!dataPwd.equals(pwd)) {
             throw new IncorrectCredentialsException(); //如果密码错误
