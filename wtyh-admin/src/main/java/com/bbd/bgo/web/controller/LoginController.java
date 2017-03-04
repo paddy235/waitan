@@ -3,6 +3,9 @@ package com.bbd.bgo.web.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.bbd.wtyh.domain.AreaDO;
+import com.bbd.wtyh.domain.UserInfoTableDo;
+import com.bbd.wtyh.service.AreaService;
 import com.bbd.wtyh.service.RoleResourceService;
 import com.bbd.wtyh.service.UserInfoService;
 import org.apache.commons.collections.map.HashedMap;
@@ -41,6 +44,8 @@ public class LoginController {
 	private RoleResourceService roleResourceService;
 	@Autowired
 	private UserInfoService userInfoService;
+	@Autowired
+	private AreaService areaService;
 
 	@RequestMapping("/login")
 	@ResponseBody
@@ -54,15 +59,25 @@ public class LoginController {
 			currentUser.login(token);
 			logger.info(name+"身份验证通过,登录后台系统!");
 			map=new HashedMap();
-			Set set=roleResourceService.queryResourceCodeByLoginName(name);
+			//Set res=roleResourceService.queryResourceCodeByLoginName(name);
+			//取用户信息、权限
+			Map m=userInfoService.getForeUserInfoByLoginName(name);
+			UserInfoTableDo userInfo=(UserInfoTableDo) m.get("userInfo");
+			Set res= (Set) m.get("resourceCode");
+			String areaCode=userInfo.getAreaCode();
+			AreaDO areaDo=areaService.getAreaByAreaId(Integer.valueOf(areaCode));
+			//用户信息、权限信息保存到session
 			Session session=currentUser.getSession();
-			session.setAttribute("resource",set);//权限列表
+			session.setAttribute("resource",res);//权限列表
 			session.setAttribute(Constants.SESSION.loginName, name);//登录用户名
-			session.setAttribute("area","等功杰提供接口");//用户所属地区编号
+			session.setAttribute("area",areaCode);//地区编号
+			session.setAttribute("areaName",areaDo.getName());//地区编号
 
-			map.put("resource",set);//给前端权限列表
-			map.put(Constants.SESSION.loginName, name);//给前端录用户名
-			map.put("area","等功杰提供接口");//给前端权限地区编号
+			//用户信息、权限信息传给前端页面
+			map.put("resource",res);//权限列表
+			map.put(Constants.SESSION.loginName, name);//登录用户名
+			map.put("area",areaCode);//属地区编号
+			map.put("areaName",areaDo.getName());//属地区编号
 
 		}catch(Exception e){
 

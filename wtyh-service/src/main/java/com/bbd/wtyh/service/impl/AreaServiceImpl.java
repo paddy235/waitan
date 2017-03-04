@@ -83,4 +83,9 @@ public class AreaServiceImpl implements AreaService {
 	public AreaDO selectByNameAndLevel(String name, Integer level) {
 		return areaMapper.selectByNameAndLevel(name, level);
 	}
+
+	@Override
+	public AreaDO getAreaByAreaId(Integer areaId) {
+		return areaMapper.getAreaByAreaId(areaId);
+	}
 }
