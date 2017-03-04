@@ -1,6 +1,5 @@
 package com.bbd.wtyh.service;
 
-import com.bbd.wtyh.domain.UserInfoDo;
 import com.bbd.wtyh.domain.UserInfoTableDo;
 
 /**

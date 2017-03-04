@@ -1,5 +1,7 @@
 package com.bbd.wtyh.service;
 
+import com.bbd.wtyh.domain.UserInfoTableDo;
+
 import java.util.Date;
 
 /**
@@ -16,6 +18,8 @@ public interface UserService {
     String changePassword(String loginName, String oldPassword, String newPassword);
 
     String encryptPassword(String password); //对用户密码加密
+
+    UserInfoTableDo queryUserInfo(String loginName);
 
     //String decryptPassword(String enPassword); //对用户密码解密
 

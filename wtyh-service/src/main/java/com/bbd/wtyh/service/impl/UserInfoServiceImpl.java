@@ -1,6 +1,5 @@
 package com.bbd.wtyh.service.impl;
 
-import com.bbd.wtyh.domain.UserInfoDo;
 import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.exception.BusinessException;
 import com.bbd.wtyh.service.UserInfoService;
