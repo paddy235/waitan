@@ -20,9 +20,9 @@ public interface RealTimeMonitorService {
 
     Map<String, Object> shMapMonitor();
 
-    List<List<SpectrumVO>> spectrumAnalysis();
+    List<List<SpectrumVO>> spectrumAnalysis(Integer areaId);
 
-    Map<String, Map> shArea();
+    Map<String, Map> shArea(Integer areaId);
 
     Map<String,Object> ChinaMapSubsidiary();
 }

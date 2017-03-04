@@ -9,8 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.bbd.wtyh.domain.vo.CompanySearchVO;
-import com.bbd.wtyh.domain.vo.CompanyVO;
-import org.springframework.beans.BeanUtils;
+import com.bbd.wtyh.service.AreaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
@@ -26,6 +25,8 @@ import com.bbd.wtyh.service.RiskCompanyService;
 import com.bbd.wtyh.util.relation.StringUtils;
 import com.bbd.wtyh.web.ResponseBean;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping(value = "/risk")
 public class RiskCompanyController {
@@ -34,6 +35,9 @@ public class RiskCompanyController {
 	private RiskCompanyService riskCompanyService;
 	@Autowired
 	private CompanyService companyService;
+	@Autowired
+	private AreaService areaService;
+
 	private static final String BG_GQ_MARK = "0"; // 0：国企背景
 	private static final String BG_SS_MARK = "1"; // 1：上市公司背景
 	private static final int MAX_COUNT = 201; // 最大查询返回数据量
@@ -43,10 +47,17 @@ public class RiskCompanyController {
 	@RequestMapping(value = "/getScanner")
 	@ResponseBody
 	public ResponseBean getScanner(@RequestParam(required = false) String area,
-			@RequestParam(required = false) String minRegCapital, @RequestParam(required = false) String maxRegCapital,
-			@RequestParam(required = false) String companyQualification,
-			@RequestParam(required = false) String minReviewTime, @RequestParam(required = false) String maxReviewTime,
-			@RequestParam(required = false) String riskLevel) {
+								   @RequestParam(required = false) String minRegCapital, @RequestParam(required = false) String maxRegCapital,
+								   @RequestParam(required = false) String companyQualification,
+								   @RequestParam(required = false) String minReviewTime, @RequestParam(required = false) String maxReviewTime,
+								   @RequestParam(required = false) String riskLevel, HttpSession session) {
+
+		// 如果区域id不为空，则表示此用户只能访问某个区域的数据
+		String areaName = areaService.getAreaName(session);
+		if(areaName != null){
+			area = areaName;
+		}
+
 		Map<String, Object> params = this.fillMap(area, minRegCapital, maxRegCapital, companyQualification,
 				minReviewTime, maxReviewTime, riskLevel);
 		return ResponseBean.successResponse(riskCompanyService.getScanner(params));
@@ -58,7 +69,17 @@ public class RiskCompanyController {
 			@RequestParam(required = false) String minRegCapital, @RequestParam(required = false) String maxRegCapital,
 			@RequestParam(required = false) String companyQualification,
 			@RequestParam(required = false) String minReviewTime, @RequestParam(required = false) String maxReviewTime,
-			@RequestParam(required = false) String riskLevel, @RequestParam(defaultValue = "0") String sortType) {
+			@RequestParam(required = false) String riskLevel, @RequestParam(defaultValue = "0") String sortType,HttpSession session) {
+
+
+		// 如果区域id不为空，则表示此用户只能访问某个区域的数据
+		String areaName = areaService.getAreaName(session);
+		if(areaName != null){
+			area = areaName;
+		}
+
+
+
 		Map<String, Object> params = this.fillMap(area, minRegCapital, maxRegCapital, companyQualification,
 				minReviewTime, maxReviewTime, riskLevel);
 		params.put("sortType", sortType); // 排序方式
@@ -87,7 +108,7 @@ public class RiskCompanyController {
 	}
 
 	private Map<String, Object> fillMap(String area, String minRegCapital, String maxRegCapital,
-			String companyQualification, String minReviewTime, String maxReviewTime, String riskLevel) {
+										String companyQualification, String minReviewTime, String maxReviewTime, String riskLevel) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("area", area);
 		map.put("minRegCapital", StringUtils.isNotNullOrEmpty(minRegCapital) ? new BigDecimal(minRegCapital) : null);
@@ -99,15 +120,19 @@ public class RiskCompanyController {
 		map.put("minReviewTime", StringUtils.isNotNullOrEmpty(minReviewTime) ? new BigDecimal(minReviewTime) : null);
 		map.put("maxReviewTime", StringUtils.isNotNullOrEmpty(maxReviewTime) ? new BigDecimal(maxReviewTime) : null);
 		map.put("riskLevel", riskLevel);
+
 		return map;
 	}
 
 	@RequestMapping(value = "/doSearch")
 	@ResponseBody
-	public ResponseBean doSearch(@RequestParam(required = false) String keyword, @RequestParam int pageNo) {
+	public ResponseBean doSearch(@RequestParam(required = false) String keyword, @RequestParam int pageNo,HttpSession session) {
+
+		Integer areaId = areaService.getAreaId(session);
+
 		keyword = this.strFilter(keyword);
 		String dataVersion = riskCompanyService.getLastDataVersion();
-		int count = companyService.searchCompanyNameCount(keyword, dataVersion);
+		int count = companyService.searchCompanyNameCount(keyword, dataVersion,areaId);
 		Pagination pagination = new Pagination();
 		pagination.setCount(count >= MAX_COUNT ? MAX_COUNT - 1 : count); // 搜索结果最多保留200条数据
 		if (pageNo >= MAX_PAGE_NO || pageNo <= -1) {
@@ -120,6 +145,8 @@ public class RiskCompanyController {
 		params.put("keyword", keyword);
 		params.put("pagination", pagination);
 		params.put("dataVersion", dataVersion);
+		params.put("areaId",areaId);
+
 		List<CompanyDO> list = companyService.searchCompanyName(params);
 		List<CompanySearchVO> resultList = new ArrayList<>();
 		if (!CollectionUtils.isEmpty(list)) {

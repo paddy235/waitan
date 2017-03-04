@@ -4,8 +4,13 @@
 <mapper namespace="com.bbd.wtyh.mapper.AreaMapper">
 
 
-    <select id="areaList"  resultType="com.bbd.wtyh.domain.AreaDO">
-			select area_id areaId, name from park;
+    <select id="areaList"  resultType="com.bbd.wtyh.domain.AreaDO" >
+			select area_id areaId, name from park
+			<if test="#{areaId != null}">
+				where area_id=#{areaId}
+			</if>
+
+
 	</select>
 
 	<select id="hot"  resultType="com.bbd.wtyh.domain.NvDO">
