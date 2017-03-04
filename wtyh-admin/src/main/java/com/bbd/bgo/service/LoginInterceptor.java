@@ -41,12 +41,12 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		if("receiveFileData.do".equals(annotation.value()[0])){
 			return true;
 		}
-/*调代码，取消登录权限
+/*调代码，取消登录权限 */
 		Object loginName = request.getSession().getAttribute(Constants.SESSION.loginName);
 		if(loginName == null){
 			response.sendRedirect(request.getContextPath()+"/index.jsp");
 			return false;
-		} */
+		}
 
 		return true;
 	}

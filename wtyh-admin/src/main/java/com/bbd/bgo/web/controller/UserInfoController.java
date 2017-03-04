@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 import static org.apache.shiro.web.filter.mgt.DefaultFilter.user;
@@ -18,7 +19,7 @@ import static org.apache.shiro.web.filter.mgt.DefaultFilter.user;
 
 
 /**
- * Created by Administrator on 2017/2/27.
+ * Created by cgj on 2017/2/27.
  */
 
 @Controller
@@ -32,7 +33,8 @@ public class UserInfoController {
 	@ResponseBody
 	public Object myCreateUser1(
 			UserInfoTableDo uitd,
-			@RequestParam String resourceSet
+			@RequestParam String resourceSet,
+			HttpServletRequest request
 			) {
 		// hh.addHeader("aa","1234");
 		try {

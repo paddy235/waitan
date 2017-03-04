@@ -6,10 +6,11 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 import java.util.Map;
 
-public interface UserInfoMapper {
+/**
+ * Created by cgj on 2017/2/29.
+ */
 
-	// UserInfoTableDo selectByPrimaryKey(@Param("companyName") String companyName,
-	// @Param("area") String area);
+public interface UserInfoMapper {
 
 	public void saveU(UserInfoTableDo userInfoTableDo);
 

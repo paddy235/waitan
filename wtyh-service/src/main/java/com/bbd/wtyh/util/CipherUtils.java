@@ -9,10 +9,10 @@ import java.io.UnsupportedEncodingException;
 import java.security.AccessController;
 
 /**
- * Created by Administrator on 2017/2/28.
+ * Created by cgj on 2017/2/28.
  */
 public class CipherUtils {
-    private static final String AES_KEY = "7323ad76029faf9b16d65dfc762aea5c";
+    private static final String AES_KEY = "7323ad76029faf9b16d65dfc762aea5c"; //不要修改
     private static AesCipherService aesCipherService;
 
     static {
