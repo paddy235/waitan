@@ -58,7 +58,7 @@ public class RoleResourceServiceImpl implements RoleResourceService {
     public void addUserRoleResource(UserInfoTableDo userInfoTableDo,String resourceSet,String loginName) {
         //如果 用户ID为空 或者权限为空，则不创建
         Integer userId=userInfoTableDo.getId();
-        if(userId==null || StringUtils.isEmpty(resourceSet)){
+        if(null==userId || StringUtils.isEmpty(resourceSet)){
             return ;
         }
         //新增角色基本信息
@@ -79,6 +79,10 @@ public class RoleResourceServiceImpl implements RoleResourceService {
      */
     @Override
     public void updateUserRoleResource(UserInfoTableDo userInfoTableDo,String resourceSet,String loginName) {
+        //与陈功杰约定，如果resourceSet==null,则不更新，若为""，则需要删除已有的权限关系
+        if(null==resourceSet){
+            return;
+        }
         Integer userId=userInfoTableDo.getId();
         List<UserRoleDo> list=roleResourceMapper.getUserRoleByUser(userId);
         for(UserRoleDo userRoleDo:list){
@@ -116,6 +120,9 @@ public class RoleResourceServiceImpl implements RoleResourceService {
      */
     @Override
     public void addRoleResourceRelation(Integer roleId, String resourceSet, String loginName) {
+        if(null==roleId || StringUtils.isEmpty(resourceSet)){
+            return ;
+        }
         //新增角色权限关系
         String [] resourceArr=resourceSet.split(",");
         RoleResourceDo roleResourceDo=null;
