@@ -69,10 +69,10 @@ public class LoginController {
 			//通过处理Shiro的运行时AuthenticationException就可以控制用户登录失败或密码错误时的情景
 			e.printStackTrace();
 			//request.setAttribute("message_login", "用户名或密码不正确");
-			return ResponseBean.errorResponse("false");
+			return ResponseBean.errorResponse("用户名或密码不正确");
 		}
 
-		return map;
+		return ResponseBean.successResponse(map);
 
 	}
 
