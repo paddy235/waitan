@@ -1,5 +1,6 @@
 package com.bbd.wtyh.service.impl;
 
+import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.mapper.UserMapper;
 import com.bbd.wtyh.service.UserService;
 import org.apache.commons.lang3.StringUtils;
@@ -49,6 +50,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public String encryptPassword(String password) {
         return new SimpleHash("md5", password, ByteSource.Util.bytes("123456"), 2).toHex();
+    }
+
+    @Override
+    public UserInfoTableDo queryUserInfo(String userName){
+        return userMapper.queryUserInfo(userName);
     }
 
 //    @Override

@@ -15,5 +15,8 @@
 		update user set password=#{password},update_date=now() where loginName=#{loginName}
 	</update>
 
+	<select id="queryUserInfo" resultType="com.bbd.wtyh.domain.UserInfoTableDo" >
+		SELECT * from user_mgment WHERE login_name=#{loginName}
+	</select>
 
 </mapper>
