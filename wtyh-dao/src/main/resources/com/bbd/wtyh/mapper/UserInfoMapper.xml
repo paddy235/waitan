@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.UserInfoMapper">
+  <sql id="TabName">
+  `user_mgment`
+  </sql>
+
+  <!--
+  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.UserInfoTableDobleDo">
+    <id column="id" jdbcType="INT" property="id" />
+    <id column="create_date" jdbcType="DATE" property="createDate" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="DATE" property="createDate" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_date" jdbcType="DATE" property="updateDate" />
+    <result column="reg_capital" jdbcType="VARCHAR" property="regCapital" />
+    <result column="company_qualification" jdbcType="VARCHAR" property="companyQualification" />
+    <result column="static_risk_index" jdbcType="REAL" property="staticRiskIndex" />
+    <result column="dynamic_risk_index" jdbcType="REAL" property="dynamicRiskIndex" />
+    <result column="legal_rpt" jdbcType="VARCHAR" property="legalRpt" />
+    <result column="company_type" jdbcType="VARCHAR" property="companyType" />
+    <result column="reg_date" jdbcType="DATE" property="regDate" />
+    <result column="review_time" jdbcType="VARCHAR" property="reviewTime" />
+    <result column="is_rise" jdbcType="INTEGER" property="isRise" />
+  </resultMap>
+  -->
+
+  <insert id="saveU" parameterType="com.bbd.wtyh.domain.UserInfoTableDo" useGeneratedKeys="true"
+          keyProperty="id" >
+    INSERT INTO <include refid="TabName"/>(
+    status, user_type, login_name, fore_pwd, back_pwd, real_name, mobile, email,
+    department, area_code, create_date, create_by, update_date, update_by           ) VALUES (
+    #{status}, #{userType}, #{loginName}, #{forePwd}, #{backPwd}, #{realName}, #{mobile}, #{email},
+    #{department}, #{areaCode}, #{createDate}, #{createBy}, #{updateDate}, #{updateBy} );
+  </insert>
+
+  <update id="updateU" parameterType="com.bbd.wtyh.domain.UserInfoTableDo">
+    UPDATE <include refid="TabName"/>
+    <set>
+      <if test="status != NULL"> status= #{status}, </if>
+      <if test="userType != NULL"> user_type= #{userType} </if>
+      <if test="loginName != NULL"> login_name= #{loginName}, </if>
+      <if test="forePwd != NULL"> fore_pwd= #{forePwd}, </if>
+      <if test="backPwd != NULL"> back_pwd= #{backPwd}, </if>
+      <if test="realName != NULL"> real_name= #{realName}, </if>
+      <if test="mobile != NULL"> mobile= #{mobile}, </if>
+      <if test="email != NULL"> email= #{email}, </if>
+      <if test="department != NULL"> department= #{department}, </if>
+      <if test="areaCode != NULL"> area_code= #{areaCode}, </if>
+      <if test="createDate != NULL"> create_date= #{createDate}, </if>
+      <if test="createBy != NULL"> create_by= #{createBy}, </if>
+      <if test="updateDate != NULL"> update_date= #{updateDate}, </if>
+      <if test="updateBy != NULL"> update_by= #{updateBy}, </if>
+    </set>
+    WHERE  id =#{id}
+  </update>
+
+  <!-- 根据用户名和前后台类型查询用户密码 -->
+  <select id="selectUserPassword"  parameterType="String" resultType="String">
+    SELECT fore_pwd, back_pwd FROM <include refid="TabName"/>
+    WHERE  status ='A' AND login_name= #{loginName} AND user_type = #{type}
+  </select>
+
+  <!-- 根据用户名和前后台类型查询用户密码和id -->
+  <select id="selectUserPasswordAndId"  parameterType="String" resultType="java.util.Map">
+    SELECT id, fore_pwd, back_pwd FROM <include refid="TabName"/>
+    WHERE  status ='A' AND login_name= #{loginName}
+  </select>
+
+
+  <!-- 根据用户id查询单条记录  -->   <!-- 待改进
+  <select id="selectUserPasswordAndId"  parameterType="String" resultType="java.util.Map">
+    SELECT * FROM <include refid="TabName"/>
+    WHERE  status ='A' AND login_name= #{loginName}
+
+    select  count(*) from <include refid="TabName"/>;
+  </select>
+
+select  count(*) from
+  -->
+
+</mapper>
+
+<!--
+    <select id="getPassword" resultType="string">
+		select password from user where loginName=#{loginName}
+	</select>
+
+    <select id="getUpdateDate" resultType="java.util.Date">
+		select update_date from user where loginName=#{loginName}
+	</select>
+
+  <update id="updatePassword">
+    update user set password=#{password},update_date=now() where loginName=#{loginName}
+  </update>
+-->

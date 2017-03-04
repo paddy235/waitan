@@ -833,7 +833,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
                             companyCreditDetailDO.setCreateBy("system");
                             companyCreditDetailDO.setCreateDate(new Date());
                             companyCreditDetailMapper.save(companyCreditDetailDO);
-                            System.out.println("----saveCompanyCreditRisk----save----"+companyId);
+                            System.out.println("----saveCompanyCreditRisk----saveU----"+companyId);
                             }
                         });
                     }

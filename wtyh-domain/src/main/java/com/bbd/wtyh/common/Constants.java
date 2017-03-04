@@ -80,6 +80,20 @@ public class Constants {
 	//占比变为百分比
 	public static float INT100 = 100;
 	public static int INT10000 = 10000;
+
+
+	/**
+	 * 把登陆人员的所属区域存入session 的key值
+	 * */
+	public final static String SESSION_AREA = "session_area";
+
+
+
+	/**
+	 * 上海区域id
+	 * */
+	public final static Integer SH_AREAID = 104;
+
 	/**
 	 * 线下理财关联数据使用 end
 	 */

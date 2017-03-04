@@ -9,6 +9,8 @@ import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.RealTimeMonitorService;
 import org.apache.commons.collections.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,9 @@ import java.util.*;
  */
 @Service("realTimeMonitorService")
 public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
+
+    Logger logger = LoggerFactory.getLogger(RealTimeMonitorServiceImpl.class);
+
     @Autowired
     private CompanyAnalysisResultMapper companyAnalysisResultMapper;
 
@@ -56,7 +61,7 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
     private final Integer RISK_LEVEL = 1;
 
     @Override
-    public List<List<SpectrumVO>> spectrumAnalysis() {
+    public List<List<SpectrumVO>> spectrumAnalysis(Integer areaId) {
         final String dateVersion = staticRiskMapper.maxDataVersion();
         List<Map<Integer, Integer>> riskLevelNumber = companyMapper.getRiskLevelNumber();
         Integer black = 400, red = 400, yellow = 400, green = 400;
@@ -79,11 +84,12 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
                 }
             }
         }
-        List<SpectrumVO> spectrumAnalysisFocus = companyMapper.getSpectrumAnalysis(FOCUS_LEVEL, dateVersion, red);
-        List<SpectrumVO> spectrumAnalysisUsual = companyMapper.getSpectrumAnalysis(USUAL_LEVEL, dateVersion, yellow);
-        List<SpectrumVO> spectrumAnalysisNormal = companyMapper.getSpectrumAnalysis(NORMAL_LEVEL, dateVersion, green);
-        List<SpectrumVO> spectrumAnalysisRisk = companyMapper.getSpectrumAnalysis(RISK_LEVEL, dateVersion, black);
 
+        Long start = System.currentTimeMillis();
+        List<SpectrumVO> spectrumAnalysisFocus = companyMapper.getSpectrumAnalysis(FOCUS_LEVEL, dateVersion, red,areaId);
+        List<SpectrumVO> spectrumAnalysisUsual = companyMapper.getSpectrumAnalysis(USUAL_LEVEL, dateVersion, yellow,areaId);
+        List<SpectrumVO> spectrumAnalysisNormal = companyMapper.getSpectrumAnalysis(NORMAL_LEVEL, dateVersion, green,areaId);
+        List<SpectrumVO> spectrumAnalysisRisk = companyMapper.getSpectrumAnalysis(RISK_LEVEL, dateVersion, black,areaId);
         List<List<SpectrumVO>> rst = new ArrayList<>();
         rst.add(spectrumAnalysisFocus);
         rst.add(spectrumAnalysisUsual);
@@ -179,7 +185,7 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
 
 
     @Override
-    public Map<String, Map> shArea() {
+    public Map<String, Map> shArea(Integer areaId) {
         List<BuildingNumberInAreaDO> buildingNumberInArea = buildingMapper.countByArea();
         List<CompanyGroupByAreaDO> companyGroupByArea = buildingMapper.companyGroupByArea();
         List<CountCompanyByAreaDO> countCompanyByArea = buildingMapper.countCompanyByArea();
@@ -205,6 +211,11 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
             Map<String, Object> data = new HashMap<>();
             data.put("num", buildingNumberInAreaDO.getCount());
             data.put("areaId", buildingNumberInAreaDO.getAreaId());
+            if( areaId != null ){
+                data.put("permission", areaId.equals(buildingNumberInAreaDO.getAreaId()) );
+            }else{
+                data.put("permission", true );
+            }
             data.put("buildingName", companyGroupByAreaMap.get(buildingNumberInAreaDO.getName()));
             data.put("companyNum", countCompanyByAreaMap.get(buildingNumberInAreaDO.getName()));
             rst.put(buildingNumberInAreaDO.getName(), data);

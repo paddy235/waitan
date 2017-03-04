@@ -46,8 +46,14 @@ public class UserServiceImpl implements UserService {
         return ResultCode.PASSWORD_CHANGE_SUCCESS;
     }
 
-    private String encryptPassword(String password) {
+    @Override
+    public String encryptPassword(String password) {
         return new SimpleHash("md5", password, ByteSource.Util.bytes("123456"), 2).toHex();
     }
+
+//    @Override
+//    public String decryptPassword(String enPassword) {
+//        return "未实现";
+//    }
 
 }

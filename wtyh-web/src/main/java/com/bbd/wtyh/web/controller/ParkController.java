@@ -3,6 +3,7 @@ package com.bbd.wtyh.web.controller;
 import java.util.List;
 import java.util.TreeSet;
 
+import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.vo.NewsVO;
 import com.google.gson.Gson;
@@ -18,6 +19,8 @@ import com.bbd.wtyh.service.AreaService;
 import com.bbd.wtyh.service.CompanyNewsService;
 import com.bbd.wtyh.service.ParkService;
 import com.bbd.wtyh.web.ResponseBean;
+
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -48,9 +51,9 @@ public class ParkController {
     */
     @RequestMapping("/areaList")
     @ResponseBody
-    public ResponseBean areaList() {
+    public ResponseBean areaList(HttpSession session) {
 
-        List<AreaDO> data = areaService.areaList();
+        List<AreaDO> data = areaService.areaList(areaService.getAreaId(session));
 
         return ResponseBean.successResponse(data);
     }

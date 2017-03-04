@@ -223,6 +223,9 @@
 		<if test="keyword != null and keyword != ''">
 			and c.`name` like concat('%',#{keyword},'%')
 		</if>
+        <if test="areaId != null">
+            and c.area_id=#{areaId}
+        </if>
 		limit #{pagination.begin}, #{pagination.pageSize}
     </select>
     
@@ -231,6 +234,11 @@
 		<if test="keyword != null and keyword != ''">
 			and c.`name` like concat('%',#{keyword},'%')
 		</if>
+
+        <if test="areaId != null">
+            and c.area_id=#{areaId}
+        </if>
+
     </select>
 
     <select id="selectByName" resultMap="BaseResultMap">
@@ -310,6 +318,7 @@
                 LEFT JOIN static_risk_data ON company. NAME = static_risk_data.company_name
                 WHERE
                     risk_level = #{risk_level}
+                    <if test="#{areaId != null}"> and company.area_id = #{areaId}</if>
                 AND (
                     static_risk_data.data_version = #{dateVersion}
                     OR static_risk_data.data_version IS NULL
@@ -338,6 +347,7 @@
                                 company
                             WHERE
                                 risk_level = #{risk_level}
+                                <if test="#{areaId != null}"> and company.area_id = #{areaId}</if>
                             AND `name` NOT IN (
                                 SELECT
                                     company.`name`
@@ -346,6 +356,7 @@
                                 LEFT JOIN static_risk_data ON company. NAME = static_risk_data.company_name
                                 WHERE
                                     risk_level = #{risk_level}
+                                    <if test="#{areaId != null}"> and company.area_id = #{areaId}</if>
                                 AND (
                                     static_risk_data.data_version = #{dateVersion}
                                     OR static_risk_data.data_version IS NULL
