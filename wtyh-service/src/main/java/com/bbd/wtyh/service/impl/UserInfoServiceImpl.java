@@ -1,8 +1,8 @@
 package com.bbd.wtyh.service.impl;
 
-import com.bbd.wtyh.domain.UserInfoDo;
 import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.exception.BusinessException;
+import com.bbd.wtyh.service.RoleResourceService;
 import com.bbd.wtyh.service.UserInfoService;
 import com.bbd.wtyh.mapper.UserInfoMapper;
 import com.bbd.wtyh.util.CipherUtils;
@@ -12,9 +12,7 @@ import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by cgj on 2017/2/27.
@@ -24,8 +22,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 	@Autowired
 	private UserInfoMapper userInfo;
-/*	@Autowired
-	private RoleResourceService roleResourceService;*/ //TODO
+	@Autowired
+	private RoleResourceService roleResourceService;
 
 	@Override
 	public void createUser(UserInfoTableDo uitd, String resourceSet) throws Exception {
@@ -102,8 +100,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 			throw new BusinessException("用户类型不合法");
 		}
 		userInfo.saveU(uitd);
-/*		//创建孙黎明这边的权限项
-		roleResourceService.addUserRoleResource(uitd , resourceSet, uitd.getCreateBy()); */ //TODO
+		//创建孙黎明这边的权限项
+		roleResourceService.addUserRoleResource(uitd , resourceSet, uitd.getCreateBy());
 	}
 
 	//更新用户信息
@@ -251,6 +249,28 @@ public class UserInfoServiceImpl implements UserInfoService {
 		return 0;
 	}*/
 
+	public Map<String,Object> GetForeUserInfoByLoginName( String loginName ) throws Exception {
+		UserInfoTableDo uInfo = userInfo.selectForeUserInfoAll(loginName);
+		Set<String> rC = roleResourceService.queryResourceCodeByLoginName(loginName);
+		Map<String,Object> rstMap =new HashMap<String, Object>();
+		rstMap.put("userInfo",uInfo);
+		rstMap.put("resourceCode",rC);
+		return rstMap;
+	}
+
+
+	@Override
+	public boolean compareUserNameMatchPassword(String loginName, String password, String type) {
+		if (StringUtils.isBlank(loginName) || StringUtils.isBlank(password) || StringUtils.isBlank(type))
+			return false; //用户输入的参数不合法
+		String selPassword = (userInfo.selectUserPassword(loginName, type)).get(0);
+		if (StringUtils.isEmpty(selPassword))
+			return false; //数据库返回的结果为空
+		if (password.equals( userPasswordEncrypt(selPassword)))
+			return false; //密码不匹配
+		return true;
+	}
+
 	public String userPasswordEncrypt(String context) {
 		return new SimpleHash("md5", context, ByteSource.Util.bytes("123456"), 2).toHex();
 	}
@@ -310,19 +330,6 @@ public class UserInfoServiceImpl implements UserInfoService {
 		//	用户密码的组成规则：英文+数字（8位到16位）
 		String regStr = "^([A-Z]|[a-z]|[0-9]){8,16}$";
 		return input.matches(regStr);
-	}
-
-
-	@Override
-	public boolean compareUserNameMatchPassword(String loginName, String password, String type) {
-		if (StringUtils.isBlank(loginName) || StringUtils.isBlank(password) || StringUtils.isBlank(type))
-			return false; //用户输入的参数不合法
-		String selPassword = (userInfo.selectUserPassword(loginName, type)).get(0);
-		if (StringUtils.isEmpty(selPassword))
-			return false; //数据库返回的结果为空
-		if (password.equals( userPasswordEncrypt(selPassword)))
-			return false; //密码不匹配
-		return true;
 	}
 
 		/* 打印Map的key和value

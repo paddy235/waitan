@@ -20,5 +20,7 @@ public interface UserInfoMapper {
 
 	public List<Map<String, Object>> selectUserPasswordAndId(@Param("loginName") String loginName);
 
+	public UserInfoTableDo selectForeUserInfoAll( @Param("loginName") String loginName );
+
 	// List<UserInfoTableDo> findByPage(Map<String, Object> params);
 }

@@ -4,13 +4,10 @@
   <sql id="TabName">
   `user_mgment`
   </sql>
-
-  <!--
-  <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.UserInfoTableDobleDo">
+<!--  <resultMap id="BaseResultMap1" type="com.bbd.wtyh.domain.UserInfoTableDo">
     <id column="id" jdbcType="INT" property="id" />
-    <id column="create_date" jdbcType="DATE" property="createDate" />
-    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
-    <result column="create_date" jdbcType="DATE" property="createDate" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="user_type" jdbcType="CHAR" property="createDate" />
     <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
     <result column="update_date" jdbcType="DATE" property="updateDate" />
     <result column="reg_capital" jdbcType="VARCHAR" property="regCapital" />
@@ -22,8 +19,7 @@
     <result column="reg_date" jdbcType="DATE" property="regDate" />
     <result column="review_time" jdbcType="VARCHAR" property="reviewTime" />
     <result column="is_rise" jdbcType="INTEGER" property="isRise" />
-  </resultMap>
-  -->
+  </resultMap>-->
 
   <insert id="saveU" parameterType="com.bbd.wtyh.domain.UserInfoTableDo" useGeneratedKeys="true"
           keyProperty="id" >
@@ -55,6 +51,27 @@
     WHERE  id =#{id}
   </update>
 
+  <!-- 根据前台用户名和前后台类型查询整条用户信息-->
+  <select id="selectForeUserInfoAll"  parameterType="String" resultType="com.bbd.wtyh.domain.UserInfoTableDo">
+    SELECT
+    id AS id,
+    user_type AS userType,
+    login_name AS loginName,
+    fore_pwd AS forePwd,
+    back_pwd AS backPwd,
+    real_name AS realName,
+    mobile AS mobile,
+    email AS email,
+    department AS department,
+    area_code AS areaCode,
+    create_date AS createDate,
+    create_by AS createBy,
+    update_date AS updateDate,
+    update_by AS updateBy
+    FROM `user_mgment`
+    WHERE `user_type` IN ('A','F') AND `status` = 'A' AND login_name= #{loginName} LIMIT 1
+  </select>
+
   <!-- 根据用户名和前后台类型查询用户密码 -->
   <select id="selectUserPassword"  parameterType="String" resultType="String">
     SELECT fore_pwd, back_pwd FROM <include refid="TabName"/>
@@ -66,6 +83,7 @@
     SELECT id, fore_pwd, back_pwd FROM <include refid="TabName"/>
     WHERE  status ='A' AND login_name= #{loginName}
   </select>
+
 
 
   <!-- 根据用户id查询单条记录  -->   <!-- 待改进

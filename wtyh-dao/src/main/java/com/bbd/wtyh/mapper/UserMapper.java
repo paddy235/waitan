@@ -1,8 +1,11 @@
 package com.bbd.wtyh.mapper;
 
+
+import com.bbd.wtyh.domain.UserInfoTableDo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
+import java.util.Map;
 
 /**
  *
@@ -16,5 +19,7 @@ public interface UserMapper {
     String getPassword(String loginName);
 
     int updatePassword(@Param("loginName") String loginName, @Param("password") String password);
+
+    UserInfoTableDo queryUserInfo(String userName);
 
 }

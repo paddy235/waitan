@@ -1,5 +1,6 @@
 package com.bbd.bgo.web.controller;
 
+import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.exception.BusinessException;
 import com.bbd.wtyh.service.UserInfoService;
@@ -37,6 +38,8 @@ public class UserInfoController {
 			HttpServletRequest request
 			) {
 		// hh.addHeader("aa","1234");
+		String loginName = (String)request.getSession().getAttribute(Constants.SESSION.loginName);
+		uitd.setLoginName(loginName);
 		try {
 			uis.createUser(uitd, resourceSet);
 		} catch (BusinessException be) {
@@ -58,6 +61,12 @@ public class UserInfoController {
 	@ResponseBody
 	public Object updateUserInfo(/*@RequestParam String loginName, @RequestParam String password, @RequestParam String type*/) {
 
+		try {
+			Map<String,Object> rstMap = uis.GetForeUserInfoByLoginName( "adn-yang" );
+			System.out.println(rstMap);
+		} catch (Exception ee)	{
+			;
+		}
 
 		Set<String> obj1 = new HashSet<String>();
 		obj1.add("wer123");
@@ -76,7 +85,7 @@ public class UserInfoController {
 
 		Map<String,Object> rstMap =new HashMap<String, Object>();
 		rstMap.put("userInfo",objL);
-		rstMap.put("ResourceCode",obj1);
+		rstMap.put("resourceCode",obj1);
 		return rstMap;
 	}
 

@@ -1,7 +1,8 @@
 package com.bbd.wtyh.service;
 
-import com.bbd.wtyh.domain.UserInfoDo;
 import com.bbd.wtyh.domain.UserInfoTableDo;
+
+import java.util.Map;
 
 /**
  * Created by cgj on 2017/2/27.
@@ -21,5 +22,9 @@ public interface UserInfoService {
     public boolean compareUserNameMatchPassword(String loginName, String password, String type);
 
     public String userPasswordEncrypt(String context);
+
+    public Map<String,Object> GetForeUserInfoByLoginName(String LoginName ) throws Exception;
+
+
 
 }
