@@ -43,7 +43,7 @@ public class UserChangeLogAspect {
                     resource.append("{").append(r).append("=").append(rd.getName()).append("}");
             }
         }
-        LOGGER.info("{}信息为：{}，包括权限：[{}]",msg,uitd.toString(),resource.toString());
+        LOGGER.info("用户操作日志:===>>>{}信息为：{}，包括权限：[{}]",msg,uitd.toString(),resource.toString());
     }
 
 
