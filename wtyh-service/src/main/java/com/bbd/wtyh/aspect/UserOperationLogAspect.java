@@ -28,7 +28,7 @@ public class UserOperationLogAspect {
     @Before("controllerMethod()")
     public void controllerMethodBefore(JoinPoint joinPoint){
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        LOGGER.info("用户请求地址为：{},参数为：{}",request.getRequestURL(),request.getParameterMap().keySet());
+        LOGGER.info("用户操作日志:===>>>请求地址为：{},参数为：{}",request.getRequestURL(),request.getParameterMap().keySet());
     }
 
 
