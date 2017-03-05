@@ -47,7 +47,7 @@
 		select user_role.id,user_role.user_id,user_role.role_id from user_role,user_mgment
 		where
 		user_role.user_id=user_mgment.id
-		and user_mgment.user_id=#{userId}
+		and user_mgment.id=#{userId}
 	</select>
 	<delete id="deleteRoleResourceRelation" parameterType="int">
 		delete from role_resource where role_id=#{userId}
