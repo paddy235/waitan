@@ -51,6 +51,9 @@ public interface UserInfoService {
      */
     public Map<String, Object> getUserInfoSummaryByLoginName( String loginName) throws Exception;
 
+
+    public Map<String,Object> listUserInfo(  )  throws Exception;
+
     /**
      * 用户密码单向加密
      * @param plaintext 明文

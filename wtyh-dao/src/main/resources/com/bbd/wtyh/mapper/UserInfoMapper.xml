@@ -33,20 +33,20 @@
   <update id="updateU" parameterType="com.bbd.wtyh.domain.UserInfoTableDo">
     UPDATE <include refid="TabName"/>
     <set>
-      <if test="status != NULL"> status= #{status}, </if>
-      <if test="userType != NULL"> user_type= #{userType} </if>
-      <if test="loginName != NULL"> login_name= #{loginName}, </if>
-      <if test="forePwd != NULL"> fore_pwd= #{forePwd}, </if>
-      <if test="backPwd != NULL"> back_pwd= #{backPwd}, </if>
-      <if test="realName != NULL"> real_name= #{realName}, </if>
-      <if test="mobile != NULL"> mobile= #{mobile}, </if>
-      <if test="email != NULL"> email= #{email}, </if>
-      <if test="department != NULL"> department= #{department}, </if>
-      <if test="areaCode != NULL"> area_code= #{areaCode}, </if>
-      <if test="createDate != NULL"> create_date= #{createDate}, </if>
-      <if test="createBy != NULL"> create_by= #{createBy}, </if>
-      <if test="updateDate != NULL"> update_date= #{updateDate}, </if>
-      <if test="updateBy != NULL"> update_by= #{updateBy}, </if>
+      <if test="status != null"> status= #{status}, </if>
+      <if test="userType != null"> user_type= #{userType}, </if>
+      <if test="loginName != null"> login_name= #{loginName}, </if>
+      <if test="forePwd != null"> fore_pwd= #{forePwd}, </if>
+      <if test="backPwd != null"> back_pwd= #{backPwd}, </if>
+      <if test="realName != null"> real_name= #{realName}, </if>
+      <if test="mobile != null"> mobile= #{mobile}, </if>
+      <if test="email != null"> email= #{email}, </if>
+      <if test="department != null"> department= #{department}, </if>
+      <if test="areaCode != null"> area_code= #{areaCode}, </if>
+      <if test="createDate != null"> create_date= #{createDate}, </if>
+      <if test="createBy != null"> create_by= #{createBy}, </if>
+      <if test="updateDate != null"> update_date= #{updateDate}, </if>
+      <if test="updateBy != null"> update_by= #{updateBy} </if>
     </set>
     WHERE  id =#{id}
   </update>
@@ -101,6 +101,45 @@
     SELECT id, user_type, fore_pwd, back_pwd FROM <include refid="TabName"/>
     WHERE  status ='A' AND login_name= #{loginName}
   </select>
+
+
+  <!-- 查询用户记录总条数, 用户为‘A’ -->
+  <select id="selectUserInfoTotalNum"   resultType="Integer">
+    SELECT  COUNT(*)   FROM <include refid="TabName"/>
+    WHERE  status ='A'
+  </select>
+
+
+  <!-- 查询用户记录列表, 用户为‘A’ -->
+  <select id="selectUserInfoList"   resultType="java.util.Map">
+    SELECT
+    id AS id,
+    login_name AS loginName,
+    real_name AS realName,
+    department AS department
+    mobile AS mobile,
+    email AS email,
+    create_by AS createBy,
+    user_type AS userType
+    FROM <include refid="TabName"/>
+    WHERE  status ='A'
+    <choose>
+      <when test="loginName !=null">
+        AND LIKE `login_name` LIKE #{loginName}
+      </when>
+      <when test="realName !=null">
+        AND LIKE `real_name` LIKE #{realName}
+      </when>
+      <when test="department !=null">
+        AND LIKE `department` LIKE #{department}
+      </when>
+    </choose> LIMIT
+    <if test="limitOffset">
+      #{limitOffset},
+    </if>  #{limitPage}
+    ORDER BY update_date DESC
+  </select>
+
 
 
 

@@ -2,6 +2,7 @@ package com.bbd.wtyh.mapper;
 
 import com.bbd.wtyh.domain.UserInfoTableDo;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,10 @@ public interface UserInfoMapper {
 	public UserInfoTableDo selectUserAllInfoById( @Param("id") Integer id );
 
 	public List<Map<String, Object>> selectUserInfoSummaryByLoginName(@Param("loginName") String loginName);
+
+	public Integer selectUserInfoTotalNum( );
+
+	public List<Map<String, Object>> selectUserInfoList(  );
 
 	//public List<String> selectUserPassword(@Param("loginName") String loginName, @Param("type") String type);
 

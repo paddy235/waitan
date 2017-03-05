@@ -56,7 +56,7 @@ public class UserInfoController {
 		return uis.compareUserNameMatchPassword(loginName, password, type);
 	}*/
 
-	@RequestMapping("/updateUserInfo")
+	@RequestMapping("/updateUserInfo.do")
 	@ResponseBody
 	public Object updateUserInfo(
 			UserInfoTableDo uitd,
@@ -79,7 +79,7 @@ public class UserInfoController {
 	@ResponseBody
 	public Object updateUserInfo(
 			@RequestParam Integer delId,
-			@RequestParam String oldPwd,
+			String oldPwd,
 			HttpServletRequest request ) {
 		try {
 			UserInfoTableDo uitd =new UserInfoTableDo();
@@ -103,13 +103,13 @@ public class UserInfoController {
 	public Object myTest() {
 		//下面是测试代码
 		try {
-			Map<String,Object> rstMap = uis.getUserInfoByLoginName( "adn-yang3");
+			Map<String,Object> rstMap = uis.listUserInfo();
 			System.out.println(rstMap);
 			return rstMap;
 		} catch (Exception ee)	{
 			;
 		}
-		return  ResponseBean.successResponse("err");
+		return  ResponseBean.successResponse( "err" );
 	}
 
 }

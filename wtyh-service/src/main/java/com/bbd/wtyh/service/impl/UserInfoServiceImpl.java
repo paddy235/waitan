@@ -77,8 +77,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 		if (StringUtils.isBlank(uitd.getCreateBy()) || !rexCheckUserName(uitd.getCreateBy())) {
 			throw new BusinessException("创建人为空");
 		}
-		uitd.setUpdateDate(null);
-		uitd.setUpdateBy(null);
+		uitd.setUpdateDate(uitd.getCreateDate());
+		uitd.setUpdateBy(uitd.getUpdateBy());
 
 		if( uitd.getUserType().equals("A") ) {
 			if( StringUtils.isBlank(uitd.getForePwd()) || !rexCheckPassword(uitd.getForePwd()) )
@@ -136,7 +136,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		if( StringUtils.isBlank(uitd.getStatus()) ) {
 			uitd.setStatus(null); //不更新用户状态
 		} else {
-			if (!uitd.getStatus().equals("F") || !uitd.getStatus().equals("A")) {
+			if (!uitd.getStatus().equals("F") && !uitd.getStatus().equals("A")) {
 				throw new BusinessException("用户状态参数不合法");
 			}
 			if ( ( uitd.getStatus().equals("F") )&&( 1 == uitd.getId()) ) { // id号为1的为超级管理员，禁止删除
@@ -250,8 +250,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 				uitd.setBackPwd("");
 			}
 		} else { //已指定
-			boolean newBY = false; //旧的后台属性
-			boolean newFY = false; //旧的前台属性
+			boolean newBY = false; //新的后台属性
+			boolean newFY = false; //新的前台属性
 			String newType = uitd.getUserType();
 			if (newType.equals("A") || newType.equals("B")) {
 				newBY = true;
@@ -307,13 +307,17 @@ public class UserInfoServiceImpl implements UserInfoService {
 			}
 		}
 
+		if (StringUtils.isNotBlank(resourceSet)) {  //权限集有更新
+			updateCount++;
+		}
+
 		uitd.setCreateDate(null);
 		uitd.setCreateBy(null);
-		if (StringUtils.isBlank(uitd.getUpdateBy()) || !rexCheckUserName(uitd.getUpdateBy())) {
-			throw new BusinessException("修改人为空");
-		}
-		uitd.setUpdateDate(new Date());
 		if ( updateCount >0 ) { //更新用户信息
+			if (StringUtils.isBlank(uitd.getUpdateBy()) || !rexCheckUserName(uitd.getUpdateBy())) {
+				throw new BusinessException("修改人为空");
+			}
+			uitd.setUpdateDate(new Date());
 			userInfoMapper.updateU(uitd);
 		}
 		if( uitd.getStatus().equals("F") ) { //禁用用户，连带物理删除权限表
@@ -368,6 +372,15 @@ public class UserInfoServiceImpl implements UserInfoService {
 			throw new BusinessException("无此登录名对应的记录");
 		}
 		return lm.get(0);
+	}
+
+	@Override
+	public Map<String,Object> listUserInfo(  )  throws Exception  {
+		Map<String,Object> rstMap =new HashMap<String, Object>();
+		Integer ltn =userInfoMapper.selectUserInfoTotalNum();
+		rstMap.put("listTotalNum",ltn);
+		rstMap.put("list","ok");
+		return rstMap;
 	}
 
 	@Override
