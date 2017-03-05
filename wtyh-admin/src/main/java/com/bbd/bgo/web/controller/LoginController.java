@@ -61,7 +61,7 @@ public class LoginController {
 
 			//Set res=roleResourceService.queryResourceCodeByLoginName(name);
 			//取用户信息、权限
-			Map m=userInfoService.getForeUserInfoByLoginName(name);
+			Map m=userInfoService.getUserInfoByLoginName(name);
 			UserInfoTableDo userInfo=(UserInfoTableDo) m.get("userInfo");
 
 			Set res= (Set) m.get("resourceCode");

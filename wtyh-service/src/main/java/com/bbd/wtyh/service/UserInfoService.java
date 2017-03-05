@@ -26,14 +26,30 @@ public interface UserInfoService {
     public void updateUserInfo(UserInfoTableDo uitd, String resourceSet) throws Exception ;
 
     /**
-     *  通过登录名查询单条用户详情，给孙黎明调用，不分前后台，由您自己根据userType判断，例如'A'||'B'表明是
+     *  通过登录名查询单条用户详情（包括用户权限），不分前后台，由调用者根据userType判断，例如'A'||'B'表明是
      *  后台用户，'A'||'F'表明是前台用户，这样您可灵活使用
      * @param loginName 登录名
      * // @param foreYes 选择前（true）后（false）台用户
-     * @return 返回包含权限和用户完整字段，
-     * @throws Exception
+     * @return 返回用户信息和含权限的完整字段
+     * @throws Exception 各种不合规的参数引发的异常，包括解密转码的异常
      */
     public Map<String,Object> getUserInfoByLoginName(String loginName /*, boolean foreYes*/) throws Exception;
+
+    /**
+     * 通过id查询单条用户详情（包括用户权限），不分前后台，由调用者根据userType判断，例如'A'||'B'表明是
+     * @param id 用户记录表的id（主键）
+     * @return 返回用户信息和含权限的完整字段
+     * @throws Exception 各种不合规的参数引发的异常，包括解密转码的异常
+     */
+    public Map<String,Object> getUserInfoById(int id /*, boolean foreYes*/) throws Exception;
+
+    /**
+     * 通过用户名查询用户摘要信息
+     * @param loginName 登录名
+     * @return ，目前返回的数据库中的字段有：id, user_type, fore_pwd, back_pwd
+     * @throws Exception
+     */
+    public Map<String, Object> getUserInfoSummaryByLoginName( String loginName) throws Exception;
 
 
     /**

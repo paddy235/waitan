@@ -96,19 +96,19 @@
     WHERE `status` = 'A'  AND `id` = #{id} LIMIT 1
   </select>
 
-<!--  &lt;!&ndash; 根据用户名和前后台类型查询用户密码 &ndash;&gt;
-  <select id="selectUserPassword"  parameterType="String" resultType="String">
-    SELECT fore_pwd, back_pwd FROM <include refid="TabName"/>
-    WHERE  status ='A' AND login_name= #{loginName} AND user_type = #{type}
-  </select>-->
-
-  <!-- 根据用户名查询用户摘要信息 -->
+  <!-- 根据用户名查询用户摘要信息, 用户为‘A’ -->
   <select id="selectUserInfoSummaryByLoginName"  parameterType="String" resultType="java.util.Map">
-    SELECT id, fore_pwd, back_pwd FROM <include refid="TabName"/>
+    SELECT id, user_type, fore_pwd, back_pwd FROM <include refid="TabName"/>
     WHERE  status ='A' AND login_name= #{loginName}
   </select>
 
 
+
+  <!--  &lt;!&ndash; 根据用户名和前后台类型查询用户密码 &ndash;&gt;
+    <select id="selectUserPassword"  parameterType="String" resultType="String">
+      SELECT fore_pwd, back_pwd FROM <include refid="TabName"/>
+      WHERE  status ='A' AND login_name= #{loginName} AND user_type = #{type}
+    </select>-->
 
   <!-- 根据用户id查询单条记录  -->   <!-- 待改进
   <select id="selectUserInfoSummaryByLoginName"  parameterType="String" resultType="java.util.Map">
