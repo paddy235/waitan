@@ -30,5 +30,9 @@
 		select area_id areaId, name,parent_id parentId,city_id cityId,province_id provinceId from area where parent_id=#{parentId}
 	</select>
 
+	<select id="getAreaByAreaId"  resultType="com.bbd.wtyh.domain.AreaDO">
+		select area_id areaId, name from area where area_id=#{areaId}
+	</select>
+
 
 </mapper>

@@ -51,21 +51,27 @@ public class UserInfoController {
 
 
     @RequestMapping("/update")
-    public Object updateInfo(@RequestParam Integer id,@RequestParam String mobile,@RequestParam String email)throws Exception{
-        UserInfoTableDo user = new UserInfoTableDo();
+    public Object updateInfo(@RequestParam Integer id,@RequestParam String mobile,@RequestParam String email,HttpSession session)throws Exception{
+
+         UserInfoTableDo user = new UserInfoTableDo();
          user.setId(id);
          user.setMobile(mobile);
          user.setEmail(email);
+         user.setUpdateBy((String)session.getAttribute(Constants.SESSION.loginName));
+
          userInfoService.updateUserInfo(user,null);
 
          return ResponseBean.successResponse("用户信息修改成功。");
     }
 
     @RequestMapping("/update/password")
-    public Object updateInfo(@RequestParam Integer id,@RequestParam String password)throws Exception{
+    public Object updatePassword(@RequestParam Integer id,@RequestParam String oldPassword,@RequestParam String newPassword,HttpSession session)throws Exception{
+
         UserInfoTableDo user = new UserInfoTableDo();
         user.setId(id);
-        user.setForePwd(password);
+        user.setForePwd(newPassword);
+        user.setOldPwd(oldPassword);
+        user.setUpdateBy((String)session.getAttribute(Constants.SESSION.loginName));
         userInfoService.updateUserInfo(user,null);
 
         return ResponseBean.successResponse("用户密码修改成功。");

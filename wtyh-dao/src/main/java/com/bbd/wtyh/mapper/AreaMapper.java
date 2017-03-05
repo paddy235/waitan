@@ -34,4 +34,6 @@ public interface AreaMapper{
 
 	List<AreaDO> selectByParentId(Integer parentId);
 
+	AreaDO getAreaByAreaId(@Param("areaId") Integer areaId);
+
 }

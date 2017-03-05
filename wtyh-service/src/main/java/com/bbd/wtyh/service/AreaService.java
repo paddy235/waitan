@@ -52,4 +52,6 @@ public interface AreaService {
 
 	AreaDO selectByNameAndLevel(String name,Integer level);
 
+	AreaDO getAreaByAreaId(Integer areaId);
+
 }
