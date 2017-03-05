@@ -4,22 +4,14 @@ import com.bbd.wtyh.domain.ResourceDo;
 import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.mapper.RoleResourceMapper;
 import com.bbd.wtyh.mapper.UserInfoMapper;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.apache.commons.lang3.StringUtils;
+import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
-import javax.swing.*;
+import java.util.List;
 
 /**
  * Created by Yin Su on 2017/3/5.
@@ -51,7 +43,7 @@ public class UserChangeLogAspect {
                     resource.append("{").append(r).append("=").append(rd.getName()).append("}");
             }
         }
-        LOGGER.info("{}信息为：{}，包括权限：[{}]",msg,uitd.toString(),resource.toString());
+        LOGGER.info("用户操作日志:===>>>{}信息为：{}，包括权限：[{}]",msg,uitd.toString(),resource.toString());
     }
 
 
@@ -82,14 +74,30 @@ public class UserChangeLogAspect {
 
     @Before("updateUserInfo() && args(uitd,resourceSet)")
     public void doUpdateUserInfoBefore(UserInfoTableDo uitd,String resourceSet){
-         //userInfo.
-        createUserLog( uitd, resourceSet ,"修改用户信息，原");
+        if(uitd == null || uitd.getId() == null){
+            return;
+        }
+        UserInfoTableDo bean = userInfo.selectUserAllInfoById(uitd.getId());
+        List<String> rs = resourceMapper.queryResourceCodeByLoginName(bean.getLoginName());
+
+        createUserLog( bean , StringUtils.join(rs,",") ,"修改用户信息，原");
     }
 
 
-    @After("updateUserInfo() && args(uitd,resourceSet)")
-    public void doUpdateUserInfoAfter(UserInfoTableDo uitd,String resourceSet){
-        createUserLog( uitd, resourceSet ,"修改用户成功，");
+    @AfterReturning("updateUserInfo() && args(uitd,resourceSet)")
+    public void doUpdateUserInfoAfterReturning(UserInfoTableDo uitd,String resourceSet){
+        UserInfoTableDo bean = userInfo.selectUserAllInfoById(uitd.getId());
+        createUserLog( bean, resourceSet ,"修改用户成功，");
     }
+
+
+
+
+
+
+
+
+
+
 
 }
