@@ -4,6 +4,9 @@ import com.bbd.wtyh.domain.ResourceDo;
 import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.mapper.RoleResourceMapper;
 import com.bbd.wtyh.mapper.UserInfoMapper;
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.util.ArrayUtil;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -17,9 +20,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
-
 import javax.swing.*;
+import java.util.List;
 
 /**
  * Created by Yin Su on 2017/3/5.
@@ -82,14 +84,28 @@ public class UserChangeLogAspect {
 
     @Before("updateUserInfo() && args(uitd,resourceSet)")
     public void doUpdateUserInfoBefore(UserInfoTableDo uitd,String resourceSet){
-         //userInfo.
-        createUserLog( uitd, resourceSet ,"修改用户信息，原");
+        if(uitd == null || uitd.getId() == null){
+            return;
+        }
+        UserInfoTableDo bean = userInfo.selectUserAllInfoById(uitd.getId());
+        List<String> rs = resourceMapper.queryResourceCodeByLoginName(bean.getLoginName());
+
+        createUserLog( bean , StringUtils.join(rs,",") ,"修改用户信息，原");
     }
 
 
     @After("updateUserInfo() && args(uitd,resourceSet)")
     public void doUpdateUserInfoAfter(UserInfoTableDo uitd,String resourceSet){
-        createUserLog( uitd, resourceSet ,"修改用户成功，");
+        UserInfoTableDo bean = userInfo.selectUserAllInfoById(uitd.getId());
+        createUserLog( bean, resourceSet ,"修改用户成功，");
     }
+
+
+
+
+
+
+
+
 
 }
