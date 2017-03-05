@@ -63,8 +63,7 @@ public class RoleResourceServiceImpl implements RoleResourceService {
         }
         //新增角色基本信息
         RoleDo roleDo=this.addRoleBase(null, null, userInfoTableDo.getUserType(),loginName);
-        //新增角色权限关系
-        addRoleResourceRelation(roleDo.getId(), resourceSet, loginName);
+
         //新增角色用户关系
         UserRoleDo userRoleDo=new UserRoleDo();
         userRoleDo.setUserId(userId);
@@ -72,6 +71,9 @@ public class RoleResourceServiceImpl implements RoleResourceService {
         userRoleDo.setCreateBy(loginName);
         userRoleDo.setCreateDate(DateUtils.parserDate(DateUtils.format(new Date(),"yyyyMMddHHmmss"),"yyyyMMddHHmmss"));
         roleResourceMapper.addUserRoleRelation(userRoleDo);
+
+        //新增角色权限关系
+        addRoleResourceRelation(roleDo.getId(), resourceSet, loginName);
 
     }
     /*
@@ -95,7 +97,7 @@ public class RoleResourceServiceImpl implements RoleResourceService {
     }
 
     /*
-     *删除某用户的 用户-角色关系、角色-权限关系、角色基本信息
+     *删除某用户的 角色-权限关系、角色基本信息、用户-角色关系
      */
     @Override
     public void deleteUserRoleResource(Integer userId, String loginName) {

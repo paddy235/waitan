@@ -6,6 +6,7 @@ import org.apache.shiro.crypto.AesCipherService;
 import sun.security.action.GetPropertyAction;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.security.AccessController;
 
 /**
@@ -41,7 +42,13 @@ public class CipherUtils {
         if (StringUtils.isBlank(key)) {
             key = AES_KEY;
         }
-        return new String(aesCipherService.decrypt(Hex.decode(ciphertext), Hex.decode(key)).getBytes());
+        String rstStr =null;
+        try {
+            rstStr =new String(aesCipherService.decrypt(Hex.decode(ciphertext), Hex.decode(key)).getBytes(),"UTF-8");
+        } catch (Exception ee)        {
+            rstStr ="";
+        }
+        return rstStr;
     }
 
     public static String decrypt(String ciphertext) {

@@ -58,32 +58,37 @@ public class LoginController {
 		try {
 			currentUser.login(token);
 			logger.info(name+"身份验证通过,登录后台系统!");
-			map=new HashedMap();
+
 			//Set res=roleResourceService.queryResourceCodeByLoginName(name);
 			//取用户信息、权限
-			Map m=userInfoService.getForeUserInfoByLoginName(name);
+			Map m=userInfoService.getUserInfoByLoginName(name);
 			UserInfoTableDo userInfo=(UserInfoTableDo) m.get("userInfo");
+
 			Set res= (Set) m.get("resourceCode");
 			String areaCode=userInfo.getAreaCode();
 			AreaDO areaDo=areaService.getAreaByAreaId(Integer.valueOf(areaCode));
+			String areaName=null;
+			if(null != areaDo){
+				areaName=areaDo.getName();
+			}
 			//用户信息、权限信息保存到session
 			Session session=currentUser.getSession();
 			session.setAttribute("resource",res);//权限列表
 			session.setAttribute(Constants.SESSION.loginName, name);//登录用户名
 			session.setAttribute("area",areaCode);//地区编号
-			session.setAttribute("areaName",areaDo.getName());//地区编号
+			session.setAttribute("areaName",areaName);//地区名称
 
 			//用户信息、权限信息传给前端页面
+			map=new HashedMap();
 			map.put("resource",res);//权限列表
 			map.put(Constants.SESSION.loginName, name);//登录用户名
 			map.put("area",areaCode);//属地区编号
-			map.put("areaName",areaDo.getName());//属地区编号
+			map.put("areaName",areaName);//地区名称
 
 		}catch(Exception e){
 
 			//通过处理Shiro的运行时AuthenticationException就可以控制用户登录失败或密码错误时的情景
 			e.printStackTrace();
-			//request.setAttribute("message_login", "用户名或密码不正确");
 			return ResponseBean.errorResponse("用户名或密码不正确");
 		}
 

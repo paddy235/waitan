@@ -16,11 +16,17 @@ public interface UserInfoMapper {
 
 	public void updateU(UserInfoTableDo userInfoTableDo);
 
-	public List<String> selectUserPassword(@Param("loginName") String loginName, @Param("type") String type);
+	public UserInfoTableDo selectUserInfoAllByLoginName(@Param("loginName") String loginName ); //sued sun
 
-	public List<Map<String, Object>> selectUserPasswordAndId(@Param("loginName") String loginName);
+	public UserInfoTableDo selectUserAllInfoById( @Param("id") Integer id );
 
-	public UserInfoTableDo selectForeUserInfoAll( @Param("loginName") String loginName );
+	public List<Map<String, Object>> selectUserInfoSummaryByLoginName(@Param("loginName") String loginName);
+
+	//public List<String> selectUserPassword(@Param("loginName") String loginName, @Param("type") String type);
+
+//	public UserInfoTableDo selectForeUserInfoAll( @Param("loginName") String loginName ); //used sun
+
+//	public UserInfoTableDo selectBackUserInfoAll( @Param("loginName") String loginName ); //sued sun
 
 	// List<UserInfoTableDo> findByPage(Map<String, Object> params);
 }

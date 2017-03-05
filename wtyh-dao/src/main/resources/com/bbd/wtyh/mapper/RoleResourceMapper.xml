@@ -21,7 +21,7 @@
 		from resource where `code` =  #{resourceCode}
 	</select>
 
-	<insert id="addRoleBase" parameterType="com.bbd.wtyh.domain.RoleDo" useGeneratedKeys="true" keyProperty="id"
+	<insert id="addRoleBase" parameterType="com.bbd.wtyh.domain.RoleDo"  useGeneratedKeys="true" keyProperty="id"
 			keyColumn="id">
 		INSERT INTO `role` (`name`, `description`, `type`, `create_date`, `update_date`, `create_by`, `update_by`)
 		VALUES (#{name}, #{description}, #{type},  #{createDate}, #{updateDate}, #{createBy}, #{updateBy});
@@ -34,7 +34,7 @@
 	</insert>
 	<insert id="addUserRoleRelation" parameterType="com.bbd.wtyh.domain.UserRoleDo" useGeneratedKeys="true" keyProperty="id"
 			keyColumn="id">
-		INSERT INTO `role_resource` (`user_id`, `role_id`, `create_date`, `update_date`, `create_by`, `update_by`)
+		INSERT INTO `user_role` (`user_id`, `role_id`, `create_date`, `update_date`, `create_by`, `update_by`)
 		VALUES (#{userId}, #{roleId}, #{createDate}, #{updateDate}, #{createBy}, #{updateBy});
 	</insert>
 

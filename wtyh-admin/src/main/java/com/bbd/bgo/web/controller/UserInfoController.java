@@ -30,14 +30,15 @@ public class UserInfoController {
 	@Autowired
 	private UserInfoService uis;
 
-	@RequestMapping("/CreateUser")
+	@RequestMapping("/createUser")
 	@ResponseBody
-	public Object myCreateUser1(
+	public Object createUser1(
 			UserInfoTableDo uitd,
 			@RequestParam String resourceSet,
-			HttpServletRequest request
-			) {
+			HttpServletRequest request	) {
 		// hh.addHeader("aa","1234");
+		String loginName = (String)request.getSession().getAttribute(Constants.SESSION.loginName);
+		uitd.setCreateBy(loginName);
 		try {
 			uis.createUser(uitd, resourceSet);
 		} catch (BusinessException be) {
@@ -49,45 +50,36 @@ public class UserInfoController {
 		return ResponseBean.successResponse("OK");
 	}
 
-	@RequestMapping("/myUserLogin")
+/*	@RequestMapping("/myUserLogin")
 	@ResponseBody
 	public Object myUserLogin(@RequestParam String loginName, @RequestParam String password, @RequestParam String type) {
 		return uis.compareUserNameMatchPassword(loginName, password, type);
-	}
+	}*/
 
 	@RequestMapping("/updateUserInfo")
 	@ResponseBody
-	public Object updateUserInfo(/*@RequestParam String loginName, @RequestParam String password, @RequestParam String type*/) {
+	public Object updateUserInfo(
+			UserInfoTableDo uitd,
+			@RequestParam String resourceSet,
+			HttpServletRequest request ) {
+		String loginName = (String)request.getSession().getAttribute(Constants.SESSION.loginName);
+		uitd.setUpdateBy(loginName);
 
-//		String loginName = (String)request.getSession().getAttribute(Constants.SESSION.loginName);
-//		uitd.setLoginName(loginName);
+		return  ResponseBean.successResponse("err");
+	}
+
+	@RequestMapping("/myTest.do")
+	@ResponseBody
+	public Object myTest() {
+		//下面是测试代码
 		try {
-			Map<String,Object> rstMap = uis.getForeUserInfoByLoginName( "adn-yang1" );
+			Map<String,Object> rstMap = uis.getUserInfoByLoginName( "adn-yang3");
 			System.out.println(rstMap);
 			return rstMap;
 		} catch (Exception ee)	{
 			;
 		}
-
-		Set<String> obj1 = new HashSet<String>();
-		obj1.add("wer123");
-		obj1.add("sdf234");
-
-		Map<String, Object> m1 =new HashMap<String, Object>();
-		m1.put("we",34);
-		m1.put("zx","scvp");
-		m1.put("vs",334);
-		Map<String, Object> m2 =new HashMap<String, Object>();
-		m2.put( "we", 45 );
-		m2.put("vb",true);
-		List<Map<String, Object>>  objL =new LinkedList<Map<String, Object>>();
-		objL.add(m1);
-		objL.add(m2);
-
-		Map<String,Object> rstMap =new HashMap<String, Object>();
-		rstMap.put("userInfo",objL);
-		rstMap.put("resourceCode",obj1);
-		return rstMap;
+		return  ResponseBean.successResponse("err");
 	}
 
 }
