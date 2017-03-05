@@ -64,8 +64,38 @@ public class UserInfoController {
 			HttpServletRequest request ) {
 		String loginName = (String)request.getSession().getAttribute(Constants.SESSION.loginName);
 		uitd.setUpdateBy(loginName);
+		try {
+			uis.updateUserInfo(uitd, resourceSet);
+		} catch (BusinessException be) {
+			return ResponseBean.errorResponse(be.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseBean.errorResponse("服务器异常");
+		}
+		return ResponseBean.successResponse("OK");
+	}
 
-		return  ResponseBean.successResponse("err");
+	@RequestMapping("/deleteUser.do")
+	@ResponseBody
+	public Object updateUserInfo(
+			@RequestParam Integer delId,
+			@RequestParam String oldPwd,
+			HttpServletRequest request ) {
+		try {
+			UserInfoTableDo uitd =new UserInfoTableDo();
+			String loginName = (String)request.getSession().getAttribute(Constants.SESSION.loginName);
+			uitd.setUpdateBy(loginName);
+			uitd.setId(delId);
+			uitd.setOldPwd(oldPwd);
+			uitd.setStatus("F"); //逻辑删除
+			uis.updateUserInfo(uitd, null);
+		} catch (BusinessException be) {
+			return ResponseBean.errorResponse(be.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseBean.errorResponse("服务器异常");
+		}
+		return ResponseBean.successResponse("OK");
 	}
 
 	@RequestMapping("/myTest.do")

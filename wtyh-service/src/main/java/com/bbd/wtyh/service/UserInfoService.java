@@ -4,7 +4,7 @@ import com.bbd.wtyh.domain.UserInfoTableDo;
 
 import java.util.Map;
 
-/**
+/** 用户基本信息服务接口
  * Created by cgj on 2017/2/27.
  */
 public interface UserInfoService {
@@ -50,7 +50,6 @@ public interface UserInfoService {
      * @throws Exception
      */
     public Map<String, Object> getUserInfoSummaryByLoginName( String loginName) throws Exception;
-
 
     /**
      * 用户密码单向加密

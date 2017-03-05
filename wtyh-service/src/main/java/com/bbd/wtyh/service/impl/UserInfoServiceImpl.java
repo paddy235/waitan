@@ -22,6 +22,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 	@Autowired
 	private UserInfoMapper userInfoMapper;
+
 	@Autowired
 	private RoleResourceService roleResourceService;
 
@@ -137,6 +138,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 		} else {
 			if (!uitd.getStatus().equals("F") || !uitd.getStatus().equals("A")) {
 				throw new BusinessException("用户状态参数不合法");
+			}
+			if ( ( uitd.getStatus().equals("F") )&&( 1 == uitd.getId()) ) { // id号为1的为超级管理员，禁止删除
+				throw new BusinessException("supper管理员，禁止删除！");
 			}
 			updateCount++;
 		}
@@ -312,7 +316,11 @@ public class UserInfoServiceImpl implements UserInfoService {
 		if ( updateCount >0 ) { //更新用户信息
 			userInfoMapper.updateU(uitd);
 		}
-		roleResourceService.updateUserRoleResource( uitd, resourceSet,uitd.getUpdateBy() );
+		if( uitd.getStatus().equals("F") ) { //禁用用户，连带物理删除权限表
+			roleResourceService.deleteUserRoleResource(uitd.getId(), uitd.getUpdateBy() );
+		} else {
+			roleResourceService.updateUserRoleResource(uitd, resourceSet, uitd.getUpdateBy());
+		}
 	}
 
 	@Override
