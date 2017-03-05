@@ -4,23 +4,13 @@ import com.bbd.wtyh.domain.ResourceDo;
 import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.mapper.RoleResourceMapper;
 import com.bbd.wtyh.mapper.UserInfoMapper;
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.util.ArrayUtil;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import javax.swing.*;
+
 import java.util.List;
 
 /**
@@ -94,11 +84,13 @@ public class UserChangeLogAspect {
     }
 
 
-    @After("updateUserInfo() && args(uitd,resourceSet)")
-    public void doUpdateUserInfoAfter(UserInfoTableDo uitd,String resourceSet){
+    @AfterReturning("updateUserInfo() && args(uitd,resourceSet)")
+    public void doUpdateUserInfoAfterReturning(UserInfoTableDo uitd,String resourceSet){
         UserInfoTableDo bean = userInfo.selectUserAllInfoById(uitd.getId());
         createUserLog( bean, resourceSet ,"修改用户成功，");
     }
+
+
 
 
 
