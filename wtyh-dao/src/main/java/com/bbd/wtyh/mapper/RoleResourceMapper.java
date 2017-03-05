@@ -17,7 +17,7 @@ public interface RoleResourceMapper {
     List<String> queryResourceCodeByLoginName(@Param("loginName") String loginName);
     List<String> queryResourceCodeByUserId(@Param("userId") int userId);
     ResourceDo getResourceByCode(@Param("resourceCode") String resourceCode);
-    RoleDo addRoleBase(RoleDo roleDo);
+    void addRoleBase(RoleDo roleDo);
     void addRoleResourceRelation(RoleResourceDo roleResourceDo);
     void addUserRoleRelation(UserRoleDo userRoleDo);
     void deleteRoleResourceRelation(@Param("roleId") int roleId);
