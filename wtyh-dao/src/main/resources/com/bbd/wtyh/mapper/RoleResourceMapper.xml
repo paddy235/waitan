@@ -17,7 +17,12 @@
 	</select>
 
 	<select id="getResourceByCode" parameterType="java.lang.String" resultType="com.bbd.wtyh.domain.ResourceDo">
-		select `id`, `code`, `name`, `parent_code`, `type`, `url`, `display_order`, `create_date`, `create_by`, `update_date`, `update_by`
+		select `id`, `code`, `name`, `parent_code` AS  parentCode, `type`, `url`,
+		`display_order` as displayOrder,
+		`create_date` as createDate,
+		`create_by` as createBy,
+		`update_date` as updateDate,
+		`update_by` as updateBy
 		from resource where `code` =  #{resourceCode}
 	</select>
 
@@ -44,13 +49,15 @@
 	</select>
 
 	<select id="getUserRoleByUser" parameterType="int" resultType="com.bbd.wtyh.domain.UserRoleDo">
-		select user_role.id,user_role.user_id,user_role.role_id from user_role,user_mgment
+		select user_role.id,
+		user_role.user_id AS userId,
+		user_role.role_id AS roleId from user_role,user_mgment
 		where
 		user_role.user_id=user_mgment.id
 		and user_mgment.id=#{userId}
 	</select>
 	<delete id="deleteRoleResourceRelation" parameterType="int">
-		delete from role_resource where role_id=#{userId}
+		delete from role_resource where role_id=#{roleId}
 	</delete>
 
 	<delete id="deleteRoleBase" parameterType="int">
