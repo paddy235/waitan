@@ -46,7 +46,7 @@
       <if test="createDate != null"> create_date= #{createDate}, </if>
       <if test="createBy != null"> create_by= #{createBy}, </if>
       <if test="updateDate != null"> update_date= #{updateDate}, </if>
-      <if test="updateBy != null"> update_by= #{updateBy} </if>
+      <if test="updateBy != null"> update_by= #{updateBy}, </if>
     </set>
     WHERE  id =#{id}
   </update>
@@ -111,7 +111,7 @@
 
 
   <!-- 查询用户记录列表, 用户为‘A’ -->
-  <select id="selectUserInfoList"   resultType="java.util.Map">
+  <select id="selectUserInfoList" parameterType="java.util.HashMap"  resultType="java.util.Map">
     SELECT
     id AS id,
     login_name AS loginName,
@@ -134,9 +134,9 @@
         AND LIKE `department` LIKE #{department}
       </when>
     </choose> LIMIT
-    <if test="limitOffset">
-      #{limitOffset},
-    </if>  #{limitPage}
+    <if test="pageOffset">
+      #{pageOffset},
+    </if>  #{pageLimit}
     ORDER BY update_date DESC
   </select>
 

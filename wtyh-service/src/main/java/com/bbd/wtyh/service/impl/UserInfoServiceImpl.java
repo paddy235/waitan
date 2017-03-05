@@ -63,7 +63,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		if (StringUtils.isBlank(uitd.getEmail())) {
 			uitd.setEmail(null);
 		} else {
-			if( !rexCheckMobileNO(uitd.getEmail()) ) {
+			if( !rexCheckEmailAddress(uitd.getEmail()) ) {
 				throw new BusinessException("电子信箱地址不合法");
 			}
 		}
@@ -115,23 +115,24 @@ public class UserInfoServiceImpl implements UserInfoService {
 			throw new BusinessException("用户信息表对象为空");
 		}
 		if( null==uitd.getId() ) {
-			throw new BusinessException("待更新的id无效");
-		}
-		if (StringUtils.isBlank(uitd.getOldPwd())) {
-			throw new BusinessException("原密码不合法");
+			throw new BusinessException("没有指定待更新的用户信息的id");
 		}
 		UserInfoTableDo selUitd = userInfoMapper.selectUserAllInfoById(uitd.getId());
-		if( null ==selUitd ) {
-			throw new BusinessException("未找到待更新的记录");
-		}
-		if( StringUtils.isBlank(selUitd.getForePwd()) ||
-				!(selUitd.getForePwd().equals( userPasswordEncrypt(uitd.getOldPwd())))	) {
-			throw new BusinessException("原密码校验失败");
-		}
-		uitd.setOldPwd(null); //后面不在需要此字段
+/*		if ( !( StringUtils.isNotBlank(uitd.getStatus()) && uitd.getStatus().equals("F") ) )
+		{
+			if (StringUtils.isBlank(uitd.getOldPwd())) {
+				throw new BusinessException("原密码不合法");
+			}
+			if( null ==selUitd ) {
+				throw new BusinessException("未找到待更新的记录");
+			}
+			if( StringUtils.isBlank(selUitd.getForePwd()) ||
+					!(selUitd.getForePwd().equals( userPasswordEncrypt(uitd.getOldPwd())))	) {
+				throw new BusinessException("原密码校验失败");
+			}
+			uitd.setOldPwd(null); //后面不在需要此字段
+		}*/
 		int updateCount =0; //更新条目计数器
-		if( uitd.getId() ==null )
-			throw new BusinessException("没有指定待更新的用户信息的id");
 
 		if( StringUtils.isBlank(uitd.getStatus()) ) {
 			uitd.setStatus(null); //不更新用户状态
@@ -186,7 +187,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		if (StringUtils.isBlank(uitd.getEmail())) {
 			uitd.setEmail(null); //不更新电子信箱
 		} else {
-			if( !rexCheckMobileNO(uitd.getEmail()) ) {
+			if( !rexCheckEmailAddress(uitd.getEmail()) ) {
 				throw new BusinessException("新指定的电子信箱地址不合法");
 			}
 			updateCount++;
@@ -233,7 +234,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 					}
 				}
 			} else {
-				uitd.setForePwd("");
+				uitd.setForePwd(null);
 			}
 			if( true ==oldBY )	{
 				if( StringUtils.isBlank(uitd.getBackPwd()) ) {
@@ -247,7 +248,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 					}
 				}
 			} else {
-				uitd.setBackPwd("");
+				uitd.setBackPwd(null);
 			}
 		} else { //已指定
 			boolean newBY = false; //新的后台属性
@@ -318,12 +319,16 @@ public class UserInfoServiceImpl implements UserInfoService {
 				throw new BusinessException("修改人为空");
 			}
 			uitd.setUpdateDate(new Date());
-			userInfoMapper.updateU(uitd);
+				try {
+					userInfoMapper.updateU(uitd);
+				} catch (Exception ee) {
+					throw new BusinessException("update is err");
+				}
 		}
-		if( uitd.getStatus().equals("F") ) { //禁用用户，连带物理删除权限表
-			roleResourceService.deleteUserRoleResource(uitd.getId(), uitd.getUpdateBy() );
+		if(  StringUtils.isNotBlank(uitd.getStatus()) && uitd.getStatus().equals("F") ) { //逻辑删除用户，连带物理删除权限表
+			//roleResourceService.deleteUserRoleResource(uitd.getId(), uitd.getUpdateBy() );
 		} else {
-			roleResourceService.updateUserRoleResource(uitd, resourceSet, uitd.getUpdateBy());
+			//roleResourceService.updateUserRoleResource(uitd, resourceSet, uitd.getUpdateBy());
 		}
 	}
 
@@ -375,11 +380,29 @@ public class UserInfoServiceImpl implements UserInfoService {
 	}
 
 	@Override
-	public Map<String,Object> listUserInfo(  )  throws Exception  {
+	public Map<String,Object> listUserInfo( String selectType, String selectObject, int pageLimit, Integer pageOffset ) throws Exception  {
+		if( StringUtils.isBlank(selectType) ) {
+			throw new BusinessException("selectType参数为空");
+		}
+		if( pageLimit <1 ) {
+			throw new BusinessException("pageLimit参数小于1，无意义");
+		}
+		if( !selectType.equals("default") && !selectType.equals("loginName")
+				&& !selectType.equals("realName")  && !selectType.equals("department") ) {
+			throw new BusinessException("selectType参数不合法");
+		}
+		HashMap<String,Object> params =new HashMap<String, Object>();
+		params.put( selectType, "%" + selectObject +"%" );
+		params.put( "pageLimit", pageLimit );
+		if( null !=pageOffset ) {
+			params.put("pageOffset", pageOffset);
+		}
+		List<Map<String, Object>> lm =userInfoMapper.selectUserInfoList(params);
+
 		Map<String,Object> rstMap =new HashMap<String, Object>();
 		Integer ltn =userInfoMapper.selectUserInfoTotalNum();
 		rstMap.put("listTotalNum",ltn);
-		rstMap.put("list","ok");
+		rstMap.put("list",lm);
 		return rstMap;
 	}
 
@@ -434,8 +457,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 	 * @return
 	 */
 	private boolean rexCheckEmailAddress(String emailAddress) {
-		// 昵称格式：限30个字符，支持中英文、数字、减号、下划线或@
-		String regStr = "^[\\u4e00-\\u9fa5_a-zA-Z0-9-@]{1,60}$";
+		String regStr = "^([\\u4e00-\\u9fa5]|[a-z]|[A-Z]|[0-9]|[-_.@]){5,60}$";
 		return emailAddress.matches(regStr);
 	}
 
@@ -445,7 +467,6 @@ public class UserInfoServiceImpl implements UserInfoService {
 	 * @return
 	 */
 	private boolean rexCheckMobileNO(String mobileNO) {
-		// 昵称格式：限30个字符，支持数字、减号、加号或空格
 		String regStr = "^[0-9-+ ]{1,30}$";
 		return mobileNO.matches(regStr);
 	}
@@ -456,7 +477,6 @@ public class UserInfoServiceImpl implements UserInfoService {
 	 * @return
 	 */
 	private boolean rexCheckAreaCode(String areaCode) {
-		// 昵称格式：限30个字符，支持数字
 		String regStr = "^[0-9]{1,10}$";
 		return areaCode.matches(regStr);
 	}

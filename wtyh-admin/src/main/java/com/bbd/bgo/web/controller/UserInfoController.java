@@ -78,24 +78,42 @@ public class UserInfoController {
 	@RequestMapping("/deleteUser.do")
 	@ResponseBody
 	public Object updateUserInfo(
-			@RequestParam Integer delId,
-			String oldPwd,
+			@RequestParam Integer deleteId,
 			HttpServletRequest request ) {
 		try {
 			UserInfoTableDo uitd =new UserInfoTableDo();
 			String loginName = (String)request.getSession().getAttribute(Constants.SESSION.loginName);
 			uitd.setUpdateBy(loginName);
-			uitd.setId(delId);
-			uitd.setOldPwd(oldPwd);
+			uitd.setId(deleteId);
 			uitd.setStatus("F"); //逻辑删除
 			uis.updateUserInfo(uitd, null);
 		} catch (BusinessException be) {
 			return ResponseBean.errorResponse(be.getMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResponseBean.errorResponse("服务器异常");
+			return ResponseBean.errorResponse("服务器异常：" +e);
 		}
 		return ResponseBean.successResponse("OK");
+	}
+
+	@RequestMapping("/listUserInfo.do")
+	@ResponseBody
+	public Object listUserInfo(
+			@RequestParam String selectType,
+			String selectObject,
+			@RequestParam int pageLimit,
+			Integer pageOffset,
+			HttpServletRequest request ) {
+		Map<String,Object> rstMap =null;
+		try {
+			rstMap = uis.listUserInfo( selectType, selectObject, pageLimit, pageOffset );
+		} catch (BusinessException be) {
+			return ResponseBean.errorResponse(be.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseBean.errorResponse("服务器异常：" +e);
+		}
+		return ResponseBean.successResponse(rstMap);
 	}
 
 	@RequestMapping("/myTest.do")
@@ -103,7 +121,7 @@ public class UserInfoController {
 	public Object myTest() {
 		//下面是测试代码
 		try {
-			Map<String,Object> rstMap = uis.listUserInfo();
+			Map<String,Object> rstMap = uis.listUserInfo("realName","ad", 10, null);
 			System.out.println(rstMap);
 			return rstMap;
 		} catch (Exception ee)	{

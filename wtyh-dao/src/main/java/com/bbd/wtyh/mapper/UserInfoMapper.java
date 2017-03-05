@@ -4,6 +4,7 @@ import com.bbd.wtyh.domain.UserInfoTableDo;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +26,7 @@ public interface UserInfoMapper {
 
 	public Integer selectUserInfoTotalNum( );
 
-	public List<Map<String, Object>> selectUserInfoList(  );
+	public List<Map<String, Object>> selectUserInfoList(HashMap<String, Object> params);
 
 	//public List<String> selectUserPassword(@Param("loginName") String loginName, @Param("type") String type);
 

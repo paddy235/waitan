@@ -51,8 +51,16 @@ public interface UserInfoService {
      */
     public Map<String, Object> getUserInfoSummaryByLoginName( String loginName) throws Exception;
 
-
-    public Map<String,Object> listUserInfo(  )  throws Exception;
+    /**
+     *
+     * @param selectType
+     * @param selectObject
+     * @param pageLimit
+     * @param pageOffset
+     * @return
+     * @throws Exception
+     */
+    public Map<String,Object> listUserInfo( String selectType, String selectObject, int pageLimit, Integer pageOffset)  throws Exception;
 
     /**
      * 用户密码单向加密
