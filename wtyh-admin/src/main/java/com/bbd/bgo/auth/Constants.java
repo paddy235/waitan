@@ -15,6 +15,10 @@ public class Constants {
 
     public static final String BACK="B";//后台角色
 
+    public static final String ALL="A";//所有
+
+    public static final String UNDEFINED="U";//未定义
+
     //权限列表
     public static final String F_HYJCPT = "F_HYJCPT";//行业监测平台
 

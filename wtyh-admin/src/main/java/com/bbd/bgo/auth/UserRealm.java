@@ -2,7 +2,9 @@ package com.bbd.bgo.auth;
 
 
 import com.bbd.wtyh.service.RoleResourceService;
+import com.bbd.wtyh.service.UserInfoService;
 import com.bbd.wtyh.service.UserService;
+import com.bbd.wtyh.service.impl.relation.common.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -13,6 +15,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -20,7 +23,7 @@ import java.util.Set;
  */
 public class UserRealm extends AuthorizingRealm {
     @Autowired
-    private UserService userService;
+    private UserInfoService userInfoService;
     @Autowired
     private RoleResourceService roleResourceService;
 
@@ -50,15 +53,27 @@ public class UserRealm extends AuthorizingRealm {
         UsernamePasswordToken token = (UsernamePasswordToken)authenticationToken;
         String username=token.getUsername();
         char[] password=token.getPassword();
-        String pwd = userService.getPassword(username);
+        String pwd = "";
+        String type= "";
+        try {
+            Map map = userInfoService.getUserInfoSummaryByLoginName(username);
+            pwd =(String) map.get("back_pwd");
+            type=(String) map.get("user_type");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         if (StringUtils.isEmpty(pwd)) {
             throw new UnknownAccountException(); //如果用户名错误;
         }
-        String dataPwd =userService.encryptPassword(String.copyValueOf(password));
-        //String dataPwd = new SimpleHash("md5", password, ByteSource.Util.bytes(Constants.SALT), 2).toHex();
-
-        if (!dataPwd.equals(pwd)) {
+        //MD5加密
+        String dataPwd =userInfoService.userPasswordEncrypt(String.copyValueOf(password));
+        //验证密码
+        if (!dataPwd.equals(pwd) ) {
             throw new IncorrectCredentialsException(); //如果密码错误
+        }
+        ////必须是后台用户或者全用户才能通过身份验证
+        if (!Constants.BACK.equals(type) && !Constants.ALL.equals(type)) {
+            throw new IncorrectCredentialsException();
         }
         //如果身份认证验证成功，返回一个AuthenticationInfo实现；
         return new SimpleAuthenticationInfo(username, password, getName());
