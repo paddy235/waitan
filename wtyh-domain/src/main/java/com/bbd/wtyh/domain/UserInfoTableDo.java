@@ -64,6 +64,41 @@ public class UserInfoTableDo implements Serializable {
     private String updateBy;
 
 
+    @Override
+    public String toString(){
+        String tmp = "id=%d，" +
+                     "登录名=%s，" +
+                     "用户状态（F：冻结；A：激活）=%s," +
+                     "用户类型（F：前台；B：后台；A：前后台；U：待定）=%s,"+
+                     "前台登录密码=%s," +
+                     "后台登录密码=%s," +
+                     "真实姓名=%s," +
+                     "电话=%s," +
+                     "电子信箱=%s," +
+                     "部门=%s," +
+                     "地区代码=%s," +
+                     "创建人=%s," +
+                     "修改人=%s," +
+                     "创建时间=%s，" +
+                     "修改时间=%s";
+        return String.format(tmp,getId(),
+                                getLoginName(),
+                                getStatus(),
+                                getUserType(),
+                                getForePwd(),
+                                getBackPwd(),
+                                getRealName(),
+                                getMobile(),
+                                getEmail(),
+                                getDepartment(),
+                                getAreaCode(),
+                                getCreateBy(),
+                                getUpdateBy(),
+                                getCreateDate(),
+                                getUpdateDate());
+    }
+
+
     public String getUserType() {
         return userType;
     }

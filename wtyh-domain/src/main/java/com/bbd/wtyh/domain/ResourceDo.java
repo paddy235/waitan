@@ -27,6 +27,7 @@ public class ResourceDo extends BaseDO {
 
     private String updateBy;
 
+
     public Integer getId() {
         return id;
     }
