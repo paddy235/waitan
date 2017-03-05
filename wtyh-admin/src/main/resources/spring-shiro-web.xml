@@ -102,7 +102,7 @@
                 /img/** = anon
                 /logout.do = anon
                 <!--后台管理权限-->
-                /userInfo/CreateUser.do = perms[B_HTGLQX]
+                /userInfo/createUser.do = perms[B_HTGLQX]
                 /userInfo/updateUserInfo.do = perms[B_HTGLQX]
                 <!--共用交易-->
                 /risk/getScanner.do = perms[F_HYJCPT_XXLC,F_SSJCPT]<!--线下理财、时监测平台-->
