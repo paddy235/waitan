@@ -27,6 +27,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 	@Override
 	public void createUser(UserInfoTableDo uitd, String resourceSet) throws Exception {
+		if( null ==uitd ) {
+			throw new BusinessException("用户信息表对象为空");
+		}
 		uitd.setId(null);
 		uitd.setStatus("A");
 		if (StringUtils.isBlank(uitd.getUserType())) {
@@ -35,7 +38,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		if (StringUtils.isBlank(uitd.getLoginName()) || !rexCheckUserName( uitd.getLoginName() ) ) {
 			throw new BusinessException("新建的登录名为空或不合法");
 		}
-		List<Map<String, Object>> uPwdId =userInfo.selectUserPasswordAndId( uitd.getLoginName() );
+		List<Map<String, Object>> uPwdId =userInfo.selectUserInfoSummaryByLoginName( uitd.getLoginName() );
 		if( uPwdId.size() >1 ) {
 			throw new BusinessException("登录名同名用户数异常，请联系管理员排查！！");
 		}
@@ -107,6 +110,23 @@ public class UserInfoServiceImpl implements UserInfoService {
 	//更新用户信息
 	@Override
 	public void updateUserInfo(UserInfoTableDo uitd, String resourceSet) throws Exception {
+		if( null ==uitd ) {
+			throw new BusinessException("用户信息表对象为空");
+		}
+		if( null==uitd.getId() ) {
+			throw new BusinessException("待更新的id无效");
+		}
+		if (StringUtils.isBlank(uitd.getOldPwd())) {
+			throw new BusinessException("原密码不合法");
+		}
+		UserInfoTableDo selUitd = userInfo.selectUserAllInfoById(uitd.getId());
+		if( null ==selUitd ) {
+			throw new BusinessException("未找到更新记录");
+		}
+		if( StringUtils.isBlank(selUitd.getForePwd()) ||
+				!(selUitd.getForePwd().equals( userPasswordEncrypt(uitd.getOldPwd())))	) {
+			throw new BusinessException("原密码校验失败");
+		}
 		int updateCount =0; //更新条目计数器
 		if( uitd.getId() ==null )
 			throw new BusinessException("没有指定待更新的用户信息的id");
@@ -126,7 +146,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 			if (!rexCheckUserName(uitd.getLoginName())) {
 				throw new BusinessException("新指定的登录名不合法");
 			}
-			List<Map<String, Object>> uPwdId =userInfo.selectUserPasswordAndId( uitd.getLoginName() );
+			List<Map<String, Object>> uPwdId =userInfo.selectUserInfoSummaryByLoginName( uitd.getLoginName() );
 			if( uPwdId.size() >1 ) {
 				throw new BusinessException("登录名同名用户数异常，请联系管理员排查！！");
 			}
@@ -188,9 +208,32 @@ public class UserInfoServiceImpl implements UserInfoService {
 		uitd.setCreateDate(null);
 		uitd.setCreateBy(null);
 
-		if (StringUtils.isBlank(uitd.getUserType())) {
-
-		} else if( uitd.getUserType().equals("A") ) {
+		String uType =selUitd.getUserType();
+		if (StringUtils.isBlank(uitd.getUserType())) { //未指定userType
+			uitd.setUserType(null);
+			if( uType.equals("A") || uType.equals("F") )	{	// 传了哪些合法密码就更新哪些
+				if( StringUtils.isBlank(uitd.getForePwd()) ) {
+					uitd.setForePwd(null); //前端密码为空则不更新
+				} else {
+					if( !rexCheckPassword(uitd.getForePwd()) ) {
+						throw new BusinessException("前台密码为空或不合法 ");
+					} else {
+						uitd.setForePwd(userPasswordEncrypt(uitd.getForePwd()));
+					}
+				}
+			}
+			if(  uType.equals("A") || uType.equals("N" ) ) {
+				if( StringUtils.isBlank(uitd.getBackPwd()) ) {
+					uitd.setBackPwd(null); //前端密码为空则不更新
+				} else {
+					if( !rexCheckPassword(uitd.getBackPwd()) ) {
+						throw new BusinessException("后台密码为空或不合法 ");
+					} else {
+						uitd.setBackPwd(userPasswordEncrypt(uitd.getBackPwd()));
+					}
+				}
+			}
+		} else if( uitd.getUserType().equals("A") ) { //TODO
 			if( StringUtils.isBlank(uitd.getForePwd()) || !rexCheckPassword(uitd.getForePwd()) )
 				throw new BusinessException("前端密码为空或不合法 ");
 			uitd.setForePwd(userPasswordEncrypt(uitd.getForePwd()));
@@ -221,48 +264,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 	}
 
-	// @Override
-	// public int deleteUser(String delType, Integer id) {
-	//
-	// }
 
-/*	private int processUserInfo(UserInfoDo uIfDo) throws Exception {
-		if (StringUtils.isBlank(opecode) || (!(opecode.equals("F")) && !(opecode.equals("B")) && (!opecode.equals("D")))) {
-			//return -1; // 创建类型无效
-            throw new BusinessException("创建类型无效");
-		}
-		if (StringUtils.isNotBlank(uIfDo.getPassword())) {
-			uIfDo.setPassword(userPasswordEncrypt(uIfDo.getPassword()));
-		} else {
-			uIfDo.setPassword(null);
-		}
-		if (StringUtils.isNotBlank(secPassword)) {
-			secPassword = userPasswordEncrypt(secPassword);
-		} else {
-			secPassword = null;
-		}
-		uIfDo.setRealName(CipherUtils.encrypt(uIfDo.getRealName())); // 加密真实用户名
-		uIfDo.setMobile(CipherUtils.encrypt(uIfDo.getMobile())); // 加密手机号
-		return 0;
-	}*/
-
-	public Map<String,Object> getForeUserInfoByLoginName( String loginName ) throws Exception {
-		UserInfoTableDo uitd = userInfo.selectForeUserInfoAll(loginName);
-		if( StringUtils.isNotBlank( uitd.getRealName() ) ) {
-			uitd.setRealName(CipherUtils.decrypt(uitd.getRealName()));
-		}
-		if (StringUtils.isNotBlank(uitd.getMobile())) {
-			uitd.setMobile(CipherUtils.decrypt(uitd.getMobile()));
-		}
-		Set<String> rC = roleResourceService.queryResourceCodeByLoginName(loginName);
-		Map<String,Object> rstMap =new HashMap<String, Object>();
-		rstMap.put("userInfo",uitd);
-		rstMap.put("resourceCode",rC);
-		return rstMap;
-	}
-
-
-	@Override
+/*	@Override
 	public boolean compareUserNameMatchPassword(String loginName, String password, String type) {
 		if (StringUtils.isBlank(loginName) || StringUtils.isBlank(password) || StringUtils.isBlank(type))
 			return false; //用户输入的参数不合法
@@ -272,11 +275,51 @@ public class UserInfoServiceImpl implements UserInfoService {
 		if (password.equals( userPasswordEncrypt(selPassword)))
 			return false; //密码不匹配
 		return true;
+	}*/
+
+
+	@Override
+	public Map<String,Object> getUserInfoByLoginName(String loginName /*, boolean foreYes*/) throws Exception {
+//		Map<String, Object> m1 =new HashMap<String, Object>();
+		if (StringUtils.isBlank(loginName) || !rexCheckUserName( loginName ) ) {
+			throw new BusinessException("登录名为空或不合法");
+		}
+		UserInfoTableDo uitd =null;
+	/*	if ( true == foreYes ) {
+			uitd =userInfo.selectForeUserInfoAll(loginName);
+		} else {
+			uitd =userInfo.selectBackUserInfoAll(loginName);
+		}*/
+		uitd =userInfo.selectUserInfoAllByLoginName(loginName);
+		decryptUserInfo( uitd );
+		Set<String> rC = roleResourceService.queryResourceCodeByLoginName(loginName);
+		Map<String,Object> rstMap =new HashMap<String, Object>();
+		rstMap.put("userInfo",uitd);
+		rstMap.put("resourceCode",rC);
+		return rstMap;
 	}
 
-	public String userPasswordEncrypt(String context) {
-		return new SimpleHash("md5", context, ByteSource.Util.bytes("123456"), 2).toHex();
+	@Override
+	public String userPasswordEncrypt(String plaintext) {
+		return new SimpleHash("md5", plaintext, ByteSource.Util.bytes("123456"), 2).toHex();
 	}
+
+	//解密需要解密的用户数据
+	private void decryptUserInfo( UserInfoTableDo uitd ) throws Exception {
+		if( null !=uitd ) {
+			if (StringUtils.isNotBlank(uitd.getRealName())) {
+				uitd.setRealName(CipherUtils.decrypt(uitd.getRealName()));
+			} else {
+				uitd.setRealName(null);
+			}
+			if (StringUtils.isNotBlank(uitd.getMobile())) {
+				uitd.setMobile(CipherUtils.decrypt(uitd.getMobile()));
+			} else {
+				uitd.setMobile(null);
+			}
+		}
+	}
+
 
 	/**
 	 * 验证 登录名、真实姓名、创建人、部门及修改人
