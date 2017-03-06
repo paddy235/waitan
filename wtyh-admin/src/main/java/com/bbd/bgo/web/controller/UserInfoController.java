@@ -28,7 +28,7 @@ public class UserInfoController {
     @Autowired
     private UserInfoService uis;
 
-    @RequestMapping("/createUser")
+    @RequestMapping("/createUser.do")
     @ResponseBody
     public Object createUser1(UserInfoTableDo uitd, @RequestParam String resourceSet, HttpServletRequest request) {
         // hh.addHeader("aa","1234");
@@ -142,7 +142,7 @@ public class UserInfoController {
         } catch (Exception ee) {
             ;
         }
-        return ResponseBean.successResponse(new UserInfoTableDo());
+        return ResponseBean.successResponse("err");
     }
 
 }

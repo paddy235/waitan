@@ -93,15 +93,16 @@
   <select id="selectUserAllInfoById"  parameterType="Integer" resultType="com.bbd.wtyh.domain.UserInfoTableDo">
     SELECT  <include refid="selectList1"/>
     FROM  <include refid="TabName"/>
-    WHERE `status` = 'A'  AND `id` = #{id} LIMIT 1
+    WHERE  `id` = #{id}  LIMIT 1
   </select>
 
   <!-- 根据用户名查询用户摘要信息, 用户为‘A’ -->
   <select id="selectUserInfoSummaryByLoginName"  parameterType="String" resultType="java.util.Map">
-    SELECT id, user_type, fore_pwd, back_pwd FROM <include refid="TabName"/>
+    SELECT
+    id, user_type, fore_pwd, back_pwd
+    FROM <include refid="TabName"/>
     WHERE  status ='A' AND login_name= #{loginName}
   </select>
-
 
   <!-- 查询用户记录总条数, 用户为‘A’ -->
   <select id="selectUserInfoTotalNum"   resultType="Integer">
@@ -109,18 +110,17 @@
     WHERE  status ='A'
   </select>
 
-
   <!-- 查询用户记录列表, 用户为‘A’ -->
   <select id="selectUserInfoList" parameterType="java.util.HashMap"  resultType="java.util.Map">
     SELECT
     id AS id,
-    login_name AS loginName,
-    real_name AS realName,
-    department AS department
-    mobile AS mobile,
-    email AS email,
-    create_by AS createBy,
-    user_type AS userType
+    ifnull(login_name ,'') AS loginName,
+    ifnull(real_name ,'') AS realName,
+    ifnull(department ,'') AS department,
+    ifnull(mobile ,'')  AS mobile,
+    ifnull(email,'') AS email,
+    ifnull(create_by ,'') AS createBy,
+    ifnull(user_type ,'') AS userType
     FROM <include refid="TabName"/>
     WHERE  status ='A'
     <choose>
