@@ -82,7 +82,7 @@ public class RoleResourceServiceImpl implements RoleResourceService {
     @Override
     public void updateUserRoleResource(UserInfoTableDo userInfoTableDo,String resourceSet,String loginName) {
         //与陈功杰约定，如果resourceSet==null,则不更新，若为""，则需要删除已有的权限关系
-        if(null==resourceSet){
+        if(null==resourceSet || null==userInfoTableDo.getId()){
             return;
         }
         Integer userId=userInfoTableDo.getId();
