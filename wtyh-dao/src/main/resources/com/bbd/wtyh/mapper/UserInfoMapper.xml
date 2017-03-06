@@ -93,7 +93,7 @@
   <select id="selectUserAllInfoById"  parameterType="Integer" resultType="com.bbd.wtyh.domain.UserInfoTableDo">
     SELECT  <include refid="selectList1"/>
     FROM  <include refid="TabName"/>
-    WHERE `status` = 'A'  AND `id` = #{id} LIMIT 1
+    WHERE  `id` = #{id}  LIMIT 1
   </select>
 
   <!-- 根据用户名查询用户摘要信息, 用户为‘A’ -->
