@@ -69,7 +69,7 @@ public class UserInfoController {
 
     @RequestMapping("/deleteUser.do")
     @ResponseBody
-    public Object updateUserInfo(@RequestParam Integer deleteId, HttpServletRequest request) {
+    public Object deleteUser(@RequestParam Integer deleteId, HttpServletRequest request) {
         try {
             UserInfoTableDo uitd = new UserInfoTableDo();
             String loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
@@ -88,10 +88,10 @@ public class UserInfoController {
 
     @RequestMapping("/listUserInfo.do")
     @ResponseBody
-    public Object listUserInfo(@RequestParam String selectType, String selectObject, @RequestParam int pageLimit, Integer pageOffset, HttpServletRequest request) {
+    public Object listUserInfo(@RequestParam String selectType, String selectObject, @RequestParam int pageSize, Integer pageNumber, HttpServletRequest request) {
         Map<String, Object> rstMap = null;
         try {
-            rstMap = uis.listUserInfo(selectType, selectObject, pageLimit, pageOffset);
+            rstMap = uis.listUserInfo(selectType, selectObject, pageSize, pageNumber);
         } catch (BusinessException be) {
             return ResponseBean.errorResponse(be.getMessage());
         } catch (Exception e) {
@@ -103,7 +103,7 @@ public class UserInfoController {
 
     @RequestMapping("/queryUserInfoById.do")
     @ResponseBody
-    public Object gueryUserInfoById(@RequestParam int queryId, HttpServletRequest request) {
+    public Object queryUserInfoById(@RequestParam int queryId, HttpServletRequest request) {
         Map<String, Object> rstMap = null;
         try {
             rstMap = uis.getUserInfoById(queryId);
@@ -116,12 +116,27 @@ public class UserInfoController {
         return ResponseBean.successResponse(rstMap);
     }
 
-    @RequestMapping("/gueryUserTemplate.do")
+    @RequestMapping("/queryUserTemplate.do")
     @ResponseBody
-    public Object gueryUserTemplate(@RequestParam String loginName, HttpServletRequest request) {
+    public Object queryUserTemplate(@RequestParam String loginName, HttpServletRequest request) {
         List<Map<String, Object>> rstList = null;
         try {
             rstList = uis.getUserTemplate(loginName);
+        } catch (BusinessException be) {
+            return ResponseBean.errorResponse(be.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseBean.errorResponse("服务器异常：" + e);
+        }
+        return ResponseBean.successResponse(rstList);
+    }
+
+    @RequestMapping("/queryShanghaiAreaCodeTable.do")
+    @ResponseBody
+    public Object queryShanghaiAreaCodeTable( HttpServletRequest request) {
+        List<Map<String, Object>> rstList = null;
+        try {
+            rstList = uis.getShanghaiAreaCodeTable();
         } catch (BusinessException be) {
             return ResponseBean.errorResponse(be.getMessage());
         } catch (Exception e) {
@@ -144,5 +159,6 @@ public class UserInfoController {
         }
         return ResponseBean.successResponse("err");
     }
+
 
 }

@@ -9,15 +9,16 @@ import java.util.Date;
 
 public class UserInfoTableDo implements Serializable {
 
-    public String getOldPwd() {
-        return oldPwd;
-    }
+//    public String getOldPwd() {
+//        return oldPwd;
+//    }
+//
+//    public void setOldPwd(String oldPwd) {
+//        this.oldPwd = oldPwd;
+//    }
+//
+//    private String oldPwd; //原密码
 
-    public void setOldPwd(String oldPwd) {
-        this.oldPwd = oldPwd;
-    }
-
-    private String oldPwd; //原密码
     //主键
     private Integer id;
 

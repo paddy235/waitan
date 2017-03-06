@@ -132,6 +132,9 @@
     FROM <include refid="TabName"/>
     WHERE  status ='A'
     <choose>
+      <when test="default !=null">
+
+      </when>
       <when test="loginName !=null">
         AND  `login_name` LIKE '%${loginName}%'
       </when>
@@ -141,12 +144,17 @@
       <when test="department !=null">
         AND  `department` LIKE '%${department}%'
       </when>
+      <when test="userType !=null">
+        AND  `user_type` in(${userType})
+      </when>
     </choose>
     ORDER BY update_date DESC
-    LIMIT
-    <if test="pageOffset and listing !=null ">
-      #{pageOffset},
-    </if>  #{pageLimit}
+    <if test="listing !=null ">
+      LIMIT
+      <if test="pageNumber !=null">
+        #{pageNumber},
+      </if>  #{pageLimit}
+    </if>
   </select>
 
 
@@ -160,6 +168,14 @@
   </select>
 
 
+  <!-- 生成上海市内的区域代码表, 用户为‘A’ -->
+  <select id="selectShanghaiAreaCodeTable"   resultType="java.util.Map">
+    SELECT
+    area_id AS areaId,
+    name AS cityName
+    FROM  area
+    WHERE `city_id` = '104'
+  </select>
 
   <!--  &lt;!&ndash; 根据用户名和前后台类型查询用户密码 &ndash;&gt;
     <select id="selectUserPassword"  parameterType="String" resultType="String">

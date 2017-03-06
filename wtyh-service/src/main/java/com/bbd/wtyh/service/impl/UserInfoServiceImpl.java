@@ -121,8 +121,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 		if( null ==selUitd ) {
 			throw new BusinessException("提供的用户id不存在");
 		}
-/*		if ( !( StringUtils.isNotBlank(uitd.getStatus()) && uitd.getStatus().equals("F") ) )
-		{
+
+/*		if ( StringUtils.isNotBlank(uitd.getForePwd()) 	&&(selUitd.getUserType().equals("F")||selUitd.getUserType().equals("A"))  )
+		{ //前端修改密码，验证原密码
 			if (StringUtils.isBlank(uitd.getOldPwd())) {
 				throw new BusinessException("原密码不合法");
 			}
@@ -135,6 +136,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 			}
 			uitd.setOldPwd(null); //后面不在需要此字段
 		}*/
+
 		int updateCount =0; //更新条目计数器
 
 		if( StringUtils.isBlank(uitd.getStatus()) ) {
@@ -171,7 +173,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 			if( !rexCheckUserName(uitd.getRealName()) ) {
 				throw new BusinessException("新指定的真实姓名不合法");
 			} else {
-				uitd.setRealName( CipherUtils.encrypt(uitd.getRealName()) );
+				//uitd.setRealName( CipherUtils.encrypt(uitd.getRealName()) );
 			}
 			updateCount++;
 		}
@@ -384,25 +386,41 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 
 	@Override
-	public Map<String,Object> listUserInfo( String selectType, String selectObject, int pageLimit, Integer pageOffset ) throws Exception  {
+	public Map<String,Object> listUserInfo( String selectType, String selectObject, int pageLimit, Integer pageNumber ) throws Exception  {
 		if( StringUtils.isBlank(selectType) ) {
 			throw new BusinessException("selectType参数为空");
 		}
 		if( pageLimit <1 ) {
 			throw new BusinessException("pageLimit参数小于1，无意义");
 		}
-		if( !selectType.equals("default") && !selectType.equals("loginName")
-				&& !selectType.equals("realName")  && !selectType.equals("department") ) {
+		if( !selectType.equals("default") && !selectType.equals("loginName") && !selectType.equals("realName")
+				&& !selectType.equals("department")  && !selectType.equals("userType") ) {
 			throw new BusinessException("selectType参数不合法");
+		}
+		if( !selectType.equals("default") && StringUtils.isBlank(selectObject) ) {
+			//throw new BusinessException("selectObject参数不合法");
+			selectType ="default";
+		}
+		if (selectType.equals("userType") ) {
+			if( selectObject.equals("后台系统管理员") ) {
+				selectObject = "'A','B'";
+			} else  if( selectObject.equals("普通用户") ) {
+				selectObject = "'F'";
+			} else if( selectObject.equals("预分配用户") ) {
+				selectObject = "'U'";
+			} else {
+				throw new BusinessException("userType对应的selectObject参数不合法");
+			}
 		}
 		HashMap<String,Object> params =new HashMap<String, Object>();
 		params.put( selectType, selectObject );
 		params.put( "pageLimit", pageLimit );
-		if( null !=pageOffset ) {
-			params.put("pageOffset", pageOffset);
-		}
 		List<Map<String, Object>> lm =userInfoMapper.selectUserInfoList(params);
-		Long ltn = (Long)(lm.get(0).get("recordTotal"));
+		Long ltn = (Long)( lm.get(0).get("recordTotal") );
+		if( (null !=pageNumber) &&( pageNumber >0 ) ) {
+			pageNumber =(pageNumber -1) * pageLimit;
+			params.put("pageNumber", pageNumber);
+		}
 		params.put( "listing", 1 );
 		lm =userInfoMapper.selectUserInfoList(params);
 		UserInfoTableDo uitd =new UserInfoTableDo();
@@ -426,47 +444,6 @@ public class UserInfoServiceImpl implements UserInfoService {
 		return rstMap;
 	}
 
-/* 修改前的备份
-	@Override
-	public Map<String,Object> listUserInfo( String selectType, String selectObject, int pageLimit, Integer pageOffset ) throws Exception  {
-		if( StringUtils.isBlank(selectType) ) {
-			throw new BusinessException("selectType参数为空");
-		}
-		if( pageLimit <1 ) {
-			throw new BusinessException("pageLimit参数小于1，无意义");
-		}
-		if( !selectType.equals("default") && !selectType.equals("loginName")
-				&& !selectType.equals("realName")  && !selectType.equals("department") ) {
-			throw new BusinessException("selectType参数不合法");
-		}
-		HashMap<String,Object> params =new HashMap<String, Object>();
-		params.put( selectType, selectObject );
-		params.put( "pageLimit", pageLimit );
-		if( null !=pageOffset ) {
-			params.put("pageOffset", pageOffset);
-		}
-		List<Map<String, Object>> lm =userInfoMapper.selectUserInfoList(params);
-		UserInfoTableDo uitd =new UserInfoTableDo();
-		for( Map<String, Object> itr : lm  ) {
-			Object tmpObj =itr.get("realName");
-			if( null !=tmpObj  ) {
-				uitd.setRealName( (String)tmpObj );
-			}
-			tmpObj =itr.get("mobile");
-			if( null !=tmpObj  ) {
-				uitd.setMobile( (String)tmpObj );
-			}
-			decryptUserInfo( uitd );
-			itr.put("realName", uitd.getRealName());
-			itr.put("mobile", uitd.getMobile());
-		}
-
-		Map<String,Object> rstMap =new HashMap<String, Object>();
-		Integer ltn =userInfoMapper.selectUserInfoTotalNum();
-		rstMap.put("listTotalNum",ltn);
-		rstMap.put("list",lm);
-		return rstMap;
-	}*/
 
 	@Override
 	public List<Map<String, Object>> getUserTemplate (String loginName) throws Exception {
@@ -478,21 +455,29 @@ public class UserInfoServiceImpl implements UserInfoService {
 	}
 
 	@Override
+	public List<Map<String, Object>> getShanghaiAreaCodeTable() throws Exception {
+		return userInfoMapper.selectShanghaiAreaCodeTable( );
+	}
+
+	@Override
 	public String userPasswordEncrypt(String plaintext) {
 		return new SimpleHash("md5", plaintext, ByteSource.Util.bytes("123456"), 2).toHex();
 	}
 
-/*	@Override
-	public boolean compareUserNameMatchPassword(String loginName, String password, String type) {
-		if (StringUtils.isBlank(loginName) || StringUtils.isBlank(password) || StringUtils.isBlank(type))
+	@Override
+	public boolean compareUserNameMatchPassword(String loginName, String password, String userType) throws  Exception {
+		if (StringUtils.isBlank(loginName) || StringUtils.isBlank(password) || StringUtils.isBlank(userType))
 			return false; //用户输入的参数不合法
-		String selPassword = (userInfoMapper.selectUserPassword(loginName, type)).get(0);
-		if (StringUtils.isEmpty(selPassword))
+		Object selPassword = (userInfoMapper.selectUserInfoSummaryByLoginName(loginName)).get(0).get(userType); //"fore_pwd"
+		if( null == selPassword ) {
+			throw new BusinessException("未检索到密码字段");
+		}
+		if (StringUtils.isEmpty((String)selPassword))
 			return false; //数据库返回的结果为空
-		if (password.equals( userPasswordEncrypt(selPassword)))
+		if (password.equals( userPasswordEncrypt((String)selPassword)))
 			return false; //密码不匹配
 		return true;
-	}*/
+	}
 
 	//解密需要解密的用户数据
 	private void decryptUserInfo( UserInfoTableDo uitd ) throws Exception {

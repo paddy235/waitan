@@ -2,6 +2,7 @@ package com.bbd.wtyh.web.controller;
 
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.UserInfoTableDo;
+import com.bbd.wtyh.exception.BusinessException;
 import com.bbd.wtyh.service.UserInfoService;
 import com.bbd.wtyh.service.UserService;
 import com.bbd.wtyh.util.CipherUtils;
@@ -70,8 +71,11 @@ public class UserInfoController {
         UserInfoTableDo user = new UserInfoTableDo();
         user.setId(id);
         user.setForePwd(newPassword);
-        user.setOldPwd(oldPassword);
+        //user.setOldPwd(oldPassword);
         user.setUpdateBy((String)session.getAttribute(Constants.SESSION.loginName));
+        if( ! userInfoService.compareUserNameMatchPassword( user.getUpdateBy(), oldPassword, "fore_pwd" ) ) {
+            throw new BusinessException("原密码验证失败");
+        }
         userInfoService.updateUserInfo(user,null);
 
         return ResponseBean.successResponse("用户密码修改成功。");

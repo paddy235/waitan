@@ -72,5 +72,20 @@ public interface UserInfoService {
      */
     public String userPasswordEncrypt(String plaintext);
 
+    /**
+     * 列出上海行政区划表
+     * @return
+     * @throws Exception
+     */
+    public List<Map<String, Object>> getShanghaiAreaCodeTable() throws Exception;
+
+    /**
+     *
+     * @param loginName
+     * @param password
+     * @param userType "fore_pwd" or "back_pwd"
+     * @return
+     */
+    public boolean compareUserNameMatchPassword(String loginName, String password, String userType) throws  Exception ;
 
 }
