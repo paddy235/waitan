@@ -398,6 +398,20 @@ public class UserInfoServiceImpl implements UserInfoService {
 			params.put("pageOffset", pageOffset);
 		}
 		List<Map<String, Object>> lm =userInfoMapper.selectUserInfoList(params);
+		UserInfoTableDo uitd =new UserInfoTableDo();
+		for( Map<String, Object> itr : lm  ) {
+			Object tmpObj =itr.get("realName");
+			if( null !=tmpObj  ) {
+				uitd.setRealName( (String)tmpObj );
+			}
+			tmpObj =itr.get("mobile");
+			if( null !=tmpObj  ) {
+				uitd.setMobile( (String)tmpObj );
+			}
+			decryptUserInfo( uitd );
+			itr.put("realName", uitd.getRealName());
+			itr.put("mobile", uitd.getMobile());
+		}
 
 		Map<String,Object> rstMap =new HashMap<String, Object>();
 		Integer ltn =userInfoMapper.selectUserInfoTotalNum();

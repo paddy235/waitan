@@ -28,7 +28,7 @@ public class UserInfoController {
 	@Autowired
 	private UserInfoService uis;
 
-	@RequestMapping("/createUser")
+	@RequestMapping("/createUser.do")
 	@ResponseBody
 	public Object createUser1(
 			UserInfoTableDo uitd,
