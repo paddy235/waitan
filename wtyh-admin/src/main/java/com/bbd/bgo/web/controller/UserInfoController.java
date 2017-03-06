@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
-import static org.apache.shiro.web.filter.mgt.DefaultFilter.user;
-
 //import javax.servlet.http.HttpServletResponse;
 
 
@@ -114,6 +112,40 @@ public class UserInfoController {
 			return ResponseBean.errorResponse("服务器异常：" +e);
 		}
 		return ResponseBean.successResponse(rstMap);
+	}
+
+	@RequestMapping("/queryUserInfoById.do")
+	@ResponseBody
+	public Object gueryUserInfoById(
+			@RequestParam int queryId,
+			HttpServletRequest request ) {
+		Map<String,Object> rstMap =null;
+		try {
+			rstMap = uis.getUserInfoById( queryId );
+		} catch (BusinessException be) {
+			return ResponseBean.errorResponse(be.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseBean.errorResponse("服务器异常：" +e);
+		}
+		return ResponseBean.successResponse(rstMap);
+	}
+
+	@RequestMapping("/gueryUserTemplate.do")
+	@ResponseBody
+	public Object gueryUserTemplate(
+			@RequestParam String loginName,
+			HttpServletRequest request ) {
+		List<Map<String, Object>> rstList =null;
+		try {
+			rstList = uis.getUserTemplate(loginName);
+		} catch (BusinessException be) {
+			return ResponseBean.errorResponse(be.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseBean.errorResponse("服务器异常：" +e);
+		}
+		return ResponseBean.successResponse(rstList);
 	}
 
 	@RequestMapping("/myTest.do")

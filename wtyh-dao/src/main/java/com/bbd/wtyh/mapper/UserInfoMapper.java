@@ -28,6 +28,8 @@ public interface UserInfoMapper {
 
 	public List<Map<String, Object>> selectUserInfoList(HashMap<String, Object> params);
 
+	public List<Map<String, Object>> selectUserTemplate (@Param("loginName") String loginName);
+
 	//public List<String> selectUserPassword(@Param("loginName") String loginName, @Param("type") String type);
 
 //	public UserInfoTableDo selectForeUserInfoAll( @Param("loginName") String loginName ); //used sun

@@ -125,21 +125,31 @@
     WHERE  status ='A'
     <choose>
       <when test="loginName !=null">
-        AND LIKE `login_name` LIKE #{loginName}
+        AND  `login_name` LIKE '%${loginName}%'
       </when>
       <when test="realName !=null">
-        AND LIKE `real_name` LIKE #{realName}
+        AND  `real_name` LIKE '%${realName}%'
       </when>
       <when test="department !=null">
-        AND LIKE `department` LIKE #{department}
+        AND  `department` LIKE '%${department}%'
       </when>
-    </choose> LIMIT
+    </choose>
+    ORDER BY update_date DESC
+    LIMIT
     <if test="pageOffset">
       #{pageOffset},
     </if>  #{pageLimit}
-    ORDER BY update_date DESC
   </select>
 
+
+  <!-- 构建用户模板, 用户为‘A’ -->
+  <select id="selectUserTemplate"  parameterType="String" resultType="java.util.Map">
+    SELECT
+    id AS id,
+    login_name AS loginName
+    FROM  <include refid="TabName"/>
+    WHERE `status` = 'A'  AND `login_name` LIKE '%${loginName}%' LIMIT 5
+  </select>
 
 
 
