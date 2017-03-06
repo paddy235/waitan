@@ -392,7 +392,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 			throw new BusinessException("selectType参数不合法");
 		}
 		HashMap<String,Object> params =new HashMap<String, Object>();
-		params.put( selectType, "%" + selectObject +"%" );
+		params.put( selectType, selectObject );
 		params.put( "pageLimit", pageLimit );
 		if( null !=pageOffset ) {
 			params.put("pageOffset", pageOffset);
@@ -404,6 +404,15 @@ public class UserInfoServiceImpl implements UserInfoService {
 		rstMap.put("listTotalNum",ltn);
 		rstMap.put("list",lm);
 		return rstMap;
+	}
+
+	@Override
+	public List<Map<String, Object>> getUserTemplate (String loginName) throws Exception {
+		List<Map<String, Object>> rstList = userInfoMapper.selectUserTemplate(loginName);
+//		for( Map<String, Object> itr :rstList ) {
+//			itr.put("")
+//		}
+		return rstList;
 	}
 
 	@Override

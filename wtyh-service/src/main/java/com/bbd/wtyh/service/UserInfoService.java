@@ -2,6 +2,7 @@ package com.bbd.wtyh.service;
 
 import com.bbd.wtyh.domain.UserInfoTableDo;
 
+import java.util.List;
 import java.util.Map;
 
 /** 用户基本信息服务接口
@@ -41,7 +42,7 @@ public interface UserInfoService {
      * @return 返回用户信息和含权限的完整字段
      * @throws Exception 各种不合规的参数引发的异常，包括解密转码的异常
      */
-    public Map<String,Object> getUserInfoById(int id /*, boolean foreYes*/) throws Exception;
+    public Map<String,Object> getUserInfoById(int id ) throws Exception;
 
     /**
      * 通过用户名查询用户摘要信息
@@ -50,6 +51,8 @@ public interface UserInfoService {
      * @throws Exception
      */
     public Map<String, Object> getUserInfoSummaryByLoginName( String loginName) throws Exception;
+
+    public List<Map<String, Object>> getUserTemplate (String loginName) throws Exception;
 
     /**
      *
