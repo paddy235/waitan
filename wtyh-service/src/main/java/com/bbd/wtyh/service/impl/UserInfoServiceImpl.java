@@ -326,9 +326,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 				}
 		}
 		if(  StringUtils.isNotBlank(uitd.getStatus()) && uitd.getStatus().equals("F") ) { //逻辑删除用户，连带物理删除权限表
-			//roleResourceService.deleteUserRoleResource(uitd.getId(), uitd.getUpdateBy() );
+			roleResourceService.deleteUserRoleResource(uitd.getId(), uitd.getUpdateBy() );
 		} else {
-			//roleResourceService.updateUserRoleResource(uitd, resourceSet, uitd.getUpdateBy());
+			roleResourceService.updateUserRoleResource(uitd, resourceSet, uitd.getUpdateBy());
 		}
 	}
 
