@@ -104,23 +104,31 @@
     WHERE  status ='A' AND login_name= #{loginName}
   </select>
 
+
+
   <!-- 查询用户记录总条数, 用户为‘A’ -->
   <select id="selectUserInfoTotalNum"   resultType="Integer">
     SELECT  COUNT(*)   FROM <include refid="TabName"/>
     WHERE  status ='A'
   </select>
 
+
   <!-- 查询用户记录列表, 用户为‘A’ -->
   <select id="selectUserInfoList" parameterType="java.util.HashMap"  resultType="java.util.Map">
     SELECT
-    id AS id,
-    ifnull(login_name ,'') AS loginName,
-    ifnull(real_name ,'') AS realName,
-    ifnull(department ,'') AS department,
-    ifnull(mobile ,'')  AS mobile,
-    ifnull(email,'') AS email,
-    ifnull(create_by ,'') AS createBy,
-    ifnull(user_type ,'') AS userType
+    <if test=" listing ==null ">  <!-- 查总条数的标记 -->
+      COUNT(*) AS recordTotal
+    </if>
+    <if test=" listing !=null ">
+      id AS id,
+      ifnull(login_name ,'') AS loginName,
+      ifnull(real_name ,'') AS realName,
+      ifnull(department ,'') AS department,
+      ifnull(mobile ,'')  AS mobile,
+      ifnull(email,'') AS email,
+      ifnull(create_by ,'') AS createBy,
+      ifnull(user_type ,'') AS userType
+    </if>
     FROM <include refid="TabName"/>
     WHERE  status ='A'
     <choose>
@@ -136,7 +144,7 @@
     </choose>
     ORDER BY update_date DESC
     LIMIT
-    <if test="pageOffset">
+    <if test="pageOffset and listing !=null ">
       #{pageOffset},
     </if>  #{pageLimit}
   </select>

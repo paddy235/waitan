@@ -49,7 +49,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		if (StringUtils.isBlank(uitd.getRealName()) || !rexCheckUserName(uitd.getRealName()) ) {
 			throw new BusinessException("真实姓名为空或不合法");
 		} else {
-			uitd.setRealName(CipherUtils.encrypt(uitd.getRealName()));
+			//uitd.setRealName(CipherUtils.encrypt(uitd.getRealName()));
 		}
 		if (StringUtils.isBlank(uitd.getMobile())) {
 			uitd.setMobile(null);
@@ -118,6 +118,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 			throw new BusinessException("没有指定待更新的用户信息的id");
 		}
 		UserInfoTableDo selUitd = userInfoMapper.selectUserAllInfoById(uitd.getId());
+		if( null ==selUitd ) {
+			throw new BusinessException("提供的用户id不存在");
+		}
 /*		if ( !( StringUtils.isNotBlank(uitd.getStatus()) && uitd.getStatus().equals("F") ) )
 		{
 			if (StringUtils.isBlank(uitd.getOldPwd())) {
@@ -379,6 +382,51 @@ public class UserInfoServiceImpl implements UserInfoService {
 		return lm.get(0);
 	}
 
+
+	@Override
+	public Map<String,Object> listUserInfo( String selectType, String selectObject, int pageLimit, Integer pageOffset ) throws Exception  {
+		if( StringUtils.isBlank(selectType) ) {
+			throw new BusinessException("selectType参数为空");
+		}
+		if( pageLimit <1 ) {
+			throw new BusinessException("pageLimit参数小于1，无意义");
+		}
+		if( !selectType.equals("default") && !selectType.equals("loginName")
+				&& !selectType.equals("realName")  && !selectType.equals("department") ) {
+			throw new BusinessException("selectType参数不合法");
+		}
+		HashMap<String,Object> params =new HashMap<String, Object>();
+		params.put( selectType, selectObject );
+		params.put( "pageLimit", pageLimit );
+		if( null !=pageOffset ) {
+			params.put("pageOffset", pageOffset);
+		}
+		List<Map<String, Object>> lm =userInfoMapper.selectUserInfoList(params);
+		Long ltn = (Long)(lm.get(0).get("recordTotal"));
+		params.put( "listing", 1 );
+		lm =userInfoMapper.selectUserInfoList(params);
+		UserInfoTableDo uitd =new UserInfoTableDo();
+		for( Map<String, Object> itr : lm  ) {
+			Object tmpObj =itr.get("realName");
+			if( null !=tmpObj  ) {
+				uitd.setRealName( (String)tmpObj );
+			}
+			tmpObj =itr.get("mobile");
+			if( null !=tmpObj  ) {
+				uitd.setMobile( (String)tmpObj );
+			}
+			decryptUserInfo( uitd );
+			itr.put("realName", uitd.getRealName());
+			itr.put("mobile", uitd.getMobile());
+		}
+
+		Map<String,Object> rstMap =new HashMap<String, Object>();
+		rstMap.put("listTotalNum",ltn);
+		rstMap.put("list",lm);
+		return rstMap;
+	}
+
+/* 修改前的备份
 	@Override
 	public Map<String,Object> listUserInfo( String selectType, String selectObject, int pageLimit, Integer pageOffset ) throws Exception  {
 		if( StringUtils.isBlank(selectType) ) {
@@ -418,7 +466,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		rstMap.put("listTotalNum",ltn);
 		rstMap.put("list",lm);
 		return rstMap;
-	}
+	}*/
 
 	@Override
 	public List<Map<String, Object>> getUserTemplate (String loginName) throws Exception {
@@ -450,7 +498,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 	private void decryptUserInfo( UserInfoTableDo uitd ) throws Exception {
 		if( null !=uitd ) {
 			if (StringUtils.isNotBlank(uitd.getRealName())) {
-				uitd.setRealName(CipherUtils.decrypt(uitd.getRealName()));
+				//uitd.setRealName(CipherUtils.decrypt(uitd.getRealName()));
 			} else {
 				uitd.setRealName(null);
 			}
