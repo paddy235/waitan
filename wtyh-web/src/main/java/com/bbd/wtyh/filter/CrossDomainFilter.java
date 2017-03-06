@@ -1,4 +1,9 @@
-package com.bbd.bgo.filter;
+/*
+ * BBD Service Inc
+ * All Rights Reserved @2017
+ */
+
+package com.bbd.wtyh.filter;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
