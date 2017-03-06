@@ -28,11 +28,11 @@
 
 
     <filter>
-        <filter-name>sdjhFilter</filter-name>
+        <filter-name>crossDomainFilter</filter-name>
         <filter-class>com.bbd.bgo.filter.CrossDomainFilter</filter-class>
     </filter>
     <filter-mapping>
-        <filter-name>sdjhFilter</filter-name>
+        <filter-name>crossDomainFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
