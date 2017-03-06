@@ -86,8 +86,7 @@ public class UserChangeLogAspect {
 
     @AfterReturning("updateUserInfo() && args(uitd,resourceSet)")
     public void doUpdateUserInfoAfterReturning(UserInfoTableDo uitd,String resourceSet){
-        UserInfoTableDo bean = userInfo.selectUserAllInfoById(uitd.getId());
-        createUserLog( bean, resourceSet ,"修改用户成功，");
+        createUserLog( uitd, resourceSet ,"修改的部分");
     }
 
 
