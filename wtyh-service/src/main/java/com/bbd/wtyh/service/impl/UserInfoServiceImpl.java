@@ -468,15 +468,14 @@ public class UserInfoServiceImpl implements UserInfoService {
 	public boolean compareUserNameMatchPassword(String loginName, String password, String userType) throws  Exception {
 		if (StringUtils.isBlank(loginName) || StringUtils.isBlank(password) || StringUtils.isBlank(userType))
 			return false; //用户输入的参数不合法
-		Object selPassword = (userInfoMapper.selectUserInfoSummaryByLoginName(loginName)).get(0).get(userType); //"fore_pwd"
-		if( null == selPassword ) {
+		Object selObj = (userInfoMapper.selectUserInfoSummaryByLoginName(loginName)).get(0).get(userType); //"fore_pwd"
+		if( null == selObj ) {
 			throw new BusinessException("未检索到密码字段");
 		}
+		String selPassword =(String)selObj;
 		if (StringUtils.isEmpty((String)selPassword))
 			return false; //数据库返回的结果为空
-		if (password.equals( userPasswordEncrypt((String)selPassword)))
-			return false; //密码不匹配
-		return true;
+		return selPassword.equals( userPasswordEncrypt(password));
 	}
 
 	//解密需要解密的用户数据

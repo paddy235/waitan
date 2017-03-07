@@ -12,6 +12,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import redis.clients.jedis.Jedis;
 
 import javax.servlet.http.HttpSession;
 
@@ -77,7 +78,7 @@ public class UserInfoController {
             throw new BusinessException("原密码验证失败");
         }
         userInfoService.updateUserInfo(user,null);
-
+        // TODO：此处最好添加使修改后的密码在缓存中立即生效的代码
         return ResponseBean.successResponse("用户密码修改成功。");
     }
 
