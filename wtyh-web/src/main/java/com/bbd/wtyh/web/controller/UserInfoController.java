@@ -1,5 +1,6 @@
 package com.bbd.wtyh.web.controller;
 
+import com.bbd.wtyh.auth.UserRealm;
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.exception.BusinessException;
@@ -30,6 +31,8 @@ public class UserInfoController {
 
     @Autowired
     private UserInfoService userInfoService;
+    @Autowired
+    private UserRealm userRealm;
 
     @RequestMapping("/query")
     public Object query(HttpSession session){
@@ -79,6 +82,7 @@ public class UserInfoController {
         }
         userInfoService.updateUserInfo(user,null);
         // TODO：此处最好添加使修改后的密码在缓存中立即生效的代码
+        userRealm.clearCached();
         return ResponseBean.successResponse("用户密码修改成功。");
     }
 

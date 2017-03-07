@@ -1,5 +1,6 @@
 package com.bbd.bgo.web.controller;
 
+import com.bbd.bgo.auth.UserRealm;
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.exception.BusinessException;
@@ -27,7 +28,8 @@ public class UserInfoController {
 
     @Autowired
     private UserInfoService uis;
-
+    @Autowired
+    private UserRealm userRealm;
     @RequestMapping("/createUser.do")
     @ResponseBody
     public Object createUser1(UserInfoTableDo uitd, @RequestParam String resourceSet, HttpServletRequest request) {
@@ -58,6 +60,7 @@ public class UserInfoController {
         uitd.setUpdateBy(loginName);
         try {
             uis.updateUserInfo(uitd, resourceSet);
+            userRealm.clearCached();
         } catch (BusinessException be) {
             return ResponseBean.errorResponse(be.getMessage());
         } catch (Exception e) {
@@ -77,6 +80,7 @@ public class UserInfoController {
             uitd.setId(deleteId);
             uitd.setStatus("F"); //逻辑删除
             uis.updateUserInfo(uitd, null);
+            userRealm.clearCached();
         } catch (BusinessException be) {
             return ResponseBean.errorResponse(be.getMessage());
         } catch (Exception e) {
