@@ -351,6 +351,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 		}*/
 		uitd = userInfoMapper.selectUserInfoAllByLoginName(loginName);
 		decryptUserInfo( uitd );
+		uitd.setStatus(null);
+		uitd.setForePwd(null);
+		uitd.setBackPwd(null);
 		Set<String> rC = roleResourceService.queryResourceCodeByLoginName(loginName);
 		Map<String,Object> rstMap =new HashMap<String, Object>();
 		rstMap.put("userInfo",uitd);
@@ -362,6 +365,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 	public Map<String,Object> getUserInfoById(int id /*, boolean foreYes*/) throws Exception {
 		UserInfoTableDo uitd = userInfoMapper.selectUserAllInfoById(id);
 		decryptUserInfo( uitd );
+		uitd.setStatus(null);
+		uitd.setForePwd(null);
+		uitd.setBackPwd(null);
 		Set<String> rC = roleResourceService.queryResourceCodeByUserId(id);
 		Map<String,Object> rstMap =new HashMap<String, Object>();
 		rstMap.put("userInfo",uitd);

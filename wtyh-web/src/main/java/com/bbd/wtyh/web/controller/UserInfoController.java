@@ -81,7 +81,6 @@ public class UserInfoController {
             throw new BusinessException("原密码验证失败");
         }
         userInfoService.updateUserInfo(user,null);
-        // TODO：此处最好添加使修改后的密码在缓存中立即生效的代码
         userRealm.clearCached();
         return ResponseBean.successResponse("用户密码修改成功。");
     }

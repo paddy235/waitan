@@ -52,6 +52,12 @@ public interface UserInfoService {
      */
     public Map<String, Object> getUserInfoSummaryByLoginName( String loginName) throws Exception;
 
+    /**
+     * 获取用户模板
+     * @param loginName
+     * @return
+     * @throws Exception
+     */
     public List<Map<String, Object>> getUserTemplate (String loginName) throws Exception;
 
     /**
