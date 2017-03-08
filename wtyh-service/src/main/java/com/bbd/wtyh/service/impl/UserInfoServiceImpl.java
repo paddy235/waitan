@@ -51,6 +51,15 @@ public class UserInfoServiceImpl implements UserInfoService {
 		} else {
 			//uitd.setRealName(CipherUtils.encrypt(uitd.getRealName()));
 		}
+		if (StringUtils.isBlank(uitd.getFixPhone())) {
+			uitd.setFixPhone(null);
+		} else {
+			if( !rexCheckMobileNO(uitd.getFixPhone()) ) {
+				throw new BusinessException("固话号码不合法");
+			} else {
+				uitd.setFixPhone(CipherUtils.encrypt(uitd.getFixPhone()));
+			}
+		}
 		if (StringUtils.isBlank(uitd.getMobile())) {
 			uitd.setMobile(null);
 		} else {
@@ -178,6 +187,17 @@ public class UserInfoServiceImpl implements UserInfoService {
 			updateCount++;
 		}
 
+		if (StringUtils.isBlank(uitd.getFixPhone())) {
+			uitd.setFixPhone(null); //不更新手机号码
+		} else {
+			if( !rexCheckMobileNO(uitd.getFixPhone()) ) {
+				throw new BusinessException("新指定的固话号码不合法");
+			} else {
+				uitd.setFixPhone(CipherUtils.encrypt(uitd.getFixPhone()));
+			}
+			updateCount++;
+		}
+
 		if (StringUtils.isBlank(uitd.getMobile())) {
 			uitd.setMobile(null); //不更新手机号码
 		} else {
@@ -278,7 +298,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 					}
 				}
 			} else if ((true == oldFY) && (false == newFY)) { //必须更新
-				uitd.setForePwd("");
+				//uitd.setForePwd("");
 				updateCount++;
 			} else if ((false == oldFY) && (true == newFY)) { //必须更新
 				if (StringUtils.isBlank(uitd.getForePwd()) || !rexCheckPassword(uitd.getForePwd()))
@@ -301,7 +321,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 					}
 				}
 			} else if ((true == oldBY) && (false == newBY)) { //必须更新
-				uitd.setBackPwd("");
+				//uitd.setBackPwd("");
 				updateCount++;
 			} else if ((false == oldBY) && (true == newBY)) { //必须更新
 				if (StringUtils.isBlank(uitd.getBackPwd()) || !rexCheckPassword(uitd.getBackPwd()))
@@ -330,8 +350,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 					throw new BusinessException("update is err");
 				}
 		}
-		if(  StringUtils.isNotBlank(uitd.getStatus()) && uitd.getStatus().equals("F") ) { //逻辑删除用户，连带物理删除权限表
-			roleResourceService.deleteUserRoleResource(uitd.getId(), uitd.getUpdateBy() );
+		if(  StringUtils.isNotBlank(uitd.getStatus()) && uitd.getStatus().equals("F") ) { //逻辑删除用户，不连带物理删除权限表
+			//roleResourceService.deleteUserRoleResource(uitd.getId(), uitd.getUpdateBy() );
 		} else {
 			roleResourceService.updateUserRoleResource(uitd, resourceSet, uitd.getUpdateBy());
 		}
@@ -431,9 +451,21 @@ public class UserInfoServiceImpl implements UserInfoService {
 		lm =userInfoMapper.selectUserInfoList(params);
 		UserInfoTableDo uitd =new UserInfoTableDo();
 		for( Map<String, Object> itr : lm  ) {
-			Object tmpObj =itr.get("realName");
+			Object tmpObj =itr.get("userType");
+			switch ( (String)tmpObj )
+			{
+				case "A": //itr.put("userType", "后台系统管理员"); break;
+				case "B": itr.put("userType", "后台系统管理员"); break;
+				case "F": itr.put("userType", "普通用户"); break;
+				default: itr.put("userType", "预分配用户");
+			}
+			tmpObj =itr.get("realName");
 			if( null !=tmpObj  ) {
 				uitd.setRealName( (String)tmpObj );
+			}
+			tmpObj =itr.get("fixPhone");
+			if( null !=tmpObj  ) {
+				uitd.setFixPhone( (String)tmpObj );
 			}
 			tmpObj =itr.get("mobile");
 			if( null !=tmpObj  ) {
@@ -441,6 +473,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 			}
 			decryptUserInfo( uitd );
 			itr.put("realName", uitd.getRealName());
+			itr.put("fixPhone", uitd.getFixPhone());
 			itr.put("mobile", uitd.getMobile());
 		}
 
@@ -496,6 +529,11 @@ public class UserInfoServiceImpl implements UserInfoService {
 				uitd.setMobile(CipherUtils.decrypt(uitd.getMobile()));
 			} else {
 				uitd.setMobile(null);
+			}
+			if (StringUtils.isNotBlank(uitd.getFixPhone())) {
+				uitd.setFixPhone(CipherUtils.decrypt(uitd.getFixPhone()));
+			} else {
+				uitd.setFixPhone(null);
 			}
 		}
 	}

@@ -24,9 +24,9 @@
   <insert id="saveU" parameterType="com.bbd.wtyh.domain.UserInfoTableDo" useGeneratedKeys="true"
           keyProperty="id" >
     INSERT INTO <include refid="TabName"/>(
-    status, user_type, login_name, fore_pwd, back_pwd, real_name, mobile, email,
+    status, user_type, login_name, fore_pwd, back_pwd, real_name, fix_phone, mobile, email,
     department, area_code, create_date, create_by, update_date, update_by           ) VALUES (
-    #{status}, #{userType}, #{loginName}, #{forePwd}, #{backPwd}, #{realName}, #{mobile}, #{email},
+    #{status}, #{userType}, #{loginName}, #{forePwd}, #{backPwd}, #{realName}, #{fixPhone}, #{mobile}, #{email},
     #{department}, #{areaCode}, #{createDate}, #{createBy}, #{updateDate}, #{updateBy} );
   </insert>
 
@@ -39,6 +39,7 @@
       <if test="forePwd != null"> fore_pwd= #{forePwd}, </if>
       <if test="backPwd != null"> back_pwd= #{backPwd}, </if>
       <if test="realName != null"> real_name= #{realName}, </if>
+      <if test="fixPhone != null"> fix_phone= #{fixPhone}, </if>
       <if test="mobile != null"> mobile= #{mobile}, </if>
       <if test="email != null"> email= #{email}, </if>
       <if test="department != null"> department= #{department}, </if>
@@ -58,6 +59,7 @@
     fore_pwd AS forePwd,
     back_pwd AS backPwd,
     real_name AS realName,
+    fix_phone  AS fixPhone,
     mobile AS mobile,
     email AS email,
     department AS department,
@@ -124,6 +126,7 @@
       ifnull(login_name ,'') AS loginName,
       ifnull(real_name ,'') AS realName,
       ifnull(department ,'') AS department,
+      ifnull(fix_phone ,'')  AS fixPhone,
       ifnull(mobile ,'')  AS mobile,
       ifnull(email,'') AS email,
       ifnull(create_by ,'') AS createBy,
