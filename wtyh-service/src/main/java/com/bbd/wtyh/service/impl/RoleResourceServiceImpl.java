@@ -62,7 +62,7 @@ public class RoleResourceServiceImpl implements RoleResourceService {
             return ;
         }
         //新增角色基本信息
-        RoleDo roleDo=this.addRoleBase(null, null, userInfoTableDo.getUserType(),loginName);
+        RoleDo roleDo=this.addRoleBase(null, null, null,loginName);
 
         //新增角色用户关系
         UserRoleDo userRoleDo=new UserRoleDo();
