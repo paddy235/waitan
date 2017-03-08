@@ -9,60 +9,41 @@ import java.util.Date;
 
 public class UserInfoTableDo implements Serializable {
 
-//    public String getOldPwd() {
-//        return oldPwd;
-//    }
-//
-//    public void setOldPwd(String oldPwd) {
-//        this.oldPwd = oldPwd;
-//    }
-//
-//    private String oldPwd; //原密码
+    private Integer id; //主键
 
-    //主键
-    private Integer id;
+    private String status;  //用户状态（F：冻结；A：激活）
 
-    //用户状态（F：冻结；A：激活）
-    private String status;
+//    private boolean foreUserFlag; //前台用户标志
 
-    //用户类型（F：前台；B：后台；A：前后台；U：待定）
-    private String userType;
+//    private boolean backUserFlag; //后台用户标志
 
-    //登录名
-    private String loginName;
+    private String userType; //用户类型（F：前台；B：后台；A：前后台；U：待定）
 
-    //前台登录密码
-    private String forePwd;
+    private String loginName; //登录名
 
-    //后台登录密码
-    private String backPwd;
+    private String forePwd; //前台登录密码
 
-    //真实姓名
-    private String realName;
+    private String backPwd; //后台登录密码
 
-    //电话
-    private String mobile;
+    private String realName; //真实姓名
 
-    //电子信箱
-    private String email;
+    private String fixPhone; //联系固话
 
-    //部门
-    private String department;
+    private String mobile; //联系手机
 
-    //地区代码
-    private String areaCode;
+    private String email; //电子信箱
 
-    //创建日期
-    private Date createDate;
+    private String department; //部门
 
-    //创建人
-    private String createBy;
+    private String areaCode; //地区代码
 
-    //修改日期
-    private Date updateDate;
+    private Date createDate; //创建日期
 
-    //修改人
-    private String updateBy;
+    private String createBy; //创建人
+
+    private Date updateDate; //修改日期
+
+    private String updateBy; //修改人
 
 
     @Override
@@ -70,11 +51,14 @@ public class UserInfoTableDo implements Serializable {
         String tmp = "id=%d，" +
                      "登录名=%s，" +
                      "用户状态（F：冻结；A：激活）=%s," +
-                     "用户类型（F：前台；B：后台；A：前后台；U：待定）=%s,"+
+                     //"前台用户标志" +
+                    // "后台用户标志" +
+                "用户类型（F：前台；B：后台；A：前后台；U：待定）=%s,"+
                      "前台登录密码=%s," +
                      "后台登录密码=%s," +
                      "真实姓名=%s," +
-                     "电话=%s," +
+                     "固话=%s," +
+                     "手机=%s," +
                      "电子信箱=%s," +
                      "部门=%s," +
                      "地区代码=%s," +
@@ -85,10 +69,13 @@ public class UserInfoTableDo implements Serializable {
         return String.format(tmp,getId(),
                                 getLoginName(),
                                 getStatus(),
+                //isForeUserFlag(),
+                //isBackUserFlag(),
                                 getUserType(),
                                 getForePwd(),
                                 getBackPwd(),
                                 getRealName(),
+                getFixPhone(),
                                 getMobile(),
                                 getEmail(),
                                 getDepartment(),
@@ -218,5 +205,29 @@ public class UserInfoTableDo implements Serializable {
 
     public void setBackPwd(String backPwd) {
         this.backPwd = backPwd;
+    }
+
+/*    public boolean isForeUserFlag() {
+        return foreUserFlag;
+    }
+
+    public void setForeUserFlag(boolean foreUserFlag) {
+        this.foreUserFlag = foreUserFlag;
+    }
+
+    public boolean isBackUserFlag() {
+        return backUserFlag;
+    }
+
+    public void setBackUserFlag(boolean backUserFlag) {
+        this.backUserFlag = backUserFlag;
+    }*/
+
+    public String getFixPhone() {
+        return fixPhone;
+    }
+
+    public void setFixPhone(String fixPhone) {
+        this.fixPhone = fixPhone;
     }
 }

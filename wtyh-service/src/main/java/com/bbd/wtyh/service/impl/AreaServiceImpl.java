@@ -42,10 +42,11 @@ public class AreaServiceImpl implements AreaService {
 	 * */
 	public Integer getAreaId(HttpSession session){
 
-		AreaDO area = (AreaDO) session.getAttribute(Constants.SESSION_AREA);
+		//AreaDO area = (AreaDO) session.getAttribute(Constants.SESSION_AREA);
+		String area = (String) session.getAttribute("area");
 
-		// return (area==null || area.getAreaId()==Constants.SH_AREAID)?null:area.getAreaId();
-		return 1122;
+		 return (area==null || Constants.SH_AREAID.equals(area))?null:Integer.valueOf(area);
+		//return 1122;
 	}
 
 	/**
@@ -54,10 +55,11 @@ public class AreaServiceImpl implements AreaService {
 	 * */
 	public String getAreaName(HttpSession session){
 
-		AreaDO area = (AreaDO) session.getAttribute(Constants.SESSION_AREA);
+		//AreaDO area = (AreaDO) session.getAttribute(Constants.SESSION_AREA);
+		String area = (String) session.getAttribute("areaName");
 
-		// return (area==null || area.getAreaId()==Constants.SH_AREAID)?null:area.getName();
-		return "浦东新区";
+		 return area;
+		//return "浦东新区";
 	}
 	
 	

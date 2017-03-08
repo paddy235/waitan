@@ -5,6 +5,7 @@ import com.bbd.wtyh.service.RoleResourceService;
 import com.bbd.wtyh.service.UserInfoService;
 import com.bbd.wtyh.service.UserService;
 import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -73,5 +74,11 @@ public class UserRealm extends AuthorizingRealm {
         }
         //如果身份认证验证成功，返回一个AuthenticationInfo实现；
         return new SimpleAuthenticationInfo(username, password, getName());
+    }
+
+    //清除缓存
+    public void clearCached() {
+        PrincipalCollection principals = SecurityUtils.getSubject().getPrincipals();
+        super.clearCache(principals);
     }
 }

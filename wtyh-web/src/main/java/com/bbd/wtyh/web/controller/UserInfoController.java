@@ -1,5 +1,6 @@
 package com.bbd.wtyh.web.controller;
 
+import com.bbd.wtyh.auth.UserRealm;
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.exception.BusinessException;
@@ -12,6 +13,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import redis.clients.jedis.Jedis;
 
 import javax.servlet.http.HttpSession;
 
@@ -29,6 +31,8 @@ public class UserInfoController {
 
     @Autowired
     private UserInfoService userInfoService;
+    @Autowired
+    private UserRealm userRealm;
 
     @RequestMapping("/query")
     public Object query(HttpSession session){
@@ -77,7 +81,7 @@ public class UserInfoController {
             throw new BusinessException("原密码验证失败");
         }
         userInfoService.updateUserInfo(user,null);
-
+        userRealm.clearCached();
         return ResponseBean.successResponse("用户密码修改成功。");
     }
 
