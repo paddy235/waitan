@@ -23,9 +23,9 @@
         <!-- <property name="credentialsMatcher" ref="hashedCredentialsMatcher"/>--><!--todo 密码加密-->
         <property name="cachingEnabled" value="true"/>
         <property name="authenticationCachingEnabled" value="true"/>
-        <property name="authenticationCacheName" value="authenticationCache"/>
+        <property name="authenticationCacheName" value="webAuthenticationCache"/>
         <property name="authorizationCachingEnabled" value="true"/>
-        <property name="authorizationCacheName" value="authorizationCache"/>
+        <property name="authorizationCacheName" value="webAuthorizationCache"/>
     </bean>
 
     <!-- 会话ID生成器 -->
@@ -40,7 +40,7 @@
 
     <!-- 会话DAO -->
     <bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
-        <property name="activeSessionsCacheName" value="shiro-activeSessionCache"/>
+        <property name="activeSessionsCacheName" value="web-shiro-activeSessionCache"/>
         <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
     </bean>
 

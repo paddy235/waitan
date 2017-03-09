@@ -17,7 +17,25 @@
            statistics="true">
     </cache>
 
+    <cache name="webPasswordRetryCache"
+
+           maxElementsInMemory="10000"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="0"
+           overflowToDisk="false"
+           statistics="true">
+    </cache>
+
     <cache name="authorizationCache"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="0"
+           overflowToDisk="false"
+           statistics="true">
+    </cache>
+
+    <cache name="webAuthorizationCache"
            eternal="false"
            timeToIdleSeconds="3600"
            timeToLiveSeconds="0"
@@ -33,7 +51,23 @@
            statistics="true">
     </cache>
 
+    <cache name="webAuthenticationCache"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="0"
+           overflowToDisk="false"
+           statistics="true">
+    </cache>
+
     <cache name="shiro-activeSessionCache"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="0"
+           overflowToDisk="false"
+           statistics="true">
+    </cache>
+
+    <cache name="web-shiro-activeSessionCache"
            eternal="false"
            timeToIdleSeconds="3600"
            timeToLiveSeconds="0"
