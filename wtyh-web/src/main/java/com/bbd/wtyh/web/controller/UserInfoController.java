@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import redis.clients.jedis.Jedis;
 
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 /**
  * 用户信息维护
@@ -70,19 +71,29 @@ public class UserInfoController {
     }
 
     @RequestMapping("/update/password")
-    public Object updatePassword(@RequestParam Integer id,@RequestParam String oldPassword,@RequestParam String newPassword,HttpSession session)throws Exception{
+    public Object updatePassword(/*@RequestParam Integer id,*/
+                                @RequestParam String loginName,
+                                 @RequestParam String oldPassword,
+                                 @RequestParam String newPassword,
+                                 HttpSession session)throws Exception{
 
-        UserInfoTableDo user = new UserInfoTableDo();
-        user.setId(id);
-        user.setForePwd(newPassword);
-        //user.setOldPwd(oldPassword);
-        user.setUpdateBy((String)session.getAttribute(Constants.SESSION.loginName));
-        if( ! userInfoService.compareUserNameMatchPassword( user.getUpdateBy(), oldPassword, "fore_pwd" ) ) {
-            throw new BusinessException("原密码验证失败");
+        if( oldPassword.equals(newPassword) ) {
+            return ResponseBean.successResponse("password.history.contains"); //新设置密码不可与原密码设置相同
         }
+        Object obj = (userInfoService.getUserInfoSummaryByLoginName(loginName)).get("id");
+        if( null ==obj ) {
+            return ResponseBean.successResponse("account.not.exist"); //账号不存在 //throw new BusinessException("未查询到id字段");
+        }
+        if( ! userInfoService.compareUserNameMatchPassword( /*user.getUpdateBy()*/loginName, oldPassword, "fore_pwd" ) ) {
+            return ResponseBean.successResponse("password.error"); //密码错误 //throw new BusinessException("原密码验证失败");
+        }
+        UserInfoTableDo user = new UserInfoTableDo();
+        user.setUpdateBy(loginName);  //user.setUpdateBy((String)session.getAttribute(Constants.SESSION.loginName));
+        user.setForePwd(newPassword);
+        user.setId((Integer)obj);
         userInfoService.updateUserInfo(user,null);
         userRealm.clearCached();
-        return ResponseBean.successResponse("用户密码修改成功。");
+        return ResponseBean.successResponse("password.change.success"); //用户密码修改成功。
     }
 
 }
