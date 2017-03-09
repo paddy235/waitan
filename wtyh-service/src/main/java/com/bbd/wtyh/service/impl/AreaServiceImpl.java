@@ -44,8 +44,11 @@ public class AreaServiceImpl implements AreaService {
 
 		//AreaDO area = (AreaDO) session.getAttribute(Constants.SESSION_AREA);
 		String area = (String) session.getAttribute("area");
-
-		 return (area==null || Constants.SH_AREAID.equals(area))?null:Integer.valueOf(area);
+		Integer it=null;
+		if(null != area){
+			it=Integer.valueOf(area);
+		}
+		 return (it==null || Constants.SH_AREAID==it)?null:it;
 		//return 1122;
 	}
 
