@@ -23,9 +23,9 @@
         <!-- <property name="credentialsMatcher" ref="hashedCredentialsMatcher"/>--><!--todo 密码加密-->
         <property name="cachingEnabled" value="true"/>
         <property name="authenticationCachingEnabled" value="true"/>
-        <property name="authenticationCacheName" value="authenticationCache"/>
+        <property name="authenticationCacheName" value="webAuthenticationCache"/>
         <property name="authorizationCachingEnabled" value="true"/>
-        <property name="authorizationCacheName" value="authorizationCache"/>
+        <property name="authorizationCacheName" value="webAuthorizationCache"/>
     </bean>
 
     <!-- 会话ID生成器 -->
@@ -36,11 +36,12 @@
         <constructor-arg value="sid"/>
         <property name="httpOnly" value="true"/>
         <property name="maxAge" value="3600000"/>
+        <property name="name" value="WEBSID"/>
     </bean>
 
     <!-- 会话DAO -->
     <bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
-        <property name="activeSessionsCacheName" value="shiro-activeSessionCache"/>
+        <property name="activeSessionsCacheName" value="web-shiro-activeSessionCache"/>
         <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
     </bean>
 
@@ -59,6 +60,7 @@
         <property name="sessionDAO" ref="sessionDAO"/>
         <property name="sessionIdCookieEnabled" value="true"/>
         <property name="sessionIdCookie" ref="sessionIdCookie"/>
+
     </bean>
 
     <!-- 安全管理器 -->

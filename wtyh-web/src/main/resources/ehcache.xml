@@ -7,8 +7,9 @@
     
 <!-- maxEntriesLocalHeap="2000" -->
     <!-- 登录记录缓存 锁定10分钟 -->
-    <cache name="passwordRetryCache"
-           
+
+    <cache name="webPasswordRetryCache"
+
            maxElementsInMemory="10000"
            eternal="false"
            timeToIdleSeconds="3600"
@@ -17,7 +18,9 @@
            statistics="true">
     </cache>
 
-    <cache name="authorizationCache"
+
+
+    <cache name="webAuthorizationCache"
            eternal="false"
            timeToIdleSeconds="3600"
            timeToLiveSeconds="0"
@@ -25,7 +28,9 @@
            statistics="true">
     </cache>
 
-    <cache name="authenticationCache"
+
+
+    <cache name="webAuthenticationCache"
            eternal="false"
            timeToIdleSeconds="3600"
            timeToLiveSeconds="0"
@@ -33,7 +38,9 @@
            statistics="true">
     </cache>
 
-    <cache name="shiro-activeSessionCache"
+
+
+    <cache name="web-shiro-activeSessionCache"
            eternal="false"
            timeToIdleSeconds="3600"
            timeToLiveSeconds="0"

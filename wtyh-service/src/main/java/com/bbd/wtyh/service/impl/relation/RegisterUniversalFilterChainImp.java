@@ -41,7 +41,7 @@ public class RegisterUniversalFilterChainImp {
 
     private final static int retry = 3;
 
-    @Value("${related.party.url}")
+    @Value("${relation.real.url}")
     private String url;
 
     /**
