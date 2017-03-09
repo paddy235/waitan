@@ -31,6 +31,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 		if( null ==uitd ) {
 			throw new BusinessException("用户信息表对象为空");
 		}
+		if ( 1 == uitd.getId())  { // id号为1的为超级管理员，禁止修改或删除
+			throw new BusinessException("supper管理员，禁止修改或删除！");
+		}
 		uitd.setId(null);
 		uitd.setStatus("A");
 		if (StringUtils.isBlank(uitd.getUserType())) {
@@ -153,9 +156,6 @@ public class UserInfoServiceImpl implements UserInfoService {
 		} else {
 			if (!uitd.getStatus().equals("F") && !uitd.getStatus().equals("A")) {
 				throw new BusinessException("用户状态参数不合法");
-			}
-			if ( ( uitd.getStatus().equals("F") )&&( 1 == uitd.getId()) ) { // id号为1的为超级管理员，禁止删除
-				throw new BusinessException("supper管理员，禁止删除！");
 			}
 			updateCount++;
 		}

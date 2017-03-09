@@ -34,6 +34,7 @@ public interface UserInfoService {
      * @return 返回用户信息和含权限的完整字段
      * @throws Exception 各种不合规的参数引发的异常，包括解密转码的异常
      */
+    //@Deprecated
     public Map<String,Object> getUserInfoByLoginName(String loginName /*, boolean foreYes*/) throws Exception;
 
     /**

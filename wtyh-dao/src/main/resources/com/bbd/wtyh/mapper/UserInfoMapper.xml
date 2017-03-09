@@ -133,7 +133,7 @@
       ifnull(user_type ,'') AS userType
     </if>
     FROM <include refid="TabName"/>
-    WHERE  status ='A'
+    WHERE  status ='A' AND id != 1
     <choose>
       <when test="default !=null">
 
@@ -167,7 +167,7 @@
     id AS id,
     login_name AS loginName
     FROM  <include refid="TabName"/>
-    WHERE `status` = 'A'  AND `login_name` LIKE '%${loginName}%' LIMIT 5
+    WHERE `status` = 'A' AND id != 1 AND `login_name` LIKE '%${loginName}%' LIMIT 5
   </select>
 
 
