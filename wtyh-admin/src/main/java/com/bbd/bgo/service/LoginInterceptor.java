@@ -6,6 +6,7 @@ import java.lang.reflect.Method;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.method.HandlerMethod;
@@ -43,9 +44,14 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		}
 
 		/*调代码，取消登录权限*/
+		HttpSession session=request.getSession(false);
+		if(null==session){
+			response.getWriter().write("{success:false,msg:'no login'}");
+			return false;
+		}
 		Object loginName = request.getSession().getAttribute(Constants.SESSION.loginName);
 		if(loginName == null){
-			response.sendRedirect(request.getContextPath()+"/index.jsp");
+			response.getWriter().write("{success:false,msg:'no login'}");
 			return false;
 		}
 
