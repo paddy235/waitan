@@ -31,9 +31,6 @@ public class UserInfoServiceImpl implements UserInfoService {
 		if( null ==uitd ) {
 			throw new BusinessException("用户信息表对象为空");
 		}
-		if ( 1 == uitd.getId())  { // id号为1的为超级管理员，禁止修改或删除
-			throw new BusinessException("supper管理员，禁止修改或删除！");
-		}
 		uitd.setId(null);
 		uitd.setStatus("A");
 		if (StringUtils.isBlank(uitd.getUserType())) {
@@ -124,30 +121,18 @@ public class UserInfoServiceImpl implements UserInfoService {
 	@Override
 	public void updateUserInfo(UserInfoTableDo uitd, String resourceSet) throws Exception {
 		if( null ==uitd ) {
-			throw new BusinessException("用户信息表对象为空");
+			throw new BusinessException("用户信息表为空对象");
 		}
 		if( null==uitd.getId() ) {
 			throw new BusinessException("没有指定待更新的用户信息的id");
+		}
+		if ( 1 == uitd.getId())  { // id号为1的为超级管理员，禁止修改或删除
+			throw new BusinessException("supper管理员，禁止修改或删除！");
 		}
 		UserInfoTableDo selUitd = userInfoMapper.selectUserAllInfoById(uitd.getId());
 		if( null ==selUitd ) {
 			throw new BusinessException("提供的用户id不存在");
 		}
-
-/*		if ( StringUtils.isNotBlank(uitd.getForePwd()) 	&&(selUitd.getUserType().equals("F")||selUitd.getUserType().equals("A"))  )
-		{ //前端修改密码，验证原密码
-			if (StringUtils.isBlank(uitd.getOldPwd())) {
-				throw new BusinessException("原密码不合法");
-			}
-			if( null ==selUitd ) {
-				throw new BusinessException("未找到待更新的记录");
-			}
-			if( StringUtils.isBlank(selUitd.getForePwd()) ||
-					!(selUitd.getForePwd().equals( userPasswordEncrypt(uitd.getOldPwd())))	) {
-				throw new BusinessException("原密码校验失败");
-			}
-			uitd.setOldPwd(null); //后面不在需要此字段
-		}*/
 
 		int updateCount =0; //更新条目计数器
 
