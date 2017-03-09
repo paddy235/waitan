@@ -36,6 +36,7 @@
         <constructor-arg value="sid"/>
         <property name="httpOnly" value="true"/>
         <property name="maxAge" value="3600000"/>
+        <property name="name" value="WEBSID"/>
     </bean>
 
     <!-- 会话DAO -->
@@ -59,6 +60,7 @@
         <property name="sessionDAO" ref="sessionDAO"/>
         <property name="sessionIdCookieEnabled" value="true"/>
         <property name="sessionIdCookie" ref="sessionIdCookie"/>
+
     </bean>
 
     <!-- 安全管理器 -->
