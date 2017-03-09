@@ -92,11 +92,11 @@
 
     <error-page>
         <error-code>404</error-code>
-        <location>/WEB-INF/jsp/common/404.jsp</location>
+        <location>/index.html</location>
     </error-page>
 
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
     </welcome-file-list>
 
 </web-app>
