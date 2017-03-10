@@ -92,10 +92,16 @@ public class UserInfoController {
 
     @RequestMapping("/listUserInfo.do")
     @ResponseBody
-    public Object listUserInfo(@RequestParam String selectType, String selectObject, @RequestParam int pageSize, Integer pageNumber, HttpServletRequest request) {
+    public Object listUserInfo(
+            @RequestParam int areaCode,
+            @RequestParam String selectType,
+            String selectObject,
+            @RequestParam int pageSize,
+            Integer pageNumber,
+            HttpServletRequest request) {
         Map<String, Object> rstMap = null;
         try {
-            rstMap = uis.listUserInfo(selectType, selectObject, pageSize, pageNumber);
+            rstMap = uis.listUserInfo(areaCode,selectType, selectObject, pageSize, pageNumber);
         } catch (BusinessException be) {
             return ResponseBean.errorResponse(be.getMessage());
         } catch (Exception e) {
@@ -155,7 +161,7 @@ public class UserInfoController {
     public Object myTest() {
         //下面是测试代码
         try {
-            Map<String, Object> rstMap = uis.listUserInfo("realName", "ad", 10, null);
+            Map<String, Object> rstMap = uis.listUserInfo(0,"realName", "ad", 10, null);
             System.out.println(rstMap);
             return rstMap;
         } catch (Exception ee) {
