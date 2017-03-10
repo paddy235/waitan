@@ -16,7 +16,7 @@
 	</update>
 
 	<select id="queryUserInfo" resultType="com.bbd.wtyh.domain.UserInfoTableDo" >
-		SELECT * from user_mgment WHERE login_name=#{loginName}
+		SELECT * from user_mgment WHERE login_name=#{loginName} and status='A'
 	</select>
 
 </mapper>
