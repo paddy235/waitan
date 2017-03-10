@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.method.HandlerMethod;
@@ -48,7 +49,11 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		if ("saveCompanyCreditRisk.do".equals(annotation.value()[0])) {
 			return true;
 		}
-
+		HttpSession session=request.getSession(false);
+		if(null==session){
+			response.getWriter().write("{success:false,msg:'no login'}");
+			return false;
+		}
 		Object loginName = request.getSession().getAttribute(Constants.SESSION.loginName);
 		if (loginName == null) {
 			response.getWriter().write("{success:false,msg:'no login'}");

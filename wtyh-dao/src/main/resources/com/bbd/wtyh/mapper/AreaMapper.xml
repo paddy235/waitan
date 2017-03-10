@@ -6,7 +6,7 @@
 
     <select id="areaList"  resultType="com.bbd.wtyh.domain.AreaDO" >
 			select area_id areaId, name from park
-			<if test="#{areaId != null}">
+			<if test="areaId != null">
 				where area_id=#{areaId}
 			</if>
 
