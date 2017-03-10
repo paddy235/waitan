@@ -31,7 +31,7 @@ public class UserChangeLogAspect {
     @Pointcut("execution(* com.bbd.wtyh.service.impl.UserInfoServiceImpl.createUser(..))")
     private void createUser() {
     }
-
+    //
     public void createUserLog(UserInfoTableDo uitd, String resourceSet, String msg) {
 
         StringBuilder resource = new StringBuilder("");
