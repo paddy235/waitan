@@ -39,9 +39,16 @@ public class UserRealm extends AuthorizingRealm {
             //根据此用户名查询是否拥有此角色 返回的是一个字符串集合
             //authorizationInfo.setRoles(roleResourceService.queryRoleCodeByLoginName(userName));
             //根据用户名查询是否拥有此权限 返回的是一个字符串集合
-            authorizationInfo.setStringPermissions(roleResourceService.queryResourceCodeByLoginName(userName));
+            //取用户信息、权限
+            try {
+                Map<String,Object> m=userInfoService.getUserInfoByLoginName(userName);
+                Set res= (Set) m.get("resourceCode");
+                authorizationInfo.setStringPermissions(res);
+                return authorizationInfo;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-            return authorizationInfo;
         }
         return null;
     }
