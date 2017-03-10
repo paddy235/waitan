@@ -70,7 +70,7 @@ public interface UserInfoService {
      * @return
      * @throws Exception
      */
-    public Map<String,Object> listUserInfo( String selectType, String selectObject, int pageLimit, Integer pageOffset)  throws Exception;
+    public Map<String,Object> listUserInfo( int areaCode, String selectType, String selectObject, int pageLimit, Integer pageOffset)  throws Exception;
 
     /**
      * 用户密码单向加密

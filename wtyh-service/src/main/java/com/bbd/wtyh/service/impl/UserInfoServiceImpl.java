@@ -6,6 +6,7 @@ import com.bbd.wtyh.service.RoleResourceService;
 import com.bbd.wtyh.service.UserInfoService;
 import com.bbd.wtyh.mapper.UserInfoMapper;
 import com.bbd.wtyh.util.CipherUtils;
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
@@ -359,7 +360,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		uitd.setStatus(null);
 		uitd.setForePwd(null);
 		uitd.setBackPwd(null);
-		Set<String> rC = roleResourceService.queryResourceCodeByLoginName(loginName);
+		Set<String> rC = roleResourceService.queryResourceCodeByUserId(uitd.getId());
 		Map<String,Object> rstMap =new HashMap<String, Object>();
 		rstMap.put("userInfo",uitd);
 		rstMap.put("resourceCode",rC);
@@ -397,7 +398,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 
 	@Override
-	public Map<String,Object> listUserInfo( String selectType, String selectObject, int pageLimit, Integer pageNumber ) throws Exception  {
+	public Map<String,Object> listUserInfo( int areaCode, String selectType, String selectObject, int pageLimit, Integer pageNumber ) throws Exception  {
 		if( StringUtils.isBlank(selectType) ) {
 			throw new BusinessException("selectType参数为空");
 		}
@@ -426,16 +427,23 @@ public class UserInfoServiceImpl implements UserInfoService {
 		HashMap<String,Object> params =new HashMap<String, Object>();
 		params.put( selectType, selectObject );
 		params.put( "pageLimit", pageLimit );
-		List<Map<String, Object>> lm =userInfoMapper.selectUserInfoList(params);
+		List<Map<String, Object>> lm =userInfoMapper.selectUserInfoList(params); //查询符合条件的记录总条数
 		Long ltn = (Long)( lm.get(0).get("recordTotal") );
+		int orderNum =0;
 		if( (null !=pageNumber) &&( pageNumber >0 ) ) {
-			pageNumber =(pageNumber -1) * pageLimit;
+			orderNum =(pageNumber -1) * pageLimit;
+			pageNumber =(pageNumber -1) * pageLimit; //pageNumber的意义已经变为了“Offset”
 			params.put("pageNumber", pageNumber);
 		}
 		params.put( "listing", 1 );
+		if (areaCode >0) {
+			params.put( "areaCode", areaCode );
+		}
 		lm =userInfoMapper.selectUserInfoList(params);
 		UserInfoTableDo uitd =new UserInfoTableDo();
 		for( Map<String, Object> itr : lm  ) {
+			orderNum++;
+			itr.put("orderNum",orderNum);
 			Object tmpObj =itr.get("userType");
 			switch ( (String)tmpObj )
 			{
@@ -480,7 +488,23 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 	@Override
 	public List<Map<String, Object>> getShanghaiAreaCodeTable() throws Exception {
-		return userInfoMapper.selectShanghaiAreaCodeTable( );
+		List<Map<String, Object>>lm =userInfoMapper.selectShanghaiAreaCodeTable( );
+		if( null !=lm )
+		{
+			for( Map<String, Object> iter : lm )
+			{
+				if( null != iter.get("areaId") && 104 ==(Integer)iter.get("areaId") ) {
+					iter.put("cityName", "上海全区");
+					break;
+				}
+			}
+
+		}
+		Map<String, Object> allArea = new HashMap<String, Object>();
+		allArea.put( "areaId", (Integer)0 );
+		allArea.put( "cityName", "全部" );
+		lm.add(0, allArea);
+		return lm;
 	}
 
 	@Override
