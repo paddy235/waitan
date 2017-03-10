@@ -14,6 +14,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Administrator on 2017/2/27 0027.
@@ -32,12 +33,16 @@ public class UserRealm extends AuthorizingRealm {
         String userName=(String)principalCollection.getPrimaryPrincipal();
         if(!StringUtils.isEmpty(userName)){
             SimpleAuthorizationInfo authorizationInfo=new SimpleAuthorizationInfo();
-            //根据此用户名查询是否拥有此角色 返回的是一个字符串集合
-            //authorizationInfo.setRoles(roleResourceService.queryRoleCodeByLoginName(userName));
             //根据用户名查询是否拥有此权限 返回的是一个字符串集合
-            authorizationInfo.setStringPermissions(roleResourceService.queryResourceCodeByLoginName(userName));
+            try {
+                Map<String,Object> m=userInfoService.getUserInfoByLoginName(userName);
+                Set res= (Set) m.get("resourceCode");
+                authorizationInfo.setStringPermissions(res);
+                return authorizationInfo;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-            return authorizationInfo;
         }
         return null;
     }
