@@ -84,7 +84,7 @@ public interface UserInfoService {
      * @return
      * @throws Exception
      */
-    public List<Map<String, Object>> getShanghaiAreaCodeTable() throws Exception;
+    public List<Map<String, Object>> getShanghaiAreaCodeTable( String type ) throws Exception;
 
     /**
      *

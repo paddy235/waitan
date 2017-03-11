@@ -134,12 +134,10 @@
     </if>
     FROM <include refid="TabName"/>
     WHERE  status ='A' AND id != 1
+    <if test="areaCode !=null">
+      AND `area_code` = ${areaCode}
+    </if>
     <choose>
-<!--      <when test="default !=null">
-      </when>-->
-      <when test="areaCode !=null">
-        AND `area_code` = ${areaCode}
-      </when>
       <when test="loginName !=null">
         AND  `login_name` LIKE '%${loginName}%'
       </when>
