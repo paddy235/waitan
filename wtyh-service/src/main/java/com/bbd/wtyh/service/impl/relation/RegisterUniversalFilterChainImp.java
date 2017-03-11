@@ -190,7 +190,7 @@ public class RegisterUniversalFilterChainImp {
         if (StringUtils.isNullOrEmpty(json)) {
             json = this.getAPIDynamicRelatedPartUploadJTTP(companyName, degree, dataVersion);
         }
-        if (StringUtils.isNullOrEmpty(json)) {
+        if (StringUtils.isNullOrEmpty(json) || "null".equals(json) || "NULL".equals(json)) {
             json = "[]"; // 没有查询到数据的情况
         }
         JSONArray jsonArr = JSONArray.fromObject(json);
