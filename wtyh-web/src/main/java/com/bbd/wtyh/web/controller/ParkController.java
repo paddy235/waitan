@@ -58,6 +58,20 @@ public class ParkController {
         return ResponseBean.successResponse(data);
     }
 
+    /**
+     *
+     * 获取区域信息
+     * @return ResponseBean
+     */
+    @RequestMapping("/areaListAll")
+    @ResponseBody
+    public ResponseBean areaListAll(HttpSession session) {
+
+        List<AreaDO> data = areaService.areaListAll(Constants.SH_AREAID);
+
+        return ResponseBean.successResponse(data);
+    }
+
     
     /**
     * 根据园区查询新型金融企业集中度  与 楼宇列表 共用接口

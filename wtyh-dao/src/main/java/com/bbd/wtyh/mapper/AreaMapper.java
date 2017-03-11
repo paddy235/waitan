@@ -22,6 +22,8 @@ public interface AreaMapper{
     */
     List<AreaDO> areaList(@Param("areaId") Integer areaId);
 
+	List<AreaDO> areaListAll(@Param("parentId") Integer parentId);
+
 	
 	/**
 	*

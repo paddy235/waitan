@@ -72,8 +72,12 @@ public class AreaServiceImpl implements AreaService {
 		
 	}
 
+	@Override
+	public List<AreaDO> areaListAll(Integer parentId) {
+		return areaMapper.areaListAll(parentId);
+	}
 
-	
+
 	@Override
 	public List<NvDO> hot() {
 		return areaMapper.hot();
