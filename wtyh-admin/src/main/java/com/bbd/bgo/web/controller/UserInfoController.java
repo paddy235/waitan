@@ -143,10 +143,10 @@ public class UserInfoController {
 
     @RequestMapping("/queryShanghaiAreaCodeTable.do")
     @ResponseBody
-    public Object queryShanghaiAreaCodeTable( HttpServletRequest request) {
+    public Object queryShanghaiAreaCodeTable( String type, HttpServletRequest request) {
         List<Map<String, Object>> rstList = null;
         try {
-            rstList = uis.getShanghaiAreaCodeTable();
+            rstList = uis.getShanghaiAreaCodeTable(type);
         } catch (BusinessException be) {
             return ResponseBean.errorResponse(be.getMessage());
         } catch (Exception e) {

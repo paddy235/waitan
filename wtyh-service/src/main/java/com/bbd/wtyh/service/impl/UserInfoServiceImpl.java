@@ -427,6 +427,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 		HashMap<String,Object> params =new HashMap<String, Object>();
 		params.put( selectType, selectObject );
 		params.put( "pageLimit", pageLimit );
+		if (areaCode >0) {
+			params.put( "areaCode", areaCode );
+		}
 		List<Map<String, Object>> lm =userInfoMapper.selectUserInfoList(params); //查询符合条件的记录总条数
 		Long ltn = (Long)( lm.get(0).get("recordTotal") );
 		int orderNum =0;
@@ -436,9 +439,6 @@ public class UserInfoServiceImpl implements UserInfoService {
 			params.put("pageNumber", pageNumber);
 		}
 		params.put( "listing", 1 );
-		if (areaCode >0) {
-			params.put( "areaCode", areaCode );
-		}
 		lm =userInfoMapper.selectUserInfoList(params);
 		UserInfoTableDo uitd =new UserInfoTableDo();
 		for( Map<String, Object> itr : lm  ) {
@@ -487,7 +487,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 	}
 
 	@Override
-	public List<Map<String, Object>> getShanghaiAreaCodeTable() throws Exception {
+	public List<Map<String, Object>> getShanghaiAreaCodeTable(String type) throws Exception {
 		List<Map<String, Object>>lm =userInfoMapper.selectShanghaiAreaCodeTable( );
 		if( null !=lm )
 		{
@@ -500,10 +500,12 @@ public class UserInfoServiceImpl implements UserInfoService {
 			}
 
 		}
-		Map<String, Object> allArea = new HashMap<String, Object>();
-		allArea.put( "areaId", (Integer)0 );
-		allArea.put( "cityName", "全部" );
-		lm.add(0, allArea);
+		if( StringUtils.isNotBlank(type) && type.equals("0") ) {
+			Map<String, Object> allArea = new HashMap<String, Object>();
+			allArea.put("areaId", (Integer) 0);
+			allArea.put("cityName", "全部");
+			lm.add(0, allArea);
+		}
 		return lm;
 	}
 
