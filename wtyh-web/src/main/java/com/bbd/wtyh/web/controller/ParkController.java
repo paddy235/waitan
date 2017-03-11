@@ -1,5 +1,6 @@
 package com.bbd.wtyh.web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -66,8 +67,15 @@ public class ParkController {
     @RequestMapping("/areaListAll")
     @ResponseBody
     public ResponseBean areaListAll(HttpSession session) {
+        Integer it=areaService.getAreaId(session);
+        List<AreaDO> data = null;
+        if(null==it) {
+            data = areaService.areaListAll(Constants.SH_AREAID);
+        }else{
+            data=new ArrayList();
+            data.add(areaService.getAreaByAreaId(it));
 
-        List<AreaDO> data = areaService.areaListAll(Constants.SH_AREAID);
+        }
 
         return ResponseBean.successResponse(data);
     }
