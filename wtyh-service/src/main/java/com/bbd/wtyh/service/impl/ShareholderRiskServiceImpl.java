@@ -71,7 +71,7 @@ public class ShareholderRiskServiceImpl implements ShareholderRiskService {
         for (CompanyDO companyDO : companyList) {
             try {
                 Map<String, List> relationMap = relatedCompanyService.queryRelation(companyDO.getName(), dataVersion, 1);
-                offlinefinanceservice.queryRealRealation(companyDO.getName(), 1);
+                //offlinefinanceservice.queryRealRealation(companyDO.getName(), 1); 接口变了，待处理
                 List<RelationDiagramVO.PointVO> pointList = relationMap.get("pointList");
                 if (CollectionUtils.isEmpty(pointList)) {
                     continue;
