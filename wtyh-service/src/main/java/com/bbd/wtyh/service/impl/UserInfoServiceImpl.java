@@ -113,6 +113,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 		} else  {
 			throw new BusinessException("用户类型不合法");
 		}
+		uitd.setForePwdUpDate(null); //创建时置空，表明此用户登录时需要提示用户立即修改密码，下同
+		uitd.setBackPwdUpDate(null); //
 		userInfoMapper.saveU(uitd);
 		//创建孙黎明这边的权限项
 		roleResourceService.addUserRoleResource(uitd , resourceSet, uitd.getCreateBy());
@@ -241,6 +243,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 						throw new BusinessException("前台密码不合法 ");
 					} else {
 						uitd.setForePwd(userPasswordEncrypt(uitd.getForePwd()));
+						uitd.setForePwdUpDate(new Date());
 						updateCount++;
 					}
 				}
@@ -255,6 +258,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 						throw new BusinessException("后台密码不合法 ");
 					} else {
 						uitd.setBackPwd(userPasswordEncrypt(uitd.getBackPwd()));
+						uitd.setBackPwdUpDate(new Date());
 						updateCount++;
 					}
 				}
@@ -280,6 +284,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 						throw new BusinessException("待更新的前台密码不合法 ");
 					} else {
 						uitd.setForePwd(userPasswordEncrypt(uitd.getForePwd()));
+						uitd.setForePwdUpDate(new Date());
 						updateCount++;
 					}
 				}
@@ -290,6 +295,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 				if (StringUtils.isBlank(uitd.getForePwd()) || !rexCheckPassword(uitd.getForePwd()))
 					throw new BusinessException("待更新的前台密码为空或不合法 ");
 				uitd.setForePwd(userPasswordEncrypt(uitd.getForePwd()));
+				uitd.setForePwdUpDate(new Date());
 				updateCount++;
 			} else { //不更新
 				uitd.setForePwd(null);
@@ -303,6 +309,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 						throw new BusinessException("待更新的后台密码不合法 ");
 					} else {
 						uitd.setBackPwd(userPasswordEncrypt(uitd.getBackPwd()));
+						uitd.setBackPwdUpDate(new Date());
 						updateCount++;
 					}
 				}
@@ -313,6 +320,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 				if (StringUtils.isBlank(uitd.getBackPwd()) || !rexCheckPassword(uitd.getBackPwd()))
 					throw new BusinessException("待更新的后台密码为空或不合法 ");
 				uitd.setBackPwd(userPasswordEncrypt(uitd.getBackPwd()));
+				uitd.setBackPwdUpDate(new Date());
 				updateCount++;
 			} else { //不更新
 				uitd.setBackPwd(null);
@@ -360,6 +368,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 		uitd.setStatus(null);
 		uitd.setForePwd(null);
 		uitd.setBackPwd(null);
+		uitd.setForePwdUpDate(null);
+		uitd.setBackPwdUpDate(null);
 		Set<String> rC = roleResourceService.queryResourceCodeByUserId(uitd.getId());
 		Map<String,Object> rstMap =new HashMap<String, Object>();
 		rstMap.put("userInfo",uitd);
@@ -374,6 +384,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 		uitd.setStatus(null);
 		uitd.setForePwd(null);
 		uitd.setBackPwd(null);
+		uitd.setForePwdUpDate(null);
+		uitd.setBackPwdUpDate(null);
 		Set<String> rC = roleResourceService.queryResourceCodeByUserId(id);
 		Map<String,Object> rstMap =new HashMap<String, Object>();
 		rstMap.put("userInfo",uitd);
@@ -526,6 +538,20 @@ public class UserInfoServiceImpl implements UserInfoService {
 		if (StringUtils.isEmpty((String)selPassword))
 			return false; //数据库返回的结果为空
 		return selPassword.equals( userPasswordEncrypt(password));
+	}
+
+	@Override
+	public int testUserPasswordBeOverdue( Date fbPwdUpDate ) {
+		if( null == fbPwdUpDate ) { //新用户，需要立即更改密码
+			return -1;
+		}
+		Date nowTime = new Date();
+		long dltTime =nowTime.getTime() -fbPwdUpDate.getTime();
+		long threeMonth =(1000L*3600*24*91); //三个月的毫秒数
+		if( dltTime >threeMonth ) { //用户未更新密码超过3个月
+			return -2;
+		}
+		return 0; //密码状态正常
 	}
 
 	//解密需要解密的用户数据

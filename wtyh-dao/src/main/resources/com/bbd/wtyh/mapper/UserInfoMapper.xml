@@ -25,9 +25,9 @@
           keyProperty="id" >
     INSERT INTO <include refid="TabName"/>(
     status, user_type, login_name, fore_pwd, back_pwd, real_name, fix_phone, mobile, email,
-    department, area_code, create_date, create_by, update_date, update_by           ) VALUES (
+    department, area_code, create_date, create_by, update_date, update_by, fore_pwd_up_date, back_pwd_up_date  ) VALUES (
     #{status}, #{userType}, #{loginName}, #{forePwd}, #{backPwd}, #{realName}, #{fixPhone}, #{mobile}, #{email},
-    #{department}, #{areaCode}, #{createDate}, #{createBy}, #{updateDate}, #{updateBy} );
+    #{department}, #{areaCode}, #{createDate}, #{createBy}, #{updateDate}, #{updateBy}, #{forePwdUpDate}, #{backPwdUpDate} );
   </insert>
 
   <update id="updateU" parameterType="com.bbd.wtyh.domain.UserInfoTableDo">
@@ -48,6 +48,8 @@
       <if test="createBy != null"> create_by= #{createBy}, </if>
       <if test="updateDate != null"> update_date= #{updateDate}, </if>
       <if test="updateBy != null"> update_by= #{updateBy}, </if>
+      <if test="forePwdUpDate != null"> fore_pwd_up_date= #{forePwdUpDate}, </if>
+      <if test="backPwdUpDate != null"> back_pwd_up_date= #{backPwdUpDate}, </if>
     </set>
     WHERE  id =#{id}
   </update>
@@ -67,7 +69,9 @@
     create_date AS createDate,
     create_by AS createBy,
     update_date AS updateDate,
-    update_by AS updateBy
+    update_by AS updateBy,
+    fore_pwd_up_date AS forePwdUpDate,
+    back_pwd_up_date AS backPwdUpDate
   </sql>
 
 <!--  &lt;!&ndash; 查询整条用户信息, 前台用户且有效，孙黎明用&ndash;&gt;
@@ -101,7 +105,7 @@
   <!-- 根据用户名查询用户摘要信息, 用户为‘A’ -->
   <select id="selectUserInfoSummaryByLoginName"  parameterType="String" resultType="java.util.Map">
     SELECT
-    id, user_type, fore_pwd, back_pwd
+    id, user_type, fore_pwd, back_pwd, fore_pwd_up_date, back_pwd_up_date
     FROM <include refid="TabName"/>
     WHERE  status ='A' AND login_name= #{loginName}
   </select>

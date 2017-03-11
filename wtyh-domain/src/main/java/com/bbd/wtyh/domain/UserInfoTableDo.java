@@ -45,6 +45,10 @@ public class UserInfoTableDo implements Serializable {
 
     private String updateBy; //修改人
 
+    private Date forePwdUpDate; //最后一次修改前台密码
+
+    private Date backPwdUpDate; //最后一次修改前台密码
+
 
     @Override
     public String toString(){
@@ -229,5 +233,21 @@ public class UserInfoTableDo implements Serializable {
 
     public void setFixPhone(String fixPhone) {
         this.fixPhone = fixPhone;
+    }
+
+    public Date getForePwdUpDate() {
+        return forePwdUpDate;
+    }
+
+    public void setForePwdUpDate(Date forePwdUpDate) {
+        this.forePwdUpDate = forePwdUpDate;
+    }
+
+    public Date getBackPwdUpDate() {
+        return backPwdUpDate;
+    }
+
+    public void setBackPwdUpDate(Date backPwdUpDate) {
+        this.backPwdUpDate = backPwdUpDate;
     }
 }

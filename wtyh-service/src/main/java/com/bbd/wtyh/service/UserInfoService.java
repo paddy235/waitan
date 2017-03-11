@@ -2,6 +2,7 @@ package com.bbd.wtyh.service;
 
 import com.bbd.wtyh.domain.UserInfoTableDo;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -94,5 +95,14 @@ public interface UserInfoService {
      * @return
      */
     public boolean compareUserNameMatchPassword(String loginName, String password, String userType) throws  Exception ;
+
+    /**
+     * 判断用户密码是否过期，使用示例：
+     * userInfoService.testUserPasswordBeOverdue(userInfo.getBackPwdUpDate());
+     * userInfoService.testUserPasswordBeOverdue(userInfo.getForePwdUpDate());
+     * @param fbPwdUpDate 传入前或后端最近修改密码的日期对象
+     * @return 0：正常； -1：新用户，需要立即更改密码； -2：用户未更新密码超过3个月
+     */
+    public int testUserPasswordBeOverdue( Date fbPwdUpDate ) ;
 
 }
