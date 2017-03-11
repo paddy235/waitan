@@ -7,6 +7,7 @@ import com.bbd.wtyh.domain.dto.ShareholderRiskDTO;
 import com.bbd.wtyh.mapper.RelatedCompanyMapper;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.CompanyService;
+import com.bbd.wtyh.service.OfflineFinanceService;
 import com.bbd.wtyh.service.ShareholderRiskService;
 import com.bbd.wtyh.service.impl.relation.RegisterUniversalFilterChainImp;
 import com.bbd.wtyh.web.relationVO.RelationDiagramVO;
@@ -31,6 +32,8 @@ import java.util.Set;
 public class ShareholderRiskServiceImpl implements ShareholderRiskService {
     private static final String SHAREHOLDER_RISK_CACHE_PRIFIX = "ShareholderRisk-";
     private static final String RELATED_COMPANY_CACHE_PRIFIX = "RelatedCompany-";
+    @Autowired
+    private OfflineFinanceService offlinefinanceservice;
     @Autowired
     private RelatedCompanyMapper relatedCompanyMapper;
     @Autowired
@@ -68,6 +71,7 @@ public class ShareholderRiskServiceImpl implements ShareholderRiskService {
         for (CompanyDO companyDO : companyList) {
             try {
                 Map<String, List> relationMap = relatedCompanyService.queryRelation(companyDO.getName(), dataVersion, 1);
+                //offlinefinanceservice.queryRealRealation(companyDO.getName(), 1); 接口变了，待处理
                 List<RelationDiagramVO.PointVO> pointList = relationMap.get("pointList");
                 if (CollectionUtils.isEmpty(pointList)) {
                     continue;
