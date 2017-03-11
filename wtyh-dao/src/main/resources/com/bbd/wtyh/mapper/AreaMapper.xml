@@ -13,6 +13,16 @@
 
 	</select>
 
+
+	<select id="areaListAll"  resultType="com.bbd.wtyh.domain.AreaDO" >
+		select area_id areaId, name from area
+		<if test="parentId != null">
+			where parent_id=#{parentId}
+		</if>
+		order by areaId
+
+	</select>
+
 	<select id="hot"  resultType="com.bbd.wtyh.domain.NvDO">
 			select a.name , IFNULL(b.ct,0) value 
 			from area a 

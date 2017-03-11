@@ -40,7 +40,14 @@ public interface AreaService {
 	*/
 	public List<AreaDO> areaList(Integer areaId);
 
-	
+	/**
+	 *
+	 * 获取所有的区域（有数据的园区）
+	 * @param parentId  根据区域id获取数据
+	 * @return List<Area>
+	 */
+	public List<AreaDO> areaListAll(Integer parentId);
+
 	/**
 	* 获取区域热力图
 	* @return List<NvDO>
