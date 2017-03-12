@@ -101,7 +101,11 @@
                 <!--登出、静态资源不鉴权-->
                 /css/** = anon
                 /js/** = anon
-                /img/** = anon
+                /data/** = anon
+                /iconfont/** = anon
+                /images/** = anon
+                /libs/** = anon
+                /relativeGraph/** = anon
                 /logout.do = anon
                 <!--共用交易-->
                 /risk/getScanner.do = perms[F_HYJCPT_XXLC,F_SSJCPT]<!--线下理财、时监测平台-->
