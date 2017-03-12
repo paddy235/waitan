@@ -34,7 +34,7 @@ public class RelationCompanyServiceImpl implements RelationCompanyService {
     @Resource
     private RedisDAO redisDAO;
 
-    @Value("${related.party.url}")
+    @Value("${relation.real.url}")
     private String url;
 
     public HttpGet httpGet;

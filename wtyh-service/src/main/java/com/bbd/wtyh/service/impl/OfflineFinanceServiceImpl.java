@@ -319,7 +319,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
     public RelationDiagramVO queryRealRealation(String companyName, Integer degree) {
         RelationDiagramVO relationDiagramVO = new RelationDiagramVO();
         BaseDataDO baseDataDO = p2PImageDao.baseInfoBBDData(companyName);
-        List<BaseDataDO.Results> resultsList = baseDataDO.getResults();
+        List<BaseDataDO.Results> resultsList = (null==baseDataDO)?null:baseDataDO.getResults();
         String unikey = "";
         if (!CollectionUtils.isEmpty(resultsList)) {
             unikey = resultsList.get(0).getJbxx().getBbd_qyxx_id();

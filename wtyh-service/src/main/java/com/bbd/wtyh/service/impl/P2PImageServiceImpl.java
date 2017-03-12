@@ -79,6 +79,7 @@ public class P2PImageServiceImpl implements P2PImageService {
     public Map<String, PlatListDO> getWangdaiPlatList() {
         Map<String, PlatListDO> wangdaiPlatList = new HashMap<>();
         for (PlatListDO platListDO : p2PImageDao.baseInfoWangDaiApi()) {
+            platListDO.setCompany_name(platListDO.getCompany_name().trim());
             wangdaiPlatList.put(platListDO.getPlat_name(), platListDO);
         }
         return wangdaiPlatList;

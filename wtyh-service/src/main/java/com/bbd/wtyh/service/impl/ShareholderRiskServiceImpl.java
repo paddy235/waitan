@@ -70,9 +70,10 @@ public class ShareholderRiskServiceImpl implements ShareholderRiskService {
         List<ShareholderRiskDTO> dtoList = Lists.newArrayList();
         for (CompanyDO companyDO : companyList) {
             try {
-                Map<String, List> relationMap = relatedCompanyService.queryRelation(companyDO.getName(), dataVersion, 1);
-                //offlinefinanceservice.queryRealRealation(companyDO.getName(), 1); 接口变了，待处理
-                List<RelationDiagramVO.PointVO> pointList = relationMap.get("pointList");
+                //Map<String, List> relationMap = relatedCompanyService.queryRelation(companyDO.getName(), dataVersion, 1);
+                RelationDiagramVO relationDiagramVO=offlinefinanceservice.queryRealRealation(companyDO.getName(), 1);
+                //List<RelationDiagramVO.PointVO> pointList = relationMap.get("pointList");
+                List<RelationDiagramVO.PointVO> pointList = relationDiagramVO.getPointList();
                 if (CollectionUtils.isEmpty(pointList)) {
                     continue;
                 }
@@ -136,8 +137,9 @@ public class ShareholderRiskServiceImpl implements ShareholderRiskService {
     private Multimap<Integer, RelatedCompanyDTO> innerGetRelatedCompany(Integer companyId) {
         try {
             Multimap<Integer, RelatedCompanyDTO> relatedCompanyMap = ArrayListMultimap.create();
-            Map<String, List> relationMap = relatedCompanyService.queryRelation(companyService.getNameById(companyId), dataVersion, 1);
-            List<RelationDiagramVO.PointVO> pointList = relationMap.get("pointList");
+            //Map<String, List> relationMap = relatedCompanyService.queryRelation(companyService.getNameById(companyId), dataVersion, 1);
+            RelationDiagramVO relationDiagramVO=offlinefinanceservice.queryRealRealation(companyService.getNameById(companyId), 1);
+            List<RelationDiagramVO.PointVO> pointList = relationDiagramVO.getPointList();
             if (null == pointList) {
                 return ArrayListMultimap.create();
             }

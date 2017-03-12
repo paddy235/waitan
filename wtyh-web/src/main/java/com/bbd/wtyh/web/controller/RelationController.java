@@ -2,6 +2,7 @@ package com.bbd.wtyh.web.controller;
 
 
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
+import com.bbd.wtyh.service.OfflineFinanceService;
 import com.bbd.wtyh.service.P2PImageService;
 import com.bbd.wtyh.service.impl.relation.RegisterUniversalFilterChainImp;
 import com.bbd.wtyh.service.impl.relation.RelationService;
@@ -9,6 +10,8 @@ import com.bbd.wtyh.service.impl.relation.SearchAPIandRelatedPartyService;
 import com.bbd.wtyh.util.relation.StringUtils;
 import com.bbd.wtyh.web.relationVO.AjaxVO;
 import com.bbd.wtyh.web.relationVO.CompanyDataStatisticsVO;
+import com.bbd.wtyh.web.relationVO.RelationDiagramVO;
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +28,8 @@ import java.util.Map;
  */
 @Controller
 public class RelationController {
-
+    @Autowired
+    private OfflineFinanceService offlinefinanceservice;
     @Autowired
     private RegisterUniversalFilterChainImp registerUniversalFilterChainImp;
     @Autowired
@@ -54,7 +58,12 @@ public class RelationController {
             if (StringUtils.isNullOrEmpty(dataVersion)) {
                 dataVersion = (String) request.getSession().getAttribute("defaultVersion");
             }
-            return registerUniversalFilterChainImp.queryRelation(companyName, dataVersion, degree);
+            RelationDiagramVO relationDiagramVO=offlinefinanceservice.queryRealRealation(companyName, degree);
+            Map<String, List> map=new HashedMap();
+            map.put("pointList", relationDiagramVO.getPointList());
+            map.put("lineList", relationDiagramVO.getLineList());
+            return map;
+            //return registerUniversalFilterChainImp.queryRelation(companyName, dataVersion, degree);
         } catch (Exception e) {
             e.printStackTrace();
         }
