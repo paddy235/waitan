@@ -60,6 +60,9 @@ public class AreaServiceImpl implements AreaService {
 
 		//AreaDO area = (AreaDO) session.getAttribute(Constants.SESSION_AREA);
 		String area = (String) session.getAttribute("areaName");
+		if(Constants.SH_AREANAME.equals(area)){
+			area=null;
+		}
 
 		 return area;
 		//return "浦东新区";

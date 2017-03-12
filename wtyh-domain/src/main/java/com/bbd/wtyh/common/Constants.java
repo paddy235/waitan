@@ -94,6 +94,8 @@ public class Constants {
 	 * */
 	public final static Integer SH_AREAID = 104;
 
+	public final static String SH_AREANAME = "上海市";
+
 	/**
 	 * 线下理财关联数据使用 end
 	 */
