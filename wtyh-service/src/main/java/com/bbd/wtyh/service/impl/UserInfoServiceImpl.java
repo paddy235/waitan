@@ -123,6 +123,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 	//更新用户信息
 	@Override
 	public void updateUserInfo(UserInfoTableDo uitd, String resourceSet) throws Exception {
+		long ms1 =(new Date()).getTime();
 		if( null ==uitd ) {
 			throw new BusinessException("用户信息表为空对象");
 		}
@@ -132,8 +133,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 		if ( 1 == uitd.getId())  { // id号为1的为超级管理员，禁止修改或删除
 			throw new BusinessException("supper管理员，禁止修改或删除！");
 		}
-		UserInfoTableDo selUitd = userInfoMapper.selectUserAllInfoById(uitd.getId());
-		if( null ==selUitd ) {
+		UserInfoTableDo oldUitd = userInfoMapper.selectUserAllInfoById(uitd.getId());
+		if( null ==oldUitd ) {
 			throw new BusinessException("提供的用户id不存在");
 		}
 
@@ -175,8 +176,11 @@ public class UserInfoServiceImpl implements UserInfoService {
 			updateCount++;
 		}
 
-		if (StringUtils.isBlank(uitd.getFixPhone())) {
-			uitd.setFixPhone(null); //不更新手机号码
+		if (null ==uitd.getFixPhone()) {
+			uitd.setFixPhone(null); //不更新固定电话号码
+		}
+		else if (StringUtils.isEmpty(uitd.getFixPhone())) {
+			uitd.setFixPhone(""); //清除固定电话号码
 		} else {
 			if( !rexCheckMobileNO(uitd.getFixPhone()) ) {
 				throw new BusinessException("新指定的固话号码不合法");
@@ -186,8 +190,11 @@ public class UserInfoServiceImpl implements UserInfoService {
 			updateCount++;
 		}
 
-		if (StringUtils.isBlank(uitd.getMobile())) {
+		if (null ==uitd.getMobile()) {
 			uitd.setMobile(null); //不更新手机号码
+		}
+		else if ( StringUtils.isEmpty(uitd.getMobile())) {
+			uitd.setMobile(""); //清除手机号码
 		} else {
 			if( !rexCheckMobileNO(uitd.getMobile()) ) {
 				throw new BusinessException("新指定的手机号码不合法");
@@ -197,8 +204,11 @@ public class UserInfoServiceImpl implements UserInfoService {
 			updateCount++;
 		}
 
-		if (StringUtils.isBlank(uitd.getEmail())) {
+		if (null ==uitd.getEmail()) {
 			uitd.setEmail(null); //不更新电子信箱
+		}
+		else if (StringUtils.isEmpty(uitd.getEmail())) {
+			uitd.setEmail(""); //清除电子信箱
 		} else {
 			if( !rexCheckEmailAddress(uitd.getEmail()) ) {
 				throw new BusinessException("新指定的电子信箱地址不合法");
@@ -224,7 +234,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 			updateCount++;
 		}
 
-		String uType =selUitd.getUserType();
+		String uType =oldUitd.getUserType();
 		boolean oldBY =false; //旧的后台属性
 		boolean oldFY =false; //旧的前台属性
 		if( uType.equals("A") || uType.equals("B" ) ){
@@ -269,6 +279,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 			boolean newBY = false; //新的后台属性
 			boolean newFY = false; //新的前台属性
 			String newType = uitd.getUserType();
+			if( !newType.equals(uType) ) {
+				updateCount++; //更新UserType
+			}
 			if (newType.equals("A") || newType.equals("B")) {
 				newBY = true;
 			}
@@ -288,10 +301,11 @@ public class UserInfoServiceImpl implements UserInfoService {
 						updateCount++;
 					}
 				}
-			} else if ((true == oldFY) && (false == newFY)) { //必须更新
+			} else if ((true == oldFY) && (false == newFY)) { //必须清除，但产品说不清除密码
+				uitd.setForePwd(null);
 				//uitd.setForePwd("");
-				updateCount++;
-			} else if ((false == oldFY) && (true == newFY)) { //必须更新
+				//updateCount++;
+			} else if ((false == oldFY) && (true == newFY) && StringUtils.isBlank(oldUitd.getForePwd())) { //必须更新
 				if (StringUtils.isBlank(uitd.getForePwd()) || !rexCheckPassword(uitd.getForePwd()))
 					throw new BusinessException("待更新的前台密码为空或不合法 ");
 				uitd.setForePwd(userPasswordEncrypt(uitd.getForePwd()));
@@ -313,10 +327,11 @@ public class UserInfoServiceImpl implements UserInfoService {
 						updateCount++;
 					}
 				}
-			} else if ((true == oldBY) && (false == newBY)) { //必须更新
+			} else if ((true == oldBY) && (false == newBY)) { //必须清除，但产品说不清除密码
+				uitd.setBackPwd(null);
 				//uitd.setBackPwd("");
-				updateCount++;
-			} else if ((false == oldBY) && (true == newBY)) { //必须更新
+				//updateCount++;
+			} else if ((false == oldBY) && (true == newBY) && StringUtils.isBlank(oldUitd.getBackPwd()) ) { //必须更新
 				if (StringUtils.isBlank(uitd.getBackPwd()) || !rexCheckPassword(uitd.getBackPwd()))
 					throw new BusinessException("待更新的后台密码为空或不合法 ");
 				uitd.setBackPwd(userPasswordEncrypt(uitd.getBackPwd()));
@@ -331,6 +346,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 			updateCount++;
 		}
 
+		long ms2 =(new Date()).getTime();
 		uitd.setCreateDate(null);
 		uitd.setCreateBy(null);
 		if ( updateCount >0 ) { //更新用户信息
@@ -344,11 +360,21 @@ public class UserInfoServiceImpl implements UserInfoService {
 					throw new BusinessException("update is err");
 				}
 		}
+		long ms3 =(new Date()).getTime();
 		if(  StringUtils.isNotBlank(uitd.getStatus()) && uitd.getStatus().equals("F") ) { //逻辑删除用户，不连带物理删除权限表
 			//roleResourceService.deleteUserRoleResource(uitd.getId(), uitd.getUpdateBy() );
 		} else {
-			roleResourceService.updateUserRoleResource(uitd, resourceSet, uitd.getUpdateBy());
+			Set<String> rC = roleResourceService.queryResourceCodeByUserId(uitd.getId());
+			if( rC.size() <1 ) {
+				roleResourceService.addUserRoleResource(uitd , resourceSet, uitd.getCreateBy());
+			} else {
+				roleResourceService.updateUserRoleResource(uitd, resourceSet, uitd.getUpdateBy());
+			}
 		}
+		long ms4 =(new Date()).getTime();
+/*		System.out.println("ms2-1:" +(ms2-ms1));
+		System.out.println("ms3-2:" +(ms3-ms2));
+		System.out.println("ms4-3:" +(ms4-ms3));*/
 	}
 
 	@Override
@@ -540,8 +566,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 		return selPassword.equals( userPasswordEncrypt(password));
 	}
 
-	@Override
-	public int testUserPasswordBeOverdue( Date fbPwdUpDate ) {
+/*	@Override
+	public static int testUserPasswordBeOverdue( Date fbPwdUpDate ) {
 		if( null == fbPwdUpDate ) { //新用户，需要立即更改密码
 			return -1;
 		}
@@ -552,7 +578,17 @@ public class UserInfoServiceImpl implements UserInfoService {
 			return -2;
 		}
 		return 0; //密码状态正常
-	}
+	}*/
+
+/*	public static void main(String[] args) throws Exception {
+		//UserInfoService u1 = new UserInfoServiceImpl();
+		Date tsd =new Date();
+		Thread.sleep(2000);
+		int rst =UserInfoService.testUserPasswordBeOverdue(tsd);
+		rst =rst;
+		;
+	}*/
+
 
 	//解密需要解密的用户数据
 	private void decryptUserInfo( UserInfoTableDo uitd ) throws Exception {

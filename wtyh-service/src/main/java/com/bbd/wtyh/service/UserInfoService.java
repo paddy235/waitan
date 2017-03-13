@@ -103,6 +103,17 @@ public interface UserInfoService {
      * @param fbPwdUpDate 传入前或后端最近修改密码的日期对象
      * @return 0：正常； -1：新用户，需要立即更改密码； -2：用户未更新密码超过3个月
      */
-    public int testUserPasswordBeOverdue( Date fbPwdUpDate ) ;
+    public static int testUserPasswordBeOverdue( Date fbPwdUpDate ) {
+        if( null == fbPwdUpDate ) { //新用户，需要立即更改密码
+            return -1;
+        }
+        Date nowTime = new Date();
+        long dltTime =nowTime.getTime() -fbPwdUpDate.getTime();
+        long threeMonth =(1000L*3600*24*91); //三个月的毫秒数
+        if( dltTime >threeMonth ) { //用户未更新密码超过3个月
+            return -2;
+        }
+        return 0; //密码状态正常
+    }
 
 }

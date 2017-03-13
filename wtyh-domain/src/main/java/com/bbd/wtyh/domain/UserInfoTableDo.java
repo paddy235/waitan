@@ -45,9 +45,9 @@ public class UserInfoTableDo implements Serializable {
 
     private String updateBy; //修改人
 
-    private Date forePwdUpDate; //最后一次修改前台密码
+    private Date forePwdUpDate; //最后一次修改前台密码的时间
 
-    private Date backPwdUpDate; //最后一次修改前台密码
+    private Date backPwdUpDate; //最后一次修改前台密码的时间
 
 
     @Override
