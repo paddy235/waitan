@@ -192,18 +192,17 @@
                 /offlineFinance/businessChartShow.do = perms[F_SSJCPT]
                 /companyNews/getCompanyNews.do = perms[F_SSJCPT]
                 <!--实时监测平台  静态风险指数-->
-                /offlineFinance/companyNews.do = perms[F_SSJCPT]
-                /offlineFinance/queryDateVersion.do = perms[F_SSJCPT]
-                /offlineFinance/queryStatisticsMultiple.do = perms[F_SSJCPT]
-                /offlineFinance/companyInfo.do = perms[F_SSJCPT]
-                /offlineFinance/staticRiskIndex.do = perms[F_SSJCPT]
-                /offlineFinance/queryRiskData.do = perms[F_SSJCPT]
+                /offlineFinance/companyNews.do = perms[F_SSJCPT,F_HYJCPT_XXLC]
+                /offlineFinance/queryDateVersion.do = perms[F_SSJCPT,F_HYJCPT_XXLC]
+                /offlineFinance/queryStatisticsMultiple.do = perms[F_SSJCPT,F_HYJCPT_XXLC]
+                /offlineFinance/companyInfo.do = perms[F_SSJCPT,F_HYJCPT_XXLC]
+                /offlineFinance/staticRiskIndex.do = perms[F_SSJCPT,F_HYJCPT_XXLC]
+                /offlineFinance/queryRiskData.do = perms[F_SSJCPT,F_HYJCPT_XXLC]
                 <!--实时监测平台  风险时序差异对比-->
                 <!--/offlineFinance/queryDateVersion.do-->
-                /offlineFinance/dynamicRiskData.do = perms[F_SSJCPT]
+                /offlineFinance/dynamicRiskData.do = perms[F_SSJCPT,F_HYJCPT_XXLC]
                 <!--/offlineFinance/companyInfo.do-->
-                /offlineFinance/showYEDData.do = perms[F_SSJCPT]
-                /offlineFinance/dynamicRiskData.do = perms[F_SSJCPT]
+                /offlineFinance/showYEDData.do = perms[F_SSJCPT,F_HYJCPT_XXLC]
 
                 <!--企业全息信息查询平台  目前只控制查询功能，其他功能不鉴权-->
                 /hologram/search.do = perms[F_QYQXXXCXPT]
