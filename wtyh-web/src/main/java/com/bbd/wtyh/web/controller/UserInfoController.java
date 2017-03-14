@@ -45,6 +45,7 @@ public class UserInfoController {
         }
 
         UserInfoTableDo user = userService.queryUserInfo(userName);
+        user.setRealName(user.getRealName());
         user.setMobile(CipherUtils.decrypt(user.getMobile()) );
         user.setRealName(CipherUtils.decrypt(user.getRealName()));
         user.setForePwd(null);
