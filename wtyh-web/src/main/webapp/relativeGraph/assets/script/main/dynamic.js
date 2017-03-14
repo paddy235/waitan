@@ -831,7 +831,7 @@ define(function(require, exports, module) {
 
         //如果点击公司，有个小弹窗
         if (e.target.isCompany) {
-            $.ajax({
+            $.ajax({//http://192.168.3.39:8002
                 type: "GET",
                 url: "/relatedPartyStatistics.do", //查询公司接口详细信息relatedPartyStatistics.do
                 data: {
@@ -843,13 +843,13 @@ define(function(require, exports, module) {
                 dataType: "json",
                 success: function(data) {
                     data = data.obj;
-                    var capital=data.capital?data.capital:'';
+                    var capital=data.capital?data.capital:'0';
                     var registation=data.registation?data.registation:'';
-                    var legalPersonNodes=data.legalPersonNodes?data.legalPersonNodes:'';
-                    var naturalPersonNode=data.naturalPersonNode?data.naturalPersonNode:'';
-                    var naturalPersonShareholders=data.naturalPersonShareholders?data.naturalPersonShareholders:'';
-                    var legalPersonShareholders=data.legalPersonShareholders?data.legalPersonShareholders:'';
-                    var subsidiarys=data.subsidiarys?data.subsidiarys:'';
+                    var legalPersonNodes=data.legalPersonNodes?data.legalPersonNodes:'0';
+                    var naturalPersonNode=data.naturalPersonNode?data.naturalPersonNode:'0';
+                    var naturalPersonShareholders=data.naturalPersonShareholders?data.naturalPersonShareholders:'0';
+                    var legalPersonShareholders=data.legalPersonShareholders?data.legalPersonShareholders:'0';
+                    var subsidiarys=data.subsidiarys?data.subsidiarys:'0';
                     // $("#companyNameHtml").html(name);
                     var shtml = '<div class="relation-modal"><div class="company-title">' + name + '<span class="iconfont icon-iconfontshequyijujue"></span></div>\
                       <table>\
@@ -915,7 +915,6 @@ define(function(require, exports, module) {
     function zr_mouse_click(e) {
 
         if (!e.target) {
-            console.log("点击空白");
             $("#relation-modal").hide();
         }
 
