@@ -42,6 +42,7 @@ public class RiskCompanyController {
 	private static final String BG_SS_MARK = "1"; // 1：上市公司背景
 	private static final int MAX_COUNT = 201; // 最大查询返回数据量
 	private static final int MAX_PAGE_NO = 21; // 最大分页页数
+	private static final int MAX_COUNT_SEARCH = 161; // 最大查询返回数据量
 	private static final String SPE_STR = "[`~!@#$%^&*+=|{}':;',//[//].<>/?~！@#￥%……&*——+|{}【】‘；：”“’。，、？]";
 
 	@RequestMapping(value = "/getScanner")
@@ -134,7 +135,7 @@ public class RiskCompanyController {
 		String dataVersion = riskCompanyService.getLastDataVersion();
 		int count = companyService.searchCompanyNameCount(keyword, dataVersion,areaId);
 		Pagination pagination = new Pagination();
-		pagination.setCount(count >= MAX_COUNT ? MAX_COUNT - 1 : count); // 搜索结果最多保留200条数据
+		pagination.setCount(count >= MAX_COUNT_SEARCH ? MAX_COUNT_SEARCH - 1 : count); // 搜索结果最多保留200条数据
 		if (pageNo >= MAX_PAGE_NO || pageNo <= -1) {
 			pagination.setList(null);
 			return ResponseBean.errorResponse("错误的分页请求参数！");
