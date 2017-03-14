@@ -58,12 +58,17 @@ public class UserInfoController {
 
 
     @RequestMapping("/update")
-    public Object updateInfo(@RequestParam Integer id,@RequestParam String mobile,@RequestParam String email,HttpSession session)throws Exception{
+    public Object updateInfo(@RequestParam Integer id,
+                             @RequestParam String mobile,
+                             @RequestParam String email,
+                             @RequestParam String fixPhone,
+                             HttpSession session)throws Exception{
 
          UserInfoTableDo user = new UserInfoTableDo();
          user.setId(id);
          user.setMobile(mobile);
          user.setEmail(email);
+         user.setFixPhone(fixPhone);
          user.setUpdateBy((String)session.getAttribute(Constants.SESSION.loginName));
 
          userInfoService.updateUserInfo(user,null);
