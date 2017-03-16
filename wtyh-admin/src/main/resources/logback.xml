@@ -1,25 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="true">
-	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
-		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-			<level>trace</level>
-		</filter>
-		<encoder>
-			<pattern>%date{yyyy-MM-dd HH:mm:ss}||%thread||%level||%logger:%line||%msg %ex||%n</pattern>
-		</encoder>
-	</appender>
-	<appender name="sffall" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>/usr/local/tomcat/logs/wtyh.admin.log.%d{yyyy-MM-dd}</fileNamePattern>
-			<maxHistory>30</maxHistory>
-		</rollingPolicy>
-		<encoder class="net.logstash.logback.encoder.LogstashEncoder"></encoder>
-	</appender>
-	<logger name="org.springframework" level="INFO" />
-	<logger name="com.bbd.wtyh" level="trace" />
 
-	<root level="INFO">
-		<appender-ref ref="console" />
-		<appender-ref ref="sffall" />
-	</root>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <filter>
+            <evaluator>
+                <expression>
+                    <![CDATA[event.getThreadName().contains("com.bbd.wtyh") == false]]>
+                </expression>
+            </evaluator>
+        </filter>
+
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <encoder>
+            <pattern>%date{yyyy-MM-dd HH:mm:ss}||%thread||%level||%logger:%line||%msg %ex||%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="sffall" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>../logs/wtyh.admin.log.%d{yyyy-MM-dd}</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+    </appender>
+
+    <logger name="org.springframework" level="ERROR"/>
+    <logger name="org.quartz" level="ERROR"/>
+    <logger name="org.apache.shiro" level="ERROR"/>
+    <logger name="ch.qos" level="ERROR"/>
+    <logger name="net.sf.ehcache" level="ERROR"/>
+    <logger name="c.q.l" level="ERROR"/>
+
+
+    <logger name="com.bbd.wtyh" level="trace"/>
+
+    <root level="INFO">
+        <appender-ref ref="console"/>
+        <appender-ref ref="sffall"/>
+    </root>
 </configuration>

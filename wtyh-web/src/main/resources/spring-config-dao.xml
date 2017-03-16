@@ -23,7 +23,7 @@
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <!-- 基本属性 url、user、password -->
-        <property name="driverClassName" value="${jdbc.driverClassName}" />
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
         <property name="url" value="${jdbc.url}"/>
         <property name="username" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>
@@ -61,17 +61,31 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
+
+    <bean id="myBatisResultIntercept" class="com.bbd.wtyh.core.mybatis.MybatisResultInterceptor"/>
+    <bean id="mybatisPaginationInterceptor" class="com.bbd.wtyh.core.mybatis.MybatisPaginationInterceptor">
+        <property name="databaseType" value="mysql"/>
+    </bean>
+
     <!-- define the SqlSessionFactory -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="mapperLocations" value="classpath*:com/bbd/*/mapper/*.xml"/>
-        <property name="configLocation" value="classpath:mybatis-config.xml"></property>
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+
+        <property name="plugins">
+            <list>
+                <ref bean="mybatisPaginationInterceptor"/>
+                <ref bean="myBatisResultIntercept"/>
+            </list>
+        </property>
     </bean>
 
     <!-- scan for mappers and let them be autowired -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.bbd.**.mapper"/>
     </bean>
+
 
     <!--&lt;!&ndash; start cache annotation &ndash;&gt;-->
     <!--<cache:annotation-driven/>-->

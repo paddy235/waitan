@@ -21,35 +21,35 @@
     <!-- AOP 配置 -->
     <aop:aspectj-autoproxy/>
 
-    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close"> 
-		<!-- 基本属性 url、user、password -->
-		<property name="url" value="${jdbc.url}" />
-		<property name="username" value="${jdbc.username}" />
-		<property name="password" value="${jdbc.password}" />
-		
-		<!-- 配置初始化大小、最小、最大 -->
-		<property name="initialSize" value="${jdbc.initialSize}" />
-		<property name="minIdle" value="${jdbc.minIdle}" /> 
-		<property name="maxActive" value="${jdbc.maxActive}" />
-		
-		<!-- 配置获取连接等待超时的时间 -->
-		<property name="maxWait" value="${jdbc.maxWait}" />
-		
-		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
-		<property name="timeBetweenEvictionRunsMillis" value="${jdbc.timeBetweenEvictionRunsMillis}" />
-		
-		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
-		<property name="minEvictableIdleTimeMillis" value="${jdbc.minEvictableIdleTimeMillis}" />
-		
-		<property name="validationQuery" value="SELECT 'x'" />
-		<property name="testWhileIdle" value="true" />
-		<property name="testOnBorrow" value="false" />
-		<property name="testOnReturn" value="false" />
-		
-		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
-		<property name="poolPreparedStatements" value="true" />
-		<property name="maxPoolPreparedStatementPerConnectionSize" value="${jdbc.maxIdle}" />
-	</bean>
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <!-- 基本属性 url、user、password -->
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+
+        <!-- 配置初始化大小、最小、最大 -->
+        <property name="initialSize" value="${jdbc.initialSize}"/>
+        <property name="minIdle" value="${jdbc.minIdle}"/>
+        <property name="maxActive" value="${jdbc.maxActive}"/>
+
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name="maxWait" value="${jdbc.maxWait}"/>
+
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="${jdbc.timeBetweenEvictionRunsMillis}"/>
+
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="${jdbc.minEvictableIdleTimeMillis}"/>
+
+        <property name="validationQuery" value="SELECT 'x'"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="testOnBorrow" value="false"/>
+        <property name="testOnReturn" value="false"/>
+
+        <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+        <property name="poolPreparedStatements" value="true"/>
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="${jdbc.maxIdle}"/>
+    </bean>
 
     <!-- enable transaction demarcation with annotations -->
     <tx:annotation-driven transaction-manager="transactionManager"
@@ -61,15 +61,29 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
+    <bean id="myBatisResultIntercept" class="com.bbd.wtyh.core.mybatis.MybatisResultInterceptor"/>
+    <bean id="mybatisPaginationInterceptor" class="com.bbd.wtyh.core.mybatis.MybatisPaginationInterceptor">
+        <property name="databaseType" value="mysql"/>
+    </bean>
+
+
     <!-- define the SqlSessionFactory -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="mapperLocations" value="classpath*:com/bbd/*/mapper/*.xml"/>
+
+        <property name="plugins">
+            <list>
+                <ref bean="mybatisPaginationInterceptor"/>
+                <ref bean="myBatisResultIntercept"/>
+            </list>
+        </property>
     </bean>
 
     <!-- scan for mappers and let them be autowired -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.bbd.**.mapper"/>
+        <property name="basePackage" value="com.bbd.**.mapper,com.bbd.wtyh.core.dao"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 
     <!--&lt;!&ndash; start cache annotation &ndash;&gt;-->

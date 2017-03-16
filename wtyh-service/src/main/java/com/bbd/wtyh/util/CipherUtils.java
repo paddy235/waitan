@@ -3,11 +3,6 @@ package com.bbd.wtyh.util;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.codec.Hex;
 import org.apache.shiro.crypto.AesCipherService;
-import sun.security.action.GetPropertyAction;
-
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
-import java.security.AccessController;
 
 /**
  * Created by cgj on 2017/2/28.
