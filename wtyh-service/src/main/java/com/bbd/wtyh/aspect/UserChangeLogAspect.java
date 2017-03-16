@@ -5,19 +5,21 @@ import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.mapper.RoleResourceMapper;
 import com.bbd.wtyh.mapper.UserInfoMapper;
 import org.apache.commons.lang3.StringUtils;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
  * Created by Yin Su on 2017/3/5.
  */
-@Component
-@Aspect
+/*@Component
+@Aspect*/
 public class UserChangeLogAspect {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserChangeLogAspect.class);

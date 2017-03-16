@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Created by Yin Su on 2017/3/5.
  */
-@Component
-@Aspect
+/*@Component
+@Aspect*/
 public class UserOperationLogAspect {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserOperationLogAspect.class);
