@@ -1,28 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration debug="true">
+<configuration debug="false">
+
+	<!--控制台日志输出-->
 	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss:SSS} [%thread] [%-5level] [%logger:%line] - %msg%n</pattern>
+		</encoder>
 		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-			<level>all</level>
+			<level>INFO</level>
 		</filter>
-		<encoder>
-			<pattern>%date{yyyy-MM-dd HH:mm:ss}||%thread||%level||%logger:%line||%msg %ex||%n</pattern>
-		</encoder>
 	</appender>
 
-	<appender name="sffall" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	<!--ERROR日志文件存放位置-->
+	<appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Append>true</Append>
+		<File>../log/wtyh_web_error.log</File>
+
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss:SSS} [%thread] [%-5level] [%logger:%line] - %msg%n</pattern>
+		</encoder>
+
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>/usr/local/tomcat/logs/wtyh.log.%d{yyyy-MM-dd}</fileNamePattern>
-			<maxHistory>30</maxHistory>
+			<fileNamePattern>../log/wtyh_web_error.log.%d{yyyy-MM-dd}</fileNamePattern>
 		</rollingPolicy>
-		<encoder>
-			<pattern>%date{yyyy-MM-dd HH:mm:ss}||%thread||%level||%logger:%line||%msg %ex||%n</pattern>
-		</encoder>
 	</appender>
-	<logger name="org.springframework" level="INFO" />
-	<logger name="com.bbd" level="all" />
 
-	<root level="INFO">
-		<appender-ref ref="console" />
-		<appender-ref ref="sffall" />
+	<!--INFO日志文件存放位置-->
+	<appender name="info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Append>true</Append>
+		<File>../log/wtyh_web_info.log</File>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss:SSS} [%thread] [%-5level] [%logger:%line] - %msg%n</pattern>
+		</encoder>
+
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>INFO</level>
+		</filter>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<maxIndex>10</maxIndex>
+			<FileNamePattern>../log/wtyh_web_info.%i</FileNamePattern>
+		</rollingPolicy>
+
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>100MB</MaxFileSize>
+		</triggeringPolicy>
+	</appender>
+
+
+	<logger name="org.springframework" level="ERROR"/>
+	<logger name="org.hibernate" level="ERROR"/>
+	<logger name="org.quartz" level="ERROR"/>
+	<logger name="org.apache.shiro" level="ERROR"/>
+	<logger name="net.sf.ehcache" level="ERROR"/>
+	<logger name="com.alibaba.druid" level="ERROR"/>
+	<logger name="org.mybatis" level="DEBUG"/>
+
+	<logger name="java.sql.Statement" level="DEBUG"/>
+	<logger name="java.sql.ResultSet" level="DEBUG"/>
+	<logger name="java.sql.PreparedStatement" level="DEBUG"/>
+	<logger name="java.sql.Connection" level="INFO"/>
+
+	<root level="DEBUG">
+		<appender-ref ref="console"/>
+		<appender-ref ref="error"/>
+		<appender-ref ref="info"/>
 	</root>
 </configuration>

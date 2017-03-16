@@ -1,9 +1,11 @@
-package com.bbd.test;
+package com.bbd.wtyh.test;
 
 import com.bbd.wtyh.core.entity.Pagination;
 import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.service.UserInfoService;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -19,6 +21,8 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring-config.xml" })
 public class Test {
+
+	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
 	private UserInfoService userInfoService;
@@ -45,8 +49,10 @@ public class Test {
 
 		System.out.println("total:" + users.size());
 		for (UserInfoTableDo us : users) {
-			System.err.println(us);
+			logger.info(us.toString());
 		}
+
+		logger.error(".........................");
 	}
 
 	@org.junit.Test
