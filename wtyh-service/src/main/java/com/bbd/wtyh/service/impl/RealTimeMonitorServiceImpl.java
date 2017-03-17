@@ -1,20 +1,35 @@
 package com.bbd.wtyh.service.impl;
 
-import com.bbd.wtyh.dao.RealTimeMonitorDao;
-import com.bbd.wtyh.domain.*;
-import com.bbd.wtyh.domain.dto.StaticRiskDTO;
-import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
-import com.bbd.wtyh.domain.vo.SpectrumVO;
-import com.bbd.wtyh.mapper.*;
-import com.bbd.wtyh.redis.RedisDAO;
-import com.bbd.wtyh.service.RealTimeMonitorService;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import com.bbd.wtyh.dao.RealTimeMonitorDao;
+import com.bbd.wtyh.domain.BuildingNumberInAreaDO;
+import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
+import com.bbd.wtyh.domain.CompanyGroupByAreaDO;
+import com.bbd.wtyh.domain.CountCompanyByAreaDO;
+import com.bbd.wtyh.domain.RelatedCompanyStatisticDO;
+import com.bbd.wtyh.domain.RelatedSubsidiaryStatisticDO;
+import com.bbd.wtyh.domain.dto.StaticRiskDTO;
+import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
+import com.bbd.wtyh.domain.vo.SpectrumVO;
+import com.bbd.wtyh.mapper.BuildingMapper;
+import com.bbd.wtyh.mapper.CompanyAnalysisResultMapper;
+import com.bbd.wtyh.mapper.CompanyMapper;
+import com.bbd.wtyh.mapper.RelatedCompanyStatisticMapper;
+import com.bbd.wtyh.mapper.RelatedSubsidiaryStatisticMapper;
+import com.bbd.wtyh.mapper.StaticRiskMapper;
+import com.bbd.wtyh.redis.RedisDAO;
+import com.bbd.wtyh.service.RealTimeMonitorService;
 
 /**
  * Created by YanWenyuan on 2016/8/15.
@@ -22,51 +37,52 @@ import java.util.*;
 @Service("realTimeMonitorService")
 public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
 
-    Logger logger = LoggerFactory.getLogger(RealTimeMonitorServiceImpl.class);
+    Logger                                   logger       = LoggerFactory
+        .getLogger(RealTimeMonitorServiceImpl.class);
 
     @Autowired
-    private CompanyAnalysisResultMapper companyAnalysisResultMapper;
+    private CompanyAnalysisResultMapper      companyAnalysisResultMapper;
 
     @Autowired
     private RelatedSubsidiaryStatisticMapper relatedSubsidiaryStatisticMapper;
 
     @Autowired
-    private RelatedCompanyStatisticMapper relatedCompanyStatisticMapper;
+    private RelatedCompanyStatisticMapper    relatedCompanyStatisticMapper;
 
     @Autowired
-    private StaticRiskMapper staticRiskMapper;
+    private StaticRiskMapper                 staticRiskMapper;
 
     @Autowired
-    private BuildingMapper buildingMapper;
+    private BuildingMapper                   buildingMapper;
 
     @Autowired
-    private CompanyMapper companyMapper;
+    private CompanyMapper                    companyMapper;
 
     @Autowired
-    private RealTimeMonitorDao realTimeMonitorDao;
+    private RealTimeMonitorDao               realTimeMonitorDao;
 
     @Autowired
-    private RedisDAO redisDAO;
+    private RedisDAO                         redisDAO;
 
-    private final Integer MAX = null;
-    private final Integer EMPHASIS = 70;
-    private final Integer USUAL = 60;
-    private final Integer MIN = null;
-    private final boolean NORMAL_FLAG = true;
+    private final Integer                    MAX          = null;
+    private final Integer                    EMPHASIS     = 70;
+    private final Integer                    USUAL        = 60;
+    private final Integer                    MIN          = null;
+    private final boolean                    NORMAL_FLAG  = true;
 
     //  2:重点关注(红) 3:一般关注(黄) 4:正常(绿)'，1:已出风险(黑)
-    private final Integer FOCUS_LEVEL = 2;
-    private final Integer USUAL_LEVEL = 3;
-    private final Integer NORMAL_LEVEL = 4;
-    private final Integer RISK_LEVEL = 1;
+    private final Integer                    FOCUS_LEVEL  = 2;
+    private final Integer                    USUAL_LEVEL  = 3;
+    private final Integer                    NORMAL_LEVEL = 4;
+    private final Integer                    RISK_LEVEL   = 1;
 
     @Override
     public List<List<SpectrumVO>> spectrumAnalysis(Integer areaId) {
         final String dateVersion = staticRiskMapper.maxDataVersion();
-        List<Map<Integer, Integer>> riskLevelNumber = companyMapper.getRiskLevelNumber();
+        List<Map<String, Integer>> riskLevelNumber = companyMapper.getRiskLevelNumber();
         Integer black = 400, red = 400, yellow = 400, green = 400;
         if (CollectionUtils.isNotEmpty(riskLevelNumber)) {
-            for (Map<Integer, Integer> map : riskLevelNumber) {
+            for (Map<String, Integer> map : riskLevelNumber) {
                 Integer riskLevel = map.get("riskLevel");
                 Integer companyNumber = map.get("companyNumber");
                 if (riskLevel != null) {
@@ -86,10 +102,14 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
         }
 
         Long start = System.currentTimeMillis();
-        List<SpectrumVO> spectrumAnalysisFocus = companyMapper.getSpectrumAnalysis(FOCUS_LEVEL, dateVersion, red,areaId);
-        List<SpectrumVO> spectrumAnalysisUsual = companyMapper.getSpectrumAnalysis(USUAL_LEVEL, dateVersion, yellow,areaId);
-        List<SpectrumVO> spectrumAnalysisNormal = companyMapper.getSpectrumAnalysis(NORMAL_LEVEL, dateVersion, green,areaId);
-        List<SpectrumVO> spectrumAnalysisRisk = companyMapper.getSpectrumAnalysis(RISK_LEVEL, dateVersion, black,areaId);
+        List<SpectrumVO> spectrumAnalysisFocus = companyMapper.getSpectrumAnalysis(FOCUS_LEVEL,
+            dateVersion, red, areaId);
+        List<SpectrumVO> spectrumAnalysisUsual = companyMapper.getSpectrumAnalysis(USUAL_LEVEL,
+            dateVersion, yellow, areaId);
+        List<SpectrumVO> spectrumAnalysisNormal = companyMapper.getSpectrumAnalysis(NORMAL_LEVEL,
+            dateVersion, green, areaId);
+        List<SpectrumVO> spectrumAnalysisRisk = companyMapper.getSpectrumAnalysis(RISK_LEVEL,
+            dateVersion, black, areaId);
         List<List<SpectrumVO>> rst = new ArrayList<>();
         rst.add(spectrumAnalysisFocus);
         rst.add(spectrumAnalysisUsual);
@@ -99,9 +119,12 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
     }
 
     public List<List> spectrumAnalysisBackup() {
-        List<StaticRiskDTO> spectrumAnalysisEmphasis = staticRiskMapper.getSpectrumAnalysis(EMPHASIS, MAX, !NORMAL_FLAG);
-        List<StaticRiskDTO> spectrumAnalysisUsual = staticRiskMapper.getSpectrumAnalysis(USUAL, EMPHASIS,  !NORMAL_FLAG);
-        List<StaticRiskDTO> spectrumAnalysisNormal = staticRiskMapper.getSpectrumAnalysis(MIN, USUAL, NORMAL_FLAG);
+        List<StaticRiskDTO> spectrumAnalysisEmphasis = staticRiskMapper
+            .getSpectrumAnalysis(EMPHASIS, MAX, !NORMAL_FLAG);
+        List<StaticRiskDTO> spectrumAnalysisUsual = staticRiskMapper.getSpectrumAnalysis(USUAL,
+            EMPHASIS, !NORMAL_FLAG);
+        List<StaticRiskDTO> spectrumAnalysisNormal = staticRiskMapper.getSpectrumAnalysis(MIN,
+            USUAL, NORMAL_FLAG);
         List<CompanyAnalysisResult> spectrumAnalysisAlready = spectrumAnalysisAlready();
 
         List<List> rst = new ArrayList<>();
@@ -114,19 +137,20 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
 
     @Override
     public List<CompanyAnalysisResult> spectrumAnalysisAlready() {
-        return companyAnalysisResultMapper.getSpectrumAnalysis(CompanyAnalysisResult.RISK.getType());
+        return companyAnalysisResultMapper
+            .getSpectrumAnalysis(CompanyAnalysisResult.RISK.getType());
     }
 
     @Override
     public Map<String, Object> ChinaMap() {
-//        final String key = "wtyh:realtimeMonitor:ChinaMap";
-//        List<RelatedCompanyStatisticDO> list = (List<RelatedCompanyStatisticDO>) redisDAO.getObject(key);
-//        if (null == list || list.size() == 0) {
+        //        final String key = "wtyh:realtimeMonitor:ChinaMap";
+        //        List<RelatedCompanyStatisticDO> list = (List<RelatedCompanyStatisticDO>) redisDAO.getObject(key);
+        //        if (null == list || list.size() == 0) {
         List<RelatedCompanyStatisticDO> list = relatedCompanyStatisticMapper.getChinaMap();
-//            if (null != list && list.size() >= 1) {
-//                redisDAO.addObject(key, list, Constants.REDIS_10, List.class);
-//            }
-//        }
+        //            if (null != list && list.size() >= 1) {
+        //                redisDAO.addObject(key, list, Constants.REDIS_10, List.class);
+        //            }
+        //        }
         List<Object> resultList = new ArrayList<>();
         for (RelatedCompanyStatisticDO re : list) {
             List<Map<String, Object>> result = new ArrayList<>();
@@ -144,10 +168,10 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
         return map;
     }
 
-
     @Override
     public Map<String, Object> ChinaMapSubsidiary() {
-        List<RelatedSubsidiaryStatisticDO> list = relatedSubsidiaryStatisticMapper.getChinaMapSubsidiary();
+        List<RelatedSubsidiaryStatisticDO> list = relatedSubsidiaryStatisticMapper
+            .getChinaMapSubsidiary();
 
         List<Object> resultList = new ArrayList<>();
         for (RelatedSubsidiaryStatisticDO re : list) {
@@ -170,10 +194,14 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
     public List<List<CompanyAnalysisResultDO>> shMap() {
         // 公司名、经纬度、风险类型、静态风险值、暴露风险时间
         final String dateVersion = staticRiskMapper.maxDataVersion();
-        List<CompanyAnalysisResultDO> exposures = companyAnalysisResultMapper.shMap(CompanyAnalysisResultDO.EXPOSURE, dateVersion);
-        List<CompanyAnalysisResultDO> highs = companyAnalysisResultMapper.shMap(CompanyAnalysisResultDO.HIGH, dateVersion);
-        List<CompanyAnalysisResultDO> focuses = companyAnalysisResultMapper.shMap(CompanyAnalysisResultDO.FOCUS, dateVersion);
-        List<CompanyAnalysisResultDO> normals = companyAnalysisResultMapper.shMap(CompanyAnalysisResultDO.NORMAL, dateVersion);
+        List<CompanyAnalysisResultDO> exposures = companyAnalysisResultMapper
+            .shMap(CompanyAnalysisResultDO.EXPOSURE, dateVersion);
+        List<CompanyAnalysisResultDO> highs = companyAnalysisResultMapper
+            .shMap(CompanyAnalysisResultDO.HIGH, dateVersion);
+        List<CompanyAnalysisResultDO> focuses = companyAnalysisResultMapper
+            .shMap(CompanyAnalysisResultDO.FOCUS, dateVersion);
+        List<CompanyAnalysisResultDO> normals = companyAnalysisResultMapper
+            .shMap(CompanyAnalysisResultDO.NORMAL, dateVersion);
 
         List<List<CompanyAnalysisResultDO>> rst = new ArrayList<>();
         rst.add(exposures);
@@ -182,7 +210,6 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
         rst.add(normals);
         return rst;
     }
-
 
     @Override
     public Map<String, Map> shArea(Integer areaId) {
@@ -211,10 +238,10 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
             Map<String, Object> data = new HashMap<>();
             data.put("num", buildingNumberInAreaDO.getCount());
             data.put("areaId", buildingNumberInAreaDO.getAreaId());
-            if( areaId != null ){
-                data.put("permission", areaId.equals(buildingNumberInAreaDO.getAreaId()) );
-            }else{
-                data.put("permission", true );
+            if (areaId != null) {
+                data.put("permission", areaId.equals(buildingNumberInAreaDO.getAreaId()));
+            } else {
+                data.put("permission", true);
             }
             data.put("buildingName", companyGroupByAreaMap.get(buildingNumberInAreaDO.getName()));
             data.put("companyNum", countCompanyByAreaMap.get(buildingNumberInAreaDO.getName()));
@@ -232,7 +259,5 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
         Map<String, Object> data = realTimeMonitorDao.shMapMonitor();
         return data;
     }
-
-
 
 }
