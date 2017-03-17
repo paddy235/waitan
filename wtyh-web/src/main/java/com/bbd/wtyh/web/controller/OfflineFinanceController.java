@@ -1,40 +1,52 @@
 package com.bbd.wtyh.web.controller;
 
-import com.bbd.wtyh.common.Constants;
-import com.bbd.wtyh.dao.HologramQueryDao;
-import com.bbd.wtyh.domain.CapitalAmountDO;
-import com.bbd.wtyh.domain.CompanyCountDO;
-import com.bbd.wtyh.domain.MortgageStatisticDO;
-import com.bbd.wtyh.domain.dto.IndustryShanghaiDTO;
-import com.bbd.wtyh.domain.dto.LoanBalanceDTO;
-import com.bbd.wtyh.domain.vo.*;
-import com.bbd.wtyh.service.*;
-import com.bbd.wtyh.util.CalculateUtils;
-import com.bbd.wtyh.web.*;
-import com.bbd.wtyh.web.relationVO.RelationDiagramVO;
-import com.google.common.collect.Maps;
-import com.google.gson.Gson;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.collections.map.HashedMap;
-import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.poi.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import com.bbd.wtyh.domain.CapitalAmountDO;
+import com.bbd.wtyh.domain.MortgageStatisticDO;
+import com.bbd.wtyh.domain.dto.IndustryShanghaiDTO;
+import com.bbd.wtyh.domain.vo.DynamicRiskVO;
+import com.bbd.wtyh.domain.vo.MonthVO;
+import com.bbd.wtyh.domain.vo.RelationDataVO;
+import com.bbd.wtyh.domain.vo.StaticRiskVO;
+import com.bbd.wtyh.domain.vo.StatisticsVO;
+import com.bbd.wtyh.service.ExchangeCompanyService;
+import com.bbd.wtyh.service.FactoringService;
+import com.bbd.wtyh.service.HologramQueryService;
+import com.bbd.wtyh.service.MortgageService;
+import com.bbd.wtyh.service.OfflineFinanceService;
+import com.bbd.wtyh.service.PToPMonitorService;
+import com.bbd.wtyh.service.PrivateFundService;
+import com.bbd.wtyh.service.RelationDataService;
+import com.bbd.wtyh.util.CalculateUtils;
+import com.bbd.wtyh.web.HistogramBean;
+import com.bbd.wtyh.web.ResponseBean;
+import com.bbd.wtyh.web.XAxisSeriesBarLineBean;
+import com.bbd.wtyh.web.XAxisSeriesLinesBean;
+import com.bbd.wtyh.web.relationVO.RelationDiagramVO;
 
 /**
  * 线下理财
@@ -46,42 +58,42 @@ import java.util.*;
 @RequestMapping("/offlineFinance/")
 public class OfflineFinanceController {
 
-    private static final Logger logger = LoggerFactory.getLogger(OfflineFinanceController.class);
+    private static final Logger      logger = LoggerFactory
+        .getLogger(OfflineFinanceController.class);
 
     @Autowired
-    private OfflineFinanceService offlineFinanceService;
+    private OfflineFinanceService    offlineFinanceService;
     @Autowired
-    private RelationDataService relationDataService;
+    private RelationDataService      relationDataService;
     @Autowired
-    private PToPMonitorService pToPMonitorService;
+    private PToPMonitorService       pToPMonitorService;
     @Autowired
-    private PToPMonitorController pToPMonitorController;
+    private PToPMonitorController    pToPMonitorController;
     @Autowired
-    private LoanController loanController;
+    private LoanController           loanController;
     @Autowired
-    private MortgageController mortgageController;
+    private MortgageController       mortgageController;
     @Autowired
-    private FactoringService factoringService;
+    private FactoringService         factoringService;
     @Autowired
-    private FactoringController factoringController;
+    private FactoringController      factoringController;
     @Autowired
-    private CrowdFundingController crowdFundingController;
+    private CrowdFundingController   crowdFundingController;
     @Autowired
     private PrepaidCompanyController prepaidCompanyController;
     @Autowired
-    private FinanceLeaseController financeLeaseController;
+    private FinanceLeaseController   financeLeaseController;
     @Autowired
-    private PrivateFundService privateFundService;
+    private PrivateFundService       privateFundService;
     @Autowired
-    private ExchangeCompanyService exchangeCompanyService;
+    private ExchangeCompanyService   exchangeCompanyService;
     @Autowired
-    private MortgageService mortgageService;
+    private MortgageService          mortgageService;
     @Autowired
-    private GuaranteeController guaranteeController;
+    private GuaranteeController      guaranteeController;
 
-
     @Autowired
-    private HologramQueryService hologramQueryService;
+    private HologramQueryService     hologramQueryService;
 
     /**
      * 关联图谱
@@ -89,21 +101,19 @@ public class OfflineFinanceController {
      * @param request
      * @return
      */
-    @SuppressWarnings("rawtypes")
     @RequestMapping(value = "queryDynamicPicData.do")
-    public
-    @ResponseBody
-    ResponseBean queryDynamicPicData(HttpServletRequest request) {
+    public @ResponseBody ResponseBean queryDynamicPicData(HttpServletRequest request) {
         String companyName = request.getParameter("companyName");
         String dataVersion = request.getParameter("dataVersion");
         String degreesLevel = request.getParameter("degreesLevel");
         try {
             if (StringUtils.isEmpty(companyName)) {
-                ResponseBean.successResponse("companyName参数为空");
+                return ResponseBean.errorResponse("companyName参数为空");
             }
 
             if (StringUtils.isEmpty(dataVersion)) {
-                List<String> dataVersionList = relationDataService.queryDateVersion(companyName, null);
+                List<String> dataVersionList = relationDataService.queryDateVersion(companyName,
+                    null);
                 if (!CollectionUtils.isEmpty(dataVersionList)) {
                     dataVersion = dataVersionList.get(0);
                 }
@@ -111,17 +121,16 @@ public class OfflineFinanceController {
                 dataVersion = getDataVersionString(companyName, dataVersion);
             }
 
-            RelationDiagramVO result = offlineFinanceService.queryRelation(companyName, dataVersion, degreesLevel);
+            RelationDiagramVO result = offlineFinanceService.queryRelation(companyName, dataVersion,
+                degreesLevel);
             if (result == null) {
-                logger.error("无关联方图谱信息 --> 公司[" + companyName
-                        + "], dateVersion[" + dataVersion + "],关联度["
-                        + degreesLevel + "]");
+                logger.error("无关联方图谱信息 --> 公司[" + companyName + "], dateVersion[" + dataVersion
+                             + "],关联度[" + degreesLevel + "]");
             }
             return ResponseBean.successResponse(result);
         } catch (Exception e) {
-            logger.error("关联方图谱信息解析出错 --> 公司[" + companyName
-                    + "], dateVersion[" + dataVersion + "],关联度["
-                    + degreesLevel + "]");
+            logger.error("关联方图谱信息解析出错 --> 公司[" + companyName + "], dateVersion[" + dataVersion
+                         + "],关联度[" + degreesLevel + "]");
             logger.error(e.getMessage(), e);
             return ResponseBean.errorResponse("关联方图谱信息正在准备中，请稍后尝试");
         }
@@ -139,7 +148,8 @@ public class OfflineFinanceController {
     public ResponseBean queryDynamicPicDataTwo(@RequestParam String companyName,
                                                @RequestParam(defaultValue = "1") Integer degreesLevel) {
         try {
-            RelationDiagramVO result = offlineFinanceService.queryRealRealation(companyName, degreesLevel);
+            RelationDiagramVO result = offlineFinanceService.queryRealRealation(companyName,
+                degreesLevel);
             return ResponseBean.successResponse(result);
         } catch (Exception e) {
             logger.error("RelationController->queryDynamicPicDataTwo", e);
@@ -163,8 +173,6 @@ public class OfflineFinanceController {
         return offlineFinanceService.queryStatistics(companyName, tabIndex, areaCode);
     }
 
-
-
     /**
      * 风险指数趋势变化图综合接口
      *
@@ -176,12 +184,13 @@ public class OfflineFinanceController {
      */
     @RequestMapping(value = "queryStatisticsMultiple.do")
     @ResponseBody
-    public Map<String,Object> queryStatisticsMultiple( String companyName, String areaCode) throws ParseException {
+    public Map<String, Object> queryStatisticsMultiple(String companyName,
+                                                       String areaCode) throws ParseException {
 
-        Map<String,Object> map = new HashMap<>();
-        for (int tabIndex=0;tabIndex<8;tabIndex++) {
-            Object o = offlineFinanceService.queryStatistics(companyName, ""+tabIndex, areaCode);
-            map.put("tabIndex"+tabIndex,o);
+        Map<String, Object> map = new HashMap<>();
+        for (int tabIndex = 0; tabIndex < 8; tabIndex++) {
+            Object o = offlineFinanceService.queryStatistics(companyName, "" + tabIndex, areaCode);
+            map.put("tabIndex" + tabIndex, o);
         }
 
         return map;
@@ -199,7 +208,8 @@ public class OfflineFinanceController {
         String companyName = request.getParameter("companyName");
         String currentDate = request.getParameter("currentDate");
         String areaCode = request.getParameter("areaCode");
-        StaticRiskVO vo = offlineFinanceService.queryCurrentStaticRisk(companyName, currentDate, areaCode);
+        StaticRiskVO vo = offlineFinanceService.queryCurrentStaticRisk(companyName, currentDate,
+            areaCode);
         return ResponseBean.successResponse(vo);
     }
 
@@ -214,7 +224,8 @@ public class OfflineFinanceController {
      */
     @RequestMapping(value = "showYEDData.do")
     @ResponseBody
-    public ResponseBean showYEDData(String companyName, String month, HttpServletResponse response) throws Exception {
+    public ResponseBean showYEDData(String companyName, String month,
+                                    HttpServletResponse response) throws Exception {
         if (StringUtils.isEmpty(companyName)) {
             return ResponseBean.errorResponse("companyName参数为空");
         }
@@ -224,7 +235,8 @@ public class OfflineFinanceController {
         month = getDataVersionString(companyName, month);
 
         try {
-            return ResponseBean.successResponse(offlineFinanceService.createYED(companyName, month));
+            return ResponseBean
+                .successResponse(offlineFinanceService.createYED(companyName, month));
         } catch (Exception e) {
             logger.error("生成关联方图片", "无关联方数据", companyName, month);
             return ResponseBean.errorResponse(e.getMessage());
@@ -242,7 +254,8 @@ public class OfflineFinanceController {
      */
     @RequestMapping(value = "dynamicRiskData.do")
     @ResponseBody
-    public ResponseBean dynamicRiskData(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ResponseBean dynamicRiskData(HttpServletRequest request,
+                                        HttpServletResponse response) throws Exception {
         String companyName = request.getParameter("companyName");
         String areaCode = request.getParameter("areaCode");
         String keyword = request.getParameter("kw");
@@ -281,9 +294,11 @@ public class OfflineFinanceController {
             }
         }
         //比较两个月份的关联方数据
-        RelationDataVO vo = relationDataService.compareRelationData(companyName, areaCode, currentMonth, compareMonth);
+        RelationDataVO vo = relationDataService.compareRelationData(companyName, areaCode,
+            currentMonth, compareMonth);
         //比较两个月动态风险指标结果
-        DynamicRiskVO riskvo = relationDataService.compareDynamicRisk(companyName, areaCode, currentMonth, compareMonth);
+        DynamicRiskVO riskvo = relationDataService.compareDynamicRisk(companyName, areaCode,
+            currentMonth, compareMonth);
         Map result = new HashedMap();
         result.put("companyName", companyName);
         result.put("relationData", vo);
@@ -306,7 +321,7 @@ public class OfflineFinanceController {
     @RequestMapping("companyNews.do")
     @ResponseBody
     public ResponseBean companyNews(String companyName) {
-       // String data = offlineFinanceService.companyNews(companyName);
+        // String data = offlineFinanceService.companyNews(companyName);
 
         Object data = hologramQueryService.newsConsensusList(companyName);
 
@@ -388,9 +403,10 @@ public class OfflineFinanceController {
      */
     public String getDataVersionString(String companyName, String dataVersionString) {
         if (!StringUtils.isEmpty(dataVersionString)) {
-            dataVersionString = dataVersionString.replace("-","");
+            dataVersionString = dataVersionString.replace("-", "");
         }
-        String dataVersion = relationDataService.queryDateVersionByMonth(companyName, dataVersionString);
+        String dataVersion = relationDataService.queryDateVersionByMonth(companyName,
+            dataVersionString);
         return dataVersion;
     }
 
@@ -408,27 +424,28 @@ public class OfflineFinanceController {
         //私募
         List<CapitalAmountDO> capitalAmountList = privateFundService.capitalAmount();
         @SuppressWarnings("unchecked")
-        XAxisSeriesLinesBean<String,String> privateDTO = new XAxisSeriesLinesBean<>(
-                new ArrayList<String>(),
-                new ArrayList<String>());
+        XAxisSeriesLinesBean<String, String> privateDTO = new XAxisSeriesLinesBean<>(
+            new ArrayList<String>(), new ArrayList<String>());
 
         for (CapitalAmountDO capitalAmountDO : capitalAmountList) {
-            privateDTO.getxAxis().add(privateFundService.getTypeById(capitalAmountDO.getTypeId()).getTypeName());
-            privateDTO.getSeries()[0].add(CalculateUtils.decimalFormat(capitalAmountDO.getManagedCapitalAmount()));
+            privateDTO.getxAxis()
+                .add(privateFundService.getTypeById(capitalAmountDO.getTypeId()).getTypeName());
+            privateDTO.getSeries()[0]
+                .add(CalculateUtils.decimalFormat(capitalAmountDO.getManagedCapitalAmount()));
             privateDTO.getSeries()[1].add(capitalAmountDO.getPublishCompanyNumber().toString());
         }
         //p2p
-        XAxisSeriesBarLineBean<Integer,String> pToPMonitorResponseBean = new XAxisSeriesBarLineBean<>();
+        XAxisSeriesBarLineBean<Integer, String> pToPMonitorResponseBean = new XAxisSeriesBarLineBean<>();
         try {
             List<IndustryShanghaiDTO> list = pToPMonitorService.getData();
-            XAxisSeriesBarLineBean<Integer,String> data = new XAxisSeriesBarLineBean<>();
+            XAxisSeriesBarLineBean<Integer, String> data = new XAxisSeriesBarLineBean<>();
             data.setTitle("上海新增平台发展趋势");
-            if(!CollectionUtils.isEmpty(list) ){
+            if (!CollectionUtils.isEmpty(list)) {
                 Map<String, Integer[]> map = new TreeMap<>();
                 for (IndustryShanghaiDTO dto : list) {
                     Integer[] as = map.get(dto.getSeason());
-                    if(as == null){
-                        as = new Integer[]{0,0};
+                    if (as == null) {
+                        as = new Integer[] { 0, 0 };
                     }
                     as[0] += dto.getTotal_plat_num();
                     as[1] += dto.getNew_plat_num();
@@ -437,7 +454,7 @@ public class OfflineFinanceController {
                 data.getxAxis().addAll(map.keySet());
 
                 Iterator<Integer[]> it = map.values().iterator();
-                while(it.hasNext()){
+                while (it.hasNext()) {
                     Integer[] newTot = it.next();
                     data.getSeries().getBar().add(newTot[0]);
                     data.getSeries().getLine().add(newTot[1]);
@@ -452,7 +469,7 @@ public class OfflineFinanceController {
         ResponseBean financeLeaseResponseBean = financeLeaseController.leaseCompanyStatistic();
         //交易场所分类
         List<Map> exchangeCompanyData = exchangeCompanyService.exchangeCompanyCategory();
-        HistogramBean<String,String> exchangeCompanyBean = new HistogramBean<>();
+        HistogramBean<String, String> exchangeCompanyBean = new HistogramBean<>();
 
         for (Map map : exchangeCompanyData) {
             exchangeCompanyBean.getxAxis().add(map.keySet().iterator().next().toString());
@@ -464,11 +481,10 @@ public class OfflineFinanceController {
         ResponseBean mortgageResponseBean = mortgageController.statisticList();
         List<MortgageStatisticDO> mortgageList = mortgageService.getMortgageStatisticList();
         @SuppressWarnings("unchecked")
-        XAxisSeriesLinesBean<String,String> mortgageDTO = new XAxisSeriesLinesBean<>(
-                new ArrayList<String>(),
-                new ArrayList<String>());
+        XAxisSeriesLinesBean<String, String> mortgageDTO = new XAxisSeriesLinesBean<>(
+            new ArrayList<String>(), new ArrayList<String>());
         if (!CollectionUtils.isEmpty(mortgageList)) {
-            for (int k = mortgageList.size()-1;k>-1;k--) {
+            for (int k = mortgageList.size() - 1; k > -1; k--) {
                 MortgageStatisticDO mortgageStatisticDO = mortgageList.get(k);
                 mortgageDTO.getxAxis().add(mortgageStatisticDO.getYear().toString());
                 mortgageDTO.getSeries()[0].add(mortgageStatisticDO.getNumber().toString());
