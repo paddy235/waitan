@@ -1,5 +1,18 @@
 package com.bbd.wtyh.dao.impl;
 
+import static com.bbd.wtyh.common.Constants.REDIS_KEY_BASE_INFO_BBD_DATA;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bbd.higgs.utils.http.HttpCallback;
@@ -17,13 +30,6 @@ import com.bbd.wtyh.mapper.PlatformNameInformationMapper;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Repository;
-
-import java.util.*;
-
-import static com.bbd.wtyh.common.Constants.REDIS_KEY_BASE_INFO_BBD_DATA;
 
 /**
  * p2p检测平台dao层实现类
@@ -80,7 +86,9 @@ public class P2PImageDaoImpl implements P2PImageDao {
 
     @Override
     public Map<String, Object> lawsuitMsg(String company) {
-        String URL = String.format("http://dataom.api.bbdservice.com/api/bbd_ktgg/?company=%s&ak=ee372b938ef17a245f6b781beec4499e", company);
+        String URL = String.format(
+            "http://dataom.api.bbdservice.com/api/bbd_ktgg/?company=%s&ak=ee372b938ef17a245f6b781beec4499e",
+            company);
         HttpTemplate httpTemplate = new HttpTemplate();
         final Map<String, Object> data = new HashMap<>();
         try {
@@ -96,7 +104,8 @@ public class P2PImageDaoImpl implements P2PImageDao {
                         return null;
                     }
                     JSONObject jsonObject = JSON.parseObject(result);
-                    data.put("total", jsonObject.get("total") == "" ? 0 : jsonObject.get("total"));
+                    data.put("total",
+                        "".equals(jsonObject.get("total")) ? 0 : jsonObject.get("total"));
                     return data;
                 }
             });
@@ -166,9 +175,9 @@ public class P2PImageDaoImpl implements P2PImageDao {
     /**
      * 基本信息--网贷接口数据
      */
+    @Override
     public List<PlatListDO> baseInfoWangDaiApi() {
         String platFormName = url + "?dataType=plat_list";
-        final Map<String, Object> data = new HashMap<>();
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(platFormName, new HttpCallback<List<PlatListDO>>() {
@@ -213,7 +222,8 @@ public class P2PImageDaoImpl implements P2PImageDao {
                     @Override
                     public BaseDataDO parse(String result) {
                         Gson gson = new Gson();
-                        redisDAO.addObject(redisKey, gson.fromJson(result, BaseDataDO.class), Constants.cacheDay, BaseDataDO.class);
+                        redisDAO.addObject(redisKey, gson.fromJson(result, BaseDataDO.class),
+                            Constants.cacheDay, BaseDataDO.class);
                         return gson.fromJson(result, BaseDataDO.class);
                     }
                 });
@@ -228,10 +238,11 @@ public class P2PImageDaoImpl implements P2PImageDao {
     /**
      * 基本信息--组织机构代码api
      */
+    @Override
     public ZuZhiJiGoudmDO baseInfoZuZhiJiGou(String companyName) {
         //        String url = zuZhiJiGouURL+"?company="+companyName+"&ak="+zuZhiJiGouURL;
-        String URL = "http://dataom.api.bbdservice.com/api/bbd_zuzhijigoudm/?company=" + companyName + "&ak=605f60df40668579e939515fef710d2b";
-        final Map<String, Object> map = new LinkedHashMap<>();
+        String URL = "http://dataom.api.bbdservice.com/api/bbd_zuzhijigoudm/?company=" + companyName
+                     + "&ak=605f60df40668579e939515fef710d2b";
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(URL, new HttpCallback<ZuZhiJiGoudmDO>() {
@@ -255,6 +266,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
     /**
      * 企业logo信息
      */
+    @Override
     public PlatListDO wangDaiLogo(String platName) {
         String coreDataDealURL = url + "?dataType=plat_list" + "&plat_name=" + platName;
         HttpTemplate httpTemplate = new HttpTemplate();
@@ -283,7 +295,8 @@ public class P2PImageDaoImpl implements P2PImageDao {
     }
 
     @Override
-    public List<PlatformNameInformationDO> associatedCompanyName(String platName, Integer limit_size) {
+    public List<PlatformNameInformationDO> associatedCompanyName(String platName,
+                                                                 Integer limit_size) {
         return platformNameInformationMapper.associatedCompanyName(platName, limit_size);
     }
 

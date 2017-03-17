@@ -112,7 +112,7 @@ public class IndustryShanghaiDTO implements Serializable {
         return total_plat_num;
     }
 
-    public void setTotal_plat_num_sh(int total_plat_num_sh) {
+    public void setTotal_plat_num_sh(int total_plat_num) {
         this.total_plat_num = total_plat_num;
     }
 

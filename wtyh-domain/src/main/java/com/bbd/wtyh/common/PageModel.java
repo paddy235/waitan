@@ -84,25 +84,23 @@ public class PageModel {
         return str;
     }
 
-    @SuppressWarnings("unused")
-    @Deprecated
-    public void description() {
-
-        String description = "共有数据数:" + this.getTotalRows() +
-
-        "共有页数: " + this.getTotalPages() +
-
-        "当前页数为:" + this.getPage() +
-
-        " 是否有前一页: " + this.isHasPreviousPage() +
-
-        " 是否有下一页:" + this.isHasNextPage() +
-
-        " 开始行数:" + this.getPageStartRow() +
-
-        " 终止行数:" + this.getPageEndRow();
-
-    }
+    //    public void description() {
+    //
+    //        String description = "共有数据数:" + this.getTotalRows() +
+    //
+    //        "共有页数: " + this.getTotalPages() +
+    //
+    //        "当前页数为:" + this.getPage() +
+    //
+    //        " 是否有前一页: " + this.isHasPreviousPage() +
+    //
+    //        " 是否有下一页:" + this.isHasNextPage() +
+    //
+    //        " 开始行数:" + this.getPageStartRow() +
+    //
+    //        " 终止行数:" + this.getPageEndRow();
+    //
+    //    }
 
     @SuppressWarnings("rawtypes")
     public List getNextPage() {
@@ -110,7 +108,6 @@ public class PageModel {
 
         disposePage();
 
-        this.description();
         return getObjects(page);
     }
 
@@ -152,7 +149,6 @@ public class PageModel {
         } else {
             hasNextPage = true;
         }
-        this.description();
         return getObjects(page);
     }
 
