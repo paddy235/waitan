@@ -5,278 +5,264 @@ package com.bbd.wtyh.common;
 * 实现：利用List的获取子List方法，实现对List的分页 
 * @author tracy zhou
 * 
-*/ 
+*/
 
 import java.util.List;
 
-public class PageModel { 
-    private int page = 1; // 当前页 
+public class PageModel {
+    private int     page            = 1;     // 当前页 
 
-    public int totalPages = 0; // 总页数 
+    public int      totalPages      = 0;     // 总页数 
 
-    private int pageRecorders;// 每页5条数据 
+    private int     pageRecorders;           // 每页5条数据 
 
-    private int totalRows = 0; // 总数据数 
+    private int     totalRows       = 0;     // 总数据数 
 
-    private int pageStartRow = 0;// 每页的起始数 
+    private int     pageStartRow    = 0;     // 每页的起始数 
 
-    private int pageEndRow = 0; // 每页显示数据的终止数 
+    private int     pageEndRow      = 0;     // 每页显示数据的终止数 
 
-    private boolean hasNextPage = false; // 是否有下一页 
+    private boolean hasNextPage     = false; // 是否有下一页 
 
     private boolean hasPreviousPage = false; // 是否有前一页 
 
     @SuppressWarnings("rawtypes")
-	private List list; 
+    private List    list;
 
     // private Iterator it; 
 
     @SuppressWarnings("rawtypes")
-	public PageModel(List list, int pageRecorders) { 
+    public PageModel(List list, int pageRecorders) {
         init(list, pageRecorders);// 通过对象集，记录总数划分 
-    } 
-    
-    /** *//** 
-     * 初始化list，并告之该list每页的记录数 
-     * @param list 
-     * @param pageRecorders 
-     */ 
+    }
+
+    /** */
+    /** 
+    * 初始化list，并告之该list每页的记录数 
+    * @param list 
+    * @param pageRecorders 
+    */
     @SuppressWarnings("rawtypes")
-	public void init(List list, int pageRecorders) { 
-        this.pageRecorders = pageRecorders; 
-        this.list = list; 
-        totalRows = list.size(); 
+    public void init(List list, int pageRecorders) {
+        this.pageRecorders = pageRecorders;
+        this.list = list;
+        totalRows = list.size();
         // it = list.iterator(); 
-        hasPreviousPage = false; 
-        if ((totalRows % pageRecorders) == 0) { 
-            totalPages = totalRows / pageRecorders; 
-        } else { 
-            totalPages = totalRows / pageRecorders + 1; 
-        } 
+        hasPreviousPage = false;
+        if ((totalRows % pageRecorders) == 0) {
+            totalPages = totalRows / pageRecorders;
+        } else {
+            totalPages = totalRows / pageRecorders + 1;
+        }
 
-        if (page >= totalPages) { 
-            hasNextPage = false; 
-        } else { 
-            hasNextPage = true; 
-        } 
+        if (page >= totalPages) {
+            hasNextPage = false;
+        } else {
+            hasNextPage = true;
+        }
 
-        if (totalRows < pageRecorders) { 
-            this.pageStartRow = 0; 
-            this.pageEndRow = totalRows; 
-        } else { 
-            this.pageStartRow = 0; 
-            this.pageEndRow = pageRecorders; 
-        } 
-    } 
-
+        if (totalRows < pageRecorders) {
+            this.pageStartRow = 0;
+            this.pageEndRow = totalRows;
+        } else {
+            this.pageStartRow = 0;
+            this.pageEndRow = pageRecorders;
+        }
+    }
 
     // 判断要不要分页 
-    public boolean isNext() { 
-        return list.size() > 5; 
-    } 
+    public boolean isNext() {
+        return list.size() > 5;
+    }
 
-    public void setHasPreviousPage(boolean hasPreviousPage) { 
-        this.hasPreviousPage = hasPreviousPage; 
-    } 
+    public void setHasPreviousPage(boolean hasPreviousPage) {
+        this.hasPreviousPage = hasPreviousPage;
+    }
 
-    public String toString(int temp) { 
-        String str = Integer.toString(temp); 
-        return str; 
-    } 
+    public String toString(int temp) {
+        String str = Integer.toString(temp);
+        return str;
+    }
 
     @SuppressWarnings("unused")
-	public void description() { 
+    @Deprecated
+    public void description() {
 
-        String description = "共有数据数:" + this.getTotalRows() + 
+        String description = "共有数据数:" + this.getTotalRows() +
 
-        "共有页数: " + this.getTotalPages() + 
+        "共有页数: " + this.getTotalPages() +
 
-        "当前页数为:" + this.getPage() + 
+        "当前页数为:" + this.getPage() +
 
-        " 是否有前一页: " + this.isHasPreviousPage() + 
+        " 是否有前一页: " + this.isHasPreviousPage() +
 
-        " 是否有下一页:" + this.isHasNextPage() + 
+        " 是否有下一页:" + this.isHasNextPage() +
 
-        " 开始行数:" + this.getPageStartRow() + 
+        " 开始行数:" + this.getPageStartRow() +
 
-        " 终止行数:" + this.getPageEndRow(); 
+        " 终止行数:" + this.getPageEndRow();
 
-    } 
-
-    @SuppressWarnings("rawtypes")
-	public List getNextPage() { 
-        page = page + 1; 
-
-        disposePage(); 
-
-        this.description(); 
-        return getObjects(page); 
-    } 
-
-    /** *//** 
-     * 处理分页 
-     */ 
-    private void disposePage() { 
-
-        if (page == 0) { 
-            page = 1; 
-        } 
-
-        if ((page - 1) > 0) { 
-            hasPreviousPage = true; 
-        } else { 
-            hasPreviousPage = false; 
-        } 
-
-        if (page >= totalPages) { 
-            hasNextPage = false; 
-        } else { 
-            hasNextPage = true; 
-        } 
-    } 
+    }
 
     @SuppressWarnings("rawtypes")
-	public List getPreviousPage() { 
+    public List getNextPage() {
+        page = page + 1;
 
-        page = page - 1; 
+        disposePage();
 
-        if ((page - 1) > 0) { 
-            hasPreviousPage = true; 
-        } else { 
-            hasPreviousPage = false; 
-        } 
-        if (page >= totalPages) { 
-            hasNextPage = false; 
-        } else { 
-            hasNextPage = true; 
-        } 
-        this.description(); 
-        return getObjects(page); 
-    } 
+        this.description();
+        return getObjects(page);
+    }
 
-    /** *//** 
-     * 获取第几页的内容 
-     * 
-     * @param page 
-     * @return 
-     */ 
+    /** */
+    /** 
+    * 处理分页 
+    */
+    private void disposePage() {
+
+        if (page == 0) {
+            page = 1;
+        }
+
+        if ((page - 1) > 0) {
+            hasPreviousPage = true;
+        } else {
+            hasPreviousPage = false;
+        }
+
+        if (page >= totalPages) {
+            hasNextPage = false;
+        } else {
+            hasNextPage = true;
+        }
+    }
+
     @SuppressWarnings("rawtypes")
-	public List getObjects(int page) { 
-        if (page == 0) 
-            this.setPage(1); 
-        else 
-            this.setPage(page); 
-        this.disposePage(); 
+    public List getPreviousPage() {
+
+        page = page - 1;
+
+        if ((page - 1) > 0) {
+            hasPreviousPage = true;
+        } else {
+            hasPreviousPage = false;
+        }
+        if (page >= totalPages) {
+            hasNextPage = false;
+        } else {
+            hasNextPage = true;
+        }
+        this.description();
+        return getObjects(page);
+    }
+
+    /** */
+    /** 
+    * 获取第几页的内容 
+    * 
+    * @param page 
+    * @return 
+    */
+    @SuppressWarnings("rawtypes")
+    public List getObjects(int page) {
+        if (page == 0)
+            this.setPage(1);
+        else
+            this.setPage(page);
+        this.disposePage();
         if (page * pageRecorders < totalRows) {// 判断是否为最后一页 
-            pageEndRow = page * pageRecorders; 
-            pageStartRow = pageEndRow - pageRecorders; 
-        } else { 
-            pageEndRow = totalRows; 
-            pageStartRow = pageRecorders * (totalPages - 1); 
-        } 
+            pageEndRow = page * pageRecorders;
+            pageStartRow = pageEndRow - pageRecorders;
+        } else {
+            pageEndRow = totalRows;
+            pageStartRow = pageRecorders * (totalPages - 1);
+        }
 
-        List objects = null; 
-        if (!list.isEmpty()) { 
-            objects = list.subList(pageStartRow, pageEndRow); 
-        } 
+        List objects = null;
+        if (!list.isEmpty()) {
+            objects = list.subList(pageStartRow, pageEndRow);
+        }
         //this.description(); 
-        return objects; 
-    } 
+        return objects;
+    }
 
     @SuppressWarnings("rawtypes")
-	public List getFistPage() { 
-        if (this.isNext()) { 
-            return list.subList(0, pageRecorders); 
-        } else { 
-            return list; 
-        } 
-    } 
+    public List getFistPage() {
+        if (this.isNext()) {
+            return list.subList(0, pageRecorders);
+        } else {
+            return list;
+        }
+    }
 
-    public boolean isHasNextPage() { 
-        return hasNextPage; 
-    } 
+    public boolean isHasNextPage() {
+        return hasNextPage;
+    }
 
-
-    public void setHasNextPage(boolean hasNextPage) { 
-        this.hasNextPage = hasNextPage; 
-    } 
-
+    public void setHasNextPage(boolean hasNextPage) {
+        this.hasNextPage = hasNextPage;
+    }
 
     @SuppressWarnings("rawtypes")
-	public List getList() { 
-        return list; 
-    } 
-
+    public List getList() {
+        return list;
+    }
 
     @SuppressWarnings("rawtypes")
-	public void setList(List list) { 
-        this.list = list; 
-    } 
+    public void setList(List list) {
+        this.list = list;
+    }
 
+    public int getPage() {
+        return page;
+    }
 
-    public int getPage() { 
-        return page; 
-    } 
+    public void setPage(int page) {
+        this.page = page;
+    }
 
+    public int getPageEndRow() {
+        return pageEndRow;
+    }
 
-    public void setPage(int page) { 
-        this.page = page; 
-    } 
+    public void setPageEndRow(int pageEndRow) {
+        this.pageEndRow = pageEndRow;
+    }
 
+    public int getPageRecorders() {
+        return pageRecorders;
+    }
 
-    public int getPageEndRow() { 
-        return pageEndRow; 
-    } 
+    public void setPageRecorders(int pageRecorders) {
+        this.pageRecorders = pageRecorders;
+    }
 
+    public int getPageStartRow() {
+        return pageStartRow;
+    }
 
-    public void setPageEndRow(int pageEndRow) { 
-        this.pageEndRow = pageEndRow; 
-    } 
+    public void setPageStartRow(int pageStartRow) {
+        this.pageStartRow = pageStartRow;
+    }
 
+    public int getTotalPages() {
+        return totalPages;
+    }
 
-    public int getPageRecorders() { 
-        return pageRecorders; 
-    } 
+    public void setTotalPages(int totalPages) {
+        this.totalPages = totalPages;
+    }
 
+    public int getTotalRows() {
+        return totalRows;
+    }
 
-    public void setPageRecorders(int pageRecorders) { 
-        this.pageRecorders = pageRecorders; 
-    } 
+    public void setTotalRows(int totalRows) {
+        this.totalRows = totalRows;
+    }
 
+    public boolean isHasPreviousPage() {
+        return hasPreviousPage;
+    }
 
-    public int getPageStartRow() { 
-        return pageStartRow; 
-    } 
-
-
-    public void setPageStartRow(int pageStartRow) { 
-        this.pageStartRow = pageStartRow; 
-    } 
-
-
-    public int getTotalPages() { 
-        return totalPages; 
-    } 
-
-
-    public void setTotalPages(int totalPages) { 
-        this.totalPages = totalPages; 
-    } 
-
-
-    public int getTotalRows() { 
-        return totalRows; 
-    } 
-
-
-    public void setTotalRows(int totalRows) { 
-        this.totalRows = totalRows; 
-    } 
-
-
-    public boolean isHasPreviousPage() { 
-        return hasPreviousPage; 
-    } 
-
-} 
-
+}
