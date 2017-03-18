@@ -11,6 +11,10 @@ public class Operation {
 	 * 用户操作页码
 	 */
 	public enum Page {
+		hologramSearch("企业全息信息查询平台", "/hologram/search.do"),
+		enterprisehologram("公司全息页面", "/offlineFinance/queryDynamicPicDataRealTime.do"),
+		realCtrl("实时监测页面", "/realTimeMonitor/spectrumAnalysis.do"),
+
 		blank("", ""), home("首页", "/getSysAnalyze.do"), borrow("网络借贷", "/PToPMonitor/platRankData.do"),
 		licai("线下理财", "/risk/getScanner.do"), loan("小额借贷", "/loan/areaStatistic.do"), guarantee("融资担保", "/guarantee/areaStatistic.do"),
 		privateFund("私募基金", "/privateFund/qflpInfoList.do"), exchange("交易场所", "/exchangeCompany/exchangeCompanyCategory.do"),

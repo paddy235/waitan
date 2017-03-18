@@ -5,6 +5,8 @@ import javax.servlet.http.HttpSession;
 
 import com.bbd.wtyh.domain.AreaDO;
 import com.bbd.wtyh.domain.UserInfoTableDo;
+import com.bbd.wtyh.log.user.Operation;
+import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.service.AreaService;
 import com.bbd.wtyh.service.RoleResourceService;
 import com.bbd.wtyh.service.UserInfoService;
@@ -49,6 +51,7 @@ public class LoginController {
 
 	@RequestMapping("/login")
 	@ResponseBody
+	@LogRecord(logMsg = "后台用户“%s”登录", params ={"name"}, page = Operation.Page.home, type = Operation.Type.query, before = true)
 	public Object login(@RequestParam String name,@RequestParam String password,HttpServletRequest request){
 		Map map=null;
 		UsernamePasswordToken token = new UsernamePasswordToken(name, password);
