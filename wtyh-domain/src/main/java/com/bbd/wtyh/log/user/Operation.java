@@ -11,12 +11,14 @@ public class Operation {
 	 * 用户操作页码
 	 */
 	public enum Page {
-		blank("", ""), home("首页", "/getSysAnalyze.do"), borrow("网络借贷", "/PToPMonitor/platRankData.do"),
-		licai("线下理财", "/risk/getScanner.do"), loan("小额借贷", "/loan/areaStatistic.do"), guarantee("融资担保", "/guarantee/areaStatistic.do"),
-		privateFund("私募基金", "/privateFund/qflpInfoList.do"), exchange("交易场所", "/exchangeCompany/exchangeCompanyCategory.do"),
-		crowdFunding("众筹", "/crowdFunding/distribute.do"), pawn("典当", "/mortgage/companyList.do"),
-		financeLease("融资租赁", "/financeLease/leaseCompanyStatistic.do"), factoring("商业保理", "/factoring/companys.do"),
-		prepaid("预付卡", "/prepaid/amount.do");
+
+		blank("", ""), home("首页", "/getSysAnalyze.do"), borrow("网络借贷", "/PToPMonitor/platRankData.do"), licaiHome("线下理财", ""),
+		licaiRisk("理财风险页面", "/offlineFinance/companyInfo.do"), loan("小额借贷", "/loan/areaStatistic.do"),
+		guarantee("融资担保", "/guarantee/areaStatistic.do"), privateFund("私募基金", "/privateFund/qflpInfoList.do"),
+		exchange("交易场所", "/exchangeCompany/exchangeCompanyCategory.do"), crowdFunding("众筹", "/crowdFunding/distribute.do"),
+		pawn("典当", "/mortgage/companyList.do"), financeLease("融资租赁", "/financeLease/leaseCompanyStatistic.do"),
+		factoring("商业保理", "/factoring/companys.do"), prepaid("预付卡", "/prepaid/amount.do"), platform("网贷平台", "/P2PImage/platFormStatus.do"),
+		hologram("全息信息页面", ""), realCtrl("实时监测页面", "/realTimeMonitor/spectrumAnalysis.do"), park("园区监测", ""), building("楼宇页面", "");
 
 		/** 页面 */
 		private String page;

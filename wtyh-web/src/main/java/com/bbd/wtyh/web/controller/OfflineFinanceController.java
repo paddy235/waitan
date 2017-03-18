@@ -60,500 +60,491 @@ import com.bbd.wtyh.web.relationVO.RelationDiagramVO;
 @RequestMapping("/offlineFinance/")
 public class OfflineFinanceController {
 
-    private static final Logger      logger = LoggerFactory
-        .getLogger(OfflineFinanceController.class);
+	private static final Logger logger = LoggerFactory.getLogger(OfflineFinanceController.class);
 
-    @Autowired
-    private OfflineFinanceService    offlineFinanceService;
-    @Autowired
-    private RelationDataService      relationDataService;
-    @Autowired
-    private PToPMonitorService       pToPMonitorService;
-    @Autowired
-    private PToPMonitorController    pToPMonitorController;
-    @Autowired
-    private LoanController           loanController;
-    @Autowired
-    private MortgageController       mortgageController;
-    @Autowired
-    private FactoringService         factoringService;
-    @Autowired
-    private FactoringController      factoringController;
-    @Autowired
-    private CrowdFundingController   crowdFundingController;
-    @Autowired
-    private PrepaidCompanyController prepaidCompanyController;
-    @Autowired
-    private FinanceLeaseController   financeLeaseController;
-    @Autowired
-    private PrivateFundService       privateFundService;
-    @Autowired
-    private ExchangeCompanyService   exchangeCompanyService;
-    @Autowired
-    private MortgageService          mortgageService;
-    @Autowired
-    private GuaranteeController      guaranteeController;
+	@Autowired
+	private OfflineFinanceService offlineFinanceService;
+	@Autowired
+	private RelationDataService relationDataService;
+	@Autowired
+	private PToPMonitorService pToPMonitorService;
+	@Autowired
+	private PToPMonitorController pToPMonitorController;
+	@Autowired
+	private LoanController loanController;
+	@Autowired
+	private MortgageController mortgageController;
+	@Autowired
+	private FactoringService factoringService;
+	@Autowired
+	private FactoringController factoringController;
+	@Autowired
+	private CrowdFundingController crowdFundingController;
+	@Autowired
+	private PrepaidCompanyController prepaidCompanyController;
+	@Autowired
+	private FinanceLeaseController financeLeaseController;
+	@Autowired
+	private PrivateFundService privateFundService;
+	@Autowired
+	private ExchangeCompanyService exchangeCompanyService;
+	@Autowired
+	private MortgageService mortgageService;
+	@Autowired
+	private GuaranteeController guaranteeController;
 
-    @Autowired
-    private HologramQueryService     hologramQueryService;
+	@Autowired
+	private HologramQueryService hologramQueryService;
 
-    /**
-     * 关联图谱
-     *
-     * @param request
-     * @return
-     */
-    @RequestMapping(value = "queryDynamicPicData.do")
-    public @ResponseBody ResponseBean queryDynamicPicData(HttpServletRequest request) {
-        String companyName = request.getParameter("companyName");
-        String dataVersion = request.getParameter("dataVersion");
-        String degreesLevel = request.getParameter("degreesLevel");
-        try {
-            if (StringUtils.isEmpty(companyName)) {
-                return ResponseBean.errorResponse("companyName参数为空");
-            }
+	/**
+	 * 关联图谱
+	 *
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "queryDynamicPicData.do")
+	public @ResponseBody ResponseBean queryDynamicPicData(HttpServletRequest request) {
+		String companyName = request.getParameter("companyName");
+		String dataVersion = request.getParameter("dataVersion");
+		String degreesLevel = request.getParameter("degreesLevel");
+		try {
+			if (StringUtils.isEmpty(companyName)) {
+				return ResponseBean.errorResponse("companyName参数为空");
+			}
 
-            if (StringUtils.isEmpty(dataVersion)) {
-                List<String> dataVersionList = relationDataService.queryDateVersion(companyName,
-                    null);
-                if (!CollectionUtils.isEmpty(dataVersionList)) {
-                    dataVersion = dataVersionList.get(0);
-                }
-            } else {
-                dataVersion = getDataVersionString(companyName, dataVersion);
-            }
+			if (StringUtils.isEmpty(dataVersion)) {
+				List<String> dataVersionList = relationDataService.queryDateVersion(companyName, null);
+				if (!CollectionUtils.isEmpty(dataVersionList)) {
+					dataVersion = dataVersionList.get(0);
+				}
+			} else {
+				dataVersion = getDataVersionString(companyName, dataVersion);
+			}
 
-            RelationDiagramVO result = offlineFinanceService.queryRelation(companyName, dataVersion,
-                degreesLevel);
-            if (result == null) {
-                logger.error("无关联方图谱信息 --> 公司[" + companyName + "], dateVersion[" + dataVersion
-                             + "],关联度[" + degreesLevel + "]");
-            }
-            return ResponseBean.successResponse(result);
-        } catch (Exception e) {
-            logger.error("关联方图谱信息解析出错 --> 公司[" + companyName + "], dateVersion[" + dataVersion
-                         + "],关联度[" + degreesLevel + "]");
-            logger.error(e.getMessage(), e);
-            return ResponseBean.errorResponse("关联方图谱信息正在准备中，请稍后尝试");
-        }
-    }
+			RelationDiagramVO result = offlineFinanceService.queryRelation(companyName, dataVersion, degreesLevel);
+			if (result == null) {
+				logger.error("无关联方图谱信息 --> 公司[" + companyName + "], dateVersion[" + dataVersion + "],关联度[" + degreesLevel + "]");
+			}
+			return ResponseBean.successResponse(result);
+		} catch (Exception e) {
+			logger.error("关联方图谱信息解析出错 --> 公司[" + companyName + "], dateVersion[" + dataVersion + "],关联度[" + degreesLevel + "]");
+			logger.error(e.getMessage(), e);
+			return ResponseBean.errorResponse("关联方图谱信息正在准备中，请稍后尝试");
+		}
+	}
 
-    /**
-     * 关联图谱 - 查询(用去全息公司不带版本号)
-     *
-     * @param companyName 公司name
-     * @param degreesLevel 关联度(默认1)
-     * @return
-     */
-    @RequestMapping(value = "/queryDynamicPicDataRealTime.do")
-    @ResponseBody
-    @LogRecord(logMsg = "访问“%s”公司全息页面", params ={"companyName"}, page = Operation.Page.home, type = Operation.Type.query, before = true)
-    public ResponseBean queryDynamicPicDataTwo(@RequestParam String companyName,
-                                               @RequestParam(defaultValue = "1") Integer degreesLevel) {
-        try {
-            RelationDiagramVO result = offlineFinanceService.queryRealRealation(companyName,
-                degreesLevel);
-            return ResponseBean.successResponse(result);
-        } catch (Exception e) {
-            logger.error("RelationController->queryDynamicPicDataTwo", e);
-            return ResponseBean.errorResponse("关联方图谱信息正在准备中，请稍后尝试");
-        }
-    }
+	/**
+	 * 关联图谱 - 查询(用去全息公司不带版本号)
+	 *
+	 * @param companyName
+	 *            公司name
+	 * @param degreesLevel
+	 *            关联度(默认1)
+	 * @return
+	 */
+	@RequestMapping(value = "/queryDynamicPicDataRealTime.do")
+	@ResponseBody
+	public ResponseBean queryDynamicPicDataTwo(@RequestParam String companyName, @RequestParam(defaultValue = "1") Integer degreesLevel) {
+		try {
+			RelationDiagramVO result = offlineFinanceService.queryRealRealation(companyName, degreesLevel);
+			return ResponseBean.successResponse(result);
+		} catch (Exception e) {
+			logger.error("RelationController->queryDynamicPicDataTwo", e);
+			return ResponseBean.errorResponse("关联方图谱信息正在准备中，请稍后尝试");
+		}
+	}
 
-    /**
-     * 风险指数趋势变化图
-     *
-     * @param request
-     * @return
-     * @throws ParseException
-     */
-    @RequestMapping(value = "queryStatistics.do")
-    @ResponseBody
-    public List<StatisticsVO> queryStatistics(HttpServletRequest request) throws ParseException {
-        String companyName = request.getParameter("companyName");
-        String tabIndex = request.getParameter("tabIndex");
-        String areaCode = request.getParameter("areaCode");
-        return offlineFinanceService.queryStatistics(companyName, tabIndex, areaCode);
-    }
+	/**
+	 * 风险指数趋势变化图
+	 *
+	 * @param request
+	 * @return
+	 * @throws ParseException
+	 */
+	@RequestMapping(value = "queryStatistics.do")
+	@ResponseBody
 
-    /**
-     * 风险指数趋势变化图综合接口
-     *
-     * @param companyName 公司名称
-     * @param areaCode 区域代码
-     * @return Map<String,Object>
-     * @throws ParseException
-     * @author suyin
-     */
-    @RequestMapping(value = "queryStatisticsMultiple.do")
-    @ResponseBody
-    public Map<String, Object> queryStatisticsMultiple(String companyName,
-                                                       String areaCode) throws ParseException {
+	public List<StatisticsVO> queryStatistics(HttpServletRequest request) throws ParseException {
+		String companyName = request.getParameter("companyName");
+		String tabIndex = request.getParameter("tabIndex");
+		String areaCode = request.getParameter("areaCode");
+		return offlineFinanceService.queryStatistics(companyName, tabIndex, areaCode);
+	}
 
-        Map<String, Object> map = new HashMap<>();
-        for (int tabIndex = 0; tabIndex < 8; tabIndex++) {
-            Object o = offlineFinanceService.queryStatistics(companyName, "" + tabIndex, areaCode);
-            map.put("tabIndex" + tabIndex, o);
-        }
+	/**
+	 * 风险指数趋势变化图综合接口
+	 *
+	 * @param companyName
+	 *            公司名称
+	 * @param areaCode
+	 *            区域代码
+	 * @return Map<String,Object>
+	 * @throws ParseException
+	 * @author suyin
+	 */
+	@RequestMapping(value = "queryStatisticsMultiple.do")
+	@ResponseBody
+	public Map<String, Object> queryStatisticsMultiple(String companyName, String areaCode) throws ParseException {
 
-        return map;
-    }
+		Map<String, Object> map = new HashMap<>();
+		for (int tabIndex = 0; tabIndex < 8; tabIndex++) {
+			Object o = offlineFinanceService.queryStatistics(companyName, "" + tabIndex, areaCode);
+			map.put("tabIndex" + tabIndex, o);
+		}
 
-    /**
-     * 静态风险指数列表
-     * currentDate 2016-04-07
-     * @param request
-     * @return
-     */
-    @RequestMapping(value = "queryRiskData.do")
-    @ResponseBody
-    public ResponseBean queryRiskData(HttpServletRequest request) {
-        String companyName = request.getParameter("companyName");
-        String currentDate = request.getParameter("currentDate");
-        String areaCode = request.getParameter("areaCode");
-        StaticRiskVO vo = offlineFinanceService.queryCurrentStaticRisk(companyName, currentDate,
-            areaCode);
-        return ResponseBean.successResponse(vo);
-    }
+		return map;
+	}
 
-    /**
-     * 动态指数时间轴对比图
-     *
-     * @param companyName
-     * @param month
-     * @param response
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping(value = "showYEDData.do")
-    @ResponseBody
-    public ResponseBean showYEDData(String companyName, String month,
-                                    HttpServletResponse response) throws Exception {
-        if (StringUtils.isEmpty(companyName)) {
-            return ResponseBean.errorResponse("companyName参数为空");
-        }
-        if (StringUtils.isEmpty(month)) {
-            return ResponseBean.errorResponse("month参数为空");
-        }
-        month = getDataVersionString(companyName, month);
+	/**
+	 * 静态风险指数列表 currentDate 2016-04-07
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "queryRiskData.do")
+	@ResponseBody
+	public ResponseBean queryRiskData(HttpServletRequest request) {
+		String companyName = request.getParameter("companyName");
+		String currentDate = request.getParameter("currentDate");
+		String areaCode = request.getParameter("areaCode");
+		StaticRiskVO vo = offlineFinanceService.queryCurrentStaticRisk(companyName, currentDate, areaCode);
+		return ResponseBean.successResponse(vo);
+	}
 
-        try {
-            return ResponseBean
-                .successResponse(offlineFinanceService.createYED(companyName, month));
-        } catch (Exception e) {
-            logger.error("生成关联方图片", "无关联方数据", companyName, month);
-            return ResponseBean.errorResponse(e.getMessage());
-        }
+	/**
+	 * 动态指数时间轴对比图
+	 *
+	 * @param companyName
+	 * @param month
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "showYEDData.do")
+	@ResponseBody
+	public ResponseBean showYEDData(String companyName, String month, HttpServletResponse response) throws Exception {
+		if (StringUtils.isEmpty(companyName)) {
+			return ResponseBean.errorResponse("companyName参数为空");
+		}
+		if (StringUtils.isEmpty(month)) {
+			return ResponseBean.errorResponse("month参数为空");
+		}
+		month = getDataVersionString(companyName, month);
 
-    }
+		try {
+			return ResponseBean.successResponse(offlineFinanceService.createYED(companyName, month));
+		} catch (Exception e) {
+			logger.error("生成关联方图片", "无关联方数据", companyName, month);
+			return ResponseBean.errorResponse(e.getMessage());
+		}
 
-    /**
-     * 企业关联方特征指数对比
-     *
-     * @param request
-     * @param response
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping(value = "dynamicRiskData.do")
-    @ResponseBody
-    public ResponseBean dynamicRiskData(HttpServletRequest request,
-                                        HttpServletResponse response) throws Exception {
-        String companyName = request.getParameter("companyName");
-        String areaCode = request.getParameter("areaCode");
-        String keyword = request.getParameter("kw");
-        if (org.apache.commons.lang.StringUtils.isEmpty(companyName)) {
-            throw new Exception("公司名传入为空");
-        }
-        String currentMonth = request.getParameter("currentMonth");
-        String compareMonth = request.getParameter("compareMonth");
-        if (!StringUtils.isEmpty(currentMonth) && !StringUtils.isEmpty(compareMonth)) {
-            currentMonth = getDataVersionString(companyName, currentMonth);
-            compareMonth = getDataVersionString(companyName, compareMonth);
-        }
-        List<String> dataVersionList = null;
-        dataVersionList = relationDataService.queryDateVersion(companyName, areaCode);
-        List<MonthVO> monthList = new ArrayList<MonthVO>();
-        if (StringUtils.isEmpty(currentMonth) && StringUtils.isEmpty(compareMonth)) {
-            if (dataVersionList.size() > 1) {
-                currentMonth = dataVersionList.get(0);
-                compareMonth = dataVersionList.get(1);
-            } else if (dataVersionList.size() == 1) {
-                currentMonth = dataVersionList.get(0);
-                compareMonth = dataVersionList.get(0);
-            } else if (dataVersionList.size() < 1) {
-                throw new Exception("对不起，该公司数据不完整");
-            }
-        }
-        Map tempMap = new HashMap();
-        for (int i = 0; i < dataVersionList.size(); i++) {
-            MonthVO m = new MonthVO();
-            String month = getMonth(dataVersionList.get(i));
-            if (tempMap.get(month) == null) {
-                tempMap.put(month, month);
-                m.setKey(month);
-                m.setValue(dataVersionList.get(i));
-                monthList.add(m);
-            }
-        }
-        //比较两个月份的关联方数据
-        RelationDataVO vo = relationDataService.compareRelationData(companyName, areaCode,
-            currentMonth, compareMonth);
-        //比较两个月动态风险指标结果
-        DynamicRiskVO riskvo = relationDataService.compareDynamicRisk(companyName, areaCode,
-            currentMonth, compareMonth);
-        Map result = new HashedMap();
-        result.put("companyName", companyName);
-        result.put("relationData", vo);
-        result.put("monthList", monthList);
-        result.put("currentMonth", currentMonth);
-        result.put("compareMonth", compareMonth);
-        result.put("current", getMonth(vo.getCurrentMonth()));
-        result.put("compare", getMonth(vo.getCompareMonth()));
-        result.put("dynamicRisk", riskvo);
-        result.put("keyword", keyword);
-        return ResponseBean.successResponse(result);
-    }
+	}
 
-    /**
-     * 公司舆情
-     *
-     * @return
-     */
-    @SuppressWarnings("companyNews")
-    @RequestMapping("companyNews.do")
-    @ResponseBody
-    public ResponseBean companyNews(String companyName) {
-        // String data = offlineFinanceService.companyNews(companyName);
+	/**
+	 * 企业关联方特征指数对比
+	 *
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "dynamicRiskData.do")
+	@ResponseBody
+	public ResponseBean dynamicRiskData(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String companyName = request.getParameter("companyName");
+		String areaCode = request.getParameter("areaCode");
+		String keyword = request.getParameter("kw");
+		if (org.apache.commons.lang.StringUtils.isEmpty(companyName)) {
+			throw new Exception("公司名传入为空");
+		}
+		String currentMonth = request.getParameter("currentMonth");
+		String compareMonth = request.getParameter("compareMonth");
+		if (!StringUtils.isEmpty(currentMonth) && !StringUtils.isEmpty(compareMonth)) {
+			currentMonth = getDataVersionString(companyName, currentMonth);
+			compareMonth = getDataVersionString(companyName, compareMonth);
+		}
+		List<String> dataVersionList = null;
+		dataVersionList = relationDataService.queryDateVersion(companyName, areaCode);
+		List<MonthVO> monthList = new ArrayList<MonthVO>();
+		if (StringUtils.isEmpty(currentMonth) && StringUtils.isEmpty(compareMonth)) {
+			if (dataVersionList.size() > 1) {
+				currentMonth = dataVersionList.get(0);
+				compareMonth = dataVersionList.get(1);
+			} else if (dataVersionList.size() == 1) {
+				currentMonth = dataVersionList.get(0);
+				compareMonth = dataVersionList.get(0);
+			} else if (dataVersionList.size() < 1) {
+				throw new Exception("对不起，该公司数据不完整");
+			}
+		}
+		Map tempMap = new HashMap();
+		for (int i = 0; i < dataVersionList.size(); i++) {
+			MonthVO m = new MonthVO();
+			String month = getMonth(dataVersionList.get(i));
+			if (tempMap.get(month) == null) {
+				tempMap.put(month, month);
+				m.setKey(month);
+				m.setValue(dataVersionList.get(i));
+				monthList.add(m);
+			}
+		}
+		// 比较两个月份的关联方数据
+		RelationDataVO vo = relationDataService.compareRelationData(companyName, areaCode, currentMonth, compareMonth);
+		// 比较两个月动态风险指标结果
+		DynamicRiskVO riskvo = relationDataService.compareDynamicRisk(companyName, areaCode, currentMonth, compareMonth);
+		Map result = new HashedMap();
+		result.put("companyName", companyName);
+		result.put("relationData", vo);
+		result.put("monthList", monthList);
+		result.put("currentMonth", currentMonth);
+		result.put("compareMonth", compareMonth);
+		result.put("current", getMonth(vo.getCurrentMonth()));
+		result.put("compare", getMonth(vo.getCompareMonth()));
+		result.put("dynamicRisk", riskvo);
+		result.put("keyword", keyword);
+		return ResponseBean.successResponse(result);
+	}
 
-        Object data = hologramQueryService.newsConsensusList(companyName);
+	/**
+	 * 公司舆情
+	 *
+	 * @return
+	 */
+	@SuppressWarnings("companyNews")
+	@RequestMapping("companyNews.do")
+	@ResponseBody
+	public ResponseBean companyNews(String companyName) {
+		// String data = offlineFinanceService.companyNews(companyName);
 
-        return ResponseBean.successResponse(data);
-    }
+		Object data = hologramQueryService.newsConsensusList(companyName);
 
-    /**
-     * 静态风险指数构成
-     *
-     * @param companyName
-     * @return
-     */
-    @RequestMapping("staticRiskIndex.do")
-    @ResponseBody
-    public ResponseBean staticRiskIndex(String companyName) {
-        Map data = offlineFinanceService.staticRiskIndex(companyName);
-        return ResponseBean.successResponse(data);
-    }
+		return ResponseBean.successResponse(data);
+	}
 
-    /**
-     * 公司标签
-     *
-     * @return
-     */
-    @SuppressWarnings("companyInfo")
-    @RequestMapping("companyInfo.do")
-    @ResponseBody
-    public ResponseBean companyInfo(String companyName) {
-        Map data = offlineFinanceService.companyInfo(companyName);
-        return ResponseBean.successResponse(data);
-    }
+	/**
+	 * 静态风险指数构成
+	 *
+	 * @param companyName
+	 * @return
+	 */
+	@RequestMapping("staticRiskIndex.do")
+	@ResponseBody
+	@LogRecord(logMsg = "浏览【%s】风险页面", params = { "companyName" }, page = Operation.Page.licaiRisk)
+	public ResponseBean staticRiskIndex(String companyName) {
+		Map data = offlineFinanceService.staticRiskIndex(companyName);
+		return ResponseBean.successResponse(data);
+	}
 
-    /**
-     * 数据版本
-     *
-     * @return
-     */
-    @SuppressWarnings("queryDateVersion")
-    @RequestMapping("queryDateVersion.do")
-    @ResponseBody
-    public ResponseBean queryDateVersion(String companyName, String areaCode, Integer isDeal) {
-        List<String> dataVersionList = relationDataService.queryDateVersion(companyName, areaCode);
-        if (isDeal != null && isDeal == 1) {
-            return ResponseBean.successResponse(dataVersionList);
-        }
-        Map<String, String> result = new LinkedHashMap();
-        if (!CollectionUtils.isEmpty(dataVersionList)) {
-            for (String string : dataVersionList) {
-                if (!StringUtils.isEmpty(string)) {
-                    StringBuilder sb = new StringBuilder();
-                    sb.append(string.substring(0, 4)).append("-").append(string.substring(4, 6));
-                    result.put(sb.toString(), sb.toString());
-                }
-            }
-        }
-        return ResponseBean.successResponse(result.values());
-    }
+	/**
+	 * 公司标签
+	 *
+	 * @return
+	 */
+	@SuppressWarnings("companyInfo")
+	@RequestMapping("companyInfo.do")
+	@ResponseBody
+	public ResponseBean companyInfo(String companyName) {
+		Map data = offlineFinanceService.companyInfo(companyName);
+		return ResponseBean.successResponse(data);
+	}
 
-    /**
-     * @param dataVersionString
-     * @return
-     */
-    public String getMonth(String dataVersionString) {
-        SimpleDateFormat dateformat = new SimpleDateFormat("yyyyMMdd");
-        SimpleDateFormat dateformat1 = new SimpleDateFormat("yyyy-MM");
-        Date date = null;
-        try {
-            date = dateformat.parse(dataVersionString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        String month = dateformat1.format(date);
-        return month;
-    }
+	/**
+	 * 数据版本
+	 *
+	 * @return
+	 */
+	@SuppressWarnings("queryDateVersion")
+	@RequestMapping("queryDateVersion.do")
+	@ResponseBody
+	public ResponseBean queryDateVersion(String companyName, String areaCode, Integer isDeal) {
+		List<String> dataVersionList = relationDataService.queryDateVersion(companyName, areaCode);
+		if (isDeal != null && isDeal == 1) {
+			return ResponseBean.successResponse(dataVersionList);
+		}
+		Map<String, String> result = new LinkedHashMap();
+		if (!CollectionUtils.isEmpty(dataVersionList)) {
+			for (String string : dataVersionList) {
+				if (!StringUtils.isEmpty(string)) {
+					StringBuilder sb = new StringBuilder();
+					sb.append(string.substring(0, 4)).append("-").append(string.substring(4, 6));
+					result.put(sb.toString(), sb.toString());
+				}
+			}
+		}
+		return ResponseBean.successResponse(result.values());
+	}
 
-    /**
-     * @param dataVersionString 格式yyyy-MM
-     * @return
-     */
-    public String getDataVersionString(String companyName, String dataVersionString) {
-        if (!StringUtils.isEmpty(dataVersionString)) {
-            dataVersionString = dataVersionString.replace("-", "");
-        }
-        String dataVersion = relationDataService.queryDateVersionByMonth(companyName,
-            dataVersionString);
-        return dataVersion;
-    }
+	/**
+	 * @param dataVersionString
+	 * @return
+	 */
+	public String getMonth(String dataVersionString) {
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyyMMdd");
+		SimpleDateFormat dateformat1 = new SimpleDateFormat("yyyy-MM");
+		Date date = null;
+		try {
+			date = dateformat.parse(dataVersionString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		String month = dateformat1.format(date);
+		return month;
+	}
 
-    /**
-     * 行业监测
-     *
-     * @return
-     */
-    @RequestMapping("businessChartShow.do")
-    @ResponseBody
-    public ResponseBean businessChartShow() {
-        //小贷
-        ResponseBean loanResponseBean = loanController.balanceByQuarter();
+	/**
+	 * @param dataVersionString
+	 *            格式yyyy-MM
+	 * @return
+	 */
+	public String getDataVersionString(String companyName, String dataVersionString) {
+		if (!StringUtils.isEmpty(dataVersionString)) {
+			dataVersionString = dataVersionString.replace("-", "");
+		}
+		String dataVersion = relationDataService.queryDateVersionByMonth(companyName, dataVersionString);
+		return dataVersion;
+	}
 
-        //私募
-        List<CapitalAmountDO> capitalAmountList = privateFundService.capitalAmount();
-        @SuppressWarnings("unchecked")
-        XAxisSeriesLinesBean<String, String> privateDTO = new XAxisSeriesLinesBean<>(
-            new ArrayList<String>(), new ArrayList<String>());
+	/**
+	 * 行业监测
+	 *
+	 * @return
+	 */
+	@RequestMapping("businessChartShow.do")
+	@ResponseBody
+	public ResponseBean businessChartShow() {
+		// 小贷
+		ResponseBean loanResponseBean = loanController.balanceByQuarter();
 
-        for (CapitalAmountDO capitalAmountDO : capitalAmountList) {
-            privateDTO.getxAxis()
-                .add(privateFundService.getTypeById(capitalAmountDO.getTypeId()).getTypeName());
-            privateDTO.getSeries()[0]
-                .add(CalculateUtils.decimalFormat(capitalAmountDO.getManagedCapitalAmount()));
-            privateDTO.getSeries()[1].add(capitalAmountDO.getPublishCompanyNumber().toString());
-        }
-        //p2p
-        XAxisSeriesBarLineBean<Integer, String> pToPMonitorResponseBean = new XAxisSeriesBarLineBean<>();
-        try {
-            List<IndustryShanghaiDTO> list = pToPMonitorService.getData();
-            XAxisSeriesBarLineBean<Integer, String> data = new XAxisSeriesBarLineBean<>();
-            data.setTitle("上海新增平台发展趋势");
-            if (!CollectionUtils.isEmpty(list)) {
-                Map<String, Integer[]> map = new TreeMap<>();
-                for (IndustryShanghaiDTO dto : list) {
-                    Integer[] as = map.get(dto.getSeason());
-                    if (as == null) {
-                        as = new Integer[] { 0, 0 };
-                    }
-                    as[0] += dto.getTotal_plat_num();
-                    as[1] += dto.getNew_plat_num();
-                    map.put(dto.getSeason(), as);
-                }
-                data.getxAxis().addAll(map.keySet());
+		// 私募
+		List<CapitalAmountDO> capitalAmountList = privateFundService.capitalAmount();
+		@SuppressWarnings("unchecked")
+		XAxisSeriesLinesBean<String, String> privateDTO = new XAxisSeriesLinesBean<>(new ArrayList<String>(), new ArrayList<String>());
 
-                Iterator<Integer[]> it = map.values().iterator();
-                while (it.hasNext()) {
-                    Integer[] newTot = it.next();
-                    data.getSeries().getBar().add(newTot[0]);
-                    data.getSeries().getLine().add(newTot[1]);
-                }
-            }
+		for (CapitalAmountDO capitalAmountDO : capitalAmountList) {
+			privateDTO.getxAxis().add(privateFundService.getTypeById(capitalAmountDO.getTypeId()).getTypeName());
+			privateDTO.getSeries()[0].add(CalculateUtils.decimalFormat(capitalAmountDO.getManagedCapitalAmount()));
+			privateDTO.getSeries()[1].add(capitalAmountDO.getPublishCompanyNumber().toString());
+		}
+		// p2p
+		XAxisSeriesBarLineBean<Integer, String> pToPMonitorResponseBean = new XAxisSeriesBarLineBean<>();
+		try {
+			List<IndustryShanghaiDTO> list = pToPMonitorService.getData();
+			XAxisSeriesBarLineBean<Integer, String> data = new XAxisSeriesBarLineBean<>();
+			data.setTitle("上海新增平台发展趋势");
+			if (!CollectionUtils.isEmpty(list)) {
+				Map<String, Integer[]> map = new TreeMap<>();
+				for (IndustryShanghaiDTO dto : list) {
+					Integer[] as = map.get(dto.getSeason());
+					if (as == null) {
+						as = new Integer[] { 0, 0 };
+					}
+					as[0] += dto.getTotal_plat_num();
+					as[1] += dto.getNew_plat_num();
+					map.put(dto.getSeason(), as);
+				}
+				data.getxAxis().addAll(map.keySet());
 
-            pToPMonitorResponseBean = data;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        //融资租赁
-        ResponseBean financeLeaseResponseBean = financeLeaseController.leaseCompanyStatistic();
-        //交易场所分类
-        List<Map> exchangeCompanyData = exchangeCompanyService.exchangeCompanyCategory();
-        HistogramBean<String, String> exchangeCompanyBean = new HistogramBean<>();
+				Iterator<Integer[]> it = map.values().iterator();
+				while (it.hasNext()) {
+					Integer[] newTot = it.next();
+					data.getSeries().getBar().add(newTot[0]);
+					data.getSeries().getLine().add(newTot[1]);
+				}
+			}
 
-        for (Map map : exchangeCompanyData) {
-            exchangeCompanyBean.getxAxis().add(map.keySet().iterator().next().toString());
-            exchangeCompanyBean.getseries().add(map.values().iterator().next().toString());
-        }
-        //众筹平台
-        ResponseBean crowdFundingResponseBean = crowdFundingController.newlyProject();
-        //典当
-        ResponseBean mortgageResponseBean = mortgageController.statisticList();
-        List<MortgageStatisticDO> mortgageList = mortgageService.getMortgageStatisticList();
-        @SuppressWarnings("unchecked")
-        XAxisSeriesLinesBean<String, String> mortgageDTO = new XAxisSeriesLinesBean<>(
-            new ArrayList<String>(), new ArrayList<String>());
-        if (!CollectionUtils.isEmpty(mortgageList)) {
-            for (int k = mortgageList.size() - 1; k > -1; k--) {
-                MortgageStatisticDO mortgageStatisticDO = mortgageList.get(k);
-                mortgageDTO.getxAxis().add(mortgageStatisticDO.getYear().toString());
-                mortgageDTO.getSeries()[0].add(mortgageStatisticDO.getNumber().toString());
-                mortgageDTO.getSeries()[1].add(mortgageStatisticDO.getTotalAmout().toString());
-            }
-        }
-        //商业保理
-        Object factoringObject = factoringController.countCapitalBySeason();
-        //预付卡
-        ResponseBean prepaidCompanyResponseBean = prepaidCompanyController.amount();
-        //
-        Map result = new LinkedHashMap();
-        result.put("loan", loanResponseBean);
-        result.put("private", privateDTO);
-        result.put("p2p", pToPMonitorResponseBean);
-        result.put("finance", financeLeaseResponseBean.getContent());
-        result.put("exchange", exchangeCompanyBean);
-        result.put("crowd", crowdFundingResponseBean.getContent());
-        result.put("mortgage", mortgageDTO);
-        result.put("factoring", factoringObject);
-        result.put("prepaid", prepaidCompanyResponseBean.getContent());
-        result.put("guarantee", guaranteeController.balanceByQuarter());
-        return ResponseBean.successResponse(result);
-    }
+			pToPMonitorResponseBean = data;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// 融资租赁
+		ResponseBean financeLeaseResponseBean = financeLeaseController.leaseCompanyStatistic();
+		// 交易场所分类
+		List<Map> exchangeCompanyData = exchangeCompanyService.exchangeCompanyCategory();
+		HistogramBean<String, String> exchangeCompanyBean = new HistogramBean<>();
 
-    /**
-     * 更新企业光谱分析结果
-     * @return
-     */
-    @RequestMapping("updateCompanyRiskLevel.do")
-    @ResponseBody
-    public ResponseBean updateCompanyRiskLevel() {
-        offlineFinanceService.updateCompanyRiskLevel();
-        return ResponseBean.successResponse("更新成功");
-    }
+		for (Map map : exchangeCompanyData) {
+			exchangeCompanyBean.getxAxis().add(map.keySet().iterator().next().toString());
+			exchangeCompanyBean.getseries().add(map.values().iterator().next().toString());
+		}
+		// 众筹平台
+		ResponseBean crowdFundingResponseBean = crowdFundingController.newlyProject();
+		// 典当
+		ResponseBean mortgageResponseBean = mortgageController.statisticList();
+		List<MortgageStatisticDO> mortgageList = mortgageService.getMortgageStatisticList();
+		@SuppressWarnings("unchecked")
+		XAxisSeriesLinesBean<String, String> mortgageDTO = new XAxisSeriesLinesBean<>(new ArrayList<String>(), new ArrayList<String>());
+		if (!CollectionUtils.isEmpty(mortgageList)) {
+			for (int k = mortgageList.size() - 1; k > -1; k--) {
+				MortgageStatisticDO mortgageStatisticDO = mortgageList.get(k);
+				mortgageDTO.getxAxis().add(mortgageStatisticDO.getYear().toString());
+				mortgageDTO.getSeries()[0].add(mortgageStatisticDO.getNumber().toString());
+				mortgageDTO.getSeries()[1].add(mortgageStatisticDO.getTotalAmout().toString());
+			}
+		}
+		// 商业保理
+		Object factoringObject = factoringController.countCapitalBySeason();
+		// 预付卡
+		ResponseBean prepaidCompanyResponseBean = prepaidCompanyController.amount();
+		//
+		Map result = new LinkedHashMap();
+		result.put("loan", loanResponseBean);
+		result.put("private", privateDTO);
+		result.put("p2p", pToPMonitorResponseBean);
+		result.put("finance", financeLeaseResponseBean.getContent());
+		result.put("exchange", exchangeCompanyBean);
+		result.put("crowd", crowdFundingResponseBean.getContent());
+		result.put("mortgage", mortgageDTO);
+		result.put("factoring", factoringObject);
+		result.put("prepaid", prepaidCompanyResponseBean.getContent());
+		result.put("guarantee", guaranteeController.balanceByQuarter());
+		return ResponseBean.successResponse(result);
+	}
 
-    /**
-     * 更新index_data静态风险指数+本地模型
-     * @return
-     */
-    @RequestMapping("updateIndexData.do")
-    @ResponseBody
-    public ResponseBean updateIndexData(String companyName) {
-        offlineFinanceService.updateIndexData(companyName);
-        return ResponseBean.successResponse("更新成功");
-    }
+	/**
+	 * 更新企业光谱分析结果
+	 * 
+	 * @return
+	 */
+	@RequestMapping("updateCompanyRiskLevel.do")
+	@ResponseBody
+	public ResponseBean updateCompanyRiskLevel() {
+		offlineFinanceService.updateCompanyRiskLevel();
+		return ResponseBean.successResponse("更新成功");
+	}
 
-    /**
-     * 更新static_risk_data静态风险指数+本地模型
-     * @return
-     */
-    @RequestMapping("updateStaticRiskData.do")
-    @ResponseBody
-    public ResponseBean updateStaticRiskData(String companyName, String dataVersion) {
-        offlineFinanceService.updateStaticRiskData(companyName, dataVersion);
-        return ResponseBean.successResponse("更新成功");
-    }
+	/**
+	 * 更新index_data静态风险指数+本地模型
+	 * 
+	 * @return
+	 */
+	@RequestMapping("updateIndexData.do")
+	@ResponseBody
+	public ResponseBean updateIndexData(String companyName) {
+		offlineFinanceService.updateIndexData(companyName);
+		return ResponseBean.successResponse("更新成功");
+	}
 
-    /**
-     * 保存本地模型分数
-     * @return
-     */
-    @RequestMapping("saveCompanyCreditRisk.do")
-    @ResponseBody
-    public ResponseBean saveCompanyCreditRisk() {
-        offlineFinanceService.saveCompanyCreditRisk();
-        return ResponseBean.successResponse("保存成功");
-    }
+	/**
+	 * 更新static_risk_data静态风险指数+本地模型
+	 * 
+	 * @return
+	 */
+	@RequestMapping("updateStaticRiskData.do")
+	@ResponseBody
+	public ResponseBean updateStaticRiskData(String companyName, String dataVersion) {
+		offlineFinanceService.updateStaticRiskData(companyName, dataVersion);
+		return ResponseBean.successResponse("更新成功");
+	}
+
+	/**
+	 * 保存本地模型分数
+	 * 
+	 * @return
+	 */
+	@RequestMapping("saveCompanyCreditRisk.do")
+	@ResponseBody
+	public ResponseBean saveCompanyCreditRisk() {
+		offlineFinanceService.saveCompanyCreditRisk();
+		return ResponseBean.successResponse("保存成功");
+	}
 }

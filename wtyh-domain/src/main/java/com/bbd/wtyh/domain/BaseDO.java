@@ -1,5 +1,6 @@
 package com.bbd.wtyh.domain;
 
+import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -8,33 +9,33 @@ import java.util.Date;
  */
 @SuppressWarnings("serial")
 public class BaseDO implements Serializable {
-	
+
 	/*
 	 * 逻辑主键
 	 */
 	private Integer id;
 
-    /**
-     * 创建人
-     */
-    private String createBy;
+	/**
+	 * 创建人
+	 */
+	@Column(name = "create_by")
+	private String createBy;
 
-    /**
-     * 创建时间
-     */
-    private Date createDate;
-    /**
-     * 修改人
-     */
-    private String updateBy;
+	/**
+	 * 创建时间
+	 */
+	private Date createDate;
+	/**
+	 * 修改人
+	 */
+	private String updateBy;
 
-    /**
-     * 修改时间
-     */
-    private Date updateDate;
+	/**
+	 * 修改时间
+	 */
+	private Date updateDate;
 
-
-    public Integer getId() {
+	public Integer getId() {
 		return id;
 	}
 
@@ -43,34 +44,34 @@ public class BaseDO implements Serializable {
 	}
 
 	public String getCreateBy() {
-        return createBy;
-    }
+		return createBy;
+	}
 
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
-    }
+	public void setCreateBy(String createBy) {
+		this.createBy = createBy;
+	}
 
-    public Date getCreateDate() {
-        return createDate;
-    }
+	public Date getCreateDate() {
+		return createDate;
+	}
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
 
-    public String getUpdateBy() {
-        return updateBy;
-    }
+	public String getUpdateBy() {
+		return updateBy;
+	}
 
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
-    }
+	public void setUpdateBy(String updateBy) {
+		this.updateBy = updateBy;
+	}
 
-    public Date getUpdateDate() {
-        return updateDate;
-    }
+	public Date getUpdateDate() {
+		return updateDate;
+	}
 
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
-    }
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
 }

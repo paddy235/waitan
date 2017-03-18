@@ -53,7 +53,7 @@ public class MyBatisUtil {
 		Field[] fields = obj.getClass().getDeclaredFields();
 		for (Field field : fields) {
 			field.setAccessible(true);
-			if (field.isAnnotationPresent(Transient.class)) {
+			if (field.isAnnotationPresent(Transient.class) || !field.isAnnotationPresent(Column.class)) {
 				continue;
 			}
 			if (field.isAnnotationPresent(Id.class)) {
@@ -84,7 +84,7 @@ public class MyBatisUtil {
 		Field[] fields = obj.getClass().getDeclaredFields();
 		for (Field field : fields) {
 			field.setAccessible(true);
-			if (field.isAnnotationPresent(Transient.class)) {
+			if (field.isAnnotationPresent(Transient.class) || !field.isAnnotationPresent(Column.class)) {
 				continue;
 			}
 			if (field.isAnnotationPresent(Id.class)) {

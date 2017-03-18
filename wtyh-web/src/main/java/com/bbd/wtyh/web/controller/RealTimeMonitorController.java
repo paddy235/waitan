@@ -35,139 +35,134 @@ import redis.clients.jedis.JedisPool;
 @Controller
 @RequestMapping("/realTimeMonitor")
 public class RealTimeMonitorController {
-    @Autowired
-    private RealTimeMonitorService realTimeMonitorService;
 
-    @Autowired
-    private JedisPool              jedisPool;
+	@Autowired
+	private RealTimeMonitorService realTimeMonitorService;
 
-    @Autowired
-    private RedisDAO               redisDAO;
+	@Autowired
+	private JedisPool jedisPool;
 
-    @Autowired
-    private AreaService            areaService;
+	@Autowired
+	private RedisDAO redisDAO;
 
-    /**
-     * 光谱分析 - 只做标识，前端区分
-     *
-     * @return
-     */
-    @RequestMapping("/spectrumAnalysis")
-    @ResponseBody
-    @LogRecord(logMsg = "实时监测页面", page = Operation.Page.home, type = Operation.Type.query, before = true)
-    public ResponseBean spectrumAnalysis(HttpSession session) {
+	@Autowired
+	private AreaService areaService;
 
-        Integer areaId = areaService.getAreaId(session);
+	/**
+	 * 光谱分析 - 只做标识，前端区分
+	 *
+	 * @return
+	 */
+	@RequestMapping("/spectrumAnalysis")
+	@ResponseBody
+	@LogRecord(logMsg = "浏览实时监测页面", page = Operation.Page.realCtrl, type = Operation.Type.query)
+	public ResponseBean spectrumAnalysis(HttpSession session) {
 
-        final String key = "wtyh:realtimeMonitor:guangPu1" + areaId;
+		Integer areaId = areaService.getAreaId(session);
 
-        List<List<SpectrumVO>> list = (List<List<SpectrumVO>>) redisDAO.getObject(key);
-        if (null == list || list.size() == 0) {
-            list = realTimeMonitorService.spectrumAnalysis(areaId);
+		final String key = "wtyh:realtimeMonitor:guangPu1" + areaId;
 
-            if (null != list && list.size() >= 1) {
-                for (List<SpectrumVO> spectrumVOList : list) {
-                    for (SpectrumVO spectrumVO1 : spectrumVOList) {
-                        spectrumVO1.setLocation(
-                            Arrays.asList(spectrumVO1.getLongitude(), spectrumVO1.getLatitude()));
-                    }
-                }
-                //                redisDAO.addSet(key, String.valueOf(list), Constants.REDIS_10);
-                redisDAO.addObject(key, list, Constants.REDIS_10, List.class);
-            }
-        }
-        return ResponseBean.successResponse(list);
-    }
+		List<List<SpectrumVO>> list = (List<List<SpectrumVO>>) redisDAO.getObject(key);
+		if (null == list || list.size() == 0) {
+			list = realTimeMonitorService.spectrumAnalysis(areaId);
 
-    /**
-     * 全国地图 - 股东
-     *
-     * @return
-     */
-    @RequestMapping("/ChinaMap")
-    @ResponseBody
-    public ResponseBean ChinaMap() {
-        Map<String, Object> content = realTimeMonitorService.ChinaMap();
-        Map<String, Object> content1 = realTimeMonitorService.ChinaMapSubsidiary();
-        content.putAll(content1);
-        return ResponseBean.successResponse(content);
+			if (null != list && list.size() >= 1) {
+				for (List<SpectrumVO> spectrumVOList : list) {
+					for (SpectrumVO spectrumVO1 : spectrumVOList) {
+						spectrumVO1.setLocation(Arrays.asList(spectrumVO1.getLongitude(), spectrumVO1.getLatitude()));
+					}
+				}
+				// redisDAO.addSet(key, String.valueOf(list),
+				// Constants.REDIS_10);
+				redisDAO.addObject(key, list, Constants.REDIS_10, List.class);
+			}
+		}
+		return ResponseBean.successResponse(list);
+	}
 
-    }
+	/**
+	 * 全国地图 - 股东
+	 *
+	 * @return
+	 */
+	@RequestMapping("/ChinaMap")
+	@ResponseBody
+	public ResponseBean ChinaMap() {
+		Map<String, Object> content = realTimeMonitorService.ChinaMap();
+		Map<String, Object> content1 = realTimeMonitorService.ChinaMapSubsidiary();
+		content.putAll(content1);
+		return ResponseBean.successResponse(content);
 
-    /**
-     * 上海地图
-     *
-     * @return
-     */
-    @RequestMapping("/shMap")
-    @ResponseBody
-    public ResponseBean shMap(HttpSession session) {
-        final String key = "wtyh:realtimeMonitor:shMap1";
-        List<List<CompanyAnalysisResultDO>> list = (List<List<CompanyAnalysisResultDO>>) redisDAO
-            .getObject(key);
-        if (null == list || list.size() == 0) {
-            list = realTimeMonitorService.shMap();
-            if (null != list && list.size() >= 1) {
-                redisDAO.addObject(key, list, Constants.REDIS_10, List.class);
-            }
-        }
-        // 返回值结构
-        Map<String, List> sHposition = new HashMap<>();
-        List<Map> sHsereis = new ArrayList<>();
-        Map<String, String> sHhoverDot = new HashMap<>();
-        if (ListUtil.isNotEmpty(list)) {
-            for (List<CompanyAnalysisResultDO> l : list) {
-                for (CompanyAnalysisResultDO companyAnalysisResultDO : l) {
-                    sHposition.put(companyAnalysisResultDO.getName(),
-                        Arrays.asList(companyAnalysisResultDO.getLongitude(),
-                            companyAnalysisResultDO.getLatitude()));
+	}
 
-                    Map<String, String> eSHsereis = new HashMap<>();
-                    eSHsereis.put("name", companyAnalysisResultDO.getName());
-                    eSHsereis.put("value",
-                        String.valueOf(companyAnalysisResultDO.getAnalysisResult()));
-                    sHsereis.add(eSHsereis);
+	/**
+	 * 上海地图
+	 *
+	 * @return
+	 */
+	@RequestMapping("/shMap")
+	@ResponseBody
+	public ResponseBean shMap(HttpSession session) {
+		final String key = "wtyh:realtimeMonitor:shMap1";
+		List<List<CompanyAnalysisResultDO>> list = (List<List<CompanyAnalysisResultDO>>) redisDAO.getObject(key);
+		if (null == list || list.size() == 0) {
+			list = realTimeMonitorService.shMap();
+			if (null != list && list.size() >= 1) {
+				redisDAO.addObject(key, list, Constants.REDIS_10, List.class);
+			}
+		}
+		// 返回值结构
+		Map<String, List> sHposition = new HashMap<>();
+		List<Map> sHsereis = new ArrayList<>();
+		Map<String, String> sHhoverDot = new HashMap<>();
+		if (ListUtil.isNotEmpty(list)) {
+			for (List<CompanyAnalysisResultDO> l : list) {
+				for (CompanyAnalysisResultDO companyAnalysisResultDO : l) {
+					sHposition.put(companyAnalysisResultDO.getName(),
+							Arrays.asList(companyAnalysisResultDO.getLongitude(), companyAnalysisResultDO.getLatitude()));
 
-                    if (companyAnalysisResultDO
-                        .getAnalysisResult() == CompanyAnalysisResultDO.EXPOSURE) {
-                        sHhoverDot.put(companyAnalysisResultDO.getName(),
-                            companyAnalysisResultDO.getExposureDate());
-                    } else {
-                        sHhoverDot.put(companyAnalysisResultDO.getName(),
-                            companyAnalysisResultDO.getStaticRiskIndex());
-                    }
-                }
-            }
-        }
+					Map<String, String> eSHsereis = new HashMap<>();
+					eSHsereis.put("name", companyAnalysisResultDO.getName());
+					eSHsereis.put("value", String.valueOf(companyAnalysisResultDO.getAnalysisResult()));
+					sHsereis.add(eSHsereis);
 
-        Integer areaId = areaService.getAreaId(session);
+					if (companyAnalysisResultDO.getAnalysisResult() == CompanyAnalysisResultDO.EXPOSURE) {
+						sHhoverDot.put(companyAnalysisResultDO.getName(), companyAnalysisResultDO.getExposureDate());
+					} else {
+						sHhoverDot.put(companyAnalysisResultDO.getName(), companyAnalysisResultDO.getStaticRiskIndex());
+					}
+				}
+			}
+		}
 
-        final String key2 = "wtyh:realtimeMonitor:shMap2" + areaId;
-        Map<String, Map> sHhoverArea = (Map<String, Map>) redisDAO.getObject(key2);
-        if (null == sHhoverArea || sHhoverArea.size() == 0) {
-            sHhoverArea = realTimeMonitorService.shArea(areaId);
-            if (null != sHhoverArea && sHhoverArea.size() >= 1) {
-                redisDAO.addObject(key2, sHhoverArea, Constants.REDIS_10, Map.class);
-            }
-        }
-        Map<String, Object> rst = new HashMap<>();
-        rst.put("SHposition", sHposition);
-        rst.put("SHsereis", sHsereis);
-        rst.put("SHhoverDot", sHhoverDot);
-        rst.put("SHhoverArea", sHhoverArea);
-        return ResponseBean.successResponse(rst);
-    }
+		Integer areaId = areaService.getAreaId(session);
 
-    /**
-     * 上海地图--左上角监测，下面滚动条
-     *
-     * @return
-     */
-    @RequestMapping("/shMapMonitorAndRoll")
-    @ResponseBody
-    public ResponseBean shMapMonitor() {
-        Map<String, Object> content = realTimeMonitorService.shMapMonitor();
-        return ResponseBean.successResponse(content);
-    }
+		final String key2 = "wtyh:realtimeMonitor:shMap2" + areaId;
+		Map<String, Map> sHhoverArea = (Map<String, Map>) redisDAO.getObject(key2);
+		if (null == sHhoverArea || sHhoverArea.size() == 0) {
+			sHhoverArea = realTimeMonitorService.shArea(areaId);
+			if (null != sHhoverArea && sHhoverArea.size() >= 1) {
+				redisDAO.addObject(key2, sHhoverArea, Constants.REDIS_10, Map.class);
+			}
+		}
+		Map<String, Object> rst = new HashMap<>();
+		rst.put("SHposition", sHposition);
+		rst.put("SHsereis", sHsereis);
+		rst.put("SHhoverDot", sHhoverDot);
+		rst.put("SHhoverArea", sHhoverArea);
+		return ResponseBean.successResponse(rst);
+	}
+
+	/**
+	 * 上海地图--左上角监测，下面滚动条
+	 *
+	 * @return
+	 */
+	@RequestMapping("/shMapMonitorAndRoll")
+	@ResponseBody
+	public ResponseBean shMapMonitor() {
+		Map<String, Object> content = realTimeMonitorService.shMapMonitor();
+		return ResponseBean.successResponse(content);
+	}
 
 }

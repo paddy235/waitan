@@ -49,7 +49,6 @@ public class RiskCompanyController {
 
 	@RequestMapping(value = "/getScanner")
 	@ResponseBody
-	@LogRecord(logMsg = "浏览线下理财页面", page = Operation.Page.licai)
 	public ResponseBean getScanner(@RequestParam(required = false) String area, @RequestParam(required = false) String minRegCapital,
 			@RequestParam(required = false) String maxRegCapital, @RequestParam(required = false) String companyQualification,
 			@RequestParam(required = false) String minReviewTime, @RequestParam(required = false) String maxReviewTime,
@@ -68,6 +67,7 @@ public class RiskCompanyController {
 
 	@RequestMapping(value = "/getTop")
 	@ResponseBody
+	@LogRecord(logMsg = "浏览线下理财页面", page = Operation.Page.licaiHome)
 	public ResponseBean getTop(@RequestParam(required = false) String area, @RequestParam(required = false) String minRegCapital,
 			@RequestParam(required = false) String maxRegCapital, @RequestParam(required = false) String companyQualification,
 			@RequestParam(required = false) String minReviewTime, @RequestParam(required = false) String maxReviewTime,
@@ -127,6 +127,7 @@ public class RiskCompanyController {
 
 	@RequestMapping(value = "/doSearch")
 	@ResponseBody
+	@LogRecord(logMsg = "搜索关键字：%s", params = { "keyword" }, type = Operation.Type.query, page = Operation.Page.licaiHome)
 	public ResponseBean doSearch(@RequestParam(required = false) String keyword, @RequestParam int pageNo, HttpSession session) {
 
 		Integer areaId = areaService.getAreaId(session);

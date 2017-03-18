@@ -155,7 +155,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
 
                 @Override
                 public List<PlatRankDataDTO> parse(String result) {
-                    System.out.println(result);
+                    //System.out.println(result);
                     return JSON.parseArray(result, PlatRankDataDTO.class);
                 }
             });

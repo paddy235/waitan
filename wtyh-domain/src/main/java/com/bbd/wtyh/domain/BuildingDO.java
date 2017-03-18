@@ -2,96 +2,96 @@ package com.bbd.wtyh.domain;
 
 import com.bbd.wtyh.util.CalculateUtils;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Table(name = "building")
 public class BuildingDO extends BaseDO {
-	
-   
+
+	@Id
+	@Column(name = "building_id")
 	private Integer buildingId;
 
-    private String name;
+	private String name;
 
-    private Integer parkId;
-    
-    private String imgUrl;
-    
-    
-    /**
-    * @Fields finComNum : finance_company_number 新型金融企业数量
-    */
-    private Integer finComNum;
+	@Column(name = "park_id")
+	private Integer parkId;
 
-    /**
-     *  企业数量
-     */
-    private Integer total;
+	@Column(name = "img_url")
+	private String imgUrl;
 
-    
-    /**
-    * @Fields ratio : finance_company_ratio 新型金融企业占比
-    */
-    private String  finComRatio;
+	/**
+	 * @Fields finComNum : finance_company_number 新型金融企业数量
+	 */
+	private Integer finComNum;
 
+	/**
+	 * 企业数量
+	 */
+	private Integer total;
 
-    public Integer getTotal() {
-        return total;
-    }
+	/**
+	 * @Fields ratio : finance_company_ratio 新型金融企业占比
+	 */
+	private String finComRatio;
 
-    public void setTotal(Integer total) {
-        this.total = total;
-    }
+	public Integer getTotal() {
+		return total;
+	}
 
-    public String getImgUrl() {
+	public void setTotal(Integer total) {
+		this.total = total;
+	}
+
+	public String getImgUrl() {
 		return imgUrl;
 	}
 
-	
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
 	}
-
 
 	public Integer getFinComNum() {
 		return finComNum;
 	}
 
-
 	public void setFinComNum(Integer finComNum) {
 		this.finComNum = finComNum;
 	}
 
-
 	public String getFinComRatio() {
 
-        finComRatio = CalculateUtils.divide(finComNum*100,total,1)+"%";
+		finComRatio = CalculateUtils.divide(finComNum * 100, total, 1) + "%";
 
 		return finComRatio;
 	}
-
 
 	public void setFinComRatio(String finComRatio) {
 		this.finComRatio = finComRatio;
 	}
 
 	public Integer getBuildingId() {
-        return buildingId;
-    }
+		return buildingId;
+	}
 
-    public void setBuildingId(Integer buildingId) {
-        this.buildingId = buildingId;
-    }
+	public void setBuildingId(Integer buildingId) {
+		this.buildingId = buildingId;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
+	public void setName(String name) {
+		this.name = name == null ? null : name.trim();
+	}
 
-    public Integer getParkId() {
-        return parkId;
-    }
+	public Integer getParkId() {
+		return parkId;
+	}
 
-    public void setParkId(Integer parkId) {
-        this.parkId = parkId;
-    }
+	public void setParkId(Integer parkId) {
+		this.parkId = parkId;
+	}
 }

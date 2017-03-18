@@ -1,6 +1,7 @@
 package com.bbd.wtyh.test;
 
 import com.bbd.wtyh.core.entity.Pagination;
+import com.bbd.wtyh.domain.AreaDO;
 import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.service.UserInfoService;
 import org.junit.runner.RunWith;
@@ -57,6 +58,9 @@ public class Test {
 
 	@org.junit.Test
 	public void test3() {
+		AreaDO ad = userInfoService.selectById(AreaDO.class,1111);
+
+
 	}
 
 }

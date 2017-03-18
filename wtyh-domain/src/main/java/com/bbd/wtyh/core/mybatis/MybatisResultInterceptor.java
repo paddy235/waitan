@@ -1,6 +1,7 @@
 package com.bbd.wtyh.core.mybatis;
 
 import com.bbd.wtyh.core.utils.ReflectUtil;
+import com.bbd.wtyh.domain.AreaDO;
 import org.apache.ibatis.executor.resultset.ResultSetHandler;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.*;
@@ -10,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.sql.ResultSet;
@@ -24,7 +26,8 @@ import java.util.*;
 @Intercepts({ @Signature(method = "handleResultSets", type = ResultSetHandler.class, args = { Statement.class }) })
 public class MybatisResultInterceptor implements Interceptor {
 
-	private static Logger logger = LoggerFactory.getLogger(MybatisResultInterceptor.class);
+	// private static Logger logger =
+	// LoggerFactory.getLogger(MybatisResultInterceptor.class);
 	// 需要拦截处理的方法
 	private String[] interceptMethods = { "baseSelectAll", "baseSelectByPage", "baseSelectById" };
 
@@ -62,26 +65,28 @@ public class MybatisResultInterceptor implements Interceptor {
 		while (rs.next()) {
 			Object obj = pojo.newInstance();
 			for (Field f : fields) {
-				if (null != f.getAnnotation(Id.class) || null != f.getAnnotation(Column.class)) {
-					Type clazz = f.getGenericType();
-					Object o;
-					String fieldName = f.getName();
-					if (null != f.getAnnotation(Column.class)) {
-						Column col = f.getAnnotation(Column.class);
-						String cn = col.name();
-						if (cn.trim().length() > 0) {
-							fieldName = cn;
-						}
-					}
-					if (clazz.equals(int.class)) {
-						o = rs.getInt(fieldName);
-					} else if (clazz.equals(Date.class)) {
-						o = rs.getTimestamp(fieldName);
-					} else {
-						o = rs.getObject(fieldName);
-					}
-					ReflectUtil.setFieldValue(obj, f.getName(), o);
+				f.setAccessible(true);
+				if (!f.isAnnotationPresent(Id.class) && !f.isAnnotationPresent(Column.class)) {
+					continue;
 				}
+				Type clazz = f.getGenericType();
+				Object o;
+				String fieldName = f.getName();
+				if (null != f.getAnnotation(Column.class)) {
+					Column col = f.getAnnotation(Column.class);
+					String cn = col.name();
+					if (cn.trim().length() > 0) {
+						fieldName = cn;
+					}
+				}
+				if (clazz.equals(int.class)) {
+					o = rs.getInt(fieldName);
+				} else if (clazz.equals(Date.class)) {
+					o = rs.getTimestamp(fieldName);
+				} else {
+					o = rs.getObject(fieldName);
+				}
+				ReflectUtil.setFieldValue(obj, f.getName(), o);
 			}
 			list.add(obj);
 		}
