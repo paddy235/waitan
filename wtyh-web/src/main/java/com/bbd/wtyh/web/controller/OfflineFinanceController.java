@@ -14,6 +14,8 @@ import java.util.TreeMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bbd.wtyh.log.user.Operation;
+import com.bbd.wtyh.log.user.annotation.LogRecord;
 import org.apache.commons.collections.map.HashedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -145,6 +147,7 @@ public class OfflineFinanceController {
      */
     @RequestMapping(value = "/queryDynamicPicDataRealTime.do")
     @ResponseBody
+    @LogRecord(logMsg = "访问“%s”公司全息页面", params ={"companyName"}, page = Operation.Page.home, type = Operation.Type.query, before = true)
     public ResponseBean queryDynamicPicDataTwo(@RequestParam String companyName,
                                                @RequestParam(defaultValue = "1") Integer degreesLevel) {
         try {
