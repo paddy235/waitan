@@ -10,30 +10,39 @@
     http://www.springframework.org/schema/aop
     http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <mvc:annotation-driven />
+    <mvc:annotation-driven/>
 
     <context:component-scan base-package="com.bbd.wtyh.**.controller"/>
-    <context:property-placeholder location="classpath:config/*.properties" />
+    <context:property-placeholder location="classpath:config/*.properties"/>
 
-   <mvc:interceptors>
-		<mvc:interceptor>
-			<!-- 对所有的请求拦截使用/**  -->
-			<mvc:mapping path="/**" />
-			<ref bean="userAccessInterceptor" />
-		</mvc:interceptor>
-       <mvc:interceptor>
-           <mvc:mapping path="/**" />
-           <ref bean="loginInterceptor" />
-       </mvc:interceptor>
-	</mvc:interceptors>
+    <bean id="userLogInterceptor" class="com.bbd.wtyh.log.user.interceptor.UserLogInterceptor">
+        <property name="operationSys" value="front"/>
+    </bean>
 
-	<bean id="userAccessInterceptor"
-		class="com.bbd.sys.service.UserAccessApiInterceptor">
-	</bean>
+    <mvc:interceptors>
 
-    <bean id="loginInterceptor" class="com.bbd.sys.service.LoginInterceptor"></bean>
+        <mvc:interceptor>
+            <!-- 对所有的请求拦截使用/**  -->
+            <mvc:mapping path="/**"/>
+            <ref bean="userLogInterceptor"/>
+        </mvc:interceptor>
 
+        <mvc:interceptor>
+            <!-- 对所有的请求拦截使用/**  -->
+            <mvc:mapping path="/**"/>
+            <ref bean="userAccessInterceptor"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <ref bean="loginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
+    <bean id="userAccessInterceptor"
+          class="com.bbd.sys.service.UserAccessApiInterceptor">
+    </bean>
+
+    <bean id="loginInterceptor" class="com.bbd.sys.service.LoginInterceptor"/>
 
 
     <bean id="messageSource"
@@ -62,11 +71,11 @@
             </list>
         </property>
     </bean>
-    
-   <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">  
-        <property name="defaultErrorView" value="common/error"  ></property>  
-        <property name="exceptionAttribute" value="ex"></property>  
-   </bean>  
+
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="defaultErrorView" value="common/error"/>
+        <property name="exceptionAttribute" value="ex"/>
+    </bean>
 
     <bean id="handlerMapping"
           class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>

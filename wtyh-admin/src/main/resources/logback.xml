@@ -51,6 +51,28 @@
         </triggeringPolicy>
     </appender>
 
+    <!--用户行为日志-->
+    <appender name="userLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>../userLogs/userLog_%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <logger name="userLog" additivity="false" level="INFO">
+        <appender-ref ref="userLog"/>
+    </logger>
+
 
     <logger name="org.springframework" level="ERROR"/>
     <logger name="org.hibernate" level="ERROR"/>

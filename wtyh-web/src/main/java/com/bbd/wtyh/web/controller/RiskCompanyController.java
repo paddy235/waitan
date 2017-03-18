@@ -9,6 +9,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.bbd.wtyh.domain.vo.CompanySearchVO;
+import com.bbd.wtyh.log.user.Operation;
+import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.service.AreaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,69 +49,67 @@ public class RiskCompanyController {
 
 	@RequestMapping(value = "/getScanner")
 	@ResponseBody
-	public ResponseBean getScanner(@RequestParam(required = false) String area,
-								   @RequestParam(required = false) String minRegCapital, @RequestParam(required = false) String maxRegCapital,
-								   @RequestParam(required = false) String companyQualification,
-								   @RequestParam(required = false) String minReviewTime, @RequestParam(required = false) String maxReviewTime,
-								   @RequestParam(required = false) String riskLevel, HttpSession session) {
+	@LogRecord(logMsg = "访问线下理财页面", page = Operation.Page.licai)
+	public ResponseBean getScanner(@RequestParam(required = false) String area, @RequestParam(required = false) String minRegCapital,
+			@RequestParam(required = false) String maxRegCapital, @RequestParam(required = false) String companyQualification,
+			@RequestParam(required = false) String minReviewTime, @RequestParam(required = false) String maxReviewTime,
+			@RequestParam(required = false) String riskLevel, HttpSession session) {
 
 		// 如果区域id不为空，则表示此用户只能访问某个区域的数据
 		String areaName = areaService.getAreaName(session);
-		if(areaName != null){
+		if (areaName != null) {
 			area = areaName;
 		}
 
-		Map<String, Object> params = this.fillMap(area, minRegCapital, maxRegCapital, companyQualification,
-				minReviewTime, maxReviewTime, riskLevel);
+		Map<String, Object> params = this.fillMap(area, minRegCapital, maxRegCapital, companyQualification, minReviewTime, maxReviewTime,
+				riskLevel);
 		return ResponseBean.successResponse(riskCompanyService.getScanner(params));
 	}
 
 	@RequestMapping(value = "/getTop")
 	@ResponseBody
-	public ResponseBean getTop(@RequestParam(required = false) String area,
-			@RequestParam(required = false) String minRegCapital, @RequestParam(required = false) String maxRegCapital,
-			@RequestParam(required = false) String companyQualification,
+	public ResponseBean getTop(@RequestParam(required = false) String area, @RequestParam(required = false) String minRegCapital,
+			@RequestParam(required = false) String maxRegCapital, @RequestParam(required = false) String companyQualification,
 			@RequestParam(required = false) String minReviewTime, @RequestParam(required = false) String maxReviewTime,
-			@RequestParam(required = false) String riskLevel, @RequestParam(defaultValue = "0") String sortType,HttpSession session) {
-
+			@RequestParam(required = false) String riskLevel, @RequestParam(defaultValue = "0") String sortType, HttpSession session) {
 
 		// 如果区域id不为空，则表示此用户只能访问某个区域的数据
 		String areaName = areaService.getAreaName(session);
-		if(areaName != null){
+		if (areaName != null) {
 			area = areaName;
 		}
 
-
-
-		Map<String, Object> params = this.fillMap(area, minRegCapital, maxRegCapital, companyQualification,
-				minReviewTime, maxReviewTime, riskLevel);
+		Map<String, Object> params = this.fillMap(area, minRegCapital, maxRegCapital, companyQualification, minReviewTime, maxReviewTime,
+				riskLevel);
 		params.put("sortType", sortType); // 排序方式
 		int count = riskCompanyService.getTopCount(params);
 		Pagination pagination = new Pagination();
 		pagination.setCount(count >= MAX_COUNT ? MAX_COUNT - 1 : count); // 搜索结果最多保留200条数据
-//		if (pageNo >= MAX_PAGE_NO || pageNo <= -1) {
-//			pagination.setList(null);
-//			return ResponseBean.errorResponse("错误的分页请求参数！");
-//		}
-//		pagination.setPageNumber(pageNo);
-//		params.put("pagination", pagination);
+		// if (pageNo >= MAX_PAGE_NO || pageNo <= -1) {
+		// pagination.setList(null);
+		// return ResponseBean.errorResponse("错误的分页请求参数！");
+		// }
+		// pagination.setPageNumber(pageNo);
+		// params.put("pagination", pagination);
 		List<RiskCompanyInfoDO> list = riskCompanyService.getTop(params);
-//		if (null != list && list.size() >= 1) {
-//			for (int i = 0; i < list.size(); i++) {
-//				RiskCompanyInfoDO tmp = list.get(i);
-//				if ("0".equals(sortType)) {
-//					tmp.setRanking(pagination.getCount() - i - (pagination.getPageNumber() - 1) * pagination.getPageSize());
-//				} else {
-//					tmp.setRanking(i + 1 + (pagination.getPageNumber() - 1) * pagination.getPageSize());
-//				}
-//			}
-//		}
+		// if (null != list && list.size() >= 1) {
+		// for (int i = 0; i < list.size(); i++) {
+		// RiskCompanyInfoDO tmp = list.get(i);
+		// if ("0".equals(sortType)) {
+		// tmp.setRanking(pagination.getCount() - i -
+		// (pagination.getPageNumber() - 1) * pagination.getPageSize());
+		// } else {
+		// tmp.setRanking(i + 1 + (pagination.getPageNumber() - 1) *
+		// pagination.getPageSize());
+		// }
+		// }
+		// }
 		pagination.setList(list);
 		return ResponseBean.successResponse(pagination);
 	}
 
-	private Map<String, Object> fillMap(String area, String minRegCapital, String maxRegCapital,
-										String companyQualification, String minReviewTime, String maxReviewTime, String riskLevel) {
+	private Map<String, Object> fillMap(String area, String minRegCapital, String maxRegCapital, String companyQualification,
+			String minReviewTime, String maxReviewTime, String riskLevel) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("area", area);
 		map.put("minRegCapital", StringUtils.isNotNullOrEmpty(minRegCapital) ? new BigDecimal(minRegCapital) : null);
@@ -127,13 +127,13 @@ public class RiskCompanyController {
 
 	@RequestMapping(value = "/doSearch")
 	@ResponseBody
-	public ResponseBean doSearch(@RequestParam(required = false) String keyword, @RequestParam int pageNo,HttpSession session) {
+	public ResponseBean doSearch(@RequestParam(required = false) String keyword, @RequestParam int pageNo, HttpSession session) {
 
 		Integer areaId = areaService.getAreaId(session);
 
 		keyword = this.strFilter(keyword);
 		String dataVersion = riskCompanyService.getLastDataVersion();
-		int count = companyService.searchCompanyNameCount(keyword, dataVersion,areaId);
+		int count = companyService.searchCompanyNameCount(keyword, dataVersion, areaId);
 		Pagination pagination = new Pagination();
 		pagination.setCount(count >= MAX_COUNT_SEARCH ? MAX_COUNT_SEARCH - 1 : count); // 搜索结果最多保留200条数据
 		if (pageNo >= MAX_PAGE_NO || pageNo <= -1) {
@@ -146,7 +146,7 @@ public class RiskCompanyController {
 		params.put("keyword", keyword);
 		params.put("pagination", pagination);
 		params.put("dataVersion", dataVersion);
-		params.put("areaId",areaId);
+		params.put("areaId", areaId);
 
 		List<CompanyDO> list = companyService.searchCompanyName(params);
 		List<CompanySearchVO> resultList = new ArrayList<>();

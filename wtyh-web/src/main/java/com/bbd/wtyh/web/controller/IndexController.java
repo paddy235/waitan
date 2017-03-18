@@ -1,5 +1,7 @@
 package com.bbd.wtyh.web.controller;
 
+import com.bbd.wtyh.log.user.Operation;
+import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,20 +14,20 @@ import com.bbd.wtyh.web.ResponseBean;
 
 @Controller
 public class IndexController {
-	
+
 	@Autowired
 	private SysAnalyzeService sysAnalyzeService;
 
 	@Autowired
 	private CompanyService comSer;
-	
+
 	@RequestMapping(value = "/getSysAnalyze")
 	@ResponseBody
+	@LogRecord(logMsg = "访问首页", page = Operation.Page.home, type = Operation.Type.browse)
 	public ResponseBean getSysAnalyze() {
 		SysAnalyzeDO sysAnalyzeDO = sysAnalyzeService.getSysAnalyze();
 		return ResponseBean.successResponse(sysAnalyzeDO);
 	}
-
 
 	@RequestMapping(value = "/areaCount")
 	@ResponseBody
@@ -33,7 +35,5 @@ public class IndexController {
 		Object r = comSer.countCompanyNum();
 		return ResponseBean.successResponse(r);
 	}
-
-
 
 }
