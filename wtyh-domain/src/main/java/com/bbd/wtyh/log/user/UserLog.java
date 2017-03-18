@@ -2,6 +2,7 @@ package com.bbd.wtyh.log.user;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -24,6 +25,7 @@ public class UserLog {
 	private String operator;
 
 	/** 操作者真实姓名 */
+	@Column(name="real_name")
 	private String realName;
 
 	/** 操作者所属部门 */
@@ -34,27 +36,35 @@ public class UserLog {
 	private Date date;
 
 	/** 操作类型描述 */
+	@Column(name="operation_desc")
 	private String operationDesc;
 
 	/** 操作类型 */
+	@Column(name="operation_type")
 	private Integer operationType;
 
 	/** 日志内容 */
+	@Column(name="log_content")
 	private String LogContent;
 
 	/** 发生操作的系统代码 */
+	@Column(name="sys_code")
 	private Integer sysCode;
 
 	/** 发生操作的系统名称 */
+	@Column(name="sys_name")
 	private String sysName;
 
 	/** 请求IP */
+	@Column(name="request_ip")
 	private String requestIP;
 
 	/** 请求地址 */
+	@Column(name="request_uri")
 	private String requestURI;
 
 	/** 请求地址描述 */
+	@Column(name="request_desc")
 	private String requestDesc;
 
 	/** 全部请求参数 */
