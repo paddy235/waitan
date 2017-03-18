@@ -3,6 +3,8 @@ package com.bbd.wtyh.web.controller;
 
 import com.bbd.wtyh.domain.vo.FinanceLeaseVO;
 import com.bbd.wtyh.domain.vo.FinanceLeasecCompanyVO;
+import com.bbd.wtyh.log.user.Operation;
+import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.service.FinanceLeaseService;
 import com.bbd.wtyh.web.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,7 @@ public class FinanceLeaseController {
      */
     @RequestMapping("leaseCompanyStatistic.do")
     @ResponseBody
+    @LogRecord(logMsg = "浏览融资租赁页面",page = Operation.Page.financeLease)
     public ResponseBean leaseCompanyStatistic() {
 //        Map data = financeLeaseService.leaseCompanyStatistic();
 //        return ResponseBean.successResponse(data);

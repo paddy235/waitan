@@ -26,7 +26,7 @@ public class MybatisResultInterceptor implements Interceptor {
 
 	private static Logger logger = LoggerFactory.getLogger(MybatisResultInterceptor.class);
 	// 需要拦截处理的方法
-	private String[] interceptMethods = { "selectAll", "selectByPage", "selectById" };
+	private String[] interceptMethods = { "baseSelectAll", "baseSelectByPage", "baseSelectById" };
 
 	@Override
 	public Object intercept(Invocation invocation) throws Throwable {

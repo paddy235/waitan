@@ -20,7 +20,7 @@ public interface BaseMapper {
 	 * @return
 	 */
 	@SelectProvider(type = CRUDTemplate.class, method = "select")
-	<T> List<T> selectAll(@Param("clazz") Class<T> clazz, @Param("where") String where);
+	<T> List<T> baseSelectAll(@Param("clazz") Class<T> clazz, @Param("where") String where);
 
 	/**
 	 * 根据ID查询实体类
@@ -30,7 +30,7 @@ public interface BaseMapper {
 	 * @return
 	 */
 	@SelectProvider(type = CRUDTemplate.class, method = "selectById")
-	<T> List<T> selectById(@Param("clazz") Class<T> clazz, @Param("id") Object id);
+	<T> List<T> baseSelectById(@Param("clazz") Class<T> clazz, @Param("id") Object id);
 
 	/**
 	 * 根据条件查询全部（分页），实体类包含子类的不支持
@@ -44,7 +44,7 @@ public interface BaseMapper {
 	 * @return
 	 */
 	@SelectProvider(type = CRUDTemplate.class, method = "select")
-	<T> List<T> selectByPage(@Param("clazz") Class<T> clazz, @Param("pagination") Pagination<T> pagination, @Param("where") String where);
+	<T> List<T> baseSelectByPage(@Param("clazz") Class<T> clazz, @Param("pagination") Pagination<T> pagination, @Param("where") String where);
 
 	/**
 	 * 插入一条数据

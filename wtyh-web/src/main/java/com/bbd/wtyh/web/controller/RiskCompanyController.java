@@ -49,7 +49,7 @@ public class RiskCompanyController {
 
 	@RequestMapping(value = "/getScanner")
 	@ResponseBody
-	@LogRecord(logMsg = "访问线下理财页面", page = Operation.Page.licai)
+	@LogRecord(logMsg = "浏览线下理财页面", page = Operation.Page.licai)
 	public ResponseBean getScanner(@RequestParam(required = false) String area, @RequestParam(required = false) String minRegCapital,
 			@RequestParam(required = false) String maxRegCapital, @RequestParam(required = false) String companyQualification,
 			@RequestParam(required = false) String minReviewTime, @RequestParam(required = false) String maxReviewTime,
