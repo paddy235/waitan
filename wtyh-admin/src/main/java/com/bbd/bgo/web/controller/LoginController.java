@@ -51,7 +51,7 @@ public class LoginController {
 
 	@RequestMapping("/login")
 	@ResponseBody
-	@LogRecord(logMsg = "后台用户“%s”登录", params ={"name"}, page = Operation.Page.home, type = Operation.Type.query, before = true)
+	@LogRecord(logMsg = "后台用户登录", type = Operation.Type.login, after = true, before = false)
 	public Object login(@RequestParam String name,@RequestParam String password,HttpServletRequest request){
 		Map map=null;
 		UsernamePasswordToken token = new UsernamePasswordToken(name, password);
@@ -101,6 +101,7 @@ public class LoginController {
 
 	@RequestMapping("/logout")
 	@ResponseBody
+	@LogRecord(logMsg = "后台用户登出", type = Operation.Type.logout)
 	public Object logout(HttpServletRequest request) {
 
 		Subject currentUser = SecurityUtils.getSubject();
