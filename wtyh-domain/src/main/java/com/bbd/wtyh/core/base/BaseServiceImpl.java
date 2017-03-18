@@ -30,7 +30,7 @@ public class BaseServiceImpl implements BaseService {
 		if (id == null) {
 			return null;
 		}
-		List<T> list = generalMapper.selectById(clazz, id);
+		List<T> list = generalMapper.baseSelectById(clazz, id);
 		if (list == null || list.isEmpty()) {
 			return null;
 		}
@@ -39,12 +39,12 @@ public class BaseServiceImpl implements BaseService {
 
 	@Override
 	public <T> List<T> selectAll(Class<T> clazz, String where) {
-		return generalMapper.selectAll(clazz, where);
+		return generalMapper.baseSelectAll(clazz, where);
 	}
 
 	@Override
 	public <T> List<T> selectByPage(Class<T> clazz, Pagination<T> pagination, String where) {
-		return generalMapper.selectByPage(clazz, pagination, where);
+		return generalMapper.baseSelectByPage(clazz, pagination, where);
 	}
 
 	@Override

@@ -23,7 +23,7 @@ public class IndexController {
 
 	@RequestMapping(value = "/getSysAnalyze")
 	@ResponseBody
-	@LogRecord(logMsg = "访问首页", page = Operation.Page.home, type = Operation.Type.browse)
+	@LogRecord(logMsg = "浏览首页", page = Operation.Page.home, type = Operation.Type.browse)
 	public ResponseBean getSysAnalyze() {
 		SysAnalyzeDO sysAnalyzeDO = sysAnalyzeService.getSysAnalyze();
 		return ResponseBean.successResponse(sysAnalyzeDO);
