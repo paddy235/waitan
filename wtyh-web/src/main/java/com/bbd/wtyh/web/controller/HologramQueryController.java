@@ -2,6 +2,8 @@ package com.bbd.wtyh.web.controller;
 
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.bbdAPI.*;
+import com.bbd.wtyh.log.user.Operation;
+import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.service.HologramQueryService;
 import com.bbd.wtyh.web.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,7 @@ public class HologramQueryController {
      */
     @RequestMapping("/search")
     @ResponseBody
+    @LogRecord(logMsg = "企业全息信息搜索企业，关键字：%s", params ={"company"}, page = Operation.Page.hologramSearch, type = Operation.Type.query, before = true)
     public ResponseBean search(@RequestParam(required = true) String company, @RequestParam(defaultValue = "0") int page_no, @RequestParam(defaultValue = "4") int page_size) {
         SearchComanyDO result = hologramQueryService.search(company, page_no, page_size);
         return ResponseBean.successResponse(result);

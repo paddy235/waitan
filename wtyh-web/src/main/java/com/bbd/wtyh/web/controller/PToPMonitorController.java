@@ -365,7 +365,7 @@ public class PToPMonitorController {
 	 */
 	@RequestMapping("/platRankData")
 	@ResponseBody
-	@LogRecord(logMsg = "访问网络借贷页面", page = Operation.Page.borrow)
+	@LogRecord(logMsg = "浏览网络借贷页面", page = Operation.Page.borrow)
 	public Object platRankData(@RequestParam(required = false, defaultValue = "") String platStatus) throws Exception {
 		List<Map<String, String>> rstCache = (List<Map<String, String>>) redisDAO.getObject(PLAT_RANK_CACHE_PRIFIX);
 		if (null != rstCache) {
