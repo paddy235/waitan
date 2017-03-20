@@ -13,6 +13,7 @@ public class BuildingDO extends BaseDO {
 	@Column(name = "building_id")
 	private Integer buildingId;
 
+	@Column
 	private String name;
 
 	@Column(name = "park_id")

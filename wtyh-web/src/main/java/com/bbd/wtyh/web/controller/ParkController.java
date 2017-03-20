@@ -161,7 +161,7 @@ public class ParkController {
 	 */
 	@RequestMapping("/parkImg")
 	@ResponseBody
-	@LogRecord(logMsg = "浏览园区监测页面：%s", params = { "areaName" }, page = Operation.Page.hologram, after = true, before = false)
+	@LogRecord(logMsg = "浏览【%s】园区监测页面", params = { "areaName" }, page = Operation.Page.park, after = true, before = false)
 	public ResponseBean parkImg(Integer areaId, HttpServletRequest request) {
 
 		Object data = parkService.parkImg(areaId);
@@ -204,7 +204,7 @@ public class ParkController {
 	 */
 	@RequestMapping("/buildingBusinessDistribute")
 	@ResponseBody
-	@LogRecord(logMsg = "浏览楼宇页面：%s", params = { "buildingName" }, page = Operation.Page.hologram, after = true, before = false)
+	@LogRecord(logMsg = "浏览【%s】楼宇页面", params = { "buildingName" }, page = Operation.Page.building, after = true, before = false)
 	public ResponseBean buildingBusinessDistribute(@RequestParam(required = true) Integer buildingId, HttpServletRequest request) {
 
 		List<CompanyTypeCountDO> data = parkService.buildingBusinessDistribute(buildingId);

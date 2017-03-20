@@ -21,7 +21,7 @@ public class UserInfoTableDo implements Serializable {
 
 	// private boolean backUserFlag; //后台用户标志
 
-	@Column(name = "user_Type")
+	@Column(name = "user_type")
 	private String userType; // 用户类型（F：前台；B：后台；A：前后台；U：待定）
 	@Column(name = "login_name")
 	private String loginName; // 登录名
@@ -51,7 +51,7 @@ public class UserInfoTableDo implements Serializable {
 	private String updateBy; // 修改人
 	@Column(name = "fore_pwd_up_date")
 	private Date forePwdUpDate; // 最后一次修改前台密码的时间
-	@Column(name = "back_Pwd_Up_Date")
+	@Column(name = "back_pwd_up_Date")
 	private Date backPwdUpDate; // 最后一次修改前台密码的时间
 
 	@Override

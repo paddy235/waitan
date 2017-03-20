@@ -73,7 +73,7 @@ public class P2PImageController {
 	 */
 	@RequestMapping("/platFormStatus")
 	@ResponseBody
-	@LogRecord(logMsg = "浏览“%s”详细页面", params = { "platName" }, page = Operation.Page.platform)
+	@LogRecord(logMsg = "浏览【%s】详细页面", params = { "platName" }, page = Operation.Page.platform)
 	public ResponseBean platFormStatus(@RequestParam String platName) {
 		Map<String, Object> content = p2PImageService.platFormStatus(platName);
 		if (null != content && content.size() != 0) {
