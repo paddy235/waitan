@@ -75,7 +75,7 @@ public class UserLogInterceptor extends HandlerInterceptorAdapter {
 		userLog.setOperationType(operationType.code());
 		userLog.setOperationDesc(operationType.desc());
 		// 消息格式化，可能有%s占位符
-		userLog.setLogContent(String.format(logRecord.logMsg(), placeholderReplace));
+		userLog.setLogContent(String.format(logRecord.logMsg(), placeholderReplace).replace(" ", ""));
 
 		userLog.setSysCode(operationSys.sysCode());
 		userLog.setSysName(operationSys.sysName());

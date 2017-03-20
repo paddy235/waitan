@@ -61,9 +61,27 @@ public class UserInfoController {
 	}
 
 	@RequestMapping("/update")
-	@LogRecord(logMsg = "用户修改信息", type = Operation.Type.modify, page = Operation.Page.userTemplate, after = true, before = false)
+	@LogRecord(logMsg = "用户修改%s%s%s信息。", params = { "m_mobile", "m_fixPhone",
+			"m_email" }, type = Operation.Type.modify, page = Operation.Page.userTemplate, after = true, before = false)
 	public Object updateInfo(@RequestParam Integer id, @RequestParam String mobile, @RequestParam String email,
-			@RequestParam String fixPhone, HttpSession session) throws Exception {
+			@RequestParam String fixPhone, HttpSession session, HttpServletRequest request) throws Exception {
+
+		UserInfoTableDo oldUitd = this.userInfoService.selectById(UserInfoTableDo.class, id);
+		if (oldUitd != null) {
+			request.setAttribute("m_mobile", " ");
+			request.setAttribute("m_fixPhone", " ");
+			request.setAttribute("m_email", " ");
+
+			if (!StringUtils.equals(mobile, CipherUtils.decrypt(oldUitd.getMobile()))) {
+				request.setAttribute("m_mobile", "【联系电话(手机)】");
+			}
+			if (!StringUtils.equals(fixPhone, CipherUtils.decrypt(oldUitd.getFixPhone()))) {
+				request.setAttribute("m_fixPhone", "【联系电话(固话)】");
+			}
+			if (!StringUtils.equals(email, oldUitd.getEmail())) {
+				request.setAttribute("m_email", "【邮箱】");
+			}
+		}
 
 		UserInfoTableDo user = new UserInfoTableDo();
 		user.setId(id);

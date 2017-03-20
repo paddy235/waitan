@@ -15,6 +15,7 @@ public class UserInfoTableDo implements Serializable {
 	@Id
 	private Integer id; // 主键
 
+	@Column
 	private String status; // 用户状态（F：冻结；A：激活）
 
 	// private boolean foreUserFlag; //前台用户标志
@@ -34,10 +35,13 @@ public class UserInfoTableDo implements Serializable {
 	@Column(name = "fix_phone")
 	private String fixPhone; // 联系固话
 
+	@Column
 	private String mobile; // 联系手机
 
+	@Column
 	private String email; // 电子信箱
 
+	@Column
 	private String department; // 部门
 	@Column(name = "area_code")
 	private String areaCode; // 地区代码
