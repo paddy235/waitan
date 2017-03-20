@@ -66,7 +66,7 @@ public class UserLogInterceptor extends HandlerInterceptorAdapter {
 		UserInfoTableDo user = (UserInfoTableDo) request.getSession().getAttribute("loginUser");
 
 		UserLog userLog = new UserLog();
-		userLog.setLogId(UUID.randomUUID().toString().replace("-", "").toUpperCase());
+		userLog.setUuid(UUID.randomUUID().toString().replace("-", "").toUpperCase());
 		userLog.setOperator(user == null ? "" : user.getLoginName());
 		userLog.setRealName(user == null ? "" : user.getRealName());
 		userLog.setDepartment(user == null ? "" : user.getDepartment());
@@ -82,16 +82,24 @@ public class UserLogInterceptor extends HandlerInterceptorAdapter {
 
 		userLog.setRequestIP(this.getRemoteAddress(request));
 		userLog.setRequestURI(request.getRequestURI());
-		userLog.setRequestCode(operationPage.code());
-		userLog.setRequestDesc(operationPage.page());
+
+		if (operationPage.code() == 0) {
+			Operation.Page oPage = (Operation.Page) request.getSession().getAttribute("pageHistory");
+			userLog.setRequestCode(oPage != null ? oPage.code() : 0);
+			userLog.setRequestDesc(oPage != null ? oPage.page() : "");
+		} else {
+			request.getSession().setAttribute("pageHistory", operationPage);
+			userLog.setRequestCode(operationPage.code());
+			userLog.setRequestDesc(operationPage.page());
+		}
+
 		userLog.setRequestParam(paramMap);
 
 		// 日志记录
 		logger.info(JSON.toJSONString(userLog, SerializerFeature.WriteDateUseDateFormat));
 
 		// TODO
-		SerializerFeature[] features = { SerializerFeature.PrettyFormat, SerializerFeature.WriteDateUseDateFormat };
-		System.err.println(JSON.toJSONString(userLog, features));
+		System.err.println(JSON.toJSONString(userLog, SerializerFeature.PrettyFormat, SerializerFeature.WriteDateUseDateFormat));
 
 		return true;
 	}
