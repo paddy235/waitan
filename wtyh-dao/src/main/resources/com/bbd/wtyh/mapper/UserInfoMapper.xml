@@ -10,15 +10,6 @@
     <result column="user_type" jdbcType="CHAR" property="createDate" />
     <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
     <result column="update_date" jdbcType="DATE" property="updateDate" />
-    <result column="reg_capital" jdbcType="VARCHAR" property="regCapital" />
-    <result column="company_qualification" jdbcType="VARCHAR" property="companyQualification" />
-    <result column="static_risk_index" jdbcType="REAL" property="staticRiskIndex" />
-    <result column="dynamic_risk_index" jdbcType="REAL" property="dynamicRiskIndex" />
-    <result column="legal_rpt" jdbcType="VARCHAR" property="legalRpt" />
-    <result column="company_type" jdbcType="VARCHAR" property="companyType" />
-    <result column="reg_date" jdbcType="DATE" property="regDate" />
-    <result column="review_time" jdbcType="VARCHAR" property="reviewTime" />
-    <result column="is_rise" jdbcType="INTEGER" property="isRise" />
   </resultMap>-->
 
   <insert id="saveU" parameterType="com.bbd.wtyh.domain.UserInfoTableDo" useGeneratedKeys="true"

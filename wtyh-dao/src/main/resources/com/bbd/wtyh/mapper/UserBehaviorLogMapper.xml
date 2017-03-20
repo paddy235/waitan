@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.UserBehaviorLogMapper">
+
+  <sql id="TabName">
+  `user_behavior_log`
+  </sql>
+
+
+  <!-- 查询用户记录列表, 用户为‘A’ -->
+  <select id="selectUserBehaviorLogList" parameterType="java.util.HashMap"  resultType="java.util.Map">
+  SELECT
+  <if test=" listing ==null ">  <!-- 查总条数的标记 -->
+    COUNT(*) AS recordTotal
+  </if>
+  <if test=" listing !=null ">
+    id AS id,
+    ifnull(operator ,'') AS userName,  <!-- 用户名 -->
+    ifnull(request_ip ,'') AS requestIp,
+    ifnull(sys_name ,'') AS sysName,  <!-- 系统位置 -->
+    ifnull(operation_desc ,'')  AS operationDesc,   <!-- 操作类型 -->
+    ifnull(request_desc ,'')  AS requestPage,   <!-- 操作页面 -->
+    ifnull(log_content,'') AS logContent,  <!-- 操作详情 -->
+    ifnull(date ,'') AS date  <!-- 操作发生的时间 -->
+  </if>
+  FROM <include refid="TabName"/>
+  <where>
+    <if test="userName != null" >
+      `operator` LIKE '%${userName}%'
+    </if>
+    <if test="requestIp !=null">
+      AND `request_ip` LIKE '%${requestIp}%'
+    </if>
+    <if test="sysCode !=null">  <!-- 需要以sys_name字段给前台返列表且接受前台的sys_code返回 -->
+      AND  `sys_code` = #{sysCode}
+    </if>
+    <if test="operationType !=null"> <!-- 需要以operation_desc字段给前台返列表且接受前台的operation_type返回 -->
+      AND  `operation_type` = #{operationType}
+    </if>
+    <if test="requestPage !=null"> <!-- 需要以request_desc字段给前台返列表 -->
+      AND  `request_desc` = #{requestPage}
+    </if>
+  </where>
+  ORDER BY update_date DESC
+  <if test="listing !=null ">
+    LIMIT
+    <if test="pageNumber !=null">
+      #{pageNumber},
+    </if>  #{pageLimit}
+  </if>
+  </select>
+
+
+</mapper>

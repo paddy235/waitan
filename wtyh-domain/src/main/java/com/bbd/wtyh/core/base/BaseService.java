@@ -84,4 +84,6 @@ public interface BaseService {
 	 */
 	<T> int update(T obj);
 
+	int excuteDel(String sql);
+
 }

@@ -5,8 +5,9 @@ import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.log.user.UserLog;
 import com.bbd.wtyh.service.LogInfoService;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -22,12 +23,11 @@ public class LogInfoServiceImpl extends BaseServiceImpl implements LogInfoServic
     @Value("${userActionLog.path}")
     private String userActionLogDir;
 
-
+    Logger logger= LoggerFactory.getLogger(LogInfoServiceImpl.class);
     /**
      * 将日志文件导入数据库
      */
     @Override
-    //@Scheduled(cron = "0 0 1 * * ?")
     public Long exportLogFileToDataBase(String operDate,Long counts) {
         String date=null;
         if(null==operDate){
@@ -125,7 +125,7 @@ public class LogInfoServiceImpl extends BaseServiceImpl implements LogInfoServic
             writer.close();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("日志入库异常",e);
         } finally {
             if (reader != null) {
                 try {
