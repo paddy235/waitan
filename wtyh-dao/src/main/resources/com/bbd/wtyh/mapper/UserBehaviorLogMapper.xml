@@ -40,9 +40,6 @@
     <if test="requestPage !=null"> <!-- 需要以request_desc字段给前台返列表 -->
       AND  `request_desc` = #{requestPage}
     </if>
-    <when test="userType !=null">
-      AND  `user_type` in(${userType})
-    </when>
   </where>
   ORDER BY update_date DESC
   <if test="listing !=null ">

@@ -19,7 +19,25 @@
 
     <context:component-scan base-package="com.bbd.bgo.web.controller"/>
 
+   <!-- <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**/**.do"/>
+            <ref bean="loginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>-->
+
+    <bean id="userLogInterceptor" class="com.bbd.wtyh.log.user.interceptor.UserLogInterceptor">
+        <property name="operationSys" value="back"/>
+    </bean>
+
+
     <mvc:interceptors>
+        <mvc:interceptor>
+            <!-- 对所有的请求拦截使用/**  -->
+            <mvc:mapping path="/**"/>
+            <ref bean="userLogInterceptor"/>
+        </mvc:interceptor>
+
         <mvc:interceptor>
             <mvc:mapping path="/**/**.do"/>
             <ref bean="loginInterceptor"/>
