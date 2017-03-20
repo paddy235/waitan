@@ -60,7 +60,7 @@ public class LogInfoTaskServiceImpl extends BaseServiceImpl implements LogInfoTa
         //web2 前台业务系统的日志
         String web2=wtyh_web2_url+"/logInfo/exportLogFile?date="+operDate+"&counts="+counts;
         logger.info("日志入库-业务系统"+wtyh_web2_url+"入库开始");
-        tempCounts=callHttpRequest(web1);
+        tempCounts=callHttpRequest(web2);
         logger.info("日志入库-业务系统"+wtyh_web2_url+"入库结束");
         if(null!=tempCounts && 0!=tempCounts){
             counts=tempCounts;
