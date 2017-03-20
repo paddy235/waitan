@@ -1,16 +1,16 @@
 package com.bbd.bgo.service.task;
 
-import com.alibaba.fastjson.JSON;
+
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
-import com.bbd.wtyh.log.user.UserLog;
 import com.bbd.wtyh.service.LogInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -19,6 +19,7 @@ import java.util.Date;
 /**
  * Created by Administrator on 2017/3/20 0020.
  */
+@Service
 public class LogInfoTaskServiceImpl extends BaseServiceImpl implements LogInfoTaskService{
 
     @Autowired
@@ -32,7 +33,7 @@ public class LogInfoTaskServiceImpl extends BaseServiceImpl implements LogInfoTa
 
     Logger logger= LoggerFactory.getLogger(LogInfoTaskServiceImpl.class);
 
-    @Scheduled(cron = "0 0 1 * * ?")
+    @Scheduled(cron = "0 53 17 * * ?")
     public void exportLogFile() {
         logger.info("日志入库程序开始");
         String operDate=getPreDay(1);
