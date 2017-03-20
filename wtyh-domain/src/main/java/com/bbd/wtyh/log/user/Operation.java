@@ -18,7 +18,7 @@ public class Operation {
 
 		borrow("网络借贷", 3),
 		licaiHome("线下理财", 4),
-		loan("小额借贷", 5),
+		loan("小额贷款", 5),
 		guarantee("融资担保", 6),
 		privateFund("私募基金", 7),
 		exchange("交易场所", 8),
@@ -28,8 +28,8 @@ public class Operation {
 		factoring("商业保理", 12),
 		prepaid("预付卡", 13),
 
-		licaiRisk("理财风险页面", 14),
-		platform("网贷平台", 15),
+		licaiRisk("线下理财详情", 14),
+		platform("网络借贷详情", 15),
 
 		hologram("全息信息页面", 16),
 
@@ -39,10 +39,13 @@ public class Operation {
 		realCtrl("实时监测页面", 19),
 
 		userList("用户列表", 20),
-		userTemplate("用户信息浏览", 21),
+
+		userTemplate("用户信息", 21),
 
 		createUser("新增用户", 22),
-		upDateUser("修改用户信息", 23);
+		upDateUser("修改用户信息", 23),
+
+		modifyPwd("修改用户密码", 24);
 
 		/** 页面 */
 		private String page;
