@@ -9,7 +9,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.util.Date;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * 用户日志实体
@@ -22,7 +21,10 @@ public class UserLog extends BaseDO {
 	/** 日志ID */
 	@Id
 	@Column(name = "id")
-	private String logId;
+	private Long logId;
+	/** 日志NUM */
+	@Column(name = "log_num")
+	private Long logNum;
 
 	/** 操作者 */
 	@Column
@@ -85,12 +87,16 @@ public class UserLog extends BaseDO {
 	@Transient
 	private Map<String, String> requestParam;
 
+
+	@Transient
+	private String uuid;
+
 	/**
 	 * 获取 日志ID
 	 *
 	 * @return logId 日志ID
 	 */
-	public String getLogId() {
+	public Long getLogId() {
 		return this.logId;
 	}
 
@@ -100,8 +106,27 @@ public class UserLog extends BaseDO {
 	 * @param logId
 	 *            日志ID
 	 */
-	public void setLogId(String logId) {
+	public void setLogId(Long logId) {
 		this.logId = logId;
+	}
+
+	/**
+	 * 获取 日志编号
+	 *
+	 * @return logId 日志编号
+	 */
+	public Long getLogNum() {
+		return this.logNum;
+	}
+
+	/**
+	 * 设置 日志编号
+	 *
+	 * @param logNum
+	 *            日志编号
+	 */
+	public void setLogNum(Long logNum) {
+		this.logNum = logNum;
 	}
 
 	/**
@@ -387,5 +412,13 @@ public class UserLog extends BaseDO {
 	 */
 	public void setAreaCode(String areaCode) {
 		this.areaCode = areaCode;
+	}
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 }

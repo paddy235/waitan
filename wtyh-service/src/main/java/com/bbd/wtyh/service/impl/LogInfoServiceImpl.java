@@ -1,10 +1,10 @@
 package com.bbd.wtyh.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.bbd.wtyh.core.base.BaseService;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.log.user.UserLog;
 import com.bbd.wtyh.service.LogInfoService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -22,38 +22,42 @@ public class LogInfoServiceImpl extends BaseServiceImpl implements LogInfoServic
     @Value("${userActionLog.path}")
     private String userActionLogDir;
 
+
     /**
      * 将日志文件导入数据库
      */
     @Override
     //@Scheduled(cron = "0 0 1 * * ?")
-    public void exportLogFileToDataBase(String operDate) {
+    public Long exportLogFileToDataBase(String operDate,Long counts) {
         String date=null;
         if(null==operDate){
+            //定时任务
             date=getPreDay(0);//处理当前日期前一天的数据
         }else{
+            //手动调用
             date=operDate;
         }
 
         File fileDir =new File(userActionLogDir);
         if(!fileDir.isDirectory()){
             //fileDir .mkdir(); //创建目录
-            return;
+            return counts;
         }
+        String tempDate=date.replace("-","");
         String[] list;
         String pattern="^userLog_"+date+"_\\d+.log$";//匹配 userLog_2017-03-18_数字
         list = fileDir.list(filter(pattern));
         Arrays.sort(list, String.CASE_INSENSITIVE_ORDER);
         for (String string : list) {
-            loadLogFromFile(userActionLogDir+File.separator+string);
+            loadLogFromFile(userActionLogDir+File.separator+string,tempDate,counts);
         }
-
+        return counts;//返回全局号码，供后续接口使用
     }
 
     /**
      * 把日志文件导入数据库
      */
-    public void loadLogFromFile(String filePath) {
+    public void loadLogFromFile(String filePath,String logNumDate,Long counts) {
         // TODO Auto-generated method stub
         List<String> list=new ArrayList<String>();
         List<UserLog> userLogList=new ArrayList<UserLog>();
@@ -77,6 +81,7 @@ public class LogInfoServiceImpl extends BaseServiceImpl implements LogInfoServic
             String tempString = null;
             tempString = reader.readLine();
             // 一次读入一行，直到读入null为文件结束
+
             while (tempString != null) {
 
                 if (null==tempString || tempString.equals("")) {
@@ -85,13 +90,16 @@ public class LogInfoServiceImpl extends BaseServiceImpl implements LogInfoServic
 
                 try{
                     UserLog userLog = JSON.parseObject(tempString, UserLog.class);
+
+                    userLog.setLogNum(Long.parseLong(logNumDate+StringUtils.leftPad(counts.toString(),6,"0")));
+                    counts++;
                     userLogList.add(userLog);
                 }catch (Exception e){
                     list.add(tempString);
                     e.printStackTrace();
                 }
 
-                if(userLogList.size()>=100){
+                if(userLogList.size()>=1000){
                     addLogs(userLogList);
                     userLogList.clear();
                 }
