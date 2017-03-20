@@ -12,21 +12,45 @@ public class Operation {
 	 */
 	public enum Page {
 
-		blank("", ""), home("首页", "/getSysAnalyze.do"), borrow("网络借贷", "/PToPMonitor/platRankData.do"), licaiHome("线下理财", ""),
-		licaiRisk("理财风险页面", "/offlineFinance/companyInfo.do"), loan("小额借贷", "/loan/areaStatistic.do"),
-		guarantee("融资担保", "/guarantee/areaStatistic.do"), privateFund("私募基金", "/privateFund/qflpInfoList.do"),
-		exchange("交易场所", "/exchangeCompany/exchangeCompanyCategory.do"), crowdFunding("众筹", "/crowdFunding/distribute.do"),
-		pawn("典当", "/mortgage/companyList.do"), financeLease("融资租赁", "/financeLease/leaseCompanyStatistic.do"),
-		factoring("商业保理", "/factoring/companys.do"), prepaid("预付卡", "/prepaid/amount.do"), platform("网贷平台", "/P2PImage/platFormStatus.do"),
-		hologram("全息信息页面", ""), realCtrl("实时监测页面", "/realTimeMonitor/spectrumAnalysis.do"), park("园区监测", ""), building("楼宇页面", "");
+		blank("", 0),
+		login("登录页面", 1),
+		home("首页", 2),
+
+		borrow("网络借贷", 3),
+		licaiHome("线下理财", 4),
+		loan("小额借贷", 5),
+		guarantee("融资担保", 6),
+		privateFund("私募基金", 7),
+		exchange("交易场所", 8),
+		crowdFunding("众筹", 9),
+		pawn("典当", 10),
+		financeLease("融资租赁", 11),
+		factoring("商业保理", 12),
+		prepaid("预付卡", 13),
+
+		licaiRisk("理财风险页面", 14),
+		platform("网贷平台", 15),
+
+		hologram("全息信息页面", 16),
+
+		park("园区监测", 17),
+		building("楼宇页面", 18),
+
+		realCtrl("实时监测页面", 19),
+
+		userList("用户列表", 20),
+		userTemplate("用户信息浏览", 21),
+
+		createUser("新增用户", 22),
+		upDateUser("修改用户信息", 23);
 
 		/** 页面 */
 		private String page;
-		/** 地址 */
-		private String uri;
+		/** 代码 */
+		private int code;
 
-		Page(String page, String uri) {
-			this.uri = uri;
+		Page(String page, int code) {
+			this.code = code;
 			this.page = page;
 		}
 
@@ -44,8 +68,8 @@ public class Operation {
 		 *
 		 * @return uri 地址
 		 */
-		public String uri() {
-			return this.uri;
+		public int code() {
+			return this.code;
 		}
 	}
 
@@ -53,7 +77,14 @@ public class Operation {
 	 * 用户操作类型
 	 */
 	public enum Type {
-		login("登录", 1), logout("登出", 2), query("查询", 3), browse("浏览", 4), add("新增", 5), modify("修改", 6), del("删除", 7), lock("锁定", 8);
+		login("登录", 1),
+		logout("登出", 2),
+		query("查询", 3),
+		browse("浏览", 4),
+		add("新增", 5),
+		modify("修改", 6),
+		del("删除", 7),
+		lock("锁定", 8);
 
 		private String desc;
 		private int code;
@@ -83,7 +114,8 @@ public class Operation {
 	}
 
 	public enum System {
-		front(1, "前台"), back(2, "后台");
+		front(1, "前台"),
+		back(2, "后台");
 
 		/** 系统代码 */
 		private int sysCode;

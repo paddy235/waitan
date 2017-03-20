@@ -9,7 +9,6 @@ import com.bbd.wtyh.log.user.annotation.LogRecord;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -19,13 +18,13 @@ import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 用户日志拦截器
  *
  * @author Created by LiYao on 2017-03-11 10:08.
  */
-@Component(value = "userLogInterceptor")
 public class UserLogInterceptor extends HandlerInterceptorAdapter {
 
 	private Logger logger = LoggerFactory.getLogger("userLog");
@@ -67,10 +66,12 @@ public class UserLogInterceptor extends HandlerInterceptorAdapter {
 		UserInfoTableDo user = (UserInfoTableDo) request.getSession().getAttribute("loginUser");
 
 		UserLog userLog = new UserLog();
+		userLog.setLogId(UUID.randomUUID().toString().replace("-", "").toUpperCase());
 		userLog.setOperator(user == null ? "" : user.getLoginName());
 		userLog.setRealName(user == null ? "" : user.getRealName());
 		userLog.setDepartment(user == null ? "" : user.getDepartment());
-		userLog.setDate(new Date());
+		userLog.setAreaCode(user == null ? "" : user.getAreaCode());
+		userLog.setOperationDate(new Date());
 		userLog.setOperationType(operationType.code());
 		userLog.setOperationDesc(operationType.desc());
 		// 消息格式化，可能有%s占位符
@@ -80,20 +81,16 @@ public class UserLogInterceptor extends HandlerInterceptorAdapter {
 		userLog.setSysName(operationSys.sysName());
 
 		userLog.setRequestIP(this.getRemoteAddress(request));
-
-		userLog.setRequestURI(operationPage.uri());
-		if ("".equals(operationPage.uri())) {
-			userLog.setRequestURI(request.getRequestURI());
-		}
+		userLog.setRequestURI(request.getRequestURI());
+		userLog.setRequestCode(operationPage.code());
 		userLog.setRequestDesc(operationPage.page());
 		userLog.setRequestParam(paramMap);
-
-		SerializerFeature[] features = { SerializerFeature.PrettyFormat, SerializerFeature.WriteDateUseDateFormat };
 
 		// 日志记录
 		logger.info(JSON.toJSONString(userLog, SerializerFeature.WriteDateUseDateFormat));
 
 		// TODO
+		SerializerFeature[] features = { SerializerFeature.PrettyFormat, SerializerFeature.WriteDateUseDateFormat };
 		System.err.println(JSON.toJSONString(userLog, features));
 
 		return true;

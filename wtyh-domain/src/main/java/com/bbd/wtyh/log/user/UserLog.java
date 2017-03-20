@@ -1,6 +1,7 @@
 package com.bbd.wtyh.log.user;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.bbd.wtyh.domain.BaseDO;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -8,6 +9,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.util.Date;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 用户日志实体
@@ -15,56 +17,68 @@ import java.util.Map;
  * @author Created by LiYao on 2017-03-13 09:27.
  */
 @Table(name = "user_behavior_log")
-public class UserLog {
+public class UserLog extends BaseDO {
 
 	/** 日志ID */
 	@Id
-	private Integer id;
+	@Column(name = "id")
+	private String logId;
 
 	/** 操作者 */
+	@Column
 	private String operator;
 
 	/** 操作者真实姓名 */
-	@Column(name="real_name")
+	@Column(name = "real_name")
 	private String realName;
 
 	/** 操作者所属部门 */
+	@Column
 	private String department;
+
+	/** 地区代码 */
+	@Column(name = "area_code")
+	private String areaCode;
 
 	/** 操作发生时间 */
 	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
-	private Date date;
+	@Column(name = "operation_date")
+	private Date operationDate;
 
 	/** 操作类型描述 */
-	@Column(name="operation_desc")
+	@Column(name = "operation_desc")
 	private String operationDesc;
 
 	/** 操作类型 */
-	@Column(name="operation_type")
+	@Column(name = "operation_type")
 	private Integer operationType;
 
 	/** 日志内容 */
-	@Column(name="log_content")
+	@Column(name = "log_content")
 	private String LogContent;
 
 	/** 发生操作的系统代码 */
-	@Column(name="sys_code")
+	@Column(name = "sys_code")
 	private Integer sysCode;
 
 	/** 发生操作的系统名称 */
-	@Column(name="sys_name")
+	@Column(name = "sys_name")
 	private String sysName;
 
 	/** 请求IP */
-	@Column(name="request_ip")
+	@Column(name = "request_ip")
 	private String requestIP;
 
 	/** 请求地址 */
-	@Column(name="request_uri")
+	@Transient
 	private String requestURI;
 
 	/** 请求地址描述 */
-	@Column(name="request_desc")
+	@Column(name = "request_code")
+	private Integer requestCode;
+
+	/** 请求地址描述 */
+	@Column(name = "request_desc")
 	private String requestDesc;
 
 	/** 全部请求参数 */
@@ -74,20 +88,20 @@ public class UserLog {
 	/**
 	 * 获取 日志ID
 	 *
-	 * @return id 日志ID
+	 * @return logId 日志ID
 	 */
-	public Integer getId() {
-		return this.id;
+	public String getLogId() {
+		return this.logId;
 	}
 
 	/**
 	 * 设置 日志ID
 	 *
-	 * @param id
+	 * @param logId
 	 *            日志ID
 	 */
-	public void setId(Integer id) {
-		this.id = id;
+	public void setLogId(String logId) {
+		this.logId = logId;
 	}
 
 	/**
@@ -150,20 +164,20 @@ public class UserLog {
 	/**
 	 * 获取 操作发生时间
 	 *
-	 * @return date 操作发生时间
+	 * @return operationDate 操作发生时间
 	 */
-	public Date getDate() {
-		return this.date;
+	public Date getOperationDate() {
+		return this.operationDate;
 	}
 
 	/**
 	 * 设置 操作发生时间
 	 *
-	 * @param date
+	 * @param operationDate
 	 *            操作发生时间
 	 */
-	public void setDate(Date date) {
-		this.date = date;
+	public void setOperationDate(Date operationDate) {
+		this.operationDate = operationDate;
 	}
 
 	/**
@@ -224,6 +238,44 @@ public class UserLog {
 	}
 
 	/**
+	 * 获取 发生操作的系统代码
+	 *
+	 * @return sysCode 发生操作的系统代码
+	 */
+	public Integer getSysCode() {
+		return this.sysCode;
+	}
+
+	/**
+	 * 设置 发生操作的系统代码
+	 *
+	 * @param sysCode
+	 *            发生操作的系统代码
+	 */
+	public void setSysCode(Integer sysCode) {
+		this.sysCode = sysCode;
+	}
+
+	/**
+	 * 获取 发生操作的系统名称
+	 *
+	 * @return sysName 发生操作的系统名称
+	 */
+	public String getSysName() {
+		return this.sysName;
+	}
+
+	/**
+	 * 设置 发生操作的系统名称
+	 *
+	 * @param sysName
+	 *            发生操作的系统名称
+	 */
+	public void setSysName(String sysName) {
+		this.sysName = sysName;
+	}
+
+	/**
 	 * 获取 请求IP
 	 *
 	 * @return requestIP 请求IP
@@ -262,19 +314,38 @@ public class UserLog {
 	}
 
 	/**
-	 * 获取 请求描述
+	 * 获取 请求地址描述
 	 *
-	 * @return requestDesc 请求描述
+	 * @return requestCode 请求地址描述
+	 */
+	public Integer getRequestCode() {
+		return this.requestCode;
+	}
+
+	/**
+	 * 设置 请求地址描述
+	 *
+	 * @param requestCode
+	 *            请求地址描述
+	 */
+	public void setRequestCode(Integer requestCode) {
+		this.requestCode = requestCode;
+	}
+
+	/**
+	 * 获取 请求地址描述
+	 *
+	 * @return requestDesc 请求地址描述
 	 */
 	public String getRequestDesc() {
 		return this.requestDesc;
 	}
 
 	/**
-	 * 设置 请求描述
+	 * 设置 请求地址描述
 	 *
 	 * @param requestDesc
-	 *            请求描述
+	 *            请求地址描述
 	 */
 	public void setRequestDesc(String requestDesc) {
 		this.requestDesc = requestDesc;
@@ -300,40 +371,21 @@ public class UserLog {
 	}
 
 	/**
-	 * 获取 发生操作的系统代码
+	 * 获取 地区代码
 	 *
-	 * @return sysCode 发生操作的系统代码
+	 * @return areaCode 地区代码
 	 */
-	public Integer getSysCode() {
-		return this.sysCode;
+	public String getAreaCode() {
+		return this.areaCode;
 	}
 
 	/**
-	 * 设置 发生操作的系统代码
+	 * 设置 地区代码
 	 *
-	 * @param sysCode
-	 *            发生操作的系统代码
+	 * @param areaCode
+	 *            地区代码
 	 */
-	public void setSysCode(Integer sysCode) {
-		this.sysCode = sysCode;
-	}
-
-	/**
-	 * 获取 发生操作的系统名称
-	 *
-	 * @return sysName 发生操作的系统名称
-	 */
-	public String getSysName() {
-		return this.sysName;
-	}
-
-	/**
-	 * 设置 发生操作的系统名称
-	 *
-	 * @param sysName
-	 *            发生操作的系统名称
-	 */
-	public void setSysName(String sysName) {
-		this.sysName = sysName;
+	public void setAreaCode(String areaCode) {
+		this.areaCode = areaCode;
 	}
 }
