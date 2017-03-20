@@ -48,8 +48,9 @@ public class LogInfoServiceImpl extends BaseServiceImpl implements LogInfoServic
         String pattern="^userLog_"+date+"_\\d+.log$";//匹配 userLog_2017-03-18_数字
         list = fileDir.list(filter(pattern));
         Arrays.sort(list, String.CASE_INSENSITIVE_ORDER);
+
         for (String string : list) {
-            loadLogFromFile(userActionLogDir+File.separator+string,tempDate,counts);
+            counts=loadLogFromFile(userActionLogDir+File.separator+string,tempDate,counts);
         }
         return counts;//返回全局号码，供后续接口使用
     }
@@ -57,7 +58,7 @@ public class LogInfoServiceImpl extends BaseServiceImpl implements LogInfoServic
     /**
      * 把日志文件导入数据库
      */
-    public void loadLogFromFile(String filePath,String logNumDate,Long counts) {
+    public Long loadLogFromFile(String filePath,String logNumDate,Long counts) {
         // TODO Auto-generated method stub
         List<String> list=new ArrayList<String>();
         List<UserLog> userLogList=new ArrayList<UserLog>();
@@ -69,7 +70,7 @@ public class LogInfoServiceImpl extends BaseServiceImpl implements LogInfoServic
             //读取日志文件
             File fileSource=new File(filePath);
             if(!fileSource.exists()){
-                return;
+                return counts;
             }
             //先删除错误日志
             File errFile=new File(errFilePath);
@@ -140,7 +141,7 @@ public class LogInfoServiceImpl extends BaseServiceImpl implements LogInfoServic
                 }
             }
         }
-
+        return counts;
     }
 
 
