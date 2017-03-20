@@ -81,4 +81,7 @@ public interface BaseMapper {
 	 */
 	@UpdateProvider(type = CRUDTemplate.class, method = "update")
 	<T> int update(T obj);
+
+	@Delete("${sql}}")
+	int excuteDel(@Param("sql") String sql);
 }

@@ -66,4 +66,9 @@ public class BaseServiceImpl implements BaseService {
 	public <T> int update(T obj) {
 		return generalMapper.update(obj);
 	}
+
+	@Override
+	public int excuteDel(String sql) {
+		return generalMapper.excuteDel(sql);
+	}
 }
