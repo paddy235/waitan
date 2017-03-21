@@ -112,18 +112,20 @@ public class LogInfoServiceImpl extends BaseServiceImpl implements LogInfoServic
             reader.close();
 
             //备份出错的行到error文件
-            File newErrFile=new File(filePath+ ".error");
-            OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(newErrFile), "UTF-8");
-            writer = new BufferedWriter(osw);
-            for(String str:list){
-                if(null!=str && !str.equals("")){
-                    writer.write(str);
-                    writer.newLine();
-                }
+            if(list.size()>0){
+                File newErrFile=new File(filePath+ ".error");
+                OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(newErrFile), "UTF-8");
+                writer = new BufferedWriter(osw);
+                for(String str:list){
+                    if(null!=str && !str.equals("")){
+                        writer.write(str);
+                        writer.newLine();
+                    }
 
+                }
+                writer.flush();
+                writer.close();
             }
-            writer.flush();
-            writer.close();
 
         } catch (Exception e) {
             logger.error("日志入库异常",e);
