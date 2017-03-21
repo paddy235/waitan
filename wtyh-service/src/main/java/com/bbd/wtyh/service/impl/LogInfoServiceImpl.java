@@ -37,20 +37,20 @@ public class LogInfoServiceImpl extends BaseServiceImpl implements LogInfoServic
             //手动调用
             date=operDate;
         }
-
-        File fileDir =new File(userActionLogDir);
+        String logPath=userActionLogDir+File.separator+"userLogs";
+        File fileDir =new File(logPath);
         if(!fileDir.isDirectory()){
             //fileDir .mkdir(); //创建目录
             return counts;
         }
-        String tempDate=date.replace("-","");
+        String tempDate=date.replace("-","").substring(2);
         String[] list;
         String pattern="^userLog_"+date+"_\\d+.log$";//匹配 userLog_2017-03-18_数字
         list = fileDir.list(filter(pattern));
         Arrays.sort(list, String.CASE_INSENSITIVE_ORDER);
 
         for (String string : list) {
-            counts=loadLogFromFile(userActionLogDir+File.separator+string,tempDate,counts);
+            counts=loadLogFromFile(logPath+File.separator+string,tempDate,counts);
         }
         return counts;//返回全局号码，供后续接口使用
     }

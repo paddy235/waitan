@@ -80,6 +80,7 @@ public class LoginController {
 			session.setAttribute(Constants.SESSION.loginName, name);//登录用户名
 			session.setAttribute("area",areaCode);//地区编号
 			session.setAttribute("areaName",areaName);//地区名称
+			session.setAttribute("loginUser",userInfo);//日志使用
 
 			//用户信息、权限信息传给前端页面
 			map=new HashedMap();

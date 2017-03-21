@@ -34,6 +34,10 @@ public class LogInfoTaskServiceImpl extends BaseServiceImpl implements LogInfoTa
     Logger logger= LoggerFactory.getLogger(LogInfoTaskServiceImpl.class);
 
     @Scheduled(cron = "0 0 1 * * ?")
+    public void exportLogFileTask() {
+        exportLogFile(null);
+    }
+
     public void exportLogFile(String operDate) {
         logger.info("日志入库程序开始");
         String date=null;

@@ -98,8 +98,6 @@ public class UserLogInterceptor extends HandlerInterceptorAdapter {
 		// 日志记录
 		logger.info(JSON.toJSONString(userLog, SerializerFeature.WriteDateUseDateFormat));
 
-		// TODO
-		System.err.println(JSON.toJSONString(userLog, SerializerFeature.PrettyFormat, SerializerFeature.WriteDateUseDateFormat));
 
 		return true;
 	}
