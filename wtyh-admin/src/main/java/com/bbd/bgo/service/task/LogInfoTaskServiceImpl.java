@@ -34,40 +34,47 @@ public class LogInfoTaskServiceImpl extends BaseServiceImpl implements LogInfoTa
     Logger logger= LoggerFactory.getLogger(LogInfoTaskServiceImpl.class);
 
     @Scheduled(cron = "0 0 1 * * ?")
-    public void exportLogFile() {
+    public void exportLogFile(String operDate) {
         logger.info("日志入库程序开始");
-        String operDate=getPreDay(1);
+        String date=null;
+        if(null==operDate){
+            //定时任务
+            date=getPreDay(0);//处理当前日期前一天的数据
+        }else{
+            //手动调用
+            date=operDate;
+        }
         counts=1L;
         //先删除表里的数据
         logger.info("日志入库-删除原日志数据开始");
-        excuteDel("delete from user_behavior_log where operation_date like '"+operDate+"%'");
+        excuteDel("delete from user_behavior_log where operation_date like '"+date+"%'");
         logger.info("日志入库-删除原日志数据结束");
         //后台管理系统的日志
         Long tempCounts;
         logger.info("日志入库-后台系统入库开始");
-        tempCounts=logInfoService.exportLogFileToDataBase(operDate,counts);
-        logger.info("日志入库-后台系统入库结束");
+        tempCounts=logInfoService.exportLogFileToDataBase(date,counts);
         if(null!=tempCounts && 0!=tempCounts){
             counts=tempCounts;
         }
+        logger.info("日志入库-后台系统入库结束，累计笔数"+(counts-1));
+
         //web1 前台业务系统的日志
-        String web1=wtyh_web1_url+"?date="+operDate+"&counts="+counts;
+        String web1=wtyh_web1_url+"?date="+date+"&counts="+counts;
         logger.info("日志入库-业务系统"+web1+"入库开始");
         tempCounts=callHttpRequest(web1);
-        logger.info("日志入库-业务系统"+web1+"入库结束");
         if(null!=tempCounts && 0!=tempCounts){
             counts=tempCounts;
         }
+        logger.info("日志入库-业务系统"+web1+"入库结束，累计笔数"+(counts-1));
+
         //web2 前台业务系统的日志
-        String web2=wtyh_web2_url+"?date="+operDate+"&counts="+counts;
+        String web2=wtyh_web2_url+"?date="+date+"&counts="+counts;
         logger.info("日志入库-业务系统"+web2+"入库开始");
         tempCounts=callHttpRequest(web2);
-        logger.info("日志入库-业务系统"+web2+"入库结束");
         if(null!=tempCounts && 0!=tempCounts){
             counts=tempCounts;
         }
-
-        logger.info("日志入库程序结束");
+        logger.info("日志入库-业务系统"+web2+"入库结束，累计笔数"+(counts-1));
     }
 
     private Long callHttpRequest(String url){
