@@ -37,16 +37,16 @@ public class UserBehaviorLogServiceImpl extends BaseServiceImpl implements UserB
 		if( StringUtils.isNotBlank(userName) ) {
 			params.put("userName", userName);
 		}
-		if (areaCode > 0) {
+		if ( null !=areaCode && areaCode > 0) {
 			params.put("areaCode", areaCode);
 		}
-		if (sysCode > 0) {
+		if ( null !=sysCode && sysCode > 0) {
 			params.put("sysCode", sysCode);
 		}
-		if (opTpCd > 0) {
+		if ( null !=opTpCd && opTpCd > 0) {
 			params.put("opTpCd", opTpCd);
 		}
-		if (opPgCd > 0) {
+		if (null !=opPgCd && opPgCd >= 0) {
 			params.put("opPgCd", opPgCd);
 		}
 		if (null != beginTime) {

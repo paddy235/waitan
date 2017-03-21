@@ -46,7 +46,7 @@
       AND  `operation_date` >= #{beginTime}
     </if>
     <if test="endTime !=null"> <!-- 结束时间 -->
-      AND  `operation_date` le #{endTime}
+      AND  `operation_date` &lt;= #{endTime}
     </if>
     <if test="logSN !=null"> <!-- 日志序列号 -->
       AND  `log_num` = #{logSN}

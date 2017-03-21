@@ -1,10 +1,12 @@
 package com.bbd.bgo.web.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 
 import com.bbd.wtyh.service.UserBehaviorLogService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,10 +33,17 @@ public class UserBehaviorLogController {
     @Autowired
     UserBehaviorLogService ubls;
 
+    private Date stringToDate(String strDate) throws Exception {
+        if(StringUtils.isBlank(strDate)) {
+            return null;
+        }
+        SimpleDateFormat dateFormat =new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        return dateFormat.parse(strDate);
+    }
 
     @RequestMapping("/listUserBehaviorLog.do")
     @ResponseBody
-    //@LogRecord(logMsg = "按条件显示用户列表（区域代码：%s, 搜索条件：%s=%s）", params = {"areaCode", "selectType", "selectObject"}, page = Operation.Page.userList, type = Operation.Type.browse)
+    @LogRecord(logMsg = "按条件显示用户行为日志列表", page = Operation.Page.logList, type = Operation.Type.browse)
     public Object listUserBehaviorLog(
             @RequestParam int pageSize,
             Integer pageNumber,
@@ -43,14 +52,14 @@ public class UserBehaviorLogController {
             Integer sysCode,
             Integer opTpCd,
             Integer  opPgCd,
-            Date beginTime,
-            Date endTime,
-            Long logSN,
-            HttpServletRequest request) {
+            String beginTime,
+            String endTime,
+            Long logSN ) {
         Map<String, Object> rstMap = null;
         try {
             rstMap = ubls.listUserBehaviorLog(pageSize, pageNumber, userName, areaCode,
-                    sysCode, opTpCd, opPgCd, beginTime, endTime, logSN);
+                    sysCode, opTpCd, opPgCd, stringToDate(beginTime),
+                    stringToDate(endTime), logSN);
         } catch (BusinessException be) {
             return ResponseBean.errorResponse(be.getMessage());
         } catch (Exception e) {
@@ -63,7 +72,7 @@ public class UserBehaviorLogController {
 
     @RequestMapping("/queryListDictionary.do")
     @ResponseBody
-    public Object queryListDictionary( String[] queryProject , HttpServletRequest request) {
+    public Object queryListDictionary( @RequestParam String[] queryProject ) {
         Map<String, Object> rstObj = new HashMap<String, Object>();
         try {
             for ( String Prj : queryProject ) {

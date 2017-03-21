@@ -104,7 +104,7 @@ public class UserInfoController {
 
     @RequestMapping("/listUserInfo.do")
     @ResponseBody
-    @LogRecord(logMsg = "按条件显示用户列表（区域代码：%s, 搜索条件：%s=%s）", params = {"areaCode", "selectType", "selectObject"},
+    @LogRecord(logMsg = "按条件显示用户列表（地区代码：%s, 搜索条件：%s=%s）", params = {"areaCode", "selectType", "selectObject"},
             page = Operation.Page.userList, type = Operation.Type.browse)
     public Object listUserInfo(
             @RequestParam int areaCode,
@@ -171,7 +171,7 @@ public class UserInfoController {
         return ResponseBean.successResponse(rstList);
     }
 
-    @RequestMapping("/myTest.do")
+/*    @RequestMapping("/myTest.do")
     @ResponseBody
     public Object myTest() {
         //下面是测试代码
@@ -183,7 +183,6 @@ public class UserInfoController {
             ;
         }
         return ResponseBean.successResponse("err");
-    }
-
+    }*/
 
 }

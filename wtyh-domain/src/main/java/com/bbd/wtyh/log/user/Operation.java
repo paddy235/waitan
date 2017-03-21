@@ -12,7 +12,7 @@ public class Operation {
 	 */
 	public enum Page {
 
-		blank("", 0),
+		blank("[blank]", 0), //blank("", 0),
 		login("登录页面", 1),
 		home("首页", 2),
 
@@ -44,8 +44,9 @@ public class Operation {
 
 		createUser("新增用户", 22),
 		upDateUser("修改用户信息", 23),
+		modifyPwd("修改用户密码", 24),
 
-		modifyPwd("修改用户密码", 24);
+		logList("用户日志列表", 25);
 
 		/** 页面 */
 		private String page;
