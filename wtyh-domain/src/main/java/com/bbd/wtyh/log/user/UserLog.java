@@ -2,11 +2,13 @@ package com.bbd.wtyh.log.user;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.bbd.wtyh.domain.BaseDO;
+import org.apache.commons.lang.StringUtils;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import java.io.File;
 import java.util.Date;
 import java.util.Map;
 
@@ -75,7 +77,7 @@ public class UserLog extends BaseDO {
 	@Transient
 	private String requestURI;
 
-	/** 请求地址描述 */
+	/** 请求地址Code */
 	@Column(name = "request_code")
 	private Integer requestCode;
 
@@ -86,7 +88,6 @@ public class UserLog extends BaseDO {
 	/** 全部请求参数 */
 	@Transient
 	private Map<String, String> requestParam;
-
 
 	@Transient
 	private String uuid;
