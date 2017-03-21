@@ -2,6 +2,7 @@ package com.bbd.wtyh.service.impl;
 
 import java.util.*;
 
+import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.mapper.UserBehaviorLogMapper;
 import com.bbd.wtyh.service.UserBehaviorLogService;
 import org.apache.commons.lang.StringUtils;
@@ -20,110 +21,123 @@ import com.bbd.wtyh.service.UserInfoService;
 public class UserBehaviorLogServiceImpl extends BaseServiceImpl implements UserBehaviorLogService {
 
 	@Autowired
+	private UserInfoService uis;
+
+	@Autowired
 	private UserBehaviorLogMapper userBehaviorLogMapper;
 
 	@Override
-	public Map<String, Object> listUserInfo(int areaCode, String selectType, String selectObject, int pageLimit, Integer pageNumber)
-			throws Exception {
-		if (StringUtils.isBlank(selectType)) {
-			throw new BusinessException("selectType参数为空");
-		}
-		if (pageLimit < 1) {
-			throw new BusinessException("pageLimit参数小于1，无意义");
-		}
-		if (!selectType.equals("default") && !selectType.equals("loginName") && !selectType.equals("realName")
-				&& !selectType.equals("department") && !selectType.equals("userType")) {
-			throw new BusinessException("selectType参数不合法");
-		}
-		if (!selectType.equals("default") && StringUtils.isBlank(selectObject)) {
-			// throw new BusinessException("selectObject参数不合法");
-			selectType = "default";
-		}
-		if (selectType.equals("userType")) {
-			if (selectObject.equals("后台系统管理员")) {
-				selectObject = "'A','B'";
-			} else if (selectObject.equals("普通用户")) {
-				selectObject = "'F'";
-			} else if (selectObject.equals("预分配用户")) {
-				selectObject = "'U'";
-			} else {
-				throw new BusinessException("userType对应的selectObject参数不合法");
-			}
+	public Map<String, Object> listUserBehaviorLog(int pageSize, Integer pageNumber, String userName, Integer areaCode,
+												   Integer sysCode, Integer opTpCd, Integer opPgCd, Date beginTime,
+												   Date endTime, Long logSN ) throws Exception {
+		if (pageSize < 1) {
+			throw new BusinessException("pageSize参数小于1，无意义");
 		}
 		HashMap<String, Object> params = new HashMap<String, Object>();
-		params.put(selectType, selectObject);
-		params.put("pageLimit", pageLimit);
+		if( StringUtils.isNotBlank(userName) ) {
+			params.put("userName", userName);
+		}
 		if (areaCode > 0) {
 			params.put("areaCode", areaCode);
 		}
+		if (sysCode > 0) {
+			params.put("sysCode", sysCode);
+		}
+		if (opTpCd > 0) {
+			params.put("opTpCd", opTpCd);
+		}
+		if (opPgCd > 0) {
+			params.put("opPgCd", opPgCd);
+		}
+		if (null != beginTime) {
+			params.put("beginTime", beginTime);
+		}
+		if (null != endTime) {
+			params.put("endTime", endTime);
+		}
+		if (null != logSN) {
+			params.put("logSN", logSN);
+		}
 		List<Map<String, Object>> lm = userBehaviorLogMapper.selectUserBehaviorLogList(params); // 查询符合条件的记录总条数
 		Long ltn = (Long) (lm.get(0).get("recordTotal"));
+		params.put("pageSize", pageSize);
 		int orderNum = 0;
 		if ((null != pageNumber) && (pageNumber > 0)) {
-			orderNum = (pageNumber - 1) * pageLimit;
-			pageNumber = (pageNumber - 1) * pageLimit; // pageNumber的意义已经变为了“Offset”
+			orderNum = (pageNumber - 1) * pageSize;
+			pageNumber = (pageNumber - 1) * pageSize; // pageNumber的意义已经变为了“Offset”
 			params.put("pageNumber", pageNumber);
 		}
-		params.put("listing", 1);
+		params.put("listing", 1);  //使能列表查询功能
 		lm = userBehaviorLogMapper.selectUserBehaviorLogList(params);
-		UserInfoTableDo uitd = new UserInfoTableDo();
+		List<Map<String, Object>> lmac =uis.getShanghaiAreaCodeTable("0"); //读取区域代码表
+		Map<Integer, String> mpac = new HashMap<Integer, String>();
+		for ( Map<String, Object>itr: lmac ) { //构造一个区域代码名称字典
+			mpac.put( (Integer) itr.get("areaId") , (String) itr.get("cityName"));
+		}
 		for (Map<String, Object> itr : lm) {
 			orderNum++;
-			itr.put("orderNum", orderNum);
-			Object tmpObj = itr.get("userType");
-			switch ((String) tmpObj) {
-			case "A": // itr.put("userType", "后台系统管理员"); break;
-			case "B":
-				itr.put("userType", "后台系统管理员");
-				break;
-			case "F":
-				itr.put("userType", "普通用户");
-				break;
-			default:
-				itr.put("userType", "预分配用户");
+			itr.put("orderNum", orderNum);  //构建行序号
+			Object obj =itr.get("area");
+			if( null !=  obj ) { //将区域代码
+				try {
+					int tmp = Integer.parseInt( (String)obj );
+					obj =mpac.get(tmp);
+					if( null !=  obj ) {
+						itr.put("area", (String)obj);
+					} else {
+						itr.put("area", "");
+					}
+				} catch (Exception e) {
+					itr.put("area", "");
+				}
+			} else {
+				itr.put("area", "");
 			}
-			tmpObj = itr.get("realName");
-			if (null != tmpObj) {
-				uitd.setRealName((String) tmpObj);
-			}
-			tmpObj = itr.get("fixPhone");
-			if (null != tmpObj) {
-				uitd.setFixPhone((String) tmpObj);
-			}
-			tmpObj = itr.get("mobile");
-			if (null != tmpObj) {
-				uitd.setMobile((String) tmpObj);
-			}
-			itr.put("realName", uitd.getRealName());
-			itr.put("fixPhone", uitd.getFixPhone());
-			itr.put("mobile", uitd.getMobile());
 		}
-
 		Map<String, Object> rstMap = new HashMap<String, Object>();
 		rstMap.put("listTotalNum", ltn);
 		rstMap.put("list", lm);
 		return rstMap;
 	}
 
-	@Override
-	public Map<String, Object> get(String type) throws Exception {
-		Map<String, Object> rstMap =null;
-		List<Map<String, Object>> lm = userBehaviorLogMapper.selectUserBehaviorLogList(null);
-		if (null != lm) {
-			for (Map<String, Object> iter : lm) {
-				if (null != iter.get("areaId") && 104 == (Integer) iter.get("areaId")) {
-					iter.put("cityName", "上海全区");
-					break;
-				}
-			}
 
-		}
-		if (StringUtils.isNotBlank(type) && type.equals("0")) {
-			Map<String, Object> allArea = new HashMap<String, Object>();
-			allArea.put("areaId", (Integer) 0);
-			allArea.put("cityName", "全部");
-			lm.add(0, allArea);
-		}
-		return rstMap;
-	}
+/*	public static void main( String[] argc ) {
+
+		List<Map<String, Object>> otl =new ArrayList<Map<String, Object>>() {{
+			for (  Operation.Type opT  : Operation.Type.values() ) {
+				add( new  HashMap<String, Object>() {{
+					put("opCode", (Integer)opT.code());
+					put("opDesc", opT.desc());
+				}} );
+			}
+		}};
+
+		List<Map<String, Object>> otl1 =new ArrayList<Map<String, Object>>() {{
+			for (  Operation.Type opT  : Operation.Type.values() ) {
+				add( new  HashMap<String, Object>() {{
+					put("opCode", (Integer)opT.ordinal());
+					put("opDesc", opT.name());
+				}} );
+			}
+		}};
+	}*/
+
 }
+
+//
+/*class Assist1 {
+	<T> List<Map<String, Object>> assistFun1( String k1, String k2) {
+		return new ArrayList<Map<String, Object>>() {{
+			add(new HashMap<String, Object>() {{
+				put(k1, (Integer) (-1));
+				put(k2, "全部");
+			}});
+			for (T opT : T) {
+				add(new HashMap<String, Object>() {{
+					put(k1, (Integer) opT.code());
+					put(k2, opT.desc());
+				}});
+			}
+		}};
+	}
+}*/

@@ -134,13 +134,13 @@
     </if>
     <choose>
       <when test="loginName !=null">
-        AND  `login_name` LIKE '%${loginName}%'
+        AND  `login_name` LIKE CONCAT('%',#{loginName},'%')
       </when>
       <when test="realName !=null">
-        AND  `real_name` LIKE '%${realName}%'
+        AND  `real_name` LIKE CONCAT('%',#{realName},'%')
       </when>
       <when test="department !=null">
-        AND  `department` LIKE '%${department}%'
+        AND  `department` LIKE CONCAT('%',#{department},'%')
       </when>
       <when test="userType !=null">
         AND  `user_type` in(${userType})
