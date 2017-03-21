@@ -27,10 +27,10 @@ public class LogInfoController {
     @RequestMapping("/exportLogFile")
     @ResponseBody
     public Long exportLogFile(@RequestParam String date, @RequestParam Long counts , HttpSession session){
-        logger.info("日志文件处理开始");
+        logger.info("日志文件处理(exportLogFile.do)开始");
         Long tempCounts=(null==counts)?new Long(1L):counts;
         Long result=logInfoService.exportLogFileToDataBase(date,tempCounts);
-        logger.info("日志文件处理结束");
+        logger.info("日志文件处理(exportLogFile.do)结束");
         return result;
     }
 
