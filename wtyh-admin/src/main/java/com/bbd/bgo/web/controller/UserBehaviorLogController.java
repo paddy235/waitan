@@ -22,7 +22,7 @@ import com.bbd.wtyh.web.ResponseBean;
  */
 
 @Controller
-@RequestMapping("/UserBehaviorLog")
+@RequestMapping("/userBehaviorLog")
 public class UserBehaviorLogController {
 
     @Autowired
