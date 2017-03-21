@@ -23,14 +23,6 @@
         <param-value>tomcat.root</param-value>
     </context-param>
 
-    <!--spring上下文监听器-->
-    <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
-
-    <listener>
-        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
-    </listener>
 
     <listener>
         <listener-class>com.bbd.wtyh.core.listener.WebServerRootListener</listener-class>
@@ -38,6 +30,15 @@
 
     <listener>
         <listener-class>ch.qos.logback.ext.spring.web.LogbackConfigListener</listener-class>
+    </listener>
+
+    <!--spring上下文监听器-->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <listener>
+        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
     </listener>
 
     <filter>
