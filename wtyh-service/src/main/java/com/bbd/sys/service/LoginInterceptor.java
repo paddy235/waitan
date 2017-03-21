@@ -33,6 +33,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		if ("/login".equals(annotation.value()[0]) || "/logout".equals(annotation.value()[0])) {
 			return true;
 		}
+		if("/exportLogFile".equals(annotation.value()[0])){
+			return true;
+		}
 
 		if ("updateIndexData.do".equals(annotation.value()[0])) {
 			return true;

@@ -33,7 +33,7 @@ public class LogInfoTaskServiceImpl extends BaseServiceImpl implements LogInfoTa
 
     Logger logger= LoggerFactory.getLogger(LogInfoTaskServiceImpl.class);
 
-    @Scheduled(cron = "0 53 17 * * ?")
+    @Scheduled(cron = "0 0 1 * * ?")
     public void exportLogFile() {
         logger.info("日志入库程序开始");
         String operDate=getPreDay(1);
@@ -51,18 +51,18 @@ public class LogInfoTaskServiceImpl extends BaseServiceImpl implements LogInfoTa
             counts=tempCounts;
         }
         //web1 前台业务系统的日志
-        String web1=wtyh_web1_url+"/logInfo/exportLogFile?date="+operDate+"&counts="+counts;
-        logger.info("日志入库-业务系统"+wtyh_web1_url+"入库开始");
+        String web1=wtyh_web1_url+"?date="+operDate+"&counts="+counts;
+        logger.info("日志入库-业务系统"+web1+"入库开始");
         tempCounts=callHttpRequest(web1);
-        logger.info("日志入库-业务系统"+wtyh_web1_url+"入库结束");
+        logger.info("日志入库-业务系统"+web1+"入库结束");
         if(null!=tempCounts && 0!=tempCounts){
             counts=tempCounts;
         }
         //web2 前台业务系统的日志
-        String web2=wtyh_web2_url+"/logInfo/exportLogFile?date="+operDate+"&counts="+counts;
-        logger.info("日志入库-业务系统"+wtyh_web2_url+"入库开始");
+        String web2=wtyh_web2_url+"?date="+operDate+"&counts="+counts;
+        logger.info("日志入库-业务系统"+web2+"入库开始");
         tempCounts=callHttpRequest(web2);
-        logger.info("日志入库-业务系统"+wtyh_web2_url+"入库结束");
+        logger.info("日志入库-业务系统"+web2+"入库结束");
         if(null!=tempCounts && 0!=tempCounts){
             counts=tempCounts;
         }
