@@ -46,7 +46,7 @@ public class Operation {
 		upDateUser("修改用户信息", 23),
 		modifyPwd("修改用户密码", 24),
 
-		logList("用户日志列表", 25);
+		userLogList("用户日志列表", 25);
 
 		/** 页面 */
 		private String page;
