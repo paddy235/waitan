@@ -24,18 +24,18 @@
         <mvc:interceptor>
             <!-- 对所有的请求拦截使用/**  -->
             <mvc:mapping path="/**"/>
-            <ref bean="userLogInterceptor"/>
-        </mvc:interceptor>
-
-        <mvc:interceptor>
-            <!-- 对所有的请求拦截使用/**  -->
-            <mvc:mapping path="/**"/>
             <ref bean="userAccessInterceptor"/>
         </mvc:interceptor>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <ref bean="loginInterceptor"/>
             <mvc:exclude-mapping path="**/third-party/*"/>
+        </mvc:interceptor>
+
+        <mvc:interceptor>
+            <!-- 对所有的请求拦截使用/**  -->
+            <mvc:mapping path="/**"/>
+            <ref bean="userLogInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 
