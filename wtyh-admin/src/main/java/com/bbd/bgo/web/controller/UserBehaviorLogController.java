@@ -101,12 +101,10 @@ public class UserBehaviorLogController {
                                 put("opType", "全部");
                             }} );
                             for (  Operation.Type opT  : Operation.Type.values() ) {
-                                if( opT.code() >0 ) {
-                                    add(new HashMap<String, Object>() {{
-                                        put("opTpCd", (Integer) opT.code());
-                                        put("opType", opT.desc());
-                                    }});
-                                }
+                                add(new HashMap<String, Object>() {{
+                                    put("opTpCd", (Integer) opT.code());
+                                    put("opType", opT.desc());
+                                }});
                             }
                         }};
                         rstObj.put("opTypeList",otl );
@@ -118,10 +116,12 @@ public class UserBehaviorLogController {
                                 put("opPage", "全部");
                             }} );
                             for (  Operation.Page opP  : Operation.Page.values() ) {
-                                add( new  HashMap<String, Object>() {{
-                                    put("opPgCd", (Integer)opP.code());
-                                    put("opPage", opP.page());
-                                }} );
+                                if( opP.code() >0 ) {
+                                    add(new HashMap<String, Object>() {{
+                                        put("opPgCd", (Integer) opP.code());
+                                        put("opPage", opP.page());
+                                    }});
+                                }
                             }
                         }};
                         rstObj.put("opPageList",opl );
