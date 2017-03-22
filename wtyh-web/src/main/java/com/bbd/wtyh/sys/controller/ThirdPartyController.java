@@ -18,8 +18,8 @@ import javax.servlet.http.HttpSession;
  * @since  2017/03/20
  */
 @RestController
-@RequestMapping("/logInfo")
-public class LogInfoController {
+@RequestMapping("/third-party")
+public class ThirdPartyController {
 
     @Autowired
     private LogInfoService logInfoService;
