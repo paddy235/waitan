@@ -101,10 +101,12 @@ public class UserBehaviorLogController {
                                 put("opType", "全部");
                             }} );
                             for (  Operation.Type opT  : Operation.Type.values() ) {
-                                add( new  HashMap<String, Object>() {{
-                                    put("opTpCd", (Integer)opT.code());
-                                    put("opType", opT.desc());
-                                }} );
+                                if( opT.code() >0 ) {
+                                    add(new HashMap<String, Object>() {{
+                                        put("opTpCd", (Integer) opT.code());
+                                        put("opType", opT.desc());
+                                    }});
+                                }
                             }
                         }};
                         rstObj.put("opTypeList",otl );

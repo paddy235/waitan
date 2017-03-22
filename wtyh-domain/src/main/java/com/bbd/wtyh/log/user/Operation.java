@@ -12,9 +12,9 @@ public class Operation {
 	 */
 	public enum Page {
 
-		blank("[blank]", 0), //blank("", 0),
+		blank("--", 0),  //blank("[blank]", 0)
 		login("登录页面", 1),
-		home("首页", 2),
+		home("平台首页", 2),
 
 		borrow("网络借贷", 3),
 		licaiHome("线下理财", 4),
