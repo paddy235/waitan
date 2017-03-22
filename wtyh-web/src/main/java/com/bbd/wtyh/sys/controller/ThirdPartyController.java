@@ -18,12 +18,13 @@ import javax.servlet.http.HttpSession;
  * @since  2017/03/20
  */
 @RestController
-@RequestMapping("/logInfo")
-public class LogInfoController {
+@RequestMapping("/third-party")
+public class ThirdPartyController {
 
     @Autowired
     private LogInfoService logInfoService;
-    private Logger logger= LoggerFactory.getLogger(LogInfoController.class);
+    private Logger logger= LoggerFactory.getLogger(ThirdPartyController.class);
+
     @RequestMapping("/exportLogFile")
     @ResponseBody
     public Long exportLogFile(@RequestParam String date, @RequestParam Long counts , HttpSession session){
