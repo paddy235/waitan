@@ -86,7 +86,7 @@ public class UserLogInterceptor extends HandlerInterceptorAdapter {
 		if (operationPage.code() == 0) {
 			Operation.Page oPage = (Operation.Page) request.getSession().getAttribute("pageHistory");
 			userLog.setRequestCode(oPage != null ? oPage.code() : 0);
-			userLog.setRequestDesc(oPage != null ? oPage.page() : "");
+			userLog.setRequestDesc(oPage != null ? oPage.page() : Operation.Page.blank.page());
 		} else {
 			request.getSession().setAttribute("pageHistory", operationPage);
 			userLog.setRequestCode(operationPage.code());

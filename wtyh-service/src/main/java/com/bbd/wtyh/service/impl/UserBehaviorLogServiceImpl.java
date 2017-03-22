@@ -46,7 +46,7 @@ public class UserBehaviorLogServiceImpl extends BaseServiceImpl implements UserB
 		if ( null !=opTpCd && opTpCd > 0) {
 			params.put("opTpCd", opTpCd);
 		}
-		if (null !=opPgCd && opPgCd >= 0) {
+		if (null !=opPgCd && opPgCd > 0) {
 			params.put("opPgCd", opPgCd);
 		}
 		if (null != beginTime) {
