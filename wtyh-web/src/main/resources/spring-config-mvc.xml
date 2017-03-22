@@ -26,6 +26,7 @@
             <mvc:mapping path="/**"/>
             <ref bean="userAccessInterceptor"/>
         </mvc:interceptor>
+
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <ref bean="loginInterceptor"/>

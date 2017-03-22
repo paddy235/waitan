@@ -41,6 +41,7 @@
         <mvc:interceptor>
             <mvc:mapping path="/**/**.do"/>
             <ref bean="loginInterceptor"/>
+            <mvc:exclude-mapping path="**/adminLogInfo/*"/>
         </mvc:interceptor>
     </mvc:interceptors>
 
