@@ -26,10 +26,11 @@
             <mvc:mapping path="/**"/>
             <ref bean="userAccessInterceptor"/>
         </mvc:interceptor>
+
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/third-party/*"/>
             <ref bean="loginInterceptor"/>
-            <mvc:exclude-mapping path="**/third-party/*"/>
         </mvc:interceptor>
 
         <mvc:interceptor>
