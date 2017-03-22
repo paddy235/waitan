@@ -52,7 +52,10 @@
       AND  `log_num` = #{logSN}
     </if>
   </where>
-  ORDER BY operation_date DESC
+  ORDER BY operation_date
+    <if test="orderBy !=null" >
+      DESC
+    </if>
   <if test="listing !=null ">
     LIMIT
     <if test="pageNumber !=null">

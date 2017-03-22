@@ -52,12 +52,13 @@ public class UserBehaviorLogController {
             Integer  opPgCd,
             String beginTime,
             String endTime,
-            Long logSN ) {
+            Long logSN,
+            String orderBy) {
         Map<String, Object> rstMap = null;
         try {
             rstMap = ubls.listUserBehaviorLog(pageSize, pageNumber, userName, areaCode,
                     sysCode, opTpCd, opPgCd, stringToDate(beginTime),
-                    stringToDate(endTime), logSN);
+                    stringToDate(endTime), logSN, orderBy);
         } catch (BusinessException be) {
             return ResponseBean.errorResponse(be.getMessage());
         } catch (Exception e) {
