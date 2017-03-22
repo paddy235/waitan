@@ -12,6 +12,9 @@ import com.bbd.wtyh.domain.SysAnalyzeDO;
 import com.bbd.wtyh.service.SysAnalyzeService;
 import com.bbd.wtyh.web.ResponseBean;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
 public class IndexController {
 
@@ -34,6 +37,14 @@ public class IndexController {
 	public ResponseBean areaCount() {
 		Object r = comSer.countCompanyNum();
 		return ResponseBean.successResponse(r);
+	}
+
+	@RequestMapping(value = "/index-roll-tip")
+	@ResponseBody
+	public ResponseBean indexRollTip() {
+		Map<String, Object> map = new HashMap<>();
+		map.put("tips", new String[] { "仅供工作参考，不作行政执法依据", "严禁泄漏或非法使用平台数据" });
+		return ResponseBean.successResponse(map);
 	}
 
 }
