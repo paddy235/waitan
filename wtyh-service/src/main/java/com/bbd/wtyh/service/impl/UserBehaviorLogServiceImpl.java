@@ -29,7 +29,7 @@ public class UserBehaviorLogServiceImpl extends BaseServiceImpl implements UserB
 	@Override
 	public Map<String, Object> listUserBehaviorLog(int pageSize, Integer pageNumber, String userName, Integer areaCode,
 												   Integer sysCode, Integer opTpCd, Integer opPgCd, Date beginTime,
-												   Date endTime, Long logSN ) throws Exception {
+												   Date endTime, Long logSN, String orderBy ) throws Exception {
 		if (pageSize < 1) {
 			throw new BusinessException("pageSize参数小于1，无意义");
 		}
@@ -57,6 +57,9 @@ public class UserBehaviorLogServiceImpl extends BaseServiceImpl implements UserB
 		}
 		if (null != logSN) {
 			params.put("logSN", logSN);
+		}
+		if (StringUtils.isNotBlank(orderBy ) && orderBy.equals("DESC") ) {
+			params.put("orderBy", "DESC");
 		}
 		List<Map<String, Object>> lm = userBehaviorLogMapper.selectUserBehaviorLogList(params); // 查询符合条件的记录总条数
 		Long ltn = (Long) (lm.get(0).get("recordTotal"));
