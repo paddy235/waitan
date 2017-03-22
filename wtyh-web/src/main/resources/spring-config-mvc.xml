@@ -29,8 +29,8 @@
 
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
-            <ref bean="loginInterceptor"/>
             <mvc:exclude-mapping path="/third-party/*"/>
+            <ref bean="loginInterceptor"/>
         </mvc:interceptor>
 
         <mvc:interceptor>
