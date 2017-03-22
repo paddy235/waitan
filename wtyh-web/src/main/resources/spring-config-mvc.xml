@@ -30,7 +30,7 @@
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <ref bean="loginInterceptor"/>
-            <mvc:exclude-mapping path="**/third-party/*"/>
+            <mvc:exclude-mapping path="/third-party/*"/>
         </mvc:interceptor>
 
         <mvc:interceptor>
