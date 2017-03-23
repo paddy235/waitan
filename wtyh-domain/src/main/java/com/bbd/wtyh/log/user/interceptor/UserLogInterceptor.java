@@ -1,25 +1,16 @@
 package com.bbd.wtyh.log.user.interceptor;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.log.user.Operation;
-import com.bbd.wtyh.log.user.UserLog;
 import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * 用户日志拦截器
