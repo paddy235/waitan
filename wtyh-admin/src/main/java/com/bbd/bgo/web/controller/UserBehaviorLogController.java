@@ -41,7 +41,7 @@ public class UserBehaviorLogController {
 
     @RequestMapping("/listUserBehaviorLog.do")
     @ResponseBody
-    @LogRecord(logMsg = "按条件显示用户行为日志列表", page = Operation.Page.userLogList, type = Operation.Type.browse)
+    @LogRecord(logMsg = "浏览用户行为日志列表", page = Operation.Page.userLogList, type = Operation.Type.browse)
     public Object listUserBehaviorLog(
             @RequestParam int pageSize,
             Integer pageNumber,
