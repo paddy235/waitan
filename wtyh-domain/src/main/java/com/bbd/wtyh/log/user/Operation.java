@@ -39,14 +39,12 @@ public class Operation {
 		realCtrl("实时监测页面", 19),
 
 		userList("用户列表", 20),
-
-		userTemplate("用户信息", 21),
-
-		createUser("新增用户", 22),
-		upDateUser("修改用户信息", 23),
-		modifyPwd("修改用户密码", 24),
-
-		userLogList("用户日志列表", 25);
+		userOwnInfo("用户信息", 21), //用户(自我)信息(修改)
+		userCreate("新增用户", 22),
+		userInfoModify("用户信息修改", 23 ),
+		userOwnPwdModify("用户密码修改", 24), //自己的
+		userLogList("用户日志列表", 25),
+		userInfoBrowse("用户信息浏览" ,26 );
 
 		/** 页面 */
 		private String page;
@@ -88,7 +86,8 @@ public class Operation {
 		add("新增", 5),
 		modify("修改", 6),
 		del("删除", 7),
-		lock("锁定", 8);
+		lock("锁定", 8),
+		unlock("解锁", 9);
 
 		private String desc;
 		private int code;
