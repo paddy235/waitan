@@ -5,6 +5,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.UserLog;
+import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -26,8 +27,6 @@ import java.util.UUID;
  * @author Created by LiYao on 2017-03-11 10:08.
  */
 public class UserLogInterceptor extends HandlerInterceptorAdapter {
-
-	private Logger logger = LoggerFactory.getLogger("userLog");
 
 	private Operation.System operationSys;
 
@@ -56,48 +55,16 @@ public class UserLogInterceptor extends HandlerInterceptorAdapter {
 		Operation.Page operationPage = logRecord.page();
 
 		// 请求中的全部参数
-		Map<String, String> paramMap = this.getParameterMap(request);
+		Map<String, String> paramMap = UserLogRecord.getParameterMap(request);
 		// 替换占位符的具体内容数组
 		Object[] placeholderReplace = new Object[params.length];
 		for (int i = 0; i < params.length; i++) {
 			placeholderReplace[i] = this.getParamValue(params[i], paramMap, request);
 		}
-
-		UserInfoTableDo user = (UserInfoTableDo) request.getSession().getAttribute("loginUser");
-
-		UserLog userLog = new UserLog();
-		userLog.setUuid(UUID.randomUUID().toString().replace("-", "").toUpperCase());
-		userLog.setOperator(user == null ? "" : user.getLoginName());
-		userLog.setRealName(user == null ? "" : user.getRealName());
-		userLog.setDepartment(user == null ? "" : user.getDepartment());
-		userLog.setAreaCode(user == null ? "" : user.getAreaCode());
-		userLog.setOperationDate(new Date());
-		userLog.setOperationType(operationType.code());
-		userLog.setOperationDesc(operationType.desc());
 		// 消息格式化，可能有%s占位符
-		userLog.setLogContent(String.format(logRecord.logMsg(), placeholderReplace).replace(" ", ""));
+		String msg = String.format(logRecord.logMsg(), placeholderReplace).replace(" ", "");
 
-		userLog.setSysCode(operationSys.sysCode());
-		userLog.setSysName(operationSys.sysName());
-
-		userLog.setRequestIP(this.getRemoteAddress(request));
-		userLog.setRequestURI(request.getRequestURI());
-
-		if (operationPage.code() == 0) {
-			Operation.Page oPage = (Operation.Page) request.getSession().getAttribute("pageHistory");
-			userLog.setRequestCode(oPage != null ? oPage.code() : 0);
-			userLog.setRequestDesc(oPage != null ? oPage.page() : Operation.Page.blank.page());
-		} else {
-			request.getSession().setAttribute("pageHistory", operationPage);
-			userLog.setRequestCode(operationPage.code());
-			userLog.setRequestDesc(operationPage.page());
-		}
-
-		userLog.setRequestParam(paramMap);
-
-		// 日志记录
-		logger.info(JSON.toJSONString(userLog, SerializerFeature.WriteDateUseDateFormat));
-
+		UserLogRecord.record(msg, operationType, operationPage, operationSys, paramMap, request);
 
 		return true;
 	}
@@ -168,44 +135,6 @@ public class UserLogInterceptor extends HandlerInterceptorAdapter {
 		HandlerMethod handlerMethod = (HandlerMethod) handler;
 		Method method = handlerMethod.getMethod();
 		return method.getAnnotation(LogRecord.class);
-	}
-
-	private String getRemoteAddress(HttpServletRequest request) {
-		String ip = request.getHeader("x-forwarded-for");
-		if (StringUtils.isBlank(ip) || ip.equalsIgnoreCase("unknown")) {
-			ip = request.getHeader("Proxy-Client-IP");
-		}
-		if (StringUtils.isBlank(ip) || ip.equalsIgnoreCase("unknown")) {
-			ip = request.getHeader("WL-Proxy-Client-IP");
-		}
-		if (StringUtils.isBlank(ip) || ip.equalsIgnoreCase("unknown")) {
-			ip = request.getRemoteAddr();
-		}
-		return ip;
-	}
-
-	private Map<String, String> getParameterMap(HttpServletRequest request) {
-		// 返回值Map
-		Map<String, String> returnMap = new HashMap<>();
-		for (Object parameter : request.getParameterMap().entrySet()) {
-			Map.Entry entry = (Map.Entry) parameter;
-			returnMap.put(entry.getKey().toString(), getParameterValue(entry.getValue()));
-		}
-		return returnMap;
-	}
-
-	private String getParameterValue(Object valueObj) {
-		StringBuilder sb = new StringBuilder();
-		if (null == valueObj) {
-			return "";
-		} else if (valueObj instanceof String[]) {
-			for (String values : (String[]) valueObj) {
-				sb.append(",").append(values);
-			}
-			return sb.substring(1);
-		} else {
-			return valueObj.toString();
-		}
 	}
 
 	/**
