@@ -51,7 +51,7 @@ public class LoginController {
 
 	@RequestMapping("/login")
 	@ResponseBody
-	@LogRecord(logMsg = "后台用户登录", type = Operation.Type.login, after = true, before = false)
+	@LogRecord(logMsg = "后台用户登录", type = Operation.Type.login, page = Operation.Page.login, after = true, before = false)
 	public Object login(@RequestParam String name,@RequestParam String password,HttpServletRequest request){
 		Map map=null;
 		UsernamePasswordToken token = new UsernamePasswordToken(name, password);

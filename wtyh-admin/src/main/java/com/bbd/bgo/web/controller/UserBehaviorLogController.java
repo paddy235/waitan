@@ -3,8 +3,11 @@ package com.bbd.bgo.web.controller;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import com.bbd.wtyh.log.user.UserLogRecord;
+import com.bbd.wtyh.map.name.code.CodeNameMap;
 import com.bbd.wtyh.service.UserBehaviorLogService;
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +19,8 @@ import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.service.UserInfoService;
 import com.bbd.wtyh.web.ResponseBean;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by cgj on 2017/3/20.
@@ -41,7 +46,6 @@ public class UserBehaviorLogController {
 
     @RequestMapping("/listUserBehaviorLog.do")
     @ResponseBody
-    @LogRecord(logMsg = "查看用户行为日志", page = Operation.Page.userLogList, type = Operation.Type.query)
     public Object listUserBehaviorLog(
             @RequestParam int pageSize,
             Integer pageNumber,
@@ -53,7 +57,8 @@ public class UserBehaviorLogController {
             String beginTime,
             String endTime,
             Long logSN,
-            String orderBy) {
+            String orderBy,
+            HttpServletRequest request) {
         Map<String, Object> rstMap = null;
         try {
             rstMap = ubls.listUserBehaviorLog(pageSize, pageNumber, userName, areaCode,
@@ -65,6 +70,48 @@ public class UserBehaviorLogController {
             e.printStackTrace();
             return ResponseBean.errorResponse("服务器异常：" + e);
         }
+        int parCnt =0;
+        String parStr ="";
+        if (StringUtils.isNotBlank(userName)) {
+            parCnt++;
+            parStr += "(用户名关键字:" +userName +")";
+        }
+        if (null !=areaCode && areaCode >0) {
+            parCnt++;
+            parStr += "(行政区:" +CodeNameMap.getShanghaiAreaCodeMap().get(areaCode) +")";
+        }
+        if (null !=sysCode && sysCode >0) {
+            parCnt++;
+            parStr += "(系统位置:" +CodeNameMap.getSysLocationMap().get(sysCode) +")";
+        }
+        if (null !=logSN && logSN >0) {
+            parCnt++;
+            parStr += "(日志编号:" +logSN.toString() +")";
+        }
+        if (null !=opTpCd && opTpCd >0) {
+            parCnt++;
+            parStr += "(操作类型:" +CodeNameMap.getOpTypeMap().get(opTpCd) +")";
+        }
+        if (null !=opPgCd && opPgCd >0) {
+            parCnt++;
+            parStr += "(操作页面:" +CodeNameMap.getOpPageMap().get(opPgCd) +")";
+        }
+        if ( StringUtils.isNotBlank(beginTime) ) {
+            parCnt++;
+            parStr += "(开始时间:" +beginTime +")";
+        }
+        if (StringUtils.isNotBlank(endTime)) {
+            parCnt++;
+            parStr += "(结束时间:" +endTime +")";
+        }
+
+        if( 0 ==parCnt ) {
+            UserLogRecord.record("浏览用户行为日志列表",
+                    Operation.Type.browse, Operation.Page.userLogList, Operation.System.back, request);
+        } else {
+            UserLogRecord.record("搜索用户行为日志，搜索条件[ " +parStr +"]",
+                    Operation.Type.query, Operation.Page.userLogList, Operation.System.back, request);
+        }
         return ResponseBean.successResponse(rstMap);
     }
 
@@ -73,67 +120,21 @@ public class UserBehaviorLogController {
     @ResponseBody
     public Object queryListDictionary( @RequestParam String[] queryProject ) {
         Map<String, Object> rstObj = new HashMap<String, Object>();
-        try {
-            for ( String Prj : queryProject ) {
-                switch ( Prj ) {
-                    case  "areaCodeList": //区域代码
-                        //List<Map<String, Object>> lm =uis.getShanghaiAreaCodeTable("0");
-                        rstObj.put("areaCodeList", uis.getShanghaiAreaCodeTable("0") );
-                        break;
-                    case "sysLocationList": //系统位置
-                        List<Map<String, Object>> sll =new ArrayList<Map<String, Object>>() {{
-                            add( new  HashMap<String, Object>() {{
-                                put("sysCode", (Integer)(-1));
-                                put("sysName", "全部");
-                            }} );
-                            for (  Operation.System opS  : Operation.System.values() ) {
-                                add( new  HashMap<String, Object>() {{
-                                    put("sysCode", (Integer)opS.sysCode());
-                                    put("sysName", opS.sysName());
-                                }} );
-                            }
-                        }};
-                        rstObj.put("sysLocationList",sll );
-                        break;
-                    case "opTypeList": //操作类型
-                        List<Map<String, Object>> otl =new ArrayList<Map<String, Object>>() {{
-                            add( new  HashMap<String, Object>() {{
-                                put("opTpCd", (Integer)(-1));
-                                put("opType", "全部");
-                            }} );
-                            for (  Operation.Type opT  : Operation.Type.values() ) {
-                                add(new HashMap<String, Object>() {{
-                                    put("opTpCd", (Integer) opT.code());
-                                    put("opType", opT.desc());
-                                }});
-                            }
-                        }};
-                        rstObj.put("opTypeList",otl );
-                        break;
-                    case "opPageList": //操作页面
-                        List<Map<String, Object>> opl =new ArrayList<Map<String, Object>>() {{
-                            add( new  HashMap<String, Object>() {{
-                                put("opPgCd", (Integer)(-1));
-                                put("opPage", "全部");
-                            }} );
-                            for (  Operation.Page opP  : Operation.Page.values() ) {
-                                if( opP.code() >0 ) {
-                                    add(new HashMap<String, Object>() {{
-                                        put("opPgCd", (Integer) opP.code());
-                                        put("opPage", opP.page());
-                                    }});
-                                }
-                            }
-                        }};
-                        rstObj.put("opPageList",opl );
-                        break;
-                }
+        for ( String Prj : queryProject ) {
+            switch ( Prj ) {
+                case  "areaCodeList": //区域代码
+                    rstObj.put("areaCodeList", CodeNameMap.quickGetShanghaiAreaCodeTable() );
+                    break;
+                case "sysLocationList": //系统位置
+                    rstObj.put("sysLocationList",CodeNameMap.getSysLocationList() );
+                    break;
+                case "opTypeList": //操作类型
+                    rstObj.put("opTypeList",CodeNameMap.getOpTypeList() );
+                    break;
+                case "opPageList": //操作页面
+                    rstObj.put("opPageList", CodeNameMap.getOpPageList() );
+                    break;
             }
-        } catch (BusinessException be) {
-            return ResponseBean.errorResponse(be.getMessage());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseBean.errorResponse("服务器异常：" + e);
         }
         return ResponseBean.successResponse(rstObj);
     }
