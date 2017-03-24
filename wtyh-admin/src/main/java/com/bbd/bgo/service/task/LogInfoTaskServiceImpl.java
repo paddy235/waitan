@@ -43,7 +43,7 @@ public class LogInfoTaskServiceImpl extends BaseServiceImpl implements LogInfoTa
         String date=null;
         if(null==operDate){
             //定时任务
-            date=getPreDay(0);//处理当前日期前一天的数据
+            date=getPreDay(1);//处理当前日期前一天的数据
         }else{
             //手动调用
             date=operDate;
