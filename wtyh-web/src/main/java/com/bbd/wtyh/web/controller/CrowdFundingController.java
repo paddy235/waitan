@@ -162,6 +162,7 @@ public class CrowdFundingController {
 	 * @param
 	 * @return ResponseBean
 	 */
+	@LogRecord(logMsg = "搜索关键字：%s", params = { "keyword" })
 	@RequestMapping("/queryCompany")
 	@ResponseBody
 	public ResponseBean queryCompany(@RequestParam String keyword) {
