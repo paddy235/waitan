@@ -1,26 +1,23 @@
 package com.bbd.wtyh.web.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.bbd.wtyh.auth.UserRealm;
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.UserInfoTableDo;
-import com.bbd.wtyh.exception.BusinessException;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.service.UserInfoService;
 import com.bbd.wtyh.service.UserService;
 import com.bbd.wtyh.util.CipherUtils;
 import com.bbd.wtyh.web.ResponseBean;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import redis.clients.jedis.Jedis;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.Map;
-import java.util.Objects;
 
 /**
  * 用户信息维护
@@ -41,7 +38,7 @@ public class UserInfoController {
 	private UserRealm userRealm;
 
 	@RequestMapping("/query")
-	@LogRecord(logMsg = "浏览用户信息", page = Operation.Page.userTemplate)
+	@LogRecord(logMsg = "浏览自己的用户信息", page = Operation.Page.userOwnInfo)
 	public Object query(HttpSession session) {
 
 		String userName = (String) session.getAttribute(Constants.SESSION.loginName);
@@ -61,8 +58,8 @@ public class UserInfoController {
 	}
 
 	@RequestMapping("/update")
-	@LogRecord(logMsg = "用户修改%s%s%s信息。", params = { "m_mobile", "m_fixPhone",
-			"m_email" }, type = Operation.Type.modify, page = Operation.Page.userTemplate, after = true, before = false)
+	@LogRecord(logMsg = "修改自己的用户信息：%s%s%s", params = { "m_mobile", "m_fixPhone",
+			"m_email" }, type = Operation.Type.modify, page = Operation.Page.userOwnInfo, after = true, before = false)
 	public Object updateInfo(@RequestParam Integer id, @RequestParam String mobile, @RequestParam String email,
 			@RequestParam String fixPhone, HttpSession session, HttpServletRequest request) throws Exception {
 
@@ -96,7 +93,7 @@ public class UserInfoController {
 	}
 
 	@RequestMapping("/update/password")
-	@LogRecord(logMsg = "用户修改密码", type = Operation.Type.modify, page = Operation.Page.modifyPwd, after = true, before = false)
+	@LogRecord(logMsg = "修改自己密码", type = Operation.Type.modify, page = Operation.Page.userOwnPwdModify, after = true, before = false)
 	public Object updatePassword(/* @RequestParam Integer id, */
 			@RequestParam String loginName, @RequestParam String oldPassword, @RequestParam String newPassword, HttpSession session)
 			throws Exception {
@@ -126,5 +123,4 @@ public class UserInfoController {
 		userRealm.clearCached();
 		return ResponseBean.successResponse("password.change.success"); // 用户密码修改成功。
 	}
-
 }

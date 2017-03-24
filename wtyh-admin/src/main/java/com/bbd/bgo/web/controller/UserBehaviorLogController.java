@@ -3,7 +3,6 @@ package com.bbd.bgo.web.controller;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import com.bbd.wtyh.service.UserBehaviorLogService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bbd.wtyh.exception.BusinessException;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
+import com.bbd.wtyh.service.UserBehaviorLogService;
 import com.bbd.wtyh.service.UserInfoService;
 import com.bbd.wtyh.web.ResponseBean;
 
@@ -41,7 +41,7 @@ public class UserBehaviorLogController {
 
     @RequestMapping("/listUserBehaviorLog.do")
     @ResponseBody
-    @LogRecord(logMsg = "按条件显示用户行为日志列表", page = Operation.Page.userLogList, type = Operation.Type.browse)
+    @LogRecord(logMsg = "查看用户行为日志", page = Operation.Page.userLogList, type = Operation.Type.query)
     public Object listUserBehaviorLog(
             @RequestParam int pageSize,
             Integer pageNumber,

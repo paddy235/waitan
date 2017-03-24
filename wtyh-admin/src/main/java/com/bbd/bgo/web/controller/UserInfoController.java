@@ -1,22 +1,26 @@
 package com.bbd.bgo.web.controller;
 
-import com.bbd.bgo.auth.UserRealm;
-import com.bbd.wtyh.common.Constants;
-import com.bbd.wtyh.domain.UserInfoTableDo;
-import com.bbd.wtyh.exception.BusinessException;
-import com.bbd.wtyh.log.user.Operation;
-import com.bbd.wtyh.log.user.annotation.LogRecord;
-import com.bbd.wtyh.service.UserInfoService;
-import com.bbd.wtyh.web.ResponseBean;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.Map;
+import com.bbd.bgo.auth.UserRealm;
+import com.bbd.wtyh.common.Constants;
+import com.bbd.wtyh.domain.UserInfoTableDo;
+import com.bbd.wtyh.exception.BusinessException;
+import com.bbd.wtyh.log.user.Operation;
+import com.bbd.wtyh.log.user.UserLogRecord;
+import com.bbd.wtyh.log.user.annotation.LogRecord;
+import com.bbd.wtyh.service.UserInfoService;
+import com.bbd.wtyh.web.ResponseBean;
 
 //import javax.servlet.http.HttpServletResponse;
 
@@ -32,9 +36,10 @@ public class UserInfoController {
     private UserInfoService uis;
     @Autowired
     private UserRealm userRealm;
+
     @RequestMapping("/createUser.do")
     @ResponseBody
-    @LogRecord(logMsg = "新增用户（登录名：%s）", params = {"loginName"}, page = Operation.Page.createUser, type = Operation.Type.add)
+    @LogRecord(logMsg = "新增用户：%s", params = {"loginName"}, page = Operation.Page.userCreate, type = Operation.Type.add)
     public Object createUser1(UserInfoTableDo uitd, @RequestParam String resourceSet, HttpServletRequest request) {
         // hh.addHeader("aa","1234");
         String loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
@@ -58,17 +63,18 @@ public class UserInfoController {
 
     @RequestMapping("/updateUserInfo.do")
     @ResponseBody
-    @LogRecord(logMsg = "修改用户信息（登录名：%s，所属部门：%s）", params = {"loginName", "department"}, page = Operation.Page.upDateUser, type = Operation.Type.modify)
+    @LogRecord(logMsg = "用户名为“%s”的用户信息被修改，所属部门是：%s）", params = {"modLoginName", "modDepartment"},
+            page = Operation.Page.userInfoModify, type = Operation.Type.modify, after = true, before = false)
     public Object updateUserInfo(UserInfoTableDo uitd, @RequestParam String resourceSet, HttpServletRequest request) {
         String loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
         uitd.setUpdateBy(loginName);
         try {
-            Map<String, Object> rstMap = uis.getUserInfoById(uitd.getId());
             uis.updateUserInfo(uitd, resourceSet);
             userRealm.clearCached();
+            Map<String, Object> rstMap = uis.getUserInfoById(uitd.getId());
             uitd = (UserInfoTableDo)(rstMap.get("userInfo"));
-            request.setAttribute("loginName", uitd.getLoginName());
-            request.setAttribute("department", uitd.getDepartment());
+            request.setAttribute("modLoginName", uitd.getLoginName());
+            request.setAttribute("modDepartment", uitd.getDepartment());
         } catch (BusinessException be) {
             return ResponseBean.errorResponse(be.getMessage());
         } catch (Exception e) {
@@ -80,7 +86,8 @@ public class UserInfoController {
 
     @RequestMapping("/deleteUser.do")
     @ResponseBody
-    @LogRecord(logMsg = "删除用户（被删用户：%s）", params = {"delName"}, page = Operation.Page.userList, type = Operation.Type.del)
+    @LogRecord(logMsg = "用户“%s”被被删除", params = {"delName"}, page = Operation.Page.userList,
+            type = Operation.Type.del, after = true, before = false) //todo ！！！4月10日版这项选Operation.Page.userInfoBrowse
     public Object deleteUser(@RequestParam Integer deleteId, HttpServletRequest request) {
         try {
             UserInfoTableDo uitd = new UserInfoTableDo();
@@ -104,8 +111,8 @@ public class UserInfoController {
 
     @RequestMapping("/listUserInfo.do")
     @ResponseBody
-    @LogRecord(logMsg = "按条件显示用户列表（地区代码：%s, 搜索条件：%s=%s）", params = {"areaCode", "selectType", "selectObject"},
-            page = Operation.Page.userList, type = Operation.Type.browse)
+    @LogRecord(logMsg = "搜索用户列表（搜索条件：%s，关键字：%s）", params = {"selectType1", "selectObject1"},
+            page = Operation.Page.userList, type = Operation.Type.query, after = true, before = false )
     public Object listUserInfo(
             @RequestParam int areaCode,
             @RequestParam String selectType,
@@ -113,6 +120,34 @@ public class UserInfoController {
             @RequestParam int pageSize,
             Integer pageNumber,
             HttpServletRequest request) {
+
+        String selectType1 ="";
+        String selectObject1 ="";
+        switch (selectType)
+        {
+            case "default":
+                selectType1 ="全选";
+                selectObject1 ="无";
+                break;
+            case "loginName":
+                selectType1 ="用户名";
+                break;
+            case "realName":
+                selectType1 ="真实姓名";
+                break;
+            case "department":
+                selectType1 ="所属部门";
+                break;
+            case "userType":
+                selectType1 ="用户类型";
+                break;
+            default:
+                selectType1 ="";
+                selectObject1 ="";
+        }
+        request.setAttribute("selectType1", selectType1);
+        request.setAttribute("selectObject1", selectObject1);
+
         Map<String, Object> rstMap = null;
         try {
             rstMap = uis.listUserInfo(areaCode,selectType, selectObject, pageSize, pageNumber);
@@ -127,7 +162,7 @@ public class UserInfoController {
 
     @RequestMapping("/queryUserInfoById.do")
     @ResponseBody
-    public Object queryUserInfoById(@RequestParam int queryId, HttpServletRequest request) {
+    public Object queryUserInfoById(@RequestParam int queryId, String anchor, HttpServletRequest request) {
         Map<String, Object> rstMap = null;
         try {
             rstMap = uis.getUserInfoById(queryId);
@@ -137,12 +172,23 @@ public class UserInfoController {
             e.printStackTrace();
             return ResponseBean.errorResponse("服务器异常：" + e);
         }
+        if(StringUtils.isNoneBlank(anchor) ) { //按条件记录用户日志
+            switch (anchor) {
+                case "userInfoBrowse": //记录用户信息浏览日志
+                    UserLogRecord.record("访问“" + ((UserInfoTableDo) rstMap.get("userInfo")).getLoginName() + "”的用户信息",
+                            Operation.Type.browse, Operation.Page.userInfoBrowse, Operation.System.back, request); //todo ?
+                    break;
+                case "openUserTemplate": //记录开立模板的选中项目
+                    UserLogRecord.record("将“" + ((UserInfoTableDo) rstMap.get("userInfo")).getLoginName() + "”的用户信息选为模板",
+                            Operation.Type.query, Operation.Page.userCreate, Operation.System.back, request); //todo ?
+                    break;
+            }
+        }
         return ResponseBean.successResponse(rstMap);
     }
 
     @RequestMapping("/queryUserTemplate.do")
     @ResponseBody
-    @LogRecord(logMsg = "新增用户开立模板（搜索登录名关键字：%s）", params = {"loginName"}, page = Operation.Page.userList, type = Operation.Type.browse)
     public Object queryUserTemplate(@RequestParam String loginName, HttpServletRequest request) {
         List<Map<String, Object>> rstList = null;
         try {
