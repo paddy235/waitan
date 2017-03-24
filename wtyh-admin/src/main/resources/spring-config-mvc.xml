@@ -33,16 +33,17 @@
 
     <mvc:interceptors>
         <mvc:interceptor>
+            <mvc:mapping path="/**/**.do"/>
+            <mvc:exclude-mapping path="/adminLogInfo/*"/>
+            <ref bean="loginInterceptor"/>
+        </mvc:interceptor>
+
+        <mvc:interceptor>
             <!-- 对所有的请求拦截使用/**  -->
             <mvc:mapping path="/**"/>
             <ref bean="userLogInterceptor"/>
         </mvc:interceptor>
 
-        <mvc:interceptor>
-            <mvc:mapping path="/**/**.do"/>
-            <mvc:exclude-mapping path="/adminLogInfo/*"/>
-            <ref bean="loginInterceptor"/>
-        </mvc:interceptor>
     </mvc:interceptors>
 
     <bean id="loginInterceptor" class="com.bbd.bgo.service.LoginInterceptor"/>
