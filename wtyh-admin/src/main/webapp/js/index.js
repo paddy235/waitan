@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "467f08454cff033de750"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "38e11a6c28be1db8a308"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -49352,12 +49352,16 @@
 	            dataType: param.dataType,
 	            data: param.data,
 	            complete: function complete(result) {
-	                var msg = result.msg ? result.msg.substring(20, 28) : '';
+
+	                var responseText = result.responseText;
+	                var msg = responseText ? responseText.substr(20, 28) : '';
+	                console.log(result, responseText, msg);
 	                if (msg === 'no login') {
 	                    window.location.href = '/';
 	                }
 	            },
 	            success: function success(res) {
+	                console.log(res);
 	                param.success(res);
 	            },
 	            error: function error(res) {
@@ -49771,7 +49775,6 @@
 	    }, {
 	        key: 'handleBlur',
 	        value: function handleBlur(e) {
-	            console.log(e, this.props);
 	            var onBlur = this.props.onBlur;
 
 	            this.setState({
@@ -49849,7 +49852,8 @@
 	                    style: { width: inputWidth },
 	                    onKeyDown: this.handleKeyDown,
 	                    onChange: this.handleChange,
-	                    onBlur: this.handleBlur
+	                    onBlur: this.handleBlur,
+	                    onFocus: this.handleFocus
 	                }))
 	            );
 	        }
@@ -50344,6 +50348,7 @@
 	        };
 
 	        _this.pageCallBack = function (data) {
+	            console.log(data, '页码');
 	            var self = _this;
 	            _this.setState({
 	                currentPage: data
@@ -50799,7 +50804,7 @@
 
 
 	// module
-	exports.push([module.id, ".userSet_root {\n  width: 100%;\n  background-color: #091d3b; }\n  .userSet_root .mainTitle_opr {\n    height: 58px; }\n  .userSet_root .areaSelect {\n    float: left; }\n  .userSet_root .label {\n    float: left;\n    margin-top: 4px;\n    font-size: 14px; }\n  .userSet_root .bbdSelect_root {\n    float: left;\n    height: 38px;\n    min-width: 140px;\n    width: 140px;\n    margin: 11px 10px; }\n    .userSet_root .bbdSelect_root .optionWrapper {\n      width: 144px; }\n  .userSet_root .buttonBox {\n    float: left;\n    width: 110px;\n    margin-left: 20px; }\n\n.userSet_list {\n  background-color: #1b3c59;\n  min-height: 500px; }\n  .userSet_list table th {\n    text-align: left; }\n  .userSet_list table td {\n    text-align: left; }\n  .userSet_list .bbdSelect_root {\n    width: 120px;\n    min-width: 120px; }\n    .userSet_list .bbdSelect_root .valuePanel {\n      border: none;\n      background-color: #1b3c59; }\n      .userSet_list .bbdSelect_root .valuePanel i {\n        right: 0px; }\n    .userSet_list .bbdSelect_root .optionWrapper {\n      width: 120px;\n      height: 100px; }\n  .userSet_list .bbdInputPreSuffix_root {\n    display: inline-block; }\n  .userSet_list .contactBox {\n    text-align: left; }\n  .userSet_list .contact span {\n    display: block; }\n    .userSet_list .contact span i {\n      display: inline-block;\n      width: 24px;\n      text-align: center;\n      color: #00b7ee; }\n    .userSet_list .contact span em {\n      display: inline-block;\n      height: 14px;\n      font-style: normal;\n      padding-left: 5px; }\n  .userSet_list .more i {\n    display: inline-block;\n    padding: 0 5px;\n    font-size: 24px;\n    color: #00b7ee;\n    cursor: pointer; }\n  .userSet_list .delTip {\n    color: #702120; }\n\n.userSet_pagination {\n  position: relative;\n  padding: 20px 0; }\n  .userSet_pagination .pagination {\n    width: 800px;\n    margin: 0 auto; }\n\n.userSet_paginationNum {\n  float: left;\n  margin: 10px 0 0 14px;\n  font-size: 16px;\n  color: #fff;\n  font-style: normal; }\n  .userSet_paginationNum strong {\n    font-size: 16px;\n    color: #00b7ee; }\n\n.RoleAdd_root {\n  color: #fff; }\n\n.RoleAdd_wrapper {\n  background-color: #091d3b;\n  border: 1px solid #044666;\n  padding: 40px; }\n\n.RoleAdd_formArea {\n  width: 800px;\n  margin: 0 auto; }\n\n.RoleAdd_row {\n  margin-bottom: 10px; }\n  .RoleAdd_row .input_general {\n    width: 280px; }\n  .RoleAdd_row .input_full {\n    width: 580px; }\n  .RoleAdd_row div.errorMsg {\n    color: #FF6802;\n    margin: 0.5em 0; }\n  .RoleAdd_row:after {\n    content: '';\n    display: block;\n    clear: both;\n    height: 0;\n    visibility: hidden; }\n  .RoleAdd_row h6 {\n    font-size: 12px; }\n  .RoleAdd_row .powerList {\n    margin-bottom: 20px;\n    border-bottom: 1px solid #0E5578; }\n    .RoleAdd_row .powerList label {\n      display: inline-block;\n      width: 25%;\n      margin-bottom: 20px; }\n    .RoleAdd_row .powerList .mainRight {\n      width: 25%;\n      float: left; }\n      .RoleAdd_row .powerList .mainRight label {\n        width: 100%;\n        font-weight: bold; }\n    .RoleAdd_row .powerList .subRight {\n      width: 75%;\n      float: left; }\n      .RoleAdd_row .powerList .subRight label {\n        width: 20%;\n        color: #D4D4D5; }\n  .RoleAdd_row button {\n    width: 130px;\n    float: left;\n    margin-left: 30px;\n    height: 44px;\n    background: #04628A;\n    border: none;\n    color: #fff;\n    border-radius: 6px;\n    font-family: \"Microsoft Yahei\"; }\n    .RoleAdd_row button.cancel {\n      background: #8899AA;\n      float: none; }\n    .RoleAdd_row button.confirm {\n      background: #00B7EE;\n      float: none;\n      margin-left: 20px; }\n    .RoleAdd_row button:active {\n      background-color: #0574a3; }\n    .RoleAdd_row button:focus {\n      outline: none; }\n  .RoleAdd_row [disabled] {\n    cursor: not-allowed;\n    filter: grayscale(0.7); }\n\n.RoleAdd_label {\n  width: 150px;\n  color: #8292A4;\n  font-weight: bold;\n  float: left;\n  text-align: right;\n  font-size: 14px;\n  line-height: 40px; }\n\n.RoleAdd_right {\n  float: left;\n  margin-left: 15px; }\n", ""]);
+	exports.push([module.id, ".userSet_root {\n  width: 100%;\n  background-color: #091d3b; }\n  .userSet_root .mainTitle_opr {\n    height: 58px; }\n  .userSet_root .areaSelect {\n    float: left; }\n  .userSet_root .label {\n    float: left;\n    margin-top: 4px;\n    font-size: 14px; }\n  .userSet_root .bbdSelect_root {\n    float: left;\n    height: 38px;\n    min-width: 140px;\n    width: 140px;\n    margin: 11px 10px; }\n    .userSet_root .bbdSelect_root .optionWrapper {\n      width: 144px; }\n  .userSet_root .buttonBox {\n    float: left;\n    width: 110px;\n    margin-left: 20px; }\n\n.userSet_list {\n  background-color: #1b3c59;\n  min-height: 500px; }\n  .userSet_list table th {\n    text-align: left; }\n  .userSet_list table td {\n    text-align: left; }\n  .userSet_list .bbdSelect_root {\n    width: 120px;\n    min-width: 120px; }\n    .userSet_list .bbdSelect_root .valuePanel {\n      border: none;\n      background-color: #1b3c59; }\n      .userSet_list .bbdSelect_root .valuePanel i {\n        right: 0px; }\n    .userSet_list .bbdSelect_root .optionWrapper {\n      width: 120px;\n      height: 100px; }\n  .userSet_list .bbdInputPreSuffix_root {\n    display: inline-block; }\n  .userSet_list .contactBox {\n    text-align: left; }\n  .userSet_list .contact span {\n    display: block; }\n    .userSet_list .contact span i {\n      display: inline-block;\n      width: 24px;\n      text-align: center;\n      color: #00b7ee; }\n    .userSet_list .contact span em {\n      display: inline-block;\n      height: 14px;\n      font-style: normal;\n      padding-left: 5px; }\n  .userSet_list .more i {\n    display: inline-block;\n    padding: 0 5px;\n    font-size: 24px;\n    color: #00b7ee;\n    cursor: pointer; }\n  .userSet_list .delTip {\n    color: #702120; }\n\n.userSet_pagination {\n  position: relative;\n  padding: 20px 0; }\n  .userSet_pagination .pagination {\n    width: 800px;\n    margin: 0 auto; }\n\n.userSet_paginationNum {\n  float: left;\n  margin: 10px 0 0 14px;\n  font-size: 16px;\n  color: #fff;\n  font-style: normal; }\n  .userSet_paginationNum strong {\n    font-size: 16px;\n    color: #00b7ee; }\n\n.userEdit_root {\n  color: #fff; }\n\n.userEdit_wrapper {\n  background-color: #091d3b;\n  border: 1px solid #044666;\n  padding: 40px; }\n\n.userEdit_formArea {\n  width: 800px;\n  margin: 0 auto; }\n\n.userEdit_row {\n  margin-bottom: 10px; }\n  .userEdit_row .input_general {\n    width: 280px; }\n  .userEdit_row .input_full {\n    width: 580px; }\n  .userEdit_row div.errorMsg {\n    color: #FF6802;\n    margin: 0.5em 0; }\n  .userEdit_row:after {\n    content: '';\n    display: block;\n    clear: both;\n    height: 0;\n    visibility: hidden; }\n  .userEdit_row h6 {\n    font-size: 12px; }\n  .userEdit_row .powerList {\n    margin-bottom: 20px;\n    border-bottom: 1px solid #0E5578; }\n    .userEdit_row .powerList label {\n      display: inline-block;\n      width: 25%;\n      margin-bottom: 20px; }\n    .userEdit_row .powerList .mainRight {\n      width: 25%;\n      float: left; }\n      .userEdit_row .powerList .mainRight label {\n        width: 100%;\n        font-weight: bold; }\n    .userEdit_row .powerList .subRight {\n      width: 75%;\n      float: left; }\n      .userEdit_row .powerList .subRight label {\n        width: 20%;\n        color: #D4D4D5; }\n  .userEdit_row button {\n    width: 130px;\n    float: left;\n    margin-left: 30px;\n    height: 44px;\n    background: #04628A;\n    border: none;\n    color: #fff;\n    border-radius: 6px;\n    font-family: \"Microsoft Yahei\"; }\n    .userEdit_row button.cancel {\n      background: #8899AA;\n      float: none; }\n    .userEdit_row button.confirm {\n      background: #00B7EE;\n      float: none;\n      margin-left: 20px; }\n    .userEdit_row button:active {\n      background-color: #0574a3; }\n    .userEdit_row button:focus {\n      outline: none; }\n  .userEdit_row [disabled] {\n    cursor: not-allowed;\n    filter: grayscale(0.7); }\n\n.userEdit_label {\n  width: 150px;\n  color: #8292A4;\n  font-weight: bold;\n  float: left;\n  text-align: right;\n  font-size: 14px;\n  line-height: 40px; }\n\n.userEdit_right {\n  float: left;\n  margin-left: 15px; }\n", ""]);
 
 	// exports
 
@@ -51047,12 +51052,12 @@
 	        value: function setCurrentPage(curpage) {
 	            //设置当前页
 	            var totalPage = this.state.totalPage;
+	            this.state.callBack(curpage); //调用回调函数 传回当前页码
 	            if (curpage > totalPage) {
 	                curpage = totalPage;
 	            } else if (curpage < 1) {
 	                curpage = 1;
 	            }
-	            console.log(curpage, 111);
 
 	            this.setState({ currentPage: curpage });
 
@@ -51061,7 +51066,6 @@
 	    }, {
 	        key: 'renderList',
 	        value: function renderList(curpage) {
-	            this.state.callBack(curpage); //调用回调函数 传回当前页码
 	            var totalPage = this.state.totalPage;
 	            var showPage = this.state.showPage;
 	            var currentPage = curpage;
@@ -51804,13 +51808,13 @@
 
 	/*用户设置*/
 
-	var UserSet = function (_Component) {
-	    _inherits(UserSet, _Component);
+	var UserEdit = function (_Component) {
+	    _inherits(UserEdit, _Component);
 
-	    function UserSet(props) {
-	        _classCallCheck(this, UserSet);
+	    function UserEdit(props) {
+	        _classCallCheck(this, UserEdit);
 
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(UserSet).call(this, props));
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(UserEdit).call(this, props));
 
 	        var isEdit = _this.props.location.pathname.indexOf('editUser') > -1;
 
@@ -51844,7 +51848,7 @@
 	        return _this;
 	    }
 
-	    _createClass(UserSet, [{
+	    _createClass(UserEdit, [{
 	        key: 'componentWillReceiveProps',
 	        value: function componentWillReceiveProps(newProps) {
 	            // 路由变化，重置组件状态
@@ -52362,10 +52366,10 @@
 	        }
 	    }]);
 
-	    return UserSet;
+	    return UserEdit;
 	}(_react.Component);
 
-	exports.default = UserSet;
+	exports.default = UserEdit;
 
 
 	function getValidateOption() {
@@ -53682,7 +53686,7 @@
 
 
 	// module
-	exports.push([module.id, ".roleList_root {\n  width: 100%;\n  background-color: #091d3b; }\n  .roleList_root .mainTitle_opr {\n    height: 58px; }\n  .roleList_root .areaSelect {\n    float: left; }\n  .roleList_root .label {\n    float: left;\n    margin-top: 4px;\n    font-size: 14px; }\n  .roleList_root .bbdSelect_root {\n    float: left;\n    height: 38px;\n    min-width: 140px;\n    width: 140px;\n    margin: 11px 10px; }\n    .roleList_root .bbdSelect_root .optionWrapper {\n      width: 144px; }\n  .roleList_root .buttonBox {\n    float: left;\n    width: 110px;\n    margin-left: 20px; }\n\n.roleList_list {\n  background-color: #1b3c59;\n  min-height: 500px; }\n  .roleList_list table th {\n    text-align: left; }\n  .roleList_list table td {\n    text-align: left; }\n  .roleList_list .bbdSelect_root {\n    width: 120px;\n    min-width: 120px; }\n    .roleList_list .bbdSelect_root .valuePanel {\n      border: none;\n      background-color: #1b3c59; }\n      .roleList_list .bbdSelect_root .valuePanel i {\n        right: 0px; }\n    .roleList_list .bbdSelect_root .optionWrapper {\n      width: 120px;\n      height: 100px; }\n  .roleList_list .bbdInputPreSuffix_root {\n    display: inline-block; }\n  .roleList_list .contactBox {\n    text-align: left; }\n  .roleList_list .contact span {\n    display: block; }\n    .roleList_list .contact span i {\n      display: inline-block;\n      width: 24px;\n      text-align: center;\n      color: #00b7ee; }\n    .roleList_list .contact span em {\n      display: inline-block;\n      height: 14px;\n      font-style: normal;\n      padding-left: 5px; }\n  .roleList_list .more i {\n    display: inline-block;\n    padding: 0 5px;\n    font-size: 24px;\n    color: #00b7ee;\n    cursor: pointer; }\n  .roleList_list .delTip {\n    color: #702120; }\n\n.roleList_pagination {\n  position: relative;\n  padding: 20px 0; }\n  .roleList_pagination .pagination {\n    width: 800px;\n    margin: 0 auto; }\n\n.roleList_paginationNum {\n  float: left;\n  margin: 10px 0 0 14px;\n  font-size: 16px;\n  color: #fff;\n  font-style: normal; }\n  .roleList_paginationNum strong {\n    font-size: 16px;\n    color: #00b7ee; }\n\n.roleList_roleAssignBox {\n  width: 80%;\n  margin: 0 auto;\n  overflow: hidden; }\n\n.roleList_roleAssign {\n  width: 50%;\n  float: left; }\n\n.roleAdd_root {\n  color: #fff; }\n\n.roleAdd_wrapper {\n  background-color: #091d3b;\n  border: 1px solid #044666;\n  padding: 40px; }\n\n.roleAdd_formArea {\n  width: 800px;\n  margin: 0 auto; }\n\n.roleAdd_row {\n  margin-bottom: 10px; }\n  .roleAdd_row .input_general {\n    width: 280px; }\n  .roleAdd_row .input_full {\n    width: 580px; }\n  .roleAdd_row div.errorMsg {\n    color: #FF6802;\n    margin: 0.5em 0; }\n  .roleAdd_row:after {\n    content: '';\n    display: block;\n    clear: both;\n    height: 0;\n    visibility: hidden; }\n  .roleAdd_row h6 {\n    font-size: 12px; }\n  .roleAdd_row .powerList {\n    margin-bottom: 20px;\n    border-bottom: 1px solid #0E5578; }\n    .roleAdd_row .powerList label {\n      display: inline-block;\n      width: 25%;\n      margin-bottom: 20px; }\n    .roleAdd_row .powerList .mainRight {\n      width: 25%;\n      float: left; }\n      .roleAdd_row .powerList .mainRight label {\n        width: 100%;\n        font-weight: bold; }\n    .roleAdd_row .powerList .subRight {\n      width: 75%;\n      float: left; }\n      .roleAdd_row .powerList .subRight label {\n        width: 20%;\n        color: #D4D4D5; }\n  .roleAdd_row button {\n    width: 130px;\n    float: left;\n    margin-left: 30px;\n    height: 44px;\n    background: #04628A;\n    border: none;\n    color: #fff;\n    border-radius: 6px;\n    font-family: \"Microsoft Yahei\"; }\n    .roleAdd_row button.cancel {\n      background: #8899AA;\n      float: none; }\n    .roleAdd_row button.confirm {\n      background: #00B7EE;\n      float: none;\n      margin-left: 20px; }\n    .roleAdd_row button:active {\n      background-color: #0574a3; }\n    .roleAdd_row button:focus {\n      outline: none; }\n  .roleAdd_row [disabled] {\n    cursor: not-allowed;\n    filter: grayscale(0.7); }\n\n.roleAdd_roleTmp .roleAdd_right {\n  height: 80px;\n  overflow-y: auto; }\n\n.roleAdd_roleTmp label {\n  display: block;\n  width: 20%;\n  float: left;\n  margin-bottom: 20px; }\n\n.roleAdd_label {\n  width: 150px;\n  color: #8292A4;\n  font-weight: bold;\n  float: left;\n  text-align: right;\n  font-size: 14px;\n  line-height: 40px; }\n\n.roleAdd_right {\n  float: left;\n  margin-left: 15px; }\n", ""]);
+	exports.push([module.id, ".roleList_root {\n  width: 100%;\n  background-color: #091d3b; }\n  .roleList_root .mainTitle_opr {\n    height: 58px; }\n  .roleList_root .areaSelect {\n    float: left; }\n  .roleList_root .label {\n    float: left;\n    margin-top: 4px;\n    font-size: 14px; }\n  .roleList_root .bbdSelect_root {\n    float: left;\n    height: 38px;\n    min-width: 140px;\n    width: 140px;\n    margin: 11px 10px; }\n    .roleList_root .bbdSelect_root .optionWrapper {\n      width: 144px; }\n  .roleList_root .buttonBox {\n    float: left;\n    width: 110px;\n    margin-left: 20px; }\n\n.roleList_list {\n  background-color: #1b3c59;\n  min-height: 500px; }\n  .roleList_list table th {\n    text-align: left; }\n  .roleList_list table td {\n    text-align: left; }\n  .roleList_list .bbdSelect_root {\n    width: 120px;\n    min-width: 120px; }\n    .roleList_list .bbdSelect_root .valuePanel {\n      border: none;\n      background-color: #1b3c59; }\n      .roleList_list .bbdSelect_root .valuePanel i {\n        right: 0px; }\n    .roleList_list .bbdSelect_root .optionWrapper {\n      width: 120px;\n      height: 100px; }\n  .roleList_list .bbdInputPreSuffix_root {\n    display: inline-block; }\n  .roleList_list .contactBox {\n    text-align: left; }\n  .roleList_list .contact span {\n    display: block; }\n    .roleList_list .contact span i {\n      display: inline-block;\n      width: 24px;\n      text-align: center;\n      color: #00b7ee; }\n    .roleList_list .contact span em {\n      display: inline-block;\n      height: 14px;\n      font-style: normal;\n      padding-left: 5px; }\n  .roleList_list .more i {\n    display: inline-block;\n    padding: 0 5px;\n    font-size: 24px;\n    color: #00b7ee;\n    cursor: pointer; }\n  .roleList_list .delTip {\n    color: #702120; }\n\n.roleList_pagination {\n  position: relative;\n  padding: 20px 0; }\n  .roleList_pagination .pagination {\n    width: 800px;\n    margin: 0 auto; }\n\n.roleList_paginationNum {\n  float: left;\n  margin: 10px 0 0 14px;\n  font-size: 16px;\n  color: #fff;\n  font-style: normal; }\n  .roleList_paginationNum strong {\n    font-size: 16px;\n    color: #00b7ee; }\n\n.roleList_roleAssignBox {\n  width: 80%;\n  margin: 0 auto;\n  overflow: hidden; }\n\n.roleList_roleAssign {\n  width: 50%;\n  float: left; }\n\n.roleAdd_root {\n  color: #fff; }\n\n.roleAdd_wrapper {\n  background-color: #091d3b;\n  border: 1px solid #044666;\n  padding: 40px; }\n\n.roleAdd_formArea {\n  width: 800px;\n  margin: 0 auto; }\n\n.roleAdd_row {\n  margin-bottom: 10px; }\n  .roleAdd_row .input_general {\n    width: 280px; }\n  .roleAdd_row .input_full {\n    width: 580px; }\n  .roleAdd_row div.errorMsg {\n    color: #FF6802;\n    margin: 0.5em 0; }\n  .roleAdd_row:after {\n    content: '';\n    display: block;\n    clear: both;\n    height: 0;\n    visibility: hidden; }\n  .roleAdd_row h6 {\n    font-size: 12px; }\n  .roleAdd_row .powerList {\n    margin-bottom: 20px;\n    border-bottom: 1px solid #0E5578; }\n    .roleAdd_row .powerList label {\n      display: inline-block;\n      width: 25%;\n      margin-bottom: 20px; }\n    .roleAdd_row .powerList .mainRight {\n      width: 25%;\n      float: left; }\n      .roleAdd_row .powerList .mainRight label {\n        width: 100%;\n        font-weight: bold; }\n    .roleAdd_row .powerList .subRight {\n      width: 75%;\n      float: left; }\n      .roleAdd_row .powerList .subRight label {\n        width: 20%;\n        color: #D4D4D5; }\n  .roleAdd_row button {\n    width: 130px;\n    float: left;\n    margin-left: 30px;\n    height: 44px;\n    background: #04628A;\n    border: none;\n    color: #fff;\n    border-radius: 6px;\n    font-family: \"Microsoft Yahei\"; }\n    .roleAdd_row button.cancel {\n      background: #8899AA;\n      float: none; }\n    .roleAdd_row button.confirm {\n      background: #00B7EE;\n      float: none;\n      margin-left: 20px; }\n    .roleAdd_row button:active {\n      background-color: #0574a3; }\n    .roleAdd_row button:focus {\n      outline: none; }\n  .roleAdd_row [disabled] {\n    cursor: not-allowed;\n    filter: grayscale(0.7); }\n\n.roleAdd_roleTmp .roleAdd_right {\n  height: 80px;\n  overflow-y: auto; }\n\n.roleAdd_roleTmp label {\n  display: block;\n  width: 20%;\n  float: left;\n  margin-bottom: 20px; }\n\n.roleAdd_label {\n  width: 150px;\n  color: #8292a4;\n  font-weight: bold;\n  float: left;\n  text-align: right;\n  font-size: 14px;\n  line-height: 40px; }\n  .roleAdd_label span {\n    float: right; }\n  .roleAdd_label i {\n    float: right;\n    margin: 2px 10px;\n    color: #ea7110;\n    font-style: normal; }\n\n.roleAdd_right {\n  float: left;\n  margin-left: 15px; }\n  .roleAdd_right .error {\n    color: #ea7110;\n    font-size: 12px; }\n", ""]);
 
 	// exports
 
@@ -54063,19 +54067,28 @@
 	            var target = e.target;
 	            var name = target.name;
 	            var value = target.value;
+	            var formData = _this.state.formData;
+
 	            _this.setState({
-	                formData: _defineProperty({}, name, value)
+	                formData: _extends({}, formData, _defineProperty({}, name, value))
 	            });
 	        };
 
 	        _this.onRoleTypeSelected = function (id) {
 
 	            var roleType = {};
-	            if (id === 1) {
+	            var errorRoleType = '';
+	            if (id === 0) {
+	                errorRoleType = '请选择角色类型！';
+	            } else if (id === 1) {
+	                errorRoleType = '';
 	                roleType = { id: 1 };
 	            } else {
+	                errorRoleType = '';
 	                roleType = { id: 2 };
 	            }
+
+	            _this.setState({ errorRoleType: errorRoleType });
 
 	            _this.getRoleTmp(roleType);
 
@@ -54122,14 +54135,89 @@
 
 	            var powerTree = _this.buildPowerTree(powerListArr, power);
 
+	            _this.handlePowerObjToArr(powerState); // 调用方法把对象中属性值为true的过滤为数组
+
 	            _this.setState({ powerState: power, powerTree: powerTree });
 	        };
 
-	        _this.handleSubmit = function () {};
+	        _this.handleBlur = function (e) {
+	            var name = e.target.name;
+	            var value = e.target.value;
+	            _this.validateForm(name, value);
+	        };
+
+	        _this.validateForm = function (name, value) {
+	            var error = '';
+	            var errorRoleName = '';
+	            if (name === 'roleName') {
+	                if (value === '') {
+	                    errorRoleName = '角色名称不能为空！';
+	                } else {
+	                    errorRoleName = '';
+	                }
+	                _this.setState({ errorRoleName: errorRoleName });
+	                error = errorRoleName;
+	            }
+
+	            return error;
+	        };
+
+	        _this.handlePowerObjToArr = function (powerState) {
+	            var powerStateArr = [];
+	            var errorRolePower = '';
+	            for (var key in powerState) {
+	                if (powerState.hasOwnProperty(key)) {
+	                    if (powerState[key] === true) {
+	                        powerStateArr.push(key);
+	                    }
+	                }
+	            }
+
+	            if (powerStateArr.length > 0) {
+	                errorRolePower = '';
+	            } else {
+	                errorRolePower = '请勾选权限！';
+	            }
+
+	            _this.setState({ errorRolePower: errorRolePower });
+
+	            return {
+	                powerStateArr: powerStateArr,
+	                errorRolePower: errorRolePower
+	            };
+	        };
+
+	        _this.handleSubmit = function () {
+	            var powerState = _this.state.powerState;
+	            var errorTip = []; //存储错误提示的数组
+
+	            var input = document.getElementsByClassName('validateInput');
+	            for (var i = 0, j = input.length; i < j; i++) {
+	                var name = input[i].name;
+	                var value = input[i].value;
+	                var error = _this.validateForm(name, value);
+	                error ? errorTip.push(error) : '';
+	            }
+
+	            var powerStateObj = _this.handlePowerObjToArr(powerState); // 调用方法把对象中属性值为true的过滤为数组
+	            powerStateObj.errorRolePower ? errorTip.push(powerStateObj.errorRolePower) : '';
+
+	            var roleTypeCode = _this.state.formData.roleTypeCode;
+	            var errorRoleType = '';
+	            if (roleTypeCode === 0) {
+	                errorRoleType = '请选择角色类型！';
+	            } else {
+	                errorRoleType = '';
+	            }
+	            _this.setState({ errorRoleType: errorRoleType });
+	            errorRoleType ? errorTip.push(errorRoleType) : '';
+
+	            console.log(errorTip);
+	        };
 
 	        _this.state = {
 	            formData: {
-	                roleTypeCode: 1, // 角色类别
+	                roleTypeCode: 0, // 角色类别
 	                roleName: '', // 角色名称
 	                roleDes: '' // 角色描述
 	            },
@@ -54140,7 +54228,9 @@
 	            powerState: {}, // 用户权限的勾选状态
 	            powerTree: [], // 权限树
 	            errorMsg: '',
-	            errorRoleName: '' // 角色名称验证提示
+	            errorRoleName: '', // 角色名称验证提示
+	            errorRolePower: '', // 角色权限验证提示
+	            errorRoleType: ''
 	        };
 	        return _this;
 	    }
@@ -54175,6 +54265,7 @@
 	                success: function success(data) {
 	                    var content = data.content;
 	                    var roleTypeOptions = [];
+	                    roleTypeOptions.push({ text: '请选择角色类型', value: 0 });
 	                    content.forEach(function (data) {
 	                        roleTypeOptions.push({ text: data.text, value: data.id });
 	                    });
@@ -54277,29 +54368,26 @@
 	         * @param data { Array }  
 	         */
 
-	    }, {
-	        key: 'handleBlur',
+
+	        /**
+	         * 输入框失去焦点
+	         * @ param e  当前对象
+	         */
 
 
 	        /**
 	         * 表单验证
-	         * @ param e  当前对象
+	         * @ param name  当前输入框的 name
+	         * @ param value  当前输入框的 value
 	         */
-	        value: function handleBlur(e) {
-	            console.log(e);
-	            var errorRoleName = '';
-	            var name = e.target.name;
-	            var value = e.target.value;
-	            if (name === 'roleName') {
-	                if (value === '') {
-	                    this.setState({ errorRoleName: '角色名称不能为空！' });
-	                    errorRoleName = '角色名称不能为空！';
-	                } else {
-	                    this.setState({ errorRoleName: '' });
-	                    errorRoleName = '';
-	                }
-	            }
-	        }
+
+
+	        /**
+	         * 权限对象为true的过滤出来 成为数组
+	         * @ param powerState { Object } 权限对象
+	         * @ return  powerStateArr { Array } 当前选中的数组
+	         */
+
 
 	        /**
 	         * 提交表单
@@ -54335,12 +54423,12 @@
 	                                _react2.default.createElement(
 	                                    'div',
 	                                    { className: 'roleAdd_label' },
+	                                    '角色类型',
 	                                    _react2.default.createElement(
 	                                        'i',
 	                                        null,
 	                                        '*'
-	                                    ),
-	                                    '角色类型'
+	                                    )
 	                                ),
 	                                _react2.default.createElement(
 	                                    'div',
@@ -54349,7 +54437,12 @@
 	                                        options: this.state.roleTypeOptions,
 	                                        onSelected: this.onRoleTypeSelected,
 	                                        selected: this.state.formData.roleTypeCode
-	                                    })
+	                                    }),
+	                                    _react2.default.createElement(
+	                                        'span',
+	                                        { className: 'error' },
+	                                        this.state.errorRoleType
+	                                    )
 	                                )
 	                            ),
 	                            _react2.default.createElement(
@@ -54358,12 +54451,12 @@
 	                                _react2.default.createElement(
 	                                    'div',
 	                                    { className: 'roleAdd_label' },
+	                                    '角色名称',
 	                                    _react2.default.createElement(
 	                                        'i',
 	                                        null,
 	                                        '*'
-	                                    ),
-	                                    '角色名称'
+	                                    )
 	                                ),
 	                                _react2.default.createElement(
 	                                    'div',
@@ -54373,7 +54466,8 @@
 	                                        value: formdata.roleName,
 	                                        onChange: this.handleChange,
 	                                        name: 'roleName',
-	                                        onBlur: this.handleBlur
+	                                        onBlur: this.handleBlur,
+	                                        className: 'validateInput'
 	                                    }),
 	                                    _react2.default.createElement(
 	                                        'span',
@@ -54431,19 +54525,24 @@
 	                                _react2.default.createElement(
 	                                    'div',
 	                                    { className: 'roleAdd_label', style: { lineHeight: '1.1' } },
+	                                    '角色权限设置',
 	                                    _react2.default.createElement(
 	                                        'i',
 	                                        null,
 	                                        '*'
-	                                    ),
-	                                    '角色权限设置'
+	                                    )
 	                                ),
 	                                _react2.default.createElement(
 	                                    'div',
 	                                    { className: 'roleAdd_right input_full' },
 	                                    this.state.powerTree.map(function (v, i) {
 	                                        return _react2.default.createElement(_PowerList2.default, { onChange: _this3.handlePowerChange, power: v, key: v.code });
-	                                    })
+	                                    }),
+	                                    _react2.default.createElement(
+	                                        'span',
+	                                        { className: 'error' },
+	                                        this.state.errorRolePower
+	                                    )
 	                                )
 	                            ),
 	                            _react2.default.createElement(
@@ -54475,109 +54574,6 @@
 	}(_react.Component);
 
 	exports.default = RoleAdd;
-
-
-	function getValidateOption() {
-	    var passwordReg = /^([A-Z]|[a-z]|[0-9]){8,16}$/;
-	    var commonChineseRule = {
-	        RegExp: /^[\u4e00-\u9fa5a-zA-Z \.]{1,20}$/,
-	        required: true
-	    };
-	    var rules = {
-	        // 登录用户名
-	        loginName: {
-	            RegExp: /^[\u4e00-\u9fa5_a-zA-Z0-9-]{1,30}$/,
-	            required: true
-	        },
-
-	        // 真实姓名
-	        realName: commonChineseRule,
-
-	        // 所属部门
-	        department: commonChineseRule,
-
-	        backPwd: {
-	            RegExp: passwordReg
-	        },
-	        forePwd: {
-	            RegExp: passwordReg
-	        },
-	        //手机电话
-	        mobile: {
-	            // required: true,
-	            mobile: true
-	        },
-	        //固定电话
-	        fixPhone: {
-	            // required: true,
-	            landline: true
-	        },
-	        // email
-	        email: {
-	            // required: true,
-	            email: true
-	        },
-	        areaCode: {
-	            required: true
-	        }
-	    };
-
-	    var messages = {
-	        loginName: {
-	            required: '登录用户名不能为空',
-	            RegExp: '限30个字符，支持中英文、数字、减号或下划线'
-	        },
-	        realName: {
-	            required: '真实姓名不能为空',
-	            RegExp: '限20个字符，支持中英文'
-	        },
-	        department: {
-	            required: '部门名称不能为空',
-	            RegExp: '限20个字符，支持中英文'
-	        },
-	        mobile: {
-	            required: '联系电话不能为空'
-	        },
-	        fixPhone: {
-	            required: '固定电话不能为空'
-	        },
-	        email: {
-	            required: 'email不能为空',
-	            email: '请输入正确的email'
-	        },
-	        backPwd: {
-	            required: '请输入后台密码',
-	            RegExp: '密码8-16位英文大小写和数字组合'
-	        },
-	        forePwd: {
-	            required: '请输入前台密码',
-	            RegExp: '密码8-16位英文大小写和数字组合'
-	        },
-	        areaCode: {
-	            required: '请选择用户区域'
-	        }
-	    };
-
-	    function errorPlacement(error, element) {
-	        if (element[0].name === 'areaCode') {
-	            error.appendTo(element.parent());
-	        } else {
-	            error.insertAfter(element.parent());
-	        }
-	    }
-
-	    var options = {
-	        rules: rules,
-	        messages: messages,
-	        errorPlacement: errorPlacement,
-	        errorElement: 'div',
-	        errorClass: 'errorMsg',
-	        onsubmit: false,
-	        ignore: ''
-	    };
-
-	    return options;
-	}
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "RoleAdd.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
@@ -54945,7 +54941,7 @@
 	            });
 	        };
 
-	        _this.getUserList = function () {
+	        _this.getLogList = function () {
 	            var filterData = _extends({}, _this.state.filter);
 	            filterData.beginTime = filterData.beginTime.length ? filterData.beginTime.join('-') + ' 00:00:00' : '';
 	            filterData.endTime = filterData.endTime.length ? filterData.endTime.join('-') + ' 23:59:59' : '';
@@ -54973,7 +54969,7 @@
 	                    pageNumber: val
 	                })
 	            }, function () {
-	                _this.getUserList();
+	                _this.getLogList();
 	            });
 	        };
 
@@ -54992,7 +54988,8 @@
 	                opPgCd: -1,
 	                opTpCd: -1,
 	                sysCode: -1,
-	                logSN: ''
+	                logSN: '',
+	                orderBy: 'DESC'
 	            },
 	            options: {
 	                areaCodeList: [],
@@ -55008,7 +55005,7 @@
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
 	            this.initOptions();
-	            this.getUserList();
+	            this.getLogList();
 	        }
 	        /*
 	         *获取区域
@@ -55049,6 +55046,20 @@
 	                filter[name] = data;
 	                _this4.setState({ filter: filter });
 	            };
+	        }
+	    }, {
+	        key: 'changeOrder',
+	        value: function changeOrder() {
+	            var _this5 = this;
+
+	            var filter = this.state.filter;
+	            filter.orderBy = filter.orderBy === 'DESC' ? 'ASC' : 'DESC';
+	            filter.pageNumber = 1;
+	            this.setState({
+	                filter: filter
+	            }, function () {
+	                _this5.getLogList();
+	            });
 	        }
 	    }, {
 	        key: 'render',
@@ -55221,7 +55232,7 @@
 	                            { className: 'buttonField' },
 	                            _react2.default.createElement(
 	                                _Button2.default,
-	                                { className: 'search', onClick: this.getUserList.bind(this) },
+	                                { className: 'search', onClick: this.getLogList.bind(this) },
 	                                '查询'
 	                            )
 	                        )
@@ -55291,13 +55302,18 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    null,
+	                                    { width: '170' },
 	                                    '详情'
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    null,
-	                                    '发生时间'
+	                                    { width: '130' },
+	                                    _react2.default.createElement(
+	                                        'a',
+	                                        { href: 'javascript:', onClick: this.changeOrder.bind(this) },
+	                                        '发生时间 ',
+	                                        _react2.default.createElement('i', { className: 'iconfont icon-arrow' + (filter.orderBy === 'DESC' ? 'down' : 'up') })
+	                                    )
 	                                )
 	                            )
 	                        ),
@@ -55361,7 +55377,11 @@
 	                                    _react2.default.createElement(
 	                                        'td',
 	                                        null,
-	                                        item.logDetail
+	                                        _react2.default.createElement(
+	                                            'div',
+	                                            { style: { paddingRight: '15px' } },
+	                                            item.logDetail
+	                                        )
 	                                    ),
 	                                    _react2.default.createElement(
 	                                        'td',
@@ -55442,7 +55462,7 @@
 
 
 	// module
-	exports.push([module.id, ".logAudit_root {\n  width: 100%; }\n  .logAudit_root .mainTitle_opr {\n    height: 58px; }\n  .logAudit_root .areaSelect {\n    float: left; }\n  .logAudit_root .label {\n    float: left;\n    margin-top: 4px;\n    font-size: 14px; }\n  .logAudit_root .bbdSelect_root {\n    float: left;\n    height: 38px;\n    min-width: 140px;\n    width: 140px;\n    margin: 11px 10px; }\n    .logAudit_root .bbdSelect_root .optionWrapper {\n      width: 144px; }\n  .logAudit_root .buttonBox {\n    float: left;\n    width: 110px;\n    margin-left: 20px; }\n\n.logAudit_filterPanel {\n  background-color: #091d3b;\n  border: 1px solid #044666;\n  padding: 15px; }\n  .logAudit_filterPanel .inputField {\n    width: 20%;\n    margin-right: 15px;\n    float: left; }\n  .logAudit_filterPanel .label {\n    color: #8998A9;\n    font-size: 14px;\n    float: left;\n    width: 21%;\n    text-align: right;\n    font-weight: bold; }\n  .logAudit_filterPanel .input {\n    float: left;\n    width: 73%;\n    margin-left: 10px; }\n  .logAudit_filterPanel .filterInput {\n    height: 30px;\n    box-sizing: border-box;\n    background: none; }\n  .logAudit_filterPanel .buttonField {\n    width: auto; }\n  .logAudit_filterPanel .inputRow {\n    margin-bottom: 15px; }\n    .logAudit_filterPanel .inputRow::last-child {\n      margin-bottom: 0; }\n  .logAudit_filterPanel .bbdSelect_root {\n    width: 100%;\n    height: 32px;\n    margin: 0; }\n    .logAudit_filterPanel .bbdSelect_root .valuePanel {\n      background: none;\n      border-color: #0D7199;\n      line-height: 30px;\n      box-sizing: border-box; }\n    .logAudit_filterPanel .bbdSelect_root .optionWrapper {\n      width: 100%;\n      box-sizing: border-box;\n      background-color: #0d7199; }\n      .logAudit_filterPanel .bbdSelect_root .optionWrapper .option {\n        color: white; }\n  .logAudit_filterPanel .search {\n    width: 60px;\n    height: 30px;\n    line-height: 30px; }\n\n.logAudit_list {\n  background-color: #1b3c59;\n  min-height: 500px;\n  margin-top: 15px; }\n  .logAudit_list table th {\n    text-align: left; }\n  .logAudit_list table td {\n    text-align: left; }\n  .logAudit_list .bbdSelect_root {\n    width: 120px;\n    min-width: 120px; }\n    .logAudit_list .bbdSelect_root .valuePanel {\n      border: none;\n      background-color: #1b3c59; }\n      .logAudit_list .bbdSelect_root .valuePanel i {\n        right: 0; }\n    .logAudit_list .bbdSelect_root .optionWrapper {\n      width: 120px;\n      height: 100px; }\n  .logAudit_list .bbdInputPreSuffix_root {\n    display: inline-block; }\n  .logAudit_list .contactBox {\n    text-align: left; }\n  .logAudit_list .contact span {\n    display: block; }\n    .logAudit_list .contact span i {\n      display: inline-block;\n      width: 24px;\n      text-align: center;\n      color: #00b7ee; }\n    .logAudit_list .contact span em {\n      display: inline-block;\n      height: 14px;\n      font-style: normal;\n      padding-left: 5px; }\n  .logAudit_list .more i {\n    display: inline-block;\n    padding: 0 5px;\n    font-size: 24px;\n    color: #00b7ee;\n    cursor: pointer; }\n  .logAudit_list .delTip {\n    color: #702120; }\n\n.logAudit_pagination {\n  position: relative;\n  padding: 20px 0; }\n  .logAudit_pagination .pagination {\n    width: 800px;\n    margin: 0 auto; }\n\n.logAudit_paginationNum {\n  float: left;\n  margin: 10px 0 0 14px;\n  font-size: 16px;\n  color: #fff;\n  font-style: normal; }\n  .logAudit_paginationNum strong {\n    font-size: 16px;\n    color: #00b7ee; }\n", ""]);
+	exports.push([module.id, ".logAudit_root {\n  width: 100%; }\n  .logAudit_root .mainTitle_opr {\n    height: 58px; }\n  .logAudit_root .areaSelect {\n    float: left; }\n  .logAudit_root .label {\n    float: left;\n    margin-top: 4px;\n    font-size: 14px; }\n  .logAudit_root .bbdSelect_root {\n    float: left;\n    height: 38px;\n    min-width: 140px;\n    width: 140px;\n    margin: 11px 10px; }\n    .logAudit_root .bbdSelect_root .optionWrapper {\n      width: 144px; }\n  .logAudit_root .buttonBox {\n    float: left;\n    width: 110px;\n    margin-left: 20px; }\n\n.logAudit_filterPanel {\n  background-color: #091d3b;\n  border: 1px solid #044666;\n  padding: 15px; }\n  .logAudit_filterPanel .inputField {\n    width: 20%;\n    margin-right: 15px;\n    float: left; }\n  .logAudit_filterPanel .label {\n    color: #8998A9;\n    font-size: 14px;\n    float: left;\n    width: 21%;\n    text-align: right;\n    font-weight: bold; }\n  .logAudit_filterPanel .input {\n    float: left;\n    width: 73%;\n    margin-left: 10px; }\n  .logAudit_filterPanel .filterInput {\n    height: 30px;\n    box-sizing: border-box;\n    background: none; }\n  .logAudit_filterPanel .buttonField {\n    width: auto; }\n  .logAudit_filterPanel .inputRow {\n    margin-bottom: 15px; }\n    .logAudit_filterPanel .inputRow::last-child {\n      margin-bottom: 0; }\n  .logAudit_filterPanel .bbdSelect_root {\n    width: 100%;\n    height: 32px;\n    margin: 0; }\n    .logAudit_filterPanel .bbdSelect_root .valuePanel {\n      background: none;\n      border-color: #0D7199;\n      line-height: 30px;\n      box-sizing: border-box; }\n    .logAudit_filterPanel .bbdSelect_root .optionWrapper {\n      width: 100%;\n      box-sizing: border-box;\n      background-color: #0d7199; }\n      .logAudit_filterPanel .bbdSelect_root .optionWrapper .option {\n        color: white; }\n  .logAudit_filterPanel .search {\n    width: 60px;\n    height: 30px;\n    line-height: 30px; }\n\n.logAudit_list {\n  background-color: #1b3c59;\n  min-height: 500px;\n  margin-top: 15px; }\n  .logAudit_list table th {\n    text-align: left; }\n  .logAudit_list a {\n    color: white; }\n  .logAudit_list table td {\n    text-align: left; }\n  .logAudit_list .bbdSelect_root {\n    width: 120px;\n    min-width: 120px; }\n    .logAudit_list .bbdSelect_root .valuePanel {\n      border: none;\n      background-color: #1b3c59; }\n      .logAudit_list .bbdSelect_root .valuePanel i {\n        right: 0; }\n    .logAudit_list .bbdSelect_root .optionWrapper {\n      width: 120px;\n      height: 100px; }\n  .logAudit_list .bbdInputPreSuffix_root {\n    display: inline-block; }\n  .logAudit_list .contactBox {\n    text-align: left; }\n  .logAudit_list .contact span {\n    display: block; }\n    .logAudit_list .contact span i {\n      display: inline-block;\n      width: 24px;\n      text-align: center;\n      color: #00b7ee; }\n    .logAudit_list .contact span em {\n      display: inline-block;\n      height: 14px;\n      font-style: normal;\n      padding-left: 5px; }\n  .logAudit_list .more i {\n    display: inline-block;\n    padding: 0 5px;\n    font-size: 24px;\n    color: #00b7ee;\n    cursor: pointer; }\n  .logAudit_list .delTip {\n    color: #702120; }\n\n.logAudit_pagination {\n  position: relative;\n  padding: 20px 0; }\n  .logAudit_pagination .pagination {\n    width: 800px;\n    margin: 0 auto; }\n\n.logAudit_paginationNum {\n  float: left;\n  margin: 10px 0 0 14px;\n  font-size: 16px;\n  color: #fff;\n  font-style: normal; }\n  .logAudit_paginationNum strong {\n    font-size: 16px;\n    color: #00b7ee; }\n", ""]);
 
 	// exports
 
