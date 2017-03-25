@@ -14,6 +14,8 @@ import java.util.Map;
  * Created by cgj on 2017/3/24.
  */
 public class CodeNameMap {
+    static ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
+    static UserInfoService uis = context.getBean(UserInfoService.class);
     static List<Map<String, Object>> shanghaiAreaCodeList; //区域代码表
     static byte updateCnt =0;
     static Map<Integer, String> shanghaiAreaCodeMap; //区域代码字典
@@ -42,8 +44,6 @@ public class CodeNameMap {
     static public void updateShanghaiAreaCodeTable(List<Map<String, Object>> areaCodeListIn)  {
         if(null ==areaCodeListIn) {
             try {
-                ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
-                UserInfoService uis = context.getBean(UserInfoService.class);
                 shanghaiAreaCodeList = uis.getShanghaiAreaCodeTable("0"); //读取区域代码表
             } catch (Exception e) {
                 shanghaiAreaCodeList = new ArrayList<Map<String, Object>>() {{

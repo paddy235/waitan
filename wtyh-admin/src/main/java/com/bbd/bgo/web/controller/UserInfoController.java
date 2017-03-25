@@ -168,27 +168,25 @@ public class UserInfoController {
         if( selectType.equals("default")&& 0 ==areaCode ) {
             UserLogRecord.record("浏览用户列表", Operation.Type.browse, Operation.Page.userList, Operation.System.back, request);
         } else {
-            String selectType1 ="";
-            String selectObject1 ="";
             switch (selectType) {
                 case "default":
-                    selectType1 = "全选";
-                    selectObject1 = "无";
+                    selectType = "全选";
+                    selectObject = "无";
                     break;
                 case "loginName":
-                    selectType1 = "用户名";
+                    selectType = "用户名";
                     break;
                 case "realName":
-                    selectType1 = "真实姓名";
+                    selectType = "真实姓名";
                     break;
                 case "department":
-                    selectType1 = "所属部门";
+                    selectType = "所属部门";
                     break;
                 case "userType":
-                    selectType1 = "用户类型";
+                    selectType = "用户类型";
                     break;
             }
-            UserLogRecord.record("搜索用户列表（条件：" +selectType1 +"，关键字：" +selectObject1 +"，区域："
+            UserLogRecord.record("搜索用户列表（条件：" +selectType +"，关键字：" +selectObject +"，区域："
                     +CodeNameMap.getShanghaiAreaCodeMap().get(areaCode) +"）",
                     Operation.Type.query, Operation.Page.userList, Operation.System.back, request);
         }

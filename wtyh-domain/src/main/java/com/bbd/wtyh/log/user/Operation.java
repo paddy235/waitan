@@ -41,9 +41,9 @@ public class Operation {
 		userList("用户列表", 20),
 		userOwnInfo("个人中心", 21), //用户(自我)信息(修改)
 		userCreate("新增用户", 22),
-		userInfoModify("用户信息修改", 23 ),
-		userOwnPwdModify("用户密码修改", 24), //自己的
-		userLogList("用户日志列表", 25);
+		userInfoModify("编辑用户", 23 ),
+		userOwnPwdModify("修改密码", 24), //自己的
+		userLogList("日志审计", 25);
 		//userInfoBrowse("用户信息浏览" ,26 ); //todo 4.10
 
 		/** 页面 */
