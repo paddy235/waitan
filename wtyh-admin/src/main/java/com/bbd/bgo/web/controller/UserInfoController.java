@@ -1,6 +1,5 @@
 package com.bbd.bgo.web.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -213,7 +212,7 @@ public class UserInfoController {
             switch (anchor) {
                 case "userInfoBrowse": //记录用户信息浏览日志
 //                    UserLogRecord.record("访问“" + ((UserInfoTableDo) rstMap.get("userInfo")).getLoginName() + "”的用户信息",
-//                            Operation.Type.browse, Operation.Page.userInfoBrowse, Operation.System.back, request); //todo ?
+//                            Operation.Type.browse, Operation.Page.userInfoBrowse, Operation.System.back, request); //todo 4.10版要用
 //                    break;
                 case "openUserTemplate": //记录开立模板的选中项目
                     UserLogRecord.record("将“" + ((UserInfoTableDo) rstMap.get("userInfo")).getLoginName() + "”的用户信息选为模板",
@@ -242,7 +241,7 @@ public class UserInfoController {
     @RequestMapping("/queryShanghaiAreaCodeTable.do")
     @ResponseBody
     public Object queryShanghaiAreaCodeTable( String type, HttpServletRequest request) {
-        List<Map<String, Object>> rstList = null;
+        /*List<Map<String, Object>> rstList = null;
         try {
             rstList = uis.getShanghaiAreaCodeTable(type);
         } catch (BusinessException be) {
@@ -251,8 +250,10 @@ public class UserInfoController {
             e.printStackTrace();
             return ResponseBean.errorResponse("服务器异常：" + e);
         }
-        CodeNameMap.setAreaCodeList(rstList);
+        CodeNameMap.setShanghaiAreaCodeList(rstList, false);
         return ResponseBean.successResponse(rstList);
+        */
+        return  ResponseBean.successResponse(CodeNameMap.getAndUpdateShanghaiAreaCodeTable(false));
     }
 
 /*    @RequestMapping("/myTest.do")

@@ -38,7 +38,7 @@ public class UserInfoController {
 	private UserRealm userRealm;
 
 	@RequestMapping("/query")
-	@LogRecord(logMsg = "浏览自己的用户信息", page = Operation.Page.userOwnInfo)
+	@LogRecord(logMsg = "浏览个人中心", page = Operation.Page.userOwnInfo)
 	public Object query(HttpSession session) {
 
 		String userName = (String) session.getAttribute(Constants.SESSION.loginName);
@@ -58,7 +58,7 @@ public class UserInfoController {
 	}
 
 	@RequestMapping("/update")
-	@LogRecord(logMsg = "修改自己的用户信息：%s%s%s", params = { "m_mobile", "m_fixPhone",
+	@LogRecord(logMsg = "修改个人中心：%s%s%s", params = { "m_mobile", "m_fixPhone",
 			"m_email" }, type = Operation.Type.modify, page = Operation.Page.userOwnInfo, after = true, before = false)
 	public Object updateInfo(@RequestParam Integer id, @RequestParam String mobile, @RequestParam String email,
 			@RequestParam String fixPhone, HttpSession session, HttpServletRequest request) throws Exception {

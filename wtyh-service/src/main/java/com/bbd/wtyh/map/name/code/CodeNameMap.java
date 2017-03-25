@@ -2,8 +2,8 @@ package com.bbd.wtyh.map.name.code;
 
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.service.UserInfoService;
-import com.bbd.wtyh.service.impl.UserInfoServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,30 +14,39 @@ import java.util.Map;
  * Created by cgj on 2017/3/24.
  */
 public class CodeNameMap {
-    static List<Map<String, Object>> areaCodeList; //区域代码表
-    static byte ifCnt =0;
-    static Map<Integer, String> areaCodeMap; //区域代码字典
+    static List<Map<String, Object>> shanghaiAreaCodeList; //区域代码表
+    static byte updateCnt =0;
+    static Map<Integer, String> shanghaiAreaCodeMap; //区域代码字典
     static {
         updateShanghaiAreaCodeTable(null);
+        updateCnt++;
     }
 
-    static public void setAreaCodeList(List<Map<String, Object>> areaCodeList) {
-        if( 0== ifCnt)
-            updateShanghaiAreaCodeTable(areaCodeList);
-        ifCnt++;
+    /**
+     *
+     * @param shanghaiAreaCodeList
+     * @param isImm 是否立即更新
+     */
+    static public void setShanghaiAreaCodeList(List<Map<String, Object>> shanghaiAreaCodeList, boolean isImm) {
+        if(isImm || 0== updateCnt)
+            updateShanghaiAreaCodeTable(shanghaiAreaCodeList);
+        updateCnt++;
     }
 
-    static public List<Map<String, Object>> getAndUpdateShanghaiAreaCodeTable() {
-        updateShanghaiAreaCodeTable(null);
-        return areaCodeList;
+    static public List<Map<String, Object>> getAndUpdateShanghaiAreaCodeTable(boolean isImm) {
+        if(isImm || 0== updateCnt)
+            updateShanghaiAreaCodeTable(null);
+        updateCnt++;
+        return shanghaiAreaCodeList;
     }
     static public void updateShanghaiAreaCodeTable(List<Map<String, Object>> areaCodeListIn)  {
         if(null ==areaCodeListIn) {
-            UserInfoService uis = new UserInfoServiceImpl();
             try {
-                areaCodeList = uis.getShanghaiAreaCodeTable("0"); //读取区域代码表
+                ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
+                UserInfoService uis = context.getBean(UserInfoService.class);
+                shanghaiAreaCodeList = uis.getShanghaiAreaCodeTable("0"); //读取区域代码表
             } catch (Exception e) {
-                areaCodeList = new ArrayList<Map<String, Object>>() {{
+                shanghaiAreaCodeList = new ArrayList<Map<String, Object>>() {{
                     add(new HashMap<String, Object>() {{
                         put("areaId", (Integer) (0));
                         put("cityName", "全部");
@@ -49,15 +58,15 @@ public class CodeNameMap {
                 }};
             }
         }else {
-            CodeNameMap.areaCodeList = areaCodeListIn;
+            shanghaiAreaCodeList = areaCodeListIn;
         }
-        areaCodeMap = new HashMap<Integer, String>();
-        for (Map<String, Object> itr : areaCodeList) { //构造一个区域代码名称字典
-            areaCodeMap.put((Integer) itr.get("areaId"), (String) itr.get("cityName"));
+        shanghaiAreaCodeMap = new HashMap<Integer, String>();
+        for (Map<String, Object> itr : shanghaiAreaCodeList) { //构造一个区域代码名称字典
+            shanghaiAreaCodeMap.put((Integer) itr.get("areaId"), (String) itr.get("cityName"));
         }
     }
-    static public List<Map<String, Object>> quickGetShanghaiAreaCodeTable() {  return areaCodeList; }
-    static public Map<Integer, String> getShanghaiAreaCodeMap() {  return areaCodeMap; }
+    static public List<Map<String, Object>> quickGetShanghaiAreaCodeTable() {  return shanghaiAreaCodeList; }
+    static public Map<Integer, String> getShanghaiAreaCodeMap() {  return shanghaiAreaCodeMap; }
 
 
     static List<Map<String, Object>> sysLocationList; //系统位置表
