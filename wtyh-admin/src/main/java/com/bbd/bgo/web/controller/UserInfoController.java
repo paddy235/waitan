@@ -1,6 +1,5 @@
 package com.bbd.bgo.web.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -169,27 +168,25 @@ public class UserInfoController {
         if( selectType.equals("default")&& 0 ==areaCode ) {
             UserLogRecord.record("浏览用户列表", Operation.Type.browse, Operation.Page.userList, Operation.System.back, request);
         } else {
-            String selectType1 ="";
-            String selectObject1 ="";
             switch (selectType) {
                 case "default":
-                    selectType1 = "全选";
-                    selectObject1 = "无";
+                    selectType = "全选";
+                    selectObject = "无";
                     break;
                 case "loginName":
-                    selectType1 = "用户名";
+                    selectType = "用户名";
                     break;
                 case "realName":
-                    selectType1 = "真实姓名";
+                    selectType = "真实姓名";
                     break;
                 case "department":
-                    selectType1 = "所属部门";
+                    selectType = "所属部门";
                     break;
                 case "userType":
-                    selectType1 = "用户类型";
+                    selectType = "用户类型";
                     break;
             }
-            UserLogRecord.record("搜索用户列表（条件：" +selectType1 +"，关键字：" +selectObject1 +"，区域："
+            UserLogRecord.record("搜索用户列表（条件：" +selectType +"，关键字：" +selectObject +"，区域："
                     +CodeNameMap.getShanghaiAreaCodeMap().get(areaCode) +"）",
                     Operation.Type.query, Operation.Page.userList, Operation.System.back, request);
         }
@@ -213,7 +210,7 @@ public class UserInfoController {
             switch (anchor) {
                 case "userInfoBrowse": //记录用户信息浏览日志
 //                    UserLogRecord.record("访问“" + ((UserInfoTableDo) rstMap.get("userInfo")).getLoginName() + "”的用户信息",
-//                            Operation.Type.browse, Operation.Page.userInfoBrowse, Operation.System.back, request); //todo ?
+//                            Operation.Type.browse, Operation.Page.userInfoBrowse, Operation.System.back, request); //todo 4.10版要用
 //                    break;
                 case "openUserTemplate": //记录开立模板的选中项目
                     UserLogRecord.record("将“" + ((UserInfoTableDo) rstMap.get("userInfo")).getLoginName() + "”的用户信息选为模板",
@@ -242,7 +239,7 @@ public class UserInfoController {
     @RequestMapping("/queryShanghaiAreaCodeTable.do")
     @ResponseBody
     public Object queryShanghaiAreaCodeTable( String type, HttpServletRequest request) {
-        List<Map<String, Object>> rstList = null;
+        /*List<Map<String, Object>> rstList = null;
         try {
             rstList = uis.getShanghaiAreaCodeTable(type);
         } catch (BusinessException be) {
@@ -251,8 +248,10 @@ public class UserInfoController {
             e.printStackTrace();
             return ResponseBean.errorResponse("服务器异常：" + e);
         }
-        CodeNameMap.setAreaCodeList(rstList);
+        CodeNameMap.setShanghaiAreaCodeList(rstList, false);
         return ResponseBean.successResponse(rstList);
+        */
+        return  ResponseBean.successResponse(CodeNameMap.getAndUpdateShanghaiAreaCodeTable(false));
     }
 
 /*    @RequestMapping("/myTest.do")

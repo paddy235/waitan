@@ -831,9 +831,9 @@ define(function(require, exports, module) {
 
         //如果点击公司，有个小弹窗
         if (e.target.isCompany) {
-            $.ajax({//http://192.168.3.39:8002
+            $.ajax({//
                 type: "GET",
-                url: "http://192.168.3.39:8002/relatedPartyStatistics.do", //查询公司接口详细信息relatedPartyStatistics.do
+                url: "/relatedPartyStatistics.do", //查询公司接口详细信息relatedPartyStatistics.do
                 data: {
                     origCompanyName: name,
                     tarCompanyName: name,
