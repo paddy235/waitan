@@ -74,35 +74,35 @@ public class UserBehaviorLogController {
         String parStr ="";
         if (StringUtils.isNotBlank(userName)) {
             parCnt++;
-            parStr += "(用户名关键字:" +userName +")";
+            parStr += "用户名关键字:" +userName +"；";
         }
         if (null !=areaCode && areaCode >0) {
             parCnt++;
-            parStr += "(行政区:" +CodeNameMap.getShanghaiAreaCodeMap().get(areaCode) +")";
+            parStr += "行政区:" +CodeNameMap.getShanghaiAreaCodeMap().get(areaCode) +"；";
         }
         if (null !=sysCode && sysCode >0) {
             parCnt++;
-            parStr += "(系统位置:" +CodeNameMap.getSysLocationMap().get(sysCode) +")";
+            parStr += "系统位置:" +CodeNameMap.getSysLocationMap().get(sysCode) +"；";
         }
         if (null !=logSN && logSN >0) {
             parCnt++;
-            parStr += "(日志编号:" +logSN.toString() +")";
+            parStr += "日志编号:" +logSN.toString() +"；";
         }
         if (null !=opTpCd && opTpCd >0) {
             parCnt++;
-            parStr += "(操作类型:" +CodeNameMap.getOpTypeMap().get(opTpCd) +")";
+            parStr += "操作类型:" +CodeNameMap.getOpTypeMap().get(opTpCd) +"；";
         }
         if (null !=opPgCd && opPgCd >0) {
             parCnt++;
-            parStr += "(操作页面:" +CodeNameMap.getOpPageMap().get(opPgCd) +")";
+            parStr += "操作页面:" +CodeNameMap.getOpPageMap().get(opPgCd) +"；";
         }
         if ( StringUtils.isNotBlank(beginTime) ) {
             parCnt++;
-            parStr += "(开始时间:" +beginTime +")";
+            parStr += "开始时间:" +beginTime +"；";
         }
         if (StringUtils.isNotBlank(endTime)) {
             parCnt++;
-            parStr += "(结束时间:" +endTime +")";
+            parStr += "结束时间:" +endTime +"；";
         }
 
         if( 0 ==parCnt ) {
