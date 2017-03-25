@@ -39,7 +39,7 @@ public class Operation {
 		realCtrl("实时监测页面", 19),
 
 		userList("用户列表", 20),
-		userOwnInfo("用户信息", 21), //用户(自我)信息(修改)
+		userOwnInfo("个人中心", 21), //用户(自我)信息(修改)
 		userCreate("新增用户", 22),
 		userInfoModify("用户信息修改", 23 ),
 		userOwnPwdModify("用户密码修改", 24), //自己的
