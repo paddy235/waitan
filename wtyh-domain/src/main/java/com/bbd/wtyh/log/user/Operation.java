@@ -43,8 +43,8 @@ public class Operation {
 		userCreate("新增用户", 22),
 		userInfoModify("用户信息修改", 23 ),
 		userOwnPwdModify("用户密码修改", 24), //自己的
-		userLogList("用户日志列表", 25),
-		userInfoBrowse("用户信息浏览" ,26 );
+		//userInfoBrowse("用户信息浏览" ,26 ),
+		userLogList("用户日志列表", 25);
 
 		/** 页面 */
 		private String page;
@@ -85,9 +85,9 @@ public class Operation {
 		browse("浏览", 4),
 		add("新增", 5),
 		modify("修改", 6),
-		del("删除", 7),
-		lock("锁定", 8),
-		unlock("解锁", 9);
+		del("删除", 7);
+		//lock("锁定", 8),
+		//unlock("解锁", 9);
 
 		private String desc;
 		private int code;

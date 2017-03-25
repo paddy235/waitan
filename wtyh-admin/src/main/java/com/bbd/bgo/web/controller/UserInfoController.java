@@ -189,7 +189,7 @@ public class UserInfoController {
                     selectType1 = "用户类型";
                     break;
             }
-            UserLogRecord.record("搜索用户列表（搜索条件：" +selectType1 +"，关键字：" +selectObject1 +"，区域："
+            UserLogRecord.record("搜索用户列表（条件：" +selectType1 +"，关键字：" +selectObject1 +"，区域："
                     +CodeNameMap.getShanghaiAreaCodeMap().get(areaCode) +"）",
                     Operation.Type.query, Operation.Page.userList, Operation.System.back, request);
         }
@@ -212,9 +212,9 @@ public class UserInfoController {
         if(StringUtils.isNoneBlank(anchor) ) { //按条件记录用户日志
             switch (anchor) {
                 case "userInfoBrowse": //记录用户信息浏览日志
-                    UserLogRecord.record("访问“" + ((UserInfoTableDo) rstMap.get("userInfo")).getLoginName() + "”的用户信息",
-                            Operation.Type.browse, Operation.Page.userInfoBrowse, Operation.System.back, request); //todo ?
-                    break;
+//                    UserLogRecord.record("访问“" + ((UserInfoTableDo) rstMap.get("userInfo")).getLoginName() + "”的用户信息",
+//                            Operation.Type.browse, Operation.Page.userInfoBrowse, Operation.System.back, request); //todo ?
+//                    break;
                 case "openUserTemplate": //记录开立模板的选中项目
                     UserLogRecord.record("将“" + ((UserInfoTableDo) rstMap.get("userInfo")).getLoginName() + "”的用户信息选为模板",
                             Operation.Type.query, Operation.Page.userCreate, Operation.System.back, request); //todo ?
