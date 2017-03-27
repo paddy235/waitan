@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 
@@ -81,7 +82,8 @@ public class LoginController {
 			map.put(Constants.SESSION.loginName, name);// 登录用户名
 			map.put("area", areaCode);// 属地区编号
 			map.put("areaName", areaName);// 地区名称
-
+			map.put("pwdBeOverdue", userInfoService.testUserPasswordBeOverdue(userInfo.getForePwdUpDate()));// 密码是否过期
+			map.put("userId", userInfo.getId());// 用户ID
 		} catch (Exception e) {
 
 			// 通过处理Shiro的运行时AuthenticationException就可以控制用户登录失败或密码错误时的情景

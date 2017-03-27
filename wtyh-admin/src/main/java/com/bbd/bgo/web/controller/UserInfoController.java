@@ -122,8 +122,8 @@ public class UserInfoController {
 
     @RequestMapping("/deleteUser.do")
     @ResponseBody
-    @LogRecord(logMsg = "用户“%s”被被删除", params = {"delName"}, page = Operation.Page.userList,
-            type = Operation.Type.del, after = true, before = false) //todo ！！！4月10日版这项选Operation.Page.userInfoBrowse
+    @LogRecord(logMsg = "用户“%s”被被删除", params = {"delName"}, page = Operation.Page.userInfoBrowse,
+            type = Operation.Type.del, after = true, before = false) //
     public Object deleteUser(@RequestParam Integer deleteId, HttpServletRequest request) {
         try {
             UserInfoTableDo uitd = new UserInfoTableDo();
@@ -209,9 +209,9 @@ public class UserInfoController {
         if(StringUtils.isNoneBlank(anchor) ) { //按条件记录用户日志
             switch (anchor) {
                 case "userInfoBrowse": //记录用户信息浏览日志
-//                    UserLogRecord.record("访问“" + ((UserInfoTableDo) rstMap.get("userInfo")).getLoginName() + "”的用户信息",
-//                            Operation.Type.browse, Operation.Page.userInfoBrowse, Operation.System.back, request); //todo 4.10版要用
-//                    break;
+                    UserLogRecord.record("访问“" + ((UserInfoTableDo) rstMap.get("userInfo")).getLoginName() + "”的用户信息",
+                            Operation.Type.browse, Operation.Page.userInfoBrowse, Operation.System.back, request); //
+                    break;
                 case "openUserTemplate": //记录开立模板的选中项目
                     UserLogRecord.record("将“" + ((UserInfoTableDo) rstMap.get("userInfo")).getLoginName() + "”的用户信息选为模板",
                             Operation.Type.query, Operation.Page.userCreate, Operation.System.back, request); //todo ?
@@ -252,6 +252,21 @@ public class UserInfoController {
         return ResponseBean.successResponse(rstList);
         */
         return  ResponseBean.successResponse(CodeNameMap.getAndUpdateShanghaiAreaCodeTable(false));
+    }
+
+    @RequestMapping("/queryPwdLapseCycle.do")
+    @ResponseBody
+    public Object queryPwdLapseCycle(  HttpServletRequest request) {
+        return  ResponseBean.successResponse(uis.getAndSetPwdLapseCycle(null));
+    }
+
+    @RequestMapping("/modifyPwdLapseCycle.do")
+    @ResponseBody
+    public Object modifyPwdLapseCycle( @RequestParam int pwdLapseCycle, HttpServletRequest request) {
+        if( pwdLapseCycle <1 || pwdLapseCycle >1200 ) {
+            return  ResponseBean.errorResponse("参数不合法，正确范围[1,1200]");
+        }
+        return  ResponseBean.successResponse(uis.getAndSetPwdLapseCycle(pwdLapseCycle));
     }
 
 /*    @RequestMapping("/myTest.do")
