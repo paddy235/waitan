@@ -1,6 +1,7 @@
 package com.bbd.wtyh.web.controller;
 
 import com.bbd.wtyh.domain.CompanyDO;
+import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.service.CompanySearchAPIService;
 import com.bbd.wtyh.service.CompanyService;
@@ -30,7 +31,7 @@ public class CompanySearchController {
 
 	@RequestMapping("searchCompany.do")
 	@ResponseBody
-	@LogRecord(logMsg = "搜索关键字：%s", params = { "keyword" })
+	@LogRecord(logMsg = "搜索关键字：%s", params = { "keyword" }, type = Operation.Type.query)
 	public ResponseBean searchCompany(Integer companyType, String keyword, Integer size) {
 		if (null == size || size <= 0) {
 			size = 5;

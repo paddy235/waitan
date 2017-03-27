@@ -32,7 +32,6 @@
 
 
     <mvc:interceptors>
-
         <mvc:interceptor>
             <mvc:mapping path="/**/**.do"/>
             <mvc:exclude-mapping path="/adminLogInfo/*"/>
@@ -44,6 +43,7 @@
             <mvc:mapping path="/**"/>
             <ref bean="userLogInterceptor"/>
         </mvc:interceptor>
+
     </mvc:interceptors>
 
     <bean id="loginInterceptor" class="com.bbd.bgo.service.LoginInterceptor"/>

@@ -19,6 +19,8 @@
 	<import resource="classpath:spring-config-service.xml" />
 	<import resource="classpath:spring-shiro-web.xml" />
 
+	<bean class="com.bbd.wtyh.map.name.code.CodeNameMap"></bean>
+
 
 	
 </beans>

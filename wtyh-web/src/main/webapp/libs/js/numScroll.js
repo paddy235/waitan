@@ -100,7 +100,6 @@
         }
         //初始化
         var init = function($parent){
-            console.log($parent,'xuyao')
             //初始化
             $parent.html(setNumDom(numToArr(setting.num)));
             runAnimate($parent);

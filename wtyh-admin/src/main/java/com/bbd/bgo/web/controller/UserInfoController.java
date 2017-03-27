@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.bbd.wtyh.log.user.UserLogRecord;
+import com.bbd.wtyh.map.name.code.CodeNameMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +19,6 @@ import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.exception.BusinessException;
 import com.bbd.wtyh.log.user.Operation;
-import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.service.UserInfoService;
 import com.bbd.wtyh.web.ResponseBean;
@@ -63,24 +64,59 @@ public class UserInfoController {
 
     @RequestMapping("/updateUserInfo.do")
     @ResponseBody
-    @LogRecord(logMsg = "用户名为“%s”的用户信息被修改，所属部门是：%s）", params = {"modLoginName", "modDepartment"},
-            page = Operation.Page.userInfoModify, type = Operation.Type.modify, after = true, before = false)
-    public Object updateUserInfo(UserInfoTableDo uitd, @RequestParam String resourceSet, HttpServletRequest request) {
+    public Object updateUserInfo(UserInfoTableDo uitd, String resourceSet, HttpServletRequest request) {
         String loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
         uitd.setUpdateBy(loginName);
         try {
             uis.updateUserInfo(uitd, resourceSet);
             userRealm.clearCached();
             Map<String, Object> rstMap = uis.getUserInfoById(uitd.getId());
-            uitd = (UserInfoTableDo)(rstMap.get("userInfo"));
-            request.setAttribute("modLoginName", uitd.getLoginName());
-            request.setAttribute("modDepartment", uitd.getDepartment());
+            loginName = ((UserInfoTableDo)(rstMap.get("userInfo"))).getLoginName();
+            //request.setAttribute("modLoginName", uitd.getLoginName());
         } catch (BusinessException be) {
             return ResponseBean.errorResponse(be.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseBean.errorResponse("服务器异常");
         }
+        //以下是日志记录代码
+        String parStr ="";
+        if( null != uitd.getAreaCode() ) {
+            parStr +="/区域 ";
+        }
+        if( StringUtils.isNoneBlank(uitd.getBackPwd()) ) {
+            parStr +="/后台密码 ";
+        }
+        if( StringUtils.isNoneBlank(uitd.getDepartment()) ) {
+            parStr +="/部门 ";
+        }
+        if( StringUtils.isNoneBlank(uitd.getEmail()) ) {
+            parStr +="/邮箱 ";
+        }
+        if( StringUtils.isNoneBlank(uitd.getFixPhone()) ) {
+            parStr +="/固话 ";
+        }
+        if( StringUtils.isNoneBlank(uitd.getForePwd()) ) {
+            parStr +="/前台密码 ";
+        }
+        if( StringUtils.isNoneBlank(uitd.getLoginName()) ) {
+            parStr +="/用户名 ";
+        }
+        if( StringUtils.isNoneBlank(uitd.getMobile()) ) {
+            parStr +="/手机 ";
+        }
+        if( StringUtils.isNoneBlank(uitd.getRealName()) ) {
+            parStr +="/真实姓名 ";
+        }
+        if( StringUtils.isNoneBlank(uitd.getUserType()) ) {
+            parStr +="/用户类型 ";
+        }
+        if( null !=resourceSet ) {
+            parStr +="/权限 ";
+        }
+        UserLogRecord.record("修改了用户“" +loginName +"”的这些信息：" +parStr,
+                Operation.Type.modify, Operation.Page.userInfoModify, Operation.System.back, request);
+
         return ResponseBean.successResponse("OK");
     }
 
@@ -111,8 +147,6 @@ public class UserInfoController {
 
     @RequestMapping("/listUserInfo.do")
     @ResponseBody
-    @LogRecord(logMsg = "搜索用户列表（搜索条件：%s，关键字：%s）", params = {"selectType1", "selectObject1"},
-            page = Operation.Page.userList, type = Operation.Type.query, after = true, before = false )
     public Object listUserInfo(
             @RequestParam int areaCode,
             @RequestParam String selectType,
@@ -120,33 +154,6 @@ public class UserInfoController {
             @RequestParam int pageSize,
             Integer pageNumber,
             HttpServletRequest request) {
-
-        String selectType1 ="";
-        String selectObject1 ="";
-        switch (selectType)
-        {
-            case "default":
-                selectType1 ="全选";
-                selectObject1 ="无";
-                break;
-            case "loginName":
-                selectType1 ="用户名";
-                break;
-            case "realName":
-                selectType1 ="真实姓名";
-                break;
-            case "department":
-                selectType1 ="所属部门";
-                break;
-            case "userType":
-                selectType1 ="用户类型";
-                break;
-            default:
-                selectType1 ="";
-                selectObject1 ="";
-        }
-        request.setAttribute("selectType1", selectType1);
-        request.setAttribute("selectObject1", selectObject1);
 
         Map<String, Object> rstMap = null;
         try {
@@ -157,6 +164,33 @@ public class UserInfoController {
             e.printStackTrace();
             return ResponseBean.errorResponse("服务器异常：" + e);
         }
+        //以下用于日志记录
+        if( selectType.equals("default")&& 0 ==areaCode ) {
+            UserLogRecord.record("浏览用户列表", Operation.Type.browse, Operation.Page.userList, Operation.System.back, request);
+        } else {
+            switch (selectType) {
+                case "default":
+                    selectType = "全选";
+                    selectObject = "无";
+                    break;
+                case "loginName":
+                    selectType = "用户名";
+                    break;
+                case "realName":
+                    selectType = "真实姓名";
+                    break;
+                case "department":
+                    selectType = "所属部门";
+                    break;
+                case "userType":
+                    selectType = "用户类型";
+                    break;
+            }
+            UserLogRecord.record("搜索用户列表（条件：" +selectType +"，关键字：" +selectObject +"，区域："
+                    +CodeNameMap.getShanghaiAreaCodeMap().get(areaCode) +"）",
+                    Operation.Type.query, Operation.Page.userList, Operation.System.back, request);
+        }
+        //以上用于日志记录
         return ResponseBean.successResponse(rstMap);
     }
 
@@ -175,9 +209,9 @@ public class UserInfoController {
         if(StringUtils.isNoneBlank(anchor) ) { //按条件记录用户日志
             switch (anchor) {
                 case "userInfoBrowse": //记录用户信息浏览日志
-                    UserLogRecord.record("访问“" + ((UserInfoTableDo) rstMap.get("userInfo")).getLoginName() + "”的用户信息",
-                            Operation.Type.browse, Operation.Page.userInfoBrowse, Operation.System.back, request); //todo ?
-                    break;
+//                    UserLogRecord.record("访问“" + ((UserInfoTableDo) rstMap.get("userInfo")).getLoginName() + "”的用户信息",
+//                            Operation.Type.browse, Operation.Page.userInfoBrowse, Operation.System.back, request); //todo 4.10版要用
+//                    break;
                 case "openUserTemplate": //记录开立模板的选中项目
                     UserLogRecord.record("将“" + ((UserInfoTableDo) rstMap.get("userInfo")).getLoginName() + "”的用户信息选为模板",
                             Operation.Type.query, Operation.Page.userCreate, Operation.System.back, request); //todo ?
@@ -205,7 +239,7 @@ public class UserInfoController {
     @RequestMapping("/queryShanghaiAreaCodeTable.do")
     @ResponseBody
     public Object queryShanghaiAreaCodeTable( String type, HttpServletRequest request) {
-        List<Map<String, Object>> rstList = null;
+        /*List<Map<String, Object>> rstList = null;
         try {
             rstList = uis.getShanghaiAreaCodeTable(type);
         } catch (BusinessException be) {
@@ -214,7 +248,10 @@ public class UserInfoController {
             e.printStackTrace();
             return ResponseBean.errorResponse("服务器异常：" + e);
         }
+        CodeNameMap.setShanghaiAreaCodeList(rstList, false);
         return ResponseBean.successResponse(rstList);
+        */
+        return  ResponseBean.successResponse(CodeNameMap.getAndUpdateShanghaiAreaCodeTable(false));
     }
 
 /*    @RequestMapping("/myTest.do")

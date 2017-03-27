@@ -52,6 +52,8 @@ public class PToPMonitorController {
 	Logger log = LoggerFactory.getLogger(getClass());
 	private static final String PLAT_RANK_CACHE_PRIFIX = "wtyh:pToPMonitor:platRank";
 
+	private static final String PLAT_FORM_STATUS_CACHE_PRIFIX = "wtyh:P2PImage:platFormStatus";
+
 	@Autowired
 	private AreaService areaService;
 
@@ -378,9 +380,14 @@ public class PToPMonitorController {
 		}
 
 		List<Map> rst1 = new ArrayList<>();
+		Map<String,Map<String,Object>> platSts = new HashMap<>();
+
 		Map<String, PlatListDO> wangdaiPlatList = p2PImageService.getWangdaiPlatList();
 		for (PlatRankDataDTO dto : list) {
 			Map<String, Object> rst = new HashMap<>();
+			Map<String, Object> platSt = new HashMap<>();
+			platSt.put("plat_status", dto.getPlat_status());//取平台状态的时候使用
+
 			rst.put("rank", dto.getRank());
 			rst.put("plat_name", dto.getPlat_name());
 			try {
@@ -400,10 +407,14 @@ public class PToPMonitorController {
 			}
 
 			rst1.add(rst);
+            platSts.put(dto.getPlat_name(),platSt);
 		}
 
 		if (null != rst1) {
-			redisDAO.addObject(PLAT_RANK_CACHE_PRIFIX, rst1, Constants.REDIS_10, rst1.getClass());
+			//产品要求保留3天
+			redisDAO.addObject(PLAT_RANK_CACHE_PRIFIX, rst1, Constants.REDIS_3, rst1.getClass());
+			//保留平台状态信息  与 上海网贷平台数据展示 中的状态策略一致
+			redisDAO.addObject(PLAT_FORM_STATUS_CACHE_PRIFIX, platSts, Constants.REDIS_3, platSts.getClass());
 		}
 
 		return ResponseBean.successResponse(rst1);

@@ -1,6 +1,7 @@
 package com.bbd.bgo.service.task;
 
 
+import com.bbd.higgs.utils.StringUtils;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
@@ -43,7 +44,7 @@ public class LogInfoTaskServiceImpl extends BaseServiceImpl implements LogInfoTa
         String date=null;
         if(null==operDate){
             //定时任务
-            date=getPreDay(0);//处理当前日期前一天的数据
+            date=getPreDay(1);//处理当前日期前一天的数据
         }else{
             //手动调用
             date=operDate;
@@ -71,14 +72,16 @@ public class LogInfoTaskServiceImpl extends BaseServiceImpl implements LogInfoTa
         }
         logger.info("日志入库-业务系统"+web1+"入库结束，累计笔数"+(counts-1));
 
-        //web2 前台业务系统的日志
-        String web2=wtyh_web2_url+"?date="+date+"&counts="+counts;
-        logger.info("日志入库-业务系统"+web2+"入库开始");
-        tempCounts=callHttpRequest(web2);
-        if(null!=tempCounts && 0!=tempCounts){
-            counts=tempCounts;
+        //web2 前台业务系统的日志 上海有2台服务器，成都只有一台服务器
+        if(!StringUtils.isNullOrEmpty(wtyh_web2_url)){
+            String web2=wtyh_web2_url+"?date="+date+"&counts="+counts;
+            logger.info("日志入库-业务系统"+web2+"入库开始");
+            tempCounts=callHttpRequest(web2);
+            if(null!=tempCounts && 0!=tempCounts){
+                counts=tempCounts;
+            }
+            logger.info("日志入库-业务系统"+web2+"入库结束，累计笔数"+(counts-1));
         }
-        logger.info("日志入库-业务系统"+web2+"入库结束，累计笔数"+(counts-1));
     }
 
     private Long callHttpRequest(String url){

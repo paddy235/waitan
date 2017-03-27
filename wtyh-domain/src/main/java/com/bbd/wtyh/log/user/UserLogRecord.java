@@ -64,8 +64,6 @@ public class UserLogRecord {
 
 		// 日志记录
 		LOGGER.info(JSON.toJSONString(userLog, SerializerFeature.WriteDateUseDateFormat));
-
-		System.err.println(JSON.toJSONString(userLog, SerializerFeature.WriteDateUseDateFormat, SerializerFeature.PrettyFormat));
 	}
 
 	private static String getRemoteAddress(HttpServletRequest request) {

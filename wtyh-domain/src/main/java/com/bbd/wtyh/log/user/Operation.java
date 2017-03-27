@@ -39,12 +39,12 @@ public class Operation {
 		realCtrl("实时监测页面", 19),
 
 		userList("用户列表", 20),
-		userOwnInfo("用户信息", 21), //用户(自我)信息(修改)
+		userOwnInfo("个人中心", 21), //用户(自我)信息(修改)
 		userCreate("新增用户", 22),
-		userInfoModify("用户信息修改", 23 ),
-		userOwnPwdModify("用户密码修改", 24), //自己的
-		userLogList("用户日志列表", 25),
-		userInfoBrowse("用户信息浏览" ,26 );
+		userInfoModify("编辑用户", 23 ),
+		userOwnPwdModify("修改密码", 24), //自己的
+		userLogList("日志审计", 25);
+		//userInfoBrowse("用户信息浏览" ,26 ); //todo 4.10
 
 		/** 页面 */
 		private String page;
@@ -81,13 +81,13 @@ public class Operation {
 	public enum Type {
 		login("登录", 1),
 		logout("登出", 2),
-		query("查询", 3),
+		query("搜索", 3),
 		browse("浏览", 4),
 		add("新增", 5),
 		modify("修改", 6),
-		del("删除", 7),
-		lock("锁定", 8),
-		unlock("解锁", 9);
+		del("删除", 7);
+		//lock("锁定", 8), //todo 4.10
+		//unlock("解锁", 9); //todo 4.10
 
 		private String desc;
 		private int code;

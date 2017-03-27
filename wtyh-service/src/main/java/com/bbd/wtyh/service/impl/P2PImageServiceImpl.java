@@ -8,6 +8,7 @@ import com.bbd.wtyh.domain.dto.PlatRankDataDTO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
+import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.P2PImageService;
 import com.bbd.wtyh.service.PToPMonitorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,11 @@ public class P2PImageServiceImpl implements P2PImageService {
     @Autowired
     private PToPMonitorService pToPMonitorService;
 
+    @Autowired
+    private RedisDAO redisDAO;
+
+    private static final String PLAT_FORM_STATUS_CACHE_PRIFIX = "wtyh:P2PImage:platFormStatus";
+
     @Override
     public PlatDataDO getPlatData(String platName) {
         PlatDataDO pn = p2PImageDao.getPlatData(platName);
@@ -45,7 +51,19 @@ public class P2PImageServiceImpl implements P2PImageService {
         }
 
         PlatListDO platListDO = findFromWangdaiPlatList(platName);
-        PlatRankDataDTO platRankDataDTO = findFromWangdaiPlatRankData(platName);
+        Map<String,Map<String,Object>> platSts = (Map<String,Map<String,Object>>) redisDAO.getObject(PLAT_FORM_STATUS_CACHE_PRIFIX);
+        PlatRankDataDTO platRankDataDTO=null;
+        if (null != platSts) {
+            Map<String, Object> platSt = (Map) platSts.get(platName);
+            if (null != platSt) {
+                platRankDataDTO = new PlatRankDataDTO();
+                platRankDataDTO.setPlat_status((null != platSt.get("plat_status")) ? (String) platSt.get("plat_status") : null);
+            }
+        }
+        //缓存取不到，就取实时数据
+        if(null == platRankDataDTO){
+            platRankDataDTO = findFromWangdaiPlatRankData(platName);
+        }
 
         Map<String, Object> result = new LinkedHashMap<>();
         result.put("logo", (null==platListDO)?null:platListDO.getLogo_url());//logo

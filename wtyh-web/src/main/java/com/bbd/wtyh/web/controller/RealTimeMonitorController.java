@@ -55,7 +55,7 @@ public class RealTimeMonitorController {
 	 */
 	@RequestMapping("/spectrumAnalysis")
 	@ResponseBody
-	@LogRecord(logMsg = "浏览实时监测页面", page = Operation.Page.realCtrl, type = Operation.Type.query)
+	@LogRecord(logMsg = "浏览实时监测页面", page = Operation.Page.realCtrl)
 	public ResponseBean spectrumAnalysis(HttpSession session) {
 
 		Integer areaId = areaService.getAreaId(session);
