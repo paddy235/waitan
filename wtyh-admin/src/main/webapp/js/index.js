@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "38e11a6c28be1db8a308"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "25e4cb9d6e3b05927c99"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -49091,65 +49091,6 @@
 	                ),
 	                _react2.default.createElement(
 	                    'li',
-	                    { key: '1', className: 'bbdMenu_submenu' },
-	                    _react2.default.createElement(
-	                        'a',
-	                        { href: 'javascript:;', className: 'bbdMenu_submenuTitle' },
-	                        _react2.default.createElement(
-	                            'span',
-	                            null,
-	                            _react2.default.createElement('i', { className: 'iconleft iconfont icon-role' }),
-	                            _react2.default.createElement(
-	                                'span',
-	                                null,
-	                                '角色管理'
-	                            ),
-	                            _react2.default.createElement('i', { className: 'iconright iconfont icon-arrowdown' })
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'ul',
-	                        { className: 'bbdMenu bbdMenu_sub' },
-	                        _react2.default.createElement(
-	                            'li',
-	                            { className: 'bbdMenu_item' },
-	                            _react2.default.createElement(
-	                                _reactRouter.Link,
-	                                { to: '/roleList', activeClassName: 'active' },
-	                                '角色列表'
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'li',
-	                            { className: 'bbdMenu_item' },
-	                            _react2.default.createElement(
-	                                _reactRouter.Link,
-	                                { to: '/roleAdd', activeClassName: 'active' },
-	                                '新增角色'
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'li',
-	                            { className: 'bbdMenu_item' },
-	                            _react2.default.createElement(
-	                                _reactRouter.Link,
-	                                { to: '/browseRole', activeClassName: 'active' },
-	                                '浏览角色'
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'li',
-	                            { className: 'bbdMenu_item' },
-	                            _react2.default.createElement(
-	                                _reactRouter.Link,
-	                                { to: '/editRole', activeClassName: 'active' },
-	                                '修改角色'
-	                            )
-	                        )
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'li',
 	                    { key: '3', className: 'bbdMenu_submenu noChild' },
 	                    _react2.default.createElement(
 	                        _reactRouter.Link,
@@ -49352,16 +49293,13 @@
 	            dataType: param.dataType,
 	            data: param.data,
 	            complete: function complete(result) {
-
 	                var responseText = result.responseText;
-	                var msg = responseText ? responseText.substr(20, 28) : '';
-	                console.log(result, responseText, msg);
+	                var msg = responseText ? responseText.substr(20, 8) : '';
 	                if (msg === 'no login') {
 	                    window.location.href = '/';
 	                }
 	            },
 	            success: function success(res) {
-	                console.log(res);
 	                param.success(res);
 	            },
 	            error: function error(res) {
@@ -49513,6 +49451,7 @@
 	                        var username = res.content.loginName;
 	                        sessionStorage.setItem('userName', username);
 	                        _reactRouter.browserHistory.push('/userSet');
+	                        document.onkeydown = null;
 	                    } else {
 	                        self.setState({ loginTip: res.msg });
 	                    }
@@ -50429,12 +50368,6 @@
 	            });
 	        };
 
-	        _this.handleSeelog = function () {}
-	        //
-
-	        /*确认删除弹框 取消*/
-	        ;
-
 	        _this.handleCancel = function () {
 	            _this.setState({
 	                visible: false
@@ -50448,6 +50381,15 @@
 	        _this.handleCancelDel = function () {
 	            _this.setState({
 	                delVisible: false
+	            });
+	        };
+
+	        _this.handleSeeLog = function (userName) {
+	            _this.props.history.push({
+	                pathname: '/logAudit',
+	                query: {
+	                    userName: userName
+	                }
 	            });
 	        };
 
@@ -50483,6 +50425,8 @@
 	        */
 
 	        /*搜索*/
+
+	        /*确认删除弹框 取消*/
 
 	        /*确认删除弹框 确定*/
 
@@ -50694,7 +50638,7 @@
 	                                            null,
 	                                            _react2.default.createElement('i', { className: 'iconfont icon-edit', onClick: this.handleEdit.bind(this, item.id) }),
 	                                            _react2.default.createElement('i', { className: 'iconfont icon-del', onClick: this.handleDel.bind(this, item.id) }),
-	                                            _react2.default.createElement('i', { className: 'iconfont icon-seelog' })
+	                                            _react2.default.createElement('i', { className: 'iconfont icon-seelog', onClick: this.handleSeeLog.bind(this, item.loginName) })
 	                                        )
 	                                    )
 	                                );
@@ -50804,7 +50748,7 @@
 
 
 	// module
-	exports.push([module.id, ".userSet_root {\n  width: 100%;\n  background-color: #091d3b; }\n  .userSet_root .mainTitle_opr {\n    height: 58px; }\n  .userSet_root .areaSelect {\n    float: left; }\n  .userSet_root .label {\n    float: left;\n    margin-top: 4px;\n    font-size: 14px; }\n  .userSet_root .bbdSelect_root {\n    float: left;\n    height: 38px;\n    min-width: 140px;\n    width: 140px;\n    margin: 11px 10px; }\n    .userSet_root .bbdSelect_root .optionWrapper {\n      width: 144px; }\n  .userSet_root .buttonBox {\n    float: left;\n    width: 110px;\n    margin-left: 20px; }\n\n.userSet_list {\n  background-color: #1b3c59;\n  min-height: 500px; }\n  .userSet_list table th {\n    text-align: left; }\n  .userSet_list table td {\n    text-align: left; }\n  .userSet_list .bbdSelect_root {\n    width: 120px;\n    min-width: 120px; }\n    .userSet_list .bbdSelect_root .valuePanel {\n      border: none;\n      background-color: #1b3c59; }\n      .userSet_list .bbdSelect_root .valuePanel i {\n        right: 0px; }\n    .userSet_list .bbdSelect_root .optionWrapper {\n      width: 120px;\n      height: 100px; }\n  .userSet_list .bbdInputPreSuffix_root {\n    display: inline-block; }\n  .userSet_list .contactBox {\n    text-align: left; }\n  .userSet_list .contact span {\n    display: block; }\n    .userSet_list .contact span i {\n      display: inline-block;\n      width: 24px;\n      text-align: center;\n      color: #00b7ee; }\n    .userSet_list .contact span em {\n      display: inline-block;\n      height: 14px;\n      font-style: normal;\n      padding-left: 5px; }\n  .userSet_list .more i {\n    display: inline-block;\n    padding: 0 5px;\n    font-size: 24px;\n    color: #00b7ee;\n    cursor: pointer; }\n  .userSet_list .delTip {\n    color: #702120; }\n\n.userSet_pagination {\n  position: relative;\n  padding: 20px 0; }\n  .userSet_pagination .pagination {\n    width: 800px;\n    margin: 0 auto; }\n\n.userSet_paginationNum {\n  float: left;\n  margin: 10px 0 0 14px;\n  font-size: 16px;\n  color: #fff;\n  font-style: normal; }\n  .userSet_paginationNum strong {\n    font-size: 16px;\n    color: #00b7ee; }\n\n.userEdit_root {\n  color: #fff; }\n\n.userEdit_wrapper {\n  background-color: #091d3b;\n  border: 1px solid #044666;\n  padding: 40px; }\n\n.userEdit_formArea {\n  width: 800px;\n  margin: 0 auto; }\n\n.userEdit_row {\n  margin-bottom: 10px; }\n  .userEdit_row .input_general {\n    width: 280px; }\n  .userEdit_row .input_full {\n    width: 580px; }\n  .userEdit_row div.errorMsg {\n    color: #FF6802;\n    margin: 0.5em 0; }\n  .userEdit_row:after {\n    content: '';\n    display: block;\n    clear: both;\n    height: 0;\n    visibility: hidden; }\n  .userEdit_row h6 {\n    font-size: 12px; }\n  .userEdit_row .powerList {\n    margin-bottom: 20px;\n    border-bottom: 1px solid #0E5578; }\n    .userEdit_row .powerList label {\n      display: inline-block;\n      width: 25%;\n      margin-bottom: 20px; }\n    .userEdit_row .powerList .mainRight {\n      width: 25%;\n      float: left; }\n      .userEdit_row .powerList .mainRight label {\n        width: 100%;\n        font-weight: bold; }\n    .userEdit_row .powerList .subRight {\n      width: 75%;\n      float: left; }\n      .userEdit_row .powerList .subRight label {\n        width: 20%;\n        color: #D4D4D5; }\n  .userEdit_row button {\n    width: 130px;\n    float: left;\n    margin-left: 30px;\n    height: 44px;\n    background: #04628A;\n    border: none;\n    color: #fff;\n    border-radius: 6px;\n    font-family: \"Microsoft Yahei\"; }\n    .userEdit_row button.cancel {\n      background: #8899AA;\n      float: none; }\n    .userEdit_row button.confirm {\n      background: #00B7EE;\n      float: none;\n      margin-left: 20px; }\n    .userEdit_row button:active {\n      background-color: #0574a3; }\n    .userEdit_row button:focus {\n      outline: none; }\n  .userEdit_row [disabled] {\n    cursor: not-allowed;\n    filter: grayscale(0.7); }\n\n.userEdit_label {\n  width: 150px;\n  color: #8292A4;\n  font-weight: bold;\n  float: left;\n  text-align: right;\n  font-size: 14px;\n  line-height: 40px; }\n\n.userEdit_right {\n  float: left;\n  margin-left: 15px; }\n", ""]);
+	exports.push([module.id, ".userSet_root {\n  width: 100%;\n  background-color: #091d3b; }\n  .userSet_root .mainTitle_opr {\n    height: 58px; }\n  .userSet_root .areaSelect {\n    float: left; }\n  .userSet_root .label {\n    float: left;\n    margin-top: 4px;\n    font-size: 14px; }\n  .userSet_root .bbdSelect_root {\n    float: left;\n    height: 38px;\n    min-width: 140px;\n    width: 140px;\n    margin: 11px 10px; }\n    .userSet_root .bbdSelect_root .optionWrapper {\n      width: 144px; }\n  .userSet_root .buttonBox {\n    float: left;\n    width: 110px;\n    margin-left: 20px; }\n\n.userSet_list {\n  background-color: #1b3c59;\n  min-height: 500px; }\n  .userSet_list table th {\n    text-align: left; }\n  .userSet_list table td {\n    text-align: left; }\n  .userSet_list .bbdSelect_root {\n    width: 120px;\n    min-width: 120px; }\n    .userSet_list .bbdSelect_root .valuePanel {\n      border: none;\n      background-color: #1b3c59; }\n      .userSet_list .bbdSelect_root .valuePanel i {\n        right: 0px; }\n    .userSet_list .bbdSelect_root .optionWrapper {\n      width: 120px;\n      height: 100px; }\n  .userSet_list .bbdInputPreSuffix_root {\n    display: inline-block; }\n  .userSet_list .contactBox {\n    text-align: left; }\n  .userSet_list .contact span {\n    display: block; }\n    .userSet_list .contact span i {\n      display: inline-block;\n      width: 24px;\n      text-align: center;\n      color: #00b7ee; }\n    .userSet_list .contact span em {\n      display: inline-block;\n      height: 14px;\n      font-style: normal;\n      padding-left: 5px; }\n  .userSet_list .more i {\n    display: inline-block;\n    padding: 0 5px;\n    font-size: 24px;\n    color: #00b7ee;\n    cursor: pointer; }\n  .userSet_list .delTip {\n    color: #702120; }\n\n.userSet_pagination {\n  position: relative;\n  padding: 20px 0; }\n  .userSet_pagination .pagination {\n    width: 850px;\n    margin: 0 auto; }\n\n.userSet_paginationNum {\n  float: left;\n  margin: 10px 0 0 14px;\n  font-size: 16px;\n  color: #fff;\n  font-style: normal; }\n  .userSet_paginationNum strong {\n    font-size: 16px;\n    color: #00b7ee; }\n\n.userEdit_root {\n  color: #fff; }\n\n.userEdit_wrapper {\n  background-color: #091d3b;\n  border: 1px solid #044666;\n  padding: 40px; }\n\n.userEdit_formArea {\n  width: 800px;\n  margin: 0 auto; }\n\n.userEdit_row {\n  margin-bottom: 10px; }\n  .userEdit_row .input_general {\n    width: 280px; }\n  .userEdit_row .input_full {\n    width: 580px; }\n  .userEdit_row div.errorMsg {\n    color: #FF6802;\n    margin: 0.5em 0; }\n  .userEdit_row:after {\n    content: '';\n    display: block;\n    clear: both;\n    height: 0;\n    visibility: hidden; }\n  .userEdit_row h6 {\n    font-size: 12px; }\n  .userEdit_row .powerList {\n    margin-bottom: 20px;\n    border-bottom: 1px solid #0E5578; }\n    .userEdit_row .powerList label {\n      display: inline-block;\n      width: 25%;\n      margin-bottom: 20px; }\n    .userEdit_row .powerList .mainRight {\n      width: 25%;\n      float: left; }\n      .userEdit_row .powerList .mainRight label {\n        width: 100%;\n        font-weight: bold; }\n    .userEdit_row .powerList .subRight {\n      width: 75%;\n      float: left; }\n      .userEdit_row .powerList .subRight label {\n        width: 20%;\n        color: #D4D4D5; }\n  .userEdit_row button {\n    width: 130px;\n    float: left;\n    margin-left: 30px;\n    height: 44px;\n    background: #04628A;\n    border: none;\n    color: #fff;\n    border-radius: 6px;\n    font-family: \"Microsoft Yahei\"; }\n    .userEdit_row button.cancel {\n      background: #8899AA;\n      float: none; }\n    .userEdit_row button.confirm {\n      background: #00B7EE;\n      float: none;\n      margin-left: 20px; }\n    .userEdit_row button:active {\n      background-color: #0574a3; }\n    .userEdit_row button:focus {\n      outline: none; }\n  .userEdit_row [disabled] {\n    cursor: not-allowed;\n    filter: grayscale(0.7); }\n\n.userEdit_label {\n  width: 150px;\n  color: #8292A4;\n  font-weight: bold;\n  float: left;\n  text-align: right;\n  font-size: 14px;\n  line-height: 40px; }\n\n.userEdit_right {\n  float: left;\n  margin-left: 15px; }\n", ""]);
 
 	// exports
 
@@ -51052,12 +50996,12 @@
 	        value: function setCurrentPage(curpage) {
 	            //设置当前页
 	            var totalPage = this.state.totalPage;
-	            this.state.callBack(curpage); //调用回调函数 传回当前页码
 	            if (curpage > totalPage) {
 	                curpage = totalPage;
 	            } else if (curpage < 1) {
 	                curpage = 1;
 	            }
+	            this.state.callBack(curpage); //调用回调函数 传回当前页码
 
 	            this.setState({ currentPage: curpage });
 
@@ -51565,6 +51509,15 @@
 
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Select).call(this, props));
 
+	        _this.hanldleLeave = function () {
+	            _this.optionWrapper.scrollTop = 0;
+	            _this.setState({ active: false });
+	        };
+
+	        _this.showDropDown = function () {
+	            _this.setState({ active: true });
+	        };
+
 	        _this.state = {
 	            selectedOption: null,
 	            active: false
@@ -51573,6 +51526,11 @@
 	    }
 
 	    _createClass(Select, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.optionWrapper.scrollTop = 10;
+	        }
+	    }, {
 	        key: 'componentWillReceiveProps',
 	        value: function componentWillReceiveProps(nextProps) {
 	            var selected = nextProps.selected;
@@ -51625,21 +51583,19 @@
 
 	            return _react2.default.createElement(
 	                'div',
-	                { className: 'bbdSelect_root' + (this.state.active ? ' selecting' : ''), onMouseLeave: function onMouseLeave(e) {
-	                        _this2.setState({ active: false });
-	                    } },
+	                { className: 'bbdSelect_root' + (this.state.active ? ' selecting' : ''), onMouseLeave: this.hanldleLeave },
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'valuePanel', onClick: function onClick(e) {
-	                            _this2.setState({ active: true });
-	                        } },
+	                    { className: 'valuePanel', onClick: this.showDropDown },
 	                    this.state.selectedOption && this.state.selectedOption.text,
 	                    _react2.default.createElement('i', { className: 'iconfont icon-select' })
 	                ),
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'optionWrapper' },
-	                    this.props.options.map(function (v) {
+	                    { className: 'optionWrapper', ref: function ref(optionWrapper) {
+	                            _this2.optionWrapper = optionWrapper;
+	                        } },
+	                    this.props.options.map(function (v, index) {
 	                        return _this2.state.selectedOption === v ? _react2.default.createElement(
 	                            'div',
 	                            { key: v.text, className: 'option active', onClick: function onClick() {
@@ -51891,7 +51847,10 @@
 	                backPowerTree: buildPowerTree(_power_code.BACK_POWER_CODE, backPower),
 	                formData: formData,
 	                powerState: _extends({}, frontPower, backPower),
-	                oldLoginName: userInfo.userInfo.loginName
+	                oldUserInfo: _extends({}, userInfo.userInfo, {
+	                    id: '',
+	                    resourceSet: resourceCode.join(',')
+	                })
 	            });
 	        }
 	    }, {
@@ -51945,9 +51904,20 @@
 
 	            var formData = _extends({}, this.state.formData);
 	            var isEdit = this.state.isEdit;
-	            if (isEdit && this.state.oldLoginName === formData.loginName) {
-	                // 给服务器传一样的登录名，会校验已存在登录名，不传代表不修改
-	                delete formData.loginName;
+	            if (isEdit) {
+	                Object.keys(this.state.oldUserInfo).forEach(function (key) {
+	                    var val = _this3.state.oldUserInfo[key];
+	                    if (val === formData[key]) {
+	                        delete formData[key];
+	                    }
+	                });
+	                // 没有修改过，就不提交
+	                if (Object.keys(formData).length === 1) {
+	                    this.setState({
+	                        errorMsg: '您未修改任何信息，不能保存'
+	                    });
+	                    return;
+	                }
 	            }
 	            this.setState({
 	                isSaving: true
@@ -52295,7 +52265,7 @@
 	                                _react2.default.createElement(
 	                                    'div',
 	                                    { className: 'userEdit_right input_general' },
-	                                    _react2.default.createElement(_Input2.default, { disabled: !isFrontUser, placeholder: this.state.isEdit && this.isFrontUserBeforeEdit && isFrontUser ? '**********' : '', value: this.state.formData.forePwd, onChange: this.handleInput, name: 'forePwd' })
+	                                    _react2.default.createElement(_Input2.default, { maxLength: '12', disabled: !isFrontUser, placeholder: this.state.isEdit && this.isFrontUserBeforeEdit && isFrontUser ? '**********' : '', value: this.state.formData.forePwd, onChange: this.handleInput, name: 'forePwd' })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'button',
@@ -52316,7 +52286,7 @@
 	                                _react2.default.createElement(
 	                                    'div',
 	                                    { className: 'userEdit_right input_general' },
-	                                    _react2.default.createElement(_Input2.default, { disabled: !isBackUser, placeholder: this.state.isEdit && this.isBackUserBeforeEdit && isBackUser ? '**********' : '', value: this.state.formData.backPwd, onChange: this.handleInput, name: 'backPwd' })
+	                                    _react2.default.createElement(_Input2.default, { maxLength: '16', disabled: !isBackUser, placeholder: this.state.isEdit && this.isBackUserBeforeEdit && isBackUser ? '**********' : '', value: this.state.formData.backPwd, onChange: this.handleInput, name: 'backPwd' })
 	                                ),
 	                                _react2.default.createElement(
 	                                    'button',
@@ -52373,7 +52343,6 @@
 
 
 	function getValidateOption() {
-	    var passwordReg = /^([A-Z]|[a-z]|[0-9]){8,16}$/;
 	    var commonChineseRule = {
 	        RegExp: /^[\u4e00-\u9fa5a-zA-Z \.]{1,20}$/,
 	        required: true
@@ -52392,10 +52361,10 @@
 	        department: commonChineseRule,
 
 	        backPwd: {
-	            RegExp: passwordReg
+	            RegExp: /^([A-Z]|[a-z]|[0-9]){8,16}$/
 	        },
 	        forePwd: {
-	            RegExp: passwordReg
+	            RegExp: /^([A-Z]|[a-z]|[0-9]){8,12}$/
 	        },
 	        //手机电话
 	        mobile: {
@@ -52446,7 +52415,7 @@
 	        },
 	        forePwd: {
 	            required: '请输入前台密码',
-	            RegExp: '密码8-16位英文大小写和数字组合'
+	            RegExp: '密码8-12位英文大小写和数字组合'
 	        },
 	        areaCode: {
 	            required: '请选择用户区域'
@@ -54977,7 +54946,7 @@
 	            list: [],
 	            totalCount: 0, //数据总条数
 	            showPage: 5, //显示多少个页码 最好为奇数
-	            filter: {
+	            filter: _extends({
 	                // 字段详情看接口文档
 	                userName: '',
 	                pageNumber: 1,
@@ -54990,7 +54959,7 @@
 	                sysCode: -1,
 	                logSN: '',
 	                orderBy: 'DESC'
-	            },
+	            }, props.location.query),
 	            options: {
 	                areaCodeList: [],
 	                opPageList: [],
@@ -55062,8 +55031,21 @@
 	            });
 	        }
 	    }, {
+	        key: 'handleSearch',
+	        value: function handleSearch() {
+	            var _this6 = this;
+
+	            var filter = this.state.filter;
+	            filter.pageNumber = 1;
+	            this.setState({ filter: filter }, function () {
+	                _this6.getLogList();
+	            });
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var _this7 = this;
+
 	            var _state = this.state;
 	            var list = _state.list;
 	            var options = _state.options;
@@ -55072,7 +55054,9 @@
 
 	            return _react2.default.createElement(
 	                'div',
-	                { className: 'logAudit_root' },
+	                { className: 'logAudit_root', onKeyUp: function onKeyUp(evt) {
+	                        return evt.key === 'Enter' && _this7.getLogList();
+	                    } },
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'logAudit_filterPanel' },
@@ -55093,6 +55077,7 @@
 	                                _react2.default.createElement(_Input2.default, {
 	                                    className: 'filterInput',
 	                                    type: 'text',
+	                                    value: filter.userName,
 	                                    onChange: this.writeInput('userName')
 	                                })
 	                            )
@@ -55147,6 +55132,7 @@
 	                                _react2.default.createElement(_Input2.default, {
 	                                    className: 'filterInput',
 	                                    type: 'text',
+	                                    value: filter.logSN,
 	                                    onChange: this.writeInput('logSN')
 	                                })
 	                            )
@@ -55232,8 +55218,8 @@
 	                            { className: 'buttonField' },
 	                            _react2.default.createElement(
 	                                _Button2.default,
-	                                { className: 'search', onClick: this.getLogList.bind(this) },
-	                                '查询'
+	                                { className: 'search', onClick: this.handleSearch.bind(this) },
+	                                '搜索'
 	                            )
 	                        )
 	                    )
@@ -55462,7 +55448,7 @@
 
 
 	// module
-	exports.push([module.id, ".logAudit_root {\n  width: 100%; }\n  .logAudit_root .mainTitle_opr {\n    height: 58px; }\n  .logAudit_root .areaSelect {\n    float: left; }\n  .logAudit_root .label {\n    float: left;\n    margin-top: 4px;\n    font-size: 14px; }\n  .logAudit_root .bbdSelect_root {\n    float: left;\n    height: 38px;\n    min-width: 140px;\n    width: 140px;\n    margin: 11px 10px; }\n    .logAudit_root .bbdSelect_root .optionWrapper {\n      width: 144px; }\n  .logAudit_root .buttonBox {\n    float: left;\n    width: 110px;\n    margin-left: 20px; }\n\n.logAudit_filterPanel {\n  background-color: #091d3b;\n  border: 1px solid #044666;\n  padding: 15px; }\n  .logAudit_filterPanel .inputField {\n    width: 20%;\n    margin-right: 15px;\n    float: left; }\n  .logAudit_filterPanel .label {\n    color: #8998A9;\n    font-size: 14px;\n    float: left;\n    width: 21%;\n    text-align: right;\n    font-weight: bold; }\n  .logAudit_filterPanel .input {\n    float: left;\n    width: 73%;\n    margin-left: 10px; }\n  .logAudit_filterPanel .filterInput {\n    height: 30px;\n    box-sizing: border-box;\n    background: none; }\n  .logAudit_filterPanel .buttonField {\n    width: auto; }\n  .logAudit_filterPanel .inputRow {\n    margin-bottom: 15px; }\n    .logAudit_filterPanel .inputRow::last-child {\n      margin-bottom: 0; }\n  .logAudit_filterPanel .bbdSelect_root {\n    width: 100%;\n    height: 32px;\n    margin: 0; }\n    .logAudit_filterPanel .bbdSelect_root .valuePanel {\n      background: none;\n      border-color: #0D7199;\n      line-height: 30px;\n      box-sizing: border-box; }\n    .logAudit_filterPanel .bbdSelect_root .optionWrapper {\n      width: 100%;\n      box-sizing: border-box;\n      background-color: #0d7199; }\n      .logAudit_filterPanel .bbdSelect_root .optionWrapper .option {\n        color: white; }\n  .logAudit_filterPanel .search {\n    width: 60px;\n    height: 30px;\n    line-height: 30px; }\n\n.logAudit_list {\n  background-color: #1b3c59;\n  min-height: 500px;\n  margin-top: 15px; }\n  .logAudit_list table th {\n    text-align: left; }\n  .logAudit_list a {\n    color: white; }\n  .logAudit_list table td {\n    text-align: left; }\n  .logAudit_list .bbdSelect_root {\n    width: 120px;\n    min-width: 120px; }\n    .logAudit_list .bbdSelect_root .valuePanel {\n      border: none;\n      background-color: #1b3c59; }\n      .logAudit_list .bbdSelect_root .valuePanel i {\n        right: 0; }\n    .logAudit_list .bbdSelect_root .optionWrapper {\n      width: 120px;\n      height: 100px; }\n  .logAudit_list .bbdInputPreSuffix_root {\n    display: inline-block; }\n  .logAudit_list .contactBox {\n    text-align: left; }\n  .logAudit_list .contact span {\n    display: block; }\n    .logAudit_list .contact span i {\n      display: inline-block;\n      width: 24px;\n      text-align: center;\n      color: #00b7ee; }\n    .logAudit_list .contact span em {\n      display: inline-block;\n      height: 14px;\n      font-style: normal;\n      padding-left: 5px; }\n  .logAudit_list .more i {\n    display: inline-block;\n    padding: 0 5px;\n    font-size: 24px;\n    color: #00b7ee;\n    cursor: pointer; }\n  .logAudit_list .delTip {\n    color: #702120; }\n\n.logAudit_pagination {\n  position: relative;\n  padding: 20px 0; }\n  .logAudit_pagination .pagination {\n    width: 800px;\n    margin: 0 auto; }\n\n.logAudit_paginationNum {\n  float: left;\n  margin: 10px 0 0 14px;\n  font-size: 16px;\n  color: #fff;\n  font-style: normal; }\n  .logAudit_paginationNum strong {\n    font-size: 16px;\n    color: #00b7ee; }\n", ""]);
+	exports.push([module.id, ".logAudit_root {\n  width: 100%; }\n  .logAudit_root .mainTitle_opr {\n    height: 58px; }\n  .logAudit_root .areaSelect {\n    float: left; }\n  .logAudit_root .label {\n    float: left;\n    margin-top: 4px;\n    font-size: 14px; }\n  .logAudit_root .bbdSelect_root {\n    float: left;\n    height: 38px;\n    min-width: 140px;\n    width: 140px;\n    margin: 11px 10px; }\n    .logAudit_root .bbdSelect_root .optionWrapper {\n      width: 144px; }\n  .logAudit_root .buttonBox {\n    float: left;\n    width: 110px;\n    margin-left: 20px; }\n\n.logAudit_filterPanel {\n  background-color: #091d3b;\n  border: 1px solid #044666;\n  padding: 15px; }\n  .logAudit_filterPanel .inputField {\n    width: 20%;\n    margin-right: 15px;\n    float: left; }\n  .logAudit_filterPanel .label {\n    color: #8998A9;\n    font-size: 14px;\n    float: left;\n    width: 21%;\n    text-align: right;\n    font-weight: bold; }\n  .logAudit_filterPanel .input {\n    float: left;\n    width: 73%;\n    margin-left: 10px; }\n  .logAudit_filterPanel .filterInput {\n    height: 30px;\n    box-sizing: border-box;\n    background: none; }\n  .logAudit_filterPanel .buttonField {\n    width: auto; }\n  .logAudit_filterPanel .inputRow {\n    margin-bottom: 15px; }\n    .logAudit_filterPanel .inputRow::last-child {\n      margin-bottom: 0; }\n  .logAudit_filterPanel .bbdSelect_root {\n    width: 100%;\n    height: 32px;\n    margin: 0; }\n    .logAudit_filterPanel .bbdSelect_root .valuePanel {\n      background: none;\n      border-color: #0D7199;\n      line-height: 30px;\n      box-sizing: border-box; }\n    .logAudit_filterPanel .bbdSelect_root .optionWrapper {\n      width: 100%;\n      box-sizing: border-box;\n      background-color: #0d7199; }\n      .logAudit_filterPanel .bbdSelect_root .optionWrapper .option {\n        color: white; }\n  .logAudit_filterPanel .search {\n    width: 60px;\n    height: 30px;\n    line-height: 30px; }\n\n.logAudit_list {\n  background-color: #1b3c59;\n  min-height: 500px;\n  margin-top: 15px; }\n  .logAudit_list table th {\n    text-align: left; }\n  .logAudit_list a {\n    color: white; }\n  .logAudit_list table td {\n    text-align: left; }\n  .logAudit_list .bbdSelect_root {\n    width: 120px;\n    min-width: 120px; }\n    .logAudit_list .bbdSelect_root .valuePanel {\n      border: none;\n      background-color: #1b3c59; }\n      .logAudit_list .bbdSelect_root .valuePanel i {\n        right: 0; }\n    .logAudit_list .bbdSelect_root .optionWrapper {\n      width: 120px;\n      height: 100px; }\n  .logAudit_list .bbdInputPreSuffix_root {\n    display: inline-block; }\n  .logAudit_list .contactBox {\n    text-align: left; }\n  .logAudit_list .contact span {\n    display: block; }\n    .logAudit_list .contact span i {\n      display: inline-block;\n      width: 24px;\n      text-align: center;\n      color: #00b7ee; }\n    .logAudit_list .contact span em {\n      display: inline-block;\n      height: 14px;\n      font-style: normal;\n      padding-left: 5px; }\n  .logAudit_list .more i {\n    display: inline-block;\n    padding: 0 5px;\n    font-size: 24px;\n    color: #00b7ee;\n    cursor: pointer; }\n  .logAudit_list .delTip {\n    color: #702120; }\n\n.logAudit_pagination {\n  position: relative;\n  padding: 20px 0; }\n  .logAudit_pagination .pagination {\n    width: 850px;\n    margin: 0 auto; }\n\n.logAudit_paginationNum {\n  float: left;\n  margin: 10px 0 0 14px;\n  font-size: 16px;\n  color: #fff;\n  font-style: normal; }\n  .logAudit_paginationNum strong {\n    font-size: 16px;\n    color: #00b7ee; }\n", ""]);
 
 	// exports
 
@@ -56025,8 +56011,7 @@
 	                isInnerDateDom = true;
 	            };
 
-	            document.body.addEventListener("click", function () {
-
+	            this._outterClickClosePanel = function () {
 	                if (isInnerDateDom) {
 	                    isInnerDateDom = false;
 	                } else {
@@ -56034,7 +56019,13 @@
 	                        showCalender: false
 	                    });
 	                }
-	            });
+	            };
+	            document.body.addEventListener('click', this._outterClickClosePanel);
+	        }
+	    }, {
+	        key: "componentWillUnmount",
+	        value: function componentWillUnmount() {
+	            document.body.removeEventListener('click', this._outterClickClosePanel);
 	        }
 	    }]);
 
