@@ -2,7 +2,9 @@ package com.bbd.wtyh.map.name.code;
 
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.service.UserInfoService;
+import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.ArrayList;
@@ -13,16 +15,22 @@ import java.util.Map;
 /**
  * Created by cgj on 2017/3/24.
  */
-public class CodeNameMap {
-    static ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
-    static UserInfoService uis = context.getBean(UserInfoService.class);
-    static List<Map<String, Object>> shanghaiAreaCodeList; //区域代码表
-    static byte updateCnt =0;
-    static Map<Integer, String> shanghaiAreaCodeMap; //区域代码字典
-    static {
+public class CodeNameMap implements ApplicationContextAware {
+    private static ApplicationContext applicationContext;
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        CodeNameMap.applicationContext = applicationContext;
+        uis = CodeNameMap.applicationContext.getBean(UserInfoService.class);
+        //首次从数据库中取出区域代码表
         updateShanghaiAreaCodeTable(null);
         updateCnt++;
     }
+//    static ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
+//    static UserInfoService uis = context.getBean(UserInfoService.class);
+    static UserInfoService uis;
+    static List<Map<String, Object>> shanghaiAreaCodeList; //区域代码表
+    static byte updateCnt =0;
+    static Map<Integer, String> shanghaiAreaCodeMap; //区域代码字典
 
     /**
      *
