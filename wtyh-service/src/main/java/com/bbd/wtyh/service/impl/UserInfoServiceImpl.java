@@ -14,6 +14,9 @@ import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 
 /**
@@ -394,8 +397,8 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		uitd.setStatus(null);
 		uitd.setForePwd(null);
 		uitd.setBackPwd(null);
-		uitd.setForePwdUpDate(null);
-		uitd.setBackPwdUpDate(null);
+		//uitd.setForePwdUpDate(null);
+		//uitd.setBackPwdUpDate(null);
 		Set<String> rC = roleResourceService.queryResourceCodeByUserId(uitd.getId());
 		Map<String, Object> rstMap = new HashMap<String, Object>();
 		rstMap.put("userInfo", uitd);
@@ -410,8 +413,8 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		uitd.setStatus(null);
 		uitd.setForePwd(null);
 		uitd.setBackPwd(null);
-		uitd.setForePwdUpDate(null);
-		uitd.setBackPwdUpDate(null);
+		//uitd.setForePwdUpDate(null);
+		//uitd.setBackPwdUpDate(null);
 		Set<String> rC = roleResourceService.queryResourceCodeByUserId(id);
 		Map<String, Object> rstMap = new HashMap<String, Object>();
 		rstMap.put("userInfo", uitd);
@@ -566,13 +569,40 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		return selPassword.equals(userPasswordEncrypt(password));
 	}
 
+	public String testUserPasswordBeOverdue(Date fbPwdUpDate) throws Exception {
+		if (null == fbPwdUpDate) { // 新用户首次登录
+			return new String("firstTime");
+		}
+		LocalDateTime oldTime =LocalDateTime.ofInstant(fbPwdUpDate.toInstant(), ZoneId.systemDefault());
+		int li =userInfoMapper.selectPwdLapseCycle();
+		if( oldTime.plusMonths(li).isBefore(LocalDateTime.now())) { // 用户密码过期
+			return new String("BeOverdue");
+		}
+		return new String("normal"); // 密码状态正常
+	}
+
 	/*
-	 * @Override public static int testUserPasswordBeOverdue( Date fbPwdUpDate )
-	 * { if( null == fbPwdUpDate ) { //新用户，需要立即更改密码 return -1; } Date nowTime =
-	 * new Date(); long dltTime =nowTime.getTime() -fbPwdUpDate.getTime(); long
-	 * threeMonth =(1000L*3600*24*91); //三个月的毫秒数 if( dltTime >threeMonth ) {
-	 * //用户未更新密码超过3个月 return -2; } return 0; //密码状态正常 }
-	 */
+		public String testUserPasswordBeOverdue1(Date fbPwdUpDate) throws Exception {
+		if (null == fbPwdUpDate) { // 新用户，需要立即更改密码
+			return new String("firstTime");
+		}
+		Date nowTime = new Date();
+		long dltTime = nowTime.getTime() - fbPwdUpDate.getTime();
+		Integer li =userInfoMapper.selectPwdLapseCycle();
+		int pwdLapseCycle =li;  // 用户密码失效的周期，单位是：月（计入闰年合年均730.5小时），由value1记录
+		long aMonthMs = (2629800000L *pwdLapseCycle);//730.5小时 =1000 *3600 *730.5 =2,629,800,000ms
+		if (dltTime > aMonthMs) { // 用户未更新密码超期
+			return new String("BeOverdue");
+		}
+		return new String("normal"); // 密码状态正常
+	}*/
+
+	public Integer getAndSetPwdLapseCycle(Integer pwdLapseCycle) {
+		if( null != pwdLapseCycle )  {
+			userInfoMapper.updatePwdLapseCycle(pwdLapseCycle);
+		}
+		return userInfoMapper.selectPwdLapseCycle();
+	}
 
 	/*
 	 * public static void main(String[] args) throws Exception {

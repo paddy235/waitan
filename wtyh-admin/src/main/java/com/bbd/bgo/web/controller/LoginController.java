@@ -88,6 +88,8 @@ public class LoginController {
 			map.put(Constants.SESSION.loginName, name);//登录用户名
 			map.put("area",areaCode);//属地区编号
 			map.put("areaName",areaName);//地区名称
+			map.put("pwdBeOverdue", userInfoService.testUserPasswordBeOverdue(userInfo.getBackPwdUpDate()));// 密码是否过期
+			map.put("userId", userInfo.getId());// 用户ID
 
 		}catch(Exception e){
 

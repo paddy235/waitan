@@ -2,6 +2,7 @@ package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.mapper.UserMapper;
+import com.bbd.wtyh.service.UserInfoService;
 import com.bbd.wtyh.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;
@@ -20,6 +21,9 @@ public class UserServiceImpl implements UserService {
     private static final String PASSWORD_HISTORY_SPLITTER = "|";
     @Autowired
     private UserMapper          userMapper;
+
+    @Autowired
+    private UserInfoService uis;
 
     @Override
     public String getPassword(String loginName) {
@@ -49,7 +53,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String encryptPassword(String password) {
-        return new SimpleHash("md5", password, ByteSource.Util.bytes("123456"), 2).toHex();
+        //return new SimpleHash("md5", password, ByteSource.Util.bytes("123456"), 2).toHex();
+        return uis.userPasswordEncrypt(password);
     }
 
     @Override

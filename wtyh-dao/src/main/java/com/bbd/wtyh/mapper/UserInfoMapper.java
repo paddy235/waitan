@@ -32,6 +32,10 @@ public interface UserInfoMapper {
 
 	public List<Map<String, Object>> selectShanghaiAreaCodeTable( );
 
+	public Integer selectPwdLapseCycle( );
+
+	public void updatePwdLapseCycle(@Param("valueA") Integer valueA);
+
 	//public List<String> selectUserPassword(@Param("loginName") String loginName, @Param("type") String type);
 
 //	public UserInfoTableDo selectForeUserInfoAll( @Param("loginName") String loginName ); //used sun

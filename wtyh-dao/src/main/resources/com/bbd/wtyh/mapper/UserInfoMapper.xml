@@ -175,6 +175,24 @@
     WHERE `city_id` = '104'
   </select>
 
+
+  <!-- 查询用户密码失效周期 -->
+  <select id="selectPwdLapseCycle"  parameterType="String" resultType="Integer">
+    SELECT
+    value1
+    FROM user_misc_parameter
+    WHERE  `para_id` =1
+  </select>
+
+  <!-- 更新用户密码失效周期 -->
+  <select id="updatePwdLapseCycle"  parameterType="Integer">
+    UPDATE user_misc_parameter
+    SET value1 =#{valueA}
+    WHERE  `para_id` =1
+  </select>
+
+</mapper>
+
   <!--  &lt;!&ndash; 根据用户名和前后台类型查询用户密码 &ndash;&gt;
     <select id="selectUserPassword"  parameterType="String" resultType="String">
       SELECT fore_pwd, back_pwd FROM <include refid="TabName"/>
@@ -191,8 +209,6 @@
 
 select  count(*) from
   -->
-
-</mapper>
 
 <!--
     <select id="getPassword" resultType="string">
