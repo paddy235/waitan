@@ -53,15 +53,15 @@
 
 
     <select id="countByType" resultType="com.bbd.wtyh.domain.CompanyTypeCountDO">
-   		
-   		select count(*) count from company com , 
-   		  company_building cb ,building bui ,park p where 
-   			p.park_id=bui.park_id and 
-   			cb.company_id=com.company_id and 
-   			cb.building_id=bui.building_id and 
-   			p.area_id=#{areaId} and 
+
+   		select count(*) count from company com ,
+   		  company_building cb ,building bui ,park p where
+   			p.park_id=bui.park_id and
+   			cb.company_id=com.company_id and
+   			cb.building_id=bui.building_id and
+   			p.area_id=#{areaId} and
    			com.company_type=#{type}
-   			 
+
    </select>
 
 
@@ -79,13 +79,13 @@
     </select>
 
     <select id="buildingBackground" resultType="com.bbd.wtyh.domain.CompanyTypeCountDO">
-   		
+
    		select count( DISTINCT com.name) count from company com , company_building cb , company_background cbg  where
-   			cb.company_id=com.company_id and 
+   			cb.company_id=com.company_id and
    			com.company_id=cbg.company_id and
-   			cb.building_id=#{buildingId} and 
+   			cb.building_id=#{buildingId} and
    			cbg.background=#{background}
-   			 
+
    </select>
 
     <select id="countAllCompany" resultType="int">
@@ -211,13 +211,13 @@
 
 	<select id="searchCompanyName" resultType="java.util.HashMap" resultMap="BaseResultMap">
 		select
-			c.`name` as name, 
-			c.legal_person as legalPerson, 
-			c.address as address, 
+			c.`name` as name,
+			c.legal_person as legalPerson,
+			c.address as address,
 			c.registered_capital as registeredCapital,
             c.registered_capital_type as registeredCapitalType,
-			c.registered_date as registeredDate, 
-			c.registered_type as registeredType, 
+			c.registered_date as registeredDate,
+			c.registered_type as registeredType,
 			s.static_risk_index as staticRisk
 		from company c, static_risk_data s where c.`name`=s.company_name and c.company_type=4 and s.data_version=#{dataVersion}
 		<if test="keyword != null and keyword != ''">
@@ -228,7 +228,7 @@
         </if>
 		limit #{pagination.begin}, #{pagination.pageSize}
     </select>
-    
+
     <select id="searchCompanyNameCount" resultType="int" parameterType="java.util.HashMap">
 		select count(1) from company c, static_risk_data s where c.`name`=s.company_name and c.company_type=4 and s.data_version=#{dataVersion}
 		<if test="keyword != null and keyword != ''">
@@ -251,9 +251,9 @@
 	<select id="queryCompanyNames" resultType="string">
         select c.`name`
         from company c , company_building cb , building b ,park p
-        where c.company_id=cb.company_id 
-              and b.building_id=cb.building_id 
-              and p.park_id=b.park_id 
+        where c.company_id=cb.company_id
+              and b.building_id=cb.building_id
+              and p.park_id=b.park_id
               <if test="areaId!=null">
               	and p.area_id=#{areaId}
               </if>
@@ -296,6 +296,7 @@
             NAME,
             longitude,
             latitude,
+            newCompany,
             ifnull(staticRiskIndex,"") as staticRiskIndex,
             registeredCapital,
             ifnull(exposureDate,"") as exposureDate,
@@ -306,6 +307,7 @@
                     company.`name`,
                     company.longitude,
                     company.latitude,
+                    company.is_new AS newCompany,
                     static_risk_data.static_risk_index AS staticRiskIndex,
                     company.registered_capital AS registeredCapital,
                     DATE_FORMAT(
@@ -329,6 +331,7 @@
                         t1.`name`,
                         t1.longitude,
                         t1.latitude,
+                        t1.newCompany,
                         NULL AS staticRiskIndex,
                         t1.registered_capital AS registeredCapital,
                         DATE_FORMAT(
@@ -342,7 +345,8 @@
                                 company_id,
                                 registered_capital,
                                 longitude,
-                                latitude
+                                latitude,
+                                is_new AS newCompany
                             FROM
                                 company
                             WHERE
