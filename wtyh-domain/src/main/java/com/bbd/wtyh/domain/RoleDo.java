@@ -19,6 +19,16 @@ public class RoleDo extends BaseDO {
 
     private String updateBy;
 
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
+    }
+
+    private Integer parentId;
+
     public Integer getId() {
         return id;
     }

@@ -68,4 +68,68 @@
 		delete from user_role where user_id=#{userId}
 	</delete>
 
+
+	<select id="listRoleBase" parameterType="java.util.HashMap" resultType="com.bbd.wtyh.domain.RoleDo">
+		select id,name,description,type,
+		create_date AS createDate ,
+		update_date AS updateDate ,
+		create_by AS createBy ,
+		update_by AS updateBy ,
+		parent_id AS parentId
+		from role
+		where
+		type not in('S','D')
+		<if test="roleType != null"> and type = #{roleType} </if>
+		order by update_date desc
+		<if test="listing !=null ">
+			LIMIT
+			<if test="pageNumber !=null">
+				#{pageNumber},
+			</if>  #{pageLimit}
+		</if>
+	</select>
+
+	<select id="listSonRoleBase" parameterType="int" resultType="com.bbd.wtyh.domain.RoleDo">
+		select id,name,description,type,
+		create_date AS createDate ,
+		update_date AS updateDate ,
+		create_by AS createBy ,
+		update_by AS updateBy ,
+		parent_id AS parentId
+		from role
+		where
+		1=1
+		<if test="parentId != null"> and parent_id = #{parentId} </if>
+		order by name
+	</select>
+
+	<select id="getRoleBaseByIdNameType" parameterType="java.util.HashMap" resultType="com.bbd.wtyh.domain.RoleDo">
+		select id,name,description,type,
+		create_date AS createDate ,
+		update_date AS updateDate ,
+		create_by AS createBy ,
+		update_by AS updateBy ,
+		parent_id AS parentId
+		from role
+		where
+		1=1
+		<if test="roleId != null"> and id = #{roleId} </if>
+		<if test="roleName != null"> and name = #{roleName} </if>
+		<if test="roleType != null"> and type = #{roleType} </if>
+
+	</select>
+
+	<select id="listResourceByRoleId" parameterType="int" resultType="com.bbd.wtyh.domain.ResourceDo">
+		select resource.`id`, resource.`code`, resource.`name`, resource.`parent_code` AS  parentCode,
+		resource.`type`, resource.`url`,
+		resource.`display_order` as displayOrder,
+		resource.`create_date` as createDate,
+		resource.`create_by` as createBy,
+		resource.`update_date` as updateDate,
+		resource.`update_by` as updateBy
+		from role_resource,resource
+		where role_resource.role_id=#{roleId}
+		and role_resource.resource_id=resource.id
+		order by resource.display_order
+	</select>
 </mapper>

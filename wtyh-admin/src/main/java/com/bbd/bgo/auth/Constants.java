@@ -11,13 +11,20 @@ public class Constants {
 
     public static final String FREEZE="F";//冻结
 
-    public static final String FRONT="F";//前台角色
+    public static final String FRONT="F";//前台角色 普通用户角色
 
-    public static final String BACK="B";//后台角色
+    public static final String BACK="B";//后台角色  系统管理员角色
+
+    public static final String DEFAULT_ROLE="D";//预设模板角色
 
     public static final String ALL="A";//所有
 
     public static final String UNDEFINED="U";//未定义
+
+    //角色模板
+    public static final String TEMPLATE_SYS="系统管理员角色";//系统管理员
+
+    public static final String TEMPLATE_NOR="普通用户角色";//系统管理员
 
     //权限列表
     public static final String F_HYJCPT = "F_HYJCPT";//行业监测平台
@@ -50,6 +57,10 @@ public class Constants {
 
     public static final String F_SSJCPT = "F_SSJCPT";//实时监测平台
 
-    public static final String B_HTGLQX = "B_HTGLQX";//后台管理权限
+    public static final String B_HTGLQX = "B_HTGLQX";//用户角色管理
+
+    public static final String B_YHRZGL = "B_YHRZGL";//用户日志管理
+
+    public static final String B_DSRWGL = "B_DSRWGL";//定时任务管理
 
 }
