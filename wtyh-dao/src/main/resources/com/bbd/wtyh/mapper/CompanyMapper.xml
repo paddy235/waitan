@@ -268,7 +268,8 @@
             c.`name` AS NAME,
             IF(c.status=1,'存续',IF(c.status=2,'注销',0)) AS status,
             cb.background AS background,
-            c.risk_level as riskLevel
+            c.risk_level as riskLevel,
+            c.company_type AS companyType
         FROM
             company c
         LEFT JOIN company_background cb ON c.company_id = cb.company_id

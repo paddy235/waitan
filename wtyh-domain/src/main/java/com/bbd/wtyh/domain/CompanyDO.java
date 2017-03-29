@@ -7,111 +7,108 @@ import java.util.Date;
 
 @SuppressWarnings("serial")
 public class CompanyDO extends BaseDO implements Comparable {
-    //公司类型 1:P2P 2:小贷 3:融资担保 4:线下理财 5:私募基金 6:众筹 7:金融 8:其他 9:交易所 10:商业保理 11.预付卡 12.典当 13融资租赁
-	public static final byte TYPE_P2P_1  = 1;
-	public static final byte TYPE_XD_2   = 2;
+
+	// 公司类型 1:P2P 2:小贷 3:融资担保 4:线下理财 5:私募基金 6:众筹 7:金融 8:其他 9:交易所 10:商业保理 11.预付卡
+	// 12.典当 13融资租赁
+	public static final byte TYPE_P2P_1 = 1;
+	public static final byte TYPE_XD_2 = 2;
 	public static final byte TYPE_RZDB_3 = 3;
 	public static final byte TYPE_XXLC_4 = 4;
 	public static final byte TYPE_SMJJ_5 = 5;
-	public static final byte TYPE_ZC_6   = 6;
-	public static final byte TYPE_JR_7   = 7;
-	public static final byte TYPE_QT_8   = 8;
-    public static final byte TYPE_JYS_9   = 9;
-    public static final byte TYPE_SYBL_10  = 10;
-    public static final byte TYPE_YFK_11   = 11;
-    public static final byte TYPE_DD_12    = 12;
-    public static final byte TYPE_RZZL_13  = 13;
+	public static final byte TYPE_ZC_6 = 6;
+	public static final byte TYPE_JR_7 = 7;
+	public static final byte TYPE_QT_8 = 8;
+	public static final byte TYPE_JYS_9 = 9;
+	public static final byte TYPE_SYBL_10 = 10;
+	public static final byte TYPE_YFK_11 = 11;
+	public static final byte TYPE_DD_12 = 12;
+	public static final byte TYPE_RZZL_13 = 13;
 
+	private Integer companyId;
 
-    private Integer companyId;
+	private String name = "";
 
-    private String name="";
+	private String legalPerson = "";
 
-    private String legalPerson="";
+	private Integer areaId;
 
-    private Integer areaId;
+	private String address = "";
 
-    private String address="";
+	private Integer registeredCapital;
 
-    private Integer registeredCapital;
+	private Integer registeredCapitalType;
 
-    private Integer registeredCapitalType;
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+	private Date registeredDate;
 
-    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
-    private Date registeredDate;
+	private Byte companyType;
 
-    private Byte companyType;
+	@SuppressWarnings("unused")
+	private String comTypeCN = "";
 
-    @SuppressWarnings("unused")
-	private String comTypeCN="";
+	private Byte status;
 
-    private Byte status;
+	private Byte background;
 
-    private Byte background;
+	@SuppressWarnings("unused")
+	private String backgroundCN = "";
 
-    @SuppressWarnings("unused")
-	private String backgroundCN="";
+	private String registeredType = "";
 
-    private String registeredType="";
+	private String businessType = "";
 
-    private String businessType="";
+	private BigDecimal staticRisk;
 
-    private BigDecimal staticRisk;
+	private Date exposureDate;
 
-    private Date exposureDate;
+	private Integer analysisResult;
 
-    private Integer analysisResult;
+	// 公司风险等级
+	private Integer riskLevel;
 
-    //公司风险等级
-    private Integer riskLevel;
+	// 平台名称
+	private String platName = "";
 
-    // 平台名称
-    private String platName="";
+	public String getPlatName() {
+		return platName;
+	}
 
-    public String getPlatName() {
-        return platName;
-    }
+	public void setPlatName(String platName) {
+		this.platName = platName;
+	}
 
-    public void setPlatName(String platName) {
-        this.platName = platName;
-    }
+	public void setBackgroundCN(String backgroundCN) {
+		this.backgroundCN = backgroundCN;
+	}
 
-    public void setBackgroundCN(String backgroundCN) {
-        this.backgroundCN = backgroundCN;
-    }
+	public Date getExposureDate() {
+		return exposureDate;
+	}
 
-    public Date getExposureDate() {
-        return exposureDate;
-    }
+	public void setExposureDate(Date exposureDate) {
+		this.exposureDate = exposureDate;
+	}
 
-    public void setExposureDate(Date exposureDate) {
-        this.exposureDate = exposureDate;
-    }
+	public Integer getAnalysisResult() {
+		return analysisResult;
+	}
 
-    public Integer getAnalysisResult() {
-        return analysisResult;
-    }
+	public void setAnalysisResult(Integer analysisResult) {
+		this.analysisResult = analysisResult;
+	}
 
-    public void setAnalysisResult(Integer analysisResult) {
-        this.analysisResult = analysisResult;
-    }
-
-    public String getBackgroundCN() {
-	    if(null == background){
-	        return "";
-        }
+	public String getBackgroundCN() {
+		if (null == background) {
+			return "";
+		}
 		return CompanyBackgroundDO.Bg.getBg(this.background).CN;
 	}
 
-
-
-
-
-	public String getComTypeCN(){
-	    if(null == companyType){
-	        return "";
-        }
-    	switch (companyType) {
+	public static String companyTypeCN(Byte companyType) {
+		if (null == companyType) {
+			return "";
+		}
+		switch (companyType) {
 		case TYPE_P2P_1:
 			return "网络借贷";
 		case TYPE_XD_2:
@@ -128,31 +125,32 @@ public class CompanyDO extends BaseDO implements Comparable {
 			return "金融";
 		case TYPE_QT_8:
 			return "其他";
-        case TYPE_JYS_9:
-            return "交易场所";
-        case TYPE_SYBL_10:
-            return "商业保理";
-        case TYPE_YFK_11:
-            return "预付卡";
-        case TYPE_DD_12:
-            return "典当";
-        case TYPE_RZZL_13:
-            return "融资租赁";
+		case TYPE_JYS_9:
+			return "交易场所";
+		case TYPE_SYBL_10:
+			return "商业保理";
+		case TYPE_YFK_11:
+			return "预付卡";
+		case TYPE_DD_12:
+			return "典当";
+		case TYPE_RZZL_13:
+			return "融资租赁";
 		default:
 			return "";
 		}
-    }
+	}
+
+	public String getComTypeCN() {
+		return companyTypeCN(this.companyType);
+	}
 
 	public String getRegisteredType() {
 		return registeredType;
 	}
 
-
 	public void setRegisteredType(String registeredType) {
 		this.registeredType = registeredType;
 	}
-
-
 
 	public void setComTypeCN(String comTypeCN) {
 		this.comTypeCN = comTypeCN;
@@ -162,127 +160,120 @@ public class CompanyDO extends BaseDO implements Comparable {
 		return background;
 	}
 
-
 	public void setBackground(Byte background) {
 		this.background = background;
 	}
 
+	public Integer getCompanyId() {
+		return companyId;
+	}
 
-    public Integer getCompanyId() {
-        return companyId;
-    }
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
+	}
 
-    public void setCompanyId(Integer companyId) {
-        this.companyId = companyId;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setName(String name) {
+		this.name = name == null ? null : name.trim();
+	}
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
+	public String getLegalPerson() {
+		return legalPerson;
+	}
 
-    public String getLegalPerson() {
-        return legalPerson;
-    }
+	public void setLegalPerson(String legalPerson) {
+		this.legalPerson = legalPerson == null ? "" : legalPerson.trim();
+	}
 
-    public void setLegalPerson(String legalPerson) {
-        this.legalPerson = legalPerson == null ? "" : legalPerson.trim();
-    }
+	public Integer getAreaId() {
+		return areaId;
+	}
 
-    public Integer getAreaId() {
-        return areaId;
-    }
+	public void setAreaId(Integer areaId) {
+		this.areaId = areaId;
+	}
 
-    public void setAreaId(Integer areaId) {
-        this.areaId = areaId;
-    }
+	public String getAddress() {
+		return address;
+	}
 
-    public String getAddress() {
-        return address;
-    }
+	public void setAddress(String address) {
+		this.address = address == null ? null : address.trim();
+	}
 
-    public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
-    }
+	public Integer getRegisteredCapital() {
+		return registeredCapital;
+	}
 
-    public Integer getRegisteredCapital() {
-        return registeredCapital;
-    }
+	public void setRegisteredCapital(Integer registeredCapital) {
+		this.registeredCapital = registeredCapital;
+	}
 
-    public void setRegisteredCapital(Integer registeredCapital) {
-        this.registeredCapital = registeredCapital;
-    }
+	public Date getRegisteredDate() {
+		return registeredDate;
+	}
 
-    public Date getRegisteredDate() {
-        return registeredDate;
-    }
+	public void setRegisteredDate(Date registeredDate) {
+		this.registeredDate = registeredDate;
+	}
 
-    public void setRegisteredDate(Date registeredDate) {
-        this.registeredDate = registeredDate;
-    }
+	public Byte getCompanyType() {
+		return companyType;
+	}
 
-    public Byte getCompanyType() {
-        return companyType;
-    }
+	public void setCompanyType(Byte companyType) {
+		this.companyType = companyType;
+	}
 
-    public void setCompanyType(Byte companyType) {
-        this.companyType = companyType;
-    }
+	public Integer getRegisteredCapitalType() {
+		return registeredCapitalType;
+	}
 
-    public Integer getRegisteredCapitalType() {
-        return registeredCapitalType;
-    }
+	public void setRegisteredCapitalType(Integer registeredCapitalType) {
+		this.registeredCapitalType = registeredCapitalType;
+	}
 
-    public void setRegisteredCapitalType(Integer registeredCapitalType) {
-        this.registeredCapitalType = registeredCapitalType;
-    }
+	public Byte getStatus() {
+		return status;
+	}
 
-    public Byte getStatus() {
-        return status;
-    }
+	public void setStatus(Byte status) {
+		this.status = status;
+	}
 
-    public void setStatus(Byte status) {
-        this.status = status;
-    }
+	public String getBusinessType() {
+		return businessType;
+	}
 
-    public String getBusinessType() {
-        return businessType;
-    }
+	public void setBusinessType(String businessType) {
+		this.businessType = businessType;
+	}
 
-    public void setBusinessType(String businessType) {
-        this.businessType = businessType;
-    }
+	public Integer getRiskLevel() {
+		return riskLevel;
+	}
 
+	public void setRiskLevel(Integer riskLevel) {
+		this.riskLevel = riskLevel;
+	}
 
-    public Integer getRiskLevel() {
-        return riskLevel;
-    }
-
-    public void setRiskLevel(Integer riskLevel) {
-        this.riskLevel = riskLevel;
-    }
-
-    public BigDecimal getStaticRisk() {
+	public BigDecimal getStaticRisk() {
 		if (null != staticRisk) {
 			return staticRisk.divide(BigDecimal.ONE, 1, BigDecimal.ROUND_HALF_UP);
 		}
 		return staticRisk;
 	}
 
-
-
-
-
 	public void setStaticRisk(BigDecimal staticRisk) {
 		this.staticRisk = staticRisk;
 	}
 
-    @Override
-    public int compareTo(Object o) {
+	@Override
+	public int compareTo(Object o) {
 
-               return -1;
-    }
+		return -1;
+	}
 }

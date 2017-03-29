@@ -40,9 +40,6 @@ public class RealTimeMonitorController {
 	private RealTimeMonitorService realTimeMonitorService;
 
 	@Autowired
-	private JedisPool jedisPool;
-
-	@Autowired
 	private RedisDAO redisDAO;
 
 	@Autowired
