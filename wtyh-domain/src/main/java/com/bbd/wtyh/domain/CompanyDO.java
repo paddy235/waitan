@@ -115,7 +115,7 @@ public class CompanyDO extends BaseDO implements Comparable {
 		case TYPE_P2P_1:
 			return "网络借贷";
 		case TYPE_XD_2:
-			return "小贷";
+			return "小额贷款";
 		case TYPE_RZDB_3:
 			return "融资担保";
 		case TYPE_XXLC_4:
@@ -129,7 +129,7 @@ public class CompanyDO extends BaseDO implements Comparable {
 		case TYPE_QT_8:
 			return "其他";
         case TYPE_JYS_9:
-            return "交易所";
+            return "交易场所";
         case TYPE_SYBL_10:
             return "商业保理";
         case TYPE_YFK_11:
