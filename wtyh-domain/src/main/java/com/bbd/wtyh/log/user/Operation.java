@@ -87,7 +87,7 @@ public class Operation {
 		modify("修改", 6),
 		del("删除", 7),
 		lock("锁定", 8), //
-		unlock("解锁", 9); //
+		active("激活", 9); //
 
 		private String desc;
 		private int code;

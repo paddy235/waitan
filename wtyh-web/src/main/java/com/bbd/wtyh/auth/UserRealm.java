@@ -1,6 +1,8 @@
 package com.bbd.wtyh.auth;
 
 
+import com.bbd.wtyh.domain.UserInfoTableDo;
+import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.service.RoleResourceService;
 import com.bbd.wtyh.service.UserInfoService;
 import com.bbd.wtyh.service.UserService;
@@ -49,7 +51,30 @@ public class UserRealm extends AuthorizingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(
-            AuthenticationToken authenticationToken) throws AuthenticationException {
+            AuthenticationToken authenticationToken) throws AuthenticationException  {
+        // TODO Auto-generated method stub
+        System.out.println("身份验证");
+        UsernamePasswordToken token = (UsernamePasswordToken)authenticationToken;
+        String username=token.getUsername();
+        char[] password=token.getPassword();
+        int rst =-1000;
+        try {
+            rst =userInfoService.compareUserNameAndPassword(username,String.copyValueOf(password),
+                    Operation.System.front, new UserInfoService.UserType[]{UserInfoService.UserType.general} );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if( rst <0 ) {
+            if(rst <= -5) { //用户不存在（-5）
+                throw new UnknownAccountException(); //如果用户名错误;
+            } else if (rst <-1) { //用户处于非活动状态(-4),用户类型和指定类型不匹配(-3),库中密码字符串为空(-2),不匹配(-1)
+                throw new IncorrectCredentialsException();
+            }
+        }
+        //如果身份认证验证成功，返回一个AuthenticationInfo实现；
+        return new SimpleAuthenticationInfo(username, password, getName());
+    }
+    /*{
         // TODO Auto-generated method stub
         System.out.println("身份验证");
         UsernamePasswordToken token = (UsernamePasswordToken)authenticationToken;
@@ -58,15 +83,18 @@ public class UserRealm extends AuthorizingRealm {
         String pwd = "";
         String type= "";
         try {
-            Map map = userInfoService.getUserInfoSummaryByLoginName(username);
-            pwd =(String) map.get("fore_pwd");//前台密码
-            type=(String) map.get("user_type");
+            UserInfoTableDo uitd = userInfoService.getOnlyUserInfoByLoginNameOrId(username, -1);
+            if( null ==uitd ) {
+                throw new UnknownAccountException(); //如果用户名错误;
+            }
+            pwd = uitd.getForePwd();//前台密码
+            type= uitd.getUserType();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (StringUtils.isEmpty(pwd)) {
-            throw new UnknownAccountException(); //如果用户名错误;
-        }
+//        if (StringUtils.isEmpty(pwd)) {
+//            throw new UnknownAccountException(); //如果用户名错误;
+//        }
         //MD5加密
         String dataPwd =userInfoService.userPasswordEncrypt(String.copyValueOf(password));
         //验证密码
@@ -79,7 +107,7 @@ public class UserRealm extends AuthorizingRealm {
         }
         //如果身份认证验证成功，返回一个AuthenticationInfo实现；
         return new SimpleAuthenticationInfo(username, password, getName());
-    }
+    }*/
 
     //清除缓存
     public void clearCached() {

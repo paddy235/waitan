@@ -1,6 +1,8 @@
 package com.bbd.bgo.auth;
 
 
+import com.bbd.wtyh.domain.UserInfoTableDo;
+import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.service.RoleResourceService;
 import com.bbd.wtyh.service.UserInfoService;
 import com.bbd.wtyh.service.UserService;
@@ -61,27 +63,19 @@ public class UserRealm extends AuthorizingRealm {
         UsernamePasswordToken token = (UsernamePasswordToken)authenticationToken;
         String username=token.getUsername();
         char[] password=token.getPassword();
-        String pwd = "";
-        String type= "";
+        int rst =-1000;
         try {
-            Map map = userInfoService.getUserInfoSummaryByLoginName(username);
-            pwd =(String) map.get("back_pwd");
-            type=(String) map.get("user_type");
+            rst =userInfoService.compareUserNameAndPassword(username,String.copyValueOf(password),
+                    Operation.System.back, new UserInfoService.UserType[]{UserInfoService.UserType.backAdmin} );
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (StringUtils.isEmpty(pwd)) {
-            throw new UnknownAccountException(); //如果用户名错误;
-        }
-        //MD5加密
-        String dataPwd =userInfoService.userPasswordEncrypt(String.copyValueOf(password));
-        //验证密码
-        if (!dataPwd.equals(pwd) ) {
-            throw new IncorrectCredentialsException(); //如果密码错误
-        }
-        ////必须是后台用户或者全用户才能通过身份验证
-        if (!Constants.BACK.equals(type) && !Constants.ALL.equals(type)) {
-            throw new IncorrectCredentialsException();
+        if( rst <0 ) {
+            if(rst <= -5) { //用户不存在（-5）
+                throw new UnknownAccountException(); //如果用户名错误;
+            } else if (rst <-1) { //用户处于非活动状态(-4),用户类型和指定类型不匹配(-3),库中密码字符串为空(-2),不匹配(-1)
+                throw new IncorrectCredentialsException();
+            }
         }
         //如果身份认证验证成功，返回一个AuthenticationInfo实现；
         return new SimpleAuthenticationInfo(username, password, getName());

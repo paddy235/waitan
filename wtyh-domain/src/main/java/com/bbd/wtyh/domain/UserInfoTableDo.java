@@ -23,7 +23,7 @@ public class UserInfoTableDo implements Serializable {
 	// private boolean backUserFlag; //后台用户标志
 
 	@Column(name = "user_type")
-	private String userType; // 用户类型（F：前台；B：后台；A：前后台；U：待定）
+	private String userType; // 用户类型
 	@Column(name = "login_name")
 	private String loginName; // 登录名
 	@Column(name = "fore_pwd")
@@ -63,7 +63,7 @@ public class UserInfoTableDo implements Serializable {
 		String tmp = "id=%d，" + "登录名=%s，" + "用户状态（F：冻结；A：激活）=%s," +
 		// "前台用户标志" +
 		// "后台用户标志" +
-				"用户类型（F：前台；B：后台；A：前后台；U：待定）=%s," + "前台登录密码=%s," + "后台登录密码=%s," + "真实姓名=%s," + "固话=%s," + "手机=%s," + "电子信箱=%s," + "部门=%s,"
+				"用户类型=%s," + "前台登录密码=%s," + "后台登录密码=%s," + "真实姓名=%s," + "固话=%s," + "手机=%s," + "电子信箱=%s," + "部门=%s,"
 				+ "地区代码=%s," + "创建人=%s," + "修改人=%s," + "创建时间=%s，" + "修改时间=%s";
 		return String.format(tmp, getId(), getLoginName(), getStatus(),
 				// isForeUserFlag(),

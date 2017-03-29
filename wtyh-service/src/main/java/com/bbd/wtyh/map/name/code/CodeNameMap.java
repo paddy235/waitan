@@ -38,14 +38,21 @@ public class CodeNameMap implements ApplicationContextAware {
      * @param isImm 是否立即更新
      */
     static public void setShanghaiAreaCodeList(List<Map<String, Object>> shanghaiAreaCodeList, boolean isImm) {
-        if(isImm || 0== updateCnt)
+        if(isImm || 0== updateCnt) {
             updateShanghaiAreaCodeTable(shanghaiAreaCodeList);
+        }
         updateCnt++;
     }
 
+    /**
+     * 获取和内部更新上海市区代码表
+     * @param isImm 是否立即更新
+     * @return
+     */
     static public List<Map<String, Object>> getAndUpdateShanghaiAreaCodeTable(boolean isImm) {
-        if(isImm || 0== updateCnt)
+        if(isImm || 0== updateCnt) {
             updateShanghaiAreaCodeTable(null);
+        }
         updateCnt++;
         return shanghaiAreaCodeList;
     }
@@ -149,4 +156,50 @@ public class CodeNameMap implements ApplicationContextAware {
     }
     static public List<Map<String, Object>> getOpPageList() {  return opPageList; }
     static public Map<Integer, String> getOpPageMap() {  return opPageMap; }
+
+    static List<Map<String, String>> userTypeList; //用户类型表
+    static Map<String, String> userTypeMap; //用户类型字典
+    static {
+        userTypeList =new ArrayList<Map<String, String>>() {{
+            add( new  HashMap<String, String>() {{
+                put("tpCode", "T");
+                put("tpName", "全部");
+            }} );
+            for (  UserInfoService.UserType uType  :  UserInfoService.UserType.values() ) {
+                add(new HashMap<String, String>() {{
+                    put("tpCode", uType.getTypeCode() );
+                    put("tpName", uType.getTypeName() );
+                }});
+            }
+        }};
+        userTypeMap = new HashMap<String, String>();
+        for ( Map<String, String>itr: userTypeList ) { //构造一个字典
+            userTypeMap.put( (String) itr.get("tpCode") , (String) itr.get("tpName"));
+        }
+    }
+    static public List<Map<String, String>> getUserTypeList() {  return userTypeList; }
+    static public Map<String, String> getUserTypeMap() {  return userTypeMap; }
+
+    static List<Map<String, String>> userStatusList; //用户类型表
+    static Map<String, String> userStatusMap; //用户类型字典
+    static {
+        userStatusList =new ArrayList<Map<String, String>>() {{
+            add( new  HashMap<String, String>() {{
+                put("stsCode", "T");
+                put("stsName", "全部");
+            }} );
+            for (  UserInfoService.UserStatus uStatus  :  UserInfoService.UserStatus.values() ) {
+                add(new HashMap<String, String>() {{
+                    put("stsCode", uStatus.getStatusCode() );
+                    put("stsName", uStatus.getStatusName() );
+                }});
+            }
+        }};
+        userStatusMap = new HashMap<String, String>();
+        for ( Map<String, String>itr: userStatusList ) { //构造一个字典
+            userStatusMap.put( (String) itr.get("stsCode") , (String) itr.get("stsName"));
+        }
+    }
+    static public List<Map<String, String>> getUserStatusList() {  return userStatusList; }
+    static public Map<String, String> getUserStatusMap(){  return userStatusMap; }
 }

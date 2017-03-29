@@ -2,6 +2,7 @@ package com.bbd.wtyh.service;
 
 import com.bbd.wtyh.core.base.BaseService;
 import com.bbd.wtyh.domain.UserInfoTableDo;
+import com.bbd.wtyh.log.user.Operation;
 
 import java.util.Date;
 import java.util.List;
@@ -22,7 +23,7 @@ public interface UserInfoService extends BaseService {
 	 * @throws Exception
 	 *             各种不合规的参数引发的异常，包括加密转码、持久化对象的异常
 	 */
-	public void createUser(UserInfoTableDo uitd, String resourceSet) throws Exception;
+	public void createUser(UserInfoTableDo uitd, String resourceSet, String[] roleSet) throws Exception;
 
 	/**
 	 * 更新用户信息
@@ -34,7 +35,9 @@ public interface UserInfoService extends BaseService {
 	 * @throws Exception
 	 *             各种不合规的参数引发的异常，包括加密转码、持久化对象的异常
 	 */
-	public void updateUserInfo(UserInfoTableDo uitd, String resourceSet) throws Exception;
+	public void updateUserInfo(UserInfoTableDo uitd, String resourceSet, String[] roleSet) throws Exception;
+
+	public void deleteUserById( Integer id ) throws Exception;
 
 	/**
 	 * 通过登录名查询单条用户详情（包括用户权限），不分前后台，由调用者根据userType判断，例如'A'||'B'表明是
@@ -62,14 +65,23 @@ public interface UserInfoService extends BaseService {
 	public Map<String, Object> getUserInfoById(int id) throws Exception;
 
 	/**
-	 * 通过用户名查询用户摘要信息
-	 * 
-	 * @param loginName
-	 *            登录名
-	 * @return ，目前返回的数据库中的字段有：id, user_type, fore_pwd, back_pwd
+	 *
+	 * @param loginName loginName为空则使用id查询详情
+	 * @param id
+	 * @return 返回UserInfoTableDo类型的用户详情
 	 * @throws Exception
 	 */
-	public Map<String, Object> getUserInfoSummaryByLoginName(String loginName) throws Exception;
+	public UserInfoTableDo getOnlyUserInfoByLoginNameOrId(String loginName, int id ) throws Exception;
+
+//	/**
+//	 * 通过用户名查询用户摘要信息
+//	 *
+//	 * @param loginName
+//	 *            登录名
+//	 * @return ，目前返回的数据库中的字段有：id, user_type, fore_pwd, back_pwd
+//	 * @throws Exception
+//	 */
+//	 public Map<String, Object> getUserInfoSummaryByLoginName(String loginName) throws Exception;
 
 	/**
 	 * 获取用户模板
@@ -82,15 +94,18 @@ public interface UserInfoService extends BaseService {
 
 	/**
 	 *
+	 * @param userStatus
+	 * @param userType
+	 * @param areaCode
 	 * @param selectType
 	 * @param selectObject
 	 * @param pageLimit
-	 * @param pageOffset
+	 * @param pageNumber
 	 * @return
 	 * @throws Exception
 	 */
-	public Map<String, Object> listUserInfo(int areaCode, String selectType, String selectObject, int pageLimit, Integer pageOffset)
-			throws Exception;
+	public Map<String, Object> listUserInfo(String userStatus, String userType, int areaCode, String selectType,
+											String selectObject, int pageLimit, Integer pageNumber) throws Exception ;
 
 	/**
 	 * 用户密码单向加密
@@ -110,14 +125,39 @@ public interface UserInfoService extends BaseService {
 	public List<Map<String, Object>> getShanghaiAreaCodeTable(String type) throws Exception;
 
 	/**
-	 *
+	 *用户密码匹配测试
 	 * @param loginName
 	 * @param password
-	 * @param userType
-	 *            "fore_pwd" or "back_pwd"
-	 * @return
+	 * @param sysType 系统类型：前台或后台系统。用于指定提请数据库中前台或后台密码跟当前密码做比较。
+	 * @return 匹配成功（true），失败（false）
 	 */
-	public boolean compareUserNameMatchPassword(String loginName, String password, String userType) throws Exception;
+	public boolean isUserNameMatchPassword(String loginName, String password, Operation.System sysType) throws Exception;
+
+	public boolean isUserDaoMatchPassword(UserInfoTableDo userDao, String password, Operation.System sysType) throws Exception;
+
+	/**
+	 * 比较用户账户和密码是否正确
+	 * @param loginName
+	 * @param password
+	 * @param sysType 系统类型：前台或后台系统。用于指定提请数据库中前台或后台密码跟当前密码做比较。
+	 * @param auType 若非空，则会验证用户类型是否匹配
+	 * @return 成功（0）；不匹配(-1)；库中密码字符串为空(-2)；用户类型和指定类型不匹配(-3)；用户处于非活动状态(-4)；
+	 * 			用户不存在(-5)；传入的参数不合法(-999)
+	 * @throws Exception
+	 */
+	public int compareUserNameAndPassword(String loginName, String password,  Operation.System sysType, UserType[] auType) throws Exception;
+
+	/**
+	 * 比较userDao对应的账户和密码是否正确
+	 * @param userDao 传入对象
+	 * @param password
+	 * @param sysType 系统类型：前台或后台系统。用于指定提请数据库中前台或后台密码跟当前密码做比较。
+	 * @param auType 若非空，则会验证用户类型是否匹配
+	 * @return 成功（0）；不匹配(-1)；库中密码字符串为空(-2)；用户类型和指定类型不匹配(-3)；用户处于非活动状态(-4)；
+	 * 			用户不存在(-5)；传入的参数不合法(-999)
+	 * @throws Exception
+	 */
+	public int compareUserDaoAndPassword(UserInfoTableDo userDao, String password, Operation.System sysType, UserType[] auType) throws Exception;
 
 	/**
 	 * 判断用户密码是否过期，使用示例：
@@ -136,5 +176,72 @@ public interface UserInfoService extends BaseService {
 	 * @return
 	 */
 	public Integer getAndSetPwdLapseCycle(Integer pwdLapseCycle);
+
+	public enum UserType {
+		general("F", "普通用户"),
+		backAdmin("B", "系统管理员");
+		//businessManager("M", "业务数据管理员"); //todo 4.10 之后用
+
+		private String typeCode;
+		private String typeName;
+
+		UserType(String typeCode, String typeName) {
+			this.typeCode = typeCode;
+			this.typeName = typeName;
+		}
+
+		public String getTypeCode() {
+			return typeCode;
+		}
+
+		public String getTypeName() {
+			return typeName;
+		}
+
+		static public UserType getUserTypeByCode(String tpCode) {
+			if( null ==tpCode ) {
+				return  null;
+			}
+			for( UserType ut: UserType.values() ) {
+				if( ut.getTypeCode().equals(tpCode) ) {
+					return  ut;
+				}
+			}
+			return null;
+		}
+	}
+
+	public enum UserStatus {
+		lock("F", "锁定"),
+		active("A", "激活");
+
+		private String statusCode;
+		private String StatusName;
+
+		UserStatus(String statusCode, String statusName) {
+			this.statusCode = statusCode;
+			StatusName = statusName;
+		}
+
+		public String getStatusCode() {
+			return statusCode;
+		}
+
+		public String getStatusName() {
+			return StatusName;
+		}
+
+		static public UserStatus getUserStatusByCode(String stsCode) {
+			if( null ==stsCode ) {
+				return  null;
+			}
+			for( UserStatus us: UserStatus.values() ) {
+				if( us.getStatusCode().equals(stsCode) ) {
+					return  us;
+				}
+			}
+			return null;
+		}
+	}
 
 }

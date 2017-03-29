@@ -1,8 +1,10 @@
 package com.bbd.wtyh.mapper;
 
 import com.bbd.wtyh.domain.UserInfoTableDo;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,13 +20,16 @@ public interface UserInfoMapper {
 
 	public void updateU(UserInfoTableDo userInfoTableDo);
 
+	//@Delete("DELETE FROM zt_user_info WHERE id =#{id}")
+	public void deleteUser( @Param("id") Integer id );
+
 	public UserInfoTableDo selectUserInfoAllByLoginName(@Param("loginName") String loginName ); //sued sun
 
 	public UserInfoTableDo selectUserAllInfoById( @Param("id") Integer id );
 
-	public List<Map<String, Object>> selectUserInfoSummaryByLoginName(@Param("loginName") String loginName);
+	//public List<Map<String, Object>> selectUserInfoSummaryByLoginName(@Param("loginName") String loginName);
 
-	public Integer selectUserInfoTotalNum( );
+	//public Integer selectUserInfoTotalNum( );
 
 	public List<Map<String, Object>> selectUserInfoList(HashMap<String, Object> params);
 

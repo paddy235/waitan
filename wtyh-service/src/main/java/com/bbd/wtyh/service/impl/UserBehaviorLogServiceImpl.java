@@ -3,6 +3,7 @@ package com.bbd.wtyh.service.impl;
 import java.util.*;
 
 import com.bbd.wtyh.log.user.Operation;
+import com.bbd.wtyh.map.name.code.CodeNameMap;
 import com.bbd.wtyh.mapper.UserBehaviorLogMapper;
 import com.bbd.wtyh.service.UserBehaviorLogService;
 import org.apache.commons.lang.StringUtils;
@@ -72,19 +73,19 @@ public class UserBehaviorLogServiceImpl extends BaseServiceImpl implements UserB
 		}
 		params.put("listing", 1);  //使能列表查询功能
 		lm = userBehaviorLogMapper.selectUserBehaviorLogList(params);
-		List<Map<String, Object>> lmac =uis.getShanghaiAreaCodeTable("0"); //读取区域代码表
+/*		List<Map<String, Object>> lmac =uis.getShanghaiAreaCodeTable("0"); //读取区域代码表
 		Map<Integer, String> mpac = new HashMap<Integer, String>();
 		for ( Map<String, Object>itr: lmac ) { //构造一个区域代码名称字典
 			mpac.put( (Integer) itr.get("areaId") , (String) itr.get("cityName"));
-		}
+		}*/
 		for (Map<String, Object> itr : lm) {
 			orderNum++;
 			itr.put("orderNum", orderNum);  //构建行序号
 			Object obj =itr.get("area");
-			if( null !=  obj ) { //将区域代码
+			if( null !=  obj ) { //将区域代码转换成行政区名称
 				try {
 					int tmp = Integer.parseInt( (String)obj );
-					obj =mpac.get(tmp);
+					obj = CodeNameMap.getSysLocationMap().get(tmp);
 					if( null !=  obj ) {
 						itr.put("area", (String)obj);
 					} else {
