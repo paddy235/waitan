@@ -1,8 +1,10 @@
 package com.bbd.wtyh.service;
 
+import com.bbd.wtyh.domain.ResourceDo;
 import com.bbd.wtyh.domain.RoleDo;
 import com.bbd.wtyh.domain.UserInfoTableDo;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -19,5 +21,13 @@ public interface RoleResourceService {
     void updateUserRoleResource(UserInfoTableDo userInfoTableDo, String resourceSet, String loginName);
     void deleteUserRoleResource(Integer userId, String loginName);
     void addRoleResourceRelation(Integer roleId, String resourceSet, String loginName);
+    //浏览角色列表
+    List<RoleDo> listRoleBase(String roleType, int pageLimit, Integer pageNumber);
+    //取角色
+    RoleDo getRoleBase(Integer roleId,String roleName,String roleType);
+    //取子角色
+    List<RoleDo> listSonRoleBase(Integer parentId);
+    //通过角色ID取对应的权限集
+    List<ResourceDo> listResourceByRoleId(Integer roleId);
 
 }

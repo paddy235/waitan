@@ -144,6 +144,59 @@ public class RoleResourceServiceImpl implements RoleResourceService {
         }
     }
 
+    /**
+     * 浏览角色列表
+     * @param roleType
+     * @return
+     */
+    @Override
+    public List<RoleDo> listRoleBase(String roleType, int pageLimit, Integer pageNumber) {
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("roleType",roleType);
+        if(pageLimit<=0 || pageNumber<1){
+            params.put("listing",null);
+        }else{
+            params.put("pageLimit", pageLimit);
+            if ((null != pageNumber) && (pageNumber > 0)) {
+                pageNumber = (pageNumber - 1) * pageLimit; // pageNumber的意义已经变为了“Offset”
+                params.put("pageNumber", pageNumber);
+            }
+            params.put("listing", 1);
+
+        }
+        return roleResourceMapper.listRoleBase(params);
+    }
+
+    /**
+     * 取模板权限集
+     * @param
+     * @return
+     */
+    @Override
+    public RoleDo getRoleBase(Integer roleId,String roleName,String roleType) {
+        HashMap<String, Object> params = new HashMap<String, Object>();
+        if(null!=roleId){
+            params.put("roleId",roleId);
+        }
+        if(null!=roleName){
+            params.put("roleName",roleName);
+        }
+        if(null!=roleType){
+            params.put("roleType",roleType);
+        }
+        return roleResourceMapper.getRoleBaseByIdNameType(params);
+    }
+
+    @Override
+    public List<RoleDo> listSonRoleBase(Integer parentId) {
+        return roleResourceMapper.listSonRoleBase(parentId);
+    }
+
+    @Override
+    public List<ResourceDo> listResourceByRoleId(Integer roleId) {
+        return roleResourceMapper.listResourceByRoleId(roleId);
+    }
+
 
 }
 

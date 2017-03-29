@@ -20,8 +20,8 @@ public class Constants {
 	public static final String REDIS_KEY_FFRZWG_RISK = "RK_FFRZWGR";
 	public static final String REDIS_KEY_RCJG_RISK = "RK_RCJGR";
 	public static final String REDIS_KEY_BASE_INFO_BBD_DATA = "BASE_INFO_BBD_DATA";
-	//关联方-动态计算
-	public static final String              REDIS_KEY_RELATION_URL            = "REDIS_KEY_RELATION_URL";
+	// 关联方-动态计算
+	public static final String REDIS_KEY_RELATION_URL = "REDIS_KEY_RELATION_URL";
 	public static final String REDIS_KEY_COMPANY_CREDIT_POINT_ITEMS = "BASE_INFO_COMPANY_CREDIT_POINT_ITEMS";
 	public static final String characterCode = "utf-8";
 	public static final String REDIS_KEY_BUSINESS_CHART_SHOW_P2P = "REDIS_KEY_BUSINESS_CHART_SHOW_P2P";
@@ -41,11 +41,11 @@ public class Constants {
 	public static String SEARCH_API_DATA_VERSION = "";
 	public static String DATA_VERSION = "20160430";
 	public static String RELATION_DATA_VERSION = "";
-	public static String systemAesScret;//系统公司加密
+	public static String systemAesScret;// 系统公司加密
 	public static final String SYSTEM_CODE = "system";
 	public static String SSJL_DATA_VERSION = ""; // 诉讼记录API版本号
-	public static String shareDir;//分享附件文件夹
-	public static String mappingPath;//附件文件夹映射到服务器的目录
+	public static String shareDir;// 分享附件文件夹
+	public static String mappingPath;// 附件文件夹映射到服务器的目录
 	public static String attDir = "att";//
 
 	/**
@@ -57,14 +57,15 @@ public class Constants {
 	public static final String CROWD_NEWLY_PEOPLE = "5";
 	// 系统自带的方法，所有人都有此功能
 	public static Map<String, String> SystemActionMethod = new HashMap<String, String>();
-	
+
 	// redis缓存时间
-	public static final long REDIS_10 = 864000l; // 10天
-	public static final long REDIS_7 = 604800l; // 7天
-	public static final long REDIS_5 = 432000l; // 5天
-	public static final long REDIS_3 = 259200l; // 3天
+	public static final long REDIS_10 = 864000L; // 10天
+	public static final long REDIS_7 = 604800L; // 7天
+	public static final long REDIS_5 = 432000L; // 5天
+	public static final long REDIS_3 = 259200L; // 3天
 
 	public static final class SESSION {
+
 		public static final String loginName = "loginName";
 		public static final String loginUserId = "loginUserId";
 		public static final String loginNameCn = "loginNameCn";
@@ -74,24 +75,21 @@ public class Constants {
 		public static final String cpuCode = "cpuCode";// cpu编码
 		public static final String mainBoardCode = "mainBoardCode";// 主板编码
 		public static final String AREA_CODE = "areaCode"; // 地区编码
-		public static final String showLoginName = "showLoginName";  //前台用户名
+		public static final String showLoginName = "showLoginName"; // 前台用户名
 	}
 
-	//占比变为百分比
+	// 占比变为百分比
 	public static float INT100 = 100;
 	public static int INT10000 = 10000;
 
-
 	/**
 	 * 把登陆人员的所属区域存入session 的key值
-	 * */
+	 */
 	public final static String SESSION_AREA = "session_area";
-
-
 
 	/**
 	 * 上海区域id
-	 * */
+	 */
 	public final static Integer SH_AREAID = 104;
 
 	public final static String SH_AREANAME = "上海市";
@@ -103,16 +101,15 @@ public class Constants {
 
 	public static Long cacheDay_One_Day = 1l;
 
-	private static String [] docSort;
-	
-	public static String [] docSort(){
-		if(docSort==null){
+	private static String[] docSort;
+
+	public static String[] docSort() {
+		if (docSort == null) {
 			loadProperties();
 		}
 		return docSort;
 	}
-	
-	
+
 	public static void loadProperties() {
 		Properties system = new Properties();
 		Properties priviledgeProp = new Properties();
@@ -123,19 +120,19 @@ public class Constants {
 			system.load(is);
 
 			cacheDay = Long.parseLong(system.getProperty("cache.day", "").trim()) * 86400;
-			
+
 			docSort = (system.getProperty("doc.sort", "").trim()).split(",");
 
 			Set<Object> priviledgeKey = priviledgeProp.keySet();
 			if (priviledgeKey != null) {
 				for (Object o : priviledgeKey) {
-					String values=priviledgeProp.getProperty(o.toString()).trim();
-					String[] value=values.split(",");
-					for(String str:value){
-						if(Constants.SYSTEM_CODE.equals(str)){
+					String values = priviledgeProp.getProperty(o.toString()).trim();
+					String[] value = values.split(",");
+					for (String str : value) {
+						if (Constants.SYSTEM_CODE.equals(str)) {
 							SystemActionMethod.put(o.toString(), str);
-						}else{
-							SystemActionMethod.put(o.toString()+"@"+ Utils.trimString(str), str);
+						} else {
+							SystemActionMethod.put(o.toString() + "@" + Utils.trimString(str), str);
 						}
 					}
 				}
