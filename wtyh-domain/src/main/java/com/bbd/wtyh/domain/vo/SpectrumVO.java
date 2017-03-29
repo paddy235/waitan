@@ -10,78 +10,100 @@ import java.util.List;
  * Created by YanWenyuan on 2016/9/7.
  */
 public class SpectrumVO implements Serializable {
-    private String name;
-    private Integer registeredCapital;
-    private String exposureDate;
-    private List location;
-    @JsonIgnore
-    private Double longitude;
-    @JsonIgnore
-    private Double latitude;
-    private Double staticRiskIndex;
-    private Integer companyNumber;
 
-    public String getName() {
-        return name;
-    }
+	private String name;
+	private Integer registeredCapital;
+	private String exposureDate;
+	private List location;
+	@JsonIgnore
+	private Double longitude;
+	@JsonIgnore
+	private Double latitude;
+	private Double staticRiskIndex;
+	private Integer companyNumber;
+	/** 新公司 */
+	private boolean newCompany;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public Integer getRegisteredCapital() {
-        return registeredCapital;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setRegisteredCapital(Integer registeredCapital) {
-        this.registeredCapital = registeredCapital;
-    }
+	public Integer getRegisteredCapital() {
+		return registeredCapital;
+	}
 
-    public String getExposureDate() {
-        return exposureDate;
-    }
+	public void setRegisteredCapital(Integer registeredCapital) {
+		this.registeredCapital = registeredCapital;
+	}
 
-    public void setExposureDate(String exposureDate) {
-        this.exposureDate = exposureDate;
-    }
+	public String getExposureDate() {
+		return exposureDate;
+	}
 
-    public Double getLongitude() {
-        return longitude;
-    }
+	public void setExposureDate(String exposureDate) {
+		this.exposureDate = exposureDate;
+	}
 
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
-    }
+	public Double getLongitude() {
+		return longitude;
+	}
 
-    public Double getLatitude() {
-        return latitude;
-    }
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}
 
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
-    }
+	public Double getLatitude() {
+		return latitude;
+	}
 
-    public Double getStaticRiskIndex() {
-        return staticRiskIndex;
-    }
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
 
-    public void setStaticRiskIndex(Double staticRiskIndex) {
-        this.staticRiskIndex = staticRiskIndex;
-    }
+	public Double getStaticRiskIndex() {
+		return staticRiskIndex;
+	}
 
-    public List getLocation() {
-        return location;
-    }
+	public void setStaticRiskIndex(Double staticRiskIndex) {
+		this.staticRiskIndex = staticRiskIndex;
+	}
 
-    public void setLocation(List location) {
-        this.location = location;
-    }
+	public List getLocation() {
+		return location;
+	}
 
-    public Integer getCompanyNumber() {
-        return companyNumber;
-    }
+	public void setLocation(List location) {
+		this.location = location;
+	}
 
-    public void setCompanyNumber(Integer companyNumber) {
-        this.companyNumber = companyNumber;
-    }
+	public Integer getCompanyNumber() {
+		return companyNumber;
+	}
+
+	public void setCompanyNumber(Integer companyNumber) {
+		this.companyNumber = companyNumber;
+	}
+
+	/**
+	 * 获取 新公司
+	 *
+	 * @return newCompany 新公司
+	 */
+	public boolean isNewCompany() {
+		return this.newCompany;
+	}
+
+	/**
+	 * 设置 新公司
+	 *
+	 * @param newCompany
+	 *            新公司
+	 */
+	public void setNewCompany(boolean newCompany) {
+		this.newCompany = newCompany;
+	}
 }

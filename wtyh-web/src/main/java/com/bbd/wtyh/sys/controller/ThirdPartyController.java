@@ -1,4 +1,4 @@
-package com.bbd.wtyh.web.controller;
+package com.bbd.wtyh.sys.controller;
 
 
 import com.bbd.wtyh.service.LogInfoService;
