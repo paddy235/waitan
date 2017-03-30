@@ -415,12 +415,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 			//todo ?  roleCode
 			rstMap.put("userInfo", uitd);
 			rstMap.put("resourceCode", rC);
-			Map<String, String[]> mp =new HashMap<String, String[]>() {{
-				put("角色1", new String[]{ "权限1","权限4","权限9","权限11","权限13" });
-				put("角色2", new String[]{ "权限2","权限3","权限5" });
-				put("角色3", new String[]{ "权限6","权限7","权限16" });
-			}};
-			rstMap.put("roleCode", mp);
+			rstMap.put("roleCode", new String[]{ "角色1","角色3","角色4","角色5","角色12" });
 		} else {
 			//throw new BusinessException("用户信息不存在");
 			rstMap.put("userInfo", null);
@@ -601,7 +596,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 
 	@Override
 	public int compareUserDaoAndPassword(UserInfoTableDo userDao, String password, Operation.System sysType, UserType[] auType) throws Exception {
-		if (StringUtils.isBlank(password) || null ==auType)
+		if (StringUtils.isBlank(password) || null ==sysType)
 			return -999; // 传入的参数不合法
 		if (null == userDao) {
 			return -5; //throw new BusinessException("数据库中不存在此用户(-5)");
