@@ -64,15 +64,14 @@ public class UserRealm extends AuthorizingRealm {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if( rst <0 ) {
-            if(rst <= -5) { //用户不存在（-5）
-                throw new UnknownAccountException(); //如果用户名错误;
-            } else if (rst <-1) { //用户处于非活动状态(-4),用户类型和指定类型不匹配(-3),库中密码字符串为空(-2),不匹配(-1)
-                throw new IncorrectCredentialsException();
-            }
+        if( 0 ==rst ) {//如果身份认证验证成功，返回一个AuthenticationInfo实现；
+            return new SimpleAuthenticationInfo(username, password, getName());
         }
-        //如果身份认证验证成功，返回一个AuthenticationInfo实现；
-        return new SimpleAuthenticationInfo(username, password, getName());
+        if(rst <= -5) { //用户不存在（-5）
+            throw new UnknownAccountException(); //如果用户名错误;
+        }
+        //用户处于非活动状态(-4),用户类型和指定类型不匹配(-3),库中密码字符串为空(-2),不匹配(-1)
+        throw new IncorrectCredentialsException();
     }
     /*{
         // TODO Auto-generated method stub

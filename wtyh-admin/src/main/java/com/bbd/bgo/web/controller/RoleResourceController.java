@@ -91,6 +91,34 @@ public class RoleResourceController {
 	}
 
 
+	@RequestMapping("/e_g_getAllRoleAndResourceTableInSys.do")
+	@ResponseBody
+	public Object getAllRoleAndResourceTableInSys(HttpServletRequest request) {
+		Map<String, Object> rstMap=new HashedMap();
+		List<ResourceDo> listRes=roleResourceService.listResourceByRoleId(10);
+		rstMap.put("resource",listRes);
+		List< Map<String, Object> > lmo = new ArrayList< Map<String, Object> >() {{
+			add(new HashMap<String, Object>() {{
+				put("name", "e.g.角色1");
+				put("code", "e.g.Role1");
+				put("resourceCode", new String[]{ "resourceCode6","resourceCode7","resourceCode16" });
+			}});
+			add(new HashMap<String, Object>() {{
+				put("name", "e.g.角色2");
+				put("code", "e.g.expRole2");
+				put("resourceCode", new String[]{ "resourceCode1","resourceCode4","resourceCode9","resourceCode11","resourceCode13" });
+			}});
+			add(new HashMap<String, Object>() {{
+				put("name", "e.g.角色n");
+				put("code", "e.g.expRolen");
+				put("resourceCode", new String[]{ "resourceCode2","resourceCode3","resourceCode5" });
+			}});
+		}};
+
+		rstMap.put("role",lmo);
+
+		return ResponseBean.successResponse(rstMap);
+	}
 
 
 
