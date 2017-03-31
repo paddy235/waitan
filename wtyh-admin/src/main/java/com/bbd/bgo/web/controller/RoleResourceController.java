@@ -184,7 +184,9 @@ public class RoleResourceController {
 
 		Map<String, Object> rstMap = new HashMap<>();
 		try {
-
+			if(null==pageNumber){
+				pageNumber=1;
+			}
 			List<RoleDo> list = roleResourceService.listRoleBase(roleType, pageSize, pageNumber);
 			rstMap.put("roleList", list);
 		} catch (Exception e) {
