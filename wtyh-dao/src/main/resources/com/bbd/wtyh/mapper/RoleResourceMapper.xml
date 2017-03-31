@@ -92,8 +92,8 @@
         user_type AS userType
         from role
         where
-        type not in('S','D')
-        <if test="roleType != null">and type = #{roleType}</if>
+        type not in('S','D','T')
+        <if test="userType != null">and user_type = #{userType}</if>
         order by update_date desc
         <if test="listing !=null ">
             LIMIT
@@ -104,7 +104,7 @@
         </if>
     </select>
 
-    <select id="listSonRoleBase" parameterType="int" resultType="com.bbd.wtyh.domain.RoleDo">
+    <select id="listSonRoleBase" parameterType="String" resultType="com.bbd.wtyh.domain.RoleDo">
         select id,name,description,type,
         create_date AS createDate ,
         update_date AS updateDate ,

@@ -45,11 +45,11 @@ public class RoleResourceController {
 	 */
 	@RequestMapping("/add-role")
 	@ResponseBody
-	public Object addRole(@RequestParam String roleType, @RequestParam String roleName, @RequestParam String roleDes,
+	public Object addRole(@RequestParam String userType, @RequestParam String roleName, @RequestParam String roleDes,
 			@RequestParam String resource, HttpServletRequest request) {
 		try {
 			String loginName = (String) request.getSession().getAttribute("loginName");
-			if (StringUtils.isNullOrEmpty(roleType) || StringUtils.isNullOrEmpty(roleName) || StringUtils.isNullOrEmpty(resource)) {
+			if (StringUtils.isNullOrEmpty(userType) || StringUtils.isNullOrEmpty(roleName) || StringUtils.isNullOrEmpty(resource)) {
 				return ResponseBean.errorResponse("数据错误");
 			}
 			RoleDo roleDo;
@@ -57,7 +57,7 @@ public class RoleResourceController {
 			if (null != roleDo && roleDo.getName() != null) {
 				return ResponseBean.errorResponse("角色名称已存在");
 			}
-			roleDo = roleResourceService.addRoleBase(roleName, roleDes, roleType, loginName);
+			roleDo = roleResourceService.addRoleBase(roleName, roleDes, userType, loginName);
 			roleResourceService.addRoleResourceRelation(roleDo.getId(), resource, loginName);
 		} catch (Exception e) {
 			e.printStackTrace();
