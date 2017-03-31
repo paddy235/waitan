@@ -295,7 +295,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	 * @return
 	 */
 
-	public void updateRoleBase(Integer roleId,String roleName, String roleDes, String loginName) {
+	public void updateRoleBase(Integer roleId, String roleName, String roleDes, String loginName) {
 
 		RoleDo roleDo = new RoleDo();
 		roleDo.setId(roleId);
@@ -379,4 +379,19 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		this.addUserRoleMapping(userDo, roleIdSet, createBy);
 	}
 
+	@Override
+	public void delUserRoleResource(UserInfoTableDo userDo) throws Exception {
+		if (userDo == null) {
+			return;
+		}
+		// 删除该用户与角色所有的对应关系
+		this.excuteDel("DELETE FROM user_role WHERE user_id = " + userDo.getId());
+
+		RoleDo roleDo = this.roleResourceMapper.getTempRoleByUser(userDo.getId());
+		if (roleDo != null) {
+			// 删除该角色与权限所有的对应关系
+			this.excuteDel("DELETE FROM role_resource WHERE role_id = " + roleDo.getId());
+			this.delete(roleDo);
+		}
+	}
 }
