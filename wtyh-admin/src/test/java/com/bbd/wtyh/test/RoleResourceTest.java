@@ -50,7 +50,7 @@ public class RoleResourceTest {
 
 	@Test
 	public void getAllResourceTest() throws Exception {
-		List<ResourceDo> list = this.resourceService.getAllResource();
+		List<ResourceDo> list = this.resourceService.getAllResource("B");
 		System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
 	}
 

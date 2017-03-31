@@ -222,9 +222,9 @@ public class RoleResourceController {
 	 */
 	@RequestMapping("/all-resource")
 	@ResponseBody
-	public Object getAllResource() {
+	public Object getAllResource(String userType) {
 		try {
-			List<ResourceDo> list = this.roleResourceService.getAllResource();
+			List<ResourceDo> list = this.roleResourceService.getAllResource(userType);
 			return ResponseBean.successResponse(list);
 		} catch (Exception e) {
 			return ExceptionHandler.handlerException(e);

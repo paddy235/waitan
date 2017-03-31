@@ -322,8 +322,8 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	}
 
 	@Override
-	public List<ResourceDo> getAllResource() {
-		return this.roleResourceMapper.getAllResource();
+	public List<ResourceDo> getAllResource(String type) {
+		return this.roleResourceMapper.getAllResource(type);
 	}
 
 	@Override
@@ -351,8 +351,8 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		Map<String, Object> params = new HashMap<>();
 		params.put("roleId", roleId);
 		RoleDo roleDo = roleResourceMapper.getRoleBaseByIdNameType(params);
-		if(null==roleDo){
-			throw  new BusinessException("角色不存在");
+		if (null == roleDo) {
+			throw new BusinessException("角色不存在");
 		}
 		params.put("userType", roleDo.getType());
 

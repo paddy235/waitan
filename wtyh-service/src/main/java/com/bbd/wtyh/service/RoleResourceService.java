@@ -108,7 +108,7 @@ public interface RoleResourceService {
 	 * @return
 	 * @throws Exception
 	 */
-	List<ResourceDo> getAllResource() throws Exception;
+	List<ResourceDo> getAllResource(String type) throws Exception;
 
 	/**
 	 * 获取所有父级角色
