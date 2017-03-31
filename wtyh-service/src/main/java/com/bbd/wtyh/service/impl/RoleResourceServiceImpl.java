@@ -3,6 +3,7 @@ package com.bbd.wtyh.service.impl;
 import com.bbd.higgs.utils.DateUtils;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.*;
+import com.bbd.wtyh.domain.dto.UserRoleDTO;
 import com.bbd.wtyh.mapper.RoleResourceMapper;
 import com.bbd.wtyh.service.RoleResourceService;
 import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
@@ -220,11 +221,35 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 
 	@Override
 	public Map<String, Object> getUserRoleResource(Integer userId) throws Exception {
-		Map<String, Object> map = new HashMap<>();
-		List<RoleDo> roles = this.roleResourceMapper.getRoleByUser(userId);
-		map.put("role", roles);
-		List<String> resourceCodes = this.roleResourceMapper.getUserResourceCode(userId);
-		map.put("resourceCode", resourceCodes);
-		return map;
+        Map<String, Object> map = new HashMap<>();
+        List<RoleDo> roles = this.roleResourceMapper.getRoleByUser(userId);
+        map.put("role", roles);
+        List<String> resourceCodes = this.roleResourceMapper.getUserResourceCode(userId);
+        map.put("resourceCode", resourceCodes);
+        return map;
+    }
+
+	@Override
+	public Map<String, Object> listRoleAssign(Integer roleId) throws Exception {
+		Map<String, Object> rstMap = new HashMap();
+		//已分配该角色的用户
+		List assignList=new ArrayList();
+		//未分配该角色的用户
+		List unassignList=new ArrayList();
+
+		List<UserRoleDTO> list = this.roleResourceMapper.listRoleAssign(roleId);
+		for(UserRoleDTO userRoleDTO:list){
+			if(null!=userRoleDTO.getRoleId()){
+				assignList.add(userRoleDTO);
+			}else{
+				unassignList.add(userRoleDTO);
+			}
+
+		}
+		rstMap.put("assign",assignList);
+		rstMap.put("unassign",unassignList);
+
+		return rstMap;
 	}
+
 }

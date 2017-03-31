@@ -6,6 +6,7 @@ import com.bbd.wtyh.domain.AreaDO;
 import com.bbd.wtyh.domain.ResourceDo;
 import com.bbd.wtyh.domain.RoleDo;
 import com.bbd.wtyh.domain.UserInfoTableDo;
+import com.bbd.wtyh.domain.dto.UserRoleDTO;
 import com.bbd.wtyh.exception.BusinessException;
 import com.bbd.wtyh.exception.ExceptionHandler;
 import com.bbd.wtyh.log.user.Operation;
@@ -116,6 +117,25 @@ public class RoleResourceController {
 		try {
 			List<RoleDo> list = this.roleResourceService.getRoleResource(parentId);
 			return ResponseBean.successResponse(list);
+		} catch (Exception e) {
+			return ExceptionHandler.handlerException(e);
+		}
+	}
+
+	/**
+	 * 由父级角色获取下级角色及权限。
+	 *
+	 * @return
+	 */
+	@RequestMapping("/list-role-assign ")
+	@ResponseBody
+	public Object listRoleAssign(@RequestParam Integer roleId) {
+		try {
+
+
+			Map<String, Object> rstMap = this.roleResourceService.listRoleAssign(roleId);
+
+			return ResponseBean.successResponse(rstMap);
 		} catch (Exception e) {
 			return ExceptionHandler.handlerException(e);
 		}

@@ -70,10 +70,20 @@ public interface RoleResourceService {
 
 	/**
 	 * 获取某个用户对应的角色和用户对应的权限code
-	 * 
+	 *
 	 * @param userId
 	 * @return
 	 * @throws Exception
 	 */
 	Map<String, Object> getUserRoleResource(Integer userId) throws Exception;
+	/**
+	 * 根据角色ID获取已分配该角色和未分配该角色的用户集合
+	 *
+	 * @param roleId
+	 *            角色ID
+	 * @return
+	 * @throws Exception
+	 */
+	Map<String, Object> listRoleAssign(Integer roleId) throws Exception;
+
 }

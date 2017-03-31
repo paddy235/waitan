@@ -52,6 +52,11 @@ public class RoleResourceTest {
 		List<ResourceDo> list = this.resourceService.getAllResource();
 		System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
 	}
+	@Test
+	public void listRoleAssign() throws Exception {
+		Map<String,Object> map = this.resourceService.listRoleAssign(Integer.valueOf(1));
+		System.err.println(JSON.toJSONString(map, SerializerFeature.PrettyFormat));
+	}
 
 	@Test
 	public void getRoleResourceByUserTest() throws Exception {
