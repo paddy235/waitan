@@ -1,6 +1,7 @@
 package com.bbd.wtyh.test;
 
 import java.util.List;
+import java.util.Map;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
@@ -49,6 +50,12 @@ public class RoleResourceTest {
 	@Test
 	public void getAllResourceTest() throws Exception {
 		List<ResourceDo> list = this.resourceService.getAllResource();
+		System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
+	}
+
+	@Test
+	public void getRoleResourceByUserTest() throws Exception {
+		Map<String, Object> list = this.resourceService.getUserRoleResource(45);
 		System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
 	}
 

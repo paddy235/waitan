@@ -5,6 +5,7 @@ import com.bbd.wtyh.domain.RoleDo;
 import com.bbd.wtyh.domain.UserInfoTableDo;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -67,4 +68,12 @@ public interface RoleResourceService {
 	 */
 	List<RoleDo> getRoleResource(Integer parentId) throws Exception;
 
+	/**
+	 * 获取某个用户对应的角色和用户对应的权限code
+	 * 
+	 * @param userId
+	 * @return
+	 * @throws Exception
+	 */
+	Map<String, Object> getUserRoleResource(Integer userId) throws Exception;
 }

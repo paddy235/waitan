@@ -106,23 +106,7 @@ public class RoleResourceController {
 	}
 
 	/**
-	 * 父级角色。
-	 *
-	 * @return
-	 */
-	@RequestMapping("/parent-role")
-	@ResponseBody
-	public Object getParentRole() {
-		try {
-			List<RoleDo> list = this.roleResourceService.getParentRole();
-			return ResponseBean.successResponse(list);
-		} catch (Exception e) {
-			return ExceptionHandler.handlerException(e);
-		}
-	}
-
-	/**
-	 * 由父级角色获取下级角色及权限。
+	 * 由用户类别获取对应的角色及权限。
 	 *
 	 * @return
 	 */
@@ -135,69 +119,6 @@ public class RoleResourceController {
 		} catch (Exception e) {
 			return ExceptionHandler.handlerException(e);
 		}
-	}
-
-	@RequestMapping("/e_g_getAllRoleAndResourceTableInSys.do")
-	@ResponseBody
-	public Object getAllRoleAndResourceTableInSys(HttpServletRequest request) {
-		Map<String, Object> rstMap = new HashedMap();
-		List<ResourceDo> listRes = roleResourceService.listResourceByRoleId(10);
-		rstMap.put("resource", listRes);
-		List<Map<String, Object>> lmo = new ArrayList<Map<String, Object>>() {
-
-			{
-				add(new HashMap<String, Object>() {
-
-					{
-						put("name", "e.g.角色1");
-						put("code", "e.g.Role1");
-						put("resourceCode", new String[] { "resourceCode6", "resourceCode7", "resourceCode16" });
-					}
-				});
-				add(new HashMap<String, Object>() {
-
-					{
-						put("name", "e.g.角色2");
-						put("code", "e.g.expRole2");
-						put("resourceCode",
-								new String[] { "resourceCode1", "resourceCode4", "resourceCode9", "resourceCode11", "resourceCode13" });
-					}
-				});
-				add(new HashMap<String, Object>() {
-
-					{
-						put("name", "e.g.角色n");
-						put("code", "e.g.expRolen");
-						put("resourceCode", new String[] { "resourceCode2", "resourceCode3", "resourceCode5" });
-					}
-				});
-			}
-		};
-
-		rstMap.put("role", lmo);
-
-		return ResponseBean.successResponse(rstMap);
-	}
-
-	private List tranResource(List<ResourceDo> list) {
-
-		if (null == list) {
-			return list;
-		}
-		List newList = new ArrayList();
-		for (ResourceDo resourceDo : list) {
-			if (StringUtils.isNullOrEmpty(resourceDo.getParentCode())) {
-				Map<String, String> map = new HashMap<>();
-				map.put("name", resourceDo.getName());
-				map.put("code", resourceDo.getCode());
-				newList.add(map);
-			} else {
-
-			}
-
-		}
-
-		return newList;
 	}
 
 }

@@ -42,9 +42,6 @@ public class RoleDo extends BaseDO {
 	@Column(name = "update_by")
 	private String updateBy;
 
-	/** 是否选中 */
-	private boolean checked;
-
 	/** 权限集 */
 	@JSONField(serialize = false)
 	private List<ResourceDo> resources;
@@ -138,24 +135,5 @@ public class RoleDo extends BaseDO {
 	 */
 	public void setResources(List<ResourceDo> resources) {
 		this.resources = resources;
-	}
-
-	/**
-	 * 获取 是否选中
-	 *
-	 * @return checked 是否选中
-	 */
-	public boolean isChecked() {
-		return this.checked;
-	}
-
-	/**
-	 * 设置 是否选中
-	 *
-	 * @param checked
-	 *            是否选中
-	 */
-	public void setChecked(boolean checked) {
-		this.checked = checked;
 	}
 }
