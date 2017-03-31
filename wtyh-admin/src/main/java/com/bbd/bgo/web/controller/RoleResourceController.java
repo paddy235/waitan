@@ -84,7 +84,6 @@ public class RoleResourceController {
 	@ResponseBody
 	public Object updateRole(
 						  @RequestParam String roleId,
-						  @RequestParam String roleType,
 						  @RequestParam String roleName,
 						  @RequestParam String roleDes,
 						  @RequestParam String resource,
@@ -116,6 +115,35 @@ public class RoleResourceController {
 	}
 
 	/**
+	 * 浏览角色(正式角色)
+	 *
+	 * @return
+	 */
+	@RequestMapping("/browse-role")
+	@ResponseBody
+	public Object browseRole(
+			@RequestParam String roleId,
+			HttpServletRequest request) {
+		Map<String, Object> rstMap = new HashMap<>();
+		try {
+			if(	StringUtils.isNullOrEmpty(roleId)){
+				return ResponseBean.errorResponse("数据错误");
+			}
+			Integer id=Integer.valueOf(roleId);
+			RoleDo roleDo=roleResourceService.getRoleBase(id,null,null);
+			List<ResourceDo> list=roleResourceService.listResourceByRoleId(id);
+			Map<String, Object> map=roleResourceService.listRoleAssign(id);
+			rstMap.put("role",roleDo);
+			rstMap.put("assign",map.get("assign"));
+			rstMap.put("resource",list);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseBean.errorResponse("服务器异常：" + e);
+		}
+		return ResponseBean.successResponse(rstMap);
+	}
+
+	/**
 	 * 角色列表
 	 *
 	 * @return
@@ -125,7 +153,7 @@ public class RoleResourceController {
 	@LogRecord(logMsg = "浏览角色列表", type = Operation.Type.browse, after = true, before = false)
 	public Object listRole(@RequestParam String roleType, @RequestParam int pageSize, Integer pageNumber, HttpServletRequest request) {
 
-		Map<String, Object> rstMap = new HashedMap();
+		Map<String, Object> rstMap = new HashMap<>();
 		try {
 
 			List<RoleDo> list = roleResourceService.listRoleBase(roleType, pageSize, pageNumber);
