@@ -49,7 +49,8 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		roleDo.setDescription(roleDes);
 		roleDo.setType(roleType);
 		roleDo.setCreateBy(loginName);
-		roleDo.setCreateDate(DateUtils.parserDate(DateUtils.format(new Date(), "yyyyMMddHHmmss"), "yyyyMMddHHmmss"));
+		roleDo.setUserType(roleType);
+		roleDo.setCreateDate(new Date());
 		roleResourceMapper.addRoleBase(roleDo);
 		return roleDo;
 	}
