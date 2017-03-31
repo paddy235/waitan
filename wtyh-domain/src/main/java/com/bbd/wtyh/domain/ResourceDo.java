@@ -1,126 +1,151 @@
 package com.bbd.wtyh.domain;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
+import javax.persistence.Table;
 import java.util.Date;
+import java.util.List;
 
 public class ResourceDo extends BaseDO {
-    private Integer id;
 
-    private String code;
+	private Integer id;
 
-    private String name;
+	private String code;
 
-    private String parentCode;
+	private String name;
 
-    private String type;
+	private String parentCode;
 
-    private String url;
+	private String type;
 
-    private String resourcePermission;
+	private String url;
 
-    private Integer displayOrder;
+	private String resourcePermission;
 
-    private Date createDate;
+	private Integer displayOrder;
 
-    private String createBy;
+	private Date createDate;
 
-    private Date updateDate;
+	private String createBy;
 
-    private String updateBy;
+	private Date updateDate;
 
+	private String updateBy;
+	/** 子权限集 */
+	@JSONField(serialize = false)
+	private List<ResourceDo> childResource;
 
-    public Integer getId() {
-        return id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getCode() {
-        return code;
-    }
+	public String getCode() {
+		return code;
+	}
 
-    public void setCode(String code) {
-        this.code = code == null ? null : code.trim();
-    }
+	public void setCode(String code) {
+		this.code = code == null ? null : code.trim();
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
+	public void setName(String name) {
+		this.name = name == null ? null : name.trim();
+	}
 
-    public String getParentCode() {
-        return parentCode;
-    }
+	public String getParentCode() {
+		return parentCode;
+	}
 
-    public void setParentCode(String parentCode) {
-        this.parentCode = parentCode == null ? null : parentCode.trim();
-    }
+	public void setParentCode(String parentCode) {
+		this.parentCode = parentCode == null ? null : parentCode.trim();
+	}
 
-    public String getType() {
-        return type;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public void setType(String type) {
-        this.type = type == null ? null : type.trim();
-    }
+	public void setType(String type) {
+		this.type = type == null ? null : type.trim();
+	}
 
-    public String getUrl() {
-        return url;
-    }
+	public String getUrl() {
+		return url;
+	}
 
-    public void setUrl(String url) {
-        this.url = url == null ? null : url.trim();
-    }
+	public void setUrl(String url) {
+		this.url = url == null ? null : url.trim();
+	}
 
-    public String getResourcePermission() {
-        return resourcePermission;
-    }
+	public String getResourcePermission() {
+		return resourcePermission;
+	}
 
-    public void setResourcePermission(String resourcePermission) {
-        this.resourcePermission = resourcePermission == null ? null : resourcePermission.trim();
-    }
+	public void setResourcePermission(String resourcePermission) {
+		this.resourcePermission = resourcePermission == null ? null : resourcePermission.trim();
+	}
 
-    public Integer getDisplayOrder() {
-        return displayOrder;
-    }
+	public Integer getDisplayOrder() {
+		return displayOrder;
+	}
 
-    public void setDisplayOrder(Integer displayOrder) {
-        this.displayOrder = displayOrder;
-    }
+	public void setDisplayOrder(Integer displayOrder) {
+		this.displayOrder = displayOrder;
+	}
 
-    public Date getCreateDate() {
-        return createDate;
-    }
+	public Date getCreateDate() {
+		return createDate;
+	}
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
 
-    public String getCreateBy() {
-        return createBy;
-    }
+	public String getCreateBy() {
+		return createBy;
+	}
 
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy == null ? null : createBy.trim();
-    }
+	public void setCreateBy(String createBy) {
+		this.createBy = createBy == null ? null : createBy.trim();
+	}
 
-    public Date getUpdateDate() {
-        return updateDate;
-    }
+	public Date getUpdateDate() {
+		return updateDate;
+	}
 
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
-    }
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
 
-    public String getUpdateBy() {
-        return updateBy;
-    }
+	public String getUpdateBy() {
+		return updateBy;
+	}
 
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy == null ? null : updateBy.trim();
-    }
+	public void setUpdateBy(String updateBy) {
+		this.updateBy = updateBy == null ? null : updateBy.trim();
+	}
+
+	/**
+	 * 获取 子权限集
+	 *
+	 * @return childResource 子权限集  
+	 */
+	public List<ResourceDo> getChildResource() {
+		return this.childResource;
+	}
+
+	/**
+	 * 设置 子权限集
+	 *
+	 * @param childResource 子权限集  
+	 */
+	public void setChildResource(List<ResourceDo> childResource) {
+		this.childResource = childResource;
+	}
 }

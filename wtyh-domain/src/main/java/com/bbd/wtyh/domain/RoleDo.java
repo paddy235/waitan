@@ -1,95 +1,161 @@
 package com.bbd.wtyh.domain;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.annotation.JSONField;
+
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
+import java.util.List;
 
+/**
+ * 角色Bean
+ */
+@Table(name = "role")
 public class RoleDo extends BaseDO {
-    private Integer id;
 
-    private String name;
+	@Id
+	private Integer id;
 
-    private String description;
+	@Column
+	private String name;
 
-    private String type;
+	@Column(name = "parent_id")
+	private Integer parentId;
 
-    private Date createDate;
+	@Column
+	private String description;
 
-    private Date updateDate;
+	@Column
+	private String type;
 
-    private String createBy;
+	@Column(name = "create_date")
+	private Date createDate;
 
-    private String updateBy;
+	@Column(name = "update_date")
+	private Date updateDate;
 
-    public Integer getParentId() {
-        return parentId;
-    }
+	@Column(name = "create_by")
+	private String createBy;
 
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
-    }
+	@Column(name = "update_by")
+	private String updateBy;
 
-    private Integer parentId;
+	/** 是否选中 */
+	private boolean checked;
 
-    public Integer getId() {
-        return id;
-    }
+	/** 权限集 */
+	@JSONField(serialize = false)
+	private List<ResourceDo> resources;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Integer getParentId() {
+		return parentId;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
+	}
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getType() {
-        return type;
-    }
+	public void setName(String name) {
+		this.name = name == null ? null : name.trim();
+	}
 
-    public void setType(String type) {
-        this.type = type == null ? null : type.trim();
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public Date getCreateDate() {
-        return createDate;
-    }
+	public void setDescription(String description) {
+		this.description = description == null ? null : description.trim();
+	}
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public Date getUpdateDate() {
-        return updateDate;
-    }
+	public void setType(String type) {
+		this.type = type == null ? null : type.trim();
+	}
 
-    public void setUpdateDate(Date updateDate) {
-        this.updateDate = updateDate;
-    }
+	public Date getCreateDate() {
+		return createDate;
+	}
 
-    public String getCreateBy() {
-        return createBy;
-    }
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
 
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy == null ? null : createBy.trim();
-    }
+	public Date getUpdateDate() {
+		return updateDate;
+	}
 
-    public String getUpdateBy() {
-        return updateBy;
-    }
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
 
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy == null ? null : updateBy.trim();
-    }
+	public String getCreateBy() {
+		return createBy;
+	}
+
+	public void setCreateBy(String createBy) {
+		this.createBy = createBy == null ? null : createBy.trim();
+	}
+
+	public String getUpdateBy() {
+		return updateBy;
+	}
+
+	public void setUpdateBy(String updateBy) {
+		this.updateBy = updateBy == null ? null : updateBy.trim();
+	}
+
+	/**
+	 * 获取 权限集
+	 *
+	 * @return resources 权限集
+	 */
+	public List<ResourceDo> getResources() {
+		return this.resources;
+	}
+
+	/**
+	 * 设置 权限集
+	 *
+	 * @param resources
+	 *            权限集
+	 */
+	public void setResources(List<ResourceDo> resources) {
+		this.resources = resources;
+	}
+
+	/**
+	 * 获取 是否选中
+	 *
+	 * @return checked 是否选中
+	 */
+	public boolean isChecked() {
+		return this.checked;
+	}
+
+	/**
+	 * 设置 是否选中
+	 *
+	 * @param checked
+	 *            是否选中
+	 */
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
 }

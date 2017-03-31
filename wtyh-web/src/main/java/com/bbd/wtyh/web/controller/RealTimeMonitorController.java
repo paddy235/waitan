@@ -24,8 +24,6 @@ import com.bbd.wtyh.service.AreaService;
 import com.bbd.wtyh.service.RealTimeMonitorService;
 import com.bbd.wtyh.web.ResponseBean;
 
-import redis.clients.jedis.JedisPool;
-
 /**
  * 实时监控页面
  *

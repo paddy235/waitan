@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.higgs.utils.DateUtils;
+import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.mapper.RoleResourceMapper;
 import com.bbd.wtyh.service.RoleResourceService;
@@ -14,189 +15,212 @@ import java.util.*;
  * Created by Administrator on 2017/3/1 0001.
  */
 @Service
-public class RoleResourceServiceImpl implements RoleResourceService {
-    @Autowired
-    private RoleResourceMapper roleResourceMapper;
-    @Override
-    public Set<String> queryResourceCodeByLoginName(String userName) {
-        Set set=new HashSet();
-        List list = roleResourceMapper.queryResourceCodeByLoginName(userName);
-        set.addAll(list);
-        return set;
-    }
+public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleResourceService {
 
-    @Override
-    public Set<String> queryResourceCodeByUserId(Integer userId) {
-        Set set=new HashSet();
-        List list = roleResourceMapper.queryResourceCodeByUserId(userId);
-        set.addAll(list);
-        return set;
-    }
+	@Autowired
+	private RoleResourceMapper roleResourceMapper;
 
-    @Override
-    public RoleDo addRoleBase(String roleName, String roleDes, String roleType, String loginName) {
+	@Override
+	public Set<String> queryResourceCodeByLoginName(String userName) {
+		Set set = new HashSet();
+		List list = roleResourceMapper.queryResourceCodeByLoginName(userName);
+		set.addAll(list);
+		return set;
+	}
 
-        RoleDo roleDo=new RoleDo();
-        try{
-            roleDo.setName(roleName);
-            roleDo.setDescription(roleDes);
-            roleDo.setType(roleType);
-            roleDo.setCreateBy(loginName);
-            roleDo.setCreateDate(DateUtils.parserDate(DateUtils.format(new Date(),"yyyyMMddHHmmss"),"yyyyMMddHHmmss"));
+	@Override
+	public Set<String> queryResourceCodeByUserId(Integer userId) {
+		Set set = new HashSet();
+		List list = roleResourceMapper.queryResourceCodeByUserId(userId);
+		set.addAll(list);
+		return set;
+	}
 
-            roleResourceMapper.addRoleBase(roleDo);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return roleDo;
-    }
+	@Override
+	public RoleDo addRoleBase(String roleName, String roleDes, String roleType, String loginName) {
 
-    /*
-     *新建用户的角色基本信息、角色-权限关系、角色-用户关系
-     */
-    @Override
-    public void addUserRoleResource(UserInfoTableDo userInfoTableDo,String resourceSet,String loginName) {
-        //如果 用户ID为空 或者权限为空，则不创建
-        Integer userId=userInfoTableDo.getId();
-        if(null==userId || StringUtils.isEmpty(resourceSet)){
-            return ;
-        }
-        //新增角色基本信息
-        RoleDo roleDo=this.addRoleBase(null, null, null,loginName);
+		RoleDo roleDo = new RoleDo();
+		try {
+			roleDo.setName(roleName);
+			roleDo.setDescription(roleDes);
+			roleDo.setType(roleType);
+			roleDo.setCreateBy(loginName);
+			roleDo.setCreateDate(DateUtils.parserDate(DateUtils.format(new Date(), "yyyyMMddHHmmss"), "yyyyMMddHHmmss"));
 
-        //新增角色用户关系
-        UserRoleDo userRoleDo=new UserRoleDo();
-        userRoleDo.setUserId(userId);
-        userRoleDo.setRoleId(roleDo.getId());
-        userRoleDo.setCreateBy(loginName);
-        userRoleDo.setCreateDate(DateUtils.parserDate(DateUtils.format(new Date(),"yyyyMMddHHmmss"),"yyyyMMddHHmmss"));
-        roleResourceMapper.addUserRoleRelation(userRoleDo);
+			roleResourceMapper.addRoleBase(roleDo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return roleDo;
+	}
 
-        //新增角色权限关系
-        addRoleResourceRelation(roleDo.getId(), resourceSet, loginName);
+	/*
+	 * 新建用户的角色基本信息、角色-权限关系、角色-用户关系
+	 */
+	@Override
+	public void addUserRoleResource(UserInfoTableDo userInfoTableDo, String resourceSet, String loginName) {
+		// 如果 用户ID为空 或者权限为空，则不创建
+		Integer userId = userInfoTableDo.getId();
+		if (null == userId || StringUtils.isEmpty(resourceSet)) {
+			return;
+		}
+		// 新增角色基本信息
+		RoleDo roleDo = this.addRoleBase(null, null, null, loginName);
 
-    }
-    /*
-     *修改 某用户的角色对应的权限-限删除角色-权限关系，再建立新的角色-权限关系
-     */
-    @Override
-    public void updateUserRoleResource(UserInfoTableDo userInfoTableDo,String resourceSet,String loginName) {
-        //与陈功杰约定，如果resourceSet==null,则不更新，若为""，则需要删除已有的权限关系
-        if(null==resourceSet || null==userInfoTableDo.getId()){
-            return;
-        }
-        Integer userId=userInfoTableDo.getId();
-        List<UserRoleDo> list=roleResourceMapper.getUserRoleByUser(userId);
-        for(UserRoleDo userRoleDo:list){
-            //删除角色权限关系
-            roleResourceMapper.deleteRoleResourceRelation(userRoleDo.getRoleId());
-            //新增角色权限关系
-            addRoleResourceRelation(userRoleDo.getRoleId(), resourceSet, loginName);
+		// 新增角色用户关系
+		UserRoleDo userRoleDo = new UserRoleDo();
+		userRoleDo.setUserId(userId);
+		userRoleDo.setRoleId(roleDo.getId());
+		userRoleDo.setCreateBy(loginName);
+		userRoleDo.setCreateDate(DateUtils.parserDate(DateUtils.format(new Date(), "yyyyMMddHHmmss"), "yyyyMMddHHmmss"));
+		roleResourceMapper.addUserRoleRelation(userRoleDo);
 
-        }
-    }
+		// 新增角色权限关系
+		addRoleResourceRelation(roleDo.getId(), resourceSet, loginName);
 
-    /*
-     *删除某用户的 角色-权限关系、角色基本信息、用户-角色关系
-     */
-    @Override
-    public void deleteUserRoleResource(Integer userId, String loginName) {
-        //如果 用户ID为空 则不执行
-        if(userId==null){
-            return ;
-        }
-        List<UserRoleDo> list=roleResourceMapper.getUserRoleByUser(userId);
-        for(UserRoleDo userRoleDo:list){
-            //删除角色权限关系
-            roleResourceMapper.deleteRoleResourceRelation(userRoleDo.getRoleId());
-            //删除角色基本信息
-            roleResourceMapper.deleteRoleBase(userRoleDo.getRoleId());
+	}
 
-        }
-        //删除角色用户关系
-        roleResourceMapper.deleteUserRoleRelation(userId);
-    }
+	/*
+	 * 修改 某用户的角色对应的权限-限删除角色-权限关系，再建立新的角色-权限关系
+	 */
+	@Override
+	public void updateUserRoleResource(UserInfoTableDo userInfoTableDo, String resourceSet, String loginName) {
+		// 与陈功杰约定，如果resourceSet==null,则不更新，若为""，则需要删除已有的权限关系
+		if (null == resourceSet || null == userInfoTableDo.getId()) {
+			return;
+		}
+		Integer userId = userInfoTableDo.getId();
+		List<UserRoleDo> list = roleResourceMapper.getUserRoleByUser(userId);
+		for (UserRoleDo userRoleDo : list) {
+			// 删除角色权限关系
+			roleResourceMapper.deleteRoleResourceRelation(userRoleDo.getRoleId());
+			// 新增角色权限关系
+			addRoleResourceRelation(userRoleDo.getRoleId(), resourceSet, loginName);
 
-    /*
-     *新增角色权限关系
-     */
-    @Override
-    public void addRoleResourceRelation(Integer roleId, String resourceSet, String loginName) {
-        if(null==roleId || StringUtils.isEmpty(resourceSet)){
-            return ;
-        }
-        //新增角色权限关系
-        String [] resourceArr=resourceSet.split(",");
-        RoleResourceDo roleResourceDo=null;
-        ResourceDo resourceDo=null;
-        Date currentDate=DateUtils.parserDate(DateUtils.format(new Date(),"yyyyMMddHHmmss"),"yyyyMMddHHmmss");
-        for(int i=0;i<resourceArr.length;i++){
-            resourceDo=roleResourceMapper.getResourceByCode(resourceArr[i]);
-            if(resourceDo==null){
-                continue;
-            }
-            roleResourceDo=new RoleResourceDo();
-            roleResourceDo.setRoleId(roleId);
-            roleResourceDo.setResourceId(resourceDo.getId());
-            roleResourceDo.setCreateBy(loginName);
-            roleResourceDo.setCreateDate(currentDate);
-            roleResourceMapper.addRoleResourceRelation(roleResourceDo);
-        }
-    }
+		}
+	}
 
-    /**
-     * 浏览角色列表
-     * @param roleType
-     * @return
-     */
-    @Override
-    public List<RoleDo> listRoleBase(String roleType, int pageLimit, Integer pageNumber) {
-        HashMap<String, Object> params = new HashMap<String, Object>();
-        params.put("roleType",roleType);
-        if(pageLimit<=0 || pageNumber<1){
-            params.put("listing",null);
-        }else{
-            params.put("pageLimit", pageLimit);
-            if ((null != pageNumber) && (pageNumber > 0)) {
-                pageNumber = (pageNumber - 1) * pageLimit; // pageNumber的意义已经变为了“Offset”
-                params.put("pageNumber", pageNumber);
-            }
-            params.put("listing", 1);
+	/*
+	 * 删除某用户的 角色-权限关系、角色基本信息、用户-角色关系
+	 */
+	@Override
+	public void deleteUserRoleResource(Integer userId, String loginName) {
+		// 如果 用户ID为空 则不执行
+		if (userId == null) {
+			return;
+		}
+		List<UserRoleDo> list = roleResourceMapper.getUserRoleByUser(userId);
+		for (UserRoleDo userRoleDo : list) {
+			// 删除角色权限关系
+			roleResourceMapper.deleteRoleResourceRelation(userRoleDo.getRoleId());
+			// 删除角色基本信息
+			roleResourceMapper.deleteRoleBase(userRoleDo.getRoleId());
 
-        }
-        return roleResourceMapper.listRoleBase(params);
-    }
+		}
+		// 删除角色用户关系
+		roleResourceMapper.deleteUserRoleRelation(userId);
+	}
 
-    /**
-     * 取模板权限集
-     * @param
-     * @return
-     */
-    @Override
-    public RoleDo getRoleBase(Integer roleId,String roleName,String roleType) {
-        HashMap<String, Object> params = new HashMap<String, Object>();
-        if(null!=roleId){
-            params.put("roleId",roleId);
-        }
-        if(null!=roleName){
-            params.put("roleName",roleName);
-        }
-        if(null!=roleType){
-            params.put("roleType",roleType);
-        }
-        return roleResourceMapper.getRoleBaseByIdNameType(params);
-    }
+	/*
+	 * 新增角色权限关系
+	 */
+	@Override
+	public void addRoleResourceRelation(Integer roleId, String resourceSet, String loginName) {
+		if (null == roleId || StringUtils.isEmpty(resourceSet)) {
+			return;
+		}
+		// 新增角色权限关系
+		String[] resourceArr = resourceSet.split(",");
+		RoleResourceDo roleResourceDo = null;
+		ResourceDo resourceDo = null;
+		Date currentDate = DateUtils.parserDate(DateUtils.format(new Date(), "yyyyMMddHHmmss"), "yyyyMMddHHmmss");
+		for (int i = 0; i < resourceArr.length; i++) {
+			resourceDo = roleResourceMapper.getResourceByCode(resourceArr[i]);
+			if (resourceDo == null) {
+				continue;
+			}
+			roleResourceDo = new RoleResourceDo();
+			roleResourceDo.setRoleId(roleId);
+			roleResourceDo.setResourceId(resourceDo.getId());
+			roleResourceDo.setCreateBy(loginName);
+			roleResourceDo.setCreateDate(currentDate);
+			roleResourceMapper.addRoleResourceRelation(roleResourceDo);
+		}
+	}
 
-    @Override
-    public List<RoleDo> listSonRoleBase(Integer parentId) {
-        return roleResourceMapper.listSonRoleBase(parentId);
-    }
+	/**
+	 * 浏览角色列表
+	 * 
+	 * @param roleType
+	 * @return
+	 */
+	@Override
+	public List<RoleDo> listRoleBase(String roleType, int pageLimit, Integer pageNumber) {
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("roleType", roleType);
+		if (pageLimit <= 0 || pageNumber < 1) {
+			params.put("listing", null);
+		} else {
+			params.put("pageLimit", pageLimit);
+			if ((null != pageNumber) && (pageNumber > 0)) {
+				pageNumber = (pageNumber - 1) * pageLimit; // pageNumber的意义已经变为了“Offset”
+				params.put("pageNumber", pageNumber);
+			}
+			params.put("listing", 1);
 
-    @Override
-    public List<ResourceDo> listResourceByRoleId(Integer roleId) {
-        return roleResourceMapper.listResourceByRoleId(roleId);
-    }
+		}
+		return roleResourceMapper.listRoleBase(params);
+	}
 
+	/**
+	 * 取模板权限集
+	 * 
+	 * @param
+	 * @return
+	 */
+	@Override
+	public RoleDo getRoleBase(Integer roleId, String roleName, String roleType) {
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		if (null != roleId) {
+			params.put("roleId", roleId);
+		}
+		if (null != roleName) {
+			params.put("roleName", roleName);
+		}
+		if (null != roleType) {
+			params.put("roleType", roleType);
+		}
+		return roleResourceMapper.getRoleBaseByIdNameType(params);
+	}
 
+	@Override
+	public List<RoleDo> listSonRoleBase(Integer parentId) {
+		return roleResourceMapper.listSonRoleBase(parentId);
+	}
+
+	@Override
+	public List<ResourceDo> listResourceByRoleId(Integer roleId) {
+		return roleResourceMapper.listResourceByRoleId(roleId);
+	}
+
+	@Override
+	public List<ResourceDo> getAllResource() {
+		return this.roleResourceMapper.getAllResource();
+	}
+
+	@Override
+	public List<RoleDo> getParentRole() throws Exception {
+		return this.selectAll(RoleDo.class, "parent_id = -1");
+	}
+
+	@Override
+	public List<RoleDo> getRoleResource(Integer parentId) throws Exception {
+		return this.roleResourceMapper.getRoleResource(parentId);
+	}
+
+	public List<RoleDo> getRoleResourceByUser(Integer userId) throws Exception {
+
+		return null;
+
+	}
 }
-
