@@ -45,6 +45,11 @@ public class RoleResourceController {
 	@Autowired
 	private AreaService areaService;
 
+	/**
+	 * 角色列表
+	 *
+	 * @return
+	 */
 	@RequestMapping("/listRole.do")
 	@ResponseBody
 	@LogRecord(logMsg = "浏览角色列表", type = Operation.Type.browse, after = true, before = false)
@@ -62,6 +67,11 @@ public class RoleResourceController {
 		return ResponseBean.successResponse(rstMap);
 	}
 
+	/**
+	 * 新增角色-选择父角色
+	 *
+	 * @return
+	 */
 	@RequestMapping("/templateRole")
 	@ResponseBody
 	public Object templateRole(@RequestParam String roleType, HttpServletRequest request) {
@@ -78,6 +88,11 @@ public class RoleResourceController {
 		return ResponseBean.successResponse(rstMap);
 	}
 
+	/**
+	 * 用角色ID查询该角色的权限集合
+	 *
+	 * @return
+	 */
 	@RequestMapping("/getResourceByRoleId")
 	@ResponseBody
 	public Object getResourceByRoleId(@RequestParam int roleId, HttpServletRequest request) {
