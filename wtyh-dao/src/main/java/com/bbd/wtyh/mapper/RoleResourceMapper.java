@@ -1,6 +1,7 @@
 package com.bbd.wtyh.mapper;
 
 import com.bbd.wtyh.domain.*;
+import com.bbd.wtyh.domain.dto.UserRoleDTO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
@@ -49,5 +50,8 @@ public interface RoleResourceMapper {
 	List<ResourceDo> getAllResource();
 
 	List<RoleDo> getRoleResource(@Param("parentId") Integer parentId);
+
+	List<UserRoleDTO> listRoleAssign(@Param("roleId") Integer roleId);
+
 
 }

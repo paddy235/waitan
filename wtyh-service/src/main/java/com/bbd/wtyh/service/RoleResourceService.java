@@ -3,8 +3,10 @@ package com.bbd.wtyh.service;
 import com.bbd.wtyh.domain.ResourceDo;
 import com.bbd.wtyh.domain.RoleDo;
 import com.bbd.wtyh.domain.UserInfoTableDo;
+import com.bbd.wtyh.domain.dto.UserRoleDTO;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -66,5 +68,15 @@ public interface RoleResourceService {
 	 * @throws Exception
 	 */
 	List<RoleDo> getRoleResource(Integer parentId) throws Exception;
+
+	/**
+	 * 根据角色ID获取已分配该角色和未分配该角色的用户集合
+	 *
+	 * @param roleId
+	 *            角色ID
+	 * @return
+	 * @throws Exception
+	 */
+	Map<String, Object> listRoleAssign(Integer roleId) throws Exception;
 
 }

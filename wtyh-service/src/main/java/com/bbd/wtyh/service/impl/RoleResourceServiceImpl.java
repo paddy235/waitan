@@ -3,6 +3,7 @@ package com.bbd.wtyh.service.impl;
 import com.bbd.higgs.utils.DateUtils;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.*;
+import com.bbd.wtyh.domain.dto.UserRoleDTO;
 import com.bbd.wtyh.mapper.RoleResourceMapper;
 import com.bbd.wtyh.service.RoleResourceService;
 import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
@@ -218,9 +219,27 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		return this.roleResourceMapper.getRoleResource(parentId);
 	}
 
-	public List<RoleDo> getRoleResourceByUser(Integer userId) throws Exception {
+	@Override
+	public Map<String, Object> listRoleAssign(Integer roleId) throws Exception {
+		Map<String, Object> rstMap = new HashMap();
+		//已分配该角色的用户
+		List assignList=new ArrayList();
+		//未分配该角色的用户
+		List unassignList=new ArrayList();
 
-		return null;
+		List<UserRoleDTO> list = this.roleResourceMapper.listRoleAssign(roleId);
+		for(UserRoleDTO userRoleDTO:list){
+			if(null!=userRoleDTO.getRoleId()){
+				assignList.add(userRoleDTO);
+			}else{
+				unassignList.add(userRoleDTO);
+			}
 
+		}
+		rstMap.put("assign",assignList);
+		rstMap.put("unassign",unassignList);
+
+		return rstMap;
 	}
+
 }

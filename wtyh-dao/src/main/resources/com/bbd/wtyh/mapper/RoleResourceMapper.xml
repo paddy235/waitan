@@ -187,5 +187,14 @@
         WHERE
             rr.role_id = #{roleId}
     </select>
-
+    <select id="listRoleAssign" parameterType="int" resultType="com.bbd.wtyh.domain.dto.UserRoleDTO">
+        select
+          user_mgment.id,
+          user_mgment.login_name as loginName,
+          user_mgment.real_name as realName,
+          b.user_id as userId
+          from user_mgment
+          LEFT JOIN (select user_id from user_role where role_id=#{roleId})b
+          on user_mgment.id=b.user_id order by user_id
+    </select>
 </mapper>

@@ -1,10 +1,13 @@
 package com.bbd.wtyh.test;
 
 import java.util.List;
+import java.util.Map;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.bbd.bgo.web.controller.RoleResourceController;
 import com.bbd.wtyh.domain.ResourceDo;
+import com.bbd.wtyh.domain.dto.UserRoleDTO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -51,5 +54,9 @@ public class RoleResourceTest {
 		List<ResourceDo> list = this.resourceService.getAllResource();
 		System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
 	}
-
+	@Test
+	public void listRoleAssign() throws Exception {
+		Map<String,Object> map = this.resourceService.listRoleAssign(Integer.valueOf(1));
+		System.err.println(JSON.toJSONString(map, SerializerFeature.PrettyFormat));
+	}
 }
