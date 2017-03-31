@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.higgs.utils.DateUtils;
+import com.bbd.wtyh.common.comenum.UserType;
 import com.bbd.wtyh.constants.Constants;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.*;
@@ -251,8 +252,10 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	 */
 	@Override
 	public List<RoleDo> listRoleBase(String roleType, int pageLimit, Integer pageNumber) {
-		HashMap<String, Object> params = new HashMap<String, Object>();
-		params.put("roleType", roleType);
+		HashMap<String, Object> params = new HashMap<>();
+		if( null != UserType.getUserTypeByCode(roleType) ) {
+			params.put("roleType", roleType);
+		}
 		if (pageLimit <= 0 || pageNumber < 1) {
 			params.put("listing", null);
 		} else {
