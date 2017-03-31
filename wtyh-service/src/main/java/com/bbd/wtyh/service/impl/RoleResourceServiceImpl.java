@@ -248,14 +248,14 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	/**
 	 * 浏览角色列表
 	 * 
-	 * @param roleType
+	 * @param userType
 	 * @return
 	 */
 	@Override
-	public List<RoleDo> listRoleBase(String roleType, int pageLimit, Integer pageNumber) {
+	public List<RoleDo> listRoleBase(String userType, int pageLimit, Integer pageNumber) {
 		HashMap<String, Object> params = new HashMap<>();
-		if (null != UserType.getUserTypeByCode(roleType)) {
-			params.put("roleType", roleType);
+		if (null != UserType.getUserTypeByCode(userType)) {
+			params.put("userType", userType);
 		}
 		if (pageLimit <= 0 || pageNumber < 1) {
 			params.put("listing", null);

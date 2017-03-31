@@ -1,15 +1,12 @@
 package com.bbd.bgo.web.controller;
 
-import com.bbd.wtyh.common.comenum.UserType;
 import com.bbd.wtyh.domain.ResourceDo;
 import com.bbd.wtyh.domain.RoleDo;
 import com.bbd.higgs.utils.StringUtils;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.dto.UserRoleDTO;
 import com.bbd.wtyh.exception.ExceptionHandler;
-import com.bbd.wtyh.service.AreaService;
 import com.bbd.wtyh.service.RoleResourceService;
-import com.bbd.wtyh.service.UserInfoService;
 import com.bbd.wtyh.web.ResponseBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,10 +31,6 @@ public class RoleResourceController {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
 	private RoleResourceService roleResourceService;
-	@Autowired
-	private UserInfoService userInfoService;
-	@Autowired
-	private AreaService areaService;
 
 	/**
 	 * 新增角色(正式角色)
@@ -165,14 +158,14 @@ public class RoleResourceController {
 	 */
 	@RequestMapping("/list-role.do")
 	@ResponseBody
-	public Object listRole(@RequestParam String roleType, @RequestParam int pageSize, Integer pageNumber, HttpServletRequest request) {
+	public Object listRole(@RequestParam String userType, @RequestParam int pageSize, Integer pageNumber, HttpServletRequest request) {
 
 		Map<String, Object> rstMap = new HashMap<>();
 		try {
 			if (null == pageNumber) {
 				pageNumber = 1;
 			}
-			List<RoleDo> list = roleResourceService.listRoleBase(roleType, pageSize, pageNumber);
+			List<RoleDo> list = roleResourceService.listRoleBase(userType, pageSize, pageNumber);
 			rstMap.put("roleList", list);
 		} catch (Exception e) {
 			e.printStackTrace();

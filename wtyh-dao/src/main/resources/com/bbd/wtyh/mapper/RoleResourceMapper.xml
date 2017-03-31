@@ -28,8 +28,8 @@
 
     <insert id="addRoleBase" parameterType="com.bbd.wtyh.domain.RoleDo" useGeneratedKeys="true" keyProperty="id"
             keyColumn="id">
-        INSERT INTO `role` (`name`, `description`, `type`, `create_date`, `update_date`, `create_by`, `update_by`)
-        VALUES (#{name}, #{description}, #{type}, #{createDate}, #{updateDate}, #{createBy}, #{updateBy});
+        INSERT INTO `role` (`name`, `description`, `type`, `create_date`, `update_date`, `create_by`, `update_by`, `user_type`)
+        VALUES (#{name}, #{description}, #{type}, #{createDate}, #{updateDate}, #{createBy}, #{updateBy}, #{userType});
     </insert>
 
     <insert id="updateRoleBase" parameterType="com.bbd.wtyh.domain.RoleDo"  >
