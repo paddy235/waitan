@@ -25,6 +25,8 @@ public interface RoleResourceMapper {
 
 	void addRoleBase(RoleDo roleDo);
 
+	void updateRoleBase(RoleDo roleDo);
+
 	void addRoleResourceRelation(RoleResourceDo roleResourceDo);
 
 	void addUserRoleRelation(UserRoleDo userRoleDo);

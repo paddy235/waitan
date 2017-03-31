@@ -43,11 +43,84 @@ public class RoleResourceController {
 	private AreaService areaService;
 
 	/**
+	 * 新增角色(正式角色)
+	 *
+	 * @return
+	 */
+	@RequestMapping("/add-role")
+	@ResponseBody
+	public Object addRole(@RequestParam String roleType,
+						  @RequestParam String roleName,
+						  @RequestParam String roleDes,
+						  @RequestParam String resource,
+						  HttpServletRequest request) {
+		try {
+			String loginName=(String)request.getSession().getAttribute("loginName");
+			if(StringUtils.isNullOrEmpty(roleType)||
+					StringUtils.isNullOrEmpty(roleName)||
+					StringUtils.isNullOrEmpty(resource)){
+				return ResponseBean.errorResponse("数据错误");
+			}
+			RoleDo roleDo;
+			roleDo=roleResourceService.getRoleBase(null,roleName,null);
+			if(null != roleDo && roleDo.getName() != null){
+				return ResponseBean.errorResponse("角色名称已存在" );
+			}
+			roleDo=roleResourceService.addRoleBase(roleName,roleDes,roleType,loginName);
+			roleResourceService.addRoleResourceRelation(roleDo.getId(),resource,loginName);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseBean.errorResponse("服务器异常：" + e);
+		}
+		return ResponseBean.successResponse("success");
+	}
+
+	/**
+	 * 修改角色(正式角色)
+	 *
+	 * @return
+	 */
+	@RequestMapping("/update-role")
+	@ResponseBody
+	public Object updateRole(
+						  @RequestParam String roleId,
+						  @RequestParam String roleType,
+						  @RequestParam String roleName,
+						  @RequestParam String roleDes,
+						  @RequestParam String resource,
+						  HttpServletRequest request) {
+		try {
+			String loginName=(String)request.getSession().getAttribute("loginName");
+			if(	StringUtils.isNullOrEmpty(roleId)||
+					StringUtils.isNullOrEmpty(roleName)||
+					StringUtils.isNullOrEmpty(resource)){
+				return ResponseBean.errorResponse("数据错误");
+			}
+			Integer id=Integer.valueOf(roleId);
+			RoleDo roleDo;
+			roleDo=roleResourceService.getRoleBase(null,roleName,null);
+			if(null != roleDo && roleDo.getName() != null){
+				if(roleDo.getId()!=id){
+					return ResponseBean.errorResponse("角色名称已存在" );
+				}
+
+			}
+			roleResourceService.updateRoleBase(id,roleName,roleDes,loginName);
+			roleResourceService.deleteRoleResourceRelation(id);
+			roleResourceService.addRoleResourceRelation(id,resource,loginName);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseBean.errorResponse("服务器异常：" + e);
+		}
+		return ResponseBean.successResponse("success");
+	}
+
+	/**
 	 * 角色列表
 	 *
 	 * @return
 	 */
-	@RequestMapping("/listRole.do")
+	@RequestMapping("/list-role.do")
 	@ResponseBody
 	@LogRecord(logMsg = "浏览角色列表", type = Operation.Type.browse, after = true, before = false)
 	public Object listRole(@RequestParam String roleType, @RequestParam int pageSize, Integer pageNumber, HttpServletRequest request) {
@@ -69,7 +142,7 @@ public class RoleResourceController {
 	 *
 	 * @return
 	 */
-	@RequestMapping("/templateRole")
+	@RequestMapping("/template-role")
 	@ResponseBody
 	public Object templateRole(@RequestParam String roleType, HttpServletRequest request) {
 		String roleName = roleType;
@@ -90,7 +163,7 @@ public class RoleResourceController {
 	 *
 	 * @return
 	 */
-	@RequestMapping("/getResourceByRoleId")
+	@RequestMapping("/get-resource-by-role-id")
 	@ResponseBody
 	public Object getResourceByRoleId(@RequestParam int roleId, HttpServletRequest request) {
 		Map<String, Object> rstMap = new HashMap<>();

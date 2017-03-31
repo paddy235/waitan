@@ -11,7 +11,9 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.*;
 import java.util.*;
+import java.util.Date;
 
 /**
  * 角色权限接口实现类
@@ -144,6 +146,20 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	}
 
 	/*
+	 * 删除角色权限关系
+	 */
+	@Override
+	public void deleteRoleResourceRelation(Integer roleId) {
+		if (roleId == null) {
+			return;
+		}
+
+		// 删除角色权限关系
+		roleResourceMapper.deleteRoleResourceRelation(roleId);
+
+	}
+
+	/*
 	 * 新增角色权限关系
 	 */
 	@Override
@@ -247,7 +263,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	}
 
 	/**
-	 * 取模板权限集
+	 * 查询角色基本信息
 	 * 
 	 * @param
 	 * @return
@@ -265,6 +281,24 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 			params.put("roleType", roleType);
 		}
 		return roleResourceMapper.getRoleBaseByIdNameType(params);
+	}
+
+	/**
+	 * 修改角色基本信息
+	 *
+	 * @param
+	 * @return
+	 */
+
+	public void updateRoleBase(Integer roleId,String roleName, String roleDes, String loginName) {
+
+		RoleDo roleDo = new RoleDo();
+		roleDo.setId(roleId);
+		roleDo.setName(roleName);
+		roleDo.setDescription(roleDes);
+		roleDo.setUpdateBy(loginName);
+		roleDo.setUpdateDate(new Date());
+		roleResourceMapper.updateRoleBase(roleDo);
 	}
 
 	@Override
