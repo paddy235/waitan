@@ -1,6 +1,7 @@
 package com.bbd.bgo.web.controller;
 
-import com.bbd.bgo.auth.Constants;
+import com.bbd.wtyh.domain.ResourceDo;
+import com.bbd.wtyh.domain.RoleDo;
 import com.bbd.higgs.utils.StringUtils;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.dto.UserRoleDTO;
@@ -13,10 +14,6 @@ import com.bbd.wtyh.service.RoleResourceService;
 import com.bbd.wtyh.service.UserInfoService;
 import com.bbd.wtyh.web.ResponseBean;
 import org.apache.commons.collections.map.HashedMap;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.session.Session;
-import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -143,10 +140,7 @@ public class RoleResourceController {
 	@ResponseBody
 	public Object listRoleAssign(@RequestParam Integer roleId) {
 		try {
-
-
 			Map<String, Object> rstMap = this.roleResourceService.listRoleAssign(roleId);
-
 			return ResponseBean.successResponse(rstMap);
 		} catch (Exception e) {
 			return ExceptionHandler.handlerException(e);

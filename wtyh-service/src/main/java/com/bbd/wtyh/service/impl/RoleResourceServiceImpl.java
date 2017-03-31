@@ -1,19 +1,20 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.higgs.utils.DateUtils;
+import com.bbd.wtyh.constants.Constants;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.dto.UserRoleDTO;
 import com.bbd.wtyh.mapper.RoleResourceMapper;
 import com.bbd.wtyh.service.RoleResourceService;
-import net.logstash.logback.encoder.org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 /**
- * Created by Administrator on 2017/3/1 0001.
+ * 角色权限接口实现类
  */
 @Service
 public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleResourceService {
@@ -39,19 +40,13 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 
 	@Override
 	public RoleDo addRoleBase(String roleName, String roleDes, String roleType, String loginName) {
-
 		RoleDo roleDo = new RoleDo();
-		try {
-			roleDo.setName(roleName);
-			roleDo.setDescription(roleDes);
-			roleDo.setType(roleType);
-			roleDo.setCreateBy(loginName);
-			roleDo.setCreateDate(DateUtils.parserDate(DateUtils.format(new Date(), "yyyyMMddHHmmss"), "yyyyMMddHHmmss"));
-
-			roleResourceMapper.addRoleBase(roleDo);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		roleDo.setName(roleName);
+		roleDo.setDescription(roleDes);
+		roleDo.setType(roleType);
+		roleDo.setCreateBy(loginName);
+		roleDo.setCreateDate(DateUtils.parserDate(DateUtils.format(new Date(), "yyyyMMddHHmmss"), "yyyyMMddHHmmss"));
+		roleResourceMapper.addRoleBase(roleDo);
 		return roleDo;
 	}
 
@@ -82,12 +77,13 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	}
 
 	@Override
-	public UserRoleDo getUserRoleRelation(Integer userId,Integer roleId) {
+	public UserRoleDo getUserRoleRelation(Integer userId, Integer roleId) {
 		// 查询角色用户关系
-		return roleResourceMapper.getUserRoleRelation(userId,roleId);
+		return roleResourceMapper.getUserRoleRelation(userId, roleId);
 	}
+
 	@Override
-	public void addUserRoleRelation(Integer userId,Integer roleId,String loginName) {
+	public void addUserRoleRelation(Integer userId, Integer roleId, String loginName) {
 		// 新增角色用户关系
 		UserRoleDo userRoleDo = new UserRoleDo();
 		userRoleDo.setUserId(userId);
@@ -97,10 +93,21 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		roleResourceMapper.addUserRoleRelation(userRoleDo);
 	}
 
+    public void addUserRoleMapping() {
+    }
+
+    public Integer addUserResourceMapping(UserInfoTableDo userDo, String resourceIdSet) {
+        if (StringUtils.isBlank(resourceIdSet)) {
+            return 0;
+        }
+
+        return null;
+    }
+
 	@Override
-	public void deleteUserRoleRelation(Integer userId,Integer roleId) {
+	public void deleteUserRoleRelation(Integer userId, Integer roleId) {
 		// 删除角色用户关系
-		UserRoleDo userRoleDo=new UserRoleDo();
+		UserRoleDo userRoleDo = new UserRoleDo();
 		userRoleDo.setUserId(userId);
 		userRoleDo.setRoleId(roleId);
 		this.delete(userRoleDo);
@@ -159,7 +166,6 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		String[] resourceArr = resourceSet.split(",");
 		RoleResourceDo roleResourceDo = null;
 		ResourceDo resourceDo = null;
-		Date currentDate = DateUtils.parserDate(DateUtils.format(new Date(), "yyyyMMddHHmmss"), "yyyyMMddHHmmss");
 		for (int i = 0; i < resourceArr.length; i++) {
 			resourceDo = roleResourceMapper.getResourceByCode(resourceArr[i]);
 			if (resourceDo == null) {
@@ -169,7 +175,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 			roleResourceDo.setRoleId(roleId);
 			roleResourceDo.setResourceId(resourceDo.getId());
 			roleResourceDo.setCreateBy(loginName);
-			roleResourceDo.setCreateDate(currentDate);
+			roleResourceDo.setCreateDate(new Date());
 			roleResourceMapper.addRoleResourceRelation(roleResourceDo);
 		}
 	}
@@ -246,39 +252,41 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 
 	@Override
 	public Map<String, Object> getUserRoleResource(Integer userId) throws Exception {
-        Map<String, Object> map = new HashMap<>();
-        List<RoleDo> roles = this.roleResourceMapper.getRoleByUser(userId);
-        map.put("role", roles);
-        List<String> resourceCodes = this.roleResourceMapper.getUserResourceCode(userId);
-        map.put("resourceCode", resourceCodes);
-        return map;
-    }
+		Map<String, Object> map = new HashMap<>();
+		List<RoleDo> roles = this.roleResourceMapper.getRoleByUser(userId);
+		map.put("role", roles);
+		List<String> resourceCodes = this.roleResourceMapper.getUserResourceCode(userId);
+		map.put("resourceCode", resourceCodes);
+		return map;
+	}
 
 	@Override
 	public Map<String, Object> listRoleAssign(Integer roleId) throws Exception {
-		Map<String, Object> params = new HashMap();
-		params.put("roleId",roleId);
-		RoleDo roleDo=roleResourceMapper.getRoleBaseByIdNameType(params);
-		params.put("userType",roleDo.getType());
+		Map<String, Object> params = new HashMap<>();
+		params.put("roleId", roleId);
+		RoleDo roleDo = roleResourceMapper.getRoleBaseByIdNameType(params);
+		params.put("userType", roleDo.getType());
 
 		List<UserRoleDTO> list = this.roleResourceMapper.listRoleAssign(params);
-		Map<String, Object> rstMap = new HashMap();
-		//已分配该角色的用户
-		List assignList=new ArrayList();
-		//未分配该角色的用户
-		List unassignList=new ArrayList();
-		for(UserRoleDTO userRoleDTO:list){
-			if(null!=userRoleDTO.getRoleId()){
+		Map<String, Object> rstMap = new HashMap<>();
+		// 已分配该角色的用户
+		List<UserRoleDTO> assignList = new ArrayList<>();
+		// 未分配该角色的用户
+		List<UserRoleDTO> unassignList = new ArrayList<>();
+		for (UserRoleDTO userRoleDTO : list) {
+			if (null != userRoleDTO.getRoleId()) {
 				assignList.add(userRoleDTO);
-			}else{
+			} else {
 				unassignList.add(userRoleDTO);
 			}
-
 		}
-		rstMap.put("assign",assignList);
-		rstMap.put("unassign",unassignList);
+		rstMap.put("assign", assignList);
+		rstMap.put("unassign", unassignList);
 
 		return rstMap;
+	}
+
+	public void saveUserRoleResource(UserInfoTableDo userDo, String roleIdSet, String resourceIdSet) {
 	}
 
 }

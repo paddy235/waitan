@@ -64,6 +64,15 @@ public interface RoleResourceMapper {
 	List<RoleDo> getRoleByUser(@Param("userId") Integer userId);
 
 	/**
+	 * 查询某个用户对应的临时角色
+	 *
+	 * @param userId
+	 * @return
+	 */
+	@Select("SELECT r.id,r.name,r.type FROM role r JOIN user_role ur ON ur.role_id = r.id AND ur.user_id = #{userId} ")
+	List<RoleDo> getTempRoleByUser(@Param("userId") Integer userId);
+
+	/**
 	 * 查找某个用户对用的权限code
 	 *
 	 * @param userId
@@ -75,6 +84,5 @@ public interface RoleResourceMapper {
 
 	List<UserRoleDTO> listRoleAssign(@Param("roleId") Integer roleId);
 	List<UserRoleDTO> listRoleAssign(Map<String, Object> params);
-
 
 }
