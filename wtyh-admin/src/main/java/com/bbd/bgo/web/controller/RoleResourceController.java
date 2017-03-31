@@ -252,11 +252,11 @@ public class RoleResourceController {
 	 *
 	 * @return
 	 */
-	@RequestMapping("/role-resource-by-parent")
+	@RequestMapping("/role-resource-by-type")
 	@ResponseBody
-	public Object getRoleResourceByParent(@RequestParam Integer parentId) {
+	public Object getRoleResourceByUserType(@RequestParam Integer userType) {
 		try {
-			List<RoleDo> list = this.roleResourceService.getRoleResource(parentId);
+			List<RoleDo> list = this.roleResourceService.getRoleResource(userType);
 			return ResponseBean.successResponse(list);
 		} catch (Exception e) {
 			return ExceptionHandler.handlerException(e);
