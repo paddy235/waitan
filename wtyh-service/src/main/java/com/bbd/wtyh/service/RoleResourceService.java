@@ -32,6 +32,11 @@ public interface RoleResourceService {
 	 */
 	void updateRoleBase(Integer roleId, String roleName, String roleDes, String loginName);
 
+	/**
+	 * 删除正式角色基本信息
+	 */
+	void deleteRoleBase(Integer roleId);
+
 	void addUserRoleResource(UserInfoTableDo userInfoTableDo, String resourceSet, String loginName);
 
 	UserRoleDo getUserRoleRelation(Integer userId, Integer roleId);
@@ -89,10 +94,7 @@ public interface RoleResourceService {
 	List<RoleDo> listRoleBase(String roleType, int pageLimit, Integer pageNumber);
 
 	// 取角色
-	RoleDo getRoleBase(Integer roleId, String roleName, String roleType);
-
-	// 取子角色
-	List<RoleDo> listSonRoleBase(Integer parentId);
+	RoleDo getRoleBase(Integer roleId, String roleName);
 
 	// 通过角色ID取对应的权限集
 	List<ResourceDo> listResourceByRoleId(Integer roleId);
@@ -103,7 +105,7 @@ public interface RoleResourceService {
 	 * @return
 	 * @throws Exception
 	 */
-	List<ResourceDo> getAllResource() throws Exception;
+	List<ResourceDo> getAllResource(String type) throws Exception;
 
 	/**
 	 * 获取所有父级角色
@@ -116,12 +118,12 @@ public interface RoleResourceService {
 	/**
 	 * 根据角色类别获取角色及权限
 	 * 
-	 * @param parentId
+	 * @param userType
 	 *            角色类别ID
 	 * @return
 	 * @throws Exception
 	 */
-	List<RoleDo> getRoleResource(Integer parentId) throws Exception;
+	List<RoleDo> getRoleResource(String userType) throws Exception;
 
 	/**
 	 * 获取某个用户对应的角色和用户对应的权限code
@@ -140,7 +142,7 @@ public interface RoleResourceService {
 	 * @return
 	 * @throws Exception
 	 */
-	Map<String, Object> listRoleAssign(Integer roleId) throws Exception;
+	Map<String, List<UserRoleDTO>> listRoleAssign(Integer roleId) throws Exception;
 
 	/**
 	 * 保存用户角色权限
@@ -155,7 +157,7 @@ public interface RoleResourceService {
 
 	/**
 	 * 删除用户角色权限
-	 * 
+	 *
 	 * @param userDo
 	 * @throws Exception
 	 */

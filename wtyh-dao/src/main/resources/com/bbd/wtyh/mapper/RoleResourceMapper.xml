@@ -28,8 +28,8 @@
 
     <insert id="addRoleBase" parameterType="com.bbd.wtyh.domain.RoleDo" useGeneratedKeys="true" keyProperty="id"
             keyColumn="id">
-        INSERT INTO `role` (`name`, `description`, `type`, `create_date`, `update_date`, `create_by`, `update_by`)
-        VALUES (#{name}, #{description}, #{type}, #{createDate}, #{updateDate}, #{createBy}, #{updateBy});
+        INSERT INTO `role` (`name`, `description`, `type`, `create_date`, `update_date`, `create_by`, `update_by`, `user_type`)
+        VALUES (#{name}, #{description}, #{type}, #{createDate}, #{updateDate}, #{createBy}, #{updateBy}, #{userType});
     </insert>
 
     <insert id="updateRoleBase" parameterType="com.bbd.wtyh.domain.RoleDo"  >
@@ -89,11 +89,11 @@
         update_date AS updateDate ,
         create_by AS createBy ,
         update_by AS updateBy ,
-        parent_id AS parentId
+        user_type AS userType
         from role
         where
-        type not in('S','D')
-        <if test="roleType != null">and type = #{roleType}</if>
+        type not in('S','D','T')
+        <if test="userType != null">and user_type = #{userType}</if>
         order by update_date desc
         <if test="listing !=null ">
             LIMIT
@@ -104,19 +104,6 @@
         </if>
     </select>
 
-    <select id="listSonRoleBase" parameterType="int" resultType="com.bbd.wtyh.domain.RoleDo">
-        select id,name,description,type,
-        create_date AS createDate ,
-        update_date AS updateDate ,
-        create_by AS createBy ,
-        update_by AS updateBy ,
-        parent_id AS parentId
-        from role
-        where
-        1=1
-        <if test="parentId != null">and parent_id = #{parentId}</if>
-        order by name
-    </select>
 
     <select id="getRoleBaseByIdNameType" parameterType="java.util.HashMap" resultType="com.bbd.wtyh.domain.RoleDo">
         select id,name,description,type,
@@ -124,13 +111,12 @@
         update_date AS updateDate ,
         create_by AS createBy ,
         update_by AS updateBy ,
-        parent_id AS parentId
+        user_type AS userType
         from role
         where
         1=1
         <if test="roleId != null">and id = #{roleId}</if>
         <if test="roleName != null">and name = #{roleName}</if>
-        <if test="roleType != null">and type = #{roleType}</if>
 
     </select>
 
@@ -151,30 +137,42 @@
 
     <resultMap id="roleResource" type="com.bbd.wtyh.domain.RoleDo">
         <id property="id" column="id"/>
-        <result property="parentId" column="parent_id"/>
+        <result property="userType" column="user_type"/>
         <collection property="resources" javaType="java.util.ArrayList" select="selectParentResourceByRole" column="id"/>
     </resultMap>
 
     <resultMap id="allResource" type="com.bbd.wtyh.domain.ResourceDo">
         <id property="id" column="id"/>
+        <result property="code" column="code"/>
         <result property="parentCode" column="parent_code"/>
         <collection property="childResource" javaType="java.util.ArrayList" ofType="com.bbd.wtyh.domain.ResourceDo"
-                    column="code" select="selectChildResource" />
+                    column="code" select="selectChildResource"/>
     </resultMap>
 
     <select id="getAllResource" resultMap="allResource">
-        SELECT re.id,re.code,re.name,re.type,re.parent_code AS parentId FROM resource re
+        SELECT
+            re.id,re.code,re.name,re.type,re.parent_code
+        FROM resource re
+        WHERE
+            re.parent_code IS NULL
+            <if test="type != null and type != ''">
+                AND re.type = #{type}
+            </if>
     </select>
 
-    <select id="getRoleResource" resultMap="roleResource" parameterType="int">
+    <select id="getRoleResource" resultMap="roleResource">
         SELECT
             r.id,
             r.name,
             r.type,
-            r.parent_id AS parentId
+            r.user_type AS userType
         FROM
             role r
-        WHERE r.parent_id = #{parentId} AND r.type != 'T'
+        WHERE r.user_type = #{userType}
+        <if test="roleType != null and roleType != ''">
+            AND r.type = #{roleType}
+        </if>
+
     </select>
 
     <select id="selectChildResource" resultMap="allResource">
@@ -183,7 +181,7 @@
             re.code,
             re.name,
             re.type,
-            re.parent_code AS parentId
+            re.parent_code AS parentCode
         FROM
             resource re
         WHERE

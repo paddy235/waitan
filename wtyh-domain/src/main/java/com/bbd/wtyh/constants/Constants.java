@@ -20,18 +20,18 @@ public class Constants {
 
 	public static class role {
 
-		/** 角色类型：前台角色 */
-		public static final String TYPE_FRONT = "F";
-		/** 角色类型：后台角色 */
-		public static final String TYPE_BACK = "B";
 		/** 角色类型：临时角色 */
 		public static final String TYPE_TEMP = "T";
+		/** 超级管理员角色类型 */
+		public static final String TYPE_SUPER = "S";
+		/** 预设模板角色类型：系统管理员角色 普通用户角色 */
+		public static final String TYPE_DEFAULT = "D";
+		/** 正式角色类型 */
+		public static final String TYPE_REGULAR = "R";
+
 	}
 
-	// 角色模板
-	public static final String TEMPLATE_SYS = "系统管理员角色";// 系统管理员
-
-	public static final String TEMPLATE_NOR = "普通用户角色";// 系统管理员
+	// 角色类型
 
 	// 权限列表
 	public static final String F_HYJCPT = "F_HYJCPT";// 行业监测平台

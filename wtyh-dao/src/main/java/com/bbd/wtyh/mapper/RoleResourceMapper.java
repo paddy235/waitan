@@ -5,10 +5,7 @@ import com.bbd.wtyh.domain.dto.UserRoleDTO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  *
@@ -47,23 +44,22 @@ public interface RoleResourceMapper {
 
 	RoleDo getRoleBaseByIdNameType(Map<String, Object> params);
 
-	List<RoleDo> listSonRoleBase(@Param("parentId") int parentId);
-
 	// 通过角色ID取对应的权限集
 	List<ResourceDo> listResourceByRoleId(@Param("roleId") int roleId);
 
-	List<ResourceDo> getAllResource();
+	List<ResourceDo> getAllResource(@Param("type") String type);
 
-	List<RoleDo> getRoleResource(@Param("parentId") Integer parentId);
+	List<RoleDo> getRoleResource(@Param("userType") String userType, @Param("roleType") String roleType);
 
 	/**
 	 * 查询某个用户对应的角色
 	 *
 	 * @param userId
+	 * @param roleType
 	 * @return
 	 */
-	@Select("SELECT r.id,r.name,r.type FROM role r JOIN user_role ur ON ur.role_id = r.id AND ur.user_id = #{userId} ")
-	List<RoleDo> getRoleByUser(@Param("userId") Integer userId);
+	@Select("SELECT r.id,r.name,r.type FROM role r JOIN user_role ur ON ur.role_id = r.id AND ur.user_id = #{userId} AND r.type = #{roleType}")
+	List<RoleDo> getRoleByUser(@Param("userId") Integer userId, @Param("roleType") String roleType);
 
 	/**
 	 * 查询某个用户对应的临时角色
@@ -71,8 +67,8 @@ public interface RoleResourceMapper {
 	 * @param userId
 	 * @return
 	 */
-	@Select("SELECT r.id,r.name,r.type FROM role r JOIN user_role ur ON ur.role_id = r.id AND ur.user_id = #{userId} AND r.type = 'T'")
-	RoleDo getTempRoleByUser(@Param("userId") Integer userId);
+	@Select("SELECT r.id,r.name,r.type FROM role r JOIN user_role ur ON ur.role_id = r.id AND ur.user_id = #{userId} AND r.type = #{roleType}")
+	RoleDo getTempRoleByUser(@Param("userId") Integer userId, @Param("roleType") String roleType);
 
 	/**
 	 * 查找某个用户对用的权限code
@@ -82,7 +78,7 @@ public interface RoleResourceMapper {
 	 */
 	@Select("SELECT re.code FROM resource re JOIN role_resource rr ON rr.resource_id = re.id JOIN user_role ur ON "
 			+ "ur.role_id = rr.role_id AND ur.user_id = #{userId} GROUP BY re.`code`")
-	List<String> getUserResourceCode(@Param("userId") Integer userId);
+	Set<String> getUserResourceCode(@Param("userId") Integer userId);
 
 	List<UserRoleDTO> listRoleAssign(@Param("roleId") Integer roleId);
 

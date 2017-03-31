@@ -6,6 +6,7 @@ import java.util.Map;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.bbd.wtyh.domain.ResourceDo;
+import com.bbd.wtyh.domain.dto.UserRoleDTO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -41,7 +42,7 @@ public class RoleResourceTest {
 	@Test
 	public void getRoleResourceTest() throws Exception {
 		long s = System.currentTimeMillis();
-		List<RoleDo> list = this.resourceService.getRoleResource(88);
+		List<RoleDo> list = this.resourceService.getRoleResource("B");
 		long e = System.currentTimeMillis();
 		System.out.println((e - s));
 		System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
@@ -49,12 +50,13 @@ public class RoleResourceTest {
 
 	@Test
 	public void getAllResourceTest() throws Exception {
-		List<ResourceDo> list = this.resourceService.getAllResource();
+		List<ResourceDo> list = this.resourceService.getAllResource("B");
 		System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
 	}
+
 	@Test
 	public void listRoleAssign() throws Exception {
-		Map<String,Object> map = this.resourceService.listRoleAssign(Integer.valueOf(1));
+		Map<String, List<UserRoleDTO>> map = this.resourceService.listRoleAssign(Integer.valueOf(1));
 		System.err.println(JSON.toJSONString(map, SerializerFeature.PrettyFormat));
 	}
 
@@ -63,5 +65,4 @@ public class RoleResourceTest {
 		Map<String, Object> list = this.resourceService.getUserRoleResource(45);
 		System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
 	}
-
 }
