@@ -7,6 +7,7 @@ import com.bbd.wtyh.domain.ResourceDo;
 import com.bbd.wtyh.domain.RoleDo;
 import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.exception.BusinessException;
+import com.bbd.wtyh.exception.ExceptionHandler;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.service.AreaService;
@@ -35,8 +36,9 @@ import java.util.*;
  * @since 2017年03月28日
  */
 @Controller
-@RequestMapping("/roleResource")
+@RequestMapping("/role-resource")
 public class RoleResourceController {
+
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
 	private RoleResourceService roleResourceService;
@@ -48,16 +50,13 @@ public class RoleResourceController {
 	@RequestMapping("/listRole.do")
 	@ResponseBody
 	@LogRecord(logMsg = "浏览角色列表", type = Operation.Type.browse, after = true, before = false)
-	public Object listRole(@RequestParam String roleType,
-						   @RequestParam int pageSize,
-						   Integer pageNumber,
-						   HttpServletRequest request){
+	public Object listRole(@RequestParam String roleType, @RequestParam int pageSize, Integer pageNumber, HttpServletRequest request) {
 
-		Map<String, Object> rstMap=new HashedMap();
-		try{
+		Map<String, Object> rstMap = new HashedMap();
+		try {
 
-			List<RoleDo> list=roleResourceService.listRoleBase(roleType,pageSize,pageNumber);
-			rstMap.put("roleList",list);
+			List<RoleDo> list = roleResourceService.listRoleBase(roleType, pageSize, pageNumber);
+			rstMap.put("roleList", list);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseBean.errorResponse("服务器异常：" + e);
@@ -67,83 +66,117 @@ public class RoleResourceController {
 
 	@RequestMapping("/templateRole")
 	@ResponseBody
-	public Object templateRole(@RequestParam String roleType,HttpServletRequest request) {
-		String roleName=roleType;
-		Map<String, Object> rstMap=new HashedMap();
-		//取模板角色
-		RoleDo roleDo=roleResourceService.getRoleBase(null,roleName,null);
-		//取模板角色对应的权限集
-		List<ResourceDo> listRes=roleResourceService.listResourceByRoleId(roleDo.getId());
-		//取模板角色子角色
-		List<RoleDo> listRole=roleResourceService.listSonRoleBase(roleDo.getId());
-		rstMap.put("resource",listRes);
-		rstMap.put("role",listRole);
+	public Object templateRole(@RequestParam String roleType, HttpServletRequest request) {
+		String roleName = roleType;
+		Map<String, Object> rstMap = new HashMap<>();
+		// 取模板角色
+		RoleDo roleDo = roleResourceService.getRoleBase(null, roleName, null);
+		// 取模板角色对应的权限集
+		List<ResourceDo> listRes = roleResourceService.listResourceByRoleId(roleDo.getId());
+		// 取模板角色子角色
+		List<RoleDo> listRole = roleResourceService.listSonRoleBase(roleDo.getId());
+		rstMap.put("resource", listRes);
+		rstMap.put("role", listRole);
 		return ResponseBean.successResponse(rstMap);
 	}
 
 	@RequestMapping("/getResourceByRoleId")
 	@ResponseBody
-	public Object getResourceByRoleId(@RequestParam int roleId,HttpServletRequest request) {
-		Map<String, Object> rstMap=new HashedMap();
-		List<ResourceDo> listRes=roleResourceService.listResourceByRoleId(roleId);
-		rstMap.put("resource",listRes);
+	public Object getResourceByRoleId(@RequestParam int roleId, HttpServletRequest request) {
+		Map<String, Object> rstMap = new HashMap<>();
+		List<ResourceDo> listRes = roleResourceService.listResourceByRoleId(roleId);
+		rstMap.put("resource", listRes);
 		return ResponseBean.successResponse(rstMap);
 	}
 
+	/**
+	 * 所有权限资源。
+	 *
+	 * @return
+	 */
+	@RequestMapping("/all-resource")
+	@ResponseBody
+	public Object getAllResource() {
+		try {
+			List<ResourceDo> list = this.roleResourceService.getAllResource();
+			return ResponseBean.successResponse(list);
+		} catch (Exception e) {
+			return ExceptionHandler.handlerException(e);
+		}
+	}
+
+	/**
+	 * 父级角色。
+	 *
+	 * @return
+	 */
+	@RequestMapping("/parent-role")
+	@ResponseBody
+	public Object getParentRole() {
+		try {
+			List<RoleDo> list = this.roleResourceService.getParentRole();
+			return ResponseBean.successResponse(list);
+		} catch (Exception e) {
+			return ExceptionHandler.handlerException(e);
+		}
+	}
+
+	/**
+	 * 由父级角色获取下级角色及权限。
+	 *
+	 * @return
+	 */
+	@RequestMapping("/role-resource-by-parent")
+	@ResponseBody
+	public Object getRoleResourceByParent(@RequestParam Integer parentId) {
+		try {
+			List<RoleDo> list = this.roleResourceService.getRoleResource(parentId);
+			return ResponseBean.successResponse(list);
+		} catch (Exception e) {
+			return ExceptionHandler.handlerException(e);
+		}
+	}
 
 	@RequestMapping("/e_g_getAllRoleAndResourceTableInSys.do")
 	@ResponseBody
 	public Object getAllRoleAndResourceTableInSys(HttpServletRequest request) {
-		Map<String, Object> rstMap=new HashedMap();
-		List<ResourceDo> listRes=roleResourceService.listResourceByRoleId(10);
-		rstMap.put("resource",listRes);
-		List< Map<String, Object> > lmo = new ArrayList< Map<String, Object> >() {{
-			add(new HashMap<String, Object>() {{
-				put("name", "e.g.角色1");
-				put("code", "e.g.Role1");
-				put("resourceCode", new String[]{ "resourceCode6","resourceCode7","resourceCode16" });
-			}});
-			add(new HashMap<String, Object>() {{
-				put("name", "e.g.角色2");
-				put("code", "e.g.expRole2");
-				put("resourceCode", new String[]{ "resourceCode1","resourceCode4","resourceCode9","resourceCode11","resourceCode13" });
-			}});
-			add(new HashMap<String, Object>() {{
-				put("name", "e.g.角色n");
-				put("code", "e.g.expRolen");
-				put("resourceCode", new String[]{ "resourceCode2","resourceCode3","resourceCode5" });
-			}});
-		}};
+		Map<String, Object> rstMap = new HashedMap();
+		List<ResourceDo> listRes = roleResourceService.listResourceByRoleId(10);
+		rstMap.put("resource", listRes);
+		List<Map<String, Object>> lmo = new ArrayList<Map<String, Object>>() {
 
-		rstMap.put("role",lmo);
+			{
+				add(new HashMap<String, Object>() {
+
+					{
+						put("name", "e.g.角色1");
+						put("code", "e.g.Role1");
+						put("resourceCode", new String[] { "resourceCode6", "resourceCode7", "resourceCode16" });
+					}
+				});
+				add(new HashMap<String, Object>() {
+
+					{
+						put("name", "e.g.角色2");
+						put("code", "e.g.expRole2");
+						put("resourceCode",
+								new String[] { "resourceCode1", "resourceCode4", "resourceCode9", "resourceCode11", "resourceCode13" });
+					}
+				});
+				add(new HashMap<String, Object>() {
+
+					{
+						put("name", "e.g.角色n");
+						put("code", "e.g.expRolen");
+						put("resourceCode", new String[] { "resourceCode2", "resourceCode3", "resourceCode5" });
+					}
+				});
+			}
+		};
+
+		rstMap.put("role", lmo);
 
 		return ResponseBean.successResponse(rstMap);
-	}
-
-
-
-
-
-
-	private List tranResource(List<ResourceDo> list){
-
-		if(null==list){
-			return list;
-		}
-		List newList=new ArrayList();
-		for(ResourceDo resourceDo:list){
-			if(StringUtils.isNullOrEmpty(resourceDo.getParentCode())){
-				Map<String,String> map=new HashMap<>();
-				map.put("name",resourceDo.getName());
-				map.put("code",resourceDo.getCode());
-				newList.add(map);
-			}else{
-
-			}
-
-		}
-
-		return newList;
 	}
 
 
