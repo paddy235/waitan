@@ -1,5 +1,6 @@
 package com.bbd.bgo.web.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -298,6 +299,12 @@ public class UserInfoController {
     @RequestMapping("/queryShanghaiAreaCodeTable.do")
     @ResponseBody
     public Object queryShanghaiAreaCodeTable( String type, HttpServletRequest request) {
+        List<Map<String, Object>> rstList = new
+                ArrayList<Map<String, Object>>(CodeNameMap.getAndUpdateShanghaiAreaCodeTable(false));
+        if( null ==type || !type.equals("0") ) {
+            rstList.remove(0);
+        }
+        return  ResponseBean.successResponse(rstList);
         /*List<Map<String, Object>> rstList = null;
         try {
             rstList = uis.getShanghaiAreaCodeTable(type);
@@ -309,8 +316,7 @@ public class UserInfoController {
         }
         CodeNameMap.setShanghaiAreaCodeList(rstList, false);
         return ResponseBean.successResponse(rstList);
-        */
-        return  ResponseBean.successResponse(CodeNameMap.getAndUpdateShanghaiAreaCodeTable(false));
+        return  ResponseBean.successResponse(CodeNameMap.getAndUpdateShanghaiAreaCodeTable(false));*/
     }
 
     @RequestMapping("/queryUserListDictionary.do")
