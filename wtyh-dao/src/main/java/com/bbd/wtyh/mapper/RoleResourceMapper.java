@@ -54,16 +54,17 @@ public interface RoleResourceMapper {
 
 	List<ResourceDo> getAllResource(@Param("type") String type);
 
-	List<RoleDo> getRoleResource(@Param("userType") String userType);
+	List<RoleDo> getRoleResource(@Param("userType") String userType, @Param("roleType") String roleType);
 
 	/**
 	 * 查询某个用户对应的角色
 	 *
 	 * @param userId
+	 * @param roleType
 	 * @return
 	 */
-	@Select("SELECT r.id,r.name,r.type FROM role r JOIN user_role ur ON ur.role_id = r.id AND ur.user_id = #{userId} AND r.type = 'R'")
-	List<RoleDo> getRoleByUser(@Param("userId") Integer userId);
+	@Select("SELECT r.id,r.name,r.type FROM role r JOIN user_role ur ON ur.role_id = r.id AND ur.user_id = #{userId} AND r.type = #{roleType}")
+	List<RoleDo> getRoleByUser(@Param("userId") Integer userId, @Param("roleType") String roleType);
 
 	/**
 	 * 查询某个用户对应的临时角色
@@ -71,8 +72,8 @@ public interface RoleResourceMapper {
 	 * @param userId
 	 * @return
 	 */
-	@Select("SELECT r.id,r.name,r.type FROM role r JOIN user_role ur ON ur.role_id = r.id AND ur.user_id = #{userId} AND r.type = 'T'")
-	RoleDo getTempRoleByUser(@Param("userId") Integer userId);
+	@Select("SELECT r.id,r.name,r.type FROM role r JOIN user_role ur ON ur.role_id = r.id AND ur.user_id = #{userId} AND r.type = #{roleType}")
+	RoleDo getTempRoleByUser(@Param("userId") Integer userId, @Param("roleType") String roleType);
 
 	/**
 	 * 查找某个用户对用的权限code

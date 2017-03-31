@@ -174,7 +174,7 @@
             </if>
     </select>
 
-    <select id="getRoleResource" resultMap="roleResource" parameterType="int">
+    <select id="getRoleResource" resultMap="roleResource">
         SELECT
             r.id,
             r.name,
@@ -182,7 +182,11 @@
             r.user_type AS userType
         FROM
             role r
-        WHERE r.user_type = #{userType} AND r.type = 'R'
+        WHERE r.user_type = #{userType}
+        <if test="roleType != null and roleType != ''">
+            AND r.type = #{roleType}
+        </if>
+
     </select>
 
     <select id="selectChildResource" resultMap="allResource">
