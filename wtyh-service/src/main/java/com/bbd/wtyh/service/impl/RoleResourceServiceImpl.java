@@ -89,20 +89,9 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		userRoleDo.setUserId(userId);
 		userRoleDo.setRoleId(roleId);
 		userRoleDo.setCreateBy(loginName);
-		userRoleDo.setCreateDate(DateUtils.parserDate(DateUtils.format(new Date(), "yyyyMMddHHmmss"), "yyyyMMddHHmmss"));
+		userRoleDo.setCreateDate(new Date());
 		roleResourceMapper.addUserRoleRelation(userRoleDo);
 	}
-
-    public void addUserRoleMapping() {
-    }
-
-    public Integer addUserResourceMapping(UserInfoTableDo userDo, String resourceIdSet) {
-        if (StringUtils.isBlank(resourceIdSet)) {
-            return 0;
-        }
-
-        return null;
-    }
 
 	@Override
 	public void deleteUserRoleRelation(Integer userId, Integer roleId) {
@@ -178,6 +167,59 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 			roleResourceDo.setCreateDate(new Date());
 			roleResourceMapper.addRoleResourceRelation(roleResourceDo);
 		}
+	}
+
+	@Override
+	public void addUserRoleMapping(UserInfoTableDo userDo, String roleIdSet, String createBy) throws Exception {
+		if (StringUtils.isBlank(roleIdSet)) {
+			return;
+		}
+		String[] roleIds = roleIdSet.split(",");
+		List<UserRoleDo> urList = new ArrayList<>(roleIds.length);
+
+		for (String id : roleIds) {
+			UserRoleDo userRoleDo = new UserRoleDo();
+			userRoleDo.setUserId(userDo.getId());
+			userRoleDo.setRoleId(Integer.parseInt(id));
+			userRoleDo.setCreateBy(createBy);
+			userRoleDo.setCreateDate(new Date());
+			urList.add(userRoleDo);
+		}
+		// 删除该用户与角色所有的对应关系
+		this.excuteDel("DELETE FROM user_role WHERE user_id = " + userDo.getId());
+		this.insertList(urList);
+	}
+
+	@Override
+	public RoleDo addUserResourceMapping(UserInfoTableDo userDo, String resourceIdSet, String createBy) throws Exception {
+		if (StringUtils.isBlank(resourceIdSet)) {
+			return null;
+		}
+
+		RoleDo roleDo = this.roleResourceMapper.getTempRoleByUser(userDo.getId());
+		if (roleDo == null) {
+			roleDo = this.addRoleBase("临时角色", userDo.getLoginName(), Constants.role.TYPE_TEMP, createBy);
+		}
+		this.addRoleResourceMapping(roleDo.getId(), resourceIdSet, createBy);
+		return roleDo;
+	}
+
+	@Override
+	public void addRoleResourceMapping(Integer roleId, String resourceIdSet, String createBy) throws Exception {
+		String[] resourceIds = resourceIdSet.split(",");
+		List<RoleResourceDo> rrList = new ArrayList<>(resourceIds.length);
+
+		for (String id : resourceIds) {
+			RoleResourceDo rr = new RoleResourceDo();
+			rr.setRoleId(roleId);
+			rr.setResourceId(Integer.parseInt(id));
+			rr.setCreateBy(createBy);
+			rr.setCreateDate(new Date());
+			rrList.add(rr);
+		}
+		// 删除该角色与权限所有的对应关系
+		this.excuteDel("DELETE FROM role_resource WHERE role_id = " + roleId);
+		this.insertList(rrList);
 	}
 
 	/**
@@ -286,7 +328,16 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		return rstMap;
 	}
 
-	public void saveUserRoleResource(UserInfoTableDo userDo, String roleIdSet, String resourceIdSet) {
+	@Override
+	public void saveUserRoleResource(UserInfoTableDo userDo, String roleIdSet, String resourceIdSet, String createBy) throws Exception {
+		if (userDo == null) {
+			return;
+		}
+		RoleDo roleDo = this.addUserResourceMapping(userDo, resourceIdSet, createBy);
+		if (roleDo != null) {
+			roleIdSet += ("," + roleDo.getId());
+		}
+		this.addUserRoleMapping(userDo, roleIdSet, createBy);
 	}
 
 }

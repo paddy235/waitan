@@ -26,17 +26,48 @@ public interface RoleResourceService {
 
 	void addUserRoleResource(UserInfoTableDo userInfoTableDo, String resourceSet, String loginName);
 
-	UserRoleDo getUserRoleRelation(Integer userId,Integer roleId);
+	UserRoleDo getUserRoleRelation(Integer userId, Integer roleId);
 
-	void addUserRoleRelation(Integer userId,Integer roleId,String loginName);
+	void addUserRoleRelation(Integer userId, Integer roleId, String loginName);
 
-	void deleteUserRoleRelation(Integer userId,Integer roleId);
+	void deleteUserRoleRelation(Integer userId, Integer roleId);
 
 	void updateUserRoleResource(UserInfoTableDo userInfoTableDo, String resourceSet, String loginName);
 
 	void deleteUserRoleResource(Integer userId, String loginName);
 
 	void addRoleResourceRelation(Integer roleId, String resourceSet, String loginName);
+
+	/**
+	 * 添加用户和角色的关系映射
+	 * 
+	 * @param userDo
+	 * @param roleIdSet
+	 * @param createBy
+	 * @throws Exception
+	 */
+	void addUserRoleMapping(UserInfoTableDo userDo, String roleIdSet, String createBy) throws Exception;
+
+	/**
+	 * 添加用户和权限的关系映射
+	 * 
+	 * @param userDo
+	 * @param resourceIdSet
+	 * @param createBy
+	 * @return
+	 * @throws Exception
+	 */
+	RoleDo addUserResourceMapping(UserInfoTableDo userDo, String resourceIdSet, String createBy) throws Exception;
+
+	/**
+	 * 添加角色和权限的映射关系
+	 * 
+	 * @param roleId
+	 * @param resourceIdSet
+	 * @param createBy
+	 * @throws Exception
+	 */
+	void addRoleResourceMapping(Integer roleId, String resourceIdSet, String createBy) throws Exception;
 
 	// 浏览角色列表
 	List<RoleDo> listRoleBase(String roleType, int pageLimit, Integer pageNumber);
@@ -84,6 +115,7 @@ public interface RoleResourceService {
 	 * @throws Exception
 	 */
 	Map<String, Object> getUserRoleResource(Integer userId) throws Exception;
+
 	/**
 	 * 根据角色ID获取已分配该角色和未分配该角色的用户集合
 	 *
@@ -94,4 +126,14 @@ public interface RoleResourceService {
 	 */
 	Map<String, Object> listRoleAssign(Integer roleId) throws Exception;
 
+	/**
+	 * 保存用户角色权限
+	 * 
+	 * @param userDo
+	 * @param roleIdSet
+	 * @param resourceIdSet
+	 * @param createBy
+	 * @throws Exception
+	 */
+	void saveUserRoleResource(UserInfoTableDo userDo, String roleIdSet, String resourceIdSet, String createBy) throws Exception;
 }
