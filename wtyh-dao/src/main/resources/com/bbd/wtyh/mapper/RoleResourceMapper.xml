@@ -163,7 +163,7 @@
     </resultMap>
 
     <select id="getAllResource" resultMap="allResource">
-        SELECT re.id,re.code,re.name,re.type,re.parent_code AS parentId FROM resource re
+        SELECT re.id,re.code,re.name,re.type,re.parent_code AS parentId FROM resource re WHERE parent_code IS NULL
     </select>
 
     <select id="getRoleResource" resultMap="roleResource" parameterType="int">
