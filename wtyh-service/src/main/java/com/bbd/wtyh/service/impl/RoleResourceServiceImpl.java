@@ -6,6 +6,7 @@ import com.bbd.wtyh.constants.Constants;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.dto.UserRoleDTO;
+import com.bbd.wtyh.exception.BusinessException;
 import com.bbd.wtyh.mapper.RoleResourceMapper;
 import com.bbd.wtyh.service.RoleResourceService;
 import org.apache.commons.lang.StringUtils;
@@ -349,6 +350,9 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		Map<String, Object> params = new HashMap<>();
 		params.put("roleId", roleId);
 		RoleDo roleDo = roleResourceMapper.getRoleBaseByIdNameType(params);
+		if(null==roleDo){
+			throw  new BusinessException("角色不存在");
+		}
 		params.put("userType", roleDo.getType());
 
 		List<UserRoleDTO> list = this.roleResourceMapper.listRoleAssign(params);
@@ -358,7 +362,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		// 未分配该角色的用户
 		List<UserRoleDTO> unassignList = new ArrayList<>();
 		for (UserRoleDTO userRoleDTO : list) {
-			if (null != userRoleDTO.getRoleId()) {
+			if (null != userRoleDTO.getUserId()) {
 				assignList.add(userRoleDTO);
 			} else {
 				unassignList.add(userRoleDTO);
