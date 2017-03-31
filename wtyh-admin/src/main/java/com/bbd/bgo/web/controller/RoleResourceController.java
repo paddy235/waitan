@@ -50,7 +50,7 @@ public class RoleResourceController {
 	 *
 	 * @return
 	 */
-	@RequestMapping("/listRole.do")
+	@RequestMapping("/list-role.do")
 	@ResponseBody
 	@LogRecord(logMsg = "浏览角色列表", type = Operation.Type.browse, after = true, before = false)
 	public Object listRole(@RequestParam String roleType, @RequestParam int pageSize, Integer pageNumber, HttpServletRequest request) {
@@ -72,7 +72,7 @@ public class RoleResourceController {
 	 *
 	 * @return
 	 */
-	@RequestMapping("/templateRole")
+	@RequestMapping("/template-role")
 	@ResponseBody
 	public Object templateRole(@RequestParam String roleType, HttpServletRequest request) {
 		String roleName = roleType;
@@ -93,7 +93,7 @@ public class RoleResourceController {
 	 *
 	 * @return
 	 */
-	@RequestMapping("/getResourceByRoleId")
+	@RequestMapping("/get-resource-by-role-id")
 	@ResponseBody
 	public Object getResourceByRoleId(@RequestParam int roleId, HttpServletRequest request) {
 		Map<String, Object> rstMap = new HashMap<>();
