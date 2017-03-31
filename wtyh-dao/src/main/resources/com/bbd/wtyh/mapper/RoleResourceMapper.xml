@@ -157,13 +157,21 @@
 
     <resultMap id="allResource" type="com.bbd.wtyh.domain.ResourceDo">
         <id property="id" column="id"/>
+        <result property="code" column="code"/>
         <result property="parentCode" column="parent_code"/>
         <collection property="childResource" javaType="java.util.ArrayList" ofType="com.bbd.wtyh.domain.ResourceDo"
-                    column="code" select="selectChildResource" />
+                    column="code" select="selectChildResource"/>
     </resultMap>
 
     <select id="getAllResource" resultMap="allResource">
-        SELECT re.id,re.code,re.name,re.type,re.parent_code AS parentId FROM resource re WHERE parent_code IS NULL
+        SELECT
+            re.id,re.code,re.name,re.type,re.parent_code
+        FROM resource re
+        WHERE
+            re.parent_code IS NULL
+            <if test="type != null and type != ''">
+                AND re.type = #{type}
+            </if>
     </select>
 
     <select id="getRoleResource" resultMap="roleResource" parameterType="int">
@@ -174,7 +182,7 @@
             r.user_type AS userType
         FROM
             role r
-        WHERE r.user_type = #{userType} AND r.type != 'T'
+        WHERE r.user_type = #{userType} AND r.type = 'R'
     </select>
 
     <select id="selectChildResource" resultMap="allResource">

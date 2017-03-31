@@ -52,7 +52,7 @@ public interface RoleResourceMapper {
 	// 通过角色ID取对应的权限集
 	List<ResourceDo> listResourceByRoleId(@Param("roleId") int roleId);
 
-	List<ResourceDo> getAllResource();
+	List<ResourceDo> getAllResource(@Param("type") String type);
 
 	List<RoleDo> getRoleResource(@Param("userType") String userType);
 
@@ -62,7 +62,7 @@ public interface RoleResourceMapper {
 	 * @param userId
 	 * @return
 	 */
-	@Select("SELECT r.id,r.name,r.type FROM role r JOIN user_role ur ON ur.role_id = r.id AND ur.user_id = #{userId} ")
+	@Select("SELECT r.id,r.name,r.type FROM role r JOIN user_role ur ON ur.role_id = r.id AND ur.user_id = #{userId} AND r.type = 'R'")
 	List<RoleDo> getRoleByUser(@Param("userId") Integer userId);
 
 	/**
