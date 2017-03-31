@@ -161,6 +161,9 @@ public class RoleResourceController {
 			}
 			Integer id=Integer.valueOf(roleId);
 			RoleDo roleDo=roleResourceService.getRoleBase(id,null,null);
+			if(null==roleDo){
+				return ResponseBean.errorResponse("角色不存在" ) ;
+			}
 			List<ResourceDo> list=roleResourceService.listResourceByRoleId(id);
 			Map<String, List<UserRoleDTO>> map=roleResourceService.listRoleAssign(id);
 			rstMap.put("role",roleDo);
