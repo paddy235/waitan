@@ -179,25 +179,5 @@ public class RoleResourceController {
 		return ResponseBean.successResponse(rstMap);
 	}
 
-	private List tranResource(List<ResourceDo> list) {
-
-		if (null == list) {
-			return list;
-		}
-		List newList = new ArrayList();
-		for (ResourceDo resourceDo : list) {
-			if (StringUtils.isNullOrEmpty(resourceDo.getParentCode())) {
-				Map<String, String> map = new HashMap<>();
-				map.put("name", resourceDo.getName());
-				map.put("code", resourceDo.getCode());
-				newList.add(map);
-			} else {
-
-			}
-
-		}
-
-		return newList;
-	}
 
 }
