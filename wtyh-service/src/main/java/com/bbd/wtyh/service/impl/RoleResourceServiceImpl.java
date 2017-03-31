@@ -312,8 +312,8 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	}
 
 	@Override
-	public List<RoleDo> listSonRoleBase(Integer parentId) {
-		return roleResourceMapper.listSonRoleBase(parentId);
+	public List<RoleDo> listSonRoleBase(String userCode) {
+		return roleResourceMapper.listSonRoleBase(userCode);
 	}
 
 	@Override
