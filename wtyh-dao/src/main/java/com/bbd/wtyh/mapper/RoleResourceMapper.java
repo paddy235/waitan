@@ -54,7 +54,7 @@ public interface RoleResourceMapper {
 
 	List<ResourceDo> getAllResource();
 
-	List<RoleDo> getRoleResource(@Param("parentId") Integer parentId);
+	List<RoleDo> getRoleResource(@Param("userType") String userType);
 
 	/**
 	 * 查询某个用户对应的角色
