@@ -362,7 +362,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		// 未分配该角色的用户
 		List<UserRoleDTO> unassignList = new ArrayList<>();
 		for (UserRoleDTO userRoleDTO : list) {
-			if (null != userRoleDTO.getRoleId()) {
+			if (null != userRoleDTO.getUserId()) {
 				assignList.add(userRoleDTO);
 			} else {
 				unassignList.add(userRoleDTO);

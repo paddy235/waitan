@@ -11,7 +11,7 @@ public class UserRoleDTO {
 
     private String realName; // 真实姓名
 
-    private Integer roleId;
+    private Integer userId;
 
     public Integer getId() {
         return id;
@@ -37,12 +37,12 @@ public class UserRoleDTO {
         this.realName = realName;
     }
 
-    public Integer getRoleId() {
-        return roleId;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
 }
