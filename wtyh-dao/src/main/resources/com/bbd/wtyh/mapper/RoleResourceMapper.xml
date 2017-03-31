@@ -32,6 +32,15 @@
         VALUES (#{name}, #{description}, #{type}, #{createDate}, #{updateDate}, #{createBy}, #{updateBy});
     </insert>
 
+    <insert id="updateRoleBase" parameterType="com.bbd.wtyh.domain.RoleDo"  >
+       update `role`
+       set `name`=#{name},
+           `description`=#{description},
+           `update_by`=#{updateBy},
+           `update_date`=#{updateDate}
+       where `id`=#{id}
+    </insert>
+
     <insert id="addRoleResourceRelation" parameterType="com.bbd.wtyh.domain.RoleResourceDo" useGeneratedKeys="true"
             keyProperty="id"
             keyColumn="id">

@@ -21,8 +21,14 @@ public interface RoleResourceService {
 	Set<String> queryResourceCodeByLoginName(String userName);
 
 	Set<String> queryResourceCodeByUserId(Integer userId);
-
+	/**
+	 * 新增正式角色基本信息
+	 */
 	RoleDo addRoleBase(String roleName, String roleDes, String roleType, String loginName);
+	/**
+	 * 更新正式角色基本信息(不更新类型)
+	 */
+	void updateRoleBase(Integer roleId,String roleName, String roleDes, String loginName);
 
 	void addUserRoleResource(UserInfoTableDo userInfoTableDo, String resourceSet, String loginName);
 
@@ -35,7 +41,13 @@ public interface RoleResourceService {
 	void updateUserRoleResource(UserInfoTableDo userInfoTableDo, String resourceSet, String loginName);
 
 	void deleteUserRoleResource(Integer userId, String loginName);
-
+	/**
+	 * 删除该角色的角色-权限关系
+	 */
+	void deleteRoleResourceRelation(Integer roleId);
+	/**
+	 * 新增该角色的角色-权限关系
+	 */
 	void addRoleResourceRelation(Integer roleId, String resourceSet, String loginName);
 
 	// 浏览角色列表
