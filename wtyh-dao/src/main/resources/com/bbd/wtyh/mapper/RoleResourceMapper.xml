@@ -69,6 +69,9 @@
     <delete id="deleteUserRoleRelation" parameterType="int">
         delete from user_role where user_id=#{userId}
     </delete>
+    <select id="getUserRoleRelation" parameterType="int" resultType="com.bbd.wtyh.domain.UserRoleDo">
+        select id,user_id as userId,role_id as roleId from user_role where user_id=#{userId} and role_id=#{roleId}
+    </select>
 
 
     <select id="listRoleBase" parameterType="java.util.HashMap" resultType="com.bbd.wtyh.domain.RoleDo">
@@ -187,14 +190,13 @@
         WHERE
             rr.role_id = #{roleId}
     </select>
-    <select id="listRoleAssign" parameterType="int" resultType="com.bbd.wtyh.domain.dto.UserRoleDTO">
-        select
-          user_mgment.id,
-          user_mgment.login_name as loginName,
-          user_mgment.real_name as realName,
-          b.user_id as userId
-          from user_mgment
-          LEFT JOIN (select user_id from user_role where role_id=#{roleId})b
-          on user_mgment.id=b.user_id order by user_id
+    <select id="listRoleAssign" parameterType="java.util.HashMap" resultType="com.bbd.wtyh.domain.dto.UserRoleDTO">
+        select  a.id,
+                a.login_name as loginName,
+                a.real_name as realName,
+                b.user_id as userId
+        from (select id,login_name,real_name from user_mgment where user_type=#{userType})a
+        LEFT JOIN (select user_id from user_role where role_id=#{roleId})b
+        on a.id=b.user_id order by b.user_id
     </select>
 </mapper>

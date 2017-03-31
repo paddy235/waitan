@@ -1,11 +1,9 @@
 package com.bbd.bgo.web.controller;
 
-import com.bbd.bgo.auth.Constants;
-import com.bbd.higgs.utils.StringUtils;
-import com.bbd.wtyh.domain.AreaDO;
 import com.bbd.wtyh.domain.ResourceDo;
 import com.bbd.wtyh.domain.RoleDo;
-import com.bbd.wtyh.domain.UserInfoTableDo;
+import com.bbd.higgs.utils.StringUtils;
+import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.dto.UserRoleDTO;
 import com.bbd.wtyh.exception.BusinessException;
 import com.bbd.wtyh.exception.ExceptionHandler;
@@ -16,10 +14,6 @@ import com.bbd.wtyh.service.RoleResourceService;
 import com.bbd.wtyh.service.UserInfoService;
 import com.bbd.wtyh.web.ResponseBean;
 import org.apache.commons.collections.map.HashedMap;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.session.Session;
-import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +42,45 @@ public class RoleResourceController {
 	@Autowired
 	private AreaService areaService;
 
-	@RequestMapping("/listRole.do")
+	/**
+	 * 新增角色(正式角色)
+	 *
+	 * @return
+	 */
+	@RequestMapping("/add-role")
+	@ResponseBody
+	public Object addRole(@RequestParam String roleType,
+						  @RequestParam String roleName,
+						  @RequestParam String roleDes,
+						  @RequestParam String resource,
+						  HttpServletRequest request) {
+		try {
+			String loginName=(String)request.getSession().getAttribute("loginName");
+			if(StringUtils.isNullOrEmpty(roleType)||
+					StringUtils.isNullOrEmpty(roleName)||
+					StringUtils.isNullOrEmpty(resource)){
+				return ResponseBean.errorResponse("数据错误");
+			}
+			RoleDo roleDo;
+			roleDo=roleResourceService.getRoleBase(null,roleName,null);
+			if(null != roleDo && roleDo.getName() != null){
+				return ResponseBean.errorResponse("角色名称已存在" );
+			}
+			roleDo=roleResourceService.addRoleBase(roleName,roleDes,roleType,loginName);
+			roleResourceService.addRoleResourceRelation(roleDo.getId(),resource,loginName);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseBean.errorResponse("服务器异常：" + e);
+		}
+		return ResponseBean.successResponse("success");
+	}
+
+	/**
+	 * 角色列表
+	 *
+	 * @return
+	 */
+	@RequestMapping("/list-role.do")
 	@ResponseBody
 	@LogRecord(logMsg = "浏览角色列表", type = Operation.Type.browse, after = true, before = false)
 	public Object listRole(@RequestParam String roleType, @RequestParam int pageSize, Integer pageNumber, HttpServletRequest request) {
@@ -65,7 +97,12 @@ public class RoleResourceController {
 		return ResponseBean.successResponse(rstMap);
 	}
 
-	@RequestMapping("/templateRole")
+	/**
+	 * 新增角色-选择父角色
+	 *
+	 * @return
+	 */
+	@RequestMapping("/template-role")
 	@ResponseBody
 	public Object templateRole(@RequestParam String roleType, HttpServletRequest request) {
 		String roleName = roleType;
@@ -81,7 +118,12 @@ public class RoleResourceController {
 		return ResponseBean.successResponse(rstMap);
 	}
 
-	@RequestMapping("/getResourceByRoleId")
+	/**
+	 * 用角色ID查询该角色的权限集合
+	 *
+	 * @return
+	 */
+	@RequestMapping("/get-resource-by-role-id")
 	@ResponseBody
 	public Object getResourceByRoleId(@RequestParam int roleId, HttpServletRequest request) {
 		Map<String, Object> rstMap = new HashMap<>();
@@ -123,7 +165,7 @@ public class RoleResourceController {
 	}
 
 	/**
-	 * 由父级角色获取下级角色及权限。
+	 * 角色分配-获取该角色已分配和未分配用户集合。
 	 *
 	 * @return
 	 */
@@ -131,11 +173,62 @@ public class RoleResourceController {
 	@ResponseBody
 	public Object listRoleAssign(@RequestParam Integer roleId) {
 		try {
-
-
 			Map<String, Object> rstMap = this.roleResourceService.listRoleAssign(roleId);
-
 			return ResponseBean.successResponse(rstMap);
+		} catch (Exception e) {
+			return ExceptionHandler.handlerException(e);
+		}
+	}
+
+	/**
+	 * 角色分配-将该角色分配给用户组 和 移除用户组。
+	 *
+	 * @return
+	 */
+	@RequestMapping("/reassign-role")
+	@ResponseBody
+	public Object reassignRole(@RequestParam Integer roleId,@RequestParam String unassign,@RequestParam String assign,HttpServletRequest request) {
+		try {
+			//角色ID为空就不处理
+			if(null==roleId){
+				return ResponseBean.errorResponse("角色ID为空");
+			}
+			//本次需要解绑的用户
+			String[] unassignArr=new String[]{};
+			if(!StringUtils.isNullOrEmpty(unassign)){
+				unassignArr=unassign.split(",");
+			}
+			//本次需要绑定的用户
+			String[] assignArr=new String[]{};
+			if(!StringUtils.isNullOrEmpty(assign)){
+				assignArr=assign.split(",");
+			}
+
+			String loginName= (String) request.getSession().getAttribute("loginName");
+
+			String userId;
+			UserRoleDo userRoleDO;
+			//解绑
+			for(int i=0;i<unassignArr.length;i++){
+				userId=unassignArr[i];
+				if(StringUtils.isNullOrEmpty(userId)){
+					continue;
+				}
+				roleResourceService.deleteUserRoleRelation(Integer.valueOf(userId),roleId);
+			}
+			//绑定
+			for(int i=0;i<assignArr.length;i++){
+				userId=assignArr[i];
+				if(StringUtils.isNullOrEmpty(userId)){
+					continue;
+				}
+				userRoleDO= roleResourceService.getUserRoleRelation(Integer.valueOf(userId),roleId);
+				if(null==userRoleDO || null==userRoleDO.getId()) {
+					roleResourceService.addUserRoleRelation(Integer.valueOf(userId), roleId, loginName);
+				}
+			}
+
+			return ResponseBean.successResponse("success");
 		} catch (Exception e) {
 			return ExceptionHandler.handlerException(e);
 		}
