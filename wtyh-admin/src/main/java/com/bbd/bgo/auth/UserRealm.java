@@ -1,21 +1,17 @@
 package com.bbd.bgo.auth;
 
 
-import com.bbd.wtyh.domain.UserInfoTableDo;
+import com.bbd.wtyh.common.comenum.UserType;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.service.RoleResourceService;
 import com.bbd.wtyh.service.UserInfoService;
-import com.bbd.wtyh.service.UserService;
-import com.bbd.wtyh.service.impl.relation.common.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
-import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Map;
@@ -66,7 +62,7 @@ public class UserRealm extends AuthorizingRealm {
         int rst =-1000;
         try {
             rst =userInfoService.compareUserNameAndPassword(username,String.copyValueOf(password),
-                    Operation.System.back, new UserInfoService.UserType[]{UserInfoService.UserType.backAdmin} );
+                    Operation.System.back, new UserType[]{UserType.backAdmin} );
         } catch (Exception e) {
             e.printStackTrace();
         }

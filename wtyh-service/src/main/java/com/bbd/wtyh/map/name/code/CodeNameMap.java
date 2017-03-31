@@ -1,5 +1,6 @@
 package com.bbd.wtyh.map.name.code;
 
+import com.bbd.wtyh.common.comenum.UserType;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.service.UserInfoService;
 import org.springframework.beans.BeansException;
@@ -165,7 +166,7 @@ public class CodeNameMap implements ApplicationContextAware {
                 put("tpCode", "T");
                 put("tpName", "全部");
             }} );
-            for (  UserInfoService.UserType uType  :  UserInfoService.UserType.values() ) {
+            for (  UserType uType  :  UserType.values() ) {
                 add(new HashMap<String, String>() {{
                     put("tpCode", uType.getTypeCode() );
                     put("tpName", uType.getTypeName() );
