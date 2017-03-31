@@ -33,7 +33,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 	private RoleResourceService roleResourceService;
 
 	@Override
-	public void createUser(UserInfoTableDo uitd, String resourceSet, String[] roleSet) throws Exception {
+	public void createUser(UserInfoTableDo uitd, String resourceSet, String roleSet) throws Exception {
 
 		if (null == uitd) {
 			throw new BusinessException("用户信息表对象为空");
@@ -121,13 +121,13 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		uitd.setBackPwdUpDate(null); //
 		userInfoMapper.saveU(uitd);
 		// 创建孙黎明这边的权限项
-		roleResourceService.addUserRoleResource(uitd, resourceSet, uitd.getCreateBy());
-		// todo 添加角色
+		//roleResourceService.addUserRoleResource(uitd, resourceSet, uitd.getCreateBy());
+		roleResourceService.saveUserRoleResource( uitd, roleSet, resourceSet, uitd.getCreateBy() );
 	}
 
 	// 更新用户信息
 	@Override
-	public void updateUserInfo(UserInfoTableDo uitd, String resourceSet, String[] roleSet) throws Exception {
+	public void updateUserInfo(UserInfoTableDo uitd, String resourceSet, String roleSet) throws Exception {
 		//long ms1 = (new Date()).getTime();
 		if (null == uitd) {
 			throw new BusinessException("用户信息表为空对象");
@@ -355,16 +355,18 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 			}
 		}
 		//long ms3 = (new Date()).getTime();
-		if (null != resourceSet) { // 权限集有更新
+/*		if (null != resourceSet) { // 权限集有更新
 			Set<String> rC = roleResourceService.queryResourceCodeByUserId(uitd.getId());
 			if (rC.size() < 1) {
 				roleResourceService.addUserRoleResource(uitd, resourceSet, uitd.getCreateBy());
 			} else {
 				roleResourceService.updateUserRoleResource(uitd, resourceSet, uitd.getUpdateBy());
 			}
-		}
-		if( null != roleSet ) { //选定的角色集
-			; // todo 待添加
+		}*/
+		if( null != resourceSet )	{
+			uitd.setLoginName(oldUitd.getLoginName());
+			roleResourceService.saveUserRoleResource(uitd, resourceSet, roleSet, uitd.getUpdateBy());
+
 		}
 		//long ms4 = (new Date()).getTime();
 		/*
@@ -381,6 +383,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		if( 1 !=id ) { //确保超管不被删除
 			userInfoMapper.deleteUser( id );
 			roleResourceService.deleteUserRoleResource(id, null); //同时删除权限
+//			roleResourceService
 		}
 	}
 

@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.higgs.utils.DateUtils;
+import com.bbd.wtyh.common.comenum.UserType;
 import com.bbd.wtyh.constants.Constants;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.*;
@@ -50,6 +51,11 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		roleDo.setCreateDate(DateUtils.parserDate(DateUtils.format(new Date(), "yyyyMMddHHmmss"), "yyyyMMddHHmmss"));
 		roleResourceMapper.addRoleBase(roleDo);
 		return roleDo;
+	}
+
+	@Override
+	public void deleteRoleBase(Integer roleId) {
+		this.excuteDel("DELETE FROM role WHERE id = " + roleId);
 	}
 
 	/*
@@ -246,8 +252,10 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	 */
 	@Override
 	public List<RoleDo> listRoleBase(String roleType, int pageLimit, Integer pageNumber) {
-		HashMap<String, Object> params = new HashMap<String, Object>();
-		params.put("roleType", roleType);
+		HashMap<String, Object> params = new HashMap<>();
+		if( null != UserType.getUserTypeByCode(roleType) ) {
+			params.put("roleType", roleType);
+		}
 		if (pageLimit <= 0 || pageNumber < 1) {
 			params.put("listing", null);
 		} else {
@@ -337,14 +345,14 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	}
 
 	@Override
-	public Map<String, Object> listRoleAssign(Integer roleId) throws Exception {
+	public Map<String, List<UserRoleDTO>> listRoleAssign(Integer roleId) throws Exception {
 		Map<String, Object> params = new HashMap<>();
 		params.put("roleId", roleId);
 		RoleDo roleDo = roleResourceMapper.getRoleBaseByIdNameType(params);
 		params.put("userType", roleDo.getType());
 
 		List<UserRoleDTO> list = this.roleResourceMapper.listRoleAssign(params);
-		Map<String, Object> rstMap = new HashMap<>();
+		Map<String, List<UserRoleDTO>> rstMap = new HashMap<>();
 		// 已分配该角色的用户
 		List<UserRoleDTO> assignList = new ArrayList<>();
 		// 未分配该角色的用户

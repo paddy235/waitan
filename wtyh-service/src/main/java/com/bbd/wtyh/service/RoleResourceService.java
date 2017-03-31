@@ -31,6 +31,10 @@ public interface RoleResourceService {
 	 * 更新正式角色基本信息(不更新类型)
 	 */
 	void updateRoleBase(Integer roleId, String roleName, String roleDes, String loginName);
+	/**
+	 * 删除正式角色基本信息
+	 */
+	void deleteRoleBase(Integer roleId);
 
 	void addUserRoleResource(UserInfoTableDo userInfoTableDo, String resourceSet, String loginName);
 
@@ -140,7 +144,7 @@ public interface RoleResourceService {
 	 * @return
 	 * @throws Exception
 	 */
-	Map<String, Object> listRoleAssign(Integer roleId) throws Exception;
+	Map<String, List<UserRoleDTO>> listRoleAssign(Integer roleId) throws Exception;
 
 	/**
 	 * 保存用户角色权限
@@ -155,7 +159,7 @@ public interface RoleResourceService {
 
 	/**
 	 * 删除用户角色权限
-	 * 
+	 *
 	 * @param userDo
 	 * @throws Exception
 	 */
