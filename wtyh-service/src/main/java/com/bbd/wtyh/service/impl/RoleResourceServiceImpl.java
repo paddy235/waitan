@@ -13,7 +13,6 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.*;
 import java.util.*;
 import java.util.Date;
 
@@ -47,7 +46,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		RoleDo roleDo = new RoleDo();
 		roleDo.setName(roleName);
 		roleDo.setDescription(roleDes);
-		roleDo.setType(Constants.ROLE_REGULAR);//正式角色
+		roleDo.setType(Constants.role.TYPE_REGULAR);// 正式角色
 		roleDo.setCreateBy(loginName);
 		roleDo.setUserType(userType);
 		roleDo.setCreateDate(new Date());
@@ -324,15 +323,15 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 
 	@Override
 	public List<RoleDo> getRoleResource(String userType) throws Exception {
-		return this.roleResourceMapper.getRoleResource(userType, "R");
+		return this.roleResourceMapper.getRoleResource(userType, Constants.role.TYPE_REGULAR);
 	}
 
 	@Override
 	public Map<String, Object> getUserRoleResource(Integer userId) throws Exception {
 		Map<String, Object> map = new HashMap<>();
-		List<RoleDo> roles = this.roleResourceMapper.getRoleByUser(userId, "R");
+		List<RoleDo> roles = this.roleResourceMapper.getRoleByUser(userId, Constants.role.TYPE_REGULAR);
 		map.put("role", roles);
-		List<String> resourceCodes = this.roleResourceMapper.getUserResourceCode(userId);
+		Set<String> resourceCodes = this.roleResourceMapper.getUserResourceCode(userId);
 		map.put("resourceCode", resourceCodes);
 		return map;
 	}
@@ -386,7 +385,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		// 删除该用户与角色所有的对应关系
 		this.excuteDel("DELETE FROM user_role WHERE user_id = " + userDo.getId());
 
-		RoleDo roleDo = this.roleResourceMapper.getTempRoleByUser(userDo.getId(),Constants.role.TYPE_TEMP);
+		RoleDo roleDo = this.roleResourceMapper.getTempRoleByUser(userDo.getId(), Constants.role.TYPE_TEMP);
 		if (roleDo != null) {
 			// 删除该角色与权限所有的对应关系
 			this.excuteDel("DELETE FROM role_resource WHERE role_id = " + roleDo.getId());
