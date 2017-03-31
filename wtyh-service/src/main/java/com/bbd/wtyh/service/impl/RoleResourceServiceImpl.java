@@ -279,16 +279,13 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	 * @return
 	 */
 	@Override
-	public RoleDo getRoleBase(Integer roleId, String roleName, String roleType) {
+	public RoleDo getRoleBase(Integer roleId, String roleName) {
 		HashMap<String, Object> params = new HashMap<String, Object>();
 		if (null != roleId) {
 			params.put("roleId", roleId);
 		}
 		if (null != roleName) {
 			params.put("roleName", roleName);
-		}
-		if (null != roleType) {
-			params.put("roleType", roleType);
 		}
 		return roleResourceMapper.getRoleBaseByIdNameType(params);
 	}
@@ -309,11 +306,6 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		roleDo.setUpdateBy(loginName);
 		roleDo.setUpdateDate(new Date());
 		roleResourceMapper.updateRoleBase(roleDo);
-	}
-
-	@Override
-	public List<RoleDo> listSonRoleBase(String userCode) {
-		return roleResourceMapper.listSonRoleBase(userCode);
 	}
 
 	@Override

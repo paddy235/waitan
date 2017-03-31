@@ -94,10 +94,7 @@ public interface RoleResourceService {
 	List<RoleDo> listRoleBase(String roleType, int pageLimit, Integer pageNumber);
 
 	// 取角色
-	RoleDo getRoleBase(Integer roleId, String roleName, String roleType);
-
-	// 取子角色
-	List<RoleDo> listSonRoleBase(String userCode);
+	RoleDo getRoleBase(Integer roleId, String roleName);
 
 	// 通过角色ID取对应的权限集
 	List<ResourceDo> listResourceByRoleId(Integer roleId);
