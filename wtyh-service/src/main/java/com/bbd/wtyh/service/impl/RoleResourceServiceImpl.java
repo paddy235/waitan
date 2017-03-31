@@ -43,13 +43,13 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	}
 
 	@Override
-	public RoleDo addRoleBase(String roleName, String roleDes, String roleType, String loginName) {
+	public RoleDo addRoleBase(String roleName, String roleDes, String userType, String loginName) {
 		RoleDo roleDo = new RoleDo();
 		roleDo.setName(roleName);
 		roleDo.setDescription(roleDes);
-		roleDo.setType(roleType);
+		roleDo.setType(Constants.ROLE_REGULAR);//正式角色
 		roleDo.setCreateBy(loginName);
-		roleDo.setUserType(roleType);
+		roleDo.setUserType(userType);
 		roleDo.setCreateDate(new Date());
 		roleResourceMapper.addRoleBase(roleDo);
 		return roleDo;
@@ -311,8 +311,8 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	}
 
 	@Override
-	public List<RoleDo> listSonRoleBase(Integer parentId) {
-		return roleResourceMapper.listSonRoleBase(parentId);
+	public List<RoleDo> listSonRoleBase(String userCode) {
+		return roleResourceMapper.listSonRoleBase(userCode);
 	}
 
 	@Override

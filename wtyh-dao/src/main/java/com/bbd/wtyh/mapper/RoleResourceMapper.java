@@ -47,7 +47,7 @@ public interface RoleResourceMapper {
 
 	RoleDo getRoleBaseByIdNameType(Map<String, Object> params);
 
-	List<RoleDo> listSonRoleBase(@Param("parentId") int parentId);
+	List<RoleDo> listSonRoleBase(@Param("userType") String userType);
 
 	// 通过角色ID取对应的权限集
 	List<ResourceDo> listResourceByRoleId(@Param("roleId") int roleId);
