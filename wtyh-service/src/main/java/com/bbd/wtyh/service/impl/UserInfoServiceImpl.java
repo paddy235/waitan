@@ -382,8 +382,10 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		}
 		if( 1 !=id ) { //确保超管不被删除
 			userInfoMapper.deleteUser( id );
-			roleResourceService.deleteUserRoleResource(id, null); //同时删除权限
-//			roleResourceService
+			//roleResourceService.deleteUserRoleResource(id, null); //同时删除权限
+			UserInfoTableDo ud = new UserInfoTableDo();
+			ud.setId(id);
+			roleResourceService.delUserRoleResource(ud);
 		}
 	}
 
@@ -407,7 +409,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		} else {
 			uitd = userInfoMapper.selectUserInfoAllByLoginName(loginName);
 		}
-		Map<String, Object> rstMap = new HashMap<String, Object>();
+		Map<String, Object> rstMap =null;
 		if( null != uitd ) {
 			decryptUserInfo(uitd);
 			//uitd.setStatus(null);
@@ -416,16 +418,16 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 			//uitd.setForePwdUpDate(null);
 			//uitd.setBackPwdUpDate(null);
 			Set<String> rC = roleResourceService.queryResourceCodeByUserId(uitd.getId());
-			//todo ?  roleCode
+			rstMap = roleResourceService.getUserRoleResource(uitd.getId());
 			rstMap.put("userInfo", uitd);
-			rstMap.put("resourceCode", rC);
-			rstMap.put("roleCode", new String[]{ "角色1","角色3","角色4","角色5","角色12" });
-		} else {
-			//throw new BusinessException("用户信息不存在");
+			//rstMap.put("resourceCode", rC);
+			//rstMap.put("roleCode", new String[]{ "角色1","角色3","角色4","角色5","角色12" });
+		} /*else {
+			throw new BusinessException("用户信息不存在");
 			rstMap.put("userInfo", null);
 			rstMap.put("resourceCode", null);
 			rstMap.put("roleCode", null);
-		}
+		}*/
 		return rstMap;
 	}
 
@@ -547,8 +549,11 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 	}
 
 	@Override
-	public List<Map<String, Object>> getUserTemplate(String loginName) throws Exception {
-		List<Map<String, Object>> rstList = userInfoMapper.selectUserTemplate(loginName);
+	public List<Map<String, Object>> getUserTemplate(String loginName, String userTypeStr) throws Exception {
+		HashMap<String, Object> params = new HashMap<String, Object>();
+		params.put("loginName", loginName);
+		params.put("userTypeStr", userTypeStr);
+		List<Map<String, Object>> rstList = userInfoMapper.selectUserTemplate(params);
 		// for( Map<String, Object> itr :rstList ) {
 		// itr.put("")
 		// }

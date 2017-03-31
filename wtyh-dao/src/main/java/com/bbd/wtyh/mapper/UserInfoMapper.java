@@ -33,7 +33,9 @@ public interface UserInfoMapper {
 
 	public List<Map<String, Object>> selectUserInfoList(HashMap<String, Object> params);
 
-	public List<Map<String, Object>> selectUserTemplate (@Param("loginName") String loginName);
+/*	public List<Map<String, Object>> selectUserTemplate (@Param("loginName") String loginName,
+														 @Param("userTypeStr") String userTypeStr);*/
+	public List<Map<String, Object>> selectUserTemplate (HashMap<String, Object> params);
 
 	public List<Map<String, Object>> selectShanghaiAreaCodeTable( );
 
