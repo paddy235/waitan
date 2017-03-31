@@ -245,6 +245,16 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	}
 
 	@Override
+	public Map<String, Object> getUserRoleResource(Integer userId) throws Exception {
+        Map<String, Object> map = new HashMap<>();
+        List<RoleDo> roles = this.roleResourceMapper.getRoleByUser(userId);
+        map.put("role", roles);
+        List<String> resourceCodes = this.roleResourceMapper.getUserResourceCode(userId);
+        map.put("resourceCode", resourceCodes);
+        return map;
+    }
+
+	@Override
 	public Map<String, Object> listRoleAssign(Integer roleId) throws Exception {
 		Map<String, Object> params = new HashMap();
 		params.put("roleId",roleId);
