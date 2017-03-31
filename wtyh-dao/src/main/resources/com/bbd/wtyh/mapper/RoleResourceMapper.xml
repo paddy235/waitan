@@ -104,19 +104,6 @@
         </if>
     </select>
 
-    <select id="listSonRoleBase" parameterType="String" resultType="com.bbd.wtyh.domain.RoleDo">
-        select id,name,description,type,
-        create_date AS createDate ,
-        update_date AS updateDate ,
-        create_by AS createBy ,
-        update_by AS updateBy ,
-        user_type AS userType
-        from role
-        where
-        1=1
-        <if test="userType != null">and user_type = #{userType}</if>
-        order by name
-    </select>
 
     <select id="getRoleBaseByIdNameType" parameterType="java.util.HashMap" resultType="com.bbd.wtyh.domain.RoleDo">
         select id,name,description,type,
@@ -130,7 +117,6 @@
         1=1
         <if test="roleId != null">and id = #{roleId}</if>
         <if test="roleName != null">and name = #{roleName}</if>
-        <if test="roleType != null">and type = #{roleType}</if>
 
     </select>
 

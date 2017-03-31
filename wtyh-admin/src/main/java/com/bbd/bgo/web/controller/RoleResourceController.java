@@ -1,5 +1,6 @@
 package com.bbd.bgo.web.controller;
 
+import com.bbd.wtyh.common.comenum.UserType;
 import com.bbd.wtyh.domain.ResourceDo;
 import com.bbd.wtyh.domain.RoleDo;
 import com.bbd.higgs.utils.StringUtils;
@@ -53,7 +54,7 @@ public class RoleResourceController {
 				return ResponseBean.errorResponse("数据错误");
 			}
 			RoleDo roleDo;
-			roleDo = roleResourceService.getRoleBase(null, roleName, null);
+			roleDo = roleResourceService.getRoleBase(null, roleName);
 			if (null != roleDo && roleDo.getName() != null) {
 				return ResponseBean.errorResponse("角色名称已存在");
 			}
@@ -82,7 +83,7 @@ public class RoleResourceController {
 			}
 			Integer id = Integer.valueOf(roleId);
 			RoleDo roleDo;
-			roleDo = roleResourceService.getRoleBase(null, roleName, null);
+			roleDo = roleResourceService.getRoleBase(null, roleName);
 			if (null != roleDo && roleDo.getName() != null) {
 				if (roleDo.getId() != id) {
 					return ResponseBean.errorResponse("角色名称已存在");
@@ -141,7 +142,7 @@ public class RoleResourceController {
 				return ResponseBean.errorResponse("数据错误");
 			}
 			Integer id = Integer.valueOf(roleId);
-			RoleDo roleDo = roleResourceService.getRoleBase(id, null, null);
+			RoleDo roleDo = roleResourceService.getRoleBase(id, null);
 			if (null == roleDo) {
 				return ResponseBean.errorResponse("角色不存在");
 			}
@@ -187,18 +188,19 @@ public class RoleResourceController {
 	 */
 	@RequestMapping("/template-role")
 	@ResponseBody
-	public Object templateRole(@RequestParam String roleType, HttpServletRequest request) {
-		String roleName = roleType;
+	public Object templateRole(@RequestParam String userType, HttpServletRequest request) {
 		Map<String, Object> rstMap = new HashMap<>();
-		// 取模板角色
-		RoleDo roleDo = roleResourceService.getRoleBase(null, roleName, null);
+		try {
 		// 取模板角色对应的权限集
-		List<ResourceDo> listRes = roleResourceService.listResourceByRoleId(roleDo.getId());
-		// 取模板角色子角色
-		List<RoleDo> listRole = roleResourceService.listSonRoleBase(roleDo.getId().toString());
-		rstMap.put("resource", listRes);
-		rstMap.put("role", listRole);
-		return ResponseBean.successResponse(rstMap);
+			List<ResourceDo> listRes = this.roleResourceService.getAllResource(userType);
+			// 取模板角色 子角色
+			List<RoleDo> listRole = this.roleResourceService.getRoleResource(userType);
+			rstMap.put("resource", listRes);
+			rstMap.put("role", listRole);
+			return ResponseBean.successResponse(rstMap);
+		} catch (Exception e) {
+			return ExceptionHandler.handlerException(e);
+		}
 	}
 
 	/**
