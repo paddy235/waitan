@@ -254,7 +254,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	@Override
 	public List<RoleDo> listRoleBase(String roleType, int pageLimit, Integer pageNumber) {
 		HashMap<String, Object> params = new HashMap<>();
-		if( null != UserType.getUserTypeByCode(roleType) ) {
+		if (null != UserType.getUserTypeByCode(roleType)) {
 			params.put("roleType", roleType);
 		}
 		if (pageLimit <= 0 || pageNumber < 1) {
@@ -331,8 +331,8 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	}
 
 	@Override
-	public List<RoleDo> getRoleResource(Integer parentId) throws Exception {
-		return this.roleResourceMapper.getRoleResource(parentId);
+	public List<RoleDo> getRoleResource(String userType) throws Exception {
+		return this.roleResourceMapper.getRoleResource(userType);
 	}
 
 	@Override

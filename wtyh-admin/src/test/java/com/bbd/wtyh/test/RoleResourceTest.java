@@ -42,7 +42,7 @@ public class RoleResourceTest {
 	@Test
 	public void getRoleResourceTest() throws Exception {
 		long s = System.currentTimeMillis();
-		List<RoleDo> list = this.resourceService.getRoleResource(88);
+		List<RoleDo> list = this.resourceService.getRoleResource("B");
 		long e = System.currentTimeMillis();
 		System.out.println((e - s));
 		System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
@@ -53,9 +53,10 @@ public class RoleResourceTest {
 		List<ResourceDo> list = this.resourceService.getAllResource();
 		System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
 	}
+
 	@Test
 	public void listRoleAssign() throws Exception {
-		Map<String,List<UserRoleDTO>> map = this.resourceService.listRoleAssign(Integer.valueOf(1));
+		Map<String, List<UserRoleDTO>> map = this.resourceService.listRoleAssign(Integer.valueOf(1));
 		System.err.println(JSON.toJSONString(map, SerializerFeature.PrettyFormat));
 	}
 
@@ -64,5 +65,4 @@ public class RoleResourceTest {
 		Map<String, Object> list = this.resourceService.getUserRoleResource(45);
 		System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
 	}
-
 }

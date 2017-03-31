@@ -20,9 +20,9 @@ public class RoleDo extends BaseDO {
 
 	@Column
 	private String name;
-
-	@Column(name = "parent_id")
-	private Integer parentId;
+	/** 角色类型（用户类型） */
+	@Column(name = "user_type")
+	private String UserType;
 
 	@Column
 	private String description;
@@ -45,14 +45,6 @@ public class RoleDo extends BaseDO {
 	/** 权限集 */
 	@JSONField(serialize = false)
 	private List<ResourceDo> resources;
-
-	public Integer getParentId() {
-		return parentId;
-	}
-
-	public void setParentId(Integer parentId) {
-		this.parentId = parentId;
-	}
 
 	public Integer getId() {
 		return id;
@@ -135,5 +127,24 @@ public class RoleDo extends BaseDO {
 	 */
 	public void setResources(List<ResourceDo> resources) {
 		this.resources = resources;
+	}
+
+	/**
+	 * 获取 角色类型（用户类型）
+	 *
+	 * @return UserType 角色类型（用户类型）
+	 */
+	public String getUserType() {
+		return this.UserType;
+	}
+
+	/**
+	 * 设置 角色类型（用户类型）
+	 *
+	 * @param UserType
+	 *            角色类型（用户类型）
+	 */
+	public void setUserType(String UserType) {
+		this.UserType = UserType;
 	}
 }

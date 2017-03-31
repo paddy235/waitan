@@ -151,7 +151,7 @@
 
     <resultMap id="roleResource" type="com.bbd.wtyh.domain.RoleDo">
         <id property="id" column="id"/>
-        <result property="parentId" column="parent_id"/>
+        <result property="userType" column="user_type"/>
         <collection property="resources" javaType="java.util.ArrayList" select="selectParentResourceByRole" column="id"/>
     </resultMap>
 
@@ -171,10 +171,10 @@
             r.id,
             r.name,
             r.type,
-            r.parent_id AS parentId
+            r.user_type AS userType
         FROM
             role r
-        WHERE r.parent_id = #{parentId} AND r.type != 'T'
+        WHERE r.user_type = #{userType} AND r.type != 'T'
     </select>
 
     <select id="selectChildResource" resultMap="allResource">
@@ -183,7 +183,7 @@
             re.code,
             re.name,
             re.type,
-            re.parent_code AS parentId
+            re.parent_code AS parentCode
         FROM
             resource re
         WHERE

@@ -31,6 +31,7 @@ public interface RoleResourceService {
 	 * 更新正式角色基本信息(不更新类型)
 	 */
 	void updateRoleBase(Integer roleId, String roleName, String roleDes, String loginName);
+
 	/**
 	 * 删除正式角色基本信息
 	 */
@@ -120,12 +121,12 @@ public interface RoleResourceService {
 	/**
 	 * 根据角色类别获取角色及权限
 	 * 
-	 * @param parentId
+	 * @param userType
 	 *            角色类别ID
 	 * @return
 	 * @throws Exception
 	 */
-	List<RoleDo> getRoleResource(Integer parentId) throws Exception;
+	List<RoleDo> getRoleResource(String userType) throws Exception;
 
 	/**
 	 * 获取某个用户对应的角色和用户对应的权限code
