@@ -22,7 +22,7 @@ public class RoleDo extends BaseDO {
 	private String name;
 	/** 角色类型（用户类型） */
 	@Column(name = "user_type")
-	private String UserType;
+	private String userType;
 
 	@Column
 	private String description;
@@ -135,16 +135,16 @@ public class RoleDo extends BaseDO {
 	 * @return UserType 角色类型（用户类型）
 	 */
 	public String getUserType() {
-		return this.UserType;
+		return this.userType;
 	}
 
 	/**
 	 * 设置 角色类型（用户类型）
 	 *
-	 * @param UserType
+	 * @param userType
 	 *            角色类型（用户类型）
 	 */
-	public void setUserType(String UserType) {
-		this.UserType = UserType;
+	public void setUserType(String userType) {
+		this.userType = userType;
 	}
 }

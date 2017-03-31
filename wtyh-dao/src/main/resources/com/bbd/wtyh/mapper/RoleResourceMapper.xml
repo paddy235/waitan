@@ -89,7 +89,7 @@
         update_date AS updateDate ,
         create_by AS createBy ,
         update_by AS updateBy ,
-        parent_id AS parentId
+        user_type AS userType
         from role
         where
         type not in('S','D')
@@ -110,11 +110,11 @@
         update_date AS updateDate ,
         create_by AS createBy ,
         update_by AS updateBy ,
-        parent_id AS parentId
+        user_type AS userType
         from role
         where
         1=1
-        <if test="parentId != null">and parent_id = #{parentId}</if>
+        <if test="userType != null">and user_type = #{userType}</if>
         order by name
     </select>
 
@@ -124,7 +124,7 @@
         update_date AS updateDate ,
         create_by AS createBy ,
         update_by AS updateBy ,
-        parent_id AS parentId
+        user_type AS userType
         from role
         where
         1=1
