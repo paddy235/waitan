@@ -115,6 +115,36 @@ public class RoleResourceController {
 	}
 
 	/**
+	 * 删除角色(正式角色)
+	 *
+	 * @return
+	 */
+	@RequestMapping("/delete-role")
+	@ResponseBody
+	public Object deleteRole(
+			@RequestParam String roleId,
+			HttpServletRequest request) {
+		try {
+			if(	StringUtils.isNullOrEmpty(roleId)){
+				return ResponseBean.errorResponse("数据错误");
+			}
+			Integer id=Integer.valueOf(roleId);
+			Map<String, List<UserRoleDTO>> userMap=roleResourceService.listRoleAssign(id);
+			List<UserRoleDTO> assignList= userMap.get("assign");
+			if(null != assignList && assignList.size()>0){
+
+				return ResponseBean.errorResponse("已绑定用户,不能删除该角色");
+			}
+			roleResourceService.deleteRoleResourceRelation(id);
+			roleResourceService.deleteRoleBase(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseBean.errorResponse("服务器异常：" + e);
+		}
+		return ResponseBean.successResponse("success");
+	}
+
+	/**
 	 * 浏览角色(正式角色)
 	 *
 	 * @return
@@ -132,7 +162,7 @@ public class RoleResourceController {
 			Integer id=Integer.valueOf(roleId);
 			RoleDo roleDo=roleResourceService.getRoleBase(id,null,null);
 			List<ResourceDo> list=roleResourceService.listResourceByRoleId(id);
-			Map<String, Object> map=roleResourceService.listRoleAssign(id);
+			Map<String, List<UserRoleDTO>> map=roleResourceService.listRoleAssign(id);
 			rstMap.put("role",roleDo);
 			rstMap.put("assign",map.get("assign"));
 			rstMap.put("resource",list);
@@ -150,7 +180,6 @@ public class RoleResourceController {
 	 */
 	@RequestMapping("/list-role.do")
 	@ResponseBody
-	@LogRecord(logMsg = "浏览角色列表", type = Operation.Type.browse, after = true, before = false)
 	public Object listRole(@RequestParam String roleType, @RequestParam int pageSize, Integer pageNumber, HttpServletRequest request) {
 
 		Map<String, Object> rstMap = new HashMap<>();
@@ -241,7 +270,7 @@ public class RoleResourceController {
 	@ResponseBody
 	public Object listRoleAssign(@RequestParam Integer roleId) {
 		try {
-			Map<String, Object> rstMap = this.roleResourceService.listRoleAssign(roleId);
+			Map<String, List<UserRoleDTO>> rstMap = this.roleResourceService.listRoleAssign(roleId);
 			return ResponseBean.successResponse(rstMap);
 		} catch (Exception e) {
 			return ExceptionHandler.handlerException(e);

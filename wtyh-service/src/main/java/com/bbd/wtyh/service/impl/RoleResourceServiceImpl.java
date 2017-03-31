@@ -52,6 +52,11 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		return roleDo;
 	}
 
+	@Override
+	public void deleteRoleBase(Integer roleId) {
+		this.excuteDel("DELETE FROM role WHERE id = " + roleId);
+	}
+
 	/*
 	 * 新建用户的角色基本信息、角色-权限关系、角色-用户关系
 	 */
@@ -337,14 +342,14 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	}
 
 	@Override
-	public Map<String, Object> listRoleAssign(Integer roleId) throws Exception {
+	public Map<String, List<UserRoleDTO>> listRoleAssign(Integer roleId) throws Exception {
 		Map<String, Object> params = new HashMap<>();
 		params.put("roleId", roleId);
 		RoleDo roleDo = roleResourceMapper.getRoleBaseByIdNameType(params);
 		params.put("userType", roleDo.getType());
 
 		List<UserRoleDTO> list = this.roleResourceMapper.listRoleAssign(params);
-		Map<String, Object> rstMap = new HashMap<>();
+		Map<String, List<UserRoleDTO>> rstMap = new HashMap<>();
 		// 已分配该角色的用户
 		List<UserRoleDTO> assignList = new ArrayList<>();
 		// 未分配该角色的用户
