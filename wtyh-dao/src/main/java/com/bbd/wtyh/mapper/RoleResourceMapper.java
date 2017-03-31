@@ -5,10 +5,7 @@ import com.bbd.wtyh.domain.dto.UserRoleDTO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  *
@@ -83,7 +80,7 @@ public interface RoleResourceMapper {
 	 */
 	@Select("SELECT re.code FROM resource re JOIN role_resource rr ON rr.resource_id = re.id JOIN user_role ur ON "
 			+ "ur.role_id = rr.role_id AND ur.user_id = #{userId} GROUP BY re.`code`")
-	List<String> getUserResourceCode(@Param("userId") Integer userId);
+	Set<String> getUserResourceCode(@Param("userId") Integer userId);
 
 	List<UserRoleDTO> listRoleAssign(@Param("roleId") Integer roleId);
 

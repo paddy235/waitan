@@ -195,7 +195,7 @@ public class RoleResourceController {
 		// 取模板角色对应的权限集
 		List<ResourceDo> listRes = roleResourceService.listResourceByRoleId(roleDo.getId());
 		// 取模板角色子角色
-		List<RoleDo> listRole = roleResourceService.listSonRoleBase(roleDo.getId());
+		List<RoleDo> listRole = roleResourceService.listSonRoleBase(roleDo.getId().toString());
 		rstMap.put("resource", listRes);
 		rstMap.put("role", listRole);
 		return ResponseBean.successResponse(rstMap);
