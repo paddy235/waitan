@@ -219,8 +219,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		if (StringUtils.isBlank(resourceIdSet)) {
 			return null;
 		}
-
-		RoleDo roleDo = this.roleResourceMapper.getTempRoleByUser(userDo.getId());
+		RoleDo roleDo = this.roleResourceMapper.getTempRoleByUser(userDo.getId(), Constants.role.TYPE_TEMP);
 		if (roleDo == null) {
 			roleDo = this.addRoleBase("临时角色", userDo.getLoginName(), Constants.role.TYPE_TEMP, createBy);
 		}
@@ -325,13 +324,13 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 
 	@Override
 	public List<RoleDo> getRoleResource(String userType) throws Exception {
-		return this.roleResourceMapper.getRoleResource(userType);
+		return this.roleResourceMapper.getRoleResource(userType, "R");
 	}
 
 	@Override
 	public Map<String, Object> getUserRoleResource(Integer userId) throws Exception {
 		Map<String, Object> map = new HashMap<>();
-		List<RoleDo> roles = this.roleResourceMapper.getRoleByUser(userId);
+		List<RoleDo> roles = this.roleResourceMapper.getRoleByUser(userId, "R");
 		map.put("role", roles);
 		List<String> resourceCodes = this.roleResourceMapper.getUserResourceCode(userId);
 		map.put("resourceCode", resourceCodes);
@@ -387,7 +386,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		// 删除该用户与角色所有的对应关系
 		this.excuteDel("DELETE FROM user_role WHERE user_id = " + userDo.getId());
 
-		RoleDo roleDo = this.roleResourceMapper.getTempRoleByUser(userDo.getId());
+		RoleDo roleDo = this.roleResourceMapper.getTempRoleByUser(userDo.getId(),Constants.role.TYPE_TEMP);
 		if (roleDo != null) {
 			// 删除该角色与权限所有的对应关系
 			this.excuteDel("DELETE FROM role_resource WHERE role_id = " + roleDo.getId());
