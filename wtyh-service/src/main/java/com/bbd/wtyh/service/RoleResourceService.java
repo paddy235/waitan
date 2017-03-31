@@ -3,6 +3,7 @@ package com.bbd.wtyh.service;
 import com.bbd.wtyh.domain.ResourceDo;
 import com.bbd.wtyh.domain.RoleDo;
 import com.bbd.wtyh.domain.UserInfoTableDo;
+import com.bbd.wtyh.domain.UserRoleDo;
 import com.bbd.wtyh.domain.dto.UserRoleDTO;
 
 import java.util.List;
@@ -24,6 +25,12 @@ public interface RoleResourceService {
 	RoleDo addRoleBase(String roleName, String roleDes, String roleType, String loginName);
 
 	void addUserRoleResource(UserInfoTableDo userInfoTableDo, String resourceSet, String loginName);
+
+	UserRoleDo getUserRoleRelation(Integer userId,Integer roleId);
+
+	void addUserRoleRelation(Integer userId,Integer roleId,String loginName);
+
+	void deleteUserRoleRelation(Integer userId,Integer roleId);
 
 	void updateUserRoleResource(UserInfoTableDo userInfoTableDo, String resourceSet, String loginName);
 

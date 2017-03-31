@@ -2,10 +2,7 @@ package com.bbd.bgo.web.controller;
 
 import com.bbd.bgo.auth.Constants;
 import com.bbd.higgs.utils.StringUtils;
-import com.bbd.wtyh.domain.AreaDO;
-import com.bbd.wtyh.domain.ResourceDo;
-import com.bbd.wtyh.domain.RoleDo;
-import com.bbd.wtyh.domain.UserInfoTableDo;
+import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.dto.UserRoleDTO;
 import com.bbd.wtyh.exception.BusinessException;
 import com.bbd.wtyh.exception.ExceptionHandler;
@@ -181,7 +178,7 @@ public class RoleResourceController {
 	}
 
 	/**
-	 * 由父级角色获取下级角色及权限。
+	 * 角色分配-获取该角色已分配和未分配用户集合。
 	 *
 	 * @return
 	 */
@@ -194,6 +191,60 @@ public class RoleResourceController {
 			Map<String, Object> rstMap = this.roleResourceService.listRoleAssign(roleId);
 
 			return ResponseBean.successResponse(rstMap);
+		} catch (Exception e) {
+			return ExceptionHandler.handlerException(e);
+		}
+	}
+
+	/**
+	 * 角色分配-将该角色分配给用户组 和 移除用户组。
+	 *
+	 * @return
+	 */
+	@RequestMapping("/reassign-role")
+	@ResponseBody
+	public Object reassignRole(@RequestParam Integer roleId,@RequestParam String unassign,@RequestParam String assign,HttpServletRequest request) {
+		try {
+			//角色ID为空就不处理
+			if(null==roleId){
+				return ResponseBean.errorResponse("角色ID为空");
+			}
+			//本次需要解绑的用户
+			String[] unassignArr=new String[]{};
+			if(!StringUtils.isNullOrEmpty(unassign)){
+				unassignArr=unassign.split(",");
+			}
+			//本次需要绑定的用户
+			String[] assignArr=new String[]{};
+			if(!StringUtils.isNullOrEmpty(assign)){
+				assignArr=assign.split(",");
+			}
+
+			String loginName= (String) request.getSession().getAttribute("loginName");
+
+			String userId;
+			UserRoleDo userRoleDO;
+			//解绑
+			for(int i=0;i<unassignArr.length;i++){
+				userId=unassignArr[i];
+				if(StringUtils.isNullOrEmpty(userId)){
+					continue;
+				}
+				roleResourceService.deleteUserRoleRelation(Integer.valueOf(userId),roleId);
+			}
+			//绑定
+			for(int i=0;i<assignArr.length;i++){
+				userId=assignArr[i];
+				if(StringUtils.isNullOrEmpty(userId)){
+					continue;
+				}
+				userRoleDO= roleResourceService.getUserRoleRelation(Integer.valueOf(userId),roleId);
+				if(null==userRoleDO || null==userRoleDO.getId()) {
+					roleResourceService.addUserRoleRelation(Integer.valueOf(userId), roleId, loginName);
+				}
+			}
+
+			return ResponseBean.successResponse("success");
 		} catch (Exception e) {
 			return ExceptionHandler.handlerException(e);
 		}

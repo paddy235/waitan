@@ -81,6 +81,31 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 
 	}
 
+	@Override
+	public UserRoleDo getUserRoleRelation(Integer userId,Integer roleId) {
+		// 查询角色用户关系
+		return roleResourceMapper.getUserRoleRelation(userId,roleId);
+	}
+	@Override
+	public void addUserRoleRelation(Integer userId,Integer roleId,String loginName) {
+		// 新增角色用户关系
+		UserRoleDo userRoleDo = new UserRoleDo();
+		userRoleDo.setUserId(userId);
+		userRoleDo.setRoleId(roleId);
+		userRoleDo.setCreateBy(loginName);
+		userRoleDo.setCreateDate(DateUtils.parserDate(DateUtils.format(new Date(), "yyyyMMddHHmmss"), "yyyyMMddHHmmss"));
+		roleResourceMapper.addUserRoleRelation(userRoleDo);
+	}
+
+	@Override
+	public void deleteUserRoleRelation(Integer userId,Integer roleId) {
+		// 删除角色用户关系
+		UserRoleDo userRoleDo=new UserRoleDo();
+		userRoleDo.setUserId(userId);
+		userRoleDo.setRoleId(roleId);
+		this.delete(userRoleDo);
+	}
+
 	/*
 	 * 修改 某用户的角色对应的权限-限删除角色-权限关系，再建立新的角色-权限关系
 	 */
@@ -221,13 +246,17 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 
 	@Override
 	public Map<String, Object> listRoleAssign(Integer roleId) throws Exception {
+		Map<String, Object> params = new HashMap();
+		params.put("roleId",roleId);
+		RoleDo roleDo=roleResourceMapper.getRoleBaseByIdNameType(params);
+		params.put("userType",roleDo.getType());
+
+		List<UserRoleDTO> list = this.roleResourceMapper.listRoleAssign(params);
 		Map<String, Object> rstMap = new HashMap();
 		//已分配该角色的用户
 		List assignList=new ArrayList();
 		//未分配该角色的用户
 		List unassignList=new ArrayList();
-
-		List<UserRoleDTO> list = this.roleResourceMapper.listRoleAssign(roleId);
 		for(UserRoleDTO userRoleDTO:list){
 			if(null!=userRoleDTO.getRoleId()){
 				assignList.add(userRoleDTO);

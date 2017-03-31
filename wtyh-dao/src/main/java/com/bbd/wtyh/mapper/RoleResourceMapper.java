@@ -34,13 +34,15 @@ public interface RoleResourceMapper {
 
 	void deleteUserRoleRelation(@Param("userId") int userId);
 
+	UserRoleDo getUserRoleRelation(@Param("userId") int userId,@Param("roleId") int roleId);
+
 	int getRoleAreaRelationByRoleIdAndAreaId(@Param("roleId") int roleId, @Param("areaId") int areaId);
 
 	List<UserRoleDo> getUserRoleByUser(@Param("userId") int userId);
 
-	List<RoleDo> listRoleBase(HashMap<String, Object> params);
+	List<RoleDo> listRoleBase(Map<String, Object> params);
 
-	RoleDo getRoleBaseByIdNameType(HashMap<String, Object> params);
+	RoleDo getRoleBaseByIdNameType(Map<String, Object> params);
 
 	List<RoleDo> listSonRoleBase(@Param("parentId") int parentId);
 
@@ -51,7 +53,7 @@ public interface RoleResourceMapper {
 
 	List<RoleDo> getRoleResource(@Param("parentId") Integer parentId);
 
-	List<UserRoleDTO> listRoleAssign(@Param("roleId") Integer roleId);
+	List<UserRoleDTO> listRoleAssign(Map<String, Object> params);
 
 
 }
