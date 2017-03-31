@@ -24,7 +24,7 @@ public interface UserInfoService extends BaseService {
 	 * @throws Exception
 	 *             各种不合规的参数引发的异常，包括加密转码、持久化对象的异常
 	 */
-	public void createUser(UserInfoTableDo uitd, String resourceSet, String[] roleSet) throws Exception;
+	public void createUser(UserInfoTableDo uitd, String resourceSet, String roleSet) throws Exception;
 
 	/**
 	 * 更新用户信息
@@ -36,7 +36,7 @@ public interface UserInfoService extends BaseService {
 	 * @throws Exception
 	 *             各种不合规的参数引发的异常，包括加密转码、持久化对象的异常
 	 */
-	public void updateUserInfo(UserInfoTableDo uitd, String resourceSet, String[] roleSet) throws Exception;
+	public void updateUserInfo(UserInfoTableDo uitd, String resourceSet, String roleSet) throws Exception;
 
 	public void deleteUserById( Integer id ) throws Exception;
 

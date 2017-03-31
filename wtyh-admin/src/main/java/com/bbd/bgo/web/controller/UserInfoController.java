@@ -47,7 +47,7 @@ public class UserInfoController {
     @LogRecord(logMsg = "新增用户：%s", params = {"loginName"}, page = Operation.Page.userCreate, type = Operation.Type.add)
     public Object createUser1( UserInfoTableDo uitd,
                                @RequestParam String resourceSet,
-                               @RequestParam String[] roleSet,
+                               @RequestParam String roleSet,
                                HttpServletRequest request) {
         // hh.addHeader("aa","1234");
         String loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
@@ -71,7 +71,7 @@ public class UserInfoController {
 
     @RequestMapping("/updateUserInfo.do")
     @ResponseBody
-    public Object updateUserInfo(UserInfoTableDo uitd, String resourceSet, String[] roleSet, HttpServletRequest request) {
+    public Object updateUserInfo(UserInfoTableDo uitd, String resourceSet, String roleSet, HttpServletRequest request) {
         String loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
         uitd.setUpdateBy(loginName);
         try {
@@ -429,7 +429,7 @@ public class UserInfoController {
             return ResponseBean.successResponse("password.history.contains"); // 新设置密码不可与原密码设置相同
         }
         UserInfoTableDo ud = uis.getOnlyUserInfoByLoginNameOrId(loginName,-1);
-        int rst = uis.compareUserDaoAndPassword(ud, newPassword, Operation.System.back, null);
+        int rst = uis.compareUserDaoAndPassword(ud, oldPassword, Operation.System.back, null);
         if( rst <=-5 ) {
             return ResponseBean.successResponse("account.not.exist"); // 账号不存在 // BusinessException("未查询到id字段");
         }
