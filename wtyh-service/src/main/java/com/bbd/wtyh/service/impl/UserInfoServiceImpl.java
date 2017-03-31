@@ -417,7 +417,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 			uitd.setBackPwd(null);
 			//uitd.setForePwdUpDate(null);
 			//uitd.setBackPwdUpDate(null);
-			Set<String> rC = roleResourceService.queryResourceCodeByUserId(uitd.getId());
+			//Set<String> rC = roleResourceService.queryResourceCodeByUserId(uitd.getId());
 			rstMap = roleResourceService.getUserRoleResource(uitd.getId());
 			rstMap.put("userInfo", uitd);
 			//rstMap.put("resourceCode", rC);
