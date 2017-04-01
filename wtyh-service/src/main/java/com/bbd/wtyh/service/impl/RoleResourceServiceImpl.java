@@ -263,7 +263,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		if (null == roleDo) {
 			throw new BusinessException("角色不存在");
 		}
-		params.put("userType", roleDo.getType());
+		params.put("userType", roleDo.getUserType());
 
 		List<UserRoleDTO> list = this.roleResourceMapper.listRoleAssign(params);
 		Map<String, List<UserRoleDTO>> rstMap = new HashMap<>();
