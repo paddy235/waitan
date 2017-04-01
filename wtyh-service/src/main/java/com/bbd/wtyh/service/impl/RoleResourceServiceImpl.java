@@ -25,21 +25,6 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	@Autowired
 	private RoleResourceMapper roleResourceMapper;
 
-	@Override
-	public Set<String> queryResourceCodeByLoginName(String userName) {
-		Set set = new HashSet();
-		List list = roleResourceMapper.queryResourceCodeByLoginName(userName);
-		set.addAll(list);
-		return set;
-	}
-
-	@Override
-	public Set<String> queryResourceCodeByUserId(Integer userId) {
-		Set set = new HashSet();
-		List list = roleResourceMapper.queryResourceCodeByUserId(userId);
-		set.addAll(list);
-		return set;
-	}
 
 	@Override
 	public RoleDo addRoleBase(String roleName, String roleDes, String userType, String loginName) {
@@ -59,31 +44,6 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		this.executeCUD("DELETE FROM role WHERE id = " + roleId);
 	}
 
-	/*
-	 * 新建用户的角色基本信息、角色-权限关系、角色-用户关系
-	 */
-	@Override
-	public void addUserRoleResource(UserInfoTableDo userInfoTableDo, String resourceSet, String loginName) {
-		// 如果 用户ID为空 或者权限为空，则不创建
-		Integer userId = userInfoTableDo.getId();
-		if (null == userId || StringUtils.isEmpty(resourceSet)) {
-			return;
-		}
-		// 新增角色基本信息
-		RoleDo roleDo = this.addRoleBase(null, null, null, loginName);
-
-		// 新增角色用户关系
-		UserRoleDo userRoleDo = new UserRoleDo();
-		userRoleDo.setUserId(userId);
-		userRoleDo.setRoleId(roleDo.getId());
-		userRoleDo.setCreateBy(loginName);
-		userRoleDo.setCreateDate(DateUtils.parserDate(DateUtils.format(new Date(), "yyyyMMddHHmmss"), "yyyyMMddHHmmss"));
-		roleResourceMapper.addUserRoleRelation(userRoleDo);
-
-		// 新增角色权限关系
-		addRoleResourceRelation(roleDo.getId(), resourceSet, loginName);
-
-	}
 
 	@Override
 	public UserRoleDo getUserRoleRelation(Integer userId, Integer roleId) {
@@ -111,46 +71,6 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		this.executeCUD("delete from user_role where user_id="+userId+" and role_id="+roleId);
 	}
 
-	/*
-	 * 修改 某用户的角色对应的权限-限删除角色-权限关系，再建立新的角色-权限关系
-	 */
-	@Override
-	public void updateUserRoleResource(UserInfoTableDo userInfoTableDo, String resourceSet, String loginName) {
-		// 与陈功杰约定，如果resourceSet==null,则不更新，若为""，则需要删除已有的权限关系
-		if (null == resourceSet || null == userInfoTableDo.getId()) {
-			return;
-		}
-		Integer userId = userInfoTableDo.getId();
-		List<UserRoleDo> list = roleResourceMapper.getUserRoleByUser(userId);
-		for (UserRoleDo userRoleDo : list) {
-			// 删除角色权限关系
-			roleResourceMapper.deleteRoleResourceRelation(userRoleDo.getRoleId());
-			// 新增角色权限关系
-			addRoleResourceRelation(userRoleDo.getRoleId(), resourceSet, loginName);
-
-		}
-	}
-
-	/*
-	 * 删除某用户的 角色-权限关系、角色基本信息、用户-角色关系
-	 */
-	@Override
-	public void deleteUserRoleResource(Integer userId, String loginName) {
-		// 如果 用户ID为空 则不执行
-		if (userId == null) {
-			return;
-		}
-		List<UserRoleDo> list = roleResourceMapper.getUserRoleByUser(userId);
-		for (UserRoleDo userRoleDo : list) {
-			// 删除角色权限关系
-			roleResourceMapper.deleteRoleResourceRelation(userRoleDo.getRoleId());
-			// 删除角色基本信息
-			roleResourceMapper.deleteRoleBase(userRoleDo.getRoleId());
-
-		}
-		// 删除角色用户关系
-		roleResourceMapper.deleteUserRoleRelation(userId);
-	}
 
 	/*
 	 * 删除角色权限关系
@@ -176,16 +96,14 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		}
 		// 新增角色权限关系
 		String[] resourceArr = resourceSet.split(",");
-		RoleResourceDo roleResourceDo = null;
-		ResourceDo resourceDo = null;
+		RoleResourceDo roleResourceDo ;
 		for (int i = 0; i < resourceArr.length; i++) {
-			resourceDo = roleResourceMapper.getResourceByCode(resourceArr[i]);
-			if (resourceDo == null) {
+			if (resourceArr[i] == null) {
 				continue;
 			}
 			roleResourceDo = new RoleResourceDo();
 			roleResourceDo.setRoleId(roleId);
-			roleResourceDo.setResourceId(resourceDo.getId());
+			roleResourceDo.setResourceId(Integer.valueOf(resourceArr[i]));
 			roleResourceDo.setCreateBy(loginName);
 			roleResourceDo.setCreateDate(new Date());
 			roleResourceMapper.addRoleResourceRelation(roleResourceDo);
@@ -411,7 +329,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 			Integer roleId=roleDo.getId();
 			List<ResourceDo> listRes=this.roleResourceMapper.listResourceByRoleId(roleId);
 			for(ResourceDo resourceDo:listRes){
-				sort2.add(resourceDo.getCode());
+				sort2.add(String.valueOf(resourceDo.getId()));
 			}
 			Collections.sort(sort2);
 			for(int i=0;i<sort1.size();i++){
