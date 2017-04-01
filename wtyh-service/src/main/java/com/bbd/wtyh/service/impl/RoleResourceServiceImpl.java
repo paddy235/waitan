@@ -56,7 +56,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 
 	@Override
 	public void deleteRoleBase(Integer roleId) {
-		this.excuteDel("DELETE FROM role WHERE id = " + roleId);
+		this.executeCUD("DELETE FROM role WHERE id = " + roleId);
 	}
 
 	/*
@@ -209,7 +209,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 			urList.add(userRoleDo);
 		}
 		// 删除该用户与角色所有的对应关系
-		this.excuteDel("DELETE FROM user_role WHERE user_id = " + userDo.getId());
+		this.executeCUD("DELETE FROM user_role WHERE user_id = " + userDo.getId());
 		this.insertList(urList);
 	}
 
@@ -240,7 +240,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 			rrList.add(rr);
 		}
 		// 删除该角色与权限所有的对应关系
-		this.excuteDel("DELETE FROM role_resource WHERE role_id = " + roleId);
+		this.executeCUD("DELETE FROM role_resource WHERE role_id = " + roleId);
 		this.insertList(rrList);
 	}
 
@@ -317,11 +317,6 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	}
 
 	@Override
-	public List<RoleDo> getParentRole() throws Exception {
-		return this.selectAll(RoleDo.class, "parent_id = -1");
-	}
-
-	@Override
 	public List<RoleDo> getRoleResource(String userType) throws Exception {
 		return this.roleResourceMapper.getRoleResource(userType, Constants.role.TYPE_REGULAR);
 	}
@@ -383,12 +378,12 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 			return;
 		}
 		// 删除该用户与角色所有的对应关系
-		this.excuteDel("DELETE FROM user_role WHERE user_id = " + userDo.getId());
+		this.executeCUD("DELETE FROM user_role WHERE user_id = " + userDo.getId());
 
 		RoleDo roleDo = this.roleResourceMapper.getTempRoleByUser(userDo.getId(), Constants.role.TYPE_TEMP);
 		if (roleDo != null) {
 			// 删除该角色与权限所有的对应关系
-			this.excuteDel("DELETE FROM role_resource WHERE role_id = " + roleDo.getId());
+			this.executeCUD("DELETE FROM role_resource WHERE role_id = " + roleDo.getId());
 			this.delete(roleDo);
 		}
 	}

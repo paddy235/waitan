@@ -108,14 +108,6 @@ public interface RoleResourceService {
 	List<ResourceDo> getAllResource(String type) throws Exception;
 
 	/**
-	 * 获取所有父级角色
-	 * 
-	 * @return
-	 * @throws Exception
-	 */
-	List<RoleDo> getParentRole() throws Exception;
-
-	/**
 	 * 根据角色类别获取角色及权限
 	 * 
 	 * @param userType

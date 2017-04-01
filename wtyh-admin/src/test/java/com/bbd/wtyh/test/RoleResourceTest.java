@@ -25,44 +25,44 @@ import com.bbd.wtyh.service.RoleResourceService;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:spring-config.xml" })
+@ContextConfiguration(locations = {"classpath:spring-config.xml"})
 public class RoleResourceTest {
 
-	private Logger logger = LoggerFactory.getLogger(getClass());
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
-	@Autowired
-	private RoleResourceService resourceService;
+    @Autowired
+    private RoleResourceService resourceService;
 
-	@Test
-	public void getParentRoleTest() throws Exception {
-		List<RoleDo> list = this.resourceService.getParentRole();
-		list.forEach(System.out::println);
-	}
+    @Test
+    public void getRoleResourceTest() throws Exception {
+        long s = System.currentTimeMillis();
+        List<RoleDo> list = this.resourceService.getRoleResource("B");
+        long e = System.currentTimeMillis();
+        System.out.println((e - s));
+        System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
+    }
 
-	@Test
-	public void getRoleResourceTest() throws Exception {
-		long s = System.currentTimeMillis();
-		List<RoleDo> list = this.resourceService.getRoleResource("B");
-		long e = System.currentTimeMillis();
-		System.out.println((e - s));
-		System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
-	}
+    @Test
+    public void getAllResourceTest() throws Exception {
+        List<ResourceDo> list = null;
+        for (int i = 0; i < 100; i++) {
+            long s = System.currentTimeMillis();
+            list = this.resourceService.getAllResource("B");
+            long e = System.currentTimeMillis();
+            System.out.println((e - s));
+        }
+        System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
+    }
 
-	@Test
-	public void getAllResourceTest() throws Exception {
-		List<ResourceDo> list = this.resourceService.getAllResource("B");
-		System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
-	}
+    @Test
+    public void listRoleAssign() throws Exception {
+        Map<String, List<UserRoleDTO>> map = this.resourceService.listRoleAssign(Integer.valueOf(1));
+        System.err.println(JSON.toJSONString(map, SerializerFeature.PrettyFormat));
+    }
 
-	@Test
-	public void listRoleAssign() throws Exception {
-		Map<String, List<UserRoleDTO>> map = this.resourceService.listRoleAssign(Integer.valueOf(1));
-		System.err.println(JSON.toJSONString(map, SerializerFeature.PrettyFormat));
-	}
-
-	@Test
-	public void getRoleResourceByUserTest() throws Exception {
-		Map<String, Object> list = this.resourceService.getUserRoleResource(45);
-		System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
-	}
+    @Test
+    public void getRoleResourceByUserTest() throws Exception {
+        Map<String, Object> list = this.resourceService.getUserRoleResource(45);
+        System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
+    }
 }

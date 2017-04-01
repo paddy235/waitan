@@ -52,7 +52,7 @@ public class LogInfoTaskServiceImpl extends BaseServiceImpl implements LogInfoTa
         counts=1L;
         //先删除表里的数据
         logger.info("日志入库-删除原日志数据开始");
-        excuteDel("delete from user_behavior_log where operation_date like '"+date+"%'");
+        executeCUD("delete from user_behavior_log where operation_date like '"+date+"%'");
         logger.info("日志入库-删除原日志数据结束");
         //后台管理系统的日志
         Long tempCounts;

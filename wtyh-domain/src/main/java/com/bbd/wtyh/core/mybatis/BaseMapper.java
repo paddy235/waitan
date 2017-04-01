@@ -44,7 +44,8 @@ public interface BaseMapper {
 	 * @return
 	 */
 	@SelectProvider(type = CRUDTemplate.class, method = "select")
-	<T> List<T> baseSelectByPage(@Param("clazz") Class<T> clazz, @Param("pagination") Pagination<T> pagination, @Param("where") String where);
+	<T> List<T> baseSelectByPage(@Param("clazz") Class<T> clazz, @Param("pagination") Pagination<T> pagination,
+			@Param("where") String where);
 
 	/**
 	 * 插入一条数据
@@ -82,6 +83,12 @@ public interface BaseMapper {
 	@UpdateProvider(type = CRUDTemplate.class, method = "update")
 	<T> int update(T obj);
 
+	@Insert("${sql}")
+	int executeInsert(@Param("sql") String sql);
+
+	@Update("${sql}")
+	int executeUpdate(@Param("sql") String sql);
+
 	@Delete("${sql}")
-	int excuteDel(@Param("sql") String sql);
+	int executeDelete(@Param("sql") String sql);
 }

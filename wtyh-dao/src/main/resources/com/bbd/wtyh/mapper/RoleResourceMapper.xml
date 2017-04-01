@@ -156,7 +156,7 @@
         WHERE
             re.parent_code IS NULL
             <if test="type != null and type != ''">
-                AND re.type = #{type}
+                AND re.type LIKE CONCAT('%',#{type},'%')
             </if>
     </select>
 
@@ -168,7 +168,7 @@
             r.user_type AS userType
         FROM
             role r
-        WHERE r.user_type = #{userType}
+        WHERE r.user_type LIKE CONCAT('%',#{userType},'%')
         <if test="roleType != null and roleType != ''">
             AND r.type = #{roleType}
         </if>

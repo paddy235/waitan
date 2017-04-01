@@ -68,7 +68,16 @@ public class BaseServiceImpl implements BaseService {
 	}
 
 	@Override
-	public int excuteDel(String sql) {
-		return generalMapper.excuteDel(sql);
+	public int executeCUD(String sql) {
+		if (sql.toUpperCase().trim().startsWith("INSERT")) {
+			return generalMapper.executeInsert(sql);
+		}
+		if (sql.toUpperCase().trim().startsWith("UPDATE")) {
+			return generalMapper.executeUpdate(sql);
+		}
+		if (sql.toUpperCase().trim().startsWith("DELETE")) {
+			return generalMapper.executeDelete(sql);
+		}
+		throw new IllegalArgumentException("非法的insert/update/delete语句");
 	}
 }
