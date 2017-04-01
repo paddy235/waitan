@@ -252,7 +252,7 @@ public class RoleResourceController {
 	 *
 	 * @return
 	 */
-	@RequestMapping("/list-role-assign ")
+	@RequestMapping("/list-role-assign")
 	@ResponseBody
 	public Object listRoleAssign(@RequestParam Integer roleId) {
 		try {
