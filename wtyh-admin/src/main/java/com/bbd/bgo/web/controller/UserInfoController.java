@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.bbd.wtyh.common.comenum.UserType;
 import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.map.name.code.CodeNameMap;
 import com.bbd.wtyh.util.CipherUtils;
@@ -256,10 +257,16 @@ public class UserInfoController {
 
     @RequestMapping("/queryUserInfoById.do")
     @ResponseBody
-    public Object queryUserInfoById(@RequestParam int queryId, String anchor, HttpServletRequest request) {
+    public Object queryUserInfoById(@RequestParam int queryId, /*String userTypeStr,*/ String anchor, HttpServletRequest request) {
         Map<String, Object> rstMap = null;
         try {
+//            if( null == UserType.getUserTypeByCode(userTypeStr) ) {
+//                throw new BusinessException("userTypeStr参数不合法");
+//            }
             rstMap = uis.getUserInfoById(queryId);
+//            if( !userTypeStr.equals((String) rstMap.get("userType")) ) {
+//                ;
+//            }
         } catch (BusinessException be) {
             return ResponseBean.errorResponse(be.getMessage());
         } catch (Exception e) {
@@ -283,10 +290,13 @@ public class UserInfoController {
 
     @RequestMapping("/queryUserTemplate.do")
     @ResponseBody
-    public Object queryUserTemplate(@RequestParam String loginName, HttpServletRequest request) {
+    public Object queryUserTemplate(@RequestParam String loginName, String userType, HttpServletRequest request) {
         List<Map<String, Object>> rstList = null;
         try {
-            rstList = uis.getUserTemplate(loginName);
+            if( null == UserType.getUserTypeByCode(userType) ) {
+                throw new BusinessException("userType参数不合法");
+            }
+            rstList = uis.getUserTemplate(loginName, userType);
         } catch (BusinessException be) {
             return ResponseBean.errorResponse(be.getMessage());
         } catch (Exception e) {

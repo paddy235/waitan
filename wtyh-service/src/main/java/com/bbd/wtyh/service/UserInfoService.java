@@ -91,7 +91,7 @@ public interface UserInfoService extends BaseService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Map<String, Object>> getUserTemplate(String loginName) throws Exception;
+	public List<Map<String, Object>> getUserTemplate(String loginName, String userTypeStr) throws Exception;
 
 	/**
 	 *

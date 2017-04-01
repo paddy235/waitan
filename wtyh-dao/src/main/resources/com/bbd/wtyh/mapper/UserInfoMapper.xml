@@ -154,12 +154,17 @@
 
 
   <!-- 构建用户模板, 用户为‘A’ -->
-  <select id="selectUserTemplate"  parameterType="String" resultType="java.util.Map">
+  <select id="selectUserTemplate"   parameterType="java.util.HashMap"  resultType="java.util.Map">
     SELECT
     id AS id,
     login_name AS loginName
     FROM  <include refid="TabName"/>
-    WHERE id != 1 AND `login_name` LIKE '%${loginName}%' LIMIT 5
+    WHERE id != 1
+    AND `login_name` LIKE '%${loginName}%'
+    <if test="userTypeStr !=null">
+      AND `user_type` = #{userTypeStr}
+    </if>
+    LIMIT 5
   </select>
 
 
