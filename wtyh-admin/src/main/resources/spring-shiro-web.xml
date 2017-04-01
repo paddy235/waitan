@@ -102,9 +102,10 @@
                 /img/** = anon
                 /logout.do = anon
                 <!--后台管理权限-->
-                /userInfo/createUser.do = perms[B_HTGLQX]
+                /userInfo/createUser.do = perms[B_HTGLQX] <!--用户角色管理-->
                 /userInfo/updateUserInfo.do = perms[B_HTGLQX]
                 /userInfo/deleteUser.do = perms[B_HTGLQX]
+                /userBehaviorLog/listUserBehaviorLog.do = perms[B_YHRZGL] <!--用户日志管理-->
                 <!--共用交易-->
                 /risk/getScanner.do = perms[F_HYJCPT_XXLC,F_SSJCPT]<!--线下理财、时监测平台-->
                 <!--/offlineFinance/queryDynamicPicData.do = perms[F_QYQXXXCXPT,F_SSJCPT]&lt;!&ndash;全息、时监测平台&ndash;&gt;-->
