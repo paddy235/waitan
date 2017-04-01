@@ -91,5 +91,11 @@ public interface RoleResourceMapper {
 	 * @return
 	 */
 	List<Integer> listRoleHaveTheSameRes(@Param("counts") Integer counts);
+	/**
+	 * 查询多个角色的权限集合
+	 * @param
+	 * @return
+	 */
+	List<ResourceDo> listResourceByRoleIds(@Param("roleIds") String[] roleIds);
 
 }

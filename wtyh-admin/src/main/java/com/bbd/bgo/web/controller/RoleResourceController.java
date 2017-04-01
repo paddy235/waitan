@@ -218,6 +218,25 @@ public class RoleResourceController {
 	}
 
 	/**
+	 * 用角色ID组，查询该角色的权限集合
+	 *
+	 * @return
+	 */
+	@RequestMapping("/get-resource-by-role-id-list")
+	@ResponseBody
+	public Object getResourceByRoleIdList(@RequestParam String roleIdList, HttpServletRequest request) {
+		Map<String, Object> rstMap = new HashMap<>();
+		if(StringUtils.isNullOrEmpty(roleIdList)){
+			rstMap.put("resource", null);
+			return ResponseBean.successResponse(rstMap);
+		}
+		String[] roleIds=roleIdList.split(",");
+		List<ResourceDo> setRes = roleResourceService.listResourceByRoleIds(roleIds);
+		rstMap.put("resource", setRes);
+		return ResponseBean.successResponse(rstMap);
+	}
+
+	/**
 	 * 所有权限资源。
 	 *
 	 * @return

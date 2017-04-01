@@ -155,4 +155,10 @@ public interface RoleResourceService extends BaseService {
 	 * @return
 	 */
 	boolean listRoleHaveTheSameRes(String resource,Integer selfRoleId) throws Exception;
+	/**
+	 * 查询多个角色的权限集合
+	 * @param
+	 * @return
+	 */
+	List<ResourceDo> listResourceByRoleIds(String[] roleIds);
 }
