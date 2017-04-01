@@ -39,7 +39,7 @@ public class RoleResourceController {
 	 */
 	@RequestMapping("/add-role")
 	@ResponseBody
-	public Object addRole(@RequestParam String userType, @RequestParam String roleName, @RequestParam String roleDes,
+	public Object addRole(@RequestParam String userType, @RequestParam String roleName,  String roleDes,
 			@RequestParam String resource, HttpServletRequest request) {
 		try {
 			String loginName = (String) request.getSession().getAttribute("loginName");
@@ -50,6 +50,9 @@ public class RoleResourceController {
 			roleDo = roleResourceService.getRoleBase(null, roleName);
 			if (null != roleDo && roleDo.getName() != null) {
 				return ResponseBean.errorResponse("角色名称已存在");
+			}
+			if(!this.roleResourceService.listRoleHaveTheSameRes(resource)){
+				return ResponseBean.errorResponse("已存在相同权限的角色");
 			}
 			roleDo = roleResourceService.addRoleBase(roleName, roleDes, userType, loginName);
 			roleResourceService.addRoleResourceRelation(roleDo.getId(), resource, loginName);
@@ -82,6 +85,9 @@ public class RoleResourceController {
 					return ResponseBean.errorResponse("角色名称已存在");
 				}
 
+			}
+			if(!this.roleResourceService.listRoleHaveTheSameRes(resource)){
+				return ResponseBean.errorResponse("已存在相同权限的角色");
 			}
 			roleResourceService.updateRoleBase(id, roleName, roleDes, loginName);
 			roleResourceService.deleteRoleResourceRelation(id);
@@ -160,13 +166,12 @@ public class RoleResourceController {
 	@ResponseBody
 	public Object listRole(@RequestParam String userType, @RequestParam int pageSize, Integer pageNumber, HttpServletRequest request) {
 
-		Map<String, Object> rstMap = new HashMap<>();
+		Map<String, Object> rstMap ;
 		try {
 			if (null == pageNumber) {
 				pageNumber = 1;
 			}
-			List<RoleDo> list = roleResourceService.listRoleBase(userType, pageSize, pageNumber);
-			rstMap.put("roleList", list);
+			rstMap= roleResourceService.listRoleBase(userType, pageSize, pageNumber);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseBean.errorResponse("服务器异常：" + e);

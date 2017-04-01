@@ -84,18 +84,24 @@
 
 
     <select id="listRoleBase" parameterType="java.util.HashMap" resultType="com.bbd.wtyh.domain.RoleDo">
-        select id,name,description,type,
+        select
+        <if test=" listing ==null "><!-- 查总条数的标记 -->
+            COUNT(*) AS id
+        </if>
+        <if test=" listing !=null ">
+         id,name,description,type,
         create_date AS createDate ,
         update_date AS updateDate ,
         create_by AS createBy ,
         update_by AS updateBy ,
         user_type AS userType
+        </if>
         from role
         where
         type not in('S','D','T')
         <if test="userType != null">and user_type = #{userType}</if>
-        order by update_date desc
         <if test="listing !=null ">
+            order by update_date desc
             LIMIT
             <if test="pageNumber !=null">
                 #{pageNumber},
@@ -205,5 +211,13 @@
         from (select id,login_name,real_name from user_mgment where user_type=#{userType})a
         LEFT JOIN (select user_id from user_role where role_id=#{roleId})b
         on a.id=b.user_id order by b.user_id
+    </select>
+
+    <select id="listRoleHaveTheSameRes" parameterType="int" resultType="com.bbd.wtyh.domain.RoleDo">
+        select a.* from (
+        select role_resource.role_id  as roleId,count(1) as counts
+        from role ,role_resource
+        where role.type='R' AND role.id=role_resource.role_id
+        group by role_resource.role_id) a where a.counts=#{counts}
     </select>
 </mapper>
