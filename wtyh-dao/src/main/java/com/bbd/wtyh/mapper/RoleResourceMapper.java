@@ -88,6 +88,6 @@ public interface RoleResourceMapper {
 	 * @param counts
 	 * @return
 	 */
-	List<RoleDo> listRoleHaveTheSameRes(@Param("counts") Integer counts);
+	List<Integer> listRoleHaveTheSameRes(@Param("counts") Integer counts);
 
 }

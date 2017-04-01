@@ -19,9 +19,6 @@ import java.util.Set;
  */
 public interface RoleResourceService extends BaseService {
 
-	Set<String> queryResourceCodeByLoginName(String userName);
-
-	Set<String> queryResourceCodeByUserId(Integer userId);
 
 	/**
 	 * 新增正式角色基本信息
@@ -38,7 +35,6 @@ public interface RoleResourceService extends BaseService {
 	 */
 	void deleteRoleBase(Integer roleId);
 
-	void addUserRoleResource(UserInfoTableDo userInfoTableDo, String resourceSet, String loginName);
 
 	UserRoleDo getUserRoleRelation(Integer userId, Integer roleId);
 
@@ -46,9 +42,6 @@ public interface RoleResourceService extends BaseService {
 
 	void deleteUserRoleRelation(Integer userId, Integer roleId);
 
-	void updateUserRoleResource(UserInfoTableDo userInfoTableDo, String resourceSet, String loginName);
-
-	void deleteUserRoleResource(Integer userId, String loginName);
 
 	/**
 	 * 删除该角色的角色-权限关系
