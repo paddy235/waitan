@@ -65,7 +65,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		UserRoleDo userRoleDo = new UserRoleDo();
 		userRoleDo.setUserId(userId);
 		userRoleDo.setRoleId(roleId);
-		this.executeCUD("delete from user_role where user_id=" + userId + " and role_id=" + roleId);
+		this.executeCUD("delete from user_role where user_id=? and role_id= ? ",userId,roleId);
 	}
 
 	/*
