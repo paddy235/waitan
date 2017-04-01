@@ -326,6 +326,9 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 
 		List<RoleDo> list=this.roleResourceMapper.listRoleHaveTheSameRes(resourceArr.length);
 		for(RoleDo roleDo:list){
+			if (null==roleDo){
+				continue;
+			}
 			Integer roleId=roleDo.getId();
 			List<ResourceDo> listRes=this.roleResourceMapper.listResourceByRoleId(roleId);
 			for(ResourceDo resourceDo:listRes){
