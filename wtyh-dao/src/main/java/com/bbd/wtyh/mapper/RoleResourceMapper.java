@@ -76,9 +76,9 @@ public interface RoleResourceMapper {
 	 * @param userId
 	 * @return
 	 */
-	@Select("SELECT re.id FROM resource re JOIN role_resource rr ON rr.resource_id = re.id JOIN user_role ur ON "
+	@Select("SELECT re.code FROM resource re JOIN role_resource rr ON rr.resource_id = re.id JOIN user_role ur ON "
 			+ "ur.role_id = rr.role_id AND ur.user_id = #{userId} GROUP BY re.`code`")
-	Set<Integer> getUserResourceId(@Param("userId") Integer userId);
+	Set<String> getUserResourceCode(@Param("userId") Integer userId);
 
 	List<UserRoleDTO> listRoleAssign(@Param("roleId") Integer roleId);
 

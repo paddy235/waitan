@@ -250,8 +250,8 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		Map<String, Object> map = new HashMap<>();
 		List<RoleDo> roles = this.roleResourceMapper.getRoleByUser(userId, Constants.role.TYPE_REGULAR);
 		map.put("role", roles);
-		Set<Integer> resourceCodes = this.roleResourceMapper.getUserResourceId(userId);
-		map.put("resourceId", resourceCodes);
+		Set<String> resourceCodes = this.roleResourceMapper.getUserResourceCode(userId);
+		map.put("resourceCode", resourceCodes);
 		return map;
 	}
 
