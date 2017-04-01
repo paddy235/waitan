@@ -26,10 +26,17 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 
 	@Override
 	public RoleDo addRoleBase(String roleName, String roleDes, String userType, String loginName) {
+		return this.addRoleBase(roleName, roleDes, null, userType, loginName);
+	}
+
+	private RoleDo addRoleBase(String roleName, String roleDes, String roleType, String userType, String loginName) {
+		if (StringUtils.isBlank(roleType)) {
+			roleType = Constants.role.TYPE_REGULAR;// 正式角色
+		}
 		RoleDo roleDo = new RoleDo();
 		roleDo.setName(roleName);
 		roleDo.setDescription(roleDes);
-		roleDo.setType(Constants.role.TYPE_REGULAR);// 正式角色
+		roleDo.setType(roleType);
 		roleDo.setCreateBy(loginName);
 		roleDo.setUserType(userType);
 		roleDo.setCreateDate(new Date());
@@ -134,7 +141,9 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		}
 		RoleDo roleDo = this.roleResourceMapper.getTempRoleByUser(userDo.getId(), Constants.role.TYPE_TEMP);
 		if (roleDo == null) {
-			roleDo = this.addRoleBase("临时角色", userDo.getLoginName(), Constants.role.TYPE_TEMP, createBy);
+			String tempName = userDo.getLoginName() == null ? userDo.getId().toString() : userDo.getLoginName();
+			String userType = userDo.getUserType() == null ? "" : userDo.getUserType();
+			roleDo = this.addRoleBase("临时角色", tempName, Constants.role.TYPE_TEMP, userType, createBy);
 		}
 		this.addRoleResourceMapping(roleDo.getId(), resourceIdSet, createBy);
 		return roleDo;
