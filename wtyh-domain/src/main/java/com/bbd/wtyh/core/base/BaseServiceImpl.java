@@ -4,7 +4,7 @@ import com.bbd.wtyh.core.dao.GeneralMapper;
 import com.bbd.wtyh.core.entity.Pagination;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * 基础业务接口实现类
@@ -68,15 +68,15 @@ public class BaseServiceImpl implements BaseService {
 	}
 
 	@Override
-	public int executeCUD(String sql) {
+	public int executeCUD(String sql, Object... param) {
 		if (sql.toUpperCase().trim().startsWith("INSERT")) {
-			return generalMapper.executeInsert(sql);
+			return generalMapper.executeInsert(sql, param);
 		}
 		if (sql.toUpperCase().trim().startsWith("UPDATE")) {
-			return generalMapper.executeUpdate(sql);
+			return generalMapper.executeUpdate(sql, param);
 		}
 		if (sql.toUpperCase().trim().startsWith("DELETE")) {
-			return generalMapper.executeDelete(sql);
+			return generalMapper.executeDelete(sql, param);
 		}
 		throw new IllegalArgumentException("非法的insert/update/delete语句");
 	}

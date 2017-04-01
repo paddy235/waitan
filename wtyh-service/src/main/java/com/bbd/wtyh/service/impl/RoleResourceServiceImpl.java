@@ -56,7 +56,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 
 	@Override
 	public void deleteRoleBase(Integer roleId) {
-		this.executeCUD("DELETE FROM role WHERE id = " + roleId);
+		this.executeCUD("DELETE FROM role WHERE id = ?", roleId);
 	}
 
 	/*
@@ -209,7 +209,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 			urList.add(userRoleDo);
 		}
 		// 删除该用户与角色所有的对应关系
-		this.executeCUD("DELETE FROM user_role WHERE user_id = " + userDo.getId());
+		this.executeCUD("DELETE FROM user_role WHERE user_id = ?", userDo.getId());
 		this.insertList(urList);
 	}
 
@@ -240,7 +240,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 			rrList.add(rr);
 		}
 		// 删除该角色与权限所有的对应关系
-		this.executeCUD("DELETE FROM role_resource WHERE role_id = " + roleId);
+		this.executeCUD("DELETE FROM role_resource WHERE role_id = ?", roleId);
 		this.insertList(rrList);
 	}
 
@@ -257,7 +257,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		if (null != UserType.getUserTypeByCode(userType)) {
 			params.put("userType", userType);
 		}
-		List<RoleDo> total=roleResourceMapper.listRoleBase(params);
+		List<RoleDo> total = roleResourceMapper.listRoleBase(params);
 		if (pageLimit <= 0 || pageNumber < 1) {
 			params.put("listing", null);
 		} else {
@@ -269,14 +269,14 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 			params.put("listing", 1);
 
 		}
-		RoleDo roleDo=total.get(0);
-		if(roleDo!=null){
-			result.put("totalCount",roleDo.getId());//用ID暂存totalCount;
-		}else{
-			result.put("totalCount",0);
+		RoleDo roleDo = total.get(0);
+		if (roleDo != null) {
+			result.put("totalCount", roleDo.getId());// 用ID暂存totalCount;
+		} else {
+			result.put("totalCount", 0);
 		}
 
-		result.put("roleList",roleResourceMapper.listRoleBase(params));
+		result.put("roleList", roleResourceMapper.listRoleBase(params));
 		return result;
 	}
 
@@ -388,12 +388,12 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 			return;
 		}
 		// 删除该用户与角色所有的对应关系
-		this.executeCUD("DELETE FROM user_role WHERE user_id = " + userDo.getId());
+		this.executeCUD("DELETE FROM user_role WHERE user_id = ?", userDo.getId());
 
 		RoleDo roleDo = this.roleResourceMapper.getTempRoleByUser(userDo.getId(), Constants.role.TYPE_TEMP);
 		if (roleDo != null) {
 			// 删除该角色与权限所有的对应关系
-			this.executeCUD("DELETE FROM role_resource WHERE role_id = " + roleDo.getId());
+			this.executeCUD("DELETE FROM role_resource WHERE role_id = ?", roleDo.getId());
 			this.delete(roleDo);
 		}
 	}
@@ -403,20 +403,20 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 
 		String[] resourceArr = resource.split(",");
 		Arrays.asList(resourceArr);
-		List<String> sort1=Arrays.asList(resourceArr);
-		List<String> sort2=new ArrayList<>();
+		List<String> sort1 = Arrays.asList(resourceArr);
+		List<String> sort2 = new ArrayList<>();
 
-		List<RoleDo> list=this.roleResourceMapper.listRoleHaveTheSameRes(resourceArr.length);
-		for(RoleDo roleDo:list){
-			Integer roleId=roleDo.getId();
-			List<ResourceDo> listRes=this.roleResourceMapper.listResourceByRoleId(roleId);
-			for(ResourceDo resourceDo:listRes){
+		List<RoleDo> list = this.roleResourceMapper.listRoleHaveTheSameRes(resourceArr.length);
+		for (RoleDo roleDo : list) {
+			Integer roleId = roleDo.getId();
+			List<ResourceDo> listRes = this.roleResourceMapper.listResourceByRoleId(roleId);
+			for (ResourceDo resourceDo : listRes) {
 				sort2.add(resourceDo.getCode());
 			}
 			Collections.sort(sort2);
-			for(int i=0;i<sort1.size();i++){
-				if(!sort1.get(i).equals(sort2.get(i))){
-					return  true;
+			for (int i = 0; i < sort1.size(); i++) {
+				if (!sort1.get(i).equals(sort2.get(i))) {
+					return true;
 				}
 
 			}
