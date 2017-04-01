@@ -65,7 +65,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		UserRoleDo userRoleDo = new UserRoleDo();
 		userRoleDo.setUserId(userId);
 		userRoleDo.setRoleId(roleId);
-		this.executeCUD("delete from user_role where user_id=? and role_id= ? ",userId,roleId);
+		this.executeCUD("delete from user_role where user_id=? and role_id= ? ", userId, roleId);
 	}
 
 	/*
@@ -94,7 +94,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		String[] resourceArr = resourceSet.split(",");
 		RoleResourceDo roleResourceDo;
 		for (int i = 0; i < resourceArr.length; i++) {
-			if (null==resourceArr[i]) {
+			if (null == resourceArr[i]) {
 				continue;
 			}
 			roleResourceDo = new RoleResourceDo();
@@ -250,7 +250,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		Map<String, Object> map = new HashMap<>();
 		List<RoleDo> roles = this.roleResourceMapper.getRoleByUser(userId, Constants.role.TYPE_REGULAR);
 		map.put("role", roles);
-		Set<String> resourceCodes = this.roleResourceMapper.getUserResourceCode(userId);
+		Set<Integer> resourceCodes = this.roleResourceMapper.getUserResourceId(userId);
 		map.put("resourceCode", resourceCodes);
 		return map;
 	}
@@ -313,7 +313,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	}
 
 	@Override
-	public boolean listRoleHaveTheSameRes(String resource,Integer selfRoleId) throws Exception {
+	public boolean listRoleHaveTheSameRes(String resource, Integer selfRoleId) throws Exception {
 		boolean same = false;// 存在相同的角色=true 不存在=false
 		String[] resourceArr = resource.split(",");
 		Arrays.asList(resourceArr);

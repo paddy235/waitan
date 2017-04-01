@@ -76,15 +76,17 @@ public interface RoleResourceMapper {
 	 * @param userId
 	 * @return
 	 */
-	@Select("SELECT re.code FROM resource re JOIN role_resource rr ON rr.resource_id = re.id JOIN user_role ur ON "
+	@Select("SELECT re.id FROM resource re JOIN role_resource rr ON rr.resource_id = re.id JOIN user_role ur ON "
 			+ "ur.role_id = rr.role_id AND ur.user_id = #{userId} GROUP BY re.`code`")
-	Set<String> getUserResourceCode(@Param("userId") Integer userId);
+	Set<Integer> getUserResourceId(@Param("userId") Integer userId);
 
 	List<UserRoleDTO> listRoleAssign(@Param("roleId") Integer roleId);
 
 	List<UserRoleDTO> listRoleAssign(Map<String, Object> params);
+
 	/**
 	 * 验证准备新增的角色在数据库中是否已存在相同的权限
+	 * 
 	 * @param counts
 	 * @return
 	 */
