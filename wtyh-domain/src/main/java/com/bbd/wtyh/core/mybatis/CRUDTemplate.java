@@ -188,7 +188,7 @@ public class CRUDTemplate {
 	 */
 	public String refactorSql(Map<?, ?> map) {
 		String sql = (String) map.get("sql");
-		String[] strs = sql.split("\\?");
+		String[] strs = sql.trim().split("\\?");
 		if (ArrayUtils.isEmpty(strs) || strs.length <= 1) {
 			return sql;
 		}
