@@ -86,7 +86,7 @@ public class RoleResourceController {
 				}
 
 			}
-			if(!this.roleResourceService.listRoleHaveTheSameRes(resource)){
+			if(this.roleResourceService.listRoleHaveTheSameRes(resource)){
 				return ResponseBean.errorResponse("已存在相同权限的角色");
 			}
 			roleResourceService.updateRoleBase(id, roleName, roleDes, loginName);
