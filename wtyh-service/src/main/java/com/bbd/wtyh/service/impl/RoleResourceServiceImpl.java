@@ -347,4 +347,9 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		}
 		return same;
 	}
+
+	@Override
+	public List<ResourceDo> listResourceByRoleIds(String[] roleIds) {
+		return this.roleResourceMapper.listResourceByRoleIds(roleIds);
+	}
 }
