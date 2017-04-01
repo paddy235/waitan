@@ -322,15 +322,15 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		String[] resourceArr = resource.split(",");
 		Arrays.asList(resourceArr);
 		List<String> sort1=Arrays.asList(resourceArr);
+		Collections.sort(sort1);
 		List<String> sort2=new ArrayList<>();
 		int count=0;
-		List<RoleDo> list=this.roleResourceMapper.listRoleHaveTheSameRes(resourceArr.length);
-		for(RoleDo roleDo:list){
-			if (null==roleDo){
+		List<Integer> list=this.roleResourceMapper.listRoleHaveTheSameRes(sort1.size());
+		for(Integer roleId:list){
+			if (null==roleId){
 				continue;
 			}
 			count=0;
-			Integer roleId=roleDo.getId();
 			List<ResourceDo> listRes=this.roleResourceMapper.listResourceByRoleId(roleId);
 			for(ResourceDo resourceDo:listRes){
 				sort2.add(String.valueOf(resourceDo.getId()));

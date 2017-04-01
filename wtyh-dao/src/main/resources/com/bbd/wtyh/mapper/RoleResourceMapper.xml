@@ -213,7 +213,7 @@
         on a.id=b.user_id order by b.user_id
     </select>
 
-    <select id="listRoleHaveTheSameRes" parameterType="int" resultType="com.bbd.wtyh.domain.RoleDo">
+    <select id="listRoleHaveTheSameRes" parameterType="int" resultType="Integer">
         select a.roleId from (
         select role_resource.role_id  as roleId,count(1) as counts
         from role ,role_resource
