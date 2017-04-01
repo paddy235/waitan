@@ -79,7 +79,7 @@ public class RoleResourceController {
 			if (StringUtils.isNullOrEmpty(roleId) || StringUtils.isNullOrEmpty(roleName) || StringUtils.isNullOrEmpty(resource)) {
 				return ResponseBean.errorResponse("数据错误");
 			}
-			Integer id = Integer.valueOf(roleId);
+			Integer id = Integer.parseInt(roleId);
 			RoleDo roleDo;
 			roleDo = roleResourceService.getRoleBase(null, roleName);
 			if (null != roleDo && roleDo.getName() != null) {
@@ -113,7 +113,7 @@ public class RoleResourceController {
 			if (StringUtils.isNullOrEmpty(roleId)) {
 				return ResponseBean.errorResponse("数据错误");
 			}
-			Integer id = Integer.valueOf(roleId);
+			Integer id = Integer.parseInt(roleId);
 			Map<String, List<UserRoleDTO>> userMap = roleResourceService.listRoleAssign(id);
 			List<UserRoleDTO> assignList = userMap.get("assign");
 			if (null != assignList && assignList.size() > 0) {
@@ -142,7 +142,7 @@ public class RoleResourceController {
 			if (StringUtils.isNullOrEmpty(roleId)) {
 				return ResponseBean.errorResponse("数据错误");
 			}
-			Integer id = Integer.valueOf(roleId);
+			Integer id = Integer.parseInt(roleId);
 			RoleDo roleDo = roleResourceService.getRoleBase(id, null);
 			if (null == roleDo) {
 				return ResponseBean.errorResponse("角色不存在");
@@ -319,7 +319,7 @@ public class RoleResourceController {
 				if (StringUtils.isNullOrEmpty(userId)) {
 					continue;
 				}
-				roleResourceService.deleteUserRoleRelation(Integer.valueOf(userId), roleId);
+				roleResourceService.deleteUserRoleRelation(Integer.parseInt(userId), roleId);
 			}
 			// 绑定
 			for (int i = 0; i < assignArr.length; i++) {
@@ -327,9 +327,9 @@ public class RoleResourceController {
 				if (StringUtils.isNullOrEmpty(userId)) {
 					continue;
 				}
-				userRoleDO = roleResourceService.getUserRoleRelation(Integer.valueOf(userId), roleId);
+				userRoleDO = roleResourceService.getUserRoleRelation(Integer.parseInt(userId), roleId);
 				if (null == userRoleDO || null == userRoleDO.getId()) {
-					roleResourceService.addUserRoleRelation(Integer.valueOf(userId), roleId, loginName);
+					roleResourceService.addUserRoleRelation(Integer.parseInt(userId), roleId, loginName);
 				}
 			}
 
