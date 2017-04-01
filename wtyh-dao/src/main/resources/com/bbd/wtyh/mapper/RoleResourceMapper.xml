@@ -99,8 +99,8 @@
         where
         type not in('S','D','T')
         <if test="userType != null">and user_type = #{userType}</if>
-        order by update_date desc
         <if test="listing !=null ">
+            order by update_date desc
             LIMIT
             <if test="pageNumber !=null">
                 #{pageNumber},
