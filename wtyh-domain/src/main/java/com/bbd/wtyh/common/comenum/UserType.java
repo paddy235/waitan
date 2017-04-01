@@ -1,10 +1,10 @@
 package com.bbd.wtyh.common.comenum;
 
 /**
- * Created by Administrator on 2017/3/31.
+ * Created by cgj on 2017/3/31.
  */
 public enum UserType {
-    superManager("S", "超级管理员"),
+    //superManager("S", "超级管理员"),
     general("F", "普通用户"),
     backAdmin("B", "系统管理员");
     //businessManager("M", "业务数据管理员"); //todo 4.10 之后用

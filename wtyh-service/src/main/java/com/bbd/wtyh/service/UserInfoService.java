@@ -14,6 +14,9 @@ import java.util.Map;
  */
 public interface UserInfoService extends BaseService {
 
+	/*public static final*/ int superId =1; //超管的用户Id
+
+
 	/**
 	 * 创建用户
 	 * 

@@ -55,6 +55,9 @@ public class UserInfoController {
 	public Object updateInfo(@RequestParam Integer id, @RequestParam String mobile, @RequestParam String email,
 			@RequestParam String fixPhone, HttpSession session, HttpServletRequest request) throws Exception {
 
+		if( (int)( session.getAttribute("userId") ) != id ) {
+			ResponseBean.errorResponse("个人中心用户只能修改自己的个人信息");
+		}
 		UserInfoTableDo oldUitd = this.userInfoService.selectById(UserInfoTableDo.class, id);
 		if (oldUitd != null) {
 			request.setAttribute("m_mobile", " ");
@@ -94,6 +97,9 @@ public class UserInfoController {
 			return ResponseBean.successResponse("password.history.contains"); // 新设置密码不可与原密码设置相同
 		}
 		UserInfoTableDo ud = userInfoService.getOnlyUserInfoByLoginNameOrId(loginName,-1);
+		if( (int)( session.getAttribute("userId") ) != ud.getId() ) {
+			ResponseBean.errorResponse("个人中心用户只能修改自己的密码");
+		}
 		int rst =userInfoService.compareUserDaoAndPassword(ud,oldPassword, Operation.System.front, null);
 		if( rst <=-5 ) {
 			return ResponseBean.successResponse("account.not.exist"); // 账号不存在 // BusinessException("未查询到id字段");

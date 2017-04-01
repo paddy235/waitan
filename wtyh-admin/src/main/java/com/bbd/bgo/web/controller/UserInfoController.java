@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.bbd.wtyh.common.comenum.UserRank;
 import com.bbd.wtyh.common.comenum.UserType;
 import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.map.name.code.CodeNameMap;
@@ -49,11 +50,17 @@ public class UserInfoController {
     public Object createUser1( UserInfoTableDo uitd,
                                @RequestParam String resourceSet,
                                @RequestParam String roleSet,
-                               HttpServletRequest request) {
+                               HttpServletRequest request,
+                               HttpSession session) {
         // hh.addHeader("aa","1234");
         String loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
         uitd.setCreateBy(loginName);
         try {
+            if( UserRank.bAdmin.equals ( (session.getAttribute("userRank")) ) &&
+                    (uitd.getUserType().equals(UserType.backAdmin.getTypeCode())
+                            /*||uitd.getUserType().equals(UserType.businessManager.getTypeCode()) todo 4.10后*/ ) ) {
+                return ResponseBean.errorResponse("普管不能创建管理员类型账户");
+            }
             uis.createUser(uitd, resourceSet, roleSet);
         } catch (BusinessException be) {
             return ResponseBean.errorResponse(be.getMessage());
@@ -72,15 +79,25 @@ public class UserInfoController {
 
     @RequestMapping("/updateUserInfo.do")
     @ResponseBody
-    public Object updateUserInfo(UserInfoTableDo uitd, String resourceSet, String roleSet, HttpServletRequest request) {
+    public Object updateUserInfo(UserInfoTableDo uitd, String resourceSet,
+                                 String roleSet, HttpServletRequest request,
+                                 HttpSession session) {
         String loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
         uitd.setUpdateBy(loginName);
         try {
+            UserInfoTableDo ud =uis.getOnlyUserInfoByLoginNameOrId(null,uitd.getId());
+            if(null ==ud) {
+                throw new BusinessException("此id无对应用户记录");
+            }
+            if( UserRank.bAdmin.equals ( (session.getAttribute("userRank")) ) &&
+                    (ud.getUserType().equals(UserType.backAdmin.getTypeCode())
+                            /*||ud.getUserType().equals(UserType.businessManager.getTypeCode()) todo 4.10后*/ ) ) {
+                return ResponseBean.errorResponse("普管不能修改管理员类型账户");
+            }
             uitd.setStatus(null);//此接口不允许更新用户状态
             uitd.setLoginName(null); //此接口不允许更新登录名
             uis.updateUserInfo(uitd, resourceSet, roleSet);
             userRealm.clearCached();
-            UserInfoTableDo ud =uis.getOnlyUserInfoByLoginNameOrId(null,uitd.getId());
             loginName = ud.getLoginName();
             //request.setAttribute("modLoginName", uitd.getLoginName());
         } catch (BusinessException be) {
@@ -134,12 +151,17 @@ public class UserInfoController {
     @ResponseBody
     @LogRecord(logMsg = "用户“%s”被删除", params = {"delName"}, page = Operation.Page.userInfoBrowse,
             type = Operation.Type.del, after = true, before = false) //
-    public Object deleteUser(@RequestParam Integer deleteId, HttpServletRequest request) {
+    public Object deleteUser(@RequestParam Integer deleteId, HttpServletRequest request, HttpSession session) {
         try {
             //Map<String, Object> rstMap = uis.getUserInfoById(deleteId);
             UserInfoTableDo ud =uis.getOnlyUserInfoByLoginNameOrId(null,deleteId);
             if(null ==ud) {
                 throw new BusinessException("此id无对应用户记录");
+            }
+            if( UserRank.bAdmin.equals ( (session.getAttribute("userRank")) ) &&
+                    (ud.getUserType().equals(UserType.backAdmin.getTypeCode())
+                            /*||ud.getUserType().equals(UserType.businessManager.getTypeCode()) todo 4.10后*/ ) ) {
+                return ResponseBean.errorResponse("普管不能删除管理员类型账户");
             }
             uis.deleteUserById(deleteId);
             userRealm.clearCached(); //
@@ -157,11 +179,16 @@ public class UserInfoController {
     @ResponseBody
     @LogRecord(logMsg = "用户“%s”被锁定", params = {"lockName"}, page = Operation.Page.userInfoBrowse,
             type = Operation.Type.lock, after = true, before = false) //
-    public Object lockUser(@RequestParam Integer lockId, HttpServletRequest request) {
+    public Object lockUser(@RequestParam Integer lockId, HttpServletRequest request, HttpSession session) {
         try {
             UserInfoTableDo ud =uis.getOnlyUserInfoByLoginNameOrId(null,lockId);
             if(null ==ud) {
                 throw new BusinessException("此id无对应用户记录");
+            }
+            if( UserRank.bAdmin.equals ( (session.getAttribute("userRank")) ) &&
+                    (ud.getUserType().equals(UserType.backAdmin.getTypeCode())
+                            /*||ud.getUserType().equals(UserType.businessManager.getTypeCode()) todo 4.10后*/ ) ) {
+                return ResponseBean.errorResponse("普管不能锁定管理员类型账户");
             }
             UserInfoTableDo uitd = new UserInfoTableDo();
             String loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
@@ -184,11 +211,16 @@ public class UserInfoController {
     @ResponseBody
     @LogRecord(logMsg = "激活用户“%s”", params = {"activeName"}, page = Operation.Page.userInfoBrowse,
             type = Operation.Type.active, after = true, before = false) //
-    public Object activeUser(@RequestParam Integer activeId, HttpServletRequest request) {
+    public Object activeUser(@RequestParam Integer activeId, HttpServletRequest request, HttpSession session) {
         try {
             UserInfoTableDo ud =uis.getOnlyUserInfoByLoginNameOrId(null,activeId);
             if(null ==ud) {
                 throw new BusinessException("此id无对应用户记录");
+            }
+            if( UserRank.bAdmin.equals ( (session.getAttribute("userRank")) ) &&
+                    (ud.getUserType().equals(UserType.backAdmin.getTypeCode())
+                            /*||ud.getUserType().equals(UserType.businessManager.getTypeCode()) todo 4.10后*/ ) ) {
+                return ResponseBean.errorResponse("普管不能激活管理员类型账户");
             }
             UserInfoTableDo uitd = new UserInfoTableDo();
             String loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
@@ -217,10 +249,14 @@ public class UserInfoController {
             String selectObject,
             @RequestParam int pageSize,
             Integer pageNumber,
-            HttpServletRequest request) {
+            HttpServletRequest request,
+            HttpSession session) {
 
         Map<String, Object> rstMap = null;
         try {
+            if( UserRank.bAdmin.equals ( (session.getAttribute("userRank")) ) ) {
+                userType =UserType.general.getTypeCode(); //普管只能查看普通用户
+            }
             rstMap = uis.listUserInfo(userStatus, userType, areaCode, selectType, selectObject, pageSize, pageNumber);
         } catch (BusinessException be) {
             return ResponseBean.errorResponse(be.getMessage());
@@ -257,13 +293,22 @@ public class UserInfoController {
 
     @RequestMapping("/queryUserInfoById.do")
     @ResponseBody
-    public Object queryUserInfoById(@RequestParam int queryId, /*String userTypeStr,*/ String anchor, HttpServletRequest request) {
+    public Object queryUserInfoById(@RequestParam int queryId, /*String userTypeStr,*/ String anchor,
+                                    HttpServletRequest request, HttpSession session) {
         Map<String, Object> rstMap = null;
         try {
 //            if( null == UserType.getUserTypeByCode(userTypeStr) ) {
 //                throw new BusinessException("userTypeStr参数不合法");
 //            }
             rstMap = uis.getUserInfoById(queryId);
+            if( null !=rstMap ) {
+                UserInfoTableDo ud =(UserInfoTableDo) (rstMap.get("userInfo"));
+                if(UserRank.bAdmin.equals ( (session.getAttribute("userRank")) ) &&
+                        ( ud.getUserType().equals(UserType.backAdmin.getTypeCode())
+                            /*||ud.getUserType().equals(UserType.businessManager.getTypeCode()) todo 4.10后*/ ) ) {
+                    return ResponseBean.errorResponse("普管不能获取管理员类型账户的用户详情");
+                }
+            }
 //            if( !userTypeStr.equals((String) rstMap.get("userType")) ) {
 //                ;
 //            }
@@ -290,11 +335,14 @@ public class UserInfoController {
 
     @RequestMapping("/queryUserTemplate.do")
     @ResponseBody
-    public Object queryUserTemplate(@RequestParam String loginName, String userType, HttpServletRequest request) {
+    public Object queryUserTemplate(@RequestParam String loginName, String userType, HttpServletRequest request, HttpSession session) {
         List<Map<String, Object>> rstList = null;
         try {
             if( null == UserType.getUserTypeByCode(userType) ) {
                 throw new BusinessException("userType参数不合法");
+            }
+            if( UserRank.bAdmin.equals ( (session.getAttribute("userRank")) ) ) {
+                userType =UserType.general.getTypeCode(); //普管不能开立包含管理员类型的模板
             }
             rstList = uis.getUserTemplate(loginName, userType);
         } catch (BusinessException be) {
@@ -331,7 +379,7 @@ public class UserInfoController {
 
     @RequestMapping("/queryUserListDictionary.do")
     @ResponseBody
-    public Object queryListDictionary( @RequestParam String[] queryProject ) {
+    public Object queryListDictionary( @RequestParam String[] queryProject, HttpSession session) {
         Map<String, Object> rstObj = new HashMap<String, Object>();
         for ( String Prj : queryProject ) {
             switch ( Prj ) {
@@ -342,7 +390,23 @@ public class UserInfoController {
                     rstObj.put("userTypeList",CodeNameMap.getUserTypeList() );
                     break;
                 case "userStatusList": //用户状态
-                    rstObj.put("userStatusList",CodeNameMap.getUserStatusList() );
+                    List<Map<String, String>> tlmp =new ArrayList(CodeNameMap.getUserTypeList());
+                    UserRank ur =(UserRank)session.getAttribute("userRank");
+                    //if( UserRank.superA !=ur ) { //不是超管
+                        if ( UserRank.bAdmin.equals(ur) ) { //后台普管
+                            List<Map<String, String>> dlm = new ArrayList();
+                            for (Map<String, String> mp : tlmp) {
+                                if (UserType.backAdmin.getTypeCode().equals(mp.get("tpCode"))) {
+                                    dlm.add(mp);
+                                }
+                                /*if( UserType.businessManager.getTypeCode().equals( mp.get("tpCode") ) ) {
+                                    dlm.add(mp);
+                                }*/ //todo 4.10后用
+                            }
+                            tlmp.removeAll(dlm);
+                        }
+                    //}
+                    rstObj.put("userStatusList", tlmp);
                     break;
             }
         }
@@ -351,15 +415,18 @@ public class UserInfoController {
 
     @RequestMapping("/queryPwdLapseCycle.do")
     @ResponseBody
-    public Object queryPwdLapseCycle(  HttpServletRequest request) {
+    public Object queryPwdLapseCycle(  HttpSession session) {
         return  ResponseBean.successResponse(uis.getAndSetPwdLapseCycle(null));
     }
 
     @RequestMapping("/modifyPwdLapseCycle.do")
     @ResponseBody
-    public Object modifyPwdLapseCycle( @RequestParam int pwdLapseCycle, HttpServletRequest request) {
+    public Object modifyPwdLapseCycle( @RequestParam int pwdLapseCycle, HttpSession session) {
         if( pwdLapseCycle <1 || pwdLapseCycle >100 ) {
             return  ResponseBean.errorResponse("参数不合法，正确范围[1,100]");
+        }
+        if( UserRank.bAdmin.equals ( (session.getAttribute("userRank")) ) ) {
+            ResponseBean.errorResponse("只有超管才能修改密码过期期限");
         }
         return  ResponseBean.successResponse( uis.getAndSetPwdLapseCycle(pwdLapseCycle) );
     }
@@ -399,6 +466,9 @@ public class UserInfoController {
     public Object updateInfo(@RequestParam Integer id, @RequestParam String mobile, @RequestParam String email,
                              @RequestParam String fixPhone, HttpSession session, HttpServletRequest request) throws Exception {
 
+        if( (int)( session.getAttribute("userId") ) != id ) {
+            ResponseBean.errorResponse("个人中心用户只能修改自己的个人信息");
+        }
         UserInfoTableDo oldUitd = this.uis.selectById(UserInfoTableDo.class, id);
         if (oldUitd != null) {
             request.setAttribute("m_mobile", " ");
@@ -439,6 +509,9 @@ public class UserInfoController {
             return ResponseBean.successResponse("password.history.contains"); // 新设置密码不可与原密码设置相同
         }
         UserInfoTableDo ud = uis.getOnlyUserInfoByLoginNameOrId(loginName,-1);
+        if( (int)( session.getAttribute("userId") ) != ud.getId() ) {
+            ResponseBean.errorResponse("个人中心用户只能修改自己的密码");
+        }
         int rst = uis.compareUserDaoAndPassword(ud, oldPassword, Operation.System.back, null);
         if( rst <=-5 ) {
             return ResponseBean.successResponse("account.not.exist"); // 账号不存在 // BusinessException("未查询到id字段");

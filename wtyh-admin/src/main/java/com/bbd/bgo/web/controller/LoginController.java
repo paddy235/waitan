@@ -3,6 +3,8 @@ package com.bbd.bgo.web.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.bbd.wtyh.common.comenum.UserRank;
+import com.bbd.wtyh.common.comenum.UserType;
 import com.bbd.wtyh.domain.AreaDO;
 import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.log.user.Operation;
@@ -81,6 +83,17 @@ public class LoginController {
 			session.setAttribute("area",areaCode);//地区编号
 			session.setAttribute("areaName",areaName);//地区名称
 			session.setAttribute("loginUser",userInfo);//日志使用
+			UserType ut = UserType.getUserTypeByCode( userInfo.getUserType() );
+			session.setAttribute("enUserType", ut );//保存用户类型（枚举值）
+			session.setAttribute("userId", userInfo.getId() );//保存用户Id
+			session.setAttribute("userName", userInfo.getLoginName() );//保存用户名
+			UserRank userRank = UserRank.general;
+			if( UserInfoService.superId == userInfo.getId() ) {
+				userRank = UserRank.superA;
+			} else  if (UserType.backAdmin.equals(ut)  /*|| UserType.businessManager(ut) */) { //todo 4.10后用
+				userRank = UserRank.bAdmin;
+			}
+			session.setAttribute("userRank", userRank);//保存用户等级
 
 			//用户信息、权限信息传给前端页面
 			map=new HashedMap();

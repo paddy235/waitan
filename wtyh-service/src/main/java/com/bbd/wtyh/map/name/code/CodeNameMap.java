@@ -181,8 +181,8 @@ public class CodeNameMap implements ApplicationContextAware {
     static public List<Map<String, String>> getUserTypeList() {  return userTypeList; }
     static public Map<String, String> getUserTypeMap() {  return userTypeMap; }
 
-    static List<Map<String, String>> userStatusList; //用户类型表
-    static Map<String, String> userStatusMap; //用户类型字典
+    static List<Map<String, String>> userStatusList; //用户状态表
+    static Map<String, String> userStatusMap; //用户状态字典
     static {
         userStatusList =new ArrayList<Map<String, String>>() {{
             add( new  HashMap<String, String>() {{
