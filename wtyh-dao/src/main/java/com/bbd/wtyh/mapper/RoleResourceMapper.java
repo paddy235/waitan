@@ -84,7 +84,7 @@ public interface RoleResourceMapper {
 
 	List<UserRoleDTO> listRoleAssign(Map<String, Object> params);
 	/**
-	 * 查找某个用户对用的权限code
+	 * 验证准备新增的角色在数据库中是否已存在相同的权限
 	 * @param counts
 	 * @return
 	 */

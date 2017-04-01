@@ -84,12 +84,17 @@
 
 
     <select id="listRoleBase" parameterType="java.util.HashMap" resultType="com.bbd.wtyh.domain.RoleDo">
+        <if test=" listing ==null ">  <!-- 查总条数的标记 -->
+            COUNT(*) AS id
+        </if>
+        <if test=" listing !=null ">
         select id,name,description,type,
         create_date AS createDate ,
         update_date AS updateDate ,
         create_by AS createBy ,
         update_by AS updateBy ,
         user_type AS userType
+        </if>
         from role
         where
         type not in('S','D','T')

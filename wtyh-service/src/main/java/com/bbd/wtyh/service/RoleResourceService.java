@@ -91,7 +91,7 @@ public interface RoleResourceService {
 	void addRoleResourceMapping(Integer roleId, String resourceIdSet, String createBy) throws Exception;
 
 	// 浏览角色列表
-	List<RoleDo> listRoleBase(String roleType, int pageLimit, Integer pageNumber);
+	Map<String, Object> listRoleBase(String roleType, int pageLimit, Integer pageNumber);
 
 	// 取角色
 	RoleDo getRoleBase(Integer roleId, String roleName);
@@ -162,4 +162,10 @@ public interface RoleResourceService {
 	 * @throws Exception
 	 */
 	void delUserRoleResource(UserInfoTableDo userDo) throws Exception;
+
+	/**
+	 * 验证准备新增的角色在数据库中是否已存在相同的权限
+	 * @return
+	 */
+	boolean listRoleHaveTheSameRes(String resource) throws Exception;
 }

@@ -251,11 +251,13 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	 * @return
 	 */
 	@Override
-	public List<RoleDo> listRoleBase(String userType, int pageLimit, Integer pageNumber) {
+	public Map<String, Object> listRoleBase(String userType, int pageLimit, Integer pageNumber) {
+		HashMap<String, Object> result = new HashMap<>();
 		HashMap<String, Object> params = new HashMap<>();
 		if (null != UserType.getUserTypeByCode(userType)) {
 			params.put("userType", userType);
 		}
+		List<RoleDo> total=roleResourceMapper.listRoleBase(params);
 		if (pageLimit <= 0 || pageNumber < 1) {
 			params.put("listing", null);
 		} else {
@@ -267,7 +269,15 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 			params.put("listing", 1);
 
 		}
-		return roleResourceMapper.listRoleBase(params);
+		RoleDo roleDo=total.get(0);
+		if(roleDo!=null){
+			result.put("totalCount",roleDo.getId());//用ID暂存totalCount;
+		}else{
+			result.put("totalCount",0);
+		}
+
+		result.put("roleList",roleResourceMapper.listRoleBase(params));
+		return result;
 	}
 
 	/**
@@ -391,5 +401,32 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 			this.excuteDel("DELETE FROM role_resource WHERE role_id = " + roleDo.getId());
 			this.delete(roleDo);
 		}
+	}
+
+	@Override
+	public boolean listRoleHaveTheSameRes(String resource) throws Exception {
+
+		String[] resourceArr = resource.split(",");
+		Arrays.asList(resourceArr);
+		List<String> sort1=Arrays.asList(resourceArr);
+		List<String> sort2=new ArrayList<>();
+
+		List<RoleDo> list=this.roleResourceMapper.listRoleHaveTheSameRes(resourceArr.length);
+		for(RoleDo roleDo:list){
+			Integer roleId=roleDo.getId();
+			List<ResourceDo> listRes=this.roleResourceMapper.listResourceByRoleId(roleId);
+			for(ResourceDo resourceDo:listRes){
+				sort2.add(resourceDo.getCode());
+			}
+			Collections.sort(sort2);
+			for(int i=0;i<sort1.size();i++){
+				if(!sort1.get(i).equals(sort2.get(i))){
+					return  true;
+				}
+
+			}
+		}
+
+		return false;
 	}
 }
