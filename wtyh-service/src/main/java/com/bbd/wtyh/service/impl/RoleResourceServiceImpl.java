@@ -1,6 +1,5 @@
 package com.bbd.wtyh.service.impl;
 
-import com.bbd.higgs.utils.DateUtils;
 import com.bbd.wtyh.common.comenum.UserType;
 import com.bbd.wtyh.constants.Constants;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
@@ -25,7 +24,6 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	@Autowired
 	private RoleResourceMapper roleResourceMapper;
 
-
 	@Override
 	public RoleDo addRoleBase(String roleName, String roleDes, String userType, String loginName) {
 		RoleDo roleDo = new RoleDo();
@@ -43,7 +41,6 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	public void deleteRoleBase(Integer roleId) {
 		this.executeCUD("DELETE FROM role WHERE id = ?", roleId);
 	}
-
 
 	@Override
 	public UserRoleDo getUserRoleRelation(Integer userId, Integer roleId) {
@@ -68,9 +65,8 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		UserRoleDo userRoleDo = new UserRoleDo();
 		userRoleDo.setUserId(userId);
 		userRoleDo.setRoleId(roleId);
-		this.executeCUD("delete from user_role where user_id="+userId+" and role_id="+roleId);
+		this.executeCUD("delete from user_role where user_id=" + userId + " and role_id=" + roleId);
 	}
-
 
 	/*
 	 * 删除角色权限关系
@@ -96,7 +92,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		}
 		// 新增角色权限关系
 		String[] resourceArr = resourceSet.split(",");
-		RoleResourceDo roleResourceDo ;
+		RoleResourceDo roleResourceDo;
 		for (int i = 0; i < resourceArr.length; i++) {
 			if (resourceArr[i] == null) {
 				continue;
@@ -318,50 +314,33 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 
 	@Override
 	public boolean listRoleHaveTheSameRes(String resource) throws Exception {
-		boolean same=false;//存在相同的角色=true  不存在=false
+		boolean same = false;// 存在相同的角色=true 不存在=false
 		String[] resourceArr = resource.split(",");
 		Arrays.asList(resourceArr);
-<<<<<<< HEAD
 		List<String> sort1 = Arrays.asList(resourceArr);
+		Collections.sort(sort1);
 		List<String> sort2 = new ArrayList<>();
-
-		List<RoleDo> list = this.roleResourceMapper.listRoleHaveTheSameRes(resourceArr.length);
-		for (RoleDo roleDo : list) {
-			Integer roleId = roleDo.getId();
+		int count = 0;
+		List<Integer> list = this.roleResourceMapper.listRoleHaveTheSameRes(sort1.size());
+		for (Integer roleId : list) {
+			if (null == roleId) {
+				continue;
+			}
+			sort2.clear();
+			count = 0;
 			List<ResourceDo> listRes = this.roleResourceMapper.listResourceByRoleId(roleId);
 			for (ResourceDo resourceDo : listRes) {
-				sort2.add(resourceDo.getCode());
+				sort2.add(String.valueOf(resourceDo.getId()));
 			}
 			Collections.sort(sort2);
 			for (int i = 0; i < sort1.size(); i++) {
 				if (!sort1.get(i).equals(sort2.get(i))) {
-					return true;
-=======
-		List<String> sort1=Arrays.asList(resourceArr);
-		Collections.sort(sort1);
-		List<String> sort2=new ArrayList<>();
-		int count=0;
-		List<Integer> list=this.roleResourceMapper.listRoleHaveTheSameRes(sort1.size());
-		for(Integer roleId:list){
-			if (null==roleId){
-				continue;
-			}
-			sort2.clear();
-			count=0;
-			List<ResourceDo> listRes=this.roleResourceMapper.listResourceByRoleId(roleId);
-			for(ResourceDo resourceDo:listRes){
-				sort2.add(String.valueOf(resourceDo.getId()));
-			}
-			Collections.sort(sort2);
-			for(int i=0;i<sort1.size();i++){
-				if(!sort1.get(i).equals(sort2.get(i))){
 					count++;
 					break;
->>>>>>> origin/dev
 				}
 			}
-			if(count==0){
-				same=true;
+			if (count == 0) {
+				same = true;
 				break;
 			}
 		}
