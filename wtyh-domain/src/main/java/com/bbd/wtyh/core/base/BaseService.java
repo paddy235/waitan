@@ -85,11 +85,12 @@ public interface BaseService {
 	<T> int update(T obj);
 
 	/**
-	 * 执行一个insert/update/delete SQL语句。不支持SELECT
+	 * 执行一个insert/update/delete SQL语句。不支持SELECT<br>
 	 * 
 	 * @param sql
+	 *            支持?占位符
+	 * @param param
 	 * @return
 	 */
-	int executeCUD(String sql);
-
+	int executeCUD(String sql, Object... param);
 }

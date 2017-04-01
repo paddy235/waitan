@@ -83,12 +83,12 @@ public interface BaseMapper {
 	@UpdateProvider(type = CRUDTemplate.class, method = "update")
 	<T> int update(T obj);
 
-	@Insert("${sql}")
-	int executeInsert(@Param("sql") String sql);
+	@InsertProvider(type = CRUDTemplate.class, method = "refactorSql")
+	int executeInsert(@Param("sql") String sql, @Param("param") Object... param);
 
-	@Update("${sql}")
-	int executeUpdate(@Param("sql") String sql);
+	@DeleteProvider(type = CRUDTemplate.class, method = "refactorSql")
+	int executeDelete(@Param("sql") String sql, @Param("param") Object... param);
 
-	@Delete("${sql}")
-	int executeDelete(@Param("sql") String sql);
+	@UpdateProvider(type = CRUDTemplate.class, method = "refactorSql")
+	int executeUpdate(@Param("sql") String sql, @Param("param") Object... param);
 }

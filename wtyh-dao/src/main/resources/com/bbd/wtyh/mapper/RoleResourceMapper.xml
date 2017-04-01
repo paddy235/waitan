@@ -213,11 +213,21 @@
         on a.id=b.user_id order by b.user_id
     </select>
 
-    <select id="listRoleHaveTheSameRes" parameterType="int" resultType="com.bbd.wtyh.domain.RoleDo">
+    <select id="listRoleHaveTheSameRes" parameterType="int" resultType="Integer">
         select a.roleId from (
         select role_resource.role_id  as roleId,count(1) as counts
         from role ,role_resource
         where role.type='R' AND role.id=role_resource.role_id
         group by role_resource.role_id) a where a.counts=#{counts}
+    </select>
+    <select id="listResourceByRoleIds"  resultType="com.bbd.wtyh.domain.ResourceDo">
+        select DISTINCT resource.id,resource.`code`,resource.`name`,resource.type from
+        role_resource,resource
+        where   role_resource.role_id in
+        <foreach item="item" index="index" collection="roleIds" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        and role_resource.resource_id=resource.id
+        order by resource.id
     </select>
 </mapper>

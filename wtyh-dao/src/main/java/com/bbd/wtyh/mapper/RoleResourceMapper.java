@@ -83,11 +83,19 @@ public interface RoleResourceMapper {
 	List<UserRoleDTO> listRoleAssign(@Param("roleId") Integer roleId);
 
 	List<UserRoleDTO> listRoleAssign(Map<String, Object> params);
+
 	/**
 	 * 验证准备新增的角色在数据库中是否已存在相同的权限
+	 * 
 	 * @param counts
 	 * @return
 	 */
-	List<RoleDo> listRoleHaveTheSameRes(@Param("counts") Integer counts);
+	List<Integer> listRoleHaveTheSameRes(@Param("counts") Integer counts);
+	/**
+	 * 查询多个角色的权限集合
+	 * @param
+	 * @return
+	 */
+	List<ResourceDo> listResourceByRoleIds(@Param("roleIds") String[] roleIds);
 
 }

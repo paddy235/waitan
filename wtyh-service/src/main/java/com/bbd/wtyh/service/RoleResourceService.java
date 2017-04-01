@@ -1,5 +1,6 @@
 package com.bbd.wtyh.service;
 
+import com.bbd.wtyh.core.base.BaseService;
 import com.bbd.wtyh.domain.ResourceDo;
 import com.bbd.wtyh.domain.RoleDo;
 import com.bbd.wtyh.domain.UserInfoTableDo;
@@ -16,7 +17,7 @@ import java.util.Set;
  * @author sunliming
  * @since 2016年8月15日 下午6:23:04
  */
-public interface RoleResourceService {
+public interface RoleResourceService extends BaseService {
 
 
 	/**
@@ -150,7 +151,14 @@ public interface RoleResourceService {
 
 	/**
 	 * 验证准备新增的角色在数据库中是否已存在相同的权限
+	 * 
 	 * @return
 	 */
-	boolean listRoleHaveTheSameRes(String resource) throws Exception;
+	boolean listRoleHaveTheSameRes(String resource,Integer selfRoleId) throws Exception;
+	/**
+	 * 查询多个角色的权限集合
+	 * @param
+	 * @return
+	 */
+	List<ResourceDo> listResourceByRoleIds(String[] roleIds);
 }

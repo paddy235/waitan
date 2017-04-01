@@ -1,10 +1,13 @@
 package com.bbd.wtyh.core.mybatis;
 
 import com.bbd.wtyh.core.utils.ReflectUtil;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.jdbc.SQL;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -163,7 +166,7 @@ public class CRUDTemplate {
 	 * @param obj
 	 * @return
 	 */
-	public static String update(Object obj) throws Exception {
+	public String update(Object obj) throws Exception {
 		SQL sql = new SQL();
 		sql.UPDATE(ReflectUtil.tableName(obj.getClass()));
 		Map<String, String> columnMap = MyBatisUtil.updateColumns(obj);
@@ -179,4 +182,22 @@ public class CRUDTemplate {
 		return sql.toString();
 	}
 
+	/**
+	 * 重构SQL。处理占位符
+	 *
+	 * @param map
+	 * @return
+	 */
+	public String refactorSql(Map<?, ?> map) {
+		String sql = (String) map.get("sql");
+		if (!StringUtils.contains(sql, "?")) {
+			return sql;
+		}
+		String[] strs = sql.trim().split("\\?");
+		StringBuilder sb = new StringBuilder(sql.length() + strs.length * 11 - strs.length);
+		for (int i = 0; i < strs.length; i++) {
+			sb.append(strs[i]).append("#{param[").append(i).append("]}");
+		}
+		return sb.toString();
+	}
 }
