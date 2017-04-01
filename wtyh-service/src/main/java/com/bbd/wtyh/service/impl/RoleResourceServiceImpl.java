@@ -313,7 +313,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	}
 
 	@Override
-	public boolean listRoleHaveTheSameRes(String resource) throws Exception {
+	public boolean listRoleHaveTheSameRes(String resource,Integer selfRoleId) throws Exception {
 		boolean same = false;// 存在相同的角色=true 不存在=false
 		String[] resourceArr = resource.split(",");
 		Arrays.asList(resourceArr);
@@ -323,9 +323,10 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		int count = 0;
 		List<Integer> list = this.roleResourceMapper.listRoleHaveTheSameRes(sort1.size());
 		for (Integer roleId : list) {
-			if (null == roleId) {
+			if (null == roleId || roleId==selfRoleId) {
 				continue;
 			}
+
 			sort2.clear();
 			count = 0;
 			List<ResourceDo> listRes = this.roleResourceMapper.listResourceByRoleId(roleId);

@@ -154,5 +154,5 @@ public interface RoleResourceService extends BaseService {
 	 * 
 	 * @return
 	 */
-	boolean listRoleHaveTheSameRes(String resource) throws Exception;
+	boolean listRoleHaveTheSameRes(String resource,Integer selfRoleId) throws Exception;
 }
