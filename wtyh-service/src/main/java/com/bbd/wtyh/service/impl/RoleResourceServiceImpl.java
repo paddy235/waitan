@@ -330,6 +330,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 			if (null==roleId){
 				continue;
 			}
+			sort2.clear();
 			count=0;
 			List<ResourceDo> listRes=this.roleResourceMapper.listResourceByRoleId(roleId);
 			for(ResourceDo resourceDo:listRes){
