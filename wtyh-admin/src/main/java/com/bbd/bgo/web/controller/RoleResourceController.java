@@ -1,5 +1,6 @@
 package com.bbd.bgo.web.controller;
 
+import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.ResourceDo;
 import com.bbd.wtyh.domain.RoleDo;
 import com.bbd.higgs.utils.StringUtils;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 /**
@@ -40,9 +42,9 @@ public class RoleResourceController {
 	@RequestMapping("/add-role")
 	@ResponseBody
 	public Object addRole(@RequestParam String userType, @RequestParam String roleName,  String roleDes,
-			@RequestParam String resource, HttpServletRequest request) {
+			@RequestParam String resource, HttpSession session) {
 		try {
-			String loginName = (String) request.getSession().getAttribute("loginName");
+			String loginName = (String) session.getAttribute(Constants.SESSION.loginName);
 			if (StringUtils.isNullOrEmpty(userType) || StringUtils.isNullOrEmpty(roleName) || StringUtils.isNullOrEmpty(resource)) {
 				return ResponseBean.errorResponse("数据错误");
 			}
@@ -71,9 +73,9 @@ public class RoleResourceController {
 	@RequestMapping("/update-role")
 	@ResponseBody
 	public Object updateRole(@RequestParam String roleId, @RequestParam String roleName, @RequestParam String roleDes,
-			@RequestParam String resource, HttpServletRequest request) {
+			@RequestParam String resource, HttpSession session) {
 		try {
-			String loginName = (String) request.getSession().getAttribute("loginName");
+			String loginName = (String) session.getAttribute(Constants.SESSION.loginName);
 			if (StringUtils.isNullOrEmpty(roleId) || StringUtils.isNullOrEmpty(roleName) || StringUtils.isNullOrEmpty(resource)) {
 				return ResponseBean.errorResponse("数据错误");
 			}
@@ -271,7 +273,7 @@ public class RoleResourceController {
 	@RequestMapping("/reassign-role")
 	@ResponseBody
 	public Object reassignRole(@RequestParam Integer roleId, @RequestParam String unassign, @RequestParam String assign,
-			HttpServletRequest request) {
+			HttpSession session) {
 		try {
 			// 角色ID为空就不处理
 			if (null == roleId) {
@@ -288,7 +290,7 @@ public class RoleResourceController {
 				assignArr = assign.split(",");
 			}
 
-			String loginName = (String) request.getSession().getAttribute("loginName");
+			String loginName = (String) session.getAttribute(Constants.SESSION.loginName);
 
 			String userId;
 			UserRoleDo userRoleDO;

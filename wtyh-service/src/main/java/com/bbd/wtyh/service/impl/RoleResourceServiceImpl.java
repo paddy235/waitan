@@ -94,7 +94,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		String[] resourceArr = resourceSet.split(",");
 		RoleResourceDo roleResourceDo;
 		for (int i = 0; i < resourceArr.length; i++) {
-			if (resourceArr[i] == null) {
+			if (null==resourceArr[i]) {
 				continue;
 			}
 			roleResourceDo = new RoleResourceDo();
@@ -323,7 +323,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		int count = 0;
 		List<Integer> list = this.roleResourceMapper.listRoleHaveTheSameRes(sort1.size());
 		for (Integer roleId : list) {
-			if (null == roleId || roleId==selfRoleId) {
+			if (null == roleId || roleId.equals(selfRoleId)) {
 				continue;
 			}
 
