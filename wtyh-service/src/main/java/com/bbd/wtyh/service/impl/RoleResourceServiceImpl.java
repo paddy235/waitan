@@ -106,7 +106,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 			}
 			roleResourceDo = new RoleResourceDo();
 			roleResourceDo.setRoleId(roleId);
-			roleResourceDo.setResourceId(Integer.valueOf(resourceArr[i]));
+			roleResourceDo.setResourceId(Integer.parseInt(resourceArr[i]));
 			roleResourceDo.setCreateBy(loginName);
 			roleResourceDo.setCreateDate(new Date());
 			roleResourceMapper.addRoleResourceRelation(roleResourceDo);
