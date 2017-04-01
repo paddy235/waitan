@@ -51,7 +51,7 @@ public class RoleResourceController {
 			if (null != roleDo && roleDo.getName() != null) {
 				return ResponseBean.errorResponse("角色名称已存在");
 			}
-			if(!this.roleResourceService.listRoleHaveTheSameRes(resource)){
+			if(this.roleResourceService.listRoleHaveTheSameRes(resource)){
 				return ResponseBean.errorResponse("已存在相同权限的角色");
 			}
 			roleDo = roleResourceService.addRoleBase(roleName, roleDes, userType, loginName);
