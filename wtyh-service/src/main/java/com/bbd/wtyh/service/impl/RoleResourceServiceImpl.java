@@ -251,7 +251,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		List<RoleDo> roles = this.roleResourceMapper.getRoleByUser(userId, Constants.role.TYPE_REGULAR);
 		map.put("role", roles);
 		Set<Integer> resourceCodes = this.roleResourceMapper.getUserResourceId(userId);
-		map.put("resourceCode", resourceCodes);
+		map.put("resourceId", resourceCodes);
 		return map;
 	}
 
