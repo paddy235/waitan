@@ -1,6 +1,7 @@
 package com.bbd.bgo.web.controller;
 
 import com.bbd.wtyh.common.Constants;
+import com.bbd.wtyh.common.comenum.UserType;
 import com.bbd.wtyh.domain.ResourceDo;
 import com.bbd.wtyh.domain.RoleDo;
 import com.bbd.higgs.utils.StringUtils;
@@ -156,7 +157,7 @@ public class RoleResourceController {
 	 */
 	@RequestMapping("/browse-role")
 	@ResponseBody
-	public Object browseRole(@RequestParam String roleId, HttpServletRequest request) {
+	public Object browseRole(@RequestParam String roleId,@RequestParam String pageType, HttpServletRequest request) {
 		Map<String, Object> rstMap = new HashMap<>();
 		try {
 			if (StringUtils.isNullOrEmpty(roleId)) {
@@ -164,11 +165,20 @@ public class RoleResourceController {
 			}
 			Integer id = Integer.parseInt(roleId);
 			RoleDo roleDo = roleResourceService.getRoleBase(id, null);
+			//记录日志
+			String roleName=(null==roleDo)?"":roleDo.getName();
+			if("modify".equals(pageType)){
+				UserLogRecord.record("编辑角色:" +roleName,
+						Operation.Type.browse, Operation.Page.roleModify, Operation.System.back, request);
+			}else{
+				UserLogRecord.record("浏览角色:" +roleName,
+						Operation.Type.browse, Operation.Page.roleBrowse, Operation.System.back, request);
+			}
 			if (null == roleDo) {
 				return ResponseBean.errorResponse("角色不存在");
 			}
-			UserLogRecord.record("浏览角色:" +roleDo.getName(),
-					Operation.Type.browse, Operation.Page.roleBrowse, Operation.System.back, request);
+
+
 
 			List<ResourceDo> list = roleResourceService.listResourceByRoleId(id);
 			Map<String, List<UserRoleDTO>> map = roleResourceService.listRoleAssign(id);
@@ -193,10 +203,21 @@ public class RoleResourceController {
 
 		Map<String, Object> rstMap ;
 		try {
+			if(StringUtils.isNullOrEmpty(userType)){
+				UserLogRecord.record("浏览角色列表", Operation.Type.browse, Operation.Page.roleList, Operation.System.back, request);
+			}else{
+				String typeName;
+				if("T".equals(userType)){
+					typeName="全部";
+				}else{
+					typeName=UserType.getUserTypeByCode(userType).getTypeName();
+				}
+				UserLogRecord.record("搜索角色列表(条件："+typeName+")", Operation.Type.query, Operation.Page.roleList, Operation.System.back, request);
+			}
 			if (null == pageNumber) {
 				pageNumber = 1;
 			}
-			UserLogRecord.record("浏览角色列表", Operation.Type.browse, Operation.Page.roleBrowse, Operation.System.back, request);
+
 			rstMap= roleResourceService.listRoleBase(userType, pageSize, pageNumber);
 		} catch (Exception e) {
 			e.printStackTrace();
