@@ -15,6 +15,7 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -24,6 +25,7 @@ import java.util.*;
  * Created by cgj on 2017/2/27.
  */
 @Service
+@Transactional
 public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoService {
 
 	@Autowired
@@ -33,21 +35,22 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 	private RoleResourceService roleResourceService;
 
 	@Override
+	@Transactional
 	public void createUser(UserInfoTableDo uitd, String resourceSet, String roleSet) throws Exception {
 
 		if (null == uitd) {
 			throw new BusinessException("用户信息表对象为空");
 		}
 		uitd.setId(null);
-		uitd.setStatus(UserStatus.active.getStatusCode()); //默认创建活动账户
+		uitd.setStatus(UserStatus.active.getStatusCode()); // 默认创建活动账户
 		if (StringUtils.isBlank(uitd.getUserType())) {
 			throw new BusinessException("用户状态为空");
 		}
 		if (StringUtils.isBlank(uitd.getLoginName()) || !rexCheckUserName(uitd.getLoginName())) {
 			throw new BusinessException("新建的登录名为空或不合法");
 		}
-		UserInfoTableDo utd =getOnlyUserInfoByLoginNameOrId(uitd.getLoginName(), -1);
-		if (null !=utd) {
+		UserInfoTableDo utd = getOnlyUserInfoByLoginNameOrId(uitd.getLoginName(), -1);
+		if (null != utd) {
 			throw new BusinessException("新建的登录名已存在");
 		}
 		if (StringUtils.isBlank(uitd.getRealName()) || !rexCheckUserName(uitd.getRealName())) {
@@ -93,14 +96,17 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		uitd.setUpdateDate(uitd.getCreateDate());
 		uitd.setUpdateBy(uitd.getUpdateBy());
 
-		/*if (uitd.getUserType().equals( UserType.businessManager.getTypeCode() ) ) {
-			if (StringUtils.isBlank(uitd.getForePwd()) || !rexCheckPassword(uitd.getForePwd()))
-				throw new BusinessException("前台密码为空或不合法");
-			uitd.setForePwd(userPasswordEncrypt(uitd.getForePwd()));
-			if (StringUtils.isBlank(uitd.getBackPwd()) || !rexCheckPassword(uitd.getBackPwd()))
-				throw new BusinessException("后台密码为空或不合法");
-			uitd.setBackPwd(userPasswordEncrypt(uitd.getBackPwd()));
-		} else*/
+		/*
+		 * if (uitd.getUserType().equals( UserType.businessManager.getTypeCode()
+		 * ) ) { if (StringUtils.isBlank(uitd.getForePwd()) ||
+		 * !rexCheckPassword(uitd.getForePwd())) throw new
+		 * BusinessException("前台密码为空或不合法");
+		 * uitd.setForePwd(userPasswordEncrypt(uitd.getForePwd())); if
+		 * (StringUtils.isBlank(uitd.getBackPwd()) ||
+		 * !rexCheckPassword(uitd.getBackPwd())) throw new
+		 * BusinessException("后台密码为空或不合法");
+		 * uitd.setBackPwd(userPasswordEncrypt(uitd.getBackPwd())); } else
+		 */
 		if (uitd.getUserType().equals(UserType.general.getTypeCode())) {
 			if (StringUtils.isBlank(uitd.getForePwd()) || !rexCheckPassword(uitd.getForePwd()))
 				throw new BusinessException("前台密码为空或不合法");
@@ -111,33 +117,34 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 			if (StringUtils.isBlank(uitd.getBackPwd()) || !rexCheckPassword(uitd.getBackPwd()))
 				throw new BusinessException("后台密码为空或不合法");
 			uitd.setBackPwd(userPasswordEncrypt(uitd.getBackPwd()));
-		} /*else if (uitd.getUserType().equals("U")) {
-			uitd.setForePwd("");
-			uitd.setBackPwd("");
-		}*/ else {
+		} /*
+			 * else if (uitd.getUserType().equals("U")) { uitd.setForePwd("");
+			 * uitd.setBackPwd(""); }
+			 */ else {
 			throw new BusinessException("用户类型不合法");
 		}
 		uitd.setForePwdUpDate(null); // 创建时置空，表明此用户登录时需要提示用户立即修改密码，下同
 		uitd.setBackPwdUpDate(null); //
 		userInfoMapper.saveU(uitd);
 		// 创建孙黎明这边的权限项
-		//roleResourceService.addUserRoleResource(uitd, resourceSet, uitd.getCreateBy());
-		roleResourceService.saveUserRoleResource( uitd, roleSet, resourceSet, uitd.getCreateBy() );
+		// roleResourceService.addUserRoleResource(uitd, resourceSet,
+		// uitd.getCreateBy());
+		roleResourceService.saveUserRoleResource(uitd, roleSet, resourceSet, uitd.getCreateBy());
 	}
 
 	// 更新用户信息
 	@Override
 	public void updateUserInfo(UserInfoTableDo uitd, String resourceSet, String roleSet) throws Exception {
-		//long ms1 = (new Date()).getTime();
+		// long ms1 = (new Date()).getTime();
 		if (null == uitd) {
 			throw new BusinessException("用户信息表为空对象");
 		}
 		if (null == uitd.getId()) {
 			throw new BusinessException("没有指定待更新的用户信息的id");
 		}
-//		if (1 == uitd.getId()) { // id号为1的为超级管理员，禁止修改或删除
-//			throw new BusinessException("supper管理员，禁止修改或删除！");
-//		}
+		// if (1 == uitd.getId()) { // id号为1的为超级管理员，禁止修改或删除
+		// throw new BusinessException("supper管理员，禁止修改或删除！");
+		// }
 		UserInfoTableDo oldUitd = userInfoMapper.selectUserAllInfoById(uitd.getId());
 		if (null == oldUitd) {
 			throw new BusinessException("提供的用户id不存在");
@@ -148,7 +155,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		if (StringUtils.isBlank(uitd.getStatus())) {
 			uitd.setStatus(null); // 不更新用户状态
 		} else {
-			if (null ==UserStatus.getUserStatusByCode(uitd.getStatus())) {
+			if (null == UserStatus.getUserStatusByCode(uitd.getStatus())) {
 				throw new BusinessException("用户状态参数不合法");
 			}
 			updateCount++;
@@ -160,8 +167,8 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 			if (!rexCheckUserName(uitd.getLoginName())) {
 				throw new BusinessException("新指定的登录名不合法");
 			}
-			UserInfoTableDo utd =getOnlyUserInfoByLoginNameOrId(uitd.getLoginName(), -1);
-			if (null !=utd) {
+			UserInfoTableDo utd = getOnlyUserInfoByLoginNameOrId(uitd.getLoginName(), -1);
+			if (null != utd) {
 				throw new BusinessException("新指定的登录名已存在");
 			}
 			updateCount++;
@@ -236,10 +243,18 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		String uType = oldUitd.getUserType();
 		boolean oldBY = false; // 旧的后台属性
 		boolean oldFY = false; // 旧的前台属性
-		if (uType.equals(UserType.backAdmin.getTypeCode()) /*|| uType.equals(UserType.businessManager.getTypeCode())*/ ) {
+		if (uType.equals(UserType.backAdmin
+				.getTypeCode()) /*
+								 * || uType.equals(UserType.businessManager.
+								 * getTypeCode())
+								 */ ) {
 			oldBY = true;
 		}
-		if (uType.equals(UserType.general.getTypeCode()) /*|| uType.equals(UserType.businessManager.getTypeCode())*/ ) {
+		if (uType.equals(UserType.general
+				.getTypeCode()) /*
+								 * || uType.equals(UserType.businessManager.
+								 * getTypeCode())
+								 */ ) {
 			oldFY = true;
 		}
 		if (StringUtils.isBlank(uitd.getUserType())) { // 未指定userType
@@ -281,10 +296,20 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 			if (!newType.equals(uType)) {
 				updateCount++; // 更新UserType
 			}
-			if (newType.equals(UserType.backAdmin.getTypeCode()) /*|| newType.equals(UserType.businessManager.getTypeCode())*/  ) {
+			if (newType
+					.equals(UserType.backAdmin
+							.getTypeCode()) /*
+											 * || newType.equals(UserType.
+											 * businessManager.getTypeCode())
+											 */ ) {
 				newBY = true;
 			}
-			if (newType.equals(UserType.general.getTypeCode()) /*|| newType.equals(UserType.businessManager.getTypeCode())*/  ) {
+			if (newType
+					.equals(UserType.general
+							.getTypeCode()) /*
+											 * || newType.equals(UserType.
+											 * businessManager.getTypeCode())
+											 */ ) {
 				newFY = true;
 			}
 			// 处理前台密码
@@ -340,7 +365,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 				uitd.setBackPwd(null);
 			}
 		}
-		//long ms2 = (new Date()).getTime();
+		// long ms2 = (new Date()).getTime();
 		uitd.setCreateDate(null);
 		uitd.setCreateBy(null);
 		if (updateCount > 0) { // 更新用户信息
@@ -354,21 +379,21 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 				throw new BusinessException("update is err");
 			}
 		}
-		//long ms3 = (new Date()).getTime();
-/*		if (null != resourceSet) { // 权限集有更新
-			Set<String> rC = roleResourceService.queryResourceCodeByUserId(uitd.getId());
-			if (rC.size() < 1) {
-				roleResourceService.addUserRoleResource(uitd, resourceSet, uitd.getCreateBy());
-			} else {
-				roleResourceService.updateUserRoleResource(uitd, resourceSet, uitd.getUpdateBy());
-			}
-		}*/
-		if( null != resourceSet )	{
+		// long ms3 = (new Date()).getTime();
+		/*
+		 * if (null != resourceSet) { // 权限集有更新 Set<String> rC =
+		 * roleResourceService.queryResourceCodeByUserId(uitd.getId()); if
+		 * (rC.size() < 1) { roleResourceService.addUserRoleResource(uitd,
+		 * resourceSet, uitd.getCreateBy()); } else {
+		 * roleResourceService.updateUserRoleResource(uitd, resourceSet,
+		 * uitd.getUpdateBy()); } }
+		 */
+		if (null != resourceSet) {
 			uitd.setLoginName(oldUitd.getLoginName());
 			roleResourceService.saveUserRoleResource(uitd, resourceSet, roleSet, uitd.getUpdateBy());
 
 		}
-		//long ms4 = (new Date()).getTime();
+		// long ms4 = (new Date()).getTime();
 		/*
 		 * System.out.println("ms2-1:" +(ms2-ms1)); System.out.println("ms3-2:"
 		 * +(ms3-ms2)); System.out.println("ms4-3:" +(ms4-ms3));
@@ -376,13 +401,13 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 	}
 
 	@Override
-	public void deleteUserById( Integer id ) throws Exception {
-		if( null ==id ) {
+	public void deleteUserById(Integer id) throws Exception {
+		if (null == id) {
 			throw new BusinessException("Err: userId is null!");
 		}
-		if( 1 !=id ) { //确保超管不被删除
-			userInfoMapper.deleteUser( id );
-			//roleResourceService.deleteUserRoleResource(id, null); //同时删除权限
+		if (1 != id) { // 确保超管不被删除
+			userInfoMapper.deleteUser(id);
+			// roleResourceService.deleteUserRoleResource(id, null); //同时删除权限
 			UserInfoTableDo ud = new UserInfoTableDo();
 			ud.setId(id);
 			roleResourceService.delUserRoleResource(ud);
@@ -390,7 +415,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 	}
 
 	@Override
-	public Map<String, Object> getUserInfoByLoginName(	String loginName ) throws Exception {
+	public Map<String, Object> getUserInfoByLoginName(String loginName) throws Exception {
 		if (StringUtils.isBlank(loginName) || !rexCheckUserName(loginName)) {
 			throw new BusinessException("登录名为空或不合法");
 		}
@@ -398,81 +423,79 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 	}
 
 	@Override
-	public Map<String, Object> getUserInfoById(int id ) throws Exception {
+	public Map<String, Object> getUserInfoById(int id) throws Exception {
 		return getUserInfoByLoginNameOrId(null, id);
 	}
 
-	private Map<String, Object> getUserInfoByLoginNameOrId(String loginName, int id ) throws Exception {
+	private Map<String, Object> getUserInfoByLoginNameOrId(String loginName, int id) throws Exception {
 		UserInfoTableDo uitd;
-		if(StringUtils.isBlank(loginName)) { //loginName为空则使用id查询详情
+		if (StringUtils.isBlank(loginName)) { // loginName为空则使用id查询详情
 			uitd = userInfoMapper.selectUserAllInfoById(id);
 		} else {
 			uitd = userInfoMapper.selectUserInfoAllByLoginName(loginName);
 		}
-		Map<String, Object> rstMap =null;
-		if( null != uitd ) {
+		Map<String, Object> rstMap = null;
+		if (null != uitd) {
 			decryptUserInfo(uitd);
-			//uitd.setStatus(null);
+			// uitd.setStatus(null);
 			uitd.setForePwd(null);
 			uitd.setBackPwd(null);
-			//uitd.setForePwdUpDate(null);
-			//uitd.setBackPwdUpDate(null);
-			//Set<String> rC = roleResourceService.queryResourceCodeByUserId(uitd.getId());
+			// uitd.setForePwdUpDate(null);
+			// uitd.setBackPwdUpDate(null);
+			// Set<String> rC =
+			// roleResourceService.queryResourceCodeByUserId(uitd.getId());
 			rstMap = roleResourceService.getUserRoleResource(uitd.getId());
 			rstMap.put("userInfo", uitd);
-			//rstMap.put("resourceCode", rC);
-			//rstMap.put("roleCode", new String[]{ "角色1","角色3","角色4","角色5","角色12" });
-		} /*else {
-			throw new BusinessException("用户信息不存在");
-			rstMap.put("userInfo", null);
-			rstMap.put("resourceCode", null);
-			rstMap.put("roleCode", null);
-		}*/
+			// rstMap.put("resourceCode", rC);
+			// rstMap.put("roleCode", new String[]{
+			// "角色1","角色3","角色4","角色5","角色12" });
+		} /*
+			 * else { throw new BusinessException("用户信息不存在");
+			 * rstMap.put("userInfo", null); rstMap.put("resourceCode", null);
+			 * rstMap.put("roleCode", null); }
+			 */
 		return rstMap;
 	}
 
 	@Override
-	public UserInfoTableDo getOnlyUserInfoByLoginNameOrId(String loginName, int id ) throws Exception {
+	public UserInfoTableDo getOnlyUserInfoByLoginNameOrId(String loginName, int id) throws Exception {
 		UserInfoTableDo uitd;
-		if(StringUtils.isBlank(loginName) || !rexCheckUserName(loginName) ) { //loginName为空则使用id查询详情
+		if (StringUtils.isBlank(loginName) || !rexCheckUserName(loginName)) { // loginName为空则使用id查询详情
 			uitd = userInfoMapper.selectUserAllInfoById(id);
 		} else {
 			uitd = userInfoMapper.selectUserInfoAllByLoginName(loginName);
 		}
-		if( null != uitd ) {
+		if (null != uitd) {
 			decryptUserInfo(uitd);
-			//uitd.setStatus(null);
-			//uitd.setForePwd(null);
-			//uitd.setBackPwd(null);
-		} //else throw new BusinessException("用户信息不存在");
+			// uitd.setStatus(null);
+			// uitd.setForePwd(null);
+			// uitd.setBackPwd(null);
+		} // else throw new BusinessException("用户信息不存在");
 		return uitd;
 	}
 
-/*	@Override
-	public Map<String, Object> getUserInfoSummaryByLoginName(String loginName) throws Exception {
-		if (StringUtils.isBlank(loginName) || !rexCheckUserName(loginName)) {
-			throw new BusinessException("登录名为空或不合法");
-		}
-		List<Map<String, Object>> lm = userInfoMapper.selectUserInfoSummaryByLoginName(loginName);
-		if (lm.size() > 1) {
-			throw new BusinessException("登录名同名用户数异常，请联系管理员排查！！");
-		} else if (lm.size() < 1) {
-			throw new BusinessException("无此登录名对应的记录");
-		}
-		return lm.get(0);
-	}*/
+	/*
+	 * @Override public Map<String, Object> getUserInfoSummaryByLoginName(String
+	 * loginName) throws Exception { if (StringUtils.isBlank(loginName) ||
+	 * !rexCheckUserName(loginName)) { throw new BusinessException("登录名为空或不合法");
+	 * } List<Map<String, Object>> lm =
+	 * userInfoMapper.selectUserInfoSummaryByLoginName(loginName); if (lm.size()
+	 * > 1) { throw new BusinessException("登录名同名用户数异常，请联系管理员排查！！"); } else if
+	 * (lm.size() < 1) { throw new BusinessException("无此登录名对应的记录"); } return
+	 * lm.get(0); }
+	 */
 
 	@Override
-	public Map<String, Object> listUserInfo(String userStatus, String userType, int areaCode, String selectType,
-											String selectObject, int pageLimit, Integer pageNumber) throws Exception {
-		if ( StringUtils.isBlank(userStatus) ||StringUtils.isBlank(userType) ||StringUtils.isBlank(selectType)) {
+	public Map<String, Object> listUserInfo(String userStatus, String userType, int areaCode, String selectType, String selectObject,
+			int pageLimit, Integer pageNumber) throws Exception {
+		if (StringUtils.isBlank(userStatus) || StringUtils.isBlank(userType) || StringUtils.isBlank(selectType)) {
 			throw new BusinessException("userStatus,selectType,userType有为空的参数");
 		}
 		if (pageLimit < 1) {
 			throw new BusinessException("pageLimit参数小于1，无意义");
 		}
 		if (!selectType.equals("default") && !selectType.equals("loginName") && !selectType.equals("realName")
-				&& !selectType.equals("department") ) {
+				&& !selectType.equals("department")) {
 			throw new BusinessException("selectType参数不合法");
 		}
 		if (!selectType.equals("default") && StringUtils.isBlank(selectObject)) {
@@ -481,10 +504,10 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		}
 
 		HashMap<String, Object> params = new HashMap<String, Object>();
-		if( null != UserStatus.getUserStatusByCode(userStatus) ) {
+		if (null != UserStatus.getUserStatusByCode(userStatus)) {
 			params.put("userStatus", userStatus);
 		}
-		if( null != UserType.getUserTypeByCode(userType) ) {
+		if (null != UserType.getUserTypeByCode(userType)) {
 			params.put("userType", userType);
 		}
 		if (areaCode > 0) {
@@ -505,16 +528,18 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		UserInfoTableDo uitd = new UserInfoTableDo();
 		for (Map<String, Object> itr : lm) {
 			orderNum++;
-			itr.put("orderNum", orderNum); //加页面序号
-			itr.put( "userStatus", CodeNameMap.getUserStatusMap().get( (String)(itr.get("userStatus")) ) );
-			//itr.put( "userType", UserType.getUserTypeByCode((String)(itr.get("userType")) ).getTypeName() );
-			itr.put( "userType", CodeNameMap.getUserTypeMap().get( (String)(itr.get("userType")) ) );
-			Object obj =itr.get("areaCode");
-			if( null !=  obj ) { //将区域代码转换成行政区名称
+			itr.put("orderNum", orderNum); // 加页面序号
+			itr.put("userStatus", CodeNameMap.getUserStatusMap().get((String) (itr.get("userStatus"))));
+			// itr.put( "userType",
+			// UserType.getUserTypeByCode((String)(itr.get("userType"))
+			// ).getTypeName() );
+			itr.put("userType", CodeNameMap.getUserTypeMap().get((String) (itr.get("userType"))));
+			Object obj = itr.get("areaCode");
+			if (null != obj) { // 将区域代码转换成行政区名称
 				try {
-					int tmp = Integer.parseInt( (String)obj );
+					int tmp = Integer.parseInt((String) obj);
 					obj = CodeNameMap.getShanghaiAreaCodeMap().get(tmp);
-					if( null !=  obj ) {
+					if (null != obj) {
 						itr.put("areaCode", obj);
 					} else {
 						itr.put("areaCode", "");
@@ -588,98 +613,91 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 
 	@Override
 	public boolean isUserNameMatchPassword(String loginName, String password, Operation.System sysType) throws Exception {
-		return compareUserNameAndPassword(loginName, password, sysType, null) <0 ? false :true;
+		return compareUserNameAndPassword(loginName, password, sysType, null) < 0 ? false : true;
 	}
 
 	@Override
 	public boolean isUserDaoMatchPassword(UserInfoTableDo userDao, String password, Operation.System sysType) throws Exception {
-		return compareUserDaoAndPassword(userDao, password, sysType, null) <0 ? false :true;
+		return compareUserDaoAndPassword(userDao, password, sysType, null) < 0 ? false : true;
 	}
 
 	@Override
-	public int compareUserNameAndPassword(String loginName, String password,  Operation.System sysType, UserType[] auType) throws Exception {
+	public int compareUserNameAndPassword(String loginName, String password, Operation.System sysType, UserType[] auType) throws Exception {
 		if (StringUtils.isBlank(loginName))
 			return -999; // 传入的参数不合法
-		return compareUserDaoAndPassword( getOnlyUserInfoByLoginNameOrId(loginName, -1), password, sysType, auType);
+		return compareUserDaoAndPassword(getOnlyUserInfoByLoginNameOrId(loginName, -1), password, sysType, auType);
 	}
 
 	@Override
-	public int compareUserDaoAndPassword(UserInfoTableDo userDao, String password, Operation.System sysType, UserType[] auType) throws Exception {
-		if (StringUtils.isBlank(password) || null ==sysType)
+	public int compareUserDaoAndPassword(UserInfoTableDo userDao, String password, Operation.System sysType, UserType[] auType)
+			throws Exception {
+		if (StringUtils.isBlank(password) || null == sysType)
 			return -999; // 传入的参数不合法
 		if (null == userDao) {
-			return -5; //throw new BusinessException("数据库中不存在此用户(-5)");
+			return -5; // throw new BusinessException("数据库中不存在此用户(-5)");
 		}
-		if( null ==userDao.getStatus() || !(UserStatus.active.getStatusCode().equals(userDao.getStatus()) ) ) {
-			return -4; //用户非活动状态(-4)
+		if (null == userDao.getStatus() || !(UserStatus.active.getStatusCode().equals(userDao.getStatus()))) {
+			return -4; // 用户非活动状态(-4)
 		}
-		if( null !=auType) { //Arrays.binarySearch(auType, )
-			boolean isInclude =false;
-			for( UserType ut:auType ) {
-				if( ut.getTypeCode().equals(userDao.getUserType()) ) {
-					isInclude =true;
+		if (null != auType) { // Arrays.binarySearch(auType, )
+			boolean isInclude = false;
+			for (UserType ut : auType) {
+				if (ut.getTypeCode().equals(userDao.getUserType())) {
+					isInclude = true;
 					break;
 				}
 			}
-			if (false ==isInclude) {
-				return -3; //用户类型和指定类型不匹配(-3)
+			if (false == isInclude) {
+				return -3; // 用户类型和指定类型不匹配(-3)
 			}
 		}
 		String selPassword = null;
-		if( sysType ==Operation.System.front ) {
+		if (sysType == Operation.System.front) {
 			selPassword = userDao.getForePwd();
-		} else if( sysType == Operation.System.back ) {
+		} else if (sysType == Operation.System.back) {
 			selPassword = userDao.getBackPwd();
 		}
 		if (StringUtils.isEmpty(selPassword))
 			return -2; // 库中密码字符串为空(-2)
-		return selPassword.equals(userPasswordEncrypt(password)) ? 0 : -1; //密码校验成功(0)、不匹配(-1)
+		return selPassword.equals(userPasswordEncrypt(password)) ? 0 : -1; // 密码校验成功(0)、不匹配(-1)
 	}
-
 
 	public String testUserPasswordBeOverdue(Date fbPwdUpDate) throws Exception {
 		if (null == fbPwdUpDate) { // 新用户首次登录
 			return new String("firstTime");
 		}
-		LocalDateTime oldTime =LocalDateTime.ofInstant(fbPwdUpDate.toInstant(), ZoneId.systemDefault());
-		int li =userInfoMapper.selectPwdLapseCycle();
-		if( oldTime.plusMonths(li).isBefore(LocalDateTime.now())) { // 用户密码过期
+		LocalDateTime oldTime = LocalDateTime.ofInstant(fbPwdUpDate.toInstant(), ZoneId.systemDefault());
+		int li = userInfoMapper.selectPwdLapseCycle();
+		if (oldTime.plusMonths(li).isBefore(LocalDateTime.now())) { // 用户密码过期
 			return new String("BeOverdue");
 		}
 		return new String("normal"); // 密码状态正常
 	}
 
 	/*
-		public String testUserPasswordBeOverdue1(Date fbPwdUpDate) throws Exception {
-		if (null == fbPwdUpDate) { // 新用户，需要立即更改密码
-			return new String("firstTime");
-		}
-		Date nowTime = new Date();
-		long dltTime = nowTime.getTime() - fbPwdUpDate.getTime();
-		Integer li =userInfoMapper.selectPwdLapseCycle();
-		int pwdLapseCycle =li;  // 用户密码失效的周期，单位是：月（计入闰年合年均730.5小时），由value1记录
-		long aMonthMs = (2629800000L *pwdLapseCycle);//730.5小时 =1000 *3600 *730.5 =2,629,800,000ms
-		if (dltTime > aMonthMs) { // 用户未更新密码超期
-			return new String("BeOverdue");
-		}
-		return new String("normal"); // 密码状态正常
-	}*/
+	 * public String testUserPasswordBeOverdue1(Date fbPwdUpDate) throws
+	 * Exception { if (null == fbPwdUpDate) { // 新用户，需要立即更改密码 return new
+	 * String("firstTime"); } Date nowTime = new Date(); long dltTime =
+	 * nowTime.getTime() - fbPwdUpDate.getTime(); Integer li
+	 * =userInfoMapper.selectPwdLapseCycle(); int pwdLapseCycle =li; //
+	 * 用户密码失效的周期，单位是：月（计入闰年合年均730.5小时），由value1记录 long aMonthMs = (2629800000L
+	 * *pwdLapseCycle);//730.5小时 =1000 *3600 *730.5 =2,629,800,000ms if (dltTime
+	 * > aMonthMs) { // 用户未更新密码超期 return new String("BeOverdue"); } return new
+	 * String("normal"); // 密码状态正常 }
+	 */
 
 	public Integer getAndSetPwdLapseCycle(Integer pwdLapseCycle) {
-		if( null != pwdLapseCycle )  {
+		if (null != pwdLapseCycle) {
 			userInfoMapper.updatePwdLapseCycle(pwdLapseCycle);
 		}
 		return userInfoMapper.selectPwdLapseCycle();
 	}
 
-/*	public static void main(String[] args) throws Exception {
-		//UserInfoService u1 = new UserInfoServiceImpl(); Date tsd =new Date(); Thread.sleep(2000);
-		byte aa =127;
-		while (true) {
-		aa++;
-		}
-	}*/
-
+	/*
+	 * public static void main(String[] args) throws Exception {
+	 * //UserInfoService u1 = new UserInfoServiceImpl(); Date tsd =new Date();
+	 * Thread.sleep(2000); byte aa =127; while (true) { aa++; } }
+	 */
 
 	// 解密需要解密的用户数据
 	private void decryptUserInfo(UserInfoTableDo uitd) throws Exception {

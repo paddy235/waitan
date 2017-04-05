@@ -64,6 +64,7 @@ public class RedisDAOImpl implements RedisDAO {
 	 */
 	public boolean addString(final String key, final String value, final Long timeout) {
 		boolean result = redisTemplate.execute(new RedisCallback<Boolean>() {
+
 			public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
 				Boolean result = false;
 				try {
@@ -90,14 +91,12 @@ public class RedisDAOImpl implements RedisDAO {
 	 *            超时处理
 	 * @return
 	 */
-	public boolean addString(final Map<String, String> keyValueList,
-			final Long timeout) {
+	public boolean addString(final Map<String, String> keyValueList, final Long timeout) {
 		boolean result = redisTemplate.execute(new RedisCallback<Boolean>() {
-			public Boolean doInRedis(RedisConnection connection)
-					throws DataAccessException {
+
+			public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
 				for (String key : keyValueList.keySet()) {
-					connection.setNX(key.getBytes(), keyValueList.get(key)
-							.getBytes());
+					connection.setNX(key.getBytes(), keyValueList.get(key).getBytes());
 					if (timeout != null && timeout > 0)
 						connection.expire(key.getBytes(), timeout);
 				}
@@ -115,6 +114,7 @@ public class RedisDAOImpl implements RedisDAO {
 	 */
 	public String getString(final String key) {
 		String value = redisTemplate.execute(new RedisCallback<String>() {
+
 			public String doInRedis(RedisConnection connection) throws DataAccessException {
 				byte[] result;
 				try {
@@ -159,13 +159,11 @@ public class RedisDAOImpl implements RedisDAO {
 	 *
 	 * @return true 操作成功，false 已存在值
 	 */
-	public boolean addHash(final String key, final String field,
-			final String value, final Long timeout) {
+	public boolean addHash(final String key, final String field, final String value, final Long timeout) {
 		boolean result = redisTemplate.execute(new RedisCallback<Boolean>() {
-			public Boolean doInRedis(RedisConnection connection)
-					throws DataAccessException {
-				Boolean result = connection.hSetNX(key.getBytes(),
-						field.getBytes(), value.getBytes());
+
+			public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
+				Boolean result = connection.hSetNX(key.getBytes(), field.getBytes(), value.getBytes());
 				if (result == false)
 					return result;
 				if (timeout != null && timeout > 0)
@@ -187,14 +185,12 @@ public class RedisDAOImpl implements RedisDAO {
 	 *            超时(秒)
 	 * @return true 操作成功，false 已存在值
 	 */
-	public boolean addHash(final String key,
-			final Map<String, String> fieldValueList, final Long timeout) {
+	public boolean addHash(final String key, final Map<String, String> fieldValueList, final Long timeout) {
 		boolean result = redisTemplate.execute(new RedisCallback<Boolean>() {
-			public Boolean doInRedis(RedisConnection connection)
-					throws DataAccessException {
+
+			public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
 				for (String hashKey : fieldValueList.keySet()) {
-					connection.hSetNX(key.getBytes(), hashKey.getBytes(),
-							fieldValueList.get(hashKey).getBytes());
+					connection.hSetNX(key.getBytes(), hashKey.getBytes(), fieldValueList.get(hashKey).getBytes());
 					if (timeout != null && timeout > 0)
 						connection.expire(key.getBytes(), timeout);
 				}
@@ -212,10 +208,14 @@ public class RedisDAOImpl implements RedisDAO {
 	 */
 	public Object getHashField(final String key, final String field) {
 		String value = redisTemplate.execute(new RedisCallback<String>() {
-			public String doInRedis(RedisConnection connection)
-					throws DataAccessException {
-				return new String(connection.hGet(key.getBytes(),
-						field.getBytes()));
+
+			public String doInRedis(RedisConnection connection) throws DataAccessException {
+
+				byte[] bytes = connection.hGet(key.getBytes(), field.getBytes());
+				if (bytes == null) {
+					return null;
+				}
+				return new String(bytes);
 			}
 		});
 		return value;
@@ -228,14 +228,12 @@ public class RedisDAOImpl implements RedisDAO {
 	 * @return
 	 */
 	public Map<byte[], byte[]> getHashAll(final String key) {
-		Map<byte[], byte[]> value = redisTemplate
-				.execute(new RedisCallback<Map<byte[], byte[]>>() {
-					public Map<byte[], byte[]> doInRedis(
-							RedisConnection connection)
-							throws DataAccessException {
-						return connection.hGetAll(key.getBytes());
-					}
-				});
+		Map<byte[], byte[]> value = redisTemplate.execute(new RedisCallback<Map<byte[], byte[]>>() {
+
+			public Map<byte[], byte[]> doInRedis(RedisConnection connection) throws DataAccessException {
+				return connection.hGetAll(key.getBytes());
+			}
+		});
 		return value;
 	}
 
@@ -247,8 +245,8 @@ public class RedisDAOImpl implements RedisDAO {
 	 */
 	public void delete(final String key) {
 		redisTemplate.execute(new RedisCallback<Long>() {
-			public Long doInRedis(RedisConnection connection)
-					throws DataAccessException {
+
+			public Long doInRedis(RedisConnection connection) throws DataAccessException {
 				try {
 					return connection.del(key.getBytes(Constants.characterCode));
 				} catch (UnsupportedEncodingException e) {
@@ -382,8 +380,8 @@ public class RedisDAOImpl implements RedisDAO {
 	 */
 	public Long addSet(final String key, final String value, final Long timeout) {
 		Long result = redisTemplate.execute(new RedisCallback<Long>() {
-			public Long doInRedis(RedisConnection connection)
-					throws DataAccessException {
+
+			public Long doInRedis(RedisConnection connection) throws DataAccessException {
 				Long result = connection.sAdd(key.getBytes(), value.getBytes());
 				if (result == 0)
 					return result;
@@ -402,13 +400,12 @@ public class RedisDAOImpl implements RedisDAO {
 	 * @return
 	 */
 	public Set<byte[]> getSet(final String key) {
-		Set<byte[]> value = redisTemplate
-				.execute(new RedisCallback<Set<byte[]>>() {
-					public Set<byte[]> doInRedis(RedisConnection connection)
-							throws DataAccessException {
-						return connection.sMembers(key.getBytes());
-					}
-				});
+		Set<byte[]> value = redisTemplate.execute(new RedisCallback<Set<byte[]>>() {
+
+			public Set<byte[]> doInRedis(RedisConnection connection) throws DataAccessException {
+				return connection.sMembers(key.getBytes());
+			}
+		});
 		return value;
 	}
 

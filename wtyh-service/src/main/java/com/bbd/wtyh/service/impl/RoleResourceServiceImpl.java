@@ -7,6 +7,7 @@ import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.dto.UserRoleDTO;
 import com.bbd.wtyh.exception.BusinessException;
 import com.bbd.wtyh.mapper.RoleResourceMapper;
+import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.RoleResourceService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 
 	@Autowired
 	private RoleResourceMapper roleResourceMapper;
+
+	@Autowired
+	private RedisDAO redisDAO;
 
 	@Override
 	public RoleDo addRoleBase(String roleName, String roleDes, String userType, String loginName) {
@@ -150,14 +154,14 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	}
 
 	@Override
-	public void addRoleResourceMapping(Integer roleId, String resourceIdSet, String createBy) throws Exception {
-		String[] resourceIds = resourceIdSet.split(",");
-		List<RoleResourceDo> rrList = new ArrayList<>(resourceIds.length);
+	public void addRoleResourceMapping(Integer roleId, String resourceCodeSet, String createBy) throws Exception {
+		String[] resourceCodes = resourceCodeSet.split(",");
+		List<RoleResourceDo> rrList = new ArrayList<>(resourceCodes.length);
 
-		for (String id : resourceIds) {
+		for (String code : resourceCodes) {
 			RoleResourceDo rr = new RoleResourceDo();
 			rr.setRoleId(roleId);
-			rr.setResourceId(Integer.parseInt(id));
+			rr.setResourceId(this.resourceCodeToId(code));
 			rr.setCreateBy(createBy);
 			rr.setCreateDate(new Date());
 			rrList.add(rr);
@@ -166,6 +170,38 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		this.executeCUD("DELETE FROM role_resource WHERE role_id = ?", roleId);
 		this.insertList(rrList);
 	}
+
+	@Override
+	public Integer resourceCodeToId(String code) throws Exception {
+		if (StringUtils.isBlank(code)) {
+			throw new IllegalArgumentException("权限code不能为空。");
+		}
+		Object obj = redisDAO.getHashField(Constants.resource.REDIS_KEY_RESOURCE_CODE_ID, code);
+		if (obj != null) {
+			return Integer.parseInt(obj.toString());
+		}
+
+		List<ResourceDo> list = this.selectAll(ResourceDo.class, "");
+		Map<String, String> codeIdMap = new HashMap<>();
+
+		list.forEach((ResourceDo redo) -> codeIdMap.put(redo.getCode(), redo.getId().toString()));
+		redisDAO.addHash(Constants.resource.REDIS_KEY_RESOURCE_CODE_ID, codeIdMap, null);
+
+		obj = codeIdMap.get(code);
+
+		if (obj == null) {
+			throw new BusinessException("未找到对应的权限信息，请检查权限code是否有误!");
+		}
+		return Integer.parseInt(obj.toString());
+	}
+
+	// codeToId(code){
+	// if(exist cache){
+	// select db to cache
+	// }
+	// return id;
+	//
+	// }
 
 	/**
 	 * 浏览角色列表
