@@ -1,12 +1,15 @@
 package com.bbd.wtyh.test;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.bbd.wtyh.domain.ResourceDo;
+import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.domain.dto.UserRoleDTO;
+import com.bbd.wtyh.service.UserInfoService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -70,6 +73,38 @@ public class RoleResourceTest {
 	public void resourceCodeToIdTest() throws Exception {
 		Integer id = this.resourceService.resourceCodeToId("F_HYJCPT_RZDB");
 		System.out.println(id);
+	}
+
+	@Autowired
+	private UserInfoService userInfoService;
+
+	@Test
+	public void createUserTest() throws Exception {
+		UserInfoTableDo user = new UserInfoTableDo();
+		user.setStatus("A");
+		user.setUserType("B");
+		user.setLoginName("lytest");
+		user.setForePwd("");
+		user.setBackPwd("12345678");
+		user.setRealName("ly");
+		user.setFixPhone("028-88887777");
+		user.setMobile("13350079669");
+		user.setEmail("123@qq.com");
+		user.setDepartment("软件部");
+		user.setAreaCode("104");
+		user.setCreateDate(new Date());
+		user.setCreateBy("ly");
+
+		this.userInfoService.createUser(user, "B_HTGLQX,B_YHRZGL", "");
+
+		System.out.println(user);
+
+	}
+
+	@Test
+	public void deleteUserTest() throws Exception {
+		this.userInfoService.deleteUserById(143);
+
 	}
 
 }

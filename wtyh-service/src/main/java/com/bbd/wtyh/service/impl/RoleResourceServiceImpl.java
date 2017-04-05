@@ -186,9 +186,9 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		List<ResourceDo> list = this.selectAll(ResourceDo.class, "");
 		Map<String, String> codeIdMap = new HashMap<>();
 
-        for(ResourceDo redo:list){
-            codeIdMap.put(redo.getCode(), redo.getId().toString());
-        }
+		for (ResourceDo redo : list) {
+			codeIdMap.put(redo.getCode(), redo.getId().toString());
+		}
 
 		redisDAO.addHash(Constants.resource.REDIS_KEY_RESOURCE_CODE_ID, codeIdMap, null);
 
@@ -333,7 +333,12 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		}
 		RoleDo roleDo = this.addUserResourceMapping(userDo, resourceCodeSet, createBy);
 		if (roleDo != null) {
-			roleIdSet += ("," + roleDo.getId());
+			if (StringUtils.isBlank(roleIdSet)) {
+				roleIdSet = roleDo.getId().toString();
+			} else {
+				roleIdSet += ("," + roleDo.getId());
+			}
+			// roleIdSet += ("," + roleDo.getId());
 		}
 		this.addUserRoleMapping(userDo, roleIdSet, createBy);
 	}
@@ -343,15 +348,15 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		if (userDo == null) {
 			return;
 		}
+		RoleDo roleDo = this.roleResourceMapper.getTempRoleByUser(userDo.getId(), Constants.role.TYPE_TEMP);
+		if (roleDo == null) {
+			return;
+		}
 		// 删除该用户与角色所有的对应关系
 		this.executeCUD("DELETE FROM user_role WHERE user_id = ?", userDo.getId());
-
-		RoleDo roleDo = this.roleResourceMapper.getTempRoleByUser(userDo.getId(), Constants.role.TYPE_TEMP);
-		if (roleDo != null) {
-			// 删除该角色与权限所有的对应关系
-			this.executeCUD("DELETE FROM role_resource WHERE role_id = ?", roleDo.getId());
-			this.delete(roleDo);
-		}
+		// 删除该角色与权限所有的对应关系
+		this.executeCUD("DELETE FROM role_resource WHERE role_id = ?", roleDo.getId());
+		this.delete(roleDo);
 	}
 
 	@Override
