@@ -443,7 +443,7 @@ public class UserInfoController {
 
     @RequestMapping("/modifyPwdLapseCycle.do")
     @ResponseBody
-    @LogRecord(logMsg = "用户密码有效期限被修改为：%d", params = { "pwdLapseCycle"}, type = Operation.Type.modify,
+    @LogRecord(logMsg = "用户密码有效期限被修改为：%s", params = { "pwdLapseCycle"}, type = Operation.Type.modify,
             page = Operation.Page.userList)
     public Object modifyPwdLapseCycle( @RequestParam int pwdLapseCycle, HttpSession session) {
         if( pwdLapseCycle <1 || pwdLapseCycle >100 ) {

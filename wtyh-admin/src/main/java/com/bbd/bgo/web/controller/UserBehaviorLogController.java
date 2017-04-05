@@ -3,6 +3,7 @@ package com.bbd.bgo.web.controller;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import com.bbd.wtyh.common.comenum.UserRank;
 import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.map.name.code.CodeNameMap;
 import com.bbd.wtyh.service.UserBehaviorLogService;
@@ -21,6 +22,7 @@ import com.bbd.wtyh.service.UserInfoService;
 import com.bbd.wtyh.web.ResponseBean;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by cgj on 2017/3/20.
@@ -58,10 +60,15 @@ public class UserBehaviorLogController {
             String endTime,
             Long logSN,
             String orderBy,
-            HttpServletRequest request) {
+            HttpServletRequest request, HttpSession session) {
         Map<String, Object> rstMap = null;
         try {
-            rstMap = ubls.listUserBehaviorLog(pageSize, pageNumber, userName, areaCode,
+            String excludeName =null;
+
+            if( UserRank.bAdmin.equals ( (session.getAttribute("userRank")) ) ) {
+                excludeName ="admin"; //滤除超管的行为日志，普管不能查看超管的行为日志
+            }
+            rstMap = ubls.listUserBehaviorLog(pageSize, pageNumber, excludeName ,userName, areaCode,
                     sysCode, opTpCd, opPgCd, stringToDate(beginTime),
                     stringToDate(endTime), logSN, orderBy);
         } catch (BusinessException be) {
