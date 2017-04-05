@@ -44,7 +44,15 @@ public class Operation {
 		userInfoModify("编辑用户", 23 ),
 		userOwnPwdModify("修改密码", 24), //自己的
 		userLogList("日志审计", 25),
-		userInfoBrowse("用户信息浏览" ,26 ); //
+		userInfoBrowse("用户信息浏览" ,26 ),
+
+		roleList("角色列表", 27),
+		roleBrowse("浏览角色", 28),
+		roleCreate("新增角色", 29),
+		roleModify("编辑角色", 30),
+		roleAssign("分配角色", 31)
+		; //
+
 
 		/** 页面 */
 		private String page;

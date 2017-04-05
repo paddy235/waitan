@@ -27,6 +27,9 @@
   </if>
   FROM <include refid="TabName"/>
   <where>
+    <if test="excludeName != null" >
+      `operator` &lt;> #{excludeName}
+    </if>
     <if test="userName != null" >
       `operator` LIKE CONCAT('%',#{userName},'%')
     </if>

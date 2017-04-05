@@ -149,7 +149,7 @@ public class UserInfoController {
 
     @RequestMapping("/deleteUser.do")
     @ResponseBody
-    @LogRecord(logMsg = "用户“%s”被删除", params = {"delName"}, page = Operation.Page.userInfoBrowse,
+    @LogRecord(logMsg = "删除用户“%s”", params = {"delName"}, page = Operation.Page.userInfoBrowse,
             type = Operation.Type.del, after = true, before = false) //
     public Object deleteUser(@RequestParam Integer deleteId, HttpServletRequest request, HttpSession session) {
         try {
@@ -177,9 +177,7 @@ public class UserInfoController {
 
     @RequestMapping("/lockUser.do")
     @ResponseBody
-    @LogRecord(logMsg = "用户“%s”被锁定", params = {"lockName"}, page = Operation.Page.userInfoBrowse,
-            type = Operation.Type.lock, after = true, before = false) //
-    public Object lockUser(@RequestParam Integer lockId, HttpServletRequest request, HttpSession session) {
+    public Object lockUser(@RequestParam Integer lockId, String anchor, HttpServletRequest request, HttpSession session) {
         try {
             UserInfoTableDo ud =uis.getOnlyUserInfoByLoginNameOrId(null,lockId);
             if(null ==ud) {
@@ -197,7 +195,19 @@ public class UserInfoController {
             uitd.setStatus(UserInfoService.UserStatus.lock.getStatusCode()); //"F"
             uis.updateUserInfo(uitd, null, null);
             userRealm.clearCached();
-            request.setAttribute("lockName", ud.getLoginName());
+            if(StringUtils.isNoneBlank(anchor) ) { //按条件记录用户日志
+                Operation.Page opPg =Operation.Page.blank;
+                switch (anchor) {
+                    case "userInfoBrowse": //记录用户信息浏览日志 //((UserInfoTableDo) rstMap.get("userInfo"))
+                        opPg =Operation.Page.userInfoBrowse;
+                        break;
+                    case "userList": //记录用户列表
+                        opPg =Operation.Page.userList;
+                        break;
+                }
+                UserLogRecord.record("锁定用户“" + ud.getLoginName() + "”", Operation.Type.browse, opPg,
+                        Operation.System.back, request); //
+            }
         } catch (BusinessException be) {
             return ResponseBean.errorResponse(be.getMessage());
         } catch (Exception e) {
@@ -209,9 +219,7 @@ public class UserInfoController {
 
     @RequestMapping("/activeUser.do")
     @ResponseBody
-    @LogRecord(logMsg = "激活用户“%s”", params = {"activeName"}, page = Operation.Page.userInfoBrowse,
-            type = Operation.Type.active, after = true, before = false) //
-    public Object activeUser(@RequestParam Integer activeId, HttpServletRequest request, HttpSession session) {
+    public Object activeUser(@RequestParam Integer activeId, String anchor, HttpServletRequest request, HttpSession session) {
         try {
             UserInfoTableDo ud =uis.getOnlyUserInfoByLoginNameOrId(null,activeId);
             if(null ==ud) {
@@ -229,7 +237,19 @@ public class UserInfoController {
             uitd.setStatus(UserInfoService.UserStatus.active.getStatusCode()); //"A"
             uis.updateUserInfo(uitd, null, null);
             userRealm.clearCached();
-            request.setAttribute("activeName", ud.getLoginName());
+            if(StringUtils.isNoneBlank(anchor) ) { //按条件记录用户日志
+                Operation.Page opPg =Operation.Page.blank;
+                switch (anchor) {
+                    case "userInfoBrowse": //记录用户信息浏览日志 //((UserInfoTableDo) rstMap.get("userInfo"))
+                        opPg =Operation.Page.userInfoBrowse;
+                        break;
+                    case "userList": //记录用户列表
+                        opPg =Operation.Page.userList;
+                        break;
+                }
+                UserLogRecord.record("激活用户“" + ud.getLoginName() + "”", Operation.Type.browse, opPg,
+                        Operation.System.back, request); //
+            }
         } catch (BusinessException be) {
             return ResponseBean.errorResponse(be.getMessage());
         } catch (Exception e) {
@@ -283,8 +303,10 @@ public class UserInfoController {
                     selectType = "所属部门";
                     break;
             }
-            UserLogRecord.record("搜索用户列表（条件：" +selectType +"，关键字：" +selectObject +"，区域："
-                    +CodeNameMap.getShanghaiAreaCodeMap().get(areaCode) +"）",
+            UserLogRecord.record("搜索用户列表，搜索类型：" +selectType +"，关键字：" +selectObject
+                            +"，用户状态：" +CodeNameMap.getUserStatusMap().get(userStatus)
+                            +"，用户类型：" +CodeNameMap.getUserTypeMap().get(userType)
+                            +"，所属地区：" +CodeNameMap.getShanghaiAreaCodeMap().get(areaCode) ,
                     Operation.Type.query, Operation.Page.userList, Operation.System.back, request);
         }
         //以上用于日志记录
@@ -308,27 +330,27 @@ public class UserInfoController {
                             /*||ud.getUserType().equals(UserType.businessManager.getTypeCode()) todo 4.10后*/ ) ) {
                     return ResponseBean.errorResponse("普管不能获取管理员类型账户的用户详情");
                 }
+                //
+                if(StringUtils.isNoneBlank(anchor) ) { //按条件记录用户日志
+                    switch (anchor) {
+                        case "userInfoBrowse": //记录用户信息浏览日志 //((UserInfoTableDo) rstMap.get("userInfo"))
+                            UserLogRecord.record("访问“" + ud.getLoginName() + "”的用户信息",
+                                    Operation.Type.browse, Operation.Page.userInfoBrowse, Operation.System.back, request); //
+                            break;
+                        case "openUserTemplate": //记录开立模板的选中项目
+                            UserLogRecord.record("“" + ud.getLoginName() + "”的用户信息被选为模板",
+                                    Operation.Type.query, Operation.Page.userCreate, Operation.System.back, request); //
+                            break;
+                    }
+                }
+            } else {
+                return ResponseBean.errorResponse("此id没有对应的用户信息");
             }
-//            if( !userTypeStr.equals((String) rstMap.get("userType")) ) {
-//                ;
-//            }
         } catch (BusinessException be) {
             return ResponseBean.errorResponse(be.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseBean.errorResponse("服务器异常：" + e);
-        }
-        if(StringUtils.isNoneBlank(anchor) ) { //按条件记录用户日志
-            switch (anchor) {
-                case "userInfoBrowse": //记录用户信息浏览日志
-                    UserLogRecord.record("访问“" + ((UserInfoTableDo) rstMap.get("userInfo")).getLoginName() + "”的用户信息",
-                            Operation.Type.browse, Operation.Page.userInfoBrowse, Operation.System.back, request); //
-                    break;
-                case "openUserTemplate": //记录开立模板的选中项目
-                    UserLogRecord.record("将“" + ((UserInfoTableDo) rstMap.get("userInfo")).getLoginName() + "”的用户信息选为模板",
-                            Operation.Type.query, Operation.Page.userCreate, Operation.System.back, request); //
-                    break;
-            }
         }
         return ResponseBean.successResponse(rstMap);
     }
@@ -387,26 +409,26 @@ public class UserInfoController {
                     rstObj.put("areaCodeList", CodeNameMap.getAndUpdateShanghaiAreaCodeTable(false) );
                     break;
                 case "userTypeList": //用户类型
-                    rstObj.put("userTypeList",CodeNameMap.getUserTypeList() );
-                    break;
-                case "userStatusList": //用户状态
                     List<Map<String, String>> tlmp =new ArrayList(CodeNameMap.getUserTypeList());
                     UserRank ur =(UserRank)session.getAttribute("userRank");
                     //if( UserRank.superA !=ur ) { //不是超管
-                        if ( UserRank.bAdmin.equals(ur) ) { //后台普管
-                            List<Map<String, String>> dlm = new ArrayList();
-                            for (Map<String, String> mp : tlmp) {
-                                if (UserType.backAdmin.getTypeCode().equals(mp.get("tpCode"))) {
-                                    dlm.add(mp);
-                                }
+                    if ( UserRank.bAdmin.equals(ur) ) { //后台普管
+                        List<Map<String, String>> dlm = new ArrayList();
+                        for (Map<String, String> mp : tlmp) {
+                            if (UserType.backAdmin.getTypeCode().equals(mp.get("tpCode"))) {
+                                dlm.add(mp);
+                            }
                                 /*if( UserType.businessManager.getTypeCode().equals( mp.get("tpCode") ) ) {
                                     dlm.add(mp);
                                 }*/ //todo 4.10后用
-                            }
-                            tlmp.removeAll(dlm);
                         }
+                        tlmp.removeAll(dlm);
+                    }
                     //}
-                    rstObj.put("userStatusList", tlmp);
+                    rstObj.put("userTypeList", tlmp);
+                    break;
+                case "userStatusList": //用户状态
+                    rstObj.put("userStatusList", CodeNameMap.getUserStatusList());
                     break;
             }
         }
@@ -421,6 +443,8 @@ public class UserInfoController {
 
     @RequestMapping("/modifyPwdLapseCycle.do")
     @ResponseBody
+    @LogRecord(logMsg = "用户密码有效期限被修改为：%s", params = { "pwdLapseCycle"}, type = Operation.Type.modify,
+            page = Operation.Page.userList)
     public Object modifyPwdLapseCycle( @RequestParam int pwdLapseCycle, HttpSession session) {
         if( pwdLapseCycle <1 || pwdLapseCycle >100 ) {
             return  ResponseBean.errorResponse("参数不合法，正确范围[1,100]");
