@@ -338,7 +338,6 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 			} else {
 				roleIdSet += ("," + roleDo.getId());
 			}
-			// roleIdSet += ("," + roleDo.getId());
 		}
 		this.addUserRoleMapping(userDo, roleIdSet, createBy);
 	}
