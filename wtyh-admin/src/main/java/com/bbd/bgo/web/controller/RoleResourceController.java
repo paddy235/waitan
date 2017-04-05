@@ -327,9 +327,9 @@ public class RoleResourceController {
 			if(null!=roleId){
 				RoleDo roleDo=this.roleResourceService.getRoleBase(roleId,null);
 				if(null!=roleDo){
-					UserLogRecord.record("分配角色:"+roleDo.getName(), Operation.Type.browse, Operation.Page.roleAssign, Operation.System.back, request);
+					UserLogRecord.record("浏览分配角色:"+roleDo.getName(), Operation.Type.browse, Operation.Page.roleAssign, Operation.System.back, request);
 				}else {
-					UserLogRecord.record("分配角色:该角色不存在!", Operation.Type.browse, Operation.Page.roleAssign, Operation.System.back, request);
+					UserLogRecord.record("浏览分配角色:该角色不存在!", Operation.Type.browse, Operation.Page.roleAssign, Operation.System.back, request);
 				}
 			}
 			Map<String, List<UserRoleDTO>> rstMap = this.roleResourceService.listRoleAssign(roleId);
@@ -391,7 +391,7 @@ public class RoleResourceController {
 
 			RoleDo roleDo=this.roleResourceService.getRoleBase(roleId,null);
 			if(null!=roleDo){
-				UserLogRecord.record("分配角色:"+roleDo.getName(), Operation.Type.modify, Operation.Page.roleAssign, Operation.System.back, request);
+				UserLogRecord.record("保存分配角色:"+roleDo.getName(), Operation.Type.modify, Operation.Page.roleAssign, Operation.System.back, request);
 			}
 
 			return ResponseBean.successResponse("success");
