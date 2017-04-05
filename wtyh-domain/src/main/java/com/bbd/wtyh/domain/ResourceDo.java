@@ -2,35 +2,53 @@ package com.bbd.wtyh.domain;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 import java.util.List;
 
+@Table(name = "resource")
 public class ResourceDo extends BaseDO {
 
+	@Id
 	private Integer id;
 
+	@Column
 	private String code;
 
+	@Column
 	private String name;
 
+	@Column(name = "parent_code")
 	private String parentCode;
 
+	@Column
 	private String type;
 
+	@Column
 	private String url;
 
 	private String resourcePermission;
 
+	@Column(name = "display_order")
 	private Integer displayOrder;
 
-	private Date createDate;
-
+	/** 创建人 */
+	@Column(name = "create_by")
 	private String createBy;
 
+	/** 创建时间 */
+	@Column(name = "create_date")
+	private Date createDate;
+	/** 修改人 */
+	@Column(name = "update_by")
+	private String updateBy;
+
+	/** 修改时间 */
+	@Column(name = "update_date")
 	private Date updateDate;
 
-	private String updateBy;
 	/** 子权限集 */
 	@JSONField(serialize = false)
 	private List<ResourceDo> childResource;
@@ -134,7 +152,7 @@ public class ResourceDo extends BaseDO {
 	/**
 	 * 获取 子权限集
 	 *
-	 * @return childResource 子权限集  
+	 * @return childResource 子权限集
 	 */
 	public List<ResourceDo> getChildResource() {
 		return this.childResource;
@@ -143,7 +161,8 @@ public class ResourceDo extends BaseDO {
 	/**
 	 * 设置 子权限集
 	 *
-	 * @param childResource 子权限集  
+	 * @param childResource
+	 *            子权限集
 	 */
 	public void setChildResource(List<ResourceDo> childResource) {
 		this.childResource = childResource;

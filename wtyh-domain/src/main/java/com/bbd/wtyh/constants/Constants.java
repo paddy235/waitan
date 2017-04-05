@@ -31,6 +31,13 @@ public class Constants {
 
 	}
 
+	public static class resource {
+
+		/** redis key:resource:code:id。用于存放权限code和Id 的对应关系 */
+		public static final String REDIS_KEY_RESOURCE_CODE_ID = "resource:code:id";
+
+	}
+
 	// 角色类型
 
 	// 权限列表

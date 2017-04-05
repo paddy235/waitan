@@ -19,7 +19,6 @@ import java.util.Set;
  */
 public interface RoleResourceService extends BaseService {
 
-
 	/**
 	 * 新增正式角色基本信息
 	 */
@@ -35,13 +34,11 @@ public interface RoleResourceService extends BaseService {
 	 */
 	void deleteRoleBase(Integer roleId);
 
-
 	UserRoleDo getUserRoleRelation(Integer userId, Integer roleId);
 
 	void addUserRoleRelation(Integer userId, Integer roleId, String loginName);
 
 	void deleteUserRoleRelation(Integer userId, Integer roleId);
-
 
 	/**
 	 * 删除该角色的角色-权限关系
@@ -83,6 +80,15 @@ public interface RoleResourceService extends BaseService {
 	 * @throws Exception
 	 */
 	void addRoleResourceMapping(Integer roleId, String resourceIdSet, String createBy) throws Exception;
+
+	/***
+	 * 将权限code转换为ID
+	 *
+	 * @param code
+	 * @return
+	 * @throws Exception
+	 */
+	Integer resourceCodeToId(String code) throws Exception;
 
 	// 浏览角色列表
 	Map<String, Object> listRoleBase(String roleType, int pageLimit, Integer pageNumber);
@@ -157,6 +163,7 @@ public interface RoleResourceService extends BaseService {
 	boolean listRoleHaveTheSameRes(String[] resource,Integer selfRoleId) throws Exception;
 	/**
 	 * 查询多个角色的权限集合
+	 *
 	 * @param
 	 * @return
 	 */
