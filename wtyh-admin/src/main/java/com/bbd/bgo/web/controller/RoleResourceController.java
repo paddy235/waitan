@@ -1,12 +1,16 @@
 package com.bbd.bgo.web.controller;
 
 import com.bbd.wtyh.common.Constants;
+import com.bbd.wtyh.common.comenum.UserType;
 import com.bbd.wtyh.domain.ResourceDo;
 import com.bbd.wtyh.domain.RoleDo;
 import com.bbd.higgs.utils.StringUtils;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.dto.UserRoleDTO;
 import com.bbd.wtyh.exception.ExceptionHandler;
+import com.bbd.wtyh.log.user.Operation;
+import com.bbd.wtyh.log.user.UserLogRecord;
+import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.service.RoleResourceService;
 import com.bbd.wtyh.web.ResponseBean;
 import org.slf4j.Logger;
@@ -41,6 +45,7 @@ public class RoleResourceController {
 	 */
 	@RequestMapping("/add-role")
 	@ResponseBody
+	@LogRecord(logMsg = "新增角色：%s", params = {"roleName"}, page = Operation.Page.roleCreate, type = Operation.Type.add)
 	public Object addRole(@RequestParam String userType, @RequestParam String roleName,  String roleDes,
 			@RequestParam String resource, HttpSession session) {
 		try {
@@ -53,11 +58,17 @@ public class RoleResourceController {
 			if (null != roleDo && roleDo.getName() != null) {
 				return ResponseBean.errorResponse("角色名称已存在");
 			}
-			if(this.roleResourceService.listRoleHaveTheSameRes(resource,null)){
+			//权限代码转权限ID
+			String[] resourceArr = resource.split(",");
+			for(int i=0;i<resourceArr.length;i++){
+				String resId= roleResourceService.resourceCodeToId(resourceArr[i]).toString();
+				resourceArr[i]=resId;
+			}
+			if(this.roleResourceService.listRoleHaveTheSameRes(resourceArr,null)){
 				return ResponseBean.errorResponse("已存在相同权限的角色");
 			}
 			roleDo = roleResourceService.addRoleBase(roleName, roleDes, userType, loginName);
-			roleResourceService.addRoleResourceRelation(roleDo.getId(), resource, loginName);
+			roleResourceService.addRoleResourceRelation(roleDo.getId(), resourceArr, loginName);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseBean.errorResponse("服务器异常：" + e);
@@ -72,6 +83,7 @@ public class RoleResourceController {
 	 */
 	@RequestMapping("/update-role")
 	@ResponseBody
+	@LogRecord(logMsg = "修改角色：%s", params = {"roleName"}, page = Operation.Page.roleModify, type = Operation.Type.modify)
 	public Object updateRole(@RequestParam String roleId, @RequestParam String roleName, @RequestParam String roleDes,
 			@RequestParam String resource, HttpSession session) {
 		try {
@@ -88,12 +100,18 @@ public class RoleResourceController {
 				}
 
 			}
-			if(this.roleResourceService.listRoleHaveTheSameRes(resource,id)){
+			//权限代码转权限ID
+			String[] resourceArr = resource.split(",");
+			for(int i=0;i<resourceArr.length;i++){
+				String resId= roleResourceService.resourceCodeToId(resourceArr[i]).toString();
+				resourceArr[i]=resId;
+			}
+			if(this.roleResourceService.listRoleHaveTheSameRes(resourceArr,id)){
 				return ResponseBean.errorResponse("已存在相同权限的角色");
 			}
 			roleResourceService.updateRoleBase(id, roleName, roleDes, loginName);
 			roleResourceService.deleteRoleResourceRelation(id);
-			roleResourceService.addRoleResourceRelation(id, resource, loginName);
+			roleResourceService.addRoleResourceRelation(id, resourceArr, loginName);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseBean.errorResponse("服务器异常：" + e);
@@ -120,8 +138,11 @@ public class RoleResourceController {
 
 				return ResponseBean.errorResponse("已绑定用户,不能删除该角色");
 			}
+			RoleDo roleDo=roleResourceService.getRoleBase(id,null);
 			roleResourceService.deleteRoleResourceRelation(id);
 			roleResourceService.deleteRoleBase(id);
+			UserLogRecord.record("删除角色:" +roleDo.getName(),
+					Operation.Type.del, Operation.Page.roleBrowse, Operation.System.back, request);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseBean.errorResponse("服务器异常：" + e);
@@ -136,7 +157,7 @@ public class RoleResourceController {
 	 */
 	@RequestMapping("/browse-role")
 	@ResponseBody
-	public Object browseRole(@RequestParam String roleId, HttpServletRequest request) {
+	public Object browseRole(@RequestParam String roleId,@RequestParam String pageType, HttpServletRequest request) {
 		Map<String, Object> rstMap = new HashMap<>();
 		try {
 			if (StringUtils.isNullOrEmpty(roleId)) {
@@ -144,9 +165,21 @@ public class RoleResourceController {
 			}
 			Integer id = Integer.parseInt(roleId);
 			RoleDo roleDo = roleResourceService.getRoleBase(id, null);
+			//记录日志
+			String roleName=(null==roleDo)?"":roleDo.getName();
+			if("modify".equals(pageType)){
+				UserLogRecord.record("编辑角色:" +roleName,
+						Operation.Type.browse, Operation.Page.roleModify, Operation.System.back, request);
+			}else{
+				UserLogRecord.record("浏览角色:" +roleName,
+						Operation.Type.browse, Operation.Page.roleBrowse, Operation.System.back, request);
+			}
 			if (null == roleDo) {
 				return ResponseBean.errorResponse("角色不存在");
 			}
+
+
+
 			List<ResourceDo> list = roleResourceService.listResourceByRoleId(id);
 			Map<String, List<UserRoleDTO>> map = roleResourceService.listRoleAssign(id);
 			rstMap.put("role", roleDo);
@@ -170,9 +203,21 @@ public class RoleResourceController {
 
 		Map<String, Object> rstMap ;
 		try {
+			if(StringUtils.isNullOrEmpty(userType)){
+				UserLogRecord.record("浏览角色列表", Operation.Type.browse, Operation.Page.roleList, Operation.System.back, request);
+			}else{
+				String typeName;
+				if("T".equals(userType)){
+					typeName="全部";
+				}else{
+					typeName=UserType.getUserTypeByCode(userType).getTypeName();
+				}
+				UserLogRecord.record("搜索角色列表(条件："+typeName+")", Operation.Type.query, Operation.Page.roleList, Operation.System.back, request);
+			}
 			if (null == pageNumber) {
 				pageNumber = 1;
 			}
+
 			rstMap= roleResourceService.listRoleBase(userType, pageSize, pageNumber);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -275,8 +320,16 @@ public class RoleResourceController {
 	 */
 	@RequestMapping("/list-role-assign")
 	@ResponseBody
-	public Object listRoleAssign(@RequestParam Integer roleId) {
+	public Object listRoleAssign(@RequestParam Integer roleId,HttpServletRequest request) {
 		try {
+			if(null!=roleId){
+				RoleDo roleDo=this.roleResourceService.getRoleBase(roleId,null);
+				if(null!=roleDo){
+					UserLogRecord.record("分配角色:"+roleDo.getName(), Operation.Type.browse, Operation.Page.roleAssign, Operation.System.back, request);
+				}else {
+					UserLogRecord.record("分配角色:该角色不存在!", Operation.Type.browse, Operation.Page.roleAssign, Operation.System.back, request);
+				}
+			}
 			Map<String, List<UserRoleDTO>> rstMap = this.roleResourceService.listRoleAssign(roleId);
 			return ResponseBean.successResponse(rstMap);
 		} catch (Exception e) {
@@ -292,12 +345,20 @@ public class RoleResourceController {
 	@RequestMapping("/reassign-role")
 	@ResponseBody
 	public Object reassignRole(@RequestParam Integer roleId, @RequestParam String unassign, @RequestParam String assign,
-			HttpSession session) {
+			HttpSession session,HttpServletRequest request) {
 		try {
 			// 角色ID为空就不处理
 			if (null == roleId) {
 				return ResponseBean.errorResponse("角色ID为空");
 			}
+
+			RoleDo roleDo=this.roleResourceService.getRoleBase(roleId,null);
+			if(null!=roleDo){
+				UserLogRecord.record("分配角色:"+roleDo.getName(), Operation.Type.modify, Operation.Page.roleAssign, Operation.System.back, request);
+			}else {
+				UserLogRecord.record("分配角色:该角色不存在!", Operation.Type.modify, Operation.Page.roleAssign, Operation.System.back, request);
+			}
+
 			// 本次需要解绑的用户
 			String[] unassignArr = new String[] {};
 			if (!StringUtils.isNullOrEmpty(unassign)) {

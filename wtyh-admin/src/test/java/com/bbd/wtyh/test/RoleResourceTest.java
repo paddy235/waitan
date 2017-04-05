@@ -1,12 +1,15 @@
 package com.bbd.wtyh.test;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.bbd.wtyh.domain.ResourceDo;
+import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.domain.dto.UserRoleDTO;
+import com.bbd.wtyh.service.UserInfoService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -25,44 +28,83 @@ import com.bbd.wtyh.service.RoleResourceService;
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:spring-config.xml"})
+@ContextConfiguration(locations = { "classpath:spring-config.xml" })
 public class RoleResourceTest {
 
-    private Logger logger = LoggerFactory.getLogger(getClass());
+	private Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Autowired
-    private RoleResourceService resourceService;
+	@Autowired
+	private RoleResourceService resourceService;
 
-    @Test
-    public void getRoleResourceTest() throws Exception {
-        long s = System.currentTimeMillis();
-        List<RoleDo> list = this.resourceService.getRoleResource("B");
-        long e = System.currentTimeMillis();
-        System.out.println((e - s));
-        System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
-    }
+	@Test
+	public void getRoleResourceTest() throws Exception {
+		long s = System.currentTimeMillis();
+		List<RoleDo> list = this.resourceService.getRoleResource("B");
+		long e = System.currentTimeMillis();
+		System.out.println((e - s));
+		System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
+	}
 
-    @Test
-    public void getAllResourceTest() throws Exception {
-        List<ResourceDo> list = null;
-        for (int i = 0; i < 100; i++) {
-            long s = System.currentTimeMillis();
-            list = this.resourceService.getAllResource("B");
-            long e = System.currentTimeMillis();
-            System.out.println((e - s));
-        }
-        System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
-    }
+	@Test
+	public void getAllResourceTest() throws Exception {
+		List<ResourceDo> list = null;
+		for (int i = 0; i < 100; i++) {
+			long s = System.currentTimeMillis();
+			list = this.resourceService.getAllResource("B");
+			long e = System.currentTimeMillis();
+			System.out.println((e - s));
+		}
+		System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
+	}
 
-    @Test
-    public void listRoleAssign() throws Exception {
-        Map<String, List<UserRoleDTO>> map = this.resourceService.listRoleAssign(Integer.valueOf(1));
-        System.err.println(JSON.toJSONString(map, SerializerFeature.PrettyFormat));
-    }
+	@Test
+	public void listRoleAssign() throws Exception {
+		Map<String, List<UserRoleDTO>> map = this.resourceService.listRoleAssign(Integer.valueOf(1));
+		System.err.println(JSON.toJSONString(map, SerializerFeature.PrettyFormat));
+	}
 
-    @Test
-    public void getRoleResourceByUserTest() throws Exception {
-        Map<String, Object> list = this.resourceService.getUserRoleResource(45);
-        System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
-    }
+	@Test
+	public void getRoleResourceByUserTest() throws Exception {
+		Map<String, Object> list = this.resourceService.getUserRoleResource(45);
+		System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
+	}
+
+	@Test
+	public void resourceCodeToIdTest() throws Exception {
+		Integer id = this.resourceService.resourceCodeToId("F_HYJCPT_RZDB");
+		System.out.println(id);
+	}
+
+	@Autowired
+	private UserInfoService userInfoService;
+
+	@Test
+	public void createUserTest() throws Exception {
+		UserInfoTableDo user = new UserInfoTableDo();
+		user.setStatus("A");
+		user.setUserType("B");
+		user.setLoginName("lytest");
+		user.setForePwd("");
+		user.setBackPwd("12345678");
+		user.setRealName("ly");
+		user.setFixPhone("028-88887777");
+		user.setMobile("13350079669");
+		user.setEmail("123@qq.com");
+		user.setDepartment("软件部");
+		user.setAreaCode("104");
+		user.setCreateDate(new Date());
+		user.setCreateBy("ly");
+
+		this.userInfoService.createUser(user, "B_HTGLQX,B_YHRZGL", "");
+
+		System.out.println(user);
+
+	}
+
+	@Test
+	public void deleteUserTest() throws Exception {
+		this.userInfoService.deleteUserById(143);
+
+	}
+
 }

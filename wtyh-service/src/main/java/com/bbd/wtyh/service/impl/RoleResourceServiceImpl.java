@@ -7,6 +7,7 @@ import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.dto.UserRoleDTO;
 import com.bbd.wtyh.exception.BusinessException;
 import com.bbd.wtyh.mapper.RoleResourceMapper;
+import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.RoleResourceService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 角色权限接口实现类
@@ -23,6 +26,9 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 
 	@Autowired
 	private RoleResourceMapper roleResourceMapper;
+
+	@Autowired
+	private RedisDAO redisDAO;
 
 	@Override
 	public RoleDo addRoleBase(String roleName, String roleDes, String userType, String loginName) {
@@ -93,12 +99,12 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	 * 新增角色权限关系
 	 */
 	@Override
-	public void addRoleResourceRelation(Integer roleId, String resourceSet, String loginName) {
-		if (null == roleId || StringUtils.isEmpty(resourceSet)) {
+	public void addRoleResourceRelation(Integer roleId, String[] resource, String loginName) {
+		if (null == roleId) {
 			return;
 		}
 		// 新增角色权限关系
-		String[] resourceArr = resourceSet.split(",");
+		String[] resourceArr = resource;
 		RoleResourceDo roleResourceDo;
 		for (int i = 0; i < resourceArr.length; i++) {
 			if (null == resourceArr[i]) {
@@ -135,8 +141,8 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	}
 
 	@Override
-	public RoleDo addUserResourceMapping(UserInfoTableDo userDo, String resourceIdSet, String createBy) throws Exception {
-		if (StringUtils.isBlank(resourceIdSet)) {
+	public RoleDo addUserResourceMapping(UserInfoTableDo userDo, String resourceCodeSet, String createBy) throws Exception {
+		if (StringUtils.isBlank(resourceCodeSet)) {
 			return null;
 		}
 		RoleDo roleDo = this.roleResourceMapper.getTempRoleByUser(userDo.getId(), Constants.role.TYPE_TEMP);
@@ -145,19 +151,19 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 			String userType = userDo.getUserType() == null ? "" : userDo.getUserType();
 			roleDo = this.addRoleBase("临时角色", tempName, Constants.role.TYPE_TEMP, userType, createBy);
 		}
-		this.addRoleResourceMapping(roleDo.getId(), resourceIdSet, createBy);
+		this.addRoleResourceMapping(roleDo.getId(), resourceCodeSet, createBy);
 		return roleDo;
 	}
 
 	@Override
-	public void addRoleResourceMapping(Integer roleId, String resourceIdSet, String createBy) throws Exception {
-		String[] resourceIds = resourceIdSet.split(",");
-		List<RoleResourceDo> rrList = new ArrayList<>(resourceIds.length);
+	public void addRoleResourceMapping(Integer roleId, String resourceCodeSet, String createBy) throws Exception {
+		String[] resourceCodes = resourceCodeSet.split(",");
+		List<RoleResourceDo> rrList = new ArrayList<>(resourceCodes.length);
 
-		for (String id : resourceIds) {
+		for (String code : resourceCodes) {
 			RoleResourceDo rr = new RoleResourceDo();
 			rr.setRoleId(roleId);
-			rr.setResourceId(Integer.parseInt(id));
+			rr.setResourceId(this.resourceCodeToId(code));
 			rr.setCreateBy(createBy);
 			rr.setCreateDate(new Date());
 			rrList.add(rr);
@@ -165,6 +171,33 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		// 删除该角色与权限所有的对应关系
 		this.executeCUD("DELETE FROM role_resource WHERE role_id = ?", roleId);
 		this.insertList(rrList);
+	}
+
+	@Override
+	public Integer resourceCodeToId(String code) throws Exception {
+		if (StringUtils.isBlank(code)) {
+			throw new IllegalArgumentException("权限code不能为空。");
+		}
+		Object obj = redisDAO.getHashField(Constants.resource.REDIS_KEY_RESOURCE_CODE_ID, code);
+		if (obj != null) {
+			return Integer.parseInt(obj.toString());
+		}
+
+		List<ResourceDo> list = this.selectAll(ResourceDo.class, "");
+		Map<String, String> codeIdMap = new HashMap<>();
+
+		for (ResourceDo redo : list) {
+			codeIdMap.put(redo.getCode(), redo.getId().toString());
+		}
+
+		redisDAO.addHash(Constants.resource.REDIS_KEY_RESOURCE_CODE_ID, codeIdMap, null);
+
+		obj = codeIdMap.get(code);
+
+		if (obj == null) {
+			throw new BusinessException("未找到对应的权限信息，请检查权限code是否有误!");
+		}
+		return Integer.parseInt(obj.toString());
 	}
 
 	/**
@@ -294,13 +327,18 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	}
 
 	@Override
-	public void saveUserRoleResource(UserInfoTableDo userDo, String roleIdSet, String resourceIdSet, String createBy) throws Exception {
+	public void saveUserRoleResource(UserInfoTableDo userDo, String roleIdSet, String resourceCodeSet, String createBy) throws Exception {
 		if (userDo == null) {
 			return;
 		}
-		RoleDo roleDo = this.addUserResourceMapping(userDo, resourceIdSet, createBy);
+		RoleDo roleDo = this.addUserResourceMapping(userDo, resourceCodeSet, createBy);
 		if (roleDo != null) {
-			roleIdSet += ("," + roleDo.getId());
+			if (StringUtils.isBlank(roleIdSet)) {
+				roleIdSet = roleDo.getId().toString();
+			} else {
+				roleIdSet += ("," + roleDo.getId());
+			}
+			// roleIdSet += ("," + roleDo.getId());
 		}
 		this.addUserRoleMapping(userDo, roleIdSet, createBy);
 	}
@@ -310,21 +348,21 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		if (userDo == null) {
 			return;
 		}
+		RoleDo roleDo = this.roleResourceMapper.getTempRoleByUser(userDo.getId(), Constants.role.TYPE_TEMP);
+		if (roleDo == null) {
+			return;
+		}
 		// 删除该用户与角色所有的对应关系
 		this.executeCUD("DELETE FROM user_role WHERE user_id = ?", userDo.getId());
-
-		RoleDo roleDo = this.roleResourceMapper.getTempRoleByUser(userDo.getId(), Constants.role.TYPE_TEMP);
-		if (roleDo != null) {
-			// 删除该角色与权限所有的对应关系
-			this.executeCUD("DELETE FROM role_resource WHERE role_id = ?", roleDo.getId());
-			this.delete(roleDo);
-		}
+		// 删除该角色与权限所有的对应关系
+		this.executeCUD("DELETE FROM role_resource WHERE role_id = ?", roleDo.getId());
+		this.delete(roleDo);
 	}
 
 	@Override
-	public boolean listRoleHaveTheSameRes(String resource, Integer selfRoleId) throws Exception {
+	public boolean listRoleHaveTheSameRes(String[] resource, Integer selfRoleId) throws Exception {
 		boolean same = false;// 存在相同的角色=true 不存在=false
-		String[] resourceArr = resource.split(",");
+		String[] resourceArr = resource;
 		Arrays.asList(resourceArr);
 		List<String> sort1 = Arrays.asList(resourceArr);
 		Collections.sort(sort1);
@@ -361,4 +399,5 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	public List<ResourceDo> listResourceByRoleIds(String[] roleIds) {
 		return this.roleResourceMapper.listResourceByRoleIds(roleIds);
 	}
+
 }
