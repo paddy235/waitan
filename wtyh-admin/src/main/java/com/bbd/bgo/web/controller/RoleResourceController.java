@@ -301,10 +301,12 @@ public class RoleResourceController {
 	@ResponseBody
 	public Object listRoleAssign(@RequestParam Integer roleId,HttpServletRequest request) {
 		try {
-			if(roleId!=null){
+			if(null!=roleId){
 				RoleDo roleDo=this.roleResourceService.getRoleBase(roleId,null);
 				if(null!=roleDo){
 					UserLogRecord.record("分配角色:"+roleDo.getName(), Operation.Type.browse, Operation.Page.roleAssign, Operation.System.back, request);
+				}else {
+					UserLogRecord.record("分配角色:该角色不存在!", Operation.Type.browse, Operation.Page.roleAssign, Operation.System.back, request);
 				}
 			}
 			Map<String, List<UserRoleDTO>> rstMap = this.roleResourceService.listRoleAssign(roleId);
@@ -328,6 +330,14 @@ public class RoleResourceController {
 			if (null == roleId) {
 				return ResponseBean.errorResponse("角色ID为空");
 			}
+
+			RoleDo roleDo=this.roleResourceService.getRoleBase(roleId,null);
+			if(null!=roleDo){
+				UserLogRecord.record("分配角色:"+roleDo.getName(), Operation.Type.modify, Operation.Page.roleAssign, Operation.System.back, request);
+			}else {
+				UserLogRecord.record("分配角色:该角色不存在!", Operation.Type.modify, Operation.Page.roleAssign, Operation.System.back, request);
+			}
+
 			// 本次需要解绑的用户
 			String[] unassignArr = new String[] {};
 			if (!StringUtils.isNullOrEmpty(unassign)) {
@@ -339,12 +349,6 @@ public class RoleResourceController {
 				assignArr = assign.split(",");
 			}
 
-			if(roleId!=null){
-				RoleDo roleDo=this.roleResourceService.getRoleBase(roleId,null);
-				if(null!=roleDo){
-					UserLogRecord.record("分配角色:"+roleDo.getName(), Operation.Type.modify, Operation.Page.roleAssign, Operation.System.back, request);
-				}
-			}
 			String loginName = (String) session.getAttribute(Constants.SESSION.loginName);
 
 			String userId;
