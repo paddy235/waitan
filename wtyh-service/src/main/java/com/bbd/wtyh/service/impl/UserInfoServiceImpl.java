@@ -93,7 +93,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		uitd.setUpdateDate(uitd.getCreateDate());
 		uitd.setUpdateBy(uitd.getUpdateBy());
 
-		/*if (uitd.getUserType().equals( UserType.businessManager.getTypeCode() ) ) {
+		/*if (uitd.getUserType().equals( UserType.businessManager.getTypeCode() ) ) { //todo 4.10后
 			if (StringUtils.isBlank(uitd.getForePwd()) || !rexCheckPassword(uitd.getForePwd()))
 				throw new BusinessException("前台密码为空或不合法");
 			uitd.setForePwd(userPasswordEncrypt(uitd.getForePwd()));
