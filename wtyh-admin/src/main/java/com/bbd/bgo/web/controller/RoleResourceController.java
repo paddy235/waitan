@@ -96,8 +96,8 @@ public class RoleResourceController {
 			//权限代码转权限ID
 			String[] resourceArr = resource.split(",");
 			for(int i=0;i<resourceArr.length;i++){
-
-				//resourceArr[i]=resId;
+				String resId= roleResourceService.resourceCodeToId(resourceArr[i]).toString();
+				resourceArr[i]=resId;
 			}
 			if(this.roleResourceService.listRoleHaveTheSameRes(resourceArr,id)){
 				return ResponseBean.errorResponse("已存在相同权限的角色");

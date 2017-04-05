@@ -141,8 +141,8 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	}
 
 	@Override
-	public RoleDo addUserResourceMapping(UserInfoTableDo userDo, String resourceIdSet, String createBy) throws Exception {
-		if (StringUtils.isBlank(resourceIdSet)) {
+	public RoleDo addUserResourceMapping(UserInfoTableDo userDo, String resourceCodeSet, String createBy) throws Exception {
+		if (StringUtils.isBlank(resourceCodeSet)) {
 			return null;
 		}
 		RoleDo roleDo = this.roleResourceMapper.getTempRoleByUser(userDo.getId(), Constants.role.TYPE_TEMP);
@@ -151,7 +151,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 			String userType = userDo.getUserType() == null ? "" : userDo.getUserType();
 			roleDo = this.addRoleBase("临时角色", tempName, Constants.role.TYPE_TEMP, userType, createBy);
 		}
-		this.addRoleResourceMapping(roleDo.getId(), resourceIdSet, createBy);
+		this.addRoleResourceMapping(roleDo.getId(), resourceCodeSet, createBy);
 		return roleDo;
 	}
 
@@ -186,7 +186,10 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		List<ResourceDo> list = this.selectAll(ResourceDo.class, "");
 		Map<String, String> codeIdMap = new HashMap<>();
 
-		list.forEach((ResourceDo redo) -> codeIdMap.put(redo.getCode(), redo.getId().toString()));
+        for(ResourceDo redo:list){
+            codeIdMap.put(redo.getCode(), redo.getId().toString());
+        }
+
 		redisDAO.addHash(Constants.resource.REDIS_KEY_RESOURCE_CODE_ID, codeIdMap, null);
 
 		obj = codeIdMap.get(code);
@@ -196,14 +199,6 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		}
 		return Integer.parseInt(obj.toString());
 	}
-
-	// codeToId(code){
-	// if(exist cache){
-	// select db to cache
-	// }
-	// return id;
-	//
-	// }
 
 	/**
 	 * 浏览角色列表
@@ -332,11 +327,11 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	}
 
 	@Override
-	public void saveUserRoleResource(UserInfoTableDo userDo, String roleIdSet, String resourceIdSet, String createBy) throws Exception {
+	public void saveUserRoleResource(UserInfoTableDo userDo, String roleIdSet, String resourceCodeSet, String createBy) throws Exception {
 		if (userDo == null) {
 			return;
 		}
-		RoleDo roleDo = this.addUserResourceMapping(userDo, resourceIdSet, createBy);
+		RoleDo roleDo = this.addUserResourceMapping(userDo, resourceCodeSet, createBy);
 		if (roleDo != null) {
 			roleIdSet += ("," + roleDo.getId());
 		}
