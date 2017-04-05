@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 角色权限接口实现类
@@ -93,12 +95,12 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	 * 新增角色权限关系
 	 */
 	@Override
-	public void addRoleResourceRelation(Integer roleId, String resourceSet, String loginName) {
-		if (null == roleId || StringUtils.isEmpty(resourceSet)) {
+	public void addRoleResourceRelation(Integer roleId, String[] resource, String loginName) {
+		if (null == roleId) {
 			return;
 		}
 		// 新增角色权限关系
-		String[] resourceArr = resourceSet.split(",");
+		String[] resourceArr = resource;
 		RoleResourceDo roleResourceDo;
 		for (int i = 0; i < resourceArr.length; i++) {
 			if (null == resourceArr[i]) {
@@ -322,9 +324,9 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	}
 
 	@Override
-	public boolean listRoleHaveTheSameRes(String resource, Integer selfRoleId) throws Exception {
+	public boolean listRoleHaveTheSameRes(String[] resource, Integer selfRoleId) throws Exception {
 		boolean same = false;// 存在相同的角色=true 不存在=false
-		String[] resourceArr = resource.split(",");
+		String[] resourceArr = resource;
 		Arrays.asList(resourceArr);
 		List<String> sort1 = Arrays.asList(resourceArr);
 		Collections.sort(sort1);
@@ -361,4 +363,5 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 	public List<ResourceDo> listResourceByRoleIds(String[] roleIds) {
 		return this.roleResourceMapper.listResourceByRoleIds(roleIds);
 	}
+
 }

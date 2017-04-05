@@ -51,7 +51,7 @@ public interface RoleResourceService extends BaseService {
 	/**
 	 * 新增该角色的角色-权限关系
 	 */
-	void addRoleResourceRelation(Integer roleId, String resourceSet, String loginName);
+	void addRoleResourceRelation(Integer roleId, String[] resource, String loginName);
 
 	/**
 	 * 添加用户和角色的关系映射
@@ -154,7 +154,7 @@ public interface RoleResourceService extends BaseService {
 	 * 
 	 * @return
 	 */
-	boolean listRoleHaveTheSameRes(String resource,Integer selfRoleId) throws Exception;
+	boolean listRoleHaveTheSameRes(String[] resource,Integer selfRoleId) throws Exception;
 	/**
 	 * 查询多个角色的权限集合
 	 * @param

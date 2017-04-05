@@ -53,11 +53,16 @@ public class RoleResourceController {
 			if (null != roleDo && roleDo.getName() != null) {
 				return ResponseBean.errorResponse("角色名称已存在");
 			}
-			if(this.roleResourceService.listRoleHaveTheSameRes(resource,null)){
+			//权限代码转权限ID
+			String[] resourceArr = resource.split(",");
+			for(int i=0;i<resourceArr.length;i++){
+				//resourceArr[i]=
+			}
+			if(this.roleResourceService.listRoleHaveTheSameRes(resourceArr,null)){
 				return ResponseBean.errorResponse("已存在相同权限的角色");
 			}
 			roleDo = roleResourceService.addRoleBase(roleName, roleDes, userType, loginName);
-			roleResourceService.addRoleResourceRelation(roleDo.getId(), resource, loginName);
+			roleResourceService.addRoleResourceRelation(roleDo.getId(), resourceArr, loginName);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseBean.errorResponse("服务器异常：" + e);
@@ -88,12 +93,18 @@ public class RoleResourceController {
 				}
 
 			}
-			if(this.roleResourceService.listRoleHaveTheSameRes(resource,id)){
+			//权限代码转权限ID
+			String[] resourceArr = resource.split(",");
+			for(int i=0;i<resourceArr.length;i++){
+
+				//resourceArr[i]=resId;
+			}
+			if(this.roleResourceService.listRoleHaveTheSameRes(resourceArr,id)){
 				return ResponseBean.errorResponse("已存在相同权限的角色");
 			}
 			roleResourceService.updateRoleBase(id, roleName, roleDes, loginName);
 			roleResourceService.deleteRoleResourceRelation(id);
-			roleResourceService.addRoleResourceRelation(id, resource, loginName);
+			roleResourceService.addRoleResourceRelation(id, resourceArr, loginName);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseBean.errorResponse("服务器异常：" + e);
