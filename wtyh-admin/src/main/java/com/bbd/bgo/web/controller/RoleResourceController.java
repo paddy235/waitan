@@ -45,7 +45,8 @@ public class RoleResourceController {
 	 */
 	@RequestMapping("/add-role")
 	@ResponseBody
-	@LogRecord(logMsg = "新增角色：%s", params = {"roleName"}, page = Operation.Page.roleCreate, type = Operation.Type.add)
+	@LogRecord(logMsg = "新增角色：%s", params = {"roleName"}, page = Operation.Page.roleCreate,
+			type = Operation.Type.add, after = true, before = false)
 	public Object addRole(@RequestParam String userType, @RequestParam String roleName,  String roleDes,
 			@RequestParam String resource, HttpSession session) {
 		try {
@@ -83,7 +84,8 @@ public class RoleResourceController {
 	 */
 	@RequestMapping("/update-role")
 	@ResponseBody
-	@LogRecord(logMsg = "修改角色：%s", params = {"roleName"}, page = Operation.Page.roleModify, type = Operation.Type.modify)
+	@LogRecord(logMsg = "修改角色：%s", params = {"roleName"}, page = Operation.Page.roleModify,
+			type = Operation.Type.modify, after = true, before = false)
 	public Object updateRole(@RequestParam String roleId, @RequestParam String roleName, @RequestParam String roleDes,
 			@RequestParam String resource, HttpSession session) {
 		try {
@@ -352,13 +354,6 @@ public class RoleResourceController {
 				return ResponseBean.errorResponse("角色ID为空");
 			}
 
-			RoleDo roleDo=this.roleResourceService.getRoleBase(roleId,null);
-			if(null!=roleDo){
-				UserLogRecord.record("分配角色:"+roleDo.getName(), Operation.Type.modify, Operation.Page.roleAssign, Operation.System.back, request);
-			}else {
-				UserLogRecord.record("分配角色:该角色不存在!", Operation.Type.modify, Operation.Page.roleAssign, Operation.System.back, request);
-			}
-
 			// 本次需要解绑的用户
 			String[] unassignArr = new String[] {};
 			if (!StringUtils.isNullOrEmpty(unassign)) {
@@ -392,6 +387,11 @@ public class RoleResourceController {
 				if (null == userRoleDO || null == userRoleDO.getId()) {
 					roleResourceService.addUserRoleRelation(Integer.parseInt(userId), roleId, loginName);
 				}
+			}
+
+			RoleDo roleDo=this.roleResourceService.getRoleBase(roleId,null);
+			if(null!=roleDo){
+				UserLogRecord.record("分配角色:"+roleDo.getName(), Operation.Type.modify, Operation.Page.roleAssign, Operation.System.back, request);
 			}
 
 			return ResponseBean.successResponse("success");
