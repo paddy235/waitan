@@ -184,7 +184,13 @@ public class RoleResourceController {
 
 			List<ResourceDo> list = roleResourceService.listResourceByRoleId(id);
 			Map<String, List<UserRoleDTO>> map = roleResourceService.listRoleAssign(id);
+			UserType userType=UserType.getUserTypeByCode(roleDo.getUserType());
+			String userTypeName=null;
+			if(null!=userType){
+				userTypeName=userType.getTypeName();
+			}
 			rstMap.put("role", roleDo);
+			rstMap.put("userTypeName",userTypeName);
 			rstMap.put("assign", map.get("assign"));
 			rstMap.put("resource", list);
 		} catch (Exception e) {
