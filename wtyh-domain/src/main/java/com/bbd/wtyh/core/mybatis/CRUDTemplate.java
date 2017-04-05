@@ -135,8 +135,8 @@ public class CRUDTemplate {
 		}
 
 		StringBuilder sql = new StringBuilder();
-		for (Integer i = 0; i < list.size(); i++) {
-			sql.append(",(").append(columnValue.substring(1).replace("@_index-_", i.toString())).append(")");
+		for (int i = 0; i < list.size(); i++) {
+			sql.append(",(").append(columnValue.substring(1).replace("@_index-_", i + "")).append(")");
 		}
 
 		sql = sql.replace(0, 1, " ");
