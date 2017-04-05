@@ -7,6 +7,9 @@ import com.bbd.higgs.utils.StringUtils;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.dto.UserRoleDTO;
 import com.bbd.wtyh.exception.ExceptionHandler;
+import com.bbd.wtyh.log.user.Operation;
+import com.bbd.wtyh.log.user.UserLogRecord;
+import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.service.RoleResourceService;
 import com.bbd.wtyh.web.ResponseBean;
 import org.slf4j.Logger;
@@ -41,6 +44,7 @@ public class RoleResourceController {
 	 */
 	@RequestMapping("/add-role")
 	@ResponseBody
+	@LogRecord(logMsg = "新增角色：%s", params = {"roleName"}, page = Operation.Page.roleCreate, type = Operation.Type.add)
 	public Object addRole(@RequestParam String userType, @RequestParam String roleName,  String roleDes,
 			@RequestParam String resource, HttpSession session) {
 		try {
@@ -78,6 +82,7 @@ public class RoleResourceController {
 	 */
 	@RequestMapping("/update-role")
 	@ResponseBody
+	@LogRecord(logMsg = "修改角色：%s", params = {"roleName"}, page = Operation.Page.roleModify, type = Operation.Type.modify)
 	public Object updateRole(@RequestParam String roleId, @RequestParam String roleName, @RequestParam String roleDes,
 			@RequestParam String resource, HttpSession session) {
 		try {
@@ -132,8 +137,11 @@ public class RoleResourceController {
 
 				return ResponseBean.errorResponse("已绑定用户,不能删除该角色");
 			}
+			RoleDo roleDo=roleResourceService.getRoleBase(id,null);
 			roleResourceService.deleteRoleResourceRelation(id);
 			roleResourceService.deleteRoleBase(id);
+			UserLogRecord.record("删除角色:" +roleDo.getName(),
+					Operation.Type.del, Operation.Page.roleBrowse, Operation.System.back, request);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseBean.errorResponse("服务器异常：" + e);
@@ -159,6 +167,9 @@ public class RoleResourceController {
 			if (null == roleDo) {
 				return ResponseBean.errorResponse("角色不存在");
 			}
+			UserLogRecord.record("浏览角色:" +roleDo.getName(),
+					Operation.Type.browse, Operation.Page.roleBrowse, Operation.System.back, request);
+
 			List<ResourceDo> list = roleResourceService.listResourceByRoleId(id);
 			Map<String, List<UserRoleDTO>> map = roleResourceService.listRoleAssign(id);
 			rstMap.put("role", roleDo);
@@ -185,6 +196,7 @@ public class RoleResourceController {
 			if (null == pageNumber) {
 				pageNumber = 1;
 			}
+			UserLogRecord.record("浏览角色列表", Operation.Type.browse, Operation.Page.roleBrowse, Operation.System.back, request);
 			rstMap= roleResourceService.listRoleBase(userType, pageSize, pageNumber);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -287,8 +299,14 @@ public class RoleResourceController {
 	 */
 	@RequestMapping("/list-role-assign")
 	@ResponseBody
-	public Object listRoleAssign(@RequestParam Integer roleId) {
+	public Object listRoleAssign(@RequestParam Integer roleId,HttpServletRequest request) {
 		try {
+			if(roleId!=null){
+				RoleDo roleDo=this.roleResourceService.getRoleBase(roleId,null);
+				if(null!=roleDo){
+					UserLogRecord.record("分配角色:"+roleDo.getName(), Operation.Type.browse, Operation.Page.roleAssign, Operation.System.back, request);
+				}
+			}
 			Map<String, List<UserRoleDTO>> rstMap = this.roleResourceService.listRoleAssign(roleId);
 			return ResponseBean.successResponse(rstMap);
 		} catch (Exception e) {
@@ -304,7 +322,7 @@ public class RoleResourceController {
 	@RequestMapping("/reassign-role")
 	@ResponseBody
 	public Object reassignRole(@RequestParam Integer roleId, @RequestParam String unassign, @RequestParam String assign,
-			HttpSession session) {
+			HttpSession session,HttpServletRequest request) {
 		try {
 			// 角色ID为空就不处理
 			if (null == roleId) {
@@ -321,6 +339,12 @@ public class RoleResourceController {
 				assignArr = assign.split(",");
 			}
 
+			if(roleId!=null){
+				RoleDo roleDo=this.roleResourceService.getRoleBase(roleId,null);
+				if(null!=roleDo){
+					UserLogRecord.record("分配角色:"+roleDo.getName(), Operation.Type.modify, Operation.Page.roleAssign, Operation.System.back, request);
+				}
+			}
 			String loginName = (String) session.getAttribute(Constants.SESSION.loginName);
 
 			String userId;
