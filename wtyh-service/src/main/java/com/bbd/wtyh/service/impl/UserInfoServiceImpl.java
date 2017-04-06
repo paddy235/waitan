@@ -365,7 +365,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		}*/
 		if( null != resourceSet )	{
 			uitd.setLoginName(oldUitd.getLoginName());
-			roleResourceService.saveUserRoleResource(uitd, resourceSet, roleSet, uitd.getUpdateBy());
+			roleResourceService.saveUserRoleResource(uitd, roleSet, resourceSet, uitd.getUpdateBy());
 
 		}
 		//long ms4 = (new Date()).getTime();
