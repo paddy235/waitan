@@ -338,7 +338,7 @@ public class UserInfoController {
                                     Operation.Type.browse, Operation.Page.userInfoBrowse, Operation.System.back, request); //
                             break;
                         case "openUserTemplate": //记录开立模板的选中项目
-                            UserLogRecord.record("“" + ud.getLoginName() + "”的用户信息被选为模板",
+                            UserLogRecord.record("用户“" + ud.getLoginName() + "”被选为模板",
                                     Operation.Type.query, Operation.Page.userCreate, Operation.System.back, request); //
                             break;
                     }

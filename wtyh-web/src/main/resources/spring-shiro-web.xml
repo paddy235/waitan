@@ -63,6 +63,9 @@
 
     </bean>
 
+    <!-- 超时监听器 -->
+    <!--<bean id ="shiroSessionListener" class="com.bbd.wtyh.auth.SessionListenerTimeOut" />-->
+
     <!-- 安全管理器 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="userRealm"/>

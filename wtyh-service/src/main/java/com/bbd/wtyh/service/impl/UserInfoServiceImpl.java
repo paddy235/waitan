@@ -94,8 +94,8 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		uitd.setUpdateBy(uitd.getUpdateBy());
 
 		/*
-		 * if (uitd.getUserType().equals( UserType.businessManager.getTypeCode()
-		 * ) ) { //todo 4.10后 if (StringUtils.isBlank(uitd.getForePwd()) ||
+		 * if (uitd.getUserType().equals( UserType.businessManager.getTypeCode() ) ) { //todo 4.10后用
+		 * if (StringUtils.isBlank(uitd.getForePwd()) ||
 		 * !rexCheckPassword(uitd.getForePwd())) throw new
 		 * BusinessException("前台密码为空或不合法");
 		 * uitd.setForePwd(userPasswordEncrypt(uitd.getForePwd())); if
@@ -114,18 +114,12 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 			if (StringUtils.isBlank(uitd.getBackPwd()) || !rexCheckPassword(uitd.getBackPwd()))
 				throw new BusinessException("后台密码为空或不合法");
 			uitd.setBackPwd(userPasswordEncrypt(uitd.getBackPwd()));
-		} /*
-			 * else if (uitd.getUserType().equals("U")) { uitd.setForePwd("");
-			 * uitd.setBackPwd(""); }
-			 */ else {
+		} else {
 			throw new BusinessException("用户类型不合法");
 		}
 		uitd.setForePwdUpDate(null); // 创建时置空，表明此用户登录时需要提示用户立即修改密码，下同
 		uitd.setBackPwdUpDate(null); //
 		userInfoMapper.saveU(uitd);
-		// 创建孙黎明这边的权限项
-		// roleResourceService.addUserRoleResource(uitd, resourceSet,
-		// uitd.getCreateBy());
 		roleResourceService.saveUserRoleResource(uitd, roleSet, resourceSet, uitd.getCreateBy());
 	}
 
@@ -177,7 +171,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 			if (!rexCheckUserName(uitd.getRealName())) {
 				throw new BusinessException("新指定的真实姓名不合法");
 			} else {
-				// uitd.setRealName( CipherUtils.encrypt(uitd.getRealName()) );
+				//真名不加密了 uitd.setRealName( CipherUtils.encrypt(uitd.getRealName()) );
 			}
 			updateCount++;
 		}
@@ -241,14 +235,14 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		boolean oldBY = false; // 旧的后台属性
 		boolean oldFY = false; // 旧的前台属性
 		if (uType.equals(UserType.backAdmin
-				.getTypeCode()) /*
+				.getTypeCode()) /* //todo 4.10后用
 								 * || uType.equals(UserType.businessManager.
 								 * getTypeCode())
 								 */ ) {
 			oldBY = true;
 		}
 		if (uType.equals(UserType.general
-				.getTypeCode()) /*
+				.getTypeCode()) /* //todo 4.10后用
 								 * || uType.equals(UserType.businessManager.
 								 * getTypeCode())
 								 */ ) {
@@ -295,7 +289,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 			}
 			if (newType
 					.equals(UserType.backAdmin
-							.getTypeCode()) /*
+							.getTypeCode()) /*//todo 4.10后用
 											 * || newType.equals(UserType.
 											 * businessManager.getTypeCode())
 											 */ ) {
@@ -303,7 +297,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 			}
 			if (newType
 					.equals(UserType.general
-							.getTypeCode()) /*
+							.getTypeCode()) /*//todo 4.10后用
 											 * || newType.equals(UserType.
 											 * businessManager.getTypeCode())
 											 */ ) {
@@ -322,9 +316,9 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 						updateCount++;
 					}
 				}
-			} else if ((true == oldFY) && (false == newFY)) { // 必须清除，但产品说不清除密码
-				uitd.setForePwd(null);
-				// uitd.setForePwd("");
+			} else if ((true == oldFY) && (false == newFY)) {
+				uitd.setForePwd(null); //但产品说不清除密码
+				// uitd.setForePwd("");// 必须清除，
 				// updateCount++;
 			} else if ((false == oldFY) && (true == newFY) && StringUtils.isBlank(oldUitd.getForePwd())) { // 必须更新
 				if (StringUtils.isBlank(uitd.getForePwd()) || !rexCheckPassword(uitd.getForePwd()))
@@ -348,9 +342,9 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 						updateCount++;
 					}
 				}
-			} else if ((true == oldBY) && (false == newBY)) { // 必须清除，但产品说不清除密码
-				uitd.setBackPwd(null);
-				// uitd.setBackPwd("");
+			} else if ((true == oldBY) && (false == newBY)) {
+				uitd.setBackPwd(null); //但产品说不清除密码
+				// uitd.setBackPwd(""); // 必须清除，
 				// updateCount++;
 			} else if ((false == oldBY) && (true == newBY) && StringUtils.isBlank(oldUitd.getBackPwd())) { // 必须更新
 				if (StringUtils.isBlank(uitd.getBackPwd()) || !rexCheckPassword(uitd.getBackPwd()))
@@ -377,14 +371,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 			}
 		}
 		// long ms3 = (new Date()).getTime();
-		/*
-		 * if (null != resourceSet) { // 权限集有更新 Set<String> rC =
-		 * roleResourceService.queryResourceCodeByUserId(uitd.getId()); if
-		 * (rC.size() < 1) { roleResourceService.addUserRoleResource(uitd,
-		 * resourceSet, uitd.getCreateBy()); } else {
-		 * roleResourceService.updateUserRoleResource(uitd, resourceSet,
-		 * uitd.getUpdateBy()); } }
-		 */
+
 		uitd.setLoginName(oldUitd.getLoginName());
 		roleResourceService.saveUserRoleResource(uitd, roleSet, resourceSet, uitd.getUpdateBy());
 
@@ -402,7 +389,6 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		}
 		if (1 != id) { // 确保超管不被删除
 			userInfoMapper.deleteUser(id);
-			// roleResourceService.deleteUserRoleResource(id, null); //同时删除权限
 			UserInfoTableDo ud = new UserInfoTableDo();
 			ud.setId(id);
 			roleResourceService.delUserRoleResource(ud);
@@ -437,18 +423,9 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 			uitd.setBackPwd(null);
 			// uitd.setForePwdUpDate(null);
 			// uitd.setBackPwdUpDate(null);
-			// Set<String> rC =
-			// roleResourceService.queryResourceCodeByUserId(uitd.getId());
 			rstMap = roleResourceService.getUserRoleResource(uitd.getId());
 			rstMap.put("userInfo", uitd);
-			// rstMap.put("resourceCode", rC);
-			// rstMap.put("roleCode", new String[]{
-			// "角色1","角色3","角色4","角色5","角色12" });
-		} /*
-			 * else { throw new BusinessException("用户信息不存在");
-			 * rstMap.put("userInfo", null); rstMap.put("resourceCode", null);
-			 * rstMap.put("roleCode", null); }
-			 */
+		}
 		return rstMap;
 	}
 
