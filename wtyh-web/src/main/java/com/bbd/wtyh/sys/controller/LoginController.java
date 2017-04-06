@@ -75,6 +75,7 @@ public class LoginController {
 			session.setAttribute("area", areaCode);// 地区编号
 			session.setAttribute("areaName", areaName);// 地区名称
 			session.setAttribute("loginUser", userInfo);
+			session.setAttribute("userId", userInfo.getId());
 
 			// 用户信息、权限信息传给前端页面
 			map = new HashedMap();
