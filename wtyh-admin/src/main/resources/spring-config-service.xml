@@ -4,8 +4,8 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:task="http://www.springframework.org/schema/task"
-	   xmlns:aop="http://www.springframework.org/schema/aop"
-	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
     		http://www.springframework.org/schema/beans/spring-beans.xsd
        		http://www.springframework.org/schema/context 
      		http://www.springframework.org/schema/context/spring-context.xsd
@@ -16,10 +16,28 @@
             http://www.springframework.org/schema/aop
             http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
 
-	<aop:aspectj-autoproxy/>
-	<!-- 启用对定时任务的注解支持 -->
-	<task:annotation-driven />
+    <!-- 使用spring annotation自动扫描配置 -->
+    <context:component-scan base-package="com.bbd">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!-- AOP 配置 -->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+    <!-- 启用对定时任务的注解支持 -->
+    <task:annotation-driven/>
+
     <!-- 启用对事务的注解支持 -->
-    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+    <!-- <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>-->
+
+
+    <bean class="com.bbd.wtyh.map.name.code.CodeNameMap"/>
+
+
+    <bean id="httpTemplate" class="com.bbd.higgs.utils.http.HttpTemplate">
+        <property name="connectTimeout" value="600000"/>
+        <property name="socketTimeout" value="600000"/>
+    </bean>
+
 
 </beans>
