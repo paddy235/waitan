@@ -396,11 +396,6 @@
 
     <!-- 插件管理 -->
     <build>
-
-
-        <resources>
-
-        </resources>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -452,6 +447,96 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.tld</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+
     </build>
+
+    <!-- 打包配置信息 -->
+    <profiles>
+        <!--开发环境-->
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <m.jdbc.url>jdbc:mysql://192.168.3.39:3306</m.jdbc.url>
+                <m.jdbc.username>wtyh</m.jdbc.username>
+                <m.jdbc.password>bbdkai@mysqldb!@#</m.jdbc.password>
+                <m.redis.ip>192.168.3.39</m.redis.ip>
+                <m.redis.port>8013</m.redis.port>
+                <m.redis.password>bbd123456</m.redis.password>
+                <!--wtyh-web 地址-->
+                <m.wtyh.web1.ip>http://192.168.3.39:8002</m.wtyh.web1.ip>
+                <m.wtyh.web2.ip>http://192.168.3.39:8007</m.wtyh.web2.ip>
+            </properties>
+        </profile>
+
+        <!--测试环境-->
+        <profile>
+            <id>test</id>
+            <properties>
+                <m.jdbc.url>jdbc:mysql://192.168.3.39:3306</m.jdbc.url>
+                <m.jdbc.username>wtyh</m.jdbc.username>
+                <m.jdbc.password>bbdkai@mysqldb!@#</m.jdbc.password>
+                <m.redis.ip>192.168.3.39</m.redis.ip>
+                <m.redis.port>8013</m.redis.port>
+                <m.redis.password>bbd123456</m.redis.password>
+                <m.wtyh.web1.ip>http://192.168.3.39:8002</m.wtyh.web1.ip>
+                <m.wtyh.web2.ip>http://192.168.3.39:8007</m.wtyh.web2.ip>
+            </properties>
+        </profile>
+
+        <!--生产环境-成都-->
+        <profile>
+            <id>product_cd</id>
+            <properties>
+                <!-- DB -->
+                <m.jdbc.url>jdbc:mysql://10.10.10.53:3306</m.jdbc.url>
+                <m.jdbc.username>wtyh</m.jdbc.username>
+                <m.jdbc.password>LYjUR6C9tGZxDdO7NC5w</m.jdbc.password>
+                <m.redis.ip>localhost</m.redis.ip>
+                <m.redis.port>6379</m.redis.port>
+                <m.redis.password>bbdredis</m.redis.password>
+                <m.wtyh.web1.ip>http://shanghaijc.bbdservice.com</m.wtyh.web1.ip>
+                <m.wtyh.web2.ip> </m.wtyh.web2.ip>
+            </properties>
+        </profile>
+
+        <!--生产环境-上海-->
+        <profile>
+            <id>product_sh</id>
+            <properties>
+                <m.jdbc.url>jdbc:mysql://10.10.10.3:3316</m.jdbc.url>
+                <m.jdbc.username>app</m.jdbc.username>
+                <m.jdbc.password>kjhsHLE78234kkjwkjh</m.jdbc.password>
+                <m.redis.ip>10.10.10.5</m.redis.ip>
+                <m.redis.port>6380</m.redis.port>
+                <m.redis.password>bbdredis</m.redis.password>
+                <m.wtyh.web1.ip>http://10.10.10.1:9081</m.wtyh.web1.ip>
+                <m.wtyh.web2.ip>http://10.10.10.2:9081</m.wtyh.web2.ip>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>
