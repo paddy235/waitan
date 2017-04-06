@@ -31,7 +31,7 @@
       `operator` &lt;> #{excludeName}
     </if>
     <if test="userName != null" >
-      `operator` LIKE CONCAT('%',#{userName},'%')
+      AND `operator` LIKE CONCAT('%',#{userName},'%')
     </if>
     <if test="areaCode !=null">  <!-- 接受前台的sys_code返回 -->
       AND  `area_code` = #{areaCode}
