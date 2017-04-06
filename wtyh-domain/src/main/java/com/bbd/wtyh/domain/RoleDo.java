@@ -2,6 +2,7 @@ package com.bbd.wtyh.domain;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -31,9 +32,11 @@ public class RoleDo extends BaseDO {
 	private String type;
 
 	@Column(name = "create_date")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date createDate;
 
 	@Column(name = "update_date")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date updateDate;
 
 	@Column(name = "create_by")
