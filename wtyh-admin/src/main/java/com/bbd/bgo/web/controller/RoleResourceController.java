@@ -1,6 +1,7 @@
 package com.bbd.bgo.web.controller;
 
 import com.bbd.wtyh.common.Constants;
+import com.bbd.wtyh.common.comenum.UserRank;
 import com.bbd.wtyh.common.comenum.UserType;
 import com.bbd.wtyh.domain.ResourceDo;
 import com.bbd.wtyh.domain.RoleDo;
@@ -207,7 +208,7 @@ public class RoleResourceController {
 	 */
 	@RequestMapping("/list-role.do")
 	@ResponseBody
-	public Object listRole(@RequestParam String userType, @RequestParam int pageSize, Integer pageNumber, HttpServletRequest request) {
+	public Object listRole(@RequestParam String userType, @RequestParam int pageSize, Integer pageNumber, HttpServletRequest request, HttpSession session) {
 
 		Map<String, Object> rstMap ;
 		try {
@@ -225,7 +226,9 @@ public class RoleResourceController {
 			if (null == pageNumber) {
 				pageNumber = 1;
 			}
-
+			if( UserRank.bAdmin.equals ( (session.getAttribute("userRank")) ) ) {
+				userType =UserType.general.getTypeCode(); //普管只能查看普通用户
+			}
 			rstMap= roleResourceService.listRoleBase(userType, pageSize, pageNumber);
 		} catch (Exception e) {
 			e.printStackTrace();
