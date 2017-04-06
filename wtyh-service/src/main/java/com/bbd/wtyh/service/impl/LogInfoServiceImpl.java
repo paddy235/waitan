@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
  */
 @Service
 public class LogInfoServiceImpl extends BaseServiceImpl implements LogInfoService{
-    //@Value("${tomcat.root}")
+    @Value("${tomcat.root}")
     private String userActionLogDir;
 
     Logger logger= LoggerFactory.getLogger(LogInfoServiceImpl.class);
@@ -32,7 +32,7 @@ public class LogInfoServiceImpl extends BaseServiceImpl implements LogInfoServic
         String date=null;
         if(null==operDate){
             //定时任务
-            date=getPreDay(0);//处理当前日期前一天的数据
+            date=getPreDay(1);//处理当前日期前一天的数据
         }else{
             //手动调用
             date=operDate;
