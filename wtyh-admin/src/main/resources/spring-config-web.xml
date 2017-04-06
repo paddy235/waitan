@@ -11,38 +11,19 @@
     http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- mvc controller -->
-    <context:component-scan base-package="com.bbd.wtyh">
-    	<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    <!--<context:component-scan base-package="com.bbd.wtyh">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
     <context:component-scan base-package="com.bbd.bgo">
-    	<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>  
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
     <context:component-scan base-package="com.bbd.data">
-    	<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
     <context:annotation-config/>
-    <mvc:annotation-driven />
+    <mvc:annotation-driven/>-->
 
-	<mvc:resources location="/images/" mapping="/images/**"/>
-	<mvc:resources location="/css/" mapping="/css/**"/>
-	<mvc:resources location="/js/" mapping="/js/**"/>
-
-     <mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/**" />
-			<ref bean="loginInterceptor" />
-		</mvc:interceptor>
-	</mvc:interceptors>
-
-	<bean id="loginInterceptor" class="com.bbd.sys.service.LoginInterceptor"/>
-
-
-
-    <bean id="httpTemplate" class="com.bbd.higgs.utils.http.HttpTemplate">
-        <property name="connectTimeout" value="600000"/>
-        <property name="socketTimeout" value="600000"/>
-    </bean>
 </beans>

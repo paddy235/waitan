@@ -10,23 +10,21 @@
     http://www.springframework.org/schema/aop
     http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-
-    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
+    <context:component-scan base-package="com.bbd.bgo.web.**.controller">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
 
     <mvc:annotation-driven/>
 
+    <mvc:resources location="/images/" mapping="/images/**"/>
+    <mvc:resources location="/css/" mapping="/css/**"/>
     <mvc:resources location="/js/" mapping="/js/**"/>
 
 
-    <context:component-scan base-package="com.bbd.bgo.web.controller"/>
+    <!--********************************************拦截器开始*******************************************-->
 
-   <!-- <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/**/**.do"/>
-            <ref bean="loginInterceptor"/>
-        </mvc:interceptor>
-    </mvc:interceptors>-->
-
+    <bean id="loginInterceptor" class="com.bbd.bgo.service.LoginInterceptor"/>
     <bean id="userLogInterceptor" class="com.bbd.wtyh.log.user.interceptor.UserLogInterceptor">
         <property name="operationSys" value="back"/>
     </bean>
@@ -47,18 +45,9 @@
 
     </mvc:interceptors>
 
-    <bean id="loginInterceptor" class="com.bbd.bgo.service.LoginInterceptor"/>
+    <!--********************************************拦截器结束*******************************************-->
 
 
-    <bean id="messageSource"
-          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        <property name="cacheSeconds" value="0"/>
-        <property name="basenames">
-            <list>
-                <value>classpath:i18n/messages</value>
-            </list>
-        </property>
-    </bean>
     <!-- 框架统一处理将对象转json @responsebody @requestbody 标签 -->
     <bean id="mappingJacksonHttpMessageConverter"
           class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
@@ -69,7 +58,7 @@
             </list>
         </property>
     </bean>
-    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
         <property name="messageConverters">
             <list>
                 <ref bean="mappingJacksonHttpMessageConverter"/>
@@ -82,8 +71,8 @@
         <property name="exceptionAttribute" value="ex"/>
     </bean>
 
-    <bean id="handlerMapping"
-          class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
+    <!--<bean id="handlerMapping"
+          class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>-->
 
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver">
