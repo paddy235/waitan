@@ -94,7 +94,7 @@ public class UserInfoController {
 			throws Exception {
 
 		if (oldPassword.equals(newPassword)) {
-			return ResponseBean.successResponse("password.history.contains"); // 新设置密码不可与原密码设置相同
+			return ResponseBean.errorResponse("password.history.contains"); // 新设置密码不可与原密码设置相同
 		}
 		UserInfoTableDo ud = userInfoService.getOnlyUserInfoByLoginNameOrId(loginName,-1);
 		if( (int)( session.getAttribute("userId") ) != ud.getId() ) {
@@ -102,10 +102,10 @@ public class UserInfoController {
 		}
 		int rst =userInfoService.compareUserDaoAndPassword(ud,oldPassword, Operation.System.front, null);
 		if( rst <=-5 ) {
-			return ResponseBean.successResponse("account.not.exist"); // 账号不存在 // BusinessException("未查询到id字段");
+			return ResponseBean.errorResponse("account.not.exist"); // 账号不存在 // BusinessException("未查询到id字段");
 		}
 		else if( rst <0 ) {
-			return ResponseBean.successResponse("password.error"); // 密码错误 //BusinessException("原密码验证失败");
+			return ResponseBean.errorResponse("password.error"); // 密码错误 //BusinessException("原密码验证失败");
 		}
 		UserInfoTableDo user = new UserInfoTableDo();
 		user.setUpdateBy(loginName); // user.setUpdateBy((String)session.getAttribute(Constants.SESSION.loginName));
