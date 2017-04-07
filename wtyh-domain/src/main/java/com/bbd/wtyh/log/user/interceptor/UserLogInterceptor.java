@@ -9,6 +9,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.lang.reflect.Method;
 import java.util.Map;
 
@@ -31,7 +32,13 @@ public class UserLogInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 		LogRecord logRecord = this.logRecordAnnotation(handler);
-		if (request.getSession().getAttribute("loginUser") == null || logRecord == null || !logRecord.after()) {
+		HttpSession session=null;
+		try{
+			session=request.getSession();
+		}catch (Exception e){
+			return;
+		}
+		if (session.getAttribute("loginUser") == null || logRecord == null || !logRecord.after()) {
 			return;
 		}
 		this.logRecord(request, logRecord);
