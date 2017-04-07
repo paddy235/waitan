@@ -204,13 +204,19 @@
             rr.role_id = #{roleId}
     </select>
     <select id="listRoleAssign" parameterType="java.util.HashMap" resultType="com.bbd.wtyh.domain.dto.UserRoleDTO">
-        select  a.id,
-                a.login_name as loginName,
-                a.real_name as realName,
-                b.user_id as userId
-        from (select id,login_name,real_name from user_mgment where user_type=#{userType})a
-        LEFT JOIN (select user_id from user_role where role_id=#{roleId})b
-        on a.id=b.user_id order by b.user_id
+        SELECT
+          a.id,
+          a.login_name AS loginName,
+          a.real_name AS realName,
+          b.user_id AS userId
+        FROM (
+          SELECT id,login_name,real_name FROM user_mgment WHERE user_type = #{param.userType}
+          <if test="param.superUserId != null"> AND #{param.superUserId} != id</if>
+        ) a
+        LEFT JOIN (
+          SELECT user_id FROM user_role WHERE role_id = #{param.roleId}
+        ) b ON a.id = b.user_id
+        ORDER BY b.user_id
     </select>
 
     <select id="listRoleHaveTheSameRes" parameterType="int" resultType="Integer">

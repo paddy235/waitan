@@ -9,6 +9,7 @@ import com.bbd.wtyh.exception.BusinessException;
 import com.bbd.wtyh.mapper.RoleResourceMapper;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.RoleResourceService;
+import com.bbd.wtyh.service.UserInfoService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -299,6 +300,9 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 
 	@Override
 	public Map<String, List<UserRoleDTO>> listRoleAssign(Integer roleId) throws Exception {
+		if (roleId == null) {
+			throw new BusinessException("角色不存在");
+		}
 		Map<String, Object> params = new HashMap<>();
 		params.put("roleId", roleId);
 		RoleDo roleDo = roleResourceMapper.getRoleBaseByIdNameType(params);
@@ -306,6 +310,7 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 			throw new BusinessException("角色不存在");
 		}
 		params.put("userType", roleDo.getUserType());
+		params.put("superUserId", UserInfoService.superId);
 
 		List<UserRoleDTO> list = this.roleResourceMapper.listRoleAssign(params);
 		Map<String, List<UserRoleDTO>> rstMap = new HashMap<>();

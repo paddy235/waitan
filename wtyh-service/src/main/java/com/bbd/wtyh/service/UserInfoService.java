@@ -14,8 +14,7 @@ import java.util.Map;
  */
 public interface UserInfoService extends BaseService {
 
-	/*public static final*/ int superId =1; //超管的用户Id
-
+	/* public static final */ int superId = 1; // 超管的用户Id
 
 	/**
 	 * 创建用户
@@ -41,7 +40,7 @@ public interface UserInfoService extends BaseService {
 	 */
 	public void updateUserInfo(UserInfoTableDo uitd, String resourceSet, String roleSet) throws Exception;
 
-	public void deleteUserById( Integer id ) throws Exception;
+	public void deleteUserById(Integer id) throws Exception;
 
 	/**
 	 * 通过登录名查询单条用户详情（包括用户权限），不分前后台，由调用者根据userType判断，例如'A'||'B'表明是
@@ -70,22 +69,24 @@ public interface UserInfoService extends BaseService {
 
 	/**
 	 *
-	 * @param loginName loginName为空则使用id查询详情
+	 * @param loginName
+	 *            loginName为空则使用id查询详情
 	 * @param id
 	 * @return 返回UserInfoTableDo类型的用户详情
 	 * @throws Exception
 	 */
-	public UserInfoTableDo getOnlyUserInfoByLoginNameOrId(String loginName, int id ) throws Exception;
+	public UserInfoTableDo getOnlyUserInfoByLoginNameOrId(String loginName, int id) throws Exception;
 
-//	/**
-//	 * 通过用户名查询用户摘要信息
-//	 *
-//	 * @param loginName
-//	 *            登录名
-//	 * @return ，目前返回的数据库中的字段有：id, user_type, fore_pwd, back_pwd
-//	 * @throws Exception
-//	 */
-//	 public Map<String, Object> getUserInfoSummaryByLoginName(String loginName) throws Exception;
+	// /**
+	// * 通过用户名查询用户摘要信息
+	// *
+	// * @param loginName
+	// * 登录名
+	// * @return ，目前返回的数据库中的字段有：id, user_type, fore_pwd, back_pwd
+	// * @throws Exception
+	// */
+	// public Map<String, Object> getUserInfoSummaryByLoginName(String
+	// loginName) throws Exception;
 
 	/**
 	 * 获取用户模板
@@ -108,8 +109,8 @@ public interface UserInfoService extends BaseService {
 	 * @return
 	 * @throws Exception
 	 */
-	public Map<String, Object> listUserInfo(String userStatus, String userType, int areaCode, String selectType,
-											String selectObject, int pageLimit, Integer pageNumber) throws Exception ;
+	public Map<String, Object> listUserInfo(String userStatus, String userType, int areaCode, String selectType, String selectObject,
+			int pageLimit, Integer pageNumber) throws Exception;
 
 	/**
 	 * 用户密码单向加密
@@ -129,10 +130,12 @@ public interface UserInfoService extends BaseService {
 	public List<Map<String, Object>> getShanghaiAreaCodeTable(String type) throws Exception;
 
 	/**
-	 *用户密码匹配测试
+	 * 用户密码匹配测试
+	 * 
 	 * @param loginName
 	 * @param password
-	 * @param sysType 系统类型：前台或后台系统。用于指定提请数据库中前台或后台密码跟当前密码做比较。
+	 * @param sysType
+	 *            系统类型：前台或后台系统。用于指定提请数据库中前台或后台密码跟当前密码做比较。
 	 * @return 匹配成功（true），失败（false）
 	 */
 	public boolean isUserNameMatchPassword(String loginName, String password, Operation.System sysType) throws Exception;
@@ -141,34 +144,43 @@ public interface UserInfoService extends BaseService {
 
 	/**
 	 * 比较用户账户和密码是否正确
+	 * 
 	 * @param loginName
 	 * @param password
-	 * @param sysType 系统类型：前台或后台系统。用于指定提请数据库中前台或后台密码跟当前密码做比较。
-	 * @param auType 若非空，则会验证用户类型是否匹配
+	 * @param sysType
+	 *            系统类型：前台或后台系统。用于指定提请数据库中前台或后台密码跟当前密码做比较。
+	 * @param auType
+	 *            若非空，则会验证用户类型是否匹配
 	 * @return 成功（0）；不匹配(-1)；库中密码字符串为空(-2)；用户类型和指定类型不匹配(-3)；用户处于非活动状态(-4)；
-	 * 			用户不存在(-5)；传入的参数不合法(-999)
+	 *         用户不存在(-5)；传入的参数不合法(-999)
 	 * @throws Exception
 	 */
-	public int compareUserNameAndPassword(String loginName, String password,  Operation.System sysType, UserType[] auType) throws Exception;
+	public int compareUserNameAndPassword(String loginName, String password, Operation.System sysType, UserType[] auType) throws Exception;
 
 	/**
 	 * 比较userDao对应的账户和密码是否正确
-	 * @param userDao 传入对象
+	 * 
+	 * @param userDao
+	 *            传入对象
 	 * @param password
-	 * @param sysType 系统类型：前台或后台系统。用于指定提请数据库中前台或后台密码跟当前密码做比较。
-	 * @param auType 若非空，则会验证用户类型是否匹配
+	 * @param sysType
+	 *            系统类型：前台或后台系统。用于指定提请数据库中前台或后台密码跟当前密码做比较。
+	 * @param auType
+	 *            若非空，则会验证用户类型是否匹配
 	 * @return 成功（0）；不匹配(-1)；库中密码字符串为空(-2)；用户类型和指定类型不匹配(-3)；用户处于非活动状态(-4)；
-	 * 			用户不存在(-5)；传入的参数不合法(-999)
+	 *         用户不存在(-5)；传入的参数不合法(-999)
 	 * @throws Exception
 	 */
-	public int compareUserDaoAndPassword(UserInfoTableDo userDao, String password, Operation.System sysType, UserType[] auType) throws Exception;
+	public int compareUserDaoAndPassword(UserInfoTableDo userDao, String password, Operation.System sysType, UserType[] auType)
+			throws Exception;
 
 	/**
 	 * 判断用户密码是否过期，使用示例：
 	 * userInfoService.testUserPasswordBeOverdue(userInfo.getBackPwdUpDate());
 	 * userInfoService.testUserPasswordBeOverdue(userInfo.getForePwdUpDate());
 	 *
-	 * @param fbPwdUpDate 传入前台或后台用户最近修改密码的日期对象
+	 * @param fbPwdUpDate
+	 *            传入前台或后台用户最近修改密码的日期对象
 	 * @return "normal"：正常； "firstTime"：新用户首次登录； "BeOverdue"：用户密码过期
 	 * @throws Exception
 	 */
@@ -176,11 +188,11 @@ public interface UserInfoService extends BaseService {
 
 	/**
 	 * 获取和设置用户密码过期周期值
+	 * 
 	 * @param pwdLapseCycle
 	 * @return
 	 */
 	public Integer getAndSetPwdLapseCycle(Integer pwdLapseCycle);
-
 
 	public enum UserStatus {
 		lock("F", "锁定"),
@@ -203,12 +215,12 @@ public interface UserInfoService extends BaseService {
 		}
 
 		static public UserStatus getUserStatusByCode(String stsCode) {
-			if( null ==stsCode ) {
-				return  null;
+			if (null == stsCode) {
+				return null;
 			}
-			for( UserStatus us: UserStatus.values() ) {
-				if( us.getStatusCode().equals(stsCode) ) {
-					return  us;
+			for (UserStatus us : UserStatus.values()) {
+				if (us.getStatusCode().equals(stsCode)) {
+					return us;
 				}
 			}
 			return null;
