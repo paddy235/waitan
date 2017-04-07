@@ -39,7 +39,7 @@ public class RoleResourceTest {
 	@Test
 	public void getRoleResourceTest() throws Exception {
 		long s = System.currentTimeMillis();
-		List<RoleDo> list = this.resourceService.getRoleResource("B");
+		List<RoleDo> list = this.resourceService.getRoleResource("F");
 		long e = System.currentTimeMillis();
 		System.out.println((e - s));
 		System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
