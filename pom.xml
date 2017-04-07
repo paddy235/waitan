@@ -488,7 +488,7 @@
                 <m.redis.password>bbd123456</m.redis.password>
                 <!--wtyh-web 地址-->
                 <m.wtyh.web1.ip>http://192.168.3.39:8002</m.wtyh.web1.ip>
-                <m.wtyh.web2.ip>http://192.168.3.39:8007</m.wtyh.web2.ip>
+                <m.wtyh.web2.ip>http://192.168.3.39:8003</m.wtyh.web2.ip>
             </properties>
         </profile>
 
@@ -503,7 +503,7 @@
                 <m.redis.port>8013</m.redis.port>
                 <m.redis.password>bbd123456</m.redis.password>
                 <m.wtyh.web1.ip>http://192.168.3.39:8002</m.wtyh.web1.ip>
-                <m.wtyh.web2.ip>http://192.168.3.39:8007</m.wtyh.web2.ip>
+                <m.wtyh.web2.ip>http://192.168.3.39:8003</m.wtyh.web2.ip>
             </properties>
         </profile>
 
