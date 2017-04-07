@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,16 +23,39 @@ public class UserLogRecord {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger("userLog");
 
+	/**
+	 * 使用 Shiro session 记录日志
+	 */
+	public static void record(String msg, Operation.Type operationType, Operation.Page operationPage, Operation.System operationSys,
+							  HttpSession session) {
+		record(msg, operationType, operationPage, operationSys, null, session);
+	}
+
+	/**
+	 * 使用request记录日志
+	 */
 	public static void record(String msg, Operation.Type operationType, Operation.Page operationPage, Operation.System operationSys,
 			HttpServletRequest request) {
 		record(msg, operationType, operationPage, operationSys, getParameterMap(request), request);
-
 	}
 
+	/**
+	 * 使用request记录日志-参数处理
+	 */
 	public static void record(String msg, Operation.Type operationType, Operation.Page operationPage, Operation.System operationSys,
-			Map<String, String> paramMap, HttpServletRequest request) {
+							  Map<String, String> paramMap, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.setAttribute("requestIp",getRemoteAddress(request));
+		session.setAttribute("requestUri",request.getRequestURI());
+		record(msg,operationType,operationPage,operationSys,paramMap,session);
+	}
+	/**
+	 * 使用request记录日志-参数处理
+	 */
+	public static void record(String msg, Operation.Type operationType, Operation.Page operationPage, Operation.System operationSys,
+			Map<String, String> paramMap, HttpSession session) {
 
-		UserInfoTableDo user = (UserInfoTableDo) request.getSession().getAttribute("loginUser");
+		UserInfoTableDo user = (UserInfoTableDo) session.getAttribute("loginUser");
 		UserLog userLog = new UserLog();
 		userLog.setUuid(UUID.randomUUID().toString().replace("-", "").toUpperCase());
 		userLog.setOperator(user == null ? "" : user.getLoginName());
@@ -47,15 +71,15 @@ public class UserLogRecord {
 		userLog.setSysCode(operationSys.sysCode());
 		userLog.setSysName(operationSys.sysName());
 
-		userLog.setRequestIP(getRemoteAddress(request));
-		userLog.setRequestURI(request.getRequestURI());
+		userLog.setRequestIP((String) session.getAttribute("requestIp"));
+		userLog.setRequestURI((String)session.getAttribute("requestUri"));
 
 		if (operationPage.code() == 0) {
-			Operation.Page oPage = (Operation.Page) request.getSession().getAttribute("pageHistory");
+			Operation.Page oPage = (Operation.Page) session.getAttribute("pageHistory");
 			userLog.setRequestCode(oPage != null ? oPage.code() : Operation.Page.blank.code());
 			userLog.setRequestDesc(oPage != null ? oPage.page() : Operation.Page.blank.page());
 		} else {
-			request.getSession().setAttribute("pageHistory", operationPage);
+			session.setAttribute("pageHistory", operationPage);
 			userLog.setRequestCode(operationPage.code());
 			userLog.setRequestDesc(operationPage.page());
 		}
@@ -66,7 +90,7 @@ public class UserLogRecord {
 		LOGGER.info(JSON.toJSONString(userLog, SerializerFeature.WriteDateUseDateFormat));
 	}
 
-	private static String getRemoteAddress(HttpServletRequest request) {
+	public static String getRemoteAddress(HttpServletRequest request) {
 		String ip = request.getHeader("x-forwarded-for");
 		if (StringUtils.isBlank(ip) || ip.equalsIgnoreCase("unknown")) {
 			ip = request.getHeader("Proxy-Client-IP");
