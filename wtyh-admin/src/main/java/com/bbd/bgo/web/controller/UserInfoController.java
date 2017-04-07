@@ -205,7 +205,7 @@ public class UserInfoController {
                         opPg =Operation.Page.userList;
                         break;
                 }
-                UserLogRecord.record("锁定用户“" + ud.getLoginName() + "”", Operation.Type.browse, opPg,
+                UserLogRecord.record("锁定用户“" + ud.getLoginName() + "”", Operation.Type.lock, opPg,
                         Operation.System.back, request); //
             }
         } catch (BusinessException be) {
@@ -247,7 +247,7 @@ public class UserInfoController {
                         opPg =Operation.Page.userList;
                         break;
                 }
-                UserLogRecord.record("激活用户“" + ud.getLoginName() + "”", Operation.Type.browse, opPg,
+                UserLogRecord.record("激活用户“" + ud.getLoginName() + "”", Operation.Type.active, opPg,
                         Operation.System.back, request); //
             }
         } catch (BusinessException be) {
