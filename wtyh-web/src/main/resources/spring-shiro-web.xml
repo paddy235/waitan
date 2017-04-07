@@ -53,16 +53,16 @@
 
 
     <!-- 超时监听器 -->
-    <bean id ="shiroSessionListener" class="com.bbd.wtyh.auth.SessionListenerTimeOut" />
+    <bean id ="shiroSessionListener" class="com.bbd.wtyh.auth.TimeOutSessionListener" />
 
     <!-- 会话管理器 -->
     <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
         <property name="globalSessionTimeout" value="1800000"/>
-<!--        <property name ="sessionListeners">
+        <property name ="sessionListeners">
             <list>
                 <ref bean="shiroSessionListener"/>
             </list>
-        </property>-->
+        </property>
         <property name="deleteInvalidSessions" value="true"/>
         <property name="sessionValidationSchedulerEnabled" value="true"/>
         <property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>
