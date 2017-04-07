@@ -38,17 +38,20 @@ public class LogInfoServiceImpl extends BaseServiceImpl implements LogInfoServic
             date=operDate;
         }
         String logPath=userActionLogDir+File.separator+"userLogs";
+        logger.info("将日志文件导入数据库,日志文件路径："+logPath);
         File fileDir =new File(logPath);
         if(!fileDir.isDirectory()){
             //fileDir .mkdir(); //创建目录
+            logger.info("将日志文件导入数据库:日志文件路径不存在");
             return counts;
         }
+
         String tempDate=date.replace("-","").substring(2);
         String[] list;
         String pattern="^userLog_"+date+"_\\d+.log$";//匹配 userLog_2017-03-18_数字
         list = fileDir.list(filter(pattern));
         Arrays.sort(list, String.CASE_INSENSITIVE_ORDER);
-
+        logger.info("将日志文件导入数据库，文件数量："+((null!=list)?list.length:0));
         for (String string : list) {
             counts=loadLogFromFile(logPath+File.separator+string,tempDate,counts);
         }

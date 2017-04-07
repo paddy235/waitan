@@ -1,4 +1,4 @@
-package com.bbd.bgo.auth;
+package com.bbd.wtyh.auth;
 
 import com.bbd.higgs.utils.StringUtils;
 import com.bbd.wtyh.log.user.Operation;
@@ -16,7 +16,7 @@ public class TimeOutSessionListener extends SessionListenerAdapter {
         //会话过期时触发
         String name=(String)session.getAttribute("loginName");
         if(!StringUtils.isNullOrEmpty(name)){
-            UserLogRecord.recordForShiroSession("用户登出(会话过期)", Operation.Type.logout, Operation.Page.blank, Operation.System.back,  session);
+            UserLogRecord.recordForShiroSession("用户登出(会话过期)", Operation.Type.logout, Operation.Page.blank, Operation.System.front,  session);
         }
     }
 
