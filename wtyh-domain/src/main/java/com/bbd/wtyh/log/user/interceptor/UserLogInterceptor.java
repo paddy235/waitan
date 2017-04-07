@@ -32,15 +32,14 @@ public class UserLogInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 		LogRecord logRecord = this.logRecordAnnotation(handler);
-		HttpSession session=null;
 		try{
-			session=request.getSession();
+            if (request.getSession().getAttribute("loginUser") == null || logRecord == null || !logRecord.after()) {
+                return;
+            }
 		}catch (Exception e){
 			return;
 		}
-		if (session.getAttribute("loginUser") == null || logRecord == null || !logRecord.after()) {
-			return;
-		}
+
 		this.logRecord(request, logRecord);
 	}
 
