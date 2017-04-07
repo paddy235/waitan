@@ -258,7 +258,11 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 						throw new BusinessException("前台密码不合法 ");
 					} else {
 						uitd.setForePwd(userPasswordEncrypt(uitd.getForePwd()));
-						uitd.setForePwdUpDate(new Date());
+						Date data =new Date();
+						if( ( !( uitd.getUpdateBy()).equals(oldUitd.getLoginName()) ) ) {
+							data.setTime(1000);
+						}
+						uitd.setForePwdUpDate(data);
 						updateCount++;
 					}
 				}
@@ -273,7 +277,11 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 						throw new BusinessException("后台密码不合法 ");
 					} else {
 						uitd.setBackPwd(userPasswordEncrypt(uitd.getBackPwd()));
-						uitd.setBackPwdUpDate(new Date());
+						Date data =new Date();
+						if( ( !( uitd.getUpdateBy()).equals(oldUitd.getLoginName()) ) ) {
+							data.setTime(1000); //不等即非自己修改了自己的密码即需要自己重新修改一次，上同
+						}
+						uitd.setBackPwdUpDate(data);
 						updateCount++;
 					}
 				}
@@ -312,7 +320,11 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 						throw new BusinessException("待更新的前台密码不合法 ");
 					} else {
 						uitd.setForePwd(userPasswordEncrypt(uitd.getForePwd()));
-						uitd.setForePwdUpDate(new Date());
+						Date data =new Date();
+						if( ( !( uitd.getUpdateBy()).equals(oldUitd.getLoginName()) ) ) {
+							data.setTime(1000); //不等即非自己修改了自己的密码即需要自己重新修改一次，上同
+						}
+						uitd.setForePwdUpDate(data);
 						updateCount++;
 					}
 				}
@@ -324,7 +336,11 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 				if (StringUtils.isBlank(uitd.getForePwd()) || !rexCheckPassword(uitd.getForePwd()))
 					throw new BusinessException("待更新的前台密码为空或不合法 ");
 				uitd.setForePwd(userPasswordEncrypt(uitd.getForePwd()));
-				uitd.setForePwdUpDate(new Date());
+				Date data =new Date();
+				if( ( !( uitd.getUpdateBy()).equals(oldUitd.getLoginName()) ) ) {
+					data.setTime(1000); //不等即非自己修改了自己的密码即需要自己重新修改一次，上同
+				}
+				uitd.setForePwdUpDate(data);
 				updateCount++;
 			} else { // 不更新
 				uitd.setForePwd(null);
@@ -338,7 +354,11 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 						throw new BusinessException("待更新的后台密码不合法 ");
 					} else {
 						uitd.setBackPwd(userPasswordEncrypt(uitd.getBackPwd()));
-						uitd.setBackPwdUpDate(new Date());
+						Date data =new Date();
+						if( ( !( uitd.getUpdateBy()).equals(oldUitd.getLoginName()) ) ) {
+							data.setTime(1000); //不等即非自己修改了自己的密码即需要自己重新修改一次，上同
+						}
+						uitd.setBackPwdUpDate(data);
 						updateCount++;
 					}
 				}
@@ -350,7 +370,11 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 				if (StringUtils.isBlank(uitd.getBackPwd()) || !rexCheckPassword(uitd.getBackPwd()))
 					throw new BusinessException("待更新的后台密码为空或不合法 ");
 				uitd.setBackPwd(userPasswordEncrypt(uitd.getBackPwd()));
-				uitd.setBackPwdUpDate(new Date());
+				Date data =new Date();
+				if( ( !( uitd.getUpdateBy()).equals(oldUitd.getLoginName()) ) ) {
+					data.setTime(1000); //不等即非自己修改了自己的密码即需要自己重新修改一次，上同
+				}
+				uitd.setBackPwdUpDate(data);
 				updateCount++;
 			} else { // 不更新
 				uitd.setBackPwd(null);
@@ -367,7 +391,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 			try {
 				userInfoMapper.updateU(uitd);
 			} catch (Exception ee) {
-				throw new BusinessException("update is err");
+				throw new BusinessException("update is err(mapper err)");
 			}
 		}
 		// long ms3 = (new Date()).getTime();
@@ -635,7 +659,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 	}
 
 	public String testUserPasswordBeOverdue(Date fbPwdUpDate) throws Exception {
-		if (null == fbPwdUpDate) { // 新用户首次登录
+		if ( null == fbPwdUpDate || 1000 ==fbPwdUpDate.getTime() ) { // 新用户首次登录 //
 			return new String("firstTime");
 		}
 		LocalDateTime oldTime = LocalDateTime.ofInstant(fbPwdUpDate.toInstant(), ZoneId.systemDefault());
@@ -665,11 +689,13 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		return userInfoMapper.selectPwdLapseCycle();
 	}
 
-	/*
-	 * public static void main(String[] args) throws Exception {
-	 * //UserInfoService u1 = new UserInfoServiceImpl(); Date tsd =new Date();
-	 * Thread.sleep(2000); byte aa =127; while (true) { aa++; } }
-	 */
+/*	 public static void main(String[] args) throws Exception {
+	  //UserInfoService u1 = new UserInfoServiceImpl();
+	  Date tsd =new Date();
+	  tsd.setTime(0);
+	  Thread.sleep(2000); byte aa =127;
+	  while (true) { aa++; }
+	}*/
 
 	// 解密需要解密的用户数据
 	private void decryptUserInfo(UserInfoTableDo uitd) throws Exception {

@@ -88,7 +88,7 @@ public class UserBehaviorLogServiceImpl extends BaseServiceImpl implements UserB
 			if( null !=  obj ) { //将区域代码转换成行政区名称
 				try {
 					int tmp = Integer.parseInt( (String)obj );
-					obj = CodeNameMap.getSysLocationMap().get(tmp);
+					obj = CodeNameMap.getShanghaiAreaCodeMap().get(tmp);
 					if( null !=  obj ) {
 						itr.put("area", (String)obj);
 					} else {
