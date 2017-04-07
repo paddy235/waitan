@@ -4,6 +4,7 @@ import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.AreaDO;
 import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.log.user.Operation;
+import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.service.AreaService;
 import com.bbd.wtyh.service.RoleResourceService;
@@ -76,6 +77,8 @@ public class LoginController {
 			session.setAttribute("areaName", areaName);// 地区名称
 			session.setAttribute("loginUser", userInfo);
 			session.setAttribute("userId", userInfo.getId());
+			session.setAttribute("requestIp", UserLogRecord.getRemoteAddress(request));
+			session.setAttribute("requestUri",request.getRequestURI());
 
 			// 用户信息、权限信息传给前端页面
 			map = new HashedMap();
