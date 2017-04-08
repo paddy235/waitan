@@ -10,6 +10,7 @@ import com.bbd.wtyh.service.RoleResourceService;
 import com.bbd.wtyh.service.UserInfoService;
 import com.bbd.wtyh.mapper.UserInfoMapper;
 import com.bbd.wtyh.util.CipherUtils;
+import com.bbd.wtyh.web.ResponseBean;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
@@ -260,7 +261,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 						uitd.setForePwd(userPasswordEncrypt(uitd.getForePwd()));
 						Date data =new Date();
 						if( ( !( uitd.getUpdateBy()).equals(oldUitd.getLoginName()) ) ) {
-							data.setTime(1000);
+							data.setTime(boTimeMk);
 						}
 						uitd.setForePwdUpDate(data);
 						updateCount++;
@@ -279,7 +280,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 						uitd.setBackPwd(userPasswordEncrypt(uitd.getBackPwd()));
 						Date data =new Date();
 						if( ( !( uitd.getUpdateBy()).equals(oldUitd.getLoginName()) ) ) {
-							data.setTime(1000); //不等即非自己修改了自己的密码即需要自己重新修改一次，上同
+							data.setTime(boTimeMk); //不等即非自己修改了自己的密码即需要自己重新修改一次，上同
 						}
 						uitd.setBackPwdUpDate(data);
 						updateCount++;
@@ -322,7 +323,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 						uitd.setForePwd(userPasswordEncrypt(uitd.getForePwd()));
 						Date data =new Date();
 						if( ( !( uitd.getUpdateBy()).equals(oldUitd.getLoginName()) ) ) {
-							data.setTime(1000); //不等即非自己修改了自己的密码即需要自己重新修改一次，上同
+							data.setTime(boTimeMk); //不等即非自己修改了自己的密码即需要自己重新修改一次，上同
 						}
 						uitd.setForePwdUpDate(data);
 						updateCount++;
@@ -338,7 +339,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 				uitd.setForePwd(userPasswordEncrypt(uitd.getForePwd()));
 				Date data =new Date();
 				if( ( !( uitd.getUpdateBy()).equals(oldUitd.getLoginName()) ) ) {
-					data.setTime(1000); //不等即非自己修改了自己的密码即需要自己重新修改一次，上同
+					data.setTime(boTimeMk); //不等即非自己修改了自己的密码即需要自己重新修改一次，上同
 				}
 				uitd.setForePwdUpDate(data);
 				updateCount++;
@@ -356,7 +357,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 						uitd.setBackPwd(userPasswordEncrypt(uitd.getBackPwd()));
 						Date data =new Date();
 						if( ( !( uitd.getUpdateBy()).equals(oldUitd.getLoginName()) ) ) {
-							data.setTime(1000); //不等即非自己修改了自己的密码即需要自己重新修改一次，上同
+							data.setTime(boTimeMk); //不等即非自己修改了自己的密码即需要自己重新修改一次，上同
 						}
 						uitd.setBackPwdUpDate(data);
 						updateCount++;
@@ -372,7 +373,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 				uitd.setBackPwd(userPasswordEncrypt(uitd.getBackPwd()));
 				Date data =new Date();
 				if( ( !( uitd.getUpdateBy()).equals(oldUitd.getLoginName()) ) ) {
-					data.setTime(1000); //不等即非自己修改了自己的密码即需要自己重新修改一次，上同
+					data.setTime(boTimeMk); //不等即非自己修改了自己的密码即需要自己重新修改一次，上同
 				}
 				uitd.setBackPwdUpDate(data);
 				updateCount++;
@@ -391,7 +392,8 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 			try {
 				userInfoMapper.updateU(uitd);
 			} catch (Exception ee) {
-				throw new BusinessException("update is err(mapper err)");
+				throw new BusinessException("服务器异常(01)");
+				//throw new ResponseBean.errorResponse("服务器异常");
 			}
 		}
 		// long ms3 = (new Date()).getTime();
@@ -409,7 +411,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 	@Override
 	public void deleteUserById(Integer id) throws Exception {
 		if (null == id) {
-			throw new BusinessException("Err: userId is null!");
+			throw new BusinessException("用户ID为空");
 		}
 		if (1 != id) { // 确保超管不被删除
 			userInfoMapper.deleteUser(id);
@@ -658,8 +660,10 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		return selPassword.equals(userPasswordEncrypt(password)) ? 0 : -1; // 密码校验成功(0)、不匹配(-1)
 	}
 
+	private static final long boTimeMk =(30L*3600*1000); //用于判断用户是否需要登录即修改密码的标记
+
 	public String testUserPasswordBeOverdue(Date fbPwdUpDate) throws Exception {
-		if ( null == fbPwdUpDate || 1000 ==fbPwdUpDate.getTime() ) { // 新用户首次登录 //
+		if ( null == fbPwdUpDate || fbPwdUpDate.getTime() <=boTimeMk ) { // 新用户首次登录 //
 			return new String("firstTime");
 		}
 		LocalDateTime oldTime = LocalDateTime.ofInstant(fbPwdUpDate.toInstant(), ZoneId.systemDefault());
