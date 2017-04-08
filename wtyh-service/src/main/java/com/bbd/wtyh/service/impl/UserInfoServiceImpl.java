@@ -10,7 +10,6 @@ import com.bbd.wtyh.service.RoleResourceService;
 import com.bbd.wtyh.service.UserInfoService;
 import com.bbd.wtyh.mapper.UserInfoMapper;
 import com.bbd.wtyh.util.CipherUtils;
-import com.bbd.wtyh.web.ResponseBean;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
@@ -20,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
+import java.util.Date;
 
 /**
  * Created by cgj on 2017/2/27.
@@ -35,7 +35,6 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 
 	@Override
 	public void createUser(UserInfoTableDo uitd, String resourceSet, String roleSet) throws Exception {
-
 		if (null == uitd) {
 			throw new BusinessException("用户信息表对象为空");
 		}
@@ -232,6 +231,10 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 			updateCount++;
 		}
 
+		Date dateTime =new Date();
+		if( ! uitd.getUpdateBy().equals(oldUitd.getLoginName()) ) { //不等即非自己修改了自己的密码即需要自己重新修改一次
+			dateTime =new Date(boTimeMk);
+		}
 		String uType = oldUitd.getUserType();
 		boolean oldBY = false; // 旧的后台属性
 		boolean oldFY = false; // 旧的前台属性
@@ -259,11 +262,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 						throw new BusinessException("前台密码不合法 ");
 					} else {
 						uitd.setForePwd(userPasswordEncrypt(uitd.getForePwd()));
-						Date data =new Date();
-						if( ( !( uitd.getUpdateBy()).equals(oldUitd.getLoginName()) ) ) {
-							data.setTime(boTimeMk);
-						}
-						uitd.setForePwdUpDate(data);
+						uitd.setForePwdUpDate(dateTime);
 						updateCount++;
 					}
 				}
@@ -278,11 +277,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 						throw new BusinessException("后台密码不合法 ");
 					} else {
 						uitd.setBackPwd(userPasswordEncrypt(uitd.getBackPwd()));
-						Date data =new Date();
-						if( ( !( uitd.getUpdateBy()).equals(oldUitd.getLoginName()) ) ) {
-							data.setTime(boTimeMk); //不等即非自己修改了自己的密码即需要自己重新修改一次，上同
-						}
-						uitd.setBackPwdUpDate(data);
+						uitd.setBackPwdUpDate(dateTime);
 						updateCount++;
 					}
 				}
@@ -321,11 +316,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 						throw new BusinessException("待更新的前台密码不合法 ");
 					} else {
 						uitd.setForePwd(userPasswordEncrypt(uitd.getForePwd()));
-						Date data =new Date();
-						if( ( !( uitd.getUpdateBy()).equals(oldUitd.getLoginName()) ) ) {
-							data.setTime(boTimeMk); //不等即非自己修改了自己的密码即需要自己重新修改一次，上同
-						}
-						uitd.setForePwdUpDate(data);
+						uitd.setForePwdUpDate(dateTime);
 						updateCount++;
 					}
 				}
@@ -337,11 +328,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 				if (StringUtils.isBlank(uitd.getForePwd()) || !rexCheckPassword(uitd.getForePwd()))
 					throw new BusinessException("待更新的前台密码为空或不合法 ");
 				uitd.setForePwd(userPasswordEncrypt(uitd.getForePwd()));
-				Date data =new Date();
-				if( ( !( uitd.getUpdateBy()).equals(oldUitd.getLoginName()) ) ) {
-					data.setTime(boTimeMk); //不等即非自己修改了自己的密码即需要自己重新修改一次，上同
-				}
-				uitd.setForePwdUpDate(data);
+				uitd.setForePwdUpDate(dateTime);
 				updateCount++;
 			} else { // 不更新
 				uitd.setForePwd(null);
@@ -355,11 +342,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 						throw new BusinessException("待更新的后台密码不合法 ");
 					} else {
 						uitd.setBackPwd(userPasswordEncrypt(uitd.getBackPwd()));
-						Date data =new Date();
-						if( ( !( uitd.getUpdateBy()).equals(oldUitd.getLoginName()) ) ) {
-							data.setTime(boTimeMk); //不等即非自己修改了自己的密码即需要自己重新修改一次，上同
-						}
-						uitd.setBackPwdUpDate(data);
+						uitd.setBackPwdUpDate(dateTime);
 						updateCount++;
 					}
 				}
@@ -371,11 +354,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 				if (StringUtils.isBlank(uitd.getBackPwd()) || !rexCheckPassword(uitd.getBackPwd()))
 					throw new BusinessException("待更新的后台密码为空或不合法 ");
 				uitd.setBackPwd(userPasswordEncrypt(uitd.getBackPwd()));
-				Date data =new Date();
-				if( ( !( uitd.getUpdateBy()).equals(oldUitd.getLoginName()) ) ) {
-					data.setTime(boTimeMk); //不等即非自己修改了自己的密码即需要自己重新修改一次，上同
-				}
-				uitd.setBackPwdUpDate(data);
+				uitd.setBackPwdUpDate(dateTime);
 				updateCount++;
 			} else { // 不更新
 				uitd.setBackPwd(null);
