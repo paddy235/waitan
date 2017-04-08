@@ -233,7 +233,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 
 		Date dateTime =new Date();
 		if( ! uitd.getUpdateBy().equals(oldUitd.getLoginName()) ) { //不等即非自己修改了自己的密码即需要自己重新修改一次
-			dateTime =new Date();
+			dateTime =new Date(boTimeMk);
 		}
 		String uType = oldUitd.getUserType();
 		boolean oldBY = false; // 旧的后台属性
