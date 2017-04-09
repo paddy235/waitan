@@ -534,7 +534,7 @@ public class UserInfoController {
         }
         UserInfoTableDo ud = uis.getOnlyUserInfoByLoginNameOrId(loginName,-1);
         if( (int)( session.getAttribute("userId") ) != ud.getId() ) {
-            ResponseBean.errorResponse("个人中心用户只能修改自己的密码");
+            return ResponseBean.errorResponse("个人中心用户只能修改自己的密码");
         }
         int rst = uis.compareUserDaoAndPassword(ud, oldPassword, Operation.System.back, null);
         if( rst <=-5 ) {

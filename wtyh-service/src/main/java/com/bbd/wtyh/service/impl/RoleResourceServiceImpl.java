@@ -342,9 +342,10 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 
 	@Override
 	public void saveUserRoleResource(UserInfoTableDo userDo, String roleIdSet, String resourceCodeSet, String createBy) throws Exception {
-		if (userDo == null) {
+		if (userDo == null || (StringUtils.isBlank(roleIdSet) && StringUtils.isBlank(resourceCodeSet))) {
 			return;
 		}
+
 		// 取出全部角色的权限
 		Set<String> roleResourceSet = new HashSet<>();
 		if (StringUtils.isNotBlank(roleIdSet)) {
