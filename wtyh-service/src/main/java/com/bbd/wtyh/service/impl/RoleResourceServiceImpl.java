@@ -10,6 +10,7 @@ import com.bbd.wtyh.mapper.RoleResourceMapper;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.RoleResourceService;
 import com.bbd.wtyh.service.UserInfoService;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -122,6 +123,9 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 
 	@Override
 	public void addUserRoleMapping(UserInfoTableDo userDo, String roleIdSet, String createBy) throws Exception {
+		// 删除该用户与角色所有的对应关系
+		this.executeCUD("DELETE FROM user_role WHERE user_id = ?", userDo.getId());
+
 		if (StringUtils.isBlank(roleIdSet)) {
 			return;
 		}
@@ -136,17 +140,18 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 			userRoleDo.setCreateDate(new Date());
 			urList.add(userRoleDo);
 		}
-		// 删除该用户与角色所有的对应关系
-		this.executeCUD("DELETE FROM user_role WHERE user_id = ?", userDo.getId());
 		this.insertList(urList);
 	}
 
 	@Override
 	public RoleDo addUserResourceMapping(UserInfoTableDo userDo, String resourceCodeSet, String createBy) throws Exception {
-		if (StringUtils.isBlank(resourceCodeSet)) {
+
+		RoleDo roleDo = this.roleResourceMapper.getTempRoleByUser(userDo.getId(), Constants.role.TYPE_TEMP);
+		// 既不存在临时角色也没要新增的resource，则认为用户没有直接勾选权限。没必要处理后面的流程
+		if (roleDo == null && StringUtils.isBlank(resourceCodeSet)) {
 			return null;
 		}
-		RoleDo roleDo = this.roleResourceMapper.getTempRoleByUser(userDo.getId(), Constants.role.TYPE_TEMP);
+
 		if (roleDo == null) {
 			String tempName = userDo.getLoginName() == null ? userDo.getId().toString() : userDo.getLoginName();
 			String userType = userDo.getUserType() == null ? "" : userDo.getUserType();
@@ -158,7 +163,13 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 
 	@Override
 	public void addRoleResourceMapping(Integer roleId, String resourceCodeSet, String createBy) throws Exception {
+		// 删除该角色与权限所有的对应关系
+		this.executeCUD("DELETE FROM role_resource WHERE role_id = ?", roleId);
+		if (StringUtils.isBlank(resourceCodeSet)) {
+			return;
+		}
 		String[] resourceCodes = resourceCodeSet.split(",");
+
 		List<RoleResourceDo> rrList = new ArrayList<>(resourceCodes.length);
 
 		for (String code : resourceCodes) {
@@ -169,8 +180,6 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 			rr.setCreateDate(new Date());
 			rrList.add(rr);
 		}
-		// 删除该角色与权限所有的对应关系
-		this.executeCUD("DELETE FROM role_resource WHERE role_id = ?", roleId);
 		this.insertList(rrList);
 	}
 
@@ -336,6 +345,22 @@ public class RoleResourceServiceImpl extends BaseServiceImpl implements RoleReso
 		if (userDo == null) {
 			return;
 		}
+		// 取出全部角色的权限
+		Set<String> roleResourceSet = new HashSet<>();
+		if (StringUtils.isNotBlank(roleIdSet)) {
+			List<ResourceDo> resourceDoList = this.listResourceByRoleIds(roleIdSet.split(","));
+			for (ResourceDo rd : resourceDoList) {
+				roleResourceSet.add(rd.getCode());
+			}
+		}
+		Set<String> resourceSet = new HashSet<>();
+		if (StringUtils.isNotBlank(resourceCodeSet)) {
+			resourceSet.addAll(Arrays.asList(resourceCodeSet.split(",")));
+		}
+		resourceSet.removeAll(roleResourceSet);
+
+		resourceCodeSet = StringUtils.join(resourceSet, ",");
+
 		RoleDo roleDo = this.addUserResourceMapping(userDo, resourceCodeSet, createBy);
 		if (roleDo != null) {
 			if (StringUtils.isBlank(roleIdSet)) {
