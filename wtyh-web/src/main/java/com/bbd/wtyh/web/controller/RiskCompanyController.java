@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.vo.CompanySearchVO;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
@@ -54,6 +55,10 @@ public class RiskCompanyController {
 			@RequestParam(required = false) String minReviewTime, @RequestParam(required = false) String maxReviewTime,
 			@RequestParam(required = false) String riskLevel, HttpSession session) {
 
+		if(Constants.SH_CHONGMINGQU.equals(area)){
+			// 线下理财需要转换， 因为index_data中保存的崇明县，所以需要把area中的崇明区转换成崇明县查询
+			area=Constants.SH_CHONGMINGXIAN;
+		}
 		// 如果区域id不为空，则表示此用户只能访问某个区域的数据
 		String areaName = areaService.getAreaName(session);
 		if (areaName != null) {
@@ -73,6 +78,10 @@ public class RiskCompanyController {
 			@RequestParam(required = false) String minReviewTime, @RequestParam(required = false) String maxReviewTime,
 			@RequestParam(required = false) String riskLevel, @RequestParam(defaultValue = "0") String sortType, HttpSession session) {
 
+		if(Constants.SH_CHONGMINGQU.equals(area)){
+			// 线下理财需要转换， 因为index_data中保存的崇明县，所以需要把area中的崇明区转换成崇明县查询
+			area=Constants.SH_CHONGMINGXIAN;
+		}
 		// 如果区域id不为空，则表示此用户只能访问某个区域的数据
 		String areaName = areaService.getAreaName(session);
 		if (areaName != null) {
