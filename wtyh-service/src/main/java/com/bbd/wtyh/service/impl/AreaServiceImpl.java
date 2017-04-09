@@ -62,6 +62,9 @@ public class AreaServiceImpl implements AreaService {
 		String area = (String) session.getAttribute("areaName");
 		if(Constants.SH_AREANAME.equals(area)){
 			area=null;
+		}else if(Constants.SH_CHONGMINGQU.equals(area)){
+			// 线下理财需要转换， 因为index_data中保存的崇明县，所以需要把area中的崇明区转换成崇明县查询
+			area=Constants.SH_CHONGMINGXIAN;
 		}
 
 		 return area;

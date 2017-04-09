@@ -94,6 +94,10 @@ public class Constants {
 
 	public final static String SH_AREANAME = "上海市";
 
+	public final static String SH_CHONGMINGQU = "崇明区";
+
+	public final static String SH_CHONGMINGXIAN = "崇明县";
+
 	/**
 	 * 线下理财关联数据使用 end
 	 */
