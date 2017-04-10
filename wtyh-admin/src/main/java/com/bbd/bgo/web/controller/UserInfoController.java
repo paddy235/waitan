@@ -87,7 +87,7 @@ public class UserInfoController {
         try {
             UserInfoTableDo ud =uis.getOnlyUserInfoByLoginNameOrId(null,uitd.getId());
             if(null ==ud) {
-                throw new BusinessException("此id无对应用户记录");
+                ResponseBean.errorResponse("此id无对应用户记录");
             }
             if( UserRank.bAdmin.equals ( (session.getAttribute("userRank")) ) &&
                     (ud.getUserType().equals(UserType.backAdmin.getTypeCode())
@@ -380,23 +380,11 @@ public class UserInfoController {
     @ResponseBody
     public Object queryShanghaiAreaCodeTable( String type, HttpServletRequest request) {
         List<Map<String, Object>> rstList = new
-                ArrayList<Map<String, Object>>(CodeNameMap.getAndUpdateShanghaiAreaCodeTable(false));
+                ArrayList<>(CodeNameMap.getAndUpdateShanghaiAreaCodeTable(false));
         if( null ==type || !type.equals("0") ) {
             rstList.remove(0);
         }
         return  ResponseBean.successResponse(rstList);
-        /*List<Map<String, Object>> rstList = null;
-        try {
-            rstList = uis.getShanghaiAreaCodeTable(type);
-        } catch (BusinessException be) {
-            return ResponseBean.errorResponse(be.getMessage());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseBean.errorResponse("服务器异常：" + e);
-        }
-        CodeNameMap.setShanghaiAreaCodeList(rstList, false);
-        return ResponseBean.successResponse(rstList);
-        return  ResponseBean.successResponse(CodeNameMap.getAndUpdateShanghaiAreaCodeTable(false));*/
     }
 
     @RequestMapping("/queryUserListDictionary.do")
@@ -411,7 +399,7 @@ public class UserInfoController {
                 case "userTypeList": //用户类型
                     List<Map<String, String>> tlmp =new ArrayList(CodeNameMap.getUserTypeList());
                     UserRank ur =(UserRank)session.getAttribute("userRank");
-                    //if( UserRank.superA !=ur ) { //不是超管
+                    //if( ! UserRank.superA.equals(ur) ) { //不是超管
                     if ( UserRank.bAdmin.equals(ur) ) { //后台普管
                         List<Map<String, String>> dlm = new ArrayList();
                         for (Map<String, String> mp : tlmp) {
@@ -450,7 +438,7 @@ public class UserInfoController {
             return  ResponseBean.errorResponse("参数不合法，正确范围[1,100]");
         }
         if( UserRank.bAdmin.equals ( (session.getAttribute("userRank")) ) ) {
-            ResponseBean.errorResponse("只有超管才能修改密码过期期限");
+            return ResponseBean.errorResponse("只有超管才能修改密码过期期限");
         }
         return  ResponseBean.successResponse( uis.getAndSetPwdLapseCycle(pwdLapseCycle) );
     }
@@ -490,8 +478,8 @@ public class UserInfoController {
     public Object updateInfo(@RequestParam Integer id, @RequestParam String mobile, @RequestParam String email,
                              @RequestParam String fixPhone, HttpSession session, HttpServletRequest request) throws Exception {
 
-        if( (int)( session.getAttribute("userId") ) != id ) {
-            ResponseBean.errorResponse("个人中心用户只能修改自己的个人信息");
+        if( (int)( session.getAttribute("userId") ) != id.intValue() ) {
+            return ResponseBean.errorResponse("个人中心用户只能修改自己的个人信息");
         }
         UserInfoTableDo oldUitd = this.uis.selectById(UserInfoTableDo.class, id);
         if (oldUitd != null) {
@@ -533,7 +521,7 @@ public class UserInfoController {
             return ResponseBean.errorResponse("password.history.contains"); // 新设置密码不可与原密码设置相同
         }
         UserInfoTableDo ud = uis.getOnlyUserInfoByLoginNameOrId(loginName,-1);
-        if( (int)( session.getAttribute("userId") ) != ud.getId() ) {
+        if( (int)( session.getAttribute("userId") ) != ud.getId().intValue() ) {
             return ResponseBean.errorResponse("个人中心用户只能修改自己的密码");
         }
         int rst = uis.compareUserDaoAndPassword(ud, oldPassword, Operation.System.back, null);
