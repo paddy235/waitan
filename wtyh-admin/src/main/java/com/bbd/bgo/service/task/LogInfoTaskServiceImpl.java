@@ -5,6 +5,13 @@ import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.service.LogInfoService;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,9 +92,8 @@ public class LogInfoTaskServiceImpl extends BaseServiceImpl implements LogInfoTa
 
 	private Long callHttpRequest(String url) {
 
-		HttpTemplate httpTemplate = new HttpTemplate();
 		try {
-			return httpTemplate.get(url, new HttpCallback<Long>() {
+			return this.get(url, new HttpCallback<Long>() {
 
 				@Override
 				public boolean valid() {
@@ -98,7 +104,7 @@ public class LogInfoTaskServiceImpl extends BaseServiceImpl implements LogInfoTa
 				public Long parse(String result) {
 					return Long.parseLong(result);
 				}
-			});
+			},0,0);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -109,18 +115,31 @@ public class LogInfoTaskServiceImpl extends BaseServiceImpl implements LogInfoTa
 	/**
 	 * 取当前日期之前后者之后某一天
 	 **/
-	private static String getPreDay(int size) {
-		String preDay = null;
-		try {
+	private static String getPreDay(int size){
+		String preDay=null;
+		try{
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 			Calendar c = Calendar.getInstance();
-			c.add(Calendar.DATE, -size);
+			c.add(Calendar.DATE, - size);
 			Date today = c.getTime();
 			preDay = sdf.format(today);
 
-		} catch (Exception e) {
+		}catch(Exception e){
 		}
 		return preDay;
+	}
+
+	public <T> T get(String url, HttpCallback<T> callback, int connectTimeout, int socketTimeout) throws Exception {
+		logger.debug("http get request,url : {}", url);
+		return request(new HttpGet(url), callback, connectTimeout, socketTimeout);
+	}
+
+	public <T> T request(HttpRequestBase httpRequest, HttpCallback<T> callback, int connectTimeout, int socketTimeout) throws Exception {
+		HttpClientBuilder httpClientBuilder = HttpClients.custom();
+		httpRequest.setConfig(RequestConfig.custom().setConnectTimeout(connectTimeout).setSocketTimeout(socketTimeout).build());
+		CloseableHttpResponse httpResponse = httpClientBuilder.build().execute(httpRequest);
+		String resp = new BasicResponseHandler().handleResponse(httpResponse);
+		return callback.parse(resp);
 	}
 }
