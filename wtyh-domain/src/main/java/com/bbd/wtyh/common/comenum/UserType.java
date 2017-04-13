@@ -8,7 +8,7 @@ public enum UserType {
     BACK_ADMIN("B", "系统管理员", false, true, UserRank.ADMIN),
     BUSINESS_MANAGER("M", "业务数据管理员",true, true, UserRank.ADMIN),
     GENERAL("F", "普通用户", true, false, UserRank.GENERAL),
-    DISTRICT_MANAGER("D", "区县管理员", true, false, UserRank.GENERAL);
+    DISTRICT_USER("D", "区县用户", true, false, UserRank.GENERAL);
 
     private String typeCode;
     private String typeName;
