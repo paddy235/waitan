@@ -1,7 +1,6 @@
 package com.bbd.bgo.web.controller;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import com.bbd.wtyh.common.comenum.UserRank;
 import com.bbd.wtyh.common.comenum.UserType;
@@ -14,14 +13,10 @@ import com.bbd.wtyh.service.AreaService;
 import com.bbd.wtyh.service.RoleResourceService;
 import com.bbd.wtyh.service.UserInfoService;
 import org.apache.commons.collections.map.HashedMap;
-import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
-import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
-import org.apache.shiro.util.ByteSource;
-import org.apache.shiro.web.servlet.ShiroHttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bbd.wtyh.common.Constants;
-import com.bbd.wtyh.service.UserService;
 import com.bbd.wtyh.web.ResponseBean;
 
 import java.util.Map;
@@ -88,11 +82,11 @@ public class LoginController {
 			session.setAttribute("enUserType", ut );//保存用户类型（枚举值）
 			session.setAttribute("userId", userInfo.getId() );//保存用户Id
 			session.setAttribute("userName", userInfo.getLoginName() );//保存用户名
-			UserRank userRank = UserRank.general;
+			UserRank userRank = UserRank.GENERAL;
 			if( UserInfoService.superId == userInfo.getId() ) {
-				userRank = UserRank.superA;
-			} else  if (UserType.backAdmin.equals(ut)  /*|| UserType.businessManager(ut) */) { //todo 4.10后用
-				userRank = UserRank.bAdmin;
+				userRank = UserRank.SUPER_A;
+			} else  if (UserType.BACK_ADMIN.equals(ut)  /*|| UserType.BUSINESS_MANAGER(ut) */) { //todo 4.10后用
+				userRank = UserRank.ADMIN;
 			}
 			session.setAttribute("userRank", userRank);//保存用户等级
 			session.setAttribute("requestIp", UserLogRecord.getRemoteAddress(request));

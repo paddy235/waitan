@@ -4,17 +4,23 @@ package com.bbd.wtyh.common.comenum;
  * Created by cgj on 2017/4/1.
  */
 public enum UserRank {
-    superA("超管级别"), //超管级别
-    bAdmin("普管级别"), //普管级别
-    general("普通级别"); //普通级别
+    SUPER_A("超管级",0),
+    ADMIN("管理员级",10),
+    GENERAL("普通用户级",100);
 
-    String name;
+    private String name;
+    private int rank; //等级代码，从0开始，越小等级越高
 
-    UserRank(String name) {
+    UserRank(String name, int rank) {
         this.name = name;
+        this.rank = rank;
     }
 
     public String getName() {
         return name;
+    }
+
+    public int getRank() {
+        return rank;
     }
 }

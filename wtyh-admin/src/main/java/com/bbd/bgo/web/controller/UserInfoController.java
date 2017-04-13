@@ -56,9 +56,9 @@ public class UserInfoController {
         String loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
         uitd.setCreateBy(loginName);
         try {
-            if( UserRank.bAdmin.equals ( (session.getAttribute("userRank")) ) &&
-                    (uitd.getUserType().equals(UserType.backAdmin.getTypeCode())
-                            /*||uitd.getUserType().equals(UserType.businessManager.getTypeCode()) todo 4.10后*/ ) ) {
+            if( UserRank.ADMIN.equals ( (session.getAttribute("userRank")) ) &&
+                    (uitd.getUserType().equals(UserType.BACK_ADMIN.getTypeCode())
+                            /*||uitd.getUserType().equals(UserType.BUSINESS_MANAGER.getTypeCode()) todo 4.10后*/ ) ) {
                 return ResponseBean.errorResponse("普管不能创建管理员类型账户");
             }
             uis.createUser(uitd, resourceSet, roleSet);
@@ -89,9 +89,9 @@ public class UserInfoController {
             if(null ==ud) {
                 ResponseBean.errorResponse("此id无对应用户记录");
             }
-            if( UserRank.bAdmin.equals ( (session.getAttribute("userRank")) ) &&
-                    (ud.getUserType().equals(UserType.backAdmin.getTypeCode())
-                            /*||ud.getUserType().equals(UserType.businessManager.getTypeCode()) todo 4.10后*/ ) ) {
+            if( UserRank.ADMIN.equals ( (session.getAttribute("userRank")) ) &&
+                    (ud.getUserType().equals(UserType.BACK_ADMIN.getTypeCode())
+                            /*||ud.getUserType().equals(UserType.BUSINESS_MANAGER.getTypeCode()) todo 4.10后*/ ) ) {
                 return ResponseBean.errorResponse("普管不能修改管理员类型账户");
             }
             uitd.setStatus(null);//此接口不允许更新用户状态
@@ -158,9 +158,9 @@ public class UserInfoController {
             if(null ==ud) {
                 throw new BusinessException("此id无对应用户记录");
             }
-            if( UserRank.bAdmin.equals ( (session.getAttribute("userRank")) ) &&
-                    (ud.getUserType().equals(UserType.backAdmin.getTypeCode())
-                            /*||ud.getUserType().equals(UserType.businessManager.getTypeCode()) todo 4.10后*/ ) ) {
+            if( UserRank.ADMIN.equals ( (session.getAttribute("userRank")) ) &&
+                    (ud.getUserType().equals(UserType.BACK_ADMIN.getTypeCode())
+                            /*||ud.getUserType().equals(UserType.BUSINESS_MANAGER.getTypeCode()) todo 4.10后*/ ) ) {
                 return ResponseBean.errorResponse("普管不能删除管理员类型账户");
             }
             uis.deleteUserById(deleteId);
@@ -183,9 +183,9 @@ public class UserInfoController {
             if(null ==ud) {
                 throw new BusinessException("此id无对应用户记录");
             }
-            if( UserRank.bAdmin.equals ( (session.getAttribute("userRank")) ) &&
-                    (ud.getUserType().equals(UserType.backAdmin.getTypeCode())
-                            /*||ud.getUserType().equals(UserType.businessManager.getTypeCode()) todo 4.10后*/ ) ) {
+            if( UserRank.ADMIN.equals ( (session.getAttribute("userRank")) ) &&
+                    (ud.getUserType().equals(UserType.BACK_ADMIN.getTypeCode())
+                            /*||ud.getUserType().equals(UserType.BUSINESS_MANAGER.getTypeCode()) todo 4.10后*/ ) ) {
                 return ResponseBean.errorResponse("普管不能锁定管理员类型账户");
             }
             UserInfoTableDo uitd = new UserInfoTableDo();
@@ -225,9 +225,9 @@ public class UserInfoController {
             if(null ==ud) {
                 throw new BusinessException("此id无对应用户记录");
             }
-            if( UserRank.bAdmin.equals ( (session.getAttribute("userRank")) ) &&
-                    (ud.getUserType().equals(UserType.backAdmin.getTypeCode())
-                            /*||ud.getUserType().equals(UserType.businessManager.getTypeCode()) todo 4.10后*/ ) ) {
+            if( UserRank.ADMIN.equals ( (session.getAttribute("userRank")) ) &&
+                    (ud.getUserType().equals(UserType.BACK_ADMIN.getTypeCode())
+                            /*||ud.getUserType().equals(UserType.BUSINESS_MANAGER.getTypeCode()) todo 4.10后*/ ) ) {
                 return ResponseBean.errorResponse("普管不能激活管理员类型账户");
             }
             UserInfoTableDo uitd = new UserInfoTableDo();
@@ -274,8 +274,8 @@ public class UserInfoController {
 
         Map<String, Object> rstMap = null;
         try {
-            if( UserRank.bAdmin.equals ( (session.getAttribute("userRank")) ) ) {
-                userType =UserType.general.getTypeCode(); //普管只能查看普通用户
+            if( UserRank.ADMIN.equals ( (session.getAttribute("userRank")) ) ) {
+                userType =UserType.GENERAL.getTypeCode(); //普管只能查看普通用户
             }
             rstMap = uis.listUserInfo(userStatus, userType, areaCode, selectType, selectObject, pageSize, pageNumber);
         } catch (BusinessException be) {
@@ -325,9 +325,9 @@ public class UserInfoController {
             rstMap = uis.getUserInfoById(queryId);
             if( null !=rstMap ) {
                 UserInfoTableDo ud =(UserInfoTableDo) (rstMap.get("userInfo"));
-                if(UserRank.bAdmin.equals ( (session.getAttribute("userRank")) ) &&
-                        ( ud.getUserType().equals(UserType.backAdmin.getTypeCode())
-                            /*||ud.getUserType().equals(UserType.businessManager.getTypeCode()) todo 4.10后*/ ) ) {
+                if(UserRank.ADMIN.equals ( (session.getAttribute("userRank")) ) &&
+                        ( ud.getUserType().equals(UserType.BACK_ADMIN.getTypeCode())
+                            /*||ud.getUserType().equals(UserType.BUSINESS_MANAGER.getTypeCode()) todo 4.10后*/ ) ) {
                     return ResponseBean.errorResponse("普管不能获取管理员类型账户的用户详情");
                 }
                 //
@@ -363,8 +363,8 @@ public class UserInfoController {
             if( null == UserType.getUserTypeByCode(userType) ) {
                 throw new BusinessException("userType参数不合法");
             }
-            if( UserRank.bAdmin.equals ( (session.getAttribute("userRank")) ) ) {
-                userType =UserType.general.getTypeCode(); //普管不能开立包含管理员类型的模板
+            if( UserRank.ADMIN.equals ( (session.getAttribute("userRank")) ) ) {
+                userType =UserType.GENERAL.getTypeCode(); //普管不能开立包含管理员类型的模板
             }
             rstList = uis.getUserTemplate(loginName, userType);
         } catch (BusinessException be) {
@@ -399,14 +399,14 @@ public class UserInfoController {
                 case "userTypeList": //用户类型
                     List<Map<String, String>> tlmp =new ArrayList(CodeNameMap.getUserTypeList());
                     UserRank ur =(UserRank)session.getAttribute("userRank");
-                    //if( ! UserRank.superA.equals(ur) ) { //不是超管
-                    if ( UserRank.bAdmin.equals(ur) ) { //后台普管
+                    //if( ! UserRank.SUPER_A.equals(ur) ) { //不是超管
+                    if ( UserRank.ADMIN.equals(ur) ) { //后台普管
                         List<Map<String, String>> dlm = new ArrayList();
                         for (Map<String, String> mp : tlmp) {
-                            if (UserType.backAdmin.getTypeCode().equals(mp.get("tpCode"))) {
+                            if (UserType.BACK_ADMIN.getTypeCode().equals(mp.get("tpCode"))) {
                                 dlm.add(mp);
                             }
-                                /*if( UserType.businessManager.getTypeCode().equals( mp.get("tpCode") ) ) {
+                                /*if( UserType.BUSINESS_MANAGER.getTypeCode().equals( mp.get("tpCode") ) ) {
                                     dlm.add(mp);
                                 }*/ //todo 4.10后用
                         }
@@ -437,7 +437,7 @@ public class UserInfoController {
         if( pwdLapseCycle <1 || pwdLapseCycle >100 ) {
             return  ResponseBean.errorResponse("参数不合法，正确范围[1,100]");
         }
-        if( UserRank.bAdmin.equals ( (session.getAttribute("userRank")) ) ) {
+        if( UserRank.ADMIN.equals ( (session.getAttribute("userRank")) ) ) {
             return ResponseBean.errorResponse("只有超管才能修改密码过期期限");
         }
         return  ResponseBean.successResponse( uis.getAndSetPwdLapseCycle(pwdLapseCycle) );

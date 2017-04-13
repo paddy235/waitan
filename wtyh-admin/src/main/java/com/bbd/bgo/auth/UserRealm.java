@@ -62,7 +62,7 @@ public class UserRealm extends AuthorizingRealm {
         int rst =-1000;
         try {
             rst =userInfoService.compareUserNameAndPassword(username,String.copyValueOf(password),
-                    Operation.System.back, new UserType[]{UserType.backAdmin} );
+                    Operation.System.back, new UserType[]{UserType.BACK_ADMIN} );
         } catch (Exception e) {
             e.printStackTrace();
         }

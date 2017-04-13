@@ -94,7 +94,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		uitd.setUpdateBy(uitd.getUpdateBy());
 
 		/*
-		 * if (uitd.getUserType().equals( UserType.businessManager.getTypeCode() ) ) { //todo 4.10后用
+		 * if (uitd.getUserType().equals( UserType.BUSINESS_MANAGER.getTypeCode() ) ) { //todo 4.10后用
 		 * if (StringUtils.isBlank(uitd.getForePwd()) ||
 		 * !rexCheckPassword(uitd.getForePwd())) throw new
 		 * BusinessException("前台密码为空或不合法");
@@ -104,12 +104,12 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		 * BusinessException("后台密码为空或不合法");
 		 * uitd.setBackPwd(userPasswordEncrypt(uitd.getBackPwd())); } else
 		 */
-		if (uitd.getUserType().equals(UserType.general.getTypeCode())) {
+		if (uitd.getUserType().equals(UserType.GENERAL.getTypeCode())) {
 			if (StringUtils.isBlank(uitd.getForePwd()) || !rexCheckPassword(uitd.getForePwd()))
 				throw new BusinessException("前台密码为空或不合法");
 			uitd.setForePwd(userPasswordEncrypt(uitd.getForePwd()));
 			uitd.setBackPwd("");
-		} else if (uitd.getUserType().equals(UserType.backAdmin.getTypeCode())) {
+		} else if (uitd.getUserType().equals(UserType.BACK_ADMIN.getTypeCode())) {
 			uitd.setForePwd("");
 			if (StringUtils.isBlank(uitd.getBackPwd()) || !rexCheckPassword(uitd.getBackPwd()))
 				throw new BusinessException("后台密码为空或不合法");
@@ -238,16 +238,16 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		String uType = oldUitd.getUserType();
 		boolean oldBY = false; // 旧的后台属性
 		boolean oldFY = false; // 旧的前台属性
-		if (uType.equals(UserType.backAdmin
+		if (uType.equals(UserType.BACK_ADMIN
 				.getTypeCode()) /* //todo 4.10后用
-								 * || uType.equals(UserType.businessManager.
+								 * || uType.equals(UserType.BUSINESS_MANAGER.
 								 * getTypeCode())
 								 */ ) {
 			oldBY = true;
 		}
-		if (uType.equals(UserType.general
+		if (uType.equals(UserType.GENERAL
 				.getTypeCode()) /* //todo 4.10后用
-								 * || uType.equals(UserType.businessManager.
+								 * || uType.equals(UserType.BUSINESS_MANAGER.
 								 * getTypeCode())
 								 */ ) {
 			oldFY = true;
@@ -292,18 +292,18 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 				updateCount++; // 更新UserType
 			}
 			if (newType
-					.equals(UserType.backAdmin
+					.equals(UserType.BACK_ADMIN
 							.getTypeCode()) /*//todo 4.10后用
 											 * || newType.equals(UserType.
-											 * businessManager.getTypeCode())
+											 * BUSINESS_MANAGER.getTypeCode())
 											 */ ) {
 				newBY = true;
 			}
 			if (newType
-					.equals(UserType.general
+					.equals(UserType.GENERAL
 							.getTypeCode()) /*//todo 4.10后用
 											 * || newType.equals(UserType.
-											 * businessManager.getTypeCode())
+											 * BUSINESS_MANAGER.getTypeCode())
 											 */ ) {
 				newFY = true;
 			}

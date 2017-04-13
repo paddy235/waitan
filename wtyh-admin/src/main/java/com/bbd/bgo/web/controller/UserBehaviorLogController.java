@@ -1,6 +1,5 @@
 package com.bbd.bgo.web.controller;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -9,20 +8,16 @@ import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.map.name.code.CodeNameMap;
 import com.bbd.wtyh.service.UserBehaviorLogService;
 import org.apache.commons.lang.StringUtils;
-import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bbd.wtyh.exception.BusinessException;
 import com.bbd.wtyh.log.user.Operation;
-import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.service.UserInfoService;
 import com.bbd.wtyh.web.ResponseBean;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -68,7 +63,7 @@ public class UserBehaviorLogController {
         try {
             String excludeName =null;
 
-            if( UserRank.bAdmin.equals ( (session.getAttribute("userRank")) ) ) {
+            if( UserRank.ADMIN.equals ( (session.getAttribute("userRank")) ) ) {
                 excludeName ="admin"; //滤除超管的行为日志，普管不能查看超管的行为日志
             }
             rstMap = ubls.listUserBehaviorLog(pageSize, pageNumber, excludeName ,userName, areaCode,

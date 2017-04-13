@@ -223,8 +223,8 @@ public class RoleResourceController {
 			if (null == pageNumber) {
 				pageNumber = 1;
 			}
-			if (UserRank.bAdmin.equals((session.getAttribute("userRank")))) {
-				userType = UserType.general.getTypeCode(); // 普管只能查看普通用户
+			if (UserRank.ADMIN.equals((session.getAttribute("userRank")))) {
+				userType = UserType.GENERAL.getTypeCode(); // 普管只能查看普通用户
 			}
 			rstMap = roleResourceService.listRoleBase(userType, pageSize, pageNumber);
 		} catch (Exception e) {
