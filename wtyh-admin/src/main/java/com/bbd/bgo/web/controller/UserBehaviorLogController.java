@@ -1,5 +1,6 @@
 package com.bbd.bgo.web.controller;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -12,6 +13,7 @@ import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -20,6 +22,7 @@ import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.service.UserInfoService;
 import com.bbd.wtyh.web.ResponseBean;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -146,6 +149,19 @@ public class UserBehaviorLogController {
         return ResponseBean.successResponse(rstObj);
     }
 
+/*    @RequestMapping(value = "/fileUp.do", method = RequestMethod.POST)
+    @ResponseBody
+    public Object fileUp(
+            HttpServletRequest request,
+            @RequestParam String description,
+            @RequestParam MultipartFile file
+            ) throws  Exception{
+        String pa =request.getContextPath();
+        String fiNa =file.getOriginalFilename();
+        File fp =new File(pa +fiNa);
+
+        return ResponseBean.successResponse("ok");
+    }*/
 
 
 /*    @RequestMapping("/myTest.do")
