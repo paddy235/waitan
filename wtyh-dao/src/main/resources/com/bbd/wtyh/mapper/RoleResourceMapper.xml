@@ -202,11 +202,12 @@
     <select id="getAllResource" resultMap="allResource">
         SELECT
             re.id,re.code,re.name,re.type,re.parent_code
-        FROM resource re
+        FROM user_type_resource us,resource re
         WHERE
+            us.resource_code=re.code AND
             re.parent_code IS NULL
             <if test="type != null and type != ''">
-                AND re.type LIKE CONCAT('%',#{type},'%')
+                AND us.user_type = #{type}
             </if>
     </select>
 
