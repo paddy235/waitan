@@ -9,18 +9,18 @@ public enum UserRank {
     GENERAL("普通用户级",100);
 
     private String name;
-    private int rank; //等级代码，从0开始，越小等级越高
+    private int rankVal; //等级值，从0开始，越小等级越高
 
     UserRank(String name, int rank) {
         this.name = name;
-        this.rank = rank;
+        this.rankVal = rank;
     }
 
     public String getName() {
         return name;
     }
 
-    public int getRank() {
-        return rank;
+    public int getRankVal() {
+        return rankVal;
     }
 }

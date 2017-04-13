@@ -2,6 +2,7 @@ package com.bbd.wtyh.service.impl;
 
 import java.util.*;
 
+import com.bbd.wtyh.cashetobean.ShanghaiAreaCode;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.map.name.code.CodeNameMap;
 import com.bbd.wtyh.mapper.UserBehaviorLogMapper;
@@ -88,7 +89,7 @@ public class UserBehaviorLogServiceImpl extends BaseServiceImpl implements UserB
 			if( null !=  obj ) { //将区域代码转换成行政区名称
 				try {
 					int tmp = Integer.parseInt( (String)obj );
-					obj = CodeNameMap.getShanghaiAreaCodeMap().get(tmp);
+					obj = ShanghaiAreaCode.getMap().get(tmp);
 					if( null !=  obj ) {
 						itr.put("area", (String)obj);
 					} else {

@@ -16,74 +16,8 @@ import java.util.Map;
 /**
  * Created by cgj on 2017/3/24.
  */
-public class CodeNameMap implements ApplicationContextAware {
-    private static ApplicationContext applicationContext;
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        CodeNameMap.applicationContext = applicationContext;
-        uis = CodeNameMap.applicationContext.getBean(UserInfoService.class);
-        //首次从数据库中取出区域代码表
-        updateShanghaiAreaCodeTable(null);
-        updateCnt++;
-    }
-//    static ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
-//    static UserInfoService uis = context.getBean(UserInfoService.class);
-    private static UserInfoService uis;
-    private static List<Map<String, Object>> shanghaiAreaCodeList; //区域代码表
-    private static byte updateCnt =0;
-    private static Map<Integer, String> shanghaiAreaCodeMap; //区域代码字典
 
-    /**
-     *
-     * @param shanghaiAreaCodeList
-     * @param isImm 是否立即更新
-     */
-    public static void setShanghaiAreaCodeList(List<Map<String, Object>> shanghaiAreaCodeList, boolean isImm) {
-        if(isImm || 0== updateCnt) {
-            updateShanghaiAreaCodeTable(shanghaiAreaCodeList);
-        }
-        updateCnt++;
-    }
-
-    /**
-     * 获取和内部更新上海市区代码表
-     * @param isImm 是否立即更新
-     * @return
-     */
-    static public List<Map<String, Object>> getAndUpdateShanghaiAreaCodeTable(boolean isImm) {
-        if(isImm || 0== updateCnt) {
-            updateShanghaiAreaCodeTable(null);
-        }
-        updateCnt++;
-        return shanghaiAreaCodeList;
-    }
-    public static void updateShanghaiAreaCodeTable(List<Map<String, Object>> areaCodeListIn)  {
-        if(null ==areaCodeListIn) {
-            try {
-                shanghaiAreaCodeList = uis.getShanghaiAreaCodeTable("0"); //读取区域代码表
-            } catch (Exception e) {
-                shanghaiAreaCodeList = new ArrayList<Map<String, Object>>() {{
-                    add(new HashMap<String, Object>() {{
-                        put("areaId", (Integer) (0));
-                        put("cityName", "全部");
-                    }});
-                    add(new HashMap<String, Object>() {{
-                        put("areaId", (Integer) (104));
-                        put("cityName", "上海全区");
-                    }});
-                }};
-            }
-        }else {
-            shanghaiAreaCodeList = areaCodeListIn;
-        }
-        shanghaiAreaCodeMap = new HashMap<Integer, String>();
-        for (Map<String, Object> itr : shanghaiAreaCodeList) { //构造一个区域代码名称字典
-            shanghaiAreaCodeMap.put((Integer) itr.get("areaId"), (String) itr.get("cityName"));
-        }
-    }
-    public static List<Map<String, Object>> quickGetShanghaiAreaCodeTable() {  return shanghaiAreaCodeList; }
-    public static Map<Integer, String> getShanghaiAreaCodeMap() {  return shanghaiAreaCodeMap; }
-
+public class CodeNameMap {
 
     private static List<Map<String, Object>> sysLocationList; //系统位置表
     private static Map<Integer, String> sysLocationMap; //系统位置字典
@@ -157,50 +91,4 @@ public class CodeNameMap implements ApplicationContextAware {
     }
     public static List<Map<String, Object>> getOpPageList() {  return opPageList; }
     public static Map<Integer, String> getOpPageMap() {  return opPageMap; }
-
-    private static List<Map<String, String>> userTypeList; //用户类型表
-    private static Map<String, String> userTypeMap; //用户类型字典
-    static {
-        userTypeList =new ArrayList<Map<String, String>>() {{
-            add( new  HashMap<String, String>() {{
-                put("tpCode", "T");
-                put("tpName", "全部");
-            }} );
-            for (  UserType uType  :  UserType.values() ) {
-                add(new HashMap<String, String>() {{
-                    put("tpCode", uType.getTypeCode() );
-                    put("tpName", uType.getTypeName() );
-                }});
-            }
-        }};
-        userTypeMap = new HashMap<String, String>();
-        for ( Map<String, String>itr: userTypeList ) { //构造一个字典
-            userTypeMap.put( (String) itr.get("tpCode") , (String) itr.get("tpName"));
-        }
-    }
-    public static List<Map<String, String>> getUserTypeList() {  return userTypeList; }
-    public static Map<String, String> getUserTypeMap() {  return userTypeMap; }
-
-    private static List<Map<String, String>> userStatusList; //用户状态表
-    private static Map<String, String> userStatusMap; //用户状态字典
-    static {
-        userStatusList =new ArrayList<Map<String, String>>() {{
-            add( new  HashMap<String, String>() {{
-                put("stsCode", "T");
-                put("stsName", "全部");
-            }} );
-            for (  UserInfoService.UserStatus uStatus  :  UserInfoService.UserStatus.values() ) {
-                add(new HashMap<String, String>() {{
-                    put("stsCode", uStatus.getStatusCode() );
-                    put("stsName", uStatus.getStatusName() );
-                }});
-            }
-        }};
-        userStatusMap = new HashMap<String, String>();
-        for ( Map<String, String>itr: userStatusList ) { //构造一个字典
-            userStatusMap.put( (String) itr.get("stsCode") , (String) itr.get("stsName"));
-        }
-    }
-    public static List<Map<String, String>> getUserStatusList() {  return userStatusList; }
-    public static Map<String, String> getUserStatusMap(){  return userStatusMap; }
 }

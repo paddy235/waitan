@@ -5,9 +5,7 @@ import com.bbd.wtyh.core.base.BaseService;
 import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.log.user.Operation;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 用户基本信息服务接口 Created by cgj on 2017/2/27.
@@ -33,13 +31,19 @@ public interface UserInfoService extends BaseService {
 	 * 
 	 * @param uitd
 	 *            用户信息表
-	 * @param resourceSet
-	 *            用户权限集
 	 * @throws Exception
 	 *             各种不合规的参数引发的异常，包括加密转码、持久化对象的异常
 	 */
-	public void updateUserInfo(UserInfoTableDo uitd, String resourceSet, String roleSet) throws Exception;
+	public void updateUserInfo(UserInfoTableDo uitd) throws Exception;
 
+	// 更新用户信息和角色权限
+	public void updateUserInfoAndRoleResource(UserInfoTableDo uitd, String resourceSet, String roleSet) throws Exception;
+
+	/**
+	 * 删除用户
+	 * @param id
+	 * @throws Exception
+	 */
 	public void deleteUserById(Integer id) throws Exception;
 
 	/**
@@ -127,7 +131,7 @@ public interface UserInfoService extends BaseService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Map<String, Object>> getShanghaiAreaCodeTable(String type) throws Exception;
+	//public List<Map<String, Object>> getShanghaiAreaCodeTable(String type) throws Exception;
 
 	/**
 	 * 用户密码匹配测试
@@ -147,15 +151,13 @@ public interface UserInfoService extends BaseService {
 	 * 
 	 * @param loginName
 	 * @param password
-	 * @param sysType
-	 *            系统类型：前台或后台系统。用于指定提请数据库中前台或后台密码跟当前密码做比较。
-	 * @param auType
-	 *            若非空，则会验证用户类型是否匹配
+	 * @param sysType 系统类型：前台或后台系统。用于指定提请数据库中前台或后台密码跟当前密码做比较。
+	 *
 	 * @return 成功（0）；不匹配(-1)；库中密码字符串为空(-2)；用户类型和指定类型不匹配(-3)；用户处于非活动状态(-4)；
 	 *         用户不存在(-5)；传入的参数不合法(-999)
 	 * @throws Exception
 	 */
-	public int compareUserNameAndPassword(String loginName, String password, Operation.System sysType, UserType[] auType) throws Exception;
+	public int compareUserNameAndPassword(String loginName, String password, Operation.System sysType) throws Exception;
 
 	/**
 	 * 比较userDao对应的账户和密码是否正确
@@ -163,15 +165,13 @@ public interface UserInfoService extends BaseService {
 	 * @param userDao
 	 *            传入对象
 	 * @param password
-	 * @param sysType
-	 *            系统类型：前台或后台系统。用于指定提请数据库中前台或后台密码跟当前密码做比较。
-	 * @param auType
-	 *            若非空，则会验证用户类型是否匹配
+	 * @param sysType  系统类型：前台或后台系统。用于指定提请数据库中前台或后台密码跟当前密码做比较。
+	 *
 	 * @return 成功（0）；不匹配(-1)；库中密码字符串为空(-2)；用户类型和指定类型不匹配(-3)；用户处于非活动状态(-4)；
 	 *         用户不存在(-5)；传入的参数不合法(-999)
 	 * @throws Exception
 	 */
-	public int compareUserDaoAndPassword(UserInfoTableDo userDao, String password, Operation.System sysType, UserType[] auType)
+	public int compareUserDaoAndPassword(UserInfoTableDo userDao, String password, Operation.System sysType)
 			throws Exception;
 
 	/**
@@ -225,6 +225,29 @@ public interface UserInfoService extends BaseService {
 			}
 			return null;
 		}
+
+		private static List<Map<String, String>> userStatusList; //用户状态表
+		//private static Map<String, String> userStatusMap; //用户状态字典
+		static {
+			userStatusList =new ArrayList<Map<String, String>>() {{
+				add( new  HashMap<String, String>() {{
+					put("stsCode", "T");
+					put("stsName", "全部");
+				}} );
+				for (  UserInfoService.UserStatus uStatus  :  UserInfoService.UserStatus.values() ) {
+					add(new HashMap<String, String>() {{
+						put("stsCode", uStatus.getStatusCode() );
+						put("stsName", uStatus.getStatusName() );
+					}});
+				}
+			}};
+			/*userStatusMap = new HashMap<String, String>();
+			for ( Map<String, String>itr: userStatusList ) { //构造一个字典
+				userStatusMap.put( (String) itr.get("stsCode") , (String) itr.get("stsName"));
+			}*/
+		}
+		public static List<Map<String, String>> getUserStatusList() {  return userStatusList; }
+		//public static Map<String, String> getUserStatusMap(){  return userStatusMap; }
 	}
 
 }

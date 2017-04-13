@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.bbd.wtyh.cashetobean.ShanghaiAreaCode;
 import com.bbd.wtyh.common.comenum.UserRank;
 import com.bbd.wtyh.common.comenum.UserType;
 import com.bbd.wtyh.log.user.UserLogRecord;
@@ -56,10 +57,9 @@ public class UserInfoController {
         String loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
         uitd.setCreateBy(loginName);
         try {
-            if( UserRank.ADMIN.equals ( (session.getAttribute("userRank")) ) &&
-                    (uitd.getUserType().equals(UserType.BACK_ADMIN.getTypeCode())
-                            /*||uitd.getUserType().equals(UserType.BUSINESS_MANAGER.getTypeCode()) todo 4.10后*/ ) ) {
-                return ResponseBean.errorResponse("普管不能创建管理员类型账户");
+            UserRank ownRank =(UserRank)(session.getAttribute("userRank"));
+            if( UserType.getUserTypeByCode(uitd.getUserType()).getUserRank().getRankVal() <=ownRank.getRankVal() ) {
+                return ResponseBean.errorResponse("新创建的用户等级不合法");
             }
             uis.createUser(uitd, resourceSet, roleSet);
         } catch (BusinessException be) {
@@ -96,7 +96,7 @@ public class UserInfoController {
             }
             uitd.setStatus(null);//此接口不允许更新用户状态
             uitd.setLoginName(null); //此接口不允许更新登录名
-            uis.updateUserInfo(uitd, resourceSet, roleSet);
+            uis.updateUserInfoAndRoleResource(uitd, resourceSet, roleSet);
             userRealm.clearCached();
             loginName = ud.getLoginName();
             //request.setAttribute("modLoginName", uitd.getLoginName());
@@ -193,7 +193,7 @@ public class UserInfoController {
             uitd.setUpdateBy(loginName);
             uitd.setId(lockId);
             uitd.setStatus(UserInfoService.UserStatus.lock.getStatusCode()); //"F"
-            uis.updateUserInfo(uitd, null, null);
+            uis.updateUserInfo(uitd);
             userRealm.clearCached();
             if(StringUtils.isNoneBlank(anchor) ) { //按条件记录用户日志
                 Operation.Page opPg =Operation.Page.blank;
@@ -235,7 +235,7 @@ public class UserInfoController {
             uitd.setUpdateBy(loginName);
             uitd.setId(activeId);
             uitd.setStatus(UserInfoService.UserStatus.active.getStatusCode()); //"A"
-            uis.updateUserInfo(uitd, null, null);
+            uis.updateUserInfo(uitd);
             userRealm.clearCached();
             if(StringUtils.isNoneBlank(anchor) ) { //按条件记录用户日志
                 Operation.Page opPg =Operation.Page.blank;
@@ -304,9 +304,9 @@ public class UserInfoController {
                     break;
             }
             UserLogRecord.record("搜索用户列表，搜索类型：" +selectType +"，关键字：" +selectObject
-                            +"，用户状态：" +CodeNameMap.getUserStatusMap().get(userStatus)
-                            +"，用户类型：" +CodeNameMap.getUserTypeMap().get(userType)
-                            +"，所属地区：" +CodeNameMap.getShanghaiAreaCodeMap().get(areaCode) ,
+                            +"，用户状态：" + UserInfoService.UserStatus.getUserStatusByCode(userStatus).getStatusName()
+                            +"，用户类型：" +UserType.getUserTypeByCode(userType).getTypeName()  //UserType.getUserTypeMap().get(userType)
+                            +"，所属地区：" + ShanghaiAreaCode.getMap().get(areaCode) ,
                     Operation.Type.query, Operation.Page.userList, Operation.System.back, request);
         }
         //以上用于日志记录
@@ -380,7 +380,7 @@ public class UserInfoController {
     @ResponseBody
     public Object queryShanghaiAreaCodeTable( String type, HttpServletRequest request) {
         List<Map<String, Object>> rstList = new
-                ArrayList<>(CodeNameMap.getAndUpdateShanghaiAreaCodeTable(false));
+                ArrayList<>(ShanghaiAreaCode.quickGetList());
         if( null ==type || !type.equals("0") ) {
             rstList.remove(0);
         }
@@ -394,10 +394,10 @@ public class UserInfoController {
         for ( String Prj : queryProject ) {
             switch ( Prj ) {
                 case  "areaCodeList": //上海区域代码
-                    rstObj.put("areaCodeList", CodeNameMap.getAndUpdateShanghaiAreaCodeTable(false) );
+                    rstObj.put("areaCodeList", ShanghaiAreaCode.getAndUpdateList(false) );
                     break;
                 case "userTypeList": //用户类型
-                    List<Map<String, String>> tlmp =new ArrayList(CodeNameMap.getUserTypeList());
+                    List<Map<String, String>> tlmp =new ArrayList(UserType.getUserTypeList());
                     UserRank ur =(UserRank)session.getAttribute("userRank");
                     //if( ! UserRank.SUPER_A.equals(ur) ) { //不是超管
                     if ( UserRank.ADMIN.equals(ur) ) { //后台普管
@@ -416,7 +416,7 @@ public class UserInfoController {
                     rstObj.put("userTypeList", tlmp);
                     break;
                 case "userStatusList": //用户状态
-                    rstObj.put("userStatusList", CodeNameMap.getUserStatusList());
+                    rstObj.put("userStatusList", UserInfoService.UserStatus.getUserStatusList());
                     break;
             }
         }
@@ -505,7 +505,7 @@ public class UserInfoController {
         user.setFixPhone(fixPhone);
         user.setUpdateBy((String) session.getAttribute(Constants.SESSION.loginName));
 
-        uis.updateUserInfo(user, null, null);
+        uis.updateUserInfo(user);
 
         return ResponseBean.successResponse("用户信息修改成功。");
     }
@@ -524,7 +524,7 @@ public class UserInfoController {
         if( (int)( session.getAttribute("userId") ) != ud.getId().intValue() ) {
             return ResponseBean.errorResponse("个人中心用户只能修改自己的密码");
         }
-        int rst = uis.compareUserDaoAndPassword(ud, oldPassword, Operation.System.back, null);
+        int rst = uis.compareUserDaoAndPassword(ud, oldPassword, Operation.System.back);
         if( rst <=-5 ) {
             return ResponseBean.errorResponse("account.not.exist"); // 账号不存在 // BusinessException("未查询到id字段");
         }
@@ -535,7 +535,7 @@ public class UserInfoController {
         user.setUpdateBy(loginName); // user.setUpdateBy((String)session.getAttribute(Constants.SESSION.loginName));
         user.setBackPwd(newPassword);
         user.setId( ud.getId() );
-        uis.updateUserInfo(user, null, null);
+        uis.updateUserInfo(user);
         userRealm.clearCached();
         return ResponseBean.successResponse("password.change.success"); // 用户密码修改成功。
     }

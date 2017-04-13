@@ -82,7 +82,7 @@ public class UserInfoController {
 		user.setFixPhone(fixPhone);
 		user.setUpdateBy((String) session.getAttribute(Constants.SESSION.loginName));
 
-		userInfoService.updateUserInfo(user, null,null);
+		userInfoService.updateUserInfo(user);
 
 		return ResponseBean.successResponse("用户信息修改成功。");
 	}
@@ -100,7 +100,7 @@ public class UserInfoController {
 		if( (int)( session.getAttribute("userId") ) != ud.getId() ) {
 			ResponseBean.errorResponse("个人中心用户只能修改自己的密码");
 		}
-		int rst =userInfoService.compareUserDaoAndPassword(ud,oldPassword, Operation.System.front, null);
+		int rst =userInfoService.compareUserDaoAndPassword(ud,oldPassword, Operation.System.front);
 		if( rst <=-5 ) {
 			return ResponseBean.errorResponse("account.not.exist"); // 账号不存在 // BusinessException("未查询到id字段");
 		}
@@ -111,7 +111,7 @@ public class UserInfoController {
 		user.setUpdateBy(loginName); // user.setUpdateBy((String)session.getAttribute(Constants.SESSION.loginName));
 		user.setForePwd(newPassword);
 		user.setId( ud.getId() );
-		userInfoService.updateUserInfo(user, null, null);
+		userInfoService.updateUserInfo(user);
 		userRealm.clearCached();
 		return ResponseBean.successResponse("password.change.success"); // 用户密码修改成功。
 	}
