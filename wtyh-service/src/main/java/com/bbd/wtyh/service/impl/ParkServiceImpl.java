@@ -335,8 +335,40 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 	}
 
 	@Override
-	public List<ParkCompanyDo> queryParkCompany(Integer areaId) {
-		return this.parkMapper.qeuryParkCompany(areaId);
+	public List<ParkCompanyDo> queryParkCompany(Integer areaId,Integer isNew,Integer riskLevel,
+												String backgroundName,String companyTypeName,String buildingName) {
+        Map<String, Object> params=new HashMap<>();
+		//地区编号
+        params.put("areaId",areaId);
+		//背景名称--背景代码
+        if(null!=backgroundName){
+			CompanyBackgroundDO.Bg bg=CompanyBackgroundDO.Bg.getBgByName(backgroundName);
+			if(null!=bg){
+            	params.put("background",bg.val);
+			}else{
+				params.put("background","-1");
+			}
+        }
+        //行业类型名称--行业类型代码
+        if(null!=companyTypeName){
+			byte companyType=CompanyDO.companyType(companyTypeName);
+            params.put("companyType",companyType);
+        }
+        //楼宇名称
+        if(null!=buildingName){
+            params.put("buildingName",buildingName);
+        }
+
+        //风险等级代码
+        if(null!=riskLevel){
+            params.put("riskLevel",riskLevel);
+        }
+
+		//是否新增
+		if(null!=isNew){
+			params.put("isNew",isNew);
+		}
+		return this.parkMapper.qeuryParkCompany(params);
 	}
 
 	private void sortByIndex(List<CompanyAnalysisResultDO> list) {

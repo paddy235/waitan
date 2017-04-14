@@ -273,9 +273,15 @@ public class ParkController {
 	 */
 	@RequestMapping("/parkCompanyList")
 	@ResponseBody
-	public ResponseBean parkCompanyList(@RequestParam(required = true) Integer areaId) {
-
-		List<ParkCompanyDo> data = parkService.queryParkCompany(areaId);
+	public ResponseBean parkCompanyList(@RequestParam(required = true) Integer areaId,
+										@RequestParam(required = true) Integer isNew,
+										@RequestParam(required = true) Integer riskLevel,
+										@RequestParam(required = true) String backgroundName,
+										@RequestParam(required = true) String companyTypeName,
+										@RequestParam(required = true) String buildingName
+										)
+	{
+		List<ParkCompanyDo> data = parkService.queryParkCompany(areaId,isNew,riskLevel,backgroundName,companyTypeName,buildingName);
 		return ResponseBean.successResponse(data);
 	}
 

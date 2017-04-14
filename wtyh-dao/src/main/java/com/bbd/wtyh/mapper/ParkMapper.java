@@ -5,16 +5,15 @@ import com.bbd.wtyh.domain.ParkCompanyDo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ParkMapper {
    
 	public String parkImg(Integer areaId);
 	/**
 	 * 查询某个园区的楼宇公司
-	 *
-	 * @param areaId
 	 * @return
 	 */
-	List<ParkCompanyDo> qeuryParkCompany(@Param("areaId") Integer areaId);
+	List<ParkCompanyDo> qeuryParkCompany(Map<String, Object> params);
    
 }

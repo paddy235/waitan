@@ -11,7 +11,7 @@ public class ParkCompanyDo {
 
     private String legalPerson;//法人
 
-    private Integer companyType;//企业类型
+    private Byte companyType;//企业类型
 
     private String companyTypeName;//企业类型名称
 
@@ -24,6 +24,11 @@ public class ParkCompanyDo {
     private Integer buildingId;//楼宇ID
 
     private String buildingName;//楼宇名称
+
+    private Byte background;//企业背景
+
+    private String backgroundName;//企业背景名称
+
 
     public Integer getCompanyId() {
         return companyId;
@@ -49,16 +54,16 @@ public class ParkCompanyDo {
         this.legalPerson = legalPerson;
     }
 
-    public Integer getCompanyType() {
+    public Byte getCompanyType() {
         return companyType;
     }
 
-    public void setCompanyType(Integer companyType) {
+    public void setCompanyType(Byte companyType) {
         this.companyType = companyType;
     }
 
     public String getCompanyTypeName() {
-        return companyTypeName;
+        return CompanyDO.companyTypeCN(this.companyType);
     }
 
     public void setCompanyTypeName(String companyTypeName) {
@@ -103,5 +108,24 @@ public class ParkCompanyDo {
 
     public void setBuildingName(String buildingName) {
         this.buildingName = buildingName;
+    }
+
+    public Byte getBackground() {
+        return background;
+    }
+
+    public void setBackground(Byte background) {
+        this.background = background;
+    }
+
+    public String getBackgroundName() {
+        if (null == background) {
+            return "";
+        }
+        return CompanyBackgroundDO.Bg.getBg(this.background).CN;
+    }
+
+    public void setBackgroundName(String backgroundName) {
+        this.backgroundName = backgroundName;
     }
 }

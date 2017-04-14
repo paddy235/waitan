@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
  */
 @Service
 public class LogInfoServiceImpl extends BaseServiceImpl implements LogInfoService{
-    @Value("${tomcat.root}")
+    //@Value("${tomcat.root}")
     private String userActionLogDir;
 
     Logger logger= LoggerFactory.getLogger(LogInfoServiceImpl.class);

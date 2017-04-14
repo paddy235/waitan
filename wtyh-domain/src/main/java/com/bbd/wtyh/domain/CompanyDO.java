@@ -140,6 +140,42 @@ public class CompanyDO extends BaseDO implements Comparable {
 		}
 	}
 
+	public static byte companyType(String name) {
+		if (null == name) {
+			return -1;
+		}
+		switch (name) {
+			case "网络借贷":
+				return TYPE_P2P_1;
+			case "小额贷款":
+				return TYPE_XD_2;
+			case "融资担保":
+				return TYPE_RZDB_3;
+			case "线下理财":
+				return TYPE_XXLC_4;
+			case "私募基金":
+				return TYPE_SMJJ_5;
+			case "众筹":
+				return TYPE_ZC_6;
+			case "金融":
+				return TYPE_JR_7;
+			case "其他":
+				return TYPE_QT_8;
+			case "交易场所":
+				return TYPE_JYS_9;
+			case "商业保理":
+				return TYPE_SYBL_10;
+			case "预付卡":
+				return TYPE_YFK_11;
+			case "典当":
+				return TYPE_DD_12;
+			case "融资租赁":
+				return TYPE_RZZL_13;
+			default:
+				return -1;
+		}
+	}
+
 	public String getComTypeCN() {
 		return companyTypeCN(this.companyType);
 	}

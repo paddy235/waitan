@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.bbd.wtyh.core.base.BaseService;
 import com.bbd.wtyh.domain.*;
@@ -119,6 +120,7 @@ public interface ParkService extends BaseService {
 	 *            区域id
 	 * @return String 园区楼宇公司
 	 */
-	List<ParkCompanyDo> queryParkCompany(Integer areaId);
+	List<ParkCompanyDo> queryParkCompany(Integer areaId,Integer isNew,Integer riskLevel,
+										 String backgroundName,String companyTypeName,String buildingName);
 
 }
