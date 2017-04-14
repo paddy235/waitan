@@ -22,12 +22,6 @@
     <mvc:interceptors>
 
         <mvc:interceptor>
-            <!-- 对所有的请求拦截使用/**  -->
-            <mvc:mapping path="/**"/>
-            <ref bean="userAccessInterceptor"/>
-        </mvc:interceptor>
-
-        <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <mvc:exclude-mapping path="/third-party/*"/>
             <ref bean="loginInterceptor"/>
@@ -40,23 +34,20 @@
         </mvc:interceptor>
     </mvc:interceptors>
 
-    <bean id="userAccessInterceptor"
-          class="com.bbd.sys.service.UserAccessApiInterceptor">
-    </bean>
 
-    <bean id="loginInterceptor" class="com.bbd.sys.service.LoginInterceptor"/>
+        <bean id="loginInterceptor" class="com.bbd.sys.service.LoginInterceptor"/>
 
 
-    <bean id="messageSource"
-          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        <property name="cacheSeconds" value="0"/>
-        <property name="basenames">
-            <list>
-                <value>classpath:i18n/messages</value>
-            </list>
-        </property>
-    </bean>
-    <!-- 框架统一处理将对象转json @responsebody @requestbody 标签 -->
+        <bean id="messageSource"
+              class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+            <property name="cacheSeconds" value="0"/>
+            <property name="basenames">
+                <list>
+                    <value>classpath:i18n/messages</value>
+                </list>
+            </property>
+        </bean>
+        <!-- 框架统一处理将对象转json @responsebody @requestbody 标签 -->
     <bean id="mappingJacksonHttpMessageConverter"
           class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
         <property name="supportedMediaTypes">
