@@ -154,7 +154,7 @@ public interface UserInfoService extends BaseService {
 	 * @param sysType 系统类型：前台或后台系统。用于指定提请数据库中前台或后台密码跟当前密码做比较。
 	 *
 	 * @return 成功（0）；不匹配(-1)；库中密码字符串为空(-2)；用户类型和指定类型不匹配(-3)；用户处于非活动状态(-4)；
-	 *         用户不存在(-5)；传入的参数不合法(-999)
+	 *         用户不存在(-5)；传入的参数不合法(-999)；用户类型无效(-1999)
 	 * @throws Exception
 	 */
 	public int compareUserNameAndPassword(String loginName, String password, Operation.System sysType) throws Exception;
@@ -168,7 +168,7 @@ public interface UserInfoService extends BaseService {
 	 * @param sysType  系统类型：前台或后台系统。用于指定提请数据库中前台或后台密码跟当前密码做比较。
 	 *
 	 * @return 成功（0）；不匹配(-1)；库中密码字符串为空(-2)；用户类型和指定类型不匹配(-3)；用户处于非活动状态(-4)；
-	 *         用户不存在(-5)；传入的参数不合法(-999)
+	 *         用户不存在(-5)；传入的参数不合法(-999)；用户类型无效(-1999)
 	 * @throws Exception
 	 */
 	public int compareUserDaoAndPassword(UserInfoTableDo userDao, String password, Operation.System sysType)

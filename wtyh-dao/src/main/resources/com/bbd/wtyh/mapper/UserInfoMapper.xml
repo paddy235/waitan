@@ -121,7 +121,7 @@
       ifnull(area_code ,'') AS areaCode
     </if>
     FROM <include refid="TabName"/>
-    <where> id != 1
+    <where> id != 1 AND `user_type` != 'S'
       <if test="userStatus !=null">
         AND `status` = #{userStatus}
       </if>
@@ -159,7 +159,7 @@
     id AS id,
     login_name AS loginName
     FROM  <include refid="TabName"/>
-    WHERE id != 1
+    WHERE id != 1 AND `user_type` != 'S'
     AND `login_name` LIKE '%${loginName}%'
     <if test="userTypeStr !=null">
       AND `user_type` = #{userTypeStr}

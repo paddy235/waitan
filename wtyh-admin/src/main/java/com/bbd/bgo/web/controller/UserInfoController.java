@@ -58,7 +58,7 @@ public class UserInfoController {
         uitd.setCreateBy(loginName);
         try {
             UserRank ownRank =(UserRank)(session.getAttribute("userRank"));
-            if( UserType.getUserTypeByCode(uitd.getUserType()).getUserRank().getRankVal() <=ownRank.getRankVal() ) {
+            if( UserType.getUserTypeByCode(uitd.getUserType()).getUserRank().getRankVal() >=ownRank.getRankVal() ) {
                 return ResponseBean.errorResponse("新创建的用户等级不合法");
             }
             uis.createUser(uitd, resourceSet, roleSet);
@@ -87,12 +87,11 @@ public class UserInfoController {
         try {
             UserInfoTableDo ud =uis.getOnlyUserInfoByLoginNameOrId(null,uitd.getId());
             if(null ==ud) {
-                ResponseBean.errorResponse("此id无对应用户记录");
+                return ResponseBean.errorResponse("此id无对应用户记录");
             }
-            if( UserRank.ADMIN.equals ( (session.getAttribute("userRank")) ) &&
-                    (ud.getUserType().equals(UserType.BACK_ADMIN.getTypeCode())
-                            /*||ud.getUserType().equals(UserType.BUSINESS_MANAGER.getTypeCode()) todo 4.10后*/ ) ) {
-                return ResponseBean.errorResponse("普管不能修改管理员类型账户");
+            UserRank ownRank =(UserRank)(session.getAttribute("userRank"));
+            if( UserType.getUserTypeByCode(ud.getUserType()).getUserRank().getRankVal() >=ownRank.getRankVal() ) {
+                return ResponseBean.errorResponse("不能修改用户等级大于等于自己的账户");
             }
             uitd.setStatus(null);//此接口不允许更新用户状态
             uitd.setLoginName(null); //此接口不允许更新登录名
@@ -158,10 +157,9 @@ public class UserInfoController {
             if(null ==ud) {
                 throw new BusinessException("此id无对应用户记录");
             }
-            if( UserRank.ADMIN.equals ( (session.getAttribute("userRank")) ) &&
-                    (ud.getUserType().equals(UserType.BACK_ADMIN.getTypeCode())
-                            /*||ud.getUserType().equals(UserType.BUSINESS_MANAGER.getTypeCode()) todo 4.10后*/ ) ) {
-                return ResponseBean.errorResponse("普管不能删除管理员类型账户");
+            UserRank ownRank =(UserRank)(session.getAttribute("userRank"));
+            if( UserType.getUserTypeByCode(ud.getUserType()).getUserRank().getRankVal() >=ownRank.getRankVal() ) {
+                return ResponseBean.errorResponse("不能删除用户等级大于等于自己的账户");
             }
             uis.deleteUserById(deleteId);
             userRealm.clearCached(); //
@@ -183,10 +181,9 @@ public class UserInfoController {
             if(null ==ud) {
                 throw new BusinessException("此id无对应用户记录");
             }
-            if( UserRank.ADMIN.equals ( (session.getAttribute("userRank")) ) &&
-                    (ud.getUserType().equals(UserType.BACK_ADMIN.getTypeCode())
-                            /*||ud.getUserType().equals(UserType.BUSINESS_MANAGER.getTypeCode()) todo 4.10后*/ ) ) {
-                return ResponseBean.errorResponse("普管不能锁定管理员类型账户");
+            UserRank ownRank =(UserRank)(session.getAttribute("userRank"));
+            if( UserType.getUserTypeByCode(ud.getUserType()).getUserRank().getRankVal() >=ownRank.getRankVal() ) {
+                return ResponseBean.errorResponse("不能锁定用户等级大于等于自己的账户");
             }
             UserInfoTableDo uitd = new UserInfoTableDo();
             String loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
@@ -225,10 +222,9 @@ public class UserInfoController {
             if(null ==ud) {
                 throw new BusinessException("此id无对应用户记录");
             }
-            if( UserRank.ADMIN.equals ( (session.getAttribute("userRank")) ) &&
-                    (ud.getUserType().equals(UserType.BACK_ADMIN.getTypeCode())
-                            /*||ud.getUserType().equals(UserType.BUSINESS_MANAGER.getTypeCode()) todo 4.10后*/ ) ) {
-                return ResponseBean.errorResponse("普管不能激活管理员类型账户");
+            UserRank ownRank =(UserRank)(session.getAttribute("userRank"));
+            if( UserType.getUserTypeByCode(ud.getUserType()).getUserRank().getRankVal() >=ownRank.getRankVal() ) {
+                return ResponseBean.errorResponse("不能激活用户等级大于等于自己的账户");
             }
             UserInfoTableDo uitd = new UserInfoTableDo();
             String loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
@@ -275,7 +271,7 @@ public class UserInfoController {
         Map<String, Object> rstMap = null;
         try {
             if( UserRank.ADMIN.equals ( (session.getAttribute("userRank")) ) ) {
-                userType =UserType.GENERAL.getTypeCode(); //普管只能查看普通用户
+                userType =UserType.GENERAL.getTypeCode(); //普管只能查看普通用户 todo 用IN加其它普通用户类型。。。最好用户表加用户等级字段
             }
             rstMap = uis.listUserInfo(userStatus, userType, areaCode, selectType, selectObject, pageSize, pageNumber);
         } catch (BusinessException be) {
@@ -325,10 +321,9 @@ public class UserInfoController {
             rstMap = uis.getUserInfoById(queryId);
             if( null !=rstMap ) {
                 UserInfoTableDo ud =(UserInfoTableDo) (rstMap.get("userInfo"));
-                if(UserRank.ADMIN.equals ( (session.getAttribute("userRank")) ) &&
-                        ( ud.getUserType().equals(UserType.BACK_ADMIN.getTypeCode())
-                            /*||ud.getUserType().equals(UserType.BUSINESS_MANAGER.getTypeCode()) todo 4.10后*/ ) ) {
-                    return ResponseBean.errorResponse("普管不能获取管理员类型账户的用户详情");
+                UserRank ownRank =(UserRank)(session.getAttribute("userRank"));
+                if( UserType.getUserTypeByCode(ud.getUserType()).getUserRank().getRankVal() >=ownRank.getRankVal() ) {
+                    return ResponseBean.errorResponse("不能获取用户等级大于等于自己用户详情");
                 }
                 //
                 if(StringUtils.isNoneBlank(anchor) ) { //按条件记录用户日志
@@ -364,7 +359,7 @@ public class UserInfoController {
                 throw new BusinessException("userType参数不合法");
             }
             if( UserRank.ADMIN.equals ( (session.getAttribute("userRank")) ) ) {
-                userType =UserType.GENERAL.getTypeCode(); //普管不能开立包含管理员类型的模板
+                userType =UserType.GENERAL.getTypeCode(); //普管不能开立包含管理员类型的模板 todo 要改成IN方式去取多种用户类型。。。
             }
             rstList = uis.getUserTemplate(loginName, userType);
         } catch (BusinessException be) {
@@ -397,23 +392,8 @@ public class UserInfoController {
                     rstObj.put("areaCodeList", ShanghaiAreaCode.getAndUpdateList(false) );
                     break;
                 case "userTypeList": //用户类型
-                    List<Map<String, String>> tlmp =new ArrayList(UserType.getUserTypeList());
-                    UserRank ur =(UserRank)session.getAttribute("userRank");
-                    //if( ! UserRank.SUPER_A.equals(ur) ) { //不是超管
-                    if ( UserRank.ADMIN.equals(ur) ) { //后台普管
-                        List<Map<String, String>> dlm = new ArrayList();
-                        for (Map<String, String> mp : tlmp) {
-                            if (UserType.BACK_ADMIN.getTypeCode().equals(mp.get("tpCode"))) {
-                                dlm.add(mp);
-                            }
-                                /*if( UserType.BUSINESS_MANAGER.getTypeCode().equals( mp.get("tpCode") ) ) {
-                                    dlm.add(mp);
-                                }*/ //todo 4.10后用
-                        }
-                        tlmp.removeAll(dlm);
-                    }
-                    //}
-                    rstObj.put("userTypeList", tlmp);
+                    UserRank loginRank =(UserRank)session.getAttribute("userRank");
+                    rstObj.put("userTypeList", UserType.getUserTypeList(true, loginRank));
                     break;
                 case "userStatusList": //用户状态
                     rstObj.put("userStatusList", UserInfoService.UserStatus.getUserStatusList());
@@ -437,8 +417,8 @@ public class UserInfoController {
         if( pwdLapseCycle <1 || pwdLapseCycle >100 ) {
             return  ResponseBean.errorResponse("参数不合法，正确范围[1,100]");
         }
-        if( UserRank.ADMIN.equals ( (session.getAttribute("userRank")) ) ) {
-            return ResponseBean.errorResponse("只有超管才能修改密码过期期限");
+        if( ! UserRank.SUPER_A.equals ( (session.getAttribute("userRank")) ) ) {
+            return ResponseBean.errorResponse("只有超管级别才能修改密码过期期限");
         }
         return  ResponseBean.successResponse( uis.getAndSetPwdLapseCycle(pwdLapseCycle) );
     }

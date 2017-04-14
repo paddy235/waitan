@@ -45,11 +45,11 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 			throw new BusinessException("用户状态为空");
 		}
 		if (StringUtils.isBlank(uitd.getLoginName()) || !rexCheckUserName(uitd.getLoginName())) {
-			throw new BusinessException("新建的登录名为空或不合法");
+			throw new BusinessException("新创建的登录名为空或不合法");
 		}
 		UserInfoTableDo utd = getOnlyUserInfoByLoginNameOrId(uitd.getLoginName(), -1);
 		if (null != utd) {
-			throw new BusinessException("新建的登录名已存在");
+			throw new BusinessException("新创建的登录名已存在");
 		}
 		if (StringUtils.isBlank(uitd.getRealName()) || !rexCheckUserName(uitd.getRealName())) {
 			throw new BusinessException("真实姓名为空或不合法");
@@ -87,39 +87,34 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		if (StringUtils.isBlank(uitd.getAreaCode()) || !rexCheckAreaCode(uitd.getAreaCode())) {
 			throw new BusinessException("地区代码为空或不合法");
 		}
-		uitd.setCreateDate(new Date());
 		if (StringUtils.isBlank(uitd.getCreateBy()) || !rexCheckUserName(uitd.getCreateBy())) {
 			throw new BusinessException("创建人为空");
 		}
-		uitd.setUpdateDate(uitd.getCreateDate());
 		uitd.setUpdateBy(uitd.getUpdateBy());
 
-		/*
-		 * if (uitd.getUserType().equals( UserType.BUSINESS_MANAGER.getTypeCode() ) ) { //todo 4.10后用
-		 * if (StringUtils.isBlank(uitd.getForePwd()) ||
-		 * !rexCheckPassword(uitd.getForePwd())) throw new
-		 * BusinessException("前台密码为空或不合法");
-		 * uitd.setForePwd(userPasswordEncrypt(uitd.getForePwd())); if
-		 * (StringUtils.isBlank(uitd.getBackPwd()) ||
-		 * !rexCheckPassword(uitd.getBackPwd())) throw new
-		 * BusinessException("后台密码为空或不合法");
-		 * uitd.setBackPwd(userPasswordEncrypt(uitd.getBackPwd())); } else
-		 */
-		if (uitd.getUserType().equals(UserType.GENERAL.getTypeCode())) {
+		UserType createType = UserType.getUserTypeByCode(uitd.getUserType());
+		if( null ==createType ) {
+			throw new BusinessException("系统中没有指定的用户类型");
+		}
+		if( UserType.SUPER_ADMIN.equals(createType) ) {
+			throw new BusinessException("不能创建超管类型");
+		}
+		if( createType.isForeMask() ) { //用户类型包含前台属性
+			uitd.setBackPwd("");
 			if (StringUtils.isBlank(uitd.getForePwd()) || !rexCheckPassword(uitd.getForePwd()))
 				throw new BusinessException("前台密码为空或不合法");
 			uitd.setForePwd(userPasswordEncrypt(uitd.getForePwd()));
-			uitd.setBackPwd("");
-		} else if (uitd.getUserType().equals(UserType.BACK_ADMIN.getTypeCode())) {
+		}
+		if( createType.isBackMask() ) { //用户类型包含后台属性
 			uitd.setForePwd("");
 			if (StringUtils.isBlank(uitd.getBackPwd()) || !rexCheckPassword(uitd.getBackPwd()))
 				throw new BusinessException("后台密码为空或不合法");
 			uitd.setBackPwd(userPasswordEncrypt(uitd.getBackPwd()));
-		} else {
-			throw new BusinessException("用户类型不合法");
 		}
 		uitd.setForePwdUpDate(null); // 创建时置空，表明此用户登录时需要提示用户立即修改密码，下同
 		uitd.setBackPwdUpDate(null); //
+		uitd.setCreateDate(new Date());
+		uitd.setUpdateDate(uitd.getCreateDate());
 		userInfoMapper.saveU(uitd);
 		roleResourceService.saveUserRoleResource(uitd, roleSet, resourceSet, uitd.getCreateBy());
 	}
@@ -129,52 +124,77 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 	public void updateUserInfo(UserInfoTableDo uitd) throws Exception {
 		// long ms1 = (new Date()).getTime();
 		if (null == uitd) {
-			throw new BusinessException("用户信息表为空对象");
+			throw new BusinessException("传入的用户信息对象不能为空对象");
 		}
 		if (null == uitd.getId()) {
-			throw new BusinessException("没有指定待更新的用户信息的id");
+			throw new BusinessException("未指定待更新的用户信息的id");
 		}
-		// if (1 == uitd.getId()) { // id号为1的为超级管理员，禁止修改或删除
-		// throw new BusinessException("supper管理员，禁止修改或删除！");
-		// }
 		UserInfoTableDo oldUitd = userInfoMapper.selectUserAllInfoById(uitd.getId());
 		if (null == oldUitd) {
-			throw new BusinessException("提供的用户id不存在");
+			throw new BusinessException("请求的用户id不存在");
+		}
+		UserType oldUserType = UserType.getUserTypeByCode(oldUitd.getUserType());
+		if( null ==oldUserType ) {
+			throw new BusinessException("指定Id对应的旧的用户类型无效，数据库可能被串改");
 		}
 
 		int updateCount = 0; // 更新条目计数器
 
-		if (StringUtils.isBlank(uitd.getStatus())) {
-			uitd.setStatus(null); // 不更新用户状态
-		} else {
-			if (null == UserStatus.getUserStatusByCode(uitd.getStatus())) {
-				throw new BusinessException("用户状态参数不合法");
-			}
-			updateCount++;
-		}
-
-		if (StringUtils.isBlank(uitd.getLoginName())) {
-			uitd.setLoginName(null); // 不更新登录名
-		} else {
-			if (!rexCheckUserName(uitd.getLoginName())) {
-				throw new BusinessException("新指定的登录名不合法");
-			}
-			UserInfoTableDo utd = getOnlyUserInfoByLoginNameOrId(uitd.getLoginName(), -1);
-			if (null != utd) {
-				throw new BusinessException("新指定的登录名已存在");
-			}
-			updateCount++;
-		}
-
-		if (StringUtils.isBlank(uitd.getRealName())) {
-			uitd.setRealName(null); // 不更新真实姓名
-		} else {
-			if (!rexCheckUserName(uitd.getRealName())) {
-				throw new BusinessException("新指定的真实姓名不合法");
+		if( 1 !=uitd.getId() && !( oldUserType.equals(UserType.SUPER_ADMIN) ) ) { //超管不能更新花括号内的信息
+			if (StringUtils.isBlank(uitd.getStatus())) {
+				uitd.setStatus(null); // 不更新用户状态
 			} else {
-				//真名不加密了 uitd.setRealName( CipherUtils.encrypt(uitd.getRealName()) );
+				if (null == UserStatus.getUserStatusByCode(uitd.getStatus())) {
+					throw new BusinessException("用户状态参数不合法");
+				}
+				updateCount++;
 			}
-			updateCount++;
+
+			if (true) { //按产品要求，本阶段开始不再更新登录名
+				uitd.setLoginName(null);
+			} else {
+				if (StringUtils.isBlank(uitd.getLoginName())) {
+					uitd.setLoginName(null); // 不更新登录名
+				} else {
+					if (!rexCheckUserName(uitd.getLoginName())) {
+						throw new BusinessException("新指定的用户名不合法");
+					}
+					UserInfoTableDo utd = getOnlyUserInfoByLoginNameOrId(uitd.getLoginName(), -1);
+					if (null != utd) {
+						throw new BusinessException("新指定的登录名已存在");
+					}
+					updateCount++;
+				}
+			}
+
+			if (StringUtils.isBlank(uitd.getRealName())) {
+				uitd.setRealName(null); // 不更新真实姓名
+			} else {
+				if (!rexCheckUserName(uitd.getRealName())) {
+					throw new BusinessException("新指定的真实姓名不合法");
+				} else {
+					//真名不加密了 uitd.setRealName( CipherUtils.encrypt(uitd.getRealName()) );
+				}
+				updateCount++;
+			}
+
+			if (StringUtils.isBlank(uitd.getDepartment())) {
+				uitd.setDepartment(null); // 不更新部门
+			} else {
+				if (!rexCheckUserName(uitd.getDepartment())) {
+					throw new BusinessException("新指定的部门名称不合法");
+				}
+				updateCount++;
+			}
+
+			if (StringUtils.isBlank(uitd.getAreaCode())) {
+				uitd.setAreaCode(null); // 不更新区域代码
+			} else {
+				if (!rexCheckAreaCode(uitd.getAreaCode())) {
+					throw new BusinessException("地区代码不合法");
+				}
+				updateCount++;
+			}
 		}
 
 		if (null == uitd.getFixPhone()) {
@@ -214,170 +234,99 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 			updateCount++;
 		}
 
-		if (StringUtils.isBlank(uitd.getDepartment())) {
-			uitd.setDepartment(null); // 不更新部门
-		} else {
-			if (!rexCheckUserName(uitd.getDepartment())) {
-				throw new BusinessException("新指定的部门名称不合法");
-			}
-			updateCount++;
-		}
-
-		if (StringUtils.isBlank(uitd.getAreaCode())) {
-			uitd.setAreaCode(null); // 不更新区域代码
-		} else {
-			if (!rexCheckAreaCode(uitd.getAreaCode())) {
-				throw new BusinessException("地区代码不合法");
-			}
-			updateCount++;
-		}
-
-		Date dateTime =new Date();
-		if( ! uitd.getUpdateBy().equals(oldUitd.getLoginName()) ) { //不等即非自己修改了自己的密码即需要自己重新修改一次
-			dateTime =new Date(boTimeMk);
-		}
-		String uType = oldUitd.getUserType();
-		boolean oldBY = false; // 旧的后台属性
-		boolean oldFY = false; // 旧的前台属性
-		if (uType.equals(UserType.BACK_ADMIN
-				.getTypeCode()) /* //todo 4.10后用
-								 * || uType.equals(UserType.BUSINESS_MANAGER.
-								 * getTypeCode())
-								 */ ) {
-			oldBY = true;
-		}
-		if (uType.equals(UserType.GENERAL
-				.getTypeCode()) /* //todo 4.10后用
-								 * || uType.equals(UserType.BUSINESS_MANAGER.
-								 * getTypeCode())
-								 */ ) {
-			oldFY = true;
-		}
+		///////以下是处理密码的代码
+		boolean bForePwdUpMk =false; //前台密码更新标志
+		boolean bBackPwdUpMk =false; //后台密码更新标志
+		boolean oldBY = oldUserType.isBackMask(); // 旧的后台属性
+		boolean oldFY = oldUserType.isForeMask(); // 旧的前台属性
 		if (StringUtils.isBlank(uitd.getUserType())) { // 未指定userType
 			uitd.setUserType(null);
-			if (true == oldFY) {
-				if (StringUtils.isBlank(uitd.getForePwd())) {
-					uitd.setForePwd(null); // 前端密码为空则不更新
-				} else {
-					if (!rexCheckPassword(uitd.getForePwd())) {
-						throw new BusinessException("前台密码不合法 ");
-					} else {
-						uitd.setForePwd(userPasswordEncrypt(uitd.getForePwd()));
-						uitd.setForePwdUpDate(dateTime);
-						updateCount++;
-					}
-				}
-			} else {
-				uitd.setForePwd(null);
+			if ( oldFY && StringUtils.isNotBlank(uitd.getForePwd()) ) {
+				bForePwdUpMk = true;
 			}
-			if (true == oldBY) {
-				if (StringUtils.isBlank(uitd.getBackPwd())) {
-					uitd.setBackPwd(null); // 前端密码为空则不更新
-				} else {
-					if (!rexCheckPassword(uitd.getBackPwd())) {
-						throw new BusinessException("后台密码不合法 ");
-					} else {
-						uitd.setBackPwd(userPasswordEncrypt(uitd.getBackPwd()));
-						uitd.setBackPwdUpDate(dateTime);
-						updateCount++;
-					}
-				}
-			} else {
-				uitd.setBackPwd(null);
+			if ( oldBY && StringUtils.isNotBlank(uitd.getBackPwd()) ) {
+				bBackPwdUpMk =true;
 			}
 		} else { // 已指定
-			boolean newBY = false; // 新的后台属性
-			boolean newFY = false; // 新的前台属性
+			UserType modifyType = UserType.getUserTypeByCode(uitd.getUserType());
+			if( null ==modifyType ) {
+				throw new BusinessException("新指定的用户类型在系统中不存在");
+			}
+			boolean newBY = modifyType.isBackMask(); // 新的后台属性
+			boolean newFY = modifyType.isForeMask(); // 新的前台属性
 			String newType = uitd.getUserType();
-			if (!newType.equals(uType)) {
-				updateCount++; // 更新UserType
-			}
-			if (newType
-					.equals(UserType.BACK_ADMIN
-							.getTypeCode()) /*//todo 4.10后用
-											 * || newType.equals(UserType.
-											 * BUSINESS_MANAGER.getTypeCode())
-											 */ ) {
-				newBY = true;
-			}
-			if (newType
-					.equals(UserType.GENERAL
-							.getTypeCode()) /*//todo 4.10后用
-											 * || newType.equals(UserType.
-											 * BUSINESS_MANAGER.getTypeCode())
-											 */ ) {
-				newFY = true;
-			}
 			// 处理前台密码
-			if ((true == oldFY) && (true == newFY)) { // 选择性更新
-				if (StringUtils.isBlank(uitd.getForePwd())) {
-					uitd.setForePwd(null); // 前端密码为空则不更新
-				} else {
-					if (!rexCheckPassword(uitd.getForePwd())) {
-						throw new BusinessException("待更新的前台密码不合法 ");
-					} else {
-						uitd.setForePwd(userPasswordEncrypt(uitd.getForePwd()));
-						uitd.setForePwdUpDate(dateTime);
-						updateCount++;
-					}
+			if ( oldFY && newFY && StringUtils.isNotBlank(uitd.getForePwd()) ) { // 选择性更新
+				bForePwdUpMk =true;
+			} else if ( oldFY && !newFY ) {
+				//{bForePwdUpMk =true; uitd.setForePwd("");}// 必须清除，但产品说不清除密码
+			} else if ( !oldFY && newFY ) {
+				if( StringUtils.isBlank(oldUitd.getForePwd()) && StringUtils.isBlank(uitd.getForePwd()) ) { // 必须更新
+					throw new BusinessException("待更新的前台密码不能为空");
 				}
-			} else if ((true == oldFY) && (false == newFY)) {
-				uitd.setForePwd(null); //但产品说不清除密码
-				// uitd.setForePwd("");// 必须清除，
-				// updateCount++;
-			} else if ((false == oldFY) && (true == newFY) && StringUtils.isBlank(oldUitd.getForePwd())) { // 必须更新
-				if (StringUtils.isBlank(uitd.getForePwd()) || !rexCheckPassword(uitd.getForePwd()))
-					throw new BusinessException("待更新的前台密码为空或不合法 ");
-				uitd.setForePwd(userPasswordEncrypt(uitd.getForePwd()));
-				uitd.setForePwdUpDate(dateTime);
-				updateCount++;
-			} else { // 不更新
-				uitd.setForePwd(null);
-			}
+				if ( StringUtils.isNotBlank(uitd.getForePwd()) ) {
+					bForePwdUpMk =true;
+				}
+			} /*else { bForePwdUpMk =false;	}*/  // 不更新
 			// 处理后台密码
-			if ((true == oldBY) && (true == newBY)) { // 选择性更新
-				if (StringUtils.isBlank(uitd.getBackPwd())) {
-					uitd.setBackPwd(null); // 前端密码为空则不更新
-				} else {
-					if (!rexCheckPassword(uitd.getBackPwd())) {
-						throw new BusinessException("待更新的后台密码不合法 ");
-					} else {
-						uitd.setBackPwd(userPasswordEncrypt(uitd.getBackPwd()));
-						uitd.setBackPwdUpDate(dateTime);
-						updateCount++;
-					}
+			if ( oldBY && newBY && StringUtils.isNotBlank(uitd.getBackPwd()) ) { // 选择性更新
+				bBackPwdUpMk =true;
+			} else if ( oldBY && !newBY ) {
+				//{bBackPwdUpMk =false; uitd.setBackPwd("");}// 必须清除，但产品说不清除密码
+			} else if ( !oldBY && newBY ) {
+				if( StringUtils.isBlank(oldUitd.getBackPwd()) && StringUtils.isBlank(uitd.getBackPwd()) ) {// 必须更新
+					throw new BusinessException("待更新的后台密码不能为空");
 				}
-			} else if ((true == oldBY) && (false == newBY)) {
-				uitd.setBackPwd(null); //但产品说不清除密码
-				// uitd.setBackPwd(""); // 必须清除，
-				// updateCount++;
-			} else if ((false == oldBY) && (true == newBY) && StringUtils.isBlank(oldUitd.getBackPwd())) { // 必须更新
-				if (StringUtils.isBlank(uitd.getBackPwd()) || !rexCheckPassword(uitd.getBackPwd()))
-					throw new BusinessException("待更新的后台密码为空或不合法 ");
-				uitd.setBackPwd(userPasswordEncrypt(uitd.getBackPwd()));
-				uitd.setBackPwdUpDate(dateTime);
-				updateCount++;
-			} else { // 不更新
-				uitd.setBackPwd(null);
-			}
+				if ( StringUtils.isNotBlank(uitd.getBackPwd()) ) {
+					bBackPwdUpMk =true;
+				}
+			} /*else { bBackPwdUpMk =false;	}*/ // 不更新
 		}
+		Date updatePwdTime =new Date();
+		if( ! uitd.getUpdateBy().equals(oldUitd.getLoginName()) ) { //不等即非自己修改了自己的密码即需要自己重新修改一次
+			updatePwdTime =new Date(boTimeMk);
+		}
+		//对修改前端密码做最后处理
+		if (bForePwdUpMk) {
+			if (!rexCheckPassword(uitd.getForePwd())) {
+				throw new BusinessException("待更新的前台密码不合法 ");
+			} else {
+				uitd.setForePwd(userPasswordEncrypt(uitd.getForePwd()));
+				uitd.setForePwdUpDate(updatePwdTime);
+				updateCount++;
+			}
+		} else {
+			uitd.setForePwd(null); // 前端密码为空则不更新
+		}
+		//对修改后端密码做最后处理
+		if(bBackPwdUpMk) {
+			if (!rexCheckPassword(uitd.getBackPwd())) {
+				throw new BusinessException("待更新的后台密码不合法 ");
+			} else {
+				uitd.setBackPwd(userPasswordEncrypt(uitd.getBackPwd()));
+				uitd.setBackPwdUpDate(updatePwdTime);
+				updateCount++;
+			}
+		} else {
+			uitd.setBackPwd(null); //后端密码为空则不更新
+		}
+
 		// long ms2 = (new Date()).getTime();
 		uitd.setCreateDate(null);
 		uitd.setCreateBy(null);
 		if (updateCount > 0) { // 更新用户信息
 			if (StringUtils.isBlank(uitd.getUpdateBy()) || !rexCheckUserName(uitd.getUpdateBy())) {
-				throw new BusinessException("修改人为空");
+				throw new BusinessException("修改人不能为空");
 			}
 			uitd.setUpdateDate(new Date());
 			try {
 				userInfoMapper.updateU(uitd);
 			} catch (Exception ee) {
 				throw new BusinessException("服务器异常(01)");
-				//throw new ResponseBean.errorResponse("服务器异常");
 			}
 		}
 		// long ms3 = (new Date()).getTime();
-		uitd.setLoginName(oldUitd.getLoginName());
+		uitd.setLoginName(oldUitd.getLoginName()); //为后面可能调用权限角色方法准备的参数
 		// long ms4 = (new Date()).getTime();
 		/*
 		 * System.out.println("ms2-1:" +(ms2-ms1)); System.out.println("ms3-2:"
@@ -395,14 +344,21 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 	@Override
 	public void deleteUserById(Integer id) throws Exception {
 		if (null == id) {
-			throw new BusinessException("用户ID为空");
+			throw new BusinessException("用户ID不能为空");
 		}
-		if (1 != id) { // 确保超管不被删除
-			userInfoMapper.deleteUser(id);
-			UserInfoTableDo ud = new UserInfoTableDo();
-			ud.setId(id);
-			roleResourceService.delUserRoleResource(ud);
+		UserInfoTableDo uitd = userInfoMapper.selectUserAllInfoById(id);
+		if (null == uitd) {
+			throw new BusinessException("请求的用户id不存在");
 		}
+		UserType userType = UserType.getUserTypeByCode(uitd.getUserType());
+		if( null ==userType ) {
+			throw new BusinessException("指定Id对应的用户类型无效，数据库可能被串改，已拒绝删除操作");
+		}
+		if( 1 ==id || userType.equals(UserType.SUPER_ADMIN) ) { // 确保超管不被删除
+			return;
+		}
+		userInfoMapper.deleteUser(id);
+		roleResourceService.delUserRoleResource(uitd);
 	}
 
 	@Override
@@ -618,20 +574,12 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		if (null == userDao.getStatus() || !(UserStatus.active.getStatusCode().equals(userDao.getStatus()))) {
 			return -4; // 用户非活动状态(-4)
 		}
-		/*if (null != auType) {
-			boolean isInclude = false;
-			for (UserType ut : auType) {
-				if (ut.getTypeCode().equals(userDao.getUserType())) {
-					isInclude = true;
-					break;
-				}
-			}
-			if (false == isInclude) {
-				return -3; // 用户类型和指定类型不匹配(-3)
-			}
-		}*/
-		if( ( sysType == Operation.System.front && UserType.getUserTypeByCode(userDao.getUserType()).isForeMask() !=true )
-				||( sysType == Operation.System.back && UserType.getUserTypeByCode(userDao.getUserType()).isBackMask() !=true ) ) {
+		UserType loginType =UserType.getUserTypeByCode(userDao.getUserType());
+		if( null ==loginType ) {
+			return -1999; //用户类型无效
+		}
+		if( ( sysType == Operation.System.front && !(loginType.isForeMask()) )
+				||( sysType == Operation.System.back && !(loginType.isBackMask()) ) ) {
 			return -3; // 用户类型和指定类型不匹配(-3)
 		}
 		String selPassword = null;

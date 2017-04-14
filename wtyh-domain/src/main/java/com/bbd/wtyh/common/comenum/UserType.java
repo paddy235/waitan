@@ -1,5 +1,7 @@
 package com.bbd.wtyh.common.comenum;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,7 +52,7 @@ public enum UserType {
     }
 
     static public UserType getUserTypeByCode(String tpCode) {
-        if( null ==tpCode ) {
+        if( StringUtils.isBlank(tpCode) ) {
             return  null;
         }
         for( UserType ut: UserType.values() ) {
@@ -61,26 +63,29 @@ public enum UserType {
         return null;
     }
 
-    private static List<Map<String, String>> userTypeList; //用户类型列表
-    //private static Map<String, String> userTypeMap; //用户类型字典
-    static {
-        userTypeList =new ArrayList<Map<String, String>>() {{
-            add( new  HashMap<String, String>() {{
-                put("tpCode", "T");
-                put("tpName", "全部");
-            }} );
-            for (  UserType uType  :  UserType.values() ) {
+    /**
+     * 获取用户类型列表，按条件生成
+     * @param joinT true：加入“T/全部”列
+     * @param loginRank 当非空时 只生成小于传入等级的用户类型列表
+     * @return List<Map<String, String>> 类型, 其中Map<"tpCode","tpName">
+     */
+    public static List<Map<String, String>> getUserTypeList( boolean joinT, UserRank loginRank ) {
+        List<Map<String, String>> userTypeList =new ArrayList<Map<String, String>>() {{
+            if( joinT ) {
                 add(new HashMap<String, String>() {{
-                    put("tpCode", uType.getTypeCode() );
-                    put("tpName", uType.getTypeName() );
+                    put("tpCode", "T");
+                    put("tpName", "全部");
                 }});
             }
+            for (  UserType uType  :  UserType.values() ) {
+                if( null ==loginRank ||( uType.getUserRank().getRankVal() <loginRank.getRankVal() ) ) {
+                    add(new HashMap<String, String>() {{
+                        put("tpCode", uType.getTypeCode());
+                        put("tpName", uType.getTypeName());
+                    }});
+                }
+            }
         }};
-/*        userTypeMap = new HashMap<String, String>();
-        for ( Map<String, String>itr: userTypeList ) { //构造一个字典
-            userTypeMap.put( (String) itr.get("tpCode") , (String) itr.get("tpName"));
-        }*/
+        return userTypeList;
     }
-    public static List<Map<String, String>> getUserTypeList() {  return userTypeList; }
-    //public static Map<String, String> getUserTypeMap() {  return userTypeMap; }
 }

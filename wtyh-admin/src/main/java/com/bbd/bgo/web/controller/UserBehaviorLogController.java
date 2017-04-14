@@ -64,7 +64,7 @@ public class UserBehaviorLogController {
         try {
             String excludeName =null;
 
-            if(  ( (UserRank)( session.getAttribute("userRank") ) ).getRankVal() >= UserRank.ADMIN.getRankVal() ) {
+            if(  ( (UserRank)( session.getAttribute("userRank") ) ).getRankVal() <UserRank.SUPER_A.getRankVal() ) {
                 excludeName ="admin"; //滤除超管的行为日志，普管不能查看超管的行为日志
             }
             rstMap = ubls.listUserBehaviorLog(pageSize, pageNumber, excludeName ,userName, areaCode,
@@ -97,7 +97,7 @@ public class UserBehaviorLogController {
         if (null !=opTpCd && opTpCd >0) {
             parCnt++;
             parStr += "操作类型:" +CodeNameMap.getOpTypeMap().get(opTpCd) +"；";
-        }
+            }
         if (null !=opPgCd && opPgCd >0) {
             parCnt++;
             parStr += "操作页面:" +CodeNameMap.getOpPageMap().get(opPgCd) +"；";
