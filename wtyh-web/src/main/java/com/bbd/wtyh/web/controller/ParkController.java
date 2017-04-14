@@ -264,4 +264,25 @@ public class ParkController {
 		return ResponseBean.successResponse(data);
 	}
 
+	/**
+	 * 查询园区楼宇公司列表
+	 *
+	 * @param areaId
+	 *            园区id,必传
+	 * @return ResponseBean
+	 */
+	@RequestMapping("/parkCompanyList")
+	@ResponseBody
+	public ResponseBean parkCompanyList(@RequestParam(required = true) Integer areaId,
+										@RequestParam(required = true) Integer isNew,
+										@RequestParam(required = true) Integer riskLevel,
+										@RequestParam(required = true) String backgroundName,
+										@RequestParam(required = true) String companyTypeName,
+										@RequestParam(required = true) String buildingName
+										)
+	{
+		List<ParkCompanyDo> data = parkService.queryParkCompany(areaId,isNew,riskLevel,backgroundName,companyTypeName,buildingName);
+		return ResponseBean.successResponse(data);
+	}
+
 }

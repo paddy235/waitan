@@ -8,6 +8,43 @@
 			select img_url from park p  where p.area_id=#{areaId} LIMIT 1 ;
 	</select>
 
+	<select id="qeuryParkCompany"   parameterType="java.util.HashMap" resultType="com.bbd.wtyh.domain.ParkCompanyDo">
+		SELECT bb.* FROM (
+        SELECT aa.*, company_background.background FROM(
+        SELECT company.company_id AS companyId,
+                    company.`name` AS companyName,
+                    company.legal_person AS legalPerson,
+                    company.company_type AS companyType,
+                    company.risk_level AS  riskLevel,
+                    company.is_new AS isNew,
+                    building.building_id AS buildingId,
+                    building.`name` AS buildingName
+        FROM park,building,company_building,company
+        WHERE park.area_id=#{areaId}
+        <if test="buildingName != null">
+          AND building.`name` LIKE CONCAT('%',#{buildingName},'%')
+        </if>
+        <if test="isNew != null">
+            AND company.is_new=#{isNew}
+        </if>
+        <if test="companyType != null">
+            AND company.company_type=#{companyType}
+        </if>
+        <if test="riskLevel != null">
+            AND company.risk_level=#{riskLevel}
+        </if>
+        AND  park.park_id=building.park_id
+        AND building.building_id=company_building.building_id
+        AND company_building.company_id=company.company_id) AS aa LEFT JOIN
+        company_background
+        ON aa.companyId=company_background.company_id)AS bb
+        WHERE 1=1
+                <if test="background != null">
+                    AND  bb.background=#{background}
+                </if>
+        ORDER BY bb.buildingId
+	</select>
+
 
 
 </mapper>

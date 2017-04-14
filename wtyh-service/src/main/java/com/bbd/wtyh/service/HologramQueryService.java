@@ -109,4 +109,11 @@ public interface HologramQueryService {
     BaiDuYuQingDO newsConsensusList(String company);
 
     CompanyDO tag(String company);
+    /**
+     * 企业信息详情-专利信息
+     *
+     * @return
+     * @param company
+     */
+    PatentDO getPatentData(String company);
 }

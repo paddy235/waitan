@@ -1,15 +1,10 @@
 package com.bbd.wtyh.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.bbd.wtyh.core.base.BaseService;
-import com.bbd.wtyh.domain.BuildingDO;
-import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
-import com.bbd.wtyh.domain.CompanyBuildingDO;
-import com.bbd.wtyh.domain.CompanyDO;
-import com.bbd.wtyh.domain.CompanyNewsDO;
-import com.bbd.wtyh.domain.CompanyTypeCountDO;
-import com.bbd.wtyh.domain.InBusinessDO;
+import com.bbd.wtyh.domain.*;
 
 /**
  * 园区相关接口
@@ -117,5 +112,15 @@ public interface ParkService extends BaseService {
 	 * @return List<CompanyAnalysisResultDO>
 	 */
 	List<CompanyAnalysisResultDO> queryRiskByBuilding(Integer buildingId);
+
+	/**
+	 * 查询园区楼宇公司
+	 *
+	 * @param areaId
+	 *            区域id
+	 * @return String 园区楼宇公司
+	 */
+	List<ParkCompanyDo> queryParkCompany(Integer areaId,Integer isNew,Integer riskLevel,
+										 String backgroundName,String companyTypeName,String buildingName);
 
 }

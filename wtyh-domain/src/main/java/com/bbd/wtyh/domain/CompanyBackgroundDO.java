@@ -41,6 +41,23 @@ public class CompanyBackgroundDO extends BaseDO {
     			return null;
     		}
         }
+
+        public static Bg getBgByName(String name){
+            switch (name) {
+                case "上市公司":
+                    return Bg.Ssgs;
+                case "非上市公司":
+                    return Bg.Fssgs;
+                case "国企":
+                    return Bg.Gq;
+                case "民营企业":
+                    return Bg.Myqy;
+                case "外资企业":
+                    return Bg.Wzqy;
+                default:
+                    return null;
+            }
+        }
     }
     
     
