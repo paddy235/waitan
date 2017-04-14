@@ -3,6 +3,7 @@ package com.bbd.bgo.web.controller;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import com.bbd.wtyh.cashetobean.ShanghaiAreaCode;
 import com.bbd.wtyh.common.comenum.UserRank;
 import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.map.name.code.CodeNameMap;
@@ -63,7 +64,7 @@ public class UserBehaviorLogController {
         try {
             String excludeName =null;
 
-            if( UserRank.ADMIN.equals ( (session.getAttribute("userRank")) ) ) {
+            if(  ( (UserRank)( session.getAttribute("userRank") ) ).getRankVal() >= UserRank.ADMIN.getRankVal() ) {
                 excludeName ="admin"; //滤除超管的行为日志，普管不能查看超管的行为日志
             }
             rstMap = ubls.listUserBehaviorLog(pageSize, pageNumber, excludeName ,userName, areaCode,
@@ -83,7 +84,7 @@ public class UserBehaviorLogController {
         }
         if (null !=areaCode && areaCode >0) {
             parCnt++;
-            parStr += "行政区:" +CodeNameMap.getShanghaiAreaCodeMap().get(areaCode) +"；";
+            parStr += "行政区:" + ShanghaiAreaCode.getMap().get(areaCode) +"；";
         }
         if (null !=sysCode && sysCode >0) {
             parCnt++;
@@ -128,7 +129,7 @@ public class UserBehaviorLogController {
         for ( String Prj : queryProject ) {
             switch ( Prj ) {
                 case  "areaCodeList": //区域代码
-                    rstObj.put("areaCodeList", CodeNameMap.quickGetShanghaiAreaCodeTable() );
+                    rstObj.put("areaCodeList", ShanghaiAreaCode.quickGetList() );
                     break;
                 case "sysLocationList": //系统位置
                     rstObj.put("sysLocationList",CodeNameMap.getSysLocationList() );

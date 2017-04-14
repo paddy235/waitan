@@ -82,13 +82,13 @@ public class LoginController {
 			session.setAttribute("enUserType", ut );//保存用户类型（枚举值）
 			session.setAttribute("userId", userInfo.getId() );//保存用户Id
 			session.setAttribute("userName", userInfo.getLoginName() );//保存用户名
-			UserRank userRank = UserRank.GENERAL;
+			/*UserRank userRank = UserRank.GENERAL;
 			if( UserInfoService.superId == userInfo.getId() ) {
 				userRank = UserRank.SUPER_A;
-			} else  if (UserType.BACK_ADMIN.equals(ut)  /*|| UserType.BUSINESS_MANAGER(ut) */) { //todo 4.10后用
+			} else  if (UserType.BACK_ADMIN.equals(ut)  *//*|| UserType.BUSINESS_MANAGER(ut) *//*) {
 				userRank = UserRank.ADMIN;
-			}
-			session.setAttribute("userRank", userRank);//保存用户等级
+			}*/
+			session.setAttribute("userRank", UserType.getUserTypeByCode(userInfo.getUserType()).getUserRank() );//保存用户等级
 			session.setAttribute("requestIp", UserLogRecord.getRemoteAddress(request));
 			session.setAttribute("requestUri",request.getRequestURI());
 

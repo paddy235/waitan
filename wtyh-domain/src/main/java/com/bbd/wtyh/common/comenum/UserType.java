@@ -1,5 +1,10 @@
 package com.bbd.wtyh.common.comenum;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by cgj on 2017/3/31.
  */
@@ -55,4 +60,27 @@ public enum UserType {
         }
         return null;
     }
+
+    private static List<Map<String, String>> userTypeList; //用户类型列表
+    //private static Map<String, String> userTypeMap; //用户类型字典
+    static {
+        userTypeList =new ArrayList<Map<String, String>>() {{
+            add( new  HashMap<String, String>() {{
+                put("tpCode", "T");
+                put("tpName", "全部");
+            }} );
+            for (  UserType uType  :  UserType.values() ) {
+                add(new HashMap<String, String>() {{
+                    put("tpCode", uType.getTypeCode() );
+                    put("tpName", uType.getTypeName() );
+                }});
+            }
+        }};
+/*        userTypeMap = new HashMap<String, String>();
+        for ( Map<String, String>itr: userTypeList ) { //构造一个字典
+            userTypeMap.put( (String) itr.get("tpCode") , (String) itr.get("tpName"));
+        }*/
+    }
+    public static List<Map<String, String>> getUserTypeList() {  return userTypeList; }
+    //public static Map<String, String> getUserTypeMap() {  return userTypeMap; }
 }

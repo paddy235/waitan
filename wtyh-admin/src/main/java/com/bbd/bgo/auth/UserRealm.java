@@ -61,8 +61,8 @@ public class UserRealm extends AuthorizingRealm {
         char[] password=token.getPassword();
         int rst =-1000;
         try {
-            rst =userInfoService.compareUserNameAndPassword(username,String.copyValueOf(password),
-                    Operation.System.back, new UserType[]{UserType.BACK_ADMIN} );
+            rst = userInfoService.compareUserNameAndPassword(username,String.copyValueOf(password),
+                    Operation.System.back );
         } catch (Exception e) {
             e.printStackTrace();
         }

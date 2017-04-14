@@ -1,5 +1,6 @@
 package com.bbd.wtyh.service.impl;
 
+import com.bbd.wtyh.cashetobean.ShanghaiAreaCode;
 import com.bbd.wtyh.common.comenum.UserType;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.UserInfoTableDo;
@@ -125,7 +126,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 
 	// 更新用户信息
 	@Override
-	public void updateUserInfo(UserInfoTableDo uitd, String resourceSet, String roleSet) throws Exception {
+	public void updateUserInfo(UserInfoTableDo uitd) throws Exception {
 		// long ms1 = (new Date()).getTime();
 		if (null == uitd) {
 			throw new BusinessException("用户信息表为空对象");
@@ -376,15 +377,19 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 			}
 		}
 		// long ms3 = (new Date()).getTime();
-
 		uitd.setLoginName(oldUitd.getLoginName());
-		roleResourceService.saveUserRoleResource(uitd, roleSet, resourceSet, uitd.getUpdateBy());
-
 		// long ms4 = (new Date()).getTime();
 		/*
 		 * System.out.println("ms2-1:" +(ms2-ms1)); System.out.println("ms3-2:"
 		 * +(ms3-ms2)); System.out.println("ms4-3:" +(ms4-ms3));
 		 */
+	}
+
+	// 更新用户信息和角色权限
+	@Override
+	public void updateUserInfoAndRoleResource(UserInfoTableDo uitd, String resourceSet, String roleSet) throws Exception {
+		updateUserInfo(uitd);
+		roleResourceService.saveUserRoleResource(uitd, roleSet, resourceSet, uitd.getUpdateBy());
 	}
 
 	@Override
@@ -506,16 +511,13 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		for (Map<String, Object> itr : lm) {
 			orderNum++;
 			itr.put("orderNum", orderNum); // 加页面序号
-			itr.put("userStatus", CodeNameMap.getUserStatusMap().get((String) (itr.get("userStatus"))));
-			// itr.put( "userType",
-			// UserType.getUserTypeByCode((String)(itr.get("userType"))
-			// ).getTypeName() );
-			itr.put("userType", CodeNameMap.getUserTypeMap().get((String) (itr.get("userType"))));
+			itr.put("userStatus", UserStatus.getUserStatusByCode((String)(itr.get("userStatus"))).getStatusName()); //状态代码转名称
+			itr.put( "userType", UserType.getUserTypeByCode((String)(itr.get("userType"))).getTypeName() ); //itr.put("userType", UserType.getUserTypeMap().get((String) (itr.get("userType"))));
 			Object obj = itr.get("areaCode");
 			if (null != obj) { // 将区域代码转换成行政区名称
 				try {
 					int tmp = Integer.parseInt((String) obj);
-					obj = CodeNameMap.getShanghaiAreaCodeMap().get(tmp);
+					obj = ShanghaiAreaCode.getMap().get(tmp);
 					if (null != obj) {
 						itr.put("areaCode", obj);
 					} else {
@@ -562,7 +564,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		return rstList;
 	}
 
-	@Override
+	/*@Override
 	public List<Map<String, Object>> getShanghaiAreaCodeTable(String type) throws Exception {
 		List<Map<String, Object>> lm = userInfoMapper.selectShanghaiAreaCodeTable();
 		if (null != lm) {
@@ -581,7 +583,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 			lm.add(0, allArea);
 		}
 		return lm;
-	}
+	}*/
 
 	@Override
 	public String userPasswordEncrypt(String plaintext) {
@@ -590,25 +592,25 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 
 	@Override
 	public boolean isUserNameMatchPassword(String loginName, String password, Operation.System sysType) throws Exception {
-		return compareUserNameAndPassword(loginName, password, sysType, null) < 0 ? false : true;
+		return compareUserNameAndPassword(loginName, password, sysType) < 0 ? false : true;
 	}
 
 	@Override
 	public boolean isUserDaoMatchPassword(UserInfoTableDo userDao, String password, Operation.System sysType) throws Exception {
-		return compareUserDaoAndPassword(userDao, password, sysType, null) < 0 ? false : true;
+		return compareUserDaoAndPassword(userDao, password, sysType) < 0 ? false : true;
 	}
 
 	@Override
-	public int compareUserNameAndPassword(String loginName, String password, Operation.System sysType, UserType[] auType) throws Exception {
+	public int compareUserNameAndPassword(String loginName, String password, Operation.System sysType) throws Exception {
 		if (StringUtils.isBlank(loginName))
 			return -999; // 传入的参数不合法
-		return compareUserDaoAndPassword(getOnlyUserInfoByLoginNameOrId(loginName, -1), password, sysType, auType);
+		return compareUserDaoAndPassword(getOnlyUserInfoByLoginNameOrId(loginName, -1), password, sysType);
 	}
 
 	@Override
-	public int compareUserDaoAndPassword(UserInfoTableDo userDao, String password, Operation.System sysType, UserType[] auType)
+	public int compareUserDaoAndPassword(UserInfoTableDo userDao, String password, Operation.System sysType)
 			throws Exception {
-		if (StringUtils.isBlank(password) || null == sysType)
+		if (StringUtils.isBlank(password))
 			return -999; // 传入的参数不合法
 		if (null == userDao) {
 			return -5; // throw new BusinessException("数据库中不存在此用户(-5)");
@@ -616,7 +618,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		if (null == userDao.getStatus() || !(UserStatus.active.getStatusCode().equals(userDao.getStatus()))) {
 			return -4; // 用户非活动状态(-4)
 		}
-		if (null != auType) { // Arrays.binarySearch(auType, )
+		/*if (null != auType) {
 			boolean isInclude = false;
 			for (UserType ut : auType) {
 				if (ut.getTypeCode().equals(userDao.getUserType())) {
@@ -627,6 +629,10 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 			if (false == isInclude) {
 				return -3; // 用户类型和指定类型不匹配(-3)
 			}
+		}*/
+		if( ( sysType == Operation.System.front && UserType.getUserTypeByCode(userDao.getUserType()).isForeMask() !=true )
+				||( sysType == Operation.System.back && UserType.getUserTypeByCode(userDao.getUserType()).isBackMask() !=true ) ) {
+			return -3; // 用户类型和指定类型不匹配(-3)
 		}
 		String selPassword = null;
 		if (sysType == Operation.System.front) {
