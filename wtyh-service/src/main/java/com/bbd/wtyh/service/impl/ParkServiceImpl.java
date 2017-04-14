@@ -334,6 +334,11 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 		return black_1;
 	}
 
+	@Override
+	public List<ParkCompanyDo> queryParkCompany(Integer areaId) {
+		return this.parkMapper.qeuryParkCompany(areaId);
+	}
+
 	private void sortByIndex(List<CompanyAnalysisResultDO> list) {
 		Collections.sort(list, new Comparator<CompanyAnalysisResultDO>() {
 
