@@ -212,4 +212,16 @@ public class HologramQueryController {
 		return ResponseBean.successResponse(result);
 	}
 
+	/**
+	 * 企业信息详情-专利信息
+	 *
+	 * @return
+	 */
+	@RequestMapping("/patentData")
+	@ResponseBody
+	public ResponseBean getPatentData(@RequestParam(required = true) String company) {
+		PatentDO result = hologramQueryService.getPatentData(company);
+		return ResponseBean.successResponse(result);
+	}
+
 }

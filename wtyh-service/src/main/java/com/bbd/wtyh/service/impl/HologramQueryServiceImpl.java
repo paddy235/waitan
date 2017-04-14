@@ -308,5 +308,16 @@ public class HologramQueryServiceImpl implements HologramQueryService {
         return salary;
     }
 
+    /**
+     * 企业信息详情-专利信息
+     *
+     * @return
+     * @param company
+     */
+    @Override
+    public PatentDO getPatentData(String company) {
+        PatentDO patentDO = hologramQueryDao.getPatentData(company);
+        return patentDO;
+    }
 
 }

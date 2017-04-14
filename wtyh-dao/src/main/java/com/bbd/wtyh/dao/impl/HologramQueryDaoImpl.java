@@ -570,4 +570,26 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
             return null;
         }
     }
+
+    @Override
+    public PatentDO getPatentData(String company) {
+        String api = "" + "&company=" + company + "&ak=" + "";
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(api, new HttpCallback<PatentDO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public PatentDO parse(String result) {
+                    return JSON.parseObject(result, PatentDO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
