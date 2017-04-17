@@ -42,5 +42,5 @@ public interface HologramQueryDao {
 
     RecruitDataDO getRecruitData(String company, String timeTag);
 
-    PatentDO getPatentData(String company);
+    PatentDO getPatentData(String company, Integer page, Integer pageSize);
 }

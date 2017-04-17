@@ -3,7 +3,6 @@ package com.bbd.wtyh.dao.impl;
 import com.alibaba.fastjson.JSON;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
-import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.dao.HologramQueryDao;
 import com.bbd.wtyh.domain.bbdAPI.*;
 import com.bbd.wtyh.redis.RedisDAO;
@@ -14,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -115,6 +113,11 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     @Value("${api.dataom.news.url}")
     private String apiDataomNewsUrl;
 
+    @Value("${api.bbd_patent.url}")
+    private String apiBbdPatentUrl;
+
+    @Value("${api.appkey}")
+    private String apiAppkey;
 
     @Autowired
     private RedisDAO redisDAO;
@@ -572,8 +575,8 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     }
 
     @Override
-    public PatentDO getPatentData(String company) {
-        String api = "" + "&company=" + company + "&ak=" + "";
+    public PatentDO getPatentData(String company, Integer page, Integer pageSize) {
+        String api = apiBbdPatentUrl + "?company=" + company + "&appkey=" + apiAppkey+"&page="+page+"&pageSize="+pageSize;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(api, new HttpCallback<PatentDO>() {
