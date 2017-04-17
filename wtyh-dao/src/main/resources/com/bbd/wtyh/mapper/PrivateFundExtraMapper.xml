@@ -73,4 +73,23 @@
 
         </if>
     </select>
+
+    <select id="countAllCompany" resultType="int">
+        select count(*) count
+        from private_fund_extra a,company b
+        <where>
+            a.company_id=b.company_id
+        </where>
+    </select>
+
+    <select id="findByPage" parameterType="java.util.HashMap" resultMap="ExtraDTOResultMap">
+        select a.company_id, a.website, a.paidin_capital, a.managed_fund,
+        a.record_status,b.name,b.registered_date,b.registered_capital
+        from private_fund_extra a,company b
+        <where>
+        a.company_id=b.company_id
+        </where>
+        order by a.company_id
+        limit #{pagination.begin}, #{pagination.pageSize}
+    </select>
 </mapper>
