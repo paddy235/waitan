@@ -1,6 +1,7 @@
 package com.bbd.wtyh.domain;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.bbd.wtyh.excel.annotation.Excel;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -14,9 +15,11 @@ public class ResourceDo extends BaseDO {
 	@Id
 	private Integer id;
 
+	@Excel(exportName = "权限代码")
 	@Column
 	private String code;
 
+	@Excel(exportName = "权限名称")
 	@Column
 	private String name;
 
@@ -35,10 +38,12 @@ public class ResourceDo extends BaseDO {
 	private Integer displayOrder;
 
 	/** 创建人 */
+	@Excel(exportName = "创建人")
 	@Column(name = "create_by")
 	private String createBy;
 
 	/** 创建时间 */
+	@Excel(exportName = "创建时间", dateFormat = "yyyy-MM-dd")
 	@Column(name = "create_date")
 	private Date createDate;
 	/** 修改人 */

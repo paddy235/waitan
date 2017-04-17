@@ -1,8 +1,6 @@
 package com.bbd.wtyh.test;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
@@ -104,7 +102,5 @@ public class RoleResourceTest {
 	@Test
 	public void deleteUserTest() throws Exception {
 		this.userInfoService.deleteUserById(143);
-
 	}
-
 }
