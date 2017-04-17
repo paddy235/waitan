@@ -34,6 +34,16 @@ public class WebServerRootListener implements ServletContextListener {
 
 	private void setWebServerRootSystemProperty(ServletContext servletContext) throws IllegalStateException {
 		Assert.notNull(servletContext, "ServletContext must not be null");
+		String param = servletContext.getInitParameter("webServerRootKey");
+		String key = param != null ? param : "server.root";
+
+		String osName = System.getProperty("os.name");
+		if (StringUtils.isNotBlank(osName) && osName.toUpperCase().startsWith("WIN")) {
+			File[] listRoots = File.listRoots();
+			System.setProperty(key, listRoots[listRoots.length - 1] + File.separator + "wtyh_logs" + File.separator);
+			return;
+		}
+
 		String root = servletContext.getRealPath("/");
 		if (root == null) {
 			throw new IllegalStateException("Cannot set web app root system property when WAR file is not expanded");
@@ -45,10 +55,8 @@ public class WebServerRootListener implements ServletContextListener {
 		} else {
 			root = StringUtils.join(strs, File.separator, 0, strs.length - 2) + File.separator;
 		}
-		String param = servletContext.getInitParameter("webServerRootKey");
-		String key = param != null ? param : "server.root";
+
 		System.setProperty(key, root);
 		servletContext.log("Set web app root system property: \'" + key + "\' = [" + root + "]");
-
 	}
 }
