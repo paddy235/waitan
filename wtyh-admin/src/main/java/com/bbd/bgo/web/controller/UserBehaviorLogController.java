@@ -126,8 +126,9 @@ public class UserBehaviorLogController {
     @ResponseBody
     public Object queryListDictionary( @RequestParam String[] queryProject ) {
         Map<String, Object> rstObj = new HashMap<String, Object>();
-        for ( String Prj : queryProject ) {
-            switch ( Prj ) {
+        for ( int i =0; i <queryProject.length; i++ ) {
+            //String Prj =queryProject[i];
+            switch ( queryProject[i] ) {
                 case  "areaCodeList": //区域代码
                     rstObj.put("areaCodeList", ShanghaiAreaCode.quickGetList() );
                     break;
@@ -138,7 +139,20 @@ public class UserBehaviorLogController {
                     rstObj.put("opTypeList",CodeNameMap.getOpTypeList() );
                     break;
                 case "opPageList": //操作页面
-                    rstObj.put("opPageList", CodeNameMap.getOpPageList() );
+                    List<Map<String, Object>> pageList;
+                    if( (i +1) < queryProject.length ) {
+                        String ParamS = queryProject[i + 1];
+                        if (ParamS.equals("forePage")) {
+                            pageList = Operation.Page.getOpPageListBySystem(true, Operation.System.front, false);
+                        } else if (ParamS.equals("backPage")) {
+                            pageList = Operation.Page.getOpPageListBySystem(true, Operation.System.back, false);
+                        } else {
+                            pageList = CodeNameMap.getOpPageList();
+                        }
+                    } else {
+                        pageList = CodeNameMap.getOpPageList();
+                    }
+                    rstObj.put("opPageList", pageList);
                     break;
             }
         }

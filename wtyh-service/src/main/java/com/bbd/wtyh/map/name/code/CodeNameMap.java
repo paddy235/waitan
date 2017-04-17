@@ -1,17 +1,13 @@
 package com.bbd.wtyh.map.name.code;
 
-import com.bbd.wtyh.common.comenum.UserType;
 import com.bbd.wtyh.log.user.Operation;
-import com.bbd.wtyh.service.UserInfoService;
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.bbd.wtyh.log.user.Operation.Page.OP_PAGE_MAP_KEY;
 
 /**
  * Created by cgj on 2017/3/24.
@@ -70,24 +66,9 @@ public class CodeNameMap {
     private static List<Map<String, Object>> opPageList; //操作页面表
     private static Map<Integer, String> opPageMap; //操作页面字典
     static {
-        opPageList =new ArrayList<Map<String, Object>>() {{
-            add( new  HashMap<String, Object>() {{
-                put("opPgCd", (Integer)(-1));
-                put("opPage", "全部");
-            }} );
-            for (  Operation.Page opPg  : Operation.Page.values() ) {
-                if( opPg.code() >0 ) {
-                    add(new HashMap<String, Object>() {{
-                        put("opPgCd", (Integer) opPg.code());
-                        put("opPage", opPg.page());
-                    }});
-                }
-            }
-        }};
-        opPageMap = new HashMap<Integer, String>();
-        for ( Map<String, Object>itr: opPageList ) { //构造一个操作页面字典
-            opPageMap.put( (Integer) itr.get("opPgCd") , (String) itr.get("opPage"));
-        }
+        opPageList =Operation.Page.getOpPageListBySystem(true,null, true);
+        opPageMap =(Map<Integer, String>)opPageList.get(opPageList.size() -1).get(OP_PAGE_MAP_KEY);
+        opPageList.remove(opPageList.size() -1); //删除无用的项
     }
     public static List<Map<String, Object>> getOpPageList() {  return opPageList; }
     public static Map<Integer, String> getOpPageMap() {  return opPageMap; }
