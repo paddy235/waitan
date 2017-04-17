@@ -114,6 +114,8 @@ public interface HologramQueryService {
      *
      * @return
      * @param company
+     * @param page
+     * @param pageSize
      */
-    PatentDO getPatentData(String company);
+    PatentDO getPatentData(String company, Integer page, Integer pageSize);
 }

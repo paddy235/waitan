@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import java.text.DateFormat;
 import java.util.*;
 
 /**
@@ -313,10 +312,18 @@ public class HologramQueryServiceImpl implements HologramQueryService {
      *
      * @return
      * @param company
+     * @param page
+     * @param pageSize
      */
     @Override
-    public PatentDO getPatentData(String company) {
-        PatentDO patentDO = hologramQueryDao.getPatentData(company);
+    public PatentDO getPatentData(String company, Integer page, Integer pageSize) {
+        if(null==page || page<=0){
+            page=1;
+        }
+        if(null==pageSize || pageSize<=0){
+            pageSize=20;
+        }
+        PatentDO patentDO = hologramQueryDao.getPatentData(company,page,pageSize);
         return patentDO;
     }
 

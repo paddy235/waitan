@@ -219,8 +219,10 @@ public class HologramQueryController {
 	 */
 	@RequestMapping("/patentData")
 	@ResponseBody
-	public ResponseBean getPatentData(@RequestParam(required = true) String company) {
-		PatentDO result = hologramQueryService.getPatentData(company);
+	public ResponseBean getPatentData(@RequestParam(required = true) String company,
+									  @RequestParam(required = true) Integer page,
+									  @RequestParam(required = true) Integer pageSize) {
+		PatentDO result = hologramQueryService.getPatentData(company,page,pageSize);
 		return ResponseBean.successResponse(result);
 	}
 
