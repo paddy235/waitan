@@ -8,6 +8,7 @@ import com.bbd.wtyh.domain.dto.PrivateFundCompanyDTO;
 import com.bbd.wtyh.mapper.PrivateFundExtraMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -26,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 public class PrivateFundTaskServiceImpl extends BaseServiceImpl implements PrivateFundTaskService {
 
 	private Logger logger = LoggerFactory.getLogger(PrivateFundTaskServiceImpl.class);
-
+	@Autowired
 	private PrivateFundExtraMapper privateFundExtraMapper;
 
 	/**
@@ -75,6 +76,7 @@ public class PrivateFundTaskServiceImpl extends BaseServiceImpl implements Priva
 	private void updatePrivateFundCompanyStatus(PrivateFundCompanyDTO privateFundCompanyDTO) {
 		String companyName=privateFundCompanyDTO.getName();
 		Integer companyId=privateFundCompanyDTO.getCompanyId();
+		System.out.println(companyName);
 		//根据公司名称查询企业是否已备案
 		//update private_fund_extra.record_status
 
