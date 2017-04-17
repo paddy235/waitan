@@ -4,6 +4,7 @@ import com.bbd.wtyh.common.comenum.UserType;
 import com.bbd.wtyh.core.base.BaseService;
 import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.log.user.Operation;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.*;
 
@@ -94,8 +95,8 @@ public interface UserInfoService extends BaseService {
 
 	/**
 	 * 获取用户模板
-	 * 
 	 * @param loginName
+	 * @param userTypeStr
 	 * @return
 	 * @throws Exception
 	 */
@@ -104,7 +105,7 @@ public interface UserInfoService extends BaseService {
 	/**
 	 *
 	 * @param userStatus
-	 * @param userType
+	 * @param userTypeSet
 	 * @param areaCode
 	 * @param selectType
 	 * @param selectObject
@@ -113,8 +114,8 @@ public interface UserInfoService extends BaseService {
 	 * @return
 	 * @throws Exception
 	 */
-	public Map<String, Object> listUserInfo(String userStatus, String userType, int areaCode, String selectType, String selectObject,
-			int pageLimit, Integer pageNumber) throws Exception;
+	public Map<String, Object> listUserInfo(String userStatus, List<String> userTypeSet, int areaCode, String selectType,
+											String selectObject, int pageLimit, Integer pageNumber) throws Exception;
 
 	/**
 	 * 用户密码单向加密
@@ -226,18 +227,34 @@ public interface UserInfoService extends BaseService {
 			return null;
 		}
 
+		private static final String allCode ="T";
+		private static final String allName ="全部";
+
+		static public String getUserStatusNameByCode(String code) {
+			if( StringUtils.isBlank(code) ) {
+				return  null;
+			}
+			if( code.equals(allCode) ) {
+				return allName;
+			}
+			return getUserStatusByCode(code).getStatusName();
+		}
+
 		private static List<Map<String, String>> userStatusList; //用户状态表
+
 		//private static Map<String, String> userStatusMap; //用户状态字典
 		static {
+			String codeName ="stsCode"; //code of name
+			String nameName ="stsName"; //name of name
 			userStatusList =new ArrayList<Map<String, String>>() {{
 				add( new  HashMap<String, String>() {{
-					put("stsCode", "T");
-					put("stsName", "全部");
+					put(codeName, allCode);
+					put(nameName, allName);
 				}} );
 				for (  UserInfoService.UserStatus uStatus  :  UserInfoService.UserStatus.values() ) {
 					add(new HashMap<String, String>() {{
-						put("stsCode", uStatus.getStatusCode() );
-						put("stsName", uStatus.getStatusName() );
+						put(codeName, uStatus.getStatusCode() );
+						put(nameName, uStatus.getStatusName() );
 					}});
 				}
 			}};

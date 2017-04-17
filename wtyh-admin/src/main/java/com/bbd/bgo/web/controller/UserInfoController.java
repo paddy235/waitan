@@ -12,7 +12,6 @@ import com.bbd.wtyh.cashetobean.ShanghaiAreaCode;
 import com.bbd.wtyh.common.comenum.UserRank;
 import com.bbd.wtyh.common.comenum.UserType;
 import com.bbd.wtyh.log.user.UserLogRecord;
-import com.bbd.wtyh.map.name.code.CodeNameMap;
 import com.bbd.wtyh.util.CipherUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -269,11 +268,21 @@ public class UserInfoController {
             HttpSession session) {
 
         Map<String, Object> rstMap = null;
+        UserRank ownRank =(UserRank)(session.getAttribute("userRank"));
+        UserType tmpUT = UserType.getUserTypeByCode(userType);
         try {
-            if( UserRank.ADMIN.equals ( (session.getAttribute("userRank")) ) ) {
-                userType =UserType.GENERAL.getTypeCode(); //普管只能查看普通用户 todo 用IN加其它普通用户类型。。。最好用户表加用户等级字段
-            }
-            rstMap = uis.listUserInfo(userStatus, userType, areaCode, selectType, selectObject, pageSize, pageNumber);
+            List userTypeSet =new ArrayList<String>() {{ //只能查看用户等级小于自己的账户
+                if( null !=tmpUT && tmpUT.getUserRank().getRankVal() <ownRank.getRankVal() ) {
+                    add(userType);
+                } else {
+                    for (UserType itr : UserType.values()) {
+                        if (itr.getUserRank().getRankVal() < ownRank.getRankVal()) {
+                            add(itr.getTypeCode());
+                        }
+                    }
+                }
+            }};
+            rstMap = uis.listUserInfo(userStatus, userTypeSet, areaCode, selectType, selectObject, pageSize, pageNumber);
         } catch (BusinessException be) {
             return ResponseBean.errorResponse(be.getMessage());
         } catch (Exception e) {
@@ -300,8 +309,8 @@ public class UserInfoController {
                     break;
             }
             UserLogRecord.record("搜索用户列表，搜索类型：" +selectType +"，关键字：" +selectObject
-                            +"，用户状态：" + UserInfoService.UserStatus.getUserStatusByCode(userStatus).getStatusName()
-                            +"，用户类型：" +UserType.getUserTypeByCode(userType).getTypeName()  //UserType.getUserTypeMap().get(userType)
+                            +"，用户状态：" + UserInfoService.UserStatus.getUserStatusNameByCode(userStatus)
+                            +"，用户类型：" +UserType.getUserTypeNameByCode(userType)
                             +"，所属地区：" + ShanghaiAreaCode.getMap().get(areaCode) ,
                     Operation.Type.query, Operation.Page.userList, Operation.System.back, request);
         }
@@ -355,11 +364,13 @@ public class UserInfoController {
     public Object queryUserTemplate(@RequestParam String loginName, String userType, HttpServletRequest request, HttpSession session) {
         List<Map<String, Object>> rstList = null;
         try {
-            if( null == UserType.getUserTypeByCode(userType) ) {
+            UserType tmpUT =UserType.getUserTypeByCode(userType);
+            if( null ==tmpUT  ) {
                 throw new BusinessException("userType参数不合法");
             }
-            if( UserRank.ADMIN.equals ( (session.getAttribute("userRank")) ) ) {
-                userType =UserType.GENERAL.getTypeCode(); //普管不能开立包含管理员类型的模板 todo 要改成IN方式去取多种用户类型。。。
+            UserRank ownRank =(UserRank)(session.getAttribute("userRank"));
+            if( tmpUT.getUserRank().getRankVal() >=ownRank.getRankVal() ) {
+                return ResponseBean.errorResponse("不能查询用户等级大于等于自己的用户作为模板");
             }
             rstList = uis.getUserTemplate(loginName, userType);
         } catch (BusinessException be) {

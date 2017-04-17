@@ -1,10 +1,7 @@
 package com.bbd.wtyh.mapper;
 
 import com.bbd.wtyh.domain.UserInfoTableDo;
-import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
 import java.util.List;

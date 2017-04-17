@@ -22,6 +22,8 @@ import java.time.ZoneId;
 import java.util.*;
 import java.util.Date;
 
+import static com.bbd.wtyh.common.Constants.SESSION.userType;
+
 /**
  * Created by cgj on 2017/2/27.
  */
@@ -424,9 +426,9 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 	 */
 
 	@Override
-	public Map<String, Object> listUserInfo(String userStatus, String userType, int areaCode, String selectType, String selectObject,
-			int pageLimit, Integer pageNumber) throws Exception {
-		if (StringUtils.isBlank(userStatus) || StringUtils.isBlank(userType) || StringUtils.isBlank(selectType)) {
+	public Map<String, Object> listUserInfo(String userStatus, List<String> userTypeSet, int areaCode, String selectType,
+											String selectObject, int pageLimit, Integer pageNumber) throws Exception {
+		if (StringUtils.isBlank(userStatus) || null ==userTypeSet || 0 ==userTypeSet.size() || StringUtils.isBlank(selectType)) {
 			throw new BusinessException("userStatus,selectType,userType有为空的参数");
 		}
 		if (pageLimit < 1) {
@@ -445,9 +447,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		if (null != UserStatus.getUserStatusByCode(userStatus)) {
 			params.put("userStatus", userStatus);
 		}
-		if (null != UserType.getUserTypeByCode(userType)) {
-			params.put("userType", userType);
-		}
+		params.put("userTypeSet", userTypeSet);
 		if (areaCode > 0) {
 			params.put("areaCode", areaCode);
 		}
@@ -467,8 +467,8 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		for (Map<String, Object> itr : lm) {
 			orderNum++;
 			itr.put("orderNum", orderNum); // 加页面序号
-			itr.put("userStatus", UserStatus.getUserStatusByCode((String)(itr.get("userStatus"))).getStatusName()); //状态代码转名称
-			itr.put( "userType", UserType.getUserTypeByCode((String)(itr.get("userType"))).getTypeName() ); //itr.put("userType", UserType.getUserTypeMap().get((String) (itr.get("userType"))));
+			itr.put( "userStatus", UserStatus.getUserStatusNameByCode( (String)(itr.get("userStatus")) ) ); //状态代码转名称
+			itr.put( "userType", UserType.getUserTypeNameByCode((String)(itr.get("userType"))) );
 			Object obj = itr.get("areaCode");
 			if (null != obj) { // 将区域代码转换成行政区名称
 				try {

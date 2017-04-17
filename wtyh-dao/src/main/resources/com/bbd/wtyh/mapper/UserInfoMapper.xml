@@ -121,12 +121,13 @@
       ifnull(area_code ,'') AS areaCode
     </if>
     FROM <include refid="TabName"/>
-    <where> id != 1 AND `user_type` != 'S'
+    <where> id != 1
       <if test="userStatus !=null">
         AND `status` = #{userStatus}
       </if>
-      <if test="userType !=null">
-        AND `user_type` = #{userType}
+      <if test="userTypeSet !=null and 0 !=userTypeSet.size">
+        AND `user_type` IN <foreach item ="userType" index="index" collection="userTypeSet"
+                                    open="(" separator="," close=")" > #{userType} </foreach>
       </if>
       <if test="areaCode !=null">
         AND `area_code` = ${areaCode}
@@ -143,8 +144,8 @@
         </when>
       </choose>
     </where>
-    ORDER BY update_date DESC
     <if test="listing !=null ">
+      ORDER BY update_date DESC
       LIMIT
       <if test="pageNumber !=null">
         #{pageNumber},
@@ -152,6 +153,8 @@
     </if>
   </select>
 
+  <!--/*AND `user_type` != 'S'*/
+  /*AND `user_type` = #{userType}*/-->
 
   <!-- 构建用户模板, 用户为‘A’ -->
   <select id="selectUserTemplate"   parameterType="java.util.HashMap"  resultType="java.util.Map">
@@ -159,11 +162,12 @@
     id AS id,
     login_name AS loginName
     FROM  <include refid="TabName"/>
-    WHERE id != 1 AND `user_type` != 'S'
-    AND `login_name` LIKE '%${loginName}%'
-    <if test="userTypeStr !=null">
-      AND `user_type` = #{userTypeStr}
-    </if>
+    <where> id != 1 /*AND `user_type` != 'S'*/
+      AND `login_name` LIKE '%${loginName}%'
+      <if test="userTypeStr !=null">
+        AND `user_type` = #{userTypeStr}
+      </if>
+    </where>
     LIMIT 5
   </select>
 
