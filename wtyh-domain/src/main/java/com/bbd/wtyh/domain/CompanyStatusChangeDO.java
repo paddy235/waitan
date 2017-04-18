@@ -1,5 +1,7 @@
 package com.bbd.wtyh.domain;
 
+import com.bbd.wtyh.excel.annotation.Excel;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -23,6 +25,7 @@ public class CompanyStatusChangeDO {
     private Integer companyId;
 
     /** 企业名称 */
+    @Excel(exportName = "企业名称")
     @Column(name = "company_name")
     private String companyName;
 
@@ -34,12 +37,15 @@ public class CompanyStatusChangeDO {
     @Column(name = "company_type")
     private Integer companyType;
 
+    @Excel(exportName = "新金融类别")
     private String companyTypeName;
 
     /** 公司类型 1:P2P 2:小贷 3:融资担保 4:线下理财 5:私募基金 6:众筹 7:其他 8:金融 9:交易所 10:商业保理 11.预付卡 12.典当 13融资租赁  */
     @Column(name = "old_company_type")
     private Integer oldCompanyType;
 
+
+    @Excel(exportName = "原始类别")
     private String oldCompanyTypeName;
 
     /** 区域ID */
@@ -47,18 +53,22 @@ public class CompanyStatusChangeDO {
     private Integer areaId;
 
     /** 区域名称 */
+    @Excel(exportName = "所在区域")
     @Column(name = "area_name")
     private String areaName;
 
     /** 注册时间 */
+    @Excel(exportName = "注册时间")
     @Column(name = "register_date")
     private Date registerDate;
 
     /** 调整时间 */
+    @Excel(exportName = "调整时间")
     @Column(name = "adjust_date")
     private Date adjustDate;
 
     /** 停业时间 */
+    @Excel(exportName = "停业时间")
     @Column(name = "closed_date")
     private Date closedDate;
 
@@ -67,6 +77,7 @@ public class CompanyStatusChangeDO {
     private Date orderDate;
 
     /** 注册资本 */
+    @Excel(exportName = "注册资本")
     @Column(name = "registered_capital")
     private Integer registeredCapital;
 
@@ -74,21 +85,25 @@ public class CompanyStatusChangeDO {
     @Column(name = "change_tpye")
     private Integer changeTpye;
 
+    @Excel(exportName = "变化类型")
     private String changeTpyeName;
 
     /** 新增来源 1:新注册,2:新发现,3:人工修改 */
     @Column(name = "source")
     private Integer source;
 
+    @Excel(exportName = "新增来源")
     private String sourceName;
 
     /** 停业原因 */
     @Column(name = "closed_type")
     private Integer closedType;
 
+    @Excel(exportName = "停业原因")
     private String closedTypeName;
 
     /** 注册地址 */
+    @Excel(exportName = "注册地址")
     @Column(name = "address")
     private String address;
 
@@ -487,7 +502,7 @@ public class CompanyStatusChangeDO {
     }
 
     public String getCompanyTypeName() {
-        return CompanyDO.companyTypeCN(this.companyType.byteValue());
+        return CompanyDO.companyTypeCN(this.companyType==null?null:this.companyType.byteValue());
     }
 
     public void setCompanyTypeName(String companyTypeName) {
@@ -495,7 +510,8 @@ public class CompanyStatusChangeDO {
     }
 
     public String getOldCompanyTypeName() {
-        return CompanyDO.companyTypeCN(this.oldCompanyType.byteValue());
+
+        return CompanyDO.companyTypeCN(this.oldCompanyType==null?null:this.oldCompanyType.byteValue());
     }
 
     public void setOldCompanyTypeName(String oldCompanyTypeName) {
