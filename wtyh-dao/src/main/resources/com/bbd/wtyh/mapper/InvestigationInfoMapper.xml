@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.UserBehaviorLogMapper">
+
+  <sql id="TabName">
+  `investigation_info`
+  </sql>
+
+  <insert id="saveInvestigationInfo" parameterType="com.bbd.wtyh.domain.InvestigationInfoDO" useGeneratedKeys="true"
+          keyProperty="pk" >
+    INSERT INTO <include refid="TabName"/>(
+    company_id, company_name, title, detail, create_by, update_by, update_date) VALUES (
+    #{companyId}, #{companyName}, #{title}, #{detail}, #{createBy}, #{updateBy}, #{updateDate} );
+  </insert>
+
+  <!-- 查询用户记录列表, 用户为‘A’ -->
+  <select id="selectInvestigationInfoList" parameterType="java.util.HashMap"  resultType="java.util.Map">
+    SELECT
+    <if test=" listing ==null ">  <!-- 查总条数的标记 -->
+      COUNT(*) AS recordTotal
+    </if>
+    <if test=" listing !=null ">
+      pk AS pk,  <!--pk -->
+      ifnull(company_id, '') AS companyId,  <!-- 企业ID -->
+      ifnull(company_name, '') AS companyName,  <!-- 企业名称 -->
+      ifnull(title, '') AS title,
+      ifnull(detail, '') AS detail,  <!-- 详情 -->
+      ifnull(create_by, '') AS createBy,
+      ifnull(create_date, '') AS createDate,
+      ifnull(update_by, '')  AS updateBy,
+      ifnull(update_date, '')  AS updateDate
+    </if>
+    FROM <include refid="TabName"/>
+    <where>
+      <if test="companyId !=null">   <!-- 企业ID -->
+        AND  `company_id` = #{companyId}
+      </if>
+      <if test="companyNameLike != null" >   <!-- 企业名称模糊匹配筛选 -->
+        AND `company_name` LIKE CONCAT('%',#{companyNameLike},'%')
+      </if>
+      <if test="companyName != null" >   <!-- 企业名称精确匹配筛选 -->
+        AND `company_name` = #{companyName}
+      </if>
+      <if test="updateBy !=null">    <!-- 修改者 -->
+        AND  `update_by` = #{updateBy}
+      </if>
+      <if test="beginTime !=null"> <!-- 开始时间 -->
+        AND  `update_date` >= #{beginTime}
+      </if>
+      <if test="endTime !=null"> <!-- 结束时间 -->
+        AND  `update_date` &lt;= #{endTime}
+      </if>
+    </where>
+    <if test="listing !=null ">
+      ORDER BY update_date
+      <if test="orderBy !=null" >
+        DESC
+      </if>
+      LIMIT
+      <if test="pageNumber !=null">
+        #{pageNumber},
+      </if>
+    #{pageSize}
+    </if>
+  </select>
+
+</mapper>

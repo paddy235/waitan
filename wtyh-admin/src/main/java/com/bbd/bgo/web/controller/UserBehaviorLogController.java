@@ -1,13 +1,16 @@
 package com.bbd.bgo.web.controller;
 
+import java.rmi.server.ExportException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.bbd.wtyh.cashetobean.ShanghaiAreaCode;
 import com.bbd.wtyh.common.comenum.UserRank;
+import com.bbd.wtyh.excel.ExportExcel;
 import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.map.name.code.CodeNameMap;
 import com.bbd.wtyh.service.UserBehaviorLogService;
+import com.bbd.wtyh.util.DateUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,13 +40,7 @@ public class UserBehaviorLogController {
     @Autowired
     UserBehaviorLogService ubls;
 
-    private Date stringToDate(String strDate) throws Exception {
-        if(StringUtils.isBlank(strDate)) {
-            return null;
-        }
-        SimpleDateFormat dateFormat =new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        return dateFormat.parse(strDate);
-    }
+
 
     @RequestMapping("/listUserBehaviorLog.do")
     @ResponseBody
@@ -59,6 +56,7 @@ public class UserBehaviorLogController {
             String endTime,
             Long logSN,
             String orderBy,
+            boolean doExport,
             HttpServletRequest request, HttpSession session) {
         Map<String, Object> rstMap = null;
         try {
@@ -68,14 +66,15 @@ public class UserBehaviorLogController {
                 excludeName ="admin"; //滤除超管的行为日志，普管不能查看超管的行为日志
             }
             rstMap = ubls.listUserBehaviorLog(pageSize, pageNumber, excludeName ,userName, areaCode,
-                    sysCode, opTpCd, opPgCd, stringToDate(beginTime),
-                    stringToDate(endTime), logSN, orderBy);
+                    sysCode, opTpCd, opPgCd, DateUtils.stringToDate(beginTime),
+                    DateUtils.stringToDate(endTime), logSN, orderBy);
         } catch (BusinessException be) {
             return ResponseBean.errorResponse(be.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseBean.errorResponse("服务器异常：" + e);
         }
+        //以下用于记录日志
         int parCnt =0;
         String parStr ="";
         if (StringUtils.isNotBlank(userName)) {
@@ -111,14 +110,56 @@ public class UserBehaviorLogController {
             parStr += "结束时间:" +endTime +"；";
         }
 
-        if( 0 ==parCnt ) {
-            UserLogRecord.record("浏览用户行为日志列表",
-                    Operation.Type.browse, Operation.Page.userLogList, Operation.System.back, request);
+        if(doExport) {
+            UserLogRecord.record("导出用户行为日志，筛选条件[ " + parStr + "]",
+                    Operation.Type.LOG_EXPORT, Operation.Page.userLogList, Operation.System.back, request); //todo xin leixing
         } else {
-            UserLogRecord.record("搜索用户行为日志，搜索条件[ " +parStr +"]",
-                    Operation.Type.query, Operation.Page.userLogList, Operation.System.back, request);
+            if (0 == parCnt) {
+                UserLogRecord.record("浏览用户行为日志列表",
+                        Operation.Type.browse, Operation.Page.userLogList, Operation.System.back, request);
+            } else {
+                UserLogRecord.record("搜索用户行为日志，搜索条件[ " + parStr + "]",
+                        Operation.Type.query, Operation.Page.userLogList, Operation.System.back, request);
+            }
         }
+        //以上用于记录日志
         return ResponseBean.successResponse(rstMap);
+    }
+
+    @RequestMapping("/exportLogFile.do")
+    @ResponseBody
+    public Object exportBehaviorLogFile(
+            @RequestParam int pageSize,
+            Integer pageNumber,
+            String userName,
+            Integer areaCode,
+            Integer sysCode,
+            Integer opTpCd,
+            Integer  opPgCd,
+            String beginTime,
+            String endTime,
+            Long logSN,
+            String orderBy,
+            HttpServletRequest request, HttpSession session) throws Exception {
+
+        ResponseBean rb= (ResponseBean)listUserBehaviorLog( pageSize, pageNumber, userName, areaCode, sysCode,
+                opTpCd, opPgCd, beginTime, endTime, logSN, orderBy, true, request, session  );
+        if( rb.isSuccess() ){
+            Map<String, Object> rstMap =(Map<String, Object>)(rb.getContent());
+            List<Map<String, Object>> lm =(List<Map<String, Object>>)(rstMap.get("list"));
+            for (Map<String, Object> itr : lm) {
+                itr.put("logSN", ((Long)(itr.get("logSN"))).toString());
+            }
+            String[] columnName = { "序号", "日志编号", "用户名", "真实姓名", "行政区",	"所属部门",	 "IP地址", "系统位置", "操作", "操作页面", "详情", "发生时间" };
+            String[] dataMapLeys = { "orderNum", "logSN", "loginName", "realName", "area", "department", "IpAddr", "sysLocation", "opType", "opPage", "logDetail", "genesicDT" };
+            ExportExcel ee = new ExportExcel("用户日志");
+            ee.createSheet("Test", columnName, dataMapLeys, lm);
+            ee.exportExcel();
+            //return ResponseBean.successResponse("/download/download-excel.do?name=" +ee.getExcelName() );
+            String fileName =new String( ee.getExcelName().getBytes("UTF-8"), "ISO-8859-1" );
+            return "<a href =\"http://localhost:8080/download/download-excel.do?name=" +fileName +"\"> download </a>";
+        }
+        return rb;
     }
 
 

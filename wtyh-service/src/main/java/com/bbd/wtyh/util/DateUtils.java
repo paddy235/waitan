@@ -1,6 +1,7 @@
 package com.bbd.wtyh.util;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang.StringUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -37,8 +38,27 @@ public class DateUtils {
         return sdf.format(date);
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         System.out.print(formatDate(new Date()));
-    }
+        System.out.print("\nstringToDate():" +stringToDate("2018-01-9 9:3:1"));
+    }*/
 
+    /**
+     * 日期时间字符串转Date (by cgj)
+     * @param strDate 格式"yyyy-MM-dd hh:mm:ss"
+     * @return 中途任何转换失败的情况下均返回null
+     */
+    public static Date stringToDate(String strDate) {
+        if(StringUtils.isBlank(strDate)) {
+            return null;
+        }
+        Date tDate =null;
+        try {
+            SimpleDateFormat dateFormat =new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            tDate =dateFormat.parse(strDate);
+        } catch (Exception e) {
+            tDate =null;
+        }
+        return tDate;
+    }
 }

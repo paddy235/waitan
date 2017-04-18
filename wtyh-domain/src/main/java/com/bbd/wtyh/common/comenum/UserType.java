@@ -11,10 +11,9 @@ import java.util.Map;
  * Created by cgj on 2017/3/31.
  */
 public enum UserType {
-    //ALL("A", "全部", false, false, null), //仅用于筛选，非用户类型
     SUPER_ADMIN("S", "超级管理员", true, true, UserRank.SUPER_A),
     BACK_ADMIN("B", "系统管理员", false, true, UserRank.ADMIN),
-    BUSINESS_MANAGER("M", "业务数据管理员",true, true, UserRank.ADMIN),
+    //BUSINESS_MANAGER("M", "业务数据管理员",true, true, UserRank.ADMIN),
     GENERAL("F", "普通用户", true, false, UserRank.GENERAL),
     DISTRICT_USER("D", "区县用户", true, false, UserRank.GENERAL);
 

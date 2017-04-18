@@ -23,9 +23,6 @@ import com.bbd.wtyh.service.UserInfoService;
 public class UserBehaviorLogServiceImpl extends BaseServiceImpl implements UserBehaviorLogService {
 
 	@Autowired
-	private UserInfoService uis;
-
-	@Autowired
 	private UserBehaviorLogMapper userBehaviorLogMapper;
 
 	@Override
@@ -58,6 +55,9 @@ public class UserBehaviorLogServiceImpl extends BaseServiceImpl implements UserB
 			params.put("beginTime", beginTime);
 		}
 		if (null != endTime) {
+			if( null !=beginTime && endTime.before(beginTime) ) {
+				throw new BusinessException("截止时刻不能早于起始时刻");
+			}
 			params.put("endTime", endTime);
 		}
 		if (null != logSN) {

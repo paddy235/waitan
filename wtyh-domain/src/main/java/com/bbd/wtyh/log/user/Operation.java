@@ -95,6 +95,14 @@ public class Operation {
 
 		public static final String OP_PAGE_MAP_KEY ="opPageMap"; //返回map的KEY
 
+		/**
+		 * 生成Page列表及字典
+		 * @param joinAll 是否加入“全部”项
+		 * @param sys null：所有页面，front 前台页面，back：后台页面
+		 * @param returnMap 是否返回Page字典
+		 * @return 返回List<Map>结果。注意：map字典是附加到List.Map.Map中返回的，若true ==returnMap，
+		 * 提取后应去除List最后这个元素{remove(size-1)}。
+		 */
 		public static List<Map<String, Object>> getOpPageListBySystem(boolean joinAll, System sys, boolean returnMap) {
 			String codeName ="opPgCd"; //code of name
 			String nameName ="opPage"; //name of name
@@ -138,8 +146,11 @@ public class Operation {
 		add("新增", 5),
 		modify("修改", 6),
 		del("删除", 7),
-		lock("锁定", 8), //
-		active("激活", 9); //
+		lock("锁定", 8),
+		active("激活", 9),
+		REPORT_EXPORT("报告导出",10),
+		//DATA_EXPORT("数据导出",11),
+		LOG_EXPORT("日志导出",12);
 
 		private String desc;
 		private int code;
