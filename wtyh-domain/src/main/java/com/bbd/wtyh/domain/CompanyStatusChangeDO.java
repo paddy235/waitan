@@ -34,9 +34,13 @@ public class CompanyStatusChangeDO {
     @Column(name = "company_type")
     private Integer companyType;
 
+    private String companyTypeName;
+
     /** 公司类型 1:P2P 2:小贷 3:融资担保 4:线下理财 5:私募基金 6:众筹 7:其他 8:金融 9:交易所 10:商业保理 11.预付卡 12.典当 13融资租赁  */
     @Column(name = "old_company_type")
     private Integer oldCompanyType;
+
+    private String oldCompanyTypeName;
 
     /** 区域ID */
     @Column(name = "area_id")
@@ -70,13 +74,19 @@ public class CompanyStatusChangeDO {
     @Column(name = "change_tpye")
     private Integer changeTpye;
 
+    private String changeTpyeName;
+
     /** 新增来源 1:新注册,2:新发现,3:人工修改 */
     @Column(name = "source")
     private Integer source;
 
+    private String sourceName;
+
     /** 停业原因 */
     @Column(name = "closed_type")
     private Integer closedType;
+
+    private String closedTypeName;
 
     /** 注册地址 */
     @Column(name = "address")
@@ -474,5 +484,45 @@ public class CompanyStatusChangeDO {
      */
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public String getCompanyTypeName() {
+        return CompanyDO.companyTypeCN(this.companyType.byteValue());
+    }
+
+    public void setCompanyTypeName(String companyTypeName) {
+        this.companyTypeName = companyTypeName;
+    }
+
+    public String getOldCompanyTypeName() {
+        return CompanyDO.companyTypeCN(this.oldCompanyType.byteValue());
+    }
+
+    public void setOldCompanyTypeName(String oldCompanyTypeName) {
+        this.oldCompanyTypeName = oldCompanyTypeName;
+    }
+
+    public String getChangeTpyeName() {
+        return changeTpyeName;
+    }
+
+    public void setChangeTpyeName(String changeTpyeName) {
+        this.changeTpyeName = changeTpyeName;
+    }
+
+    public String getSourceName() {
+        return sourceName;
+    }
+
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
+    }
+
+    public String getClosedTypeName() {
+        return closedTypeName;
+    }
+
+    public void setClosedTypeName(String closedTypeName) {
+        this.closedTypeName = closedTypeName;
     }
 }
