@@ -123,7 +123,12 @@ public class ExportExcel {
 			dataList.add(dataMap);
 			getKey = false;
 		}
-
+		if (dataMapKeysb.length() == 0) {
+			dataMapKeysb.append(",");
+		}
+		if (columnNameSb.length() == 0) {
+			columnNameSb.append(",");
+		}
 		String[] dataMapKeys = dataMapKeysb.substring(1).split(",");
 		String[] columnName = columnNameSb.substring(1).split(",");
 

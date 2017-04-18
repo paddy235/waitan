@@ -4,9 +4,13 @@ import java.util.*;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.bbd.bgo.service.task.PrivateFundTaskService;
+import com.bbd.bgo.service.task.SystemAnalyzeTaskService;
+import com.bbd.bgo.web.controller.CoChgMonitorController;
 import com.bbd.wtyh.domain.ResourceDo;
 import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.domain.dto.UserRoleDTO;
+import com.bbd.wtyh.service.CoChgMonitorService;
 import com.bbd.wtyh.service.UserInfoService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,6 +37,12 @@ public class RoleResourceTest {
 
 	@Autowired
 	private RoleResourceService resourceService;
+	@Autowired
+	private PrivateFundTaskService privateFundTaskService;
+	@Autowired
+	private SystemAnalyzeTaskService systemAnalyzeTaskService;
+	@Autowired
+	private CoChgMonitorService coChgMonitorService;
 
 	@Test
 	public void getRoleResourceTest() throws Exception {
@@ -103,4 +113,21 @@ public class RoleResourceTest {
 	public void deleteUserTest() throws Exception {
 		this.userInfoService.deleteUserById(143);
 	}
+
+	@Test
+	public  void updateCompanyStatus()throws Exception{
+		privateFundTaskService.updateCompanyStatus();
+	}
+	@Test
+	public  void updateCompanyCount()throws Exception{
+		systemAnalyzeTaskService.updateCompanyCount();
+	}
+
+	@Test
+	public  void queryCompanyStatusChg()throws Exception{
+		//Integer areaId,Integer companyType,String beginDate,String endDate,
+		//Integer changeTpye,Integer source,Integer closedType,Integer page,Integer pageSize
+		this.coChgMonitorService.queryCompanyStatusChg(104,1,"2017-01","2017-02",1,1,1,0,20);
+	}
+
 }

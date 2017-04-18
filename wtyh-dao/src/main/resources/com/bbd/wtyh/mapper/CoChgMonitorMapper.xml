@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.CoChgMonitorMapper">
+
+
+  <!-- 查询企业增销变化 -->
+  <select id="queryCompanyStatusChg" parameterType="java.util.HashMap"  resultType="com.bbd.wtyh.domain.CompanyStatusChangeDO">
+  SELECT
+  <if test="pages ==null ">  <!-- 查总条数的标记 -->
+    COUNT(*) AS id
+  </if>
+  <if test="pages !=null ">
+    `id`,
+    `company_id` AS companyId,
+    `company_name` AS companyName,
+    `organization_code`AS organizationCode,
+    `company_type` AS companyType,
+    `old_company_type`AS old_companyType,
+    `area_id`AS areaId,
+    `area_name`AS areaName,
+    `register_date`AS registerDate,
+    `adjust_date`AS adjustDate,
+    `closed_date`AS closedDate,
+    `order_date`AS orderDate,
+    `registered_capital`AS registeredCapital,
+    `change_tpye`AS changeTpye,
+    `source`AS source,
+    `closed_type`AS closedType,
+    `address`AS address,
+    `create_by`AS createBy,
+    `create_date`AS createDate,
+    `update_by`AS updateBy,
+    `update_date`AS updateDate
+  </if>
+  FROM company_status_change
+  <where>
+    <if test="areaId !=null">
+      AND  `area_id` = #{areaId}
+    </if>
+    <if test="companyType !=null">
+      AND  `company_type` = #{companyType}
+    </if>
+    <if test="beginDate !=null"> <!-- 开始时间 -->
+      AND  `order_date` >= #{beginDate}
+    </if>
+    <if test="endDate !=null"> <!-- 结束时间 -->
+      AND  `order_date` &lt;= #{endDate}
+    </if>
+    <if test="changeTpye !=null">
+      AND  `change_tpye` = #{changeTpye}
+    </if>
+    <if test="source !=null">
+      AND  `source` = #{source}
+    </if>
+    <if test="closedType !=null">
+      AND  `closed_type` = #{closedType}
+    </if>
+  </where>
+  ORDER BY order_date DESC
+  <if test="pages !=null ">
+    LIMIT
+      #{page},
+      #{pageSize}
+  </if>
+  </select>
+
+</mapper>
