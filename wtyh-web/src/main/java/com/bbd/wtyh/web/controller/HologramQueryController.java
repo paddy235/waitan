@@ -1,10 +1,13 @@
 package com.bbd.wtyh.web.controller;
 
 import com.bbd.wtyh.domain.CompanyDO;
+import com.bbd.wtyh.domain.InvestigationInfoDO;
 import com.bbd.wtyh.domain.bbdAPI.*;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.service.HologramQueryService;
+import com.bbd.wtyh.service.InvestigationInfoService;
+import com.bbd.wtyh.util.DateUtils;
 import com.bbd.wtyh.web.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -224,6 +228,38 @@ public class HologramQueryController {
 									  @RequestParam(required = true) Integer pageSize) {
 		PatentDO result = hologramQueryService.getPatentData(company,page,pageSize);
 		return ResponseBean.successResponse(result);
+	}
+
+	@Autowired
+	private InvestigationInfoService investigationInfo;
+
+	/**
+	 * 企业信息详情-排查信息录入
+	 * (by cgj)
+	 * @return
+	 *
+	 */
+	@RequestMapping("/tabbInvestigationInfo.do")
+	@ResponseBody
+	public ResponseBean tabbInvestigationInfo( InvestigationInfoDO investigationInfoDO,
+											   @RequestParam(required = true) String recorder ) throws Exception {
+		investigationInfo.saveInvestigationInfo( investigationInfoDO, recorder );
+		return ResponseBean.successResponse("OK");
+	}
+	/**
+	 * 企业信息详情-列出排查信息
+	 * (by cgj)
+	 * @return
+	 *
+	 */
+	@RequestMapping("/listInvestigationInfo.do")
+	@ResponseBody
+	public ResponseBean listInvestigationInfo(@RequestParam(required = true) int pageSize, Integer pageNumber,
+											  String orderBy, Integer companyId, String companyName, String recorder,
+											  String beginTime, String endTime) throws Exception {
+		Map<String, Object> mp = investigationInfo.listInvestigationInfo( pageSize, pageNumber, orderBy,
+				companyId, companyName, recorder, DateUtils.stringToDate(beginTime), DateUtils.stringToDate(endTime) );
+		return ResponseBean.successResponse(mp);
 	}
 
 }

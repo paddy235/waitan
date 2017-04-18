@@ -4,9 +4,10 @@ import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.InvestigationInfoDO;
 import com.bbd.wtyh.exception.BusinessException;
 import com.bbd.wtyh.mapper.InvestigationInfoMapper;
-import com.bbd.wtyh.service.InvestigationInfo;
+import com.bbd.wtyh.service.InvestigationInfoService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -16,7 +17,9 @@ import java.util.Map;
 /**
  * Created by Administrator on 2017/4/18.
  */
-public class InvestigationInfoImpl extends BaseServiceImpl implements InvestigationInfo {
+
+@Service
+public class InvestigationInfoServiceImpl extends BaseServiceImpl implements InvestigationInfoService {
 
     @Autowired
     private InvestigationInfoMapper investigationInfoMapper;

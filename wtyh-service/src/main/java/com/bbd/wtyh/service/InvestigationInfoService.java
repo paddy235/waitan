@@ -9,7 +9,7 @@ import com.bbd.wtyh.domain.InvestigationInfoDO;
 /**
  * 排查信息服务接口 Created by cgj on 2017/4/18.
  */
-public interface InvestigationInfo extends BaseService {
+public interface InvestigationInfoService extends BaseService {
 
 	/**
 	 * 列出排查信息
