@@ -706,15 +706,12 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 	 * @param input
 	 * @return
 	 */
-	private boolean rexCheckPassword(String input) {
-		// String reg =
-		// "^([A-Z]|[a-z]|[0-9]|[`-=[];,./~!@#$%^*()_+}{:?]){6,20}$";// 6-20
-		// 位，字母、数字、字符
-		// String regStr =
-		// "^([A-Z]|[a-z]|[0-9]|[`~!@#$%^&*()+=|{}':;',\\\\[\\\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]){6,20}$";
-		//  用户密码的组成规则：英文+数字（8位到16位）
-		String regStr = "^([A-Z]|[a-z]|[0-9]){8,16}$";
-		return input.matches(regStr);
+	static private boolean rexCheckPassword(String input) { //用户密码的组成规则：英文+数字（8位到16位）
+		boolean a =input.matches( "^(?=.*[0-9].*)(?=.*[A-Za-z].*)([A-Za-z0-9]{8,16})$" );
+		//boolean a =input.matches( "^[A-Za-z0-9]{8,16}$" );
+		//boolean b =input.matches( "^[A-Za-z]+$" ); 不对
+		//boolean c =input.matches( "^\\d+$" ); 不对
+		return a /*&& b && c*/;
 	}
 
 	/*
@@ -725,8 +722,16 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 	 * m.getValue()); } }
 	 */
 
-	/*
-	 * public static void main(String args[]) throws Exception {
-	 * System.out.println(rexCheckPassword("111s")); }
-	 */
+	 public static void main(String args[]) throws Exception {
+	 	System.out.println(rexCheckPassword("12345678") == false);
+	 	System.out.println(rexCheckPassword("aaaaaaaa") ==false);
+	 	System.out.println(rexCheckPassword("1234abc") ==false);
+	 	System.out.println(rexCheckPassword("1234567890abcdefg") ==false);
+	 	System.out.println(rexCheckPassword("1234567801234s") ==true);
+	 	System.out.println(rexCheckPassword("B12345678") ==true);
+	 	System.out.println(rexCheckPassword("1234$7890abcd") ==false);
+	 	System.out.println(rexCheckPassword("1234567801234s") ==true);
+	 	System.out.println(rexCheckPassword("B12345678") ==true);
+	 	System.out.println(rexCheckPassword("1234abcd") ==true);
+	 }
 }
