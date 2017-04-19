@@ -2,6 +2,7 @@ package com.bbd.wtyh.sys.controller;
 
 
 import com.bbd.wtyh.service.LogInfoService;
+import com.bbd.wtyh.service.OfflineFinanceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,17 @@ public class ThirdPartyController {
         Long result=logInfoService.exportLogFileToDataBase(date,tempCounts);
         logger.info("日志文件处理(exportLogFile.do)结束");
         return result;
+    }
+
+
+
+    @Autowired
+    OfflineFinanceService offlineFinanceService;
+
+    @RequestMapping("/t")
+    @ResponseBody
+    public void test() {
+        offlineFinanceService.updateCompanyRiskLevel();
     }
 
 }
