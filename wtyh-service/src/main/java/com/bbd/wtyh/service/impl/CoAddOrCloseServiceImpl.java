@@ -5,8 +5,8 @@ import com.bbd.wtyh.domain.AreaDO;
 import com.bbd.wtyh.domain.BuildingDO;
 import com.bbd.wtyh.domain.CompanyStatusChangeDO;
 import com.bbd.wtyh.domain.RiskChgCoDo;
-import com.bbd.wtyh.mapper.CoChgMonitorMapper;
-import com.bbd.wtyh.service.CoChgMonitorService;
+import com.bbd.wtyh.mapper.CoAddOrCloseMapper;
+import com.bbd.wtyh.service.CoAddOrCloseService;
 import com.bbd.wtyh.service.CompanyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,12 +22,12 @@ import java.util.Map;
  * Created by Administrator on 2017/4/18 0018.
  */
 @Service
-public class CoChgMonitorServiceImpl extends BaseServiceImpl implements CoChgMonitorService {
+public class CoAddOrCloseServiceImpl extends BaseServiceImpl implements CoAddOrCloseService {
 
-	private final Logger LOGGER = LoggerFactory.getLogger(CoChgMonitorServiceImpl.class);
+	private final Logger LOGGER = LoggerFactory.getLogger(CoAddOrCloseServiceImpl.class);
 
 	@Autowired
-	private CoChgMonitorMapper coChgMonitorMapper;
+	private CoAddOrCloseMapper coAddOrCloseMapper;
 
 	@Autowired
 	private CompanyService companyService;
@@ -69,7 +69,7 @@ public class CoChgMonitorServiceImpl extends BaseServiceImpl implements CoChgMon
 
 		param.put("pages", null);
 		// 先查询总条数
-		List<CompanyStatusChangeDO> listTotal = coChgMonitorMapper.queryCompanyStatusChg(param);
+		List<CompanyStatusChangeDO> listTotal = coAddOrCloseMapper.queryCompanyStatusChg(param);
 		result.put("total", listTotal.get(0).getId());
 
 		// 再查询每页信息
@@ -84,7 +84,7 @@ public class CoChgMonitorServiceImpl extends BaseServiceImpl implements CoChgMon
 			param.put("pages", 1);
 
 		}
-		List<CompanyStatusChangeDO> list = coChgMonitorMapper.queryCompanyStatusChg(param);
+		List<CompanyStatusChangeDO> list = coAddOrCloseMapper.queryCompanyStatusChg(param);
 		result.put("results", list);
 
 		return result;

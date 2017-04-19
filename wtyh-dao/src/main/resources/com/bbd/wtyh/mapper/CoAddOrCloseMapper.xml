@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bbd.wtyh.mapper.CoChgMonitorMapper">
+<mapper namespace="com.bbd.wtyh.mapper.CoAddOrCloseMapper">
 
 
   <!-- 查询企业增销变化 -->

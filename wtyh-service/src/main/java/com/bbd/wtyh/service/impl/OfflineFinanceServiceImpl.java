@@ -17,10 +17,11 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 
+import com.bbd.wtyh.constants.RiskChgCoSource;
+import com.bbd.wtyh.constants.RiskLevel;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.service.*;
 import net.sf.cglib.beans.BeanCopier;
-import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import com.bbd.higgs.utils.ListUtil;
@@ -112,7 +112,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 	private PToPMonitorService pToPMonitorService;
 
 	@Autowired
-	private CoChgMonitorService coChgMonitorService;
+	private CoAddOrCloseService coChgMonitorService;
 
 	@Value("${share.path}")
 	private String shareDir;
@@ -280,13 +280,13 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 			BigDecimal staticsRiskIndex = staticRiskDataDO.getStaticRiskIndex();
 			// 大于65.9
 			if (staticsRiskIndex.compareTo(new BigDecimal("65.9")) == 1) {
-				riskLevel = 2;
+				riskLevel = RiskLevel.IMPORT_FOCUS.type();
 				// 大于等于57.8 小于65.9
 			} else if (staticsRiskIndex.compareTo(new BigDecimal("57.8")) > -1
 					&& staticsRiskIndex.compareTo(new BigDecimal("65.9")) == -1) {
-				riskLevel = 3;
+				riskLevel = RiskLevel.COMMON_FOCUS.type();
 			} else if (staticsRiskIndex.compareTo(new BigDecimal("57.8")) == -1) {
-				riskLevel = 4;
+				riskLevel = RiskLevel.NORMAL.type();
 			}
 			logger.warn("companyId:{} riskLevel from static_risk_data:{}", companyId, riskLevel);
 		}
@@ -300,7 +300,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 		}
 		companyMapper.updateRiskLevel(riskLevel, companyId, "TIMER");
 
-		if (!oldRiskLevel.equals(riskLevel)) {
+		if (!riskLevel.equals(oldRiskLevel)) {
 			logger.error("riskLevel changed: companyId={} oldRiskLevel={} newRiskLevel:{}", companyId, oldRiskLevel, riskLevel);
 
 			// 添加风险变化公司
@@ -313,7 +313,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 
 			rcco.setOldRiskLevel(oldRiskLevel);
 			rcco.setRiskLevel(riskLevel);
-			rcco.setSource(com.bbd.wtyh.constants.Constants.RiskChgCo.SOURCE_MODEL_SCORE);
+			rcco.setSource(RiskChgCoSource.MODEL_SCORE.type());
 
 			try {
 				this.coChgMonitorService.saveRiskChgCo(rcco);
