@@ -230,6 +230,7 @@ public class HologramQueryController {
 		return ResponseBean.successResponse(result);
 	}
 
+
 	@Autowired
 	private InvestigationInfoService investigationInfo;
 
