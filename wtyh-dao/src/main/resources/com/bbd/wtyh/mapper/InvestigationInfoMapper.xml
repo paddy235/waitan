@@ -7,20 +7,20 @@
   </sql>
 
   <insert id="saveInvestigationInfo" parameterType="com.bbd.wtyh.domain.InvestigationInfoDO" useGeneratedKeys="true"
-          keyProperty="pk" >
+          keyProperty="id" >
     INSERT INTO <include refid="TabName"/>(
-    company_id, company_name, title, detail, create_by, update_by, update_date) VALUES (
-    #{companyId}, #{companyName}, #{title}, #{detail}, #{createBy}, #{updateBy}, #{updateDate} );
+    company_id, company_name, title, detail, create_by, create_date, update_by, update_date) VALUES (
+    #{companyId}, #{companyName}, #{title}, #{detail}, #{createBy}, #{createDate}, #{updateBy}, #{updateDate} );
   </insert>
 
-  <!-- 查询用户记录列表, 用户为‘A’ -->
-  <select id="selectInvestigationInfoList" parameterType="java.util.HashMap"  resultType="java.util.Map">
+  <!-- 列出排查信息列表 -->
+  <select id="listInvestigationInfo" parameterType="java.util.HashMap"  resultType="java.util.Map">
     SELECT
     <if test=" listing ==null ">  <!-- 查总条数的标记 -->
       COUNT(*) AS recordTotal
     </if>
     <if test=" listing !=null ">
-      pk AS pk,  <!--pk -->
+      id AS id,  <!--id -->
       ifnull(company_id, '') AS companyId,  <!-- 企业ID -->
       ifnull(company_name, '') AS companyName,  <!-- 企业名称 -->
       ifnull(title, '') AS title,

@@ -77,7 +77,8 @@ public interface CompanyMapper {
 	 * @param riskLevel
 	 * @param companyId
 	 */
-	void updateRiskLevel(@Param("riskLevel") Integer riskLevel, @Param("companyId") Integer companyId, @Param("updateBy") String updateBy);
+	void updateRiskLevel(@Param("riskLevel") Integer riskLevel, @Param("previousRiskLevel") Integer previousRiskLevel,
+						 @Param("companyId") Integer companyId, @Param("updateBy") String updateBy);
 
 	CompanyDO queryCompanyByName(@Param(value = "company") String company);
 

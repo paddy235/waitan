@@ -298,7 +298,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 				logger.warn("companyId:{} riskLevel from company_analysis_result:{}", companyId, riskLevel);
 			}
 		}
-		companyMapper.updateRiskLevel(riskLevel, companyId, "TIMER");
+		companyMapper.updateRiskLevel(riskLevel, oldRiskLevel, companyId, "TIMER");
 
 		if (!oldRiskLevel.equals(riskLevel)) {
 			logger.error("riskLevel changed: companyId={} oldRiskLevel={} newRiskLevel:{}", companyId, oldRiskLevel, riskLevel);

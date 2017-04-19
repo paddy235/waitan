@@ -97,7 +97,8 @@
     </select>
 
     <update id="updateRiskLevel">
-        update company set risk_level=#{riskLevel},update_date=now(),update_by=#{updateBy} where company_id=#{companyId}
+        update company set risk_level=#{riskLevel}, previous_risk_level=#{previousRiskLevel}, update_date=now(),update_by=#{updateBy}
+         where company_id=#{companyId}
     </update>
 
 
@@ -298,8 +299,9 @@
             longitude,
             latitude,
             newCompany,
-            ifnull(staticRiskIndex,"") as staticRiskIndex,
+            previousRiskLevel,
             registeredCapital,
+            ifnull(staticRiskIndex,"") as staticRiskIndex,
             ifnull(exposureDate,"") as exposureDate,
             #{companyNumber} AS companyNumber
         FROM
@@ -309,6 +311,7 @@
                     company.longitude,
                     company.latitude,
                     company.is_new AS newCompany,
+                    company.previous_risk_level AS previousRiskLevel,
                     static_risk_data.static_risk_index AS staticRiskIndex,
                     company.registered_capital AS registeredCapital,
                     DATE_FORMAT(
@@ -333,6 +336,7 @@
                         t1.longitude,
                         t1.latitude,
                         t1.newCompany,
+                        t1.previousRiskLevel,
                         NULL AS staticRiskIndex,
                         t1.registered_capital AS registeredCapital,
                         DATE_FORMAT(
@@ -347,7 +351,8 @@
                                 registered_capital,
                                 longitude,
                                 latitude,
-                                is_new AS newCompany
+                                is_new AS newCompany,
+                                previous_risk_level AS previousRiskLevel
                             FROM
                                 company
                             WHERE

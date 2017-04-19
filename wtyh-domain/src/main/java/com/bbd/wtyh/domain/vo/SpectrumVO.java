@@ -24,6 +24,17 @@ public class SpectrumVO implements Serializable {
 	/** 新公司 */
 	private boolean newCompany;
 
+	public Byte getPreviousRiskLevel() {
+		return previousRiskLevel;
+	}
+
+	public void setPreviousRiskLevel(Byte previousRiskLevel) {
+		this.previousRiskLevel = previousRiskLevel;
+	}
+
+	/** 上一期的公司风险等级 */
+	private Byte previousRiskLevel;
+
 	public String getName() {
 		return name;
 	}
