@@ -1,5 +1,6 @@
 package com.bbd.wtyh.service;
 
+import com.bbd.wtyh.domain.BuildingDO;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.query.CompanyQuery;
 
@@ -11,24 +12,26 @@ import java.util.Map;
  */
 public interface CompanyService {
 
-    int countCompanyNum(CompanyQuery query);
+	int countCompanyNum(CompanyQuery query);
 
-    List<Map<String,Object>> countCompanyNum();
+	List<Map<String, Object>> countCompanyNum();
 
-    String getNameById(Integer companyId);
+	String getNameById(Integer companyId);
 
-    CompanyDO getCompanyById(Integer companyId);
+	CompanyDO getCompanyById(Integer companyId);
 
-    CompanyDO getCompanyByName(String companyName);
+	CompanyDO getCompanyByName(String companyName);
 
-    CompanyDO getCompanyByName(String companyName, boolean changeFullWidth);
+	CompanyDO getCompanyByName(String companyName, boolean changeFullWidth);
 
-    List<CompanyDO> searchCompany(Integer companyType, String keyword, Integer size);
+	List<CompanyDO> searchCompany(Integer companyType, String keyword, Integer size);
 
-    List<CompanyDO> queryCompanyByType(Integer companyType, Integer orderByField, String descAsc);
+	List<CompanyDO> queryCompanyByType(Integer companyType, Integer orderByField, String descAsc);
 
-    List<CompanyDO> searchCompanyName(Map<String, Object> params);
+	List<CompanyDO> searchCompanyName(Map<String, Object> params);
 
-    int searchCompanyNameCount(String keyword, String dataVersion,Integer areaId);
+	int searchCompanyNameCount(String keyword, String dataVersion, Integer areaId);
+
+	BuildingDO getCompanyBuild(Integer companyId) throws Exception;
 
 }

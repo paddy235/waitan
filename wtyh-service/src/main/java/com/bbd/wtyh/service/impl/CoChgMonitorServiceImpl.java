@@ -1,11 +1,19 @@
 package com.bbd.wtyh.service.impl;
 
+import com.bbd.wtyh.core.base.BaseServiceImpl;
+import com.bbd.wtyh.domain.AreaDO;
+import com.bbd.wtyh.domain.BuildingDO;
 import com.bbd.wtyh.domain.CompanyStatusChangeDO;
+import com.bbd.wtyh.domain.RiskChgCoDo;
 import com.bbd.wtyh.mapper.CoChgMonitorMapper;
 import com.bbd.wtyh.service.CoChgMonitorService;
+import com.bbd.wtyh.service.CompanyService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,20 +22,25 @@ import java.util.Map;
  * Created by Administrator on 2017/4/18 0018.
  */
 @Service
-public class CoChgMonitorServiceImpl implements CoChgMonitorService {
+public class CoChgMonitorServiceImpl extends BaseServiceImpl implements CoChgMonitorService {
+
+	private final Logger LOGGER = LoggerFactory.getLogger(CoChgMonitorServiceImpl.class);
 
 	@Autowired
 	private CoChgMonitorMapper coChgMonitorMapper;
+
+	@Autowired
+	private CompanyService companyService;
 
 	@Override
 	public Map<String, Object> queryCompanyStatusChg(Integer areaId, Integer companyType, String beginDate, String endDate,
 			Integer changeTpye, Integer source, Integer closedType, Integer page, Integer pageSize) {
 
 		// 查询结果
-		Map<String, Object> result = new HashMap();
+		Map<String, Object> result = new HashMap<>();
 
 		// 查询条件
-		Map<String, Object> param = new HashMap();
+		Map<String, Object> param = new HashMap<>();
 
 		// 如果选择了全部，则不作为条件
 		if (null != areaId && !areaId.equals(104)) {
@@ -75,5 +88,34 @@ public class CoChgMonitorServiceImpl implements CoChgMonitorService {
 		result.put("results", list);
 
 		return result;
+	}
+
+	@Override
+	public void saveRiskChgCo(RiskChgCoDo riskChgCoDo) throws Exception {
+		if (riskChgCoDo == null) {
+			return;
+		}
+		// 区域
+		AreaDO areaDO = this.selectById(AreaDO.class, riskChgCoDo.getAreaId());
+		if (areaDO != null) {
+			riskChgCoDo.setAreaName(areaDO.getName());
+		}
+
+		// 楼宇
+		BuildingDO buildingDO = this.companyService.getCompanyBuild(riskChgCoDo.getCompanyId());
+		if (buildingDO != null) {
+			riskChgCoDo.setBuildingId(buildingDO.getBuildingId());
+			riskChgCoDo.setBuildingName(buildingDO.getName());
+		}
+
+		riskChgCoDo.setChangeDate(new Date());
+		riskChgCoDo.setCreateDate(new Date());
+
+		riskChgCoDo.setUpdateBy(null);
+		riskChgCoDo.setUpdateDate(null);
+
+		this.insert(riskChgCoDo);
+
+		LOGGER.warn("保存风险变化公司，riskChgCoId：{},companyId：{}", riskChgCoDo.getId(), riskChgCoDo.getCompanyId());
 	}
 }
