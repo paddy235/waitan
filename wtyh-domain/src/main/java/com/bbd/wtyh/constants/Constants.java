@@ -38,6 +38,15 @@ public class Constants {
 
 	}
 
+	/** 风险变化公司 */
+	public static class RiskChgCo {
+
+		/** 来源：人工修改 */
+		public static final Integer SOURCE_MANUAL_MODIFY = 1;
+		/** 来源：模型评分 */
+		public static final Integer SOURCE_MODEL_SCORE = 2;
+	}
+
 	// 角色类型
 
 	// 权限列表

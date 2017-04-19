@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 企业全息信息查询平台控制层
@@ -80,6 +78,12 @@ public class HologramQueryController {
 	@ResponseBody
 	public ResponseBean newsConsensus(@RequestParam(required = true) String company) {
 		Object result = hologramQueryService.newsConsensusList(company);
+		//数据平台舆情超时,返回null,会对前端取results的JS有影响
+		if(null==result){
+			Map map=new HashMap();
+			map.put("results",new ArrayList());
+			return ResponseBean.successResponse(map);
+		}
 		return ResponseBean.successResponse(result);
 	}
 
@@ -116,6 +120,10 @@ public class HologramQueryController {
 	@ResponseBody
 	public ResponseBean openCourtAnnouncement(@RequestParam(required = true) String company) {
 		List<OpenCourtAnnouncementDO.Results> result = hologramQueryService.openCourtAnnouncement(company);
+		//数据平台超时,返回null,会对前端取results的JS有影响
+		if(null==result){
+			result=new ArrayList();
+		}
 		return ResponseBean.successResponse(result);
 	}
 

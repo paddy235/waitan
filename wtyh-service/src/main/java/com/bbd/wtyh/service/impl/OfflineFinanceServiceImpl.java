@@ -17,6 +17,10 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 
+import com.bbd.wtyh.domain.*;
+import com.bbd.wtyh.service.*;
+import net.sf.cglib.beans.BeanCopier;
+import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import com.bbd.higgs.utils.ListUtil;
@@ -35,13 +40,6 @@ import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.common.Pagination;
 import com.bbd.wtyh.dao.OfflineFinanceDao;
 import com.bbd.wtyh.dao.P2PImageDao;
-import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
-import com.bbd.wtyh.domain.CompanyCreditDetailDO;
-import com.bbd.wtyh.domain.CompanyCreditInformationDO;
-import com.bbd.wtyh.domain.CompanyCreditPointItemsDO;
-import com.bbd.wtyh.domain.CompanyDO;
-import com.bbd.wtyh.domain.IndexDataDO;
-import com.bbd.wtyh.domain.StaticRiskDataDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.dto.RelationDTO;
 import com.bbd.wtyh.domain.dto.StaticRiskDTO;
@@ -58,11 +56,6 @@ import com.bbd.wtyh.mapper.IndexDataMapper;
 import com.bbd.wtyh.mapper.RiskCompanyMapper;
 import com.bbd.wtyh.mapper.StaticRiskMapper;
 import com.bbd.wtyh.redis.RedisDAO;
-import com.bbd.wtyh.service.BuildFileService;
-import com.bbd.wtyh.service.CompanyNewsService;
-import com.bbd.wtyh.service.OfflineFinanceService;
-import com.bbd.wtyh.service.PToPMonitorService;
-import com.bbd.wtyh.service.RelationCompanyService;
 import com.bbd.wtyh.service.impl.relation.RegisterUniversalFilterChainImp;
 import com.bbd.wtyh.service.impl.relation.common.APIConstants;
 import com.bbd.wtyh.service.impl.relation.exception.BbdException;
@@ -117,6 +110,10 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 	private CompanyAnalysisResultMapper companyAnalysisResultMapper;
 	@Autowired
 	private PToPMonitorService pToPMonitorService;
+
+	@Autowired
+	private CoChgMonitorService coChgMonitorService;
+
 	@Value("${share.path}")
 	private String shareDir;
 
@@ -145,7 +142,9 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 			for (int i = 1; i <= total; i++) {
 				pagination.setPageNumber(i);
 				params.put("pagination", pagination);
+
 				List<CompanyDO> list = companyMapper.findByPage(params);
+
 				if (!CollectionUtils.isEmpty(list)) {
 					for (final CompanyDO companyDO : list) {
 						dataExecutorService.submit(new Runnable() {
@@ -271,36 +270,57 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 		StaticRiskDataDO staticRiskDataDO = staticRiskMapper.queryStaticsRiskData(companyDO.getName());
 		Integer riskLevel = oldRiskLevel;
 		Integer riskLevelForPToP = platRankMapData.get(companyId);
+
 		if (riskLevelForPToP != null && riskLevelForPToP > 0) {
-			logger.warn("companyId:" + companyId + " riskLevelForP2P:" + riskLevelForPToP);
+			logger.warn("companyId:{} riskLevelForP2P:{}", companyId, riskLevelForPToP);
 			riskLevel = riskLevelForPToP;
 		}
 
 		if (staticRiskDataDO != null) {
 			BigDecimal staticsRiskIndex = staticRiskDataDO.getStaticRiskIndex();
+			// 大于65.9
 			if (staticsRiskIndex.compareTo(new BigDecimal("65.9")) == 1) {
 				riskLevel = 2;
-			} else if ((staticsRiskIndex.compareTo(new BigDecimal("57.8")) == 1 || staticsRiskIndex.compareTo(new BigDecimal("57.8")) == 0)
+				// 大于等于57.8 小于65.9
+			} else if (staticsRiskIndex.compareTo(new BigDecimal("57.8")) > -1
 					&& staticsRiskIndex.compareTo(new BigDecimal("65.9")) == -1) {
 				riskLevel = 3;
 			} else if (staticsRiskIndex.compareTo(new BigDecimal("57.8")) == -1) {
 				riskLevel = 4;
 			}
-			logger.warn("companyId:" + companyId + " riskLevel from static_risk_data:" + riskLevel);
+			logger.warn("companyId:{} riskLevel from static_risk_data:{}", companyId, riskLevel);
 		}
 
 		if (companyAnalysisResultDO != null) {
 			// 预付卡不考虑黑名单
 			if (companyType != CompanyDO.TYPE_YFK_11) {
 				riskLevel = (int) companyAnalysisResultDO.getAnalysisResult();
-				logger.warn("companyId:" + companyId + " riskLevel from company_analysis_result:" + riskLevel);
+				logger.warn("companyId:{} riskLevel from company_analysis_result:{}", companyId, riskLevel);
 			}
 		}
-		if (oldRiskLevel > riskLevel || oldRiskLevel < riskLevel) {
-			logger.error("riskLevel changed: companyId=" + companyId + " oldRiskLevel=" + oldRiskLevel + " newRiskLevel:" + riskLevel);
-		}
-
 		companyMapper.updateRiskLevel(riskLevel, companyId, "TIMER");
+
+		if (!oldRiskLevel.equals(riskLevel)) {
+			logger.error("riskLevel changed: companyId={} oldRiskLevel={} newRiskLevel:{}", companyId, oldRiskLevel, riskLevel);
+
+			// 添加风险变化公司
+			BeanCopier beanCopier = BeanCopier.create(CompanyDO.class, RiskChgCoDo.class, false);
+			RiskChgCoDo rcco = new RiskChgCoDo();
+			beanCopier.copy(companyDO, rcco, null);
+
+			rcco.setCompanyName(companyDO.getName());
+			rcco.setCompanyType(companyType);
+
+			rcco.setOldRiskLevel(oldRiskLevel);
+			rcco.setRiskLevel(riskLevel);
+			rcco.setSource(com.bbd.wtyh.constants.Constants.RiskChgCo.SOURCE_MODEL_SCORE);
+
+			try {
+				this.coChgMonitorService.saveRiskChgCo(rcco);
+			} catch (Exception e) {
+				logger.error("保存风险变化公司失败！companyId：" + companyId, e);
+			}
+		}
 	}
 
 	@Override
