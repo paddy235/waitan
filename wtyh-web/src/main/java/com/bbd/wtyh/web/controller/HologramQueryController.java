@@ -120,6 +120,10 @@ public class HologramQueryController {
 	@ResponseBody
 	public ResponseBean openCourtAnnouncement(@RequestParam(required = true) String company) {
 		List<OpenCourtAnnouncementDO.Results> result = hologramQueryService.openCourtAnnouncement(company);
+		//数据平台超时,返回null,会对前端取results的JS有影响
+		if(null==result){
+			result=new ArrayList();
+		}
 		return ResponseBean.successResponse(result);
 	}
 

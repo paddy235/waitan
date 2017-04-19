@@ -182,6 +182,9 @@ public class HologramQueryServiceImpl implements HologramQueryService {
     @Override
     public List<OpenCourtAnnouncementDO.Results> openCourtAnnouncement(String company) {
         OpenCourtAnnouncementDO courtAnnouncementDO = hologramQueryDao.openCourtAnnouncement(company);
+        if(null==courtAnnouncementDO){
+            return null;
+        }
         return courtAnnouncementDO.getResults();
     }
 
