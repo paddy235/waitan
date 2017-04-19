@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2017/4/18 0018.
  */
-public interface CoChgMonitorService {
+public interface CoAddOrCloseService {
 
 	/**
 	 * 根据条件查询企业增销变化

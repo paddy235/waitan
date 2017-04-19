@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2017/4/18 0018.
  */
-public interface CoChgMonitorMapper {
+public interface CoAddOrCloseMapper {
 
     List<CompanyStatusChangeDO> queryCompanyStatusChg(Map<String, Object> param);
 }

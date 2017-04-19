@@ -6,11 +6,10 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.bbd.bgo.service.task.PrivateFundTaskService;
 import com.bbd.bgo.service.task.SystemAnalyzeTaskService;
-import com.bbd.bgo.web.controller.CoChgMonitorController;
 import com.bbd.wtyh.domain.ResourceDo;
 import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.domain.dto.UserRoleDTO;
-import com.bbd.wtyh.service.CoChgMonitorService;
+import com.bbd.wtyh.service.CoAddOrCloseService;
 import com.bbd.wtyh.service.UserInfoService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,7 +41,7 @@ public class RoleResourceTest {
 	@Autowired
 	private SystemAnalyzeTaskService systemAnalyzeTaskService;
 	@Autowired
-	private CoChgMonitorService coChgMonitorService;
+	private CoAddOrCloseService coChgMonitorService;
 
 	@Test
 	public void getRoleResourceTest() throws Exception {

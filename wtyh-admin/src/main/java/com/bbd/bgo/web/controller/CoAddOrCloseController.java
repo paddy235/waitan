@@ -3,7 +3,7 @@ package com.bbd.bgo.web.controller;
 import com.bbd.wtyh.domain.CompanyStatusChangeDO;
 import com.bbd.wtyh.excel.ExportExcel;
 import com.bbd.wtyh.exception.ExceptionHandler;
-import com.bbd.wtyh.service.CoChgMonitorService;
+import com.bbd.wtyh.service.CoAddOrCloseService;
 import com.bbd.wtyh.web.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +24,7 @@ import java.util.Map;
 public class CoAddOrCloseController {
 
 	@Autowired
-	CoChgMonitorService coChgMonitorService;
+	private CoAddOrCloseService coAddOrCloseService;
 
 	@RequestMapping("/query-co-status-chg")
 	@ResponseBody
@@ -38,7 +38,7 @@ public class CoAddOrCloseController {
 				pageSize = 10;
 			}
 
-			Map<String, Object> map = coChgMonitorService.queryCompanyStatusChg(areaId, companyType, beginDate, endDate, changeTpye, source,
+			Map<String, Object> map = coAddOrCloseService.queryCompanyStatusChg(areaId, companyType, beginDate, endDate, changeTpye, source,
 					closedType, page, pageSize);
 
 			return ResponseBean.successResponse(map);
@@ -63,7 +63,7 @@ public class CoAddOrCloseController {
 				pageSize = 10;
 			}
 
-			Map<String, Object> map = coChgMonitorService.queryCompanyStatusChg(areaId, companyType, beginDate, endDate, changeTpye, source,
+			Map<String, Object> map = coAddOrCloseService.queryCompanyStatusChg(areaId, companyType, beginDate, endDate, changeTpye, source,
 					closedType, page, pageSize);
 			List<CompanyStatusChangeDO> list = (List<CompanyStatusChangeDO>) map.get("results");
 			exportExcel.createSheet(list);
