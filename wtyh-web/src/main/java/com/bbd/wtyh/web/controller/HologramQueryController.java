@@ -83,7 +83,9 @@ public class HologramQueryController {
 		Object result = hologramQueryService.newsConsensusList(company);
 		//数据平台舆情超时,返回null,会对前端取results的JS有影响
 		if(null==result){
-			result=(new HashMap()).put("results",null);
+			Map map=new HashMap();
+			map.put("results",null);
+			return ResponseBean.successResponse(map);
 		}
 		return ResponseBean.successResponse(result);
 	}
