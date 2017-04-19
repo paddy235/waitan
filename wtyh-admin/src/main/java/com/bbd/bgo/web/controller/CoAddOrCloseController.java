@@ -15,16 +15,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 企业变化监测-企业增销
+ * 
  * Created by Administrator on 2017/4/18 0018.
  */
 @Controller
-@RequestMapping("/coChgMonitor")
-public class CoChgMonitorController {
+@RequestMapping("/co-chg-monitor/co-add-close")
+public class CoAddOrCloseController {
 
 	@Autowired
 	CoChgMonitorService coChgMonitorService;
 
-	@RequestMapping("/queryCompanyStatusChg")
+	@RequestMapping("/query-co-status-chg")
 	@ResponseBody
 	public ResponseBean queryCompanyStatusChg(Integer areaId, Integer companyType, String beginDate, String endDate, Integer changeTpye,
 			Integer source, Integer closedType, @RequestParam Integer page, @RequestParam Integer pageSize) {
@@ -47,32 +49,30 @@ public class CoChgMonitorController {
 
 	}
 
-    @RequestMapping("/downloadCompanyStatusChg")
-    @ResponseBody
-    public ResponseBean downloadCompanyStatusChg(Integer areaId, Integer companyType, String beginDate, String endDate, Integer changeTpye,
-                                              Integer source, Integer closedType, @RequestParam Integer page, @RequestParam Integer pageSize) {
+	@RequestMapping("/download-co-status-chg")
+	@ResponseBody
+	public ResponseBean downloadCompanyStatusChg(Integer areaId, Integer companyType, String beginDate, String endDate, Integer changeTpye,
+			Integer source, Integer closedType, @RequestParam Integer page, @RequestParam Integer pageSize) {
 
-        ExportExcel exportExcel=new ExportExcel();
-        try {
-            if (null == page) {
-                page = 1;
-            }
-            if (null == pageSize) {
-                pageSize = 10;
-            }
+		ExportExcel exportExcel = new ExportExcel();
+		try {
+			if (null == page) {
+				page = 1;
+			}
+			if (null == pageSize) {
+				pageSize = 10;
+			}
 
-            Map<String, Object> map = coChgMonitorService.queryCompanyStatusChg(areaId, companyType, beginDate, endDate, changeTpye, source,
-                    closedType, page, pageSize);
-            List<CompanyStatusChangeDO> list=(List<CompanyStatusChangeDO>)map.get("results");
-            exportExcel.createSheet(list);
-            exportExcel.exportExcel();
-            return ResponseBean.successResponse("/download/download-excel.do?name="+exportExcel.getExcelName());
+			Map<String, Object> map = coChgMonitorService.queryCompanyStatusChg(areaId, companyType, beginDate, endDate, changeTpye, source,
+					closedType, page, pageSize);
+			List<CompanyStatusChangeDO> list = (List<CompanyStatusChangeDO>) map.get("results");
+			exportExcel.createSheet(list);
+			exportExcel.exportExcel();
+			return ResponseBean.successResponse("/download/download-excel.do?name=" + exportExcel.getExcelName());
 
-        } catch (Exception e) {
-            return ExceptionHandler.handlerException(e);
-        }
+		} catch (Exception e) {
+			return ExceptionHandler.handlerException(e);
+		}
 
-    }
-
-
+	}
 }
