@@ -8,15 +8,13 @@ import com.bbd.wtyh.domain.RiskChgCoDo;
 import com.bbd.wtyh.mapper.CoAddOrCloseMapper;
 import com.bbd.wtyh.service.CoAddOrCloseService;
 import com.bbd.wtyh.service.CompanyService;
+import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Administrator on 2017/4/18 0018.
@@ -33,7 +31,7 @@ public class CoAddOrCloseServiceImpl extends BaseServiceImpl implements CoAddOrC
 	private CompanyService companyService;
 
 	@Override
-	public Map<String, Object> queryCompanyStatusChg(Integer areaId, Integer companyType, String beginDate, String endDate,
+	public Map<String, Object> queryCompanyStatusChg(String areaIds, String companyTypes, String beginDate, String endDate,
 			Integer changeTpye, Integer source, Integer closedType, Integer page, Integer pageSize) {
 
 		// 查询结果
@@ -43,19 +41,22 @@ public class CoAddOrCloseServiceImpl extends BaseServiceImpl implements CoAddOrC
 		Map<String, Object> param = new HashMap<>();
 
 		// 如果选择了全部，则不作为条件
-		if (null != areaId && !areaId.equals(104)) {
-			param.put("areaId", areaId);
+		if(null!=areaIds){
+			String[] as=areaIds.split(",");
+
+			param.put("areaId", Arrays.asList(as));
 		}
 
-		if (null != companyType) {
-			param.put("companyType", companyType);
+		if (null != companyTypes) {
+			String[] cs=companyTypes.split(",");
+			param.put("companyType", Arrays.asList(cs));
 		}
 
 		if (null != beginDate) {
-			param.put("beginDate", beginDate);
+			param.put("beginDate", beginDate+"-01");
 		}
 		if (null != endDate) {
-			param.put("endDate", endDate);
+			param.put("endDate", endDate+"-31");
 		}
 		if (null != changeTpye) {
 			param.put("changeTpye", changeTpye);

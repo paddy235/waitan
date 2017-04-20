@@ -1,6 +1,7 @@
 package com.bbd.wtyh.domain;
 
 import com.bbd.wtyh.excel.annotation.Excel;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +18,25 @@ public class CompanyStatusChangeDO {
 
     public static final byte TYPE_CUR_1 = 1;//人民币
     public static final byte TYPE_CUR_2 = 2;//美元
+
+    public static final String CLOSE_TYPE_NAME_1 = "吊销";
+    public static final String CLOSE_TYPE_NAME_2= "注销";
+    public static final String CLOSE_TYPE_NAME_3= "拟吊销";
+    public static final String CLOSE_TYPE_NAME_4= "拟注销";
+    public static final String CLOSE_TYPE_NAME_5= "停业";
+    public static final String CLOSE_TYPE_NAME_6= "迁出";
+    public static final String CLOSE_TYPE_NAME_7= "撤销";
+    public static final String CLOSE_TYPE_NAME_8= "清算";
+    public static final String CLOSE_TYPE_NAME_9= "经营期限届满";
+    public static final String CLOSE_TYPE_NAME_10= "其他";
+
+    public static final String CHG_TYPE_NAME_1= "新增";
+    public static final String CHG_TYPE_NAME_2= "停业";
+
+    public static final String SOURCE_TYPE_NAME_1= "新注册";
+    public static final String SOURCE_TYPE_NAME_2= "新发现";
+    public static final String SOURCE_TYPE_NAME_3= "人工修改";
+
 
     /** ID */
     @Id
@@ -282,6 +302,7 @@ public class CompanyStatusChangeDO {
      *
      * @return registerDate 注册时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     public Date getRegisterDate() {
         return registerDate;
     }
@@ -300,6 +321,7 @@ public class CompanyStatusChangeDO {
      *
      * @return adjustDate 调整时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     public Date getAdjustDate() {
         return adjustDate;
     }
@@ -318,6 +340,7 @@ public class CompanyStatusChangeDO {
      *
      * @return closedDate 停业时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     public Date getClosedDate() {
         return closedDate;
     }
@@ -336,6 +359,7 @@ public class CompanyStatusChangeDO {
      *
      * @return orderDate 排序时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     public Date getOrderDate() {
         return orderDate;
     }
@@ -469,6 +493,7 @@ public class CompanyStatusChangeDO {
      *
      * @return createDate 创建时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getCreateDate() {
         return createDate;
     }
@@ -505,6 +530,7 @@ public class CompanyStatusChangeDO {
      *
      * @return updateDate 修改时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getUpdateDate() {
         return updateDate;
     }
@@ -536,7 +562,19 @@ public class CompanyStatusChangeDO {
     }
 
     public String getChangeTpyeName() {
-        return changeTpyeName;
+
+        if (null == changeTpye) {
+            return "";
+        }
+        switch (changeTpye) {
+            case 1:
+                return CHG_TYPE_NAME_1;
+            case 2:
+                return CHG_TYPE_NAME_2;
+            default:
+                return "";
+
+        }
     }
 
     public void setChangeTpyeName(String changeTpyeName) {
@@ -544,7 +582,22 @@ public class CompanyStatusChangeDO {
     }
 
     public String getSourceName() {
-        return sourceName;
+
+            if (null == source) {
+                return "";
+            }
+            switch (source) {
+                case 1:
+                    return SOURCE_TYPE_NAME_1;
+                case 2:
+                    return SOURCE_TYPE_NAME_2;
+                case 3:
+                    return SOURCE_TYPE_NAME_3;
+                default:
+                    return "";
+
+            }
+
     }
 
     public void setSourceName(String sourceName) {
@@ -552,7 +605,36 @@ public class CompanyStatusChangeDO {
     }
 
     public String getClosedTypeName() {
-        return closedTypeName;
+
+            if (null == closedType) {
+                return "";
+            }
+            switch (closedType) {
+                case 1:
+                    return CLOSE_TYPE_NAME_1;
+                case 2:
+                    return CLOSE_TYPE_NAME_2;
+                case 3:
+                    return CLOSE_TYPE_NAME_3;
+                case 4:
+                    return CLOSE_TYPE_NAME_4;
+                case 5:
+                    return CLOSE_TYPE_NAME_5;
+                case 6:
+                    return CLOSE_TYPE_NAME_6;
+                case 7:
+                    return CLOSE_TYPE_NAME_7;
+                case 8:
+                    return CLOSE_TYPE_NAME_8;
+                case 9:
+                    return CLOSE_TYPE_NAME_9;
+                case 10:
+                    return CLOSE_TYPE_NAME_10;
+                default:
+                    return "";
+
+
+        }
     }
 
     public void setClosedTypeName(String closedTypeName) {

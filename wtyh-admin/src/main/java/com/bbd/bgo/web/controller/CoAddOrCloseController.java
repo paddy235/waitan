@@ -28,17 +28,17 @@ public class CoAddOrCloseController {
 
 	@RequestMapping("/query-co-status-chg")
 	@ResponseBody
-	public ResponseBean queryCompanyStatusChg(Integer areaId, Integer companyType, String beginDate, String endDate, Integer changeTpye,
+	public ResponseBean queryCompanyStatusChg(String areaIds, String companyTypes, String beginDate, String endDate, Integer changeTpye,
 			Integer source, Integer closedType, @RequestParam Integer page, @RequestParam Integer pageSize) {
 		try {
 			if (null == page) {
 				page = 1;
 			}
 			if (null == pageSize) {
-				pageSize = 10;
+				pageSize = 20;
 			}
 
-			Map<String, Object> map = coAddOrCloseService.queryCompanyStatusChg(areaId, companyType, beginDate, endDate, changeTpye, source,
+			Map<String, Object> map = coAddOrCloseService.queryCompanyStatusChg(areaIds, companyTypes, beginDate, endDate, changeTpye, source,
 					closedType, page, pageSize);
 
 			return ResponseBean.successResponse(map);
@@ -51,7 +51,7 @@ public class CoAddOrCloseController {
 
 	@RequestMapping("/download-co-status-chg")
 	@ResponseBody
-	public ResponseBean downloadCompanyStatusChg(Integer areaId, Integer companyType, String beginDate, String endDate, Integer changeTpye,
+	public ResponseBean downloadCompanyStatusChg(String areaIds, String companyTypes, String beginDate, String endDate, Integer changeTpye,
 			Integer source, Integer closedType, @RequestParam Integer page, @RequestParam Integer pageSize) {
 
 		ExportExcel exportExcel = new ExportExcel();
@@ -60,10 +60,10 @@ public class CoAddOrCloseController {
 				page = 1;
 			}
 			if (null == pageSize) {
-				pageSize = 10;
+				pageSize = 20;
 			}
 
-			Map<String, Object> map = coAddOrCloseService.queryCompanyStatusChg(areaId, companyType, beginDate, endDate, changeTpye, source,
+			Map<String, Object> map = coAddOrCloseService.queryCompanyStatusChg(areaIds, companyTypes, beginDate, endDate, changeTpye, source,
 					closedType, page, pageSize);
 			List<CompanyStatusChangeDO> list = (List<CompanyStatusChangeDO>) map.get("results");
 			exportExcel.createSheet(list);
