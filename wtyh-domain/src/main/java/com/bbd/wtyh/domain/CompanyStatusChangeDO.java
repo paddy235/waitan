@@ -15,6 +15,9 @@ import java.util.Date;
 @Table(name = "company_status_change")
 public class CompanyStatusChangeDO {
 
+    public static final byte TYPE_CUR_1 = 1;//人民币
+    public static final byte TYPE_CUR_2 = 2;//美元
+
     /** ID */
     @Id
     @Column(name = "id")
@@ -80,6 +83,13 @@ public class CompanyStatusChangeDO {
     @Excel(exportName = "注册资本")
     @Column(name = "registered_capital")
     private Integer registeredCapital;
+
+    /** 注册资本类型 */
+    @Column(name = "registered_capital_type")
+    private Integer registeredCapitalType;
+
+    /** 注册资本类型名称*/
+    private String registeredCapitalTypeName;
 
     /** 变化类型 1:新增,2:停业 */
     @Column(name = "change_tpye")
@@ -357,6 +367,13 @@ public class CompanyStatusChangeDO {
         this.registeredCapital = registeredCapital;
     }
 
+    public Integer getRegisteredCapitalType() {
+        return registeredCapitalType;
+    }
+
+    public void setRegisteredCapitalType(Integer registeredCapitalType) {
+        this.registeredCapitalType = registeredCapitalType;
+    }
     /**
      * 获取 变化类型 1:新增,2:停业
      *
@@ -540,5 +557,24 @@ public class CompanyStatusChangeDO {
 
     public void setClosedTypeName(String closedTypeName) {
         this.closedTypeName = closedTypeName;
+    }
+
+    public String getRegisteredCapitalTypeName() {
+            if (null == registeredCapitalType) {
+                return "";
+            }
+            switch (registeredCapitalType.byteValue()) {
+                case TYPE_CUR_1:
+                    return "人民币";
+                case TYPE_CUR_2:
+                    return "美元";
+                default:
+                    return "";
+            }
+    }
+
+
+    public void setRegisteredCapitalTypeName(String registeredCapitalTypeName) {
+        this.registeredCapitalTypeName = registeredCapitalTypeName;
     }
 }
