@@ -23,7 +23,6 @@ import java.util.*;
 public class MybatisPaginationInterceptor implements Interceptor {
 
 	private static Logger logger = LoggerFactory.getLogger(MybatisPaginationInterceptor.class);
-	private String databaseType;
 
 	@Override
 	public Object intercept(Invocation invocation) throws Throwable {
@@ -57,16 +56,10 @@ public class MybatisPaginationInterceptor implements Interceptor {
 			// 获取当前要执行的Sql语句，也就是我们直接在Mapper映射语句中写的Sql语句
 			String sql = MyBatisUtil.ridSqlBlank(boundSql.getSql());
 
-			long s = System.currentTimeMillis();
 			this.setTotalRecord(sql, connection, pagination);
-			long e = System.currentTimeMillis();
-			System.out.println("-----------------select total耗时：" + (e - s));
-			// 获取分页Sql语句
 
-			long s1 = System.currentTimeMillis();
+			// 获取分页Sql语句
 			String pageSql = this.getPageSql(pagination, sql, connection);
-			long e1 = System.currentTimeMillis();
-			System.out.println("-----------------处理SQL耗时：" + (e1 - s1));
 
 			// 利用反射设置当前BoundSql对应的sql属性为我们建立好的分页Sql语句
 			ReflectUtil.setFieldValue(boundSql, "sql", pageSql);
@@ -84,11 +77,6 @@ public class MybatisPaginationInterceptor implements Interceptor {
 	@Override
 	public void setProperties(Properties properties) {
 		System.out.println(properties.getProperty("databaseType"));
-	}
-
-	@SuppressWarnings("unused")
-	public void setDatabaseType(String databaseType) {
-		this.databaseType = databaseType;
 	}
 
 	/**
@@ -218,10 +206,6 @@ public class MybatisPaginationInterceptor implements Interceptor {
 		sqlBuilder.append(selectSet).append(" FROM ").append(tableName).append(" ").append(alias).append(" JOIN ").append(" (SELECT ")
 				.append(idName).append(" AS id ").append(from).append(" LIMIT ").append(offset).append(",").append(page.getPageSize())
 				.append(") t2 ON t2.id = t1.").append(idName);
-
-		System.out.println(sqlBuilder);
-
-		// return sql + " LIMIT " + offset + "," + page.getPageSize();
 
 		return sqlBuilder.toString();
 	}
