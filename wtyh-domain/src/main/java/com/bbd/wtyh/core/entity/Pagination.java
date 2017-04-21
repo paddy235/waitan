@@ -1,5 +1,8 @@
 package com.bbd.wtyh.core.entity;
 
+import com.alibaba.fastjson.JSON;
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,13 +12,13 @@ import java.util.List;
  * @author Created by LiYao on 2017-03-04 20:54.
  */
 @SuppressWarnings("all")
-public class Pagination<T> {
+public class Pagination {
 
 	private int pageSize = 20;// 每页显示多少
 	private int pageIndex = 1;// 第几页
 	private int totalCount;// 数据总条数
 	private int pageCount;// 一共多少页
-	private List<T> list;
+	private List<?> list;
 	private int begin = 1;// 开始页码
 	private int end = 10;// 结束页码
 
@@ -48,8 +51,8 @@ public class Pagination<T> {
 	 *
 	 * @return List<T>
 	 */
-	public List<T> getList() {
-		return list == null ? new ArrayList<T>() : this.list;
+	public List<?> getList() {
+		return list == null ? new ArrayList<>() : this.list;
 	}
 
 	/**
@@ -57,7 +60,7 @@ public class Pagination<T> {
 	 *
 	 * @param list
 	 */
-	public void setList(List<T> list) {
+	public void setList(List<?> list) {
 		this.list = list;
 	}
 
@@ -73,6 +76,12 @@ public class Pagination<T> {
 	public void setPageSize(int pageSize) {
 		if (pageSize != 0) {
 			this.pageSize = pageSize;
+		}
+	}
+
+	public void setPageSize(String pageSize) {
+		if (StringUtils.isNotBlank(pageSize)) {
+			this.pageSize = Integer.parseInt(pageSize);
 		}
 	}
 
@@ -174,4 +183,8 @@ public class Pagination<T> {
 		return this.pageIndex - 1 < 1 ? 1 : this.pageIndex - 1;
 	}
 
+	@Override
+	public String toString() {
+		return JSON.toJSONString(this);
+	}
 }
