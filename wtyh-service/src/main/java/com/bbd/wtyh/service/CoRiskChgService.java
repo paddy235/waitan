@@ -1,6 +1,8 @@
 package com.bbd.wtyh.service;
 
 import com.bbd.wtyh.core.base.BaseService;
+import com.bbd.wtyh.core.entity.Pagination;
+import com.bbd.wtyh.domain.RiskChgCoDo;
 
 import java.util.List;
 import java.util.Map;
@@ -18,4 +20,13 @@ public interface CoRiskChgService extends BaseService {
 	 * @return
 	 */
 	List<Map<String, Object>> riskChgCoBuilding();
+
+	/**
+	 * 查询分页数据
+	 * 
+	 * @param paramMap
+	 * @param page
+	 * @return
+	 */
+	List<RiskChgCoDo> queryPageData(Map<String, String> paramMap, Pagination page);
 }
