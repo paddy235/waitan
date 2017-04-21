@@ -49,7 +49,7 @@ public interface BaseService {
 	 *            查询条件
 	 * @return
 	 */
-	<T> List<T> selectByPage(Class<T> clazz, Pagination<T> pagination, String where);
+	<T> List<T> selectByPage(Class<T> clazz, Pagination pagination, String where);
 
 	/**
 	 * 插入一条数据

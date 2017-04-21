@@ -44,7 +44,7 @@ public class CRUDTemplate {
 
 		// ORDER BY
 		if (where.toUpperCase().contains("ORDER BY")) {
-			String orderBy = where.toUpperCase().substring(where.toUpperCase().indexOf("ORDER BY"), where.length());
+			String orderBy = where.substring(where.toUpperCase().indexOf("ORDER BY"), where.length());
 			if (orderBy.trim().length() > 0) {
 				sql.ORDER_BY(orderBy.replaceAll("ORDER BY", ""));
 			}
@@ -52,7 +52,7 @@ public class CRUDTemplate {
 		}
 		// GROUP BY
 		if (where.toUpperCase().contains("GROUP BY")) {
-			String groupBy = where.toUpperCase().substring(where.toUpperCase().indexOf("GROUP BY"), where.length());
+			String groupBy = where.substring(where.toUpperCase().indexOf("GROUP BY"), where.length());
 			if (groupBy.trim().length() > 0) {
 				sql.GROUP_BY(groupBy.replaceAll("GROUP BY", ""));
 			}
