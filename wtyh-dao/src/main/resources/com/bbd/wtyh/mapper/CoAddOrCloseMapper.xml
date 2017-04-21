@@ -62,7 +62,7 @@
     <if test="closedType !=null">
       AND  `closed_type` = #{closedType}
     </if>
-  ORDER BY order_date DESC
+  ORDER BY order_date DESC,create_date DESC
   <if test="pages !=null ">
     LIMIT
       #{page},
