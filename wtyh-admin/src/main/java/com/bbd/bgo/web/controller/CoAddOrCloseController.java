@@ -1,5 +1,9 @@
 package com.bbd.bgo.web.controller;
 
+import com.bbd.wtyh.constants.ChangeType;
+import com.bbd.wtyh.constants.CompanyClosedType;
+import com.bbd.wtyh.constants.RiskLevel;
+import com.bbd.wtyh.constants.SourceType;
 import com.bbd.wtyh.domain.CompanyStatusChangeDO;
 import com.bbd.wtyh.excel.ExportExcel;
 import com.bbd.wtyh.exception.ExceptionHandler;
@@ -11,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -75,4 +81,54 @@ public class CoAddOrCloseController {
 		}
 
 	}
+
+	@RequestMapping("/get-closed-type")
+	@ResponseBody
+	public  ResponseBean getClosedType(){
+		CompanyClosedType[] types = CompanyClosedType.values();
+		Map results=new HashMap();
+		List<Map<String, Object>> list = new ArrayList<>();
+		for (CompanyClosedType rl : types) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("code", rl.type());
+			map.put("name", rl.desc());
+			list.add(map);
+		}
+		results.put("results",list);
+		return ResponseBean.successResponse(results);
+	}
+
+	@RequestMapping("/get-change-type")
+	@ResponseBody
+	public  ResponseBean getChangeType(){
+		ChangeType[] types = ChangeType.values();
+		Map results=new HashMap();
+		List<Map<String, Object>> list = new ArrayList<>();
+		for (ChangeType rl : types) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("code", rl.type());
+			map.put("name", rl.desc());
+			list.add(map);
+		}
+		results.put("results",list);
+		return ResponseBean.successResponse(results);
+	}
+
+	@RequestMapping("/get-source-type")
+	@ResponseBody
+	public  ResponseBean getSourceType(){
+		SourceType[] types = SourceType.values();
+		Map results=new HashMap();
+		List<Map<String, Object>> list = new ArrayList<>();
+		for (SourceType rl : types) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("code", rl.type());
+			map.put("name", rl.desc());
+			list.add(map);
+		}
+		results.put("results",list);
+		return ResponseBean.successResponse(results);
+	}
+
+
 }

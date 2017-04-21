@@ -1,5 +1,8 @@
 package com.bbd.wtyh.domain;
 
+import com.bbd.wtyh.constants.ChangeType;
+import com.bbd.wtyh.constants.CompanyClosedType;
+import com.bbd.wtyh.constants.SourceType;
 import com.bbd.wtyh.excel.annotation.Excel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -18,24 +21,6 @@ public class CompanyStatusChangeDO {
 
     public static final byte TYPE_CUR_1 = 1;//人民币
     public static final byte TYPE_CUR_2 = 2;//美元
-
-    public static final String CLOSE_TYPE_NAME_1 = "吊销";
-    public static final String CLOSE_TYPE_NAME_2= "注销";
-    public static final String CLOSE_TYPE_NAME_3= "拟吊销";
-    public static final String CLOSE_TYPE_NAME_4= "拟注销";
-    public static final String CLOSE_TYPE_NAME_5= "停业";
-    public static final String CLOSE_TYPE_NAME_6= "迁出";
-    public static final String CLOSE_TYPE_NAME_7= "撤销";
-    public static final String CLOSE_TYPE_NAME_8= "清算";
-    public static final String CLOSE_TYPE_NAME_9= "经营期限届满";
-    public static final String CLOSE_TYPE_NAME_10= "其他";
-
-    public static final String CHG_TYPE_NAME_1= "新增";
-    public static final String CHG_TYPE_NAME_2= "停业";
-
-    public static final String SOURCE_TYPE_NAME_1= "新注册";
-    public static final String SOURCE_TYPE_NAME_2= "新发现";
-    public static final String SOURCE_TYPE_NAME_3= "人工修改";
 
 
     /** ID */
@@ -568,9 +553,9 @@ public class CompanyStatusChangeDO {
         }
         switch (changeTpye) {
             case 1:
-                return CHG_TYPE_NAME_1;
+                return ChangeType.CHANGE_NEW.desc();
             case 2:
-                return CHG_TYPE_NAME_2;
+                return ChangeType.CHANGE_CLOSE.desc();
             default:
                 return "";
 
@@ -588,11 +573,11 @@ public class CompanyStatusChangeDO {
             }
             switch (source) {
                 case 1:
-                    return SOURCE_TYPE_NAME_1;
+                    return SourceType.SOURCE_REGISTER.desc();
                 case 2:
-                    return SOURCE_TYPE_NAME_2;
+                    return SourceType.SOURCE_FIND.desc();
                 case 3:
-                    return SOURCE_TYPE_NAME_3;
+                    return SourceType.SOURCE_MODIFY.desc();
                 default:
                     return "";
 
@@ -611,25 +596,25 @@ public class CompanyStatusChangeDO {
             }
             switch (closedType) {
                 case 1:
-                    return CLOSE_TYPE_NAME_1;
+                    return CompanyClosedType.CLOSE_TYPE_1.name();
                 case 2:
-                    return CLOSE_TYPE_NAME_2;
+                    return CompanyClosedType.CLOSE_TYPE_2.name();
                 case 3:
-                    return CLOSE_TYPE_NAME_3;
+                    return CompanyClosedType.CLOSE_TYPE_3.name();
                 case 4:
-                    return CLOSE_TYPE_NAME_4;
+                    return CompanyClosedType.CLOSE_TYPE_4.name();
                 case 5:
-                    return CLOSE_TYPE_NAME_5;
+                    return CompanyClosedType.CLOSE_TYPE_5.name();
                 case 6:
-                    return CLOSE_TYPE_NAME_6;
+                    return CompanyClosedType.CLOSE_TYPE_6.name();
                 case 7:
-                    return CLOSE_TYPE_NAME_7;
+                    return CompanyClosedType.CLOSE_TYPE_7.name();
                 case 8:
-                    return CLOSE_TYPE_NAME_8;
+                    return CompanyClosedType.CLOSE_TYPE_8.name();
                 case 9:
-                    return CLOSE_TYPE_NAME_9;
+                    return CompanyClosedType.CLOSE_TYPE_9.name();
                 case 10:
-                    return CLOSE_TYPE_NAME_10;
+                    return CompanyClosedType.CLOSE_TYPE_10.name();
                 default:
                     return "";
 
