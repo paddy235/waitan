@@ -1,9 +1,16 @@
 package com.bbd.bgo.web.controller;
 
-import com.bbd.wtyh.constants.*;
+
+import com.bbd.wtyh.common.Constants;
+import com.bbd.wtyh.constants.ChangeType;
+import com.bbd.wtyh.constants.CompanyClosedType;
+import com.bbd.wtyh.constants.CompanyType;
+import com.bbd.wtyh.constants.SourceType;
+import com.bbd.wtyh.domain.AreaDO;
 import com.bbd.wtyh.domain.CompanyStatusChangeDO;
 import com.bbd.wtyh.excel.ExportExcel;
 import com.bbd.wtyh.exception.ExceptionHandler;
+import com.bbd.wtyh.service.AreaService;
 import com.bbd.wtyh.service.CoAddOrCloseService;
 import com.bbd.wtyh.web.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +35,8 @@ public class CoAddOrCloseController {
 
 	@Autowired
 	private CoAddOrCloseService coAddOrCloseService;
+	@Autowired
+	private AreaService areaService;
 
 	@RequestMapping("/query-co-status-chg")
 	@ResponseBody
@@ -137,6 +146,22 @@ public class CoAddOrCloseController {
 			Map<String, Object> map = new HashMap<>();
 			map.put("code", rl.type());
 			map.put("name", rl.desc());
+			list.add(map);
+		}
+		results.put("results",list);
+		return ResponseBean.successResponse(results);
+	}
+
+	@RequestMapping("/get-all-area")
+	@ResponseBody
+	public  ResponseBean getAllArea(){
+		List<AreaDO> areaList=areaService.areaListAll(Constants.SH_AREAID);
+		Map results=new HashMap();
+		List<Map<String, Object>> list = new ArrayList<>();
+		for (AreaDO area : areaList) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("areaId", area.getAreaId());
+			map.put("name", area.getName());
 			list.add(map);
 		}
 		results.put("results",list);
