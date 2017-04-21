@@ -1,9 +1,6 @@
 package com.bbd.bgo.web.controller;
 
-import com.bbd.wtyh.constants.ChangeType;
-import com.bbd.wtyh.constants.CompanyClosedType;
-import com.bbd.wtyh.constants.RiskLevel;
-import com.bbd.wtyh.constants.SourceType;
+import com.bbd.wtyh.constants.*;
 import com.bbd.wtyh.domain.CompanyStatusChangeDO;
 import com.bbd.wtyh.excel.ExportExcel;
 import com.bbd.wtyh.exception.ExceptionHandler;
@@ -121,6 +118,22 @@ public class CoAddOrCloseController {
 		Map results=new HashMap();
 		List<Map<String, Object>> list = new ArrayList<>();
 		for (SourceType rl : types) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("code", rl.type());
+			map.put("name", rl.desc());
+			list.add(map);
+		}
+		results.put("results",list);
+		return ResponseBean.successResponse(results);
+	}
+
+	@RequestMapping("/get-company-type")
+	@ResponseBody
+	public  ResponseBean getCompanyType(){
+		CompanyType[] types = CompanyType.values();
+		Map results=new HashMap();
+		List<Map<String, Object>> list = new ArrayList<>();
+		for (CompanyType rl : types) {
 			Map<String, Object> map = new HashMap<>();
 			map.put("code", rl.type());
 			map.put("name", rl.desc());
