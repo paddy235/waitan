@@ -1,6 +1,7 @@
 package com.bbd.wtyh.log.user.interceptor;
 
 import com.alibaba.fastjson.JSON;
+import com.bbd.wtyh.core.utils.ParamUtil;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
@@ -32,11 +33,11 @@ public class UserLogInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 		LogRecord logRecord = this.logRecordAnnotation(handler);
-		try{
-            if (request.getSession().getAttribute("loginUser") == null || logRecord == null || !logRecord.after()) {
-                return;
-            }
-		}catch (Exception e){
+		try {
+			if (request.getSession().getAttribute("loginUser") == null || logRecord == null || !logRecord.after()) {
+				return;
+			}
+		} catch (Exception e) {
 			return;
 		}
 
@@ -52,7 +53,7 @@ public class UserLogInterceptor extends HandlerInterceptorAdapter {
 		Operation.Page operationPage = logRecord.page();
 
 		// 请求中的全部参数
-		Map<String, String> paramMap = UserLogRecord.getParameterMap(request);
+		Map<String, String> paramMap = ParamUtil.getRequestParamMap(request);
 		// 替换占位符的具体内容数组
 		Object[] placeholderReplace = new Object[params.length];
 		for (int i = 0; i < params.length; i++) {

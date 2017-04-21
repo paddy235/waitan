@@ -2,6 +2,8 @@ package com.bbd.bgo.web.controller;
 
 import com.bbd.wtyh.constants.RiskChgCoSource;
 import com.bbd.wtyh.constants.RiskLevel;
+import com.bbd.wtyh.core.entity.Pagination;
+import com.bbd.wtyh.core.utils.ParamUtil;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.service.CoRiskChgService;
 import com.bbd.wtyh.web.ResponseBean;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,13 +39,50 @@ public class CoRiskChgController {
 	@ResponseBody
 	public Object riskChgCoDropDownData() {
 		Map<String, Object> data = new HashMap<>();
-
+		// 金融类型
 		data.put("financialType", this.riskChgCoFinancialType());
+		// 楼宇
 		data.put("building", this.riskChgCoBuilding());
+		// 风险等级
 		data.put("riskLevel", this.riskChgCoRiskLevel());
+		// 来源
 		data.put("source", this.riskChgCoSource());
 
 		return ResponseBean.successResponse(data);
+	}
+
+	/**
+	 * 企业变化监测-风险变化企业-数据查询
+	 * 
+	 * @param sdate
+	 *            开始时间
+	 * @param edate
+	 *            结束时间
+	 * @param areaSet
+	 *            区域ID集合，逗号分割
+	 * @param financialType
+	 *            金融类别
+	 * @param buildId
+	 *            楼宇ID
+	 * @param riskLevel
+	 *            风险等级
+	 * @param source
+	 *            来源
+	 * @param statusSort
+	 *            原始状态排序。DESC：降序，ASC：升序，DEFAULT：默认排序
+	 * @param pageIndex
+	 *            页码
+	 * @param pageSize
+	 *            每页大小，默认20
+	 * @return
+	 */
+	@RequestMapping("/query-data")
+	@ResponseBody
+	public Object queryData(HttpServletRequest request, Pagination page) {
+
+		Map<String, String> paramMap = ParamUtil.getRequestParamMap(request);
+
+		return null;
 	}
 
 	/**
@@ -71,8 +111,7 @@ public class CoRiskChgController {
 	 */
 
 	private Object riskChgCoBuilding() {
-		List<Map<String, Object>> buildList = this.coRiskChgService.riskChgCoBuilding();
-		return buildList;
+		return this.coRiskChgService.riskChgCoBuilding();
 	}
 
 	/**
@@ -110,5 +149,4 @@ public class CoRiskChgController {
 		}
 		return riskList;
 	}
-
 }

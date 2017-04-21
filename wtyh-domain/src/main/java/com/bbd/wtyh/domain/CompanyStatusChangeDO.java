@@ -1,6 +1,10 @@
 package com.bbd.wtyh.domain;
 
+import com.bbd.wtyh.constants.ChangeType;
+import com.bbd.wtyh.constants.CompanyClosedType;
+import com.bbd.wtyh.constants.SourceType;
 import com.bbd.wtyh.excel.annotation.Excel;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +18,10 @@ import java.util.Date;
 @Entity
 @Table(name = "company_status_change")
 public class CompanyStatusChangeDO {
+
+    public static final byte TYPE_CUR_1 = 1;//人民币
+    public static final byte TYPE_CUR_2 = 2;//美元
+
 
     /** ID */
     @Id
@@ -80,6 +88,13 @@ public class CompanyStatusChangeDO {
     @Excel(exportName = "注册资本")
     @Column(name = "registered_capital")
     private Integer registeredCapital;
+
+    /** 注册资本类型 */
+    @Column(name = "registered_capital_type")
+    private Integer registeredCapitalType;
+
+    /** 注册资本类型名称*/
+    private String registeredCapitalTypeName;
 
     /** 变化类型 1:新增,2:停业 */
     @Column(name = "change_tpye")
@@ -272,6 +287,7 @@ public class CompanyStatusChangeDO {
      *
      * @return registerDate 注册时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     public Date getRegisterDate() {
         return registerDate;
     }
@@ -290,6 +306,7 @@ public class CompanyStatusChangeDO {
      *
      * @return adjustDate 调整时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     public Date getAdjustDate() {
         return adjustDate;
     }
@@ -308,6 +325,7 @@ public class CompanyStatusChangeDO {
      *
      * @return closedDate 停业时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     public Date getClosedDate() {
         return closedDate;
     }
@@ -326,6 +344,7 @@ public class CompanyStatusChangeDO {
      *
      * @return orderDate 排序时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     public Date getOrderDate() {
         return orderDate;
     }
@@ -357,6 +376,13 @@ public class CompanyStatusChangeDO {
         this.registeredCapital = registeredCapital;
     }
 
+    public Integer getRegisteredCapitalType() {
+        return registeredCapitalType;
+    }
+
+    public void setRegisteredCapitalType(Integer registeredCapitalType) {
+        this.registeredCapitalType = registeredCapitalType;
+    }
     /**
      * 获取 变化类型 1:新增,2:停业
      *
@@ -452,6 +478,7 @@ public class CompanyStatusChangeDO {
      *
      * @return createDate 创建时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getCreateDate() {
         return createDate;
     }
@@ -488,6 +515,7 @@ public class CompanyStatusChangeDO {
      *
      * @return updateDate 修改时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getUpdateDate() {
         return updateDate;
     }
@@ -519,7 +547,19 @@ public class CompanyStatusChangeDO {
     }
 
     public String getChangeTpyeName() {
-        return changeTpyeName;
+
+        if (null == changeTpye) {
+            return "";
+        }
+        switch (changeTpye) {
+            case 1:
+                return ChangeType.CHANGE_NEW.desc();
+            case 2:
+                return ChangeType.CHANGE_CLOSE.desc();
+            default:
+                return "";
+
+        }
     }
 
     public void setChangeTpyeName(String changeTpyeName) {
@@ -527,7 +567,22 @@ public class CompanyStatusChangeDO {
     }
 
     public String getSourceName() {
-        return sourceName;
+
+            if (null == source) {
+                return "";
+            }
+            switch (source) {
+                case 1:
+                    return SourceType.SOURCE_REGISTER.desc();
+                case 2:
+                    return SourceType.SOURCE_FIND.desc();
+                case 3:
+                    return SourceType.SOURCE_MODIFY.desc();
+                default:
+                    return "";
+
+            }
+
     }
 
     public void setSourceName(String sourceName) {
@@ -535,10 +590,58 @@ public class CompanyStatusChangeDO {
     }
 
     public String getClosedTypeName() {
-        return closedTypeName;
+
+            if (null == closedType) {
+                return "";
+            }
+            switch (closedType) {
+                case 1:
+                    return CompanyClosedType.CLOSE_TYPE_1.name();
+                case 2:
+                    return CompanyClosedType.CLOSE_TYPE_2.name();
+                case 3:
+                    return CompanyClosedType.CLOSE_TYPE_3.name();
+                case 4:
+                    return CompanyClosedType.CLOSE_TYPE_4.name();
+                case 5:
+                    return CompanyClosedType.CLOSE_TYPE_5.name();
+                case 6:
+                    return CompanyClosedType.CLOSE_TYPE_6.name();
+                case 7:
+                    return CompanyClosedType.CLOSE_TYPE_7.name();
+                case 8:
+                    return CompanyClosedType.CLOSE_TYPE_8.name();
+                case 9:
+                    return CompanyClosedType.CLOSE_TYPE_9.name();
+                case 10:
+                    return CompanyClosedType.CLOSE_TYPE_10.name();
+                default:
+                    return "";
+
+
+        }
     }
 
     public void setClosedTypeName(String closedTypeName) {
         this.closedTypeName = closedTypeName;
+    }
+
+    public String getRegisteredCapitalTypeName() {
+            if (null == registeredCapitalType) {
+                return "";
+            }
+            switch (registeredCapitalType.byteValue()) {
+                case TYPE_CUR_1:
+                    return "人民币";
+                case TYPE_CUR_2:
+                    return "美元";
+                default:
+                    return "";
+            }
+    }
+
+
+    public void setRegisteredCapitalTypeName(String registeredCapitalTypeName) {
+        this.registeredCapitalTypeName = registeredCapitalTypeName;
     }
 }

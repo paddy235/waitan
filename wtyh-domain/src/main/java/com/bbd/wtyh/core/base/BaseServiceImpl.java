@@ -43,7 +43,7 @@ public class BaseServiceImpl implements BaseService {
 	}
 
 	@Override
-	public <T> List<T> selectByPage(Class<T> clazz, Pagination<T> pagination, String where) {
+	public <T> List<T> selectByPage(Class<T> clazz, Pagination pagination, String where) {
 		return generalMapper.baseSelectByPage(clazz, pagination, where);
 	}
 

@@ -2,19 +2,17 @@ package com.bbd.wtyh.core.mybatis;
 
 import com.bbd.wtyh.core.entity.Pagination;
 import com.bbd.wtyh.core.utils.ReflectUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.executor.statement.RoutingStatementHandler;
 import org.apache.ibatis.executor.statement.StatementHandler;
+import org.apache.ibatis.jdbc.SQL;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.plugin.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Map;
-import java.util.Properties;
+import java.sql.*;
+import java.util.*;
 
 /**
  * Mybatis分页拦截组件
@@ -25,7 +23,6 @@ import java.util.Properties;
 public class MybatisPaginationInterceptor implements Interceptor {
 
 	private static Logger logger = LoggerFactory.getLogger(MybatisPaginationInterceptor.class);
-	private String databaseType;
 
 	@Override
 	public Object intercept(Invocation invocation) throws Throwable {
@@ -44,7 +41,7 @@ public class MybatisPaginationInterceptor implements Interceptor {
 			Map<?, ?> paramMap = (Map<?, ?>) obj;
 			for (Map.Entry<?, ?> entry : paramMap.entrySet()) {
 				Object val = entry.getValue();
-				if (val instanceof Pagination<?>) {
+				if (val instanceof Pagination) {
 					pagParme = val;
 					isPaging = true;
 					break;
@@ -52,15 +49,18 @@ public class MybatisPaginationInterceptor implements Interceptor {
 			}
 		}
 
-		if (obj instanceof Pagination<?> || isPaging) {
-			Pagination<?> pagination = (Pagination<?>) pagParme;
+		if (obj instanceof Pagination || isPaging) {
+			Pagination pagination = (Pagination) pagParme;
 			// 拦截到的prepare方法参数是一个Connection对象
 			Connection connection = (Connection) invocation.getArgs()[0];
 			// 获取当前要执行的Sql语句，也就是我们直接在Mapper映射语句中写的Sql语句
-			String sql = boundSql.getSql();
+			String sql = MyBatisUtil.ridSqlBlank(boundSql.getSql());
+
 			this.setTotalRecord(sql, connection, pagination);
+
 			// 获取分页Sql语句
-			String pageSql = this.getPageSql(pagination, sql);
+			String pageSql = this.getPageSql(pagination, sql, connection);
+
 			// 利用反射设置当前BoundSql对应的sql属性为我们建立好的分页Sql语句
 			ReflectUtil.setFieldValue(boundSql, "sql", pageSql);
 
@@ -79,11 +79,6 @@ public class MybatisPaginationInterceptor implements Interceptor {
 		System.out.println(properties.getProperty("databaseType"));
 	}
 
-	@SuppressWarnings("unused")
-	public void setDatabaseType(String databaseType) {
-		this.databaseType = databaseType;
-	}
-
 	/**
 	 * 给当前的参数对象page设置总记录数
 	 * 
@@ -91,12 +86,17 @@ public class MybatisPaginationInterceptor implements Interceptor {
 	 * @param connection
 	 * @param page
 	 */
-	private void setTotalRecord(String originalSql, Connection connection, Pagination<?> page) {
+	private void setTotalRecord(String originalSql, Connection connection, Pagination page) {
 
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
 		try {
-			String countSql = "SELECT COUNT(*) AS TOTAL FROM (" + originalSql + ") AS A";
+			// String countSql = "SELECT COUNT(*) AS TOTAL FROM (" + originalSql
+			// + ") AS A";
+
+			int fromIndex = originalSql.toUpperCase().indexOf("FROM");
+			String countSql = "SELECT COUNT(*) AS TOTAL " + originalSql.substring(fromIndex);
+
 			preparedStatement = connection.prepareStatement(countSql);
 			rs = preparedStatement.executeQuery();
 			if (rs.next()) {
@@ -128,11 +128,12 @@ public class MybatisPaginationInterceptor implements Interceptor {
 	 *            原sql语句
 	 * @return
 	 */
-	private String getPageSql(Pagination<?> page, String sql) {
+	private String getPageSql(Pagination page, String sql, Connection connection) throws Exception {
+		String dbType = connection.getMetaData().getDatabaseProductName().toUpperCase();
 		StringBuffer sqlBuffer = new StringBuffer(sql);
-		if ("mysql".equalsIgnoreCase(databaseType)) {
-			return getMysqlPageSql(page, sqlBuffer);
-		} else if ("oracle".equalsIgnoreCase(databaseType)) {
+		if ("MYSQL".equals(dbType)) {
+			return getMysqlPageSql(page, sql, connection);
+		} else if ("ORACLE".equals(dbType)) {
 			return getOraclePageSql(page, sqlBuffer);
 		}
 		return sqlBuffer.toString();
@@ -143,14 +144,70 @@ public class MybatisPaginationInterceptor implements Interceptor {
 	 *
 	 * @param page
 	 *            分页对象
-	 * @param sqlBuffer
-	 *            包含原sql语句的StringBuffer对象
+	 * @param sql
+	 *            原sql语句
 	 * @return Mysql数据库分页语句
 	 */
-	private String getMysqlPageSql(Pagination<?> page, StringBuffer sqlBuffer) {
+	private String getMysqlPageSql(Pagination page, String sql, Connection connection) throws Exception {
+		if (MyBatisUtil.isJoinQuery(sql)) {
+			return this.mysqlLimitPageSql(page, sql);
+		} else {
+			return this.mysqlPageSql(page, sql, connection);
+		}
+	}
+
+	/**
+	 * Mysql数据库的Limit分页查询语句
+	 *
+	 * @param page
+	 *            分页对象
+	 * @param sql
+	 *            原sql语句
+	 * @return Mysql数据库Limit分页查询语句
+	 */
+	private String mysqlLimitPageSql(Pagination page, String sql) {
+		StringBuilder sqlBuilder = new StringBuilder(sql);
 		int offset = (page.getPageIndex() - 1) * page.getPageSize();
-		sqlBuffer.append(" LIMIT ").append(offset).append(",").append(page.getPageSize());
-		return sqlBuffer.toString();
+		sqlBuilder.append(" LIMIT ").append(offset).append(",").append(page.getPageSize());
+		return sqlBuilder.toString();
+	}
+
+	private String mysqlPageSql(Pagination page, String sql, Connection connection) throws Exception {
+
+		String tableSet = MyBatisUtil.getTableSetFromSql(sql).trim();
+		// 获取别名
+		int blankIndex = tableSet.lastIndexOf(" ");
+		String alias = "";
+		String tableName = tableSet;
+		if (blankIndex > -1) {
+			alias = tableSet.substring(blankIndex);
+			tableName = tableSet.substring(0, blankIndex);
+		}
+		String idName = this.getFirstPkName(tableName, connection);
+		String selectSet = MyBatisUtil.getSelectSetFromSql(sql);
+		String from = "";
+		int fromIndex = sql.toUpperCase().indexOf("FROM ");
+		if (fromIndex > -1) {
+			from = sql.substring(fromIndex).replace(alias, "");
+		}
+		// 是否存在别名，不存在则添加别名
+		if (StringUtils.isBlank(alias)) {
+			alias = "t1";
+			String[] strs = selectSet.split(",");
+			for (int i = 0; i < strs.length; i++) {
+				strs[i] = alias + "." + strs[i];
+			}
+			selectSet = StringUtils.join(strs, ",");
+		}
+
+		int offset = (page.getPageIndex() - 1) * page.getPageSize();
+
+		StringBuilder sqlBuilder = new StringBuilder("SELECT ");
+		sqlBuilder.append(selectSet).append(" FROM ").append(tableName).append(" ").append(alias).append(" JOIN ").append(" (SELECT ")
+				.append(idName).append(" AS id ").append(from).append(" LIMIT ").append(offset).append(",").append(page.getPageSize())
+				.append(") t2 ON t2.id = t1.").append(idName);
+
+		return sqlBuilder.toString();
 	}
 
 	/**
@@ -162,10 +219,36 @@ public class MybatisPaginationInterceptor implements Interceptor {
 	 *            包含原sql语句的StringBuffer对象
 	 * @return Oracle数据库的分页查询语句
 	 */
-	private String getOraclePageSql(Pagination<?> page, StringBuffer sqlBuffer) {
+	private String getOraclePageSql(Pagination page, StringBuffer sqlBuffer) {
 		int offset = (page.getPageIndex() - 1) * page.getPageSize() + 1;
 		sqlBuffer.insert(0, "SELECT U.*, ROWNUM r FROM (").append(") U WHERE ROWNUM < ").append(offset + page.getPageSize());
 		sqlBuffer.insert(0, "SELECT * FROM (").append(") WHERE r >= ").append(offset);
 		return sqlBuffer.toString();
+	}
+
+	private String getDbName(Connection connection) throws Exception {
+		String url = connection.getMetaData().getURL();
+		int end = url.indexOf("?");
+		if (!url.contains("?")) {
+			end = url.length();
+		}
+		return StringUtils.substring(url, url.lastIndexOf("/") + 1, end);
+	}
+
+	private String getFirstPkName(String table, Connection connection) throws Exception {
+		ResultSet rs = connection.getMetaData().getPrimaryKeys(null, this.getDbName(connection), table);
+		try {
+			while (rs.next()) {
+				// 第一个主键
+				if (rs.getShort("KEY_SEQ") == 1) {
+					return rs.getString("COLUMN_NAME");
+				}
+			}
+			return null;
+		} finally {
+			if (rs != null) {
+				rs.close();
+			}
+		}
 	}
 }

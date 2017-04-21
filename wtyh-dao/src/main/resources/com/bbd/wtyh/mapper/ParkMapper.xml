@@ -17,6 +17,7 @@
                     company.company_type AS companyType,
                     company.risk_level AS  riskLevel,
                     company.is_new AS isNew,
+                    company.registered_capital AS registeredCapital,
                     building.building_id AS buildingId,
                     building.`name` AS buildingName
         FROM park,building,company_building,company
@@ -42,7 +43,7 @@
                 <if test="background != null">
                     AND  bb.background=#{background}
                 </if>
-        ORDER BY bb.buildingId
+        ORDER BY bb.isNew DESC,bb.registeredCapital DESC
 	</select>
 
 

@@ -1,7 +1,11 @@
 package com.bbd.wtyh.core.mybatis;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.Column;
@@ -111,4 +115,72 @@ public class MyBatisUtil {
 		return field.getName();
 	}
 
+	/**
+	 * 去掉SQL中多余的空格
+	 *
+	 * @param sql
+	 * @return
+	 */
+	public static String ridSqlBlank(String sql) {
+		String[] strs = sql.split(" ");
+		List<String> list = new ArrayList<>(strs.length);
+		for (String str : strs) {
+			if (StringUtils.isBlank(str)) {
+				continue;
+			}
+			list.add(str);
+		}
+		return StringUtils.join(list, " ");
+	}
+
+	/**
+	 * SQL 是否是连接查询
+	 *
+	 * @param sql
+	 * @return
+	 */
+	public static boolean isJoinQuery(String sql) {
+		// SELECT * FROM table WHERE ...
+		String tmpSql = sql.toUpperCase();
+		return tmpSql.contains("JOIN ") || getTableSetFromSql(sql).contains(",");
+	}
+
+	/**
+	 * 从SQL中获取表名
+	 * 
+	 * @param sql
+	 * @return
+	 */
+	public static String getTableSetFromSql(String sql) {
+		String tmpSql = sql;
+
+		int orderByIndex = tmpSql.toUpperCase().indexOf("ORDER BY ");
+		if (orderByIndex > -1) {
+			// SELECT * FROM table ORDER BY... to SELECT * FROM table
+			tmpSql = tmpSql.substring(0, orderByIndex);
+		}
+
+		int groupByIndex = tmpSql.toUpperCase().indexOf("GROUP BY ");
+		if (groupByIndex > -1) {
+			// SELECT * FROM table GROUP BY... to SELECT * FROM table
+			tmpSql = tmpSql.substring(0, groupByIndex);
+		}
+
+		int fromIndex = tmpSql.toUpperCase().indexOf("FROM ");
+		// SELECT * FROM table to table
+		String tableSet = tmpSql.substring(fromIndex + 4);
+
+		int whereIndex = tmpSql.toUpperCase().indexOf("WHERE ");
+		if (whereIndex > -1) {
+			// SELECT * FROM table WHERE ... to table
+			tableSet = tmpSql.substring(fromIndex + 4, whereIndex);
+		}
+		return tableSet;
+	}
+
+	public static String getSelectSetFromSql(String sql) {
+		String tmpSql = sql.toUpperCase();
+		int fromIndex = tmpSql.indexOf("FROM ");
+		return sql.substring(6, fromIndex).trim();
+	}
 }

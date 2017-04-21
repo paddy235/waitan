@@ -15,13 +15,14 @@
     `company_name` AS companyName,
     `organization_code`AS organizationCode,
     `company_type` AS companyType,
-    `old_company_type`AS old_companyType,
+    `old_company_type`AS oldCompanyType,
     `area_id`AS areaId,
     `area_name`AS areaName,
     `register_date`AS registerDate,
     `adjust_date`AS adjustDate,
     `closed_date`AS closedDate,
     `order_date`AS orderDate,
+    `registered_capital_type`AS registeredCapitalType,
     `registered_capital`AS registeredCapital,
     `change_tpye`AS changeTpye,
     `source`AS source,
@@ -33,12 +34,18 @@
     `update_date`AS updateDate
   </if>
   FROM company_status_change
-  <where>
+  WHERE 1=1
     <if test="areaId !=null">
-      AND  `area_id` = #{areaId}
+      AND  `area_id` IN
+      <foreach item="item" index="index" collection="areaId" open="(" separator="," close=")">
+        #{item}
+      </foreach>
     </if>
     <if test="companyType !=null">
-      AND  `company_type` = #{companyType}
+      AND  `company_type` IN
+      <foreach item="item" index="index" collection="companyType" open="(" separator="," close=")">
+        #{item}
+      </foreach>
     </if>
     <if test="beginDate !=null"> <!-- 开始时间 -->
       AND  `order_date` >= #{beginDate}
@@ -55,8 +62,7 @@
     <if test="closedType !=null">
       AND  `closed_type` = #{closedType}
     </if>
-  </where>
-  ORDER BY order_date DESC
+  ORDER BY order_date DESC,create_date DESC
   <if test="pages !=null ">
     LIMIT
       #{page},

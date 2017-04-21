@@ -44,8 +44,7 @@ public interface BaseMapper {
 	 * @return
 	 */
 	@SelectProvider(type = CRUDTemplate.class, method = "select")
-	<T> List<T> baseSelectByPage(@Param("clazz") Class<T> clazz, @Param("pagination") Pagination<T> pagination,
-			@Param("where") String where);
+	<T> List<T> baseSelectByPage(@Param("clazz") Class<T> clazz, @Param("pagination") Pagination pagination, @Param("where") String where);
 
 	/**
 	 * 插入一条数据
