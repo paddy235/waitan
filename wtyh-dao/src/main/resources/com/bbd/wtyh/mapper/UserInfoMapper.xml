@@ -176,7 +176,8 @@
   <select id="selectShanghaiAreaCodeTable"   resultType="java.util.Map">
     SELECT
     area_id AS areaId,
-    name AS cityName
+    name AS cityName,
+    nation_district_code AS nationDistrictCode
     FROM  area
     WHERE `city_id` = '104'
   </select>

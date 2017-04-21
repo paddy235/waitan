@@ -12,6 +12,7 @@ import com.bbd.wtyh.domain.InBusinessDO;
 import com.bbd.wtyh.domain.query.CompanyQuery;
 import com.bbd.wtyh.domain.vo.SpectrumVO;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 public interface CompanyMapper {
 
@@ -91,4 +92,16 @@ public interface CompanyMapper {
 
 	@Select("SELECT b.*,b.building_id AS buildingId FROM building b,company_building cb WHERE cb.company_id = #{compantId} AND b.building_id = cb.building_id")
 	BuildingDO getCompanyBuild(Integer compantId);
+
+	/**
+	 * 更新企业区代、地址等
+	 * @param companyName 名称
+	 * @param areaId 区代
+	 * @param address 地址
+	 * @param creditCode 统一社会信用代码
+	 */
+	@Update("UPDATE company SET `area_id` =#{areaId}, `address` =#{address}, `credit_code` =#{creditCode} WHERE `name` =#{companyName};")
+	void updateAreaIdAndAddress(@Param("companyName") String companyName, @Param("areaId") Integer areaId,
+								@Param("address") String address,  @Param("creditCode") String creditCode );
+
 }

@@ -330,4 +330,9 @@ public class HologramQueryServiceImpl implements HologramQueryService {
         return patentDO;
     }
 
+    @Override
+    public Map<String, Object> getBbdQyxxBatch(String companySerial) {
+        return hologramQueryDao.getBbdQyxxBatch(companySerial);
+    }
+
 }

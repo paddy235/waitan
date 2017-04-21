@@ -1,6 +1,7 @@
 package com.bbd.bgo.web.controller;
 
 
+import com.bbd.bgo.service.task.SystemDataUpdateService;
 import com.bbd.wtyh.service.RelationDataService;
 import com.bbd.wtyh.service.SyncDataService;
 import com.bbd.wtyh.web.ResponseBean;
@@ -44,5 +45,14 @@ public class SyncDataController {
     }
 
 
+    @Autowired
+    private SystemDataUpdateService systemDataUpdateService;
+
+    @RequestMapping("systemDataUpdateService.do")
+    @ResponseBody
+    public ResponseBean systemDataUpdateServiceDo( ) {
+        systemDataUpdateService.updateCompanyTableAreaIdAndAddress();
+        return ResponseBean.successResponse("运行成功！");
+    }
 
 }

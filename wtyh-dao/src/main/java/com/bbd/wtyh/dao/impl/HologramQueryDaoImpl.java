@@ -8,6 +8,7 @@ import com.bbd.wtyh.domain.bbdAPI.*;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -118,6 +120,9 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
 
     @Value("${api.appkey}")
     private String apiAppkey;
+
+    @Value("${api.bbd_qyxx_batch.url}")
+    private String apiBbdQyxxBatchUrl;
 
     @Autowired
     private RedisDAO redisDAO;
@@ -594,5 +599,27 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public Map<String, Object> getBbdQyxxBatch(String companySerial) {
+        //String api = apiBbdQyxxBatchUrl + "?ktype=0" + "&keys="+companySerial +"&appkey=" + apiAppkey;
+        String api = apiBbdQyxxBatchUrl + "?ktype=0"  +"&appkey=" + apiAppkey;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.post(api, new HttpCallback<Map<String, Object>>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+                @Override
+                public Map<String, Object> parse(String result) {
+                    return JSON.parseObject(result, Map.class);
+                }
+            }, new BasicNameValuePair("keys", companySerial ));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

@@ -118,4 +118,6 @@ public interface HologramQueryService {
      * @param pageSize
      */
     PatentDO getPatentData(String company, Integer page, Integer pageSize);
+
+    Map<String, Object> getBbdQyxxBatch(String companySerial);
 }

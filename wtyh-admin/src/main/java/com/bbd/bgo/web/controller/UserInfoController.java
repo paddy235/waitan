@@ -8,7 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.bbd.wtyh.cashetobean.ShanghaiAreaCode;
+import com.bbd.wtyh.cachetobean.ShanghaiAreaCode;
 import com.bbd.wtyh.common.comenum.UserRank;
 import com.bbd.wtyh.common.comenum.UserType;
 import com.bbd.wtyh.log.user.UserLogRecord;

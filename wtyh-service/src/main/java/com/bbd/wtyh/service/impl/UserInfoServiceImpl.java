@@ -1,12 +1,11 @@
 package com.bbd.wtyh.service.impl;
 
-import com.bbd.wtyh.cashetobean.ShanghaiAreaCode;
+import com.bbd.wtyh.cachetobean.ShanghaiAreaCode;
 import com.bbd.wtyh.common.comenum.UserType;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.exception.BusinessException;
 import com.bbd.wtyh.log.user.Operation;
-import com.bbd.wtyh.map.name.code.CodeNameMap;
 import com.bbd.wtyh.service.RoleResourceService;
 import com.bbd.wtyh.service.UserInfoService;
 import com.bbd.wtyh.mapper.UserInfoMapper;
@@ -21,8 +20,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
 import java.util.Date;
-
-import static com.bbd.wtyh.common.Constants.SESSION.userType;
 
 /**
  * Created by cgj on 2017/2/27.

@@ -63,8 +63,13 @@ public class RealTimeMonitorController {
 		}
 		if (null != list && list.size() >= 1) {
 			for (List<SpectrumVO> spectrumVOList : list) {
+				int index =list.indexOf(spectrumVOList);
+				index = (index <3) ? (index +2) : (index -2);
 				for (SpectrumVO spectrumVO1 : spectrumVOList) {
 					spectrumVO1.setLocation(Arrays.asList(spectrumVO1.getLongitude(), spectrumVO1.getLatitude()));
+					if( null ==spectrumVO1.getPreviousRiskLevel() ) { //首次使用时，PreviousRiskLevel在数据库中可能为空，直接复制RiskLevel
+						spectrumVO1.setPreviousRiskLevel( (byte)index);
+					}
 				}
 			}
 			// redisDAO.addSet(key, String.valueOf(list),

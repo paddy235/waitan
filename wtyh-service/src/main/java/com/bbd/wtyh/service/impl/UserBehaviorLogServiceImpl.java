@@ -2,9 +2,7 @@ package com.bbd.wtyh.service.impl;
 
 import java.util.*;
 
-import com.bbd.wtyh.cashetobean.ShanghaiAreaCode;
-import com.bbd.wtyh.log.user.Operation;
-import com.bbd.wtyh.map.name.code.CodeNameMap;
+import com.bbd.wtyh.cachetobean.ShanghaiAreaCode;
 import com.bbd.wtyh.mapper.UserBehaviorLogMapper;
 import com.bbd.wtyh.service.UserBehaviorLogService;
 import org.apache.commons.lang.StringUtils;
@@ -12,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bbd.wtyh.core.base.BaseServiceImpl;
-import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.exception.BusinessException;
-import com.bbd.wtyh.service.UserInfoService;
 
 /**
  * Created by cgj on 2017/3/20.

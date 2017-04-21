@@ -1,4 +1,4 @@
-package com.bbd.wtyh.cashetobean;
+package com.bbd.wtyh.cachetobean;
 
 import com.bbd.wtyh.mapper.UserInfoMapper;
 import org.springframework.beans.BeansException;
@@ -29,6 +29,8 @@ public class ShanghaiAreaCode {
     private static List<Map<String, Object>> list; //区域代码表
     private static Map<Integer, String> map; //区域代码字典
 
+    private static Map<Integer, Integer> codeToAreaMap; //区代到本系统的areaId
+
     /**
      *
      * @param areaCodeListIn 为null时自己读取数据库更新，否则通过外部表更新
@@ -56,13 +58,20 @@ public class ShanghaiAreaCode {
             list.add(0, new HashMap<String, Object>() {{
                 put("areaId", (Integer) (0));
                 put("cityName", "全部");
+                //put("nationDistrictCode", (Integer)0); //
             }});
         }else {
             list = areaCodeListIn;
         }
-        map = new HashMap<Integer, String>();
+        map = new HashMap<>();
+        codeToAreaMap =new HashMap<>();
         for (Map<String, Object> itr : list) { //构造一个区域代码名称字典
-            map.put((Integer) itr.get("areaId"), (String) itr.get("cityName"));
+            Integer areaId =(Integer) itr.get("areaId");
+            map.put(areaId, (String) itr.get("cityName"));
+            if( 0 !=areaId ) {
+                codeToAreaMap.put((Integer) itr.get("nationDistrictCode"), (Integer) itr.get("areaId"));
+                itr.remove("nationDistrictCode");
+            }
         }
     }
 
@@ -85,5 +94,10 @@ public class ShanghaiAreaCode {
 
     public static Map<Integer, String> getMap() {
         return map;
+    }
+
+    /** 区代到本系统的areaId */
+    public static Map<Integer, Integer> getCodeToAreaMap() {
+        return codeToAreaMap;
     }
 }

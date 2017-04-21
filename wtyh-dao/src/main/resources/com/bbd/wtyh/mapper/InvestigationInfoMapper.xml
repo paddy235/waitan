@@ -52,7 +52,7 @@
       </if>
     </where>
     <if test="listing !=null ">
-      ORDER BY update_date
+      ORDER BY `update_date`
       <if test="orderBy !=null" >
         DESC
       </if>

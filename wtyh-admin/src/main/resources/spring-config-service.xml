@@ -31,7 +31,7 @@
     <!-- <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>-->
 
 
-    <bean class="com.bbd.wtyh.cashetobean.ApplicationContextUtil"/>
+    <bean class="com.bbd.wtyh.cachetobean.ApplicationContextUtil"/>
 
 
     <bean id="httpTemplate" class="com.bbd.higgs.utils.http.HttpTemplate">

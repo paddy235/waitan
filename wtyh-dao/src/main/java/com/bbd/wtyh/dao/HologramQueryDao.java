@@ -3,6 +3,9 @@ package com.bbd.wtyh.dao;
 
 import com.bbd.wtyh.domain.bbdAPI.*;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * 企业全息信息查询平台dao层
  *
@@ -43,4 +46,7 @@ public interface HologramQueryDao {
     RecruitDataDO getRecruitData(String company, String timeTag);
 
     PatentDO getPatentData(String company, Integer page, Integer pageSize);
+
+    Map<String, Object> getBbdQyxxBatch(String companySerial);
+
 }

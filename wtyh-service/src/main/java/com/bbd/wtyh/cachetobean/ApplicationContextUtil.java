@@ -1,4 +1,4 @@
-package com.bbd.wtyh.cashetobean;
+package com.bbd.wtyh.cachetobean;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
