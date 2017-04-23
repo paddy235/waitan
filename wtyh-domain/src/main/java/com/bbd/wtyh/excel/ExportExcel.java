@@ -9,6 +9,8 @@ import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -23,6 +25,8 @@ import java.util.*;
  * @author Created by LiYao on 2017-04-13 10:37.
  */
 public class ExportExcel {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(ExportExcel.class);
 
 	public static final String DEFAULT_EXPORT_PATH = "export" + File.separator + "excel";
 
@@ -150,6 +154,7 @@ public class ExportExcel {
 			return this.outputStream;
 		}
 		this.exportPath = ExportExcelUtil.dealWithExportPath(this.exportPath);
+		LOGGER.info("创建excel文件：" + this.exportPath + this.excelName);
 		File directory = new File(this.exportPath);
 		directory.mkdirs();
 		File file = new File(this.exportPath + this.excelName);
