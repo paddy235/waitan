@@ -37,6 +37,12 @@
         AND  park.park_id=building.park_id
         AND building.building_id=company_building.building_id
         AND company_building.company_id=company.company_id) AS aa LEFT JOIN
+
+        <if test="background == null">
+            (
+            SELECT company_id,GROUP_CONCAT(background)background FROM company_background GROUP BY company_id
+            ) AS
+        </if>
         company_background
         ON aa.companyId=company_background.company_id)AS bb
         WHERE 1=1
