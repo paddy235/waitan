@@ -18,8 +18,9 @@ public interface CoRiskChgService extends BaseService {
 	 * 企业变化监测-风险变化企业-所有楼宇
 	 * 
 	 * @return
+	 * @param areaSet
 	 */
-	List<Map<String, Object>> riskChgCoBuilding();
+	List<Map<String, Object>> riskChgCoBuilding(String areaSet);
 
 	/**
 	 * 查询分页数据

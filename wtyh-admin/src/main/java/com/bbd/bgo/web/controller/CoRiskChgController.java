@@ -44,14 +44,24 @@ public class CoRiskChgController {
 		Map<String, Object> data = new HashMap<>();
 		// 金融类型
 		data.put("financialType", this.riskChgCoFinancialType());
-		// 楼宇
-		data.put("building", this.riskChgCoBuilding());
 		// 风险等级
 		data.put("riskLevel", this.riskChgCoRiskLevel());
 		// 来源
 		data.put("source", this.riskChgCoSource());
 
 		return ResponseBean.successResponse(data);
+	}
+
+	/**
+	 * 企业变化监测-风险变化企业-楼宇
+	 *
+	 * @return
+	 */
+	@RequestMapping("/build-drop-down-data")
+	@ResponseBody
+	public Object buildDropDownData(String areaSet) {
+		List<Map<String, Object>> mapList = this.coRiskChgService.riskChgCoBuilding(areaSet);
+		return ResponseBean.successResponse(mapList);
 	}
 
 	/**
@@ -98,12 +108,19 @@ public class CoRiskChgController {
 	 */
 	@RequestMapping("/download-data")
 	@ResponseBody
-	public Object downloadData(HttpServletRequest request) {
+	public Object downloadData(HttpServletRequest request, boolean isPaging, Pagination page) {
 
 		ExportExcel exportExcel = new ExportExcel("风险变化企业");
+		List<RiskChgCoDo> list;
+
 		try {
 			Map<String, String> paramMap = ParamUtil.getRequestParamMap(request);
-			List<RiskChgCoDo> list = this.coRiskChgService.queryAllData(paramMap);
+
+			if (isPaging) {
+				list = this.coRiskChgService.queryPageData(paramMap, page);
+			} else {
+				list = this.coRiskChgService.queryAllData(paramMap);
+			}
 
 			exportExcel.createSheet(list);
 			exportExcel.exportExcel();
@@ -130,16 +147,6 @@ public class CoRiskChgController {
 			typeList.add(map);
 		}
 		return typeList;
-	}
-
-	/**
-	 * 企业变化监测-风险变化企业-楼宇
-	 *
-	 * @return
-	 */
-
-	private Object riskChgCoBuilding() {
-		return this.coRiskChgService.riskChgCoBuilding();
 	}
 
 	/**
