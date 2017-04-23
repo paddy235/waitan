@@ -64,7 +64,7 @@ public class CoAddOrCloseController {
 	@RequestMapping("/download-co-status-chg")
 	@ResponseBody
 	public ResponseBean downloadCompanyStatusChg(String areaIds, String companyTypes, String beginDate, String endDate, Integer changeType,
-			Integer source, Integer closedType, @RequestParam Integer page, @RequestParam Integer pageSize) {
+			Integer source, Integer closedType, Integer page, Integer pageSize) {
 
 		ExportExcel exportExcel = new ExportExcel("企业增销");
 		try {
@@ -74,7 +74,7 @@ public class CoAddOrCloseController {
 			if (null == pageSize) {
 				pageSize = 20;
 			}
-
+            page=-1;//按条件下载全部数据
 			Map<String, Object> map = coAddOrCloseService.queryCompanyStatusChg(areaIds, companyTypes, beginDate, endDate, changeType, source,
 					closedType, page, pageSize);
 			List<CompanyStatusChangeDO> list = (List<CompanyStatusChangeDO>) map.get("results");
