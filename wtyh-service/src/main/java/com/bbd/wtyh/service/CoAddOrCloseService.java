@@ -13,7 +13,7 @@ public interface CoAddOrCloseService {
 	 * 根据条件查询企业增销变化
 	 *
 	 */
-	Map<String, Object> queryCompanyStatusChg(String areaIds, String companyTypes, String beginDate, String endDate, Integer changeTpye,
+	Map<String, Object> queryCompanyStatusChg(String areaIds, String companyTypes, String beginDate, String endDate, Integer changeType,
 			Integer source, Integer closedType, Integer page, Integer pageSize);
 
 	/**

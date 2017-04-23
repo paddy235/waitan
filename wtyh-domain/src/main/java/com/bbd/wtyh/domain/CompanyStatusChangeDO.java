@@ -101,11 +101,11 @@ public class CompanyStatusChangeDO {
 	private String registeredCapitalTypeName;
 
 	/** 变化类型 1:新增,2:停业 */
-	@Column(name = "change_tpye")
-	private Integer changeTpye;
+	@Column(name = "change_type")
+	private Integer changeType;
 
 	@Excel(exportName = "变化类型")
-	private String changeTpyeName;
+	private String changeTypeName;
 
 	/** 新增来源 1:新注册,2:新发现,3:人工修改 */
 	@Column(name = "source")
@@ -412,20 +412,20 @@ public class CompanyStatusChangeDO {
 	/**
 	 * 获取 变化类型 1:新增,2:停业
 	 *
-	 * @return changeTpye 变化类型 1:新增,2:停业
+	 * @return changeType 变化类型 1:新增,2:停业
 	 */
-	public Integer getChangeTpye() {
-		return changeTpye;
+	public Integer getChangeType() {
+		return changeType;
 	}
 
 	/**
 	 * 设置 变化类型 1:新增,2:停业
 	 *
-	 * @param changeTpye
+	 * @param changeType
 	 *            变化类型 1:新增,2:停业
 	 */
-	public void setChangeTpye(Integer changeTpye) {
-		this.changeTpye = changeTpye;
+	public void setChangeType(Integer changeType) {
+		this.changeType = changeType;
 	}
 
 	/**
@@ -580,15 +580,15 @@ public class CompanyStatusChangeDO {
 		this.oldCompanyTypeName = oldCompanyTypeName;
 	}
 
-	public String getChangeTpyeName() {
+	public String getChangeTypeName() {
 
-		if (null == changeTpye) {
+		if (null == changeType) {
 			return "";
 		}
 
 		ChangeType[] types = ChangeType.values();
 		for (ChangeType t : types) {
-			if (t.type().equals(changeTpye)) {
+			if (t.type().equals(changeType)) {
 				return t.desc();
 			}
 		}
@@ -597,8 +597,8 @@ public class CompanyStatusChangeDO {
 
 	}
 
-	public void setChangeTpyeName(String changeTpyeName) {
-		this.changeTpyeName = changeTpyeName;
+	public void setChangeTypeName(String changeTypeName) {
+		this.changeTypeName = changeTypeName;
 	}
 
 	public String getSourceName() {

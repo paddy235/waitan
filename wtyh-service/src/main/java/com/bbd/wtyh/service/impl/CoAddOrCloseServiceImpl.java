@@ -32,7 +32,7 @@ public class CoAddOrCloseServiceImpl extends BaseServiceImpl implements CoAddOrC
 
 	@Override
 	public Map<String, Object> queryCompanyStatusChg(String areaIds, String companyTypes, String beginDate, String endDate,
-			Integer changeTpye, Integer source, Integer closedType, Integer page, Integer pageSize) {
+			Integer changeType, Integer source, Integer closedType, Integer page, Integer pageSize) {
 
 		// 查询结果
 		Map<String, Object> result = new HashMap<>();
@@ -58,8 +58,8 @@ public class CoAddOrCloseServiceImpl extends BaseServiceImpl implements CoAddOrC
 		if (null != endDate) {
 			param.put("endDate", endDate+"-31");
 		}
-		if (null != changeTpye) {
-			param.put("changeTpye", changeTpye);
+		if (null != changeType) {
+			param.put("changeType", changeType);
 		}
 		if (null != source) {
 			param.put("source", source);

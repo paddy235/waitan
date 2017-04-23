@@ -125,7 +125,7 @@ public class RoleResourceTest {
 	@Test
 	public  void queryCompanyStatusChg()throws Exception{
 		//Integer areaId,Integer companyType,String beginDate,String endDate,
-		//Integer changeTpye,Integer source,Integer closedType,Integer page,Integer pageSize
+		//Integer changeType,Integer source,Integer closedType,Integer page,Integer pageSize
 		Map map=this.coChgMonitorService.queryCompanyStatusChg("1112,1113,1117",null,"2017-01","2017-05",null,null ,null ,1,20);
 		System.err.println(JSON.toJSONString(map, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
 	}
