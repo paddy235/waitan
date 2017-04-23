@@ -34,6 +34,28 @@ public class CoRiskChgServiceImpl extends BaseServiceImpl implements CoRiskChgSe
 	@Override
 	public List<RiskChgCoDo> queryPageData(Map<String, String> paramMap, Pagination page) {
 
+		String where = this.generateDynamicWhere(paramMap);
+
+		List<RiskChgCoDo> list = this.selectByPage(RiskChgCoDo.class, page, where);
+		page.setList(list);
+		return list;
+
+	}
+
+	@Override
+	public List<RiskChgCoDo> queryAllData(Map<String, String> paramMap) {
+		String where = this.generateDynamicWhere(paramMap);
+		return this.selectAll(RiskChgCoDo.class, where);
+
+	}
+
+	/**
+	 * 生产动态where语句
+	 * 
+	 * @param paramMap
+	 * @return
+	 */
+	private String generateDynamicWhere(Map<String, String> paramMap) {
 		StringBuilder dynamicWhere = new StringBuilder("1 = 1");
 
 		// 金融类型 financialType
@@ -87,9 +109,7 @@ public class CoRiskChgServiceImpl extends BaseServiceImpl implements CoRiskChgSe
 		} else {
 			dynamicWhere.append(" ORDER BY change_date DESC");
 		}
-		List<RiskChgCoDo> list = this.selectByPage(RiskChgCoDo.class, page, dynamicWhere.toString());
-		page.setList(list);
-		return list;
 
+		return dynamicWhere.toString();
 	}
 }

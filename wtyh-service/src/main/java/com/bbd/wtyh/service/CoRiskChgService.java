@@ -29,4 +29,12 @@ public interface CoRiskChgService extends BaseService {
 	 * @return
 	 */
 	List<RiskChgCoDo> queryPageData(Map<String, String> paramMap, Pagination page);
+
+	/**
+	 * 查询所有数据
+	 * 
+	 * @param paramMap
+	 * @return
+	 */
+	List<RiskChgCoDo> queryAllData(Map<String, String> paramMap);
 }
