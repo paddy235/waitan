@@ -9,6 +9,7 @@ import com.bbd.wtyh.mapper.CoAddOrCloseMapper;
 import com.bbd.wtyh.service.CoAddOrCloseService;
 import com.bbd.wtyh.service.CompanyService;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,21 +42,21 @@ public class CoAddOrCloseServiceImpl extends BaseServiceImpl implements CoAddOrC
 		Map<String, Object> param = new HashMap<>();
 
 		// 如果选择了全部，则不作为条件
-		if(null!=areaIds){
+		if(StringUtils.isNotBlank(areaIds)){
 			String[] as=areaIds.split(",");
 
 			param.put("areaId", Arrays.asList(as));
 		}
 
-		if (null != companyTypes) {
+		if (StringUtils.isNotBlank(companyTypes)) {
 			String[] cs=companyTypes.split(",");
 			param.put("companyType", Arrays.asList(cs));
 		}
 
-		if (null != beginDate) {
+		if (StringUtils.isNotBlank(beginDate)) {
 			param.put("beginDate", beginDate+"-01");
 		}
-		if (null != endDate) {
+		if (StringUtils.isNotBlank(endDate)) {
 			param.put("endDate", endDate+"-31");
 		}
 		if (null != changeType) {
@@ -78,7 +79,7 @@ public class CoAddOrCloseServiceImpl extends BaseServiceImpl implements CoAddOrC
 			param.put("pages", null);
 		} else {
 			param.put("pageSize", pageSize);
-			if ((null != page) && (page > 0)) {
+			if (page > 0) {
 				page = (page - 1) * pageSize; // pageNumber的意义已经变为了“Offset”
 				param.put("page", page);
 			}
