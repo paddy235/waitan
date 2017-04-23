@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public interface CoRiskChgMapper {
 
-	@Select("SELECT b.building_id AS id,b.`name` FROM building b,park p WHERE b.park_id = p.park_id AND p.area_id IN (${areaSet})")
+	//@Select("SELECT b.building_id AS id,b.`name` FROM building b,park p WHERE b.park_id = p.park_id AND p.area_id IN (${areaSet})")
 	List<Map<String, Object>> riskChgCoBuilding(@Param("areaSet") String areaSet);
 
 }
