@@ -2,11 +2,14 @@ package com.bbd.wtyh.web.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeSet;
 
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.vo.NewsVO;
+import com.bbd.wtyh.excel.ExportExcel;
+import com.bbd.wtyh.exception.ExceptionHandler;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.google.gson.Gson;
@@ -283,6 +286,38 @@ public class ParkController {
 	{
 		List<ParkCompanyDo> data = parkService.queryParkCompany(areaId,isNew,riskLevel,backgroundName,companyTypeName,buildingName);
 		return ResponseBean.successResponse(data);
+	}
+
+	/**
+	 * 下载园区楼宇公司列表
+	 *
+	 * @param areaId
+	 *            园区id,必传
+	 * @return ResponseBean
+	 */
+	@RequestMapping("/downloadParkCompanyList")
+	@ResponseBody
+	public ResponseBean downloadParkCompanyList(@RequestParam(required = true) Integer areaId,
+										@RequestParam(required = true) Integer isNew,
+										@RequestParam(required = true) Integer riskLevel,
+										@RequestParam(required = true) String backgroundName,
+										@RequestParam(required = true) String companyTypeName,
+										@RequestParam(required = true) String buildingName
+	)
+	{
+
+		ExportExcel exportExcel = new ExportExcel("园区楼宇公司列表");
+		try {
+
+			List<ParkCompanyDo> list = parkService.queryParkCompany(areaId,isNew,riskLevel,backgroundName,companyTypeName,buildingName);
+			exportExcel.createSheet(list);
+			exportExcel.exportExcel();
+			return ResponseBean.successResponse("/download/download-excel.do?name=" + exportExcel.getExcelName());
+
+		} catch (Exception e) {
+			return ExceptionHandler.handlerException(e);
+		}
+
 	}
 
 }

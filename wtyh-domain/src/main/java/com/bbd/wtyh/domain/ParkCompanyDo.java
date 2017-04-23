@@ -1,5 +1,7 @@
 package com.bbd.wtyh.domain;
 
+import com.bbd.wtyh.excel.annotation.Excel;
+
 /**
  * Created by Administrator on 2017/4/14 0014.
  */
@@ -7,26 +9,27 @@ public class ParkCompanyDo {
 
     private Integer companyId;//企业ID
 
+    @Excel(exportName = "企业名称")
     private String companyName;//企业名称
-
+    @Excel(exportName = "法定代表人")
     private String legalPerson;//法人
 
     private Byte companyType;//企业类型
-
+    @Excel(exportName = "行业")
     private String companyTypeName;//企业类型名称
 
     private Integer riskLevel;//风险等级
-
+    @Excel(exportName = "风险等级")
     private String riskLevelName;//风险等级名称
 
     private Integer isNew;//是否新增
 
     private Integer buildingId;//楼宇ID
-
+    @Excel(exportName = "所在楼宇")
     private String buildingName;//楼宇名称
 
     private String background;//企业背景
-
+    @Excel(exportName = "企业背景")
     private String backgroundName;//企业背景名称
 
 
