@@ -98,12 +98,19 @@ public class CoRiskChgController {
 	 */
 	@RequestMapping("/download-data")
 	@ResponseBody
-	public Object downloadData(HttpServletRequest request) {
+	public Object downloadData(HttpServletRequest request, boolean isPaging, Pagination page) {
 
 		ExportExcel exportExcel = new ExportExcel("风险变化企业");
+		List<RiskChgCoDo> list;
+
 		try {
 			Map<String, String> paramMap = ParamUtil.getRequestParamMap(request);
-			List<RiskChgCoDo> list = this.coRiskChgService.queryAllData(paramMap);
+
+			if (isPaging) {
+				list = this.coRiskChgService.queryPageData(paramMap, page);
+			} else {
+				list = this.coRiskChgService.queryAllData(paramMap);
+			}
 
 			exportExcel.createSheet(list);
 			exportExcel.exportExcel();
