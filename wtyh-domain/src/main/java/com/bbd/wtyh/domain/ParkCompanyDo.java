@@ -25,7 +25,7 @@ public class ParkCompanyDo {
 
     private String buildingName;//楼宇名称
 
-    private Byte background;//企业背景
+    private String background;//企业背景
 
     private String backgroundName;//企业背景名称
 
@@ -110,19 +110,27 @@ public class ParkCompanyDo {
         this.buildingName = buildingName;
     }
 
-    public Byte getBackground() {
+    public String getBackground() {
         return background;
     }
 
-    public void setBackground(Byte background) {
+    public void setBackground(String background) {
         this.background = background;
     }
 
     public String getBackgroundName() {
-        if (null == background) {
+        if (null == background || background.equals("")) {
             return "";
         }
-        return CompanyBackgroundDO.Bg.getBg(this.background).CN;
+        String[] bg=background.split(",");
+        StringBuffer sb=new StringBuffer();
+        for(int i=0;i<bg.length;i++){
+            if(i!=0){
+                sb.append(",");
+            }
+            sb.append(CompanyBackgroundDO.Bg.getBg(Byte.valueOf(bg[i])).CN);
+        }
+        return sb.toString();
     }
 
     public void setBackgroundName(String backgroundName) {
