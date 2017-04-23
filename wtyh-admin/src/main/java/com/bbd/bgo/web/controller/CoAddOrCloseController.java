@@ -168,5 +168,5 @@ public class CoAddOrCloseController {
 		return ResponseBean.successResponse(results);
 	}
 
-
+	public  void test(){}
 }
