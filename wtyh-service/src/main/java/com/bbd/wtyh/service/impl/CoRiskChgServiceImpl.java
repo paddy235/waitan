@@ -26,9 +26,9 @@ public class CoRiskChgServiceImpl extends BaseServiceImpl implements CoRiskChgSe
 	private CoRiskChgMapper coRiskChgMapper;
 
 	@Override
-	public List<Map<String, Object>> riskChgCoBuilding() {
+	public List<Map<String, Object>> riskChgCoBuilding(String areaSet) {
 
-		return this.coRiskChgMapper.riskChgCoBuilding();
+		return this.coRiskChgMapper.riskChgCoBuilding(areaSet);
 	}
 
 	@Override
