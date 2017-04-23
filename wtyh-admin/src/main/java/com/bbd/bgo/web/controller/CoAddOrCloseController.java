@@ -40,7 +40,7 @@ public class CoAddOrCloseController {
 
 	@RequestMapping("/query-co-status-chg")
 	@ResponseBody
-	public ResponseBean queryCompanyStatusChg(String areaIds, String companyTypes, String beginDate, String endDate, Integer changeTpye,
+	public ResponseBean queryCompanyStatusChg(String areaIds, String companyTypes, String beginDate, String endDate, Integer changeType,
 			Integer source, Integer closedType, @RequestParam Integer page, @RequestParam Integer pageSize) {
 		try {
 			if (null == page) {
@@ -50,7 +50,7 @@ public class CoAddOrCloseController {
 				pageSize = 20;
 			}
 
-			Map<String, Object> map = coAddOrCloseService.queryCompanyStatusChg(areaIds, companyTypes, beginDate, endDate, changeTpye, source,
+			Map<String, Object> map = coAddOrCloseService.queryCompanyStatusChg(areaIds, companyTypes, beginDate, endDate, changeType, source,
 					closedType, page, pageSize);
 
 			return ResponseBean.successResponse(map);
@@ -63,10 +63,10 @@ public class CoAddOrCloseController {
 
 	@RequestMapping("/download-co-status-chg")
 	@ResponseBody
-	public ResponseBean downloadCompanyStatusChg(String areaIds, String companyTypes, String beginDate, String endDate, Integer changeTpye,
-			Integer source, Integer closedType, @RequestParam Integer page, @RequestParam Integer pageSize) {
+	public ResponseBean downloadCompanyStatusChg(String areaIds, String companyTypes, String beginDate, String endDate, Integer changeType,
+			Integer source, Integer closedType, Integer page, Integer pageSize) {
 
-		ExportExcel exportExcel = new ExportExcel();
+		ExportExcel exportExcel = new ExportExcel("企业增销");
 		try {
 			if (null == page) {
 				page = 1;
@@ -74,8 +74,8 @@ public class CoAddOrCloseController {
 			if (null == pageSize) {
 				pageSize = 20;
 			}
-
-			Map<String, Object> map = coAddOrCloseService.queryCompanyStatusChg(areaIds, companyTypes, beginDate, endDate, changeTpye, source,
+            page=-1;//按条件下载全部数据
+			Map<String, Object> map = coAddOrCloseService.queryCompanyStatusChg(areaIds, companyTypes, beginDate, endDate, changeType, source,
 					closedType, page, pageSize);
 			List<CompanyStatusChangeDO> list = (List<CompanyStatusChangeDO>) map.get("results");
 			exportExcel.createSheet(list);
@@ -168,5 +168,4 @@ public class CoAddOrCloseController {
 		return ResponseBean.successResponse(results);
 	}
 
-	public  void test(){}
 }

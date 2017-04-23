@@ -24,7 +24,7 @@
     `order_date`AS orderDate,
     `registered_capital_type`AS registeredCapitalType,
     `registered_capital`AS registeredCapital,
-    `change_tpye`AS changeTpye,
+    `change_type`AS changeType,
     `source`AS source,
     `closed_type`AS closedType,
     `address`AS address,
@@ -53,8 +53,8 @@
     <if test="endDate !=null"> <!-- 结束时间 -->
       AND  `order_date` &lt;= #{endDate}
     </if>
-    <if test="changeTpye !=null">
-      AND  `change_tpye` = #{changeTpye}
+    <if test="changeType !=null">
+      AND  `change_type` = #{changeType}
     </if>
     <if test="source !=null">
       AND  `source` = #{source}

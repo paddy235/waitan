@@ -6,8 +6,12 @@ import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.dao.HologramQueryDao;
 import com.bbd.wtyh.domain.bbdAPI.*;
 import com.bbd.wtyh.redis.RedisDAO;
+import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -603,11 +609,22 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
 
     @Override
     public Map<String, Object> getBbdQyxxBatch(String companySerial) {
-        //String api = apiBbdQyxxBatchUrl + "?ktype=0" + "&keys="+companySerial +"&appkey=" + apiAppkey;
-        String api = apiBbdQyxxBatchUrl + "?ktype=0"  +"&appkey=" + apiAppkey;
+        return getBbdQyxxBatchByPost(companySerial);
+    }
+
+    private Map<String, Object> getBbdQyxxBatchByPost(String companySerial) {
+        List<NameValuePair> list = new ArrayList<NameValuePair>(){{
+            add( new BasicNameValuePair("keys", companySerial) );
+            add( new BasicNameValuePair("appkey", apiAppkey) );
+            add( new BasicNameValuePair("ktype", "0") );
+            add( new BasicNameValuePair("pageSize", "1000") );
+        }};
+        String url = apiBbdQyxxBatchUrl;
         HttpTemplate httpTemplate = new HttpTemplate();
+        HttpPost httpPost = new HttpPost(url);
         try {
-            return httpTemplate.post(api, new HttpCallback<Map<String, Object>>() {
+            httpPost.setEntity(new UrlEncodedFormEntity(list,"UTF-8"));
+            return httpTemplate.request(httpPost, new HttpCallback<Map<String, Object>>() {
                 @Override
                 public boolean valid() {
                     return true;
@@ -616,7 +633,28 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
                 public Map<String, Object> parse(String result) {
                     return JSON.parseObject(result, Map.class);
                 }
-            }, new BasicNameValuePair("keys", companySerial ));
+            }, 15000, 15000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    private Map<String, Object> getBbdQyxxBatchByGet(String companySerial) {
+        String api = apiBbdQyxxBatchUrl + "?ktype=0" + "&pageSize=1000" + "&keys=" +companySerial +"&appkey=" + apiAppkey;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(api, new HttpCallback<Map<String, Object>>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+                @Override
+                public Map<String, Object> parse(String result) {
+                    return JSON.parseObject(result, Map.class);
+                }
+            } );
         } catch (Exception e) {
             e.printStackTrace();
         }
