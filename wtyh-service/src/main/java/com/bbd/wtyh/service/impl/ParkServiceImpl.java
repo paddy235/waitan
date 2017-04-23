@@ -341,7 +341,7 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 		//地区编号
         params.put("areaId",areaId);
 		//背景名称--背景代码
-        if(null!=backgroundName){
+        if(org.apache.commons.lang3.StringUtils.isNotBlank(backgroundName)){
 			CompanyBackgroundDO.Bg bg=CompanyBackgroundDO.Bg.getBgByName(backgroundName);
 			if(null!=bg){
             	params.put("background",bg.val);
@@ -350,12 +350,12 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 			}
         }
         //行业类型名称--行业类型代码
-        if(null!=companyTypeName){
+        if(org.apache.commons.lang3.StringUtils.isNotBlank(companyTypeName)){
 			byte companyType=CompanyDO.companyType(companyTypeName);
             params.put("companyType",companyType);
         }
         //楼宇名称
-        if(null!=buildingName){
+        if(org.apache.commons.lang3.StringUtils.isNotBlank(buildingName)){
             params.put("buildingName",buildingName);
         }
 
