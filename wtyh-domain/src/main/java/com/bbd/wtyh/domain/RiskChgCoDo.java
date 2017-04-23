@@ -1,10 +1,10 @@
 package com.bbd.wtyh.domain;
 
-import javax.persistence.Id;
+import com.bbd.wtyh.excel.annotation.Excel;
+import org.apache.commons.lang3.StringUtils;
+
+import javax.persistence.*;
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 
 /**
  * 风险变化公司
@@ -27,6 +27,7 @@ public class RiskChgCoDo {
 	private Integer companyId;
 
 	/** 企业名称 */
+	@Excel(exportName = "企业名称")
 	@Column(name = "company_name")
 	private String companyName;
 
@@ -41,11 +42,17 @@ public class RiskChgCoDo {
 	@Column(name = "company_type")
 	private Integer companyType;
 
+	/** 公司类型，显示用 */
+	@Excel(exportName = "新金融类别")
+	@Transient
+	private String disCoType;
+
 	/** 区域ID */
 	@Column(name = "area_id")
 	private Integer areaId;
 
 	/** 名称 */
+	@Excel(exportName = "所在区域")
 	@Column(name = "area_name")
 	private String areaName;
 
@@ -54,22 +61,27 @@ public class RiskChgCoDo {
 	private Integer buildingId;
 
 	/** 楼宇名字 */
+	@Excel(exportName = "所在楼宇")
 	@Column(name = "building_name")
 	private String buildingName;
 
 	/** 公司当前风险等级，1:已出风险(黑) 2:重点关注(红) 3:一般关注(黄) 4:正常(绿) */
+	@Excel(exportName = "当前状态")
 	@Column(name = "risk_level")
 	private Integer riskLevel;
 
 	/** 公司原始风险等级，1:已出风险(黑) 2:重点关注(红) 3:一般关注(黄) 4:正常(绿) */
+	@Excel(exportName = "原始状态")
 	@Column(name = "old_risk_level")
 	private Integer oldRiskLevel;
 
 	/** 来源，1：人工修改，2：模型评分 */
+	@Excel(exportName = "来源")
 	@Column(name = "source")
 	private Integer source;
 
 	/** 变化时间 */
+	@Excel(exportName = "变化时间", dateFormat = "yyyy-MM-dd")
 	@Column(name = "change_date")
 	private Date changeDate;
 
@@ -416,6 +428,28 @@ public class RiskChgCoDo {
 		this.updateDate = updateDate;
 	}
 
+	/**
+	 * 获取 公司类型，显示用
+	 *
+	 * @return disCoType 公司类型，显示用
+	 */
+	public String getDisCoType() {
+		if (StringUtils.isBlank(this.disCoType) && this.companyType != null) {
+			this.disCoType = CompanyDO.companyTypeCN(this.companyType.byteValue());
+		}
+		return this.disCoType;
+	}
+
+	/**
+	 * 设置 公司类型，显示用
+	 *
+	 * @param disCoType
+	 *            公司类型，显示用
+	 */
+	public void setDisCoType(String disCoType) {
+		this.disCoType = disCoType;
+	}
+
 	@Override
 	public String toString() {
 		return "RiskChgCoDo{" + "id=" + id + ", companyId=" + companyId + ", companyName='" + companyName + '\'' + ", organizationCode='"
@@ -424,5 +458,4 @@ public class RiskChgCoDo {
 				+ oldRiskLevel + ", source=" + source + ", changeDate=" + changeDate + ", createBy='" + createBy + '\'' + ", createDate="
 				+ createDate + ", updateBy='" + updateBy + '\'' + ", updateDate=" + updateDate + '}';
 	}
-
 }
