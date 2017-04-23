@@ -154,9 +154,9 @@ public class ExportExcel {
 			return this.outputStream;
 		}
 		this.exportPath = ExportExcelUtil.dealWithExportPath(this.exportPath);
-		LOGGER.info("创建excel文件：" + this.exportPath + this.excelName);
 		File directory = new File(this.exportPath);
 		directory.mkdirs();
+
 		File file = new File(this.exportPath + this.excelName);
 		file.createNewFile();
 
