@@ -114,8 +114,8 @@ public class Operation {
 					}});
 				}
 				for (Page opPg : Page.values()) {
-					if( null ==sys ||( sys.equals(System.front) &&opPg.inForeSys )
-							||( sys.equals(System.back) &&opPg.inBackSys ) ) {
+					if( opPg.code >0 && ( null ==sys ||( sys.equals(System.front) &&opPg.inForeSys )
+							||( sys.equals(System.back) &&opPg.inBackSys ) )  ) {
 						add(new HashMap<String, Object>() {{
 							put(codeName, (Integer) opPg.code());
 							put(nameName, opPg.page());
@@ -123,7 +123,7 @@ public class Operation {
 					}
 				}
 				if( returnMap ) {
-					Map<Integer, String> opPageMap = new HashMap<Integer, String>();
+					Map<Integer, String> opPageMap = new HashMap<>();
 					for ( Map<String, Object>itr: this ) { //构造一个操作页面字典
 						opPageMap.put( (Integer) itr.get("opPgCd") , (String) itr.get("opPage"));
 					}
