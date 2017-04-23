@@ -1,10 +1,14 @@
 package com.bbd.wtyh.domain;
 
-import javax.persistence.Id;
+import com.alibaba.fastjson.JSON;
+import com.bbd.wtyh.constants.RiskChgCoSource;
+import com.bbd.wtyh.constants.RiskLevel;
+import com.bbd.wtyh.excel.annotation.Excel;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.apache.commons.lang3.StringUtils;
+
+import javax.persistence.*;
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 
 /**
  * 风险变化公司
@@ -27,6 +31,7 @@ public class RiskChgCoDo {
 	private Integer companyId;
 
 	/** 企业名称 */
+	@Excel(exportName = "企业名称")
 	@Column(name = "company_name")
 	private String companyName;
 
@@ -41,11 +46,17 @@ public class RiskChgCoDo {
 	@Column(name = "company_type")
 	private Integer companyType;
 
+	/** 公司类型，显示用 */
+	@Excel(exportName = "新金融类别")
+	@Transient
+	private String disCompanyType;
+
 	/** 区域ID */
 	@Column(name = "area_id")
 	private Integer areaId;
 
 	/** 名称 */
+	@Excel(exportName = "所在区域")
 	@Column(name = "area_name")
 	private String areaName;
 
@@ -54,6 +65,7 @@ public class RiskChgCoDo {
 	private Integer buildingId;
 
 	/** 楼宇名字 */
+	@Excel(exportName = "所在楼宇")
 	@Column(name = "building_name")
 	private String buildingName;
 
@@ -61,16 +73,30 @@ public class RiskChgCoDo {
 	@Column(name = "risk_level")
 	private Integer riskLevel;
 
+	@Excel(exportName = "当前状态")
+	@Transient
+	private String disRiskLevel;
+
 	/** 公司原始风险等级，1:已出风险(黑) 2:重点关注(红) 3:一般关注(黄) 4:正常(绿) */
 	@Column(name = "old_risk_level")
 	private Integer oldRiskLevel;
+
+	@Excel(exportName = "原始状态")
+	@Transient
+	private String disOldRiskLevel;
 
 	/** 来源，1：人工修改，2：模型评分 */
 	@Column(name = "source")
 	private Integer source;
 
+	@Excel(exportName = "来源")
+	@Transient
+	private String disSource;
+
 	/** 变化时间 */
+	@Excel(exportName = "变化时间", dateFormat = "yyyy-MM-dd")
 	@Column(name = "change_date")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	private Date changeDate;
 
 	/** 创建人 */
@@ -416,13 +442,65 @@ public class RiskChgCoDo {
 		this.updateDate = updateDate;
 	}
 
-	@Override
-	public String toString() {
-		return "RiskChgCoDo{" + "id=" + id + ", companyId=" + companyId + ", companyName='" + companyName + '\'' + ", organizationCode='"
-				+ organizationCode + '\'' + ", companyType=" + companyType + ", areaId=" + areaId + ", areaName='" + areaName + '\''
-				+ ", buildingId=" + buildingId + ", buildingName='" + buildingName + '\'' + ", riskLevel=" + riskLevel + ", oldRiskLevel="
-				+ oldRiskLevel + ", source=" + source + ", changeDate=" + changeDate + ", createBy='" + createBy + '\'' + ", createDate="
-				+ createDate + ", updateBy='" + updateBy + '\'' + ", updateDate=" + updateDate + '}';
+	/**
+	 * 获取 公司类型，显示用
+	 *
+	 * @return disCompanyType 公司类型，显示用
+	 */
+	public String getDisCompanyType() {
+		if (StringUtils.isBlank(this.disCompanyType) && this.companyType != null) {
+			this.disCompanyType = CompanyDO.companyTypeCN(this.companyType.byteValue());
+		}
+		return this.disCompanyType;
 	}
 
+	public String getDisRiskLevel() {
+		if (this.riskLevel == null) {
+			return "";
+		}
+		RiskLevel[] levels = RiskLevel.values();
+		for (RiskLevel level : levels) {
+			if (!this.riskLevel.equals(level.type())) {
+				continue;
+			}
+			this.disRiskLevel = level.color() + "灯";
+			break;
+		}
+		return this.disRiskLevel;
+	}
+
+	public String getDisOldRiskLevel() {
+		if (this.oldRiskLevel == null) {
+			return "";
+		}
+		RiskLevel[] levels = RiskLevel.values();
+		for (RiskLevel level : levels) {
+			if (!this.oldRiskLevel.equals(level.type())) {
+				continue;
+			}
+			this.disOldRiskLevel = level.color() + "灯";
+			break;
+		}
+		return this.disOldRiskLevel;
+	}
+
+	public String getDisSource() {
+		if (this.source == null) {
+			return "";
+		}
+		RiskChgCoSource[] levels = RiskChgCoSource.values();
+		for (RiskChgCoSource level : levels) {
+			if (!this.source.equals(level.type())) {
+				continue;
+			}
+			this.disSource = level.desc();
+			break;
+		}
+		return this.disSource;
+	}
+
+	@Override
+	public String toString() {
+		return JSON.toJSONString(this);
+	}
 }

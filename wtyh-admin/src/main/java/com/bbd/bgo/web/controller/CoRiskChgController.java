@@ -5,6 +5,9 @@ import com.bbd.wtyh.constants.RiskLevel;
 import com.bbd.wtyh.core.entity.Pagination;
 import com.bbd.wtyh.core.utils.ParamUtil;
 import com.bbd.wtyh.domain.CompanyDO;
+import com.bbd.wtyh.domain.RiskChgCoDo;
+import com.bbd.wtyh.excel.ExportExcel;
+import com.bbd.wtyh.exception.ExceptionHandler;
 import com.bbd.wtyh.service.CoRiskChgService;
 import com.bbd.wtyh.web.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +85,32 @@ public class CoRiskChgController {
 
 		Map<String, String> paramMap = ParamUtil.getRequestParamMap(request);
 
-		return null;
+		this.coRiskChgService.queryPageData(paramMap, page);
+
+		return ResponseBean.successResponse(page);
+	}
+
+	/**
+	 * 下载风险变化企业数据
+	 * 
+	 * @param 同queryData()的方法
+	 * @return
+	 */
+	@RequestMapping("/download-data")
+	@ResponseBody
+	public Object downloadData(HttpServletRequest request, Pagination page) {
+
+		ExportExcel exportExcel = new ExportExcel("风险变化企业");
+		try {
+			Map<String, String> paramMap = ParamUtil.getRequestParamMap(request);
+			List<RiskChgCoDo> list = this.coRiskChgService.queryPageData(paramMap, page);
+
+			exportExcel.createSheet(list);
+			exportExcel.exportExcel();
+		} catch (Exception e) {
+			return ExceptionHandler.handlerException(e);
+		}
+		return ResponseBean.successResponse("/download/download-excel.do?name=" + exportExcel.getExcelName());
 	}
 
 	/**
