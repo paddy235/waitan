@@ -6,10 +6,10 @@
   <!-- 查询企业增销变化 -->
   <select id="queryCompanyStatusChg" parameterType="java.util.HashMap"  resultType="com.bbd.wtyh.domain.CompanyStatusChangeDO">
   SELECT
-  <if test="pages ==null ">  <!-- 查总条数的标记 -->
+  <if test="count ==1 ">  <!-- 查总条数的标记 -->
     COUNT(*) AS id
   </if>
-  <if test="pages !=null ">
+  <if test="count !=1 ">
     `id`,
     `company_id` AS companyId,
     `company_name` AS companyName,
@@ -63,7 +63,7 @@
       AND  `closed_type` = #{closedType}
     </if>
   ORDER BY order_date DESC,create_date DESC
-  <if test="pages !=null ">
+  <if test="isPage != null ">
     LIMIT
       #{page},
       #{pageSize}

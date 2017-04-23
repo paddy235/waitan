@@ -74,7 +74,7 @@ public class CoAddOrCloseController {
 			if (null == pageSize) {
 				pageSize = 20;
 			}
-            page=-1;//按条件下载全部数据
+            //page=-1;//按条件下载全部数据
 			Map<String, Object> map = coAddOrCloseService.queryCompanyStatusChg(areaIds, companyTypes, beginDate, endDate, changeType, source,
 					closedType, page, pageSize);
 			List<CompanyStatusChangeDO> list = (List<CompanyStatusChangeDO>) map.get("results");

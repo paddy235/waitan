@@ -69,23 +69,20 @@ public class CoAddOrCloseServiceImpl extends BaseServiceImpl implements CoAddOrC
 			param.put("closedType", closedType);
 		}
 
-		param.put("pages", null);
+		param.put("count", "1");
 		// 先查询总条数
 		List<CompanyStatusChangeDO> listTotal = coAddOrCloseMapper.queryCompanyStatusChg(param);
 		result.put("total", listTotal.get(0).getId());
 
+		param.put("count", "2");
 		// 再查询每页信息
-		if (pageSize <= 0 || page < 1) {
-			param.put("pages", null);
-		} else {
+		if(pageSize > 0 && page >=1){
 			param.put("pageSize", pageSize);
-			if (page > 0) {
-				page = (page - 1) * pageSize; // pageNumber的意义已经变为了“Offset”
-				param.put("page", page);
-			}
-			param.put("pages", 1);
-
+			page = (page - 1) * pageSize; // pageNumber的意义已经变为了“Offset”
+			param.put("page", page);
+			param.put("isPage", 1);
 		}
+
 		List<CompanyStatusChangeDO> list = coAddOrCloseMapper.queryCompanyStatusChg(param);
 		result.put("results", list);
 
