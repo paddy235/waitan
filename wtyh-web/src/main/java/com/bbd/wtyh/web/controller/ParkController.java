@@ -292,10 +292,10 @@ public class ParkController {
 	@RequestMapping("/downloadParkCompanyList")
 	@ResponseBody
 	public ResponseBean downloadParkCompanyList(@RequestParam Integer areaId, @RequestParam Integer isNew, @RequestParam Integer riskLevel,
-			@RequestParam String backgroundName, @RequestParam String companyTypeName, @RequestParam String buildingName,
-			HttpSession session) {
+			@RequestParam String backgroundName, @RequestParam String companyTypeName, @RequestParam String buildingName
+			) {
 
-		ExportExcel exportExcel = new ExportExcel("园区企业列表-" + session.getAttribute(Constants.SESSION.loginName));
+		ExportExcel exportExcel = new ExportExcel("园区企业列表");
 		try {
 
 			List<ParkCompanyDo> list = parkService.queryParkCompany(areaId, isNew, riskLevel, backgroundName, companyTypeName,

@@ -50,8 +50,8 @@ public class CoAddOrCloseController {
 				pageSize = 20;
 			}
 
-			Map<String, Object> map = coAddOrCloseService.queryCompanyStatusChg(areaIds, companyTypes, beginDate, endDate, changeType,
-					source, closedType, page, pageSize);
+			Map<String, Object> map = coAddOrCloseService.queryCompanyStatusChg(areaIds, companyTypes, beginDate, endDate, changeType, source,
+					closedType, page, pageSize);
 
 			return ResponseBean.successResponse(map);
 
@@ -64,9 +64,9 @@ public class CoAddOrCloseController {
 	@RequestMapping("/download-co-status-chg")
 	@ResponseBody
 	public ResponseBean downloadCompanyStatusChg(String areaIds, String companyTypes, String beginDate, String endDate, Integer changeType,
-			Integer source, Integer closedType, Integer page, Integer pageSize, HttpSession session) {
+												 Integer source, Integer closedType, Integer page, Integer pageSize) {
 
-		ExportExcel exportExcel = new ExportExcel("企业增销-" + session.getAttribute(Constants.SESSION.loginName));
+		ExportExcel exportExcel = new ExportExcel("企业增销");
 		try {
 			if (null == page) {
 				page = 1;
@@ -74,9 +74,9 @@ public class CoAddOrCloseController {
 			if (null == pageSize) {
 				pageSize = 20;
 			}
-			// page=-1;//按条件下载全部数据
-			Map<String, Object> map = coAddOrCloseService.queryCompanyStatusChg(areaIds, companyTypes, beginDate, endDate, changeType,
-					source, closedType, page, pageSize);
+            //page=-1;//按条件下载全部数据
+			Map<String, Object> map = coAddOrCloseService.queryCompanyStatusChg(areaIds, companyTypes, beginDate, endDate, changeType, source,
+					closedType, page, pageSize);
 			List<CompanyStatusChangeDO> list = (List<CompanyStatusChangeDO>) map.get("results");
 			exportExcel.createSheet(list);
 			exportExcel.exportExcel();
@@ -89,9 +89,9 @@ public class CoAddOrCloseController {
 
 	@RequestMapping("/get-closed-type")
 	@ResponseBody
-	public ResponseBean getClosedType() {
+	public  ResponseBean getClosedType(){
 		CompanyClosedType[] types = CompanyClosedType.values();
-		Map results = new HashMap();
+		Map results=new HashMap();
 		List<Map<String, Object>> list = new ArrayList<>();
 		for (CompanyClosedType rl : types) {
 			Map<String, Object> map = new HashMap<>();
@@ -99,15 +99,15 @@ public class CoAddOrCloseController {
 			map.put("name", rl.desc());
 			list.add(map);
 		}
-		results.put("results", list);
+		results.put("results",list);
 		return ResponseBean.successResponse(results);
 	}
 
 	@RequestMapping("/get-change-type")
 	@ResponseBody
-	public ResponseBean getChangeType() {
+	public  ResponseBean getChangeType(){
 		ChangeType[] types = ChangeType.values();
-		Map results = new HashMap();
+		Map results=new HashMap();
 		List<Map<String, Object>> list = new ArrayList<>();
 		for (ChangeType rl : types) {
 			Map<String, Object> map = new HashMap<>();
@@ -115,15 +115,15 @@ public class CoAddOrCloseController {
 			map.put("name", rl.desc());
 			list.add(map);
 		}
-		results.put("results", list);
+		results.put("results",list);
 		return ResponseBean.successResponse(results);
 	}
 
 	@RequestMapping("/get-source-type")
 	@ResponseBody
-	public ResponseBean getSourceType() {
+	public  ResponseBean getSourceType(){
 		SourceType[] types = SourceType.values();
-		Map results = new HashMap();
+		Map results=new HashMap();
 		List<Map<String, Object>> list = new ArrayList<>();
 		for (SourceType rl : types) {
 			Map<String, Object> map = new HashMap<>();
@@ -131,15 +131,15 @@ public class CoAddOrCloseController {
 			map.put("name", rl.desc());
 			list.add(map);
 		}
-		results.put("results", list);
+		results.put("results",list);
 		return ResponseBean.successResponse(results);
 	}
 
 	@RequestMapping("/get-company-type")
 	@ResponseBody
-	public ResponseBean getCompanyType() {
+	public  ResponseBean getCompanyType(){
 		CompanyType[] types = CompanyType.values();
-		Map results = new HashMap();
+		Map results=new HashMap();
 		List<Map<String, Object>> list = new ArrayList<>();
 		for (CompanyType rl : types) {
 			Map<String, Object> map = new HashMap<>();
@@ -147,15 +147,15 @@ public class CoAddOrCloseController {
 			map.put("name", rl.desc());
 			list.add(map);
 		}
-		results.put("results", list);
+		results.put("results",list);
 		return ResponseBean.successResponse(results);
 	}
 
 	@RequestMapping("/get-all-area")
 	@ResponseBody
-	public ResponseBean getAllArea() {
-		List<AreaDO> areaList = areaService.areaListAll(Constants.SH_AREAID);
-		Map results = new HashMap();
+	public  ResponseBean getAllArea(){
+		List<AreaDO> areaList=areaService.areaListAll(Constants.SH_AREAID);
+		Map results=new HashMap();
 		List<Map<String, Object>> list = new ArrayList<>();
 		for (AreaDO area : areaList) {
 			Map<String, Object> map = new HashMap<>();
@@ -163,7 +163,7 @@ public class CoAddOrCloseController {
 			map.put("name", area.getName());
 			list.add(map);
 		}
-		results.put("results", list);
+		results.put("results",list);
 		return ResponseBean.successResponse(results);
 	}
 
