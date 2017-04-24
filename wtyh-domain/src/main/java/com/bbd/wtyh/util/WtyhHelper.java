@@ -31,8 +31,4 @@ public class WtyhHelper {
 	public static void loadSystem() {
 		tomcatPath = System.getProperty("tomcat.root");
 	}
-
-	public static void main(String[] args) {
-		load();
-	}
 }

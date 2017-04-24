@@ -78,7 +78,9 @@ public class LoginController {
 			session.setAttribute("loginUser", userInfo);
 			session.setAttribute("userId", userInfo.getId());
 			session.setAttribute("requestIp", UserLogRecord.getRemoteAddress(request));
-			session.setAttribute("requestUri",request.getRequestURI());
+			session.setAttribute("requestUri", request.getRequestURI());
+
+			System.setProperty("loginUserId", userInfo.getId().toString());
 
 			// 用户信息、权限信息传给前端页面
 			map = new HashedMap();

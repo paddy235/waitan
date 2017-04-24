@@ -122,6 +122,11 @@ public class ExportExcelUtil {
 			path += File.separator;
 		}
 
+		String userId = System.getProperty("loginUserId");
+		if (StringUtils.isNotBlank(userId)) {
+			path += File.separator + userId + File.separator;
+		}
+
 		String osName = System.getProperty("os.name");
 		if (StringUtils.isNotBlank(osName) && osName.toUpperCase().startsWith("WIN")) {
 			// 处理文件分隔符
