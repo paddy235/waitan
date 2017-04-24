@@ -306,7 +306,7 @@ public class ParkController {
 	)
 	{
 
-		ExportExcel exportExcel = new ExportExcel("园区楼宇公司列表");
+		ExportExcel exportExcel = new ExportExcel("园区企业列表");
 		try {
 
 			List<ParkCompanyDo> list = parkService.queryParkCompany(areaId,isNew,riskLevel,backgroundName,companyTypeName,buildingName);
