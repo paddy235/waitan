@@ -1,5 +1,6 @@
 package com.bbd.wtyh.web.controller;
 
+import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.service.CompanyService;
@@ -12,7 +13,10 @@ import com.bbd.wtyh.domain.SysAnalyzeDO;
 import com.bbd.wtyh.service.SysAnalyzeService;
 import com.bbd.wtyh.web.ResponseBean;
 
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -34,8 +38,17 @@ public class IndexController {
 
 	@RequestMapping(value = "/areaCount")
 	@ResponseBody
-	public ResponseBean areaCount() {
+	public ResponseBean areaCount(HttpSession session) {
+		String areaCode = (String) session.getAttribute("area");
+		int area =Integer.valueOf(areaCode);
 		Object r = comSer.countCompanyNum();
+		for (Map itr: (List<Map<String, Object>>)r	) {
+			if( (Integer)(itr.get("area_id")) ==area ) {
+				List<Map<String, Object>> sr = new ArrayList<> () ;
+				sr.add(itr);
+				return ResponseBean.successResponse(sr);
+			}
+		}
 		return ResponseBean.successResponse(r);
 	}
 
