@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
  * 
  * @author Created by LiYao on 2017-04-17 10:35.
  */
-public class WtyhAdminHelper {
+public class WtyhHelper {
 
 	public static String tomcatPath = "";
 	public static String exportPath = "";
@@ -16,7 +16,7 @@ public class WtyhAdminHelper {
 	}
 
 	public static void load() {
-		loadProperties("config/wtyh-admin");
+		loadProperties("config/wtyh");
 		loadSystem();
 	}
 
@@ -30,5 +30,9 @@ public class WtyhAdminHelper {
 
 	public static void loadSystem() {
 		tomcatPath = System.getProperty("tomcat.root");
+	}
+
+	public static void main(String[] args) {
+		load();
 	}
 }

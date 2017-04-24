@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.CoRiskChgMapper">
+
+    <select id="riskChgCoBuilding" resultType="java.util.Map">
+        SELECT
+          b.building_id AS id,
+          b.`name`
+        FROM
+          building b,
+          park p
+        WHERE
+          b.park_id = p.park_id
+          <if test="areaSet != null and areaSet != '' and areaSet != 0">
+              AND p.area_id IN (${areaSet})
+          </if>
+    </select>
+
+</mapper>
