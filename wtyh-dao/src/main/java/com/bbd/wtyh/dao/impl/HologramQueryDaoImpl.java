@@ -633,7 +633,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
                 public Map<String, Object> parse(String result) {
                     return JSON.parseObject(result, Map.class);
                 }
-            }, 15000, 15000);
+            }, 20000, 20000);
         } catch (Exception e) {
             e.printStackTrace();
         }

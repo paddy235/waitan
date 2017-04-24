@@ -51,12 +51,12 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
         Object obj = new Object();
         try {
             final int totalCount = companyMapper.countAllCompany();
-            final int pageSize =400;
+            final int pageSize =190;
             final Pagination paginationP = new Pagination(); //其实这行不加 final也可以
             paginationP.setPageSize(pageSize);
             paginationP.setCount(totalCount);
             int total = paginationP.getLastPageNumber();
-            ExecutorService dataExecutorService = Executors.newFixedThreadPool(1);
+            ExecutorService dataExecutorService = Executors.newFixedThreadPool(16);
             logger.info("start update company area_id and address");
             for (int i = 1; i <= total; i++) {
                 final int num = i;
