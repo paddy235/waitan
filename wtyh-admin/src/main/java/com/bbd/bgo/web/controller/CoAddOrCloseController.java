@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -64,9 +65,9 @@ public class CoAddOrCloseController {
 	@RequestMapping("/download-co-status-chg")
 	@ResponseBody
 	public ResponseBean downloadCompanyStatusChg(String areaIds, String companyTypes, String beginDate, String endDate, Integer changeType,
-			Integer source, Integer closedType, Integer page, Integer pageSize) {
+												 Integer source, Integer closedType, Integer page, Integer pageSize, HttpSession session) {
 
-		ExportExcel exportExcel = new ExportExcel("企业增销");
+		ExportExcel exportExcel = new ExportExcel("企业增销-"+session.getAttribute(Constants.SESSION.loginName));
 		try {
 			if (null == page) {
 				page = 1;

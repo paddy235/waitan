@@ -297,19 +297,15 @@ public class ParkController {
 	 */
 	@RequestMapping("/downloadParkCompanyList")
 	@ResponseBody
-	public ResponseBean downloadParkCompanyList(@RequestParam Integer areaId,
-										@RequestParam Integer isNew,
-										@RequestParam Integer riskLevel,
-										@RequestParam String backgroundName,
-										@RequestParam String companyTypeName,
-										@RequestParam String buildingName
-	)
-	{
+	public ResponseBean downloadParkCompanyList(@RequestParam Integer areaId, @RequestParam Integer isNew, @RequestParam Integer riskLevel,
+			@RequestParam String backgroundName, @RequestParam String companyTypeName, @RequestParam String buildingName,
+			HttpSession session) {
 
-		ExportExcel exportExcel = new ExportExcel("园区企业列表");
+		ExportExcel exportExcel = new ExportExcel("园区企业列表-" + session.getAttribute(Constants.SESSION.loginName));
 		try {
 
-			List<ParkCompanyDo> list = parkService.queryParkCompany(areaId,isNew,riskLevel,backgroundName,companyTypeName,buildingName);
+			List<ParkCompanyDo> list = parkService.queryParkCompany(areaId, isNew, riskLevel, backgroundName, companyTypeName,
+					buildingName);
 			exportExcel.createSheet(list);
 			exportExcel.exportExcel();
 			return ResponseBean.successResponse("/download/download-excel.do?name=" + exportExcel.getExcelName());
