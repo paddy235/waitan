@@ -65,9 +65,9 @@ public class CoAddOrCloseController {
 	@RequestMapping("/download-co-status-chg")
 	@ResponseBody
 	public ResponseBean downloadCompanyStatusChg(String areaIds, String companyTypes, String beginDate, String endDate, Integer changeType,
-												 Integer source, Integer closedType, Integer page, Integer pageSize, HttpSession session) {
+												 Integer source, Integer closedType, Integer page, Integer pageSize) {
 
-		ExportExcel exportExcel = new ExportExcel("企业增销-"+session.getAttribute(Constants.SESSION.loginName));
+		ExportExcel exportExcel = new ExportExcel("企业增销");
 		try {
 			if (null == page) {
 				page = 1;
