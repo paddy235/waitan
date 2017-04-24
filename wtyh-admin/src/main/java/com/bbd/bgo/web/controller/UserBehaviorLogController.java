@@ -153,7 +153,7 @@ public class UserBehaviorLogController {
             ExportExcel ee = new ExportExcel("用户日志");
             ee.createSheet("Test", columnName, dataMapLeys, lm);
             ee.exportExcel();
-            return ResponseBean.successResponse("/download/download-excel.do?name=" +ee.getExcelName() );
+            return ResponseBean.successResponse(ee.getDownloadURL());
      /*       String fileName =new String( ee.getExcelName().getBytes("UTF-8"), "ISO-8859-1" );
             return "<a href =\"http://localhost:8080/download/download-excel.do?name=" +fileName +"\"> download </a>";*/
         }

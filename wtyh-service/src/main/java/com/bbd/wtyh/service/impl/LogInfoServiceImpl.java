@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.log.user.UserLog;
 import com.bbd.wtyh.service.LogInfoService;
+import com.bbd.wtyh.util.WtyhHelper;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,8 +22,8 @@ import java.util.regex.Pattern;
 @Service
 public class LogInfoServiceImpl extends BaseServiceImpl implements LogInfoService {
 
-	@Value("${tomcat.root}")
-	private String userActionLogDir;
+	// @Value("${tomcat.root}")
+	// private String userActionLogDir;
 
 	Logger logger = LoggerFactory.getLogger(LogInfoServiceImpl.class);
 
@@ -39,7 +40,7 @@ public class LogInfoServiceImpl extends BaseServiceImpl implements LogInfoServic
 			// 手动调用
 			date = operDate;
 		}
-		String logPath = userActionLogDir + File.separator + "userLogs";
+		String logPath = WtyhHelper.tomcatPath + File.separator + "userLogs";
 		logger.info("将日志文件导入数据库,日志文件路径：" + logPath);
 		File fileDir = new File(logPath);
 		if (!fileDir.isDirectory()) {
