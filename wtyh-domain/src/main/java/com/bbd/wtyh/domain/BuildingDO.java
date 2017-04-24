@@ -5,6 +5,7 @@ import com.bbd.wtyh.util.CalculateUtils;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Table(name = "building")
 public class BuildingDO extends BaseDO {
@@ -36,6 +37,34 @@ public class BuildingDO extends BaseDO {
 	 * @Fields ratio : finance_company_ratio 新型金融企业占比
 	 */
 	private String finComRatio;
+	
+
+	/**
+	 * 重点关注企业数量
+	 */
+	@Transient
+	private Integer importFocusNum;
+	/**
+	 * 一般关注企业数量
+	 */
+	@Transient
+	private Integer commonFocusNum;
+	
+	public Integer getImportFocusNum() {
+		return importFocusNum;
+	}
+
+	public void setImportFocusNum(Integer importFocusNum) {
+		this.importFocusNum = importFocusNum;
+	}
+
+	public Integer getCommonFocusNum() {
+		return commonFocusNum;
+	}
+
+	public void setCommonFocusNum(Integer commonFocusNum) {
+		this.commonFocusNum = commonFocusNum;
+	}
 
 	public Integer getTotal() {
 		return total;
