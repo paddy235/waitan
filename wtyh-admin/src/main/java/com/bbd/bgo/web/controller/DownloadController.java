@@ -1,6 +1,8 @@
 package com.bbd.bgo.web.controller;
 
 import java.io.*;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -29,19 +31,24 @@ public class DownloadController {
 
 		InputStream in = null;
 		OutputStream out = null;
-		File file = new File(path + name);
 
 		try {
+			name = URLDecoder.decode(name, "UTF-8");
+
+			File file = new File(path + name);
+
+			response.setCharacterEncoding("UTF-8");
+
 			if (!file.exists()) {
 				out = response.getOutputStream();
-				out.write("导出文件失败!".getBytes());
+				out.write("导出文件失败!".getBytes("GB2312"));
 				LOGGER.error("导出文件【{}】失败：文件不存在", name);
 				return;
 			}
 			String filename = new String(name.getBytes("GB2312"), "ISO-8859-1");
-			response.setCharacterEncoding("UTF-8");
 			response.setContentType("multipart/form-data");
 			response.setHeader("Content-Disposition", "attachment;fileName=" + filename);
+
 			in = new FileInputStream(file);
 			out = response.getOutputStream();
 			byte[] b = new byte[1024 * 10];
@@ -50,7 +57,6 @@ public class DownloadController {
 				out.write(b, 0, length);
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
 			LOGGER.error("导出文件【{}】失败：服务器报错!{}", name, e);
 		} finally {
 			try {

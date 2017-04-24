@@ -1,6 +1,5 @@
 package com.bbd.bgo.web.controller;
 
-
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.constants.ChangeType;
 import com.bbd.wtyh.constants.CompanyClosedType;
@@ -81,8 +80,7 @@ public class CoAddOrCloseController {
 			List<CompanyStatusChangeDO> list = (List<CompanyStatusChangeDO>) map.get("results");
 			exportExcel.createSheet(list);
 			exportExcel.exportExcel();
-			return ResponseBean.successResponse("/download/download-excel.do?name=" + exportExcel.getExcelName());
-
+			return ResponseBean.successResponse(exportExcel.getDownloadURL());
 		} catch (Exception e) {
 			return ExceptionHandler.handlerException(e);
 		}

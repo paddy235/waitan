@@ -276,15 +276,9 @@ public class ParkController {
 	 */
 	@RequestMapping("/parkCompanyList")
 	@ResponseBody
-	public ResponseBean parkCompanyList(@RequestParam Integer areaId,
-										@RequestParam Integer isNew,
-										@RequestParam Integer riskLevel,
-										@RequestParam String backgroundName,
-										@RequestParam String companyTypeName,
-										@RequestParam String buildingName
-										)
-	{
-		List<ParkCompanyDo> data = parkService.queryParkCompany(areaId,isNew,riskLevel,backgroundName,companyTypeName,buildingName);
+	public ResponseBean parkCompanyList(@RequestParam Integer areaId, @RequestParam Integer isNew, @RequestParam Integer riskLevel,
+			@RequestParam String backgroundName, @RequestParam String companyTypeName, @RequestParam String buildingName) {
+		List<ParkCompanyDo> data = parkService.queryParkCompany(areaId, isNew, riskLevel, backgroundName, companyTypeName, buildingName);
 		return ResponseBean.successResponse(data);
 	}
 
@@ -308,8 +302,7 @@ public class ParkController {
 					buildingName);
 			exportExcel.createSheet(list);
 			exportExcel.exportExcel();
-			return ResponseBean.successResponse("/download/download-excel.do?name=" + exportExcel.getExcelName());
-
+			return ResponseBean.successResponse(exportExcel.getDownloadURL());
 		} catch (Exception e) {
 			return ExceptionHandler.handlerException(e);
 		}
