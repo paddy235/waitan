@@ -39,16 +39,16 @@ public class IndexController {
 	@RequestMapping(value = "/areaCount")
 	@ResponseBody
 	public ResponseBean areaCount(HttpSession session) {
-		String areaCode = (String) session.getAttribute("area");
-		int area =Integer.valueOf(areaCode);
 		Object r = comSer.countCompanyNum();
+/*		String areaCode = (String) session.getAttribute("area");
+		int area =Integer.valueOf(areaCode);
 		for (Map itr: (List<Map<String, Object>>)r	) {
 			if( (Integer)(itr.get("area_id")) ==area ) {
 				List<Map<String, Object>> sr = new ArrayList<> () ;
 				sr.add(itr);
 				return ResponseBean.successResponse(sr);
 			}
-		}
+		}*/
 		return ResponseBean.successResponse(r);
 	}
 

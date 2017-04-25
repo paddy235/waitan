@@ -271,4 +271,21 @@ public class HologramQueryController {
 		return ResponseBean.successResponse(mp);
 	}
 
+	/**
+	 * 企业信息详情--查询结果统计
+	 *
+	 * @return
+	 */
+	@RequestMapping("/infoStatistics.do")
+	@ResponseBody
+	public ResponseBean infoStatistics(String company) throws Exception {
+		Map<String, Integer> result = new HashMap<>();
+		//
+		///加入排查信息总数
+		Map<String, Object> mp = investigationInfo.listInvestigationInfo( 1,0,null,
+				null, company, null, null, null);
+		result.put( "Investigation", (Integer)(mp.get("recordTotal")) );
+		return ResponseBean.successResponse(result);
+	}
+
 }
