@@ -15,8 +15,10 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.net.URLEncoder;
 import java.util.*;
 
 /**
@@ -379,5 +381,9 @@ public class ExportExcel {
 	 */
 	public void setExportPath(String exportPath) {
 		this.exportPath = exportPath;
+	}
+
+	public String getDownloadURL() throws UnsupportedEncodingException {
+		return "/download/download-excel.do?name=" + URLEncoder.encode(this.getExcelName(), "UTF-8");
 	}
 }

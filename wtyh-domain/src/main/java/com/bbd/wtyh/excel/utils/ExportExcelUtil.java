@@ -2,7 +2,7 @@ package com.bbd.wtyh.excel.utils;
 
 import com.bbd.wtyh.excel.ExportExcel;
 import com.bbd.wtyh.excel.Sheet;
-import com.bbd.wtyh.util.WtyhAdminHelper;
+import com.bbd.wtyh.util.WtyhHelper;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.*;
@@ -111,7 +111,7 @@ public class ExportExcelUtil {
 	 */
 	public static String dealWithExportPath(String path) {
 		if (StringUtils.isBlank(path)) {
-			path = WtyhAdminHelper.exportPath;
+			path = WtyhHelper.exportPath;
 		}
 
 		if (StringUtils.isBlank(path)) {
@@ -120,6 +120,11 @@ public class ExportExcelUtil {
 
 		if (!path.endsWith(File.separator)) {
 			path += File.separator;
+		}
+
+		String userId = System.getProperty("loginUserId");
+		if (StringUtils.isNotBlank(userId)) {
+			path += File.separator + userId + File.separator;
 		}
 
 		String osName = System.getProperty("os.name");

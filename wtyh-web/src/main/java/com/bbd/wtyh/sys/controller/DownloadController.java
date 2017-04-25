@@ -1,8 +1,7 @@
-package com.bbd.bgo.web.controller;
+package com.bbd.wtyh.sys.controller;
 
 import java.io.*;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletResponse;
 

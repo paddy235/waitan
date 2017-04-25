@@ -9,7 +9,7 @@
 			update_by as updateBy,
 			update_date as updateDate,
 			data_count as dataCount,
-			company_count as companyCount,
+			(SELECT COUNT(1) FROM company) as companyCount,
 			bug_count as bugCount
 		from system_analyze limit 1;
 	</select>

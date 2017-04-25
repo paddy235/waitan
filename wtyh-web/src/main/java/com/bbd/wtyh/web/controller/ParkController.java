@@ -245,7 +245,7 @@ public class ParkController {
 	 */
 	@RequestMapping("/buildingNews")
 	@ResponseBody
-	public ResponseBean buildingNews(@RequestParam(required = true) Integer buildingId) {
+	public ResponseBean buildingNews(@RequestParam Integer buildingId) {
 
 		String data = parkService.buildingNews(buildingId);
 
@@ -261,7 +261,7 @@ public class ParkController {
 	 */
 	@RequestMapping("/buildingRisk")
 	@ResponseBody
-	public ResponseBean buildingRisk(@RequestParam(required = true) Integer buildingId) {
+	public ResponseBean buildingRisk(@RequestParam Integer buildingId) {
 
 		List<CompanyAnalysisResultDO> data = parkService.queryRiskByBuilding(buildingId);
 		return ResponseBean.successResponse(data);
@@ -276,15 +276,9 @@ public class ParkController {
 	 */
 	@RequestMapping("/parkCompanyList")
 	@ResponseBody
-	public ResponseBean parkCompanyList(@RequestParam(required = true) Integer areaId,
-										@RequestParam(required = true) Integer isNew,
-										@RequestParam(required = true) Integer riskLevel,
-										@RequestParam(required = true) String backgroundName,
-										@RequestParam(required = true) String companyTypeName,
-										@RequestParam(required = true) String buildingName
-										)
-	{
-		List<ParkCompanyDo> data = parkService.queryParkCompany(areaId,isNew,riskLevel,backgroundName,companyTypeName,buildingName);
+	public ResponseBean parkCompanyList(@RequestParam Integer areaId, @RequestParam Integer isNew, @RequestParam Integer riskLevel,
+			@RequestParam String backgroundName, @RequestParam String companyTypeName, @RequestParam String buildingName) {
+		List<ParkCompanyDo> data = parkService.queryParkCompany(areaId, isNew, riskLevel, backgroundName, companyTypeName, buildingName);
 		return ResponseBean.successResponse(data);
 	}
 
@@ -297,23 +291,18 @@ public class ParkController {
 	 */
 	@RequestMapping("/downloadParkCompanyList")
 	@ResponseBody
-	public ResponseBean downloadParkCompanyList(@RequestParam(required = true) Integer areaId,
-										@RequestParam(required = true) Integer isNew,
-										@RequestParam(required = true) Integer riskLevel,
-										@RequestParam(required = true) String backgroundName,
-										@RequestParam(required = true) String companyTypeName,
-										@RequestParam(required = true) String buildingName
-	)
-	{
+	public ResponseBean downloadParkCompanyList(@RequestParam Integer areaId, @RequestParam Integer isNew, @RequestParam Integer riskLevel,
+			@RequestParam String backgroundName, @RequestParam String companyTypeName, @RequestParam String buildingName
+			) {
 
-		ExportExcel exportExcel = new ExportExcel("园区楼宇公司列表");
+		ExportExcel exportExcel = new ExportExcel("园区企业列表");
 		try {
 
-			List<ParkCompanyDo> list = parkService.queryParkCompany(areaId,isNew,riskLevel,backgroundName,companyTypeName,buildingName);
+			List<ParkCompanyDo> list = parkService.queryParkCompany(areaId, isNew, riskLevel, backgroundName, companyTypeName,
+					buildingName);
 			exportExcel.createSheet(list);
 			exportExcel.exportExcel();
-			return ResponseBean.successResponse("/download/download-excel.do?name=" + exportExcel.getExcelName());
-
+			return ResponseBean.successResponse(exportExcel.getDownloadURL());
 		} catch (Exception e) {
 			return ExceptionHandler.handlerException(e);
 		}

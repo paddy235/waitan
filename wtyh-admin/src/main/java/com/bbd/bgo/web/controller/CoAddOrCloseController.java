@@ -1,6 +1,5 @@
 package com.bbd.bgo.web.controller;
 
-
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.constants.ChangeType;
 import com.bbd.wtyh.constants.CompanyClosedType;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -64,7 +64,7 @@ public class CoAddOrCloseController {
 	@RequestMapping("/download-co-status-chg")
 	@ResponseBody
 	public ResponseBean downloadCompanyStatusChg(String areaIds, String companyTypes, String beginDate, String endDate, Integer changeType,
-			Integer source, Integer closedType, Integer page, Integer pageSize) {
+												 Integer source, Integer closedType, Integer page, Integer pageSize) {
 
 		ExportExcel exportExcel = new ExportExcel("企业增销");
 		try {
@@ -80,8 +80,7 @@ public class CoAddOrCloseController {
 			List<CompanyStatusChangeDO> list = (List<CompanyStatusChangeDO>) map.get("results");
 			exportExcel.createSheet(list);
 			exportExcel.exportExcel();
-			return ResponseBean.successResponse("/download/download-excel.do?name=" + exportExcel.getExcelName());
-
+			return ResponseBean.successResponse(exportExcel.getDownloadURL());
 		} catch (Exception e) {
 			return ExceptionHandler.handlerException(e);
 		}

@@ -38,6 +38,7 @@ import java.util.Set;
  */
 @Controller
 public class LoginController {
+
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
 	private RoleResourceService roleResourceService;
@@ -49,61 +50,57 @@ public class LoginController {
 	@RequestMapping("/login")
 	@ResponseBody
 	@LogRecord(logMsg = "后台用户登录", type = Operation.Type.login, page = Operation.Page.login, after = true, before = false)
-	public Object login(@RequestParam String name,@RequestParam String password,HttpServletRequest request){
-		Map map=null;
+	public Object login(@RequestParam String name, @RequestParam String password, HttpServletRequest request) {
+		Map map = null;
 		UsernamePasswordToken token = new UsernamePasswordToken(name, password);
 		token.setRememberMe(true);
-		//获取当前的Subject
+		// 获取当前的Subject
 		Subject currentUser = SecurityUtils.getSubject();
 		try {
 			currentUser.login(token);
-			logger.info(name+"身份验证通过,登录后台系统!");
+			logger.info(name + "身份验证通过,登录后台系统!");
 
-			//Set res=roleResourceService.queryResourceCodeByLoginName(name);
-			//取用户信息、权限
-			Map m=userInfoService.getUserInfoByLoginName(name);
-			UserInfoTableDo userInfo=(UserInfoTableDo) m.get("userInfo");
+			// Set res=roleResourceService.queryResourceCodeByLoginName(name);
+			// 取用户信息、权限
+			Map m = userInfoService.getUserInfoByLoginName(name);
+			UserInfoTableDo userInfo = (UserInfoTableDo) m.get("userInfo");
 
-			Set res= (Set) m.get("resourceCode");
-			String areaCode=userInfo.getAreaCode();
-			AreaDO areaDo=areaService.getAreaByAreaId(Integer.valueOf(areaCode));
-			String areaName=null;
-			if(null != areaDo){
-				areaName=areaDo.getName();
+			Set res = (Set) m.get("resourceCode");
+			String areaCode = userInfo.getAreaCode();
+			AreaDO areaDo = areaService.getAreaByAreaId(Integer.valueOf(areaCode));
+			String areaName = null;
+			if (null != areaDo) {
+				areaName = areaDo.getName();
 			}
-			//用户信息、权限信息保存到session
-			Session session=currentUser.getSession();
-			session.setAttribute("resource",res);//权限列表
-			session.setAttribute(Constants.SESSION.loginName, name);//登录用户名
-			session.setAttribute("area",areaCode);//地区编号
-			session.setAttribute("areaName",areaName);//地区名称
-			session.setAttribute("loginUser",userInfo);//日志使用
-			UserType ut = UserType.getUserTypeByCode( userInfo.getUserType() );
-			session.setAttribute("enUserType", ut );//保存用户类型（枚举值）
-			session.setAttribute("userId", userInfo.getId() );//保存用户Id
-			session.setAttribute("userName", userInfo.getLoginName() );//保存用户名
-			/*UserRank userRank = UserRank.GENERAL;
-			if( UserInfoService.superId == userInfo.getId() ) {
-				userRank = UserRank.SUPER_A;
-			} else  if (UserType.BACK_ADMIN.equals(ut)  *//*|| UserType.BUSINESS_MANAGER(ut) *//*) {
-				userRank = UserRank.ADMIN;
-			}*/
-			session.setAttribute("userRank", UserType.getUserTypeByCode(userInfo.getUserType()).getUserRank() );//保存用户等级
+			// 用户信息、权限信息保存到session
+			Session session = currentUser.getSession();
+			session.setAttribute("resource", res);// 权限列表
+			session.setAttribute(Constants.SESSION.loginName, name);// 登录用户名
+			session.setAttribute("area", areaCode);// 地区编号
+			session.setAttribute("areaName", areaName);// 地区名称
+			session.setAttribute("loginUser", userInfo);// 日志使用
+			UserType ut = UserType.getUserTypeByCode(userInfo.getUserType());
+			session.setAttribute("enUserType", ut);// 保存用户类型（枚举值）
+			session.setAttribute("userId", userInfo.getId());// 保存用户Id
+			session.setAttribute("userName", userInfo.getLoginName());// 保存用户名
+			session.setAttribute("userRank", UserType.getUserTypeByCode(userInfo.getUserType()).getUserRank());// 保存用户等级
 			session.setAttribute("requestIp", UserLogRecord.getRemoteAddress(request));
-			session.setAttribute("requestUri",request.getRequestURI());
+			session.setAttribute("requestUri", request.getRequestURI());
 
-			//用户信息、权限信息传给前端页面
-			map=new HashedMap();
-			map.put("resource",res);//权限列表
-			map.put(Constants.SESSION.loginName, name);//登录用户名
-			map.put("area",areaCode);//属地区编号
-			map.put("areaName",areaName);//地区名称
+			System.setProperty("loginUserId", userInfo.getId().toString());
+
+			// 用户信息、权限信息传给前端页面
+			map = new HashedMap();
+			map.put("resource", res);// 权限列表
+			map.put(Constants.SESSION.loginName, name);// 登录用户名
+			map.put("area", areaCode);// 属地区编号
+			map.put("areaName", areaName);// 地区名称
 			map.put("pwdBeOverdue", userInfoService.testUserPasswordBeOverdue(userInfo.getBackPwdUpDate()));// 密码是否过期
 			map.put("userId", userInfo.getId());// 用户ID
 
-		}catch(Exception e){
+		} catch (Exception e) {
 
-			//通过处理Shiro的运行时AuthenticationException就可以控制用户登录失败或密码错误时的情景
+			// 通过处理Shiro的运行时AuthenticationException就可以控制用户登录失败或密码错误时的情景
 			e.printStackTrace();
 			return ResponseBean.errorResponse("用户名或密码不正确");
 		}
@@ -118,7 +115,7 @@ public class LoginController {
 	public Object logout(HttpServletRequest request) {
 
 		Subject currentUser = SecurityUtils.getSubject();
-		logger.info(currentUser.getPrincipal()+"登出后台系统!");
+		logger.info(currentUser.getPrincipal() + "登出后台系统!");
 		currentUser.logout();
 
 		return ResponseBean.successResponse(true);

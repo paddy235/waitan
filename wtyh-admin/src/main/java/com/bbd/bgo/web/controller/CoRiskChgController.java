@@ -124,10 +124,10 @@ public class CoRiskChgController {
 
 			exportExcel.createSheet(list);
 			exportExcel.exportExcel();
+			return ResponseBean.successResponse(exportExcel.getDownloadURL());
 		} catch (Exception e) {
 			return ExceptionHandler.handlerException(e);
 		}
-		return ResponseBean.successResponse("/download/download-excel.do?name=" + exportExcel.getExcelName());
 	}
 
 	/**
