@@ -52,10 +52,10 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
         try {
             final int totalCount = companyMapper.countAllCompany();
             final int pageSize =190;
-            final Pagination paginationP = new Pagination(); //其实这行不加 final也可以
-            paginationP.setPageSize(pageSize);
-            paginationP.setCount(totalCount);
-            int total = paginationP.getLastPageNumber();
+            Pagination pagination = new Pagination();
+            pagination.setPageSize(pageSize);
+            pagination.setCount(totalCount);
+            int total = pagination.getLastPageNumber();
             ExecutorService dataExecutorService = Executors.newFixedThreadPool(16);
             logger.info("start update company area_id and address");
             for (int i = 1; i <= total; i++) {
@@ -63,7 +63,10 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
                 dataExecutorService.submit(new Runnable() {
                     @Override
                     public void run() {
+                        Pagination paginationP = new Pagination();
                         paginationP.setPageNumber(num);
+                        paginationP.setPageSize(pageSize);
+                        paginationP.setCount(totalCount);
                         System.out.println( "Thread is Start! ID:" +Thread.currentThread().getId());
                         System.out.println( "PageNumber:" + paginationP.getPageNumber());
                         companyAreaIdAndAddressUpdateThread( paginationP );
