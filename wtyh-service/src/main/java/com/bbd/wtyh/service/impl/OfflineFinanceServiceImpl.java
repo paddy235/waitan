@@ -19,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 
+import com.bbd.shanghai.credit.utils.XyptWebServiceUtil;
 import com.bbd.wtyh.constants.RiskChgCoSource;
 import com.bbd.wtyh.constants.RiskLevel;
 import com.bbd.wtyh.domain.*;
@@ -563,61 +564,6 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 		return new BigDecimal(companyCreditDetailMapper.getCompanyRiskInfoByCompanyName(companyName));
 	}
 
-	/**
-	 * 本地模型分数统计逻辑 本地模型分数 开3次方 再乘以5
-	 * 
-	 * @param creditInfoRisk
-	 * @return
-	 */
-	private BigDecimal creditFormula(Integer creditInfoRisk) {
-		return new BigDecimal(Math.pow(creditInfoRisk, 1.0 / 3) * 5);
-	}
-
-	/**
-	 * 获取本地模型条目
-	 * 
-	 * @return
-	 */
-	private Map<String, Integer> getCompanyCreditPointItems() {
-		List<CompanyCreditPointItemsDO> items = companyCreditInformationMapper.selectCompanyCreditPointItems();
-		Map<String, Integer> tempMap = new HashMap<>();
-		if (!CollectionUtils.isEmpty(items)) {
-			for (CompanyCreditPointItemsDO companyCreditPointItemsDO : items) {
-				tempMap.put(companyCreditPointItemsDO.getItem(), companyCreditPointItemsDO.getPoint());
-			}
-		}
-		return tempMap;
-	}
-
-	/**
-	 * 统计本地模型总分
-	 * 
-	 * @param
-	 * @param tempMap
-	 * @param list
-	 * @return
-	 */
-	private Integer getCompanyRiskInfo(Map<String, Integer> tempMap, List<CompanyCreditInformationDO> list) {
-		Integer creditInfoRisk = 0;
-		Map<String, String> isInMap = new HashMap<>();
-		if (!CollectionUtils.isEmpty(list) && tempMap != null) {
-			Gson gson = new Gson();
-			for (CompanyCreditInformationDO companyCreditInformationDO : list) {
-				Map<String, String> map = gson.fromJson(companyCreditInformationDO.getContent(), Map.class);
-				for (String key : map.keySet()) {
-					String value = map.get(key);
-					if (isInMap.get(value) == null) {
-						isInMap.put(value, value);
-						if (tempMap.get(value) != null && tempMap.get(value) > 0) {
-							creditInfoRisk += tempMap.get(value);
-						}
-					}
-				}
-			}
-		}
-		return creditInfoRisk;
-	}
-
 	@Override
 	public List<StatisticsVO> queryStatistics(String companyName, String tabIndex, String areaCode) throws ParseException {
 		List<StatisticsVO> avgList = new ArrayList<>();
@@ -873,51 +819,6 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 
 	@Override
 	public void saveCompanyCreditRisk() {
-		int totalCount = companyMapper.countAllCompany();
-		if (totalCount > 0) {
-			Pagination pagination = new Pagination();
-			pagination.setPageSize(1000);
-			pagination.setCount(totalCount);
-			int totalPage = pagination.getLastPageNumber();
-			Map<String, Object> params = new HashMap<>();
-			ExecutorService dataExecutorService = Executors.newFixedThreadPool(20);
-			Map<String, Integer> tempMap = getCompanyCreditPointItems();// 本地模型加分项目
-			for (int pageNo = 1; pageNo <= totalPage; pageNo++) {
-				pagination.setPageNumber(pageNo);
-				params.put("pagination", pagination);
-				List<CompanyDO> pageList = companyMapper.findByPage(params);
-				if (!CollectionUtils.isEmpty(pageList)) {
-					for (CompanyDO companyDO : pageList) {
-						final Integer companyId = companyDO.getCompanyId();
-						List<CompanyCreditInformationDO> list = companyCreditInformationMapper
-								.selectCompanyCreditInformationList(companyId);
-						if (CollectionUtils.isEmpty(list)) {
-							continue;
-						}
-						final Integer creditInfoRisk = this.getCompanyRiskInfo(tempMap, list);
-						dataExecutorService.submit(new Runnable() {
-
-							@Override
-							public void run() {
-								final CompanyCreditDetailDO companyCreditDetailDO = new CompanyCreditDetailDO();
-								companyCreditDetailDO.setCompanyId(companyId);
-								companyCreditDetailDO.setCompanyRiskInfo(creditFormula(creditInfoRisk).floatValue());
-								companyCreditDetailDO.setCreateBy("system");
-								companyCreditDetailDO.setCreateDate(new Date());
-								companyCreditDetailMapper.save(companyCreditDetailDO);
-								System.out.println("----saveCompanyCreditRisk----saveU----" + companyId);
-							}
-						});
-					}
-				}
-			}
-			dataExecutorService.shutdown();
-			try {
-				dataExecutorService.awaitTermination(1, TimeUnit.DAYS);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
 	}
 
 	@Override

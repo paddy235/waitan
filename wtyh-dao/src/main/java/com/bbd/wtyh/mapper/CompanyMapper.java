@@ -13,6 +13,7 @@ import com.bbd.wtyh.domain.query.CompanyQuery;
 import com.bbd.wtyh.domain.vo.SpectrumVO;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.springframework.stereotype.Service;
 
 public interface CompanyMapper {
 
@@ -79,7 +80,7 @@ public interface CompanyMapper {
 	 * @param companyId
 	 */
 	void updateRiskLevel(@Param("riskLevel") Integer riskLevel, @Param("previousRiskLevel") Integer previousRiskLevel,
-						 @Param("companyId") Integer companyId, @Param("updateBy") String updateBy);
+			@Param("companyId") Integer companyId, @Param("updateBy") String updateBy);
 
 	CompanyDO queryCompanyByName(@Param(value = "company") String company);
 
@@ -95,13 +96,27 @@ public interface CompanyMapper {
 
 	/**
 	 * 更新企业区代、地址等
-	 * @param companyName 名称
-	 * @param areaId 区代
-	 * @param address 地址
-	 * @param creditCode 统一社会信用代码
+	 * 
+	 * @param companyName
+	 *            名称
+	 * @param areaId
+	 *            区代
+	 * @param address
+	 *            地址
+	 * @param creditCode
+	 *            统一社会信用代码
 	 */
 	@Update("UPDATE company SET `area_id` =#{areaId}, `address` =#{address}, `credit_code` =#{creditCode} WHERE `name` =#{companyName};")
-	void updateAreaIdAndAddress(@Param("companyName") String companyName, @Param("areaId") Integer areaId,
-								@Param("address") String address,  @Param("creditCode") String creditCode );
+	void updateAreaIdAndAddress(@Param("companyName") String companyName, @Param("areaId") Integer areaId, @Param("address") String address,
+			@Param("creditCode") String creditCode);
+
+	/**
+	 * 大于id 的公司总数量
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@Select("SELECT COUNT(*) AS count FROM company c WHERE c.company_id > #{id} ORDER BY c.company_id")
+	int countCompanyGTId(@Param("id") int id);
 
 }

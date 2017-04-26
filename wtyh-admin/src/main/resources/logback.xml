@@ -81,6 +81,9 @@
     <logger name="net.sf.ehcache" level="ERROR"/>
     <logger name="com.alibaba.druid" level="ERROR"/>
     <logger name="org.mybatis" level="DEBUG"/>
+    <logger name="org.codehaus.xfire" level="ERROR"/>
+    <logger name="org.apache.commons.httpclient.HttpMethodDirector" level="ERROR"/>
+
 
     <logger name="java.sql.Statement" level="DEBUG"/>
     <logger name="java.sql.ResultSet" level="DEBUG"/>

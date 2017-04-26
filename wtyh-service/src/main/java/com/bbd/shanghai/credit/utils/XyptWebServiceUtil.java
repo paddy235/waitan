@@ -6,6 +6,8 @@ import org.codehaus.xfire.XFireFactory;
 import org.codehaus.xfire.client.XFireProxyFactory;
 import org.codehaus.xfire.service.Service;
 import org.codehaus.xfire.service.binding.ObjectServiceFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 信用平台webService工具类
@@ -14,22 +16,32 @@ import org.codehaus.xfire.service.binding.ObjectServiceFactory;
  */
 public class XyptWebServiceUtil {
 
-	private static final String SERVICE_URL = "http://10.107.99.42:8080/xyxxfwpt/services/XyAppQuery";
+	// private static final String SERVICE_URL =
+	// "http://10.107.99.42:8080/xyxxfwpt/services/XyAppQuery";
+	private static final String SERVICE_URL = "http://127.0.0.1:8082/xyxxfwpt/services/XyAppQuery";
 	private static final String USER_NAME = "";
 	private static final String PASSWORD = "";
 
 	// 操作人身份标识 具体使用数据的人员身份标识，只记录。
 	private static final String UNAME = "BBD-wtyh";
+	// 查询用途
+	private static final String CXYT = "BBD-company-credit-score";
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(XyptWebServiceUtil.class);
 
 	/**
-	 * 
+	 *
+	 * 获取信用信息。三个参数至少具备一项
+	 *
 	 * @param dwmc
+	 *            单位名称
 	 * @param zzjgdm
+	 *            组织机构代码
 	 * @param tydm
-	 * @param cxyt
+	 *            社会信用统一代码
 	 * @return
 	 */
-	public static String getCreditInfo(String dwmc, String zzjgdm, String tydm, String cxyt) {
+	public static String getCreditInfo(String dwmc, String zzjgdm, String tydm) {
 		// 创建服务模型
 		XyAppQueryService service;
 
@@ -40,9 +52,13 @@ public class XyptWebServiceUtil {
 			XFire xfire = XFireFactory.newInstance().getXFire();
 			XFireProxyFactory factory = new XFireProxyFactory(xfire);
 			service = (XyAppQueryService) factory.create(serviceModel, SERVICE_URL);
-			return service.queryFrKxHonest(dwmc, zzjgdm, tydm, USER_NAME, PASSWORD, cxyt, UNAME);
+			return service.queryFrKxHonest(dwmc, zzjgdm, tydm, USER_NAME, PASSWORD, CXYT, UNAME);
 		} catch (Exception e) {
-			e.printStackTrace();
+
+			String msg = "获取公司：【%s/%s/%s】信用信息出错。请求地址：%s，参数：dwmc：%s，zzjgdm：%s，tydm：%s，username：%s，password：%s，cxyt：%s，uname：%s";
+			msg = String.format(msg, dwmc, zzjgdm, tydm, SERVICE_URL, dwmc, zzjgdm, tydm, USER_NAME, PASSWORD, CXYT, UNAME);
+			LOGGER.error(msg, e.getMessage());
+
 			return null;
 		}
 	}

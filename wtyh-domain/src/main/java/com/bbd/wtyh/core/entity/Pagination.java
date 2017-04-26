@@ -22,6 +22,12 @@ public class Pagination {
 	private int begin = 1;// 开始页码
 	private int end = 10;// 结束页码
 
+	private int offset;// 偏移量
+
+	public int getOffset() {
+		return (this.getPageIndex() - 1) * this.getPageSize();
+	}
+
 	public int getBegin() {
 		return begin;
 	}
