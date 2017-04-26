@@ -44,13 +44,16 @@ public class CoAddOrCloseServiceImpl extends BaseServiceImpl implements CoAddOrC
 		// 如果选择了全部，则不作为条件
 		if(StringUtils.isNotBlank(areaIds)){
 			String[] as=areaIds.split(",");
-
-			param.put("areaId", Arrays.asList(as));
+			if(as.length>0 && !"0".equals(as[0])) {
+				param.put("areaId", Arrays.asList(as));
+			}
 		}
 
 		if (StringUtils.isNotBlank(companyTypes)) {
 			String[] cs=companyTypes.split(",");
-			param.put("companyType", Arrays.asList(cs));
+			if(cs.length>0 && !"0".equals(cs[0])) {
+				param.put("companyType", Arrays.asList(cs));
+			}
 		}
 
 		if (StringUtils.isNotBlank(beginDate)) {
@@ -59,13 +62,13 @@ public class CoAddOrCloseServiceImpl extends BaseServiceImpl implements CoAddOrC
 		if (StringUtils.isNotBlank(endDate)) {
 			param.put("endDate", endDate+"-31");
 		}
-		if (null != changeType) {
+		if (null != changeType && 0!=changeType) {
 			param.put("changeType", changeType);
 		}
-		if (null != source) {
+		if (null != source && 0!=source) {
 			param.put("source", source);
 		}
-		if (null != closedType) {
+		if (null != closedType && 0!=closedType) {
 			param.put("closedType", closedType);
 		}
 

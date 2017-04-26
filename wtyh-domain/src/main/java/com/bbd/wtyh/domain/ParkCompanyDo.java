@@ -1,5 +1,6 @@
 package com.bbd.wtyh.domain;
 
+import com.bbd.wtyh.constants.RiskLevel;
 import com.bbd.wtyh.excel.annotation.Excel;
 
 /**
@@ -9,28 +10,34 @@ public class ParkCompanyDo {
 
     private Integer companyId;//企业ID
 
-    @Excel(exportName = "企业名称")
+    @Excel(exportName = "公司名称")
     private String companyName;//企业名称
     @Excel(exportName = "法定代表人")
     private String legalPerson;//法人
+    @Excel(exportName = "企业背景")
+    private String backgroundName;//企业背景名称
 
     private Byte companyType;//企业类型
+
     @Excel(exportName = "行业")
     private String companyTypeName;//企业类型名称
 
+    @Excel(exportName = "所在楼宇")
+    private String buildingName;//楼宇名称
+
     private Integer riskLevel;//风险等级
+
     @Excel(exportName = "风险等级")
     private String riskLevelName;//风险等级名称
 
     private Integer isNew;//是否新增
+    @Excel(exportName = "状态")
+    private String isNewName;//是否新增名称
 
     private Integer buildingId;//楼宇ID
-    @Excel(exportName = "所在楼宇")
-    private String buildingName;//楼宇名称
 
     private String background;//企业背景
-    @Excel(exportName = "企业背景")
-    private String backgroundName;//企业背景名称
+
 
 
     public Integer getCompanyId() {
@@ -82,7 +89,18 @@ public class ParkCompanyDo {
     }
 
     public String getRiskLevelName() {
-        return riskLevelName;
+        if (null == this.riskLevel) {
+            return "";
+        }
+
+        RiskLevel[] types = RiskLevel.values();
+        for (RiskLevel t : types) {
+            if (t.type().equals(this.riskLevel)) {
+                return t.desc();
+            }
+        }
+
+        return "";
     }
 
     public void setRiskLevelName(String riskLevelName) {
@@ -138,5 +156,16 @@ public class ParkCompanyDo {
 
     public void setBackgroundName(String backgroundName) {
         this.backgroundName = backgroundName;
+    }
+
+    public String getIsNewName() {
+        if(1==this.isNew){
+            return "新增";
+        }
+        return "";
+    }
+
+    public void setIsNewName(String isNewName) {
+        this.isNewName = isNewName;
     }
 }

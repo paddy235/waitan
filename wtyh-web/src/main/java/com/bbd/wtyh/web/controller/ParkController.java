@@ -291,15 +291,18 @@ public class ParkController {
 	 */
 	@RequestMapping("/downloadParkCompanyList")
 	@ResponseBody
-	public ResponseBean downloadParkCompanyList(@RequestParam Integer areaId, @RequestParam Integer isNew, @RequestParam Integer riskLevel,
-			@RequestParam String backgroundName, @RequestParam String companyTypeName, @RequestParam String buildingName
+	public ResponseBean downloadParkCompanyList(@RequestParam Integer areaId,Integer isNew, Integer riskLevel,
+			String backgroundName,  String companyTypeName, String buildingName
 			) {
 
 		ExportExcel exportExcel = new ExportExcel("园区企业列表");
 		try {
 
-			List<ParkCompanyDo> list = parkService.queryParkCompany(areaId, isNew, riskLevel, backgroundName, companyTypeName,
-					buildingName);
+			//按查询条件下载企业
+			/*List<ParkCompanyDo> list = parkService.queryParkCompany(areaId, isNew, riskLevel, backgroundName, companyTypeName,
+					buildingName);*/
+			//下载改园区全部企业
+			List<ParkCompanyDo> list = parkService.queryParkCompany(areaId, null, null, null, null, null);
 			exportExcel.createSheet(list);
 			exportExcel.exportExcel();
 			return ResponseBean.successResponse(exportExcel.getDownloadURL());
