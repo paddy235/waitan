@@ -282,30 +282,32 @@ public class HologramQueryController {
 		Map<String, Integer> result = new HashMap<>();
 		//股东高管
 		Map<String, List> shareholderSenior = hologramQueryService.shareholdersSenior(company);
-		Integer shareholderSeniorTotal = ((List)(shareholderSenior.get("gdxx"))).size();
-		shareholderSeniorTotal += ((List)(shareholderSenior.get("baxx"))).size();
+		List rList = (List)(shareholderSenior.get("gdxx"));
+		Integer shareholderSeniorTotal = ( null ==rList ? 0 : rList.size() );
+		rList =(List)(shareholderSenior.get("baxx"));
+		shareholderSeniorTotal += ( null ==rList ? 0 : rList.size() );
 		result.put( "shareholderSeniorTotal", shareholderSeniorTotal );
 		//诉讼记录
 		List<OpenCourtAnnouncementDO.Results> loc = hologramQueryService.openCourtAnnouncement(company);
-		Integer lawsuitTotal =loc.size(); //加上开庭公告数
+		Integer lawsuitTotal =( null==loc ? 0 : loc.size() ); //加上开庭公告数
 		List<JudgeDocDO.Results> jd= hologramQueryService.judgeDoc(company);
-		lawsuitTotal += jd.size(); //加上裁判文书数
+		lawsuitTotal += ( null ==jd ? 0 : jd.size() ); //加上裁判文书数
 		DebtorDO de = hologramQueryService.debtor(company);
-		lawsuitTotal += de.getTotal(); //加上被执行人
+		lawsuitTotal += ( null ==de ? 0 : de.getTotal() ); //加上被执行人
 		NoCreditDebtorDO ncd = hologramQueryService.noCreditDebtor(company);
-		lawsuitTotal += ncd.getTotal(); //加上失信被执行人
+		lawsuitTotal += ( null ==ncd ? 0 : ncd.getTotal() ); //加上失信被执行人
 		CourtAnnouncementDO ca = hologramQueryService.courtAnnouncement(company);
-		lawsuitTotal += ca.getTotal(); //加上法院公告
+		lawsuitTotal += ( null ==ca ? 0 : ca.getTotal() ); //加上法院公告
 		result.put("lawsuitTotal" ,lawsuitTotal);
 		//加入专利信息
 		PatentDO pd = hologramQueryService.getPatentData(company,1,200000000);
-		Integer patentTotal = pd.getTotal(); //专利信息
+		Integer patentTotal = ( null ==pd ? 0 : pd.getTotal() ); //专利信息
 		result.put( "patentTotal", patentTotal );
 		//加入排查信息总数
 		Map<String, Object> mp = investigationInfo.listInvestigationInfo( 1,0,null,
 				null, company, null, null, null);
 		Integer investigationTotal =((Long)(mp.get("listTotalNum"))).intValue();
-		result.put( "investigationTotal", null ==investigationTotal?0:investigationTotal );
+		result.put( "investigationTotal", null ==investigationTotal ? 0 : investigationTotal );
 		return ResponseBean.successResponse(result);
 	}
 
