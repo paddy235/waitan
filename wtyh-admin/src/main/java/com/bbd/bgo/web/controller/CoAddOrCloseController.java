@@ -66,7 +66,7 @@ public class CoAddOrCloseController {
 	public ResponseBean downloadCompanyStatusChg(String areaIds, String companyTypes, String beginDate, String endDate, Integer changeType,
 												 Integer source, Integer closedType, Integer page, Integer pageSize) {
 
-		ExportExcel exportExcel = new ExportExcel("企业增销");
+		ExportExcel exportExcel = new ExportExcel("增销企业列表");
 		try {
 			if (null == page) {
 				page = 1;

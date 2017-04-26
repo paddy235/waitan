@@ -89,7 +89,7 @@ public class CompanyStatusChangeDO {
 	private Date orderDate;
 
 	/** 注册资本 */
-	@Excel(exportName = "注册资本")
+	@Excel(exportName = "注册资本(人民币)")
 	@Column(name = "registered_capital")
 	private Integer registeredCapital;
 
