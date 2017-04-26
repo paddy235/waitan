@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -299,7 +301,12 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 				logger.warn("companyId:{} riskLevel from company_analysis_result:{}", companyId, riskLevel);
 			}
 		}
-		companyMapper.updateRiskLevel(riskLevel, oldRiskLevel, companyId, "TIMER");
+		LocalDateTime ld =LocalDateTime.now();
+		if( ld.getDayOfMonth() ==7 || ld.getDayOfMonth() ==22 ) { //每月7、22日更新一次
+			companyMapper.updateRiskLevel(riskLevel, oldRiskLevel, companyId, "TIMER");
+		} else {
+			companyMapper.updateRiskLevel(riskLevel, null, companyId, "TIMER");
+		}
 
 		if (!riskLevel.equals(oldRiskLevel)) {
 			logger.error("riskLevel changed: companyId={} oldRiskLevel={} newRiskLevel:{}", companyId, oldRiskLevel, riskLevel);

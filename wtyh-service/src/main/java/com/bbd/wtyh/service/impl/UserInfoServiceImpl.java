@@ -51,7 +51,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 			throw new BusinessException("新创建的登录名已存在");
 		}
 		if (StringUtils.isBlank(uitd.getRealName()) || !rexCheckUserName(uitd.getRealName())) {
-			throw new BusinessException("真实姓名为空或不合法");
+			throw new BusinessException("真实姓名不合规");
 		} else {
 			// uitd.setRealName(CipherUtils.encrypt(uitd.getRealName()));
 		}
@@ -77,14 +77,14 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 			uitd.setEmail(null);
 		} else {
 			if (!rexCheckEmailAddress(uitd.getEmail())) {
-				throw new BusinessException("电子信箱地址不合法");
+				throw new BusinessException("电子信箱地址不合规");
 			}
 		}
 		if (StringUtils.isBlank(uitd.getDepartment()) || !rexCheckUserName(uitd.getDepartment())) {
-			throw new BusinessException("部门名称为空或不合法");
+			throw new BusinessException("部门名称不合规");
 		}
 		if (StringUtils.isBlank(uitd.getAreaCode()) || !rexCheckAreaCode(uitd.getAreaCode())) {
-			throw new BusinessException("地区代码为空或不合法");
+			throw new BusinessException("地区代码不合规");
 		}
 		if (StringUtils.isBlank(uitd.getCreateBy()) || !rexCheckUserName(uitd.getCreateBy())) {
 			throw new BusinessException("创建人为空");
@@ -101,13 +101,13 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		if( createType.isForeMask() ) { //用户类型包含前台属性
 			uitd.setBackPwd("");
 			if (StringUtils.isBlank(uitd.getForePwd()) || !rexCheckPassword(uitd.getForePwd()))
-				throw new BusinessException("前台密码为空或不合法");
+				throw new BusinessException("前台密码不合规");
 			uitd.setForePwd(userPasswordEncrypt(uitd.getForePwd()));
 		}
 		if( createType.isBackMask() ) { //用户类型包含后台属性
 			uitd.setForePwd("");
 			if (StringUtils.isBlank(uitd.getBackPwd()) || !rexCheckPassword(uitd.getBackPwd()))
-				throw new BusinessException("后台密码为空或不合法");
+				throw new BusinessException("后台密码不合规");
 			uitd.setBackPwd(userPasswordEncrypt(uitd.getBackPwd()));
 		}
 		uitd.setForePwdUpDate(null); // 创建时置空，表明此用户登录时需要提示用户立即修改密码，下同
@@ -144,7 +144,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 				uitd.setStatus(null); // 不更新用户状态
 			} else {
 				if (null == UserStatus.getUserStatusByCode(uitd.getStatus())) {
-					throw new BusinessException("用户状态参数不合法");
+					throw new BusinessException("用户状态参数不合规");
 				}
 				updateCount++;
 			}
@@ -156,7 +156,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 					uitd.setLoginName(null); // 不更新登录名
 				} else {
 					if (!rexCheckUserName(uitd.getLoginName())) {
-						throw new BusinessException("新指定的用户名不合法");
+						throw new BusinessException("新指定的用户名不合规");
 					}
 					UserInfoTableDo utd = getOnlyUserInfoByLoginNameOrId(uitd.getLoginName(), -1);
 					if (null != utd) {
@@ -170,7 +170,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 				uitd.setRealName(null); // 不更新真实姓名
 			} else {
 				if (!rexCheckUserName(uitd.getRealName())) {
-					throw new BusinessException("新指定的真实姓名不合法");
+					throw new BusinessException("新指定的真实姓名不合规");
 				} else {
 					//真名不加密了 uitd.setRealName( CipherUtils.encrypt(uitd.getRealName()) );
 				}
@@ -181,7 +181,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 				uitd.setDepartment(null); // 不更新部门
 			} else {
 				if (!rexCheckUserName(uitd.getDepartment())) {
-					throw new BusinessException("新指定的部门名称不合法");
+					throw new BusinessException("新指定的部门名称不合规");
 				}
 				updateCount++;
 			}
@@ -190,10 +190,12 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 				uitd.setAreaCode(null); // 不更新区域代码
 			} else {
 				if (!rexCheckAreaCode(uitd.getAreaCode())) {
-					throw new BusinessException("地区代码不合法");
+					throw new BusinessException("地区代码不合规");
 				}
 				updateCount++;
 			}
+		} else {
+			uitd.setUserType(null); //超管不更新用户类型
 		}
 
 		if (null == uitd.getFixPhone()) {
@@ -202,7 +204,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 			uitd.setFixPhone(""); // 清除固定电话号码
 		} else {
 			if (!rexCheckMobileNO(uitd.getFixPhone())) {
-				throw new BusinessException("新指定的固话号码不合法");
+				throw new BusinessException("新指定的固话号码不合规");
 			} else {
 				uitd.setFixPhone(CipherUtils.encrypt(uitd.getFixPhone()));
 			}
@@ -215,7 +217,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 			uitd.setMobile(""); // 清除手机号码
 		} else {
 			if (!rexCheckMobileNO(uitd.getMobile())) {
-				throw new BusinessException("新指定的手机号码不合法");
+				throw new BusinessException("新指定的手机号码不合规");
 			} else {
 				uitd.setMobile(CipherUtils.encrypt(uitd.getMobile()));
 			}
@@ -228,7 +230,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 			uitd.setEmail(""); // 清除电子信箱
 		} else {
 			if (!rexCheckEmailAddress(uitd.getEmail())) {
-				throw new BusinessException("新指定的电子信箱地址不合法");
+				throw new BusinessException("新指定的电子信箱地址不合规");
 			}
 			updateCount++;
 		}
@@ -249,7 +251,10 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		} else { // 已指定
 			UserType modifyType = UserType.getUserTypeByCode(uitd.getUserType());
 			if( null ==modifyType ) {
+				//uitd.setUserType(null);
 				throw new BusinessException("新指定的用户类型在系统中不存在");
+			} else {
+				updateCount++;
 			}
 			boolean newBY = modifyType.isBackMask(); // 新的后台属性
 			boolean newFY = modifyType.isForeMask(); // 新的前台属性
@@ -288,7 +293,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		//对修改前端密码做最后处理
 		if (bForePwdUpMk) {
 			if (!rexCheckPassword(uitd.getForePwd())) {
-				throw new BusinessException("待更新的前台密码不合法 ");
+				throw new BusinessException("待更新的前台密码不合规 ");
 			} else {
 				uitd.setForePwd(userPasswordEncrypt(uitd.getForePwd()));
 				uitd.setForePwdUpDate(updatePwdTime);
@@ -300,7 +305,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		//对修改后端密码做最后处理
 		if(bBackPwdUpMk) {
 			if (!rexCheckPassword(uitd.getBackPwd())) {
-				throw new BusinessException("待更新的后台密码不合法 ");
+				throw new BusinessException("待更新的后台密码不合规 ");
 			} else {
 				uitd.setBackPwd(userPasswordEncrypt(uitd.getBackPwd()));
 				uitd.setBackPwdUpDate(updatePwdTime);

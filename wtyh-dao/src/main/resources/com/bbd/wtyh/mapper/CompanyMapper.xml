@@ -97,7 +97,13 @@
     </select>
 
     <update id="updateRiskLevel">
-        update company set risk_level=#{riskLevel}, previous_risk_level=#{previousRiskLevel}, update_date=now(),update_by=#{updateBy}
+        update company
+        <set>
+            risk_level=#{riskLevel},
+            <if test="previousRiskLevel != null"> previous_risk_level=#{previousRiskLevel}, </if>
+            update_date=now(),
+            update_by=#{updateBy}
+        </set>
          where company_id=#{companyId}
     </update>
 

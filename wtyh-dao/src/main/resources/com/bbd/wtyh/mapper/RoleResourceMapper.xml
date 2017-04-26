@@ -53,7 +53,6 @@
         INSERT INTO `user_role` (`user_id`, `role_id`, `create_date`, `update_date`, `create_by`, `update_by`)
         VALUES (#{userId}, #{roleId}, #{createDate}, #{updateDate}, #{createBy}, #{updateBy});
     </insert>
-
     <select id="getRoleAreaRelationByRoleIdAndAreaId" parameterType="int" resultType="int">
         select count(1)as counts from role_area where
         role_id=#{roleId} and area_id=#{areaId}
@@ -196,12 +195,12 @@
         <result property="code" column="code"/>
         <result property="parentCode" column="parent_code"/>
         <collection property="childResource" javaType="java.util.ArrayList" ofType="com.bbd.wtyh.domain.ResourceDo"
-                    column="code" select="selectChildResource"/>
+                    column="{userType=user_type, pCode=code}" select="selectChildResource"/>
     </resultMap>
 
-    <select id="getAllResource" resultMap="allResource">
+    <select id="getAllResource" resultMap="allResource" parameterType="java.util.Map">
         SELECT
-            re.id,re.code,re.name,re.type,re.parent_code
+            re.id,re.code,re.name,re.type,re.parent_code,us.user_type
         FROM user_type_resource us,resource re
         WHERE
             us.resource_code=re.code AND
@@ -217,11 +216,14 @@
             re.code,
             re.name,
             re.type,
-            re.parent_code AS parentCode
+            re.parent_code AS parentCode,
+            us.user_type
         FROM
-            resource re
+            user_type_resource us,resource re
         WHERE
-            re.parent_code = #{code}
+            us.resource_code=re.code AND
+            us.user_type = #{userType} AND
+            re.parent_code = #{pCode}
     </select>
 
     <select id="listRoleAssign" parameterType="java.util.HashMap" resultType="com.bbd.wtyh.domain.dto.UserRoleDTO">
