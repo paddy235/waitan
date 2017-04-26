@@ -1,9 +1,8 @@
 package com.bbd.wtyh.test;
 
 import com.bbd.wtyh.core.entity.Pagination;
-import com.bbd.wtyh.log.user.UserLog;
+import com.bbd.wtyh.service.CoCreditScoreService;
 import com.bbd.wtyh.service.CoRiskChgService;
-import org.apache.commons.collections.CollectionUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +50,14 @@ public class CoRiskChgTest {
 		System.out.println("总耗时：" + (e - s));
 		System.out.println(page);
 
+	}
+
+	@Autowired
+	private CoCreditScoreService coCreditScodeService;
+
+	@Test
+	public void test() {
+		coCreditScodeService.creditScoreCalculate();
 	}
 
 }
