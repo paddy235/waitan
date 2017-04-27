@@ -15,7 +15,7 @@
                     company.`name` AS companyName,
                     company.legal_person AS legalPerson,
                     company.company_type AS companyType,
-                    company.risk_level AS  riskLevel,
+                    if(isnull(company.risk_level)=1,9,company.risk_level) AS  riskLevel,
                     company.is_new AS isNew,
                     company.registered_capital AS registeredCapital,
                     building.building_id AS buildingId,
@@ -49,7 +49,7 @@
                 <if test="background != null">
                     AND  bb.background=#{background}
                 </if>
-        ORDER BY bb.isNew DESC,bb.registeredCapital DESC
+        ORDER BY bb.isNew DESC,bb.riskLevel ASC,bb.registeredCapital DESC
 	</select>
 
 

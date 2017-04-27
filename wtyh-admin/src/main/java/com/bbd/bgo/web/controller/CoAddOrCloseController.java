@@ -66,7 +66,7 @@ public class CoAddOrCloseController {
 	public ResponseBean downloadCompanyStatusChg(String areaIds, String companyTypes, String beginDate, String endDate, Integer changeType,
 												 Integer source, Integer closedType, Integer page, Integer pageSize) {
 
-		ExportExcel exportExcel = new ExportExcel("企业增销");
+		ExportExcel exportExcel = new ExportExcel("增销企业列表");
 		try {
 			if (null == page) {
 				page = 1;
@@ -93,6 +93,7 @@ public class CoAddOrCloseController {
 		CompanyClosedType[] types = CompanyClosedType.values();
 		Map results=new HashMap();
 		List<Map<String, Object>> list = new ArrayList<>();
+		setAllElement(list,"code","name");
 		for (CompanyClosedType rl : types) {
 			Map<String, Object> map = new HashMap<>();
 			map.put("code", rl.type());
@@ -109,6 +110,7 @@ public class CoAddOrCloseController {
 		ChangeType[] types = ChangeType.values();
 		Map results=new HashMap();
 		List<Map<String, Object>> list = new ArrayList<>();
+		setAllElement(list,"code","name");
 		for (ChangeType rl : types) {
 			Map<String, Object> map = new HashMap<>();
 			map.put("code", rl.type());
@@ -125,6 +127,7 @@ public class CoAddOrCloseController {
 		SourceType[] types = SourceType.values();
 		Map results=new HashMap();
 		List<Map<String, Object>> list = new ArrayList<>();
+		setAllElement(list,"code","name");
 		for (SourceType rl : types) {
 			Map<String, Object> map = new HashMap<>();
 			map.put("code", rl.type());
@@ -141,6 +144,7 @@ public class CoAddOrCloseController {
 		CompanyType[] types = CompanyType.values();
 		Map results=new HashMap();
 		List<Map<String, Object>> list = new ArrayList<>();
+		setAllElement(list,"code","name");
 		for (CompanyType rl : types) {
 			Map<String, Object> map = new HashMap<>();
 			map.put("code", rl.type());
@@ -157,6 +161,7 @@ public class CoAddOrCloseController {
 		List<AreaDO> areaList=areaService.areaListAll(Constants.SH_AREAID);
 		Map results=new HashMap();
 		List<Map<String, Object>> list = new ArrayList<>();
+		setAllElement(list,"areaId","name");
 		for (AreaDO area : areaList) {
 			Map<String, Object> map = new HashMap<>();
 			map.put("areaId", area.getAreaId());
@@ -167,4 +172,10 @@ public class CoAddOrCloseController {
 		return ResponseBean.successResponse(results);
 	}
 
+	private void  setAllElement(List list,String codeKey,String nameKey){
+		Map<String, Object> map = new HashMap<>();
+		map.put(codeKey, "0");
+		map.put(nameKey, "全部");
+		list.add(map);
+	}
 }
