@@ -81,7 +81,10 @@ public class ShanghaiAreaCode {
 			Integer areaId = (Integer) itr.get("areaId");
 			map.put(areaId, (String) itr.get("cityName"));
 			if (0 != areaId) {
-				codeToAreaMap.put((Integer) itr.get("nationDistrictCode"), (Integer) itr.get("areaId"));
+				codeToAreaMap.put((Integer) itr.get("nationDistrictCode"), (Integer) itr.get("areaId") );
+				if( ((String)(itr.get("cityName"))).equals("崇明区") ) {
+					codeToAreaMap.put(310151, (Integer) itr.get("areaId") );
+				}
 				itr.remove("nationDistrictCode");
 			}
 		}
