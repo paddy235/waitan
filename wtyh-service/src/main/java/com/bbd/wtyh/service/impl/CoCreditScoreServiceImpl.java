@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.shanghai.credit.utils.XyptWebServiceUtil;
+import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.common.Pagination;
 import com.bbd.wtyh.domain.CompanyCreditDetailDO;
 import com.bbd.wtyh.domain.CompanyCreditPointItemsDO;
@@ -8,6 +9,7 @@ import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.mapper.CompanyCreditDetailMapper;
 import com.bbd.wtyh.mapper.CompanyCreditInformationMapper;
 import com.bbd.wtyh.mapper.CompanyMapper;
+import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.CoCreditScoreService;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -34,6 +36,8 @@ import java.util.concurrent.atomic.LongAdder;
 @Service
 public class CoCreditScoreServiceImpl implements CoCreditScoreService {
 
+    @Autowired
+    private RedisDAO redisDao;
 	@Autowired
 	private CompanyMapper companyMapper;
 	@Autowired
@@ -44,6 +48,8 @@ public class CoCreditScoreServiceImpl implements CoCreditScoreService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CoCreditScoreService.class);
 
 	private static final int DAILY_LIMIT = 100000;// 10W
+    //已执行的公司ID
+    public static final String REDIS_KEY_CREDIT_COMPANY = "wtyh:credit:company";
 
 	//未处理的公司集合
 	public static List<CompanyDO> untreatedCompanyList=new ArrayList<>();
@@ -117,6 +123,17 @@ public class CoCreditScoreServiceImpl implements CoCreditScoreService {
 		untreatedCompany(pointMap);
 	}
 
+	private void resetBeginNum(Integer companyId){
+		Object obj=redisDao.getObject(REDIS_KEY_CREDIT_COMPANY);
+		if(null!=obj){
+			Integer beginNum= Integer.parseInt(obj.toString());
+			if(companyId>beginNum){
+				redisDao.addObject(REDIS_KEY_CREDIT_COMPANY,companyId.toString(),Constants.REDIS_10, Integer.class);
+			}
+		}else{
+			redisDao.addObject(REDIS_KEY_CREDIT_COMPANY,companyId.toString(),Constants.REDIS_10, Integer.class);
+		}
+	}
 	/**
 	 * 对调用上海市信息中心报错的企业，重新处理
 	 *
@@ -139,9 +156,15 @@ public class CoCreditScoreServiceImpl implements CoCreditScoreService {
 	 * @return
 	 */
 	private int getCompanyTotal() {
+
+		int startId = 0;
 		// TODO 取起始值
 		// TODO 如果是定时任务开始日期，就认为是第一次开始，则置为0
-		int startId = 0;
+        Object obj=redisDao.getObject(REDIS_KEY_CREDIT_COMPANY);
+		if(null!=obj){
+			Integer companyId= Integer.parseInt(obj.toString());
+			startId=companyId;
+		}
 
 		int totalCount = this.companyMapper.countCompanyGTId(startId);
 
