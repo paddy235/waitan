@@ -2,13 +2,16 @@ package com.bbd.wtyh.domain;
 
 import com.alibaba.fastjson.JSON;
 import com.bbd.wtyh.constants.RiskChgCoSource;
-import com.bbd.wtyh.constants.RiskLevel;
+import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
 import com.bbd.wtyh.excel.annotation.Excel;
+import com.bbd.wtyh.util.CoRiskchgUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 风险变化公司
@@ -85,6 +88,38 @@ public class RiskChgCoDo {
 	@Transient
 	private String disOldRiskLevel;
 
+	/** 当前外部评级 */
+	@Column(name = "out_Level")
+	private Integer outLevel;
+	/** 原始外部评级 */
+	@Column(name = "old_out_Level")
+	private Integer oldOutLevel;
+
+	/** 当前内部评级 */
+	@Column(name = "inner_Level")
+	private Integer innerLevel;
+	/** 原始内部评级 */
+	@Column(name = "old_inner_Level")
+	private Integer oldInnerLevel;
+
+	/** 当前现场检查 */
+	@Column(name = "live_Level")
+	private Integer liveLevel;
+	/** 原始现场检查 */
+	@Column(name = "old_inner_Level")
+	private Integer oldLiveLevel;
+
+	/** 当前是否存在风险 */
+	@Column(name = "have_risk")
+	private boolean haveRisk;
+
+	/** 原始是否存在风险 */
+	@Column(name = "old_have_risk")
+	private boolean oldHaveRisk;
+
+	@Excel(exportName = "风险评级")
+	private String disRiskRating;
+
 	/** 来源，1：人工修改，2：模型评分 */
 	@Column(name = "source")
 	private Integer source;
@@ -114,6 +149,44 @@ public class RiskChgCoDo {
 	/** 修改时间 */
 	@Column(name = "update_date")
 	private Date updateDate;
+
+	public String getDisRiskRating() {
+		this.disRiskRating = CoRiskchgUtil.getRiskRating(this.companyType, this.innerLevel, this.outLevel, this.liveLevel);
+		return disRiskRating;
+	}
+
+	public String getDisRiskLevel() {
+		this.disRiskLevel = CoRiskchgUtil.getDisRiskLevel(this.companyType, this.innerLevel, this.outLevel, this.liveLevel);
+
+		if (StringUtils.isBlank(this.disRiskLevel)) {
+			this.disRiskLevel = CoRiskchgUtil.getDisRiskLevel(this.companyType, this.riskLevel, this.haveRisk);
+		}
+		return this.disRiskLevel;
+	}
+
+	public String getDisOldRiskLevel() {
+		this.disOldRiskLevel = CoRiskchgUtil.getDisRiskLevel(this.companyType, this.oldInnerLevel, this.oldOutLevel, this.oldLiveLevel);
+		if (StringUtils.isBlank(this.disOldRiskLevel)) {
+			this.disOldRiskLevel = CoRiskchgUtil.getDisRiskLevel(this.companyType, this.oldRiskLevel, this.oldHaveRisk);
+		}
+		return this.disOldRiskLevel;
+	}
+
+	public String getDisSource() {
+		if (this.source != null) {
+			this.disSource = RiskChgCoSource.desc(this.source);
+		}
+		return this.disSource;
+	}
+
+	@Override
+	public String toString() {
+		return JSON.toJSONString(this);
+	}
+
+	/*********************************************************************************************
+	 ************************************* getter and setter *************************************
+	 *********************************************************************************************/
 
 	/**
 	 * 获取 ID
@@ -454,53 +527,155 @@ public class RiskChgCoDo {
 		return this.disCompanyType;
 	}
 
-	public String getDisRiskLevel() {
-		if (this.riskLevel == null) {
-			return "";
-		}
-		RiskLevel[] levels = RiskLevel.values();
-		for (RiskLevel level : levels) {
-			if (!this.riskLevel.equals(level.type())) {
-				continue;
-			}
-			this.disRiskLevel = level.color() + "灯";
-			break;
-		}
-		return this.disRiskLevel;
+	/**
+	 * 获取 当前外部评级
+	 *
+	 * @return outLevel 当前外部评级
+	 */
+	public Integer getOutLevel() {
+		return this.outLevel;
 	}
 
-	public String getDisOldRiskLevel() {
-		if (this.oldRiskLevel == null) {
-			return "";
-		}
-		RiskLevel[] levels = RiskLevel.values();
-		for (RiskLevel level : levels) {
-			if (!this.oldRiskLevel.equals(level.type())) {
-				continue;
-			}
-			this.disOldRiskLevel = level.color() + "灯";
-			break;
-		}
-		return this.disOldRiskLevel;
+	/**
+	 * 设置 当前外部评级
+	 *
+	 * @param outLevel
+	 *            当前外部评级
+	 */
+	public void setOutLevel(Integer outLevel) {
+		this.outLevel = outLevel;
 	}
 
-	public String getDisSource() {
-		if (this.source == null) {
-			return "";
-		}
-		RiskChgCoSource[] levels = RiskChgCoSource.values();
-		for (RiskChgCoSource level : levels) {
-			if (!this.source.equals(level.type())) {
-				continue;
-			}
-			this.disSource = level.desc();
-			break;
-		}
-		return this.disSource;
+	/**
+	 * 获取 原始外部评级
+	 *
+	 * @return oldOutLevel 原始外部评级
+	 */
+	public Integer getOldOutLevel() {
+		return this.oldOutLevel;
 	}
 
-	@Override
-	public String toString() {
-		return JSON.toJSONString(this);
+	/**
+	 * 设置 原始外部评级
+	 *
+	 * @param oldOutLevel
+	 *            原始外部评级
+	 */
+	public void setOldOutLevel(Integer oldOutLevel) {
+		this.oldOutLevel = oldOutLevel;
+	}
+
+	/**
+	 * 获取 当前内部评级
+	 *
+	 * @return innerLevel 当前内部评级
+	 */
+	public Integer getInnerLevel() {
+		return this.innerLevel;
+	}
+
+	/**
+	 * 设置 当前内部评级
+	 *
+	 * @param innerLevel
+	 *            当前内部评级
+	 */
+	public void setInnerLevel(Integer innerLevel) {
+		this.innerLevel = innerLevel;
+	}
+
+	/**
+	 * 获取 原始内部评级
+	 *
+	 * @return oldInnerLevel 原始内部评级
+	 */
+	public Integer getOldInnerLevel() {
+		return this.oldInnerLevel;
+	}
+
+	/**
+	 * 设置 原始内部评级
+	 *
+	 * @param oldInnerLevel
+	 *            原始内部评级
+	 */
+	public void setOldInnerLevel(Integer oldInnerLevel) {
+		this.oldInnerLevel = oldInnerLevel;
+	}
+
+	/**
+	 * 获取 当前现场检查
+	 *
+	 * @return liveLevel 当前现场检查
+	 */
+	public Integer getLiveLevel() {
+		return this.liveLevel;
+	}
+
+	/**
+	 * 设置 当前现场检查
+	 *
+	 * @param liveLevel
+	 *            当前现场检查
+	 */
+	public void setLiveLevel(Integer liveLevel) {
+		this.liveLevel = liveLevel;
+	}
+
+	/**
+	 * 获取 原始现场检查
+	 *
+	 * @return oldLiveLevel 原始现场检查
+	 */
+	public Integer getOldLiveLevel() {
+		return this.oldLiveLevel;
+	}
+
+	/**
+	 * 设置 原始现场检查
+	 *
+	 * @param oldLiveLevel
+	 *            原始现场检查
+	 */
+	public void setOldLiveLevel(Integer oldLiveLevel) {
+		this.oldLiveLevel = oldLiveLevel;
+	}
+
+	/**
+	 * 获取 当前是否存在风险
+	 *
+	 * @return haveRisk 当前是否存在风险
+	 */
+	public boolean isHaveRisk() {
+		return this.haveRisk;
+	}
+
+	/**
+	 * 设置 当前是否存在风险
+	 *
+	 * @param haveRisk
+	 *            当前是否存在风险
+	 */
+	public void setHaveRisk(boolean haveRisk) {
+		this.haveRisk = haveRisk;
+	}
+
+	/**
+	 * 获取 原始是否存在风险
+	 *
+	 * @return oldHaveRisk 原始是否存在风险
+	 */
+	public boolean isOldHaveRisk() {
+		return this.oldHaveRisk;
+	}
+
+	/**
+	 * 设置 原始是否存在风险
+	 *
+	 * @param oldHaveRisk
+	 *            原始是否存在风险
+	 */
+	public void setOldHaveRisk(boolean oldHaveRisk) {
+		this.oldHaveRisk = oldHaveRisk;
 	}
 }

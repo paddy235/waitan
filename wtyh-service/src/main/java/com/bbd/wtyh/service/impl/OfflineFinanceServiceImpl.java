@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,9 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 
-import com.bbd.shanghai.credit.utils.XyptWebServiceUtil;
 import com.bbd.wtyh.constants.RiskChgCoSource;
-import com.bbd.wtyh.constants.RiskLevel;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.service.*;
 import net.sf.cglib.beans.BeanCopier;
@@ -69,7 +66,6 @@ import com.bbd.wtyh.web.relationVO.NodeVO;
 import com.bbd.wtyh.web.relationVO.RelationDiagramVO;
 import com.bbd.wtyh.web.relationVO.SubGraphVO;
 import com.google.common.collect.Lists;
-import com.google.gson.Gson;
 
 /**
  * 线下理财接口实现层
@@ -82,15 +78,9 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 
 	private Logger logger = LoggerFactory.getLogger(OfflineFinanceServiceImpl.class);
 	@Resource
-	private HttpTemplate httpTemplate;
-	@Resource
 	private StaticRiskMapper staticRiskMapper;
 	@Resource
 	private CompanyCreditDetailMapper companyCreditDetailMapper;
-	@Resource
-	private RelationCompanyService relationCompanyService;
-	@Resource
-	private RegisterUniversalFilterChainImp registerUniversalFilterChainImp;
 	@Resource
 	private BuildFileService buildFileService;
 	@Resource
@@ -101,8 +91,6 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 	private OfflineFinanceDao offlineFinanceDao;
 	@Autowired
 	private P2PImageDao p2PImageDao;
-	@Autowired
-	private CompanyCreditInformationMapper companyCreditInformationMapper;
 	@Autowired
 	private CompanyMapper companyMapper;
 	@Autowired
@@ -283,13 +271,13 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 			BigDecimal staticsRiskIndex = staticRiskDataDO.getStaticRiskIndex();
 			// 大于65.9
 			if (staticsRiskIndex.compareTo(new BigDecimal("65.9")) == 1) {
-				riskLevel = RiskLevel.IMPORT_FOCUS.type();
+				riskLevel = CompanyAnalysisResult.IMPORT_FOCUS.getType();
 				// 大于等于57.8 小于65.9
 			} else if (staticsRiskIndex.compareTo(new BigDecimal("57.8")) > -1
 					&& staticsRiskIndex.compareTo(new BigDecimal("65.9")) == -1) {
-				riskLevel = RiskLevel.COMMON_FOCUS.type();
+				riskLevel = CompanyAnalysisResult.COMMON_FOCUS.getType();
 			} else if (staticsRiskIndex.compareTo(new BigDecimal("57.8")) == -1) {
-				riskLevel = RiskLevel.NORMAL.type();
+				riskLevel = CompanyAnalysisResult.NORMAL.getType();
 			}
 			logger.warn("companyId:{} riskLevel from static_risk_data:{}", companyId, riskLevel);
 		}
@@ -301,8 +289,8 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 				logger.warn("companyId:{} riskLevel from company_analysis_result:{}", companyId, riskLevel);
 			}
 		}
-		LocalDateTime ld =LocalDateTime.now();
-		if( ld.getDayOfMonth() ==7 || ld.getDayOfMonth() ==22 ) { //每月7、22日更新一次
+		LocalDateTime ld = LocalDateTime.now();
+		if (ld.getDayOfMonth() == 7 || ld.getDayOfMonth() == 22) { // 每月7、22日更新一次
 			companyMapper.updateRiskLevel(riskLevel, oldRiskLevel, companyId, "TIMER");
 		} else {
 			companyMapper.updateRiskLevel(riskLevel, null, companyId, "TIMER");

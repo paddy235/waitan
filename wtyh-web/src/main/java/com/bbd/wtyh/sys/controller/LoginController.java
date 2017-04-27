@@ -90,6 +90,7 @@ public class LoginController {
 			map.put("areaName", areaName);// 地区名称
 			map.put("pwdBeOverdue", userInfoService.testUserPasswordBeOverdue(userInfo.getForePwdUpDate()));// 密码是否过期
 			map.put("userId", userInfo.getId());// 用户ID
+			map.put("userType",userInfo.getUserType());// 用户类型
 		} catch (Exception e) {
 
 			// 通过处理Shiro的运行时AuthenticationException就可以控制用户登录失败或密码错误时的情景

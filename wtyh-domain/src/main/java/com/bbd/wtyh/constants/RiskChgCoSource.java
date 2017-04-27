@@ -24,4 +24,13 @@ public enum RiskChgCoSource {
 	public String desc() {
 		return this.desc;
 	}
+
+	public static String desc(int type) {
+		for (RiskChgCoSource source : RiskChgCoSource.values()) {
+			if (type == source.type) {
+				return source.desc();
+			}
+		}
+		return null;
+	}
 }

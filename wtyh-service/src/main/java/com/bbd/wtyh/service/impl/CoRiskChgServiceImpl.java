@@ -1,8 +1,15 @@
 package com.bbd.wtyh.service.impl;
 
+import com.bbd.wtyh.constants.JYSCoRiskLevel;
+import com.bbd.wtyh.constants.PrepaidCoRiskLevel;
+import com.bbd.wtyh.constants.RZZLCoRiskLevel;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.core.entity.Pagination;
+import com.bbd.wtyh.domain.CompanyDO;
+import com.bbd.wtyh.domain.PrepaidCompanyDO;
 import com.bbd.wtyh.domain.RiskChgCoDo;
+import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
+import com.bbd.wtyh.exception.BusinessException;
 import com.bbd.wtyh.mapper.CoRiskChgMapper;
 import com.bbd.wtyh.service.CoRiskChgService;
 import org.apache.commons.lang3.StringUtils;
@@ -56,13 +63,18 @@ public class CoRiskChgServiceImpl extends BaseServiceImpl implements CoRiskChgSe
 	 * @return
 	 */
 	private String generateDynamicWhere(Map<String, String> paramMap) {
-		StringBuilder dynamicWhere = new StringBuilder("1 = 1");
 
 		// 金融类型 financialType
 		String financialType = paramMap.get("financialType");
-		if (StringUtils.isNotBlank(financialType)) {
-			dynamicWhere.append(" AND company_type = ").append(financialType);
+
+		if (StringUtils.isBlank(financialType)) {
+			throw new BusinessException("公司类型不能为空。");
 		}
+
+		Integer companyType = Integer.parseInt(financialType);
+
+		StringBuilder dynamicWhere = new StringBuilder();
+		dynamicWhere.append("company_type = ").append(companyType);
 
 		// 楼宇 buildId
 		String buildId = paramMap.get("buildId");
@@ -72,9 +84,7 @@ public class CoRiskChgServiceImpl extends BaseServiceImpl implements CoRiskChgSe
 
 		// 风险等级 riskLevel
 		String riskLevel = paramMap.get("riskLevel");
-		if (StringUtils.isNotBlank(riskLevel)) {
-			dynamicWhere.append(" AND risk_level = ").append(riskLevel);
-		}
+		this.setDynamicRiskWhere(dynamicWhere, companyType, riskLevel);
 
 		// 来源 source
 		String source = paramMap.get("source");
@@ -105,11 +115,66 @@ public class CoRiskChgServiceImpl extends BaseServiceImpl implements CoRiskChgSe
 		// 排序
 		String statusSort = paramMap.get("statusSort");
 		if (StringUtils.isNotBlank(statusSort) && !"DEFAULT".equals(statusSort)) {
-			dynamicWhere.append(" ORDER BY old_risk_level ").append(statusSort);
+			// 融资租赁 需要按照 old_have_risk 排序
+			if (CompanyDO.TYPE_RZZL_13 == companyType.byteValue()) {
+				dynamicWhere.append(" ORDER BY old_have_risk ").append(statusSort);
+			} else {
+				dynamicWhere.append(" ORDER BY old_risk_level ").append(statusSort);
+			}
 		} else {
 			dynamicWhere.append(" ORDER BY change_date DESC");
 		}
 
 		return dynamicWhere.toString();
 	}
+
+	private void setDynamicRiskWhere(StringBuilder dynamicWhere, Integer companyType, String riskLevel) {
+		if (StringUtils.isBlank(riskLevel)) {
+			return;
+		}
+
+		Integer level = Integer.parseInt(riskLevel);
+
+		byte type = companyType.byteValue();
+
+		switch (type) {
+
+		case CompanyDO.TYPE_P2P_1:// 网络借贷
+		case CompanyDO.TYPE_XXLC_4:// 线下理财
+			dynamicWhere.append(" AND risk_level = ").append(riskLevel);
+			break;
+
+		case CompanyDO.TYPE_JYS_9:// 交易所
+			if (level.equals(JYSCoRiskLevel.NORMAL.type())) {
+				dynamicWhere.append(" AND risk_level = ").append(JYSCoRiskLevel.NORMAL.type());
+			}
+			if (level.equals(JYSCoRiskLevel.HAVE.type())) {
+				dynamicWhere.append(" AND ").append(JYSCoRiskLevel.NORMAL.type()).append(" != risk_level");
+			}
+			break;
+
+		case CompanyDO.TYPE_RZZL_13:// 融资租赁
+			if (level.equals(RZZLCoRiskLevel.NORMAL.type())) {
+				dynamicWhere.append(" AND have_risk = 0");
+			}
+			if (level.equals(RZZLCoRiskLevel.LATENT.type())) {
+				dynamicWhere.append(" AND have_risk = 1");
+			}
+			break;
+
+		case CompanyDO.TYPE_YFK_11:// 预付卡
+			if (level.equals(PrepaidCoRiskLevel.NORMAL.type())) {
+				dynamicWhere.append(" AND ").append(CompanyAnalysisResult.IMPORT_FOCUS.getType()).append(" != risk_level");
+				dynamicWhere.append(" AND ").append(CompanyAnalysisResult.COMMON_FOCUS.getType()).append(" != risk_level");
+			}
+			if (level.equals(PrepaidCoRiskLevel.LATENT.type())) {
+				dynamicWhere.append(" AND risk_level = ").append(CompanyAnalysisResult.COMMON_FOCUS.getType());
+			}
+			if (level.equals(PrepaidCoRiskLevel.HAPPEN.type())) {
+				dynamicWhere.append(" AND risk_level = ").append(CompanyAnalysisResult.IMPORT_FOCUS.getType());
+			}
+			break;
+		}
+	}
+
 }

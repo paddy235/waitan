@@ -174,8 +174,8 @@ public class CoAddOrCloseController {
 
 	private void  setAllElement(List list,String codeKey,String nameKey){
 		Map<String, Object> map = new HashMap<>();
-		map.put(codeKey, "全部");
-		map.put(nameKey, "0");
+		map.put(codeKey, "0");
+		map.put(nameKey, "全部");
 		list.add(map);
 	}
 }

@@ -1,11 +1,14 @@
 package com.bbd.bgo.web.controller;
 
+import com.bbd.wtyh.constants.JYSCoRiskLevel;
+import com.bbd.wtyh.constants.PrepaidCoRiskLevel;
+import com.bbd.wtyh.constants.RZZLCoRiskLevel;
 import com.bbd.wtyh.constants.RiskChgCoSource;
-import com.bbd.wtyh.constants.RiskLevel;
 import com.bbd.wtyh.core.entity.Pagination;
 import com.bbd.wtyh.core.utils.ParamUtil;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.RiskChgCoDo;
+import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
 import com.bbd.wtyh.excel.ExportExcel;
 import com.bbd.wtyh.exception.ExceptionHandler;
 import com.bbd.wtyh.service.CoRiskChgService;
@@ -13,6 +16,7 @@ import com.bbd.wtyh.web.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,11 +49,41 @@ public class CoRiskChgController {
 		// 金融类型
 		data.put("financialType", this.riskChgCoFinancialType());
 		// 风险等级
-		data.put("riskLevel", this.riskChgCoRiskLevel());
+		// data.put("riskLevel", this.riskChgCoRiskLevel((int)
+		// CompanyDO.TYPE_P2P_1));
 		// 来源
 		data.put("source", this.riskChgCoSource());
 
 		return ResponseBean.successResponse(data);
+	}
+
+	/**
+	 * 企业变化监测-风险变化企业-风险状态下拉列表
+	 *
+	 * @return
+	 */
+	@RequestMapping("/risk-drop-down")
+	@ResponseBody
+	private Object riskChgCoRiskLevel(@RequestParam Integer companyType) {
+		byte type = companyType.byteValue();
+
+		// 网络借贷 线下理财
+		if (type == CompanyDO.TYPE_P2P_1 || type == CompanyDO.TYPE_XXLC_4) {
+			return ResponseBean.successResponse(CompanyAnalysisResult.getListMap());
+		}
+		// 交易所
+		if (CompanyDO.TYPE_JYS_9 == type) {
+			return ResponseBean.successResponse(JYSCoRiskLevel.getListMap());
+		}
+		// 预付卡
+		if (CompanyDO.TYPE_YFK_11 == type) {
+			return ResponseBean.successResponse(PrepaidCoRiskLevel.getListMap());
+		}
+		// 融资租赁
+		if (CompanyDO.TYPE_RZZL_13 == type) {
+			return ResponseBean.successResponse(RZZLCoRiskLevel.getListMap());
+		}
+		return ResponseBean.errorResponse("没有对应的公司类型");
 	}
 
 	/**
@@ -147,24 +181,6 @@ public class CoRiskChgController {
 			typeList.add(map);
 		}
 		return typeList;
-	}
-
-	/**
-	 * 企业变化监测-风险变化企业-风险状态
-	 *
-	 * @return
-	 */
-
-	private Object riskChgCoRiskLevel() {
-		RiskLevel[] risks = RiskLevel.values();
-		List<Map<String, Object>> riskList = new ArrayList<>();
-		for (RiskLevel rl : risks) {
-			Map<String, Object> map = new HashMap<>();
-			map.put("type", rl.type());
-			map.put("color", rl.color());
-			riskList.add(map);
-		}
-		return riskList;
 	}
 
 	/**
