@@ -45,8 +45,13 @@ public class CoCreditScoreServiceImpl implements CoCreditScoreService {
 
 	private static final int DAILY_LIMIT = 100000;// 10W
 
+	//未处理的公司集合
+	public static List<CompanyDO> untreatedCompanyList=new ArrayList<>();
+
 	@Override
 	public void creditScoreCalculate() {
+		//重置
+		untreatedCompanyList.clear();
 		int totalCount = this.getCompanyTotal();
 		if (totalCount <= 0) {
 			return;
@@ -109,8 +114,24 @@ public class CoCreditScoreServiceImpl implements CoCreditScoreService {
 			e.printStackTrace();
 		}
 		// TODO 补偿机制
+		untreatedCompany(pointMap);
 	}
 
+	/**
+	 * 对调用上海市信息中心报错的企业，重新处理
+	 *
+	 *
+	 * @return
+	 */
+	private void untreatedCompany(Map<String, Integer> pointMap){
+
+		for(CompanyDO companyDO:untreatedCompanyList){
+			LOGGER.info(companyDO.getCompanyId() + " rehandle ");
+			calculateCompanyPoint(companyDO, pointMap);
+		}
+
+
+	}
 	/**
 	 * 获取公司总数。<br>
 	 * 上海市信息中心，支持24小时10万条记录。所以该方法来处理每天查询数量，如果超过10W，将只处理10W，剩下的后面再处理。
@@ -136,14 +157,14 @@ public class CoCreditScoreServiceImpl implements CoCreditScoreService {
 	/**
 	 * 计算分值
 	 * 
-	 * @param companyName
+	 * @param companyDO
 	 *            公司名称
 	 * @param pointMap
 	 *            加分项
 	 */
 	private void calculateCompanyPoint(CompanyDO companyDO, Map<String, Integer> pointMap) {
 
-		List<String> list = getCreditFromShangHai(companyDO.getName(), pointMap);
+		List<String> list = getCreditFromShangHai(companyDO, pointMap);
 
 		if (CollectionUtils.isEmpty(list)) {
 			return;
@@ -163,12 +184,16 @@ public class CoCreditScoreServiceImpl implements CoCreditScoreService {
 	/**
 	 * 从上海市信息中心获取公司信用信息
 	 *
-	 * @param companyName
+	 * @param companyDO
 	 * @param pointMap
 	 */
-	private List<String> getCreditFromShangHai(String companyName, Map<String, Integer> pointMap) {
-		String xmlData = XyptWebServiceUtil.getCreditInfo(companyName, null, null);
+	private List<String> getCreditFromShangHai(CompanyDO companyDO, Map<String, Integer> pointMap) {
+		String xmlData = XyptWebServiceUtil.getCreditInfo(companyDO.getName(), null, null);
 		if (StringUtils.isBlank(xmlData)) {
+			//只对请求异常的公司做重新处理。
+			//正常情况下都会有返回，对非1005的返回，不需要做重新处理，因为再次请求也是一样的结果
+			//网络中断等问题需要重新处理。
+			untreatedCompanyList.add(companyDO);
 			// TODO 错误信息记录
 			return null;
 		}
