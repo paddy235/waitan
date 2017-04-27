@@ -30,10 +30,6 @@
     <!-- 启用对事务的注解支持 -->
     <!-- <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>-->
 
-
-    <bean class="com.bbd.wtyh.util.ApplicationContextUtil"/>
-
-
     <bean id="httpTemplate" class="com.bbd.higgs.utils.http.HttpTemplate">
         <property name="connectTimeout" value="600000"/>
         <property name="socketTimeout" value="600000"/>

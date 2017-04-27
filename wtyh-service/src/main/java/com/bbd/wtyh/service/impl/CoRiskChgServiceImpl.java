@@ -125,8 +125,6 @@ public class CoRiskChgServiceImpl extends BaseServiceImpl implements CoRiskChgSe
 			dynamicWhere.append(" ORDER BY change_date DESC");
 		}
 
-		System.err.println("动态SQL：" + dynamicWhere);
-
 		return dynamicWhere.toString();
 	}
 
