@@ -49,7 +49,8 @@ public class CoRiskChgController {
 		// 金融类型
 		data.put("financialType", this.riskChgCoFinancialType());
 		// 风险等级
-		data.put("riskLevel", this.riskChgCoRiskLevel((int) CompanyDO.TYPE_P2P_1));
+		// data.put("riskLevel", this.riskChgCoRiskLevel((int)
+		// CompanyDO.TYPE_P2P_1));
 		// 来源
 		data.put("source", this.riskChgCoSource());
 
