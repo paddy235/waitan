@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.bbd.wtyh.cachetobean.ShanghaiAreaCode;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
 import org.slf4j.Logger;
@@ -38,6 +39,8 @@ import com.bbd.wtyh.web.ResponseBean;
 import com.bbd.wtyh.web.XAxisSeriesBarLineBean;
 import com.bbd.wtyh.web.XAxisSeriesLinesBean;
 import com.google.common.base.Strings;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * P2P行业监测平台
@@ -368,7 +371,31 @@ public class PToPMonitorController {
 	@RequestMapping("/platRankData")
 	@ResponseBody
 	@LogRecord(logMsg = "浏览网络借贷页面", page = Operation.Page.borrow)
-	public Object platRankData(@RequestParam(required = false, defaultValue = "") String platStatus) throws Exception {
+	public Object platRankData1(@RequestParam(required = false, defaultValue = "") String platStatus,
+								HttpSession session) throws Exception {
+		String areaCode = (String) session.getAttribute("area");
+		Integer area =Integer.valueOf(areaCode);
+		ResponseBean rb =(ResponseBean)platRankData( platStatus);
+		if( 104 ==area || ! rb.isSuccess() ) { //上海全区或查询失败
+			return rb;
+		}
+		String areaName = ShanghaiAreaCode.getMap().get(area);
+		List<Map<String, String>> desList = new ArrayList<>();
+		List<Map<String, String>> srcList =(List<Map<String, String>>)(rb.getContent());
+		if(null !=srcList && srcList.size() >0) {
+			for (Map<String, String> mp : srcList) {
+				if (null != mp) {
+					String rAddress =(String)(mp.get("registered_address"));
+					if( null !=rAddress && rAddress.indexOf(areaName) >=0 ) {
+						desList.add(mp);
+					}
+				}
+			}
+		}
+		return ResponseBean.successResponse(desList);
+	}
+
+	public Object platRankData( String platStatus) throws Exception {
 		List<Map<String, String>> rstCache = (List<Map<String, String>>) redisDAO.getObject(PLAT_RANK_CACHE_PRIFIX);
 		if (null != rstCache) {
 			return ResponseBean.successResponse(filterPlatRankDataStatus(rstCache, platStatus));

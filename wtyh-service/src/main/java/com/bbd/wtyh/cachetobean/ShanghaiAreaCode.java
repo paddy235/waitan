@@ -82,9 +82,11 @@ public class ShanghaiAreaCode {
 			map.put(areaId, (String) itr.get("cityName"));
 			if (0 != areaId) {
 				codeToAreaMap.put((Integer) itr.get("nationDistrictCode"), (Integer) itr.get("areaId"));
+				//if( (St)(itr.get("cityName")) )
 				itr.remove("nationDistrictCode");
 			}
 		}
+		//codeToAreaMap.put(310151, );
 	}
 
 	/**
