@@ -311,6 +311,11 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 			rcco.setRiskLevel(riskLevel);
 			rcco.setSource(RiskChgCoSource.MODEL_SCORE.type());
 
+			rcco.setCreateBy("updateCoRiskLevelTask");
+			rcco.setCreateDate(new Date());
+			rcco.setUpdateBy(null);
+			rcco.setUpdateDate(null);
+
 			try {
 				this.coChgMonitorService.saveRiskChgCo(rcco);
 			} catch (Exception e) {
