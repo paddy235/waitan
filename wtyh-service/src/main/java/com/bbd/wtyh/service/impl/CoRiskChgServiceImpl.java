@@ -96,14 +96,14 @@ public class CoRiskChgServiceImpl extends BaseServiceImpl implements CoRiskChgSe
 		String sdate = paramMap.get("sdate");
 		if (StringUtils.isNotBlank(sdate)) {
 			sdate = sdate + "-01";
-			dynamicWhere.append(" AND change_date >= DATE('").append(sdate).append("')");
+			dynamicWhere.append(" AND change_date >= TIMESTAMP('").append(sdate).append(" 00:00:00')");
 		}
 
 		// 结束时间 edate
 		String edate = paramMap.get("edate");
 		if (StringUtils.isNotBlank(edate)) {
 			edate = LocalDate.parse(edate + "-01").with(TemporalAdjusters.lastDayOfMonth()).toString();
-			dynamicWhere.append(" AND change_date <= DATE('").append(edate).append("')");
+			dynamicWhere.append(" AND change_date <= TIMESTAMP('").append(edate).append(" 23:59:59')");
 		}
 
 		// 选择区域 areaSet
