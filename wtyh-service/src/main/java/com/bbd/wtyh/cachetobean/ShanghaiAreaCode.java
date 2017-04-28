@@ -82,8 +82,8 @@ public class ShanghaiAreaCode {
 			map.put(areaId, (String) itr.get("cityName"));
 			if (0 != areaId) {
 				codeToAreaMap.put((Integer) itr.get("nationDistrictCode"), (Integer) itr.get("areaId") );
-				if( ((String)(itr.get("cityName"))).equals("崇明区") ) {
-					codeToAreaMap.put(310151, (Integer) itr.get("areaId") );
+				if( ((String)(itr.get("cityName"))).equals("崇明区") ) { //将老版本的崇明县的国家区县代码对应到系统的区域代码中
+					codeToAreaMap.put(310230, (Integer) itr.get("areaId") );
 				}
 				itr.remove("nationDistrictCode");
 			}

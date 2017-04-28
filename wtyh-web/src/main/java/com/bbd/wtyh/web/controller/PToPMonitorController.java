@@ -379,14 +379,20 @@ public class PToPMonitorController {
 		if( 104 ==area || ! rb.isSuccess() ) { //上海全区或查询失败
 			return rb;
 		}
-		String areaName = ShanghaiAreaCode.getMap().get(area);
+		String areaName = (ShanghaiAreaCode.getMap().get(area)).substring(0,2);
+		String secAreaName = areaName.equals("浦东") ? "自由贸易" : null;
 		List<Map<String, String>> desList = new ArrayList<>();
 		List<Map<String, String>> srcList =(List<Map<String, String>>)(rb.getContent());
 		if(null !=srcList && srcList.size() >0) {
 			for (Map<String, String> mp : srcList) {
 				if (null != mp) {
 					String rAddress =(String)(mp.get("registered_address"));
-					if( null !=rAddress && rAddress.indexOf(areaName) >=0 ) {
+					/*{ //分类统计
+						String platName =(String)(mp.get("plat_name"));
+						System.out.println("平台名称：" +platName +"；  注册地址：" +rAddress);
+					}*/
+					if( ( null !=rAddress && rAddress.indexOf(areaName) >=0 ) ||
+							( null !=secAreaName && rAddress.indexOf(secAreaName) >=0 ) ){
 						desList.add(mp);
 					}
 				}
