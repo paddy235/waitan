@@ -98,7 +98,10 @@
         from role
         where
         type not in('S','D','T')
-        <if test="userType != null">and user_type = #{userType}</if>
+        <if test="userTypeSet !=null and 0 !=userTypeSet.size">
+            AND `user_type` IN <foreach item ="userType" index="index" collection="userTypeSet"
+                                        open="(" separator="," close=")" > #{userType} </foreach>
+        </if>
         <if test="listing !=null ">
             order by update_date desc
             LIMIT
@@ -109,6 +112,7 @@
         </if>
     </select>
 
+    <!--<if test="userType != null">and user_type = #{userType}</if>-->
 
     <select id="getRoleBaseByIdNameType" parameterType="java.util.HashMap" resultType="com.bbd.wtyh.domain.RoleDo">
         select id,name,description,type,

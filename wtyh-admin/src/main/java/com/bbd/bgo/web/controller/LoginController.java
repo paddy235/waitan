@@ -97,16 +97,20 @@ public class LoginController {
 			map.put("areaName", areaName);// 地区名称
 			map.put("pwdBeOverdue", userInfoService.testUserPasswordBeOverdue(userInfo.getBackPwdUpDate()));// 密码是否过期
 			map.put("userId", userInfo.getId());// 用户ID
-
-		} catch (Exception e) {
-
-			// 通过处理Shiro的运行时AuthenticationException就可以控制用户登录失败或密码错误时的情景
+		} catch (UnknownAccountException e) { //用户名不存在
 			e.printStackTrace();
 			return ResponseBean.errorResponse("用户名或密码不正确");
+		} catch (IncorrectCredentialsException e) { //用户类型或密码不匹配
+			e.printStackTrace();
+			return ResponseBean.errorResponse("用户名或密码不正确");
+		} catch (LockedAccountException e) {
+			e.printStackTrace();
+			return ResponseBean.errorResponse("此用户已被锁定，请联系管理员处理");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseBean.errorResponse("系统异常");
 		}
-
 		return ResponseBean.successResponse(map);
-
 	}
 
 	@RequestMapping("/logout")

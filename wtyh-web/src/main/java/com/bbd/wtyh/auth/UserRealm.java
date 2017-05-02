@@ -66,11 +66,16 @@ public class UserRealm extends AuthorizingRealm {
         if( 0 ==rst ) {//如果身份认证验证成功，返回一个AuthenticationInfo实现；
             return new SimpleAuthenticationInfo(username, password, getName());
         }
-        if(rst <= -5) { //用户不存在（-5）
-            throw new UnknownAccountException(); //如果用户名错误;
+        if( rst >= -3 ) {//用户类型和指定类型不匹配(-3),库中密码字符串为空(-2),不匹配(-1)
+            throw new IncorrectCredentialsException();
         }
-        //用户处于非活动状态(-4),用户类型和指定类型不匹配(-3),库中密码字符串为空(-2),不匹配(-1)
-        throw new IncorrectCredentialsException();
+        if( -4 == rst ) { //用户处于非活动状态(-4)
+            throw new LockedAccountException();
+        }
+        if( -5 ==rst) { //用户不存在（-5）
+            throw new UnknownAccountException();
+        }
+        throw new AccountException(); //系统异常，可能是参数调用方法时传参不合法
     }
     /*{
         // TODO Auto-generated method stub

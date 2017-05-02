@@ -271,17 +271,15 @@ public class UserInfoController {
         UserRank ownRank =(UserRank)(session.getAttribute("userRank"));
         UserType tmpUT = UserType.getUserTypeByCode(userType);
         try {
-            List userTypeSet =new ArrayList<String>() {{ //只能查看用户等级小于自己的账户
-                if( null !=tmpUT && tmpUT.getUserRank().getRankVal() <ownRank.getRankVal() ) {
+            List userTypeSet;
+            //只能查看用户等级小于自己的账户
+            if( null !=tmpUT && tmpUT.getUserRank().getRankVal() <ownRank.getRankVal() ) {
+                userTypeSet =new ArrayList<String>() {{
                     add(userType);
-                } else {
-                    for (UserType itr : UserType.values()) {
-                        if (itr.getUserRank().getRankVal() < ownRank.getRankVal()) {
-                            add(itr.getTypeCode());
-                        }
-                    }
-                }
-            }};
+                }};
+            } else {
+                userTypeSet =UserType.getUserTypeCodeList(ownRank);
+            }
             rstMap = uis.listUserInfo(userStatus, userTypeSet, areaCode, selectType, selectObject, pageSize, pageNumber);
         } catch (BusinessException be) {
             return ResponseBean.errorResponse(be.getMessage());

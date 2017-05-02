@@ -91,7 +91,7 @@ public interface RoleResourceService extends BaseService {
 	Integer resourceCodeToId(String code) throws Exception;
 
 	// 浏览角色列表
-	Map<String, Object> listRoleBase(String roleType, int pageLimit, Integer pageNumber);
+	Map<String, Object> listRoleBase(List<String> roleType, int pageLimit, Integer pageNumber);
 
 	// 取角色
 	RoleDo getRoleBase(Integer roleId, String roleName);

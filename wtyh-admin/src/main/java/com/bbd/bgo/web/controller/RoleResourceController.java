@@ -223,10 +223,18 @@ public class RoleResourceController {
 			if (null == pageNumber) {
 				pageNumber = 1;
 			}
-			if (UserRank.ADMIN.equals((session.getAttribute("userRank")))) {
-				userType = UserType.GENERAL.getTypeCode(); // 普管只能查看普通用户
+			UserRank ownRank =(UserRank)(session.getAttribute("userRank"));
+			UserType tmpUT = UserType.getUserTypeByCode(userType);
+			List userTypeSet;
+			//只能查看用户等级小于自己的账户
+			if( null !=tmpUT && tmpUT.getUserRank().getRankVal() <ownRank.getRankVal() ) {
+				userTypeSet =new ArrayList<String>() {{
+					add(userType);
+				}};
+			} else {
+				userTypeSet =UserType.getUserTypeCodeList(ownRank);
 			}
-			rstMap = roleResourceService.listRoleBase(userType, pageSize, pageNumber);
+			rstMap = roleResourceService.listRoleBase(userTypeSet, pageSize, pageNumber);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseBean.errorResponse("服务器异常：" + e);
