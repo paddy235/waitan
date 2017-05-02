@@ -99,7 +99,13 @@ public class ExportTest {
 		String[] dataMapLeys = { "name", "age", "date" };
 
 		ExportExcel ee = new ExportExcel("Test");
-		ee.createSheet("Test", columnName, dataMapLeys, dataList);
+		Sheet sheet = ee.createSheet("Test", columnName, dataMapLeys, dataList);
+
+		HSSFSheet hssfSheet = sheet.getHSSFSheet();
+		HSSFRow row = hssfSheet.createRow(0);
+		HSSFCell cell = HSSFCellUtil.getCell(row, 0);
+		cell.setCellValue("test");
+
 		ee.exportExcel();
 
 	}
