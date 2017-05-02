@@ -1,5 +1,6 @@
 package com.bbd.wtyh.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.bbd.shanghai.credit.utils.XyptWebServiceUtil;
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.common.Pagination;
@@ -11,6 +12,7 @@ import com.bbd.wtyh.mapper.CompanyCreditInformationMapper;
 import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.CoCreditScoreService;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Document;
@@ -21,7 +23,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -50,17 +51,15 @@ public class CoCreditScoreServiceImpl implements CoCreditScoreService {
 	private static final int DAILY_LIMIT = 100000;// 10W
 	// 已执行的公司ID
 	public static final String REDIS_KEY_CREDIT_COMPANY = "wtyh:credit:company";
-
-	// 未处理的公司集合
-	public static List<CompanyDO> untreatedCompanyList = new ArrayList<>();
+	public static final String REDIS_KEY_CREDIT_REHANDLE_COMPANY = "wtyh:credit:rehandle:company";
 
 	// 定时任务执行的起始日
 	public static final int TASK_BEGIN_DAY = 15;
 
 	@Override
 	public void creditScoreCalculate() {
-		// 重置
-		untreatedCompanyList.clear();
+		// 重置 重试列表
+		redisDao.delete(REDIS_KEY_CREDIT_REHANDLE_COMPANY);
 		int totalCount = this.getCompanyTotal();
 		if (totalCount <= 0) {
 			return;
@@ -68,7 +67,7 @@ public class CoCreditScoreServiceImpl implements CoCreditScoreService {
 
 		// 上海市信息中心，一般情况下每月10号前更新数据，但不保证10号肯定更新完。定时任务每月15日开始
 		// 上海市信息中心，支持24小时10万条记录
-		final int pageSize = 1000;
+		final int pageSize = 10;
 		int totalPage = 5;
 		// TODO final int pageSize = 1000;
 		// TODO int totalPage = (totalCount - 1) / pageSize + 1;
@@ -127,14 +126,14 @@ public class CoCreditScoreServiceImpl implements CoCreditScoreService {
 	}
 
 	private void resetBeginNum(Integer companyId) {
-		Object obj = redisDao.getObject(REDIS_KEY_CREDIT_COMPANY);
-		if (null != obj) {
-			Integer beginNum = Integer.parseInt(obj.toString());
+		String str = redisDao.getString(REDIS_KEY_CREDIT_COMPANY);
+		if (StringUtils.isNotBlank(str)) {
+			Integer beginNum = Integer.parseInt(str);
 			if (companyId > beginNum) {
-				redisDao.addObject(REDIS_KEY_CREDIT_COMPANY, companyId.toString(), Constants.REDIS_10, Integer.class);
+				redisDao.addString(REDIS_KEY_CREDIT_COMPANY, companyId.toString(), Constants.REDIS_10);
 			}
 		} else {
-			redisDao.addObject(REDIS_KEY_CREDIT_COMPANY, companyId.toString(), Constants.REDIS_10, Integer.class);
+			redisDao.addString(REDIS_KEY_CREDIT_COMPANY, companyId.toString(), Constants.REDIS_10);
 		}
 	}
 
@@ -146,9 +145,25 @@ public class CoCreditScoreServiceImpl implements CoCreditScoreService {
 	 */
 	private void untreatedCompany(Map<String, Integer> pointMap) {
 
-		for (CompanyDO companyDO : untreatedCompanyList) {
+		Long length = redisDao.length(REDIS_KEY_CREDIT_REHANDLE_COMPANY);
+
+		if (length == null || length <= 0) {
+			return;
+		}
+
+		for (long i = 0; i < length; i++) {
+			String str = redisDao.out(REDIS_KEY_CREDIT_REHANDLE_COMPANY);
+			if (StringUtils.isBlank(str)) {
+				continue;
+			}
+			CompanyDO companyDO = JSON.parseObject(str, CompanyDO.class);
 			LOGGER.info(companyDO.getCompanyId() + " rehandle ");
 			calculateCompanyPoint(companyDO, pointMap);
+		}
+
+		List<Object> list = redisDao.range(REDIS_KEY_CREDIT_REHANDLE_COMPANY, 0, -1);
+		if (CollectionUtils.isNotEmpty(list)) {
+			LOGGER.error("查询公司信用信息重新处理结束，但仍然有部分公司失败。公司ID：{}", list);
 		}
 
 	}
@@ -165,9 +180,9 @@ public class CoCreditScoreServiceImpl implements CoCreditScoreService {
 		// 如果是定时任务开始日期，就认为是第一次开始，则置为0;否则从redis中读取要开始执行的ID
 		if (TASK_BEGIN_DAY != d) {
 
-			Object obj = redisDao.getObject(REDIS_KEY_CREDIT_COMPANY);
-			if (null != obj) {
-				startId = Integer.parseInt(obj.toString());
+			String str = redisDao.getString(REDIS_KEY_CREDIT_COMPANY);
+			if (StringUtils.isNotBlank(str)) {
+				startId = Integer.parseInt(str);
 			}
 		}
 
@@ -218,7 +233,10 @@ public class CoCreditScoreServiceImpl implements CoCreditScoreService {
 		if (StringUtils.isBlank(xmlData)) {
 			// 只对请求异常的公司做重新处理。
 			// 网络中断等问题需要重新处理。
-			untreatedCompanyList.add(coDo);
+			CompanyDO newCodo = new CompanyDO();
+			newCodo.setCompanyId(coDo.getCompanyId());
+			newCodo.setName(coDo.getName());
+			redisDao.in(REDIS_KEY_CREDIT_REHANDLE_COMPANY, JSON.toJSONString(newCodo));
 			LOGGER.error("查询公司信用信息失败，已经录等待重试。公司信息【id：{}，name：{}】。返回：{}", coDo.getCompanyId(), coDo.getName(), xmlData);
 			return null;
 		}

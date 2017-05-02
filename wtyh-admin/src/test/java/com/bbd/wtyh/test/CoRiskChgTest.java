@@ -52,4 +52,12 @@ public class CoRiskChgTest {
 		System.out.println(page);
 
 	}
+
+	@Autowired
+	private CoCreditScoreService coCreditScoreService;
+
+	@Test
+	public void test() throws Exception {
+		coCreditScoreService.creditScoreCalculate();
+	}
 }
