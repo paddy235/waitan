@@ -92,14 +92,19 @@ public class CoAddOrCloseController {
 			HSSFSheet hssfSheet = sheet.getHSSFSheet();
 			HSSFRow titleRow = hssfSheet.createRow(0);
 			titleRow.setHeight((short) 400);
+
 			HSSFCell titleCell = HSSFCellUtil.getCell(titleRow, 0);
+			titleCell.setCellStyle(exportExcel.createDefaultStyle());
 			titleCell.setCellValue("筛选时间");
+
 			HSSFCell titleCell1 = HSSFCellUtil.getCell(titleRow, 1);
 			titleCell1.setCellValue(beginDate);
+			titleCell1.setCellStyle(exportExcel.createDefaultStyle());
+
 			HSSFCell titleCell2 = HSSFCellUtil.getCell(titleRow, 2);
 			titleCell2.setCellValue(endDate);
+			titleCell2.setCellStyle(exportExcel.createDefaultStyle());
 
-			hssfSheet.createRow(1);
 			exportExcel.exportExcel();
 			return ResponseBean.successResponse(exportExcel.getDownloadURL());
 		} catch (Exception e) {
