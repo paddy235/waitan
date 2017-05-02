@@ -103,4 +103,19 @@ public enum UserType {
         }};
         return userTypeList;
     }
+
+    /**
+     * 获取用户类型代码列表
+     * @param loginRank 当非空时 只生成小于传入等级的用户类型列表
+     * @return List<String>类型
+     */
+    public static List<String> getUserTypeCodeList( UserRank loginRank ) {
+        return new ArrayList<String>() {{ //只能查看用户等级小于自己的账户
+            for (UserType itr : UserType.values()) {
+                if (itr.getUserRank().getRankVal() < loginRank.getRankVal()) {
+                    add(itr.getTypeCode());
+                }
+            }
+        }};
+    }
 }

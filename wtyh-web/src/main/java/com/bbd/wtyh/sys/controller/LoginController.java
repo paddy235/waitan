@@ -12,7 +12,7 @@ import com.bbd.wtyh.service.UserInfoService;
 import com.bbd.wtyh.web.ResponseBean;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
@@ -91,15 +91,20 @@ public class LoginController {
 			map.put("pwdBeOverdue", userInfoService.testUserPasswordBeOverdue(userInfo.getForePwdUpDate()));// 密码是否过期
 			map.put("userId", userInfo.getId());// 用户ID
 			map.put("userType",userInfo.getUserType());// 用户类型
-		} catch (Exception e) {
-
-			// 通过处理Shiro的运行时AuthenticationException就可以控制用户登录失败或密码错误时的情景
+		} catch (UnknownAccountException e) { //用户名不存在
 			e.printStackTrace();
 			return ResponseBean.errorResponse("用户名或密码不正确");
+		} catch (IncorrectCredentialsException e) { //用户类型或密码不匹配
+			e.printStackTrace();
+			return ResponseBean.errorResponse("用户名或密码不正确");
+		} catch (LockedAccountException e) {
+			e.printStackTrace();
+			return ResponseBean.errorResponse("此用户已被锁定，请联系管理员处理");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseBean.errorResponse("系统异常");
 		}
-
 		return ResponseBean.successResponse(map);
-
 	}
 
 	@RequestMapping("/logout")

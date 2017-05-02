@@ -430,11 +430,11 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 	@Override
 	public Map<String, Object> listUserInfo(String userStatus, List<String> userTypeSet, int areaCode, String selectType,
 											String selectObject, int pageLimit, Integer pageNumber) throws Exception {
-		if (StringUtils.isBlank(userStatus) || null ==userTypeSet || 0 ==userTypeSet.size() || StringUtils.isBlank(selectType)) {
-			throw new BusinessException("userStatus,selectType,userType有为空的参数");
-		}
 		if (pageLimit < 1) {
 			throw new BusinessException("pageLimit参数小于1，无意义");
+		}
+		if ( StringUtils.isBlank(selectType) ) {
+			throw new BusinessException("selectType的参数为空");
 		}
 		if (!selectType.equals("default") && !selectType.equals("loginName") && !selectType.equals("realName")
 				&& !selectType.equals("department")) {
@@ -449,6 +449,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 		if (null != UserStatus.getUserStatusByCode(userStatus)) {
 			params.put("userStatus", userStatus);
 		}
+		if( null !=userTypeSet && userTypeSet.size() >0 )
 		params.put("userTypeSet", userTypeSet);
 		if (areaCode > 0) {
 			params.put("areaCode", areaCode);
