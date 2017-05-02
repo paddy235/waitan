@@ -129,7 +129,6 @@ public class RiskChgCoDo {
 	private String disSource;
 
 	/** 变化时间 */
-	@Excel(exportName = "变化时间", dateFormat = "yyyy-MM-dd")
 	@Column(name = "change_date")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	private Date changeDate;

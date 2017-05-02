@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class CoRiskchgUtil {
 
-	public static String[] tableHeader(Integer type) {
+	public static String[] exportName(Integer type) {
 		if (type == null) {
 			return null;
 		}
@@ -27,20 +27,51 @@ public class CoRiskchgUtil {
 
 		case CompanyDO.TYPE_P2P_1:// 网络借贷
 		case CompanyDO.TYPE_XXLC_4:// 线下理财
-			return new String[] { "企业名称", "新金融类别", "所在区域", "所在楼宇", "风险状态", "原始状态", "来源", "变化时间" };
+			return new String[] { "企业名称", "新金融类别", "所在区域", "所在楼宇", "风险状态", "原始状态", "来源" };
 
 		case CompanyDO.TYPE_XD_2:// 小额贷款
 		case CompanyDO.TYPE_RZDB_3:// 融资担保
-			return new String[] { "企业名称", "新金融类别", "所在区域", "所在楼宇", "风险评级", "风险状态", "原始状态", "来源", "变化时间" };
+			return new String[] { "企业名称", "新金融类别", "所在区域", "所在楼宇", "风险评级", "风险状态", "原始状态", "来源" };
 
 		case CompanyDO.TYPE_JYS_9:// 交易所
-			return new String[] { "企业名称", "新金融类别", "所在区域", "所在楼宇", "风险状态", "原始状态", "来源", "变化时间" };
+			return new String[] { "企业名称", "新金融类别", "所在区域", "所在楼宇", "风险状态", "原始状态", "来源" };
 
 		case CompanyDO.TYPE_RZZL_13:// 融资租赁
-			return new String[] { "企业名称", "新金融类别", "所在区域", "所在楼宇", "风险状态", "原始状态", "来源", "变化时间" };
+			return new String[] { "企业名称", "新金融类别", "所在区域", "所在楼宇", "风险状态", "原始状态", "来源" };
 
 		case CompanyDO.TYPE_YFK_11:// 预付卡
-			return new String[] { "企业名称", "新金融类别", "所在区域", "所在楼宇", "风险状态", "原始状态", "来源", "变化时间" };
+			return new String[] { "企业名称", "新金融类别", "所在区域", "所在楼宇", "风险状态", "原始状态", "来源" };
+		default:
+			return null;
+		}
+	}
+
+	public static String[] exportKey(Integer type) {
+		if (type == null) {
+			return null;
+		}
+		switch (type.byteValue()) {
+
+		case CompanyDO.TYPE_P2P_1:// 网络借贷
+		case CompanyDO.TYPE_XXLC_4:// 线下理财
+			return new String[] { "companyName", "disCompanyType", "areaName", "buildingName", "disRiskLevel", "disOldRiskLevel",
+					"disSource" };
+
+		case CompanyDO.TYPE_XD_2:// 小额贷款
+		case CompanyDO.TYPE_RZDB_3:// 融资担保
+			return new String[] { "companyName", "disCompanyType", "areaName", "buildingName", "disRiskRating", "disRiskLevel",
+					"disOldRiskLevel", "disSource" };
+
+		case CompanyDO.TYPE_JYS_9:// 交易所
+			return new String[] { "companyName", "disCompanyType", "areaName", "buildingName", "disRiskLevel", "disOldRiskLevel",
+					"disSource" };
+
+		case CompanyDO.TYPE_RZZL_13:// 融资租赁
+			return new String[] { "companyName", "disCompanyType", "areaName", "buildingName", "disRiskLevel", "disOldRiskLevel",
+					"disSource" };
+		case CompanyDO.TYPE_YFK_11:// 预付卡
+			return new String[] { "companyName", "disCompanyType", "areaName", "buildingName", "disRiskLevel", "disOldRiskLevel",
+					"disSource" };
 		default:
 			return null;
 		}
@@ -122,7 +153,7 @@ public class CoRiskchgUtil {
 	 * @return
 	 */
 	public static String getDisRiskLevel(Integer companyType, Integer riskLevel, boolean haveRisk) {
-		if (companyType == null || riskLevel == null) {
+		if (companyType == null) {
 			return null;
 		}
 		byte type = companyType.byteValue();
@@ -140,6 +171,9 @@ public class CoRiskchgUtil {
 			return haveRisk ? RZZLCoRiskLevel.LATENT.desc() : RZZLCoRiskLevel.NORMAL.desc();
 
 		case CompanyDO.TYPE_YFK_11:// 预付卡
+			if (riskLevel == null) {
+				return null;
+			}
 			return PrepaidCompanyDO.getAnalysisResultCN(riskLevel.byteValue());
 		default:
 			return null;
