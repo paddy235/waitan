@@ -99,7 +99,6 @@ public class CoAddOrCloseController {
 			HSSFCell titleCell2 = HSSFCellUtil.getCell(titleRow, 2);
 			titleCell2.setCellValue(endDate);
 
-			hssfSheet.createRow(1);
 			exportExcel.exportExcel();
 			return ResponseBean.successResponse(exportExcel.getDownloadURL());
 		} catch (Exception e) {
