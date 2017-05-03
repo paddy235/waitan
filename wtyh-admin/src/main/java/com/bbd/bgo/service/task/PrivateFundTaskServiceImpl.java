@@ -34,8 +34,13 @@ public class PrivateFundTaskServiceImpl extends BaseServiceImpl implements Priva
 	private Logger logger = LoggerFactory.getLogger(PrivateFundTaskServiceImpl.class);
 	@Autowired
 	private PrivateFundExtraMapper privateFundExtraMapper;
-	//@Value("${api.private.fund.url}")
+	@Value("${api.bbd_xgxx_relation.url}")
 	private String	url;
+	@Value("${api.appkey}")
+	private String	appkey;
+
+	private static long ccc=0l;
+	private static long bbb=0l;
 
 	/**
 	 * 每月1日晚上10点，私募企业列表的“备案状态”根据私募证券业协会官网上的状态更新
@@ -57,9 +62,9 @@ public class PrivateFundTaskServiceImpl extends BaseServiceImpl implements Priva
 				pagination.setPageNumber(i);
 				params.put("pagination", pagination);
 				List<PrivateFundCompanyDTO> list = privateFundExtraMapper.findByPage(params);
-                List tempList=new ArrayList();
+                List<Map> tempList=new ArrayList<>();
 				Map<String,Object> dtoMap=new HashMap<>();
-				List<PrivateFundCompanyDTO> dtoList=new ArrayList();
+				List<PrivateFundCompanyDTO> dtoList=new ArrayList<>();
 				int count=0;
                 int isEnd=0;
 				StringBuffer sb=new StringBuffer();
@@ -77,8 +82,9 @@ public class PrivateFundTaskServiceImpl extends BaseServiceImpl implements Priva
 						dtoMap.put("name",sb.toString());
 						dtoMap.put("list",dtoList);
                         tempList.add(dtoMap);
+						dtoMap=new HashMap<>();
                         sb=new StringBuffer();
-                        dtoList.clear();
+                        dtoList=new ArrayList<>();
 					}
 
 				}
@@ -103,6 +109,9 @@ public class PrivateFundTaskServiceImpl extends BaseServiceImpl implements Priva
 
 			dataExecutorService.awaitTermination(1, TimeUnit.DAYS);
 
+			System.out.println(bbb);
+			System.out.println(ccc);
+
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
@@ -116,7 +125,7 @@ public class PrivateFundTaskServiceImpl extends BaseServiceImpl implements Priva
         FundVO vo=this.getPrivateFundCompanyData(name);
         Map<String,String> nameMap=new HashMap<>();
 		for(FundVO.Result obj:vo.getResults()){
-            nameMap.put(obj.getFund_manager_chinese(),obj.getFund_manager_chinese());
+            nameMap.put(obj.getCompany_name(),obj.getCompany_name());
 		}
 
         List<PrivateFundCompanyDTO> list=(List)map.get("list");
@@ -124,9 +133,14 @@ public class PrivateFundTaskServiceImpl extends BaseServiceImpl implements Priva
 		    String key=privateFundCompanyDTO.getName();
             if(StringUtils.isNotBlank(key)){
                 if(nameMap.containsKey(key)){
-                    this.executeCUD("UPDATE  private_fund_extra SET record_status=1 WHERE company_id=?",privateFundCompanyDTO.getCompanyId());
+
+                    this.executeCUD("UPDATE  private_fund_extra SET record_status=1 ,update_by='SLM',update_date=NOW() WHERE company_id="+privateFundCompanyDTO.getCompanyId());
+
+					ccc++;
                 }else{
-                    this.executeCUD("UPDATE  private_fund_extra SET record_status=2 WHERE company_id=?",privateFundCompanyDTO.getCompanyId());
+
+                    this.executeCUD("UPDATE  private_fund_extra SET record_status=2 ,update_by='SLM',update_date=NOW() WHERE company_id=",privateFundCompanyDTO.getCompanyId());
+					bbb++;
                 }
             }
         }
@@ -136,12 +150,12 @@ public class PrivateFundTaskServiceImpl extends BaseServiceImpl implements Priva
 
 	public FundVO getPrivateFundCompanyData(String name) {
 		long start = System.currentTimeMillis();
-		String httpUrl = url + "?ktype=0" + "&keys=" + name;
+		String httpUrl = url + "?appkey="+appkey+"&ktype=0" + "&keys=" + name;
 		try {
 			String result = new HttpTemplate().get(httpUrl);
 			Gson gson = new Gson();
             FundVO vo = gson.fromJson(result,new TypeToken<FundVO>(){}.getType());
-			logger.info("私募基金备案状态请求耗时：{}ms,url地址为：{}",System.currentTimeMillis()-start,url);
+			//logger.info("私募基金备案状态请求耗时：{}ms,url地址为：{}",System.currentTimeMillis()-start,url);
 
 			return vo;
 		} catch (Exception e) {

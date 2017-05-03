@@ -53,15 +53,25 @@ public class FundVO {
 
     public static class Result{
 
-        public String getFund_manager_chinese() {
-            return fund_manager_chinese;
+
+        private String company_name;//
+
+        private String table_name;//
+
+        public String getCompany_name() {
+            return company_name;
         }
 
-        public void setFund_manager_chinese(String fund_manager_chinese) {
-            this.fund_manager_chinese = fund_manager_chinese;
+        public void setCompany_name(String company_name) {
+            this.company_name = company_name;
         }
 
-        private String fund_manager_chinese;//
+        public String getTable_name() {
+            return table_name;
+        }
 
+        public void setTable_name(String table_name) {
+            this.table_name = table_name;
+        }
     }
 }
