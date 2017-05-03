@@ -10,9 +10,16 @@ import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.RiskChgCoDo;
 import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
 import com.bbd.wtyh.excel.ExportExcel;
+import com.bbd.wtyh.excel.Sheet;
 import com.bbd.wtyh.exception.ExceptionHandler;
 import com.bbd.wtyh.service.CoRiskChgService;
+import com.bbd.wtyh.util.CoRiskchgUtil;
 import com.bbd.wtyh.web.ResponseBean;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.util.HSSFCellUtil;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -142,9 +149,8 @@ public class CoRiskChgController {
 	 */
 	@RequestMapping("/download-data")
 	@ResponseBody
-	public Object downloadData(HttpServletRequest request, boolean isPaging, Pagination page) {
+	public Object downloadData(HttpServletRequest request, @RequestParam Integer financialType, boolean isPaging, Pagination page) {
 
-		ExportExcel exportExcel = new ExportExcel("风险变化企业");
 		List<RiskChgCoDo> list;
 
 		try {
@@ -155,8 +161,31 @@ public class CoRiskChgController {
 			} else {
 				list = this.coRiskChgService.queryAllData(paramMap);
 			}
+			String date = paramMap.get("sdate") + "~" + paramMap.get("edate");
+			String excelName = "风险变化企业列表（" + CompanyDO.companyTypeCN(financialType.byteValue()) + date + "）";
+			ExportExcel exportExcel = new ExportExcel(excelName);
+			Sheet sheet = exportExcel.createSheet(list);
+			sheet.setColumnName(CoRiskchgUtil.exportName(financialType));
+			sheet.setDataMapKeys(CoRiskchgUtil.exportKey(financialType));
+			// 合并单元格
+			HSSFSheet hssfSheet = sheet.getHSSFSheet();
+			// 合并单元格第一行
+			CellRangeAddress cra = new CellRangeAddress(0, 0, 1, sheet.getDataMapKeys().length - 1);
+			hssfSheet.addMergedRegion(cra);
+			HSSFRow titleRow = hssfSheet.createRow(0);
+			titleRow.setHeight((short) 400);
+			for (int j = cra.getFirstColumn(); j <= cra.getLastColumn(); j++) {
+				HSSFCell singleCell = HSSFCellUtil.getCell(titleRow, j);
+				singleCell.setCellStyle(sheet.getHeaderStyle());
+			}
 
-			exportExcel.createSheet(list);
+			HSSFCell titleCell = HSSFCellUtil.getCell(titleRow, 0);
+			titleCell.setCellStyle(sheet.getHeaderStyle());
+			titleCell.setCellValue("筛选时间");
+
+			HSSFCell titleCell1 = HSSFCellUtil.getCell(titleRow, 1);
+			titleCell1.setCellValue(date);
+
 			exportExcel.exportExcel();
 			return ResponseBean.successResponse(exportExcel.getDownloadURL());
 		} catch (Exception e) {

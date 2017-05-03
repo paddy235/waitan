@@ -39,8 +39,9 @@ public class ExportExcelUtil {
 
 			// 行号
 			int rowNum = sheet.getLastRowNum();
+
 			// 存在合并区域
-			if (sheet.getNumMergedRegions() > 0) {
+			if (sheet.getNumMergedRegions() > 0 || sheet.getRow(rowNum) != null) {
 				rowNum++;
 			}
 

@@ -70,17 +70,17 @@ public class CompanyStatusChangeDO {
 	private String areaName;
 
 	/** 注册时间 */
-	@Excel(exportName = "注册时间")
+	@Excel(exportName = "注册时间",dateFormat = "yyyy/MM/dd")
 	@Column(name = "register_date")
 	private Date registerDate;
 
 	/** 调整时间 */
-	@Excel(exportName = "调整时间")
+	@Excel(exportName = "调整时间",dateFormat = "yyyy/MM/dd")
 	@Column(name = "adjust_date")
 	private Date adjustDate;
 
 	/** 停业时间 */
-	@Excel(exportName = "停业时间")
+	@Excel(exportName = "停业时间",dateFormat = "yyyy/MM/dd")
 	@Column(name = "closed_date")
 	private Date closedDate;
 
@@ -89,7 +89,7 @@ public class CompanyStatusChangeDO {
 	private Date orderDate;
 
 	/** 注册资本 */
-	@Excel(exportName = "注册资本(人民币)")
+	@Excel(exportName = "注册资本(人民币，单位:万元)")
 	@Column(name = "registered_capital")
 	private Integer registeredCapital;
 

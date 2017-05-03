@@ -65,9 +65,12 @@ public enum CompanyAnalysisResult {
 	 * @param color
 	 * @return
 	 */
-	public static String getColor(int type) {
+	public static String getColor(Integer type) {
+		if (type == null) {
+			return null;
+		}
 		for (CompanyAnalysisResult c : CompanyAnalysisResult.values()) {
-			if (type == c.type) {
+			if (type.equals(c.type)) {
 				return c.color;
 			}
 		}
