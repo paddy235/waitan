@@ -466,35 +466,38 @@ public class UserInfoController {
             "m_email" }, type = Operation.Type.modify, page = Operation.Page.userOwnInfo, after = true, before = false)
     public Object updateInfo(@RequestParam Integer id, @RequestParam String mobile, @RequestParam String email,
                              @RequestParam String fixPhone, HttpSession session, HttpServletRequest request) throws Exception {
+        try {
+            if ((int) (session.getAttribute("userId")) != id.intValue()) {
+                return ResponseBean.errorResponse("个人中心用户只能修改自己的个人信息");
+            }
+            UserInfoTableDo oldUitd = this.uis.selectById(UserInfoTableDo.class, id);
+            if (oldUitd != null) {
+                request.setAttribute("m_mobile", " ");
+                request.setAttribute("m_fixPhone", " ");
+                request.setAttribute("m_email", " ");
 
-        if( (int)( session.getAttribute("userId") ) != id.intValue() ) {
-            return ResponseBean.errorResponse("个人中心用户只能修改自己的个人信息");
+                if (!org.apache.commons.lang.StringUtils.equals(mobile, CipherUtils.decrypt(oldUitd.getMobile()))) {
+                    request.setAttribute("m_mobile", "【联系电话(手机)】");
+                }
+                if (!org.apache.commons.lang.StringUtils.equals(fixPhone, CipherUtils.decrypt(oldUitd.getFixPhone()))) {
+                    request.setAttribute("m_fixPhone", "【联系电话(固话)】");
+                }
+                if (!org.apache.commons.lang.StringUtils.equals(email, oldUitd.getEmail())) {
+                    request.setAttribute("m_email", "【邮箱】");
+                }
+            }
+
+            UserInfoTableDo user = new UserInfoTableDo();
+            user.setId(id);
+            user.setMobile(mobile);
+            user.setEmail(email);
+            user.setFixPhone(fixPhone);
+            user.setUpdateBy((String) session.getAttribute(Constants.SESSION.loginName));
+
+            uis.updateUserInfo(user);
+        } catch (BusinessException be) {
+            return ResponseBean.errorResponse(be.getMessage());
         }
-        UserInfoTableDo oldUitd = this.uis.selectById(UserInfoTableDo.class, id);
-        if (oldUitd != null) {
-            request.setAttribute("m_mobile", " ");
-            request.setAttribute("m_fixPhone", " ");
-            request.setAttribute("m_email", " ");
-
-            if (!org.apache.commons.lang.StringUtils.equals(mobile, CipherUtils.decrypt(oldUitd.getMobile()))) {
-                request.setAttribute("m_mobile", "【联系电话(手机)】");
-            }
-            if (!org.apache.commons.lang.StringUtils.equals(fixPhone, CipherUtils.decrypt(oldUitd.getFixPhone()))) {
-                request.setAttribute("m_fixPhone", "【联系电话(固话)】");
-            }
-            if (!org.apache.commons.lang.StringUtils.equals(email, oldUitd.getEmail())) {
-                request.setAttribute("m_email", "【邮箱】");
-            }
-        }
-
-        UserInfoTableDo user = new UserInfoTableDo();
-        user.setId(id);
-        user.setMobile(mobile);
-        user.setEmail(email);
-        user.setFixPhone(fixPhone);
-        user.setUpdateBy((String) session.getAttribute(Constants.SESSION.loginName));
-
-        uis.updateUserInfo(user);
 
         return ResponseBean.successResponse("用户信息修改成功。");
     }
@@ -503,29 +506,36 @@ public class UserInfoController {
     @ResponseBody
     @LogRecord(logMsg = "修改自己密码", type = Operation.Type.modify, page = Operation.Page.userOwnPwdModify, after = true, before = false)
     public Object updatePassword(/* @RequestParam Integer id, */
-                                 @RequestParam String loginName, @RequestParam String oldPassword, @RequestParam String newPassword, HttpSession session)
-            throws Exception {
+                                 @RequestParam String loginName,
+                                 @RequestParam String oldPassword,
+                                 @RequestParam String newPassword, HttpSession session) {
 
-        if (oldPassword.equals(newPassword)) {
-            return ResponseBean.errorResponse("password.history.contains"); // 新设置密码不可与原密码设置相同
+        try {
+            if (oldPassword.equals(newPassword)) {
+                return ResponseBean.errorResponse("password.history.contains"); // 新设置密码不可与原密码设置相同
+            }
+            UserInfoTableDo ud = uis.getOnlyUserInfoByLoginNameOrId(loginName, -1);
+            if ((int) (session.getAttribute("userId")) != ud.getId().intValue()) {
+                return ResponseBean.errorResponse("个人中心用户只能修改自己的密码");
+            }
+            int rst = uis.compareUserDaoAndPassword(ud, oldPassword, Operation.System.back);
+            if (rst <= -5) {
+                return ResponseBean.errorResponse("account.not.exist"); // 账号不存在 // BusinessException("未查询到id字段");
+            } else if (rst < 0) {
+                return ResponseBean.errorResponse("password.error"); // 密码错误 //BusinessException("原密码验证失败");
+            }
+            UserInfoTableDo user = new UserInfoTableDo();
+            user.setUpdateBy(loginName); // user.setUpdateBy((String)session.getAttribute(Constants.SESSION.loginName));
+            user.setBackPwd(newPassword);
+            user.setId(ud.getId());
+            uis.updateUserInfo(user);
+            userRealm.clearCached();
+        } catch (BusinessException be) {
+            return ResponseBean.errorResponse(be.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseBean.errorResponse("服务器异常");
         }
-        UserInfoTableDo ud = uis.getOnlyUserInfoByLoginNameOrId(loginName,-1);
-        if( (int)( session.getAttribute("userId") ) != ud.getId().intValue() ) {
-            return ResponseBean.errorResponse("个人中心用户只能修改自己的密码");
-        }
-        int rst = uis.compareUserDaoAndPassword(ud, oldPassword, Operation.System.back);
-        if( rst <=-5 ) {
-            return ResponseBean.errorResponse("account.not.exist"); // 账号不存在 // BusinessException("未查询到id字段");
-        }
-        else if( rst <0 ) {
-            return ResponseBean.errorResponse("password.error"); // 密码错误 //BusinessException("原密码验证失败");
-        }
-        UserInfoTableDo user = new UserInfoTableDo();
-        user.setUpdateBy(loginName); // user.setUpdateBy((String)session.getAttribute(Constants.SESSION.loginName));
-        user.setBackPwd(newPassword);
-        user.setId( ud.getId() );
-        uis.updateUserInfo(user);
-        userRealm.clearCached();
         return ResponseBean.successResponse("password.change.success"); // 用户密码修改成功。
     }
 }

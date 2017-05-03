@@ -379,21 +379,35 @@ public class PToPMonitorController {
 		if( 104 ==area || ! rb.isSuccess() ) { //上海全区或查询失败
 			return rb;
 		}
+		/* //自己通过注册地址去判断所属区域
 		String areaName = (ShanghaiAreaCode.getMap().get(area)).substring(0,2);
-		String secAreaName = areaName.equals("浦东") ? "自由贸易" : null;
+		String secAreaName = areaName.equals("浦东") ? "自由贸易" : null;*/
 		List<Map<String, String>> desList = new ArrayList<>();
 		List<Map<String, String>> srcList =(List<Map<String, String>>)(rb.getContent());
 		if(null !=srcList && srcList.size() >0) {
 			for (Map<String, String> mp : srcList) {
 				if (null != mp) {
-					String rAddress =(String)(mp.get("registered_address"));
+					//String rAddress =(String)(mp.get("registered_address"));
+					String districtCodeStr =(String)(mp.get("area_id"));
 					/*{ //分类统计
 						String platName =(String)(mp.get("plat_name"));
 						System.out.println("平台名称：" +platName +"；  注册地址：" +rAddress);
 					}*/
+					/* //自己通过注册地址去判断所属区域
 					if( ( null !=rAddress && rAddress.indexOf(areaName) >=0 ) ||
 							( null !=secAreaName && rAddress.indexOf(secAreaName) >=0 ) ){
 						desList.add(mp);
+					}*/
+					try {
+						if( null !=districtCodeStr ) {
+							Integer districtCode =Integer.valueOf(districtCodeStr);
+							Integer areaId =ShanghaiAreaCode.getCodeToAreaMap().get(districtCode);
+							if (  null !=areaId && areaId.equals(area )){
+								desList.add(mp);
+							}
+						}
+					} catch ( Exception e ) {
+						; //转换失败的不予分类
 					}
 				}
 			}
@@ -431,6 +445,7 @@ public class PToPMonitorController {
 			rst.put("loan_period", dto.getLoan_period() == null ? "" : dto.getLoan_period());
 			rst.put("stay_still_of_total", CalculateUtils.divide(dto.getStay_still_of_total(), 100000000, 2));
 			rst.put("plat_status", dto.getPlat_status());
+			rst.put("area_id", dto.getArea_id());
 			rst.put("registered_address", dto.getRegistered_address());
 			if (wangdaiPlatList.get(dto.getPlat_name()) == null) {// 处理空指针异常
 				rst.put("OffLineFinanceNum", 0);

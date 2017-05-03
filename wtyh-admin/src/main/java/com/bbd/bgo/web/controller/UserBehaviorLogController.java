@@ -138,7 +138,7 @@ public class UserBehaviorLogController {
             String endTime,
             Long logSN,
             String orderBy,
-            HttpServletRequest request, HttpSession session) throws Exception {
+            HttpServletRequest request, HttpSession session) {
 
         ResponseBean rb= (ResponseBean)listUserBehaviorLog( pageSize, pageNumber, userName, areaCode, sysCode,
                 opTpCd, opPgCd, beginTime, endTime, logSN, orderBy, true, request, session  );
@@ -150,12 +150,18 @@ public class UserBehaviorLogController {
             }
             String[] columnName = { "序号", "日志编号", "用户名", "真实姓名", "行政区",	"所属部门",	 "IP地址", "系统位置", "操作", "操作页面", "详情", "发生时间" };
             String[] dataMapLeys = { "orderNum", "logSN", "loginName", "realName", "area", "department", "IpAddr", "sysLocation", "opType", "opPage", "logDetail", "genesicDT" };
+            String logFileName ="日志文件 ";
             ExportExcel ee = new ExportExcel("用户日志");
-            ee.createSheet("Test", columnName, dataMapLeys, lm);
-            ee.exportExcel();
-            return ResponseBean.successResponse(ee.getDownloadURL());
+            try {
+                ee.createSheet("日志", columnName, dataMapLeys, lm);
+                ee.exportExcel();
+                return ResponseBean.successResponse(ee.getDownloadURL());
      /*       String fileName =new String( ee.getExcelName().getBytes("UTF-8"), "ISO-8859-1" );
             return "<a href =\"http://localhost:8080/download/download-excel.do?name=" +fileName +"\"> download </a>";*/
+            } catch ( Exception e ) {
+                e.printStackTrace();
+                return ResponseBean.errorResponse("服务器异常：" + e);
+            }
         }
         return rb;
     }
