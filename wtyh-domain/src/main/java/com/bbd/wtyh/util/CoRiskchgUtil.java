@@ -162,7 +162,11 @@ public class CoRiskchgUtil {
 
 		case CompanyDO.TYPE_P2P_1:// 网络借贷
 		case CompanyDO.TYPE_XXLC_4:// 线下理财
-			return CompanyAnalysisResult.getColor(riskLevel) + "灯";
+			String color = CompanyAnalysisResult.getColor(riskLevel);
+			if (StringUtils.isBlank(color)) {
+				return null;
+			}
+			return color + "灯";
 
 		case CompanyDO.TYPE_JYS_9:// 交易所
 			return JYSCoRiskLevel.getRiskLevel(riskLevel).desc();
