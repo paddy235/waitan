@@ -1,5 +1,6 @@
 package com.bbd.wtyh.test;
 
+import com.bbd.bgo.service.task.PrivateFundTaskService;
 import com.bbd.wtyh.core.entity.Pagination;
 import com.bbd.wtyh.service.CoCreditScoreService;
 import com.bbd.wtyh.service.CoRiskChgService;
@@ -24,6 +25,8 @@ public class CoRiskChgTest {
 
 	@Autowired
 	private CoRiskChgService coRiskChgService;
+	@Autowired
+	private PrivateFundTaskService privateFundTaskService;
 
 	@Test
 	public void queryPageDateTest() throws Exception {
@@ -59,5 +62,10 @@ public class CoRiskChgTest {
 	@Test
 	public void test() throws Exception {
 		coCreditScoreService.creditScoreCalculate();
+	}
+
+	@Test
+	public void updateCompanyStatus() throws Exception {
+		privateFundTaskService.updateCompanyStatus();
 	}
 }
