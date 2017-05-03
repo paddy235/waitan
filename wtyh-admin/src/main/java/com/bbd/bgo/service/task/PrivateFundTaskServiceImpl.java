@@ -34,8 +34,10 @@ public class PrivateFundTaskServiceImpl extends BaseServiceImpl implements Priva
 	private Logger logger = LoggerFactory.getLogger(PrivateFundTaskServiceImpl.class);
 	@Autowired
 	private PrivateFundExtraMapper privateFundExtraMapper;
-	//@Value("${api.private.fund.url}")
+	@Value("${api.bbd_xgxx_relation.url}")
 	private String	url;
+	@Value("${api.appkey}")
+	private String	appkey;
 
 	/**
 	 * 每月1日晚上10点，私募企业列表的“备案状态”根据私募证券业协会官网上的状态更新
@@ -116,7 +118,7 @@ public class PrivateFundTaskServiceImpl extends BaseServiceImpl implements Priva
         FundVO vo=this.getPrivateFundCompanyData(name);
         Map<String,String> nameMap=new HashMap<>();
 		for(FundVO.Result obj:vo.getResults()){
-            nameMap.put(obj.getFund_manager_chinese(),obj.getFund_manager_chinese());
+            nameMap.put(obj.getCompany_name(),obj.getCompany_name());
 		}
 
         List<PrivateFundCompanyDTO> list=(List)map.get("list");
@@ -136,7 +138,7 @@ public class PrivateFundTaskServiceImpl extends BaseServiceImpl implements Priva
 
 	public FundVO getPrivateFundCompanyData(String name) {
 		long start = System.currentTimeMillis();
-		String httpUrl = url + "?ktype=0" + "&keys=" + name;
+		String httpUrl = url + "?appkey="+appkey+"&ktype=0" + "&keys=" + name;
 		try {
 			String result = new HttpTemplate().get(httpUrl);
 			Gson gson = new Gson();
