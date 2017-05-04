@@ -1,5 +1,8 @@
 package com.bbd.wtyh.web.controller;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +17,7 @@ import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.runtime.directive.Foreach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -291,17 +295,29 @@ public class ParkController {
 	 */
 	@RequestMapping("/downloadParkCompanyList")
 	@ResponseBody
-	public ResponseBean downloadParkCompanyList(@RequestParam Integer areaId,Integer isNew, Integer riskLevel,
-			String backgroundName,  String companyTypeName, String buildingName
-			) {
+	public ResponseBean downloadParkCompanyList(@RequestParam Integer areaId, Integer isNew, Integer riskLevel, String backgroundName,
+			String companyTypeName, String buildingName, HttpServletRequest request) {
 
-		ExportExcel exportExcel = new ExportExcel("园区企业列表");
+		String loginName = request.getSession().getAttribute(Constants.SESSION.loginName) + "";
+		String nowDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss"));
+
+		String excelName = "";
+
+		AreaDO area = this.parkService.selectById(AreaDO.class, areaId);
+		if (area != null) {
+			excelName = area.getName();
+		}
+		excelName = loginName + "-" + excelName + "-" + nowDateTime;
+
+		ExportExcel exportExcel = new ExportExcel(excelName);
 		try {
 
-			//按查询条件下载企业
-			/*List<ParkCompanyDo> list = parkService.queryParkCompany(areaId, isNew, riskLevel, backgroundName, companyTypeName,
-					buildingName);*/
-			//下载改园区全部企业
+			// 按查询条件下载企业
+			/*
+			 * List<ParkCompanyDo> list = parkService.queryParkCompany(areaId,
+			 * isNew, riskLevel, backgroundName, companyTypeName, buildingName);
+			 */
+			// 下载改园区全部企业
 			List<ParkCompanyDo> list = parkService.queryParkCompany(areaId, null, null, null, null, null);
 			exportExcel.createSheet(list);
 			exportExcel.exportExcel();

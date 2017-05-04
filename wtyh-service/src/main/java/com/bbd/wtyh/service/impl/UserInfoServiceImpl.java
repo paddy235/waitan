@@ -725,16 +725,16 @@ public class UserInfoServiceImpl extends BaseServiceImpl implements UserInfoServ
 	 * m.getValue()); } }
 	 */
 
-	 public static void main(String args[]) throws Exception {
-	 	System.out.println(rexCheckPassword("12345678") == false);
-	 	System.out.println(rexCheckPassword("aaaaaaaa") ==false);
-	 	System.out.println(rexCheckPassword("1234abc") ==false);
-	 	System.out.println(rexCheckPassword("1234567890abcdefg") ==false);
-	 	System.out.println(rexCheckPassword("1234567801234s") ==true);
-	 	System.out.println(rexCheckPassword("B12345678") ==true);
-	 	System.out.println(rexCheckPassword("1234$7890abcd") ==false);
-	 	System.out.println(rexCheckPassword("1234567801234s") ==true);
-	 	System.out.println(rexCheckPassword("B12345678") ==true);
-	 	System.out.println(rexCheckPassword("1234abcd") ==true);
-	 }
+//	 public static void main(String args[]) throws Exception {
+//	 	System.out.println(rexCheckPassword("12345678") == false);
+//	 	System.out.println(rexCheckPassword("aaaaaaaa") ==false);
+//	 	System.out.println(rexCheckPassword("1234abc") ==false);
+//	 	System.out.println(rexCheckPassword("1234567890abcdefg") ==false);
+//	 	System.out.println(rexCheckPassword("1234567801234s") ==true);
+//	 	System.out.println(rexCheckPassword("B12345678") ==true);
+//	 	System.out.println(rexCheckPassword("1234$7890abcd") ==false);
+//	 	System.out.println(rexCheckPassword("1234567801234s") ==true);
+//	 	System.out.println(rexCheckPassword("B12345678") ==true);
+//	 	System.out.println(rexCheckPassword("1234abcd") ==true);
+//	 }
 }

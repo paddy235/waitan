@@ -1,5 +1,9 @@
 package com.bbd.bgo.web.controller;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import com.bbd.wtyh.cachetobean.ShanghaiAreaCode;
@@ -31,6 +35,19 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/userBehaviorLog")
 public class UserBehaviorLogController {
+
+    private static int fileSn =0;
+
+    static String getFileSnStr() {
+        fileSn++;
+        String snStr = String.format("%04d",fileSn);
+        return snStr.substring(snStr.length() -4);
+    }
+
+//    public static void main(String [] arg) {
+//        String a =getFileSnStr();
+//        a += "a";
+//    }
 
     @Autowired
     private UserInfoService uis;
@@ -139,7 +156,10 @@ public class UserBehaviorLogController {
             Long logSN,
             String orderBy,
             HttpServletRequest request, HttpSession session) {
-
+        /*Date date =DateUtils.stringToDate(beginTime);
+        if( null ==date ) {
+            return ResponseBean.errorResponse("下载日志文件时必须指定开始时间");
+        }*/
         ResponseBean rb= (ResponseBean)listUserBehaviorLog( pageSize, pageNumber, userName, areaCode, sysCode,
                 opTpCd, opPgCd, beginTime, endTime, logSN, orderBy, true, request, session  );
         if( rb.isSuccess() ){
@@ -150,8 +170,11 @@ public class UserBehaviorLogController {
             }
             String[] columnName = { "序号", "日志编号", "用户名", "真实姓名", "行政区",	"所属部门",	 "IP地址", "系统位置", "操作", "操作页面", "详情", "发生时间" };
             String[] dataMapLeys = { "orderNum", "logSN", "loginName", "realName", "area", "department", "IpAddr", "sysLocation", "opType", "opPage", "logDetail", "genesicDT" };
-            String logFileName ="日志文件 ";
-            ExportExcel ee = new ExportExcel("用户日志");
+
+            String logFileName =(String) (session.getAttribute("userName") );// 获取用户名
+            //SimpleDateFormat sdf =   new SimpleDateFormat( "yyyyMMdd" ); sdf.format(date);
+            logFileName +="-日志文件-" +  LocalDateTime.now().format( DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss") );
+            ExportExcel ee = new ExportExcel(logFileName);
             try {
                 ee.createSheet("日志", columnName, dataMapLeys, lm);
                 ee.exportExcel();

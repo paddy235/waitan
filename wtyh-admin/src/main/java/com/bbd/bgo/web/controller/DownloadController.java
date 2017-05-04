@@ -31,11 +31,11 @@ public class DownloadController {
 
 		InputStream in = null;
 		OutputStream out = null;
-
+		File file = null;
 		try {
 			name = URLDecoder.decode(name, "UTF-8");
 
-			File file = new File(path + name);
+			file = new File(path + name);
 
 			response.setCharacterEncoding("UTF-8");
 
@@ -56,6 +56,7 @@ public class DownloadController {
 			while ((length = in.read(b)) > 0) {
 				out.write(b, 0, length);
 			}
+
 		} catch (IOException e) {
 			LOGGER.error("导出文件【{}】失败：服务器报错!{}", name, e);
 		} finally {
@@ -68,6 +69,9 @@ public class DownloadController {
 				}
 			} catch (IOException e) {
 				// e.printStackTrace();
+			}
+			if (file != null) {
+				file.delete();
 			}
 		}
 
