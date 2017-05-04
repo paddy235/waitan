@@ -4,6 +4,7 @@ import com.bbd.wtyh.domain.CompanyAnalysisResultDO;
 import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
 import com.bbd.wtyh.domain.vo.SpectrumVO;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +22,8 @@ public interface RealTimeMonitorService {
     Map<String, Object> shMapMonitor();
 
     List<List<SpectrumVO>> spectrumAnalysis(Integer areaId);
+
+    BigDecimal getCompanyStaticIndexByName(String cpyName);
 
     Map<String, Map> shArea(Integer areaId);
 

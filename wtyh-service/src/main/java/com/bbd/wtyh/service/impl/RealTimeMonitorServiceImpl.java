@@ -1,11 +1,15 @@
 package com.bbd.wtyh.service.impl;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.bbd.wtyh.domain.vo.StatisticsVO;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -110,6 +114,20 @@ public class RealTimeMonitorServiceImpl implements RealTimeMonitorService {
 		rst.add(spectrumAnalysisNormal);
 		rst.add(spectrumAnalysisRisk);
 		return rst;
+	}
+
+	@Override
+	public BigDecimal getCompanyStaticIndexByName(String cpyName) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("companyName", cpyName);
+		LocalDate ld =LocalDate.now().plusMonths(-1);
+		params.put("date", ld.format(DateTimeFormatter.ofPattern("yyyy-MM")));
+		//params.put("areaCode", new Integer(104));
+		StatisticsVO sv = staticRiskMapper.queryComStatistics(params);
+		if( null !=sv ) {
+			return sv.getRiskIndex();
+		}
+		return null;
 	}
 
 	public List<List> spectrumAnalysisBackup() {
