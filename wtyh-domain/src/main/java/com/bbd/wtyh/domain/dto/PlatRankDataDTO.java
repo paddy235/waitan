@@ -26,6 +26,16 @@ public class PlatRankDataDTO {
 
     private String registered_address;
 
+    public String getArea_id() {
+        return area_id;
+    }
+
+    public void setArea_id(String area_id) {
+        this.area_id = area_id;
+    }
+
+    private String area_id;
+
     public String getRegistered_address() {
         return registered_address;
     }
