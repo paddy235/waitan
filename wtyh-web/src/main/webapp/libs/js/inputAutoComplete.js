@@ -14,8 +14,7 @@
  }
  });
  */
-
-;
+ 
 (function($) {
     var timer = false;
     var defaults = {
@@ -181,8 +180,8 @@
             var $resultLi = $('.' + acClass).find('ul li');
             $('.' + acClass).find('ul li').unbind('click').on('click', function() {
                 var key = $(this).data('key');
-                var keyCompany = $(this).data('company'); //公司
-                var keyPlat = $(this).data('plat'); //平台
+                var keyCompany = $(this).data('company'); // 公司
+                var keyPlat = $(this).data('plat'); // 平台
                 var isgroup = $(this).hasClass('group');
                 if (isgroup) {
                     $element.attr({
@@ -195,6 +194,7 @@
                 document.getElementById("autocomplete").setAttribute("company", keyCompany);
                 document.getElementById("autocomplete").setAttribute("plat", keyPlat);
                 document.getElementById("autocomplete").setAttribute("data_flag", "hasWorld")
+                that.autoParam.callback(key,keyPlat); // 公司名  平台名
                 that.hide();
             });
         }

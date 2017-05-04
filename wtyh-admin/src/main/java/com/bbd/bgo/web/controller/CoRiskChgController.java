@@ -16,6 +16,7 @@ import com.bbd.wtyh.exception.ExceptionHandler;
 import com.bbd.wtyh.service.CoRiskChgService;
 import com.bbd.wtyh.util.CoRiskchgUtil;
 import com.bbd.wtyh.web.ResponseBean;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -167,11 +168,8 @@ public class CoRiskChgController {
 			}
 
 			String loginName = request.getSession().getAttribute(Constants.SESSION.loginName) + "";
-
-			String date = paramMap.get("sdate").replace("-", "") + "-" + paramMap.get("edate").replace("-", "");
-
+			String date = StringUtils.remove(paramMap.get("sdate"), "-") + "-" + StringUtils.remove(paramMap.get("edate"), "-");
 			String excelName = "风险变化企业列表（" + CompanyDO.companyTypeCN(financialType.byteValue()) + date + "）";
-
 			String nowTime = LocalTime.now().format(DateTimeFormatter.ofPattern("HHmmss"));
 			excelName = loginName + "-" + excelName + "-" + nowTime;
 
