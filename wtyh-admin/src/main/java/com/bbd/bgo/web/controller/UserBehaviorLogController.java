@@ -1,6 +1,9 @@
 package com.bbd.bgo.web.controller;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import com.bbd.wtyh.cachetobean.ShanghaiAreaCode;
@@ -153,10 +156,10 @@ public class UserBehaviorLogController {
             Long logSN,
             String orderBy,
             HttpServletRequest request, HttpSession session) {
-        Date date =DateUtils.stringToDate(beginTime);
+        /*Date date =DateUtils.stringToDate(beginTime);
         if( null ==date ) {
             return ResponseBean.errorResponse("下载日志文件时必须指定开始时间");
-        }
+        }*/
         ResponseBean rb= (ResponseBean)listUserBehaviorLog( pageSize, pageNumber, userName, areaCode, sysCode,
                 opTpCd, opPgCd, beginTime, endTime, logSN, orderBy, true, request, session  );
         if( rb.isSuccess() ){
@@ -169,10 +172,8 @@ public class UserBehaviorLogController {
             String[] dataMapLeys = { "orderNum", "logSN", "loginName", "realName", "area", "department", "IpAddr", "sysLocation", "opType", "opPage", "logDetail", "genesicDT" };
 
             String logFileName =(String) (session.getAttribute("userName") );// 获取用户名
-            SimpleDateFormat sdf =   new SimpleDateFormat( "yyyyMMdd" );
-            logFileName +="-日志文件-" +sdf.format(date);
-            sdf =   new SimpleDateFormat( "HHmmss" );
-            logFileName +=sdf.format(new Date()); // logFileName +=getFileSnStr();
+            //SimpleDateFormat sdf =   new SimpleDateFormat( "yyyyMMdd" ); sdf.format(date);
+            logFileName +="-日志文件-" +  LocalDateTime.now().format( DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss") );
             ExportExcel ee = new ExportExcel(logFileName);
             try {
                 ee.createSheet("日志", columnName, dataMapLeys, lm);
