@@ -39,8 +39,6 @@ public class PrivateFundTaskServiceImpl extends BaseServiceImpl implements Priva
 	@Value("${api.appkey}")
 	private String	appkey;
 
-	private static long ccc=0l;
-	private static long bbb=0l;
 
 	/**
 	 * 每月1日晚上10点，私募企业列表的“备案状态”根据私募证券业协会官网上的状态更新
@@ -109,8 +107,6 @@ public class PrivateFundTaskServiceImpl extends BaseServiceImpl implements Priva
 
 			dataExecutorService.awaitTermination(1, TimeUnit.DAYS);
 
-			System.out.println(bbb);
-			System.out.println(ccc);
 
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
@@ -134,16 +130,16 @@ public class PrivateFundTaskServiceImpl extends BaseServiceImpl implements Priva
             if(StringUtils.isNotBlank(key)){
                 if(nameMap.containsKey(key)){
 
-                    this.executeCUD("UPDATE  private_fund_extra SET record_status=1 ,update_by='SLM',update_date=NOW() WHERE company_id="+privateFundCompanyDTO.getCompanyId());
+                    this.executeCUD("UPDATE  private_fund_extra SET record_status=1 ,update_by='SLM',update_date=NOW() WHERE company_id=?",privateFundCompanyDTO.getCompanyId());
 
-					ccc++;
+
                 }else{
 
-                    this.executeCUD("UPDATE  private_fund_extra SET record_status=2 ,update_by='SLM',update_date=NOW() WHERE company_id=",privateFundCompanyDTO.getCompanyId());
-					bbb++;
+                    this.executeCUD("UPDATE  private_fund_extra SET record_status=2 ,update_by='SLM',update_date=NOW() WHERE company_id=?",privateFundCompanyDTO.getCompanyId());
+
                 }
             }
-        }
+		}
 
 	}
 
