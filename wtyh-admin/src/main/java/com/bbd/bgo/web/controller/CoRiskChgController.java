@@ -1,5 +1,6 @@
 package com.bbd.bgo.web.controller;
 
+import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.constants.JYSCoRiskLevel;
 import com.bbd.wtyh.constants.PrepaidCoRiskLevel;
 import com.bbd.wtyh.constants.RZZLCoRiskLevel;
@@ -15,6 +16,7 @@ import com.bbd.wtyh.exception.ExceptionHandler;
 import com.bbd.wtyh.service.CoRiskChgService;
 import com.bbd.wtyh.util.CoRiskchgUtil;
 import com.bbd.wtyh.web.ResponseBean;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -27,6 +29,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -161,8 +166,13 @@ public class CoRiskChgController {
 			} else {
 				list = this.coRiskChgService.queryAllData(paramMap);
 			}
-			String date = paramMap.get("sdate") + "~" + paramMap.get("edate");
+
+			String loginName = request.getSession().getAttribute(Constants.SESSION.loginName) + "";
+			String date = StringUtils.remove(paramMap.get("sdate"), "-") + "-" + StringUtils.remove(paramMap.get("edate"), "-");
 			String excelName = "风险变化企业列表（" + CompanyDO.companyTypeCN(financialType.byteValue()) + date + "）";
+			String nowTime = LocalTime.now().format(DateTimeFormatter.ofPattern("HHmmss"));
+			excelName = loginName + "-" + excelName + "-" + nowTime;
+
 			ExportExcel exportExcel = new ExportExcel(excelName);
 			Sheet sheet = exportExcel.createSheet(list);
 			sheet.setColumnName(CoRiskchgUtil.exportName(financialType));
