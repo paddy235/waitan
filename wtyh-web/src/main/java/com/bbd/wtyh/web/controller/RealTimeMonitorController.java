@@ -1,5 +1,6 @@
 package com.bbd.wtyh.web.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -8,8 +9,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import com.bbd.wtyh.domain.vo.StatisticsVO;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
+import com.bbd.wtyh.service.OfflineFinanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,6 +63,15 @@ public class RealTimeMonitorController {
 		List<List<SpectrumVO>> list= (List<List<SpectrumVO>>) redisDAO.getObject(key);
 		if ( null == list || list.isEmpty() ) {
 			list = realTimeMonitorService.spectrumAnalysis(areaId);
+			for (List<SpectrumVO> spectrumVOList : list) {
+				for (SpectrumVO spectrumVO1 : spectrumVOList) {
+					BigDecimal bdl = realTimeMonitorService.getCompanyStaticIndexByName(spectrumVO1.getName());
+					if( null !=bdl ) {
+						int level = OfflineFinanceService.staticRiskIndexToLevel(bdl);
+						spectrumVO1.setPreviousRiskLevel((byte) level);
+					}
+				}
+			}
 		}
 		if (null != list && list.size() >= 1) {
 			for (List<SpectrumVO> spectrumVOList : list) {

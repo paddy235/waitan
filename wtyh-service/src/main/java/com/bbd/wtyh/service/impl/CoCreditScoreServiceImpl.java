@@ -4,14 +4,14 @@ import com.alibaba.fastjson.JSON;
 import com.bbd.shanghai.credit.utils.XyptWebServiceUtil;
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.common.Pagination;
-import com.bbd.wtyh.domain.CompanyCreditDetailDO;
-import com.bbd.wtyh.domain.CompanyCreditPointItemsDO;
-import com.bbd.wtyh.domain.CompanyDO;
+import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.mapper.CompanyCreditDetailMapper;
 import com.bbd.wtyh.mapper.CompanyCreditInformationMapper;
+import com.bbd.wtyh.mapper.CompanyCreditRawInfoMapper;
 import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.CoCreditScoreService;
+import net.sf.json.xml.XMLSerializer;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -36,6 +37,9 @@ import java.util.concurrent.atomic.LongAdder;
  */
 @Service
 public class CoCreditScoreServiceImpl implements CoCreditScoreService {
+
+	@Autowired
+	CompanyCreditRawInfoMapper ccriMapper;
 
 	@Autowired
 	private RedisDAO redisDao;
@@ -257,11 +261,30 @@ public class CoCreditScoreServiceImpl implements CoCreditScoreService {
 			LOGGER.error("查询公司信用信息失败。公司信息【id：{}，name：{}】。返回：{}", coDo.getCompanyId(), coDo.getName(), xmlData);
 			return null;
 		}
-
+		List<CompanyCreditRawInfoDO> lCcrids =new ArrayList<>();
+		CompanyCreditRawInfoDO ccridTemplet = new CompanyCreditRawInfoDO();
+		String rst = root.attributeValue("name");
+		String companyNameTemp =null;
+		if (StringUtils.isNotBlank(rst)) {
+			ccridTemplet.setCompanyName(rst.trim());
+			companyNameTemp =rst;
+		}
+		rst = root.attributeValue("zjhm");
+		if (StringUtils.isNotBlank(rst.trim())) {
+			ccridTemplet.setOrganizationCode(rst);
+		}
+		rst = root.attributeValue("tydm");
+		if (StringUtils.isNotBlank(rst)) {
+			ccridTemplet.setCreditCode(rst.trim());
+		}
+		rst = root.attributeValue("cxbh");
+		if (StringUtils.isNotBlank(rst)) {
+			ccridTemplet.setCxbh(rst.trim());
+		}
 		List<String> pointNameList = new ArrayList<>();
-
 		List nodes = root.elements("RESOURCE");
 		for (Object node : nodes) {
+			CompanyCreditRawInfoDO ccrid = ccridTemplet.clone();
 			Element resource = (Element) node;
 			// 信息事项名称
 			String value = resource.attributeValue("RESOURCENAME");
@@ -269,13 +292,69 @@ public class CoCreditScoreServiceImpl implements CoCreditScoreService {
 				continue;
 			}
 			value = value.trim();
+			ccrid.setResourceName(value);
+			rst = resource.attributeValue("XXLB");
+			if (StringUtils.isNotBlank(rst)) {
+				ccrid.setXxlb(rst.trim());
+			}
+			rst = resource.attributeValue("XXSSDW");
+			if (StringUtils.isNotBlank(rst)) {
+				ccrid.setXxssdw(rst.trim());
+			}
+			rst = resource.attributeValue("XXSSDWDM");
+			if (StringUtils.isNotBlank(rst)) {
+				ccrid.setXxssdwCode(rst.trim());
+			}
+			rst = resource.attributeValue("RESOURCECODE");
+			if (StringUtils.isNotBlank(rst)) {
+				ccrid.setResourceCode(rst.trim());
+			}
+			rst = resource.attributeValue("RESOURCES");
+			if (StringUtils.isNotBlank(rst)) {
+				ccrid.setResources(rst.trim());
+			}
+			rst =resource.getText();
+			if (StringUtils.isNotBlank(rst)) {
+				String xmlAll ="<?xml version=\"1.0\" encoding=\"UTF-8\"?><root>" +rst +"</root>";
+				try {
+					ccrid.setContent((new XMLSerializer()).read(xmlAll).toString());
+				} catch (Exception e) {
+				}
+			}
+			lCcrids.add(ccrid);
 			// 不保留不存在加分项的数据，减少数据集
 			if (pointMap.get(value) == null || pointMap.get(value) <= 0) {
 				continue;
 			}
 			pointNameList.add(value);
 		}
+		if( lCcrids.size() >0 ) {
+			if(null ==companyNameTemp) {
+				ccriMapper.removeCompanyCreditRawInfoByCompanyName(companyNameTemp);
+			}
+			for( CompanyCreditRawInfoDO cd : lCcrids ) {
+				ccriMapper.saveCompanyCreditRawInfo(cd);
+			}
+		}
 		return pointNameList;
+	}
+
+	public static void main(String []argc) {
+		String rst ="<?xml version=\"1.0\" encoding=\"UTF-8\"?><root>" +
+				"<punishmeasures>处罚种类:药包材;处罚内容:罚款</punishmeasures>\n" +
+				"\t\t<licensestatus></licensestatus>\n" +
+				"\t\t<illegaldate></illegaldate>\n" +
+				"\t\t<illegalcontext>使用不合格药包材</illegalcontext>\n" +
+				"\t\t<punishdate>2011-01-04 00:00:00.0</punishdate>\n" +
+				"\t\t<punishlimit></punishlimit>\n" +
+				"\t\t<punishbasis>《管理办法》第六十五条</punishbasis>\n" +
+				"</root>";
+		XMLSerializer xs =new XMLSerializer();
+		String aaa = xs.read(rst).toString();
+		CompanyCreditRawInfoDO cd1 =new CompanyCreditRawInfoDO();
+		cd1.setResourceName("srcName");
+		CompanyCreditRawInfoDO cd2= cd1.clone();
+		cd2.setResourceName("ss");
 	}
 
 	/**

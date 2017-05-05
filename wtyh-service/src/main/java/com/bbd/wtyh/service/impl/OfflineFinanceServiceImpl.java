@@ -271,7 +271,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 
 		if (staticRiskDataDO != null) {
 			BigDecimal staticsRiskIndex = staticRiskDataDO.getStaticRiskIndex();
-			// 大于65.9
+			/*// 大于65.9
 			if (staticsRiskIndex.compareTo(new BigDecimal("65.9")) == 1) {
 				riskLevel = CompanyAnalysisResult.IMPORT_FOCUS.getType();
 				// 大于等于57.8 小于65.9
@@ -280,7 +280,8 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 				riskLevel = CompanyAnalysisResult.COMMON_FOCUS.getType();
 			} else if (staticsRiskIndex.compareTo(new BigDecimal("57.8")) == -1) {
 				riskLevel = CompanyAnalysisResult.NORMAL.getType();
-			}
+			}*/
+			riskLevel = OfflineFinanceService.staticRiskIndexToLevel(staticsRiskIndex);
 			logger.warn("companyId:{} riskLevel from static_risk_data:{}", companyId, riskLevel);
 		}
 
