@@ -63,15 +63,6 @@ public class RealTimeMonitorController {
 		List<List<SpectrumVO>> list= (List<List<SpectrumVO>>) redisDAO.getObject(key);
 		if ( null == list || list.isEmpty() ) {
 			list = realTimeMonitorService.spectrumAnalysis(areaId);
-			for (List<SpectrumVO> spectrumVOList : list) {
-				for (SpectrumVO spectrumVO1 : spectrumVOList) {
-					BigDecimal bdl = realTimeMonitorService.getCompanyStaticIndexByName(spectrumVO1.getName());
-					if( null !=bdl ) {
-						int level = OfflineFinanceService.staticRiskIndexToLevel(bdl);
-						spectrumVO1.setPreviousRiskLevel((byte) level);
-					}
-				}
-			}
 		}
 		if (null != list && list.size() >= 1) {
 			for (List<SpectrumVO> spectrumVOList : list) {

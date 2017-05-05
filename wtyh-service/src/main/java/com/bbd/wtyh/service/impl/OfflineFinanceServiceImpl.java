@@ -20,6 +20,7 @@ import javax.annotation.Resource;
 
 import com.bbd.wtyh.constants.RiskChgCoSource;
 import com.bbd.wtyh.domain.*;
+import com.bbd.wtyh.domain.vo.*;
 import com.bbd.wtyh.service.*;
 import net.sf.cglib.beans.BeanCopier;
 import org.apache.commons.lang3.StringUtils;
@@ -44,10 +45,6 @@ import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.dto.RelationDTO;
 import com.bbd.wtyh.domain.dto.StaticRiskDTO;
 import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
-import com.bbd.wtyh.domain.vo.LineVO;
-import com.bbd.wtyh.domain.vo.PointVO;
-import com.bbd.wtyh.domain.vo.StaticRiskVO;
-import com.bbd.wtyh.domain.vo.StatisticsVO;
 import com.bbd.wtyh.mapper.CompanyAnalysisResultMapper;
 import com.bbd.wtyh.mapper.CompanyCreditDetailMapper;
 import com.bbd.wtyh.mapper.CompanyCreditInformationMapper;
@@ -101,6 +98,9 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 	private CompanyAnalysisResultMapper companyAnalysisResultMapper;
 	@Autowired
 	private PToPMonitorService pToPMonitorService;
+
+	@Autowired
+	private RealTimeMonitorService realTimeMonitorService;
 
 	@Autowired
 	private CoAddOrCloseService coChgMonitorService;
@@ -290,8 +290,17 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 				logger.warn("companyId:{} riskLevel from company_analysis_result:{}", companyId, riskLevel);
 			}
 		}
+		boolean immUpdatePreviousRiskLevel =false;
 		LocalDateTime ld = LocalDateTime.now();
-		if (ld.getDayOfMonth() == 7 || ld.getDayOfMonth() == 22) { // 每月7、22日更新一次
+		if( null ==oldRiskLevel && StringUtils.isNotBlank(companyDO.getName()) ) {
+			BigDecimal bdl = realTimeMonitorService.getCompanyStaticIndexByName(companyDO.getName());
+			if( null !=bdl ) {
+				int level = OfflineFinanceService.staticRiskIndexToLevel(bdl);
+				oldRiskLevel =level;
+				immUpdatePreviousRiskLevel =true;
+			}
+		}
+		if (immUpdatePreviousRiskLevel ||ld.getDayOfMonth() == 14 || ld.getDayOfMonth() == 28) { // 每月7、22日更新一次
 			companyMapper.updateRiskLevel(riskLevel, oldRiskLevel, companyId, "TIMER");
 		} else {
 			companyMapper.updateRiskLevel(riskLevel, null, companyId, "TIMER");
