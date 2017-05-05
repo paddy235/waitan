@@ -56,14 +56,6 @@ public class CoRiskChgTest {
 
 	}
 
-	@Autowired
-	private CoCreditScoreService coCreditScoreService;
-
-	@Test
-	public void test() throws Exception {
-		coCreditScoreService.creditScoreCalculate();
-	}
-
 	@Test
 	public void updateCompanyStatus() throws Exception {
 		privateFundTaskService.updateCompanyStatus();

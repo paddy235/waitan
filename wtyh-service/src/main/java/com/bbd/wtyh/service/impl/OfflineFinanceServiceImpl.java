@@ -115,9 +115,10 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 	private static final String FALL = "-1";
 	private final String file_type_1 = "yed";
 
-	@Scheduled(cron = "0 20 16 * * *")
+	/* @Scheduled(cron = "0 20 16 * * *") */
 	@Override
 	public void updateCompanyRiskLevel() {
+		logger.info("start update company risk level");
 		try {
 			final Map<Integer, Integer> platRankMapData = pToPMonitorService.getPlatRankMapData();
 
@@ -129,7 +130,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 			Map<String, Object> params = new HashMap<>();
 
 			ExecutorService dataExecutorService = Executors.newFixedThreadPool(20);
-			logger.info("start update company risk level");
+
 			for (int i = 1; i <= total; i++) {
 				pagination.setPageNumber(i);
 				params.put("pagination", pagination);
@@ -148,12 +149,13 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 					}
 				}
 			}
-			logger.info("end update company risk level");
+
 			dataExecutorService.shutdown();
 			dataExecutorService.awaitTermination(1, TimeUnit.DAYS);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
+		logger.info("end update company risk level");
 	}
 
 	@Override
@@ -312,9 +314,6 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 			rcco.setSource(RiskChgCoSource.MODEL_SCORE.type());
 
 			rcco.setCreateBy("updateCoRiskLevelTask");
-			rcco.setCreateDate(new Date());
-			rcco.setUpdateBy(null);
-			rcco.setUpdateDate(null);
 
 			try {
 				this.coChgMonitorService.saveRiskChgCo(rcco);
