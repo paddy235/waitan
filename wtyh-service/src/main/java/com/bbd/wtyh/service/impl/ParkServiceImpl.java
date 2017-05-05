@@ -318,13 +318,15 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 			log.info("企业名称：" + car.getName());
 			if (car.getAnalysisResult() != null && car.getAnalysisResult() == 1) {
 				black_1.add(car);
-			} else {
+			} /*else {
 				Float staticsRiskIndex = staticRiskMapper.queryStaticsRiskIndex(car.getName());
 				staticsRiskIndex = staticsRiskIndex == null ? 0 : staticsRiskIndex;
 				car.setStaticRiskIndex(staticsRiskIndex + "");
 				car.setAnalysisResult(getIndex(staticsRiskIndex));
 				other_234.add(car);
-			}
+			}*/else{
+                other_234.add(car);
+            }
 		}
 		sortByDate(black_1);
 		sortByIndex(other_234);
