@@ -141,16 +141,8 @@ public class CoRiskChgServiceImpl extends BaseServiceImpl implements CoRiskChgSe
 
 		case CompanyDO.TYPE_P2P_1:// 网络借贷
 		case CompanyDO.TYPE_XXLC_4:// 线下理财
-			dynamicWhere.append(" AND risk_level = ").append(riskLevel);
-			break;
-
 		case CompanyDO.TYPE_JYS_9:// 交易所
-			if (level.equals(JYSCoRiskLevel.NORMAL.type())) {
-				dynamicWhere.append(" AND risk_level = ").append(JYSCoRiskLevel.NORMAL.type());
-			}
-			if (level.equals(JYSCoRiskLevel.HAVE.type())) {
-				dynamicWhere.append(" AND ").append(JYSCoRiskLevel.NORMAL.type()).append(" != risk_level");
-			}
+			dynamicWhere.append(" AND risk_level = ").append(riskLevel);
 			break;
 
 		case CompanyDO.TYPE_RZZL_13:// 融资租赁

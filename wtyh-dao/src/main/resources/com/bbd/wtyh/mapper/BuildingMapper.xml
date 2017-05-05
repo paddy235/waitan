@@ -9,8 +9,8 @@
 			       b.img_url imgUrl ,
 			       count(1) total ,
 			       sum( IF(c.company_type not in(7,8),1,0) ) finComNum,
-				   sum( IF(c.risk_level in(2),1,0) ) importFocusNum,
-				   sum( IF(c.risk_level in(3),1,0) ) commonFocusNum
+				   sum( IF(c.company_type not in(7,8),IF(c.risk_level in(2),1,0),0) ) importFocusNum,
+				   sum( IF(c.company_type not in(7,8),IF(c.risk_level in(3),1,0),0) ) commonFocusNum
 			from building b,park p ,
 			     company_building cb ,
 			     company c

@@ -1,5 +1,7 @@
 package com.bbd.wtyh.constants;
 
+import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,42 +14,15 @@ import java.util.Map;
  */
 public enum JYSCoRiskLevel {
 
-	NORMAL(1, "正常"),
-	HAVE(2, "已出风险");
-
-	private int type;
-	private String desc;
-
-	JYSCoRiskLevel(int type, String desc) {
-		this.type = type;
-		this.desc = desc;
-	}
-
-	public int type() {
-		return this.type;
-	}
-
-	public String desc() {
-		return this.desc;
-	}
-
-	public static JYSCoRiskLevel getRiskLevel(Integer level) {
-		if (level == null) {
-			return JYSCoRiskLevel.NORMAL;
-		}
-		if (level.equals(JYSCoRiskLevel.HAVE.type)) {
-			return JYSCoRiskLevel.HAVE;
-		}
-		return JYSCoRiskLevel.NORMAL;
-	}
-
+	JYSCoRiskLevel(){};
+	
 	public static List<Map<String, Object>> getListMap() {
-		JYSCoRiskLevel[] levels = JYSCoRiskLevel.values();
+		CompanyAnalysisResult[] levels = CompanyAnalysisResult.values();
 		List<Map<String, Object>> riskList = new ArrayList<>();
-		for (JYSCoRiskLevel rl : levels) {
+		for (CompanyAnalysisResult rl : levels) {
 			Map<String, Object> map = new HashMap<>();
-			map.put("type", rl.type());
-			map.put("desc", rl.desc());
+			map.put("type", rl.getType());
+			map.put("desc", rl.getName());
 			riskList.add(map);
 		}
 		return riskList;

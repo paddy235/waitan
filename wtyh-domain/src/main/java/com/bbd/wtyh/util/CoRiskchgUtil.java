@@ -169,7 +169,10 @@ public class CoRiskchgUtil {
 			return color + "灯";
 
 		case CompanyDO.TYPE_JYS_9:// 交易所
-			return JYSCoRiskLevel.getRiskLevel(riskLevel).desc();
+			if (riskLevel == null) {
+				return null;
+			}
+			return CompanyAnalysisResult.getName(riskLevel);
 
 		case CompanyDO.TYPE_RZZL_13:// 融资租赁
 			return haveRisk ? RZZLCoRiskLevel.LATENT.desc() : RZZLCoRiskLevel.NORMAL.desc();

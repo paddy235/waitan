@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:task="http://www.springframework.org/schema/task" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <!-- 调度工厂 -->
+    <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" lazy-init="false"
+          destroy-method="destroy">
+
+        <property name="triggers">
+            <list>
+                <ref bean="updateCompanyRiskLevelTrigger"/>
+            </list>
+        </property>
+
+        <!-- quartz配置文件路径, 指向cluster配置 -->
+        <property name="configLocation" value="classpath:config/quartz-cluster.properties"/>
+        <!--必须的，QuartzScheduler 延时启动，应用启动完后 QuartzScheduler 再启动 -->
+        <property name="startupDelay" value="30"/>
+        <!-- 保存Job数据到数据库所需的数据源 -->
+        <property name="dataSource" ref="dataSource"/>
+        <!-- Job接受applicationContext的成员变量名 -->
+        <property name="applicationContextSchedulerContextKey" value="applicationContext"/>
+        <!-- 修改job时，更新到数据库 -->
+        <property name="overwriteExistingJobs" value="true"/>
+    </bean>
+
+
+    <bean id="updateCompanyRiskLevelJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="group" value="job_work"/>
+        <property name="name" value="updateCompanyRiskLevelJob"/>
+        <property name="durability" value="true"/>
+        <property name="requestsRecovery" value="true"/>
+        <property name="jobClass" value="com.bbd.wtyh.core.quartz.MethodInvokingJob"/>
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="targetObject" value="com.bbd.wtyh.service.impl.OfflineFinanceServiceImpl"/>
+                <entry key="targetMethod" value="updateCompanyRiskLevel"/>
+            </map>
+        </property>
+    </bean>
+
+    <!--  调度触发器 -->
+    <bean id="updateCompanyRiskLevelTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="name" value="updateCompanyRiskLevelTrigger"/>
+        <property name="group" value="work_default"/>
+        <property name="jobDetail" ref="updateCompanyRiskLevelJob"/>
+        <property name="cronExpression" value="0 20 16 * * ?"/>
+
+        <!--将表达式生效时间设置为当前，防止 scheduler 启动时就执行定时任务-->
+        <property name="startTime">
+            <bean class="java.util.Date"/>
+        </property>
+    </bean>
+
+</beans>
