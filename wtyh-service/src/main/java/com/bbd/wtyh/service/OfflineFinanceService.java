@@ -71,18 +71,4 @@ public interface OfflineFinanceService {
     void saveCompanyCreditRisk();
 
 
-    public static Integer staticRiskIndexToLevel(BigDecimal staticsRiskIndex) {
-        Integer riskLevel =CompanyAnalysisResult.NORMAL.getType();
-        // 大于65.9
-        if (staticsRiskIndex.compareTo(new BigDecimal("65.9")) == 1) {
-            riskLevel = CompanyAnalysisResult.IMPORT_FOCUS.getType();
-            // 大于等于57.8 小于65.9
-        } else if (staticsRiskIndex.compareTo(new BigDecimal("57.8")) > -1
-                && staticsRiskIndex.compareTo(new BigDecimal("65.9")) == -1) {
-            riskLevel = CompanyAnalysisResult.COMMON_FOCUS.getType();
-        } else if (staticsRiskIndex.compareTo(new BigDecimal("57.8")) == -1) {
-            riskLevel = CompanyAnalysisResult.NORMAL.getType();
-        }
-        return riskLevel;
-    }
 }
