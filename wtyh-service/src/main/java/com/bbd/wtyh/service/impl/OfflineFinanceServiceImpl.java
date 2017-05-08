@@ -307,7 +307,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 				immUpdatePreviousRiskLevel =true;
 			}
 		}*/
-		LocalDate ld = LocalDate.now();
+		//LocalDate ld = LocalDate.now();
 		if ( ! riskLevel.equals(oldRiskLevel) ) { // 只记录前一次变化的，这是最新的产品需求
 			companyMapper.updateRiskLevel(riskLevel, oldRiskLevel, companyId, "TIMER");
 		} else {
