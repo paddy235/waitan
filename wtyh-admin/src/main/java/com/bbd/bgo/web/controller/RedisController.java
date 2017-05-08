@@ -30,7 +30,7 @@ public class RedisController {
 		} catch (Exception e) {
 			return ResponseBean.errorResponse(e);
 		}
-		return ResponseBean.successResponse("redis缓存情理成功!");
+		return ResponseBean.successResponse("redis缓存清理成功!");
 	}
 
     @RequestMapping("/deleteByKey")
@@ -38,13 +38,13 @@ public class RedisController {
     public Object deleteByKey(@RequestParam String key) {
         try {
             if(StringUtils.isNullOrEmpty(key)){
-                return ResponseBean.errorResponse("请情理正确的key");
+                return ResponseBean.errorResponse("请输入正确的key");
             }
             redisTemplate.delete(key);
         } catch (Exception e) {
             return ResponseBean.errorResponse(e);
         }
-        return ResponseBean.successResponse("redis缓存情理成功!");
+        return ResponseBean.successResponse("redis缓存清理成功!");
     }
 
 }
