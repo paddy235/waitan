@@ -25,6 +25,9 @@
         <property name="overwriteExistingJobs" value="true"/>
     </bean>
 
+    <bean id="timeZone" class="java.util.TimeZone" factory-method="getTimeZone">
+        <constructor-arg value="GMT+08:00"/>
+    </bean>
 
     <bean id="updateCompanyRiskLevelJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
         <property name="group" value="job_work"/>
@@ -46,11 +49,13 @@
         <property name="group" value="work_default"/>
         <property name="jobDetail" ref="updateCompanyRiskLevelJob"/>
         <property name="cronExpression" value="0 20 16 * * ?"/>
+        <property name="timeZone" ref="timeZone"/>
 
         <!--将表达式生效时间设置为当前，防止 scheduler 启动时就执行定时任务-->
         <property name="startTime">
             <bean class="java.util.Date"/>
         </property>
     </bean>
+
 
 </beans>
