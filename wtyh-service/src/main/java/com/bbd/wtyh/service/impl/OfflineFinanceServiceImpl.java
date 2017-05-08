@@ -287,16 +287,6 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 
 		if (staticRiskDataDO != null) {
 			BigDecimal staticsRiskIndex = staticRiskDataDO.getStaticRiskIndex();
-			/*// 大于65.9
-			if (staticsRiskIndex.compareTo(new BigDecimal("65.9")) == 1) {
-				riskLevel = CompanyAnalysisResult.IMPORT_FOCUS.getType();
-				// 大于等于57.8 小于65.9
-			} else if (staticsRiskIndex.compareTo(new BigDecimal("57.8")) > -1
-					&& staticsRiskIndex.compareTo(new BigDecimal("65.9")) == -1) {
-				riskLevel = CompanyAnalysisResult.COMMON_FOCUS.getType();
-			} else if (staticsRiskIndex.compareTo(new BigDecimal("57.8")) == -1) {
-				riskLevel = CompanyAnalysisResult.NORMAL.getType();
-			}*/
 			riskLevel = staticRiskIndexToLevel(staticsRiskIndex);
 			logger.warn("companyId:{} riskLevel from static_risk_data:{}", companyId, riskLevel);
 		}
@@ -318,7 +308,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 			}
 		}*/
 		LocalDate ld = LocalDate.now();
-		if ( /*immUpdatePreviousRiskLevel ||*/  ld.getDayOfMonth() == 14 || ld.getDayOfMonth() == 28 ) { // 每月7、22日更新一次
+		if ( ! riskLevel.equals(oldRiskLevel) ) { // 只记录前一次变化的，这是最新的产品需求
 			companyMapper.updateRiskLevel(riskLevel, oldRiskLevel, companyId, "TIMER");
 		} else {
 			companyMapper.updateRiskLevel(riskLevel, null, companyId, "TIMER");
