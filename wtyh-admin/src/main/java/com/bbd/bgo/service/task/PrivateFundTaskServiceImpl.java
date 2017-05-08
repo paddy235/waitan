@@ -130,12 +130,12 @@ public class PrivateFundTaskServiceImpl extends BaseServiceImpl implements Priva
             if(StringUtils.isNotBlank(key)){
                 if(nameMap.containsKey(key)){
 
-                    this.executeCUD("UPDATE  private_fund_extra SET record_status=1 ,update_by='SLM',update_date=NOW() WHERE company_id=?",privateFundCompanyDTO.getCompanyId());
+                    this.executeCUD("UPDATE  private_fund_extra SET record_status=1 ,update_by='schedule',update_date=NOW() WHERE company_id=?",privateFundCompanyDTO.getCompanyId());
 
 
                 }else{
 
-                    this.executeCUD("UPDATE  private_fund_extra SET record_status=2 ,update_by='SLM',update_date=NOW() WHERE company_id=?",privateFundCompanyDTO.getCompanyId());
+                    this.executeCUD("UPDATE  private_fund_extra SET record_status=2 ,update_by='schedule',update_date=NOW() WHERE company_id=?",privateFundCompanyDTO.getCompanyId());
 
                 }
             }
