@@ -1,6 +1,8 @@
 package com.bbd.shanghai.credit.utils;
 
 import com.bbd.shanghai.credit.service.XyAppQueryService;
+import com.bbd.wtyh.util.ApplicationContextUtil;
+import com.bbd.wtyh.util.WtyhHelper;
 import org.codehaus.xfire.XFire;
 import org.codehaus.xfire.XFireFactory;
 import org.codehaus.xfire.client.XFireProxyFactory;
@@ -19,12 +21,12 @@ public class XyptWebServiceUtil {
 
 	// private static final String SERVICE_URL =
 	// "http://10.107.99.42:8080/xyxxfwpt/services/XyAppQuery";
-	@Value("${sh_credit_info_url}")
-	private static  String SERVICE_URL ;
-	@Value("${sh_credit_info_name}")
-	private static  String USER_NAME ;
-	@Value("${sh_credit_info_password}")
-	private static  String PASSWORD ;
+
+	private static final String SERVICE_URL = WtyhHelper.serviceUrl;
+
+	private static final String USER_NAME = WtyhHelper.userName;
+
+	private static final String PASSWORD = WtyhHelper.password;
 
 
 	// 操作人身份标识 具体使用数据的人员身份标识，只记录。
