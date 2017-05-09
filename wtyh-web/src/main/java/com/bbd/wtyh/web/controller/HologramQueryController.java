@@ -288,16 +288,27 @@ public class HologramQueryController {
 		shareholderSeniorTotal += ( null ==rList ? 0 : rList.size() );
 		result.put( "shareholderSeniorTotal", shareholderSeniorTotal );
 		//诉讼记录
+		Integer lawsuitTotal =0;
 		List<OpenCourtAnnouncementDO.Results> loc = hologramQueryService.openCourtAnnouncement(company);
-		Integer lawsuitTotal =( null==loc ? 0 : loc.size() ); //加上开庭公告数
+		Integer openCourtNum =( null==loc ? 0 : loc.size() ); //加上开庭公告数
+		result.put("lawsuitTotal_openCourt" ,openCourtNum);
+		lawsuitTotal +=openCourtNum;
 		List<JudgeDocDO.Results> jd= hologramQueryService.judgeDoc(company);
-		lawsuitTotal += ( null ==jd ? 0 : jd.size() ); //加上裁判文书数
+		Integer judgeDocNum= ( null ==jd ? 0 : jd.size() ); //加上裁判文书数
+		result.put("lawsuitTotal_judgeDoc" ,judgeDocNum);
+		lawsuitTotal +=judgeDocNum;
 		DebtorDO de = hologramQueryService.debtor(company);
-		lawsuitTotal += ( null ==de ? 0 : de.getTotal() ); //加上被执行人
+		Integer debtorNum = ( null ==de ? 0 : de.getTotal() ); //加上被执行人
+		result.put("lawsuitTotal_debtor" ,debtorNum);
+		lawsuitTotal +=debtorNum;
 		NoCreditDebtorDO ncd = hologramQueryService.noCreditDebtor(company);
-		lawsuitTotal += ( null ==ncd ? 0 : ncd.getTotal() ); //加上失信被执行人
+		Integer noCreditDebtorNum = ( null ==ncd ? 0 : ncd.getTotal() ); //加上失信被执行人
+		result.put("lawsuitTotal_noCreditDebtor" ,noCreditDebtorNum);
+		lawsuitTotal +=noCreditDebtorNum;
 		CourtAnnouncementDO ca = hologramQueryService.courtAnnouncement(company);
-		lawsuitTotal += ( null ==ca ? 0 : ca.getTotal() ); //加上法院公告
+		Integer courtAnnouncementNum = ( null ==ca ? 0 : ca.getTotal() ); //加上法院公告
+		result.put("lawsuitTotal_courtAnnouncement" ,courtAnnouncementNum);
+		lawsuitTotal +=courtAnnouncementNum;
 		result.put("lawsuitTotal" ,lawsuitTotal);
 		//加入专利信息
 		PatentDO pd = hologramQueryService.getPatentData(company,1,200000000);
