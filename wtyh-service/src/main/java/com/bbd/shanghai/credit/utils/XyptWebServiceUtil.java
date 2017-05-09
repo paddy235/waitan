@@ -8,6 +8,7 @@ import org.codehaus.xfire.service.Service;
 import org.codehaus.xfire.service.binding.ObjectServiceFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 
 /**
  * 信用平台webService工具类
@@ -18,9 +19,13 @@ public class XyptWebServiceUtil {
 
 	// private static final String SERVICE_URL =
 	// "http://10.107.99.42:8080/xyxxfwpt/services/XyAppQuery";
-	private static final String SERVICE_URL = "http://127.0.0.1:8082/xyxxfwpt/services/XyAppQuery";
-	private static final String USER_NAME = "";
-	private static final String PASSWORD = "";
+	@Value("${sh_credit_info_url}")
+	private static  String SERVICE_URL ;
+	@Value("${sh_credit_info_name}")
+	private static  String USER_NAME ;
+	@Value("${sh_credit_info_password}")
+	private static  String PASSWORD ;
+
 
 	// 操作人身份标识 具体使用数据的人员身份标识，只记录。
 	private static final String UNAME = "BBD-wtyh";
@@ -46,6 +51,7 @@ public class XyptWebServiceUtil {
 		XyAppQueryService service;
 
 		try {
+
 			ObjectServiceFactory oClass = new ObjectServiceFactory();
 			Service serviceModel = oClass.create(XyAppQueryService.class);
 			// 获取XFire的代理对象
