@@ -1,6 +1,8 @@
 package com.bbd.shanghai.credit.utils;
 
 import com.bbd.shanghai.credit.service.XyAppQueryService;
+import com.bbd.wtyh.util.ApplicationContextUtil;
+import com.bbd.wtyh.util.WtyhHelper;
 import org.codehaus.xfire.XFire;
 import org.codehaus.xfire.XFireFactory;
 import org.codehaus.xfire.client.XFireProxyFactory;
@@ -8,6 +10,7 @@ import org.codehaus.xfire.service.Service;
 import org.codehaus.xfire.service.binding.ObjectServiceFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 
 /**
  * 信用平台webService工具类
@@ -18,9 +21,13 @@ public class XyptWebServiceUtil {
 
 	// private static final String SERVICE_URL =
 	// "http://10.107.99.42:8080/xyxxfwpt/services/XyAppQuery";
-	private static final String SERVICE_URL = "http://127.0.0.1:8082/xyxxfwpt/services/XyAppQuery";
-	private static final String USER_NAME = "";
-	private static final String PASSWORD = "";
+
+	private static final String SERVICE_URL = WtyhHelper.serviceUrl;
+
+	private static final String USER_NAME = WtyhHelper.userName;
+
+	private static final String PASSWORD = WtyhHelper.password;
+
 
 	// 操作人身份标识 具体使用数据的人员身份标识，只记录。
 	private static final String UNAME = "BBD-wtyh";
@@ -46,6 +53,7 @@ public class XyptWebServiceUtil {
 		XyAppQueryService service;
 
 		try {
+
 			ObjectServiceFactory oClass = new ObjectServiceFactory();
 			Service serviceModel = oClass.create(XyAppQueryService.class);
 			// 获取XFire的代理对象
