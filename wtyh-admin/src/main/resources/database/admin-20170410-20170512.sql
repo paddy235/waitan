@@ -133,8 +133,3 @@ UPDATE `user_mgment` SET
 `fore_pwd`='08ed6d706fad33e253d64e6e1d52d025',
 `fore_pwd_up_date` ='1970-01-02 06:00:00'
 WHERE (`login_name`='admin');
-
-#给超管用户加所有权限,仅供参考
-INSERT INTO role_resource (role_id, resource_id) VALUES
-(1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),
-(1,11),(1,12),(1,13),(1,14),(1,15),(1,18),(1,19),(1,21),(1,22);
