@@ -127,3 +127,14 @@ INSERT INTO `user_type_resource` (`id`, `user_type`, `resource_code`, `resource_
 INSERT INTO `user_type_resource` (`id`, `user_type`, `resource_code`, `resource_name`) VALUES (56, 'B', 'B_YHRZGL', '用户日志管理');
 INSERT INTO `user_type_resource` (`id`, `user_type`, `resource_code`, `resource_name`) VALUES (58, 'B', 'B_QYBHJC', '企业变化检测');
 
+#将admin升级成超级管理员,拥有前后台访问权限,后台密码不变,前台初始密码是:12345678,首次登录要求修改密码
+UPDATE `user_mgment` SET
+`user_type`='S',
+`fore_pwd`='08ed6d706fad33e253d64e6e1d52d025',
+`fore_pwd_up_date` ='1970-01-02 06:00:00'
+WHERE (`login_name`='admin');
+
+#给超管用户加所有权限,仅供参考
+INSERT INTO role_resource (role_id, resource_id) VALUES
+(1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),
+(1,11),(1,12),(1,13),(1,14),(1,15),(1,18),(1,19),(1,21),(1,22);
