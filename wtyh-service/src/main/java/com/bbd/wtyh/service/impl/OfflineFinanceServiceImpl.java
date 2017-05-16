@@ -362,12 +362,11 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 
 			String backgroudString = "";
 			for (Map map : list) {
-				int back =-1;
 				Object obj=map.get("background");
-				if(null!=obj){
-					back=(int)obj;
+				if(null==obj){
+					continue;
 				}
-
+				int back = (int) map.get("background");
 				if (map.get("name") != null) {
 					continue;
 				}
