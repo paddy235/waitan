@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.util.Date;
 
 /**
  * wtyh
@@ -45,7 +44,7 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 	@Override
 	public void pullFile() {
 		try {
-			logger.info("--------- pull data file start ------" + new Date());
+			logger.info("--------- pull data file start ------");
 			String dataVersion = relationDataService.getNewestDataVersion();
 			logger.info("--------- pull dataVersion ---------：" + dataVersion);
 			HttpGet httpRequest = new HttpGet(brokerUrl + "?dataVersion=" + dataVersion);
@@ -58,11 +57,11 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 			File file = new File(PULL_FILE_SAVE_PATH + fileName);
 			FileUtils.forceMkdirParent(file);
 			IOUtils.copyLarge(inputStream, new FileOutputStream(file));
-			logger.info("--------- pull data file end --------" + new Date());
+			logger.info("--------- pull data file end --------");
 
-			logger.info("--------- parse data file start -----" + new Date());
+			logger.info("--------- parse data file start -----");
 			this.syncDataService.receiveFileData(file);
-			logger.info("--------- parse data file end -------" + new Date());
+			logger.info("--------- parse data file end -------");
 
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
