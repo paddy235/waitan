@@ -11,6 +11,7 @@
 	<select id="qeuryParkCompany"   parameterType="java.util.HashMap" resultType="com.bbd.wtyh.domain.ParkCompanyDo">
 		SELECT bb.* FROM (
         SELECT aa.*, company_background.background FROM(
+        SELECT base.* FROM (
         SELECT company.company_id AS companyId,
                     company.`name` AS companyName,
                     company.legal_person AS legalPerson,
@@ -22,21 +23,35 @@
                     building.`name` AS buildingName
         FROM park,building,company_building,company
         WHERE park.area_id=#{areaId}
+              AND  park.park_id=building.park_id
+              AND building.building_id=company_building.building_id
+              AND company_building.company_id=company.company_id
+        UNION ALL
+        select company.company_id AS companyId,
+        company.`name` AS companyName,
+        company.legal_person AS legalPerson,
+        company.company_type AS companyType,
+        if(isnull(company.risk_level)=1,9,company.risk_level) AS  riskLevel,
+        company.is_new AS isNew,
+        company.registered_capital AS registeredCapital,
+        null AS buildingId,
+        null AS buildingName
+        from company where area_id=#{areaId}
+        and company_id not in (select company_id from company_building )
+        ) AS base WHERE 1=1
         <if test="buildingName != null">
-          AND building.`name` LIKE CONCAT('%',#{buildingName},'%')
+          AND base.buildingName LIKE CONCAT('%',#{buildingName},'%')
         </if>
         <if test="isNew != null">
-            AND company.is_new=#{isNew}
+            AND base.isNew=#{isNew}
         </if>
         <if test="companyType != null">
-            AND company.company_type=#{companyType}
+            AND base.companyType=#{companyType}
         </if>
         <if test="riskLevel != null">
-            AND company.risk_level=#{riskLevel}
+            AND base.riskLevel=#{riskLevel}
         </if>
-        AND  park.park_id=building.park_id
-        AND building.building_id=company_building.building_id
-        AND company_building.company_id=company.company_id) AS aa LEFT JOIN
+        ) AS aa LEFT JOIN
 
         <if test="background == null">
             (
