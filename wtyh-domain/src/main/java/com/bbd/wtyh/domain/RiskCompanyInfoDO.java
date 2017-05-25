@@ -20,6 +20,8 @@ public class RiskCompanyInfoDO extends BaseDO {
 	
 	private String regDateStr;
 	private int ranking;
+	private Integer riskLevel;
+	private String address;
 
 	public String getArea() {
 		return area;
@@ -131,4 +133,19 @@ public class RiskCompanyInfoDO extends BaseDO {
 		this.ranking = ranking;
 	}
 
+	public Integer getRiskLevel() {
+		return riskLevel;
+	}
+
+	public void setRiskLevel(Integer riskLevel) {
+		this.riskLevel = riskLevel;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
 }
