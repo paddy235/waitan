@@ -1,5 +1,6 @@
 package com.bbd.wtyh.test;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 import com.alibaba.fastjson.JSON;
@@ -7,10 +8,11 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.bbd.bgo.service.task.PrivateFundTaskService;
 import com.bbd.bgo.service.task.SystemAnalyzeTaskService;
 import com.bbd.wtyh.domain.ResourceDo;
+import com.bbd.wtyh.domain.RiskCompanyInfoDO;
 import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.domain.dto.UserRoleDTO;
-import com.bbd.wtyh.service.CoAddOrCloseService;
-import com.bbd.wtyh.service.UserInfoService;
+import com.bbd.wtyh.service.*;
+import com.bbd.wtyh.util.relation.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -20,7 +22,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.bbd.wtyh.domain.RoleDo;
-import com.bbd.wtyh.service.RoleResourceService;
 
 /**
  * wtyh
@@ -42,6 +43,10 @@ public class RoleResourceTest {
 	private SystemAnalyzeTaskService systemAnalyzeTaskService;
 	@Autowired
 	private CoAddOrCloseService coChgMonitorService;
+	@Autowired
+	private RiskCompanyService riskCompanyService;
+	@Autowired
+	private ParkService parkService;
 
 	@Test
 	public void getRoleResourceTest() throws Exception {
@@ -130,4 +135,28 @@ public class RoleResourceTest {
 		System.err.println(JSON.toJSONString(map, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
 	}
 
+	@Test
+	public void getTopTest(){
+		Map<String, Object> map = new HashMap<>();
+		map.put("area", null);
+		map.put("minRegCapital", null);
+		map.put("maxRegCapital", null);
+		map.put("companyQualification", null);
+		map.put("minReviewTime",  null);
+		map.put("maxReviewTime",  null);
+		map.put("riskLevel", null);
+		map.put("sortType", 0); // 排序方式
+
+		List<RiskCompanyInfoDO> list =riskCompanyService.getTop(map);
+		System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
+	}
+
+	@Test
+	public void queryParkCompanyTest(){
+		//Integer areaId,Integer isNew,Integer riskLevel,String backgroundName,String companyTypeName,String buildingName,
+		//		Integer pageSize,Integer pageNumber
+		Map map=parkService.queryParkCompany(1122,null,null,null,null,null,5,2);
+
+		System.err.println(JSON.toJSONString(map, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
+	}
 }
