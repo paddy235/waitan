@@ -14,6 +14,8 @@ import java.util.TreeMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bbd.wtyh.excel.ExportExcel;
+import com.bbd.wtyh.exception.ExceptionHandler;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
 import org.apache.commons.collections.map.HashedMap;
@@ -151,6 +153,39 @@ public class OfflineFinanceController {
 		} catch (Exception e) {
 			logger.error("RelationController->queryDynamicPicDataTwo", e);
 			return ResponseBean.errorResponse("关联方图谱信息正在准备中，请稍后尝试");
+		}
+	}
+
+	@RequestMapping(value = "/export-related-data")
+	@ResponseBody
+	public ResponseBean exportRelatedData(@RequestParam String companyName) {
+		try {
+			RelationDiagramVO result = offlineFinanceService.queryRealRealation(companyName, 3);
+			List<RelationDiagramVO.LineVO> lineList = result.getLineList();
+			if (CollectionUtils.isEmpty(lineList)) {
+				return ResponseBean.errorResponse(companyName + "：没有关联方数据！");
+			}
+			String excelName = "关联方明细-" + companyName;
+			ExportExcel exportExcel = new ExportExcel(excelName);
+
+			int totalCount = lineList.size();
+			int pageSize = totalCount > 10000 ? 10000 : totalCount;
+			int pageCount = (totalCount + pageSize - 1) / pageSize;
+
+			int fromIndex;
+			int toIndex;
+			for (int i = 1; i <= pageCount; i++) {
+
+				fromIndex = (i - 1) * pageSize;
+				toIndex = fromIndex + pageSize;
+				toIndex = toIndex < totalCount ? toIndex : totalCount;
+
+				exportExcel.createSheet(companyName + i, lineList.subList(fromIndex, toIndex));
+			}
+			exportExcel.exportExcel();
+			return ResponseBean.successResponse(exportExcel.getDownloadURL());
+		} catch (Exception e) {
+			return ExceptionHandler.handlerException(e);
 		}
 	}
 

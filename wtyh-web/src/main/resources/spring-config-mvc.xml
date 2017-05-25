@@ -35,19 +35,19 @@
     </mvc:interceptors>
 
 
-        <bean id="loginInterceptor" class="com.bbd.sys.service.LoginInterceptor"/>
+    <bean id="loginInterceptor" class="com.bbd.sys.service.LoginInterceptor"/>
 
 
-        <bean id="messageSource"
-              class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-            <property name="cacheSeconds" value="0"/>
-            <property name="basenames">
-                <list>
-                    <value>classpath:i18n/messages</value>
-                </list>
-            </property>
-        </bean>
-        <!-- 框架统一处理将对象转json @responsebody @requestbody 标签 -->
+    <bean id="messageSource"
+          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="cacheSeconds" value="0"/>
+        <property name="basenames">
+            <list>
+                <value>classpath:i18n/messages</value>
+            </list>
+        </property>
+    </bean>
+    <!-- 框架统一处理将对象转json @responsebody @requestbody 标签 -->
     <bean id="mappingJacksonHttpMessageConverter"
           class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
         <property name="supportedMediaTypes">
