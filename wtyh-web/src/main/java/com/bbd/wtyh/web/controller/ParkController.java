@@ -328,7 +328,11 @@ public class ParkController {
 
 			// 下载改园区全部企业
 			//Map<String,Object> map = parkService.queryParkCompany(areaId, null, null, null, null, null,null,null);
-			exportExcel.createSheet((List<ParkCompanyDo>)map.get("list"));
+			List<ParkCompanyDo> list=(List<ParkCompanyDo>)map.get("list");
+			if(null==list || list.size()==0){
+				return ResponseBean.errorResponse("无数据导出!");
+			}
+			exportExcel.createSheet(list);
 			exportExcel.exportExcel();
 			return ResponseBean.successResponse(exportExcel.getDownloadURL());
 		} catch (Exception e) {
