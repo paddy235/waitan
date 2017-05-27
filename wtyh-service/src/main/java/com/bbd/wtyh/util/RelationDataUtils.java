@@ -214,7 +214,16 @@ public class RelationDataUtils {
 				add.add(compare_2[i]);
 			}
 		}
+
+		if(null!=add && add.size()==1){
+			String str=add.get(0);
+			if("无".equals(str)){
+				//如果是无，前端需要传null
+				add.clear();
+			}
+		}
 		map.put("add", add);
+
 		if(null!=decrease && decrease.size()==1){
 			String str=decrease.get(0);
 			if("无".equals(str)){
