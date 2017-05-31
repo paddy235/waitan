@@ -2,6 +2,8 @@ package com.bbd.wtyh.excel;
 
 import com.bbd.wtyh.excel.annotation.Excel;
 import com.bbd.wtyh.excel.utils.ExportExcelUtil;
+import com.bbd.wtyh.exception.BusinessException;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
@@ -73,6 +75,11 @@ public class ExportExcel {
 
 	public Sheet createSheet(String sheetName, String[] columnName, String[] dataMapKeys, List<Map<String, Object>> dataList)
 			throws Exception {
+
+		if (CollectionUtils.isEmpty(dataList)) {
+			throw new BusinessException("无数据下载");
+		}
+
 		if (sheetName == null) {
 			sheetName = "Sheet" + (sheetSet.size() + 1);
 		}
