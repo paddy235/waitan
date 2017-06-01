@@ -10,6 +10,9 @@ import y.base.Node;
 import y.view.Graph2D;
 import y.view.Graph2DView;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,8 +23,17 @@ import java.util.Map;
 @Service("buildFileService")
 public class BuildFileServiceImpl implements BuildFileService {
 
-    public boolean buildImage(List<List<Object>> data, String company, String filePath, boolean flag)throws Exception
-    {
+    public boolean buildImage(List<List<Object>> data, String company, String filePath, boolean flag)throws Exception {
+        /*ByteArrayOutputStream baos =new ByteArrayOutputStream();
+        buildImageToFileOrStream(data, company, null, baos, flag);
+        FileOutputStream fos =new FileOutputStream("F:\\aaa.gif");
+        baos.writeTo(fos);
+        fos.close();*/
+        return buildImageToFileOrStream(data, company, filePath, null, flag);
+    }
+
+    public boolean buildImageToFileOrStream(List<List<Object>> data, String company, String filePath, ByteArrayOutputStream bos, boolean flag)
+            throws Exception  {
         try {
             PathBean pathObject = new PathBean();//线条
             Map<String, CompanyVO> companyMap = new HashMap<String, CompanyVO>();//节点
@@ -38,7 +50,7 @@ public class BuildFileServiceImpl implements BuildFileService {
 
             YEDUtils.graphImage(graph,pathObject,companyMap,nodeMap,edgeMap,piexl);
 
-            YEDUtils.writeImage(view,graph, filePath,companyMap.keySet().size(),flag);
+            YEDUtils.writeImage(view,graph, filePath, bos, companyMap.keySet().size(),flag);
 
         } catch (Exception e) {
             e.printStackTrace();
