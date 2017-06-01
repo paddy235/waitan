@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
@@ -26,7 +27,7 @@ public class DownloadController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(DownloadController.class);
 
 	@RequestMapping("/download-excel")
-	public void downloadExcel(@RequestParam String name, HttpServletResponse response) {
+	public void downloadExcel(@RequestParam String name, HttpServletRequest request, HttpServletResponse response) {
 		String path = ExportExcelUtil.dealWithExportPath("");
 
 		InputStream in = null;
@@ -38,14 +39,24 @@ public class DownloadController {
 			file = new File(path + name);
 
 			response.setCharacterEncoding("UTF-8");
-
+			String userAgent = request.getHeader("User-Agent");
 			if (!file.exists()) {
 				out = response.getOutputStream();
-				out.write("导出文件失败!".getBytes("GB2312"));
+				if (userAgent.toUpperCase().contains("MSIE")) {
+					out.write("导出文件失败!".getBytes("GBK"));
+				} else {
+					out.write("导出文件失败!".getBytes("UTF-8"));
+				}
 				LOGGER.error("导出文件【{}】失败：文件不存在", name);
 				return;
 			}
-			String filename = new String(name.getBytes("GB2312"), "ISO-8859-1");
+
+			String filename;
+			if (userAgent.toUpperCase().contains("MSIE")) {
+				filename = new String(name.getBytes("GBK"), "ISO-8859-1");
+			} else {
+				filename = new String(name.getBytes("UTF-8"), "ISO-8859-1");
+			}
 			response.setContentType("multipart/form-data");
 			response.setHeader("Content-Disposition", "attachment;fileName=" + filename);
 

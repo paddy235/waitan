@@ -2,70 +2,71 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bbd.wtyh.mapper.UserBehaviorLogMapper">
 
-  <sql id="TabName">
+    <sql id="TabName">
   `user_behavior_log`
   </sql>
 
-  <!-- 查询用户记录列表, 用户为‘A’ -->
-  <select id="selectUserBehaviorLogList" parameterType="java.util.HashMap"  resultType="java.util.Map">
-    SELECT
-    <if test=" listing ==null ">  <!-- 查总条数的标记 -->
-      COUNT(*) AS recordTotal
-    </if>
-    <if test=" listing !=null ">
-      log_num AS logSN,  <!-- 日志序列号 -->
-      operator AS loginName,  <!-- 用户名 -->
-      ifnull(real_name ,'') AS realName,  <!-- 用户真实姓名 -->
-      ifnull(area_code ,'') AS area,  <!-- 地区（代码） -->
-      ifnull(department ,'') AS department,  <!-- 所属部门 -->
-      ifnull(request_ip ,'') AS IpAddr,  <!-- 访问者IP -->
-      ifnull(sys_name ,'') AS sysLocation,  <!-- 系统位置 -->
-      ifnull(operation_desc ,'')  AS opType,   <!-- 操作（类型） -->
-      ifnull(request_desc ,'')  AS opPage,   <!-- 操作页面 -->
-      ifnull(log_content,'') AS logDetail,  <!-- 日志详情 -->
-      ifnull(operation_date ,'') AS genesicDT  <!-- 操作发生的日期时间 -->
-    </if>
-    FROM <include refid="TabName"/>
-    <where>
-      <if test="excludeName != null" >
-        `operator` &lt;> #{excludeName}
-      </if>
-      <if test="userName != null" >
-        AND `operator` LIKE CONCAT('%',#{userName},'%')
-      </if>
-      <if test="areaCode !=null">  <!-- 接受前台的sys_code返回 -->
-        AND  `area_code` = #{areaCode}
-      </if>
-      <if test="sysCode !=null">  <!-- 需要以sys_name字段给前台返列表且接受前台的sys_code返回 -->
-        AND  `sys_code` = #{sysCode}
-      </if>
-      <if test="opTpCd !=null"> <!-- 需要以operation_desc字段给前台返列表且接受前台的operation_type返回 -->
-        AND  `operation_type` = #{opTpCd}
-      </if>
-      <if test="opPgCd !=null"> <!-- 需要以request_desc字段给前台返列表且接受前台的request_code返回 -->
-        AND  `request_code` = #{opPgCd}
-      </if>
-      <if test="beginTime !=null"> <!-- 开始时间 -->
-        AND  `operation_date` >= #{beginTime}
-      </if>
-      <if test="endTime !=null"> <!-- 结束时间 -->
-        AND  `operation_date` &lt;= #{endTime}
-      </if>
-      <if test="logSN !=null"> <!-- 日志序列号 -->
-        AND  `log_num` = #{logSN}
-      </if>
-    </where>
-    <if test="listing !=null ">
-      ORDER BY operation_date
-      <if test="orderBy !=null" >
-        DESC
-      </if>
-      LIMIT
-      <if test="pageNumber !=null">
-        #{pageNumber},
-      </if>
-      #{pageSize}
-    </if>
-  </select>
+    <!-- 查询用户记录列表, 用户为‘A’ -->
+    <select id="selectUserBehaviorLogList" parameterType="java.util.HashMap" resultType="java.util.Map">
+        SELECT
+        <if test=" listing ==null ">  <!-- 查总条数的标记 -->
+            COUNT(*) AS recordTotal
+        </if>
+        <if test=" listing !=null ">
+            log_num AS logSN,  <!-- 日志序列号 -->
+            operator AS loginName,  <!-- 用户名 -->
+            ifnull(real_name ,'') AS realName,  <!-- 用户真实姓名 -->
+            ifnull(area_code ,'') AS area,  <!-- 地区（代码） -->
+            ifnull(department ,'') AS department,  <!-- 所属部门 -->
+            ifnull(request_ip ,'') AS IpAddr,  <!-- 访问者IP -->
+            ifnull(sys_name ,'') AS sysLocation,  <!-- 系统位置 -->
+            ifnull(operation_desc ,'') AS opType,   <!-- 操作（类型） -->
+            ifnull(request_desc ,'') AS opPage,   <!-- 操作页面 -->
+            ifnull(log_content,'') AS logDetail,  <!-- 日志详情 -->
+            ifnull(operation_date ,'') AS genesicDT  <!-- 操作发生的日期时间 -->
+        </if>
+        FROM
+        <include refid="TabName"/>
+        <where>
+            <if test="excludeName != null">
+                `operator` &lt;> #{excludeName}
+            </if>
+            <if test="userName != null">
+                AND `operator` LIKE CONCAT('%',#{userName},'%')
+            </if>
+            <if test="areaCode !=null">  <!-- 接受前台的sys_code返回 -->
+                AND `area_code` = #{areaCode}
+            </if>
+            <if test="sysCode !=null">  <!-- 需要以sys_name字段给前台返列表且接受前台的sys_code返回 -->
+                AND `sys_code` = #{sysCode}
+            </if>
+            <if test="opTpCd !=null"> <!-- 需要以operation_desc字段给前台返列表且接受前台的operation_type返回 -->
+                AND `operation_type` = #{opTpCd}
+            </if>
+            <if test="opPgCd !=null"> <!-- 需要以request_desc字段给前台返列表且接受前台的request_code返回 -->
+                AND `request_code` = #{opPgCd}
+            </if>
+            <if test="beginTime !=null"> <!-- 开始时间 -->
+                AND `operation_date` >= #{beginTime}
+            </if>
+            <if test="endTime !=null"> <!-- 结束时间 -->
+                AND `operation_date` &lt;= #{endTime}
+            </if>
+            <if test="logContent !=null"> <!-- 日志序列号 -->
+                AND `log_content` like '%${logContent}%'
+            </if>
+        </where>
+        <if test="listing !=null ">
+            ORDER BY operation_date
+            <if test="orderBy !=null">
+                DESC
+            </if>
+            LIMIT
+            <if test="pageNumber !=null">
+                #{pageNumber},
+            </if>
+            #{pageSize}
+        </if>
+    </select>
 
 </mapper>

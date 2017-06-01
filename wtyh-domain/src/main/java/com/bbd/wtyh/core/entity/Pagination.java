@@ -113,15 +113,19 @@ public class Pagination {
 			index = Integer.parseInt(pageIndex);
 		} catch (NumberFormatException e) {
 		}
-		if (index < 1) {
-			index = 1;
+		this.setPageIndex(index);
+	}
+
+	public void setPageIndex(int pageIndex) {
+		if (pageIndex < 1) {
+			pageIndex = 1;
 		}
-		if (this.getPageCount() > 0 && index >= this.getPageCount()) {
+		if (this.getPageCount() > 0 && pageIndex >= this.getPageCount()) {
 			if (this.getPageCount() > 0) {
-				index = this.getPageCount();
+				pageIndex = this.getPageCount();
 			}
 		}
-		this.pageIndex = index;
+		this.pageIndex = pageIndex;
 	}
 
 	/**

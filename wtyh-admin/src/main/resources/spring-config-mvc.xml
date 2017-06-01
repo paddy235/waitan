@@ -34,8 +34,8 @@
         <mvc:interceptor>
             <mvc:mapping path="/**/**.do"/>
             <mvc:exclude-mapping path="/login.do"/>
-            <mvc:exclude-mapping path="/getNewestDataVersion.do"/>
-            <mvc:exclude-mapping path="/receiveFileData.do"/>
+            <mvc:exclude-mapping path="/syncData/getNewestDataVersion.do"/>
+            <mvc:exclude-mapping path="/syncData/receiveFileData.do"/>
             <mvc:exclude-mapping path="/adminLogInfo/*"/>
             <ref bean="loginInterceptor"/>
         </mvc:interceptor>
@@ -88,11 +88,10 @@
         <property name="order" value="1"/>
     </bean>
 
-<!--    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <property name="maxUploadSize" value="1048576000"/>
-        <property name="defaultEncoding" value="UTF-8"/>
-    </bean>-->
-
+    <!--    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+            <property name="maxUploadSize" value="1048576000"/>
+            <property name="defaultEncoding" value="UTF-8"/>
+        </bean>-->
 
 
 </beans>

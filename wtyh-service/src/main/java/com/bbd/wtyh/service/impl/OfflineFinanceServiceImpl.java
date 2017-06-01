@@ -251,13 +251,12 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 	}
 
 	static Integer staticRiskIndexToLevel(BigDecimal staticsRiskIndex) {
-		Integer riskLevel =CompanyAnalysisResult.NORMAL.getType();
+		Integer riskLevel = CompanyAnalysisResult.NORMAL.getType();
 		// 大于65.9
 		if (staticsRiskIndex.compareTo(new BigDecimal("65.9")) == 1) {
 			riskLevel = CompanyAnalysisResult.IMPORT_FOCUS.getType();
 			// 大于等于57.8 小于65.9
-		} else if (staticsRiskIndex.compareTo(new BigDecimal("57.8")) > -1
-				&& staticsRiskIndex.compareTo(new BigDecimal("65.9")) == -1) {
+		} else if (staticsRiskIndex.compareTo(new BigDecimal("57.8")) > -1 && staticsRiskIndex.compareTo(new BigDecimal("65.9")) == -1) {
 			riskLevel = CompanyAnalysisResult.COMMON_FOCUS.getType();
 		} else if (staticsRiskIndex.compareTo(new BigDecimal("57.8")) == -1) {
 			riskLevel = CompanyAnalysisResult.NORMAL.getType();
@@ -298,17 +297,16 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 				logger.warn("companyId:{} riskLevel from company_analysis_result:{}", companyId, riskLevel);
 			}
 		}
-		/*boolean immUpdatePreviousRiskLevel =false;
-		if( null ==oldRiskLevel && StringUtils.isNotBlank(companyDO.getName()) ) {
-			BigDecimal bdl = realTimeMonitorService.getCompanyStaticIndexByName(companyDO.getName());
-			if( null !=bdl ) {
-				int level = OfflineFinanceService.staticRiskIndexToLevel(bdl);
-				oldRiskLevel =level;
-				immUpdatePreviousRiskLevel =true;
-			}
-		}*/
-		//LocalDate ld = LocalDate.now();
-		if ( ! riskLevel.equals(oldRiskLevel) ) { // 只记录前一次变化的，这是最新的产品需求
+		/*
+		 * boolean immUpdatePreviousRiskLevel =false; if( null ==oldRiskLevel &&
+		 * StringUtils.isNotBlank(companyDO.getName()) ) { BigDecimal bdl =
+		 * realTimeMonitorService.getCompanyStaticIndexByName(companyDO.getName(
+		 * )); if( null !=bdl ) { int level =
+		 * OfflineFinanceService.staticRiskIndexToLevel(bdl); oldRiskLevel
+		 * =level; immUpdatePreviousRiskLevel =true; } }
+		 */
+		// LocalDate ld = LocalDate.now();
+		if (!riskLevel.equals(oldRiskLevel)) { // 只记录前一次变化的，这是最新的产品需求
 			companyMapper.updateRiskLevel(riskLevel, oldRiskLevel, companyId, "TIMER");
 		} else {
 			companyMapper.updateRiskLevel(riskLevel, null, companyId, "TIMER");
@@ -362,6 +360,10 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 
 			String backgroudString = "";
 			for (Map map : list) {
+				Object obj = map.get("background");
+				if (null == obj) {
+					continue;
+				}
 				int back = (int) map.get("background");
 				if (map.get("name") != null) {
 					continue;
@@ -984,6 +986,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 	private List<RelationDiagramVO.LineVO> getLineList(Map<String, NodeVO> pointDegree, Collection<LinkVO> links) {
 		List<RelationDiagramVO.LineVO> lineList = Lists.newArrayList();
 		if (!CollectionUtils.isEmpty(links)) {
+			int i = 0;
 			for (LinkVO vo : links) {
 				RelationDiagramVO.LineVO lineVO = new RelationDiagramVO.LineVO();
 				lineVO.setIsFullLine(LineTypeEnum.line.equals(vo.getLine()) ? "1" : "0");
@@ -993,7 +996,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 				lineVO.setTarget(pointDegree.get(vo.getTarget()).getCname());
 				lineVO.setTarLevel(String.valueOf(pointDegree.get(vo.getTarget()).getCategory()));
 				lineVO.setType(vo.getGuanlian());
-
+				lineVO.setNum(++i);
 				lineList.add(lineVO);
 			}
 		}

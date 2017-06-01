@@ -11,7 +11,7 @@ import com.bbd.wtyh.core.base.BaseService;
  */
 public interface UserBehaviorLogService extends BaseService {
 
-	public Map<String, Object> listUserBehaviorLog(int pageSize, Integer pageNumber, String excludeName, String userName, Integer areaCode,
-												   Integer sysCode, Integer opTpCd, Integer opPgCd, Date beginTime,
-												   Date endTime, Long logSN, String orderBy ) throws Exception;
+	Map<String, Object> listUserBehaviorLog(int pageSize, Integer pageNumber, String excludeName, String userName, Integer areaCode,
+			Integer sysCode, Integer opTpCd, Integer opPgCd, Date beginTime, Date endTime, String logContent, String orderBy)
+			throws Exception;
 }

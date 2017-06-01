@@ -281,8 +281,17 @@ public class ParkController {
 	@RequestMapping("/parkCompanyList")
 	@ResponseBody
 	public ResponseBean parkCompanyList(@RequestParam Integer areaId, @RequestParam Integer isNew, @RequestParam Integer riskLevel,
-			@RequestParam String backgroundName, @RequestParam String companyTypeName, @RequestParam String buildingName) {
-		List<ParkCompanyDo> data = parkService.queryParkCompany(areaId, isNew, riskLevel, backgroundName, companyTypeName, buildingName);
+			@RequestParam String backgroundName, @RequestParam String companyTypeName, @RequestParam String buildingName,
+										@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {
+		//分页
+		if(null==pageSize || pageSize<1){
+			pageSize=20;
+		}
+		if(null==pageNumber || pageNumber<1){
+			pageNumber=1;
+		}
+
+		Map<String ,Object> data = parkService.queryParkCompany(areaId, isNew, riskLevel, backgroundName, companyTypeName, buildingName,pageSize,pageNumber);
 		return ResponseBean.successResponse(data);
 	}
 
@@ -313,12 +322,13 @@ public class ParkController {
 		try {
 
 			// 按查询条件下载企业
-			/*
-			 * List<ParkCompanyDo> list = parkService.queryParkCompany(areaId,
-			 * isNew, riskLevel, backgroundName, companyTypeName, buildingName);
-			 */
+
+			Map<String,Object> map = parkService.queryParkCompany(areaId,
+			 isNew, riskLevel, backgroundName, companyTypeName, buildingName,null,null);
+
 			// 下载改园区全部企业
-			List<ParkCompanyDo> list = parkService.queryParkCompany(areaId, null, null, null, null, null);
+			//Map<String,Object> map = parkService.queryParkCompany(areaId, null, null, null, null, null,null,null);
+			List<ParkCompanyDo> list=(List<ParkCompanyDo>)map.get("list");
 			exportExcel.createSheet(list);
 			exportExcel.exportExcel();
 			return ResponseBean.successResponse(exportExcel.getDownloadURL());

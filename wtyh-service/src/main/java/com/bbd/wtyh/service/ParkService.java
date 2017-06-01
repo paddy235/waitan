@@ -120,7 +120,7 @@ public interface ParkService extends BaseService {
 	 *            区域id
 	 * @return String 园区楼宇公司
 	 */
-	List<ParkCompanyDo> queryParkCompany(Integer areaId,Integer isNew,Integer riskLevel,
-										 String backgroundName,String companyTypeName,String buildingName);
+	Map<String,Object> queryParkCompany(Integer areaId,Integer isNew,Integer riskLevel,
+										 String backgroundName,String companyTypeName,String buildingName,Integer pageSize,Integer pageNumber);
 
 }

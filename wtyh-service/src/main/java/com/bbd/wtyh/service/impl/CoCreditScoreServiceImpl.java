@@ -24,7 +24,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.*;
@@ -71,10 +70,10 @@ public class CoCreditScoreServiceImpl implements CoCreditScoreService {
 
 		// 上海市信息中心，一般情况下每月10号前更新数据，但不保证10号肯定更新完。定时任务每月15日开始
 		// 上海市信息中心，支持24小时10万条记录
-		final int pageSize = 10;
-		int totalPage = 5;
-		// TODO final int pageSize = 1000;
-		// TODO int totalPage = (totalCount - 1) / pageSize + 1;
+		// final int pageSize = 10;
+		// int totalPage = 5;
+		final int pageSize = 1000;
+		int totalPage = (totalCount - 1) / pageSize + 1;
 
 		// 本地模型加分项目
 		final Map<String, Integer> pointMap = this.getCompanyCreditPointItems();
@@ -261,13 +260,13 @@ public class CoCreditScoreServiceImpl implements CoCreditScoreService {
 			LOGGER.error("查询公司信用信息失败。公司信息【id：{}，name：{}】。返回：{}", coDo.getCompanyId(), coDo.getName(), xmlData);
 			return null;
 		}
-		List<CompanyCreditRawInfoDO> lCcrids =new ArrayList<>();
+		List<CompanyCreditRawInfoDO> lCcrids = new ArrayList<>();
 		CompanyCreditRawInfoDO ccridTemplet = new CompanyCreditRawInfoDO();
 		String rst = root.attributeValue("name");
-		String companyNameTemp =null;
+		String companyNameTemp = null;
 		if (StringUtils.isNotBlank(rst)) {
 			ccridTemplet.setCompanyName(rst.trim());
-			companyNameTemp =rst;
+			companyNameTemp = rst;
 		}
 		rst = root.attributeValue("zjhm");
 		if (StringUtils.isNotBlank(rst.trim())) {
@@ -313,9 +312,9 @@ public class CoCreditScoreServiceImpl implements CoCreditScoreService {
 			if (StringUtils.isNotBlank(rst)) {
 				ccrid.setResources(rst.trim());
 			}
-			rst =resource.getText();
+			rst = resource.getText();
 			if (StringUtils.isNotBlank(rst)) {
-				String xmlAll ="<?xml version=\"1.0\" encoding=\"UTF-8\"?><root>" +rst +"</root>";
+				String xmlAll = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><root>" + rst + "</root>";
 				try {
 					ccrid.setContent((new XMLSerializer()).read(xmlAll).toString());
 				} catch (Exception e) {
@@ -328,32 +327,27 @@ public class CoCreditScoreServiceImpl implements CoCreditScoreService {
 			}
 			pointNameList.add(value);
 		}
-		if( lCcrids.size() >0 ) {
-			if(null ==companyNameTemp) {
+		if (lCcrids.size() > 0) {
+			if (null == companyNameTemp) {
 				ccriMapper.removeCompanyCreditRawInfoByCompanyName(companyNameTemp);
 			}
-			for( CompanyCreditRawInfoDO cd : lCcrids ) {
+			for (CompanyCreditRawInfoDO cd : lCcrids) {
 				ccriMapper.saveCompanyCreditRawInfo(cd);
 			}
 		}
 		return pointNameList;
 	}
 
-	public static void main(String []argc) {
-		String rst ="<?xml version=\"1.0\" encoding=\"UTF-8\"?><root>" +
-				"<punishmeasures>处罚种类:药包材;处罚内容:罚款</punishmeasures>\n" +
-				"\t\t<licensestatus></licensestatus>\n" +
-				"\t\t<illegaldate></illegaldate>\n" +
-				"\t\t<illegalcontext>使用不合格药包材</illegalcontext>\n" +
-				"\t\t<punishdate>2011-01-04 00:00:00.0</punishdate>\n" +
-				"\t\t<punishlimit></punishlimit>\n" +
-				"\t\t<punishbasis>《管理办法》第六十五条</punishbasis>\n" +
-				"</root>";
-		XMLSerializer xs =new XMLSerializer();
+	public static void main(String[] argc) {
+		String rst = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><root>" + "<punishmeasures>处罚种类:药包材;处罚内容:罚款</punishmeasures>\n"
+				+ "\t\t<licensestatus></licensestatus>\n" + "\t\t<illegaldate></illegaldate>\n"
+				+ "\t\t<illegalcontext>使用不合格药包材</illegalcontext>\n" + "\t\t<punishdate>2011-01-04 00:00:00.0</punishdate>\n"
+				+ "\t\t<punishlimit></punishlimit>\n" + "\t\t<punishbasis>《管理办法》第六十五条</punishbasis>\n" + "</root>";
+		XMLSerializer xs = new XMLSerializer();
 		String aaa = xs.read(rst).toString();
-		CompanyCreditRawInfoDO cd1 =new CompanyCreditRawInfoDO();
+		CompanyCreditRawInfoDO cd1 = new CompanyCreditRawInfoDO();
 		cd1.setResourceName("srcName");
-		CompanyCreditRawInfoDO cd2= cd1.clone();
+		CompanyCreditRawInfoDO cd2 = cd1.clone();
 		cd2.setResourceName("ss");
 	}
 

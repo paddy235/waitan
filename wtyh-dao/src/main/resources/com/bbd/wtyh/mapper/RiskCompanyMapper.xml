@@ -44,7 +44,9 @@
 		i.review_time as reviewTime,
 		i.is_rise as isRise,
 		i.reg_date as regDate,
-		DATE_FORMAT(i.reg_date,'%Y-%m-%d') as regDateStr
+		DATE_FORMAT(i.reg_date,'%Y-%m-%d') as regDateStr,
+		c.risk_level as riskLevel,
+		c.address
 	</sql>
 
 	<select id="getScanner" resultType="com.bbd.wtyh.domain.RiskCompanyInfoDO" parameterType="java.util.HashMap">
