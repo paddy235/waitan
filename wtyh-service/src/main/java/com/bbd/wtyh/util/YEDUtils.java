@@ -319,7 +319,7 @@ public class YEDUtils {
 	 * @param
 	 * @author hekf
 	 */
-	public static void writeImage(Graph2DView view,Graph2D graph,String filePath,int nodeNum,boolean flag){
+	public static void writeImage(Graph2DView view,Graph2D graph,String filePath, ByteArrayOutputStream bos,int nodeNum,boolean flag){
 		try {
 			GIFIOHandler gifIO = new GIFIOHandler();
 			CircularLayouter c = new CircularLayouter();
@@ -329,7 +329,6 @@ public class YEDUtils {
 			int nodeDis = getMinimalNodeDistance(nodeNum);
 			balloonLayouter.setMinimalNodeDistance(nodeDis);
 			
-			
 	    	c.doLayout(graph);
 	    	double percent=extendPercent(nodeNum);
 	    	
@@ -337,9 +336,8 @@ public class YEDUtils {
 	    	double width = 0.0;
 	    	double height = 0.0;
 	    	int h = 0;
-	    	//图片大小大于6000后进行处理
-	    	if(box.width>6000 ||box.height>6000)
-	    	{
+	    	if(box.width>6000 ||box.height>6000) {
+	    		//图片大小大于6000后进行处理
 	    		width = 6000.0; 
 		    	height = 6000.0;
 		    	double zoom = 1.0;
@@ -358,38 +356,29 @@ public class YEDUtils {
 		    	view.setZoom(zoom);
 		    	view.setSize((int)width, (int)height);
 		    	view.setViewPoint(viewPoint.x, viewPoint.y);
-		    	gifIO.write(graph, filePath);
-				File picfile = new File(filePath);
-				if(!picfile.exists())
-				{
-					System.out.println("图片文件生成失败");
-				}
-				//下面代码为去YED水印字样
-		    	h=(int)(height/percent);
-		    	if(h>0){
-		    		cutImage(filePath,filePath,0,0,(int)width,h,"gif");
-		    	}
-		    //小于6000的图片处理	
 	    	}else{
+	    		//小于6000的图片处理
 	    		width=graph.getBoundingBox().width;
 				height=(int)(graph.getBoundingBox().height*percent);
 				int	centerX=(int)width/4;
 				int	centerY=(int)height/4;
 				view.setBounds(centerX, centerY, (int)width, (int)height);
+	    	}
+			if(null != filePath) {
 				gifIO.write(graph, filePath);
 				File picfile = new File(filePath);
-				if(!picfile.exists())
-				{
+				if (!picfile.exists()) {
 					System.out.println("图片文件生成失败");
 				}
-				//下面代码为去YED水印字样
-		    	h=(int)(height/percent);
-		    	if(h>0){
-		    		cutImage(filePath,filePath,0,0,(int)width,h,"gif");
-		    	}
-	    	}
-	    	
-	    	
+			} else {
+				bos.reset();
+				gifIO.write(graph, bos);
+			}
+			//下面代码为去YED水印字样
+			h=(int)(height/percent);
+			if(h>0){
+				cutImage(filePath,filePath,bos, 0,0,(int)width,h,"gif");
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new RuntimeException(e.getMessage());
@@ -425,13 +414,17 @@ public class YEDUtils {
 	 * @param h
 	 * @param extendFileName 文件扩展名 如gif jpg bmp
 	 */
-	public static void cutImage(String src, String dest, int x, int y, int w,int h, String extendFileName) {
+	public static void cutImage(String src, String dest, ByteArrayOutputStream bos, int x, int y, int w,int h, String extendFileName) {
 		InputStream in=null;
 		ImageInputStream iis=null;
 		try {
 			Iterator<?> iterator = ImageIO.getImageReadersByFormatName(extendFileName);
 			ImageReader reader = (ImageReader) iterator.next();
-			in = new FileInputStream(src);
+			if(  null != src) {
+				in = new FileInputStream(src);
+			} else {
+				in = new ByteArrayInputStream( bos.toByteArray() );
+			}
 		    iis = ImageIO.createImageInputStream(in);
 			reader.setInput(iis, true);
 			ImageReadParam param = reader.getDefaultReadParam();
@@ -439,7 +432,12 @@ public class YEDUtils {
 			System.out.println("x:"+x+"y:"+y+"w:"+w+"h:"+h);
 			param.setSourceRegion(rect);
 			BufferedImage bi = reader.read(0, param);
-			ImageIO.write(bi, extendFileName, new File(dest));
+			if(  null != src) {
+				ImageIO.write(bi, extendFileName, new File(dest));
+			} else {
+				bos.reset();
+				ImageIO.write(bi, extendFileName, bos);
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
