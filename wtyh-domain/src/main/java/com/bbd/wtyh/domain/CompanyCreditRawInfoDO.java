@@ -25,8 +25,8 @@ public class CompanyCreditRawInfoDO implements Cloneable{
 		}catch(CloneNotSupportedException e) {
 			e.printStackTrace();
 		}
-	return ccri;
-}
+		return ccri;
+	}
 
 	/** pk */
 	@Id

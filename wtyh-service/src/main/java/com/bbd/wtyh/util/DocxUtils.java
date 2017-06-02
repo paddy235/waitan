@@ -2,6 +2,7 @@ package com.bbd.wtyh.util;
 
 import net.sf.cglib.beans.BeanCopier;
 import org.docx4j.TextUtils;
+import org.docx4j.jaxb.Context;
 import org.docx4j.model.structure.SectionWrapper;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
@@ -21,7 +22,11 @@ import org.docx4j.vml.CTTextPath;
 import org.docx4j.vml.CTTextbox;
 import org.docx4j.wml.*;
 
+import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.util.JAXBSource;
+import javax.xml.namespace.QName;
 import java.io.*;
 import java.util.*;
 
@@ -95,12 +100,64 @@ public class DocxUtils {
         }
     }
 
- //beans copy
+ //beans copy，理论上说这个不能用于xml对象的深度复制，具体也没验证过
     public static void objectCopy( Object source, Object target) {
         BeanCopier copier = BeanCopier.create(source.getClass(), target.getClass(), false);
         copier.copy(source, target, null);
     }
 
+    //此方法来源于对“org.docx4j.XmlUtils.deepCopy()”的修改
+    public static <T> T deepCopy(T value ) {
+        JAXBContext jc = Context.jc;
+        if (value==null) {
+            throw new IllegalArgumentException("Can't clone a null argument");
+        }
+        JAXBElement<T> elem;
+        try {
+            if (value instanceof JAXBElement<?>) {
+                Object wrapped = ((JAXBElement)value).getValue();
+                @SuppressWarnings("unchecked")
+                Class clazz = wrapped.getClass();
+                //原来的语句：JAXBElement contentObject = new JAXBElement(new QName(clazz.getSimpleName()), clazz, wrapped);
+                JAXBElement contentObject = new JAXBElement(((JAXBElement)value).getName(), clazz, wrapped);
+                JAXBSource source = new JAXBSource(jc, contentObject);
+                elem = jc.createUnmarshaller().unmarshal(source, clazz);
+            } else {
+                // Usual case
+                @SuppressWarnings("unchecked")
+                Class<T> clazz = (Class<T>) value.getClass();
+                JAXBElement<T> contentObject = new JAXBElement<T>(new QName(clazz.getSimpleName()), clazz, value);
+                JAXBSource source = new JAXBSource(jc, contentObject);
+                elem = jc.createUnmarshaller().unmarshal(source, clazz);
+            }
+
+			/*
+			 * Losing content here?
+			 *
+			 * First, make absolutely sure that what you have is valid.
+			 *
+			 * For example, Word 2010 is happy to open w:p/w:pict
+			 * (as opposed to w:p/w:r/w:pict).
+			 * docx4j is happy to marshall w:p/w:pict, but not unmarshall it,
+			 * so that content would get dropped here.
+			 */
+
+            T res;
+            if (value instanceof JAXBElement<?>) {
+                @SuppressWarnings("unchecked")
+                T resT = (T) elem;
+                res = resT;
+            } else {
+                @SuppressWarnings("unchecked")
+                T resT = (T) elem.getValue();
+                res = resT;
+            }
+//			log.info("deep copy success!");
+            return res;
+        } catch (JAXBException ex) {
+            throw new IllegalArgumentException(ex);
+        }
+    }
 
 
     /**

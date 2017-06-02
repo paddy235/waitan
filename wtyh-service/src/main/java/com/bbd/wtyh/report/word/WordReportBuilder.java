@@ -1,18 +1,17 @@
 package com.bbd.wtyh.report.word;
 
 import com.bbd.wtyh.util.DocxUtils;
-import org.docx4j.XmlUtils;
+import com.ctc.wstx.util.InternCache;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.Part;
 import org.docx4j.openpackaging.parts.PartName;
 import org.docx4j.openpackaging.parts.WordprocessingML.HeaderPart;
 import org.docx4j.vml.CTTextPath;
-import org.docx4j.wml.CTOdso;
 import org.docx4j.wml.P;
 import org.docx4j.wml.Tbl;
 
-import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -94,12 +93,12 @@ public class WordReportBuilder {
         String companyName ="上海复旦复华药业有限公司";
         try {
             WordReportBuilder wrb = new WordReportBuilder(templateFile1, ReportType.NETWORK_LENDING);
-            wrb.setCompanyBaseInfo(companyName, new ArrayList<String>(){{add("民营企业");add("非上市公司");}},
+            wrb.setCompanySummary(companyName, new ArrayList<String>(){{add("民营企业");add("非上市公司");}},
             "一般关注", ReportType.OTHER.getName(), "存续" );
-            wrb.setWaterMark("chenfx");
+            wrb.setWaterMark("秀派儿fx");
             wrb.copySignedSegment("平台信息模板", "插入平台信息", true );
             wrb.copySignedSegment("平台信息模板", "插入平台信息", true );
-            wrb.copySignedSegment("平台信息模板", "插入平台信息", true );
+            //wrb.copySignedSegment("平台信息模板", "插入平台信息", true );
             wrb.exportReport(targetPath);
         } catch (Exception e) {
             e.printStackTrace();
@@ -107,18 +106,18 @@ public class WordReportBuilder {
     }
 
     /**
-     * 设置企业基本信息
+     * 设置企业摘要
      * @param companyName 企业名称
      * @param companyBackground 企业背景 （字符串列表）
-     * @param companyRiskResult 企业风险级别（中文名称）
+     * @param companyRiskResult 企业风险等级（中文名称）
      * @param companyType 企业类型（中文名称）
      * @param companyStatus 企业状态（中文名称）
      */
-    public void setCompanyBaseInfo( String companyName,
-                                    List companyBackground, //mock： new ArrayList<String>(){{add("民营企业");add("非上市公司");}}
-                                    String companyRiskResult,
-                                    String companyType,
-                                    String companyStatus ) {
+    public void setCompanySummary(String companyName,
+                                  List companyBackground, //mock： new ArrayList<String>(){{add("民营企业");add("非上市公司");}}
+                                  String companyRiskResult,
+                                  String companyType,
+                                  String companyStatus ) {
         this.companyName =companyName;
         this.companyBackground =companyBackground;
         this.companyRiskResult =companyRiskResult;
@@ -149,90 +148,150 @@ public class WordReportBuilder {
         return returnVal;
     }
 
-    /** 删除文档中被标记的片段*/
-    private void removeSignedSegment(String sign ) {
-        List removeColl =new LinkedList();
-        String startSign ="##@seg_start-" +sign;
-        String endSign ="##@seg_end-" +sign;
-        int step =0;
-        for (  Object obj : paragraphList  ) {
-            if( obj instanceof P ) {
-                String tStr =obj.toString();
-                if( null != tStr ) {
-                    if (tStr.equals(startSign)) {
-                        step = 1;
-                        continue;
-                    } else if (tStr.equals(endSign)) {
-                        step = 2;
-                        break;
-                    }
-                }
-            }
-            if( 1 ==step ) {
-                removeColl.add(obj);
-            }
-        }
-        if( 2 ==step ) {
-            paragraphList.removeAll(removeColl);
-        }
+    /**
+     * 设置静态风险表
+     * @param staticRiskTable map类型，key值包含最左这一列的所有项目
+     */
+    public void setStaticRiskTable(Map<String,String> staticRiskTable) {
+        ;//
     }
 
-    /** 复制文档中被标记的部分到指定位置*/
-    private void copySignedSegment( String sign, String anchor, boolean front  ) {
-        List copyColl =new LinkedList();
-        String startSign ="##@seg_start-" +sign;
-        String endSign ="##@seg_end-" +sign;
-        String ahSign ="##@ah-" +anchor;
-        int insIndex =-1;
-        int step =0;
-        for (  int listIndex =0; listIndex <paragraphList.size(); listIndex++ ) {
-            Object obj = paragraphList.get(listIndex);
-            if( obj instanceof P ) {
-                String tStr =obj.toString();
-                if( null != tStr ) {
-                    if (tStr.equals(startSign)) {
-                        step = 1;
-                        continue;
-                    } else if (tStr.equals(endSign)) {
-                        step = 2;
-                        if( insIndex  >=0 ) {
-                            break;
-                        }
-                    } else if (tStr.equals(ahSign)) {
-                        insIndex =listIndex;
-                        if( step  >=2 ) {
-                            break;
-                        }
-                    }
-                }
-            }
-            if( 1 ==step ) {
-                copyColl.add( XmlUtils.deepCopy(obj) );//( ) new Tbl()
-            }
-        }
-        if( 2 ==step && insIndex >=0 ) {
-            if(!front) {
-                insIndex++;
-            }
-            paragraphList.addAll(insIndex, copyColl);
-        }
+    /**
+     * 设置动态风险表
+     * @param dynamicRiskTable map类型，key值包含最左这一列的所有项目，其中“动态风险指数”这一行特殊处理：
+     *                         key："动态风险指数", value: "[时期],[指数数组]"
+     */
+    public void setDynamicRiskTable(Map<String,String> dynamicRiskTable) {
+        ;//
     }
 
-    /** 从段落列表搜索带特定标记的段落的序号*/
-    private int indexSignInParagraphList(String anchor) {
-        int insIndex =-1;
-        String ahSign ="##@ah-" +anchor;
-        for (  int listIndex =0; listIndex <paragraphList.size(); listIndex++ ) {
-            Object obj = paragraphList.get(listIndex);
-            if (obj instanceof P) {
-                String tStr = obj.toString();
-                if (null != tStr && tStr.equals(ahSign)) {
-                    insIndex = listIndex;
-                    break;
-                }
-            }
-        }
-        return insIndex;
+    /**
+     * 添加平台信息（会覆盖模板中的平台评分的一行和第二章全部内容），调用一次，加入一个平台的信息，可多次调用加入多个。
+     * @param platName 平台名称
+     * @param gradeInfo 平台评分信息
+     * @param coreData  平台核心数据
+     * @param transferQuantityTrend 平台交易量走势
+     * @param interestRateTrend 平台利率走势
+     * @param loanBalance 平台贷款余额
+     * @param publicSentiment 平台舆情
+     */
+    public void addPlatInfo( String platName,
+                             Map<String, String> gradeInfo,
+                             Map<String, Object> coreData,
+                             List<List<String>> transferQuantityTrend,
+                             List<List<String>> interestRateTrend,
+                             List<List<String>> loanBalance,
+                             List<List<String>> publicSentiment ) {
+        ;
+    }
+
+    /**
+     * 设置企业基本信息表
+     * @param baseInfoTable key：模板表格左边这一列的所有值
+     */
+    public void setCompanyBaseInfoTable( Map<String, String>baseInfoTable ) {
+        ;
+    }
+
+    /**
+     * 设置企业股东信息
+     * @param stockholderInfo  List<List<"股东","股东类型">>
+     */
+    public void setStockholderInfo( List<List<String>> stockholderInfo ) {
+        ;
+    }
+
+    /**
+     * 设置企业出资信息
+     * @param stockholderContributionInfo List<List<"股东","认缴出资额(万元)", "认缴出资时间", ...>>
+     */
+    public void setStockholderContributionInfo( List<List<String>> stockholderContributionInfo ) {
+        ;
+    }
+
+    /**
+     * 设置董监高信息
+     * @param trusteeSupervisorSeniorInfo  List<List<"姓名","职务">>
+     */
+    public void setTrusteeSupervisorSeniorInfo( List<List<String>> trusteeSupervisorSeniorInfo ) {
+        ;
+    }
+
+    /**
+     * 设置变更信息
+     * @param changeInfo  List<List<"变更事项", "变更前", "变更后", "变更时间">>
+     */
+    public void setCompanyChangeInfo( List<List<String>> changeInfo ) {
+        ;
+    }
+
+    /**
+     * 设置企业关联方图谱信息
+     * @param relatedPartyMapping 总的关联方图谱
+     * @param oneDegreeMapping 一度关联图
+     * @param oneDegreeDistribute 一度关联企业行业分布列表
+     * @param twoDegreeMapping 二度关联图
+     * @param twoDegreeDistribute 二度关联企业行业分布列表
+     */
+    public void setRelatedPartyMappingInfo( InputStream relatedPartyMapping,
+                                        InputStream oneDegreeMapping,
+                                        List<List<String>> oneDegreeDistribute,
+                                        InputStream twoDegreeMapping,
+                                        List<List<String>> twoDegreeDistribute ) {
+        ;
+        ByteArrayOutputStream aa =new ByteArrayOutputStream();
+        InputStream bb =new ByteArrayInputStream(aa.toByteArray());
+    }
+
+    /**
+     * 设置企业招聘信息
+     * @param recruitInfoList 招聘信息列表
+     * @param recruitPeopleDistribute 招聘人员分布
+     * @param recruitPeopleSalary 薪酬分布
+     */
+    public void setRecruitInfo( List<List<String>> recruitInfoList,
+                                Map<String, String> recruitPeopleDistribute,
+                                Map<String, String> recruitPeopleSalary) {
+        TreeMap aa =new TreeMap<Integer, String >();
+        aa.put(9,"pp");
+        aa.put(5,"ep");
+        aa.put(7,"vc");
+        aa.put(3,"dd");
+        aa.put(8,"km");
+        aa.put(7,"kp");
+        ;
+    }
+
+    /**
+     * 设置企业诉讼信息
+     * @param noCreditDebtor 失信被执行人
+     * @param debtor 被执行人
+     * @param judgeDoc 裁判文书
+     * @param courtAnnouncement 法院公告
+     * @param openCourt 开庭公告
+     */
+    public void setCompanyLawsuitInfo( List<List<String>> noCreditDebtor,
+                                       List<List<String>> debtor,
+                                       List<List<String>> judgeDoc,
+                                       List<List<String>> courtAnnouncement,
+                                       List<List<String>> openCourt ) {
+        ;//"/infoStatistics.do"
+    }
+
+    /**
+     * 设置企业专利信息
+     * @param patentInfo 专利信息列表
+     */
+    public void setCompanyPatentInfo( List<List<String>> patentInfo ) {
+        ;//"/infoStatistics.do"
+    }
+
+    /**
+     * 设置企业舆情信息
+     * @param publicSentiment 舆情列表
+     */
+    public void setCompanyPublicSentimentInfo( List<List<String>> publicSentiment ) {
+        ;// companyNews/getCompanyNews.do
     }
 
     /**
@@ -273,6 +332,8 @@ public class WordReportBuilder {
                 removeSignedSegment("仅线下理财");
             }
         }
+
+        //删除平台信息模板
         removeSignedSegment( "平台信息模板" );
 
         //删除所有的注释段落
@@ -290,5 +351,108 @@ public class WordReportBuilder {
         wmp.save(f);
         return targetFilePathAndName;
     }
+
+    /** 删除文档中被标记的片段*/
+    private void removeSignedSegment(String sign ) {
+        List removeColl =new LinkedList();
+        String startSign ="##@seg_start-" +sign;
+        String endSign ="##@seg_end-" +sign;
+        int step =0;
+        for (  Object obj : paragraphList  ) {
+            if( obj instanceof P ) {
+                String tStr =obj.toString();
+                if( null != tStr ) {
+                    if (tStr.equals(startSign)) {
+                        step = 1;
+                        continue;
+                    } else if (tStr.equals(endSign)) {
+                        step = 2;
+                        break;
+                    }
+                }
+            }
+            if( 1 ==step ) {
+                removeColl.add(obj);
+            }
+        }
+        if( 2 ==step ) {
+            paragraphList.removeAll(removeColl);
+        }
+    }
+
+    /**
+     * 复制文档中被标记的部分到指定位置
+     * @param sign "##@seg_start-" 和 "##@seg_end-" 的后缀
+     * @param anchor "##@seg_end-" 的后缀
+     * @param front 是否插入到 "##@seg_end-" 的前面
+     * @return 返回复制结果的段落集合，可用于内容修改
+     */
+    private List copySignedSegment( String sign, String anchor, boolean front  ) {
+        List copyColl =new LinkedList();
+        String startSign ="##@seg_start-" +sign;
+        String endSign ="##@seg_end-" +sign;
+        String ahSign ="##@ah-" +anchor;
+        int insIndex =-1;
+        int step =0;
+        for (  int listIndex =0; listIndex <paragraphList.size(); listIndex++ ) {
+            Object obj = paragraphList.get(listIndex);
+            if( obj instanceof P ) {
+                String tStr =obj.toString();
+                if( null != tStr ) {
+                    if (tStr.equals(startSign)) {
+                        step = 1;
+                        continue;
+                    } else if (tStr.equals(endSign)) {
+                        step = 2;
+                        if( insIndex  >=0 ) {
+                            break;
+                        }
+                    } else if (tStr.equals(ahSign)) {
+                        insIndex =listIndex;
+                        if( step  >=2 ) {
+                            break;
+                        }
+                    }
+                }
+            }
+            if( 1 ==step ) {
+                Object tObj =DocxUtils.deepCopy(obj);
+                copyColl.add( tObj );
+            }
+        }
+        if( 2 ==step && insIndex >=0 ) {
+            if(!front) {
+                insIndex++;
+            }
+            paragraphList.addAll(insIndex, copyColl);
+        }
+        return copyColl;
+    }
+
+    /**
+     * 从段落列表搜索带特定标记的段落的序号
+     * @param startIdx 指定开始搜索的起始位置
+     * @param anchor "##@ah-" 的后缀
+     * @return
+     */
+    private int indexSignInParagraphList(int startIdx, String anchor) {
+        int insIndex =-1;
+        if( startIdx >(paragraphList.size() -1) ) {
+            return insIndex;
+        }
+        String ahSign ="##@ah-" +anchor;
+        for (  int listIndex =startIdx; listIndex <paragraphList.size(); listIndex++ ) {
+            Object obj = paragraphList.get(listIndex);
+            if (obj instanceof P) {
+                String tStr = obj.toString();
+                if (null != tStr && tStr.equals(ahSign)) {
+                    insIndex = listIndex;
+                    break;
+                }
+            }
+        }
+        return insIndex;
+    }
+
 
 }
