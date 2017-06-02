@@ -7,6 +7,7 @@ import java.util.*;
 import com.bbd.wtyh.cachetobean.ShanghaiAreaCode;
 import com.bbd.wtyh.common.comenum.UserRank;
 import com.bbd.wtyh.excel.ExportExcel;
+import com.bbd.wtyh.exception.ExceptionHandler;
 import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.map.name.code.CodeNameMap;
 import com.bbd.wtyh.service.UserBehaviorLogService;
@@ -134,8 +135,7 @@ public class UserBehaviorLogController {
 				ee.exportExcel();
 				return ResponseBean.successResponse(ee.getDownloadURL());
 			} catch (Exception e) {
-				e.printStackTrace();
-				return ResponseBean.errorResponse("服务器异常：" + e);
+				return ExceptionHandler.handlerException(e);
 			}
 		}
 		return rb;
