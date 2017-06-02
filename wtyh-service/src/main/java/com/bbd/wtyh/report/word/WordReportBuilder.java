@@ -259,7 +259,8 @@ public class WordReportBuilder {
         aa.put(3,"dd");
         aa.put(8,"km");
         aa.put(7,"kp");
-        ;
+        // /hologram/recruitPeopleDistribute.do?company=成都数联铭品科技有限公司
+        // /hologram/recruitPeopleSalary.do?company=成都数联铭品科技有限公司
     }
 
     /**
