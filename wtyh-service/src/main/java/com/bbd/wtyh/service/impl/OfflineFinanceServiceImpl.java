@@ -1,5 +1,6 @@
 package com.bbd.wtyh.service.impl;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.math.BigDecimal;
 import java.text.DateFormat;
@@ -897,7 +898,25 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 		} else {
 			return null;
 		}
+	}
 
+	//获取最新的关联方图谱图片
+	public ByteArrayOutputStream createNewestYEDtoStream(String companyName)  {
+		try {
+			String month = staticRiskMapper.getNewestDataVersion();
+			RelationDTO relationDTO = offlineFinanceDao.queryRealation(companyName, month);
+			List<List<Object>> data = convertRelationDTO(relationDTO);
+			if (data.size() == 0) {
+				return null; //throw new BbdException(companyName + "：对不起，您搜索的公司关联方数据正在分析更新中，暂时无法提供信息，请稍后再试。", true);
+			}
+			ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			if( buildFileService.buildImageToFileOrStream(data, companyName, null, bos, false) ) {
+				return bos;
+			}
+		} catch (Exception e) {
+			return null;
+		}
+		return null;
 	}
 
 	private List<List<Object>> convertRelationDTO(RelationDTO relationDTO) {
