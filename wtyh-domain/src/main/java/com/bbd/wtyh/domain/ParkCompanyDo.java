@@ -50,7 +50,7 @@ public class ParkCompanyDo {
 	@Excel(exportName = "注册地址")
 	private String address;//注册地址
 
-	@Excel(exportName = "注册时间")
+	@Excel(exportName = "注册时间",dateFormat = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	private Date registeredDate;//'注册时间
 
