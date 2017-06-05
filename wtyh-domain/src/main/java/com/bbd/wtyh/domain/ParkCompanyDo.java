@@ -2,6 +2,9 @@ package com.bbd.wtyh.domain;
 
 import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
 import com.bbd.wtyh.excel.annotation.Excel;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
 
 /**
  * Created by Administrator on 2017/4/14 0014.
@@ -37,6 +40,15 @@ public class ParkCompanyDo {
 	private Integer buildingId;// 楼宇ID
 
 	private String background;// 企业背景
+
+	private Integer registeredCapitalType;//注册资本类型
+
+	private Integer registeredCapital;//注册资本
+
+	private String address;//注册地址
+
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+	private Date registeredDate;//'注册时间
 
 	public Integer getCompanyId() {
 		return companyId;
@@ -165,5 +177,37 @@ public class ParkCompanyDo {
 
 	public void setIsNewName(String isNewName) {
 		this.isNewName = isNewName;
+	}
+
+	public Integer getRegisteredCapitalType() {
+		return registeredCapitalType;
+	}
+
+	public void setRegisteredCapitalType(Integer registeredCapitalType) {
+		this.registeredCapitalType = registeredCapitalType;
+	}
+
+	public Integer getRegisteredCapital() {
+		return registeredCapital;
+	}
+
+	public void setRegisteredCapital(Integer registeredCapital) {
+		this.registeredCapital = registeredCapital;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public Date getRegisteredDate() {
+		return registeredDate;
+	}
+
+	public void setRegisteredDate(Date registeredDate) {
+		this.registeredDate = registeredDate;
 	}
 }

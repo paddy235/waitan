@@ -19,10 +19,16 @@
                     if(isnull(company.risk_level)=1,9,company.risk_level) AS  riskLevel,
                     company.is_new AS isNew,
                     company.registered_capital AS registeredCapital,
+                    company.registered_capital_type AS registeredCapitalType,
+                    company.registered_date AS registeredDate,
+                    company.address AS address,
                     building.building_id AS buildingId,
                     building.`name` AS buildingName
         FROM park,building,company_building,company
         WHERE park.area_id=#{areaId}
+              <if test="companyName != null">
+                AND company.name LIKE CONCAT('%',#{companyName},'%')
+              </if>
               AND  park.park_id=building.park_id
               AND building.building_id=company_building.building_id
               AND company_building.company_id=company.company_id
@@ -34,9 +40,15 @@
         if(isnull(company.risk_level)=1,9,company.risk_level) AS  riskLevel,
         company.is_new AS isNew,
         company.registered_capital AS registeredCapital,
+        company.registered_capital_type AS registeredCapitalType,
+        company.registered_date AS registeredDate,
+        company.address AS address,
         null AS buildingId,
         null AS buildingName
         from company where area_id=#{areaId}
+        <if test="companyName != null">
+            AND company.name LIKE CONCAT('%',#{companyName},'%')
+        </if>
         and company_id not in (select company_id from company_building )
         ) AS base WHERE 1=1
         <if test="buildingName != null">

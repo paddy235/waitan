@@ -121,6 +121,7 @@ public interface ParkService extends BaseService {
 	 * @return String 园区楼宇公司
 	 */
 	Map<String,Object> queryParkCompany(Integer areaId,Integer isNew,Integer riskLevel,
-										 String backgroundName,String companyTypeName,String buildingName,Integer pageSize,Integer pageNumber);
+										 String backgroundName,String companyTypeName,String buildingName,
+										String companyName,Integer pageSize,Integer pageNumber);
 
 }

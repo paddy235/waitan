@@ -339,7 +339,7 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 	@Override
 	public Map<String, Object> queryParkCompany(Integer areaId,Integer isNew,Integer riskLevel,
 												String backgroundName,String companyTypeName,String buildingName,
-												Integer pageSize,Integer pageNumber) {
+												String companyName,Integer pageSize,Integer pageNumber) {
 		Map<String, Object> result=new HashMap<>();
 		result.put("total",0);
 		result.put("list",new ArrayList<>());
@@ -381,6 +381,10 @@ public class ParkServiceImpl extends BaseServiceImpl implements ParkService {
 		//是否新增
 		if(null!=isNew){
 			params.put("isNew",isNew);
+		}
+		//企业名称
+		if(null!=companyName){
+			params.put("companyName",companyName);
 		}
 		int total=this.parkMapper.qeuryParkCompanyCount(params);
 		result.put("total",total);
