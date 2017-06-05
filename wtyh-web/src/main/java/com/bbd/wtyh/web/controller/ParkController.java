@@ -282,7 +282,7 @@ public class ParkController {
 	@ResponseBody
 	public ResponseBean parkCompanyList(@RequestParam Integer areaId, @RequestParam Integer isNew, @RequestParam Integer riskLevel,
 			@RequestParam String backgroundName, @RequestParam String companyTypeName, @RequestParam String buildingName,
-										@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {
+										@RequestParam String companyName,@RequestParam Integer pageSize,@RequestParam Integer pageNumber) {
 		//分页
 		if(null==pageSize || pageSize<1){
 			pageSize=20;
@@ -291,7 +291,7 @@ public class ParkController {
 			pageNumber=1;
 		}
 
-		Map<String ,Object> data = parkService.queryParkCompany(areaId, isNew, riskLevel, backgroundName, companyTypeName, buildingName,pageSize,pageNumber);
+		Map<String ,Object> data = parkService.queryParkCompany(areaId, isNew, riskLevel, backgroundName, companyTypeName, buildingName,companyName,pageSize,pageNumber);
 		return ResponseBean.successResponse(data);
 	}
 
@@ -305,7 +305,7 @@ public class ParkController {
 	@RequestMapping("/downloadParkCompanyList")
 	@ResponseBody
 	public ResponseBean downloadParkCompanyList(@RequestParam Integer areaId, Integer isNew, Integer riskLevel, String backgroundName,
-			String companyTypeName, String buildingName, HttpServletRequest request) {
+			String companyTypeName, String buildingName,String companyName, HttpServletRequest request) {
 
 		String loginName = request.getSession().getAttribute(Constants.SESSION.loginName) + "";
 		String nowDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss"));
@@ -324,7 +324,7 @@ public class ParkController {
 			// 按查询条件下载企业
 
 			Map<String,Object> map = parkService.queryParkCompany(areaId,
-			 isNew, riskLevel, backgroundName, companyTypeName, buildingName,null,null);
+			 isNew, riskLevel, backgroundName, companyTypeName, buildingName,companyName,null,null);
 
 			// 下载改园区全部企业
 			//Map<String,Object> map = parkService.queryParkCompany(areaId, null, null, null, null, null,null,null);
