@@ -15,7 +15,7 @@ import com.google.common.collect.Lists;
  * 地区相关接口
  */
 @Controller
-@RequestMapping("/area/")
+@RequestMapping("/report/")
 public class ReportDocxController {
 	
 	@Autowired

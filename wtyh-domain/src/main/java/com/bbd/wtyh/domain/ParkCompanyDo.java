@@ -41,12 +41,16 @@ public class ParkCompanyDo {
 
 	private String background;// 企业背景
 
-	private Integer registeredCapitalType;//注册资本类型
-
+	@Excel(exportName = "注册资本")
 	private Integer registeredCapital;//注册资本
 
+	private Integer registeredCapitalType;//注册资本类型
+	@Excel(exportName = "注册资本类型")
+	private String registeredCapitalTypeName;//注册资本类型名称
+	@Excel(exportName = "注册地址")
 	private String address;//注册地址
 
+	@Excel(exportName = "注册时间")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	private Date registeredDate;//'注册时间
 
@@ -209,5 +213,25 @@ public class ParkCompanyDo {
 
 	public void setRegisteredDate(Date registeredDate) {
 		this.registeredDate = registeredDate;
+	}
+
+	public String getRegisteredCapitalTypeName() {
+		if(null==registeredCapitalType){
+			return  "";
+		}
+		String name="";
+		switch (registeredCapitalType){
+			case 1:name="人民币";
+					break;
+			case 2:name="美元";
+					break;
+			default:
+					break;
+		}
+		return name;
+	}
+
+	public void setRegisteredCapitalTypeName(String registeredCapitalTypeName) {
+		this.registeredCapitalTypeName = registeredCapitalTypeName;
 	}
 }

@@ -1,10 +1,12 @@
 package com.bbd.wtyh.test;
 
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
+
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.service.ParkService;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +33,13 @@ public class MyTest extends BaseServiceImpl {
 	@Test
 	public  void queryParkCompany(){
 		Map<String, Object> map= parkService.queryParkCompany(1122,null,null,null,null,null,"上海申彤",50,1);
-		System.err.println(JSON.toJSONString(map, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
+		//System.err.println(JSON.toJSONString(map, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			System.err.println(mapper.writeValueAsString(map));
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
