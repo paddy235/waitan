@@ -1009,10 +1009,10 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 			for (LinkVO vo : links) {
 				RelationDiagramVO.LineVO lineVO = new RelationDiagramVO.LineVO();
 				lineVO.setIsFullLine(LineTypeEnum.line.equals(vo.getLine()) ? "1" : "0");
-				lineVO.setOrig(pointDegree.get(vo.getSource()).getCname());
+				lineVO.setOrig(pointDegree.get(vo.getSource()).getName());//用点的ID
 				lineVO.setOrigLevel(String.valueOf(pointDegree.get(vo.getSource()).getCategory()));
 				lineVO.setRelationship(vo.getRelatedParyName());
-				lineVO.setTarget(pointDegree.get(vo.getTarget()).getCname());
+				lineVO.setTarget(pointDegree.get(vo.getTarget()).getName());//用点的ID
 				lineVO.setTarLevel(String.valueOf(pointDegree.get(vo.getTarget()).getCategory()));
 				lineVO.setType(vo.getGuanlian());
 				lineVO.setNum(++i);
@@ -1066,7 +1066,8 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 				pointVO.setIsPerson(NodeVoSymbolEnum.circle.equals(vo.getSymbol()) ? "1" : "0");
 				pointVO.setIsSonCom(NodeVoTypeEnum.INVESTED.getRgb().equals(vo.getColor()) ? "1" : "0");
 				pointVO.setLevel(String.valueOf(vo.getCategory()));
-				pointVO.setName(vo.getCname());
+				pointVO.setName(vo.getName());//需要通过ID关联，因为可能出现多个相同的名字，就会导致游离的点出现
+				pointVO.setCname(vo.getCname());
 
 				pointList.add(pointVO);
 			}

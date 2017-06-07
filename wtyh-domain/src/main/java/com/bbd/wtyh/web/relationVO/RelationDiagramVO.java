@@ -48,8 +48,10 @@ public class RelationDiagramVO {
 		public static final String COMPANY_FLAG = "0";
 		public static final String PERSON_FLAG = "1";
 
-		/** 关联方名称 */
+		/** 关联方ID */
 		private String name;
+		/** 关联方名称 */
+		private String cname;
 		/** 所处关联度数 */
 		private String level;
 		/** 是否是个人（0：公司；1：个人） */
@@ -87,6 +89,14 @@ public class RelationDiagramVO {
 
 		public void setIsSonCom(String isSonCom) {
 			this.isSonCom = isSonCom;
+		}
+
+		public String getCname() {
+			return cname;
+		}
+
+		public void setCname(String cname) {
+			this.cname = cname;
 		}
 	}
 
