@@ -5,6 +5,7 @@ import com.bbd.wtyh.domain.vo.StaticRiskVO;
 import com.bbd.wtyh.domain.vo.StatisticsVO;
 import com.bbd.wtyh.web.relationVO.RelationDiagramVO;
 
+import java.io.ByteArrayOutputStream;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.List;
@@ -57,6 +58,9 @@ public interface OfflineFinanceService {
     public StaticRiskVO queryCurrentStaticRisk(String companyName, String currentDate, String areaCode);
 
     public String createYED(String companyName, String month) throws Exception;
+
+    //获取最新的关联方图谱图片
+    public ByteArrayOutputStream createNewestYEDtoStream(String companyName);
 
     Map companyInfo(String companyName);
 

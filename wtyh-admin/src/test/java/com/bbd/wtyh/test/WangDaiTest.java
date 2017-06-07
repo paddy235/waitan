@@ -30,7 +30,7 @@ public class WangDaiTest extends BaseServiceImpl {
     public void test(){
         ResultsDO resultsDO=this.getPlatList();
         for(ResultsDO.WangDaiDO wangDaiDO:resultsDO.results){
-            this.executeCUD("INSERT INTO wangdai(company_name,plat_name) values('"+wangDaiDO.getCompany_name()+"','"+wangDaiDO.getPlat_name()+"')");
+            this.executeCUD("INSERT INTO test_wangdai(company_name,plat_name) values('"+wangDaiDO.getCompany_name()+"','"+wangDaiDO.getPlat_name()+"')");
         }
     }
 
