@@ -33,6 +33,10 @@ public class CompanyCreditRawInfoDO implements Cloneable{
 	@Column(name = "id")
 	private Integer id;
 
+	/** company_id,企业ID */
+	@Column(name = "company_id")
+	private Integer companyId;
+
 	/** name,企业名称 */
 	@Column(name = "company_name")
 	private String companyName;
@@ -101,6 +105,15 @@ public class CompanyCreditRawInfoDO implements Cloneable{
 	 */
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+
+	public Integer getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
 	}
 
 	/**

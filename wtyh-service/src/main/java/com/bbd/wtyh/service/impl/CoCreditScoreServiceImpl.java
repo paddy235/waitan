@@ -274,6 +274,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		String rst = root.attributeValue("name");
 		String companyNameTemp = null;
 		if (StringUtils.isNotBlank(rst)) {
+			ccridTemplet.setCompanyId(coDo.getCompanyId());
 			ccridTemplet.setCompanyName(rst.trim());
 			companyNameTemp = rst;
 		}
