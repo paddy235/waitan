@@ -22,4 +22,7 @@ public interface CompanyCreditRawInfoMapper {
 	@Delete( "DELETE FROM `company_credit_raw_info` WHERE `company_name` =#{companyName}" )
 	int removeCompanyCreditRawInfoByCompanyName( String companyName );
 
+    @Delete( "DELETE FROM `company_credit_raw_info` WHERE `company_id` =#{companyId}" )
+    int removeCompanyCreditRawInfoByCompanyId( String companyId );
+
 }

@@ -269,14 +269,16 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			LOGGER.error("查询公司信用信息失败。公司信息【id：{}，name：{}】。返回：{}", coDo.getCompanyId(), coDo.getName(), xmlData);
 			return null;
 		}
+
+        this.executeCUD("DELETE FROM company_credit_raw_info WHERE company_id = ?", coDo.getCompanyId());
+
 		List<CompanyCreditRawInfoDO> lCcrids = new ArrayList<>();
 		CompanyCreditRawInfoDO ccridTemplet = new CompanyCreditRawInfoDO();
 		String rst = root.attributeValue("name");
-		String companyNameTemp = null;
+
 		if (StringUtils.isNotBlank(rst)) {
 			ccridTemplet.setCompanyId(coDo.getCompanyId());
 			ccridTemplet.setCompanyName(rst.trim());
-			companyNameTemp = rst;
 		}
 		rst = root.attributeValue("zjhm");
 		if (StringUtils.isNotBlank(rst.trim())) {
@@ -339,9 +341,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			pointNameList.add(value);
 		}
 		if (lCcrids.size() > 0) {
-			if (null == companyNameTemp) {
-				ccriMapper.removeCompanyCreditRawInfoByCompanyName(companyNameTemp);
-			}
+
 			for (CompanyCreditRawInfoDO cd : lCcrids) {
 				ccriMapper.saveCompanyCreditRawInfo(cd);
 			}
