@@ -37,6 +37,7 @@
             <mvc:exclude-mapping path="/syncData/getNewestDataVersion.do"/>
             <mvc:exclude-mapping path="/syncData/receiveFileData.do"/>
             <mvc:exclude-mapping path="/adminLogInfo/*"/>
+            <mvc:exclude-mapping path="/credit/credit-score-calculate.do"/>
             <ref bean="loginInterceptor"/>
         </mvc:interceptor>
 

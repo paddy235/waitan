@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.bbd.shanghai.credit.utils.CreditConfig;
 import com.bbd.shanghai.credit.utils.XyptWebServiceUtil;
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.common.Pagination;
@@ -47,8 +48,6 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	private CompanyCreditInformationMapper companyCreditInformationMapper;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CoCreditScoreService.class);
-
-	private static final int DAILY_LIMIT = 100000;// 10W
 	// 已执行的公司ID
 	public static final String REDIS_KEY_CREDIT_COMPANY = "wtyh:credit:company";
 	public static final String REDIS_KEY_CREDIT_REHANDLE_COMPANY = "wtyh:credit:rehandle:company";
@@ -58,6 +57,9 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 
 	@Override
 	public void creditScoreCalculate() {
+
+		CreditConfig.read();
+
 		// 重置 重试列表
 		redisDao.delete(REDIS_KEY_CREDIT_REHANDLE_COMPANY);
 		int totalCount = this.getCompanyTotal();
@@ -188,11 +190,10 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 
 		int totalCount = this.companyMapper.countCompanyGTId(startId);
 
-		if (totalCount <= DAILY_LIMIT) {
+		if (totalCount <= CreditConfig.dailyLimit()) {
 			return totalCount;
 		}
-
-		return DAILY_LIMIT;
+		return CreditConfig.dailyLimit();
 	}
 
 	/**
@@ -270,7 +271,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			return null;
 		}
 
-        this.executeCUD("DELETE FROM company_credit_raw_info WHERE company_id = ?", coDo.getCompanyId());
+		this.executeCUD("DELETE FROM company_credit_raw_info WHERE company_id = ?", coDo.getCompanyId());
 
 		List<CompanyCreditRawInfoDO> lCcrids = new ArrayList<>();
 		CompanyCreditRawInfoDO ccridTemplet = new CompanyCreditRawInfoDO();
