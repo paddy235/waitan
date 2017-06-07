@@ -1010,9 +1010,11 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 				RelationDiagramVO.LineVO lineVO = new RelationDiagramVO.LineVO();
 				lineVO.setIsFullLine(LineTypeEnum.line.equals(vo.getLine()) ? "1" : "0");
 				lineVO.setOrig(pointDegree.get(vo.getSource()).getName());//用点的ID
+                lineVO.setOrigName(pointDegree.get(vo.getSource()).getCname());
 				lineVO.setOrigLevel(String.valueOf(pointDegree.get(vo.getSource()).getCategory()));
 				lineVO.setRelationship(vo.getRelatedParyName());
 				lineVO.setTarget(pointDegree.get(vo.getTarget()).getName());//用点的ID
+                lineVO.setTargetName(pointDegree.get(vo.getTarget()).getCname());
 				lineVO.setTarLevel(String.valueOf(pointDegree.get(vo.getTarget()).getCategory()));
 				lineVO.setType(vo.getGuanlian());
 				lineVO.setNum(++i);

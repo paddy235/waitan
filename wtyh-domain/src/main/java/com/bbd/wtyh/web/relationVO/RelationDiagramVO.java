@@ -108,12 +108,18 @@ public class RelationDiagramVO {
 		private int num;
 
 		/** 源 */
-		@Excel(exportName = "投资方")
 		private String orig;
+
+		/** 源 */
+		@Excel(exportName = "投资方")
+		private String origName;
+
+		/** 目标 */
+		private String target;
 
 		/** 目标 */
 		@Excel(exportName = "被投资方")
-		private String target;
+		private String targetName;
 
 		/** 是否为实线（0：否；1：是） */
 		private String isFullLine;
@@ -195,6 +201,22 @@ public class RelationDiagramVO {
 
 		public void setTarLevel(String tarLevel) {
 			this.tarLevel = tarLevel;
+		}
+
+		public String getOrigName() {
+			return origName;
+		}
+
+		public void setOrigName(String origName) {
+			this.origName = origName;
+		}
+
+		public String getTargetName() {
+			return targetName;
+		}
+
+		public void setTargetName(String targetName) {
+			this.targetName = targetName;
 		}
 	}
 }
