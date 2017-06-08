@@ -15,6 +15,8 @@ import com.bbd.wtyh.service.CoCreditScoreService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
@@ -55,9 +57,11 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	// 定时任务执行的起始日
 	public static final int TASK_BEGIN_DAY = 15;
 
+
+
 	@Override
 	public void creditScoreCalculate() {
-
+        String dataVersion= DateFormatUtils.format(new Date(),"yyyyMMdd");
 		CreditConfig.read();
 
 		// 重置 重试列表
@@ -113,7 +117,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 
 				for (CompanyDO companyDO : pageList) {
 					LOGGER.info(companyDO.getCompanyId() + "");
-					calculateCompanyPoint(companyDO, pointMap);
+					calculateCompanyPoint(companyDO, pointMap,dataVersion);
 				}
 			});
 		}
@@ -124,7 +128,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		untreatedCompany(pointMap);
+		untreatedCompany(pointMap,dataVersion);
 	}
 
 	private void resetBeginNum(Integer companyId) {
@@ -145,7 +149,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	 *
 	 * @return
 	 */
-	private void untreatedCompany(Map<String, Integer> pointMap) {
+	private void untreatedCompany(Map<String, Integer> pointMap,String dataVersion) {
 
 		Long length = redisDao.length(REDIS_KEY_CREDIT_REHANDLE_COMPANY);
 
@@ -160,7 +164,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			}
 			CompanyDO companyDO = JSON.parseObject(str, CompanyDO.class);
 			LOGGER.info(companyDO.getCompanyId() + " rehandle ");
-			calculateCompanyPoint(companyDO, pointMap);
+			calculateCompanyPoint(companyDO, pointMap,dataVersion);
 		}
 
 		List<Object> list = redisDao.range(REDIS_KEY_CREDIT_REHANDLE_COMPANY, 0, -1);
@@ -204,9 +208,9 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	 * @param pointMap
 	 *            加分项
 	 */
-	private void calculateCompanyPoint(CompanyDO companyDO, Map<String, Integer> pointMap) {
+	private void calculateCompanyPoint(CompanyDO companyDO, Map<String, Integer> pointMap,String dataVersion) {
 		resetBeginNum(companyDO.getCompanyId());
-		List<String> list = getCreditFromShangHai(companyDO, pointMap);
+		List<String> list = getCreditFromShangHai(companyDO, pointMap,dataVersion);
 
 		if (CollectionUtils.isEmpty(list)) {
 			return;
@@ -241,7 +245,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	 * @param coDo
 	 * @param pointMap
 	 */
-	private List<String> getCreditFromShangHai(CompanyDO coDo, Map<String, Integer> pointMap) {
+	private List<String> getCreditFromShangHai(CompanyDO coDo, Map<String, Integer> pointMap,String dataVersion) {
 		String xmlData = XyptWebServiceUtil.getCreditInfo(coDo.getName(), null, null);
 		if (StringUtils.isBlank(xmlData)) {
 			// 只对请求异常的公司做重新处理。
@@ -266,6 +270,8 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		String resultCode = root.elementText("RESULT");
 		// 1005 表示查询成功
 		if (!"1005".equals(resultCode)) {
+		    this.executeCUD("INSERT INTO company_credit_fail_info (company_id,company_name,result_code,data_version,create_by,create_date)values(?,?,?,?,?,?)",
+                    coDo.getCompanyId(),coDo.getName(),resultCode,dataVersion,"system",new Date() );
 			// 正常情况下都会有返回，对非1005的返回，不需要做重新处理，因为再次请求也是一样的结果
 			LOGGER.error("查询公司信用信息失败。公司信息【id：{}，name：{}】。返回：{}", coDo.getCompanyId(), coDo.getName(), xmlData);
 			return null;
