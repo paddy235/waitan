@@ -448,6 +448,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 		RelationDiagramVO.PointVO pointVOOne = new RelationDiagramVO.PointVO();
 		// 默认一个中心点
 		pointVOOne.setName(companyName);
+        pointVOOne.setCname(companyName);
 		pointVOOne.setIsPerson("0");
 		pointVOOne.setLevel("0");
 		pointVOOne.setIsSonCom("0");
