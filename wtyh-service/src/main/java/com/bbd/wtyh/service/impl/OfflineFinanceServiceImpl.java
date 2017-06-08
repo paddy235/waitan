@@ -485,7 +485,9 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 			List<RelationDiagramVO.PointVO> pointVOs, RelationDTO.Result result, List<String> set) {
 		RelationDiagramVO.LineVO lineVO = new RelationDiagramVO.LineVO();
 		lineVO.setOrig(result.getInvestor());
+        lineVO.setOrigName(result.getInvestor());
 		lineVO.setTarget(result.getInvestee());
+        lineVO.setTargetName(result.getInvestee());
 		lineVO.setIsFullLine(result.getRelType() + "");
 		lineVO.setRelationship(result.getIsNatural() + "");
 		lineVO.setOrigLevel(result.getInvestor_degree());
@@ -497,6 +499,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 			if (!set.contains(result.getInvestor())) {
 				RelationDiagramVO.PointVO pointVO = new RelationDiagramVO.PointVO();
 				pointVO.setName(result.getInvestor());
+                pointVO.setCname(result.getInvestor());
 				set.add(result.getInvestor());
 				pointVO.setLevel(result.getInvestor_degree() + "");
 				pointVO.setIsPerson("1");
@@ -508,6 +511,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 				RelationDiagramVO.PointVO pointVO = new RelationDiagramVO.PointVO();
 				pointVO.setIsPerson("0");
 				pointVO.setName(result.getInvestee());
+                pointVO.setCname(result.getInvestee());
 				set.add(result.getInvestee());
 				pointVO.setLevel(result.getInvestee_degree() + "");
 				pointVO.setIsSonCom(result.getInvestor().equals(companyName) ? "1" : "0");
@@ -520,6 +524,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 				pointVO.setIsPerson("0");
 
 				pointVO.setName(result.getInvestor());
+                pointVO.setCname(result.getInvestor());
 				set.add(result.getInvestor());
 				if (result.getIsNatural() == 1) {
 					pointVO.setIsPerson("1");
@@ -534,6 +539,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 				pointVO.setIsPerson("0");
 				pointVO.setIsPerson("0");
 				pointVO.setName(result.getInvestee());
+                pointVO.setCname(result.getInvestee());
 				set.add(result.getInvestee());
 				pointVO.setLevel(result.getInvestee_degree() + "");
 				pointVO.setIsSonCom(result.getInvestor().equals(companyName) ? "1" : "0");
