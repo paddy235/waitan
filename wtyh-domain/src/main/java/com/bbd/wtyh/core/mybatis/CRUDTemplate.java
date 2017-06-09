@@ -198,7 +198,9 @@ public class CRUDTemplate {
 		int end = sql.lastIndexOf("?") + 1;
 		String questionMark = sql.substring(start, end);
 
-		String[] strs = questionMark.trim().split("\\?");
+		String tmpStr = questionMark.trim();
+		String[] strs = tmpStr.length() > 1 ? tmpStr.split("\\?") : new String[] { "" };
+
 		StringBuilder sb = new StringBuilder(sql.length() + strs.length * 11 - strs.length);
 		for (int i = 0; i < strs.length; i++) {
 			sb.append(strs[i]).append("#{param[").append(i).append("]}");
@@ -207,4 +209,5 @@ public class CRUDTemplate {
 		return sql.replace(questionMark, sb.toString());
 
 	}
+
 }
