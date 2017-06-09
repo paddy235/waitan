@@ -7,6 +7,8 @@ import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.common.Pagination;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.*;
+import com.bbd.wtyh.domain.credit.CompanyCreditFailInfoDO;
+import com.bbd.wtyh.mapper.CompanyCreditFailInfoMapper;
 import com.bbd.wtyh.mapper.CompanyCreditInformationMapper;
 import com.bbd.wtyh.mapper.CompanyCreditRawInfoMapper;
 import com.bbd.wtyh.mapper.CompanyMapper;
@@ -16,7 +18,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
@@ -47,6 +48,8 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	@Autowired
 	private CompanyMapper companyMapper;
 	@Autowired
+	private CompanyCreditFailInfoMapper companyCreditFailInfoMapper;
+	@Autowired
 	private CompanyCreditInformationMapper companyCreditInformationMapper;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CoCreditScoreService.class);
@@ -62,6 +65,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	@Override
 	public void creditScoreCalculate() {
         String dataVersion= DateFormatUtils.format(new Date(),"yyyyMMdd");
+		int isHandle=0;
 		CreditConfig.read();
 
 		// 重置 重试列表
@@ -117,7 +121,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 
 				for (CompanyDO companyDO : pageList) {
 					LOGGER.info(companyDO.getCompanyId() + "");
-					calculateCompanyPoint(companyDO, pointMap,dataVersion);
+					calculateCompanyPoint(companyDO, pointMap,dataVersion,isHandle);
 				}
 			});
 		}
@@ -128,8 +132,73 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		untreatedCompany(pointMap,dataVersion);
+		untreatedCompany(pointMap,dataVersion,isHandle);
 	}
+
+    /**
+     * 重新拉取和计算失败的企业
+     */
+    @Override
+    public void executefailCompany(String[] companyNames, String resultCode, String dataVersion,Integer pageNumber,Integer pageSize) {
+		List<CompanyCreditFailInfoDO> list=this.queryfailCompany(companyNames,  resultCode,  dataVersion,pageNumber,pageSize);
+		// 本地模型加分项目
+		final Map<String, Integer> pointMap = this.getCompanyCreditPointItems();
+		int isHandle=1;//isHandle 为0表示由定时任务执行  1表示手动补偿失败的企业
+		for(CompanyCreditFailInfoDO companyCreditFailInfoDO:list){
+			CompanyDO companyDO=new CompanyDO();
+			companyDO.setCompanyId(companyCreditFailInfoDO.getCompanyId());
+			companyDO.setName(companyCreditFailInfoDO.getCompanyName());
+			calculateCompanyPoint(companyDO, pointMap,dataVersion,isHandle);
+		}
+    }
+    /**
+     * 查询失败的企业
+     */
+    @Override
+    public List<CompanyCreditFailInfoDO> queryfailCompany(String[] companyNames, String resultCode, String dataVersion,Integer pageNumber,Integer pageSize) {
+        Map map=new HashMap();
+		if(companyNames!=null && companyNames.length>0){
+			map.put("companyNames",companyNames);
+		}
+		if(StringUtils.isNotEmpty(resultCode)){
+			map.put("resultCode",resultCode);
+		}
+		if(StringUtils.isNotEmpty(dataVersion)){
+			map.put("dataVersion",dataVersion);
+		}
+		if(pageNumber!=null && pageNumber>0 && pageSize!=null && pageSize>0){
+			pageNumber=(pageNumber-1)*pageSize;
+			map.put("pageNumber",pageNumber);
+			map.put("pageSize",pageSize);
+		}
+    	List<CompanyCreditFailInfoDO> list=companyCreditFailInfoMapper.getCompanyCreditFailInfo(map);
+
+        return list;
+    }
+
+	@Override
+	public int queryfailCompanyCounts(String[] companyNames, String resultCode, String dataVersion, Integer pageNumber, Integer pageSize) {
+
+		Map map=new HashMap();
+		if(companyNames!=null && companyNames.length>0){
+			map.put("companyNames",companyNames);
+		}
+		if(StringUtils.isNotEmpty(resultCode)){
+			map.put("resultCode",resultCode);
+		}
+		if(StringUtils.isNotEmpty(dataVersion)){
+			map.put("dataVersion",dataVersion);
+		}
+		if(pageNumber!=null && pageNumber>0 && pageSize!=null && pageSize>0){
+			pageNumber=(pageNumber-1)*pageSize;
+			map.put("pageNumber",pageNumber);
+			map.put("pageSize",pageSize);
+		}
+
+		return companyCreditFailInfoMapper.getCompanyCreditFailInfoCounts(map);
+
+	}
+
 
 	private void resetBeginNum(Integer companyId) {
 		String str = redisDao.getString(REDIS_KEY_CREDIT_COMPANY);
@@ -149,7 +218,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	 *
 	 * @return
 	 */
-	private void untreatedCompany(Map<String, Integer> pointMap,String dataVersion) {
+	private void untreatedCompany(Map<String, Integer> pointMap,String dataVersion,int isHandle) {
 
 		Long length = redisDao.length(REDIS_KEY_CREDIT_REHANDLE_COMPANY);
 
@@ -164,7 +233,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			}
 			CompanyDO companyDO = JSON.parseObject(str, CompanyDO.class);
 			LOGGER.info(companyDO.getCompanyId() + " rehandle ");
-			calculateCompanyPoint(companyDO, pointMap,dataVersion);
+			calculateCompanyPoint(companyDO, pointMap,dataVersion,isHandle);
 		}
 
 		List<Object> list = redisDao.range(REDIS_KEY_CREDIT_REHANDLE_COMPANY, 0, -1);
@@ -208,9 +277,9 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	 * @param pointMap
 	 *            加分项
 	 */
-	private void calculateCompanyPoint(CompanyDO companyDO, Map<String, Integer> pointMap,String dataVersion) {
+	private void calculateCompanyPoint(CompanyDO companyDO, Map<String, Integer> pointMap,String dataVersion,int isHandle) {
 		resetBeginNum(companyDO.getCompanyId());
-		List<String> list = getCreditFromShangHai(companyDO, pointMap,dataVersion);
+		List<String> list = getCreditFromShangHai(companyDO, pointMap,dataVersion,isHandle);
 
 		if (CollectionUtils.isEmpty(list)) {
 			return;
@@ -245,7 +314,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	 * @param coDo
 	 * @param pointMap
 	 */
-	private List<String> getCreditFromShangHai(CompanyDO coDo, Map<String, Integer> pointMap,String dataVersion) {
+	private List<String> getCreditFromShangHai(CompanyDO coDo, Map<String, Integer> pointMap,String dataVersion,int isHandle) {
 		String xmlData = XyptWebServiceUtil.getCreditInfo(coDo.getName(), null, null);
 		if (StringUtils.isBlank(xmlData)) {
 			// 只对请求异常的公司做重新处理。
@@ -254,6 +323,14 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			newCodo.setCompanyId(coDo.getCompanyId());
 			newCodo.setName(coDo.getName());
 			redisDao.in(REDIS_KEY_CREDIT_REHANDLE_COMPANY, JSON.toJSONString(newCodo));
+
+			//isHandle 为0表示由定时任务执行  1表示手动补偿失败的企业
+			if(0==isHandle){
+				//未知错误9999
+				this.executeCUD("INSERT INTO company_credit_fail_info (company_id,company_name,result_code,data_version,create_by,create_date)values(?,?,?,?,?,?)",
+						coDo.getCompanyId(),coDo.getName(),"9999",dataVersion,"system",new Date() );
+			}
+
 			LOGGER.error("查询公司信用信息失败，已经录等待重试。公司信息【id：{}，name：{}】。返回：{}", coDo.getCompanyId(), coDo.getName(), xmlData);
 			return null;
 		}
@@ -262,6 +339,11 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		try {
 			document = DocumentHelper.parseText(xmlData);
 		} catch (DocumentException e) {
+			if(0==isHandle){
+				//未知错误9998
+				this.executeCUD("INSERT INTO company_credit_fail_info (company_id,company_name,result_code,data_version,create_by,create_date)values(?,?,?,?,?,?)",
+						coDo.getCompanyId(),coDo.getName(),"9998",dataVersion,"system",new Date() );
+			}
 			LOGGER.error("查询公司信用信息报错。公司信息【id：{}，name：{}】。错误信息：{}。返回：{}", coDo.getCompanyId(), coDo.getName(), e.getMessage(), xmlData);
 			return null;
 		}
@@ -270,13 +352,18 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		String resultCode = root.elementText("RESULT");
 		// 1005 表示查询成功
 		if (!"1005".equals(resultCode)) {
-		    this.executeCUD("INSERT INTO company_credit_fail_info (company_id,company_name,result_code,data_version,create_by,create_date)values(?,?,?,?,?,?)",
-                    coDo.getCompanyId(),coDo.getName(),resultCode,dataVersion,"system",new Date() );
+			if(0==isHandle) {
+				this.executeCUD("INSERT INTO company_credit_fail_info (company_id,company_name,result_code,data_version,create_by,create_date)values(?,?,?,?,?,?)",
+						coDo.getCompanyId(), coDo.getName(), resultCode, dataVersion, "system", new Date());
+			}
 			// 正常情况下都会有返回，对非1005的返回，不需要做重新处理，因为再次请求也是一样的结果
 			LOGGER.error("查询公司信用信息失败。公司信息【id：{}，name：{}】。返回：{}", coDo.getCompanyId(), coDo.getName(), xmlData);
 			return null;
 		}
-
+		//手动执行的失败企业，若成功则删除
+		if(1==isHandle) {
+			this.executeCUD("DELETE FROM company_credit_fail_info WHERE company_id = ? AND data_version=?", coDo.getCompanyId(), dataVersion);
+		}
 		this.executeCUD("DELETE FROM company_credit_raw_info WHERE company_id = ?", coDo.getCompanyId());
 
 		List<CompanyCreditRawInfoDO> lCcrids = new ArrayList<>();

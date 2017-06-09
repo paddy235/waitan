@@ -193,11 +193,18 @@ public class CRUDTemplate {
 		if (!StringUtils.contains(sql, "?")) {
 			return sql;
 		}
-		String[] strs = sql.trim().split("\\?");
+
+		int start = sql.indexOf("?");
+		int end = sql.lastIndexOf("?") + 1;
+		String questionMark = sql.substring(start, end);
+
+		String[] strs = questionMark.trim().split("\\?");
 		StringBuilder sb = new StringBuilder(sql.length() + strs.length * 11 - strs.length);
 		for (int i = 0; i < strs.length; i++) {
 			sb.append(strs[i]).append("#{param[").append(i).append("]}");
 		}
-		return sb.toString();
+
+		return sql.replace(questionMark, sb.toString());
+
 	}
 }
