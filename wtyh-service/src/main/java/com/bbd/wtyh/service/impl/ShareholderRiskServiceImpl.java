@@ -87,7 +87,7 @@ public class ShareholderRiskServiceImpl implements ShareholderRiskService {
                     if (pointVO.getIsPerson().equals("1")) {
                         continue;
                     }
-                    CompanyDO relatedCompany = companyService.getCompanyByName(pointVO.getName());
+                    CompanyDO relatedCompany = companyService.getCompanyByName(pointVO.getCname());
                     if (null == relatedCompany || null == relatedCompany.getCompanyType()) {
                         continue;
                     }
@@ -147,7 +147,7 @@ public class ShareholderRiskServiceImpl implements ShareholderRiskService {
                 if (pointVO.getIsPerson().equals("1")) {
                     continue;
                 }
-                CompanyDO relatedCompany = companyService.getCompanyByName(pointVO.getName());
+                CompanyDO relatedCompany = companyService.getCompanyByName(pointVO.getCname());
                 if (null == relatedCompany) {
                     continue;
                 }
