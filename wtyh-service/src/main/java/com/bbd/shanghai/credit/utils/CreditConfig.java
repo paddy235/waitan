@@ -24,7 +24,7 @@ public class CreditConfig {
 	private static String cxyt;
 	private static String serviceUrl;
 	private static int dailyLimit;
-	private static int dataType;
+	private static String dataType;
 
 	private static SysConfigService configService = ApplicationContextUtil.getBean(SysConfigServiceImpl.class);
 
@@ -38,20 +38,8 @@ public class CreditConfig {
 		cxyt = map.get("cxyt");
 		serviceUrl = map.get("serviceUrl");
 		dailyLimit = NumberUtils.toInt(map.get("dailyLimit"));
-		dataType = NumberUtils.toInt(map.get("dataType"));
+		dataType = map.get("dataType");
 
-	}
-
-	public static String tostring() {
-		Map<String, String> map = new HashMap<>();
-		map.put("userName", userName);
-		map.put("password", password);
-		map.put("uname", uname);
-		map.put("cxyt", cxyt);
-		map.put("serviceUrl", serviceUrl);
-		map.put("dailyLimit", dailyLimit + "");
-		map.put("dataType", dataType + "");
-		return JSON.toJSONString(map);
 	}
 
 	public static String userName() {
@@ -78,7 +66,7 @@ public class CreditConfig {
 		return dailyLimit;
 	}
 
-	public static int dataType() {
+	public static String dataType() {
 		return dataType;
 	}
 

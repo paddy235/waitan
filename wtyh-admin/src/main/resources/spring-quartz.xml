@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:task="http://www.springframework.org/schema/task" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <!-- 调度工厂 -->
+    <bean id="clusteredScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" lazy-init="false"
+          destroy-method="destroy">
+
+        <property name="triggers">
+            <list>
+                <ref bean="shangHaiCreditTrigger"/>
+                <ref bean="closeShangHaiCreditTrigger"/>
+            </list>
+        </property>
+
+        <!--&lt;!&ndash; quartz配置文件路径, 指向cluster配置 &ndash;&gt;-->
+        <!--<property name="configLocation" value="classpath:config/quartz-cluster.properties"/>-->
+        <!--&lt;!&ndash; 保存Job数据到数据库所需的数据源 &ndash;&gt;-->
+        <!--<property name="dataSource" ref="dataSource"/>-->
+        <!--&lt;!&ndash; 修改job时，更新到数据库 &ndash;&gt;-->
+        <!--<property name="overwriteExistingJobs" value="true"/>-->
+
+        <!--必须的，QuartzScheduler 延时启动，应用启动完后 QuartzScheduler 再启动 -->
+        <property name="startupDelay" value="30"/>
+        <!-- Job接受applicationContext的成员变量名 -->
+        <property name="applicationContextSchedulerContextKey" value="applicationContext"/>
+
+    </bean>
+
+    <bean id="timeZone" class="java.util.TimeZone" factory-method="getTimeZone">
+        <constructor-arg value="GMT+08:00"/>
+    </bean>
+
+    <bean id="shangHaiCreditJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="group" value="credit_work"/>
+        <property name="name" value="shangHaiCreditJob"/>
+
+        <!--<property name="durability" value="true"/>-->
+        <!--<property name="requestsRecovery" value="true"/>-->
+
+        <property name="jobClass" value="com.bbd.wtyh.core.quartz.MethodInvokingJob"/>
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="targetObject" value="com.bbd.bgo.service.task.TimingTaskManager"/>
+                <entry key="targetMethod" value="shangHaiCreditTask"/>
+            </map>
+        </property>
+    </bean>
+
+    <!--  调度触发器 -->
+    <bean id="shangHaiCreditTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="name" value="shangHaiCreditTrigger"/>
+        <property name="group" value="credit_work"/>
+        <property name="jobDetail" ref="shangHaiCreditJob"/>
+
+        <property name="cronExpression" value="30 14 14 * * ?"/>
+        <property name="timeZone" ref="timeZone"/>
+
+        <!--将表达式生效时间设置为当前，防止 scheduler 启动时就执行定时任务-->
+        <property name="startTime">
+            <bean class="java.util.Date"/>
+        </property>
+    </bean>
+
+
+    <bean id="closeShangHaiCreditJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="group" value="close_credit_work"/>
+        <property name="name" value="closeShangHaiCreditJob"/>
+
+        <!--<property name="durability" value="true"/>-->
+        <!--<property name="requestsRecovery" value="true"/>-->
+
+        <property name="jobClass" value="com.bbd.wtyh.core.quartz.MethodInvokingJob"/>
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="targetObject" value="com.bbd.bgo.service.task.TimingTaskManager"/>
+                <entry key="targetMethod" value="closeShangHaiCreditTask"/>
+            </map>
+        </property>
+    </bean>
+
+    <!--  调度触发器 -->
+    <bean id="closeShangHaiCreditTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="name" value="closeShangHaiCreditTrigger"/>
+        <property name="group" value="close_credit_work"/>
+        <property name="jobDetail" ref="closeShangHaiCreditJob"/>
+
+        <property name="cronExpression" value="59 14 14 * * ?"/>
+        <property name="timeZone" ref="timeZone"/>
+
+        <!--将表达式生效时间设置为当前，防止 scheduler 启动时就执行定时任务-->
+        <property name="startTime">
+            <bean class="java.util.Date"/>
+        </property>
+    </bean>
+
+
+</beans>

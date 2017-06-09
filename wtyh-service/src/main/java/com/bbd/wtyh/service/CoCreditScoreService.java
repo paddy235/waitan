@@ -16,9 +16,15 @@ public interface CoCreditScoreService {
 	 */
 	void creditScoreCalculate();
 
-	void executefailCompany(String[] companyNames,String resultCode,String dataVersion,Integer pageNumber,Integer pageSize);
+	/**
+	 * 关闭分值计算
+	 */
+	void colseScoreCalculate();
 
-	List<CompanyCreditFailInfoDO> queryfailCompany(String[] companyNames, String resultCode, String dataVersion,Integer pageNumber,Integer pageSize);
+	void executefailCompany(String[] companyNames, String resultCode, String dataVersion, Integer pageNumber, Integer pageSize);
 
-	int queryfailCompanyCounts(String[] companyNames, String resultCode, String dataVersion,Integer pageNumber,Integer pageSize);
+	List<CompanyCreditFailInfoDO> queryfailCompany(String[] companyNames, String resultCode, String dataVersion, Integer pageNumber,
+			Integer pageSize);
+
+	int queryfailCompanyCounts(String[] companyNames, String resultCode, String dataVersion, Integer pageNumber, Integer pageSize);
 }

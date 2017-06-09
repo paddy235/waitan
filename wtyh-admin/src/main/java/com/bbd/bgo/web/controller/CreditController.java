@@ -11,7 +11,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
@@ -47,30 +46,46 @@ public class CreditController {
 		return "OK";
 	}
 
-	@RequestMapping("/executeFailCompany")
+	@RequestMapping("/end")
 	@ResponseBody
-	public String executeFailCompany(String companyName, String resultCode, String dataVersion,
-									 Integer pageNumber, Integer pageSize , HttpServletRequest request) {
-		String[] companyNames=null;
-		if(null!=companyName && !companyName.equals("")){
-			companyNames=companyName.split(",");
-		}
-		coCreditScoreService.executefailCompany(companyNames,resultCode,dataVersion,pageNumber,pageSize);
+	public String end() {
+		coCreditScoreService.colseScoreCalculate();
 		return "OK";
 	}
+
+	@RequestMapping("/start")
+	@ResponseBody
+	public String start() {
+		coCreditScoreService.creditScoreCalculate();
+		return "OK";
+	}
+
+	@RequestMapping("/executeFailCompany")
+	@ResponseBody
+	public String executeFailCompany(String companyName, String resultCode, String dataVersion, Integer pageNumber, Integer pageSize,
+			HttpServletRequest request) {
+		String[] companyNames = null;
+		if (null != companyName && !companyName.equals("")) {
+			companyNames = companyName.split(",");
+		}
+		coCreditScoreService.executefailCompany(companyNames, resultCode, dataVersion, pageNumber, pageSize);
+		return "OK";
+	}
+
 	@RequestMapping("/queryFailCompany")
 	@ResponseBody
-	public ResponseBean queryFailCompany(String companyName, String resultCode, String dataVersion,
-								Integer pageNumber, Integer pageSize , HttpServletRequest request) {
-		Map data=new HashMap();
-		String[] companyNames=null;
-		if(null!=companyName && !companyName.equals("")){
-			companyNames=companyName.split(",");
+	public ResponseBean queryFailCompany(String companyName, String resultCode, String dataVersion, Integer pageNumber, Integer pageSize,
+			HttpServletRequest request) {
+		Map data = new HashMap();
+		String[] companyNames = null;
+		if (null != companyName && !companyName.equals("")) {
+			companyNames = companyName.split(",");
 		}
-		int total=coCreditScoreService.queryfailCompanyCounts(companyNames,resultCode,dataVersion,pageNumber,pageSize);
-		List<CompanyCreditFailInfoDO> list=coCreditScoreService.queryfailCompany(companyNames,resultCode,dataVersion,pageNumber,pageSize);
-		data.put("total",total);
-		data.put("list",list);
+		int total = coCreditScoreService.queryfailCompanyCounts(companyNames, resultCode, dataVersion, pageNumber, pageSize);
+		List<CompanyCreditFailInfoDO> list = coCreditScoreService.queryfailCompany(companyNames, resultCode, dataVersion, pageNumber,
+				pageSize);
+		data.put("total", total);
+		data.put("list", list);
 		return ResponseBean.successResponse(data);
 	}
 }

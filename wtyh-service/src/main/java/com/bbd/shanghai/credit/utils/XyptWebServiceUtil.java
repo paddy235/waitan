@@ -19,10 +19,9 @@ import org.springframework.beans.factory.annotation.Value;
  */
 public class XyptWebServiceUtil {
 
-	// private static final String SERVICE_URL =
-	// "http://10.107.99.42:8080/xyxxfwpt/services/XyAppQuery";
+	private static final String SERVICE_URL = "http://127.0.0.1:8082/xyxxfwpt/services/XyAppQuery";
 
-	private static final String SERVICE_URL = CreditConfig.serviceUrl();
+	// private static final String SERVICE_URL = CreditConfig.serviceUrl();
 
 	private static final String USER_NAME = CreditConfig.userName();
 

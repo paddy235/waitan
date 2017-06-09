@@ -398,4 +398,17 @@
           company.`name` = #{company}
     </select>
 
+    <select id="getCompanyList" resultMap="BaseResultMap">
+        SELECT
+          <include refid="Base_Column_List"/>
+        FROM
+          company c
+        WHERE
+          c.company_id >= #{startId}
+          <if test="type == '0'">
+              AND c.company_type IN (${type})
+          </if>
+        LIMIT #{limit}
+    </select>
+
 </mapper>
