@@ -14,13 +14,6 @@
             </list>
         </property>
 
-        <!--&lt;!&ndash; quartz配置文件路径, 指向cluster配置 &ndash;&gt;-->
-        <!--<property name="configLocation" value="classpath:config/quartz-cluster.properties"/>-->
-        <!--&lt;!&ndash; 保存Job数据到数据库所需的数据源 &ndash;&gt;-->
-        <!--<property name="dataSource" ref="dataSource"/>-->
-        <!--&lt;!&ndash; 修改job时，更新到数据库 &ndash;&gt;-->
-        <!--<property name="overwriteExistingJobs" value="true"/>-->
-
         <!--必须的，QuartzScheduler 延时启动，应用启动完后 QuartzScheduler 再启动 -->
         <property name="startupDelay" value="30"/>
         <!-- Job接受applicationContext的成员变量名 -->
@@ -35,9 +28,6 @@
     <bean id="shangHaiCreditJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
         <property name="group" value="credit_work"/>
         <property name="name" value="shangHaiCreditJob"/>
-
-        <!--<property name="durability" value="true"/>-->
-        <!--<property name="requestsRecovery" value="true"/>-->
 
         <property name="jobClass" value="com.bbd.wtyh.core.quartz.MethodInvokingJob"/>
         <property name="jobDataAsMap">
@@ -54,7 +44,7 @@
         <property name="group" value="credit_work"/>
         <property name="jobDetail" ref="shangHaiCreditJob"/>
 
-        <property name="cronExpression" value="30 14 14 * * ?"/>
+        <property name="cronExpression" value="0 0 20 * * ?"/>
         <property name="timeZone" ref="timeZone"/>
 
         <!--将表达式生效时间设置为当前，防止 scheduler 启动时就执行定时任务-->
@@ -67,9 +57,6 @@
     <bean id="closeShangHaiCreditJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
         <property name="group" value="close_credit_work"/>
         <property name="name" value="closeShangHaiCreditJob"/>
-
-        <!--<property name="durability" value="true"/>-->
-        <!--<property name="requestsRecovery" value="true"/>-->
 
         <property name="jobClass" value="com.bbd.wtyh.core.quartz.MethodInvokingJob"/>
         <property name="jobDataAsMap">
@@ -86,7 +73,7 @@
         <property name="group" value="close_credit_work"/>
         <property name="jobDetail" ref="closeShangHaiCreditJob"/>
 
-        <property name="cronExpression" value="59 14 14 * * ?"/>
+        <property name="cronExpression" value="0 0 6 * * ?"/>
         <property name="timeZone" ref="timeZone"/>
 
         <!--将表达式生效时间设置为当前，防止 scheduler 启动时就执行定时任务-->

@@ -104,7 +104,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		// 本地模型加分项目
 		final Map<String, Integer> pointMap = this.getCompanyCreditPointItems();
 
-		ExecutorService dataExecutorService = Executors.newFixedThreadPool(20, new ThreadFactory() {
+		ExecutorService dataExecutorService = Executors.newFixedThreadPool(50, new ThreadFactory() {
 
 			final LongAdder num = new LongAdder();
 
@@ -122,7 +122,6 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		for (CompanyDO companyDO : companyList) {
 			dataExecutorService.execute(() -> {
 				if (isShutdown) {
-					Thread.currentThread().interrupt();
 					return;
 				}
 				LOGGER.info("开始处理：" + companyDO.getCompanyId());
@@ -136,7 +135,8 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		untreatedCompany(pointMap, dataVersion, isHandle);
+		// 取消自动补偿，改为手动补偿
+		// untreatedCompany(pointMap, dataVersion, isHandle);
 	}
 
 	private List<CompanyDO> getCompanyList() {
@@ -305,6 +305,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	 *
 	 * @return
 	 */
+	@SuppressWarnings("unused")
 	private void untreatedCompany(Map<String, Integer> pointMap, String dataVersion, int isHandle) {
 
 		Long length = redisDao.length(REDIS_KEY_CREDIT_REHANDLE_COMPANY);
@@ -438,6 +439,8 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			//非手动执行情况下，记录成功笔数
 			saveSuccessCompanyByDb(dataVersion);
 		}
+
+		this.executeCUD("DELETE FROM company_credit_fail_info WHERE company_id = ?", coDo.getCompanyId());
 		this.executeCUD("DELETE FROM company_credit_raw_info WHERE company_id = ?", coDo.getCompanyId());
 
 		List<CompanyCreditRawInfoDO> lCcrids = new ArrayList<>();
