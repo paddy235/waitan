@@ -32,8 +32,8 @@ public class CreditController {
 	@Autowired
 	private TaskSuccessFailInfoMapper taskSuccessFailInfoMapper;
 
-	private static String TASK_NAME ="shangHaiCreditJob";
-	private static String TASK_GROUP ="credit_work";
+	private static String TASK_NAME = "shangHaiCreditJob";
+	private static String TASK_GROUP = "credit_work";
 
 	@RequestMapping("/info")
 	public String info(String companyName, HttpServletRequest request) {
@@ -54,10 +54,10 @@ public class CreditController {
 		Map data = new HashMap();
 		coCreditScoreService.creditScoreCalculate();
 		String dataVersion = DateFormatUtils.format(new Date(), "yyyyMMdd");
-		TaskSuccessFailInfoDO taskSuccessFailInfoDO=taskSuccessFailInfoMapper.getTaskSuccessFailInfo(TASK_NAME,TASK_GROUP,dataVersion);
-		int planCount=taskSuccessFailInfoDO.getPlanCount();
-		int successCount=taskSuccessFailInfoDO.getSuccessCount();
-		int failCount=taskSuccessFailInfoDO.getFailCount();
+		TaskSuccessFailInfoDO taskSuccessFailInfoDO = taskSuccessFailInfoMapper.getTaskSuccessFailInfo(TASK_NAME, TASK_GROUP, dataVersion);
+		int planCount = taskSuccessFailInfoDO.getPlanCount();
+		int successCount = taskSuccessFailInfoDO.getSuccessCount();
+		int failCount = taskSuccessFailInfoDO.getFailCount();
 
 		data.put("planCount", planCount);
 		data.put("successCount", successCount);
@@ -66,18 +66,21 @@ public class CreditController {
 		return ResponseBean.successResponse(data);
 	}
 
-	@RequestMapping("/end")
+	@RequestMapping("/task-progress")
 	@ResponseBody
-	public String end() {
-		coCreditScoreService.colseScoreCalculate();
-		return "OK";
-	}
+	public ResponseBean taskProgress() {
+		Map data = new HashMap();
+		String dataVersion = DateFormatUtils.format(new Date(), "yyyyMMdd");
+		TaskSuccessFailInfoDO taskSuccessFailInfoDO = taskSuccessFailInfoMapper.getTaskSuccessFailInfo(TASK_NAME, TASK_GROUP, dataVersion);
+		int planCount = taskSuccessFailInfoDO.getPlanCount();
+		int successCount = taskSuccessFailInfoDO.getSuccessCount();
+		int failCount = taskSuccessFailInfoDO.getFailCount();
 
-	@RequestMapping("/start")
-	@ResponseBody
-	public String start() {
-		coCreditScoreService.creditScoreCalculate();
-		return "OK";
+		data.put("planCount", planCount);
+		data.put("successCount", successCount);
+		data.put("failCount", failCount);
+
+		return ResponseBean.successResponse(data);
 	}
 
 	@RequestMapping("/executeFailCompany")

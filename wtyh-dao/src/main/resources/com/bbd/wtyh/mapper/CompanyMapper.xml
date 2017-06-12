@@ -405,7 +405,7 @@
           company c
         WHERE
           c.company_id >= #{startId}
-          <if test="type == '0'">
+          <if test='type != "0"'>
               AND c.company_type IN (${type})
           </if>
         LIMIT #{limit}

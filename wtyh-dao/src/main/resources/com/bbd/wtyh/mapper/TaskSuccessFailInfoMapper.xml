@@ -3,7 +3,8 @@
 <mapper namespace="com.bbd.wtyh.mapper.TaskSuccessFailInfoMapper">
 
 
-    <select id="getTaskSuccessFailInfo" parameterType="java.util.HashMap" resultType="com.bbd.wtyh.domain.TaskSuccessFailInfoDO">
+    <select id="getTaskSuccessFailInfo" parameterType="java.util.HashMap"
+            resultType="com.bbd.wtyh.domain.TaskSuccessFailInfoDO">
         SELECT
         `id` ,
         `task_name` AS taskName,
@@ -19,7 +20,7 @@
         FROM
         task_success_fail_info
         WHERE
-            1=1
+        1=1
         <if test="taskName != null">
             AND task_name = #{taskName}
         </if>
@@ -33,7 +34,8 @@
 
 
     </select>
-    <insert id="addTaskSuccessFailInfo" parameterType="com.bbd.wtyh.domain.TaskSuccessFailInfoDO" useGeneratedKeys="true"
+    <insert id="addTaskSuccessFailInfo" parameterType="com.bbd.wtyh.domain.TaskSuccessFailInfoDO"
+            useGeneratedKeys="true"
             keyProperty="id"
             keyColumn="id">
         INSERT INTO `task_success_fail_info` (`task_name`, `task_group`, `data_version`, `plan_count`, `success_count`, `fail_count`,
@@ -44,7 +46,14 @@
     </insert>
 
     <update id="updateTaskSuccessFailInfo">
-        update task_success_fail_info set plan_count=#{planCount},success_count=#{successCount},fail_count=#{failCount},update_date=#{updateDate},updateBy=#{updateBy} where id=#{id}
+        update
+          task_success_fail_info
+        set
+          plan_count=#{planCount},
+          success_count=#{successCount},
+          fail_count=#{failCount},
+          update_date=#{updateDate},
+          update_by=#{updateBy} where id=#{id}
     </update>
 
 

@@ -54,13 +54,13 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	// 已执行的公司ID
 	public static final String REDIS_KEY_CREDIT_COMPANY = "wtyh:credit:company";
 	public static final String REDIS_KEY_CREDIT_REHANDLE_COMPANY = "wtyh:credit:rehandle:company";
-	//执行成功的企业笔数
+	// 执行成功的企业笔数
 	public static final String REDIS_KEY_CREDIT_SUCCESS_COMPANY = "wtyh:credit:success:company";
 
 	private volatile boolean isShutdown = false;
 	private volatile int maxCompanyId = 0;
-	private static String TASK_NAME ="shangHaiCreditJob";
-	private static String TASK_GROUP ="credit_work";
+	private static String TASK_NAME = "shangHaiCreditJob";
+	private static String TASK_GROUP = "credit_work";
 
 	@Override
 	public void colseScoreCalculate() {
@@ -79,10 +79,10 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		redisDao.delete(REDIS_KEY_CREDIT_REHANDLE_COMPANY);
 
 		List<CompanyDO> companyList = this.getCompanyList();
-		//新增或重置 本次任务计划、成功、失败笔数
-		TaskSuccessFailInfoDO taskSuccessFailInfoDO=taskSuccessFailInfoMapper.getTaskSuccessFailInfo("","",dataVersion);
-		if(taskSuccessFailInfoDO==null || taskSuccessFailInfoDO.getId()==null){
-			taskSuccessFailInfoDO=new TaskSuccessFailInfoDO();
+		// 新增或重置 本次任务计划、成功、失败笔数
+		TaskSuccessFailInfoDO taskSuccessFailInfoDO = taskSuccessFailInfoMapper.getTaskSuccessFailInfo(TASK_NAME, TASK_GROUP, dataVersion);
+		if (taskSuccessFailInfoDO == null || taskSuccessFailInfoDO.getId() == null) {
+			taskSuccessFailInfoDO = new TaskSuccessFailInfoDO();
 			taskSuccessFailInfoDO.setTaskName(TASK_NAME);
 			taskSuccessFailInfoDO.setTaskGroup(TASK_GROUP);
 			taskSuccessFailInfoDO.setDataVersion(dataVersion);
@@ -92,7 +92,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			taskSuccessFailInfoDO.setCreateBy("system");
 			taskSuccessFailInfoDO.setCreateDate(new Date());
 			taskSuccessFailInfoMapper.addTaskSuccessFailInfo(taskSuccessFailInfoDO);
-		}else{
+		} else {
 			taskSuccessFailInfoDO.setPlanCount(companyList.size());
 			taskSuccessFailInfoDO.setSuccessCount(0);
 			taskSuccessFailInfoDO.setFailCount(0);
@@ -264,18 +264,19 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 
 	/**
 	 * redis 记录执行成功的企业笔数
+	 * 
 	 * @param dataVersion
 	 */
 	private void saveSuccessCompanyByRedis(String dataVersion) {
 		synchronized (LOCK) {
-			String str =(String)redisDao.getHashField(REDIS_KEY_CREDIT_SUCCESS_COMPANY+":"+dataVersion,"success");
+			String str = (String) redisDao.getHashField(REDIS_KEY_CREDIT_SUCCESS_COMPANY + ":" + dataVersion, "success");
 			if (StringUtils.isNotBlank(str)) {
 				Integer counts = Integer.parseInt(str);
 				// 当缓存ID和最大ID一致时，更新新的ID进去
-				counts=counts+1;
-				redisDao.addHash(REDIS_KEY_CREDIT_SUCCESS_COMPANY+":"+dataVersion, "success" ,counts+"", Constants.REDIS_3);
+				counts = counts + 1;
+				redisDao.addHash(REDIS_KEY_CREDIT_SUCCESS_COMPANY + ":" + dataVersion, "success", counts + "", Constants.REDIS_3);
 			} else {
-				redisDao.addHash(REDIS_KEY_CREDIT_SUCCESS_COMPANY+":"+dataVersion, "success" ,"1", Constants.REDIS_3);
+				redisDao.addHash(REDIS_KEY_CREDIT_SUCCESS_COMPANY + ":" + dataVersion, "success", "1", Constants.REDIS_3);
 			}
 		}
 
@@ -283,19 +284,24 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 
 	/**
 	 * db 记录执行成功的企业笔数
+	 * 
 	 * @param dataVersion
 	 */
-	private synchronized void  saveSuccessCompanyByDb(String dataVersion) {
-			this.executeCUD("UPDATE task_success_fail_info SET success_count=success_count+1 WHERE TASK_NAME=? AND task_group=? AND data_version=?",TASK_NAME,TASK_GROUP,dataVersion);
+	private synchronized void saveSuccessCompanyByDb(String dataVersion) {
+		this.executeCUD(
+				"UPDATE task_success_fail_info SET success_count=success_count+1 WHERE TASK_NAME=? AND task_group=? AND data_version=?",
+				TASK_NAME, TASK_GROUP, dataVersion);
 
 	}
 
 	/**
 	 * db 记录执行失败的企业笔数
+	 * 
 	 * @param dataVersion
 	 */
-	private synchronized void  saveFailCompanyByDb(String dataVersion) {
-		this.executeCUD("UPDATE task_success_fail_info SET fail_count=fail_count+1 WHERE TASK_NAME=? AND task_group=? AND data_version=?",TASK_NAME,TASK_GROUP,dataVersion);
+	private synchronized void saveFailCompanyByDb(String dataVersion) {
+		this.executeCUD("UPDATE task_success_fail_info SET fail_count=fail_count+1 WHERE TASK_NAME=? AND task_group=? AND data_version=?",
+				TASK_NAME, TASK_GROUP, dataVersion);
 
 	}
 
@@ -392,7 +398,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 				this.executeCUD(
 						"INSERT INTO company_credit_fail_info (company_id,company_name,result_code,data_version,create_by,create_date)values(?,?,?,?,?,?)",
 						coDo.getCompanyId(), coDo.getName(), "9999", dataVersion, "system", new Date());
-				//记录失败笔数
+				// 记录失败笔数
 				this.saveFailCompanyByDb(dataVersion);
 			}
 
@@ -409,7 +415,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 				this.executeCUD(
 						"INSERT INTO company_credit_fail_info (company_id,company_name,result_code,data_version,create_by,create_date)values(?,?,?,?,?,?)",
 						coDo.getCompanyId(), coDo.getName(), "9998", dataVersion, "system", new Date());
-				//记录失败笔数
+				// 记录失败笔数
 				this.saveFailCompanyByDb(dataVersion);
 			}
 			LOGGER.error("查询公司信用信息报错。公司信息【id：{}，name：{}】。错误信息：{}。返回：{}", coDo.getCompanyId(), coDo.getName(), e.getMessage(), xmlData);
@@ -427,16 +433,17 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			}
 			// 正常情况下都会有返回，对非1005的返回，不需要做重新处理，因为再次请求也是一样的结果
 			LOGGER.error("查询公司信用信息失败。公司信息【id：{}，name：{}】。返回：{}", coDo.getCompanyId(), coDo.getName(), xmlData);
+			// 记录失败笔数
+			this.saveFailCompanyByDb(dataVersion);
 			return null;
 		}
-
 
 		// 手动执行定时任务执行过程中产生的失败的企业，若这家企业执行成功，则从失败企业表中删除。
 		if (1 == isHandle) {
 			this.executeCUD("DELETE FROM company_credit_fail_info WHERE company_id = ? AND data_version=?", coDo.getCompanyId(),
 					dataVersion);
-		}else{
-			//非手动执行情况下，记录成功笔数
+		} else {
+			// 非手动执行情况下，记录成功笔数
 			saveSuccessCompanyByDb(dataVersion);
 		}
 
