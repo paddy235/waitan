@@ -76,7 +76,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		maxCompanyId = this.companyMapper.maxCompanyId();
 
 		// 重置 重试列表
-		redisDao.delete(REDIS_KEY_CREDIT_REHANDLE_COMPANY);
+		//公信测试孙黎明 redisDao.delete(REDIS_KEY_CREDIT_REHANDLE_COMPANY);
 
 		List<CompanyDO> companyList = this.getCompanyList();
 		// 新增或重置 本次任务计划、成功、失败笔数
@@ -140,7 +140,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	}
 
 	private List<CompanyDO> getCompanyList() {
-		int startId = this.getStartCoId();
+		int startId = 0;//公信测试孙黎明 this.getStartCoId();
 		int dailyLimit = CreditConfig.dailyLimit();
 		String coType = CreditConfig.dataType();
 
@@ -150,7 +150,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 
 		if (CollectionUtils.isEmpty(tmpLisst1)) {
 			startId = 0;
-			this.resetBeginNum(startId);
+            //公信测试孙黎明 this.resetBeginNum(startId);
 			tmpLisst1 = this.companyMapper.getCompanyList(startId, coType, dailyLimit);
 		}
 		coList.addAll(tmpLisst1);
@@ -267,6 +267,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	 * 
 	 * @param dataVersion
 	 */
+	@SuppressWarnings("unused")
 	private void saveSuccessCompanyByRedis(String dataVersion) {
 		synchronized (LOCK) {
 			String str = (String) redisDao.getHashField(REDIS_KEY_CREDIT_SUCCESS_COMPANY + ":" + dataVersion, "success");
@@ -346,7 +347,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	 *            加分项
 	 */
 	private void calculateCompanyPoint(CompanyDO companyDO, Map<String, Integer> pointMap, String dataVersion, int isHandle) {
-		resetBeginNum(companyDO.getCompanyId());
+        //公信测试孙黎明 resetBeginNum(companyDO.getCompanyId());
 		List<String> list = getCreditFromShangHai(companyDO, pointMap, dataVersion, isHandle);
 
 		if (CollectionUtils.isEmpty(list)) {
@@ -390,7 +391,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			CompanyDO newCodo = new CompanyDO();
 			newCodo.setCompanyId(coDo.getCompanyId());
 			newCodo.setName(coDo.getName());
-			redisDao.in(REDIS_KEY_CREDIT_REHANDLE_COMPANY, JSON.toJSONString(newCodo));
+            //公信测试孙黎明 redisDao.in(REDIS_KEY_CREDIT_REHANDLE_COMPANY, JSON.toJSONString(newCodo));
 
 			// isHandle 为0表示由定时任务执行 1表示手动补偿失败的企业
 			if (0 == isHandle) {
