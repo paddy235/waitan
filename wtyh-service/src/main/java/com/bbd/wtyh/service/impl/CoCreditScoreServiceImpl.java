@@ -7,10 +7,7 @@ import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.credit.CompanyCreditFailInfoDO;
-import com.bbd.wtyh.mapper.CompanyCreditFailInfoMapper;
-import com.bbd.wtyh.mapper.CompanyCreditInformationMapper;
-import com.bbd.wtyh.mapper.CompanyCreditRawInfoMapper;
-import com.bbd.wtyh.mapper.CompanyMapper;
+import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.CoCreditScoreService;
 import org.apache.commons.collections.CollectionUtils;
@@ -50,14 +47,20 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	private CompanyCreditFailInfoMapper companyCreditFailInfoMapper;
 	@Autowired
 	private CompanyCreditInformationMapper companyCreditInformationMapper;
+	@Autowired
+	private TaskSuccessFailInfoMapper taskSuccessFailInfoMapper;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CoCreditScoreService.class);
 	// 已执行的公司ID
 	public static final String REDIS_KEY_CREDIT_COMPANY = "wtyh:credit:company";
 	public static final String REDIS_KEY_CREDIT_REHANDLE_COMPANY = "wtyh:credit:rehandle:company";
+	//执行成功的企业笔数
+	public static final String REDIS_KEY_CREDIT_SUCCESS_COMPANY = "wtyh:credit:success:company";
 
 	private volatile boolean isShutdown = false;
 	private volatile int maxCompanyId = 0;
+	private static String TASK_NAME ="shangHaiCreditJob";
+	private static String TASK_GROUP ="credit_work";
 
 	@Override
 	public void colseScoreCalculate() {
@@ -68,7 +71,6 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	public void creditScoreCalculate() {
 		String dataVersion = DateFormatUtils.format(new Date(), "yyyyMMdd");
 		int isHandle = 0;
-
 		CreditConfig.read();
 		isShutdown = false;
 		maxCompanyId = this.companyMapper.maxCompanyId();
@@ -77,6 +79,27 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		redisDao.delete(REDIS_KEY_CREDIT_REHANDLE_COMPANY);
 
 		List<CompanyDO> companyList = this.getCompanyList();
+		//新增或重置 本次任务计划、成功、失败笔数
+		TaskSuccessFailInfoDO taskSuccessFailInfoDO=taskSuccessFailInfoMapper.getTaskSuccessFailInfo("","",dataVersion);
+		if(taskSuccessFailInfoDO==null || taskSuccessFailInfoDO.getId()==null){
+			taskSuccessFailInfoDO=new TaskSuccessFailInfoDO();
+			taskSuccessFailInfoDO.setTaskName(TASK_NAME);
+			taskSuccessFailInfoDO.setTaskGroup(TASK_GROUP);
+			taskSuccessFailInfoDO.setDataVersion(dataVersion);
+			taskSuccessFailInfoDO.setPlanCount(companyList.size());
+			taskSuccessFailInfoDO.setSuccessCount(0);
+			taskSuccessFailInfoDO.setFailCount(0);
+			taskSuccessFailInfoDO.setCreateBy("system");
+			taskSuccessFailInfoDO.setCreateDate(new Date());
+			taskSuccessFailInfoMapper.addTaskSuccessFailInfo(taskSuccessFailInfoDO);
+		}else{
+			taskSuccessFailInfoDO.setPlanCount(companyList.size());
+			taskSuccessFailInfoDO.setSuccessCount(0);
+			taskSuccessFailInfoDO.setFailCount(0);
+			taskSuccessFailInfoDO.setUpdateBy("system");
+			taskSuccessFailInfoDO.setUpdateDate(new Date());
+			taskSuccessFailInfoMapper.updateTaskSuccessFailInfo(taskSuccessFailInfoDO);
+		}
 
 		// 本地模型加分项目
 		final Map<String, Integer> pointMap = this.getCompanyCreditPointItems();
@@ -240,6 +263,43 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	}
 
 	/**
+	 * redis 记录执行成功的企业笔数
+	 * @param dataVersion
+	 */
+	private void saveSuccessCompanyByRedis(String dataVersion) {
+		synchronized (LOCK) {
+			String str =(String)redisDao.getHashField(REDIS_KEY_CREDIT_SUCCESS_COMPANY+":"+dataVersion,"success");
+			if (StringUtils.isNotBlank(str)) {
+				Integer counts = Integer.parseInt(str);
+				// 当缓存ID和最大ID一致时，更新新的ID进去
+				counts=counts+1;
+				redisDao.addHash(REDIS_KEY_CREDIT_SUCCESS_COMPANY+":"+dataVersion, "success" ,counts+"", Constants.REDIS_3);
+			} else {
+				redisDao.addHash(REDIS_KEY_CREDIT_SUCCESS_COMPANY+":"+dataVersion, "success" ,"1", Constants.REDIS_3);
+			}
+		}
+
+	}
+
+	/**
+	 * db 记录执行成功的企业笔数
+	 * @param dataVersion
+	 */
+	private synchronized void  saveSuccessCompanyByDb(String dataVersion) {
+			this.executeCUD("UPDATE task_success_fail_info SET success_count=success_count+1 WHERE TASK_NAME=? AND task_group=? AND data_version=?",TASK_NAME,TASK_GROUP,dataVersion);
+
+	}
+
+	/**
+	 * db 记录执行失败的企业笔数
+	 * @param dataVersion
+	 */
+	private synchronized void  saveFailCompanyByDb(String dataVersion) {
+		this.executeCUD("UPDATE task_success_fail_info SET fail_count=fail_count+1 WHERE TASK_NAME=? AND task_group=? AND data_version=?",TASK_NAME,TASK_GROUP,dataVersion);
+
+	}
+
+	/**
 	 * 对调用上海市信息中心报错的企业，重新处理
 	 *
 	 *
@@ -327,10 +387,12 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 
 			// isHandle 为0表示由定时任务执行 1表示手动补偿失败的企业
 			if (0 == isHandle) {
-				// 未知错误9999
+				// 未知错误9999,公信接口无返回 ,记录失败的企业
 				this.executeCUD(
 						"INSERT INTO company_credit_fail_info (company_id,company_name,result_code,data_version,create_by,create_date)values(?,?,?,?,?,?)",
 						coDo.getCompanyId(), coDo.getName(), "9999", dataVersion, "system", new Date());
+				//记录失败笔数
+				this.saveFailCompanyByDb(dataVersion);
 			}
 
 			LOGGER.error("查询公司信用信息失败，已经录等待重试。公司信息【id：{}，name：{}】。返回：{}", coDo.getCompanyId(), coDo.getName(), xmlData);
@@ -342,10 +404,12 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			document = DocumentHelper.parseText(xmlData);
 		} catch (DocumentException e) {
 			if (0 == isHandle) {
-				// 未知错误9998
+				// 未知错误9998，公信接口返回数据格式错误 ,记录失败的企业
 				this.executeCUD(
 						"INSERT INTO company_credit_fail_info (company_id,company_name,result_code,data_version,create_by,create_date)values(?,?,?,?,?,?)",
 						coDo.getCompanyId(), coDo.getName(), "9998", dataVersion, "system", new Date());
+				//记录失败笔数
+				this.saveFailCompanyByDb(dataVersion);
 			}
 			LOGGER.error("查询公司信用信息报错。公司信息【id：{}，name：{}】。错误信息：{}。返回：{}", coDo.getCompanyId(), coDo.getName(), e.getMessage(), xmlData);
 			return null;
@@ -364,10 +428,15 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			LOGGER.error("查询公司信用信息失败。公司信息【id：{}，name：{}】。返回：{}", coDo.getCompanyId(), coDo.getName(), xmlData);
 			return null;
 		}
-		// 手动执行的失败企业，若成功则删除
+
+
+		// 手动执行定时任务执行过程中产生的失败的企业，若这家企业执行成功，则从失败企业表中删除。
 		if (1 == isHandle) {
 			this.executeCUD("DELETE FROM company_credit_fail_info WHERE company_id = ? AND data_version=?", coDo.getCompanyId(),
 					dataVersion);
+		}else{
+			//非手动执行情况下，记录成功笔数
+			saveSuccessCompanyByDb(dataVersion);
 		}
 		this.executeCUD("DELETE FROM company_credit_raw_info WHERE company_id = ?", coDo.getCompanyId());
 
