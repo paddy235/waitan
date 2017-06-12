@@ -35,12 +35,12 @@
         <if test="param.pageNumber != null">
             limit #{param.pageNumber}, #{param.pageSize}
         </if>
-
+        group by company_id
     </select>
 
     <select id="getCompanyCreditFailInfoCounts" parameterType="java.util.HashMap" resultType="java.lang.Integer">
         SELECT
-        count(1) AS counts
+        count(DISTINCT company_id) AS counts
         FROM
         company_credit_fail_info
         WHERE
@@ -58,7 +58,6 @@
         <if test="param.dataVersion != null">
             AND data_version= #{param.dataVersion}
         </if>
-
     </select>
 
 </mapper>
