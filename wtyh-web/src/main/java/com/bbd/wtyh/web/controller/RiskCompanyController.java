@@ -40,9 +40,11 @@ public class RiskCompanyController {
 	private CompanyService companyService;
 	@Autowired
 	private AreaService areaService;
-
+	//第一位=1：上市 第一位=0：非上市 第二位=1：国企 第二位=0：民营
 	private static final String BG_GQ_MARK = "0"; // 0：国企背景
 	private static final String BG_SS_MARK = "1"; // 1：上市公司背景
+	private static final String BG_MY_MARK = "2"; // 2：民营企业
+	private static final String BG_FSS_MARK = "3"; // 3：非上市公司
 	private static final int MAX_COUNT = 201; // 最大查询返回数据量
 	private static final int MAX_PAGE_NO = 21; // 最大分页页数
 	private static final int MAX_COUNT_SEARCH = 161; // 最大查询返回数据量
@@ -124,9 +126,17 @@ public class RiskCompanyController {
 		map.put("minRegCapital", StringUtils.isNotNullOrEmpty(minRegCapital) ? new BigDecimal(minRegCapital) : null);
 		map.put("maxRegCapital", StringUtils.isNotNullOrEmpty(maxRegCapital) ? new BigDecimal(maxRegCapital) : null);
 		if (BG_GQ_MARK.equals(companyQualification))
-			map.put("companyQualification", "0|1");
+			//map.put("companyQualification", "0|1");
+			map.put("companyQualification", "_|1");
 		else if (BG_SS_MARK.equals(companyQualification))
-			map.put("companyQualification", "1|0");
+			//map.put("companyQualification", "1|0");
+			  map.put("companyQualification", "1|_");
+		else if (BG_MY_MARK.equals(companyQualification))
+			//map.put("companyQualification", "1|0");
+			map.put("companyQualification", "_|0");
+		else if (BG_FSS_MARK.equals(companyQualification))
+			//map.put("companyQualification", "1|0");
+			map.put("companyQualification", "0|_");
 		map.put("minReviewTime", StringUtils.isNotNullOrEmpty(minReviewTime) ? new BigDecimal(minReviewTime) : null);
 		map.put("maxReviewTime", StringUtils.isNotNullOrEmpty(maxReviewTime) ? new BigDecimal(maxReviewTime) : null);
 		map.put("riskLevel", riskLevel);
