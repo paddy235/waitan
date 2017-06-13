@@ -524,7 +524,10 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			for (CompanyCreditRawInfoDO cd : lCcrids) {
 				ccriMapper.saveCompanyCreditRawInfo(cd);
 			}
+		}else {
+			ccriMapper.saveCompanyCreditRawInfo(ccridTemplet);
 		}
+
 		return pointNameList;
 	}
 

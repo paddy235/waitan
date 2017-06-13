@@ -31,11 +31,12 @@
         <if test="param.dataVersion != null">
             AND data_version= #{param.dataVersion}
         </if>
-        ORDER BY data_version,company_id
+        group by company_id
+        ORDER BY company_id
         <if test="param.pageNumber != null">
             limit #{param.pageNumber}, #{param.pageSize}
         </if>
-        group by company_id
+
     </select>
 
     <select id="getCompanyCreditFailInfoCounts" parameterType="java.util.HashMap" resultType="java.lang.Integer">
