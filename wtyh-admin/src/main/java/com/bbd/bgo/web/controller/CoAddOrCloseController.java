@@ -77,12 +77,8 @@ public class CoAddOrCloseController {
 			Integer source, Integer closedType, Integer page, Integer pageSize, HttpServletRequest request) {
 
 		try {
-			if (null == page) {
-				page = 1;
-			}
-			if (null == pageSize) {
-				pageSize = 20;
-			}
+			page=-1;
+			pageSize=-1;
 
 			// page=-1;//按条件下载全部数据
 			Map<String, Object> map = coAddOrCloseService.queryCompanyStatusChg(areaIds, companyTypes, beginDate, endDate, changeType,
