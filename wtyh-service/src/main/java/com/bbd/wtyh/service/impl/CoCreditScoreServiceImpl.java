@@ -75,8 +75,8 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		isShutdown = false;
 		maxCompanyId = this.companyMapper.maxCompanyId();
 
-		// 重置 重试列表
-		//公信测试孙黎明 redisDao.delete(REDIS_KEY_CREDIT_REHANDLE_COMPANY);
+		// 重置 重试列表-重试机制暂时不需要，有手动重试
+		// redisDao.delete(REDIS_KEY_CREDIT_REHANDLE_COMPANY);
 
 		List<CompanyDO> companyList = this.getCompanyList();
 		// 新增或重置 本次任务计划、成功、失败笔数
@@ -140,7 +140,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	}
 
 	private List<CompanyDO> getCompanyList() {
-		int startId = 0;//公信测试孙黎明 this.getStartCoId();
+		int startId =this.getStartCoId();
 		int dailyLimit = CreditConfig.dailyLimit();
 		String coType = CreditConfig.dataType();
 
@@ -150,7 +150,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 
 		if (CollectionUtils.isEmpty(tmpLisst1)) {
 			startId = 0;
-            //公信测试孙黎明 this.resetBeginNum(startId);
+            this.resetBeginNum(startId);
 			tmpLisst1 = this.companyMapper.getCompanyList(startId, coType, dailyLimit);
 		}
 		coList.addAll(tmpLisst1);
@@ -349,7 +349,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	 *            加分项
 	 */
 	private void calculateCompanyPoint(CompanyDO companyDO, Map<String, Integer> pointMap, String dataVersion, int isHandle) {
-        //公信测试孙黎明 resetBeginNum(companyDO.getCompanyId());
+        resetBeginNum(companyDO.getCompanyId());
 		List<String> list = getCreditFromShangHai(companyDO, pointMap, dataVersion, isHandle);
 
 		if (CollectionUtils.isEmpty(list)) {
@@ -393,7 +393,8 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			CompanyDO newCodo = new CompanyDO();
 			newCodo.setCompanyId(coDo.getCompanyId());
 			newCodo.setName(coDo.getName());
-            //公信测试孙黎明 redisDao.in(REDIS_KEY_CREDIT_REHANDLE_COMPANY, JSON.toJSONString(newCodo));
+            //自动重试暂时屏蔽，改为手动重试
+            //redisDao.in(REDIS_KEY_CREDIT_REHANDLE_COMPANY, JSON.toJSONString(newCodo));
 
 			// isHandle 为0表示由定时任务执行 1表示手动补偿失败的企业
 			if (0 == isHandle) {
