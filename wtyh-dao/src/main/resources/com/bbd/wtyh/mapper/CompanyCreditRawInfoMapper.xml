@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.CompanyCreditRawInfoMapper">
+
+
+    <insert id="saveCompanyCreditRawInfo" parameterType="com.bbd.wtyh.domain.CompanyCreditRawInfoDO" useGeneratedKeys="true"
+            keyProperty="id"
+            keyColumn="id">
+        INSERT INTO company_credit_raw_info(
+			`company_id`,`company_name`, `organization_code`, `credit_code`, `cxbh`, `resources`, `resource_name`, `resource_code`,
+			`xxssdw_code`, `xxssdw`, `xxlb`, `content`, `create_by`, `create_date` )
+			VALUES(
+			#{companyId,},#{companyName, jdbcType=VARCHAR,typeHandler=com.bbd.data.mapper.NullValueHandler}, #{organizationCode, jdbcType=VARCHAR,typeHandler=com.bbd.data.mapper.NullValueHandler},
+			#{creditCode, jdbcType=VARCHAR,typeHandler=com.bbd.data.mapper.NullValueHandler}, #{cxbh, jdbcType=VARCHAR,typeHandler=com.bbd.data.mapper.NullValueHandler}, #{resources, jdbcType=VARCHAR,typeHandler=com.bbd.data.mapper.NullValueHandler},
+			#{resourceName, jdbcType=VARCHAR,typeHandler=com.bbd.data.mapper.NullValueHandler}, #{resourceCode, jdbcType=VARCHAR,typeHandler=com.bbd.data.mapper.NullValueHandler},
+			#{xxssdwCode, jdbcType=VARCHAR,typeHandler=com.bbd.data.mapper.NullValueHandler}, #{xxssdw, jdbcType=VARCHAR,typeHandler=com.bbd.data.mapper.NullValueHandler}, #{xxlb, jdbcType=VARCHAR,typeHandler=com.bbd.data.mapper.NullValueHandler},
+			#{content, jdbcType=VARCHAR,typeHandler=com.bbd.data.mapper.NullValueHandler}, 'system', NOW() )
+    </insert>
+
+</mapper>

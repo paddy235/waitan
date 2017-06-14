@@ -90,6 +90,7 @@
                 <ref bean="myBatisResultIntercept"/>
             </list>
         </property>
+        <property name="typeHandlersPackage" value="com.bbd.data.mapper.NullValueHandler"/>
     </bean>
 
     <!-- scan for mappers and let them be autowired -->
