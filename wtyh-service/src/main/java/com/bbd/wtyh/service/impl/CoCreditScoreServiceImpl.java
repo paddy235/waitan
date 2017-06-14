@@ -455,18 +455,12 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		CompanyCreditRawInfoDO ccridTemplet = new CompanyCreditRawInfoDO();
 		String rst = root.attributeValue("name");
 
-		if (StringUtils.isNotBlank(rst)) {
-			ccridTemplet.setCompanyId(coDo.getCompanyId());
-			ccridTemplet.setCompanyName(rst.trim());
-		}
-		rst = root.attributeValue("zjhm");
-		if (StringUtils.isNotBlank(rst.trim())) {
-			ccridTemplet.setOrganizationCode(rst);
-		}
-		rst = root.attributeValue("tydm");
-		if (StringUtils.isNotBlank(rst)) {
-			ccridTemplet.setCreditCode(rst.trim());
-		}
+		//这4个字段，存我们自己的内容(company表)
+        ccridTemplet.setCompanyId(coDo.getCompanyId());
+        ccridTemplet.setCompanyName(coDo.getName());
+        ccridTemplet.setOrganizationCode(coDo.getOrganizationCode());
+		ccridTemplet.setCreditCode(coDo.getCreditCode());
+
 		rst = root.attributeValue("cxbh");
 		if (StringUtils.isNotBlank(rst)) {
 			ccridTemplet.setCxbh(rst.trim());
