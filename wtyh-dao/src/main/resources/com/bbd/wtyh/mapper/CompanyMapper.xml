@@ -3,6 +3,8 @@
 <mapper namespace="com.bbd.wtyh.mapper.CompanyMapper">
     <resultMap id="BaseResultMap" type="com.bbd.wtyh.domain.CompanyDO">
         <id column="company_id" jdbcType="INTEGER" property="companyId"/>
+        <result column="credit_code" jdbcType="VARCHAR" property="creditCode"/>
+        <result column="organization_code" jdbcType="VARCHAR" property="organizationCode"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="legal_person" jdbcType="VARCHAR" property="legalPerson"/>
         <result column="area_id" jdbcType="INTEGER" property="areaId"/>
@@ -23,7 +25,7 @@
         <result column="risk_level" jdbcType="TINYINT" property="riskLevel"/>
     </resultMap>
     <sql id="Base_Column_List">
-    company_id, name, legal_person, area_id, address, registered_capital, registered_capital_type,business_type, registered_date,
+    company_id,credit_code,organization_code, name, legal_person, area_id, address, registered_capital, registered_capital_type,business_type, registered_date,
     company_type, risk_level, status, create_by, create_date, update_by, update_date
   </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">

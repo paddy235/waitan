@@ -36,11 +36,18 @@ public class CompanyCreditFailInfoDO extends BaseDO {
 	@Column(name = "company_name")
 	private String companyName;
 
+	@Column(name = "organization_code")
+	private String organizationCode;
+
+	@Column(name = "credit_code")
+	private String creditCode;
+
 	@Column(name = "result_code")
 	private String resultCode;
 
 	@Column(name = "data_version")
 	private String dataVersion;
+
 
 	@Override
 	public Integer getId() {
@@ -66,6 +73,22 @@ public class CompanyCreditFailInfoDO extends BaseDO {
 
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
+	}
+
+	public String getOrganizationCode() {
+		return organizationCode;
+	}
+
+	public void setOrganizationCode(String organizationCode) {
+		this.organizationCode = organizationCode;
+	}
+
+	public String getCreditCode() {
+		return creditCode;
+	}
+
+	public void setCreditCode(String creditCode) {
+		this.creditCode = creditCode;
 	}
 
 	public String getResultCode() {
