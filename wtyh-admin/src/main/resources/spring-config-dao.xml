@@ -90,9 +90,10 @@
                 <ref bean="myBatisResultIntercept"/>
             </list>
         </property>
-    </bean>
+    <!--<property name="typeHandlersPackage" value="com.bbd.data.mapper.NullValueHandler"/>-->
+</bean>
 
-    <!-- scan for mappers and let them be autowired -->
+<!-- scan for mappers and let them be autowired -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.bbd.**.mapper,com.bbd.wtyh.core.dao"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>

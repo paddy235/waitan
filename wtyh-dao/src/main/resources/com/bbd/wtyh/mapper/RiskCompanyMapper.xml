@@ -15,7 +15,7 @@
 				AND i.reg_capital<![CDATA[<=]]>#{maxRegCapital}
 			</if>
 			<if test="companyQualification != null and companyQualification != ''">
-				AND i.company_qualification=#{companyQualification}
+				AND i.company_qualification LIKE #{companyQualification}
 			</if>
 			<if test="minReviewTime != null and minReviewTime != ''">
 				AND i.review_time<![CDATA[>=]]>#{minReviewTime}

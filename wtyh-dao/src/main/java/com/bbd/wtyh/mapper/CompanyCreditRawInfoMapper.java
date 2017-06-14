@@ -11,12 +11,8 @@ import org.apache.ibatis.annotations.Options;
 
 public interface CompanyCreditRawInfoMapper {
 
-	@Insert("INSERT INTO company_credit_raw_info(" +
-			"`company_id`,`company_name`, `organization_code`, `credit_code`, `cxbh`, `resources`, `resource_name`, `resource_code`," +
-			"`xxssdw_code`, `xxssdw`, `xxlb`, `content`, `create_by`, `create_date` ) VALUES(" +
-			"#{companyId},#{companyName}, #{organizationCode}, #{creditCode}, #{cxbh}, #{resources}, #{resourceName}, #{resourceCode}," +
-			"#{xxssdwCode}, #{xxssdw}, #{xxlb}, #{content}, 'system', NOW() )")
-	@Options(useGeneratedKeys =true, keyProperty = "id")
+
+
 	int saveCompanyCreditRawInfo(CompanyCreditRawInfoDO companyCreditRawInfoDo);
 
 	@Delete( "DELETE FROM `company_credit_raw_info` WHERE `company_name` =#{companyName}" )
