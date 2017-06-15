@@ -294,8 +294,19 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 		if (companyAnalysisResultDO != null) {
 			// 预付卡不考虑黑名单
 			if (companyType != CompanyDO.TYPE_YFK_11) {
-				riskLevel = (int) companyAnalysisResultDO.getAnalysisResult();
-				logger.warn("companyId:{} riskLevel from company_analysis_result:{}", companyId, riskLevel);
+				Byte aByte=companyAnalysisResultDO.getAnalysisResult();
+				int analysis=0;
+				if(aByte!=null){
+					analysis=(int)aByte;
+				}
+				for(int i=1;i<=4;i++){
+					if(i==analysis){
+						riskLevel = analysis;
+						logger.warn("companyId:{} riskLevel from company_analysis_result:{}", companyId, riskLevel);
+						break;
+					}
+
+				}
 			}
 		}
 		/*
