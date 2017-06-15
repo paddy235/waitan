@@ -32,6 +32,8 @@ public class WangDaiTest extends BaseServiceImpl {
     private String url_plat_info="http://121.40.187.134:5002/financial_services?dataType=plat_rank_data";
 
     private String url_plat_exist="http://121.40.187.134:5002/financial_services?dataType=yuqing&plat_name=";
+
+    private String url_plat_core="http://121.40.187.134:5002/financial_services?dataType=plat_data&plat_name=";
     @Test
     public void test(){
         ResultsDO resultsDO=this.getPlatList();
@@ -65,6 +67,26 @@ public class WangDaiTest extends BaseServiceImpl {
 
     }
 
+    @Test
+    public void platCoreTest(){
+        ResultsDO resultsDO=this.getPlatList();
+        for(ResultsDO.WangDaiDO wangDaiDO:resultsDO.results){
+            String platName=wangDaiDO.getPlat_name();
+            try {
+                String result = new HttpTemplate().get(url_plat_core+platName);
+
+                if("平台不存在".equals(result)){
+                    this.executeCUD("INSERT INTO test_wangdai_core(plat_name,is_exist) values('"+wangDaiDO.getPlat_name()+"','"+"NO"+"')");
+                }else{
+                    this.executeCUD("INSERT INTO test_wangdai_core(plat_name,company_name,is_exist) values('"+wangDaiDO.getPlat_name()+"','"+wangDaiDO.getCompany_name()+"','"+"YES"+"')");
+                }
+            } catch (Exception e) {
+                logger.error("err :"+platName + e.getMessage());
+            }
+        }
+
+    }
+
     public ResultsDO getPlatList() {
         try {
             String result = new HttpTemplate().get(url);
@@ -90,6 +112,7 @@ public class WangDaiTest extends BaseServiceImpl {
             return null;
         }
     }
+
 
 
 
