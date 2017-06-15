@@ -87,6 +87,14 @@ public class WangDaiTest extends BaseServiceImpl {
 
     }
 
+    @Test
+    public void platCoreTest2(){
+        Byte ii=null;
+        Integer i=(int)ii;
+        System.out.println(i);
+
+    }
+
     public ResultsDO getPlatList() {
         try {
             String result = new HttpTemplate().get(url);
