@@ -75,8 +75,8 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		isShutdown = false;
 		maxCompanyId = this.companyMapper.maxCompanyId();
 
-		// 重置 重试列表
-		//公信测试孙黎明 redisDao.delete(REDIS_KEY_CREDIT_REHANDLE_COMPANY);
+		// 重置 重试列表-重试机制暂时不需要，有手动重试
+		// redisDao.delete(REDIS_KEY_CREDIT_REHANDLE_COMPANY);
 
 		List<CompanyDO> companyList = this.getCompanyList();
 		// 新增或重置 本次任务计划、成功、失败笔数
@@ -140,7 +140,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	}
 
 	private List<CompanyDO> getCompanyList() {
-		int startId = 0;//公信测试孙黎明 this.getStartCoId();
+		int startId =this.getStartCoId();
 		int dailyLimit = CreditConfig.dailyLimit();
 		String coType = CreditConfig.dataType();
 
@@ -150,7 +150,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 
 		if (CollectionUtils.isEmpty(tmpLisst1)) {
 			startId = 0;
-            //公信测试孙黎明 this.resetBeginNum(startId);
+            this.resetBeginNum(startId);
 			tmpLisst1 = this.companyMapper.getCompanyList(startId, coType, dailyLimit);
 		}
 		coList.addAll(tmpLisst1);
@@ -192,6 +192,8 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			CompanyDO companyDO = new CompanyDO();
 			companyDO.setCompanyId(companyCreditFailInfoDO.getCompanyId());
 			companyDO.setName(companyCreditFailInfoDO.getCompanyName());
+            companyDO.setOrganizationCode(companyCreditFailInfoDO.getOrganizationCode());
+            companyDO.setCreditCode(companyCreditFailInfoDO.getCreditCode());
 			calculateCompanyPoint(companyDO, pointMap, dataVersion, isHandle);
 		}
 	}
@@ -347,7 +349,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	 *            加分项
 	 */
 	private void calculateCompanyPoint(CompanyDO companyDO, Map<String, Integer> pointMap, String dataVersion, int isHandle) {
-        //公信测试孙黎明 resetBeginNum(companyDO.getCompanyId());
+        resetBeginNum(companyDO.getCompanyId());
 		List<String> list = getCreditFromShangHai(companyDO, pointMap, dataVersion, isHandle);
 
 		if (CollectionUtils.isEmpty(list)) {
@@ -391,14 +393,15 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			CompanyDO newCodo = new CompanyDO();
 			newCodo.setCompanyId(coDo.getCompanyId());
 			newCodo.setName(coDo.getName());
-            //公信测试孙黎明 redisDao.in(REDIS_KEY_CREDIT_REHANDLE_COMPANY, JSON.toJSONString(newCodo));
+            //自动重试暂时屏蔽，改为手动重试
+            //redisDao.in(REDIS_KEY_CREDIT_REHANDLE_COMPANY, JSON.toJSONString(newCodo));
 
 			// isHandle 为0表示由定时任务执行 1表示手动补偿失败的企业
 			if (0 == isHandle) {
 				// 未知错误9999,公信接口无返回 ,记录失败的企业
 				this.executeCUD(
-						"INSERT INTO company_credit_fail_info (company_id,company_name,result_code,data_version,create_by,create_date)values(?,?,?,?,?,?)",
-						coDo.getCompanyId(), coDo.getName(), "9999", dataVersion, "system", new Date());
+						"INSERT INTO company_credit_fail_info (company_id,company_name,organization_code,credit_code,result_code,data_version,create_by,create_date)values(?,?,?,?,?,?,?,?)",
+						coDo.getCompanyId(), coDo.getName(),coDo.getOrganizationCode(),coDo.getCreditCode(), "9999", dataVersion, "system", new Date());
 				// 记录失败笔数
 				this.saveFailCompanyByDb(dataVersion);
 			}
@@ -414,8 +417,8 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			if (0 == isHandle) {
 				// 未知错误9998，公信接口返回数据格式错误 ,记录失败的企业
 				this.executeCUD(
-						"INSERT INTO company_credit_fail_info (company_id,company_name,result_code,data_version,create_by,create_date)values(?,?,?,?,?,?)",
-						coDo.getCompanyId(), coDo.getName(), "9998", dataVersion, "system", new Date());
+						"INSERT INTO company_credit_fail_info (company_id,company_name,organization_code,credit_code,result_code,data_version,create_by,create_date)values(?,?,?,?,?,?,?,?)",
+						coDo.getCompanyId(), coDo.getName(),coDo.getOrganizationCode(),coDo.getCreditCode(), "9998", dataVersion, "system", new Date());
 				// 记录失败笔数
 				this.saveFailCompanyByDb(dataVersion);
 			}
@@ -429,8 +432,8 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		if (!"1005".equals(resultCode)) {
 			if (0 == isHandle) {
 				this.executeCUD(
-						"INSERT INTO company_credit_fail_info (company_id,company_name,result_code,data_version,create_by,create_date)values(?,?,?,?,?,?)",
-						coDo.getCompanyId(), coDo.getName(), resultCode, dataVersion, "system", new Date());
+						"INSERT INTO company_credit_fail_info (company_id,company_name,organization_code,credit_code,result_code,data_version,create_by,create_date)values(?,?,?,?,?,?,?,?)",
+						coDo.getCompanyId(), coDo.getName(),coDo.getOrganizationCode(),coDo.getCreditCode(), resultCode, dataVersion, "system", new Date());
 			}
 			// 正常情况下都会有返回，对非1005的返回，不需要做重新处理，因为再次请求也是一样的结果
 			LOGGER.error("查询公司信用信息失败。公司信息【id：{}，name：{}】。返回：{}", coDo.getCompanyId(), coDo.getName(), xmlData);

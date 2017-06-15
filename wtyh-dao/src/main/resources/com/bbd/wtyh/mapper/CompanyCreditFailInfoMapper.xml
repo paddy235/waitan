@@ -8,6 +8,8 @@
         `id` ,
         `company_id` AS companyId,
         `company_name` AS companyName,
+        `organization_code` AS organizationCode,
+        `credit_code` AS creditCode,
         `result_code` AS resultCode,
         `data_version`AS dataVersion,
         `create_by` AS createBy,
