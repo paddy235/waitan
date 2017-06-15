@@ -19,6 +19,7 @@
 			      b.park_id=p.park_id and p.area_id=#{areaId}
 			      and c.company_type is not null
 			GROUP BY b.building_id ,b.name,b.park_id,b.img_url
+			ORDER BY importFocusNum DESC,commonFocusNum DESC
 	</select>
 
 
