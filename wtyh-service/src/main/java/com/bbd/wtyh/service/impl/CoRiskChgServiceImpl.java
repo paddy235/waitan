@@ -134,7 +134,9 @@ public class CoRiskChgServiceImpl extends BaseServiceImpl implements CoRiskChgSe
 		}
 
 		Integer level = Integer.parseInt(riskLevel);
-
+		if (level.equals(0)) {
+			return;
+		}
 		byte type = companyType.byteValue();
 
 		switch (type) {

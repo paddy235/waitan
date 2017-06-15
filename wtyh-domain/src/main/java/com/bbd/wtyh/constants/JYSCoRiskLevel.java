@@ -18,6 +18,10 @@ public enum JYSCoRiskLevel {
 	public static List<Map<String, Object>> getListMap() {
 		List<Map<String, Object>> riskList = new ArrayList<>();
 		Map<String, Object> map = new HashMap<>();
+		map.put("type", 0);
+		map.put("desc", "全部状态");
+		riskList.add(map);
+		map = new HashMap<>();
 		map.put("type", 1);
 		map.put("desc", "已出风险");
 		riskList.add(map);
