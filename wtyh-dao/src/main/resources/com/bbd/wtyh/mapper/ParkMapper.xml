@@ -78,7 +78,7 @@
                 <if test="background != null">
                     AND  bb.background=#{background}
                 </if>
-        ORDER BY bb.isNew DESC,bb.riskLevel ASC,bb.registeredCapital DESC
+        ORDER BY bb.riskLevel ASC, bb.isNew DESC,bb.registeredCapital DESC
         <if test="beginNumber !=null">
             LIMIT
             #{beginNumber},#{pageSize}
