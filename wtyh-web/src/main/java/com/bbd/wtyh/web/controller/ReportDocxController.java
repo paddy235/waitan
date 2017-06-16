@@ -2,7 +2,7 @@ package com.bbd.wtyh.web.controller;
 
 import java.io.InputStream;
 
-import com.bbd.wtyh.util.DocxUtils;
+import com.bbd.wtyh.report.util.DocxUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

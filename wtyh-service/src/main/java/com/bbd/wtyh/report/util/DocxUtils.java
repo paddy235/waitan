@@ -1,24 +1,17 @@
-package com.bbd.wtyh.util;
+package com.bbd.wtyh.report.util;
 
 import net.sf.cglib.beans.BeanCopier;
 import org.docx4j.TextUtils;
 import org.docx4j.jaxb.Context;
-import org.docx4j.model.structure.SectionWrapper;
-import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.DrawingML.Chart;
 import org.docx4j.openpackaging.parts.Part;
 import org.docx4j.openpackaging.parts.PartName;
-import org.docx4j.openpackaging.parts.Parts;
-import org.docx4j.openpackaging.parts.WordprocessingML.DocumentPart;
-import org.docx4j.openpackaging.parts.WordprocessingML.HeaderPart;
-import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.docx4j.openpackaging.parts.relationships.RelationshipsPart;
 import org.docx4j.relationships.Relationship;
 import org.docx4j.relationships.Relationships;
 import org.docx4j.vml.CTRect;
 import org.docx4j.vml.CTShape;
-import org.docx4j.vml.CTTextPath;
 import org.docx4j.vml.CTTextbox;
 import org.docx4j.wml.*;
 
@@ -29,8 +22,6 @@ import javax.xml.bind.util.JAXBSource;
 import javax.xml.namespace.QName;
 import java.io.*;
 import java.util.*;
-
-import y.io.ImageOutputHandler;
 
 /**
  * Created by cgj on 2017/5/9.
@@ -82,7 +73,7 @@ public class DocxUtils {
                 paragraphList.remove(17);//删除段落
                 paragraphList.remove(16);
                 //paragraphList.re
-                replaceTextInParagraph((P) paragraphList.get(17), "已被替换");
+                modifyTextInParagraph((P) paragraphList.get(17), "已被替换");
                 //replacePlaceholder(wm, companyName, "headCompanyName");
             }
             //writeDocxToStream(wm, targetPath +companyName +targetFileTail );
@@ -159,34 +150,15 @@ public class DocxUtils {
         }
     }
 
-
     /**
-     * 修改段落中的字符串，保留原样式，请注意：若原段落中有多个Run时，只替换首个，其余删除
-     * @param paragraph 待修改的 paragraph
-     * @param replaceStr 提供的替换值
-     */
-    public static void replaceTextInParagraph( org.docx4j.wml.P paragraph, String replaceStr  ) {
-        List removeColl =new LinkedList();
-        List<Object> objs = paragraph.getContent();
-        boolean firstMk =true;
-        for( Object obj : objs ) {
-            if( firstMk ) {
-                replaceTextInRun((R)obj, replaceStr);
-                firstMk =false;
-            } else {
-                //replaceTextInRun((R)obj, "");
-                removeColl.add(obj);
-            }
-        }
-        objs.removeAll(removeColl);
-    }
-
-    /**
-     * 修改Run中的字符串，保留原样式，请注意：若原run中有多个字符串时，只替换首个，其余删除
+     * 修改Run中的字符串，保留原样式，请注意：若原run中有多个字符串时，只修改首个中的文本，其余删除
      * @param run 待修改的run
      * @param replaceStr 提供的替换值
      */
-    public static void replaceTextInRun( org.docx4j.wml.R run, String replaceStr  ) {
+    public static void modifyTextInRun(R run, String replaceStr  ) {
+        if(!( run instanceof R )) {
+            return;
+        }
         List removeColl =new LinkedList();
         List<Object> objs = run.getContent();
         boolean firstMk =true;
@@ -209,21 +181,71 @@ public class DocxUtils {
     }
 
     /**
+     * 修改段落中的字符串，保留原样式，请注意：若原段落中有多个Run时，只修改首个中的文本，其余删除
+     * @param paragraph 待修改的 paragraph
+     * @param replaceStr 提供的替换值
+     */
+    public static void modifyTextInParagraph( P paragraph, String replaceStr ) {
+        if(!( paragraph instanceof P )) {
+            return;
+        }
+        List removeColl =new LinkedList();
+        List<Object> objs = paragraph.getContent();
+        boolean firstMk =true;
+        for( Object obj : objs ) {
+            if( obj instanceof R ) {
+                if (firstMk) {
+                    modifyTextInRun((R) obj, replaceStr);
+                    firstMk = false;
+                } else {
+                    removeColl.add(obj);
+                }
+            }
+        }
+        objs.removeAll(removeColl);
+    }
+
+    /**
+     * 修改修改表格单元格中的字符串，保留原样式，请注意：若原单元格中有多个段落时，只修改首个中的文本，其余删除
+     * @param tc 待修改的 Tc
+     * @param replaceStr 提供的替换值
+     */
+    public static void modifyTextInTc( Tc tc, String replaceStr  ) {
+        if(!( tc instanceof Tc )) {
+            return;
+        }
+        List removeColl =new LinkedList();
+        List<Object> list = tc.getContent();
+        boolean firstMk =true;
+        for( Object obj : list ) {
+            if( obj instanceof P ) {
+                if (firstMk) {
+                    modifyTextInParagraph((P) obj, replaceStr);
+                    firstMk = false;
+                } else {
+                    removeColl.add(obj);
+                }
+            }
+        }
+        list.removeAll(removeColl);
+    }
+
+    /**
      * 替换列表中的含有特定字符串的段落对象
      * @param objectList
      * @param signReplaceMap key：待替换的原字符串，value：用于替换原字符串的字符串
      * 快速构建参数 signReplaceMap：new HashMap<String, String>() {{put("$企业名称", "成都数联铭品");}}
      */
     public static void replacePlaceholder(List<?> objectList, Map<String, String> signReplaceMap ) {
+        if( objectList ==null || objectList.isEmpty() || signReplaceMap ==null || signReplaceMap.isEmpty() ) {
+            return;
+        }
         for (Object obj : objectList) {
-            if( signReplaceMap.isEmpty() ) {
-                break;
-            }
             if( obj instanceof P ) {
                 P paragraph = (P)obj;
                 for( Map.Entry<String, String> entry : signReplaceMap.entrySet() ) {
                     if( entry.getKey().equals( docx4jObjectToString(paragraph) ) ) {
-                        replaceTextInParagraph( paragraph, entry.getValue() );
+                        modifyTextInParagraph( paragraph, entry.getValue() );
                         signReplaceMap.remove( entry.getKey() );
                         break;
                     }
@@ -250,12 +272,20 @@ public class DocxUtils {
      */
     public static List<Object> getAllElementFromObject(Object parentObj, Class<?> toSearch) {
         List<Object> result = new ArrayList<Object>();
+        if(parentObj ==null) {
+            return result;
+        }
         if (parentObj instanceof JAXBElement)
             parentObj = ((JAXBElement<?>) parentObj).getValue();
-        if (parentObj.getClass().equals(toSearch))
+        if (parentObj.getClass().equals(toSearch)) {
             result.add(parentObj);
             //以下代码用于为深度遍历“搭桥”
-        else if (parentObj instanceof ContentAccessor) {
+        } else if (parentObj instanceof List ) {
+            List<?> children = (List<?>) parentObj;
+            for (Object child : children) {
+                result.addAll(getAllElementFromObject(child, toSearch));
+            }
+        } else if (parentObj instanceof ContentAccessor) {
             List<?> children = ((ContentAccessor) parentObj).getContent();
             for (Object child : children) {
                 result.addAll(getAllElementFromObject(child, toSearch));
@@ -265,23 +295,18 @@ public class DocxUtils {
             for (Object child : children) {
                 result.addAll(getAllElementFromObject(child, toSearch));
             }
-        } else if (parentObj instanceof CTShape) {
-            List<?> children = ((CTShape) parentObj).getPathOrFormulasOrHandles();
+        } else if (parentObj instanceof CTShape ) {
+            List<?> children = ((CTShape) parentObj).getEGShapeElements();
             for (Object child : children) {
                 result.addAll(getAllElementFromObject(child, toSearch));
             }
         } else if (parentObj instanceof CTRect) {
-            List<?> children = ((CTRect) parentObj).getPathOrFormulasOrHandles();
+            List<?> children = ((CTRect) parentObj).getEGShapeElements();
             for (Object child : children) {
                 result.addAll(getAllElementFromObject(child, toSearch));
             }
         } else if (parentObj instanceof CTTextbox) {
             List<?> children = ((CTTextbox) parentObj).getTxbxContent().getContent();
-            for (Object child : children) {
-                result.addAll(getAllElementFromObject(child, toSearch));
-            }
-        } else if (parentObj instanceof List ) {
-            List<?> children = (List<?>) parentObj;
             for (Object child : children) {
                 result.addAll(getAllElementFromObject(child, toSearch));
             }
