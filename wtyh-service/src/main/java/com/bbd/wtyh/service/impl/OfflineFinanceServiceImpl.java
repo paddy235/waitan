@@ -294,8 +294,19 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 		if (companyAnalysisResultDO != null) {
 			// 预付卡不考虑黑名单
 			if (companyType != CompanyDO.TYPE_YFK_11) {
-				riskLevel = (int) companyAnalysisResultDO.getAnalysisResult();
-				logger.warn("companyId:{} riskLevel from company_analysis_result:{}", companyId, riskLevel);
+				Byte aByte=companyAnalysisResultDO.getAnalysisResult();
+				int analysis=0;
+				if(aByte!=null){
+					analysis=(int)aByte;
+				}
+				for(int i=1;i<=4;i++){
+					if(i==analysis){
+						riskLevel = analysis;
+						logger.warn("companyId:{} riskLevel from company_analysis_result:{}", companyId, riskLevel);
+						break;
+					}
+
+				}
 			}
 		}
 		/*
@@ -448,6 +459,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 		RelationDiagramVO.PointVO pointVOOne = new RelationDiagramVO.PointVO();
 		// 默认一个中心点
 		pointVOOne.setName(companyName);
+        pointVOOne.setCname(companyName);
 		pointVOOne.setIsPerson("0");
 		pointVOOne.setLevel("0");
 		pointVOOne.setIsSonCom("0");
@@ -485,7 +497,9 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 			List<RelationDiagramVO.PointVO> pointVOs, RelationDTO.Result result, List<String> set) {
 		RelationDiagramVO.LineVO lineVO = new RelationDiagramVO.LineVO();
 		lineVO.setOrig(result.getInvestor());
+        lineVO.setOrigName(result.getInvestor());
 		lineVO.setTarget(result.getInvestee());
+        lineVO.setTargetName(result.getInvestee());
 		lineVO.setIsFullLine(result.getRelType() + "");
 		lineVO.setRelationship(result.getIsNatural() + "");
 		lineVO.setOrigLevel(result.getInvestor_degree());
@@ -497,6 +511,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 			if (!set.contains(result.getInvestor())) {
 				RelationDiagramVO.PointVO pointVO = new RelationDiagramVO.PointVO();
 				pointVO.setName(result.getInvestor());
+                pointVO.setCname(result.getInvestor());
 				set.add(result.getInvestor());
 				pointVO.setLevel(result.getInvestor_degree() + "");
 				pointVO.setIsPerson("1");
@@ -508,6 +523,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 				RelationDiagramVO.PointVO pointVO = new RelationDiagramVO.PointVO();
 				pointVO.setIsPerson("0");
 				pointVO.setName(result.getInvestee());
+                pointVO.setCname(result.getInvestee());
 				set.add(result.getInvestee());
 				pointVO.setLevel(result.getInvestee_degree() + "");
 				pointVO.setIsSonCom(result.getInvestor().equals(companyName) ? "1" : "0");
@@ -520,6 +536,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 				pointVO.setIsPerson("0");
 
 				pointVO.setName(result.getInvestor());
+                pointVO.setCname(result.getInvestor());
 				set.add(result.getInvestor());
 				if (result.getIsNatural() == 1) {
 					pointVO.setIsPerson("1");
@@ -534,6 +551,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 				pointVO.setIsPerson("0");
 				pointVO.setIsPerson("0");
 				pointVO.setName(result.getInvestee());
+                pointVO.setCname(result.getInvestee());
 				set.add(result.getInvestee());
 				pointVO.setLevel(result.getInvestee_degree() + "");
 				pointVO.setIsSonCom(result.getInvestor().equals(companyName) ? "1" : "0");
@@ -1009,10 +1027,12 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 			for (LinkVO vo : links) {
 				RelationDiagramVO.LineVO lineVO = new RelationDiagramVO.LineVO();
 				lineVO.setIsFullLine(LineTypeEnum.line.equals(vo.getLine()) ? "1" : "0");
-				lineVO.setOrig(pointDegree.get(vo.getSource()).getCname());
+				lineVO.setOrig(pointDegree.get(vo.getSource()).getName());//用点的ID
+                lineVO.setOrigName(pointDegree.get(vo.getSource()).getCname());
 				lineVO.setOrigLevel(String.valueOf(pointDegree.get(vo.getSource()).getCategory()));
 				lineVO.setRelationship(vo.getRelatedParyName());
-				lineVO.setTarget(pointDegree.get(vo.getTarget()).getCname());
+				lineVO.setTarget(pointDegree.get(vo.getTarget()).getName());//用点的ID
+                lineVO.setTargetName(pointDegree.get(vo.getTarget()).getCname());
 				lineVO.setTarLevel(String.valueOf(pointDegree.get(vo.getTarget()).getCategory()));
 				lineVO.setType(vo.getGuanlian());
 				lineVO.setNum(++i);
@@ -1066,7 +1086,8 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 				pointVO.setIsPerson(NodeVoSymbolEnum.circle.equals(vo.getSymbol()) ? "1" : "0");
 				pointVO.setIsSonCom(NodeVoTypeEnum.INVESTED.getRgb().equals(vo.getColor()) ? "1" : "0");
 				pointVO.setLevel(String.valueOf(vo.getCategory()));
-				pointVO.setName(vo.getCname());
+				pointVO.setName(vo.getName());//需要通过ID关联，因为可能出现多个相同的名字，就会导致游离的点出现
+				pointVO.setCname(vo.getCname());
 
 				pointList.add(pointVO);
 			}

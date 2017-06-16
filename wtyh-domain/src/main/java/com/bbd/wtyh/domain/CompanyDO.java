@@ -69,6 +69,10 @@ public class CompanyDO extends BaseDO implements Comparable {
 	// 平台名称
 	private String platName = "";
 
+	private String creditCode;
+
+	private String organizationCode;
+
 	public String getPlatName() {
 		return platName;
 	}
@@ -311,5 +315,21 @@ public class CompanyDO extends BaseDO implements Comparable {
 	public int compareTo(Object o) {
 
 		return -1;
+	}
+
+	public String getCreditCode() {
+		return creditCode;
+	}
+
+	public void setCreditCode(String creditCode) {
+		this.creditCode = creditCode;
+	}
+
+	public String getOrganizationCode() {
+		return organizationCode;
+	}
+
+	public void setOrganizationCode(String organizationCode) {
+		this.organizationCode = organizationCode;
 	}
 }

@@ -20,19 +20,18 @@ import org.springframework.beans.factory.annotation.Value;
 public class XyptWebServiceUtil {
 
 	// private static final String SERVICE_URL =
-	// "http://10.107.99.42:8080/xyxxfwpt/services/XyAppQuery";
+	// "http://127.0.0.1:8082/xyxxfwpt/services/XyAppQuery";
 
-	private static final String SERVICE_URL = WtyhHelper.serviceUrl;
+	private static final String SERVICE_URL = CreditConfig.serviceUrl();
 
-	private static final String USER_NAME = WtyhHelper.userName;
+	private static final String USER_NAME = CreditConfig.userName();
 
-	private static final String PASSWORD = WtyhHelper.password;
-
+	private static final String PASSWORD = CreditConfig.password();
 
 	// 操作人身份标识 具体使用数据的人员身份标识，只记录。
-	private static final String UNAME = "BBD-wtyh";
+	private static final String UNAME = CreditConfig.uname();
 	// 查询用途
-	private static final String CXYT = "BBD-company-credit-score";
+	private static final String CXYT = CreditConfig.cxyt();
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(XyptWebServiceUtil.class);
 

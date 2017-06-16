@@ -48,8 +48,10 @@ public class RelationDiagramVO {
 		public static final String COMPANY_FLAG = "0";
 		public static final String PERSON_FLAG = "1";
 
-		/** 关联方名称 */
+		/** 关联方ID */
 		private String name;
+		/** 关联方名称 */
+		private String cname;
 		/** 所处关联度数 */
 		private String level;
 		/** 是否是个人（0：公司；1：个人） */
@@ -88,6 +90,14 @@ public class RelationDiagramVO {
 		public void setIsSonCom(String isSonCom) {
 			this.isSonCom = isSonCom;
 		}
+
+		public String getCname() {
+			return cname;
+		}
+
+		public void setCname(String cname) {
+			this.cname = cname;
+		}
 	}
 
 	public static class LineVO implements Serializable {
@@ -98,12 +108,18 @@ public class RelationDiagramVO {
 		private int num;
 
 		/** 源 */
-		@Excel(exportName = "投资方")
 		private String orig;
+
+		/** 源 */
+		@Excel(exportName = "投资方")
+		private String origName;
+
+		/** 目标 */
+		private String target;
 
 		/** 目标 */
 		@Excel(exportName = "被投资方")
-		private String target;
+		private String targetName;
 
 		/** 是否为实线（0：否；1：是） */
 		private String isFullLine;
@@ -185,6 +201,22 @@ public class RelationDiagramVO {
 
 		public void setTarLevel(String tarLevel) {
 			this.tarLevel = tarLevel;
+		}
+
+		public String getOrigName() {
+			return origName;
+		}
+
+		public void setOrigName(String origName) {
+			this.origName = origName;
+		}
+
+		public String getTargetName() {
+			return targetName;
+		}
+
+		public void setTargetName(String targetName) {
+			this.targetName = targetName;
 		}
 	}
 }

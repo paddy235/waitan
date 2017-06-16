@@ -1,7 +1,5 @@
 package com.bbd.wtyh.constants;
 
-import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,17 +12,23 @@ import java.util.Map;
  */
 public enum JYSCoRiskLevel {
 
-	JYSCoRiskLevel(){};
-	
+	JYSCoRiskLevel() {
+	};
+
 	public static List<Map<String, Object>> getListMap() {
-		CompanyAnalysisResult[] levels = CompanyAnalysisResult.values();
 		List<Map<String, Object>> riskList = new ArrayList<>();
-		for (CompanyAnalysisResult rl : levels) {
-			Map<String, Object> map = new HashMap<>();
-			map.put("type", rl.getType());
-			map.put("desc", rl.getName());
-			riskList.add(map);
-		}
+		Map<String, Object> map = new HashMap<>();
+		map.put("type", 0);
+		map.put("desc", "全部状态");
+		riskList.add(map);
+		map = new HashMap<>();
+		map.put("type", 1);
+		map.put("desc", "已出风险");
+		riskList.add(map);
+		map = new HashMap<>();
+		map.put("type", 2);
+		map.put("desc", "正常");
+		riskList.add(map);
 		return riskList;
 	}
 }

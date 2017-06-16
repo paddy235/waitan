@@ -230,6 +230,7 @@ define(function(require, exports, module) {
             for (var i = 0; i < nodes_length; i++) {
                 var background_node = background_nodes[i];
                 var name = background_node.name;
+                var cname = background_node.cname;
                 var symbol = background_node.symbol;
                 var color = background_node.color;
                 var ins = [];
@@ -243,7 +244,7 @@ define(function(require, exports, module) {
                 if (category == 0) {
                     center_coordinate = new Coordinate(width / 2, height / 2)
                         //
-                    var center = create_node(symbol, center_coordinate, color, name, isGetCompany);
+                    var center = create_node(symbol, center_coordinate, color, cname, isGetCompany, name);
                     zr.addShape(center)
                     zr_nodes.push(center)
                     zr_shape = center;
@@ -256,16 +257,16 @@ define(function(require, exports, module) {
                     }
                     var angle = (360 * i) / nodes_length
                     var coordinate = cal_coordinate(center_coordinate, category_radius, angle);
-                    var shape = create_node(symbol, coordinate, color, name, isGetCompany);
+                    var shape = create_node(symbol, coordinate, color, cname, isGetCompany, name);
                     zr.addShape(shape)
                     zr_nodes.push(shape)
                     zr_shape = shape;
                 }
                 //
                 if (main_data[name] == undefined) {
-                    main_data[name] = new Node(name, symbol, color, ins, outs, zr_shape, category, addflag);
+                    main_data[name] = new Node(cname, symbol, color, ins, outs, zr_shape, category, addflag, name);
                 } else {
-                    //console.log("axb")
+                    // console.log("axb", name)
                 }
 
 
@@ -440,7 +441,7 @@ define(function(require, exports, module) {
      * @param color
      * @returns {*}
      */
-    function create_node(symbol, coordinate, color, text, isGetCompany) {
+    function create_node(symbol, coordinate, color, text, isGetCompany, name) {
         var zr_node;
         if (symbol == "rect") {
             zr_node = new Rectangle({
@@ -463,7 +464,8 @@ define(function(require, exports, module) {
                 onmouseout: chart_recover,
                 onmouseover: node_mouse_over,
                 clicktype: 'company',
-                isCompany: isGetCompany
+                isCompany: isGetCompany,
+                name: name
             })
         } else if (symbol == "circle") {
             zr_node = new Circle({
@@ -484,7 +486,8 @@ define(function(require, exports, module) {
                 onmouseout: chart_recover,
                 onmouseover: node_mouse_over,
                 clicktype: 'man',
-                isGetCompany: isGetCompany
+                isGetCompany: isGetCompany,
+                name: name
             })
         } else {
             if (console && console.log) {
@@ -820,14 +823,18 @@ define(function(require, exports, module) {
         //存在unchecked状态的checkbox的时候，不响应鼠标点击事件
         zr_node_click = true;
         zr_node_highlight_lock = true;
+        let name = '';
+        let cname = '';
         //高亮
         if (v) {
-            var name = e.target.style.text;
+            name = e.target.style.text;
+            cname = e.target.name;
         } else {
-            var name = this.style.text;
+            name = this.style.text;
+            cname = this.name;
         }
         chart_hidden();
-        highlight_relation(name)
+        highlight_relation(cname)
 
         //如果点击公司，有个小弹窗
         if (e.target.isCompany) {
@@ -851,7 +858,7 @@ define(function(require, exports, module) {
                     var legalPersonShareholders=data.legalPersonShareholders?data.legalPersonShareholders:'0';
                     var subsidiarys=data.subsidiarys?data.subsidiarys:'0';
                     // $("#companyNameHtml").html(name);
-                    var shtml = '<div class="relation-modal"><div class="company-title">' + name + '<span class="iconfont icon-iconfontshequyijujue"></span></div>\
+                    var shtml = '<div class="relation-modal"><div class="company-title">' + '<b class = "modal-company-name">'+ name + '</b><span class="iconfont icon-iconfontshequyijujue"></span></div>\
                       <table>\
                         <tbody>\
                           <tr><td>注册资本</td><td>' + capital + '</td></tr>\
@@ -867,6 +874,9 @@ define(function(require, exports, module) {
                     $("#relation-modal").html(shtml).show();
                     $(".relation-modal .icon-iconfontshequyijujue").on("click", function() {
                         $("#relation-modal").hide();
+                    })
+                    $(".relation-modal .modal-company-name").on("click", function() {
+                        window.open("#/SearchResultDetail?companyName="+name);
                     })
                 }
             });
@@ -896,10 +906,9 @@ define(function(require, exports, module) {
         //存在unchecked状态的checkbox的时候，不高亮
         if (!zr_node_highlight_lock) {
             //高亮
-            var name = this.style.text;
-            //console.log(name);
+            var cname = this.name;
             chart_hidden();
-            highlight_relation(name)
+            highlight_relation(cname)
         }
     }
 
@@ -1079,7 +1088,6 @@ define(function(require, exports, module) {
             }
         }
         //高亮路线
-
         relation_highlight(param.attr('title'));
         //显示先隐藏基本信息
         $('.connect_bn').empty();

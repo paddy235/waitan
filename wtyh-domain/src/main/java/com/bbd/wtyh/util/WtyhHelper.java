@@ -30,9 +30,6 @@ public class WtyhHelper {
 			throw new IllegalArgumentException("[" + name + ".properties] not found");
 		}
 		exportPath = bundle.getString("wtyh.export.excel.path");
-		serviceUrl = bundle.getString("sh.credit.info.url");
-		userName = bundle.getString("sh.credit.info.name");
-		password = bundle.getString("sh.credit.info.password");
 
 	}
 

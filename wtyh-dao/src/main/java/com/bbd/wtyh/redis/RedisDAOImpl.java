@@ -13,6 +13,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Wen Jie
@@ -23,6 +24,26 @@ public class RedisDAOImpl implements RedisDAO {
 
 	@Autowired
 	private RedisTemplate<String, Object> redisTemplate;
+
+	@Override
+	public void set(String key, String value, Long timeout) {
+		redisTemplate.execute((RedisCallback<Boolean>) connection -> {
+			Boolean result = false;
+			try {
+				connection.set(key.getBytes(Constants.characterCode), value.getBytes(Constants.characterCode));
+				result = true;
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			if (!result) {
+				return result;
+			}
+			if (timeout != null && timeout > 0) {
+				connection.expire(key.getBytes(), timeout);
+			}
+			return result;
+		});
+	}
 
 	/**
 	 * 设置对象

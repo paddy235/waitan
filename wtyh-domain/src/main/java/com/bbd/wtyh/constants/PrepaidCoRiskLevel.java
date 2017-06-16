@@ -27,8 +27,13 @@ public enum PrepaidCoRiskLevel {
 	public static List<Map<String, Object>> getListMap() {
 		PrepaidCoRiskLevel[] levels = PrepaidCoRiskLevel.values();
 		List<Map<String, Object>> riskList = new ArrayList<>();
+		Map<String, Object> map = new HashMap<>();
+		map.put("type", 0);
+		map.put("desc", "全部状态");
+		riskList.add(map);
 		for (PrepaidCoRiskLevel rl : levels) {
-			Map<String, Object> map = new HashMap<>();
+
+			map = new HashMap<>();
 			map.put("type", rl.type());
 			map.put("desc", rl.desc());
 			riskList.add(map);

@@ -80,7 +80,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
             if (pointVO.getIsPerson().equals("1")) {
                 continue;
             }
-            CompanyDO relatedCompany = companyService.getCompanyByName(pointVO.getName());
+            CompanyDO relatedCompany = companyService.getCompanyByName(pointVO.getCname());
             if (null == relatedCompany || null == relatedCompany.getCompanyType()) {
                 continue;
             }

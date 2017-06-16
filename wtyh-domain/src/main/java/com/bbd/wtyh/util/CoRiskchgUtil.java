@@ -172,8 +172,7 @@ public class CoRiskchgUtil {
 			if (riskLevel == null) {
 				return null;
 			}
-			return CompanyAnalysisResult.getName(riskLevel);
-
+			return riskLevel.equals(1) ? "已出风险" : "正常";
 		case CompanyDO.TYPE_RZZL_13:// 融资租赁
 			return haveRisk ? RZZLCoRiskLevel.LATENT.desc() : RZZLCoRiskLevel.NORMAL.desc();
 

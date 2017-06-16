@@ -110,13 +110,9 @@ public interface CompanyMapper {
 	void updateAreaIdAndAddress(@Param("companyName") String companyName, @Param("areaId") Integer areaId, @Param("address") String address,
 			@Param("creditCode") String creditCode);
 
-	/**
-	 * 大于id 的公司总数量
-	 * 
-	 * @param id
-	 * @return
-	 */
-	@Select("SELECT COUNT(*) AS count FROM company c WHERE c.company_id > #{id} ORDER BY c.company_id")
-	int countCompanyGTId(@Param("id") int id);
+	List<CompanyDO> getCompanyList(@Param("startId") int startId, @Param("type") String type, @Param("limit") int limit);
+
+	@Select("SELECT MAX(company_id) FROM company")
+	Integer maxCompanyId();
 
 }

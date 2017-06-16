@@ -80,8 +80,12 @@ public enum CompanyAnalysisResult {
 	public static List<Map<String, Object>> getListMap() {
 		List<Map<String, Object>> riskList = new ArrayList<>();
 		CompanyAnalysisResult[] risks = CompanyAnalysisResult.values();
+		Map<String, Object> map = new HashMap<>();
+		map.put("type", 0);
+		map.put("desc", "全部状态");
+		riskList.add(map);
 		for (CompanyAnalysisResult rl : risks) {
-			Map<String, Object> map = new HashMap<>();
+			map = new HashMap<>();
 			map.put("type", rl.getType());
 			map.put("desc", rl.getColor() + "灯");
 			riskList.add(map);

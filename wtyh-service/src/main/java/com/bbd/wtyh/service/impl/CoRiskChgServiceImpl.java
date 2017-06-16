@@ -134,15 +134,23 @@ public class CoRiskChgServiceImpl extends BaseServiceImpl implements CoRiskChgSe
 		}
 
 		Integer level = Integer.parseInt(riskLevel);
-
+		if (level.equals(0)) {
+			return;
+		}
 		byte type = companyType.byteValue();
 
 		switch (type) {
 
 		case CompanyDO.TYPE_P2P_1:// 网络借贷
 		case CompanyDO.TYPE_XXLC_4:// 线下理财
-		case CompanyDO.TYPE_JYS_9:// 交易所
 			dynamicWhere.append(" AND risk_level = ").append(riskLevel);
+			break;
+		case CompanyDO.TYPE_JYS_9:// 交易所
+			if (level.equals(1)) {
+				dynamicWhere.append(" AND risk_level = 1");
+			} else {
+				dynamicWhere.append(" AND risk_level != 1");
+			}
 			break;
 
 		case CompanyDO.TYPE_RZZL_13:// 融资租赁

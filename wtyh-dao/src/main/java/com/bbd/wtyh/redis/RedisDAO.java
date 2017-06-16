@@ -12,6 +12,8 @@ import java.util.Set;
  */
 public interface RedisDAO {
 
+	void set(String key, String value, Long timeout);
+
 	public boolean addObject(final String key, final Object object,
 							 final Long timeout, Class<?> clazz);
 
