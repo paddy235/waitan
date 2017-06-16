@@ -9,6 +9,7 @@ import com.bbd.wtyh.service.HologramQueryService;
 import com.bbd.wtyh.service.InvestigationInfoService;
 import com.bbd.wtyh.util.DateUtils;
 import com.bbd.wtyh.web.ResponseBean;
+import org.apache.velocity.runtime.directive.Foreach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -281,12 +282,26 @@ public class HologramQueryController {
 	public ResponseBean infoStatistics(@RequestParam String company) throws Exception {
 		Map<String, Integer> result = new HashMap<>();
 		//股东高管
+		Set set=new HashSet();
 		Map<String, List> shareholderSenior = hologramQueryService.shareholdersSenior(company);
-		List rList = (List)(shareholderSenior.get("gdxx"));
-		Integer shareholderSeniorTotal = ( null ==rList ? 0 : rList.size() );
+		List<Map> rList = (List)(shareholderSenior.get("gdxx"));
+		for(Map map:rList){
+			Object obj=map.get("shareholder_name");
+			if(obj!=null) {
+				String name = (String) obj;
+				set.add(name);
+			}
+		}
 		rList =(List)(shareholderSenior.get("baxx"));
-		shareholderSeniorTotal += ( null ==rList ? 0 : rList.size() );
-		result.put( "shareholderSeniorTotal", shareholderSeniorTotal );
+		for(Map map:rList){
+			Object obj=map.get("name");
+			if(obj!=null){
+				String name=(String)obj;
+				set.add(name);
+			}
+
+		}
+		result.put( "shareholderSeniorTotal", set.size() );
 		//诉讼记录
 		Integer lawsuitTotal =0;
 		List<OpenCourtAnnouncementDO.Results> loc = hologramQueryService.openCourtAnnouncement(company);

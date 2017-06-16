@@ -1,8 +1,7 @@
 package com.bbd.wtyh.web.controller;
 
-import java.io.InputStream;
+import java.util.List;
 
-import com.bbd.wtyh.report.util.DocxUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,29 +9,33 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bbd.wtyh.service.AreaService;
 import com.bbd.wtyh.web.ResponseBean;
+import com.google.common.collect.Lists;
 
 /**
- * word报告文档导出
- *  Created by cgj on 2017-5-25
+ * 地区相关接口
  */
 @Controller
-@RequestMapping("/reportDocx/")
+@RequestMapping("/report/")
 public class ReportDocxController {
 	
 	@Autowired
 	private AreaService areaService;
 
-
-	@RequestMapping(value = "t1.do")
+	/**
+	 * 获取父节点下面的数据
+	 * 比如属于上海市的所有区 parentId:104
+	 * @param areaId
+	 * @return
+     */
+	@RequestMapping(value = "getAreaByParentId.do")
 	@ResponseBody
-	public ResponseBean getAreaByParentId() {
-		InputStream aa = DocxUtils.class.getResourceAsStream("/config/shanghai-company-anti-fraud-template.docx");
-		byte [] te = new byte[100];
-		try {
-			int aar = aa.read(te);
-			aar ++;
-		} catch (Exception e) {}
-		return ResponseBean.successResponse(null);
+	public ResponseBean getAreaByParentId(Integer areaId) {
+		//产品提出要排序，不读库的方式，写死
+		List<String> list = Lists.newArrayList("浦东新区","黄浦区","静安区","徐汇区",
+												"长宁区","普陀区","虹口区","杨浦区",
+												"宝山区","闵行区","嘉定区","金山区",
+												"松江区","青浦区","奉贤区","崇明县");
+		return ResponseBean.successResponse(list);
 	}
 
 }
