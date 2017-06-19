@@ -33,14 +33,14 @@
              <groupId>org.jfree</groupId>
              <artifactId>jfreechart</artifactId>
              <version>1.0.19</version>
-         </dependency>
+         </dependency>-->
 
 
          <dependency>
              <groupId>org.docx4j</groupId>
              <artifactId>docx4j</artifactId>
              <version>3.3.3</version>
-         </dependency>-->
+         </dependency>
 
         <dependency>
             <groupId>xom</groupId>
@@ -569,7 +569,7 @@
                 <m.redis.password>bbdredis</m.redis.password>
                 <m.wtyh.web1.ip>http://shanghaijc.bbdservice.com</m.wtyh.web1.ip>
                 <m.wtyh.web2.ip></m.wtyh.web2.ip>
-                <m.export.excel.path>/mfs/file/wtyh</m.export.excel.path>
+                <m.export.excel.path>/data1/wtyh</m.export.excel.path>
             </properties>
         </profile>
 
