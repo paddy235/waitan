@@ -48,7 +48,7 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 			String dataVersion = relationDataService.getNewestDataVersion();
 			logger.info("--------- pull dataVersion ---------：" + dataVersion);
 			HttpGet httpRequest = new HttpGet(brokerUrl + "?dataVersion=" + dataVersion);
-			httpRequest.setConfig(RequestConfig.custom().setConnectTimeout(3600 * 1000).setSocketTimeout(3600 * 1000).build());
+			httpRequest.setConfig(RequestConfig.custom().setConnectTimeout(36000 * 1000).setSocketTimeout(36000 * 1000).build());
 			CloseableHttpResponse response = HttpClients.createDefault().execute(httpRequest);
 			InputStream inputStream = response.getEntity().getContent();
 
