@@ -14,6 +14,7 @@ import com.bbd.wtyh.domain.vo.NewsVO;
 import com.bbd.wtyh.excel.ExportExcel;
 import com.bbd.wtyh.exception.ExceptionHandler;
 import com.bbd.wtyh.log.user.Operation;
+import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -331,6 +332,10 @@ public class ParkController {
 			List<ParkCompanyDo> list=(List<ParkCompanyDo>)map.get("list");
 			exportExcel.createSheet(list);
 			exportExcel.exportExcel();
+
+            String areaName=area==null?"":area.getName();
+			UserLogRecord.record("导出【"+areaName+"】园区企业列表", Operation.Type.DATA_EXPORT, Operation.Page.park,
+					Operation.System.front, request);
 			return ResponseBean.successResponse(exportExcel.getDownloadURL());
 		} catch (Exception e) {
 			return ExceptionHandler.handlerException(e);

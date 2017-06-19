@@ -55,7 +55,10 @@ public class Operation {
 		roleBrowse("浏览角色", 28, false, true),
 		roleCreate("新增角色", 29, false, true),
 		roleModify("编辑角色", 30, false, true),
-		roleAssign("分配角色", 31, false, true)
+		roleAssign("分配角色", 31, false, true),
+
+		companyAddClose("企业增销", 32, false, true),
+		companyRiskChange("风险变化企业", 33, false, true)
 		; //
 
 
@@ -149,7 +152,7 @@ public class Operation {
 		lock("锁定", 8),
 		active("激活", 9),
 		REPORT_EXPORT("报告导出",10),
-		//DATA_EXPORT("数据导出",11),
+		DATA_EXPORT("数据导出",11),
 		LOG_EXPORT("日志导出",12);
 
 		private String desc;
