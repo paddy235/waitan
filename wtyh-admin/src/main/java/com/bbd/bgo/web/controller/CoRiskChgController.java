@@ -13,6 +13,8 @@ import com.bbd.wtyh.domain.enums.CompanyAnalysisResult;
 import com.bbd.wtyh.excel.ExportExcel;
 import com.bbd.wtyh.excel.Sheet;
 import com.bbd.wtyh.exception.ExceptionHandler;
+import com.bbd.wtyh.log.user.Operation;
+import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.service.CoRiskChgService;
 import com.bbd.wtyh.util.CoRiskchgUtil;
 import com.bbd.wtyh.web.ResponseBean;
@@ -197,6 +199,10 @@ public class CoRiskChgController {
 			titleCell1.setCellValue(date);
 
 			exportExcel.exportExcel();
+
+			UserLogRecord.record("导出风险变化企业", Operation.Type.DATA_EXPORT, Operation.Page.companyRiskChange,
+					Operation.System.back, request);
+
 			return ResponseBean.successResponse(exportExcel.getDownloadURL());
 		} catch (Exception e) {
 			return ExceptionHandler.handlerException(e);

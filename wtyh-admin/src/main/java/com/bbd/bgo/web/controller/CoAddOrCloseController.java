@@ -11,6 +11,8 @@ import com.bbd.wtyh.domain.CompanyStatusChangeDO;
 import com.bbd.wtyh.excel.ExportExcel;
 import com.bbd.wtyh.excel.Sheet;
 import com.bbd.wtyh.exception.ExceptionHandler;
+import com.bbd.wtyh.log.user.Operation;
+import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.service.AreaService;
 import com.bbd.wtyh.service.CoAddOrCloseService;
 import com.bbd.wtyh.web.ResponseBean;
@@ -29,10 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 企业变化监测-企业增销
@@ -111,6 +110,12 @@ public class CoAddOrCloseController {
 			titleCell2.setCellStyle(exportExcel.createDefaultStyle());
 
 			exportExcel.exportExcel();
+
+
+
+			UserLogRecord.record("导出企业增销", Operation.Type.DATA_EXPORT, Operation.Page.companyAddClose,
+					Operation.System.back, request);
+
 			return ResponseBean.successResponse(exportExcel.getDownloadURL());
 		} catch (Exception e) {
 			return ExceptionHandler.handlerException(e);
