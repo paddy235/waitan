@@ -1,14 +1,22 @@
 package com.bbd.bgo.service.impl;
 
 import com.bbd.bgo.service.SyncFileService;
+import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.service.RelationDataService;
 import com.bbd.wtyh.service.SyncDataService;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpHost;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +27,7 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.net.URI;
 
 /**
  * wtyh
@@ -40,6 +49,7 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 
 	@Value("${api.bbd.broker.url}")
 	private String brokerUrl;
+	private String httpProxy = System.getenv("http_proxy");
 
 	@Override
 	public void pullFile() {
@@ -47,9 +57,24 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 			logger.info("--------- pull data file start ------");
 			String dataVersion = relationDataService.getNewestDataVersion();
 			logger.info("--------- pull dataVersion ---------：" + dataVersion);
-			HttpGet httpRequest = new HttpGet(brokerUrl + "?dataVersion=" + dataVersion);
+
+			String url = brokerUrl + "?dataVersion=" + dataVersion;
+
+			HttpGet httpRequest = new HttpGet(url);
+			HttpClientBuilder httpClientBuilder = HttpClients.custom();
+			// 设置http代理
+			if (StringUtils.isNotEmpty(httpProxy)) {
+				URI httpProxyUri = new URI(httpProxy);
+				if (StringUtils.isNotEmpty(httpProxyUri.getUserInfo())) {
+					CredentialsProvider credsProvider = new BasicCredentialsProvider();
+					credsProvider.setCredentials(new AuthScope(httpProxyUri.getHost(), httpProxyUri.getPort()),
+							new UsernamePasswordCredentials(httpProxyUri.getUserInfo()));
+					httpClientBuilder.setDefaultCredentialsProvider(credsProvider);
+				}
+				httpClientBuilder.setProxy(new HttpHost(httpProxyUri.getHost(), httpProxyUri.getPort(), httpProxyUri.getScheme()));
+			}
 			httpRequest.setConfig(RequestConfig.custom().setConnectTimeout(36000 * 1000).setSocketTimeout(36000 * 1000).build());
-			CloseableHttpResponse response = HttpClients.createDefault().execute(httpRequest);
+			CloseableHttpResponse response = httpClientBuilder.build().execute(httpRequest);
 			InputStream inputStream = response.getEntity().getContent();
 
 			String fileName = dataVersion + ".txt";
