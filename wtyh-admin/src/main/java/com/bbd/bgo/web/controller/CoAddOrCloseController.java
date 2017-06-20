@@ -50,8 +50,9 @@ public class CoAddOrCloseController {
 	@RequestMapping("/query-co-status-chg")
 	@ResponseBody
 	public ResponseBean queryCompanyStatusChg(String areaIds, String companyTypes, String beginDate, String endDate, Integer changeType,
-			Integer source, Integer closedType, @RequestParam Integer page, @RequestParam Integer pageSize) {
+			Integer source, Integer closedType, @RequestParam Integer page, @RequestParam Integer pageSize, HttpServletRequest request) {
 		try {
+
 			if (null == page) {
 				page = 1;
 			}
@@ -61,6 +62,61 @@ public class CoAddOrCloseController {
 
 			Map<String, Object> map = coAddOrCloseService.queryCompanyStatusChg(areaIds, companyTypes, beginDate, endDate, changeType,
 					source, closedType, page, pageSize);
+
+            Map<Integer,String> areaMap=areaService.areaMapAll(Constants.SH_AREAID);
+            StringBuffer sb=new StringBuffer();
+            // 选择区域 areaSet
+            if (StringUtils.isNotBlank(areaIds)) {
+                sb.append("区域:");
+                if( !"0".equals(areaIds)){
+                    String[] areaArr=areaIds.split(",");
+                    for(int i=0;i<areaArr.length;i++){
+                        Integer it=areaArr[i]==null?Integer.valueOf("-999"):Integer.valueOf(areaArr[i]);
+                        sb.append(areaMap.get(it));
+                        if((i+1)!= areaArr.length){
+                            sb.append(",");
+                        }
+                    }
+                }else{
+                    sb.append("全部");
+                }
+                sb.append(";");
+            }
+
+            // 金融类型 companyTypes
+            if (StringUtils.isNotBlank(companyTypes)) {
+                sb.append("新金融行业:");
+                if( !"0".equals(companyTypes)){
+                    String[] typeArr=companyTypes.split(",");
+                    for(int i=0;i<typeArr.length;i++){
+                        Byte bt=typeArr[i]==null?Byte.valueOf("-1"):Byte.valueOf(typeArr[i]);
+                        sb.append(CompanyDO.companyTypeCN(bt));
+                        if((i+1)!= typeArr.length){
+                            sb.append(",");
+                        }
+                    }
+                }else{
+                    sb.append("全部");
+                }
+                sb.append(";");
+            }
+
+            // 开始时间 beginDate
+            if (StringUtils.isNotBlank(beginDate)) {
+                sb.append("开始时间:");
+                sb.append(beginDate);
+                sb.append(";");
+
+            }
+
+            // 结束时间 endDate
+            if (StringUtils.isNotBlank(endDate)) {
+                sb.append("结束时间:");
+                sb.append(endDate);
+                sb.append(";");
+            }
+            UserLogRecord.record("搜索企业增销，搜索条件["+sb.toString()+"]", Operation.Type.query, Operation.Page.companyRiskChange,
+                    Operation.System.back, request);
 
 			return ResponseBean.successResponse(map);
 
@@ -159,7 +215,11 @@ public class CoAddOrCloseController {
 
 	@RequestMapping("/get-source-type")
 	@ResponseBody
-	public ResponseBean getSourceType() {
+	public ResponseBean getSourceType(HttpServletRequest request) {
+
+        UserLogRecord.record("浏览企业增销", Operation.Type.browse, Operation.Page.companyAddClose,
+                Operation.System.back, request);
+
 		SourceType[] types = SourceType.values();
 		Map results = new HashMap();
 		List<Map<String, Object>> list = new ArrayList<>();
