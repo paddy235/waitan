@@ -15,6 +15,7 @@ import com.bbd.wtyh.excel.Sheet;
 import com.bbd.wtyh.exception.ExceptionHandler;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.UserLogRecord;
+import com.bbd.wtyh.service.AreaService;
 import com.bbd.wtyh.service.CoRiskChgService;
 import com.bbd.wtyh.util.CoRiskchgUtil;
 import com.bbd.wtyh.web.ResponseBean;
@@ -34,6 +35,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,6 +52,8 @@ public class CoRiskChgController {
 
 	@Autowired
 	private CoRiskChgService coRiskChgService;
+	@Autowired
+	private AreaService areaService;
 
 	/**
 	 * 企业变化监测-风险变化企业-页面下拉列表数据
@@ -58,7 +62,11 @@ public class CoRiskChgController {
 	 */
 	@RequestMapping("/drop-down-data")
 	@ResponseBody
-	public Object riskChgCoDropDownData() {
+	public Object riskChgCoDropDownData(HttpServletRequest request) {
+
+		UserLogRecord.record("浏览风险变化企业", Operation.Type.browse, Operation.Page.companyRiskChange,
+				Operation.System.back, request);
+
 		Map<String, Object> data = new HashMap<>();
 		// 金融类型
 		data.put("financialType", this.riskChgCoFinancialType());
@@ -115,25 +123,25 @@ public class CoRiskChgController {
 	/**
 	 * 企业变化监测-风险变化企业-数据查询
 	 * 
-	 * @param sdate
+	 *  sdate
 	 *            开始时间
-	 * @param edate
+	 *  edate
 	 *            结束时间
-	 * @param areaSet
+	 *  areaSet
 	 *            区域ID集合，逗号分割
-	 * @param financialType
+	 *  financialType
 	 *            金融类别
-	 * @param buildId
+	 *  buildId
 	 *            楼宇ID
-	 * @param riskLevel
+	 *  riskLevel
 	 *            风险等级
-	 * @param source
+	 *  source
 	 *            来源
-	 * @param statusSort
+	 *  statusSort
 	 *            原始状态排序。DESC：降序，ASC：升序，DEFAULT：默认排序
-	 * @param pageIndex
+	 *  pageIndex
 	 *            页码
-	 * @param pageSize
+	 *  pageSize
 	 *            每页大小，默认20
 	 * @return
 	 */
@@ -145,13 +153,64 @@ public class CoRiskChgController {
 
 		this.coRiskChgService.queryPageData(paramMap, page);
 
+		Map<Integer,String> map=areaService.areaMapAll(Constants.SH_AREAID);
+		StringBuffer sb=new StringBuffer();
+		// 选择区域 areaSet
+		String areaSet = paramMap.get("areaSet");
+		if (StringUtils.isNotBlank(areaSet)) {
+			sb.append("区域:");
+			if( !"0".equals(areaSet)){
+				String[] areaArr=areaSet.split(",");
+				for(int i=0;i<areaArr.length;i++){
+					Integer it=areaArr[i]==null?Integer.valueOf("-999"):Integer.valueOf(areaArr[i]);
+					sb.append(map.get(it));
+					if((i+1)!= areaArr.length){
+						sb.append(",");
+					}
+				}
+			}else{
+				sb.append("全部");
+			}
+			sb.append(";");
+		}
+
+		// 金融类型 financialType
+		String financialType = paramMap.get("financialType");
+		if (StringUtils.isNotBlank(financialType)) {
+
+			Byte companyType = Byte.parseByte(financialType);
+			sb.append("新金融行业:");
+			sb.append(CompanyDO.companyTypeCN(companyType));
+			sb.append(";");
+		}
+
+		// 开始时间 sdate
+		String sdate = paramMap.get("sdate");
+		if (StringUtils.isNotBlank(sdate)) {
+			sb.append("开始时间:");
+			sb.append(sdate);
+			sb.append(";");
+
+		}
+
+		// 结束时间 edate
+		String edate = paramMap.get("edate");
+		if (StringUtils.isNotBlank(edate)) {
+			sb.append("结束时间:");
+			sb.append(edate);
+			sb.append(";");
+		}
+
+		UserLogRecord.record("搜索风险变化企业，搜索条件["+sb.toString()+"]", Operation.Type.query, Operation.Page.companyRiskChange,
+				Operation.System.back, request);
+
 		return ResponseBean.successResponse(page);
 	}
 
 	/**
 	 * 下载风险变化企业数据
 	 * 
-	 * @param 同queryData()的方法
+	 * 同queryData()的方法
 	 * @return
 	 */
 	@RequestMapping("/download-data")

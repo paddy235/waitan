@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.AreaDO;
@@ -47,6 +48,14 @@ public interface AreaService {
 	 * @return List<Area>
 	 */
 	public List<AreaDO> areaListAll(Integer parentId);
+
+	/**
+	 *
+	 * 获取所有的区域（有数据的园区）
+	 * @param parentId  根据区域id获取数据
+	 * @return Map<String,String>
+	 */
+	public Map<Integer,String> areaMapAll(Integer parentId);
 
 	/**
 	* 获取区域热力图
