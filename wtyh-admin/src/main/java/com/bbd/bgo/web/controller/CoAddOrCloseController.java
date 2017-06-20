@@ -115,7 +115,7 @@ public class CoAddOrCloseController {
                 sb.append(endDate);
                 sb.append(";");
             }
-            UserLogRecord.record("搜索企业增销，搜索条件["+sb.toString()+"]", Operation.Type.query, Operation.Page.companyRiskChange,
+            UserLogRecord.record("搜索企业增销，搜索条件["+sb.toString()+"]", Operation.Type.query, Operation.Page.companyAddClose,
                     Operation.System.back, request);
 
 			return ResponseBean.successResponse(map);
