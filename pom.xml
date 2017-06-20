@@ -525,18 +525,18 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <m.jdbc.url>jdbc:mysql://192.168.3.39:3306</m.jdbc.url>
+                <m.jdbc.url>jdbc:mysql://10.28.100.48:3306</m.jdbc.url>
                 <m.jdbc.username>wtyh</m.jdbc.username>
-                <m.jdbc.password>bbdkai@mysqldb!@#</m.jdbc.password>
-                <m.redis.ip>192.168.3.39</m.redis.ip>
+                <m.jdbc.password>wtyh123456</m.jdbc.password>
+                <m.redis.ip>10.28.100.48</m.redis.ip>
                 <m.redis.port>8013</m.redis.port>
-                <m.redis.password>bbd123456</m.redis.password>
+                <m.redis.password>wtyh123456</m.redis.password>
                 <!--wtyh-web 地址-->
-                <m.wtyh.web1.ip>http://192.168.3.39:8002</m.wtyh.web1.ip>
-                <m.wtyh.web2.ip>http://192.168.3.39:8003</m.wtyh.web2.ip>
+                <m.wtyh.web1.ip>http://10.28.100.48:8081</m.wtyh.web1.ip>
+                <m.wtyh.web2.ip>http://10.28.100.48:8082</m.wtyh.web2.ip>
 
                 <!--生成excel存放目录 -->
-                <m.export.excel.path>/usr/local/tomcat/wtyh</m.export.excel.path>
+                <m.export.excel.path>/data/wtyh</m.export.excel.path>
             </properties>
         </profile>
 
@@ -569,7 +569,7 @@
                 <m.redis.password>bbdredis</m.redis.password>
                 <m.wtyh.web1.ip>http://shanghaijc.bbdservice.com</m.wtyh.web1.ip>
                 <m.wtyh.web2.ip></m.wtyh.web2.ip>
-                <m.export.excel.path>/data1/wtyh</m.export.excel.path>
+                <m.export.excel.path>/mfs/file/wtyh</m.export.excel.path>
             </properties>
         </profile>
 
