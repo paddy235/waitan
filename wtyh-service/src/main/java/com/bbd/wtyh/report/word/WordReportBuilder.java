@@ -39,6 +39,13 @@ import java.util.List;
 
 
 public class WordReportBuilder {
+    /**
+     * 出错记录
+     * @return
+     */
+    public StringBuffer getErrRecord() {
+        return errRecord;
+    }
     /** 生成文档时的出错记录*/
     private StringBuffer errRecord = new StringBuffer();
     /** 报告类型枚举类*/
@@ -71,7 +78,7 @@ public class WordReportBuilder {
     /** 企业风险级别*/
     private String companyRiskResult ="";
 
-    /** 企业类型：网络借贷、线下理财、小额贷款。。。*/
+    /** 企业类型：网络借贷、线下理财、小额贷款、其他。。。*/
     private String companyType ="";
 
     /** 企业状态：存续或注销*/
@@ -179,9 +186,9 @@ public class WordReportBuilder {
             byte[] byt = new byte[is.available()];
             is.read(byt, 0, is.available());
             wrb.setRelatedPartyMappingInfo(byt,
-                    fl,
+                    byt,
                     null,
-                    fl,
+                    byt,
                     null);
 
             //企业招聘信息
@@ -274,8 +281,8 @@ public class WordReportBuilder {
      * @return 设置成功：true
      */
     public boolean setWaterMark (String waterMark) {
-        if( waterMark ==null ) {
-            errRecord.append("水印设置时参数“").append("waterMark").append("”为空；");
+        if( StringUtils.isBlank(waterMark) ) {
+            errRecord.append("水印设置失败，参数“").append("waterMark").append("”为空；");
             return false;
         }
         boolean returnVal =false;
@@ -556,10 +563,10 @@ public class WordReportBuilder {
      * @param twoDegreeDistribute 二度关联企业行业分布列表
      */
     public void setRelatedPartyMappingInfo( byte[] relatedPartyMapping,
-                                        File oneDegreeMapping,
-                                        List<List<String>> oneDegreeDistribute,
-                                        File twoDegreeMapping,
-                                        List<List<String>> twoDegreeDistribute ) {
+                                            byte[] oneDegreeMapping,
+                                            List<List<String>> oneDegreeDistribute,
+                                            byte[] twoDegreeMapping,
+                                            List<List<String>> twoDegreeDistribute ) {
         StringBuffer thisErrRecord = new StringBuffer();
         StringBuffer this1ErrRecord =new StringBuffer();
 
@@ -573,7 +580,7 @@ public class WordReportBuilder {
         //一度关联图
         this1ErrRecord =new StringBuffer();
         replaceImage(mainParagraphList, 0, "qixin_yidutupu",
-                null, oneDegreeMapping, this1ErrRecord);
+                oneDegreeMapping,null,  this1ErrRecord);
         if( this1ErrRecord.length() >0 ) {
             thisErrRecord.append("设置一度关联图谱Err: ").append(this1ErrRecord).append(" ");
         }
@@ -589,7 +596,7 @@ public class WordReportBuilder {
         //二度关联图
         this1ErrRecord =new StringBuffer();
         replaceImage(mainParagraphList, 0, "qixin_edutupian",
-                null, twoDegreeMapping, this1ErrRecord);
+                twoDegreeMapping, null, this1ErrRecord);
         if( this1ErrRecord.length() >0 ) {
             thisErrRecord.append("设置二度关联图谱Err: ").append(this1ErrRecord).append(" ");
         }
@@ -864,14 +871,13 @@ public class WordReportBuilder {
         }
     }
 
-    /**
-     * 报告文件导出
-     * @param targetPath
-     * @return 返回报告文件的存放路径
-     * @throws IOException
-     * @throws Docx4JException
-     */
-    public String exportReport(String targetPath) throws IOException, Docx4JException {
+    private boolean isExportGenerate =false;
+    //报告生成
+    private void exportGenerate( ) {
+        if( isExportGenerate ) {
+            return;
+        }
+        isExportGenerate =true;
 
         /** 生成企业标签(例如："私企、存续、重点关注、网络借贷")*/
         StringBuffer sBuf = new StringBuffer();
@@ -913,12 +919,39 @@ public class WordReportBuilder {
         }
         mainParagraphList.removeAll(removeColl);
 
+    }
+
+    public Map<String, Object> exportReportToBytes( ) throws Docx4JException {
+        Map rstMap =new HashMap<String, Object>() {{
+            String fileName =companyName +"-" +reportType.getName() +".docx";
+            put( "fileName" , fileName );
+            put("fileBytes" ,null);
+        }};
+        //报告生成
+        exportGenerate( );
+        ByteArrayOutputStream baos =new ByteArrayOutputStream();
+        wmp.save(baos);
+        rstMap.put( "fileBytes" ,baos.toByteArray() );
+        return rstMap;
+    }
+
+    /**
+     * 报告文件导出
+     * @param targetPath
+     * @return 返回报告文件的存放路径
+     * @throws IOException
+     * @throws Docx4JException
+     */
+    public String exportReport(String targetPath) throws IOException, Docx4JException {
+        //报告生成
+        exportGenerate( );
+
         //生成文件名和存盘
         String targetFilePathAndName =targetPath +companyName +"-" +reportType.getName() +".docx";
         File f = new File(targetFilePathAndName);
         wmp.save(f);
-        if(errRecord.length() >0) {
-            System.out.println("Word_Builder_Err >> " + errRecord.toString());
+        if(getErrRecord().length() >0) { //
+            System.out.println( "Word_Builder_Err >> " + getErrRecord().toString() );
         }
         return targetFilePathAndName;
     }
@@ -1480,4 +1513,5 @@ public class WordReportBuilder {
         pkg.save(fos);
         fos.close();
     }
+
 }

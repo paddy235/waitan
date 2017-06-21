@@ -21,6 +21,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.util.JAXBSource;
 import javax.xml.namespace.QName;
 import java.io.*;
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -30,68 +31,19 @@ import java.util.*;
 
 public class DocxUtils {
 
-    public static void main(String []argc) {
-        String rootPath ="/docx/template/shanghai-company-anti-fraud-template.docx";
-        String localPath ="D:\\bbdPrjIj\\wtyh-dv\\wtyh-web\\src\\main\\resources\\docx\\";
-        String templateFile1 = localPath +"template\\shanghai-company-anti-fraud-template.docx";
-        String targetPath = localPath +"target\\";
-        String targetFileTail ="-anti-fraud1.docx";
-        String companyName ="上海复旦复华药业有限公司";
-//        File file1 = new File(localPath);
-        //byte [] te = new byte[100];
-        try {
-            WordprocessingMLPackage wm; //= getTemplate(templateFile1);
-            if(false) { //通过“关系结构”这种方式去查询目标对象
-                RelationshipsPart relsPart = wm.getMainDocumentPart().getRelationshipsPart();
-                Relationships rels = relsPart.getRelationships();
-                List<Relationship> relsList = rels.getRelationship();
-                Relationship r = relsList.get(1);
-                Part p = relsPart.getPart(r);
-                Chart chartPart = new Chart(p.getPartName());//这种写法是不行的
-            }
-            if(false) {
-                Chart chart = (Chart) wm.getParts().get(new PartName("/word/charts/chart2.xml"));
-                Object object = chart.getJaxbElement().getChart().getPlotArea().getAreaChartOrArea3DChartOrLineChart();
-                Object object1 = chart.getContents().getChart().getPlotArea().getAreaChartOrArea3DChartOrLineChart();
-            }
-
-
-            //writeDocxToStream(wm, targetPath +companyName +targetFileTail );
-            if(false) {
-                List<?> paragraphList = wm.getMainDocumentPart().getContent(); //取主文档的段落为单位且以文档书写顺序排列的列表，会包含表格对象，此列表删除元素后会同步修改待保存的文档
-                List<Object> paragraph1 = getAllElementFromObject(paragraphList.get(17), Text.class);
-                List<Object> paragraph2 = getAllElementFromObject(paragraphList, CTTextbox.class);
-                List<Object> paragraph21 = getAllElementFromObject(paragraph2, P.class);
-                List<Object> paragraph3 = getAllElementFromObject(paragraphList.get(24), Text.class);
-                List<Object> paragraph4 = getAllElementFromObject(paragraphList.get(24), P.class);
-
-                List<Object> texts = getAllElementFromObject(wm.getMainDocumentPart(), Text.class);
-                List<Object> paragraph = getAllElementFromObject(wm.getMainDocumentPart(), P.class); //段落才是操作文档的合理单位
-                List<Object> ctTextbox = getAllElementFromObject(wm.getMainDocumentPart(), CTTextbox.class);
-                //String txt = ((P) paragraph.get(18)).toString();
-
-                paragraphList.remove(17);//删除段落
-                paragraphList.remove(16);
-                //paragraphList.re
-                modifyTextInParagraph((P) paragraphList.get(17), "已被替换");
-                //replacePlaceholder(wm, companyName, "headCompanyName");
-            }
-            //writeDocxToStream(wm, targetPath +companyName +targetFileTail );
-/*            File fl =new File(".");
-            FileOutputStream fos = new FileOutputStream (fl);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            baos.writeTo(fos);
-            for( byte i =20; i >0; i-- ) {
-                fos.write(i);
-            }*/
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    /**
+     * double值四舍五入转成指定位数小数的字符串
+     * @param val 待转值
+     * @param scale 保留的小数位数
+     * @return
+     */
+    public static String doubleToString(double val, int scale ) {
+        BigDecimal perVal  =BigDecimal.valueOf( val );
+        perVal =  perVal.setScale( scale, BigDecimal.ROUND_HALF_UP );
+        return perVal.toString();
     }
 
- //beans copy，理论上说这个不能用于xml对象的深度复制，具体也没验证过
+    //beans copy，理论上说这个不能用于xml对象的深度复制，具体也没验证过
     public static void objectCopy( Object source, Object target) {
         BeanCopier copier = BeanCopier.create(source.getClass(), target.getClass(), false);
         copier.copy(source, target, null);
@@ -312,6 +264,50 @@ public class DocxUtils {
             }
         }
         return result;
+    }
+
+
+    public static void main(String []argc) {
+        try {
+            WordprocessingMLPackage wm; //= getTemplate(templateFile1);
+            if(false) { //通过“关系结构”这种方式去查询目标对象
+                RelationshipsPart relsPart = wm.getMainDocumentPart().getRelationshipsPart();
+                Relationships rels = relsPart.getRelationships();
+                List<Relationship> relsList = rels.getRelationship();
+                Relationship r = relsList.get(1);
+                Part p = relsPart.getPart(r);
+                Chart chartPart = new Chart(p.getPartName());//这种写法是不行的
+            }
+            if(false) {
+                Chart chart = (Chart) wm.getParts().get(new PartName("/word/charts/chart2.xml"));
+                //Object object = chart.getJaxbElement().getChart().getPlotArea().getAreaChartOrArea3DChartOrLineChart();
+                Object object1 = chart.getContents().getChart().getPlotArea().getAreaChartOrArea3DChartOrLineChart();
+            }
+
+            if(false) {
+                List<?> paragraphList = wm.getMainDocumentPart().getContent(); //取主文档的段落为单位且以文档书写顺序排列的列表，会包含表格对象，此列表删除元素后会同步修改待保存的文档
+                List<Object> paragraph1 = getAllElementFromObject(paragraphList.get(17), Text.class);
+                List<Object> paragraph2 = getAllElementFromObject(paragraphList, CTTextbox.class);
+                List<Object> paragraph21 = getAllElementFromObject(paragraph2, P.class);
+
+                List<Object> paragraph = getAllElementFromObject(wm.getMainDocumentPart(), P.class); //段落才是操作文档的合理单位
+
+                paragraphList.remove(17);//删除段落
+                //paragraphList.re
+                modifyTextInParagraph((P) paragraphList.get(17), "已被替换");
+                //replacePlaceholder(wm, companyName, "headCompanyName");
+            }
+            //writeDocxToStream(wm, targetPath +companyName +targetFileTail );
+/*            File fl =new File(".");
+            FileOutputStream fos = new FileOutputStream (fl);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            baos.writeTo(fos);
+            for( byte i =20; i >0; i-- ) {
+                fos.write(i);
+            }*/
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 //    /**

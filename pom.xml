@@ -499,6 +499,7 @@
                     <include>**/*.properties</include>
                     <include>**/*.xml</include>
                     <include>**/*.tld</include>
+                    <include>**/shanghai-company-anti-fraud-template.docx</include>
                 </includes>
                 <filtering>true</filtering>
             </resource>

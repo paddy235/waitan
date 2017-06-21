@@ -3,11 +3,7 @@ package com.bbd.wtyh.service;
 import java.util.List;
 import java.util.Map;
 
-import com.bbd.wtyh.domain.dto.AreaIndexDTO;
-import com.bbd.wtyh.domain.dto.IndustryCompareDTO;
-import com.bbd.wtyh.domain.dto.IndustryProblemDTO;
-import com.bbd.wtyh.domain.dto.IndustryShanghaiDTO;
-import com.bbd.wtyh.domain.dto.PlatRankDataDTO;
+import com.bbd.wtyh.domain.dto.*;
 
 /**
  * @author Ian.Su
@@ -71,6 +67,23 @@ public interface PToPMonitorService {
      * @return List<IndustryProblemDTO>
      */
     public List<IndustryProblemDTO> getProblemData() throws Exception;
+
+
+    /**
+     * 网贷平台数据 -平台列表（含对应公司及平台logo网址）
+     * @return
+     * @throws Exception
+     *  by cgj
+     */
+    List<PlatCompanyDTO> getPlatList() throws Exception;
+
+    /**
+     * 根据公司名称查询对应的平台列表（数据源来自于网贷之家的线上数据）
+     * @param companyName
+     * @return
+     *  by cgj
+     */
+    List<PlatCompanyDTO> searchPlatListByCompanyName( String companyName );
 
 
 }

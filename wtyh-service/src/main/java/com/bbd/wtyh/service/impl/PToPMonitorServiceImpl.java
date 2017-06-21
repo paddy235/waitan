@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.bbd.wtyh.domain.dto.*;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +19,6 @@ import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.PlatformNameInformationDO;
-import com.bbd.wtyh.domain.dto.AreaIndexDTO;
-import com.bbd.wtyh.domain.dto.IndustryCompareDTO;
-import com.bbd.wtyh.domain.dto.IndustryProblemDTO;
-import com.bbd.wtyh.domain.dto.IndustryShanghaiDTO;
-import com.bbd.wtyh.domain.dto.PlatRankDataDTO;
 import com.bbd.wtyh.mapper.PlatformNameInformationMapper;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.CompanyService;
@@ -271,7 +268,57 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
 
     }
 
+    @Override
+    public List<PlatCompanyDTO> getPlatList() throws Exception { //by cgj
+        String url = this.finSerUrl + "?dataType=plat_list";
+        if( this.finSerUrl ==null ) {
+            url = "http://121.40.187.134:5002/financial_services" + "?dataType=plat_list";
+        }
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(url, new HttpCallback<List<PlatCompanyDTO>>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public List<PlatCompanyDTO> parse(String result) {
+                    return JSON.parseArray(result, PlatCompanyDTO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<PlatCompanyDTO> searchPlatListByCompanyName( String companyName ) { //by cgj
+        List platList =new ArrayList<PlatCompanyDTO>();
+        if ( StringUtils.isBlank(companyName) ) {
+            return platList;
+        }
+        try {
+            PToPMonitorService ptps = new PToPMonitorServiceImpl();
+            List<PlatCompanyDTO> lpc = ptps.getPlatList();
+            for ( PlatCompanyDTO pd : lpc ) {
+                String tarCompName =pd.getCompany_name();
+                if( StringUtils.isNotBlank(tarCompName) &&companyName.equals(tarCompName) ) {
+                    platList.add(pd);
+                }
+            }
+        } catch (Exception e ) {}
+        return platList;
+    }
+
     public static void main(String[] agrs) throws Exception {
+
+        try {
+            PToPMonitorService ptps = new PToPMonitorServiceImpl();
+            List<PlatCompanyDTO> lpc = ptps.getPlatList();
+            int num =lpc.size();
+            num =num;
+        } catch (Exception e) {}
 
         //		String url = "http://140.206.51.154:5002/financial_services?dataType=industry_problem";
         //		HttpTemplate httpTemplate = new HttpTemplate();
