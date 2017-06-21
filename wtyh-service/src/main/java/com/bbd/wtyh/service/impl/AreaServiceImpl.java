@@ -10,7 +10,10 @@
 
 package com.bbd.wtyh.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.bbd.wtyh.common.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +84,16 @@ public class AreaServiceImpl implements AreaService {
 	@Override
 	public List<AreaDO> areaListAll(Integer parentId) {
 		return areaMapper.areaListAll(parentId);
+	}
+
+	@Override
+	public Map<Integer, String> areaMapAll(Integer parentId) {
+		List<AreaDO> areaList = areaMapper.areaListAll(parentId);
+		Map map = new HashMap();
+		for (AreaDO area : areaList) {
+			map.put(area.getAreaId(), area.getName());
+		}
+		return map;
 	}
 
 

@@ -279,36 +279,41 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 		StaticRiskDataDO staticRiskDataDO = staticRiskMapper.queryStaticsRiskData(companyDO.getName());
 		Integer riskLevel = oldRiskLevel;
 		Integer riskLevelForPToP = platRankMapData.get(companyId);
-
+		/**风险等级规则
+		 * 1.若能取到网贷之家的风险等级，则以网贷之家为准
+		 * 2.非网贷,取static_risk_data的风险等级
+		 * 3.非网贷,取company_analysis_result，且能取到该企业的风险等级,则覆盖第二步的风险等级
+		 **/
 		if (riskLevelForPToP != null && riskLevelForPToP > 0) {
 			logger.warn("companyId:{} riskLevelForP2P:{}", companyId, riskLevelForPToP);
 			riskLevel = riskLevelForPToP;
-		}
+		}else{
 
-		if (staticRiskDataDO != null) {
-			BigDecimal staticsRiskIndex = staticRiskDataDO.getStaticRiskIndex();
-			riskLevel = staticRiskIndexToLevel(staticsRiskIndex);
-			logger.warn("companyId:{} riskLevel from static_risk_data:{}", companyId, riskLevel);
-		}
+			if (staticRiskDataDO != null) {
+				BigDecimal staticsRiskIndex = staticRiskDataDO.getStaticRiskIndex();
+				riskLevel = staticRiskIndexToLevel(staticsRiskIndex);
+				logger.warn("companyId:{} riskLevel from static_risk_data:{}", companyId, riskLevel);
+			}
 
-		if (companyAnalysisResultDO != null) {
-			// 预付卡不考虑黑名单
-			if (companyType != CompanyDO.TYPE_YFK_11) {
-				Byte aByte=companyAnalysisResultDO.getAnalysisResult();
-				int analysis=0;
-				if(aByte!=null){
-					analysis=(int)aByte;
-				}
-				for(int i=1;i<=4;i++){
-					if(i==analysis){
-						riskLevel = analysis;
-						logger.warn("companyId:{} riskLevel from company_analysis_result:{}", companyId, riskLevel);
-						break;
+			if (companyAnalysisResultDO != null) {
+				// 预付卡不考虑黑名单
+				if (companyType != CompanyDO.TYPE_YFK_11) {
+					Byte aByte=companyAnalysisResultDO.getAnalysisResult();
+					int analysis=0;
+					if(aByte!=null){
+						analysis=(int)aByte;
 					}
 
+					if(0<analysis && analysis<5){
+						riskLevel = analysis;
+						logger.warn("companyId:{} riskLevel from company_analysis_result:{}", companyId, riskLevel);
+
+					}
 				}
 			}
 		}
+
+
 		/*
 		 * boolean immUpdatePreviousRiskLevel =false; if( null ==oldRiskLevel &&
 		 * StringUtils.isNotBlank(companyDO.getName()) ) { BigDecimal bdl =

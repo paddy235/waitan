@@ -1,16 +1,17 @@
 package com.bbd.shanghai.credit.utils;
 
 import com.bbd.shanghai.credit.service.XyAppQueryService;
-import com.bbd.wtyh.util.ApplicationContextUtil;
-import com.bbd.wtyh.util.WtyhHelper;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.http.auth.UsernamePasswordCredentials;
 import org.codehaus.xfire.XFire;
 import org.codehaus.xfire.XFireFactory;
 import org.codehaus.xfire.client.XFireProxyFactory;
 import org.codehaus.xfire.service.Service;
 import org.codehaus.xfire.service.binding.ObjectServiceFactory;
+import org.codehaus.xfire.transport.http.CommonsHttpMessageSender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
+import java.net.URI;
 
 /**
  * 信用平台webService工具类
@@ -35,6 +36,31 @@ public class XyptWebServiceUtil {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(XyptWebServiceUtil.class);
 
+	private static String httpProxyHost = null;
+	private static int httpProxyPort = 0;
+	private static String httpProxyUser = null;
+	private static String httpProxyPwd = null;
+
+	static {
+		String httpProxy = System.getenv("http_proxy");
+		if (StringUtils.isNotBlank(httpProxy)) {
+			try {
+				URI httpProxyUri = new URI(httpProxy);
+				if (httpProxyUri != null) {
+					httpProxyHost = httpProxyUri.getHost();
+					httpProxyPort = httpProxyUri.getPort();
+					if (StringUtils.isNotEmpty(httpProxyUri.getUserInfo())) {
+						UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(httpProxyUri.getUserInfo());
+						httpProxyUser = credentials.getUserName();
+						httpProxyPwd = credentials.getPassword();
+					}
+				}
+			} catch (Exception e) {
+				LOGGER.error("获取代理地址失败！", e);
+			}
+		}
+	}
+
 	/**
 	 *
 	 * 获取信用信息。三个参数至少具备一项
@@ -55,6 +81,17 @@ public class XyptWebServiceUtil {
 
 			ObjectServiceFactory oClass = new ObjectServiceFactory();
 			Service serviceModel = oClass.create(XyAppQueryService.class);
+
+			if (StringUtils.isNotEmpty(httpProxyHost) && httpProxyPort > 0) {
+				serviceModel.setProperty(CommonsHttpMessageSender.DISABLE_PROXY_UTILS, true);
+				serviceModel.setProperty(CommonsHttpMessageSender.HTTP_PROXY_HOST, httpProxyHost);
+				serviceModel.setProperty(CommonsHttpMessageSender.HTTP_PROXY_PORT, httpProxyPort);
+				if (StringUtils.isNotEmpty(httpProxyUser)) {
+					serviceModel.setProperty(CommonsHttpMessageSender.HTTP_PROXY_USER, httpProxyUser);
+					serviceModel.setProperty(CommonsHttpMessageSender.HTTP_PROXY_PASS, httpProxyPwd);
+				}
+			}
+
 			// 获取XFire的代理对象
 			XFire xfire = XFireFactory.newInstance().getXFire();
 			XFireProxyFactory factory = new XFireProxyFactory(xfire);

@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.bbd.wtyh.excel.ExportExcel;
 import com.bbd.wtyh.exception.ExceptionHandler;
 import com.bbd.wtyh.log.user.Operation;
+import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.report.util.DrawRelated;
 import org.apache.commons.collections.map.HashedMap;
@@ -166,7 +167,7 @@ public class OfflineFinanceController {
 
 	@RequestMapping(value = "/export-related-data")
 	@ResponseBody
-	public ResponseBean exportRelatedData(@RequestParam String companyName) {
+	public ResponseBean exportRelatedData(@RequestParam String companyName,HttpServletRequest request) {
 		try {
 			RelationDiagramVO result = offlineFinanceService.queryRealRealation(companyName, 3);
 			List<RelationDiagramVO.LineVO> lineList = result.getLineList();
@@ -191,6 +192,8 @@ public class OfflineFinanceController {
 				exportExcel.createSheet(companyName + i, lineList.subList(fromIndex, toIndex));
 			}
 			exportExcel.exportExcel();
+			UserLogRecord.record("导出【"+companyName+"】关联方", Operation.Type.DATA_EXPORT, Operation.Page.hologram,
+					Operation.System.front, request);
 			return ResponseBean.successResponse(exportExcel.getDownloadURL());
 		} catch (Exception e) {
 			return ExceptionHandler.handlerException(e);

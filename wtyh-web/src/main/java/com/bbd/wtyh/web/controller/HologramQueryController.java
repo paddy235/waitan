@@ -9,6 +9,7 @@ import com.bbd.wtyh.service.HologramQueryService;
 import com.bbd.wtyh.service.InvestigationInfoService;
 import com.bbd.wtyh.util.DateUtils;
 import com.bbd.wtyh.web.ResponseBean;
+import org.apache.velocity.runtime.directive.Foreach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -281,12 +282,26 @@ public class HologramQueryController {
 	public ResponseBean infoStatistics(@RequestParam String company) throws Exception {
 		Map<String, Integer> result = new HashMap<>();
 		//股东高管
+		Set set=new HashSet();
 		Map<String, List> shareholderSenior = hologramQueryService.shareholdersSenior(company);
-		List rList = (List)(shareholderSenior.get("gdxx"));
-		Integer shareholderSeniorTotal = ( null ==rList ? 0 : rList.size() );
+		List<Map> rList = (List)(shareholderSenior.get("gdxx"));
+		for(Map map:rList){
+			Object obj=map.get("shareholder_name");
+			if(obj!=null) {
+				String name = (String) obj;
+				set.add(name);
+			}
+		}
 		rList =(List)(shareholderSenior.get("baxx"));
-		shareholderSeniorTotal += ( null ==rList ? 0 : rList.size() );
-		result.put( "shareholderSeniorTotal", shareholderSeniorTotal );
+		for(Map map:rList){
+			Object obj=map.get("name");
+			if(obj!=null){
+				String name=(String)obj;
+				set.add(name);
+			}
+
+		}
+		result.put( "shareholderSeniorTotal", set.size() );
 		//诉讼记录
 		Integer lawsuitTotal =0;
 		List<OpenCourtAnnouncementDO.Results> loc = hologramQueryService.openCourtAnnouncement(company);
@@ -315,6 +330,106 @@ public class HologramQueryController {
 		Integer patentTotal = ( null ==pd ? 0 : pd.getTotal() ); //专利信息
 		result.put( "patentTotal", patentTotal );
 		//加入排查信息总数
+		Map<String, Object> mp = investigationInfo.listInvestigationInfo( 1,0,null,
+				null, company, null, null, null);
+		Integer investigationTotal =((Long)(mp.get("listTotalNum"))).intValue();
+		result.put( "investigationTotal", null ==investigationTotal ? 0 : investigationTotal );
+		return ResponseBean.successResponse(result);
+	}
+
+
+	/**
+	 * 企业信息详情--股东高管结果统计
+	 *
+	 * @return
+	 */
+	@RequestMapping("/countShareholder.do")
+	@ResponseBody
+	public ResponseBean countShareholder(@RequestParam String company) throws Exception {
+		Map<String, Integer> result = new HashMap<>();
+		//股东高管
+		Set set=new HashSet();
+		Map<String, List> shareholderSenior = hologramQueryService.shareholdersSenior(company);
+		List<Map> rList = (List)(shareholderSenior.get("gdxx"));
+		for(Map map:rList){
+			Object obj=map.get("shareholder_name");
+			if(obj!=null) {
+				String name = (String) obj;
+				set.add(name);
+			}
+		}
+		rList =(List)(shareholderSenior.get("baxx"));
+		for(Map map:rList){
+			Object obj=map.get("name");
+			if(obj!=null){
+				String name=(String)obj;
+				set.add(name);
+			}
+
+		}
+		result.put( "shareholderSeniorTotal", set.size() );
+		return ResponseBean.successResponse(result);
+	}
+	/**
+	 * 企业信息详情--诉讼记录结果统计
+	 *
+	 * @return
+	 */
+	@RequestMapping("/countLitigation.do")
+	@ResponseBody
+	public ResponseBean countLitigation(@RequestParam String company) throws Exception {
+		//诉讼记录
+		Map<String, Integer> result = new HashMap<>();
+		Integer lawsuitTotal =0;
+		List<OpenCourtAnnouncementDO.Results> loc = hologramQueryService.openCourtAnnouncement(company);
+		Integer openCourtNum =( null==loc ? 0 : loc.size() ); //加上开庭公告数
+		result.put("lawsuitTotal_openCourt" ,openCourtNum);
+		lawsuitTotal +=openCourtNum;
+		List<JudgeDocDO.Results> jd= hologramQueryService.judgeDoc(company);
+		Integer judgeDocNum= ( null ==jd ? 0 : jd.size() ); //加上裁判文书数
+		result.put("lawsuitTotal_judgeDoc" ,judgeDocNum);
+		lawsuitTotal +=judgeDocNum;
+		DebtorDO de = hologramQueryService.debtor(company);
+		Integer debtorNum = ( null ==de ? 0 : de.getTotal() ); //加上被执行人
+		result.put("lawsuitTotal_debtor" ,debtorNum);
+		lawsuitTotal +=debtorNum;
+		NoCreditDebtorDO ncd = hologramQueryService.noCreditDebtor(company);
+		Integer noCreditDebtorNum = ( null ==ncd ? 0 : ncd.getTotal() ); //加上失信被执行人
+		result.put("lawsuitTotal_noCreditDebtor" ,noCreditDebtorNum);
+		lawsuitTotal +=noCreditDebtorNum;
+		CourtAnnouncementDO ca = hologramQueryService.courtAnnouncement(company);
+		Integer courtAnnouncementNum = ( null ==ca ? 0 : ca.getTotal() ); //加上法院公告
+		result.put("lawsuitTotal_courtAnnouncement" ,courtAnnouncementNum);
+		lawsuitTotal +=courtAnnouncementNum;
+		result.put("lawsuitTotal" ,lawsuitTotal);
+		return ResponseBean.successResponse(result);
+	}
+
+	/**
+	 * 企业信息详情--专利信息统计
+	 *
+	 * @return
+	 */
+	@RequestMapping("/countPatent.do")
+	@ResponseBody
+	public ResponseBean countPatent(@RequestParam String company) throws Exception {
+		//加入专利信息
+		Map<String, Integer> result = new HashMap<>();
+		PatentDO pd = hologramQueryService.getPatentData(company,1,200000000);
+		Integer patentTotal = ( null ==pd ? 0 : pd.getTotal() ); //专利信息
+		result.put( "patentTotal", patentTotal );
+		return ResponseBean.successResponse(result);
+	}
+	/**
+	 * 企业信息详情--排查信息统计
+	 *
+	 * @return
+	 */
+	@RequestMapping("/countInvestigation.do")
+	@ResponseBody
+	public ResponseBean countInvestigation(@RequestParam String company) throws Exception {
+		//加入排查信息总数
+		Map<String, Integer> result = new HashMap<>();
 		Map<String, Object> mp = investigationInfo.listInvestigationInfo( 1,0,null,
 				null, company, null, null, null);
 		Integer investigationTotal =((Long)(mp.get("listTotalNum"))).intValue();
