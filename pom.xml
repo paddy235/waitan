@@ -36,11 +36,17 @@
          </dependency>-->
 
 
-         <dependency>
-             <groupId>org.docx4j</groupId>
-             <artifactId>docx4j</artifactId>
-             <version>3.3.3</version>
-         </dependency>
+        <dependency>
+            <groupId>org.docx4j</groupId>
+            <artifactId>docx4j</artifactId>
+            <version>3.3.3</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
         <dependency>
             <groupId>xom</groupId>
