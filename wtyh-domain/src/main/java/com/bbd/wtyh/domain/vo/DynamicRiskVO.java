@@ -79,7 +79,7 @@ public class DynamicRiskVO {
 	
 	private List<String> cprCompanyDetail;//比较公司明细
 
-	private double steadyStateOperationRisk;//稳态运行风险
+	private double steadyStateOperationRisk;//稳态运行风险 *实际表示的是 “跨区域舞弊风险”
 	
 	private List<String> curAreaList; //当前地域积聚top4省份或直辖市名单	
 	

@@ -60,7 +60,7 @@ public interface OfflineFinanceService {
     public String createYED(String companyName, String month) throws Exception;
 
     //获取最新的关联方图谱图片
-    public ByteArrayOutputStream createNewestYEDtoStream(String companyName);
+    public byte[] createNewestYEDtoStream(String companyName);
 
     Map companyInfo(String companyName);
 

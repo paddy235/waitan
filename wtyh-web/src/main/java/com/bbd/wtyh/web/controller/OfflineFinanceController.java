@@ -150,6 +150,13 @@ public class OfflineFinanceController {
 	public ResponseBean queryDynamicPicDataTwo(@RequestParam String companyName, @RequestParam(defaultValue = "1") Integer degreesLevel) {
 		try {
 			RelationDiagramVO result = offlineFinanceService.queryRealRealation(companyName, degreesLevel);
+
+			//test-start
+			//DrawRelated dr =new DrawRelated();
+			//dr.drawRelated(dr.relationDiagramVoToNodeList(result), dr.relationDiagramVoToLineList(result));
+			//dr.saveFile("C:\\Users\\Administrator\\Desktop\\img_" +companyName +degreesLevel +".png");
+			//test-end
+
 			return ResponseBean.successResponse(result);
 		} catch (Exception e) {
 			logger.error("RelationController->queryDynamicPicDataTwo", e);

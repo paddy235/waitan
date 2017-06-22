@@ -924,7 +924,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 	}
 
 	//获取最新的关联方图谱图片
-	public ByteArrayOutputStream createNewestYEDtoStream(String companyName)  {
+	public byte[] createNewestYEDtoStream(String companyName)  {
 		try {
 			String month = staticRiskMapper.getNewestDataVersion();
 			RelationDTO relationDTO = offlineFinanceDao.queryRealation(companyName, month);
@@ -934,7 +934,7 @@ public class OfflineFinanceServiceImpl implements OfflineFinanceService {
 			}
 			ByteArrayOutputStream bos = new ByteArrayOutputStream();
 			if( buildFileService.buildImageToFileOrStream(data, companyName, null, bos, false) ) {
-				return bos;
+				return bos.toByteArray();
 			}
 		} catch (Exception e) {
 			return null;
