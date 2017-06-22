@@ -19,7 +19,6 @@ import com.bbd.wtyh.exception.ExceptionHandler;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
-import com.bbd.wtyh.report.util.DrawRelated;
 import org.apache.commons.collections.map.HashedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
