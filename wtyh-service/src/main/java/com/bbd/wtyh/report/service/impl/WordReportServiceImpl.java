@@ -360,8 +360,7 @@ public class WordReportServiceImpl implements WordReportService {
                 logger.warn("企业基本信息不完备");
             }
 
-//qinyr
-
+            //企业股东信息
 
             // 企业全息信息
             File fl =new File("D:\\bbdPrjIj\\wtyh-dv\\wtyh-web\\src\\main\\resources\\docx\\temporary\\关联0.png");
