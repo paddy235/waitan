@@ -46,15 +46,15 @@ public class XyptWebServiceUtil {
 		if (StringUtils.isNotBlank(httpProxy)) {
 			try {
 				URI httpProxyUri = new URI(httpProxy);
-				if (httpProxyUri != null) {
-					httpProxyHost = httpProxyUri.getHost();
-					httpProxyPort = httpProxyUri.getPort();
-					if (StringUtils.isNotEmpty(httpProxyUri.getUserInfo())) {
-						UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(httpProxyUri.getUserInfo());
-						httpProxyUser = credentials.getUserName();
-						httpProxyPwd = credentials.getPassword();
-					}
+
+				httpProxyHost = httpProxyUri.getHost();
+				httpProxyPort = httpProxyUri.getPort();
+				if (StringUtils.isNotEmpty(httpProxyUri.getUserInfo())) {
+					UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(httpProxyUri.getUserInfo());
+					httpProxyUser = credentials.getUserName();
+					httpProxyPwd = credentials.getPassword();
 				}
+
 			} catch (Exception e) {
 				LOGGER.error("获取代理地址失败！", e);
 			}
@@ -85,7 +85,7 @@ public class XyptWebServiceUtil {
 			if (StringUtils.isNotEmpty(httpProxyHost) && httpProxyPort > 0) {
 				serviceModel.setProperty(CommonsHttpMessageSender.DISABLE_PROXY_UTILS, true);
 				serviceModel.setProperty(CommonsHttpMessageSender.HTTP_PROXY_HOST, httpProxyHost);
-				serviceModel.setProperty(CommonsHttpMessageSender.HTTP_PROXY_PORT, httpProxyPort);
+				serviceModel.setProperty(CommonsHttpMessageSender.HTTP_PROXY_PORT, httpProxyPort + "");
 				if (StringUtils.isNotEmpty(httpProxyUser)) {
 					serviceModel.setProperty(CommonsHttpMessageSender.HTTP_PROXY_USER, httpProxyUser);
 					serviceModel.setProperty(CommonsHttpMessageSender.HTTP_PROXY_PASS, httpProxyPwd);
