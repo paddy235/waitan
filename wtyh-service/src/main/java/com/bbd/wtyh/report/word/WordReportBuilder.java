@@ -1354,9 +1354,10 @@ public class WordReportBuilder {
                             String rlt = replaceMap.get(str);
                             if(StringUtils.isEmpty(rlt)) {
                                 thisErrRecord.append("设置“").append(str).append("”失败；");
-                                continue;
+                                //DocxUtils.modifyTextInTc((Tc) objC.get(1), "——");
+                            } else {
+                                DocxUtils.modifyTextInTc((Tc) objC.get(1), rlt);
                             }
-                            DocxUtils.modifyTextInTc((Tc)objC.get(1), rlt);
                         } else {
                             thisErrRecord.append("查找到不合规的行对象；");
                         }

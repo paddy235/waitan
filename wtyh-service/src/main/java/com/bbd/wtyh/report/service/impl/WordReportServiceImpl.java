@@ -1,20 +1,19 @@
 package com.bbd.wtyh.report.service.impl;
 
 import com.bbd.higgs.utils.DateUtils;
+import com.bbd.wtyh.dao.P2PImageDao;
 import com.bbd.wtyh.domain.dto.PlatCompanyDTO;
 import com.bbd.wtyh.domain.vo.DynamicRiskVO;
 import com.bbd.wtyh.domain.vo.StaticRiskVO;
-import com.bbd.wtyh.exception.BusinessException;
+import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
+import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
 import com.bbd.wtyh.report.service.ScreenCaptureService;
 import com.bbd.wtyh.report.service.WordReportService;
 import com.bbd.wtyh.report.util.DocxUtils;
 import com.bbd.wtyh.report.word.WordReportBuilder;
-import com.bbd.wtyh.service.OfflineFinanceService;
-import com.bbd.wtyh.service.PToPMonitorService;
-import com.bbd.wtyh.service.RelationDataService;
+import com.bbd.wtyh.service.*;
+import org.apache.commons.chain.web.MapEntry;
 import org.apache.commons.lang.StringUtils;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +47,15 @@ public class WordReportServiceImpl implements WordReportService {
 
     @Autowired
     private PToPMonitorService pToPMonitorService;
+
+    @Autowired
+    P2PImageService p2PImageService;
+
+    @Autowired
+    private P2PImageDao p2PImageDao;
+
+    @Autowired
+    private HologramQueryService hologramQueryService;
 
     @Override
     public Map<String, Object> reportExport( String companyName, String loginName, String areaCode ) throws Exception {
@@ -135,7 +143,7 @@ public class WordReportServiceImpl implements WordReportService {
                                     bd =bd.setScale(1, BigDecimal.ROUND_HALF_UP);
                                     tmpStr =bd.toString();
                                 }
-                                staticRiskTable.put("信用信息风险", tmpStr); //todo 这个信息的来源产品有异议
+                                staticRiskTable.put("信用信息风险", tmpStr); //
                             }
                             wrb.setStaticRiskTable(staticRiskTable);
                         } else {
@@ -204,56 +212,154 @@ public class WordReportServiceImpl implements WordReportService {
             if( WordReportBuilder.ReportType.NETWORK_LENDING == emReportType ) {
                 List<PlatCompanyDTO> platList = pToPMonitorService.searchPlatListByCompanyName( companyName );
                 for( PlatCompanyDTO pd : platList ) {
+                    String platName =pd.getPlat_name();
+                    if ( StringUtils.isBlank(platName) ) {
+                        continue;
+                    }
 
-                    wrb.addPlatInfo(new HashMap<String, String>() {{
-                                        put("平台名称", "万金贷（测试平台名称）"); //这个是必传参数
-                                        put("平台等级", "B");
-                                        put("平台状态", "优良");
-                                        put("运营能力", "37.9");
-                                    }},
-                            new HashMap<String, String>() {{
-                                put("累计成交量", "224.5");
-                                put("贷款余额", "77");
-                                put("平均利率", "15.5");
-                            }},
-                            null,
-                            null,
-                            null,
-                            null);
-                    wrb.addPlatInfo(new HashMap<String, String>() {{
-                                        put("平台名称", "亿金贷（测试）"); //这个是必传参数
-                                        put("平台等级", "B");
-                                        put("平台状态", "优良");
-                                        put("运营能力", "57.9");
-                                    }},
-                            null,
-                            new ArrayList<java.util.List<String>>() {{
-                                java.util.List<String> lst = new ArrayList<String>() {{
-                                    add("2017.8.9");
-                                    add("1389.3");
-                                }};
-                                add(lst);
-                                add(lst);
-                                add(lst);
-                            }},
-                            null,
-                            null,
-                            new ArrayList<java.util.List<String>>() {{
-                                java.util.List<String> lst = new ArrayList<String>() {{
-                                    add("1");
-                                    add("aaaa");
-                                    add("aaaa");
-                                    add("2017.8.9");
-                                }};
-                                add(lst);
-                                add(lst);
-                                add(lst);
-                            }});
+                    //聚合 平台评分信息
+                    Map<String, String> gradeInfo = new HashMap<String, String>() {{
+                        put("平台名称", platName); //这个是必传参数
+                    }};
+                    Map<String, Object> platStatus = p2PImageService.platFormStatus(platName);
+                    if (null != platStatus && platStatus.size() >0) {
+                        String score =(String) platStatus.get("score");
+                        String status =(String) platStatus.get("status");
+                        gradeInfo.put("平台等级", score !=null ? score :"--" );
+                        gradeInfo.put("平台状态", status !=null ? status :"--" );
+                    } else {
+                        logger.warn("此平台基本数据不完备");
+                    }
+                    //加入：运营能力、违约成本。。。信息披露六项
+                    Map<String, Object> rst1 = p2PImageService.radarScore(platName);
+                    if( rst1 !=null && rst1.size() >0 ) {
+                        Object r2 = rst1.get("indicator");
+                        if( r2 instanceof List ) {
+                            for( Object r3 :(List) r2 ) {
+                                if( r3 instanceof Map ) {
+                                    String name = (String )((Map) r3).get("name");
+                                    BigDecimal bD =(BigDecimal) ((Map) r3).get("max");
+                                    if( StringUtils.isNotBlank(name) && bD !=null ) {
+                                        gradeInfo.put(name, bD.toString());
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        logger.warn("此平台评分数据不完备");
+                    }
 
+                    //填充平台核心数据
+                    Map<String, String> coreData =new HashMap<String, String>() {{
+                        //put("累计成交量", "224.5");
+                    }};
+                    Map<String, Object> coreDataInfo = p2PImageService.coreDataInfo(platName);
+                    if (null != coreDataInfo && coreDataInfo.size() >0) {
+                        MapKeyToKey_funIf1 mKtkFun =( String desKeyStr, String srcKeyStr, double dev, int scale, String unit ) ->{
+                            Object obj =coreDataInfo.get(srcKeyStr);
+                            if( obj !=null && obj instanceof BigDecimal ) {
+                                BigDecimal bD =((BigDecimal)obj).divide( BigDecimal.valueOf(dev),
+                                        scale, BigDecimal.ROUND_HALF_UP );
+                                coreData.put( desKeyStr, bD.toString() +unit );
+                            }
+                        };
+                        mKtkFun.fun("累计成交量", "amount_total", 100000000D,2, "" ); //表格已有单位列
+                        mKtkFun.fun("贷款余额", "money_stock", 100000000D,2, "" ); //表格已有单位列
+                        mKtkFun.fun("平均利率", "interest_rate", 1D,2, "" ); //表格已有单位列
+                        mKtkFun.fun("近30日净资金流入", "month_net_inflow", 10000D,2, "" ); //表格已有单位列
+                        mKtkFun.fun("待收投资人数", "bid_num_stay_stil", 1D,2, "" ); //表格已有单位列
+                        mKtkFun.fun("待还借款人数", "bor_num_stay_stil", 1D,2, "" ); //表格已有单位列
+                        mKtkFun.fun("最大单户借款额", "top1_sum_amount", 10000D,2, "" ); //表格已有单位列
+                        mKtkFun.fun("最大十户借款额", "top10_sum_amount", 10000D,2, "" ); //表格已有单位列
+                    } else {
+                        logger.warn("此平台核心数据不完备");
+                    }
+
+                    List<List<String>> transferQuantityTrend =new ArrayList<>(); //平台交易量走势
+                    List<List<String>> interestRateTrend =new ArrayList<>(); //平台利率走势
+                    List<List<String>> loanBalance =new ArrayList<>(); //平台贷款余额
+                    PlatDataDO data = p2PImageDao.getPlatData(platName);
+                    if (null != data) {
+                        List<PlatDataDO.PlatDataSixMonth> plat_data_six_month =data.getPlat_data_six_month();
+                        LocalDate currDay =LocalDate.now().minusDays(15);
+                        for ( PlatDataDO.PlatDataSixMonth pdSm : plat_data_six_month ) {
+                            LocalDate compDay;
+                            try {
+                                compDay = LocalDate.parse( pdSm.getDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd") );
+                            } catch (DateTimeParseException de) {
+                                compDay = LocalDate.now(); //使下一步的判断条件为假
+                            }
+                            if (compDay.isBefore(currDay)) {
+                                ListValToVal_funIf1 lVtv =( String date, double srcVal, double dev, int scale,
+                                                            List<List<String>> desList ) ->{
+                                    BigDecimal bD = BigDecimal.valueOf(srcVal).divide( BigDecimal.valueOf(dev),
+                                            scale, BigDecimal.ROUND_HALF_UP );
+                                    List sonList =new ArrayList<String>();
+                                    sonList.add(date);
+                                    sonList.add( bD.toString() );
+                                    desList.add(sonList);
+                                };
+                                lVtv.fun( pdSm.getDate(), pdSm.getDay_amount(), 1D, 1, transferQuantityTrend );
+                                lVtv.fun( pdSm.getDate(), pdSm.getDay_interest_rate(), 1D, 1, interestRateTrend );
+                                lVtv.fun( pdSm.getDate(), pdSm.getDay_money_stock(), 1D, 1, loanBalance );
+                            }
+                        }
+                    } else {
+                        logger.warn("此平台走势数据不完备");
+                    }
+
+                    //填充平台舆情
+                    List<List<String>> publicSentiment =new ArrayList<List<String>>();
+                    YuQingDO yuQingDO = p2PImageDao.platformConsensus(platName);
+                    if( yuQingDO !=null ) {
+                        List<YuQingDO.Warning> warning =yuQingDO.getWarning();
+                        if ( warning != null ) {
+                            for ( int idx =0; idx <99; idx++ ) {
+                                List<String> lStr =new ArrayList<>();
+                                publicSentiment.add(lStr);
+                                YuQingDO.Warning yw = warning.get(idx);
+                                lStr.add( Integer.toString(idx +1) ); //序号
+                                lStr.add(yw.getTitle() ); //标题
+                                String summary =yw.getContent();
+                                if( summary !=null && summary.length() >25 ) {
+                                    summary =summary.substring(0, 25) +"……";
+                                }
+                                lStr.add( summary ); //“摘要”
+                                lStr.add(yw.getDate() ); //发布时间
+                            }
+                        }
+                    } else {
+                        logger.warn("此平台舆情数据不完备");
+                    }
+                    wrb.addPlatInfo( gradeInfo, coreData, transferQuantityTrend, interestRateTrend,
+                            loanBalance, publicSentiment);
                 }
             }
 
             //企业基本信息
+            Map<String, Object> biTb = hologramQueryService.businessInfo(companyName);
+            if( biTb !=null && biTb.size() >2 ) {
+                String regNo =(String) biTb.get("工商注册号");
+                regNo = regNo !=null ? regNo : "";
+                biTb.remove("工商注册号");
+                String creditCode =(String) biTb.get("统一信用代码");
+                creditCode = creditCode !=null ? creditCode : "";
+                biTb.remove("统一信用代码");
+                biTb.put("工商注册号/统一信用代码", regNo +"/" +creditCode);
+                String regStatus =(String) biTb.get("状态");
+                biTb.remove("状态");
+                biTb.put("登记状态" , regStatus);
+                Map<String, String>baseInfoTable =new HashMap<>();
+                for (Map.Entry<String, Object> entry : biTb.entrySet() ) {
+                    String val =(String) entry.getValue();
+                    val = val !=null ? val : "";
+                    baseInfoTable.put(entry.getKey(), val);
+                }
+                wrb.setCompanyBaseInfoTable(baseInfoTable);
+            } else {
+                logger.warn("企业基本信息不完备");
+            }
+
 
             // 企业全息信息
             File fl =new File("D:\\bbdPrjIj\\wtyh-dv\\wtyh-web\\src\\main\\resources\\docx\\temporary\\关联0.png");
@@ -326,6 +432,18 @@ public class WordReportServiceImpl implements WordReportService {
         }};
         return errMap;
     }
+
+
+    @FunctionalInterface
+    interface MapKeyToKey_funIf1 {
+        void fun( String desKeyStr, String srcKeyStr, double dev, int scale, String unit );
+    };
+
+    @FunctionalInterface
+    interface ListValToVal_funIf1 {
+        void fun( String date, double srcVal, double dev, int scale, List<List<String>> desList );
+    };
+
 
     @Autowired
     private ScreenCaptureService phantomSer;
