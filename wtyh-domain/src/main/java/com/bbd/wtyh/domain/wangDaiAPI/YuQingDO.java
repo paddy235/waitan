@@ -10,7 +10,7 @@ public class YuQingDO {
     private String score;
     private List<Warning> warning;
 
-    private class Warning {
+    public class Warning {
         private String title;
         private String content;
         private String source;

@@ -133,8 +133,10 @@ public class HologramQueryServiceImpl implements HologramQueryService {
         }
         if (baseDataDO != null) {
             for (BaseDataDO.Results result : baseDataDO.getResults()) {
+                data.put("企业名称", result.getJbxx().getCompany_name());
                 data.put("法定代表人", result.getJbxx().getFrname());
                 data.put("注册资本", result.getJbxx().getRegcap());
+                data.put("注册地址", result.getJbxx().getAddress());
                 data.put("状态", result.getJbxx().getEnterprise_status());
                 data.put("注册时间", result.getJbxx().getEsdate());
                 data.put("工商注册号", result.getJbxx().getRegno());
