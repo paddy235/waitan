@@ -1,7 +1,9 @@
 package com.bbd.wtyh.report.service.impl;
 
 import com.bbd.higgs.utils.DateUtils;
+import com.bbd.wtyh.dao.HologramQueryDao;
 import com.bbd.wtyh.dao.P2PImageDao;
+import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.dto.PlatCompanyDTO;
 import com.bbd.wtyh.domain.vo.DynamicRiskVO;
 import com.bbd.wtyh.domain.vo.StaticRiskVO;
@@ -57,6 +59,9 @@ public class WordReportServiceImpl implements WordReportService {
     @Autowired
     private HologramQueryService hologramQueryService;
 
+    @Autowired
+    private HologramQueryDao hologramQueryDao;
+
     @Override
     public Map<String, Object> reportExport( String companyName, String loginName, String areaCode ) throws Exception {
         if ( StringUtils.isBlank( companyName ) ) {
@@ -69,7 +74,7 @@ public class WordReportServiceImpl implements WordReportService {
         String analysisResultName;
         List backgroud;
         WordReportBuilder.ReportType emReportType;
-        Map<String, Object> companyInfo =offlineFinanceService.companyInfo(companyName);
+        Map companyInfo =offlineFinanceService.companyInfo(companyName);
         if( companyInfo != null && companyInfo.size() >0 ) {
             reportTypeName = (String)companyInfo.get("comTypeCN");
             if(StringUtils.isNotBlank( reportTypeName ) ) {
@@ -111,8 +116,14 @@ public class WordReportServiceImpl implements WordReportService {
                 if( dataVersionList !=null) {
                     //静态风险
                     if ( dataVersionList.size() >0 ) {
-                        StaticRiskVO vo = offlineFinanceService.queryCurrentStaticRisk(companyName,
-                                dataVersionList.get(0), null);
+                        String currentMonth;
+                        try {
+                            currentMonth =LocalDate.parse( dataVersionList.get(0), DateTimeFormatter.ofPattern("yyyyMMdd") )
+                                    .format( DateTimeFormatter.ofPattern("yyyy-MM") );
+                        } catch (DateTimeParseException de) {
+                            currentMonth = LocalDate.now().minusMonths(1).format( DateTimeFormatter.ofPattern("yyyy-MM") );
+                        }
+                        StaticRiskVO vo = offlineFinanceService.queryCurrentStaticRisk(companyName, currentMonth, null);
                         if( vo !=null ) {
                             Map<String, String> staticRiskTable = new HashMap<String, String>() {{
                                 //put("静态风险指数", "69.5");
@@ -127,21 +138,19 @@ public class WordReportServiceImpl implements WordReportService {
                             staticRiskTable.put( "人才结构风险", vo.getPerStructRisk() );
                             Map data = offlineFinanceService.staticRiskIndex(companyName);
                             if( data !=null && data.size() >0 ) {
-                                BigDecimal bd =(BigDecimal) data.get("capitalRisk");
                                 String tmpStr;
-                                if ( bd ==null ) {
+                                try {
+                                    tmpStr = BigDecimal.valueOf( (Float) data.get("capitalRisk") )
+                                            .setScale(1, BigDecimal.ROUND_HALF_UP).toString();
+                                } catch (NumberFormatException e) {
                                     tmpStr ="--";
-                                } else {
-                                    bd =bd.setScale(1, BigDecimal.ROUND_HALF_UP);
-                                    tmpStr =bd.toString();
                                 }
                                 staticRiskTable.put("资本背景风险", tmpStr);
-                                bd =(BigDecimal) data.get("creditInfoRisk");
-                                if ( bd ==null ) {
+                                try {
+                                    tmpStr = ( (BigDecimal) data.get("creditInfoRisk") )
+                                            .setScale(1, BigDecimal.ROUND_HALF_UP).toString();
+                                } catch (NumberFormatException e) {
                                     tmpStr ="--";
-                                } else {
-                                    bd =bd.setScale(1, BigDecimal.ROUND_HALF_UP);
-                                    tmpStr =bd.toString();
                                 }
                                 staticRiskTable.put("信用信息风险", tmpStr); //
                             }
@@ -157,37 +166,43 @@ public class WordReportServiceImpl implements WordReportService {
                     if (dataVersionList.size() > 1) {
                         //计算合适的比较时段
                         String currentMonth = dataVersionList.get(0);
-                        String[] yyMM = currentMonth.split("-", 2);
                         LocalDate currM;
                         try {
-                            currM = LocalDate.parse(currentMonth, DateTimeFormatter.ofPattern("yyyy-MM"));
+                            currM = LocalDate.parse(currentMonth, DateTimeFormatter.ofPattern("yyyyMMdd"));
                         } catch (DateTimeParseException de) {
                             currM = LocalDate.now().minusMonths(1);
-                            currentMonth = currM.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+                            currentMonth = currM.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
                         }
                         currM = currM.minusYears(1); //当前月份前推一年
                         String compareMonth = null;
+                        LocalDate compM =LocalDate.now();
                         for (int idx = 1; idx < dataVersionList.size(); idx++) {
-                            LocalDate compM;
                             try {
-                                compM = LocalDate.parse(dataVersionList.get(idx), DateTimeFormatter.ofPattern("yyyy-MM"));
+                                compM = LocalDate.parse(dataVersionList.get(idx), DateTimeFormatter.ofPattern("yyyyMMdd"));
                             } catch (DateTimeParseException de) {
                                 compM = LocalDate.now(); //使下一步的判断条件为假
                             }
                             if (compM.isBefore(currM)) {
                                 compareMonth = dataVersionList.get(idx);
+                                break;
                             }
                         }
                         if (null == compareMonth) {
                             compareMonth = dataVersionList.get(dataVersionList.size() - 1);
+                            try {
+                                compM = LocalDate.parse( dataVersionList.get(dataVersionList.size() - 1),
+                                        DateTimeFormatter.ofPattern("yyyyMMdd") );
+                            } catch (DateTimeParseException de) {
+                                compM = LocalDate.now().minusYears(1);
+                            }
                         }
                         DynamicRiskVO riskvo = relationDataService.compareDynamicRisk(companyName, null, currentMonth, compareMonth);
                         if (riskvo != null) {
                             Map<String, String> dynamicRiskTable = new HashMap<String, String>() {{
                                 //put("动态风险指数", "2016.9 - 2017.5");
                             }};
-                            dynamicRiskTable.put("动态风险指数", compareMonth.replace('-', '.') + " - "
-                                    + currentMonth.replace('-', '.')); //时间范围
+                            dynamicRiskTable.put("动态风险指数", compM.format( DateTimeFormatter.ofPattern("yyyy.MM") )
+                                    + " - " + currM.format( DateTimeFormatter.ofPattern("yyyy.MM") ) ); //时间范围
                             dynamicRiskTable.put("动态风险指数^r1", DocxUtils.doubleToString(riskvo.getBbdTimeRiskIndex(), 1)); //指数本身
                             dynamicRiskTable.put("稳态运营风险", DocxUtils.doubleToString(riskvo.getSteadyOperationRisk(), 1));
                             dynamicRiskTable.put("核心资本运作风险", DocxUtils.doubleToString(riskvo.getCoreCapitalOperationRisk(), 1));
@@ -294,7 +309,7 @@ public class WordReportServiceImpl implements WordReportService {
                                                             List<List<String>> desList ) ->{
                                     BigDecimal bD = BigDecimal.valueOf(srcVal).divide( BigDecimal.valueOf(dev),
                                             scale, BigDecimal.ROUND_HALF_UP );
-                                    List sonList =new ArrayList<String>();
+                                    List<String> sonList =new ArrayList<>();
                                     sonList.add(date);
                                     sonList.add( bD.toString() );
                                     desList.add(sonList);
@@ -309,7 +324,7 @@ public class WordReportServiceImpl implements WordReportService {
                     }
 
                     //填充平台舆情
-                    List<List<String>> publicSentiment =new ArrayList<List<String>>();
+                    List<List<String>> publicSentiment =new ArrayList<>();
                     YuQingDO yuQingDO = p2PImageDao.platformConsensus(platName);
                     if( yuQingDO !=null ) {
                         List<YuQingDO.Warning> warning =yuQingDO.getWarning();
@@ -360,11 +375,69 @@ public class WordReportServiceImpl implements WordReportService {
                 logger.warn("企业基本信息不完备");
             }
 
-            //企业股东信息
+            //企业股东信息/董事、监事、高级管理人员信息/变更信息
+            //Map<String, List> shareholders = hologramQueryService.shareholdersSenior(companyName);
+            int rstCnt =0;
+            BaseDataDO baseDataDo = hologramQueryDao.shareholdersSenior(companyName);
+            if ( baseDataDo !=null && baseDataDo.getErr_code() !=null && baseDataDo.getErr_code().equals("0")) {
+                List<BaseDataDO.Results> resultsList =baseDataDo.getResults();
+                if ( resultsList !=null ) {
+                    for ( BaseDataDO.Results results : resultsList ) {
+                        if ( results !=null ) {
+                            //处理股东信息
+                            List<BaseDataDO.Gdxx> gdXx= results.getGdxx();
+                            if ( gdXx !=null && gdXx.size() >0 ) {
+                                List<List<String>> gdList = new LinkedList<>();
+                                for ( BaseDataDO.Gdxx gdObj : gdXx ) {
+                                    List<String> gdLine =new ArrayList<>();
+                                    gdList.add(gdLine);
+                                    gdLine.add( gdObj.getShareholder_name() );
+                                    gdLine.add( gdObj.getShareholder_type() );
+                                }
+                                wrb.setStockholderInfo(gdList);
+                            }
+
+                            //处理董监高信息
+                            List<BaseDataDO.Baxx> baXx= results.getBaxx();
+                            if ( baXx !=null && baXx.size() >0 ) {
+                                List<List<String>> baList = new LinkedList<>();
+                                for ( BaseDataDO.Baxx baObj : baXx ) {
+                                    List<String> baLine =new ArrayList<>();
+                                    baList.add(baLine);
+                                    baLine.add( baObj.getName() );
+                                    baLine.add( baObj.getPosition() );
+                                }
+                                wrb.setTrusteeSupervisorSeniorInfo(baList);
+                            }
+
+                            //处理变更信息
+                            List<BaseDataDO.Bgxx> bgXx= results.getBgxx();
+                            if ( bgXx !=null && bgXx.size() >0 ) {
+                                List<List<String>> bgList = new LinkedList<>();
+                                for ( BaseDataDO.Bgxx bgObj : bgXx ) {
+                                    List<String> bgLine =new ArrayList<>();
+                                    bgList.add(bgLine);
+                                    bgLine.add( bgObj.getChange_items() );
+                                    bgLine.add( bgObj.getContent_before_change() );
+                                    bgLine.add( bgObj.getContent_after_change() );
+                                    bgLine.add( bgObj.getChange_date() );
+                                }
+                                wrb.setCompanyChangeInfo(bgList);
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+            if (rstCnt <3){
+                logger.warn("企业股东信息不完备");
+            }
+
+            //股东出资信息 todo 等产品协调数据平台接口
 
             // 企业全息信息
-            File fl =new File("D:\\bbdPrjIj\\wtyh-dv\\wtyh-web\\src\\main\\resources\\docx\\temporary\\关联0.png");
-            InputStream is =new FileInputStream("D:\\bbdPrjIj\\wtyh-dv\\wtyh-web\\src\\main\\resources\\docx\\temporary\\关联0.png");
+            //File fl =new File("D:\\bbdDoc\\wtyh\\docx\\template\\关联0.png");
+            InputStream is =new FileInputStream("D:\\bbdDoc\\wtyh\\docx\\template\\关联0.png");
 
             byte[] byt = new byte[is.available()];
             is.read(byt, 0, is.available());
@@ -415,10 +488,13 @@ public class WordReportServiceImpl implements WordReportService {
                 logger.warn("Word_Builder_Err >> " + wrb.getErrRecord().toString());
             }
             //导出
-            return wrb.exportReportToBytes();
+            Map<String, Object> reportRst =wrb.exportReportToBytes();
+            wrb.delTempFile();
+            return reportRst;
         } catch (Exception e) {
             return convertErrInfo("Exception: " +e.toString());
         }
+
     }
 
 
