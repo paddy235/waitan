@@ -188,7 +188,7 @@ public class WordReportBuilder {
             wrb.setRelatedPartyMappingInfo(byt,
                     byt,
                     null,
-                    byt,
+                    null,
                     null);
 
             //企业招聘信息
@@ -444,7 +444,7 @@ public class WordReportBuilder {
             setTableSecondColumn( newBlock, 0, cdAnchor, coreData, 1, this1ErrRecord );
             isFront =true; //删除段落“……无相关信息”
         }
-        delTableOrParagraphFromParagraphList(isFront, newBlock, 0, cdAnchor, this1ErrRecord);
+        delTableOrParagraphFromParagraphList( isFront, newBlock, 0, cdAnchor );
         if( this1ErrRecord.length() >0 ) {
             thisErrRecord.append("设置平台核心数据Err: ").append(this1ErrRecord).append(" ");
         }
@@ -1117,7 +1117,7 @@ public class WordReportBuilder {
     }
 
     /**
-     *
+     * 根据锚点搜索图表Drawing对象的关联ID
      * @param myParagraphList 指定段落列表
      * @param startIdx 指定开始搜索的起始位置
      * @param anchor "##@ah-" 的后缀
@@ -1155,6 +1155,7 @@ public class WordReportBuilder {
         return idx;
     }
 
+
     /**
      * 替换指定标识位置的图片
      * @param myParagraphList 指定段落列表
@@ -1167,20 +1168,17 @@ public class WordReportBuilder {
      */
     private int replaceImage( List myParagraphList, int startIdx, String anchor, byte[] srcBytes,
                               File srcFile, StringBuffer thisErrRecord ) {
-        if( srcBytes ==null && srcFile ==null ) {
-            thisErrRecord.append("srcBytes和srcFile同时为空；");
-            return -2;
-        }
         int idx =searchAnchorFromParagraphListToIndex(myParagraphList ,startIdx, anchor);
-        if(idx <0 || (idx +1) >= myParagraphList.size()) {
-            thisErrRecord.append("未搜索到指定标识“").append(anchor).append("”或合规的段落结构；");
-            return -1;
-        }
         idx++;
         List drawingList =DocxUtils.getAllElementFromObject(myParagraphList.get(idx), Drawing.class);
         if( drawingList.size() <1 ) {
             thisErrRecord.append("未搜索到用于修改的Drawing对象；");
             return -3;
+        }
+        if( srcBytes ==null && srcFile ==null ) {
+            delTableOrParagraphFromParagraphList( false, myParagraphList, 0, anchor ); //删图
+            thisErrRecord.append("srcBytes和srcFile同时为空；");
+            return -2;
         }
         List inlineList = ( (Drawing)drawingList.get(0) ).getAnchorOrInline(); //忽略多于1个Drawing对象的情况
         if( inlineList.size() >0 && inlineList.get(0) instanceof Inline) { //从文档中删除此处现存的图片资源
@@ -1207,9 +1205,11 @@ public class WordReportBuilder {
             int id = (int) (Math.random() * 100000);
             Inline inline = aImg.createImageInline("image","image",id,id +103,false);
             inlineList.add(inline);
+            delTableOrParagraphFromParagraphList( true, myParagraphList, 0, anchor ); //删文字
         } catch (Exception e ) {
             thisErrRecord.append("创建Inline对象时发生了异常；");
             e.printStackTrace();
+            delTableOrParagraphFromParagraphList( false, myParagraphList, 0, anchor );//删图
         }
         return idx;
     }
@@ -1228,7 +1228,7 @@ public class WordReportBuilder {
                               int maxRowNum, StringBuffer thisErrRecord ) {
         if( rowsData ==null ||rowsData.isEmpty() ) {
             //thisErrRecord.append("参数“").append("rowsData").append("”为空；");
-            delTableOrParagraphFromParagraphList(false, paragraphList, startIdx, anchor, thisErrRecord);
+            delTableOrParagraphFromParagraphList(false, paragraphList, startIdx, anchor );
             return -2;
         }
         int idx = searchAnchorFromParagraphListToIndex(paragraphList, startIdx, anchor);
@@ -1264,22 +1264,23 @@ public class WordReportBuilder {
                 }
             }
         }
-        delTableOrParagraphFromParagraphList(true, paragraphList, startIdx, anchor, thisErrRecord); //删除前部
+        delTableOrParagraphFromParagraphList(true, paragraphList, startIdx, anchor ); //删除前部
         return idx;
     }
 
     /**
-     * 用于四段落文档片段（"无相关信息"、定位符、表格、备注）选择性删除定位符前或后，且当片段结构完整才删除指定部分
-     * @param front 定位符前或后
+     * 用于四段落文档片段（"无相关信息（尚未查询到目标公司）"、定位符、表格(图片)、备注）选择性删除定位符前或后，
+     * 且当片段结构完整才删除指定部分
+     * @param front 删除定位符前（true）或后（false）
      * @param myParagraphList 待操作的列表
      * @param startIdx 搜索的起始位置
      * @param anchor 定位符
      */
     private void delTableOrParagraphFromParagraphList( boolean front, List myParagraphList, int startIdx,
-                                                       String anchor, StringBuffer thisErrRecord  ) {
+                                                       String anchor  ) {
         int idx = searchAnchorFromParagraphListToIndex(myParagraphList, startIdx, anchor);
         if( idx <1 ||(idx +1) >=myParagraphList.size() ) { //在段落列表中未搜索到指定标识
-            thisErrRecord.append("未搜索到待删除的指定标识“").append(anchor).append("”或合规的段落结构；");
+            //thisErrRecord.append("未搜索到待删除的指定标识“").append(anchor).append("”或合规的段落结构；");
             return;
         }
         int effectCnt =0; //有效性计数器
@@ -1287,15 +1288,17 @@ public class WordReportBuilder {
         //段落“……无相关信息”
         if( (myParagraphList.get(idx -1) instanceof P ) ) {
             String str = DocxUtils.docx4jObjectToString(myParagraphList.get(idx -1));
-            if (StringUtils.isNotBlank(str) && str.contains("无相关信息")  ) {
+            if (StringUtils.isNotBlank(str) &&
+                    ( str.contains("无相关信息") || str.contains("尚未查询到目标公司") ) ) {
                 if(front) {
                     removeColl.add(myParagraphList.get(idx - 1));
                 }
                 effectCnt++;
             }
         }
-        if( myParagraphList.get(idx +1) instanceof JAXBElement
-                && ((JAXBElement)myParagraphList.get(idx +1)).getValue() instanceof Tbl  ) {
+        Object obj = myParagraphList.get(idx +1);
+        if(  ( obj instanceof JAXBElement && ( (JAXBElement) obj ).getValue() instanceof Tbl )
+                || ( DocxUtils.getAllElementFromObject(obj, Drawing.class).size() >0 )  ) {
             if(!front) {
                 removeColl.add(myParagraphList.get(idx + 1));
             }
