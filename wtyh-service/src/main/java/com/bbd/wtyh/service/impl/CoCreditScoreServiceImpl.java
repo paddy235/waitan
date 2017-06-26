@@ -363,6 +363,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 				// 记录失败笔数
 				this.saveFailCompanyByDb(dataVersion);
 			}
+            LOGGER.error("查询公司信用信息报错。公司信息【id：{}，name：{}】。错误信息：{}。", companyDO.getCompanyId(), companyDO.getName(), e.getMessage());
 		}
 
 		if (CollectionUtils.isEmpty(list)) {
