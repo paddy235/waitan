@@ -426,6 +426,9 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 
 		Document document;
 		try {
+
+            xmlData=xmlData.replaceAll("&","&amp;");
+
 			document = DocumentHelper.parseText(xmlData);
 		} catch (DocumentException e) {
 			if (0 == isHandle) {
