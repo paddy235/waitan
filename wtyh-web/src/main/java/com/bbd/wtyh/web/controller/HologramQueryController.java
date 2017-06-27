@@ -108,7 +108,61 @@ public class HologramQueryController {
 	@RequestMapping("/shareholdersSenior")
 	@ResponseBody
 	public ResponseBean shareholdersSenior(@RequestParam(required = true) String company) {
-		Map<String, List> result = hologramQueryService.shareholdersSenior(company);
+		Map<String,List> result=new HashMap();
+		Map<String,Set<String>> resultKey=new HashMap();
+		Map<String, List> shareholderSenior = hologramQueryService.shareholdersSenior(company);
+		List<Map> rList = (List)(shareholderSenior.get("gdxx"));
+		for(Map map:rList){
+			Object obj=map.get("shareholder_name");
+			if(obj!=null) {
+				String name = (String) obj;
+				String type =(String)map.get("shareholder_type");
+				if(resultKey.containsKey(name)){
+					Set typeSet=resultKey.get(name);
+					typeSet.add(type);
+					resultKey.put(name,typeSet);
+				}else{
+					Set typeSet=new HashSet();
+					typeSet.add(type);
+					resultKey.put(name,typeSet);
+				}
+			}
+		}
+		rList =(List)(shareholderSenior.get("baxx"));
+		for(Map map:rList){
+			Object obj=map.get("name");
+			if(obj!=null){
+				String name=(String)obj;
+				String type =(String)map.get("position");
+				if(resultKey.containsKey(name)){
+					Set typeSet=resultKey.get(name);
+					typeSet.add(type);
+					resultKey.put(name,typeSet);
+				}else{
+					Set typeSet=new HashSet();
+					typeSet.add(type);
+					resultKey.put(name,typeSet);
+				}
+			}
+
+		}
+		List<Map<String,String>>list=new ArrayList<>();
+		for(String key:resultKey.keySet()){
+			Set<String> set=resultKey.get(key);
+			StringBuffer sb=new StringBuffer();
+			int i=0;
+			for(String str:set){
+				i++;
+				sb.append(str);
+				if(i<set.size()){
+					sb.append("/");
+				}
+			}
+			Map map=new HashMap();
+			map.put(key,sb.toString());
+			list.add(map);
+		}
+		result.put("baxxAndGdxx",list);
 		return ResponseBean.successResponse(result);
 	}
 
