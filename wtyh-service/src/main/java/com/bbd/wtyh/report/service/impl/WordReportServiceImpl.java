@@ -3,12 +3,14 @@ package com.bbd.wtyh.report.service.impl;
 import com.bbd.higgs.utils.DateUtils;
 import com.bbd.wtyh.dao.HologramQueryDao;
 import com.bbd.wtyh.dao.P2PImageDao;
+import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.dto.PlatCompanyDTO;
 import com.bbd.wtyh.domain.vo.DynamicRiskVO;
 import com.bbd.wtyh.domain.vo.StaticRiskVO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
+import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.report.service.ScreenCaptureService;
 import com.bbd.wtyh.report.service.WordReportService;
 import com.bbd.wtyh.report.util.DocxUtils;
@@ -65,6 +67,9 @@ public class WordReportServiceImpl implements WordReportService {
 
     @Autowired
     private HologramQueryDao hologramQueryDao;
+
+    @Autowired
+    private CompanyMapper companyMapper;
 
     @Override
     public Map<String, Object> reportExport( String companyName, String loginName, String areaCode ) throws Exception {
@@ -416,12 +421,22 @@ public class WordReportServiceImpl implements WordReportService {
                             //处理董监高信息
                             List<BaseDataDO.Baxx> baXx= results.getBaxx();
                             if ( baXx !=null && baXx.size() >0 ) {
+                                Map<String, String> baMap =new LinkedHashMap<>();
+                                for ( BaseDataDO.Baxx baObj : baXx ) { //去重合并
+                                    String val =baMap.get( baObj.getName() );
+                                    if( StringUtils.isNotBlank(val) ) {
+                                        val += "、" +baObj.getPosition();
+                                    } else {
+                                        val =baObj.getPosition();
+                                    }
+                                    baMap.put(baObj.getName(), val);
+                                }
                                 List<List<String>> baList = new LinkedList<>();
-                                for ( BaseDataDO.Baxx baObj : baXx ) {
+                                for ( Map.Entry<String, String> entry: baMap.entrySet() ) {
                                     List<String> baLine =new ArrayList<>();
                                     baList.add(baLine);
-                                    baLine.add( baObj.getName() );
-                                    baLine.add( baObj.getPosition() );
+                                    baLine.add( entry.getKey() );
+                                    baLine.add( entry.getValue() );
                                 }
                                 wrb.setTrusteeSupervisorSeniorInfo(baList);
                             }
@@ -458,8 +473,43 @@ public class WordReportServiceImpl implements WordReportService {
             dr =new DrawRelatedG2(DrawRelatedG2.DegreeType.TWO);
             dr.drawRelatedG2(result);
             byte [] twoDegree =dr.saveToBytes();
-            wrb.setRelatedPartyMappingInfo(newestYED, oneDegree, null,
-                    twoDegree, null);
+            List<List<DrawRelatedG2.NodeInfo>> nodeLList =dr.relationDiagramVoToNodeListG2(result);
+            List<List<List<String>>> distributeArr = new ArrayList<>();
+            if( nodeLList !=null ) {
+                for(int idx =0 ;idx <2; idx++) {
+                    List<List<String>> distribute  =new LinkedList<>();
+                    distributeArr.add(distribute);
+                    List<String> comNames = new LinkedList<>();
+                    for (DrawRelatedG2.NodeInfo ni : nodeLList.get(idx +1)) {
+                        if( ni.companyIs ) {
+                            comNames.add(ni.companyName);
+                        }
+                    }
+                    List<CompanyDO> comList = hologramQueryService.getBbdQyxxBatchAll(comNames); //数据平台取
+                    //List<CompanyDO> comList = companyMapper.findCompanyByName( comNames ); //数据库取
+                    /*if( comList.size() <( 8 *comNames.size()/10 ) ) {
+                        comList = hologramQueryService.getBbdQyxxBatchAll(comNames);
+                    }*/
+                    if( comList ==null ) {
+                        continue;
+                    }
+                    for( String comName : comNames ) {
+                        List<String> low = new ArrayList<>();
+                        distribute.add(low);
+                        low.add(comName);
+                        for( CompanyDO cd : comList ) {
+                            if( comName.equals(cd.getName()) ) {
+                                low.add(cd.getBusinessType());
+                            }
+                        }
+                        if ( low.size() ==1 ) {
+                            low.add("——");
+                        }
+                    }
+                }
+            }
+            wrb.setRelatedPartyMappingInfo(newestYED, oneDegree, distributeArr.get(0),
+                    twoDegree, distributeArr.get(1) );
 
             //企业招聘信息
             wrb.setRecruitInfo(new LinkedList<java.util.List<String>>() {{

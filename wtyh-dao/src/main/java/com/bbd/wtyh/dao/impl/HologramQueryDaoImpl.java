@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.dao.HologramQueryDao;
+import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.bbdAPI.*;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.google.gson.Gson;
@@ -660,6 +661,35 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
                 @Override
                 public Map<String, Object> parse(String result) {
                     return JSON.parseObject(result, Map.class);
+                }
+            }, 20000, 20000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public BaseDataDO getBbdQyxxBatchByPostCD(String companySerial) {
+        List<NameValuePair> list = new ArrayList<NameValuePair>(){{
+            add( new BasicNameValuePair("keys", companySerial) );
+            add( new BasicNameValuePair("appkey", apiAppkey) );
+            add( new BasicNameValuePair("ktype", "0") );
+            add( new BasicNameValuePair("pageSize", "1000") );
+        }};
+        String url = apiBbdQyxxBatchUrl;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        HttpPost httpPost = new HttpPost(url);
+        try {
+            httpPost.setEntity(new UrlEncodedFormEntity(list,"UTF-8"));
+            return httpTemplate.request(httpPost, new HttpCallback<BaseDataDO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+                @Override
+                public BaseDataDO parse(String result) {
+                    return JSON.parseObject(result, BaseDataDO.class);
                 }
             }, 20000, 20000);
         } catch (Exception e) {

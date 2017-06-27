@@ -1,6 +1,7 @@
 package com.bbd.wtyh.dao;
 
 
+import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.bbdAPI.*;
 
 import java.util.List;
@@ -55,5 +56,7 @@ public interface HologramQueryDao {
     PatentDO getPatentData(String company, Integer page, Integer pageSize);
 
     Map<String, Object> getBbdQyxxBatch(String companySerial);
+
+    public BaseDataDO getBbdQyxxBatchByPostCD(String companySerial);
 
 }

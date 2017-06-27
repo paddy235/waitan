@@ -337,4 +337,45 @@ public class HologramQueryServiceImpl implements HologramQueryService {
         return hologramQueryDao.getBbdQyxxBatch(companySerial);
     }
 
+    @Override
+    public List<CompanyDO> getBbdQyxxBatchAll( List<String>names ) {
+        int pageSz =190;
+        List<CompanyDO> rstList =new LinkedList<>();
+        StringBuilder strNames =new StringBuilder();
+        for( int idx =0; idx <names.size();  ) {
+            strNames.append(names.get(idx)).append(",");
+            idx++;
+            if( idx%pageSz ==0 || idx ==(names.size() ) ) {
+                strNames.deleteCharAt(strNames.length() -1);
+                BaseDataDO batchData =hologramQueryDao.getBbdQyxxBatchByPostCD(strNames.toString() );
+                strNames =new StringBuilder();
+                //
+                if(  batchData ==null ||batchData.getErr_code() ==null && !(batchData.getErr_code().equals("0")) ) {
+                    continue;
+                }
+                List<BaseDataDO.Results> resultsList =batchData.getResults();
+                if ( resultsList !=null ) {
+                    for ( BaseDataDO.Results results : resultsList ) {
+                        if (results != null) {
+                            BaseDataDO.Jbxx jb =results.getJbxx();
+                            if ( jb !=null ) {
+                                CompanyDO cd = new CompanyDO();
+                                rstList.add(cd);
+                                //下面是手工对应的字段
+                                cd.setName( jb.getCompany_name() );
+                                cd.setBusinessType( "" );
+                                for (IndustryCodeDO in : IndustryCodeDO.values()) {
+                                    if ( String.valueOf(in).equals( String.valueOf( jb.getCompany_industry() ) ) ) {
+                                        cd.setBusinessType( in.getValue() );
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return rstList;
+    }
 }

@@ -236,7 +236,7 @@ public class DrawRelatedG2 extends DrawRelated {
         dr.saveFile("C:\\Users\\Administrator\\Desktop\\test_" +dateTimeStr +".png");
     }
 
-    protected List<List<NodeInfo>> relationDiagramVoToNodeListG2(RelationDiagramVO rVO) {
+    public List<List<NodeInfo>> relationDiagramVoToNodeListG2(RelationDiagramVO rVO) {
         if( rVO ==null || rVO.getPointList() ==null )
             return null;
         List<RelationDiagramVO.PointVO> rpVoList =rVO.getPointList();
