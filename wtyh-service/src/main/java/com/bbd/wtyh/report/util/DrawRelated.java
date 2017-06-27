@@ -38,7 +38,7 @@ public class DrawRelated {
     protected Color cFirDegree =new Color(0,48,176); //一度
     protected Color cSecDegree =new Color(54,179,235); //二度
     protected Color cThiDegree =new Color(193,193,193); //三度
-    protected Color cArrowLine =new Color(65,132,156); //箭头线
+    protected Color cArrowLine =new Color(60,120,140); //箭头线 Color(65,132,156);
     protected Color cMainBkg =new Color(43,50,60); //主背景
     protected Color cLegendBkg =new Color(26,32,41); //图例背景
     protected Color cTagBkg =new Color(71,79,92); //标签背景
@@ -56,8 +56,8 @@ public class DrawRelated {
             FONT_NORMAL =new Font("文泉驿微米黑" ,Font.PLAIN,11);
         }
         else {
-            FONT_LEG =new Font("Default" ,Font.PLAIN,12);
-            FONT_NORMAL =new Font("Default" ,Font.PLAIN,10);
+            FONT_LEG =new Font("Default" ,Font.PLAIN,13);
+            FONT_NORMAL =new Font("Default" ,Font.PLAIN,11);
         }
     }
     protected Font font; //

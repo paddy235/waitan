@@ -158,7 +158,7 @@ public class DrawRelatedG2 extends DrawRelated {
         nodeLList.get(0).get(0).yCoordinate =rdcY;
         List<NodeInfo> nodeList =new ArrayList<>(); //构造用于线性查找的节点列表
         nodeList.addAll(nodeLList.get(0));
-        for ( int idx =1; idx <degreeType.getDegVal(); idx++ ) {
+        for ( int idx =1; idx <= degreeType.getDegVal(); idx++ ) {
             List<NodeInfo> degList =nodeLList.get(idx);
             nodeList.addAll( nodeLList.get(idx) );
             double radius =spacing *idx;
@@ -170,7 +170,7 @@ public class DrawRelatedG2 extends DrawRelated {
             for ( int dIx =0; dIx <degList.size(); dIx++ ) {
                 NodeInfo ni =degList.get(dIx);
                 ni.xCoordinate =rdcX + radius * Math.cos(scale * dIx + sccOff);
-                ni.yCoordinate =rdcY + radius * Math.sin(scale * idx + sccOff);
+                ni.yCoordinate =rdcY + radius * Math.sin(scale * dIx + sccOff);
             }
         }
 
@@ -290,7 +290,7 @@ public class DrawRelatedG2 extends DrawRelated {
                 if( StringUtils.isNotBlank( rpVo.getIsSonCom() ) ) {
                     if( rpVo.getIsSonCom().equals("1") ) {
                         pi.color = cSonCompany;
-                    } else {
+                    } else if( ! rpVo.getIsSonCom().equals("0") ) {
                         continue;
                     }
                 }

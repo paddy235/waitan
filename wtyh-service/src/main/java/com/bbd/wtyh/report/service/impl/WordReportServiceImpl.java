@@ -13,6 +13,7 @@ import com.bbd.wtyh.report.service.ScreenCaptureService;
 import com.bbd.wtyh.report.service.WordReportService;
 import com.bbd.wtyh.report.util.DocxUtils;
 import com.bbd.wtyh.report.util.DrawRelated;
+import com.bbd.wtyh.report.util.DrawRelatedG2;
 import com.bbd.wtyh.report.word.WordReportBuilder;
 import com.bbd.wtyh.service.*;
 import com.bbd.wtyh.web.relationVO.RelationDiagramVO;
@@ -451,9 +452,11 @@ public class WordReportServiceImpl implements WordReportService {
             // 企业全息信息
             byte [] newestYED =offlineFinanceService.createNewestYEDtoStream(companyName);
             RelationDiagramVO result = offlineFinanceService.queryRealRealation(companyName, 2);
-            DrawRelated dr =new DrawRelated();
-            dr.drawRelated(dr.relationDiagramVoToNodeList(result), dr.relationDiagramVoToLineList(result));
+            DrawRelatedG2 dr =new DrawRelatedG2(DrawRelatedG2.DegreeType.ONE);
+            dr.drawRelatedG2(result);
             byte [] oneDegree =dr.saveToBytes();
+            dr =new DrawRelatedG2(DrawRelatedG2.DegreeType.TWO);
+            dr.drawRelatedG2(result);
             byte [] twoDegree =dr.saveToBytes();
             wrb.setRelatedPartyMappingInfo(newestYED, oneDegree, null,
                     twoDegree, null);
