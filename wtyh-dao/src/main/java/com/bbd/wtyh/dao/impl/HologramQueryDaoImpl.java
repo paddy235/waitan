@@ -6,7 +6,6 @@ import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.dao.HologramQueryDao;
 import com.bbd.wtyh.domain.bbdAPI.*;
 import com.bbd.wtyh.redis.RedisDAO;
-import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.apache.http.NameValuePair;
@@ -19,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -81,6 +79,9 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
 
     @Value("${api.bbd_qyxx.url}")
     private String bbdQyxxURL;      // 企业信息
+
+    @Value("${api.dataapi_bbd_qyxx.url}")
+    private String dataApiBbdQyxxURL;      // 企业信息-数据平台新街口
 
     @Value("${api.bbd_qyxx.ak}")
     private String bbdQyxxAK;
@@ -366,6 +367,33 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     }
 
     /**
+     * 数据平台企业信息接口
+     * @param companyName 企业名称
+     * @return BaseDataDO
+     */
+    @Override
+    public BaseDataDO companyQyxxDataApi(String companyName) {
+        String coreDataDealURL = dataApiBbdQyxxURL + "?company=" + companyName + "&ak=" + bbdQyxxAK;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(coreDataDealURL, new HttpCallback<BaseDataDO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+                @Override
+                public BaseDataDO parse(String result) {
+                    Gson gson = new Gson();
+                    return gson.fromJson(result, BaseDataDO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
      * 企业信息详情-诉讼记录
      *
      * @param company
@@ -608,7 +636,7 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
     }
 
     @Override
-    public Map<String, Object> getBbdQyxxBatch(String companySerial) {
+    public Map<String, Object> getBbdQyxxBatch(String companySerial) { //工商数据批量API接口
         return getBbdQyxxBatchByPost(companySerial);
     }
 

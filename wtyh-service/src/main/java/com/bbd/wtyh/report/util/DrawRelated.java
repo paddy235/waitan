@@ -18,33 +18,33 @@ import java.util.List;
  * Created by Administrator on 2017/6/15.
  */
 public class DrawRelated {
-    private BufferedImage image;
-    private Graphics2D g2d;
+    protected BufferedImage image;
+    protected Graphics2D g2d;
 
     //图片尺寸
-    private int imgWidth = 720;
-    private int imgHight = 720;
-    double leHO =68; //图例外高度
+    protected int imgWidth = 720;
+    protected int imgHigh = 720;
+    protected double leHO =68; //图例外高度
     
     //色值
-    private static final Color C_TEXT_LEG =new Color(178,178,178); //图例文本
-    private static final Color C_TEXT =new Color(217,217,217); //正文文本
-    private Color textColor =C_TEXT_LEG; //文本颜色
-    private void setTextColor(Color textColor) {
+    protected static final Color C_TEXT_LEG =new Color(178,178,178); //图例文本
+    protected static final Color C_TEXT =new Color(217,217,217); //正文文本
+    protected Color textColor =C_TEXT_LEG; //文本颜色
+    protected void setTextColor(Color textColor) {
         this.textColor = textColor;
     }
-    private Color cTargetCompany =new Color(254,0,0); //目标公司
-    private Color cChildCompany =new Color(255,202,0); //子公司
-    private Color cFirDegree =new Color(0,48,176); //一度
-    private Color cSecDegree =new Color(54,179,235); //二度
-    private Color cThiDegree =new Color(193,193,193); //三度
-    private Color cArrowLine =new Color(65,132,156); //箭头线
-    private Color cMainBkg =new Color(43,50,60); //主背景
-    private Color cLegendBkg =new Color(26,32,41); //图例背景
-    private Color cTagBkg =new Color(71,79,92); //标签背景
+    protected Color cTargetCompany =new Color(254,0,0); //目标公司
+    protected Color cSonCompany =new Color(255,202,0); //子公司
+    protected Color cFirDegree =new Color(0,48,176); //一度
+    protected Color cSecDegree =new Color(54,179,235); //二度
+    protected Color cThiDegree =new Color(193,193,193); //三度
+    protected Color cArrowLine =new Color(65,132,156); //箭头线
+    protected Color cMainBkg =new Color(43,50,60); //主背景
+    protected Color cLegendBkg =new Color(26,32,41); //图例背景
+    protected Color cTagBkg =new Color(71,79,92); //标签背景
     //字体
-    private static Font FONT_LEG ; //图例字体
-    private static Font FONT_NORMAL; //常规字体
+    protected static Font FONT_LEG ; //图例字体
+    protected static Font FONT_NORMAL; //常规字体
     static {
         if( ( FONT_LEG = new Font("微软雅黑" ,Font.PLAIN,12) ) !=null ) {
             FONT_NORMAL =new Font("微软雅黑" ,Font.PLAIN,10);
@@ -60,45 +60,48 @@ public class DrawRelated {
             FONT_NORMAL =new Font("Default" ,Font.PLAIN,10);
         }
     }
-    private Font font; //
-    private void setFont(Font font) {
+    protected Font font; //
+    protected void setFont(Font font) {
         this.font = font;
         g2d.setFont(font);
     }
     //
-    private static final float NODE_GRAPHIC_NORMAL =10f; //节点图形尺寸-正常
-    private static final float NODE_GRAPHIC_LEGEND =5f; //节点图形尺寸-图例
+    protected static final float NODE_GRAPHIC_NORMAL =10f; //节点图形尺寸-正常
+    protected static final float NODE_GRAPHIC_LEGEND =5f; //节点图形尺寸-图例
 
-    private static final float ARROW_LINE_WIDTH_NORMAL =1f; //箭头线宽-正常
-    private float ngrSize = NODE_GRAPHIC_NORMAL; //节点图形的尺寸（“半径”）
-    private void setNgrSize(float ngrSize) {
+    protected static final float ARROW_LINE_WIDTH_NORMAL =1f; //箭头线宽-正常
+    protected float ngrSize = NODE_GRAPHIC_NORMAL; //节点图形的尺寸（“半径”）
+    protected void setNgrSize(float ngrSize) {
         this.ngrSize = ngrSize;
     }
 
-    public DrawRelated() {
-        image = new BufferedImage(imgWidth, imgHight,BufferedImage.TYPE_INT_RGB); // 创建BufferedImage对象
+    protected void initBlock() {
+        image = new BufferedImage(imgWidth, imgHigh,BufferedImage.TYPE_INT_RGB); // 创建BufferedImage对象
         g2d = image.createGraphics(); // 获取Graphics2D
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); //消锯齿
         g2d.setBackground(cMainBkg);
-        g2d.clearRect(0, 0, imgWidth, imgHight);
+        g2d.clearRect(0, 0, imgWidth, imgHigh);
         setFont(FONT_NORMAL);
+    }
+    public DrawRelated() {
+        initBlock();
     }
 
     //以坐标为中心画公司节点图形
-    private void drawCompanyGraphicAtCen( double cx, double cy, Color cr ) {
+    protected void drawCompanyGraphicAtCen( double cx, double cy, Color cr ) {
         g2d.setPaint(cr);
         Rectangle2D rec2D =new Rectangle2D.Double(cx - ngrSize, cy - ngrSize, ngrSize *2, ngrSize *2 );
         g2d.fill(rec2D);
     }
     //以坐标为中心画自然人节点图形
-    private void drawPersonGraphicAtCen( double cx, double cy, Color cr ) {
+    protected void drawPersonGraphicAtCen( double cx, double cy, Color cr ) {
         g2d.setPaint(cr);
         Ellipse2D ell2D =new Ellipse2D.Double(cx - ngrSize, cy - ngrSize, ngrSize *2, ngrSize *2 );
         g2d.fill(ell2D);
     }
 
     //以坐标为中心画文本
-    private void drawTextAtCen(String str, double x, double cy, boolean xCen ) {
+    protected void drawTextAtCen(String str, double x, double cy, boolean xCen ) {
         g2d.setPaint(textColor); //设置颜色
         float fontSz =font.getSize();
         //cy += fontSz/2;
@@ -110,7 +113,7 @@ public class DrawRelated {
     }
 
     //画箭头
-    private void drawArrowLine( double ox, double oy, double tx, double ty, boolean solidLine,  float width ) {
+    protected void drawArrowLine( double ox, double oy, double tx, double ty, boolean solidLine,  float width ) {
         float [] lineType =null;
         if( !solidLine ) {
             lineType  =new float[]{width *4, width *4};
@@ -165,7 +168,7 @@ public class DrawRelated {
         drawCompanyGraphicAtCen(leX +dltW2 +dltW*0, leY +dltH1 +dltH1*2 *0, cTargetCompany);
         drawTextAtCen( "目标公司", leX +dltW1 +dltW*0, leY +dltH1 +dltH1*2 *0, false );
 
-        drawCompanyGraphicAtCen(leX +dltW2 +dltW*0, leY +dltH1 +dltH1*2 *1, cChildCompany);
+        drawCompanyGraphicAtCen(leX +dltW2 +dltW*0, leY +dltH1 +dltH1*2 *1, cSonCompany);
         drawTextAtCen( "子公司", leX +dltW1 +dltW*0, leY +dltH1 +dltH1*2 *1, false );
 
         drawCompanyGraphicAtCen(leX +dltW2 +dltW*1, leY +dltH1 +dltH1*2 *0, cFirDegree);
@@ -206,13 +209,13 @@ public class DrawRelated {
 		// 画图例
 		drawLegend();
 		//
-		double rdHO = imgHight - leHO; // 关联图外高
+		double rdHO = imgHigh - leHO; // 关联图外高
 		double textDown = 25D; // 文字下沉尺度
 		double firOffset = 0; // Math.PI/40; //一度节点起始偏移的弧度数
 		double secOffset = 0; // Math.PI/-60; //二度节点起始偏移的弧度数
 		double bouWidth = 10D; // 边界宽度 boundaryWidth
 		double rdX = bouWidth; // 绘图区起点x
-		double rdY = imgHight - rdHO; // 绘图区起点y
+		double rdY = imgHigh - rdHO; // 绘图区起点y
 		double rdW = imgWidth - bouWidth * 2; // 绘图区宽度
 		double rdH = rdHO - bouWidth * 1; // 绘图区高度
 		double rdcX = rdX + rdW / 2; // 绘图区中心x
@@ -317,7 +320,7 @@ public class DrawRelated {
 					} else if ('r' == nodeType.charAt(1)) {
 						isCompany = false;
 					} else if ('c' == nodeType.charAt(1)) {
-						color = cChildCompany;
+						color = cSonCompany;
 						isCompany = true;
 					}
 				}
@@ -496,7 +499,7 @@ public class DrawRelated {
     }
 
     //文本测试
-    private void testText( ) {
+    protected void testText( ) {
         //g2d.drawRect(100,300, 99,11);
         drawCompanyGraphicAtCen(100,300, cSecDegree);
         Line2D pt2d =new Line2D.Double(100, 300, 100, 300);
@@ -504,15 +507,15 @@ public class DrawRelated {
         g2d.draw(pt2d);
         drawTextAtCen("这是一个忧伤的故事", 105, 300, false);
         pt2d =new Line2D.Double(105, 300, 105, 300);
-        g2d.setPaint(cChildCompany);
+        g2d.setPaint(cSonCompany);
         g2d.draw(pt2d);
         //drawTextAtCen("这是一个忧伤的故事", 100, 300, false);
-        //g2d.setPaint(cChildCompany);
+        //g2d.setPaint(cSonCompany);
         //drawTextAtCen("这是一个忧伤的故事", 100, 300, true);
     }
 
     //箭头测试
-    private void testArrow( ) {
+    protected void testArrow( ) {
         g2d.setPaint(cArrowLine);
         setNgrSize(NODE_GRAPHIC_NORMAL);
         Double ox =300D;

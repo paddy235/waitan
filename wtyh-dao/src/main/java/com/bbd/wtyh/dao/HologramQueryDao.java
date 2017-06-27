@@ -27,6 +27,13 @@ public interface HologramQueryDao {
 
     BaseDataDO shareholdersSenior(String companyName);
 
+    /**
+     * 数据平台企业信息接口
+     * @param companyName 企业名称
+     * @return BaseDataDO
+     */
+    public BaseDataDO companyQyxxDataApi(String companyName);
+
     OpenCourtAnnouncementDO openCourtAnnouncement(String company);
 
     JudgeDocDO judgeDoc(String company);

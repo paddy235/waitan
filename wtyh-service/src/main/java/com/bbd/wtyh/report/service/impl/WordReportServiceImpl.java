@@ -12,8 +12,10 @@ import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
 import com.bbd.wtyh.report.service.ScreenCaptureService;
 import com.bbd.wtyh.report.service.WordReportService;
 import com.bbd.wtyh.report.util.DocxUtils;
+import com.bbd.wtyh.report.util.DrawRelated;
 import com.bbd.wtyh.report.word.WordReportBuilder;
 import com.bbd.wtyh.service.*;
+import com.bbd.wtyh.web.relationVO.RelationDiagramVO;
 import org.apache.commons.chain.web.MapEntry;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -22,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -376,25 +379,37 @@ public class WordReportServiceImpl implements WordReportService {
             }
 
             //企业股东信息/董事、监事、高级管理人员信息/变更信息
-            //Map<String, List> shareholders = hologramQueryService.shareholdersSenior(companyName);
             int rstCnt =0;
-            BaseDataDO baseDataDo = hologramQueryDao.shareholdersSenior(companyName);
+            //BaseDataDO baseDataDo = hologramQueryDao.shareholdersSenior(companyName);
+            BaseDataDO baseDataDo = hologramQueryDao.companyQyxxDataApi(companyName);
             if ( baseDataDo !=null && baseDataDo.getErr_code() !=null && baseDataDo.getErr_code().equals("0")) {
                 List<BaseDataDO.Results> resultsList =baseDataDo.getResults();
                 if ( resultsList !=null ) {
                     for ( BaseDataDO.Results results : resultsList ) {
                         if ( results !=null ) {
-                            //处理股东信息
+                            //处理股东信息 和 股东出资信息
                             List<BaseDataDO.Gdxx> gdXx= results.getGdxx();
                             if ( gdXx !=null && gdXx.size() >0 ) {
                                 List<List<String>> gdList = new LinkedList<>();
+                                List<List<String>> czList = new LinkedList<>();
                                 for ( BaseDataDO.Gdxx gdObj : gdXx ) {
                                     List<String> gdLine =new ArrayList<>();
                                     gdList.add(gdLine);
                                     gdLine.add( gdObj.getShareholder_name() );
                                     gdLine.add( gdObj.getShareholder_type() );
+                                    //出资信息
+                                    List<String> czLine =new ArrayList<>();
+                                    czList.add(czLine);
+                                    czLine.add( gdObj.getShareholder_name() );
+                                    czLine.add( gdObj.getSubscribed_capital() ); //认缴
+                                    czLine.add( gdObj.getPaid_contribution() ); //实缴
+                                    czLine.add( gdObj.getInvest_amount() ); //份额
+                                    czLine.add( gdObj.getInvest_ratio() ); //比例
+                                    czLine.add( gdObj.getInvest_name() ); //方式
+                                    //todo 等待产品确认
                                 }
                                 wrb.setStockholderInfo(gdList);
+                                wrb.setStockholderContributionInfo(czList);
                             }
 
                             //处理董监高信息
@@ -429,23 +444,19 @@ public class WordReportServiceImpl implements WordReportService {
                     }
                 }
             }
-            if (rstCnt <3){
+            if (rstCnt <3) {
                 logger.warn("企业股东信息不完备");
             }
 
-            //股东出资信息 todo 等产品协调数据平台接口
-
             // 企业全息信息
-            //File fl =new File("D:\\bbdDoc\\wtyh\\docx\\template\\关联0.png");
-            InputStream is =new FileInputStream("D:\\bbdDoc\\wtyh\\docx\\template\\关联0.png");
-
-            byte[] byt = new byte[is.available()];
-            is.read(byt, 0, is.available());
-            wrb.setRelatedPartyMappingInfo(byt,
-                    byt,
-                    null,
-                    byt,
-                    null);
+            byte [] newestYED =offlineFinanceService.createNewestYEDtoStream(companyName);
+            RelationDiagramVO result = offlineFinanceService.queryRealRealation(companyName, 2);
+            DrawRelated dr =new DrawRelated();
+            dr.drawRelated(dr.relationDiagramVoToNodeList(result), dr.relationDiagramVoToLineList(result));
+            byte [] oneDegree =dr.saveToBytes();
+            byte [] twoDegree =dr.saveToBytes();
+            wrb.setRelatedPartyMappingInfo(newestYED, oneDegree, null,
+                    twoDegree, null);
 
             //企业招聘信息
             wrb.setRecruitInfo(new LinkedList<java.util.List<String>>() {{
