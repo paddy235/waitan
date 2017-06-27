@@ -350,7 +350,21 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	 */
 	private void calculateCompanyPoint(CompanyDO companyDO, Map<String, Integer> pointMap, String dataVersion, int isHandle) {
         resetBeginNum(companyDO.getCompanyId());
-		List<String> list = getCreditFromShangHai(companyDO, pointMap, dataVersion, isHandle);
+		List<String> list =null;
+		try{
+			list = getCreditFromShangHai(companyDO, pointMap, dataVersion, isHandle);
+		}catch (Exception e){
+
+			if (0 == isHandle) {
+				// 数据错误9997，入库错误（锁等待 等） ,记录失败的企业
+				this.executeCUD(
+						"INSERT INTO company_credit_fail_info (company_id,company_name,organization_code,credit_code,result_code,data_version,create_by,create_date)values(?,?,?,?,?,?,?,?)",
+						companyDO.getCompanyId(), companyDO.getName(),companyDO.getOrganizationCode(),companyDO.getCreditCode(), "9997", dataVersion, "system", new Date());
+				// 记录失败笔数
+				this.saveFailCompanyByDb(dataVersion);
+			}
+            LOGGER.error("查询公司信用信息报错。公司信息【id：{}，name：{}】。错误信息：{}。", companyDO.getCompanyId(), companyDO.getName(), e.getMessage());
+		}
 
 		if (CollectionUtils.isEmpty(list)) {
 			return;
@@ -412,6 +426,9 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 
 		Document document;
 		try {
+
+            xmlData=xmlData.replaceAll("&","&amp;");
+
 			document = DocumentHelper.parseText(xmlData);
 		} catch (DocumentException e) {
 			if (0 == isHandle) {
@@ -442,88 +459,89 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			return null;
 		}
 
-		// 手动执行定时任务执行过程中产生的失败的企业，若这家企业执行成功，则从失败企业表中删除。
-		if (1 == isHandle) {
-			this.executeCUD("DELETE FROM company_credit_fail_info WHERE company_id = ? AND data_version=?", coDo.getCompanyId(),
-					dataVersion);
-		} else {
-			// 非手动执行情况下，记录成功笔数
+
+			//先删除成功表里的原始数据，后面再新增进去
+			this.executeCUD("DELETE FROM company_credit_raw_info WHERE company_id = ?", coDo.getCompanyId());
+
+			List<CompanyCreditRawInfoDO> lCcrids = new ArrayList<>();
+			CompanyCreditRawInfoDO ccridTemplet = new CompanyCreditRawInfoDO();
+			String rst = root.attributeValue("name");
+
+			//这4个字段，存我们自己的内容(company表)
+			ccridTemplet.setCompanyId(coDo.getCompanyId());
+			ccridTemplet.setCompanyName(coDo.getName());
+			ccridTemplet.setOrganizationCode(coDo.getOrganizationCode());
+			ccridTemplet.setCreditCode(coDo.getCreditCode());
+
+			rst = root.attributeValue("cxbh");
+			if (StringUtils.isNotBlank(rst)) {
+				ccridTemplet.setCxbh(rst.trim());
+			}
+			List<String> pointNameList = new ArrayList<>();
+			List nodes = root.elements("RESOURCE");
+			for (Object node : nodes) {
+				CompanyCreditRawInfoDO ccrid = ccridTemplet.clone();
+				Element resource = (Element) node;
+				// 信息事项名称
+				String value = resource.attributeValue("RESOURCENAME");
+				if (StringUtils.isBlank(value)) {
+					continue;
+				}
+				value = value.trim();
+				ccrid.setResourceName(value);
+				rst = resource.attributeValue("XXLB");
+				if (StringUtils.isNotBlank(rst)) {
+					ccrid.setXxlb(rst.trim());
+				}
+				rst = resource.attributeValue("XXSSDW");
+				if (StringUtils.isNotBlank(rst)) {
+					ccrid.setXxssdw(rst.trim());
+				}
+				rst = resource.attributeValue("XXSSDWDM");
+				if (StringUtils.isNotBlank(rst)) {
+					ccrid.setXxssdwCode(rst.trim());
+				}
+				rst = resource.attributeValue("RESOURCECODE");
+				if (StringUtils.isNotBlank(rst)) {
+					ccrid.setResourceCode(rst.trim());
+				}
+				rst = resource.attributeValue("RESOURCES");
+				if (StringUtils.isNotBlank(rst)) {
+					ccrid.setResources(rst.trim());
+				}
+
+				List contentElements = resource.elements();
+				Map<String, String> map = new HashMap<>();
+				contentElements.forEach(o -> {
+					Element e = (Element) o;
+					map.put(e.getName(), e.getText());
+				});
+				ccrid.setContent(JSON.toJSONString(map));
+
+				lCcrids.add(ccrid);
+				// 不保留不存在加分项的数据，减少数据集
+				if (pointMap.get(value) == null || pointMap.get(value) <= 0) {
+					continue;
+				}
+				pointNameList.add(value);
+			}
+			if (lCcrids.size() > 0) {
+
+				for (CompanyCreditRawInfoDO cd : lCcrids) {
+					ccriMapper.saveCompanyCreditRawInfo(cd);
+				}
+			} else {
+				ccriMapper.saveCompanyCreditRawInfo(ccridTemplet);
+			}
+
+		// 若这家企业执行成功，则从失败企业表中删除。
+		this.executeCUD("DELETE FROM company_credit_fail_info WHERE company_id = ?", coDo.getCompanyId());
+
+		if (0 == isHandle) {
+			// 定时任务，记录成功笔数
 			saveSuccessCompanyByDb(dataVersion);
 		}
 
-		this.executeCUD("DELETE FROM company_credit_fail_info WHERE company_id = ?", coDo.getCompanyId());
-		this.executeCUD("DELETE FROM company_credit_raw_info WHERE company_id = ?", coDo.getCompanyId());
-
-		List<CompanyCreditRawInfoDO> lCcrids = new ArrayList<>();
-		CompanyCreditRawInfoDO ccridTemplet = new CompanyCreditRawInfoDO();
-		String rst = root.attributeValue("name");
-
-		//这4个字段，存我们自己的内容(company表)
-        ccridTemplet.setCompanyId(coDo.getCompanyId());
-        ccridTemplet.setCompanyName(coDo.getName());
-        ccridTemplet.setOrganizationCode(coDo.getOrganizationCode());
-		ccridTemplet.setCreditCode(coDo.getCreditCode());
-
-		rst = root.attributeValue("cxbh");
-		if (StringUtils.isNotBlank(rst)) {
-			ccridTemplet.setCxbh(rst.trim());
-		}
-		List<String> pointNameList = new ArrayList<>();
-		List nodes = root.elements("RESOURCE");
-		for (Object node : nodes) {
-			CompanyCreditRawInfoDO ccrid = ccridTemplet.clone();
-			Element resource = (Element) node;
-			// 信息事项名称
-			String value = resource.attributeValue("RESOURCENAME");
-			if (StringUtils.isBlank(value)) {
-				continue;
-			}
-			value = value.trim();
-			ccrid.setResourceName(value);
-			rst = resource.attributeValue("XXLB");
-			if (StringUtils.isNotBlank(rst)) {
-				ccrid.setXxlb(rst.trim());
-			}
-			rst = resource.attributeValue("XXSSDW");
-			if (StringUtils.isNotBlank(rst)) {
-				ccrid.setXxssdw(rst.trim());
-			}
-			rst = resource.attributeValue("XXSSDWDM");
-			if (StringUtils.isNotBlank(rst)) {
-				ccrid.setXxssdwCode(rst.trim());
-			}
-			rst = resource.attributeValue("RESOURCECODE");
-			if (StringUtils.isNotBlank(rst)) {
-				ccrid.setResourceCode(rst.trim());
-			}
-			rst = resource.attributeValue("RESOURCES");
-			if (StringUtils.isNotBlank(rst)) {
-				ccrid.setResources(rst.trim());
-			}
-
-			List contentElements = resource.elements();
-			Map<String, String> map = new HashMap<>();
-			contentElements.forEach(o -> {
-				Element e = (Element) o;
-				map.put(e.getName(), e.getText());
-			});
-			ccrid.setContent(JSON.toJSONString(map));
-
-			lCcrids.add(ccrid);
-			// 不保留不存在加分项的数据，减少数据集
-			if (pointMap.get(value) == null || pointMap.get(value) <= 0) {
-				continue;
-			}
-			pointNameList.add(value);
-		}
-		if (lCcrids.size() > 0) {
-
-			for (CompanyCreditRawInfoDO cd : lCcrids) {
-				ccriMapper.saveCompanyCreditRawInfo(cd);
-			}
-		}else {
-			ccriMapper.saveCompanyCreditRawInfo(ccridTemplet);
-		}
 
 		return pointNameList;
 	}
