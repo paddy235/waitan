@@ -15,9 +15,13 @@ import java.util.*;
 import java.util.List;
 
 /**
- * Created by Administrator on 2017/6/15.
+ * Created by cgj on 2017/6/15.
  */
 public class DrawRelated {
+
+    /** 绘图是否成功*/
+    boolean drawSucceed =true;
+
     protected BufferedImage image;
     protected Graphics2D g2d;
 
@@ -204,6 +208,7 @@ public class DrawRelated {
     */
 	public void drawRelated( List<String[]> nodeList, List<String[]> lineList) {
 		if (nodeList == null || lineList == null) {
+		    drawSucceed =false;
 			return;
 		}
 		// 画图例
@@ -476,6 +481,9 @@ public class DrawRelated {
     //保存到指定路径及名称
     public String saveFile( String fileName ) {
         g2d.dispose(); //释放对象
+        if( !drawSucceed ) {
+            return null;
+        }
         try { //保存图像数据
             ImageIO.write(image, "png", new File(fileName));
         }
@@ -488,6 +496,9 @@ public class DrawRelated {
     //返回存放图片的字节数组
     public byte [] saveToBytes( ) {
         g2d.dispose(); //释放对象
+        if( !drawSucceed ) {
+            return null;
+        }
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         try { //保存图像数据
             ImageIO.write(image, "png", bos);

@@ -844,7 +844,7 @@ public class WordReportBuilder {
     }
 
     /**
-     * 设置企业专利信息 //"/infoStatistics.do"
+     * 设置企业专利信息 //" hologram/newsConsensus.do"
      * @param patentInfo 专利信息列表
      */
     public void setCompanyPatentInfo( List<List<String>> patentInfo ) {
