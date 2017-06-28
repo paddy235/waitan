@@ -28,7 +28,7 @@ public class CreditConfig {
 
 	private static SysConfigService configService = ApplicationContextUtil.getBean(SysConfigServiceImpl.class);
 
-	public static void read() {
+	public static synchronized void read() {
 		List<SysConfigDo> configList = configService.getAllByGroup("credit_center");
 		Map<String, String> map = new HashMap<>();
 		configList.forEach(configDo -> map.put(configDo.getKey(), configDo.getValue()));
