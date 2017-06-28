@@ -1,5 +1,6 @@
 package com.bbd.wtyh.domain.bbdAPI;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,11 +8,11 @@ import java.util.List;
  */
 public class SearchComanyDO {
 
-    private int total;
-    private int sum;
+    private String total;
+    private String sum;
     private List<Rdata> rdata;
 
-    public class Rdata {
+    public static  class Rdata implements Serializable {
         private String company_name;
         private String regno;
         private String company_type;
@@ -80,19 +81,19 @@ public class SearchComanyDO {
         }
     }
 
-    public int getTotal() {
+    public String getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(String total) {
         this.total = total;
     }
 
-    public int getSum() {
+    public String getSum() {
         return sum;
     }
 
-    public void setSum(int sum) {
+    public void setSum(String sum) {
         this.sum = sum;
     }
 
