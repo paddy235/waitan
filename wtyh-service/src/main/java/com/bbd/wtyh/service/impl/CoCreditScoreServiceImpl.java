@@ -140,7 +140,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	}
 
 	private List<CompanyDO> getCompanyList() {
-		int startId =this.getStartCoId();
+		int startId = this.getStartCoId();
 		int dailyLimit = CreditConfig.dailyLimit();
 		String coType = CreditConfig.dataType();
 
@@ -150,7 +150,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 
 		if (CollectionUtils.isEmpty(tmpLisst1)) {
 			startId = 0;
-            this.resetBeginNum(startId);
+			this.resetBeginNum(startId);
 			tmpLisst1 = this.companyMapper.getCompanyList(startId, coType, dailyLimit);
 		}
 		coList.addAll(tmpLisst1);
@@ -187,13 +187,14 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		List<CompanyCreditFailInfoDO> list = this.queryfailCompany(companyNames, resultCode, dataVersion, pageNumber, pageSize);
 		// 本地模型加分项目
 		final Map<String, Integer> pointMap = this.getCompanyCreditPointItems();
-		int isHandle = 1;// isHandle 为0表示由定时任务执行 1表示手动补偿失败的企业
+		int isHandle = 1;// isHandle 为0表示由定时任务执行 1表示手动补偿失败的企业、
+		CreditConfig.read();
 		for (CompanyCreditFailInfoDO companyCreditFailInfoDO : list) {
 			CompanyDO companyDO = new CompanyDO();
 			companyDO.setCompanyId(companyCreditFailInfoDO.getCompanyId());
 			companyDO.setName(companyCreditFailInfoDO.getCompanyName());
-            companyDO.setOrganizationCode(companyCreditFailInfoDO.getOrganizationCode());
-            companyDO.setCreditCode(companyCreditFailInfoDO.getCreditCode());
+			companyDO.setOrganizationCode(companyCreditFailInfoDO.getOrganizationCode());
+			companyDO.setCreditCode(companyCreditFailInfoDO.getCreditCode());
 			calculateCompanyPoint(companyDO, pointMap, dataVersion, isHandle);
 		}
 	}
@@ -349,21 +350,22 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	 *            加分项
 	 */
 	private void calculateCompanyPoint(CompanyDO companyDO, Map<String, Integer> pointMap, String dataVersion, int isHandle) {
-        resetBeginNum(companyDO.getCompanyId());
-		List<String> list =null;
-		try{
+		resetBeginNum(companyDO.getCompanyId());
+		List<String> list = null;
+		try {
 			list = getCreditFromShangHai(companyDO, pointMap, dataVersion, isHandle);
-		}catch (Exception e){
+		} catch (Exception e) {
 
 			if (0 == isHandle) {
 				// 数据错误9997，入库错误（锁等待 等） ,记录失败的企业
 				this.executeCUD(
 						"INSERT INTO company_credit_fail_info (company_id,company_name,organization_code,credit_code,result_code,data_version,create_by,create_date)values(?,?,?,?,?,?,?,?)",
-						companyDO.getCompanyId(), companyDO.getName(),companyDO.getOrganizationCode(),companyDO.getCreditCode(), "9997", dataVersion, "system", new Date());
+						companyDO.getCompanyId(), companyDO.getName(), companyDO.getOrganizationCode(), companyDO.getCreditCode(), "9997",
+						dataVersion, "system", new Date());
 				// 记录失败笔数
 				this.saveFailCompanyByDb(dataVersion);
 			}
-            LOGGER.error("查询公司信用信息报错。公司信息【id：{}，name：{}】。错误信息：{}。", companyDO.getCompanyId(), companyDO.getName(), e.getMessage());
+			LOGGER.error("查询公司信用信息报错。公司信息【id：{}，name：{}】。错误信息：{}。", companyDO.getCompanyId(), companyDO.getName(), e.getMessage());
 		}
 
 		if (CollectionUtils.isEmpty(list)) {
@@ -389,7 +391,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		} else {
 			this.update(companyCreditDetailDO);
 		}
-		System.out.println("----saveCompanyCreditRisk----saveU----" + companyDO.getCompanyId());
+		LOGGER.info("----saveCompanyCreditRisk----saveU----{}", companyDO.getCompanyId());
 
 	}
 
@@ -407,15 +409,17 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			CompanyDO newCodo = new CompanyDO();
 			newCodo.setCompanyId(coDo.getCompanyId());
 			newCodo.setName(coDo.getName());
-            //自动重试暂时屏蔽，改为手动重试
-            //redisDao.in(REDIS_KEY_CREDIT_REHANDLE_COMPANY, JSON.toJSONString(newCodo));
+			// 自动重试暂时屏蔽，改为手动重试
+			// redisDao.in(REDIS_KEY_CREDIT_REHANDLE_COMPANY,
+			// JSON.toJSONString(newCodo));
 
 			// isHandle 为0表示由定时任务执行 1表示手动补偿失败的企业
 			if (0 == isHandle) {
 				// 未知错误9999,公信接口无返回 ,记录失败的企业
 				this.executeCUD(
 						"INSERT INTO company_credit_fail_info (company_id,company_name,organization_code,credit_code,result_code,data_version,create_by,create_date)values(?,?,?,?,?,?,?,?)",
-						coDo.getCompanyId(), coDo.getName(),coDo.getOrganizationCode(),coDo.getCreditCode(), "9999", dataVersion, "system", new Date());
+						coDo.getCompanyId(), coDo.getName(), coDo.getOrganizationCode(), coDo.getCreditCode(), "9999", dataVersion,
+						"system", new Date());
 				// 记录失败笔数
 				this.saveFailCompanyByDb(dataVersion);
 			}
@@ -427,7 +431,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		Document document;
 		try {
 
-            xmlData=xmlData.replaceAll("&","&amp;");
+			xmlData = xmlData.replaceAll("&", "&amp;");
 
 			document = DocumentHelper.parseText(xmlData);
 		} catch (DocumentException e) {
@@ -435,7 +439,8 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 				// 未知错误9998，公信接口返回数据格式错误 ,记录失败的企业
 				this.executeCUD(
 						"INSERT INTO company_credit_fail_info (company_id,company_name,organization_code,credit_code,result_code,data_version,create_by,create_date)values(?,?,?,?,?,?,?,?)",
-						coDo.getCompanyId(), coDo.getName(),coDo.getOrganizationCode(),coDo.getCreditCode(), "9998", dataVersion, "system", new Date());
+						coDo.getCompanyId(), coDo.getName(), coDo.getOrganizationCode(), coDo.getCreditCode(), "9998", dataVersion,
+						"system", new Date());
 				// 记录失败笔数
 				this.saveFailCompanyByDb(dataVersion);
 			}
@@ -450,7 +455,8 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			if (0 == isHandle) {
 				this.executeCUD(
 						"INSERT INTO company_credit_fail_info (company_id,company_name,organization_code,credit_code,result_code,data_version,create_by,create_date)values(?,?,?,?,?,?,?,?)",
-						coDo.getCompanyId(), coDo.getName(),coDo.getOrganizationCode(),coDo.getCreditCode(), resultCode, dataVersion, "system", new Date());
+						coDo.getCompanyId(), coDo.getName(), coDo.getOrganizationCode(), coDo.getCreditCode(), resultCode, dataVersion,
+						"system", new Date());
 			}
 			// 正常情况下都会有返回，对非1005的返回，不需要做重新处理，因为再次请求也是一样的结果
 			LOGGER.error("查询公司信用信息失败。公司信息【id：{}，name：{}】。返回：{}", coDo.getCompanyId(), coDo.getName(), xmlData);
@@ -459,80 +465,79 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			return null;
 		}
 
+		// 先删除成功表里的原始数据，后面再新增进去
+		this.executeCUD("DELETE FROM company_credit_raw_info WHERE company_id = ?", coDo.getCompanyId());
 
-			//先删除成功表里的原始数据，后面再新增进去
-			this.executeCUD("DELETE FROM company_credit_raw_info WHERE company_id = ?", coDo.getCompanyId());
+		List<CompanyCreditRawInfoDO> lCcrids = new ArrayList<>();
+		CompanyCreditRawInfoDO ccridTemplet = new CompanyCreditRawInfoDO();
+		String rst = root.attributeValue("name");
 
-			List<CompanyCreditRawInfoDO> lCcrids = new ArrayList<>();
-			CompanyCreditRawInfoDO ccridTemplet = new CompanyCreditRawInfoDO();
-			String rst = root.attributeValue("name");
+		// 这4个字段，存我们自己的内容(company表)
+		ccridTemplet.setCompanyId(coDo.getCompanyId());
+		ccridTemplet.setCompanyName(coDo.getName());
+		ccridTemplet.setOrganizationCode(coDo.getOrganizationCode());
+		ccridTemplet.setCreditCode(coDo.getCreditCode());
 
-			//这4个字段，存我们自己的内容(company表)
-			ccridTemplet.setCompanyId(coDo.getCompanyId());
-			ccridTemplet.setCompanyName(coDo.getName());
-			ccridTemplet.setOrganizationCode(coDo.getOrganizationCode());
-			ccridTemplet.setCreditCode(coDo.getCreditCode());
-
-			rst = root.attributeValue("cxbh");
+		rst = root.attributeValue("cxbh");
+		if (StringUtils.isNotBlank(rst)) {
+			ccridTemplet.setCxbh(rst.trim());
+		}
+		List<String> pointNameList = new ArrayList<>();
+		List nodes = root.elements("RESOURCE");
+		for (Object node : nodes) {
+			CompanyCreditRawInfoDO ccrid = ccridTemplet.clone();
+			Element resource = (Element) node;
+			// 信息事项名称
+			String value = resource.attributeValue("RESOURCENAME");
+			if (StringUtils.isBlank(value)) {
+				continue;
+			}
+			value = value.trim();
+			ccrid.setResourceName(value);
+			rst = resource.attributeValue("XXLB");
 			if (StringUtils.isNotBlank(rst)) {
-				ccridTemplet.setCxbh(rst.trim());
+				ccrid.setXxlb(rst.trim());
 			}
-			List<String> pointNameList = new ArrayList<>();
-			List nodes = root.elements("RESOURCE");
-			for (Object node : nodes) {
-				CompanyCreditRawInfoDO ccrid = ccridTemplet.clone();
-				Element resource = (Element) node;
-				// 信息事项名称
-				String value = resource.attributeValue("RESOURCENAME");
-				if (StringUtils.isBlank(value)) {
-					continue;
-				}
-				value = value.trim();
-				ccrid.setResourceName(value);
-				rst = resource.attributeValue("XXLB");
-				if (StringUtils.isNotBlank(rst)) {
-					ccrid.setXxlb(rst.trim());
-				}
-				rst = resource.attributeValue("XXSSDW");
-				if (StringUtils.isNotBlank(rst)) {
-					ccrid.setXxssdw(rst.trim());
-				}
-				rst = resource.attributeValue("XXSSDWDM");
-				if (StringUtils.isNotBlank(rst)) {
-					ccrid.setXxssdwCode(rst.trim());
-				}
-				rst = resource.attributeValue("RESOURCECODE");
-				if (StringUtils.isNotBlank(rst)) {
-					ccrid.setResourceCode(rst.trim());
-				}
-				rst = resource.attributeValue("RESOURCES");
-				if (StringUtils.isNotBlank(rst)) {
-					ccrid.setResources(rst.trim());
-				}
-
-				List contentElements = resource.elements();
-				Map<String, String> map = new HashMap<>();
-				contentElements.forEach(o -> {
-					Element e = (Element) o;
-					map.put(e.getName(), e.getText());
-				});
-				ccrid.setContent(JSON.toJSONString(map));
-
-				lCcrids.add(ccrid);
-				// 不保留不存在加分项的数据，减少数据集
-				if (pointMap.get(value) == null || pointMap.get(value) <= 0) {
-					continue;
-				}
-				pointNameList.add(value);
+			rst = resource.attributeValue("XXSSDW");
+			if (StringUtils.isNotBlank(rst)) {
+				ccrid.setXxssdw(rst.trim());
 			}
-			if (lCcrids.size() > 0) {
-
-				for (CompanyCreditRawInfoDO cd : lCcrids) {
-					ccriMapper.saveCompanyCreditRawInfo(cd);
-				}
-			} else {
-				ccriMapper.saveCompanyCreditRawInfo(ccridTemplet);
+			rst = resource.attributeValue("XXSSDWDM");
+			if (StringUtils.isNotBlank(rst)) {
+				ccrid.setXxssdwCode(rst.trim());
 			}
+			rst = resource.attributeValue("RESOURCECODE");
+			if (StringUtils.isNotBlank(rst)) {
+				ccrid.setResourceCode(rst.trim());
+			}
+			rst = resource.attributeValue("RESOURCES");
+			if (StringUtils.isNotBlank(rst)) {
+				ccrid.setResources(rst.trim());
+			}
+
+			List contentElements = resource.elements();
+			Map<String, String> map = new HashMap<>();
+			contentElements.forEach(o -> {
+				Element e = (Element) o;
+				map.put(e.getName(), e.getText());
+			});
+			ccrid.setContent(JSON.toJSONString(map));
+
+			lCcrids.add(ccrid);
+			// 不保留不存在加分项的数据，减少数据集
+			if (pointMap.get(value) == null || pointMap.get(value) <= 0) {
+				continue;
+			}
+			pointNameList.add(value);
+		}
+		if (lCcrids.size() > 0) {
+
+			for (CompanyCreditRawInfoDO cd : lCcrids) {
+				ccriMapper.saveCompanyCreditRawInfo(cd);
+			}
+		} else {
+			ccriMapper.saveCompanyCreditRawInfo(ccridTemplet);
+		}
 
 		// 若这家企业执行成功，则从失败企业表中删除。
 		this.executeCUD("DELETE FROM company_credit_fail_info WHERE company_id = ?", coDo.getCompanyId());
@@ -541,7 +546,6 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			// 定时任务，记录成功笔数
 			saveSuccessCompanyByDb(dataVersion);
 		}
-
 
 		return pointNameList;
 	}

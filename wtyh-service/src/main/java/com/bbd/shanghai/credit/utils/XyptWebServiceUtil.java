@@ -100,7 +100,7 @@ public class XyptWebServiceUtil {
 		} catch (Exception e) {
 
 			String msg = "获取公司：【%s/%s/%s】信用信息出错。请求地址：%s，参数：dwmc：%s，zzjgdm：%s，tydm：%s，username：%s，password：%s，cxyt：%s，uname：%s";
-			msg = String.format(msg, dwmc, zzjgdm, tydm, SERVICE_URL, dwmc, zzjgdm, tydm, USER_NAME, PASSWORD, CXYT, UNAME);
+			msg = String.format(msg, dwmc, zzjgdm, tydm, SERVICE_URL, dwmc, zzjgdm, tydm, USER_NAME, "***", CXYT, UNAME);
 			LOGGER.error(msg, e);
 
 			return null;
