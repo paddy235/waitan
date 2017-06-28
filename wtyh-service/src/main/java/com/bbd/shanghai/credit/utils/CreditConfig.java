@@ -47,6 +47,7 @@ public class CreditConfig {
 		dailyLimit = NumberUtils.toInt(map.get("dailyLimit"));
 		dataType = map.get("dataType");
 
+		map.put("password","***");
 		LOGGER.info("修改公信接口配置信息。{}", map.toString());
 
 	}
