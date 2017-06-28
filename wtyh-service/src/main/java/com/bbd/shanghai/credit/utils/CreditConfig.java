@@ -1,11 +1,14 @@
 package com.bbd.shanghai.credit.utils;
 
-import com.alibaba.fastjson.JSON;
 import com.bbd.wtyh.domain.SysConfigDo;
+import com.bbd.wtyh.service.CoCreditScoreService;
 import com.bbd.wtyh.service.SysConfigService;
 import com.bbd.wtyh.service.impl.SysConfigServiceImpl;
 import com.bbd.wtyh.util.ApplicationContextUtil;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,9 +30,13 @@ public class CreditConfig {
 	private static String dataType;
 
 	private static SysConfigService configService = ApplicationContextUtil.getBean(SysConfigServiceImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(CoCreditScoreService.class);
 
 	public static synchronized void read() {
 		List<SysConfigDo> configList = configService.getAllByGroup("credit_center");
+		if (CollectionUtils.isEmpty(configList)) {
+			return;
+		}
 		Map<String, String> map = new HashMap<>();
 		configList.forEach(configDo -> map.put(configDo.getKey(), configDo.getValue()));
 		userName = map.get("username");
@@ -39,6 +46,8 @@ public class CreditConfig {
 		serviceUrl = map.get("serviceUrl");
 		dailyLimit = NumberUtils.toInt(map.get("dailyLimit"));
 		dataType = map.get("dataType");
+
+		LOGGER.info("修改公信接口配置信息。{}", map.toString());
 
 	}
 
