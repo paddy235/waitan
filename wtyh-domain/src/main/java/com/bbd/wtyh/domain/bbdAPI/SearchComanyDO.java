@@ -11,7 +11,7 @@ public class SearchComanyDO {
     private int sum;
     private List<Rdata> rdata;
 
-    public class Rdata {
+    public static class Rdata {
         private String company_name;
         private String regno;
         private String company_type;

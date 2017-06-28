@@ -413,4 +413,16 @@
         LIMIT #{limit}
     </select>
 
+
+    <select id="findCompanyByName" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from company
+        <where>
+            <if test="names !=null and 0 !=names.size">
+            AND `name` IN <foreach item ="nam" index="index" collection="names"
+                                        open="(" separator="," close=")" > #{nam} </foreach>
+            </if>
+        </where>
+        LIMIT 1000
+    </select>
+
 </mapper>

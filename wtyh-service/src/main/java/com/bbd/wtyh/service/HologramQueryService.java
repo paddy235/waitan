@@ -120,4 +120,13 @@ public interface HologramQueryService {
     PatentDO getPatentData(String company, Integer page, Integer pageSize);
 
     Map<String, Object> getBbdQyxxBatch(String companySerial);
+
+    /**
+     * 根据名称列表返回结果，调用底层接口多次查询，拼接结果，不受最大200条限制
+     * 目前手工匹配了极少量需用的字段，具体见源码
+     * @param names
+     * @return
+     */
+    public List<CompanyDO> getBbdQyxxBatchAll( List<String>names );
+
 }
