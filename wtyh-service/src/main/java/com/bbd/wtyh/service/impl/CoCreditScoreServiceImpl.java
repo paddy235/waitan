@@ -187,7 +187,8 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		List<CompanyCreditFailInfoDO> list = this.queryfailCompany(companyNames, resultCode, dataVersion, pageNumber, pageSize);
 		// 本地模型加分项目
 		final Map<String, Integer> pointMap = this.getCompanyCreditPointItems();
-		int isHandle = 1;// isHandle 为0表示由定时任务执行 1表示手动补偿失败的企业
+		int isHandle = 1;// isHandle 为0表示由定时任务执行 1表示手动补偿失败的企业、
+		CreditConfig.read();
 		for (CompanyCreditFailInfoDO companyCreditFailInfoDO : list) {
 			CompanyDO companyDO = new CompanyDO();
 			companyDO.setCompanyId(companyCreditFailInfoDO.getCompanyId());
