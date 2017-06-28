@@ -35,7 +35,7 @@ public class DocxUtils {
      * double值四舍五入转成指定位数小数的字符串
      * @param val 待转值
      * @param scale 保留的小数位数
-     * @return
+     * @return 结果字符串
      */
     public static String doubleToString(double val, int scale ) {
         BigDecimal perVal  =BigDecimal.valueOf( val );
@@ -111,7 +111,7 @@ public class DocxUtils {
         if(!( run instanceof R )) {
             return;
         }
-        List removeColl =new LinkedList();
+        List<Object> removeColl =new LinkedList<>();
         List<Object> objs = run.getContent();
         boolean firstMk =true;
         for( Object obj : objs ) {
@@ -141,7 +141,7 @@ public class DocxUtils {
         if(!( paragraph instanceof P )) {
             return;
         }
-        List removeColl =new LinkedList();
+        List<Object> removeColl =new LinkedList<>();
         List<Object> objs = paragraph.getContent();
         boolean firstMk =true;
         for( Object obj : objs ) {
@@ -166,7 +166,7 @@ public class DocxUtils {
         if(!( tc instanceof Tc )) {
             return;
         }
-        List removeColl =new LinkedList();
+        List<Object> removeColl =new LinkedList<>();
         List<Object> list = tc.getContent();
         boolean firstMk =true;
         for( Object obj : list ) {
@@ -220,7 +220,7 @@ public class DocxUtils {
      * 搜索指定类型的对象到列表
      * @param parentObj 待搜索的父级对象
      * @param toSearch 指定待获取的对象类型
-     * @return
+     * @return 结果列表
      */
     public static List<Object> getAllElementFromObject(Object parentObj, Class<?> toSearch) {
         List<Object> result = new ArrayList<Object>();

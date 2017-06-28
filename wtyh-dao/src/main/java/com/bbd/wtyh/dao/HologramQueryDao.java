@@ -1,6 +1,7 @@
 package com.bbd.wtyh.dao;
 
 
+import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.bbdAPI.*;
 
 import java.util.List;
@@ -27,6 +28,13 @@ public interface HologramQueryDao {
 
     BaseDataDO shareholdersSenior(String companyName);
 
+    /**
+     * 数据平台企业信息接口
+     * @param companyName 企业名称
+     * @return BaseDataDO
+     */
+    public BaseDataDO companyQyxxDataApi(String companyName);
+
     OpenCourtAnnouncementDO openCourtAnnouncement(String company);
 
     JudgeDocDO judgeDoc(String company);
@@ -48,5 +56,7 @@ public interface HologramQueryDao {
     PatentDO getPatentData(String company, Integer page, Integer pageSize);
 
     Map<String, Object> getBbdQyxxBatch(String companySerial);
+
+    public BaseDataDO getBbdQyxxBatchByPostCD(String companySerial);
 
 }

@@ -115,4 +115,6 @@ public interface CompanyMapper {
 	@Select("SELECT MAX(company_id) FROM company")
 	Integer maxCompanyId();
 
+	List<CompanyDO> findCompanyByName( @Param("names") List<String> names );
+
 }

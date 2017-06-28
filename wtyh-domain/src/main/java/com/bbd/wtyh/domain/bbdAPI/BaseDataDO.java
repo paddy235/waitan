@@ -154,7 +154,73 @@ public class BaseDataDO implements Serializable{
         private String idtype;
         private String idno;
 
+        /** 股东详情*/
+        private String shareholder_detail;
+
+        /** 出资比例*/
+        private String invest_ratio;
+
+        /** 出资额*/
+        private String invest_amount;
+
+        /** 出资方式*/
+        private String invest_name;
+
+        /** 认缴出资额*/
+        private String subscribed_capital;
+
+        /** 实缴出资额*/
+        private String paid_contribution;
+
         public Gdxx() {
+        }
+
+        public String getShareholder_detail() {
+            return shareholder_detail;
+        }
+
+        public void setShareholder_detail(String shareholder_detail) {
+            this.shareholder_detail = shareholder_detail;
+        }
+
+        public String getInvest_ratio() {
+            return invest_ratio;
+        }
+
+        public void setInvest_ratio(String invest_ratio) {
+            this.invest_ratio = invest_ratio;
+        }
+
+        public String getInvest_amount() {
+            return invest_amount;
+        }
+
+        public void setInvest_amount(String invest_amount) {
+            this.invest_amount = invest_amount;
+        }
+
+        public String getInvest_name() {
+            return invest_name;
+        }
+
+        public void setInvest_name(String invest_name) {
+            this.invest_name = invest_name;
+        }
+
+        public String getSubscribed_capital() {
+            return subscribed_capital;
+        }
+
+        public void setSubscribed_capital(String subscribed_capital) {
+            this.subscribed_capital = subscribed_capital;
+        }
+
+        public String getPaid_contribution() {
+            return paid_contribution;
+        }
+
+        public void setPaid_contribution(String paid_contribution) {
+            this.paid_contribution = paid_contribution;
         }
 
         public String getNo() {

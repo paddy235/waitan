@@ -1,6 +1,7 @@
 package com.bbd.wtyh.report.word;
 
 import com.bbd.wtyh.report.util.DocxUtils;
+import com.bbd.wtyh.util.WtyhHelper;
 import org.apache.commons.lang.StringUtils;
 import org.docx4j.dml.CTBlip;
 import org.docx4j.dml.chart.*;
@@ -23,10 +24,12 @@ import org.docx4j.vml.CTTextPath;
 import org.docx4j.wml.*;
 import org.xlsx4j.jaxb.Context;
 import org.xlsx4j.sml.*;
+import sun.security.action.GetPropertyAction;
 
 import javax.xml.bind.JAXBElement;
 import java.io.*;
 import java.math.BigDecimal;
+import java.security.AccessController;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -41,7 +44,7 @@ import java.util.List;
 public class WordReportBuilder {
     /**
      * 出错记录
-     * @return
+     * @return StringBuffer
      */
     public StringBuffer getErrRecord() {
         return errRecord;
@@ -93,7 +96,7 @@ public class WordReportBuilder {
     /**
      * 正文的段落为单位且以文档书写顺序排列的列表，会包含表格对象，此列表删除元素后会同步修改待保存的文档
      */
-    private List<?> mainParagraphList;
+    private List<Object> mainParagraphList;
 
     /**
      * 正文部件关系
@@ -106,8 +109,8 @@ public class WordReportBuilder {
      * 创建生成报告的对象
      * @param reportTemplateFileName 带路径的模板文件名
      * @param reportType 报告类型
-     * @throws Docx4JException
-     * @throws FileNotFoundException
+     * @throws Docx4JException docE
+     * @throws FileNotFoundException fileE
      */
     public WordReportBuilder( String reportTemplateFileName, ReportType reportType )
             throws Docx4JException, FileNotFoundException {
@@ -121,7 +124,6 @@ public class WordReportBuilder {
     }
 
     public static void main(String []argc) { //文档生成类使用示例
-        String rootPath ="/docx/template/shanghai-company-anti-fraud-template.docx";
         String localPath ="D:\\bbdPrjIj\\wtyh-dv\\wtyh-web\\src\\main\\resources\\docx\\";
         String templateFile1 = localPath +"template\\shanghai-company-anti-fraud-template.docx";
         String targetPath = localPath +"target\\";
@@ -180,9 +182,8 @@ public class WordReportBuilder {
                     }} );
 
             //test 企业全息信息
-            File fl =new File("D:\\bbdPrjIj\\wtyh-dv\\wtyh-web\\src\\main\\resources\\docx\\temporary\\关联0.png");
-            InputStream is =new FileInputStream("D:\\bbdPrjIj\\wtyh-dv\\wtyh-web\\src\\main\\resources\\docx\\temporary\\关联0.png");
-
+            //File fl =new File("D:\\bbdDoc\\wtyh\\docx\\template\\关联0.png");
+            InputStream is =new FileInputStream("D:\\bbdDoc\\wtyh\\docx\\template\\关联0.png");
             byte[] byt = new byte[is.available()];
             is.read(byt, 0, is.available());
             wrb.setRelatedPartyMappingInfo(byt,
@@ -278,12 +279,10 @@ public class WordReportBuilder {
     /**
      * 设置水印
      * @param waterMark 水印字符串
-     * @return 设置成功：true
      */
-    public boolean setWaterMark (String waterMark) {
+    public void setWaterMark (String waterMark) {
         if( StringUtils.isBlank(waterMark) ) {
             errRecord.append("水印设置失败，参数“").append("waterMark").append("”为空；");
-            return false;
         }
         boolean returnVal =false;
         for ( Object obj : mainParts.getParts().values() ) {
@@ -304,7 +303,6 @@ public class WordReportBuilder {
         if( !returnVal ) {
             errRecord.append("水印设置失败；");
         }
-        return returnVal;
     }
 
     /** 注意：这个仅线下理财才有
@@ -361,14 +359,14 @@ public class WordReportBuilder {
         }
         String errHead ="添加平台信息时出现错误：";
         StringBuffer thisErrRecord = new StringBuffer();
-        String platName ="";
+        String platName;
 
         //设置 平台评分信息
         if( gradeInfo ==null || gradeInfo.isEmpty() ) {
             errRecord.append(errHead).append("参数 gradeInfo 为空；");
             return;
         } else {
-            platName = new String( gradeInfo.get("平台名称") );
+            platName = gradeInfo.get("平台名称");
             if( StringUtils.isBlank(platName) ) {
                 errRecord.append(errHead).append("参数 gradeInfo.平台名称 为空；");
                 return;
@@ -429,11 +427,11 @@ public class WordReportBuilder {
         }
 
         //设置 平台名称
-        Map planNameMap =new HashMap<String, String>();
+        Map<String, String> planNameMap =new HashMap<>();
         planNameMap.put("$$（平台名称）", platName);
         DocxUtils.replacePlaceholder( newBlock, planNameMap );
 
-        boolean isFront =true;
+        boolean isFront;
 
         //设置平台核心数据
         StringBuffer this1ErrRecord =new StringBuffer();
@@ -627,13 +625,13 @@ public class WordReportBuilder {
 
         MapSort_funIf1 mSort =( Map<String, String> src )->{ //升序排序
             List<Map.Entry<Double, String>> rpLst =new ArrayList<>();
-            Double sum =new Double(0);
+            Double sum =0D;
             for (Map.Entry<String, String> entry : src.entrySet()) {
                 Double keyDb;
                 try {
                     keyDb =Double.valueOf(entry.getValue());
                 } catch ( Exception e) {
-                    keyDb = new Double(0);
+                    keyDb = 0D;
                 }
                 sum +=keyDb;  //求和
                 int iIdx =0;
@@ -643,9 +641,9 @@ public class WordReportBuilder {
                         break;
                     }
                 }
-                rpLst.add( iIdx, new AbstractMap.SimpleEntry<Double, String>( keyDb, entry.getKey() ) );
+                rpLst.add( iIdx, new AbstractMap.SimpleEntry<>( keyDb, entry.getKey() ) );
             }
-            rpLst.add(new AbstractMap.SimpleEntry<Double, String>(sum,"总数" ));
+            rpLst.add(new AbstractMap.SimpleEntry<>(sum,"总数" ));
             return rpLst;
         };
 
@@ -699,8 +697,8 @@ public class WordReportBuilder {
             DocxUtils.replacePlaceholder(mainParagraphList,
                     new HashMap<String, String>() {{put("$$企业信息-招聘人员分布描述", peopleDistDes.toString());}} );
             //更新图表数据
-            List<String> rIdList = new ArrayList();
-            int sRst = searchPartRelationIdFromParagraphList(mainParagraphList, 0, "qixin_zhaopin_renyuantu", rIdList, this1ErrRecord);
+            List<String> rIdList = new ArrayList<>();
+            searchPartRelationIdFromParagraphList(mainParagraphList, 0, "qixin_zhaopin_renyuantu", rIdList, this1ErrRecord);
             if (rIdList.isEmpty()) {
                 this1ErrRecord.append("未搜索到指定图表");
             } else {
@@ -739,7 +737,7 @@ public class WordReportBuilder {
             }
             peopleSalaryDes.append("，");
             List<Map.Entry<Double, String>> rpLst =mSort.fun(recruitPeopleSalary);
-            Double total =rpLst.get(rpLst.size() -1).getKey();
+            //Double total =rpLst.get(rpLst.size() -1).getKey();
             rpLst.remove(rpLst.size() -1);
             TextSynthesis_funIf1 pS =(StringBuffer outStr, Map.Entry<Double, String>entry, String additory, String endStr )->{
                 BigDecimal perVal  =BigDecimal.valueOf(entry.getKey());
@@ -765,8 +763,8 @@ public class WordReportBuilder {
             DocxUtils.replacePlaceholder(mainParagraphList,
                     new HashMap<String, String>() {{put("$$企业信息-薪酬分布描述", peopleSalaryDes.toString());}} );
             //更新图表数据
-            List<String> rIdList = new ArrayList();
-            int sRst =searchPartRelationIdFromParagraphList(mainParagraphList,0, "qixin_zhaopin_xinchoutu", rIdList,this1ErrRecord);
+            List<String> rIdList = new ArrayList<>();
+            searchPartRelationIdFromParagraphList(mainParagraphList,0, "qixin_zhaopin_xinchoutu", rIdList,this1ErrRecord);
             if (rIdList.isEmpty()) {
                 this1ErrRecord.append("未搜索到指定图表");
             } else {
@@ -879,17 +877,24 @@ public class WordReportBuilder {
         }
         isExportGenerate =true;
 
-        /** 生成企业标签(例如："私企、存续、重点关注、网络借贷")*/
+        /* 生成企业标签(例如："私企、存续、重点关注、网络借贷")*/
         StringBuffer sBuf = new StringBuffer();
         for( Object ob : companyBackground  ) {
-            if( ob instanceof String ) {
-                sBuf.append( (String)ob +"、" );
+            if( ob instanceof String && StringUtils.isNotBlank( (String)ob ) ) {
+                sBuf.append( (String)ob ).append( "、" );
             }
         }
-        sBuf.append( companyStatus +"、" ).append( companyRiskResult +"、" ).append( companyType );
-
+        if( StringUtils.isNotBlank( companyStatus ) ) {
+            sBuf.append( companyStatus ).append( "、" );
+        }
+        if( StringUtils.isNotBlank( companyRiskResult ) ) {
+            sBuf.append( companyRiskResult ).append( "、" );
+        }
+        if( StringUtils.isNotBlank( companyType ) ) {
+            sBuf.append( companyType ); //.append( "、" );
+        }
         //替换一些零散的标签
-        Map mp =new HashMap<String, String>() {{
+        Map<String, String> mp =new HashMap<String, String>() {{
             put("$$标题（企业名称及属性标签）", companyName +"（" +sBuf.toString() +"…）");
             put("$$报告生成日期", LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")));
             put("$$风险等级：", "风险等级：" +companyRiskResult );
@@ -911,7 +916,7 @@ public class WordReportBuilder {
         removeSignedSegmentFromMainParagraphList( "平台信息模板" );
 
         //删除所有的注释段落
-        List removeColl =new LinkedList(); //待删除的对象集合
+        List<Object> removeColl =new LinkedList<>(); //待删除的对象集合
         for ( Object obj : mainParagraphList) { //查找所有注释段落
             if( obj instanceof P && obj.toString().startsWith("##") ) {
                 removeColl.add(obj);
@@ -922,25 +927,25 @@ public class WordReportBuilder {
     }
 
     public Map<String, Object> exportReportToBytes( ) throws Docx4JException {
-        Map rstMap =new HashMap<String, Object>() {{
+        Map<String, Object> rstMap =new HashMap<String, Object>() {{
             String fileName =companyName +"-" +reportType.getName() +".docx";
             put( "fileName" , fileName );
             put("fileBytes" ,null);
         }};
         //报告生成
         exportGenerate( );
-        ByteArrayOutputStream baos =new ByteArrayOutputStream();
-        wmp.save(baos);
-        rstMap.put( "fileBytes" ,baos.toByteArray() );
+        ByteArrayOutputStream baoSm =new ByteArrayOutputStream();
+        wmp.save(baoSm);
+        rstMap.put( "fileBytes" ,baoSm.toByteArray() );
         return rstMap;
     }
 
     /**
      * 报告文件导出
-     * @param targetPath
+     * @param targetPath 目标路径
      * @return 返回报告文件的存放路径
-     * @throws IOException
-     * @throws Docx4JException
+     * @throws IOException IoE
+     * @throws Docx4JException DocE
      */
     public String exportReport(String targetPath) throws IOException, Docx4JException {
         //报告生成
@@ -957,11 +962,23 @@ public class WordReportBuilder {
     }
 
     /**
+     * 删除报告生成过程中docx4j删除失败的临时文件
+     */
+    public void delTempFile( ) throws IOException {
+        //String tempPath = WtyhHelper.tomcatPath;
+        // docx4j是这样创建临时文件的
+        //File tmpImageFile = File.createTempFile("img", ".img");
+        String tempPath =(new File(AccessController.doPrivileged(new GetPropertyAction("java.io.tmpdir")))).getPath();
+        //System.out.println(tempPath);
+    }
+
+
+    /**
      * 通过rID更新图表的数据
      * @param rIdList 图表rId
      * @param dataMap 源数据
      * @param thisErrRecord 出错记录
-     * @throws Exception
+     * @throws Exception E
      */
     private void addDataToChartById( List<String> rIdList, Map<String, String> dataMap,
                                      StringBuffer thisErrRecord) throws Exception{
@@ -979,7 +996,6 @@ public class WordReportBuilder {
                 for( Object cc : ctChartList ) {
                     if(cc instanceof ListSer) {
                         List serList = ((ListSer)cc).getSer();
-                        int iii =serList.size();
                         for (Object sObj : serList ) {
                             if( sObj instanceof SerContent) {
                                 SerContent sCon = (SerContent)sObj;
@@ -1125,7 +1141,7 @@ public class WordReportBuilder {
      * @param thisErrRecord 出错记录
      * @return 返回目标所在的行号，<0: 搜索失败
      */
-    private int searchPartRelationIdFromParagraphList( List myParagraphList, int startIdx, String anchor,
+    private int searchPartRelationIdFromParagraphList( List<Object> myParagraphList, int startIdx, String anchor,
                                                           List<String> rIdList, StringBuffer thisErrRecord) {
         int idx =searchAnchorFromParagraphListToIndex(myParagraphList ,startIdx, anchor);
         if(idx <0 || (idx +1) >= myParagraphList.size()) {
@@ -1166,7 +1182,7 @@ public class WordReportBuilder {
      * @param thisErrRecord 出错记录
      * @return 返回表格所在的段落标号
      */
-    private int replaceImage( List myParagraphList, int startIdx, String anchor, byte[] srcBytes,
+    private int replaceImage( List<Object> myParagraphList, int startIdx, String anchor, byte[] srcBytes,
                               File srcFile, StringBuffer thisErrRecord ) {
         int idx =searchAnchorFromParagraphListToIndex(myParagraphList ,startIdx, anchor);
         idx++;
@@ -1180,7 +1196,7 @@ public class WordReportBuilder {
             thisErrRecord.append("srcBytes和srcFile同时为空；");
             return -2;
         }
-        List inlineList = ( (Drawing)drawingList.get(0) ).getAnchorOrInline(); //忽略多于1个Drawing对象的情况
+        List<Object> inlineList = ( (Drawing)drawingList.get(0) ).getAnchorOrInline(); //忽略多于1个Drawing对象的情况
         if( inlineList.size() >0 && inlineList.get(0) instanceof Inline) { //从文档中删除此处现存的图片资源
             List anyList =((Inline)inlineList.get(0)).getGraphic().getGraphicData().getAny(); //忽略多于1个Inline对象的情况
             List picList =DocxUtils.getAllElementFromObject(anyList, Pic.class);
@@ -1224,7 +1240,7 @@ public class WordReportBuilder {
      * @param thisErrRecord 出错记录
      * @return 返回表格所在的段落标号, -2:源数据参数为空
      */
-    private int addTableRows( List paragraphList, int startIdx, String anchor, List<List<String>> rowsData,
+    private int addTableRows( List<Object> paragraphList, int startIdx, String anchor, List<List<String>> rowsData,
                               int maxRowNum, StringBuffer thisErrRecord ) {
         if( rowsData ==null ||rowsData.isEmpty() ) {
             //thisErrRecord.append("参数“").append("rowsData").append("”为空；");
@@ -1276,7 +1292,7 @@ public class WordReportBuilder {
      * @param startIdx 搜索的起始位置
      * @param anchor 定位符
      */
-    private void delTableOrParagraphFromParagraphList( boolean front, List myParagraphList, int startIdx,
+    private void delTableOrParagraphFromParagraphList( boolean front, List<Object> myParagraphList, int startIdx,
                                                        String anchor  ) {
         int idx = searchAnchorFromParagraphListToIndex(myParagraphList, startIdx, anchor);
         if( idx <1 ||(idx +1) >=myParagraphList.size() ) { //在段落列表中未搜索到指定标识
@@ -1284,7 +1300,7 @@ public class WordReportBuilder {
             return;
         }
         int effectCnt =0; //有效性计数器
-        List removeColl =new LinkedList();
+        List<Object> removeColl =new LinkedList<>();
         //段落“……无相关信息”
         if( (myParagraphList.get(idx -1) instanceof P ) ) {
             String str = DocxUtils.docx4jObjectToString(myParagraphList.get(idx -1));
@@ -1325,7 +1341,7 @@ public class WordReportBuilder {
      * @param thisErrRecord 错误记录
      * @return 返回搜索到的表格在列表中的标号，<0 or >=.size() 则搜索失败, -2:源数据参数为空
      */
-    private int setTableSecondColumn( List myParagraphList, int startIdx, String anchor, Map<String,String> replaceMap,
+    private int setTableSecondColumn( List<Object> myParagraphList, int startIdx, String anchor, Map<String,String> replaceMap,
                                        int startRow, StringBuffer thisErrRecord ) {
         if( replaceMap ==null ||replaceMap.isEmpty() ) {
             thisErrRecord.append("源数据列表为空；");
@@ -1382,7 +1398,7 @@ public class WordReportBuilder {
      * @param anchor "##@ah-" 的后缀
      * @return 返回搜索到的结果在列表中的标号
      */
-    private int searchAnchorFromParagraphListToIndex(List myParagraphList, int startIdx, String anchor) {
+    private int searchAnchorFromParagraphListToIndex(List<Object> myParagraphList, int startIdx, String anchor) {
         int insIndex =-1;
         if( myParagraphList ==null || myParagraphList.isEmpty() || startIdx >(myParagraphList.size() -1) ) {
             return insIndex;
@@ -1409,8 +1425,8 @@ public class WordReportBuilder {
      * @param sign "##@seg_start-" 和 "##@seg_end-" 的后缀
      * @return List
      */
-    private List searchSignFromParagraphListToSegment(List myParagraphList, int startIdx, String sign) {
-        List searchColl =new LinkedList();
+    private List searchSignFromParagraphListToSegment(List<Object> myParagraphList, int startIdx, String sign) {
+        List<Object> searchColl =new LinkedList<>();
         String startSign ="##@seg_start-" +sign;
         String endSign ="##@seg_end-" +sign;
         int step =0;
@@ -1424,7 +1440,7 @@ public class WordReportBuilder {
                         step = 1;
                         continue;
                     } else if (tStr.equals(endSign)) {
-                        step = 2;
+                        //step = 2;
                         break;
                     }
                 }
@@ -1443,7 +1459,7 @@ public class WordReportBuilder {
      */
     private List copySignedSegmentFromMainParagraphList(String sign ) {
         List srcList =searchSignFromParagraphListToSegment(mainParagraphList, 0, sign);
-        List copyColl =new ArrayList();
+        List<Object> copyColl =new ArrayList<>();
         for( Object sObj : srcList )
         {
             Object dObj =DocxUtils.deepCopy(sObj);
@@ -1458,7 +1474,7 @@ public class WordReportBuilder {
      * @param anchor "##@seg_end-" 的后缀
      * @param front 是否插入到 "##@seg_end-" 的前面
      */
-    private void insertSegmentToParagraphListAtSigned( List segment, String anchor, boolean front ) {
+    private void insertSegmentToParagraphListAtSigned( List<Object> segment, String anchor, boolean front ) {
         int insIndex = searchAnchorFromParagraphListToIndex(mainParagraphList,0, anchor);
         if( insIndex <0 ) {
             return;
@@ -1477,12 +1493,12 @@ public class WordReportBuilder {
     @FunctionalInterface
     interface TextSynthesis_funIf1 {
         void fun( StringBuffer outStr, Map.Entry<Double, String>entry ,String additory, String endStr );
-    };
+    }
 
     @FunctionalInterface
     interface MapSort_funIf1 {
         List<Map.Entry<Double, String>> fun( Map<String, String> src );
-    };
+    }
 
     //创建一个供测试用的xlsx文件
     private void xlsxCreate(ByteArrayOutputStream boaos ) throws Exception {
