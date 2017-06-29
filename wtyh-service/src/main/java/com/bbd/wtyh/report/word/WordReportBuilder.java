@@ -626,7 +626,7 @@ public class WordReportBuilder {
         MapSort_funIf1 mSort =( Map<String, String> src )->{ //升序排序
             List<Map.Entry<Double, String>> rpLst =new ArrayList<>();
             Double sum =0D;
-            for (Map.Entry<String, String> entry : src.entrySet()) {
+            /*for (Map.Entry<String, String> entry : src.entrySet()) {
                 Double keyDb;
                 try {
                     keyDb =Double.valueOf(entry.getValue());
@@ -642,6 +642,26 @@ public class WordReportBuilder {
                     }
                 }
                 rpLst.add( iIdx, new AbstractMap.SimpleEntry<>( keyDb, entry.getKey() ) );
+            }*/
+            TreeMap<Double, String> tm =new TreeMap<>();
+            for (Map.Entry<String, String> entry : src.entrySet()) {
+                Double keyDb;
+                try {
+                    keyDb =Double.valueOf(entry.getValue());
+                } catch ( Exception e) {
+                    keyDb = 0D;
+                }
+                String val =tm.get(keyDb);
+                if( StringUtils.isNotBlank(val) ) {
+                    val += "、" +entry.getKey();
+                } else {
+                    val =entry.getKey();
+                }
+                tm.put(keyDb, val);
+                sum +=keyDb;  //求和
+            }
+            for (Map.Entry<Double, String> entry : tm.entrySet()) {
+                rpLst.add(entry);
             }
             rpLst.add(new AbstractMap.SimpleEntry<>(sum,"总数" ));
             return rpLst;
@@ -1319,10 +1339,17 @@ public class WordReportBuilder {
                 removeColl.add(myParagraphList.get(idx + 1));
             }
             effectCnt++;
+            //尝试删除：“——”：无信息。
+            int tIdx =0;
             if( (idx +2) <myParagraphList.size() && (myParagraphList.get(idx +2) instanceof P ) ) {
-                String str = DocxUtils.docx4jObjectToString(myParagraphList.get(idx + 2));
+                tIdx =idx +2;
+            } else if( (idx +3) <myParagraphList.size() && (myParagraphList.get(idx +3) instanceof P ) ) {
+                tIdx =idx +3;
+            }
+            if( tIdx >0 ) {
+                String str = DocxUtils.docx4jObjectToString(myParagraphList.get(tIdx));
                 if ( StringUtils.isNotBlank(str) && str.contains("——") && str.contains("无信息") && !front ) {
-                    removeColl.add( myParagraphList.get(idx +2) );
+                    removeColl.add( myParagraphList.get(tIdx) );
                 }
             }
         }

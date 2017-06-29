@@ -385,9 +385,12 @@ public class WordReportServiceImpl implements WordReportService {
                 logger.warn("企业基本信息不完备");
             }
 
-            //企业股东信息/董事、监事、高级管理人员信息/变更信息
+            //企业股东信息/股东出资信息/董事、监事、高级管理人员信息/变更信息
+            List<List<String>> gdList = new LinkedList<>();
+            List<List<String>> czList = new LinkedList<>();
+            List<List<String>> baList = new LinkedList<>();
+            List<List<String>> bgList = new LinkedList<>();
             int rstCnt =0;
-            //BaseDataDO baseDataDo = hologramQueryDao.shareholdersSenior(companyName);
             BaseDataDO baseDataDo = hologramQueryDao.companyQyxxDataApi(companyName);
             if ( baseDataDo !=null && baseDataDo.getErr_code() !=null && baseDataDo.getErr_code().equals("0")) {
                 List<BaseDataDO.Results> resultsList =baseDataDo.getResults();
@@ -397,8 +400,6 @@ public class WordReportServiceImpl implements WordReportService {
                             //处理股东信息 和 股东出资信息
                             List<BaseDataDO.Gdxx> gdXx= results.getGdxx();
                             if ( gdXx !=null && gdXx.size() >0 ) {
-                                List<List<String>> gdList = new LinkedList<>();
-                                List<List<String>> czList = new LinkedList<>();
                                 for ( BaseDataDO.Gdxx gdObj : gdXx ) {
                                     List<String> gdLine =new ArrayList<>();
                                     gdList.add(gdLine);
@@ -415,8 +416,7 @@ public class WordReportServiceImpl implements WordReportService {
                                     czLine.add( gdObj.getInvest_name() ); //方式
                                     //todo 等待产品确认
                                 }
-                                wrb.setStockholderInfo(gdList);
-                                wrb.setStockholderContributionInfo(czList);
+                                rstCnt +=2;
                             }
 
                             //处理董监高信息
@@ -432,20 +432,18 @@ public class WordReportServiceImpl implements WordReportService {
                                     }
                                     baMap.put(baObj.getName(), val);
                                 }
-                                List<List<String>> baList = new LinkedList<>();
                                 for ( Map.Entry<String, String> entry: baMap.entrySet() ) {
                                     List<String> baLine =new ArrayList<>();
                                     baList.add(baLine);
                                     baLine.add( entry.getKey() );
                                     baLine.add( entry.getValue() );
                                 }
-                                wrb.setTrusteeSupervisorSeniorInfo(baList);
+                                rstCnt++;
                             }
 
                             //处理变更信息
                             List<BaseDataDO.Bgxx> bgXx= results.getBgxx();
                             if ( bgXx !=null && bgXx.size() >0 ) {
-                                List<List<String>> bgList = new LinkedList<>();
                                 for ( BaseDataDO.Bgxx bgObj : bgXx ) {
                                     List<String> bgLine =new ArrayList<>();
                                     bgList.add(bgLine);
@@ -454,16 +452,20 @@ public class WordReportServiceImpl implements WordReportService {
                                     bgLine.add( bgObj.getContent_after_change() );
                                     bgLine.add( bgObj.getChange_date() );
                                 }
-                                wrb.setCompanyChangeInfo(bgList);
+                                rstCnt++;
                             }
                             break;
                         }
                     }
                 }
             }
-            if (rstCnt <3) {
+            if (rstCnt <4) {
                 logger.warn("企业股东信息不完备");
             }
+            wrb.setStockholderInfo(gdList);
+            wrb.setStockholderContributionInfo(czList);
+            wrb.setTrusteeSupervisorSeniorInfo(baList);
+            wrb.setCompanyChangeInfo(bgList);
 
             // 企业全息信息
             byte [] newestYED =offlineFinanceService.createNewestYEDtoStream(companyName);
@@ -581,7 +583,7 @@ public class WordReportServiceImpl implements WordReportService {
                         idx++;
                         row.add(idx.toString()); //idx
                         row.add(re.getPubdate()); //date
-                        row.add(re.getCasecode()); //case_code
+                        row.add(re.getExe_code()); //row.add(re.getCasecode()); //case_code
                         row.add(re.getConcrete_situation()); //
                         row.add(re.getExec_court_name());
                     }
@@ -615,31 +617,95 @@ public class WordReportServiceImpl implements WordReportService {
                     judgeDoc.add(row);
                     idx++;
                     row.add(idx.toString()); //idx
+                    row.add(re.getTitle());
                     row.add(re.getSentence_date());
                     row.add(re.getCasecode());
-                    row.add(re.getMain());  // todo 等产品确认
                     row.add(re.getAction_cause());
-                    row.add("re.get"); //todo 等产品确认
+                    row.add(re.getCase_type());
                     row.add(re.getLitigant_type());
                     row.add(re.getCaseout_come());
                 }
             }
             List<List<String>> courtAnnouncement =new LinkedList<>();
             CourtAnnouncementDO ca = hologramQueryService.courtAnnouncement(companyName);
+            if (ca !=null) {
+                List<CourtAnnouncementDO.Results> resList =ca.getResults();
+                if( resList !=null ) {
+                    Integer idx =0;
+                    for (CourtAnnouncementDO.Results re : resList) {
+                        List<String> row = new ArrayList<>();
+                        courtAnnouncement.add(row);
+                        idx++;
+                        row.add(idx.toString()); //idx
+                        row.add(re.getNotice_time());
+                        row.add(re.getNotice_content());
+                        row.add(re.getNotice_type());
+                        row.add(re.getNotice_people());
+                    }
+                }
+            }
             List<List<String>> openCourt =new LinkedList<>();
             List<OpenCourtAnnouncementDO.Results> loc = hologramQueryService.openCourtAnnouncement(companyName);
-
+            if( loc !=null ) {
+                Integer idx =0;
+                for ( OpenCourtAnnouncementDO.Results re : loc ) {
+                    List<String> row = new ArrayList<>();
+                    openCourt.add(row);
+                    idx++;
+                    row.add(idx.toString()); //idx
+                    row.add(re.getTrial_date());
+                    row.add(re.getCase_code());
+                    row.add(re.getAction_cause());
+                    row.add(re.getLitigant());
+                    row.add(re.getCity());
+                }
+            }
             wrb.setCompanyLawsuitInfo( noCreditDebtor, debtor, judgeDoc, courtAnnouncement, openCourt );
 
             //企业专利信息
             List<List<String>> patentInfo =new LinkedList<>();
             PatentDO pd = hologramQueryService.getPatentData(companyName,1,100000000);
+            if (pd !=null) {
+                List<PatentDO.Results> resList =pd.getResults();
+                if ( resList != null ) {
+                    Integer idx =0;
+                    for ( PatentDO.Results re : resList ) {
+                        List<String> row = new ArrayList<>();
+                        patentInfo.add(row);
+                        idx++;
+                        row.add(idx.toString()); //idx
+                        row.add(re.getTitle());
+                        row.add(re.getPatent_type());
+                        row.add(re.getApplication_code());
+                        row.add(re.getApplication_date());
+                    }
+                }
+            }
             wrb.setCompanyPatentInfo(  patentInfo );
-
 
             //企业舆情信息
             List<List<String>> publicSentiment =new LinkedList<>();
             BaiDuYuQingDO baiDuYuQingDO = hologramQueryDao.newsConsensus(companyName);
+            if ( baiDuYuQingDO !=null ) {
+                List<BaiDuYuQingDO.Results> rstList =baiDuYuQingDO.getResults();
+                if ( rstList !=null ) {
+                    Integer idx =0;
+                    for ( BaiDuYuQingDO.Results re : rstList ) {
+                        List<String> row = new ArrayList<>();
+                        publicSentiment.add(row);
+                        idx++;
+                        row.add(idx.toString()); //idx
+                        row.add(re.getNews_title());
+                        String mainStr =re.getMain();
+                        if (mainStr !=null && mainStr.length() >50){
+                            mainStr =mainStr.substring(0, 49) +"……";
+                        }
+                        row.add(mainStr);
+                        row.add(re.getPubdate());
+                        row.add(re.getBbd_url());
+                    }
+                }
+            }
             wrb.setCompanyPublicSentimentInfo( publicSentiment );
 
 
