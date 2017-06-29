@@ -104,7 +104,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		// 本地模型加分项目
 		final Map<String, Integer> pointMap = this.getCompanyCreditPointItems();
 
-		ExecutorService dataExecutorService = Executors.newFixedThreadPool(50, new ThreadFactory() {
+        ExecutorService dataExecutorService = Executors.newFixedThreadPool(CreditConfig.threadNum(), new ThreadFactory() {
 
 			final LongAdder num = new LongAdder();
 
