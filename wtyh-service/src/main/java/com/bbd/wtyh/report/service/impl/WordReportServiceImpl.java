@@ -4,7 +4,8 @@ import com.bbd.higgs.utils.DateUtils;
 import com.bbd.wtyh.dao.HologramQueryDao;
 import com.bbd.wtyh.dao.P2PImageDao;
 import com.bbd.wtyh.domain.CompanyDO;
-import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
+import com.bbd.wtyh.domain.RecruitDO;
+import com.bbd.wtyh.domain.bbdAPI.*;
 import com.bbd.wtyh.domain.dto.PlatCompanyDTO;
 import com.bbd.wtyh.domain.vo.DynamicRiskVO;
 import com.bbd.wtyh.domain.vo.StaticRiskVO;
@@ -511,44 +512,138 @@ public class WordReportServiceImpl implements WordReportService {
             wrb.setRelatedPartyMappingInfo(newestYED, oneDegree, distributeArr.get(0),
                     twoDegree, distributeArr.get(1) );
 
-            //企业招聘信息
-            wrb.setRecruitInfo(new LinkedList<java.util.List<String>>() {{
-                                   add(new LinkedList<String>() {{
-                                       add("项目经理");
-                                       add("本科");
-                                       add("14999");
-                                       add("2");
-                                       add("2017-5");
-                                       add("上海");
-                                       add("");
-                                   }});
-                                   add(new LinkedList<String>() {{
-                                       add("CFO");
-                                       add("硕士");
-                                       add("33998");
-                                       add("1");
-                                       add("2017-5");
-                                       add("上海");
-                                       add("智联招聘");
-                                   }});   }},
-                    new HashMap<String,String>(){{
-                        put("电力|电子信息", "0.25");
-                        put("精细化工|试剂|助剂","0.55");
-                        put("制药", "0.2");
-                        put("IT|光通讯", "0.1");
-                        put("有色金属", "0.007");
-                    }},
-                    new LinkedHashMap<String,String>(){{
-                        put("2k以下", "0.25");
-                        put("2k-5k","0.55");
-                        put("5k-10k", "0.791");
-                        put("10k-20k", "0.1");
-                        put("20k-30k", "1.2");
-                        put("30k-100k", "0.1");
-                        put("100k以上", "0.01");
-                    }} );
 
-            if(wrb.getErrRecord().length() >0) { //
+            //企业招聘信息
+            List<List<String>> recruitInfoList =new LinkedList<java.util.List<String>>() {{
+                /*add(new LinkedList<String>() {{
+                    add("项目经理");
+                    add("本科");
+                    add("14999");
+                    add("2");
+                    add("2017-5");
+                    add("上海");
+                    add("");
+                }});*/
+            }};
+            Map<String, String> recruitPeopleDistribute =new HashMap<String,String>(){{
+                //put("电力|电子信息", "0.25");
+            }};
+            Map<String, String> recruitPeopleSalary =new LinkedHashMap<String,String>(){{
+                //put("2k以下", "0.25");
+            }};
+            RecruitDO recruitDO = hologramQueryDao.getRecruitInfo(companyName, 1, 15);
+            if ( recruitDO !=null ) {
+                List<RecruitDO.Recruit> recruits = recruitDO.getResults();
+                if( recruits != null ) {
+                    for (RecruitDO.Recruit rec :recruits) {
+                        List<String> row = new ArrayList<>();
+                        recruitInfoList.add(row);
+                        row.add( rec.getJob_title() ); //职位
+                        row.add( rec.getEducation_required() ); //最低学历
+                        row.add( rec.getSalary() ); //薪资
+                        row.add( rec.getRecruit_numbers() ); //人数
+                        row.add( rec.getPubdate() ); //时间
+                        row.add( rec.getLocation() ); //工作地点
+                        row.add( rec.getSource() ); //来源
+                    }
+                }
+            }
+            RecruitPeopleDistributeDO rpdDo = hologramQueryService.recruitPeopleDistribute(companyName, null);
+            if( rpdDo !=null ) {
+                List<RecruitPeopleDistributeDO.Rdata> rDataList =rpdDo.getRdata();
+                if( rDataList !=null ) {
+                    for (RecruitPeopleDistributeDO.Rdata rData : rDataList) {
+                        recruitPeopleDistribute.put( rData.getName(), rData.getValue() );
+                    }
+                }
+            }
+            RecruitPeopleSalaryDO rpsDo = hologramQueryService.recruitPeopleSalary(companyName, null);
+            if (rpsDo !=null) {
+                List<RecruitPeopleSalaryDO.Rdata> rDataList = rpsDo.getRdata();
+                if( rDataList !=null ) {
+                    for (RecruitPeopleSalaryDO.Rdata rData : rDataList) {
+                        recruitPeopleSalary.put( rData.getX_value(), rData.getY_value() );
+                    }
+                }
+            }
+            wrb.setRecruitInfo( recruitInfoList, recruitPeopleDistribute, recruitPeopleSalary);
+
+            //企业诉讼信息
+            List<List<String>> noCreditDebtor =new LinkedList<>();
+            NoCreditDebtorDO ncd = hologramQueryService.noCreditDebtor(companyName);
+            if (ncd !=null) {
+                List<NoCreditDebtorDO.Results> resList = ncd.getResults();
+                if( resList !=null ) {
+                    Integer idx =0;
+                    for (NoCreditDebtorDO.Results re : resList) {
+                        List<String> row = new ArrayList<>();
+                        noCreditDebtor.add(row);
+                        idx++;
+                        row.add(idx.toString()); //idx
+                        row.add(re.getPubdate()); //date
+                        row.add(re.getCasecode()); //case_code
+                        row.add(re.getConcrete_situation()); //
+                        row.add(re.getExec_court_name());
+                    }
+                }
+            }
+            List<List<String>> debtor =new LinkedList<>();
+            DebtorDO de = hologramQueryService.debtor(companyName);
+            if ( de != null ) {
+                List<DebtorDO.Results> resList =de.getResults();
+                if (resList != null) {
+                    Integer idx =0;
+                    for ( DebtorDO.Results re : resList ) {
+                        List<String> row = new ArrayList<>();
+                        debtor.add(row);
+                        idx++;
+                        row.add(idx.toString()); //idx
+                        row.add(re.getCase_create_time());
+                        row.add(re.getCase_code());
+                        row.add(re.getExec_court_name());
+                        row.add(re.getExec_subject());
+                        row.add(re.getCase_state());
+                    }
+                }
+            }
+            List<List<String>> judgeDoc =new LinkedList<>();
+            List<JudgeDocDO.Results> jdList= hologramQueryService.judgeDoc(companyName);
+            if (jdList != null) {
+                Integer idx =0;
+                for ( JudgeDocDO.Results re : jdList ) {
+                    List<String> row = new ArrayList<>();
+                    judgeDoc.add(row);
+                    idx++;
+                    row.add(idx.toString()); //idx
+                    row.add(re.getSentence_date());
+                    row.add(re.getCasecode());
+                    row.add(re.getMain());  // todo 等产品确认
+                    row.add(re.getAction_cause());
+                    row.add("re.get"); //todo 等产品确认
+                    row.add(re.getLitigant_type());
+                    row.add(re.getCaseout_come());
+                }
+            }
+            List<List<String>> courtAnnouncement =new LinkedList<>();
+            CourtAnnouncementDO ca = hologramQueryService.courtAnnouncement(companyName);
+            List<List<String>> openCourt =new LinkedList<>();
+            List<OpenCourtAnnouncementDO.Results> loc = hologramQueryService.openCourtAnnouncement(companyName);
+
+            wrb.setCompanyLawsuitInfo( noCreditDebtor, debtor, judgeDoc, courtAnnouncement, openCourt );
+
+            //企业专利信息
+            List<List<String>> patentInfo =new LinkedList<>();
+            PatentDO pd = hologramQueryService.getPatentData(companyName,1,100000000);
+            wrb.setCompanyPatentInfo(  patentInfo );
+
+
+            //企业舆情信息
+            List<List<String>> publicSentiment =new LinkedList<>();
+            BaiDuYuQingDO baiDuYuQingDO = hologramQueryDao.newsConsensus(companyName);
+            wrb.setCompanyPublicSentimentInfo( publicSentiment );
+
+
+            if(wrb.getErrRecord().length() >0) { //检查是否有错，及打印出错信息
                 logger.warn("Word_Builder_Err >> " + wrb.getErrRecord().toString());
             }
             //导出

@@ -5,6 +5,7 @@ import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.dao.HologramQueryDao;
 import com.bbd.wtyh.domain.CompanyDO;
+import com.bbd.wtyh.domain.RecruitDO;
 import com.bbd.wtyh.domain.bbdAPI.*;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.google.gson.Gson;
@@ -128,6 +129,12 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
 
     @Value("${api.appkey}")
     private String apiAppkey;
+
+    @Value("${api.bbd_recruit.url}")
+    private String apiBbdRecruitUrl;
+
+    //@Value("${api.appkey_rec}")
+    //private String apiAppKeyRec;
 
     @Value("${api.bbd_qyxx_batch.url}")
     private String apiBbdQyxxBatchUrl;
@@ -628,6 +635,28 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
                 @Override
                 public PatentDO parse(String result) {
                     return JSON.parseObject(result, PatentDO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public RecruitDO getRecruitInfo(String company, Integer page, Integer pageSize) {
+        String api = apiBbdRecruitUrl + "?company=" + company + "&appkey=" + apiAppkey+"&page="+page+"&pageSize="+pageSize;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(api, new HttpCallback<RecruitDO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public RecruitDO parse(String result) {
+                    return JSON.parseObject(result, RecruitDO.class);
                 }
             });
         } catch (Exception e) {

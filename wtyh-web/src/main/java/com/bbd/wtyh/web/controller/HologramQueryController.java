@@ -112,39 +112,42 @@ public class HologramQueryController {
 		Map<String,Set<String>> resultKey=new HashMap();
 		Map<String, List> shareholderSenior = hologramQueryService.shareholdersSenior(company);
 		List<Map> rList = (List)(shareholderSenior.get("gdxx"));
-		for(Map map:rList){
-			Object obj=map.get("shareholder_name");
-			if(obj!=null) {
-				String name = (String) obj;
-				String type =(String)map.get("shareholder_type");
-				if(resultKey.containsKey(name)){
-					Set typeSet=resultKey.get(name);
-					typeSet.add(type);
-					resultKey.put(name,typeSet);
-				}else{
-					Set typeSet=new HashSet();
-					typeSet.add(type);
-					resultKey.put(name,typeSet);
+		if(rList!=null) {
+			for (Map map : rList) {
+				Object obj = map.get("shareholder_name");
+				if (obj != null) {
+					String name = (String) obj;
+					String type = (String) map.get("shareholder_type");
+					if (resultKey.containsKey(name)) {
+						Set typeSet = resultKey.get(name);
+						typeSet.add(type);
+						resultKey.put(name, typeSet);
+					} else {
+						Set typeSet = new HashSet();
+						typeSet.add(type);
+						resultKey.put(name, typeSet);
+					}
 				}
 			}
 		}
 		rList =(List)(shareholderSenior.get("baxx"));
-		for(Map map:rList){
-			Object obj=map.get("name");
-			if(obj!=null){
-				String name=(String)obj;
-				String type =(String)map.get("position");
-				if(resultKey.containsKey(name)){
-					Set typeSet=resultKey.get(name);
-					typeSet.add(type);
-					resultKey.put(name,typeSet);
-				}else{
-					Set typeSet=new HashSet();
-					typeSet.add(type);
-					resultKey.put(name,typeSet);
+		if(rList!=null) {
+			for(Map map:rList){
+				Object obj=map.get("name");
+				if(obj!=null){
+					String name=(String)obj;
+					String type =(String)map.get("position");
+					if(resultKey.containsKey(name)){
+						Set typeSet=resultKey.get(name);
+						typeSet.add(type);
+						resultKey.put(name,typeSet);
+					}else{
+						Set typeSet=new HashSet();
+						typeSet.add(type);
+						resultKey.put(name,typeSet);
+					}
 				}
 			}
-
 		}
 		List<Map<String,String>>list=new ArrayList<>();
 		for(String key:resultKey.keySet()){
@@ -339,21 +342,25 @@ public class HologramQueryController {
 		Set set=new HashSet();
 		Map<String, List> shareholderSenior = hologramQueryService.shareholdersSenior(company);
 		List<Map> rList = (List)(shareholderSenior.get("gdxx"));
-		for(Map map:rList){
-			Object obj=map.get("shareholder_name");
-			if(obj!=null) {
-				String name = (String) obj;
-				set.add(name);
+		if(rList!=null){
+			for(Map map:rList){
+				Object obj=map.get("shareholder_name");
+				if(obj!=null) {
+					String name = (String) obj;
+					set.add(name);
+				}
 			}
 		}
 		rList =(List)(shareholderSenior.get("baxx"));
-		for(Map map:rList){
-			Object obj=map.get("name");
-			if(obj!=null){
-				String name=(String)obj;
-				set.add(name);
-			}
+		if(rList!=null){
+			for(Map map:rList){
+				Object obj=map.get("name");
+				if(obj!=null){
+					String name=(String)obj;
+					set.add(name);
+				}
 
+			}
 		}
 		result.put( "shareholderSeniorTotal", set.size() );
 		//诉讼记录
@@ -405,21 +412,25 @@ public class HologramQueryController {
 		Set set=new HashSet();
 		Map<String, List> shareholderSenior = hologramQueryService.shareholdersSenior(company);
 		List<Map> rList = (List)(shareholderSenior.get("gdxx"));
-		for(Map map:rList){
-			Object obj=map.get("shareholder_name");
-			if(obj!=null) {
-				String name = (String) obj;
-				set.add(name);
+		if(rList!=null) {
+			for (Map map : rList) {
+				Object obj = map.get("shareholder_name");
+				if (obj != null) {
+					String name = (String) obj;
+					set.add(name);
+				}
 			}
 		}
 		rList =(List)(shareholderSenior.get("baxx"));
-		for(Map map:rList){
-			Object obj=map.get("name");
-			if(obj!=null){
-				String name=(String)obj;
-				set.add(name);
-			}
+		if(rList!=null) {
+			for (Map map : rList) {
+				Object obj = map.get("name");
+				if (obj != null) {
+					String name = (String) obj;
+					set.add(name);
+				}
 
+			}
 		}
 		result.put( "shareholderSeniorTotal", set.size() );
 		return ResponseBean.successResponse(result);

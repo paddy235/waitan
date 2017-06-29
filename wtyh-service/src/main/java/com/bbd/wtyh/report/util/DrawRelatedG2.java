@@ -11,10 +11,16 @@ import org.apache.commons.lang.StringUtils;
 
 import com.bbd.wtyh.web.relationVO.RelationDiagramVO;
 
-/**
- * Created by Administrator on 2017/6/15.
+/** DrawRelated 第2版
+ * Created by cgj on 2017/6/26.
  */
 public class DrawRelatedG2 extends DrawRelated {
+
+    @FunctionalInterface
+    interface SearchCoordinateG2 {
+        NodeInfo fun( String Id );
+    };
+
     public enum DegreeType { //画图的度类型
         ONE(1), TWO(2), THREE(3);
 
@@ -36,6 +42,21 @@ public class DrawRelatedG2 extends DrawRelated {
             }
             return ONE;
         }
+    }
+
+    public static class NodeInfo {
+        public String companyName;
+        public String companyId;
+        public boolean companyIs;
+        public double xCoordinate;
+        public double yCoordinate;
+        public Color color;
+    }
+
+    public static class LineInfo {
+        public String oriId;
+        public String tagId;
+        public boolean lineIs; //lineType
     }
 
     private DegreeType degreeType;
@@ -128,6 +149,7 @@ public class DrawRelatedG2 extends DrawRelated {
         drawTextAtCen( "企业高管", ceX1, ceY1, false );
 
     }
+
     /**
      * 画关联图
      * @param rVO 画图数据
@@ -137,6 +159,7 @@ public class DrawRelatedG2 extends DrawRelated {
         List<LineInfo> lineList =relationDiagramVoToLineListG2(rVO);
         if ( nodeLList == null || lineList ==null || nodeLList.size() <(degreeType.getDegVal() +1)
                 || nodeLList.get(0).size() != 1 ) {
+            drawSucceed =false;
             return;
         }
 		// 画图例
@@ -220,22 +243,6 @@ public class DrawRelatedG2 extends DrawRelated {
         NodeInfo fun(String Id);
     };
 
-    public static void main(String []argc) {
-
-        DrawRelatedG2 dr =new DrawRelatedG2(DegreeType.ONE);
-        RelationDiagramVO rv =new RelationDiagramVO();
-        //rv.setLineList();
-
-        dr.drawRelatedG2(rv );
-
-        ////测试
-        //dr.testText( );
-        //dr.testArrow( );
-
-        String dateTimeStr = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
-        dr.saveFile("C:\\Users\\Administrator\\Desktop\\test_" +dateTimeStr +".png");
-    }
-
     public List<List<NodeInfo>> relationDiagramVoToNodeListG2(RelationDiagramVO rVO) {
         if( rVO ==null || rVO.getPointList() ==null )
             return null;
@@ -303,21 +310,6 @@ public class DrawRelatedG2 extends DrawRelated {
         return nodeLList;
     }
 
-    public class NodeInfo {
-        public String companyName;
-        public String companyId;
-        public boolean companyIs;
-        public double xCoordinate;
-        public double yCoordinate;
-        public Color color;
-    }
-
-    public class LineInfo {
-        public String oriId;
-        public String tagId;
-        public boolean lineIs; //lineType
-    }
-
     protected List<LineInfo> relationDiagramVoToLineListG2(RelationDiagramVO rVO) {
         if( rVO ==null || rVO.getLineList() ==null )
             return null;
@@ -348,9 +340,20 @@ public class DrawRelatedG2 extends DrawRelated {
         return lineList;
     }
 
-    @FunctionalInterface
-    interface SearchCoordinateG2 {
-        NodeInfo fun( String Id );
-    };
+    public static void main(String []argc) {
+
+        DrawRelatedG2 dr =new DrawRelatedG2(DegreeType.ONE);
+        RelationDiagramVO rv =new RelationDiagramVO();
+        //rv.setLineList();
+
+        dr.drawRelatedG2(rv );
+
+        ////测试
+        //dr.testText( );
+        //dr.testArrow( );
+
+        String dateTimeStr = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+        dr.saveFile("C:\\Users\\Administrator\\Desktop\\test_" +dateTimeStr +".png");
+    }
 
 }
