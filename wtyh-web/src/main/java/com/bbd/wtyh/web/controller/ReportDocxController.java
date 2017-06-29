@@ -56,13 +56,13 @@ public class ReportDocxController {
 	@RequestMapping( value = "test.do" )
 	@ResponseBody
 	public ResponseBean getAreaByParentId() {
-		InputStream aa = WordReportService.class.getResourceAsStream("/docx/template/shanghai-company-anti-fraud-template.docx");
+		//InputStream aa = WordReportService.class.getResourceAsStream("/docx/template/shanghai-company-anti-fraud-template.docx");
 		URL aaa = WordReportService.class.getResource("/docx/template/shanghai-company-anti-fraud-template1.docx");
-		byte [] te = new byte[100];
-		try {
+		//byte [] te = new byte[100];
+		/*try {
 			int aar = aa.read(te);
 			aar ++;
-		} catch (Exception e) {}
+		} catch (Exception e) {}*/
 		return ResponseBean.successResponse(null);
 	}
 

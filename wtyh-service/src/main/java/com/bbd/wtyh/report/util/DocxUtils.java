@@ -7,6 +7,7 @@ import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.DrawingML.Chart;
 import org.docx4j.openpackaging.parts.Part;
 import org.docx4j.openpackaging.parts.PartName;
+import org.docx4j.openpackaging.parts.relationships.Namespaces;
 import org.docx4j.openpackaging.parts.relationships.RelationshipsPart;
 import org.docx4j.relationships.Relationship;
 import org.docx4j.relationships.Relationships;
@@ -22,6 +23,7 @@ import javax.xml.bind.util.JAXBSource;
 import javax.xml.namespace.QName;
 import java.io.*;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.*;
 
 /**
@@ -265,7 +267,242 @@ public class DocxUtils {
         }
         return result;
     }
+    /**
+     *  将目录表添加到文档.
+     *
+     *  首先我们创建段落. 然后添加标记域开始的指示符, 然后添加域内容(真正的目录表), 接着添加域
+     *  结束的指示符. 最后将段落添加到给定文档的JAXB元素中.
+     *
+     *  @param paragraphs
+     */
+    public static void addTableOfContent(int idx, List<Object> paragraphs ) {
+        //插入“目录”标题
+        RPr catalogRPr = getRPr("华文细黑", "000000", "30", STHint.EAST_ASIA,
+                true, false, false, false);
+        P catalogP =addParagraphOfText("目录", catalogRPr);
+        setParagraphSpacing( catalogP, JcEnumeration.CENTER, true, "0",
+                "0", "200", "100", true,
+                "240", STLineSpacingRule.AUTO);
+        paragraphs.add(idx, catalogP);
+        //插入目录
+        ObjectFactory factory =Context.getWmlObjectFactory();
+        P paragraph = factory.createP();
+        addFieldBegin(paragraph);
+        addTableOfContentField(paragraph);
+        addFieldEnd(paragraph);
+        paragraphs.add(idx +1, paragraph);
+        addPageBreak( idx +2, paragraphs, STBrType.PAGE ); //插入分页符
+    }
 
+    /**
+     *  将Word用于创建目录表的域添加到段落中.
+     *
+     *  首先创建一个可运行块和一个文本. 然后指出文本中所有的空格都被保护并给TOC域设置值. 这个域定义
+     *  需要一些参数, 确切定义可以在Office Open XML标准的§17.16.5.58找到, 这种情况我们指定所有
+     *  段落使用1-3级别的标题来格式化(\0 "1-3").
+     *  最后使用文本对象创建了一个JAXB元素包含文本并添加到随后被添加到段落中的可运行块中.
+     *
+     *  @param paragraph
+     */
+    private static void addTableOfContentField(P paragraph) {
+        ObjectFactory factory =Context.getWmlObjectFactory();
+        R run = factory.createR();
+        /*RPr cont = getRPr("华文细黑", "000000", "9", STHint.EAST_ASIA,
+                true, false, false, false);
+        run.setRPr(cont);*/
+        Text txt = new Text();
+        txt.setSpace("preserve");
+        txt.setValue("TOC \\o \"1-3\" \\h \\z \\u");
+        run.getContent().add(factory.createRInstrText(txt));
+        paragraph.getContent().add(run);
+    }
+
+    /**
+     *  每个域都需要用复杂的域字符来确定界限. 本方法向给定段落添加在真正域之前的界定符.
+     *
+     *  再一次以创建一个可运行块开始, 然后创建一个域字符来标记域的起始并标记域是'脏的'因为我们想要
+     *  在整个文档生成之后进行内容更新.
+     *  最后将域字符转换成JAXB元素并将其添加到可运行块, 然后将可运行块添加到段落中.
+     *
+     *  @param paragraph
+     */
+    private static void addFieldBegin(P paragraph) {
+        ObjectFactory factory =Context.getWmlObjectFactory();
+        R run = factory.createR();
+        FldChar fldchar = factory.createFldChar();
+        fldchar.setFldCharType(STFldCharType.BEGIN);
+        fldchar.setDirty(true);
+        run.getContent().add(getWrappedFldChar(fldchar));
+        paragraph.getContent().add(run);
+    }
+
+    /**
+     *  每个域都需要用复杂的域字符来确定界限. 本方法向给定段落添加在真正域之后的界定符.
+     *
+     *  跟前面一样, 从创建可运行块开始, 然后创建域字符标记域的结束, 最后将域字符转换成JAXB元素并
+     *  将其添加到可运行块, 可运行块再添加到段落中.
+     *
+     *  @param paragraph
+     */
+    private static void addFieldEnd(P paragraph) {
+        ObjectFactory factory =Context.getWmlObjectFactory();
+        R run = factory.createR();
+        FldChar fldcharend = factory.createFldChar();
+        fldcharend.setFldCharType(STFldCharType.END);
+        run.getContent().add(getWrappedFldChar(fldcharend));
+        paragraph.getContent().add(run);
+    }
+
+    /**
+     *  创建包含给定复杂域字符的JAXBElement的便利方法.
+     *
+     *  @param fldchar
+     *  @return
+     */
+    public static JAXBElement getWrappedFldChar(FldChar fldchar) {
+        return new JAXBElement(new QName(Namespaces.NS_WORD12, "fldChar"), FldChar.class, fldchar);
+    }
+
+    /**
+     * 创建字体
+     *
+     * @param isBlod
+     *            粗体
+     * @param isUnderLine
+     *            下划线
+     * @param isItalic
+     *            斜体
+     * @param isStrike
+     *            删除线
+     */
+    public static RPr getRPr(String fontFamily, String colorVal, String fontSize, STHint sTHint, boolean isBlod,
+                      boolean isUnderLine, boolean isItalic, boolean isStrike) {
+        ObjectFactory factory =Context.getWmlObjectFactory();
+        RPr rPr = factory.createRPr();
+        RFonts rf = new RFonts();
+        rf.setHint(sTHint);
+        rf.setAscii(fontFamily);
+        rf.setHAnsi(fontFamily);
+        rPr.setRFonts(rf);
+
+        BooleanDefaultTrue bdt = factory.createBooleanDefaultTrue();
+        rPr.setBCs(bdt);
+        if (isBlod) {
+            rPr.setB(bdt);
+        }
+        if (isItalic) {
+            rPr.setI(bdt);
+        }
+        if (isStrike) {
+            rPr.setStrike(bdt);
+        }
+        if (isUnderLine) {
+            U underline = new U();
+            underline.setVal(UnderlineEnumeration.SINGLE);
+            rPr.setU(underline);
+        }
+
+        Color color = new Color();
+        color.setVal(colorVal);
+        rPr.setColor(color);
+
+        HpsMeasure sz = new HpsMeasure();
+        sz.setVal(new BigInteger(fontSize));
+        rPr.setSz(sz);
+        rPr.setSzCs(sz);
+        return rPr;
+    }
+
+    // 设置段间距-->行距 段前段后距离
+    // 段前段后可以设置行和磅 行距只有磅
+    // 段前磅值和行值同时设置，只有行值起作用
+    // TODO 1磅=20 1行=100 单倍行距=240 为什么是这个值不知道
+    /**
+     * @param jcEnumeration
+     *            对齐方式
+     * @param isSpace
+     *            是否设置段前段后值
+     * @param before
+     *            段前磅数
+     * @param after
+     *            段后磅数
+     * @param beforeLines
+     *            段前行数
+     * @param afterLines
+     *            段后行数
+     * @param isLine
+     *            是否设置行距
+     * @param lineValue
+     *            行距值
+     * @param sTLineSpacingRule
+     *            自动auto 固定exact 最小 atLeast
+     */
+    public static void setParagraphSpacing(P p, JcEnumeration jcEnumeration, boolean isSpace, String before,
+                                    String after, String beforeLines, String afterLines,
+                                    boolean isLine, String lineValue,
+                                    STLineSpacingRule sTLineSpacingRule) {
+        ObjectFactory factory =Context.getWmlObjectFactory();
+        PPr pPr = p.getPPr();
+        if (pPr == null) {
+            pPr = factory.createPPr();
+        }
+        Jc jc = pPr.getJc();
+        if (jc == null) {
+            jc = new Jc();
+        }
+        jc.setVal(jcEnumeration);
+        pPr.setJc(jc);
+        PPrBase.Spacing spacing = new PPrBase.Spacing();
+        if (isSpace) {
+            if (before != null) {
+                // 段前磅数
+                spacing.setBefore(new BigInteger(before));
+            }
+            if (after != null) {
+                // 段后磅数
+                spacing.setAfter(new BigInteger(after));
+            }
+            if (beforeLines != null) {
+                // 段前行数
+                spacing.setBeforeLines(new BigInteger(beforeLines));
+            }
+            if (afterLines != null) {
+                // 段后行数
+                spacing.setAfterLines(new BigInteger(afterLines));
+            }
+        }
+        if (isLine) {
+            if (lineValue != null) {
+                spacing.setLine(new BigInteger(lineValue));
+            }
+            spacing.setLineRule(sTLineSpacingRule);
+        }
+        pPr.setSpacing(spacing);
+        p.setPPr(pPr);
+    }
+
+    public static P addParagraphOfText( String text, RPr rpr ) {
+        ObjectFactory factory =Context.getWmlObjectFactory();
+        P paragraph = factory.createP();
+        Text txt = factory.createText();
+        txt.setValue(text);
+        R run = factory.createR();
+        run.getContent().add(txt);
+        run.setRPr(rpr);
+        paragraph.getContent().add(run);
+        return paragraph;
+    }
+
+
+    // 分页
+    public static void addPageBreak(int idx, List<Object> paragraphs, STBrType sTBrType) {
+        ObjectFactory factory =Context.getWmlObjectFactory();
+        Br breakObj = new Br();
+        breakObj.setType(sTBrType);
+        P paragraph = factory.createP();
+        paragraph.getContent().add(breakObj);
+        paragraphs.add(idx, paragraph);
+    }
 
     public static void main(String []argc) {
         try {

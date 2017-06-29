@@ -124,7 +124,7 @@ public class WordReportBuilder {
     }
 
     public static void main(String []argc) { //文档生成类使用示例
-        String localPath ="D:\\bbdPrjIj\\wtyh-dv\\wtyh-web\\src\\main\\resources\\docx\\";
+        String localPath ="D:\\bbdDoc\\wtyh\\docx\\";
         String templateFile1 = localPath +"template\\shanghai-company-anti-fraud-template.docx";
         String targetPath = localPath +"target\\";
         String companyName ="上海复旦复华药业有限公司";
@@ -943,6 +943,9 @@ public class WordReportBuilder {
             }
         }
         mainParagraphList.removeAll(removeColl);
+
+        //添加目录
+        DocxUtils.addTableOfContent(0, mainParagraphList);
 
     }
 
