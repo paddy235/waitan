@@ -28,6 +28,7 @@ public class CreditConfig {
 	private static String serviceUrl;
 	private static int dailyLimit;
 	private static String dataType;
+	private static int threadNum = 1;
 
 	private static SysConfigService configService = ApplicationContextUtil.getBean(SysConfigServiceImpl.class);
 	private static final Logger LOGGER = LoggerFactory.getLogger(CoCreditScoreService.class);
@@ -35,6 +36,7 @@ public class CreditConfig {
 	public static synchronized void read() {
 		List<SysConfigDo> configList = configService.getAllByGroup("credit_center");
 		if (CollectionUtils.isEmpty(configList)) {
+			LOGGER.error("读取公信接口配置信息失败，未读取到信息");
 			return;
 		}
 		Map<String, String> map = new HashMap<>();
@@ -46,9 +48,11 @@ public class CreditConfig {
 		serviceUrl = map.get("serviceUrl");
 		dailyLimit = NumberUtils.toInt(map.get("dailyLimit"));
 		dataType = map.get("dataType");
+		int threadNumTmp = NumberUtils.toInt(map.get("threadNum"), 1);
+		threadNum = threadNumTmp < 1 ? 1 : threadNumTmp;
 
-		map.put("password","***");
-		LOGGER.info("修改公信接口配置信息。{}", map.toString());
+		map.put("password", "***");
+		LOGGER.info("读取公信接口配置信息。{}", map.toString());
 
 	}
 
@@ -78,6 +82,10 @@ public class CreditConfig {
 
 	public static String dataType() {
 		return dataType;
+	}
+
+	public static int threadNum() {
+		return threadNum;
 	}
 
 }
