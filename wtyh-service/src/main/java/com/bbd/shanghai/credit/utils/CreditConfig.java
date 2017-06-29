@@ -35,6 +35,7 @@ public class CreditConfig {
 	public static synchronized void read() {
 		List<SysConfigDo> configList = configService.getAllByGroup("credit_center");
 		if (CollectionUtils.isEmpty(configList)) {
+			LOGGER.error("读取公信接口配置信息失败，未读取到信息");
 			return;
 		}
 		Map<String, String> map = new HashMap<>();
@@ -47,7 +48,7 @@ public class CreditConfig {
 		dailyLimit = NumberUtils.toInt(map.get("dailyLimit"));
 		dataType = map.get("dataType");
 
-		LOGGER.info("修改公信接口配置信息。{}", map.toString());
+		LOGGER.info("读取公信接口配置信息。{}", map.toString());
 
 	}
 
