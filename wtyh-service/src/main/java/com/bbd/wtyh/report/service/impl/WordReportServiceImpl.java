@@ -339,7 +339,7 @@ public class WordReportServiceImpl implements WordReportService {
                     if( yuQingDO !=null ) {
                         List<YuQingDO.Warning> warning =yuQingDO.getWarning();
                         if ( warning != null ) {
-                            for ( int idx =0; idx <99; idx++ ) {
+                            for ( int idx =0; idx <warning.size() && idx <99; idx++ ) {
                                 List<String> lStr =new ArrayList<>();
                                 publicSentiment.add(lStr);
                                 YuQingDO.Warning yw = warning.get(idx);

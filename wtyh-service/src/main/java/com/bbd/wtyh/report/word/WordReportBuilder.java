@@ -1,7 +1,6 @@
 package com.bbd.wtyh.report.word;
 
 import com.bbd.wtyh.report.util.DocxUtils;
-import com.bbd.wtyh.util.WtyhHelper;
 import org.apache.commons.lang.StringUtils;
 import org.docx4j.dml.CTBlip;
 import org.docx4j.dml.chart.*;
@@ -38,7 +37,6 @@ import java.util.List;
 /** word 版报告生成类
  * Created by cgj on 2017/5/26.
  */
-
 
 
 public class WordReportBuilder {
@@ -261,7 +259,7 @@ public class WordReportBuilder {
         }
         if(  StringUtils.isNotEmpty(companyRiskResult) ) {
             this.companyRiskResult =companyRiskResult;
-        } else {
+        } else if ( reportType.equals(ReportType.OFFLINE_FINANCING) ) {
             errRecord.append("指定的“企业风险等级（中文名称）”为空；");
         }
         if(  StringUtils.isNotEmpty(companyType) ) {
@@ -643,6 +641,7 @@ public class WordReportBuilder {
                 }
                 rpLst.add( iIdx, new AbstractMap.SimpleEntry<>( keyDb, entry.getKey() ) );
             }*/
+            List<String> removeKeys =new ArrayList<>();
             TreeMap<Double, String> tm =new TreeMap<>();
             for (Map.Entry<String, String> entry : src.entrySet()) {
                 Double keyDb;
@@ -653,12 +652,19 @@ public class WordReportBuilder {
                 }
                 String val =tm.get(keyDb);
                 if( StringUtils.isNotBlank(val) ) {
-                    val += "、" +entry.getKey();
+                    val += " | " +entry.getKey();
                 } else {
                     val =entry.getKey();
                 }
-                tm.put(keyDb, val);
-                sum +=keyDb;  //求和
+                if( 0 ==keyDb.compareTo(0.0D) || 0 ==keyDb.compareTo(-0.0D) ) {
+                    removeKeys.add(entry.getKey());
+                } else {
+                    tm.put(keyDb, val);
+                    sum += keyDb;  //求和
+                }
+            }
+            for ( String rm : removeKeys ) {
+                src.remove( rm );
             }
             for (Map.Entry<Double, String> entry : tm.entrySet()) {
                 rpLst.add(entry);
@@ -696,21 +702,27 @@ public class WordReportBuilder {
                 BigDecimal perVal  =BigDecimal.valueOf(entry.getKey());
                 perVal =  perVal.multiply(new BigDecimal(100));
                 perVal =perVal.divide( new BigDecimal(total),2, BigDecimal.ROUND_HALF_UP );
-                outStr.append(entry.getValue()).append("业").append(additory)
-                        .append("占总招聘人数的") .append(perVal.toString());
-                outStr.append("%").append(endStr);
+                outStr.append(entry.getValue());
+                if( ! entry.getValue().endsWith("业") ){
+                    outStr.append("行业");
+                }
+                outStr.append(additory);
+                if ( entry.getValue().contains(" | ") ) {
+                    outStr.append("各");
+                }
+                outStr.append("占总招聘人数的") .append(perVal.toString()).append("%").append(endStr);
             };
             int reSize =rpLst.size();
-            if( reSize >0 ) {
-                pD.fun(peopleDistDes, rpLst.get(reSize -1), "", reSize >1 ?"，":"。");
-            }
-            if( rpLst.size() >1 ) {
-                pD.fun(peopleDistDes, rpLst.get(reSize -2), "", reSize >2 ?"，":"。");
-            }
-            if( rpLst.size() >2 ) {
-                pD.fun(peopleDistDes, rpLst.get(reSize -3), "", reSize >3 ?"，":"。");
-            }
-            if( rpLst.size() >3 ) {
+            if( reSize ==1 ) {
+                pD.fun(peopleDistDes, rpLst.get(reSize -1), "", "。");
+            } else if ( reSize >1 ){
+                pD.fun(peopleDistDes, rpLst.get(reSize -1), "人员最多，", "，");
+                if ( reSize >2 ){
+                    pD.fun(peopleDistDes, rpLst.get(reSize -2), "", "，");
+                }
+                if ( reSize >3 ){
+                    pD.fun(peopleDistDes, rpLst.get(reSize -3), "", "，");
+                }
                 pD.fun(peopleDistDes, rpLst.get(0), "人员最少，仅", "。");
             }
             //替换描述文字
@@ -764,8 +776,11 @@ public class WordReportBuilder {
                 perVal =  perVal.multiply(new BigDecimal(100));
                 //perVal =perVal.divide( new BigDecimal(total),2, BigDecimal.ROUND_HALF_UP );
                 perVal =perVal.setScale( 2, BigDecimal.ROUND_HALF_UP );
-                outStr.append(additory).append(entry.getValue()).append("(").append(perVal.toString())
-                        .append("%)").append(endStr);
+                outStr.append(additory).append(entry.getValue()).append("(");
+                if ( entry.getValue().contains(" | ") ) {
+                    outStr.append("各占");
+                }
+                outStr.append(perVal.toString()).append("%)").append(endStr);
             };
             int reSize =rpLst.size();
             if( reSize >0 ) {
@@ -1343,16 +1358,13 @@ public class WordReportBuilder {
             }
             effectCnt++;
             //尝试删除：“——”：无信息。
-            int tIdx =0;
-            if( (idx +2) <myParagraphList.size() && (myParagraphList.get(idx +2) instanceof P ) ) {
-                tIdx =idx +2;
-            } else if( (idx +3) <myParagraphList.size() && (myParagraphList.get(idx +3) instanceof P ) ) {
-                tIdx =idx +3;
-            }
-            if( tIdx >0 ) {
-                String str = DocxUtils.docx4jObjectToString(myParagraphList.get(tIdx));
-                if ( StringUtils.isNotBlank(str) && str.contains("——") && str.contains("无信息") && !front ) {
-                    removeColl.add( myParagraphList.get(tIdx) );
+            for ( int idxEnd =idx +2 +4, tIdx =idx +2; tIdx <myParagraphList.size() && tIdx <idxEnd; tIdx ++  ) {
+                if( myParagraphList.get(tIdx) instanceof P ) {
+                    String str = DocxUtils.docx4jObjectToString(myParagraphList.get(tIdx));
+                    if ( StringUtils.isNotBlank(str) && str.contains("——") && str.contains("无信息") && !front ) {
+                        removeColl.add( myParagraphList.get(tIdx) );
+                        break;
+                    }
                 }
             }
         }
