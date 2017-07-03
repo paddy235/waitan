@@ -2,7 +2,7 @@ package com.bbd.wtyh.test;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.bbd.bgo.service.SyncFileService;
+import com.bbd.bgo.service.task.SyncFileService;
 import com.bbd.wtyh.domain.CompanyCreditRawInfoDO;
 import com.bbd.wtyh.domain.credit.CompanyCreditFailInfoDO;
 import com.bbd.wtyh.mapper.CompanyCreditRawInfoMapper;

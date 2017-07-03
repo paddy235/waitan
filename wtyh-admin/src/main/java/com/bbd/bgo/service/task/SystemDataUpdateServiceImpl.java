@@ -1,4 +1,4 @@
-package com.bbd.bgo.service.task.impl;
+package com.bbd.bgo.service.task;
 
 import com.bbd.bgo.service.task.SystemDataUpdateService;
 import com.bbd.wtyh.cachetobean.ShanghaiAreaCode;

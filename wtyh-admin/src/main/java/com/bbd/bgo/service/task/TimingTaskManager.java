@@ -1,10 +1,8 @@
 package com.bbd.bgo.service.task;
 
-import com.bbd.bgo.service.SyncFileService;
 import com.bbd.wtyh.service.CoCreditScoreService;
 import com.bbd.wtyh.service.OfflineFinanceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 /**

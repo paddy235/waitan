@@ -1,10 +1,10 @@
-package com.bbd.bgo.service.impl;
+package com.bbd.bgo.service.task;
 
-import com.bbd.bgo.service.SyncFileService;
-import com.bbd.higgs.utils.http.HttpTemplate;
-import com.bbd.wtyh.core.base.BaseServiceImpl;
-import com.bbd.wtyh.service.RelationDataService;
-import com.bbd.wtyh.service.SyncDataService;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.URI;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -24,10 +24,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.net.URI;
+import com.bbd.wtyh.core.base.BaseServiceImpl;
+import com.bbd.wtyh.service.RelationDataService;
+import com.bbd.wtyh.service.SyncDataService;
 
 /**
  * wtyh

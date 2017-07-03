@@ -1,4 +1,4 @@
-package com.bbd.bgo.service;
+package com.bbd.bgo.service.task;
 
 /**
  * wtyh

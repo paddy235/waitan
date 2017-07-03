@@ -1,7 +1,6 @@
 package com.bbd.bgo.service.task;
 
 
-import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.common.Pagination;
 import com.bbd.wtyh.core.base.BaseServiceImpl;

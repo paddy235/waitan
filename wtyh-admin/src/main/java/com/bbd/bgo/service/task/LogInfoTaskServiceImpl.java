@@ -2,7 +2,6 @@ package com.bbd.bgo.service.task;
 
 import com.bbd.higgs.utils.StringUtils;
 import com.bbd.higgs.utils.http.HttpCallback;
-import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.service.LogInfoService;
 import org.apache.http.client.config.RequestConfig;
