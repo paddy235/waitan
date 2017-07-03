@@ -737,6 +737,7 @@ public class WordReportBuilder {
                 addDataToChartById(rIdList, recruitPeopleDistribute, thisErrRecord);
             }
         } else {
+            removeSignedSegmentFromMainParagraphList("删除招聘人员分布");
             this1ErrRecord.append("源数据Map为空；");
         }
         if( this1ErrRecord.length() >0 ) {
@@ -806,6 +807,7 @@ public class WordReportBuilder {
                 addDataToChartById(rIdList, recruitPeopleSalary, thisErrRecord);
             }
         } else {
+            removeSignedSegmentFromMainParagraphList("删除薪酬分布");
             this1ErrRecord.append("源数据Map为空；");
         }
         if( this1ErrRecord.length() >0 ) {

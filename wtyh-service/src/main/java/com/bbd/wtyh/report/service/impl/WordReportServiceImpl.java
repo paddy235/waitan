@@ -306,7 +306,7 @@ public class WordReportServiceImpl implements WordReportService {
                     PlatDataDO data = p2PImageDao.getPlatData(platName);
                     if (null != data) {
                         List<PlatDataDO.PlatDataSixMonth> plat_data_six_month =data.getPlat_data_six_month();
-                        LocalDate currDay =LocalDate.now().minusDays(15);
+                        LocalDate deadline =LocalDate.now().minusDays(15);
                         for ( PlatDataDO.PlatDataSixMonth pdSm : plat_data_six_month ) {
                             LocalDate compDay;
                             try {
@@ -314,7 +314,7 @@ public class WordReportServiceImpl implements WordReportService {
                             } catch (DateTimeParseException de) {
                                 compDay = LocalDate.now(); //使下一步的判断条件为假
                             }
-                            if (compDay.isBefore(currDay)) {
+                            if (compDay.isAfter(deadline)) {
                                 ListValToVal_funIf1 lVtv =( String date, double srcVal, double dev, int scale,
                                                             List<List<String>> desList ) ->{
                                     BigDecimal bD = BigDecimal.valueOf(srcVal).divide( BigDecimal.valueOf(dev),
