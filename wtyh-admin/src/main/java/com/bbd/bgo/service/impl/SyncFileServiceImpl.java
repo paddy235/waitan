@@ -47,8 +47,9 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 	@Autowired
 	private RelationDataService relationDataService;
 
-	@Value("${api.bbd.broker.url}")
-	private String brokerUrl;
+	@Value("${api.bbd.broker.ip}")
+	private String brokerIp;
+	private String brokerUri = "/syncFile/supplyFile.do";
 	private String httpProxy = System.getenv("http_proxy");
 
 	@Override
@@ -58,7 +59,7 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 			String dataVersion = relationDataService.getNewestDataVersion();
 			logger.info("--------- pull dataVersion ---------：" + dataVersion);
 
-			String url = brokerUrl + "?dataVersion=" + dataVersion;
+			String url = brokerIp+brokerUri+ "?dataVersion=" + dataVersion;
 
 			HttpGet httpRequest = new HttpGet(url);
 			HttpClientBuilder httpClientBuilder = HttpClients.custom();
