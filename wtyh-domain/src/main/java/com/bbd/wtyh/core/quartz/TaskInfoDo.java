@@ -75,8 +75,8 @@ public class TaskInfoDo {
 	private Integer state;
 
 	/** 是否显示 */
-	@Column(name = "show")
-	private Integer show;
+	@Column(name = "is_show")
+	private Integer isShow;
 
 	/**
 	 * 获取 task id
@@ -328,8 +328,8 @@ public class TaskInfoDo {
 	 *
 	 * @return show 显示状态
 	 */
-	public Integer getShow() {
-		return show;
+	public Integer getIsShow() {
+		return isShow;
 	}
 	/**
 	 * 设置 显示状态
@@ -337,8 +337,8 @@ public class TaskInfoDo {
 	 * @return show
 	 *            显示状态
 	 */
-	public void setShow(Integer show) {
-		this.show = show;
+	public void setIsShow(Integer isShow) {
+		this.isShow = isShow;
 	}
 
 }

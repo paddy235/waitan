@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -31,9 +30,9 @@ public class QuartzHandler extends BaseServiceImpl {
 	private static final String SEPARATOR = "@_@";
 	private final Map<String, TaskInfoDo> TASK_MAP = new ConcurrentHashMap<>();
 
-	//@PostConstruct
 	public void init() {
-		List<TaskInfoDo> taskList = this.selectAll(TaskInfoDo.class, "");
+        System.out.println("hell");
+        List<TaskInfoDo> taskList = this.selectAll(TaskInfoDo.class, "");
 		taskList.forEach(taskInfo -> {
 			TASK_MAP.put(taskInfo.getTaskKey() + SEPARATOR + taskInfo.getTaskGroup(), taskInfo);
 			addJob(taskInfo);
