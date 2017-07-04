@@ -4,7 +4,7 @@
         http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 
     <!-- 自定义定时任务处理器-初始化方法 -->
-    <bean id="quartzHandler" class="com.bbd.wtyh.core.quartz.QuartzHandler"
+    <bean id="quartzHandler" class="com.bbd.bgo.quartz.QuartzHandler"
           init-method="init">
     </bean>
     <!-- 调度工厂 -->

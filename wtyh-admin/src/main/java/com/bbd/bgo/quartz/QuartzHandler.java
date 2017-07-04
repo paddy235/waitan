@@ -1,6 +1,8 @@
-package com.bbd.wtyh.core.quartz;
+package com.bbd.bgo.quartz;
 
-import com.bbd.wtyh.core.base.BaseServiceImpl;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.apache.commons.lang3.StringUtils;
 import org.quartz.*;
 import org.quartz.impl.triggers.CronTriggerImpl;
@@ -8,8 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
+import com.bbd.wtyh.core.base.BaseServiceImpl;
 
 /**
  * Quartz 处理器
@@ -100,7 +101,7 @@ public class QuartzHandler extends BaseServiceImpl {
 
 	/**
 	 * 运行任务一次
-	 * 
+	 *
 	 * @param key
 	 * @param group
 	 */
@@ -112,7 +113,7 @@ public class QuartzHandler extends BaseServiceImpl {
 
 	/**
 	 * 恢复任务
-	 * 
+	 *
 	 * @param key
 	 * @param group
 	 * @throws Exception
@@ -138,7 +139,7 @@ public class QuartzHandler extends BaseServiceImpl {
 
 	/**
 	 * 删除任务
-	 * 
+	 *
 	 * @param key
 	 * @param group
 	 * @throws Exception

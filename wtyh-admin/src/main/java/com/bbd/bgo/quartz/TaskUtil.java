@@ -1,8 +1,6 @@
-package com.bbd.wtyh.core.quartz;
+package com.bbd.bgo.quartz;
 
 import com.bbd.wtyh.util.ApplicationContextUtil;
-
-import java.util.Date;
 
 /**
  * 定时任务相关工具类
