@@ -67,6 +67,12 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 						plat.setCompanyId(map.get(plat.getName()).getCompanyId());
 					}
 				}
+				Collections.sort(platInfoList, new Comparator<PlatformNameInformationDO>() {
+					@Override
+					public int compare(PlatformNameInformationDO o1, PlatformNameInformationDO o2) {
+						return o1.getCompanyId()-o2.getCompanyId();
+					}
+				});
 				logger.info("start update plat");
 				int delNum = this.executeCUD("delete from platform_name_information");
 				logger.info("delete plat number:"+delNum);
