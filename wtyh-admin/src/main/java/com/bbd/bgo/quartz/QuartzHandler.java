@@ -3,6 +3,7 @@ package com.bbd.bgo.quartz;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.bbd.wtyh.domain.TaskInfoDo;
 import org.apache.commons.lang3.StringUtils;
 import org.quartz.*;
 import org.quartz.impl.triggers.CronTriggerImpl;
