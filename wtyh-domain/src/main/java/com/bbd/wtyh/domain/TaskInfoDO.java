@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.bbd.wtyh.domain.enums.TaskDataSource;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
@@ -18,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  */
 @Entity
 @Table(name = "timing_task_info")
-public class TaskInfoDo {
+public class TaskInfoDO {
 
 	/** task id */
 	@Id
@@ -78,6 +79,12 @@ public class TaskInfoDo {
 	/** 是否显示 */
 	@Column(name = "is_show")
 	private Integer isShow;
+
+	/** 数据来源名称 */
+	private String dataSourceName;
+
+	/** 下一次更新时间 */
+	private Date nextStartDate;
 
 	/**
 	 * 获取 task id
@@ -340,6 +347,24 @@ public class TaskInfoDo {
 	 */
 	public void setIsShow(Integer isShow) {
 		this.isShow = isShow;
+	}
+
+
+	public String getDataSourceName() {
+		return TaskDataSource.getDataSourceName(this.dataSource);
+	}
+
+	public void setDataSourceName(String dataSourceName) {
+		this.dataSourceName = dataSourceName;
+	}
+
+
+	public Date getNextStartDate() {
+		return nextStartDate;
+	}
+
+	public void setNextStartDate(Date nextStartDate) {
+		this.nextStartDate = nextStartDate;
 	}
 
 }
