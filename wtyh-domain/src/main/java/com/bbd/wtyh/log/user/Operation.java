@@ -58,7 +58,8 @@ public class Operation {
 		roleAssign("分配角色", 31, false, true),
 
 		companyAddClose("企业增销", 32, false, true),
-		companyRiskChange("风险变化企业", 33, false, true)
+		companyRiskChange("风险变化企业", 33, false, true),
+		naturalPerson("自然人检索", 34, false, true)
 		; //
 
 
