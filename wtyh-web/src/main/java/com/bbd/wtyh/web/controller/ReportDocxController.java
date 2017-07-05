@@ -5,6 +5,8 @@ import java.net.URL;
 import java.util.Map;
 
 import com.bbd.wtyh.common.Constants;
+import com.bbd.wtyh.log.user.Operation;
+import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.report.service.WordReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -31,7 +33,8 @@ public class ReportDocxController {
 	@Autowired
 	private WordReportService wordReportService;
 
-
+	@LogRecord(logMsg = "导出“%s”的企业全息报告", params = {"companyName"}, page = Operation.Page.hologram,
+			type = Operation.Type.REPORT_EXPORT, after = true, before = false)
 	@RequestMapping( value = "download.do" )
 	@ResponseBody
 	public Object downloadFile(HttpServletRequest request,
