@@ -25,6 +25,7 @@ public class MethodInvokingJob extends QuartzJobBean {
 		Object otargetObject = ApplicationContextUtil.getBean(targetObject);
 		try {
 			Method m = otargetObject.getClass().getMethod(targetMethod);
+			m.setAccessible(true);
 			m.invoke(otargetObject);
 		} catch (Exception e) {
 			e.printStackTrace();
