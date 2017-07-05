@@ -1,16 +1,21 @@
 package com.bbd.wtyh.domain.vo;
 
 import com.bbd.wtyh.domain.NaturalPersonDO;
+import com.bbd.wtyh.excel.annotation.Excel;
 
 /**
  * Created by Barney on 2017/7/4.
  */
 public class NaturalPersonVO extends NaturalPersonDO {
 
+    @Excel(exportName = "成立时间", sortNo = 4)
     private String regDate;
+    @Excel(exportName = "法定代表人", sortNo = 5)
     private String legalPerson;
+    @Excel(exportName = "注册资本", sortNo = 6)
     private String regCapital;
     private int regCapitalType;
+    @Excel(exportName = "注册地址", sortNo = 7)
     private String regAddress;
 
     public int getRegCapitalType() {
