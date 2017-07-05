@@ -1,4 +1,4 @@
-package com.bbd.wtyh.core.quartz;
+package com.bbd.bgo.quartz;
 
 import org.quartz.Trigger;
 
