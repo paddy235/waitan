@@ -1,5 +1,6 @@
 package com.bbd.wtyh.excel;
 
+import com.bbd.higgs.utils.ListUtil;
 import com.bbd.wtyh.excel.annotation.Excel;
 import com.bbd.wtyh.excel.utils.ExportExcelUtil;
 import com.bbd.wtyh.exception.BusinessException;
@@ -106,9 +107,47 @@ public class ExportExcel {
 
 		boolean getKey = true;
 		for (T entity : dateSet) {
-			Field[] fields = entity.getClass().getDeclaredFields();
+			List<Field> noSortFieldList = new ArrayList<>();
+			Class clazz = entity.getClass();
+
+			while (null != clazz && !clazz.getName().toLowerCase().equals("java.lang.object")) {
+				noSortFieldList.addAll(Arrays.asList(clazz.getDeclaredFields()));
+				clazz = clazz.getSuperclass();
+			}
+
+			if (ListUtil.isEmpty(noSortFieldList))
+				continue;
+
+//			Field[] fields = entity.getClass().getDeclaredFields();
+
 			Map<String, Object> dataMap = new HashMap<>(32);
+			boolean isSort = false;
+			/** first loop 2 decision sort */
+			for (Field f : noSortFieldList) {
+				Excel e = f.getAnnotation(Excel.class);
+				if (e.sortNo() != 9999) {
+					isSort = true;
+					break;
+				}
+			}
+
+			Field[] fields = new Field[noSortFieldList.size()];
+			if (isSort) {
+				for (Field f : noSortFieldList) {
+					Excel e = f.getAnnotation(Excel.class);
+					if (null == e)
+						continue;
+					fields[e.sortNo() - 1] = f;
+				}
+			} else {
+				for (int i = 0; i < noSortFieldList.size(); i++) {
+					fields[i] = noSortFieldList.get(i);
+				}
+			}
+
 			for (Field field : fields) {
+				if (null == field)
+					continue;
 				field.setAccessible(true);
 				Excel anExcel = field.getAnnotation(Excel.class);
 				if (anExcel == null) {

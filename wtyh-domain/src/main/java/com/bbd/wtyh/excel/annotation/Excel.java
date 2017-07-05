@@ -20,4 +20,7 @@ public @interface Excel {
 	/** 时间格式化 */
 	String dateFormat() default "yyyy-MM-dd HH:mm:ss";
 
+	/** 列顺序 */
+	int sortNo() default 9999;
+
 }
