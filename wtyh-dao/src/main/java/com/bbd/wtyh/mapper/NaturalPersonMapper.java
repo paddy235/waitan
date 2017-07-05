@@ -36,4 +36,9 @@ public interface NaturalPersonMapper {
      */
     List<NaturalPersonVO> queryNaturalPerson(NaturalPersonQuery query);
 
+    /*
+     * 根据自然人检索企业
+     */
+    List<String> queryCompanyByPerson(String person);
+
 }

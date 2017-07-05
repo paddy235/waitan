@@ -58,6 +58,11 @@
                 and np.duty_code=#{dutyCode}
             </if>
         </where>
+        LIMIT 200
+    </select>
+
+    <select id="queryCompanyByPerson" parameterType="java.lang.String">
+        SELECT company_name FROM natural_person WHERE person_name=#{person}
     </select>
 
 </mapper>

@@ -46,4 +46,9 @@ public class NaturalPersonServiceImpl implements NaturalPersonService {
     public List<NaturalPersonVO> queryNaturalPerson(NaturalPersonQuery query) {
         return mapper.queryNaturalPerson(query);
     }
+
+    @Override
+    public List<String> queryCompanyByPerson(String person) {
+        return mapper.queryCompanyByPerson(person);
+    }
 }

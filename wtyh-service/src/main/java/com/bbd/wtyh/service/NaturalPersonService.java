@@ -21,4 +21,6 @@ public interface NaturalPersonService {
 
     List<NaturalPersonVO> queryNaturalPerson(NaturalPersonQuery query);
 
+    List<String> queryCompanyByPerson(String person);
+
 }
