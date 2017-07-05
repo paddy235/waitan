@@ -23,11 +23,12 @@ public class TimingTaskServiceImpl  extends BaseServiceImpl implements TimingTas
     @Override
     public List<TaskInfoDO> getLatestTaskInfo() {
         List<TaskInfoDO> taskList = this.selectAll(TaskInfoDO.class, "is_show=1");
-        for(TaskInfoDO taskInfoDTO:taskList){
-            CronSequenceGenerator cronSequenceGenerator = new CronSequenceGenerator(taskInfoDTO.getCron());
-            Date nextTriggerTime = cronSequenceGenerator.next(new Date());//lastMinute 我这里是上一分钟的date类型对象
+        CronSequenceGenerator cronSequenceGenerator ;
+        for(TaskInfoDO taskInfoDO:taskList){
+            cronSequenceGenerator = new CronSequenceGenerator(taskInfoDO.getCron());
+            taskInfoDO.setNextStartDate(cronSequenceGenerator.next(new Date()));//lastMinute 我这里是上一分钟的date类型对象
 
         }
-        return null;
+        return taskList;
     }
 }
