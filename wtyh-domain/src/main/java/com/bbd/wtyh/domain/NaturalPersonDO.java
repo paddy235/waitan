@@ -1,5 +1,7 @@
 package com.bbd.wtyh.domain;
 
+import com.bbd.wtyh.excel.annotation.Excel;
+
 import javax.persistence.Column;
 
 /**
@@ -7,12 +9,15 @@ import javax.persistence.Column;
  */
 public class NaturalPersonDO extends BaseDO {
 
+    @Excel(exportName = "自然人姓名", sortNo = 1)
     @Column(name = "person_name")
     private String personName;
+    @Excel(exportName = "职务", sortNo = 3)
     @Column(name = "duty")
     private String duty;
     @Column(name = "duty_code")
     private String dutyCode;
+    @Excel(exportName = "关联公司", sortNo = 2)
     @Column(name = "company_name")
     private String companyName;
     @Column(name = "status")
