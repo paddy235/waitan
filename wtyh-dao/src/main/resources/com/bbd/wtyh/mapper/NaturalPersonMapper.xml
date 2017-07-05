@@ -6,7 +6,7 @@
     <insert id="batchInsertNaturalPerson" parameterType="java.util.List">
         INSERT INTO natural_person(person_name, duty, duty_code, company_name, `status`, create_by, create_date) VALUES
         <foreach collection="list" separator="," item="item">
-            (#{item.personName},#{item.duty},#{item.dutyCode},#{item.companyName},#{item.status},#{item.createBy},SYSDATE())
+            (#{item.personName},#{item.duty},#{item.dutyCode},#{item.companyName},1,'system',SYSDATE())
         </foreach>
     </insert>
 
@@ -62,7 +62,7 @@
     </select>
 
     <select id="queryCompanyByPerson" parameterType="java.lang.String">
-        SELECT company_name FROM natural_person WHERE person_name=#{person}
+        SELECT company_name FROM natural_person WHERE person_name=#{person} and `status`=1
     </select>
 
 </mapper>
