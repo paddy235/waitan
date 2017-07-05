@@ -16,6 +16,8 @@ create table natural_person
    update_by            varchar(32) comment '修改人',
    update_date          timestamp comment '修改时间',
    primary key (id)
-);
-
-alter table natural_person comment '自然人表';
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+COMMENT='自然人表'
+;
