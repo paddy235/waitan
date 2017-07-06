@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.ImgMapper">
+
+    <insert id="addImage" parameterType="com.bbd.wtyh.domain.ImgDO">
+        <selectKey keyProperty="id" resultType="int">
+            select LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO park_building_img(pic_name, pic_url, pic, pic_type, pic_park_id, pic_building_id, create_by, create_date, update_date) VALUES (#{picName}, #{picUrl}, #{pic}, #{picType}, #{picParkId}, #{picBuildingId}, #{createBy}, SYSDATE(), SYSDATE())
+    </insert>
+
+    <update id="updateImage" parameterType="com.bbd.wtyh.domain.ImgDO">
+        UPDATE park_building_img SET pic_park_id=#{picParkId}, pic_building_id=#{picBuildingId}, `status`=1, update_date=SYSDATE() WHERE `status`=0 AND id=#{id}
+    </update>
+
+    <select id="queryImgById" parameterType="int" resultType="com.bbd.wtyh.domain.ImgDO">
+        SELECT
+            id as id,
+            pic_name as picName,
+            pic_url as picUrl,
+            pic_type as picType,
+            pic as pic,
+            pic_park_id as picParkId,
+            pic_building_id as picBuildingId,
+            `status` as `status`,
+            create_by as createBy,
+            create_date as createDate,
+            update_by as updateBy,
+            update_date as updateDate
+        FROM
+            park_building_img
+        WHERE
+            id=#{id}
+    </select>
+
+</mapper>

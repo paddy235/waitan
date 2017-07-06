@@ -1,10 +1,10 @@
 package com.bbd.bgo.service.task;
 
-import com.bbd.bgo.service.task.SystemDataUpdateService;
 import com.bbd.wtyh.cachetobean.ShanghaiAreaCode;
 import com.bbd.wtyh.common.Pagination;
+import com.bbd.wtyh.domain.CompanyBackgroundDO;
 import com.bbd.wtyh.domain.CompanyDO;
-import com.bbd.wtyh.log.user.Operation;
+import com.bbd.wtyh.mapper.CompanyBackgroundMapper;
 import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.service.HologramQueryService;
 import com.bbd.wtyh.service.PToPMonitorService;
@@ -16,13 +16,13 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 
 /**
@@ -40,6 +40,9 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
     private CompanyMapper companyMapper;
 
     @Autowired
+    private CompanyBackgroundMapper companyBackgroundMapper;
+
+    @Autowired
     private HologramQueryService hologramQueryService;
 
     /**
@@ -52,7 +55,7 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
         Object obj = new Object();
         try {
             final int totalCount = companyMapper.countAllCompany();
-            final int pageSize =190;
+            final int pageSize = 190;
             Pagination pagination = new Pagination();
             pagination.setPageSize(pageSize);
             pagination.setCount(totalCount);
@@ -68,10 +71,10 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
                         paginationP.setPageNumber(num);
                         paginationP.setPageSize(pageSize);
                         paginationP.setCount(totalCount);
-                        System.out.println( "Thread is Start! ID:" +Thread.currentThread().getId());
-                        System.out.println( "PageNumber:" + paginationP.getPageNumber());
-                        companyAreaIdAndAddressUpdateThread( paginationP );
-                        System.out.println( "Thread is Stop! ID:" +Thread.currentThread().getId());
+                        System.out.println("Thread is Start! ID:" + Thread.currentThread().getId());
+                        System.out.println("PageNumber:" + paginationP.getPageNumber());
+                        companyAreaIdAndAddressUpdateThread(paginationP);
+                        System.out.println("Thread is Stop! ID:" + Thread.currentThread().getId());
                     }
                 });
             }
@@ -82,46 +85,53 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
             logger.error(e.getMessage(), e);
         }
     }
-    private void companyAreaIdAndAddressUpdateThread( Pagination pagination ) {
+
+
+    private void companyAreaIdAndAddressUpdateThread(Pagination pagination) {
         Map<String, Object> params = new HashMap<>();
         params.put("pagination", pagination);
         List<CompanyDO> list = companyMapper.findByPage(params);
         if (CollectionUtils.isEmpty(list)) {
             return;
         }
-        StringBuffer companyNameSerial =new StringBuffer(list.size()*41);
-        for (final CompanyDO cdo : list ) {
-            companyNameSerial.append( cdo.getName() );
-            companyNameSerial.append( "," );
+        StringBuffer companyNameSerial = new StringBuffer(list.size() * 41);
+        for (final CompanyDO cdo : list) {
+            companyNameSerial.append(cdo.getName());
+            companyNameSerial.append(",");
         }
-        companyNameSerial.deleteCharAt(companyNameSerial.length() -1); //去掉最后一个逗号
+        companyNameSerial.deleteCharAt(companyNameSerial.length() - 1); //去掉最后一个逗号
         Map batchData = hologramQueryService.getBbdQyxxBatch(companyNameSerial.toString());
-        if( CollectionUtils.isEmpty( batchData ) ) {
+        if (CollectionUtils.isEmpty(batchData)) {
             return;
         }
         String msg = (String) (batchData.get("msg"));
-        if( null ==msg || !msg.equals("ok") ) {
+        if (null == msg || !msg.equals("ok")) {
             return;
         }
         List<Map> rList = (List) (batchData.get("results"));
-        if( CollectionUtils.isEmpty( rList ) ) {
+        if (CollectionUtils.isEmpty(rList)) {
             return;
         }
-        for ( Map itr1 : rList ) {
-            Map itr =(Map) (itr1.get("jbxx"));
-            if( CollectionUtils.isEmpty( itr ) ) {
+        for (Map itr1 : rList) {
+            Map itr = (Map) (itr1.get("jbxx"));
+            if (CollectionUtils.isEmpty(itr)) {
                 return;
             }
-            String company_county = (String ) (itr.get("company_county"));
+            String company_county = (String) (itr.get("company_county"));
             Integer areaId = ShanghaiAreaCode.getCodeToAreaMap().get(Integer.valueOf(company_county));
-            if( null ==areaId ) { //区代不匹配，则不修改这一条记录
+            if (null == areaId) { //区代不匹配，则不修改这一条记录
                 continue;
             }
             String companyName =(String ) (itr.get("company_name"));
             String address =(String ) (itr.get("address"));
             String creditCode =(String ) (itr.get("credit_code"));
-            String companyGisLat =(String ) (itr.get("company_gis_lat"));
-            String companyGisLon =(String ) (itr.get("company_gis_lon"));
+
+            Double companyGisLat =Double.parseDouble(String.valueOf(itr.get("company_gis_lat")));
+            Double companyGisLon =Double.parseDouble(String.valueOf(itr.get("company_gis_lon")));
+            String ipoCompany = (String) (itr.get("ipo_company"));
+            //companyMapper.updateAreaIdAndAddress(companyName, areaId, address, creditCode);
+
+
             //legal_person 法人
             String frname =(String ) (itr.get("frname"));
             String companyEnterpriseStatus =(String ) (itr.get("company_enterprise_status"));
@@ -142,8 +152,51 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
             //companyMapper.updateAreaIdAndAddress( companyName,areaId, address, creditCode );
             companyMapper.updateBasicInfo(companyName,areaId, address, creditCode,companyGisLon,companyGisLat,
                     frname,registeredCapital,registeredCapitalType,esdate,companyType,status);
-        }
 
+            updateCompanyBackground(companyName, ipoCompany, companyType);
+        }
+    }
+
+    /**
+     * 更新background表
+     *
+     * @param companyName
+     * @param ipoCompany
+     */
+    private void updateCompanyBackground(String companyName, String ipoCompany, String companyType) {
+        try {
+            CompanyDO companyDO = companyMapper.selectByName(companyName);
+            if (companyDO != null&&companyDO.getCompanyId()!=null) {
+                Integer companyId = companyDO.getCompanyId();
+                companyBackgroundMapper.deleteByCompanyId(companyId);
+                CompanyBackgroundDO companyBackgroundDO = new CompanyBackgroundDO();
+                companyBackgroundDO.setCompanyId(companyId);
+                companyBackgroundDO.setCreateBy("system");
+                companyBackgroundDO.setCreateDate(new Date());
+                companyBackgroundDO.setBackground(getCompanyIpo(ipoCompany));
+                companyBackgroundMapper.add(companyBackgroundDO);
+                companyBackgroundDO.setBackground(getCompanyType(companyType));
+                companyBackgroundMapper.add(companyBackgroundDO);
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+    }
+
+    private Byte getCompanyIpo(String ipoCompany) {
+        if ("上市公司".equals(ipoCompany)) {
+            return 1;
+        } else {
+            return 2;
+        }
+    }
+
+    private Byte getCompanyType(String companyType) {
+        if ("全民所有制".equals(companyType)) {
+            return 3;
+        } else {
+            return 4;
+        }
     }
 }
 

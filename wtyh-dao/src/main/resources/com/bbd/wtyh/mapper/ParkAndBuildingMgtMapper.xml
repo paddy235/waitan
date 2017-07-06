@@ -29,4 +29,12 @@
         WHERE `name`=#{parkName}
     </select>
 
+    <update id="updateParkImgUrl" parameterType="com.bbd.wtyh.domain.ParkDO">
+        UPDATE park SET img_url=#{imgUrl}, update_date=SYSDATE() WHERE park_id=#{parkId}
+    </update>
+
+    <select id="queryAllPark" resultType="com.bbd.wtyh.domain.ParkDO">
+        SELECT `name` as `name`, area_id as areaId FROM area WHERE parent_id=104
+    </select>
+
 </mapper>

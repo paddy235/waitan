@@ -4,14 +4,14 @@
 <mapper namespace="com.bbd.wtyh.mapper.NaturalPersonMapper">
 
     <insert id="batchInsertNaturalPerson" parameterType="java.util.List">
-        INSERT INTO natural_person(person_name, duty, duty_code, company_name, `status`, create_by, create_date) VALUES
+        INSERT INTO natural_person(person_name, duty, duty_code, company_name, `status`, create_by, create_date, update_date) VALUES
         <foreach collection="list" separator="," item="item">
-            (#{item.personName},#{item.duty},#{item.dutyCode},#{item.companyName},1,'system',SYSDATE())
+            (#{item.personName},#{item.duty},#{item.dutyCode},#{item.companyName},1,'system',SYSDATE(),SYSDATE())
         </foreach>
     </insert>
 
     <update id="updateNaturalPersonInvalid">
-        UPDATE natural_person SET `status`=0 where `status`=1
+        UPDATE natural_person SET `status`=0, update_date=SYSDATE() where `status`=1
     </update>
 
     <delete id="deleteNaturalPersonInvalid">
@@ -47,7 +47,7 @@
         FROM
           natural_person np, company c
         <where>
-            np.company_name=c.`name` and np.`status`=#{status}
+            np.company_name=c.`name` and np.`status`=1
             <if test="personName != null and personName != ''">
                 and np.person_name=#{personName}
             </if>
