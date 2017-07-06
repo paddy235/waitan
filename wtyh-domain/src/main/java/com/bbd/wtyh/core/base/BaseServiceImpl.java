@@ -2,6 +2,7 @@ package com.bbd.wtyh.core.base;
 
 import com.bbd.wtyh.core.dao.GeneralMapper;
 import com.bbd.wtyh.core.entity.Pagination;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
@@ -54,6 +55,9 @@ public class BaseServiceImpl implements BaseService {
 
 	@Override
 	public <T> int insertList(List<T> list) {
+		if (CollectionUtils.isEmpty(list)) {
+			return 0;
+		}
 		return generalMapper.insertList(list);
 	}
 
@@ -63,8 +67,27 @@ public class BaseServiceImpl implements BaseService {
 	}
 
 	@Override
+	public <T> int update(T obj, boolean ignoreNull, boolean ignoreEmpty) {
+		return generalMapper.update(obj, ignoreNull, ignoreEmpty);
+	}
+
+	@Override
 	public <T> int update(T obj) {
-		return generalMapper.update(obj);
+		return this.update(obj, true, true);
+	}
+
+	@Override
+	public <T> int updateList(List<T> objs, boolean ignoreNull, boolean ignoreEmpty) {
+		int i = 0;
+		for (T obj : objs) {
+			i += generalMapper.update(obj, ignoreNull, ignoreEmpty);
+		}
+		return i;
+	}
+
+	@Override
+	public <T> int updateList(List<T> objs) {
+		return this.updateList(objs, true, true);
 	}
 
 	@Override

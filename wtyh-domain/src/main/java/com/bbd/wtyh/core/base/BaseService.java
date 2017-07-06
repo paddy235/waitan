@@ -77,12 +77,49 @@ public interface BaseService {
 	<T> int delete(T obj);
 
 	/**
-	 * 更新一个实体（null或""字段除外） 根据ID更新。
-	 *
+	 * 更新一个实体（null或""字段除外） 根据ID更新。 <br>
+	 * ignoreNull = true<br>
+	 * ignoreEmpty = true
+	 * 
 	 * @param obj
 	 * @return
 	 */
 	<T> int update(T obj);
+
+	/**
+	 * 更新一个实体,根据ID更新。 <br>
+	 * 
+	 * @param obj
+	 *            带ID的对象
+	 * @param ignoreNull
+	 *            是否忽略Null字段
+	 * @param ignoreEmpty
+	 *            是否忽略""字段
+	 * @return
+	 */
+	<T> int update(T obj, boolean ignoreNull, boolean ignoreEmpty);
+
+	/**
+	 * 更新多条数据（null或""字段除外）,根据ID更新。
+	 * 
+	 * @param obj
+	 * @param <T>
+	 * @return
+	 */
+	<T> int updateList(List<T> objs);
+
+	/**
+	 * 更新多条数据,根据ID更新。 <br>
+	 *
+	 * @param objs
+	 *            带ID的对象集
+	 * @param ignoreNull
+	 *            是否忽略Null字段
+	 * @param ignoreEmpty
+	 *            是否忽略""字段
+	 * @return
+	 */
+	<T> int updateList(List<T> objs, boolean ignoreNull, boolean ignoreEmpty);
 
 	/**
 	 * 执行一个insert/update/delete SQL语句。不支持SELECT<br>

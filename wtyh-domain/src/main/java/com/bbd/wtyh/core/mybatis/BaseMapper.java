@@ -74,13 +74,18 @@ public interface BaseMapper {
 	<T> int delete(T obj);
 
 	/**
-	 * 更新一个实体（null或""字段除外） 根据ID更新。
+	 * 更新一个实体,根据ID更新。 <br>
 	 *
 	 * @param obj
+	 *            带ID的对象
+	 * @param ignoreNull
+	 *            是否忽略Null字段
+	 * @param ignoreEmpty
+	 *            是否忽略""字段
 	 * @return
 	 */
 	@UpdateProvider(type = CRUDTemplate.class, method = "update")
-	<T> int update(T obj);
+	<T> int update(@Param("bean") T obj, @Param("ignoreNull") boolean ignoreNull, @Param("ignoreEmpty") boolean ignoreEmpty);
 
 	@InsertProvider(type = CRUDTemplate.class, method = "refactorSql")
 	int executeInsert(@Param("sql") String sql, @Param("param") Object... param);

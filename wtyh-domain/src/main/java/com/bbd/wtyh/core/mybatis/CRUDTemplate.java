@@ -1,13 +1,11 @@
 package com.bbd.wtyh.core.mybatis;
 
 import com.bbd.wtyh.core.utils.ReflectUtil;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.jdbc.SQL;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -161,24 +159,29 @@ public class CRUDTemplate {
 	}
 
 	/**
-	 * 更新一个实体（null或""字段除外） 根据ID更新。
+	 * 更新一个实体,根据ID更新。
 	 * 
-	 * @param obj
+	 * @param map
 	 * @return
 	 */
-	public String update(Object obj) throws Exception {
+	public String update(Map<?, ?> map) throws Exception {
 		SQL sql = new SQL();
+		Object obj = map.get("bean");
+		boolean ignoreNull = (Boolean) map.get("ignoreNull");
+		boolean ignoreEmpty = (Boolean) map.get("ignoreEmpty");
+
 		sql.UPDATE(ReflectUtil.tableName(obj.getClass()));
-		Map<String, String> columnMap = MyBatisUtil.updateColumns(obj);
+
+		Map<String, String> columnMap = MyBatisUtil.updateColumns(obj, ignoreNull, ignoreEmpty);
 
 		for (Map.Entry<String, String> m : columnMap.entrySet()) {
 			if (MyBatisUtil.KEY_ID_FIELD.equals(m.getKey()) || MyBatisUtil.KEY_ID_COLUMN.equals(m.getKey())) {
 				continue;
 			}
-			sql.SET(m.getKey() + " = #{" + m.getValue() + "}");
+			sql.SET(m.getKey() + " = #{bean." + m.getValue() + "}");
 		}
 
-		sql.WHERE(columnMap.get(MyBatisUtil.KEY_ID_COLUMN) + " = #{" + columnMap.get(MyBatisUtil.KEY_ID_FIELD) + "}");
+		sql.WHERE(columnMap.get(MyBatisUtil.KEY_ID_COLUMN) + " = #{bean." + columnMap.get(MyBatisUtil.KEY_ID_FIELD) + "}");
 		return sql.toString();
 	}
 

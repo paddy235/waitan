@@ -1,7 +1,6 @@
 package com.bbd.wtyh.domain;
 
 import javax.persistence.Column;
-import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 import java.util.Date;
@@ -14,15 +13,14 @@ import java.util.Date;
 public class BaseDO implements Serializable {
 
 	/** 逻辑主键 */
-	@Id
 	private Integer id;
 
 	/** 创建人 */
-	@Column(name = "create_by")
+	@Column(name = "create_by", updatable = false)
 	private String createBy;
 
 	/** 创建时间 */
-	@Column(name = "create_date")
+	@Column(name = "create_date", updatable = false)
 	private Date createDate;
 	/** 修改人 */
 	@Column(name = "update_by")

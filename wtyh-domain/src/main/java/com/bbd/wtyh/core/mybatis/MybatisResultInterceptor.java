@@ -1,17 +1,13 @@
 package com.bbd.wtyh.core.mybatis;
 
 import com.bbd.wtyh.core.utils.ReflectUtil;
-import com.bbd.wtyh.domain.AreaDO;
 import org.apache.ibatis.executor.resultset.ResultSetHandler;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.scripting.defaults.DefaultParameterHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
-import javax.persistence.Transient;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.sql.ResultSet;
@@ -57,14 +53,15 @@ public class MybatisResultInterceptor implements Interceptor {
 			return invocation.proceed();
 		}
 		Map<?, ?> map = (Map<?, ?>) defaultParameterHandler.getParameterObject();
-		Class<?> pojo = (Class<?>) map.get("clazz");
-		Field[] fields = pojo.getDeclaredFields();
+		Class<?> pojoClazz = (Class<?>) map.get("clazz");
+		List<Field> fieldList = MyBatisUtil.getFieldContainsParent(pojoClazz);
+		// Field[] fields = pojoClazz.getDeclaredFields();
 		Statement statement = (Statement) invocation.getArgs()[0]; // 取得方法的参数Statement
 		ResultSet rs = statement.getResultSet(); // 取得结果集
 		List<Object> list = new ArrayList<>();
 		while (rs.next()) {
-			Object obj = pojo.newInstance();
-			for (Field f : fields) {
+			Object obj = pojoClazz.newInstance();
+			for (Field f : fieldList) {
 				f.setAccessible(true);
 				if (!f.isAnnotationPresent(Id.class) && !f.isAnnotationPresent(Column.class)) {
 					continue;

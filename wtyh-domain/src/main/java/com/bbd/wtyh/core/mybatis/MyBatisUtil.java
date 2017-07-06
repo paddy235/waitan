@@ -3,13 +3,11 @@ package com.bbd.wtyh.core.mybatis;
 import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
 /**
@@ -53,9 +51,8 @@ public class MyBatisUtil {
 				return columnMap;
 			}
 		}
-
-		Field[] fields = obj.getClass().getDeclaredFields();
-		for (Field field : fields) {
+		List<Field> fieldList = getFieldContainsParent(obj.getClass());
+		for (Field field : fieldList) {
 			field.setAccessible(true);
 			if (field.isAnnotationPresent(Transient.class) || !field.isAnnotationPresent(Column.class)) {
 				continue;
@@ -66,10 +63,36 @@ public class MyBatisUtil {
 				}
 				columnMap.put(KEY_ID_FIELD, field.getName());
 			}
-			columnMap.put(getColumnName(field), field.getName());
+			Column column = field.getAnnotation(Column.class);
+			if (column.insertable()) {
+				columnMap.put(getColumnName(field), field.getName());
+			}
 		}
 		insertColumnMap.put(obj.getClass(), columnMap);
 		return columnMap;
+	}
+
+	/**
+	 * 获取clazz中声明的字段，包含带MappedSuperclass注解的父类中声明的字段
+	 * 
+	 * @param clazz
+	 * @param <T>
+	 * @return
+	 * @throws Exception
+	 */
+	public static <T> List<Field> getFieldContainsParent(Class<T> clazz) throws Exception {
+		List<Field> fieldList = new ArrayList<>();
+		parentFields(clazz, fieldList);
+		fieldList.addAll(Arrays.asList(clazz.getDeclaredFields()));
+		return fieldList;
+	}
+
+	private static <T> void parentFields(Class<T> childClass, List<Field> fieldList) {
+		Class<?> clazz = childClass.getSuperclass();
+		if (clazz.isAnnotationPresent(MappedSuperclass.class)) {
+			parentFields(clazz, fieldList);
+			fieldList.addAll(Arrays.asList(clazz.getDeclaredFields()));
+		}
 	}
 
 	/**
@@ -83,10 +106,10 @@ public class MyBatisUtil {
 	 * @throws Exception
 	 *             the exception
 	 */
-	public static <T> Map<String, String> updateColumns(T obj) throws Exception {
+	public static <T> Map<String, String> updateColumns(T obj, boolean ignoreNull, boolean ignoreEmpty) throws Exception {
 		Map<String, String> columnMap = new HashMap<>();
-		Field[] fields = obj.getClass().getDeclaredFields();
-		for (Field field : fields) {
+		List<Field> fieldList = getFieldContainsParent(obj.getClass());
+		for (Field field : fieldList) {
 			field.setAccessible(true);
 			if (field.isAnnotationPresent(Transient.class) || !field.isAnnotationPresent(Column.class)) {
 				continue;
@@ -98,10 +121,19 @@ public class MyBatisUtil {
 			}
 
 			Object value = field.get(obj);
-			if (value == null || "".equals(value)) {
+
+			// 是否忽略Null字段
+			if (ignoreNull && value == null) {
 				continue;
 			}
-			columnMap.put(getColumnName(field), field.getName());
+			// 是否忽略""字段
+			if (ignoreEmpty && "".equals(value)) {
+				continue;
+			}
+			Column column = field.getAnnotation(Column.class);
+			if (column.updatable()) {
+				columnMap.put(getColumnName(field), field.getName());
+			}
 		}
 
 		return columnMap;
