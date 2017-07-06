@@ -47,7 +47,7 @@
         FROM
           natural_person np, company c
         <where>
-            np.company_name=c.`name` and np.`status`=#{status}
+            np.company_name=c.`name` and np.`status`=1
             <if test="personName != null and personName != ''">
                 and np.person_name=#{personName}
             </if>
