@@ -14,4 +14,8 @@ public interface ParkAndBuildingMgtMapper {
 
     ParkDO queryParkByName(String parkName);
 
+    void updateParkImgUrl(ParkDO park);
+
+    List<ParkDO> queryAllPark();
+
 }
