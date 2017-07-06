@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 
 /**
  * Created by cgj on 2017/4/20.
@@ -121,13 +122,36 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
             if (null == areaId) { //区代不匹配，则不修改这一条记录
                 continue;
             }
-            String companyName = (String) (itr.get("company_name"));
-            String address = (String) (itr.get("address"));
-            String creditCode = (String) (itr.get("credit_code"));
+            String companyName =(String ) (itr.get("company_name"));
+            String address =(String ) (itr.get("address"));
+            String creditCode =(String ) (itr.get("credit_code"));
+            String companyGisLat =(String ) (itr.get("company_gis_lat"));
+            String companyGisLon =(String ) (itr.get("company_gis_lon"));
             String ipoCompany = (String) (itr.get("ipo_company"));
             String companyType = (String) (itr.get("company_type"));
             companyMapper.updateAreaIdAndAddress(companyName, areaId, address, creditCode);
             updateCompanyBackground(companyName, ipoCompany, companyType);
+
+            //legal_person 法人
+            String frname =(String ) (itr.get("frname"));
+            String companyEnterpriseStatus =(String ) (itr.get("company_enterprise_status"));
+            Integer status = 2;
+            if("存续".equals(companyEnterpriseStatus)){
+                status=  1 ;
+            }
+            String companyType =(String ) (itr.get("company_type"));//registered_type 公司注册类型
+            String esdate =(String ) (itr.get("esdate"));//registered_date 注册时间
+            String regcapCurrency =(String ) (itr.get("regcap_currency"));
+            Integer registeredCapitalType = 1;//注册资本类型 1:人民币 2:美元
+            if("美元".equals(regcapCurrency)){
+                registeredCapitalType = 2 ;
+            }
+            String  regcap = (String ) (itr.get("regcap"));
+            Integer registeredCapital = Integer.parseInt(Pattern.compile("[^0-9]").matcher(regcap).replaceAll(""));
+
+            //companyMapper.updateAreaIdAndAddress( companyName,areaId, address, creditCode );
+            companyMapper.updateBasicInfo(companyName,areaId, address, creditCode,companyGisLon,companyGisLat,
+                    frname,registeredCapital,registeredCapitalType,esdate,companyType,status);
         }
     }
 

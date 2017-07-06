@@ -117,4 +117,16 @@ public interface CompanyMapper {
 
 	List<CompanyDO> findCompanyByName( @Param("names") List<String> names );
 
+	/**
+	 * 更新企业基本信息
+	 *
+	 */
+	@Update("UPDATE company SET `area_id` =#{areaId}, `address` =#{address}, `credit_code` =#{creditCode}, `longitude` =#{longitude}, `latitude` =#{latitude}, `legal_person` =#{legalPerson},`registered_capital` =#{registeredCapital}," +
+			" `registered_capital_type` =#{registeredCapitalType}, `registered_date` =#{registeredDate}, `registered_type` =#{registeredType}, `status` =#{status} ,update_date=CURDATE(),update_by='TIMER' WHERE `name` =#{companyName};")
+	void updateBasicInfo(@Param("companyName") String companyName, @Param("areaId") Integer areaId, @Param("address") String address,
+						     @Param("creditCode") String creditCode,@Param("longitude") String longitude,@Param("latitude") String latitude,
+							 @Param("legalPerson") String legalPerson,@Param("registeredCapital") Integer registeredCapital,
+						     @Param("registeredCapitalType") Integer registeredCapitalType,@Param("registeredDate") String registeredDate,
+						     @Param("registeredType") String registeredType,@Param("status") Integer status);
+
 }

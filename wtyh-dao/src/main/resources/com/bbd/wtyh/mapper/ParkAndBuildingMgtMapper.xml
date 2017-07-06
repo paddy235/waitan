@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.ParkAndBuildingMgtMapper">
+
+    <select id="queryParkAndBuilding" parameterType="java.lang.String" resultType="com.bbd.wtyh.domain.vo.ParkAndBuildingVO">
+        SELECT
+            p.`name` as parkName,
+            b.`name` as buildingName,
+            DATE_FORMAT(p.create_date,'%Y.%c.%d') as createDate
+        FROM
+            park p, building b
+        <where>
+            p.park_id=b.park_id
+            <if test="parkName != null and parkName != ''">
+                and p.`name`=#{parkName}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryParkByName" parameterType="java.lang.String" resultType="com.bbd.wtyh.domain.ParkDO">
+        SELECT
+            park_id as parkId,
+            `name` as `name`,
+            area_id as areaId,
+            img_url as imgUrl
+        FROM
+            park
+        WHERE `name`=#{parkName}
+    </select>
+
+</mapper>

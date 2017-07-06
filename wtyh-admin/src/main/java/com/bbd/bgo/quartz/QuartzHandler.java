@@ -1,6 +1,9 @@
-package com.bbd.wtyh.core.quartz;
+package com.bbd.bgo.quartz;
 
-import com.bbd.wtyh.core.base.BaseServiceImpl;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+
+import com.bbd.wtyh.domain.TaskInfoDO;
 import org.apache.commons.lang3.StringUtils;
 import org.quartz.*;
 import org.quartz.impl.triggers.CronTriggerImpl;
@@ -8,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
+import com.bbd.wtyh.core.base.BaseServiceImpl;
 
 /**
  * Quartz 处理器
@@ -29,37 +30,37 @@ public class QuartzHandler extends BaseServiceImpl {
 	}
 
 	private static final String SEPARATOR = "@_@";
-	private final Map<String, TaskInfoDo> TASK_MAP = new ConcurrentHashMap<>();
+	private final Map<String, TaskInfoDO> TASK_MAP = new ConcurrentHashMap<>();
 
-	//@PostConstruct
 	public void init() {
-		List<TaskInfoDo> taskList = this.selectAll(TaskInfoDo.class, "");
+        System.out.println("hell");
+        List<TaskInfoDO> taskList = this.selectAll(TaskInfoDO.class, "");
 		taskList.forEach(taskInfo -> {
 			TASK_MAP.put(taskInfo.getTaskKey() + SEPARATOR + taskInfo.getTaskGroup(), taskInfo);
 			addJob(taskInfo);
 		});
 	}
 
-	public List<TaskInfoDo> getAllTask() {
-		List<TaskInfoDo> taskList = new ArrayList<>();
+	public List<TaskInfoDO> getAllTask() {
+		List<TaskInfoDO> taskList = new ArrayList<>();
 		TASK_MAP.forEach((mapKey, taskInfo) -> {
 			taskList.add(taskInfo);
 		});
 		return taskList;
 	}
 
-	public TaskInfoDo getTaskInfo(String key, String group) {
+	public TaskInfoDO getTaskInfo(String key, String group) {
 		String mapKey = key + SEPARATOR + group;
 		String where = "key = '" + key + "' AND group = '" + group + "'";
-		return TASK_MAP.computeIfAbsent(mapKey, (String k) -> this.selectOne(TaskInfoDo.class, where));
+		return TASK_MAP.computeIfAbsent(mapKey, (String k) -> this.selectOne(TaskInfoDO.class, where));
 	}
 
-	public void updateJob(TaskInfoDo taskInfo) {
+	public void updateJob(TaskInfoDO taskInfo) {
 		this.update(taskInfo);
 		TASK_MAP.put(taskInfo.getTaskKey() + SEPARATOR + taskInfo.getTaskGroup(), taskInfo);
 	}
 
-	public void addJob(TaskInfoDo taskInfo) {
+	public void addJob(TaskInfoDO taskInfo) {
 		String name = taskInfo.getTaskKey();
 		assertStringNotNullOrEmpty(name, "任务名称不能为空");
 
@@ -101,7 +102,7 @@ public class QuartzHandler extends BaseServiceImpl {
 
 	/**
 	 * 运行任务一次
-	 * 
+	 *
 	 * @param key
 	 * @param group
 	 */
@@ -113,7 +114,7 @@ public class QuartzHandler extends BaseServiceImpl {
 
 	/**
 	 * 恢复任务
-	 * 
+	 *
 	 * @param key
 	 * @param group
 	 * @throws Exception
@@ -139,7 +140,7 @@ public class QuartzHandler extends BaseServiceImpl {
 
 	/**
 	 * 删除任务
-	 * 
+	 *
 	 * @param key
 	 * @param group
 	 * @throws Exception
@@ -153,7 +154,7 @@ public class QuartzHandler extends BaseServiceImpl {
 	}
 
 	public void updateTaskEndDate(String key, String group) {
-		TaskInfoDo taskInfo = this.getTaskInfo(key, group);
+		TaskInfoDO taskInfo = this.getTaskInfo(key, group);
 		taskInfo.setEndDate(new Date());
 		this.update(taskInfo);
 	}
@@ -163,7 +164,7 @@ public class QuartzHandler extends BaseServiceImpl {
 			taskState = getTaskState(key, group);
 		}
 
-		TaskInfoDo taskInfo = this.getTaskInfo(key, group);
+		TaskInfoDO taskInfo = this.getTaskInfo(key, group);
 		taskInfo.setState(taskState.state());
 		this.updateJob(taskInfo);
 	}
@@ -173,7 +174,7 @@ public class QuartzHandler extends BaseServiceImpl {
 			taskState = getTaskState(key, group);
 		}
 
-		TaskInfoDo taskInfo = this.getTaskInfo(key, group);
+		TaskInfoDO taskInfo = this.getTaskInfo(key, group);
 		taskInfo.setState(taskState.state());
 		taskInfo.setStartDate(new Date());
 		taskInfo.setEndDate(null);
@@ -185,7 +186,7 @@ public class QuartzHandler extends BaseServiceImpl {
 			taskState = getTaskState(key, group);
 		}
 
-		TaskInfoDo taskInfo = this.getTaskInfo(key, group);
+		TaskInfoDO taskInfo = this.getTaskInfo(key, group);
 		taskInfo.setState(taskState.state());
 		taskInfo.setEndDate(new Date());
 		this.updateJob(taskInfo);

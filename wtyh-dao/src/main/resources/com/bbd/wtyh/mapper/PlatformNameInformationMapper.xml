@@ -49,4 +49,12 @@
 		LIMIT 0, #{limit_size}
 	</select>
 
+	<insert id="addPlat" parameterType="java.util.List" >
+		insert into platform_name_information (company_id,platform_name,create_by,create_date)
+		values
+		<foreach collection="list" item="item" index="index" separator="," >
+			(#{item.companyId},#{item.platformName},'ly',CURDATE())
+		</foreach>
+	</insert>
+
 </mapper>

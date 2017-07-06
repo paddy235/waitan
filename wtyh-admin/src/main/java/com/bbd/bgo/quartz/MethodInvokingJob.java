@@ -1,13 +1,13 @@
-package com.bbd.wtyh.core.quartz;
+package com.bbd.bgo.quartz;
 
-import com.bbd.wtyh.util.ApplicationContextUtil;
+import java.lang.reflect.Method;
+
 import org.quartz.DisallowConcurrentExecution;
-import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
-import java.lang.reflect.Method;
+import com.bbd.wtyh.util.ApplicationContextUtil;
 
 /**
  * wtyh
@@ -25,6 +25,7 @@ public class MethodInvokingJob extends QuartzJobBean {
 		Object otargetObject = ApplicationContextUtil.getBean(targetObject);
 		try {
 			Method m = otargetObject.getClass().getMethod(targetMethod);
+			m.setAccessible(true);
 			m.invoke(otargetObject);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.NaturalPersonMapper">
+
+    <insert id="batchInsertNaturalPerson" parameterType="java.util.List">
+        INSERT INTO natural_person(person_name, duty, duty_code, company_name, `status`, create_by, create_date) VALUES
+        <foreach collection="list" separator="," item="item">
+            (#{item.personName},#{item.duty},#{item.dutyCode},#{item.companyName},1,'system',SYSDATE())
+        </foreach>
+    </insert>
+
+    <update id="updateNaturalPersonInvalid">
+        UPDATE natural_person SET `status`=0 where `status`=1
+    </update>
+
+    <delete id="deleteNaturalPersonInvalid">
+        DELETE FROM natural_person where `status`=0
+    </delete>
+
+    <select id="queryNaturalPersonCount" parameterType="com.bbd.wtyh.domain.query.NaturalPersonQuery">
+        SELECT COUNT(1) FROM natural_person
+        <where>
+            `status`=#{status}
+            <if test="personName != null and personName != ''">
+                and person_name=#{personName}
+            </if>
+            <if test="companyName != null and companyName != ''">
+                and company_name like concat('%',#{companyName},'%')
+            </if>
+            <if test="dutyCode != 0">
+                and duty_code=#{dutyCode}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryNaturalPerson" parameterType="com.bbd.wtyh.domain.query.NaturalPersonQuery" resultType="com.bbd.wtyh.domain.vo.NaturalPersonVO">
+        SELECT
+            np.person_name as personName,
+            np.duty as duty,
+            np.company_name as companyName,
+            c.registered_date as regDate,
+            c.legal_person as legalPerson,
+            c.registered_capital as regCapital,
+            c.registered_capital_type as regCapitalType,
+            c.address as regAddress
+        FROM
+          natural_person np, company c
+        <where>
+            np.company_name=c.`name` and np.`status`=#{status}
+            <if test="personName != null and personName != ''">
+                and np.person_name=#{personName}
+            </if>
+            <if test="companyName != null and companyName != ''">
+                and np.company_name like concat('%',#{companyName},'%')
+            </if>
+            <if test="dutyCode != 0">
+                and np.duty_code=#{dutyCode}
+            </if>
+        </where>
+        LIMIT 200
+    </select>
+
+    <select id="queryCompanyByPerson" parameterType="java.lang.String">
+        SELECT company_name FROM natural_person WHERE person_name=#{person} and `status`=1
+    </select>
+
+</mapper>
