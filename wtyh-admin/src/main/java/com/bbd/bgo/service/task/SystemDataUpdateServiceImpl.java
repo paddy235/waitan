@@ -125,10 +125,11 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
             String companyName =(String ) (itr.get("company_name"));
             String address =(String ) (itr.get("address"));
             String creditCode =(String ) (itr.get("credit_code"));
-            String companyGisLat =(String ) (itr.get("company_gis_lat"));
-            String companyGisLon =(String ) (itr.get("company_gis_lon"));
+
+            Double companyGisLat =Double.parseDouble(String.valueOf(itr.get("company_gis_lat")));
+            Double companyGisLon =Double.parseDouble(String.valueOf(itr.get("company_gis_lon")));
             String ipoCompany = (String) (itr.get("ipo_company"));
-            companyMapper.updateAreaIdAndAddress(companyName, areaId, address, creditCode);
+            //companyMapper.updateAreaIdAndAddress(companyName, areaId, address, creditCode);
 
 
             //legal_person 法人
