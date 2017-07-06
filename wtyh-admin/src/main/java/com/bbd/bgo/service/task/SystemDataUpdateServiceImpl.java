@@ -128,9 +128,8 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
             String companyGisLat =(String ) (itr.get("company_gis_lat"));
             String companyGisLon =(String ) (itr.get("company_gis_lon"));
             String ipoCompany = (String) (itr.get("ipo_company"));
-            String companyType = (String) (itr.get("company_type"));
             companyMapper.updateAreaIdAndAddress(companyName, areaId, address, creditCode);
-            updateCompanyBackground(companyName, ipoCompany, companyType);
+
 
             //legal_person 法人
             String frname =(String ) (itr.get("frname"));
@@ -152,6 +151,8 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
             //companyMapper.updateAreaIdAndAddress( companyName,areaId, address, creditCode );
             companyMapper.updateBasicInfo(companyName,areaId, address, creditCode,companyGisLon,companyGisLat,
                     frname,registeredCapital,registeredCapitalType,esdate,companyType,status);
+
+            updateCompanyBackground(companyName, ipoCompany, companyType);
         }
     }
 
