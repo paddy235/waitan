@@ -19,4 +19,30 @@
     from company_background
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="selectByCompanyId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from company_background
+    where company_id = #{companyId,jdbcType=INTEGER}
+  </select>
+
+  <update id="update" parameterType="com.bbd.wtyh.domain.CompanyBackgroundDO">
+    update company_background
+    <set>
+      background=#{background},
+      update_date=now(),
+      update_by=#{updateBy}
+    </set>
+    where company_id=#{companyId}
+  </update>
+
+  <insert id="add" parameterType="com.bbd.wtyh.domain.CompanyBackgroundDO">
+    INSERT INTO `company_background` (`company_id`, `background`, `create_date`, `create_by`)
+    VALUES (#{companyId}, #{background}, now(), #{createBy});
+  </insert>
+
+  <delete id="deleteByCompanyId" parameterType="int">
+    delete from company_background where company_id=#{companyId}
+  </delete>
 </mapper>
