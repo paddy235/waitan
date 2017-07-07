@@ -12,6 +12,15 @@ public class ImgDO extends BaseDO {
     private int picParkId;
     private int picBuildingId;
     private int status;
+    private int lastStatus;
+
+    public int getLastStatus() {
+        return lastStatus;
+    }
+
+    public void setLastStatus(int lastStatus) {
+        this.lastStatus = lastStatus;
+    }
 
     public String getPicName() {
         return picName;

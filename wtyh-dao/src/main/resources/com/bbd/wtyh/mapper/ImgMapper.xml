@@ -11,7 +11,7 @@
     </insert>
 
     <update id="updateImage" parameterType="com.bbd.wtyh.domain.ImgDO">
-        UPDATE park_building_img SET pic_park_id=#{picParkId}, pic_building_id=#{picBuildingId}, `status`=1, update_date=SYSDATE() WHERE `status`=0 AND id=#{id}
+        UPDATE park_building_img SET pic_park_id=#{picParkId}, pic_building_id=#{picBuildingId}, `status`=#{status}, update_date=SYSDATE() WHERE `status`=#{lastStatus} AND id=#{id}
     </update>
 
     <select id="queryImgById" parameterType="int" resultType="com.bbd.wtyh.domain.ImgDO">
@@ -33,5 +33,9 @@
         WHERE
             id=#{id}
     </select>
+
+    <delete id="delImg" parameterType="java.util.Map">
+        DELETE FROM park_building_img WHERE `status`=#{status}
+    </delete>
 
 </mapper>
