@@ -8,6 +8,24 @@ public class ParkAndBuildingVO {
     private String parkName;
     private String buildingName;
     private String createDate;
+    private int companyCount;
+    private int finCompanyCount;
+
+    public int getCompanyCount() {
+        return companyCount;
+    }
+
+    public void setCompanyCount(int companyCount) {
+        this.companyCount = companyCount;
+    }
+
+    public int getFinCompanyCount() {
+        return finCompanyCount;
+    }
+
+    public void setFinCompanyCount(int finCompanyCount) {
+        this.finCompanyCount = finCompanyCount;
+    }
 
     public String getParkName() {
         return parkName;

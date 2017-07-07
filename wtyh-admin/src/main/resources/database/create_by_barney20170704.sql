@@ -47,3 +47,29 @@ ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
 COMMENT='园区以及楼宇图片表'
 ;
+
+drop table if exists park_company_import;
+
+/*==============================================================*/
+/* Table: park_company_import                                   */
+/*==============================================================*/
+create table park_company_import
+(
+   id                   int not null comment '逻辑主键',
+   import_no            varchar(100) not null comment '导入批次号',
+   company_name         varchar(100) not null comment '企业名称',
+   building_name        varchar(100) not null comment '楼宇名称',
+   company_id           int comment '企业ID',
+   building_id          int comment '楼宇ID',
+   error_company        varchar(200) comment '企业异常信息',
+   error_building       varchar(200) comment '楼宇异常信息',
+   create_by            varchar(50) comment '创建人',
+   create_date          timestamp comment '创建时间',
+   update_by            varchar(50) comment '修改人',
+   update_date          timestamp comment '修改时间',
+   primary key (id)
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+COMMENT='园区企业导入表'
+;
