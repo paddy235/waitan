@@ -78,8 +78,12 @@
         DELETE FROM park WHERE `name`=#{parkName}
     </delete>
 
+    <sql id="building_content">
+        building_id as buildingId, `name` as `name`, park_id as parkId, img_url as imgUrl
+    </sql>
+
     <select id="queryBuildingByParkId" parameterType="int" resultType="com.bbd.wtyh.domain.BuildingDO">
-        SELECT building_id as buildingId, `name` as `name`, park_id as parkId, img_url as imgUrl FROM building WHERE park_id=#{parkId}
+        SELECT <include refid="building_content" /> FROM building WHERE park_id=#{parkId}
     </select>
 
     <insert id="addPark" parameterType="com.bbd.wtyh.domain.ParkDO">
@@ -119,6 +123,10 @@
         FROM
             park_company_import
         WHERE import_no=#{importNo}
+    </select>
+
+    <select id="queryBuildingByParkAndName" resultType="com.bbd.wtyh.domain.BuildingDO">
+        SELECT <include refid="building_content" /> FROM building WHERE park_id=#{parkId} AND `name`=#{buildingName}
     </select>
 
 </mapper>

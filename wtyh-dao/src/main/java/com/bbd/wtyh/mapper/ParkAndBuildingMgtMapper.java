@@ -4,6 +4,7 @@ import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.vo.ParkAndBuildingVO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Barney on 2017/7/5.
@@ -43,5 +44,7 @@ public interface ParkAndBuildingMgtMapper {
     String queryImportNo();
 
     List<ParkCompanyImportDO> queryImportContentByNo(String importNo);
+
+    BuildingDO queryBuildingByParkAndName(Map<String, Object> params);
 
 }
