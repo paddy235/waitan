@@ -37,4 +37,88 @@
         SELECT `name` as `name`, area_id as areaId FROM area WHERE parent_id=104
     </select>
 
+    <select id="queryBuildingCompany" parameterType="java.lang.String" resultType="com.bbd.wtyh.domain.vo.ParkAndBuildingVO">
+        SELECT
+            b.`name` as buildingName,
+            count(1) as companyCount
+        FROM
+            park p, building b, company_building cb, company c
+        WHERE
+            p.park_id=b.park_id and b.building_id=cb.building_id and cb.company_id=c.company_id and p.`name`=#{parkName}
+        GROUP BY b.`name`
+    </select>
+
+    <select id="queryBuildingFinCompany" parameterType="java.lang.String" resultType="com.bbd.wtyh.domain.vo.ParkAndBuildingVO">
+        SELECT
+            b.`name` as buildingName,
+            count(1) as finCompanyCount
+        FROM
+            park p, building b, company_building cb, company c
+        WHERE
+            p.park_id=b.park_id and b.building_id=cb.building_id and cb.company_id=c.company_id and p.`name`=#{parkName} and c.company_type<![CDATA[>=]]>1
+        GROUP BY b.`name`
+    </select>
+
+    <insert id="addBuilding" parameterType="com.bbd.wtyh.domain.BuildingDO">
+        INSERT INTO building(`name`, park_id, img_url, create_by, create_date, update_date) VALUES(#{name}, #{parkId}, #{imgUrl}, #{createBy}, SYSDATE(), SYSDATE())
+    </insert>
+
+    <delete id="delCompanyByBuildingId" parameterType="java.util.List">
+        DELETE FROM company_building WHERE building_id IN
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <delete id="delBuildingByParkId" parameterType="int">
+        DELETE FROM building WHERE park_id=#{parkId}
+    </delete>
+
+    <delete id="delParkByName" parameterType="java.lang.String">
+        DELETE FROM park WHERE `name`=#{parkName}
+    </delete>
+
+    <select id="queryBuildingByParkId" parameterType="int" resultType="com.bbd.wtyh.domain.BuildingDO">
+        SELECT building_id as buildingId, `name` as `name`, park_id as parkId, img_url as imgUrl FROM building WHERE park_id=#{parkId}
+    </select>
+
+    <insert id="addPark" parameterType="com.bbd.wtyh.domain.ParkDO">
+        INSERT INTO park(`name`, area_id, img_url, create_by, create_date, update_date) VALUES(#{name},#{areaId},#{imgUrl},#{createBy},SYSDATE(), SYSDATE())
+    </insert>
+
+    <select id="queryCompanyIdByName" parameterType="java.lang.String" resultType="int">
+        SELECT company_id as companyId FROM company WHERE `name`=#{companyName}
+    </select>
+
+    <insert id="addCompanyBuilding" parameterType="java.util.List">
+        INSERT INTO company_building(company_id, building_id, create_by, create_date, update_date) VALUES
+        <foreach collection="list" separator="," item="item">
+            (#{item.companyId},#{item.buildingId},#{item.createBy},SYSDATE(),SYSDATE())
+        </foreach>
+    </insert>
+
+    <insert id="addExcelComAndBuilding" parameterType="java.util.List">
+        INSERT INTO park_company_import(import_no, company_name, building_name, company_id, building_id, error_company, error_building, create_by, create_date, update_date) VALUES
+        <foreach collection="list" separator="," item="item">
+            (#{item.importNo},#{item.companyName},#{item.buildingName},#{item.companyId},#{item.buildingId},#{item.errorCompany},#{item.errorBuilding},#{item.createBy},SYSDATE(),SYSDATE())
+        </foreach>
+    </insert>
+
+    <select id="queryImportNo" resultType="java.lang.String">
+        SELECT UUID() FROM DUAL
+    </select>
+
+    <select id="queryImportContentByNo" parameterType="java.lang.String" resultType="com.bbd.wtyh.domain.ParkCompanyImportDO">
+        SELECT
+            company_name as companyName,
+            building_name as buildingName,
+            company_id as companyId,
+            building_id as buildingId,
+            error_company as errorCompany,
+            error_building as errorBuilding
+        FROM
+            park_company_import
+        WHERE import_no=#{importNo}
+    </select>
+
 </mapper>
