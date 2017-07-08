@@ -52,8 +52,7 @@ public class CreditController {
 	@ResponseBody
 	public ResponseBean creditScoreCalculate() {
 		Map data = new HashMap();
-		coCreditScoreService.creditScoreCalculate();
-		String dataVersion = DateFormatUtils.format(new Date(), "yyyyMMdd");
+		coCreditScoreService.creditScoreCalculate(1);
 		TaskSuccessFailInfoDO taskSuccessFailInfoDO = taskSuccessFailInfoMapper.getTaskSuccessFailInfo(TASK_NAME, TASK_GROUP, dataVersion);
 		int planCount = taskSuccessFailInfoDO.getPlanCount();
 		int successCount = taskSuccessFailInfoDO.getSuccessCount();
@@ -85,27 +84,27 @@ public class CreditController {
 
 	@RequestMapping("/executeFailCompany")
 	@ResponseBody
-	public String executeFailCompany(String companyName, String resultCode, String dataVersion, Integer pageNumber, Integer pageSize,
+	public String executeFailCompany(String companyName, String resultCode, Integer taskId, Integer pageNumber, Integer pageSize,
 			HttpServletRequest request) {
 		String[] companyNames = null;
 		if (null != companyName && !companyName.equals("")) {
 			companyNames = companyName.split(",");
 		}
-		coCreditScoreService.executefailCompany(companyNames, resultCode, dataVersion, pageNumber, pageSize);
+		coCreditScoreService.executefailCompany(companyNames, resultCode, taskId, pageNumber, pageSize);
 		return "OK";
 	}
 
 	@RequestMapping("/queryFailCompany")
 	@ResponseBody
-	public ResponseBean queryFailCompany(String companyName, String resultCode, String dataVersion, Integer pageNumber, Integer pageSize,
+	public ResponseBean queryFailCompany(String companyName, String resultCode, Integer taskId, Integer pageNumber, Integer pageSize,
 			HttpServletRequest request) {
 		Map data = new HashMap();
 		String[] companyNames = null;
 		if (null != companyName && !companyName.equals("")) {
 			companyNames = companyName.split(",");
 		}
-		int total = coCreditScoreService.queryfailCompanyCounts(companyNames, resultCode, dataVersion, pageNumber, pageSize);
-		List<CompanyCreditFailInfoDO> list = coCreditScoreService.queryfailCompany(companyNames, resultCode, dataVersion, pageNumber,
+		int total = coCreditScoreService.queryfailCompanyCounts(companyNames, resultCode, taskId, pageNumber, pageSize);
+		List<CompanyCreditFailInfoDO> list = coCreditScoreService.queryfailCompany(companyNames, resultCode, taskId, pageNumber,
 				pageSize);
 		data.put("total", total);
 		data.put("list", list);

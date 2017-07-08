@@ -21,4 +21,6 @@ public interface CompanyCreditFailInfoMapper {
 
 	int getCompanyCreditFailInfoCounts(@Param("param") Map<String, Object> params);
 
+	List<CompanyCreditFailInfoDO> getCompanyCreditFailInfoByTaskId(@Param("taskId")Integer taskId,@Param("resultCode")List<String> resultCode);
+
 }
