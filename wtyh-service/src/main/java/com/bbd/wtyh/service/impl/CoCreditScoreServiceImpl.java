@@ -75,7 +75,6 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 
 	@Override
 	public void creditScoreCalculate(Integer runMode) {
-		Integer rm= runMode==null?0:runMode;//默认自动执行
 		int isHandle = 0;// 0正常执行  1自动重试
 		CreditConfig.read();
 		isShutdown = false;
@@ -83,17 +82,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 
 		List<CompanyDO> companyList = this.getCompanyList();
 		// 新增任务，更新开始时间、计划、成功、失败笔数
-		TaskSuccessFailInfoDO taskSuccessFailInfoDO = new TaskSuccessFailInfoDO();
-		taskSuccessFailInfoDO.setTaskName(TASK_NAME);
-		taskSuccessFailInfoDO.setTaskGroup(TASK_GROUP);
-		taskSuccessFailInfoDO.setBeginDate(new Date());//任务开始时间
-		taskSuccessFailInfoDO.setRunMode(rm);
-		taskSuccessFailInfoDO.setPlanCount(companyList.size());
-		taskSuccessFailInfoDO.setSuccessCount(0);
-		taskSuccessFailInfoDO.setFailCount(0);
-		taskSuccessFailInfoDO.setCreateBy("system");
-		taskSuccessFailInfoDO.setCreateDate(new Date());
-		taskSuccessFailInfoMapper.addTaskSuccessFailInfo(taskSuccessFailInfoDO);
+		TaskSuccessFailInfoDO taskSuccessFailInfoDO=taskBegin(TASK_NAME,TASK_GROUP,runMode,companyList.size());
 		Integer taskId=taskSuccessFailInfoDO.getId();
 
 
@@ -121,7 +110,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 					return;
 				}
 				LOGGER.info("开始处理：" + companyDO.getCompanyId());
-				calculateCompanyPoint(companyDO, pointMap, taskId, isHandle);
+				calculateCompanyPoint(companyDO, pointMap, taskId, isHandle,runMode);
 			});
 
 		}
@@ -145,11 +134,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		int succCount=companyCreditMapper.countCreditRawInfo(taskId);
 
 		//任务结束，更新结束时间、成功失败笔数
-		taskSuccessFailInfoDO.setSuccessCount(succCount);
-		taskSuccessFailInfoDO.setFailCount(failCount);
-		taskSuccessFailInfoDO.setUpdateBy("system");
-		taskSuccessFailInfoDO.setUpdateDate(new Date());
-		taskSuccessFailInfoMapper.updateTaskSuccessFailInfo(taskSuccessFailInfoDO);
+		taskEnd(taskSuccessFailInfoDO,succCount,failCount);
 	}
 
 	private List<CompanyDO> getCompanyList() {
@@ -197,15 +182,69 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	 */
 	@Override
 	public void executefailCompany(String[] companyNames, String resultCode, Integer taskId, Integer pageNumber, Integer pageSize) {
-		List<CompanyCreditFailInfoDO> list = this.queryfailCompany(companyNames, resultCode, taskId, pageNumber, pageSize);
+
+
+	}
+
+	/**
+	 * 手动计算历史task失败的企业
+	 */
+	@Override
+	public void executeFailCompanyByTaskId(Integer runMode,Integer paramTaskId) {
+		CreditConfig.read();
+		List<CompanyDO> companyList = this.queryFailCompanyByTaskId(paramTaskId);
+		int isHandle = 0;//
+		// 新增任务，更新开始时间、计划、成功、失败笔数
+		TaskSuccessFailInfoDO taskSuccessFailInfoDO=taskBegin(TASK_NAME,TASK_GROUP,runMode,companyList.size());
+		Integer taskId=taskSuccessFailInfoDO.getId();
+
+
 		// 本地模型加分项目
 		final Map<String, Integer> pointMap = this.getCompanyCreditPointItems();
-		int isHandle = 1;// isHandle 为0表示由定时任务执行 1表示手动补偿失败的企业、
-		CreditConfig.read();
-		for (CompanyCreditFailInfoDO companyCreditFailInfoDO : list) {
 
-			calculateCompanyPoint(transCompanyDO(companyCreditFailInfoDO), pointMap, taskId, isHandle);
+		ExecutorService dataExecutorService = Executors.newFixedThreadPool(CreditConfig.threadNum(), new ThreadFactory() {
+
+			final LongAdder num = new LongAdder();
+
+			@Override
+			public Thread newThread(Runnable r) {
+				num.increment();
+				Thread t = new Thread(r);
+				t.setName("wtyh-credit-score-handle-" + num.toString());
+				// 设置为守护线程
+				t.setDaemon(true);
+				return t;
+			}
+		});
+
+		for (CompanyDO companyDO : companyList) {
+			dataExecutorService.execute(() -> {
+				LOGGER.info("开始处理：" + companyDO.getCompanyId());
+				calculateCompanyPoint(companyDO, pointMap, taskId, isHandle,runMode);
+			});
+
 		}
+		dataExecutorService.shutdown();
+		try {
+			dataExecutorService.awaitTermination(1, TimeUnit.DAYS);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		// 自动补偿参数传1
+		untreatedCompanyFromDb(pointMap, taskId, 1);
+
+		//备份成功失败名单到历史表
+		this.executeCUD("insert into company_credit_fail_history (company_id,company_name,organization_code,credit_code,result_code,task_id,create_by,create_date) " +
+				"SELECT company_id,company_name,organization_code,credit_code,result_code,task_id,create_by,now() FROM company_credit_fail_info WHERE task_id=?",taskId);
+		this.executeCUD("insert into company_credit_raw_history (company_id,company_name,organization_code,credit_code,task_id,create_by,create_date) " +
+				"SELECT company_id,company_name,organization_code,credit_code,task_id,create_by,now() FROM company_credit_raw_info WHERE task_id=?",taskId);
+
+		//统计成功失败笔数
+		int failCount=companyCreditMapper.countCreditFailInfo(taskId);
+		int succCount=companyCreditMapper.countCreditRawInfo(taskId);
+
+		//任务结束，更新结束时间、成功失败笔数
+		taskEnd(taskSuccessFailInfoDO,succCount,failCount);
 	}
 
 	/**
@@ -231,6 +270,14 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		}
 
 		return companyCreditFailInfoMapper.getCompanyCreditFailInfo(map);
+	}
+
+	/**
+	 * 查询历史task失败的企业
+	 */
+	public List<CompanyDO> queryFailCompanyByTaskId(Integer taskId) {
+
+		return companyCreditMapper.getCompanyCreditFailByTaskId(taskId);
 	}
 
 	@Override
@@ -340,7 +387,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			}
 			CompanyDO companyDO = JSON.parseObject(str, CompanyDO.class);
 			LOGGER.info(companyDO.getCompanyId() + " rehandle ");
-			calculateCompanyPoint(companyDO, pointMap, taskId, isHandle);
+			calculateCompanyPoint(companyDO, pointMap, taskId, isHandle,1);
 		}
 
 		List<Object> list = redisDao.range(REDIS_KEY_CREDIT_REHANDLE_COMPANY, 0, -1);
@@ -370,7 +417,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			}
 			for(CompanyCreditFailInfoDO companyCreditFailInfoDO:list){
 
-				calculateCompanyPoint(transCompanyDO(companyCreditFailInfoDO), pointMap, taskId, isHandle);
+				calculateCompanyPoint(transCompanyDO(companyCreditFailInfoDO), pointMap, taskId, isHandle,1);
 			}
 		}
 
@@ -385,8 +432,11 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	 * @param pointMap
 	 *            加分项
 	 */
-	private void calculateCompanyPoint(CompanyDO companyDO, Map<String, Integer> pointMap, Integer taskId, int isHandle) {
-		resetBeginNum(companyDO.getCompanyId());
+	private void calculateCompanyPoint(CompanyDO companyDO, Map<String, Integer> pointMap, Integer taskId, int isHandle,int runMode) {
+		//定时任务才更新redis中保存的最大companyID；手动执行历史失败企业不需要更新redis中的companyID
+		if(0==runMode) {
+			resetBeginNum(companyDO.getCompanyId());
+		}
 		List<String> list ;
 		try {
 			list = getCreditFromShangHai(companyDO, pointMap, taskId, isHandle);
@@ -631,6 +681,33 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 				"INSERT INTO company_credit_fail_info (company_id,company_name,organization_code,credit_code,result_code,task_id,create_by,create_date)values(?,?,?,?,?,?,?,?)",
 				coDo.getCompanyId(), coDo.getName(), coDo.getOrganizationCode(), coDo.getCreditCode(), resultCode,taskId ,
 				"system", new Date());
+	}
+
+	private TaskSuccessFailInfoDO taskBegin(String taskName,String taskGroup,Integer runMode,Integer planCount){
+		//新增任务，更新开始时间、计划、成功、失败笔数
+		TaskSuccessFailInfoDO taskSuccessFailInfoDO = new TaskSuccessFailInfoDO();
+		taskSuccessFailInfoDO.setTaskName(taskName);
+		taskSuccessFailInfoDO.setTaskGroup(taskGroup);
+		taskSuccessFailInfoDO.setBeginDate(new Date());//任务开始时间
+		taskSuccessFailInfoDO.setRunMode(runMode);
+		taskSuccessFailInfoDO.setPlanCount(planCount);
+		taskSuccessFailInfoDO.setSuccessCount(0);
+		taskSuccessFailInfoDO.setFailCount(0);
+		taskSuccessFailInfoDO.setCreateBy("system");
+		taskSuccessFailInfoDO.setCreateDate(new Date());
+		taskSuccessFailInfoMapper.addTaskSuccessFailInfo(taskSuccessFailInfoDO);
+		return taskSuccessFailInfoDO;
+	}
+
+	private void taskEnd(TaskSuccessFailInfoDO taskSuccessFailInfoDO,Integer succCount,Integer failCount){
+		//新增任务，更新开始时间、计划、成功、失败笔数
+		//任务结束，更新结束时间、成功失败笔数
+		taskSuccessFailInfoDO.setEndDate(new Date());
+		taskSuccessFailInfoDO.setSuccessCount(succCount);
+		taskSuccessFailInfoDO.setFailCount(failCount);
+		taskSuccessFailInfoDO.setUpdateBy("system");
+		taskSuccessFailInfoDO.setUpdateDate(new Date());
+		taskSuccessFailInfoMapper.updateTaskSuccessFailInfo(taskSuccessFailInfoDO);
 	}
 
 }

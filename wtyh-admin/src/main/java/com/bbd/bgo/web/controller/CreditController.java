@@ -52,8 +52,16 @@ public class CreditController {
 	@ResponseBody
 	public ResponseBean creditScoreCalculate() {
 		Map data = new HashMap();
-		coCreditScoreService.creditScoreCalculate(1);
+		coCreditScoreService.creditScoreCalculate(0);
 		return ResponseBean.successResponse(data);
+	}
+
+	@RequestMapping("/execFailCompanyByTaskId")
+	@ResponseBody
+	public String executeFailCompany(Integer taskId,HttpServletRequest request) {
+
+		coCreditScoreService.executeFailCompanyByTaskId(1,taskId);
+		return "OK";
 	}
 
 	@RequestMapping("/task-progress")

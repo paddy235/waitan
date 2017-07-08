@@ -39,4 +39,20 @@
 
 	</select>
 
+	<select id="getCompanyCreditFailByTaskId" parameterType="Integer" resultType="com.bbd.wtyh.domain.CompanyDO">
+		SELECT
+        `company_id` AS companyId,
+        `company_name` AS name,
+        `organization_code` AS organizationCode,
+        `credit_code` AS creditCode,
+        `create_by` AS createBy,
+        `create_date` AS createDate
+        FROM
+        company_credit_fail_history
+        WHERE
+        1=1
+        AND task_id= #{taskId}
+
+	</select>
+
 </mapper>

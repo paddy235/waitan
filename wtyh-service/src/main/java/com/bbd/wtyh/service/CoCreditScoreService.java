@@ -23,6 +23,8 @@ public interface CoCreditScoreService {
 
 	void executefailCompany(String[] companyNames, String resultCode, Integer taskId, Integer pageNumber, Integer pageSize);
 
+	void executeFailCompanyByTaskId(Integer runMode,Integer paramTaskId);
+
 	List<CompanyCreditFailInfoDO> queryfailCompany(String[] companyNames, String resultCode, Integer taskId, Integer pageNumber,
 			Integer pageSize);
 

@@ -14,7 +14,7 @@
         `data_version`AS dataVersion,
         `task_id`AS taskId,
         `create_by` AS createBy,
-        `create_date` AScreateDate,
+        `create_date` AS createDate,
         `update_by` AS updateBy,
         `update_date` AS updateDate
         FROM
@@ -75,7 +75,7 @@
         `data_version`AS dataVersion,
         `task_id`AS taskId,
         `create_by` AS createBy,
-        `create_date` AScreateDate,
+        `create_date` AS createDate,
         `update_by` AS updateBy,
         `update_date` AS updateDate
         FROM
