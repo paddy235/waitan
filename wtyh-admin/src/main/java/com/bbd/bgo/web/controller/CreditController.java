@@ -53,15 +53,6 @@ public class CreditController {
 	public ResponseBean creditScoreCalculate() {
 		Map data = new HashMap();
 		coCreditScoreService.creditScoreCalculate(1);
-		TaskSuccessFailInfoDO taskSuccessFailInfoDO = taskSuccessFailInfoMapper.getTaskSuccessFailInfo(TASK_NAME, TASK_GROUP, dataVersion);
-		int planCount = taskSuccessFailInfoDO.getPlanCount();
-		int successCount = taskSuccessFailInfoDO.getSuccessCount();
-		int failCount = taskSuccessFailInfoDO.getFailCount();
-
-		data.put("planCount", planCount);
-		data.put("successCount", successCount);
-		data.put("failCount", failCount);
-
 		return ResponseBean.successResponse(data);
 	}
 
