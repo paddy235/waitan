@@ -64,49 +64,4 @@ public class CreditController {
 		return "OK";
 	}
 
-	@RequestMapping("/task-progress")
-	@ResponseBody
-	public ResponseBean taskProgress() {
-		Map data = new HashMap();
-		String dataVersion = DateFormatUtils.format(new Date(), "yyyyMMdd");
-		TaskSuccessFailInfoDO taskSuccessFailInfoDO = taskSuccessFailInfoMapper.getTaskSuccessFailInfo(TASK_NAME, TASK_GROUP, dataVersion);
-		int planCount = taskSuccessFailInfoDO.getPlanCount();
-		int successCount = taskSuccessFailInfoDO.getSuccessCount();
-		int failCount = taskSuccessFailInfoDO.getFailCount();
-
-		data.put("planCount", planCount);
-		data.put("successCount", successCount);
-		data.put("failCount", failCount);
-
-		return ResponseBean.successResponse(data);
-	}
-
-	@RequestMapping("/executeFailCompany")
-	@ResponseBody
-	public String executeFailCompany(String companyName, String resultCode, Integer taskId, Integer pageNumber, Integer pageSize,
-			HttpServletRequest request) {
-		String[] companyNames = null;
-		if (null != companyName && !companyName.equals("")) {
-			companyNames = companyName.split(",");
-		}
-		coCreditScoreService.executefailCompany(companyNames, resultCode, taskId, pageNumber, pageSize);
-		return "OK";
-	}
-
-	@RequestMapping("/queryFailCompany")
-	@ResponseBody
-	public ResponseBean queryFailCompany(String companyName, String resultCode, Integer taskId, Integer pageNumber, Integer pageSize,
-			HttpServletRequest request) {
-		Map data = new HashMap();
-		String[] companyNames = null;
-		if (null != companyName && !companyName.equals("")) {
-			companyNames = companyName.split(",");
-		}
-		int total = coCreditScoreService.queryfailCompanyCounts(companyNames, resultCode, taskId, pageNumber, pageSize);
-		List<CompanyCreditFailInfoDO> list = coCreditScoreService.queryfailCompany(companyNames, resultCode, taskId, pageNumber,
-				pageSize);
-		data.put("total", total);
-		data.put("list", list);
-		return ResponseBean.successResponse(data);
-	}
 }

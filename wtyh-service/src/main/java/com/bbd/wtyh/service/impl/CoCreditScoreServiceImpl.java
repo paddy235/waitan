@@ -75,8 +75,8 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 
 	@Override
 	public void creditScoreCalculate(Integer runMode) {
-		int isHandle = 0;// 0正常执行  1自动重试
 		CreditConfig.read();
+		int isHandle = 0;// 0正常执行  1自动重试
 		isShutdown = false;
 		maxCompanyId = this.companyMapper.maxCompanyId();
 
@@ -84,57 +84,17 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		// 新增任务，更新开始时间、计划、成功、失败笔数
 		TaskSuccessFailInfoDO taskSuccessFailInfoDO=taskBegin(TASK_NAME,TASK_GROUP,runMode,companyList.size());
 		Integer taskId=taskSuccessFailInfoDO.getId();
-
-
-		// 本地模型加分项目
-		final Map<String, Integer> pointMap = this.getCompanyCreditPointItems();
-
-        ExecutorService dataExecutorService = Executors.newFixedThreadPool(CreditConfig.threadNum(), new ThreadFactory() {
-
-			final LongAdder num = new LongAdder();
-
-			@Override
-			public Thread newThread(Runnable r) {
-				num.increment();
-				Thread t = new Thread(r);
-				t.setName("wtyh-credit-score-" + num.toString());
-				// 设置为守护线程
-				t.setDaemon(true);
-				return t;
-			}
-		});
-
-		for (CompanyDO companyDO : companyList) {
-			dataExecutorService.execute(() -> {
-				if (isShutdown) {
-					return;
-				}
-				LOGGER.info("开始处理：" + companyDO.getCompanyId());
-				calculateCompanyPoint(companyDO, pointMap, taskId, isHandle,runMode);
-			});
-
-		}
-		dataExecutorService.shutdown();
 		try {
-			dataExecutorService.awaitTermination(1, TimeUnit.DAYS);
-		} catch (InterruptedException e) {
+
+			calculateProcess(companyList , taskId,  isHandle, runMode,"wtyh-credit-score-");
+
+		}catch(Exception e){
 			e.printStackTrace();
+		}finally {
+
+			endProcess(taskSuccessFailInfoDO, taskId);
 		}
-		// 自动补偿参数传1
-		 untreatedCompanyFromDb(pointMap, taskId, 1);
 
-		//备份成功失败名单到历史表
-		this.executeCUD("insert into company_credit_fail_history (company_id,company_name,organization_code,credit_code,result_code,task_id,create_by,create_date) " +
-				"SELECT company_id,company_name,organization_code,credit_code,result_code,task_id,create_by,now() FROM company_credit_fail_info WHERE task_id=?",taskId);
-		this.executeCUD("insert into company_credit_raw_history (company_id,company_name,organization_code,credit_code,task_id,create_by,create_date) " +
-				"SELECT company_id,company_name,organization_code,credit_code,task_id,create_by,now() FROM company_credit_raw_info WHERE task_id=?",taskId);
-
-		//统计成功失败笔数
-		int failCount=companyCreditMapper.countCreditFailInfo(taskId);
-		int succCount=companyCreditMapper.countCreditRawInfo(taskId);
-
-		//任务结束，更新结束时间、成功失败笔数
-		taskEnd(taskSuccessFailInfoDO,succCount,failCount);
 	}
 
 	private List<CompanyDO> getCompanyList() {
@@ -183,7 +143,6 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	@Override
 	public void executefailCompany(String[] companyNames, String resultCode, Integer taskId, Integer pageNumber, Integer pageSize) {
 
-
 	}
 
 	/**
@@ -198,40 +157,65 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		TaskSuccessFailInfoDO taskSuccessFailInfoDO=taskBegin(TASK_NAME,TASK_GROUP,runMode,companyList.size());
 		Integer taskId=taskSuccessFailInfoDO.getId();
 
+		try {
 
-		// 本地模型加分项目
-		final Map<String, Integer> pointMap = this.getCompanyCreditPointItems();
+			calculateProcess(companyList , taskId,  isHandle, runMode,"wtyh-credit-rescore-");
 
-		ExecutorService dataExecutorService = Executors.newFixedThreadPool(CreditConfig.threadNum(), new ThreadFactory() {
+		}catch (Exception e){
+			e.printStackTrace();
 
-			final LongAdder num = new LongAdder();
+		}finally {
 
-			@Override
-			public Thread newThread(Runnable r) {
-				num.increment();
-				Thread t = new Thread(r);
-				t.setName("wtyh-credit-score-handle-" + num.toString());
-				// 设置为守护线程
-				t.setDaemon(true);
-				return t;
-			}
-		});
+			endProcess(taskSuccessFailInfoDO, taskId);
 
-		for (CompanyDO companyDO : companyList) {
-			dataExecutorService.execute(() -> {
-				LOGGER.info("开始处理：" + companyDO.getCompanyId());
-				calculateCompanyPoint(companyDO, pointMap, taskId, isHandle,runMode);
+		}
+
+
+	}
+
+	private void calculateProcess(List<CompanyDO>companyList ,Integer taskId, int isHandle,int runMode,String threadName){
+		try {
+
+			// 本地模型加分项目
+			final Map<String, Integer> pointMap = this.getCompanyCreditPointItems();
+
+			ExecutorService dataExecutorService = Executors.newFixedThreadPool(CreditConfig.threadNum(), new ThreadFactory() {
+
+				final LongAdder num = new LongAdder();
+
+				@Override
+				public Thread newThread(Runnable r) {
+					num.increment();
+					Thread t = new Thread(r);
+					t.setName(threadName + num.toString());
+					// 设置为守护线程
+					t.setDaemon(true);
+					return t;
+				}
 			});
 
+			for (CompanyDO companyDO : companyList) {
+				dataExecutorService.execute(() -> {
+					LOGGER.info("开始处理：" + companyDO.getCompanyId());
+					calculateCompanyPoint(companyDO, pointMap, taskId, isHandle, runMode);
+				});
+
+			}
+			dataExecutorService.shutdown();
+			try {
+				dataExecutorService.awaitTermination(1, TimeUnit.DAYS);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			// 自动补偿参数传1
+			untreatedCompanyFromDb(pointMap, taskId, 1);
+		}catch (Exception e2){
+
+			e2.printStackTrace();
 		}
-		dataExecutorService.shutdown();
-		try {
-			dataExecutorService.awaitTermination(1, TimeUnit.DAYS);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		// 自动补偿参数传1
-		untreatedCompanyFromDb(pointMap, taskId, 1);
+	}
+
+	private void endProcess(TaskSuccessFailInfoDO taskSuccessFailInfoDO,Integer taskId){
 
 		//备份成功失败名单到历史表
 		this.executeCUD("insert into company_credit_fail_history (company_id,company_name,organization_code,credit_code,result_code,task_id,create_by,create_date) " +
@@ -245,8 +229,8 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 
 		//任务结束，更新结束时间、成功失败笔数
 		taskEnd(taskSuccessFailInfoDO,succCount,failCount);
-	}
 
+	}
 	/**
 	 * 查询失败的企业
 	 */
@@ -342,28 +326,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 
 	}
 
-	/**
-	 * db 记录执行成功的企业笔数
-	 * 
-	 * @param dataVersion
-	 */
-	private synchronized void saveSuccessCompanyByDb(String dataVersion) {
-		this.executeCUD(
-				"UPDATE task_success_fail_info SET success_count=success_count+1 WHERE TASK_NAME=? AND task_group=? AND data_version=?",
-				TASK_NAME, TASK_GROUP, dataVersion);
 
-	}
-
-	/**
-	 * db 记录执行失败的企业笔数
-	 * 
-	 * @param dataVersion
-	 */
-	private synchronized void saveFailCompanyByDb(String dataVersion) {
-		this.executeCUD("UPDATE task_success_fail_info SET fail_count=fail_count+1 WHERE TASK_NAME=? AND task_group=? AND data_version=?",
-				TASK_NAME, TASK_GROUP, dataVersion);
-
-	}
 
 	/**
 	 * 对调用上海市信息中心报错的企业，重新处理
@@ -409,8 +372,8 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		resultCode.add(RESULT_CODE_9998);
 		resultCode.add(RESULT_CODE_9997);
 		resultCode.add(RESULT_CODE_9996);
-
-		for(int i=0;i<2;i++){
+		int retryNum = CreditConfig.retryNum();
+		for(int i=0;i<retryNum;i++){
 			List<CompanyCreditFailInfoDO> list=this.companyCreditFailInfoMapper.getCompanyCreditFailInfoByTaskId(taskId,resultCode);
 			if(list.size()==0){
 				break;
