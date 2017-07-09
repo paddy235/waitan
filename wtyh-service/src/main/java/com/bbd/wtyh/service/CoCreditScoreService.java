@@ -14,7 +14,7 @@ public interface CoCreditScoreService {
 	/**
 	 * 信用分值计算
 	 */
-	void creditScoreCalculate(Integer runMode);
+	Integer creditScoreCalculate(Integer runMode);
 
 	/**
 	 * 关闭分值计算
@@ -23,7 +23,7 @@ public interface CoCreditScoreService {
 
 	void executefailCompany(String[] companyNames, String resultCode, Integer taskId, Integer pageNumber, Integer pageSize);
 
-	void executeFailCompanyByTaskId(Integer runMode,Integer paramTaskId);
+    Integer executeFailCompanyByTaskId(Integer runMode,Integer paramTaskId);
 
 	List<CompanyCreditFailInfoDO> queryfailCompany(String[] companyNames, String resultCode, Integer taskId, Integer pageNumber,
 			Integer pageSize);

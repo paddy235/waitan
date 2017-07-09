@@ -74,7 +74,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	}
 
 	@Override
-	public void creditScoreCalculate(Integer runMode) {
+	public Integer creditScoreCalculate(Integer runMode) {
 		CreditConfig.read();
 		int isHandle = 0;// 0正常执行  1自动重试
 		isShutdown = false;
@@ -93,6 +93,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		}finally {
 
 			endProcess(taskSuccessFailInfoDO, taskId);
+            return taskId;
 		}
 
 	}
@@ -149,7 +150,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	 * 手动计算历史task失败的企业
 	 */
 	@Override
-	public void executeFailCompanyByTaskId(Integer runMode,Integer paramTaskId) {
+	public Integer executeFailCompanyByTaskId(Integer runMode,Integer paramTaskId) {
 		CreditConfig.read();
 		List<CompanyDO> companyList = this.queryFailCompanyByTaskId(paramTaskId);
 		int isHandle = 0;//
@@ -167,6 +168,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		}finally {
 
 			endProcess(taskSuccessFailInfoDO, taskId);
+            return taskId;
 
 		}
 

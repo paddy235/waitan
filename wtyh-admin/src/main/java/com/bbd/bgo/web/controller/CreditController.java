@@ -52,16 +52,24 @@ public class CreditController {
 	@ResponseBody
 	public ResponseBean creditScoreCalculate() {
 		Map data = new HashMap();
-		coCreditScoreService.creditScoreCalculate(0);
+		Integer taskId = coCreditScoreService.creditScoreCalculate(0);
+        TaskSuccessFailInfoDO taskSuccessFailInfoDO = taskSuccessFailInfoMapper.getTaskSuccessFailInfo(taskId,null,null,null);
+        data.put("taskId",taskSuccessFailInfoDO.getId());
+        data.put("successCount",taskSuccessFailInfoDO.getSuccessCount());
+        data.put("failCount",taskSuccessFailInfoDO.getFailCount());
 		return ResponseBean.successResponse(data);
 	}
 
 	@RequestMapping("/execFailCompanyByTaskId")
 	@ResponseBody
-	public String executeFailCompany(Integer taskId,HttpServletRequest request) {
-
-		coCreditScoreService.executeFailCompanyByTaskId(1,taskId);
-		return "OK";
+	public ResponseBean execFailCompanyByTaskId(Integer taskId,HttpServletRequest request) {
+        Map data = new HashMap();
+        Integer newId = coCreditScoreService.executeFailCompanyByTaskId(1,taskId);
+        TaskSuccessFailInfoDO taskSuccessFailInfoDO = taskSuccessFailInfoMapper.getTaskSuccessFailInfo(newId,null,null,null);
+        data.put("taskId",taskSuccessFailInfoDO.getId());
+        data.put("successCount",taskSuccessFailInfoDO.getSuccessCount());
+        data.put("failCount",taskSuccessFailInfoDO.getFailCount());
+        return ResponseBean.successResponse(data);
 	}
 
 }

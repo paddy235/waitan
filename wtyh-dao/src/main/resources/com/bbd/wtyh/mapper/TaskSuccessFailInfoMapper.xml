@@ -21,6 +21,9 @@
         task_success_fail_info
         WHERE
         1=1
+        <if test="taskId != null">
+            AND id = #{taskId}
+        </if>
         <if test="taskName != null">
             AND task_name = #{taskName}
         </if>
