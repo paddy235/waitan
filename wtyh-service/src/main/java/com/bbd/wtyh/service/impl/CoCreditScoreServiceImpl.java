@@ -380,6 +380,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			if(list.size()==0){
 				break;
 			}
+            LOGGER.info("自动补偿开始：" + (i+1));
 			for(CompanyCreditFailInfoDO companyCreditFailInfoDO:list){
 
 				calculateCompanyPoint(transCompanyDO(companyCreditFailInfoDO), pointMap, taskId, isHandle,1);
