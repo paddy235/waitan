@@ -412,7 +412,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 				insertCreditFailInfo(companyDO, RESULT_CODE_9997,  taskId);
 			}
 
-			LOGGER.error("公信数据其他错误。公司信息【id：{}，name：{}】。错误信息：{}。", companyDO.getCompanyId(), companyDO.getName(), e.getMessage());
+			LOGGER.error("公信数据9997错误。公司信息【id：{}，name：{}】。错误信息：{}。", companyDO.getCompanyId(), companyDO.getName(), e.getMessage());
 
 			return;
 		}
@@ -458,7 +458,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 				//网络问题需要重新处理 记录失败的企业
 				insertCreditFailInfo(coDo, RESULT_CODE_9996, taskId);
 			}
-			LOGGER.error("查询公司信用信息失败，已经录等待重试。公司信息【id：{}，name：{}】。返回：{}", coDo.getCompanyId(), coDo.getName(), xmlData);
+			LOGGER.error("公信数据9996错误。公司信息【id：{}，name：{}】。返回：{}", coDo.getCompanyId(), coDo.getName(), xmlData);
 
 			return null;
 		}
@@ -468,7 +468,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 				//502、504问题需要重新处理 记录失败的企业
 				insertCreditFailInfo(coDo, RESULT_CODE_9999, taskId);
 			}
-			LOGGER.error("查询公司信用信息失败，已经录等待重试。公司信息【id：{}，name：{}】。返回：{}", coDo.getCompanyId(), coDo.getName(), xmlData);
+			LOGGER.error("公信数据9999错误。公司信息【id：{}，name：{}】。返回：{}", coDo.getCompanyId(), coDo.getName(), xmlData);
 
 			return null;
 		}
@@ -484,7 +484,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 				// 未知错误9998，公信接口返回数据格式错误 ,记录失败的企业
 				insertCreditFailInfo(coDo, RESULT_CODE_9998,  taskId);
 			}
-			LOGGER.error("公信返回格式错误。公司信息【id：{}，name：{}】。错误信息：{}。返回：{}", coDo.getCompanyId(), coDo.getName(), e.getMessage(), xmlData);
+			LOGGER.error("公信数据9998错误。公司信息【id：{}，name：{}】。错误信息：{}。返回：{}", coDo.getCompanyId(), coDo.getName(), e.getMessage(), xmlData);
 			return null;
 		}
 
@@ -496,7 +496,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			if(0==isHandle) {
 				insertCreditFailInfo(coDo, resultCode, taskId);
 			}
-			LOGGER.error("公信返回错误代码。公司信息【id：{}，name：{}】。返回：{}", coDo.getCompanyId(), coDo.getName(), xmlData);
+			LOGGER.error("公信数据100X错误。公司信息【id：{}，name：{}】。返回：{}", coDo.getCompanyId(), coDo.getName(), xmlData);
 			return null;
 		}
 
