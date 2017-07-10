@@ -92,4 +92,26 @@
 
     </select>
 
+    <select id="getCompanyDoByTaskId" parameterType="Integer" resultType="com.bbd.wtyh.domain.CompanyDO">
+        SELECT
+        `company_id` AS companyId,
+        `company_name` AS name,
+        `organization_code` AS organizationCode,
+        `credit_code` AS creditCode,
+        `create_by` AS createBy,
+        `create_date` AS createDate
+        FROM
+        company_credit_fail_info
+        WHERE
+        1=1
+        AND task_id= #{taskId}
+        <if test="resultCode != null">
+            AND result_code IN
+            <foreach item="item" index="index" collection="resultCode" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+
+    </select>
+
 </mapper>

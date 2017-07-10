@@ -76,7 +76,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	@Override
 	public Integer creditScoreCalculate(Integer runMode) {
 		CreditConfig.read();
-		int isHandle = 0;// 0正常执行  1自动重试
+		int isHandle = 0;// 0正常执行  1自动重试  //正常执行isHandle设置为0,会将失败企业记录到失败表
 		isShutdown = false;
 		maxCompanyId = this.companyMapper.maxCompanyId();
 
@@ -86,7 +86,16 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		Integer taskId=taskSuccessFailInfoDO.getId();
 		try {
 
-			calculateProcess(companyList , taskId,  isHandle, runMode,"wtyh-credit-score-");
+            // 本地模型加分项目
+            final Map<String, Integer> pointMap = this.getCompanyCreditPointItems();
+
+            // 取公信数据并进行分值计算
+			calculateProcess(pointMap,companyList , taskId,  isHandle, runMode,"wtyh-credit-score-",CreditConfig.threadNum());
+
+            //自动补偿isHandle设置为1，后续不会再将失败的企业重复记录到失败表
+            isHandle=1;
+
+            untreatedCompanyFromDb(pointMap, taskId, isHandle);
 
 		}catch(Exception e){
 			LOGGER.error("creditScoreCalculate：" + e);
@@ -153,14 +162,22 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	public Integer executeFailCompanyByTaskId(Integer runMode,Integer paramTaskId) {
 		CreditConfig.read();
 		List<CompanyDO> companyList = this.queryFailCompanyByTaskId(paramTaskId);
-		int isHandle = 0;//
+		int isHandle = 0;//正常执行isHandle设置为0,会将失败企业记录到失败表
 		// 新增任务，更新开始时间、计划、成功、失败笔数
 		TaskSuccessFailInfoDO taskSuccessFailInfoDO=taskBegin(TASK_NAME,TASK_GROUP,runMode,companyList.size());
 		Integer taskId=taskSuccessFailInfoDO.getId();
 
 		try {
+            // 本地模型加分项目
+            final Map<String, Integer> pointMap = this.getCompanyCreditPointItems();
 
-			calculateProcess(companyList , taskId,  isHandle, runMode,"wtyh-credit-rescore-");
+            // 取公信数据并进行分值计算
+			calculateProcess(pointMap,companyList , taskId,  isHandle, runMode,"wtyh-credit-handle-",CreditConfig.threadNum());
+
+            // 自动补偿isHandle设置为1，后续不会再将失败的企业重复记录到失败表
+            isHandle=1;
+
+            untreatedCompanyFromDb(pointMap, taskId, isHandle);
 
 		}catch (Exception e){
 			LOGGER.error("executeFailCompanyByTaskId：" + e);
@@ -174,13 +191,9 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 
 	}
 
-	private void calculateProcess(List<CompanyDO>companyList ,Integer taskId, int isHandle,int runMode,String threadName){
-		try {
+	private void calculateProcess(Map<String, Integer> pointMap,List<CompanyDO>companyList ,Integer taskId, int isHandle,int runMode,String threadName,int threadNum){
 
-			// 本地模型加分项目
-			final Map<String, Integer> pointMap = this.getCompanyCreditPointItems();
-
-			ExecutorService dataExecutorService = Executors.newFixedThreadPool(CreditConfig.threadNum(), new ThreadFactory() {
+			ExecutorService dataExecutorService = Executors.newFixedThreadPool(threadNum, new ThreadFactory() {
 
 				final LongAdder num = new LongAdder();
 
@@ -198,7 +211,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			for (CompanyDO companyDO : companyList) {
 
 				dataExecutorService.execute(() -> {
-					if (isShutdown) {
+					if (isShutdown && isHandle==0) {
 						return;
 					}
 					LOGGER.info("开始处理：" + companyDO.getCompanyId());
@@ -212,12 +225,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			// 自动补偿参数传1
-			untreatedCompanyFromDb(pointMap, taskId, 1);
-		}catch (Exception e2){
 
-			e2.printStackTrace();
-		}
 	}
 
 	private void endProcess(TaskSuccessFailInfoDO taskSuccessFailInfoDO,Integer taskId){
@@ -378,16 +386,19 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		resultCode.add(RESULT_CODE_9997);
 		resultCode.add(RESULT_CODE_9996);
 		int retryNum = CreditConfig.retryNum();
+        int runMode = 1;//手动执行或自动补偿
+        int threadNum = 2;
 		for(int i=0;i<retryNum;i++){
-			List<CompanyCreditFailInfoDO> list=this.companyCreditFailInfoMapper.getCompanyCreditFailInfoByTaskId(taskId,resultCode);
-			if(list.size()==0){
+			List<CompanyDO> companyList=this.companyCreditFailInfoMapper.getCompanyDoByTaskId(taskId,resultCode);
+			if(companyList.size()==0){
 				break;
 			}
-            LOGGER.info("自动补偿开始：" + (i+1));
-			for(CompanyCreditFailInfoDO companyCreditFailInfoDO:list){
+			int j=i+1;
+            LOGGER.info("自动补偿开始：" + j);
 
-				calculateCompanyPoint(transCompanyDO(companyCreditFailInfoDO), pointMap, taskId, isHandle,1);
-			}
+            // 取公信数据并进行分值计算
+            calculateProcess(pointMap,companyList , taskId,  isHandle, runMode,"wtyh-credit-retry"+j+"-",threadNum);
+
 		}
 
 
