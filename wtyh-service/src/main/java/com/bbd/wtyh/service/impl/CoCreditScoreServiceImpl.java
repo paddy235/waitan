@@ -89,13 +89,13 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			calculateProcess(companyList , taskId,  isHandle, runMode,"wtyh-credit-score-");
 
 		}catch(Exception e){
-			e.printStackTrace();
+			LOGGER.error("creditScoreCalculate：" + e);
 		}finally {
 
 			endProcess(taskSuccessFailInfoDO, taskId);
-            return taskId;
-		}
 
+		}
+		return taskId;
 	}
 
 	private List<CompanyDO> getCompanyList() {
@@ -163,15 +163,14 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			calculateProcess(companyList , taskId,  isHandle, runMode,"wtyh-credit-rescore-");
 
 		}catch (Exception e){
-			e.printStackTrace();
+			LOGGER.error("executeFailCompanyByTaskId：" + e);
 
 		}finally {
 
 			endProcess(taskSuccessFailInfoDO, taskId);
-            return taskId;
 
 		}
-
+		return taskId;
 
 	}
 
