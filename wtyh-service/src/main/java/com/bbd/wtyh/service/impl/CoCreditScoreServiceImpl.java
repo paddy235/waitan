@@ -196,7 +196,11 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			});
 
 			for (CompanyDO companyDO : companyList) {
+
 				dataExecutorService.execute(() -> {
+					if (isShutdown) {
+						return;
+					}
 					LOGGER.info("开始处理：" + companyDO.getCompanyId());
 					calculateCompanyPoint(companyDO, pointMap, taskId, isHandle, runMode);
 				});
