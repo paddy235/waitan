@@ -507,10 +507,12 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		String resultCode = root.elementText("RESULT");
 		// 1005 表示查询成功
 		if (!"1005".equals(resultCode)) {
-			//正常执行记录到失败表，自动重试不需要再次记录到失败表
-			if(0==isHandle) {
-				insertCreditFailInfo(coDo, resultCode, taskId);
-			}
+
+            // 若这家企业执行成功，则从失败企业表中删除。
+            this.executeCUD("DELETE FROM company_credit_fail_info WHERE company_id = ?", coDo.getCompanyId());
+
+            insertCreditFailInfo(coDo, resultCode, taskId);
+
 			LOGGER.error("公信数据100X错误。公司信息【id：{}，name：{}】。返回：{}", coDo.getCompanyId(), coDo.getName(), xmlData);
 			return null;
 		}
