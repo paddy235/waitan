@@ -271,7 +271,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
     @Override
     public List<PlatCompanyDTO> getPlatList() throws Exception { //by cgj
         String url = this.finSerUrl + "?dataType=plat_list";
-        if( this.finSerUrl ==null ) {
+        if( StringUtils.isEmpty(this.finSerUrl)) {
             url = "http://121.40.187.134:5002/financial_services" + "?dataType=plat_list";
         }
         HttpTemplate httpTemplate = new HttpTemplate();

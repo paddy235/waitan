@@ -129,4 +129,17 @@
         SELECT <include refid="building_content" /> FROM building WHERE park_id=#{parkId} AND `name`=#{buildingName}
     </select>
 
+    <select id="queryCompanyByBuildingId" resultType="com.bbd.wtyh.domain.CompanyDO" parameterType="int">
+        SELECT
+            `name` as `name`,
+            legal_person as legalPerson,
+            registered_type as registeredType,
+            business_type as businessType,
+            risklevel as riskLevel
+        FROM
+            company
+        WHERE
+            company_id IN (SELECT company_id FROM company_building WHERE building_id=#{buildingId})
+    </select>
+
 </mapper>

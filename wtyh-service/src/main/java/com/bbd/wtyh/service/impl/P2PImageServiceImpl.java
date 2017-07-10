@@ -4,13 +4,18 @@ import com.bbd.wtyh.dao.P2PImageDao;
 import com.bbd.wtyh.domain.PlatformNameInformationDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
+import com.bbd.wtyh.domain.dto.PlatCompanyDTO;
 import com.bbd.wtyh.domain.dto.PlatRankDataDTO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
+import com.bbd.wtyh.domain.wangDaiAPI.YuQingWarningDO;
+import com.bbd.wtyh.mapper.YuQingWarningMapper;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.P2PImageService;
 import com.bbd.wtyh.service.PToPMonitorService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +39,13 @@ public class P2PImageServiceImpl implements P2PImageService {
     @Autowired
     private RedisDAO redisDAO;
 
+    @Autowired
+    private YuQingWarningMapper yuQingWarningMapper;
+
+
     private static final String PLAT_FORM_STATUS_CACHE_PRIFIX = "wtyh:P2PImage:platFormStatus";
+
+    private Logger logger = LoggerFactory.getLogger(P2PImageServiceImpl.class);
 
     @Override
     public PlatDataDO getPlatData(String platName) {
@@ -51,8 +62,8 @@ public class P2PImageServiceImpl implements P2PImageService {
         }
 
         PlatListDO platListDO = findFromWangdaiPlatList(platName);
-        Map<String,Map<String,Object>> platSts = (Map<String,Map<String,Object>>) redisDAO.getObject(PLAT_FORM_STATUS_CACHE_PRIFIX);
-        PlatRankDataDTO platRankDataDTO=null;
+        Map<String, Map<String, Object>> platSts = (Map<String, Map<String, Object>>) redisDAO.getObject(PLAT_FORM_STATUS_CACHE_PRIFIX);
+        PlatRankDataDTO platRankDataDTO = null;
         if (null != platSts) {
             Map<String, Object> platSt = (Map) platSts.get(platName);
             if (null != platSt) {
@@ -61,12 +72,12 @@ public class P2PImageServiceImpl implements P2PImageService {
             }
         }
         //缓存取不到，就取实时数据
-        if(null == platRankDataDTO){
+        if (null == platRankDataDTO) {
             platRankDataDTO = findFromWangdaiPlatRankData(platName);
         }
 
         Map<String, Object> result = new LinkedHashMap<>();
-        result.put("logo", (null==platListDO)?null:platListDO.getLogo_url());//logo
+        result.put("logo", (null == platListDO) ? null : platListDO.getLogo_url());//logo
         result.put("score", platRankDataDTO.getPlatRank()); // 评级
         result.put("platname", pn.getPlat_name()); // 平台名称
         result.put("companyName", pn.getCompany_name()); // 公司名称
@@ -291,5 +302,42 @@ public class P2PImageServiceImpl implements P2PImageService {
             rst.addAll(companyNames);
         }
         return rst;
+    }
+
+    @Override
+    public void updateWangDaiYuQingTask() {
+        logger.info("start get wangdai yuqing data");
+
+        List<PlatCompanyDTO> platList = null;
+        try {
+            platList = pToPMonitorService.getPlatList();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return;
+        }
+        for (PlatCompanyDTO platCompanyDTO : platList) {
+            try {
+                YuQingDO yuQingDO = this.platformConsensus(platCompanyDTO.getPlat_name());
+                if (yuQingDO != null) {
+                    yuQingWarningMapper.delByPlatName(yuQingDO.getPlat_name());
+                    for (YuQingDO.Warning warning : yuQingDO.getWarning()) {
+                        YuQingWarningDO warningDO = new YuQingWarningDO();
+                        warningDO.setPlatName(yuQingDO.getPlat_name());
+                        warningDO.setTitle(warning.getTitle());
+                        warningDO.setContent(warning.getContent());
+                        warningDO.setDate(warning.getDate());
+                        warningDO.setSource(warning.getSource());
+                        warningDO.setCreateBy("sys");
+                        warningDO.setCreateDate(new Date());
+                        yuQingWarningMapper.save(warningDO);
+                    }
+                }
+            } catch (Exception e) {
+                logger.error(e.getMessage(), e);
+                continue;
+            }
+        }
+
+        logger.info("end get wangdai yuqing data");
     }
 }

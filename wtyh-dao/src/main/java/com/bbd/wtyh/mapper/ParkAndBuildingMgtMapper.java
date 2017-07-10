@@ -47,4 +47,6 @@ public interface ParkAndBuildingMgtMapper {
 
     BuildingDO queryBuildingByParkAndName(Map<String, Object> params);
 
+    List<CompanyDO> queryCompanyByBuildingId(int buildingId);
+
 }
