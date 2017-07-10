@@ -94,4 +94,10 @@ public interface P2PImageService {
      * @return
      */
     List<PlatformNameInformationDO> associatedCompanys(String platName);
+
+
+    /**
+     * 网络借贷舆情数据 
+     */
+    void updateWangDaiYuQingTask();
 }

@@ -2,6 +2,7 @@ package com.bbd.bgo.service.task;
 
 import com.bbd.wtyh.service.CoCreditScoreService;
 import com.bbd.wtyh.service.OfflineFinanceService;
+import com.bbd.wtyh.service.P2PImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +22,8 @@ public class TimingTaskManager {
 	private OfflineFinanceService offlineFinanceService;
 	@Autowired
 	private SystemDataUpdateService systemDataUpdateService;
+	@Autowired
+	private P2PImageService pImageService;
 
 	/**
 	 * 拉取线下理财数据
@@ -59,6 +62,14 @@ public class TimingTaskManager {
 	 */
 	public void updateCompanyBaseInfo() throws Exception {
 		systemDataUpdateService.updateCompanyTableAreaIdAndAddress();
+	}
+
+	/**
+	 * 更新网络借贷舆情数据
+	 * @throws Exception
+	 */
+	public void updateYuQing()throws Exception{
+		pImageService.updateWangDaiYuQingTask();
 	}
 
 }

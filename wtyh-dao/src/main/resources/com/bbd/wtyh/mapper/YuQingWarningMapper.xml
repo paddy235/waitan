@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.YuQingWarningMapper">
+
+
+    <select id="selectByPlatName"  resultType="com.bbd.wtyh.domain.wangDaiAPI.YuQingWarningDO" >
+			select plat_name,title,content,source,date from yuqing_warning
+			<if test="plat_name != null">
+				where plat_name=#{platName}
+			</if>
+	</select>
+
+	<insert id="save" parameterType="com.bbd.wtyh.domain.wangDaiAPI.YuQingWarningDO">
+		INSERT INTO `yuqing_warning` (`plat_name`, `title`,`content`,`source`,`date`,`create_by`,`create_date`,`update_by`,`update_date`)
+		VALUES (#{platName}, #{title}, #{content}, #{source}, #{date}, #{createBy}, #{createDate}, #{updateBy}, #{updateDate});
+	</insert>
+
+	<delete id="delByPlatName" parameterType="java.lang.String">
+		DELETE FROM yuqing_warning WHERE `plat_name`=#{platName}
+	</delete>
+
+
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.YuQingMapper">
+
+
+    <select id="selectByPlatName"  resultType="com.bbd.wtyh.domain.wangDaiAPI.YuQingDO" >
+			select plat_name,score from yuqing
+			<if test="plat_name != null">
+				where plat_name=#{plat_name}
+			</if>
+	</select>
+
+	<insert id="save" parameterType="com.bbd.wtyh.domain.wangDaiAPI.YuQingDO">
+		INSERT INTO `yuqing` (`plat_name`, `score`)
+		VALUES (#{plat_name}, #{score});
+	</insert>
+
+
+</mapper>
