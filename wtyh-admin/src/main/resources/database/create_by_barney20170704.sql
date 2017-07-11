@@ -10,6 +10,7 @@ create table natural_person
    duty                 varchar(32) not null comment '职务',
    duty_code            int not null comment '职务代码（1：法人股东；2：董监高）',
    company_name         varchar(100) not null comment '企业名称',
+   unified_no           varchar(100) not null comment '平台统一编号',
    status               int not null default 0 comment '有效标识（0：无效；1有效）',
    create_by            varchar(32) comment '创建人',
    create_date          timestamp comment '创建时间',

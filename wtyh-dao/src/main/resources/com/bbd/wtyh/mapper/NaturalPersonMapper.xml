@@ -11,11 +11,11 @@
     </insert>
 
     <update id="updateNaturalPersonInvalid">
-        UPDATE natural_person SET `status`=0, update_date=SYSDATE() where `status`=1
+        UPDATE natural_person SET `status`=0, update_date=SYSDATE() WHERE `status`=1
     </update>
 
     <delete id="deleteNaturalPersonInvalid">
-        DELETE FROM natural_person where `status`=0
+        DELETE FROM natural_person WHERE `status`=0
     </delete>
 
     <select id="queryNaturalPersonCount" parameterType="com.bbd.wtyh.domain.query.NaturalPersonQuery">
@@ -30,6 +30,9 @@
             </if>
             <if test="dutyCode != 0">
                 and duty_code=#{dutyCode}
+            </if>
+            <if test="unifiedNo != null and unifiedNo != ''">
+                and unified_no=#{unifiedNo}
             </if>
         </where>
     </select>
