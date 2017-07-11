@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.IndustryShanghaiMapper">
+
+
+    <insert id="save" parameterType="com.bbd.wtyh.domain.IndustryShanghaiDO">
+        INSERT INTO `industry_shanghai` (`new_plat_num`, `interest_rate`, `total_plat_num`, `borrowed_num`, `invest_num`, `amount`, `date`, `create_by`, `create_date`, `update_by`, `update_date`)
+        VALUES (#{newPlatNum}, #{interestRate}, #{totalPlatNum}, #{borrowedNum}, #{investNum}, #{amount}, #{date}, #{createBy}, #{createDate}, #{updateBy}, #{updateDate});
+    </insert>
+
+    <delete id="deleteByDate" parameterType="java.lang.String">
+        DELETE FROM industry_shanghai WHERE `date`=#{date}
+    </delete>
+
+</mapper>
