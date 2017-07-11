@@ -22,6 +22,16 @@ public class NaturalPersonDO extends BaseDO {
     private String companyName;
     @Column(name = "status")
     private int status;
+    @Column(name = "unified_no")
+    private String unifiedNo;
+
+    public String getUnifiedNo() {
+        return unifiedNo;
+    }
+
+    public void setUnifiedNo(String unifiedNo) {
+        this.unifiedNo = unifiedNo;
+    }
 
     public int getStatus() {
         return status;

@@ -10,7 +10,16 @@ public class NaturalPersonQuery implements Serializable {
     private int dutyCode;
     private String personName;
     private String companyName;
+    private String unifiedNo;
     private int status;
+
+    public String getUnifiedNo() {
+        return unifiedNo;
+    }
+
+    public void setUnifiedNo(String unifiedNo) {
+        this.unifiedNo = unifiedNo;
+    }
 
     public int getDutyCode() {
         return dutyCode;

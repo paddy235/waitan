@@ -10,7 +10,8 @@ public class QyxxBasicDO {
     private String address;//'地址'
     private Date approval_date;//'核准日期'
     private Date bbd_dotime;//日期
-    private String bbd_history_name;//'历名名称'
+    private String[] bbd_history_name;//历名名称
+    private String bbd_history_names;
     private String bbd_qyxx_id;//'企业唯一ID'
     private String bbd_type;//表类型
     private Integer bbd_uptime;//时间戳
@@ -89,11 +90,11 @@ public class QyxxBasicDO {
         this.bbd_dotime = bbd_dotime;
     }
 
-    public String getBbd_history_name() {
+    public String[] getBbd_history_name() {
         return bbd_history_name;
     }
 
-    public void setBbd_history_name(String bbd_history_name) {
+    public void setBbd_history_name(String[] bbd_history_name) {
         this.bbd_history_name = bbd_history_name;
     }
 
@@ -431,5 +432,13 @@ public class QyxxBasicDO {
 
     public void setCreate_time(Date create_time) {
         this.create_time = create_time;
+    }
+
+    public String getBbd_history_names() {
+        return bbd_history_names;
+    }
+
+    public void setBbd_history_names(String bbd_history_names) {
+        this.bbd_history_names = bbd_history_names;
     }
 }
