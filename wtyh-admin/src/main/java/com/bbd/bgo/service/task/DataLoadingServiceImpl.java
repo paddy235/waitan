@@ -1,13 +1,16 @@
 package com.bbd.bgo.service.task;
 
 import com.bbd.wtyh.core.base.BaseServiceImpl;
+import com.bbd.wtyh.domain.DataLoadingFailInfoDO;
 import com.bbd.wtyh.domain.TaskSuccessFailInfoDO;
 import com.bbd.wtyh.domain.dataLoading.*;
+import com.bbd.wtyh.mapper.DataLoadingFailInfoMapper;
 import com.bbd.wtyh.mapper.DataLoadingMapper;
 import com.bbd.wtyh.mapper.TaskSuccessFailInfoMapper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import net.sf.json.JSONObject;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +39,13 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
     private DataLoadingMapper dataLoadingMapper;
 	@Autowired
 	private TaskSuccessFailInfoMapper taskSuccessFailInfoMapper;
+	@Autowired
+	private DataLoadingFailInfoMapper dataLoadingFailInfoMapper;
 
 
 	@Override
 	public void dataLoading() {
+		String dataVersion = DateFormatUtils.format(new Date(), "yyyyMMdd");
 		//taskSuccessFailInfoMapper.getTaskSuccessFailInfo()
 		List<String> list = txt2String(new File(FILE_PATH));
 		Gson gson = new Gson();
@@ -71,32 +77,44 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 		}
 		Map<String,Integer> successMap = insertData(disList,ktggList,yuQingList,basicList,baxxList,gdxxList,
 				zhuanliList,rmfyggList,zgcpwswList,zhixingList);
-		int successNum = 0;
-		for (Integer value : successMap.values()) {
-			successNum+=value;
+		List<String> failTables=new ArrayList<String>();
+		for (String key : successMap.keySet()) {
+			if(successMap.get(key)==0){
+				failTables.add(key);
+			}
 		}
-		int failNum = 10-successNum;
+		int successNum = 10-failTables.size();
 		TaskSuccessFailInfoDO taskSuccessFailInfoDO = new TaskSuccessFailInfoDO();
 		taskSuccessFailInfoDO.setTaskName(TASK_NAME);
 		taskSuccessFailInfoDO.setTaskGroup(TASK_GROUP);
+		taskSuccessFailInfoDO.setDataVersion(dataVersion);
 		taskSuccessFailInfoDO.setSuccessCount(successNum);
-		taskSuccessFailInfoDO.setFailCount(failNum);
+		taskSuccessFailInfoDO.setFailCount(failTables.size());
 		taskSuccessFailInfoDO.setCreateBy("system");
 		taskSuccessFailInfoDO.setCreateDate(new Date());
 		int id = taskSuccessFailInfoMapper.addTaskSuccessFailInfo(taskSuccessFailInfoDO);
+		for(String table:failTables){
+			DataLoadingFailInfoDO fail = new DataLoadingFailInfoDO();
+			fail.setTaskId(id);
+			fail.setTableName(table);
+			fail.setDataVersion(dataVersion);
+			fail.setCreateBy("system");
+			fail.setCreateDate(new Date());
+			dataLoadingFailInfoMapper.addTaskFailInfo(fail);
+		}
 	}
 
 	public Map<String,Integer> insertData(List<DishonestyDO> disList,List<KtggDO> ktggList,
 						   List<QyxgYuqingDO> yuQingList,List<QyxxBasicDO> basicList,List<QyxxBaxxDO> baxxList, List<QyxxGdxxDO> gdxxList,
 						   List<QyxxZhuanliDO> zhuanliList,List<RmfyggDO> rmfyggList, List<ZgcpwswDO> zgcpwswList,List<ZhixingDO> zhixingList){
 		Map<String,Integer> map=new HashMap<String,Integer>();
-		map.put("dis",1);
+		map.put("dishonesty",1);
 		map.put("ktgg",1);
-		map.put("yuqing",1);
-		map.put("basic",1);
-		map.put("baxx",1);
-		map.put("gdxx",1);
-		map.put("zhunali",1);
+		map.put("qyxg_yuqing",1);
+		map.put("qyxx_basic",1);
+		map.put("qyxx_baxx",1);
+		map.put("qyxx_gdxx",1);
+		map.put("qyxx_zhuanli",1);
 		map.put("zgcpwsw",1);
 		map.put("zhixing",1);
 		map.put("rmfygg",1);
@@ -104,7 +122,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 			try {
 				dataLoadingMapper.saveDishonestyDO(disList);
 			} catch (Exception e) {
-				map.put("dis",0);
+				map.put("dishonesty",0);
 				e.printStackTrace();
 			}
 		}
@@ -120,7 +138,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 			try {
 				dataLoadingMapper.saveQyxgYuqingDO(yuQingList);
 			} catch (Exception e) {
-				map.put("yuqing",0);
+				map.put("qyxg_yuqing",0);
 				e.printStackTrace();
 			}
 		}
@@ -128,7 +146,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 			try {
 				dataLoadingMapper.saveQyxxBasicDO(basicList);
 			} catch (Exception e) {
-				map.put("basic",0);
+				map.put("qyxx_basic",0);
 				e.printStackTrace();
 			}
 		}
@@ -137,7 +155,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 			try {
 				dataLoadingMapper.saveQyxxBaxxDO(baxxList);
 			} catch (Exception e) {
-				map.put("baxx",0);
+				map.put("qyxx_baxx",0);
 				e.printStackTrace();
 			}
 		}
@@ -146,7 +164,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 			try {
 				dataLoadingMapper.saveQyxxGdxxDO(gdxxList);
 			} catch (Exception e) {
-				map.put("gdxx",0);
+				map.put("qyxx_gdxx",0);
 				e.printStackTrace();
 			}
 		}
@@ -155,7 +173,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 			try {
 				dataLoadingMapper.saveQyxxZhuanliDO(zhuanliList);
 			} catch (Exception e) {
-				map.put("zhunali",0);
+				map.put("qyxx_zhuanli",0);
 				e.printStackTrace();
 			}
 		}
