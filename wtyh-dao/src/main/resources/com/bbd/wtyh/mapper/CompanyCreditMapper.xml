@@ -23,7 +23,7 @@
 
 	<select id="countCreditRawInfo" parameterType="Integer" resultType="int">
 		select
-		COUNT(*) AS total
+		COUNT(distinct company_id) AS total
 		from company_credit_raw_info
 		where
 		task_id = #{taskId}
