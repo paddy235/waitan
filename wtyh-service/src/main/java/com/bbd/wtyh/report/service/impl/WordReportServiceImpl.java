@@ -153,7 +153,7 @@ public class WordReportServiceImpl implements WordReportService {
                                     staticRiskTable.put("静态风险指数", vo.getStcRiskIndex());
                                     staticRiskTable.put("实际控制人风险", vo.getRealConRisk());
                                     staticRiskTable.put("公司扩张风险", vo.getComExpRisk());
-                                    staticRiskTable.put("关联方中心集聚化风险", vo.getRelInRisk());
+                                    staticRiskTable.put("关联方中心积聚化风险", vo.getRelInRisk());
                                     staticRiskTable.put("非法融资衍生风险", vo.getIllFinRisk());
                                     staticRiskTable.put("短期逐利风险", vo.getShortRisk());
                                     staticRiskTable.put("非法融资违规风险", vo.getIllMoneyFinRisk());
@@ -162,15 +162,27 @@ public class WordReportServiceImpl implements WordReportService {
                                     if (data != null && data.size() > 0) {
                                         String tmpStr;
                                         try {
-                                            tmpStr = BigDecimal.valueOf((Float) data.get("capitalRisk"))
-                                                    .setScale(1, BigDecimal.ROUND_HALF_UP).toString();
+                                            /*tmpStr = BigDecimal.valueOf((Float) data.get("capitalRisk"))
+                                                    .setScale(2, BigDecimal.ROUND_HALF_UP).toString();*/
+                                            BigDecimal bd =BigDecimal.valueOf((Float) data.get("capitalRisk"))
+                                                    .setScale(2, BigDecimal.ROUND_HALF_UP);
+                                            if( 0 == bd.compareTo(BigDecimal.ZERO) ) {
+                                                tmpStr = "--";
+                                            } else {
+                                                tmpStr = bd.toString();
+                                            }
                                         } catch (NumberFormatException e) {
                                             tmpStr = "--";
                                         }
                                         staticRiskTable.put("资本背景风险", tmpStr);
                                         try {
-                                            tmpStr = ((BigDecimal) data.get("creditInfoRisk"))
-                                                    .setScale(1, BigDecimal.ROUND_HALF_UP).toString();
+                                            BigDecimal bd =((BigDecimal) data.get("creditInfoRisk"))
+                                                    .setScale(2, BigDecimal.ROUND_HALF_UP);
+                                            if( 0 == bd.compareTo(BigDecimal.ZERO) ) {
+                                                tmpStr = "--";
+                                            } else {
+                                                tmpStr = bd.toString();
+                                            }
                                         } catch (NumberFormatException e) {
                                             tmpStr = "--";
                                         }
@@ -879,12 +891,12 @@ public class WordReportServiceImpl implements WordReportService {
             } );
 
             jes.waitJoin();//等待前面所有数据处理完成
-            if(wrbArr[0].getErrRecord().length() >0) { //检查是否有错，及打印出错信息
-                logger.warn("Word_Builder_Err >> " + wrbArr[0].getErrRecord().toString());
-            }
             //导出
             Map<String, Object> reportRst = wrbArr[0].exportReportToBytes();
             //wrbArr[0].delTempFile();
+            if(wrbArr[0].getErrRecord().length() >0) { //检查是否有错，及打印出错信息
+                logger.warn("Word_Builder_Err >> " + wrbArr[0].getErrRecord().toString());
+            }
             return reportRst;
         } catch (Exception e) {
             return convertErrInfo("Exception: " +e.toString());
