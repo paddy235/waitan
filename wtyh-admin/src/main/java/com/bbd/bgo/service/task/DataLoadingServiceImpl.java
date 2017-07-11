@@ -54,15 +54,20 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 		List<ZgcpwswDO> zgcpwswList=new ArrayList<ZgcpwswDO>();
 		List<ZhixingDO> zhixingList=new ArrayList<ZhixingDO>();
 		for(String s:list){
-			JSONObject jsonObject = JSONObject.fromObject(s);
-			Object data = jsonObject.get("data");
-			String tn = String.valueOf(jsonObject.get("tn"));
-			String bbd_qyxx_id = String.valueOf(jsonObject.get("bbd_qyxx_id"));
-			JSONObject jsonData = JSONObject.fromObject(String.valueOf(data));
-			Object dataName = jsonData.get(tn);
-			String dataStr = String.valueOf(dataName);
-			addDataToList(gson,tn,dataStr,bbd_qyxx_id,disList,ktggList,yuQingList,basicList,baxxList,gdxxList,
-					zhuanliList,rmfyggList,zgcpwswList,zhixingList);
+			//解析json错误
+			try {
+				JSONObject jsonObject = JSONObject.fromObject(s);
+				Object data = jsonObject.get("data");
+				String tn = String.valueOf(jsonObject.get("tn"));
+				String bbd_qyxx_id = String.valueOf(jsonObject.get("bbd_qyxx_id"));
+				JSONObject jsonData = JSONObject.fromObject(String.valueOf(data));
+				Object dataName = jsonData.get(tn);
+				String dataStr = String.valueOf(dataName);
+				addDataToList(gson,tn,dataStr,bbd_qyxx_id,disList,ktggList,yuQingList,basicList,baxxList,gdxxList,
+                        zhuanliList,rmfyggList,zgcpwswList,zhixingList);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		Map<String,Integer> successMap = insertData(disList,ktggList,yuQingList,basicList,baxxList,gdxxList,
 				zhuanliList,rmfyggList,zgcpwswList,zhixingList);
