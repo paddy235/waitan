@@ -943,7 +943,8 @@ public class WordReportBuilder {
             removeSignedSegmentFromMainParagraphList("非其它报告");
         } else {
             if( ReportType.OFFLINE_FINANCING == reportType ) { //文档属于线下理财
-                removeSignedSegmentFromMainParagraphList("仅网络借贷");
+                removeSignedSegmentFromMainParagraphList("仅网络借贷H");
+                removeSignedSegmentFromMainParagraphList("仅网络借贷B");
             } else if (ReportType.NETWORK_LENDING == reportType) { //文档属于网络借贷
                 removeSignedSegmentFromMainParagraphList("仅线下理财");
             }
