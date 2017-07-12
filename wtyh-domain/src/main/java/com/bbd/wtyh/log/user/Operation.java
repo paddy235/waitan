@@ -59,7 +59,8 @@ public class Operation {
 
 		companyAddClose("企业增销", 32, false, true),
 		companyRiskChange("风险变化企业", 33, false, true),
-		naturalPerson("自然人检索", 34, false, true)
+		naturalPerson("自然人检索", 34, false, true),
+		netLendingPlatform("网贷平台", 35, false, true)
 		; //
 
 

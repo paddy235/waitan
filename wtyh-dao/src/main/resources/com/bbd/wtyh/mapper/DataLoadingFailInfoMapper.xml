@@ -3,7 +3,7 @@
 <mapper namespace="com.bbd.wtyh.mapper.DataLoadingFailInfoMapper">
 
 
-    <select id="getDataLoadingFailInfo" parameterType="java.util.HashMap"
+    <select id="getDataLoadingFailInfoByTaskId" parameterType="java.util.HashMap"
             resultType="com.bbd.wtyh.domain.DataLoadingFailInfoDO">
         SELECT
         `id` ,

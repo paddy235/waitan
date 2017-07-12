@@ -4,6 +4,8 @@ import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.DataLoadingFailInfoDO;
 import com.bbd.wtyh.domain.TaskSuccessFailInfoDO;
 import com.bbd.wtyh.domain.dataLoading.*;
+import com.bbd.wtyh.log.user.Operation;
+import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.mapper.DataLoadingFailInfoMapper;
 import com.bbd.wtyh.mapper.DataLoadingMapper;
 import com.bbd.wtyh.mapper.TaskSuccessFailInfoMapper;
@@ -31,9 +33,20 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 
 	private static final String FILE_PATH = "C:\\\\Users\\\\ibm\\\\Desktop\\\\changjiang_20170704_test.test";
 
-	private static String TASK_NAME = "shangHaiCreditJob";
+	private static String TASK_NAME = "holographicNewsDataLoading";
 
-	private static String TASK_GROUP = "data_loading";
+	private static String TASK_GROUP = "bbd_work";
+
+	private static final String DISHONESTY = "dishonesty";
+	private static final String KTGG = "ktgg";
+	private static final String QYXG_YUQING = "qyxg_yuqing";
+	private static final String QYXX__BASIC = "qyxx_basic";
+	private static final String QYXX_BAXX = "qyxx_baxx";
+	private static final String QYXX_GDXX = "qyxx_gdxx";
+	private static final String QYXX_ZHUANLI = "qyxx_zhuanli";
+	private static final String RMFYGG = "rmfygg";
+	private static final String ZGCPWSW = "zgcpwsw";
+	private static final String ZHIXING = "zhixing";
 
     @Autowired
     private DataLoadingMapper dataLoadingMapper;
@@ -45,10 +58,27 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 
 	@Override
 	public void dataLoading() {
+		TaskSuccessFailInfoDO task = taskSuccessFailInfoMapper.getTaskRecentInfo(TASK_NAME,TASK_GROUP);
+		//首次跑全量数据
+		if(task==null){
+			operateUpdate(null);
+		}
+		//已跑过，且上次出错,只跑错误部分数据
+		if(null!=task&&task.getFailCount()>0){
+			List<DataLoadingFailInfoDO> failList = dataLoadingFailInfoMapper.getDataLoadingFailInfoByTaskId(task.getId());
+			List<String> failTableList=new ArrayList<String>();
+			for(DataLoadingFailInfoDO fail:failList){
+				failTableList.add(fail.getTableName());
+			}
+			operateUpdate(failTableList);
+		}
+	}
+
+	public void operateUpdate(List<String> failTableList){
 		String dataVersion = DateFormatUtils.format(new Date(), "yyyyMMdd");
-		//taskSuccessFailInfoMapper.getTaskSuccessFailInfo()
-		List<String> list = txt2String(new File(FILE_PATH));
-		Gson gson = new Gson();
+		List<File> fileList=new ArrayList<File>();
+		fileList.add(new File(FILE_PATH));
+		List<String> list = txt2String(fileList);
 		List<DishonestyDO> disList=new ArrayList<DishonestyDO>();
 		List<KtggDO> ktggList=new ArrayList<KtggDO>();
 		List<QyxgYuqingDO> yuQingList=new ArrayList<QyxgYuqingDO>();
@@ -59,18 +89,19 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 		List<RmfyggDO> rmfyggList=new ArrayList<RmfyggDO>();
 		List<ZgcpwswDO> zgcpwswList=new ArrayList<ZgcpwswDO>();
 		List<ZhixingDO> zhixingList=new ArrayList<ZhixingDO>();
+		Gson gson = new Gson();
 		for(String s:list){
 			//解析json错误
 			try {
 				JSONObject jsonObject = JSONObject.fromObject(s);
 				Object data = jsonObject.get("data");
 				String tn = String.valueOf(jsonObject.get("tn"));
-				String bbd_qyxx_id = String.valueOf(jsonObject.get("bbd_qyxx_id"));
+				//String bbd_qyxx_id = String.valueOf(jsonObject.get("bbd_qyxx_id"));
 				JSONObject jsonData = JSONObject.fromObject(String.valueOf(data));
 				Object dataName = jsonData.get(tn);
 				String dataStr = String.valueOf(dataName);
-				addDataToList(gson,tn,dataStr,bbd_qyxx_id,disList,ktggList,yuQingList,basicList,baxxList,gdxxList,
-                        zhuanliList,rmfyggList,zgcpwswList,zhixingList);
+				addDataToList(failTableList,gson,tn,dataStr,disList,ktggList,yuQingList,basicList,baxxList,gdxxList,
+						zhuanliList,rmfyggList,zgcpwswList,zhixingList);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -92,6 +123,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 		taskSuccessFailInfoDO.setFailCount(failTables.size());
 		taskSuccessFailInfoDO.setCreateBy("system");
 		taskSuccessFailInfoDO.setCreateDate(new Date());
+		logger.info("add data loading task to taskSuccessFailInfo table");
 		int id = taskSuccessFailInfoMapper.addTaskSuccessFailInfo(taskSuccessFailInfoDO);
 		for(String table:failTables){
 			DataLoadingFailInfoDO fail = new DataLoadingFailInfoDO();
@@ -108,204 +140,202 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 						   List<QyxgYuqingDO> yuQingList,List<QyxxBasicDO> basicList,List<QyxxBaxxDO> baxxList, List<QyxxGdxxDO> gdxxList,
 						   List<QyxxZhuanliDO> zhuanliList,List<RmfyggDO> rmfyggList, List<ZgcpwswDO> zgcpwswList,List<ZhixingDO> zhixingList){
 		Map<String,Integer> map=new HashMap<String,Integer>();
-		map.put("dishonesty",1);
-		map.put("ktgg",1);
-		map.put("qyxg_yuqing",1);
-		map.put("qyxx_basic",1);
-		map.put("qyxx_baxx",1);
-		map.put("qyxx_gdxx",1);
-		map.put("qyxx_zhuanli",1);
-		map.put("zgcpwsw",1);
-		map.put("zhixing",1);
-		map.put("rmfygg",1);
+		map.put(DISHONESTY,1);
 		if(disList.size()>0){
 			try {
-				dataLoadingMapper.saveDishonestyDO(disList);
+				UserLogRecord.record("批量新增失信被执行人", Operation.Type.add, Operation.Page.hologram,
+						Operation.System.back);
+				int disNum = dataLoadingMapper.saveDishonestyDO(disList);
+				logger.info("end batch save Dishonesty , count:"+disNum);
 			} catch (Exception e) {
-				map.put("dishonesty",0);
-				e.printStackTrace();
+				logger.info("end batch save Dishonesty because of error,e:"+e);
+				map.put(DISHONESTY,0);
 			}
 		}
+		map.put(KTGG,1);
 		if(ktggList.size()>0){
 			try {
-				dataLoadingMapper.saveKtggDO(ktggList);
+				UserLogRecord.record("批量新增开庭公告", Operation.Type.add, Operation.Page.hologram,
+						Operation.System.back);
+				int ktggNum = dataLoadingMapper.saveKtggDO(ktggList);
+				logger.info("end batch save ktgg , count:"+ ktggNum);
 			} catch (Exception e) {
-				map.put("ktgg",0);
-				e.printStackTrace();
+				map.put(KTGG,0);
+				logger.info("end batch save ktgg because of error,e:"+e);
 			}
 		}
+		map.put(QYXG_YUQING,1);
 		if(yuQingList.size()>0){
 			try {
-				dataLoadingMapper.saveQyxgYuqingDO(yuQingList);
+				UserLogRecord.record("批量新增舆情", Operation.Type.add, Operation.Page.hologram,
+						Operation.System.back);
+				int yuqingNum = dataLoadingMapper.saveQyxgYuqingDO(yuQingList);
+				logger.info("end batch save Yuqing , count:"+ yuqingNum);
 			} catch (Exception e) {
-				map.put("qyxg_yuqing",0);
-				e.printStackTrace();
+				map.put(QYXG_YUQING,0);
+				logger.info("end batch save Yuqing because of error,e:"+e);
 			}
 		}
+		map.put(QYXX__BASIC,1);
 		if(basicList.size()>0){
 			try {
-				dataLoadingMapper.saveQyxxBasicDO(basicList);
+				UserLogRecord.record("批量新增企业基础信息", Operation.Type.add, Operation.Page.hologram,
+						Operation.System.back);
+				int basicNum = dataLoadingMapper.saveQyxxBasicDO(basicList);
+				logger.info("end batch save basic , count:"+ basicNum);
 			} catch (Exception e) {
-				map.put("qyxx_basic",0);
-				e.printStackTrace();
+				map.put(QYXX__BASIC,0);
+				logger.info("end batch save basic because of error,e:"+e);
 			}
 		}
-
+		map.put(QYXX_BAXX,1);
 		if(baxxList.size()>0){
 			try {
-				dataLoadingMapper.saveQyxxBaxxDO(baxxList);
+				UserLogRecord.record("批量新增企业高管信息", Operation.Type.add, Operation.Page.hologram,
+						Operation.System.back);
+				int baxxNum = dataLoadingMapper.saveQyxxBaxxDO(baxxList);
+				logger.info("end batch save baxx , count:"+ baxxNum);
 			} catch (Exception e) {
-				map.put("qyxx_baxx",0);
-				e.printStackTrace();
+				map.put(QYXX_BAXX,0);
+				logger.info("end batch save baxx because of error,e:"+e);
 			}
 		}
-
+		map.put(QYXX_GDXX,1);
 		if(gdxxList.size()>0){
 			try {
-				dataLoadingMapper.saveQyxxGdxxDO(gdxxList);
+				UserLogRecord.record("批量新增企业股东信息", Operation.Type.add, Operation.Page.hologram,
+						Operation.System.back);
+				int gdxxNum = dataLoadingMapper.saveQyxxGdxxDO(gdxxList);
+				logger.info("end batch save gdxx , count:"+ gdxxNum);
 			} catch (Exception e) {
-				map.put("qyxx_gdxx",0);
-				e.printStackTrace();
+				map.put(QYXX_GDXX,0);
+				logger.info("end batch save gdxx because of error,e:"+e);
 			}
 		}
-
+		map.put(QYXX_ZHUANLI,1);
 		if(zhuanliList.size()>0){
 			try {
-				dataLoadingMapper.saveQyxxZhuanliDO(zhuanliList);
+				UserLogRecord.record("批量新增企业专利信息", Operation.Type.add, Operation.Page.hologram,
+						Operation.System.back);
+				int zhuanliNum = dataLoadingMapper.saveQyxxZhuanliDO(zhuanliList);
+				logger.info("end batch save zhuanli , count:"+ zhuanliNum);
 			} catch (Exception e) {
-				map.put("qyxx_zhuanli",0);
-				e.printStackTrace();
+				map.put(QYXX_ZHUANLI,0);
+				logger.info("end batch save zhuanli because of error,e:"+e);
 			}
 		}
+		map.put(RMFYGG,1);
 		if(rmfyggList.size()>0) {
 			try {
-				dataLoadingMapper.saveRmfyggDO(rmfyggList);
+				UserLogRecord.record("批量新增人民法院公告", Operation.Type.add, Operation.Page.hologram,
+						Operation.System.back);
+				int rmfyggNum = dataLoadingMapper.saveRmfyggDO(rmfyggList);
+				logger.info("end batch save rmfygg , count:"+ rmfyggNum);
 			} catch (Exception e) {
-				map.put("rmfygg",0);
-				e.printStackTrace();
+				map.put(RMFYGG,0);
+				logger.info("end batch save rmfygg because of error,e:"+e);
 			}
 		}
+		map.put(ZGCPWSW,1);
 		if(zgcpwswList.size()>0){
 			try {
-				dataLoadingMapper.saveZgcpwswDO(zgcpwswList);
+				UserLogRecord.record("批量新增中国裁判文书", Operation.Type.add, Operation.Page.hologram,
+						Operation.System.back);
+				int zgcpwswNum = dataLoadingMapper.saveZgcpwswDO(zgcpwswList);
+				logger.info("end batch save zgcpwsw , count:"+ zgcpwswNum);
 			} catch (Exception e) {
-				map.put("zgcpwsw",0);
-				e.printStackTrace();
+				map.put(ZGCPWSW,0);
+				logger.info("end batch save zgcpwsw because of error,e:"+e);
 			}
 		}
-
+		map.put(ZHIXING,1);
 		if(zhixingList.size()>0){
 			try {
-				dataLoadingMapper.saveZhixingDO(zhixingList);
+				UserLogRecord.record("批量新增执行", Operation.Type.add, Operation.Page.hologram,
+						Operation.System.back);
+				int zhixingNum = dataLoadingMapper.saveZhixingDO(zhixingList);
+				logger.info("end batch save zhixing , count:"+ zhixingNum);
 			} catch (Exception e) {
-				map.put("zhixing",10);
-				e.printStackTrace();
+				map.put(ZHIXING,10);
+				logger.info("end batch save zhixing because of error,e:"+e);
 			}
 		}
 		return map;
 	}
 
-	public void addDataToList(Gson gson,String tn,String dataStr,String bbd_qyxx_id,List<DishonestyDO> disList,List<KtggDO> ktggList,
+	public void addDataToList(List<String> failTableList,Gson gson,String tn,String dataStr,List<DishonestyDO> disList,List<KtggDO> ktggList,
 							  List<QyxgYuqingDO> yuQingList,List<QyxxBasicDO> basicList,List<QyxxBaxxDO> baxxList, List<QyxxGdxxDO> gdxxList,
 							  List<QyxxZhuanliDO> zhuanliList,List<RmfyggDO> rmfyggList, List<ZgcpwswDO> zgcpwswList,List<ZhixingDO> zhixingList){
+
+		if(null!=failTableList&&!failTableList.contains(tn)){
+			return;
+		}
 		switch (tn){
-			case "dishonesty" :
+			case DISHONESTY :
 				List<DishonestyDO> dataList1 = gson.fromJson(dataStr, new TypeToken<List<DishonestyDO>>() {}.getType());
-				for(DishonestyDO data:dataList1){
-					data.setBbd_qyxx_id(bbd_qyxx_id);
-				}
 				disList.addAll(dataList1);
 				break;
-			case "ktgg" :
+			case KTGG :
 				List<KtggDO> dataList2 = gson.fromJson(dataStr, new TypeToken<List<KtggDO>>() {}.getType());
-				for(KtggDO data:dataList2){
-					data.setBbd_qyxx_id(bbd_qyxx_id);
-				}
 				ktggList.addAll(dataList2);
 				break;
-			case "qyxg_yuqing" :
+			case QYXG_YUQING:
 				List<QyxgYuqingDO> dataList3 = gson.fromJson(dataStr, new TypeToken<List<QyxgYuqingDO>>() {}.getType());
-				for(QyxgYuqingDO data:dataList3){
-					data.setBbd_qyxx_id(bbd_qyxx_id);
-				}
 				yuQingList.addAll(dataList3);
 				break;
-			case "qyxx_basic" :
+			case QYXX__BASIC :
 				List<QyxxBasicDO> dataList4 = gson.fromJson(dataStr, new TypeToken<List<QyxxBasicDO>>() {}.getType());
-				for(QyxxBasicDO data:dataList4){
-					data.setBbd_qyxx_id(bbd_qyxx_id);
-					StringBuffer history_name = new StringBuffer();
-					for(String s:data.getBbd_history_name()){
-						history_name.append(s);
-					}
-					data.setBbd_history_names(history_name.toString());
-				}
 				basicList.addAll(dataList4);
 				break;
-			case "qyxx_baxx" :
+			case QYXX_BAXX :
 				List<QyxxBaxxDO> dataList5 = gson.fromJson(dataStr, new TypeToken<List<QyxxBaxxDO>>() {}.getType());
-				for(QyxxBaxxDO data:dataList5){
-					data.setBbd_qyxx_id(bbd_qyxx_id);
-				}
 				baxxList.addAll(dataList5);
 				break;
-			case "qyxx_gdxx" :
+			case QYXX_GDXX:
 				List<QyxxGdxxDO> dataList6 = gson.fromJson(dataStr, new TypeToken<List<QyxxGdxxDO>>() {}.getType());
-				for(QyxxGdxxDO data:dataList6){
-					data.setBbd_qyxx_id(bbd_qyxx_id);
-				}
 				gdxxList.addAll(dataList6);
 				break;
-			case "qyxx_zhuanli" :
+			case QYXX_ZHUANLI :
 				List<QyxxZhuanliDO> dataList7 = gson.fromJson(dataStr, new TypeToken<List<QyxxZhuanliDO>>() {}.getType());
-				for(QyxxZhuanliDO data:dataList7){
-					data.setBbd_qyxx_id(bbd_qyxx_id);
-				}
 				zhuanliList.addAll(dataList7);
 				break;
-			case "rmfygg" :
+			case RMFYGG :
 				List<RmfyggDO> dataList8 = gson.fromJson(dataStr, new TypeToken<List<RmfyggDO>>() {}.getType());
-				for(RmfyggDO data:dataList8){
-					data.setBbd_qyxx_id(bbd_qyxx_id);
-				}
 				rmfyggList.addAll(dataList8);
 				break;
-			case "zgcpwsw" :
+			case ZGCPWSW :
 				List<ZgcpwswDO> dataList9 = gson.fromJson(dataStr, new TypeToken<List<ZgcpwswDO>>() {}.getType());
-				for(ZgcpwswDO data:dataList9){
-					data.setBbd_qyxx_id(bbd_qyxx_id);
-				}
 				zgcpwswList.addAll(dataList9);
 				break;
-			case "zhixing" :
+			case ZHIXING :
 				List<ZhixingDO> dataList10 = gson.fromJson(dataStr, new TypeToken<List<ZhixingDO>>() {}.getType());
-				for(ZhixingDO data:dataList10){
-					data.setBbd_qyxx_id(bbd_qyxx_id);
-				}
 				zhixingList.addAll(dataList10);
 				break;
 		}
 	}
 
-	public List<String> txt2String(File file){
-		if(null == file || !file.exists()){
-			return null;
-		}
+	//文件转化为sring集合
+	public List<String> txt2String(List<File> fileList){
 		List<String> list=new ArrayList<String>();
-		BufferedReader br = null;
-		try{
-			br = new BufferedReader(new FileReader(file));//构造一个BufferedReader类来读取文件
-			String s = null;
-			while((s = br.readLine())!=null){//使用readLine方法，一次读一行
-				list.add(s);
+		for(File file:fileList){
+			if(null == file || !file.exists()){
+				continue;
 			}
-		}catch(Exception e){
-			e.printStackTrace();
-		}finally {
+			BufferedReader br = null;
 			try{
-				br.close();
-			}catch(IOException e){
+				br = new BufferedReader(new FileReader(file));
+				String s = null;
+				while((s = br.readLine())!=null){//使用readLine方法，一次读一行
+					list.add(s);
+				}
+			}catch(Exception e){
 				e.printStackTrace();
+			}finally {
+				try{
+					br.close();
+				}catch(IOException e){
+					e.printStackTrace();
+				}
 			}
 		}
 		return list;
