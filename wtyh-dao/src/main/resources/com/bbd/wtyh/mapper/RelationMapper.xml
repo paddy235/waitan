@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.RelationMapper">
+
+    <insert id="addRelation" parameterType="com.bbd.wtyh.domain.RelationDO">
+        INSERT INTO tbl_relation(target_company, investorts, investee, relationship, investors_no, investee_no, create_by, create_date, update_date) VALUES
+        <foreach collection="list" separator="," item="item">
+            (#{item.targetCompany}, #{item.investorts}, #{item.investee}, #{item.relationship}, #{item.investorsNo}, #{item.investeeNo}, #{item.createBy}, SYSDATE(), SYSDATE())
+        </foreach>
+    </insert>
+
+    <delete id="delRelationByTarget" parameterType="java.lang.String">
+        DELETE FROM tbl_relation WHERE target_company=#{targetCompany}
+    </delete>
+
+</mapper>
