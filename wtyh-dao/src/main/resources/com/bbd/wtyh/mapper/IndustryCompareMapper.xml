@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.IndustryCompareMapper">
+
+<insert id="save" parameterType="com.bbd.wtyh.domain.IndustryCompareDO">
+    INSERT INTO `industry_compare` (`date`, `area`, `amount`, `balance_loans`, `create_by`, `create_date`, `update_by`, `update_date`)
+    VALUES (#{date}, #{area}, #{amount}, #{balanceLoans},  #{createBy}, #{createDate}, #{updateBy}, #{updateDate});
+</insert>
+
+<delete id="deleteByArea" parameterType="java.lang.String">
+    DELETE FROM industry_compare WHERE `area`=#{area}
+</delete>
+
+</mapper>
