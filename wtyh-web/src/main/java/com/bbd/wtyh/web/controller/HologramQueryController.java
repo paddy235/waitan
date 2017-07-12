@@ -313,7 +313,7 @@ public class HologramQueryController {
 	public ResponseBean tabbInvestigationInfo(InvestigationInfoDO investigationInfoDO,
 											  @RequestParam(required = true) String recorder, HttpServletRequest request ) throws Exception {
 		investigationInfo.saveInvestigationInfo( investigationInfoDO, recorder );
-		UserLogRecord.record("排查信息上报【loginUser：" + request.getSession().getAttribute("loginUser") + "】", Operation.Type.INFO_REPORT, Operation.Page.informationReport,
+		UserLogRecord.record("排查信息上报", Operation.Type.INFO_REPORT, Operation.Page.informationReport,
 				Operation.System.front, request);
 		return ResponseBean.successResponse("OK");
 	}
