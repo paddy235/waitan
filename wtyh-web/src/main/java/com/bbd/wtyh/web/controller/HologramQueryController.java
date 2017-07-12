@@ -4,6 +4,7 @@ import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.InvestigationInfoDO;
 import com.bbd.wtyh.domain.bbdAPI.*;
 import com.bbd.wtyh.log.user.Operation;
+import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.service.HologramQueryService;
 import com.bbd.wtyh.service.InvestigationInfoService;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 /**
@@ -308,9 +310,11 @@ public class HologramQueryController {
 	 */
 	@RequestMapping("/tabbInvestigationInfo.do")
 	@ResponseBody
-	public ResponseBean tabbInvestigationInfo( InvestigationInfoDO investigationInfoDO,
-											   @RequestParam(required = true) String recorder ) throws Exception {
+	public ResponseBean tabbInvestigationInfo(InvestigationInfoDO investigationInfoDO,
+											  @RequestParam(required = true) String recorder, HttpServletRequest request ) throws Exception {
 		investigationInfo.saveInvestigationInfo( investigationInfoDO, recorder );
+		UserLogRecord.record("排查信息上报【loginUser：" + request.getSession().getAttribute("loginUser") + "】", Operation.Type.INFO_REPORT, Operation.Page.informationReport,
+				Operation.System.front, request);
 		return ResponseBean.successResponse("OK");
 	}
 	/**
