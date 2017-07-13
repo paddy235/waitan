@@ -1,7 +1,11 @@
 package com.bbd.bgo.service.task;
 
+import com.bbd.bgo.quartz.TaskState;
+import com.bbd.bgo.quartz.TaskUtil;
 import com.bbd.wtyh.service.CoCreditScoreService;
 import com.bbd.wtyh.service.OfflineFinanceService;
+import com.bbd.wtyh.service.P2PImageService;
+import com.bbd.wtyh.service.PToPMonitorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +25,10 @@ public class TimingTaskManager {
 	private OfflineFinanceService offlineFinanceService;
 	@Autowired
 	private SystemDataUpdateService systemDataUpdateService;
+	@Autowired
+	private P2PImageService pImageService;
+	@Autowired
+	private PToPMonitorService pToPMonitorService;
 
 	/**
 	 * 拉取线下理财数据
@@ -61,4 +69,25 @@ public class TimingTaskManager {
 		systemDataUpdateService.updateCompanyTableAreaIdAndAddress();
 	}
 
+	/**
+	 * 更新网络借贷舆情数据
+	 * @throws Exception
+	 */
+	public void updateYuQing()throws Exception{
+		pImageService.updateWangDaiYuQingTask();
+	}
+
+	/**
+	 * 更新网贷之家数据
+	 */
+	public void updatePToPMonitorData() throws Exception {
+		try {
+			pToPMonitorService.industryShanghaiDataLandingTask();
+//			pToPMonitorService.industryCompareDataLandingTask();
+//			pToPMonitorService.platRankDataLandingTask();
+		} catch (Exception e) {
+			e.printStackTrace();
+			TaskUtil.updateTaskState("pToPMonitorJob","job work",TaskState.ERROR);
+		}
+	}
 }

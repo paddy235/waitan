@@ -22,4 +22,10 @@ public class TaskUtil {
 	public static void updateTaskState(String key, String group) throws Exception {
 		updateTaskState(key, group, null);
 	}
+	public static void businessStart(String key, String group, TaskState state ) throws Exception {
+		quartzHandler.businessStart(key,group,state);
+	}
+	public static void businessFinish(String key, String group, TaskState state ) throws Exception {
+		quartzHandler.businessFinish(key,group,state);
+	}
 }

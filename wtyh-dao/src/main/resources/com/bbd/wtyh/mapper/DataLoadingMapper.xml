@@ -49,7 +49,7 @@
 		regcap_currency,regcapcur,regno,regno_or_creditcode,regorg,revoke_date,type,frname_compid,create_time)
 		VALUES
 		<foreach collection="list" item="item" index="index" separator="," >
-			(#{item.id}, #{item.address}, #{item.approval_date}, #{item.bbd_dotime}, #{item.bbd_history_name}, #{item.bbd_qyxx_id}, #{item.bbd_type}, #{item.bbd_uptime}, #{item.cancel_date}, #{item.company_companytype},
+			(#{item.id}, #{item.address}, #{item.approval_date}, #{item.bbd_dotime}, #{item.bbd_history_names}, #{item.bbd_qyxx_id}, #{item.bbd_type}, #{item.bbd_uptime}, #{item.cancel_date}, #{item.company_companytype},
 			#{item.company_county}, #{item.company_currency}, #{item.company_enterprise_status}, #{item.company_industry}, #{item.company_name},#{item.company_province}, #{item.company_regorg}, #{item.company_type},
 			#{item.credit_code}, #{item.enterprise_status}, #{item.esdate}, #{item.form}, #{item.frname}, #{item.frname_id}, #{item.invest_cap}, #{item.investcap_amount}, #{item.investcap_currency}, #{item.ipo_company},
 			#{item.openfrom}, #{item.opento},#{item.operate_scope}, #{item.operating_period},#{item.parent_firm}, #{item.realcap},#{item.realcap_amount}, #{item.realcap_currency},#{item.regcap}, #{item.regcap_amount},
