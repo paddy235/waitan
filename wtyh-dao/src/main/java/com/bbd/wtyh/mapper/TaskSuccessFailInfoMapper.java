@@ -18,4 +18,8 @@ public interface TaskSuccessFailInfoMapper {
 	int addTaskSuccessFailInfo(TaskSuccessFailInfoDO taskSuccessFailInfoDO);
 
 	void updateTaskSuccessFailInfo(TaskSuccessFailInfoDO taskSuccessFailInfoDO);
+
+	TaskSuccessFailInfoDO getTaskRecentInfo(@Param("taskName") String taskName,@Param("taskGroup") String taskGroup);
+
+
 }

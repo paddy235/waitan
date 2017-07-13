@@ -9,6 +9,7 @@ import com.bbd.wtyh.common.comenum.UserRank;
 import com.bbd.wtyh.excel.ExportExcel;
 import com.bbd.wtyh.exception.ExceptionHandler;
 import com.bbd.wtyh.log.user.UserLogRecord;
+import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.map.name.code.CodeNameMap;
 import com.bbd.wtyh.service.UserBehaviorLogService;
 import com.bbd.wtyh.util.DateUtils;
@@ -133,6 +134,10 @@ public class UserBehaviorLogController {
 			try {
 				ee.createSheet("日志", columnName, dataMapLeys, lm);
 				ee.exportExcel();
+
+				UserLogRecord.record("导出日志", Operation.Type.DATA_EXPORT, Operation.Page.userLogList,
+						Operation.System.back, request);
+
 				return ResponseBean.successResponse(ee.getDownloadURL());
 			} catch (Exception e) {
 				return ExceptionHandler.handlerException(e);
