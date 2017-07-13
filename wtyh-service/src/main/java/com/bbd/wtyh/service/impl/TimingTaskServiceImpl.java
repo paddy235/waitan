@@ -2,6 +2,7 @@ package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.TaskInfoDO;
+import com.bbd.wtyh.domain.TaskSuccessFailInfoDO;
 import com.bbd.wtyh.service.TimingTaskService;
 import org.springframework.scheduling.support.CronSequenceGenerator;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,10 @@ public class TimingTaskServiceImpl  extends BaseServiceImpl implements TimingTas
 
         }
         return taskList;
+    }
+
+    @Override
+    public List<TaskSuccessFailInfoDO> getHistoryTaskInfo() {
+        return null;
     }
 }
