@@ -86,4 +86,19 @@ public interface PToPMonitorService {
     List<PlatCompanyDTO> searchPlatListByCompanyName( String companyName );
 
 
+    /**
+     * dataType=industry_shanghai 数据落地
+     */
+    void industryShanghaiDataLandingTask() throws Exception;
+
+    /**
+     * dataType=industry_compare 数据落地
+     */
+    void industryCompareDataLandingTask() throws Exception;
+
+
+    /**
+     * dataType＝plat_rank_data 数据落地
+     */
+    void platRankDataLandingTask() throws Exception;
 }

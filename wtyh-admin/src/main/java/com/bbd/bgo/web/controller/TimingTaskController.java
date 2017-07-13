@@ -24,12 +24,25 @@ public class TimingTaskController {
 	@Autowired
 	private TimingTaskService timingTaskService;
 
-	@RequestMapping("/geTaskInfo")
+	@RequestMapping("/getTaskInfo")
 	@ResponseBody
-	public ResponseBean creditScoreCalculate() {
-		Map data = new HashMap();
+	public ResponseBean getTaskInfo() {
 		List<TaskInfoDO> list = timingTaskService.getTaskInfo();
-		return ResponseBean.successResponse(data);
+		return ResponseBean.successResponse(list);
+	}
+
+	@RequestMapping("/getLatestTaskInfo")
+	@ResponseBody
+	public ResponseBean getLatestTaskInfo() {
+		List<TaskInfoDO> list = timingTaskService.getLatestTaskInfo();
+		return ResponseBean.successResponse(list);
+	}
+
+	@RequestMapping("/getHistoryTask")
+	@ResponseBody
+	public ResponseBean getHistoryTask() {
+		List<TaskInfoDO> list = timingTaskService.getLatestTaskInfo();
+		return ResponseBean.successResponse(list);
 	}
 
 }
