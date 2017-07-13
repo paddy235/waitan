@@ -567,6 +567,8 @@
                 <m.wtyh.web1.ip>http://10.28.100.74:8002</m.wtyh.web1.ip>
                 <m.wtyh.web2.ip>http://10.28.100.75:8002</m.wtyh.web2.ip>
                 <m.export.excel.path>/data/web/excel</m.export.excel.path>
+                <m.share.path>/mfs/file</m.share.path>
+                <m.mapping.path>/app/yed</m.mapping.path>
             </properties>
         </profile>
         <!--测试环境-->
@@ -582,6 +584,8 @@
                 <m.wtyh.web1.ip>http://10.28.200.239:8080</m.wtyh.web1.ip>
                 <m.wtyh.web2.ip>http://10.28.200.239:8081</m.wtyh.web2.ip>
                 <m.export.excel.path>/home/tester/wtyh</m.export.excel.path>
+                <m.share.path>/mfs/file</m.share.path>
+                <m.mapping.path>/app/yed</m.mapping.path>
             </properties>
         </profile>
 
@@ -590,7 +594,7 @@
             <id>product_cd</id>
             <properties>
                 <!-- DB -->
-                <m.jdbc.url>jdbc:mysql://10.10.10.53:3306</m.jdbc.url>
+                <m.jdbc.url>jdbc:mysql://10.28.60.11:53606</m.jdbc.url>
                 <m.jdbc.username>wtyh</m.jdbc.username>
                 <m.jdbc.password>LYjUR6C9tGZxDdO7NC5w</m.jdbc.password>
                 <m.redis.ip>localhost</m.redis.ip>
@@ -599,6 +603,8 @@
                 <m.wtyh.web1.ip>http://shanghaijc.bbdservice.com</m.wtyh.web1.ip>
                 <m.wtyh.web2.ip></m.wtyh.web2.ip>
                 <m.export.excel.path>/mfs/file/wtyh</m.export.excel.path>
+                <m.share.path>/mfs/file</m.share.path>
+                <m.mapping.path>/app/yed</m.mapping.path>
             </properties>
         </profile>
 
@@ -615,6 +621,8 @@
                 <m.wtyh.web1.ip>http://10.10.10.1:9081</m.wtyh.web1.ip>
                 <m.wtyh.web2.ip>http://10.10.10.2:9081</m.wtyh.web2.ip>
                 <m.export.excel.path>/data1/wtyh</m.export.excel.path>
+                <m.share.path>/usr/local/tomcat/shareDir</m.share.path>
+                <m.mapping.path>/wtyh/yed</m.mapping.path>
             </properties>
         </profile>
     </profiles>

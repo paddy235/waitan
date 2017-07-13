@@ -13,7 +13,7 @@ import org.apache.ibatis.annotations.Param;
 
 public interface TaskSuccessFailInfoMapper {
 
-	TaskSuccessFailInfoDO getTaskSuccessFailInfo(@Param("taskName") String taskName,@Param("taskGroup") String taskGroup,@Param("dataVersion") String dataVersion);
+	TaskSuccessFailInfoDO getTaskSuccessFailInfo(@Param("taskId") Integer taskId,@Param("taskName") String taskName,@Param("taskGroup") String taskGroup,@Param("dataVersion") String dataVersion);
 
 	int addTaskSuccessFailInfo(TaskSuccessFailInfoDO taskSuccessFailInfoDO);
 
