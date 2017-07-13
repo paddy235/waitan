@@ -7,7 +7,7 @@ import com.bbd.wtyh.domain.vo.NaturalPersonVO;
 import java.util.List;
 
 /**
- * Created by Barney on 2017/7/4.
+ * Created by Barney on 2017/7/5.
  */
 public interface NaturalPersonMapper {
 
