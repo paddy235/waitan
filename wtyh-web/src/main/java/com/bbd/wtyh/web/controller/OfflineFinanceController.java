@@ -21,6 +21,7 @@ import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.report.util.DrawRelated;
 import com.bbd.wtyh.report.util.DrawRelatedG2;
+import com.bbd.wtyh.service.*;
 import org.apache.commons.collections.map.HashedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,14 +41,6 @@ import com.bbd.wtyh.domain.vo.MonthVO;
 import com.bbd.wtyh.domain.vo.RelationDataVO;
 import com.bbd.wtyh.domain.vo.StaticRiskVO;
 import com.bbd.wtyh.domain.vo.StatisticsVO;
-import com.bbd.wtyh.service.ExchangeCompanyService;
-import com.bbd.wtyh.service.FactoringService;
-import com.bbd.wtyh.service.HologramQueryService;
-import com.bbd.wtyh.service.MortgageService;
-import com.bbd.wtyh.service.OfflineFinanceService;
-import com.bbd.wtyh.service.PToPMonitorService;
-import com.bbd.wtyh.service.PrivateFundService;
-import com.bbd.wtyh.service.RelationDataService;
 import com.bbd.wtyh.util.CalculateUtils;
 import com.bbd.wtyh.web.HistogramBean;
 import com.bbd.wtyh.web.ResponseBean;
@@ -100,6 +93,8 @@ public class OfflineFinanceController {
 
 	@Autowired
 	private HologramQueryService hologramQueryService;
+	@Autowired
+	private RelationService relationService;
 
 	/**
 	 * 关联图谱
@@ -198,6 +193,10 @@ public class OfflineFinanceController {
 			exportExcel.exportExcel();
 			UserLogRecord.record("导出【"+companyName+"】关联方", Operation.Type.DATA_EXPORT, Operation.Page.hologram,
 					Operation.System.front, request);
+
+			// 数据落地
+			relationService.addRelation(lineList, companyName);
+
 			return ResponseBean.successResponse(exportExcel.getDownloadURL());
 		} catch (Exception e) {
 			return ExceptionHandler.handlerException(e);
