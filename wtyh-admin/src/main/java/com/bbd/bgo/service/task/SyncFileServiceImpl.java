@@ -38,7 +38,7 @@ public class SyncFileServiceImpl extends BaseServiceImpl implements SyncFileServ
 
 	private static final Logger logger = LoggerFactory.getLogger(SyncFileServiceImpl.class);
 
-	private static final String PULL_FILE_SAVE_PATH = "/data/wtyh/admin/";
+	private static final String PULL_FILE_SAVE_PATH = "/data1/wtyh/admin/";
 
 	@Autowired
 	private SyncDataService syncDataService;
