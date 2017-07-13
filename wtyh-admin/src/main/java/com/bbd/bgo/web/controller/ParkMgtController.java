@@ -3,7 +3,9 @@ package com.bbd.bgo.web.controller;
 import com.bbd.wtyh.cachetobean.ShanghaiAreaCode;
 import com.bbd.wtyh.domain.ImgDO;
 import com.bbd.wtyh.domain.query.NaturalPersonQuery;
+import com.bbd.wtyh.domain.vo.ParkAndBuildingVO;
 import com.bbd.wtyh.service.ImgService;
+import com.bbd.wtyh.service.shiro.ParkMgtService;
 import com.bbd.wtyh.web.ResponseBean;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +28,29 @@ public class ParkMgtController {
     private static final String PARK_DIR = "/data/img/park/";
     @Autowired
     private ImgService imgService;
+    @Autowired
+    private ParkMgtService parkMgtService;
 
-    //上海所有行政区
+    /**
+     *
+     * @return 上海所有行政区
+     */
     @RequestMapping("/areaList")
     @ResponseBody
     public ResponseBean areaList(){
         List<Map<String, Object>> list = ShanghaiAreaCode.getAndUpdateList(false);
+        return  ResponseBean.successResponse(list);
+    }
+
+    /**
+     *
+     * @param parkName 园区名称
+     * @return 查询园区楼宇列表
+     */
+    @RequestMapping("/queryParkAndBuilding")
+    @ResponseBody
+    public ResponseBean queryParkAndBuilding(String parkName){
+        List<ParkAndBuildingVO> list = parkMgtService.queryParkAndBuilding(parkName);
         return  ResponseBean.successResponse(list);
     }
 

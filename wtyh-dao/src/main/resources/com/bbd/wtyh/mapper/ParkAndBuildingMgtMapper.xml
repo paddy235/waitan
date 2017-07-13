@@ -12,7 +12,7 @@
             park p, building b
         <where>
             p.park_id=b.park_id
-            <if test="parkName != null and parkName != ''">
+            <if test="_parameter != null and _parameter != ''">
                 and p.`name`=#{parkName}
             </if>
         </where>
