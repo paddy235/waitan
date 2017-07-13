@@ -550,6 +550,8 @@
 
                 <!--生成excel存放目录 -->
                 <m.export.excel.path>/data/wtyh</m.export.excel.path>
+                <m.share.path>/mfs/file</m.share.path>
+                <m.mapping.path>/app/yed</m.mapping.path>
             </properties>
         </profile>
         <!--测试环境 模拟上海-->
@@ -565,6 +567,8 @@
                 <m.wtyh.web1.ip>http://10.28.100.74:8002</m.wtyh.web1.ip>
                 <m.wtyh.web2.ip>http://10.28.100.75:8002</m.wtyh.web2.ip>
                 <m.export.excel.path>/data/web/excel</m.export.excel.path>
+                <m.share.path>/mfs/file</m.share.path>
+                <m.mapping.path>/app/yed</m.mapping.path>
             </properties>
         </profile>
         <!--测试环境-->
@@ -580,6 +584,8 @@
                 <m.wtyh.web1.ip>http://10.28.200.239:8080</m.wtyh.web1.ip>
                 <m.wtyh.web2.ip>http://10.28.200.239:8081</m.wtyh.web2.ip>
                 <m.export.excel.path>/home/tester/wtyh</m.export.excel.path>
+                <m.share.path>/mfs/file</m.share.path>
+                <m.mapping.path>/app/yed</m.mapping.path>
             </properties>
         </profile>
 
