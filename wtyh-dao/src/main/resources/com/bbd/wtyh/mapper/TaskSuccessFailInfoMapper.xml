@@ -21,6 +21,9 @@
         task_success_fail_info
         WHERE
         1=1
+        <if test="taskId != null">
+            AND id = #{taskId}
+        </if>
         <if test="taskName != null">
             AND task_name = #{taskName}
         </if>
@@ -38,9 +41,9 @@
             useGeneratedKeys="true"
             keyProperty="id"
             keyColumn="id">
-        INSERT INTO `task_success_fail_info` (`task_name`, `task_group`, `data_version`, `plan_count`, `success_count`, `fail_count`,
+        INSERT INTO `task_success_fail_info` (`task_name`, `task_group`, `data_version`,`begin_date`,`end_date`,`run_mode`, `plan_count`, `success_count`, `fail_count`,
          `create_date`,  `create_by`)
-        VALUES (#{taskName}, #{taskGroup}, #{dataVersion}, #{planCount}, #{successCount}, #{failCount}
+        VALUES (#{taskName}, #{taskGroup}, #{dataVersion}, #{beginDate}, #{endDate}, #{runMode}, #{planCount}, #{successCount}, #{failCount}
         , #{createDate}, #{createBy}
         );
     </insert>
@@ -49,6 +52,7 @@
         update
           task_success_fail_info
         set
+          end_date=#{endDate},
           plan_count=#{planCount},
           success_count=#{successCount},
           fail_count=#{failCount},

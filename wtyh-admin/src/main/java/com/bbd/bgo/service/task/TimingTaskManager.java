@@ -44,7 +44,7 @@ public class TimingTaskManager {
 	 */
 	public void shangHaiCreditTask() {
 
-		coCreditScoreService.creditScoreCalculate();
+		coCreditScoreService.creditScoreCalculate(0);
 	}
 	/**
 	 * 关闭拉取公信中心数据

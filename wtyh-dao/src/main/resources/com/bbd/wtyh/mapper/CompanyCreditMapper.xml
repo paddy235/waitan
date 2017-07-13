@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.CompanyCreditMapper">
+
+
+	<select id="countCreditFailInfo" parameterType="Integer" resultType="int">
+		select
+			COUNT(*) AS total
+		from company_credit_fail_info
+		where
+			task_id = #{taskId}
+
+	</select>
+
+	<select id="countCreditFailHistoryInfo" parameterType="Integer" resultType="int">
+		select
+		COUNT(*) AS total
+		from company_credit_fail_history
+		where
+		task_id = #{taskId}
+
+	</select>
+
+	<select id="countCreditRawInfo" parameterType="Integer" resultType="int">
+		select
+		COUNT(distinct company_id) AS total
+		from company_credit_raw_info
+		where
+		task_id = #{taskId}
+
+	</select>
+
+	<select id="countCreditRawHistoryInfo" parameterType="Integer" resultType="int">
+		select
+		COUNT(*) AS total
+		from company_credit_raw_history
+		where
+		task_id = #{taskId}
+
+	</select>
+
+	<select id="getCompanyCreditFailByTaskId" parameterType="Integer" resultType="com.bbd.wtyh.domain.CompanyDO">
+		SELECT
+        `company_id` AS companyId,
+        `company_name` AS name,
+        `organization_code` AS organizationCode,
+        `credit_code` AS creditCode,
+        `create_by` AS createBy,
+        `create_date` AS createDate
+        FROM
+        company_credit_fail_history
+        WHERE
+        1=1
+        AND task_id= #{taskId}
+
+	</select>
+
+</mapper>
