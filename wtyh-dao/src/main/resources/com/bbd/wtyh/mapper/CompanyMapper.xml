@@ -425,4 +425,12 @@
         LIMIT 1000
     </select>
 
+    <select id="getLineCompanyListMoreThanExecuteDate" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from company
+          where company_type = 4
+            <if test='executeDate !=null'>
+                AND (create_date > #{executeDate} or)
+            </if>
+    </select>
+
 </mapper>

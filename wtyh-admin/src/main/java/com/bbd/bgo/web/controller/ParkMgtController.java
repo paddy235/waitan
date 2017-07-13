@@ -1,5 +1,6 @@
 package com.bbd.bgo.web.controller;
 
+import com.bbd.wtyh.cachetobean.ShanghaiAreaCode;
 import com.bbd.wtyh.domain.ImgDO;
 import com.bbd.wtyh.domain.query.NaturalPersonQuery;
 import com.bbd.wtyh.service.ImgService;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Barney on 2017/7/6.
@@ -23,6 +26,14 @@ public class ParkMgtController {
     private static final String PARK_DIR = "/data/img/park/";
     @Autowired
     private ImgService imgService;
+
+    //上海所有行政区
+    @RequestMapping("/areaList")
+    @ResponseBody
+    public ResponseBean areaList(){
+        List<Map<String, Object>> list = ShanghaiAreaCode.getAndUpdateList(false);
+        return  ResponseBean.successResponse(list);
+    }
 
     @RequestMapping("/test1")
     public @ResponseBody ResponseBean test1(HttpServletRequest request) {

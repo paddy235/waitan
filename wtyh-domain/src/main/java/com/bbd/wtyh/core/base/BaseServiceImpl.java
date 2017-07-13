@@ -79,6 +79,9 @@ public class BaseServiceImpl implements BaseService {
 	@Override
 	public <T> int updateList(List<T> objs, boolean ignoreNull, boolean ignoreEmpty) {
 		int i = 0;
+		if (CollectionUtils.isEmpty(objs)) {
+			return i;
+		}
 		for (T obj : objs) {
 			i += generalMapper.update(obj, ignoreNull, ignoreEmpty);
 		}
