@@ -7,6 +7,7 @@ public class PlatListDO {
     private String plat_name;
     private String company_name;
     private String logo_url;
+    private String area_id;
 
     public PlatListDO() {
     }
@@ -33,5 +34,13 @@ public class PlatListDO {
 
     public void setLogo_url(String logo_url) {
         this.logo_url = logo_url;
+    }
+
+    public String getArea_id() {
+        return area_id;
+    }
+
+    public void setArea_id(String area_id) {
+        this.area_id = area_id;
     }
 }

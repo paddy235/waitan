@@ -66,6 +66,9 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
     @Autowired
     private PlatRankDataMapper platRankDataMapper;
 
+    @Autowired
+    private AreaIndexMapper areaIndexMapper;
+
     private Logger logger = LoggerFactory.getLogger(PToPMonitorServiceImpl.class);
 
     @Override
@@ -376,6 +379,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
 
     @Override
     public void platRankDataLandingTask() throws Exception {
+        logger.info("start update plat_rank_data date task");
         List<PlatRankDataDTO> dtoList = getPlatRankData();
         for (PlatRankDataDTO dto : dtoList) {
             PlatRankDataDO platRankDataDO = new PlatRankDataDO();
@@ -393,7 +397,29 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
             platRankDataMapper.deleteByPlatName(dto.getPlat_name());
             platRankDataMapper.save(platRankDataDO);
         }
-        logger.info("start update plat_rank_data date task");
+        logger.info("end update plat_rank_data date task");
+    }
+
+    @Override
+    public void areaIndexDataLandingTask() throws Exception {
+        logger.info("start update area_index date task");
+        List<AreaIndexDTO> dtoList = getAreaIndex();
+        for(AreaIndexDTO dto:dtoList){
+            AreaIndexDO areaIndexDO = new AreaIndexDO();
+            areaIndexDO.setArea(dto.getArea());
+            areaIndexDO.setRank(dto.getRank());
+            areaIndexDO.setEcosystem(dto.getEcosystem());
+            areaIndexDO.setScale(dto.getScale());
+            areaIndexDO.setPopularity(dto.getPopularity());
+            areaIndexDO.setSafety(dto.getSafety());
+            areaIndexDO.setRecognition(dto.getRecognition());
+            areaIndexDO.setCompetitiveness(dto.getCompetitiveness());
+            areaIndexDO.setCreateBy("sys");
+            areaIndexDO.setCreateDate(new Date());
+            areaIndexMapper.deleteByArea(dto.getArea());
+            areaIndexMapper.save(areaIndexDO);
+        }
+        logger.info("end update area_index date task");
     }
 
     public static void main(String[] agrs) throws Exception {

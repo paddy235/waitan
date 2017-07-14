@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.AreaIndexMapper">
+
+    <insert id="save" parameterType="com.bbd.wtyh.domain.AreaIndexDO">
+        INSERT INTO `area_index` (`area`, `rank`, `ecosystem`, `scale`, `popularity`, `safety`, `recognition`, `competitiveness`, `create_by`, `create_date`, `update_by`, `update_date`)
+        VALUES (#{area}, #{rank}, #{ecosystem}, #{scale},  #{popularity},#{safety},#{recognition},#{competitiveness},#{createBy}, #{createDate}, #{updateBy}, #{updateDate});
+    </insert>
+
+    <delete id="deleteByArea" parameterType="java.lang.String">
+        DELETE FROM area_index WHERE `area`=#{area}
+    </delete>
+
+</mapper>

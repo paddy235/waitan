@@ -1,61 +1,15 @@
 package com.bbd.wtyh.domain.wangDaiAPI;
 
-import java.util.List;
+import com.bbd.wtyh.domain.BaseDO;
 
 /**
  * Created by YanWenyuan on 2016/8/13.
  */
-public class YuQingDO {
-    private String plat_name;
+public class YuQingDO extends BaseDO{
+    private String platName;
     private String score;
-    private List<Warning> warning;
+    private String warning;
 
-    public class Warning {
-        private String title;
-        private String content;
-        private String source;
-        private String date;
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public String getContent() {
-            return content;
-        }
-
-        public void setContent(String content) {
-            this.content = content;
-        }
-
-        public String getSource() {
-            return source;
-        }
-
-        public void setSource(String source) {
-            this.source = source;
-        }
-
-        public String getDate() {
-            return date;
-        }
-
-        public void setDate(String date) {
-            this.date = date;
-        }
-    }
-
-    public String getPlat_name() {
-        return plat_name;
-    }
-
-    public void setPlat_name(String plat_name) {
-        this.plat_name = plat_name;
-    }
 
     public String getScore() {
         return score;
@@ -65,11 +19,28 @@ public class YuQingDO {
         this.score = score;
     }
 
-    public List<Warning> getWarning() {
+    public String getWarning() {
         return warning;
     }
 
-    public void setWarning(List<Warning> warning) {
+    public void setWarning(String warning) {
         this.warning = warning;
+    }
+
+    public String getPlatName() {
+        return platName;
+    }
+
+    public void setPlatName(String platName) {
+        this.platName = platName;
+    }
+
+    @Override
+    public String toString() {
+        return "YuQingDO{" +
+                "platName='" + platName + '\'' +
+                ", score='" + score + '\'' +
+                ", warning='" + warning + '\'' +
+                '}';
     }
 }

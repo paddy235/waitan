@@ -10,17 +10,15 @@ import com.bbd.wtyh.domain.dto.PlatCompanyDTO;
 import com.bbd.wtyh.domain.vo.DynamicRiskVO;
 import com.bbd.wtyh.domain.vo.StaticRiskVO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
-import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
+import com.bbd.wtyh.domain.wangDaiAPI.YuQingDTO;
 import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.report.service.ScreenCaptureService;
 import com.bbd.wtyh.report.service.WordReportService;
 import com.bbd.wtyh.report.util.DocxUtils;
-import com.bbd.wtyh.report.util.DrawRelated;
 import com.bbd.wtyh.report.util.DrawRelatedG2;
 import com.bbd.wtyh.report.word.WordReportBuilder;
 import com.bbd.wtyh.service.*;
 import com.bbd.wtyh.web.relationVO.RelationDiagramVO;
-import org.apache.commons.chain.web.MapEntry;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,10 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.time.LocalDate;
@@ -335,14 +330,14 @@ public class WordReportServiceImpl implements WordReportService {
 
                     //填充平台舆情
                     List<List<String>> publicSentiment =new ArrayList<>();
-                    YuQingDO yuQingDO = p2PImageDao.platformConsensus(platName);
-                    if( yuQingDO !=null ) {
-                        List<YuQingDO.Warning> warning =yuQingDO.getWarning();
+                    YuQingDTO yuQingDTO = p2PImageDao.platformConsensus(platName);
+                    if( yuQingDTO !=null ) {
+                        List<YuQingDTO.Warning> warning = yuQingDTO.getWarning();
                         if ( warning != null ) {
                             for ( int idx =0; idx <warning.size() && idx <99; idx++ ) {
                                 List<String> lStr =new ArrayList<>();
                                 publicSentiment.add(lStr);
-                                YuQingDO.Warning yw = warning.get(idx);
+                                YuQingDTO.Warning yw = warning.get(idx);
                                 lStr.add( Integer.toString(idx +1) ); //序号
                                 lStr.add(yw.getTitle() ); //标题
                                 String summary =yw.getContent();

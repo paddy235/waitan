@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.bbd.wtyh.domain.wangDaiAPI.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -22,10 +23,6 @@ import com.bbd.wtyh.dao.P2PImageDao;
 import com.bbd.wtyh.domain.PlatformNameInformationDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
-import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
-import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
-import com.bbd.wtyh.domain.wangDaiAPI.SearchCompanyDO;
-import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
 import com.bbd.wtyh.mapper.PlatformNameInformationMapper;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.google.gson.Gson;
@@ -62,20 +59,20 @@ public class P2PImageDaoImpl implements P2PImageDao {
     private RedisDAO                      redisDAO;
 
     @Override
-    public YuQingDO platformConsensus(String platName) {
+    public YuQingDTO platformConsensus(String platName) {
         String yuqingURL = url + "?dataType=yuqing" + "&plat_name=" + platName;
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
-            return httpTemplate.get(yuqingURL, new HttpCallback<YuQingDO>() {
+            return httpTemplate.get(yuqingURL, new HttpCallback<YuQingDTO>() {
                 @Override
                 public boolean valid() {
                     return true;
                 }
 
                 @Override
-                public YuQingDO parse(String result) {
+                public YuQingDTO parse(String result) {
                     Gson gson = new Gson();
-                    return gson.fromJson(result, YuQingDO.class);
+                    return gson.fromJson(result, YuQingDTO.class);
                 }
             });
         } catch (Exception e) {
@@ -298,6 +295,29 @@ public class P2PImageDaoImpl implements P2PImageDao {
     public List<PlatformNameInformationDO> associatedCompanyName(String platName,
                                                                  Integer limit_size) {
         return platformNameInformationMapper.associatedCompanyName(platName, limit_size);
+    }
+
+    @Override
+    public RadarScoreDTO getRadarScore(String platName) {
+        String radarUrl = url + "?dataType=leida" + "&plat_name=" + platName;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(radarUrl, new HttpCallback<RadarScoreDTO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public RadarScoreDTO parse(String result) {
+                    Gson gson = new Gson();
+                    return gson.fromJson(result, RadarScoreDTO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
