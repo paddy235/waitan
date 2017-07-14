@@ -55,16 +55,12 @@ public class TimingTaskManager {
 		Integer failCount=null;
 		Map map =null;
 		try {
-			String taskName="shangHaiCreditJob";//timing_task表中的task_key
-			String taskGroup="credit_work";//timing_task表中的task_group
-			String dataVersion=null;//有版本号的传版本号，没有的不传，根据自己的业务规则定
 			Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
-			String user=null;//执行者：自动执行传空，手动执行传登录人
-			taskId=TaskUtil.taskStart(taskName,taskGroup,dataVersion,runMode,planCount,user);
+			taskId=TaskUtil.taskStart("shangHaiCreditJob","credit_work",null,runMode,null,null);
 			//需要传 taskId 给业务接口
 			map=coCreditScoreService.creditScoreCalculate(taskId,runMode);
 		} catch (Exception e) {
-			logger.error(e.toString());
+			logger.error("shangHaiCreditTask"+e);
 		}finally {
 
 			if(null!=map){
@@ -72,7 +68,7 @@ public class TimingTaskManager {
 				successCount=map.get("successCount")==null?null:(Integer)map.get("successCount");
 				failCount=map.get("failCount")==null?null:(Integer)map.get("failCount");
 			}
-			TaskUtil.taskEnd(taskId,planCount,successCount,failCount);
+			TaskUtil.taskEnd(taskId,planCount,successCount,failCount,null);
 		}
 	}
 	/**
@@ -116,21 +112,19 @@ public class TimingTaskManager {
 		Integer successCount=null;
 		Integer failCount=null;
 		try {
-			String taskName="";//timing_task表中的task_key
-			String taskGroup="";//timing_task表中的task_group
-			String dataVersion="";//有版本号的传版本号，没有的不传，根据自己的业务规则定
+
+			String dataVersion= null;//有版本号的传版本号，没有的不传，根据自己的业务规则定
 			Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
-			String user=null;//执行者：自动执行传空，手动执行传登录人
-			taskId=TaskUtil.taskStart(taskName,taskGroup,dataVersion,runMode,planCount,user);
+			taskId=TaskUtil.taskStart("pToPMonitorJob","wd_work",dataVersion,runMode,null,null);
 			//需要传 taskId 给业务接口
 			pToPMonitorService.industryShanghaiDataLandingTask();
 //			pToPMonitorService.industryCompareDataLandingTask();
 //			pToPMonitorService.platRankDataLandingTask();
 
 		} catch (Exception e) {
-			logger.error(e.toString());
+			logger.error("updatePToPMonitorData"+e);
 		}finally {
-			TaskUtil.taskEnd(taskId,planCount,successCount,failCount);
+			TaskUtil.taskEnd(taskId,planCount,successCount,failCount,null);
 		}
 	}
 }
