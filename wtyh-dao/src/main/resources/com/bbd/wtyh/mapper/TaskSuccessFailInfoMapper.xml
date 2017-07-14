@@ -3,13 +3,16 @@
 <mapper namespace="com.bbd.wtyh.mapper.TaskSuccessFailInfoMapper">
 
 
-    <select id="getTaskSuccessFailInfo" parameterType="java.util.HashMap"
+    <select id="getTaskInfoByNameAndGroup" parameterType="java.util.HashMap"
             resultType="com.bbd.wtyh.domain.TaskSuccessFailInfoDO">
         SELECT
         `id` ,
         `task_name` AS taskName,
         `task_group` AS taskGroup,
         `data_version`AS dataVersion,
+        `begin_date`AS beginDate,
+        `end_date`AS endDate,
+        `run_mode`AS runMode,
         `plan_count`AS planCount,
         `success_count`AS successCount,
         `fail_count`AS failCount,
@@ -21,9 +24,6 @@
         task_success_fail_info
         WHERE
         1=1
-        <if test="taskId != null">
-            AND id = #{taskId}
-        </if>
         <if test="taskName != null">
             AND task_name = #{taskName}
         </if>
@@ -31,12 +31,34 @@
         <if test="taskGroup != null">
             AND task_group= #{taskGroup}
         </if>
-        <if test="dataVersion != null">
-            AND data_version= #{dataVersion}
-        </if>
-
+        order by id desc
 
     </select>
+
+    <select id="getTaskInfoById" parameterType="java.util.HashMap"
+            resultType="com.bbd.wtyh.domain.TaskSuccessFailInfoDO">
+        SELECT
+        `id` ,
+        `task_name` AS taskName,
+        `task_group` AS taskGroup,
+        `data_version`AS dataVersion,
+        `begin_date`AS beginDate,
+        `end_date`AS endDate,
+        `run_mode`AS runMode,
+        `plan_count`AS planCount,
+        `success_count`AS successCount,
+        `fail_count`AS failCount,
+        `create_by` AS createBy,
+        `create_date` AS createDate,
+        `update_by` AS updateBy,
+        `update_date` AS updateDate
+        FROM
+        task_success_fail_info
+        WHERE
+        id = #{taskId}
+
+    </select>
+
     <insert id="addTaskSuccessFailInfo" parameterType="com.bbd.wtyh.domain.TaskSuccessFailInfoDO"
             useGeneratedKeys="true"
             keyProperty="id"

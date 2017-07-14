@@ -12,9 +12,9 @@ public enum TaskState {
 	NONE(0, ""),
 	NORMAL(1, "未开始"),
 	PAUSED(2, "暂停中"),
-	COMPLETE(3, "已完成"),
-	ERROR(4, "错误"),
-	BLOCKED(5, "运行中");
+	COMPLETE(3, "成功"),
+	ERROR(4, "失败"),
+	BLOCKED(5, "正在更新");
 
 	private int state;
 	private String desc;

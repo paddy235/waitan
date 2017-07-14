@@ -2,6 +2,7 @@ package com.bbd.bgo.service.task;
 
 import com.bbd.bgo.quartz.TaskState;
 import com.bbd.bgo.quartz.TaskUtil;
+import com.bbd.wtyh.mapper.TaskSuccessFailInfoMapper;
 import com.bbd.wtyh.service.CoCreditScoreService;
 import com.bbd.wtyh.service.OfflineFinanceService;
 import com.bbd.wtyh.service.P2PImageService;
@@ -75,19 +76,33 @@ public class TimingTaskManager {
 	 */
 	public void updateYuQing()throws Exception{
 		pImageService.updateWangDaiYuQingTask();
+
 	}
 
 	/**
 	 * 更新网贷之家数据
 	 */
 	public void updatePToPMonitorData() throws Exception {
+		Integer taskId=null;
+		Integer planCount = null;// 计划执行笔数。 可在任务结束时更新
+		Integer successCount=null;
+		Integer failCount=null;
 		try {
+			String taskName="";//timing_task表中的task_key
+			String taskGroup="";//timing_task表中的task_group
+			String dataVersion="";//有版本号的传版本号，没有的不传，根据自己的业务规则定
+			Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
+			String user=null;//执行者：自动执行传空，手动执行传登录人
+			taskId=TaskUtil.taskStart(taskName,taskGroup,dataVersion,runMode,planCount,user);
+			//需要传 taskId 给业务接口
 			pToPMonitorService.industryShanghaiDataLandingTask();
 //			pToPMonitorService.industryCompareDataLandingTask();
 //			pToPMonitorService.platRankDataLandingTask();
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			TaskUtil.updateTaskState("pToPMonitorJob","job work",TaskState.ERROR);
+		}finally {
+			TaskUtil.taskEnd(taskId,planCount,successCount,failCount);
 		}
 	}
 }

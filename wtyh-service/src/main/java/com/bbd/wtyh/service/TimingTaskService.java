@@ -13,5 +13,5 @@ public interface TimingTaskService {
 
     List<TaskInfoDO> getLatestTaskInfo();
 
-    List<TaskSuccessFailInfoDO> getHistoryTaskInfo();
+    List<TaskSuccessFailInfoDO> getHistoryTaskInfo(String task_name,String task_group);
 }
