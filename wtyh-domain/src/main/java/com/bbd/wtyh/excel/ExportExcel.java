@@ -125,6 +125,8 @@ public class ExportExcel {
 			/** first loop 2 decision sort */
 			for (Field f : noSortFieldList) {
 				Excel e = f.getAnnotation(Excel.class);
+				if (null == e)
+					continue;
 				if (e.sortNo() != 9999) {
 					isSort = true;
 					break;

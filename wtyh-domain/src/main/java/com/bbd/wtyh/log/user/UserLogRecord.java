@@ -142,6 +142,36 @@ public class UserLogRecord {
 		LOGGER.info(JSON.toJSONString(userLog, SerializerFeature.WriteDateUseDateFormat));
 	}
 
+	/**
+	 * 使用HttpSession记录日志-参数处理
+	 */
+	public static void record(String msg, Operation.Type operationType, Operation.Page operationPage, Operation.System operationSys) {
+
+		UserLog userLog = new UserLog();
+		userLog.setUuid(UUID.randomUUID().toString().replace("-", "").toUpperCase());
+		userLog.setOperator("");
+		userLog.setRealName("");
+		userLog.setDepartment("");
+		userLog.setAreaCode("");
+		userLog.setOperationDate(new Date());
+		userLog.setOperationType(operationType.code());
+		userLog.setOperationDesc(operationType.desc());
+
+		userLog.setLogContent(msg);
+
+		userLog.setSysCode(operationSys.sysCode());
+		userLog.setSysName(operationSys.sysName());
+		if (operationPage.code() == 0) {
+			userLog.setRequestCode(Operation.Page.blank.code());
+			userLog.setRequestDesc(Operation.Page.blank.page());
+		} else {
+			userLog.setRequestCode(operationPage.code());
+			userLog.setRequestDesc(operationPage.page());
+		}
+		// 日志记录
+		LOGGER.info(JSON.toJSONString(userLog, SerializerFeature.WriteDateUseDateFormat));
+	}
+
 	public static String getRemoteAddress(HttpServletRequest request) {
 		String ip = request.getHeader("x-forwarded-for");
 		if (StringUtils.isBlank(ip) || ip.equalsIgnoreCase("unknown")) {

@@ -3,7 +3,86 @@
 <mapper namespace="com.bbd.wtyh.mapper.TaskSuccessFailInfoMapper">
 
 
-    <select id="getTaskSuccessFailInfo" parameterType="java.util.HashMap"
+    <select id="getTaskInfoByNameAndGroup" parameterType="java.util.HashMap"
+            resultType="com.bbd.wtyh.domain.TaskSuccessFailInfoDO">
+        SELECT
+        `id` ,
+        `task_name` AS taskName,
+        `task_group` AS taskGroup,
+        `data_version`AS dataVersion,
+        `begin_date`AS beginDate,
+        `end_date`AS endDate,
+        `run_mode`AS runMode,
+        `plan_count`AS planCount,
+        `success_count`AS successCount,
+        `fail_count`AS failCount,
+        `create_by` AS createBy,
+        `create_date` AS createDate,
+        `update_by` AS updateBy,
+        `update_date` AS updateDate
+        FROM
+        task_success_fail_info
+        WHERE
+        1=1
+        <if test="taskName != null">
+            AND task_name = #{taskName}
+        </if>
+
+        <if test="taskGroup != null">
+            AND task_group= #{taskGroup}
+        </if>
+        order by id desc
+
+    </select>
+
+    <select id="getTaskInfoById" parameterType="java.util.HashMap"
+            resultType="com.bbd.wtyh.domain.TaskSuccessFailInfoDO">
+        SELECT
+        `id` ,
+        `task_name` AS taskName,
+        `task_group` AS taskGroup,
+        `data_version`AS dataVersion,
+        `begin_date`AS beginDate,
+        `end_date`AS endDate,
+        `run_mode`AS runMode,
+        `plan_count`AS planCount,
+        `success_count`AS successCount,
+        `fail_count`AS failCount,
+        `create_by` AS createBy,
+        `create_date` AS createDate,
+        `update_by` AS updateBy,
+        `update_date` AS updateDate
+        FROM
+        task_success_fail_info
+        WHERE
+        id = #{taskId}
+
+    </select>
+
+    <insert id="addTaskSuccessFailInfo" parameterType="com.bbd.wtyh.domain.TaskSuccessFailInfoDO"
+            useGeneratedKeys="true"
+            keyProperty="id"
+            keyColumn="id">
+        INSERT INTO `task_success_fail_info` (`task_name`, `task_group`, `data_version`,`begin_date`,`end_date`,`run_mode`, `plan_count`, `success_count`, `fail_count`,
+         `create_date`,  `create_by`)
+        VALUES (#{taskName}, #{taskGroup}, #{dataVersion}, #{beginDate}, #{endDate}, #{runMode}, #{planCount}, #{successCount}, #{failCount}
+        , #{createDate}, #{createBy}
+        );
+    </insert>
+
+    <update id="updateTaskSuccessFailInfo">
+        update
+          task_success_fail_info
+        set
+          end_date=#{endDate},
+          plan_count=#{planCount},
+          success_count=#{successCount},
+          fail_count=#{failCount},
+          update_date=#{updateDate},
+          update_by=#{updateBy} where id=#{id}
+    </update>
+
+    <select id="getTaskRecentInfo" parameterType="java.util.HashMap"
             resultType="com.bbd.wtyh.domain.TaskSuccessFailInfoDO">
         SELECT
         `id` ,
@@ -28,33 +107,7 @@
         <if test="taskGroup != null">
             AND task_group= #{taskGroup}
         </if>
-        <if test="dataVersion != null">
-            AND data_version= #{dataVersion}
-        </if>
-
-
+        ORDER BY create_date DESC,id DESC LIMIT 1
     </select>
-    <insert id="addTaskSuccessFailInfo" parameterType="com.bbd.wtyh.domain.TaskSuccessFailInfoDO"
-            useGeneratedKeys="true"
-            keyProperty="id"
-            keyColumn="id">
-        INSERT INTO `task_success_fail_info` (`task_name`, `task_group`, `data_version`, `plan_count`, `success_count`, `fail_count`,
-         `create_date`,  `create_by`)
-        VALUES (#{taskName}, #{taskGroup}, #{dataVersion}, #{planCount}, #{successCount}, #{failCount}
-        , #{createDate}, #{createBy}
-        );
-    </insert>
-
-    <update id="updateTaskSuccessFailInfo">
-        update
-          task_success_fail_info
-        set
-          plan_count=#{planCount},
-          success_count=#{successCount},
-          fail_count=#{failCount},
-          update_date=#{updateDate},
-          update_by=#{updateBy} where id=#{id}
-    </update>
-
 
 </mapper>

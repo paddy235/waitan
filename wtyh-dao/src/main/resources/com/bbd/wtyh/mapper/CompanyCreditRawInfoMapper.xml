@@ -11,13 +11,13 @@
 			`credit_code`, `cxbh`, `resources`,
 			`resource_name`, `resource_code`,
 			`xxssdw_code`, `xxssdw`, `xxlb`,
-			`content`, `create_by`, `create_date` )
+			`content`, `create_by`, `create_date` , `task_id` )
 			VALUES(
 			#{companyId,},#{companyName}, #{organizationCode},
 			#{creditCode}, #{cxbh}, #{resources},
 			#{resourceName}, #{resourceCode},
 			#{xxssdwCode}, #{xxssdw}, #{xxlb},
-			#{content}, 'system', NOW() )
+			#{content}, 'system', NOW(), #{taskId} )
     </insert>
 
 </mapper>

@@ -1,5 +1,6 @@
 package com.bbd.wtyh.mapper;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -129,4 +130,5 @@ public interface CompanyMapper {
 						     @Param("registeredCapitalType") Integer registeredCapitalType,@Param("registeredDate") String registeredDate,
 						     @Param("registeredType") String registeredType,@Param("status") Integer status);
 
+	List<CompanyDO> getLineCompanyListMoreThanExecuteDate(@Param("executeDate") String executeDate);
 }

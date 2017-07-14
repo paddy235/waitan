@@ -6,6 +6,8 @@ import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.PlatformNameInformationDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
+import com.bbd.wtyh.log.user.Operation;
+import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.mapper.PlatformNameInformationMapper;
 import com.google.gson.Gson;
@@ -37,6 +39,7 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 	 */
 	@Override
 	@Scheduled(cron = "0 0 20 1 * ?")
+	@LogRecord(logMsg = "更新网贷平台：%s", params = {"loginName"}, page = Operation.Page.netLendingPlatform, type = Operation.Type.modify)
 	public void updatePlat() {
 		try {
 			//网贷平台拉取企业数据
@@ -76,13 +79,40 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 				logger.info("start update plat");
 				int delNum = this.executeCUD("delete from platform_name_information");
 				logger.info("delete plat number:"+delNum);
-				int num = platformNameInformationMapper.addPlat(platInfoList);
+				int num = batchUpdateData(platInfoList);
 				logger.info("end update plat,update number:"+num);
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
+	}
 
+	public Integer batchUpdateData(List<PlatformNameInformationDO> platInfoList){
+		int updateNum = 0;
+		if(platInfoList.size()>0){
+			int pointsDataLimit = 1000;//限制条数
+			Integer size = platInfoList.size();
+			//判断是否有必要分批
+			if(pointsDataLimit<size){
+				int part = size/pointsDataLimit;//分批数
+				for(int i=0;i<part;i++){
+					List<PlatformNameInformationDO> listPage = platInfoList.subList(0,pointsDataLimit);
+					logger.info("batch insert data size :"+pointsDataLimit);
+					updateNum+=platformNameInformationMapper.addPlat(listPage);
+					platInfoList.subList(0,pointsDataLimit).clear();
+				}
+				//剩下的数据
+				if(!platInfoList.isEmpty()){
+					logger.info("batch insert data size :"+platInfoList.size());
+					updateNum+=platformNameInformationMapper.addPlat(platInfoList);
+				}
+			}else{
+				logger.info("batch insert data size :"+platInfoList.size());
+				updateNum+=platformNameInformationMapper.addPlat(platInfoList);
+			}
+		}
+
+		return updateNum;
 	}
 
 	public  List<PlatListDO> getPlatList() {

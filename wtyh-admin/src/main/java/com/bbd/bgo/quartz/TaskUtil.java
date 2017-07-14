@@ -1,6 +1,9 @@
 package com.bbd.bgo.quartz;
 
+import com.bbd.wtyh.domain.TaskSuccessFailInfoDO;
+import com.bbd.wtyh.mapper.TaskSuccessFailInfoMapper;
 import com.bbd.wtyh.util.ApplicationContextUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * 定时任务相关工具类
@@ -11,21 +14,19 @@ public class TaskUtil {
 
 	private static QuartzHandler quartzHandler = ApplicationContextUtil.getBean(QuartzHandler.class);
 
-	public static void updateTaskEndDate(String key, String group) {
-		quartzHandler.updateTaskEndDate(key, group);
+
+	/**
+	 * 任务开始
+	 **/
+	public static Integer taskStart(String taskName,String taskGroup,String dataVersion,Integer runMode,Integer planCount,String createBy ) {
+		return quartzHandler.taskStart(taskName,taskGroup,dataVersion,runMode,planCount,createBy);
+	}
+	/**
+	 * 任务结束
+	**/
+	public static void taskEnd(Integer taskId, Integer planCount, Integer successCount, Integer failCount) {
+		quartzHandler.taskEnd(taskId,planCount,successCount,failCount);
 	}
 
-	public static void updateTaskState(String key, String group, TaskState taskState) throws Exception {
-		quartzHandler.updateTaskState(key, group, taskState);
-	}
 
-	public static void updateTaskState(String key, String group) throws Exception {
-		updateTaskState(key, group, null);
-	}
-	public static void businessStart(String key, String group, TaskState state ) throws Exception {
-		quartzHandler.businessStart(key,group,state);
-	}
-	public static void businessFinish(String key, String group, TaskState state ) throws Exception {
-		quartzHandler.businessFinish(key,group,state);
-	}
 }

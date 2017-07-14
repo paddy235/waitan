@@ -10,10 +10,9 @@ public class WtyhHelper {
 
 	public static String tomcatPath = "";
 	public static String exportPath = "";
-	public static String serviceUrl= "";
-	public static String userName= "";
-	public static String password= "";
-
+	public static String userName = "";
+	public static String password = "";
+	public static String brokerIp = "";
 
 	static {
 		load();
@@ -30,7 +29,7 @@ public class WtyhHelper {
 			throw new IllegalArgumentException("[" + name + ".properties] not found");
 		}
 		exportPath = bundle.getString("wtyh.export.excel.path");
-
+		brokerIp = bundle.getString("api.bbd.broker.ip");
 	}
 
 	public static void loadSystem() {

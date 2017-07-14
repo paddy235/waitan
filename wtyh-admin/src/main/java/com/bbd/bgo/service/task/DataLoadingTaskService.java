@@ -7,5 +7,5 @@ public interface DataLoadingTaskService {
     /**
      * 新型金融全息数据和舆情数据落地定时更新
      */
-    void dataLoading();
+    void dataLoading(Integer taskId);
 }
