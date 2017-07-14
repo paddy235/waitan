@@ -23,7 +23,7 @@
         </if>
 
     </select>
-    <insert id="addTaskSuccessFailInfo" parameterType="com.bbd.wtyh.domain.DataLoadingFailInfoDO"
+    <insert id="addTaskFailInfo" parameterType="com.bbd.wtyh.domain.DataLoadingFailInfoDO"
             useGeneratedKeys="true"
             keyProperty="id"
             keyColumn="id">

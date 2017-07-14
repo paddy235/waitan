@@ -1,5 +1,8 @@
 package com.bbd.wtyh.util;
 
+import com.alibaba.fastjson.JSONArray;
+import com.bbd.higgs.utils.http.HttpTemplate;
+import net.sf.json.JSONObject;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -8,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 文件拉取
@@ -35,7 +40,24 @@ public class PullFileUtil {
 	private static String brokerIp = WtyhHelper.brokerIp;
 	private static String fileNameListUri = "/syncFile/pull-file-list.do?dataType=";
 
-	public static void getFileList(Integer dataType) {
+	public static List<File> getFileList(Integer dataType) throws Exception{
+		logger.info("--------- pull data file list start --------");
+		//String url = brokerIp + fileNameListUri+dataType;
+		String url="http://10.28.200.239:7778/syncFile/pull-file-list.do?dataType=1";
+		String result = new HttpTemplate().get(url);
+		JSONObject jsonObject = JSONObject.fromObject(result);
+		Object content = jsonObject.get("content");
+		List<String> strList = JSONArray.parseArray(String.valueOf(content), String.class);
+		logger.info("--------- pull data file list end --------");
+		List<File> fileList = new ArrayList<File>();
+		for(String str:strList){
+			File file = pullFile(str);
+			if(null!=file&&file.exists()){
+				fileList.add(file);
+			}
+		}
+		return fileList;
 	}
+
 
 }
