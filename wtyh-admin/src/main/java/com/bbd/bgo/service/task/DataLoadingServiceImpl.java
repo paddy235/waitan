@@ -10,6 +10,7 @@ import com.bbd.wtyh.mapper.DataLoadingFailInfoMapper;
 import com.bbd.wtyh.mapper.DataLoadingMapper;
 import com.bbd.wtyh.mapper.TaskSuccessFailInfoMapper;
 import com.bbd.wtyh.util.DataLoadingUtil;
+import com.bbd.wtyh.util.PullFileUtil;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
@@ -36,6 +37,10 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 
 	private static String TASK_GROUP = "bbd_work";
 
+	private Integer taskId = null;
+
+	private Integer pullFileTaskId = null;
+
 	private static final String DISHONESTY = "dishonesty";
 	private static final String KTGG = "ktgg";
 	private static final String QYXG_YUQING = "qyxg_yuqing";
@@ -55,30 +60,68 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 	private DataLoadingFailInfoMapper dataLoadingFailInfoMapper;
 
 	@Override
-	public void dataLoading(Integer taskId) {
-		operateUpdate(null);
-//		TaskSuccessFailInfoDO task = taskSuccessFailInfoMapper.getTaskRecentInfo(TASK_NAME,TASK_GROUP);
-//		//首次跑全量数据
-//		if(task==null){
-//			operateUpdate(null);
-//		}
-//		//已跑过，且上次出错,只跑错误部分数据
-//		if(null!=task&&task.getFailCount()>0){
-//			List<DataLoadingFailInfoDO> failList = dataLoadingFailInfoMapper.getDataLoadingFailInfoByTaskId(task.getId());
-//			List<String> failTableList=new ArrayList<String>();
-//			for(DataLoadingFailInfoDO fail:failList){
-//				failTableList.add(fail.getTableName());
-//			}
-//			operateUpdate(failTableList);
-//		}
+	public Map<String,Integer> dataLoadingManualOperate(Integer taskId) {
+		this.taskId = taskId;
+		//手动执行，查询之前任务失败记录，更新插入失败表
+		Map<String,Integer> returnMap = new HashMap<String,Integer>();
+		//File file = new File("D:\\wtyh\\datashare\\data\\data-share-file\\wtyh");
+		List<DataLoadingFailInfoDO> failList = dataLoadingFailInfoMapper.getDataLoadingFailInfoByTaskId(taskId);
+		//上次出错,只跑错误部分数据
+		if(null!=failList&&failList.size()>0){
+			List<String> failTableList=new ArrayList<String>();
+			for(DataLoadingFailInfoDO fail:failList){
+				failTableList.add(fail.getTableName());
+			}
+			List<File> fileList=new ArrayList<File>();
+			Integer pullFileTaskId=failList.get(0).getPullFileTaskId();
+			this.pullFileTaskId=pullFileTaskId;
+			List<DatasharePullFileDO> pullFileList = dataLoadingMapper.getDatasharePullFileByTaskId(pullFileTaskId);
+			if(null!=pullFileList&&pullFileList.size()>0){
+				for(DatasharePullFileDO pullFile:pullFileList){
+					File file=new File(pullFile.getFile_url());
+					if(file.exists()){
+						fileList.add(file);
+					}
+				}
+			}
+			//operateUpdate(failTableList,Arrays.asList(file.listFiles()));
+			operateUpdate(failTableList,fileList,returnMap);
+		}
+		return returnMap;
 	}
 
-	public void operateUpdate(List<String> failTableList){
-		String dataVersion = DateFormatUtils.format(new Date(), "yyyyMMdd");
-		//List<File> fileList=new ArrayList<File>();
-		//测试用
-		File file = new File("D:\\wtyh\\datashare\\data\\data-share-file\\wtyh");
-		List<String> list = DataLoadingUtil.txt2String(Arrays.asList(file.listFiles()));
+	@Override
+	public Map<String,Integer> dataLoadingAutomaticOperate(Integer taskId) {
+		this.taskId = taskId;
+		this.pullFileTaskId=taskId;
+		//自动执行，先拉取数据，有数据执行插入，并记录成功失败情况
+		Map<String,Integer> returnMap = new HashMap<String,Integer>();
+		List<File> list = null;
+		try {
+			list = PullFileUtil.getFileList(1);
+		} catch (Exception e) {
+			returnMap.put("fail",10);
+			returnMap.put("success",0);
+			e.printStackTrace();
+		}
+		if(null!=list&&list.size()>0){
+			List<DatasharePullFileDO> fileList = new ArrayList<DatasharePullFileDO>();
+			for(File file:list){
+				DatasharePullFileDO pullFile = new DatasharePullFileDO();
+				pullFile.setCreate_by("system");
+				pullFile.setTask_id(taskId);
+				pullFile.setFile_name(file.getName());
+				pullFile.setFile_url(file.getAbsolutePath());
+				fileList.add(pullFile);
+			}
+			dataLoadingMapper.saveDatasharePullFileDO(fileList);
+			operateUpdate(null,list,returnMap);
+		}
+		return returnMap;
+	}
+
+	public void operateUpdate(List<String> failTableList,List<File> fileList,Map<String,Integer> returnMap){
+		List<String> list = DataLoadingUtil.txt2String(fileList);
 		List<DishonestyDO> disList=new ArrayList<DishonestyDO>();
 		List<KtggDO> ktggList=new ArrayList<KtggDO>();
 		List<QyxgYuqingDO> yuQingList=new ArrayList<QyxgYuqingDO>();
@@ -114,23 +157,26 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 			}
 		}
 		int successNum = 10-failTables.size();
-		TaskSuccessFailInfoDO taskSuccessFailInfoDO = new TaskSuccessFailInfoDO();
-		taskSuccessFailInfoDO.setTaskName(TASK_NAME);
-		taskSuccessFailInfoDO.setTaskGroup(TASK_GROUP);
-		taskSuccessFailInfoDO.setDataVersion(dataVersion);
-		taskSuccessFailInfoDO.setSuccessCount(successNum);
-		taskSuccessFailInfoDO.setFailCount(failTables.size());
-		taskSuccessFailInfoDO.setCreateBy("system");
-		taskSuccessFailInfoDO.setCreateDate(new Date());
+		returnMap.put("fail",failTables.size());
+		returnMap.put("success",successNum);
+		//TaskSuccessFailInfoDO taskSuccessFailInfoDO = new TaskSuccessFailInfoDO();
+		//taskSuccessFailInfoDO.setTaskName(TASK_NAME);
+		//taskSuccessFailInfoDO.setTaskGroup(TASK_GROUP);
+		//taskSuccessFailInfoDO.setDataVersion(dataVersion);
+		//taskSuccessFailInfoDO.setSuccessCount(successNum);
+		//taskSuccessFailInfoDO.setFailCount(failTables.size());
+		//taskSuccessFailInfoDO.setCreateBy("system");
+		//taskSuccessFailInfoDO.setCreateDate(new Date());
 		logger.info("add data loading task to taskSuccessFailInfo table");
-		int id = taskSuccessFailInfoMapper.addTaskSuccessFailInfo(taskSuccessFailInfoDO);
+		//int id = taskSuccessFailInfoMapper.addTaskSuccessFailInfo(taskSuccessFailInfoDO);
 		for(String table:failTables){
 			DataLoadingFailInfoDO fail = new DataLoadingFailInfoDO();
-			fail.setTaskId(id);
+			fail.setTaskId(taskId);
 			fail.setTableName(table);
-			fail.setDataVersion(dataVersion);
+			//fail.setDataVersion(dataVersion);
 			fail.setCreateBy("system");
 			fail.setCreateDate(new Date());
+			fail.setPullFileTaskId(pullFileTaskId);
 			dataLoadingFailInfoMapper.addTaskFailInfo(fail);
 		}
 	}

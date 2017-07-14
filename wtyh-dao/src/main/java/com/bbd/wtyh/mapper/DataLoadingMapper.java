@@ -32,4 +32,8 @@ public interface DataLoadingMapper {
 	int saveZgcpwswDO(List<ZgcpwswDO> zgcpwswDOList);
 
 	int saveZhixingDO(List<ZhixingDO> zhixingList);
+
+	int saveDatasharePullFileDO(List<DatasharePullFileDO> fileList);
+
+	List<DatasharePullFileDO> getDatasharePullFileByTaskId(Integer taskId);
 }
