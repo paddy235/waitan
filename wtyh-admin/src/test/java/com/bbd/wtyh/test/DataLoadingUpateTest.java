@@ -19,6 +19,6 @@ public class DataLoadingUpateTest {
 
     @Test
     public void dataLoadingTest(){
-        dataLoadingTaskService.dataLoading();
+        dataLoadingTaskService.dataLoading(1);
     }
 }

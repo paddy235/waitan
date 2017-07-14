@@ -25,7 +25,7 @@ import com.bbd.wtyh.core.base.BaseServiceImpl;
 @Component
 public class QuartzHandler extends BaseServiceImpl {
 	@Autowired
-	private TaskSuccessFailInfoMapper taskSuccessFailInfoMapper;//任务执行历史
+	private TaskSuccessFailInfoMapper taskDetailMapper;//任务执行历史
 	@Autowired
 	private SchedulerFactoryBean schedulerFactory;
 	@Autowired
@@ -159,37 +159,42 @@ public class QuartzHandler extends BaseServiceImpl {
 	}
 
 	public Integer taskStart(String taskName,String taskGroup,String dataVersion,Integer runMode,Integer planCount,String createBy ) {
-		TaskSuccessFailInfoDO taskSuccessFailInfoDO=new TaskSuccessFailInfoDO();
-		taskSuccessFailInfoDO.setBeginDate(new Date());
-		taskSuccessFailInfoDO.setTaskName(taskName);
-		taskSuccessFailInfoDO.setTaskGroup(taskGroup);
-		taskSuccessFailInfoDO.setDataVersion(dataVersion);
-		taskSuccessFailInfoDO.setRunMode(runMode);
-		taskSuccessFailInfoDO.setPlanCount(planCount);
+		TaskSuccessFailInfoDO taskDetail=new TaskSuccessFailInfoDO();
+		taskDetail.setBeginDate(new Date());
+		taskDetail.setTaskName(taskName);
+		taskDetail.setTaskGroup(taskGroup);
+		taskDetail.setDataVersion(dataVersion);
+		taskDetail.setRunMode(runMode);
+		taskDetail.setPlanCount(planCount);
+		taskDetail.setCreateDate(taskDetail.getBeginDate());
 		if(createBy==null){
-			taskSuccessFailInfoDO.setCreateBy("system");
+			taskDetail.setCreateBy("system");
 		}
-		this.taskSuccessFailInfoMapper.addTaskSuccessFailInfo(taskSuccessFailInfoDO);//任务历史表-取得任务ID
+		this.taskDetailMapper.addTaskSuccessFailInfo(taskDetail);//任务历史表-取得任务ID
 
 		TaskInfoDO taskInfo = this.getTaskInfo(taskName, taskGroup);
-		taskInfo.setStartDate(taskSuccessFailInfoDO.getBeginDate());
+		taskInfo.setStartDate(taskDetail.getBeginDate());
 		taskInfo.setEndDate(null);
 		taskInfo.setState(TaskState.BLOCKED.state());
 		this.update(taskInfo);
 
-		return taskSuccessFailInfoDO.getId();
+		return taskDetail.getId();
 	}
 
-	public void taskEnd(Integer taskId,Integer planCount, Integer successCount,Integer failCount) {
-		TaskSuccessFailInfoDO taskSuccessFailInfoDO =taskSuccessFailInfoMapper.getTaskInfoById(taskId);
-		taskSuccessFailInfoDO.setEndDate(new Date());
-		taskSuccessFailInfoDO.setPlanCount(planCount);
-		taskSuccessFailInfoDO.setSuccessCount(successCount);
-		taskSuccessFailInfoDO.setFailCount(failCount);
-		taskSuccessFailInfoMapper.updateTaskSuccessFailInfo(taskSuccessFailInfoDO);
+	public void taskEnd(Integer taskId,Integer planCount, Integer successCount,Integer failCount,String updateBy) {
+		TaskSuccessFailInfoDO taskDetail = taskDetailMapper.getTaskInfoById(taskId);
+		taskDetail.setEndDate(new Date());
+		taskDetail.setPlanCount(planCount);
+		taskDetail.setSuccessCount(successCount);
+		taskDetail.setFailCount(failCount);
+		taskDetail.setUpdateDate(taskDetail.getEndDate());
+		if(updateBy==null){
+			taskDetail.setUpdateBy("system");
+		}
+		taskDetailMapper.updateTaskSuccessFailInfo(taskDetail);
 
-		TaskInfoDO taskInfo = this.getTaskInfo(taskSuccessFailInfoDO.getTaskName(), taskSuccessFailInfoDO.getTaskGroup());
-		taskInfo.setEndDate(taskSuccessFailInfoDO.getEndDate());
+		TaskInfoDO taskInfo = this.getTaskInfo(taskDetail.getTaskName(), taskDetail.getTaskGroup());
+		taskInfo.setEndDate(taskDetail.getEndDate());
 		if(failCount>0) {
 			taskInfo.setState(TaskState.ERROR.state());
 		}else {
