@@ -3,18 +3,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bbd.wtyh.mapper.YuQingMapper">
 
-
-    <select id="selectByPlatName"  resultType="com.bbd.wtyh.domain.wangDaiAPI.YuQingDO" >
-			select plat_name,score from yuqing
-			<if test="plat_name != null">
-				where plat_name=#{plat_name}
-			</if>
-	</select>
-
 	<insert id="save" parameterType="com.bbd.wtyh.domain.wangDaiAPI.YuQingDO">
-		INSERT INTO `yuqing` (`plat_name`, `score`)
-		VALUES (#{plat_name}, #{score});
+		INSERT INTO `yuqing` (`plat_name`, `score`, `warning`, `create_by`, `create_date`, `update_by`, `update_date`)
+		VALUES (#{platName}, #{score}, #{warning}, #{createBy}, #{createDate}, #{updateBy}, #{updateDate});
 	</insert>
+
+	<delete id="deleteByPlatName" parameterType="java.lang.String">
+		DELETE FROM yuqing WHERE `plat_name`=#{platName}
+	</delete>
 
 
 </mapper>

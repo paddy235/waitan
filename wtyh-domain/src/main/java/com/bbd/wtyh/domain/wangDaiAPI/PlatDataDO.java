@@ -28,8 +28,20 @@ public class PlatDataDO {
     public class PlatDataSixMonth {
         private String date;
         private double day_interest_rate;   // 平台利率
+        private double day_net_inflow;
         private double day_amount;  // 平台成交量
         private double day_money_stock; // 贷款余额
+
+        @Override
+        public String toString() {
+            return "{" +
+                    "date='" + date + '\'' +
+                    ", day_interest_rate=" + day_interest_rate +
+                    ", day_net_inflow=" + day_net_inflow +
+                    ", day_amount=" + day_amount +
+                    ", day_money_stock=" + day_money_stock +
+                    '}';
+        }
 
         public String getDate() {
             return date;
@@ -61,6 +73,10 @@ public class PlatDataDO {
 
         public void setDay_money_stock(double day_money_stock) {
             this.day_money_stock = day_money_stock;
+        }
+
+        public void setDay_net_inflow(double day_net_inflow) {
+            this.day_net_inflow = day_net_inflow;
         }
     }
 
