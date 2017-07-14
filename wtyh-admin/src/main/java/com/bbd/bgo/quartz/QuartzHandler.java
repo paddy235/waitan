@@ -4,9 +4,13 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.bbd.wtyh.domain.TaskInfoDO;
+import com.bbd.wtyh.domain.TaskSuccessFailInfoDO;
+import com.bbd.wtyh.mapper.TaskSuccessFailInfoMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.quartz.*;
 import org.quartz.impl.triggers.CronTriggerImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Component;
@@ -20,11 +24,14 @@ import com.bbd.wtyh.core.base.BaseServiceImpl;
  */
 @Component
 public class QuartzHandler extends BaseServiceImpl {
-
+	@Autowired
+	private TaskSuccessFailInfoMapper taskSuccessFailInfoMapper;//任务执行历史
 	@Autowired
 	private SchedulerFactoryBean schedulerFactory;
 	@Autowired
 	private TimeZone timeZone;
+
+	private Logger logger = LoggerFactory.getLogger(QuartzHandler.class);
 
 	private QuartzHandler() {
 	}
@@ -33,12 +40,13 @@ public class QuartzHandler extends BaseServiceImpl {
 	private final Map<String, TaskInfoDO> TASK_MAP = new ConcurrentHashMap<>();
 
 	public void init() {
-        System.out.println("hell");
+
         List<TaskInfoDO> taskList = this.selectAll(TaskInfoDO.class, "");
 		taskList.forEach(taskInfo -> {
 			TASK_MAP.put(taskInfo.getTaskKey() + SEPARATOR + taskInfo.getTaskGroup(), taskInfo);
 			addJob(taskInfo);
 		});
+		logger.info("timing task init...");
 	}
 
 	public List<TaskInfoDO> getAllTask() {
@@ -90,9 +98,6 @@ public class QuartzHandler extends BaseServiceImpl {
 			trigger.setCronExpression(corn);
 			scheduler.scheduleJob(jobDetail, trigger);
 
-			taskInfo.setStartDate(trigger.getNextFireTime());
-			taskInfo.setEndDate(null);
-			taskInfo.setState(TaskState.NORMAL.state());
 			this.updateJob(taskInfo);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -151,6 +156,46 @@ public class QuartzHandler extends BaseServiceImpl {
 		// scheduler.interrupt(jobKey)
 		scheduler.deleteJob(jobKey);
 		this.executeCUD("DELETE FROM timing_task_info WHERE task_key = ? AND task_group = ?", key, group);
+	}
+
+	public Integer taskStart(String taskName,String taskGroup,String dataVersion,Integer runMode,Integer planCount,String createBy ) {
+		TaskSuccessFailInfoDO taskSuccessFailInfoDO=new TaskSuccessFailInfoDO();
+		taskSuccessFailInfoDO.setBeginDate(new Date());
+		taskSuccessFailInfoDO.setTaskName(taskName);
+		taskSuccessFailInfoDO.setTaskGroup(taskGroup);
+		taskSuccessFailInfoDO.setDataVersion(dataVersion);
+		taskSuccessFailInfoDO.setRunMode(runMode);
+		taskSuccessFailInfoDO.setPlanCount(planCount);
+		if(createBy==null){
+			taskSuccessFailInfoDO.setCreateBy("system");
+		}
+		this.taskSuccessFailInfoMapper.addTaskSuccessFailInfo(taskSuccessFailInfoDO);//任务历史表-取得任务ID
+
+		TaskInfoDO taskInfo = this.getTaskInfo(taskName, taskGroup);
+		taskInfo.setStartDate(taskSuccessFailInfoDO.getBeginDate());
+		taskInfo.setEndDate(null);
+		taskInfo.setState(TaskState.BLOCKED.state());
+		this.update(taskInfo);
+
+		return taskSuccessFailInfoDO.getId();
+	}
+
+	public void taskEnd(Integer taskId,Integer planCount, Integer successCount,Integer failCount) {
+		TaskSuccessFailInfoDO taskSuccessFailInfoDO =taskSuccessFailInfoMapper.getTaskInfoById(taskId);
+		taskSuccessFailInfoDO.setEndDate(new Date());
+		taskSuccessFailInfoDO.setPlanCount(planCount);
+		taskSuccessFailInfoDO.setSuccessCount(successCount);
+		taskSuccessFailInfoDO.setFailCount(failCount);
+		taskSuccessFailInfoMapper.updateTaskSuccessFailInfo(taskSuccessFailInfoDO);
+
+		TaskInfoDO taskInfo = this.getTaskInfo(taskSuccessFailInfoDO.getTaskName(), taskSuccessFailInfoDO.getTaskGroup());
+		taskInfo.setEndDate(taskSuccessFailInfoDO.getEndDate());
+		if(failCount>0) {
+			taskInfo.setState(TaskState.ERROR.state());
+		}else {
+			taskInfo.setState(TaskState.COMPLETE.state());
+		}
+		this.update(taskInfo);
 	}
 
 	public void updateTaskEndDate(String key, String group) {

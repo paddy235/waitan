@@ -2,6 +2,7 @@ package com.bbd.bgo.web.controller;
 
 
 import com.bbd.wtyh.domain.TaskInfoDO;
+import com.bbd.wtyh.domain.TaskSuccessFailInfoDO;
 import com.bbd.wtyh.service.TimingTaskService;
 import com.bbd.wtyh.web.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +41,16 @@ public class TimingTaskController {
 
 	@RequestMapping("/getHistoryTask")
 	@ResponseBody
-	public ResponseBean getHistoryTask() {
-		List<TaskInfoDO> list = timingTaskService.getLatestTaskInfo();
+	public ResponseBean getHistoryTask(String taskName,String taskGroup) {
+		List<TaskSuccessFailInfoDO> list = timingTaskService.getHistoryTaskInfo(taskName,taskGroup);
 		return ResponseBean.successResponse(list);
+	}
+
+	@RequestMapping("/getTaskDetail")
+	@ResponseBody
+	public ResponseBean getTaskDetail(Integer taskId, String taskName, String taskGroup) {
+
+		return ResponseBean.successResponse(null);
 	}
 
 }

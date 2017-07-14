@@ -53,7 +53,7 @@ public class CreditController {
 	public ResponseBean creditScoreCalculate() {
 		Map data = new HashMap();
 		Integer taskId = coCreditScoreService.creditScoreCalculate(0);
-        TaskSuccessFailInfoDO taskSuccessFailInfoDO = taskSuccessFailInfoMapper.getTaskSuccessFailInfo(taskId,null,null,null);
+        TaskSuccessFailInfoDO taskSuccessFailInfoDO = taskSuccessFailInfoMapper.getTaskInfoById(taskId);
         data.put("taskId",taskSuccessFailInfoDO.getId());
         data.put("successCount",taskSuccessFailInfoDO.getSuccessCount());
         data.put("failCount",taskSuccessFailInfoDO.getFailCount());
@@ -65,7 +65,7 @@ public class CreditController {
 	public ResponseBean execFailCompanyByTaskId(Integer taskId,HttpServletRequest request) {
         Map data = new HashMap();
         Integer newId = coCreditScoreService.executeFailCompanyByTaskId(1,taskId);
-        TaskSuccessFailInfoDO taskSuccessFailInfoDO = taskSuccessFailInfoMapper.getTaskSuccessFailInfo(newId,null,null,null);
+        TaskSuccessFailInfoDO taskSuccessFailInfoDO = taskSuccessFailInfoMapper.getTaskInfoById(newId);
         data.put("taskId",taskSuccessFailInfoDO.getId());
         data.put("successCount",taskSuccessFailInfoDO.getSuccessCount());
         data.put("failCount",taskSuccessFailInfoDO.getFailCount());
