@@ -1,5 +1,6 @@
 package com.bbd.bgo.web.controller;
 
+import com.bbd.bgo.quartz.TaskUtil;
 import com.bbd.data.service.DataService;
 import com.bbd.wtyh.domain.TaskSuccessFailInfoDO;
 import com.bbd.wtyh.domain.credit.CompanyCreditFailInfoDO;
@@ -51,25 +52,58 @@ public class CreditController {
 	@RequestMapping("/credit-score-calculate")
 	@ResponseBody
 	public ResponseBean creditScoreCalculate() {
-		Map data = new HashMap();
-		Integer taskId = coCreditScoreService.creditScoreCalculate(0);
-        TaskSuccessFailInfoDO taskSuccessFailInfoDO = taskSuccessFailInfoMapper.getTaskInfoById(taskId);
-        data.put("taskId",taskSuccessFailInfoDO.getId());
-        data.put("successCount",taskSuccessFailInfoDO.getSuccessCount());
-        data.put("failCount",taskSuccessFailInfoDO.getFailCount());
-		return ResponseBean.successResponse(data);
+
+		Integer taskId;
+		Integer planCount = null;// 计划执行笔数。 可在任务结束时更新
+		Integer successCount=null;
+		Integer failCount=null;
+		Map map ;
+		String taskName="shangHaiCreditJob";//timing_task表中的task_key
+		String taskGroup="credit_work";//timing_task表中的task_group
+		String dataVersion=null;//有版本号的传版本号，没有的不传，根据自己的业务规则定
+		Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
+		String user=null;//执行者：自动执行传空，手动执行传登录人
+		taskId= TaskUtil.taskStart(taskName,taskGroup,dataVersion,runMode,planCount,user);
+
+
+		map = coCreditScoreService.creditScoreCalculate(taskId,runMode);
+		if(null!=map){
+			planCount=map.get("planCount")==null?null:(Integer)map.get("planCount");
+			successCount=map.get("successCount")==null?null:(Integer)map.get("successCount");
+			failCount=map.get("failCount")==null?null:(Integer)map.get("failCount");
+		}
+		TaskUtil.taskEnd(taskId,planCount,successCount,failCount);
+
+
+		return ResponseBean.successResponse(map);
 	}
 
 	@RequestMapping("/execFailCompanyByTaskId")
 	@ResponseBody
 	public ResponseBean execFailCompanyByTaskId(Integer taskId,HttpServletRequest request) {
-        Map data = new HashMap();
-        Integer newId = coCreditScoreService.executeFailCompanyByTaskId(1,taskId);
-        TaskSuccessFailInfoDO taskSuccessFailInfoDO = taskSuccessFailInfoMapper.getTaskInfoById(newId);
-        data.put("taskId",taskSuccessFailInfoDO.getId());
-        data.put("successCount",taskSuccessFailInfoDO.getSuccessCount());
-        data.put("failCount",taskSuccessFailInfoDO.getFailCount());
-        return ResponseBean.successResponse(data);
+		Integer newTaskId;
+		Integer planCount = null;// 计划执行笔数。 可在任务结束时更新
+		Integer successCount=null;
+		Integer failCount=null;
+		Map map ;
+		String taskName="shangHaiCreditJob";//timing_task表中的task_key
+		String taskGroup="credit_work";//timing_task表中的task_group
+		String dataVersion=null;//有版本号的传版本号，没有的不传，根据自己的业务规则定
+		Integer runMode = 1;// 运行方式：0 自动执行， 1 手动执行
+		String user = null ;//执行者：自动执行传空，手动执行传登录人
+		newTaskId= TaskUtil.taskStart(taskName,taskGroup,dataVersion,runMode,planCount,user);
+
+
+		map = coCreditScoreService.executeFailCompanyByTaskId(runMode,taskId,newTaskId);
+		if(null!=map){
+			planCount=map.get("planCount")==null?null:(Integer)map.get("planCount");
+			successCount=map.get("successCount")==null?null:(Integer)map.get("successCount");
+			failCount=map.get("failCount")==null?null:(Integer)map.get("failCount");
+		}
+		TaskUtil.taskEnd(newTaskId,planCount,successCount,failCount);
+
+
+		return ResponseBean.successResponse(map);
 	}
 
 }
