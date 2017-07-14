@@ -1,9 +1,7 @@
 package com.bbd.bgo.service.task;
 
-import com.alibaba.fastjson.JSONArray;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.DataLoadingFailInfoDO;
-import com.bbd.wtyh.domain.PlatformNameInformationDO;
 import com.bbd.wtyh.domain.TaskSuccessFailInfoDO;
 import com.bbd.wtyh.domain.dataLoading.*;
 import com.bbd.wtyh.log.user.Operation;
@@ -12,8 +10,6 @@ import com.bbd.wtyh.mapper.DataLoadingFailInfoMapper;
 import com.bbd.wtyh.mapper.DataLoadingMapper;
 import com.bbd.wtyh.mapper.TaskSuccessFailInfoMapper;
 import com.bbd.wtyh.util.DataLoadingUtil;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
@@ -58,9 +54,8 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 	@Autowired
 	private DataLoadingFailInfoMapper dataLoadingFailInfoMapper;
 
-
 	@Override
-	public void dataLoading() {
+	public void dataLoading(Integer taskId) {
 		operateUpdate(null);
 //		TaskSuccessFailInfoDO task = taskSuccessFailInfoMapper.getTaskRecentInfo(TASK_NAME,TASK_GROUP);
 //		//首次跑全量数据
