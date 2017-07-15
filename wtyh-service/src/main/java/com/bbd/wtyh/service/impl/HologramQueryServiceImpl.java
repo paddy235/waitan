@@ -350,7 +350,7 @@ public class HologramQueryServiceImpl implements HologramQueryService {
                 BaseDataDO batchData =hologramQueryDao.getBbdQyxxBatchByPostCD(strNames.toString() );
                 strNames =new StringBuilder();
                 //
-                if(  batchData ==null ||batchData.getErr_code() ==null && !(batchData.getErr_code().equals("0")) ) {
+                if(  batchData ==null ||batchData.getErr_code() ==null || !(batchData.getErr_code().equals("0")) ) {
                     continue;
                 }
                 List<BaseDataDO.Results> resultsList =batchData.getResults();
