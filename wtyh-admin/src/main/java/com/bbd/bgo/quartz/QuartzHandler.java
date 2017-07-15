@@ -195,7 +195,7 @@ public class QuartzHandler extends BaseServiceImpl {
 
 		TaskInfoDO taskInfo = this.getTaskInfo(taskDetail.getTaskName(), taskDetail.getTaskGroup());
 		taskInfo.setEndDate(taskDetail.getEndDate());
-		if(failCount>0) {
+		if(failCount!=null && failCount>0) {
 			taskInfo.setState(TaskState.ERROR.state());
 		}else {
 			taskInfo.setState(TaskState.COMPLETE.state());
