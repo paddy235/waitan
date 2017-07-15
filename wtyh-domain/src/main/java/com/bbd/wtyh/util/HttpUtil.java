@@ -50,16 +50,16 @@ public class HttpUtil {
 		return post(url, null, params, 0);
 	}
 
-	public static String post(String url, Map<String, Object> params, int timeout) throws Exception {
-		return post(url, null, params, timeout);
+	public static String post(String url, Map<String, Object> params, int timeoutSecond) throws Exception {
+		return post(url, null, params, timeoutSecond);
 	}
 
 	public static String post(String url, Map<String, String> header, Map<String, Object> params) throws Exception {
 		return post(url, header, params, 0);
 	}
 
-	public static String post(String url, Map<String, String> header, Map<String, Object> params, int timeout) throws Exception {
-		HttpEntity httpEntity = httpPostEntity(url, header, params, timeout, null);
+	public static String post(String url, Map<String, String> header, Map<String, Object> params, int timeoutSecond) throws Exception {
+		HttpEntity httpEntity = httpPostEntity(url, header, params, timeoutSecond, null);
 		return EntityUtils.toString(httpEntity);
 	}
 
@@ -71,25 +71,28 @@ public class HttpUtil {
 		return post(url, null, params, 0, clazz);
 	}
 
-	public static <T> T post(String url, Map<String, Object> params, int timeout, Class<T> clazz) throws Exception {
-		return post(url, null, params, timeout, clazz);
+	public static <T> T post(String url, Map<String, Object> params, int timeoutSecond, Class<T> clazz) throws Exception {
+		return post(url, null, params, timeoutSecond, clazz);
 	}
 
 	public static <T> T post(String url, Map<String, String> header, Map<String, Object> params, Class<T> clazz) throws Exception {
 		return post(url, header, params, 0, clazz);
 	}
 
-	public static <T> T post(String url, Map<String, String> header, Map<String, Object> params, int timeout, Class<T> clazz)
+	public static <T> T post(String url, Map<String, String> header, Map<String, Object> params, int timeoutSecond, Class<T> clazz)
 			throws Exception {
-		HttpEntity httpEntity = httpPostEntity(url, header, params, timeout, clazz);
+		HttpEntity httpEntity = httpPostEntity(url, header, params, timeoutSecond, clazz);
 		if (clazz.equals(InputStream.class)) {
 			return (T) httpEntity.getContent();
 		}
 		String str = EntityUtils.toString(httpEntity);
+		if (StringUtils.isBlank(str)) {
+			return null;
+		}
 		return JSON.parseObject(str, clazz);
 	}
 
-	private static HttpEntity httpPostEntity(String url, Map<String, String> header, Map<String, Object> params, int timeout,
+	private static HttpEntity httpPostEntity(String url, Map<String, String> header, Map<String, Object> params, int timeoutSecond,
 			Class<?> clazz) throws Exception {
 		HttpEntityEnclosingRequestBase httpRequest = new HttpPost(url);
 		// 构建请求参数
@@ -101,7 +104,7 @@ public class HttpUtil {
 			}
 			httpRequest.setEntity(new UrlEncodedFormEntity(paramList));
 		}
-		return httpEntity(httpRequest, url, header, params, timeout, clazz);
+		return httpEntity(httpRequest, url, header, params, timeoutSecond, clazz);
 	}
 
 	/******************************************************** get ************************************************************/
@@ -113,16 +116,16 @@ public class HttpUtil {
 		return get(url, null, params, 0);
 	}
 
-	public static String get(String url, Map<String, Object> params, int timeout) throws Exception {
-		return get(url, null, params, timeout);
+	public static String get(String url, Map<String, Object> params, int timeoutSecond) throws Exception {
+		return get(url, null, params, timeoutSecond);
 	}
 
 	public static String get(String url, Map<String, String> header, Map<String, Object> params) throws Exception {
 		return get(url, header, params, 0);
 	}
 
-	public static String get(String url, Map<String, String> header, Map<String, Object> params, int timeout) throws Exception {
-		HttpEntity httpEntity = httpGetEntity(url, header, params, timeout, null);
+	public static String get(String url, Map<String, String> header, Map<String, Object> params, int timeoutSecond) throws Exception {
+		HttpEntity httpEntity = httpGetEntity(url, header, params, timeoutSecond, null);
 		return EntityUtils.toString(httpEntity);
 	}
 
@@ -134,26 +137,29 @@ public class HttpUtil {
 		return get(url, null, params, 0, clazz);
 	}
 
-	public static <T> T get(String url, Map<String, Object> params, int timeout, Class<T> clazz) throws Exception {
-		return get(url, null, params, timeout, clazz);
+	public static <T> T get(String url, Map<String, Object> params, int timeoutSecond, Class<T> clazz) throws Exception {
+		return get(url, null, params, timeoutSecond, clazz);
 	}
 
 	public static <T> T get(String url, Map<String, String> header, Map<String, Object> params, Class<T> clazz) throws Exception {
 		return get(url, header, params, 0, clazz);
 	}
 
-	public static <T> T get(String url, Map<String, String> header, Map<String, Object> params, int timeout, Class<T> clazz)
+	public static <T> T get(String url, Map<String, String> header, Map<String, Object> params, int timeoutSecond, Class<T> clazz)
 			throws Exception {
-		HttpEntity httpEntity = httpGetEntity(url, header, params, timeout, clazz);
+		HttpEntity httpEntity = httpGetEntity(url, header, params, timeoutSecond, clazz);
 		if (clazz.equals(InputStream.class)) {
 			return (T) httpEntity.getContent();
 		}
 		String str = EntityUtils.toString(httpEntity);
+		if (StringUtils.isBlank(str)) {
+			return null;
+		}
 		return JSON.parseObject(str, clazz);
 	}
 
-	private static HttpEntity httpGetEntity(String url, Map<String, String> header, Map<String, Object> params, int timeout, Class<?> clazz)
-			throws Exception {
+	private static HttpEntity httpGetEntity(String url, Map<String, String> header, Map<String, Object> params, int timeoutSecond,
+			Class<?> clazz) throws Exception {
 		// 构建请求参数
 		StringBuilder sb = new StringBuilder(url);
 		if (params != null && !params.isEmpty()) {
@@ -169,14 +175,14 @@ public class HttpUtil {
 		}
 		url = sb.toString();
 		HttpGet httpRequest = new HttpGet(url);
-		return httpEntity(httpRequest, url, header, params, timeout, clazz);
+		return httpEntity(httpRequest, url, header, params, timeoutSecond, clazz);
 	}
 
-	protected static HttpClientBuilder createHttpClientBuilder(String url) throws Exception {
+	protected static HttpClientBuilder createHttpClientBuilder(String url, boolean addProxy) throws Exception {
 		HttpClientBuilder httpClientBuilder = HttpClients.custom();
 		String httpProxy = System.getenv(PROXY_ENV_NAME);
 		// 设置http代理
-		if (StringUtils.isNotEmpty(httpProxy)) {
+		if (addProxy && StringUtils.isNotEmpty(httpProxy)) {
 			URI httpProxyUri = new URI(httpProxy);
 			if (StringUtils.isNotEmpty(httpProxyUri.getUserInfo())) {
 				CredentialsProvider credsProvider = new BasicCredentialsProvider();
@@ -212,12 +218,12 @@ public class HttpUtil {
 	}
 
 	private static HttpEntity httpEntity(HttpRequestBase httpRequest, String url, Map<String, String> header, Map<String, Object> params,
-			int timeout, Class<?> clazz) throws Exception {
-		HttpClientBuilder httpClientBuilder = createHttpClientBuilder(url);
+			int timeoutSecond, Class<?> clazz) throws Exception {
+		HttpClientBuilder httpClientBuilder = createHttpClientBuilder(url, true);
 
 		RequestConfig.Builder requestConfigBuilder = RequestConfig.custom();
-		if (timeout > 0) {
-			requestConfigBuilder.setConnectTimeout(timeout * 1000).setSocketTimeout(timeout * 1000);
+		if (timeoutSecond > 0) {
+			requestConfigBuilder.setConnectTimeout(timeoutSecond * 1000).setSocketTimeout(timeoutSecond * 1000);
 		}
 		if (MapUtils.isNotEmpty(header)) {
 			for (Map.Entry<String, String> map : header.entrySet()) {
