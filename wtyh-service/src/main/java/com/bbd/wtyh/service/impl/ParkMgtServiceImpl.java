@@ -23,6 +23,20 @@ public class ParkMgtServiceImpl implements ParkMgtService {
         try {
             list = parkAndBuildingMgtMapper.queryParkAndBuilding(parkName);
         }catch (Exception e){
+            e.printStackTrace();
+            return list;
+        }
+
+        return list;
+    }
+
+    @Override
+    public List<ParkAndBuildingVO> queryBuildingCompanyNumber(String parkName) {
+        List<ParkAndBuildingVO> list = new ArrayList<>();
+        try {
+            list = parkAndBuildingMgtMapper.queryBuildingCompanyNumber(parkName);
+        }catch (Exception e){
+            e.printStackTrace();
             return list;
         }
 

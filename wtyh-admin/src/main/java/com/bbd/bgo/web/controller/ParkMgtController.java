@@ -45,12 +45,24 @@ public class ParkMgtController {
     /**
      *
      * @param parkName 园区名称
-     * @return 查询园区楼宇列表
+     * @return 园区楼宇列表
      */
     @RequestMapping("/queryParkAndBuilding")
     @ResponseBody
     public ResponseBean queryParkAndBuilding(String parkName){
         List<ParkAndBuildingVO> list = parkMgtService.queryParkAndBuilding(parkName);
+        return  ResponseBean.successResponse(list);
+    }
+
+    /**
+     *
+     * @param parkName 园区名称
+     * @return 楼宇企业数量
+     */
+    @RequestMapping("/queryBuildingCompanyNumber")
+    @ResponseBody
+    public ResponseBean queryBuildingCompanyNumber(String parkName){
+        List<ParkAndBuildingVO> list = parkMgtService.queryBuildingCompanyNumber(parkName);
         return  ResponseBean.successResponse(list);
     }
 
