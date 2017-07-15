@@ -1,6 +1,7 @@
 package com.bbd.shanghai.credit.utils;
 
 import com.bbd.shanghai.credit.service.XyAppQueryService;
+import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.codehaus.xfire.XFire;
@@ -12,6 +13,7 @@ import org.codehaus.xfire.transport.http.CommonsHttpMessageSender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.net.URI;
+import java.util.Random;
 
 /**
  * 信用平台webService工具类
@@ -23,16 +25,18 @@ public class XyptWebServiceUtil {
 	// private static final String SERVICE_URL =
 	// "http://127.0.0.1:8082/xyxxfwpt/services/XyAppQuery";
 
-	private static final String SERVICE_URL = CreditConfig.serviceUrl();
+	private static  String SERVICE_URL = CreditConfig.serviceUrl();
 
-	private static final String USER_NAME = CreditConfig.userName();
+	private static  String USER_NAME = CreditConfig.userName();
 
-	private static final String PASSWORD = CreditConfig.password();
+	private static  String PASSWORD = CreditConfig.password();
 
 	// 操作人身份标识 具体使用数据的人员身份标识，只记录。
-	private static final String UNAME = CreditConfig.uname();
+	private static  String UNAME = CreditConfig.uname();
 	// 查询用途
-	private static final String CXYT = CreditConfig.cxyt();
+	private static  String CXYT = CreditConfig.cxyt();
+
+	private static int TIMEOUT = CreditConfig.timeOut();
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(XyptWebServiceUtil.class);
 
@@ -78,9 +82,25 @@ public class XyptWebServiceUtil {
 		XyAppQueryService service;
 
 		try {
+			SERVICE_URL = CreditConfig.serviceUrl();
+			USER_NAME = CreditConfig.userName();
+			PASSWORD = CreditConfig.password();
+			UNAME = CreditConfig.uname();
+			CXYT = CreditConfig.cxyt();
+			TIMEOUT = CreditConfig.timeOut();
 
 			ObjectServiceFactory oClass = new ObjectServiceFactory();
 			Service serviceModel = oClass.create(XyAppQueryService.class);
+
+			//设置连接参数
+			if(TIMEOUT>0){
+
+				HttpClientParams params = new HttpClientParams();
+				params.setParameter(HttpClientParams.USE_EXPECT_CONTINUE, Boolean.FALSE);
+				params.setParameter(HttpClientParams.CONNECTION_MANAGER_TIMEOUT, (long)(TIMEOUT * 1000));
+				serviceModel.setProperty(CommonsHttpMessageSender.HTTP_CLIENT_PARAMS,params);
+			}
+
 
 			if (StringUtils.isNotEmpty(httpProxyHost) && httpProxyPort > 0) {
 				serviceModel.setProperty(CommonsHttpMessageSender.DISABLE_PROXY_UTILS, true);
@@ -103,6 +123,10 @@ public class XyptWebServiceUtil {
 			msg = String.format(msg, dwmc, zzjgdm, tydm, SERVICE_URL, dwmc, zzjgdm, tydm, USER_NAME, "***", CXYT, UNAME);
 			LOGGER.error(msg, e);
 
+			String message=e.getMessage();
+			if(message!=null && message.contains("Server returned error code = 50")){
+				return "50X";
+			}
 			return null;
 		}
 	}

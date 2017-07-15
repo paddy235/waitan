@@ -89,6 +89,10 @@ public class CompanyCreditRawInfoDO implements Cloneable{
 	@Column(name = "create_date")
 	private Date createDate;
 
+	/** 任务ID */
+	@Column(name = "task_id")
+	private Integer taskId;
+
 	/**
 	 * 获取 pk
 	 *
@@ -348,6 +352,14 @@ public class CompanyCreditRawInfoDO implements Cloneable{
 	 */
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	public Integer getTaskId() {
+		return taskId;
+	}
+
+	public void setTaskId(Integer taskId) {
+		this.taskId = taskId;
 	}
 
 }

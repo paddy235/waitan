@@ -1,12 +1,10 @@
 package com.bbd.wtyh.web.controller;
 
 import com.bbd.wtyh.domain.PlatformNameInformationDO;
-import com.bbd.wtyh.domain.wangDaiAPI.SearchCompanyDO;
-import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
+import com.bbd.wtyh.domain.wangDaiAPI.YuQingDTO;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.service.P2PImageService;
-import com.bbd.wtyh.util.relation.StringUtils;
 import com.bbd.wtyh.web.HistogramBean;
 import com.bbd.wtyh.web.RadarChartBean;
 import com.bbd.wtyh.web.ResponseBean;
@@ -91,7 +89,7 @@ public class P2PImageController {
 	@RequestMapping("/platFormConsensus")
 	@ResponseBody
 	public ResponseBean platformConsensus(@RequestParam(required = true) String platName) {
-		YuQingDO content = p2PImageService.platformConsensus(platName);
+		YuQingDTO content = p2PImageService.platformConsensus(platName);
 		return ResponseBean.successResponse(content);
 	}
 

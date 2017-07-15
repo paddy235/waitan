@@ -96,9 +96,13 @@ public interface PToPMonitorService {
      */
     void industryCompareDataLandingTask() throws Exception;
 
-
     /**
      * dataType＝plat_rank_data 数据落地
      */
     void platRankDataLandingTask() throws Exception;
+
+    /**
+     * dataType＝area_index 数据落地
+     */
+    void areaIndexDataLandingTask() throws Exception;
 }

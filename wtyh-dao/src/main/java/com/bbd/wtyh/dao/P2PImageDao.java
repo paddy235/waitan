@@ -5,7 +5,8 @@ import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
-import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
+import com.bbd.wtyh.domain.wangDaiAPI.RadarScoreDTO;
+import com.bbd.wtyh.domain.wangDaiAPI.YuQingDTO;
 
 import java.util.List;
 import java.util.Map;
@@ -23,7 +24,7 @@ public interface P2PImageDao {
      * @param platName
      * @return 舆情信息
      */
-    YuQingDO platformConsensus(String platName);
+    YuQingDTO platformConsensus(String platName);
 
     Map<String, Object> lawsuitMsg(String company);
 
@@ -73,4 +74,8 @@ public interface P2PImageDao {
      * @return
      */
     List<PlatformNameInformationDO> associatedCompanyName(String platName, Integer limit_size);
+
+
+
+    RadarScoreDTO getRadarScore(String platName);
 }

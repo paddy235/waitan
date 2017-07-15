@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service;
 
 import com.bbd.wtyh.domain.TaskInfoDO;
+import com.bbd.wtyh.domain.TaskSuccessFailInfoDO;
 
 import java.util.List;
 
@@ -11,4 +12,6 @@ public interface TimingTaskService {
     List<TaskInfoDO> getTaskInfo();
 
     List<TaskInfoDO> getLatestTaskInfo();
+
+    List<TaskSuccessFailInfoDO> getHistoryTaskInfo(String task_name,String task_group);
 }

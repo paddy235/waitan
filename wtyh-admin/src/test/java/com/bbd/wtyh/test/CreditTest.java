@@ -30,7 +30,7 @@ public class CreditTest {
     @Test
     public void queryfailCompanyTest(){
         List<CompanyCreditFailInfoDO> list=coCreditScoreService.queryfailCompany(
-                new String[]{}, "1002", "20170608",1,2);
+                new String[]{}, "1002", 2,1,2);
         System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
 
     }
