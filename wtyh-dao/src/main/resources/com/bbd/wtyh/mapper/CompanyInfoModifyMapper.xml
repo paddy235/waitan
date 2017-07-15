@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.CompanyInfoModifyMapper">
+    <select id="autoComplete" resultType="string">
+			SELECT `name`
+			FROM company
+			WHERE `name` LIKE concat("%", #{q},"%")
+			LIMIT 0, 5
+	</select>
+
+    <select id="queryCompany" resultType="com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo">
+        SELECT
+            `name` AS company,
+            legal_person AS legalPerson,
+            registered_capital AS registeredCapital,
+            company_type AS industry
+        FROM
+            company
+        WHERE
+            `name` = #{name}
+    </select>
+</mapper>

@@ -56,12 +56,11 @@ public class P2PImageServiceImpl implements P2PImageService {
 
     @Override
     public Map<String, Object> platFormStatus(String platName) {
-        PlatDataDO pn = p2PImageDao.getPlatData(platName);
+        PlatDataDO pn = p2PImageDao.getPlatData(platName);  // 查询网贷API
         if (null == pn) {
             return null;
         }
 
-        PlatListDO platListDO = findFromWangdaiPlatList(platName);
         Map<String, Map<String, Object>> platSts = (Map<String, Map<String, Object>>) redisDAO.getObject(PLAT_FORM_STATUS_CACHE_PRIFIX);
         PlatRankDataDTO platRankDataDTO = null;
         if (null != platSts) {
@@ -75,6 +74,8 @@ public class P2PImageServiceImpl implements P2PImageService {
         if (null == platRankDataDTO) {
             platRankDataDTO = findFromWangdaiPlatRankData(platName);
         }
+
+        PlatListDO platListDO = findFromWangdaiPlatList(platName);  // 获取logo
 
         Map<String, Object> result = new LinkedHashMap<>();
         result.put("logo", (null == platListDO) ? null : platListDO.getLogo_url());//logo
@@ -339,5 +340,20 @@ public class P2PImageServiceImpl implements P2PImageService {
         }
 
         logger.info("end get wangdai yuqing data");
+    }
+
+    @Override
+    public Map<String, PlatListDO> getWangdaiCompanyList() {
+        Map<String, PlatListDO> wangdaiCompanyList = new HashMap<>();
+        for (PlatListDO platListDO : p2PImageDao.baseInfoWangDaiApi()) {
+            platListDO.setCompany_name(platListDO.getCompany_name().trim());
+            wangdaiCompanyList.put(platListDO.getCompany_name(), platListDO);
+        }
+        return wangdaiCompanyList;
+    }
+
+    @Override
+    public PlatListDO getWangdaiCompanyList(String companyName) {
+        return getWangdaiCompanyList().get(companyName);
     }
 }

@@ -100,4 +100,14 @@ public interface P2PImageService {
      * 网络借贷舆情数据 
      */
     void updateWangDaiYuQingTask();
+
+    /**
+     * 获取 "公司名 - 平台 的 关系表"
+     */
+    Map<String, PlatListDO> getWangdaiCompanyList();
+
+    /**
+     * 通过 "公司名 - 平台 的 关系表" 查询网贷的 平台名
+     */
+    PlatListDO getWangdaiCompanyList(String companyName);
 }
