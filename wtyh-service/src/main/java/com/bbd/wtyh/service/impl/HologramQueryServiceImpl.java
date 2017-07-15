@@ -8,6 +8,7 @@ import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.CourtAnnouncementDO;
 import com.bbd.wtyh.domain.bbdAPI.IndustryCodeDO;
+import com.bbd.wtyh.domain.vo.NaturalPersonVO;
 import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.mapper.PlatformNameInformationMapper;
 import com.bbd.wtyh.service.DataomApiBbdservice;
@@ -339,8 +340,35 @@ public class HologramQueryServiceImpl implements HologramQueryService {
 
     @Override
     public List<CompanyDO> getBbdQyxxBatchAll( List<String>names ) {
-        int pageSz =190;
         List<CompanyDO> rstList =new LinkedList<>();
+        List<BaseDataDO.Results> resultsList =getBbdQyxxAll( names );
+        if ( resultsList !=null ) {
+            for ( BaseDataDO.Results results : resultsList ) {
+                if (results != null) {
+                    BaseDataDO.Jbxx jb =results.getJbxx();
+                    if ( jb !=null ) {
+                        CompanyDO cd = new CompanyDO();
+                        rstList.add(cd);
+                        //下面是手工对应的字段
+                        cd.setName( jb.getCompany_name() );
+                        cd.setBusinessType( "" );
+                        for (IndustryCodeDO in : IndustryCodeDO.values()) {
+                            if ( String.valueOf(in).equals( String.valueOf( jb.getCompany_industry() ) ) ) {
+                                cd.setBusinessType( in.getValue() );
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return rstList;
+    }
+
+    @Override
+    public List<BaseDataDO.Results> getBbdQyxxAll( List<String>names ) {
+        List<BaseDataDO.Results> rstList =new ArrayList<>();
+        final int pageSz =190;
         StringBuilder strNames =new StringBuilder();
         for( int idx =0; idx <names.size();  ) {
             strNames.append(names.get(idx)).append(",");
@@ -350,32 +378,43 @@ public class HologramQueryServiceImpl implements HologramQueryService {
                 BaseDataDO batchData =hologramQueryDao.getBbdQyxxBatchByPostCD(strNames.toString() );
                 strNames =new StringBuilder();
                 //
-                if(  batchData ==null ||batchData.getErr_code() ==null && !(batchData.getErr_code().equals("0")) ) {
+                if(  batchData ==null ||batchData.getErr_code() ==null || !(batchData.getErr_code().equals("0")) ) {
                     continue;
                 }
                 List<BaseDataDO.Results> resultsList =batchData.getResults();
                 if ( resultsList !=null ) {
-                    for ( BaseDataDO.Results results : resultsList ) {
-                        if (results != null) {
-                            BaseDataDO.Jbxx jb =results.getJbxx();
-                            if ( jb !=null ) {
-                                CompanyDO cd = new CompanyDO();
-                                rstList.add(cd);
-                                //下面是手工对应的字段
-                                cd.setName( jb.getCompany_name() );
-                                cd.setBusinessType( "" );
-                                for (IndustryCodeDO in : IndustryCodeDO.values()) {
-                                    if ( String.valueOf(in).equals( String.valueOf( jb.getCompany_industry() ) ) ) {
-                                        cd.setBusinessType( in.getValue() );
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    rstList.addAll(resultsList);
                 }
             }
         }
-        return rstList;
+        return  rstList;
     }
+
+    @Override
+    public List<CompanySearch2DO.Rdata> getNaturalPersonList( String nalName, String type ) {
+        List<CompanySearch2DO.Rdata> csList=new LinkedList<>();
+        if( StringUtils.isEmpty(nalName) ||StringUtils.isEmpty(type)
+            ||( !type.equals("gdxx")&& !type.equals("baxx") ) ) {
+            return csList;
+        }
+        Map<String, String>parameters =new HashMap<String, String>() {{
+            put( "highlight", "false" );
+            put( "page_size", "90" );
+            put( "type", type );
+        }};
+        for (int idx =0; idx <5; idx++) {
+            parameters.put( "page_no", "" +idx );
+            CompanySearch2DO cs2 = hologramQueryDao.companySearch2(nalName, parameters);
+            if (  null ==cs2 ||cs2.getErr_code() ==null || !(cs2.getErr_code().equals("0")) ) {
+                return csList;
+            }
+            csList.addAll(cs2.getRdata());
+            if( csList.size() >= Integer.decode( null ==cs2.getSum() ? "0" : cs2.getSum() )
+                ||(null !=cs2.getTotal() &&cs2.getTotal().equals("0") ) ) {
+                break;
+            }
+        }
+        return csList;
+    }
+
 }

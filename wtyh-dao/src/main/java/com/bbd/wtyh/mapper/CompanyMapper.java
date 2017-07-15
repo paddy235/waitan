@@ -1,6 +1,7 @@
 package com.bbd.wtyh.mapper;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -117,6 +118,13 @@ public interface CompanyMapper {
 	Integer maxCompanyId();
 
 	List<CompanyDO> findCompanyByName( @Param("names") List<String> names );
+
+	/**
+	 * 查询传入的企业名称中那些是类金融企业
+	 * @param names
+	 * @return
+	 */
+	List<String> findKindredFinanceCompanyNameByCompanyName( @Param("names") List<String> names );
 
 	/**
 	 * 更新企业基本信息

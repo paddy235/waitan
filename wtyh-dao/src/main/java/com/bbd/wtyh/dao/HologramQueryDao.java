@@ -17,6 +17,14 @@ import java.util.Map;
 public interface HologramQueryDao {
     SearchComanyDO search(String company, int page_no, int page_size);
 
+    /**
+     * 数据平台companySearch2接口
+     * @param query 待搜索的关键字
+     * @param parameters 辅助参数 详见：http://docs.bbdops.com:8102/api/bbd_companysearch2/
+     * @return CompanySearch2DO
+     */
+    public CompanySearch2DO companySearch2(String query, Map<String, String>parameters);
+
     BaseDataDO outlineMsg(String platName);
 
     BBDLogoDO bbdLogo(String company);
