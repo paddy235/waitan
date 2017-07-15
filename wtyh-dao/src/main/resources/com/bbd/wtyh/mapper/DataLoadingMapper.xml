@@ -132,4 +132,23 @@
 			#{item.company_name}, #{item.exec_court_name}, #{item.exec_subject}, #{item.idtype}, #{item.pname}, #{item.pname_id}, #{item.type}, #{item.bbd_qyxx_id}, #{item.create_time})
 		</foreach>
 	</insert>
+
+	<insert id="saveZhixingDO" parameterType="java.util.List">
+		INSERT INTO datashare_pull_file(
+		file_id ,file_name ,file_url ,task_id ,create_by ,create_date)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator="," >
+			(#{item.file_id}, #{item.file_name}, #{item.file_url}, #{item.task_id},
+			#{item.create_by}, CURDATE())
+		</foreach>
+	</insert>
+
+	<select id="getDatasharePullFileByTaskId" parameterType="java.lang.Integer" resultType="com.bbd.wtyh.domain.dataLoading.DatasharePullFileDO">
+		select file_id,file_name,file_url,task_id,create_by,create_date,update_by,update_date
+			FROM
+		datashare_pull_file
+		where task_id=#{taskId}
+	</select>
+
 </mapper>
+

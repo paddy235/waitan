@@ -25,7 +25,7 @@ public class DataLoadingUtil {
 	private static final String ZGCPWSW = "zgcpwsw";
 	private static final String ZHIXING = "zhixing";
 
-	//文件转化为sring集合
+	//文件转化为string集合
 	public static List<String> txt2String(List<File> fileList){
 		List<String> list=new ArrayList<String>();
 		for(File file:fileList){

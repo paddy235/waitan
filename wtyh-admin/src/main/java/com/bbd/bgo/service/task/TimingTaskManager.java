@@ -56,7 +56,7 @@ public class TimingTaskManager {
 		Map map =null;
 		try {
 			Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
-			taskId=TaskUtil.taskStart("shangHaiCreditJob","credit_work",null,runMode,null,null);
+			taskId=TaskUtil.taskStart(TaskUtil.shangHaiCreditJob[0],TaskUtil.shangHaiCreditJob[1],null,runMode,null,null);
 			//需要传 taskId 给业务接口
 			map=coCreditScoreService.creditScoreCalculate(taskId,runMode);
 		} catch (Exception e) {
@@ -82,16 +82,58 @@ public class TimingTaskManager {
 	 * 更新企业风险等级
 	 * 频率：每天16：20：00执行
 	 */
-	public void updateCompanyRiskLevel() throws Exception {
-		offlineFinanceService.updateCompanyRiskLevel();
+	public void riskLevelTask() throws Exception {
+		Integer taskId=null;
+		Integer planCount = null;// 计划执行笔数。 可在任务结束时更新
+		Integer successCount=null;
+		Integer failCount=null;
+		Map map =null;
+		try {
+			Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
+			taskId=TaskUtil.taskStart(TaskUtil.riskLevelJob[0],TaskUtil.riskLevelJob[1],null,runMode,null,null);
+			//需要传 taskId 给业务接口
+			offlineFinanceService.updateCompanyRiskLevel();
+		} catch (Exception e) {
+			logger.error("riskLevelTask"+e);
+		}finally {
+
+			if(null!=map){
+				planCount=map.get("planCount")==null?null:(Integer)map.get("planCount");
+				successCount=map.get("successCount")==null?null:(Integer)map.get("successCount");
+				failCount=map.get("failCount")==null?null:(Integer)map.get("failCount");
+			}
+			TaskUtil.taskEnd(taskId,planCount,successCount,failCount,null);
+		}
+
 	}
 
 	/**
 	 * 更新企业基本信息
 	 * 频率：每月2日晚上8点
 	 */
-	public void updateCompanyBaseInfo() throws Exception {
-		systemDataUpdateService.updateCompanyTableAreaIdAndAddress();
+	public void companyBaseInfoTask() throws Exception {
+		Integer taskId=null;
+		Integer planCount = null;// 计划执行笔数。 可在任务结束时更新
+		Integer successCount=null;
+		Integer failCount=null;
+		Map map =null;
+		try {
+			Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
+			taskId=TaskUtil.taskStart(TaskUtil.companyBaseInfo[0],TaskUtil.companyBaseInfo[1],null,runMode,null,null);
+			//需要传 taskId 给业务接口
+			systemDataUpdateService.updateCompanyTableAreaIdAndAddress();
+		} catch (Exception e) {
+			logger.error("riskLevelTask"+e);
+		}finally {
+
+			if(null!=map){
+				planCount=map.get("planCount")==null?null:(Integer)map.get("planCount");
+				successCount=map.get("successCount")==null?null:(Integer)map.get("successCount");
+				failCount=map.get("failCount")==null?null:(Integer)map.get("failCount");
+			}
+			TaskUtil.taskEnd(taskId,planCount,successCount,failCount,null);
+		}
+
 	}
 
 	/**
@@ -115,7 +157,7 @@ public class TimingTaskManager {
 
 			String dataVersion= null;//有版本号的传版本号，没有的不传，根据自己的业务规则定
 			Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
-			taskId=TaskUtil.taskStart("pToPMonitorJob","wd_work",dataVersion,runMode,null,null);
+			taskId=TaskUtil.taskStart(TaskUtil.pToPMonitorJob[0],TaskUtil.pToPMonitorJob[1],dataVersion,runMode,null,null);
 			//需要传 taskId 给业务接口
 			pToPMonitorService.industryShanghaiDataLandingTask();
 //			pToPMonitorService.industryCompareDataLandingTask();
