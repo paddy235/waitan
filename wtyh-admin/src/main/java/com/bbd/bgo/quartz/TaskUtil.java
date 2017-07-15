@@ -13,6 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class TaskUtil {
 
 	private static QuartzHandler quartzHandler = ApplicationContextUtil.getBean(QuartzHandler.class);
+	//公信数据落地任务
+	public static String[] shangHaiCreditJob= {"shangHaiCreditJob","credit_work"};
+	public static String[] closeShangHaiCreditJob= {"closeShangHaiCreditJob","credit_work"};
+	//BBD数据落地任务
+	public static String[] offlineFinanceJob= {"offlineFinanceJob","bbd_work"};
+	//网贷之家数据落地任务
+	public static String[] pToPMonitorJob= {"pToPMonitorJob","wd_work"};
+	//系统数据更新任务
+	public static String[] riskLevelJob= {"riskLevelJob","job_work"};//风险等级
+	public static String[] companyBaseInfo= {"companyBaseInfo","job_work"};//风险等级
 
 
 	/**
