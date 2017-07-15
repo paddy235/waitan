@@ -86,6 +86,9 @@ public class HttpUtil {
 			return (T) httpEntity.getContent();
 		}
 		String str = EntityUtils.toString(httpEntity);
+		if (StringUtils.isBlank(str)) {
+			return null;
+		}
 		return JSON.parseObject(str, clazz);
 	}
 
@@ -149,6 +152,9 @@ public class HttpUtil {
 			return (T) httpEntity.getContent();
 		}
 		String str = EntityUtils.toString(httpEntity);
+		if (StringUtils.isBlank(str)) {
+			return null;
+		}
 		return JSON.parseObject(str, clazz);
 	}
 
