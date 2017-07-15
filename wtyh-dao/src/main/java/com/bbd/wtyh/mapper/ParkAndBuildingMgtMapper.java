@@ -23,6 +23,8 @@ public interface ParkAndBuildingMgtMapper {
 
     List<ParkAndBuildingVO> queryBuildingFinCompany(String parkName);
 
+    List<ParkAndBuildingVO> queryBuildingCompanyNumber(String parkName);
+
     void addBuilding(BuildingDO building);
 
     void delCompanyByBuildingId(List<Integer> buildingIdList);

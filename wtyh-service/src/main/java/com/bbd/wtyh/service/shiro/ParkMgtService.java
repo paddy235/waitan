@@ -12,7 +12,14 @@ public interface ParkMgtService{
     /**
      *
      * @param parkName 园区名称
-     * @return 查询园区楼宇列表
+     * @return 园区楼宇列表
      */
     List<ParkAndBuildingVO> queryParkAndBuilding(String parkName);
+
+    /**
+     *
+     * @param parkName 园区名称
+     * @return 楼宇企业数量
+     */
+    List<ParkAndBuildingVO> queryBuildingCompanyNumber(String parkName);
 }

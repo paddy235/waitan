@@ -59,6 +59,39 @@
         GROUP BY b.`name`
     </select>
 
+    <select id="queryBuildingCompanyNumber" parameterType="java.lang.String" resultType="com.bbd.wtyh.domain.vo.ParkAndBuildingVO">
+        SELECT
+            o.name as buildingName,
+            (
+            SELECT
+                count(1)
+            FROM
+                park p,
+                building b,
+                company_building cb,
+                company c
+            WHERE
+                p.park_id=b.park_id and b.building_id=cb.building_id and cb.company_id=c.company_id and b.`name` = o.name
+            )
+            as companyCount,
+            (
+            SELECT
+                count(1)
+            FROM
+                park p,
+                building b,
+                company_building cb,
+                company c
+            WHERE
+                p.park_id=b.park_id and b.building_id=cb.building_id and cb.company_id=c.company_id and b.`name` = o.name and c.company_type<![CDATA[>=]]>1
+            )
+            as finCompanyCount
+        FROM
+            building o
+        WHERE
+            o.park_id = (SELECT park_id FROM park WHERE name=#{parkName})
+    </select>
+
     <insert id="addBuilding" parameterType="com.bbd.wtyh.domain.BuildingDO">
         INSERT INTO building(`name`, park_id, img_url, create_by, create_date, update_date) VALUES(#{name}, #{parkId}, #{imgUrl}, #{createBy}, SYSDATE(), SYSDATE())
     </insert>
