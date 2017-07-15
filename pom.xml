@@ -552,6 +552,8 @@
 
                 <!--生成excel存放目录 -->
                 <m.export.excel.path>/data/wtyh</m.export.excel.path>
+                <m.share.path>D:\\shareDir</m.share.path>
+                <m.mapping.path>/wtyh/yed</m.mapping.path>
             </properties>
         </profile>
         <!--测试环境 模拟上海-->
