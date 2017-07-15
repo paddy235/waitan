@@ -10,11 +10,13 @@ import com.bbd.wtyh.web.ResponseBean;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -32,8 +34,8 @@ public class ParkMgtController {
     private ParkMgtService parkMgtService;
 
     /**
-     *
-     * @return 上海所有行政区
+     * 上海所有行政区
+     * @return
      */
     @RequestMapping("/areaList")
     @ResponseBody
@@ -43,9 +45,9 @@ public class ParkMgtController {
     }
 
     /**
-     *
+     * 园区楼宇列表
      * @param parkName 园区名称
-     * @return 园区楼宇列表
+     * @return
      */
     @RequestMapping("/queryParkAndBuilding")
     @ResponseBody
@@ -55,15 +57,36 @@ public class ParkMgtController {
     }
 
     /**
-     *
+     * 楼宇企业数量
      * @param parkName 园区名称
-     * @return 楼宇企业数量
+     * @return
      */
     @RequestMapping("/queryBuildingCompanyNumber")
     @ResponseBody
     public ResponseBean queryBuildingCompanyNumber(String parkName){
         List<ParkAndBuildingVO> list = parkMgtService.queryBuildingCompanyNumber(parkName);
         return  ResponseBean.successResponse(list);
+    }
+
+    /**
+     * 根据企业名称删除企业
+     * @param companyList 企业名称列表
+     * @return
+     */
+    @RequestMapping("/delCompanyByCompanyId")
+    @ResponseBody
+    public ResponseBean delCompanyByCompanyId(String companyList){
+        List<Integer> companyNameList = new ArrayList<>();
+
+        String[] companyName = companyList.split(",");
+        for (String s:companyName) {
+            if(StringUtils.isEmpty(s)){
+                companyNameList.add(Integer.valueOf(s));
+            }
+        }
+
+        parkMgtService.delCompanyByCompanyName(companyNameList);
+        return  ResponseBean.successResponse("OK");
     }
 
     @RequestMapping("/test1")

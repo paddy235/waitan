@@ -42,4 +42,13 @@ public class ParkMgtServiceImpl implements ParkMgtService {
 
         return list;
     }
+
+    @Override
+    public void delCompanyByCompanyName(List<Integer> companyNameList) {
+        try{
+            parkAndBuildingMgtMapper.delCompanyByCompanyName(companyNameList);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }

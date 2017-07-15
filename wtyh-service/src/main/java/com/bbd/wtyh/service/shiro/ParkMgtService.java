@@ -10,16 +10,22 @@ import java.util.List;
 public interface ParkMgtService{
 
     /**
-     *
+     * 园区楼宇列表
      * @param parkName 园区名称
-     * @return 园区楼宇列表
+     * @return
      */
     List<ParkAndBuildingVO> queryParkAndBuilding(String parkName);
 
     /**
-     *
+     * 楼宇企业数量
      * @param parkName 园区名称
-     * @return 楼宇企业数量
+     * @return
      */
     List<ParkAndBuildingVO> queryBuildingCompanyNumber(String parkName);
+
+    /**
+     * 根据企业ID删除企业
+     * @param companyNameList 企业名称列表
+     */
+    void delCompanyByCompanyName(List<Integer> companyNameList);
 }

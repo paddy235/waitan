@@ -96,6 +96,24 @@
         INSERT INTO building(`name`, park_id, img_url, create_by, create_date, update_date) VALUES(#{name}, #{parkId}, #{imgUrl}, #{createBy}, SYSDATE(), SYSDATE())
     </insert>
 
+    <delete id="delCompanyByCompanyName" parameterType="java.util.List">
+        DELETE FROM
+          company_building o
+        WHERE
+          o.company_id in
+          (
+          select
+            cb.company_id
+          from
+            park p, building b, company_building cb, company c
+          where
+            p.park_id=b.park_id and b.building_id=cb.building_id and cb.company_id=c.company_id and c.`name` in
+            <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+          )
+    </delete>
+
     <delete id="delCompanyByBuildingId" parameterType="java.util.List">
         DELETE FROM company_building WHERE building_id IN
         <foreach item="item" index="index" collection="list" open="(" separator="," close=")">

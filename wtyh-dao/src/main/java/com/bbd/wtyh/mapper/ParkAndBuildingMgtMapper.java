@@ -27,6 +27,8 @@ public interface ParkAndBuildingMgtMapper {
 
     void addBuilding(BuildingDO building);
 
+    void delCompanyByCompanyName(List<Integer> companyNameList);
+
     void delCompanyByBuildingId(List<Integer> buildingIdList);
 
     void delBuildingByParkId(int parkId);
