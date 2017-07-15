@@ -46,8 +46,12 @@ public class HttpUtil {
 		return post(url, null, null, 0);
 	}
 
-	public static String post(String url, Map<String, String> header) throws Exception {
-		return post(url, header, null, 0);
+	public static String post(String url, Map<String, Object> params) throws Exception {
+		return post(url, null, params, 0);
+	}
+
+	public static String post(String url, Map<String, Object> params, int timeout) throws Exception {
+		return post(url, null, params, timeout);
 	}
 
 	public static String post(String url, Map<String, String> header, Map<String, Object> params) throws Exception {
@@ -63,8 +67,12 @@ public class HttpUtil {
 		return post(url, null, null, 0, clazz);
 	}
 
-	public static <T> T post(String url, Map<String, String> header, Class<T> clazz) throws Exception {
-		return post(url, header, null, 0, clazz);
+	public static <T> T post(String url, Map<String, Object> params, Class<T> clazz) throws Exception {
+		return post(url, null, params, 0, clazz);
+	}
+
+	public static <T> T post(String url, Map<String, Object> params, int timeout, Class<T> clazz) throws Exception {
+		return post(url, null, params, timeout, clazz);
 	}
 
 	public static <T> T post(String url, Map<String, String> header, Map<String, Object> params, Class<T> clazz) throws Exception {
@@ -81,8 +89,8 @@ public class HttpUtil {
 		return JSON.parseObject(str, clazz);
 	}
 
-	public static HttpEntity httpPostEntity(String url, Map<String, String> header, Map<String, Object> params, int timeout, Class<?> clazz)
-			throws Exception {
+	private static HttpEntity httpPostEntity(String url, Map<String, String> header, Map<String, Object> params, int timeout,
+			Class<?> clazz) throws Exception {
 		HttpEntityEnclosingRequestBase httpRequest = new HttpPost(url);
 		// 构建请求参数
 		if (params != null && !params.isEmpty()) {
@@ -101,8 +109,12 @@ public class HttpUtil {
 		return get(url, null, null, 0);
 	}
 
-	public static String get(String url, Map<String, String> header) throws Exception {
-		return get(url, header, null, 0);
+	public static String get(String url, Map<String, Object> params) throws Exception {
+		return get(url, null, params, 0);
+	}
+
+	public static String get(String url, Map<String, Object> params, int timeout) throws Exception {
+		return get(url, null, params, timeout);
 	}
 
 	public static String get(String url, Map<String, String> header, Map<String, Object> params) throws Exception {
@@ -118,8 +130,12 @@ public class HttpUtil {
 		return get(url, null, null, 0, clazz);
 	}
 
-	public static <T> T get(String url, Map<String, String> header, Class<T> clazz) throws Exception {
-		return get(url, header, null, 0, clazz);
+	public static <T> T get(String url, Map<String, Object> params, Class<T> clazz) throws Exception {
+		return get(url, null, params, 0, clazz);
+	}
+
+	public static <T> T get(String url, Map<String, Object> params, int timeout, Class<T> clazz) throws Exception {
+		return get(url, null, params, timeout, clazz);
 	}
 
 	public static <T> T get(String url, Map<String, String> header, Map<String, Object> params, Class<T> clazz) throws Exception {
