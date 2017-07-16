@@ -45,7 +45,7 @@ public class ZgcpwswDO {
     private String trial_court;//审理法院
     private String update;//'更新时间
     private Date create_time;
-
+    private Integer task_id;
     public ZgcpwswDO() {
     }
 
@@ -335,5 +335,13 @@ public class ZgcpwswDO {
 
     public void setLitigant_types(String litigant_types) {
         this.litigant_types = litigant_types;
+    }
+
+    public Integer getTask_id() {
+        return task_id;
+    }
+
+    public void setTask_id(Integer task_id) {
+        this.task_id = task_id;
     }
 }

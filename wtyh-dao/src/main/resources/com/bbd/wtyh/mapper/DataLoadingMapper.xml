@@ -7,23 +7,23 @@
 		INSERT INTO dishonesty(
 			id, age, bbd_dotime, bbd_source, bbd_type, bbd_uptime, bbd_url, bbd_xgxx_id,case_code,case_create_time,
 			concrete_situation,definiteo_bligation,exe_code,exec_basunit,exec_court_name,frname,gender,idtype,
-			perform_degree,pname,pname_id,province,pubdate,type,bbd_qyxx_id,create_time)
+			perform_degree,pname,pname_id,province,pubdate,type,bbd_qyxx_id,create_time,task_id)
 		VALUES
 		<foreach collection="list" item="item" index="index" separator="," >
 			(#{item.id}, #{item.age}, #{item.bbd_dotime}, #{item.bbd_source}, #{item.bbd_type}, #{item.bbd_uptime}, #{item.bbd_url}, #{item.bbd_xgxx_id}, #{item.case_code}, #{item.case_create_time},
 			#{item.concrete_situation}, #{item.definiteo_bligation}, #{item.exe_code}, #{item.exec_basunit}, #{item.exec_court_name},#{item.frname}, #{item.gender}, #{item.idtype},
-			#{item.perform_degree}, #{item.pname}, #{item.pname_id}, #{item.province}, #{item.pubdate}, #{item.type}, #{item.bbd_qyxx_id}, #{item.create_time})
+			#{item.perform_degree}, #{item.pname}, #{item.pname_id}, #{item.province}, #{item.pubdate}, #{item.type}, #{item.bbd_qyxx_id}, #{item.create_time}, #{item.task_id})
 		</foreach>
 	</insert>
 
 	<insert id="saveKtggDO" parameterType="java.util.List">
 		INSERT INTO ktgg(
 		id, action_cause, bbd_dotime, bbd_qyxx_id, bbd_source, bbd_type, bbd_uptime,bbd_version ,case_code,city,
-		litigant,main,title,trial_date,create_time,bbd_url,asstarting)
+		litigant,main,title,trial_date,create_time,bbd_url,asstarting,task_id)
 		VALUES
 		<foreach collection="list" item="item" index="index" separator="," >
 			(#{item.id}, #{item.action_cause}, #{item.bbd_dotime}, #{item.bbd_qyxx_id}, #{item.bbd_source}, #{item.bbd_type}, #{item.bbd_uptime}, #{item.bbd_version}, #{item.case_code}, #{item.city},
-			#{item.litigant}, #{item.main}, #{item.title}, #{item.trial_date}, #{item.create_time},#{item.bbd_url}, #{item.asstarting})
+			#{item.litigant}, #{item.main}, #{item.title}, #{item.trial_date}, #{item.create_time},#{item.bbd_url}, #{item.asstarting}, #{item.task_id})
 		</foreach>
 	</insert>
 
@@ -31,12 +31,12 @@
 		INSERT INTO qyxg_yuqing(
 		_id, abstract, author,bbd_dotime ,bbd_source , bbd_type,bbd_uptime ,bbd_url ,bbd_xgxx_id,comment_num,
 		main,news_site,news_title,picture,plate,pubdate,rowkey,search_key,status,table_name,
-		transfer_num,id,create_time,bbd_qyxx_id)
+		transfer_num,id,create_time,bbd_qyxx_id,task_id)
 		VALUES
 		<foreach collection="list" item="item" index="index" separator="," >
 			(#{item._id}, #{item.articleAbstract}, #{item.author}, #{item.bbd_dotime}, #{item.bbd_source}, #{item.bbd_type}, #{item.bbd_uptime}, #{item.bbd_url}, #{item.bbd_xgxx_id}, #{item.comment_num},
 			#{item.main}, #{item.news_site}, #{item.news_title}, #{item.picture}, #{item.plate},#{item.pubdate}, #{item.rowkey}, #{item.search_key}, #{item.status}, #{item.table_name},
-			#{item.transfer_num}, #{item.id}, #{item.create_time}, #{item.bbd_qyxx_id})
+			#{item.transfer_num}, #{item.id}, #{item.create_time}, #{item.bbd_qyxx_id}, #{item.task_id})
 		</foreach>
 	</insert>
 
@@ -46,36 +46,36 @@
 		company_county,company_currency,company_enterprise_status,company_industry,company_name,company_province,company_regorg,company_type,
 		credit_code,enterprise_status,esdate,form,frname,frname_id,invest_cap,investcap_amount,investcap_currency,ipo_company,
 		openfrom,opento,operate_scope,operating_period,parent_firm,realcap,realcap_amount,realcap_currency,regcap,regcap_amount,
-		regcap_currency,regcapcur,regno,regno_or_creditcode,regorg,revoke_date,type,frname_compid,create_time)
+		regcap_currency,regcapcur,regno,regno_or_creditcode,regorg,revoke_date,type,frname_compid,create_time,task_id)
 		VALUES
 		<foreach collection="list" item="item" index="index" separator="," >
 			(#{item.id}, #{item.address}, #{item.approval_date}, #{item.bbd_dotime}, #{item.bbd_history_names}, #{item.bbd_qyxx_id}, #{item.bbd_type}, #{item.bbd_uptime}, #{item.cancel_date}, #{item.company_companytype},
 			#{item.company_county}, #{item.company_currency}, #{item.company_enterprise_status}, #{item.company_industry}, #{item.company_name},#{item.company_province}, #{item.company_regorg}, #{item.company_type},
 			#{item.credit_code}, #{item.enterprise_status}, #{item.esdate}, #{item.form}, #{item.frname}, #{item.frname_id}, #{item.invest_cap}, #{item.investcap_amount}, #{item.investcap_currency}, #{item.ipo_company},
 			#{item.openfrom}, #{item.opento},#{item.operate_scope}, #{item.operating_period},#{item.parent_firm}, #{item.realcap},#{item.realcap_amount}, #{item.realcap_currency},#{item.regcap}, #{item.regcap_amount},
-			#{item.regcap_currency}, #{item.regcapcur},#{item.regno}, #{item.regno_or_creditcode},#{item.regorg}, #{item.revoke_date},#{item.type}, #{item.frname_compid}, #{item.create_time})
+			#{item.regcap_currency}, #{item.regcapcur},#{item.regno}, #{item.regno_or_creditcode},#{item.regorg}, #{item.revoke_date},#{item.type}, #{item.frname_compid}, #{item.create_time}, #{item.task_id})
 		</foreach>
 	</insert>
 
 	<insert id="saveQyxxBaxxDO" parameterType="java.util.List">
 		INSERT INTO qyxx_baxx(
 		id, bbd_dotime, bbd_qyxx_id,bbd_uptime ,company_name ,no ,position ,sex ,type,idno,
-		idtype,name,name_id,resume,salary,asstarting)
+		idtype,name,name_id,resume,salary,asstarting,task_id)
 		VALUES
 		<foreach collection="list" item="item" index="index" separator="," >
 			(#{item.id}, #{item.bbd_dotime}, #{item.bbd_qyxx_id}, #{item.bbd_uptime}, #{item.company_name}, #{item.no}, #{item.position}, #{item.sex}, #{item.type}, #{item.idno},
-			#{item.idtype}, #{item.name}, #{item.name_id},#{item.resume}, #{item.salary}, #{item.asstarting})
+			#{item.idtype}, #{item.name}, #{item.name_id},#{item.resume}, #{item.salary}, #{item.asstarting}, #{item.task_id})
 		</foreach>
 	</insert>
 
 	<insert id="saveQyxxGdxxDO" parameterType="java.util.List">
 		INSERT INTO qyxx_gdxx(
 		id, bbd_dotime, bbd_qyxx_id,bbd_uptime ,company_name ,idno ,idtype ,invest_amount ,invest_name,invest_ratio,
-		name_compid,no,paid_contribution,shareholder_detail,shareholder_id,shareholder_name,shareholder_type,subscribed_capital,create_time,sumconam)
+		name_compid,no,paid_contribution,shareholder_detail,shareholder_id,shareholder_name,shareholder_type,subscribed_capital,create_time,sumconam,task_id)
 		VALUES
 		<foreach collection="list" item="item" index="index" separator="," >
 			(#{item.id}, #{item.bbd_dotime}, #{item.bbd_qyxx_id}, #{item.bbd_uptime}, #{item.company_name}, #{item.idno}, #{item.idtype}, #{item.invest_amount}, #{item.invest_name}, #{item.invest_ratio},
-			#{item.name_compid}, #{item.no}, #{item.paid_contribution},#{item.shareholder_detail}, #{item.shareholder_id}, #{item.shareholder_name}, #{item.shareholder_type}, #{item.subscribed_capital}, #{item.create_time}, #{item.sumconam})
+			#{item.name_compid}, #{item.no}, #{item.paid_contribution},#{item.shareholder_detail}, #{item.shareholder_id}, #{item.shareholder_name}, #{item.shareholder_type}, #{item.subscribed_capital}, #{item.create_time}, #{item.sumconam}, #{item.task_id})
 		</foreach>
 	</insert>
 
@@ -85,25 +85,25 @@
 		inventor,patent_type,patent_agency,title,public_code,publidate,applicant,independent_claim,law_state,main_classcode,
 		npc_code,approval_issue_date,approval_num,bg_publication_date,biology_preserve,compare_file,decode_announce_date,division_application,fmgb,fmsq,
 		homeland_prority,pct_application_data,pct_enter_national,pct_publish_data,priority,wgsq,xxsq,bbd_source,
-		bbd_dotime,bbd_type,bbd_uptime,bbd_url,create_time,sumconam)
+		bbd_dotime,bbd_type,bbd_uptime,bbd_url,create_time,sumconam,task_id)
 		VALUES
 		<foreach collection="list" item="item" index="index" separator="," >
 			(#{item.id}, #{item.bbd_qyxx_id}, #{item.address}, #{item.agent_name}, #{item.application_code}, #{item.application_code_wanfang}, #{item.application_date}, #{item.class_code}, #{item.class_code_wanfang}, #{item.company_name},
 			#{item.inventor}, #{item.patent_type}, #{item.patent_agency}, #{item.title}, #{item.public_code}, #{item.publidate}, #{item.applicant}, #{item.independent_claim}, #{item.law_state}, #{item.main_classcode},
 			#{item.npc_code}, #{item.approval_issue_date}, #{item.approval_num}, #{item.bg_publication_date}, #{item.biology_preserve}, #{item.compare_file}, #{item.decode_announce_date}, #{item.division_application}, #{item.fmgb}, #{item.fmsq},
 			#{item.homeland_prority}, #{item.pct_application_data}, #{item.pct_enter_national}, #{item.pct_publish_data},#{item.priority}, #{item.wgsq}, #{item.xxsq}, #{item.bbd_source},
-			#{item.bbd_dotime}, #{item.bbd_type}, #{item.bbd_uptime}, #{item.bbd_url}, #{item.create_time}, #{item.sumconam})
+			#{item.bbd_dotime}, #{item.bbd_type}, #{item.bbd_uptime}, #{item.bbd_url}, #{item.create_time}, #{item.sumconam}, #{item.task_id})
 		</foreach>
 	</insert>
 
 	<insert id="saveRmfyggDO" parameterType="java.util.List">
 		INSERT INTO rmfygg(
 		id,attachment ,bbd_dotime ,bbd_source ,bbd_type , bbd_uptime, bbd_url,bbd_xgxx_id ,litigant,notice_content,
-		notice_people,notice_time,notice_type,bbd_qyxx_id,create_time)
+		notice_people,notice_time,notice_type,bbd_qyxx_id,create_time,task_id)
 		VALUES
 		<foreach collection="list" item="item" index="index" separator="," >
 			(#{item.id}, #{item.attachment}, #{item.bbd_dotime}, #{item.bbd_source}, #{item.bbd_type}, #{item.bbd_uptime}, #{item.bbd_url}, #{item.bbd_xgxx_id}, #{item.litigant}, #{item.notice_content},
-			#{item.notice_people}, #{item.notice_time}, #{item.notice_type}, #{item.bbd_qyxx_id}, #{item.create_time})
+			#{item.notice_people}, #{item.notice_time}, #{item.notice_type}, #{item.bbd_qyxx_id}, #{item.create_time}, #{item.task_id})
 		</foreach>
 	</insert>
 
@@ -112,28 +112,28 @@
 		id,bbd_qyxx_id ,action_cause ,applicable_law ,bbd_dotime ,bbd_source ,bbd_type ,bbd_uptime ,bbd_url,bbd_xgxx_id,
 		case_type,casecode,caseout_come,company_name,court_acceptance_fee,court_litigant,data_source,def_litigant,def_other_related,doc_type,
 		historycase,ju_proc,litigant,litigant_type,main,pro_litigant,pro_other_related,rawdata,
-		rel_doc,rel_doc_url,sentence_date,title,trial_court)
+		rel_doc,rel_doc_url,sentence_date,title,trial_court,task_id)
 		VALUES
 		<foreach collection="list" item="item" index="index" separator="," >
 			(#{item.id}, #{item.bbd_qyxx_id}, #{item.action_cause}, #{item.applicable_law}, #{item.bbd_dotime}, #{item.bbd_source}, #{item.bbd_type}, #{item.bbd_uptime}, #{item.bbd_url}, #{item.bbd_xgxx_id},
 			#{item.case_type}, #{item.casecode}, #{item.caseout_come}, #{item.company_name}, #{item.court_acceptance_fee}, #{item.court_litigant}, #{item.data_source}, #{item.def_litigant}, #{item.def_other_related}, #{item.doc_type},
 			#{item.historycase}, #{item.ju_proc}, #{item.litigant}, #{item.litigant_types}, #{item.main}, #{item.pro_litigant}, #{item.pro_other_related}, #{item.rawdata},
-			#{item.rel_doc}, #{item.rel_doc_url}, #{item.sentence_date}, #{item.title}, #{item.trial_court})
+			#{item.rel_doc}, #{item.rel_doc_url}, #{item.sentence_date}, #{item.title}, #{item.trial_court}, #{item.task_id})
 		</foreach>
 	</insert>
 
 	<insert id="saveZhixingDO" parameterType="java.util.List">
 		INSERT INTO zhixing(
 		id,bbd_dotime ,bbd_source ,bbd_type ,bbd_uptime ,bbd_url ,bbd_xgxx_id ,case_code ,case_create_time,case_state,
-		company_name,exec_court_name,exec_subject,idtype,pname,pname_id,type,bbd_qyxx_id,create_time)
+		company_name,exec_court_name,exec_subject,idtype,pname,pname_id,type,bbd_qyxx_id,create_time,task_id)
 		VALUES
 		<foreach collection="list" item="item" index="index" separator="," >
 			(#{item.id}, #{item.bbd_dotime}, #{item.bbd_source}, #{item.bbd_type}, #{item.bbd_uptime}, #{item.bbd_url}, #{item.bbd_xgxx_id}, #{item.case_code}, #{item.case_create_time}, #{item.case_state},
-			#{item.company_name}, #{item.exec_court_name}, #{item.exec_subject}, #{item.idtype}, #{item.pname}, #{item.pname_id}, #{item.type}, #{item.bbd_qyxx_id}, #{item.create_time})
+			#{item.company_name}, #{item.exec_court_name}, #{item.exec_subject}, #{item.idtype}, #{item.pname}, #{item.pname_id}, #{item.type}, #{item.bbd_qyxx_id}, #{item.create_time}, #{item.task_id})
 		</foreach>
 	</insert>
 
-	<insert id="saveZhixingDO" parameterType="java.util.List">
+	<insert id="saveDatasharePullFileDO" parameterType="java.util.List">
 		INSERT INTO datashare_pull_file(
 		file_id ,file_name ,file_url ,task_id ,create_by ,create_date)
 		VALUES

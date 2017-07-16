@@ -30,6 +30,7 @@ public class QyxgYuqingDO {
     private Integer transfer_num;//转发量
     private Date create_time;
     private String bbd_qyxx_id;//企业唯一ID
+    private Integer task_id;
 
     public QyxgYuqingDO() {
     }
@@ -224,5 +225,13 @@ public class QyxgYuqingDO {
 
     public void setBbd_qyxx_id(String bbd_qyxx_id) {
         this.bbd_qyxx_id = bbd_qyxx_id;
+    }
+
+    public Integer getTask_id() {
+        return task_id;
+    }
+
+    public void setTask_id(Integer task_id) {
+        this.task_id = task_id;
     }
 }

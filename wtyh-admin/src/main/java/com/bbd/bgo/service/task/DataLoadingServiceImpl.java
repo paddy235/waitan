@@ -141,6 +141,10 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 				JSONObject jsonData = JSONObject.fromObject(String.valueOf(data));
 				Object dataName = jsonData.get(tn);
 				String dataStr = String.valueOf(dataName);
+				//删除失败表数据
+				for(String tableName:failTableList){
+					this.executeCUD("delete from ? where task_id = ?",tableName,taskId);
+				}
 				DataLoadingUtil.addDataToList(failTableList,tn,dataStr,disList,ktggList,yuQingList,basicList,baxxList,gdxxList,
 						zhuanliList,rmfyggList,zgcpwswList,zhixingList);
 			} catch (Exception e) {
@@ -153,7 +157,6 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 		for (String key : successMap.keySet()) {
 			if(successMap.get(key)==0){
 				failTables.add(key);
-				System.out.println(key);
 			}
 		}
 		int successNum = 10-failTables.size();
@@ -190,6 +193,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 			try {
 				UserLogRecord.record("批量新增失信被执行人", Operation.Type.add, Operation.Page.hologram,
 						Operation.System.back);
+				this.setListTaskId(disList);
 				int disSourceNum = disList.size();
 				//int disNum = dataLoadingMapper.saveDishonestyDO(disList);
 				int disInsertNum = batchInsertData(disList);
@@ -208,6 +212,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 				UserLogRecord.record("批量新增开庭公告", Operation.Type.add, Operation.Page.hologram,
 						Operation.System.back);
 				//int ktggNum = dataLoadingMapper.saveKtggDO(ktggList);
+				this.setListTaskId(ktggList);
 				int ktggSourceNum = ktggList.size();
 				int ktggInsertNum = batchInsertData(ktggList);
 				logger.info("end batch save ktgg , count:"+ ktggInsertNum);
@@ -224,6 +229,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 			try {
 				UserLogRecord.record("批量新增舆情", Operation.Type.add, Operation.Page.hologram,
 						Operation.System.back);
+				this.setListTaskId(yuQingList);
 				//int yuqingNum = dataLoadingMapper.saveQyxgYuqingDO(yuQingList);
 				int yuQingSourceNum = yuQingList.size();
 				int yuQingInsertNum = batchInsertData(yuQingList);
@@ -240,6 +246,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 		if(basicList.size()>0){
 			try {
 				int basicSourceNum = basicList.size();
+				this.setListTaskId(basicList);
 				UserLogRecord.record("批量新增企业基础信息", Operation.Type.add, Operation.Page.hologram,
 						Operation.System.back);
 				//int basicNum = dataLoadingMapper.saveQyxxBasicDO(basicList);
@@ -256,6 +263,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 		map.put(QYXX_BAXX,1);
 		if(baxxList.size()>0){
 			try {
+				this.setListTaskId(baxxList);
 				UserLogRecord.record("批量新增企业高管信息", Operation.Type.add, Operation.Page.hologram,
 						Operation.System.back);
 				int baxxSourceNum = baxxList.size();
@@ -272,6 +280,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 		map.put(QYXX_GDXX,1);
 		if(gdxxList.size()>0){
 			try {
+				this.setListTaskId(gdxxList);
 				UserLogRecord.record("批量新增企业股东信息", Operation.Type.add, Operation.Page.hologram,
 						Operation.System.back);
 				int gdxxSourceNum = gdxxList.size();
@@ -288,6 +297,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 		map.put(QYXX_ZHUANLI,1);
 		if(zhuanliList.size()>0){
 			try {
+				this.setListTaskId(zhuanliList);
 				UserLogRecord.record("批量新增企业专利信息", Operation.Type.add, Operation.Page.hologram,
 						Operation.System.back);
 				int zhuanliSourceNum = zhuanliList.size();
@@ -304,6 +314,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 		map.put(RMFYGG,1);
 		if(rmfyggList.size()>0) {
 			try {
+				this.setListTaskId(rmfyggList);
 				UserLogRecord.record("批量新增人民法院公告", Operation.Type.add, Operation.Page.hologram,
 						Operation.System.back);
 				int rmfyggSourceNum = rmfyggList.size();
@@ -320,6 +331,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 		map.put(ZGCPWSW,1);
 		if(zgcpwswList.size()>0){
 			try {
+				this.setListTaskId(zgcpwswList);
 				UserLogRecord.record("批量新增中国裁判文书", Operation.Type.add, Operation.Page.hologram,
 						Operation.System.back);
 				int zgcpwswSourceNum=zgcpwswList.size();
@@ -336,6 +348,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 		map.put(ZHIXING,1);
 		if(zhixingList.size()>0){
 			try {
+				this.setListTaskId(zhixingList);
 				UserLogRecord.record("批量新增执行", Operation.Type.add, Operation.Page.hologram,
 						Operation.System.back);
 				int zhixingSourceNum = zhixingList.size();
@@ -519,6 +532,69 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 
 
 		return updateNum;
+	}
+
+	public void setListTaskId(Object obj){
+		if(obj instanceof List){
+			List list = (List)obj;
+			if(list.size()>0){
+				Object o = list.get(0);
+				int pointsDataLimit = 1000;//限制条数
+				Integer size = list.size();
+				if(o instanceof DishonestyDO){
+					List<DishonestyDO> dataList = (List<DishonestyDO>)list;
+					for(DishonestyDO data:dataList){
+						data.setTask_id(taskId);
+					}
+				}else if(o instanceof KtggDO){
+					List<KtggDO> dataList = (List<KtggDO>)list;
+					for(KtggDO data:dataList){
+						data.setTask_id(taskId);
+					}
+				}else if(o instanceof QyxgYuqingDO){
+					List<QyxgYuqingDO> dataList = (List<QyxgYuqingDO>)list;
+					for(QyxgYuqingDO data:dataList){
+						data.setTask_id(taskId);
+					}
+				}else if(o instanceof QyxxBasicDO){
+					List<QyxxBasicDO> dataList = (List<QyxxBasicDO>)list;
+					for(QyxxBasicDO data:dataList){
+						data.setTask_id(taskId);
+					}
+				}else if(o instanceof QyxxBaxxDO){
+					List<QyxxBaxxDO> dataList = (List<QyxxBaxxDO>)list;
+					for(QyxxBaxxDO data:dataList){
+						data.setTask_id(taskId);
+					}
+				}else if(o instanceof QyxxGdxxDO){
+					List<QyxxGdxxDO> dataList = (List<QyxxGdxxDO>)list;
+					for(QyxxGdxxDO data:dataList){
+						data.setTask_id(taskId);
+					}
+				}else if(o instanceof QyxxZhuanliDO){
+					List<QyxxZhuanliDO> dataList = (List<QyxxZhuanliDO>)list;
+					for(QyxxZhuanliDO data:dataList){
+						data.setTask_id(taskId);
+					}
+				}else if(o instanceof RmfyggDO){
+					List<RmfyggDO> dataList = (List<RmfyggDO>)list;
+					for(RmfyggDO data:dataList){
+						data.setTask_id(taskId);
+					}
+				}else if(o instanceof ZgcpwswDO){
+					List<ZgcpwswDO> dataList = (List<ZgcpwswDO>)list;
+					for(ZgcpwswDO data:dataList){
+						data.setTask_id(taskId);
+					}
+				}else{
+					List<ZhixingDO> dataList = (List<ZhixingDO>)list;
+					for(ZhixingDO data:dataList){
+						data.setTask_id(taskId);
+					}
+				}
+			}
+		}
+
 	}
 
 
