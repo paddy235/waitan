@@ -12,8 +12,8 @@
 	</select>
 
 	<insert id="save" parameterType="com.bbd.wtyh.domain.wangDaiAPI.YuQingWarningDO">
-		INSERT INTO `yuqing_warning` (`plat_name`, `title`,`content`,`source`,`date`,`create_by`,`create_date`,`update_by`,`update_date`)
-		VALUES (#{platName}, #{title}, #{content}, #{source}, #{date}, #{createBy}, #{createDate}, #{updateBy}, #{updateDate});
+		INSERT INTO `yuqing_warning` (`plat_name`,`score`, `title`,`content`,`source`,`date`,`create_by`,`create_date`,`update_by`,`update_date`)
+		VALUES (#{platName},#{score}, #{title}, #{content}, #{source}, #{date}, #{createBy}, #{createDate}, #{updateBy}, #{updateDate});
 	</insert>
 
 	<delete id="delByPlatName" parameterType="java.lang.String">

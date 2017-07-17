@@ -69,6 +69,9 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
     @Autowired
     private AreaIndexMapper areaIndexMapper;
 
+    @Autowired
+    private IndustryProblemMapper industryProblemMapper;
+
     private Logger logger = LoggerFactory.getLogger(PToPMonitorServiceImpl.class);
 
     @Override
@@ -339,6 +342,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
             industryShanghaiDO.setBorrowedNum(dto.getBorrowed_num());
             industryShanghaiDO.setInterestRate(dto.getInterest_rate());
             industryShanghaiDO.setAmount(dto.getAmount());
+            industryShanghaiDO.setAreaNum(String.valueOf(dto.getArea_num()));
             industryShanghaiDO.setDate(dto.getDate());
             industryShanghaiDO.setCreateBy("sys");
             industryShanghaiDO.setCreateDate(new Date());
@@ -371,7 +375,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
             industryCompareDO.setBalanceLoans(dto.getBalance_loans());
             industryCompareDO.setCreateBy("sys");
             industryCompareDO.setCreateDate(new Date());
-            industryCompareMapper.deleteByArea(dto.getDate());
+            industryCompareMapper.deleteByArea(dto.getArea());
             industryCompareMapper.save(industryCompareDO);
         }
         logger.info("end update industry_compare date task");
@@ -420,6 +424,24 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
             areaIndexMapper.save(areaIndexDO);
         }
         logger.info("end update area_index date task");
+    }
+
+    @Override
+    public void industryProblemDataLandingTask() throws Exception {
+        List<IndustryProblemDTO> dtoList =  getProblemData();
+        if(dtoList!=null&&dtoList.size()>0){
+            for(IndustryProblemDTO dto:dtoList){
+                IndustryProblemDO industryProblemDO = new IndustryProblemDO();
+                industryProblemDO.setDate(dto.getDate());
+                industryProblemDO.setArea(dto.getArea());
+                industryProblemDO.setProblemPlatNumber(dto.getProblem_plat_number());
+                industryProblemDO.setCreateBy("sys");
+                industryProblemDO.setCreateDate(new Date());
+
+                industryProblemMapper.deleteByDateArea(dto.getDate(),dto.getArea());
+                industryProblemMapper.save(industryProblemDO);
+            }
+        }
     }
 
     public static void main(String[] agrs) throws Exception {
