@@ -26,7 +26,7 @@ public class QyxxGdxxDO {
     private String subscribed_capital;//认缴出资额
     private Date create_time;
     private String sumconam;
-
+    private Integer task_id;
     public QyxxGdxxDO() {
     }
 
@@ -188,5 +188,13 @@ public class QyxxGdxxDO {
 
     public void setSumconam(String sumconam) {
         this.sumconam = sumconam;
+    }
+
+    public Integer getTask_id() {
+        return task_id;
+    }
+
+    public void setTask_id(Integer task_id) {
+        this.task_id = task_id;
     }
 }

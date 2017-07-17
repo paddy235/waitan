@@ -74,16 +74,16 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	}
 
 	@Override
-	public Integer creditScoreCalculate(Integer runMode) {
+	public Map creditScoreCalculate(Integer taskId,Integer runMode) {
+		Map map=new HashMap();
 		CreditConfig.read();
 		int isHandle = 0;// 0正常执行  1自动重试  //正常执行isHandle设置为0,会将失败企业记录到失败表
 		isShutdown = false;
 		maxCompanyId = this.companyMapper.maxCompanyId();
 
 		List<CompanyDO> companyList = this.getCompanyList();
-		// 新增任务，更新开始时间、计划、成功、失败笔数
-		TaskSuccessFailInfoDO taskSuccessFailInfoDO=taskBegin(TASK_NAME,TASK_GROUP,runMode,companyList.size());
-		Integer taskId=taskSuccessFailInfoDO.getId();
+		map.put("planCount",companyList.size());
+
 		try {
 
             // 本地模型加分项目
@@ -101,10 +101,10 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 			LOGGER.error("creditScoreCalculate：" + e);
 		}finally {
 
-			endProcess(taskSuccessFailInfoDO, taskId);
+			endProcess(map,taskId);
 
 		}
-		return taskId;
+		return map;
 	}
 
 	private List<CompanyDO> getCompanyList() {
@@ -159,13 +159,13 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	 * 手动计算历史task失败的企业
 	 */
 	@Override
-	public Integer executeFailCompanyByTaskId(Integer runMode,Integer paramTaskId) {
+	public Map executeFailCompanyByTaskId(Integer runMode,Integer oldTaskId,Integer taskId) {
+		Map map=new HashMap();
 		CreditConfig.read();
-		List<CompanyDO> companyList = this.queryFailCompanyByTaskId(paramTaskId);
+		List<CompanyDO> companyList = this.queryFailCompanyByTaskId(oldTaskId);
 		int isHandle = 0;//正常执行isHandle设置为0,会将失败企业记录到失败表
-		// 新增任务，更新开始时间、计划、成功、失败笔数
-		TaskSuccessFailInfoDO taskSuccessFailInfoDO=taskBegin(TASK_NAME,TASK_GROUP,runMode,companyList.size());
-		Integer taskId=taskSuccessFailInfoDO.getId();
+		map.put("planCount",companyList.size());
+
 
 		try {
             // 本地模型加分项目
@@ -184,10 +184,10 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 
 		}finally {
 
-			endProcess(taskSuccessFailInfoDO, taskId);
+			endProcess(map,taskId);
 
 		}
-		return taskId;
+		return map;
 
 	}
 
@@ -228,7 +228,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 
 	}
 
-	private void endProcess(TaskSuccessFailInfoDO taskSuccessFailInfoDO,Integer taskId){
+	private void endProcess(Map map,Integer taskId){
 
 		//备份成功失败名单到历史表
 		this.executeCUD("insert into company_credit_fail_history (company_id,company_name,organization_code,credit_code,result_code,task_id,create_by,create_date) " +
@@ -240,8 +240,8 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		int failCount=companyCreditMapper.countCreditFailInfo(taskId);
 		int succCount=companyCreditMapper.countCreditRawInfo(taskId);
 
-		//任务结束，更新结束时间、成功失败笔数
-		taskEnd(taskSuccessFailInfoDO,succCount,failCount);
+		map.put("successCount",succCount);
+		map.put("failCount",failCount);
 
 	}
 	/**

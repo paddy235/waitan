@@ -19,6 +19,11 @@ public class DataLoadingUpateTest {
 
     @Test
     public void dataLoadingTest(){
-        dataLoadingTaskService.dataLoading();
+
+        //手动执行错误的数据拉取
+        //dataLoadingTaskService.dataLoadingManualOperate(1);
+
+        //自动执行
+        dataLoadingTaskService.dataLoadingAutomaticOperate(1);
     }
 }

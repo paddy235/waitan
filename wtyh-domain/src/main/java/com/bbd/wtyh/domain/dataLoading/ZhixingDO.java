@@ -25,7 +25,7 @@ public class ZhixingDO {
     private String type;//'类型'
     private String bbd_qyxx_id;//企业唯一ID
     private Date create_time;
-
+    private Integer task_id;
     public ZhixingDO() {
     }
 
@@ -179,5 +179,13 @@ public class ZhixingDO {
 
     public void setCreate_time(Date create_time) {
         this.create_time = create_time;
+    }
+
+    public Integer getTask_id() {
+        return task_id;
+    }
+
+    public void setTask_id(Integer task_id) {
+        this.task_id = task_id;
     }
 }

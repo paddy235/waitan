@@ -201,6 +201,34 @@ public class HologramQueryDaoImpl implements HologramQueryDao {
         }
     }
 
+
+    @Override
+    public CompanySearch2DO companySearch2(String query, Map<String, String>parameters) {
+        StringBuffer sbApi =new StringBuffer( searchCompanyURL + "?ak=" + searchCompanyAK + "&query=" + query );
+        if( null != parameters && parameters.size() >0 ) {
+            for (Map.Entry ety :parameters.entrySet() ) {
+                sbApi.append("&").append(ety.getKey()).append("=").append(ety.getValue());
+            }
+        }
+        HttpTemplate httpTemplate = new HttpTemplate();
+        try {
+            return httpTemplate.get(sbApi.toString(), new HttpCallback<CompanySearch2DO>() {
+                @Override
+                public boolean valid() {
+                    return true;
+                }
+
+                @Override
+                public CompanySearch2DO parse(String result) {
+                    return JSON.parseObject(result, CompanySearch2DO.class);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     /**
      * 企业概要信息
      *

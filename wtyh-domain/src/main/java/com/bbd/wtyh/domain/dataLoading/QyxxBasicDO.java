@@ -54,6 +54,7 @@ public class QyxxBasicDO {
     private String type;//'爬虫源省份记录（ 中文）'
     private String frname_compid;
     private Date create_time;
+    private Integer task_id;
 
     public QyxxBasicDO() {
     }
@@ -434,4 +435,11 @@ public class QyxxBasicDO {
         this.bbd_history_names = bbd_history_names;
     }
 
+    public Integer getTask_id() {
+        return task_id;
+    }
+
+    public void setTask_id(Integer task_id) {
+        this.task_id = task_id;
+    }
 }

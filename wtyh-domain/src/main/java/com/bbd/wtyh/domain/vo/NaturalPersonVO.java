@@ -1,45 +1,82 @@
 package com.bbd.wtyh.domain.vo;
 
-import com.bbd.wtyh.domain.NaturalPersonDO;
 import com.bbd.wtyh.excel.annotation.Excel;
 
-/**
- * Created by Barney on 2017/7/4.
- */
-public class NaturalPersonVO extends NaturalPersonDO {
+import java.io.Serializable;
 
-    @Excel(exportName = "成立时间", sortNo = 4)
-    private String regDate;
-    @Excel(exportName = "法定代表人", sortNo = 5)
-    private String legalPerson;
-    @Excel(exportName = "注册资本", sortNo = 6)
+/**
+ * Created by cgj on 2017/7/14
+ */
+public class NaturalPersonVO implements Serializable {
+    @Excel(exportName ="序号")
+    private int idx;
+    //自然人姓名
+    @Excel(exportName ="自然人姓名")
+    private String nalName;
+    //关联企业名称
+    @Excel(exportName ="关联公司")
+    private String relatedCompany;
+    @Excel(exportName ="职务")
+    private String position;
+    //成立时间
+    @Excel(exportName ="成立时间")
+    private String esDate;
+    //法人代表
+    @Excel(exportName ="法定代表人")
+    private String frName;
+    //注册资本
+    @Excel(exportName ="注册资本")
     private String regCapital;
-    private int regCapitalType;
-    @Excel(exportName = "注册地址", sortNo = 7)
+    //注册地址
+    @Excel(exportName ="注册地址")
     private String regAddress;
 
-    public int getRegCapitalType() {
-        return regCapitalType;
+    public int getIdx() {
+        return idx;
     }
 
-    public void setRegCapitalType(int regCapitalType) {
-        this.regCapitalType = regCapitalType;
+    public void setIdx(int idx) {
+        this.idx = idx;
     }
 
-    public String getRegDate() {
-        return regDate;
+    public String getNalName() {
+        return nalName;
     }
 
-    public void setRegDate(String regDate) {
-        this.regDate = regDate;
+    public void setNalName(String nalName) {
+        this.nalName = nalName;
     }
 
-    public String getLegalPerson() {
-        return legalPerson;
+    public String getRelatedCompany() {
+        return relatedCompany;
     }
 
-    public void setLegalPerson(String legalPerson) {
-        this.legalPerson = legalPerson;
+    public void setRelatedCompany(String relatedCompany) {
+        this.relatedCompany = relatedCompany;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getEsDate() {
+        return esDate;
+    }
+
+    public void setEsDate(String esDate) {
+        this.esDate = esDate;
+    }
+
+    public String getFrName() {
+        return frName;
+    }
+
+    public void setFrName(String frName) {
+        this.frName = frName;
     }
 
     public String getRegCapital() {
@@ -57,5 +94,4 @@ public class NaturalPersonVO extends NaturalPersonDO {
     public void setRegAddress(String regAddress) {
         this.regAddress = regAddress;
     }
-
 }

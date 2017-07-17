@@ -52,6 +52,7 @@ public class QyxxZhuanliDO {
     private String bbd_url;//url
     private Date create_time;//入库时间
     private String sumconam;//数据源
+    private Integer task_id;
 
     public QyxxZhuanliDO() {
     }
@@ -406,5 +407,13 @@ public class QyxxZhuanliDO {
 
     public void setSumconam(String sumconam) {
         this.sumconam = sumconam;
+    }
+
+    public Integer getTask_id() {
+        return task_id;
+    }
+
+    public void setTask_id(Integer task_id) {
+        this.task_id = task_id;
     }
 }

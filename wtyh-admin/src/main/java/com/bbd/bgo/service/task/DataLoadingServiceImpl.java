@@ -10,6 +10,7 @@ import com.bbd.wtyh.mapper.DataLoadingFailInfoMapper;
 import com.bbd.wtyh.mapper.DataLoadingMapper;
 import com.bbd.wtyh.mapper.TaskSuccessFailInfoMapper;
 import com.bbd.wtyh.util.DataLoadingUtil;
+import com.bbd.wtyh.util.PullFileUtil;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
@@ -36,6 +37,10 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 
 	private static String TASK_GROUP = "bbd_work";
 
+	private Integer taskId = null;
+
+	private Integer pullFileTaskId = null;
+
 	private static final String DISHONESTY = "dishonesty";
 	private static final String KTGG = "ktgg";
 	private static final String QYXG_YUQING = "qyxg_yuqing";
@@ -55,30 +60,68 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 	private DataLoadingFailInfoMapper dataLoadingFailInfoMapper;
 
 	@Override
-	public void dataLoading(Integer taskId) {
-		operateUpdate(null);
-//		TaskSuccessFailInfoDO task = taskSuccessFailInfoMapper.getTaskRecentInfo(TASK_NAME,TASK_GROUP);
-//		//首次跑全量数据
-//		if(task==null){
-//			operateUpdate(null);
-//		}
-//		//已跑过，且上次出错,只跑错误部分数据
-//		if(null!=task&&task.getFailCount()>0){
-//			List<DataLoadingFailInfoDO> failList = dataLoadingFailInfoMapper.getDataLoadingFailInfoByTaskId(task.getId());
-//			List<String> failTableList=new ArrayList<String>();
-//			for(DataLoadingFailInfoDO fail:failList){
-//				failTableList.add(fail.getTableName());
-//			}
-//			operateUpdate(failTableList);
-//		}
+	public Map<String,Integer> dataLoadingManualOperate(Integer taskId) {
+		this.taskId = taskId;
+		//手动执行，查询之前任务失败记录，更新插入失败表
+		Map<String,Integer> returnMap = new HashMap<String,Integer>();
+		//File file = new File("D:\\wtyh\\datashare\\data\\data-share-file\\wtyh");
+		List<DataLoadingFailInfoDO> failList = dataLoadingFailInfoMapper.getDataLoadingFailInfoByTaskId(taskId);
+		//上次出错,只跑错误部分数据
+		if(null!=failList&&failList.size()>0){
+			List<String> failTableList=new ArrayList<String>();
+			for(DataLoadingFailInfoDO fail:failList){
+				failTableList.add(fail.getTableName());
+			}
+			List<File> fileList=new ArrayList<File>();
+			Integer pullFileTaskId=failList.get(0).getPullFileTaskId();
+			this.pullFileTaskId=pullFileTaskId;
+			List<DatasharePullFileDO> pullFileList = dataLoadingMapper.getDatasharePullFileByTaskId(pullFileTaskId);
+			if(null!=pullFileList&&pullFileList.size()>0){
+				for(DatasharePullFileDO pullFile:pullFileList){
+					File file=new File(pullFile.getFile_url());
+					if(file.exists()){
+						fileList.add(file);
+					}
+				}
+			}
+			//operateUpdate(failTableList,Arrays.asList(file.listFiles()));
+			operateUpdate(failTableList,fileList,returnMap);
+		}
+		return returnMap;
 	}
 
-	public void operateUpdate(List<String> failTableList){
-		String dataVersion = DateFormatUtils.format(new Date(), "yyyyMMdd");
-		//List<File> fileList=new ArrayList<File>();
-		//测试用
-		File file = new File("D:\\wtyh\\datashare\\data\\data-share-file\\wtyh");
-		List<String> list = DataLoadingUtil.txt2String(Arrays.asList(file.listFiles()));
+	@Override
+	public Map<String,Integer> dataLoadingAutomaticOperate(Integer taskId) {
+		this.taskId = taskId;
+		this.pullFileTaskId=taskId;
+		//自动执行，先拉取数据，有数据执行插入，并记录成功失败情况
+		Map<String,Integer> returnMap = new HashMap<String,Integer>();
+		List<File> list = null;
+		try {
+			list = PullFileUtil.getFileList(1);
+		} catch (Exception e) {
+			returnMap.put("fail",10);
+			returnMap.put("success",0);
+			e.printStackTrace();
+		}
+		if(null!=list&&list.size()>0){
+			List<DatasharePullFileDO> fileList = new ArrayList<DatasharePullFileDO>();
+			for(File file:list){
+				DatasharePullFileDO pullFile = new DatasharePullFileDO();
+				pullFile.setCreate_by("system");
+				pullFile.setTask_id(taskId);
+				pullFile.setFile_name(file.getName());
+				pullFile.setFile_url(file.getAbsolutePath());
+				fileList.add(pullFile);
+			}
+			dataLoadingMapper.saveDatasharePullFileDO(fileList);
+			operateUpdate(null,list,returnMap);
+		}
+		return returnMap;
+	}
+
+	public void operateUpdate(List<String> failTableList,List<File> fileList,Map<String,Integer> returnMap){
+		List<String> list = DataLoadingUtil.txt2String(fileList);
 		List<DishonestyDO> disList=new ArrayList<DishonestyDO>();
 		List<KtggDO> ktggList=new ArrayList<KtggDO>();
 		List<QyxgYuqingDO> yuQingList=new ArrayList<QyxgYuqingDO>();
@@ -98,6 +141,10 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 				JSONObject jsonData = JSONObject.fromObject(String.valueOf(data));
 				Object dataName = jsonData.get(tn);
 				String dataStr = String.valueOf(dataName);
+				//删除失败表数据
+				for(String tableName:failTableList){
+					this.executeCUD("delete from ? where task_id = ?",tableName,taskId);
+				}
 				DataLoadingUtil.addDataToList(failTableList,tn,dataStr,disList,ktggList,yuQingList,basicList,baxxList,gdxxList,
 						zhuanliList,rmfyggList,zgcpwswList,zhixingList);
 			} catch (Exception e) {
@@ -110,27 +157,29 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 		for (String key : successMap.keySet()) {
 			if(successMap.get(key)==0){
 				failTables.add(key);
-				System.out.println(key);
 			}
 		}
 		int successNum = 10-failTables.size();
-		TaskSuccessFailInfoDO taskSuccessFailInfoDO = new TaskSuccessFailInfoDO();
-		taskSuccessFailInfoDO.setTaskName(TASK_NAME);
-		taskSuccessFailInfoDO.setTaskGroup(TASK_GROUP);
-		taskSuccessFailInfoDO.setDataVersion(dataVersion);
-		taskSuccessFailInfoDO.setSuccessCount(successNum);
-		taskSuccessFailInfoDO.setFailCount(failTables.size());
-		taskSuccessFailInfoDO.setCreateBy("system");
-		taskSuccessFailInfoDO.setCreateDate(new Date());
+		returnMap.put("fail",failTables.size());
+		returnMap.put("success",successNum);
+		//TaskSuccessFailInfoDO taskSuccessFailInfoDO = new TaskSuccessFailInfoDO();
+		//taskSuccessFailInfoDO.setTaskName(TASK_NAME);
+		//taskSuccessFailInfoDO.setTaskGroup(TASK_GROUP);
+		//taskSuccessFailInfoDO.setDataVersion(dataVersion);
+		//taskSuccessFailInfoDO.setSuccessCount(successNum);
+		//taskSuccessFailInfoDO.setFailCount(failTables.size());
+		//taskSuccessFailInfoDO.setCreateBy("system");
+		//taskSuccessFailInfoDO.setCreateDate(new Date());
 		logger.info("add data loading task to taskSuccessFailInfo table");
-		int id = taskSuccessFailInfoMapper.addTaskSuccessFailInfo(taskSuccessFailInfoDO);
+		//int id = taskSuccessFailInfoMapper.addTaskSuccessFailInfo(taskSuccessFailInfoDO);
 		for(String table:failTables){
 			DataLoadingFailInfoDO fail = new DataLoadingFailInfoDO();
-			fail.setTaskId(id);
+			fail.setTaskId(taskId);
 			fail.setTableName(table);
-			fail.setDataVersion(dataVersion);
+			//fail.setDataVersion(dataVersion);
 			fail.setCreateBy("system");
 			fail.setCreateDate(new Date());
+			fail.setPullFileTaskId(pullFileTaskId);
 			dataLoadingFailInfoMapper.addTaskFailInfo(fail);
 		}
 	}
@@ -144,6 +193,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 			try {
 				UserLogRecord.record("批量新增失信被执行人", Operation.Type.add, Operation.Page.hologram,
 						Operation.System.back);
+				this.setListTaskId(disList);
 				int disSourceNum = disList.size();
 				//int disNum = dataLoadingMapper.saveDishonestyDO(disList);
 				int disInsertNum = batchInsertData(disList);
@@ -162,6 +212,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 				UserLogRecord.record("批量新增开庭公告", Operation.Type.add, Operation.Page.hologram,
 						Operation.System.back);
 				//int ktggNum = dataLoadingMapper.saveKtggDO(ktggList);
+				this.setListTaskId(ktggList);
 				int ktggSourceNum = ktggList.size();
 				int ktggInsertNum = batchInsertData(ktggList);
 				logger.info("end batch save ktgg , count:"+ ktggInsertNum);
@@ -178,6 +229,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 			try {
 				UserLogRecord.record("批量新增舆情", Operation.Type.add, Operation.Page.hologram,
 						Operation.System.back);
+				this.setListTaskId(yuQingList);
 				//int yuqingNum = dataLoadingMapper.saveQyxgYuqingDO(yuQingList);
 				int yuQingSourceNum = yuQingList.size();
 				int yuQingInsertNum = batchInsertData(yuQingList);
@@ -194,6 +246,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 		if(basicList.size()>0){
 			try {
 				int basicSourceNum = basicList.size();
+				this.setListTaskId(basicList);
 				UserLogRecord.record("批量新增企业基础信息", Operation.Type.add, Operation.Page.hologram,
 						Operation.System.back);
 				//int basicNum = dataLoadingMapper.saveQyxxBasicDO(basicList);
@@ -210,6 +263,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 		map.put(QYXX_BAXX,1);
 		if(baxxList.size()>0){
 			try {
+				this.setListTaskId(baxxList);
 				UserLogRecord.record("批量新增企业高管信息", Operation.Type.add, Operation.Page.hologram,
 						Operation.System.back);
 				int baxxSourceNum = baxxList.size();
@@ -226,6 +280,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 		map.put(QYXX_GDXX,1);
 		if(gdxxList.size()>0){
 			try {
+				this.setListTaskId(gdxxList);
 				UserLogRecord.record("批量新增企业股东信息", Operation.Type.add, Operation.Page.hologram,
 						Operation.System.back);
 				int gdxxSourceNum = gdxxList.size();
@@ -242,6 +297,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 		map.put(QYXX_ZHUANLI,1);
 		if(zhuanliList.size()>0){
 			try {
+				this.setListTaskId(zhuanliList);
 				UserLogRecord.record("批量新增企业专利信息", Operation.Type.add, Operation.Page.hologram,
 						Operation.System.back);
 				int zhuanliSourceNum = zhuanliList.size();
@@ -258,6 +314,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 		map.put(RMFYGG,1);
 		if(rmfyggList.size()>0) {
 			try {
+				this.setListTaskId(rmfyggList);
 				UserLogRecord.record("批量新增人民法院公告", Operation.Type.add, Operation.Page.hologram,
 						Operation.System.back);
 				int rmfyggSourceNum = rmfyggList.size();
@@ -274,6 +331,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 		map.put(ZGCPWSW,1);
 		if(zgcpwswList.size()>0){
 			try {
+				this.setListTaskId(zgcpwswList);
 				UserLogRecord.record("批量新增中国裁判文书", Operation.Type.add, Operation.Page.hologram,
 						Operation.System.back);
 				int zgcpwswSourceNum=zgcpwswList.size();
@@ -290,6 +348,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 		map.put(ZHIXING,1);
 		if(zhixingList.size()>0){
 			try {
+				this.setListTaskId(zhixingList);
 				UserLogRecord.record("批量新增执行", Operation.Type.add, Operation.Page.hologram,
 						Operation.System.back);
 				int zhixingSourceNum = zhixingList.size();
@@ -473,6 +532,69 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 
 
 		return updateNum;
+	}
+
+	public void setListTaskId(Object obj){
+		if(obj instanceof List){
+			List list = (List)obj;
+			if(list.size()>0){
+				Object o = list.get(0);
+				int pointsDataLimit = 1000;//限制条数
+				Integer size = list.size();
+				if(o instanceof DishonestyDO){
+					List<DishonestyDO> dataList = (List<DishonestyDO>)list;
+					for(DishonestyDO data:dataList){
+						data.setTask_id(taskId);
+					}
+				}else if(o instanceof KtggDO){
+					List<KtggDO> dataList = (List<KtggDO>)list;
+					for(KtggDO data:dataList){
+						data.setTask_id(taskId);
+					}
+				}else if(o instanceof QyxgYuqingDO){
+					List<QyxgYuqingDO> dataList = (List<QyxgYuqingDO>)list;
+					for(QyxgYuqingDO data:dataList){
+						data.setTask_id(taskId);
+					}
+				}else if(o instanceof QyxxBasicDO){
+					List<QyxxBasicDO> dataList = (List<QyxxBasicDO>)list;
+					for(QyxxBasicDO data:dataList){
+						data.setTask_id(taskId);
+					}
+				}else if(o instanceof QyxxBaxxDO){
+					List<QyxxBaxxDO> dataList = (List<QyxxBaxxDO>)list;
+					for(QyxxBaxxDO data:dataList){
+						data.setTask_id(taskId);
+					}
+				}else if(o instanceof QyxxGdxxDO){
+					List<QyxxGdxxDO> dataList = (List<QyxxGdxxDO>)list;
+					for(QyxxGdxxDO data:dataList){
+						data.setTask_id(taskId);
+					}
+				}else if(o instanceof QyxxZhuanliDO){
+					List<QyxxZhuanliDO> dataList = (List<QyxxZhuanliDO>)list;
+					for(QyxxZhuanliDO data:dataList){
+						data.setTask_id(taskId);
+					}
+				}else if(o instanceof RmfyggDO){
+					List<RmfyggDO> dataList = (List<RmfyggDO>)list;
+					for(RmfyggDO data:dataList){
+						data.setTask_id(taskId);
+					}
+				}else if(o instanceof ZgcpwswDO){
+					List<ZgcpwswDO> dataList = (List<ZgcpwswDO>)list;
+					for(ZgcpwswDO data:dataList){
+						data.setTask_id(taskId);
+					}
+				}else{
+					List<ZhixingDO> dataList = (List<ZhixingDO>)list;
+					for(ZhixingDO data:dataList){
+						data.setTask_id(taskId);
+					}
+				}
+			}
+		}
+
 	}
 
 

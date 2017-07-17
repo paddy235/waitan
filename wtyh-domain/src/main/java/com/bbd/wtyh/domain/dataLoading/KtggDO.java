@@ -23,6 +23,7 @@ public class KtggDO {
     private Date create_time;
     private String bbd_url;
     private Date asstarting;//任职起始（上市公司）
+    private Integer task_id;
 
     public KtggDO() {
     }
@@ -161,5 +162,13 @@ public class KtggDO {
 
     public void setAsstarting(Date asstarting) {
         this.asstarting = asstarting;
+    }
+
+    public Integer getTask_id() {
+        return task_id;
+    }
+
+    public void setTask_id(Integer task_id) {
+        this.task_id = task_id;
     }
 }
