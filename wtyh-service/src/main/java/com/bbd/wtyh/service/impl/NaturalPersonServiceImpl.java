@@ -217,7 +217,10 @@ public class NaturalPersonServiceImpl implements NaturalPersonService {
             }
         }
         //分类排序类金融
+        Date start =new Date();
         List<String> kindredFinanceCpyNames = companyMapper.findKindredFinanceCompanyNameByCompanyName(shCpyNames);
+        long dltSec =(new Date()).getTime() -start.getTime();
+        logger.debug("findKindredFinanceCompanyNameByCompanyName--shCpyNames[{}]--num[{}]--{}ms", shCpyNames, kindredFinanceCpyNames.size(), dltSec );
         if( null !=kindredFinanceCpyNames && kindredFinanceCpyNames.size() >0 ) {
             List<NaturalPersonVO> kindredFinances =new LinkedList<>();
             List<NaturalPersonVO> noKindredFinances =new LinkedList<>();

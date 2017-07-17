@@ -8,12 +8,13 @@ import com.bbd.wtyh.domain.bbdAPI.BaiDuYuQingDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.CourtAnnouncementDO;
 import com.bbd.wtyh.domain.bbdAPI.IndustryCodeDO;
-import com.bbd.wtyh.domain.vo.NaturalPersonVO;
 import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.mapper.PlatformNameInformationMapper;
 import com.bbd.wtyh.service.DataomApiBbdservice;
 import com.bbd.wtyh.service.HologramQueryService;
 import com.bbd.wtyh.util.DateUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -29,6 +30,9 @@ import java.util.*;
  */
 @Service("hologramQueryService")
 public class HologramQueryServiceImpl implements HologramQueryService {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     private HologramQueryDao hologramQueryDao;
 
@@ -372,14 +376,16 @@ public class HologramQueryServiceImpl implements HologramQueryService {
     @Override
     public List<BaseDataDO.Results> getBbdQyxxAll( List<String>names ) {
         List<BaseDataDO.Results> rstList =new ArrayList<>();
-        final int pageSz =190;
+        final int pageSz =200;
         StringBuilder strNames =new StringBuilder();
         for( int idx =0; idx <names.size();  ) {
             strNames.append(names.get(idx)).append(",");
             idx++;
             if( idx%pageSz ==0 || idx ==(names.size() ) ) {
                 strNames.deleteCharAt(strNames.length() -1);
+                Date start =new Date();
                 BaseDataDO batchData =hologramQueryDao.getBbdQyxxBatchByPostCD(strNames.toString() );
+                long dltSec =(new Date()).getTime() -start.getTime();
                 strNames =new StringBuilder();
                 //
                 if(  batchData ==null ||batchData.getErr_code() ==null || !(batchData.getErr_code().equals("0")) ) {
@@ -388,6 +394,7 @@ public class HologramQueryServiceImpl implements HologramQueryService {
                 List<BaseDataDO.Results> resultsList =batchData.getResults();
                 if ( resultsList !=null ) {
                     rstList.addAll(resultsList);
+                    logger.debug("getBbdQyxxBatchByPostCD--num[{}]--{}ms", resultsList.size(), dltSec );
                 }
             }
         }
@@ -403,15 +410,18 @@ public class HologramQueryServiceImpl implements HologramQueryService {
         }
         Map<String, String>parameters =new HashMap<String, String>() {{
             put( "highlight", "false" );
-            put( "page_size", "90" );
+            put( "page_size", "100" );
             put( "type", type );
         }};
         for (int idx =0; idx <5; idx++) {
             parameters.put( "page_no", "" +idx );
+            Date start =new Date();
             CompanySearch2DO cs2 = hologramQueryDao.companySearch2(nalName, parameters);
+            long dltSec =(new Date()).getTime() -start.getTime();
             if (  null ==cs2 ||cs2.getErr_code() ==null || !(cs2.getErr_code().equals("0")) ) {
                 return csList;
             }
+            logger.debug("companySearch2--nalName[{}]--type[{}]--num[{}]--{}ms", nalName, type, cs2.getRdata().size(), dltSec );
             csList.addAll(cs2.getRdata());
             if( csList.size() >= Integer.decode( null ==cs2.getSum() ? "0" : cs2.getSum() )
                 ||(null !=cs2.getTotal() &&cs2.getTotal().equals("0") ) ) {
