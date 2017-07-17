@@ -3,7 +3,9 @@ package com.bbd.wtyh.service.impl.companyInfoModify;
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
 import com.bbd.wtyh.service.CompanyLevelService;
+import com.bbd.wtyh.service.ExchangeCompanyService;
 import com.bbd.wtyh.service.P2PImageService;
+import com.bbd.wtyh.service.RiskCompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +20,13 @@ public class CompanyInfoModifyUtil {
     private P2PImageService p2PImageService;    // 网络借贷
 
     @Autowired
-    private CompanyLevelService companyLevelService;    // 小额贷款
+    private CompanyLevelService companyLevelService;    // 小额贷款、融资担保
+
+    @Autowired
+    private RiskCompanyService riskCompanyService;  // 线下理财
+
+    @Autowired
+    private ExchangeCompanyService exchangeCompanyService;  // 交易场所
 
     /**
      * 网络借贷
@@ -54,8 +62,31 @@ public class CompanyInfoModifyUtil {
         return companyInfo;
     }
 
+    /**
+     * 融资担保
+     * @param name
+     * @return
+     */
     public CompanyInfo getGuarantee(String name) {
         CompanyInfo companyInfo = companyLevelService.getLoanOrGuaranteeByCompanyName(name);
         return companyInfo;
+    }
+
+    /**
+     * 线下理财
+     * @param name
+     * @return
+     */
+    public CompanyInfo getOffLineFinance(String name) {
+        return riskCompanyService.getOffLineFinanceByCompanyName(name);
+    }
+
+    /**
+     * 交易场所
+     * @param name
+     * @return
+     */
+    public CompanyInfo getTradeMarket(String name) {
+        return riskCompanyService.getOffLineFinanceByCompanyName(name);
     }
 }

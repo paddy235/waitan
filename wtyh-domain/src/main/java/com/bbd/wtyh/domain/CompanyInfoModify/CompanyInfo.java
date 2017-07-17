@@ -24,6 +24,7 @@ public class CompanyInfo {
     private String name; // 公司名
     private String legalPerson; // 法人
     private String registeredCapital;   // 注册资本
+    private Integer registeredCapitalType;  //注册资本类型 1:人民币 2:美元
     private Byte industry;    // 行业
     private String currentLevel;  // 当前状态
 
@@ -34,6 +35,14 @@ public class CompanyInfo {
     private String outLevel;   // 外部评级 -
     private String innnerLevel;    // 内部评级 - 【小额贷款、融资担保】
     private String liveLevel;  // 现场检查 - 【小额贷款、融资担保】
+
+    public Integer getRegisteredCapitalType() {
+        return registeredCapitalType;
+    }
+
+    public void setRegisteredCapitalType(Integer registeredCapitalType) {
+        this.registeredCapitalType = registeredCapitalType;
+    }
 
     public String getOriginalStatus() {
         return originalStatus;

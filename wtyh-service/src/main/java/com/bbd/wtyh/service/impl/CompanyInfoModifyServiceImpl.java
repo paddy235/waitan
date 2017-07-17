@@ -35,9 +35,9 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
         } else if (CompanyInfo.TYPE_RZDB_3 == companyInfoModifyMapper.queryCompany(name).getIndustry()) { // 融资担保
             return companyInfoModifyUtil.getGuarantee(name);
         } else if (CompanyInfo.TYPE_XXLC_4 == companyInfoModifyMapper.queryCompany(name).getIndustry()) { // 线下理财
-            // ??
+            return companyInfoModifyUtil.getOffLineFinance(name);
         } else if (CompanyInfo.TYPE_JYS_9 == companyInfoModifyMapper.queryCompany(name).getIndustry()) { // 交易场所
-            // company.risk_level
+            return companyInfoModifyUtil.getTradeMarket(name);
         } else if (CompanyInfo.TYPE_YFK_11 == companyInfoModifyMapper.queryCompany(name).getIndustry()) { // 预付卡
             // company_analysis_result.analysis_result
         } else if (CompanyInfo.TYPE_RZZL_13 == companyInfoModifyMapper.queryCompany(name).getIndustry()) { // 融资租赁
