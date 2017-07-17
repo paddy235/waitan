@@ -56,4 +56,22 @@
             order by live_level is null,live_level, inner_level is null,inner_level,out_level is null,out_level
         </if>
     </select>
+
+    <select id="getLoanOrGuaranteeByCompanyName" resultType="com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo">
+       SELECT
+            company_level.company_id,
+            company.`name` AS `name`,
+            company.legal_person AS legalPerson,
+            company.registered_capital AS registeredCapital,
+            company.company_type AS industry,
+            company_level.out_level AS outLevel,
+            company_level.inner_level AS innnerLevel,
+            company_level.live_level AS liveLevel
+       FROM
+            company_level,
+            company
+       WHERE
+            company_level.company_id = company.company_id
+       AND company.`name` = #{name}
+    </select>
 </mapper>

@@ -1,11 +1,9 @@
 package com.bbd.wtyh.domain.CompanyInfoModify;
 
-import com.bbd.wtyh.domain.CompanyDO;
-
 /**
  * Created by YanWenyuan on 2017/7/14.
  */
-public class CompanyInfo{
+public class CompanyInfo {
     // 公司类型
     // 1:P2P 2:小贷 3:融资担保 4:线下理财 5:私募基金 6:众筹
     // 7:金融 8:其他 9:交易所 10:商业保理 11.预付卡 12.典当 13融资租赁
@@ -28,9 +26,22 @@ public class CompanyInfo{
     private String registeredCapital;   // 注册资本
     private Byte industry;    // 行业
     private String currentLevel;  // 当前状态
-    private String outLevel;   // 外部评级 - 小额贷款、融资担保
-    private String innnerLevel;    // 内部评级 - 小额贷款、融资担保
-    private String liveLevel;  // 现场检查 - 小额贷款、融资担保
+
+    // 网络贷款
+    private String originalStatus;
+
+    // 小额贷款、融资担保
+    private String outLevel;   // 外部评级 -
+    private String innnerLevel;    // 内部评级 - 【小额贷款、融资担保】
+    private String liveLevel;  // 现场检查 - 【小额贷款、融资担保】
+
+    public String getOriginalStatus() {
+        return originalStatus;
+    }
+
+    public void setOriginalStatus(String originalStatus) {
+        this.originalStatus = originalStatus;
+    }
 
     public String getName() {
         return name;
