@@ -443,7 +443,7 @@
         select <include refid="Base_Column_List"/> from company
           where company_type = 4
             <if test='executeDate !=null'>
-                AND (create_date > #{executeDate} or)
+                AND (create_date > #{executeDate} or update_date > #{executeDate})
             </if>
     </select>
 
