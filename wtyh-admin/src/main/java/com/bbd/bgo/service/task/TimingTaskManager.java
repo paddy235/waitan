@@ -25,7 +25,7 @@ public class TimingTaskManager {
 	}
 
 	public void shangHaiCreditTask() {
-		coCreditScoreService.creditScoreCalculate();
+		coCreditScoreService.creditScoreCalculate(0);
 	}
 
 	public void closeShangHaiCreditTask() throws Exception {

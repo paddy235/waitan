@@ -29,6 +29,8 @@ public class CreditConfig {
 	private static int dailyLimit;
 	private static String dataType;
 	private static int threadNum = 1;
+	private static int timeOut;
+	private static int retryNum = 2;
 
 	private static SysConfigService configService = ApplicationContextUtil.getBean(SysConfigServiceImpl.class);
 	private static final Logger LOGGER = LoggerFactory.getLogger(CoCreditScoreService.class);
@@ -50,6 +52,10 @@ public class CreditConfig {
 		dataType = map.get("dataType");
 		int threadNumTmp = NumberUtils.toInt(map.get("threadNum"), 1);
 		threadNum = threadNumTmp < 1 ? 1 : threadNumTmp;
+		int timeOutTmp = NumberUtils.toInt(map.get("timeOut"), 0);
+		timeOut = timeOutTmp;
+		int retryNumTmp = NumberUtils.toInt(map.get("retryNum"), 0);
+		retryNum = retryNumTmp < 1 ? 2 : retryNumTmp;
 
 		map.put("password", "***");
 		LOGGER.info("读取公信接口配置信息。{}", map.toString());
@@ -87,5 +93,14 @@ public class CreditConfig {
 	public static int threadNum() {
 		return threadNum;
 	}
+
+	public static int timeOut() {
+		return timeOut;
+	}
+
+	public static int retryNum() {
+		return retryNum;
+	}
+
 
 }

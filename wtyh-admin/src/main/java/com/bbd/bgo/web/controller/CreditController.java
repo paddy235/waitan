@@ -52,63 +52,24 @@ public class CreditController {
 	@ResponseBody
 	public ResponseBean creditScoreCalculate() {
 		Map data = new HashMap();
-		coCreditScoreService.creditScoreCalculate();
-		String dataVersion = DateFormatUtils.format(new Date(), "yyyyMMdd");
-		TaskSuccessFailInfoDO taskSuccessFailInfoDO = taskSuccessFailInfoMapper.getTaskSuccessFailInfo(TASK_NAME, TASK_GROUP, dataVersion);
-		int planCount = taskSuccessFailInfoDO.getPlanCount();
-		int successCount = taskSuccessFailInfoDO.getSuccessCount();
-		int failCount = taskSuccessFailInfoDO.getFailCount();
-
-		data.put("planCount", planCount);
-		data.put("successCount", successCount);
-		data.put("failCount", failCount);
-
+		Integer taskId = coCreditScoreService.creditScoreCalculate(0);
+        TaskSuccessFailInfoDO taskSuccessFailInfoDO = taskSuccessFailInfoMapper.getTaskSuccessFailInfo(taskId,null,null,null);
+        data.put("taskId",taskSuccessFailInfoDO.getId());
+        data.put("successCount",taskSuccessFailInfoDO.getSuccessCount());
+        data.put("failCount",taskSuccessFailInfoDO.getFailCount());
 		return ResponseBean.successResponse(data);
 	}
 
-	@RequestMapping("/task-progress")
+	@RequestMapping("/execFailCompanyByTaskId")
 	@ResponseBody
-	public ResponseBean taskProgress() {
-		Map data = new HashMap();
-		String dataVersion = DateFormatUtils.format(new Date(), "yyyyMMdd");
-		TaskSuccessFailInfoDO taskSuccessFailInfoDO = taskSuccessFailInfoMapper.getTaskSuccessFailInfo(TASK_NAME, TASK_GROUP, dataVersion);
-		int planCount = taskSuccessFailInfoDO.getPlanCount();
-		int successCount = taskSuccessFailInfoDO.getSuccessCount();
-		int failCount = taskSuccessFailInfoDO.getFailCount();
-
-		data.put("planCount", planCount);
-		data.put("successCount", successCount);
-		data.put("failCount", failCount);
-
-		return ResponseBean.successResponse(data);
+	public ResponseBean execFailCompanyByTaskId(Integer taskId,HttpServletRequest request) {
+        Map data = new HashMap();
+        Integer newId = coCreditScoreService.executeFailCompanyByTaskId(1,taskId);
+        TaskSuccessFailInfoDO taskSuccessFailInfoDO = taskSuccessFailInfoMapper.getTaskSuccessFailInfo(newId,null,null,null);
+        data.put("taskId",taskSuccessFailInfoDO.getId());
+        data.put("successCount",taskSuccessFailInfoDO.getSuccessCount());
+        data.put("failCount",taskSuccessFailInfoDO.getFailCount());
+        return ResponseBean.successResponse(data);
 	}
 
-	@RequestMapping("/executeFailCompany")
-	@ResponseBody
-	public String executeFailCompany(String companyName, String resultCode, String dataVersion, Integer pageNumber, Integer pageSize,
-			HttpServletRequest request) {
-		String[] companyNames = null;
-		if (null != companyName && !companyName.equals("")) {
-			companyNames = companyName.split(",");
-		}
-		coCreditScoreService.executefailCompany(companyNames, resultCode, dataVersion, pageNumber, pageSize);
-		return "OK";
-	}
-
-	@RequestMapping("/queryFailCompany")
-	@ResponseBody
-	public ResponseBean queryFailCompany(String companyName, String resultCode, String dataVersion, Integer pageNumber, Integer pageSize,
-			HttpServletRequest request) {
-		Map data = new HashMap();
-		String[] companyNames = null;
-		if (null != companyName && !companyName.equals("")) {
-			companyNames = companyName.split(",");
-		}
-		int total = coCreditScoreService.queryfailCompanyCounts(companyNames, resultCode, dataVersion, pageNumber, pageSize);
-		List<CompanyCreditFailInfoDO> list = coCreditScoreService.queryfailCompany(companyNames, resultCode, dataVersion, pageNumber,
-				pageSize);
-		data.put("total", total);
-		data.put("list", list);
-		return ResponseBean.successResponse(data);
-	}
 }

@@ -214,14 +214,16 @@ public class HologramQueryServiceImpl implements HologramQueryService {
     @Override
     public RecruitPeopleNumberDO recruitPeopleNumber(String company, String timeTag) {
         if (StringUtils.isEmpty(timeTag)) {
-            timeTag = DateUtils.formatDate(new Date());
+            timeTag = DateUtils.formatDate(org.apache.commons.lang3.time.DateUtils.addMonths(new Date(),-1));
         }
         RecruitPeopleNumberDO recruitPeopleNumberDO = new RecruitPeopleNumberDO();
         recruitPeopleNumberDO.setMsg("ok");
         List list = new ArrayList();
         RecruitDataDO recruitDataDO = hologramQueryDao.getRecruitData(company, timeTag);
+
         if (CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getIndex())) {
-            recruitDataDO = hologramQueryDao.getRecruitData(company, "201601");
+            timeTag = DateUtils.formatDate(org.apache.commons.lang3.time.DateUtils.addMonths(new Date(),-2));
+            recruitDataDO = hologramQueryDao.getRecruitData(company, timeTag);
         }
         if (!CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getIndex())) {
             Map<String, String> indexMap = recruitDataDO.getResults().get(0).getIndex();
@@ -240,14 +242,15 @@ public class HologramQueryServiceImpl implements HologramQueryService {
     @Override
     public RecruitPeopleDistributeDO recruitPeopleDistribute(String company, String timeTag) {
         if (StringUtils.isEmpty(timeTag)) {
-            timeTag = DateUtils.formatDate(new Date());
+            timeTag = DateUtils.formatDate(org.apache.commons.lang3.time.DateUtils.addMonths(new Date(),-1));
         }
         RecruitPeopleDistributeDO recruitPeopleDistributeDO = new RecruitPeopleDistributeDO();
         recruitPeopleDistributeDO.setMsg("ok");
         List list = new ArrayList();
         RecruitDataDO recruitDataDO = hologramQueryDao.getRecruitData(company, timeTag);
         if (CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getIndustry_ratio())) {
-            recruitDataDO = hologramQueryDao.getRecruitData(company, "201601");
+            timeTag = DateUtils.formatDate(org.apache.commons.lang3.time.DateUtils.addMonths(new Date(),-2));
+            recruitDataDO = hologramQueryDao.getRecruitData(company, timeTag);
         }
         if (!CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getIndustry_ratio())) {
             Map<String, String> indexMap = recruitDataDO.getResults().get(0).getIndustry_ratio();
@@ -266,14 +269,15 @@ public class HologramQueryServiceImpl implements HologramQueryService {
     @Override
     public RecruitPeopleSalaryDO recruitPeopleSalary(String company, String timeTag) {
         if (StringUtils.isEmpty(timeTag)) {
-            timeTag = DateUtils.formatDate(new Date());
+            timeTag = DateUtils.formatDate(org.apache.commons.lang3.time.DateUtils.addMonths(new Date(),-1));
         }
         RecruitPeopleSalaryDO recruitPeopleSalaryDO = new RecruitPeopleSalaryDO();
         recruitPeopleSalaryDO.setMsg("ok");
         List list = new ArrayList();
         RecruitDataDO recruitDataDO = hologramQueryDao.getRecruitData(company, timeTag);
         if (CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getSalary_ratio())) {
-            recruitDataDO = hologramQueryDao.getRecruitData(company, "201601");
+            timeTag = DateUtils.formatDate(org.apache.commons.lang3.time.DateUtils.addMonths(new Date(),-2));
+            recruitDataDO = hologramQueryDao.getRecruitData(company, timeTag);
         }
         if (!CollectionUtils.isEmpty(recruitDataDO.getResults().get(0).getSalary_ratio())) {
             Map<String, String> indexMap = recruitDataDO.getResults().get(0).getSalary_ratio();

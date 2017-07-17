@@ -1,5 +1,6 @@
 package com.bbd.wtyh.mapper;
 
+import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.credit.CompanyCreditFailInfoDO;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -20,5 +21,9 @@ public interface CompanyCreditFailInfoMapper {
 	List<CompanyCreditFailInfoDO> getCompanyCreditFailInfo(@Param("param") Map<String, Object> params);
 
 	int getCompanyCreditFailInfoCounts(@Param("param") Map<String, Object> params);
+
+	List<CompanyCreditFailInfoDO> getCompanyCreditFailInfoByTaskId(@Param("taskId")Integer taskId,@Param("resultCode")List<String> resultCode);
+
+	List<CompanyDO> getCompanyDoByTaskId(@Param("taskId")Integer taskId, @Param("resultCode")List<String> resultCode);
 
 }

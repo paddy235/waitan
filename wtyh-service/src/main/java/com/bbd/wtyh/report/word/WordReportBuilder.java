@@ -121,6 +121,7 @@ public class WordReportBuilder {
         this.reportType =reportType;
     }
 
+    //测试
     public static void main(String []argc) { //文档生成类使用示例
         String localPath ="D:\\bbdDoc\\wtyh\\docx\\";
         String templateFile1 = localPath +"template\\shanghai-company-anti-fraud-template.docx";
