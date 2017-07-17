@@ -105,4 +105,10 @@ public interface PToPMonitorService {
      * dataType＝area_index 数据落地
      */
     void areaIndexDataLandingTask() throws Exception;
+
+    /**
+     * dataType=industry_problem 数据落地
+     * @throws Exception
+     */
+    void industryProblemDataLandingTask() throws Exception;
 }

@@ -5,8 +5,8 @@
 
 
     <insert id="save" parameterType="com.bbd.wtyh.domain.IndustryShanghaiDO">
-        INSERT INTO `industry_shanghai` (`new_plat_num`, `interest_rate`, `total_plat_num`, `borrowed_num`, `invest_num`, `amount`, `date`, `create_by`, `create_date`, `update_by`, `update_date`)
-        VALUES (#{newPlatNum}, #{interestRate}, #{totalPlatNum}, #{borrowedNum}, #{investNum}, #{amount}, #{date}, #{createBy}, #{createDate}, #{updateBy}, #{updateDate});
+        INSERT INTO `industry_shanghai` (`new_plat_num`, `interest_rate`, `total_plat_num`, `borrowed_num`, `invest_num`, `amount`, `area_num`, `date`, `create_by`, `create_date`, `update_by`, `update_date`)
+        VALUES (#{newPlatNum}, #{interestRate}, #{totalPlatNum}, #{borrowedNum}, #{investNum}, #{amount},#{areaNum}, #{date}, #{createBy}, #{createDate}, #{updateBy}, #{updateDate});
     </insert>
 
     <delete id="deleteByDate" parameterType="java.lang.String">

@@ -10,10 +10,7 @@ import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
 import com.bbd.wtyh.domain.dto.PlatCompanyDTO;
 import com.bbd.wtyh.domain.dto.PlatRankDataDTO;
 import com.bbd.wtyh.domain.wangDaiAPI.*;
-import com.bbd.wtyh.mapper.PlatCoreDataMapper;
-import com.bbd.wtyh.mapper.PlatformMapper;
-import com.bbd.wtyh.mapper.RadarScoreMapper;
-import com.bbd.wtyh.mapper.YuQingMapper;
+import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.P2PImageService;
 import com.bbd.wtyh.service.PToPMonitorService;
@@ -43,7 +40,7 @@ public class P2PImageServiceImpl implements P2PImageService {
     private RedisDAO redisDAO;
 
     @Autowired
-    private YuQingMapper yuQingMapper;
+    private YuQingWarningMapper yuQingWarningMapper;
 
     @Autowired
     private PlatformMapper platformMapper;
@@ -323,14 +320,19 @@ public class P2PImageServiceImpl implements P2PImageService {
         for (PlatCompanyDTO platCompanyDTO : platList) {
             YuQingDTO yuQingDTO = this.platformConsensus(platCompanyDTO.getPlat_name());
             if (yuQingDTO != null) {
-                yuQingMapper.deleteByPlatName(yuQingDTO.getPlat_name());
-                YuQingDO yuQingDO = new YuQingDO();
-                yuQingDO.setPlatName(yuQingDTO.getPlat_name());
-                yuQingDO.setScore(yuQingDTO.getScore());
-                yuQingDO.setWarning(yuQingDTO.getWarning().toString());
-                yuQingDO.setCreateBy("sys");
-                yuQingDO.setCreateDate(new Date());
-                yuQingMapper.save(yuQingDO);
+                yuQingWarningMapper.delByPlatName(yuQingDTO.getPlat_name());
+                for (YuQingDTO.Warning warning : yuQingDTO.getWarning()) {
+                    YuQingWarningDO warningDO = new YuQingWarningDO();
+                    warningDO.setPlatName(yuQingDTO.getPlat_name());
+                    warningDO.setScore(yuQingDTO.getScore());
+                    warningDO.setTitle(warning.getTitle());
+                    warningDO.setContent(warning.getContent());
+                    warningDO.setDate(warning.getDate());
+                    warningDO.setSource(warning.getSource());
+                    warningDO.setCreateBy("sys");
+                    warningDO.setCreateDate(new Date());
+                    yuQingWarningMapper.save(warningDO);
+                }
             }
         }
         logger.info("end get wangdai yuqing data");
@@ -388,7 +390,7 @@ public class P2PImageServiceImpl implements P2PImageService {
                 platCoreDataMapper.save(platCoreDataDO);
             }
         }
-        logger.info("start update plat_core_data data");
+        logger.info("end update plat_core_data data");
     }
 
     @Override
