@@ -8,6 +8,7 @@ import com.bbd.wtyh.domain.BaseDO;
 public class YuQingWarningDO  extends BaseDO {
 
     private String platName;
+    private String score;
     private String title;
     private String content;
     private String source;
@@ -57,10 +58,19 @@ public class YuQingWarningDO  extends BaseDO {
     public String toString() {
         return "YuQingWarningDO{" +
                 "platName='" + platName + '\'' +
+                ", score='" + score + '\'' +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", source='" + source + '\'' +
                 ", date='" + date + '\'' +
                 '}';
+    }
+
+    public String getScore() {
+        return score;
+    }
+
+    public void setScore(String score) {
+        this.score = score;
     }
 }

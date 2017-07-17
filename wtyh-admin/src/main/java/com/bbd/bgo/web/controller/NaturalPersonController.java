@@ -97,7 +97,7 @@ public class NaturalPersonController {
             exportExcel.createSheet("自然人信息", list);
             exportExcel.exportExcel();
 
-            UserLogRecord.record("导出自然人列表", Operation.Type.DATA_EXPORT, Operation.Page.naturalPerson,
+            UserLogRecord.record("导出自然人“" +nalName +"”的列表", Operation.Type.DATA_EXPORT, Operation.Page.naturalPerson,
                     Operation.System.back, request);
             return ResponseBean.successResponse(exportExcel.getDownloadURL());
         } catch (Exception e) {

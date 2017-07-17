@@ -19,6 +19,8 @@ public class IndustryShanghaiDO extends BaseDO{
 
     private double amount;
 
+    private String areaNum;
+
     private String date;
 
     public int getNewPlatNum() {
@@ -86,7 +88,16 @@ public class IndustryShanghaiDO extends BaseDO{
                 ", borrowedNum=" + borrowedNum +
                 ", investNum=" + investNum +
                 ", amount=" + amount +
+                ", areaNum='" + areaNum + '\'' +
                 ", date='" + date + '\'' +
                 '}';
+    }
+
+    public String getAreaNum() {
+        return areaNum;
+    }
+
+    public void setAreaNum(String areaNum) {
+        this.areaNum = areaNum;
     }
 }

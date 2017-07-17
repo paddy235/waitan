@@ -51,4 +51,13 @@ public class PToPMonitorServiceTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void industryProblem(){
+        try {
+            monitorService.industryProblemDataLandingTask();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
