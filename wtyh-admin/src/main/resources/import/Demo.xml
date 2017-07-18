@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    key     ：当前 excel 的标识
+    name    ：当前 excel 的名称
+-->
+<excel key="K01" name="Demo-导入模板">
+
+    <!--
+        name            ：当前 sheet 的名称
+        num             ：当前 sheet 的编号
+        startRow        ：当前 sheet 的正式数据的起始行
+        entity          ：当前 sheet 的正式数据需要转换的对象
+        importHandler   ：当前 sheet 的正式数据的导入处理器
+    -->
+
+
+    <sheet name="Sheet1" startRow="3" entity="org.ly.framework.excel.text.TestEntity"
+           importHandler="org.ly.framework.excel.text.TestHandler">
+
+        <!--
+            mergeFirstRow   ：合并起始行。仅在 header 和 footer 中生效
+            mergeLastRow    ：合并结束行。仅在 header 和 footer 中生效
+            mergeFirstCol   ：合并起始列。仅在 header 和 footer 中生效
+            mergeLastCol    ：合并结束列。仅在 header 和 footer 中生效
+
+            name            ：显示名称。仅在 columns 中生效
+            code            ：该列数据对应代码。仅在 columns 中生效
+            dataType        ：该列数据类型。String/date/number。仅在 columns 中生效
+            format          ：格式化模式。仅在 columns 中生效
+            width           ：列宽。默认自适应。仅在 columns 中生效
+            colNumber       ：列号。仅在 columns 中生效
+            required        ：是否必须。默认false。仅在 columns 中生效
+            allowSkip       ：允许跳过。默认false。优先级比required高。仅在 columns 中生效。
+            length          ：长度。默认为0，表示不验证长度。仅在 columns 中生效
+            regex           ：正则表达式。仅在 columns 中生效
+
+            value           ：值
+            bgColor         ：背景色。支持十六进制颜色码和RGB颜色码
+            font            ：字体
+            fontSize        ：字体大小
+            fontColor       ：字体颜色。支持十六进制颜色码和RGB颜色码
+            bold            ：是否加粗。默认false
+            underline       ：是否加下划线。默认false
+            italic          ：是否斜体。默认false
+            align           ：水平对齐方式：LEFT（靠左）/RIGHT（靠右）/CENTER（居中）
+            vertical        ：垂直对齐方式：TOP（顶部）/BOTTOM（底部）/CENTER（居中）
+        -->
+
+
+        <rowHeader>
+            <column mergeFirstRow="1" mergeLastRow="1" mergeFirstCol="1" mergeLastCol="2" bgColor="#FFFF00"
+                    font="宋体" fontSize="16" fontColor="255,0,0" bold="true" underline="true" italic="true"
+                    align="center" vertical="center" value="创建日期"/>
+            <column mergeFirstRow="1" mergeLastRow="1" mergeFirstCol="3" mergeLastCol="4" value="2017-05-11"/>
+        </rowHeader>
+
+        <columns>
+            <column name="ID" code="id" dataType="string" bgColor="#FFFF00" font="宋体"
+                    fontColor="255,0,0" bold="true" underline="true" italic="true" align="center"/>
+
+            <column name="名称" code="name" dataType="string" bgColor="#FFFF00" font="宋体"
+                    fontColor="255,0,0" bold="true" underline="true" italic="true" align="center"/>
+
+            <column name="年龄" code="age" dataType="number" bgColor="#FFFF00" font="宋体"
+                    fontColor="255,0,0" bold="true" underline="true" italic="true" align="center"/>
+
+            <column name="生日" code="date" dataType="date" format="yyyy-MM-dd" bgColor="#FFFF00" font="宋体"
+                    fontColor="255,0,0" bold="true" underline="true" italic="true" align="center"/>
+        </columns>
+
+        <rowFooter>
+        </rowFooter>
+    </sheet>
+
+</excel>

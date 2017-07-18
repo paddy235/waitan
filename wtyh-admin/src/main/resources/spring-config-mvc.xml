@@ -11,7 +11,7 @@
     http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
-    <context:component-scan base-package="com.bbd.bgo.web.**.controller">
+    <context:component-scan base-package="com.bbd.bgo.web.**.controller,com.bbd.wtyh.excel.imp.controller">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
@@ -34,10 +34,10 @@
         <mvc:interceptor>
             <mvc:mapping path="/**/**.do"/>
             <mvc:exclude-mapping path="/login.do"/>
-            <mvc:exclude-mapping path="/syncData/getNewestDataVersion.do"/>
-            <mvc:exclude-mapping path="/syncData/receiveFileData.do"/>
+            <mvc:exclude-mapping path="/syncData/*"/>
             <mvc:exclude-mapping path="/adminLogInfo/*"/>
             <mvc:exclude-mapping path="/credit/*"/>
+            <mvc:exclude-mapping path="/import/*"/>
             <ref bean="loginInterceptor"/>
         </mvc:interceptor>
 
@@ -89,10 +89,10 @@
         <property name="order" value="1"/>
     </bean>
 
-    <!--    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-            <property name="maxUploadSize" value="1048576000"/>
-            <property name="defaultEncoding" value="UTF-8"/>
-        </bean>-->
-
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="maxUploadSize" value="10485760000"/>
+        <property name="maxInMemorySize" value="40960"/>
+    </bean>
 
 </beans>

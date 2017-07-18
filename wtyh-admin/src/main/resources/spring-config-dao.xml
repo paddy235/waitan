@@ -64,12 +64,12 @@
         </tx:attributes>
     </tx:advice>
 
+    <tx:annotation-driven transaction-manager="transactionManager"/>
     <!--5.定义在哪些地方应用上面的规则 -->
     <aop:config>
         <aop:pointcut id="serviceMethod" expression="
             execution(* com.bbd.*.service..Role*.*(..)) or
-            execution(* com.bbd.*.service..User*.*(..)) or
-            @annotation(org.springframework.transaction.annotation.Transactional)"/>
+            execution(* com.bbd.*.service..User*.*(..))"/>
         <!--将事务通知与应用规则的方法组合 -->
         <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethod" order="3"/>
     </aop:config>
@@ -90,10 +90,10 @@
                 <ref bean="myBatisResultIntercept"/>
             </list>
         </property>
-    <!--<property name="typeHandlersPackage" value="com.bbd.data.mapper.NullValueHandler"/>-->
-</bean>
+        <!--<property name="typeHandlersPackage" value="com.bbd.data.mapper.NullValueHandler"/>-->
+    </bean>
 
-<!-- scan for mappers and let them be autowired -->
+    <!-- scan for mappers and let them be autowired -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.bbd.**.mapper,com.bbd.wtyh.core.dao"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
