@@ -156,6 +156,9 @@ public class HologramQueryController {
 			int i=0;
 			for(String str:set){
 				i++;
+				if(str==null){
+					continue;
+				}
 				sb.append(str);
 				if(i<set.size()){
 					sb.append("/");
