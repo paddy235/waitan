@@ -151,7 +151,7 @@ public class PToPMonitorController {
 		Map<String, Object> zb = null;
 		List<Map<String, Object>> data = new ArrayList<>();
 		if (null != maxDto) {
-			for (Map.Entry<String, Object> entry : maxDto.getArea_num().entrySet()) {
+			for (Map.Entry<String, Integer> entry : maxDto.getArea_num().entrySet()) {
 				Map<String, Object> areaNum = new HashMap<>();
 				areaNum.put("name", "浦东".equals(entry.getKey()) ? "浦东新区" : entry.getKey() + (entry.getKey().endsWith("区") ? "" : "区"));
 				areaNum.put("value", entry.getValue());

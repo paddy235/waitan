@@ -45,7 +45,7 @@ public class IndustryShanghaiDTO implements Serializable {
     /**
      * 上海P2P月投资人数
      * */
-    private Map<String, Object> area_num;
+    private Map<String, Integer> area_num;
 
     private String              year;
 
@@ -53,11 +53,11 @@ public class IndustryShanghaiDTO implements Serializable {
 
     private String              season;        // 季度，格式如 2014-Q1;
 
-    public Map<String, Object> getArea_num() {
+    public Map<String, Integer> getArea_num() {
         return area_num;
     }
 
-    public void setArea_num(Map<String, Object> area_num) {
+    public void setArea_num(Map<String, Integer> area_num) {
         this.area_num = area_num;
     }
 

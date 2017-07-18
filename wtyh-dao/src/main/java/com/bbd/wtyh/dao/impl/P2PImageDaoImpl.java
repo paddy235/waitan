@@ -38,25 +38,25 @@ import com.google.gson.reflect.TypeToken;
 public class P2PImageDaoImpl implements P2PImageDao {
 
     @Value("${api.finnacial.url}")
-    private String                        url;
+    private String url;
 
     @Value("${api.bbd_qyxx.url}")
-    private String                        bbdQyxxURL;
+    private String bbdQyxxURL;
 
     @Value("${api.bbd_qyxx.ak}")
-    private String                        bbdQyxxAK;
+    private String bbdQyxxAK;
 
     @Value("${api.bbdZuzhiJiGoudm.url}")
-    private String                        zuZhiJiGouURL;
+    private String zuZhiJiGouURL;
 
     @Value("${api.bbdZuzhiJiGoudm.ak}")
-    private String                        zuZhiJiGouAK;
+    private String zuZhiJiGouAK;
 
     @Autowired
     private PlatformNameInformationMapper platformNameInformationMapper;
 
     @Autowired
-    private RedisDAO                      redisDAO;
+    private RedisDAO redisDAO;
 
     @Override
     public YuQingDTO platformConsensus(String platName) {
@@ -84,8 +84,8 @@ public class P2PImageDaoImpl implements P2PImageDao {
     @Override
     public Map<String, Object> lawsuitMsg(String company) {
         String URL = String.format(
-            "http://dataom.api.bbdservice.com/api/bbd_ktgg/?company=%s&ak=ee372b938ef17a245f6b781beec4499e",
-            company);
+                "http://dataom.api.bbdservice.com/api/bbd_ktgg/?company=%s&ak=ee372b938ef17a245f6b781beec4499e",
+                company);
         HttpTemplate httpTemplate = new HttpTemplate();
         final Map<String, Object> data = new HashMap<>();
         try {
@@ -102,7 +102,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
                     }
                     JSONObject jsonObject = JSON.parseObject(result);
                     data.put("total",
-                        "".equals(jsonObject.get("total")) ? 0 : jsonObject.get("total"));
+                            "".equals(jsonObject.get("total")) ? 0 : jsonObject.get("total"));
                     return data;
                 }
             });
@@ -220,7 +220,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
                     public BaseDataDO parse(String result) {
                         Gson gson = new Gson();
                         redisDAO.addObject(redisKey, gson.fromJson(result, BaseDataDO.class),
-                            Constants.cacheDay, BaseDataDO.class);
+                                Constants.cacheDay, BaseDataDO.class);
                         return gson.fromJson(result, BaseDataDO.class);
                     }
                 });
@@ -239,7 +239,7 @@ public class P2PImageDaoImpl implements P2PImageDao {
     public ZuZhiJiGoudmDO baseInfoZuZhiJiGou(String companyName) {
         //        String url = zuZhiJiGouURL+"?company="+companyName+"&ak="+zuZhiJiGouURL;
         String URL = "http://dataom.api.bbdservice.com/api/bbd_zuzhijigoudm/?company=" + companyName
-                     + "&ak=605f60df40668579e939515fef710d2b";
+                + "&ak=605f60df40668579e939515fef710d2b";
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
             return httpTemplate.get(URL, new HttpCallback<ZuZhiJiGoudmDO>() {
@@ -373,14 +373,35 @@ public class P2PImageDaoImpl implements P2PImageDao {
                         return null;
                     }
                     Gson gson = new Gson();
-                    return gson.fromJson(result, new TypeToken<PlatDataDO>() {
-                    }.getType());
+                    return gson.fromJson(result,PlatDataDO.class);
                 }
             });
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
+
+    }
+
+    @Override
+    public PlatCoreDataDTO getPlatCoreData(String platName) throws Exception {
+        String platDataURL = url + "?dataType=plat_data" + "&plat_name=" + platName;
+        HttpTemplate httpTemplate = new HttpTemplate();
+        return httpTemplate.get(platDataURL, new HttpCallback<PlatCoreDataDTO>() {
+            @Override
+            public boolean valid() {
+                return true;
+            }
+
+            @Override
+            public PlatCoreDataDTO parse(String result) {
+                if (null == result || result.length() == 0) {
+                    return null;
+                }
+                Gson gson = new Gson();
+                return gson.fromJson(result, PlatCoreDataDTO.class);
+            }
+        });
     }
 
     @Override
