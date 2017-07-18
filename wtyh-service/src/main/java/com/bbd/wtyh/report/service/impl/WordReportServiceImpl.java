@@ -281,6 +281,7 @@ public class WordReportServiceImpl implements WordReportService {
             //添加网贷平台的信息
             if( WordReportBuilder.ReportType.NETWORK_LENDING == emReportType ) {
                 jes.runThreadFun( ()-> {
+                    boolean success =false;
                     List<PlatCompanyDTO> platList = pToPMonitorService.searchPlatListByCompanyName(companyName);
                     for (PlatCompanyDTO pd : platList) {
                         String platName = pd.getPlat_name();
@@ -419,13 +420,27 @@ public class WordReportServiceImpl implements WordReportService {
                         for ( int iCnt =timeOuts; iCnt >0; iCnt-- ) {
                             if( null !=wrbArr[0] ) {
                                 synchronized (wrbArr) {
-                                    wrbArr[0].addPlatInfo(gradeInfo, coreData, transferQuantityTrend, interestRateTrend,
-                                        loanBalance, publicSentiment);
+                                    if ( wrbArr[0].addPlatInfo(gradeInfo, coreData, transferQuantityTrend, interestRateTrend,
+                                        loanBalance, publicSentiment) >=0) {
+                                        success =true;
+                                    }
                                 }
                                 break;
                             }
                             try { Thread.sleep(1000); } catch (Exception e) {e.printStackTrace();}
                         }
+                    }
+                    if (!success) { //当未查询到平台评评分信息时，删除平台评分表
+                        for ( int iCnt =timeOuts; iCnt >0; iCnt-- ) {
+                            if( null !=wrbArr[0] ) {
+                                synchronized (wrbArr) {
+                                    wrbArr[0].delPlatPFxxTable();
+                                }
+                                break;
+                            }
+                            try { Thread.sleep(1000); } catch (Exception e) {e.printStackTrace();}
+                        }
+
                     }
                 } );
             }
