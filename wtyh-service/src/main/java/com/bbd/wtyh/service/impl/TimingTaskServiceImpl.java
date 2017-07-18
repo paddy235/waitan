@@ -58,6 +58,7 @@ public class TimingTaskServiceImpl  extends BaseServiceImpl implements TimingTas
             taskInfoDTO.setReExecute(0);
             TaskSuccessFailInfoDO taskDO=taskSuccessFailInfoMapper.getTaskRecentInfo(taskInfoDO.getTaskKey(),taskInfoDO.getTaskGroup());
             if(taskDO!=null) {
+                taskInfoDTO.setId(taskDO.getId());
                 taskInfoDTO.setReExecute(taskDO.getReExecute());
             }
 

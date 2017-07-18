@@ -45,14 +45,14 @@ public class TimingTaskController {
 
 	@RequestMapping("/getHistoryTask")
 	@ResponseBody
-	public ResponseBean getHistoryTask(String taskName,String taskGroup) {
-		List<TaskInfoDTO> list = timingTaskService.getHistoryTaskInfo(taskName,taskGroup);
+	public ResponseBean getHistoryTask(String taskKey,String taskGroup) {
+		List<TaskInfoDTO> list = timingTaskService.getHistoryTaskInfo(taskKey,taskGroup);
 		return ResponseBean.successResponse(list);
 	}
 
 	@RequestMapping("/getTaskDetail")
 	@ResponseBody
-	public ResponseBean getTaskDetail(Integer taskId, String taskName, String taskGroup) {
+	public ResponseBean getTaskDetail(Integer taskId, String taskKey, String taskGroup) {
 
 		return ResponseBean.successResponse(null);
 	}
