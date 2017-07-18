@@ -394,7 +394,7 @@ public class HologramQueryServiceImpl implements HologramQueryService {
                 List<BaseDataDO.Results> resultsList =batchData.getResults();
                 if ( resultsList !=null ) {
                     rstList.addAll(resultsList);
-                    logger.debug("getBbdQyxxBatchByPostCD--num[{}]--{}ms", resultsList.size(), dltSec );
+                    //logger.info("getBbdQyxxBatchByPostCD--num[{}]--{}ms", resultsList.size(), dltSec );
                 }
             }
         }
@@ -410,7 +410,7 @@ public class HologramQueryServiceImpl implements HologramQueryService {
         }
         Map<String, String>parameters =new HashMap<String, String>() {{
             put( "highlight", "false" );
-            put( "page_size", "100" );
+            put( "page_size", "200" );
             put( "type", type );
         }};
         for (int idx =0; idx <5; idx++) {
@@ -421,7 +421,7 @@ public class HologramQueryServiceImpl implements HologramQueryService {
             if (  null ==cs2 ||cs2.getErr_code() ==null || !(cs2.getErr_code().equals("0")) ) {
                 return csList;
             }
-            logger.debug("companySearch2--nalName[{}]--type[{}]--num[{}]--{}ms", nalName, type, cs2.getRdata().size(), dltSec );
+            //logger.info("companySearch2--nalName[{}]--type[{}]--num[{}]--{}ms", nalName, type, cs2.getRdata().size(), dltSec );
             csList.addAll(cs2.getRdata());
             if( csList.size() >= Integer.decode( null ==cs2.getSum() ? "0" : cs2.getSum() )
                 ||(null !=cs2.getTotal() &&cs2.getTotal().equals("0") ) ) {
