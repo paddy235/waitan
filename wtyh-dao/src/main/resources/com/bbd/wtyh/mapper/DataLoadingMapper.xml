@@ -29,12 +29,12 @@
 
 	<insert id="saveQyxgYuqingDO" parameterType="java.util.List">
 		INSERT INTO qyxg_yuqing(
-		_id, abstract, author,bbd_dotime ,bbd_source , bbd_type,bbd_uptime ,bbd_url ,bbd_xgxx_id,comment_num,
+		abstract, author,bbd_dotime ,bbd_source , bbd_type,bbd_uptime ,bbd_url ,bbd_xgxx_id,comment_num,
 		main,news_site,news_title,picture,plate,pubdate,rowkey,search_key,status,table_name,
 		transfer_num,id,create_time,bbd_qyxx_id,task_id)
 		VALUES
 		<foreach collection="list" item="item" index="index" separator="," >
-			(#{item._id}, #{item.articleAbstract}, #{item.author}, #{item.bbd_dotime}, #{item.bbd_source}, #{item.bbd_type}, #{item.bbd_uptime}, #{item.bbd_url}, #{item.bbd_xgxx_id}, #{item.comment_num},
+			(#{item.articleAbstract}, #{item.author}, #{item.bbd_dotime}, #{item.bbd_source}, #{item.bbd_type}, #{item.bbd_uptime}, #{item.bbd_url}, #{item.bbd_xgxx_id}, #{item.comment_num},
 			#{item.main}, #{item.news_site}, #{item.news_title}, #{item.picture}, #{item.plate},#{item.pubdate}, #{item.rowkey}, #{item.search_key}, #{item.status}, #{item.table_name},
 			#{item.transfer_num}, #{item.id}, #{item.create_time}, #{item.bbd_qyxx_id}, #{item.task_id})
 		</foreach>
@@ -59,12 +59,12 @@
 
 	<insert id="saveQyxxBaxxDO" parameterType="java.util.List">
 		INSERT INTO qyxx_baxx(
-		id, bbd_dotime, bbd_qyxx_id,bbd_uptime ,company_name ,no ,position ,sex ,type,idno,
-		idtype,name,name_id,resume,salary,asstarting,task_id)
+		id, bbd_dotime, bbd_qyxx_id,bbd_uptime ,company_name ,
+		position ,idtype,name,name_id,task_id)
 		VALUES
 		<foreach collection="list" item="item" index="index" separator="," >
-			(#{item.id}, #{item.bbd_dotime}, #{item.bbd_qyxx_id}, #{item.bbd_uptime}, #{item.company_name}, #{item.no}, #{item.position}, #{item.sex}, #{item.type}, #{item.idno},
-			#{item.idtype}, #{item.name}, #{item.name_id},#{item.resume}, #{item.salary}, #{item.asstarting}, #{item.task_id})
+			(#{item.id}, #{item.bbd_dotime}, #{item.bbd_qyxx_id}, #{item.bbd_uptime}, #{item.company_name},
+			#{item.position},#{item.idtype}, #{item.name}, #{item.name_id}, #{item.task_id})
 		</foreach>
 	</insert>
 
@@ -85,14 +85,14 @@
 		inventor,patent_type,patent_agency,title,public_code,publidate,applicant,independent_claim,law_state,main_classcode,
 		npc_code,approval_issue_date,approval_num,bg_publication_date,biology_preserve,compare_file,decode_announce_date,division_application,fmgb,fmsq,
 		homeland_prority,pct_application_data,pct_enter_national,pct_publish_data,priority,wgsq,xxsq,bbd_source,
-		bbd_dotime,bbd_type,bbd_uptime,bbd_url,create_time,sumconam,task_id)
+		bbd_dotime,bbd_type,bbd_url,create_time,sumconam,task_id)
 		VALUES
 		<foreach collection="list" item="item" index="index" separator="," >
 			(#{item.id}, #{item.bbd_qyxx_id}, #{item.address}, #{item.agent_name}, #{item.application_code}, #{item.application_code_wanfang}, #{item.application_date}, #{item.class_code}, #{item.class_code_wanfang}, #{item.company_name},
 			#{item.inventor}, #{item.patent_type}, #{item.patent_agency}, #{item.title}, #{item.public_code}, #{item.publidate}, #{item.applicant}, #{item.independent_claim}, #{item.law_state}, #{item.main_classcode},
 			#{item.npc_code}, #{item.approval_issue_date}, #{item.approval_num}, #{item.bg_publication_date}, #{item.biology_preserve}, #{item.compare_file}, #{item.decode_announce_date}, #{item.division_application}, #{item.fmgb}, #{item.fmsq},
 			#{item.homeland_prority}, #{item.pct_application_data}, #{item.pct_enter_national}, #{item.pct_publish_data},#{item.priority}, #{item.wgsq}, #{item.xxsq}, #{item.bbd_source},
-			#{item.bbd_dotime}, #{item.bbd_type}, #{item.bbd_uptime}, #{item.bbd_url}, #{item.create_time}, #{item.sumconam}, #{item.task_id})
+			#{item.bbd_dotime}, #{item.bbd_type}, #{item.bbd_url}, #{item.create_time}, #{item.sumconam}, #{item.task_id})
 		</foreach>
 	</insert>
 

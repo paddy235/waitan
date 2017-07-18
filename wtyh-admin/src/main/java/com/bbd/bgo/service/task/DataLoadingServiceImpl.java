@@ -12,7 +12,6 @@ import com.bbd.wtyh.mapper.TaskSuccessFailInfoMapper;
 import com.bbd.wtyh.util.DataLoadingUtil;
 import com.bbd.wtyh.util.PullFileUtil;
 import net.sf.json.JSONObject;
-import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ import java.util.*;
  * @author Created by LiYao on 2017-05-18 9:53.
  */
 @Service
-public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadingTaskService {
+public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadingService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DataLoadingServiceImpl.class);
 
@@ -47,7 +46,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 	private static final String QYXX__BASIC = "qyxx_basic";
 	private static final String QYXX_BAXX = "qyxx_baxx";
 	private static final String QYXX_GDXX = "qyxx_gdxx";
-	private static final String QYXX_ZHUANLI = "qyxx_zhuanli";
+	private static final String QYXX_ZHUANLI = "qyxx_wanfang_zhuanli";
 	private static final String RMFYGG = "rmfygg";
 	private static final String ZGCPWSW = "zgcpwsw";
 	private static final String ZHIXING = "zhixing";
@@ -64,7 +63,6 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 		this.taskId = taskId;
 		//手动执行，查询之前任务失败记录，更新插入失败表
 		Map<String,Integer> returnMap = new HashMap<String,Integer>();
-		//File file = new File("D:\\wtyh\\datashare\\data\\data-share-file\\wtyh");
 		List<DataLoadingFailInfoDO> failList = dataLoadingFailInfoMapper.getDataLoadingFailInfoByTaskId(taskId);
 		//上次出错,只跑错误部分数据
 		if(null!=failList&&failList.size()>0){
@@ -99,6 +97,8 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 		List<File> list = null;
 		try {
 			list = PullFileUtil.getFileList(1);
+			//File file = new File("D:\\wtyh\\datashare\\data\\data-share-file\\wtyh\\hologram-base");
+			//list = Arrays.asList(file.listFiles());
 		} catch (Exception e) {
 			returnMap.put("fail",10);
 			returnMap.put("success",0);
@@ -121,6 +121,14 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 	}
 
 	public void operateUpdate(List<String> failTableList,List<File> fileList,Map<String,Integer> returnMap){
+		//删除失败表数据
+		if(null!=failTableList&&failTableList.size()>0){
+			for(String tableName:failTableList){
+				logger.info("start delete from "+tableName+" where task_id="+taskId);
+				int deleteNum = this.executeCUD("delete from "+tableName+" where task_id = "+taskId);
+				logger.info("end delete from "+tableName+" where task_id="+taskId+",delete number:"+deleteNum);
+			}
+		}
 		List<String> list = DataLoadingUtil.txt2String(fileList);
 		List<DishonestyDO> disList=new ArrayList<DishonestyDO>();
 		List<KtggDO> ktggList=new ArrayList<KtggDO>();
@@ -141,10 +149,6 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 				JSONObject jsonData = JSONObject.fromObject(String.valueOf(data));
 				Object dataName = jsonData.get(tn);
 				String dataStr = String.valueOf(dataName);
-				//删除失败表数据
-				for(String tableName:failTableList){
-					this.executeCUD("delete from ? where task_id = ?",tableName,taskId);
-				}
 				DataLoadingUtil.addDataToList(failTableList,tn,dataStr,disList,ktggList,yuQingList,basicList,baxxList,gdxxList,
 						zhuanliList,rmfyggList,zgcpwswList,zhixingList);
 			} catch (Exception e) {
@@ -170,8 +174,20 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 		//taskSuccessFailInfoDO.setFailCount(failTables.size());
 		//taskSuccessFailInfoDO.setCreateBy("system");
 		//taskSuccessFailInfoDO.setCreateDate(new Date());
-		logger.info("add data loading task to taskSuccessFailInfo table");
 		//int id = taskSuccessFailInfoMapper.addTaskSuccessFailInfo(taskSuccessFailInfoDO);
+		//手动执行时，更新task表记录，删除失败表记录，新增本次失败记录
+		if(null != failTableList){
+			TaskSuccessFailInfoDO taskDo = taskSuccessFailInfoMapper.getTaskInfoById(taskId);
+			if(null!=taskDo){
+				taskDo.setUpdateBy("system");
+				taskDo.setUpdateDate(new Date());
+				taskDo.setSuccessCount(taskDo.getSuccessCount()+(taskDo.getFailCount()-failTableList.size()));
+				taskDo.setFailCount(failTableList.size());
+				taskSuccessFailInfoMapper.updateTaskSuccessFailInfo(taskDo);
+			}
+		}
+		this.executeCUD("delete from data_loading_fail_info where task_id = "+taskId);
+		logger.info("add data loading task to taskSuccessFailInfo table");
 		for(String table:failTables){
 			DataLoadingFailInfoDO fail = new DataLoadingFailInfoDO();
 			fail.setTaskId(taskId);

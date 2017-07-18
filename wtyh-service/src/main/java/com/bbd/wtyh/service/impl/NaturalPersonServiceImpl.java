@@ -98,6 +98,7 @@ public class NaturalPersonServiceImpl implements NaturalPersonService {
         };
         try {
             Object rObj = redisDAO.getObject(redisKey);
+            rObj =null;
             //String jStr = redisDAO.getString(redisKey);
             if (null != rObj && rObj instanceof List /*null !=jStr*/) {
                 try {
@@ -217,7 +218,13 @@ public class NaturalPersonServiceImpl implements NaturalPersonService {
             }
         }
         //分类排序类金融
-        List<String> kindredFinanceCpyNames = companyMapper.findKindredFinanceCompanyNameByCompanyName(shCpyNames);
+        Date start =new Date();
+        List<String> kindredFinanceCpyNames =new LinkedList<>();
+        if(  shCpyNames.size() >0) {
+            kindredFinanceCpyNames = companyMapper.findKindredFinanceCompanyNameByCompanyName(shCpyNames);
+        }
+        long dltSec =(new Date()).getTime() -start.getTime();
+        //logger.info("findKindredFinanceCompanyNameByCompanyName--num[{}]--{}ms", kindredFinanceCpyNames.size(), dltSec );
         if( null !=kindredFinanceCpyNames && kindredFinanceCpyNames.size() >0 ) {
             List<NaturalPersonVO> kindredFinances =new LinkedList<>();
             List<NaturalPersonVO> noKindredFinances =new LinkedList<>();

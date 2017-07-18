@@ -1,5 +1,6 @@
 package com.bbd.wtyh.service;
 
+import com.bbd.wtyh.core.base.BaseService;
 import com.bbd.wtyh.domain.BuildingDO;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.query.CompanyQuery;
@@ -10,7 +11,7 @@ import java.util.Map;
 /**
  * Created by Marco on 2016/8/8.
  */
-public interface CompanyService {
+public interface CompanyService extends BaseService {
 
 	int countCompanyNum(CompanyQuery query);
 

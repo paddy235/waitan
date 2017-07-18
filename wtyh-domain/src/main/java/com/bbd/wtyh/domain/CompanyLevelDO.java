@@ -1,43 +1,54 @@
 package com.bbd.wtyh.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Table(name = "company_level")
 public class CompanyLevelDO extends BaseDO {
-    private Integer companyId;
 
-    private Integer outLevel;
+	@Id
+	@Column(name = "company_id")
+	private Integer companyId;
 
-    private Integer innerLevel;
+	@Column(name = "out_level")
+	private Integer outLevel;
 
-    private Integer liveLevel;
+	@Column(name = "inner_level")
+	private Integer innerLevel;
 
-    public Integer getCompanyId() {
-        return companyId;
-    }
+	@Column(name = "live_level")
+	private Integer liveLevel;
 
-    public void setCompanyId(Integer companyId) {
-        this.companyId = companyId;
-    }
+	public Integer getCompanyId() {
+		return companyId;
+	}
 
-    public Integer getOutLevel() {
-        return outLevel;
-    }
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
+	}
 
-    public void setOutLevel(Integer outLevel) {
-        this.outLevel = outLevel;
-    }
+	public Integer getOutLevel() {
+		return outLevel;
+	}
 
-    public Integer getInnerLevel() {
-        return innerLevel;
-    }
+	public void setOutLevel(Integer outLevel) {
+		this.outLevel = outLevel;
+	}
 
-    public void setInnerLevel(Integer innerLevel) {
-        this.innerLevel = innerLevel;
-    }
+	public Integer getInnerLevel() {
+		return innerLevel;
+	}
 
-    public Integer getLiveLevel() {
-        return liveLevel;
-    }
+	public void setInnerLevel(Integer innerLevel) {
+		this.innerLevel = innerLevel;
+	}
 
-    public void setLiveLevel(Integer liveLevel) {
-        this.liveLevel = liveLevel;
-    }
+	public Integer getLiveLevel() {
+		return liveLevel;
+	}
+
+	public void setLiveLevel(Integer liveLevel) {
+		this.liveLevel = liveLevel;
+	}
 }

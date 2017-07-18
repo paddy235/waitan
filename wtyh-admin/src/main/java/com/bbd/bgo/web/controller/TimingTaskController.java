@@ -3,8 +3,10 @@ package com.bbd.bgo.web.controller;
 
 import com.bbd.wtyh.domain.TaskInfoDO;
 import com.bbd.wtyh.domain.TaskSuccessFailInfoDO;
+import com.bbd.wtyh.domain.dto.TaskInfoDTO;
 import com.bbd.wtyh.service.TimingTaskService;
 import com.bbd.wtyh.web.ResponseBean;
+import net.sf.cglib.beans.BeanCopier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,28 +30,30 @@ public class TimingTaskController {
 	@RequestMapping("/getTaskInfo")
 	@ResponseBody
 	public ResponseBean getTaskInfo() {
-		List<TaskInfoDO> list = timingTaskService.getTaskInfo();
+
+		List<TaskInfoDTO> list = timingTaskService.getTaskInfo();
+
 		return ResponseBean.successResponse(list);
 	}
 
 	@RequestMapping("/getLatestTaskInfo")
 	@ResponseBody
 	public ResponseBean getLatestTaskInfo() {
-		List<TaskInfoDO> list = timingTaskService.getLatestTaskInfo();
+		List<TaskInfoDTO> list = timingTaskService.getLatestTaskInfo();
 		return ResponseBean.successResponse(list);
 	}
 
 	@RequestMapping("/getHistoryTask")
 	@ResponseBody
-	public ResponseBean getHistoryTask(String taskName,String taskGroup) {
-		List<TaskSuccessFailInfoDO> list = timingTaskService.getHistoryTaskInfo(taskName,taskGroup);
+	public ResponseBean getHistoryTask(String taskKey,String taskGroup) {
+		List<TaskInfoDTO> list = timingTaskService.getHistoryTaskInfo(taskKey,taskGroup);
 		return ResponseBean.successResponse(list);
 	}
 
-	@RequestMapping("/getTaskDetail")
-	@ResponseBody
-	public ResponseBean getTaskDetail(Integer taskId, String taskName, String taskGroup) {
 
+	@RequestMapping("/reExecuteTask")
+	@ResponseBody
+	public ResponseBean reExecuteTask(Integer taskId, String taskName, String taskGroup) {
 		return ResponseBean.successResponse(null);
 	}
 
