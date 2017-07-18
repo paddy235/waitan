@@ -34,6 +34,9 @@ public class CompanyInfoModifyController {
     @ResponseBody
     public ResponseBean queryCompany(String name) {
         CompanyInfo rst = companyInfoModify.queryCompany(name);
+        if (null == rst) {
+            return ResponseBean.errorResponse("未找到公司");
+        }
         return ResponseBean.successResponse(rst);
     }
 
@@ -44,10 +47,10 @@ public class CompanyInfoModifyController {
     @ResponseBody
     public ResponseBean loan(Integer areaId) {
         //产品提出要排序，不读库的方式，写死
-        List<String> list = Lists.newArrayList("浦东新区","黄浦区","静安区","徐汇区",
-                "长宁区","普陀区","虹口区","杨浦区",
-                "宝山区","闵行区","嘉定区","金山区",
-                "松江区","青浦区","奉贤区","崇明县");
+        List<String> list = Lists.newArrayList("浦东新区", "黄浦区", "静安区", "徐汇区",
+                "长宁区", "普陀区", "虹口区", "杨浦区",
+                "宝山区", "闵行区", "嘉定区", "金山区",
+                "松江区", "青浦区", "奉贤区", "崇明县");
         return ResponseBean.successResponse(list);
     }
 
@@ -57,10 +60,10 @@ public class CompanyInfoModifyController {
     @ResponseBody
     public ResponseBean guarantee(Integer areaId) {
         //产品提出要排序，不读库的方式，写死
-        List<String> list = Lists.newArrayList("浦东新区","黄浦区","静安区","徐汇区",
-                "长宁区","普陀区","虹口区","杨浦区",
-                "宝山区","闵行区","嘉定区","金山区",
-                "松江区","青浦区","奉贤区","崇明县");
+        List<String> list = Lists.newArrayList("浦东新区", "黄浦区", "静安区", "徐汇区",
+                "长宁区", "普陀区", "虹口区", "杨浦区",
+                "宝山区", "闵行区", "嘉定区", "金山区",
+                "松江区", "青浦区", "奉贤区", "崇明县");
         return ResponseBean.successResponse(list);
     }
 
@@ -69,10 +72,10 @@ public class CompanyInfoModifyController {
     @ResponseBody
     public ResponseBean offLineFinance(Integer areaId) {
         //产品提出要排序，不读库的方式，写死
-        List<String> list = Lists.newArrayList("浦东新区","黄浦区","静安区","徐汇区",
-                "长宁区","普陀区","虹口区","杨浦区",
-                "宝山区","闵行区","嘉定区","金山区",
-                "松江区","青浦区","奉贤区","崇明县");
+        List<String> list = Lists.newArrayList("浦东新区", "黄浦区", "静安区", "徐汇区",
+                "长宁区", "普陀区", "虹口区", "杨浦区",
+                "宝山区", "闵行区", "嘉定区", "金山区",
+                "松江区", "青浦区", "奉贤区", "崇明县");
         return ResponseBean.successResponse(list);
     }
 
@@ -81,10 +84,10 @@ public class CompanyInfoModifyController {
     @ResponseBody
     public ResponseBean tradeMarket(Integer areaId) {
         //产品提出要排序，不读库的方式，写死
-        List<String> list = Lists.newArrayList("浦东新区","黄浦区","静安区","徐汇区",
-                "长宁区","普陀区","虹口区","杨浦区",
-                "宝山区","闵行区","嘉定区","金山区",
-                "松江区","青浦区","奉贤区","崇明县");
+        List<String> list = Lists.newArrayList("浦东新区", "黄浦区", "静安区", "徐汇区",
+                "长宁区", "普陀区", "虹口区", "杨浦区",
+                "宝山区", "闵行区", "嘉定区", "金山区",
+                "松江区", "青浦区", "奉贤区", "崇明县");
         return ResponseBean.successResponse(list);
     }
 
@@ -93,10 +96,10 @@ public class CompanyInfoModifyController {
     @ResponseBody
     public ResponseBean perpaycard(Integer areaId) {
         //产品提出要排序，不读库的方式，写死
-        List<String> list = Lists.newArrayList("浦东新区","黄浦区","静安区","徐汇区",
-                "长宁区","普陀区","虹口区","杨浦区",
-                "宝山区","闵行区","嘉定区","金山区",
-                "松江区","青浦区","奉贤区","崇明县");
+        List<String> list = Lists.newArrayList("浦东新区", "黄浦区", "静安区", "徐汇区",
+                "长宁区", "普陀区", "虹口区", "杨浦区",
+                "宝山区", "闵行区", "嘉定区", "金山区",
+                "松江区", "青浦区", "奉贤区", "崇明县");
         return ResponseBean.successResponse(list);
     }
 
@@ -105,10 +108,10 @@ public class CompanyInfoModifyController {
     @ResponseBody
     public ResponseBean tenancy(Integer areaId) {
         //产品提出要排序，不读库的方式，写死
-        List<String> list = Lists.newArrayList("浦东新区","黄浦区","静安区","徐汇区",
-                "长宁区","普陀区","虹口区","杨浦区",
-                "宝山区","闵行区","嘉定区","金山区",
-                "松江区","青浦区","奉贤区","崇明县");
+        List<String> list = Lists.newArrayList("浦东新区", "黄浦区", "静安区", "徐汇区",
+                "长宁区", "普陀区", "虹口区", "杨浦区",
+                "宝山区", "闵行区", "嘉定区", "金山区",
+                "松江区", "青浦区", "奉贤区", "崇明县");
         return ResponseBean.successResponse(list);
     }
 
@@ -117,10 +120,10 @@ public class CompanyInfoModifyController {
     @ResponseBody
     public ResponseBean spectrum(Integer areaId) {
         //产品提出要排序，不读库的方式，写死
-        List<String> list = Lists.newArrayList("浦东新区","黄浦区","静安区","徐汇区",
-                "长宁区","普陀区","虹口区","杨浦区",
-                "宝山区","闵行区","嘉定区","金山区",
-                "松江区","青浦区","奉贤区","崇明县");
+        List<String> list = Lists.newArrayList("浦东新区", "黄浦区", "静安区", "徐汇区",
+                "长宁区", "普陀区", "虹口区", "杨浦区",
+                "宝山区", "闵行区", "嘉定区", "金山区",
+                "松江区", "青浦区", "奉贤区", "崇明县");
         return ResponseBean.successResponse(list);
     }
 
@@ -130,10 +133,10 @@ public class CompanyInfoModifyController {
     @ResponseBody
     public ResponseBean timedTask(Integer areaId) {
         //产品提出要排序，不读库的方式，写死
-        List<String> list = Lists.newArrayList("浦东新区","黄浦区","静安区","徐汇区",
-                "长宁区","普陀区","虹口区","杨浦区",
-                "宝山区","闵行区","嘉定区","金山区",
-                "松江区","青浦区","奉贤区","崇明县");
+        List<String> list = Lists.newArrayList("浦东新区", "黄浦区", "静安区", "徐汇区",
+                "长宁区", "普陀区", "虹口区", "杨浦区",
+                "宝山区", "闵行区", "嘉定区", "金山区",
+                "松江区", "青浦区", "奉贤区", "崇明县");
         return ResponseBean.successResponse(list);
     }
 }
