@@ -1,6 +1,6 @@
 package com.bbd.wtyh.test;
 
-import com.bbd.bgo.service.task.DataLoadingTaskService;
+import com.bbd.bgo.service.task.DataLoadingService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class DataLoadingUpateTest {
 
     @Autowired
-    private DataLoadingTaskService dataLoadingTaskService;
+    private DataLoadingService dataLoadingTaskService;
 
     @Test
     public void dataLoadingTest(){

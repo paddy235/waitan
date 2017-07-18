@@ -18,11 +18,13 @@ public class TaskUtil {
 	public static String[] closeShangHaiCreditJob= {"closeShangHaiCreditJob","credit_work"};
 	//BBD数据落地任务
 	public static String[] offlineFinanceJob= {"offlineFinanceJob","bbd_work"};
+	public static String[] holographicAndOpinionJob= {"holographicAndOpinionJob","bbd_work"};
 	//网贷之家数据落地任务
-	public static String[] pToPMonitorJob= {"pToPMonitorJob","wd_work"};
+	public static String[] pToPMonitorJob= {"p2pMonitorJob","wd_work"};//网络借贷
+	public static String[] crowdFundingJob= {"crowdFundingJob","wd_work"};//众筹
 	//系统数据更新任务
 	public static String[] riskLevelJob= {"riskLevelJob","job_work"};//风险等级
-	public static String[] companyBaseInfo= {"companyBaseInfo","job_work"};//风险等级
+	public static String[] companyBaseInfo= {"companyBaseInfoJob","job_work"};//风险等级
 
 
 	/**
