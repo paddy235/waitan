@@ -27,7 +27,7 @@ import java.util.*;
  * @author Created by LiYao on 2017-05-18 9:53.
  */
 @Service
-public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadingTaskService {
+public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadingService {
 
 	private static final Logger logger = LoggerFactory.getLogger(DataLoadingServiceImpl.class);
 

@@ -1,5 +1,6 @@
 package com.bbd.wtyh.service.impl;
 
+import com.bbd.wtyh.constants.TaskState;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.TaskInfoDO;
 import com.bbd.wtyh.domain.TaskSuccessFailInfoDO;
@@ -10,6 +11,7 @@ import com.bbd.wtyh.service.TimingTaskService;
 import net.sf.cglib.beans.BeanCopier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.support.CronSequenceGenerator;
+import org.springframework.scheduling.support.TaskUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ public class TimingTaskServiceImpl  extends BaseServiceImpl implements TimingTas
     private TaskSuccessFailInfoMapper taskSuccessFailInfoMapper;
     @Autowired
     private TimingTaskMapper timingTaskMapper;
+
 
     @Override
     public List<TaskInfoDTO> getTaskInfo() {
@@ -54,12 +57,13 @@ public class TimingTaskServiceImpl  extends BaseServiceImpl implements TimingTas
             taskInfoDO.setNextStartDate(cronSequenceGenerator.next(new Date()));//lastMinute 我这里是上一分钟的date类型对象
             TaskInfoDTO taskInfoDTO= new TaskInfoDTO();
             beanCopier.copy(taskInfoDO,taskInfoDTO,null);
-
             taskInfoDTO.setReExecute(0);
+            taskInfoDTO.setState(TaskState.NONSTARTER.state());
             TaskSuccessFailInfoDO taskDO=taskSuccessFailInfoMapper.getTaskRecentInfo(taskInfoDO.getTaskKey(),taskInfoDO.getTaskGroup());
             if(taskDO!=null) {
                 taskInfoDTO.setId(taskDO.getId());
                 taskInfoDTO.setReExecute(taskDO.getReExecute());
+                taskInfoDTO.setState(taskDO.getState());
             }
 
             list.add(taskInfoDTO);

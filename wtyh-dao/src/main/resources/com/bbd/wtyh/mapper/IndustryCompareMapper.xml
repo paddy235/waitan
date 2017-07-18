@@ -8,8 +8,8 @@
     VALUES (#{date}, #{area}, #{amount}, #{balanceLoans},  #{createBy}, #{createDate}, #{updateBy}, #{updateDate});
 </insert>
 
-<delete id="deleteByArea" parameterType="java.lang.String">
-    DELETE FROM industry_compare WHERE `area`=#{area}
+<delete id="deleteByDateArea" parameterType="java.lang.String">
+    DELETE FROM industry_compare WHERE `date`=#{date} and `area`=#{area}
 </delete>
 
 </mapper>

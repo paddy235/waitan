@@ -50,17 +50,10 @@ public class TimingTaskController {
 		return ResponseBean.successResponse(list);
 	}
 
-	@RequestMapping("/getTaskDetail")
-	@ResponseBody
-	public ResponseBean getTaskDetail(Integer taskId, String taskKey, String taskGroup) {
-
-		return ResponseBean.successResponse(null);
-	}
 
 	@RequestMapping("/reExecuteTask")
 	@ResponseBody
 	public ResponseBean reExecuteTask(Integer taskId, String taskName, String taskGroup) {
-
 		return ResponseBean.successResponse(null);
 	}
 

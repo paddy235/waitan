@@ -1,5 +1,6 @@
 package com.bbd.wtyh.service.impl;
 
+import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.BuildingDO;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.query.CompanyQuery;
@@ -16,7 +17,7 @@ import java.util.Map;
  * Created by Marco on 2016/8/8.
  */
 @Service
-public class CompanyServiceImpl implements CompanyService {
+public class CompanyServiceImpl extends BaseServiceImpl implements CompanyService {
 
 	@Autowired
 	private CompanyMapper companyMapper;

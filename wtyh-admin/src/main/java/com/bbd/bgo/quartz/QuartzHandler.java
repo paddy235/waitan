@@ -3,6 +3,7 @@ package com.bbd.bgo.quartz;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.bbd.wtyh.constants.TaskState;
 import com.bbd.wtyh.domain.TaskInfoDO;
 import com.bbd.wtyh.domain.TaskSuccessFailInfoDO;
 import com.bbd.wtyh.mapper.TaskSuccessFailInfoMapper;
@@ -175,7 +176,7 @@ public class QuartzHandler extends BaseServiceImpl {
 		TaskInfoDO taskInfo = this.getTaskInfo(taskName, taskGroup);
 		taskInfo.setStartDate(taskDetail.getBeginDate());
 		taskInfo.setEndDate(null);
-		taskInfo.setState(TaskState.BLOCKED.state());
+		taskInfo.setState(TaskState.EXECUTING.state());
 		this.update(taskInfo);
 
 		return taskDetail.getId();
@@ -198,7 +199,7 @@ public class QuartzHandler extends BaseServiceImpl {
 		if(failCount!=null && failCount>0) {
 			taskInfo.setState(TaskState.ERROR.state());
 		}else {
-			taskInfo.setState(TaskState.COMPLETE.state());
+			taskInfo.setState(TaskState.SUCCESS.state());
 		}
 		this.update(taskInfo);
 	}
