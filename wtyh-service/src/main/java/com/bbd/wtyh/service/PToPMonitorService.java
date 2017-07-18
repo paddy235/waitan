@@ -89,7 +89,7 @@ public interface PToPMonitorService {
     /**
      * dataType=industry_shanghai 数据落地
      */
-    void industryShanghaiDataLandingTask() throws Exception;
+    Map industryShanghaiDataLandingTask() throws Exception;
 
     /**
      * dataType=industry_compare 数据落地

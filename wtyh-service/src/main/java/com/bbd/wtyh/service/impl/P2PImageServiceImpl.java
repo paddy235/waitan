@@ -368,26 +368,31 @@ public class P2PImageServiceImpl implements P2PImageService {
             throw new Exception("web api error");
         }
         for (PlatListDO platListDO : dtoList) {
-            PlatDataDO platDataDO = getPlatData(platListDO.getPlat_name());
-            if (platDataDO != null) {
-                PlatCoreDataDO platCoreDataDO = new PlatCoreDataDO();
-                platCoreDataDO.setPlatName(platDataDO.getPlat_name());
-                platCoreDataDO.setOtherSumAmount(platDataDO.getOther_sum_amount());
-                platCoreDataDO.setInterestRate(platDataDO.getInterest_rate());
-                platCoreDataDO.setBidNumStayStil(platDataDO.getBid_num_stay_stil());
-                platCoreDataDO.setBorNumStayStil(platDataDO.getBor_num_stay_stil());
-                platCoreDataDO.setPlatDataSixMonth(platDataDO.getPlat_data_six_month().toString());
-                platCoreDataDO.setCompanyName(platDataDO.getCompany_name());
-                platCoreDataDO.setTop10SumAmount(platDataDO.getTop10_sum_amount());
-                platCoreDataDO.setMoneyStock(platDataDO.getMoney_stock());
-                platCoreDataDO.setDay30NetInflow(platDataDO.getDay30_net_inflow());
-                platCoreDataDO.setTop1SumAmount(platDataDO.getTop1_sum_amount());
-                platCoreDataDO.setAmountTotal(platDataDO.getAmount_total());
-                platCoreDataDO.setCreateBy("sys");
-                platCoreDataDO.setCreateDate(new Date());
+            try {
+                PlatCoreDataDTO platDataDO = p2PImageDao.getPlatCoreData(platListDO.getPlat_name());
+                if (platDataDO != null) {
+                    PlatCoreDataDO platCoreDataDO = new PlatCoreDataDO();
+                    platCoreDataDO.setPlatName(platDataDO.getPlat_name());
+                    platCoreDataDO.setOtherSumAmount(platDataDO.getOther_sum_amount());
+                    platCoreDataDO.setInterestRate(platDataDO.getInterest_rate());
+                    platCoreDataDO.setBidNumStayStil(platDataDO.getBid_num_stay_stil());
+                    platCoreDataDO.setBorNumStayStil(platDataDO.getBor_num_stay_stil());
+                    platCoreDataDO.setPlatDataSixMonth(platDataDO.getPlat_data_six_month().toString().replace("=", ":"));
+                    platCoreDataDO.setCompanyName(platDataDO.getCompany_name());
+                    platCoreDataDO.setTop10SumAmount(platDataDO.getTop10_sum_amount());
+                    platCoreDataDO.setMoneyStock(platDataDO.getMoney_stock());
+                    platCoreDataDO.setDay30NetInflow(platDataDO.getDay30_net_inflow());
+                    platCoreDataDO.setTop1SumAmount(platDataDO.getTop1_sum_amount());
+                    platCoreDataDO.setAmountTotal(platDataDO.getAmount_total());
+                    platCoreDataDO.setCreateBy("sys");
+                    platCoreDataDO.setCreateDate(new Date());
 
-                platCoreDataMapper.deleteByPlatName(platDataDO.getPlat_name());
-                platCoreDataMapper.save(platCoreDataDO);
+                    platCoreDataMapper.deleteByPlatName(platDataDO.getPlat_name());
+                    platCoreDataMapper.save(platCoreDataDO);
+                }
+            }catch (Exception e){
+                logger.error(e.getMessage(),e);
+                continue;
             }
         }
         logger.info("end update plat_core_data data");

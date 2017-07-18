@@ -7,25 +7,25 @@ public class PlatCoreDataDO extends BaseDO{
 
     private String platName;
 
-    private double otherSumAmount;
+    private Double otherSumAmount;
 
-    private double interestRate;
+    private Double interestRate;
 
-    private int bidNumStayStil;
+    private Integer bidNumStayStil;
 
-    private int borNumStayStil;
+    private Integer borNumStayStil;
 
     private String companyName;
 
-    private double top10SumAmount;
+    private Double top10SumAmount;
 
-    private double moneyStock;
+    private Double moneyStock;
 
-    private double day30NetInflow;
+    private Double day30NetInflow;
 
-    private double top1SumAmount;
+    private Double top1SumAmount;
 
-    private double amountTotal;
+    private Double amountTotal;
 
     private String platDataSixMonth;
 

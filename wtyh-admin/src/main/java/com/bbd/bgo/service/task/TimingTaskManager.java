@@ -225,19 +225,25 @@ public class TimingTaskManager {
 		Integer planCount = null;// 计划执行笔数。 可在任务结束时更新
 		Integer successCount=null;
 		Integer failCount=null;
+		Map map = null;
 		try {
 
 			String dataVersion= null;//有版本号的传版本号，没有的不传，根据自己的业务规则定
 			Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
 			taskId=TaskUtil.taskStart(TaskUtil.pToPMonitorJob[0],TaskUtil.pToPMonitorJob[1],dataVersion,runMode,null,null);
 			//需要传 taskId 给业务接口
-			pToPMonitorService.industryShanghaiDataLandingTask();
+			map = pToPMonitorService.industryShanghaiDataLandingTask();
 //			pToPMonitorService.industryCompareDataLandingTask();
 //			pToPMonitorService.platRankDataLandingTask();
 
 		} catch (Exception e) {
 			logger.error("pullP2PMonitorTask"+e);
 		}finally {
+			if(null!=map){
+				planCount=map.get("planCount")==null?null:(Integer)map.get("planCount");
+				successCount=map.get("successCount")==null?null:(Integer)map.get("successCount");
+				failCount=map.get("failCount")==null?null:(Integer)map.get("failCount");
+			}
 			TaskUtil.taskEnd(taskId,planCount,successCount,failCount,null);
 		}
 	}
