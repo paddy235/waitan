@@ -20,7 +20,7 @@ public class DataLoadingUtil {
 	private static final String QYXX__BASIC = "qyxx_basic";
 	private static final String QYXX_BAXX = "qyxx_baxx";
 	private static final String QYXX_GDXX = "qyxx_gdxx";
-	private static final String QYXX_ZHUANLI = "qyxx_zhuanli";
+	private static final String QYXX_ZHUANLI = "qyxx_wanfang_zhuanli";
 	private static final String RMFYGG = "rmfygg";
 	private static final String ZGCPWSW = "zgcpwsw";
 	private static final String ZHIXING = "zhixing";
@@ -97,8 +97,10 @@ public class DataLoadingUtil {
 				for(ZgcpwswDO zg:dataList9){
 					List<String> types = zg.getLitigant_type();
 					StringBuffer sb = new StringBuffer();
-					for(String type:types){
-						sb.append(type);
+					if(null!=types){
+						for(String type:types){
+							sb.append(type);
+						}
 					}
 					zg.setLitigant_types(sb.toString());
 				}

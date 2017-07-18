@@ -38,6 +38,10 @@ public class TaskSuccessFailInfoDO extends BaseDO {
 
     private Integer failCount;
 
+    private Integer state;
+
+    private Integer reExecute;
+
     @Override
     public Integer getId() {
         return id;
@@ -118,5 +122,21 @@ public class TaskSuccessFailInfoDO extends BaseDO {
 
     public void setRunMode(Integer runMode) {
         this.runMode = runMode;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
+    public Integer getReExecute() {
+        return reExecute;
+    }
+
+    public void setReExecute(Integer reExecute) {
+        this.reExecute = reExecute;
     }
 }
