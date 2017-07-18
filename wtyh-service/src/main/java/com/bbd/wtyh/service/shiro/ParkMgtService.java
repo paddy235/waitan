@@ -17,7 +17,7 @@ public interface ParkMgtService{
     List<ParkAndBuildingVO> queryParkAndBuilding(String parkName);
 
     /**
-     * 楼宇企业数量
+     * 园区楼宇企业数量
      * @param parkName 园区名称
      * @return
      */
@@ -27,5 +27,5 @@ public interface ParkMgtService{
      * 根据企业ID删除企业
      * @param companyNameList 企业名称列表
      */
-    void delCompanyByCompanyName(List<Integer> companyNameList);
+    void delCompanyByCompanyName(List<String> companyNameList);
 }
