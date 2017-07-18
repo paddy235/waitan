@@ -2,10 +2,7 @@ package com.bbd.wtyh.service.impl.companyInfoModify;
 
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
-import com.bbd.wtyh.service.CompanyLevelService;
-import com.bbd.wtyh.service.ExchangeCompanyService;
-import com.bbd.wtyh.service.P2PImageService;
-import com.bbd.wtyh.service.RiskCompanyService;
+import com.bbd.wtyh.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,6 +24,13 @@ public class CompanyInfoModifyUtil {
 
     @Autowired
     private ExchangeCompanyService exchangeCompanyService;  // 交易场所
+
+    @Autowired
+    private PrepaidCompanyStaticService prepaidCompanyStaticService; // 预付卡
+
+    @Autowired
+    private FinanceLeaseService financeLeaseService;    // 融资租赁
+
 
     /**
      * 网络借贷
@@ -59,34 +63,67 @@ public class CompanyInfoModifyUtil {
      */
     public CompanyInfo getLoan(String name) {
         CompanyInfo companyInfo = companyLevelService.getLoanOrGuaranteeByCompanyName(name);
+        companyInfo.setIndustry(CompanyInfo.TYPE_XD_2);
         return companyInfo;
     }
 
     /**
      * 融资担保
+     *
      * @param name
      * @return
      */
     public CompanyInfo getGuarantee(String name) {
         CompanyInfo companyInfo = companyLevelService.getLoanOrGuaranteeByCompanyName(name);
+        companyInfo.setIndustry(CompanyInfo.TYPE_RZDB_3);
         return companyInfo;
     }
 
     /**
      * 线下理财
+     *
      * @param name
      * @return
      */
     public CompanyInfo getOffLineFinance(String name) {
-        return riskCompanyService.getOffLineFinanceByCompanyName(name);
+        CompanyInfo companyInfo = riskCompanyService.getOffLineFinanceByCompanyName(name);
+        companyInfo.setIndustry(CompanyInfo.TYPE_XXLC_4);
+        return companyInfo;
     }
 
     /**
      * 交易场所
+     *
      * @param name
      * @return
      */
     public CompanyInfo getTradeMarket(String name) {
-        return riskCompanyService.getOffLineFinanceByCompanyName(name);
+        CompanyInfo companyInfo = riskCompanyService.getOffLineFinanceByCompanyName(name);
+        companyInfo.setIndustry(CompanyInfo.TYPE_JYS_9);
+        return companyInfo;
+    }
+
+    /**
+     * 预付卡
+     *
+     * @param name
+     * @return
+     */
+    public CompanyInfo getPerpaycard(String name) {
+        CompanyInfo companyInfo = prepaidCompanyStaticService.getPerpaycardByCompanyName(name);
+        companyInfo.setIndustry(CompanyInfo.TYPE_YFK_11);
+        return companyInfo;
+    }
+
+    /**
+     * 融资租赁
+     *
+     * @param name
+     * @return
+     */
+    public CompanyInfo getTenancy(String name) {
+        CompanyInfo companyInfo = financeLeaseService.getTenancy(name);
+        companyInfo.setIndustry(CompanyInfo.TYPE_RZZL_13);
+        return companyInfo;
     }
 }

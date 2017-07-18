@@ -1,5 +1,6 @@
 package com.bbd.wtyh.mapper;
 
+import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.vo.CompanyCapitalVO;
 import com.bbd.wtyh.domain.vo.FinanceLeaseStatisticVO;
 import com.bbd.wtyh.domain.vo.FinanceLeaseVO;
@@ -7,7 +8,6 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public interface FinanceLeaseMapper {
 
@@ -25,4 +25,5 @@ public interface FinanceLeaseMapper {
 
     public Integer queryFinanceLeaseMaxYear();
 
+    CompanyInfo getTenancyByName(@Param("year") String name);
 }

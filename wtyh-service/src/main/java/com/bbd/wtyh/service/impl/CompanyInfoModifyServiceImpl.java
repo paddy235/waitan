@@ -39,11 +39,10 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
         } else if (CompanyInfo.TYPE_JYS_9 == companyInfoModifyMapper.queryCompany(name).getIndustry()) { // 交易场所
             return companyInfoModifyUtil.getTradeMarket(name);
         } else if (CompanyInfo.TYPE_YFK_11 == companyInfoModifyMapper.queryCompany(name).getIndustry()) { // 预付卡
-            // company_analysis_result.analysis_result
+            return companyInfoModifyUtil.getPerpaycard(name);
         } else if (CompanyInfo.TYPE_RZZL_13 == companyInfoModifyMapper.queryCompany(name).getIndustry()) { // 融资租赁
-            // finance_lease_risk.risk_status
+            return companyInfoModifyUtil.getTenancy(name);
         }
-
         return null;
     }
 }

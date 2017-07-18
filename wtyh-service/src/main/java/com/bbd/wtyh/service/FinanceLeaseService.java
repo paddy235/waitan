@@ -1,5 +1,6 @@
 package com.bbd.wtyh.service;
 
+import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.vo.FinanceLeaseVO;
 import com.bbd.wtyh.domain.vo.FinanceLeasecCompanyVO;
 import com.bbd.wtyh.web.XAxisSeriesBarLineBean;
@@ -26,4 +27,5 @@ public interface FinanceLeaseService {
 
     XAxisSeriesBarsLineBean companysAndMoney();
 
+    CompanyInfo getTenancy(String name);
 }
