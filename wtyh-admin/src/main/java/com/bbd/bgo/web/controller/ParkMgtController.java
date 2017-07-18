@@ -57,7 +57,7 @@ public class ParkMgtController {
     }
 
     /**
-     * 楼宇企业数量
+     * 园区楼宇企业数量
      * @param parkName 园区名称
      * @return
      */
@@ -69,19 +69,19 @@ public class ParkMgtController {
     }
 
     /**
-     * 根据企业名称删除企业
+     * 删除企业
      * @param companyList 企业名称列表
      * @return
      */
     @RequestMapping("/delCompanyByCompanyId")
     @ResponseBody
     public ResponseBean delCompanyByCompanyId(String companyList){
-        List<Integer> companyNameList = new ArrayList<>();
+        List<String> companyNameList = new ArrayList<>();
 
         String[] companyName = companyList.split(",");
         for (String s:companyName) {
             if(StringUtils.isEmpty(s)){
-                companyNameList.add(Integer.valueOf(s));
+                companyNameList.add(s);
             }
         }
 
