@@ -12,7 +12,6 @@ import com.bbd.wtyh.mapper.TaskSuccessFailInfoMapper;
 import com.bbd.wtyh.util.DataLoadingUtil;
 import com.bbd.wtyh.util.PullFileUtil;
 import net.sf.json.JSONObject;
-import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +46,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 	private static final String QYXX__BASIC = "qyxx_basic";
 	private static final String QYXX_BAXX = "qyxx_baxx";
 	private static final String QYXX_GDXX = "qyxx_gdxx";
-	private static final String QYXX_ZHUANLI = "qyxx_zhuanli";
+	private static final String QYXX_ZHUANLI = "qyxx_wanfang_zhuanli";
 	private static final String RMFYGG = "rmfygg";
 	private static final String ZGCPWSW = "zgcpwsw";
 	private static final String ZHIXING = "zhixing";
@@ -98,8 +97,8 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 		List<File> list = null;
 		try {
 			list = PullFileUtil.getFileList(1);
-//			File file = new File("D:\\wtyh\\datashare\\data\\data-share-file\\wtyh");
-//			list = Arrays.asList(file.listFiles());
+			//File file = new File("D:\\wtyh\\datashare\\data\\data-share-file\\wtyh\\hologram-base");
+			//list = Arrays.asList(file.listFiles());
 		} catch (Exception e) {
 			returnMap.put("fail",10);
 			returnMap.put("success",0);
