@@ -48,6 +48,23 @@
 	    order by car.analysis_result desc
 	    
    </select>
+
+
+    <select id="getPerpaycardByCompanyName" resultType="com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo">
+        SELECT
+            car.analysis_result analysisResult AS currentLevel,
+            c.`name` AS `name`,
+		    c.legal_person AS legalPerson,
+		    c.registered_capital AS registeredCapital,
+		    c.registered_capital_type AS registeredCapitalType,
+        FROM
+          company c
+        LEFT JOIN company_analysis_result car on car.company_id=c.company_id
+        where
+          c.company_type=11
+          AND c.`name` = #{name}
+
+    </select>
   
 
   

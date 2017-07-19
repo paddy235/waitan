@@ -1,26 +1,27 @@
 package com.bbd.wtyh.service.impl;
 
 
-import com.bbd.wtyh.domain.CompanyDO;
-import com.bbd.wtyh.domain.enums.ExchangeCompanyStatus;
 import com.bbd.wtyh.domain.vo.ExchangeCompanyAreaVO;
 import com.bbd.wtyh.domain.vo.ExchangeCompanyVO;
 import com.bbd.wtyh.mapper.ExchangeCompanyMapper;
 import com.bbd.wtyh.service.ExchangeCompanyService;
 import org.apache.commons.collections.map.HashedMap;
-import org.apache.poi.ss.formula.functions.T;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 交易所接口实现层
+ *
  * @author zhouxuan
- * @since  2016.08.10
+ * @since 2016.08.10
  */
 @Service("exchangeCompanyService")
 public class ExchangeCompanyServiceImpl implements ExchangeCompanyService {
@@ -37,7 +38,7 @@ public class ExchangeCompanyServiceImpl implements ExchangeCompanyService {
         if (!CollectionUtils.isEmpty(list)) {
             Map<String, Integer> resultMap = new HashedMap();
             for (Map map : list) {
-                int status = (int)map.get("status");
+                int status = (int) map.get("status");
                 int number = Integer.parseInt(map.get("number").toString());
                 String statusName = "";
                 if (status == 2) {

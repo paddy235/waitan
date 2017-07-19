@@ -155,7 +155,6 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
 
     @Override
     public List<PlatRankDataDTO> getPlatRankData() throws Exception {
-
         String url = this.finSerUrl + "?dataType=plat_rank_data";
         HttpTemplate httpTemplate = new HttpTemplate();
         try {
