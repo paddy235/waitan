@@ -424,7 +424,6 @@ public class P2PImageServiceImpl implements P2PImageService {
         logger.info("end update radar_score data");
     }
 
-    @Override
     public Map<String, PlatListDO> getWangdaiCompanyList() {
         Map<String, PlatListDO> wangdaiCompanyList = new HashMap<>();
         for (PlatListDO platListDO : p2PImageDao.baseInfoWangDaiApi()) {
