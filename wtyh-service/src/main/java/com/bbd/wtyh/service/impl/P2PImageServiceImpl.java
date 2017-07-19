@@ -1,16 +1,16 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.dao.P2PImageDao;
+import com.bbd.wtyh.domain.PlatCoreDataDO;
+import com.bbd.wtyh.domain.PlatformDO;
 import com.bbd.wtyh.domain.PlatformNameInformationDO;
+import com.bbd.wtyh.domain.RadarScoreDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
 import com.bbd.wtyh.domain.dto.PlatCompanyDTO;
 import com.bbd.wtyh.domain.dto.PlatRankDataDTO;
-import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
-import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
-import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
-import com.bbd.wtyh.domain.wangDaiAPI.YuQingWarningDO;
-import com.bbd.wtyh.mapper.YuQingWarningMapper;
+import com.bbd.wtyh.domain.wangDaiAPI.*;
+import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.P2PImageService;
 import com.bbd.wtyh.service.PToPMonitorService;
@@ -41,6 +41,15 @@ public class P2PImageServiceImpl implements P2PImageService {
 
     @Autowired
     private YuQingWarningMapper yuQingWarningMapper;
+
+    @Autowired
+    private PlatformMapper platformMapper;
+
+    @Autowired
+    private PlatCoreDataMapper platCoreDataMapper;
+
+    @Autowired
+    private RadarScoreMapper radarScoreMapper;
 
 
     private static final String PLAT_FORM_STATUS_CACHE_PRIFIX = "wtyh:P2PImage:platFormStatus";
@@ -116,7 +125,7 @@ public class P2PImageServiceImpl implements P2PImageService {
     }
 
     @Override
-    public YuQingDO platformConsensus(String platName) {
+    public YuQingDTO platformConsensus(String platName) {
         return p2PImageDao.platformConsensus(platName);
     }
 
@@ -306,40 +315,113 @@ public class P2PImageServiceImpl implements P2PImageService {
     }
 
     @Override
-    public void updateWangDaiYuQingTask() {
+    public void updateWangDaiYuQingTask() throws Exception {
         logger.info("start get wangdai yuqing data");
-
-        List<PlatCompanyDTO> platList = null;
-        try {
-            platList = pToPMonitorService.getPlatList();
-        } catch (Exception e) {
-            logger.error(e.getMessage(), e);
-            return;
-        }
+        List<PlatCompanyDTO> platList = pToPMonitorService.getPlatList();
         for (PlatCompanyDTO platCompanyDTO : platList) {
-            try {
-                YuQingDO yuQingDO = this.platformConsensus(platCompanyDTO.getPlat_name());
-                if (yuQingDO != null) {
-                    yuQingWarningMapper.delByPlatName(yuQingDO.getPlat_name());
-                    for (YuQingDO.Warning warning : yuQingDO.getWarning()) {
-                        YuQingWarningDO warningDO = new YuQingWarningDO();
-                        warningDO.setPlatName(yuQingDO.getPlat_name());
-                        warningDO.setTitle(warning.getTitle());
-                        warningDO.setContent(warning.getContent());
-                        warningDO.setDate(warning.getDate());
-                        warningDO.setSource(warning.getSource());
-                        warningDO.setCreateBy("sys");
-                        warningDO.setCreateDate(new Date());
-                        yuQingWarningMapper.save(warningDO);
-                    }
+            YuQingDTO yuQingDTO = this.platformConsensus(platCompanyDTO.getPlat_name());
+            if (yuQingDTO != null) {
+                yuQingWarningMapper.delByPlatName(yuQingDTO.getPlat_name());
+                for (YuQingDTO.Warning warning : yuQingDTO.getWarning()) {
+                    YuQingWarningDO warningDO = new YuQingWarningDO();
+                    warningDO.setPlatName(yuQingDTO.getPlat_name());
+                    warningDO.setScore(yuQingDTO.getScore());
+                    warningDO.setTitle(warning.getTitle());
+                    warningDO.setContent(warning.getContent());
+                    warningDO.setDate(warning.getDate());
+                    warningDO.setSource(warning.getSource());
+                    warningDO.setCreateBy("sys");
+                    warningDO.setCreateDate(new Date());
+                    yuQingWarningMapper.save(warningDO);
                 }
-            } catch (Exception e) {
-                logger.error(e.getMessage(), e);
+            }
+        }
+        logger.info("end get wangdai yuqing data");
+    }
+
+    @Override
+    public void platListDataLandingTask() throws Exception {
+        logger.info("start update plat_list data");
+        List<PlatListDO> dtoList = p2PImageDao.baseInfoWangDaiApi();
+        if (dtoList == null) {
+            throw new Exception("web api error");
+        }
+        for (PlatListDO dto : dtoList) {
+            PlatformDO platListDO = new PlatformDO();
+            platListDO.setPlatName(dto.getPlat_name());
+            platListDO.setCompanyName(dto.getCompany_name());
+            platListDO.setLogoUrl(dto.getLogo_url());
+            platListDO.setAreaId(dto.getArea_id());
+            platListDO.setCreateBy("sys");
+            platListDO.setCreateDate(new Date());
+
+            platformMapper.deleteByPlatName(dto.getPlat_name());
+            platformMapper.save(platListDO);
+        }
+        logger.info("end update plat_list data");
+    }
+
+    @Override
+    public void platCoreDataLandingTask() throws Exception {
+        logger.info("start update plat_core_data data");
+        List<PlatListDO> dtoList = p2PImageDao.baseInfoWangDaiApi();
+        if (dtoList == null) {
+            throw new Exception("web api error");
+        }
+        for (PlatListDO platListDO : dtoList) {
+            try {
+                PlatCoreDataDTO platDataDO = p2PImageDao.getPlatCoreData(platListDO.getPlat_name());
+                if (platDataDO != null) {
+                    PlatCoreDataDO platCoreDataDO = new PlatCoreDataDO();
+                    platCoreDataDO.setPlatName(platDataDO.getPlat_name());
+                    platCoreDataDO.setOtherSumAmount(platDataDO.getOther_sum_amount());
+                    platCoreDataDO.setInterestRate(platDataDO.getInterest_rate());
+                    platCoreDataDO.setBidNumStayStil(platDataDO.getBid_num_stay_stil());
+                    platCoreDataDO.setBorNumStayStil(platDataDO.getBor_num_stay_stil());
+                    platCoreDataDO.setPlatDataSixMonth(platDataDO.getPlat_data_six_month().toString().replace("=", ":"));
+                    platCoreDataDO.setCompanyName(platDataDO.getCompany_name());
+                    platCoreDataDO.setTop10SumAmount(platDataDO.getTop10_sum_amount());
+                    platCoreDataDO.setMoneyStock(platDataDO.getMoney_stock());
+                    platCoreDataDO.setDay30NetInflow(platDataDO.getDay30_net_inflow());
+                    platCoreDataDO.setTop1SumAmount(platDataDO.getTop1_sum_amount());
+                    platCoreDataDO.setAmountTotal(platDataDO.getAmount_total());
+                    platCoreDataDO.setCreateBy("sys");
+                    platCoreDataDO.setCreateDate(new Date());
+
+                    platCoreDataMapper.deleteByPlatName(platDataDO.getPlat_name());
+                    platCoreDataMapper.save(platCoreDataDO);
+                }
+            }catch (Exception e){
+                logger.error(e.getMessage(),e);
                 continue;
             }
         }
+        logger.info("end update plat_core_data data");
+    }
 
-        logger.info("end get wangdai yuqing data");
+    @Override
+    public void radarScoreDataLandingTask() throws Exception {
+        logger.info("start update radar_score data");
+        List<PlatListDO> platList = p2PImageDao.baseInfoWangDaiApi();
+        for (PlatListDO plat : platList) {
+            RadarScoreDTO object = p2PImageDao.getRadarScore(plat.getPlat_name());
+            RadarScoreDO radarScoreDO = new RadarScoreDO();
+            if (object != null && object.getPlat_name() != null) {
+                radarScoreDO.setPlatName(object.getPlat_name());
+                radarScoreDO.setInfoDisclosure(object.getInfo_disclosure());
+                radarScoreDO.setFluidity(object.getFluidity());
+                radarScoreDO.setDispersion(object.getDispersion());
+                radarScoreDO.setCapital(object.getCapital());
+                radarScoreDO.setPenaltyCost(object.getPenalty_cost());
+                radarScoreDO.setOperation(object.getOperation());
+                radarScoreDO.setCreateBy("sys");
+                radarScoreDO.setCreateDate(new Date());
+
+                radarScoreMapper.deleteByPlatName(object.getPlat_name());
+                radarScoreMapper.save(radarScoreDO);
+            }
+        }
+        logger.info("end update radar_score data");
     }
 
     @Override

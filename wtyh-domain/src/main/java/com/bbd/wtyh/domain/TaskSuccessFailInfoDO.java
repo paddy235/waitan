@@ -3,6 +3,7 @@ package com.bbd.wtyh.domain;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
 
 /**
  * Created by Administrator on 2017/6/12 0012.
@@ -22,11 +23,24 @@ public class TaskSuccessFailInfoDO extends BaseDO {
     @Column(name = "data_version")
     private String dataVersion;
 
+    @Column(name = "begin_date")
+    private Date beginDate;
+
+    @Column(name = "end_date")
+    private Date endDate;
+
+    @Column(name = "run_mode")
+    private Integer runMode;
+
     private Integer planCount;
 
     private Integer successCount;
 
     private Integer failCount;
+
+    private Integer state;
+
+    private Integer reExecute;
 
     @Override
     public Integer getId() {
@@ -84,5 +98,45 @@ public class TaskSuccessFailInfoDO extends BaseDO {
 
     public void setFailCount(Integer failCount) {
         this.failCount = failCount;
+    }
+
+    public Date getBeginDate() {
+        return beginDate;
+    }
+
+    public void setBeginDate(Date beginDate) {
+        this.beginDate = beginDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public Integer getRunMode() {
+        return runMode;
+    }
+
+    public void setRunMode(Integer runMode) {
+        this.runMode = runMode;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
+    public Integer getReExecute() {
+        return reExecute;
+    }
+
+    public void setReExecute(Integer reExecute) {
+        this.reExecute = reExecute;
     }
 }

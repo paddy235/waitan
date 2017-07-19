@@ -1,6 +1,5 @@
 package com.bbd.wtyh.test;
 
-import com.bbd.bgo.service.task.DataLoadingTaskService;
 import com.bbd.bgo.service.task.OfflineFinancialListTaskService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +19,6 @@ public class OfflineFinancialListUpateTest {
 
     @Test
     public void dataLoadingTest(){
-        offlineFinancialListTaskService.offlineFinancialListUpdate();
+        offlineFinancialListTaskService.offlineFinancialListUpdate(1L);
     }
 }

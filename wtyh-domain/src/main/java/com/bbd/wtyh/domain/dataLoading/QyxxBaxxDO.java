@@ -22,6 +22,7 @@ public class QyxxBaxxDO {
     private String resume;//简历（上市公司）
     private String salary;//薪酬（上市公司）
     private String salasstartingary;//任职起始（上市公司）
+    private Integer task_id;
 
     public QyxxBaxxDO() {
     }
@@ -152,5 +153,13 @@ public class QyxxBaxxDO {
 
     public void setSalasstartingary(String salasstartingary) {
         this.salasstartingary = salasstartingary;
+    }
+
+    public Integer getTask_id() {
+        return task_id;
+    }
+
+    public void setTask_id(Integer task_id) {
+        this.task_id = task_id;
     }
 }

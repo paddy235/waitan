@@ -7,5 +7,5 @@ public interface OfflineFinancialListTaskService {
     /**
      * 线下理财名单更新
      */
-    void offlineFinancialListUpdate();
+    void offlineFinancialListUpdate(Long taskId);
 }

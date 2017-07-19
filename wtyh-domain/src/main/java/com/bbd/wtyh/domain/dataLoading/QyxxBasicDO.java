@@ -1,6 +1,7 @@
 package com.bbd.wtyh.domain.dataLoading;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by wangchenge on 2016/8/21 0021.
@@ -10,7 +11,6 @@ public class QyxxBasicDO {
     private String address;//'地址'
     private Date approval_date;//'核准日期'
     private Date bbd_dotime;//日期
-    private String[] bbd_history_name;//历名名称
     private String bbd_history_names;
     private String bbd_qyxx_id;//'企业唯一ID'
     private String bbd_type;//表类型
@@ -35,8 +35,8 @@ public class QyxxBasicDO {
     private Float investcap_amount;//投资总额_金额
     private String investcap_currency;//'投资总额_币种'
     private String ipo_company;//上市公司标识
-    private Date openfrom;//'营业期限自'
-    private Date opento;//'营业期限至'
+    private String openfrom;//'营业期限自'
+    private String opento;//'营业期限至'
     private String operate_scope;//'经营范围'
     private String operating_period;//'经营期限'
     private String parent_firm;//'派出企业名称'
@@ -54,6 +54,7 @@ public class QyxxBasicDO {
     private String type;//'爬虫源省份记录（ 中文）'
     private String frname_compid;
     private Date create_time;
+    private Integer task_id;
 
     public QyxxBasicDO() {
     }
@@ -88,14 +89,6 @@ public class QyxxBasicDO {
 
     public void setBbd_dotime(Date bbd_dotime) {
         this.bbd_dotime = bbd_dotime;
-    }
-
-    public String[] getBbd_history_name() {
-        return bbd_history_name;
-    }
-
-    public void setBbd_history_name(String[] bbd_history_name) {
-        this.bbd_history_name = bbd_history_name;
     }
 
     public String getBbd_qyxx_id() {
@@ -282,19 +275,19 @@ public class QyxxBasicDO {
         this.ipo_company = ipo_company;
     }
 
-    public Date getOpenfrom() {
+    public String getOpenfrom() {
         return openfrom;
     }
 
-    public void setOpenfrom(Date openfrom) {
+    public void setOpenfrom(String openfrom) {
         this.openfrom = openfrom;
     }
 
-    public Date getOpento() {
+    public String getOpento() {
         return opento;
     }
 
-    public void setOpento(Date opento) {
+    public void setOpento(String opento) {
         this.opento = opento;
     }
 
@@ -440,5 +433,13 @@ public class QyxxBasicDO {
 
     public void setBbd_history_names(String bbd_history_names) {
         this.bbd_history_names = bbd_history_names;
+    }
+
+    public Integer getTask_id() {
+        return task_id;
+    }
+
+    public void setTask_id(Integer task_id) {
+        this.task_id = task_id;
     }
 }

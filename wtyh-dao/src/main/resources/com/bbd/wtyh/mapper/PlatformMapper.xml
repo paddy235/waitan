@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.PlatformMapper">
+
+<insert id="save" parameterType="com.bbd.wtyh.domain.PlatformDO">
+    INSERT INTO `plat_list` (`plat_name`, `company_name`, `logo_url`, `area_id`,`create_by`, `create_date`, `update_by`, `update_date`)
+    VALUES (#{platName}, #{companyName}, #{logoUrl},#{areaId},#{createBy}, #{createDate}, #{updateBy}, #{updateDate});
+</insert>
+
+<delete id="deleteByPlatName" parameterType="java.lang.String">
+    DELETE FROM plat_list WHERE `plat_name`=#{platName}
+</delete>
+
+</mapper>

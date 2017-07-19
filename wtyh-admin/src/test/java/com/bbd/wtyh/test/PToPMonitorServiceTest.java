@@ -42,4 +42,22 @@ public class PToPMonitorServiceTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void areaIndexDataLanding(){
+        try {
+            monitorService.areaIndexDataLandingTask();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void industryProblem(){
+        try {
+            monitorService.industryProblemDataLandingTask();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

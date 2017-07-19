@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.PlatCoreDataMapper">
+
+    <insert id="save" parameterType="com.bbd.wtyh.domain.PlatCoreDataDO">
+        INSERT INTO `plat_core_data` (`plat_name`, `other_sum_amount`, `interest_rate`, `bid_num_stay_stil`, `bor_num_stay_stil`,
+         `plat_data_six_month`, `company_name`, `top10_sum_amount`, `money_stock`, `day30_net_inflow`, `top1_sum_amount`, `amount_total`,
+         `create_by`, `create_date`, `update_by`, `update_date`)
+        VALUES (#{platName}, #{otherSumAmount},#{interestRate},#{bidNumStayStil},#{borNumStayStil},#{platDataSixMonth},#{companyName},#{top10SumAmount},#{moneyStock},
+         #{day30NetInflow},#{top1SumAmount},#{amountTotal},#{createBy}, #{createDate}, #{updateBy}, #{updateDate});
+    </insert>
+
+    <delete id="deleteByPlatName" parameterType="java.lang.String">
+        DELETE FROM plat_core_data WHERE `plat_name`=#{platName}
+    </delete>
+
+</mapper>

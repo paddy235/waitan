@@ -66,6 +66,12 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
     @Autowired
     private PlatRankDataMapper platRankDataMapper;
 
+    @Autowired
+    private AreaIndexMapper areaIndexMapper;
+
+    @Autowired
+    private IndustryProblemMapper industryProblemMapper;
+
     private Logger logger = LoggerFactory.getLogger(PToPMonitorServiceImpl.class);
 
     @Override
@@ -323,42 +329,39 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
         return platList;
     }
 
+
     @Override
     public void industryShanghaiDataLandingTask() throws Exception {
         logger.info("start update industry_shanghai date task");
         List<IndustryShanghaiDTO> dtoList = getData();
+        if (dtoList == null) {
+            throw new Exception("dataType=industry_shanghai api error");
+        }
         for (IndustryShanghaiDTO dto : dtoList) {
             IndustryShanghaiDO industryShanghaiDO = new IndustryShanghaiDO();
             industryShanghaiDO.setNewPlatNum(dto.getNew_plat_num());
             industryShanghaiDO.setInterestRate(dto.getInterest_rate());
             industryShanghaiDO.setTotalPlatNum(dto.getTotal_plat_num());
             industryShanghaiDO.setBorrowedNum(dto.getBorrowed_num());
-            industryShanghaiDO.setInterestRate(dto.getInterest_rate());
+            industryShanghaiDO.setInvestNum(dto.getInvest_num());
             industryShanghaiDO.setAmount(dto.getAmount());
+            industryShanghaiDO.setAreaNum(String.valueOf(dto.getArea_num()).replace("=", ":"));
             industryShanghaiDO.setDate(dto.getDate());
             industryShanghaiDO.setCreateBy("sys");
             industryShanghaiDO.setCreateDate(new Date());
             industryShanghaiMapper.deleteByDate(dto.getDate());
             industryShanghaiMapper.save(industryShanghaiDO);
-            industryShanghaiAreaMapper.deleteByDate(dto.getDate());
-            for (String areaName : dto.getArea_num().keySet()) {
-                IndustryShanghaiAreaDO areaDO = new IndustryShanghaiAreaDO();
-                areaDO.setDate(dto.getDate());
-                areaDO.setAreaName(areaName);
-                areaDO.setAreaNum((Double) dto.getArea_num().get(areaName));
-                areaDO.setCreateBy("sys");
-                areaDO.setCreateDate(new Date());
-                industryShanghaiAreaMapper.save(areaDO);
-            }
         }
         logger.info("end update industry_shanghai date task");
-
     }
 
     @Override
     public void industryCompareDataLandingTask() throws Exception {
         logger.info("start update industry_compare date task");
         List<IndustryCompareDTO> dtoList = getCompareData();
+        if (dtoList == null) {
+            throw new Exception("type=industry_compare api error");
+        }
         for (IndustryCompareDTO dto : dtoList) {
             IndustryCompareDO industryCompareDO = new IndustryCompareDO();
             industryCompareDO.setDate(dto.getDate());
@@ -367,7 +370,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
             industryCompareDO.setBalanceLoans(dto.getBalance_loans());
             industryCompareDO.setCreateBy("sys");
             industryCompareDO.setCreateDate(new Date());
-            industryCompareMapper.deleteByArea(dto.getDate());
+            industryCompareMapper.deleteByDateArea(dto.getDate(), dto.getArea());
             industryCompareMapper.save(industryCompareDO);
         }
         logger.info("end update industry_compare date task");
@@ -375,6 +378,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
 
     @Override
     public void platRankDataLandingTask() throws Exception {
+        logger.info("start update plat_rank_data date task");
         List<PlatRankDataDTO> dtoList = getPlatRankData();
         for (PlatRankDataDTO dto : dtoList) {
             PlatRankDataDO platRankDataDO = new PlatRankDataDO();
@@ -392,8 +396,86 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
             platRankDataMapper.deleteByPlatName(dto.getPlat_name());
             platRankDataMapper.save(platRankDataDO);
         }
-        logger.info("start update plat_rank_data date task");
+        logger.info("end update plat_rank_data date task");
     }
+
+    @Override
+    public void areaIndexDataLandingTask() throws Exception {
+        logger.info("start update area_index date task");
+        List<AreaIndexDTO> dtoList = getAreaIndex();
+        for (AreaIndexDTO dto : dtoList) {
+            AreaIndexDO areaIndexDO = new AreaIndexDO();
+            areaIndexDO.setArea(dto.getArea());
+            areaIndexDO.setRank(dto.getRank());
+            areaIndexDO.setEcosystem(dto.getEcosystem());
+            areaIndexDO.setScale(dto.getScale());
+            areaIndexDO.setPopularity(dto.getPopularity());
+            areaIndexDO.setSafety(dto.getSafety());
+            areaIndexDO.setRecognition(dto.getRecognition());
+            areaIndexDO.setCompetitiveness(dto.getCompetitiveness());
+            areaIndexDO.setCreateBy("sys");
+            areaIndexDO.setCreateDate(new Date());
+            areaIndexMapper.deleteByArea(dto.getArea());
+            areaIndexMapper.save(areaIndexDO);
+        }
+        logger.info("end update area_index date task");
+    }
+
+    @Override
+    public void industryProblemDataLandingTask() throws Exception {
+        logger.info("start update industry_problem date task");
+        List<IndustryProblemDTO> dtoList = getProblemData();
+        if(dtoList==null){
+            throw new Exception("type=industry_problem api error");
+        }
+        if (dtoList != null && dtoList.size() > 0) {
+            for (IndustryProblemDTO dto : dtoList) {
+                IndustryProblemDO industryProblemDO = new IndustryProblemDO();
+                industryProblemDO.setDate(dto.getDate());
+                industryProblemDO.setArea(dto.getArea());
+                industryProblemDO.setProblemPlatNumber(dto.getProblem_plat_number());
+                industryProblemDO.setCreateBy("sys");
+                industryProblemDO.setCreateDate(new Date());
+
+                industryProblemMapper.deleteByDateArea(dto.getDate(), dto.getArea());
+                industryProblemMapper.save(industryProblemDO);
+            }
+        }
+        logger.info("end update industry_problem date task");
+    }
+
+
+    @Override
+    public Map pToPMonitorDataLanding(Integer taskId) throws Exception {
+        Integer planCount = 5;// 计划执行笔数。 可在任务结束时更新
+        Integer failCount = 0;
+        //type=industry_shanghai 数据落地
+        try {
+            industryShanghaiDataLandingTask();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            failCount++;//失败条数加一
+            //计入任务表
+        }
+        //type=industry_compare 数据落地
+        try {
+            industryCompareDataLandingTask();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            failCount++;
+        }
+        //type=industry_problem 数据落地
+        try{
+            industryProblemDataLandingTask();
+        }catch (Exception e){
+            logger.error(e.getMessage(),e);
+            failCount++;
+        }
+
+
+        return null;
+    }
+
 
     public static void main(String[] agrs) throws Exception {
 

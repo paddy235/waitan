@@ -21,7 +21,7 @@ public class RmfyggDO {
     private String notice_type;//公告类型
     private String bbd_qyxx_id;//企业唯一ID
     private Date create_time;
-
+    private Integer task_id;
     public RmfyggDO() {
     }
 
@@ -143,5 +143,13 @@ public class RmfyggDO {
 
     public void setCreate_time(Date create_time) {
         this.create_time = create_time;
+    }
+
+    public Integer getTask_id() {
+        return task_id;
+    }
+
+    public void setTask_id(Integer task_id) {
+        this.task_id = task_id;
     }
 }

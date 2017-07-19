@@ -127,6 +127,22 @@ public interface HologramQueryService {
      * @param names
      * @return
      */
-    public List<CompanyDO> getBbdQyxxBatchAll( List<String>names );
+    List<CompanyDO> getBbdQyxxBatchAll( List<String>names );
+
+
+    /**
+     * 根据名称列表返回企业详情列表，调用底层接口多次查询，拼接结果，不受最大200条限制
+     * @param names 企业名称列表
+     * @return 返回企业详情列表
+     */
+    List<BaseDataDO.Results> getBbdQyxxAll( List<String>names );
+
+    /**
+     *
+     * @param nalName
+     * @param type gdxx:股东信息; baxx:董监高
+     * @return
+     */
+    List<CompanySearch2DO.Rdata> getNaturalPersonList( String nalName, String type );
 
 }

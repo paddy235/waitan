@@ -49,7 +49,7 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
      * 每月2日晚上8点，更新企业表中的地区ID和企业地址
      * (by cgj)
      */
-    @Scheduled(cron = "0 0 20 2 * ?")
+    /*@Scheduled(cron = "0 0 20 2 * ?")*/
     @Override
     public void updateCompanyTableAreaIdAndAddress() {
         Object obj = new Object();

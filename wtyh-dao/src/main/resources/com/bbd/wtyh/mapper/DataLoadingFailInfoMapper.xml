@@ -10,6 +10,7 @@
         `task_id` AS taskId,
         `table_name` AS tableName,
         `data_version`AS dataVersion,
+        `pull_file_task_id` AS pullFileTaskId,
         `create_by` AS createBy,
         `create_date` AS createDate,
         `update_by` AS updateBy,
@@ -23,12 +24,12 @@
         </if>
 
     </select>
-    <insert id="addTaskSuccessFailInfo" parameterType="com.bbd.wtyh.domain.DataLoadingFailInfoDO"
+    <insert id="addTaskFailInfo" parameterType="com.bbd.wtyh.domain.DataLoadingFailInfoDO"
             useGeneratedKeys="true"
             keyProperty="id"
             keyColumn="id">
-        INSERT INTO `data_loading_fail_info` (`task_id`, `table_name`, `data_version`, `create_date`,  `create_by`)
-        VALUES (#{taskId}, #{tableName}, #{dataVersion}, #{createDate}, #{createBy}
+        INSERT INTO `data_loading_fail_info` (`task_id`, `table_name`, `data_version`,`pull_file_task_id`, `create_date`,  `create_by`)
+        VALUES (#{taskId}, #{tableName}, #{dataVersion}, #{pullFileTaskId} ,#{createDate}, #{createBy}
         );
     </insert>
 </mapper>

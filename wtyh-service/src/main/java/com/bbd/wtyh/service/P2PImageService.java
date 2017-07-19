@@ -4,7 +4,7 @@ import com.bbd.wtyh.domain.PlatformNameInformationDO;
 import com.bbd.wtyh.domain.dto.PlatRankDataDTO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
-import com.bbd.wtyh.domain.wangDaiAPI.YuQingDO;
+import com.bbd.wtyh.domain.wangDaiAPI.YuQingDTO;
 
 import java.util.List;
 import java.util.Map;
@@ -57,7 +57,7 @@ public interface P2PImageService {
      * @param platName
      * @return
      */
-    YuQingDO platformConsensus(String platName);
+    YuQingDTO platformConsensus(String platName);
 
     /**
      * 诉讼信息
@@ -97,17 +97,25 @@ public interface P2PImageService {
 
 
     /**
-     * 网络借贷舆情数据 
+     * 网络借贷舆情数据 数据落地
      */
-    void updateWangDaiYuQingTask();
+    void updateWangDaiYuQingTask() throws Exception;
 
     /**
-     * 获取 "公司名 - 平台 的 关系表"
+     * dataType=plat_rank_data 数据落地
      */
-    Map<String, PlatListDO> getWangdaiCompanyList();
+    void platListDataLandingTask() throws Exception;
+
 
     /**
-     * 通过 "公司名 - 平台 的 关系表" 查询网贷的 平台名
+     * dataType=plat_data&plat_name 核心数据落地
+     * @throws Exception
      */
-    PlatListDO getWangdaiCompanyList(String companyName);
+    void platCoreDataLandingTask() throws Exception;
+
+    /**
+     * 雷达评分数据落地
+     * @throws Exception
+     */
+    void radarScoreDataLandingTask() throws  Exception;
 }

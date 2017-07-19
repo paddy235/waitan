@@ -10,6 +10,6 @@ public interface IndustryCompareMapper {
 
     void save(IndustryCompareDO industryCompareDO);
 
-    void deleteByArea(@Param("area") String area);
+    void deleteByDateArea(@Param("date")String date,@Param("area") String area);
 
 }

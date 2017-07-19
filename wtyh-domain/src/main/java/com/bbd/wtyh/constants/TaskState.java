@@ -1,4 +1,4 @@
-package com.bbd.bgo.quartz;
+package com.bbd.wtyh.constants;
 
 import org.quartz.Trigger;
 
@@ -9,12 +9,12 @@ import org.quartz.Trigger;
  */
 public enum TaskState {
 
-	NONE(0, ""),
-	NORMAL(1, "未开始"),
-	PAUSED(2, "暂停中"),
-	COMPLETE(3, "已完成"),
-	ERROR(4, "错误"),
-	BLOCKED(5, "运行中");
+	NONSTARTER(1, "未开始"),
+	EXECUTING(2, "正在执行"),
+	SUCCESS(3, "成功"),
+	ERROR(4, "失败"),
+	PAUSED(5, "暂停中"),
+	NONE(9, "");
 
 	private int state;
 	private String desc;

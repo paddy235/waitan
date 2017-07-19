@@ -23,6 +23,7 @@ public interface CrowdFundingService {
 	
 	public List<CrowdFundingCompanyDO> allCompanys();
 
+
 	public List<String> queryCompany(String keyword);
-	
+
 }
