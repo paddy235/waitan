@@ -16,11 +16,14 @@ public class DataLoadingFailInfoDO extends BaseDO {
     @Column(name = "task_id")
     private Integer taskId;
 
-    @Column(name = "pull_file_task_id")
-    private Integer pullFileTaskId;
+    @Column(name = "source_task_id")
+    private Integer sourceTaskId;
 
-    @Column(name = "file_name")
-    private String fileName;
+    @Column(name = "error_name")
+    private String errorName;
+
+    @Column(name = "type")
+    private String type;
 
     @Column(name = "data_version")
     private String dataVersion;
@@ -43,14 +46,6 @@ public class DataLoadingFailInfoDO extends BaseDO {
         this.taskId = taskId;
     }
 
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
     public String getDataVersion() {
         return dataVersion;
     }
@@ -59,11 +54,27 @@ public class DataLoadingFailInfoDO extends BaseDO {
         this.dataVersion = dataVersion;
     }
 
-    public Integer getPullFileTaskId() {
-        return pullFileTaskId;
+    public Integer getSourceTaskId() {
+        return sourceTaskId;
     }
 
-    public void setPullFileTaskId(Integer pullFileTaskId) {
-        this.pullFileTaskId = pullFileTaskId;
+    public void setSourceTaskId(Integer sourceTaskId) {
+        this.sourceTaskId = sourceTaskId;
+    }
+
+    public String getErrorName() {
+        return errorName;
+    }
+
+    public void setErrorName(String errorName) {
+        this.errorName = errorName;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

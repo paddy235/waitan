@@ -81,10 +81,10 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 			dataTotal = failList.size();
 			List<String> failFileList=new ArrayList<String>();
 			for(DataLoadingFailInfoDO fail:failList){
-				failFileList.add(fail.getFileName());
+				failFileList.add(fail.getErrorName());
 			}
 			List<File> fileList=new ArrayList<File>();
-			Integer pullFileTaskId=failList.get(0).getPullFileTaskId();
+			Integer pullFileTaskId=failList.get(0).getSourceTaskId();
 			this.pullFileTaskId=pullFileTaskId;
 			List<DatasharePullFileDO> pullFileList = dataLoadingMapper.getDatasharePullFileByTaskId(pullFileTaskId);
 			if(null!=pullFileList&&pullFileList.size()>0){
@@ -238,11 +238,11 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 	}
 
 	public void setFailDo(DataLoadingFailInfoDO fail,String FileName){
-		fail.setFileName(FileName);
+		fail.setErrorName(FileName);
 		fail.setTaskId(taskId);
 		fail.setCreateBy("system");
 		fail.setCreateDate(new Date());
-		fail.setPullFileTaskId(pullFileTaskId);
+		fail.setSourceTaskId(pullFileTaskId);
 	}
 
 	@Transactional(rollbackFor=Exception.class)
