@@ -19,8 +19,8 @@ public class DataLoadingFailInfoDO extends BaseDO {
     @Column(name = "pull_file_task_id")
     private Integer pullFileTaskId;
 
-    @Column(name = "table_name")
-    private String tableName;
+    @Column(name = "file_name")
+    private String fileName;
 
     @Column(name = "data_version")
     private String dataVersion;
@@ -43,12 +43,12 @@ public class DataLoadingFailInfoDO extends BaseDO {
         this.taskId = taskId;
     }
 
-    public String getTableName() {
-        return tableName;
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public String getDataVersion() {

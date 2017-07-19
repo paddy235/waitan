@@ -9,7 +9,7 @@ public interface DataLoadingService {
     /**
      * 新型金融全息数据和舆情数据落地定时手动更新
      */
-    Map<String,Integer> dataLoadingManualOperate(Integer taskId);
+    Map<String,Integer> dataLoadingManualOperate(Integer oldTaskId,Integer newTaskId);
 
     /**
      * 新型金融全息数据和舆情数据落地定时自动更新

@@ -8,7 +8,7 @@
         SELECT
         `id` ,
         `task_id` AS taskId,
-        `table_name` AS tableName,
+        `file_name` AS fileName,
         `data_version`AS dataVersion,
         `pull_file_task_id` AS pullFileTaskId,
         `create_by` AS createBy,
@@ -28,8 +28,8 @@
             useGeneratedKeys="true"
             keyProperty="id"
             keyColumn="id">
-        INSERT INTO `data_loading_fail_info` (`task_id`, `table_name`, `data_version`,`pull_file_task_id`, `create_date`,  `create_by`)
-        VALUES (#{taskId}, #{tableName}, #{dataVersion}, #{pullFileTaskId} ,#{createDate}, #{createBy}
+        INSERT INTO `data_loading_fail_info` (`task_id`, `file_name`, `data_version`,`pull_file_task_id`, `create_date`,  `create_by`)
+        VALUES (#{taskId}, #{fileName}, #{dataVersion}, #{pullFileTaskId} ,#{createDate}, #{createBy}
         );
     </insert>
 </mapper>
