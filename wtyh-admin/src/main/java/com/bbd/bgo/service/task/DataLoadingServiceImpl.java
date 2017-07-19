@@ -60,16 +60,19 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 	private DataLoadingFailInfoMapper dataLoadingFailInfoMapper;
 
 	@Override
-	public Map<String,Integer> dataLoadingManualOperate(Integer taskId) {
-		this.taskId = taskId;
+	public Map<String,Integer> dataLoadingManualOperate(Integer oldTaskId,Integer newTaskId) {
+		this.taskId = newTaskId;
 		//手动执行，查询之前任务失败记录，更新插入失败表
 		Map<String,Integer> returnMap = new HashMap<String,Integer>();
-		List<DataLoadingFailInfoDO> failList = dataLoadingFailInfoMapper.getDataLoadingFailInfoByTaskId(taskId);
+		Integer dataError = 0;
+		Integer dataTotal = 0;
+		List<DataLoadingFailInfoDO> failList = dataLoadingFailInfoMapper.getDataLoadingFailInfoByTaskId(oldTaskId);
 		//上次出错,只跑错误部分数据
 		if(null!=failList&&failList.size()>0){
-			List<String> failTableList=new ArrayList<String>();
+			dataTotal = failList.size();
+			List<String> failFileList=new ArrayList<String>();
 			for(DataLoadingFailInfoDO fail:failList){
-				failTableList.add(fail.getTableName());
+				failFileList.add(fail.getFileName());
 			}
 			List<File> fileList=new ArrayList<File>();
 			Integer pullFileTaskId=failList.get(0).getPullFileTaskId();
@@ -78,31 +81,36 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 			if(null!=pullFileList&&pullFileList.size()>0){
 				for(DatasharePullFileDO pullFile:pullFileList){
 					File file=new File(pullFile.getFile_url());
-					if(file.exists()){
+					//文件存在且上次跑出错的文件
+					if(file.exists()&&failFileList.contains(file.getName())){
 						fileList.add(file);
 					}
 				}
 			}
 			//operateUpdate(failTableList,Arrays.asList(file.listFiles()));
-			operateUpdate(failTableList,fileList,returnMap);
+			dataError = operateUpdate(failFileList,fileList);
 		}
+		returnMap.put("total",dataTotal);
+		returnMap.put("error",dataError);
+		returnMap.put("success",dataTotal-dataError);
 		return returnMap;
 	}
 
 	@Override
 	public Map<String,Integer> dataLoadingAutomaticOperate(Integer taskId) {
+		Map<String,Integer> returnMap = new HashMap<String,Integer>();
+		Integer dataError = 0;
+		Integer dataTotal = 0;
 		this.taskId = taskId;
 		this.pullFileTaskId=taskId;
 		//自动执行，先拉取数据，有数据执行插入，并记录成功失败情况
-		Map<String,Integer> returnMap = new HashMap<String,Integer>();
 		List<File> list = null;
 		try {
-			list = PullFileUtil.getFileList(1);
-			//File file = new File("D:\\wtyh\\datashare\\data\\data-share-file\\wtyh\\hologram-base");
-			//list = Arrays.asList(file.listFiles());
+			//list = PullFileUtil.getFileList(1);
+			File file = new File("D:\\wtyh\\datashare\\data\\data-share-file\\wtyh\\hologram-base");
+			list = Arrays.asList(file.listFiles());
+			dataTotal = list.size();
 		} catch (Exception e) {
-			returnMap.put("fail",10);
-			returnMap.put("success",0);
 			e.printStackTrace();
 		}
 		if(null!=list&&list.size()>0){
@@ -116,271 +124,188 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 				fileList.add(pullFile);
 			}
 			dataLoadingMapper.saveDatasharePullFileDO(fileList);
-			operateUpdate(null,list,returnMap);
+			dataError = operateUpdate(null,list);
 		}
+		returnMap.put("total",dataTotal);
+		returnMap.put("error",dataError);
+		returnMap.put("success",dataTotal-dataError);
 		return returnMap;
 	}
 
-	public void operateUpdate(List<String> failTableList,List<File> fileList,Map<String,Integer> returnMap){
-		//删除失败表数据
-		if(null!=failTableList&&failTableList.size()>0){
-			for(String tableName:failTableList){
-				logger.info("start delete from "+tableName+" where task_id="+taskId);
-				int deleteNum = this.executeCUD("delete from "+tableName+" where task_id = "+taskId);
-				logger.info("end delete from "+tableName+" where task_id="+taskId+",delete number:"+deleteNum);
-			}
-		}
-		List<String> list = DataLoadingUtil.txt2String(fileList);
-		List<DishonestyDO> disList=new ArrayList<DishonestyDO>();
-		List<KtggDO> ktggList=new ArrayList<KtggDO>();
-		List<QyxgYuqingDO> yuQingList=new ArrayList<QyxgYuqingDO>();
-		List<QyxxBasicDO> basicList=new ArrayList<QyxxBasicDO>();
-		List<QyxxBaxxDO> baxxList=new ArrayList<QyxxBaxxDO>();
-		List<QyxxGdxxDO> gdxxList=new ArrayList<QyxxGdxxDO>();
-		List<QyxxZhuanliDO> zhuanliList=new ArrayList<QyxxZhuanliDO>();
-		List<RmfyggDO> rmfyggList=new ArrayList<RmfyggDO>();
-		List<ZgcpwswDO> zgcpwswList=new ArrayList<ZgcpwswDO>();
-		List<ZhixingDO> zhixingList=new ArrayList<ZhixingDO>();
-		for(String s:list){
-			//解析json错误
-			try {
-				JSONObject jsonObject = JSONObject.fromObject(s);
-				String data = jsonObject.getString("data");
-				String tn = jsonObject.getString("tn");
-				JSONObject jsonData = JSONObject.fromObject(data);
-				Object dataName = jsonData.get(tn);
-				String dataStr = String.valueOf(dataName);
-				DataLoadingUtil.addDataToList(failTableList,tn,dataStr,disList,ktggList,yuQingList,basicList,baxxList,gdxxList,
+	public Integer operateUpdate(List<String> failFileList,List<File> fileList){
+		int error = 0;
+		List<DataLoadingFailInfoDO> failList=new ArrayList<DataLoadingFailInfoDO>();
+		DataLoadingFailInfoDO fail = null;
+		List<DishonestyDO> disList=null;
+		List<KtggDO> ktggList=null;
+		List<QyxgYuqingDO> yuQingList=null;
+		List<QyxxBasicDO> basicList=null;
+		List<QyxxBaxxDO> baxxList=null;
+		List<QyxxGdxxDO> gdxxList=null;
+		List<QyxxZhuanliDO> zhuanliList=null;
+		List<RmfyggDO> rmfyggList=null;
+		List<ZgcpwswDO> zgcpwswList=null;
+		List<ZhixingDO> zhixingList=null;
+		if(null!=fileList&&fileList.size()>0){
+			for(File file:fileList){
+				logger.info("start analysis file , file name:"+file.getName());
+//				if(null!=failFileList&&!failFileList.contains(file.getName())){
+//					continue;
+//				}
+				List<String> list = DataLoadingUtil.txt2String(file);
+				logger.info(file.getName()+"analysis number:"+list.size());
+				//文件解析出错
+				if(null==list){
+					fail = new DataLoadingFailInfoDO();
+					setFailDo(fail,file.getName());
+					failList.add(fail);
+					continue;
+				}
+				disList=new ArrayList<DishonestyDO>();
+				ktggList=new ArrayList<KtggDO>();
+				yuQingList=new ArrayList<QyxgYuqingDO>();
+				basicList=new ArrayList<QyxxBasicDO>();
+				baxxList=new ArrayList<QyxxBaxxDO>();
+				gdxxList=new ArrayList<QyxxGdxxDO>();
+				zhuanliList=new ArrayList<QyxxZhuanliDO>();
+				rmfyggList=new ArrayList<RmfyggDO>();
+				zgcpwswList=new ArrayList<ZgcpwswDO>();
+				zhixingList=new ArrayList<ZhixingDO>();
+				for(String s:list){
+					//解析json错误
+					try {
+						JSONObject jsonObject = JSONObject.fromObject(s);
+						String data = jsonObject.getString("data");
+						String tn = jsonObject.getString("tn");
+						JSONObject jsonData = JSONObject.fromObject(data);
+						Object dataName = jsonData.get(tn);
+						String dataStr = String.valueOf(dataName);
+						DataLoadingUtil.addDataToList(failFileList,tn,dataStr,disList,ktggList,yuQingList,basicList,baxxList,gdxxList,
+								zhuanliList,rmfyggList,zgcpwswList,zhixingList);
+					} catch (Exception e) {
+						fail = new DataLoadingFailInfoDO();
+						setFailDo(fail,file.getName());
+						failList.add(fail);
+						//出错跳出循环
+						break;
+					}
+				}
+				try {
+					insertData(disList,ktggList,yuQingList,basicList,baxxList,gdxxList,
 						zhuanliList,rmfyggList,zgcpwswList,zhixingList);
-			} catch (Exception e) {
-				e.printStackTrace();
+				} catch (Exception e) {
+					System.out.println(e);
+					fail = new DataLoadingFailInfoDO();
+					setFailDo(fail,file.getName());
+					failList.add(fail);
+					//出错跳出循环
+					continue;
+				}
 			}
 		}
-		Map<String,Integer> successMap = insertData(disList,ktggList,yuQingList,basicList,baxxList,gdxxList,
-				zhuanliList,rmfyggList,zgcpwswList,zhixingList);
-		List<String> failTables=new ArrayList<String>();
-		for (String key : successMap.keySet()) {
-			if(successMap.get(key)==0){
-				failTables.add(key);
-			}
-		}
-		int successNum = 10-failTables.size();
-		returnMap.put("fail",failTables.size());
-		returnMap.put("success",successNum);
-		//TaskSuccessFailInfoDO taskSuccessFailInfoDO = new TaskSuccessFailInfoDO();
-		//taskSuccessFailInfoDO.setTaskName(TASK_NAME);
-		//taskSuccessFailInfoDO.setTaskGroup(TASK_GROUP);
-		//taskSuccessFailInfoDO.setDataVersion(dataVersion);
-		//taskSuccessFailInfoDO.setSuccessCount(successNum);
-		//taskSuccessFailInfoDO.setFailCount(failTables.size());
-		//taskSuccessFailInfoDO.setCreateBy("system");
-		//taskSuccessFailInfoDO.setCreateDate(new Date());
-		//int id = taskSuccessFailInfoMapper.addTaskSuccessFailInfo(taskSuccessFailInfoDO);
 		//手动执行时，更新task表记录，删除失败表记录，新增本次失败记录
-		if(null != failTableList){
-			TaskSuccessFailInfoDO taskDo = taskSuccessFailInfoMapper.getTaskInfoById(taskId);
-			if(null!=taskDo){
-				taskDo.setUpdateBy("system");
-				taskDo.setUpdateDate(new Date());
-				taskDo.setSuccessCount(taskDo.getSuccessCount()+(taskDo.getFailCount()-failTableList.size()));
-				taskDo.setFailCount(failTableList.size());
-				taskSuccessFailInfoMapper.updateTaskSuccessFailInfo(taskDo);
+//		if(null != failFileList){
+//			TaskSuccessFailInfoDO taskDo = taskSuccessFailInfoMapper.getTaskInfoById(taskId);
+//			if(null!=taskDo){
+//				taskDo.setSuccessCount(taskDo.getSuccessCount()+(taskDo.getFailCount()-failList.size()));
+//				taskDo.setFailCount(failList.size());
+//				taskSuccessFailInfoMapper.updateTaskSuccessFailInfo(taskDo);
+//			}
+//		}
+//		this.executeCUD("delete from data_loading_fail_info where task_id = "+taskId);
+		if(failList.size()>0){
+			logger.info("add data loading task to taskSuccessFailInfo table");
+			error = failList.size();
+			for(DataLoadingFailInfoDO failInfo:failList){
+				dataLoadingFailInfoMapper.addTaskFailInfo(failInfo);
 			}
 		}
-		this.executeCUD("delete from data_loading_fail_info where task_id = "+taskId);
-		logger.info("add data loading task to taskSuccessFailInfo table");
-		for(String table:failTables){
-			DataLoadingFailInfoDO fail = new DataLoadingFailInfoDO();
-			fail.setTaskId(taskId);
-			fail.setTableName(table);
-			//fail.setDataVersion(dataVersion);
-			fail.setCreateBy("system");
-			fail.setCreateDate(new Date());
-			fail.setPullFileTaskId(pullFileTaskId);
-			dataLoadingFailInfoMapper.addTaskFailInfo(fail);
-		}
+		return error;
 	}
 
-	@Transactional
-	public Map<String,Integer> insertData(List<DishonestyDO> disList,List<KtggDO> ktggList,
+	public void setFailDo(DataLoadingFailInfoDO fail,String FileName){
+		fail.setFileName(FileName);
+		fail.setTaskId(taskId);
+		fail.setCreateBy("system");
+		fail.setCreateDate(new Date());
+		fail.setPullFileTaskId(pullFileTaskId);
+	}
+
+	@Transactional(rollbackFor=Exception.class)
+	public void insertData(List<DishonestyDO> disList,List<KtggDO> ktggList,
 						   List<QyxgYuqingDO> yuQingList,List<QyxxBasicDO> basicList,List<QyxxBaxxDO> baxxList, List<QyxxGdxxDO> gdxxList,
 						   List<QyxxZhuanliDO> zhuanliList,List<RmfyggDO> rmfyggList, List<ZgcpwswDO> zgcpwswList,List<ZhixingDO> zhixingList){
-		Map<String,Integer> map=new HashMap<String,Integer>();
-		map.put(DISHONESTY,1);
 		if(disList.size()>0){
-			try {
-				UserLogRecord.record("批量新增失信被执行人", Operation.Type.add, Operation.Page.hologram,
-						Operation.System.back);
-				this.setListTaskId(disList);
-				int disSourceNum = disList.size();
-				//int disNum = dataLoadingMapper.saveDishonestyDO(disList);
-				int disInsertNum = batchInsertData(disList);
-				logger.info("end batch save Dishonesty , count:"+disInsertNum);
-				if(disInsertNum!=disSourceNum){
-					map.put(DISHONESTY,0);
-				}
-			} catch (Exception e) {
-				logger.info("end batch save Dishonesty because of error,e:"+e);
-				map.put(DISHONESTY,0);
-			}
+			UserLogRecord.record("批量新增失信被执行人", Operation.Type.add, Operation.Page.hologram,
+					Operation.System.back);
+			this.setListTaskId(disList);
+			int disInsertNum = batchInsertData(disList);
+			logger.info("end batch save Dishonesty , count:"+disInsertNum);
 		}
-		map.put(KTGG,1);
 		if(ktggList.size()>0){
-			try {
-				UserLogRecord.record("批量新增开庭公告", Operation.Type.add, Operation.Page.hologram,
-						Operation.System.back);
-				//int ktggNum = dataLoadingMapper.saveKtggDO(ktggList);
-				this.setListTaskId(ktggList);
-				int ktggSourceNum = ktggList.size();
-				int ktggInsertNum = batchInsertData(ktggList);
-				logger.info("end batch save ktgg , count:"+ ktggInsertNum);
-				if(ktggSourceNum!=ktggInsertNum){
-					map.put(KTGG,0);
-				}
-			} catch (Exception e) {
-				map.put(KTGG,0);
-				logger.info("end batch save ktgg because of error,e:"+e);
-			}
+			UserLogRecord.record("批量新增开庭公告", Operation.Type.add, Operation.Page.hologram,
+					Operation.System.back);
+			this.setListTaskId(ktggList);
+			int ktggInsertNum = batchInsertData(ktggList);
+			logger.info("end batch save ktgg , count:"+ ktggInsertNum);
 		}
-		map.put(QYXG_YUQING,1);
 		if(yuQingList.size()>0){
-			try {
-				UserLogRecord.record("批量新增舆情", Operation.Type.add, Operation.Page.hologram,
-						Operation.System.back);
-				this.setListTaskId(yuQingList);
-				//int yuqingNum = dataLoadingMapper.saveQyxgYuqingDO(yuQingList);
-				int yuQingSourceNum = yuQingList.size();
-				int yuQingInsertNum = batchInsertData(yuQingList);
-				logger.info("end batch save Yuqing , count:"+ yuQingInsertNum);
-				if(yuQingSourceNum!=yuQingInsertNum){
-					map.put(KTGG,0);
-				}
-			} catch (Exception e) {
-				map.put(QYXG_YUQING,0);
-				logger.info("end batch save Yuqing because of error,e:"+e);
-			}
+			UserLogRecord.record("批量新增舆情", Operation.Type.add, Operation.Page.hologram,
+					Operation.System.back);
+			this.setListTaskId(yuQingList);
+			int yuQingInsertNum = batchInsertData(yuQingList);
+			logger.info("end batch save Yuqing , count:"+ yuQingInsertNum);
 		}
-		map.put(QYXX__BASIC,1);
 		if(basicList.size()>0){
-			try {
-				int basicSourceNum = basicList.size();
-				this.setListTaskId(basicList);
-				UserLogRecord.record("批量新增企业基础信息", Operation.Type.add, Operation.Page.hologram,
-						Operation.System.back);
-				//int basicNum = dataLoadingMapper.saveQyxxBasicDO(basicList);
-				int basicInsertNum = batchInsertData(basicList);
-				if(basicInsertNum != basicSourceNum){
-					map.put(QYXX__BASIC,0);
-				}
-				logger.info("end batch save basic , count:"+ basicInsertNum);
-			} catch (Exception e) {
-				map.put(QYXX__BASIC,0);
-				logger.info("end batch save basic because of error,e:"+e);
-			}
+			this.setListTaskId(basicList);
+			UserLogRecord.record("批量新增企业基础信息", Operation.Type.add, Operation.Page.hologram,
+					Operation.System.back);
+			int basicInsertNum = batchInsertData(basicList);
+			logger.info("end batch save basic , count:"+ basicInsertNum);
 		}
-		map.put(QYXX_BAXX,1);
 		if(baxxList.size()>0){
-			try {
-				this.setListTaskId(baxxList);
-				UserLogRecord.record("批量新增企业高管信息", Operation.Type.add, Operation.Page.hologram,
-						Operation.System.back);
-				int baxxSourceNum = baxxList.size();
-				int baxxInsertNum = batchInsertData(baxxList);
-				logger.info("end batch save baxx , count:"+ baxxInsertNum);
-				if(baxxInsertNum!=baxxSourceNum){
-					map.put(QYXX_BAXX,0);
-				}
-			} catch (Exception e) {
-				map.put(QYXX_BAXX,0);
-				logger.info("end batch save baxx because of error,e:"+e);
-			}
+			this.setListTaskId(baxxList);
+			UserLogRecord.record("批量新增企业高管信息", Operation.Type.add, Operation.Page.hologram,
+					Operation.System.back);
+			int baxxInsertNum = batchInsertData(baxxList);
+			logger.info("end batch save baxx , count:"+ baxxInsertNum);
 		}
-		map.put(QYXX_GDXX,1);
 		if(gdxxList.size()>0){
-			try {
-				this.setListTaskId(gdxxList);
-				UserLogRecord.record("批量新增企业股东信息", Operation.Type.add, Operation.Page.hologram,
-						Operation.System.back);
-				int gdxxSourceNum = gdxxList.size();
-				int gdxxInsertNum = batchInsertData(gdxxList);
-				logger.info("end batch save gdxx , count:"+ gdxxInsertNum);
-				if(gdxxInsertNum!=gdxxSourceNum){
-					map.put(QYXX_GDXX,0);
-				}
-			} catch (Exception e) {
-				map.put(QYXX_GDXX,0);
-				logger.info("end batch save gdxx because of error,e:"+e);
-			}
+			this.setListTaskId(gdxxList);
+			UserLogRecord.record("批量新增企业股东信息", Operation.Type.add, Operation.Page.hologram,
+					Operation.System.back);
+			int gdxxInsertNum = batchInsertData(gdxxList);
+			logger.info("end batch save gdxx , count:"+ gdxxInsertNum);
 		}
-		map.put(QYXX_ZHUANLI,1);
 		if(zhuanliList.size()>0){
-			try {
-				this.setListTaskId(zhuanliList);
-				UserLogRecord.record("批量新增企业专利信息", Operation.Type.add, Operation.Page.hologram,
-						Operation.System.back);
-				int zhuanliSourceNum = zhuanliList.size();
-				int zhuanliInsertNum = batchInsertData(zhuanliList);
-				logger.info("end batch save zhuanli , count:"+ zhuanliInsertNum);
-				if(zhuanliSourceNum!=zhuanliInsertNum){
-					map.put(QYXX_ZHUANLI,0);
-				}
-			} catch (Exception e) {
-				map.put(QYXX_ZHUANLI,0);
-				logger.info("end batch save zhuanli because of error,e:"+e);
-			}
+			this.setListTaskId(zhuanliList);
+			UserLogRecord.record("批量新增企业专利信息", Operation.Type.add, Operation.Page.hologram,
+					Operation.System.back);
+			int zhuanliInsertNum = batchInsertData(zhuanliList);
+			logger.info("end batch save zhuanli , count:"+ zhuanliInsertNum);
+			//int i = 4/0; //人为产生异常（实际这里抛出了ArithmeticException运行异常）
 		}
-		map.put(RMFYGG,1);
 		if(rmfyggList.size()>0) {
-			try {
-				this.setListTaskId(rmfyggList);
-				UserLogRecord.record("批量新增人民法院公告", Operation.Type.add, Operation.Page.hologram,
-						Operation.System.back);
-				int rmfyggSourceNum = rmfyggList.size();
-				int rmfyggInsertNum = batchInsertData(rmfyggList);
-				logger.info("end batch save rmfygg , count:"+ rmfyggInsertNum);
-				if(rmfyggSourceNum!=rmfyggInsertNum){
-					map.put(RMFYGG,0);
-				}
-			} catch (Exception e) {
-				map.put(RMFYGG,0);
-				logger.info("end batch save rmfygg because of error,e:"+e);
-			}
+			this.setListTaskId(rmfyggList);
+			UserLogRecord.record("批量新增人民法院公告", Operation.Type.add, Operation.Page.hologram,
+					Operation.System.back);
+			int rmfyggInsertNum = batchInsertData(rmfyggList);
+			logger.info("end batch save rmfygg , count:"+ rmfyggInsertNum);
 		}
-		map.put(ZGCPWSW,1);
 		if(zgcpwswList.size()>0){
-			try {
-				this.setListTaskId(zgcpwswList);
-				UserLogRecord.record("批量新增中国裁判文书", Operation.Type.add, Operation.Page.hologram,
-						Operation.System.back);
-				int zgcpwswSourceNum=zgcpwswList.size();
-				int zgcpwswInsertNum = batchInsertData(zgcpwswList);
-				if(zgcpwswSourceNum != zgcpwswInsertNum){
-					map.put(ZGCPWSW,0);
-				}
-				logger.info("end batch save zgcpwsw , count:"+ zgcpwswInsertNum);
-			} catch (Exception e) {
-				map.put(ZGCPWSW,0);
-				logger.info("end batch save zgcpwsw because of error,e:"+e);
-			}
+			this.setListTaskId(zgcpwswList);
+			UserLogRecord.record("批量新增中国裁判文书", Operation.Type.add, Operation.Page.hologram,
+					Operation.System.back);
+			int zgcpwswInsertNum = batchInsertData(zgcpwswList);
+			logger.info("end batch save zgcpwsw , count:"+ zgcpwswInsertNum);
 		}
-		map.put(ZHIXING,1);
 		if(zhixingList.size()>0){
-			try {
-				this.setListTaskId(zhixingList);
-				UserLogRecord.record("批量新增执行", Operation.Type.add, Operation.Page.hologram,
-						Operation.System.back);
-				int zhixingSourceNum = zhixingList.size();
-				int zhixingInsertNum = batchInsertData(zhixingList);
-				logger.info("end batch save zhixing , count:"+ zhixingInsertNum);
-				if(zhixingSourceNum!=zhixingInsertNum){
-					map.put(ZHIXING,0);
-				}
-			} catch (Exception e) {
-				map.put(ZHIXING,0);
-				logger.info("end batch save zhixing because of error,e:"+e);
-			}
+			this.setListTaskId(zhixingList);
+			UserLogRecord.record("批量新增执行", Operation.Type.add, Operation.Page.hologram,
+					Operation.System.back);
+			int zhixingInsertNum = batchInsertData(zhixingList);
+			logger.info("end batch save zhixing , count:"+ zhixingInsertNum);
 		}
-		return map;
 	}
 
 	public Integer batchInsertData(Object obj){
