@@ -97,21 +97,15 @@
     </insert>
 
     <delete id="delCompanyByCompanyName" parameterType="java.util.List">
-        DELETE FROM
-        company_building o
-        WHERE
-        o.company_id in
-        (
-        select
-        cb.company_id
-        from
-        park p, building b, company_building cb, company c
+        DELETE from
+          company_building
         where
-        p.park_id=b.park_id and b.building_id=cb.building_id and cb.company_id=c.company_id and c.`name` in
-        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-        )
+          company_id in
+            (select company_id from company where name in
+              <foreach item="item" index="index" collection="companyNameList" open="(" separator="," close=")">
+                #{item}
+              </foreach>
+            )
     </delete>
 
     <delete id="delCompanyByBuildingId" parameterType="java.util.List">
