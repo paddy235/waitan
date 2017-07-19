@@ -6,6 +6,8 @@ import com.bbd.bgo.service.task.TimingTaskManager;
 import com.bbd.wtyh.constants.TaskState;
 import com.bbd.wtyh.domain.dto.TaskInfoDTO;
 import com.bbd.wtyh.domain.enums.TaskDataSource;
+import com.bbd.wtyh.log.user.Operation;
+import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.service.TimingTaskService;
 import com.bbd.wtyh.web.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,8 +38,9 @@ public class TimingTaskController {
 
 	@RequestMapping("/getTaskInfo")
 	@ResponseBody
-	public ResponseBean getTaskInfo() {
-
+	public ResponseBean getTaskInfo(HttpServletRequest request) {
+        UserLogRecord.record("定时任务列表", Operation.Type.browse, Operation.Page.timingTask,
+                Operation.System.back, request);
 		List<TaskInfoDTO> list = timingTaskService.getTaskInfo();
 
 		return ResponseBean.successResponse(list);
@@ -44,7 +48,10 @@ public class TimingTaskController {
 
 	@RequestMapping("/getLatestTaskInfo")
 	@ResponseBody
-	public ResponseBean getLatestTaskInfo(String taskState, String taskDataSource) {
+	public ResponseBean getLatestTaskInfo(String taskState, String taskDataSource,HttpServletRequest request) {
+        UserLogRecord.record("定时任务最新执行情况", Operation.Type.browse, Operation.Page.timingTask,
+                Operation.System.back, request);
+
 	    if(taskState==null){
             taskState="0";
         }
@@ -57,8 +64,10 @@ public class TimingTaskController {
 
 	@RequestMapping("/getHistoryTask")
 	@ResponseBody
-	public ResponseBean getHistoryTask(@RequestParam String taskKey, @RequestParam String taskGroup,String taskState, String taskDataSource) {
-
+	public ResponseBean getHistoryTask(@RequestParam String taskKey, @RequestParam String taskGroup,
+                                       String taskState, String taskDataSource,HttpServletRequest request) {
+        UserLogRecord.record("定时任务详情", Operation.Type.browse, Operation.Page.timingTask,
+                Operation.System.back, request);
 	    List<TaskInfoDTO> list = timingTaskService.getHistoryTaskInfo(taskKey,taskGroup,taskState,taskDataSource);
 		return ResponseBean.successResponse(list);
 	}
@@ -66,8 +75,11 @@ public class TimingTaskController {
 
 	@RequestMapping("/reExecuteTask")
 	@ResponseBody
-	public ResponseBean reExecuteTask(@RequestParam Integer taskId, @RequestParam String taskKey, @RequestParam String taskGroup) {
-        timingTaskManager.reExecuteTask(taskId,taskKey,taskGroup);
+	public ResponseBean reExecuteTask(@RequestParam Integer taskId, @RequestParam String taskKey,
+                                      @RequestParam String taskGroup,HttpServletRequest request) {
+        UserLogRecord.record("再次执行", Operation.Type.RE_EXECUTE, Operation.Page.timingTask,
+                Operation.System.back, request);
+	    timingTaskManager.reExecuteTask(taskId,taskKey,taskGroup);
 	    return ResponseBean.successResponse(null);
 	}
 
