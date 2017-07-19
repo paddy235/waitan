@@ -9,12 +9,12 @@ import org.quartz.Trigger;
  */
 public enum TaskState {
 
-	NONE(0, ""),
 	NONSTARTER(1, "未开始"),
 	EXECUTING(2, "正在执行"),
 	SUCCESS(3, "成功"),
 	ERROR(4, "失败"),
-	PAUSED(5, "暂停中");
+	PAUSED(5, "暂停中"),
+	NONE(9, "");
 
 	private int state;
 	private String desc;

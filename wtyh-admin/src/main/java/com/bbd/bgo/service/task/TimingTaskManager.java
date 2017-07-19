@@ -278,4 +278,31 @@ public class TimingTaskManager {
 		}
 	}
 
+	public void reExecuteTask(Integer taskId, String taskKey, String taskGroup){
+
+		if(TaskUtil.shangHaiCreditJob[0].equals(taskKey)){
+			//公信数据落地
+
+
+		}else if(TaskUtil.offlineFinanceJob[0].equals(taskKey)){
+			//BBD数据落地-线下理财
+
+		}else if(TaskUtil.holographicAndOpinionJob[0].equals(taskKey)){
+			//BBD数据落地-权限舆情
+
+		}else if(TaskUtil.pToPMonitorJob[0].equals(taskKey)){
+			//网贷之家数据落地-网络借贷
+
+		}else if(TaskUtil.crowdFundingJob[0].equals(taskKey)){
+			//网贷之家数据落地-众筹
+
+		}else if(TaskUtil.riskLevelJob[0].equals(taskKey)){
+			//系统数据更新-风险等级
+
+		}else if(TaskUtil.companyBaseInfo[0].equals(taskKey)){
+			//系统数据更新-企业基本信息
+
+		}
+	}
+
 }
