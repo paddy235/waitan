@@ -62,7 +62,7 @@ public class RelationServiceImpl implements RelationService {
                 }
             }
         } catch (Exception e) {
-            logger.error("Method[addRelation],catch exception information:" + e.getMessage());
+            logger.error("Method[addRelation],catch exception:" + e.getMessage());
             throw new Exception(e);
         }
     }
