@@ -118,4 +118,6 @@ public interface P2PImageService {
      * @throws Exception
      */
     void radarScoreDataLandingTask() throws  Exception;
+
+    PlatListDO getWangdaiCompanyList(String name);
 }

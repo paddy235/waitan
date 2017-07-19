@@ -1,5 +1,6 @@
 package com.bbd.wtyh.service.impl;
 
+import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.CompanyLevelDO;
 import com.bbd.wtyh.domain.dto.CompanyLevelDTO;
 import com.bbd.wtyh.domain.enums.CompanyLevel;
@@ -45,5 +46,10 @@ public class CompanyLevelServiceImpl implements CompanyLevelService {
             result.add(levelDTO);
         }
         return result;
+    }
+
+    @Override
+    public CompanyInfo getLoanOrGuaranteeByCompanyName(String name) {
+        return companyLevelMapper.getLoanOrGuaranteeByCompanyName(name);
     }
 }

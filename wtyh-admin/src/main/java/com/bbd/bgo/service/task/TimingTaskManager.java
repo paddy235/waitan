@@ -2,6 +2,7 @@ package com.bbd.bgo.service.task;
 
 
 import com.bbd.bgo.quartz.TaskUtil;
+import com.bbd.wtyh.mapper.TaskSuccessFailInfoMapper;
 import com.bbd.wtyh.service.CoCreditScoreService;
 import com.bbd.wtyh.service.OfflineFinanceService;
 import com.bbd.wtyh.service.P2PImageService;
@@ -35,6 +36,8 @@ public class TimingTaskManager {
 	private PToPMonitorService pToPMonitorService;
 	@Autowired
 	private DataLoadingService dataLoadingService;
+    @Autowired
+    private TaskSuccessFailInfoMapper taskSuccessFailInfoMapper;
 
 	private Logger logger = LoggerFactory.getLogger(TimingTaskManager.class);
 
@@ -59,12 +62,7 @@ public class TimingTaskManager {
 			logger.error("riskLevelTask"+e);
 		}finally {
 
-			if(null!=map){
-				planCount=map.get("planCount")==null?null:(Integer)map.get("planCount");
-				successCount=map.get("successCount")==null?null:(Integer)map.get("successCount");
-				failCount=map.get("failCount")==null?null:(Integer)map.get("failCount");
-			}
-			TaskUtil.taskEnd(taskId,planCount,successCount,failCount,null);
+            taskEnd(map,taskId,planCount,successCount,failCount,null);
 		}
 
 	}
@@ -90,12 +88,7 @@ public class TimingTaskManager {
 			logger.error("companyBaseInfoTask"+e);
 		}finally {
 
-			if(null!=map){
-				planCount=map.get("planCount")==null?null:(Integer)map.get("planCount");
-				successCount=map.get("successCount")==null?null:(Integer)map.get("successCount");
-				failCount=map.get("failCount")==null?null:(Integer)map.get("failCount");
-			}
-			TaskUtil.taskEnd(taskId,planCount,successCount,failCount,null);
+            taskEnd(map,taskId,planCount,successCount,failCount,null);
 		}
 
 	}
@@ -122,12 +115,7 @@ public class TimingTaskManager {
 			logger.error("pullDataFileFromBBDTask"+e);
 		}finally {
 
-			if(null!=map){
-				planCount=map.get("planCount")==null?null:(Integer)map.get("planCount");
-				successCount=map.get("successCount")==null?null:(Integer)map.get("successCount");
-				failCount=map.get("failCount")==null?null:(Integer)map.get("failCount");
-			}
-			TaskUtil.taskEnd(taskId,planCount,successCount,failCount,null);
+            taskEnd(map,taskId,planCount,successCount,failCount,null);
 		}
 
 	}
@@ -153,12 +141,7 @@ public class TimingTaskManager {
 			logger.error("pullHolographicAndOpinionTask"+e);
 		}finally {
 
-			if(null!=map){
-				planCount=map.get("planCount")==null?null:(Integer)map.get("planCount");
-				successCount=map.get("successCount")==null?null:(Integer)map.get("successCount");
-				failCount=map.get("failCount")==null?null:(Integer)map.get("failCount");
-			}
-			TaskUtil.taskEnd(taskId,planCount,successCount,failCount,null);
+            taskEnd(map,taskId,planCount,successCount,failCount,null);
 		}
 
 
@@ -184,12 +167,7 @@ public class TimingTaskManager {
 			logger.error("shangHaiCreditTask"+e);
 		}finally {
 
-			if(null!=map){
-				planCount=map.get("planCount")==null?null:(Integer)map.get("planCount");
-				successCount=map.get("successCount")==null?null:(Integer)map.get("successCount");
-				failCount=map.get("failCount")==null?null:(Integer)map.get("failCount");
-			}
-			TaskUtil.taskEnd(taskId,planCount,successCount,failCount,null);
+            taskEnd(map,taskId,planCount,successCount,failCount,null);
 		}
 	}
 	/**
@@ -239,12 +217,7 @@ public class TimingTaskManager {
 		} catch (Exception e) {
 			logger.error("pullP2PMonitorTask"+e);
 		}finally {
-			if(null!=map){
-				planCount=map.get("planCount")==null?null:(Integer)map.get("planCount");
-				successCount=map.get("successCount")==null?null:(Integer)map.get("successCount");
-				failCount=map.get("failCount")==null?null:(Integer)map.get("failCount");
-			}
-			TaskUtil.taskEnd(taskId,planCount,successCount,failCount,null);
+            taskEnd(map,taskId,planCount,successCount,failCount,null);
 		}
 	}
 
@@ -269,20 +242,30 @@ public class TimingTaskManager {
 			logger.error("updateCrowdFundingData"+e);
 		}finally {
 
-			if(null!=map){
-				planCount=map.get("planCount")==null?null:(Integer)map.get("planCount");
-				successCount=map.get("successCount")==null?null:(Integer)map.get("successCount");
-				failCount=map.get("failCount")==null?null:(Integer)map.get("failCount");
-			}
-			TaskUtil.taskEnd(taskId,planCount,successCount,failCount,null);
+            taskEnd(map,taskId,planCount,successCount,failCount,null);
 		}
 	}
 
-	public void reExecuteTask(Integer taskId, String taskKey, String taskGroup){
+	public void reExecuteTask(Integer oldTaskId, String taskKey, String taskGroup){
+		Integer runMode=1;
+		Integer newTaskId=null;
+		Integer planCount = null;// 计划执行笔数。 可在任务结束时更新
+		Integer successCount=null;
+		Integer failCount=null;
+		Map map =null;
 
 		if(TaskUtil.shangHaiCreditJob[0].equals(taskKey)){
-			//公信数据落地
 
+			//公信数据落地
+			try {
+				newTaskId = TaskUtil.taskStart(TaskUtil.shangHaiCreditJob[0], TaskUtil.shangHaiCreditJob[1], null, runMode, null, null);
+                taskSuccessFailInfoMapper.updateReExecuteById(0,oldTaskId);
+				map=coCreditScoreService.executeFailCompanyByTaskId(runMode, oldTaskId, newTaskId);
+			}catch (Exception e){
+				logger.error("reExecuteTask-shangHaiCreditJob"+e);
+			}finally {
+                taskEnd(map,newTaskId,planCount,successCount,failCount,null);
+			}
 
 		}else if(TaskUtil.offlineFinanceJob[0].equals(taskKey)){
 			//BBD数据落地-线下理财
@@ -304,5 +287,14 @@ public class TimingTaskManager {
 
 		}
 	}
+
+	public void taskEnd(Map map,Integer taskId,Integer planCount,Integer successCount,Integer failCount,String creatBy){
+        if(null!=map){
+            planCount=map.get("planCount")==null?null:(Integer)map.get("planCount");
+            successCount=map.get("successCount")==null?null:(Integer)map.get("successCount");
+            failCount=map.get("failCount")==null?null:(Integer)map.get("failCount");
+        }
+        TaskUtil.taskEnd(taskId,planCount,successCount,failCount,null);
+    }
 
 }

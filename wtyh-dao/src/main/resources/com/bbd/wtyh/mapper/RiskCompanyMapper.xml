@@ -2,33 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bbd.wtyh.mapper.RiskCompanyMapper">
 
-	<sql id="indexDataCondition">
-		<where>
-			i.company_name=c.`name`
-			<if test="area != null and area != ''">
-				AND i.area=#{area}
-			</if>
-			<if test="minRegCapital != null and minRegCapital != ''">
-				AND i.reg_capital<![CDATA[>=]]>#{minRegCapital}
-			</if>
-			<if test="maxRegCapital != null and maxRegCapital != ''">
-				AND i.reg_capital<![CDATA[<=]]>#{maxRegCapital}
-			</if>
-			<if test="companyQualification != null and companyQualification != ''">
-				AND i.company_qualification LIKE #{companyQualification}
-			</if>
-			<if test="minReviewTime != null and minReviewTime != ''">
-				AND i.review_time<![CDATA[>=]]>#{minReviewTime}
-			</if>
-			<if test="maxReviewTime != null and maxReviewTime != ''">
-				AND i.review_time<![CDATA[<=]]>#{maxReviewTime}
-			</if>
-			<if test="riskLevel != null and riskLevel != ''">
-				AND c.risk_level=#{riskLevel}
-			</if>
-		</where>
-	</sql>
-	<sql id="indexDataContent">
+    <sql id="indexDataCondition">
+        <where>
+            i.company_name=c.`name`
+            <if test="area != null and area != ''">
+                AND i.area=#{area}
+            </if>
+            <if test="minRegCapital != null and minRegCapital != ''">
+                AND i.reg_capital<![CDATA[>=]]>#{minRegCapital}
+            </if>
+            <if test="maxRegCapital != null and maxRegCapital != ''">
+                AND i.reg_capital<![CDATA[<=]]>#{maxRegCapital}
+            </if>
+            <if test="companyQualification != null and companyQualification != ''">
+                AND i.company_qualification LIKE #{companyQualification}
+            </if>
+            <if test="minReviewTime != null and minReviewTime != ''">
+                AND i.review_time<![CDATA[>=]]>#{minReviewTime}
+            </if>
+            <if test="maxReviewTime != null and maxReviewTime != ''">
+                AND i.review_time<![CDATA[<=]]>#{maxReviewTime}
+            </if>
+            <if test="riskLevel != null and riskLevel != ''">
+                AND c.risk_level=#{riskLevel}
+            </if>
+        </where>
+    </sql>
+    <sql id="indexDataContent">
 		i.create_by as createBy,
 		i.create_date as createDate,
 		i.update_by as updateBy,
@@ -49,82 +49,94 @@
 		c.address
 	</sql>
 
-	<select id="getScanner" resultType="com.bbd.wtyh.domain.RiskCompanyInfoDO" parameterType="java.util.HashMap">
-		select
-			<include refid="indexDataContent"></include>
-		from index_data i, company c
-		<include refid="indexDataCondition"></include>
-		order by i.static_risk_index asc
-	</select>
-	
-	<select id="getScannerCount" parameterType="java.util.HashMap" resultType="int">
-		select count(1) from index_data i, company c
-		<include refid="indexDataCondition"></include>
-	</select>
-	
-	<select id="getTop" parameterType="java.util.HashMap" resultType="com.bbd.wtyh.domain.RiskCompanyInfoDO">
-<!-- 		select
-			<include refid="indexDataContent"></include>
-		from index_data i, company c
-		<include refid="indexDataCondition"></include>
-		order by i.static_risk_index 
-		<choose>
-			<when test="sortType == '0'.toString()">
-				asc
-			</when>
-			<otherwise>
-				desc
-			</otherwise>
-		</choose>
-		limit #{pagination.begin}, #{pagination.pageSize} -->
-		select * from (
-		select * from (select 
-			<include refid="indexDataContent"></include>
- 		from index_data i, company c 
- 		<include refid="indexDataCondition"></include>
- 		order by i.static_risk_index 
- 		<choose>
-			<when test="sortType == '0'.toString()">
-				asc
-			</when>
-			<otherwise>
-				desc
-			</otherwise>
-		</choose>
-		limit 0, 100) i
-		UNION ALL
-		select * from (select 
-			<include refid="indexDataContent"></include>
- 		from index_data i, company c 
- 		<include refid="indexDataCondition"></include>
- 		order by i.static_risk_index 
- 		<choose>
-			<when test="sortType == '0'.toString()">
-				desc
-			</when>
-			<otherwise>
-				asc
-			</otherwise>
-		</choose>
- 		limit 0, 100) i
-		) tmp group by tmp.companyName order by tmp.staticRiskIndex
-		<choose>
-			<when test="sortType == '0'.toString()">
-				asc
-			</when>
-			<otherwise>
-				desc
-			</otherwise>
-		</choose>
-	</select>
-	
-	<select id="getTopCount" parameterType="java.util.HashMap" resultType="int">
-		select count(1) from index_data i, company c
-		<include refid="indexDataCondition"></include>
-	</select>
-	
-	<select id="getLastDataVersion" resultType="string">
+    <select id="getScanner" resultType="com.bbd.wtyh.domain.RiskCompanyInfoDO" parameterType="java.util.HashMap">
+        select
+        <include refid="indexDataContent"></include>
+        from index_data i, company c
+        <include refid="indexDataCondition"></include>
+        order by i.static_risk_index asc
+    </select>
+
+    <select id="getScannerCount" parameterType="java.util.HashMap" resultType="int">
+        select count(1) from index_data i, company c
+        <include refid="indexDataCondition"></include>
+    </select>
+
+    <select id="getTop" parameterType="java.util.HashMap" resultType="com.bbd.wtyh.domain.RiskCompanyInfoDO">
+        <!-- 		select
+                    <include refid="indexDataContent"></include>
+                from index_data i, company c
+                <include refid="indexDataCondition"></include>
+                order by i.static_risk_index
+                <choose>
+                    <when test="sortType == '0'.toString()">
+                        asc
+                    </when>
+                    <otherwise>
+                        desc
+                    </otherwise>
+                </choose>
+                limit #{pagination.begin}, #{pagination.pageSize} -->
+        select * from (
+        select * from (select
+        <include refid="indexDataContent"></include>
+        from index_data i, company c
+        <include refid="indexDataCondition"></include>
+        order by i.static_risk_index
+        <choose>
+            <when test="sortType == '0'.toString()">
+                asc
+            </when>
+            <otherwise>
+                desc
+            </otherwise>
+        </choose>
+        limit 0, 100) i
+        UNION ALL
+        select * from (select
+        <include refid="indexDataContent"></include>
+        from index_data i, company c
+        <include refid="indexDataCondition"></include>
+        order by i.static_risk_index
+        <choose>
+            <when test="sortType == '0'.toString()">
+                desc
+            </when>
+            <otherwise>
+                asc
+            </otherwise>
+        </choose>
+        limit 0, 100) i
+        ) tmp group by tmp.companyName order by tmp.staticRiskIndex
+        <choose>
+            <when test="sortType == '0'.toString()">
+                asc
+            </when>
+            <otherwise>
+                desc
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="getTopCount" parameterType="java.util.HashMap" resultType="int">
+        select count(1) from index_data i, company c
+        <include refid="indexDataCondition"></include>
+    </select>
+
+    <select id="getLastDataVersion" resultType="string">
 		select data_version as dataVersion from static_risk_data group by data_version order by data_version desc limit 1
 	</select>
 
+    <select id="getOffLineFinanceByName" resultType="com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo">
+		SELECT
+		    company.`name` AS `name`,
+		    company.legal_person AS legalPerson,
+		    company.registered_capital AS registeredCapital,
+		    company.registered_capital_type AS registeredCapitalType,
+		    company.risk_level AS currentLevel
+		FROM
+		  company
+		WHERE
+		  company.`name` = #{name}
+	</select>
 </mapper>

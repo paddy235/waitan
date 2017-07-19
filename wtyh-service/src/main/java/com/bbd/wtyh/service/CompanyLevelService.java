@@ -1,5 +1,6 @@
 package com.bbd.wtyh.service;
 
+import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.dto.CompanyLevelDTO;
 
 import java.util.List;
@@ -10,7 +11,8 @@ import java.util.List;
 public interface CompanyLevelService {
 
 
-    List<CompanyLevelDTO> getCompanyLevel(Integer companyType,Integer areaId, Integer orderByField, String descAsc);
+    List<CompanyLevelDTO> getCompanyLevel(Integer companyType, Integer areaId, Integer orderByField, String descAsc);
 
 
+    CompanyInfo getLoanOrGuaranteeByCompanyName(String name);
 }

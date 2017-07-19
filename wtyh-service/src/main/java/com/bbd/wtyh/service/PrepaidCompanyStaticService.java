@@ -2,6 +2,7 @@ package com.bbd.wtyh.service;
 
 import java.util.List;
 
+import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.PrepaidCompanyDO;
 import com.bbd.wtyh.domain.PrepaidCompanyStatisticDO;
 
@@ -15,5 +16,6 @@ public interface PrepaidCompanyStaticService {
 	List<PrepaidCompanyStatisticDO> prepaidAll();
 
 	List<PrepaidCompanyDO> prepaidCompanyAll();
-	
+
+	CompanyInfo getPerpaycardByCompanyName(String name);
 }

@@ -38,6 +38,7 @@ create table park_building_img
    pic_park_id          int comment '所属园区',
    pic_building_id      int comment '所属楼宇',
    status               int not null default 0 comment '图片可用状态（0：不可用；1：可用；2：已用）',
+   ip                   varchar(25) comment '服务器IP',
    create_by            varchar(50) comment '创建人',
    create_date          timestamp comment '创建时间',
    update_by            varchar(50) comment '修改人',
