@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -76,17 +78,17 @@ public class ParkMgtController {
      */
     @RequestMapping("/delCompanyByCompanyId")
     @ResponseBody
-    public ResponseBean delCompanyByCompanyId(String companyList){
-        List<String> companyNameList = new ArrayList<>();
+    public ResponseBean delCompanyByCompanyId(String[] companyList){
+//        List<String> companyNameList = new ArrayList<>();
+//
+//        String[] companyName = companyList.split(",");
+//        for (String s:companyName) {
+//            if(!StringUtils.isEmpty(s)){
+//                companyNameList.add(s);
+//            }
+//        }
 
-        String[] companyName = companyList.split(",");
-        for (String s:companyName) {
-            if(StringUtils.isEmpty(s)){
-                companyNameList.add(s);
-            }
-        }
-
-        parkMgtService.delCompanyByCompanyName(companyNameList);
+        parkMgtService.delCompanyByCompanyName(Arrays.asList(companyList));
         return  ResponseBean.successResponse("OK");
     }
 
@@ -115,9 +117,9 @@ public class ParkMgtController {
                 img.setPicUrl(PARK_DIR + f.getName());
                 int parkId = parkMgtService.queryParkIdByName(parkName);
                 img.setPicType(picType);
-                if(!StringUtils.isEmpty(picType) && picType.equals("1")){
+                if(!StringUtils.isEmpty(picType) && picType == 1){
                     img.setPicParkId(parkId);
-                }else{
+                }else if (!StringUtils.isEmpty(picType) && picType == 2){
                     img.setPicParkId(parkId);
                     BuildingDO buildingDO = parkMgtService.queryBuildingByParkAndName(parkId,buildingName);//取得楼宇ID
                     int buildingId = buildingDO.getBuildingId();
@@ -131,6 +133,7 @@ public class ParkMgtController {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            return ResponseBean.errorResponse(e.getMessage());
         }
         return ResponseBean.successResponse("hello world");
     }

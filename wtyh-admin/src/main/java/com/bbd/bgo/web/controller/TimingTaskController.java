@@ -44,15 +44,22 @@ public class TimingTaskController {
 
 	@RequestMapping("/getLatestTaskInfo")
 	@ResponseBody
-	public ResponseBean getLatestTaskInfo() {
-		List<TaskInfoDTO> list = timingTaskService.getLatestTaskInfo();
+	public ResponseBean getLatestTaskInfo(String taskState, String taskDataSource) {
+	    if(taskState==null){
+            taskState="0";
+        }
+        if(taskDataSource==null){
+            taskDataSource="0";
+        }
+		List<TaskInfoDTO> list = timingTaskService.getLatestTaskInfo(taskState,taskDataSource);
 		return ResponseBean.successResponse(list);
 	}
 
 	@RequestMapping("/getHistoryTask")
 	@ResponseBody
-	public ResponseBean getHistoryTask(@RequestParam String taskKey, @RequestParam String taskGroup) {
-		List<TaskInfoDTO> list = timingTaskService.getHistoryTaskInfo(taskKey,taskGroup);
+	public ResponseBean getHistoryTask(@RequestParam String taskKey, @RequestParam String taskGroup,String taskState, String taskDataSource) {
+
+	    List<TaskInfoDTO> list = timingTaskService.getHistoryTaskInfo(taskKey,taskGroup,taskState,taskDataSource);
 		return ResponseBean.successResponse(list);
 	}
 

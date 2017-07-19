@@ -2,6 +2,7 @@ package com.bbd.wtyh.mapper;
 
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.vo.ParkAndBuildingVO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -27,7 +28,7 @@ public interface ParkAndBuildingMgtMapper {
 
     void addBuilding(BuildingDO building);
 
-    void delCompanyByCompanyName(List<String> companyNameList);
+    void delCompanyByCompanyName(@Param("companyNameList") List<String> companyNameList);
 
     void delCompanyByBuildingId(List<Integer> buildingIdList);
 
