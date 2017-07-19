@@ -36,4 +36,6 @@ public interface DataLoadingMapper {
 	int saveDatasharePullFileDO(List<DatasharePullFileDO> fileList);
 
 	List<DatasharePullFileDO> getDatasharePullFileByTaskId(Integer taskId);
+
+	List<QyxxBasicDO> getCompanyBasicInfoByName(String companyName);
 }

@@ -150,5 +150,17 @@
 		where task_id=#{taskId}
 	</select>
 
+	<select id="getCompanyBasicInfoByName" parameterType="java.lang.Integer" resultType="com.bbd.wtyh.domain.dataLoading.QyxxBasicDO">
+		select
+		id, address,approval_date ,bbd_dotime ,bbd_history_name ,bbd_qyxx_id ,bbd_type , bbd_uptime,cancel_date,company_companytype,
+		company_county,company_currency,company_enterprise_status,company_industry,company_name,company_province,company_regorg,company_type,
+		credit_code,enterprise_status,esdate,form,frname,frname_id,invest_cap,investcap_amount,investcap_currency,ipo_company,
+		openfrom,opento,operate_scope,operating_period,parent_firm,realcap,realcap_amount,realcap_currency,regcap,regcap_amount,
+		regcap_currency,regcapcur,regno,regno_or_creditcode,regorg,revoke_date,type,frname_compid,create_time,task_id
+		FROM
+			qyxx_basic
+		where company_name = #{companyName}
+	</select>
+
 </mapper>
 

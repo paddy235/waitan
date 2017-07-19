@@ -69,6 +69,7 @@ public class DataLoadingUtil {
 				ktggList.addAll(dataList2);
 				break;
 			case QYXG_YUQING:
+				dataStr = dataStr.replaceAll("abstract","articleAbstract");
 				List<QyxgYuqingDO> dataList3 = JSONArray.parseArray(dataStr, QyxgYuqingDO.class);
 				yuQingList.addAll(dataList3);
 				break;

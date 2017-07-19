@@ -19,6 +19,6 @@ public class OfflineFinancialListUpateTest {
 
     @Test
     public void dataLoadingTest(){
-        offlineFinancialListTaskService.offlineFinancialListUpdate();
+        offlineFinancialListTaskService.offlineFinancialListUpdate(1L);
     }
 }

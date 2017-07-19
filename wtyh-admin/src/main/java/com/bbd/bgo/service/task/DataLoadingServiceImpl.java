@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.*;
 import java.util.*;
@@ -144,9 +145,9 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 			//解析json错误
 			try {
 				JSONObject jsonObject = JSONObject.fromObject(s);
-				Object data = jsonObject.get("data");
-				String tn = String.valueOf(jsonObject.get("tn"));
-				JSONObject jsonData = JSONObject.fromObject(String.valueOf(data));
+				String data = jsonObject.getString("data");
+				String tn = jsonObject.getString("tn");
+				JSONObject jsonData = JSONObject.fromObject(data);
 				Object dataName = jsonData.get(tn);
 				String dataStr = String.valueOf(dataName);
 				DataLoadingUtil.addDataToList(failTableList,tn,dataStr,disList,ktggList,yuQingList,basicList,baxxList,gdxxList,
@@ -200,6 +201,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 		}
 	}
 
+	@Transactional
 	public Map<String,Integer> insertData(List<DishonestyDO> disList,List<KtggDO> ktggList,
 						   List<QyxgYuqingDO> yuQingList,List<QyxxBasicDO> basicList,List<QyxxBaxxDO> baxxList, List<QyxxGdxxDO> gdxxList,
 						   List<QyxxZhuanliDO> zhuanliList,List<RmfyggDO> rmfyggList, List<ZgcpwswDO> zgcpwswList,List<ZhixingDO> zhixingList){
