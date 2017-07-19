@@ -45,9 +45,17 @@ public class TimingTaskServiceImpl  extends BaseServiceImpl implements TimingTas
     }
 
     @Override
-    public List<TaskInfoDTO> getLatestTaskInfo() {
+    public List<TaskInfoDTO> getLatestTaskInfo(String taskState, String taskDataSource ) {
+        int taskStateInt=taskState==null?0:Integer.parseInt(taskState);
+        int taskDataSourceInt=taskDataSource==null?0:Integer.parseInt(taskDataSource);
+        StringBuffer query=new StringBuffer();
+        query.append(" is_show=1 ");
+        if(taskDataSourceInt!=0){
+            query.append(" AND data_source=");
+            query.append(taskDataSourceInt);
+        }
         List<TaskInfoDTO> list =new ArrayList<>();
-        List<TaskInfoDO> taskList = this.selectAll(TaskInfoDO.class, "is_show=1");
+        List<TaskInfoDO> taskList = this.selectAll(TaskInfoDO.class,query.toString());
         CronSequenceGenerator cronSequenceGenerator ;
         BeanCopier beanCopier = BeanCopier.create(TaskInfoDO.class, TaskInfoDTO.class, false);
 
@@ -65,8 +73,11 @@ public class TimingTaskServiceImpl  extends BaseServiceImpl implements TimingTas
                 taskInfoDTO.setReExecute(taskDO.getReExecute());
                 taskInfoDTO.setState(taskDO.getState());
             }
-
-            list.add(taskInfoDTO);
+            if(taskStateInt==0){
+                list.add(taskInfoDTO);
+            }else if(taskStateInt==(taskInfoDTO.getState()==null?-1:taskInfoDTO.getState())){
+                list.add(taskInfoDTO);
+            }
 
         }
         return list;

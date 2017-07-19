@@ -35,7 +35,7 @@ public class TimingTaskTest {
     }
     @Test
     public void test2(){
-        List<TaskInfoDTO> list =timingTaskService.getLatestTaskInfo();
+        List<TaskInfoDTO> list =timingTaskService.getLatestTaskInfo("4","3");
         System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
     }
 
