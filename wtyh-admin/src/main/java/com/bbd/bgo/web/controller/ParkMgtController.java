@@ -1,8 +1,8 @@
 package com.bbd.bgo.web.controller;
 
 import com.bbd.wtyh.cachetobean.ShanghaiAreaCode;
+import com.bbd.wtyh.domain.BuildingDO;
 import com.bbd.wtyh.domain.ImgDO;
-import com.bbd.wtyh.domain.query.NaturalPersonQuery;
 import com.bbd.wtyh.domain.vo.ParkAndBuildingVO;
 import com.bbd.wtyh.service.ImgService;
 import com.bbd.wtyh.service.shiro.ParkMgtService;
@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -89,8 +90,20 @@ public class ParkMgtController {
         return  ResponseBean.successResponse("OK");
     }
 
-    @RequestMapping("/test1")
-    public @ResponseBody ResponseBean test1(HttpServletRequest request) {
+    /**
+     * 上传图片
+     * @param request
+     * @param picType 1：园区 2：楼宇
+     * @param parkName 园区名称
+     * @param buildingName 楼宇名称
+     * @param user 用户名
+     * @return
+     */
+    @RequestMapping("/upLoadPic")
+    public @ResponseBody ResponseBean upLoadPic(HttpServletRequest request,
+                                                @RequestParam Integer picType,
+                                                @RequestParam String parkName, String buildingName,
+                                                @RequestParam String user) {
         try {
             File f = new File(request.getSession().getServletContext().getRealPath("/") + "/data/img/park/hpq.png");
             if (f.exists()) {
@@ -100,7 +113,17 @@ public class ParkMgtController {
                 img.setPicName(f.getName());
                 img.setPicType(1);
                 img.setPicUrl(PARK_DIR + f.getName());
-                img.setCreateBy("testUser");
+                int parkId = parkMgtService.queryParkIdByName(parkName);
+                img.setPicType(picType);
+                if(!StringUtils.isEmpty(picType) && picType.equals("1")){
+                    img.setPicParkId(parkId);
+                }else{
+                    img.setPicParkId(parkId);
+                    BuildingDO buildingDO = parkMgtService.queryBuildingByParkAndName(parkId,buildingName);//取得楼宇ID
+                    int buildingId = buildingDO.getBuildingId();
+                    img.setPicBuildingId(buildingId);
+                }
+                img.setCreateBy(user);
 
                 int id = imgService.addImage(img);
                 System.out.println("当前id：" + id);

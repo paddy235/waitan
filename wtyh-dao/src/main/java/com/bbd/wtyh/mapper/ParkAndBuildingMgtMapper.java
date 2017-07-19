@@ -39,6 +39,8 @@ public interface ParkAndBuildingMgtMapper {
 
     void addPark(ParkDO park);
 
+    int queryParkIdByName(String parkName);
+
     int queryCompanyIdByName(String companyName);
 
     void addCompanyBuilding(List<CompanyBuildingDO> companyBuildingList);

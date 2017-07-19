@@ -5,11 +5,11 @@
 
     <select id="queryParkAndBuilding" parameterType="java.lang.String" resultType="com.bbd.wtyh.domain.vo.ParkAndBuildingVO">
         SELECT
-            p.`name` as parkName,
-            b.`name` as buildingName,
-            DATE_FORMAT(p.create_date,'%Y.%c.%d') as createDate
+        p.`name` as parkName,
+        b.`name` as buildingName,
+        DATE_FORMAT(p.create_date,'%Y.%c.%d') as createDate
         FROM
-            park p, building b
+        park p, building b
         <where>
             p.park_id=b.park_id
             <if test="_parameter != null and _parameter != ''">
@@ -98,20 +98,20 @@
 
     <delete id="delCompanyByCompanyName" parameterType="java.util.List">
         DELETE FROM
-          company_building o
+        company_building o
         WHERE
-          o.company_id in
-          (
-          select
-            cb.company_id
-          from
-            park p, building b, company_building cb, company c
-          where
-            p.park_id=b.park_id and b.building_id=cb.building_id and cb.company_id=c.company_id and c.`name` in
-            <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
-                #{item}
-            </foreach>
-          )
+        o.company_id in
+        (
+        select
+        cb.company_id
+        from
+        park p, building b, company_building cb, company c
+        where
+        p.park_id=b.park_id and b.building_id=cb.building_id and cb.company_id=c.company_id and c.`name` in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        )
     </delete>
 
     <delete id="delCompanyByBuildingId" parameterType="java.util.List">
@@ -135,6 +135,10 @@
 
     <select id="queryBuildingByParkId" parameterType="int" resultType="com.bbd.wtyh.domain.BuildingDO">
         SELECT <include refid="building_content" /> FROM building WHERE park_id=#{parkId}
+    </select>
+
+    <select id="queryParkIdByName" parameterType="java.lang.String" resultType="int">
+        SELECT park_id as parkId FROM park WHERE `name`=#{parkName}
     </select>
 
     <insert id="addPark" parameterType="com.bbd.wtyh.domain.ParkDO">

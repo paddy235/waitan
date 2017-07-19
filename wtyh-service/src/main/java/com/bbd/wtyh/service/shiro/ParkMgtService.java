@@ -1,5 +1,6 @@
 package com.bbd.wtyh.service.shiro;
 
+import com.bbd.wtyh.domain.BuildingDO;
 import com.bbd.wtyh.domain.vo.ParkAndBuildingVO;
 
 import java.util.List;
@@ -28,4 +29,19 @@ public interface ParkMgtService{
      * @param companyNameList 企业名称列表
      */
     void delCompanyByCompanyName(List<String> companyNameList);
+
+    /**
+     * 根据园区名称取得园区ID
+     * @param parkName 园区名称
+     * @return
+     */
+    int queryParkIdByName(String parkName);
+
+    /**
+     * 园区楼宇企业数量
+     * @param parkId
+     * @param buildingName
+     * @return
+     */
+    BuildingDO queryBuildingByParkAndName(int parkId, String buildingName);
 }
