@@ -15,8 +15,13 @@ import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import java.io.*;
 import java.util.*;
@@ -54,6 +59,10 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 
     @Autowired
     private DataLoadingMapper dataLoadingMapper;
+
+	@Autowired
+	private DataSourceTransactionManager transactionManager;
+
 	@Autowired
 	private TaskSuccessFailInfoMapper taskSuccessFailInfoMapper;
 	@Autowired
@@ -190,11 +199,16 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 						break;
 					}
 				}
+				//手动控制事务，异常跑出回滚事务
+				DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+				def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);// 事物隔离级别，开启新事务
+				TransactionStatus status = transactionManager.getTransaction(def); // 获得事务状态
 				try {
 					insertData(disList,ktggList,yuQingList,basicList,baxxList,gdxxList,
 						zhuanliList,rmfyggList,zgcpwswList,zhixingList);
+					transactionManager.commit(status);
 				} catch (Exception e) {
-					System.out.println(e);
+					transactionManager.rollback(status);
 					fail = new DataLoadingFailInfoDO();
 					setFailDo(fail,file.getName());
 					failList.add(fail);
@@ -283,7 +297,6 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 					Operation.System.back);
 			int zhuanliInsertNum = batchInsertData(zhuanliList);
 			logger.info("end batch save zhuanli , count:"+ zhuanliInsertNum);
-			//int i = 4/0; //人为产生异常（实际这里抛出了ArithmeticException运行异常）
 		}
 		if(rmfyggList.size()>0) {
 			this.setListTaskId(rmfyggList);
