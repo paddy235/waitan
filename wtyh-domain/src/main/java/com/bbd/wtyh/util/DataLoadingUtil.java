@@ -26,27 +26,26 @@ public class DataLoadingUtil {
 	private static final String ZHIXING = "zhixing";
 
 	//文件转化为string集合
-	public static List<String> txt2String(List<File> fileList){
+	public static List<String> txt2String(File file){
 		List<String> list=new ArrayList<String>();
-		for(File file:fileList){
-			if(null == file || !file.exists()){
-				continue;
+		if(null == file || !file.exists()){
+			return null;
+		}
+		BufferedReader br = null;
+		try{
+			br = new BufferedReader(new FileReader(file));
+			String s = null;
+			while((s = br.readLine())!=null){//使用readLine方法，一次读一行
+				list.add(s);
 			}
-			BufferedReader br = null;
+		}catch(Exception e){
+			list = null;
+			e.printStackTrace();
+		}finally {
 			try{
-				br = new BufferedReader(new FileReader(file));
-				String s = null;
-				while((s = br.readLine())!=null){//使用readLine方法，一次读一行
-					list.add(s);
-				}
-			}catch(Exception e){
+				br.close();
+			}catch(IOException e){
 				e.printStackTrace();
-			}finally {
-				try{
-					br.close();
-				}catch(IOException e){
-					e.printStackTrace();
-				}
 			}
 		}
 		return list;

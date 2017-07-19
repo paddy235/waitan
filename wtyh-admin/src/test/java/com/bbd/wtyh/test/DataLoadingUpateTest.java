@@ -24,6 +24,6 @@ public class DataLoadingUpateTest {
         //dataLoadingTaskService.dataLoadingManualOperate(2);
 
         //自动执行
-        dataLoadingTaskService.dataLoadingAutomaticOperate(1);
+        dataLoadingTaskService.dataLoadingAutomaticOperate(3);
     }
 }

@@ -12,7 +12,7 @@ import java.util.List;
 public interface TimingTaskService {
     List<TaskInfoDTO> getTaskInfo();
 
-    List<TaskInfoDTO> getLatestTaskInfo();
+    List<TaskInfoDTO> getLatestTaskInfo(String taskState, String taskDataSource);
 
-    List<TaskInfoDTO> getHistoryTaskInfo(String task_name,String task_group);
+    List<TaskInfoDTO> getHistoryTaskInfo(String task_name,String task_group,String taskState, String taskDataSource );
 }
