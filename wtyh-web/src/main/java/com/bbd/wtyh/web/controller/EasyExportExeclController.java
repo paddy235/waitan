@@ -1,13 +1,24 @@
 package com.bbd.wtyh.web.controller;
 
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
+import com.bbd.wtyh.excel.ExportExcel;
+import com.bbd.wtyh.exception.ExceptionHandler;
+import com.bbd.wtyh.log.user.Operation;
+import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.service.EasyExportExeclService;
+import com.bbd.wtyh.sys.controller.DownloadController;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import com.bbd.wtyh.web.ResponseBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Created by YanWenyuan on 2017/7/18.
@@ -15,13 +26,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/easyExportExecl")
 public class EasyExportExeclController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(EasyExportExeclController.class);
+
 
     @Autowired
     private EasyExportExeclService easyExportExeclService;
 
     @RequestMapping(value = "export")
     @ResponseBody
-    public ResponseBean export(ExportCondition exportCondition) {
+    public ResponseBean export(ExportCondition exportCondition, HttpServletRequest request) {
         // 1:P2P 2:小贷 3:融资担保 4:线下理财 5:私募基金 6:众筹
         // 7:金融 8:其他 9:交易所 10:商业保理 11.预付卡 12.典当 13融资租赁
 
@@ -46,5 +59,24 @@ public class EasyExportExeclController {
         }
 //        return ResponseBean.successResponse(list);
         return null;
+    }
+
+    public <T> String genExcel(List<T> data, String title, HttpServletRequest request) {
+        try {
+            if (CollectionUtils.isEmpty(data)) {
+                return "没有行业数据！";
+            }
+            ExportExcel exportExcel = new ExportExcel(title);
+            exportExcel.createSheet(title, data);
+            exportExcel.exportExcel();
+            UserLogRecord.record("导出【" + title + "】行业数据",
+                    Operation.Type.DATA_EXPORT, Operation.Page.hologram,
+                    Operation.System.front, request);
+
+            return exportExcel.getDownloadURL();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "导出数据发生错误";
+        }
     }
 }
