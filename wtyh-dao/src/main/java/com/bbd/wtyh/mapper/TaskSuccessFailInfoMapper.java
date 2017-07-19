@@ -22,6 +22,8 @@ public interface TaskSuccessFailInfoMapper {
 
 	void updateTaskSuccessFailInfo(TaskSuccessFailInfoDO taskSuccessFailInfoDO);
 
+	void updateReExecuteById(@Param("reRxecute") Integer reRxecute,@Param("taskId") Integer taskId);
+
 	TaskSuccessFailInfoDO getTaskRecentInfo(@Param("taskName") String taskName,@Param("taskGroup") String taskGroup);
 
 

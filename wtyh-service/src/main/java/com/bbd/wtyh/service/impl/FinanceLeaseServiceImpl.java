@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
 
+import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.vo.CompanyCapitalVO;
 import com.bbd.wtyh.domain.vo.FinanceLeaseStatisticVO;
 import com.bbd.wtyh.domain.vo.FinanceLeaseVO;
@@ -278,5 +279,10 @@ public class FinanceLeaseServiceImpl implements FinanceLeaseService {
     @Override
     public List<String> getYears() {
         return financeLeaseMapper.getYears();
+    }
+
+    @Override
+    public CompanyInfo getTenancy(String name) {
+        return financeLeaseMapper.getTenancyByName(name);
     }
 }

@@ -2,6 +2,7 @@ package com.bbd.wtyh.mapper;
 
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.vo.ParkAndBuildingVO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -23,7 +24,11 @@ public interface ParkAndBuildingMgtMapper {
 
     List<ParkAndBuildingVO> queryBuildingFinCompany(String parkName);
 
+    List<ParkAndBuildingVO> queryBuildingCompanyNumber(String parkName);
+
     void addBuilding(BuildingDO building);
+
+    void delCompanyByCompanyName(@Param("companyNameList") List<String> companyNameList);
 
     void delCompanyByBuildingId(List<Integer> buildingIdList);
 
@@ -34,6 +39,8 @@ public interface ParkAndBuildingMgtMapper {
     List<BuildingDO> queryBuildingByParkId(int parkId);
 
     void addPark(ParkDO park);
+
+    int queryParkIdByName(String parkName);
 
     int queryCompanyIdByName(String companyName);
 
