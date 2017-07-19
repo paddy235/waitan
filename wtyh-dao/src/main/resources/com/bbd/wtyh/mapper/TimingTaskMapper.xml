@@ -28,6 +28,14 @@
         <if test="taskGroup != null">
             AND a.task_group= #{taskGroup}
         </if>
+
+        <if test="taskState != null">
+            AND b.state= #{taskState}
+        </if>
+
+        <if test="taskDataSource != null">
+            AND a.data_source= #{taskDataSource}
+        </if>
         order by b.id desc
 
     </select>

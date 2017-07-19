@@ -57,8 +57,9 @@ public class TimingTaskController {
 
 	@RequestMapping("/getHistoryTask")
 	@ResponseBody
-	public ResponseBean getHistoryTask(@RequestParam String taskKey, @RequestParam String taskGroup) {
-		List<TaskInfoDTO> list = timingTaskService.getHistoryTaskInfo(taskKey,taskGroup);
+	public ResponseBean getHistoryTask(@RequestParam String taskKey, @RequestParam String taskGroup,String taskState, String taskDataSource) {
+
+	    List<TaskInfoDTO> list = timingTaskService.getHistoryTaskInfo(taskKey,taskGroup,taskState,taskDataSource);
 		return ResponseBean.successResponse(list);
 	}
 

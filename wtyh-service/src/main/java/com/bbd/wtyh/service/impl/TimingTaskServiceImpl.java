@@ -84,9 +84,14 @@ public class TimingTaskServiceImpl  extends BaseServiceImpl implements TimingTas
     }
 
     @Override
-    public List<TaskInfoDTO> getHistoryTaskInfo(String task_name,String task_group) {
-
-        List<TaskInfoDTO> list = timingTaskMapper.getHistoryTaskInfoByNameAndGroup(task_name,task_group);
+    public List<TaskInfoDTO> getHistoryTaskInfo(String task_name,String task_group,String taskState, String taskDataSource ) {
+        if(taskState==null || "0".equals(taskState)){
+            taskState=null;
+        }
+        if(taskDataSource==null || "0".equals(taskDataSource)){
+            taskDataSource=null;
+        }
+        List<TaskInfoDTO> list = timingTaskMapper.getHistoryTaskInfoByNameAndGroup(task_name,task_group,taskState,taskDataSource);
 
 
         return list;
