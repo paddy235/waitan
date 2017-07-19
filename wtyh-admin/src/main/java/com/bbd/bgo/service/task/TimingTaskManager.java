@@ -232,7 +232,7 @@ public class TimingTaskManager {
 			Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
 			taskId=TaskUtil.taskStart(TaskUtil.pToPMonitorJob[0],TaskUtil.pToPMonitorJob[1],dataVersion,runMode,null,null);
 			//需要传 taskId 给业务接口
-			map = pToPMonitorService.industryShanghaiDataLandingTask();
+			map = pToPMonitorService.pToPMonitorDataLanding(taskId);
 //			pToPMonitorService.industryCompareDataLandingTask();
 //			pToPMonitorService.platRankDataLandingTask();
 
@@ -275,6 +275,33 @@ public class TimingTaskManager {
 				failCount=map.get("failCount")==null?null:(Integer)map.get("failCount");
 			}
 			TaskUtil.taskEnd(taskId,planCount,successCount,failCount,null);
+		}
+	}
+
+	public void reExecuteTask(Integer taskId, String taskKey, String taskGroup){
+
+		if(TaskUtil.shangHaiCreditJob[0].equals(taskKey)){
+			//公信数据落地
+
+
+		}else if(TaskUtil.offlineFinanceJob[0].equals(taskKey)){
+			//BBD数据落地-线下理财
+
+		}else if(TaskUtil.holographicAndOpinionJob[0].equals(taskKey)){
+			//BBD数据落地-权限舆情
+
+		}else if(TaskUtil.pToPMonitorJob[0].equals(taskKey)){
+			//网贷之家数据落地-网络借贷
+
+		}else if(TaskUtil.crowdFundingJob[0].equals(taskKey)){
+			//网贷之家数据落地-众筹
+
+		}else if(TaskUtil.riskLevelJob[0].equals(taskKey)){
+			//系统数据更新-风险等级
+
+		}else if(TaskUtil.companyBaseInfo[0].equals(taskKey)){
+			//系统数据更新-企业基本信息
+
 		}
 	}
 

@@ -35,12 +35,12 @@ public class TimingTaskTest {
     }
     @Test
     public void test2(){
-        List<TaskInfoDTO> list =timingTaskService.getLatestTaskInfo();
+        List<TaskInfoDTO> list =timingTaskService.getLatestTaskInfo("4","3");
         System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
     }
 
     @Test
-    public void test3(){
+    public void test3(){//TEST
         List<TaskInfoDTO> list =timingTaskService.getHistoryTaskInfo(TaskUtil.shangHaiCreditJob[0],TaskUtil.shangHaiCreditJob[1]);
         System.err.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect));
     }

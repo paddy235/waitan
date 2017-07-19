@@ -87,9 +87,17 @@ public interface PToPMonitorService {
 
 
     /**
+     * p2p行业监测相关接口数据落地
+     * @return
+     * @throws Exception
+     */
+    Map pToPMonitorDataLanding(Integer taskId) throws Exception;
+
+
+    /**
      * dataType=industry_shanghai 数据落地
      */
-    Map industryShanghaiDataLandingTask() throws Exception;
+    void industryShanghaiDataLandingTask() throws Exception;
 
     /**
      * dataType=industry_compare 数据落地

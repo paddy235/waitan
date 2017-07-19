@@ -116,7 +116,7 @@
         <if test="taskGroup != null">
             AND task_group= #{taskGroup}
         </if>
-        ORDER BY create_date DESC,id DESC LIMIT 1
+        ORDER BY id DESC LIMIT 1
     </select>
 
 </mapper>
