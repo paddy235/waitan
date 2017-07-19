@@ -70,7 +70,7 @@ public class WordReportServiceImpl implements WordReportService {
     public Map<String, Object> reportExport( String companyName, String loginName, String areaCode ) throws Exception {
         if ( StringUtils.isBlank( companyName ) ) {
             //throw new BusinessException("用户信息表对象为空");
-            return convertErrInfo("companyName is blank !");
+            return convertErrInfo("E1"); //companyName is blank !
         }
         //获取企业摘要信息
         String reportTypeName;
@@ -97,7 +97,7 @@ public class WordReportServiceImpl implements WordReportService {
             backgroud =(List) companyInfo.get("backgroud");
 
         } else {
-            return convertErrInfo("companyInfo is not found !");
+            return convertErrInfo("E2");//companyInfo is not found !
         }
 
         try {
@@ -109,7 +109,7 @@ public class WordReportServiceImpl implements WordReportService {
             //创建报告导出实例
             URL templateFileURL = WordReportService.class.getResource("/docx/template/shanghai-company-anti-fraud-template.docx");
             if( templateFileURL ==null ) {
-                return convertErrInfo("Template file is not found !");
+                return convertErrInfo("E3");//Template file is not found !
             }
             final WordReportBuilder[] wrbArr = {null};
             JoinExeService.ThreadFun newWrb = ()->{
@@ -914,7 +914,7 @@ public class WordReportServiceImpl implements WordReportService {
             }
             return reportRst;
         } catch (Exception e) {
-            return convertErrInfo("Exception: " +e.toString());
+            return convertErrInfo("E4");//"Exception: " +e.toString()
         }
 
     }
@@ -924,7 +924,7 @@ public class WordReportServiceImpl implements WordReportService {
         Map errMap =new HashMap<String, Object>() {{
             put("fileName", "errInfo.txt");
             try {
-                put("fileBytes", ("文件生成失败：" +err).getBytes("UTF-8"));
+                put("fileBytes", ("报告文档生成失败，错误代码：" +err).getBytes("UTF-8"));
             } catch (Exception e) {
                 put("fileBytes", new byte[]{'e','r','r','!'});
             }
