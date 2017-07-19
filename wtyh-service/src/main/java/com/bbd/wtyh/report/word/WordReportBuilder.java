@@ -962,7 +962,7 @@ public class WordReportBuilder {
         }
         //替换一些零散的标签
         Map<String, String> mp =new HashMap<String, String>() {{
-            put("$$标题（企业名称及属性标签）", companyName +"（" +sBuf.toString() +"…）");
+            put("$$标题（企业名称及属性标签）", companyName +"（" +sBuf.toString() +"）"); //"…）"
             put("$$报告生成日期", LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")));
             put("$$风险等级：", "风险等级：" +companyRiskResult );
         }};
