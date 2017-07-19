@@ -10,10 +10,16 @@
 
 package com.bbd.wtyh.service.impl;
 
+import com.bbd.wtyh.domain.EasyExport.OffLineData;
 import com.bbd.wtyh.service.EasyExportExeclService;
+import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import org.springframework.stereotype.Service;
 
 @Service("easyExportExeclService")
 public class EasyExportExcelServiceImpl implements EasyExportExeclService {
 
+    @Override
+    public OffLineData getOffLineFinance(ExportCondition exportCondition) {
+        return null;
+    }
 }
