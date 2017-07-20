@@ -2,7 +2,6 @@ package com.bbd.wtyh.service;
 
 import com.bbd.wtyh.domain.EasyExport.*;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
-import com.bbd.wtyh.web.ResponseBean;
 
 import java.util.List;
 
@@ -11,7 +10,7 @@ public interface EasyExportExeclService {
 
     List<LoanData> getLoan(ExportCondition exportCondition);
 
-    List<GuaranteeData> getGuarantee(ExportCondition exportCondition);
+    List<LoanData> getGuarantee(ExportCondition exportCondition);
 
     List<OffLineData> getOffLineFinance(ExportCondition exportCondition);
 
