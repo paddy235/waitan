@@ -22,6 +22,17 @@ public class CompanyStatusChangeDO {
 	public static final byte TYPE_CUR_1 = 1;// 人民币
 	public static final byte TYPE_CUR_2 = 2;// 美元
 
+	public static final String CLOSE_TYPE_NAME_1 = "吊销";
+	public static final String CLOSE_TYPE_NAME_2= "注销";
+	public static final String CLOSE_TYPE_NAME_3= "拟吊销";
+	public static final String CLOSE_TYPE_NAME_4= "拟注销";
+	public static final String CLOSE_TYPE_NAME_5= "停业";
+	public static final String CLOSE_TYPE_NAME_6= "迁出";
+	public static final String CLOSE_TYPE_NAME_7= "撤销";
+	public static final String CLOSE_TYPE_NAME_8= "清算";
+	public static final String CLOSE_TYPE_NAME_9= "经营期限届满";
+	public static final String CLOSE_TYPE_NAME_10= "其他";
+
 	/** ID */
 	@Id
 	@Column(name = "id")
@@ -658,5 +669,37 @@ public class CompanyStatusChangeDO {
 
 	public void setRegisteredCapitalTypeName(String registeredCapitalTypeName) {
 		this.registeredCapitalTypeName = registeredCapitalTypeName;
+	}
+
+	public static Integer getClosedTypeByName(String name){
+
+		if (null == name) {
+			return 0;
+		}
+		switch (name) {
+			case CLOSE_TYPE_NAME_1:
+				return 1;
+			case CLOSE_TYPE_NAME_2:
+				return 2;
+			case CLOSE_TYPE_NAME_3:
+				return 3;
+			case CLOSE_TYPE_NAME_4:
+				return 4;
+			case CLOSE_TYPE_NAME_5:
+				return 5;
+			case CLOSE_TYPE_NAME_6:
+				return 6;
+			case CLOSE_TYPE_NAME_7:
+				return 7;
+			case CLOSE_TYPE_NAME_8:
+				return 8;
+			case CLOSE_TYPE_NAME_9:
+				return 9;
+			case CLOSE_TYPE_NAME_10:
+				return 10;
+			default:
+				return 0;
+		}
+
 	}
 }

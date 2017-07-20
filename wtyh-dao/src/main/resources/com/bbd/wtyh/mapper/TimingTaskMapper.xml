@@ -36,6 +36,11 @@
         <if test="taskDataSource != null">
             AND a.data_source= #{taskDataSource}
         </if>
+
+        <if test="taskUpdateDate != null">
+            AND b.begin_date like CONCAT(#{taskUpdateDate},'%')
+        </if>
+
         order by b.id desc
 
     </select>
