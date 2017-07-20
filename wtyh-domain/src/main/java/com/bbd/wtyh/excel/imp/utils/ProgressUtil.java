@@ -70,6 +70,13 @@ public class ProgressUtil {
 		PROGRESS_MAP.put(key, excelProgressMap);
 	}
 
+	public static void removeExcelProgress(String key, String fileName) {
+		// 这里放 excel文件的进度信息
+		Map<String, Map<String, ProgressInfo>> excelProgressMap = PROGRESS_MAP.get(key);
+		excelProgressMap.remove(fileName);
+		PROGRESS_MAP.put(key, excelProgressMap);
+	}
+
 	public static String getProgressKey(HttpServletRequest request) {
 		return "ly";// TODO 后期改为用户名
 	}

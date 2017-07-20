@@ -15,7 +15,7 @@
             var formData = new FormData(form);
 
             $.ajax({
-                url: '/import/import-data.do',
+                url: '/import/import-data.do?impType=2',
                 type: 'POST',
                 data: formData,
                 processData: false,
@@ -51,7 +51,7 @@
                 if (data === null) {
                     return;
                 }
-                if (!data.success) {
+                if (!data.success || data.content === "") {
                     window.clearInterval(int)
                     return;
                 }

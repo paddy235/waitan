@@ -43,37 +43,23 @@ public class ExcelReadUtil {
 		}
 	}
 
-	public static XSSFWorkbook copy(String fileName) throws Exception {
-		File tmp = null;
+	public static Workbook getWorkbook(String fileName) throws Exception {
 		OutputStream out = null;
 		InputStream input = null;
-		Workbook sourceWorkbook = getWorkbook(fileName);
+		Workbook workbook = WORKBOOK_MAP.get(fileName);
+		File excelFile = FileUtil.createTempFile(fileName);
 		try {
-			tmp = File.createTempFile("excel-", ".xlsx.tmp");
-			out = new FileOutputStream(tmp);
-			sourceWorkbook.write(out);
-
-			input = new FileInputStream(tmp);
-			sourceWorkbook = new XSSFWorkbook(input);
-			WORKBOOK_MAP.put(fileName, sourceWorkbook);
-
-			input = new FileInputStream(tmp);
-			return new XSSFWorkbook(input);
+			if (workbook != null) {
+				out = new FileOutputStream(excelFile);
+				workbook.write(out);
+				WORKBOOK_MAP.remove(fileName);
+			}
+			input = new FileInputStream(excelFile);
+			workbook = new XSSFWorkbook(input);
+			return workbook;
 		} finally {
-			if (out != null) {
-				out.close();
-			}
-			if (input != null) {
-				input.close();
-			}
-			if (tmp != null && tmp.exists()) {
-				tmp.delete();
-			}
+			FileUtil.closeResource(input, out);
 		}
-	}
-
-	public static Workbook getWorkbook(String fileName) {
-		return WORKBOOK_MAP.get(fileName);
 	}
 
 	public static void readExcel(Workbook wb, Excel excelEntity) throws Exception {
