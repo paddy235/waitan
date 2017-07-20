@@ -11,6 +11,7 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.domain.EasyExport.*;
+import com.bbd.wtyh.service.CompanyLevelService;
 import com.bbd.wtyh.service.EasyExportExeclService;
 import com.bbd.wtyh.service.RiskCompanyService;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
@@ -25,6 +26,9 @@ public class EasyExportExcelServiceImpl implements EasyExportExeclService {
     @Autowired
     private RiskCompanyService riskCompanyService;  // 线下理财
 
+    @Autowired
+    private CompanyLevelService companyLevelService;    // 小额贷款、融资担保
+
     @Override
     public List<WangdaiData> getWangdai(ExportCondition exportCondition) {
         return null;
@@ -32,7 +36,7 @@ public class EasyExportExcelServiceImpl implements EasyExportExeclService {
 
     @Override
     public List<LoanData> getLoan(ExportCondition exportCondition) {
-        return null;
+        return companyLevelService.getLoan(exportCondition);
     }
 
     @Override
