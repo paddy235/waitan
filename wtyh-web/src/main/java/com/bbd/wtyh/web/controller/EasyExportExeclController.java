@@ -2,11 +2,9 @@ package com.bbd.wtyh.web.controller;
 
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.excel.ExportExcel;
-import com.bbd.wtyh.exception.ExceptionHandler;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.service.EasyExportExeclService;
-import com.bbd.wtyh.sys.controller.DownloadController;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import com.bbd.wtyh.web.ResponseBean;
 import org.slf4j.Logger;
@@ -28,7 +26,6 @@ import java.util.List;
 public class EasyExportExeclController {
     private static final Logger LOGGER = LoggerFactory.getLogger(EasyExportExeclController.class);
 
-
     @Autowired
     private EasyExportExeclService easyExportExeclService;
 
@@ -39,26 +36,62 @@ public class EasyExportExeclController {
         // 7:金融 8:其他 9:交易所 10:商业保理 11.预付卡 12.典当 13融资租赁
 
         if (CompanyInfo.TYPE_P2P_1 == exportCondition.getIndustry()) { // 网络借贷
-//            return companyInfoModifyUtil.getWangdaiInfo(name);
+            return ResponseBean.successResponse(
+                    genExcel(easyExportExeclService.getWangdai(exportCondition),
+                            "网络借贷", request
+                    ));
         } else if (CompanyInfo.TYPE_XD_2 == exportCondition.getIndustry()) { // 小额贷款
-//            return companyInfoModifyUtil.getLoan(name);
+            return ResponseBean.successResponse(
+                    genExcel(easyExportExeclService.getLoan(exportCondition),
+                            "小额贷款", request
+                    ));
         } else if (CompanyInfo.TYPE_RZDB_3 == exportCondition.getIndustry()) { // 融资担保
-//            return companyInfoModifyUtil.getGuarantee(name);
+            return ResponseBean.successResponse(
+                    genExcel(easyExportExeclService.getGuarantee(exportCondition),
+                            "融资担保", request
+                    ));
         } else if (CompanyInfo.TYPE_XXLC_4 == exportCondition.getIndustry()) { // 线下理财
-//            return easyExportExeclService.getOffLineFinance(exportCondition);
+            return ResponseBean.successResponse(
+                    genExcel(easyExportExeclService.getOffLineFinance(exportCondition),
+                            "线下理财", request
+                    ));
         } else if (CompanyInfo.TYPE_JYS_9 == exportCondition.getIndustry()) { // 交易场所
-//            return companyInfoModifyUtil.getTradeMarket(name);
+            return ResponseBean.successResponse(
+                    genExcel(easyExportExeclService.getTradeMarket(exportCondition),
+                            "交易场所", request
+                    ));
         } else if (CompanyInfo.TYPE_YFK_11 == exportCondition.getIndustry()) { // 预付卡
-//            return companyInfoModifyUtil.getPerpaycard(name);
+            return ResponseBean.successResponse(
+                    genExcel(easyExportExeclService.getPerpaycard(exportCondition),
+                            "预付卡", request
+                    ));
         } else if (CompanyInfo.TYPE_RZZL_13 == exportCondition.getIndustry()) { // 融资租赁
-//            return companyInfoModifyUtil.getTenancy(name);
+            return ResponseBean.successResponse(
+                    genExcel(easyExportExeclService.getTenancy(exportCondition),
+                            "融资租赁", request
+                    ));
         } else if (CompanyInfo.TYPE_SMJJ_5 == exportCondition.getIndustry()) { // 私募基金
+            return ResponseBean.successResponse(
+                    genExcel(easyExportExeclService.getPrivateOfferedFund(exportCondition),
+                            "私募基金", request
+                    ));
         } else if (CompanyInfo.TYPE_ZC_6 == exportCondition.getIndustry()) { // 众筹
+            return ResponseBean.successResponse(
+                    genExcel(easyExportExeclService.getCrowdfund(exportCondition),
+                            "众筹", request
+                    ));
         } else if (CompanyInfo.TYPE_DD_12 == exportCondition.getIndustry()) { // 典当
+            return ResponseBean.successResponse(
+                    genExcel(easyExportExeclService.getPawn(exportCondition),
+                            "典当", request
+                    ));
         } else if (CompanyInfo.TYPE_SYBL_10 == exportCondition.getIndustry()) { // 商业保理
+            return ResponseBean.successResponse(
+                    genExcel(easyExportExeclService.getInsurance(exportCondition),
+                            "商业保理", request
+                    ));
         }
-//        return ResponseBean.successResponse(list);
-        return null;
+        return ResponseBean.errorResponse("错误的行业参数");
     }
 
     public <T> String genExcel(List<T> data, String title, HttpServletRequest request) {
