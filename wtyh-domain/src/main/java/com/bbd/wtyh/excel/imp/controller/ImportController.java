@@ -111,58 +111,92 @@ public class ImportController {
 		if (StringUtils.isBlank(templateName)) {
 			return ResponseBean.errorResponse("导入模版XML不能为空");
 		}
-
 		if (!templateName.endsWith(".xml")) {
 			templateName += ".xml";
 		}
-
 		String fileName = file.getOriginalFilename();
 		if (isFileImportOngoing(fileName, request)) {
-			return ResponseBean.errorResponse("文件：" + fileName + "，正在处理中");
+			return ResponseBean.errorResponse("文件：" + fileName + "，正在处理中，请等待完成后重新上传");
 		}
 
-		ExecutorService threadPool = Executors.newFixedThreadPool(1);
-		String finalTemplateName = templateName;
-		threadPool.execute(() -> {
-			try {
-				ImportConfiguration conf = ImportConfiguration.getConfiguration(finalTemplateName, fileName);
-				conf.setFileSize(file.getSize());
-				ImportRecord record = ImpRecordUtil.createNewRecord(conf, impType);
-				conf.setRecordId(record.getId());
-
-				Workbook workbook = ExcelReadUtil.createWorkbook(fileName, file.getInputStream());
-				ExcelReadUtil.readExcel(workbook, conf.getExcelEntity());
-
-				List<Sheet> sheetList = conf.getSheetList();
-				ExecutorService fixedThreadPool = Executors.newFixedThreadPool(sheetList.size(), new ThreadFactory() {
-
-					final LongAdder num = new LongAdder();
-
-					@Override
-					public Thread newThread(Runnable r) {
-						num.increment();
-						Thread t = new Thread(r);
-						t.setName("export-excel-" + fileName + "-" + num);
-						// 设置为守护线程
-						t.setDaemon(true);
-						return t;
-					}
-				});
-
-				for (Sheet sheet : sheetList) {
-
-					fixedThreadPool.execute(() -> {
-						Importer importer = new DefaultImporter(conf, sheet, request);
-						importer.importData();
-					});
-				}
-				fixedThreadPool.shutdown();
-			} catch (Exception e) {
-				LOGGER.error("处理文件【{}】失败，服务器出现异常：", fileName, e);
-			}
-		});
-
+		List<CommonsMultipartFile> untreated = new ArrayList<>();
+		untreated.add(file);
+		syncDealWith(untreated, templateName, impType, request);
 		return ResponseBean.successResponse("上传文件成功，数据处理中");
+	}
+
+	@RequestMapping("/import-data-list")
+	@ResponseBody
+	public Object importDataList(@RequestParam("files") CommonsMultipartFile[] files, @RequestParam String templateName,
+			@RequestParam Integer impType, HttpServletRequest request) {
+		if (StringUtils.isBlank(templateName)) {
+			return ResponseBean.errorResponse("导入模版XML不能为空");
+		}
+		if (!templateName.endsWith(".xml")) {
+			templateName += ".xml";
+		}
+		List<CommonsMultipartFile> untreated = new ArrayList<>();
+		List<String> msgList = new ArrayList<>();
+
+		for (CommonsMultipartFile file : files) {
+			String fileName = file.getOriginalFilename();
+			if (isFileImportOngoing(fileName, request)) {
+				msgList.add("文件：" + fileName + "，正在处理中，请等待完成后重新上传");
+				continue;
+			}
+			untreated.add(file);
+		}
+		syncDealWith(untreated, templateName, impType, request);
+		if (msgList.isEmpty()) {
+			return ResponseBean.successResponse("上传文件成功，数据处理中");
+		} else {
+			return ResponseBean.successResponse(msgList);
+		}
+	}
+
+	private void syncDealWith(List<CommonsMultipartFile> files, String templateName, Integer impType, HttpServletRequest request) {
+		ExecutorService threadPool = Executors.newFixedThreadPool(1);
+		files.forEach((CommonsMultipartFile file) -> {
+			String fileName = file.getOriginalFilename();
+			threadPool.execute(() -> {
+				try {
+					ImportConfiguration conf = ImportConfiguration.getConfiguration(templateName, fileName);
+					conf.setFileSize(file.getSize());
+					ImportRecord record = ImpRecordUtil.createNewRecord(conf, impType);
+					conf.setRecordId(record.getId());
+
+					Workbook workbook = ExcelReadUtil.createWorkbook(fileName, file.getInputStream());
+					ExcelReadUtil.readExcel(workbook, conf.getExcelEntity());
+
+					List<Sheet> sheetList = conf.getSheetList();
+					ExecutorService fixedThreadPool = Executors.newFixedThreadPool(sheetList.size(), new ThreadFactory() {
+
+						final LongAdder num = new LongAdder();
+
+						@Override
+						public Thread newThread(Runnable r) {
+							num.increment();
+							Thread t = new Thread(r);
+							t.setName("export-excel-" + fileName + "-" + num);
+							// 设置为守护线程
+							t.setDaemon(true);
+							return t;
+						}
+					});
+
+					for (Sheet sheet : sheetList) {
+
+						fixedThreadPool.execute(() -> {
+							Importer importer = new DefaultImporter(conf, sheet, request);
+							importer.importData();
+						});
+					}
+					fixedThreadPool.shutdown();
+				} catch (Exception e) {
+					LOGGER.error("处理文件【{}】失败，服务器出现异常：", fileName, e);
+				}
+			});
+		});
 	}
 
 	private boolean isFileImportOngoing(String fileName, HttpServletRequest request) {
