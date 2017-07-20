@@ -5,20 +5,20 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 
 /**
- * 小额贷款
+ * 网络借贷
  * Created by YanWenyuan on 2017/7/19.
  */
-public class LoanData {
+public class WangdaiData {
     // 公司名
     private String name;
-    // 行业
+    // 行业类别
     private Byte industry;
-    // 外部评级
-    private String outLevel;
-    // 内部评级
-    private String innnerLevel;
-    // 现场检查
-    private String liveLevel;
+    // 企业背景
+    private Byte background;
+    // 风险等级
+    private String currentLevel;
+    // 风险值
+    // TODO: 2017/7/19
     // 法人
     private String legalPerson;
     // 注册时间
@@ -45,28 +45,20 @@ public class LoanData {
         this.industry = industry;
     }
 
-    public String getOutLevel() {
-        return outLevel;
+    public Byte getBackground() {
+        return background;
     }
 
-    public void setOutLevel(String outLevel) {
-        this.outLevel = outLevel;
+    public void setBackground(Byte background) {
+        this.background = background;
     }
 
-    public String getInnnerLevel() {
-        return innnerLevel;
+    public String getCurrentLevel() {
+        return currentLevel;
     }
 
-    public void setInnnerLevel(String innnerLevel) {
-        this.innnerLevel = innnerLevel;
-    }
-
-    public String getLiveLevel() {
-        return liveLevel;
-    }
-
-    public void setLiveLevel(String liveLevel) {
-        this.liveLevel = liveLevel;
+    public void setCurrentLevel(String currentLevel) {
+        this.currentLevel = currentLevel;
     }
 
     public String getLegalPerson() {

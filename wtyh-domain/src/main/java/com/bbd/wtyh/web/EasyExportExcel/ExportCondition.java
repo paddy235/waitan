@@ -30,9 +30,10 @@ public class ExportCondition {
     // 网络贷款
     private String originalStatus;
     // 小额贷款、融资担保
-    private String outLevel;   // 外部评级 -
-    private String innnerLevel;    // 内部评级 - 【小额贷款、融资担保】
-    private String liveLevel;  // 现场检查 - 【小额贷款、融资担保】
+    private String outLevel;   // 外部评级
+    private String innnerLevel;    // 内部评级
+    private String liveLevel;  // 现场检查
+
     private String registeredCapitalMin;   // 注册资本
     private String registeredCapitalMax;   // 注册资本
     private Integer registeredCapitalType;  //注册资本类型 1:人民币 2:美元
