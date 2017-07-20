@@ -9,6 +9,7 @@ import com.bbd.wtyh.mapper.TaskSuccessFailInfoMapper;
 import com.bbd.wtyh.mapper.TimingTaskMapper;
 import com.bbd.wtyh.service.TimingTaskService;
 import net.sf.cglib.beans.BeanCopier;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.support.CronSequenceGenerator;
 import org.springframework.scheduling.support.TaskUtils;
@@ -84,14 +85,17 @@ public class TimingTaskServiceImpl  extends BaseServiceImpl implements TimingTas
     }
 
     @Override
-    public List<TaskInfoDTO> getHistoryTaskInfo(String task_name,String task_group,String taskState, String taskDataSource ) {
-        if(taskState==null || "0".equals(taskState)){
+    public List<TaskInfoDTO> getHistoryTaskInfo(String task_name,String task_group,String taskState, String taskDataSource , String taskUpdateDate) {
+        if(StringUtils.isEmpty(taskState) || "0".equals(taskState)){
             taskState=null;
         }
-        if(taskDataSource==null || "0".equals(taskDataSource)){
+        if(StringUtils.isEmpty(taskDataSource)  || "0".equals(taskDataSource)){
             taskDataSource=null;
         }
-        List<TaskInfoDTO> list = timingTaskMapper.getHistoryTaskInfoByNameAndGroup(task_name,task_group,taskState,taskDataSource);
+        if(StringUtils.isEmpty(taskUpdateDate)){
+            taskUpdateDate=null;
+        }
+        List<TaskInfoDTO> list = timingTaskMapper.getHistoryTaskInfoByNameAndGroup(task_name,task_group,taskState,taskDataSource,taskUpdateDate);
 
 
         return list;

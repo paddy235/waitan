@@ -1,5 +1,6 @@
 package com.bbd.wtyh.domain.EasyExport;
 
+import com.bbd.wtyh.excel.annotation.Excel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
@@ -10,6 +11,7 @@ import java.util.Date;
  */
 public class OffLineData {
     // 公司名
+    @Excel(exportName = "序号")
     private String name;
     // 行业类别
     private Byte industry;
@@ -28,6 +30,8 @@ public class OffLineData {
     private String registeredCapital;
     // 注册地址
     private String address = "";
+
+
 
     public String getName() {
         return name;
