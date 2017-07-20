@@ -12,13 +12,18 @@ package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.domain.EasyExport.*;
 import com.bbd.wtyh.service.EasyExportExeclService;
+import com.bbd.wtyh.service.RiskCompanyService;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service("easyExportExeclService")
 public class EasyExportExcelServiceImpl implements EasyExportExeclService {
+
+    @Autowired
+    private RiskCompanyService riskCompanyService;  // 线下理财
 
     @Override
     public List<WangdaiData> getWangdai(ExportCondition exportCondition) {
@@ -37,7 +42,7 @@ public class EasyExportExcelServiceImpl implements EasyExportExeclService {
 
     @Override
     public List<OffLineData> getOffLineFinance(ExportCondition exportCondition) {
-        return null;
+        return riskCompanyService.getOffLineFinance(exportCondition);
     }
 
     @Override

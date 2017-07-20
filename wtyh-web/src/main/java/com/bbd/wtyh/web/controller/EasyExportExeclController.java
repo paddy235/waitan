@@ -29,7 +29,7 @@ public class EasyExportExeclController {
     @Autowired
     private EasyExportExeclService easyExportExeclService;
 
-    @RequestMapping(value = "export")
+    @RequestMapping(value = "/export")
     @ResponseBody
     public ResponseBean export(ExportCondition exportCondition, HttpServletRequest request) {
         // 1:P2P 2:小贷 3:融资担保 4:线下理财 5:私募基金 6:众筹
@@ -101,11 +101,27 @@ public class EasyExportExeclController {
             }
             ExportExcel exportExcel = new ExportExcel(title);
             exportExcel.createSheet(title, data);
+
+            int totalCount = data.size();
+            int pageSize = totalCount > 10000 ? 10000 : totalCount;
+            int pageCount = (totalCount + pageSize - 1) / pageSize;
+
+            int fromIndex;
+            int toIndex;
+            for (int i = 1; i <= pageCount; i++) {
+
+                fromIndex = (i - 1) * pageSize;
+                toIndex = fromIndex + pageSize;
+                toIndex = toIndex < totalCount ? toIndex : totalCount;
+
+                exportExcel.createSheet(title + i, data.subList(fromIndex, toIndex));
+            }
+
             exportExcel.exportExcel();
+
             UserLogRecord.record("导出【" + title + "】行业数据",
                     Operation.Type.DATA_EXPORT, Operation.Page.hologram,
                     Operation.System.front, request);
-
             return exportExcel.getDownloadURL();
         } catch (Exception e) {
             e.printStackTrace();
