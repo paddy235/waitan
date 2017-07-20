@@ -13,5 +13,5 @@ public interface CrowdFundingCompanyMapper {
 
     List<String> queryCompany(String keyword);
 
-	
+    void saveForDataLand(CrowdFundingCompanyDO crowdFundingCompanyDO);
 }

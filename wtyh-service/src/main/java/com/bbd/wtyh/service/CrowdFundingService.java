@@ -26,4 +26,7 @@ public interface CrowdFundingService {
 
 	public List<String> queryCompany(String keyword);
 
+
+	Map crowdFundingDataLandTask(Integer taskId);
+
 }
