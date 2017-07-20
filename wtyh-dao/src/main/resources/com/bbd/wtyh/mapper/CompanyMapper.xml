@@ -108,7 +108,10 @@
         </set>
          where company_id=#{companyId}
     </update>
-
+    <select id="getCompanyById" resultType="com.bbd.wtyh.domain.CompanyDO">
+        select <include refid="Base_Column_List"/>  from company
+        where company_id=#{companyId}
+    </select>
 
     <select id="maxVersion" resultType="int">
         select max(data_version) from  static_risk_data

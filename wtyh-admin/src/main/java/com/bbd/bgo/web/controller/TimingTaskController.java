@@ -88,7 +88,7 @@ public class TimingTaskController {
     @ResponseBody
     public ResponseBean downloadTaskInfo(@RequestParam Integer taskId, @RequestParam String taskKey,
                                       @RequestParam String taskGroup,@RequestParam String taskName,HttpServletRequest request) {
-        UserLogRecord.record("下载【"+taskName+"-"+taskId+"]", Operation.Type.DATA_EXPORT, Operation.Page.timingTask,
+        UserLogRecord.record("下载任务执行结果【"+taskName+"-"+taskId+"]", Operation.Type.DATA_EXPORT, Operation.Page.timingTask,
                 Operation.System.back, request);
         timingTaskManager.reExecuteTask(taskId,taskKey,taskGroup);
         return ResponseBean.successResponse(null);

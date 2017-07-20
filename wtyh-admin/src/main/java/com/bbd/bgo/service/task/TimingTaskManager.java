@@ -259,7 +259,7 @@ public class TimingTaskManager {
 			//公信数据落地
 			try {
 				newTaskId = TaskUtil.taskStart(TaskUtil.shangHaiCreditJob[0], TaskUtil.shangHaiCreditJob[1], null, runMode, null, null);
-                taskSuccessFailInfoMapper.updateReExecuteById(0,oldTaskId);
+                taskSuccessFailInfoMapper.updateReExecuteById(2,oldTaskId);
 				map=coCreditScoreService.executeFailCompanyByTaskId(runMode, oldTaskId, newTaskId);
 			}catch (Exception e){
 				logger.error("reExecuteTask-shangHaiCreditJob"+e);
