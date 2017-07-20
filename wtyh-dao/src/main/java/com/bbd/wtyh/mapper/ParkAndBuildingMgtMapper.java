@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public interface ParkAndBuildingMgtMapper {
 
-    List<ParkAndBuildingVO> queryParkAndBuilding(String parkName);
+    List<ParkAndBuildingVO> queryParkAndBuilding(String parkId);
 
     ParkDO queryParkByName(String parkName);
 
@@ -24,11 +24,11 @@ public interface ParkAndBuildingMgtMapper {
 
     List<ParkAndBuildingVO> queryBuildingFinCompany(String parkName);
 
-    List<ParkAndBuildingVO> queryBuildingCompanyNumber(String parkName);
+    List<ParkAndBuildingVO> queryBuildingCompanyNumber(String parkId);
 
     void addBuilding(BuildingDO building);
 
-    void delCompanyByCompanyName(@Param("companyNameList") List<String> companyNameList);
+    void delCompanyByCompanyId(@Param("companyIdList") List<String> companyIdList);
 
     void delCompanyByBuildingId(List<Integer> buildingIdList);
 
@@ -36,11 +36,13 @@ public interface ParkAndBuildingMgtMapper {
 
     void delParkByName(String parkName);
 
-    List<BuildingDO> queryBuildingByParkId(int parkId);
+    List<Map<String,String>> queryBuildingByParkId(String parkId);
 
     void addPark(ParkDO park);
 
     int queryParkIdByName(String parkName);
+
+    List<ParkDO> queryParkList();
 
     int queryCompanyIdByName(String companyName);
 
@@ -54,6 +56,6 @@ public interface ParkAndBuildingMgtMapper {
 
     BuildingDO queryBuildingByParkAndName(Map<String, Object> params);
 
-    List<CompanyDO> queryCompanyByBuildingId(int buildingId);
+    List<CompanyDO> queryCompanyByBuildingId(String buildingId);
 
 }

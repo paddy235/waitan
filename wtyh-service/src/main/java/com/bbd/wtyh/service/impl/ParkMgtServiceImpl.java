@@ -1,6 +1,8 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.domain.BuildingDO;
+import com.bbd.wtyh.domain.CompanyDO;
+import com.bbd.wtyh.domain.ParkDO;
 import com.bbd.wtyh.domain.vo.ParkAndBuildingVO;
 import com.bbd.wtyh.mapper.ParkAndBuildingMgtMapper;
 import com.bbd.wtyh.service.shiro.ParkMgtService;
@@ -21,35 +23,63 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     private ParkAndBuildingMgtMapper parkAndBuildingMgtMapper;
 
     @Override
-    public List<ParkAndBuildingVO> queryParkAndBuilding(String parkName) {
-        List<ParkAndBuildingVO> list = new ArrayList<>();
-        try {
-            list = parkAndBuildingMgtMapper.queryParkAndBuilding(parkName);
-        }catch (Exception e){
-            e.printStackTrace();
-            return list;
-        }
-
+    public List<ParkDO> queryParkList() {
+        List<ParkDO>  list = parkAndBuildingMgtMapper.queryParkList();
         return list;
     }
 
     @Override
-    public List<ParkAndBuildingVO> queryBuildingCompanyNumber(String parkName) {
+    public List<ParkAndBuildingVO> queryParkAndBuilding(String parkId) {
         List<ParkAndBuildingVO> list = new ArrayList<>();
         try {
-            list = parkAndBuildingMgtMapper.queryBuildingCompanyNumber(parkName);
+            list = parkAndBuildingMgtMapper.queryParkAndBuilding(parkId);
         }catch (Exception e){
             e.printStackTrace();
             return list;
         }
-
         return list;
     }
 
     @Override
-    public void delCompanyByCompanyName(List<String> companyNameList) {
+    public List<ParkAndBuildingVO> queryBuildingCompanyNumber(String parkId) {
+        List<ParkAndBuildingVO> list = new ArrayList<>();
+        try {
+            list = parkAndBuildingMgtMapper.queryBuildingCompanyNumber(parkId);
+        }catch (Exception e){
+            e.printStackTrace();
+            return list;
+        }
+        return list;
+    }
+
+    @Override
+    public List<CompanyDO> queryCompanyByBuildingId(String buildingId) {
+        List<CompanyDO> list = new ArrayList<>();
+        try {
+            list = parkAndBuildingMgtMapper.queryCompanyByBuildingId(buildingId);
+        }catch (Exception e){
+            e.printStackTrace();
+            return list;
+        }
+        return list;
+    }
+
+    @Override
+    public List<Map<String,String>> queryBuildingByParkId(String parkId) {
+        List<Map<String,String>> list = new ArrayList<>();
+        try {
+            list = parkAndBuildingMgtMapper.queryBuildingByParkId(parkId);
+        }catch (Exception e){
+            e.printStackTrace();
+            return list;
+        }
+        return list;
+    }
+
+    @Override
+    public void delCompanyByCompanyId(List<String> companyIdList) {
         try{
-            parkAndBuildingMgtMapper.delCompanyByCompanyName(companyNameList);
+            parkAndBuildingMgtMapper.delCompanyByCompanyId(companyIdList);
         }catch (Exception e){
             e.printStackTrace();
         }
