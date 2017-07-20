@@ -91,32 +91,6 @@ public interface PToPMonitorService {
      * @return
      * @throws Exception
      */
-    Map pToPMonitorDataLanding(Integer taskId) throws Exception;
+    Map pToPMonitorDataLandTask(Integer taskId);
 
-
-    /**
-     * dataType=industry_shanghai 数据落地
-     */
-    void industryShanghaiDataLandingTask() throws Exception;
-
-    /**
-     * dataType=industry_compare 数据落地
-     */
-    void industryCompareDataLandingTask() throws Exception;
-
-    /**
-     * dataType＝plat_rank_data 数据落地
-     */
-    void platRankDataLandingTask() throws Exception;
-
-    /**
-     * dataType＝area_index 数据落地
-     */
-    void areaIndexDataLandingTask() throws Exception;
-
-    /**
-     * dataType=industry_problem 数据落地
-     * @throws Exception
-     */
-    void industryProblemDataLandingTask() throws Exception;
 }

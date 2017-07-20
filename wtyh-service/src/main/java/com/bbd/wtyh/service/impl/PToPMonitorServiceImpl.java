@@ -72,6 +72,9 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
     @Autowired
     private IndustryProblemMapper industryProblemMapper;
 
+    @Autowired
+    private WangdaiTaskInfoMapper wangdaiTaskInfoMapper;
+
     private Logger logger = LoggerFactory.getLogger(PToPMonitorServiceImpl.class);
 
     @Override
@@ -310,6 +313,70 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
         }
     }
 
+
+    @Override
+    public Map pToPMonitorDataLandTask(Integer taskId) {
+        Integer planCount = 5;// 计划执行笔数。 可在任务结束时更新
+        Integer failCount = 0;
+        //type=industry_shanghai 数据落地
+        try {
+            updateIndustryShanghai();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            addWangdaiTaskInfo(taskId,"industry_shanghai");
+            failCount++;//失败条数加一
+            //计入任务表
+        }
+        //type=industry_compare 数据落地
+        try {
+            updateIndustryCompare();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            addWangdaiTaskInfo(taskId,"industry_compare");
+            failCount++;
+        }
+        //type=industry_problem 数据落地
+        try {
+            updateIndustryProblem();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            addWangdaiTaskInfo(taskId,"industry_problem");
+            failCount++;
+        }
+        //type = plat_rand_data 数据落地
+        try {
+            updatePlatRankData();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            addWangdaiTaskInfo(taskId,"plat_rank_data");
+            failCount++;
+        }
+        //type=area_index 数据落地
+        try {
+            updateAreaIndex();
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            addWangdaiTaskInfo(taskId,"area_index");
+            failCount++;
+        }
+        Map map = new HashMap();
+        map.put("planCount", planCount);
+        map.put("failCount", failCount);
+        map.put("successCount", planCount - failCount);
+
+        return map;
+    }
+
+    protected void addWangdaiTaskInfo(Integer taskId,String api){
+        WangdaiTaskInfoDO wangdaiTaskInfoDO = new WangdaiTaskInfoDO();
+        wangdaiTaskInfoDO.setTaskId(taskId);
+        wangdaiTaskInfoDO.setPlatName(api);
+        wangdaiTaskInfoDO.setTaskType(0);
+        wangdaiTaskInfoDO.setCreateBy("sys");
+        wangdaiTaskInfoDO.setCreateDate(new Date());
+        wangdaiTaskInfoMapper.save(wangdaiTaskInfoDO);
+    }
+
     public List<PlatCompanyDTO> searchPlatListByCompanyName(String companyName) { //by cgj
         List platList = new ArrayList<PlatCompanyDTO>();
         if (StringUtils.isBlank(companyName)) {
@@ -330,8 +397,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
     }
 
 
-    @Override
-    public void industryShanghaiDataLandingTask() throws Exception {
+    protected void updateIndustryShanghai() throws Exception {
         logger.info("start update industry_shanghai date task");
         List<IndustryShanghaiDTO> dtoList = getData();
         if (dtoList == null) {
@@ -355,8 +421,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
         logger.info("end update industry_shanghai date task");
     }
 
-    @Override
-    public void industryCompareDataLandingTask() throws Exception {
+    protected void updateIndustryCompare() throws Exception {
         logger.info("start update industry_compare date task");
         List<IndustryCompareDTO> dtoList = getCompareData();
         if (dtoList == null) {
@@ -376,8 +441,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
         logger.info("end update industry_compare date task");
     }
 
-    @Override
-    public void platRankDataLandingTask() throws Exception {
+    protected void updatePlatRankData() throws Exception {
         logger.info("start update plat_rank_data date task");
         List<PlatRankDataDTO> dtoList = getPlatRankData();
         for (PlatRankDataDTO dto : dtoList) {
@@ -399,8 +463,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
         logger.info("end update plat_rank_data date task");
     }
 
-    @Override
-    public void areaIndexDataLandingTask() throws Exception {
+    protected void updateAreaIndex() throws Exception {
         logger.info("start update area_index date task");
         List<AreaIndexDTO> dtoList = getAreaIndex();
         for (AreaIndexDTO dto : dtoList) {
@@ -421,11 +484,10 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
         logger.info("end update area_index date task");
     }
 
-    @Override
-    public void industryProblemDataLandingTask() throws Exception {
+    protected void updateIndustryProblem() throws Exception {
         logger.info("start update industry_problem date task");
         List<IndustryProblemDTO> dtoList = getProblemData();
-        if(dtoList==null){
+        if (dtoList == null) {
             throw new Exception("type=industry_problem api error");
         }
         if (dtoList != null && dtoList.size() > 0) {
@@ -445,36 +507,6 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
     }
 
 
-    @Override
-    public Map pToPMonitorDataLanding(Integer taskId) throws Exception {
-        Integer planCount = 5;// 计划执行笔数。 可在任务结束时更新
-        Integer failCount = 0;
-        //type=industry_shanghai 数据落地
-        try {
-            industryShanghaiDataLandingTask();
-        } catch (Exception e) {
-            logger.error(e.getMessage(), e);
-            failCount++;//失败条数加一
-            //计入任务表
-        }
-        //type=industry_compare 数据落地
-        try {
-            industryCompareDataLandingTask();
-        } catch (Exception e) {
-            logger.error(e.getMessage(), e);
-            failCount++;
-        }
-        //type=industry_problem 数据落地
-        try{
-            industryProblemDataLandingTask();
-        }catch (Exception e){
-            logger.error(e.getMessage(),e);
-            failCount++;
-        }
-
-
-        return null;
-    }
 
 
     public static void main(String[] agrs) throws Exception {

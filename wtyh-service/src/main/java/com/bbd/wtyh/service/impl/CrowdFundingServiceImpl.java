@@ -106,6 +106,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
         Map map = new HashMap();
         map.put("planCount", planCount);
         map.put("failCount", failCount);
+        map.put("successCount",planCount - failCount);
         return map;
     }
 

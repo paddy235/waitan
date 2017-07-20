@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.WangdaiTaskInfoMapper">
+
+    <insert id="save" parameterType="com.bbd.wtyh.domain.WangdaiTaskInfoDO">
+        INSERT INTO `wangdai_task_info` (`task_id`, `plat_name`, `task_type`, `fail_reason`, `create_by`, `create_date`, `update_by`, `update_date`)
+        VALUES (#{taskId}, #{platName}, #{taskType}, #{failReason}, #{createBy}, #{createDate}, #{updateBy}, #{updateDate});
+    </insert>
+
+    <select id="list" resultType="com.bbd.wtyh.domain.WangdaiTaskInfoDO">
+        SELECT * from wangdai_task_info WHERE task_id=#{taskId}
+    </select>
+
+</mapper>
