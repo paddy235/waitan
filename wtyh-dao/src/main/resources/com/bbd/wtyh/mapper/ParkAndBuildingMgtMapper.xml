@@ -127,8 +127,13 @@
         building_id as buildingId, `name` as `name`, park_id as parkId, img_url as imgUrl
     </sql>
 
-    <select id="queryBuildingByParkId" parameterType="int" resultType="com.bbd.wtyh.domain.BuildingDO">
-        SELECT <include refid="building_content" /> FROM building WHERE park_id=#{parkId}
+    <select id="queryBuildingByParkId" parameterType="java.lang.String" resultType="java.util.Map">
+        SELECT <include refid="building_content" /> FROM building
+        <where>
+            <if test="_parameter != null and _parameter != ''">
+                park_id=#{parkId}
+            </if>
+        </where>
     </select>
 
     <select id="queryParkIdByName" parameterType="java.lang.String" resultType="int">
@@ -184,11 +189,12 @@
 
     <select id="queryCompanyByBuildingId" resultType="com.bbd.wtyh.domain.CompanyDO" parameterType="int">
         SELECT
+            company_id as companyId,
             `name` as `name`,
             legal_person as legalPerson,
             registered_type as registeredType,
             business_type as businessType,
-            risklevel as riskLevel
+            risk_level as riskLevel
         FROM
             company
         WHERE

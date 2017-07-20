@@ -2,6 +2,7 @@ package com.bbd.bgo.web.controller;
 
 import com.bbd.wtyh.cachetobean.ShanghaiAreaCode;
 import com.bbd.wtyh.domain.BuildingDO;
+import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.ImgDO;
 import com.bbd.wtyh.domain.ParkDO;
 import com.bbd.wtyh.domain.vo.ParkAndBuildingVO;
@@ -15,6 +16,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
@@ -58,6 +60,18 @@ public class ParkMgtController {
     }
 
     /**
+     * 楼宇列表
+     * @param parkId 园区ID
+     * @return
+     */
+    @RequestMapping("/buildingList")
+    @ResponseBody
+    public ResponseBean buildingList(String parkId){
+        List<Map<String,String>> list = parkMgtService.queryBuildingByParkId(parkId);
+        return  ResponseBean.successResponse(list);
+    }
+
+    /**
      * 园区楼宇列表
      * @param parkId 园区ID
      * @return
@@ -78,6 +92,18 @@ public class ParkMgtController {
     @ResponseBody
     public ResponseBean queryBuildingCompanyNumber(String parkId){
         List<ParkAndBuildingVO> list = parkMgtService.queryBuildingCompanyNumber(parkId);
+        return  ResponseBean.successResponse(list);
+    }
+
+    /**
+     * 查询楼宇企业信息
+     * @param buildingId
+     * @return
+     */
+    @RequestMapping("/queryCompanyByBuildingId")
+    @ResponseBody
+    public ResponseBean queryCompanyByBuildingId(String buildingId){
+        List<CompanyDO> list = parkMgtService.queryCompanyByBuildingId(buildingId);
         return  ResponseBean.successResponse(list);
     }
 
@@ -105,6 +131,7 @@ public class ParkMgtController {
     /**
      * 上传图片
      * @param request
+     * @param file 图片
      * @param picType 1：园区 2：楼宇
      * @param parkId 园区ID
      * @param buildingId 楼宇ID
@@ -113,18 +140,19 @@ public class ParkMgtController {
      */
     @RequestMapping("/upLoadPic")
     public @ResponseBody ResponseBean upLoadPic(HttpServletRequest request,
+                                                @RequestParam("file") CommonsMultipartFile file,
                                                 @RequestParam Integer picType,
                                                 @RequestParam Integer parkId, Integer buildingId,
                                                 @RequestParam String user) {
         try {
-            File f = new File(request.getSession().getServletContext().getRealPath("/") + "/data/img/park/hpq.png");
-            if (f.exists()) {
+//            File f = new File(request.getSession().getServletContext().getRealPath("/") + "/data/img/park/hpq.png");
+            if (file != null) {
                 ImgDO img = new ImgDO();
-                InputStream ins = new FileInputStream(f);
+                InputStream ins = file.getInputStream();
                 img.setPic(IOUtils.toByteArray(ins));
-                img.setPicName(f.getName());
+                img.setPicName(file.getOriginalFilename());
                 img.setPicType(1);
-                img.setPicUrl(PARK_DIR + f.getName());
+                img.setPicUrl(PARK_DIR + file.getOriginalFilename());
                 img.setPicType(picType);
                 if(!StringUtils.isEmpty(picType) && picType == 1){
                     img.setPicParkId(parkId);

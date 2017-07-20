@@ -1,10 +1,12 @@
 package com.bbd.wtyh.service.shiro;
 
 import com.bbd.wtyh.domain.BuildingDO;
+import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.ParkDO;
 import com.bbd.wtyh.domain.vo.ParkAndBuildingVO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/7/13 0013.
@@ -30,6 +32,20 @@ public interface ParkMgtService{
      * @return
      */
     List<ParkAndBuildingVO> queryBuildingCompanyNumber(String parkId);
+
+    /**
+     * 查询楼宇企业信息
+     * @param buildingId 楼宇ID
+     * @return
+     */
+    List<CompanyDO> queryCompanyByBuildingId(String buildingId);
+
+    /**
+     * 根据园区ID查询楼宇
+     * @param parkId
+     * @return
+     */
+    List<Map<String,String>> queryBuildingByParkId(String parkId);
 
     /**
      * 根据企业ID删除企业

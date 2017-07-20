@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.domain.BuildingDO;
+import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.ParkDO;
 import com.bbd.wtyh.domain.vo.ParkAndBuildingVO;
 import com.bbd.wtyh.mapper.ParkAndBuildingMgtMapper;
@@ -36,7 +37,6 @@ public class ParkMgtServiceImpl implements ParkMgtService {
             e.printStackTrace();
             return list;
         }
-
         return list;
     }
 
@@ -49,7 +49,30 @@ public class ParkMgtServiceImpl implements ParkMgtService {
             e.printStackTrace();
             return list;
         }
+        return list;
+    }
 
+    @Override
+    public List<CompanyDO> queryCompanyByBuildingId(String buildingId) {
+        List<CompanyDO> list = new ArrayList<>();
+        try {
+            list = parkAndBuildingMgtMapper.queryCompanyByBuildingId(buildingId);
+        }catch (Exception e){
+            e.printStackTrace();
+            return list;
+        }
+        return list;
+    }
+
+    @Override
+    public List<Map<String,String>> queryBuildingByParkId(String parkId) {
+        List<Map<String,String>> list = new ArrayList<>();
+        try {
+            list = parkAndBuildingMgtMapper.queryBuildingByParkId(parkId);
+        }catch (Exception e){
+            e.printStackTrace();
+            return list;
+        }
         return list;
     }
 
