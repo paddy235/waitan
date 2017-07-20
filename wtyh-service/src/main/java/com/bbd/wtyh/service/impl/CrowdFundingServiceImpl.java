@@ -6,18 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.bbd.wtyh.dao.CrowdFundingDao;
-import com.bbd.wtyh.domain.CrowdFundingCommonDO;
+import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.wangDaiAPI.CrowdFundingStatisticsDTO;
-import com.bbd.wtyh.mapper.CrowdFundingCommonMapper;
+import com.bbd.wtyh.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bbd.wtyh.domain.CrowdFundingCompanyDO;
-import com.bbd.wtyh.domain.CrowdFundingStatisticsDO;
-import com.bbd.wtyh.domain.NvDO;
-import com.bbd.wtyh.mapper.CrowdFundingBusinessStatisticsMapper;
-import com.bbd.wtyh.mapper.CrowdFundingCompanyMapper;
-import com.bbd.wtyh.mapper.CrowdFundingStatisticsMapper;
 import com.bbd.wtyh.service.CrowdFundingService;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -49,6 +43,9 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
 
     @Autowired
     private CrowdFundingCommonMapper crowdFundingCommonMapper;
+
+    @Autowired
+    private WangdaiTaskInfoMapper wangdaiTaskInfoMapper;
 
 
     @Override
@@ -89,17 +86,31 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
         Integer planCount = 5;
         Integer failCount = 0;
         try {
-            crowdFundingCompanyDataLand();
+            updateCrowdFundingCompany();
         } catch (Exception e) {
             e.printStackTrace();
+            WangdaiTaskInfoDO wangdaiTaskInfoDO = new WangdaiTaskInfoDO();
+            wangdaiTaskInfoDO.setTaskId(taskId);
+            wangdaiTaskInfoDO.setPlatName("type=1");
+            wangdaiTaskInfoDO.setTaskType(0);
+            wangdaiTaskInfoDO.setCreateBy("sys");
+            wangdaiTaskInfoDO.setCreateDate(new Date());
+            wangdaiTaskInfoMapper.save(wangdaiTaskInfoDO);
             failCount++;
         }
 
         for (int i = 2; i <= 5; i++) {
             try {
-                crowdFundingCommonDataLand(String.valueOf(i));
+                updateCrowdFundingCommon(String.valueOf(i));
             } catch (Exception e) {
                 e.printStackTrace();
+                WangdaiTaskInfoDO wangdaiTaskInfoDO = new WangdaiTaskInfoDO();
+                wangdaiTaskInfoDO.setTaskId(taskId);
+                wangdaiTaskInfoDO.setPlatName(String.format("type=%s",i));
+                wangdaiTaskInfoDO.setTaskType(0);
+                wangdaiTaskInfoDO.setCreateBy("sys");
+                wangdaiTaskInfoDO.setCreateDate(new Date());
+                wangdaiTaskInfoMapper.save(wangdaiTaskInfoDO);
                 failCount++;
             }
         }
@@ -110,10 +121,10 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
         return map;
     }
 
-    private void crowdFundingCommonDataLand(String type) {
+    private void updateCrowdFundingCommon(String type) {
         CrowdFundingCommonDO crowdFundingCommonDO = new CrowdFundingCommonDO();
         Map map = crowdFundingDao.lastMonthType(type);
-        crowdFundingCommonDO.setReward((String) map.get("奖励众筹"));
+        crowdFundingCommonDO.setReward((String) map.get("奖励众筹"));    //TODO:key为汉字不妥
         crowdFundingCommonDO.setNonPulicEquityFinancing((String) map.get("非公开股权融资"));
         crowdFundingCommonDO.setPublicWelfare((String) map.get("公益众筹"));
         if(map.get("混合众筹")!=null){
@@ -126,7 +137,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
         crowdFundingCommonMapper.save(crowdFundingCommonDO);
     }
 
-    private void crowdFundingCompanyDataLand() throws Exception {
+    private void updateCrowdFundingCompany() throws Exception {
         List<CrowdFundingCompanyDO> dtoList = crowdFundingDao.allCompanys();
         if (dtoList == null) {
             throw new Exception("pull data error");
