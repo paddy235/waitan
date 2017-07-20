@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.domain.BuildingDO;
+import com.bbd.wtyh.domain.ParkDO;
 import com.bbd.wtyh.domain.vo.ParkAndBuildingVO;
 import com.bbd.wtyh.mapper.ParkAndBuildingMgtMapper;
 import com.bbd.wtyh.service.shiro.ParkMgtService;
@@ -21,10 +22,16 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     private ParkAndBuildingMgtMapper parkAndBuildingMgtMapper;
 
     @Override
-    public List<ParkAndBuildingVO> queryParkAndBuilding(String parkName) {
+    public List<ParkDO> queryParkList() {
+        List<ParkDO>  list = parkAndBuildingMgtMapper.queryParkList();
+        return list;
+    }
+
+    @Override
+    public List<ParkAndBuildingVO> queryParkAndBuilding(String parkId) {
         List<ParkAndBuildingVO> list = new ArrayList<>();
         try {
-            list = parkAndBuildingMgtMapper.queryParkAndBuilding(parkName);
+            list = parkAndBuildingMgtMapper.queryParkAndBuilding(parkId);
         }catch (Exception e){
             e.printStackTrace();
             return list;
@@ -34,10 +41,10 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     }
 
     @Override
-    public List<ParkAndBuildingVO> queryBuildingCompanyNumber(String parkName) {
+    public List<ParkAndBuildingVO> queryBuildingCompanyNumber(String parkId) {
         List<ParkAndBuildingVO> list = new ArrayList<>();
         try {
-            list = parkAndBuildingMgtMapper.queryBuildingCompanyNumber(parkName);
+            list = parkAndBuildingMgtMapper.queryBuildingCompanyNumber(parkId);
         }catch (Exception e){
             e.printStackTrace();
             return list;
@@ -47,9 +54,9 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     }
 
     @Override
-    public void delCompanyByCompanyName(List<String> companyNameList) {
+    public void delCompanyByCompanyId(List<String> companyIdList) {
         try{
-            parkAndBuildingMgtMapper.delCompanyByCompanyName(companyNameList);
+            parkAndBuildingMgtMapper.delCompanyByCompanyId(companyIdList);
         }catch (Exception e){
             e.printStackTrace();
         }

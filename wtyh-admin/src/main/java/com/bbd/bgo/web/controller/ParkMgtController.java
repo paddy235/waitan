@@ -3,6 +3,7 @@ package com.bbd.bgo.web.controller;
 import com.bbd.wtyh.cachetobean.ShanghaiAreaCode;
 import com.bbd.wtyh.domain.BuildingDO;
 import com.bbd.wtyh.domain.ImgDO;
+import com.bbd.wtyh.domain.ParkDO;
 import com.bbd.wtyh.domain.vo.ParkAndBuildingVO;
 import com.bbd.wtyh.service.ImgService;
 import com.bbd.wtyh.service.shiro.ParkMgtService;
@@ -17,8 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -48,32 +47,43 @@ public class ParkMgtController {
     }
 
     /**
+     * 园区列表
+     * @return
+     */
+    @RequestMapping("/parkList")
+    @ResponseBody
+    public ResponseBean parkList(){
+        List<ParkDO> list = parkMgtService.queryParkList();
+        return  ResponseBean.successResponse(list);
+    }
+
+    /**
      * 园区楼宇列表
-     * @param parkName 园区名称
+     * @param parkId 园区ID
      * @return
      */
     @RequestMapping("/queryParkAndBuilding")
     @ResponseBody
-    public ResponseBean queryParkAndBuilding(String parkName){
-        List<ParkAndBuildingVO> list = parkMgtService.queryParkAndBuilding(parkName);
+    public ResponseBean queryParkAndBuilding(String parkId){
+        List<ParkAndBuildingVO> list = parkMgtService.queryParkAndBuilding(parkId);
         return  ResponseBean.successResponse(list);
     }
 
     /**
      * 园区楼宇企业数量
-     * @param parkName 园区名称
+     * @param parkId 园区ID
      * @return
      */
     @RequestMapping("/queryBuildingCompanyNumber")
     @ResponseBody
-    public ResponseBean queryBuildingCompanyNumber(String parkName){
-        List<ParkAndBuildingVO> list = parkMgtService.queryBuildingCompanyNumber(parkName);
+    public ResponseBean queryBuildingCompanyNumber(String parkId){
+        List<ParkAndBuildingVO> list = parkMgtService.queryBuildingCompanyNumber(parkId);
         return  ResponseBean.successResponse(list);
     }
 
     /**
      * 删除企业
-     * @param companyList 企业名称列表
+     * @param companyList 企业ID列表
      * @return
      */
     @RequestMapping("/delCompanyByCompanyId")
@@ -88,7 +98,7 @@ public class ParkMgtController {
 //            }
 //        }
 
-        parkMgtService.delCompanyByCompanyName(Arrays.asList(companyList));
+        parkMgtService.delCompanyByCompanyId(Arrays.asList(companyList));
         return  ResponseBean.successResponse("OK");
     }
 
@@ -96,15 +106,15 @@ public class ParkMgtController {
      * 上传图片
      * @param request
      * @param picType 1：园区 2：楼宇
-     * @param parkName 园区名称
-     * @param buildingName 楼宇名称
+     * @param parkId 园区ID
+     * @param buildingId 楼宇ID
      * @param user 用户名
      * @return
      */
     @RequestMapping("/upLoadPic")
     public @ResponseBody ResponseBean upLoadPic(HttpServletRequest request,
                                                 @RequestParam Integer picType,
-                                                @RequestParam String parkName, String buildingName,
+                                                @RequestParam Integer parkId, Integer buildingId,
                                                 @RequestParam String user) {
         try {
             File f = new File(request.getSession().getServletContext().getRealPath("/") + "/data/img/park/hpq.png");
@@ -115,14 +125,11 @@ public class ParkMgtController {
                 img.setPicName(f.getName());
                 img.setPicType(1);
                 img.setPicUrl(PARK_DIR + f.getName());
-                int parkId = parkMgtService.queryParkIdByName(parkName);
                 img.setPicType(picType);
                 if(!StringUtils.isEmpty(picType) && picType == 1){
                     img.setPicParkId(parkId);
                 }else if (!StringUtils.isEmpty(picType) && picType == 2){
                     img.setPicParkId(parkId);
-                    BuildingDO buildingDO = parkMgtService.queryBuildingByParkAndName(parkId,buildingName);//取得楼宇ID
-                    int buildingId = buildingDO.getBuildingId();
                     img.setPicBuildingId(buildingId);
                 }
                 img.setCreateBy(user);
