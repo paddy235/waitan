@@ -16,5 +16,5 @@ public interface CrowdFundingCompanyMapper {
 
     void saveForDataLand(CrowdFundingCompanyDO crowdFundingCompanyDO);
 
-    void deleteByCompanyName(@Param("companyName")String companyName);
+    void deleteByPlatName(@Param("platformName")String platformName);
 }

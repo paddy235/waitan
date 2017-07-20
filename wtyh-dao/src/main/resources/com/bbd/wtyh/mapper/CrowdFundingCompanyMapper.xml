@@ -61,7 +61,7 @@
         VALUES (#{platformName}, #{companyName}, #{websiteUrl},#{fundingBusinessTypeCN},#{successNumber},#{fundedAmout},#{address},#{areaName},#{createBy}, #{createDate}, #{updateBy}, #{updateDate});
     </insert>
 
-    <delete id="deleteByCompanyName" parameterType="java.lang.String">
-        DELETE FROM crowd_funding_company_dataland WHERE `company_name`=#{companyName}
+    <delete id="deleteByPlatName" parameterType="java.lang.String">
+        DELETE FROM crowd_funding_company_dataland WHERE `platform_name`=#{platformName}
     </delete>
 </mapper>

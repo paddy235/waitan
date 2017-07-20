@@ -133,7 +133,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
         for (CrowdFundingCompanyDO dto : dtoList) {
             dto.setCreateBy("sys");
             dto.setCreateDate(new Date());
-            crowdFundingCompanyMapper.deleteByCompanyName(dto.getCompanyName());
+            crowdFundingCompanyMapper.deleteByPlatName(dto.getPlatformName());
             crowdFundingCompanyMapper.saveForDataLand(dto);
         }
     }
