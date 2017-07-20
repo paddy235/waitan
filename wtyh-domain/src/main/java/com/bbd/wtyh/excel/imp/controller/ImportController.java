@@ -148,7 +148,8 @@ public class ImportController {
 		}
 		syncDealWith(untreated, templateName, impType, request);
 		if (msgList.isEmpty()) {
-			return ResponseBean.successResponse("上传文件成功，数据处理中");
+			msgList.add("上传文件成功，数据处理中");
+			return ResponseBean.successResponse(msgList);
 		} else {
 			return ResponseBean.successResponse(msgList);
 		}
