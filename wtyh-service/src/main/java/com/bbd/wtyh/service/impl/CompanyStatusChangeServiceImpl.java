@@ -5,6 +5,7 @@ import com.bbd.wtyh.domain.AreaDO;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.CompanyStatusChangeDO;
 import com.bbd.wtyh.mapper.AreaMapper;
+import com.bbd.wtyh.mapper.CompanyMapper;
 import com.bbd.wtyh.service.CompanyStatusChangeService;
 import com.bbd.wtyh.service.HologramQueryService;
 import org.apache.commons.lang3.StringUtils;
@@ -30,16 +31,19 @@ public class CompanyStatusChangeServiceImpl implements CompanyStatusChangeServic
     private HologramQueryService hologramQueryService;
     @Autowired
     private AreaMapper areaMapper;
+    @Autowired
+    private CompanyMapper companyMapper;
 
     private static final Logger logger = LoggerFactory.getLogger(CompanyStatusChangeServiceImpl.class);
     private static final int REGISTERED_CAPITAL_TYPE_RMB = 1;
     private static final int REGISTERED_CAPITAL_TYPE_DOLLAR = 2;
 
     @Override
-    public CompanyStatusChangeDO companyIsChange(CompanyDO companyDO, Integer oldCompanyType, Integer newCompanyType) {
+    public CompanyStatusChangeDO companyIsChange(boolean isNew,Integer companyId,String companyName,
+                                                 Integer oldCompanyType,Integer newCompanyType) {
         CompanyStatusChangeDO companyStatusChangeDO;
         try{
-            companyStatusChangeDO=companyChange(companyDO,oldCompanyType,newCompanyType);
+            companyStatusChangeDO=companyChange(isNew,companyId,companyName,oldCompanyType,newCompanyType);
         }catch (Exception e){
             logger.error("companyIsChange"+e);
             return null;
@@ -49,19 +53,21 @@ public class CompanyStatusChangeServiceImpl implements CompanyStatusChangeServic
     }
 
     @Override
-    public CompanyStatusChangeDO companyChange(CompanyDO companyDO,Integer oldCompanyType,Integer newCompanyType) {
+    public CompanyStatusChangeDO companyChange(boolean isNew,Integer companyId,String companyName,
+                                               Integer oldCompanyType,Integer newCompanyType) {
 
 
         String now=(new SimpleDateFormat("yyyy-MM-dd").format(new Date())).substring(0,7);
 
 
-        Map<String,Object> coInfo=getCompanyInfo(companyDO.getName());
+        Map<String,Object> coInfo=getCompanyInfo(companyName);
         if(null==coInfo){
             //数据平台查不到这家企业的信息则不记录
             return null;
         }
         CompanyStatusChangeDO companyStatusChangeDO=new CompanyStatusChangeDO();
-        companyStatusChangeDO.setCompanyName(companyDO.getName());//公司名称
+        companyStatusChangeDO.setCompanyId(companyId);
+        companyStatusChangeDO.setCompanyName(companyName);//公司名称
         companyStatusChangeDO.setCompanyType(newCompanyType.intValue());//新金融类型
         companyStatusChangeDO.setAreaId((Integer)coInfo.get("areaId"));//地区ID
         companyStatusChangeDO.setAreaName((String)coInfo.get("areaName"));//地区名称
@@ -91,8 +97,8 @@ public class CompanyStatusChangeServiceImpl implements CompanyStatusChangeServic
                 companyStatusChangeDO.setChangeType(1);//变化类型 1:新增
             }
         }
-        Integer old = companyDO.getCompanyId();
-        if(null==old){
+
+        if(isNew){
             //取注册日期
             String registeredDate=(String)coInfo.get("registeredDate");
             //注册日期等于本月，则为新注册；否则为新发现
@@ -128,7 +134,7 @@ public class CompanyStatusChangeServiceImpl implements CompanyStatusChangeServic
             if(oldType==newType){
                 return null ;
             }
-
+            CompanyDO companyDO=companyMapper.getCompanyById(companyId);
             companyStatusChangeDO.setOldCompanyType(oldCompanyType);
             companyStatusChangeDO.setRegisterDate(companyDO.getRegisteredDate());
             companyStatusChangeDO.setAdjustDate(new Date());//调整日期
@@ -165,6 +171,7 @@ public class CompanyStatusChangeServiceImpl implements CompanyStatusChangeServic
             return null;
         }
         AreaDO areaDO=areaMapper.getAreaByAreaId(areaId);
+        companyDO.put("areaId",areaId);
         companyDO.put("areaName",areaDO==null?null:areaDO.getName());
         String esdate = (String) jbxx.get("esdate");
         if (StringUtils.isNotEmpty(esdate)) {

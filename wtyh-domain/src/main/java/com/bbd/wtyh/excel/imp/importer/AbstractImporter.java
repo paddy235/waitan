@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.bbd.wtyh.excel.imp.handler.ImportHandler;
 import com.bbd.wtyh.excel.imp.utils.FileUtil;
+import com.bbd.wtyh.excel.imp.utils.ImpRecordUtil;
 import com.bbd.wtyh.util.ApplicationContextUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -178,11 +179,11 @@ public class AbstractImporter implements Importer {
 		}
 		this.progress.setEndDate(new Date());
 		this.progress.setFinish(true);
+		try {
+			ImpRecordUtil.sheetEnd(this.conf.getRecordId(), this.progressKey);
+		} catch (Exception e) {
+			logger.error("处理【{}-{}】结束时出现异常！", this.conf.getFileName(), this.sheet.getName(), e);
+		}
 		logger.debug("import data end......");
-	}
-
-	private void generateErrorFile() throws Exception {
-		FileUtil.createTempFile(this.conf.getFileName());
-
 	}
 }
