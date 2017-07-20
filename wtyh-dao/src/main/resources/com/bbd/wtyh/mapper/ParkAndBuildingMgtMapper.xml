@@ -6,7 +6,9 @@
     <select id="queryParkAndBuilding" parameterType="java.lang.String" resultType="com.bbd.wtyh.domain.vo.ParkAndBuildingVO">
         SELECT
           p.`name` as parkName,
+          p.`park_id` as parkId,
           b.`name` as buildingName,
+          b.`building_id` as buildingId,
           DATE_FORMAT(p.create_date,'%Y.%c.%d') as createDate
         FROM
           park p, building b

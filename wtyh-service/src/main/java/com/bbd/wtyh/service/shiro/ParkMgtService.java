@@ -67,4 +67,10 @@ public interface ParkMgtService{
      * @return
      */
     BuildingDO queryBuildingByParkAndName(int parkId, String buildingName);
+
+    /**
+     * 新增园区
+     * @param park
+     */
+    void addPark(ParkDO park);
 }
