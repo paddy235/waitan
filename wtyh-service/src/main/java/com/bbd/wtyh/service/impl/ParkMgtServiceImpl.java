@@ -35,10 +35,10 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     }
 
     @Override
-    public List<ParkAndBuildingVO> queryParkAndBuilding(String parkId) {
+    public List<ParkAndBuildingVO> queryParkAndBuilding(String parkId,String buildingName) {
         List<ParkAndBuildingVO> list = new ArrayList<>();
         try {
-            list = parkAndBuildingMgtMapper.queryParkAndBuilding(parkId);
+            list = parkAndBuildingMgtMapper.queryParkAndBuilding(parkId,buildingName);
         } catch (Exception e) {
             e.printStackTrace();
             return list;

@@ -14,8 +14,11 @@
           park p, building b
         <where>
             p.park_id=b.park_id
-            <if test="_parameter != null and _parameter != ''">
-                and p.park_id=#{parkName}
+            <if test="parkId != null and parkId != ''">
+                and p.park_id=#{parkId}
+            </if>
+            <if test="buildingName != null and buildingName != ''">
+                and b.name=#{buildingName}
             </if>
         </where>
     </select>

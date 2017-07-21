@@ -22,9 +22,10 @@ public interface ParkMgtService{
     /**
      * 园区楼宇列表
      * @param parkId 园区ID
+     * @param buildingName 楼宇名称
      * @return
      */
-    List<ParkAndBuildingVO> queryParkAndBuilding(String parkId);
+    List<ParkAndBuildingVO> queryParkAndBuilding(String parkId,String buildingName);
 
     /**
      * 园区楼宇企业数量
