@@ -27,6 +27,21 @@ public interface CrowdFundingService {
 	public List<String> queryCompany(String keyword);
 
 
+	/**
+	 * 众筹数据落地
+	 * @param taskId
+	 * @return
+	 */
 	Map crowdFundingDataLandTask(Integer taskId);
+
+
+	/**
+	 *重新执行数据落地失败任务
+	 * @param runMode
+	 * @param oldTaskId
+	 * @param taskId
+	 * @return
+	 */
+	Map executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId);
 
 }

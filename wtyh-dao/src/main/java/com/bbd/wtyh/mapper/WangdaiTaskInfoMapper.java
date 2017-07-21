@@ -12,5 +12,5 @@ public interface WangdaiTaskInfoMapper {
 
     void save(WangdaiTaskInfoDO wangdaiTaskInfoDO);
 
-    List<WangdaiTaskInfoDO> list(@Param("taskId")String taskId);
+    List<WangdaiTaskInfoDO> list(@Param("taskId")Integer taskId);
 }

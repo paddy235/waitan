@@ -9,7 +9,16 @@
     </insert>
 
     <select id="list" resultType="com.bbd.wtyh.domain.WangdaiTaskInfoDO">
-        SELECT * from wangdai_task_info WHERE task_id=#{taskId}
+        SELECT
+        task_id as taskId,
+        plat_name as platName,
+        task_type as taskType,
+        fail_reason as failReason,
+        create_by as createBy,
+        create_date as createDate,
+        update_by as updateBy,
+        update_date as updateDate
+         from wangdai_task_info WHERE task_id=#{taskId}
     </select>
 
 </mapper>

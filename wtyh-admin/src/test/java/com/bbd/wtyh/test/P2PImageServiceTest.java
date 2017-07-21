@@ -25,4 +25,12 @@ public class P2PImageServiceTest {
         Map map = p2PImageService.p2pImagineDataLandTask(taskId);
         System.out.print(map);
     }
+
+    @Test
+    public void reExecuteTest(){
+        Integer taskId = 1;
+        Integer oldTaskId = 0;
+        Map map = p2PImageService.executeFailTaskByTaskId(1,oldTaskId,taskId);
+        System.out.print(map);
+    }
 }

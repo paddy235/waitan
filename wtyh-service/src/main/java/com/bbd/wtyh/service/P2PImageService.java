@@ -102,6 +102,15 @@ public interface P2PImageService {
      */
     Map p2pImagineDataLandTask(Integer taskId);
 
+    /**
+     * 重新执行数据落地失败任务
+     * @param runMode
+     * @param oldTaskId
+     * @param taskId
+     * @return
+     */
+    Map executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId);
+
 
     PlatListDO getWangdaiCompanyList(String name);
 }

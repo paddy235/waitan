@@ -323,7 +323,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
             updateIndustryShanghai();
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            addWangdaiTaskInfo(taskId,"industry_shanghai");
+            addWangdaiTaskInfo(taskId, "industry_shanghai");
             failCount++;//失败条数加一
             //计入任务表
         }
@@ -332,7 +332,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
             updateIndustryCompare();
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            addWangdaiTaskInfo(taskId,"industry_compare");
+            addWangdaiTaskInfo(taskId, "industry_compare");
             failCount++;
         }
         //type=industry_problem 数据落地
@@ -340,7 +340,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
             updateIndustryProblem();
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            addWangdaiTaskInfo(taskId,"industry_problem");
+            addWangdaiTaskInfo(taskId, "industry_problem");
             failCount++;
         }
         //type = plat_rand_data 数据落地
@@ -348,7 +348,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
             updatePlatRankData();
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            addWangdaiTaskInfo(taskId,"plat_rank_data");
+            addWangdaiTaskInfo(taskId, "plat_rank_data");
             failCount++;
         }
         //type=area_index 数据落地
@@ -356,7 +356,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
             updateAreaIndex();
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            addWangdaiTaskInfo(taskId,"area_index");
+            addWangdaiTaskInfo(taskId, "area_index");
             failCount++;
         }
         Map map = new HashMap();
@@ -367,7 +367,75 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
         return map;
     }
 
-    protected void addWangdaiTaskInfo(Integer taskId,String api){
+    @Override
+    public Map executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) {
+        List<WangdaiTaskInfoDO> list = wangdaiTaskInfoMapper.list(oldTaskId);
+        Integer planCount = list.size();
+        Integer failCount = 0;
+        for (WangdaiTaskInfoDO wangdaiTaskInfoDO : list) {
+            switch (wangdaiTaskInfoDO.getPlatName()) {
+                case "industry_shanghai":
+                    try {
+                        updateIndustryShanghai();
+                    } catch (Exception e) {
+                        logger.error(e.getMessage(), e);
+                        addWangdaiTaskInfo(taskId, "industry_shanghai");
+                        failCount++;//失败条数加一
+                        //计入任务表
+                    }
+                    break;
+                case "industry_compare":
+                    //type=industry_compare 数据落地
+                    try {
+                        updateIndustryCompare();
+                    } catch (Exception e) {
+                        logger.error(e.getMessage(), e);
+                        addWangdaiTaskInfo(taskId, "industry_compare");
+                        failCount++;
+                    }
+                    break;
+                case "industry_problem":
+                    //type=industry_problem 数据落地
+                    try {
+                        updateIndustryProblem();
+                    } catch (Exception e) {
+                        logger.error(e.getMessage(), e);
+                        addWangdaiTaskInfo(taskId, "industry_problem");
+                        failCount++;
+                    }
+                    break;
+                case "plat_rank_data":
+                    //type = plat_rand_data 数据落地
+                    try {
+                        updatePlatRankData();
+                    } catch (Exception e) {
+                        logger.error(e.getMessage(), e);
+                        addWangdaiTaskInfo(taskId, "plat_rank_data");
+                        failCount++;
+                    }
+                    break;
+                case "area_index":
+                    try {
+                        updateAreaIndex();
+                    } catch (Exception e) {
+                        logger.error(e.getMessage(), e);
+                        addWangdaiTaskInfo(taskId, "area_index");
+                        failCount++;
+                    }
+                    break;
+                default:
+                    continue;
+            }
+        }
+        Map map = new HashMap();
+        map.put("planCount", planCount);
+        map.put("failCount", failCount);
+        map.put("successCount", planCount - failCount);
+
+        return map;
+    }
+
+    protected void addWangdaiTaskInfo(Integer taskId, String api) {
         WangdaiTaskInfoDO wangdaiTaskInfoDO = new WangdaiTaskInfoDO();
         wangdaiTaskInfoDO.setTaskId(taskId);
         wangdaiTaskInfoDO.setPlatName(api);
@@ -505,8 +573,6 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
         }
         logger.info("end update industry_problem date task");
     }
-
-
 
 
     public static void main(String[] agrs) throws Exception {
