@@ -10,14 +10,14 @@
 
     <select id="list" resultType="com.bbd.wtyh.domain.WangdaiTaskInfoDO">
         SELECT
-        task_id as taskId,
-        fail_name as failName,
-        description as description,
-        fail_reason as failReason,
-        create_by as createBy,
-        create_date as createDate,
-        update_by as updateBy,
-        update_date as updateDate
+        `task_id` as taskId,
+        `fail_name` as failName,
+        `description` as description,
+        `fail_reason` as failReason,
+        `create_by` as createBy,
+        `create_date` as createDate,
+        `update_by` as updateBy,
+        `update_date` as updateDate
          from wangdai_task_info WHERE task_id=#{taskId}
     </select>
 
