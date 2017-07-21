@@ -589,7 +589,7 @@
                 <m.wtyh.web2.ip>http://10.28.200.239:8081</m.wtyh.web2.ip>
                 <m.export.excel.path>/home/tester/wtyh</m.export.excel.path>
                 <!--动态风险图存放路径(服务器上的绝对路径，后面不需要加att目录，但是Tomcat的虚拟目录里需要加att目录)  -->
-                <m.share.path>/data/wtyh/yed</m.share.path>
+                <m.share.path>/home/tester/wtyh/yed</m.share.path>
                 <!--产生图片后，传给前台的请求action，对应Tomcat虚拟目录的path，后面不需要加att，但是Tomcat的虚拟目录需要加  -->
                 <m.mapping.path>/wtyh/yed</m.mapping.path>
             </properties>
