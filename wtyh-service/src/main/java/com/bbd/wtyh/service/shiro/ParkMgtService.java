@@ -53,7 +53,7 @@ public interface ParkMgtService{
      * 根据企业ID删除企业
      * @param companyIdList 企业名称列表
      */
-    void delCompanyByCompanyId(List<String> companyIdList);
+    void delCompanyByCompanyId(String buildingId,List<String> companyIdList);
 
     /**
      * 根据园区名称取得园区ID

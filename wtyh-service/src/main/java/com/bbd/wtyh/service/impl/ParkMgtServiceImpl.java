@@ -96,9 +96,9 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     }
 
     @Override
-    public void delCompanyByCompanyId(List<String> companyIdList) {
+    public void delCompanyByCompanyId(String buildingId,List<String> companyIdList) {
         try {
-            parkAndBuildingMgtMapper.delCompanyByCompanyId(companyIdList);
+            parkAndBuildingMgtMapper.delCompanyByCompanyId(buildingId,companyIdList);
         } catch (Exception e) {
             e.printStackTrace();
         }
