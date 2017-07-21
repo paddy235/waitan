@@ -448,6 +448,7 @@
             <if test='executeDate !=null'>
                 AND (create_date > #{executeDate} or update_date > #{executeDate})
             </if>
+        and company_id not in (select company_id from offline_financial_record)
     </select>
 
 </mapper>
