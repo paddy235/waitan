@@ -349,8 +349,7 @@ public class P2PImageServiceImpl implements P2PImageService {
                 logger.error(e.getMessage(), e);
                 WangdaiTaskInfoDO wangdaiTaskInfoDO = new WangdaiTaskInfoDO();
                 wangdaiTaskInfoDO.setTaskId(taskId);
-                wangdaiTaskInfoDO.setPlatName(plat.getPlat_name());
-                wangdaiTaskInfoDO.setTaskType(1);
+                wangdaiTaskInfoDO.setFailName(plat.getPlat_name());
                 wangdaiTaskInfoDO.setCreateBy("sys");
                 wangdaiTaskInfoDO.setCreateDate(new Date());
                 wangdaiTaskInfoMapper.save(wangdaiTaskInfoDO);
@@ -369,7 +368,7 @@ public class P2PImageServiceImpl implements P2PImageService {
     @Override
     public Map executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) {
         List<WangdaiTaskInfoDO> list = wangdaiTaskInfoMapper.list(oldTaskId);
-        List<String> platNameList = list.stream().filter(n -> n != null).map(n -> n.getPlatName()).collect(Collectors.toList());
+        List<String> platNameList = list.stream().filter(n -> n != null).map(n -> n.getFailName()).collect(Collectors.toList());
         logger.info("start executeFailTaskByTaskId ");
         List<PlatListDO> platList = new ArrayList<>();
         try {
@@ -402,8 +401,7 @@ public class P2PImageServiceImpl implements P2PImageService {
                 logger.error(e.getMessage(), e);
                 WangdaiTaskInfoDO wangdaiTaskInfoDO = new WangdaiTaskInfoDO();
                 wangdaiTaskInfoDO.setTaskId(taskId);
-                wangdaiTaskInfoDO.setPlatName(plat.getPlat_name());
-                wangdaiTaskInfoDO.setTaskType(1);
+                wangdaiTaskInfoDO.setFailName(plat.getPlat_name());
                 wangdaiTaskInfoDO.setCreateBy("sys");
                 wangdaiTaskInfoDO.setCreateDate(new Date());
                 wangdaiTaskInfoMapper.save(wangdaiTaskInfoDO);

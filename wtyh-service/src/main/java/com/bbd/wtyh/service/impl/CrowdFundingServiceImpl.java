@@ -91,8 +91,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
             e.printStackTrace();
             WangdaiTaskInfoDO wangdaiTaskInfoDO = new WangdaiTaskInfoDO();
             wangdaiTaskInfoDO.setTaskId(taskId);
-            wangdaiTaskInfoDO.setPlatName("dataType=1");
-            wangdaiTaskInfoDO.setTaskType(0);
+            wangdaiTaskInfoDO.setFailName("dataType=1");
             wangdaiTaskInfoDO.setCreateBy("sys");
             wangdaiTaskInfoDO.setCreateDate(new Date());
             wangdaiTaskInfoMapper.save(wangdaiTaskInfoDO);
@@ -106,8 +105,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
                 e.printStackTrace();
                 WangdaiTaskInfoDO wangdaiTaskInfoDO = new WangdaiTaskInfoDO();
                 wangdaiTaskInfoDO.setTaskId(taskId);
-                wangdaiTaskInfoDO.setPlatName(String.format("dataType=%s", i));
-                wangdaiTaskInfoDO.setTaskType(0);
+                wangdaiTaskInfoDO.setFailName(String.format("dataType=%s", i));
                 wangdaiTaskInfoDO.setCreateBy("sys");
                 wangdaiTaskInfoDO.setCreateDate(new Date());
                 wangdaiTaskInfoMapper.save(wangdaiTaskInfoDO);
@@ -127,15 +125,14 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
         Integer planCount = list.size();
         Integer failCount = 0;
         for (WangdaiTaskInfoDO wangdaiTaskInfo : list) {
-            if (wangdaiTaskInfo.getPlatName().equals("dataType=1")) {
+            if (wangdaiTaskInfo.getFailName().equals("dataType=1")) {
                 try {
                     updateCrowdFundingCompany();
                 } catch (Exception e) {
                     e.printStackTrace();
                     WangdaiTaskInfoDO wangdaiTaskInfoDO = new WangdaiTaskInfoDO();
                     wangdaiTaskInfoDO.setTaskId(taskId);
-                    wangdaiTaskInfoDO.setPlatName("dataType=1");
-                    wangdaiTaskInfoDO.setTaskType(0);
+                    wangdaiTaskInfoDO.setFailName("dataType=1");
                     wangdaiTaskInfoDO.setCreateBy("sys");
                     wangdaiTaskInfoDO.setCreateDate(new Date());
                     wangdaiTaskInfoMapper.save(wangdaiTaskInfoDO);
@@ -143,13 +140,12 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
                 }
             } else {
                 try {
-                    updateCrowdFundingCommon(wangdaiTaskInfo.getPlatName().split("=")[1]);
+                    updateCrowdFundingCommon(wangdaiTaskInfo.getFailName().split("=")[1]);
                 } catch (Exception e) {
                     e.printStackTrace();
                     WangdaiTaskInfoDO wangdaiTaskInfoDO = new WangdaiTaskInfoDO();
                     wangdaiTaskInfoDO.setTaskId(taskId);
-                    wangdaiTaskInfoDO.setPlatName(String.format("dataType=%s", i));
-                    wangdaiTaskInfoDO.setTaskType(0);
+                    wangdaiTaskInfoDO.setFailName(String.format("dataType=%s", i));
                     wangdaiTaskInfoDO.setCreateBy("sys");
                     wangdaiTaskInfoDO.setCreateDate(new Date());
                     wangdaiTaskInfoMapper.save(wangdaiTaskInfoDO);

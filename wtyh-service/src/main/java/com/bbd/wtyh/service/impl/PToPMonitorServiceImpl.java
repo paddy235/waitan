@@ -373,7 +373,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
         Integer planCount = list.size();
         Integer failCount = 0;
         for (WangdaiTaskInfoDO wangdaiTaskInfoDO : list) {
-            switch (wangdaiTaskInfoDO.getPlatName()) {
+            switch (wangdaiTaskInfoDO.getFailName()) {
                 case "industry_shanghai":
                     try {
                         updateIndustryShanghai();
@@ -438,8 +438,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
     protected void addWangdaiTaskInfo(Integer taskId, String api) {
         WangdaiTaskInfoDO wangdaiTaskInfoDO = new WangdaiTaskInfoDO();
         wangdaiTaskInfoDO.setTaskId(taskId);
-        wangdaiTaskInfoDO.setPlatName(api);
-        wangdaiTaskInfoDO.setTaskType(0);
+        wangdaiTaskInfoDO.setFailName(api);
         wangdaiTaskInfoDO.setCreateBy("sys");
         wangdaiTaskInfoDO.setCreateDate(new Date());
         wangdaiTaskInfoMapper.save(wangdaiTaskInfoDO);
