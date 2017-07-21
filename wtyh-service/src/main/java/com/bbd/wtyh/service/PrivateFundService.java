@@ -1,7 +1,9 @@
 package com.bbd.wtyh.service;
 
 import com.bbd.wtyh.domain.*;
+import com.bbd.wtyh.domain.EasyExport.PrivateOfferedFundData;
 import com.bbd.wtyh.domain.dto.PrivateFundCompanyDTO;
+import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 
 import java.util.List;
 
@@ -33,4 +35,5 @@ public interface PrivateFundService {
 
     List<PrivateFundCompanyDTO> privateFundExtraList(Integer orderByField, String descAsc, Integer recordStatus);
 
+    List<PrivateOfferedFundData> getPrivateOfferedFund(ExportCondition exportCondition);
 }

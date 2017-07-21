@@ -10,6 +10,24 @@ public class ParkAndBuildingVO {
     private String createDate;
     private int companyCount;
     private int finCompanyCount;
+    private int parkId;
+    private int buildingId;
+
+    public int getParkId() {
+        return parkId;
+    }
+
+    public void setParkId(int parkId) {
+        this.parkId = parkId;
+    }
+
+    public int getBuildingId() {
+        return buildingId;
+    }
+
+    public void setBuildingId(int buildingId) {
+        this.buildingId = buildingId;
+    }
 
     public int getCompanyCount() {
         return companyCount;

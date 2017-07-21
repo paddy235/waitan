@@ -189,7 +189,8 @@ public class TimingTaskManager {
 	 * @throws Exception
 	 */
 	public void pullYuQing()throws Exception{
-		pImageService.updateWangDaiYuQingTask();
+		Integer taskId = 0;
+		pImageService.p2pImagineDataLandTask(taskId);
 
 	}
 
@@ -210,7 +211,7 @@ public class TimingTaskManager {
 			Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
 			taskId=TaskUtil.taskStart(TaskUtil.pToPMonitorJob[0],TaskUtil.pToPMonitorJob[1],dataVersion,runMode,null,null);
 			//需要传 taskId 给业务接口
-			map = pToPMonitorService.pToPMonitorDataLanding(taskId);
+			map = pToPMonitorService.pToPMonitorDataLandTask(taskId);
 //			pToPMonitorService.industryCompareDataLandingTask();
 //			pToPMonitorService.platRankDataLandingTask();
 

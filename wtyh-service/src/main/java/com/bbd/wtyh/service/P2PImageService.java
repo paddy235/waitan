@@ -97,27 +97,11 @@ public interface P2PImageService {
 
 
     /**
-     * 网络借贷舆情数据 数据落地
+     * 平台画像相关接口数据落地
+     * @return
      */
-    void updateWangDaiYuQingTask() throws Exception;
+    Map p2pImagineDataLandTask(Integer taskId);
 
-    /**
-     * dataType=plat_rank_data 数据落地
-     */
-    void platListDataLandingTask() throws Exception;
-
-
-    /**
-     * dataType=plat_data&plat_name 核心数据落地
-     * @throws Exception
-     */
-    void platCoreDataLandingTask() throws Exception;
-
-    /**
-     * 雷达评分数据落地
-     * @throws Exception
-     */
-    void radarScoreDataLandingTask() throws  Exception;
 
     PlatListDO getWangdaiCompanyList(String name);
 }
