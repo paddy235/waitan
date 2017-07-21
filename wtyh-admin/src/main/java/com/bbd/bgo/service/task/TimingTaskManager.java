@@ -2,16 +2,15 @@ package com.bbd.bgo.service.task;
 
 
 import com.bbd.bgo.quartz.TaskUtil;
+import com.bbd.wtyh.domain.TaskFailInfoDO;
 import com.bbd.wtyh.mapper.TaskSuccessFailInfoMapper;
-import com.bbd.wtyh.service.CoCreditScoreService;
-import com.bbd.wtyh.service.OfflineFinanceService;
-import com.bbd.wtyh.service.P2PImageService;
-import com.bbd.wtyh.service.PToPMonitorService;
+import com.bbd.wtyh.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,13 +30,18 @@ public class TimingTaskManager {
 	@Autowired
 	private SystemDataUpdateService systemDataUpdateService;
 	@Autowired
-	private P2PImageService pImageService;
+	private P2PImageService p2pImageService;
 	@Autowired
-	private PToPMonitorService pToPMonitorService;
+	private PToPMonitorService p2pMonitorService;
 	@Autowired
 	private DataLoadingService dataLoadingService;
     @Autowired
     private TaskSuccessFailInfoMapper taskSuccessFailInfoMapper;
+    @Autowired
+    private CrowdFundingService crowdFundingService;
+	@Autowired
+	private WangdaiTaskInfoService wangdaiTaskInfoService;
+
 
 	private Logger logger = LoggerFactory.getLogger(TimingTaskManager.class);
 
@@ -185,19 +189,7 @@ public class TimingTaskManager {
 	/**
 	 * 数据落地-网贷之家
 	 *
-	 * 更新网络借贷舆情数据
-	 * @throws Exception
-	 */
-	public void pullYuQing()throws Exception{
-		Integer taskId = 0;
-		pImageService.p2pImagineDataLandTask(taskId);
-
-	}
-
-	/**
-	 * 数据落地-网贷之家
-	 *
-	 * 更新网贷之家数据
+	 * 网络借贷检测全量数据
 	 */
 	public void pullP2PMonitorTask() throws Exception {
 		Integer taskId=null;
@@ -211,9 +203,7 @@ public class TimingTaskManager {
 			Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
 			taskId=TaskUtil.taskStart(TaskUtil.pToPMonitorJob[0],TaskUtil.pToPMonitorJob[1],dataVersion,runMode,null,null);
 			//需要传 taskId 给业务接口
-			map = pToPMonitorService.pToPMonitorDataLandTask(taskId);
-//			pToPMonitorService.industryCompareDataLandingTask();
-//			pToPMonitorService.platRankDataLandingTask();
+            map = p2pMonitorService.pToPMonitorDataLandTask(taskId);
 
 		} catch (Exception e) {
 			logger.error("pullP2PMonitorTask"+e);
@@ -221,6 +211,32 @@ public class TimingTaskManager {
             taskEnd(map,taskId,planCount,successCount,failCount,null);
 		}
 	}
+
+    /**
+     * 数据落地-网贷之家
+     *
+     * 网络借贷平台画像
+     */
+    public void pullP2PImageTask() throws Exception {
+        Integer taskId=null;
+        Integer planCount = null;// 计划执行笔数。 可在任务结束时更新
+        Integer successCount=null;
+        Integer failCount=null;
+        Map map = null;
+        try {
+
+            String dataVersion= null;//有版本号的传版本号，没有的不传，根据自己的业务规则定
+            Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
+            taskId=TaskUtil.taskStart(TaskUtil.p2pImageJob[0],TaskUtil.p2pImageJob[1],dataVersion,runMode,null,null);
+            //需要传 taskId 给业务接口
+            map = p2pImageService.p2pImageDataLandTask(taskId);
+
+        } catch (Exception e) {
+            logger.error("pullP2PMonitorTask"+e);
+        }finally {
+            taskEnd(map,taskId,planCount,successCount,failCount,null);
+        }
+    }
 
 	/**
 	 * 数据落地-网贷之家
@@ -239,6 +255,7 @@ public class TimingTaskManager {
 			Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
 			taskId=TaskUtil.taskStart(TaskUtil.crowdFundingJob[0],TaskUtil.crowdFundingJob[1],null,runMode,null,null);
 			//需要传 taskId 给业务接口
+            map=crowdFundingService.crowdFundingDataLandTask(taskId);
 		} catch (Exception e) {
 			logger.error("updateCrowdFundingData"+e);
 		}finally {
@@ -275,10 +292,41 @@ public class TimingTaskManager {
 			//BBD数据落地-权限舆情
 
 		}else if(TaskUtil.pToPMonitorJob[0].equals(taskKey)){
-			//网贷之家数据落地-网络借贷
+			//网贷之家数据落地-网络借贷-监测
+
+			try {
+				newTaskId = TaskUtil.taskStart(TaskUtil.pToPMonitorJob[0], TaskUtil.pToPMonitorJob[1], null, runMode, null, null);
+				taskSuccessFailInfoMapper.updateReExecuteById(2,oldTaskId);
+				map=p2pMonitorService.executeFailTaskByTaskId(runMode, oldTaskId, newTaskId);
+			}catch (Exception e){
+				logger.error("reExecuteTask-pToPMonitorJob"+e);
+			}finally {
+				taskEnd(map,newTaskId,planCount,successCount,failCount,null);
+			}
+
+		}else if(TaskUtil.p2pImageJob[0].equals(taskKey)){
+			//网贷之家数据落地-网络借贷-平台画像
+			try {
+				newTaskId = TaskUtil.taskStart(TaskUtil.p2pImageJob[0], TaskUtil.p2pImageJob[1], null, runMode, null, null);
+				taskSuccessFailInfoMapper.updateReExecuteById(2,oldTaskId);
+				map=p2pImageService.executeFailTaskByTaskId(runMode, oldTaskId, newTaskId);
+			}catch (Exception e){
+				logger.error("reExecuteTask-p2pImageJob"+e);
+			}finally {
+				taskEnd(map,newTaskId,planCount,successCount,failCount,null);
+			}
 
 		}else if(TaskUtil.crowdFundingJob[0].equals(taskKey)){
 			//网贷之家数据落地-众筹
+			try {
+				newTaskId = TaskUtil.taskStart(TaskUtil.crowdFundingJob[0], TaskUtil.crowdFundingJob[1], null, runMode, null, null);
+				taskSuccessFailInfoMapper.updateReExecuteById(2,oldTaskId);
+				map=crowdFundingService.executeFailTaskByTaskId(runMode, oldTaskId, newTaskId);
+			}catch (Exception e){
+				logger.error("reExecuteTask-crowdFundingJob"+e);
+			}finally {
+				taskEnd(map,newTaskId,planCount,successCount,failCount,null);
+			}
 
 		}else if(TaskUtil.riskLevelJob[0].equals(taskKey)){
 			//系统数据更新-风险等级
@@ -297,5 +345,39 @@ public class TimingTaskManager {
         }
         TaskUtil.taskEnd(taskId,planCount,successCount,failCount,null);
     }
+
+
+	public List<TaskFailInfoDO> downloadTaskInfo(Integer taskId, String taskKey, String taskGroup){
+		List<TaskFailInfoDO> list=null;
+		if(TaskUtil.shangHaiCreditJob[0].equals(taskKey)){
+			//公信数据落地
+
+		}else if(TaskUtil.offlineFinanceJob[0].equals(taskKey)){
+			//BBD数据落地-线下理财
+
+		}else if(TaskUtil.holographicAndOpinionJob[0].equals(taskKey)){
+			//BBD数据落地-权限舆情
+
+		}else if(TaskUtil.pToPMonitorJob[0].equals(taskKey)){
+			//网贷之家数据落地-网络借贷-监测
+
+		}else if(TaskUtil.p2pImageJob[0].equals(taskKey)){
+			//网贷之家数据落地-网络借贷-平台画像
+
+		}else if(TaskUtil.crowdFundingJob[0].equals(taskKey)){
+			//网贷之家数据落地-众筹
+			//List<TaskFailInfoDO> list=wangdaiTaskInfoService.listByTaskId(taskId);
+		}else if(TaskUtil.riskLevelJob[0].equals(taskKey)){
+			//系统数据更新-风险等级
+
+		}else if(TaskUtil.companyBaseInfo[0].equals(taskKey)){
+			//系统数据更新-企业基本信息
+
+		}
+
+		return list;
+	}
+
+
 
 }

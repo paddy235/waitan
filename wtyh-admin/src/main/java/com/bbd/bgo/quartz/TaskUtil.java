@@ -20,7 +20,8 @@ public class TaskUtil {
 	public static String[] offlineFinanceJob= {"offlineFinanceJob","bbd_work"};
 	public static String[] holographicAndOpinionJob= {"holographicAndOpinionJob","bbd_work"};
 	//网贷之家数据落地任务
-	public static String[] pToPMonitorJob= {"p2pMonitorJob","wd_work"};//网络借贷
+	public static String[] pToPMonitorJob= {"p2pMonitorJob","wd_work"};//网络借贷-检测
+	public static String[] p2pImageJob= {"p2pImageJob","wd_work"};//网络借贷-平台画像
 	public static String[] crowdFundingJob= {"crowdFundingJob","wd_work"};//众筹
 	//系统数据更新任务
 	public static String[] riskLevelJob= {"riskLevelJob","job_work"};//风险等级

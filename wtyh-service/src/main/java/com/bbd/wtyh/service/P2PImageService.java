@@ -100,7 +100,7 @@ public interface P2PImageService {
      * 平台画像相关接口数据落地
      * @return
      */
-    Map p2pImagineDataLandTask(Integer taskId);
+    Map p2pImageDataLandTask(Integer taskId);
 
     /**
      * 重新执行数据落地失败任务

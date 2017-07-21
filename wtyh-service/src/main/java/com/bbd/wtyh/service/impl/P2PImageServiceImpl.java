@@ -317,8 +317,8 @@ public class P2PImageServiceImpl implements P2PImageService {
     }
 
     @Override
-    public Map p2pImagineDataLandTask(Integer taskId) {
-        logger.info("start p2pImagineDataLandTask ");
+    public Map p2pImageDataLandTask(Integer taskId) {
+        logger.info("start p2pImageDataLandTask ");
         List<PlatListDO> platList = new ArrayList<>();
         try {
             platList = p2PImageDao.baseInfoWangDaiApi();

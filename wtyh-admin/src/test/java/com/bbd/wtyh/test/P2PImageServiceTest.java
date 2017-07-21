@@ -22,7 +22,7 @@ public class P2PImageServiceTest {
     @Test
     public void dataLandTest(){
         Integer taskId = 0;
-        Map map = p2PImageService.p2pImagineDataLandTask(taskId);
+        Map map = p2PImageService.p2pImageDataLandTask(taskId);
         System.out.print(map);
     }
 
