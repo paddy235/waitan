@@ -55,6 +55,7 @@ public class RelationServiceImpl implements RelationService {
                         rdo.setRelationship(vo.getType());
                         rdo.setTargetCompany(targetCompany);
                         rdo.setInvestors(vo.getTargetName());
+                        rdo.setRelationship(vo.getRelationship());
 
                         relationList.add(rdo);
                     }
