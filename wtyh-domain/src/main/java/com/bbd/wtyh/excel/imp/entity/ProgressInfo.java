@@ -1,6 +1,7 @@
 package com.bbd.wtyh.excel.imp.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.bbd.wtyh.excel.imp.utils.FileUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.text.NumberFormat;
@@ -106,23 +107,7 @@ public class ProgressInfo {
 
 	public String getFileSizeDesc() {
 		double fileSize = this.fileSize;
-		if (fileSize < 1024) {
-			return fileSize + "B";
-		}
-		fileSize /= 1024;
-		if (fileSize < 1024) {
-			return String.format("%.2fKB", fileSize);
-		}
-		fileSize /= 1024;
-		if (fileSize < 1024) {
-			return String.format("%.2fMB", fileSize);
-		}
-		fileSize /= 1024;
-		if (fileSize < 1024) {
-			return String.format("%.2fGB", fileSize);
-		}
-		fileSize /= 1024;
-		return String.format("%.2fTB", fileSize);
+		return FileUtil.fileSizeDesc(fileSize);
 	}
 
 	public long getFileSize() {

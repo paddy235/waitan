@@ -1,6 +1,7 @@
 package com.bbd.wtyh.domain.wangDaiAPI;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class PlatCoreDataDTO {
     private String company_name;
     private Double top10_sum_amount;
     private Double money_stock;
-    @JSONField(name="30_day_net_inflow")
+    @SerializedName("30_day_net_inflow")
     private Double day30_net_inflow;    // 近30日资金流入
     private Double top1_sum_amount;
     private Double amount_total;

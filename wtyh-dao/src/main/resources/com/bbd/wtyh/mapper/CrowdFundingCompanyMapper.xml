@@ -55,4 +55,13 @@
 
         ) un  limit 5
     </select>
+
+    <insert id="saveForDataLand" parameterType="com.bbd.wtyh.domain.CrowdFundingCompanyDO">
+        INSERT INTO `crowd_funding_company_dataland` (`platform_name`, `company_name`, `website_url`,`funding_business_type`, `success_number`,`funded_amout`,`operation_address`,`registration_address`,`create_by`, `create_date`, `update_by`, `update_date`)
+        VALUES (#{platformName}, #{companyName}, #{websiteUrl},#{fundingBusinessTypeCN},#{successNumber},#{fundedAmout},#{address},#{areaName},#{createBy}, #{createDate}, #{updateBy}, #{updateDate});
+    </insert>
+
+    <delete id="deleteByPlatName" parameterType="java.lang.String">
+        DELETE FROM crowd_funding_company_dataland WHERE `platform_name`=#{platformName}
+    </delete>
 </mapper>

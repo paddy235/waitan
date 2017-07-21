@@ -4,6 +4,7 @@ import com.bbd.wtyh.core.dao.GeneralMapper;
 import com.bbd.wtyh.core.entity.Pagination;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
@@ -12,6 +13,7 @@ import java.util.*;
  *
  * @author Created by LiYao on 2017-03-03 22:38.
  */
+@Service
 public class BaseServiceImpl implements BaseService {
 
 	@Autowired

@@ -3,10 +3,12 @@ package com.bbd.wtyh.service.impl;
 import com.bbd.higgs.utils.ListUtil;
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
+import com.bbd.wtyh.domain.EasyExport.OffLineData;
 import com.bbd.wtyh.domain.RiskCompanyInfoDO;
 import com.bbd.wtyh.mapper.RiskCompanyMapper;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.RiskCompanyService;
+import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -89,6 +91,11 @@ public class RiskCompanyServiceImpl implements RiskCompanyService {
     @Override
     public CompanyInfo getOffLineFinanceByCompanyName(String name) {
         return riskCompanyMapper.getOffLineFinanceByName(name);
+    }
+
+    @Override
+    public List<OffLineData> getOffLineFinance(ExportCondition exportCondition) {
+        return riskCompanyMapper.getOffLineFinance(exportCondition);
     }
 
 }

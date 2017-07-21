@@ -3,6 +3,7 @@ package com.bbd.wtyh.mapper;
 import java.util.List;
 
 import com.bbd.wtyh.domain.CrowdFundingCompanyDO;
+import org.apache.ibatis.annotations.Param;
 
 public interface CrowdFundingCompanyMapper {
 	
@@ -13,5 +14,7 @@ public interface CrowdFundingCompanyMapper {
 
     List<String> queryCompany(String keyword);
 
-	
+    void saveForDataLand(CrowdFundingCompanyDO crowdFundingCompanyDO);
+
+    void deleteByPlatName(@Param("platformName")String platformName);
 }
