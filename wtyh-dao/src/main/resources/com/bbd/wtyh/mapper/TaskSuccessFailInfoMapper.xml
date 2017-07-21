@@ -90,9 +90,7 @@
         update
         task_success_fail_info
         set
-        re_execute=#{reRxecute}
-        update_date=#{updateDate},
-        update_by=#{updateBy} where id=#{taskId}
+        re_execute=#{reRxecute} where id=#{taskId}
     </update>
 
     <select id="getTaskRecentInfo" parameterType="java.util.HashMap"
