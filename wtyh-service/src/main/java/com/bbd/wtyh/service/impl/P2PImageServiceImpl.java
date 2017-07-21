@@ -367,7 +367,7 @@ public class P2PImageServiceImpl implements P2PImageService {
 
     @Override
     public Map executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) {
-        List<WangdaiTaskInfoDO> list = wangdaiTaskInfoMapper.list(oldTaskId);
+        List<TaskFailInfoDO> list = wangdaiTaskInfoMapper.list(oldTaskId);
         List<String> platNameList = list.stream().filter(n -> n != null).map(n -> n.getFailName()).collect(Collectors.toList());
         logger.info("start executeFailTaskByTaskId ");
         List<PlatListDO> platList = new ArrayList<>();

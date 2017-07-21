@@ -121,10 +121,10 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
 
     @Override
     public Map executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) {
-        List<WangdaiTaskInfoDO> list = wangdaiTaskInfoMapper.list(oldTaskId);
+        List<TaskFailInfoDO> list = wangdaiTaskInfoMapper.list(oldTaskId);
         Integer planCount = list.size();
         Integer failCount = 0;
-        for (WangdaiTaskInfoDO wangdaiTaskInfo : list) {
+        for (TaskFailInfoDO wangdaiTaskInfo : list) {
             if (wangdaiTaskInfo.getFailName().equals("dataType=1")) {
                 try {
                     updateCrowdFundingCompany();
