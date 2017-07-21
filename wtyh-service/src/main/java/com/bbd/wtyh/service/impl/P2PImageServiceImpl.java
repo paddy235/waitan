@@ -1,10 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.dao.P2PImageDao;
-import com.bbd.wtyh.domain.PlatCoreDataDO;
-import com.bbd.wtyh.domain.PlatformDO;
-import com.bbd.wtyh.domain.PlatformNameInformationDO;
-import com.bbd.wtyh.domain.RadarScoreDO;
+import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
 import com.bbd.wtyh.domain.dto.PlatCompanyDTO;
@@ -14,6 +11,7 @@ import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.P2PImageService;
 import com.bbd.wtyh.service.PToPMonitorService;
+import com.google.gson.JsonSyntaxException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * P2P平台状态信息业务层
@@ -50,6 +49,9 @@ public class P2PImageServiceImpl implements P2PImageService {
 
     @Autowired
     private RadarScoreMapper radarScoreMapper;
+
+    @Autowired
+    private WangdaiTaskInfoMapper wangdaiTaskInfoMapper;
 
 
     private static final String PLAT_FORM_STATUS_CACHE_PRIFIX = "wtyh:P2PImage:platFormStatus";
@@ -315,11 +317,109 @@ public class P2PImageServiceImpl implements P2PImageService {
     }
 
     @Override
-    public void updateWangDaiYuQingTask() throws Exception {
-        logger.info("start get wangdai yuqing data");
-        List<PlatCompanyDTO> platList = pToPMonitorService.getPlatList();
-        for (PlatCompanyDTO platCompanyDTO : platList) {
-            YuQingDTO yuQingDTO = this.platformConsensus(platCompanyDTO.getPlat_name());
+    public Map p2pImageDataLandTask(Integer taskId) {
+        logger.info("start p2pImageDataLandTask ");
+        List<PlatListDO> platList = new ArrayList<>();
+        try {
+            platList = p2PImageDao.baseInfoWangDaiApi();
+            if (platList == null) {
+                throw new Exception("dataType=plat_list 调用异常");
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        Integer platCount = platList.size();
+        Integer failCount = 0;
+        for (PlatListDO plat : platList) {
+            logger.info(String.format("start update %s data", plat.getPlat_name()));
+            try {
+                //保存platList 基本信息
+                updatePlatList(plat);
+
+                //保存平台核心数据
+                updatePlatCoreData(plat);
+
+                //保存舆情数据
+                updateWangDaiYuQing(plat.getPlat_name());
+
+                //保存雷达数据
+                updateRadarScore(plat);
+
+            } catch (Exception e) {
+                logger.error(e.getMessage(), e);
+                WangdaiTaskInfoDO wangdaiTaskInfoDO = new WangdaiTaskInfoDO();
+                wangdaiTaskInfoDO.setTaskId(taskId);
+                wangdaiTaskInfoDO.setFailName(plat.getPlat_name());
+                wangdaiTaskInfoDO.setCreateBy("sys");
+                wangdaiTaskInfoDO.setCreateDate(new Date());
+                wangdaiTaskInfoMapper.save(wangdaiTaskInfoDO);
+                failCount++;
+            }
+            logger.info(String.format("end update %s data", plat.getPlat_name()));
+        }
+
+        Map map = new HashMap();
+        map.put("planCount", platCount);
+        map.put("failCount", failCount);
+        map.put("successCount", platCount - failCount);
+        return map;
+    }
+
+    @Override
+    public Map executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) {
+        List<WangdaiTaskInfoDO> list = wangdaiTaskInfoMapper.list(oldTaskId);
+        List<String> platNameList = list.stream().filter(n -> n != null).map(n -> n.getFailName()).collect(Collectors.toList());
+        logger.info("start executeFailTaskByTaskId ");
+        List<PlatListDO> platList = new ArrayList<>();
+        try {
+            platList = p2PImageDao.baseInfoWangDaiApi();
+            platList = platList.stream().filter(n -> platNameList.contains(n.getPlat_name())).collect(Collectors.toList());
+            if (platList == null) {
+                throw new Exception("dataType=plat_list 调用异常");
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        Integer platCount = platList.size();
+        Integer failCount = 0;
+        for (PlatListDO plat : platList) {
+            logger.info(String.format("start update %s data", plat.getPlat_name()));
+            try {
+                //保存platList 基本信息
+                updatePlatList(plat);
+
+                //保存平台核心数据
+                updatePlatCoreData(plat);
+
+                //保存舆情数据
+                updateWangDaiYuQing(plat.getPlat_name());
+
+                //保存雷达数据
+                updateRadarScore(plat);
+
+            } catch (Exception e) {
+                logger.error(e.getMessage(), e);
+                WangdaiTaskInfoDO wangdaiTaskInfoDO = new WangdaiTaskInfoDO();
+                wangdaiTaskInfoDO.setTaskId(taskId);
+                wangdaiTaskInfoDO.setFailName(plat.getPlat_name());
+                wangdaiTaskInfoDO.setCreateBy("sys");
+                wangdaiTaskInfoDO.setCreateDate(new Date());
+                wangdaiTaskInfoMapper.save(wangdaiTaskInfoDO);
+                failCount++;
+            }
+            logger.info(String.format("end update %s data", plat.getPlat_name()));
+        }
+
+        Map map = new HashMap();
+        map.put("planCount", platCount);
+        map.put("failCount", failCount);
+        map.put("successCount", platCount - failCount);
+        return map;
+    }
+
+    protected void updateWangDaiYuQing(String platName) {
+        try {
+            YuQingDTO yuQingDTO = this.platformConsensus(platName);
             if (yuQingDTO != null) {
                 yuQingWarningMapper.delByPlatName(yuQingDTO.getPlat_name());
                 for (YuQingDTO.Warning warning : yuQingDTO.getWarning()) {
@@ -335,75 +435,58 @@ public class P2PImageServiceImpl implements P2PImageService {
                     yuQingWarningMapper.save(warningDO);
                 }
             }
+        } catch (JsonSyntaxException e) {
+            logger.error(String.format("dataType＝yuqing&plat_name=%s  return bad value", platName));
         }
-        logger.info("end get wangdai yuqing data");
     }
 
-    @Override
-    public void platListDataLandingTask() throws Exception {
-        logger.info("start update plat_list data");
-        List<PlatListDO> dtoList = p2PImageDao.baseInfoWangDaiApi();
-        if (dtoList == null) {
-            throw new Exception("web api error");
-        }
-        for (PlatListDO dto : dtoList) {
-            PlatformDO platListDO = new PlatformDO();
-            platListDO.setPlatName(dto.getPlat_name());
-            platListDO.setCompanyName(dto.getCompany_name());
-            platListDO.setLogoUrl(dto.getLogo_url());
-            platListDO.setAreaId(dto.getArea_id());
-            platListDO.setCreateBy("sys");
-            platListDO.setCreateDate(new Date());
 
-            platformMapper.deleteByPlatName(dto.getPlat_name());
-            platformMapper.save(platListDO);
-        }
-        logger.info("end update plat_list data");
+    protected void updatePlatList(PlatListDO dto) {
+        PlatformDO platListDO = new PlatformDO();
+        platListDO.setPlatName(dto.getPlat_name());
+        platListDO.setCompanyName(dto.getCompany_name());
+        platListDO.setLogoUrl(dto.getLogo_url());
+        platListDO.setAreaId(dto.getArea_id());
+        platListDO.setCreateBy("sys");
+        platListDO.setCreateDate(new Date());
+
+        platformMapper.deleteByPlatName(dto.getPlat_name());
+        platformMapper.save(platListDO);
     }
 
-    @Override
-    public void platCoreDataLandingTask() throws Exception {
-        logger.info("start update plat_core_data data");
-        List<PlatListDO> dtoList = p2PImageDao.baseInfoWangDaiApi();
-        if (dtoList == null) {
-            throw new Exception("web api error");
-        }
-        for (PlatListDO platListDO : dtoList) {
-            try {
-                PlatCoreDataDTO platDataDO = p2PImageDao.getPlatCoreData(platListDO.getPlat_name());
-                if (platDataDO != null) {
-                    PlatCoreDataDO platCoreDataDO = new PlatCoreDataDO();
-                    platCoreDataDO.setPlatName(platDataDO.getPlat_name());
-                    platCoreDataDO.setOtherSumAmount(platDataDO.getOther_sum_amount());
-                    platCoreDataDO.setInterestRate(platDataDO.getInterest_rate());
-                    platCoreDataDO.setBidNumStayStil(platDataDO.getBid_num_stay_stil());
-                    platCoreDataDO.setBorNumStayStil(platDataDO.getBor_num_stay_stil());
-                    platCoreDataDO.setPlatDataSixMonth(platDataDO.getPlat_data_six_month().toString().replace("=", ":"));
-                    platCoreDataDO.setCompanyName(platDataDO.getCompany_name());
-                    platCoreDataDO.setTop10SumAmount(platDataDO.getTop10_sum_amount());
-                    platCoreDataDO.setMoneyStock(platDataDO.getMoney_stock());
-                    platCoreDataDO.setDay30NetInflow(platDataDO.getDay30_net_inflow());
-                    platCoreDataDO.setTop1SumAmount(platDataDO.getTop1_sum_amount());
-                    platCoreDataDO.setAmountTotal(platDataDO.getAmount_total());
-                    platCoreDataDO.setCreateBy("sys");
-                    platCoreDataDO.setCreateDate(new Date());
 
-                    platCoreDataMapper.deleteByPlatName(platDataDO.getPlat_name());
-                    platCoreDataMapper.save(platCoreDataDO);
-                }
-            }catch (Exception e){
-                logger.error(e.getMessage(),e);
-                continue;
+    protected void updatePlatCoreData(PlatListDO platListDO) throws Exception {
+        try {
+            PlatCoreDataDTO platDataDO = p2PImageDao.getPlatCoreData(platListDO.getPlat_name());
+            if (platDataDO != null) {
+                PlatCoreDataDO platCoreDataDO = new PlatCoreDataDO();
+                platCoreDataDO.setPlatName(platDataDO.getPlat_name());
+                platCoreDataDO.setOtherSumAmount(platDataDO.getOther_sum_amount());
+                platCoreDataDO.setInterestRate(platDataDO.getInterest_rate());
+                platCoreDataDO.setBidNumStayStil(platDataDO.getBid_num_stay_stil());
+                platCoreDataDO.setBorNumStayStil(platDataDO.getBor_num_stay_stil());
+                platCoreDataDO.setPlatDataSixMonth(platDataDO.getPlat_data_six_month().toString().replace("=", ":"));
+                platCoreDataDO.setCompanyName(platDataDO.getCompany_name());
+                platCoreDataDO.setTop10SumAmount(platDataDO.getTop10_sum_amount());
+                platCoreDataDO.setMoneyStock(platDataDO.getMoney_stock());
+                platCoreDataDO.setDay30NetInflow(platDataDO.getDay30_net_inflow());
+                platCoreDataDO.setTop1SumAmount(platDataDO.getTop1_sum_amount());
+                platCoreDataDO.setAmountTotal(platDataDO.getAmount_total());
+                platCoreDataDO.setCreateBy("sys");
+                platCoreDataDO.setCreateDate(new Date());
+
+                platCoreDataMapper.deleteByPlatName(platDataDO.getPlat_name());
+                platCoreDataMapper.save(platCoreDataDO);
             }
+        } catch (JsonSyntaxException e) {
+            logger.error(String.format("dataType＝plat_data&plat_name=%s  return bad value", platListDO.getPlat_name()));
         }
-        logger.info("end update plat_core_data data");
+
     }
 
-    @Override
-    public void radarScoreDataLandingTask() throws Exception {
-        logger.info("start update radar_score data");
-        List<PlatListDO> platList = p2PImageDao.baseInfoWangDaiApi();
-        for (PlatListDO plat : platList) {
+
+    protected void updateRadarScore(PlatListDO plat) {
+        try {
             RadarScoreDTO object = p2PImageDao.getRadarScore(plat.getPlat_name());
             RadarScoreDO radarScoreDO = new RadarScoreDO();
             if (object != null && object.getPlat_name() != null) {
@@ -420,8 +503,9 @@ public class P2PImageServiceImpl implements P2PImageService {
                 radarScoreMapper.deleteByPlatName(object.getPlat_name());
                 radarScoreMapper.save(radarScoreDO);
             }
+        } catch (JsonSyntaxException e) {
+            logger.error(String.format("dataType＝leida&plat_name=%s return bad value", plat.getPlat_name()));
         }
-        logger.info("end update radar_score data");
     }
 
     public Map<String, PlatListDO> getWangdaiCompanyList() {

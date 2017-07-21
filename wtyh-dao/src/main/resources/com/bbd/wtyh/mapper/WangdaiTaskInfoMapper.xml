@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbd.wtyh.mapper.WangdaiTaskInfoMapper">
+
+    <insert id="save" parameterType="com.bbd.wtyh.domain.WangdaiTaskInfoDO">
+        INSERT INTO `wangdai_task_info` (`task_id`, `fail_name`, `description`, `fail_reason`, `create_by`, `create_date`, `update_by`, `update_date`)
+        VALUES (#{taskId}, #{failName}, #{description}, #{failReason}, #{createBy}, #{createDate}, #{updateBy}, #{updateDate});
+    </insert>
+
+    <select id="list" resultType="com.bbd.wtyh.domain.WangdaiTaskInfoDO">
+        SELECT
+        task_id as taskId,
+        fail_name as failName,
+        description as description,
+        fail_reason as failReason,
+        create_by as createBy,
+        create_date as createDate,
+        update_by as updateBy,
+        update_date as updateDate
+         from wangdai_task_info WHERE task_id=#{taskId}
+    </select>
+
+</mapper>

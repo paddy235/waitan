@@ -58,7 +58,7 @@ public class OfflineFinanceDaoImpl implements OfflineFinanceDao {
         try {
             LOGGER.info("request_url" + relationRealUrl + "?unikey=" + unikey + "&degree=" + degree);
             String response = httpTemplate.get(relationRealUrl + "?unikey=" + unikey + "&degree=" + degree);
-            LOGGER.info("request_result:" + response);
+            LOGGER.debug("request_result:" + response);
             Gson gson = new Gson();
             RelationRealDTO relationNowDTO = gson.fromJson(response, RelationRealDTO.class);
             LOGGER.info("request_result:" + relationNowDTO.getData());

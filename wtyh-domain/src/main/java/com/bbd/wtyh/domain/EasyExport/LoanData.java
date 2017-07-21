@@ -11,14 +11,14 @@ import java.util.Date;
 public class LoanData {
     // 公司名
     private String name;
-    // 行业类别
+    // 行业
     private Byte industry;
-    // 企业背景
-    private Byte background;
-    // 风险等级
-    private String currentLevel;
-    // 风险值
-    // TODO: 2017/7/19
+    // 外部评级
+    private String outLevel;
+    // 内部评级
+    private String innnerLevel;
+    // 现场检查
+    private String liveLevel;
     // 法人
     private String legalPerson;
     // 注册时间
@@ -45,20 +45,28 @@ public class LoanData {
         this.industry = industry;
     }
 
-    public Byte getBackground() {
-        return background;
+    public String getOutLevel() {
+        return outLevel;
     }
 
-    public void setBackground(Byte background) {
-        this.background = background;
+    public void setOutLevel(String outLevel) {
+        this.outLevel = outLevel;
     }
 
-    public String getCurrentLevel() {
-        return currentLevel;
+    public String getInnnerLevel() {
+        return innnerLevel;
     }
 
-    public void setCurrentLevel(String currentLevel) {
-        this.currentLevel = currentLevel;
+    public void setInnnerLevel(String innnerLevel) {
+        this.innnerLevel = innnerLevel;
+    }
+
+    public String getLiveLevel() {
+        return liveLevel;
+    }
+
+    public void setLiveLevel(String liveLevel) {
+        this.liveLevel = liveLevel;
     }
 
     public String getLegalPerson() {

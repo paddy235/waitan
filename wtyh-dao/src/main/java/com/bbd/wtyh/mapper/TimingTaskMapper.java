@@ -16,6 +16,7 @@ import com.bbd.wtyh.domain.TaskSuccessFailInfoDO;
 public interface TimingTaskMapper {
 
 	List<TaskInfoDTO> getHistoryTaskInfoByNameAndGroup(@Param("taskName") String taskName, @Param("taskGroup") String taskGroup,
-													   @Param("taskState") String taskState, @Param("taskDataSource") String taskDataSource);
+													   @Param("taskState") String taskState, @Param("taskDataSource") String taskDataSource,
+													   @Param("taskUpdateDate")  String taskUpdateDate);
 
 }

@@ -1,7 +1,9 @@
 package com.bbd.wtyh.service;
 
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
+import com.bbd.wtyh.domain.EasyExport.OffLineData;
 import com.bbd.wtyh.domain.RiskCompanyInfoDO;
+import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 
 import java.util.List;
 import java.util.Map;
@@ -17,4 +19,6 @@ public interface RiskCompanyService {
     String getLastDataVersion();
 
     CompanyInfo getOffLineFinanceByCompanyName(String name);
+
+    List<OffLineData> getOffLineFinance(ExportCondition exportCondition);
 }

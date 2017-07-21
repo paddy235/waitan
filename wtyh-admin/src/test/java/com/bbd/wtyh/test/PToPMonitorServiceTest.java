@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.Map;
+
 /**
  * Created by lixudong on 2017/7/11.
  */
@@ -19,45 +21,17 @@ public class PToPMonitorServiceTest {
 
     @Test
     public void industryShanghaiDataLanding() {
-        try {
-            monitorService.industryShanghaiDataLandingTask();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Integer taskId = 11;
+        Map map = monitorService.pToPMonitorDataLandTask(taskId);
+        System.out.print(map);
     }
 
     @Test
-    public void industryCompareDataLanding() {
-        try {
-            monitorService.industryCompareDataLandingTask();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    @Test
-    public void platRankDataLanding(){
-        try {
-            monitorService.platRankDataLandingTask();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void reExecuteTest() {
+        Integer taskId = 12;
+        Integer oldTaskId = 11;
+        Map map = monitorService.executeFailTaskByTaskId(0, oldTaskId, taskId);
+        System.out.print(map);
     }
 
-    @Test
-    public void areaIndexDataLanding(){
-        try {
-            monitorService.areaIndexDataLandingTask();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    public void industryProblem(){
-        try {
-            monitorService.industryProblemDataLandingTask();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }

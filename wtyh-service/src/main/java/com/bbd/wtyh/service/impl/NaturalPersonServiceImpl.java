@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.common.Constants;
+import com.bbd.wtyh.domain.MiscParameterDO;
 import com.bbd.wtyh.domain.NaturalPersonDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.CompanySearch2DO;
@@ -20,6 +21,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 
 /**
@@ -29,6 +33,7 @@ import java.util.*;
 public class NaturalPersonServiceImpl implements NaturalPersonService {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Resource
     private NaturalPersonMapper mapper;
 
@@ -41,6 +46,31 @@ public class NaturalPersonServiceImpl implements NaturalPersonService {
     @Autowired
     private RedisDAO redisDAO;
 
+    //判断导出文件是否能被下载（次数是否超限），每返回一次true就会扣除一次下载次数
+    private synchronized boolean allowDownFile() {
+        MiscParameterDO mpd =mapper.queryParameterDoByName();
+        if( null ==mpd || null ==mpd.getValue1() || null ==mpd.getValue2() || null ==mpd.getValue3() ) {
+            return false;
+        }
+        int localDay =LocalDate.now().getDayOfMonth();
+        if( mpd.getValue2() != localDay ) {
+            mapper.updateDownCurrDay(localDay);
+            mapper.updateDownTimeNum(1); //已扣除下载的第一次
+            return true;
+        }
+        if( mpd.getValue1() <mpd.getValue3() ) {
+            mapper.updateDownTimeNum(mpd.getValue1() +1);
+            return true;
+        }
+        return false;
+    }
+
+    public static void main(String []argc) {
+        int aa = LocalDate.now().getDayOfMonth();
+        int aa2 = LocalDate.now().getDayOfYear();
+        int aa1 = LocalDate.now().getYear();
+        int bb =0;
+    }
 
     @Override
     public int batchInsertNaturalPerson(List<NaturalPersonDO> list) {
