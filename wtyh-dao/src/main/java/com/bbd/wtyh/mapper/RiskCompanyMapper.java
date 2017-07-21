@@ -1,7 +1,10 @@
 package com.bbd.wtyh.mapper;
 
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
+import com.bbd.wtyh.domain.EasyExport.OffLineData;
 import com.bbd.wtyh.domain.RiskCompanyInfoDO;
+import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -18,5 +21,7 @@ public interface RiskCompanyMapper {
 
     String getLastDataVersion();
 
-    CompanyInfo getOffLineFinanceByName(String name);
+    CompanyInfo getOffLineFinanceByName(@Param(value = "name") String name);
+
+    List<OffLineData> getOffLineFinance(ExportCondition exportCondition);
 }

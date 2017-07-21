@@ -66,6 +66,9 @@ public class CompanyDO extends BaseDO implements Comparable {
 	// 公司风险等级
 	private Integer riskLevel;
 
+	// 前一期公司风险等级
+	private Integer previousRiskLevel;
+
 	// 平台名称
 	private String platName = "";
 
@@ -298,6 +301,14 @@ public class CompanyDO extends BaseDO implements Comparable {
 
 	public void setRiskLevel(Integer riskLevel) {
 		this.riskLevel = riskLevel;
+	}
+
+	public Integer getPreviousRiskLevel() {
+		return previousRiskLevel;
+	}
+
+	public void setPreviousRiskLevel(Integer previousRiskLevel) {
+		this.previousRiskLevel = previousRiskLevel;
 	}
 
 	public BigDecimal getStaticRisk() {

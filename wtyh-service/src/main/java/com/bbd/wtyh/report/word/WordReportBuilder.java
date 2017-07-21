@@ -338,6 +338,34 @@ public class WordReportBuilder {
         }
     }
 
+    //当平台评分表无数据时，调用此方法删除此表
+    public void delPlatPFxxTable( ) {
+        List<Object> removeColl =new LinkedList<>();
+        String tblAnchor ="fengxian_pingtaipingfenxinxi";
+        int idx = searchAnchorFromParagraphListToIndex(mainParagraphList, 0, tblAnchor );
+        if(idx >=0 || (idx +2) < mainParagraphList.size() ) {
+            idx++; //将序号指向可能的表格对象
+            if( mainParagraphList.get(idx) instanceof JAXBElement
+                    && ((JAXBElement)mainParagraphList.get(idx)).getValue() instanceof Tbl  ) {
+                List<Object> trList =((Tbl) ((JAXBElement)mainParagraphList.get(idx)).getValue()).getContent();
+                if( trList.size() >=2 ) {
+                    removeColl.add(mainParagraphList.get(idx));
+                }
+            }
+            //尝试修改：“——”：无信息。
+            for ( int idxEnd =idx +1 +3, tIdx =idx +1; tIdx <mainParagraphList.size() && tIdx <idxEnd; tIdx ++  ) {
+                if( mainParagraphList.get(tIdx) instanceof P ) {
+                    String str = DocxUtils.docx4jObjectToString(mainParagraphList.get(tIdx));
+                    if ( StringUtils.isNotBlank(str) && str.contains("——") && str.contains("无信息")  ) {
+                        DocxUtils.modifyTextInParagraph( (P) mainParagraphList.get(tIdx), "暂未查询到此企业的网贷平台信息。");
+                        break;
+                    }
+                }
+            }
+        }
+        mainParagraphList.removeAll(removeColl);
+    }
+
     /** 注意：这个仅网络借贷才有
      * 添加平台信息（涉及模板中的平台评分的一行和第二章全部内容），调用一次，加入一个平台的信息，可多次调用加入多个。
      * @param gradeInfo 平台评分信息，这里面的key:"平台名称" 是必传参数
@@ -347,14 +375,14 @@ public class WordReportBuilder {
      * @param loanBalance 平台贷款余额
      * @param publicSentiment 平台舆情
      */
-    public void addPlatInfo( Map<String, String> gradeInfo,
+    public int addPlatInfo( Map<String, String> gradeInfo,
                              Map<String, String> coreData,
                              List<List<String>> transferQuantityTrend,
                              List<List<String>> interestRateTrend,
                              List<List<String>> loanBalance,
                              List<List<String>> publicSentiment ) {
         if( reportType != ReportType.NETWORK_LENDING ) {
-            return;
+            return -1;
         }
         String errHead ="添加平台信息时出现错误：";
         StringBuffer thisErrRecord = new StringBuffer();
@@ -363,12 +391,12 @@ public class WordReportBuilder {
         //设置 平台评分信息
         if( gradeInfo ==null || gradeInfo.isEmpty() ) {
             errRecord.append(errHead).append("参数 gradeInfo 为空；");
-            return;
+            return -2;
         } else {
             platName = gradeInfo.get("平台名称");
             if( StringUtils.isBlank(platName) ) {
                 errRecord.append(errHead).append("参数 gradeInfo.平台名称 为空；");
-                return;
+                return -3;
             }
             String tblAnchor ="fengxian_pingtaipingfenxinxi";
             int idx = searchAnchorFromParagraphListToIndex(mainParagraphList, 0, tblAnchor );
@@ -422,7 +450,7 @@ public class WordReportBuilder {
         if( newBlock.isEmpty() ) {
             thisErrRecord.append("复制一份“平台信息”失败，未找到正确的模板；");
             errRecord.append(errHead).append(thisErrRecord).append(" ");
-            return;
+            return -4;
         }
 
         //设置 平台名称
@@ -484,6 +512,7 @@ public class WordReportBuilder {
         if(thisErrRecord.length() >0) {
             errRecord.append(errHead).append(thisErrRecord).append(" ");
         }
+        return 0;
     }
 
     /**
@@ -738,6 +767,7 @@ public class WordReportBuilder {
                 addDataToChartById(rIdList, recruitPeopleDistribute, thisErrRecord);
             }
         } else {
+            removeSignedSegmentFromMainParagraphList("删除招聘人员分布");
             this1ErrRecord.append("源数据Map为空；");
         }
         if( this1ErrRecord.length() >0 ) {
@@ -807,6 +837,7 @@ public class WordReportBuilder {
                 addDataToChartById(rIdList, recruitPeopleSalary, thisErrRecord);
             }
         } else {
+            removeSignedSegmentFromMainParagraphList("删除薪酬分布");
             this1ErrRecord.append("源数据Map为空；");
         }
         if( this1ErrRecord.length() >0 ) {
@@ -931,7 +962,7 @@ public class WordReportBuilder {
         }
         //替换一些零散的标签
         Map<String, String> mp =new HashMap<String, String>() {{
-            put("$$标题（企业名称及属性标签）", companyName +"（" +sBuf.toString() +"…）");
+            put("$$标题（企业名称及属性标签）", companyName +"（" +sBuf.toString() +"）"); //"…）"
             put("$$报告生成日期", LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")));
             put("$$风险等级：", "风险等级：" +companyRiskResult );
         }};
@@ -942,7 +973,8 @@ public class WordReportBuilder {
             removeSignedSegmentFromMainParagraphList("非其它报告");
         } else {
             if( ReportType.OFFLINE_FINANCING == reportType ) { //文档属于线下理财
-                removeSignedSegmentFromMainParagraphList("仅网络借贷");
+                removeSignedSegmentFromMainParagraphList("仅网络借贷H");
+                removeSignedSegmentFromMainParagraphList("仅网络借贷B");
             } else if (ReportType.NETWORK_LENDING == reportType) { //文档属于网络借贷
                 removeSignedSegmentFromMainParagraphList("仅线下理财");
             }

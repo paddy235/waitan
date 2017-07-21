@@ -2,11 +2,13 @@ package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.domain.CompanyLevelDO;
+import com.bbd.wtyh.domain.EasyExport.LoanData;
 import com.bbd.wtyh.domain.dto.CompanyLevelDTO;
 import com.bbd.wtyh.domain.enums.CompanyLevel;
 import com.bbd.wtyh.mapper.CompanyLevelMapper;
 import com.bbd.wtyh.service.CompanyLevelService;
 import com.bbd.wtyh.service.CompanyService;
+import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,5 +53,10 @@ public class CompanyLevelServiceImpl implements CompanyLevelService {
     @Override
     public CompanyInfo getLoanOrGuaranteeByCompanyName(String name) {
         return companyLevelMapper.getLoanOrGuaranteeByCompanyName(name);
+    }
+
+    @Override
+    public List<LoanData> getLoan(ExportCondition exportCondition) {
+        return companyLevelMapper.getLoan(exportCondition);
     }
 }
