@@ -18,7 +18,7 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
     //@Transactional //事务--原子性操作
     @Override
     public void start(HttpServletRequest request) throws Exception {
-
+        Object ob= request.getHeaderNames();
     }
 
     @Override
