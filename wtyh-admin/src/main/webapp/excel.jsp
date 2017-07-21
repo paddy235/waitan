@@ -14,10 +14,20 @@
 
         $('#upload').click(function () {
             var form = document.getElementById("upload-form");
-            var formData = new FormData(form);
+            var formData = new FormData(),
+                $files = $('#file1').prop('files');
+
+            formData.append('impType', 2);
+            formData.append('templateName', $('#templateName').val());
+
+
+            for (var i = 0; i < $files.length; i++) {
+                formData.append('files', $files[i]);
+            }
 
             $.ajax({
-                url: '/import/import-data.do?impType=2',
+                //url: '/import/import-data.do?impType=2',
+                url: '/import/import-data-list.do',
                 type: 'POST',
                 data: formData,
                 processData: false,
@@ -97,7 +107,7 @@
     <form id="upload-form" enctype="multipart/form-data">
         <h1>上传EXCEL</h1>
         模版名称：<input type="text" id="templateName" name="templateName" value="Test">
-        <input type="file" id="file" name="file">
+        <input type="file" multiple="true" id="file1" name="files">
         <input type="button" id="download-template" value="下载导入模版"/>
         <input type="button" id="upload" value="上传数据文件"/>
         <input type="button" id="download-error" value="下载错误文件" disabled="disabled"/>
