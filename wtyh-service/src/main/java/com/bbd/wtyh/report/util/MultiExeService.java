@@ -3,18 +3,18 @@ package com.bbd.wtyh.report.util;
 import java.util.ArrayList;
 import java.util.List;
 
-/** 多任务运行管理
+/** 多任务执行服务
  * Created by cgj on 2017/7/21.
  */
 
-public class JoinExeService {
+public class MultiExeService {
     private boolean multithreading;
 
     /**
      *
      * @param multithreading 是否启用多线程
      */
-    public JoinExeService(boolean multithreading) {
+    public MultiExeService(boolean multithreading) {
         this.multithreading = multithreading;
     }
 
@@ -22,9 +22,9 @@ public class JoinExeService {
     public interface ThreadFun {
         void fun( );
     };
-    public class JoinThread extends Thread {
+    public class ExeThread extends Thread {
         ThreadFun tf;
-        JoinThread( ThreadFun tf ) {
+        ExeThread(ThreadFun tf ) {
             super();
             this.tf =tf;
         }
@@ -36,12 +36,12 @@ public class JoinExeService {
         }
     }
 
-    private List<JoinThread> thrList =new ArrayList();
+    private List<ExeThread> thrList =new ArrayList();
 
-    //创建带兰姆达函数参数的线程对象、提交线程并将线程对象记录到列表中
+    //创建带兰姆达表达式形式的线程对象、提交并将线程对象记录到列表中
     public void runThreadFun(  ThreadFun tf  ) {
         if( multithreading ) {
-            JoinThread jt = new JoinThread(tf);
+            ExeThread jt = new ExeThread(tf);
             jt.start();
             thrList.add(jt);
         } else {
@@ -50,9 +50,9 @@ public class JoinExeService {
     }
 
     //等待所有线程执行结束后退出
-    public  void waitJoin() {
+    public  void waiting() {
         if (multithreading) {
-            for (JoinThread jt : thrList) {
+            for (ExeThread jt : thrList) {
                 try {
                     jt.join();
                 } catch (InterruptedException ie) {
@@ -68,7 +68,7 @@ public class JoinExeService {
                 Thread.sleep(2000);
             } catch (Exception e) {}
         };
-        JoinThread jt =new JoinThread(tf);
+        ExeThread jt =new ExeThread(tf);
         jt.start();
         try {
             Thread.sleep(4000);
@@ -86,7 +86,7 @@ public class JoinExeService {
     }
 
     public static void main(String []argc) {
-        JoinExeService jes =new JoinExeService(true);
+        MultiExeService jes =new MultiExeService(true);
         jes.test();
     }
 }

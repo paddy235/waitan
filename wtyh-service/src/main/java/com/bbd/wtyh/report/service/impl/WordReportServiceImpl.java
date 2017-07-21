@@ -13,7 +13,7 @@ import com.bbd.wtyh.domain.wangDaiAPI.YuQingDTO;
 import com.bbd.wtyh.report.service.WordReportService;
 import com.bbd.wtyh.report.util.DocxUtils;
 import com.bbd.wtyh.report.util.DrawRelatedG2;
-import com.bbd.wtyh.report.util.JoinExeService;
+import com.bbd.wtyh.report.util.MultiExeService;
 import com.bbd.wtyh.report.word.WordReportBuilder;
 import com.bbd.wtyh.service.*;
 import com.bbd.wtyh.web.relationVO.RelationDiagramVO;
@@ -30,7 +30,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedDeque;
-import java.util.concurrent.ConcurrentSkipListSet;
 
 /**
  * Created by cgj on 2017/6/14.
@@ -104,7 +103,7 @@ public class WordReportServiceImpl implements WordReportService {
             final int timeOuts =100; //unit:s
             boolean multithreading =true; //是否对下面所有子任务做并发执行
             ConcurrentLinkedDeque<String> expDeq =new ConcurrentLinkedDeque<>(); //异常记录队列
-            JoinExeService jes =new JoinExeService(multithreading);
+            MultiExeService jes =new MultiExeService(multithreading);
 
             //创建报告导出实例
             URL templateFileURL = WordReportService.class.getResource("/docx/template/shanghai-company-anti-fraud-template.docx");
@@ -112,7 +111,7 @@ public class WordReportServiceImpl implements WordReportService {
                 return convertErrInfo("E3");//Template file is not found !
             }
             final WordReportBuilder[] wrbArr = {null};
-            JoinExeService.ThreadFun newWrb = ()->{
+            MultiExeService.ThreadFun newWrb = ()->{
                 try {
                     synchronized (wrbArr) {
                         wrbArr[0] = new WordReportBuilder(templateFileURL.getFile(), emReportType);
@@ -134,7 +133,7 @@ public class WordReportServiceImpl implements WordReportService {
                 jes.runThreadFun( ()-> {
                     List<String> dataVersionList = relationDataService.queryDateVersion(companyName, null);
                     if (dataVersionList != null) {
-                        JoinExeService riskExe =new JoinExeService(multithreading);
+                        MultiExeService riskExe =new MultiExeService(multithreading);
                         //静态风险
                         if (dataVersionList.size() > 0) {
                             riskExe.runThreadFun( ()-> {
@@ -271,7 +270,7 @@ public class WordReportServiceImpl implements WordReportService {
                         } else {
                             logger.warn("此公司动态风险数据不完备");
                         }
-                        riskExe.waitJoin();
+                        riskExe.waiting();
                     } else {
                         logger.warn("此公司风险数据不完备");
                     }
@@ -290,7 +289,7 @@ public class WordReportServiceImpl implements WordReportService {
                         }
 
                         //对网贷平台数据获取再进一步做并行化处理
-                        JoinExeService nlExe =new JoinExeService(multithreading);
+                        MultiExeService nlExe =new MultiExeService(multithreading);
 
                         //平台评分信息
                         Map<String, String> gradeInfo = new HashMap<String, String>() {{
@@ -415,7 +414,7 @@ public class WordReportServiceImpl implements WordReportService {
                             }
                         } );
 
-                        nlExe.waitJoin(); //等待所有子任务完成
+                        nlExe.waiting(); //等待所有子任务完成
                         //写入到word
                         for ( int iCnt =timeOuts; iCnt >0; iCnt-- ) {
                             if( null !=wrbArr[0] ) {
@@ -573,7 +572,7 @@ public class WordReportServiceImpl implements WordReportService {
             // 企业全息信息
             jes.runThreadFun( ()-> {
                 //进一步分解子任务
-                JoinExeService holExe =new JoinExeService(multithreading);
+                MultiExeService holExe =new MultiExeService(multithreading);
                 final byte[][] newestYED ={null};
                 holExe.runThreadFun( () -> {
                     newestYED[0] = offlineFinanceService.createNewestYEDtoStream(companyName);
@@ -583,7 +582,7 @@ public class WordReportServiceImpl implements WordReportService {
                 DrawRelatedG2 dr = new DrawRelatedG2(DrawRelatedG2.DegreeType.ONE);
                 List<List<DrawRelatedG2.NodeInfo>> nodeLList = dr.relationDiagramVoToNodeListG2(result);
                 final Object [] comList ={null}; //List<CompanyDO> comList =new LinkedList<>();
-                JoinExeService cpyNamesJes =new JoinExeService(multithreading);
+                MultiExeService cpyNamesJes =new MultiExeService(multithreading);
                 cpyNamesJes.runThreadFun( () -> {
                     if (nodeLList != null) {
                         List<DrawRelatedG2.NodeInfo> nodeList = new ArrayList<>(nodeLList.get(1));
@@ -617,7 +616,7 @@ public class WordReportServiceImpl implements WordReportService {
                                 comNames.add(ni.companyName);
                             }
                         }
-                        cpyNamesJes.waitJoin();
+                        cpyNamesJes.waiting();
                         if (comList == null) {
                             continue;
                         }
@@ -638,7 +637,7 @@ public class WordReportServiceImpl implements WordReportService {
                     }
                 }
 
-                holExe.waitJoin();
+                holExe.waiting();
                 for ( int iCnt =timeOuts; iCnt >0; iCnt-- ) {
                     if( null !=wrbArr[0] ) {
                         synchronized (wrbArr) {
@@ -670,7 +669,7 @@ public class WordReportServiceImpl implements WordReportService {
                 Map<String, String> recruitPeopleSalary = new LinkedHashMap<String, String>() {{
                     //put("2k以下", "0.25");
                 }};
-                JoinExeService recruitExe = new JoinExeService(multithreading);
+                MultiExeService recruitExe = new MultiExeService(multithreading);
                 recruitExe.runThreadFun( ()->{
                     RecruitDO recruitDO = hologramQueryDao.getRecruitInfo(companyName, 1, 15);
                     if (recruitDO != null) {
@@ -710,7 +709,7 @@ public class WordReportServiceImpl implements WordReportService {
                         }
                     }
                 }
-                recruitExe.waitJoin();
+                recruitExe.waiting();
                 for ( int iCnt =timeOuts; iCnt >0; iCnt-- ) {
                     if( null !=wrbArr[0] ) {
                         synchronized (wrbArr) {
@@ -727,7 +726,7 @@ public class WordReportServiceImpl implements WordReportService {
             //企业诉讼信息
             jes.runThreadFun( ()-> {
                 //进一步分解子任务
-                JoinExeService lawExe =new JoinExeService(multithreading);
+                MultiExeService lawExe =new MultiExeService(multithreading);
                 List<List<String>> noCreditDebtor = new LinkedList<>();
                 lawExe.runThreadFun( () -> {
                     NoCreditDebtorDO ncd = hologramQueryService.noCreditDebtor(companyName);
@@ -831,7 +830,7 @@ public class WordReportServiceImpl implements WordReportService {
                     }
                 }
 
-                lawExe.waitJoin();
+                lawExe.waiting();
                 for ( int iCnt =timeOuts; iCnt >0; iCnt-- ) {
                     if( null !=wrbArr[0] ) {
                         synchronized (wrbArr) {
@@ -905,7 +904,7 @@ public class WordReportServiceImpl implements WordReportService {
                 }
             } );
 
-            jes.waitJoin();//等待前面所有数据处理完成
+            jes.waiting();//等待前面所有数据处理完成
             //导出
             Map<String, Object> reportRst = wrbArr[0].exportReportToBytes();
             //wrbArr[0].delTempFile();
