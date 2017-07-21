@@ -2,7 +2,6 @@ package com.bbd.bgo.service.task;
 
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.DataLoadingFailInfoDO;
-import com.bbd.wtyh.domain.TaskSuccessFailInfoDO;
 import com.bbd.wtyh.domain.dataLoading.*;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.UserLogRecord;
@@ -20,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import java.io.*;
@@ -115,9 +113,9 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 		//自动执行，先拉取数据，有数据执行插入，并记录成功失败情况
 		List<File> list = null;
 		try {
-			//list = PullFileUtil.getFileList(1);
-			File file = new File("D:\\wtyh\\datashare\\data\\data-share-file\\wtyh\\hologram-base");
-			list = Arrays.asList(file.listFiles());
+			list = PullFileUtil.getFileList(1);
+			//File file = new File("D:\\wtyh\\datashare\\data\\data-share-file\\wtyh\\hologram-base");
+			//list = Arrays.asList(file.listFiles());
 			dataTotal = list.size();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -155,6 +153,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 		List<RmfyggDO> rmfyggList=null;
 		List<ZgcpwswDO> zgcpwswList=null;
 		List<ZhixingDO> zhixingList=null;
+		List<RecruitIndexDO> recruitIndexList=null;
 		if(null!=fileList&&fileList.size()>0){
 			for(File file:fileList){
 				logger.info("start analysis file , file name:"+file.getName());
@@ -166,6 +165,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 				//文件解析出错
 				if(null==list){
 					fail = new DataLoadingFailInfoDO();
+					fail.setErrorReason("文件解析错误");
 					setFailDo(fail,file.getName());
 					failList.add(fail);
 					continue;
@@ -180,19 +180,34 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 				rmfyggList=new ArrayList<RmfyggDO>();
 				zgcpwswList=new ArrayList<ZgcpwswDO>();
 				zhixingList=new ArrayList<ZhixingDO>();
+				recruitIndexList=new ArrayList<RecruitIndexDO>();
 				for(String s:list){
 					//解析json错误
 					try {
-						JSONObject jsonObject = JSONObject.fromObject(s);
-						String data = jsonObject.getString("data");
-						String tn = jsonObject.getString("tn");
-						JSONObject jsonData = JSONObject.fromObject(data);
-						Object dataName = jsonData.get(tn);
-						String dataStr = String.valueOf(dataName);
-						DataLoadingUtil.addDataToList(failFileList,tn,dataStr,disList,ktggList,yuQingList,basicList,baxxList,gdxxList,
-								zhuanliList,rmfyggList,zgcpwswList,zhixingList);
+						//判断是否为json格式数据
+						if(this.isJson(s)){
+							JSONObject jsonObject = JSONObject.fromObject(s);
+							String data = jsonObject.getString("data");
+							String tn = jsonObject.getString("tn");
+							JSONObject jsonData = JSONObject.fromObject(data);
+							Object dataName = jsonData.get(tn);
+							String dataStr = String.valueOf(dataName);
+							DataLoadingUtil.addJsonDataToList(tn,dataStr,disList,ktggList,yuQingList,basicList,baxxList,gdxxList,
+									zhuanliList,rmfyggList,zgcpwswList,zhixingList);
+						}else{
+							String [] recruits = s.split("\\u0001");
+							RecruitIndexDO recruitIndex = new RecruitIndexDO();;
+							recruitIndex.setTask_id(taskId);
+							recruitIndex.setCompany_name(recruits[1]);
+							recruitIndex.setRecruit_industryratio(recruits[2]);
+							recruitIndex.setRecruit_salaryratio(recruits[3]);
+							recruitIndex.setIndex(recruits[4]);
+							recruitIndex.setDt(recruits[5]);
+							recruitIndexList.add(recruitIndex);
+						}
 					} catch (Exception e) {
 						fail = new DataLoadingFailInfoDO();
+						fail.setErrorReason("数据格式错误");
 						setFailDo(fail,file.getName());
 						failList.add(fail);
 						//出错跳出循环
@@ -205,11 +220,13 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 				TransactionStatus status = transactionManager.getTransaction(def); // 获得事务状态
 				try {
 					insertData(disList,ktggList,yuQingList,basicList,baxxList,gdxxList,
-						zhuanliList,rmfyggList,zgcpwswList,zhixingList);
+						zhuanliList,rmfyggList,zgcpwswList,zhixingList,recruitIndexList);
 					transactionManager.commit(status);
 				} catch (Exception e) {
+					System.out.println(e);
 					transactionManager.rollback(status);
 					fail = new DataLoadingFailInfoDO();
+					fail.setErrorReason("数据插入错误");
 					setFailDo(fail,file.getName());
 					failList.add(fail);
 					//出错跳出循环
@@ -228,7 +245,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 //		}
 //		this.executeCUD("delete from data_loading_fail_info where task_id = "+taskId);
 		if(failList.size()>0){
-			logger.info("add data loading task to taskSuccessFailInfo table");
+			logger.info("add data loading task to dataLoadingFailInfo table");
 			error = failList.size();
 			for(DataLoadingFailInfoDO failInfo:failList){
 				dataLoadingFailInfoMapper.addTaskFailInfo(failInfo);
@@ -245,10 +262,23 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 		fail.setSourceTaskId(pullFileTaskId);
 	}
 
+	/**
+	 * 判断是否是json结构
+	 */
+	public static boolean isJson(String value) {
+		try {
+			JSONObject.fromObject(value);
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
+
+
 	@Transactional(rollbackFor=Exception.class)
-	public void insertData(List<DishonestyDO> disList,List<KtggDO> ktggList,
-						   List<QyxgYuqingDO> yuQingList,List<QyxxBasicDO> basicList,List<QyxxBaxxDO> baxxList, List<QyxxGdxxDO> gdxxList,
-						   List<QyxxZhuanliDO> zhuanliList,List<RmfyggDO> rmfyggList, List<ZgcpwswDO> zgcpwswList,List<ZhixingDO> zhixingList){
+	public void insertData(List<DishonestyDO> disList,List<KtggDO> ktggList,List<QyxgYuqingDO> yuQingList,List<QyxxBasicDO> basicList,
+						   List<QyxxBaxxDO> baxxList, List<QyxxGdxxDO> gdxxList, List<QyxxZhuanliDO> zhuanliList,List<RmfyggDO> rmfyggList,
+						   List<ZgcpwswDO> zgcpwswList,List<ZhixingDO> zhixingList,List<RecruitIndexDO> recruitIndexList){
 		if(disList.size()>0){
 			UserLogRecord.record("批量新增失信被执行人", Operation.Type.add, Operation.Page.hologram,
 					Operation.System.back);
@@ -319,6 +349,13 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 			int zhixingInsertNum = batchInsertData(zhixingList);
 			logger.info("end batch save zhixing , count:"+ zhixingInsertNum);
 		}
+		if(recruitIndexList.size()>0){
+			UserLogRecord.record("批量新增招聘指数", Operation.Type.add, Operation.Page.hologram,
+					Operation.System.back);
+			int insertNum = batchInsertData(recruitIndexList);
+			logger.info("end batch save recruitIndex , count:"+ insertNum);
+		}
+
 	}
 
 	public Integer batchInsertData(Object obj){
@@ -466,7 +503,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 					}else{
 						updateNum+=dataLoadingMapper.saveZgcpwswDO(dataList);
 					}
-				}else{
+				}else if(o instanceof ZhixingDO){
 					List<ZhixingDO> dataList = (List<ZhixingDO>)list;
 					if(pointsDataLimit<size){
 						int part = size/pointsDataLimit;//分批数
@@ -481,6 +518,22 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 						}
 					}else{
 						updateNum+=dataLoadingMapper.saveZhixingDO(dataList);
+					}
+				}else if(o instanceof RecruitIndexDO){
+					List<RecruitIndexDO> dataList = (List<RecruitIndexDO>)list;
+					if(pointsDataLimit<size){
+						int part = size/pointsDataLimit;//分批数
+						for(int i=0;i<part;i++){
+							List<RecruitIndexDO> listPage = dataList.subList(0,pointsDataLimit);
+							updateNum+=dataLoadingMapper.saveRecruitIndexDO(listPage);
+							dataList.subList(0,pointsDataLimit).clear();
+						}
+						//剩下的数据
+						if(!dataList.isEmpty()){
+							updateNum+=dataLoadingMapper.saveRecruitIndexDO(dataList);
+						}
+					}else{
+						updateNum+=dataLoadingMapper.saveRecruitIndexDO(dataList);
 					}
 				}
 			}
