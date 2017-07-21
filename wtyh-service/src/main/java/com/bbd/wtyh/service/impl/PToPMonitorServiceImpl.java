@@ -369,10 +369,10 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
 
     @Override
     public Map executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) {
-        List<WangdaiTaskInfoDO> list = wangdaiTaskInfoMapper.list(oldTaskId);
+        List<TaskFailInfoDO> list = wangdaiTaskInfoMapper.list(oldTaskId);
         Integer planCount = list.size();
         Integer failCount = 0;
-        for (WangdaiTaskInfoDO wangdaiTaskInfoDO : list) {
+        for (TaskFailInfoDO wangdaiTaskInfoDO : list) {
             switch (wangdaiTaskInfoDO.getFailName()) {
                 case "industry_shanghai":
                     try {

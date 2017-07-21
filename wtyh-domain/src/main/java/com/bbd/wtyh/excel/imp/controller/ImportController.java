@@ -127,7 +127,7 @@ public class ImportController {
 
 	@RequestMapping("/import-data-list")
 	@ResponseBody
-	public Object importDataList(@RequestParam("files") CommonsMultipartFile[] files, @RequestParam String templateName,
+	public Object importDataList(@RequestParam CommonsMultipartFile[] files, @RequestParam String templateName,
 			@RequestParam Integer impType, HttpServletRequest request) {
 		if (StringUtils.isBlank(templateName)) {
 			return ResponseBean.errorResponse("导入模版XML不能为空");
@@ -158,8 +158,8 @@ public class ImportController {
 	private void syncDealWith(List<CommonsMultipartFile> files, String templateName, Integer impType, HttpServletRequest request) {
 		ExecutorService threadPool = Executors.newFixedThreadPool(1);
 		files.forEach((CommonsMultipartFile file) -> {
-			String fileName = file.getOriginalFilename();
 			threadPool.execute(() -> {
+				String fileName = file.getOriginalFilename();
 				try {
 					ImportConfiguration conf = ImportConfiguration.getConfiguration(templateName, fileName);
 					conf.setFileSize(file.getSize());
@@ -224,8 +224,9 @@ public class ImportController {
 
 	@RequestMapping("/record-list")
 	@ResponseBody
-	public Object impRecordList(@RequestParam Integer impType) throws Exception {
-		return ResponseBean.successResponse(ImpRecordUtil.recordList(impType));
+	public Object impRecordList(String fileName, String startDate, String endDate, String impState, @RequestParam Integer impType)
+			throws Exception {
+		return ResponseBean.successResponse(ImpRecordUtil.recordList(fileName, startDate, endDate, impState, impType));
 	}
 
 	@RequestMapping("/download-error-file")

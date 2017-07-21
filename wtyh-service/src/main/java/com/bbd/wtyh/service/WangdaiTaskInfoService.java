@@ -1,6 +1,6 @@
 package com.bbd.wtyh.service;
 
-import com.bbd.wtyh.domain.WangdaiTaskInfoDO;
+import com.bbd.wtyh.domain.TaskFailInfoDO;
 
 import java.util.List;
 
@@ -9,5 +9,5 @@ import java.util.List;
  */
 public interface WangdaiTaskInfoService {
 
-    List<WangdaiTaskInfoDO> listByTaskId(Integer taskId);
+    List<TaskFailInfoDO> listByTaskId(Integer taskId);
 }

@@ -8,16 +8,11 @@
         VALUES (#{taskId}, #{failName}, #{description}, #{failReason}, #{createBy}, #{createDate}, #{updateBy}, #{updateDate});
     </insert>
 
-    <select id="list" resultType="com.bbd.wtyh.domain.WangdaiTaskInfoDO">
+    <select id="list" resultType="com.bbd.wtyh.domain.TaskFailInfoDO">
         SELECT
-        task_id as taskId,
-        fail_name as failName,
-        description as description,
-        fail_reason as failReason,
-        create_by as createBy,
-        create_date as createDate,
-        update_by as updateBy,
-        update_date as updateDate
+        `task_id` as taskId,
+        `fail_name` as failName,
+        `fail_reason` as failReason
          from wangdai_task_info WHERE task_id=#{taskId}
     </select>
 

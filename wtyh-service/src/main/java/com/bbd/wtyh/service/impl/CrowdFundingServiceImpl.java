@@ -7,8 +7,10 @@ import java.util.Map;
 
 import com.bbd.wtyh.dao.CrowdFundingDao;
 import com.bbd.wtyh.domain.*;
+import com.bbd.wtyh.domain.EasyExport.CrowdfundData;
 import com.bbd.wtyh.domain.wangDaiAPI.CrowdFundingStatisticsDTO;
 import com.bbd.wtyh.mapper.*;
+import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -121,10 +123,10 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
 
     @Override
     public Map executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) {
-        List<WangdaiTaskInfoDO> list = wangdaiTaskInfoMapper.list(oldTaskId);
+        List<TaskFailInfoDO> list = wangdaiTaskInfoMapper.list(oldTaskId);
         Integer planCount = list.size();
         Integer failCount = 0;
-        for (WangdaiTaskInfoDO wangdaiTaskInfo : list) {
+        for (TaskFailInfoDO wangdaiTaskInfo : list) {
             if (wangdaiTaskInfo.getFailName().equals("dataType=1")) {
                 try {
                     updateCrowdFundingCompany();
@@ -187,5 +189,10 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
             crowdFundingCompanyMapper.deleteByPlatName(dto.getPlatformName());
             crowdFundingCompanyMapper.saveForDataLand(dto);
         }
+    }
+
+    @Override
+    public List<CrowdfundData> getCrowdfund(ExportCondition exportCondition) {
+        return crowdFundingCompanyMapper.getCrowdfund(exportCondition);
     }
 }

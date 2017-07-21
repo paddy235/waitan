@@ -16,16 +16,16 @@ public interface EasyExportExeclService {
 
     List<TradeMarketData> getTradeMarket(ExportCondition exportCondition);
 
-    List<PerpaycardData> getPerpaycard(ExportCondition exportCondition);
+    List<PrivateOfferedFundData> getPerpaycard(ExportCondition exportCondition);
 
-    List<TenancyData> getTenancy(ExportCondition exportCondition);
+    List<PrivateOfferedFundData> getTenancy(ExportCondition exportCondition);
 
     List<PrivateOfferedFundData> getPrivateOfferedFund(ExportCondition exportCondition);
 
     List<CrowdfundData> getCrowdfund(ExportCondition exportCondition);
 
-    List<PawnData> getPawn(ExportCondition exportCondition);
+    List<PrivateOfferedFundData> getPawn(ExportCondition exportCondition);
 
-    List<InsuranceData> getInsurance(ExportCondition exportCondition);
+    List<PrivateOfferedFundData> getInsurance(ExportCondition exportCondition);
 
 }

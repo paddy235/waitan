@@ -59,9 +59,11 @@
 		SELECT
 		`task_id` AS taskId,
 		`company_name` AS failName,
-		`result_code` AS failReason
+		a.code_des AS failReason
 		FROM
-		company_credit_fail_history
+		company_credit_fail_history LEFT JOIN
+    	(select * from sys_code where code_group='credit_center' ) as a
+    	on company_credit_fail_history.result_code=a.code_value
 		WHERE
 		1=1
 		AND task_id= #{taskId}

@@ -1,6 +1,6 @@
 package com.bbd.wtyh.service.impl;
 
-import com.bbd.wtyh.domain.WangdaiTaskInfoDO;
+import com.bbd.wtyh.domain.TaskFailInfoDO;
 import com.bbd.wtyh.mapper.WangdaiTaskInfoMapper;
 import com.bbd.wtyh.service.WangdaiTaskInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class WangdaiTaskInfoServiceImpl implements WangdaiTaskInfoService {
     private WangdaiTaskInfoMapper wangdaiTaskInfoMapper;
 
     @Override
-    public List<WangdaiTaskInfoDO> listByTaskId(Integer taskId) {
+    public List<TaskFailInfoDO> listByTaskId(Integer taskId) {
         return wangdaiTaskInfoMapper.list(taskId);
     }
 }

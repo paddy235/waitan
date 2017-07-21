@@ -20,10 +20,7 @@ public class CompanyInfoModifyUtil {
     private CompanyLevelService companyLevelService;    // 小额贷款、融资担保
 
     @Autowired
-    private RiskCompanyService riskCompanyService;  // 线下理财
-
-    @Autowired
-    private ExchangeCompanyService exchangeCompanyService;  // 交易场所
+    private RiskCompanyService riskCompanyService;  // 线下理财、交易场所
 
     @Autowired
     private PrepaidCompanyStaticService prepaidCompanyStaticService; // 预付卡
