@@ -72,6 +72,46 @@
             company
        WHERE
             company_level.company_id = company.company_id
-       AND company.`name` = #{name}
+            AND company.`name` = #{name}
+    </select>
+
+    <select id="getLoan" parameterType="com.bbd.wtyh.web.EasyExportExcel.ExportCondition" resultType="com.bbd.wtyh.domain.EasyExport.LoanData">
+        SELECT
+            company.`name` AS `name`,
+            company.company_type AS industry,
+            company_level.out_level AS outLevel,
+            company_level.inner_level AS innnerLevel,
+            company_level.live_level AS liveLevel,
+            company.legal_person AS legalPerson,
+            company.registered_date AS registeredDate,
+            company.registered_capital AS registeredCapital,
+            company.registered_capital_type AS registeredCapitalType,
+            company.address AS address
+        FROM
+            company_level,
+            company
+        WHERE
+            company_level.company_id = company.company_id
+            <if test="industry!=null">
+                and company.company_type = #{industry}
+            </if>
+            <if test="currentLevel!=null">
+                and company.risk_level = #{currentLevel}
+            </if>
+            <if test="registeredCapitalMin!=null">
+                and company.registered_capital >= #{registeredCapitalMin}
+            </if>
+            <if test="registeredCapitalMax!=null">
+                and #{registeredCapitalMin} >= company.registered_capital
+            </if>
+            <if test="registeredDateMin!=null">
+                and company.registered_date >= #{registeredCapitalMin}
+            </if>
+            <if test="registeredDateMax!=null">
+                and #{registeredDateMax} >= company.registered_date
+            </if>
+            <if test="areaId!=null">
+                and company.areaId = #{areaId}
+            </if>
     </select>
 </mapper>
