@@ -367,7 +367,7 @@ public class TimingTaskManager {
 
 		}else if(TaskUtil.crowdFundingJob[0].equals(taskKey)){
 			//网贷之家数据落地-众筹
-			List<TaskFailInfoDO> wangdailist = wangdaiTaskInfoService.listByTaskId(taskId);
+			//List<TaskFailInfoDO> list=wangdaiTaskInfoService.listByTaskId(taskId);
 		}else if(TaskUtil.riskLevelJob[0].equals(taskKey)){
 			//系统数据更新-风险等级
 
