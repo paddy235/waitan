@@ -34,6 +34,9 @@ public class EasyExportExcelServiceImpl implements EasyExportExeclService {
     @Autowired
     private CrowdFundingService crowdFundingService;    // 众筹
 
+    @Autowired
+    private MortgageService mortgageService;    // 典当
+
     @Override
     public List<WangdaiData> getWangdai(ExportCondition exportCondition) {
         return null;
@@ -60,13 +63,13 @@ public class EasyExportExcelServiceImpl implements EasyExportExeclService {
     }
 
     @Override
-    public List<PerpaycardData> getPerpaycard(ExportCondition exportCondition) {
-        return null;
+    public List<PrivateOfferedFundData> getPerpaycard(ExportCondition exportCondition) {
+        return privateFundService.getPrivateOfferedFund(exportCondition);
     }
 
     @Override
-    public List<TenancyData> getTenancy(ExportCondition exportCondition) {
-        return null;
+    public List<PrivateOfferedFundData> getTenancy(ExportCondition exportCondition) {
+        return privateFundService.getPrivateOfferedFund(exportCondition);
     }
 
     @Override
@@ -80,12 +83,12 @@ public class EasyExportExcelServiceImpl implements EasyExportExeclService {
     }
 
     @Override
-    public List<PawnData> getPawn(ExportCondition exportCondition) {
-        return null;
+    public List<PrivateOfferedFundData> getPawn(ExportCondition exportCondition) {
+        return privateFundService.getPrivateOfferedFund(exportCondition);
     }
 
     @Override
-    public List<InsuranceData> getInsurance(ExportCondition exportCondition) {
-        return null;
+    public List<PrivateOfferedFundData> getInsurance(ExportCondition exportCondition) {
+        return privateFundService.getPrivateOfferedFund(exportCondition);
     }
 }
