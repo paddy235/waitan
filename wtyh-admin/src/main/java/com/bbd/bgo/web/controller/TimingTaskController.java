@@ -4,6 +4,7 @@ package com.bbd.bgo.web.controller;
 
 import com.bbd.bgo.service.task.TimingTaskManager;
 import com.bbd.wtyh.constants.TaskState;
+import com.bbd.wtyh.domain.TaskFailInfoDO;
 import com.bbd.wtyh.domain.dto.TaskInfoDTO;
 import com.bbd.wtyh.domain.enums.TaskDataSource;
 import com.bbd.wtyh.excel.ExportExcel;
@@ -97,10 +98,10 @@ public class TimingTaskController {
 			UserLogRecord.record("导出定时任务【" + taskName + "-" + taskId + "]", Operation.Type.DATA_EXPORT, Operation.Page.timingTask,
 					Operation.System.back, request);
 
-			timingTaskManager.reExecuteTask(taskId, taskKey, taskGroup);
+            List<TaskFailInfoDO> list= timingTaskManager.downloadTaskInfo(taskId, taskKey, taskGroup);
 			String excelName = "定时任务（" + taskName + "）";
 			ExportExcel exportExcel = new ExportExcel(excelName);
-			exportExcel.createSheet(null);
+			exportExcel.createSheet(list);
 			exportExcel.exportExcel();
 			return ResponseBean.successResponse(exportExcel.getDownloadURL());
 
