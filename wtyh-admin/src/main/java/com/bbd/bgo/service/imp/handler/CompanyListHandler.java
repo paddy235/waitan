@@ -12,7 +12,7 @@ import java.util.Map;
  * Created by cgj on 2017/7/19.
  */
 
-@Component  //引入事务
+@Component
 @Scope("prototype") //非单例模式
 public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
     //@Transactional //事务--原子性操作
@@ -23,6 +23,7 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
 
     @Override
     public void startRow(Map<String, String> row) throws Exception {
+        int aa =row.size();
 
     }
 
@@ -43,6 +44,8 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
 
     @Override
     public void exception(Exception e) {
+        addError("服务器异常：" + e.getMessage());
+        e.printStackTrace();
 
     }
 }
