@@ -101,16 +101,16 @@
         INSERT INTO building(`name`, park_id, img_url, create_by, create_date, update_date) VALUES(#{name}, #{parkId}, #{imgUrl}, #{createBy}, SYSDATE(), SYSDATE())
     </insert>
 
-    <delete id="delCompanyByCompanyId" parameterType="java.util.List">
+    <delete id="delCompanyByCompanyId" >
         DELETE from
-          company_building
+            company_building
         where
-          company_id in
-            (select company_id from company where name in
+            building_id = #{buildingId}
+        AND
+            company_id in
               <foreach item="item" index="index" collection="companyIdList" open="(" separator="," close=")">
                 #{item}
               </foreach>
-            )
     </delete>
 
     <delete id="delCompanyByBuildingId" parameterType="java.util.List">
@@ -190,6 +190,23 @@
 
     <select id="queryBuildingByParkAndName" resultType="com.bbd.wtyh.domain.BuildingDO">
         SELECT <include refid="building_content" /> FROM building WHERE park_id=#{parkId} AND `name`=#{buildingName}
+    </select>
+
+    <select id="queryBuildingList" parameterType="java.lang.String" resultType="java.util.Map">
+        select
+            building_id as buildingId,
+            name as buildingName
+        from
+            building
+        <where>
+            <if test="parkId != null and parkId != ''">
+                park_id = #{parkId}
+            </if>
+            <if test="buildingName != null and buildingName != ''">
+                and name like #{buildingName}
+            </if>
+        </where>
+
     </select>
 
     <select id="queryCompanyByBuildingId" resultType="com.bbd.wtyh.domain.CompanyDO" parameterType="int">

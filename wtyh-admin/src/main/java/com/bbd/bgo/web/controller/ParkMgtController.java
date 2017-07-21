@@ -62,12 +62,13 @@ public class ParkMgtController {
     /**
      * 楼宇列表
      * @param parkId 园区ID
+     * @param buildingName 楼宇名称
      * @return
      */
     @RequestMapping("/buildingList")
     @ResponseBody
-    public ResponseBean buildingList(String parkId){
-        List<Map<String,String>> list = parkMgtService.queryBuildingByParkId(parkId);
+    public ResponseBean buildingList(String parkId,String buildingName){
+        List<Map<String,String>> list = parkMgtService.queryBuildingList(parkId,buildingName);
         return  ResponseBean.successResponse(list);
     }
 
@@ -110,12 +111,13 @@ public class ParkMgtController {
 
     /**
      * 删除企业
+     * @param buildingId 楼宇ID
      * @param companyList 企业ID列表
      * @return
      */
     @RequestMapping("/delCompanyByCompanyId")
     @ResponseBody
-    public ResponseBean delCompanyByCompanyId(String[] companyList){
+    public ResponseBean delCompanyByCompanyId(String buildingId,String[] companyList){
 //        List<String> companyNameList = new ArrayList<>();
 //
 //        String[] companyName = companyList.split(",");
@@ -125,7 +127,7 @@ public class ParkMgtController {
 //            }
 //        }
 
-        parkMgtService.delCompanyByCompanyId(Arrays.asList(companyList));
+        parkMgtService.delCompanyByCompanyId(buildingId,Arrays.asList(companyList));
         return  ResponseBean.successResponse("OK");
     }
 

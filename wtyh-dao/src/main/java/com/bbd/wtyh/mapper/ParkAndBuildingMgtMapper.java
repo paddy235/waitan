@@ -28,7 +28,7 @@ public interface ParkAndBuildingMgtMapper {
 
     void addBuilding(BuildingDO building);
 
-    void delCompanyByCompanyId(@Param("companyIdList") List<String> companyIdList);
+    void delCompanyByCompanyId(@Param("buildingId") String buildingId,@Param("companyIdList") List<String> companyIdList);
 
     void delCompanyByBuildingId(List<Integer> buildingIdList);
 
@@ -57,5 +57,7 @@ public interface ParkAndBuildingMgtMapper {
     BuildingDO queryBuildingByParkAndName(Map<String, Object> params);
 
     List<CompanyDO> queryCompanyByBuildingId(String buildingId);
+
+    List<Map<String,String>> queryBuildingList(@Param("parkId") String parkId,@Param("buildingName") String buildingName);
 
 }
