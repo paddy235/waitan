@@ -11,6 +11,7 @@
         `error_name` AS errorName,
         `data_version`AS dataVersion,
         `type`AS type,
+        `error_reason`AS errorReason,
         `source_task_id` AS sourceTaskId,
         `create_by` AS createBy,
         `create_date` AS createDate,
@@ -29,8 +30,8 @@
             useGeneratedKeys="true"
             keyProperty="id"
             keyColumn="id">
-        INSERT INTO `data_loading_fail_info` (`task_id`, `type`, `error_name`, `data_version`,`source_task_id`, `create_date`,  `create_by`)
-        VALUES (#{taskId}, #{type},#{errorName}, #{dataVersion}, #{sourceTaskId} ,#{createDate}, #{createBy}
+        INSERT INTO `data_loading_fail_info` (`task_id`, `type`, `error_name`, `error_reason`,`data_version`,`source_task_id`, `create_date`,  `create_by`)
+        VALUES (#{taskId}, #{type},#{errorName},#{errorReason}, #{dataVersion}, #{sourceTaskId} ,#{createDate}, #{createBy}
         );
     </insert>
 </mapper>

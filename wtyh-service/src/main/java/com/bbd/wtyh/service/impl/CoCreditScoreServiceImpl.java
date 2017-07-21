@@ -278,6 +278,11 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	}
 
 	@Override
+	public List<TaskFailInfoDO> getCreditFailInfoByTaskId(Integer taskId) {
+		return companyCreditMapper.getCreditFailInfoByTaskId(taskId);
+	}
+
+	@Override
 	public int queryfailCompanyCounts(String[] companyNames, String resultCode, Integer taskId, Integer pageNumber, Integer pageSize) {
 
 		Map map = new HashMap();
@@ -299,6 +304,7 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 		return companyCreditFailInfoMapper.getCompanyCreditFailInfoCounts(map);
 
 	}
+
 
 	private static final Object LOCK = "";
 

@@ -1,53 +1,25 @@
 package com.bbd.wtyh.domain;
 
 /**
+ * 网贷 众筹数据落地失败 记录
  * Created by lixudong on 2017/7/20.
  */
-public class WangdaiTaskInfoDO extends BaseDO{
-    private Integer taskId;
-    private String platName;//如果是增量就是平台名称，如果是全量就是api名称
-    private Integer taskType;//0全量；1增量
-    private String failReason;//失败原因
+public class WangdaiTaskInfoDO extends TaskFailInfoDO{
 
-    public Integer getTaskId() {
-        return taskId;
+    private String description;
+
+    public String getDescription() {
+        return description;
     }
 
-    public void setTaskId(Integer taskId) {
-        this.taskId = taskId;
-    }
-
-    public String getPlatName() {
-        return platName;
-    }
-
-    public void setPlatName(String platName) {
-        this.platName = platName;
-    }
-
-    public Integer getTaskType() {
-        return taskType;
-    }
-
-    public void setTaskType(Integer taskType) {
-        this.taskType = taskType;
-    }
-
-    public String getFailReason() {
-        return failReason;
-    }
-
-    public void setFailReason(String failReason) {
-        this.failReason = failReason;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
     public String toString() {
         return "WangdaiTaskInfoDO{" +
-                "taskId='" + taskId + '\'' +
-                ", platName='" + platName + '\'' +
-                ", taskType='" + taskType + '\'' +
-                ", failReason='" + failReason + '\'' +
+                "description='" + description + '\'' +
                 '}';
     }
 }

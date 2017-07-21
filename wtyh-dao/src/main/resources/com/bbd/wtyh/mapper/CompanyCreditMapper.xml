@@ -55,4 +55,17 @@
 
 	</select>
 
+	<select id="getCreditFailInfoByTaskId" parameterType="Integer" resultType="com.bbd.wtyh.domain.TaskFailInfoDO">
+		SELECT
+		`task_id` AS taskId,
+		`company_name` AS failName,
+		`result_code` AS failReason
+		FROM
+		company_credit_fail_history
+		WHERE
+		1=1
+		AND task_id= #{taskId}
+
+	</select>
+
 </mapper>

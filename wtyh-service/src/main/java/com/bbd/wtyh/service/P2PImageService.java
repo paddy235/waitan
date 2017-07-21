@@ -100,7 +100,16 @@ public interface P2PImageService {
      * 平台画像相关接口数据落地
      * @return
      */
-    Map p2pImagineDataLandTask(Integer taskId);
+    Map p2pImageDataLandTask(Integer taskId);
+
+    /**
+     * 重新执行数据落地失败任务
+     * @param runMode
+     * @param oldTaskId
+     * @param taskId
+     * @return
+     */
+    Map executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId);
 
 
     PlatListDO getWangdaiCompanyList(String name);

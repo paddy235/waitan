@@ -46,7 +46,7 @@ public class NaturalPersonServiceImpl implements NaturalPersonService {
     @Autowired
     private RedisDAO redisDAO;
 
-    //判断导出文件是否能被下载（次数是否超限）
+    //判断导出文件是否能被下载（次数是否超限），每返回一次true就会扣除一次下载次数
     private synchronized boolean allowDownFile() {
         MiscParameterDO mpd =mapper.queryParameterDoByName();
         if( null ==mpd || null ==mpd.getValue1() || null ==mpd.getValue2() || null ==mpd.getValue3() ) {
@@ -55,7 +55,7 @@ public class NaturalPersonServiceImpl implements NaturalPersonService {
         int localDay =LocalDate.now().getDayOfMonth();
         if( mpd.getValue2() != localDay ) {
             mapper.updateDownCurrDay(localDay);
-            mapper.updateDownTimeNum(1);
+            mapper.updateDownTimeNum(1); //已扣除下载的第一次
             return true;
         }
         if( mpd.getValue1() <mpd.getValue3() ) {

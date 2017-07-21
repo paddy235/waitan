@@ -6,6 +6,9 @@ import com.bbd.bgo.service.task.TimingTaskManager;
 import com.bbd.wtyh.constants.TaskState;
 import com.bbd.wtyh.domain.dto.TaskInfoDTO;
 import com.bbd.wtyh.domain.enums.TaskDataSource;
+import com.bbd.wtyh.excel.ExportExcel;
+import com.bbd.wtyh.excel.Sheet;
+import com.bbd.wtyh.exception.ExceptionHandler;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.UserLogRecord;
 import com.bbd.wtyh.service.TimingTaskService;
@@ -88,10 +91,23 @@ public class TimingTaskController {
     @ResponseBody
     public ResponseBean downloadTaskInfo(@RequestParam Integer taskId, @RequestParam String taskKey,
                                       @RequestParam String taskGroup,@RequestParam String taskName,HttpServletRequest request) {
-        UserLogRecord.record("下载任务执行结果【"+taskName+"-"+taskId+"]", Operation.Type.DATA_EXPORT, Operation.Page.timingTask,
-                Operation.System.back, request);
-        timingTaskManager.reExecuteTask(taskId,taskKey,taskGroup);
-        return ResponseBean.successResponse(null);
+
+		try {
+
+			UserLogRecord.record("导出定时任务【" + taskName + "-" + taskId + "]", Operation.Type.DATA_EXPORT, Operation.Page.timingTask,
+					Operation.System.back, request);
+
+			timingTaskManager.reExecuteTask(taskId, taskKey, taskGroup);
+			String excelName = "定时任务（" + taskName + "）";
+			ExportExcel exportExcel = new ExportExcel(excelName);
+			exportExcel.createSheet(null);
+			exportExcel.exportExcel();
+			return ResponseBean.successResponse(exportExcel.getDownloadURL());
+
+		} catch (Exception e) {
+
+			return ExceptionHandler.handlerException(e);
+		}
     }
 
     @RequestMapping("/getTaskState")
