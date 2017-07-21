@@ -7,8 +7,10 @@ import java.util.Map;
 
 import com.bbd.wtyh.dao.CrowdFundingDao;
 import com.bbd.wtyh.domain.*;
+import com.bbd.wtyh.domain.EasyExport.CrowdfundData;
 import com.bbd.wtyh.domain.wangDaiAPI.CrowdFundingStatisticsDTO;
 import com.bbd.wtyh.mapper.*;
+import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -148,5 +150,10 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
             crowdFundingCompanyMapper.deleteByPlatName(dto.getPlatformName());
             crowdFundingCompanyMapper.saveForDataLand(dto);
         }
+    }
+
+    @Override
+    public List<CrowdfundData> getCrowdfund(ExportCondition exportCondition) {
+        return crowdFundingCompanyMapper.getCrowdfund(exportCondition);
     }
 }

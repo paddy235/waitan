@@ -31,6 +31,9 @@ public class EasyExportExcelServiceImpl implements EasyExportExeclService {
     @Autowired
     private ExchangeCompanyService exchangeCompanyService;  // 交易场所
 
+    @Autowired
+    private CrowdFundingService crowdFundingService;    // 众筹
+
     @Override
     public List<WangdaiData> getWangdai(ExportCondition exportCondition) {
         return null;
@@ -73,7 +76,7 @@ public class EasyExportExcelServiceImpl implements EasyExportExeclService {
 
     @Override
     public List<CrowdfundData> getCrowdfund(ExportCondition exportCondition) {
-        return null;
+        return crowdFundingService.getCrowdfund(exportCondition);
     }
 
     @Override
