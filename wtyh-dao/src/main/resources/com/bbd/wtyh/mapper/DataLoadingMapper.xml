@@ -133,6 +133,16 @@
 		</foreach>
 	</insert>
 
+	<insert id="saveRecruitIndexDO" parameterType="java.util.List">
+		INSERT INTO recruit_index(
+		company_name,recruit_industryratio ,recruit_salaryratio,recruit_index,dt,task_id)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator="," >
+			(#{item.company_name}, #{item.recruit_industryratio}, #{item.recruit_salaryratio},
+			#{item.index}, #{item.dt}, #{item.task_id})
+		</foreach>
+	</insert>
+
 	<insert id="saveDatasharePullFileDO" parameterType="java.util.List">
 		INSERT INTO datashare_pull_file(
 		file_id ,file_name ,file_url ,task_id ,create_by ,create_date)

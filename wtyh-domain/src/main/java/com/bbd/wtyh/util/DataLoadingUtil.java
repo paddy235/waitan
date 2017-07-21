@@ -51,13 +51,9 @@ public class DataLoadingUtil {
 		return list;
 	}
 
-	public static void addDataToList(List<String> failTableList, String tn, String dataStr, List<DishonestyDO> disList, List<KtggDO> ktggList,
+	public static void addJsonDataToList(String tn, String dataStr, List<DishonestyDO> disList, List<KtggDO> ktggList,
 							  List<QyxgYuqingDO> yuQingList, List<QyxxBasicDO> basicList, List<QyxxBaxxDO> baxxList, List<QyxxGdxxDO> gdxxList,
 							  List<QyxxZhuanliDO> zhuanliList, List<RmfyggDO> rmfyggList, List<ZgcpwswDO> zgcpwswList, List<ZhixingDO> zhixingList){
-
-		if(null!=failTableList&&!failTableList.contains(tn)){
-			return;
-		}
 		switch (tn){
 			case DISHONESTY :
 				List<DishonestyDO> dataList1 = JSONArray.parseArray(dataStr, DishonestyDO.class);
