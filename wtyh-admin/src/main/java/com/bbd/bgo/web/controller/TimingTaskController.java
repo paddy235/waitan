@@ -12,6 +12,7 @@ import com.bbd.wtyh.excel.Sheet;
 import com.bbd.wtyh.exception.ExceptionHandler;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.UserLogRecord;
+import com.bbd.wtyh.mapper.TaskSuccessFailInfoMapper;
 import com.bbd.wtyh.service.TimingTaskService;
 import com.bbd.wtyh.web.ResponseBean;
 import org.apache.commons.lang3.StringUtils;
@@ -40,6 +41,8 @@ public class TimingTaskController {
 	private TimingTaskService timingTaskService;
     @Autowired
     private TimingTaskManager timingTaskManager;
+    @Autowired
+    private TaskSuccessFailInfoMapper taskSuccessFailInfoMapper;
 
 	@RequestMapping("/getTaskInfo")
 	@ResponseBody
@@ -84,7 +87,11 @@ public class TimingTaskController {
                                       @RequestParam String taskGroup,@RequestParam String taskName,HttpServletRequest request) {
         UserLogRecord.record("再次执行【"+taskName+"-"+taskId+"]", Operation.Type.RE_EXECUTE, Operation.Page.timingTask,
                 Operation.System.back, request);
-	    timingTaskManager.reExecuteTask(taskId,taskKey,taskGroup);
+        System.out.println("1");
+        timingTaskManager.reExecuteTaskAsyn(taskId,taskKey,taskGroup);
+        System.out.println("2");
+        taskSuccessFailInfoMapper.updateReExecuteById(2,taskId);
+        System.out.println("3");
 	    return ResponseBean.successResponse(null);
 	}
 

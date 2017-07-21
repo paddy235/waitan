@@ -264,78 +264,83 @@ public class TimingTaskManager {
 		}
 	}
 
+    public void reExecuteTaskAsyn(Integer oldTaskId, String taskKey, String taskGroup){
+        new Thread(){
+            public void run(){
+                reExecuteTask(oldTaskId, taskKey, taskGroup);
+            }
+        }.start();
+    }
 	public void reExecuteTask(Integer oldTaskId, String taskKey, String taskGroup){
-		Integer runMode=1;
-		Integer newTaskId=null;
-		Integer planCount = null;// 计划执行笔数。 可在任务结束时更新
-		Integer successCount=null;
-		Integer failCount=null;
-		Map map =null;
 
-		if(TaskUtil.shangHaiCreditJob[0].equals(taskKey)){
+        Integer runMode=1;
+        Integer newTaskId=null;
+        Integer planCount = null;// 计划执行笔数。 可在任务结束时更新
+        Integer successCount=null;
+        Integer failCount=null;
+        Map map =null;
 
-			//公信数据落地
-			try {
-				newTaskId = TaskUtil.taskStart(TaskUtil.shangHaiCreditJob[0], TaskUtil.shangHaiCreditJob[1], null, runMode, null, null);
-                taskSuccessFailInfoMapper.updateReExecuteById(2,oldTaskId);
-				map=coCreditScoreService.executeFailCompanyByTaskId(runMode, oldTaskId, newTaskId);
-			}catch (Exception e){
-				logger.error("reExecuteTask-shangHaiCreditJob"+e);
-			}finally {
+        if(TaskUtil.shangHaiCreditJob[0].equals(taskKey)){
+
+            //公信数据落地
+            try {
+                newTaskId = TaskUtil.taskStart(TaskUtil.shangHaiCreditJob[0], TaskUtil.shangHaiCreditJob[1], null, runMode, null, null);
+                map=coCreditScoreService.executeFailCompanyByTaskId(runMode, oldTaskId, newTaskId);
+            }catch (Exception e){
+                logger.error("reExecuteTask-shangHaiCreditJob"+e);
+            }finally {
                 taskEnd(map,newTaskId,planCount,successCount,failCount,null);
-			}
+            }
 
-		}else if(TaskUtil.offlineFinanceJob[0].equals(taskKey)){
-			//BBD数据落地-线下理财
+        }else if(TaskUtil.offlineFinanceJob[0].equals(taskKey)){
+            //BBD数据落地-线下理财
 
-		}else if(TaskUtil.holographicAndOpinionJob[0].equals(taskKey)){
-			//BBD数据落地-权限舆情
+        }else if(TaskUtil.holographicAndOpinionJob[0].equals(taskKey)){
+            //BBD数据落地-权限舆情
 
-		}else if(TaskUtil.pToPMonitorJob[0].equals(taskKey)){
-			//网贷之家数据落地-网络借贷-监测
+        }else if(TaskUtil.pToPMonitorJob[0].equals(taskKey)){
+            //网贷之家数据落地-网络借贷-监测
 
-			try {
-				newTaskId = TaskUtil.taskStart(TaskUtil.pToPMonitorJob[0], TaskUtil.pToPMonitorJob[1], null, runMode, null, null);
-				taskSuccessFailInfoMapper.updateReExecuteById(2,oldTaskId);
-				map=p2pMonitorService.executeFailTaskByTaskId(runMode, oldTaskId, newTaskId);
-			}catch (Exception e){
-				logger.error("reExecuteTask-pToPMonitorJob"+e);
-			}finally {
-				taskEnd(map,newTaskId,planCount,successCount,failCount,null);
-			}
+            try {
+                newTaskId = TaskUtil.taskStart(TaskUtil.pToPMonitorJob[0], TaskUtil.pToPMonitorJob[1], null, runMode, null, null);
+                map=p2pMonitorService.executeFailTaskByTaskId(runMode, oldTaskId, newTaskId);
+            }catch (Exception e){
+                logger.error("reExecuteTask-pToPMonitorJob"+e);
+            }finally {
+                taskEnd(map,newTaskId,planCount,successCount,failCount,null);
+            }
 
-		}else if(TaskUtil.p2pImageJob[0].equals(taskKey)){
-			//网贷之家数据落地-网络借贷-平台画像
-			try {
-				newTaskId = TaskUtil.taskStart(TaskUtil.p2pImageJob[0], TaskUtil.p2pImageJob[1], null, runMode, null, null);
-				taskSuccessFailInfoMapper.updateReExecuteById(2,oldTaskId);
-				map=p2pImageService.executeFailTaskByTaskId(runMode, oldTaskId, newTaskId);
-			}catch (Exception e){
-				logger.error("reExecuteTask-p2pImageJob"+e);
-			}finally {
-				taskEnd(map,newTaskId,planCount,successCount,failCount,null);
-			}
+        }else if(TaskUtil.p2pImageJob[0].equals(taskKey)){
+            //网贷之家数据落地-网络借贷-平台画像
+            try {
+                newTaskId = TaskUtil.taskStart(TaskUtil.p2pImageJob[0], TaskUtil.p2pImageJob[1], null, runMode, null, null);
+                map=p2pImageService.executeFailTaskByTaskId(runMode, oldTaskId, newTaskId);
+            }catch (Exception e){
+                logger.error("reExecuteTask-p2pImageJob"+e);
+            }finally {
+                taskEnd(map,newTaskId,planCount,successCount,failCount,null);
+            }
 
-		}else if(TaskUtil.crowdFundingJob[0].equals(taskKey)){
-			//网贷之家数据落地-众筹
-			try {
-				newTaskId = TaskUtil.taskStart(TaskUtil.crowdFundingJob[0], TaskUtil.crowdFundingJob[1], null, runMode, null, null);
-				taskSuccessFailInfoMapper.updateReExecuteById(2,oldTaskId);
-				map=crowdFundingService.executeFailTaskByTaskId(runMode, oldTaskId, newTaskId);
-			}catch (Exception e){
-				logger.error("reExecuteTask-crowdFundingJob"+e);
-			}finally {
-				taskEnd(map,newTaskId,planCount,successCount,failCount,null);
-			}
+        }else if(TaskUtil.crowdFundingJob[0].equals(taskKey)){
+            //网贷之家数据落地-众筹
+            try {
+                newTaskId = TaskUtil.taskStart(TaskUtil.crowdFundingJob[0], TaskUtil.crowdFundingJob[1], null, runMode, null, null);
+                map=crowdFundingService.executeFailTaskByTaskId(runMode, oldTaskId, newTaskId);
+            }catch (Exception e){
+                logger.error("reExecuteTask-crowdFundingJob"+e);
+            }finally {
+                taskEnd(map,newTaskId,planCount,successCount,failCount,null);
+            }
 
-		}else if(TaskUtil.riskLevelJob[0].equals(taskKey)){
-			//系统数据更新-风险等级
+        }else if(TaskUtil.riskLevelJob[0].equals(taskKey)){
+            //系统数据更新-风险等级
 
-		}else if(TaskUtil.companyBaseInfo[0].equals(taskKey)){
-			//系统数据更新-企业基本信息
+        }else if(TaskUtil.companyBaseInfo[0].equals(taskKey)){
+            //系统数据更新-企业基本信息
 
-		}
+        }
 	}
+
 
 	public void taskEnd(Map map,Integer taskId,Integer planCount,Integer successCount,Integer failCount,String creatBy){
         if(null!=map){
