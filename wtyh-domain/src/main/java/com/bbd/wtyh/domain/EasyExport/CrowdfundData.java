@@ -13,6 +13,8 @@ public class CrowdfundData {
     private String name;
     // 行业类别
     private Byte industry;
+    // 平台连接
+    private String url;
     // 法人
     private String legalPerson;
     // 注册时间
@@ -22,6 +24,14 @@ public class CrowdfundData {
     private String registeredCapital;
     // 注册地址
     private String address = "";
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public String getName() {
         return name;
