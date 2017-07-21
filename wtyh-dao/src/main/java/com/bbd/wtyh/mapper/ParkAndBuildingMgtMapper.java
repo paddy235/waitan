@@ -58,4 +58,6 @@ public interface ParkAndBuildingMgtMapper {
 
     List<CompanyDO> queryCompanyByBuildingId(String buildingId);
 
+    List<Map<String,String>> queryBuildingList(@Param("parkId") String parkId,@Param("buildingName") String buildingName);
+
 }
