@@ -351,6 +351,7 @@ public class TimingTaskManager {
 		List<TaskFailInfoDO> list=null;
 		if(TaskUtil.shangHaiCreditJob[0].equals(taskKey)){
 			//公信数据落地
+			list=coCreditScoreService.getCreditFailInfoByTaskId(taskId);
 
 		}else if(TaskUtil.offlineFinanceJob[0].equals(taskKey)){
 			//BBD数据落地-线下理财
