@@ -32,7 +32,7 @@ public class ExcelUtil {
 		if (MapUtils.isEmpty(progressMap)) {
 			return;
 		}
-		Workbook workbook = ExcelReadUtil.copy(fileName);
+		Workbook workbook = ExcelReadUtil.getWorkbook(fileName);
 		// 得到一个POI的工具类
 		CreationHelper factory = workbook.getCreationHelper();
 		// ClientAnchor是附属在WorkSheet上的一个对象， 其固定在一个单元格的左上角和右下角.

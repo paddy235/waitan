@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public interface ParkAndBuildingMgtMapper {
 
-    List<ParkAndBuildingVO> queryParkAndBuilding(String parkId);
+    List<ParkAndBuildingVO> queryParkAndBuilding(@Param("parkId") String parkId,@Param("buildingName") String buildingName);
 
     ParkDO queryParkByName(String parkName);
 

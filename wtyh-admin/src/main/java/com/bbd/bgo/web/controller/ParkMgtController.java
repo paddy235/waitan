@@ -74,12 +74,13 @@ public class ParkMgtController {
     /**
      * 园区楼宇列表
      * @param parkId 园区ID
+     * @param buildingName 楼宇名称
      * @return
      */
     @RequestMapping("/queryParkAndBuilding")
     @ResponseBody
-    public ResponseBean queryParkAndBuilding(String parkId){
-        List<ParkAndBuildingVO> list = parkMgtService.queryParkAndBuilding(parkId);
+    public ResponseBean queryParkAndBuilding(String parkId,String buildingName){
+        List<ParkAndBuildingVO> list = parkMgtService.queryParkAndBuilding(parkId,buildingName);
         return  ResponseBean.successResponse(list);
     }
 
@@ -128,6 +129,22 @@ public class ParkMgtController {
         return  ResponseBean.successResponse("OK");
     }
 
+    /**
+     * 新增园区
+     * @param park
+     * @return
+     */
+    @RequestMapping("/addPark")
+    @ResponseBody
+    public ResponseBean addPark(ParkDO park){
+        //新增之前先查询该园区是否存在
+        int i = parkMgtService.queryParkIdByName(park.getName());
+        if(i == 0){
+            return  ResponseBean.errorResponse("该园区已存在");
+        }
+        parkMgtService.addPark(park);
+        return  ResponseBean.successResponse("OK");
+    }
     /**
      * 上传图片
      * @param request

@@ -24,16 +24,22 @@ public class ParkMgtServiceImpl implements ParkMgtService {
 
     @Override
     public List<ParkDO> queryParkList() {
-        List<ParkDO>  list = parkAndBuildingMgtMapper.queryParkList();
-        return list;
+        List<ParkDO> list = parkAndBuildingMgtMapper.queryParkList();
+        List<ParkDO> t = new ArrayList<>();
+        t.add(new ParkDO() {{
+            setName("所有园区");
+
+        }});
+        t.addAll(list);
+        return t;
     }
 
     @Override
-    public List<ParkAndBuildingVO> queryParkAndBuilding(String parkId) {
+    public List<ParkAndBuildingVO> queryParkAndBuilding(String parkId,String buildingName) {
         List<ParkAndBuildingVO> list = new ArrayList<>();
         try {
-            list = parkAndBuildingMgtMapper.queryParkAndBuilding(parkId);
-        }catch (Exception e){
+            list = parkAndBuildingMgtMapper.queryParkAndBuilding(parkId,buildingName);
+        } catch (Exception e) {
             e.printStackTrace();
             return list;
         }
@@ -45,7 +51,7 @@ public class ParkMgtServiceImpl implements ParkMgtService {
         List<ParkAndBuildingVO> list = new ArrayList<>();
         try {
             list = parkAndBuildingMgtMapper.queryBuildingCompanyNumber(parkId);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return list;
         }
@@ -57,7 +63,7 @@ public class ParkMgtServiceImpl implements ParkMgtService {
         List<CompanyDO> list = new ArrayList<>();
         try {
             list = parkAndBuildingMgtMapper.queryCompanyByBuildingId(buildingId);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return list;
         }
@@ -65,11 +71,11 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     }
 
     @Override
-    public List<Map<String,String>> queryBuildingByParkId(String parkId) {
-        List<Map<String,String>> list = new ArrayList<>();
+    public List<Map<String, String>> queryBuildingByParkId(String parkId) {
+        List<Map<String, String>> list = new ArrayList<>();
         try {
             list = parkAndBuildingMgtMapper.queryBuildingByParkId(parkId);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return list;
         }
@@ -78,9 +84,9 @@ public class ParkMgtServiceImpl implements ParkMgtService {
 
     @Override
     public void delCompanyByCompanyId(List<String> companyIdList) {
-        try{
+        try {
             parkAndBuildingMgtMapper.delCompanyByCompanyId(companyIdList);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -88,9 +94,9 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     @Override
     public int queryParkIdByName(String parkName) {
         int i = 0000;
-        try{
+        try {
             i = parkAndBuildingMgtMapper.queryParkIdByName(parkName);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return i;
@@ -99,9 +105,18 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     @Override
     public BuildingDO queryBuildingByParkAndName(int parkId, String buildingName) {
         Map<String, Object> params = new HashedMap();
-        params.put("parkId",parkId);
-        params.put("buildingName",buildingName);
+        params.put("parkId", parkId);
+        params.put("buildingName", buildingName);
         BuildingDO buildingDO = parkAndBuildingMgtMapper.queryBuildingByParkAndName(params);
         return buildingDO;
+    }
+
+    @Override
+    public void addPark(ParkDO park) {
+        try {
+            parkAndBuildingMgtMapper.addPark(park);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
