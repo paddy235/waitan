@@ -9,10 +9,7 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.domain.EasyExport.*;
-import com.bbd.wtyh.service.CompanyLevelService;
-import com.bbd.wtyh.service.EasyExportExeclService;
-import com.bbd.wtyh.service.PrivateFundService;
-import com.bbd.wtyh.service.RiskCompanyService;
+import com.bbd.wtyh.service.*;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +27,9 @@ public class EasyExportExcelServiceImpl implements EasyExportExeclService {
 
     @Autowired
     private PrivateFundService privateFundService;  // 私募基金
+
+    @Autowired
+    private ExchangeCompanyService exchangeCompanyService;  // 交易场所
 
     @Override
     public List<WangdaiData> getWangdai(ExportCondition exportCondition) {
@@ -53,7 +53,7 @@ public class EasyExportExcelServiceImpl implements EasyExportExeclService {
 
     @Override
     public List<TradeMarketData> getTradeMarket(ExportCondition exportCondition) {
-        return null;
+        return exchangeCompanyService.getTradeMarket(exportCondition);
     }
 
     @Override

@@ -1,10 +1,12 @@
 package com.bbd.wtyh.service.impl;
 
 
+import com.bbd.wtyh.domain.EasyExport.TradeMarketData;
 import com.bbd.wtyh.domain.vo.ExchangeCompanyAreaVO;
 import com.bbd.wtyh.domain.vo.ExchangeCompanyVO;
 import com.bbd.wtyh.mapper.ExchangeCompanyMapper;
 import com.bbd.wtyh.service.ExchangeCompanyService;
+import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import org.apache.commons.collections.map.HashedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -99,5 +101,10 @@ public class ExchangeCompanyServiceImpl implements ExchangeCompanyService {
         map.put("type", type);
         List<ExchangeCompanyVO> list = exchangeCompanyMapper.queryExchangeCompanyListByAreaId(map);
         return list;
+    }
+
+    @Override
+    public List<TradeMarketData> getTradeMarket(ExportCondition exportCondition) {
+        return exchangeCompanyMapper.getTradeMarket(exportCondition);
     }
 }
