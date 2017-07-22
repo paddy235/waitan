@@ -45,6 +45,8 @@ public class TimingTaskManager {
 
 	private Logger logger = LoggerFactory.getLogger(TimingTaskManager.class);
 
+    private static Integer notRan=0;
+    private static Integer canRan=1;
 	/**
 	 * 普通任务
 	 *
@@ -66,7 +68,7 @@ public class TimingTaskManager {
 			logger.error("riskLevelTask"+e);
 		}finally {
 
-            taskEnd(map,taskId,planCount,successCount,failCount,null);
+            taskEnd(map,taskId,planCount,successCount,failCount,null,notRan);
 		}
 
 	}
@@ -92,7 +94,7 @@ public class TimingTaskManager {
 			logger.error("companyBaseInfoTask"+e);
 		}finally {
 
-            taskEnd(map,taskId,planCount,successCount,failCount,null);
+            taskEnd(map,taskId,planCount,successCount,failCount,null,notRan);
 		}
 
 	}
@@ -119,7 +121,7 @@ public class TimingTaskManager {
 			logger.error("pullDataFileFromBBDTask"+e);
 		}finally {
 
-            taskEnd(map,taskId,planCount,successCount,failCount,null);
+            taskEnd(map,taskId,planCount,successCount,failCount,null,canRan);
 		}
 
 	}
@@ -145,7 +147,7 @@ public class TimingTaskManager {
 			logger.error("pullHolographicAndOpinionTask"+e);
 		}finally {
 
-            taskEnd(map,taskId,planCount,successCount,failCount,null);
+            taskEnd(map,taskId,planCount,successCount,failCount,null,canRan);
 		}
 
 
@@ -171,7 +173,7 @@ public class TimingTaskManager {
 			logger.error("shangHaiCreditTask"+e);
 		}finally {
 
-            taskEnd(map,taskId,planCount,successCount,failCount,null);
+            taskEnd(map,taskId,planCount,successCount,failCount,null,canRan);
 		}
 	}
 	/**
@@ -208,7 +210,7 @@ public class TimingTaskManager {
 		} catch (Exception e) {
 			logger.error("pullP2PMonitorTask"+e);
 		}finally {
-            taskEnd(map,taskId,planCount,successCount,failCount,null);
+            taskEnd(map,taskId,planCount,successCount,failCount,null,canRan);
 		}
 	}
 
@@ -234,7 +236,7 @@ public class TimingTaskManager {
         } catch (Exception e) {
             logger.error("pullP2PMonitorTask"+e);
         }finally {
-            taskEnd(map,taskId,planCount,successCount,failCount,null);
+            taskEnd(map,taskId,planCount,successCount,failCount,null,canRan);
         }
     }
 
@@ -260,7 +262,7 @@ public class TimingTaskManager {
 			logger.error("updateCrowdFundingData"+e);
 		}finally {
 
-            taskEnd(map,taskId,planCount,successCount,failCount,null);
+            taskEnd(map,taskId,planCount,successCount,failCount,null,canRan);
 		}
 	}
 
@@ -289,7 +291,7 @@ public class TimingTaskManager {
             }catch (Exception e){
                 logger.error("reExecuteTask-shangHaiCreditJob"+e);
             }finally {
-                taskEnd(map,newTaskId,planCount,successCount,failCount,null);
+                taskEnd(map,newTaskId,planCount,successCount,failCount,null,canRan);
             }
 
         }else if(TaskUtil.offlineFinanceJob[0].equals(taskKey)){
@@ -307,7 +309,7 @@ public class TimingTaskManager {
             }catch (Exception e){
                 logger.error("reExecuteTask-pToPMonitorJob"+e);
             }finally {
-                taskEnd(map,newTaskId,planCount,successCount,failCount,null);
+                taskEnd(map,newTaskId,planCount,successCount,failCount,null,canRan);
             }
 
         }else if(TaskUtil.p2pImageJob[0].equals(taskKey)){
@@ -318,7 +320,7 @@ public class TimingTaskManager {
             }catch (Exception e){
                 logger.error("reExecuteTask-p2pImageJob"+e);
             }finally {
-                taskEnd(map,newTaskId,planCount,successCount,failCount,null);
+                taskEnd(map,newTaskId,planCount,successCount,failCount,null,canRan);
             }
 
         }else if(TaskUtil.crowdFundingJob[0].equals(taskKey)){
@@ -329,7 +331,7 @@ public class TimingTaskManager {
             }catch (Exception e){
                 logger.error("reExecuteTask-crowdFundingJob"+e);
             }finally {
-                taskEnd(map,newTaskId,planCount,successCount,failCount,null);
+                taskEnd(map,newTaskId,planCount,successCount,failCount,null,canRan);
             }
 
         }else if(TaskUtil.riskLevelJob[0].equals(taskKey)){
@@ -342,13 +344,13 @@ public class TimingTaskManager {
 	}
 
 
-	public void taskEnd(Map map,Integer taskId,Integer planCount,Integer successCount,Integer failCount,String creatBy){
+	public void taskEnd(Map map,Integer taskId,Integer planCount,Integer successCount,Integer failCount,String creatBy,Integer reExecute){
         if(null!=map){
             planCount=map.get("planCount")==null?null:(Integer)map.get("planCount");
             successCount=map.get("successCount")==null?null:(Integer)map.get("successCount");
             failCount=map.get("failCount")==null?null:(Integer)map.get("failCount");
         }
-        TaskUtil.taskEnd(taskId,planCount,successCount,failCount,null);
+        TaskUtil.taskEnd(taskId,planCount,successCount,failCount,null,reExecute);
     }
 
 

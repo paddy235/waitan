@@ -7,11 +7,14 @@ import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.credit.CompanyCreditFailInfoDO;
+import com.bbd.wtyh.domain.dto.CreditInfoDTO;
 import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.CoCreditScoreService;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.dom4j.Document;
@@ -58,6 +61,8 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	public static final String REDIS_KEY_CREDIT_REHANDLE_COMPANY = "wtyh:credit:rehandle:company";
 	// 执行成功的企业笔数
 	public static final String REDIS_KEY_CREDIT_SUCCESS_COMPANY = "wtyh:credit:success:company";
+
+	public static final String REDIS_KEY_COMPANY_CREDIT_ITEMS="company-credit-items";
 
 	private volatile boolean isShutdown = false;
 	private volatile int maxCompanyId = 0;
@@ -280,6 +285,44 @@ public class CoCreditScoreServiceImpl extends BaseServiceImpl implements CoCredi
 	@Override
 	public List<TaskFailInfoDO> getCreditFailInfoByTaskId(Integer taskId) {
 		return companyCreditMapper.getCreditFailInfoByTaskId(taskId);
+	}
+
+	@Override
+	public List<CreditInfoDTO> getCreditInfo(String companyName, String dataType) {
+		Map<Integer,String> items;
+		List<CreditInfoDTO> list;
+		List<String> types=null;
+		if(dataType!=null && !"0".equals(dataType)){
+			types=new ArrayList<>();
+			String[] arrDataType=dataType.split(",");
+			Object obj=redisDao.getObject(REDIS_KEY_COMPANY_CREDIT_ITEMS);
+
+			if(obj!=null){
+				items=(Map<Integer,String>)obj;
+				for(int i=0;i<arrDataType.length;i++){
+					Integer it= Integer.valueOf(arrDataType[i]);
+					types.add(items.get(it));
+				}
+
+			}else{
+
+				items=new HashMap();
+				List<CompanyCreditPointItemsDO> itemList = companyCreditInformationMapper.selectCompanyCreditPointItems();
+				for(CompanyCreditPointItemsDO c:itemList){
+
+					items.put(c.getId(),c.getItem());
+				}
+				redisDao.addObject(REDIS_KEY_COMPANY_CREDIT_ITEMS,items, Constants.cacheDay_One_Day, Map.class);
+				for(int i=0;i<arrDataType.length;i++){
+					Integer it= Integer.valueOf(arrDataType[i]);
+					types.add(items.get(it));
+				}
+
+			}
+		}
+
+		list=companyCreditMapper.getCreditInfo(companyName,types);
+		return list;
 	}
 
 	@Override

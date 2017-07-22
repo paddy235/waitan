@@ -68,9 +68,9 @@
             keyProperty="id"
             keyColumn="id">
         INSERT INTO `task_success_fail_info` (`task_name`, `task_group`, `data_version`,`begin_date`,`end_date`,`run_mode`, `plan_count`, `success_count`, `fail_count`,
-         `create_date`,  `create_by`)
+         `create_date`,  `create_by`,  `state`,  `re_execute`)
         VALUES (#{taskName}, #{taskGroup}, #{dataVersion}, #{beginDate}, #{endDate}, #{runMode}, #{planCount}, #{successCount}, #{failCount}
-        , #{createDate}, #{createBy}
+        , #{createDate}, #{createBy}, #{state}, #{reExecute}
         );
     </insert>
 
@@ -82,6 +82,8 @@
           plan_count=#{planCount},
           success_count=#{successCount},
           fail_count=#{failCount},
+          state=#{state},
+          re_execute=#{reExecute},
           update_date=#{updateDate},
           update_by=#{updateBy} where id=#{id}
     </update>
@@ -100,15 +102,14 @@
         `task_name` AS taskName,
         `task_group` AS taskGroup,
         `data_version`AS dataVersion,
-        <!--
         `begin_date`AS beginDate,
         `end_date`AS endDate,
-         `state`AS state,
-         `re_execute`AS reExecute,
-        `run_mode`AS runMode,-->
+        `run_mode`AS runMode,
         `plan_count`AS planCount,
         `success_count`AS successCount,
         `fail_count`AS failCount,
+        `state`AS state,
+        `re_execute`AS reExecute,
         `create_by` AS createBy,
         `create_date` AS createDate,
         `update_by` AS updateBy,
