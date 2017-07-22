@@ -157,47 +157,50 @@ public class ImportController {
 
 	private void syncDealWith(List<CommonsMultipartFile> files, String templateName, Integer impType, HttpServletRequest request) {
 		ExecutorService threadPool = Executors.newFixedThreadPool(1);
-		files.forEach((CommonsMultipartFile file) -> {
-			threadPool.execute(() -> {
-				String fileName = file.getOriginalFilename();
-				try {
-					ImportConfiguration conf = ImportConfiguration.getConfiguration(templateName, fileName);
-					conf.setFileSize(file.getSize());
-					ImportRecord record = ImpRecordUtil.createNewRecord(conf, impType);
-					conf.setRecordId(record.getId());
+		files.forEach((CommonsMultipartFile file) -> threadPool.execute(() -> {
+			String fileName = file.getOriginalFilename();
+			long fileSize = file.getSize();
+			ImportRecord record = ImpRecordUtil.createNewRecord(fileName, fileSize, impType);
+			try {
+				ImportConfiguration conf = ImportConfiguration.getConfiguration(templateName, fileName);
+				conf.setFileSize(fileSize);
+				conf.setRecordId(record.getId());
 
-					Workbook workbook = ExcelReadUtil.createWorkbook(fileName, file.getInputStream());
-					ExcelReadUtil.readExcel(workbook, conf.getExcelEntity());
-
-					List<Sheet> sheetList = conf.getSheetList();
-					ExecutorService fixedThreadPool = Executors.newFixedThreadPool(sheetList.size(), new ThreadFactory() {
-
-						final LongAdder num = new LongAdder();
-
-						@Override
-						public Thread newThread(Runnable r) {
-							num.increment();
-							Thread t = new Thread(r);
-							t.setName("export-excel-" + fileName + "-" + num);
-							// 设置为守护线程
-							t.setDaemon(true);
-							return t;
-						}
-					});
-
-					for (Sheet sheet : sheetList) {
-
-						fixedThreadPool.execute(() -> {
-							Importer importer = new DefaultImporter(conf, sheet, request);
-							importer.importData();
-						});
-					}
-					fixedThreadPool.shutdown();
-				} catch (Exception e) {
-					LOGGER.error("处理文件【{}】失败，服务器出现异常：", fileName, e);
+				Workbook workbook = ExcelReadUtil.createWorkbook(conf, fileName, file.getInputStream());
+				if (workbook == null) {
+					return;
 				}
-			});
-		});
+				ExcelReadUtil.readExcel(workbook, conf.getExcelEntity());
+
+				List<Sheet> sheetList = conf.getSheetList();
+				ExecutorService fixedThreadPool = Executors.newFixedThreadPool(sheetList.size(), new ThreadFactory() {
+
+					final LongAdder num = new LongAdder();
+
+					@Override
+					public Thread newThread(Runnable r) {
+						num.increment();
+						Thread t = new Thread(r);
+						t.setName("export-excel-" + fileName + "-" + num);
+						// 设置为守护线程
+						t.setDaemon(true);
+						return t;
+					}
+				});
+
+				for (Sheet sheet : sheetList) {
+
+					fixedThreadPool.execute(() -> {
+						Importer importer = new DefaultImporter(conf, sheet, request);
+						importer.importData();
+					});
+				}
+				fixedThreadPool.shutdown();
+			} catch (Exception e) {
+				ImpRecordUtil.appearError(record.getId(), "无法读取。请检查是否为Excel文件");
+				LOGGER.error("处理文件【{}】失败，服务器出现异常：", fileName, e);
+			}
+		}));
 	}
 
 	private boolean isFileImportOngoing(String fileName, HttpServletRequest request) {

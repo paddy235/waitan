@@ -12,6 +12,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -25,13 +26,13 @@ public class ImpRecordUtil {
 
 	private static BaseService baseService = (BaseService) ApplicationContextUtil.getBean("baseServiceImpl");
 
-	public static ImportRecord createNewRecord(ImportConfiguration conf, Integer impType) throws Exception {
+	public static ImportRecord createNewRecord(String fileName, long fileSize, Integer impType) {
 		ImportRecord importRecord = new ImportRecord();
 		importRecord.setId(UUID.randomUUID().toString().replace("-", "").toUpperCase());
-		importRecord.setFileName(conf.getFileName());
-		importRecord.setFileSize(conf.getFileSize());
+		importRecord.setFileName(fileName);
+		importRecord.setFileSize(fileSize);
 		importRecord.setImpState(ImpRecord.ING.state());
-		importRecord.setImpDate(conf.getImportDate());
+		importRecord.setImpDate(new Date());
 		importRecord.setImpType(impType);
 		baseService.insert(importRecord);
 		return importRecord;
@@ -100,6 +101,15 @@ public class ImpRecordUtil {
 		ImportRecord importRecord = new ImportRecord();
 		importRecord.setId(recordId);
 		importRecord.setRemark("报错文件已下载");
+		baseService.update(importRecord);
+	}
+
+	public static void appearError(String recordId, String msg) {
+		ImportRecord importRecord = new ImportRecord();
+		importRecord.setId(recordId);
+		importRecord.setImpState(ImpRecord.FAIL.state());
+		importRecord.setHaveErrorFile(false);
+		importRecord.setRemark(msg);
 		baseService.update(importRecord);
 	}
 
