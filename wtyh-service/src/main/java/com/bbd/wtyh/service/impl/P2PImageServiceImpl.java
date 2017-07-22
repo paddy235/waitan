@@ -2,16 +2,17 @@ package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.dao.P2PImageDao;
 import com.bbd.wtyh.domain.*;
+import com.bbd.wtyh.domain.CompanyInfoModify.WangdaiModify;
+import com.bbd.wtyh.domain.EasyExport.WangdaiData;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
 import com.bbd.wtyh.domain.bbdAPI.ZuZhiJiGoudmDO;
-import com.bbd.wtyh.domain.dto.PlatCompanyDTO;
 import com.bbd.wtyh.domain.dto.PlatRankDataDTO;
 import com.bbd.wtyh.domain.wangDaiAPI.*;
 import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.redis.RedisDAO;
 import com.bbd.wtyh.service.P2PImageService;
 import com.bbd.wtyh.service.PToPMonitorService;
-import com.google.gson.JsonSyntaxException;
+import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -456,5 +457,15 @@ public class P2PImageServiceImpl implements P2PImageService {
     @Override
     public PlatListDO getWangdaiCompanyList(String companyName) {
         return getWangdaiCompanyList().get(companyName);
+    }
+
+    @Override
+    public List<WangdaiData> getWangdai(ExportCondition exportCondition) {
+        return platCoreDataMapper.getWangdai(exportCondition);
+    }
+
+    @Override
+    public void recordWangdai(WangdaiModify wangdaiModify) {
+        platformMapper.recordWangdai(wangdaiModify);
     }
 }

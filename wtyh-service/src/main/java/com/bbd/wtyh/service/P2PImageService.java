@@ -1,10 +1,13 @@
 package com.bbd.wtyh.service;
 
+import com.bbd.wtyh.domain.CompanyInfoModify.WangdaiModify;
+import com.bbd.wtyh.domain.EasyExport.WangdaiData;
 import com.bbd.wtyh.domain.PlatformNameInformationDO;
 import com.bbd.wtyh.domain.dto.PlatRankDataDTO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatDataDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
 import com.bbd.wtyh.domain.wangDaiAPI.YuQingDTO;
+import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 
 import java.util.List;
 import java.util.Map;
@@ -104,4 +107,8 @@ public interface P2PImageService {
 
 
     PlatListDO getWangdaiCompanyList(String name);
+
+    List<WangdaiData> getWangdai(ExportCondition exportCondition);
+
+    void recordWangdai(WangdaiModify companyInfo);
 }

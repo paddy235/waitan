@@ -169,7 +169,7 @@ public class RoleResourceController {
 			RoleDo roleDo = roleResourceService.getRoleBase(id, null);
 			// 记录日志
 			String roleName = (null == roleDo) ? "" : roleDo.getName();
-			if ("modify".equals(pageType)) {
+			if ("modifyLevel".equals(pageType)) {
 				UserLogRecord.record("编辑角色:" + roleName, Operation.Type.browse, Operation.Page.roleModify, Operation.System.back, request);
 			} else {
 				UserLogRecord.record("浏览角色:" + roleName, Operation.Type.browse, Operation.Page.roleBrowse, Operation.System.back, request);
