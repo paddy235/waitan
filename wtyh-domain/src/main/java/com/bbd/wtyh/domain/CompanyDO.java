@@ -3,6 +3,7 @@ package com.bbd.wtyh.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -28,11 +29,12 @@ public class CompanyDO extends BaseDO implements Comparable {
 	public static final byte TYPE_RZZL_13 = 13;
 
 	//企业ID
+	@Id
 	@Column(name = "company_id")
 	private Integer companyId;
 
 	//统一社会信用代码
-	@Column(name = "company_id")
+	@Column(name = "credit_code")
 	private String creditCode;
 
 	//企业名称
@@ -268,6 +270,10 @@ public class CompanyDO extends BaseDO implements Comparable {
 
 	public String getComTypeCN() {
 		return companyTypeCN(this.companyType);
+	}
+
+	public String getComTypeCnItself() {
+		return this.comTypeCN;
 	}
 
 	public String getRegisteredType() {

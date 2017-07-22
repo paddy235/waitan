@@ -167,6 +167,8 @@ public class QuartzHandler extends BaseServiceImpl {
 		taskDetail.setDataVersion(dataVersion);
 		taskDetail.setRunMode(runMode);
 		taskDetail.setPlanCount(planCount);
+        taskDetail.setState(TaskState.EXECUTING.state());
+        taskDetail.setReExecute(0);//0不可执行 1可执行 2 已手动执行'
 		taskDetail.setCreateDate(taskDetail.getBeginDate());
 		if(createBy==null){
 			taskDetail.setCreateBy("system");
@@ -182,7 +184,7 @@ public class QuartzHandler extends BaseServiceImpl {
 		return taskDetail.getId();
 	}
 
-	public void taskEnd(Integer taskId,Integer planCount, Integer successCount,Integer failCount,String updateBy) {
+	public void taskEnd(Integer taskId,Integer planCount, Integer successCount,Integer failCount,String updateBy,Integer reExecute) {
 		TaskSuccessFailInfoDO taskDetail = taskDetailMapper.getTaskInfoById(taskId);
 		taskDetail.setEndDate(new Date());
 		taskDetail.setPlanCount(planCount);
@@ -192,15 +194,18 @@ public class QuartzHandler extends BaseServiceImpl {
 		if(updateBy==null){
 			taskDetail.setUpdateBy("system");
 		}
+        if(failCount!=null && failCount>0) {
+            taskDetail.setState(TaskState.ERROR.state());
+            taskDetail.setReExecute(reExecute);
+        }else {
+            taskDetail.setState(TaskState.SUCCESS.state());
+        }
+
 		taskDetailMapper.updateTaskSuccessFailInfo(taskDetail);
 
 		TaskInfoDO taskInfo = this.getTaskInfo(taskDetail.getTaskName(), taskDetail.getTaskGroup());
 		taskInfo.setEndDate(taskDetail.getEndDate());
-		if(failCount!=null && failCount>0) {
-			taskInfo.setState(TaskState.ERROR.state());
-		}else {
-			taskInfo.setState(TaskState.SUCCESS.state());
-		}
+        taskInfo.setState(taskDetail.getState());
 		this.update(taskInfo);
 	}
 
