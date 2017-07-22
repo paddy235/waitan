@@ -1,5 +1,6 @@
 package com.bbd.wtyh.mapper;
 
+import com.bbd.wtyh.domain.TaskFailInfoDO;
 import com.bbd.wtyh.domain.WangdaiTaskInfoDO;
 import org.apache.ibatis.annotations.Param;
 
@@ -12,5 +13,5 @@ public interface WangdaiTaskInfoMapper {
 
     void save(WangdaiTaskInfoDO wangdaiTaskInfoDO);
 
-    List<WangdaiTaskInfoDO> list(@Param("taskId")String taskId);
+    List<TaskFailInfoDO> list(@Param("taskId")Integer taskId);
 }

@@ -5,8 +5,10 @@ import java.util.Map;
 
 import com.bbd.wtyh.domain.CrowdFundingCompanyDO;
 import com.bbd.wtyh.domain.CrowdFundingStatisticsDO;
+import com.bbd.wtyh.domain.EasyExport.CrowdfundData;
 import com.bbd.wtyh.domain.NvDO;
 import com.bbd.wtyh.domain.wangDaiAPI.CrowdFundingStatisticsDTO;
+import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 
 /**
 * 众筹企业相关接口
@@ -27,6 +29,22 @@ public interface CrowdFundingService {
 	public List<String> queryCompany(String keyword);
 
 
+	/**
+	 * 众筹数据落地
+	 * @param taskId
+	 * @return
+	 */
 	Map crowdFundingDataLandTask(Integer taskId);
+
+	List<CrowdfundData> getCrowdfund(ExportCondition exportCondition);
+
+	/**
+	 *重新执行数据落地失败任务
+	 * @param runMode
+	 * @param oldTaskId
+	 * @param taskId
+	 * @return
+	 */
+	Map executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId);
 
 }

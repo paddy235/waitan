@@ -7,8 +7,10 @@ import java.util.Map;
 
 import com.bbd.wtyh.dao.CrowdFundingDao;
 import com.bbd.wtyh.domain.*;
+import com.bbd.wtyh.domain.EasyExport.CrowdfundData;
 import com.bbd.wtyh.domain.wangDaiAPI.CrowdFundingStatisticsDTO;
 import com.bbd.wtyh.mapper.*;
+import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -91,8 +93,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
             e.printStackTrace();
             WangdaiTaskInfoDO wangdaiTaskInfoDO = new WangdaiTaskInfoDO();
             wangdaiTaskInfoDO.setTaskId(taskId);
-            wangdaiTaskInfoDO.setPlatName("type=1");
-            wangdaiTaskInfoDO.setTaskType(0);
+            wangdaiTaskInfoDO.setFailName("dataType=1");
             wangdaiTaskInfoDO.setCreateBy("sys");
             wangdaiTaskInfoDO.setCreateDate(new Date());
             wangdaiTaskInfoMapper.save(wangdaiTaskInfoDO);
@@ -106,8 +107,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
                 e.printStackTrace();
                 WangdaiTaskInfoDO wangdaiTaskInfoDO = new WangdaiTaskInfoDO();
                 wangdaiTaskInfoDO.setTaskId(taskId);
-                wangdaiTaskInfoDO.setPlatName(String.format("type=%s",i));
-                wangdaiTaskInfoDO.setTaskType(0);
+                wangdaiTaskInfoDO.setFailName(String.format("dataType=%s", i));
                 wangdaiTaskInfoDO.setCreateBy("sys");
                 wangdaiTaskInfoDO.setCreateDate(new Date());
                 wangdaiTaskInfoMapper.save(wangdaiTaskInfoDO);
@@ -117,7 +117,48 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
         Map map = new HashMap();
         map.put("planCount", planCount);
         map.put("failCount", failCount);
-        map.put("successCount",planCount - failCount);
+        map.put("successCount", planCount - failCount);
+        return map;
+    }
+
+    @Override
+    public Map executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) {
+        List<TaskFailInfoDO> list = wangdaiTaskInfoMapper.list(oldTaskId);
+        Integer planCount = list.size();
+        Integer failCount = 0;
+        for (TaskFailInfoDO wangdaiTaskInfo : list) {
+            if (wangdaiTaskInfo.getFailName().equals("dataType=1")) {
+                try {
+                    updateCrowdFundingCompany();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    WangdaiTaskInfoDO wangdaiTaskInfoDO = new WangdaiTaskInfoDO();
+                    wangdaiTaskInfoDO.setTaskId(taskId);
+                    wangdaiTaskInfoDO.setFailName("dataType=1");
+                    wangdaiTaskInfoDO.setCreateBy("sys");
+                    wangdaiTaskInfoDO.setCreateDate(new Date());
+                    wangdaiTaskInfoMapper.save(wangdaiTaskInfoDO);
+                    failCount++;
+                }
+            } else {
+                try {
+                    updateCrowdFundingCommon(wangdaiTaskInfo.getFailName().split("=")[1]);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    WangdaiTaskInfoDO wangdaiTaskInfoDO = new WangdaiTaskInfoDO();
+                    wangdaiTaskInfoDO.setTaskId(taskId);
+                    wangdaiTaskInfoDO.setFailName(String.format("dataType=%s", i));
+                    wangdaiTaskInfoDO.setCreateBy("sys");
+                    wangdaiTaskInfoDO.setCreateDate(new Date());
+                    wangdaiTaskInfoMapper.save(wangdaiTaskInfoDO);
+                    failCount++;
+                }
+            }
+        }
+        Map map = new HashMap();
+        map.put("planCount", planCount);
+        map.put("failCount", failCount);
+        map.put("successCount", planCount - failCount);
         return map;
     }
 
@@ -127,7 +168,7 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
         crowdFundingCommonDO.setReward((String) map.get("奖励众筹"));    //TODO:key为汉字不妥
         crowdFundingCommonDO.setNonPulicEquityFinancing((String) map.get("非公开股权融资"));
         crowdFundingCommonDO.setPublicWelfare((String) map.get("公益众筹"));
-        if(map.get("混合众筹")!=null){
+        if (map.get("混合众筹") != null) {
             crowdFundingCommonDO.setBlend((String) map.get("混合众筹"));
         }
         crowdFundingCommonDO.setType(type);
@@ -148,5 +189,10 @@ public class CrowdFundingServiceImpl implements CrowdFundingService {
             crowdFundingCompanyMapper.deleteByPlatName(dto.getPlatformName());
             crowdFundingCompanyMapper.saveForDataLand(dto);
         }
+    }
+
+    @Override
+    public List<CrowdfundData> getCrowdfund(ExportCondition exportCondition) {
+        return crowdFundingCompanyMapper.getCrowdfund(exportCondition);
     }
 }

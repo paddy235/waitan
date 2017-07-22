@@ -90,9 +90,7 @@
         update
         task_success_fail_info
         set
-        re_execute=#{reRxecute}
-        update_date=#{updateDate},
-        update_by=#{updateBy} where id=#{taskId}
+        re_execute=#{reRxecute} where id=#{taskId}
     </update>
 
     <select id="getTaskRecentInfo" parameterType="java.util.HashMap"
@@ -102,14 +100,15 @@
         `task_name` AS taskName,
         `task_group` AS taskGroup,
         `data_version`AS dataVersion,
+        <!--
         `begin_date`AS beginDate,
         `end_date`AS endDate,
-        `run_mode`AS runMode,
+         `state`AS state,
+         `re_execute`AS reExecute,
+        `run_mode`AS runMode,-->
         `plan_count`AS planCount,
         `success_count`AS successCount,
         `fail_count`AS failCount,
-        `state`AS state,
-        `re_execute`AS reExecute,
         `create_by` AS createBy,
         `create_date` AS createDate,
         `update_by` AS updateBy,

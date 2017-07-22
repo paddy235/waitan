@@ -13,12 +13,6 @@ public class PawnData {
     private String name;
     // 行业类别
     private Byte industry;
-    // 企业背景
-    private Byte background;
-    // 风险等级
-    private String currentLevel;
-    // 风险值
-    // TODO: 2017/7/19
     // 法人
     private String legalPerson;
     // 注册时间
@@ -43,22 +37,6 @@ public class PawnData {
 
     public void setIndustry(Byte industry) {
         this.industry = industry;
-    }
-
-    public Byte getBackground() {
-        return background;
-    }
-
-    public void setBackground(Byte background) {
-        this.background = background;
-    }
-
-    public String getCurrentLevel() {
-        return currentLevel;
-    }
-
-    public void setCurrentLevel(String currentLevel) {
-        this.currentLevel = currentLevel;
     }
 
     public String getLegalPerson() {

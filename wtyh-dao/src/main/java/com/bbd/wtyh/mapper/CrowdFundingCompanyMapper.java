@@ -3,6 +3,8 @@ package com.bbd.wtyh.mapper;
 import java.util.List;
 
 import com.bbd.wtyh.domain.CrowdFundingCompanyDO;
+import com.bbd.wtyh.domain.EasyExport.CrowdfundData;
+import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import org.apache.ibatis.annotations.Param;
 
 public interface CrowdFundingCompanyMapper {
@@ -17,4 +19,6 @@ public interface CrowdFundingCompanyMapper {
     void saveForDataLand(CrowdFundingCompanyDO crowdFundingCompanyDO);
 
     void deleteByPlatName(@Param("platformName")String platformName);
+
+    List<CrowdfundData> getCrowdfund(ExportCondition exportCondition);
 }
