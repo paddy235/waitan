@@ -65,7 +65,7 @@ public interface ParkMgtService{
      * 删除楼宇
      * @param buildingId
      */
-    void delBuildingById(String buildingId);
+    void delBuildingById(List<String> buildingId);
 
     /**
      * 删除企业
@@ -77,7 +77,7 @@ public interface ParkMgtService{
      * 删除企业
      * @param buildingId
      */
-    void delCompanyBuildingByBuildingId(String buildingId);
+    void delCompanyByBuildingId(List<String> buildingId);
 
     /**
      * 根据企业ID删除企业
@@ -112,4 +112,10 @@ public interface ParkMgtService{
      * @param park
      */
     void addPark(ParkDO park);
+
+    /**
+     * 新增楼宇
+     * @param building
+     */
+    void addBuilding(BuildingDO building);
 }

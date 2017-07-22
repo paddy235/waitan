@@ -114,7 +114,7 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     }
 
     @Override
-    public void delBuildingById(String buildingId) {
+    public void delBuildingById(List<String> buildingId) {
         try {
             parkAndBuildingMgtMapper.delBuildingById(buildingId);
         } catch (Exception e) {
@@ -132,9 +132,9 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     }
 
     @Override
-    public void delCompanyBuildingByBuildingId(String buildingId) {
+    public void delCompanyByBuildingId(List<String> buildingId) {
         try {
-            parkAndBuildingMgtMapper.delCompanyBuildingByBuildingId(buildingId);
+            parkAndBuildingMgtMapper.delCompanyByBuildingId(buildingId);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -173,6 +173,15 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     public void addPark(ParkDO park) {
         try {
             parkAndBuildingMgtMapper.addPark(park);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void addBuilding(BuildingDO building) {
+        try {
+            parkAndBuildingMgtMapper.addBuilding(building);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,6 +1,7 @@
 package com.bbd.bgo.web.controller;
 
 import com.bbd.wtyh.cachetobean.ShanghaiAreaCode;
+import com.bbd.wtyh.domain.BuildingDO;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.ImgDO;
 import com.bbd.wtyh.domain.ParkDO;
@@ -60,7 +61,7 @@ public class ParkMgtController {
     }
 
     /**
-     * 楼宇列表
+     * 楼宇列表(可模糊查询)
      * @param parkId 园区ID
      * @param buildingName 楼宇名称
      * @return
@@ -131,10 +132,10 @@ public class ParkMgtController {
      */
     @RequestMapping("/delBuilding")
     @ResponseBody
-    public ResponseBean delBuilding(String buildingId){
+    public ResponseBean delBuilding(String[] buildingId){
         //删除楼宇时，需要将相关企业一并删除
-        parkMgtService.delCompanyBuildingByBuildingId(buildingId);
-        parkMgtService.delBuildingById(buildingId);
+        parkMgtService.delCompanyByBuildingId(Arrays.asList(buildingId));
+        parkMgtService.delBuildingById(Arrays.asList(buildingId));
         return  ResponseBean.successResponse("OK");
     }
 
@@ -167,6 +168,24 @@ public class ParkMgtController {
         parkMgtService.addPark(park);
         return  ResponseBean.successResponse("OK");
     }
+
+    /**
+     * 新增楼宇
+     * @param building
+     * @return
+     */
+    @RequestMapping("/addBuilding")
+    @ResponseBody
+    public ResponseBean addBuilding(BuildingDO building){
+//        //新增之前先查询该园区是否存在
+//        int i = parkMgtService.queryParkIdByName(park.getName());
+//        if(i != 0){
+//            return  ResponseBean.errorResponse("该园区已存在");
+//        }
+//        parkMgtService.addBuilding(park);
+        return  ResponseBean.successResponse("OK");
+    }
+
     /**
      * 上传图片
      * @param request

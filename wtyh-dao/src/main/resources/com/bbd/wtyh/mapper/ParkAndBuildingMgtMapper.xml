@@ -98,7 +98,7 @@
     </select>
 
     <insert id="addBuilding" parameterType="com.bbd.wtyh.domain.BuildingDO">
-        INSERT INTO building(`name`, park_id, img_url, create_by, create_date, update_date) VALUES(#{name}, #{parkId}, #{imgUrl}, #{createBy}, SYSDATE(), SYSDATE())
+        INSERT INTO building(`name`, park_id, img_url, create_by, create_date) VALUES(#{name}, #{parkId}, #{imgUrl}, #{createBy}, SYSDATE())
     </insert>
 
     <delete id="delCompanyByCompanyId" >
@@ -128,19 +128,15 @@
         DELETE FROM park WHERE `name`=#{parkName}
     </delete>
 
-    <delete id="delBuildingById" parameterType="java.lang.String">
-        DELETE FROM building WHERE building_id=#{buildingId}
+    <delete id="delBuildingById" parameterType="java.util.List">
+        DELETE FROM building WHERE building_id IN
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
     </delete>
 
     <delete id="delParkById" parameterType="java.lang.String">
         DELETE FROM park WHERE park_id=#{parkId}
-    </delete>
-
-    <delete id="delCompanyBuildingByBuildingId" parameterType="java.lang.String">
-        DELETE FROM
-          company_building
-        WHERE
-          building_id = #{buildingId}
     </delete>
 
     <delete id="delCompanyBuildingByParkId" parameterType="java.lang.String">
