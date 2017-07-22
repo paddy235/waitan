@@ -7,15 +7,27 @@
     var int;
 
     $(document).ready(function () {
-        var $download_error_btn = $('#download-error');
+        var $download_error_btn = $('#download-error'),
+            $download_template_btn = $('#download-template');
         $download_error_btn.attr('disabled', 'disabled');
+
 
         $('#upload').click(function () {
             var form = document.getElementById("upload-form");
-            var formData = new FormData(form);
+            var formData = new FormData(),
+                $files = $('#file1').prop('files');
+
+            formData.append('impType', 2);
+            formData.append('templateName', $('#templateName').val());
+
+
+            for (var i = 0; i < $files.length; i++) {
+                formData.append('files', $files[i]);
+            }
 
             $.ajax({
-                url: '/import/import-data.do?impType=2',
+                //url: '/import/import-data.do?impType=2',
+                url: '/import/import-data-list.do',
                 type: 'POST',
                 data: formData,
                 processData: false,
@@ -31,6 +43,11 @@
             var array = $('#file').val().split("\\"),
                 fileName = array[array.length - 1];
             window.location.href = '/import/download-error-file.do?fileName=' + fileName;
+
+        });
+        $download_template_btn.click(function () {
+            var name = $('#templateName').val();
+            window.location.href = '/import/import-template.do?templateName=' + name;
 
         });
 
@@ -51,8 +68,8 @@
                 if (data === null) {
                     return;
                 }
-                if (!data.success || data.content === "") {
-                    window.clearInterval(int)
+                if (!data.success || data.content === '') {
+                    window.clearInterval(int);
                     return;
                 }
                 var isFinish = false,
@@ -89,13 +106,14 @@
 <head>
     <form id="upload-form" enctype="multipart/form-data">
         <h1>上传EXCEL</h1>
-        <input type="text" id="ipt-name" name="templateName" value="Test">
-        <input type="file" id="file" name="file">
-        <input type="button" id="upload" value="upload"/>
+        模版名称：<input type="text" id="templateName" name="templateName" value="Test">
+        <input type="file" multiple="true" id="file1" name="files">
+        <input type="button" id="download-template" value="下载导入模版"/>
+        <input type="button" id="upload" value="上传数据文件"/>
         <input type="button" id="download-error" value="下载错误文件" disabled="disabled"/>
     </form>
 
-    <div id="progress-dev" style="width: 500px;height:500px;border: 1px solid black ;padding-left: 10px;">
+    <div id="progress-dev" style="width: 800px;height:500px;border: 1px solid black ;padding-left: 10px;">
         <h1 id="sheetName">导入信息</h1>
     </div>
 

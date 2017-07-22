@@ -22,6 +22,9 @@ public class DataLoadingFailInfoDO extends BaseDO {
     @Column(name = "error_name")
     private String errorName;
 
+    @Column(name = "error_reason")
+    private String errorReason;
+
     @Column(name = "type")
     private String type;
 
@@ -76,5 +79,13 @@ public class DataLoadingFailInfoDO extends BaseDO {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getErrorReason() {
+        return errorReason;
+    }
+
+    public void setErrorReason(String errorReason) {
+        this.errorReason = errorReason;
     }
 }

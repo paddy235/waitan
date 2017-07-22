@@ -4,10 +4,15 @@ package com.bbd.bgo.web.controller;
 
 import com.bbd.bgo.service.task.TimingTaskManager;
 import com.bbd.wtyh.constants.TaskState;
+import com.bbd.wtyh.domain.TaskFailInfoDO;
 import com.bbd.wtyh.domain.dto.TaskInfoDTO;
 import com.bbd.wtyh.domain.enums.TaskDataSource;
+import com.bbd.wtyh.excel.ExportExcel;
+import com.bbd.wtyh.excel.Sheet;
+import com.bbd.wtyh.exception.ExceptionHandler;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.UserLogRecord;
+import com.bbd.wtyh.mapper.TaskSuccessFailInfoMapper;
 import com.bbd.wtyh.service.TimingTaskService;
 import com.bbd.wtyh.web.ResponseBean;
 import org.apache.commons.lang3.StringUtils;
@@ -36,6 +41,8 @@ public class TimingTaskController {
 	private TimingTaskService timingTaskService;
     @Autowired
     private TimingTaskManager timingTaskManager;
+    @Autowired
+    private TaskSuccessFailInfoMapper taskSuccessFailInfoMapper;
 
 	@RequestMapping("/getTaskInfo")
 	@ResponseBody
@@ -80,7 +87,11 @@ public class TimingTaskController {
                                       @RequestParam String taskGroup,@RequestParam String taskName,HttpServletRequest request) {
         UserLogRecord.record("再次执行【"+taskName+"-"+taskId+"]", Operation.Type.RE_EXECUTE, Operation.Page.timingTask,
                 Operation.System.back, request);
-	    timingTaskManager.reExecuteTask(taskId,taskKey,taskGroup);
+        System.out.println("1");
+        timingTaskManager.reExecuteTaskAsyn(taskId,taskKey,taskGroup);
+        System.out.println("2");
+        taskSuccessFailInfoMapper.updateReExecuteById(2,taskId);
+        System.out.println("3");
 	    return ResponseBean.successResponse(null);
 	}
 
@@ -88,10 +99,23 @@ public class TimingTaskController {
     @ResponseBody
     public ResponseBean downloadTaskInfo(@RequestParam Integer taskId, @RequestParam String taskKey,
                                       @RequestParam String taskGroup,@RequestParam String taskName,HttpServletRequest request) {
-        UserLogRecord.record("下载任务执行结果【"+taskName+"-"+taskId+"]", Operation.Type.DATA_EXPORT, Operation.Page.timingTask,
-                Operation.System.back, request);
-        timingTaskManager.reExecuteTask(taskId,taskKey,taskGroup);
-        return ResponseBean.successResponse(null);
+
+		try {
+
+			UserLogRecord.record("导出定时任务【" + taskName + "-" + taskId + "]", Operation.Type.DATA_EXPORT, Operation.Page.timingTask,
+					Operation.System.back, request);
+
+            List<TaskFailInfoDO> list= timingTaskManager.downloadTaskInfo(taskId, taskKey, taskGroup);
+			String excelName = "定时任务（" + taskName + "）";
+			ExportExcel exportExcel = new ExportExcel(excelName);
+			exportExcel.createSheet(list);
+			exportExcel.exportExcel();
+			return ResponseBean.successResponse(exportExcel.getDownloadURL());
+
+		} catch (Exception e) {
+
+			return ExceptionHandler.handlerException(e);
+		}
     }
 
     @RequestMapping("/getTaskState")

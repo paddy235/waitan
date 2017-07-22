@@ -133,6 +133,16 @@
 		</foreach>
 	</insert>
 
+	<insert id="saveRecruitIndexDO" parameterType="java.util.List">
+		INSERT INTO recruit_index(
+		company_name,recruit_industryratio ,recruit_salaryratio,recruit_index,dt,task_id)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator="," >
+			(#{item.company_name}, #{item.recruit_industryratio}, #{item.recruit_salaryratio},
+			#{item.index}, #{item.dt}, #{item.task_id})
+		</foreach>
+	</insert>
+
 	<insert id="saveDatasharePullFileDO" parameterType="java.util.List">
 		INSERT INTO datashare_pull_file(
 		file_id ,file_name ,file_url ,task_id ,create_by ,create_date)
@@ -143,6 +153,16 @@
 		</foreach>
 	</insert>
 
+	<insert id="saveOfflineFinancialRecordDO" parameterType="java.util.List">
+		INSERT INTO offline_financial_record(
+		company_id ,credit_code ,company_name ,organization_code  ,create_date)
+		VALUES
+		<foreach collection="list" item="item" index="index" separator="," >
+			(#{item.company_id}, #{item.credit_code}, #{item.company_name}, #{item.organization_code},
+			 CURDATE())
+		</foreach>
+	</insert>
+
 	<select id="getDatasharePullFileByTaskId" parameterType="java.lang.Integer" resultType="com.bbd.wtyh.domain.dataLoading.DatasharePullFileDO">
 		select file_id,file_name,file_url,task_id,create_by,create_date,update_by,update_date
 			FROM
@@ -150,7 +170,7 @@
 		where task_id=#{taskId}
 	</select>
 
-	<select id="getCompanyBasicInfoByName" parameterType="java.lang.Integer" resultType="com.bbd.wtyh.domain.dataLoading.QyxxBasicDO">
+	<select id="getCompanyBasicInfoInNames" parameterType="java.lang.Integer" resultType="com.bbd.wtyh.domain.dataLoading.QyxxBasicDO">
 		select
 		id, address,approval_date ,bbd_dotime ,bbd_history_name ,bbd_qyxx_id ,bbd_type , bbd_uptime,cancel_date,company_companytype,
 		company_county,company_currency,company_enterprise_status,company_industry,company_name,company_province,company_regorg,company_type,
@@ -159,7 +179,10 @@
 		regcap_currency,regcapcur,regno,regno_or_creditcode,regorg,revoke_date,type,frname_compid,create_time,task_id
 		FROM
 			qyxx_basic
-		where company_name = #{companyName}
+		where company_name in
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item.name}
+		</foreach>
 	</select>
 
 </mapper>

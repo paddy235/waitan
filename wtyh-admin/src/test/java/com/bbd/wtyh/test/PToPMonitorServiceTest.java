@@ -21,8 +21,16 @@ public class PToPMonitorServiceTest {
 
     @Test
     public void industryShanghaiDataLanding() {
-        Integer taskId = 1;
+        Integer taskId = 11;
         Map map = monitorService.pToPMonitorDataLandTask(taskId);
+        System.out.print(map);
+    }
+
+    @Test
+    public void reExecuteTest() {
+        Integer taskId = 12;
+        Integer oldTaskId = 11;
+        Map map = monitorService.executeFailTaskByTaskId(0, oldTaskId, taskId);
         System.out.print(map);
     }
 
