@@ -56,9 +56,12 @@ public abstract class AbstractImportHandler<T> implements ImportHandler<T> {
 
 	@Override
 	public void addError(String msg) {
-		this.abstractImporter.addError(msg, getRowNumber(), 0);
+		addError(getRowNumber(), msg);
 	}
 
+	public void addError(int rowNum, String msg) {
+		this.abstractImporter.addError(msg, rowNum, 0);
+	}
 	@Override
 	public List<ImportError> errorList() {
 		return abstractImporter.errorList();

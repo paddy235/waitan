@@ -4,12 +4,16 @@
 <mapper namespace="com.bbd.wtyh.mapper.WangdaiTaskInfoMapper">
 
     <insert id="save" parameterType="com.bbd.wtyh.domain.WangdaiTaskInfoDO">
-        INSERT INTO `wangdai_task_info` (`task_id`, `plat_name`, `task_type`, `fail_reason`, `create_by`, `create_date`, `update_by`, `update_date`)
-        VALUES (#{taskId}, #{platName}, #{taskType}, #{failReason}, #{createBy}, #{createDate}, #{updateBy}, #{updateDate});
+        INSERT INTO `wangdai_task_info` (`task_id`, `fail_name`, `description`, `fail_reason`, `create_by`, `create_date`, `update_by`, `update_date`)
+        VALUES (#{taskId}, #{failName}, #{description}, #{failReason}, #{createBy}, #{createDate}, #{updateBy}, #{updateDate});
     </insert>
 
-    <select id="list" resultType="com.bbd.wtyh.domain.WangdaiTaskInfoDO">
-        SELECT * from wangdai_task_info WHERE task_id=#{taskId}
+    <select id="list" resultType="com.bbd.wtyh.domain.TaskFailInfoDO">
+        SELECT
+        `task_id` as taskId,
+        `fail_name` as failName,
+        `fail_reason` as failReason
+         from wangdai_task_info WHERE task_id=#{taskId}
     </select>
 
 </mapper>

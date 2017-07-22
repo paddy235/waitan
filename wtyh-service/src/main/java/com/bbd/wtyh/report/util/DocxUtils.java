@@ -291,7 +291,7 @@ public class DocxUtils {
         addTableOfContentField(paragraph);
         addFieldEnd(paragraph);
         paragraphs.add(idx +1, paragraph);
-        addPageBreak( idx +2, paragraphs, STBrType.PAGE ); //插入分页符
+        //addPageBreak( idx +2, paragraphs, STBrType.PAGE ); //插入分页符
     }
 
     /**
@@ -351,6 +351,10 @@ public class DocxUtils {
         fldcharend.setFldCharType(STFldCharType.END);
         run.getContent().add(getWrappedFldChar(fldcharend));
         paragraph.getContent().add(run);
+        //插入分页符
+        Br breakObj = new Br();
+        breakObj.setType(STBrType.PAGE);
+        paragraph.getContent().add(breakObj);
     }
 
     /**

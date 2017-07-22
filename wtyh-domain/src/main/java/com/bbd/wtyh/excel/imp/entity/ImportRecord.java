@@ -51,6 +51,9 @@ public class ImportRecord {
 	@Column(name = "remark")
 	private String remark;
 
+	@Column(name = "have_error_file")
+	private boolean haveErrorFile;
+
 	/**
 	 * 获取 ID
 	 *
@@ -170,6 +173,14 @@ public class ImportRecord {
 
 	public void setImpType(Integer impType) {
 		this.impType = impType;
+	}
+
+	public boolean isHaveErrorFile() {
+		return haveErrorFile;
+	}
+
+	public void setHaveErrorFile(boolean haveErrorFile) {
+		this.haveErrorFile = haveErrorFile;
 	}
 
 	public boolean isImpSuccess() {

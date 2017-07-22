@@ -93,4 +93,10 @@ public interface PToPMonitorService {
      */
     Map pToPMonitorDataLandTask(Integer taskId);
 
+
+    /**
+     * 重新执行失败的数据落地任务
+     */
+    Map executeFailTaskByTaskId(Integer runMode,Integer oldTaskId,Integer taskId);
+
 }

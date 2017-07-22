@@ -7,6 +7,7 @@ import com.bbd.wtyh.excel.imp.entity.ProgressInfo;
 import com.bbd.wtyh.excel.imp.importer.ImportConfiguration;
 import com.bbd.wtyh.util.ApplicationContextUtil;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -36,8 +37,24 @@ public class ImpRecordUtil {
 		return importRecord;
 	}
 
-	public static List<ImportRecord> recordList(Integer impType) {
-		return baseService.selectAll(ImportRecord.class, "imp_type = " + impType + " ORDER BY imp_date DESC");
+	public static List<ImportRecord> recordList(String fileName, String startDate, String endDate, String impState, Integer impType) {
+		StringBuilder dynamicWhere = new StringBuilder("imp_type = ").append(impType);
+
+		if (StringUtils.isNotBlank(impState)) {
+			dynamicWhere.append(" AND imp_state = ").append(impState);
+		}
+
+		if (StringUtils.isNotBlank(startDate)) {
+			dynamicWhere.append(" AND imp_date >= STR_TO_DATE('").append(startDate).append("', '%Y-%m-%d %H:%i:%s')");
+		}
+		if (StringUtils.isNotBlank(endDate)) {
+			dynamicWhere.append(" AND imp_date <= STR_TO_DATE('").append(startDate).append("', '%Y-%m-%d %H:%i:%s')");
+		}
+		if (StringUtils.isNotBlank(fileName)) {
+			dynamicWhere.append(" AND file_name LIKE '%").append(fileName).append("%'");
+		}
+		dynamicWhere.append(" ORDER BY imp_date DESC");
+		return baseService.selectAll(ImportRecord.class, dynamicWhere.toString());
 	}
 
 	public static void sheetEnd(String recordId, String progressKey) throws Exception {
@@ -64,6 +81,7 @@ public class ImpRecordUtil {
 			File file = FileUtil.createTempFile(importRecord.getId());
 			OutputStream out = new FileOutputStream(file);
 			ExcelUtil.generateErrorMarkFile(progressKey, fileName, out);
+			importRecord.setHaveErrorFile(true);
 
 		}
 		if (isFinish && !haveError && !recordHaveError) {

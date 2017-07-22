@@ -1,5 +1,7 @@
 package com.bbd.wtyh.mapper;
 
+import com.bbd.wtyh.domain.CompanyDO;
+import com.bbd.wtyh.domain.OfflineFinancialRecordDO;
 import com.bbd.wtyh.domain.dataLoading.*;
 
 import java.util.List;
@@ -33,9 +35,13 @@ public interface DataLoadingMapper {
 
 	int saveZhixingDO(List<ZhixingDO> zhixingList);
 
+	int saveRecruitIndexDO(List<RecruitIndexDO> recruitIndexList);
+
 	int saveDatasharePullFileDO(List<DatasharePullFileDO> fileList);
+
+	int saveOfflineFinancialRecordDO(List<OfflineFinancialRecordDO> recordList);
 
 	List<DatasharePullFileDO> getDatasharePullFileByTaskId(Integer taskId);
 
-	List<QyxxBasicDO> getCompanyBasicInfoByName(String companyName);
+	List<QyxxBasicDO> getCompanyBasicInfoInNames(List<CompanyDO> CompanyList);
 }

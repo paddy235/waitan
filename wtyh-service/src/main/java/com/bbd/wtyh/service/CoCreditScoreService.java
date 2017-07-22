@@ -1,5 +1,6 @@
 package com.bbd.wtyh.service;
 
+import com.bbd.wtyh.domain.TaskFailInfoDO;
 import com.bbd.wtyh.domain.credit.CompanyCreditFailInfoDO;
 
 import java.util.List;
@@ -30,4 +31,6 @@ public interface CoCreditScoreService {
 			Integer pageSize);
 
 	int queryfailCompanyCounts(String[] companyNames, String resultCode, Integer taskId, Integer pageNumber, Integer pageSize);
+
+	List<TaskFailInfoDO> getCreditFailInfoByTaskId(Integer taskId);
 }
