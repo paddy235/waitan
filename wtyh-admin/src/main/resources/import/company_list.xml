@@ -15,7 +15,7 @@
             <column name="企业名称" code="name" dataType="string" required="true"/>
             <column name="统一信用代码" code="creditCode" dataType="string" bgColor="#FFFF00"/>
             <column name="注册号" code="organizationCode" dataType="string" bgColor="#FFFF00"/>
-            <column name="行业类别" code="companyType" dataType="string"/>
+            <column name="行业类别" code="comTypeCN" dataType="string"/>
         </columns>
 
     </sheet>

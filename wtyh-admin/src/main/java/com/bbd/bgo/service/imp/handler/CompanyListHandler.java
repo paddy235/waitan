@@ -1,11 +1,15 @@
 package com.bbd.bgo.service.imp.handler;
 
+import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
+import com.bbd.wtyh.domain.bbdAPI.IndustryCodeDO;
 import com.bbd.wtyh.excel.imp.handler.AbstractImportHandler;
+import com.bbd.wtyh.service.AreaService;
 import com.bbd.wtyh.service.CompanyService;
 import com.bbd.wtyh.service.HologramQueryService;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +17,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by cgj on 2017/7/19.
@@ -33,15 +36,23 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
     @Autowired
     private HologramQueryService hologramQueryService;
 
-    private List<CompanyDO> insertList = null;
-    private List<CompanyDO> updateList = null;
+    @Autowired
+    private AreaService areaService;
+
+    private List< Map.Entry<CompanyDO, BaseDataDO.Results> > insertList = null;
+    private List< Map.Entry<CompanyDO, BaseDataDO.Results> > updateList = null;
     private List<CompanyDO> tempList = null;
+    String loginName ="";
 
 
 
     //@Transactional //事务--原子性操作
     @Override
     public void start(HttpServletRequest request) throws Exception {
+        loginName = (String) request.getSession().getAttribute(Constants.SESSION.loginName);
+        if( null ==loginName ) {
+            loginName ="";
+        }
         //Object ob= request.getHeaderNames();
         log.info("开始导入企业名单");
         insertList = new ArrayList<>();
@@ -92,8 +103,28 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
             //有企业没有处理完
             processCp( );
         }
-        //companyService.insertList();
+        if( errorList().size() <1 ) {
+            //导入的数据有错，不予入库
+            return;
+        }
+        //update
+        for ( Map.Entry<CompanyDO, BaseDataDO.Results> me : updateList ) {
+            me.getKey().setUpdateBy(loginName);
+            me.getKey().setUpdateDate(new Date());
+            companyService.update( me.getKey() );
+            //todo 以下放天王和其他同事的方法 ：
+            //me.getValue()
+        }
+        //insert
+        for ( Map.Entry<CompanyDO, BaseDataDO.Results> me : insertList ) {
+            me.getKey().setCreateBy(loginName);
+            me.getKey().setCreateDate(new Date());
+            companyService.insert( me.getKey() );
+            //todo 以下放天王和其他同事的方法 ：
+            //me.getValue()
+        }
     }
+
 
     private void processCp( ) {
 
@@ -107,7 +138,7 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
         //验证企业名单是否正确
         for (CompanyDO cDo : tempList) {
             String cName =cDo.getName();
-            CompanyDO srcCp =companyService.getCompanyByName(cName);
+            CompanyDO locCp =companyService.getCompanyByName(cName);
             BaseDataDO.Results cInfo =null;
             for( BaseDataDO.Results rs : bdLst ) {
                 if( rs.getJbxx().getCompany_name().equals(cName) ) {
@@ -126,24 +157,82 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
                     bCrd =false;
                 }
                 if (bCrd && bRegNo) { //用数据平台数据验证成功
-                    if ( null ==srcCp ) { //数据库中无此企业
-                        //todo  按新增处理
+                    if ( null ==locCp ) { //数据库中无此企业
+                        //按新增处理
+                        addDataToList( true, cDo, locCp, cInfo );
                     } else { //有
-                        //todo 按更新处理
+                        //按更新处理
+                        addDataToList( false, cDo, locCp, cInfo );
                     }
                 } else { //验证失败
                     addError(cDo.getId(), "这一条导入信息有误");
                     continue;
                 }
             } else { //数据平台无此企业
-                if ( null ==srcCp ) { //数据库中无此企业
-                    //todo 此企业可能不存在，可判为错误名称的企业，或新增（只能写入企业名称、统一代码和行业类别）
+                if ( null ==locCp ) { //数据库中无此企业
+                    //todo 此企业可能不存在，可判为错误名称的企业，或新增（只能写入企业名称、统一代码和行业类别），待产品确认
                     /*addError(cDo.getId(), "此企业不存在！");
                     continue;*/
                 } else { //有
-                    //todo 数据平台查询不到基本信息，只能更新用户提供的统一信用代码和行业类别
+                    //todo 数据平台查询不到基本信息，只能更新用户提供的统一信用代码和行业类别，待产品确认
                 }
             }
+        }
+    }
+
+    //插入或更新、客户导入的、从本地库查询的、来自数据平台
+    private void addDataToList( boolean isIns, CompanyDO impCp, CompanyDO locCp, BaseDataDO.Results bddRst ) {
+        Map.Entry<CompanyDO, BaseDataDO.Results> me =new AbstractMap.SimpleEntry<>( impCp, bddRst );
+        if (isIns) {//插入
+            insertList.add(me);
+            impCp.setNeo(true);
+            impCp.setCompanyId(null);
+        } else {
+            updateList.add(me);
+            impCp.setNeo(false);
+            impCp.setCompanyId(locCp.getCompanyId());
+        }
+        if( StringUtils.isNotBlank( bddRst.getJbxx().getCredit_code() ) ) {
+            impCp.setCreditCode(bddRst.getJbxx().getCredit_code());
+        }
+        if( StringUtils.isNotBlank( bddRst.getJbxx().getCompany_gis_lon() ) ) {
+            impCp.setLongitude(new Double(bddRst.getJbxx().getCompany_gis_lon()));
+        }
+        if( StringUtils.isNotBlank( bddRst.getJbxx().getCompany_gis_lat() ) ) {
+            impCp.setLatitude(new Double(bddRst.getJbxx().getCompany_gis_lat()));
+        }
+        if( StringUtils.isNotBlank( bddRst.getJbxx().getFrname() ) ) {
+            impCp.setLegalPerson(bddRst.getJbxx().getFrname());
+        }
+        impCp.setAreaId( areaService.selectByCountyCodeOrProvinceName( bddRst.getJbxx().getCompany_county(),
+                bddRst.getJbxx().getCompany_province() ).getAreaId() );
+        if( StringUtils.isNotBlank( bddRst.getJbxx().getAddress() ) ) {
+            impCp.setAddress(bddRst.getJbxx().getAddress());
+        }
+        /*//清洗注册资本字符串
+        String regCap ="0";
+        Pattern pattern =Pattern.compile("\\d+");
+        Matcher matcher =pattern.matcher( bddRst.getJbxx().getRegcap() );
+        if ( matcher.find() ) {
+            regCap = matcher.group(); new Integer(regCap);
+        }*/
+        Float regA =bddRst.getJbxx().getRegcap_amount()/1000F;
+        impCp.setRegisteredCapital( regA.intValue() );
+        impCp.setRegisteredCapitalType( bddRst.getJbxx().getRegcap_currency().equals("美元") ? 2:1 );
+        Date regDate =null;
+        try {
+            regDate =DateUtils.parseDate( bddRst.getJbxx().getEsdate(),"yyyy-MM-dd");
+        } catch (Exception e) { }
+        impCp.setRegisteredDate( regDate );
+        if( StringUtils.isNotBlank( bddRst.getJbxx().getCompany_type() ) ) {
+            impCp.setRegisteredType( bddRst.getJbxx().getCompany_type() );
+        }
+        impCp.setCompanyType( CompanyDO.companyType( impCp.getComTypeCnItself() ) );
+        if ( StringUtils.isNotBlank( bddRst.getJbxx().getCompany_industry() ) ) {
+            impCp.setBusinessType( IndustryCodeDO.getValueByNameStr( bddRst.getJbxx().getCompany_industry() ) );
+        }
+        if ( StringUtils.isNotBlank( bddRst.getJbxx().getEnterprise_status() ) ) {
+            impCp.setStatus( bddRst.getJbxx().getEnterprise_status().equals("注销") ? (byte)2 : (byte)1 );
         }
     }
 
