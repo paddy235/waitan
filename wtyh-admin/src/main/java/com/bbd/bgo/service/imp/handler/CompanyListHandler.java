@@ -122,6 +122,7 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
             companyService.insert( me.getKey() );
             //todo 以下放天王和其他同事的方法 ：
             //me.getValue()
+            //CompanyDO locCp =companyService.getCompanyByName(me.getKey().getName());
         }
     }
 

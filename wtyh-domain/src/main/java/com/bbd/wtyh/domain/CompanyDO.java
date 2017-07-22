@@ -34,7 +34,7 @@ public class CompanyDO extends BaseDO implements Comparable {
 	private Integer companyId;
 
 	//统一社会信用代码
-	@Column(name = "company_id")
+	@Column(name = "credit_code")
 	private String creditCode;
 
 	//企业名称
