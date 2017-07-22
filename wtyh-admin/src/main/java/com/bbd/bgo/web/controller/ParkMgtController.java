@@ -191,8 +191,8 @@ public class ParkMgtController {
      * @param request
      * @param file 图片
      * @param picType 1：园区 2：楼宇
-     * @param parkId 园区ID
-     * @param buildingId 楼宇ID
+     * @param parkName 园区名称 --用名称是为了新增园区或楼宇时还没有生成其ID
+     * @param buildingName 楼宇名称
      * @param user 用户名
      * @return
      */
@@ -200,7 +200,7 @@ public class ParkMgtController {
     public @ResponseBody ResponseBean upLoadPic(HttpServletRequest request,
                                                 @RequestParam("file") CommonsMultipartFile file,
                                                 @RequestParam Integer picType,
-                                                @RequestParam Integer parkId, Integer buildingId,
+                                                @RequestParam String parkName, String buildingName,
                                                 @RequestParam String user) {
         try {
 //            File f = new File(request.getSession().getServletContext().getRealPath("/") + "/data/img/park/hpq.png");
@@ -212,10 +212,12 @@ public class ParkMgtController {
                 img.setPicType(1);
                 img.setPicUrl(PARK_DIR + file.getOriginalFilename());
                 img.setPicType(picType);
+                Integer parkId = parkMgtService.queryParkIdByName(parkName);
                 if(!StringUtils.isEmpty(picType) && picType == 1){
                     img.setPicParkId(parkId);
                 }else if (!StringUtils.isEmpty(picType) && picType == 2){
                     img.setPicParkId(parkId);
+                    Integer buildingId = parkMgtService.queryBuildingIdByName(buildingName);
                     img.setPicBuildingId(buildingId);
                 }
                 img.setCreateBy(user);

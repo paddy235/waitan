@@ -165,6 +165,10 @@
         SELECT park_id as parkId FROM park WHERE `name`=#{parkName}
     </select>
 
+    <select id="queryBuildingIdByName" parameterType="java.lang.String" resultType="int">
+        SELECT building_id as buildingId FROM building WHERE `name`=#{buildingName}
+    </select>
+
     <select id="queryParkList" resultType="com.bbd.wtyh.domain.ParkDO">
         SELECT park_id as parkId,name as name FROM park WHERE 1=1 ORDER BY park_id
     </select>

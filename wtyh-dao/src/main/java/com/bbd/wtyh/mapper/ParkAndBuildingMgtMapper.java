@@ -48,6 +48,8 @@ public interface ParkAndBuildingMgtMapper {
 
     int queryParkIdByName(String parkName);
 
+    int queryBuildingIdByName(String buildingName);
+
     List<ParkDO> queryParkList();
 
     int queryCompanyIdByName(String companyName);

@@ -161,6 +161,17 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     }
 
     @Override
+    public int queryBuildingIdByName(String buildingName) {
+        int i = 0000;
+        try {
+            i = parkAndBuildingMgtMapper.queryBuildingIdByName(buildingName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return i;
+    }
+
+    @Override
     public BuildingDO queryBuildingByParkAndName(int parkId, String buildingName) {
         Map<String, Object> params = new HashedMap();
         params.put("parkId", parkId);
