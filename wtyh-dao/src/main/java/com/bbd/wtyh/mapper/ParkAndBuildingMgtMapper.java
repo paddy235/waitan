@@ -32,9 +32,17 @@ public interface ParkAndBuildingMgtMapper {
 
     void delCompanyByBuildingId(List<Integer> buildingIdList);
 
-    void delBuildingByParkId(int parkId);
+    void delCompanyBuildingByParkId(String parkId);
+
+    void delCompanyBuildingByBuildingId(String buildingId);
+
+    void delBuildingByParkId(String parkId);
+
+    void delBuildingById(String buildingId);
 
     void delParkByName(String parkName);
+
+    void delParkById(String parkId);
 
     List<Map<String,String>> queryBuildingByParkId(String parkId);
 

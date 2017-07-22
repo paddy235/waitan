@@ -50,6 +50,36 @@ public interface ParkMgtService{
     List<Map<String,String>> queryBuildingByParkId(String parkId);
 
     /**
+     * 删除园区
+     * @param parkId
+     */
+    void delParkById(String parkId);
+
+    /**
+     * 删除楼宇
+     * @param parkId
+     */
+    void delBuildingByParkId(String parkId);
+
+    /**
+     * 删除楼宇
+     * @param buildingId
+     */
+    void delBuildingById(String buildingId);
+
+    /**
+     * 删除企业
+     * @param parkId
+     */
+    void delCompanyBuildingByParkId(String parkId);
+
+    /**
+     * 删除企业
+     * @param buildingId
+     */
+    void delCompanyBuildingByBuildingId(String buildingId);
+
+    /**
      * 根据企业ID删除企业
      * @param companyIdList 企业名称列表
      */

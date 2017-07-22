@@ -120,12 +120,36 @@
         </foreach>
     </delete>
 
-    <delete id="delBuildingByParkId" parameterType="int">
+    <delete id="delBuildingByParkId" parameterType="java.lang.String">
         DELETE FROM building WHERE park_id=#{parkId}
     </delete>
 
     <delete id="delParkByName" parameterType="java.lang.String">
         DELETE FROM park WHERE `name`=#{parkName}
+    </delete>
+
+    <delete id="delBuildingById" parameterType="java.lang.String">
+        DELETE FROM building WHERE building_id=#{buildingId}
+    </delete>
+
+    <delete id="delParkById" parameterType="java.lang.String">
+        DELETE FROM park WHERE park_id=#{parkId}
+    </delete>
+
+    <delete id="delCompanyBuildingByBuildingId" parameterType="java.lang.String">
+        DELETE FROM
+          company_building
+        WHERE
+          building_id = #{buildingId}
+    </delete>
+
+    <delete id="delCompanyBuildingByParkId" parameterType="java.lang.String">
+        DELETE FROM
+          company_building
+        WHERE
+          building_id
+        IN
+          (select  building_id from building where park_id = #{parkId})
     </delete>
 
     <sql id="building_content">
@@ -150,7 +174,7 @@
     </select>
 
     <insert id="addPark" parameterType="com.bbd.wtyh.domain.ParkDO">
-        INSERT INTO park(`name`, area_id, img_url, create_by, create_date, update_date) VALUES(#{name},#{areaId},#{imgUrl},#{createBy},SYSDATE(), SYSDATE())
+        INSERT INTO park(`name`, area_id, img_url, create_by, create_date) VALUES(#{name},#{areaId},#{imgUrl},#{createBy},SYSDATE())
     </insert>
 
     <select id="queryCompanyIdByName" parameterType="java.lang.String" resultType="int">

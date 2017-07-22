@@ -1,7 +1,6 @@
 package com.bbd.bgo.web.controller;
 
 import com.bbd.wtyh.cachetobean.ShanghaiAreaCode;
-import com.bbd.wtyh.domain.BuildingDO;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.ImgDO;
 import com.bbd.wtyh.domain.ParkDO;
@@ -45,6 +44,7 @@ public class ParkMgtController {
     @ResponseBody
     public ResponseBean areaList(){
         List<Map<String, Object>> list = ShanghaiAreaCode.getAndUpdateList(false);
+        list.remove(0);
         return  ResponseBean.successResponse(list);
     }
 
@@ -110,6 +110,35 @@ public class ParkMgtController {
     }
 
     /**
+     * 删除园区
+     * @param parkId
+     * @return
+     */
+    @RequestMapping("/delPark")
+    @ResponseBody
+    public ResponseBean delPark(String parkId){
+        //删除园区时，需要将相关楼宇及企业一并删除
+        parkMgtService.delCompanyBuildingByParkId(parkId);
+        parkMgtService.delBuildingByParkId(parkId);
+        parkMgtService.delParkById(parkId);
+        return  ResponseBean.successResponse("OK");
+    }
+
+    /**
+     * 删除楼宇
+     * @param buildingId
+     * @return
+     */
+    @RequestMapping("/delBuilding")
+    @ResponseBody
+    public ResponseBean delBuilding(String buildingId){
+        //删除楼宇时，需要将相关企业一并删除
+        parkMgtService.delCompanyBuildingByBuildingId(buildingId);
+        parkMgtService.delBuildingById(buildingId);
+        return  ResponseBean.successResponse("OK");
+    }
+
+    /**
      * 删除企业
      * @param buildingId 楼宇ID
      * @param companyList 企业ID列表
@@ -118,15 +147,6 @@ public class ParkMgtController {
     @RequestMapping("/delCompanyByCompanyId")
     @ResponseBody
     public ResponseBean delCompanyByCompanyId(String buildingId,String[] companyList){
-//        List<String> companyNameList = new ArrayList<>();
-//
-//        String[] companyName = companyList.split(",");
-//        for (String s:companyName) {
-//            if(!StringUtils.isEmpty(s)){
-//                companyNameList.add(s);
-//            }
-//        }
-
         parkMgtService.delCompanyByCompanyId(buildingId,Arrays.asList(companyList));
         return  ResponseBean.successResponse("OK");
     }
@@ -141,7 +161,7 @@ public class ParkMgtController {
     public ResponseBean addPark(ParkDO park){
         //新增之前先查询该园区是否存在
         int i = parkMgtService.queryParkIdByName(park.getName());
-        if(i == 0){
+        if(i != 0){
             return  ResponseBean.errorResponse("该园区已存在");
         }
         parkMgtService.addPark(park);
@@ -189,7 +209,7 @@ public class ParkMgtController {
             e.printStackTrace();
             return ResponseBean.errorResponse(e.getMessage());
         }
-        return ResponseBean.successResponse("hello world");
+        return ResponseBean.successResponse("OK");
     }
 
     @RequestMapping("/test2")
@@ -220,7 +240,7 @@ public class ParkMgtController {
                 }
             }
         }
-        return ResponseBean.successResponse("hello world");
+        return ResponseBean.successResponse("OK");
     }
 
 }

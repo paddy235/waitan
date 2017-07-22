@@ -96,6 +96,51 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     }
 
     @Override
+    public void delParkById(String parkId) {
+        try {
+            parkAndBuildingMgtMapper.delParkById(parkId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void delBuildingByParkId(String parkId) {
+        try {
+            parkAndBuildingMgtMapper.delBuildingByParkId(parkId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void delBuildingById(String buildingId) {
+        try {
+            parkAndBuildingMgtMapper.delBuildingById(buildingId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void delCompanyBuildingByParkId(String parkId) {
+        try {
+            parkAndBuildingMgtMapper.delCompanyBuildingByParkId(parkId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void delCompanyBuildingByBuildingId(String buildingId) {
+        try {
+            parkAndBuildingMgtMapper.delCompanyBuildingByBuildingId(buildingId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void delCompanyByCompanyId(String buildingId,List<String> companyIdList) {
         try {
             parkAndBuildingMgtMapper.delCompanyByCompanyId(buildingId,companyIdList);
