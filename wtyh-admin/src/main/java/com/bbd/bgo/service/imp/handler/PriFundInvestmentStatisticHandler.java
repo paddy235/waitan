@@ -7,38 +7,38 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.bbd.wtyh.core.base.BaseService;
+import com.bbd.wtyh.domain.InvestmentStatisticDO;
+import com.bbd.wtyh.excel.imp.handler.AbstractImportHandler;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.bbd.wtyh.common.Constants;
-import com.bbd.wtyh.domain.CompanyDO;
-import com.bbd.wtyh.domain.ProductAmountDO;
-import com.bbd.wtyh.excel.imp.handler.AbstractImportHandler;
-import com.bbd.wtyh.service.CompanyService;
-import com.bbd.wtyh.service.ProductAmountService;
 
 /**
- * Created by cgj on 2017/7/23.
+ * Created by cgj on 2017/7/24.
  */
 
 @Component
 @Scope("prototype") //非单例模式
-public class PriFundInvestmentStatisticHandler extends AbstractImportHandler<ProductAmountDO> {
+public class PriFundInvestmentStatisticHandler extends AbstractImportHandler<InvestmentStatisticDO> {
+
+    final static String caption ="私募基金-股权投资市场投资金额情况";
 
     private Logger log = LoggerFactory.getLogger(CompanyLevelHandler.class);
 
     @Autowired
-    private CompanyService companyService;
+    @Qualifier(value = "baseServiceImpl")
+    private BaseService baseService;
 
-    @Autowired
-    private ProductAmountService productAmountService;
 
-    private List< ProductAmountDO > insertList = null;
-    private List< ProductAmountDO > updateList = null;
+    private List< InvestmentStatisticDO > insertList = null;
+    private List< InvestmentStatisticDO > updateList = null;
     String loginName ="";
 
 
@@ -51,7 +51,8 @@ public class PriFundInvestmentStatisticHandler extends AbstractImportHandler<Pro
             loginName ="";
         }
         //Object ob= request.getHeaderNames();
-        log.info("开始检查私募top10名单");
+        log.info("开始检查 " + caption);
+
         insertList = new LinkedList<>();
         updateList = new LinkedList<>();
     }
@@ -63,60 +64,71 @@ public class PriFundInvestmentStatisticHandler extends AbstractImportHandler<Pro
 
     @Override
     public boolean validateRow(Map<String, String> row) throws Exception {
-        String companyName =row.get("companyName");
-        if( StringUtils.isBlank( companyName ) || companyName.length() <3 ) {
-            addError("企业名称格式错误");
+        //正则：整数或者小数：^[0-9]+([.][0-9]+){0,1}$，只能输入至少一位数字"\\d+"，"+"等价于{1,}
+
+        String year =row.get("year");
+        if( StringUtils.isBlank( year ) || ! year.matches("\\d+") ) {
+            addError("年份 格式错误");
             return false;
         }
-        String productNumber =row.get("productNumber");
-        if( StringUtils.isEmpty( productNumber ) || !productNumber.matches("\\d+") ) {
-            addError("产品数量格式错误");
+        int [] validCntA = {0};
+        FunIf1 f1 =(String numName, String  capName)->{
+            String lessNumber =row.get(numName);
+            if( StringUtils.isNotBlank( lessNumber ) ) {
+                if ( lessNumber.matches("\\d+") ){
+                    validCntA[0]++;
+                } else {
+                    addError(capName +" 格式错误");
+                }
+            }
+        };
+        f1.fun("investmentAmount", "投资金额（亿元）");
+        f1.fun("publishNumber", "披露数量");
+        if( validCntA[0] <1 ) {
+            addError("选填参数数量太少");
             return false;
         }
         return true;
     }
 
+    @FunctionalInterface
+    interface FunIf1 {
+        void fun(String numName, String  capName);
+    }
+
     //BusinessException()
     @Override
-    public void endRow(Map<String, String> row, ProductAmountDO bean) throws Exception {
-        CompanyDO cp = companyService.getCompanyByName(bean.getCompanyName());
-        if( null ==cp ) {
-            cp = companyService.getCompanyByName(bean.getCompanyName(), true);
-        }
-        if ( null ==cp ) {
-            addError("未查询到此企业");
-            return;
-        }
-        ProductAmountDO pa = productAmountService.selectByPrimaryKey(cp.getCompanyId());
-        if( null ==pa ) {
-            insertList.add( bean );
-            bean.setCreateBy(loginName);
+    public void endRow(Map<String, String> row, InvestmentStatisticDO bean) throws Exception {
+        InvestmentStatisticDO isDo =baseService.selectOne(InvestmentStatisticDO.class,
+                "`year`=" +bean.getYear() +" LIMIT 1" );
+        if( null ==isDo ) {
+            insertList.add(bean);
             bean.setCreateDate(new Date());
+            bean.setCreateBy(loginName);
         } else {
             updateList.add(bean);
-            bean.setUpdateBy(loginName);
             bean.setUpdateDate(new Date());
+            bean.setUpdateBy(loginName);
         }
-        bean.setCompanyId( cp.getCompanyId() );
     }
 
     @Override
     public void end() throws Exception {
         if( errorList().size() >0 ) {
-            log.warn("用户上传的私募top10名单中的数据有误，所有数据均不予入库");
+            log.warn("用户上传的 " +caption +" 中的数据有误，所有数据均不予入库");
             return;
         }
         //update
-        productAmountService.updateList(updateList);
+        baseService.updateList(updateList);
         //insert
-        productAmountService.insertList(insertList); //todo 插入报异常
-        log.info("私募top10名单导入已完成");
+        baseService.insert(insertList);
+        log.info(caption +" 导入已完成");
     }
 
     @Override
     public void exception(Exception e) {
         addError("服务器异常：" + e.getMessage());
         e.printStackTrace();
-
     }
+
 }

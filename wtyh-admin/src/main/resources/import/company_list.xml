@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <excel key="company_list" name="企业名单-导入模板">
-    <sheet name="Sheet1" startRow="4" entity="com.bbd.wtyh.domain.CompanyDO"
+    <sheet name="Sheet1" startRow="5" entity="com.bbd.wtyh.domain.CompanyDO"
            importHandler="com.bbd.bgo.service.imp.handler.CompanyListHandler">
         <rowHeader>
-            <column mergeFirstRow="1" mergeLastRow="2" mergeFirstCol="1" mergeLastCol="4" align="LEFT"
-                    value="填写说明：本表格不可填写Excel公式；企业名称和行业类别必填，不能超过40个汉字；&#x000A;行业类别选填：网络借贷、小额贷款、融资担保、线下理财、私募基金、众筹、交易场所、商业保理、预付卡、典当、融资租赁；"/>
+            <column mergeFirstRow="1" mergeLastRow="3" mergeFirstCol="1" mergeLastCol="4" align="LEFT"
+                    value="填写说明：&#x000A;本表格不可填写Excel公式；企业名称和行业类别必填，不能超过40个汉字；&#x000A;行业类别选填：网络借贷、小额贷款、融资担保、线下理财、私募基金、众筹、交易场所、商业保理、预付卡、典当、融资租赁；"/>
         </rowHeader>
         <columns>
             <column name="企业名称" code="name" dataType="string" required="true" bgColor="#FFFF00"/>

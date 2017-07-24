@@ -1,10 +1,19 @@
 package com.bbd.wtyh.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Table(name = "investment_statistic")
 public class InvestmentStatisticDO extends BaseDO {
+    @Id
+    @Column(name = "year")
     private Integer year;
 
+    @Column(name = "investment_amount")
     private Double investmentAmount;
 
+    @Column(name = "publish_number")
     private Integer publishNumber;
 
     public Integer getPublishNumber() {

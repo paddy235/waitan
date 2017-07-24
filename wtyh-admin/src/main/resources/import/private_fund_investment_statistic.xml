@@ -5,7 +5,7 @@
            importHandler="com.bbd.bgo.service.imp.handler.PriFundInvestmentStatisticHandler">
         <rowHeader>
             <column mergeFirstRow="1" mergeLastRow="2" mergeFirstCol="1" mergeLastCol="3" align="LEFT"
-                    value="填写说明：本表格不可填写Excel公式；&#x000A;年份必填；"/>
+                    value="填写说明：&#x000A;本表格不可填写Excel公式；年份必填，其余字段至少选填一项；"/>
         </rowHeader>
         <columns>
             <column name="年份" code="year" dataType="number" required="true" bgColor="#FFFF00"/>

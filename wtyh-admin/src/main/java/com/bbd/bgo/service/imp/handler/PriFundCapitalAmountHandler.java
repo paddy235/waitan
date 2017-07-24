@@ -19,8 +19,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.bbd.wtyh.common.Constants;
-import com.bbd.wtyh.domain.CompanyDO;
-import com.bbd.wtyh.domain.ProductAmountDO;
 import com.bbd.wtyh.excel.imp.handler.AbstractImportHandler;
 
 /**
@@ -30,6 +28,8 @@ import com.bbd.wtyh.excel.imp.handler.AbstractImportHandler;
 @Component
 @Scope("prototype") //非单例模式
 public class PriFundCapitalAmountHandler extends AbstractImportHandler<CapitalAmountDO> {
+
+    final static String caption ="私募基金-股权投资机构管理资本量";
 
     private Logger log = LoggerFactory.getLogger(CompanyLevelHandler.class);
 
@@ -52,7 +52,8 @@ public class PriFundCapitalAmountHandler extends AbstractImportHandler<CapitalAm
             loginName ="";
         }
         //Object ob= request.getHeaderNames();
-        log.info("开始检查 私募基金-股权投资机构管理资本量");
+        log.info("开始检查 " + caption);
+
         updateList = new LinkedList<>();
     }
 
@@ -77,7 +78,6 @@ public class PriFundCapitalAmountHandler extends AbstractImportHandler<CapitalAm
                 validCnt++;
             } else {
                 addError("管理资本金额（亿元） 格式错误");
-                return false;
             }
         }
         String publishCompanyNumber =row.get("publishCompanyNumber");
@@ -86,7 +86,6 @@ public class PriFundCapitalAmountHandler extends AbstractImportHandler<CapitalAm
                 validCnt++;
             } else {
                 addError("数量 格式错误");
-                return false;
             }
         }
         if( validCnt <1 ) {
@@ -115,18 +114,17 @@ public class PriFundCapitalAmountHandler extends AbstractImportHandler<CapitalAm
     @Override
     public void end() throws Exception {
         if( errorList().size() >0 ) {
-            log.warn("用户上传的 私募基金-股权投资机构管理资本量 中的数据有误，所有数据均不予入库");
+            log.warn("用户上传的 " +caption +" 中的数据有误，所有数据均不予入库");
             return;
         }
         //update
         baseService.updateList(updateList);
-        log.info("私募基金-股权投资机构管理资本量 导入已完成");
+        log.info(caption +" 导入已完成");
     }
 
     @Override
     public void exception(Exception e) {
         addError("服务器异常：" + e.getMessage());
         e.printStackTrace();
-
     }
 }

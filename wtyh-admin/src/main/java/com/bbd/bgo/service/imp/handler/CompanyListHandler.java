@@ -72,15 +72,22 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
             addError("企业名称格式错误");
             return false;
         }
+        int validCnt =0;
         String creditCode =row.get("creditCode");
-        if( StringUtils.isEmpty( creditCode ) || creditCode.matches("^([A-Z]|[0-9]){18}$") ) {
-            addError("统一信用代码格式错误");
-            return false;
+        if( StringUtils.isNotBlank( creditCode ) ) {
+            if ( creditCode.matches("^([A-Z]|[0-9]){18}$") ){
+                validCnt++;
+            } else {
+                addError("统一信用代码 格式错误");
+            }
         }
         String organizationCode =row.get("organizationCode");
-        if( StringUtils.isEmpty( organizationCode ) || !organizationCode.matches("^([0-9]){15}$") ) {
-            addError("注册号格式错误"); //原组织机构代码变更成验证注册号
-            return false;
+        if( StringUtils.isNotBlank( organizationCode ) ) {
+            if ( organizationCode.matches("^([0-9]){15}$") ){
+                validCnt++;
+            } else {
+                addError("注册号 格式错误"); //原组织机构代码变更成验证注册号
+            }
         }
         return true;
     }
@@ -88,6 +95,12 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
     //BusinessException()
     @Override
     public void endRow(Map<String, String> row, CompanyDO bean) throws Exception {
+        byte cpTypeCode =CompanyDO.companyType( bean.getComTypeCnItself() );
+        if( cpTypeCode <0 ) {
+            addError("用指定的 行业类别 有误");
+            return;
+        }
+        bean.setCompanyType( cpTypeCode );
         bean.setId(getRowNumber()); //将行号存下
         tempList.add(bean);
         if( tempList.size() <200 ) {
@@ -121,7 +134,7 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
             me.getKey().setCreateDate(new Date());
             companyService.insert( me.getKey() );
             //todo 以下放天王和其他同事的方法 ：
-            int companyId = me.getKey().getCompanyId(); //大尧回答插入的主键这样取//todo 不用再去查库了
+            int companyId = me.getKey().getCompanyId(); //大尧说：插入的主键这样取//todo 不用再去查库了
             //me.getValue()
             //CompanyDO locCp =companyService.getCompanyByName(me.getKey().getName());
         }
@@ -242,7 +255,7 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
         if( StringUtils.isNotBlank( bddRst.getJbxx().getCompany_type() ) ) {
             impCp.setRegisteredType( bddRst.getJbxx().getCompany_type() );
         }
-        impCp.setCompanyType( CompanyDO.companyType( impCp.getComTypeCnItself() ) );
+        //impCp.setCompanyType( CompanyDO.companyType( impCp.getComTypeCnItself() ) );
         if ( StringUtils.isNotBlank( bddRst.getJbxx().getCompany_industry() ) ) {
             impCp.setBusinessType( IndustryCodeDO.getValueByNameStr( bddRst.getJbxx().getCompany_industry() ) );
         }
