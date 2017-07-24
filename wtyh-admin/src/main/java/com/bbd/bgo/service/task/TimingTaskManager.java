@@ -2,7 +2,9 @@ package com.bbd.bgo.service.task;
 
 
 import com.bbd.bgo.quartz.TaskUtil;
+import com.bbd.wtyh.domain.DataLoadingFailInfoDO;
 import com.bbd.wtyh.domain.TaskFailInfoDO;
+import com.bbd.wtyh.mapper.DataLoadingFailInfoMapper;
 import com.bbd.wtyh.mapper.TaskSuccessFailInfoMapper;
 import com.bbd.wtyh.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -37,10 +40,14 @@ public class TimingTaskManager {
 	private DataLoadingService dataLoadingService;
     @Autowired
     private TaskSuccessFailInfoMapper taskSuccessFailInfoMapper;
+	@Autowired
+	private DataLoadingFailInfoMapper dataLoadingFailInfoMapper;
     @Autowired
     private CrowdFundingService crowdFundingService;
 	@Autowired
 	private WangdaiTaskInfoService wangdaiTaskInfoService;
+	@Autowired
+	private PlatUpdateTaskService platUpdateTaskService;
 
 
 	private Logger logger = LoggerFactory.getLogger(TimingTaskManager.class);
@@ -63,7 +70,7 @@ public class TimingTaskManager {
 			Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
 			taskId=TaskUtil.taskStart(TaskUtil.riskLevelJob[0],TaskUtil.riskLevelJob[1],null,runMode,null,null);
 			//需要传 taskId 给业务接口
-			offlineFinanceService.updateCompanyRiskLevel();
+			map = offlineFinanceService.updateCompanyRiskLevel(taskId);
 		} catch (Exception e) {
 			logger.error("riskLevelTask"+e);
 		}finally {
@@ -95,6 +102,32 @@ public class TimingTaskManager {
 		}finally {
 
             taskEnd(map,taskId,planCount,successCount,failCount,null,notRan);
+		}
+
+	}
+
+	/**
+	 * 普通任务
+	 *
+	 * 更新 企业与网贷平台对照表 platform_name_information
+	 * 频率：
+	 */
+	public void updatePlatformTask() throws Exception {
+		Integer taskId=null;
+		Integer planCount = null;// 计划执行笔数。 可在任务结束时更新
+		Integer successCount=null;
+		Integer failCount=null;
+		Map map =null;
+		try {
+			Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
+			taskId=TaskUtil.taskStart(TaskUtil.platformJob[0],TaskUtil.platformJob[1],null,runMode,null,null);
+			//需要传 taskId 给业务接口
+			map=platUpdateTaskService.updatePlatAutomaticOperate(taskId);
+		} catch (Exception e) {
+			logger.error("updatePlatformTask"+e);
+		}finally {
+
+			taskEnd(map,taskId,planCount,successCount,failCount,null,canRan);
 		}
 
 	}
@@ -298,7 +331,16 @@ public class TimingTaskManager {
             //BBD数据落地-线下理财
 
         }else if(TaskUtil.holographicAndOpinionJob[0].equals(taskKey)){
-            //BBD数据落地-权限舆情
+            //BBD数据落地-全息和舆情
+
+			try {
+				newTaskId = TaskUtil.taskStart(TaskUtil.holographicAndOpinionJob[0], TaskUtil.holographicAndOpinionJob[1], null, runMode, null, null);
+				map=dataLoadingService.dataLoadingManualOperate(oldTaskId, newTaskId);
+			}catch (Exception e){
+				logger.error("reExecuteTask-holographicAndOpinionJob"+e);
+			}finally {
+				taskEnd(map,newTaskId,planCount,successCount,failCount,null,canRan);
+			}
 
         }else if(TaskUtil.pToPMonitorJob[0].equals(taskKey)){
             //网贷之家数据落地-网络借贷-监测
@@ -340,7 +382,17 @@ public class TimingTaskManager {
         }else if(TaskUtil.companyBaseInfo[0].equals(taskKey)){
             //系统数据更新-企业基本信息
 
-        }
+        }else if(TaskUtil.platformJob[0].equals(taskKey)){
+			//系统数据更新-企业与网贷平台对照表
+			try {
+				newTaskId = TaskUtil.taskStart(TaskUtil.platformJob[0], TaskUtil.platformJob[1], null, runMode, null, null);
+				map=platUpdateTaskService.updatePlatManualOperate(oldTaskId, newTaskId);
+			}catch (Exception e){
+				logger.error("reExecuteTask-platformJob"+e);
+			}finally {
+				taskEnd(map,newTaskId,planCount,successCount,failCount,null,canRan);
+			}
+		}
 	}
 
 
@@ -362,7 +414,18 @@ public class TimingTaskManager {
 
 		}else if(TaskUtil.offlineFinanceJob[0].equals(taskKey)){
 			//BBD数据落地-线下理财
-
+			List<DataLoadingFailInfoDO> failList = dataLoadingFailInfoMapper.getDataLoadingFailInfoByTaskId(taskId);
+			if(failList.size()>0){
+				list=new ArrayList<TaskFailInfoDO>();
+				TaskFailInfoDO fail = null;
+				for(DataLoadingFailInfoDO failInfo:failList){
+					fail=new TaskFailInfoDO();
+					fail.setTaskId(failInfo.getTaskId());
+					fail.setFailName(failInfo.getErrorName());
+					fail.setFailReason(failInfo.getErrorReason());
+					list.add(fail);
+				}
+			}
 		}else if(TaskUtil.holographicAndOpinionJob[0].equals(taskKey)){
 			//BBD数据落地-权限舆情
 
@@ -384,7 +447,6 @@ public class TimingTaskManager {
 
 		return list;
 	}
-
 
 
 }

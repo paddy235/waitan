@@ -26,6 +26,7 @@ public class TaskUtil {
 	//系统数据更新任务
 	public static String[] riskLevelJob= {"riskLevelJob","job_work"};//风险等级
 	public static String[] companyBaseInfo= {"companyBaseInfoJob","job_work"};//风险等级
+	public static String[] platformJob= {"platformJob","job_work"};//企业与网贷平台对照表
 
 
 	/**

@@ -12,7 +12,7 @@ import java.util.Map;
  * Created by YanWenyuan on 2017/7/17.
  */
 @Component
-public class CompanyInfoModifyUtil {
+public class CompanyInfoQueryUtil {
     @Autowired
     private P2PImageService p2PImageService;    // 网络借贷
 
@@ -44,6 +44,7 @@ public class CompanyInfoModifyUtil {
         // 3. 返回数据
         CompanyInfo companyInfo = new CompanyInfo();
         companyInfo.setName(String.valueOf(platFormStatus.get("companyName"))); // 公司名称
+        companyInfo.setPlatName(String.valueOf(platFormStatus.get("platname")));    // 平台名称
         companyInfo.setLegalPerson(String.valueOf(baseInfo.get("legalPeople")));    // 法人
         companyInfo.setRegisteredCapital(String.valueOf(baseInfo.get("capital")));  // 注册资本
         companyInfo.setIndustry(CompanyInfo.TYPE_P2P_1);    // 行业

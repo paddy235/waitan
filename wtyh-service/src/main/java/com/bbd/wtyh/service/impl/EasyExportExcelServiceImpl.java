@@ -20,6 +20,9 @@ import java.util.List;
 public class EasyExportExcelServiceImpl implements EasyExportExeclService {
 
     @Autowired
+    private P2PImageService p2PImageService;    // 网络借贷
+
+    @Autowired
     private RiskCompanyService riskCompanyService;  // 线下理财
 
     @Autowired
@@ -39,7 +42,8 @@ public class EasyExportExcelServiceImpl implements EasyExportExeclService {
 
     @Override
     public List<WangdaiData> getWangdai(ExportCondition exportCondition) {
-        return null;
+        // TODO: 2017/7/21
+        return p2PImageService.getWangdai(exportCondition);
     }
 
     @Override
