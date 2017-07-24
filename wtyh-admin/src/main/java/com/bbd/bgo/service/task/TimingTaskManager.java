@@ -46,6 +46,8 @@ public class TimingTaskManager {
     private CrowdFundingService crowdFundingService;
 	@Autowired
 	private WangdaiTaskInfoService wangdaiTaskInfoService;
+	@Autowired
+	private PlatUpdateTaskService platUpdateTaskService;
 
 
 	private Logger logger = LoggerFactory.getLogger(TimingTaskManager.class);
@@ -100,6 +102,32 @@ public class TimingTaskManager {
 		}finally {
 
             taskEnd(map,taskId,planCount,successCount,failCount,null,notRan);
+		}
+
+	}
+
+	/**
+	 * 普通任务
+	 *
+	 * 更新 企业与网贷平台对照表 platform_name_information
+	 * 频率：
+	 */
+	public void updatePlatformTask() throws Exception {
+		Integer taskId=null;
+		Integer planCount = null;// 计划执行笔数。 可在任务结束时更新
+		Integer successCount=null;
+		Integer failCount=null;
+		Map map =null;
+		try {
+			Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
+			taskId=TaskUtil.taskStart(TaskUtil.platformJob[0],TaskUtil.platformJob[1],null,runMode,null,null);
+			//需要传 taskId 给业务接口
+			map=platUpdateTaskService.updatePlatAutomaticOperate(taskId);
+		} catch (Exception e) {
+			logger.error("updatePlatformTask"+e);
+		}finally {
+
+			taskEnd(map,taskId,planCount,successCount,failCount,null,canRan);
 		}
 
 	}
@@ -354,7 +382,17 @@ public class TimingTaskManager {
         }else if(TaskUtil.companyBaseInfo[0].equals(taskKey)){
             //系统数据更新-企业基本信息
 
-        }
+        }else if(TaskUtil.platformJob[0].equals(taskKey)){
+			//系统数据更新-企业与网贷平台对照表
+			try {
+				newTaskId = TaskUtil.taskStart(TaskUtil.platformJob[0], TaskUtil.platformJob[1], null, runMode, null, null);
+				map=platUpdateTaskService.updatePlatManualOperate(oldTaskId, newTaskId);
+			}catch (Exception e){
+				logger.error("reExecuteTask-platformJob"+e);
+			}finally {
+				taskEnd(map,newTaskId,planCount,successCount,failCount,null,canRan);
+			}
+		}
 	}
 
 
@@ -409,7 +447,6 @@ public class TimingTaskManager {
 
 		return list;
 	}
-
 
 
 }
