@@ -8,14 +8,14 @@ package com.bbd.wtyh.domain.dto;
 */
 public class AreaIndexDTO {
 
-	private String area;
-	double ecosystem; 
-	double scale; 
-	double popularity; 
-	double safety; 
-	double recognition; 
-	double competitiveness; 
-	int rank;
+	private String area;//省份
+	double ecosystem; //网贷生态环境
+	double scale; //网贷规模
+	double popularity; //网贷人气
+	double safety; //网贷安全度
+	double recognition; //资本认可度
+	double competitiveness; //综合竞争力
+	int rank;//上半年排名
 	
 	
 	public String getArea() {
