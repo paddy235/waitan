@@ -298,7 +298,16 @@ public class TimingTaskManager {
             //BBD数据落地-线下理财
 
         }else if(TaskUtil.holographicAndOpinionJob[0].equals(taskKey)){
-            //BBD数据落地-权限舆情
+            //BBD数据落地-全息和舆情
+
+			try {
+				newTaskId = TaskUtil.taskStart(TaskUtil.holographicAndOpinionJob[0], TaskUtil.holographicAndOpinionJob[1], null, runMode, null, null);
+				map=dataLoadingService.dataLoadingManualOperate(oldTaskId, newTaskId);
+			}catch (Exception e){
+				logger.error("reExecuteTask-holographicAndOpinionJob"+e);
+			}finally {
+				taskEnd(map,newTaskId,planCount,successCount,failCount,null,canRan);
+			}
 
         }else if(TaskUtil.pToPMonitorJob[0].equals(taskKey)){
             //网贷之家数据落地-网络借贷-监测
