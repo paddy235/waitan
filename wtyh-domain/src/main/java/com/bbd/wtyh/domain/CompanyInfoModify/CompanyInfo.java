@@ -30,11 +30,20 @@ public class CompanyInfo {
 
     // 网络贷款
     private String originalStatus;
+    private String platName;
 
     // 小额贷款、融资担保
     private String outLevel;   // 外部评级 -
     private String innnerLevel;    // 内部评级 - 【小额贷款、融资担保】
     private String liveLevel;  // 现场检查 - 【小额贷款、融资担保】
+
+    public String getPlatName() {
+        return platName;
+    }
+
+    public void setPlatName(String platName) {
+        this.platName = platName;
+    }
 
     public Integer getRegisteredCapitalType() {
         return registeredCapitalType;

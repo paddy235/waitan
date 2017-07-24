@@ -98,7 +98,7 @@
     </select>
 
     <insert id="addBuilding" parameterType="com.bbd.wtyh.domain.BuildingDO">
-        INSERT INTO building(`name`, park_id, img_url, create_by, create_date, update_date) VALUES(#{name}, #{parkId}, #{imgUrl}, #{createBy}, SYSDATE(), SYSDATE())
+        INSERT INTO building(`name`, park_id, img_url, create_by, create_date) VALUES(#{name}, #{parkId}, #{imgUrl}, #{createBy}, SYSDATE())
     </insert>
 
     <delete id="delCompanyByCompanyId" >
@@ -120,12 +120,32 @@
         </foreach>
     </delete>
 
-    <delete id="delBuildingByParkId" parameterType="int">
+    <delete id="delBuildingByParkId" parameterType="java.lang.String">
         DELETE FROM building WHERE park_id=#{parkId}
     </delete>
 
     <delete id="delParkByName" parameterType="java.lang.String">
         DELETE FROM park WHERE `name`=#{parkName}
+    </delete>
+
+    <delete id="delBuildingById" parameterType="java.util.List">
+        DELETE FROM building WHERE building_id IN
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <delete id="delParkById" parameterType="java.lang.String">
+        DELETE FROM park WHERE park_id=#{parkId}
+    </delete>
+
+    <delete id="delCompanyBuildingByParkId" parameterType="java.lang.String">
+        DELETE FROM
+          company_building
+        WHERE
+          building_id
+        IN
+          (select  building_id from building where park_id = #{parkId})
     </delete>
 
     <sql id="building_content">
@@ -145,12 +165,16 @@
         SELECT park_id as parkId FROM park WHERE `name`=#{parkName}
     </select>
 
+    <select id="queryBuildingIdByName" parameterType="java.lang.String" resultType="int">
+        SELECT building_id as buildingId FROM building WHERE `name`=#{buildingName}
+    </select>
+
     <select id="queryParkList" resultType="com.bbd.wtyh.domain.ParkDO">
         SELECT park_id as parkId,name as name FROM park WHERE 1=1 ORDER BY park_id
     </select>
 
     <insert id="addPark" parameterType="com.bbd.wtyh.domain.ParkDO">
-        INSERT INTO park(`name`, area_id, img_url, create_by, create_date, update_date) VALUES(#{name},#{areaId},#{imgUrl},#{createBy},SYSDATE(), SYSDATE())
+        INSERT INTO park(`name`, area_id, img_url, create_by, create_date) VALUES(#{name},#{areaId},#{imgUrl},#{createBy},SYSDATE())
     </insert>
 
     <select id="queryCompanyIdByName" parameterType="java.lang.String" resultType="int">

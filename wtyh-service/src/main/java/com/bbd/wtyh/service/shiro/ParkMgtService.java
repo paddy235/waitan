@@ -50,6 +50,36 @@ public interface ParkMgtService{
     List<Map<String,String>> queryBuildingByParkId(String parkId);
 
     /**
+     * 删除园区
+     * @param parkId
+     */
+    void delParkById(String parkId);
+
+    /**
+     * 删除楼宇
+     * @param parkId
+     */
+    void delBuildingByParkId(String parkId);
+
+    /**
+     * 删除楼宇
+     * @param buildingId
+     */
+    void delBuildingById(List<String> buildingId);
+
+    /**
+     * 删除企业
+     * @param parkId
+     */
+    void delCompanyBuildingByParkId(String parkId);
+
+    /**
+     * 删除企业
+     * @param buildingId
+     */
+    void delCompanyByBuildingId(List<String> buildingId);
+
+    /**
      * 根据企业ID删除企业
      * @param companyIdList 企业名称列表
      */
@@ -61,6 +91,13 @@ public interface ParkMgtService{
      * @return
      */
     int queryParkIdByName(String parkName);
+
+    /**
+     * 根据楼宇名称取得楼宇ID
+     * @param buildingName
+     * @return
+     */
+    int queryBuildingIdByName(String buildingName);
 
     /**
      * 园区楼宇企业数量
@@ -82,4 +119,10 @@ public interface ParkMgtService{
      * @param park
      */
     void addPark(ParkDO park);
+
+    /**
+     * 新增楼宇
+     * @param building
+     */
+    void addBuilding(BuildingDO building);
 }
