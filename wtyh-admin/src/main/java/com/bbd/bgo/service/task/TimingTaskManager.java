@@ -46,6 +46,8 @@ public class TimingTaskManager {
     private CrowdFundingService crowdFundingService;
 	@Autowired
 	private WangdaiTaskInfoService wangdaiTaskInfoService;
+	@Autowired
+	private PlatUpdateTaskService platUpdateTaskService;
 
 
 	private Logger logger = LoggerFactory.getLogger(TimingTaskManager.class);
@@ -68,7 +70,7 @@ public class TimingTaskManager {
 			Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
 			taskId=TaskUtil.taskStart(TaskUtil.riskLevelJob[0],TaskUtil.riskLevelJob[1],null,runMode,null,null);
 			//需要传 taskId 给业务接口
-			offlineFinanceService.updateCompanyRiskLevel();
+			map = offlineFinanceService.updateCompanyRiskLevel(taskId);
 		} catch (Exception e) {
 			logger.error("riskLevelTask"+e);
 		}finally {
@@ -101,6 +103,32 @@ public class TimingTaskManager {
 		}finally {
 
             taskEnd(map,taskId,planCount,successCount,failCount,null,notRan);
+		}
+
+	}
+
+	/**
+	 * 普通任务
+	 *
+	 * 更新 企业与网贷平台对照表 platform_name_information
+	 * 频率：
+	 */
+	public void updatePlatformTask() throws Exception {
+		Integer taskId=null;
+		Integer planCount = null;// 计划执行笔数。 可在任务结束时更新
+		Integer successCount=null;
+		Integer failCount=null;
+		Map map =null;
+		try {
+			Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
+			taskId=TaskUtil.taskStart(TaskUtil.platformJob[0],TaskUtil.platformJob[1],null,runMode,null,null);
+			//需要传 taskId 给业务接口
+			map=platUpdateTaskService.updatePlatAutomaticOperate(taskId);
+		} catch (Exception e) {
+			logger.error("updatePlatformTask"+e);
+		}finally {
+
+			taskEnd(map,taskId,planCount,successCount,failCount,null,canRan);
 		}
 
 	}
@@ -304,7 +332,16 @@ public class TimingTaskManager {
             //BBD数据落地-线下理财
 
         }else if(TaskUtil.holographicAndOpinionJob[0].equals(taskKey)){
-            //BBD数据落地-权限舆情
+            //BBD数据落地-全息和舆情
+
+			try {
+				newTaskId = TaskUtil.taskStart(TaskUtil.holographicAndOpinionJob[0], TaskUtil.holographicAndOpinionJob[1], null, runMode, null, null);
+				map=dataLoadingService.dataLoadingManualOperate(oldTaskId, newTaskId);
+			}catch (Exception e){
+				logger.error("reExecuteTask-holographicAndOpinionJob"+e);
+			}finally {
+				taskEnd(map,newTaskId,planCount,successCount,failCount,null,canRan);
+			}
 
         }else if(TaskUtil.pToPMonitorJob[0].equals(taskKey)){
             //网贷之家数据落地-网络借贷-监测
@@ -342,11 +379,29 @@ public class TimingTaskManager {
 
         }else if(TaskUtil.riskLevelJob[0].equals(taskKey)){
             //系统数据更新-风险等级
+			try {
+				newTaskId = TaskUtil.taskStart(TaskUtil.riskLevelJob[0], TaskUtil.riskLevelJob[1], null, runMode, null, null);
+				map=offlineFinanceService.executeFailTaskByTaskId(runMode, oldTaskId, newTaskId);
+			}catch (Exception e){
+				logger.error("reExecuteTask-riskLevelJob"+e);
+			}finally {
+				taskEnd(map,newTaskId,planCount,successCount,failCount,null,canRan);
+			}
 
         }else if(TaskUtil.companyBaseInfo[0].equals(taskKey)){
             //系统数据更新-企业基本信息
 
-        }
+        }else if(TaskUtil.platformJob[0].equals(taskKey)){
+			//系统数据更新-企业与网贷平台对照表
+			try {
+				newTaskId = TaskUtil.taskStart(TaskUtil.platformJob[0], TaskUtil.platformJob[1], null, runMode, null, null);
+				map=platUpdateTaskService.updatePlatManualOperate(oldTaskId, newTaskId);
+			}catch (Exception e){
+				logger.error("reExecuteTask-platformJob"+e);
+			}finally {
+				taskEnd(map,newTaskId,planCount,successCount,failCount,null,canRan);
+			}
+		}
 	}
 
 
@@ -385,14 +440,13 @@ public class TimingTaskManager {
 
 		}else if(TaskUtil.pToPMonitorJob[0].equals(taskKey)
 				|| TaskUtil.p2pImageJob[0].equals(taskKey)
-				|| TaskUtil.crowdFundingJob[0].equals(taskKey)){
+				|| TaskUtil.crowdFundingJob[0].equals(taskKey)
+				||TaskUtil.riskLevelJob[0].equals(taskKey)){
 			//网贷之家数据落地-网络借贷-监测
 			//网贷之家数据落地-网络借贷-平台画像
 			//网贷之家数据落地-众筹
-			list=wangdaiTaskInfoService.listByTaskId(taskId);
-
-		}else if(TaskUtil.riskLevelJob[0].equals(taskKey)){
 			//系统数据更新-风险等级
+			list=wangdaiTaskInfoService.listByTaskId(taskId);
 
 		}else if(TaskUtil.companyBaseInfo[0].equals(taskKey)){
 			//系统数据更新-企业基本信息
@@ -401,7 +455,6 @@ public class TimingTaskManager {
 
 		return list;
 	}
-
 
 
 }

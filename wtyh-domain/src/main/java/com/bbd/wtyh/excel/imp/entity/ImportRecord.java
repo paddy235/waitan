@@ -30,7 +30,11 @@ public class ImportRecord {
 	@Column(name = "file_name", updatable = false)
 	private String fileName;
 
-	/**  */
+	/** 导入用户 */
+	@Column(name = "imp_user", updatable = false)
+	private String impUser;
+
+	/** 文件大小 */
 	@Column(name = "file_size", updatable = false)
 	private Long fileSize;
 
@@ -90,6 +94,14 @@ public class ImportRecord {
 	 */
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
+	}
+
+	public String getImpUser() {
+		return impUser;
+	}
+
+	public void setImpUser(String impUser) {
+		this.impUser = impUser;
 	}
 
 	/**

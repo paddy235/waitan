@@ -78,7 +78,7 @@ public class ProgressUtil {
 	}
 
 	public static String getProgressKey(HttpServletRequest request) {
-		return "ly";// TODO 后期改为用户名
+		return "admin";// TODO 后期改为用户名
 	}
 
 }

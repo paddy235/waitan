@@ -18,7 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
+import com.bbd.wtyh.common.comenum.UserType;
+import com.bbd.wtyh.domain.UserInfoTableDo;
 import com.bbd.wtyh.excel.imp.entity.ImportRecord;
+import com.bbd.wtyh.excel.imp.exception.ImportRecordException;
 import com.bbd.wtyh.excel.imp.utils.*;
 import com.bbd.wtyh.web.ResponseBean;
 import org.apache.commons.lang3.StringUtils;
@@ -156,17 +159,19 @@ public class ImportController {
 	}
 
 	private void syncDealWith(List<CommonsMultipartFile> files, String templateName, Integer impType, HttpServletRequest request) {
+		UserInfoTableDo userInfo = (UserInfoTableDo) request.getSession().getAttribute("loginUser");
+
 		ExecutorService threadPool = Executors.newFixedThreadPool(1);
 		files.forEach((CommonsMultipartFile file) -> threadPool.execute(() -> {
 			String fileName = file.getOriginalFilename();
 			long fileSize = file.getSize();
-			ImportRecord record = ImpRecordUtil.createNewRecord(fileName, fileSize, impType);
+			ImportRecord record = ImpRecordUtil.createNewRecord(userInfo.getLoginName(), fileName, fileSize, impType);
 			try {
 				ImportConfiguration conf = ImportConfiguration.getConfiguration(templateName, fileName);
 				conf.setFileSize(fileSize);
 				conf.setRecordId(record.getId());
 
-				Workbook workbook = ExcelReadUtil.createWorkbook(conf, fileName, file.getInputStream());
+				Workbook workbook = ExcelReadUtil.createWorkbook(fileName, file.getInputStream());
 				if (workbook == null) {
 					return;
 				}
@@ -196,8 +201,10 @@ public class ImportController {
 					});
 				}
 				fixedThreadPool.shutdown();
+			} catch (ImportRecordException e) {
+				ImpRecordUtil.appearError(record.getId(), e.getMessage());
 			} catch (Exception e) {
-				ImpRecordUtil.appearError(record.getId(), "无法读取。请检查是否为Excel文件");
+				ImpRecordUtil.appearError(record.getId(), "上传文件解析失败");
 				LOGGER.error("处理文件【{}】失败，服务器出现异常：", fileName, e);
 			}
 		}));
@@ -227,9 +234,15 @@ public class ImportController {
 
 	@RequestMapping("/record-list")
 	@ResponseBody
-	public Object impRecordList(String fileName, String startDate, String endDate, String impState, @RequestParam Integer impType)
-			throws Exception {
-		return ResponseBean.successResponse(ImpRecordUtil.recordList(fileName, startDate, endDate, impState, impType));
+	public Object impRecordList(String fileName, String startDate, String endDate, String impState, @RequestParam Integer impType,
+			HttpServletRequest request) throws Exception {
+
+		UserInfoTableDo userInfo = (UserInfoTableDo) request.getSession().getAttribute("loginUser");
+		String loginName = userInfo.getLoginName();
+		if (UserType.SUPER_ADMIN.getTypeCode().equals(userInfo.getUserType())) {
+			loginName = "";
+		}
+		return ResponseBean.successResponse(ImpRecordUtil.recordList(loginName, fileName, startDate, endDate, impState, impType));
 	}
 
 	@RequestMapping("/download-error-file")

@@ -31,8 +31,4 @@ public class CompanyBackUpateTest {
         System.out.println(map);
     }
 
-    @Test
-    public void updateCompanyRiskLevel(){
-        offlineFinanceService.updateCompanyRiskLevel();
-    }
 }
