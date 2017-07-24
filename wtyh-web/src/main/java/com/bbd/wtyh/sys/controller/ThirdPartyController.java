@@ -1,8 +1,6 @@
 package com.bbd.wtyh.sys.controller;
 
-
 import com.bbd.wtyh.service.LogInfoService;
-import com.bbd.wtyh.service.OfflineFinanceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,36 +13,25 @@ import javax.servlet.http.HttpSession;
 
 /**
  * 日志信息维护
+ * 
  * @author sunliming
- * @since  2017/03/20
+ * @since 2017/03/20
  */
 @RestController
 @RequestMapping("/third-party")
 public class ThirdPartyController {
 
-    @Autowired
-    private LogInfoService logInfoService;
-    private Logger logger= LoggerFactory.getLogger(ThirdPartyController.class);
+	@Autowired
+	private LogInfoService logInfoService;
+	private Logger logger = LoggerFactory.getLogger(ThirdPartyController.class);
 
-    @RequestMapping("/exportLogFile")
-    @ResponseBody
-    public Long exportLogFile(@RequestParam String date, @RequestParam Long counts , HttpSession session){
-        logger.info("日志文件处理(exportLogFile.do)开始");
-        Long tempCounts=(null==counts)?new Long(1L):counts;
-        Long result=logInfoService.exportLogFileToDataBase(date,tempCounts);
-        logger.info("日志文件处理(exportLogFile.do)结束");
-        return result;
-    }
-
-
-
-    @Autowired
-    OfflineFinanceService offlineFinanceService;
-
-    @RequestMapping("/t")
-    @ResponseBody
-    public void test() {
-        offlineFinanceService.updateCompanyRiskLevel();
-    }
-
+	@RequestMapping("/exportLogFile")
+	@ResponseBody
+	public Long exportLogFile(@RequestParam String date, @RequestParam Long counts, HttpSession session) {
+		logger.info("日志文件处理(exportLogFile.do)开始");
+		Long tempCounts = (null == counts) ? new Long(1L) : counts;
+		Long result = logInfoService.exportLogFileToDataBase(date, tempCounts);
+		logger.info("日志文件处理(exportLogFile.do)结束");
+		return result;
+	}
 }

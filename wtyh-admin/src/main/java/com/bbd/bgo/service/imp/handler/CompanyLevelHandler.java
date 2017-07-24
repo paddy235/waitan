@@ -25,9 +25,9 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author Created by LiYao on 2017-07-03 14:34.
  */
-@Component("testHandler")
+@Component
 @Scope("prototype")
-public class CompanyLevelHandler extends AbstractImportHandler<CompanyLevelDO> {
+	public class CompanyLevelHandler extends AbstractImportHandler<CompanyLevelDO> {
 
 	private Logger log = LoggerFactory.getLogger(CompanyLevelHandler.class);
 

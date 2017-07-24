@@ -48,7 +48,7 @@ public class SyncDataController {
 	@RequestMapping("systemDataUpdateService.do")
 	@ResponseBody
 	public ResponseBean systemDataUpdateServiceDo() {
-		systemDataUpdateService.updateCompanyTableAreaIdAndAddress();
+		//systemDataUpdateService.updateCompanyTableAreaIdAndAddress();
 		return ResponseBean.successResponse("运行成功！");
 	}
 	@Autowired
@@ -57,7 +57,7 @@ public class SyncDataController {
 	@RequestMapping("platUpdateServiceDo.do")
 	@ResponseBody
 	public ResponseBean platUpdateServiceDo() {
-		platUpdateTaskService.updatePlat();
+		//platUpdateTaskService.updatePlatAutomaticOperate(10);
 		return ResponseBean.successResponse("运行成功！");
 	}
 }
