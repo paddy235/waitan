@@ -26,8 +26,4 @@ public class CompanyBackUpateTest {
         systemDataUpdateService.updateCompanyTableAreaIdAndAddress();
     }
 
-    @Test
-    public void updateCompanyRiskLevel(){
-        offlineFinanceService.updateCompanyRiskLevel();
-    }
 }

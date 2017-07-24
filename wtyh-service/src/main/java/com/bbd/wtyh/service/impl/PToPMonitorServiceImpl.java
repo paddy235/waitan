@@ -58,9 +58,6 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
     private IndustryShanghaiMapper industryShanghaiMapper;
 
     @Autowired
-    private IndustryShanghaiAreaMapper industryShanghaiAreaMapper;
-
-    @Autowired
     private IndustryCompareMapper industryCompareMapper;
 
     @Autowired

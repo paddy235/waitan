@@ -64,7 +64,9 @@ public interface OfflineFinanceService {
 
     Map companyInfo(String companyName);
 
-    public void updateCompanyRiskLevel();
+    public Map updateCompanyRiskLevel(Integer taskId) throws Exception;
+
+    Map executeFailTaskByTaskId(Integer runMode, Integer oldTaskId, Integer taskId) throws Exception;
 
     public void updateIndexData(String companyName);
 
