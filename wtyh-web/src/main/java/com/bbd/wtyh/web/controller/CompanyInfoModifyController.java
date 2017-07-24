@@ -3,6 +3,7 @@ package com.bbd.wtyh.web.controller;
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
 import com.bbd.wtyh.service.CompanyInfoModifyService;
 import com.bbd.wtyh.web.ResponseBean;
+import com.bbd.wtyh.web.companyInfoModify.ModifyData;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,6 +35,17 @@ public class CompanyInfoModifyController {
     @ResponseBody
     public ResponseBean queryCompany(String name) {
         CompanyInfo rst = companyInfoModify.queryCompany(name);
+        if (null == rst) {
+            return ResponseBean.errorResponse("未找到公司");
+        }
+        return ResponseBean.successResponse(rst);
+    }
+
+    // 0. 修改公司 - 风险等级
+    @RequestMapping(value = "/modify")
+    @ResponseBody
+    public ResponseBean modify(ModifyData modifyData) {
+        CompanyInfo rst = companyInfoModify.modifyLevel(modifyData);
         if (null == rst) {
             return ResponseBean.errorResponse("未找到公司");
         }

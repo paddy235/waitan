@@ -96,6 +96,51 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     }
 
     @Override
+    public void delParkById(String parkId) {
+        try {
+            parkAndBuildingMgtMapper.delParkById(parkId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void delBuildingByParkId(String parkId) {
+        try {
+            parkAndBuildingMgtMapper.delBuildingByParkId(parkId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void delBuildingById(List<String> buildingId) {
+        try {
+            parkAndBuildingMgtMapper.delBuildingById(buildingId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void delCompanyBuildingByParkId(String parkId) {
+        try {
+            parkAndBuildingMgtMapper.delCompanyBuildingByParkId(parkId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void delCompanyByBuildingId(List<String> buildingId) {
+        try {
+            parkAndBuildingMgtMapper.delCompanyByBuildingId(buildingId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void delCompanyByCompanyId(String buildingId,List<String> companyIdList) {
         try {
             parkAndBuildingMgtMapper.delCompanyByCompanyId(buildingId,companyIdList);
@@ -116,6 +161,17 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     }
 
     @Override
+    public int queryBuildingIdByName(String buildingName) {
+        int i = 0000;
+        try {
+            i = parkAndBuildingMgtMapper.queryBuildingIdByName(buildingName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return i;
+    }
+
+    @Override
     public BuildingDO queryBuildingByParkAndName(int parkId, String buildingName) {
         Map<String, Object> params = new HashedMap();
         params.put("parkId", parkId);
@@ -128,6 +184,15 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     public void addPark(ParkDO park) {
         try {
             parkAndBuildingMgtMapper.addPark(park);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void addBuilding(BuildingDO building) {
+        try {
+            parkAndBuildingMgtMapper.addBuilding(building);
         } catch (Exception e) {
             e.printStackTrace();
         }
