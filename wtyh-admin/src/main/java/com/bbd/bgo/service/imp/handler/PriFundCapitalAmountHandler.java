@@ -7,10 +7,14 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.bbd.wtyh.core.base.BaseService;
+import com.bbd.wtyh.domain.CapitalAmountDO;
+import com.bbd.wtyh.domain.PrivateFundTypeDO;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -18,8 +22,6 @@ import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.ProductAmountDO;
 import com.bbd.wtyh.excel.imp.handler.AbstractImportHandler;
-import com.bbd.wtyh.service.CompanyService;
-import com.bbd.wtyh.service.ProductAmountService;
 
 /**
  * Created by cgj on 2017/7/23.
@@ -27,18 +29,17 @@ import com.bbd.wtyh.service.ProductAmountService;
 
 @Component
 @Scope("prototype") //非单例模式
-public class PriFundCapitalAmountHandler extends AbstractImportHandler<ProductAmountDO> {
+public class PriFundCapitalAmountHandler extends AbstractImportHandler<CapitalAmountDO> {
 
     private Logger log = LoggerFactory.getLogger(CompanyLevelHandler.class);
 
     @Autowired
-    private CompanyService companyService;
+    @Qualifier(value = "baseServiceImpl")
+    private BaseService baseService;
 
-    @Autowired
-    private ProductAmountService productAmountService;
 
-    private List< ProductAmountDO > insertList = null;
-    private List< ProductAmountDO > updateList = null;
+    private List< CapitalAmountDO > insertList = null;
+    private List< CapitalAmountDO > updateList = null;
     String loginName ="";
 
 
@@ -51,8 +52,7 @@ public class PriFundCapitalAmountHandler extends AbstractImportHandler<ProductAm
             loginName ="";
         }
         //Object ob= request.getHeaderNames();
-        log.info("开始检查私募top10名单");
-        insertList = new LinkedList<>();
+        log.info("开始检查 私募基金-股权投资机构管理资本量");
         updateList = new LinkedList<>();
     }
 
@@ -63,14 +63,34 @@ public class PriFundCapitalAmountHandler extends AbstractImportHandler<ProductAm
 
     @Override
     public boolean validateRow(Map<String, String> row) throws Exception {
-        String companyName =row.get("companyName");
-        if( StringUtils.isBlank( companyName ) || companyName.length() <3 ) {
-            addError("企业名称格式错误");
+        //正则：整数或者小数：^[0-9]+([.][0-9]+){0,1}$，只能输入至少一位数字"\\d+"，"+"等价于{1,}
+
+        String typeName =row.get("typeName");
+        if( StringUtils.isBlank( typeName ) || typeName.length() <2 ) {
+            addError("私募机构类型 格式错误");
             return false;
         }
-        String productNumber =row.get("productNumber");
-        if( StringUtils.isEmpty( productNumber ) || !productNumber.matches("\\d+") ) {
-            addError("产品数量格式错误");
+        int validCnt =0;
+        String managedCapitalAmount =row.get("managedCapitalAmount");
+        if( StringUtils.isNotBlank( managedCapitalAmount ) ) {
+            if ( managedCapitalAmount.matches("^[0-9]+([.][0-9]+){0,1}$") ){
+                validCnt++;
+            } else {
+                addError("管理资本金额（亿元） 格式错误");
+                return false;
+            }
+        }
+        String publishCompanyNumber =row.get("publishCompanyNumber");
+        if( StringUtils.isNotBlank( publishCompanyNumber ) ) {
+            if ( publishCompanyNumber.matches("\\d+") ){
+                validCnt++;
+            } else {
+                addError("数量 格式错误");
+                return false;
+            }
+        }
+        if( validCnt <1 ) {
+            addError("选填参数数量太少");
             return false;
         }
         return true;
@@ -78,39 +98,29 @@ public class PriFundCapitalAmountHandler extends AbstractImportHandler<ProductAm
 
     //BusinessException()
     @Override
-    public void endRow(Map<String, String> row, ProductAmountDO bean) throws Exception {
-        CompanyDO cp = companyService.getCompanyByName(bean.getCompanyName());
-        if( null ==cp ) {
-            cp = companyService.getCompanyByName(bean.getCompanyName(), true);
+    public void endRow(Map<String, String> row, CapitalAmountDO bean) throws Exception {
+        PrivateFundTypeDO pft =baseService.selectOne(PrivateFundTypeDO.class,
+                "`type_parent_id` =1 AND `type_name`='" +bean.getTypeName() +"' LIMIT 1" );
+        if( null ==pft ) {
+            addError("私募机构类型 在系统中无此名称");
+            return ;
         }
-        if ( null ==cp ) {
-            addError("未查询到此企业");
-            return;
-        }
-        ProductAmountDO pa = productAmountService.selectByPrimaryKey(cp.getCompanyId());
-        if( null ==pa ) {
-            insertList.add( bean );
-            bean.setCreateBy(loginName);
-            bean.setCreateDate(new Date());
-        } else {
-            updateList.add(bean);
-            bean.setUpdateBy(loginName);
-            bean.setUpdateDate(new Date());
-        }
-        bean.setCompanyId( cp.getCompanyId() );
+        bean.setTypeId(pft.getTypeId().intValue());
+        updateList.add(bean);
+        bean.setManagedCapitalAmount( bean.getManagedCapitalAmount() *10000F );
+        bean.setUpdateBy(loginName);
+        bean.setUpdateDate(new Date());
     }
 
     @Override
     public void end() throws Exception {
         if( errorList().size() >0 ) {
-            log.warn("用户上传的私募top10名单中的数据有误，所有数据均不予入库");
+            log.warn("用户上传的 私募基金-股权投资机构管理资本量 中的数据有误，所有数据均不予入库");
             return;
         }
         //update
-        productAmountService.updateList(updateList);
-        //insert
-        productAmountService.insertList(insertList); //todo 插入报异常
-        log.info("私募top10名单导入已完成");
+        baseService.updateList(updateList);
+        log.info("私募基金-股权投资机构管理资本量 导入已完成");
     }
 
     @Override

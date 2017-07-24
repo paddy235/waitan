@@ -1,15 +1,13 @@
 package com.bbd.bgo.service.imp.handler;
 
-import java.util.*;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import com.bbd.wtyh.domain.ProductAmountDO;
-import com.bbd.wtyh.mapper.ProductAmountMapper;
-import com.bbd.wtyh.service.ProductAmountService;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,20 +16,18 @@ import org.springframework.stereotype.Component;
 
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.CompanyDO;
-import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
-import com.bbd.wtyh.domain.bbdAPI.IndustryCodeDO;
+import com.bbd.wtyh.domain.ProductAmountDO;
 import com.bbd.wtyh.excel.imp.handler.AbstractImportHandler;
-import com.bbd.wtyh.service.AreaService;
 import com.bbd.wtyh.service.CompanyService;
-import com.bbd.wtyh.service.HologramQueryService;
+import com.bbd.wtyh.service.ProductAmountService;
 
 /**
- * Created by cgj on 2017/7/22.
+ * Created by cgj on 2017/7/24.
  */
 
 @Component
 @Scope("prototype") //非单例模式
-public class PriFundTop10Handler extends AbstractImportHandler<ProductAmountDO> {
+public class PriFundInvestmentReturnHandler extends AbstractImportHandler<ProductAmountDO> {
 
     private Logger log = LoggerFactory.getLogger(CompanyLevelHandler.class);
 
