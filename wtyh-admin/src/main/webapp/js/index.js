@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "153e446ab68042e6202d"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b1f8e33f08a2db74b590"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -8060,7 +8060,7 @@
 
 	var _Root2 = _interopRequireDefault(_Root);
 
-	var _configureStore = __webpack_require__(808);
+	var _configureStore = __webpack_require__(812);
 
 	var _configureStore2 = _interopRequireDefault(_configureStore);
 
@@ -48758,8 +48758,31 @@
 	        return pw;
 	    },
 
-	    imgType: ['jpg', 'png', 'bmp', 'jpeg']
+	    imgType: ['jpg', 'png', 'bmp', 'jpeg'],
+	    fileType: ['xlsx', 'xls', 'xlsm', 'xltx', 'xltm', 'xlsb', 'xlam'],
+	    buildDateParam: function (_buildDateParam) {
+	        function buildDateParam(_x) {
+	            return _buildDateParam.apply(this, arguments);
+	        }
 
+	        buildDateParam.toString = function () {
+	            return _buildDateParam.toString();
+	        };
+
+	        return buildDateParam;
+	    }(function (pickerArray) {
+	        var now = new Date();
+	        var arr = [];
+	        var length = pickerArray.length;
+	        if (length < 0) {
+	            arr = buildDateParam([now.getFullYear(), now.getMonth() + 1]);
+	        } else if (length === 3) {
+	            arr = [pickerArray[0], pickerArray[1] < 10 ? '0' + pickerArray[1] : pickerArray[1], pickerArray[2] < 10 ? '0' + pickerArray[2] : pickerArray[2]].join('-');
+	        } else if (length === 2) {
+	            arr = [pickerArray[0], pickerArray[1] < 10 ? '0' + pickerArray[1] : pickerArray[1]].join('-');
+	        }
+	        return arr;
+	    })
 	};
 
 	exports.default = util;
@@ -48911,13 +48934,13 @@
 	        }, {
 	            path: 'newExecute',
 	            bread: '最新执行情况',
-	            component: __webpack_require__(759).default
+	            component: __webpack_require__(760).default
 	        }]
 	    }, {
 	        path: 'taskDetails',
 	        bread: '定时任务详情',
 	        white: 'B_HTGLQX',
-	        component: __webpack_require__(766).default
+	        component: __webpack_require__(767).default
 	    }, {
 	        redirect: {
 	            from: 'companyLeadin',
@@ -48931,11 +48954,11 @@
 	        subRoutes: [{
 	            path: 'index',
 	            bread: '批量导入记录',
-	            component: __webpack_require__(767).default
+	            component: __webpack_require__(771).default
 	        }, {
 	            path: 'uploadList',
 	            bread: '上传名单',
-	            component: __webpack_require__(770).default
+	            component: __webpack_require__(777).default
 	        }]
 	    }, {
 	        redirect: {
@@ -48950,11 +48973,11 @@
 	        subRoutes: [{
 	            path: 'index',
 	            bread: '批量导入记录',
-	            component: __webpack_require__(780).default
+	            component: __webpack_require__(785).default
 	        }, {
 	            path: 'uploadList',
 	            bread: '上传名单',
-	            component: __webpack_require__(781).default
+	            component: __webpack_require__(786).default
 	        }]
 	    }, {
 	        redirect: {
@@ -48969,27 +48992,27 @@
 	        subRoutes: [{
 	            path: 'index',
 	            bread: '园区楼宇管理主页',
-	            component: __webpack_require__(784).default
+	            component: __webpack_require__(787).default
 	        }, {
 	            path: 'parkDetail',
 	            bread: '园区详情',
-	            component: __webpack_require__(785).default
+	            component: __webpack_require__(788).default
 	        }, {
 	            path: 'buildingDetail',
 	            bread: '园区详情',
-	            component: __webpack_require__(792).default
+	            component: __webpack_require__(796).default
 	        }, {
 	            path: 'newBuilding',
 	            bread: '新增楼宇',
-	            component: __webpack_require__(797).default
+	            component: __webpack_require__(801).default
 	        }, {
 	            path: 'newPark',
 	            bread: '新增园区',
-	            component: __webpack_require__(798).default
+	            component: __webpack_require__(802).default
 	        }, {
 	            path: 'leadin',
 	            bread: '导入企业',
-	            component: __webpack_require__(799).default
+	            component: __webpack_require__(803).default
 	        }]
 
 	    }, {
@@ -49005,27 +49028,27 @@
 	        subRoutes: [{
 	            path: 'index',
 	            bread: '批量导入记录',
-	            component: __webpack_require__(801).default
+	            component: __webpack_require__(805).default
 	        }, {
 	            path: 'uploadList',
 	            bread: '上传名单',
-	            component: __webpack_require__(801).default
+	            component: __webpack_require__(805).default
 	        }]
 	    }, {
 	        path: 'naturalSearch',
 	        bread: '自然人检索',
 	        white: 'B_HTGLQX',
-	        component: __webpack_require__(802).default
+	        component: __webpack_require__(806).default
 	    }, {
 	        path: 'companyChange',
 	        bread: '企业信息变更',
 	        white: 'B_HTGLQX',
-	        component: __webpack_require__(803).default
+	        component: __webpack_require__(810).default
 	    }, {
 	        path: 'export',
 	        bread: '快捷导出',
 	        white: 'B_HTGLQX',
-	        component: __webpack_require__(807).default
+	        component: __webpack_require__(811).default
 	    }]
 	};
 
@@ -53948,7 +53971,7 @@
 	                active: false
 	            });
 	            var name = this.props.name;
-	            this.props.onSelected(option.value, name);
+	            this.props.onSelected(option.value, name, option.text);
 	        }
 	    }, {
 	        key: 'componentDidUpdate',
@@ -57109,13 +57132,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.buildDateParam = buildDateParam;
 	exports.codeToName = codeToName;
-	function buildDateParam(pickerArray) {
-	    var now = new Date();
-	    return pickerArray[0] ? [pickerArray[0], pickerArray[1] < 10 ? '0' + pickerArray[1] : pickerArray[1]].join('-') : buildDateParam([now.getFullYear(), now.getMonth() + 1]);
-	}
-
 	function codeToName(code, options, defaultName) {
 	    var option = options.find(function (o) {
 	        return String(o.code) === String(code);
@@ -60804,7 +60821,7 @@
 	                var filterForm = _this2.state.filterForm;
 	                filterForm[field] = y === null ? [] : [y, m, d];
 	                // 后面的日期不能超过前面的日期
-	                if ((0, _tool.buildDateParam)(filterForm.endDate) < (0, _tool.buildDateParam)(filterForm.beginDate)) {
+	                if (_util2.default.buildDateParam(filterForm.endDate) < _util2.default.buildDateParam(filterForm.beginDate)) {
 	                    filterForm.beginDate = filterForm.endDate;
 	                }
 	                _this2.setState({ filterForm: filterForm });
@@ -60945,8 +60962,8 @@
 	        key: 'buildQueryParam',
 	        value: function buildQueryParam() {
 	            var filter = _extends({}, this.state.filter);
-	            filter.beginDate = (0, _tool.buildDateParam)(filter.beginDate);
-	            filter.endDate = (0, _tool.buildDateParam)(filter.endDate);
+	            filter.beginDate = _util2.default.buildDateParam(filter.beginDate);
+	            filter.endDate = _util2.default.buildDateParam(filter.endDate);
 	            return filter;
 	        }
 	    }, {
@@ -61794,7 +61811,7 @@
 	                filterForm[field] = y === null ? [] : [y, m, d];
 
 	                // 后面的日期不能超过前面的日期
-	                if ((0, _tool.buildDateParam)(filterForm.edate) < (0, _tool.buildDateParam)(filterForm.sdate)) {
+	                if (_util2.default.buildDateParam(filterForm.edate) < _util2.default.buildDateParam(filterForm.sdate)) {
 	                    filterForm.sdate = filterForm.edate;
 	                }
 	                _this6.setState({ filterForm: filterForm });
@@ -61804,8 +61821,8 @@
 	        key: 'buildQueryParam',
 	        value: function buildQueryParam() {
 	            var filter = _extends({}, this.state.filter);
-	            filter.sdate = (0, _tool.buildDateParam)(filter.sdate);
-	            filter.edate = (0, _tool.buildDateParam)(filter.edate);
+	            filter.sdate = _util2.default.buildDateParam(filter.sdate);
+	            filter.edate = _util2.default.buildDateParam(filter.edate);
 	            return filter;
 	        }
 	    }, {
@@ -62437,7 +62454,7 @@
 
 
 	// module
-	exports.push([module.id, ".taskWatch_root .bbdTable_root th {\n  height: auto;\n  padding: 55px 0 25px 0; }\n\n.taskList_root .taskList-content {\n  position: relative;\n  max-height: 611px;\n  overflow: hidden; }\n\n.taskList_root .mainTitle_root {\n  margin-top: 30px; }\n\n.taskList_root .tast-list {\n  min-height: 500px; }\n\n.taskDetails_root .mainTitle_root {\n  margin-top: 20px; }\n\n.taskDetails_root .date__root {\n  border: none; }\n\n.taskDetails_root .date__showDate::after {\n  top: 0; }\n\n.taskDetails_root .fitter-box {\n  clear: both;\n  height: 40px;\n  padding: 20px;\n  background-color: #1b3c59; }\n  .taskDetails_root .fitter-box .Select-box {\n    float: left; }\n    .taskDetails_root .fitter-box .Select-box .label-name {\n      padding-top: 9px;\n      color: #8899aa;\n      padding-right: 14px;\n      font-size: 14px; }\n    .taskDetails_root .fitter-box .Select-box .bbdSelect_root {\n      display: inline-block; }\n  .taskDetails_root .fitter-box .reset-btn {\n    width: 110px;\n    float: right; }\n    .taskDetails_root .fitter-box .reset-btn .bbdBtn_root {\n      background-color: #03577A; }\n\n.taskDetails_root .taskDetails-list {\n  position: relative;\n  min-height: 200px;\n  max-height: 611px;\n  overflow: hidden; }\n\n.newExecute {\n  position: relative; }\n  .newExecute .reset-btn {\n    position: absolute;\n    right: 15px;\n    top: 20px;\n    width: 110px;\n    z-index: 10; }\n    .newExecute .reset-btn .bbdBtn_root {\n      background-color: #03577A; }\n  .newExecute .newExecute-list {\n    position: relative;\n    min-height: 200px;\n    max-height: 611px;\n    overflow: hidden; }\n\n.common-root .table-content {\n  position: relative;\n  height: 611px;\n  overflow: hidden; }\n\n.common-root .bbdModal_root .bbdModal_body {\n  padding: 35px 0; }\n\n.common-root .bbdModal_root .bbdBtn_root {\n  font-size: 15px; }\n\n.common-root .bbdTable_root {\n  border-top: none; }\n  .common-root .bbdTable_root .icon-jinggao {\n    padding: 6px; }\n\n.common-root .more {\n  cursor: pointer; }\n\n.common-list .link {\n  color: #2FB5FF; }\n", ""]);
+	exports.push([module.id, ".taskWatch_root .bbdTable_root th {\n  height: auto;\n  padding: 55px 0 25px 0; }\n\n.taskList_root .taskList-content {\n  position: relative;\n  max-height: 611px;\n  overflow: hidden; }\n\n.taskList_root .mainTitle_root {\n  margin-top: 30px; }\n\n.taskList_root .tast-list {\n  min-height: 500px; }\n\n.taskDetails_root .mainTitle_root {\n  margin-top: 20px; }\n\n.taskDetails_root .date__root {\n  border: none; }\n\n.taskDetails_root .date__showDate::after {\n  top: 0; }\n\n.taskDetails_root .fitter-box {\n  clear: both;\n  height: 40px;\n  padding: 20px;\n  background-color: #1b3c59; }\n  .taskDetails_root .fitter-box .Select-box {\n    float: left; }\n    .taskDetails_root .fitter-box .Select-box .label-name {\n      padding-top: 9px;\n      color: #8899aa;\n      padding-right: 14px;\n      font-size: 14px; }\n    .taskDetails_root .fitter-box .Select-box .bbdSelect_root {\n      display: inline-block; }\n  .taskDetails_root .fitter-box .reset-btn {\n    width: 110px;\n    float: right; }\n    .taskDetails_root .fitter-box .reset-btn .bbdBtn_root {\n      background-color: #03577A; }\n\n.taskDetails_root .taskDetails-list {\n  position: relative;\n  min-height: 200px;\n  max-height: 611px;\n  overflow: hidden; }\n\n.newExecute {\n  position: relative; }\n  .newExecute .reset-btn {\n    position: absolute;\n    right: 15px;\n    top: 20px;\n    width: 110px;\n    z-index: 10; }\n    .newExecute .reset-btn .bbdBtn_root {\n      background-color: #03577A; }\n  .newExecute .newExecute-list {\n    position: relative;\n    min-height: 200px;\n    max-height: 611px;\n    overflow: hidden; }\n\n.common-root .table-content {\n  position: relative;\n  height: 611px;\n  overflow: hidden; }\n\n.common-root .bbdModal_root .bbdModal_body {\n  padding: 35px 0; }\n\n.common-root .bbdModal_root .bbdBtn_root {\n  font-size: 15px; }\n\n.common-root .bbdTable_root {\n  border-top: none; }\n  .common-root .bbdTable_root .icon-jinggao {\n    padding: 6px; }\n\n.common-root .more {\n  cursor: pointer; }\n\n.common-list .link {\n  color: #2FB5FF;\n  cursor: pointer; }\n", ""]);
 
 	// exports
 
@@ -62476,7 +62493,7 @@
 
 	var _util2 = _interopRequireDefault(_util);
 
-	var _index = __webpack_require__(812);
+	var _index = __webpack_require__(759);
 
 	var TaskCommon = _interopRequireWildcard(_index);
 
@@ -62582,7 +62599,7 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '15%' },
+	                                    { width: '15%', className: 'text-left' },
 	                                    '更新时间'
 	                                ),
 	                                _react2.default.createElement(
@@ -62632,12 +62649,12 @@
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '10%', className: 'text-left' },
+	                                            { width: '15%', className: 'text-left' },
 	                                            item.dataSourceName
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '10%', className: 'text-left' },
+	                                            { width: '15%', className: 'text-left' },
 	                                            item.cronDesc
 	                                        ),
 	                                        _react2.default.createElement(
@@ -62678,6 +62695,26 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.buildDateParam = buildDateParam;
+	function buildDateParam(pickerArray) {
+	    var now = new Date();
+	    return pickerArray[0] ? [pickerArray[0], pickerArray[1] < 10 ? '0' + pickerArray[1] : pickerArray[1]].join('-') : buildDateParam([now.getFullYear(), now.getMonth() + 1]);
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "index.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 760 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 
 	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
@@ -62705,11 +62742,11 @@
 
 	var _Select2 = _interopRequireDefault(_Select);
 
-	var _Modal = __webpack_require__(760);
+	var _Modal = __webpack_require__(761);
 
 	var _Modal2 = _interopRequireDefault(_Modal);
 
-	var _Pophover = __webpack_require__(763);
+	var _Pophover = __webpack_require__(764);
 
 	var _Pophover2 = _interopRequireDefault(_Pophover);
 
@@ -62717,7 +62754,7 @@
 
 	var _util2 = _interopRequireDefault(_util);
 
-	var _index = __webpack_require__(812);
+	var _index = __webpack_require__(759);
 
 	var TaskCommon = _interopRequireWildcard(_index);
 
@@ -62884,8 +62921,17 @@
 
 	    }, {
 	        key: 'execute',
-	        value: function execute() {
-	            //
+	        value: function execute() {}
+	        //
+
+	        /*
+	         * 下载
+	         * */
+
+	    }, {
+	        key: 'download',
+	        value: function download(item) {
+	            console.log(item);
 	        }
 	    }, {
 	        key: 'render',
@@ -63120,24 +63166,36 @@
 	                                                _react2.default.createElement('i', { className: 'iconfont icon-jinggao' })
 	                                            )
 	                                        ),
-	                                        item.reExecute ? _react2.default.createElement(
-	                                            'td',
-	                                            { width: '10%', className: 'more link', onClick: function onClick() {
-	                                                    _this5.executeGgain(item);
-	                                                } },
-	                                            '再次执行'
-	                                        ) : _react2.default.createElement(
+	                                        _react2.default.createElement(
 	                                            'td',
 	                                            { width: '10%' },
-	                                            '—'
+	                                            item.reExecute === 1 ? _react2.default.createElement(
+	                                                'span',
+	                                                { className: 'link', onClick: function onClick() {
+	                                                        _this5.executeGgain(item, index);
+	                                                    } },
+	                                                '再次执行'
+	                                            ) : item.reExecute === 2 ? _react2.default.createElement(
+	                                                'span',
+	                                                null,
+	                                                '已手动执行'
+	                                            ) : _react2.default.createElement(
+	                                                'span',
+	                                                null,
+	                                                '—'
+	                                            )
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '10%', className: 'more text-left' },
-	                                            _react2.default.createElement(
-	                                                'a',
+	                                            { width: '10%', className: 'more', className: 'text-left' },
+	                                            item.state === 4 ? _react2.default.createElement(
+	                                                'span',
+	                                                { className: 'link', onClick: _this5.download.bind(_this5, item) },
+	                                                '下载'
+	                                            ) : _react2.default.createElement(
+	                                                'span',
 	                                                null,
-	                                                item.userStatus
+	                                                '—'
 	                                            )
 	                                        ),
 	                                        _react2.default.createElement('td', { width: '5%' })
@@ -63173,7 +63231,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 760 */
+/* 761 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -63186,7 +63244,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	__webpack_require__(761);
+	__webpack_require__(762);
 
 	var _react = __webpack_require__(138);
 
@@ -63348,13 +63406,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 761 */
+/* 762 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(762);
+	var content = __webpack_require__(763);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(679)(content, {});
@@ -63363,8 +63421,8 @@
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(762, function() {
-				var newContent = __webpack_require__(762);
+			module.hot.accept(763, function() {
+				var newContent = __webpack_require__(763);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -63374,7 +63432,7 @@
 	}
 
 /***/ },
-/* 762 */
+/* 763 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(678)();
@@ -63388,7 +63446,7 @@
 
 
 /***/ },
-/* 763 */
+/* 764 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -63401,7 +63459,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	__webpack_require__(764);
+	__webpack_require__(765);
 
 	var _react = __webpack_require__(138);
 
@@ -63442,7 +63500,7 @@
 	            var self = this;
 	            var id = this.state.id;
 
-	            var $trigerDom = $(this.trigerDom);
+	            var $triggerDom = $(this.triggerDom);
 	            var div = document.createElement('div');
 	            document.body.appendChild(div);
 	            (0, _reactDom.render)(_react2.default.createElement(
@@ -63455,10 +63513,10 @@
 	    }, {
 	        key: 'mouseoverHandle',
 	        value: function mouseoverHandle(e) {
-	            var $trigerDom = $(this.trigerDom);
+	            var $triggerDom = $(this.triggerDom);
 	            var target = $('#' + this.state.id);
-	            var top = $trigerDom.offset().top - 15;
-	            var left = $trigerDom.offset().left + $trigerDom.width() + 10;
+	            var top = $triggerDom.offset().top - 15;
+	            var left = $triggerDom.offset().left + $triggerDom.width() + 10;
 	            target.css({ top: top + 'px', left: left + 'px' }).show();
 	        }
 	    }, {
@@ -63479,7 +63537,7 @@
 	            return _react2.default.createElement(
 	                'div',
 	                { ref: function ref(dom) {
-	                        _this2.trigerDom = dom;
+	                        _this2.triggerDom = dom;
 	                    }, className: 'pophover_root', onMouseOver: this.mouseoverHandle.bind(this), onMouseOut: this.mouseoutHandle.bind(this) },
 	                this.props.children
 	            );
@@ -63508,13 +63566,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 764 */
+/* 765 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(765);
+	var content = __webpack_require__(766);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(679)(content, {});
@@ -63523,8 +63581,8 @@
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(765, function() {
-				var newContent = __webpack_require__(765);
+			module.hot.accept(766, function() {
+				var newContent = __webpack_require__(766);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -63534,7 +63592,7 @@
 	}
 
 /***/ },
-/* 765 */
+/* 766 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(678)();
@@ -63548,7 +63606,7 @@
 
 
 /***/ },
-/* 766 */
+/* 767 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -63585,7 +63643,7 @@
 
 	var _Select2 = _interopRequireDefault(_Select);
 
-	var _Modal = __webpack_require__(760);
+	var _Modal = __webpack_require__(761);
 
 	var _Modal2 = _interopRequireDefault(_Modal);
 
@@ -63593,7 +63651,7 @@
 
 	var _MainTitle2 = _interopRequireDefault(_MainTitle);
 
-	var _Pophover = __webpack_require__(763);
+	var _Pophover = __webpack_require__(764);
 
 	var _Pophover2 = _interopRequireDefault(_Pophover);
 
@@ -63601,13 +63659,17 @@
 
 	var _DatePicker2 = _interopRequireDefault(_DatePicker);
 
+	var _index = __webpack_require__(768);
+
+	var _index2 = _interopRequireDefault(_index);
+
 	var _util = __webpack_require__(673);
 
 	var _util2 = _interopRequireDefault(_util);
 
-	var _index = __webpack_require__(812);
+	var _index3 = __webpack_require__(759);
 
-	var TaskCommon = _interopRequireWildcard(_index);
+	var TaskCommon = _interopRequireWildcard(_index3);
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -63630,6 +63692,12 @@
 	    taskName: '',
 	    taskState: '',
 	    reason: ''
+	};
+	var buildDateParam = function buildDateParam(pickerArray) {
+	    if (!pickerArray.length) {
+	        return '';
+	    }
+	    return [pickerArray[0], pickerArray[1] < 10 ? '0' + pickerArray[1] : pickerArray[1], pickerArray[2] < 10 ? '0' + pickerArray[2] : pickerArray[2]].join('-');
 	};
 
 	var TaskDetails = function (_Component) {
@@ -63658,6 +63726,7 @@
 	            stateList: [],
 	            reasonList: []
 	        };
+	        _this.execute = _this.execute.bind(_this);
 	        _this.executeGgain = _this.executeGgain.bind(_this);
 	        _this.cancelExecute = _this.cancelExecute.bind(_this);
 	        return _this;
@@ -63728,7 +63797,7 @@
 	            _util2.default.promiseAjax({
 	                type: 'get',
 	                url: '/timingTask/getHistoryTask.do',
-	                data: _extends({}, query, param, { taskUpdateDate: param.taskUpdateDate.join('-') })
+	                data: _extends({}, query, param, { taskUpdateDate: buildDateParam(filter.taskUpdateDate) })
 	            }).then(function (resp) {
 	                if (resp.success) {
 	                    var data = resp.content;
@@ -63794,20 +63863,47 @@
 	    }, {
 	        key: 'execute',
 	        value: function execute() {
-	            //
+	            var _this6 = this;
+
+	            var _state = this.state;
+	            var activeItem = _state.activeItem;
+	            var data = _state.data;
+
+	            var index = data.findIndex(function (item) {
+	                return item.id === activeItem.id;
+	            });
+	            _util2.default.promiseAjax({
+	                type: 'get',
+	                url: '',
+	                data: ''
+	            }).then(function (resp) {
+	                if (resp.success) {
+	                    _this6.setState({ executeVisible: false });
+	                    _this6.getList();
+	                }
+	            });
+	        }
+	        /*
+	         * 下载
+	         * */
+
+	    }, {
+	        key: 'download',
+	        value: function download(item) {
+	            console.log(item);
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this6 = this;
+	            var _this7 = this;
 
-	            var _state = this.state;
-	            var filter = _state.filter;
-	            var taskNameList = _state.taskNameList;
-	            var stateList = _state.stateList;
-	            var reasonList = _state.reasonList;
-	            var loading = _state.loading;
-	            var data = _state.data;
+	            var _state2 = this.state;
+	            var filter = _state2.filter;
+	            var taskNameList = _state2.taskNameList;
+	            var stateList = _state2.stateList;
+	            var reasonList = _state2.reasonList;
+	            var loading = _state2.loading;
+	            var data = _state2.data;
 	            var taskName = filter.taskName;
 	            var taskUpdateDate = filter.taskUpdateDate;
 	            var taskState = filter.taskState;
@@ -63829,23 +63925,6 @@
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'fitter-box' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'Select-box' },
-	                        _react2.default.createElement(
-	                            'span',
-	                            { className: 'label-name' },
-	                            '任务名称'
-	                        ),
-	                        _react2.default.createElement(_Select2.default, {
-	                            defaultText: '全部',
-	                            name: 'taskName',
-	                            options: taskNameList,
-	                            onSelected: this.selectChange,
-	                            selected: taskName,
-	                            style: { width: '198px', minWidth: 'auto' }
-	                        })
-	                    ),
 	                    _react2.default.createElement(
 	                        'div',
 	                        { className: 'reset-btn' },
@@ -63921,20 +64000,13 @@
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '10%', className: 'text-left' },
-	                                    _react2.default.createElement(_Select2.default, {
-	                                        defaultText: '所有原因',
-	                                        name: 'reason',
-	                                        options: reasonList,
-	                                        onSelected: this.selectChange,
-	                                        selected: reason,
-	                                        style: { width: '120px', minWidth: 'auto' }
-	                                    })
+	                                    { width: '10%' },
+	                                    '更多'
 	                                ),
 	                                _react2.default.createElement(
 	                                    'th',
-	                                    { width: '10%' },
-	                                    '更多'
+	                                    { width: '10%', className: 'text-left' },
+	                                    '下载'
 	                                ),
 	                                _react2.default.createElement('th', { width: '5%' })
 	                            )
@@ -64074,19 +64146,35 @@
 	                                        ),
 	                                        _react2.default.createElement(
 	                                            'td',
-	                                            { width: '10%', className: 'text-left' },
-	                                            item.description
-	                                        ),
-	                                        item.reExecute ? _react2.default.createElement(
-	                                            'td',
-	                                            { width: '10%', className: 'more link', onClick: function onClick() {
-	                                                    _this6.executeGgain(item);
-	                                                } },
-	                                            '再次执行'
-	                                        ) : _react2.default.createElement(
-	                                            'td',
 	                                            { width: '10%' },
-	                                            '—'
+	                                            item.reExecute === 1 ? _react2.default.createElement(
+	                                                'span',
+	                                                { className: 'link', onClick: function onClick() {
+	                                                        _this7.executeGgain(item, index);
+	                                                    } },
+	                                                '再次执行'
+	                                            ) : item.reExecute === 2 ? _react2.default.createElement(
+	                                                'span',
+	                                                null,
+	                                                '已手动执行'
+	                                            ) : _react2.default.createElement(
+	                                                'span',
+	                                                null,
+	                                                '—'
+	                                            )
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '10%', className: 'text-left' },
+	                                            item.state === 4 ? _react2.default.createElement(
+	                                                'span',
+	                                                { className: 'link', onClick: _this7.download.bind(_this7, item) },
+	                                                '下载'
+	                                            ) : _react2.default.createElement(
+	                                                'span',
+	                                                null,
+	                                                '—'
+	                                            )
 	                                        ),
 	                                        _react2.default.createElement('td', { width: '5%' })
 	                                    );
@@ -64121,7 +64209,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 767 */
+/* 768 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -64132,214 +64220,65 @@
 	    value: true
 	});
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	__webpack_require__(769);
 
-	__webpack_require__(768);
-
-	var _react = __webpack_require__(138);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRouter = __webpack_require__(243);
-
-	var _Button = __webpack_require__(696);
-
-	var _Button2 = _interopRequireDefault(_Button);
-
-	var _MainTitle = __webpack_require__(712);
-
-	var _MainTitle2 = _interopRequireDefault(_MainTitle);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 企业名单快捷导入
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
-
-
-	var CompanyLeadin = function (_Component) {
-	    _inherits(CompanyLeadin, _Component);
-
-	    function CompanyLeadin(props) {
-	        _classCallCheck(this, CompanyLeadin);
-
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(CompanyLeadin).call(this, props));
-
-	        _this.state = {
-	            list: []
-	        };
-	        _this.uploadExcel = _this.uploadExcel.bind(_this);
-	        return _this;
+	var Tip = {};
+	Tip.init = function (opt) {
+	    var id = 'bbdTip_box_' + new Date().getTime();
+	    var box = document.createElement('div');
+	    var p = document.createElement('p');
+	    var root = document.getElementById('bbdTip_root'); // ����
+	    if (!root) {
+	        root = document.createElement('div');
+	        root.setAttribute('id', 'bbdTip_root');
+	        document.body.appendChild(root);
 	    }
 
-	    _createClass(CompanyLeadin, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            $('#list-content').perfectScrollbar();
-	        }
-	    }, {
-	        key: 'uploadExcel',
-	        value: function uploadExcel() {
-	            _reactRouter.browserHistory.push('/companyLeadin/uploadList');
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'companyLeadin_root common_root' },
-	                _react2.default.createElement(
-	                    _MainTitle2.default,
-	                    { title: '企业名单快捷导入', subTitle: ['批量导入记录'] },
-	                    _react2.default.createElement(
-	                        _Button2.default,
-	                        { className: 'uploadExcel-btn', icon: 'icon-msnui-upload', onClick: this.uploadExcel },
-	                        '上传名单'
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'tast-list common-list' },
-	                    _react2.default.createElement(
-	                        'table',
-	                        { className: 'bbdTable_root' },
-	                        _react2.default.createElement(
-	                            'thead',
-	                            null,
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'th',
-	                                    { width: '12%', className: 'text-left no-indent padding4' },
-	                                    '序号'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'th',
-	                                    { width: '20%', className: 'text-left' },
-	                                    '文件名称'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'th',
-	                                    { width: '10%' },
-	                                    '文件大小'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'th',
-	                                    { width: '23%' },
-	                                    '导入时间'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'th',
-	                                    { width: '10%', className: 'text-left' },
-	                                    '导入状态'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'th',
-	                                    { width: '15%', className: 'text-left' },
-	                                    '报错文件'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'th',
-	                                    { width: '10%', className: 'text-left' },
-	                                    '备注'
-	                                )
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'list-content', id: 'list-content' },
-	                        _react2.default.createElement(
-	                            'table',
-	                            { className: 'bbdTable_root' },
-	                            _react2.default.createElement(
-	                                'tbody',
-	                                null,
-	                                this.state.list.map(function (item, index) {
-	                                    var color = '';
-	                                    if (item.userType === 0) {
-	                                        color = 'green';
-	                                    } else if (item.userType === 1) {
-	                                        color = 'orange';
-	                                    } else if (item.userType === 2) {
-	                                        color = 'red';
-	                                    } else if (item.userType === 3) {
-	                                        color = 'blue';
-	                                    }
-	                                    return _react2.default.createElement(
-	                                        'tr',
-	                                        { key: item.id },
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            { width: '12%', className: 'text-left no-indent padding4' },
-	                                            item.id
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            { width: '20%', className: 'text-left' },
-	                                            item.loginName
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            { width: '10%' },
-	                                            item.realName
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            { width: '23%' },
-	                                            item.department
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            { width: '10%', className: 'text-left ' + color },
-	                                            item.userStatus
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            { width: '15%', className: 'text-left' },
-	                                            item.userType
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            { className: 'more text-left', width: '10%' },
-	                                            _react2.default.createElement(
-	                                                'span',
-	                                                null,
-	                                                '-'
-	                                            )
-	                                        )
-	                                    );
-	                                }.bind(this))
-	                            )
-	                        )
-	                    )
-	                )
-	            );
-	        }
-	    }]);
+	    box.setAttribute('id', id);
+	    box.setAttribute('class', 'bbdTip_box animated fadeInDown');
+	    p.setAttribute('class', 'bbdTip_content');
+	    p.innerHTML = '<i class="iconfont icon-' + opt.type + '"></i>' + opt.msg;
+	    box.appendChild(p);
+	    root.appendChild(box);
 
-	    return CompanyLeadin;
-	}(_react.Component);
+	    // ����
+	    setTimeout(function () {
+	        box.setAttribute('class', box.getAttribute('class').replace(' fadeInDown', '') + ' fadeOutUp');
+	        box.style.height = 0;
+	        box.style.marginTop = 0;
+	        setTimeout(function () {
+	            try {
+	                box.remove();
+	            } catch (e) {
+	                box.removeNode(true);
+	            }
+	            opt.callback && opt.callback(box);
+	        }, 800);
+	    }, opt.time || 2000);
+	};
 
-	exports.default = CompanyLeadin;
+	Tip.warning = function (msg, time, callback) {
+	    this.init({ msg: msg, time: time, callback: callback, type: 'jinggao' });
+	};
+	Tip.success = function (msg, time, callback) {
+	    this.init({ msg: msg, time: time, callback: callback, type: 'wancheng' });
+	};
+	Tip.error = function (msg, time, callback) {
+	    this.init({ msg: msg, time: time, callback: callback, type: 'icon-yxj-error' });
+	};
+	exports.default = Tip;
 
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "CompanyLeadin.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "index.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 768 */
+/* 769 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(769);
+	var content = __webpack_require__(770);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(679)(content, {});
@@ -64348,8 +64287,8 @@
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(769, function() {
-				var newContent = __webpack_require__(769);
+			module.hot.accept(770, function() {
+				var newContent = __webpack_require__(770);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -64359,7 +64298,7 @@
 	}
 
 /***/ },
-/* 769 */
+/* 770 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(678)();
@@ -64367,92 +64306,10 @@
 
 
 	// module
-	exports.push([module.id, ".submit-btn {\n  padding-top: 46px;\n  text-align: center; }\n  .submit-btn .bbdBtn_root {\n    width: 140px;\n    margin-left: 25px;\n    font-size: 14px; }\n  .submit-btn .cancel {\n    background-color: #8899aa;\n    margin-left: 0; }\n\n.uploading-img {\n  width: 95px;\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  margin-left: -44px;\n  margin-top: -20px; }\n  .uploading-img .bbdBtn_root {\n    background-color: #00a2ff;\n    font-size: 14px; }\n\n.parkManage_root .mainTitle_opr .bbdBtn_root {\n  width: 100px;\n  margin-right: 15px;\n  background-color: #02668e;\n  font-size: 14px; }\n\n.parkManage_root .parkManage_box .park-name:hover {\n  color: #00b7ee; }\n\n.parkManage_root .taskList-content {\n  height: 620px;\n  position: relative; }\n\n.common_root .bbdBtn_root {\n  font-size: 14px; }\n\n.common_root .list-content {\n  position: relative;\n  height: 616px; }\n\n.common-upload {\n  color: #fff; }\n  .common-upload .content {\n    margin: 0 auto;\n    position: relative;\n    background-color: rgba(27, 60, 89, 0.7);\n    border: 1px solid #03688F;\n    padding: 0 1.5% 100px 1.5%; }\n  .common-upload .mainTitle_opr {\n    padding-right: 115px; }\n  .common-upload .blue {\n    display: inline-block;\n    font-size: 14px;\n    margin-right: 20px;\n    font-weight: 600;\n    color: #00b7ee; }\n  .common-upload .size b {\n    color: #00b7ee; }\n  .common-upload .table-list {\n    margin-top: 20px; }\n    .common-upload .table-list .blue {\n      padding-bottom: 10px; }\n    .common-upload .table-list .list-content {\n      height: 398px; }\n  .common-upload .upload_root {\n    vertical-align: middle; }\n  .common-upload .barBox {\n    width: 406px;\n    height: 6px;\n    border-radius: 12px;\n    background-color: #165577;\n    display: inline-block;\n    position: relative;\n    margin: 0 20px; }\n    .common-upload .barBox .bar {\n      background-color: #00b7ee;\n      left: 0;\n      top: 0;\n      position: absolute;\n      height: 6px;\n      border-radius: 12px;\n      display: inline-block; }\n  .common-upload .upload-list {\n    height: 572px;\n    position: relative; }\n    .common-upload .upload-list li {\n      margin-top: 20px; }\n      .common-upload .upload-list li a {\n        color: #fff; }\n    .common-upload .upload-list .delete {\n      margin-left: 15px;\n      cursor: pointer;\n      color: #00b7ee; }\n    .common-upload .upload-list .iconfont {\n      margin: 0 15px;\n      vertical-align: middle; }\n    .common-upload .upload-list .icon-wancheng {\n      color: #80C269; }\n    .common-upload .upload-list .icon-icon-yxj-error {\n      color: #ff5926;\n      font-size: 14px; }\n  .common-upload .upload_label {\n    position: absolute;\n    right: 0;\n    top: -50px; }\n  .common-upload .upload_submit {\n    position: absolute;\n    bottom: 40px;\n    right: 1.5%; }\n  .common-upload .building-list {\n    position: relative;\n    min-height: 433px;\n    font-size: 14px; }\n    .common-upload .building-list th, .common-upload .building-list td {\n      text-align: left; }\n      .common-upload .building-list th:first-child, .common-upload .building-list td:first-child {\n        padding-left: 4%; }\n    .common-upload .building-list .blue {\n      margin: 0;\n      font-size: 20px;\n      font-weight: 400; }\n    .common-upload .building-list .cover-btn {\n      cursor: pointer;\n      position: absolute;\n      width: 100%;\n      top: 50%;\n      left: 0;\n      margin-top: -26px;\n      text-align: center; }\n      .common-upload .building-list .cover-btn p {\n        font-weight: 600; }\n\n.export_root .table-list {\n  padding: 70px 28px 20px 28px;\n  background-color: #1b3c59;\n  border: 1px solid #03688F;\n  border-top: 0;\n  color: #fff; }\n  .export_root .table-list .export-btn {\n    width: 100px;\n    float: right; }\n  .export_root .table-list .label {\n    font-size: 14px;\n    margin-bottom: 10px;\n    font-weight: 600;\n    overflow: hidden; }\n  .export_root .table-list .blue {\n    margin-top: 20px;\n    display: inline-block;\n    color: #00b7ee; }\n  .export_root .table-list .list-content {\n    height: 441px; }\n\n.export_filterPanel {\n  padding: 28px 38px;\n  background-color: #1b3c59;\n  border: 1px solid #03688F; }\n  .export_filterPanel .selectRow {\n    margin-bottom: 24px; }\n    .export_filterPanel .selectRow:last-child .inputField {\n      width: 39%; }\n    .export_filterPanel .selectRow:last-child .input {\n      width: 35.5%;\n      min-width: 140px; }\n  .export_filterPanel .inputField {\n    width: 26%;\n    float: left; }\n    .export_filterPanel .inputField > div {\n      float: left; }\n    .export_filterPanel .inputField .label {\n      height: 40px;\n      line-height: 40px;\n      color: #8899aa;\n      font-size: 14px;\n      margin-right: 18px; }\n    .export_filterPanel .inputField .input {\n      width: 65%; }\n    .export_filterPanel .inputField .line {\n      width: 2%;\n      border-top: 1px solid #8899aa;\n      margin: 20px 10px 0 10px; }\n    .export_filterPanel .inputField .bbdSelect_root {\n      min-width: 140px; }\n  .export_filterPanel .buttonField {\n    width: 120px;\n    float: left; }\n  .export_filterPanel .date__root {\n    height: 40px;\n    border: 1px solid #4C667C;\n    border-radius: 4px; }\n\n.publicTrust_box {\n  background-color: #1b3c59;\n  border: 1px solid #03688F;\n  padding: 80px 30px 110px 30px; }\n  .publicTrust_box .autoComplete {\n    width: 500px;\n    float: left; }\n  .publicTrust_box .table-list {\n    border: 0;\n    padding: 0; }\n    .publicTrust_box .table-list .export-btn {\n      background-color: #0d7aa4;\n      margin-top: 10px;\n      font-size: 14px; }\n    .publicTrust_box .table-list .list-content {\n      height: 400px; }\n    .publicTrust_box .table-list tr th:first-child, .publicTrust_box .table-list tr td:first-child {\n      padding-left: 5%; }\n    .publicTrust_box .table-list tr td {\n      padding: 10px 0; }\n\n.publicTrust_filterPanel {\n  padding-left: 28%;\n  overflow: hidden; }\n  .publicTrust_filterPanel .label-name {\n    font-size: 14px;\n    margin-top: 8px;\n    width: 90px;\n    text-align: right;\n    padding-right: 15px; }\n  .publicTrust_filterPanel .search-box {\n    margin-bottom: 36px;\n    overflow: hidden; }\n  .publicTrust_filterPanel .bbdInputPreSuffix_input {\n    height: 40px; }\n  .publicTrust_filterPanel i.icon-search {\n    color: #00b7ee;\n    font-weight: 700; }\n  .publicTrust_filterPanel .bbdCheckbox_root {\n    margin-right: 30px;\n    margin-bottom: 20px; }\n  .publicTrust_filterPanel .bbdCheckbox_icon {\n    display: inline-block; }\n  .publicTrust_filterPanel .bbdCheckbox_text {\n    position: static;\n    margin-left: 10px;\n    vertical-align: top; }\n  .publicTrust_filterPanel .right {\n    float: left;\n    width: 68%; }\n  .publicTrust_filterPanel .search-btn {\n    width: 100px;\n    float: left; }\n\n.common_box {\n  box-sizing: border-box;\n  color: #fff;\n  background-color: rgba(27, 60, 89, 0.7);\n  border: 1px solid #03688F;\n  padding: 25px 0; }\n  .common_box .inputRow {\n    float: left; }\n    .common_box .inputRow label {\n      float: left;\n      margin-right: 15px; }\n      .common_box .inputRow label i {\n        margin-right: 10px;\n        color: #ff7800; }\n    .common_box .inputRow .inputItem {\n      float: left; }\n    .common_box .inputRow .error-tip {\n      display: block;\n      height: 24px;\n      line-height: 24px;\n      color: #ff7800;\n      font-weight: normal; }\n\n.companyChange_root .companyChange_box {\n  padding: 180px 0; }\n\n.companyChange_root .companyChange_content {\n  margin: auto;\n  width: 98%; }\n\n.companyChange_root .search {\n  width: 600px;\n  margin: 0 auto; }\n  .companyChange_root .search .bbdInputPreSuffix_input {\n    height: 50px;\n    border: solid 1px #247BAC; }\n  .companyChange_root .search .bbdInputPreSuffix_suffix i.icon-search {\n    font-weight: bold;\n    color: #00B7EE; }\n\n.companyChange_root .inputRow {\n  float: left; }\n  .companyChange_root .inputRow label {\n    line-height: 40px; }\n  .companyChange_root .inputRow .inputItem {\n    float: left; }\n  .companyChange_root .inputRow .error-tip {\n    height: 24px;\n    line-height: 24px;\n    color: #ff7800; }\n\n.companyChange_root .companyInfo_wrap {\n  margin: 110px auto 0;\n  padding: 10px 10px 0 70px;\n  border: 1px solid #03688F;\n  background: #122C46; }\n  .companyChange_root .companyInfo_wrap .companyInfo_name {\n    margin: 40px auto;\n    font-size: 24px;\n    font-weight: bold; }\n  .companyChange_root .companyInfo_wrap li {\n    margin-bottom: 30px;\n    float: left;\n    width: 25%;\n    font-size: 14px;\n    font-weight: bold; }\n    .companyChange_root .companyInfo_wrap li label {\n      color: #8899aa; }\n      .companyChange_root .companyInfo_wrap li label.groupLabel {\n        float: left;\n        line-height: 40px; }\n    .companyChange_root .companyInfo_wrap li.riskGroup .inputRow label {\n      margin-left: 15px;\n      font-weight: normal;\n      color: #fff; }\n    .companyChange_root .companyInfo_wrap li .bbdSelect_root {\n      min-width: auto;\n      display: inline-block;\n      font-weight: normal; }\n\n.companyChange_root .handle_group {\n  margin: 20px auto;\n  text-align: right; }\n  .companyChange_root .handle_group .bbdBtn_root {\n    margin-left: 20px;\n    width: 140px;\n    font-size: 14px; }\n    .companyChange_root .handle_group .bbdBtn_root.cancel {\n      background: #8899AA; }\n\n.naturalSearch_root .naturalSearch_content {\n  margin: auto;\n  width: 98%; }\n\n.naturalSearch_root .search_box {\n  margin: 40px auto;\n  max-width: 1200px; }\n  .naturalSearch_root .search_box input {\n    height: 50px; }\n\n.naturalSearch_root .inputRow {\n  display: inline-block;\n  margin-right: 30px; }\n  .naturalSearch_root .inputRow label {\n    font-size: 16px;\n    font-weight: bold;\n    line-height: 50px;\n    color: #8899aa; }\n\n.naturalSearch_root .bbdBtn_root.search {\n  float: right;\n  height: 50px;\n  width: 100px; }\n\n.naturalSearch_root .range {\n  margin: 0 0 28px 100px;\n  font-size: 14px;\n  color: #247BAC; }\n  .naturalSearch_root .range li {\n    position: relative;\n    float: left;\n    padding: 0 10px; }\n    .naturalSearch_root .range li:hover {\n      cursor: pointer; }\n    .naturalSearch_root .range li:last-child:after {\n      width: 0; }\n    .naturalSearch_root .range li:after {\n      content: '';\n      position: absolute;\n      right: 0;\n      top: 4px;\n      display: inline-block;\n      width: 1px;\n      height: 10px;\n      background: #247BAC; }\n    .naturalSearch_root .range li span {\n      position: relative;\n      padding: 2px 5px; }\n    .naturalSearch_root .range li.active span {\n      background: #247BAC;\n      color: #fff; }\n      .naturalSearch_root .range li.active span:after {\n        content: '';\n        position: absolute;\n        z-index: 0;\n        bottom: -12px;\n        margin-left: -6px;\n        left: 50%;\n        border: 6px solid transparent;\n        border-top-color: #247BAC; }\n\n.naturalSearch_root .handle_group {\n  margin: 10px auto;\n  text-align: right; }\n  .naturalSearch_root .handle_group .bbdBtn_root {\n    margin-left: 20px;\n    width: 100px;\n    font-size: 14px;\n    background: #0D7AA4; }\n\n.naturalSearch_root .data_wrap {\n  padding: 0 20px 30px;\n  background: #122C46;\n  border: 1px solid #03688F; }\n  .naturalSearch_root .data_wrap .bbdTable_root th, .naturalSearch_root .data_wrap .bbdTable_root td {\n    text-align: left; }\n  .naturalSearch_root .data_wrap .nodata-tips td {\n    text-align: center; }\n  .naturalSearch_root .data_wrap .id {\n    text-indent: 40px; }\n  .naturalSearch_root .data_wrap .data_header .bbdTable_root {\n    border: none; }\n  .naturalSearch_root .data_wrap .data_list table {\n    border: 1px solid #03688F; }\n  .naturalSearch_root .data_wrap .data_list tr {\n    background: #1B3C59;\n    border-bottom: 1px solid #03688F; }\n    .naturalSearch_root .data_wrap .data_list tr:hover {\n      background: #03688F; }\n", ""]);
+	exports.push([module.id, "#bbdTip_root {\n  position: fixed;\n  z-index: 999999;\n  top: 5px;\n  left: 0;\n  width: 100%;\n  text-align: center; }\n  #bbdTip_root .bbdTip_box {\n    margin-top: 10px;\n    height: 38px;\n    line-height: 38px;\n    transition: .5s; }\n    #bbdTip_root .bbdTip_box p {\n      display: inline-block;\n      padding: 0 15px;\n      color: #333;\n      border-radius: 3px;\n      background: #fff;\n      box-shadow: 0 0 8px #333; }\n    #bbdTip_root .bbdTip_box .iconfont {\n      margin-right: 5px; }\n    #bbdTip_root .bbdTip_box .icon-jinggao {\n      color: #FF9B00;\n      font-size: 20px; }\n    #bbdTip_root .bbdTip_box .icon-wancheng {\n      color: #5CB85C;\n      font-size: 16px; }\n    #bbdTip_root .bbdTip_box .icon-icon-yxj-error {\n      color: #FF3535;\n      font-size: 14px; }\n\n.animated {\n  animation-duration: 1s;\n  animation-fill-mode: both; }\n\n@keyframes fadeInDown {\n  from {\n    opacity: 0;\n    transform: translate3d(0, -100%, 0); }\n  to {\n    opacity: 1;\n    transform: none; } }\n\n.fadeInDown {\n  animation-name: fadeInDown; }\n\n@keyframes fadeOutUp {\n  from {\n    opacity: 1; }\n  to {\n    opacity: 0;\n    transform: translate3d(0, -100%, 0); } }\n\n.fadeOutUp {\n  animation-name: fadeOutUp; }\n", ""]);
 
 	// exports
 
-
-/***/ },
-/* 770 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(138);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRouter = __webpack_require__(243);
-
-	var _LeadinMore = __webpack_require__(771);
-
-	var _LeadinMore2 = _interopRequireDefault(_LeadinMore);
-
-	var _MainTitle = __webpack_require__(712);
-
-	var _MainTitle2 = _interopRequireDefault(_MainTitle);
-
-	var _Button = __webpack_require__(696);
-
-	var _Button2 = _interopRequireDefault(_Button);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 企业名单快捷导入 上传名单
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
-
-
-	var UploadList = function (_Component) {
-	    _inherits(UploadList, _Component);
-
-	    function UploadList(props) {
-	        _classCallCheck(this, UploadList);
-
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(UploadList).call(this, props));
-
-	        _this.state = {
-	            list: []
-	        };
-	        return _this;
-	    }
-
-	    _createClass(UploadList, [{
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'leadin_root' },
-	                _react2.default.createElement(_MainTitle2.default, { title: '企业名单快捷导入', subTitle: ['上传名单'] }),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'leadin_box ' },
-	                    _react2.default.createElement(_LeadinMore2.default, null)
-	                )
-	            );
-	        }
-	    }]);
-
-	    return UploadList;
-	}(_react.Component);
-
-	exports.default = UploadList;
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "UploadList.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
 /* 771 */
@@ -64476,6 +64333,639 @@
 
 	var _reactRouter = __webpack_require__(243);
 
+	var _Button = __webpack_require__(696);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _MainTitle = __webpack_require__(712);
+
+	var _MainTitle2 = _interopRequireDefault(_MainTitle);
+
+	var _RecordList = __webpack_require__(774);
+
+	var _RecordList2 = _interopRequireDefault(_RecordList);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 企业名单快捷导入
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
+
+
+	var CompanyLeadin = function (_Component) {
+	    _inherits(CompanyLeadin, _Component);
+
+	    function CompanyLeadin(props) {
+	        _classCallCheck(this, CompanyLeadin);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(CompanyLeadin).call(this, props));
+	    }
+
+	    _createClass(CompanyLeadin, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(_RecordList2.default, { impType: 1, topageUrl: '/companyLeadin/uploadList', title: '企业名单快捷导入' });
+	        }
+	    }]);
+
+	    return CompanyLeadin;
+	}(_react.Component);
+
+	exports.default = CompanyLeadin;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "CompanyLeadin.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 772 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(773);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(679)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(true) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept(773, function() {
+				var newContent = __webpack_require__(773);
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 773 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(678)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".submit-btn {\n  padding-top: 46px;\n  text-align: center; }\n  .submit-btn .bbdBtn_root {\n    width: 140px;\n    margin-left: 25px;\n    font-size: 14px; }\n  .submit-btn .cancel {\n    background-color: #8899aa;\n    margin-left: 0; }\n\n.uploading-img {\n  width: 95px;\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  margin-left: -44px;\n  margin-top: -20px; }\n  .uploading-img .bbdBtn_root {\n    background-color: #00a2ff;\n    font-size: 14px; }\n\n.parkManage_root .mainTitle_opr .bbdBtn_root {\n  width: 100px;\n  margin-right: 15px;\n  background-color: #02668e;\n  font-size: 14px; }\n\n.parkManage_root .parkManage_box .park-name:hover {\n  color: #00b7ee; }\n\n.parkManage_root .taskList-content {\n  height: 620px;\n  position: relative; }\n\n.common_root .bbdBtn_root {\n  font-size: 14px; }\n\n.common_root .list-content {\n  position: relative;\n  height: 616px; }\n\n.common-upload {\n  color: #fff; }\n  .common-upload .content {\n    margin: 0 auto;\n    position: relative;\n    background-color: rgba(27, 60, 89, 0.7);\n    border: 1px solid #03688F;\n    padding: 0 1.5% 100px 1.5%; }\n  .common-upload .mainTitle_opr {\n    padding-right: 115px; }\n  .common-upload .blue {\n    display: inline-block;\n    font-size: 14px;\n    margin-right: 20px;\n    font-weight: 600;\n    color: #00b7ee; }\n  .common-upload .size b {\n    color: #00b7ee; }\n  .common-upload .table-list {\n    margin-top: 20px; }\n    .common-upload .table-list .blue {\n      padding-bottom: 10px; }\n    .common-upload .table-list .list-content {\n      height: 398px; }\n  .common-upload .upload_root {\n    vertical-align: middle; }\n  .common-upload .barBox {\n    width: 406px;\n    height: 6px;\n    border-radius: 12px;\n    background-color: #165577;\n    display: inline-block;\n    position: relative;\n    margin: 0 20px; }\n    .common-upload .barBox .bar {\n      background-color: #00b7ee;\n      left: 0;\n      top: 0;\n      position: absolute;\n      height: 6px;\n      border-radius: 12px;\n      display: inline-block; }\n  .common-upload .upload-list {\n    height: 572px;\n    position: relative; }\n    .common-upload .upload-list li {\n      margin-top: 20px; }\n      .common-upload .upload-list li a {\n        color: #fff; }\n    .common-upload .upload-list .delete {\n      margin-left: 15px;\n      cursor: pointer;\n      color: #00b7ee; }\n    .common-upload .upload-list .iconfont {\n      margin: 0 15px;\n      vertical-align: middle; }\n    .common-upload .upload-list .icon-wancheng {\n      color: #80C269; }\n    .common-upload .upload-list .icon-icon-yxj-error {\n      color: #ff5926;\n      font-size: 14px; }\n  .common-upload .upload_label {\n    position: absolute;\n    right: 0;\n    top: -50px; }\n  .common-upload .upload_submit {\n    position: absolute;\n    bottom: 40px;\n    right: 1.5%; }\n  .common-upload .building-list {\n    position: relative;\n    min-height: 433px;\n    font-size: 14px; }\n    .common-upload .building-list th, .common-upload .building-list td {\n      text-align: left; }\n      .common-upload .building-list th:first-child, .common-upload .building-list td:first-child {\n        padding-left: 4%; }\n    .common-upload .building-list .blue {\n      margin: 0;\n      font-size: 20px;\n      font-weight: 400; }\n    .common-upload .building-list .cover-btn {\n      cursor: pointer;\n      position: absolute;\n      width: 100%;\n      top: 50%;\n      left: 0;\n      margin-top: -26px;\n      text-align: center; }\n      .common-upload .building-list .cover-btn p {\n        font-weight: 600; }\n\n.export_root .table-list {\n  padding: 70px 28px 20px 28px;\n  background-color: #1b3c59;\n  border: 1px solid #03688F;\n  border-top: 0;\n  color: #fff; }\n  .export_root .table-list .export-btn {\n    width: 100px;\n    float: right; }\n  .export_root .table-list .label {\n    font-size: 14px;\n    margin-bottom: 10px;\n    font-weight: 600;\n    overflow: hidden; }\n  .export_root .table-list .blue {\n    margin-top: 20px;\n    display: inline-block;\n    color: #00b7ee; }\n  .export_root .table-list .list-content {\n    height: 441px; }\n\n.export_filterPanel {\n  padding: 28px 38px;\n  background-color: #1b3c59;\n  border: 1px solid #03688F; }\n  .export_filterPanel .selectRow {\n    margin-bottom: 24px; }\n    .export_filterPanel .selectRow:last-child .inputField {\n      width: 39%; }\n    .export_filterPanel .selectRow:last-child .input {\n      width: 35.5%;\n      min-width: 140px; }\n  .export_filterPanel .inputField {\n    width: 26%;\n    float: left; }\n    .export_filterPanel .inputField > div {\n      float: left; }\n    .export_filterPanel .inputField .label {\n      height: 40px;\n      line-height: 40px;\n      color: #8899aa;\n      font-size: 14px;\n      margin-right: 18px; }\n    .export_filterPanel .inputField .input {\n      width: 65%; }\n    .export_filterPanel .inputField .line {\n      width: 2%;\n      border-top: 1px solid #8899aa;\n      margin: 20px 10px 0 10px; }\n    .export_filterPanel .inputField .bbdSelect_root {\n      min-width: 140px; }\n  .export_filterPanel .buttonField {\n    width: 120px;\n    float: left; }\n  .export_filterPanel .date__root {\n    height: 40px;\n    border: 1px solid #4C667C;\n    border-radius: 4px; }\n\n.publicTrust_box {\n  background-color: #1b3c59;\n  border: 1px solid #03688F;\n  padding: 80px 30px 110px 30px; }\n  .publicTrust_box .autoComplete {\n    width: 500px;\n    float: left; }\n  .publicTrust_box .table-list {\n    border: 0;\n    padding: 0; }\n    .publicTrust_box .table-list .export-btn {\n      background-color: #0d7aa4;\n      margin-top: 10px;\n      font-size: 14px; }\n    .publicTrust_box .table-list .list-content {\n      height: 400px; }\n    .publicTrust_box .table-list tr th:first-child, .publicTrust_box .table-list tr td:first-child {\n      padding-left: 5%; }\n    .publicTrust_box .table-list tr td {\n      padding: 10px 0; }\n\n.publicTrust_filterPanel {\n  padding-left: 28%;\n  overflow: hidden; }\n  .publicTrust_filterPanel .label-name {\n    font-size: 14px;\n    margin-top: 8px;\n    width: 90px;\n    text-align: right;\n    padding-right: 15px; }\n  .publicTrust_filterPanel .search-box {\n    margin-bottom: 36px;\n    overflow: hidden; }\n  .publicTrust_filterPanel .bbdInputPreSuffix_input {\n    height: 40px; }\n  .publicTrust_filterPanel i.icon-search {\n    color: #00b7ee;\n    font-weight: 700; }\n  .publicTrust_filterPanel .bbdCheckbox_root {\n    margin-right: 30px;\n    margin-bottom: 20px; }\n  .publicTrust_filterPanel .bbdCheckbox_icon {\n    display: inline-block; }\n  .publicTrust_filterPanel .bbdCheckbox_text {\n    position: static;\n    margin-left: 10px;\n    vertical-align: top; }\n  .publicTrust_filterPanel .right {\n    float: left;\n    width: 68%; }\n  .publicTrust_filterPanel .search-btn {\n    width: 100px;\n    float: left; }\n\n.common_box {\n  box-sizing: border-box;\n  color: #fff;\n  background-color: rgba(27, 60, 89, 0.7);\n  border: 1px solid #03688F;\n  padding: 25px 0; }\n  .common_box .inputRow {\n    float: left; }\n    .common_box .inputRow label {\n      float: left;\n      margin-right: 15px; }\n      .common_box .inputRow label i {\n        margin-right: 10px;\n        color: #ff7800; }\n    .common_box .inputRow .inputItem {\n      float: left; }\n    .common_box .inputRow .error-tip {\n      display: block;\n      height: 24px;\n      line-height: 24px;\n      color: #ff7800;\n      font-weight: normal; }\n\n.companyChange_root .companyChange_box {\n  padding: 180px 0; }\n\n.companyChange_root .companyChange_content {\n  margin: auto;\n  width: 98%; }\n\n.companyChange_root .search {\n  width: 600px;\n  margin: 0 auto; }\n  .companyChange_root .search .bbdInputPreSuffix_input {\n    height: 50px;\n    border: solid 1px #247BAC; }\n  .companyChange_root .search .bbdInputPreSuffix_suffix i.icon-search {\n    font-weight: bold;\n    color: #00B7EE; }\n\n.companyChange_root .inputRow {\n  float: left; }\n  .companyChange_root .inputRow label {\n    line-height: 40px; }\n  .companyChange_root .inputRow .inputItem {\n    float: left; }\n  .companyChange_root .inputRow .error-tip {\n    height: 24px;\n    line-height: 24px;\n    color: #ff7800; }\n\n.companyChange_root .companyInfo_wrap {\n  margin: 110px auto 0;\n  padding: 10px 10px 0 70px;\n  border: 1px solid #03688F;\n  background: #122C46; }\n  .companyChange_root .companyInfo_wrap .companyInfo_name {\n    margin: 40px auto;\n    font-size: 24px;\n    font-weight: bold; }\n  .companyChange_root .companyInfo_wrap li {\n    margin-bottom: 30px;\n    float: left;\n    width: 25%;\n    font-size: 14px;\n    font-weight: bold; }\n    .companyChange_root .companyInfo_wrap li label {\n      color: #8899aa; }\n      .companyChange_root .companyInfo_wrap li label.groupLabel {\n        float: left;\n        line-height: 40px; }\n    .companyChange_root .companyInfo_wrap li.riskGroup .inputRow label {\n      margin-left: 15px;\n      font-weight: normal;\n      color: #fff; }\n    .companyChange_root .companyInfo_wrap li .bbdSelect_root {\n      min-width: auto;\n      display: inline-block;\n      font-weight: normal; }\n\n.companyChange_root .handle_group {\n  margin: 20px auto;\n  text-align: right; }\n  .companyChange_root .handle_group .bbdBtn_root {\n    margin-left: 20px;\n    width: 140px;\n    font-size: 14px; }\n    .companyChange_root .handle_group .bbdBtn_root.cancel {\n      background: #8899AA; }\n\n.naturalSearch_root .naturalSearch_content {\n  margin: auto;\n  width: 98%; }\n\n.naturalSearch_root .search_box {\n  margin: 40px auto;\n  max-width: 1200px; }\n  .naturalSearch_root .search_box input {\n    height: 50px; }\n\n.naturalSearch_root .inputRow {\n  display: inline-block;\n  margin-right: 30px; }\n  .naturalSearch_root .inputRow label {\n    font-size: 16px;\n    font-weight: bold;\n    line-height: 50px;\n    color: #8899aa; }\n\n.naturalSearch_root .bbdBtn_root.search {\n  float: right;\n  height: 50px;\n  width: 100px; }\n\n.naturalSearch_root .range {\n  margin: 0 0 28px 100px;\n  font-size: 14px;\n  color: #247BAC; }\n  .naturalSearch_root .range li {\n    position: relative;\n    float: left;\n    padding: 0 10px; }\n    .naturalSearch_root .range li:hover {\n      cursor: pointer; }\n    .naturalSearch_root .range li:last-child:after {\n      width: 0; }\n    .naturalSearch_root .range li:after {\n      content: '';\n      position: absolute;\n      right: 0;\n      top: 4px;\n      display: inline-block;\n      width: 1px;\n      height: 10px;\n      background: #247BAC; }\n    .naturalSearch_root .range li span {\n      position: relative;\n      padding: 2px 5px; }\n    .naturalSearch_root .range li.active span {\n      background: #247BAC;\n      color: #fff; }\n      .naturalSearch_root .range li.active span:after {\n        content: '';\n        position: absolute;\n        z-index: 0;\n        bottom: -12px;\n        margin-left: -6px;\n        left: 50%;\n        border: 6px solid transparent;\n        border-top-color: #247BAC; }\n\n.naturalSearch_root .handle_group {\n  margin: 10px auto;\n  text-align: right; }\n  .naturalSearch_root .handle_group .bbdBtn_root {\n    margin-left: 20px;\n    width: 100px;\n    font-size: 14px;\n    background: #0D7AA4; }\n\n.naturalSearch_root .data_wrap {\n  padding: 0 20px 30px;\n  background: #122C46;\n  border: 1px solid #03688F; }\n  .naturalSearch_root .data_wrap .bbdTable_root th, .naturalSearch_root .data_wrap .bbdTable_root td {\n    text-align: left; }\n  .naturalSearch_root .data_wrap .nodata-tips td {\n    text-align: center; }\n  .naturalSearch_root .data_wrap .id {\n    text-indent: 40px; }\n  .naturalSearch_root .data_wrap .data_header .bbdTable_root {\n    border: none; }\n  .naturalSearch_root .data_wrap .data_list table {\n    border: 1px solid #03688F; }\n  .naturalSearch_root .data_wrap .data_list tr {\n    background: #1B3C59;\n    border-bottom: 1px solid #03688F; }\n    .naturalSearch_root .data_wrap .data_list tr:hover {\n      background: #03688F; }\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 774 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	__webpack_require__(775);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(243);
+
+	var _Button = __webpack_require__(696);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Input = __webpack_require__(703);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	var _Select = __webpack_require__(716);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _MainTitle = __webpack_require__(712);
+
+	var _MainTitle2 = _interopRequireDefault(_MainTitle);
+
+	var _DatePicker = __webpack_require__(746);
+
+	var _DatePicker2 = _interopRequireDefault(_DatePicker);
+
+	var _util = __webpack_require__(673);
+
+	var _util2 = _interopRequireDefault(_util);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 公用导入记录
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
+
+
+	var today = new Date();
+	var defaultFilter = {
+	    // 字段详情看接口文档
+	    startDate: [today.getFullYear(), today.getMonth() + 1, today.getDate()],
+	    endDate: [today.getFullYear(), today.getMonth() + 1, today.getDate()],
+	    fileName: '',
+	    impType: 2,
+	    impState: ''
+	};
+
+	var RecordList = function (_Component) {
+	    _inherits(RecordList, _Component);
+
+	    function RecordList(props) {
+	        _classCallCheck(this, RecordList);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(RecordList).call(this, props));
+
+	        _this.impStateSelected = function (val) {
+	            var filter = _this.state.filter;
+	            filter.impState = val;
+	            _this.setState({
+	                filter: filter
+	            }, function () {
+	                _this.getRecordList();
+	            });
+	        };
+
+	        _this.state = {
+	            list: [],
+	            filter: _extends({}, defaultFilter),
+	            impStateOptions: [{ value: '', text: '全部' }, { value: 2, text: '处理中' }, { value: 3, text: '成功' }, { value: 4, text: '失败' }]
+	        };
+	        _this.toPage = _this.toPage.bind(_this);
+	        return _this;
+	    }
+
+	    _createClass(RecordList, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            $('#list-content').perfectScrollbar();
+	            this.getRecordList();
+	        }
+	        /*
+	        *批量导入记录
+	        */
+
+	    }, {
+	        key: 'getRecordList',
+	        value: function getRecordList() {
+	            var _this2 = this;
+
+	            var data = this.buildQueryParam();
+	            _util2.default.ajax({
+	                type: 'get',
+	                url: '/import/record-list.do',
+	                dataType: 'json',
+	                data: data,
+	                success: function success(res) {
+	                    if (res.success) {
+	                        _this2.setState({
+	                            list: res.content
+	                        });
+	                    }
+	                }
+
+	            });
+	        }
+	        /*
+	        *导入状态-下拉框
+	        */
+
+	    }, {
+	        key: 'getImpState',
+	        value: function getImpState() {
+	            var _this3 = this;
+
+	            _util2.default.ajax({
+	                type: 'get',
+	                url: '/park-mgt/parkList.do',
+	                dataType: 'json',
+	                success: function success(res) {
+	                    if (res.success) {
+	                        var impStateOptions = res.content.map(function (v) {
+	                            return { value: v.parkId, text: v.name };
+	                        });
+	                        _this3.setState({
+	                            impStateOptions: impStateOptions
+	                        });
+	                    }
+	                }
+
+	            });
+	        }
+	        // 导入状态筛选
+
+	    }, {
+	        key: 'toPage',
+	        value: function toPage() {
+	            var topageUrl = this.props.topageUrl;
+
+	            _reactRouter.browserHistory.push(topageUrl);
+	        }
+	        /*
+	         * 表单值改变
+	         * */
+
+	    }, {
+	        key: 'inputChange',
+	        value: function inputChange(e, ecomplete) {
+	            e = e.target ? e : ecomplete;
+	            var name = e.target.name;
+	            var v = e.target.value;
+	            var filter = this.state.filter;
+	            filter[name] = v;
+	            this.setState(filter);
+	        }
+	        /*
+	         * 时间值改变
+	         * */
+
+	    }, {
+	        key: 'writeDate',
+	        value: function writeDate(field) {
+	            var _this4 = this;
+
+	            return function (y, m, d) {
+	                var filter = _this4.state.filter;
+	                filter[field] = y === null ? [] : [y, m, d];
+	                // 后面的日期不能超过前面的日期
+	                if (_util2.default.buildDateParam(filter.endDate) < _util2.default.buildDateParam(filter.startDate)) {
+	                    filter.startDate = filter.endDate;
+	                }
+
+	                _this4.setState({
+	                    filter: filter
+	                }, function () {
+	                    _this4.getRecordList();
+	                });
+	            };
+	        }
+	    }, {
+	        key: 'buildQueryParam',
+	        value: function buildQueryParam() {
+	            var filter = _extends({}, this.state.filter);
+	            filter.startDate = _util2.default.buildDateParam(filter.startDate);
+	            filter.endDate = _util2.default.buildDateParam(filter.endDate);
+	            return filter;
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _state = this.state;
+	            var list = _state.list;
+	            var filter = _state.filter;
+
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'industryManage_root common_root RecordList_root' },
+	                _react2.default.createElement(
+	                    _MainTitle2.default,
+	                    { title: this.props.title, subTitle: ['批量导入记录'] },
+	                    _react2.default.createElement(
+	                        _Button2.default,
+	                        { className: 'uploadExcel-btn', icon: 'icon-msnui-upload', onClick: this.toPage },
+	                        '上传名单'
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'tast-list common-list' },
+	                    _react2.default.createElement(
+	                        'table',
+	                        { className: 'bbdTable_root' },
+	                        _react2.default.createElement(
+	                            'thead',
+	                            null,
+	                            _react2.default.createElement(
+	                                'tr',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'th',
+	                                    { width: '10%', className: 'text-left no-indent padding4' },
+	                                    '序号'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'th',
+	                                    { width: '20%', className: 'text-left' },
+	                                    _react2.default.createElement(_Input2.default, {
+	                                        placeholder: '请输入关键词进行搜索',
+	                                        value: filter.fileName,
+	                                        onChange: this.inputChange.bind(this),
+	                                        onSearch: this.getRecordList.bind(this),
+	                                        suffix: 'icon-search',
+	                                        name: 'fileName',
+	                                        width: '200'
+	                                    })
+	                                ),
+	                                _react2.default.createElement(
+	                                    'th',
+	                                    { width: '8%' },
+	                                    '文件大小'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'th',
+	                                    { width: '30%', className: 'date-box' },
+	                                    _react2.default.createElement(
+	                                        'div',
+	                                        { className: 'label' },
+	                                        '导入时间'
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'div',
+	                                        { className: 'input' },
+	                                        _react2.default.createElement(_DatePicker2.default, {
+	                                            year: filter.startDate[0],
+	                                            month: filter.startDate[1],
+	                                            day: filter.startDate[2],
+	                                            callback: this.writeDate('startDate') })
+	                                    ),
+	                                    _react2.default.createElement('div', { className: 'line' }),
+	                                    _react2.default.createElement(
+	                                        'div',
+	                                        { className: 'input' },
+	                                        _react2.default.createElement(_DatePicker2.default, {
+	                                            year: filter.endDate[0],
+	                                            month: filter.endDate[1],
+	                                            day: filter.endDate[2],
+	                                            callback: this.writeDate('endDate') })
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'th',
+	                                    { width: '8%', className: 'text-left' },
+	                                    _react2.default.createElement(_Select2.default, {
+	                                        defaultText: '所属',
+	                                        options: this.state.impStateOptions,
+	                                        onSelected: this.impStateSelected,
+	                                        selected: filter.impState,
+	                                        style: { width: '120px', minWidth: 'auto' }
+	                                    })
+	                                ),
+	                                _react2.default.createElement(
+	                                    'th',
+	                                    { width: '14%', className: 'text-left' },
+	                                    '报错文件'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'th',
+	                                    { width: '10%', className: 'text-left' },
+	                                    '备注'
+	                                )
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'list-content', id: 'list-content' },
+	                        _react2.default.createElement(
+	                            'table',
+	                            { className: 'bbdTable_root' },
+	                            _react2.default.createElement(
+	                                'tbody',
+	                                null,
+	                                list.length > 0 ? list.map(function (item, index) {
+	                                    var color = '';
+	                                    var dom = '-';
+	                                    if (item.impState === 2) {
+	                                        color = 'blue';
+	                                    } else if (item.impState === 3) {
+	                                        color = 'green';
+	                                    } else if (item.impState === 4) {
+	                                        color = 'red';
+	                                        dom = _react2.default.createElement(
+	                                            'a',
+	                                            { className: 'blueDre', href: '/import/download-error-file.do?fileName=' + item.fileName + '&recordId=' + item.id },
+	                                            item.fileName
+	                                        );
+	                                    }
+	                                    return _react2.default.createElement(
+	                                        'tr',
+	                                        { key: index },
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '10%', className: 'text-left no-indent padding4' },
+	                                            index + 1
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '20%', className: 'text-left' },
+	                                            item.fileName
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '8%' },
+	                                            item.fileSizeDesc
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '30%' },
+	                                            item.impDate
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '8%', className: 'text-left ' + color },
+	                                            item.impStateDesc
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { width: '14%', className: 'text-left' },
+	                                            dom
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            { className: 'more text-left', width: '10%' },
+	                                            item.remark ? item.remark : '-'
+	                                        )
+	                                    );
+	                                }) : _react2.default.createElement(
+	                                    'tr',
+	                                    { className: 'nodata-tips' },
+	                                    _react2.default.createElement(
+	                                        'td',
+	                                        null,
+	                                        '暂无数据'
+	                                    )
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return RecordList;
+	}(_react.Component);
+
+	exports.default = RecordList;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "RecordList.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 775 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(776);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(679)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(true) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept(776, function() {
+				var newContent = __webpack_require__(776);
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 776 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(678)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".industry-upload .bbdSelect_root {\n  display: inline-block;\n  margin-right: 10px; }\n  .industry-upload .bbdSelect_root .valuePanel {\n    border: 1px solid #03688F;\n    background: none;\n    padding-left: 10px; }\n\n.RecordList_root .date-box > div {\n  float: left; }\n\n.RecordList_root .date-box .input {\n  width: 32%; }\n\n.RecordList_root .date-box .line {\n  width: 2%;\n  border-top: 1px solid #8899aa;\n  margin: 20px 10px 0 10px; }\n\n.RecordList_root .date-box .date__root {\n  height: 40px;\n  border: 1px solid #4C667C;\n  border-radius: 4px;\n  line-height: 40px;\n  text-align: left; }\n  .RecordList_root .date-box .date__root .date__showDate {\n    line-height: 40px; }\n  .RecordList_root .date-box .date__root .date__showDate::after {\n    top: 0; }\n\n.RecordList_root .date-box .label {\n  height: 40px;\n  line-height: 40px;\n  margin-right: 18px; }\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 777 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(243);
+
+	var _LeadinMore = __webpack_require__(778);
+
+	var _LeadinMore2 = _interopRequireDefault(_LeadinMore);
+
+	var _MainTitle = __webpack_require__(712);
+
+	var _MainTitle2 = _interopRequireDefault(_MainTitle);
+
+	var _Button = __webpack_require__(696);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _util = __webpack_require__(673);
+
+	var _util2 = _interopRequireDefault(_util);
+
+	var _Upload = __webpack_require__(781);
+
+	var _Upload2 = _interopRequireDefault(_Upload);
+
+	var _UploadList = __webpack_require__(784);
+
+	var _UploadList2 = _interopRequireDefault(_UploadList);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 企业名单快捷导入 上传名单
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
+
+
+	var CompanyLeadin = function (_Component) {
+	    _inherits(CompanyLeadin, _Component);
+
+	    function CompanyLeadin(props) {
+	        _classCallCheck(this, CompanyLeadin);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(CompanyLeadin).call(this, props));
+	    }
+
+	    _createClass(CompanyLeadin, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(_UploadList2.default, { templateName: '', isIndustry: false, backUrl: '/companyLeadin/index', title: '企业名单快捷导入' });
+	        }
+	    }]);
+
+	    return CompanyLeadin;
+	}(_react.Component);
+
+	exports.default = CompanyLeadin;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "UploadList.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 778 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	__webpack_require__(779);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(243);
+
 	var _Select = __webpack_require__(716);
 
 	var _Select2 = _interopRequireDefault(_Select);
@@ -64484,7 +64974,7 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Upload = __webpack_require__(774);
+	var _Upload = __webpack_require__(781);
 
 	var _Upload2 = _interopRequireDefault(_Upload);
 
@@ -64794,13 +65284,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 772 */
+/* 779 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(773);
+	var content = __webpack_require__(780);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(679)(content, {});
@@ -64809,8 +65299,8 @@
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(773, function() {
-				var newContent = __webpack_require__(773);
+			module.hot.accept(780, function() {
+				var newContent = __webpack_require__(780);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -64820,7 +65310,7 @@
 	}
 
 /***/ },
-/* 773 */
+/* 780 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(678)();
@@ -64834,7 +65324,7 @@
 
 
 /***/ },
-/* 774 */
+/* 781 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -64851,11 +65341,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _index = __webpack_require__(775);
+	var _index = __webpack_require__(768);
 
 	var _index2 = _interopRequireDefault(_index);
 
-	__webpack_require__(778);
+	__webpack_require__(782);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -64897,13 +65387,13 @@
 	            var isImmediate = _this$props.isImmediate;
 
 	            var files = [].concat(_toConsumableArray(e.target.files)); // 将类数组转成数组
-	            files.map(function (item) {
-	                return _this.allFiles[item.name] = item;
-	            }); // 去重处理
-	            var allFiles = _this.allFiles;
 	            var file = files[0];
 	            var flag = _this.checkfileType(file);
 	            if (flag) {
+	                files.map(function (item) {
+	                    return _this.allFiles[item.name] = item;
+	                }); // 去重处理
+	                var allFiles = _this.allFiles;
 	                change(allFiles, file);
 	                if (isImmediate) {
 	                    // 用户选择文件 立即上传
@@ -65036,70 +65526,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 775 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	__webpack_require__(776);
-
-	var Tip = {};
-	Tip.init = function (opt) {
-	    var id = 'bbdTip_box_' + new Date().getTime();
-	    var box = document.createElement('div');
-	    var p = document.createElement('p');
-	    var root = document.getElementById('bbdTip_root'); //����
-	    if (!root) {
-	        root = document.createElement('div');
-	        root.setAttribute('id', 'bbdTip_root');
-	        document.body.appendChild(root);
-	    }
-
-	    box.setAttribute('id', id);
-	    box.setAttribute('class', 'bbdTip_box animated fadeInDown');
-	    p.setAttribute('class', 'bbdTip_content');
-	    p.innerHTML = '<i class="iconfont icon-' + opt.type + '"></i>' + opt.msg;
-	    box.appendChild(p);
-	    root.appendChild(box);
-
-	    // ����
-	    setTimeout(function () {
-	        box.setAttribute('class', box.getAttribute('class').replace(' fadeInDown', '') + ' fadeOutUp');
-	        box.style.height = 0;
-	        box.style.marginTop = 0;
-	        setTimeout(function () {
-	            try {
-	                box.remove();
-	            } catch (e) {
-	                box.removeNode(true);
-	            }
-	            opt.callback && opt.callback(box);
-	        }, 800);
-	    }, opt.time || 2000);
-	};
-
-	Tip.warning = function (msg, time, callback) {
-	    this.init({ msg: msg, time: time, callback: callback, type: 'jinggao' });
-	};
-	exports.default = Tip;
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "index.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
-/* 776 */
+/* 782 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(777);
+	var content = __webpack_require__(783);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(679)(content, {});
@@ -65108,8 +65541,8 @@
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(777, function() {
-				var newContent = __webpack_require__(777);
+			module.hot.accept(783, function() {
+				var newContent = __webpack_require__(783);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -65119,47 +65552,7 @@
 	}
 
 /***/ },
-/* 777 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(678)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "#bbdTip_root {\n  position: fixed;\n  z-index: 999999;\n  top: 5px;\n  left: 0;\n  width: 100%;\n  text-align: center; }\n  #bbdTip_root .bbdTip_box {\n    margin-top: 10px;\n    height: 38px;\n    line-height: 38px;\n    transition: .5s; }\n    #bbdTip_root .bbdTip_box p {\n      display: inline-block;\n      padding: 0 15px;\n      color: #333;\n      border-radius: 3px;\n      background: #fff;\n      box-shadow: 0 0 8px #333; }\n    #bbdTip_root .bbdTip_box .iconfont {\n      margin-right: 5px; }\n    #bbdTip_root .bbdTip_box .icon-jinggao {\n      color: #FF9B00;\n      font-size: 20px; }\n\n.animated {\n  animation-duration: 1s;\n  animation-fill-mode: both; }\n\n@keyframes fadeInDown {\n  from {\n    opacity: 0;\n    transform: translate3d(0, -100%, 0); }\n  to {\n    opacity: 1;\n    transform: none; } }\n\n.fadeInDown {\n  animation-name: fadeInDown; }\n\n@keyframes fadeOutUp {\n  from {\n    opacity: 1; }\n  to {\n    opacity: 0;\n    transform: translate3d(0, -100%, 0); } }\n\n.fadeOutUp {\n  animation-name: fadeOutUp; }\n", ""]);
-
-	// exports
-
-
-/***/ },
-/* 778 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(779);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(679)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(true) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept(779, function() {
-				var newContent = __webpack_require__(779);
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 779 */
+/* 783 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(678)();
@@ -65173,7 +65566,7 @@
 
 
 /***/ },
-/* 780 */
+/* 784 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -65186,7 +65579,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	__webpack_require__(768);
+	__webpack_require__(775);
 
 	var _react = __webpack_require__(138);
 
@@ -65194,258 +65587,7 @@
 
 	var _reactRouter = __webpack_require__(243);
 
-	var _Button = __webpack_require__(696);
-
-	var _Button2 = _interopRequireDefault(_Button);
-
-	var _MainTitle = __webpack_require__(712);
-
-	var _MainTitle2 = _interopRequireDefault(_MainTitle);
-
-	var _util = __webpack_require__(673);
-
-	var _util2 = _interopRequireDefault(_util);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 行业数据管理 
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
-
-
-	var IndustryManage = function (_Component) {
-	    _inherits(IndustryManage, _Component);
-
-	    function IndustryManage(props) {
-	        _classCallCheck(this, IndustryManage);
-
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(IndustryManage).call(this, props));
-
-	        _this.state = {
-	            list: []
-	        };
-	        _this.toPage = _this.toPage.bind(_this);
-	        return _this;
-	    }
-
-	    _createClass(IndustryManage, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            $('#list-content').perfectScrollbar();
-	            this.getRecordList();
-	        }
-	        /*
-	        *批量导入记录
-	        */
-
-	    }, {
-	        key: 'getRecordList',
-	        value: function getRecordList() {
-	            var _this2 = this;
-
-	            _util2.default.ajax({
-	                type: 'get',
-	                url: '/import/record-list.do',
-	                dataType: 'json',
-	                data: {
-	                    impType: 2
-	                },
-	                success: function success(res) {
-	                    if (res.success) {
-	                        _this2.setState({
-	                            list: res.content
-	                        });
-	                    }
-	                }
-
-	            });
-	        }
-	    }, {
-	        key: 'toPage',
-	        value: function toPage() {
-	            _reactRouter.browserHistory.push('/industryManage/uploadList');
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'industryManage_root common_root' },
-	                _react2.default.createElement(
-	                    _MainTitle2.default,
-	                    { title: '行业数据管理', subTitle: ['批量导入记录'] },
-	                    _react2.default.createElement(
-	                        _Button2.default,
-	                        { className: 'uploadExcel-btn', icon: 'icon-msnui-upload', onClick: this.toPage },
-	                        '上传名单'
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'tast-list common-list' },
-	                    _react2.default.createElement(
-	                        'table',
-	                        { className: 'bbdTable_root' },
-	                        _react2.default.createElement(
-	                            'thead',
-	                            null,
-	                            _react2.default.createElement(
-	                                'tr',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'th',
-	                                    { width: '12%', className: 'text-left no-indent padding4' },
-	                                    '序号'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'th',
-	                                    { width: '20%', className: 'text-left' },
-	                                    '文件名称'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'th',
-	                                    { width: '10%' },
-	                                    '文件大小'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'th',
-	                                    { width: '23%' },
-	                                    '导入时间'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'th',
-	                                    { width: '10%', className: 'text-left' },
-	                                    '导入状态'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'th',
-	                                    { width: '15%', className: 'text-left' },
-	                                    '报错文件'
-	                                ),
-	                                _react2.default.createElement(
-	                                    'th',
-	                                    { width: '10%', className: 'text-left' },
-	                                    '备注'
-	                                )
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'list-content', id: 'list-content' },
-	                        _react2.default.createElement(
-	                            'table',
-	                            { className: 'bbdTable_root' },
-	                            _react2.default.createElement(
-	                                'tbody',
-	                                null,
-	                                this.state.list.length > 0 ? this.state.list.map(function (item, index) {
-	                                    var color = '';
-	                                    var dom = '-';
-	                                    if (item.impState === 2) {
-	                                        color = 'blue';
-	                                    } else if (item.impState === 3) {
-	                                        color = 'green';
-	                                    } else if (item.impState === 4) {
-	                                        color = 'red';
-	                                        dom = _react2.default.createElement(
-	                                            'a',
-	                                            { className: 'blueDre', href: '/import/download-error-file.do?fileName=' + item.fileName + '&recordId=' + item.id },
-	                                            item.fileName
-	                                        );
-	                                    }
-	                                    return _react2.default.createElement(
-	                                        'tr',
-	                                        { key: index },
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            { width: '12%', className: 'text-left no-indent padding4' },
-	                                            index + 1
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            { width: '20%', className: 'text-left' },
-	                                            item.fileName
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            { width: '10%' },
-	                                            item.fileSizeDesc
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            { width: '23%' },
-	                                            item.impDate
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            { width: '10%', className: 'text-left ' + color },
-	                                            item.impStateDesc
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            { width: '15%', className: 'text-left' },
-	                                            dom
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            { className: 'more text-left', width: '10%' },
-	                                            item.remark ? item.remark : '-'
-	                                        )
-	                                    );
-	                                }) : _react2.default.createElement(
-	                                    'tr',
-	                                    { className: 'nodata-tips' },
-	                                    _react2.default.createElement(
-	                                        'td',
-	                                        null,
-	                                        '暂无数据'
-	                                    )
-	                                )
-	                            )
-	                        )
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-
-	    return IndustryManage;
-	}(_react.Component);
-
-	exports.default = IndustryManage;
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "IndustryManage.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
-/* 781 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	__webpack_require__(782);
-
-	var _react = __webpack_require__(138);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRouter = __webpack_require__(243);
-
-	var _LeadinMore = __webpack_require__(771);
+	var _LeadinMore = __webpack_require__(778);
 
 	var _LeadinMore2 = _interopRequireDefault(_LeadinMore);
 
@@ -65457,11 +65599,11 @@
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _Upload = __webpack_require__(774);
+	var _Upload = __webpack_require__(781);
 
 	var _Upload2 = _interopRequireDefault(_Upload);
 
-	var _index = __webpack_require__(775);
+	var _index = __webpack_require__(768);
 
 	var _index2 = _interopRequireDefault(_index);
 
@@ -65483,8 +65625,9 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 行业数据管理 上传名单
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 公用上传名单
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
+
 
 	var UploadList = function (_Component) {
 	    _inherits(UploadList, _Component);
@@ -65510,12 +65653,13 @@
 	            industryOptionsTwo: [], // 行业下拉框二级数据
 	            twoSelected: '',
 	            twoStatus: '',
-	            timer: '' // 轮询
+	            timer: '', // 轮询
+	            allFile: null
 	        };
 	        _this.downTemplate = _this.downTemplate.bind(_this);
 	        _this.uploadExcel = _this.uploadExcel.bind(_this);
 	        _this.selectFile = _this.selectFile.bind(_this);
-	        _this.getProgress = _this.getProgress.bind(_this);
+	        _this.checkList = _this.checkList.bind(_this);
 	        return _this;
 	    }
 
@@ -65566,28 +65710,22 @@
 	                        return { value: v.key, text: v.desc };
 	                    });
 	                    _this3.setState({
-	                        industryOptionsTwo: industryOptionsTwo
+	                        industryOptionsTwo: industryOptionsTwo,
+	                        twoStatus: ''
 	                    });
 	                }
 	            });
 	        }
 	    }, {
-	        key: 'chooseFile',
+	        key: 'downTemplate',
 
-	        /*
-	        * 快捷导入按钮
-	        */
-	        value: function chooseFile() {
-	            $('#upload_input').click();
-	        }
 	        /*
 	         * 模板下载
 	         * */
-
-	    }, {
-	        key: 'downTemplate',
 	        value: function downTemplate() {
-	            if (this.state.templateName === '') {
+	            var isIndustry = this.props.isIndustry;
+
+	            if (this.state.twoStatus === '' && isIndustry) {
 	                _index2.default.warning('请选择行业数据类型');
 	            } else {
 	                window.location.href = '/import/import-template.do?templateName=' + this.state.twoStatus;
@@ -65600,127 +65738,82 @@
 	    }, {
 	        key: 'selectFile',
 	        value: function selectFile(allFile) {
-	            var _this4 = this;
-
 	            this.setState({
 	                allFile: allFile
-	            }, function () {
-	                _this4.change();
 	            });
 	        }
+	        /*
+	         * 删除文件
+	         * */
+
 	    }, {
 	        key: 'deleteFile',
 	        value: function deleteFile(name) {
 	            var allFile = this.state.allFile;
 	            delete allFile[name];
-	            this.change();
-	        }
-	    }, {
-	        key: 'change',
-	        value: function change() {
-	            var fileList = [];
-	            var allFile = this.state.allFile;
-	            for (var key in allFile) {
-	                fileList.push({ name: allFile[key].name, isUpload: false });
-	            }
 	            this.setState({
-	                list: fileList
+	                allFile: allFile
 	            });
 	        }
-	        // 导入文件
-
 	    }, {
 	        key: 'uploadExcel',
+
+	        // 导入文件
 	        value: function uploadExcel() {
-	            var fd = new FormData();
+	            var _this4 = this;
+
+	            var _props = this.props;
+	            var isIndustry = _props.isIndustry;
+	            var impType = _props.impType;
+
 	            var allFiles = this.state.allFile;
-	            for (var i in allFiles) {
-	                fd.append(i, allFiles[i]);
+	            var twoStatus = this.state.twoStatus;
+	            if (twoStatus === '' && isIndustry) {
+	                _index2.default.warning('请选择行业数据类型');
+	                return;
+	            } else if (JSON.stringify(allFiles) === '{}' || !allFiles) {
+	                _index2.default.warning('请选择上传文件');
+	                return;
 	            }
-	            fd.append('templateName', this.state.twoStatus);
-	            fd.append('impType', 2);
+	            var fd = new FormData();
+	            for (var key in allFiles) {
+	                fd.append('files', allFiles[key]);
+	            }
+	            fd.append('templateName', twoStatus);
+	            fd.append('impType', impType);
 	            _util2.default.uploadXhr({
 	                url: '/import/import-data-list.do',
 	                data: fd,
 	                callBack: this.getProgress,
 	                success: function success(res) {
-	                    if (res.success) {
-	                        return false;
-	                    }
-	                    // let uploadLis = this.state.list;
-	                    // for(let i = 0; i < uploadLis.length; i++){
-	                    //     if(uploadLis[i].name === files.name){
-	                    //         uploadLis[i].success = false;
-	                    //     }
-	                    // }
-	                }
-	            });
-	            // let timer= setInterval(this.getProgress, 1000);
-	            // this.setState({
-	            //     timer: timer
-	            // });
-	        }
-	        /*
-	         * 获取进度条
-	         * */
-
-	    }, {
-	        key: 'getProgress',
-	        value: function getProgress() {
-	            var _this5 = this;
-
-	            _util2.default.ajax({
-	                type: 'get',
-	                url: '/import/all-progress.do',
-	                dataType: 'json',
-	                success: function success(res) {
-	                    if (res.success) {
-	                        var uploadLis = _this5.state.list;
-	                        var flag = true;
-	                        for (var i = 0; i < uploadLis.length; i++) {
-	                            var name = uploadLis[i].name;
-	                            if (res.content[name]) {
-	                                var data = res.content[name]['Sheet1'];
-	                                uploadLis[i].Progress = data.progress;
-	                                uploadLis[i].totalRowNum = data.totalRowNum;
-	                                uploadLis[i].successRowNum = data.successRowNum;
-	                                uploadLis[i].finish = data.finish;
-	                                if (!data.finish) {
-	                                    flag = false;
-	                                }
-	                                uploadLis[i].success = data.errorList.length > 0 ? false : true;
-	                            }
-	                        }
-	                        if (flag) {
-	                            // 所有上传成功 清除定时器
-	                            var timer = _this5.state.timer;
-	                            clearInterval(timer);
-	                        }
-	                        _this5.setState({
-	                            list: uploadLis
-	                        });
-	                    }
+	                    _index2.default.warning(res.content[0]);
+	                    _this4.checkList();
 	                }
 	            });
 	        }
 	    }, {
 	        key: 'checkList',
 	        value: function checkList() {
-	            _reactRouter.browserHistory.push('/industryManage/index');
+	            var backUrl = this.props.backUrl;
+
+	            _reactRouter.browserHistory.push(backUrl);
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this6 = this;
+	            var _this5 = this;
 
-	            var fileType = ['xlsx', 'xls', 'xlsm', 'xltx', 'xltm', 'xlsb', 'xlam'];
 	            var allFile = this.state.allFile;
+	            var fileList = [];
+	            for (var key in allFile) {
+	                fileList.push(allFile[key]);
+	            }
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'industry-upload common-upload' },
 	                _react2.default.createElement(
 	                    _MainTitle2.default,
-	                    { title: '行业数据管理', subTitle: ['上传名单'] },
+	                    { title: this.props.title, subTitle: ['上传名单'] },
 	                    _react2.default.createElement(
 	                        'div',
 	                        { className: 'btn-box' },
@@ -65734,7 +65827,7 @@
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'content' },
-	                    _react2.default.createElement(_Upload2.default, { uploadName: '上传名单', icon: 'icon-msnui-upload', submit: this.uploadExcel, change: this.selectFile, submitText: '导入', fileType: fileType, isImmediate: false }),
+	                    _react2.default.createElement(_Upload2.default, { uploadName: '上传名单', icon: 'icon-msnui-upload', submit: this.uploadExcel, change: this.selectFile, submitText: '导入', fileType: _util2.default.fileType, isImmediate: false }),
 	                    _react2.default.createElement(
 	                        'div',
 	                        { className: 'btn-box' },
@@ -65743,22 +65836,22 @@
 	                            { className: 'blue' },
 	                            '数据上传'
 	                        ),
-	                        _react2.default.createElement(_Select2.default, {
+	                        this.props.isIndustry ? _react2.default.createElement(_Select2.default, {
 	                            defaultText: '请选择',
 	                            options: this.state.industryOptionsOne,
 	                            onSelected: this.oneSelected,
 	                            selected: this.state.oneStatus,
 	                            name: 'oneStatus',
 	                            style: { width: '150px', minWidth: 'auto' }
-	                        }),
-	                        _react2.default.createElement(_Select2.default, {
+	                        }) : '',
+	                        this.props.isIndustry ? _react2.default.createElement(_Select2.default, {
 	                            defaultText: '请选择',
 	                            options: this.state.industryOptionsTwo,
 	                            onSelected: this.oneSelected,
 	                            selected: this.state.twoStatus,
 	                            name: 'twoStatus',
 	                            style: { width: '150px', minWidth: 'auto' }
-	                        }),
+	                        }) : '',
 	                        _react2.default.createElement(
 	                            _Button2.default,
 	                            { className: 'downTemplate-btn', icon: 'icon-xiazai', onClick: this.downTemplate },
@@ -65768,18 +65861,8 @@
 	                    _react2.default.createElement(
 	                        'ul',
 	                        { className: 'upload-list', id: 'upload-list' },
-	                        this.state.list.map(function (ele, index) {
-	                            var dom = ele.finish && ele.success ? _react2.default.createElement(
-	                                'span',
-	                                null,
-	                                _react2.default.createElement('i', { className: 'iconfont icon-wancheng' }),
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    { className: 'size' },
-	                                    '删除'
-	                                )
-	                            ) : '';
-	                            var failDom = ele.success ? '' : _react2.default.createElement(
+	                        fileList.map(function (ele, index) {
+	                            var failDom = ele.success ? '<i className="iconfont icon-wancheng"></i>' : _react2.default.createElement(
 	                                'span',
 	                                null,
 	                                _react2.default.createElement('i', { className: 'iconfont icon-icon-yxj-error' }),
@@ -65789,20 +65872,6 @@
 	                                    '下载'
 	                                )
 	                            );
-	                            var box = _react2.default.createElement(
-	                                'span',
-	                                { className: 'size' },
-	                                _react2.default.createElement(
-	                                    'b',
-	                                    null,
-	                                    ele.successRowNum
-	                                ),
-	                                '/',
-	                                ele.totalRowNum
-	                            );
-	                            if (!ele.success) {
-	                                box = '';
-	                            }
 	                            var itemBox = ele.isUpload ? _react2.default.createElement(
 	                                'span',
 	                                null,
@@ -65812,13 +65881,6 @@
 	                                    null,
 	                                    ele.name
 	                                ),
-	                                _react2.default.createElement(
-	                                    'span',
-	                                    { className: 'barBox' },
-	                                    _react2.default.createElement('span', { className: 'bar', style: { width: ele.Progress } })
-	                                ),
-	                                box,
-	                                dom,
 	                                failDom
 	                            ) : _react2.default.createElement(
 	                                'span',
@@ -65832,7 +65894,7 @@
 	                                _react2.default.createElement(
 	                                    'span',
 	                                    { className: 'delete', onClick: function onClick() {
-	                                            return _this6.deleteFile(ele.name);
+	                                            return _this5.deleteFile(ele.name);
 	                                        } },
 	                                    '删除'
 	                                )
@@ -65858,47 +65920,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 782 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(783);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(679)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(true) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept(783, function() {
-				var newContent = __webpack_require__(783);
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 783 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(678)();
-	// imports
-
-
-	// module
-	exports.push([module.id, ".industry-upload .bbdSelect_root {\n  display: inline-block;\n  margin-right: 10px; }\n  .industry-upload .bbdSelect_root .valuePanel {\n    border: 1px solid #03688F;\n    background: none;\n    padding-left: 10px; }\n", ""]);
-
-	// exports
-
-
-/***/ },
-/* 784 */
+/* 785 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -65911,7 +65933,168 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	__webpack_require__(768);
+	__webpack_require__(772);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(243);
+
+	var _Button = __webpack_require__(696);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _MainTitle = __webpack_require__(712);
+
+	var _MainTitle2 = _interopRequireDefault(_MainTitle);
+
+	var _util = __webpack_require__(673);
+
+	var _util2 = _interopRequireDefault(_util);
+
+	var _RecordList = __webpack_require__(774);
+
+	var _RecordList2 = _interopRequireDefault(_RecordList);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 行业数据管理 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
+
+
+	var IndustryManage = function (_Component) {
+	    _inherits(IndustryManage, _Component);
+
+	    function IndustryManage(props) {
+	        _classCallCheck(this, IndustryManage);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(IndustryManage).call(this, props));
+	    }
+
+	    _createClass(IndustryManage, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(_RecordList2.default, { impType: 2, topageUrl: '/industryManage/uploadList', title: '行业数据管理' });
+	        }
+	    }]);
+
+	    return IndustryManage;
+	}(_react.Component);
+
+	exports.default = IndustryManage;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "IndustryManage.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 786 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(243);
+
+	var _LeadinMore = __webpack_require__(778);
+
+	var _LeadinMore2 = _interopRequireDefault(_LeadinMore);
+
+	var _MainTitle = __webpack_require__(712);
+
+	var _MainTitle2 = _interopRequireDefault(_MainTitle);
+
+	var _Button = __webpack_require__(696);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Upload = __webpack_require__(781);
+
+	var _Upload2 = _interopRequireDefault(_Upload);
+
+	var _index = __webpack_require__(768);
+
+	var _index2 = _interopRequireDefault(_index);
+
+	var _Select = __webpack_require__(716);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _util = __webpack_require__(673);
+
+	var _util2 = _interopRequireDefault(_util);
+
+	var _UploadList = __webpack_require__(784);
+
+	var _UploadList2 = _interopRequireDefault(_UploadList);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 行业数据管理 上传名单
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
+
+	var IndustryManage = function (_Component) {
+	    _inherits(IndustryManage, _Component);
+
+	    function IndustryManage(props) {
+	        _classCallCheck(this, IndustryManage);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(IndustryManage).call(this, props));
+	    }
+
+	    _createClass(IndustryManage, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(_UploadList2.default, { templateName: '', isIndustry: true, backUrl: '/industryManage/index', title: '行业数据管理' });
+	        }
+	    }]);
+
+	    return IndustryManage;
+	}(_react.Component);
+
+	exports.default = IndustryManage;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "UploadList.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 787 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	__webpack_require__(772);
 
 	var _react = __webpack_require__(138);
 
@@ -65976,10 +66159,10 @@
 	            var checked = target.checked;
 	            var val = target.value;
 	            if (val === 'all') {
-	                var _allBuildId = checked ? _this.state.allBuildId : [];
+	                var allBuildId = checked ? _this.state.allBuildId : [];
 	                _this.setState({
 	                    ischecked: checked,
-	                    deleteBuild: _allBuildId
+	                    deleteBuild: allBuildId
 	                });
 	                return;
 	            }
@@ -65990,7 +66173,7 @@
 	                deleteBuild.splice(index, 1);
 	            }
 	            _this.setState({
-	                deleteBuild: allBuildId
+	                deleteBuild: deleteBuild
 	            });
 	        };
 
@@ -66017,10 +66200,13 @@
 	            delVisible: false, // 弹窗显示与否
 	            deleteBuild: [], // 需要删除的楼宇列表
 	            allBuildId: [], // 所有的楼宇id
-	            buildingVal: '' // 搜索框的楼宇
+	            buildingVal: '', // 搜索框的楼宇
+	            deleteItem: false, // 是否批量删除
+	            buildingId: '' // 单个删除的id
 	        };
 	        _this.showModel = _this.showModel.bind(_this);
 	        _this.deletePack = _this.deletePack.bind(_this);
+	        _this.getParkList = _this.getParkList.bind(_this);
 	        return _this;
 	    }
 
@@ -66045,7 +66231,8 @@
 	                url: '/park-mgt/queryParkAndBuilding.do',
 	                dataType: 'json',
 	                data: {
-	                    parkId: this.state.parkStatus
+	                    parkId: this.state.parkStatus,
+	                    buildingName: this.state.buildingVal
 	                },
 	                success: function success(res) {
 	                    if (res.success) {
@@ -66074,40 +66261,15 @@
 	                dataType: 'json',
 	                success: function success(res) {
 	                    if (res.success) {
-	                        var _parkOptions = res.content.map(function (v) {
-	                            return { value: v.parkId, text: v.name };
+	                        var parkOptions = res.content.map(function (v) {
+	                            return { value: v.parkId === 0 ? '' : v.parkId, text: v.name };
 	                        });
 	                        _this3.setState({
-	                            parkOptions: _parkOptions
+	                            parkOptions: parkOptions
 	                        });
 	                    }
 	                }
 
-	            });
-	        }
-	        /*
-	        *园区楼宇管理-删除企业
-	        */
-
-	    }, {
-	        key: 'deletCompany',
-	        value: function deletCompany() {
-	            var _this4 = this;
-
-	            _util2.default.ajax({
-	                type: 'get',
-	                url: '/park-mgt/areaList.do',
-	                dataType: 'json',
-	                success: function success(res) {
-	                    if (res.success) {
-	                        var _parkOptions2 = res.content.map(function (v) {
-	                            return { value: v.areaId, text: v.cityName };
-	                        });
-	                    }
-	                    _this4.setState({
-	                        parkOptions: parkOptions
-	                    });
-	                }
 	            });
 	        }
 	        /*
@@ -66119,7 +66281,7 @@
 	        value: function getAllBuild() {
 	            var list = this.state.list;
 	            var allBuildId = list.map(function (v) {
-	                return v.buildingName;
+	                return v.buildingId;
 	            });
 	            this.setState({
 	                allBuildId: allBuildId
@@ -66134,28 +66296,11 @@
 	        // 绑定输入
 
 	    }, {
-	        key: 'handleSearch',
-
-	        /* 
-	        *搜索楼宇
-	        */
-	        value: function handleSearch() {
-	            _util2.default.ajax({
-	                type: 'get',
-	                url: '/park-mgt/buildingList.do',
-	                dataType: 'json',
-	                success: function success(res) {
-	                    //
-	                }
-
-	            });
-	        }
-	        // 编辑园区
-
-	    }, {
 	        key: 'handleEdit',
-	        value: function handleEdit(packName) {
-	            _reactRouter.browserHistory.push('/parkManage/parkDetail?isEdit=true&packName=' + packName + '&areaId=' + this.state.parkStatus);
+
+	        // 编辑园区
+	        value: function handleEdit(packName, areaId) {
+	            _reactRouter.browserHistory.push('/parkManage/parkDetail?isEdit=true&packName=' + packName + '&areaId=' + areaId);
 	        }
 	        /* 
 	        *弹窗展示 
@@ -66163,9 +66308,11 @@
 
 	    }, {
 	        key: 'showModel',
-	        value: function showModel(flag) {
+	        value: function showModel(flag, id) {
 	            this.setState({
-	                delVisible: flag
+	                delVisible: flag,
+	                buildingId: id,
+	                deleteItem: id ? true : false
 	            });
 	        }
 	        /* 
@@ -66174,32 +66321,30 @@
 
 	    }, {
 	        key: 'deletePack',
-	        value: function (_deletePack) {
-	            function deletePack(_x) {
-	                return _deletePack.apply(this, arguments);
-	            }
+	        value: function deletePack() {
+	            var _this4 = this;
 
-	            deletePack.toString = function () {
-	                return _deletePack.toString();
-	            };
+	            var _state = this.state;
+	            var deleteItem = _state.deleteItem;
+	            var deleteBuild = _state.deleteBuild;
+	            var buildingId = _state.buildingId;
 
-	            return deletePack;
-	        }(function (id) {
-	            var data = id ? id : this.state.deleteBuild.join(',');
+	            var data = deleteItem ? buildingId : deleteBuild.join(',');
 	            _util2.default.ajax({
 	                type: 'get',
-	                url: '/park-mgt/areaList.do',
+	                url: '/park-mgt/delBuilding.do',
 	                dataType: 'json',
 	                data: {
-	                    companyList: deletePack
+	                    buildingId: data
 	                },
 	                success: function success(res) {
 	                    if (res.success) {
-	                        //
+	                        _this4.getParkList();
+	                        _this4.showModel(false);
 	                    }
 	                }
 	            });
-	        })
+	        }
 	        // 页面跳转
 
 	    }, {
@@ -66287,7 +66432,7 @@
 	                                            suffix: 'icon-search',
 	                                            value: this.state.buildingVal,
 	                                            onChange: this.handleChange,
-	                                            onSearch: this.handleSearch,
+	                                            onSearch: this.getParkList,
 	                                            name: 'buildingVal',
 	                                            width: '200'
 	                                        })
@@ -66317,11 +66462,11 @@
 	                                    this.state.list.length > 0 ? this.state.list.map(function (item, index) {
 	                                        return _react2.default.createElement(
 	                                            'tr',
-	                                            { key: index },
+	                                            { key: item.buildingId },
 	                                            _react2.default.createElement(
 	                                                'td',
 	                                                { width: '12%', className: 'text-left no-indent padding7' },
-	                                                _react2.default.createElement(_Checkbox2.default, { value: item.id, onChange: _this5.onChange, checked: _this5.state.ischecked })
+	                                                _react2.default.createElement(_Checkbox2.default, { value: item.buildingId, onChange: _this5.onChange, checked: _this5.state.ischecked })
 	                                            ),
 	                                            _react2.default.createElement(
 	                                                'td',
@@ -66353,13 +66498,13 @@
 	                                                    title: '编辑',
 	                                                    className: 'iconfont icon-edit',
 	                                                    onClick: function onClick() {
-	                                                        return _this5.handleEdit(item.parkName);
+	                                                        return _this5.handleEdit(item.parkName, item.parkId);
 	                                                    } }),
 	                                                _react2.default.createElement('i', {
 	                                                    title: '=删除',
 	                                                    className: 'iconfont icon-del',
 	                                                    onClick: function onClick() {
-	                                                        return _this5.deletePack(item.buildingName);
+	                                                        return _this5.showModel(true, item.buildingId);
 	                                                    } })
 	                                            )
 	                                        );
@@ -66403,7 +66548,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 785 */
+/* 788 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -66418,7 +66563,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	__webpack_require__(786);
+	__webpack_require__(789);
 
 	var _react = __webpack_require__(138);
 
@@ -66426,11 +66571,11 @@
 
 	var _reactRouter = __webpack_require__(243);
 
-	var _ParkDetail = __webpack_require__(788);
+	var _ParkDetail = __webpack_require__(791);
 
 	var _ParkDetail2 = _interopRequireDefault(_ParkDetail);
 
-	var _ParkEdit = __webpack_require__(791);
+	var _ParkEdit = __webpack_require__(794);
 
 	var _ParkEdit2 = _interopRequireDefault(_ParkEdit);
 
@@ -66526,13 +66671,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 786 */
+/* 789 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(787);
+	var content = __webpack_require__(790);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(679)(content, {});
@@ -66541,8 +66686,8 @@
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(787, function() {
-				var newContent = __webpack_require__(787);
+			module.hot.accept(790, function() {
+				var newContent = __webpack_require__(790);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -66552,7 +66697,7 @@
 	}
 
 /***/ },
-/* 787 */
+/* 790 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(678)();
@@ -66566,7 +66711,7 @@
 
 
 /***/ },
-/* 788 */
+/* 791 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -66579,7 +66724,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	__webpack_require__(789);
+	__webpack_require__(792);
 
 	var _react = __webpack_require__(138);
 
@@ -66607,6 +66752,14 @@
 
 	var _Input2 = _interopRequireDefault(_Input);
 
+	var _Modal = __webpack_require__(693);
+
+	var _Modal2 = _interopRequireDefault(_Modal);
+
+	var _util = __webpack_require__(673);
+
+	var _util2 = _interopRequireDefault(_util);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -66628,9 +66781,11 @@
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ParkDetail).call(this, props));
 
 	        _this.state = {
-	            packName: _this.props.location.query.parkName || ''
+	            packName: _this.props.location.query.parkName || '',
+	            delVisible: false
 	        };
 	        _this.handleEdit = _this.handleEdit.bind(_this);
+	        _this.handleDelete = _this.handleDelete.bind(_this);
 	        return _this;
 	    }
 
@@ -66651,11 +66806,36 @@
 	    }, {
 	        key: 'handleDelete',
 	        value: function handleDelete() {
-	            //
+	            _util2.default.ajax({
+	                type: 'get',
+	                url: '/park-mgt/delPark.do',
+	                dataType: 'json',
+	                data: {
+	                    parkId: this.props.location.query.areaId
+	                },
+	                success: function success(res) {
+	                    if (res.success) {
+	                        _reactRouter.browserHistory.push('/parkManage/index');
+	                    }
+	                }
+	            });
+	        }
+	        /* 
+	        *弹窗展示 
+	        */
+
+	    }, {
+	        key: 'showModel',
+	        value: function showModel(flag) {
+	            this.setState({
+	                delVisible: flag
+	            });
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var _this2 = this;
+
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'parkDetail_root' },
@@ -66695,7 +66875,9 @@
 	                            _react2.default.createElement('i', {
 	                                title: '删除',
 	                                className: 'iconfont icon-del',
-	                                onClick: this.handleDelete.bind(this, 2) })
+	                                onClick: function onClick() {
+	                                    return _this2.showModel(true);
+	                                } })
 	                        )
 	                    ),
 	                    _react2.default.createElement(
@@ -66793,6 +66975,19 @@
 	                            )
 	                        )
 	                    )
+	                ),
+	                _react2.default.createElement(
+	                    _Modal2.default,
+	                    {
+	                        onCancel: function onCancel() {
+	                            return _this2.showModel(false);
+	                        },
+	                        onOk: this.handleDelete,
+	                        okText: '我确定',
+	                        cancelText: '再想想',
+	                        visible: this.state.delVisible
+	                    },
+	                    '删除之后，不可恢复，请谨慎操作！确认删除？'
 	                )
 	            );
 	        }
@@ -66807,13 +67002,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 789 */
+/* 792 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(790);
+	var content = __webpack_require__(793);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(679)(content, {});
@@ -66822,8 +67017,8 @@
 	if(true) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept(790, function() {
-				var newContent = __webpack_require__(790);
+			module.hot.accept(793, function() {
+				var newContent = __webpack_require__(793);
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -66833,7 +67028,7 @@
 	}
 
 /***/ },
-/* 790 */
+/* 793 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(678)();
@@ -66847,7 +67042,7 @@
 
 
 /***/ },
-/* 791 */
+/* 794 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -66860,7 +67055,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	__webpack_require__(789);
+	__webpack_require__(792);
 
 	var _react = __webpack_require__(138);
 
@@ -66896,7 +67091,7 @@
 
 	var _util2 = _interopRequireDefault(_util);
 
-	var _Upload = __webpack_require__(774);
+	var _Upload = __webpack_require__(781);
 
 	var _Upload2 = _interopRequireDefault(_Upload);
 
@@ -66912,7 +67107,7 @@
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
 
 
-	var Immutable = __webpack_require__(813);
+	var Immutable = __webpack_require__(795);
 
 	var ParkEdit = function (_Component) {
 	    _inherits(ParkEdit, _Component);
@@ -66921,6 +67116,15 @@
 	        _classCallCheck(this, ParkEdit);
 
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ParkEdit).call(this, props));
+
+	        _this.parkSelected = function (val, name, text) {
+	            _this.setState({
+	                parkStatus: val,
+	                parkText: text
+	            }, function () {
+	                // this.getParkList();
+	            });
+	        };
 
 	        _this.onChange = function (_ref) {
 	            var target = _ref.target;
@@ -66951,10 +67155,13 @@
 	            parkOptions: [], // 园区下拉框数据
 	            ischecked: false,
 	            parkStatus: Number(_this.props.location.query.areaId),
+	            parkText: _this.props.location.query.packName,
 	            selectImg: '', // 选择上传的图片
 	            parkName: '',
 	            deleteBuild: [], // 需要删除的楼宇列表
 	            allBuildId: [], // 所有的楼宇id
+	            deleteItem: false, // 是否批量删除
+	            buildingId: '', // 单个删除的id
 	            delVisible: false, // 弹窗显示与否
 	            uploadVisible: false,
 	            isUpLoad: false // 是否上传中
@@ -66963,6 +67170,7 @@
 	        _this.uploadimg = _this.uploadimg.bind(_this);
 	        _this.showModel = _this.showModel.bind(_this);
 	        _this.closeModel = _this.closeModel.bind(_this);
+	        _this.deleteBuild = _this.deleteBuild.bind(_this);
 	        return _this;
 	    }
 
@@ -67020,12 +67228,14 @@
 	                }
 	            });
 	        }
-	        /*
-	        *园区楼宇管理-园区下拉框
-	        */
+	        // 园区筛选
 
 	    }, {
 	        key: 'uploadimg',
+
+	        /*
+	        *园区楼宇管理-园区下拉框
+	        */
 	        value: function uploadimg() {
 	            var _this3 = this;
 
@@ -67039,7 +67249,7 @@
 	            var selectImg = this.state.selectImg;
 	            var userName = sessionStorage.getItem('userName');
 	            fd.append('file', selectImg);
-	            fd.append('parkId', this.state.parkStatus);
+	            fd.append('parkName', this.state.parkText);
 	            fd.append('picType', 1);
 	            fd.append('user', userName);
 	            _util2.default.uploadXhr({
@@ -67064,13 +67274,18 @@
 	        value: function deleteBuild(id) {
 	            var _this4 = this;
 
-	            var data = id ? id : this.state.deleteBuild.join(',');
+	            var _state = this.state;
+	            var deleteItem = _state.deleteItem;
+	            var deleteBuild = _state.deleteBuild;
+	            var buildingId = _state.buildingId;
+
+	            var data = deleteItem ? buildingId : deleteBuild.join(',');
 	            _util2.default.ajax({
 	                type: 'get',
-	                url: '/park-mgt/areaList.do',
+	                url: '/park-mgt/delBuilding.do',
 	                dataType: 'json',
 	                data: {
-	                    companyList: data
+	                    buildingId: data
 	                },
 	                success: function success(res) {
 	                    if (res.success) {
@@ -67127,12 +67342,12 @@
 
 	    }, {
 	        key: 'showModel',
-	        value: function showModel(flag) {
-	            if (this.state.deleteBuild.length > 0) {
-	                this.setState({
-	                    delVisible: flag
-	                });
-	            }
+	        value: function showModel(flag, id) {
+	            this.setState({
+	                delVisible: flag,
+	                buildingId: id,
+	                deleteItem: id ? true : false
+	            });
 	        }
 	    }, {
 	        key: 'closeModel',
@@ -67277,7 +67492,7 @@
 	                                        this.props.list.length > 0 ? this.props.list.map(function (item, index) {
 	                                            return _react2.default.createElement(
 	                                                'tr',
-	                                                { key: index },
+	                                                { key: item.buildingId },
 	                                                _react2.default.createElement(
 	                                                    'td',
 	                                                    { width: '10%', className: '' },
@@ -67305,7 +67520,7 @@
 	                                                        title: '删除',
 	                                                        className: 'iconfont icon-del',
 	                                                        onClick: function onClick() {
-	                                                            return _this5.deletePack(item.buildingName);
+	                                                            return _this5.showModel(true, item.buildingId);
 	                                                        }
 	                                                    })
 	                                                )
@@ -67369,3979 +67584,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ },
-/* 792 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	__webpack_require__(786);
-
-	var _react = __webpack_require__(138);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRouter = __webpack_require__(243);
-
-	var _BuildingDetail = __webpack_require__(793);
-
-	var _BuildingDetail2 = _interopRequireDefault(_BuildingDetail);
-
-	var _BuildingEdit = __webpack_require__(796);
-
-	var _BuildingEdit2 = _interopRequireDefault(_BuildingEdit);
-
-	var _util = __webpack_require__(673);
-
-	var _util2 = _interopRequireDefault(_util);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 园区管理布局
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
-
-
-	var BuildingInfo = function (_Component) {
-	    _inherits(BuildingInfo, _Component);
-
-	    function BuildingInfo(props) {
-	        _classCallCheck(this, BuildingInfo);
-
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(BuildingInfo).call(this, props));
-
-	        _this.state = {
-	            isEdit: false,
-	            list: []
-	        };
-	        _this.onChange = _this.onChange.bind(_this);
-	        _this.getCompanyList = _this.getCompanyList.bind(_this);
-	        return _this;
-	    }
-
-	    _createClass(BuildingInfo, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            // console.info(this.props.location);
-	            this.getCompanyList();
-	        }
-	        /*
-	        *入驻企业列表
-	        */
-
-	    }, {
-	        key: 'getCompanyList',
-	        value: function getCompanyList() {
-	            var _this2 = this;
-
-	            _util2.default.ajax({
-	                type: 'get',
-	                url: '/park-mgt/queryCompanyByBuildingId.do',
-	                dataType: 'json',
-	                data: {
-	                    buildingId: this.props.location.query.buildingId
-	                },
-	                success: function success(res) {
-	                    if (res.success) {
-	                        _this2.setState({
-	                            list: res.content
-	                        });
-	                    }
-	                }
-	            });
-	        }
-	    }, {
-	        key: 'onChange',
-	        value: function onChange() {
-	            this.setState({
-	                isEdit: true
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'buildingInfo_root' },
-	                this.state.isEdit ? _react2.default.createElement(_BuildingEdit2.default, _extends({}, this.props, { list: this.state.list, getCompanyList: this.getCompanyList })) : _react2.default.createElement(_BuildingDetail2.default, _extends({}, this.props, { list: this.state.list, onChange: this.onChange, getCompanyList: this.getCompanyList }))
-	            );
-	        }
-	    }]);
-
-	    return BuildingInfo;
-	}(_react.Component);
-
-	exports.default = BuildingInfo;
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "BuildingInfo.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
-/* 793 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	__webpack_require__(794);
-
-	var _react = __webpack_require__(138);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRouter = __webpack_require__(243);
-
-	var _MainTitle = __webpack_require__(712);
-
-	var _MainTitle2 = _interopRequireDefault(_MainTitle);
-
-	var _Button = __webpack_require__(696);
-
-	var _Button2 = _interopRequireDefault(_Button);
-
-	var _Checkbox = __webpack_require__(687);
-
-	var _Checkbox2 = _interopRequireDefault(_Checkbox);
-
-	var _Select = __webpack_require__(716);
-
-	var _Select2 = _interopRequireDefault(_Select);
-
-	var _Input = __webpack_require__(703);
-
-	var _Input2 = _interopRequireDefault(_Input);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 楼宇详情
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
-
-
-	var BuildingDetail = function (_Component) {
-	    _inherits(BuildingDetail, _Component);
-
-	    function BuildingDetail(props) {
-	        _classCallCheck(this, BuildingDetail);
-
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(BuildingDetail).call(this, props));
-
-	        _this.state = {
-	            list: [],
-	            parkOptions: [],
-	            parkStatus: '',
-	            ischecked: false,
-	            formData: {}
-	        };
-	        _this.handleEdit = _this.handleEdit.bind(_this);
-	        return _this;
-	    }
-
-	    _createClass(BuildingDetail, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            $('#list-content').perfectScrollbar();
-	        }
-	        // 编辑园区
-
-	    }, {
-	        key: 'handleEdit',
-	        value: function handleEdit() {
-	            this.props.onChange();
-	        }
-	        // 删除园区
-
-	    }, {
-	        key: 'handleDelete',
-	        value: function handleDelete() {
-	            //
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'parkDetail_root buildingDetail_root' },
-	                _react2.default.createElement(
-	                    _MainTitle2.default,
-	                    { title: '园区楼宇管理', subTitle: ['楼宇详情'] },
-	                    _react2.default.createElement(
-	                        _reactRouter.Link,
-	                        { to: '/parkManage/index', className: 'returnTo' },
-	                        _react2.default.createElement('i', { className: 'iconfont icon-rt-solid' }),
-	                        '返回列表'
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'parkDetail_box buildingDetail_box' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'parkName-box item-box', style: { height: '43px' } },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'label-name' },
-	                            '楼宇名称'
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'right' },
-	                            _react2.default.createElement(
-	                                'span',
-	                                { className: 'name' },
-	                                this.props.location.query.buildingName
-	                            ),
-	                            _react2.default.createElement('i', {
-	                                title: '编辑',
-	                                className: 'iconfont icon-edit',
-	                                onClick: this.handleEdit }),
-	                            _react2.default.createElement('i', {
-	                                title: '删除',
-	                                className: 'iconfont icon-del',
-	                                onClick: this.handleDelete.bind(this, 2) })
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'item-box', style: { height: '340px' } },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'label-name' },
-	                            '楼宇图片'
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'park-img right' },
-	                            _react2.default.createElement('img', { src: '', alt: '' })
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'parkName-box item-box', style: { height: '43px' } },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'label-name' },
-	                            '入驻园区'
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'right' },
-	                            _react2.default.createElement(
-	                                'span',
-	                                { className: 'name' },
-	                                this.props.location.query.parkName
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'item-box', style: { height: '256px' } },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'label-name' },
-	                            '入驻企业'
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'building-list right' },
-	                            _react2.default.createElement(
-	                                'table',
-	                                { className: '' },
-	                                _react2.default.createElement(
-	                                    'thead',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        'tr',
-	                                        null,
-	                                        _react2.default.createElement(
-	                                            'th',
-	                                            { width: '24%', className: 'text-left padding10' },
-	                                            '公司名称'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'th',
-	                                            { width: '22%' },
-	                                            '法定代表人'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'th',
-	                                            { width: '24%', className: 'text-left' },
-	                                            '企业背景'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'th',
-	                                            { width: '15%', className: 'text-left' },
-	                                            '行业'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'th',
-	                                            { width: '15%' },
-	                                            '风险等级'
-	                                        )
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'list-content', id: 'list-content' },
-	                                _react2.default.createElement(
-	                                    'table',
-	                                    { className: '' },
-	                                    _react2.default.createElement(
-	                                        'tbody',
-	                                        null,
-	                                        this.props.list.length > 0 ? this.props.list.map(function (item, index) {
-	                                            return _react2.default.createElement(
-	                                                'tr',
-	                                                { key: index },
-	                                                _react2.default.createElement(
-	                                                    'td',
-	                                                    { width: '24%', className: 'text-left padding10' },
-	                                                    item.name
-	                                                ),
-	                                                _react2.default.createElement(
-	                                                    'td',
-	                                                    { width: '22%' },
-	                                                    item.legalPerson
-	                                                ),
-	                                                _react2.default.createElement(
-	                                                    'td',
-	                                                    { width: '24%', className: 'text-left' },
-	                                                    item.registeredType
-	                                                ),
-	                                                _react2.default.createElement(
-	                                                    'th',
-	                                                    { width: '15%', className: 'text-left' },
-	                                                    item.businessType
-	                                                ),
-	                                                _react2.default.createElement(
-	                                                    'th',
-	                                                    { width: '15%' },
-	                                                    item.riskLevel
-	                                                )
-	                                            );
-	                                        }) : _react2.default.createElement(
-	                                            'tr',
-	                                            { className: 'nodata-tips' },
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                null,
-	                                                '暂无数据'
-	                                            )
-	                                        )
-	                                    )
-	                                )
-	                            )
-	                        )
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-
-	    return BuildingDetail;
-	}(_react.Component);
-
-	exports.default = BuildingDetail;
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "BuildingDetail.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
-/* 794 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(795);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(679)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(true) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept(795, function() {
-				var newContent = __webpack_require__(795);
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
 /* 795 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(678)();
-	// imports
-
-
-	// module
-	exports.push([module.id, ".buildingDetail_box .park-img {\n  width: 240px;\n  height: 340px; }\n  .buildingDetail_box .park-img .upload_submit {\n    top: 615px;\n    left: 365px; }\n\n.buildingDetail_box .building-list .padding10 {\n  padding-left: 10px; }\n", ""]);
-
-	// exports
-
-
-/***/ },
-/* 796 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	__webpack_require__(794);
-
-	var _react = __webpack_require__(138);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRouter = __webpack_require__(243);
-
-	var _MainTitle = __webpack_require__(712);
-
-	var _MainTitle2 = _interopRequireDefault(_MainTitle);
-
-	var _Button = __webpack_require__(696);
-
-	var _Button2 = _interopRequireDefault(_Button);
-
-	var _Checkbox = __webpack_require__(687);
-
-	var _Checkbox2 = _interopRequireDefault(_Checkbox);
-
-	var _Select = __webpack_require__(716);
-
-	var _Select2 = _interopRequireDefault(_Select);
-
-	var _Input = __webpack_require__(703);
-
-	var _Input2 = _interopRequireDefault(_Input);
-
-	var _Upload = __webpack_require__(774);
-
-	var _Upload2 = _interopRequireDefault(_Upload);
-
-	var _util = __webpack_require__(673);
-
-	var _util2 = _interopRequireDefault(_util);
-
-	var _Modal = __webpack_require__(693);
-
-	var _Modal2 = _interopRequireDefault(_Modal);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 楼宇编辑
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
-
-
-	var Immutable = __webpack_require__(813);
-
-	var BuildingEdit = function (_Component) {
-	    _inherits(BuildingEdit, _Component);
-
-	    function BuildingEdit(props) {
-	        _classCallCheck(this, BuildingEdit);
-
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(BuildingEdit).call(this, props));
-
-	        _this.onChange = function (_ref) {
-	            var target = _ref.target;
-
-	            var deleteCompany = _this.state.deleteCompany;
-	            var checked = target.checked;
-	            var val = target.value;
-	            if (val === 'all') {
-	                var allCompanyId = checked ? _this.state.allCompanyId : [];
-	                _this.setState({
-	                    ischecked: checked,
-	                    deleteCompany: allCompanyId
-	                });
-	                return;
-	            }
-	            if (checked) {
-	                deleteCompany.push(val);
-	            } else {
-	                var index = deleteCompany.indexOf(val);
-	                deleteCompany.splice(index, 1);
-	            }
-	            _this.setState({
-	                deleteCompany: deleteCompany
-	            });
-	        };
-
-	        _this.state = {
-	            parkOptions: [], // 园区下拉框数据
-	            buildOptions: [], // 楼宇下拉框数据
-	            ischecked: false,
-	            parkStatus: Number(_this.props.location.query.areaId),
-	            buildStatus: Number(_this.props.location.query.buildingId),
-	            selectImg: '', // 选择上传的图片
-	            parkName: '',
-	            deleteCompany: [], // 需要删除的公司列表
-	            allCompanyId: [], // 所有的公司id
-	            delVisible: false, // 弹窗显示与否
-	            uploadVisible: false,
-	            isUpLoad: false // 是否上传中
-	        };
-	        _this.selectFile = _this.selectFile.bind(_this);
-	        _this.uploadimg = _this.uploadimg.bind(_this);
-	        _this.showModel = _this.showModel.bind(_this);
-	        _this.closeModel = _this.closeModel.bind(_this);
-	        _this.deleteCompany = _this.deleteCompany.bind(_this);
-	        _this.topage = _this.topage.bind(_this);
-	        return _this;
-	    }
-
-	    _createClass(BuildingEdit, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            $('#list-content').perfectScrollbar();
-	            this.getAreaList();
-	        }
-	    }, {
-	        key: 'componentWillReceiveProps',
-	        value: function componentWillReceiveProps(nextProps) {
-	            var isEqual = Immutable.is(nextProps.list, this.props.list);
-	            if (!isEqual) {
-	                this.getAllCompany();
-	            }
-	        }
-	        /*
-	        *获取所有的企业id
-	        */
-
-	    }, {
-	        key: 'getAllCompany',
-	        value: function getAllCompany() {
-	            var list = this.props.list;
-	            var allCompanyId = list.map(function (v) {
-	                return v.CompanyId;
-	            });
-	            this.setState({
-	                allCompanyId: allCompanyId
-	            });
-	        }
-	        /*
-	        *园区楼宇管理-园区下拉框
-	        */
-
-	    }, {
-	        key: 'getAreaList',
-	        value: function getAreaList() {
-	            var _this2 = this;
-
-	            _util2.default.ajax({
-	                type: 'get',
-	                url: '/park-mgt/parkList.do',
-	                dataType: 'json',
-	                success: function success(res) {
-	                    if (res.success) {
-	                        var parkOptions = res.content.map(function (v) {
-	                            return { value: v.parkId, text: v.name };
-	                        });
-	                        _this2.setState({
-	                            parkOptions: parkOptions
-	                        });
-	                    }
-	                }
-	            });
-	        }
-	        /*
-	        *园区楼宇管理-上传图片
-	        */
-
-	    }, {
-	        key: 'uploadimg',
-	        value: function uploadimg() {
-	            var _this3 = this;
-
-	            if (this.state.isUpLoad) {
-	                return;
-	            }
-	            this.setState({
-	                isUpLoad: true
-	            });
-	            var fd = new FormData();
-	            var selectImg = this.state.selectImg;
-	            var userName = sessionStorage.getItem('userName');
-	            fd.append('file', selectImg);
-	            fd.append('parkId', this.state.parkStatus);
-	            fd.append('buildingId', this.state.buildStatus);
-	            fd.append('picType', 2);
-	            fd.append('user', userName);
-	            _util2.default.uploadXhr({
-	                url: '/park-mgt/upLoadPic.do',
-	                data: fd,
-	                success: function success(res) {
-	                    if (res.success) {
-	                        _this3.setState({
-	                            isUpLoad: false,
-	                            uploadVisible: true
-	                        });
-	                    }
-	                }
-	            });
-	        }
-	        /* 
-	        *删除公司
-	        */
-
-	    }, {
-	        key: 'deleteCompany',
-	        value: function deleteCompany(id) {
-	            var _this4 = this;
-
-	            var data = id ? id : this.state.deleteCompany.join(',');
-	            _util2.default.ajax({
-	                type: 'get',
-	                url: '/park-mgt/delCompanyByCompanyId.do',
-	                dataType: 'json',
-	                data: {
-	                    companyList: data
-	                },
-	                success: function success(res) {
-	                    if (res.success) {
-	                        _this4.props.getCompanyList();
-	                        _this4.setState({
-	                            deleteCompany: [],
-	                            delVisible: false
-	                        });
-	                    }
-	                }
-	            });
-	        }
-
-	        /* 
-	        *角色框勾选后，相应的改变
-	        */
-
-	    }, {
-	        key: 'cancel',
-
-	        /* 
-	        *返回列表 
-	        */
-	        value: function cancel() {
-	            _reactRouter.browserHistory.push('/parkManage/index');
-	        }
-	        /* 
-	        *选择图片 
-	        */
-
-	    }, {
-	        key: 'selectFile',
-	        value: function selectFile(all, item) {
-	            // 利用mypic获得图像的url地址(二进制源码) 
-	            // URL  html5新标准属性 
-	            var url = window.URL.createObjectURL(item);
-	            document.getElementById('upload-img').src = url;
-	            this.setState({
-	                selectImg: item
-	            });
-	        }
-	        /* 
-	        *页面跳转 
-	        */
-
-	    }, {
-	        key: 'topage',
-	        value: function topage() {
-	            _reactRouter.browserHistory.push('/parkManage/leadin?areaId=' + this.state.parkStatus + '&buildingId=' + this.state.buildStatus);
-	        }
-	        /* 
-	        *弹窗展示 
-	        */
-
-	    }, {
-	        key: 'showModel',
-	        value: function showModel(flag) {
-	            if (this.state.deleteCompany.length > 0) {
-	                this.setState({
-	                    delVisible: flag
-	                });
-	            }
-	        }
-	    }, {
-	        key: 'closeModel',
-	        value: function closeModel() {
-	            this.setState({
-	                uploadVisible: false
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var _this5 = this;
-
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'parkDetail_root parkEdit_root buildingEdit_root buildingDetail_root' },
-	                _react2.default.createElement(
-	                    _MainTitle2.default,
-	                    { title: '园区楼宇管理', subTitle: ['楼宇编辑'] },
-	                    _react2.default.createElement(
-	                        _reactRouter.Link,
-	                        { to: '/parkManage/index', className: 'returnTo' },
-	                        _react2.default.createElement('i', { className: 'iconfont icon-rt-solid' }),
-	                        '返回列表'
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'parkDetail_box parkEdit_box buildingEdit_box buildingDetail_box' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'parkName-box item-box', style: { height: '43px' } },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'label-name' },
-	                            '楼宇名称'
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'right' },
-	                            _react2.default.createElement(_Select2.default, {
-	                                defaultText: '',
-	                                options: this.state.buildOptions,
-	                                onSelected: this.buildSelected,
-	                                selected: this.state.buildStatus,
-	                                style: { width: '420px', minWidth: 'auto' }
-	                            })
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'item-box', style: { height: '340px' } },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'label-name' },
-	                            '楼宇图片'
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'park-img right' },
-	                            _react2.default.createElement('img', { src: '', alt: '', id: 'upload-img' }),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'uploading-img' },
-	                                _react2.default.createElement(_Upload2.default, { uploadName: '图片上传', submit: this.uploadimg, change: this.selectFile, submitText: this.state.isUpLoad ? '上传中' : '保存', fileType: _util2.default.imgType, isImmediate: false })
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'parkName-box item-box', style: { height: '43px' } },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'label-name' },
-	                            '入驻园区'
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'right' },
-	                            _react2.default.createElement(_Select2.default, {
-	                                defaultText: '',
-	                                options: this.state.parkOptions,
-	                                onSelected: this.parkSelected,
-	                                selected: this.state.parkStatus,
-	                                style: { width: '420px', minWidth: 'auto' }
-	                            })
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'item-box building-box', style: { height: '256px' } },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'label-name' },
-	                            '入驻企业'
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'btn-box' },
-	                            _react2.default.createElement(
-	                                _Button2.default,
-	                                { width: '100', onClick: this.topage },
-	                                '导入企业'
-	                            ),
-	                            _react2.default.createElement(
-	                                _Button2.default,
-	                                { onClick: function onClick() {
-	                                        return _this5.showModel(true);
-	                                    } },
-	                                '批量删除'
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'building-list right' },
-	                            _react2.default.createElement(
-	                                'table',
-	                                { className: '' },
-	                                _react2.default.createElement(
-	                                    'thead',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        'tr',
-	                                        null,
-	                                        _react2.default.createElement(
-	                                            'th',
-	                                            { width: '10%' },
-	                                            _react2.default.createElement(_Checkbox2.default, { value: 'all', onChange: this.onChange, checked: this.state.ischecked })
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'th',
-	                                            { width: '20%', className: 'text-left' },
-	                                            '公司名称'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'th',
-	                                            { width: '20%' },
-	                                            '法定代表人'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'th',
-	                                            { width: '20%' },
-	                                            '企业背景'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'th',
-	                                            { width: '10%' },
-	                                            '行业'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'th',
-	                                            { width: '10%' },
-	                                            '风险等级'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'th',
-	                                            { width: '10%' },
-	                                            '操作'
-	                                        )
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'list-content', id: 'list-content' },
-	                                _react2.default.createElement(
-	                                    'table',
-	                                    { className: '' },
-	                                    _react2.default.createElement(
-	                                        'tbody',
-	                                        null,
-	                                        this.props.list.length > 0 ? this.props.list.map(function (item, index) {
-	                                            return _react2.default.createElement(
-	                                                'tr',
-	                                                { key: index },
-	                                                _react2.default.createElement(
-	                                                    'td',
-	                                                    { width: '10%', className: '' },
-	                                                    _react2.default.createElement(_Checkbox2.default, { value: item.companyId, onChange: _this5.onChange, checked: _this5.state.ischecked })
-	                                                ),
-	                                                _react2.default.createElement(
-	                                                    'td',
-	                                                    { width: '20%', className: 'text-left' },
-	                                                    item.name
-	                                                ),
-	                                                _react2.default.createElement(
-	                                                    'td',
-	                                                    { width: '20%' },
-	                                                    item.legalPerson
-	                                                ),
-	                                                _react2.default.createElement(
-	                                                    'td',
-	                                                    { width: '20%' },
-	                                                    item.registeredType
-	                                                ),
-	                                                _react2.default.createElement(
-	                                                    'td',
-	                                                    { width: '10%' },
-	                                                    item.businessType
-	                                                ),
-	                                                _react2.default.createElement(
-	                                                    'td',
-	                                                    { width: '10%' },
-	                                                    item.riskLevel
-	                                                ),
-	                                                _react2.default.createElement(
-	                                                    'td',
-	                                                    { width: '10%' },
-	                                                    _react2.default.createElement('i', {
-	                                                        title: '删除',
-	                                                        className: 'iconfont icon-del',
-	                                                        onClick: function onClick() {
-	                                                            return _this5.deleteCompany(item.companyId);
-	                                                        } })
-	                                                )
-	                                            );
-	                                        }) : _react2.default.createElement(
-	                                            'tr',
-	                                            { className: 'nodata-tips' },
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                null,
-	                                                '暂无数据'
-	                                            )
-	                                        )
-	                                    )
-	                                )
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'item-box submit-btn' },
-	                        _react2.default.createElement(
-	                            _Button2.default,
-	                            { className: 'cancel', onClick: this.cancel },
-	                            '取消'
-	                        )
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    _Modal2.default,
-	                    {
-	                        onCancel: function onCancel() {
-	                            return _this5.showModel(false);
-	                        },
-	                        onOk: this.deleteCompany,
-	                        okText: '我确定',
-	                        cancelText: '再想想',
-	                        visible: this.state.delVisible
-	                    },
-	                    '删除之后，不可恢复，请谨慎操作！确认删除？'
-	                ),
-	                _react2.default.createElement(
-	                    _Modal2.default,
-	                    {
-	                        onOk: this.closeModel,
-	                        okText: '确定',
-	                        visible: this.state.uploadVisible
-	                    },
-	                    '上传成功'
-	                )
-	            );
-	        }
-	    }]);
-
-	    return BuildingEdit;
-	}(_react.Component);
-
-	exports.default = BuildingEdit;
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "BuildingEdit.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
-/* 797 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	__webpack_require__(786);
-
-	var _react = __webpack_require__(138);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRouter = __webpack_require__(243);
-
-	var _MainTitle = __webpack_require__(712);
-
-	var _MainTitle2 = _interopRequireDefault(_MainTitle);
-
-	var _Select = __webpack_require__(716);
-
-	var _Select2 = _interopRequireDefault(_Select);
-
-	var _Button = __webpack_require__(696);
-
-	var _Button2 = _interopRequireDefault(_Button);
-
-	var _Upload = __webpack_require__(774);
-
-	var _Upload2 = _interopRequireDefault(_Upload);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 园区管理布局
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
-
-
-	var NewBuilding = function (_Component) {
-	    _inherits(NewBuilding, _Component);
-
-	    function NewBuilding(props) {
-	        _classCallCheck(this, NewBuilding);
-
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(NewBuilding).call(this, props));
-
-	        _this.state = {
-	            isEdit: false
-	        };
-	        _this.onChange = _this.onChange.bind(_this);
-	        return _this;
-	    }
-
-	    _createClass(NewBuilding, [{
-	        key: 'onChange',
-	        value: function onChange() {
-	            this.setState({
-	                isEdit: true
-	            });
-	        }
-	    }, {
-	        key: 'uploadExcel',
-	        value: function uploadExcel(fd) {
-	            // console.info(555555555555);
-	        }
-	    }, {
-	        key: 'selectFile',
-	        value: function selectFile(all, item) {
-
-	            //利用files获得被上传附件(图片)信息 
-	            // var mypic = document.getElementById('upload_input').files[0]; 
-	            //利用mypic获得图像的url地址(二进制源码) 
-	            //URL  html5新标准属性 
-	            var url = window.URL.createObjectURL(item);
-	            document.getElementById('upload-img').src = url;
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'newBuilding_root newPark_root' },
-	                _react2.default.createElement(_MainTitle2.default, { title: '园区楼宇管理', subTitle: ['新增楼宇'] }),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'newPark_box' },
-	                    _react2.default.createElement(
-	                        'ul',
-	                        { className: 'content' },
-	                        _react2.default.createElement(
-	                            'li',
-	                            { className: 'item', style: { overflow: 'visible', height: '40px' } },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'label-name label-middle', style: { paddingLeft: 0 } },
-	                                _react2.default.createElement(
-	                                    'i',
-	                                    { className: 'icon' },
-	                                    '*'
-	                                ),
-	                                '楼宇名称'
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'right' },
-	                                _react2.default.createElement(_Select2.default, {
-	                                    defaultText: '请选择',
-	                                    options: this.state.parkOptions,
-	                                    onSelected: this.parkSelected,
-	                                    selected: this.state.parkStatus,
-	                                    style: { width: '420px', minWidth: 'auto' }
-	                                })
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'li',
-	                            { className: 'item', style: { overflow: 'visible', height: '340px' } },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'label-name' },
-	                                '楼宇图片'
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'park-img right' },
-	                                _react2.default.createElement('img', { src: '', alt: '' }),
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'uploading-img' },
-	                                    _react2.default.createElement(_Upload2.default, { uploadName: '图片上传', submit: this.uploadExcel, change: this.selectFile, submitText: '保存' })
-	                                )
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'li',
-	                            { className: 'item', style: { overflow: 'visible', height: '40px' } },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'label-name label-middle', style: { paddingLeft: 0 } },
-	                                _react2.default.createElement(
-	                                    'i',
-	                                    { className: 'icon' },
-	                                    '*'
-	                                ),
-	                                '所在园区'
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'right' },
-	                                _react2.default.createElement(_Select2.default, {
-	                                    defaultText: '请选择',
-	                                    options: this.state.parkOptions,
-	                                    onSelected: this.parkSelected,
-	                                    selected: this.state.parkStatus,
-	                                    style: { width: '420px', minWidth: 'auto' }
-	                                })
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'li',
-	                            { className: 'item' },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'label-name label-middle' },
-	                                '入驻企业'
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'right' },
-	                                _react2.default.createElement(
-	                                    _Button2.default,
-	                                    { className: 'new-btn' },
-	                                    '导入企业'
-	                                )
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'li',
-	                            { className: 'item submit-btn' },
-	                            _react2.default.createElement(
-	                                _Button2.default,
-	                                { className: 'cancel' },
-	                                '取消'
-	                            )
-	                        )
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-
-	    return NewBuilding;
-	}(_react.Component);
-
-	exports.default = NewBuilding;
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "NewBuilding.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
-/* 798 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	__webpack_require__(786);
-
-	var _react = __webpack_require__(138);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRouter = __webpack_require__(243);
-
-	var _MainTitle = __webpack_require__(712);
-
-	var _MainTitle2 = _interopRequireDefault(_MainTitle);
-
-	var _Select = __webpack_require__(716);
-
-	var _Select2 = _interopRequireDefault(_Select);
-
-	var _Button = __webpack_require__(696);
-
-	var _Button2 = _interopRequireDefault(_Button);
-
-	var _Upload = __webpack_require__(774);
-
-	var _Upload2 = _interopRequireDefault(_Upload);
-
-	var _Input = __webpack_require__(703);
-
-	var _Input2 = _interopRequireDefault(_Input);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 园区管理布局
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
-
-
-	var ParkInfo = function (_Component) {
-	    _inherits(ParkInfo, _Component);
-
-	    function ParkInfo(props) {
-	        _classCallCheck(this, ParkInfo);
-
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ParkInfo).call(this, props));
-
-	        _this.state = {
-	            isEdit: false
-	        };
-	        _this.onChange = _this.onChange.bind(_this);
-	        return _this;
-	    }
-
-	    _createClass(ParkInfo, [{
-	        key: 'onChange',
-	        value: function onChange() {
-	            this.setState({
-	                isEdit: true
-	            });
-	        }
-	    }, {
-	        key: 'uploadExcel',
-	        value: function uploadExcel(fd) {
-	            // console.info(555555555555);
-	        }
-	    }, {
-	        key: 'selectFile',
-	        value: function selectFile(all, item) {
-
-	            //利用files获得被上传附件(图片)信息 
-	            // var mypic = document.getElementById('upload_input').files[0]; 
-	            //利用mypic获得图像的url地址(二进制源码) 
-	            //URL  html5新标准属性 
-	            var url = window.URL.createObjectURL(item);
-	            document.getElementById('upload-img').src = url;
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'newPark_root' },
-	                _react2.default.createElement(_MainTitle2.default, { title: '园区楼宇管理', subTitle: ['新增园区'] }),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'newPark_box' },
-	                    _react2.default.createElement(
-	                        'ul',
-	                        { className: 'content' },
-	                        _react2.default.createElement(
-	                            'li',
-	                            { className: 'item', style: { overflow: 'visible', height: '40px' } },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'label-name label-middle', style: { paddingLeft: 0 } },
-	                                _react2.default.createElement(
-	                                    'i',
-	                                    { className: 'icon' },
-	                                    '*'
-	                                ),
-	                                '园区名称'
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'right' },
-	                                _react2.default.createElement(_Input2.default, { width: '420' })
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'li',
-	                            { className: 'item', style: { overflow: 'visible', height: '180px' } },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'label-name' },
-	                                '园区图片'
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'park-img right' },
-	                                _react2.default.createElement('img', { src: '', alt: '', id: 'upload-img' }),
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'uploading-img' },
-	                                    _react2.default.createElement(_Upload2.default, { uploadName: '图片上传', submit: this.uploadExcel, change: this.selectFile, submitText: '保存' })
-	                                )
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'li',
-	                            { className: 'item' },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'label-name label-middle' },
-	                                '楼宇列表'
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'right' },
-	                                _react2.default.createElement(
-	                                    _Button2.default,
-	                                    { className: 'new-btn' },
-	                                    '新增楼宇'
-	                                )
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'li',
-	                            { className: 'item submit-btn' },
-	                            _react2.default.createElement(
-	                                _Button2.default,
-	                                { className: 'cancel' },
-	                                '取消'
-	                            )
-	                        )
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-
-	    return ParkInfo;
-	}(_react.Component);
-
-	exports.default = ParkInfo;
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "NewPark.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
-/* 799 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	__webpack_require__(786);
-
-	var _react = __webpack_require__(138);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRouter = __webpack_require__(243);
-
-	var _MainTitle = __webpack_require__(712);
-
-	var _MainTitle2 = _interopRequireDefault(_MainTitle);
-
-	var _Select = __webpack_require__(716);
-
-	var _Select2 = _interopRequireDefault(_Select);
-
-	var _Button = __webpack_require__(696);
-
-	var _Button2 = _interopRequireDefault(_Button);
-
-	var _LeadinMore = __webpack_require__(771);
-
-	var _LeadinMore2 = _interopRequireDefault(_LeadinMore);
-
-	var _LeadinOne = __webpack_require__(800);
-
-	var _LeadinOne2 = _interopRequireDefault(_LeadinOne);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 园区管理布局
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
-
-
-	var Leadin = function (_Component) {
-	    _inherits(Leadin, _Component);
-
-	    function Leadin(props) {
-	        _classCallCheck(this, Leadin);
-
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Leadin).call(this, props));
-
-	        _this.state = {
-	            title: 0
-	        };
-	        return _this;
-	    }
-
-	    _createClass(Leadin, [{
-	        key: 'changeTitle',
-	        value: function changeTitle(num) {
-	            this.setState({
-	                title: num
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var _this2 = this;
-
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'leadin_root' },
-	                _react2.default.createElement(_MainTitle2.default, { title: '园区楼宇管理', subTitle: ['导入企业'] }),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'leadin_box' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'title companyWatch_nav' },
-	                        _react2.default.createElement(
-	                            'a',
-	                            { href: 'javascript:;', className: this.state.title ? '' : 'active', onClick: function onClick() {
-	                                    return _this2.changeTitle(0);
-	                                } },
-	                            '单条录入'
-	                        ),
-	                        _react2.default.createElement(
-	                            'a',
-	                            { href: 'javascript:;', className: this.state.title ? 'active' : '', onClick: function onClick() {
-	                                    return _this2.changeTitle(1);
-	                                } },
-	                            '批量录入'
-	                        )
-	                    ),
-	                    this.state.title ? _react2.default.createElement(_LeadinMore2.default, null) : _react2.default.createElement(_LeadinOne2.default, null)
-	                )
-	            );
-	        }
-	    }]);
-
-	    return Leadin;
-	}(_react.Component);
-
-	exports.default = Leadin;
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Leadin.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
-/* 800 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	__webpack_require__(772);
-
-	var _react = __webpack_require__(138);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRouter = __webpack_require__(243);
-
-	var _Select = __webpack_require__(716);
-
-	var _Select2 = _interopRequireDefault(_Select);
-
-	var _Button = __webpack_require__(696);
-
-	var _Button2 = _interopRequireDefault(_Button);
-
-	var _Input = __webpack_require__(703);
-
-	var _Input2 = _interopRequireDefault(_Input);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 单条录入
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
-
-
-	var LeadinOne = function (_Component) {
-	    _inherits(LeadinOne, _Component);
-
-	    function LeadinOne(props) {
-	        _classCallCheck(this, LeadinOne);
-
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(LeadinOne).call(this, props));
-
-	        _this.state = {
-	            isEdit: false
-	        };
-	        _this.onChange = _this.onChange.bind(_this);
-	        return _this;
-	    }
-
-	    _createClass(LeadinOne, [{
-	        key: 'onChange',
-	        value: function onChange() {
-	            this.setState({
-	                isEdit: true
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'leadinOne_root' },
-	                _react2.default.createElement(
-	                    'ul',
-	                    { className: 'content' },
-	                    _react2.default.createElement(
-	                        'li',
-	                        { className: 'item', style: { overflow: 'visible', height: '40px' } },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'label-name label-middle', style: { paddingLeft: 0 } },
-	                            _react2.default.createElement(
-	                                'i',
-	                                { className: 'icon' },
-	                                '*'
-	                            ),
-	                            '企业名称'
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'right' },
-	                            _react2.default.createElement(_Select2.default, {
-	                                defaultText: '请选择',
-	                                options: this.state.parkOptions,
-	                                onSelected: this.parkSelected,
-	                                selected: this.state.parkStatus,
-	                                style: { width: '420px', minWidth: 'auto' }
-	                            })
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'li',
-	                        { className: 'item', style: { overflow: 'visible', height: '40px' } },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'label-name label-middle', style: { paddingLeft: 0 } },
-	                            _react2.default.createElement(
-	                                'i',
-	                                { className: 'icon' },
-	                                '*'
-	                            ),
-	                            _react2.default.createElement(_Select2.default, {
-	                                className: 'left-select',
-	                                defaultText: '统一信用代码',
-	                                options: this.state.parkOptions,
-	                                onSelected: this.parkSelected,
-	                                selected: this.state.parkStatus,
-	                                style: { width: '120px', minWidth: 'auto' }
-	                            })
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'right' },
-	                            _react2.default.createElement(_Input2.default, { width: '420' })
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'li',
-	                        { className: 'item', style: { overflow: 'visible', height: '40px' } },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'label-name label-middle' },
-	                            _react2.default.createElement(
-	                                'i',
-	                                { className: 'icon' },
-	                                '*'
-	                            ),
-	                            '纳入楼宇'
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'right' },
-	                            _react2.default.createElement(_Select2.default, {
-	                                defaultText: '请选择',
-	                                options: this.state.parkOptions,
-	                                onSelected: this.parkSelected,
-	                                selected: this.state.parkStatus,
-	                                style: { width: '200px', marginRight: '20px' }
-	                            }),
-	                            _react2.default.createElement(_Select2.default, {
-	                                defaultText: '请选择',
-	                                options: this.state.parkOptions,
-	                                onSelected: this.parkSelected,
-	                                selected: this.state.parkStatus,
-	                                style: { width: '200px', minWidth: 'auto' }
-	                            })
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'li',
-	                        { className: 'item', style: { overflow: 'visible', height: '40px' } },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'label-name label-middle' },
-	                            '行业'
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'right' },
-	                            _react2.default.createElement(_Select2.default, {
-	                                defaultText: '请选择',
-	                                options: this.state.parkOptions,
-	                                onSelected: this.parkSelected,
-	                                selected: this.state.parkStatus,
-	                                style: { width: '420px', minWidth: 'auto' }
-	                            })
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'li',
-	                        { className: 'item submit-btn' },
-	                        _react2.default.createElement(
-	                            _Button2.default,
-	                            { className: 'cancel' },
-	                            '取消'
-	                        ),
-	                        _react2.default.createElement(
-	                            _Button2.default,
-	                            null,
-	                            '保存'
-	                        )
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-
-	    return LeadinOne;
-	}(_react.Component);
-
-	exports.default = LeadinOne;
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "LeadinOne.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
-/* 801 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	__webpack_require__(768);
-
-	var _react = __webpack_require__(138);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRouter = __webpack_require__(243);
-
-	var _MainTitle = __webpack_require__(712);
-
-	var _MainTitle2 = _interopRequireDefault(_MainTitle);
-
-	var _Button = __webpack_require__(696);
-
-	var _Button2 = _interopRequireDefault(_Button);
-
-	var _Checkbox = __webpack_require__(687);
-
-	var _Checkbox2 = _interopRequireDefault(_Checkbox);
-
-	var _Select = __webpack_require__(716);
-
-	var _Select2 = _interopRequireDefault(_Select);
-
-	var _Input = __webpack_require__(703);
-
-	var _Input2 = _interopRequireDefault(_Input);
-
-	var _AutoComplete = __webpack_require__(723);
-
-	var _AutoComplete2 = _interopRequireDefault(_AutoComplete);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 公信中心数据管理
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
-
-
-	// 自动补全组件
-
-	var PublicTrust = function (_Component) {
-	    _inherits(PublicTrust, _Component);
-
-	    function PublicTrust(props) {
-	        _classCallCheck(this, PublicTrust);
-
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PublicTrust).call(this, props));
-
-	        _this.onChange = function (_ref) {
-	            // const checked = target.checked;
-	            // const val = target.value;
-	            // if(val === 'all'){
-	            //     this.setState({
-	            //         ischecked: checked
-	            //     });
-	            // }
-	            // const formData = this.state.formData;
-	            // let roleSet = formData.roleSet === '' ? [] : formData.roleSet.split(',');
-	            // role.isChecked = checked;
-	            // if(checked) {
-	            //     roleSet.push(String(role.id));
-	            //     formData.roleSet = roleSet.join(',');
-	            // } else {
-	            //     let index = roleSet.indexOf(String(role.id));
-	            //     roleSet.splice(index, 1);
-	            //     codeArray(mapServerJsonToLocal(role.resources)).forEach((v) => {
-	            //         this.powerState[v] = false;
-	            //     });
-	            // }
-
-	            // formData.roleSet = roleSet.join(',');
-
-	            // Object.assign(this.powerState, this.getRolePowerList(roleSet));
-	            // this.updateResourceSet();
-	            // getPower(formData.userType).then((powerCodes) => {
-	            //     this.setState({
-	            //         formData,
-	            //         powerTree: buildPowerTree(powerCodes, this.powerState)
-	            //     });
-	            // });
-
-	            var target = _ref.target;
-	        };
-
-	        _this.state = {
-	            list: [{ id: 1, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 2, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 3, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 4, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 5, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 6, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 7, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 8, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 9, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 10, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }],
-	            parkOptions: [],
-	            parkStatus: '',
-	            ischecked: false,
-	            formData: {}
-	        };
-	        // this.topage = this.topage.bind(this);
-	        return _this;
-	    }
-	    // 角色框勾选后，相应的改变
-
-
-	    _createClass(PublicTrust, [{
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'publicTrust_root export_root' },
-	                _react2.default.createElement(_MainTitle2.default, { title: '公信中心数据管理' }),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'publicTrust_box' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'publicTrust_filterPanel' },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'search-box' },
-	                            _react2.default.createElement(
-	                                'span',
-	                                { className: 'label-name' },
-	                                '企业搜索'
-	                            ),
-	                            _react2.default.createElement(_AutoComplete2.default, {
-	                                type: 'get',
-	                                url: '/userInfo/queryUserTemplate.do?userType=',
-	                                field: 'loginName',
-	                                onChoose: this.onChooseUserTemplate,
-	                                disabled: false,
-	                                placeholder: '请输入企业关键词进行搜索'
-	                            })
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'check-box' },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'label-name' },
-	                                '数据类型搜索'
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'right' },
-	                                _react2.default.createElement(
-	                                    'label',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        _Checkbox2.default,
-	                                        { checked: this.state.ischecked, onChange: this.onChange },
-	                                        '全部'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'label',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        _Checkbox2.default,
-	                                        { checked: this.state.ischecked, onChange: this.onChange },
-	                                        '非正常户认定'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'label',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        _Checkbox2.default,
-	                                        { checked: this.state.ischecked, onChange: this.onChange },
-	                                        '对不正当竞争行为的处罚'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'label',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        _Checkbox2.default,
-	                                        { checked: this.state.ischecked, onChange: this.onChange },
-	                                        '经营异常名录'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'label',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        _Checkbox2.default,
-	                                        { checked: this.state.ischecked, onChange: this.onChange },
-	                                        '行政处罚信息'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'label',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        _Checkbox2.default,
-	                                        { checked: this.state.ischecked, onChange: this.onChange },
-	                                        '市场监管类行政处罚（法人）'
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'label',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        _Checkbox2.default,
-	                                        { checked: this.state.ischecked, onChange: this.onChange },
-	                                        '用人单位欠缴社会保险费，被依法责令期限缴纳信息'
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'search-btn' },
-	                                _react2.default.createElement(
-	                                    _Button2.default,
-	                                    null,
-	                                    '搜索'
-	                                )
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'table-list' },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'label btn-box' },
-	                            _react2.default.createElement(
-	                                'span',
-	                                { className: 'blue' },
-	                                '数据预览'
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'building-list' },
-	                            _react2.default.createElement(
-	                                'table',
-	                                { className: '' },
-	                                _react2.default.createElement(
-	                                    'thead',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        'tr',
-	                                        null,
-	                                        _react2.default.createElement(
-	                                            'th',
-	                                            { width: '55%', className: 'text-left' },
-	                                            '信息事项名称'
-	                                        ),
-	                                        _react2.default.createElement(
-	                                            'th',
-	                                            { width: '45%', className: 'text-left' },
-	                                            '数据项名称'
-	                                        )
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'list-content', id: 'list-content' },
-	                                _react2.default.createElement(
-	                                    'table',
-	                                    { className: '' },
-	                                    _react2.default.createElement(
-	                                        'tbody',
-	                                        null,
-	                                        this.state.list.length > 0 ? this.state.list.map(function (item, index) {
-	                                            return _react2.default.createElement(
-	                                                'tr',
-	                                                { key: index },
-	                                                _react2.default.createElement(
-	                                                    'td',
-	                                                    { width: '55%', className: 'text-left' },
-	                                                    item.id
-	                                                ),
-	                                                _react2.default.createElement(
-	                                                    'td',
-	                                                    { width: '45%', className: 'text-left' },
-	                                                    item.userStatus
-	                                                )
-	                                            );
-	                                        }) : _react2.default.createElement(
-	                                            'tr',
-	                                            { className: 'nodata-tips' },
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                null,
-	                                                '暂无数据'
-	                                            )
-	                                        )
-	                                    )
-	                                )
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            _Button2.default,
-	                            { className: 'export-btn', onClick: this.handleSearch },
-	                            '导出列表'
-	                        )
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-
-	    return PublicTrust;
-	}(_react.Component);
-
-	exports.default = PublicTrust;
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "PublicTrust.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
-/* 802 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	__webpack_require__(768);
-
-	var _react = __webpack_require__(138);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRouter = __webpack_require__(243);
-
-	var _MainTitle = __webpack_require__(712);
-
-	var _MainTitle2 = _interopRequireDefault(_MainTitle);
-
-	var _Button = __webpack_require__(696);
-
-	var _Button2 = _interopRequireDefault(_Button);
-
-	var _Checkbox = __webpack_require__(687);
-
-	var _Checkbox2 = _interopRequireDefault(_Checkbox);
-
-	var _Select = __webpack_require__(716);
-
-	var _Select2 = _interopRequireDefault(_Select);
-
-	var _Modal = __webpack_require__(693);
-
-	var _Modal2 = _interopRequireDefault(_Modal);
-
-	var _index = __webpack_require__(804);
-
-	var _index2 = _interopRequireDefault(_index);
-
-	var _Input = __webpack_require__(703);
-
-	var _Input2 = _interopRequireDefault(_Input);
-
-	var _index3 = __webpack_require__(775);
-
-	var _index4 = _interopRequireDefault(_index3);
-
-	var _util = __webpack_require__(673);
-
-	var _util2 = _interopRequireDefault(_util);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 自然人检索
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-	// 自动补全组件
-
-
-	var NaturalSearch = function (_Component) {
-	    _inherits(NaturalSearch, _Component);
-
-	    function NaturalSearch(props) {
-	        _classCallCheck(this, NaturalSearch);
-
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(NaturalSearch).call(this, props));
-
-	        _this.state = {
-	            rangeList: [{ value: 'all', text: '全部' }, { value: 'gdxx', text: '法人代表及自然人股东' }, { value: 'baxx', text: '董监高' }],
-	            range: 'all',
-	            name: '',
-	            relatedCompany: '',
-	            nameError: ''
-	        };
-	        return _this;
-	    }
-
-	    _createClass(NaturalSearch, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            $('#data_list').perfectScrollbar();
-	        }
-	        /*
-	         * setRange
-	         * */
-
-	    }, {
-	        key: 'setRange',
-	        value: function setRange(range) {
-	            this.setState({ range: range });
-	        }
-	        /*
-	         * 表单值改变
-	         * */
-
-	    }, {
-	        key: 'inputChange',
-	        value: function inputChange(e, ecomplete) {
-	            e = e.target ? e : ecomplete;
-	            var name = e.target.name;
-	            var v = e.target.value;
-	            var state = {};
-	            state[name] = v;
-	            name === 'name' ? state.nameError = '' : '';
-	            this.setState(state);
-	        }
-	        /*
-	        * 联想
-	        * */
-
-	    }, {
-	        key: 'getRelatedCompanyList',
-	        value: function getRelatedCompanyList(companyKeyword) {
-	            var _state = this.state;
-	            var name = _state.name;
-	            var range = _state.range;
-
-	            return _util2.default.promiseAjax({
-	                type: 'get',
-	                url: '/natural-person/query2.do',
-	                data: { nalName: name, companyKeyword: companyKeyword, type: range }
-	            }).then(function (resp) {
-	                if (resp.success) {
-	                    var data = resp.content.companyNames || [];
-	                    return data.map(function (item) {
-	                        return { text: item, value: item };
-	                    });
-	                }
-	            });
-	        }
-	        /*
-	         * 搜索
-	         * */
-
-	    }, {
-	        key: 'handleSearch',
-	        value: function handleSearch() {
-	            var _this2 = this;
-
-	            var _state2 = this.state;
-	            var name = _state2.name;
-	            var relatedCompany = _state2.relatedCompany;
-	            var range = _state2.range;
-
-	            if (!$.trim(name)) {
-	                this.setState({ nameError: '自然人名称不能为空' });
-	                return false;
-	            }
-	            this.setState({ searchParam: { nalName: name, companyKeyword: relatedCompany, type: range } }, function () {
-	                _this2.getList();
-	            });
-	        }
-	        /*
-	         * 根据参数获取数据
-	         * */
-
-	    }, {
-	        key: 'getList',
-	        value: function getList() {
-	            var _this3 = this;
-
-	            var searchParam = this.state.searchParam;
-
-	            this.setState({ loading: '努力加载中......' });
-	            _util2.default.promiseAjax({
-	                type: 'get',
-	                url: '/natural-person/query2.do',
-	                data: _extends({}, searchParam, { pageSize: 1000000 })
-	            }).then(function (resp) {
-	                if (resp.success) {
-	                    var response = resp.content;
-	                    var data = response.naturalPersons || [];
-	                    _this3.setState({ data: data, loading: '' }, function () {
-	                        $('#data_list').scrollTop(0);
-	                        $('#data_list').perfectScrollbar('update');
-	                    });
-	                }
-	            });
-	        }
-	        /*
-	         * 下载列表
-	         * */
-
-	    }, {
-	        key: 'downloadList',
-	        value: function downloadList() {
-	            var _this4 = this;
-
-	            var searchParam = this.state.searchParam;
-
-	            if (searchParam && searchParam.nalName) {
-	                this.setState({ downloading: true });
-	                var nalName = searchParam.nalName;
-	                var companyKeyword = searchParam.companyKeyword;
-	                var type = searchParam.type;
-
-	                _util2.default.promiseAjax({
-	                    type: 'get',
-	                    url: '/natural-person/download2.do',
-	                    data: searchParam
-	                }).then(function (resp) {
-	                    if (resp.success) {
-	                        _this4.setState({ downloading: false });
-	                        window.location.href = resp.content;
-	                    } else {
-	                        _this4.setState({
-	                            modalShow: true,
-	                            errorTip: resp.msg,
-	                            downloading: false
-	                        });
-	                    }
-	                }).catch(function (e) {
-	                    _this4.setState({
-	                        modalShow: true,
-	                        errorTip: '请求失败，请稍后再试',
-	                        downloading: false
-	                    });
-	                });
-	            }
-	        }
-	        /*
-	        * closeModal
-	        * */
-
-	    }, {
-	        key: 'closeModal',
-	        value: function closeModal() {
-	            this.setState({ modalShow: false });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var _this5 = this;
-
-	            var _state3 = this.state;
-	            var data = _state3.data;
-	            var rangeList = _state3.rangeList;
-	            var range = _state3.range;
-	            var name = _state3.name;
-	            var relatedCompany = _state3.relatedCompany;
-	            var nameError = _state3.nameError;
-	            var modalShow = _state3.modalShow;
-	            var errorTip = _state3.errorTip;
-	            var downloading = _state3.downloading;
-	            var loading = _state3.loading;
-
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'naturalSearch_root' },
-	                _react2.default.createElement(_MainTitle2.default, { title: '自然人检索' }),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'common_box naturalSearch_box' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'naturalSearch_content' },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'search_box' },
-	                            _react2.default.createElement(
-	                                'ul',
-	                                { className: 'group range' },
-	                                rangeList.map(function (item, index) {
-	                                    if (item.value === range) {
-	                                        return _react2.default.createElement(
-	                                            'li',
-	                                            { key: index, className: 'active' },
-	                                            _react2.default.createElement(
-	                                                'span',
-	                                                null,
-	                                                item.text
-	                                            )
-	                                        );
-	                                    }
-	                                    return _react2.default.createElement(
-	                                        'li',
-	                                        { key: index, onClick: _this5.setRange.bind(_this5, item.value) },
-	                                        _react2.default.createElement(
-	                                            'span',
-	                                            null,
-	                                            item.text
-	                                        )
-	                                    );
-	                                })
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'group' },
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'inputRow' },
-	                                    _react2.default.createElement(
-	                                        'label',
-	                                        null,
-	                                        _react2.default.createElement(
-	                                            'i',
-	                                            null,
-	                                            '*'
-	                                        ),
-	                                        '自然人名称'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'div',
-	                                        { className: 'inputItem' },
-	                                        _react2.default.createElement(_Input2.default, {
-	                                            placeholder: '请输入关键词进行搜索',
-	                                            value: name,
-	                                            onChange: this.inputChange.bind(this),
-	                                            name: 'name',
-	                                            width: '400'
-	                                        }),
-	                                        _react2.default.createElement(
-	                                            'span',
-	                                            { className: 'error-tip' },
-	                                            nameError
-	                                        )
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    'div',
-	                                    { className: 'inputRow' },
-	                                    _react2.default.createElement(
-	                                        'label',
-	                                        null,
-	                                        '已知关联公司'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'div',
-	                                        { className: 'inputItem' },
-	                                        _react2.default.createElement(_index2.default, {
-	                                            placeholder: '请输入关键词进行搜索',
-	                                            value: relatedCompany,
-	                                            name: 'relatedCompany',
-	                                            onChange: this.inputChange.bind(this),
-	                                            request: this.getRelatedCompanyList.bind(this),
-	                                            onChoose: function onChoose(item) {
-	                                                _this5.inputChange({ target: { name: 'relatedCompany', value: item.value } });
-	                                            },
-	                                            style: { width: '400px' }
-	                                        })
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    _Button2.default,
-	                                    { className: 'search', onClick: this.handleSearch.bind(this) },
-	                                    '搜索'
-	                                )
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'handle_group' },
-	                            _react2.default.createElement(
-	                                _Button2.default,
-	                                { className: 'export', onClick: this.downloadList.bind(this) },
-	                                downloading ? '下载中...' : '下载列表'
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'data_wrap' },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'data_header' },
-	                                _react2.default.createElement(
-	                                    'table',
-	                                    { className: 'bbdTable_root' },
-	                                    _react2.default.createElement(
-	                                        'thead',
-	                                        null,
-	                                        _react2.default.createElement(
-	                                            'tr',
-	                                            null,
-	                                            _react2.default.createElement(
-	                                                'th',
-	                                                { className: 'id', width: '10%' },
-	                                                '序号'
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'th',
-	                                                { width: '10%' },
-	                                                '自然人姓名'
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'th',
-	                                                { width: '15%' },
-	                                                '关联公司'
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'th',
-	                                                { width: '10%' },
-	                                                '职务'
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'th',
-	                                                { width: '10%' },
-	                                                '成立时间'
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'th',
-	                                                { width: '10%' },
-	                                                '法定代表人'
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'th',
-	                                                { width: '10%' },
-	                                                '注册资本'
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'th',
-	                                                null,
-	                                                '注册地址'
-	                                            )
-	                                        )
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'data_list', id: 'data_list', style: { position: 'relative', maxHeight: '611px' } },
-	                                _react2.default.createElement(
-	                                    'table',
-	                                    { className: 'bbdTable_root' },
-	                                    _react2.default.createElement(
-	                                        'tbody',
-	                                        null,
-	                                        loading ? _react2.default.createElement(
-	                                            'tr',
-	                                            { className: 'nodata-tips' },
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                null,
-	                                                loading
-	                                            )
-	                                        ) : null,
-	                                        data && !loading ? data.length > 0 ? data.map(function (item, index) {
-	                                            return _react2.default.createElement(
-	                                                'tr',
-	                                                { key: index },
-	                                                _react2.default.createElement(
-	                                                    'td',
-	                                                    { className: 'id', width: '10%' },
-	                                                    index + 1
-	                                                ),
-	                                                _react2.default.createElement(
-	                                                    'td',
-	                                                    { width: '10%' },
-	                                                    item.nalName
-	                                                ),
-	                                                _react2.default.createElement(
-	                                                    'td',
-	                                                    { width: '15%' },
-	                                                    item.relatedCompany
-	                                                ),
-	                                                _react2.default.createElement(
-	                                                    'td',
-	                                                    { width: '10%' },
-	                                                    item.position
-	                                                ),
-	                                                _react2.default.createElement(
-	                                                    'td',
-	                                                    { width: '10%' },
-	                                                    item.esDate
-	                                                ),
-	                                                _react2.default.createElement(
-	                                                    'td',
-	                                                    { width: '10%' },
-	                                                    item.frName
-	                                                ),
-	                                                _react2.default.createElement(
-	                                                    'td',
-	                                                    { width: '10%' },
-	                                                    item.regCapital
-	                                                ),
-	                                                _react2.default.createElement(
-	                                                    'td',
-	                                                    null,
-	                                                    item.regAddress
-	                                                )
-	                                            );
-	                                        }) : _react2.default.createElement(
-	                                            'tr',
-	                                            { className: 'nodata-tips' },
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                null,
-	                                                '暂无数据'
-	                                            )
-	                                        ) : null
-	                                    )
-	                                )
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        _Modal2.default,
-	                        {
-	                            className: 'parkCompanyListModal',
-	                            onClose: this.closeModal.bind(this),
-	                            visible: modalShow,
-	                            title: '',
-	                            onOk: this.closeModal.bind(this),
-	                            okText: '确定'
-	                        },
-	                        errorTip
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-
-	    return NaturalSearch;
-	}(_react.Component);
-
-	exports.default = NaturalSearch;
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "NaturalSearch.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
-/* 803 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	__webpack_require__(768);
-
-	var _react = __webpack_require__(138);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRouter = __webpack_require__(243);
-
-	var _MainTitle = __webpack_require__(712);
-
-	var _MainTitle2 = _interopRequireDefault(_MainTitle);
-
-	var _Button = __webpack_require__(696);
-
-	var _Button2 = _interopRequireDefault(_Button);
-
-	var _Checkbox = __webpack_require__(687);
-
-	var _Checkbox2 = _interopRequireDefault(_Checkbox);
-
-	var _Select = __webpack_require__(716);
-
-	var _Select2 = _interopRequireDefault(_Select);
-
-	var _Input = __webpack_require__(703);
-
-	var _Input2 = _interopRequireDefault(_Input);
-
-	var _Modal = __webpack_require__(693);
-
-	var _Modal2 = _interopRequireDefault(_Modal);
-
-	var _index = __webpack_require__(804);
-
-	var _index2 = _interopRequireDefault(_index);
-
-	var _index3 = __webpack_require__(775);
-
-	var _index4 = _interopRequireDefault(_index3);
-
-	var _util = __webpack_require__(673);
-
-	var _util2 = _interopRequireDefault(_util);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 企业信息变更
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-	// 自动补全组件
-
-
-	var ValidMessage = {
-	    business: {
-	        required: '请选择行业'
-	    },
-	    riskStatus: {
-	        required: '请选择风险状态'
-	    },
-	    outerRisk: {
-	        required: '请选择外部评级'
-	    },
-	    innerRisk: {
-	        required: '请选择内部评级'
-	    },
-	    nowRisk: {
-	        required: '请选择现场检查'
-	    }
-	};
-
-	var CompanyChange = function (_Component) {
-	    _inherits(CompanyChange, _Component);
-
-	    function CompanyChange(props) {
-	        _classCallCheck(this, CompanyChange);
-
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(CompanyChange).call(this, props));
-
-	        _this.state = {
-	            businessList: [{ value: '网络借贷', text: '网络借贷', riskTag: '0' }, { value: '小额贷款', text: '小额贷款', riskTag: 'group' }, { value: '融资担保', text: '融资担保', riskTag: 'group' }, { value: '线下理财', text: '线下理财', riskTag: '0' }, { value: '交易场所', text: '交易场所', riskTag: '1' }, { value: '预付卡', text: '预付卡', riskTag: '2' }, { value: '融资租赁', text: '融资租赁', riskTag: '3' }],
-	            riskStatusList: [],
-	            riskStatusAll: [[{ value: '重点关注', text: '重点关注' }, { value: '一般关注', text: '一般关注' }, { value: '正常', text: '正常' }, { value: '已出风险', text: '已出风险' }], [{ value: '正常', text: '正常' }, { value: '已出风险', text: '已出风险' }], [{ value: '正常', text: '正常' }, { value: '潜在', text: '潜在' }, { value: '已发生', text: '已发生' }], [{ value: '正常', text: '正常' }, { value: '潜在', text: '潜在' }]],
-	            business: '',
-	            riskStatus: '',
-	            riskGroup: [{ text: '外部评级', key: 'outerRisk' }, { text: '内部评级', key: 'innerRisk' }, { text: '现场检查', key: 'nowRisk' }],
-	            riskGroupList: [{ value: 'A', text: 'A' }, { value: 'B', text: 'B' }, { value: 'C', text: 'C' }],
-	            formError: {}
-	        };
-	        return _this;
-	    }
-
-	    /*
-	     * 公司名改变
-	     * */
-
-
-	    _createClass(CompanyChange, [{
-	        key: 'companyNameChange',
-	        value: function companyNameChange(companyName, selected) {
-	            this.setState({ companyName: companyName });
-	        }
-
-	        /*
-	         * 获取公司名联想数据
-	         * */
-
-	    }, {
-	        key: 'companyNameComplete',
-	        value: function companyNameComplete(v) {
-	            return _util2.default.promiseAjax({
-	                type: 'get',
-	                url: '/companyInfoModify/autoComplete.do',
-	                data: { q: v }
-	            }).then(function (resp) {
-	                if (resp.success) {
-	                    return resp.content.map(function (item) {
-	                        return { text: item, value: item };
-	                    });
-	                }
-	            });
-	        }
-
-	        /*
-	         * 获取公司数据
-	         * */
-
-	    }, {
-	        key: 'getCompanyInfo',
-	        value: function getCompanyInfo(item) {
-	            var _this2 = this;
-
-	            this.setState({ companyName: item.text });
-	            _util2.default.promiseAjax({
-	                type: 'get',
-	                url: '/companyInfoModify/queryCompany.do',
-	                data: { name: item.text }
-	            }).then(function (resp) {
-	                if (resp.success) {
-	                    _this2.setState({ companyInfo: resp.content });
-	                }
-	            });
-	        }
-
-	        /*
-	         *selectChange
-	         * */
-
-	    }, {
-	        key: 'selectChange',
-	        value: function selectChange(v, name) {
-	            var formError = this.state.formError;
-
-	            var state = {};
-	            if (this.state[name] === v) {
-	                return true;
-	            }
-	            if (name === 'business') {
-	                // 行业改变 联动风险
-	                this.businessChange(v);
-	                return true;
-	            }
-	            state[name] = v;
-	            state.formError = _extends({}, formError, _defineProperty({}, name, ''));
-	            this.setState(state);
-	        }
-	        /*
-	         * businessChange
-	         * */
-
-	    }, {
-	        key: 'businessChange',
-	        value: function businessChange(v) {
-	            var formError = this.state.formError;
-
-	            var state = { business: v };
-	            var changeError = { business: '', riskStatus: '' };
-	            var _state = this.state;
-	            var businessList = _state.businessList;
-	            var riskStatusAll = _state.riskStatusAll;
-	            var riskGroup = _state.riskGroup;
-
-	            var riskTag = businessList.find(function (item) {
-	                return item.value === v;
-	            }).riskTag;
-	            if (riskTag === 'group') {
-	                // 如果有三级风险状态
-	                riskGroup.map(function (item) {
-	                    state[item.key] = '';
-	                    changeError[item.key] = '';
-	                });
-	            } else {
-	                state.riskStatus = '';
-	                state.riskStatusList = riskStatusAll[riskTag];
-	            }
-
-	            state.formError = _extends({}, formError, changeError);
-	            this.setState(state);
-	        }
-	        /*
-	         * 取消
-	         * */
-
-	    }, {
-	        key: 'onCancel',
-	        value: function onCancel() {
-	            this.setState({
-	                modalShow: false,
-	                companyName: '',
-	                companyInfo: null,
-	                companySelected: false
-	            });
-	        }
-	        /*
-	         * validData
-	         * */
-
-	    }, {
-	        key: 'validData',
-	        value: function validData() {
-	            var $required = $('.inputItem.required');
-	            var formError = this.state.formError;
-
-	            var changeError = {};
-	            var result = false;
-	            for (var i = 0, l = $required.length; i < l; i++) {
-	                var $input = $required.eq(i).find('input')[0];
-	                var name = $input.name;
-	                var value = $input.value;
-	                if (ValidMessage[name].required && !value) {
-	                    // 必填
-	                    changeError[name] = ValidMessage[name].required;
-	                }
-	            }
-	            if (JSON.stringify(changeError) === '{}') {
-	                result = true;
-	            }
-	            this.setState({ formError: _extends({}, formError, changeError) });
-	            return result;
-	        }
-	        /*
-	         * 确认
-	         * */
-
-	    }, {
-	        key: 'onSave',
-	        value: function onSave() {
-	            var _state2 = this.state;
-	            var business = _state2.business;
-	            var businessList = _state2.businessList;
-	            var riskGroup = _state2.riskGroup;
-
-	            var riskTag = business && businessList.find(function (item) {
-	                return item.value === business;
-	            }).riskTag;
-	            if (this.validData()) {
-	                // 验证数据正确
-	                this.setState({ modalShow: true, modalTip: '修改成功！' });
-	            }
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var _this3 = this;
-
-	            var _state3 = this.state;
-	            var companyInfo = _state3.companyInfo;
-	            var _state3$companyName = _state3.companyName;
-	            var companyName = _state3$companyName === undefined ? '' : _state3$companyName;
-	            var data = _state3.data;
-	            var businessList = _state3.businessList;
-	            var business = _state3.business;
-	            var riskStatus = _state3.riskStatus;
-	            var riskGroup = _state3.riskGroup;
-	            var riskGroupList = _state3.riskGroupList;
-	            var _state3$riskStatusLis = _state3.riskStatusList;
-	            var riskStatusList = _state3$riskStatusLis === undefined ? [] : _state3$riskStatusLis;
-	            var modalShow = _state3.modalShow;
-	            var modalTip = _state3.modalTip;
-	            var formError = _state3.formError;
-
-	            var riskShowOne = !business || businessList.find(function (item) {
-	                return item.value === business;
-	            }).riskTag !== 'group';
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'companyChange_root' },
-	                _react2.default.createElement(_MainTitle2.default, { title: '企业信息变更' }),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'common_box companyChange_box', style: {} },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'companyChange_content' },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'search' },
-	                            _react2.default.createElement(_index2.default, {
-	                                placeholder: '请输入需要变更行业的企业名称',
-	                                suffix: 'icon-search',
-	                                value: companyName,
-	                                name: 'companyName',
-	                                onChange: this.companyNameChange.bind(this),
-	                                request: this.companyNameComplete.bind(this),
-	                                onChoose: function onChoose(item) {
-	                                    _this3.getCompanyInfo(item);
-	                                },
-	                                style: {}
-	                            })
-	                        ),
-	                        companyInfo ? _react2.default.createElement(
-	                            'div',
-	                            null,
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'companyInfo_wrap' },
-	                                _react2.default.createElement(
-	                                    'p',
-	                                    { className: 'companyInfo_name' },
-	                                    companyInfo.name
-	                                ),
-	                                _react2.default.createElement(
-	                                    'ul',
-	                                    { className: 'group' },
-	                                    _react2.default.createElement(
-	                                        'li',
-	                                        null,
-	                                        _react2.default.createElement(
-	                                            'label',
-	                                            null,
-	                                            '法定代表人：'
-	                                        ),
-	                                        companyInfo.legalPerson
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'li',
-	                                        null,
-	                                        _react2.default.createElement(
-	                                            'label',
-	                                            null,
-	                                            '注册资本：'
-	                                        ),
-	                                        companyInfo.registeredCapital
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'li',
-	                                        null,
-	                                        _react2.default.createElement(
-	                                            'label',
-	                                            null,
-	                                            '行业（当前）：'
-	                                        ),
-	                                        companyInfo.industry
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'li',
-	                                        null,
-	                                        _react2.default.createElement(
-	                                            'label',
-	                                            null,
-	                                            '风险状态（当前）：'
-	                                        ),
-	                                        companyInfo.originalStatus ? companyInfo.originalStatus : '外部评级 ' + companyInfo.outLevel + ' 内部评级 ' + companyInfo.innnerLevel + ' 现场评级 ' + companyInfo.liveLevel
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'li',
-	                                        { className: 'group' },
-	                                        _react2.default.createElement(
-	                                            'div',
-	                                            { className: 'inputRow' },
-	                                            _react2.default.createElement(
-	                                                'label',
-	                                                null,
-	                                                '行业（调整为）：'
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'div',
-	                                                { className: 'inputItem required' },
-	                                                _react2.default.createElement('input', { type: 'hidden', value: business, name: 'business' }),
-	                                                _react2.default.createElement(_Select2.default, {
-	                                                    defaultText: '请选择',
-	                                                    options: businessList,
-	                                                    onSelected: this.selectChange.bind(this),
-	                                                    selected: business,
-	                                                    name: 'business',
-	                                                    style: { width: '200px' }
-	                                                }),
-	                                                _react2.default.createElement(
-	                                                    'p',
-	                                                    { className: 'error-tip' },
-	                                                    formError.business
-	                                                )
-	                                            )
-	                                        )
-	                                    ),
-	                                    riskShowOne ? _react2.default.createElement(
-	                                        'li',
-	                                        { style: { width: '75%' } },
-	                                        _react2.default.createElement(
-	                                            'div',
-	                                            { className: 'inputRow' },
-	                                            _react2.default.createElement(
-	                                                'label',
-	                                                null,
-	                                                '风险状态（调整为）：'
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'div',
-	                                                { className: 'inputItem required' },
-	                                                _react2.default.createElement('input', { type: 'hidden', value: riskStatus, name: 'riskStatus' }),
-	                                                _react2.default.createElement(_Select2.default, {
-	                                                    defaultText: '请选择',
-	                                                    options: riskStatusList,
-	                                                    onSelected: this.selectChange.bind(this),
-	                                                    selected: riskStatus,
-	                                                    name: 'riskStatus',
-	                                                    style: { width: '200px' }
-	                                                }),
-	                                                _react2.default.createElement(
-	                                                    'p',
-	                                                    { className: 'error-tip' },
-	                                                    formError.riskStatus
-	                                                )
-	                                            )
-	                                        )
-	                                    ) : _react2.default.createElement(
-	                                        'li',
-	                                        { className: 'riskGroup', style: { width: '75%' } },
-	                                        _react2.default.createElement(
-	                                            'label',
-	                                            { className: 'groupLabel' },
-	                                            '风险状态（调整为）：'
-	                                        ),
-	                                        riskGroup.map(function (item, index) {
-	                                            return _react2.default.createElement(
-	                                                'div',
-	                                                { key: index, className: 'inputRow' },
-	                                                _react2.default.createElement(
-	                                                    'label',
-	                                                    null,
-	                                                    item.text
-	                                                ),
-	                                                _react2.default.createElement(
-	                                                    'div',
-	                                                    { className: 'inputItem required' },
-	                                                    _react2.default.createElement('input', { type: 'hidden', value: _this3.state[item.key], name: item.key }),
-	                                                    _react2.default.createElement(_Select2.default, {
-	                                                        defaultText: '请选择',
-	                                                        options: riskGroupList,
-	                                                        onSelected: _this3.selectChange.bind(_this3),
-	                                                        selected: _this3.state[item.key],
-	                                                        name: item.key,
-	                                                        style: { width: '100px' }
-	                                                    }),
-	                                                    _react2.default.createElement(
-	                                                        'p',
-	                                                        { className: 'error-tip' },
-	                                                        formError[item.key]
-	                                                    )
-	                                                )
-	                                            );
-	                                        })
-	                                    )
-	                                )
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'handle_group' },
-	                                _react2.default.createElement(
-	                                    _Button2.default,
-	                                    { className: 'cancel', style: { width: '140px' }, onClick: this.onCancel.bind(this) },
-	                                    '取消'
-	                                ),
-	                                _react2.default.createElement(
-	                                    _Button2.default,
-	                                    { onClick: this.onSave.bind(this) },
-	                                    '确认'
-	                                )
-	                            )
-	                        ) : null
-	                    ),
-	                    _react2.default.createElement(
-	                        _Modal2.default,
-	                        {
-	                            className: 'parkCompanyListModal',
-	                            visible: modalShow,
-	                            title: '',
-	                            onOk: this.onCancel.bind(this),
-	                            okText: '确定'
-	                        },
-	                        modalTip
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-
-	    return CompanyChange;
-	}(_react.Component);
-
-	exports.default = CompanyChange;
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "CompanyChange.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
-/* 804 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	__webpack_require__(805);
-
-	var _react = __webpack_require__(138);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(242);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _Input = __webpack_require__(703);
-
-	var _Input2 = _interopRequireDefault(_Input);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	/**
-	 * props 的值
-	 * {
-	 *  request: 发起请求的方法
-	 *  onChoose 选了以后的回调函数
-	 * }
-	 */
-	var timer; // 所有组件实例公用这一个 变量来储存请求“线程”。因为如果放到实例的state上，会引起同步问题，但是这个组件，用户不可能会同时使用不同的 组件实例
-
-	/* 自动补全组件*/
-
-	var AutoComplete = function (_Component) {
-	    _inherits(AutoComplete, _Component);
-
-	    function AutoComplete(props) {
-	        _classCallCheck(this, AutoComplete);
-
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AutoComplete).call(this, props));
-
-	        _this.handleChange = _this.handleChange.bind(_this);
-	        _this.hanldeSelectItem = _this.hanldeSelectItem.bind(_this);
-	        _this.state = {
-	            textValue: '', // input的value回显
-	            data: [], // 服务器返回的待选列表
-	            show: 'none',
-	            lastRequestValue: '', // 上一次往服务器请求的值，防止重复搜索
-	            selected: '' // 是否选中
-	        };
-	        _this.hide = _this.hide.bind(_this);
-	        return _this;
-	    }
-
-	    _createClass(AutoComplete, [{
-	        key: 'componentWillReceiveProps',
-	        value: function componentWillReceiveProps(nextProps) {
-	            this.state.textValue = nextProps.value;
-	            this.state.selected = '';
-	        }
-	    }, {
-	        key: 'handleChange',
-	        value: function handleChange(e) {
-	            var textValue = e.target.value;
-	            this.setState({
-	                textValue: textValue,
-	                selected: ''
-	            });
-	            var onChange = this.props.onChange;
-
-	            typeof onChange === 'function' && onChange(textValue, e);
-	            this.delayRequest(textValue);
-	        }
-	    }, {
-	        key: 'delayRequest',
-	        value: function delayRequest(value) {
-	            // 延时请求处理
-	            var self = this;
-
-	            clearTimeout(timer);
-	            timer = setTimeout(function () {
-	                self.requestData(value);
-	            }, 500);
-	        }
-	    }, {
-	        key: 'requestData',
-	        value: function requestData(value) {
-	            var _this2 = this;
-
-	            value = $.trim(value);
-	            if (value === '' || value === this.state.lastRequestValue) {
-	                return;
-	            }
-	            this.props.request(value).then(function (data) {
-	                _this2.setState({
-	                    data: data,
-	                    lastRequestValue: value
-	                });
-	                _this2.show();
-	            });
-	        }
-	    }, {
-	        key: 'show',
-	        value: function show() {
-	            this.setState({ show: 'block' });
-	        }
-	    }, {
-	        key: 'hide',
-	        value: function hide() {
-	            this.setState({ show: 'none' });
-	        }
-	    }, {
-	        key: 'hanldeSelectItem',
-	        value: function hanldeSelectItem(item) {
-	            var _this3 = this;
-
-	            this.setState({ selected: 'selected' }, function () {
-	                _this3.props.onChoose(item);
-	                _this3.hide();
-	            });
-	        }
-	    }, {
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            document.addEventListener('click', this.hide);
-	        }
-	    }, {
-	        key: 'componentWillUnmount',
-	        value: function componentWillUnmount() {
-	            document.removeEventListener('click', this.hide);
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var _this4 = this;
-
-	            var data = this.state.data ? this.state.data : [];
-	            var length = data.length;
-	            var show = this.state.show;
-	            return(
-	                // react 事件包装方式：http://www.cnblogs.com/libin-1/p/6298326.html
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'autoCompleteCommon', 'data-selected': this.state.selected, style: this.props.style, ref: function ref(e) {
-	                            return _this4._root = e;
-	                        }, onClick: function onClick(e) {
-	                            e.nativeEvent.stopImmediatePropagation();
-	                        } },
-	                    _react2.default.createElement(_Input2.default, { disabled: this.props.disabled, type: 'text',
-	                        suffix: this.props.suffix,
-	                        name: this.props.name,
-	                        onChange: this.handleChange,
-	                        placeholder: this.props.placeholder,
-	                        value: this.state.textValue,
-	                        onFocus: function onFocus() {
-	                            _this4.state.data.length > 0 && _this4.show();
-	                        }
-	                    }),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'autoComplete_list', style: { display: show } },
-	                        _react2.default.createElement(
-	                            'ul',
-	                            null,
-	                            data.map(function (item, index) {
-	                                if (_this4.state.textValue === item.text) {
-	                                    return _react2.default.createElement(
-	                                        'li',
-	                                        { key: index, className: 'active' },
-	                                        item.text
-	                                    );
-	                                }
-	                                return _react2.default.createElement(
-	                                    'li',
-	                                    { key: index, onClick: function onClick(e) {
-	                                            _this4.hanldeSelectItem(item);
-	                                        } },
-	                                    item.text
-	                                );
-	                            })
-	                        )
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-
-	    return AutoComplete;
-	}(_react.Component);
-
-	exports.default = AutoComplete;
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "index.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
-/* 805 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(806);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(679)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(true) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept(806, function() {
-				var newContent = __webpack_require__(806);
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 806 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(678)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "@charset \"UTF-8\";\n/*自动补全*/\n.autoCompleteCommon {\n  position: relative;\n  line-height: 1; }\n  .autoCompleteCommon .autoComplete input {\n    height: 40px;\n    border-color: #60778b;\n    color: #8899aa; }\n  .autoCompleteCommon .bbdInputPreSuffix_input {\n    box-sizing: border-box; }\n  .autoCompleteCommon .icon-search {\n    /*position: absolute;\r\n        right: 20px;*/ }\n  .autoCompleteCommon .autoComplete_list {\n    position: absolute;\n    left: 0px;\n    top: 38px;\n    width: 100%;\n    box-sizing: border-box;\n    padding: 0px;\n    overflow: auto;\n    z-index: 100;\n    max-height: 200px;\n    border: 0;\n    border-bottom-left-radius: 4px;\n    border-bottom-right-radius: 4px; }\n  .autoCompleteCommon .autoComplete_list ul {\n    width: 100%;\n    list-style: none;\n    padding: 0;\n    margin: 0; }\n  .autoCompleteCommon .autoComplete_list li {\n    padding: 8px 10px;\n    display: block;\n    font-size: 14px;\n    cursor: pointer;\n    color: #ffffff;\n    background-color: #25a9ee; }\n    .autoCompleteCommon .autoComplete_list li.active {\n      background-color: #31526F;\n      color: #fff; }\n  .autoCompleteCommon .autoComplete_list ul li:hover {\n    background-color: #0b70a5;\n    color: #fff; }\n  .autoCompleteCommon .autoComplete_list li.last {\n    border-bottom: none; }\n", ""]);
-
-	// exports
-
-
-/***/ },
-/* 807 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	__webpack_require__(768);
-
-	var _react = __webpack_require__(138);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRouter = __webpack_require__(243);
-
-	var _MainTitle = __webpack_require__(712);
-
-	var _MainTitle2 = _interopRequireDefault(_MainTitle);
-
-	var _Button = __webpack_require__(696);
-
-	var _Button2 = _interopRequireDefault(_Button);
-
-	var _Checkbox = __webpack_require__(687);
-
-	var _Checkbox2 = _interopRequireDefault(_Checkbox);
-
-	var _Select = __webpack_require__(716);
-
-	var _Select2 = _interopRequireDefault(_Select);
-
-	var _Input = __webpack_require__(703);
-
-	var _Input2 = _interopRequireDefault(_Input);
-
-	var _DatePicker = __webpack_require__(746);
-
-	var _DatePicker2 = _interopRequireDefault(_DatePicker);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 快捷导出
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
-
-
-	var defaultFilter = {
-	    // 字段详情看接口文档
-	    userName: '',
-	    pageNumber: 1,
-	    pageSize: 10,
-	    beginTime: [],
-	    endTime: [],
-	    areaCode: 0,
-	    opPgCd: -1,
-	    opTpCd: -1,
-	    sysCode: -1,
-	    logContent: '',
-	    orderBy: 'DESC'
-	};
-
-	var Export = function (_Component) {
-	    _inherits(Export, _Component);
-
-	    function Export(props) {
-	        _classCallCheck(this, Export);
-
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Export).call(this, props));
-
-	        _this.state = {
-	            list: [{ id: 1, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 2, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 3, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 4, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 5, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 6, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 7, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 8, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 9, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 10, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }],
-	            filter: _extends({}, defaultFilter),
-	            options: {
-	                areaCodeList: [],
-	                opPageList: [],
-	                opTypeList: [],
-	                sysLocationList: []
-	            }
-	        };
-	        // this.topage = this.topage.bind(this);
-	        return _this;
-	    }
-
-	    _createClass(Export, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            $('#list-content').perfectScrollbar();
-	        }
-	    }, {
-	        key: 'writeOption',
-	        value: function writeOption(name) {
-	            var _this2 = this;
-
-	            return function (data) {
-	                var filter = _this2.state.filter;
-	                filter[name] = data;
-	                _this2.setState({ filter: filter });
-	            };
-	        }
-	    }, {
-	        key: 'writeDate',
-	        value: function writeDate(field) {
-	            var _this3 = this;
-
-	            return function (y, m, d) {
-	                var filter = _this3.state.filter;
-	                filter[field] = y === null ? [] : [y, m, d];
-	                _this3.setState({ filter: filter });
-	            };
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var _state = this.state;
-	            var list = _state.list;
-	            var options = _state.options;
-	            var filter = _state.filter;
-
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'export_root' },
-	                _react2.default.createElement(_MainTitle2.default, { title: '快捷导出' }),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'export_filterPanel' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'selectRow group' },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'inputField' },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'label' },
-	                                '行业分类'
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'input' },
-	                                _react2.default.createElement(_Select2.default, {
-	                                    options: options.areaCodeList,
-	                                    onSelected: this.writeOption('areaCode'),
-	                                    selected: filter.areaCode
-	                                })
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'inputField' },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'label' },
-	                                '风险等级'
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'input' },
-	                                _react2.default.createElement(_Select2.default, {
-	                                    options: options.areaCodeList,
-	                                    onSelected: this.writeOption('areaCode'),
-	                                    selected: filter.areaCode
-	                                })
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'inputField' },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'label' },
-	                                '行政区域'
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'input' },
-	                                _react2.default.createElement(_Select2.default, {
-	                                    options: options.sysLocationList,
-	                                    onSelected: this.writeOption('sysCode'),
-	                                    selected: filter.sysCode
-	                                })
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'selectRow group' },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'inputField' },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'label' },
-	                                '注册资本'
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'input' },
-	                                _react2.default.createElement(_Select2.default, {
-	                                    options: options.areaCodeList,
-	                                    onSelected: this.writeOption('areaCode'),
-	                                    selected: filter.areaCode
-	                                })
-	                            ),
-	                            _react2.default.createElement('div', { className: 'line' }),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'input' },
-	                                _react2.default.createElement(_Select2.default, {
-	                                    options: options.areaCodeList,
-	                                    onSelected: this.writeOption('areaCode'),
-	                                    selected: filter.areaCode
-	                                })
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'inputField' },
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'label' },
-	                                '注册时间'
-	                            ),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'input' },
-	                                _react2.default.createElement(_DatePicker2.default, {
-	                                    year: filter.beginTime[0],
-	                                    month: filter.beginTime[1],
-	                                    day: filter.beginTime[2],
-	                                    callback: this.writeDate('beginTime') })
-	                            ),
-	                            _react2.default.createElement('div', { className: 'line' }),
-	                            _react2.default.createElement(
-	                                'div',
-	                                { className: 'input' },
-	                                _react2.default.createElement(_DatePicker2.default, {
-	                                    year: filter.endTime[0],
-	                                    month: filter.endTime[1],
-	                                    day: filter.endTime[2],
-	                                    callback: this.writeDate('endTime') })
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'buttonField' },
-	                            _react2.default.createElement(
-	                                _Button2.default,
-	                                { className: 'search', onClick: this.handleSearch },
-	                                '查询'
-	                            )
-	                        )
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'table-list' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'label btn-box' },
-	                        _react2.default.createElement(
-	                            'span',
-	                            { className: 'blue' },
-	                            '名单上传'
-	                        ),
-	                        _react2.default.createElement(
-	                            _Button2.default,
-	                            { className: 'export-btn', onClick: this.handleSearch },
-	                            '导出列表'
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'building-list' },
-	                        _react2.default.createElement(
-	                            'table',
-	                            { className: '' },
-	                            _react2.default.createElement(
-	                                'thead',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'tr',
-	                                    null,
-	                                    _react2.default.createElement(
-	                                        'th',
-	                                        { width: '6%' },
-	                                        '序号'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'th',
-	                                        { width: '16%', className: 'text-left' },
-	                                        '公司名称'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'th',
-	                                        { width: '8%', className: 'text-left' },
-	                                        '法定代表人'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'th',
-	                                        { width: '8%' },
-	                                        '注册时间'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'th',
-	                                        { width: '9%' },
-	                                        '注册资本'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'th',
-	                                        { width: '20%', className: 'text-left' },
-	                                        '注册地址'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'th',
-	                                        { width: '8%', className: 'text-left' },
-	                                        '平台名称'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'th',
-	                                        { width: '9%' },
-	                                        '风险等级'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'th',
-	                                        { width: '8%' },
-	                                        '风险分值'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'th',
-	                                        { width: '8%' },
-	                                        '行业类别'
-	                                    )
-	                                )
-	                            )
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'list-content', id: 'list-content' },
-	                            _react2.default.createElement(
-	                                'table',
-	                                { className: '' },
-	                                _react2.default.createElement(
-	                                    'tbody',
-	                                    null,
-	                                    this.state.list.length > 0 ? this.state.list.map(function (item, index) {
-	                                        return _react2.default.createElement(
-	                                            'tr',
-	                                            { key: index },
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '6%' },
-	                                                item.id
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '16%', className: 'text-left' },
-	                                                item.userStatus
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '8%', className: 'text-left' },
-	                                                item.userType
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '8%' },
-	                                                item.userStatus
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '9%' },
-	                                                item.userType
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '20%', className: 'text-left' },
-	                                                item.userType
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '8%', className: 'text-left' },
-	                                                item.userType
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '9%' },
-	                                                item.userType
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '8%' },
-	                                                item.userType
-	                                            ),
-	                                            _react2.default.createElement(
-	                                                'td',
-	                                                { width: '8%' },
-	                                                item.userType
-	                                            )
-	                                        );
-	                                    }) : _react2.default.createElement(
-	                                        'tr',
-	                                        { className: 'nodata-tips' },
-	                                        _react2.default.createElement(
-	                                            'td',
-	                                            null,
-	                                            '暂无数据'
-	                                        )
-	                                    )
-	                                )
-	                            )
-	                        )
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-
-	    return Export;
-	}(_react.Component);
-
-	exports.default = Export;
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Export.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
-/* 808 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.default = configureStore;
-
-	var _redux = __webpack_require__(312);
-
-	var _reduxThunk = __webpack_require__(809);
-
-	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
-
-	var _index = __webpack_require__(810);
-
-	var _index2 = _interopRequireDefault(_index);
-
-	var _DevTools = __webpack_require__(811);
-
-	var _DevTools2 = _interopRequireDefault(_DevTools);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function configureStore() {
-	    var store = (0, _redux.createStore)(_index2.default,
-	    //DevTools.instrument(), applyMiddleware(thunk)
-	    // compose(applyMiddleware(thunkMiddleware), DevTools.instrument()))
-	    (0, _redux.applyMiddleware)(_reduxThunk2.default));
-	    return store;
-	}
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "configureStore.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
-/* 809 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	function createThunkMiddleware(extraArgument) {
-	  return function (_ref) {
-	    var dispatch = _ref.dispatch;
-	    var getState = _ref.getState;
-	    return function (next) {
-	      return function (action) {
-	        if (typeof action === 'function') {
-	          return action(dispatch, getState, extraArgument);
-	        }
-
-	        return next(action);
-	      };
-	    };
-	  };
-	}
-
-	var thunk = createThunkMiddleware();
-	thunk.withExtraArgument = createThunkMiddleware;
-
-	exports['default'] = thunk;
-
-/***/ },
-/* 810 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _redux = __webpack_require__(312);
-
-	var _reactRouterRedux = __webpack_require__(306);
-
-	var rootReducer = (0, _redux.combineReducers)({
-	    routing: _reactRouterRedux.routerReducer //整合路由
-	});
-	exports.default = rootReducer;
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "index.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
-/* 811 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(138);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reduxDevtools = __webpack_require__(335);
-
-	var _reduxDevtoolsLogMonitor = __webpack_require__(461);
-
-	var _reduxDevtoolsLogMonitor2 = _interopRequireDefault(_reduxDevtoolsLogMonitor);
-
-	var _reduxDevtoolsDockMonitor = __webpack_require__(632);
-
-	var _reduxDevtoolsDockMonitor2 = _interopRequireDefault(_reduxDevtoolsDockMonitor);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = (0, _reduxDevtools.createDevTools)(_react2.default.createElement(
-	  _reduxDevtoolsDockMonitor2.default,
-	  { toggleVisibilityKey: 'ctrl-h',
-	    changePositionKey: 'ctrl-q' },
-	  _react2.default.createElement(_reduxDevtoolsLogMonitor2.default, null)
-	));
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "DevTools.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
-/* 812 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.dataSource = dataSource;
-	function dataSource(type) {
-	    var result = '';
-	    switch (parseInt(type, 10)) {
-	        case 1:
-	            result = 'BBD';
-	            break;
-	        case 2:
-	            result = '网贷之家';
-	            break;
-	        case 3:
-	            result = '公信中心';
-	            break;
-	        default:
-	            result = '公信中心';
-	            break;
-	    }
-	    return result;
-	}
-
-	var dataSourceList = exports.dataSourceList = [{ value: '', text: '所有' }, { value: 1, text: 'BBD' }, { value: 2, text: '网贷之家' }, { value: 3, text: '公信中心' }];
-
-	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "index.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
-
-/***/ },
-/* 813 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -76323,6 +72566,4079 @@
 	  return Immutable;
 
 	}));
+
+/***/ },
+/* 796 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	__webpack_require__(789);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(243);
+
+	var _BuildingDetail = __webpack_require__(797);
+
+	var _BuildingDetail2 = _interopRequireDefault(_BuildingDetail);
+
+	var _BuildingEdit = __webpack_require__(800);
+
+	var _BuildingEdit2 = _interopRequireDefault(_BuildingEdit);
+
+	var _util = __webpack_require__(673);
+
+	var _util2 = _interopRequireDefault(_util);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 园区管理布局
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
+
+
+	var BuildingInfo = function (_Component) {
+	    _inherits(BuildingInfo, _Component);
+
+	    function BuildingInfo(props) {
+	        _classCallCheck(this, BuildingInfo);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(BuildingInfo).call(this, props));
+
+	        _this.state = {
+	            isEdit: false,
+	            list: []
+	        };
+	        _this.onChange = _this.onChange.bind(_this);
+	        _this.getCompanyList = _this.getCompanyList.bind(_this);
+	        return _this;
+	    }
+
+	    _createClass(BuildingInfo, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            // console.info(this.props.location);
+	            this.getCompanyList();
+	        }
+	        /*
+	        *入驻企业列表
+	        */
+
+	    }, {
+	        key: 'getCompanyList',
+	        value: function getCompanyList() {
+	            var _this2 = this;
+
+	            _util2.default.ajax({
+	                type: 'get',
+	                url: '/park-mgt/queryCompanyByBuildingId.do',
+	                dataType: 'json',
+	                data: {
+	                    buildingId: this.props.location.query.buildingId
+	                },
+	                success: function success(res) {
+	                    if (res.success) {
+	                        _this2.setState({
+	                            list: res.content
+	                        });
+	                    }
+	                }
+	            });
+	        }
+	    }, {
+	        key: 'onChange',
+	        value: function onChange() {
+	            this.setState({
+	                isEdit: true
+	            });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'buildingInfo_root' },
+	                this.state.isEdit ? _react2.default.createElement(_BuildingEdit2.default, _extends({}, this.props, { list: this.state.list, getCompanyList: this.getCompanyList })) : _react2.default.createElement(_BuildingDetail2.default, _extends({}, this.props, { list: this.state.list, onChange: this.onChange, getCompanyList: this.getCompanyList }))
+	            );
+	        }
+	    }]);
+
+	    return BuildingInfo;
+	}(_react.Component);
+
+	exports.default = BuildingInfo;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "BuildingInfo.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 797 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	__webpack_require__(798);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(243);
+
+	var _MainTitle = __webpack_require__(712);
+
+	var _MainTitle2 = _interopRequireDefault(_MainTitle);
+
+	var _Button = __webpack_require__(696);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Checkbox = __webpack_require__(687);
+
+	var _Checkbox2 = _interopRequireDefault(_Checkbox);
+
+	var _Select = __webpack_require__(716);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Input = __webpack_require__(703);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 楼宇详情
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
+
+
+	var BuildingDetail = function (_Component) {
+	    _inherits(BuildingDetail, _Component);
+
+	    function BuildingDetail(props) {
+	        _classCallCheck(this, BuildingDetail);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(BuildingDetail).call(this, props));
+
+	        _this.state = {
+	            list: [],
+	            parkOptions: [],
+	            parkStatus: '',
+	            ischecked: false,
+	            formData: {}
+	        };
+	        _this.handleEdit = _this.handleEdit.bind(_this);
+	        return _this;
+	    }
+
+	    _createClass(BuildingDetail, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            $('#list-content').perfectScrollbar();
+	        }
+	        // 编辑园区
+
+	    }, {
+	        key: 'handleEdit',
+	        value: function handleEdit() {
+	            this.props.onChange();
+	        }
+	        // 删除园区
+
+	    }, {
+	        key: 'handleDelete',
+	        value: function handleDelete() {
+	            //
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'parkDetail_root buildingDetail_root' },
+	                _react2.default.createElement(
+	                    _MainTitle2.default,
+	                    { title: '园区楼宇管理', subTitle: ['楼宇详情'] },
+	                    _react2.default.createElement(
+	                        _reactRouter.Link,
+	                        { to: '/parkManage/index', className: 'returnTo' },
+	                        _react2.default.createElement('i', { className: 'iconfont icon-rt-solid' }),
+	                        '返回列表'
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'parkDetail_box buildingDetail_box' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'parkName-box item-box', style: { height: '43px' } },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'label-name' },
+	                            '楼宇名称'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'right' },
+	                            _react2.default.createElement(
+	                                'span',
+	                                { className: 'name' },
+	                                this.props.location.query.buildingName
+	                            ),
+	                            _react2.default.createElement('i', {
+	                                title: '编辑',
+	                                className: 'iconfont icon-edit',
+	                                onClick: this.handleEdit }),
+	                            _react2.default.createElement('i', {
+	                                title: '删除',
+	                                className: 'iconfont icon-del',
+	                                onClick: this.handleDelete.bind(this, 2) })
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'item-box', style: { height: '340px' } },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'label-name' },
+	                            '楼宇图片'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'park-img right' },
+	                            _react2.default.createElement('img', { src: '', alt: '' })
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'parkName-box item-box', style: { height: '43px' } },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'label-name' },
+	                            '入驻园区'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'right' },
+	                            _react2.default.createElement(
+	                                'span',
+	                                { className: 'name' },
+	                                this.props.location.query.parkName
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'item-box', style: { height: '256px' } },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'label-name' },
+	                            '入驻企业'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'building-list right' },
+	                            _react2.default.createElement(
+	                                'table',
+	                                { className: '' },
+	                                _react2.default.createElement(
+	                                    'thead',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        'tr',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'th',
+	                                            { width: '24%', className: 'text-left padding10' },
+	                                            '公司名称'
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'th',
+	                                            { width: '22%' },
+	                                            '法定代表人'
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'th',
+	                                            { width: '24%', className: 'text-left' },
+	                                            '企业背景'
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'th',
+	                                            { width: '15%', className: 'text-left' },
+	                                            '行业'
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'th',
+	                                            { width: '15%' },
+	                                            '风险等级'
+	                                        )
+	                                    )
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'list-content', id: 'list-content' },
+	                                _react2.default.createElement(
+	                                    'table',
+	                                    { className: '' },
+	                                    _react2.default.createElement(
+	                                        'tbody',
+	                                        null,
+	                                        this.props.list.length > 0 ? this.props.list.map(function (item, index) {
+	                                            return _react2.default.createElement(
+	                                                'tr',
+	                                                { key: index },
+	                                                _react2.default.createElement(
+	                                                    'td',
+	                                                    { width: '24%', className: 'text-left padding10' },
+	                                                    item.name
+	                                                ),
+	                                                _react2.default.createElement(
+	                                                    'td',
+	                                                    { width: '22%' },
+	                                                    item.legalPerson
+	                                                ),
+	                                                _react2.default.createElement(
+	                                                    'td',
+	                                                    { width: '24%', className: 'text-left' },
+	                                                    item.registeredType
+	                                                ),
+	                                                _react2.default.createElement(
+	                                                    'th',
+	                                                    { width: '15%', className: 'text-left' },
+	                                                    item.businessType
+	                                                ),
+	                                                _react2.default.createElement(
+	                                                    'th',
+	                                                    { width: '15%' },
+	                                                    item.riskLevel
+	                                                )
+	                                            );
+	                                        }) : _react2.default.createElement(
+	                                            'tr',
+	                                            { className: 'nodata-tips' },
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                null,
+	                                                '暂无数据'
+	                                            )
+	                                        )
+	                                    )
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return BuildingDetail;
+	}(_react.Component);
+
+	exports.default = BuildingDetail;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "BuildingDetail.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 798 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(799);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(679)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(true) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept(799, function() {
+				var newContent = __webpack_require__(799);
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 799 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(678)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".buildingDetail_box .park-img {\n  width: 240px;\n  height: 340px; }\n  .buildingDetail_box .park-img .upload_submit {\n    top: 615px;\n    left: 365px; }\n\n.buildingDetail_box .building-list .padding10 {\n  padding-left: 10px; }\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 800 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	__webpack_require__(798);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(243);
+
+	var _MainTitle = __webpack_require__(712);
+
+	var _MainTitle2 = _interopRequireDefault(_MainTitle);
+
+	var _Button = __webpack_require__(696);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Checkbox = __webpack_require__(687);
+
+	var _Checkbox2 = _interopRequireDefault(_Checkbox);
+
+	var _Select = __webpack_require__(716);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Input = __webpack_require__(703);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	var _Upload = __webpack_require__(781);
+
+	var _Upload2 = _interopRequireDefault(_Upload);
+
+	var _util = __webpack_require__(673);
+
+	var _util2 = _interopRequireDefault(_util);
+
+	var _Modal = __webpack_require__(693);
+
+	var _Modal2 = _interopRequireDefault(_Modal);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 楼宇编辑
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
+
+
+	var Immutable = __webpack_require__(795);
+
+	var BuildingEdit = function (_Component) {
+	    _inherits(BuildingEdit, _Component);
+
+	    function BuildingEdit(props) {
+	        _classCallCheck(this, BuildingEdit);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(BuildingEdit).call(this, props));
+
+	        _this.onChange = function (_ref) {
+	            var target = _ref.target;
+
+	            var deleteCompany = _this.state.deleteCompany;
+	            var checked = target.checked;
+	            var val = target.value;
+	            if (val === 'all') {
+	                var allCompanyId = checked ? _this.state.allCompanyId : [];
+	                _this.setState({
+	                    ischecked: checked,
+	                    deleteCompany: allCompanyId
+	                });
+	                return;
+	            }
+	            if (checked) {
+	                deleteCompany.push(val);
+	            } else {
+	                var index = deleteCompany.indexOf(val);
+	                deleteCompany.splice(index, 1);
+	            }
+	            _this.setState({
+	                deleteCompany: deleteCompany
+	            });
+	        };
+
+	        _this.state = {
+	            parkOptions: [], // 园区下拉框数据
+	            buildOptions: [], // 楼宇下拉框数据
+	            ischecked: false,
+	            parkStatus: Number(_this.props.location.query.areaId),
+	            buildStatus: Number(_this.props.location.query.buildingId),
+	            selectImg: '', // 选择上传的图片
+	            parkName: '',
+	            deleteCompany: [], // 需要删除的公司列表
+	            allCompanyId: [], // 所有的公司id
+	            delVisible: false, // 弹窗显示与否
+	            uploadVisible: false,
+	            isUpLoad: false // 是否上传中
+	        };
+	        _this.selectFile = _this.selectFile.bind(_this);
+	        _this.uploadimg = _this.uploadimg.bind(_this);
+	        _this.showModel = _this.showModel.bind(_this);
+	        _this.closeModel = _this.closeModel.bind(_this);
+	        _this.deleteCompany = _this.deleteCompany.bind(_this);
+	        _this.topage = _this.topage.bind(_this);
+	        return _this;
+	    }
+
+	    _createClass(BuildingEdit, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            $('#list-content').perfectScrollbar();
+	            this.getAreaList();
+	        }
+	    }, {
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps(nextProps) {
+	            var isEqual = Immutable.is(nextProps.list, this.props.list);
+	            if (!isEqual) {
+	                this.getAllCompany();
+	            }
+	        }
+	        /*
+	        *获取所有的企业id
+	        */
+
+	    }, {
+	        key: 'getAllCompany',
+	        value: function getAllCompany() {
+	            var list = this.props.list;
+	            var allCompanyId = list.map(function (v) {
+	                return v.CompanyId;
+	            });
+	            this.setState({
+	                allCompanyId: allCompanyId
+	            });
+	        }
+	        /*
+	        *园区楼宇管理-园区下拉框
+	        */
+
+	    }, {
+	        key: 'getAreaList',
+	        value: function getAreaList() {
+	            var _this2 = this;
+
+	            _util2.default.ajax({
+	                type: 'get',
+	                url: '/park-mgt/parkList.do',
+	                dataType: 'json',
+	                success: function success(res) {
+	                    if (res.success) {
+	                        var parkOptions = res.content.map(function (v) {
+	                            return { value: v.parkId, text: v.name };
+	                        });
+	                        _this2.setState({
+	                            parkOptions: parkOptions
+	                        });
+	                    }
+	                }
+	            });
+	        }
+	        /*
+	        *园区楼宇管理-上传图片
+	        */
+
+	    }, {
+	        key: 'uploadimg',
+	        value: function uploadimg() {
+	            var _this3 = this;
+
+	            if (this.state.isUpLoad) {
+	                return;
+	            }
+	            this.setState({
+	                isUpLoad: true
+	            });
+	            var fd = new FormData();
+	            var selectImg = this.state.selectImg;
+	            var userName = sessionStorage.getItem('userName');
+	            fd.append('file', selectImg);
+	            fd.append('parkId', this.state.parkStatus);
+	            fd.append('buildingId', this.state.buildStatus);
+	            fd.append('picType', 2);
+	            fd.append('user', userName);
+	            _util2.default.uploadXhr({
+	                url: '/park-mgt/upLoadPic.do',
+	                data: fd,
+	                success: function success(res) {
+	                    if (res.success) {
+	                        _this3.setState({
+	                            isUpLoad: false,
+	                            uploadVisible: true
+	                        });
+	                    }
+	                }
+	            });
+	        }
+	        /* 
+	        *删除公司
+	        */
+
+	    }, {
+	        key: 'deleteCompany',
+	        value: function deleteCompany(id) {
+	            var _this4 = this;
+
+	            var data = id ? id : this.state.deleteCompany.join(',');
+	            _util2.default.ajax({
+	                type: 'get',
+	                url: '/park-mgt/delCompanyByCompanyId.do',
+	                dataType: 'json',
+	                data: {
+	                    companyList: data
+	                },
+	                success: function success(res) {
+	                    if (res.success) {
+	                        _this4.props.getCompanyList();
+	                        _this4.setState({
+	                            deleteCompany: [],
+	                            delVisible: false
+	                        });
+	                    }
+	                }
+	            });
+	        }
+
+	        /* 
+	        *角色框勾选后，相应的改变
+	        */
+
+	    }, {
+	        key: 'cancel',
+
+	        /* 
+	        *返回列表 
+	        */
+	        value: function cancel() {
+	            _reactRouter.browserHistory.push('/parkManage/index');
+	        }
+	        /* 
+	        *选择图片 
+	        */
+
+	    }, {
+	        key: 'selectFile',
+	        value: function selectFile(all, item) {
+	            // 利用mypic获得图像的url地址(二进制源码) 
+	            // URL  html5新标准属性 
+	            var url = window.URL.createObjectURL(item);
+	            document.getElementById('upload-img').src = url;
+	            this.setState({
+	                selectImg: item
+	            });
+	        }
+	        /* 
+	        *页面跳转 
+	        */
+
+	    }, {
+	        key: 'topage',
+	        value: function topage() {
+	            _reactRouter.browserHistory.push('/parkManage/leadin?areaId=' + this.state.parkStatus + '&buildingId=' + this.state.buildStatus);
+	        }
+	        /* 
+	        *弹窗展示 
+	        */
+
+	    }, {
+	        key: 'showModel',
+	        value: function showModel(flag) {
+	            if (this.state.deleteCompany.length > 0) {
+	                this.setState({
+	                    delVisible: flag
+	                });
+	            }
+	        }
+	    }, {
+	        key: 'closeModel',
+	        value: function closeModel() {
+	            this.setState({
+	                uploadVisible: false
+	            });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this5 = this;
+
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'parkDetail_root parkEdit_root buildingEdit_root buildingDetail_root' },
+	                _react2.default.createElement(
+	                    _MainTitle2.default,
+	                    { title: '园区楼宇管理', subTitle: ['楼宇编辑'] },
+	                    _react2.default.createElement(
+	                        _reactRouter.Link,
+	                        { to: '/parkManage/index', className: 'returnTo' },
+	                        _react2.default.createElement('i', { className: 'iconfont icon-rt-solid' }),
+	                        '返回列表'
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'parkDetail_box parkEdit_box buildingEdit_box buildingDetail_box' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'parkName-box item-box', style: { height: '43px' } },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'label-name' },
+	                            '楼宇名称'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'right' },
+	                            _react2.default.createElement(_Select2.default, {
+	                                defaultText: '',
+	                                options: this.state.buildOptions,
+	                                onSelected: this.buildSelected,
+	                                selected: this.state.buildStatus,
+	                                style: { width: '420px', minWidth: 'auto' }
+	                            })
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'item-box', style: { height: '340px' } },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'label-name' },
+	                            '楼宇图片'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'park-img right' },
+	                            _react2.default.createElement('img', { src: '', alt: '', id: 'upload-img' }),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'uploading-img' },
+	                                _react2.default.createElement(_Upload2.default, { uploadName: '图片上传', submit: this.uploadimg, change: this.selectFile, submitText: this.state.isUpLoad ? '上传中' : '保存', fileType: _util2.default.imgType, isImmediate: false })
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'parkName-box item-box', style: { height: '43px' } },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'label-name' },
+	                            '入驻园区'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'right' },
+	                            _react2.default.createElement(_Select2.default, {
+	                                defaultText: '',
+	                                options: this.state.parkOptions,
+	                                onSelected: this.parkSelected,
+	                                selected: this.state.parkStatus,
+	                                style: { width: '420px', minWidth: 'auto' }
+	                            })
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'item-box building-box', style: { height: '256px' } },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'label-name' },
+	                            '入驻企业'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'btn-box' },
+	                            _react2.default.createElement(
+	                                _Button2.default,
+	                                { width: '100', onClick: this.topage },
+	                                '导入企业'
+	                            ),
+	                            _react2.default.createElement(
+	                                _Button2.default,
+	                                { onClick: function onClick() {
+	                                        return _this5.showModel(true);
+	                                    } },
+	                                '批量删除'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'building-list right' },
+	                            _react2.default.createElement(
+	                                'table',
+	                                { className: '' },
+	                                _react2.default.createElement(
+	                                    'thead',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        'tr',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'th',
+	                                            { width: '10%' },
+	                                            _react2.default.createElement(_Checkbox2.default, { value: 'all', onChange: this.onChange, checked: this.state.ischecked })
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'th',
+	                                            { width: '20%', className: 'text-left' },
+	                                            '公司名称'
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'th',
+	                                            { width: '20%' },
+	                                            '法定代表人'
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'th',
+	                                            { width: '20%' },
+	                                            '企业背景'
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'th',
+	                                            { width: '10%' },
+	                                            '行业'
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'th',
+	                                            { width: '10%' },
+	                                            '风险等级'
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'th',
+	                                            { width: '10%' },
+	                                            '操作'
+	                                        )
+	                                    )
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'list-content', id: 'list-content' },
+	                                _react2.default.createElement(
+	                                    'table',
+	                                    { className: '' },
+	                                    _react2.default.createElement(
+	                                        'tbody',
+	                                        null,
+	                                        this.props.list.length > 0 ? this.props.list.map(function (item, index) {
+	                                            return _react2.default.createElement(
+	                                                'tr',
+	                                                { key: index },
+	                                                _react2.default.createElement(
+	                                                    'td',
+	                                                    { width: '10%', className: '' },
+	                                                    _react2.default.createElement(_Checkbox2.default, { value: item.companyId, onChange: _this5.onChange, checked: _this5.state.ischecked })
+	                                                ),
+	                                                _react2.default.createElement(
+	                                                    'td',
+	                                                    { width: '20%', className: 'text-left' },
+	                                                    item.name
+	                                                ),
+	                                                _react2.default.createElement(
+	                                                    'td',
+	                                                    { width: '20%' },
+	                                                    item.legalPerson
+	                                                ),
+	                                                _react2.default.createElement(
+	                                                    'td',
+	                                                    { width: '20%' },
+	                                                    item.registeredType
+	                                                ),
+	                                                _react2.default.createElement(
+	                                                    'td',
+	                                                    { width: '10%' },
+	                                                    item.businessType
+	                                                ),
+	                                                _react2.default.createElement(
+	                                                    'td',
+	                                                    { width: '10%' },
+	                                                    item.riskLevel
+	                                                ),
+	                                                _react2.default.createElement(
+	                                                    'td',
+	                                                    { width: '10%' },
+	                                                    _react2.default.createElement('i', {
+	                                                        title: '删除',
+	                                                        className: 'iconfont icon-del',
+	                                                        onClick: function onClick() {
+	                                                            return _this5.deleteCompany(item.companyId);
+	                                                        } })
+	                                                )
+	                                            );
+	                                        }) : _react2.default.createElement(
+	                                            'tr',
+	                                            { className: 'nodata-tips' },
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                null,
+	                                                '暂无数据'
+	                                            )
+	                                        )
+	                                    )
+	                                )
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'item-box submit-btn' },
+	                        _react2.default.createElement(
+	                            _Button2.default,
+	                            { className: 'cancel', onClick: this.cancel },
+	                            '取消'
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    _Modal2.default,
+	                    {
+	                        onCancel: function onCancel() {
+	                            return _this5.showModel(false);
+	                        },
+	                        onOk: this.deleteCompany,
+	                        okText: '我确定',
+	                        cancelText: '再想想',
+	                        visible: this.state.delVisible
+	                    },
+	                    '删除之后，不可恢复，请谨慎操作！确认删除？'
+	                ),
+	                _react2.default.createElement(
+	                    _Modal2.default,
+	                    {
+	                        onOk: this.closeModel,
+	                        okText: '确定',
+	                        visible: this.state.uploadVisible
+	                    },
+	                    '上传成功'
+	                )
+	            );
+	        }
+	    }]);
+
+	    return BuildingEdit;
+	}(_react.Component);
+
+	exports.default = BuildingEdit;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "BuildingEdit.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 801 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	__webpack_require__(789);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(243);
+
+	var _MainTitle = __webpack_require__(712);
+
+	var _MainTitle2 = _interopRequireDefault(_MainTitle);
+
+	var _Select = __webpack_require__(716);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Button = __webpack_require__(696);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Upload = __webpack_require__(781);
+
+	var _Upload2 = _interopRequireDefault(_Upload);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 园区管理布局
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
+
+
+	var NewBuilding = function (_Component) {
+	    _inherits(NewBuilding, _Component);
+
+	    function NewBuilding(props) {
+	        _classCallCheck(this, NewBuilding);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(NewBuilding).call(this, props));
+
+	        _this.state = {
+	            isEdit: false
+	        };
+	        _this.onChange = _this.onChange.bind(_this);
+	        return _this;
+	    }
+
+	    _createClass(NewBuilding, [{
+	        key: 'onChange',
+	        value: function onChange() {
+	            this.setState({
+	                isEdit: true
+	            });
+	        }
+	    }, {
+	        key: 'uploadExcel',
+	        value: function uploadExcel(fd) {
+	            // console.info(555555555555);
+	        }
+	    }, {
+	        key: 'selectFile',
+	        value: function selectFile(all, item) {
+
+	            //利用files获得被上传附件(图片)信息 
+	            // var mypic = document.getElementById('upload_input').files[0]; 
+	            //利用mypic获得图像的url地址(二进制源码) 
+	            //URL  html5新标准属性 
+	            var url = window.URL.createObjectURL(item);
+	            document.getElementById('upload-img').src = url;
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'newBuilding_root newPark_root' },
+	                _react2.default.createElement(_MainTitle2.default, { title: '园区楼宇管理', subTitle: ['新增楼宇'] }),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'newPark_box' },
+	                    _react2.default.createElement(
+	                        'ul',
+	                        { className: 'content' },
+	                        _react2.default.createElement(
+	                            'li',
+	                            { className: 'item', style: { overflow: 'visible', height: '40px' } },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'label-name label-middle', style: { paddingLeft: 0 } },
+	                                _react2.default.createElement(
+	                                    'i',
+	                                    { className: 'icon' },
+	                                    '*'
+	                                ),
+	                                '楼宇名称'
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'right' },
+	                                _react2.default.createElement(_Select2.default, {
+	                                    defaultText: '请选择',
+	                                    options: this.state.parkOptions,
+	                                    onSelected: this.parkSelected,
+	                                    selected: this.state.parkStatus,
+	                                    style: { width: '420px', minWidth: 'auto' }
+	                                })
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'li',
+	                            { className: 'item', style: { overflow: 'visible', height: '340px' } },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'label-name' },
+	                                '楼宇图片'
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'park-img right' },
+	                                _react2.default.createElement('img', { src: '', alt: '' }),
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'uploading-img' },
+	                                    _react2.default.createElement(_Upload2.default, { uploadName: '图片上传', submit: this.uploadExcel, change: this.selectFile, submitText: '保存' })
+	                                )
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'li',
+	                            { className: 'item', style: { overflow: 'visible', height: '40px' } },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'label-name label-middle', style: { paddingLeft: 0 } },
+	                                _react2.default.createElement(
+	                                    'i',
+	                                    { className: 'icon' },
+	                                    '*'
+	                                ),
+	                                '所在园区'
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'right' },
+	                                _react2.default.createElement(_Select2.default, {
+	                                    defaultText: '请选择',
+	                                    options: this.state.parkOptions,
+	                                    onSelected: this.parkSelected,
+	                                    selected: this.state.parkStatus,
+	                                    style: { width: '420px', minWidth: 'auto' }
+	                                })
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'li',
+	                            { className: 'item' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'label-name label-middle' },
+	                                '入驻企业'
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'right' },
+	                                _react2.default.createElement(
+	                                    _Button2.default,
+	                                    { className: 'new-btn' },
+	                                    '导入企业'
+	                                )
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'li',
+	                            { className: 'item submit-btn' },
+	                            _react2.default.createElement(
+	                                _Button2.default,
+	                                { className: 'cancel' },
+	                                '取消'
+	                            )
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return NewBuilding;
+	}(_react.Component);
+
+	exports.default = NewBuilding;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "NewBuilding.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 802 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	__webpack_require__(789);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(243);
+
+	var _MainTitle = __webpack_require__(712);
+
+	var _MainTitle2 = _interopRequireDefault(_MainTitle);
+
+	var _Select = __webpack_require__(716);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Button = __webpack_require__(696);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Upload = __webpack_require__(781);
+
+	var _Upload2 = _interopRequireDefault(_Upload);
+
+	var _Input = __webpack_require__(703);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	var _util = __webpack_require__(673);
+
+	var _util2 = _interopRequireDefault(_util);
+
+	var _Modal = __webpack_require__(693);
+
+	var _Modal2 = _interopRequireDefault(_Modal);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 园区管理布局
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
+
+
+	var ParkInfo = function (_Component) {
+	    _inherits(ParkInfo, _Component);
+
+	    function ParkInfo(props) {
+	        _classCallCheck(this, ParkInfo);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ParkInfo).call(this, props));
+
+	        _this.parkSelected = function (val, name, text) {
+	            _this.setState({
+	                parkStatus: val,
+	                parkText: text
+	            }, function () {
+	                // this.getParkList();
+	            });
+	        };
+
+	        _this.state = {
+	            parkOptions: [],
+	            parkStatus: '',
+	            parkText: '',
+	            uploadVisible: false,
+	            isUpLoad: false, // 是否上传中
+	            selectImg: '' // 选择上传的图片
+	        };
+	        _this.selectFile = _this.selectFile.bind(_this);
+	        _this.uploadimg = _this.uploadimg.bind(_this);
+	        _this.newPark = _this.newPark.bind(_this);
+	        _this.closeModel = _this.closeModel.bind(_this);
+	        return _this;
+	    }
+
+	    _createClass(ParkInfo, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.getAreaList();
+	        }
+	        /*
+	        *园区楼宇管理-园区下拉框
+	        */
+
+	    }, {
+	        key: 'getAreaList',
+	        value: function getAreaList() {
+	            var _this2 = this;
+
+	            _util2.default.ajax({
+	                type: 'get',
+	                url: '/park-mgt/areaList.do',
+	                dataType: 'json',
+	                success: function success(res) {
+	                    if (res.success) {
+	                        var parkOptions = res.content.map(function (v) {
+	                            return { value: v.areaId === 0 ? '' : v.areaId, text: v.cityName };
+	                        });
+	                        _this2.setState({
+	                            parkOptions: parkOptions
+	                        });
+	                    }
+	                }
+
+	            });
+	        }
+	        // 园区筛选
+
+	    }, {
+	        key: 'newPark',
+
+	        /*
+	        *园区楼宇管理-新增园区
+	        */
+	        value: function newPark() {
+	            var _this3 = this;
+
+	            if (this.state.isUpLoad) {
+	                return;
+	            }
+	            this.setState({
+	                isUpLoad: true
+	            });
+	            var userName = sessionStorage.getItem('userName');
+	            _util2.default.ajax({
+	                type: 'get',
+	                url: '/park-mgt/addPark.do',
+	                dataType: 'json',
+	                data: {
+	                    areaId: this.state.parkStatus,
+	                    create_by: userName,
+	                    name: this.state.parkText
+	                },
+	                success: function success(res) {
+	                    if (res.success) {
+	                        _this3.uploadimg();
+	                    }
+	                }
+
+	            });
+	        }
+	        /*
+	        *园区楼宇管理-图片上传
+	        */
+
+	    }, {
+	        key: 'uploadimg',
+	        value: function uploadimg() {
+	            var _this4 = this;
+
+	            var fd = new FormData();
+	            var selectImg = this.state.selectImg;
+	            var userName = sessionStorage.getItem('userName');
+	            fd.append('file', selectImg);
+	            fd.append('parkName', this.state.parkText);
+	            fd.append('picType', 1);
+	            fd.append('user', userName);
+	            _util2.default.uploadXhr({
+	                url: '/park-mgt/upLoadPic.do',
+	                data: fd,
+	                success: function success(res) {
+	                    if (res.success) {
+	                        _this4.setState({
+	                            isUpLoad: false,
+	                            uploadVisible: true
+	                        });
+	                    }
+	                }
+	            });
+	        }
+	        /* 
+	        *选择图片 
+	        */
+
+	    }, {
+	        key: 'selectFile',
+	        value: function selectFile(all, item) {
+	            // 利用mypic获得图像的url地址(二进制源码) 
+	            // URL  html5新标准属性 
+	            var url = window.URL.createObjectURL(item);
+	            document.getElementById('upload-img').src = url;
+	            this.setState({
+	                selectImg: item
+	            });
+	        }
+	    }, {
+	        key: 'closeModel',
+	        value: function closeModel() {
+	            this.setState({
+	                uploadVisible: false
+	            });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'newPark_root' },
+	                _react2.default.createElement(_MainTitle2.default, { title: '园区楼宇管理', subTitle: ['新增园区'] }),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'newPark_box' },
+	                    _react2.default.createElement(
+	                        'ul',
+	                        { className: 'content' },
+	                        _react2.default.createElement(
+	                            'li',
+	                            { className: 'item', style: { overflow: 'visible', height: '40px' } },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'label-name label-middle', style: { paddingLeft: 0 } },
+	                                _react2.default.createElement(
+	                                    'i',
+	                                    { className: 'icon' },
+	                                    '*'
+	                                ),
+	                                '园区名称'
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'right' },
+	                                _react2.default.createElement(_Select2.default, {
+	                                    defaultText: '请选择',
+	                                    options: this.state.parkOptions,
+	                                    onSelected: this.parkSelected,
+	                                    selected: this.state.parkStatus,
+	                                    style: { width: '420px', minWidth: 'auto' }
+	                                })
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'li',
+	                            { className: 'item', style: { overflow: 'visible', height: '180px' } },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'label-name' },
+	                                '园区图片'
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'park-img right' },
+	                                _react2.default.createElement('img', { src: '', alt: '', id: 'upload-img' }),
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'uploading-img' },
+	                                    _react2.default.createElement(_Upload2.default, { uploadName: '图片上传', submit: this.newPark, change: this.selectFile, submitText: this.state.isUpLoad ? '上传中' : '保存', fileType: _util2.default.imgType, isImmediate: false })
+	                                )
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'li',
+	                            { className: 'item' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'label-name label-middle' },
+	                                '楼宇列表'
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'right' },
+	                                _react2.default.createElement(
+	                                    _Button2.default,
+	                                    { className: 'new-btn' },
+	                                    '新增楼宇'
+	                                )
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'li',
+	                            { className: 'item submit-btn' },
+	                            _react2.default.createElement(
+	                                _Button2.default,
+	                                { className: 'cancel' },
+	                                '取消'
+	                            )
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    _Modal2.default,
+	                    {
+	                        onOk: this.closeModel,
+	                        okText: '确定',
+	                        visible: this.state.uploadVisible
+	                    },
+	                    '上传成功'
+	                )
+	            );
+	        }
+	    }]);
+
+	    return ParkInfo;
+	}(_react.Component);
+
+	exports.default = ParkInfo;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "NewPark.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 803 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	__webpack_require__(789);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(243);
+
+	var _MainTitle = __webpack_require__(712);
+
+	var _MainTitle2 = _interopRequireDefault(_MainTitle);
+
+	var _Select = __webpack_require__(716);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Button = __webpack_require__(696);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _LeadinMore = __webpack_require__(778);
+
+	var _LeadinMore2 = _interopRequireDefault(_LeadinMore);
+
+	var _LeadinOne = __webpack_require__(804);
+
+	var _LeadinOne2 = _interopRequireDefault(_LeadinOne);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 园区管理布局
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
+
+
+	var Leadin = function (_Component) {
+	    _inherits(Leadin, _Component);
+
+	    function Leadin(props) {
+	        _classCallCheck(this, Leadin);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Leadin).call(this, props));
+
+	        _this.state = {
+	            title: 0
+	        };
+	        return _this;
+	    }
+
+	    _createClass(Leadin, [{
+	        key: 'changeTitle',
+	        value: function changeTitle(num) {
+	            this.setState({
+	                title: num
+	            });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this2 = this;
+
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'leadin_root' },
+	                _react2.default.createElement(_MainTitle2.default, { title: '园区楼宇管理', subTitle: ['导入企业'] }),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'leadin_box' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'title companyWatch_nav' },
+	                        _react2.default.createElement(
+	                            'a',
+	                            { href: 'javascript:;', className: this.state.title ? '' : 'active', onClick: function onClick() {
+	                                    return _this2.changeTitle(0);
+	                                } },
+	                            '单条录入'
+	                        ),
+	                        _react2.default.createElement(
+	                            'a',
+	                            { href: 'javascript:;', className: this.state.title ? 'active' : '', onClick: function onClick() {
+	                                    return _this2.changeTitle(1);
+	                                } },
+	                            '批量录入'
+	                        )
+	                    ),
+	                    this.state.title ? _react2.default.createElement(_LeadinMore2.default, null) : _react2.default.createElement(_LeadinOne2.default, null)
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Leadin;
+	}(_react.Component);
+
+	exports.default = Leadin;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Leadin.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 804 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	__webpack_require__(779);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(243);
+
+	var _Select = __webpack_require__(716);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Button = __webpack_require__(696);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Input = __webpack_require__(703);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 单条录入
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
+
+
+	var LeadinOne = function (_Component) {
+	    _inherits(LeadinOne, _Component);
+
+	    function LeadinOne(props) {
+	        _classCallCheck(this, LeadinOne);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(LeadinOne).call(this, props));
+
+	        _this.state = {
+	            isEdit: false
+	        };
+	        _this.onChange = _this.onChange.bind(_this);
+	        return _this;
+	    }
+
+	    _createClass(LeadinOne, [{
+	        key: 'onChange',
+	        value: function onChange() {
+	            this.setState({
+	                isEdit: true
+	            });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'leadinOne_root' },
+	                _react2.default.createElement(
+	                    'ul',
+	                    { className: 'content' },
+	                    _react2.default.createElement(
+	                        'li',
+	                        { className: 'item', style: { overflow: 'visible', height: '40px' } },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'label-name label-middle', style: { paddingLeft: 0 } },
+	                            _react2.default.createElement(
+	                                'i',
+	                                { className: 'icon' },
+	                                '*'
+	                            ),
+	                            '企业名称'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'right' },
+	                            _react2.default.createElement(_Select2.default, {
+	                                defaultText: '请选择',
+	                                options: this.state.parkOptions,
+	                                onSelected: this.parkSelected,
+	                                selected: this.state.parkStatus,
+	                                style: { width: '420px', minWidth: 'auto' }
+	                            })
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'li',
+	                        { className: 'item', style: { overflow: 'visible', height: '40px' } },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'label-name label-middle', style: { paddingLeft: 0 } },
+	                            _react2.default.createElement(
+	                                'i',
+	                                { className: 'icon' },
+	                                '*'
+	                            ),
+	                            _react2.default.createElement(_Select2.default, {
+	                                className: 'left-select',
+	                                defaultText: '统一信用代码',
+	                                options: this.state.parkOptions,
+	                                onSelected: this.parkSelected,
+	                                selected: this.state.parkStatus,
+	                                style: { width: '120px', minWidth: 'auto' }
+	                            })
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'right' },
+	                            _react2.default.createElement(_Input2.default, { width: '420' })
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'li',
+	                        { className: 'item', style: { overflow: 'visible', height: '40px' } },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'label-name label-middle' },
+	                            _react2.default.createElement(
+	                                'i',
+	                                { className: 'icon' },
+	                                '*'
+	                            ),
+	                            '纳入楼宇'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'right' },
+	                            _react2.default.createElement(_Select2.default, {
+	                                defaultText: '请选择',
+	                                options: this.state.parkOptions,
+	                                onSelected: this.parkSelected,
+	                                selected: this.state.parkStatus,
+	                                style: { width: '200px', marginRight: '20px' }
+	                            }),
+	                            _react2.default.createElement(_Select2.default, {
+	                                defaultText: '请选择',
+	                                options: this.state.parkOptions,
+	                                onSelected: this.parkSelected,
+	                                selected: this.state.parkStatus,
+	                                style: { width: '200px', minWidth: 'auto' }
+	                            })
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'li',
+	                        { className: 'item', style: { overflow: 'visible', height: '40px' } },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'label-name label-middle' },
+	                            '行业'
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'right' },
+	                            _react2.default.createElement(_Select2.default, {
+	                                defaultText: '请选择',
+	                                options: this.state.parkOptions,
+	                                onSelected: this.parkSelected,
+	                                selected: this.state.parkStatus,
+	                                style: { width: '420px', minWidth: 'auto' }
+	                            })
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'li',
+	                        { className: 'item submit-btn' },
+	                        _react2.default.createElement(
+	                            _Button2.default,
+	                            { className: 'cancel' },
+	                            '取消'
+	                        ),
+	                        _react2.default.createElement(
+	                            _Button2.default,
+	                            null,
+	                            '保存'
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return LeadinOne;
+	}(_react.Component);
+
+	exports.default = LeadinOne;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "LeadinOne.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 805 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	__webpack_require__(772);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(243);
+
+	var _MainTitle = __webpack_require__(712);
+
+	var _MainTitle2 = _interopRequireDefault(_MainTitle);
+
+	var _Button = __webpack_require__(696);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Checkbox = __webpack_require__(687);
+
+	var _Checkbox2 = _interopRequireDefault(_Checkbox);
+
+	var _Select = __webpack_require__(716);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Input = __webpack_require__(703);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	var _AutoComplete = __webpack_require__(723);
+
+	var _AutoComplete2 = _interopRequireDefault(_AutoComplete);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 公信中心数据管理
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */
+
+
+	// 自动补全组件
+
+	var PublicTrust = function (_Component) {
+	    _inherits(PublicTrust, _Component);
+
+	    function PublicTrust(props) {
+	        _classCallCheck(this, PublicTrust);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PublicTrust).call(this, props));
+
+	        _this.onChange = function (_ref) {
+	            // const checked = target.checked;
+	            // const val = target.value;
+	            // if(val === 'all'){
+	            //     this.setState({
+	            //         ischecked: checked
+	            //     });
+	            // }
+	            // const formData = this.state.formData;
+	            // let roleSet = formData.roleSet === '' ? [] : formData.roleSet.split(',');
+	            // role.isChecked = checked;
+	            // if(checked) {
+	            //     roleSet.push(String(role.id));
+	            //     formData.roleSet = roleSet.join(',');
+	            // } else {
+	            //     let index = roleSet.indexOf(String(role.id));
+	            //     roleSet.splice(index, 1);
+	            //     codeArray(mapServerJsonToLocal(role.resources)).forEach((v) => {
+	            //         this.powerState[v] = false;
+	            //     });
+	            // }
+
+	            // formData.roleSet = roleSet.join(',');
+
+	            // Object.assign(this.powerState, this.getRolePowerList(roleSet));
+	            // this.updateResourceSet();
+	            // getPower(formData.userType).then((powerCodes) => {
+	            //     this.setState({
+	            //         formData,
+	            //         powerTree: buildPowerTree(powerCodes, this.powerState)
+	            //     });
+	            // });
+
+	            var target = _ref.target;
+	        };
+
+	        _this.state = {
+	            list: [{ id: 1, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 2, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 3, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 4, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 5, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 6, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 7, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 8, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 9, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 10, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }],
+	            parkOptions: [],
+	            parkStatus: '',
+	            ischecked: false,
+	            formData: {}
+	        };
+	        // this.topage = this.topage.bind(this);
+	        return _this;
+	    }
+	    // 角色框勾选后，相应的改变
+
+
+	    _createClass(PublicTrust, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'publicTrust_root export_root' },
+	                _react2.default.createElement(_MainTitle2.default, { title: '公信中心数据管理' }),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'publicTrust_box' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'publicTrust_filterPanel' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'search-box' },
+	                            _react2.default.createElement(
+	                                'span',
+	                                { className: 'label-name' },
+	                                '企业搜索'
+	                            ),
+	                            _react2.default.createElement(_AutoComplete2.default, {
+	                                type: 'get',
+	                                url: '/userInfo/queryUserTemplate.do?userType=',
+	                                field: 'loginName',
+	                                onChoose: this.onChooseUserTemplate,
+	                                disabled: false,
+	                                placeholder: '请输入企业关键词进行搜索'
+	                            })
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'check-box' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'label-name' },
+	                                '数据类型搜索'
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'right' },
+	                                _react2.default.createElement(
+	                                    'label',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        _Checkbox2.default,
+	                                        { checked: this.state.ischecked, onChange: this.onChange },
+	                                        '全部'
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'label',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        _Checkbox2.default,
+	                                        { checked: this.state.ischecked, onChange: this.onChange },
+	                                        '非正常户认定'
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'label',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        _Checkbox2.default,
+	                                        { checked: this.state.ischecked, onChange: this.onChange },
+	                                        '对不正当竞争行为的处罚'
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'label',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        _Checkbox2.default,
+	                                        { checked: this.state.ischecked, onChange: this.onChange },
+	                                        '经营异常名录'
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'label',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        _Checkbox2.default,
+	                                        { checked: this.state.ischecked, onChange: this.onChange },
+	                                        '行政处罚信息'
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'label',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        _Checkbox2.default,
+	                                        { checked: this.state.ischecked, onChange: this.onChange },
+	                                        '市场监管类行政处罚（法人）'
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'label',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        _Checkbox2.default,
+	                                        { checked: this.state.ischecked, onChange: this.onChange },
+	                                        '用人单位欠缴社会保险费，被依法责令期限缴纳信息'
+	                                    )
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'search-btn' },
+	                                _react2.default.createElement(
+	                                    _Button2.default,
+	                                    null,
+	                                    '搜索'
+	                                )
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'table-list' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'label btn-box' },
+	                            _react2.default.createElement(
+	                                'span',
+	                                { className: 'blue' },
+	                                '数据预览'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'building-list' },
+	                            _react2.default.createElement(
+	                                'table',
+	                                { className: '' },
+	                                _react2.default.createElement(
+	                                    'thead',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        'tr',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'th',
+	                                            { width: '55%', className: 'text-left' },
+	                                            '信息事项名称'
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'th',
+	                                            { width: '45%', className: 'text-left' },
+	                                            '数据项名称'
+	                                        )
+	                                    )
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'list-content', id: 'list-content' },
+	                                _react2.default.createElement(
+	                                    'table',
+	                                    { className: '' },
+	                                    _react2.default.createElement(
+	                                        'tbody',
+	                                        null,
+	                                        this.state.list.length > 0 ? this.state.list.map(function (item, index) {
+	                                            return _react2.default.createElement(
+	                                                'tr',
+	                                                { key: index },
+	                                                _react2.default.createElement(
+	                                                    'td',
+	                                                    { width: '55%', className: 'text-left' },
+	                                                    item.id
+	                                                ),
+	                                                _react2.default.createElement(
+	                                                    'td',
+	                                                    { width: '45%', className: 'text-left' },
+	                                                    item.userStatus
+	                                                )
+	                                            );
+	                                        }) : _react2.default.createElement(
+	                                            'tr',
+	                                            { className: 'nodata-tips' },
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                null,
+	                                                '暂无数据'
+	                                            )
+	                                        )
+	                                    )
+	                                )
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            _Button2.default,
+	                            { className: 'export-btn', onClick: this.handleSearch },
+	                            '导出列表'
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return PublicTrust;
+	}(_react.Component);
+
+	exports.default = PublicTrust;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "PublicTrust.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 806 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	__webpack_require__(772);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(243);
+
+	var _MainTitle = __webpack_require__(712);
+
+	var _MainTitle2 = _interopRequireDefault(_MainTitle);
+
+	var _Button = __webpack_require__(696);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Checkbox = __webpack_require__(687);
+
+	var _Checkbox2 = _interopRequireDefault(_Checkbox);
+
+	var _Select = __webpack_require__(716);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Modal = __webpack_require__(693);
+
+	var _Modal2 = _interopRequireDefault(_Modal);
+
+	var _index = __webpack_require__(807);
+
+	var _index2 = _interopRequireDefault(_index);
+
+	var _Input = __webpack_require__(703);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	var _index3 = __webpack_require__(768);
+
+	var _index4 = _interopRequireDefault(_index3);
+
+	var _util = __webpack_require__(673);
+
+	var _util2 = _interopRequireDefault(_util);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 自然人检索
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	// 自动补全组件
+
+
+	var NaturalSearch = function (_Component) {
+	    _inherits(NaturalSearch, _Component);
+
+	    function NaturalSearch(props) {
+	        _classCallCheck(this, NaturalSearch);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(NaturalSearch).call(this, props));
+
+	        _this.state = {
+	            rangeList: [{ value: 'all', text: '全部' }, { value: 'gdxx', text: '法人代表及自然人股东' }, { value: 'baxx', text: '董监高' }],
+	            range: 'all',
+	            name: '',
+	            relatedCompany: '',
+	            nameError: ''
+	        };
+	        return _this;
+	    }
+
+	    _createClass(NaturalSearch, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            $('#data_list').perfectScrollbar();
+	        }
+	        /*
+	         * setRange
+	         * */
+
+	    }, {
+	        key: 'setRange',
+	        value: function setRange(range) {
+	            this.setState({ range: range });
+	        }
+	        /*
+	         * 表单值改变
+	         * */
+
+	    }, {
+	        key: 'inputChange',
+	        value: function inputChange(e, ecomplete) {
+	            e = e.target ? e : ecomplete;
+	            var name = e.target.name;
+	            var v = e.target.value;
+	            var state = {};
+	            state[name] = v;
+	            name === 'name' ? state.nameError = '' : '';
+	            this.setState(state);
+	        }
+	        /*
+	        * 联想
+	        * */
+
+	    }, {
+	        key: 'getRelatedCompanyList',
+	        value: function getRelatedCompanyList(companyKeyword) {
+	            var _state = this.state;
+	            var name = _state.name;
+	            var range = _state.range;
+
+	            return _util2.default.promiseAjax({
+	                type: 'get',
+	                url: '/natural-person/query2.do',
+	                data: { nalName: name, companyKeyword: companyKeyword, type: range }
+	            }).then(function (resp) {
+	                if (resp.success) {
+	                    var data = resp.content.companyNames || [];
+	                    return data.map(function (item) {
+	                        return { text: item, value: item };
+	                    });
+	                }
+	            });
+	        }
+	        /*
+	         * 搜索
+	         * */
+
+	    }, {
+	        key: 'handleSearch',
+	        value: function handleSearch() {
+	            var _this2 = this;
+
+	            var _state2 = this.state;
+	            var name = _state2.name;
+	            var relatedCompany = _state2.relatedCompany;
+	            var range = _state2.range;
+
+	            if (!$.trim(name)) {
+	                this.setState({ nameError: '自然人名称不能为空' });
+	                return false;
+	            }
+	            this.setState({ searchParam: { nalName: name, companyKeyword: relatedCompany, type: range } }, function () {
+	                _this2.getList();
+	            });
+	        }
+	        /*
+	         * 根据参数获取数据
+	         * */
+
+	    }, {
+	        key: 'getList',
+	        value: function getList() {
+	            var _this3 = this;
+
+	            var searchParam = this.state.searchParam;
+
+	            this.setState({ loading: '努力加载中......' });
+	            _util2.default.promiseAjax({
+	                type: 'get',
+	                url: '/natural-person/query2.do',
+	                data: _extends({}, searchParam, { pageSize: 1000000 })
+	            }).then(function (resp) {
+	                if (resp.success) {
+	                    var response = resp.content;
+	                    var data = response.naturalPersons || [];
+	                    _this3.setState({ data: data, loading: '' }, function () {
+	                        $('#data_list').scrollTop(0);
+	                        $('#data_list').perfectScrollbar('update');
+	                    });
+	                }
+	            });
+	        }
+	        /*
+	         * 下载列表
+	         * */
+
+	    }, {
+	        key: 'downloadList',
+	        value: function downloadList() {
+	            var _this4 = this;
+
+	            var searchParam = this.state.searchParam;
+
+	            if (searchParam && searchParam.nalName) {
+	                this.setState({ downloading: true });
+	                var nalName = searchParam.nalName;
+	                var companyKeyword = searchParam.companyKeyword;
+	                var type = searchParam.type;
+
+	                _util2.default.promiseAjax({
+	                    type: 'get',
+	                    url: '/natural-person/download2.do',
+	                    data: searchParam
+	                }).then(function (resp) {
+	                    _this4.setState({ downloading: false });
+	                    if (resp.success) {
+	                        window.location.href = resp.content;
+	                    } else {
+	                        _index4.default.error(resp.msg);
+	                    }
+	                }).catch(function (e) {
+	                    _index4.default.error('请求失败，请稍后再试');
+	                    _this4.setState({
+	                        downloading: false
+	                    });
+	                });
+	            }
+	        }
+	        /*
+	        * closeModal
+	        * */
+
+	    }, {
+	        key: 'closeModal',
+	        value: function closeModal() {
+	            this.setState({ modalShow: false });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this5 = this;
+
+	            var _state3 = this.state;
+	            var data = _state3.data;
+	            var rangeList = _state3.rangeList;
+	            var range = _state3.range;
+	            var name = _state3.name;
+	            var relatedCompany = _state3.relatedCompany;
+	            var nameError = _state3.nameError;
+	            var modalShow = _state3.modalShow;
+	            var errorTip = _state3.errorTip;
+	            var downloading = _state3.downloading;
+	            var loading = _state3.loading;
+
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'naturalSearch_root' },
+	                _react2.default.createElement(_MainTitle2.default, { title: '自然人检索' }),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'common_box naturalSearch_box' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'naturalSearch_content' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'search_box' },
+	                            _react2.default.createElement(
+	                                'ul',
+	                                { className: 'group range' },
+	                                rangeList.map(function (item, index) {
+	                                    if (item.value === range) {
+	                                        return _react2.default.createElement(
+	                                            'li',
+	                                            { key: index, className: 'active' },
+	                                            _react2.default.createElement(
+	                                                'span',
+	                                                null,
+	                                                item.text
+	                                            )
+	                                        );
+	                                    }
+	                                    return _react2.default.createElement(
+	                                        'li',
+	                                        { key: index, onClick: _this5.setRange.bind(_this5, item.value) },
+	                                        _react2.default.createElement(
+	                                            'span',
+	                                            null,
+	                                            item.text
+	                                        )
+	                                    );
+	                                })
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'group' },
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'inputRow' },
+	                                    _react2.default.createElement(
+	                                        'label',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'i',
+	                                            null,
+	                                            '*'
+	                                        ),
+	                                        '自然人名称'
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'div',
+	                                        { className: 'inputItem' },
+	                                        _react2.default.createElement(_Input2.default, {
+	                                            placeholder: '请输入关键词进行搜索',
+	                                            value: name,
+	                                            onChange: this.inputChange.bind(this),
+	                                            name: 'name',
+	                                            width: '400'
+	                                        }),
+	                                        _react2.default.createElement(
+	                                            'span',
+	                                            { className: 'error-tip' },
+	                                            nameError
+	                                        )
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'inputRow' },
+	                                    _react2.default.createElement(
+	                                        'label',
+	                                        null,
+	                                        '已知关联公司'
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'div',
+	                                        { className: 'inputItem' },
+	                                        _react2.default.createElement(_index2.default, {
+	                                            placeholder: '请输入关键词进行搜索',
+	                                            value: relatedCompany,
+	                                            name: 'relatedCompany',
+	                                            onChange: this.inputChange.bind(this),
+	                                            request: this.getRelatedCompanyList.bind(this),
+	                                            onChoose: function onChoose(item) {
+	                                                _this5.inputChange({ target: { name: 'relatedCompany', value: item.value } });
+	                                            },
+	                                            style: { width: '400px' }
+	                                        })
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    _Button2.default,
+	                                    { className: 'search', onClick: this.handleSearch.bind(this) },
+	                                    '搜索'
+	                                )
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'handle_group' },
+	                            _react2.default.createElement(
+	                                _Button2.default,
+	                                { className: 'export', onClick: this.downloadList.bind(this) },
+	                                downloading ? '下载中...' : '下载列表'
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'data_wrap' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'data_header' },
+	                                _react2.default.createElement(
+	                                    'table',
+	                                    { className: 'bbdTable_root' },
+	                                    _react2.default.createElement(
+	                                        'thead',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'tr',
+	                                            null,
+	                                            _react2.default.createElement(
+	                                                'th',
+	                                                { className: 'id', width: '10%' },
+	                                                '序号'
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'th',
+	                                                { width: '10%' },
+	                                                '自然人姓名'
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'th',
+	                                                { width: '15%' },
+	                                                '关联公司'
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'th',
+	                                                { width: '10%' },
+	                                                '职务'
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'th',
+	                                                { width: '10%' },
+	                                                '成立时间'
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'th',
+	                                                { width: '10%' },
+	                                                '法定代表人'
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'th',
+	                                                { width: '10%' },
+	                                                '注册资本'
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'th',
+	                                                null,
+	                                                '注册地址'
+	                                            )
+	                                        )
+	                                    )
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'data_list', id: 'data_list', style: { position: 'relative', maxHeight: '611px' } },
+	                                _react2.default.createElement(
+	                                    'table',
+	                                    { className: 'bbdTable_root' },
+	                                    _react2.default.createElement(
+	                                        'tbody',
+	                                        null,
+	                                        loading ? _react2.default.createElement(
+	                                            'tr',
+	                                            { className: 'nodata-tips' },
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                null,
+	                                                loading
+	                                            )
+	                                        ) : null,
+	                                        data && !loading ? data.length > 0 ? data.map(function (item, index) {
+	                                            return _react2.default.createElement(
+	                                                'tr',
+	                                                { key: index },
+	                                                _react2.default.createElement(
+	                                                    'td',
+	                                                    { className: 'id', width: '10%' },
+	                                                    index + 1
+	                                                ),
+	                                                _react2.default.createElement(
+	                                                    'td',
+	                                                    { width: '10%' },
+	                                                    item.nalName
+	                                                ),
+	                                                _react2.default.createElement(
+	                                                    'td',
+	                                                    { width: '15%' },
+	                                                    item.relatedCompany
+	                                                ),
+	                                                _react2.default.createElement(
+	                                                    'td',
+	                                                    { width: '10%' },
+	                                                    item.position
+	                                                ),
+	                                                _react2.default.createElement(
+	                                                    'td',
+	                                                    { width: '10%' },
+	                                                    item.esDate
+	                                                ),
+	                                                _react2.default.createElement(
+	                                                    'td',
+	                                                    { width: '10%' },
+	                                                    item.frName
+	                                                ),
+	                                                _react2.default.createElement(
+	                                                    'td',
+	                                                    { width: '10%' },
+	                                                    item.regCapital
+	                                                ),
+	                                                _react2.default.createElement(
+	                                                    'td',
+	                                                    null,
+	                                                    item.regAddress
+	                                                )
+	                                            );
+	                                        }) : _react2.default.createElement(
+	                                            'tr',
+	                                            { className: 'nodata-tips' },
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                null,
+	                                                '暂无数据'
+	                                            )
+	                                        ) : null
+	                                    )
+	                                )
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        _Modal2.default,
+	                        {
+	                            className: 'parkCompanyListModal',
+	                            onClose: this.closeModal.bind(this),
+	                            visible: modalShow,
+	                            title: '',
+	                            onOk: this.closeModal.bind(this),
+	                            okText: '确定'
+	                        },
+	                        errorTip
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return NaturalSearch;
+	}(_react.Component);
+
+	exports.default = NaturalSearch;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "NaturalSearch.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 807 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	__webpack_require__(808);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(242);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _Input = __webpack_require__(703);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	/**
+	 * props 的值
+	 * {
+	 *  request: 发起请求的方法
+	 *  onChoose 选了以后的回调函数
+	 * }
+	 */
+	var timer; // 所有组件实例公用这一个 变量来储存请求“线程”。因为如果放到实例的state上，会引起同步问题，但是这个组件，用户不可能会同时使用不同的 组件实例
+
+	/* 自动补全组件*/
+
+	var AutoComplete = function (_Component) {
+	    _inherits(AutoComplete, _Component);
+
+	    function AutoComplete(props) {
+	        _classCallCheck(this, AutoComplete);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AutoComplete).call(this, props));
+
+	        _this.handleChange = _this.handleChange.bind(_this);
+	        _this.hanldeSelectItem = _this.hanldeSelectItem.bind(_this);
+	        _this.state = {
+	            textValue: '', // input的value回显
+	            data: [], // 服务器返回的待选列表
+	            show: 'none',
+	            lastRequestValue: '', // 上一次往服务器请求的值，防止重复搜索
+	            selected: '' // 是否选中
+	        };
+	        _this.hide = _this.hide.bind(_this);
+	        return _this;
+	    }
+
+	    _createClass(AutoComplete, [{
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps(nextProps) {
+	            if (nextProps.value !== this.state.textValue) {
+	                this.setState({
+	                    textValue: nextProps.value,
+	                    selected: ''
+	                });
+	                this.delayRequest(nextProps.value);
+	            }
+	        }
+	    }, {
+	        key: 'handleChange',
+	        value: function handleChange(e) {
+	            var textValue = e.target.value;
+	            this.setState({
+	                textValue: textValue,
+	                selected: ''
+	            });
+	            var onChange = this.props.onChange;
+
+	            typeof onChange === 'function' && onChange(textValue, e);
+	            this.delayRequest(textValue);
+	        }
+	    }, {
+	        key: 'delayRequest',
+	        value: function delayRequest(value) {
+	            // 延时请求处理
+	            var self = this;
+
+	            clearTimeout(timer);
+	            timer = setTimeout(function () {
+	                self.requestData(value);
+	            }, 500);
+	        }
+	    }, {
+	        key: 'requestData',
+	        value: function requestData(value) {
+	            var _this2 = this;
+
+	            value = $.trim(value);
+	            if (value === '' || value === this.state.lastRequestValue) {
+	                if (value === '') {
+	                    this.setState({ data: [] });
+	                }
+	                return;
+	            }
+	            this.props.request(value).then(function (data) {
+	                _this2.setState({
+	                    data: data,
+	                    lastRequestValue: value
+	                });
+	                _this2.show();
+	            });
+	        }
+	    }, {
+	        key: 'show',
+	        value: function show() {
+	            this.setState({ show: 'block' });
+	        }
+	    }, {
+	        key: 'hide',
+	        value: function hide() {
+	            this.setState({ show: 'none' });
+	        }
+	    }, {
+	        key: 'hanldeSelectItem',
+	        value: function hanldeSelectItem(item) {
+	            var _this3 = this;
+
+	            this.setState({ selected: 'selected' }, function () {
+	                _this3.props.onChoose(item);
+	                _this3.hide();
+	            });
+	        }
+	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            document.addEventListener('click', this.hide);
+	        }
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {
+	            document.removeEventListener('click', this.hide);
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this4 = this;
+
+	            var data = this.state.data ? this.state.data : [];
+	            var length = data.length;
+	            var show = this.state.show;
+	            return(
+	                // react 事件包装方式：http://www.cnblogs.com/libin-1/p/6298326.html
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'autoCompleteCommon', 'data-selected': this.state.selected, style: this.props.style, ref: function ref(e) {
+	                            return _this4._root = e;
+	                        }, onClick: function onClick(e) {
+	                            e.nativeEvent.stopImmediatePropagation();
+	                        } },
+	                    _react2.default.createElement(_Input2.default, { disabled: this.props.disabled, type: 'text',
+	                        suffix: this.props.suffix,
+	                        name: this.props.name,
+	                        onChange: this.handleChange,
+	                        placeholder: this.props.placeholder,
+	                        value: this.state.textValue,
+	                        onFocus: function onFocus() {
+	                            _this4.state.data.length > 0 && _this4.show();
+	                        }
+	                    }),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'autoComplete_list', style: { display: show } },
+	                        _react2.default.createElement(
+	                            'ul',
+	                            null,
+	                            data.map(function (item, index) {
+	                                if (_this4.state.textValue === item.text) {
+	                                    return _react2.default.createElement(
+	                                        'li',
+	                                        { key: index, className: 'active' },
+	                                        item.text
+	                                    );
+	                                }
+	                                return _react2.default.createElement(
+	                                    'li',
+	                                    { key: index, onClick: function onClick(e) {
+	                                            _this4.hanldeSelectItem(item);
+	                                        } },
+	                                    item.text
+	                                );
+	                            })
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return AutoComplete;
+	}(_react.Component);
+
+	exports.default = AutoComplete;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "index.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 808 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(809);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(679)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(true) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept(809, function() {
+				var newContent = __webpack_require__(809);
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 809 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(678)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "@charset \"UTF-8\";\n/*自动补全*/\n.autoCompleteCommon {\n  position: relative;\n  line-height: 1; }\n  .autoCompleteCommon .autoComplete input {\n    height: 40px;\n    border-color: #60778b;\n    color: #8899aa; }\n  .autoCompleteCommon .bbdInputPreSuffix_input {\n    box-sizing: border-box; }\n  .autoCompleteCommon .icon-search {\n    /*position: absolute;\r\n        right: 20px;*/ }\n  .autoCompleteCommon .autoComplete_list {\n    position: absolute;\n    left: 0px;\n    top: 38px;\n    width: 100%;\n    box-sizing: border-box;\n    padding: 0px;\n    overflow: auto;\n    z-index: 100;\n    max-height: 200px;\n    border: 0;\n    border-bottom-left-radius: 4px;\n    border-bottom-right-radius: 4px; }\n  .autoCompleteCommon .autoComplete_list ul {\n    width: 100%;\n    list-style: none;\n    padding: 0;\n    margin: 0; }\n  .autoCompleteCommon .autoComplete_list li {\n    padding: 8px 10px;\n    display: block;\n    font-size: 14px;\n    cursor: pointer;\n    color: #ffffff;\n    background-color: #25a9ee; }\n    .autoCompleteCommon .autoComplete_list li.active {\n      background-color: #31526F;\n      color: #fff; }\n  .autoCompleteCommon .autoComplete_list ul li:hover {\n    background-color: #0b70a5;\n    color: #fff; }\n  .autoCompleteCommon .autoComplete_list li.last {\n    border-bottom: none; }\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 810 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	__webpack_require__(772);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(243);
+
+	var _MainTitle = __webpack_require__(712);
+
+	var _MainTitle2 = _interopRequireDefault(_MainTitle);
+
+	var _Button = __webpack_require__(696);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Checkbox = __webpack_require__(687);
+
+	var _Checkbox2 = _interopRequireDefault(_Checkbox);
+
+	var _Select = __webpack_require__(716);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Input = __webpack_require__(703);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	var _Modal = __webpack_require__(693);
+
+	var _Modal2 = _interopRequireDefault(_Modal);
+
+	var _index = __webpack_require__(807);
+
+	var _index2 = _interopRequireDefault(_index);
+
+	var _index3 = __webpack_require__(768);
+
+	var _index4 = _interopRequireDefault(_index3);
+
+	var _util = __webpack_require__(673);
+
+	var _util2 = _interopRequireDefault(_util);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 企业信息变更
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	// 自动补全组件
+
+
+	var ValidMessage = {
+	    business: {
+	        required: '请选择行业'
+	    },
+	    riskStatus: {
+	        required: '请选择风险状态'
+	    },
+	    outerRisk: {
+	        required: '请选择外部评级'
+	    },
+	    innerRisk: {
+	        required: '请选择内部评级'
+	    },
+	    nowRisk: {
+	        required: '请选择现场检查'
+	    }
+	};
+
+	var CompanyChange = function (_Component) {
+	    _inherits(CompanyChange, _Component);
+
+	    function CompanyChange(props) {
+	        _classCallCheck(this, CompanyChange);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(CompanyChange).call(this, props));
+
+	        _this.state = {
+	            businessList: [{ value: '网络借贷', text: '网络借贷', riskTag: '0' }, { value: '小额贷款', text: '小额贷款', riskTag: 'group' }, { value: '融资担保', text: '融资担保', riskTag: 'group' }, { value: '线下理财', text: '线下理财', riskTag: '0' }, { value: '交易场所', text: '交易场所', riskTag: '1' }, { value: '预付卡', text: '预付卡', riskTag: '2' }, { value: '融资租赁', text: '融资租赁', riskTag: '3' }],
+	            riskStatusList: [],
+	            riskStatusAll: [[{ value: '重点关注', text: '重点关注' }, { value: '一般关注', text: '一般关注' }, { value: '正常', text: '正常' }, { value: '已出风险', text: '已出风险' }], [{ value: '正常', text: '正常' }, { value: '已出风险', text: '已出风险' }], [{ value: '正常', text: '正常' }, { value: '潜在', text: '潜在' }, { value: '已发生', text: '已发生' }], [{ value: '正常', text: '正常' }, { value: '潜在', text: '潜在' }]],
+	            business: '',
+	            riskStatus: '',
+	            riskGroup: [{ text: '外部评级', key: 'outerRisk' }, { text: '内部评级', key: 'innerRisk' }, { text: '现场检查', key: 'nowRisk' }],
+	            riskGroupList: [{ value: 'A', text: 'A' }, { value: 'B', text: 'B' }, { value: 'C', text: 'C' }],
+	            formError: {}
+	        };
+	        return _this;
+	    }
+
+	    /*
+	     * 公司名改变
+	     * */
+
+
+	    _createClass(CompanyChange, [{
+	        key: 'companyNameChange',
+	        value: function companyNameChange(companyName, selected) {
+	            this.setState({ companyName: companyName });
+	        }
+
+	        /*
+	         * 获取公司名联想数据
+	         * */
+
+	    }, {
+	        key: 'companyNameComplete',
+	        value: function companyNameComplete(v) {
+	            return _util2.default.promiseAjax({
+	                type: 'get',
+	                url: '/companyInfoModify/autoComplete.do',
+	                data: { q: v }
+	            }).then(function (resp) {
+	                if (resp.success) {
+	                    return resp.content.map(function (item) {
+	                        return { text: item, value: item };
+	                    });
+	                }
+	            });
+	        }
+
+	        /*
+	         * 获取公司数据
+	         * */
+
+	    }, {
+	        key: 'getCompanyInfo',
+	        value: function getCompanyInfo(item) {
+	            var _this2 = this;
+
+	            this.setState({ companyName: item.text });
+	            _util2.default.promiseAjax({
+	                type: 'get',
+	                url: '/companyInfoModify/queryCompany.do',
+	                data: { name: item.text }
+	            }).then(function (resp) {
+	                if (resp.success) {
+	                    _this2.setState({ companyInfo: resp.content });
+	                }
+	            });
+	        }
+
+	        /*
+	         *selectChange
+	         * */
+
+	    }, {
+	        key: 'selectChange',
+	        value: function selectChange(v, name) {
+	            var formError = this.state.formError;
+
+	            var state = {};
+	            if (this.state[name] === v) {
+	                return true;
+	            }
+	            if (name === 'business') {
+	                // 行业改变 联动风险
+	                this.businessChange(v);
+	                return true;
+	            }
+	            state[name] = v;
+	            state.formError = _extends({}, formError, _defineProperty({}, name, ''));
+	            this.setState(state);
+	        }
+	        /*
+	         * businessChange
+	         * */
+
+	    }, {
+	        key: 'businessChange',
+	        value: function businessChange(v) {
+	            var formError = this.state.formError;
+
+	            var state = { business: v };
+	            var changeError = { business: '', riskStatus: '' };
+	            var _state = this.state;
+	            var businessList = _state.businessList;
+	            var riskStatusAll = _state.riskStatusAll;
+	            var riskGroup = _state.riskGroup;
+
+	            var riskTag = businessList.find(function (item) {
+	                return item.value === v;
+	            }).riskTag;
+	            if (riskTag === 'group') {
+	                // 如果有三级风险状态
+	                riskGroup.map(function (item) {
+	                    state[item.key] = '';
+	                    changeError[item.key] = '';
+	                });
+	            } else {
+	                state.riskStatus = '';
+	                state.riskStatusList = riskStatusAll[riskTag];
+	            }
+
+	            state.formError = _extends({}, formError, changeError);
+	            this.setState(state);
+	        }
+	        /*
+	         * 取消
+	         * */
+
+	    }, {
+	        key: 'onCancel',
+	        value: function onCancel() {
+	            this.setState({
+	                modalShow: false,
+	                companyName: '',
+	                companyInfo: null,
+	                companySelected: false
+	            });
+	        }
+	        /*
+	         * validData
+	         * */
+
+	    }, {
+	        key: 'validData',
+	        value: function validData() {
+	            var $required = $('.inputItem.required');
+	            var formError = this.state.formError;
+
+	            var changeError = {};
+	            var result = false;
+	            for (var i = 0, l = $required.length; i < l; i++) {
+	                var $input = $required.eq(i).find('input')[0];
+	                var name = $input.name;
+	                var value = $input.value;
+	                if (ValidMessage[name].required && !value) {
+	                    // 必填
+	                    changeError[name] = ValidMessage[name].required;
+	                }
+	            }
+	            if (JSON.stringify(changeError) === '{}') {
+	                result = true;
+	            }
+	            this.setState({ formError: _extends({}, formError, changeError) });
+	            return result;
+	        }
+	        /*
+	         * 确认
+	         * */
+
+	    }, {
+	        key: 'onSave',
+	        value: function onSave() {
+	            var _state2 = this.state;
+	            var business = _state2.business;
+	            var businessList = _state2.businessList;
+	            var riskGroup = _state2.riskGroup;
+
+	            var riskTag = business && businessList.find(function (item) {
+	                return item.value === business;
+	            }).riskTag;
+	            if (this.validData()) {
+	                // 验证数据正确
+	                this.setState({ modalShow: true, modalTip: '修改成功！' });
+	            }
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this3 = this;
+
+	            var _state3 = this.state;
+	            var companyInfo = _state3.companyInfo;
+	            var _state3$companyName = _state3.companyName;
+	            var companyName = _state3$companyName === undefined ? '' : _state3$companyName;
+	            var data = _state3.data;
+	            var businessList = _state3.businessList;
+	            var business = _state3.business;
+	            var riskStatus = _state3.riskStatus;
+	            var riskGroup = _state3.riskGroup;
+	            var riskGroupList = _state3.riskGroupList;
+	            var _state3$riskStatusLis = _state3.riskStatusList;
+	            var riskStatusList = _state3$riskStatusLis === undefined ? [] : _state3$riskStatusLis;
+	            var modalShow = _state3.modalShow;
+	            var modalTip = _state3.modalTip;
+	            var formError = _state3.formError;
+
+	            var riskShowOne = !business || businessList.find(function (item) {
+	                return item.value === business;
+	            }).riskTag !== 'group';
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'companyChange_root' },
+	                _react2.default.createElement(_MainTitle2.default, { title: '企业信息变更' }),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'common_box companyChange_box', style: {} },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'companyChange_content' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'search' },
+	                            _react2.default.createElement(_index2.default, {
+	                                placeholder: '请输入需要变更行业的企业名称',
+	                                suffix: 'icon-search',
+	                                value: companyName,
+	                                name: 'companyName',
+	                                onChange: this.companyNameChange.bind(this),
+	                                request: this.companyNameComplete.bind(this),
+	                                onChoose: function onChoose(item) {
+	                                    _this3.getCompanyInfo(item);
+	                                },
+	                                style: {}
+	                            })
+	                        ),
+	                        companyInfo ? _react2.default.createElement(
+	                            'div',
+	                            null,
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'companyInfo_wrap' },
+	                                _react2.default.createElement(
+	                                    'p',
+	                                    { className: 'companyInfo_name' },
+	                                    companyInfo.name
+	                                ),
+	                                _react2.default.createElement(
+	                                    'ul',
+	                                    { className: 'group' },
+	                                    _react2.default.createElement(
+	                                        'li',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'label',
+	                                            null,
+	                                            '法定代表人：'
+	                                        ),
+	                                        companyInfo.legalPerson
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'li',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'label',
+	                                            null,
+	                                            '注册资本：'
+	                                        ),
+	                                        companyInfo.registeredCapital
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'li',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'label',
+	                                            null,
+	                                            '行业（当前）：'
+	                                        ),
+	                                        companyInfo.industry
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'li',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'label',
+	                                            null,
+	                                            '风险状态（当前）：'
+	                                        ),
+	                                        companyInfo.originalStatus ? companyInfo.originalStatus : '外部评级 ' + companyInfo.outLevel + ' 内部评级 ' + companyInfo.innnerLevel + ' 现场评级 ' + companyInfo.liveLevel
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'li',
+	                                        { className: 'group' },
+	                                        _react2.default.createElement(
+	                                            'div',
+	                                            { className: 'inputRow' },
+	                                            _react2.default.createElement(
+	                                                'label',
+	                                                null,
+	                                                '行业（调整为）：'
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'div',
+	                                                { className: 'inputItem required' },
+	                                                _react2.default.createElement('input', { type: 'hidden', value: business, name: 'business' }),
+	                                                _react2.default.createElement(_Select2.default, {
+	                                                    defaultText: '请选择',
+	                                                    options: businessList,
+	                                                    onSelected: this.selectChange.bind(this),
+	                                                    selected: business,
+	                                                    name: 'business',
+	                                                    style: { width: '200px' }
+	                                                }),
+	                                                _react2.default.createElement(
+	                                                    'p',
+	                                                    { className: 'error-tip' },
+	                                                    formError.business
+	                                                )
+	                                            )
+	                                        )
+	                                    ),
+	                                    riskShowOne ? _react2.default.createElement(
+	                                        'li',
+	                                        { style: { width: '75%' } },
+	                                        _react2.default.createElement(
+	                                            'div',
+	                                            { className: 'inputRow' },
+	                                            _react2.default.createElement(
+	                                                'label',
+	                                                null,
+	                                                '风险状态（调整为）：'
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'div',
+	                                                { className: 'inputItem required' },
+	                                                _react2.default.createElement('input', { type: 'hidden', value: riskStatus, name: 'riskStatus' }),
+	                                                _react2.default.createElement(_Select2.default, {
+	                                                    defaultText: '请选择',
+	                                                    options: riskStatusList,
+	                                                    onSelected: this.selectChange.bind(this),
+	                                                    selected: riskStatus,
+	                                                    name: 'riskStatus',
+	                                                    style: { width: '200px' }
+	                                                }),
+	                                                _react2.default.createElement(
+	                                                    'p',
+	                                                    { className: 'error-tip' },
+	                                                    formError.riskStatus
+	                                                )
+	                                            )
+	                                        )
+	                                    ) : _react2.default.createElement(
+	                                        'li',
+	                                        { className: 'riskGroup', style: { width: '75%' } },
+	                                        _react2.default.createElement(
+	                                            'label',
+	                                            { className: 'groupLabel' },
+	                                            '风险状态（调整为）：'
+	                                        ),
+	                                        riskGroup.map(function (item, index) {
+	                                            return _react2.default.createElement(
+	                                                'div',
+	                                                { key: index, className: 'inputRow' },
+	                                                _react2.default.createElement(
+	                                                    'label',
+	                                                    null,
+	                                                    item.text
+	                                                ),
+	                                                _react2.default.createElement(
+	                                                    'div',
+	                                                    { className: 'inputItem required' },
+	                                                    _react2.default.createElement('input', { type: 'hidden', value: _this3.state[item.key], name: item.key }),
+	                                                    _react2.default.createElement(_Select2.default, {
+	                                                        defaultText: '请选择',
+	                                                        options: riskGroupList,
+	                                                        onSelected: _this3.selectChange.bind(_this3),
+	                                                        selected: _this3.state[item.key],
+	                                                        name: item.key,
+	                                                        style: { width: '100px' }
+	                                                    }),
+	                                                    _react2.default.createElement(
+	                                                        'p',
+	                                                        { className: 'error-tip' },
+	                                                        formError[item.key]
+	                                                    )
+	                                                )
+	                                            );
+	                                        })
+	                                    )
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'handle_group' },
+	                                _react2.default.createElement(
+	                                    _Button2.default,
+	                                    { className: 'cancel', style: { width: '140px' }, onClick: this.onCancel.bind(this) },
+	                                    '取消'
+	                                ),
+	                                _react2.default.createElement(
+	                                    _Button2.default,
+	                                    { onClick: this.onSave.bind(this) },
+	                                    '确认'
+	                                )
+	                            )
+	                        ) : null
+	                    ),
+	                    _react2.default.createElement(
+	                        _Modal2.default,
+	                        {
+	                            className: 'parkCompanyListModal',
+	                            visible: modalShow,
+	                            title: '',
+	                            onOk: this.onCancel.bind(this),
+	                            okText: '确定'
+	                        },
+	                        modalTip
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return CompanyChange;
+	}(_react.Component);
+
+	exports.default = CompanyChange;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "CompanyChange.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 811 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	__webpack_require__(772);
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(243);
+
+	var _MainTitle = __webpack_require__(712);
+
+	var _MainTitle2 = _interopRequireDefault(_MainTitle);
+
+	var _Button = __webpack_require__(696);
+
+	var _Button2 = _interopRequireDefault(_Button);
+
+	var _Checkbox = __webpack_require__(687);
+
+	var _Checkbox2 = _interopRequireDefault(_Checkbox);
+
+	var _Select = __webpack_require__(716);
+
+	var _Select2 = _interopRequireDefault(_Select);
+
+	var _Input = __webpack_require__(703);
+
+	var _Input2 = _interopRequireDefault(_Input);
+
+	var _DatePicker = __webpack_require__(746);
+
+	var _DatePicker2 = _interopRequireDefault(_DatePicker);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created By hejie
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 快捷导出
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+
+	var defaultFilter = {
+	    // 字段详情看接口文档
+	    userName: '',
+	    pageNumber: 1,
+	    pageSize: 10,
+	    beginTime: [],
+	    endTime: [],
+	    areaCode: 0,
+	    opPgCd: -1,
+	    opTpCd: -1,
+	    sysCode: -1,
+	    logContent: '',
+	    orderBy: 'DESC'
+	};
+
+	var Export = function (_Component) {
+	    _inherits(Export, _Component);
+
+	    function Export(props) {
+	        _classCallCheck(this, Export);
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Export).call(this, props));
+
+	        _this.state = {
+	            list: [{ id: 1, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 2, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 3, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 4, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 5, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 6, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 7, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 8, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 9, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }, { id: 10, orderNum: 1, loginName: 1, realName: 1, department: 1, userStatus: 1, userType: 1 }],
+	            filter: _extends({}, defaultFilter),
+	            options: {
+	                areaCodeList: [],
+	                opPageList: [],
+	                opTypeList: [],
+	                sysLocationList: []
+	            }
+	        };
+	        // this.topage = this.topage.bind(this);
+	        return _this;
+	    }
+
+	    _createClass(Export, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            $('#list-content').perfectScrollbar();
+	        }
+	    }, {
+	        key: 'writeOption',
+	        value: function writeOption(name) {
+	            var _this2 = this;
+
+	            return function (data) {
+	                var filter = _this2.state.filter;
+	                filter[name] = data;
+	                _this2.setState({ filter: filter });
+	            };
+	        }
+	    }, {
+	        key: 'writeDate',
+	        value: function writeDate(field) {
+	            var _this3 = this;
+
+	            return function (y, m, d) {
+	                var filter = _this3.state.filter;
+	                filter[field] = y === null ? [] : [y, m, d];
+	                _this3.setState({ filter: filter });
+	            };
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _state = this.state;
+	            var list = _state.list;
+	            var options = _state.options;
+	            var filter = _state.filter;
+
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'export_root' },
+	                _react2.default.createElement(_MainTitle2.default, { title: '快捷导出' }),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'export_filterPanel' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'selectRow group' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'inputField' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'label' },
+	                                '行业分类'
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'input' },
+	                                _react2.default.createElement(_Select2.default, {
+	                                    options: options.areaCodeList,
+	                                    onSelected: this.writeOption('areaCode'),
+	                                    selected: filter.areaCode
+	                                })
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'inputField' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'label' },
+	                                '风险等级'
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'input' },
+	                                _react2.default.createElement(_Select2.default, {
+	                                    options: options.areaCodeList,
+	                                    onSelected: this.writeOption('areaCode'),
+	                                    selected: filter.areaCode
+	                                })
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'inputField' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'label' },
+	                                '行政区域'
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'input' },
+	                                _react2.default.createElement(_Select2.default, {
+	                                    options: options.sysLocationList,
+	                                    onSelected: this.writeOption('sysCode'),
+	                                    selected: filter.sysCode
+	                                })
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'selectRow group' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'inputField' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'label' },
+	                                '注册资本'
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'input' },
+	                                _react2.default.createElement(_Select2.default, {
+	                                    options: options.areaCodeList,
+	                                    onSelected: this.writeOption('areaCode'),
+	                                    selected: filter.areaCode
+	                                })
+	                            ),
+	                            _react2.default.createElement('div', { className: 'line' }),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'input' },
+	                                _react2.default.createElement(_Select2.default, {
+	                                    options: options.areaCodeList,
+	                                    onSelected: this.writeOption('areaCode'),
+	                                    selected: filter.areaCode
+	                                })
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'inputField' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'label' },
+	                                '注册时间'
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'input' },
+	                                _react2.default.createElement(_DatePicker2.default, {
+	                                    year: filter.beginTime[0],
+	                                    month: filter.beginTime[1],
+	                                    day: filter.beginTime[2],
+	                                    callback: this.writeDate('beginTime') })
+	                            ),
+	                            _react2.default.createElement('div', { className: 'line' }),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'input' },
+	                                _react2.default.createElement(_DatePicker2.default, {
+	                                    year: filter.endTime[0],
+	                                    month: filter.endTime[1],
+	                                    day: filter.endTime[2],
+	                                    callback: this.writeDate('endTime') })
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'buttonField' },
+	                            _react2.default.createElement(
+	                                _Button2.default,
+	                                { className: 'search', onClick: this.handleSearch },
+	                                '查询'
+	                            )
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'table-list' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'label btn-box' },
+	                        _react2.default.createElement(
+	                            'span',
+	                            { className: 'blue' },
+	                            '名单上传'
+	                        ),
+	                        _react2.default.createElement(
+	                            _Button2.default,
+	                            { className: 'export-btn', onClick: this.handleSearch },
+	                            '导出列表'
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'building-list' },
+	                        _react2.default.createElement(
+	                            'table',
+	                            { className: '' },
+	                            _react2.default.createElement(
+	                                'thead',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'tr',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        'th',
+	                                        { width: '6%' },
+	                                        '序号'
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'th',
+	                                        { width: '16%', className: 'text-left' },
+	                                        '公司名称'
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'th',
+	                                        { width: '8%', className: 'text-left' },
+	                                        '法定代表人'
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'th',
+	                                        { width: '8%' },
+	                                        '注册时间'
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'th',
+	                                        { width: '9%' },
+	                                        '注册资本'
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'th',
+	                                        { width: '20%', className: 'text-left' },
+	                                        '注册地址'
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'th',
+	                                        { width: '8%', className: 'text-left' },
+	                                        '平台名称'
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'th',
+	                                        { width: '9%' },
+	                                        '风险等级'
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'th',
+	                                        { width: '8%' },
+	                                        '风险分值'
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'th',
+	                                        { width: '8%' },
+	                                        '行业类别'
+	                                    )
+	                                )
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'list-content', id: 'list-content' },
+	                            _react2.default.createElement(
+	                                'table',
+	                                { className: '' },
+	                                _react2.default.createElement(
+	                                    'tbody',
+	                                    null,
+	                                    this.state.list.length > 0 ? this.state.list.map(function (item, index) {
+	                                        return _react2.default.createElement(
+	                                            'tr',
+	                                            { key: index },
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '6%' },
+	                                                item.id
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '16%', className: 'text-left' },
+	                                                item.userStatus
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '8%', className: 'text-left' },
+	                                                item.userType
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '8%' },
+	                                                item.userStatus
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '9%' },
+	                                                item.userType
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '20%', className: 'text-left' },
+	                                                item.userType
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '8%', className: 'text-left' },
+	                                                item.userType
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '9%' },
+	                                                item.userType
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '8%' },
+	                                                item.userType
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'td',
+	                                                { width: '8%' },
+	                                                item.userType
+	                                            )
+	                                        );
+	                                    }) : _react2.default.createElement(
+	                                        'tr',
+	                                        { className: 'nodata-tips' },
+	                                        _react2.default.createElement(
+	                                            'td',
+	                                            null,
+	                                            '暂无数据'
+	                                        )
+	                                    )
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Export;
+	}(_react.Component);
+
+	exports.default = Export;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Export.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 812 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = configureStore;
+
+	var _redux = __webpack_require__(312);
+
+	var _reduxThunk = __webpack_require__(813);
+
+	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
+
+	var _index = __webpack_require__(814);
+
+	var _index2 = _interopRequireDefault(_index);
+
+	var _DevTools = __webpack_require__(815);
+
+	var _DevTools2 = _interopRequireDefault(_DevTools);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function configureStore() {
+	    var store = (0, _redux.createStore)(_index2.default,
+	    //DevTools.instrument(), applyMiddleware(thunk)
+	    // compose(applyMiddleware(thunkMiddleware), DevTools.instrument()))
+	    (0, _redux.applyMiddleware)(_reduxThunk2.default));
+	    return store;
+	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "configureStore.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 813 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	function createThunkMiddleware(extraArgument) {
+	  return function (_ref) {
+	    var dispatch = _ref.dispatch;
+	    var getState = _ref.getState;
+	    return function (next) {
+	      return function (action) {
+	        if (typeof action === 'function') {
+	          return action(dispatch, getState, extraArgument);
+	        }
+
+	        return next(action);
+	      };
+	    };
+	  };
+	}
+
+	var thunk = createThunkMiddleware();
+	thunk.withExtraArgument = createThunkMiddleware;
+
+	exports['default'] = thunk;
+
+/***/ },
+/* 814 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _redux = __webpack_require__(312);
+
+	var _reactRouterRedux = __webpack_require__(306);
+
+	var rootReducer = (0, _redux.combineReducers)({
+	    routing: _reactRouterRedux.routerReducer //整合路由
+	});
+	exports.default = rootReducer;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "index.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+
+/***/ },
+/* 815 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {/* REACT HOT LOADER */ if (true) { (function () { var ReactHotAPI = __webpack_require__(76), RootInstanceProvider = __webpack_require__(84), ReactMount = __webpack_require__(86), React = __webpack_require__(138); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(138);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reduxDevtools = __webpack_require__(335);
+
+	var _reduxDevtoolsLogMonitor = __webpack_require__(461);
+
+	var _reduxDevtoolsLogMonitor2 = _interopRequireDefault(_reduxDevtoolsLogMonitor);
+
+	var _reduxDevtoolsDockMonitor = __webpack_require__(632);
+
+	var _reduxDevtoolsDockMonitor2 = _interopRequireDefault(_reduxDevtoolsDockMonitor);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = (0, _reduxDevtools.createDevTools)(_react2.default.createElement(
+	  _reduxDevtoolsDockMonitor2.default,
+	  { toggleVisibilityKey: 'ctrl-h',
+	    changePositionKey: 'ctrl-q' },
+	  _react2.default.createElement(_reduxDevtoolsLogMonitor2.default, null)
+	));
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(669); if (makeExportsHot(module, __webpack_require__(138))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "DevTools.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
 
 /***/ }
 /******/ ]);

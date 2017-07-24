@@ -148,14 +148,22 @@ public class OfflineFinanceController {
 		try {
 			RelationDiagramVO result = offlineFinanceService.queryRealRealation(companyName, degreesLevel);
 
-			//test-start
-			/*DrawRelated dr =new DrawRelated();
-			dr.drawRelated(dr.relationDiagramVoToNodeList(result), dr.relationDiagramVoToLineList(result));
-			dr.saveFile("C:\\Users\\Administrator\\Desktop\\img_" +companyName +degreesLevel +".png");*/
-			/*DrawRelatedG2 dr2 =new DrawRelatedG2(DrawRelatedG2.DegreeType.findDegreeTypeByVal(degreesLevel));
-			dr2.drawRelatedG2(result);
-			dr2.saveFile("C:\\Users\\Administrator\\Desktop\\img_" +companyName +degreesLevel +".png");*/
-			//test-end
+			// test-start
+			/*
+			 * DrawRelated dr =new DrawRelated();
+			 * dr.drawRelated(dr.relationDiagramVoToNodeList(result),
+			 * dr.relationDiagramVoToLineList(result));
+			 * dr.saveFile("C:\\Users\\Administrator\\Desktop\\img_"
+			 * +companyName +degreesLevel +".png");
+			 */
+			/*
+			 * DrawRelatedG2 dr2 =new
+			 * DrawRelatedG2(DrawRelatedG2.DegreeType.findDegreeTypeByVal(
+			 * degreesLevel)); dr2.drawRelatedG2(result);
+			 * dr2.saveFile("C:\\Users\\Administrator\\Desktop\\img_"
+			 * +companyName +degreesLevel +".png");
+			 */
+			// test-end
 
 			return ResponseBean.successResponse(result);
 		} catch (Exception e) {
@@ -166,7 +174,7 @@ public class OfflineFinanceController {
 
 	@RequestMapping(value = "/export-related-data")
 	@ResponseBody
-	public ResponseBean exportRelatedData(@RequestParam String companyName,HttpServletRequest request) {
+	public ResponseBean exportRelatedData(@RequestParam String companyName, HttpServletRequest request) {
 		try {
 			RelationDiagramVO result = offlineFinanceService.queryRealRealation(companyName, 3);
 			List<RelationDiagramVO.LineVO> lineList = result.getLineList();
@@ -191,8 +199,8 @@ public class OfflineFinanceController {
 				exportExcel.createSheet(companyName + i, lineList.subList(fromIndex, toIndex));
 			}
 			exportExcel.exportExcel();
-			UserLogRecord.record("导出【"+companyName+"】关联方", Operation.Type.DATA_EXPORT, Operation.Page.hologram,
-					Operation.System.front, request);
+			UserLogRecord.record("导出【" + companyName + "】关联方", Operation.Type.DATA_EXPORT, Operation.Page.hologram, Operation.System.front,
+					request);
 
 			// 数据落地
 			relationService.addRelation(lineList, companyName);
@@ -202,8 +210,6 @@ public class OfflineFinanceController {
 			return ExceptionHandler.handlerException(e);
 		}
 	}
-
-
 
 	/**
 	 * 风险指数趋势变化图
@@ -549,18 +555,6 @@ public class OfflineFinanceController {
 		result.put("prepaid", prepaidCompanyResponseBean.getContent());
 		result.put("guarantee", guaranteeController.balanceByQuarter());
 		return ResponseBean.successResponse(result);
-	}
-
-	/**
-	 * 更新企业光谱分析结果
-	 * 
-	 * @return
-	 */
-	@RequestMapping("updateCompanyRiskLevel.do")
-	@ResponseBody
-	public ResponseBean updateCompanyRiskLevel() {
-		offlineFinanceService.updateCompanyRiskLevel();
-		return ResponseBean.successResponse("更新成功");
 	}
 
 	/**

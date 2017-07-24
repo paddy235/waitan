@@ -34,7 +34,7 @@
                 // 告诉jQuery不要去设置Content-Type请求头
                 contentType: false,
                 success: function () {
-                    int = window.setInterval("progress()", 1000);
+                    // int = window.setInterval("progress()", 1000);
                 }
             });
         });
