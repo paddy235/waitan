@@ -1,6 +1,7 @@
 package com.bbd.wtyh.sys.controller;
 
 import com.bbd.wtyh.service.LogInfoService;
+import com.bbd.wtyh.service.OfflineFinanceService;
 import com.bbd.wtyh.web.ResponseBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,10 +46,16 @@ public class ThirdPartyController {
 	@RequestMapping("/get-ip")
 	@ResponseBody
 	public Object test(HttpServletRequest request) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("ip", request.getLocalAddr());
-		map.put("port", request.getLocalPort());
-		return ResponseBean.successResponse(map);
+		try {
+			InetAddress addr = Inet4Address.getLocalHost();
+			Map<String, Object> map = new HashMap<>();
+			map.put("ip", request.getLocalAddr());
+			map.put("host", addr.getHostName());
+			return ResponseBean.successResponse(map);
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
+		return ResponseBean.successResponse(null);
 	}
 
 }
