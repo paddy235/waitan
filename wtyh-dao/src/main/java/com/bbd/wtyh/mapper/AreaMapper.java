@@ -38,5 +38,7 @@ public interface AreaMapper{
 
 	AreaDO getAreaByAreaId(@Param("areaId") Integer AreaId);
 
+	AreaDO selectByProvinceName( @Param("areaId") Integer AreaId );
+
 
 }

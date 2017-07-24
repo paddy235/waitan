@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<excel key="private_fund_capital_amount" name="私募基金-股权投资机构管理资本量">
+    <sheet name="Sheet1" startRow="4" entity="com.bbd.wtyh.domain.CapitalAmountDO"
+           importHandler="com.bbd.bgo.service.imp.handler.PriFundCapitalAmountHandler">
+        <rowHeader>
+            <column mergeFirstRow="1" mergeLastRow="2" mergeFirstCol="1" mergeLastCol="3" align="LEFT"
+                    value="填写说明：本表格不可填写Excel公式；&#x000A;私募机构类型必填，不能超过40个汉字；"/>
+        </rowHeader>
+        <columns>
+            <column name="私募机构类型" code="typeName" dataType="string" required="true" bgColor="#FFFF00"/>
+            <column name="管理资本金额（万元）" code="managedCapitalAmount" dataType="number" required="true"/>
+            <column name="数量" code="publishCompanyNumber" dataType="number" required="true"/>
+        </columns>
+
+    </sheet>
+</excel>

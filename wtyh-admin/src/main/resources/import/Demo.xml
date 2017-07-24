@@ -44,6 +44,8 @@
             italic          ：是否斜体。默认false
             align           ：水平对齐方式：LEFT（靠左）/RIGHT（靠右）/CENTER（居中）
             vertical        ：垂直对齐方式：TOP（顶部）/BOTTOM（底部）/CENTER（居中）
+            小贴士：
+                换行 (&#x000A;)
         -->
 
 

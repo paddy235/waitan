@@ -75,3 +75,12 @@ ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
 COMMENT='园区企业导入表'
 ;
+
+#对“user_misc_parameter”表做表结构修改（增加了两个字段），并添加一条记录
+ALTER TABLE `user_misc_parameter`
+MODIFY COLUMN `name`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '参数名称' AFTER `para_id`,
+MODIFY COLUMN `value2`  int(11) NULL DEFAULT NULL COMMENT ' 参数的值2' AFTER `value1`,
+ADD COLUMN `value3`  int(11) NULL DEFAULT NULL COMMENT ' 参数的值3' AFTER `value2`,
+ADD COLUMN `str`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '参数的值，字符串类型' AFTER `value3`;
+INSERT INTO `wtyh`.`user_misc_parameter` (`para_id`, `name`, `description`, `value1`, `value2`, `value3`, `str`)
+VALUES ('2', 'naturalPersonTimeNum', '已下载的次数（v1）、当前日（v2，仅存第几日）和每天可下载的总次数（v3）', '0', '0', '50', '');
