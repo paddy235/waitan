@@ -378,6 +378,14 @@ public class TimingTaskManager {
 
         }else if(TaskUtil.riskLevelJob[0].equals(taskKey)){
             //系统数据更新-风险等级
+			try {
+				newTaskId = TaskUtil.taskStart(TaskUtil.riskLevelJob[0], TaskUtil.riskLevelJob[1], null, runMode, null, null);
+				map=offlineFinanceService.executeFailTaskByTaskId(runMode, oldTaskId, newTaskId);
+			}catch (Exception e){
+				logger.error("reExecuteTask-riskLevelJob"+e);
+			}finally {
+				taskEnd(map,newTaskId,planCount,successCount,failCount,null,canRan);
+			}
 
         }else if(TaskUtil.companyBaseInfo[0].equals(taskKey)){
             //系统数据更新-企业基本信息
@@ -431,14 +439,13 @@ public class TimingTaskManager {
 
 		}else if(TaskUtil.pToPMonitorJob[0].equals(taskKey)
 				|| TaskUtil.p2pImageJob[0].equals(taskKey)
-				|| TaskUtil.crowdFundingJob[0].equals(taskKey)){
+				|| TaskUtil.crowdFundingJob[0].equals(taskKey)
+				||TaskUtil.riskLevelJob[0].equals(taskKey)){
 			//网贷之家数据落地-网络借贷-监测
 			//网贷之家数据落地-网络借贷-平台画像
 			//网贷之家数据落地-众筹
-			list=wangdaiTaskInfoService.listByTaskId(taskId);
-
-		}else if(TaskUtil.riskLevelJob[0].equals(taskKey)){
 			//系统数据更新-风险等级
+			list=wangdaiTaskInfoService.listByTaskId(taskId);
 
 		}else if(TaskUtil.companyBaseInfo[0].equals(taskKey)){
 			//系统数据更新-企业基本信息
