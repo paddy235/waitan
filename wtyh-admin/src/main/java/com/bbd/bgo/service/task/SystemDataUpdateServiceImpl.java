@@ -4,8 +4,10 @@ import com.bbd.wtyh.cachetobean.ShanghaiAreaCode;
 import com.bbd.wtyh.common.Pagination;
 import com.bbd.wtyh.domain.CompanyBackgroundDO;
 import com.bbd.wtyh.domain.CompanyDO;
+import com.bbd.wtyh.domain.DataLoadingFailInfoDO;
 import com.bbd.wtyh.mapper.CompanyBackgroundMapper;
 import com.bbd.wtyh.mapper.CompanyMapper;
+import com.bbd.wtyh.mapper.DataLoadingFailInfoMapper;
 import com.bbd.wtyh.service.HologramQueryService;
 import com.bbd.wtyh.service.PToPMonitorService;
 import com.bbd.wtyh.service.impl.OfflineFinanceServiceImpl;
@@ -16,10 +18,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.math.BigDecimal;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -30,6 +30,10 @@ import java.util.regex.Pattern;
  */
 @Service
 public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
+
+    private Integer taskId = null;
+
+    private Integer errorNum = null;
 
     private Logger logger = LoggerFactory.getLogger(OfflineFinanceServiceImpl.class);
 
@@ -45,23 +49,70 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
     @Autowired
     private HologramQueryService hologramQueryService;
 
-    /**
-     * 每月2日晚上8点，更新企业表中的地区ID和企业地址
-     * (by cgj)
-     */
+    @Autowired
+    private DataLoadingFailInfoMapper dataLoadingFailInfoMapper;
+
     /*@Scheduled(cron = "0 0 20 2 * ?")*/
     @Override
-    public void updateCompanyTableAreaIdAndAddress() {
-        Object obj = new Object();
+    public Map<String,Integer> updateCompanyAndBackgroundAutomaticOperate(Integer taskId) {
+        this.taskId=taskId;
+        this.errorNum=0;
+        Map<String,Integer> returnMap = new HashMap<String,Integer>();
+        Integer dataTotal = 0;
         try {
             final int totalCount = companyMapper.countAllCompany();
+            dataTotal = totalCount;
             final int pageSize = 190;
             Pagination pagination = new Pagination();
             pagination.setPageSize(pageSize);
             pagination.setCount(totalCount);
             int total = pagination.getLastPageNumber();
             ExecutorService dataExecutorService = Executors.newFixedThreadPool(16);
-            logger.info("start update company area_id and address");
+            logger.info("start update company ang background");
+            for (int i = 1; i <= 10; i++) {
+                final int num = i;
+                dataExecutorService.submit(new Runnable() {
+                    @Override
+                    public void run() {
+                        Pagination paginationP = new Pagination();
+                        paginationP.setPageNumber(num);
+                        paginationP.setPageSize(pageSize);
+                        paginationP.setCount(totalCount);
+                        System.out.println("Thread is Start! ID:" + Thread.currentThread().getId());
+                        System.out.println("PageNumber:" + paginationP.getPageNumber());
+                        companyAndBackgroundUpdateThread(paginationP,1,taskId);
+                        System.out.println("Thread is Stop! ID:" + Thread.currentThread().getId());
+                    }
+                });
+            }
+            //logger.info("end update company area_id and address");
+            dataExecutorService.shutdown();
+            dataExecutorService.awaitTermination(1, TimeUnit.DAYS);
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        returnMap.put("total",dataTotal);
+        returnMap.put("error",errorNum);
+        returnMap.put("success",dataTotal-errorNum);
+        return returnMap;
+    }
+
+    @Override
+    public Map<String,Integer> updateCompanyAndBackgroundManualOperate(Integer oldTaskId,Integer newTaskId){
+        Map<String,Integer> returnMap = new HashMap<String,Integer>();
+        this.taskId=newTaskId;
+        this.errorNum=0;
+        Integer dataTotal = 0;
+        try {
+            final int totalCount = dataLoadingFailInfoMapper.countFailByTaskId(oldTaskId);
+            dataTotal = totalCount;
+            final int pageSize = 190;
+            Pagination pagination = new Pagination();
+            pagination.setPageSize(pageSize);
+            pagination.setCount(totalCount);
+            int total = pagination.getLastPageNumber();
+            ExecutorService dataExecutorService = Executors.newFixedThreadPool(16);
+            logger.info("start update company ang background");
             for (int i = 1; i <= total; i++) {
                 final int num = i;
                 dataExecutorService.submit(new Runnable() {
@@ -73,7 +124,7 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
                         paginationP.setCount(totalCount);
                         System.out.println("Thread is Start! ID:" + Thread.currentThread().getId());
                         System.out.println("PageNumber:" + paginationP.getPageNumber());
-                        companyAreaIdAndAddressUpdateThread(paginationP);
+                        companyAndBackgroundUpdateThread(paginationP,2,oldTaskId);
                         System.out.println("Thread is Stop! ID:" + Thread.currentThread().getId());
                     }
                 });
@@ -84,76 +135,152 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
+        returnMap.put("total",dataTotal);
+        returnMap.put("error",errorNum);
+        returnMap.put("success",dataTotal-errorNum);
+        return returnMap;
     }
 
 
-    private void companyAreaIdAndAddressUpdateThread(Pagination pagination) {
+    private void companyAndBackgroundUpdateThread(Pagination pagination,Integer type,Integer dataTaskId) {
         Map<String, Object> params = new HashMap<>();
         params.put("pagination", pagination);
-        List<CompanyDO> list = companyMapper.findByPage(params);
-        if (CollectionUtils.isEmpty(list)) {
-            return;
-        }
-        StringBuffer companyNameSerial = new StringBuffer(list.size() * 41);
-        for (final CompanyDO cdo : list) {
-            companyNameSerial.append(cdo.getName());
-            companyNameSerial.append(",");
+        StringBuffer companyNameSerial = new StringBuffer();
+        List<String> failNameList = new ArrayList<String>();
+        if(1==type){
+            List<CompanyDO> list = companyMapper.findByPage(params);
+            if (CollectionUtils.isEmpty(list)) {
+                return;
+            }
+            for (final CompanyDO cdo : list) {
+                failNameList.add(cdo.getName());
+                companyNameSerial.append(cdo.getName());
+                companyNameSerial.append(",");
+            }
+        }else{
+            params.put("taskId",dataTaskId);
+            List<DataLoadingFailInfoDO> failList = dataLoadingFailInfoMapper.findByPage(params);
+            if (CollectionUtils.isEmpty(failList)) {
+                return;
+            }
+            for (final DataLoadingFailInfoDO fail : failList) {
+                failNameList.add(fail.getErrorName());
+                companyNameSerial.append(fail.getErrorName());
+                companyNameSerial.append(",");
+            }
         }
         companyNameSerial.deleteCharAt(companyNameSerial.length() - 1); //去掉最后一个逗号
         Map batchData = hologramQueryService.getBbdQyxxBatch(companyNameSerial.toString());
+        // 接口处未查询到数据
         if (CollectionUtils.isEmpty(batchData)) {
+            insertFailInfo(failNameList,null,"接口查询错误");
             return;
         }
         String msg = (String) (batchData.get("msg"));
         if (null == msg || !msg.equals("ok")) {
+            insertFailInfo(failNameList,null,"接口查询错误");
             return;
         }
         List<Map> rList = (List) (batchData.get("results"));
         if (CollectionUtils.isEmpty(rList)) {
+            insertFailInfo(failNameList,null,"接口未查询到对应数据");
             return;
         }
         for (Map itr1 : rList) {
-            Map itr = (Map) (itr1.get("jbxx"));
-            if (CollectionUtils.isEmpty(itr)) {
-                return;
-            }
-            String company_county = (String) (itr.get("company_county"));
-            Integer areaId = ShanghaiAreaCode.getCodeToAreaMap().get(Integer.valueOf(company_county));
-            if (null == areaId) { //区代不匹配，则不修改这一条记录
-                continue;
-            }
-            String companyName =(String ) (itr.get("company_name"));
-            String address =(String ) (itr.get("address"));
-            String creditCode =(String ) (itr.get("credit_code"));
-
-            Double companyGisLat =Double.parseDouble(String.valueOf(itr.get("company_gis_lat")));
-            Double companyGisLon =Double.parseDouble(String.valueOf(itr.get("company_gis_lon")));
-            String ipoCompany = (String) (itr.get("ipo_company"));
-            //companyMapper.updateAreaIdAndAddress(companyName, areaId, address, creditCode);
-
-
-            //legal_person 法人
-            String frname =(String ) (itr.get("frname"));
-            String companyEnterpriseStatus =(String ) (itr.get("company_enterprise_status"));
-            Integer status = 2;
-            if("存续".equals(companyEnterpriseStatus)){
-                status=  1 ;
-            }
-            String companyType =(String ) (itr.get("company_type"));//registered_type 公司注册类型
-            String esdate =(String ) (itr.get("esdate"));//registered_date 注册时间
-            String regcapCurrency =(String ) (itr.get("regcap_currency"));
+            Integer areaId = null;
+            String companyName = null;
+            String address = null;
+            String creditCode = null;
+            Double companyGisLat = null;
+            Double companyGisLon = null;
+            String ipoCompany = null;
+            String frname = null;
+            Integer registeredCapital = null;
             Integer registeredCapitalType = 1;//注册资本类型 1:人民币 2:美元
-            if("美元".equals(regcapCurrency)){
-                registeredCapitalType = 2 ;
+            String esdate = null;
+            String companyType = null;
+            Integer status = 2;
+            Map itr = null;
+            try {
+                itr = (Map) (itr1.get("jbxx"));
+                if (CollectionUtils.isEmpty(itr)) {
+                    return;
+                }
+                String company_county = (String) (itr.get("company_county"));
+                companyName =(String ) (itr.get("company_name"));
+                areaId = ShanghaiAreaCode.getCodeToAreaMap().get(Integer.valueOf(company_county));
+                if (null == areaId) { //区代不匹配，则不修改这一条记录
+                    insertFailInfo(null,companyName,"区代匹配错误");
+                    continue;
+                }
+                Object addressObj=itr.get("address");
+                if(null!=addressObj){
+                    address = (String)addressObj;
+                }
+                Object creditCodeObj=itr.get("credit_code");
+                if(null!=creditCodeObj){
+                    creditCode = (String)creditCodeObj;
+                }
+                Object companyGisLatObj=itr.get("company_gis_lat");
+                if(null!=companyGisLatObj){
+                    companyGisLat = Double.parseDouble(String.valueOf(companyGisLatObj));
+                }
+                Object companyGisLonObj=itr.get("company_gis_lon");
+                if(null!=companyGisLonObj){
+                    companyGisLon = Double.parseDouble(String.valueOf(companyGisLonObj));
+                }
+                Object ipoObj=itr.get("ipo_company");
+                if(null!=ipoObj){
+                    ipoCompany = (String)ipoObj;
+                }
+                //companyMapper.updateAreaIdAndAddress(companyName, areaId, address, creditCode);
+                //legal_person 法人
+                Object frnameObj=itr.get("frname");
+                if(null!=frnameObj){
+                    frname = (String)frnameObj;
+                }
+                Object cesObj=itr.get("company_enterprise_status");
+                if(null!=cesObj){
+                    String companyEnterpriseStatus = (String)cesObj;
+                    if("存续".equals(companyEnterpriseStatus)){
+                        status=  1 ;
+                    }
+                }
+                Object companyTypeObj=itr.get("company_type");
+                if(null!=companyTypeObj){
+                    companyType = (String)companyTypeObj;
+                }
+                Object esdateObj=itr.get("esdate");//registered_date 注册时间
+                if(null!=esdateObj){
+                    esdate = (String)esdateObj;
+                }
+                Object rcObj=itr.get("regcap_currency");
+                if(null!=rcObj){
+                    String regcapCurrency = (String)rcObj;
+                    if("美元".equals(regcapCurrency)){
+                        registeredCapitalType = 2 ;
+                    }
+                }
+                //Object regcapObj=itr.get("regcap");
+                Object regcapObj=itr.get("regcap_amount");
+                if(null!=regcapObj){
+                    BigDecimal regcap = (BigDecimal)regcapObj;
+                    registeredCapital=regcap.intValue()/10000;
+                    //registeredCapital = Integer.parseInt(Pattern.compile("[^0-9]").matcher(regcap).replaceAll(""));
+                }
+            } catch (Exception e) {
+                logger.error(e.getMessage(), e);
+                insertFailInfo(null,companyName,"接口指数错误");
             }
-            String  regcap = (String ) (itr.get("regcap"));
-            Integer registeredCapital = Integer.parseInt(Pattern.compile("[^0-9]").matcher(regcap).replaceAll(""));
+            try {
+                //companyMapper.updateAreaIdAndAddress( companyName,areaId, address, creditCode );
+                companyMapper.updateBasicInfo(companyName,areaId, address, creditCode,companyGisLon,companyGisLat,
+                        frname,registeredCapital,registeredCapitalType,esdate,companyType,status);
 
-            //companyMapper.updateAreaIdAndAddress( companyName,areaId, address, creditCode );
-            companyMapper.updateBasicInfo(companyName,areaId, address, creditCode,companyGisLon,companyGisLat,
-                    frname,registeredCapital,registeredCapitalType,esdate,companyType,status);
-
-            updateCompanyBackground(companyName, ipoCompany, companyType);
+                updateCompanyBackground(companyName, ipoCompany, companyType);
+            } catch (Exception e) {
+                insertFailInfo(null,companyName,"更新数据错误");
+            }
         }
     }
 
@@ -164,22 +291,36 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
      * @param ipoCompany
      */
     private void updateCompanyBackground(String companyName, String ipoCompany, String companyType) {
-        try {
-            CompanyDO companyDO = companyMapper.selectByName(companyName);
-            if (companyDO != null&&companyDO.getCompanyId()!=null) {
-                Integer companyId = companyDO.getCompanyId();
-                companyBackgroundMapper.deleteByCompanyId(companyId);
-                CompanyBackgroundDO companyBackgroundDO = new CompanyBackgroundDO();
-                companyBackgroundDO.setCompanyId(companyId);
-                companyBackgroundDO.setCreateBy("system");
-                companyBackgroundDO.setCreateDate(new Date());
-                companyBackgroundDO.setBackground(getCompanyIpo(ipoCompany));
-                companyBackgroundMapper.add(companyBackgroundDO);
-                companyBackgroundDO.setBackground(getCompanyType(companyType));
-                companyBackgroundMapper.add(companyBackgroundDO);
+        CompanyDO companyDO = companyMapper.selectByName(companyName);
+        if (companyDO != null&&companyDO.getCompanyId()!=null) {
+            Integer companyId = companyDO.getCompanyId();
+            companyBackgroundMapper.deleteByCompanyId(companyId);
+            CompanyBackgroundDO companyBackgroundDO = new CompanyBackgroundDO();
+            companyBackgroundDO.setCompanyId(companyId);
+            companyBackgroundDO.setCreateBy("system");
+            companyBackgroundDO.setCreateDate(new Date());
+            companyBackgroundDO.setBackground(getCompanyIpo(ipoCompany));
+            companyBackgroundMapper.add(companyBackgroundDO);
+            companyBackgroundDO.setBackground(getCompanyType(companyType));
+            companyBackgroundMapper.add(companyBackgroundDO);
+        }
+    }
+
+    private void insertFailInfo(List<String> list,String companyName,String errorReason){
+        DataLoadingFailInfoDO failInfo = new DataLoadingFailInfoDO();
+        failInfo.setErrorReason(errorReason);
+        failInfo.setTaskId(taskId);
+        failInfo.setCreateBy("system");
+        if(null==list){
+            failInfo.setErrorName(companyName);
+            dataLoadingFailInfoMapper.addTaskFailInfo(failInfo);
+            errorNum++;
+        }else{
+            for(String name:list){
+                failInfo.setErrorName(name);
+                dataLoadingFailInfoMapper.addTaskFailInfo(failInfo);
+                errorNum++;
             }
-        } catch (Exception e) {
-            logger.error(e.getMessage(), e);
         }
     }
 

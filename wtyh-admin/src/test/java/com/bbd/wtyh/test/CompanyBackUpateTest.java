@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.Map;
+
 /**
  * Created by lixudong on 2017/7/5.
  */
@@ -23,7 +25,10 @@ public class CompanyBackUpateTest {
 
     @Test
     public void backgroundTest(){
-        systemDataUpdateService.updateCompanyTableAreaIdAndAddress();
+        Integer taskId = 10;
+        //Map<String,Integer> map=systemDataUpdateService.updateCompanyAndBackgroundAutomaticOperate(taskId);
+        Map<String,Integer> map=systemDataUpdateService.updateCompanyAndBackgroundManualOperate(10,11);
+        System.out.println(map);
     }
 
     @Test

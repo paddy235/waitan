@@ -94,7 +94,8 @@ public class TimingTaskManager {
 			Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
 			taskId=TaskUtil.taskStart(TaskUtil.companyBaseInfo[0],TaskUtil.companyBaseInfo[1],null,runMode,null,null);
 			//需要传 taskId 给业务接口
-			systemDataUpdateService.updateCompanyTableAreaIdAndAddress();
+			//systemDataUpdateService.updateCompanyTableAreaIdAndAddress();
+			systemDataUpdateService.updateCompanyAndBackgroundAutomaticOperate(taskId);
 		} catch (Exception e) {
 			logger.error("companyBaseInfoTask"+e);
 		}finally {
