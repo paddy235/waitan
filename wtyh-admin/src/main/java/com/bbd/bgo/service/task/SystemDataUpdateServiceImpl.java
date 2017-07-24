@@ -69,7 +69,7 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
             int total = pagination.getLastPageNumber();
             ExecutorService dataExecutorService = Executors.newFixedThreadPool(16);
             logger.info("start update company ang background");
-            for (int i = 1; i <= 10; i++) {
+            for (int i = 1; i <= total; i++) {
                 final int num = i;
                 dataExecutorService.submit(new Runnable() {
                     @Override
