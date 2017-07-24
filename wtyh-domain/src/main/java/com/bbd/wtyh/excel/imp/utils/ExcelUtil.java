@@ -97,7 +97,7 @@ public class ExcelUtil {
 
 	}
 
-	public static void createSetMergeCell(XSSFSheet xssfSheet, RowHeader rowHeader) {
+	public static int createSetMergeCell(XSSFSheet xssfSheet, RowHeader rowHeader) {
 
 		int firstRow = rowHeader.getMergeFirstRow() - 1;
 		int lastRow = rowHeader.getMergeLastRow() - 1;
@@ -108,7 +108,7 @@ public class ExcelUtil {
 		xssfSheet.addMergedRegion(cra);
 
 		XSSFCellStyle cellStyle = createCellStyle(xssfSheet.getWorkbook(), rowHeader.getStyle());
-
+		cellStyle.setWrapText(true);
 		for (int i = lastRow; i >= firstRow; i--) {
 			XSSFRow titleRow = xssfSheet.getRow(i);
 			if (titleRow == null) {
@@ -124,7 +124,7 @@ public class ExcelUtil {
 		}
 
 		// Cell titleCell1 = CellUtil.getCell(titleRow, 0);
-
+		return lastRow;
 	}
 
 	public static XSSFCellStyle createCellStyle(XSSFWorkbook workbook, Style style) {

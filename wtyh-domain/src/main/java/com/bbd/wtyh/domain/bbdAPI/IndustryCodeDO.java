@@ -1,5 +1,8 @@
 package com.bbd.wtyh.domain.bbdAPI;
 
+import com.bbd.wtyh.common.comenum.UserType;
+import org.apache.commons.lang.StringUtils;
+
 /**
  * 企业全息信息查询--企业工商信息--行业枚举
  *
@@ -37,5 +40,17 @@ public enum IndustryCodeDO {
 
     IndustryCodeDO(String value) {
         this.value = value;
+    }
+
+    public static String getValueByNameStr( String name ) {
+        if( StringUtils.isBlank(name) ) {
+            return  "";
+        }
+        for( IndustryCodeDO ut: IndustryCodeDO.values() ) {
+            if( ut.name().equals(name) ) {
+                return  ut.getValue();
+            }
+        }
+        return "";
     }
 }

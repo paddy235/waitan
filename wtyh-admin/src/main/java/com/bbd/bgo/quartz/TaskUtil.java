@@ -37,8 +37,8 @@ public class TaskUtil {
 	/**
 	 * 任务结束
 	**/
-	public static void taskEnd(Integer taskId, Integer planCount, Integer successCount, Integer failCount,String updateBy) {
-		quartzHandler.taskEnd(taskId,planCount,successCount,failCount,updateBy);
+	public static void taskEnd(Integer taskId, Integer planCount, Integer successCount, Integer failCount,String updateBy,Integer reExecute) {
+		quartzHandler.taskEnd(taskId,planCount,successCount,failCount,updateBy,reExecute);
 	}
 
 
