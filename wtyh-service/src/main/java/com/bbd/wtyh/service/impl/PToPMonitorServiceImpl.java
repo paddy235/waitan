@@ -207,8 +207,7 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
             for (PlatRankDataDTO platRankDataDTO : list) {
                 String plat_name = platRankDataDTO.getPlat_name();
                 String plat_status = platRankDataDTO.getPlat_status();
-                PlatformNameInformationDO platformNameInformationDO = platformNameInformationMapper
-                        .hasOrNotCompany(plat_name);
+                PlatformNameInformationDO platformNameInformationDO = platformNameInformationMapper.hasOrNotCompany(plat_name);
                 if (platformNameInformationDO != null) {
                     Integer riskLevel = 4;
                     if ("正常".equals(plat_status)) {

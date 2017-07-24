@@ -24,4 +24,7 @@ public interface RiskCompanyMapper {
     CompanyInfo getOffLineFinanceByName(@Param(value = "name") String name);
 
     List<OffLineData> getOffLineFinance(ExportCondition exportCondition);
+
+    void modifyLevel(@Param(value = "name")String name,
+                     @Param(value = "afterLevel")String afterLevel);
 }

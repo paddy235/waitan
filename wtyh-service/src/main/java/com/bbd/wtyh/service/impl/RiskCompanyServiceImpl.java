@@ -98,4 +98,9 @@ public class RiskCompanyServiceImpl implements RiskCompanyService {
         return riskCompanyMapper.getOffLineFinance(exportCondition);
     }
 
+    @Override
+    public void modifyLevel(String name, String afterLevel) {
+        riskCompanyMapper.modifyLevel(name, afterLevel);
+    }
+
 }

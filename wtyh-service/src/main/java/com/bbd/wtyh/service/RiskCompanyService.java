@@ -21,4 +21,6 @@ public interface RiskCompanyService {
     CompanyInfo getOffLineFinanceByCompanyName(String name);
 
     List<OffLineData> getOffLineFinance(ExportCondition exportCondition);
+
+    void modifyLevel(String name, String afterLevel);
 }

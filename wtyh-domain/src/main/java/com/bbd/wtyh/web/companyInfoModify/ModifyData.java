@@ -8,6 +8,9 @@ public class ModifyData {
     private String name;
     // 风险等级
     // TODO: 2017/7/22 整理每个行业的风险等级值
+    // 网络借贷：正常4，一般关注3，重点关注2，问题1
+    //
+
     private String level;
     // 外部评级 - 小额贷款、融资担保
     private String outLevel;

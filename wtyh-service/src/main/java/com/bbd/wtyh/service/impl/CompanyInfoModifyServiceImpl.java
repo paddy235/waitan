@@ -52,6 +52,11 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
         return null;
     }
 
+    /**
+     * 风险等级 修改
+     * @param modifyData
+     * @return
+     */
     @Override
     public CompanyInfo modifyLevel(ModifyData modifyData) {
         if (CompanyInfo.TYPE_P2P_1 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 网络借贷
@@ -62,6 +67,7 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
             wangdaiModify.setBeforeLevel(wangdai.getCurrentLevel());
             wangdaiModify.setAfterLevel(modifyData.getLevel());
             companyInfoMudifyUtil.recordWangdai(wangdaiModify);
+            companyInfoMudifyUtil.modifyLevel(modifyData.getName(), wangdaiModify);
         } else if (CompanyInfo.TYPE_XD_2 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 小额贷款
 
         } else if (CompanyInfo.TYPE_RZDB_3 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 融资担保

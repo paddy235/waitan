@@ -178,4 +178,12 @@
                 and company.areaId = #{areaId}
             </if>
     </select>
+
+    <update id="modifyLevel" >
+        update company
+        <set>
+            risk_level=#{afterLevel}
+        </set>
+        where `name`=#{name}
+    </update>
 </mapper>

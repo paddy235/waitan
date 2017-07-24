@@ -29,9 +29,17 @@ public class CompanyInfoMudifyUtil {
     @Autowired
     private FinanceLeaseService financeLeaseService;    // 融资租赁
 
+    /**
+     * 修改 company 修改风险等级
+     * @param name
+     * @param wangdaiModify
+     */
+    public void modifyLevel(String name, WangdaiModify wangdaiModify) {
+        riskCompanyService.modifyLevel(name, wangdaiModify.getAfterLevel());
+    }
 
     /**
-     * 网络借贷
+     * 网络借贷 -记录修改日志
      * @param wangdaiModify
      */
     public void recordWangdai(WangdaiModify wangdaiModify) {
