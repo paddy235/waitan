@@ -1,6 +1,10 @@
 package com.bbd.wtyh.excel.imp.utils;
 
 import java.awt.*;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -13,6 +17,53 @@ import org.apache.poi.xssf.usermodel.XSSFColor;
  * @author Created by LiYao on 2017-05-03 14:46.
  */
 public class ColorUtil {
+
+	/**
+	 * 获得主机IP
+	 *
+	 * @return String
+	 */
+	public static boolean isWindowsOS() {
+		boolean isWindowsOS = false;
+		String osName = System.getProperty("os.name");
+		if (osName.toLowerCase().contains("windows")) {
+			isWindowsOS = true;
+		}
+		return isWindowsOS;
+	}
+
+	/**
+	 * 获取本机ip地址，并自动区分Windows还是linux操作系统
+	 *
+	 * @return String
+	 */
+	public static String getLocalIP() throws Exception {
+		InetAddress ip = null;
+		// 如果是Windows操作系统
+		if (isWindowsOS()) {
+			ip = InetAddress.getLocalHost();
+			return ip.getHostAddress();
+		}
+		Enumeration<NetworkInterface> netInterfaces = NetworkInterface.getNetworkInterfaces();
+		level1: while (netInterfaces.hasMoreElements()) {
+			NetworkInterface ni = netInterfaces.nextElement();
+			// ----------特定情况，可以考虑用ni.getName判断
+			// 遍历所有ip
+			Enumeration<InetAddress> ips = ni.getInetAddresses();
+			while (ips.hasMoreElements()) {
+				ip = ips.nextElement();
+				if (ip.isSiteLocalAddress() && !ip.isLoopbackAddress() // 127.开头的都是lookback地址
+						&& !ip.getHostAddress().contains(":")) {
+					break level1;
+				}
+			}
+
+		}
+		if (null != ip) {
+			return ip.getHostAddress();
+		}
+		return "";
+	}
 
 	private static Map<String, XSSFColor> colorMap = new ConcurrentHashMap<>();
 

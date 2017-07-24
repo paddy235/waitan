@@ -1,5 +1,6 @@
 package com.bbd.wtyh.sys.controller;
 
+import com.bbd.wtyh.excel.imp.utils.ColorUtil;
 import com.bbd.wtyh.service.LogInfoService;
 import com.bbd.wtyh.service.OfflineFinanceService;
 import com.bbd.wtyh.web.ResponseBean;
@@ -15,7 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.net.Inet4Address;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.net.UnknownHostException;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,12 +50,11 @@ public class ThirdPartyController {
 	@ResponseBody
 	public Object test(HttpServletRequest request) {
 		try {
-			InetAddress addr = Inet4Address.getLocalHost();
 			Map<String, Object> map = new HashMap<>();
-			map.put("ip", request.getLocalAddr());
-			map.put("host", addr.getHostName());
+			map.put("ip", ColorUtil.getLocalIP());
+			map.put("port", request.getLocalPort());
 			return ResponseBean.successResponse(map);
-		} catch (UnknownHostException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return ResponseBean.successResponse(null);
