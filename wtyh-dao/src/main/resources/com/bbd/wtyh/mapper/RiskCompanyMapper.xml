@@ -186,4 +186,12 @@
         </set>
         where `name`=#{name}
     </update>
+
+    <insert id="recordOffLine" parameterType="com.bbd.wtyh.domain.CompanyInfoModify.OffLineModify">
+        INSERT INTO
+        `company_modify` (`name`, `beforeLevel`, `afterLevel`, `beforeIndustry`)
+        VALUES
+        (#{name}, #{beforeLevel},#{afterLevel}, #{beforeIndustry})
+    </insert>
+
 </mapper>

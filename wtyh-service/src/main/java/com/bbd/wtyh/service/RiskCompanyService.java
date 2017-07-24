@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service;
 
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
+import com.bbd.wtyh.domain.CompanyInfoModify.OffLineModify;
 import com.bbd.wtyh.domain.EasyExport.OffLineData;
 import com.bbd.wtyh.domain.RiskCompanyInfoDO;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
@@ -23,4 +24,8 @@ public interface RiskCompanyService {
     List<OffLineData> getOffLineFinance(ExportCondition exportCondition);
 
     void modifyLevel(String name, String afterLevel);
+
+    void recordOffLine(OffLineModify offLineModify);
+
+    void modifyOffLine(OffLineModify offLineModify);
 }

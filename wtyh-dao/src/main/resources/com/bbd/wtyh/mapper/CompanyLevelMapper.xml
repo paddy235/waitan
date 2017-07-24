@@ -114,4 +114,29 @@
                 and company.areaId = #{areaId}
             </if>
     </select>
+
+    <insert id="recordLoad" parameterType="com.bbd.wtyh.domain.CompanyInfoModify.LoanModify">
+        INSERT INTO
+        `company_modify` (`name`,
+                        `beforeOutLevel`, `beforeInnnerLevel`, `beforeLiveLevel`,
+                        `afterOutLevel`, `afterInnnerLevel`, `afterLiveLevel`,
+                        `beforeIndustry`)
+        VALUES
+        (#{name},
+          #{beforeOutLevel}, #{beforeInnnerLevel}, #{beforeLiveLevel}，
+          #{afterOutLevel}, #{afterInnnerLevel}, #{afterLiveLevel}，
+          #{beforeIndustry})
+    </insert>
+
+    <update id="modifyLoad" >
+        update company_level,company
+        <set>
+            company_level.out_level = #{afterOutLevel},
+            company_level.inner_level = #{afterInnnerLevel},
+            company_level.live_level = #{afterLiveLevel}
+        </set>
+        WHERE
+          company_level.company_id = company.company_id
+          AND company.`name` = #{name}
+    </update>
 </mapper>
