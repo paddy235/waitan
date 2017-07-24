@@ -58,7 +58,16 @@ public class CompanyLevelHandler extends AbstractImportHandler<CompanyLevelDO> {
 		String companyName = row.get("companyName");
 		companyDO = this.companyService.getCompanyByName(companyName);
 		if (companyDO == null) {
-			addError("该公司不存在，请检查!");
+			addError("该企业不存在，请先导入企业名单");
+			return false;
+		}
+		Byte companyType = companyDO.getCompanyType();
+		if (companyType == null) {
+			addError("该企业没有行业类型，请检查");
+			return false;
+		}
+		if (!companyType.equals(CompanyDO.TYPE_XD_2) && !companyType.equals(CompanyDO.TYPE_RZDB_3)) {
+			addError("该企业不为融资担保或小额贷款行业");
 			return false;
 		}
 		String outLevelStr = row.get("outLevel");
@@ -176,9 +185,11 @@ public class CompanyLevelHandler extends AbstractImportHandler<CompanyLevelDO> {
 	@Override
 	@Transactional
 	public void end() throws Exception {
-		this.companyService.insertList(insertList);
-		this.companyService.updateList(updateList, false, false);
-		this.companyService.insertList(riskChgCoList);
+		if (errorList().isEmpty()) {
+			this.companyService.insertList(insertList);
+			this.companyService.updateList(updateList, false, false);
+			this.companyService.insertList(riskChgCoList);
+		}
 		log.info("导入企业评级结束");
 	}
 

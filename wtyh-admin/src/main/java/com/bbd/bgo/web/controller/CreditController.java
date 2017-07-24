@@ -1,23 +1,26 @@
 package com.bbd.bgo.web.controller;
 
 import com.bbd.bgo.quartz.TaskUtil;
-import com.bbd.data.service.DataService;
 import com.bbd.wtyh.common.Constants;
-import com.bbd.wtyh.domain.TaskSuccessFailInfoDO;
-import com.bbd.wtyh.domain.credit.CompanyCreditFailInfoDO;
-import com.bbd.wtyh.mapper.TaskSuccessFailInfoMapper;
+import com.bbd.wtyh.domain.CompanyCreditPointItemsDO;
+import com.bbd.wtyh.domain.CompanyCreditRawInfoDO;
+import com.bbd.wtyh.domain.CompanyDO;
+import com.bbd.wtyh.domain.dto.CreditInfoDTO;
+import com.bbd.wtyh.excel.ExportExcel;
+import com.bbd.wtyh.excel.Sheet;
+import com.bbd.wtyh.mapper.CompanyCreditInformationMapper;
+import com.bbd.wtyh.mapper.CompanyCreditMapper;
 import com.bbd.wtyh.service.CoCreditScoreService;
 import com.bbd.wtyh.web.ResponseBean;
 
-import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,27 +33,18 @@ import java.util.Map;
 public class CreditController {
 
 	@Autowired
-	private DataService dataService;
-	@Autowired
-	private TaskSuccessFailInfoMapper taskSuccessFailInfoMapper;
-
-	private static String TASK_NAME = "shangHaiCreditJob";
-	private static String TASK_GROUP = "credit_work";
-
-	@RequestMapping("/info")
-	public String info(String companyName, HttpServletRequest request) {
-
-		if (StringUtils.hasText(companyName)) {
-			request.setAttribute("list", dataService.getCredit(companyName));
-		}
-
-		return "geo/credit";
-	}
+	private CompanyCreditMapper companyCreditMapper;
 
 	@Autowired
 	private CoCreditScoreService coCreditScoreService;
 
-	@RequestMapping("/credit-score-calculate")
+	@Autowired
+	private CompanyCreditInformationMapper companyCreditInformationMapper;
+
+	private static String TASK_NAME = "shangHaiCreditJob";
+	private static String TASK_GROUP = "credit_work";
+
+	@RequestMapping("/execCredit")
 	@ResponseBody
 	public ResponseBean creditScoreCalculate() {
 		Map map ;
@@ -71,12 +65,12 @@ public class CreditController {
 			successCount=map.get("successCount")==null?null:(Integer)map.get("successCount");
 			failCount=map.get("failCount")==null?null:(Integer)map.get("failCount");
 		}
-		TaskUtil.taskEnd(taskId,planCount,successCount,failCount,null);
+		TaskUtil.taskEnd(taskId,planCount,successCount,failCount,null,1);
 
 		return ResponseBean.successResponse(map);
 	}
 
-	@RequestMapping("/execFailCompanyByTaskId")
+	@RequestMapping("/execByTaskId")
 	@ResponseBody
 	public ResponseBean execFailCompanyByTaskId(Integer taskId,HttpServletRequest request) {
 
@@ -98,10 +92,100 @@ public class CreditController {
 			successCount=map.get("successCount")==null?null:(Integer)map.get("successCount");
 			failCount=map.get("failCount")==null?null:(Integer)map.get("failCount");
 		}
-		TaskUtil.taskEnd(newTaskId,planCount,successCount,failCount,loginName);
+		TaskUtil.taskEnd(newTaskId,planCount,successCount,failCount,loginName,1);
 
 
 		return ResponseBean.successResponse(map);
 	}
+
+	@RequestMapping("/getCompany")
+	@ResponseBody
+	public ResponseBean getCompany(String companyName,HttpServletRequest request) {
+
+		try {
+				if(StringUtils.isEmpty(companyName)){
+					companyName=null;
+				}
+				List<CreditInfoDTO> list=companyCreditMapper.getCreditCompany(companyName);
+
+			return ResponseBean.successResponse(list);
+		} catch (Exception e) {
+			return ResponseBean.errorResponse(null);
+		}
+
+	}
+	@RequestMapping("/getCreditData")
+	@ResponseBody
+	public ResponseBean getCreditData(String companyName, String dataType, HttpServletRequest request) {
+
+		try {
+			if(StringUtils.isEmpty(companyName)){
+				return ResponseBean.errorResponse("请输入企业名称");
+			}
+			if(StringUtils.isEmpty(dataType)){
+				dataType=null;
+			}
+
+			List<CreditInfoDTO> list=coCreditScoreService.getCreditInfo(companyName,dataType);
+
+			return ResponseBean.successResponse(list);
+		} catch (Exception e) {
+
+			return ResponseBean.errorResponse(null);
+		}
+
+	}
+	@RequestMapping("/downloadCreditData")
+	@ResponseBody
+	public ResponseBean downloadCreditData(String companyName, String dataType, HttpServletRequest request) {
+
+		try {
+
+			if(StringUtils.isEmpty(companyName)){
+				return ResponseBean.errorResponse("请输入企业名称");
+			}
+			if(StringUtils.isEmpty(dataType)){
+				dataType=null;
+			}
+			List<CreditInfoDTO> list=coCreditScoreService.getCreditInfo(companyName,dataType);
+			String excelName = "公信数据("+companyName+")";
+			ExportExcel exportExcel = new ExportExcel(excelName);
+			exportExcel.createSheet(list);
+			exportExcel.exportExcel();
+			return ResponseBean.successResponse(exportExcel.getDownloadURL());
+		} catch (Exception e) {
+			return ResponseBean.errorResponse(null);
+		}
+
+	}
+
+
+	@RequestMapping("/getCreditDataType")
+	@ResponseBody
+	public ResponseBean getCreditDataType() {
+
+		try {
+
+			List<Map<String,String>> list=new ArrayList<>();
+			Map<String,String> map=new HashMap<>();
+			map.put("code","0");
+			map.put("name","全部");
+			list.add(map);
+			List<CompanyCreditPointItemsDO> items = companyCreditInformationMapper.selectCompanyCreditPointItems();
+			for(CompanyCreditPointItemsDO c:items){
+				map=new HashMap<>();
+				map.put("code",c.getId().toString());
+				map.put("name",c.getItem());
+				list.add(map);
+			}
+			return ResponseBean.successResponse(list);
+
+		} catch (Exception e) {
+
+			return ResponseBean.errorResponse(null);
+		}
+
+	}
+
 
 }

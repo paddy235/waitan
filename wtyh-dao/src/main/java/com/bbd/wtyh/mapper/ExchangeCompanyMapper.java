@@ -1,9 +1,11 @@
 package com.bbd.wtyh.mapper;
 
 import com.bbd.wtyh.domain.CompanyDO;
+import com.bbd.wtyh.domain.EasyExport.TradeMarketData;
 import com.bbd.wtyh.domain.vo.ExchangeCompanyAreaVO;
 import com.bbd.wtyh.domain.vo.ExchangeCompanyVO;
 import com.bbd.wtyh.domain.vo.StatisticsVO;
+import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import org.apache.ibatis.annotations.Param;
 import org.apache.poi.ss.formula.functions.T;
 
@@ -19,4 +21,6 @@ public interface ExchangeCompanyMapper {
     public List<ExchangeCompanyVO> queryExchangeCompanyByStatus(@Param("status") Integer status);
 
     public List<ExchangeCompanyVO> queryExchangeCompanyListByAreaId(Map map);
+
+    List<TradeMarketData> getTradeMarket(ExportCondition exportCondition);
 }

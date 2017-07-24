@@ -44,7 +44,7 @@
     .ps-container > .ps-scrollbar-x-rail > .ps-scrollbar-x {
       position: absolute;
       /* please don't change 'position' */
-      background-color: #aaa;
+      background-color: #03577A;
       -webkit-border-radius: 4px;
       -moz-border-radius: 4px;
       border-radius: 4px;
@@ -73,7 +73,7 @@
     .ps-container > .ps-scrollbar-y-rail > .ps-scrollbar-y {
       position: absolute;
       /* please don't change 'position' */
-      background-color: #aaa;
+      background-color: #03577A;
       -webkit-border-radius: 4px;
       -moz-border-radius: 4px;
       border-radius: 4px;

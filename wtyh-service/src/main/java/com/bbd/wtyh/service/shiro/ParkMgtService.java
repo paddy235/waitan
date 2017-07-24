@@ -20,18 +20,20 @@ public interface ParkMgtService{
     List<ParkDO> queryParkList();
 
     /**
-     * 园区楼宇列表
-     * @param parkId 园区ID
+     * 楼宇列表
+     * @param parkId
+     * @param buildingName
      * @return
      */
-    List<ParkAndBuildingVO> queryParkAndBuilding(String parkId);
+    List<Map<String,String>> queryBuildingList(String parkId,String buildingName);
 
     /**
-     * 园区楼宇企业数量
+     * 园区楼宇列表
      * @param parkId 园区ID
+     * @param buildingName 楼宇名称
      * @return
      */
-    List<ParkAndBuildingVO> queryBuildingCompanyNumber(String parkId);
+    List<ParkAndBuildingVO> queryParkAndBuilding(String parkId,String buildingName);
 
     /**
      * 查询楼宇企业信息
@@ -48,10 +50,40 @@ public interface ParkMgtService{
     List<Map<String,String>> queryBuildingByParkId(String parkId);
 
     /**
+     * 删除园区
+     * @param parkId
+     */
+    void delParkById(String parkId);
+
+    /**
+     * 删除楼宇
+     * @param parkId
+     */
+    void delBuildingByParkId(String parkId);
+
+    /**
+     * 删除楼宇
+     * @param buildingId
+     */
+    void delBuildingById(List<String> buildingId);
+
+    /**
+     * 删除企业
+     * @param parkId
+     */
+    void delCompanyBuildingByParkId(String parkId);
+
+    /**
+     * 删除企业
+     * @param buildingId
+     */
+    void delCompanyByBuildingId(List<String> buildingId);
+
+    /**
      * 根据企业ID删除企业
      * @param companyIdList 企业名称列表
      */
-    void delCompanyByCompanyId(List<String> companyIdList);
+    void delCompanyByCompanyId(String buildingId,List<String> companyIdList);
 
     /**
      * 根据园区名称取得园区ID
@@ -59,6 +91,20 @@ public interface ParkMgtService{
      * @return
      */
     int queryParkIdByName(String parkName);
+
+    /**
+     * 根据楼宇名称取得楼宇ID
+     * @param buildingName
+     * @return
+     */
+    int queryBuildingIdByName(String buildingName);
+
+    /**
+     * 园区楼宇企业数量
+     * @param parkId 园区ID
+     * @return
+     */
+    List<ParkAndBuildingVO> queryBuildingCompanyNumber(String parkId);
 
     /**
      * 园区楼宇企业数量
@@ -73,4 +119,10 @@ public interface ParkMgtService{
      * @param park
      */
     void addPark(ParkDO park);
+
+    /**
+     * 新增楼宇
+     * @param building
+     */
+    void addBuilding(BuildingDO building);
 }

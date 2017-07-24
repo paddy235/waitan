@@ -9,10 +9,7 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.domain.EasyExport.*;
-import com.bbd.wtyh.service.CompanyLevelService;
-import com.bbd.wtyh.service.EasyExportExeclService;
-import com.bbd.wtyh.service.PrivateFundService;
-import com.bbd.wtyh.service.RiskCompanyService;
+import com.bbd.wtyh.service.*;
 import com.bbd.wtyh.web.EasyExportExcel.ExportCondition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +20,9 @@ import java.util.List;
 public class EasyExportExcelServiceImpl implements EasyExportExeclService {
 
     @Autowired
+    private P2PImageService p2PImageService;    // 网络借贷
+
+    @Autowired
     private RiskCompanyService riskCompanyService;  // 线下理财
 
     @Autowired
@@ -31,9 +31,19 @@ public class EasyExportExcelServiceImpl implements EasyExportExeclService {
     @Autowired
     private PrivateFundService privateFundService;  // 私募基金
 
+    @Autowired
+    private ExchangeCompanyService exchangeCompanyService;  // 交易场所
+
+    @Autowired
+    private CrowdFundingService crowdFundingService;    // 众筹
+
+    @Autowired
+    private MortgageService mortgageService;    // 典当
+
     @Override
     public List<WangdaiData> getWangdai(ExportCondition exportCondition) {
-        return null;
+        // TODO: 2017/7/21
+        return p2PImageService.getWangdai(exportCondition);
     }
 
     @Override
@@ -53,17 +63,17 @@ public class EasyExportExcelServiceImpl implements EasyExportExeclService {
 
     @Override
     public List<TradeMarketData> getTradeMarket(ExportCondition exportCondition) {
-        return null;
+        return exchangeCompanyService.getTradeMarket(exportCondition);
     }
 
     @Override
-    public List<PerpaycardData> getPerpaycard(ExportCondition exportCondition) {
-        return null;
+    public List<PrivateOfferedFundData> getPerpaycard(ExportCondition exportCondition) {
+        return privateFundService.getPrivateOfferedFund(exportCondition);
     }
 
     @Override
-    public List<TenancyData> getTenancy(ExportCondition exportCondition) {
-        return null;
+    public List<PrivateOfferedFundData> getTenancy(ExportCondition exportCondition) {
+        return privateFundService.getPrivateOfferedFund(exportCondition);
     }
 
     @Override
@@ -73,16 +83,16 @@ public class EasyExportExcelServiceImpl implements EasyExportExeclService {
 
     @Override
     public List<CrowdfundData> getCrowdfund(ExportCondition exportCondition) {
-        return null;
+        return crowdFundingService.getCrowdfund(exportCondition);
     }
 
     @Override
-    public List<PawnData> getPawn(ExportCondition exportCondition) {
-        return null;
+    public List<PrivateOfferedFundData> getPawn(ExportCondition exportCondition) {
+        return privateFundService.getPrivateOfferedFund(exportCondition);
     }
 
     @Override
-    public List<InsuranceData> getInsurance(ExportCondition exportCondition) {
-        return null;
+    public List<PrivateOfferedFundData> getInsurance(ExportCondition exportCondition) {
+        return privateFundService.getPrivateOfferedFund(exportCondition);
     }
 }

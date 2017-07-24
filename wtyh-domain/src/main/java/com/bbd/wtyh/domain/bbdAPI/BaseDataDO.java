@@ -276,6 +276,10 @@ public class BaseDataDO implements Serializable{
         private String company_type;
         private String frname;
         private String regcap;
+        //注册资本金额
+        private Float regcap_amount;
+        //注册资本币种
+        private String regcap_currency;
         private String realcap;
         private String esdate;
         private String company_industry;
@@ -289,6 +293,7 @@ public class BaseDataDO implements Serializable{
         private String revoke_date;
         private String invest_cap;
         private String regcapcur;
+        private String realcap_currency;
         private String cancel_date;
         private String operating_period;
         private String form;
@@ -297,6 +302,30 @@ public class BaseDataDO implements Serializable{
         private String ipo_company;
 
         public Jbxx() {
+        }
+
+        public Float getRegcap_amount() {
+            return regcap_amount;
+        }
+
+        public void setRegcap_amount(Float regcap_amount) {
+            this.regcap_amount = regcap_amount;
+        }
+
+        public String getRegcap_currency() {
+            return regcap_currency;
+        }
+
+        public void setRegcap_currency(String regcap_currency) {
+            this.regcap_currency = regcap_currency;
+        }
+
+        public String getRealcap_currency() {
+            return realcap_currency;
+        }
+
+        public void setRealcap_currency(String realcap_currency) {
+            this.realcap_currency = realcap_currency;
         }
 
         public String getCredit_code() {

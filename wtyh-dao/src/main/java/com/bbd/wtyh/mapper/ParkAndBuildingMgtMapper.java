@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public interface ParkAndBuildingMgtMapper {
 
-    List<ParkAndBuildingVO> queryParkAndBuilding(String parkId);
+    List<ParkAndBuildingVO> queryParkAndBuilding(@Param("parkId") String parkId,@Param("buildingName") String buildingName);
 
     ParkDO queryParkByName(String parkName);
 
@@ -28,19 +28,27 @@ public interface ParkAndBuildingMgtMapper {
 
     void addBuilding(BuildingDO building);
 
-    void delCompanyByCompanyId(@Param("companyIdList") List<String> companyIdList);
+    void delCompanyByCompanyId(@Param("buildingId") String buildingId,@Param("companyIdList") List<String> companyIdList);
 
-    void delCompanyByBuildingId(List<Integer> buildingIdList);
+    void delCompanyByBuildingId(List<String> buildingIdList);
 
-    void delBuildingByParkId(int parkId);
+    void delCompanyBuildingByParkId(String parkId);
+
+    void delBuildingByParkId(String parkId);
+
+    void delBuildingById(List<String> buildingId);
 
     void delParkByName(String parkName);
+
+    void delParkById(String parkId);
 
     List<Map<String,String>> queryBuildingByParkId(String parkId);
 
     void addPark(ParkDO park);
 
     int queryParkIdByName(String parkName);
+
+    int queryBuildingIdByName(String buildingName);
 
     List<ParkDO> queryParkList();
 
@@ -57,5 +65,7 @@ public interface ParkAndBuildingMgtMapper {
     BuildingDO queryBuildingByParkAndName(Map<String, Object> params);
 
     List<CompanyDO> queryCompanyByBuildingId(String buildingId);
+
+    List<Map<String,String>> queryBuildingList(@Param("parkId") String parkId,@Param("buildingName") String buildingName);
 
 }

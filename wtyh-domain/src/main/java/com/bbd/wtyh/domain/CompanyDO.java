@@ -2,10 +2,14 @@ package com.bbd.wtyh.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Date;
 
 @SuppressWarnings("serial")
+@Table(name = "company")
 public class CompanyDO extends BaseDO implements Comparable {
 
 	// 公司类型 1:P2P 2:小贷 3:融资担保 4:线下理财 5:私募基金 6:众筹 7:金融 8:其他 9:交易所 10:商业保理 11.预付卡
@@ -24,38 +28,100 @@ public class CompanyDO extends BaseDO implements Comparable {
 	public static final byte TYPE_DD_12 = 12;
 	public static final byte TYPE_RZZL_13 = 13;
 
+	//企业ID
+	@Id
+	@Column(name = "company_id")
 	private Integer companyId;
 
+	//统一社会信用代码
+	@Column(name = "credit_code")
+	private String creditCode;
+
+	//企业名称
+	@Column(name = "name")
 	private String name = "";
 
+	//经度
+	@Column(name = "longitude")
+	private Double longitude;
+
+	//纬度
+	@Column(name = "latitude")
+	private Double latitude;
+
+	//组织机构代码
+	@Column(name = "organization_code")
+	private String organizationCode;
+
+	//法人
+	@Column(name = "legal_person")
 	private String legalPerson = "";
 
+	//区域ID
+	@Column(name = "area_id")
 	private Integer areaId;
 
+	//企业地址
+	@Column(name = "address")
 	private String address = "";
 
+	//注册资本
+	@Column(name = "registered_capital")
 	private Integer registeredCapital;
 
+	//注册资本类型 1:人民币 2:美元
+	@Column(name = "registered_capital_type")
 	private Integer registeredCapitalType;
 
+	//注册时间
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+	@Column(name = "registered_date")
 	private Date registeredDate;
 
+	//公司注册类型，比如有限责任公司
+	@Column(name = "registered_type")
+	private String registeredType = "";
+
+	//公司类型: ... 3:融资担保 4:线下理财 5:私募基金 6:众筹 7:其他 8:金融 9:交易所 ...
+	@Column(name = "company_type")
 	private Byte companyType;
+
+	//行业类型,比如零售业，制造业
+	@Column(name = "business_type")
+	private String businessType = "";
+
+	// 公司风险等级
+	@Column(name = "risk_level")
+	private Integer riskLevel;
+
+	// 前一期公司风险等级
+	@Column(name = "previous_risk_level")
+	private Integer previousRiskLevel;
+
+	//备案号 商业保理和预付卡企业才有
+	@Column(name = "record_number")
+	private String recordNumber;
+
+	//1:存续 2:注销
+	@Column(name = "status")
+	private Byte status;
+
+	//是否新增。0：否、1：是
+	@Column(name = "is_new")
+	private Boolean neo;
+
+	/////////////////////////以下是数据库中没有的字段////
+
+	//变更前的企业类型
+	private Byte oldCompanyType;
 
 	@SuppressWarnings("unused")
 	private String comTypeCN = "";
-
-	private Byte status;
 
 	private Byte background;
 
 	@SuppressWarnings("unused")
 	private String backgroundCN = "";
-
-	private String registeredType = "";
-
-	private String businessType = "";
 
 	private BigDecimal staticRisk;
 
@@ -63,18 +129,48 @@ public class CompanyDO extends BaseDO implements Comparable {
 
 	private Integer analysisResult;
 
-	// 公司风险等级
-	private Integer riskLevel;
-
-	// 前一期公司风险等级
-	private Integer previousRiskLevel;
-
 	// 平台名称
 	private String platName = "";
 
-	private String creditCode;
+	public boolean isNeo() {
+		return neo;
+	}
 
-	private String organizationCode;
+	public void setNeo(boolean neo) {
+		this.neo = neo;
+	}
+
+	public Byte getOldCompanyType() {
+		return oldCompanyType;
+	}
+
+	public void setOldCompanyType(Byte oldCompanyType) {
+		this.oldCompanyType = oldCompanyType;
+	}
+
+	public Double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}
+
+	public Double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+
+	public String getRecordNumber() {
+		return recordNumber;
+	}
+
+	public void setRecordNumber(String recordNumber) {
+		this.recordNumber = recordNumber;
+	}
 
 	public String getPlatName() {
 		return platName;
@@ -185,6 +281,10 @@ public class CompanyDO extends BaseDO implements Comparable {
 
 	public String getComTypeCN() {
 		return companyTypeCN(this.companyType);
+	}
+
+	public String getComTypeCnItself() {
+		return this.comTypeCN;
 	}
 
 	public String getRegisteredType() {

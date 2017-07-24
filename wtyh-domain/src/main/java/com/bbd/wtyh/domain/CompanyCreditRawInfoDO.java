@@ -1,5 +1,7 @@
 package com.bbd.wtyh.domain;
 
+import com.bbd.wtyh.excel.annotation.Excel;
+
 import javax.persistence.Id;
 import java.util.Date;
 import javax.persistence.Column;
@@ -59,6 +61,7 @@ public class CompanyCreditRawInfoDO implements Cloneable{
 
 	/** 资源名称 */
 	@Column(name = "resource_name")
+	@Excel(exportName = "信息事项名称")
 	private String resourceName;
 
 	/** 资源代码 */
@@ -79,6 +82,7 @@ public class CompanyCreditRawInfoDO implements Cloneable{
 
 	/** 原始正文 */
 	@Column(name = "content")
+	@Excel(exportName = "数据项名称")
 	private String content;
 
 	/** 创建人 */

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.bbd.wtyh.common.Constants;
+import com.bbd.wtyh.core.base.BaseService;
 import com.bbd.wtyh.domain.AreaDO;
 import com.bbd.wtyh.domain.NvDO;
 
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpSession;
 * @author Ian.Su
 * @since 2016年8月5日 上午11:57:08
 */
-public interface AreaService {
+public interface AreaService extends BaseService {
 
 
 
@@ -67,6 +68,14 @@ public interface AreaService {
 	List<AreaDO> selectByParentId(Integer parentId);
 
 	AreaDO selectByNameAndLevel(String name,Integer level);
+
+	/**
+	 * 根据 企业所在的省份和国家区县代码查询AreaDo
+	 * @param countyCode 区县代码
+	 * @param provinceName 省份名称
+	 * @return
+	 */
+	AreaDO selectByCountyCodeOrProvinceName( String countyCode, String provinceName );
 
 	AreaDO getAreaByAreaId(Integer areaId);
 

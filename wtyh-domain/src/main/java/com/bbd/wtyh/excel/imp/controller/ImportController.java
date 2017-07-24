@@ -127,7 +127,7 @@ public class ImportController {
 
 	@RequestMapping("/import-data-list")
 	@ResponseBody
-	public Object importDataList(@RequestParam("files") CommonsMultipartFile[] files, @RequestParam String templateName,
+	public Object importDataList(@RequestParam CommonsMultipartFile[] files, @RequestParam String templateName,
 			@RequestParam Integer impType, HttpServletRequest request) {
 		if (StringUtils.isBlank(templateName)) {
 			return ResponseBean.errorResponse("导入模版XML不能为空");
@@ -157,47 +157,50 @@ public class ImportController {
 
 	private void syncDealWith(List<CommonsMultipartFile> files, String templateName, Integer impType, HttpServletRequest request) {
 		ExecutorService threadPool = Executors.newFixedThreadPool(1);
-		files.forEach((CommonsMultipartFile file) -> {
+		files.forEach((CommonsMultipartFile file) -> threadPool.execute(() -> {
 			String fileName = file.getOriginalFilename();
-			threadPool.execute(() -> {
-				try {
-					ImportConfiguration conf = ImportConfiguration.getConfiguration(templateName, fileName);
-					conf.setFileSize(file.getSize());
-					ImportRecord record = ImpRecordUtil.createNewRecord(conf, impType);
-					conf.setRecordId(record.getId());
+			long fileSize = file.getSize();
+			ImportRecord record = ImpRecordUtil.createNewRecord(fileName, fileSize, impType);
+			try {
+				ImportConfiguration conf = ImportConfiguration.getConfiguration(templateName, fileName);
+				conf.setFileSize(fileSize);
+				conf.setRecordId(record.getId());
 
-					Workbook workbook = ExcelReadUtil.createWorkbook(fileName, file.getInputStream());
-					ExcelReadUtil.readExcel(workbook, conf.getExcelEntity());
-
-					List<Sheet> sheetList = conf.getSheetList();
-					ExecutorService fixedThreadPool = Executors.newFixedThreadPool(sheetList.size(), new ThreadFactory() {
-
-						final LongAdder num = new LongAdder();
-
-						@Override
-						public Thread newThread(Runnable r) {
-							num.increment();
-							Thread t = new Thread(r);
-							t.setName("export-excel-" + fileName + "-" + num);
-							// 设置为守护线程
-							t.setDaemon(true);
-							return t;
-						}
-					});
-
-					for (Sheet sheet : sheetList) {
-
-						fixedThreadPool.execute(() -> {
-							Importer importer = new DefaultImporter(conf, sheet, request);
-							importer.importData();
-						});
-					}
-					fixedThreadPool.shutdown();
-				} catch (Exception e) {
-					LOGGER.error("处理文件【{}】失败，服务器出现异常：", fileName, e);
+				Workbook workbook = ExcelReadUtil.createWorkbook(conf, fileName, file.getInputStream());
+				if (workbook == null) {
+					return;
 				}
-			});
-		});
+				ExcelReadUtil.readExcel(workbook, conf.getExcelEntity());
+
+				List<Sheet> sheetList = conf.getSheetList();
+				ExecutorService fixedThreadPool = Executors.newFixedThreadPool(sheetList.size(), new ThreadFactory() {
+
+					final LongAdder num = new LongAdder();
+
+					@Override
+					public Thread newThread(Runnable r) {
+						num.increment();
+						Thread t = new Thread(r);
+						t.setName("export-excel-" + fileName + "-" + num);
+						// 设置为守护线程
+						t.setDaemon(true);
+						return t;
+					}
+				});
+
+				for (Sheet sheet : sheetList) {
+
+					fixedThreadPool.execute(() -> {
+						Importer importer = new DefaultImporter(conf, sheet, request);
+						importer.importData();
+					});
+				}
+				fixedThreadPool.shutdown();
+			} catch (Exception e) {
+				ImpRecordUtil.appearError(record.getId(), "无法读取。请检查是否为Excel文件");
+				LOGGER.error("处理文件【{}】失败，服务器出现异常：", fileName, e);
+			}
+		}));
 	}
 
 	private boolean isFileImportOngoing(String fileName, HttpServletRequest request) {
@@ -224,8 +227,9 @@ public class ImportController {
 
 	@RequestMapping("/record-list")
 	@ResponseBody
-	public Object impRecordList(@RequestParam Integer impType) throws Exception {
-		return ResponseBean.successResponse(ImpRecordUtil.recordList(impType));
+	public Object impRecordList(String fileName, String startDate, String endDate, String impState, @RequestParam Integer impType)
+			throws Exception {
+		return ResponseBean.successResponse(ImpRecordUtil.recordList(fileName, startDate, endDate, impState, impType));
 	}
 
 	@RequestMapping("/download-error-file")
