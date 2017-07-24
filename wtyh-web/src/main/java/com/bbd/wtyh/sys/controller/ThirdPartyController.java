@@ -1,9 +1,6 @@
 package com.bbd.wtyh.sys.controller;
 
-import com.bbd.wtyh.excel.imp.utils.ColorUtil;
 import com.bbd.wtyh.service.LogInfoService;
-import com.bbd.wtyh.service.OfflineFinanceService;
-import com.bbd.wtyh.web.ResponseBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.UnknownHostException;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 日志信息维护
@@ -45,19 +34,4 @@ public class ThirdPartyController {
 		logger.info("日志文件处理(exportLogFile.do)结束");
 		return result;
 	}
-
-	@RequestMapping("/get-ip")
-	@ResponseBody
-	public Object test(HttpServletRequest request) {
-		try {
-			Map<String, Object> map = new HashMap<>();
-			map.put("ip", ColorUtil.getLocalIP());
-			map.put("port", request.getLocalPort());
-			return ResponseBean.successResponse(map);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return ResponseBean.successResponse(null);
-	}
-
 }
