@@ -54,31 +54,31 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
             loginName ="";
         }
         //Object ob= request.getHeaderNames();
-        log.info("开始导入企业名单");
-        insertList = new ArrayList<>();
-        updateList = new ArrayList<>();
+        insertList = new LinkedList<>();
+        updateList = new LinkedList<>();
         tempList = new LinkedList<>();
+        log.info("开始检查企业名单");
     }
 
     @Override
     public void startRow(Map<String, String> row) throws Exception {
-        int aa =row.size();
+        //int aa =row.size();
     }
 
     @Override
     public boolean validateRow(Map<String, String> row) throws Exception {
         String companyName =row.get("name");
         if( StringUtils.isBlank( companyName ) || companyName.length() <3 ) {
-            addError("企业名称无效");
+            addError("企业名称格式错误");
             return false;
         }
         String creditCode =row.get("creditCode");
-        if( StringUtils.isNotEmpty( creditCode ) || creditCode.matches("^([A-Z]|[0-9]){18}$") ) {
+        if( StringUtils.isEmpty( creditCode ) || creditCode.matches("^([A-Z]|[0-9]){18}$") ) {
             addError("统一信用代码格式错误");
             return false;
         }
         String organizationCode =row.get("organizationCode");
-        if( StringUtils.isNotEmpty( organizationCode ) || !organizationCode.matches("^([0-9]){15}$") ) {
+        if( StringUtils.isEmpty( organizationCode ) || !organizationCode.matches("^([0-9]){15}$") ) {
             addError("注册号格式错误"); //原组织机构代码变更成验证注册号
             return false;
         }
@@ -103,8 +103,8 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
             //有企业没有处理完
             processCp( );
         }
-        if( errorList().size() <1 ) {
-            //导入的数据有错，不予入库
+        if( errorList().size() >0 ) {
+            log.warn("用户上传的企业名单中的数据有误，所有数据均不予入库");
             return;
         }
         //update
@@ -119,11 +119,14 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
         for ( Map.Entry<CompanyDO, BaseDataDO.Results> me : insertList ) {
             me.getKey().setCreateBy(loginName);
             me.getKey().setCreateDate(new Date());
-            companyService.insert( me.getKey() );
+            int companyId = companyService.insert( me.getKey() ); //todo 问大尧是不是会返回主键？
             //todo 以下放天王和其他同事的方法 ：
             //me.getValue()
             //CompanyDO locCp =companyService.getCompanyByName(me.getKey().getName());
         }
+
+
+        log.info("企业名单导入已完成");
     }
 
 
@@ -217,7 +220,7 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
         if ( matcher.find() ) {
             regCap = matcher.group(); new Integer(regCap);
         }*/
-        Float regA =bddRst.getJbxx().getRegcap_amount()/1000F;
+        Float regA =bddRst.getJbxx().getRegcap_amount()/10000F;
         impCp.setRegisteredCapital( regA.intValue() );
         impCp.setRegisteredCapitalType( bddRst.getJbxx().getRegcap_currency().equals("美元") ? 2:1 );
         Date regDate =null;
@@ -229,6 +232,7 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
             impCp.setRegisteredType( bddRst.getJbxx().getCompany_type() );
         }
         impCp.setCompanyType( CompanyDO.companyType( impCp.getComTypeCnItself() ) );
+        impCp.setOldCompanyType( locCp.getCompanyType() );
         if ( StringUtils.isNotBlank( bddRst.getJbxx().getCompany_industry() ) ) {
             impCp.setBusinessType( IndustryCodeDO.getValueByNameStr( bddRst.getJbxx().getCompany_industry() ) );
         }

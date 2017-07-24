@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <excel key="company_list" name="企业名单-导入模板">
-    <sheet name="Sheet1" startRow="5" entity="com.bbd.wtyh.domain.CompanyDO"
+    <sheet name="Sheet1" startRow="4" entity="com.bbd.wtyh.domain.CompanyDO"
            importHandler="com.bbd.bgo.service.imp.handler.CompanyListHandler">
         <rowHeader>
             <column mergeFirstRow="1" mergeLastRow="2" mergeFirstCol="1" mergeLastCol="4" align="LEFT"
@@ -15,5 +15,4 @@
         </columns>
 
     </sheet>
-
 </excel>

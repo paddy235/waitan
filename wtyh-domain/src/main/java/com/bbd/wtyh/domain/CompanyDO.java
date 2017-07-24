@@ -112,6 +112,9 @@ public class CompanyDO extends BaseDO implements Comparable {
 
 	/////////////////////////以下是数据库中没有的字段////
 
+	//变更前的企业类型
+	private Byte oldCompanyType;
+
 	@SuppressWarnings("unused")
 	private String comTypeCN = "";
 
@@ -135,6 +138,14 @@ public class CompanyDO extends BaseDO implements Comparable {
 
 	public void setNeo(boolean neo) {
 		this.neo = neo;
+	}
+
+	public Byte getOldCompanyType() {
+		return oldCompanyType;
+	}
+
+	public void setOldCompanyType(Byte oldCompanyType) {
+		this.oldCompanyType = oldCompanyType;
 	}
 
 	public Double getLongitude() {
