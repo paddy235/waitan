@@ -19,6 +19,6 @@ public class PlatUpdateTest {
 
     @Test
     public void updatePlat(){
-        platUpdateTaskService.updatePlat();
+        //platUpdateTaskService.updatePlatAutomaticOperate(1);
     }
 }

@@ -57,4 +57,9 @@
 		</foreach>
 	</insert>
 
+	<insert id="addPlatOne" parameterType="com.bbd.wtyh.domain.PlatformNameInformationDO" >
+		insert into platform_name_information (company_id,platform_name,create_by,create_date)
+		values
+			(#{companyId},#{platformName},'ly',CURDATE())
+	</insert>
 </mapper>

@@ -7,10 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.util.CellUtil;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xssf.usermodel.*;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
@@ -43,7 +40,7 @@ public class ExcelTemplateUtil {
 			int rowNum = xssfSheet.getLastRowNum();
 
 			for (RowHeader rowHeader : rowHeaderList) {
-				ExcelUtil.createSetMergeCell(xssfSheet, rowHeader);
+				rowNum = ExcelUtil.createSetMergeCell(xssfSheet, rowHeader);
 			}
 			// 存在合并区域
 			if (xssfSheet.getNumMergedRegions() > 0 || sheet.getRow(rowNum) != null) {
@@ -56,11 +53,11 @@ public class ExcelTemplateUtil {
 				Column column = columnList[i];
 
 				XSSFCellStyle cellStyle = ExcelUtil.createCellStyle(wb, column.getStyle());
-				// cellStyle.setWrapText(false);
+				// cellStyle.setWrapText(true);
 				// 创建一个Excel的单元格
 				org.apache.poi.ss.usermodel.Cell cell = CellUtil.getCell(row, i);
-				cell.setCellValue(column.getValue());
 				cell.setCellStyle(cellStyle);
+				cell.setCellValue(column.getValue());
 				// 列宽
 				if (column.getWidth() > 0) {
 					xssfSheet.setColumnWidth(i, column.getWidth());
