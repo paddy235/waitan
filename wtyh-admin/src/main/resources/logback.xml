@@ -7,7 +7,7 @@
             <pattern>%d{yyyy-MM-dd HH:mm:ss:SSS} [%thread] [%-5level] [%logger:%line] - %msg%n</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>DEBUG</level>
+            <level>INFO</level>
         </filter>
     </appender>
 
@@ -90,7 +90,7 @@
     <logger name="java.sql.PreparedStatement" level="DEBUG"/>
     <logger name="java.sql.Connection" level="INFO"/>
 
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="console"/>
         <appender-ref ref="error"/>
         <appender-ref ref="info"/>
