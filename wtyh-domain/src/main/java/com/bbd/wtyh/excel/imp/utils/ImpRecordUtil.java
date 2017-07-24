@@ -4,7 +4,6 @@ import com.bbd.wtyh.core.base.BaseService;
 import com.bbd.wtyh.excel.imp.constants.ImpRecord;
 import com.bbd.wtyh.excel.imp.entity.ImportRecord;
 import com.bbd.wtyh.excel.imp.entity.ProgressInfo;
-import com.bbd.wtyh.excel.imp.importer.ImportConfiguration;
 import com.bbd.wtyh.util.ApplicationContextUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -26,20 +25,27 @@ public class ImpRecordUtil {
 
 	private static BaseService baseService = (BaseService) ApplicationContextUtil.getBean("baseServiceImpl");
 
-	public static ImportRecord createNewRecord(String fileName, long fileSize, Integer impType) {
+	public static ImportRecord createNewRecord(String loginName, String fileName, long fileSize, Integer impType) {
 		ImportRecord importRecord = new ImportRecord();
 		importRecord.setId(UUID.randomUUID().toString().replace("-", "").toUpperCase());
 		importRecord.setFileName(fileName);
+		importRecord.setImpUser(loginName);
 		importRecord.setFileSize(fileSize);
 		importRecord.setImpState(ImpRecord.ING.state());
 		importRecord.setImpDate(new Date());
 		importRecord.setImpType(impType);
+		importRecord.setHaveErrorFile(false);
 		baseService.insert(importRecord);
 		return importRecord;
 	}
 
-	public static List<ImportRecord> recordList(String fileName, String startDate, String endDate, String impState, Integer impType) {
+	public static List<ImportRecord> recordList(String loginNane, String fileName, String startDate, String endDate, String impState,
+			Integer impType) {
 		StringBuilder dynamicWhere = new StringBuilder("imp_type = ").append(impType);
+
+		if (StringUtils.isNotBlank(loginNane)) {
+			dynamicWhere.append(" AND imp_user = ").append(loginNane);
+		}
 
 		if (StringUtils.isNotBlank(impState)) {
 			dynamicWhere.append(" AND imp_state = ").append(impState);
@@ -111,6 +117,11 @@ public class ImpRecordUtil {
 		importRecord.setHaveErrorFile(false);
 		importRecord.setRemark(msg);
 		baseService.update(importRecord);
+	}
+
+	public static void serverShutdown() {
+		baseService.executeCUD("UPDATE import_record SET imp_state = ?, remark = '服务器关闭，导致中断' WHERE imp_state = ?", ImpRecord.FAIL.state(),
+				ImpRecord.ING.state());
 	}
 
 }

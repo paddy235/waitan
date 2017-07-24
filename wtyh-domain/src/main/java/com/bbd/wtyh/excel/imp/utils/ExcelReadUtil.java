@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.bbd.wtyh.excel.imp.entity.Cell;
 import com.bbd.wtyh.excel.imp.entity.Row;
 import com.bbd.wtyh.excel.imp.entity.Sheet;
-import com.bbd.wtyh.excel.imp.importer.ImportConfiguration;
+import com.bbd.wtyh.excel.imp.exception.ImportRecordException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.poi.ss.usermodel.*;
@@ -31,7 +31,7 @@ public class ExcelReadUtil {
 
 	private static final Map<String, Workbook> WORKBOOK_MAP = new ConcurrentHashMap<>();
 
-	public static Workbook createWorkbook(ImportConfiguration conf, String fileName, InputStream inputStream) throws Exception {
+	public static Workbook createWorkbook(String fileName, InputStream inputStream) throws Exception {
 		if (StringUtils.isBlank(fileName) || inputStream == null) {
 			return null;
 		}
@@ -40,12 +40,11 @@ public class ExcelReadUtil {
 			WORKBOOK_MAP.put(fileName, workbook);
 			return workbook;
 		} catch (Exception e) {
-			ImpRecordUtil.appearError(conf.getRecordId(), "无法读取。请检查是否为Excel文件");
 			logger.error("展开【{}】文件失败。检查上传文件是否为Excel文件", fileName, e);
+			throw new ImportRecordException("无法读取。请检查是否为Excel文件");
 		} finally {
 			inputStream.close();
 		}
-		return null;
 	}
 
 	public static Workbook getWorkbook(String fileName) throws Exception {
@@ -76,12 +75,22 @@ public class ExcelReadUtil {
 
 		List<Sheet> sheetList = excelEntity.getAllSheet();
 		for (Sheet sheet : sheetList) {
-
 			org.apache.poi.ss.usermodel.Sheet poiSheet = wb.getSheet(sheet.getName());
 			int startRow = sheet.getReadStartRow();
 			int lastRow = poiSheet.getPhysicalNumberOfRows();
 			int startCol = sheet.getReadStartCol();
 			int lastCol = sheet.colSize() - startCol + 1;
+			// 校验上传文件与模版是否对应
+			Row titleRow = sheet.getRow(startRow - 1);
+			org.apache.poi.ss.usermodel.Row poiTitleRow = poiSheet.getRow(startRow - 2);
+			for (int j = startCol; j <= lastCol; j++) {
+				Cell cell = titleRow.getCell(j);
+				org.apache.poi.ss.usermodel.Cell poiCell = poiTitleRow.getCell(j - 1);
+				String poiValue = getCellValue(poiCell, evaluator);
+				if (!poiValue.equals(cell.getName())) {
+					throw new ImportRecordException("上传文件与模版不匹配");
+				}
+			}
 
 			org.apache.poi.ss.usermodel.Row poiRow;
 			org.apache.poi.ss.usermodel.Cell poiCell;
