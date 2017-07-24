@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.Map;
+
 /**
  * Created by zhaohongwen on 2017/7/5.
  */
@@ -18,7 +20,14 @@ public class PlatUpdateTest {
     private PlatUpdateTaskService platUpdateTaskService;
 
     @Test
-    public void updatePlat(){
-        //platUpdateTaskService.updatePlatAutomaticOperate(1);
+    public void updatePlatAutomaticOperate(){
+        Map<String,Integer> map = platUpdateTaskService.updatePlatAutomaticOperate(1);
+        System.out.println(map);
+    }
+
+    @Test
+    public void updatePlatManualOperate(){
+        Map<String,Integer> map = platUpdateTaskService.updatePlatManualOperate(1,2);
+        System.out.println(map);
     }
 }

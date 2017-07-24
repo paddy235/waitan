@@ -13,12 +13,12 @@ public class WangdaiData {
     private String name;
     // 行业类别
     private Byte industry;
-    // 企业背景
-    private Byte background;
+    // 平台名称
+    private Byte platName;
     // 风险等级
-    private String currentLevel;
+    private String currentLevel = "";
     // 风险值
-    // TODO: 2017/7/19
+    private String score = "";
     // 法人
     private String legalPerson;
     // 注册时间
@@ -45,12 +45,20 @@ public class WangdaiData {
         this.industry = industry;
     }
 
-    public Byte getBackground() {
-        return background;
+    public Byte getPlatName() {
+        return platName;
     }
 
-    public void setBackground(Byte background) {
-        this.background = background;
+    public void setPlatName(Byte platName) {
+        this.platName = platName;
+    }
+
+    public String getScore() {
+        return score;
+    }
+
+    public void setScore(String score) {
+        this.score = score;
     }
 
     public String getCurrentLevel() {

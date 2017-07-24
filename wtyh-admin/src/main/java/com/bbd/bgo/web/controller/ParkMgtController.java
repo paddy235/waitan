@@ -45,6 +45,7 @@ public class ParkMgtController {
     @ResponseBody
     public ResponseBean areaList(){
         List<Map<String, Object>> list = ShanghaiAreaCode.getAndUpdateList(false);
+        list.remove(0);
         return  ResponseBean.successResponse(list);
     }
 
@@ -60,7 +61,7 @@ public class ParkMgtController {
     }
 
     /**
-     * 楼宇列表
+     * 楼宇列表(可模糊查询)
      * @param parkId 园区ID
      * @param buildingName 楼宇名称
      * @return
@@ -110,6 +111,35 @@ public class ParkMgtController {
     }
 
     /**
+     * 删除园区
+     * @param parkId
+     * @return
+     */
+    @RequestMapping("/delPark")
+    @ResponseBody
+    public ResponseBean delPark(String parkId){
+        //删除园区时，需要将相关楼宇及企业一并删除
+        parkMgtService.delCompanyBuildingByParkId(parkId);
+        parkMgtService.delBuildingByParkId(parkId);
+        parkMgtService.delParkById(parkId);
+        return  ResponseBean.successResponse("OK");
+    }
+
+    /**
+     * 删除楼宇
+     * @param buildingId
+     * @return
+     */
+    @RequestMapping("/delBuilding")
+    @ResponseBody
+    public ResponseBean delBuilding(String[] buildingId){
+        //删除楼宇时，需要将相关企业一并删除
+        parkMgtService.delCompanyByBuildingId(Arrays.asList(buildingId));
+        parkMgtService.delBuildingById(Arrays.asList(buildingId));
+        return  ResponseBean.successResponse("OK");
+    }
+
+    /**
      * 删除企业
      * @param buildingId 楼宇ID
      * @param companyList 企业ID列表
@@ -118,15 +148,6 @@ public class ParkMgtController {
     @RequestMapping("/delCompanyByCompanyId")
     @ResponseBody
     public ResponseBean delCompanyByCompanyId(String buildingId,String[] companyList){
-//        List<String> companyNameList = new ArrayList<>();
-//
-//        String[] companyName = companyList.split(",");
-//        for (String s:companyName) {
-//            if(!StringUtils.isEmpty(s)){
-//                companyNameList.add(s);
-//            }
-//        }
-
         parkMgtService.delCompanyByCompanyId(buildingId,Arrays.asList(companyList));
         return  ResponseBean.successResponse("OK");
     }
@@ -141,19 +162,37 @@ public class ParkMgtController {
     public ResponseBean addPark(ParkDO park){
         //新增之前先查询该园区是否存在
         int i = parkMgtService.queryParkIdByName(park.getName());
-        if(i == 0){
+        if(i != 0){
             return  ResponseBean.errorResponse("该园区已存在");
         }
         parkMgtService.addPark(park);
         return  ResponseBean.successResponse("OK");
     }
+
+    /**
+     * 新增楼宇
+     * @param building
+     * @return
+     */
+    @RequestMapping("/addBuilding")
+    @ResponseBody
+    public ResponseBean addBuilding(BuildingDO building){
+//        //新增之前先查询该园区是否存在
+//        int i = parkMgtService.queryParkIdByName(park.getName());
+//        if(i != 0){
+//            return  ResponseBean.errorResponse("该园区已存在");
+//        }
+//        parkMgtService.addBuilding(park);
+        return  ResponseBean.successResponse("OK");
+    }
+
     /**
      * 上传图片
      * @param request
      * @param file 图片
      * @param picType 1：园区 2：楼宇
-     * @param parkId 园区ID
-     * @param buildingId 楼宇ID
+     * @param parkName 园区名称 --用名称是为了新增园区或楼宇时还没有生成其ID
+     * @param buildingName 楼宇名称
      * @param user 用户名
      * @return
      */
@@ -161,7 +200,7 @@ public class ParkMgtController {
     public @ResponseBody ResponseBean upLoadPic(HttpServletRequest request,
                                                 @RequestParam("file") CommonsMultipartFile file,
                                                 @RequestParam Integer picType,
-                                                @RequestParam Integer parkId, Integer buildingId,
+                                                @RequestParam String parkName, String buildingName,
                                                 @RequestParam String user) {
         try {
 //            File f = new File(request.getSession().getServletContext().getRealPath("/") + "/data/img/park/hpq.png");
@@ -173,10 +212,12 @@ public class ParkMgtController {
                 img.setPicType(1);
                 img.setPicUrl(PARK_DIR + file.getOriginalFilename());
                 img.setPicType(picType);
+                Integer parkId = parkMgtService.queryParkIdByName(parkName);
                 if(!StringUtils.isEmpty(picType) && picType == 1){
                     img.setPicParkId(parkId);
                 }else if (!StringUtils.isEmpty(picType) && picType == 2){
                     img.setPicParkId(parkId);
+                    Integer buildingId = parkMgtService.queryBuildingIdByName(buildingName);
                     img.setPicBuildingId(buildingId);
                 }
                 img.setCreateBy(user);
@@ -189,7 +230,7 @@ public class ParkMgtController {
             e.printStackTrace();
             return ResponseBean.errorResponse(e.getMessage());
         }
-        return ResponseBean.successResponse("hello world");
+        return ResponseBean.successResponse("OK");
     }
 
     @RequestMapping("/test2")
@@ -220,7 +261,7 @@ public class ParkMgtController {
                 }
             }
         }
-        return ResponseBean.successResponse("hello world");
+        return ResponseBean.successResponse("OK");
     }
 
 }
