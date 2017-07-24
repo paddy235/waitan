@@ -57,7 +57,7 @@ public class SyncDataController {
 	@RequestMapping("platUpdateServiceDo.do")
 	@ResponseBody
 	public ResponseBean platUpdateServiceDo() {
-		platUpdateTaskService.updatePlat();
+		//platUpdateTaskService.updatePlatAutomaticOperate(10);
 		return ResponseBean.successResponse("运行成功！");
 	}
 }
