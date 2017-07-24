@@ -2,7 +2,9 @@ package com.bbd.bgo.service.task;
 
 
 import com.bbd.bgo.quartz.TaskUtil;
+import com.bbd.wtyh.domain.DataLoadingFailInfoDO;
 import com.bbd.wtyh.domain.TaskFailInfoDO;
+import com.bbd.wtyh.mapper.DataLoadingFailInfoMapper;
 import com.bbd.wtyh.mapper.TaskSuccessFailInfoMapper;
 import com.bbd.wtyh.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -37,6 +40,8 @@ public class TimingTaskManager {
 	private DataLoadingService dataLoadingService;
     @Autowired
     private TaskSuccessFailInfoMapper taskSuccessFailInfoMapper;
+	@Autowired
+	private DataLoadingFailInfoMapper dataLoadingFailInfoMapper;
     @Autowired
     private CrowdFundingService crowdFundingService;
 	@Autowired
@@ -362,7 +367,18 @@ public class TimingTaskManager {
 
 		}else if(TaskUtil.offlineFinanceJob[0].equals(taskKey)){
 			//BBD数据落地-线下理财
-
+			List<DataLoadingFailInfoDO> failList = dataLoadingFailInfoMapper.getDataLoadingFailInfoByTaskId(taskId);
+			if(failList.size()>0){
+				list=new ArrayList<TaskFailInfoDO>();
+				TaskFailInfoDO fail = null;
+				for(DataLoadingFailInfoDO failInfo:failList){
+					fail=new TaskFailInfoDO();
+					fail.setTaskId(failInfo.getTaskId());
+					fail.setFailName(failInfo.getErrorName());
+					fail.setFailReason(failInfo.getErrorReason());
+					list.add(fail);
+				}
+			}
 		}else if(TaskUtil.holographicAndOpinionJob[0].equals(taskKey)){
 			//BBD数据落地-权限舆情
 
