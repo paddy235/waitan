@@ -197,4 +197,22 @@ public class ParkMgtServiceImpl implements ParkMgtService {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void updateParkImgUrl(ParkDO park) {
+        try{
+            parkAndBuildingMgtMapper.updateParkImgUrl(park);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void updateBuildingImgUrl(BuildingDO building) {
+        try{
+            parkAndBuildingMgtMapper.updateBuildingImgUrl(building);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }

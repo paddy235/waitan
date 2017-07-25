@@ -13,6 +13,25 @@ public class ImgDO extends BaseDO {
     private int picBuildingId;
     private int status;
     private int lastStatus;
+    private String ip;
+    private String user;//作为creat_by或update_by字段使用
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
 
     public int getLastStatus() {
         return lastStatus;

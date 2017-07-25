@@ -7,11 +7,11 @@
         <selectKey keyProperty="id" resultType="int">
             select LAST_INSERT_ID()
         </selectKey>
-        INSERT INTO park_building_img(pic_name, pic_url, pic, pic_type, pic_park_id, pic_building_id, create_by, create_date, update_date) VALUES (#{picName}, #{picUrl}, #{pic}, #{picType}, #{picParkId}, #{picBuildingId}, #{createBy}, SYSDATE(), SYSDATE())
+        INSERT INTO park_building_img(pic_name, pic_url, pic, pic_type, pic_park_id, pic_building_id, create_by, create_date) VALUES (#{picName}, #{picUrl}, #{pic}, #{picType}, #{picParkId}, #{picBuildingId}, #{createBy}, SYSDATE())
     </insert>
 
     <update id="updateImage" parameterType="com.bbd.wtyh.domain.ImgDO">
-        UPDATE park_building_img SET pic_park_id=#{picParkId}, pic_building_id=#{picBuildingId}, `status`=#{status}, update_date=SYSDATE() WHERE `status`=#{lastStatus} AND id=#{id}
+        UPDATE park_building_img SET pic_park_id=#{picParkId}, pic_building_id=#{picBuildingId}, `status`=#{status}, update_date=SYSDATE(), update_by=#{user} WHERE `status`=#{lastStatus} AND id=#{id}
     </update>
 
     <select id="queryImgById" parameterType="int" resultType="com.bbd.wtyh.domain.ImgDO">
@@ -27,11 +27,34 @@
             create_by as createBy,
             create_date as createDate,
             update_by as updateBy,
-            update_date as updateDate
+            update_date as updateDate,
+            ip as ip
         FROM
             park_building_img
         WHERE
             id=#{id}
+    </select>
+
+    <select id="queryImgByStatus" parameterType="int" resultType="com.bbd.wtyh.domain.ImgDO">
+        SELECT
+            id as id,
+            pic_name as picName,
+            pic_url as picUrl,
+            pic_type as picType,
+            pic as pic,
+            pic_park_id as picParkId,
+            pic_building_id as picBuildingId,
+            `status` as `status`,
+--             create_by as createBy,
+--             create_date as createDate,
+--             update_by as updateBy,
+--             update_date as updateDate,
+            ip as ip
+        FROM
+          park_building_img
+        WHERE
+          status=#{status}
+        ORDER BY create_date
     </select>
 
     <delete id="delImg" parameterType="java.util.Map">

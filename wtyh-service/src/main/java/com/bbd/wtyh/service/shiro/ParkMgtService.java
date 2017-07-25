@@ -125,4 +125,16 @@ public interface ParkMgtService{
      * @param building
      */
     void addBuilding(BuildingDO building);
+
+    /**
+     * 更新园区图片URL
+     * @param park
+     */
+    void updateParkImgUrl(ParkDO park);
+
+    /**
+     * 更新楼宇图片URL
+     * @param building
+     */
+    void updateBuildingImgUrl(BuildingDO building);
 }
