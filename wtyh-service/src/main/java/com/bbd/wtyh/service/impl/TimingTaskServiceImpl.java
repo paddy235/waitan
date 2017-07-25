@@ -76,6 +76,8 @@ public class TimingTaskServiceImpl  extends BaseServiceImpl implements TimingTas
                 taskInfoDTO.setPlanCount(taskDO.getPlanCount());
                 taskInfoDTO.setSuccessCount(taskDO.getSuccessCount());
                 taskInfoDTO.setFailCount(taskDO.getFailCount());
+                taskInfoDTO.setStartDate(taskDO.getBeginDate());
+                taskInfoDTO.setEndDate(taskDO.getEndDate());
             }
             if(taskStateInt==0){
                 list.add(taskInfoDTO);
