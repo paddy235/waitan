@@ -2,7 +2,7 @@
 
 <excel key="private_fund_investment_statistic" name="私募基金-股权投资市场投资金额情况">
     <sheet name="Sheet1" startRow="4" entity="com.bbd.wtyh.domain.InvestmentStatisticDO"
-           importHandler="com.bbd.bgo.service.imp.handler.PriFundInvestmentStatisticHandler">
+           importHandler="com.bbd.bgo.service.imp.handler.prifund.PriFundInvestmentStatisticHandler">
         <rowHeader>
             <column mergeFirstRow="1" mergeLastRow="2" mergeFirstCol="1" mergeLastCol="3" align="LEFT"
                     value="填写说明：&#x000A;本表格不可填写Excel公式；年份必填，其余字段至少选填一项；"/>
