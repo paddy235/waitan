@@ -107,6 +107,7 @@ public class ImpRecordUtil {
 
 	public static void errorFileDownloaded(String recordId) throws Exception {
 		ImportRecord importRecord = new ImportRecord();
+		importRecord.setHaveErrorFile(true);
 		importRecord.setId(recordId);
 		importRecord.setRemark("报错文件已下载");
 		baseService.update(importRecord);

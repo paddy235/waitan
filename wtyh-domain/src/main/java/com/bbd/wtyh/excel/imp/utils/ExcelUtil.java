@@ -191,7 +191,7 @@ public class ExcelUtil {
 		Map<String, String> mapLevel22 = new HashMap<>();
 		mapLevel1.put("小额贷款", mapLevel22);// 构建一级下拉
 		mapLevel22.put("大额借款人", "xiaodai-large-borrower");// 构建二级下拉
-		mapLevel22.put("贷款余额", "Test2");// 构建二级下拉
+		mapLevel22.put("贷款余额", "xiaodai-loan-balance");// 构建二级下拉
 
 		// 私募基金
 		Map<String, String> mapLevel23 = new HashMap<>();
