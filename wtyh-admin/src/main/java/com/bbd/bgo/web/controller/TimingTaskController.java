@@ -47,9 +47,11 @@ public class TimingTaskController {
 	@RequestMapping("/getTaskInfo")
 	@ResponseBody
 	public ResponseBean getTaskInfo(HttpServletRequest request) {
+
+		List<TaskInfoDTO> list = timingTaskService.getTaskInfo();
+
         UserLogRecord.record("定时任务列表", Operation.Type.browse, Operation.Page.timingTask,
                 Operation.System.back, request);
-		List<TaskInfoDTO> list = timingTaskService.getTaskInfo();
 
 		return ResponseBean.successResponse(list);
 	}
@@ -57,8 +59,6 @@ public class TimingTaskController {
 	@RequestMapping("/getLatestTaskInfo")
 	@ResponseBody
 	public ResponseBean getLatestTaskInfo(String taskState, String taskDataSource,HttpServletRequest request) {
-        UserLogRecord.record("定时任务最新执行情况", Operation.Type.browse, Operation.Page.timingTask,
-                Operation.System.back, request);
 
 	    if(StringUtils.isEmpty(taskState)){
             taskState="0";
@@ -67,6 +67,10 @@ public class TimingTaskController {
             taskDataSource="0";
         }
 		List<TaskInfoDTO> list = timingTaskService.getLatestTaskInfo(taskState,taskDataSource);
+
+        UserLogRecord.record("定时任务最新执行情况", Operation.Type.browse, Operation.Page.timingTask,
+                Operation.System.back, request);
+
 		return ResponseBean.successResponse(list);
 	}
 
@@ -74,9 +78,12 @@ public class TimingTaskController {
 	@ResponseBody
 	public ResponseBean getHistoryTask(@RequestParam String taskKey, @RequestParam String taskGroup,
                                        String taskState, String taskDataSource, String taskUpdateDate,HttpServletRequest request) {
+
+	    List<TaskInfoDTO> list = timingTaskService.getHistoryTaskInfo(taskKey,taskGroup,taskState,taskDataSource,taskUpdateDate);
+
         UserLogRecord.record("定时任务详情", Operation.Type.browse, Operation.Page.timingTask,
                 Operation.System.back, request);
-	    List<TaskInfoDTO> list = timingTaskService.getHistoryTaskInfo(taskKey,taskGroup,taskState,taskDataSource,taskUpdateDate);
+
 		return ResponseBean.successResponse(list);
 	}
 
@@ -85,13 +92,13 @@ public class TimingTaskController {
 	@ResponseBody
 	public ResponseBean reExecuteTask(@RequestParam Integer taskId, @RequestParam String taskKey,
                                       @RequestParam String taskGroup,@RequestParam String taskName,HttpServletRequest request) {
+
+        timingTaskManager.reExecuteTaskAsyn(taskId,taskKey,taskGroup);
+        taskSuccessFailInfoMapper.updateReExecuteById(2,taskId);
+
         UserLogRecord.record("再次执行【"+taskName+"-"+taskId+"]", Operation.Type.RE_EXECUTE, Operation.Page.timingTask,
                 Operation.System.back, request);
-        System.out.println("1");
-        timingTaskManager.reExecuteTaskAsyn(taskId,taskKey,taskGroup);
-        System.out.println("2");
-        taskSuccessFailInfoMapper.updateReExecuteById(2,taskId);
-        System.out.println("3");
+
 	    return ResponseBean.successResponse(null);
 	}
 
@@ -101,15 +108,15 @@ public class TimingTaskController {
                                       @RequestParam String taskGroup,@RequestParam String taskName,HttpServletRequest request) {
 
 		try {
-
-			UserLogRecord.record("导出定时任务【" + taskName + "-" + taskId + "]", Operation.Type.DATA_EXPORT, Operation.Page.timingTask,
-					Operation.System.back, request);
-
             List<TaskFailInfoDO> list= timingTaskManager.downloadTaskInfo(taskId, taskKey, taskGroup);
 			String excelName = "定时任务（" + taskName + "）";
 			ExportExcel exportExcel = new ExportExcel(excelName);
 			exportExcel.createSheet(list);
 			exportExcel.exportExcel();
+
+            UserLogRecord.record("导出定时任务【" + taskName + "-" + taskId + "]", Operation.Type.DATA_EXPORT, Operation.Page.timingTask,
+                    Operation.System.back, request);
+
 			return ResponseBean.successResponse(exportExcel.getDownloadURL());
 
 		} catch (Exception e) {
