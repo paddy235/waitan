@@ -38,8 +38,6 @@ public class TimingTaskManager {
 	private PToPMonitorService p2pMonitorService;
 	@Autowired
 	private DataLoadingService dataLoadingService;
-    @Autowired
-    private TaskSuccessFailInfoMapper taskSuccessFailInfoMapper;
 	@Autowired
 	private DataLoadingFailInfoMapper dataLoadingFailInfoMapper;
     @Autowired
@@ -75,7 +73,7 @@ public class TimingTaskManager {
 			logger.error("riskLevelTask"+e);
 		}finally {
 
-            taskEnd(map,taskId,planCount,successCount,failCount,null,notRan);
+            taskEnd(map,taskId,planCount,successCount,failCount,null,canRan);
 		}
 
 	}
@@ -83,7 +81,7 @@ public class TimingTaskManager {
 	/**
 	 * 普通任务
 	 *
-	 * 更新企业基本信息
+	 * 更新企业基本信息和背景
 	 * 频率：每月2日晚上8点
 	 */
 	public void updateCompanyBaseInfoTask() throws Exception {
@@ -96,13 +94,12 @@ public class TimingTaskManager {
 			Integer runMode = 0;// 运行方式：0 自动执行， 1 手动执行
 			taskId=TaskUtil.taskStart(TaskUtil.companyBaseInfo[0],TaskUtil.companyBaseInfo[1],null,runMode,null,null);
 			//需要传 taskId 给业务接口
-			//systemDataUpdateService.updateCompanyTableAreaIdAndAddress();
 			systemDataUpdateService.updateCompanyAndBackgroundAutomaticOperate(taskId);
 		} catch (Exception e) {
 			logger.error("companyBaseInfoTask"+e);
 		}finally {
 
-            taskEnd(map,taskId,planCount,successCount,failCount,null,notRan);
+            taskEnd(map,taskId,planCount,successCount,failCount,null,canRan);
 		}
 
 	}
@@ -307,6 +304,10 @@ public class TimingTaskManager {
             }
         }.start();
     }
+
+	/**
+	 * 手动重新执行任务
+	 */
 	public void reExecuteTask(Integer oldTaskId, String taskKey, String taskGroup){
 
         Integer runMode=1;
@@ -389,7 +390,15 @@ public class TimingTaskManager {
 			}
 
         }else if(TaskUtil.companyBaseInfo[0].equals(taskKey)){
-            //系统数据更新-企业基本信息
+            //系统数据更新-企业基本信息和背景
+			try {
+				newTaskId = TaskUtil.taskStart(TaskUtil.companyBaseInfo[0], TaskUtil.companyBaseInfo[1], null, runMode, null, null);
+				map=systemDataUpdateService.updateCompanyAndBackgroundManualOperate(oldTaskId, newTaskId);
+			}catch (Exception e){
+				logger.error("reExecuteTask-companyBaseInfo"+e);
+			}finally {
+				taskEnd(map,newTaskId,planCount,successCount,failCount,null,canRan);
+			}
 
         }else if(TaskUtil.platformJob[0].equals(taskKey)){
 			//系统数据更新-企业与网贷平台对照表
@@ -404,7 +413,9 @@ public class TimingTaskManager {
 		}
 	}
 
-
+	/**
+	 * 任务结束
+	 */
 	public void taskEnd(Map map,Integer taskId,Integer planCount,Integer successCount,Integer failCount,String creatBy,Integer reExecute){
         if(null!=map){
             planCount=map.get("planCount")==null?null:(Integer)map.get("planCount");
@@ -414,7 +425,9 @@ public class TimingTaskManager {
         TaskUtil.taskEnd(taskId,planCount,successCount,failCount,null,reExecute);
     }
 
-
+	/**
+	 * 下载任务的失败明细数据
+	 */
 	public List<TaskFailInfoDO> downloadTaskInfo(Integer taskId, String taskKey, String taskGroup){
 		List<TaskFailInfoDO> list=null;
 		if(TaskUtil.shangHaiCreditJob[0].equals(taskKey)){
@@ -423,10 +436,15 @@ public class TimingTaskManager {
 
 		}else if(TaskUtil.offlineFinanceJob[0].equals(taskKey)){
 			//BBD数据落地-线下理财
+
+		}else if(TaskUtil.holographicAndOpinionJob[0].equals(taskKey)
+				||TaskUtil.companyBaseInfo[0].equals(taskKey)){
+			//BBD数据落地-权限舆情
+			//系统数据更新-企业基本信息和背景
 			List<DataLoadingFailInfoDO> failList = dataLoadingFailInfoMapper.getDataLoadingFailInfoByTaskId(taskId);
 			if(failList.size()>0){
 				list=new ArrayList<TaskFailInfoDO>();
-				TaskFailInfoDO fail = null;
+				TaskFailInfoDO fail ;
 				for(DataLoadingFailInfoDO failInfo:failList){
 					fail=new TaskFailInfoDO();
 					fail.setTaskId(failInfo.getTaskId());
@@ -435,8 +453,6 @@ public class TimingTaskManager {
 					list.add(fail);
 				}
 			}
-		}else if(TaskUtil.holographicAndOpinionJob[0].equals(taskKey)){
-			//BBD数据落地-权限舆情
 
 		}else if(TaskUtil.pToPMonitorJob[0].equals(taskKey)
 				|| TaskUtil.p2pImageJob[0].equals(taskKey)
@@ -447,9 +463,6 @@ public class TimingTaskManager {
 			//网贷之家数据落地-众筹
 			//系统数据更新-风险等级
 			list=wangdaiTaskInfoService.listByTaskId(taskId);
-
-		}else if(TaskUtil.companyBaseInfo[0].equals(taskKey)){
-			//系统数据更新-企业基本信息
 
 		}
 

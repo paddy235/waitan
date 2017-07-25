@@ -72,15 +72,22 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
             addError("企业名称格式错误");
             return false;
         }
+        int validCnt =0;
         String creditCode =row.get("creditCode");
-        if( StringUtils.isEmpty( creditCode ) || creditCode.matches("^([A-Z]|[0-9]){18}$") ) {
-            addError("统一信用代码格式错误");
-            return false;
+        if( StringUtils.isNotBlank( creditCode ) ) {
+            if ( creditCode.matches("^([A-Z]|[0-9]){18}$") ){
+                validCnt++;
+            } else {
+                addError("统一信用代码 格式错误");
+            }
         }
         String organizationCode =row.get("organizationCode");
-        if( StringUtils.isEmpty( organizationCode ) || !organizationCode.matches("^([0-9]){15}$") ) {
-            addError("注册号格式错误"); //原组织机构代码变更成验证注册号
-            return false;
+        if( StringUtils.isNotBlank( organizationCode ) ) {
+            if ( organizationCode.matches("^([0-9]){15}$") ){
+                validCnt++;
+            } else {
+                addError("注册号 格式错误"); //原组织机构代码变更成验证注册号
+            }
         }
         return true;
     }
@@ -88,6 +95,12 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
     //BusinessException()
     @Override
     public void endRow(Map<String, String> row, CompanyDO bean) throws Exception {
+        byte cpTypeCode =CompanyDO.companyType( bean.getComTypeCnItself() );
+        if( cpTypeCode <0 ) {
+            addError("用指定的 行业类别 有误");
+            return;
+        }
+        bean.setCompanyType( cpTypeCode );
         bean.setId(getRowNumber()); //将行号存下
         tempList.add(bean);
         if( tempList.size() <200 ) {
@@ -104,6 +117,7 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
             processCp( );
         }
         if( errorList().size() >0 ) {
+            addError("用户上传的企业名单中的数据有误，所有数据均不予入库");
             log.warn("用户上传的企业名单中的数据有误，所有数据均不予入库");
             return;
         }
@@ -119,8 +133,9 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
         for ( Map.Entry<CompanyDO, BaseDataDO.Results> me : insertList ) {
             me.getKey().setCreateBy(loginName);
             me.getKey().setCreateDate(new Date());
-            int companyId = companyService.insert( me.getKey() ); //todo 问大尧是不是会返回主键？
+            companyService.insert( me.getKey() );
             //todo 以下放天王和其他同事的方法 ：
+            int companyId = me.getKey().getCompanyId(); //大尧说：插入的主键这样取//todo 不用再去查库了
             //me.getValue()
             //CompanyDO locCp =companyService.getCompanyByName(me.getKey().getName());
         }
@@ -144,9 +159,10 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
             String cName =cDo.getName();
             CompanyDO locCp =companyService.getCompanyByName(cName);
             BaseDataDO.Results cInfo =null;
-            for( BaseDataDO.Results rs : bdLst ) {
+            for( BaseDataDO.Results rs : bdLst ) {  //搜索数据平台返回结果中是否有此企业
                 if( rs.getJbxx().getCompany_name().equals(cName) ) {
                     cInfo =rs;
+                    break;
                 }
             }
             boolean bCrd =true;
@@ -173,12 +189,20 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
                     continue;
                 }
             } else { //数据平台无此企业
+                Map.Entry<CompanyDO, BaseDataDO.Results> me =new AbstractMap.SimpleEntry<>( cDo, cInfo );
+                cDo.setCompanyType( CompanyDO.companyType( cDo.getComTypeCnItself() ) );
+                insertList.add(me);
                 if ( null ==locCp ) { //数据库中无此企业
-                    //todo 此企业可能不存在，可判为错误名称的企业，或新增（只能写入企业名称、统一代码和行业类别），待产品确认
+                    //产品确认说按新增处理
+                    cDo.setNeo(true);
+                    cDo.setCompanyId(null);
                     /*addError(cDo.getId(), "此企业不存在！");
                     continue;*/
                 } else { //有
-                    //todo 数据平台查询不到基本信息，只能更新用户提供的统一信用代码和行业类别，待产品确认
+                    //产品确认按更新处理
+                    cDo.setNeo(false);
+                    cDo.setCompanyId(locCp.getCompanyId());
+                    cDo.setOldCompanyType( locCp.getCompanyType() );
                 }
             }
         }
@@ -195,6 +219,7 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
             updateList.add(me);
             impCp.setNeo(false);
             impCp.setCompanyId(locCp.getCompanyId());
+            impCp.setOldCompanyType( locCp.getCompanyType() );
         }
         if( StringUtils.isNotBlank( bddRst.getJbxx().getCredit_code() ) ) {
             impCp.setCreditCode(bddRst.getJbxx().getCredit_code());
@@ -231,8 +256,7 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
         if( StringUtils.isNotBlank( bddRst.getJbxx().getCompany_type() ) ) {
             impCp.setRegisteredType( bddRst.getJbxx().getCompany_type() );
         }
-        impCp.setCompanyType( CompanyDO.companyType( impCp.getComTypeCnItself() ) );
-        impCp.setOldCompanyType( locCp.getCompanyType() );
+        //impCp.setCompanyType( CompanyDO.companyType( impCp.getComTypeCnItself() ) );
         if ( StringUtils.isNotBlank( bddRst.getJbxx().getCompany_industry() ) ) {
             impCp.setBusinessType( IndustryCodeDO.getValueByNameStr( bddRst.getJbxx().getCompany_industry() ) );
         }
@@ -244,7 +268,7 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
     @Override
     public void exception(Exception e) {
         addError("服务器异常：" + e.getMessage());
-        e.printStackTrace();
-
+        log.error("导入企业名单时服务器异常 ", e);
     }
+
 }

@@ -1,6 +1,7 @@
 package com.bbd.wtyh.excel.imp.utils;
 
 import java.io.*;
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -167,7 +168,7 @@ public class ExcelReadUtil {
 		return true;
 	}
 
-	// private static final DecimalFormat DF = new DecimalFormat("#.##");
+	private static final DecimalFormat DF = new DecimalFormat("#.#########");
 
 	public static String getCellValue(org.apache.poi.ss.usermodel.Cell poiCell, FormulaEvaluator evaluator) {
 		if (poiCell == null) {
@@ -182,11 +183,8 @@ public class ExcelReadUtil {
 				Date tmpDate = poiCell.getDateCellValue();
 				return DateFormatUtils.format(tmpDate, "yyyy-MM-dd HH:mm:ss");
 			}
-			Double d = poiCell.getNumericCellValue();
-			if (d == null) {
-				return "";
-			}
-			return d.toString();
+			double d = poiCell.getNumericCellValue();
+			return DF.format(d);
 		case org.apache.poi.ss.usermodel.Cell.CELL_TYPE_STRING:
 			return StringUtils.chomp(StringUtils.defaultString(poiCell.getStringCellValue(), ""));
 		case org.apache.poi.ss.usermodel.Cell.CELL_TYPE_BLANK:
@@ -208,11 +206,8 @@ public class ExcelReadUtil {
 		case org.apache.poi.ss.usermodel.Cell.CELL_TYPE_BOOLEAN:
 			return cellValue.getBooleanValue() + "";
 		case org.apache.poi.ss.usermodel.Cell.CELL_TYPE_NUMERIC:
-			Double d = cellValue.getNumberValue();
-			if (d == null) {
-				return "";
-			}
-			return d.toString();
+			double d = cellValue.getNumberValue();
+			return DF.format(d);
 		case org.apache.poi.ss.usermodel.Cell.CELL_TYPE_STRING:
 			return StringUtils.chomp(StringUtils.defaultString(cellValue.getStringValue(), ""));
 		case org.apache.poi.ss.usermodel.Cell.CELL_TYPE_BLANK:

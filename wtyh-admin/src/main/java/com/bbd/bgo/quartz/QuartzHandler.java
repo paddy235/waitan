@@ -8,6 +8,7 @@ import com.bbd.wtyh.domain.TaskInfoDO;
 import com.bbd.wtyh.domain.TaskSuccessFailInfoDO;
 import com.bbd.wtyh.mapper.TaskSuccessFailInfoMapper;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.quartz.*;
 import org.quartz.impl.triggers.CronTriggerImpl;
 import org.slf4j.Logger;
@@ -179,7 +180,8 @@ public class QuartzHandler extends BaseServiceImpl {
 		taskInfo.setStartDate(taskDetail.getBeginDate());
 		taskInfo.setEndDate(null);
 		taskInfo.setState(TaskState.EXECUTING.state());
-		this.update(taskInfo);
+		this.update(taskInfo,false,true);
+		//this.executeCUD("UPDATE timing_task_info SET start_date=?,end_date=?,state=? WHERE id=?", DateFormatUtils.format(taskDetail.getBeginDate(),"yyyy-MM-dd HH:mm:ss"),null,TaskState.EXECUTING.state(),taskInfo.getId());
 
 		return taskDetail.getId();
 	}

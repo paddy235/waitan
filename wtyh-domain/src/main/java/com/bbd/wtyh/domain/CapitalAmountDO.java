@@ -1,10 +1,19 @@
 package com.bbd.wtyh.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Table(name = "capital_amount")
 public class CapitalAmountDO extends BaseDO {
+    @Id
+    @Column(name = "type_id")
     private Integer typeId;
 
+    @Column(name = "managed_capital_amount")
     private Float managedCapitalAmount;
 
+    @Column(name = "publish_company_number")
     private Integer publishCompanyNumber;
 
     ////////////not in mysql

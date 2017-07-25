@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
+import com.bbd.wtyh.domain.CompanyInfoModify.LoanModify;
 import com.bbd.wtyh.domain.CompanyLevelDO;
 import com.bbd.wtyh.domain.EasyExport.LoanData;
 import com.bbd.wtyh.domain.dto.CompanyLevelDTO;
@@ -58,5 +59,15 @@ public class CompanyLevelServiceImpl implements CompanyLevelService {
     @Override
     public List<LoanData> getLoan(ExportCondition exportCondition) {
         return companyLevelMapper.getLoan(exportCondition);
+    }
+
+    @Override
+    public void recordLoad(LoanModify loanModify) {
+        companyLevelMapper.recordLoad(loanModify);
+    }
+
+    @Override
+    public void modifyLoad(LoanModify loanModify) {
+        companyLevelMapper.modifyLoad(loanModify);
     }
 }
