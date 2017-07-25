@@ -4,7 +4,6 @@ import com.bbd.wtyh.cachetobean.ShanghaiAreaCode;
 import com.bbd.wtyh.common.Pagination;
 import com.bbd.wtyh.domain.CompanyBackgroundDO;
 import com.bbd.wtyh.domain.CompanyDO;
-import com.bbd.wtyh.domain.DataLoadingFailInfoDO;
 import com.bbd.wtyh.domain.TaskFailInfoDO;
 import com.bbd.wtyh.mapper.CompanyBackgroundMapper;
 import com.bbd.wtyh.mapper.CompanyMapper;

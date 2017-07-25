@@ -4,7 +4,6 @@ package com.bbd.bgo.service.task;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.CompanyDO;
-import com.bbd.wtyh.domain.DataLoadingFailInfoDO;
 import com.bbd.wtyh.domain.PlatformNameInformationDO;
 import com.bbd.wtyh.domain.TaskFailInfoDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;

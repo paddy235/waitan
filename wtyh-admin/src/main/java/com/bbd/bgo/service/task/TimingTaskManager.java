@@ -2,7 +2,6 @@ package com.bbd.bgo.service.task;
 
 
 import com.bbd.bgo.quartz.TaskUtil;
-import com.bbd.wtyh.domain.DataLoadingFailInfoDO;
 import com.bbd.wtyh.domain.TaskFailInfoDO;
 import com.bbd.wtyh.mapper.TaskFailInfoMapper;
 import com.bbd.wtyh.service.*;

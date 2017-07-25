@@ -7,7 +7,6 @@ import java.util.Map;
 import com.bbd.wtyh.domain.TaskFailInfoDO;
 import org.apache.ibatis.annotations.Param;
 
-import com.bbd.wtyh.domain.DataLoadingFailInfoDO;
 
 
 /**

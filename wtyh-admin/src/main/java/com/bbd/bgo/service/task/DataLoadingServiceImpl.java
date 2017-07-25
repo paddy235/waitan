@@ -1,7 +1,6 @@
 package com.bbd.bgo.service.task;
 
 import com.bbd.wtyh.core.base.BaseServiceImpl;
-import com.bbd.wtyh.domain.DataLoadingFailInfoDO;
 import com.bbd.wtyh.domain.TaskFailInfoDO;
 import com.bbd.wtyh.domain.dataLoading.*;
 import com.bbd.wtyh.log.user.Operation;
@@ -246,7 +245,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 //		}
 //		this.executeCUD("delete from data_loading_fail_info where task_id = "+taskId);
 		if(failList.size()>0){
-			logger.info("add data loading task to dataLoadingFailInfo table");
+			logger.info("add data loading task to taskFailInfo table");
 			error = failList.size();
 			for(TaskFailInfoDO failInfo:failList){
 				taskFailInfoMapper.addTaskFailInfo(failInfo);
