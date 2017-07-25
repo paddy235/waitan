@@ -67,6 +67,8 @@
     <select id="queryBuildingCompanyNumber" parameterType="java.lang.String" resultType="com.bbd.wtyh.domain.vo.ParkAndBuildingVO">
         SELECT
             o.name as buildingName,
+            o.building_id as buildingId,
+            o.park_id as parkId,
             (
             SELECT
                 count(1)
