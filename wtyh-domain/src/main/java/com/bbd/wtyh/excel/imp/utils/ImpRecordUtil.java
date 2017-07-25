@@ -56,8 +56,8 @@ public class ImpRecordUtil {
 			dynamicWhere.append(" AND imp_date >= STR_TO_DATE('").append(startDate).append("', '%Y-%m-%d %H:%i:%s')");
 		}
 		if (StringUtils.isNotBlank(endDate)) {
-			startDate += " 23:59:59";
-			dynamicWhere.append(" AND imp_date <= STR_TO_DATE('").append(startDate).append("', '%Y-%m-%d %H:%i:%s')");
+			endDate += " 23:59:59";
+			dynamicWhere.append(" AND imp_date <= STR_TO_DATE('").append(endDate).append("', '%Y-%m-%d %H:%i:%s')");
 		}
 		if (StringUtils.isNotBlank(fileName)) {
 			dynamicWhere.append(" AND file_name LIKE '%").append(fileName).append("%'");
