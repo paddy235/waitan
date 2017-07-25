@@ -1,6 +1,8 @@
 package com.bbd.wtyh.service.impl.companyInfoModify;
 
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
+import com.bbd.wtyh.domain.CompanyInfoModify.LoanModify;
+import com.bbd.wtyh.domain.CompanyInfoModify.OffLineModify;
 import com.bbd.wtyh.domain.CompanyInfoModify.WangdaiModify;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
 import com.bbd.wtyh.service.*;
@@ -29,49 +31,44 @@ public class CompanyInfoMudifyUtil {
     @Autowired
     private FinanceLeaseService financeLeaseService;    // 融资租赁
 
-
     /**
-     * 网络借贷
+     * 修改 company 修改风险等级
+     * @param name
      * @param wangdaiModify
      */
+    public void modifyLevel(String name, WangdaiModify wangdaiModify) {
+        riskCompanyService.modifyLevel(name, wangdaiModify.getAfterLevel());
+    }
+
     public void recordWangdai(WangdaiModify wangdaiModify) {
         p2PImageService.recordWangdai(wangdaiModify);
     }
 
     /**
-     * 小额贷款
+     * 小额贷款 记录
      *
-     * @param name 公司名称
+     * @param loanModify
      * @return
      */
-    public CompanyInfo getLoan(String name) {
-        CompanyInfo companyInfo = companyLevelService.getLoanOrGuaranteeByCompanyName(name);
-        companyInfo.setIndustry(CompanyInfo.TYPE_XD_2);
-        return companyInfo;
+    public void recordLoad(LoanModify loanModify) {
+        companyLevelService.recordLoad(loanModify);
     }
 
-    /**
-     * 融资担保
-     *
-     * @param name
-     * @return
-     */
-    public CompanyInfo getGuarantee(String name) {
-        CompanyInfo companyInfo = companyLevelService.getLoanOrGuaranteeByCompanyName(name);
-        companyInfo.setIndustry(CompanyInfo.TYPE_RZDB_3);
-        return companyInfo;
+    public void modifyLoad(LoanModify loanModify) {
+        companyLevelService.modifyLoad(loanModify);
     }
 
     /**
      * 线下理财
      *
-     * @param name
+     * @param offLineModify
      * @return
      */
-    public CompanyInfo getOffLineFinance(String name) {
-        CompanyInfo companyInfo = riskCompanyService.getOffLineFinanceByCompanyName(name);
-        companyInfo.setIndustry(CompanyInfo.TYPE_XXLC_4);
-        return companyInfo;
+    public void recordOffLine(OffLineModify offLineModify) {
+        riskCompanyService.recordOffLine(offLineModify);
+    }
+    public void modifyOffLine(OffLineModify offLineModify) {
+        riskCompanyService.modifyOffLine(offLineModify);
     }
 
     /**
@@ -109,4 +106,7 @@ public class CompanyInfoMudifyUtil {
         companyInfo.setIndustry(CompanyInfo.TYPE_RZZL_13);
         return companyInfo;
     }
+
+
+
 }

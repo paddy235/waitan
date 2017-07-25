@@ -1,4 +1,4 @@
-package com.bbd.bgo.service.imp.handler;
+package com.bbd.bgo.service.imp.handler.prifund;
 
 import java.util.Date;
 import java.util.LinkedList;
@@ -7,9 +7,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.bbd.bgo.service.imp.handler.CompanyLevelHandler;
 import com.bbd.wtyh.core.base.BaseService;
-import com.bbd.wtyh.domain.*;
-import com.bbd.wtyh.report.word.WordReportBuilder;
+import com.bbd.wtyh.domain.InvestmentStatisticDO;
+import com.bbd.wtyh.excel.imp.handler.AbstractImportHandler;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +20,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.bbd.wtyh.common.Constants;
-import com.bbd.wtyh.excel.imp.handler.AbstractImportHandler;
 
 /**
  * Created by cgj on 2017/7/24.
@@ -27,9 +27,9 @@ import com.bbd.wtyh.excel.imp.handler.AbstractImportHandler;
 
 @Component
 @Scope("prototype") //非单例模式
-public class PriFundInvestmentReturnHandler extends AbstractImportHandler<InvestmentReturnStatisticDO> {
+public class PriFundInvestmentStatisticHandler extends AbstractImportHandler<InvestmentStatisticDO> {
 
-    final static String caption ="私募基金-股权投资机构管理资本量";
+    final static String caption ="私募基金-股权投资市场投资金额情况";
 
     private Logger log = LoggerFactory.getLogger(CompanyLevelHandler.class);
 
@@ -38,8 +38,8 @@ public class PriFundInvestmentReturnHandler extends AbstractImportHandler<Invest
     private BaseService baseService;
 
 
-    private List< InvestmentReturnStatisticDO > insertList = null;
-    private List< InvestmentReturnStatisticDO > updateList = null;
+    private List< InvestmentStatisticDO > insertList = null;
+    private List< InvestmentStatisticDO > updateList = null;
     String loginName ="";
 
 
@@ -83,10 +83,8 @@ public class PriFundInvestmentReturnHandler extends AbstractImportHandler<Invest
                 }
             }
         };
-        f1.fun("lessNumber", "回报数小于1的数量");
-        f1.fun("betweenNumber", "回报数1到10倍的数量");
-        f1.fun("greater_number", "回报数大于10倍的数量");
-        f1.fun("quit_number", "退出数量");
+        f1.fun("investmentAmount", "投资金额（亿元）");
+        f1.fun("publishNumber", "披露数量");
         if( validCntA[0] <1 ) {
             addError("选填参数数量太少");
             return false;
@@ -101,10 +99,10 @@ public class PriFundInvestmentReturnHandler extends AbstractImportHandler<Invest
 
     //BusinessException()
     @Override
-    public void endRow(Map<String, String> row, InvestmentReturnStatisticDO bean) throws Exception {
-        InvestmentReturnStatisticDO irs =baseService.selectOne(InvestmentReturnStatisticDO.class,
+    public void endRow(Map<String, String> row, InvestmentStatisticDO bean) throws Exception {
+        InvestmentStatisticDO isDo =baseService.selectOne(InvestmentStatisticDO.class,
                 "`year`=" +bean.getYear() +" LIMIT 1" );
-        if( null ==irs ) {
+        if( null ==isDo ) {
             insertList.add(bean);
             bean.setCreateDate(new Date());
             bean.setCreateBy(loginName);
@@ -118,6 +116,7 @@ public class PriFundInvestmentReturnHandler extends AbstractImportHandler<Invest
     @Override
     public void end() throws Exception {
         if( errorList().size() >0 ) {
+            addError("用户上传的 " +caption +" 中的数据有误，所有数据均不予入库");
             log.warn("用户上传的 " +caption +" 中的数据有误，所有数据均不予入库");
             return;
         }
@@ -131,7 +130,7 @@ public class PriFundInvestmentReturnHandler extends AbstractImportHandler<Invest
     @Override
     public void exception(Exception e) {
         addError("服务器异常：" + e.getMessage());
-        e.printStackTrace();
+        log.error("导入{}服务器异常 ", caption, e);
     }
 
 }

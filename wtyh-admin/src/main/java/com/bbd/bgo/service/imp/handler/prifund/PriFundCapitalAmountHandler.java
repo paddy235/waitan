@@ -1,4 +1,4 @@
-package com.bbd.bgo.service.imp.handler;
+package com.bbd.bgo.service.imp.handler.prifund;
 
 import java.util.Date;
 import java.util.LinkedList;
@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.bbd.bgo.service.imp.handler.CompanyLevelHandler;
 import com.bbd.wtyh.core.base.BaseService;
 import com.bbd.wtyh.domain.CapitalAmountDO;
 import com.bbd.wtyh.domain.PrivateFundTypeDO;
@@ -114,6 +115,7 @@ public class PriFundCapitalAmountHandler extends AbstractImportHandler<CapitalAm
     @Override
     public void end() throws Exception {
         if( errorList().size() >0 ) {
+            addError("用户上传的 " +caption +" 中的数据有误，所有数据均不予入库");
             log.warn("用户上传的 " +caption +" 中的数据有误，所有数据均不予入库");
             return;
         }
@@ -125,6 +127,6 @@ public class PriFundCapitalAmountHandler extends AbstractImportHandler<CapitalAm
     @Override
     public void exception(Exception e) {
         addError("服务器异常：" + e.getMessage());
-        e.printStackTrace();
+        log.error("导入{}服务器异常 ", caption, e);
     }
 }

@@ -3,6 +3,7 @@ package com.bbd.wtyh.service.impl;
 import com.bbd.higgs.utils.ListUtil;
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
+import com.bbd.wtyh.domain.CompanyInfoModify.OffLineModify;
 import com.bbd.wtyh.domain.EasyExport.OffLineData;
 import com.bbd.wtyh.domain.RiskCompanyInfoDO;
 import com.bbd.wtyh.mapper.RiskCompanyMapper;
@@ -96,6 +97,21 @@ public class RiskCompanyServiceImpl implements RiskCompanyService {
     @Override
     public List<OffLineData> getOffLineFinance(ExportCondition exportCondition) {
         return riskCompanyMapper.getOffLineFinance(exportCondition);
+    }
+
+    @Override
+    public void modifyLevel(String name, String afterLevel) {
+        riskCompanyMapper.modifyLevel(name, afterLevel);
+    }
+
+    @Override
+    public void recordOffLine(OffLineModify offLineModify) {
+        riskCompanyMapper.recordOffLine(offLineModify);
+    }
+
+    @Override
+    public void modifyOffLine(OffLineModify offLineModify) {
+        riskCompanyMapper.modifyLevel(offLineModify.getName(), offLineModify.getAfterLevel());
     }
 
 }

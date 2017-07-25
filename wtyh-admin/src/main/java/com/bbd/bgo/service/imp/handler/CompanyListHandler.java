@@ -117,6 +117,7 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
             processCp( );
         }
         if( errorList().size() >0 ) {
+            addError("用户上传的企业名单中的数据有误，所有数据均不予入库");
             log.warn("用户上传的企业名单中的数据有误，所有数据均不予入库");
             return;
         }
@@ -267,7 +268,7 @@ public class CompanyListHandler extends AbstractImportHandler<CompanyDO> {
     @Override
     public void exception(Exception e) {
         addError("服务器异常：" + e.getMessage());
-        e.printStackTrace();
-
+        log.error("导入企业名单时服务器异常 ", e);
     }
+
 }

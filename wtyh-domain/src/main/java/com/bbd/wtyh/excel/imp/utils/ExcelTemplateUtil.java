@@ -2,8 +2,6 @@ package com.bbd.wtyh.excel.imp.utils;
 
 import java.io.OutputStream;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.util.CellUtil;
@@ -79,8 +77,6 @@ public class ExcelTemplateUtil {
 
 	}
 
-	private static final Map<String, Document> DOCUMENT_MAP = new ConcurrentHashMap<>();
-
 	/**
 	 * 读取 EXCEL XML模版
 	 * 
@@ -90,15 +86,12 @@ public class ExcelTemplateUtil {
 	 * @throws Exception
 	 */
 	public static Excel readExcelTemplate(String templateName) throws Exception {
-		Document excelXml = DOCUMENT_MAP.get(templateName);
-		if (excelXml == null) {
-			SAXReader saxReader = new SAXReader();
-			saxReader.setValidation(false);
-			saxReader.setIncludeExternalDTDDeclarations(false);
-			saxReader.setIncludeInternalDTDDeclarations(false);
-			excelXml = saxReader.read(ExcelTemplateUtil.class.getResourceAsStream(IMPORT_PATH + templateName));
-			DOCUMENT_MAP.put(templateName, excelXml);
-		}
+
+		SAXReader saxReader = new SAXReader();
+		saxReader.setValidation(false);
+		saxReader.setIncludeExternalDTDDeclarations(false);
+		saxReader.setIncludeInternalDTDDeclarations(false);
+		Document excelXml = saxReader.read(ExcelTemplateUtil.class.getResourceAsStream(IMPORT_PATH + templateName));
 
 		Excel excelEntity = new Excel();
 		Element excelElement = excelXml.getRootElement();

@@ -1,7 +1,10 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.domain.CompanyInfoModify.CompanyInfo;
+import com.bbd.wtyh.domain.CompanyInfoModify.LoanModify;
+import com.bbd.wtyh.domain.CompanyInfoModify.OffLineModify;
 import com.bbd.wtyh.domain.CompanyInfoModify.WangdaiModify;
+import com.bbd.wtyh.domain.EasyExport.OffLineData;
 import com.bbd.wtyh.mapper.CompanyInfoModifyMapper;
 import com.bbd.wtyh.service.CompanyInfoModifyService;
 import com.bbd.wtyh.service.impl.companyInfoModify.CompanyInfoMudifyUtil;
@@ -52,6 +55,11 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
         return null;
     }
 
+    /**
+     * 风险等级 修改
+     * @param modifyData
+     * @return
+     */
     @Override
     public CompanyInfo modifyLevel(ModifyData modifyData) {
         if (CompanyInfo.TYPE_P2P_1 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 网络借贷
@@ -61,19 +69,85 @@ public class CompanyInfoModifyServiceImpl implements CompanyInfoModifyService {
             wangdaiModify.setPlatName(wangdai.getPlatName());
             wangdaiModify.setBeforeLevel(wangdai.getCurrentLevel());
             wangdaiModify.setAfterLevel(modifyData.getLevel());
+            wangdaiModify.setBeforeIndustry(CompanyInfo.TYPE_P2P_1);
+            // 记录行为
             companyInfoMudifyUtil.recordWangdai(wangdaiModify);
+            // 记录company值
+            companyInfoMudifyUtil.modifyLevel(modifyData.getName(), wangdaiModify);
         } else if (CompanyInfo.TYPE_XD_2 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 小额贷款
-
+            CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(modifyData.getName());
+            LoanModify loanModify = new LoanModify();
+            loanModify.setName(companyInfo.getName());
+            loanModify.setBeforeOutLevel(companyInfo.getOutLevel());
+            loanModify.setBeforeInnnerLevel(companyInfo.getInnnerLevel());
+            loanModify.setBeforeLiveLevel(companyInfo.getLiveLevel());
+            loanModify.setAfterOutLevel(modifyData.getOutLevel());
+            loanModify.setAfterInnnerLevel(modifyData.getInnnerLevel());
+            loanModify.setAfterLiveLevel(modifyData.getLiveLevel());
+            loanModify.setBeforeIndustry(CompanyInfo.TYPE_XD_2);
+            // 记录行为
+            companyInfoMudifyUtil.recordLoad(loanModify);
+            // 修改值
+            companyInfoMudifyUtil.modifyLoad(loanModify);
         } else if (CompanyInfo.TYPE_RZDB_3 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 融资担保
-
+            CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(modifyData.getName());
+            LoanModify loanModify = new LoanModify();
+            loanModify.setName(companyInfo.getName());
+            loanModify.setBeforeOutLevel(companyInfo.getOutLevel());
+            loanModify.setBeforeInnnerLevel(companyInfo.getInnnerLevel());
+            loanModify.setBeforeLiveLevel(companyInfo.getLiveLevel());
+            loanModify.setAfterOutLevel(modifyData.getOutLevel());
+            loanModify.setAfterInnnerLevel(modifyData.getInnnerLevel());
+            loanModify.setAfterLiveLevel(modifyData.getLiveLevel());
+            loanModify.setBeforeIndustry(CompanyInfo.TYPE_RZDB_3);
+            // 记录行为
+            companyInfoMudifyUtil.recordLoad(loanModify);
+            // 修改值
+            companyInfoMudifyUtil.modifyLoad(loanModify);
         } else if (CompanyInfo.TYPE_XXLC_4 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 线下理财
-
+            CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(modifyData.getName());
+            OffLineModify offLineModify = new OffLineModify();
+            offLineModify.setName(companyInfo.getName());
+            offLineModify.setBeforeLevel(companyInfo.getCurrentLevel());
+            offLineModify.setAfterLevel(modifyData.getLevel());
+            offLineModify.setBeforeIndustry(CompanyInfo.TYPE_XXLC_4);
+            // 记录行为
+            companyInfoMudifyUtil.recordOffLine(offLineModify);
+            // 修改值
+            companyInfoMudifyUtil.modifyOffLine(offLineModify);
         } else if (CompanyInfo.TYPE_JYS_9 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 交易场所
-
+            CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(modifyData.getName());
+            OffLineModify offLineModify = new OffLineModify();
+            offLineModify.setName(companyInfo.getName());
+            offLineModify.setBeforeLevel(companyInfo.getCurrentLevel());
+            offLineModify.setAfterLevel(modifyData.getLevel());
+            offLineModify.setBeforeIndustry(CompanyInfo.TYPE_JYS_9);
+            // 记录行为
+            companyInfoMudifyUtil.recordOffLine(offLineModify);
+            // 修改值
+            companyInfoMudifyUtil.modifyOffLine(offLineModify);
         } else if (CompanyInfo.TYPE_YFK_11 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 预付卡
-
+            CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(modifyData.getName());
+            OffLineModify offLineModify = new OffLineModify();
+            offLineModify.setName(companyInfo.getName());
+            offLineModify.setBeforeLevel(companyInfo.getCurrentLevel());
+            offLineModify.setAfterLevel(modifyData.getLevel());
+            offLineModify.setBeforeIndustry(CompanyInfo.TYPE_JYS_9);
+            // 记录行为
+            companyInfoMudifyUtil.recordOffLine(offLineModify);
+            // 修改值
+            companyInfoMudifyUtil.modifyOffLine(offLineModify);
         } else if (CompanyInfo.TYPE_RZZL_13 == companyInfoModifyMapper.queryCompany(modifyData.getName()).getIndustry()) { // 融资租赁
-
+            CompanyInfo companyInfo = companyInfoModifyMapper.queryCompany(modifyData.getName());
+            OffLineModify offLineModify = new OffLineModify();
+            offLineModify.setName(companyInfo.getName());
+            offLineModify.setBeforeLevel(companyInfo.getCurrentLevel());
+            offLineModify.setAfterLevel(modifyData.getLevel());
+            offLineModify.setBeforeIndustry(CompanyInfo.TYPE_JYS_9);
+            // 记录行为
+            companyInfoMudifyUtil.recordOffLine(offLineModify);
+            // 修改值
+            companyInfoMudifyUtil.modifyOffLine(offLineModify);
         }
         return null;
     }
