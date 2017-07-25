@@ -145,4 +145,13 @@ public interface HologramQueryService {
      */
     List<CompanySearch2DO.Rdata> getNaturalPersonList( String nalName, String type );
 
+    /**
+     *
+     * @param nalName
+     * @param isProvince 查询范围是否是省内
+     * @param type mix:混合搜索； gdxx:股东信息; baxx:董监高
+     * @return
+     */
+    List<CompanySearch2DO.Rdata> getNaturalPersonListMul( String nalName, boolean isProvince, String type );
+
 }
