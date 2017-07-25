@@ -97,4 +97,10 @@ public class GuaranteeServiceImpl implements GuaranteeService {
     public int countLargeGuarantee() {
         return guaranteedInfoMapper.countLargeGuarantee();
     }
+
+    @Override
+    public GuaranteedInfoDO selectByPrimaryKey(Integer id) {
+
+        return guaranteedInfoMapper.selectByPrimaryKey(id);
+    }
 }
