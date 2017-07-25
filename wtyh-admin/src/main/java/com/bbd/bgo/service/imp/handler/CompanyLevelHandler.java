@@ -21,13 +21,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * mvntest
+ * 企业评级处理器
  *
  * @author Created by LiYao on 2017-07-03 14:34.
  */
 @Component
 @Scope("prototype")
-	public class CompanyLevelHandler extends AbstractImportHandler<CompanyLevelDO> {
+public class CompanyLevelHandler extends AbstractImportHandler<CompanyLevelDO> {
 
 	private Logger log = LoggerFactory.getLogger(CompanyLevelHandler.class);
 
@@ -196,6 +196,6 @@ import org.springframework.transaction.annotation.Transactional;
 	@Override
 	public void exception(Exception e) {
 		addError("服务器异常：" + e.getMessage());
-		e.printStackTrace();
+		log.error("导入企业评级服务器异常！", e);
 	}
 }

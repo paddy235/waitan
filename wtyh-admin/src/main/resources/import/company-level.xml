@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<excel key="company_level" name="企业评级-导入模板">
+<excel key="company-level" name="企业评级-导入模板">
     <sheet name="Sheet1" startRow="2" entity="com.bbd.wtyh.domain.CompanyLevelDO"
            importHandler="com.bbd.bgo.service.imp.handler.CompanyLevelHandler">
         <columns>
