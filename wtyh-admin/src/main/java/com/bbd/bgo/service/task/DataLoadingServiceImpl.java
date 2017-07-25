@@ -1,12 +1,12 @@
 package com.bbd.bgo.service.task;
 
 import com.bbd.wtyh.core.base.BaseServiceImpl;
-import com.bbd.wtyh.domain.DataLoadingFailInfoDO;
+import com.bbd.wtyh.domain.TaskFailInfoDO;
 import com.bbd.wtyh.domain.dataLoading.*;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.UserLogRecord;
-import com.bbd.wtyh.mapper.DataLoadingFailInfoMapper;
 import com.bbd.wtyh.mapper.DataLoadingMapper;
+import com.bbd.wtyh.mapper.TaskFailInfoMapper;
 import com.bbd.wtyh.mapper.TaskSuccessFailInfoMapper;
 import com.bbd.wtyh.util.DataLoadingUtil;
 import com.bbd.wtyh.util.PullFileUtil;
@@ -64,7 +64,7 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 	@Autowired
 	private TaskSuccessFailInfoMapper taskSuccessFailInfoMapper;
 	@Autowired
-	private DataLoadingFailInfoMapper dataLoadingFailInfoMapper;
+	private TaskFailInfoMapper taskFailInfoMapper;
 
 	@Override
 	public Map<String,Integer> dataLoadingManualOperate(Integer oldTaskId,Integer newTaskId) {
@@ -73,13 +73,13 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 		Map<String,Integer> returnMap = new HashMap<String,Integer>();
 		Integer dataError = 0;
 		Integer dataTotal = 0;
-		List<DataLoadingFailInfoDO> failList = dataLoadingFailInfoMapper.getDataLoadingFailInfoByTaskId(oldTaskId);
+		List<TaskFailInfoDO> failList = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
 		//上次出错,只跑错误部分数据
 		if(null!=failList&&failList.size()>0){
 			dataTotal = failList.size();
 			List<String> failFileList=new ArrayList<String>();
-			for(DataLoadingFailInfoDO fail:failList){
-				failFileList.add(fail.getErrorName());
+			for(TaskFailInfoDO fail:failList){
+				failFileList.add(fail.getFailName());
 			}
 			List<File> fileList=new ArrayList<File>();
 			Integer pullFileTaskId=failList.get(0).getSourceTaskId();
@@ -141,8 +141,8 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 
 	public Integer operateUpdate(List<String> failFileList,List<File> fileList){
 		int error = 0;
-		List<DataLoadingFailInfoDO> failList=new ArrayList<DataLoadingFailInfoDO>();
-		DataLoadingFailInfoDO fail = null;
+		List<TaskFailInfoDO> failList=new ArrayList<TaskFailInfoDO>();
+		TaskFailInfoDO fail = null;
 		List<DishonestyDO> disList=null;
 		List<KtggDO> ktggList=null;
 		List<QyxgYuqingDO> yuQingList=null;
@@ -164,8 +164,8 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 				logger.info(file.getName()+"analysis number:"+list.size());
 				//文件解析出错
 				if(null==list){
-					fail = new DataLoadingFailInfoDO();
-					fail.setErrorReason("文件解析错误");
+					fail = new TaskFailInfoDO();
+					fail.setFailReason("文件解析错误");
 					setFailDo(fail,file.getName());
 					failList.add(fail);
 					continue;
@@ -206,8 +206,8 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 							recruitIndexList.add(recruitIndex);
 						}
 					} catch (Exception e) {
-						fail = new DataLoadingFailInfoDO();
-						fail.setErrorReason("数据格式错误");
+						fail = new TaskFailInfoDO();
+						fail.setFailReason("数据格式错误");
 						setFailDo(fail,file.getName());
 						failList.add(fail);
 						//出错跳出循环
@@ -225,8 +225,8 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 				} catch (Exception e) {
 					System.out.println(e);
 					transactionManager.rollback(status);
-					fail = new DataLoadingFailInfoDO();
-					fail.setErrorReason("数据插入错误");
+					fail = new TaskFailInfoDO();
+					fail.setFailReason("数据插入错误");
 					setFailDo(fail,file.getName());
 					failList.add(fail);
 					//出错跳出循环
@@ -245,17 +245,17 @@ public class DataLoadingServiceImpl extends BaseServiceImpl implements DataLoadi
 //		}
 //		this.executeCUD("delete from data_loading_fail_info where task_id = "+taskId);
 		if(failList.size()>0){
-			logger.info("add data loading task to dataLoadingFailInfo table");
+			logger.info("add data loading task to taskFailInfo table");
 			error = failList.size();
-			for(DataLoadingFailInfoDO failInfo:failList){
-				dataLoadingFailInfoMapper.addTaskFailInfo(failInfo);
+			for(TaskFailInfoDO failInfo:failList){
+				taskFailInfoMapper.addTaskFailInfo(failInfo);
 			}
 		}
 		return error;
 	}
 
-	public void setFailDo(DataLoadingFailInfoDO fail,String FileName){
-		fail.setErrorName(FileName);
+	public void setFailDo(TaskFailInfoDO fail,String FileName){
+		fail.setFailName(FileName);
 		fail.setTaskId(taskId);
 		fail.setCreateBy("system");
 		fail.setCreateDate(new Date());

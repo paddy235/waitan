@@ -2,6 +2,7 @@ package com.bbd.wtyh.excel.imp.validator;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -17,11 +18,13 @@ public class NumberValidator extends AbstractValidator {
 	protected String format;
 	private DecimalFormat numberFormat;
 
+	private static final Pattern PATTERN = Pattern.compile("^0|-?([1-9]\\d*|[1-9]\\d*\\.\\d+|0\\.\\d+)$");
+
 	public NumberValidator(Cell cell) {
 		super(cell);
 		this.format = cell.getFormat();
 		if (StringUtils.isBlank(format)) {
-			format = "0";
+			format = "0.###############";
 		}
 		this.numberFormat = new DecimalFormat(format);
 	}
@@ -31,16 +34,14 @@ public class NumberValidator extends AbstractValidator {
 		if (this.valueIsBlank) {
 			return true;
 		}
+		if (!isNumber(this.value)) {
+			return false;
+		}
 		try {
 			Number num = numberFormat.parse(this.value);
-			if (this.value.contains(".")) {
-				this.result = num.doubleValue() + "";
-			} else {
-				this.result = num.longValue() + "";
-			}
+			this.result = numberFormat.format(num);
 		} catch (ParseException e) {
 			e.printStackTrace();
-			// this.addError(this.name + " 数字格式不符合预期");
 			return false;
 		}
 		return true;
@@ -49,5 +50,16 @@ public class NumberValidator extends AbstractValidator {
 	@Override
 	protected String formatName() {
 		return "数值";
+	}
+
+	private boolean isNumber(String str) {
+		return PATTERN.matcher(str).matches();
+	}
+
+	public static void main(String[] args) throws ParseException {
+		DecimalFormat numberFormat = new DecimalFormat("0.00");
+		Number num = numberFormat.parse("0.");
+		System.out.println(num);
+		System.out.println();
 	}
 }

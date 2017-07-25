@@ -184,23 +184,22 @@ public class ExcelUtil {
 
 		// 企业评级
 		Map<String, String> mapLevel21 = new HashMap<>();
-		mapLevel21.put("企业评级", "company_level.xml");// 构建二级下拉
 		mapLevel1.put("企业评级", mapLevel21);// 构建一级下拉
+		mapLevel21.put("企业评级", "company-level");// 构建二级下拉
 
 		// 小额贷款
 		Map<String, String> mapLevel22 = new HashMap<>();
-		mapLevel22.put("大额借款人", "Test1.xml");// 构建二级下拉
-		mapLevel22.put("贷款余额", "Test2.xml");// 构建二级下拉
 		mapLevel1.put("小额贷款", mapLevel22);// 构建一级下拉
+		mapLevel22.put("大额借款人", "xiaodai-large-borrower");// 构建二级下拉
+		mapLevel22.put("贷款余额", "xiaodai-loan-balance");// 构建二级下拉
 
-		//私募基金
+		// 私募基金
 		Map<String, String> mapLevel23 = new HashMap<>();
 		mapLevel1.put("私募基金", mapLevel23);// 构建一级下拉
-		mapLevel23.put("股权投资机构管理资本量", "private_fund_capital_amount.xml");// 构建二级下拉
-		mapLevel23.put("股权投资市场退出及退出回报情况", "private_fund_investment_return.xml");// 构建二级下拉
-		mapLevel23.put("股权投资市场投资金额情况", "private_fund_investment_statistic.xml");// 构建二级下拉
-		mapLevel23.put("产品数量前十", "private_fund_top10.xml");// 构建二级下拉
-
+		mapLevel23.put("股权投资机构管理资本量", "private_fund_capital_amount");// 构建二级下拉
+		mapLevel23.put("股权投资市场退出及退出回报情况", "private_fund_investment_return");// 构建二级下拉
+		mapLevel23.put("股权投资市场投资金额情况", "private_fund_investment_statistic");// 构建二级下拉
+		mapLevel23.put("产品数量前十", "private_fund_top10");// 构建二级下拉
 
 		return mapLevel1;
 	}

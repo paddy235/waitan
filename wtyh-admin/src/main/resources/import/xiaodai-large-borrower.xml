@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<excel key="xiaodai-large-borrower" name="大额借款人-导入模板">
+    <sheet name="Sheet1" startRow="3" entity="com.bbd.wtyh.domain.LargeLoanDO"
+           importHandler="com.bbd.bgo.service.imp.handler.xiaodai.LargeBorrowerHandler">
+        <rowHeader>
+            <column mergeFirstRow="1" mergeLastRow="1" mergeFirstCol="1" mergeLastCol="2" align="LEFT"
+                    value="填写说明：本表格不可填写Excel公式；公司名称必填，不能超过40个汉字；"/>
+        </rowHeader>
+        <columns>
+            <column name="借款公司" code="borrower" dataType="string" bgColor="#FFFF00" required="true"/>
+            <column name="贷款公司" code="lender" dataType="string" bgColor="#FFFF00" required="true"/>
+        </columns>
+
+    </sheet>
+
+</excel>
