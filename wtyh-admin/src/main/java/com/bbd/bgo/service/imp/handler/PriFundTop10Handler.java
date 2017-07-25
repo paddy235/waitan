@@ -6,10 +6,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import com.bbd.wtyh.domain.ProductAmountDO;
-import com.bbd.wtyh.mapper.ProductAmountMapper;
 import com.bbd.wtyh.service.ProductAmountService;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +16,8 @@ import org.springframework.stereotype.Component;
 
 import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.domain.CompanyDO;
-import com.bbd.wtyh.domain.bbdAPI.BaseDataDO;
-import com.bbd.wtyh.domain.bbdAPI.IndustryCodeDO;
 import com.bbd.wtyh.excel.imp.handler.AbstractImportHandler;
-import com.bbd.wtyh.service.AreaService;
 import com.bbd.wtyh.service.CompanyService;
-import com.bbd.wtyh.service.HologramQueryService;
 
 /**
  * Created by cgj on 2017/7/22.
@@ -32,6 +26,8 @@ import com.bbd.wtyh.service.HologramQueryService;
 @Component
 @Scope("prototype") //非单例模式
 public class PriFundTop10Handler extends AbstractImportHandler<ProductAmountDO> {
+
+    final static String caption ="私募基金-产品数量前十";
 
     private Logger log = LoggerFactory.getLogger(CompanyLevelHandler.class);
 
@@ -55,7 +51,7 @@ public class PriFundTop10Handler extends AbstractImportHandler<ProductAmountDO> 
             loginName ="";
         }
         //Object ob= request.getHeaderNames();
-        log.info("开始检查私募top10名单");
+        log.info("开始检查" +caption);
         insertList = new LinkedList<>();
         updateList = new LinkedList<>();
     }
@@ -67,17 +63,19 @@ public class PriFundTop10Handler extends AbstractImportHandler<ProductAmountDO> 
 
     @Override
     public boolean validateRow(Map<String, String> row) throws Exception {
+        //todo 正则：整数或者小数：^[0-9]+([.][0-9]+){0,1}$，只能输入至少一位数字"\\d+"，"+"等价于{1,}
+        boolean rtr =true;
         String companyName =row.get("companyName");
         if( StringUtils.isBlank( companyName ) || companyName.length() <3 ) {
             addError("企业名称格式错误");
-            return false;
+            rtr =false;
         }
         String productNumber =row.get("productNumber");
         if( StringUtils.isEmpty( productNumber ) || !productNumber.matches("\\d+") ) {
             addError("产品数量格式错误");
-            return false;
+            rtr =false;
         }
-        return true;
+        return rtr;
     }
 
     //BusinessException()
@@ -107,14 +105,14 @@ public class PriFundTop10Handler extends AbstractImportHandler<ProductAmountDO> 
     @Override
     public void end() throws Exception {
         if( errorList().size() >0 ) {
-            log.warn("用户上传的私募top10名单中的数据有误，所有数据均不予入库");
+            log.warn("用户上传的" +caption +"中的数据有误，所有数据均不予入库");
             return;
         }
         //update
         productAmountService.updateList(updateList);
         //insert
         productAmountService.insertList(insertList); //todo 插入报异常
-        log.info("私募top10名单导入已完成");
+        log.info( caption +"导入已完成" );
     }
 
     @Override

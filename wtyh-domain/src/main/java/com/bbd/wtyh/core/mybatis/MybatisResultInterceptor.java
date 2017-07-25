@@ -82,7 +82,9 @@ public class MybatisResultInterceptor implements Interceptor {
 					o = rs.getTimestamp(fieldName);
 				} else if (clazz.equals(boolean.class) || clazz.equals(Boolean.class)) {
 					o = rs.getBoolean(fieldName);
-				} else {
+				}  else if (clazz.equals(byte.class) || clazz.equals(Byte.class)) {
+					o = rs.getByte(fieldName);
+				}else {
 					o = rs.getObject(fieldName);
 				}
 				ReflectUtil.setFieldValue(obj, f.getName(), o);

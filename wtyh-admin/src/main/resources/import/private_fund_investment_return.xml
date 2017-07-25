@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<excel key="private_fund_investment_return" name="私募基金-股权投资市场退出及退出回报情况">
+    <sheet name="Sheet1" startRow="4" entity="com.bbd.wtyh.domain.InvestmentReturnStatisticDO"
+           importHandler="com.bbd.bgo.service.imp.handler.PriFundInvestmentReturnHandler">
+        <rowHeader>
+            <column mergeFirstRow="1" mergeLastRow="2" mergeFirstCol="1" mergeLastCol="5" align="LEFT"
+                    value="填写说明：&#x000A;本表格不可填写Excel公式；年份必填，其余字段至少选填一项；"/>
+        </rowHeader>
+        <columns>
+            <column name="年份" code="year" dataType="number" required="true" bgColor="#FFFF00"/>
+            <column name="回报数小于1的数量" code="lessNumber" dataType="number" />
+            <column name="回报数1到10倍的数量" code="betweenNumber" dataType="number" />
+            <column name="回报数大于10倍的数量" code="greaterNumber" dataType="number" />
+            <column name="退出数量" code="quitNumber" dataType="number" />
+        </columns>
+
+    </sheet>
+</excel>

@@ -19,6 +19,6 @@ public class CompanyUpateTest {
 
     @Test
     public void backgroundTest(){
-        systemDataUpdateService.updateCompanyTableAreaIdAndAddress();
+        //systemDataUpdateService.updateCompanyTableAreaIdAndAddress();
     }
 }

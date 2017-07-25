@@ -8,8 +8,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.bbd.wtyh.core.base.BaseService;
-import com.bbd.wtyh.domain.CapitalAmountDO;
-import com.bbd.wtyh.domain.PrivateFundTypeDO;
+import com.bbd.wtyh.domain.*;
+import com.bbd.wtyh.report.word.WordReportBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,12 +22,12 @@ import com.bbd.wtyh.common.Constants;
 import com.bbd.wtyh.excel.imp.handler.AbstractImportHandler;
 
 /**
- * Created by cgj on 2017/7/23.
+ * Created by cgj on 2017/7/24.
  */
 
 @Component
 @Scope("prototype") //非单例模式
-public class PriFundCapitalAmountHandler extends AbstractImportHandler<CapitalAmountDO> {
+public class PriFundInvestmentReturnHandler extends AbstractImportHandler<InvestmentReturnStatisticDO> {
 
     final static String caption ="私募基金-股权投资机构管理资本量";
 
@@ -38,8 +38,8 @@ public class PriFundCapitalAmountHandler extends AbstractImportHandler<CapitalAm
     private BaseService baseService;
 
 
-    private List< CapitalAmountDO > insertList = null;
-    private List< CapitalAmountDO > updateList = null;
+    private List< InvestmentReturnStatisticDO > insertList = null;
+    private List< InvestmentReturnStatisticDO > updateList = null;
     String loginName ="";
 
 
@@ -54,6 +54,7 @@ public class PriFundCapitalAmountHandler extends AbstractImportHandler<CapitalAm
         //Object ob= request.getHeaderNames();
         log.info("开始检查 " + caption);
 
+        insertList = new LinkedList<>();
         updateList = new LinkedList<>();
     }
 
@@ -66,49 +67,52 @@ public class PriFundCapitalAmountHandler extends AbstractImportHandler<CapitalAm
     public boolean validateRow(Map<String, String> row) throws Exception {
         //正则：整数或者小数：^[0-9]+([.][0-9]+){0,1}$，只能输入至少一位数字"\\d+"，"+"等价于{1,}
 
-        String typeName =row.get("typeName");
-        if( StringUtils.isBlank( typeName ) || typeName.length() <2 ) {
-            addError("私募机构类型 格式错误");
+        String year =row.get("year");
+        if( StringUtils.isBlank( year ) || ! year.matches("\\d+") ) {
+            addError("年份 格式错误");
             return false;
         }
-        int validCnt =0;
-        String managedCapitalAmount =row.get("managedCapitalAmount");
-        if( StringUtils.isNotBlank( managedCapitalAmount ) ) {
-            if ( managedCapitalAmount.matches("^[0-9]+([.][0-9]+){0,1}$") ){
-                validCnt++;
-            } else {
-                addError("管理资本金额（亿元） 格式错误");
+        int [] validCntA = {0};
+        FunIf1 f1 =(String numName, String  capName)->{
+            String lessNumber =row.get(numName);
+            if( StringUtils.isNotBlank( lessNumber ) ) {
+                if ( lessNumber.matches("\\d+") ){
+                    validCntA[0]++;
+                } else {
+                    addError(capName +" 格式错误");
+                }
             }
-        }
-        String publishCompanyNumber =row.get("publishCompanyNumber");
-        if( StringUtils.isNotBlank( publishCompanyNumber ) ) {
-            if ( publishCompanyNumber.matches("\\d+") ){
-                validCnt++;
-            } else {
-                addError("数量 格式错误");
-            }
-        }
-        if( validCnt <1 ) {
+        };
+        f1.fun("lessNumber", "回报数小于1的数量");
+        f1.fun("betweenNumber", "回报数1到10倍的数量");
+        f1.fun("greater_number", "回报数大于10倍的数量");
+        f1.fun("quit_number", "退出数量");
+        if( validCntA[0] <1 ) {
             addError("选填参数数量太少");
             return false;
         }
         return true;
     }
 
+    @FunctionalInterface
+    interface FunIf1 {
+        void fun(String numName, String  capName);
+    }
+
     //BusinessException()
     @Override
-    public void endRow(Map<String, String> row, CapitalAmountDO bean) throws Exception {
-        PrivateFundTypeDO pft =baseService.selectOne(PrivateFundTypeDO.class,
-                "`type_parent_id` =1 AND `type_name`='" +bean.getTypeName() +"' LIMIT 1" );
-        if( null ==pft ) {
-            addError("私募机构类型 在系统中无此名称");
-            return ;
+    public void endRow(Map<String, String> row, InvestmentReturnStatisticDO bean) throws Exception {
+        InvestmentReturnStatisticDO irs =baseService.selectOne(InvestmentReturnStatisticDO.class,
+                "`year`=" +bean.getYear() +" LIMIT 1" );
+        if( null ==irs ) {
+            insertList.add(bean);
+            bean.setCreateDate(new Date());
+            bean.setCreateBy(loginName);
+        } else {
+            updateList.add(bean);
+            bean.setUpdateDate(new Date());
+            bean.setUpdateBy(loginName);
         }
-        bean.setTypeId(pft.getTypeId().intValue());
-        updateList.add(bean);
-        bean.setManagedCapitalAmount( bean.getManagedCapitalAmount() *10000F );
-        bean.setUpdateBy(loginName);
-        bean.setUpdateDate(new Date());
     }
 
     @Override
@@ -119,6 +123,8 @@ public class PriFundCapitalAmountHandler extends AbstractImportHandler<CapitalAm
         }
         //update
         baseService.updateList(updateList);
+        //insert
+        baseService.insert(insertList);
         log.info(caption +" 导入已完成");
     }
 
@@ -127,4 +133,5 @@ public class PriFundCapitalAmountHandler extends AbstractImportHandler<CapitalAm
         addError("服务器异常：" + e.getMessage());
         e.printStackTrace();
     }
+
 }

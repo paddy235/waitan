@@ -2,7 +2,9 @@ package com.bbd.wtyh.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Table(name = "product_amount")
 public class ProductAmountDO extends BaseDO {
 
     @Id
