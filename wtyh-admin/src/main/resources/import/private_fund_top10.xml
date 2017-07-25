@@ -2,7 +2,7 @@
 
 <excel key="private_fund_top10" name="私募基金-产品数量前十">
     <sheet name="Sheet1" startRow="4" entity="com.bbd.wtyh.domain.ProductAmountDO"
-           importHandler="com.bbd.bgo.service.imp.handler.PriFundTop10Handler">
+           importHandler="com.bbd.bgo.service.imp.handler.prifund.PriFundTop10Handler">
         <rowHeader>
             <column mergeFirstRow="1" mergeLastRow="2" mergeFirstCol="1" mergeLastCol="2" align="LEFT"
                     value="填写说明：&#x000A;本表格不可填写Excel公式；所有字段必填，机构名称不能超过40个汉字；"/>

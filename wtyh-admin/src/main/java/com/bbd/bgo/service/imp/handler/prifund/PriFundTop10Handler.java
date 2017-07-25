@@ -1,10 +1,11 @@
-package com.bbd.bgo.service.imp.handler;
+package com.bbd.bgo.service.imp.handler.prifund;
 
 import java.util.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.bbd.bgo.service.imp.handler.CompanyLevelHandler;
 import com.bbd.wtyh.domain.ProductAmountDO;
 import com.bbd.wtyh.service.ProductAmountService;
 import org.apache.commons.lang.StringUtils;
