@@ -2,32 +2,25 @@ package com.bbd.bgo.service.task;
 
 
 import com.bbd.higgs.utils.http.HttpTemplate;
-import com.bbd.wtyh.common.Pagination;
 import com.bbd.wtyh.core.base.BaseServiceImpl;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.DataLoadingFailInfoDO;
 import com.bbd.wtyh.domain.PlatformNameInformationDO;
-import com.bbd.wtyh.domain.dataLoading.DishonestyDO;
+import com.bbd.wtyh.domain.TaskFailInfoDO;
 import com.bbd.wtyh.domain.wangDaiAPI.PlatListDO;
 import com.bbd.wtyh.log.user.Operation;
 import com.bbd.wtyh.log.user.annotation.LogRecord;
 import com.bbd.wtyh.mapper.CompanyMapper;
-import com.bbd.wtyh.mapper.DataLoadingFailInfoMapper;
 import com.bbd.wtyh.mapper.PlatformNameInformationMapper;
+import com.bbd.wtyh.mapper.TaskFailInfoMapper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.apache.poi.ss.formula.functions.T;
-import org.apache.shiro.crypto.hash.Hash;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -40,7 +33,7 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 	@Autowired
 	private PlatformNameInformationMapper platformNameInformationMapper;
 	@Autowired
-	private DataLoadingFailInfoMapper dataLoadingFailInfoMapper;
+	private TaskFailInfoMapper taskFailInfoMapper;
 	@Autowired
 	private CompanyMapper companyMapper;
 
@@ -86,10 +79,10 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 		List<PlatformNameInformationDO> platInfoList = new ArrayList<PlatformNameInformationDO>();
 		//手动执行
 		if(null!=newTaskId){
-			List<DataLoadingFailInfoDO> failList = dataLoadingFailInfoMapper.getDataLoadingFailInfoByTaskId(oldTaskId);
+			List<TaskFailInfoDO> failList = taskFailInfoMapper.getTaskFailInfoByTaskId(oldTaskId);
 			List<String> failStrList=new ArrayList<String>();
-			for(DataLoadingFailInfoDO fail:failList){
-				failStrList.add(fail.getErrorName());
+			for(TaskFailInfoDO fail:failList){
+				failStrList.add(fail.getFailName());
 			}
 			List<String> failPlatList=new ArrayList<>();
 			dataTotal = failList.size();
@@ -140,11 +133,11 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 		while(it.hasNext()){
 			PlatformNameInformationDO plat = it.next();
 			if(null==map.get(plat.getName())){
-				DataLoadingFailInfoDO fail = new DataLoadingFailInfoDO();
-				fail.setErrorReason("company表未查询到数据");
-				fail.setErrorName(plat.getPlatformName());
+				TaskFailInfoDO fail = new TaskFailInfoDO();
+				fail.setFailReason("company表未查询到数据");
+				fail.setFailName(plat.getPlatformName());
 				fail.setTaskId(taskId);
-				dataLoadingFailInfoMapper.addTaskFailInfo(fail);
+				taskFailInfoMapper.addTaskFailInfo(fail);
 				it.remove();
 			}else{
 				plat.setCompanyId(map.get(plat.getName()).getCompanyId());
@@ -161,11 +154,11 @@ public class PlatUpdateTaskServiceImpl extends BaseServiceImpl implements PlatUp
 				try {
 					platformNameInformationMapper.addPlatOne(plat);
 				} catch (Exception e) {
-					DataLoadingFailInfoDO fail = new DataLoadingFailInfoDO();
-					fail.setErrorReason("数据插入错误");
-					fail.setErrorName(plat.getName());
+					TaskFailInfoDO fail = new TaskFailInfoDO();
+					fail.setFailReason("数据插入错误");
+					fail.setFailName(plat.getName());
 					fail.setTaskId(taskId);
-					dataLoadingFailInfoMapper.addTaskFailInfo(fail);
+					taskFailInfoMapper.addTaskFailInfo(fail);
 					errorNum++;
 				}
 			}

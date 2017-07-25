@@ -5,9 +5,10 @@ import com.bbd.wtyh.common.Pagination;
 import com.bbd.wtyh.domain.CompanyBackgroundDO;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.DataLoadingFailInfoDO;
+import com.bbd.wtyh.domain.TaskFailInfoDO;
 import com.bbd.wtyh.mapper.CompanyBackgroundMapper;
 import com.bbd.wtyh.mapper.CompanyMapper;
-import com.bbd.wtyh.mapper.DataLoadingFailInfoMapper;
+import com.bbd.wtyh.mapper.TaskFailInfoMapper;
 import com.bbd.wtyh.service.HologramQueryService;
 import com.bbd.wtyh.service.PToPMonitorService;
 import com.bbd.wtyh.service.impl.OfflineFinanceServiceImpl;
@@ -50,7 +51,7 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
     private HologramQueryService hologramQueryService;
 
     @Autowired
-    private DataLoadingFailInfoMapper dataLoadingFailInfoMapper;
+    private TaskFailInfoMapper taskFailInfoMapper;
 
     /*@Scheduled(cron = "0 0 20 2 * ?")*/
     @Override
@@ -104,7 +105,7 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
         this.errorNum=0;
         Integer dataTotal = 0;
         try {
-            final int totalCount = dataLoadingFailInfoMapper.countFailByTaskId(oldTaskId);
+            final int totalCount = taskFailInfoMapper.countFailByTaskId(oldTaskId);
             dataTotal = totalCount;
             final int pageSize = 190;
             Pagination pagination = new Pagination();
@@ -159,13 +160,13 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
             }
         }else{
             params.put("taskId",dataTaskId);
-            List<DataLoadingFailInfoDO> failList = dataLoadingFailInfoMapper.findByPage(params);
+            List<TaskFailInfoDO> failList = taskFailInfoMapper.findByPage(params);
             if (CollectionUtils.isEmpty(failList)) {
                 return;
             }
-            for (final DataLoadingFailInfoDO fail : failList) {
-                failNameList.add(fail.getErrorName());
-                companyNameSerial.append(fail.getErrorName());
+            for (final TaskFailInfoDO fail : failList) {
+                failNameList.add(fail.getFailName());
+                companyNameSerial.append(fail.getFailName());
                 companyNameSerial.append(",");
             }
         }
@@ -307,18 +308,18 @@ public class SystemDataUpdateServiceImpl implements SystemDataUpdateService {
     }
 
     private void insertFailInfo(List<String> list,String companyName,String errorReason){
-        DataLoadingFailInfoDO failInfo = new DataLoadingFailInfoDO();
-        failInfo.setErrorReason(errorReason);
+        TaskFailInfoDO failInfo = new TaskFailInfoDO();
+        failInfo.setFailReason(errorReason);
         failInfo.setTaskId(taskId);
         failInfo.setCreateBy("system");
         if(null==list){
-            failInfo.setErrorName(companyName);
-            dataLoadingFailInfoMapper.addTaskFailInfo(failInfo);
+            failInfo.setFailName(companyName);
+            taskFailInfoMapper.addTaskFailInfo(failInfo);
             errorNum++;
         }else{
             for(String name:list){
-                failInfo.setErrorName(name);
-                dataLoadingFailInfoMapper.addTaskFailInfo(failInfo);
+                failInfo.setFailName(name);
+                taskFailInfoMapper.addTaskFailInfo(failInfo);
                 errorNum++;
             }
         }
