@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<excel key="private_fund_type_statistic" name="私募基金产品类型">
+    <sheet name="Sheet1" startRow="4" entity="com.bbd.wtyh.domain.dto.QdlpProgressDTO"
+           importHandler="com.bbd.bgo.service.imp.handler.prifund.PriFundTypeStatisticHandler">
+        <rowHeader>
+            <column mergeFirstRow="1" mergeLastRow="2" mergeFirstCol="1" mergeLastCol="2" align="LEFT"
+                    value="填写说明：&#x000A;本表格不可填写Excel公式；所有字段必填，机构名称不能超过40个汉字；"/>
+        </rowHeader>
+        <columns>
+            <column name="股权投资基金" code="companyName" dataType="number" required="true" bgColor="#FFFF00"/>
+            <column name="证券投资基金" code="shareholders" dataType="number" required="true" bgColor="#FFFF00"/>
+            <column name="VC" code="quatas" dataType="number" required="true" bgColor="#FFFF00"/>
+            <column name="FOFs" code="progress" dataType="number" required="true" bgColor="#FFFF00"/>
+            <column name="券商投资" code="architecture" dataType="number" required="true" bgColor="#FFFF00"/>
+            <column name="战略投资" code="quatas" dataType="number" required="true" bgColor="#FFFF00"/>
+            <column name="天使投资" code="quatas" dataType="number" required="true" bgColor="#FFFF00"/>
+            <column name="PE" code="quatas" dataType="number" required="true" bgColor="#FFFF00"/>
+            <column name="其它" code="quatas" dataType="number" required="true" bgColor="#FFFF00"/>
+
+        </columns>
+    </sheet>
+</excel>

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.bbd.higgs.utils.http.HttpCallback;
 import com.bbd.higgs.utils.http.HttpTemplate;
 import com.bbd.wtyh.domain.*;
+import com.bbd.wtyh.domain.CompanyInfoModify.WangdaiModify;
 import com.bbd.wtyh.domain.dto.*;
 import com.bbd.wtyh.mapper.*;
 import com.bbd.wtyh.redis.RedisDAO;
@@ -508,13 +509,20 @@ public class PToPMonitorServiceImpl implements PToPMonitorService {
         logger.info("start update plat_rank_data date task");
         List<PlatRankDataDTO> dtoList = getPlatRankData();
         for (PlatRankDataDTO dto : dtoList) {
+
             PlatRankDataDO platRankDataDO = new PlatRankDataDO();
             platRankDataDO.setAmount(dto.getAmount());
             platRankDataDO.setAreaId(dto.getArea_id());
             platRankDataDO.setIncomeRate(dto.getIncome_rate());
             platRankDataDO.setLoanPeriod(dto.getLoan_period());
             platRankDataDO.setPlatName(dto.getPlat_name());
-            platRankDataDO.setPlatStatus(dto.getPlat_status());
+            WangdaiModify wangdaiModify = platRankDataMapper.getWangdaiModify(dto.getPlat_name());
+            if(wangdaiModify!=null){
+                platRankDataDO.setPlatStatus(wangdaiModify.getAfterLevel());
+            }else{
+                platRankDataDO.setPlatStatus(dto.getPlatRank());
+
+            }
             platRankDataDO.setRank(dto.getRank());
             platRankDataDO.setRegisteredAddress(dto.getRegistered_address());
             platRankDataDO.setStayStillOfTotal(dto.getStay_still_of_total());
