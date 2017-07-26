@@ -2,10 +2,8 @@ package com.bbd.bgo.service.task;
 
 
 import com.bbd.bgo.quartz.TaskUtil;
-import com.bbd.wtyh.domain.DataLoadingFailInfoDO;
 import com.bbd.wtyh.domain.TaskFailInfoDO;
-import com.bbd.wtyh.mapper.DataLoadingFailInfoMapper;
-import com.bbd.wtyh.mapper.TaskSuccessFailInfoMapper;
+import com.bbd.wtyh.mapper.TaskFailInfoMapper;
 import com.bbd.wtyh.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -39,7 +37,7 @@ public class TimingTaskManager {
 	@Autowired
 	private DataLoadingService dataLoadingService;
 	@Autowired
-	private DataLoadingFailInfoMapper dataLoadingFailInfoMapper;
+	private TaskFailInfoMapper taskFailInfoMapper;
     @Autowired
     private CrowdFundingService crowdFundingService;
 	@Autowired
@@ -441,18 +439,7 @@ public class TimingTaskManager {
 				||TaskUtil.companyBaseInfo[0].equals(taskKey)){
 			//BBD数据落地-权限舆情
 			//系统数据更新-企业基本信息和背景
-			List<DataLoadingFailInfoDO> failList = dataLoadingFailInfoMapper.getDataLoadingFailInfoByTaskId(taskId);
-			if(failList.size()>0){
-				list=new ArrayList<TaskFailInfoDO>();
-				TaskFailInfoDO fail ;
-				for(DataLoadingFailInfoDO failInfo:failList){
-					fail=new TaskFailInfoDO();
-					fail.setTaskId(failInfo.getTaskId());
-					fail.setFailName(failInfo.getErrorName());
-					fail.setFailReason(failInfo.getErrorReason());
-					list.add(fail);
-				}
-			}
+			list = taskFailInfoMapper.getTaskFailInfoByTaskId(taskId);
 
 		}else if(TaskUtil.pToPMonitorJob[0].equals(taskKey)
 				|| TaskUtil.p2pImageJob[0].equals(taskKey)

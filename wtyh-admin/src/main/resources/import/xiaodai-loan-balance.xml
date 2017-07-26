@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<excel key="xiaodai-loan-balance" name="贷款余额-导入模板">
+    <sheet name="Sheet1" startRow="3" entity="com.bbd.wtyh.domain.LoanBalanceDO"
+           importHandler="com.bbd.bgo.service.imp.handler.xiaodai.LoanBalanceHandler">
+        <rowHeader>
+            <column mergeFirstRow="1" mergeLastRow="1" mergeFirstCol="1" mergeLastCol="6" align="LEFT"
+                    value="填写说明：本表格不可填写Excel公式；所有项必填；"/>
+        </rowHeader>
+        <columns>
+            <column name="年份" code="year" dataType="number" bgColor="#FFFF00" required="true" regex="[1-9][0-9]{3}"/>
+
+            <column name="月份" code="month" dataType="number" bgColor="#FFFF00" required="true" regex="0?[1-9]|1[0-2]"/>
+
+            <column name="三农余额" code="agricultureBalance" dataType="number" bgColor="#FFFF00" required="true"/>
+            <column name="小微余额" code="smallCompanyBalance" dataType="number" bgColor="#FFFF00" required="true"/>
+            <column name="贷款余额总计" code="amount" dataType="number" bgColor="#FFFF00" required="true"/>
+            <column name="贷款余额笔数" code="number" dataType="number" bgColor="#FFFF00" required="true"/>
+        </columns>
+
+    </sheet>
+
+</excel>

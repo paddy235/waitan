@@ -62,7 +62,8 @@ public class Operation {
 		naturalPerson("自然人检索", 34, false, true),
 		informationReport("排查信息上报", 35, false, true),
         netLendingPlatform("网贷平台", 36, false, true),
-		timingTask("定时任务", 37, false, true)
+		timingTask("定时任务", 37, false, true),
+		creditDataManager("公信中心数据管理", 38, false, true)
 		; //
 
 

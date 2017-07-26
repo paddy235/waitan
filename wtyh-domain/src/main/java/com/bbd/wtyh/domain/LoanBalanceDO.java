@@ -1,83 +1,104 @@
 package com.bbd.wtyh.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Table(name = "loan_balance")
 public class LoanBalanceDO extends BaseDO {
-    private Integer id;
 
-    private Integer year;
+	@Id
+	private Integer id;
 
-    private Integer month;
+	/** 年份 */
+	@Column
+	private Integer year;
 
-    private Integer amount;
+	/** 月份 */
+	@Column
+	private Integer month;
 
-    private Integer number;
+	/** 余额总计 */
+	@Column
+	private Integer amount;
 
-    private Integer companyAmount;
+	/** 余额笔数 */
+	@Column
+	private Integer number;
 
-    private Integer agricultureBalance;
+	/** 公司数量 */
+	@Column(name = "company_amount")
+	private Integer companyAmount;
 
-    private Integer smallCompanyBalance;
+	/** 三农余额 */
+	@Column(name = "agriculture_balance")
+	private Integer agricultureBalance;
 
-    public Integer getId() {
-        return id;
-    }
+	/** 小微余额 */
+	@Column(name = "small_company_balance")
+	private Integer smallCompanyBalance;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public Integer getYear() {
-        return year;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setYear(Integer year) {
-        this.year = year;
-    }
+	public Integer getYear() {
+		return year;
+	}
 
-    public Integer getMonth() {
-        return month;
-    }
+	public void setYear(Integer year) {
+		this.year = year;
+	}
 
-    public void setMonth(Integer month) {
-        this.month = month;
-    }
+	public Integer getMonth() {
+		return month;
+	}
 
-    public Integer getAmount() {
-        return amount;
-    }
+	public void setMonth(Integer month) {
+		this.month = month;
+	}
 
-    public void setAmount(Integer amount) {
-        this.amount = amount;
-    }
+	public Integer getAmount() {
+		return amount;
+	}
 
-    public Integer getNumber() {
-        return number;
-    }
+	public void setAmount(Integer amount) {
+		this.amount = amount;
+	}
 
-    public void setNumber(Integer number) {
-        this.number = number;
-    }
+	public Integer getNumber() {
+		return number;
+	}
 
-    public Integer getAgricultureBalance() {
-        return agricultureBalance;
-    }
+	public void setNumber(Integer number) {
+		this.number = number;
+	}
 
-    public void setAgricultureBalance(Integer agricultureBalance) {
-        this.agricultureBalance = agricultureBalance;
-    }
+	public Integer getAgricultureBalance() {
+		return agricultureBalance;
+	}
 
-    public Integer getSmallCompanyBalance() {
-        return smallCompanyBalance;
-    }
+	public void setAgricultureBalance(Integer agricultureBalance) {
+		this.agricultureBalance = agricultureBalance;
+	}
 
-    public void setSmallCompanyBalance(Integer smallCompanyBalance) {
-        this.smallCompanyBalance = smallCompanyBalance;
-    }
+	public Integer getSmallCompanyBalance() {
+		return smallCompanyBalance;
+	}
 
-    public Integer getCompanyAmount() {
-        return companyAmount;
-    }
+	public void setSmallCompanyBalance(Integer smallCompanyBalance) {
+		this.smallCompanyBalance = smallCompanyBalance;
+	}
 
-    public void setCompanyAmount(Integer companyAmount) {
-        this.companyAmount = companyAmount;
-    }
+	public Integer getCompanyAmount() {
+		return companyAmount;
+	}
+
+	public void setCompanyAmount(Integer companyAmount) {
+		this.companyAmount = companyAmount;
+	}
 }

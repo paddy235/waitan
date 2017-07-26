@@ -49,13 +49,14 @@ public class RelationServiceImpl implements RelationService {
                 if (ListUtil.isNotEmpty(batchList)) {
                     for (RelationDiagramVO.LineVO vo:batchList) {
                         RelationDO rdo = new RelationDO();
-                        rdo.setInvestee(vo.getOrigName());
-                        rdo.setInvesteeNo(Integer.parseInt(vo.getOrigLevel()));
-                        rdo.setInvestorsNo(Integer.parseInt(vo.getTarLevel()));
+                        rdo.setInvestors(vo.getOrigName());
+                        rdo.setInvestorsNo(Integer.parseInt(vo.getOrigLevel()));
+                        rdo.setInvesteeNo(Integer.parseInt(vo.getTarLevel()));
                         rdo.setRelationship(vo.getType());
                         rdo.setTargetCompany(targetCompany);
-                        rdo.setInvestors(vo.getTargetName());
+                        rdo.setInvestee(vo.getTargetName());
                         rdo.setRelationship(vo.getRelationship());
+                        rdo.setFullLine(vo.getIsFullLine());
 
                         relationList.add(rdo);
                     }
