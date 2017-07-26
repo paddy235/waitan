@@ -1,10 +1,7 @@
 package com.bbd.bgo.web.controller;
 
 import com.bbd.wtyh.cachetobean.ShanghaiAreaCode;
-import com.bbd.wtyh.domain.BuildingDO;
-import com.bbd.wtyh.domain.CompanyDO;
-import com.bbd.wtyh.domain.ImgDO;
-import com.bbd.wtyh.domain.ParkDO;
+import com.bbd.wtyh.domain.*;
 import com.bbd.wtyh.domain.vo.ParkAndBuildingVO;
 import com.bbd.wtyh.service.ImgService;
 import com.bbd.wtyh.service.shiro.ParkMgtService;
@@ -200,6 +197,48 @@ public class ParkMgtController {
         }
         parkMgtService.addBuilding(building);
         return ResponseBean.successResponse("OK");
+    }
+
+    /**
+     * 新增企业
+     * @param companyBuildingList
+     * @return
+     */
+    @RequestMapping("/addCompanyBuilding")
+    @ResponseBody
+    public ResponseBean addCompanyBuilding(List<CompanyBuildingDO> companyBuildingList) {
+        //新增之前先查询该企业是否存在
+
+        return ResponseBean.successResponse("OK");
+    }
+
+    /**
+     * 查询园区图片路径
+     * @param parkId
+     * @return
+     */
+    @RequestMapping("/parkImg")
+    @ResponseBody
+    public ResponseBean parkImg(String parkId) {
+        ParkDO parkDO = parkMgtService.queryParkById(parkId);
+        String imgUrl = parkDO.getImgUrl();
+
+        return ResponseBean.successResponse(imgUrl);
+    }
+
+    /**
+     * 查询楼宇图片路径
+     * @param parkId
+     * @param buildingId
+     * @return
+     */
+    @RequestMapping("/buildingImg")
+    @ResponseBody
+    public ResponseBean buildingImg(String parkId,String buildingId) {
+        BuildingDO buildingDO = parkMgtService.queryBuildingByParkAndBuilding(parkId,buildingId);
+        String imgUrl = buildingDO.getImgUrl();
+
+        return ResponseBean.successResponse(imgUrl);
     }
 
     /**

@@ -14,7 +14,7 @@ public interface ParkAndBuildingMgtMapper {
 
     List<ParkAndBuildingVO> queryParkAndBuilding(@Param("parkId") String parkId,@Param("buildingName") String buildingName);
 
-    ParkDO queryParkByName(String parkName);
+    ParkDO queryParkById(String parkId);
 
     void updateParkImgUrl(ParkDO park);
 
@@ -64,7 +64,7 @@ public interface ParkAndBuildingMgtMapper {
 
     List<ParkCompanyImportDO> queryImportContentByNo(String importNo);
 
-    BuildingDO queryBuildingByParkAndName(Map<String, Object> params);
+    BuildingDO queryBuildingByParkAndBuilding(@Param("parkId") String parkId, @Param("buildingId") String buildingId);
 
     List<CompanyDO> queryCompanyByBuildingId(String buildingId);
 
