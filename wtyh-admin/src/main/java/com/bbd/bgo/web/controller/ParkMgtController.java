@@ -187,20 +187,21 @@ public class ParkMgtController {
 
     /**
      * 新增楼宇
-     *
      * @param building
      * @return
      */
     @RequestMapping("/addBuilding")
     @ResponseBody
     public ResponseBean addBuilding(BuildingDO building) {
-//        //新增之前先查询该园区是否存在
-//        int i = parkMgtService.queryParkIdByName(park.getName());
-//        if(i != 0){
-//            return  ResponseBean.errorResponse("该园区已存在");
-//        }
-//        parkMgtService.addBuilding(park);
-        return ResponseBean.successResponse("OK");
+        //新增之前先查询该楼宇是否存在
+        int i = parkMgtService.queryBuildingIdByName(building.getParkId(), building.getName());
+        if (i != 0) {
+            return ResponseBean.errorResponse("该楼宇已存在");
+
+            parkMgtService.addBuilding(building);
+
+            return ResponseBean.successResponse("OK");
+        }
     }
 
     /**
@@ -239,7 +240,7 @@ public class ParkMgtController {
                     img.setPicParkId(parkId);
                 } else if (!StringUtils.isEmpty(picType) && picType == 2) {
                     img.setPicParkId(parkId);
-                    Integer buildingId = parkMgtService.queryBuildingIdByName(buildingName);
+                    Integer buildingId = parkMgtService.queryBuildingIdByName(parkId,buildingName);
                     img.setPicBuildingId(buildingId);
                 }
                 img.setCreateBy(user);

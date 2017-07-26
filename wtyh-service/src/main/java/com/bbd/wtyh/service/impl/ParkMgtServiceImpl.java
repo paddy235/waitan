@@ -161,10 +161,10 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     }
 
     @Override
-    public int queryBuildingIdByName(String buildingName) {
+    public int queryBuildingIdByName(Integer parkId,String buildingName) {
         int i = 0000;
         try {
-            i = parkAndBuildingMgtMapper.queryBuildingIdByName(buildingName);
+            i = parkAndBuildingMgtMapper.queryBuildingIdByName(parkId,buildingName);
         } catch (Exception e) {
             e.printStackTrace();
         }

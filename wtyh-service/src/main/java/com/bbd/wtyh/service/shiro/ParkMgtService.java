@@ -97,7 +97,7 @@ public interface ParkMgtService{
      * @param buildingName
      * @return
      */
-    int queryBuildingIdByName(String buildingName);
+    int queryBuildingIdByName(Integer parkId,String buildingName);
 
     /**
      * 园区楼宇企业数量
