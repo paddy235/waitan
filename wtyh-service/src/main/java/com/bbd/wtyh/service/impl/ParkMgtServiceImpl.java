@@ -1,6 +1,7 @@
 package com.bbd.wtyh.service.impl;
 
 import com.bbd.wtyh.domain.BuildingDO;
+import com.bbd.wtyh.domain.CompanyBuildingDO;
 import com.bbd.wtyh.domain.CompanyDO;
 import com.bbd.wtyh.domain.ParkDO;
 import com.bbd.wtyh.domain.vo.ParkAndBuildingVO;
@@ -161,10 +162,10 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     }
 
     @Override
-    public int queryBuildingIdByName(String buildingName) {
+    public int queryBuildingIdByName(Integer parkId,String buildingName) {
         int i = 0000;
         try {
-            i = parkAndBuildingMgtMapper.queryBuildingIdByName(buildingName);
+            i = parkAndBuildingMgtMapper.queryBuildingIdByName(parkId,buildingName);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -172,11 +173,8 @@ public class ParkMgtServiceImpl implements ParkMgtService {
     }
 
     @Override
-    public BuildingDO queryBuildingByParkAndName(int parkId, String buildingName) {
-        Map<String, Object> params = new HashedMap();
-        params.put("parkId", parkId);
-        params.put("buildingName", buildingName);
-        BuildingDO buildingDO = parkAndBuildingMgtMapper.queryBuildingByParkAndName(params);
+    public BuildingDO queryBuildingByParkAndBuilding(String parkId, String buildingId) {
+        BuildingDO buildingDO = parkAndBuildingMgtMapper.queryBuildingByParkAndBuilding(parkId,buildingId);
         return buildingDO;
     }
 
@@ -196,6 +194,21 @@ public class ParkMgtServiceImpl implements ParkMgtService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void addCompanyBuilding(List<CompanyBuildingDO> companyBuildingList) {
+        try {
+            parkAndBuildingMgtMapper.addCompanyBuilding(companyBuildingList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public ParkDO queryParkById(String parkId) {
+        ParkDO parkDO = parkAndBuildingMgtMapper.queryParkById(parkId);
+        return parkDO;
     }
 
     @Override

@@ -13,4 +13,6 @@ public interface CompanyInfoModifyMapper {
     List<String> autoComplete(@Param("q") String q);
 
     CompanyInfo queryCompany(@Param("name") String name);
+
+    List<String> queryModifyCompany(@Param("name")String name);
 }
